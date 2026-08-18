@@ -4,7 +4,7 @@
   "repo": "agent-stylebooks",
   "description": "11 installable editorial systems for AI agents, based on leading public style guides.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neeeophytee/agent-stylebooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T20:35:19Z"
+  "distributed_at": "2026-08-18T20:38:15Z"
 }
