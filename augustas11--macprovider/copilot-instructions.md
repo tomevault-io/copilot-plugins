@@ -1,24 +1,42 @@
-## codex-audit-lanes
+## docs-direct-to-main
 
-> Three-lane audits run via omc ask codex (Codex subscription CLI), never Cursor Task subagents
+> Docs-only changes commit and push straight to main — never open a PR
 
 
-# Codex audit lanes — `omc ask codex` only
+# Docs-only → direct to `main` (no PR)
 
-The house audit loop is three Codex lanes: **code**, **security**, **architect**.
-Invoke them with the Codex subscription CLI through OMC. Do not treat Cursor
-`Task` subagents (`code-reviewer`, `security-reviewer`, `architect`) as those
-lanes. Do not call `codex` / `codex exec` directly.
+In `Augustas11/macprovider` / macprovider-poc worktrees:
+
+**Do not open a pull request for docs-only work.** Commit on a clean `main` synced to `origin/main`, then push straight to `main`.
+
+## Docs-only means
+
+- Markdown: specs planning/audit prompts, runbooks, beta exploration reports, close-criteria / close-record notes, decision-log append-only entries when they are narrative only
+- Other non-executable documentation artifacts
+
+## Not docs-only (feature branch + PR required)
+
+- Any executable code (Swift, Go, scripts that run in CI/prod, shell shipped to providers)
+- Money-path / auth paths: `phase4-coordinator/internal/{billing,buyer,auth,requestlog}/`, `phase5-gateway/internal/{router,auth}/`
+- Catalog / rate-card / `coordinator.yaml` / static JSON that affects runtime
+- CI workflow changes, schemas that gate validation, release tooling
+
+## Why
+
+Docs PRs still schedule the full macOS CI matrix (`macos-15` Swift + SPEC-015), burn scarce runners, and slow real code PRs. Direct-to-main skips that queue waste.
+
+## Ship sequence
 
 ```bash
-omc ask codex --agent-prompt code-reviewer --prompt "<lane prompt>"
-omc ask codex --agent-prompt security-reviewer --prompt "<lane prompt>"
-omc ask codex --agent-prompt architect --prompt "<lane prompt>"
+git fetch origin
+git checkout main && git reset --hard origin/main   # only when main is clean of unique work
+# edit docs…
+git add <docs paths>
+git commit -m "…"
+git push origin main
 ```
 
-Run from the session/worktree root. Artifacts: `.omc/artifacts/ask/`.
-Gate: **0 CRITICAL, 0 HIGH, 0 MEDIUM** (LOW/INFO may carry explicitly).
-Review the **full fix diff** as it will land, not an incremental slice.
+Never invent a `docs/…` branch or `gh pr create` for pure documentation.
 
 ---
 > Source: [Augustas11/macprovider](https://github.com/Augustas11/macprovider) — distributed by [TomeVault](https://tomevault.io).
