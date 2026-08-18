@@ -7,11 +7,11 @@ The document framework built for agents — write reports as React, get real A4 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [simonliu-ai-product/open-doc](https://github.com/simonliu-ai-product/open-doc).
+Original source: `AGENTS.md` in [simonliu-ai-product/open-doc](https://github.com/simonliu-ai-product/open-doc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
