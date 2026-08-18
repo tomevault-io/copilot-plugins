@@ -1,0 +1,9 @@
+{
+  "name": "chatelp--geek-casino-cardputeradv",
+  "displayName": "geek-casino-cardputeradv",
+  "description": "Silicon Casino \u2014 five-game offline casino for M5Stack Cardputer ADV (ESP32-S3). Slots, blackjack, video poker, roulette. Virtual chips only \u2014 a toy, built with Claude Code.",
+  "version": "1.0.0",
+  "author": "chatelp",
+  "homepage": "https://github.com/chatelp/geek-casino-cardputeradv",
+  "skills": []
+}
