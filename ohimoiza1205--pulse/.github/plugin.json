@@ -1,0 +1,9 @@
+{
+  "name": "ohimoiza1205--pulse",
+  "displayName": "pulse",
+  "description": "Device telemetry ingest service in Go. Bounded queue with 429 load shedding, per-device ring buffers, non-blocking WebSocket fan-out.",
+  "version": "1.0.0",
+  "author": "Ohimoiza1205",
+  "homepage": "https://github.com/Ohimoiza1205/pulse",
+  "skills": []
+}
