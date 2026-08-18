@@ -1,0 +1,9 @@
+{
+  "name": "lunguini--flatte",
+  "displayName": "flatte",
+  "description": "Build TUIs like ordinary Go \u2014 one state struct, direct mutation, pure views \u2014 the deliberate inverse of Bubble Tea",
+  "version": "1.0.0",
+  "author": "lunguini",
+  "homepage": "https://github.com/lunguini/flatte",
+  "skills": []
+}
