@@ -1,0 +1,9 @@
+{
+  "name": "feo2x--light-portableresults",
+  "displayName": "Light.PortableResults",
+  "description": "One Result model. Many transports. RFC-compatible error handling for .NET microservices. ",
+  "version": "1.0.0",
+  "author": "feO2x",
+  "homepage": "https://github.com/feO2x/Light.PortableResults",
+  "skills": []
+}
