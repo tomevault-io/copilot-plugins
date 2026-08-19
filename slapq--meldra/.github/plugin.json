@@ -1,0 +1,9 @@
+{
+  "name": "slapq--meldra",
+  "displayName": "Meldra",
+  "description": "A Pi-based Agent framework and launcher with Profiles, WorkSpaces, and external Agent Runtimes",
+  "version": "1.0.0",
+  "author": "Slapq",
+  "homepage": "https://github.com/Slapq/Meldra",
+  "skills": []
+}
