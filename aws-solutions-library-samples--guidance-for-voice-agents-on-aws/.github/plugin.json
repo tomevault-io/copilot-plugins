@@ -1,0 +1,9 @@
+{
+  "name": "aws-solutions-library-samples--guidance-for-voice-agents-on-aws",
+  "displayName": "guidance-for-voice-agents-on-aws",
+  "description": "This Guidance provides a sample foundation for building real-time voice AI agents on AWS. It demonstrates how to build a voice assistant that handles phone calls and voice interactions in web and mobi",
+  "version": "1.0.0",
+  "author": "aws-solutions-library-samples",
+  "homepage": "https://github.com/aws-solutions-library-samples/guidance-for-voice-agents-on-aws",
+  "skills": []
+}
