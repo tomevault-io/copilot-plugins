@@ -1,0 +1,9 @@
+{
+  "name": "lorek123--bc250-notes",
+  "displayName": "bc250-notes",
+  "description": "ASRock BC-250 (AMD Cyan Skillfish) \u2014 IOMMU, P-states, ACPI, SMU reverse engineering notes",
+  "version": "1.0.0",
+  "author": "lorek123",
+  "homepage": "https://github.com/lorek123/bc250-notes",
+  "skills": []
+}
