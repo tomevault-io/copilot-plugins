@@ -1,0 +1,9 @@
+{
+  "name": "justfaruq--internet-detective",
+  "displayName": "internet-detective",
+  "description": "A learning project - OSINT toolkit for WHOIS, DNS, IP, SSL, and URL scanning lookups, built with Next.js",
+  "version": "1.0.0",
+  "author": "JustFaruq",
+  "homepage": "https://github.com/JustFaruq/internet-detective",
+  "skills": []
+}
