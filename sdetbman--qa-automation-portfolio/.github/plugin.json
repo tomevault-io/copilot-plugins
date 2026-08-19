@@ -1,0 +1,9 @@
+{
+  "name": "sdetbman--qa-automation-portfolio",
+  "displayName": "qa-automation-portfolio",
+  "description": "26-framework SDET monorepo: Playwright, Selenium, Cypress, Cucumber, Postman, FastAPI, Pact, AI/LLM eval (DeepEval), agentic AI (LangChain, LangGraph, DSPy, Claude), k6, flakiness detection, site moni",
+  "version": "1.0.0",
+  "author": "SDETBMan",
+  "homepage": "https://github.com/SDETBMan/qa-automation-portfolio",
+  "skills": []
+}
