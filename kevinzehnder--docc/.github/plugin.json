@@ -1,0 +1,9 @@
+{
+  "name": "kevinzehnder--docc",
+  "displayName": "docc",
+  "description": "A compiler for structured markdown documents: schema-checked markdown in, .docx out.",
+  "version": "1.0.0",
+  "author": "kevinzehnder",
+  "homepage": "https://github.com/kevinzehnder/docc",
+  "skills": []
+}
