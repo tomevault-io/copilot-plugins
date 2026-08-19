@@ -1,0 +1,9 @@
+{
+  "name": "pkurzok--sankeykit",
+  "displayName": "SankeyKit",
+  "description": "Swift Charts-style Sankey diagrams for SwiftUI",
+  "version": "1.0.0",
+  "author": "pkurzok",
+  "homepage": "https://github.com/pkurzok/SankeyKit",
+  "skills": []
+}
