@@ -1,0 +1,9 @@
+{
+  "name": "yogthos--veriframe",
+  "displayName": "veriframe",
+  "description": "An OpenAI-compatible bridge that anchors LLM reasoning in logical reality by using Z3 to incrementally verify, self-correct, and prove the uniqueness of SMT-encoded solutions.",
+  "version": "1.0.0",
+  "author": "yogthos",
+  "homepage": "https://github.com/yogthos/veriframe",
+  "skills": []
+}
