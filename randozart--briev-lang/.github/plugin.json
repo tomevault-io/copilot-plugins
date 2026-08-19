@@ -1,0 +1,9 @@
+{
+  "name": "randozart--briev-lang",
+  "displayName": "briev-lang",
+  "description": "Briev: a contract-enforced programming language and compiler. Verified state transitions, LLVM backend, reactive execution, multi-target codegen (native/embedded/GPU/hardware/web).",
+  "version": "1.0.0",
+  "author": "Randozart",
+  "homepage": "https://github.com/Randozart/briev-lang",
+  "skills": []
+}
