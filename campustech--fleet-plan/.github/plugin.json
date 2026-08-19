@@ -1,0 +1,9 @@
+{
+  "name": "campustech--fleet-plan",
+  "displayName": "fleet-plan",
+  "description": "terraform plan, but for Fleet",
+  "version": "1.0.0",
+  "author": "CampusTech",
+  "homepage": "https://github.com/CampusTech/fleet-plan",
+  "skills": []
+}
