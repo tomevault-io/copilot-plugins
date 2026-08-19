@@ -1,0 +1,9 @@
+{
+  "name": "cppalliance--tools-public",
+  "displayName": "tools-public",
+  "description": "Public tools and tutorials for AI workflows",
+  "version": "1.0.0",
+  "author": "cppalliance",
+  "homepage": "https://github.com/cppalliance/tools-public",
+  "skills": []
+}
