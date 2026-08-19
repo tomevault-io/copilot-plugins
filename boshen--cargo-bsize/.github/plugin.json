@@ -1,0 +1,9 @@
+{
+  "name": "boshen--cargo-bsize",
+  "displayName": "cargo-bsize",
+  "description": "Investigate Rust binary size",
+  "version": "1.0.0",
+  "author": "Boshen",
+  "homepage": "https://github.com/Boshen/cargo-bsize",
+  "skills": []
+}
