@@ -1,0 +1,9 @@
+{
+  "name": "salustlab--3dsort",
+  "displayName": "3DSort",
+  "description": "Rearrange your Nintendo 3DS HOME menu from your PC: drag and drop icons, folders and system apps, with a live preview of the console screen and a backup before every write.",
+  "version": "1.0.0",
+  "author": "SalustLab",
+  "homepage": "https://github.com/SalustLab/3DSort",
+  "skills": []
+}
