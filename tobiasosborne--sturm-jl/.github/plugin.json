@@ -1,0 +1,9 @@
+{
+  "name": "tobiasosborne--sturm-jl",
+  "displayName": "Sturm.jl",
+  "description": "Quantum programming DSL in Julia \u2014 functions are channels, type boundary is the quantum-classical boundary",
+  "version": "1.0.0",
+  "author": "tobiasosborne",
+  "homepage": "https://github.com/tobiasosborne/Sturm.jl",
+  "skills": []
+}
