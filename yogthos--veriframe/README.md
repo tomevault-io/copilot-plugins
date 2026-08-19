@@ -7,11 +7,11 @@ An OpenAI-compatible bridge that anchors LLM reasoning in logical reality by usi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yogthos/veriframe](https://github.com/yogthos/veriframe).
+Original source: `AGENTS.md` in [yogthos/veriframe](https://github.com/yogthos/veriframe).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
