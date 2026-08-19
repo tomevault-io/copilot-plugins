@@ -1,0 +1,9 @@
+{
+  "name": "tyvsmith--facelock",
+  "displayName": "facelock",
+  "description": "Modern Face Authentication for Linux",
+  "version": "1.0.0",
+  "author": "tyvsmith",
+  "homepage": "https://github.com/tyvsmith/facelock",
+  "skills": []
+}
