@@ -1,0 +1,9 @@
+{
+  "name": "he11pc--android-mirror",
+  "displayName": "android-mirror",
+  "description": "Multiprotocol backup application for Android (NFS, SMB, FTP, SFTP, WebDAV)",
+  "version": "1.0.0",
+  "author": "He11PC",
+  "homepage": "https://github.com/He11PC/android-mirror",
+  "skills": []
+}
