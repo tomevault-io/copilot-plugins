@@ -1,0 +1,9 @@
+{
+  "name": "duoasa--deepviewer",
+  "displayName": "DeepViewer",
+  "description": "A customizable visual agent workspace built on DeepSeek Harness.",
+  "version": "1.0.0",
+  "author": "Duoasa",
+  "homepage": "https://github.com/Duoasa/DeepViewer",
+  "skills": []
+}
