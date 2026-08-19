@@ -1,0 +1,9 @@
+{
+  "name": "jaredrhod--fullstack-agent",
+  "displayName": "fullstack-agent",
+  "description": "Give your AI a full stack: memory, voice, face, and hands. This is the \"I want an AI agent\" shortcut. It sets up the entire jaredrhod stack for you with an installation wizard. Select which pieces you",
+  "version": "1.0.0",
+  "author": "jaredrhod",
+  "homepage": "https://github.com/jaredrhod/fullstack-agent",
+  "skills": []
+}
