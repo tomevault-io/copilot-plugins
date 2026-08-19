@@ -1,0 +1,9 @@
+{
+  "name": "mollyhan-ai--briefweave",
+  "displayName": "BriefWeave",
+  "description": "A safety-first, human-in-the-loop multi-source access tool for AI agents.",
+  "version": "1.0.0",
+  "author": "mollyhan-ai",
+  "homepage": "https://github.com/mollyhan-ai/BriefWeave",
+  "skills": []
+}
