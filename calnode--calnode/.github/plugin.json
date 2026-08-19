@@ -1,0 +1,9 @@
+{
+  "name": "calnode--calnode",
+  "displayName": "calnode",
+  "description": "Lean, self-hostable Calendly alternative \u2014 a single Go binary + SQLite, API-first and MCP-native. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "Calnode",
+  "homepage": "https://github.com/Calnode/calnode",
+  "skills": []
+}
