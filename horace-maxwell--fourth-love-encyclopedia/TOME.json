@@ -1,0 +1,44 @@
+{
+  "name": "fourth-love-encyclopedia",
+  "owner": "Horace-Maxwell",
+  "repo": "fourth-love-encyclopedia",
+  "description": "\u4e2d\u6587\u7f51\u7edc\u6587\u5b66\u300c\u7b2c\u56db\u7231 / GB / \u5973\u653b\u7537\u53d7\u300d\u7c7b\u578b\u7684\u7814\u7a76\u4e0e\u521b\u4f5c\u53c2\u8003\u5e93\u3002\u542b\u6210\u4eba\u5411\u521b\u4f5c\u6280\u6cd5\u8ba8\u8bba\uff08\u8bbe\u5b9a\u4e0e\u7ed3\u6784\u5c42\u9762\uff09\u3002\u4e0d\u542b\u4e5f\u4e0d\u5206\u53d1\u4efb\u4f55\u4f5c\u54c1\u539f\u6587\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Horace-Maxwell/fourth-love-encyclopedia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T08:43:27Z"
+}
