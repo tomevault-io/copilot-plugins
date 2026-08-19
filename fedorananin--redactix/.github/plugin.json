@@ -1,0 +1,9 @@
+{
+  "name": "fedorananin--redactix",
+  "displayName": "redactix",
+  "description": "A modern, Notion-like WYSIWYG editor built with pure Vanilla JS and zero dependencies. Features a powerful block-based UI, integrated image gallery management, and markdown shortcuts while outputting ",
+  "version": "1.0.0",
+  "author": "fedorananin",
+  "homepage": "https://github.com/fedorananin/redactix",
+  "skills": []
+}
