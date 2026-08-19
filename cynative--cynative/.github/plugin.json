@@ -1,0 +1,9 @@
+{
+  "name": "cynative--cynative",
+  "displayName": "cynative",
+  "description": "Build your own security agents. Open-source framework for agents with live, read-only access to your infrastructure, with no path to widen it. Reasons across AWS, GCP, Azure, Kubernetes, GitHub and Gi",
+  "version": "1.0.0",
+  "author": "cynative",
+  "homepage": "https://github.com/cynative/cynative",
+  "skills": []
+}
