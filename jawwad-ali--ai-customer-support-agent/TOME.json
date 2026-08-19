@@ -1,0 +1,44 @@
+{
+  "name": "ai-customer-support-agent",
+  "owner": "jawwad-ali",
+  "repo": "ai-customer-support-agent",
+  "description": "AI customer support agent with semantic search \u2014 handles Gmail, WhatsApp & web via OpenAI Agents SDK + FastAPI",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jawwad-ali/ai-customer-support-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T10:35:45Z"
+}
