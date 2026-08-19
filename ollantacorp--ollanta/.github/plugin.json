@@ -1,0 +1,9 @@
+{
+  "name": "ollantacorp--ollanta",
+  "displayName": "Ollanta",
+  "description": "Multi-language static analysis platform with quality gates, issue tracking, and a scalable REST API. Designed for Kubernetes: stateless, resilient, and ephemeral.",
+  "version": "1.0.0",
+  "author": "ollantacorp",
+  "homepage": "https://github.com/ollantacorp/Ollanta",
+  "skills": []
+}
