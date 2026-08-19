@@ -1,0 +1,9 @@
+{
+  "name": "magnus-gille--noxctl",
+  "displayName": "noxctl",
+  "description": "MCP server for Fortnox accounting \u2014 invoices, customers, bookkeeping, and VAT from Claude Code",
+  "version": "1.0.0",
+  "author": "Magnus-Gille",
+  "homepage": "https://github.com/Magnus-Gille/noxctl",
+  "skills": []
+}
