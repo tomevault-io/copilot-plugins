@@ -1,0 +1,44 @@
+{
+  "name": "ontology-atlas",
+  "owner": "wlsdks",
+  "repo": "ontology-atlas",
+  "description": "Understand what your AI agents are building. Agent-native, human-sovereign ontology workbench \u2014 one markdown graph humans and coding agents read, write, and keep fresh together. Local-first, MCP-native, open source.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wlsdks/ontology-atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T23:09:38Z"
+}
