@@ -1,0 +1,9 @@
+{
+  "name": "drsh4dow--pi-setup",
+  "displayName": "pi-setup",
+  "description": "custom pi setup, focused on collaborative workflow between human and agent",
+  "version": "1.0.0",
+  "author": "drsh4dow",
+  "homepage": "https://github.com/drsh4dow/pi-setup",
+  "skills": []
+}
