@@ -1,0 +1,44 @@
+{
+  "name": "TensorRT-Model-Connect",
+  "owner": "NVIDIA",
+  "repo": "TensorRT-Model-Connect",
+  "description": "From PyTorch model to end-to-end TensorRT inference experience in two commands\u2014AI-native, cross-platform, and built for the best possible user experience.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NVIDIA/TensorRT-Model-Connect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T21:39:41Z"
+}
