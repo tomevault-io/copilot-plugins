@@ -4,7 +4,7 @@
   "repo": "automatist-android",
   "description": "Free, open-source Android AI workflow automation with cloud, on-device, and compatible offline models.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atj393/automatist-android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T03:35:13Z"
+  "distributed_at": "2026-08-19T03:37:46Z"
 }
