@@ -1,0 +1,9 @@
+{
+  "name": "mambastick--cleanarr",
+  "displayName": "Cleanarr",
+  "description": "Cascade media cleanup \u2014 deletes from Radarr, Sonarr, Jellyseerr & qBittorrent when you remove from Jellyfin",
+  "version": "1.0.0",
+  "author": "mambastick",
+  "homepage": "https://github.com/mambastick/Cleanarr",
+  "skills": []
+}
