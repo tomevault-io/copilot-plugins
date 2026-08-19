@@ -1,0 +1,44 @@
+{
+  "name": "meta-ads-claude-starter",
+  "owner": "thaleslaray",
+  "repo": "meta-ads-claude-starter",
+  "description": "Meta Ads + Claude Code starter \u2014 manage your own Meta ad accounts via Claude Code with anti-ban guard rails, audit log, HITL flow, and a working dashboard ready for Meta App Review demo.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thaleslaray/meta-ads-claude-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T23:01:13Z"
+}
