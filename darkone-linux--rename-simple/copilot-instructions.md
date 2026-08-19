@@ -1,0 +1,132 @@
+## rename-simple
+
+> Telegraph style. Root rules only. Read scoped `AGENTS.md` before subtree work.
+
+# rename-simple — Agent Instructions
+
+Telegraph style. Root rules only. Read scoped `AGENTS.md` before subtree work.
+
+## Project Overview
+
+- **Goal**: Rename files to clean, ASCII-safe slugs.
+- **Language**: Rust (edition 2021, MSRV 1.70).
+- **Build**: `cargo build --release` → `target/release/rename-simple`
+- **Quality gate**: `just test` (fmt-check, lint, unit, audit, doc).
+- **Dev shell**: `nix-shell` — cargo, rustc, clippy, rustfmt, cargo-audit, just, gh, nixfmt (pinned).
+
+## Project Structure
+
+```
+src/
+├── lib.rs      # Core transformation logic
+│               #   public API: transliterate_char, transform_stem,
+│               #               transform_filename, transform_dirname,
+│               #               plan_rename, RenameOp, RenameTarget
+└── main.rs     # CLI (argument parsing, conflict detection, rename driver)
+tests/
+├── transform_tests.rs  # Pure unit tests for the transformation pipeline
+├── cli_tests.rs        # End-to-end CLI integration tests
+└── unix_tests.rs       # Unix-specific tests (symlinks, invalid UTF-8, perms)
+man/
+└── rename-simple.1     # Man page (kept in sync with the CLI manually)
+
+## Man Page
+
+- **Version in `.TH` header** must match `Cargo.toml` version and today's date.
+  Update every time the CLI or docs change.
+- **Synopsis** must enumerate all short flags instead of a bare `[OPTIONS]`.
+- The **OPTIONS** section lists each flag with its short and long forms.
+- Every CLI behaviour documented in `README.md` must have a mirror entry in the
+  man page and vice‑versa — keep both in sync manually.
+
+## Current Status
+
+- All code, comments, and documentation in English
+- Tests located in `tests/` directory
+- Hidden files (starting with `.`) are skipped
+- Compound extensions (`.tar.gz`, `.tar.bz2`, `.tar.xz`, `.tar.zst`) are preserved
+- Operates only on explicit path arguments (`rename`(1)-like); globbing is left to the shell
+
+## Code Conventions
+
+- **Formatting**: `rustfmt` before every commit.
+- **Linter**: `clippy::pedantic` (Cargo.toml `[lints]`), zero warnings allowed.
+- **Unsafe code**: Forbidden — `unsafe_code = "deny"` at crate level.
+- **Tests**: `tests/` directory.
+- **Test naming**: `tests/test_*.rs` or `tests/*_tests.rs`.
+
+## CLI Usage
+
+```
+Usage: rename-simple [OPTIONS] [files]...
+
+Arguments:
+  [files]...  Entries to rename (files and/or directories)
+
+Options:
+  -f, --files-only   Rename files only
+  -d, --dirs-only    Rename directories only
+  -U, --fix-unicode  Repair mojibake (UTF-8 wrongly decoded as Latin-1/CP1252) before renaming
+  -H, --fix-html     Strip HTML tags and decode HTML entities before renaming
+  -A, --fix-all      Apply every cleanup fix (currently equivalent to -U -H)
+  -q, --quiet        Print nothing at all
+  -v, --verbose      Show every entry, including the ones left untouched
+  -n, --dry-run      Show what would be renamed without touching any entry
+  -h, --help         Print help
+  -V, --version      Print version
+```
+
+Each argument is renamed itself (`rename`(1)-like); without `-f`/`-d` both files
+and directories are renamed. With no argument, the program prints its help.
+Exit status: `0` on success (including no-op), `1` on error.
+Default: no output; details only with `-v`.
+
+## Error Handling
+
+- **Conflict detection**: Multiple files that would rename to the same destination are skipped with a warning.
+- **Existing destination**: Files that already exist at the target path are skipped with a warning.
+- **Hidden files**: Files starting with `.` are ignored.
+- **IO errors**: Reported per-file with error count in summary.
+
+## Validation & Quality Gate
+
+The Agent must execute and pass the following "Checklist" before proposing a
+solution or finishing a task. **Use `just test` — it runs the whole gate in
+the correct order.**
+
+| # | Step                  | Justfile recipe | Underlying command                                               |
+|---|-----------------------|-----------------|------------------------------------------------------------------|
+| 1 | Format check          | `just fmt-check`| `cargo fmt --all --check`                                        |
+| 2 | Linting check         | `just lint`     | `cargo clippy --all-targets --all-features -- -D warnings`       |
+| 3 | Logic verification    | `just unit`     | `cargo test`                                                     |
+| 4 | Security audit        | `just audit`    | `cargo audit`                                                    |
+| 5 | Documentation check   | `just doc`      | `cargo doc --no-deps`                                            |
+
+Auto-fix shortcut (formatter + clippy `--fix`): `just fix`.
+
+## TDD Workflow
+
+1. **Write failing test first** — In `tests/`.
+2. **Run tests** — `just unit` (red phase).
+3. **Implement minimal code** — Make tests pass (green phase).
+4. **Clean up** — `just fix` (clippy auto-fix + format).
+5. **Refactor** — Keep tests green.
+6. **After 5 iterations**, stop and ask user.
+7. **Final validation** — `just test`; fix any issues.
+
+## Language
+
+- **All code, comments, docstrings, documentation, man page**: English
+- **User communication**: Respond in user's language (French here)
+
+## Git
+
+- **Read operations**: All permitted (status, diff, log, etc.).
+- **Staging**: All permitted (add, restore, reset, etc.).
+- **Commit**: On explicit request only. Message: 1 line, 50 chars max.
+- **Push**: Never allowed.
+- Never commit unless `just test` is green.
+
+---
+> Source: [darkone-linux/rename-simple](https://github.com/darkone-linux/rename-simple) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
