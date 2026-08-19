@@ -1,0 +1,9 @@
+{
+  "name": "steelbrain--experiment-macos-arm64-on-asahi-linux-arm64",
+  "displayName": "experiment-macOS-arm64-on-asahi-linux-arm64",
+  "description": "An experimental, working macOS ARM64 virtual machine for Apple Silicon Macs running Asahi Linux",
+  "version": "1.0.0",
+  "author": "steelbrain",
+  "homepage": "https://github.com/steelbrain/experiment-macOS-arm64-on-asahi-linux-arm64",
+  "skills": []
+}
