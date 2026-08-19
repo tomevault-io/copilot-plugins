@@ -1,0 +1,34 @@
+## pi-press
+
+> 本文件为 AI 在当前项目下工作补充必要的上下文信息。
+
+# AGENTS.md
+
+本文件为 AI 在当前项目下工作补充必要的上下文信息。
+
+## 语言约定
+
+- 代码注释统一使用规范简体中文。代码标识符、协议字段、API 名称、命令、路径、版本号和必要的原文引用按实际形式保留。
+- Git 提交信息的标题、正文和脚注统一使用规范简体中文。代码标识符、协议字段、API 名称、命令、路径和版本号可按实际形式保留。
+
+## 文档导航
+
+`AGENTS.md` 是本仓库 `docs/` 目录的唯一导航入口。阅读或查找仓库文档时，先查看本文件，再根据下方索引进入具体文档。
+
+执行发版、创建发布提交或标签、发布 npm 包前，必须先阅读 [docs/RELEASE.md](docs/RELEASE.md) 并按其中流程操作。
+
+所有设计、实现说明和验证文档统一存放在 `docs/` 目录，并始终保持扁平：所有文件必须直接位于 `docs/` 下，禁止创建子目录。`docs/` 内不新增 `README.md`、`index.md` 或其他重复导航文件。
+
+### 文档索引
+
+| 文档 | 路径 | 说明 |
+| --- | --- | --- |
+| 预压缩设计 | [docs/DESIGN.md](docs/DESIGN.md) | `pi-press` 的预压缩检查点、Pi 公开接口复用、并发控制、生命周期和验证设计。 |
+| 代码规范 | [docs/CODE_STYLE.md](docs/CODE_STYLE.md) | 基于 Pi-mono 扩展规范的 TypeScript 扩展结构、公开 API、生命周期、并发、持久化和测试要求。 |
+| 发布流程 | [docs/RELEASE.md](docs/RELEASE.md) | 版本更新、发布前检查、Git 提交与标签、npm 发布和发布验证步骤。 |
+
+新增、移动、重命名或删除 `docs/` 内文档时，必须同步更新本文件的文档索引和相关链接。文档路径使用仓库相对路径，文档标题和用途说明保持准确。
+
+---
+> Source: [sunnyx11/pi-press](https://github.com/sunnyx11/pi-press) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
