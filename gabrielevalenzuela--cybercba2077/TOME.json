@@ -4,7 +4,7 @@
   "repo": "CyberCba2077",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GabrielEValenzuela/CyberCba2077",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T10:41:53Z"
+  "distributed_at": "2026-08-19T10:44:03Z"
 }
