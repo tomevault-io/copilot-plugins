@@ -1,0 +1,9 @@
+{
+  "name": "starksv--windows-iso-downloader",
+  "displayName": "windows-iso-downloader",
+  "description": "Download official Windows ISOs directly from Microsoft's CDN. Web app + CLI tool. No account, no ads, no browser required.",
+  "version": "1.0.0",
+  "author": "starkSV",
+  "homepage": "https://github.com/starkSV/windows-iso-downloader",
+  "skills": []
+}
