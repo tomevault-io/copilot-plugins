@@ -1,0 +1,9 @@
+{
+  "name": "paiml--rust-de-specialization",
+  "displayName": "rust-de-specialization",
+  "description": "Rust for Data Engineering: 31-Course Coursera Specialization",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/rust-de-specialization",
+  "skills": []
+}
