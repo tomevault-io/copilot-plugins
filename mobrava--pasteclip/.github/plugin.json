@@ -1,0 +1,9 @@
+{
+  "name": "mobrava--pasteclip",
+  "displayName": "PasteClip",
+  "description": "Free, open-source clipboard manager for macOS. Native Paste alternative with card UI, Pinboards, Quick Look, and 100% local storage.",
+  "version": "1.0.0",
+  "author": "mobrava",
+  "homepage": "https://github.com/mobrava/PasteClip",
+  "skills": []
+}
