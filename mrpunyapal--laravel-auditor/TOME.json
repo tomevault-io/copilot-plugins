@@ -4,7 +4,7 @@
   "repo": "laravel-auditor",
   "description": "Evidence-based audit methodology and read-only Laravel context tools for existing AI coding agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MrPunyapal/laravel-auditor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T12:35:18Z"
+  "distributed_at": "2026-08-19T12:36:05Z"
 }
