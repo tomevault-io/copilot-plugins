@@ -1,0 +1,98 @@
+## daad-blockly
+
+> Guidance for AI agents (and humans) working in this repository.
+
+# AGENTS.md
+
+Guidance for AI agents (and humans) working in this repository.
+
+## Project
+
+`daad-blockly` — Arabic (RTL) visual programming desktop app built with Electron
+and Google Blockly. Generates code for the Daad language and runs it via a
+bundled interpreter. Binaries live under `bin/<platform>/<arch>/` where platform
+is one of `linux` / `darwin` / `win32` and arch is `x64` / `x86` / `arm64`; the
+binary is `daad` on Unix and `daad.exe` on Windows. All 8 combinations ship
+(currently daad v0.2.0, ~1.1 MB each) so the app runs fully offline on every
+supported OS/CPU. Keep them in sync with daadLang releases.
+
+The app uses **plain-script globals**, not ES modules: `Blockly` is a window
+global injected by the UMD scripts loaded in `index.html`; the renderer, custom
+blocks, and generator attach properties to that global (`Blockly.Blocks[...]`,
+`Blockly.Daad = Daad`). Do **not** convert these files to ES modules without
+also updating `index.html` and the test setup.
+
+The renderer's pure logic (run flow, save/open, send-input, output handling)
+lives in `assets/js/app/logic.js` as a `window.DaadApp` constructor with no
+Blockly or DOM references — it's wired to the page by `renderer.js` and unit
+tested in `tests/app.logic.test.js` against a stubbed `api`.
+
+## Commands
+
+- `npm start` — launch the Electron app.
+- `npm run dev` — launch with DevTools open (`--dev`).
+- `npm test` — run the Vitest suite once (exit code reflects pass/fail).
+- `npm run test:watch` — run Vitest in watch mode.
+- `npm run lint` — ESLint, warn-level output, exit 0 on success.
+- `npm run lint:fix` — ESLint with auto-fix.
+- `npm run dist[:linux|:win|:mac]` — package installers via electron-builder.
+  `dist:mac` accepts `--x64`/`--arm64`; `release.yml` builds all three.
+
+## Testing
+
+Tests live in `tests/` and use **Vitest + jsdom**. The setup file
+(`tests/setup.js`) imports Blockly as ESM, copies the namespace into an
+extensible global (the ESM namespace is non-extensible, so the eval'd script
+files can mutate `Blockly.Blocks` / `Blockly.Daad`), then `eval`s the real
+`assets/js/blocks/custom.js` and `assets/js/generator/index.js` against that
+global. Tests buildBlockly JSON state and assert `Blockly.Daad.workspaceToCode`.
+
+Helpers exported from `tests/setup.js`:
+
+- `block(type, { fields, inputs, next, extraState })` — build a block node.
+- `val(b)` / `stmt(b)` — wrap a block as a value / statement input (`{ block: b }`).
+- `text(str)` / `num(n)` — shorthand value blocks.
+- `program(blocks, variables)` — wrap into a top-level serialisation state.
+- `variable(name, id)` — declare a workspace variable (`{ name, id, type: '' }`).
+- `codeOf(state)` — load a state into a headless workspace and return generator
+  code (convenience over `buildWorkspace` + `workspaceToCode`).
+
+When adding a generator handler in `assets/js/generator/index.js`, add a test
+under `tests/generator.<category>.test.js`. Real-variable blocks use a
+`FieldVariable` (needs `{ id, name }` + a declared workspace variable); the
+custom `daad_augmented_assign` block uses a plain text field — just a string.
+
+CI (`.github/workflows/ci.yml`) runs `npm run lint` and `npm test` on push/PR.
+Releases are produced by `.github/workflows/release.yml` on `v*` tags.
+
+## Style
+
+- Single quotes, semicolons (enforced by ESLint).
+- ESLint is warn-only (`no-undef` is off because `Blockly` is a runtime global;
+  `no-unused-vars` is a warning).
+- Run `npm run lint` after source edits; tests must stay green.
+
+## Generator gotchas
+
+- Arabic **procedure** names get mangled by Blockly's `Names` database into
+  `_XX_XX` hex sequences; that is real behaviour. Tests use ASCII names.
+- Arabic **variable** names are preserved because the Daad generator overrides
+  `getVariableName` to return the raw variable name from the variable map.
+- `controls_if` mutator extra-state keys are `{ elseIfCount, hasElse }`
+  (not `elseifCount`/`elseCount`). `lists_create_with` and `text_join` use
+  `{ itemCount: n }`.
+- Generator orders add parentheses when the inner block's precedence is looser
+  than the requested order, so tests sometimes see double parens like
+  `اذا ((a == b)):` — that is the actual generated output, not a bug.
+- `daad_dict` wraps the ITEMS field in `{}` unless the field already begins and
+  ends with braces, so a default `'{}'` field is emitted as `{}` (no double wrap).
+- Do **not** add a `صحيح` int-cast block: `صحيح` is also the boolean-literal
+  keyword in daad v0.2.0, so `صحيح(x)` panics the interpreter (keyword
+  collision in daadLang/daad). Use `عشري(...)`/`نص(...)` casts only.
+- New custom blocks are verified end-to-end by running generated code through
+  `bin/linux/x64/daad` — the real interpreter sometimes rejects what looks like
+  valid output (e.g. the `صحيح` case above).
+
+---
+> Source: [daadLang/daad-blockly](https://github.com/daadLang/daad-blockly) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
