@@ -1,0 +1,9 @@
+{
+  "name": "lukie-81--reporelay",
+  "displayName": "RepoRelay",
+  "description": "Secure MCP access to local repositories \u2014 without shell, Git, or arbitrary writes.",
+  "version": "1.0.0",
+  "author": "Lukie-81",
+  "homepage": "https://github.com/Lukie-81/RepoRelay",
+  "skills": []
+}
