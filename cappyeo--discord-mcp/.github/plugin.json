@@ -1,0 +1,9 @@
+{
+  "name": "cappyeo--discord-mcp",
+  "displayName": "discord-mcp",
+  "description": "Caller-owned Discord operations for AI agents - 208 typed tools, safety controls, resumable guild builds, and Activity Evidence.",
+  "version": "1.0.0",
+  "author": "cappyeo",
+  "homepage": "https://github.com/cappyeo/discord-mcp",
+  "skills": []
+}
