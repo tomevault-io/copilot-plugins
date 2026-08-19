@@ -1,0 +1,9 @@
+{
+  "name": "ai-plugin-marketplace--template",
+  "displayName": "template",
+  "description": "A single marketplace repo that works with claude, cursor, kiro, gemini and agent skills",
+  "version": "1.0.0",
+  "author": "ai-plugin-marketplace",
+  "homepage": "https://github.com/ai-plugin-marketplace/template",
+  "skills": []
+}
