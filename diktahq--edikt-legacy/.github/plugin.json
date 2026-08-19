@@ -1,0 +1,9 @@
+{
+  "name": "diktahq--edikt-legacy",
+  "displayName": "edikt-legacy",
+  "description": "The governance layer for agentic engineering \u2014 governs your architecture and compiles your   engineering decisions into automatic enforcement.",
+  "version": "1.0.0",
+  "author": "diktahq",
+  "homepage": "https://github.com/diktahq/edikt-legacy",
+  "skills": []
+}
