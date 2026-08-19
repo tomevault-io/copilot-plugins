@@ -1,0 +1,9 @@
+{
+  "name": "dynobox--dynobox",
+  "displayName": "dynobox",
+  "description": "Cross-harness testing framework for agent skills and workflows",
+  "version": "1.0.0",
+  "author": "dynobox",
+  "homepage": "https://github.com/dynobox/dynobox",
+  "skills": []
+}
