@@ -1,0 +1,44 @@
+{
+  "name": "retinue",
+  "owner": "jklthinking",
+  "repo": "retinue",
+  "description": "\u4f17\u537f RETINUE - self-hosted task board where humans and AI agents work the same cards. \u4eba\u548c AI \u667a\u80fd\u4f53\u5171\u7528\u7684\u81ea\u6258\u7ba1\u4efb\u52a1\u677f\uff1a\u5bf9\u8bdd\u5f00\u5361\u3001\u5ba1\u8ba1\u94fe\u3001\u79df\u7ea6\u56f4\u680f\u3001MCP \u63a5\u5165\u3002PolyForm Noncommercial 1.0.0, commercial licensing reserved.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jklthinking/retinue",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T20:32:57Z"
+}
