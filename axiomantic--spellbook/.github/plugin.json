@@ -1,0 +1,154 @@
+{
+  "name": "axiomantic--spellbook",
+  "displayName": "spellbook",
+  "description": "Multi-platform AI assistant skills and workflows. Serious engineering. Also fun.",
+  "version": "1.0.0",
+  "author": "axiomantic",
+  "homepage": "https://github.com/axiomantic/spellbook",
+  "skills": [
+    {
+      "name": "advanced-code-review",
+      "description": ""
+    },
+    {
+      "name": "analyzing-skill-usage",
+      "description": ""
+    },
+    {
+      "name": "async-await-patterns",
+      "description": ""
+    },
+    {
+      "name": "auditing-green-mirage",
+      "description": ""
+    },
+    {
+      "name": "autonomous-roundtable",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "description": ""
+    },
+    {
+      "name": "designing-workflows",
+      "description": ""
+    },
+    {
+      "name": "devils-advocate",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "documentation-updates",
+      "description": ""
+    },
+    {
+      "name": "documenting-tools",
+      "description": ""
+    },
+    {
+      "name": "emotional-stakes",
+      "description": ""
+    },
+    {
+      "name": "enforcing-code-quality",
+      "description": ""
+    },
+    {
+      "name": "fact-checking",
+      "description": ""
+    },
+    {
+      "name": "finding-dead-code",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "fixing-tests",
+      "description": ""
+    },
+    {
+      "name": "instruction-engineering",
+      "description": ""
+    },
+    {
+      "name": "isolated-testing",
+      "description": ""
+    },
+    {
+      "name": "managing-artifacts",
+      "description": ""
+    },
+    {
+      "name": "optimizing-instructions",
+      "description": ""
+    },
+    {
+      "name": "project-encyclopedia",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "resolving-merge-conflicts",
+      "description": ""
+    },
+    {
+      "name": "reviewing-design-docs",
+      "description": ""
+    },
+    {
+      "name": "reviewing-impl-plans",
+      "description": ""
+    },
+    {
+      "name": "sharpening-prompts",
+      "description": ""
+    },
+    {
+      "name": "spellbook-auditing",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-lsp-tools",
+      "description": ""
+    },
+    {
+      "name": "using-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
