@@ -7,14 +7,14 @@ Apple HIG Design Intelligence — generates Apple-quality UI across all platform
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JubaKitiashvili/onemore](https://github.com/JubaKitiashvili/onemore).
+Original source: `GEMINI.md` in [JubaKitiashvili/onemore](https://github.com/JubaKitiashvili/onemore).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [JubaKitiashvili/onemore](https://github.com/JubaKitiashvili/onemore) — a repo with 22+ stars on GitHub.
