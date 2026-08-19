@@ -1,0 +1,9 @@
+{
+  "name": "aliasocracy--enoch-agentic-research-system",
+  "displayName": "enoch-agentic-research-system",
+  "description": "Agentic research control plane: queue state, worker preflight, wake-gated execution, evidence sync, dashboard, alerts, and AI-generated paper packaging.",
+  "version": "1.0.0",
+  "author": "aliasocracy",
+  "homepage": "https://github.com/aliasocracy/enoch-agentic-research-system",
+  "skills": []
+}
