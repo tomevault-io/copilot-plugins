@@ -1,0 +1,9 @@
+{
+  "name": "go-virtual-bv--tile38-go",
+  "displayName": "tile38.go",
+  "description": "A dependency-free Go client for the Tile38 geospatial database \u2014 RESP over net.Conn, with searches, hooks, channels, and live geofence streaming.",
+  "version": "1.0.0",
+  "author": "GO-VIRTUAL-bv",
+  "homepage": "https://github.com/GO-VIRTUAL-bv/tile38.go",
+  "skills": []
+}
