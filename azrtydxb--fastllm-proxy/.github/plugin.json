@@ -1,0 +1,9 @@
+{
+  "name": "azrtydxb--fastllm-proxy",
+  "displayName": "Fastllm-proxy",
+  "description": "The lowest-overhead LLM router. Production-ready, highly available, one OpenAI-compatible endpoint in front of 80 providers and your own vLLM/SGLang \u2014 0.76 \u00b5s per request, no I/O on the request path, ",
+  "version": "1.0.0",
+  "author": "azrtydxb",
+  "homepage": "https://github.com/azrtydxb/Fastllm-proxy",
+  "skills": []
+}
