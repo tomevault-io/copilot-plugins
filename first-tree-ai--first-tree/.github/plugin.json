@@ -1,0 +1,9 @@
+{
+  "name": "first-tree-ai--first-tree",
+  "displayName": "first-tree",
+  "description": "First-tree routes work to the right agent, gives it the same context your team has, and loops humans in only when the rules say so. Lives in your GitHub. Open source.",
+  "version": "1.0.0",
+  "author": "first-tree-ai",
+  "homepage": "https://github.com/first-tree-ai/first-tree",
+  "skills": []
+}
