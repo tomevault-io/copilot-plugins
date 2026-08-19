@@ -7,11 +7,11 @@ First-tree routes work to the right agent, gives it the same context your team h
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [first-tree-ai/first-tree](https://github.com/first-tree-ai/first-tree).
+Original source: `CLAUDE.md` in [first-tree-ai/first-tree](https://github.com/first-tree-ai/first-tree).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
