@@ -1,0 +1,44 @@
+{
+  "name": "madcop",
+  "owner": "linmy666",
+  "repo": "madcop",
+  "description": "Your desktop AI partner that actually knows you. It watches the files you edit and the commands you run, flags bugs you missed, and turns long conversations into reusable SKILL.md files. Citations on every claim, a knowledge graph that grows with you, every byte stays on your machine.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linmy666/madcop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T23:36:05Z"
+}
