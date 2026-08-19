@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--tensorrt-model-connect",
+  "displayName": "TensorRT-Model-Connect",
+  "description": "From PyTorch model to end-to-end TensorRT inference experience in two commands\u2014AI-native, cross-platform, and built for the best possible user experience.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/TensorRT-Model-Connect",
+  "skills": []
+}
