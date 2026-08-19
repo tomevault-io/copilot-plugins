@@ -1,0 +1,9 @@
+{
+  "name": "umc-product--cygnus-server",
+  "displayName": "cygnus-server",
+  "description": "\ud504\ub85c\ub355\ud2b8\ud300 \uba54\uc778 Spring Boot Server \ud83c\udf31",
+  "version": "1.0.0",
+  "author": "UMC-PRODUCT",
+  "homepage": "https://github.com/UMC-PRODUCT/cygnus-server",
+  "skills": []
+}
