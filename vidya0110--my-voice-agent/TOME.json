@@ -1,0 +1,44 @@
+{
+  "name": "my-voice-agent",
+  "owner": "vidya0110",
+  "repo": "my-voice-agent",
+  "description": "AI-powered voice interviewer built with Murf Falcon, LiveKit, Deepgram, and Gemini/OpenAI. Developed as part of the #VoiceForBharat 10 Days of Voice Agents challenge.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vidya0110/my-voice-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T02:48:16Z"
+}
