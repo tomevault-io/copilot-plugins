@@ -1,0 +1,9 @@
+{
+  "name": "morganlinton--albatross",
+  "displayName": "Albatross",
+  "description": "Open source, terminal-first AI coding agent with fully transparent multi-model routing. Local (Ollama, LM Studio, MLX, llama.cpp) or cloud, your keys, one TUI. No black box.",
+  "version": "1.0.0",
+  "author": "morganlinton",
+  "homepage": "https://github.com/morganlinton/Albatross",
+  "skills": []
+}
