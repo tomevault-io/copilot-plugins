@@ -4,7 +4,7 @@
   "repo": "enoch-agentic-research-system",
   "description": "Agentic research control plane: queue state, worker preflight, wake-gated execution, evidence sync, dashboard, alerts, and AI-generated paper packaging.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aliasocracy/enoch-agentic-research-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T22:33:30Z"
+  "distributed_at": "2026-08-19T23:10:20Z"
 }
