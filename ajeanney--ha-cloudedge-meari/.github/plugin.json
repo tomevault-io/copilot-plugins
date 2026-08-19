@@ -1,0 +1,9 @@
+{
+  "name": "ajeanney--ha-cloudedge-meari",
+  "displayName": "Ha-CloudEdge-Meari",
+  "description": "Home Assistant integration for CloudEdge / Meari devices ",
+  "version": "1.0.0",
+  "author": "ajeanney",
+  "homepage": "https://github.com/ajeanney/Ha-CloudEdge-Meari",
+  "skills": []
+}
