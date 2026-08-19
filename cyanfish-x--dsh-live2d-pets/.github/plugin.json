@@ -1,0 +1,9 @@
+{
+  "name": "cyanfish-x--dsh-live2d-pets",
+  "displayName": "dsh-live2d-pets",
+  "description": "Live2D \u684c\u5ba0\u63d2\u4ef6 for DeepSeek Harness\uff1aAgent \u72b6\u6001\u955c\u50cf + \u4e92\u52a8\u966a\u4f34\uff0c\u5185\u7f6e\u5bbd\u677e\u8bb8\u53ef\u9884\u8bbe\u6a21\u578b / Live2D pet plugin: agent state mirror + interactive companion with curated permissive-license presets",
+  "version": "1.0.0",
+  "author": "cyanfish-x",
+  "homepage": "https://github.com/cyanfish-x/dsh-live2d-pets",
+  "skills": []
+}
