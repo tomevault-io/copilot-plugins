@@ -1,0 +1,9 @@
+{
+  "name": "leadcodedev--rustmotion",
+  "displayName": "rustmotion",
+  "description": "A CLI tool that renders motion design videos from JSON scenarios. No browser, no Node.js \u2014 just a single Rust binary.",
+  "version": "1.0.0",
+  "author": "LeadcodeDev",
+  "homepage": "https://github.com/LeadcodeDev/rustmotion",
+  "skills": []
+}
