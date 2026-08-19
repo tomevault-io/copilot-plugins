@@ -1,0 +1,9 @@
+{
+  "name": "seonaru--nulnul-harness",
+  "displayName": "nulnul-harness",
+  "description": "A minimal, evidence-gated harness for Codex and Claude Code: reuse what works, add only what is missing, verify before evolving.",
+  "version": "1.0.0",
+  "author": "SeoNaRu",
+  "homepage": "https://github.com/SeoNaRu/nulnul-harness",
+  "skills": []
+}
