@@ -1,0 +1,107 @@
+## zotero-cli-ai
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project
+
+`zotero-cli` (binary: `zot`; PyPI package: `zotero-cli-ai`) — a Zotero CLI for any AI agent. It combines **direct local SQLite reads** with **Zotero Web API writes**, and exposes the same surface via an MCP server. The CLI follows an agent-native contract documented in `docs/agent-interface.md` (stable JSON envelope, typed exit codes, `zot schema` introspection, `--dry-run`, `--idempotency-key`, NDJSON streaming).
+
+## Common commands
+
+Uses `uv` as the package manager (`uv.lock` is authoritative). CI runs on Python 3.10–3.13.
+
+```bash
+# Install dev environment (mirrors CI)
+uv sync --group dev --extra mcp
+
+# Lint / format / type-check / test — same order as .github/workflows/ci.yml
+uv run ruff check src/ tests/
+uv run ruff format --check src/ tests/   # use `ruff format` (without --check) to auto-fix
+uv run mypy src/zotero_cli_cc/
+uv run pytest tests/ -v
+
+# Run a single test / file / node
+uv run pytest tests/test_reader.py -v
+uv run pytest tests/test_reader.py::test_name -v
+uv run pytest -k "search and not pdf" -v
+
+# Run the CLI from source
+uv run zot search "foo"
+uv run zot schema                         # emit full command tree (agent introspection)
+
+# Build / publish artifacts (hatchling backend)
+uv build
+```
+
+Note on PyPI publish gating: the `publish.yml` workflow gates release on lint+mypy only, **not** full pytest (see commit `6267da8`). Keep that intentional when editing CI.
+
+## Architecture
+
+### Read/write split (the central design constraint)
+
+- **Reads** go through `core/reader.py` — opens `zotero.sqlite` directly (read-only) from the auto-detected Zotero data directory. No network, no API key, works offline, works while Zotero.app is running.
+- **Writes** go through `core/writer.py` — uses `pyzotero` against the Zotero Web API so Zotero's sync engine sees the change. Never write to `zotero.sqlite` directly; doing so corrupts Zotero's sync state.
+
+This split is load-bearing for the project's value proposition. Preserve it when adding commands: a new mutating command belongs on the Web API side, not SQLite.
+
+### CLI shape (`cli.py` + `commands/`)
+
+- `cli.py` is the Click root group. It registers every subcommand from `commands/*.py` and classifies them into safety tiers (read / mutating / destructive) which drive `--help` grouping and the agent schema. When adding a command, register it in `cli.py` AND add it to the appropriate tier set, or help/schema will misreport its risk.
+- Each `commands/<name>.py` is a self-contained Click command/group. They orchestrate `core/*` modules and pass results through `formatter.py`.
+- `formatter.py` implements the dual-output contract: Rich tables when stdout is a TTY, JSON envelope when piped (auto-detected) or when `--json` / `ZOT_FORMAT=json` is set. Every command's output must flow through the formatter to keep the envelope stable — don't `click.echo` structured data directly.
+- `exit_codes.py` enumerates the typed exit codes (1 runtime, 2 auth, 3 validation, 4 not-found, 5 network, 6 conflict). Errors must map to one of these via `emit_error(...)`; the agent contract in `docs/agent-interface.md` promises stability. Avoid the legacy `print_error(...); return` pattern — it silently exits 0 and breaks agent error-handling.
+- `schema.py` (command) reflects the entire Click tree into the JSON schema that agents consume. If you add options/arguments, they appear here automatically — but only if you use standard Click constructs.
+
+### Core subsystems (`core/`)
+
+- `reader.py` — SQLite read layer (search, list, read, collections, tags, attachments metadata). Zotero 10 holds `locking_mode=EXCLUSIVE` + WAL on zotero.sqlite while running, so reads are live when Zotero is closed and fall back to a consistent snapshot copy (DB + WAL replay, per-instance) while it runs. The FTS5 full-text index lives in a separate `fulltext.sqlite` (not exclusively locked; plain read-only open).
+- `writer.py` — pyzotero-backed writes (add, update, delete, note, tag mutations, attachment upload).
+- `pdf_extractor.py` + `pdf_cache.py` — pluggable extraction backends (`pdfium` default — permissive BSD/Apache; `pymupdf` opt-in via the `[pymupdf]` extra for annotations/highlights + better markdown; `mineru` opt-in with auto-fallback to `pdfium`) with on-disk cache keyed per-extractor; feeds `zot pdf`, `summarize`, and the on-the-fly passage extraction in `rank.py`. pymupdf is lazy-imported so the base install ships no AGPL code.
+- `rank.py` + `fts.py` — index-free two-stage ranked retrieval behind `zot search --ranked` and `zot ask`. Stage 1 scores items with FTS5 `bm25()` over Zotero 10's `fulltext.sqlite`, with MATCH clauses built like the app's own fulltextContent condition (`fts.py` ports `normalizeForSearch`/`getCJKBigrams`/`getWordMatchClause` from Zotero's fulltext.js; pre-10 data directories without fulltext.sqlite degrade to metadata-only with a warning), fused with metadata LIKE matching via reciprocal rank fusion; stage 2 (`ask`) re-ranks top items by real term frequency from cached on-the-fly PDF extraction and carves evidence passages. Both commands can be scoped to a Zotero collection with `--collection` (membership managed in the app or via `zot collection *`) — zot stores nothing locally and there is no index to build.
+- `idempotency.py` — supports `--idempotency-key` on mutating commands so agent retries are safe.
+- `semantic_scholar.py` — drives `zot update-status` (preprint → published detection).
+- `version_check.py` — PyPI version nudge.
+
+### MCP server (`mcp_server.py`)
+
+Exposes the CLI functionality as MCP tools (`zot mcp serve`). When adding a new CLI command that should also be agent-callable via MCP clients, mirror it here. The MCP surface is optional (`pip install zotero-cli-ai[mcp]`).
+
+### Config & profiles
+
+Config lives at `~/.config/zot/config.toml` with multi-profile support (`[profiles.<name>]` sections). Resolution order for any setting: CLI flag → env var (`ZOT_DATA_DIR`, `ZOT_LIBRARY_ID`, `ZOT_API_KEY`, `ZOT_PROFILE`, …) → active profile → defaults. Zotero data dir auto-detects: Windows registry / `%APPDATA%\Zotero` / `%LOCALAPPDATA%\Zotero` on Windows; `~/Zotero` on macOS/Linux.
+
+## Conventions
+
+- Type hints are required (`disallow_untyped_defs = true`). mypy runs on `src/zotero_cli_cc/` only — tests are exempt.
+- Ruff: `target-version = py310`, `line-length = 120`, E501 ignored. `zotero_cli_cc` is configured as first-party for isort.
+- License is **dual: AGPL-3.0-or-later + a commercial license** (see `LICENSE`, `LICENSE-COMMERCIAL`). Preserve both the `license` field and the AGPL classifier when touching packaging metadata. Contributions come in under the DCO/relicense terms in `CONTRIBUTING.md`. Note: PyMuPDF is an opt-in extra (`[pymupdf]`), not the default — the default `pdfium` backend is permissively licensed, so the base install ships no AGPL PDF code; a commercial build only needs to consider PyMuPDF's AGPL-or-Artifex-commercial licensing if the `[pymupdf]` extra is included.
+- Never run `git commit` or `git push` without explicit user instruction — the repo has CI, docs, and PyPI publish wired to `main`.
+
+## Docs & skill
+
+- User-facing docs in `docs/` build with MkDocs Material (bilingual via `mkdocs-static-i18n`); CLI reference is generated by `mkdocs-click` from the Click tree, so updating Click help text updates the docs.
+- `skill/zotero-cli/` is the Claude Code skill packaged with this repo; users install it by copying to `~/.claude/skills/`. Keep it in sync with CLI surface changes.
+- `docs/agent-interface.md` is the authoritative agent contract — when changing envelope shape, exit codes, or schema, update it and bump `schema_version` accordingly.
+
+## Designing new commands
+
+When adding or refactoring a CLI command (flags, output shape, exit codes, confirmation/idempotency behavior), invoke the **`agent-native-design`** skill first: https://github.com/Agents365-ai/agent-native-design
+
+It encodes the design rules that keep `zot` usable by both humans and agents — dual-output contract, typed exit codes, JSON envelope shape, idempotency, dry-run conventions — and aligns with `docs/agent-interface.md`. New contributors should read it before touching the CLI surface.
+
+### Safety tier — pick exactly one bucket
+
+Every top-level command must be registered in one of the three sets at the top of `src/zotero_cli_cc/cli.py` (`_READ_COMMANDS` / `_WRITE_COMMANDS` / `_DESTRUCTIVE_COMMANDS`). The set determines:
+
+- The header it appears under in `zot --help` (`Read` / `Write (MUTATES LIBRARY)` / `Destructive (MUTATES LIBRARY)`).
+- The `safety_tier` value emitted by `zot schema` for that command, which agents use to gate execution.
+
+Commands not in any set fall into an unlabeled `Other` bucket and are reported as untyped to agents — a footgun. The CI suite asserts the schema/help drift contract (`tests/test_agent_interface.py::TestHelpSchemaDrift`), but it does not flag missing tier membership, so this is a manual checklist when wiring up a new command in `cli.py`.
+
+---
+> Source: [Agents365-ai/zotero-cli-ai](https://github.com/Agents365-ai/zotero-cli-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
