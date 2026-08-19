@@ -1,15 +1,14 @@
-## database-standards
+## docs-freshness
 
-> Database schema and migration conventions for Backfield
+> Keep Backfield documentation current and source-of-truth oriented
 
 
-# Database Standards
+# Docs Freshness
 
-- Database tables must be namespaced by app prefix such as `agate_` or `stylebook_`.
-- Keep schema ownership in `packages/backfield-db`; do not duplicate table contracts across apps.
-- Treat indexing as part of schema design. Add indexes intentionally for expected lookup, join, and filter paths.
-- Keep model names, migration behavior, and database docs aligned.
-- Prefer explicit migrations and readable schema changes over clever shortcuts.
+- Write docs as current behavior, not historical intent.
+- Update the source-of-truth doc when behavior, architecture, operations, or validation changes.
+- Keep terminology consistent with `AGENTS.md` and the rest of `docs/`.
+- Prefer concise operational guidance and checklists over long narrative text.
 
 ---
 > Source: [localangle/backfield](https://github.com/localangle/backfield) — distributed by [TomeVault](https://tomevault.io).
