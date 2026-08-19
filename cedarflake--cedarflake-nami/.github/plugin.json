@@ -1,0 +1,9 @@
+{
+  "name": "cedarflake--cedarflake-nami",
+  "displayName": "Cedarflake-Nami",
+  "description": "Personal edge redirect playground with a database-backed control plane, WebUI, optional analytics, and compile-time adapters for Cloudflare, Vercel, and Netlify.",
+  "version": "1.0.0",
+  "author": "Cedarflake",
+  "homepage": "https://github.com/Cedarflake/Cedarflake-Nami",
+  "skills": []
+}
