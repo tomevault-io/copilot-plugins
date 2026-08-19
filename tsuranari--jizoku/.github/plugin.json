@@ -1,0 +1,9 @@
+{
+  "name": "tsuranari--jizoku",
+  "displayName": "jizoku",
+  "description": "Durable workflow runtime for Elixir and Jido",
+  "version": "1.0.0",
+  "author": "tsuranari",
+  "homepage": "https://github.com/tsuranari/jizoku",
+  "skills": []
+}
