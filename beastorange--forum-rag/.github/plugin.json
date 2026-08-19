@@ -1,0 +1,9 @@
+{
+  "name": "beastorange--forum-rag",
+  "displayName": "forum-rag",
+  "description": "A RAG system for Agent",
+  "version": "1.0.0",
+  "author": "BeastOrange",
+  "homepage": "https://github.com/BeastOrange/forum-rag",
+  "skills": []
+}
