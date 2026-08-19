@@ -1,0 +1,9 @@
+{
+  "name": "pitiflautico--neobrowser",
+  "displayName": "neobrowser",
+  "description": "MCP server that drives real Chrome with your real logged-in sessions \u2014 genuine fingerprint (passes bot.sannysoft), human-like input, bot-wall aware. 43 tools, single static Rust binary.",
+  "version": "1.0.0",
+  "author": "pitiflautico",
+  "homepage": "https://github.com/pitiflautico/neobrowser",
+  "skills": []
+}
