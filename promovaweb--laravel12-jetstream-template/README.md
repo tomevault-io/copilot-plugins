@@ -7,11 +7,11 @@ Laravel 12 Jetstream Starter Template
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [promovaweb/laravel12-jetstream-template](https://github.com/promovaweb/laravel12-jetstream-template).
+Original source: `CLAUDE.md` in [promovaweb/laravel12-jetstream-template](https://github.com/promovaweb/laravel12-jetstream-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
