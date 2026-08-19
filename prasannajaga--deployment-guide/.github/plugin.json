@@ -1,0 +1,9 @@
+{
+  "name": "prasannajaga--deployment-guide",
+  "displayName": "deployment-guide",
+  "description": "Deployment & experimentation of LLM inference at production scale (KV offloading, P/D disaggregation, parallelism, and autoscaling).",
+  "version": "1.0.0",
+  "author": "Prasannajaga",
+  "homepage": "https://github.com/Prasannajaga/deployment-guide",
+  "skills": []
+}
