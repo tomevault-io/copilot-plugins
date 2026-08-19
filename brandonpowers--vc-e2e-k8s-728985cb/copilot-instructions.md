@@ -1,9 +1,10 @@
-## vibecarbon
+## vc-e2e-k8s-728985cb
 
-> Development rules for this full-stack TypeScript application
+> See [AGENTS.md](../AGENTS.md) at the project root for all guidance (tech stack, commands, architecture, key patterns, and mandatory security rules). Follow every rule in the **Security Rules (Mandatory)** section — violations introduce real vulnerabilities.
 
+# testapp-k8s-1786072546927-f5c70c Development Rules
 
-See [AGENTS.md](../../AGENTS.md) at the project root for all guidance (tech stack, commands, architecture, key patterns, and mandatory security rules). Follow every rule in the **Security Rules (Mandatory)** section — violations introduce real vulnerabilities.
+See [AGENTS.md](../AGENTS.md) at the project root for all guidance (tech stack, commands, architecture, key patterns, and mandatory security rules). Follow every rule in the **Security Rules (Mandatory)** section — violations introduce real vulnerabilities.
 
 ---
 > Source: [brandonpowers/vc-e2e-k8s-728985cb](https://github.com/brandonpowers/vc-e2e-k8s-728985cb) — distributed by [TomeVault](https://tomevault.io).
