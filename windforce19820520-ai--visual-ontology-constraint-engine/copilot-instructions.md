@@ -1,0 +1,31 @@
+## visual-ontology-constraint-engine
+
+> This repository develops an open-source visual ontology, constraint compiler, reference planner, prompt optimization, execution planning, and evaluation runtime for controllable reference-guided image generation.
+
+# AGENTS.md
+
+## Purpose
+
+This repository develops an open-source visual ontology, constraint compiler, reference planner, prompt optimization, execution planning, and evaluation runtime for controllable reference-guided image generation.
+
+## Boundaries
+
+- Keep account, commerce, catalog, publishing, and private deployment concerns outside the repository.
+- Keep the ontology domain-rich but instances sparse and evidence-backed.
+- Separate Observation, SourceBinding, and OntologyInstance.
+- Keep scenario-specific knowledge in a public `ScenarioPack` or `DeclarativeRulePackContribution`; Core must not import a scenario package, compare a scenario ID, or branch on a scenario name.
+- Treat ScenarioPack runtime artifacts as declarative data. `RulePackPlugin`, custom loaders, and adapters remain separate trusted-plugin boundaries.
+- Provider-specific behavior belongs in adapters.
+- Standard development, tests, CI, and examples must not call real paid models.
+
+## Development
+
+- Use a feature branch and pull request for changes after repository initialization.
+- Add deterministic tests for public contracts and planning behavior.
+- Record major architecture changes in `docs/`.
+- Never commit secrets, personal images, private assets, or temporary URLs.
+- Do not claim production readiness before a published release and acceptance suite exist.
+
+---
+> Source: [windforce19820520-ai/visual-ontology-constraint-engine](https://github.com/windforce19820520-ai/visual-ontology-constraint-engine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
