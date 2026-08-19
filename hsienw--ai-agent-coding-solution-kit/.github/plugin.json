@@ -1,0 +1,9 @@
+{
+  "name": "hsienw--ai-agent-coding-solution-kit",
+  "displayName": "ai-agent-coding-solution-kit",
+  "description": "\ud83d\udcd7Reusable docs, prompts, templates, and engineering practices for AI-agent coding, agent design, OpenSpec/SDD, context engineering, prompt engineering, and agent workflows.",
+  "version": "1.0.0",
+  "author": "HsienW",
+  "homepage": "https://github.com/HsienW/ai-agent-coding-solution-kit",
+  "skills": []
+}
