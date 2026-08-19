@@ -4,7 +4,7 @@
   "repo": "vega",
   "description": "Cross-platform Nostr desktop client for Mac, Windows & Linux. Built with Tauri + React + NDK. Deep Lightning integration via NWC (NIP-47), full zap support, multi-relay management, and a UI that actually feels native. The Nostr client the ecosystem deserves.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoornet/vega",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T08:31:44Z"
+  "distributed_at": "2026-08-19T08:32:30Z"
 }
