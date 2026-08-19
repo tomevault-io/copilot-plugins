@@ -1,0 +1,9 @@
+{
+  "name": "ishanjain1502--distributed-inference-engine",
+  "displayName": "distributed-inference-engine",
+  "description": "A distributed inference framework for large language models that routes requests to workers, manages KV cache lifecycle, handles failures gracefully, and applies backpressure so memory \u2014 not compute \u2014",
+  "version": "1.0.0",
+  "author": "ishanjain1502",
+  "homepage": "https://github.com/ishanjain1502/distributed-inference-engine",
+  "skills": []
+}
