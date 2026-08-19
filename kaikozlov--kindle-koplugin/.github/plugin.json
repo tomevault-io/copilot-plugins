@@ -1,0 +1,9 @@
+{
+  "name": "kaikozlov--kindle-koplugin",
+  "displayName": "kindle.koplugin",
+  "description": "Kindle plugin for KOReader - read your Kindle's library in KOReader",
+  "version": "1.0.0",
+  "author": "kaikozlov",
+  "homepage": "https://github.com/kaikozlov/kindle.koplugin",
+  "skills": []
+}
