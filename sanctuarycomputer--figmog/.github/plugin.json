@@ -1,0 +1,9 @@
+{
+  "name": "sanctuarycomputer--figmog",
+  "displayName": "figmog",
+  "description": "A massively performant superset of the Figma MCP surface, ensuring your swarms of coding agents are never rate limited. 17,657\u00d7 faster than Figma. Written in Rust and built on Flower Computer's Bog db",
+  "version": "1.0.0",
+  "author": "sanctuarycomputer",
+  "homepage": "https://github.com/sanctuarycomputer/figmog",
+  "skills": []
+}
