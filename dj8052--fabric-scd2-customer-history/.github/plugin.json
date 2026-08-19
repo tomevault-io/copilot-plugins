@@ -1,0 +1,9 @@
+{
+  "name": "dj8052--fabric-scd2-customer-history",
+  "displayName": "fabric-scd2-customer-history",
+  "description": "Microsoft Fabric SCD Type 2 customer history implementation using Dataflow Gen2, Lakehouse staging, Warehouse dimensional modeling, and T-SQL stored procedures.",
+  "version": "1.0.0",
+  "author": "DJ8052",
+  "homepage": "https://github.com/DJ8052/fabric-scd2-customer-history",
+  "skills": []
+}
