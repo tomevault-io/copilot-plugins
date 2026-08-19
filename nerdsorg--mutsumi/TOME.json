@@ -1,0 +1,44 @@
+{
+  "name": "Mutsumi",
+  "owner": "NERDSORG",
+  "repo": "Mutsumi",
+  "description": "Multi-Agents VSCode Extension that Focuses on the Full Control of Context, Observability and Auditability. Works like Wakaba Mutsumi's Personalilties \ud83e\udd52. \u5413\u6211\u4e00\u8df3\u6211\u91ca\u653e\u5fcd\u672f\ud83d\ude30\u82e5\u53f6\u7766\u90a3\u4e48\u591a\u9996\u554a\ud83e\udd77",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NERDSORG/Mutsumi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T14:34:36Z"
+}
