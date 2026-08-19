@@ -1,0 +1,9 @@
+{
+  "name": "carlos-dominguez-faber--segundo-cerebro-kit",
+  "displayName": "segundo-cerebro-kit",
+  "description": "Monta un segundo cerebro que tus agentes mantienen solos. Patr\u00f3n LLM Wiki (Karpathy) + cu\u00e1ndo necesitas un grafo de conocimiento \u2014 y c\u00f3mo medirlo. Con 3 proyectos demo listos para correr.",
+  "version": "1.0.0",
+  "author": "Carlos-Dominguez-faber",
+  "homepage": "https://github.com/Carlos-Dominguez-faber/segundo-cerebro-kit",
+  "skills": []
+}
