@@ -1,0 +1,9 @@
+{
+  "name": "w4g1--experimental-threads",
+  "displayName": "experimental-threads",
+  "description": "Highly experimental multithreading in JavaScript using lexical scope analysis and shared memory rehydration. Works in Deno, Bun and Node",
+  "version": "1.0.0",
+  "author": "W4G1",
+  "homepage": "https://github.com/W4G1/experimental-threads",
+  "skills": []
+}
