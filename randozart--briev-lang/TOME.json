@@ -4,7 +4,7 @@
   "repo": "briev-lang",
   "description": "Briev: a contract-enforced programming language and compiler. Verified state transitions, LLVM backend, reactive execution, multi-target codegen (native/embedded/GPU/hardware/web).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Randozart/briev-lang",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T03:33:51Z"
+  "distributed_at": "2026-08-19T03:37:18Z"
 }
