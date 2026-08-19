@@ -1,0 +1,9 @@
+{
+  "name": "gocronx--kubevision",
+  "displayName": "kubevision",
+  "description": "An AI-native Kubernetes dashboard",
+  "version": "1.0.0",
+  "author": "gocronx",
+  "homepage": "https://github.com/gocronx/kubevision",
+  "skills": []
+}
