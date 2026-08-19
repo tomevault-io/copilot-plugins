@@ -1,0 +1,9 @@
+{
+  "name": "sungmin-cho--deep-work",
+  "displayName": "deep-work",
+  "description": "Evidence-Driven Development Protocol for Claude Code and Codex \u2014 spec-first, TDD-enforced Brainstorm \u2192 Research \u2192 Plan \u2192 Implement \u2192 Test workflow. Part of deep-suite.",
+  "version": "1.0.0",
+  "author": "Sungmin-Cho",
+  "homepage": "https://github.com/Sungmin-Cho/deep-work",
+  "skills": []
+}
