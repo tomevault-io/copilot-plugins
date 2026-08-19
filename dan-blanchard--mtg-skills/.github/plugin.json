@@ -1,0 +1,9 @@
+{
+  "name": "dan-blanchard--mtg-skills",
+  "displayName": "mtg-skills",
+  "description": "Claude Code skills for Magic: The Gathering",
+  "version": "1.0.0",
+  "author": "dan-blanchard",
+  "homepage": "https://github.com/dan-blanchard/mtg-skills",
+  "skills": []
+}
