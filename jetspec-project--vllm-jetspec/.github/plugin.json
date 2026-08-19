@@ -1,0 +1,9 @@
+{
+  "name": "jetspec-project--vllm-jetspec",
+  "displayName": "vllm-jetspec",
+  "description": "vllm-jetspec",
+  "version": "1.0.0",
+  "author": "JetSpec-project",
+  "homepage": "https://github.com/JetSpec-project/vllm-jetspec",
+  "skills": []
+}
