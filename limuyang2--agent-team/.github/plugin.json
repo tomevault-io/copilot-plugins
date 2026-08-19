@@ -1,0 +1,9 @@
+{
+  "name": "limuyang2--agent-team",
+  "displayName": "agent-team",
+  "description": "Multi-agent team collaboration for DeepSeek Harness, with independent models, skills, MCP tools, contexts, and a shared workspace.",
+  "version": "1.0.0",
+  "author": "limuyang2",
+  "homepage": "https://github.com/limuyang2/agent-team",
+  "skills": []
+}
