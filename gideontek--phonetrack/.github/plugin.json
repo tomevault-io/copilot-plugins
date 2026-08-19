@@ -1,0 +1,9 @@
+{
+  "name": "gideontek--phonetrack",
+  "displayName": "phonetrack",
+  "description": "Privacy-friendly location sharing that works entirely over SMS, with no servers or data connection.",
+  "version": "1.0.0",
+  "author": "gideontek",
+  "homepage": "https://github.com/gideontek/phonetrack",
+  "skills": []
+}
