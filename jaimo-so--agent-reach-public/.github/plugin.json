@@ -1,0 +1,9 @@
+{
+  "name": "jaimo-so--agent-reach-public",
+  "displayName": "agent-reach-public",
+  "description": "Read six public internet sources without accounts, cookies, paid APIs or write operations.",
+  "version": "1.0.0",
+  "author": "Jaimo-so",
+  "homepage": "https://github.com/Jaimo-so/agent-reach-public",
+  "skills": []
+}
