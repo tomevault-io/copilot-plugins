@@ -1,0 +1,9 @@
+{
+  "name": "osolmaz--pi-reviewer",
+  "displayName": "pi-reviewer",
+  "description": "Standalone Pi code review CLI with prioritized findings",
+  "version": "1.0.0",
+  "author": "osolmaz",
+  "homepage": "https://github.com/osolmaz/pi-reviewer",
+  "skills": []
+}
