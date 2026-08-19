@@ -1,0 +1,9 @@
+{
+  "name": "darkone-linux--rename-simple",
+  "displayName": "rename-simple",
+  "description": "Rename file names using the most relevant lowercase ASCII characters",
+  "version": "1.0.0",
+  "author": "darkone-linux",
+  "homepage": "https://github.com/darkone-linux/rename-simple",
+  "skills": []
+}
