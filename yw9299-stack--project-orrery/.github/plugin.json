@@ -1,0 +1,9 @@
+{
+  "name": "yw9299-stack--project-orrery",
+  "displayName": "project-orrery",
+  "description": "A portable Codex skill for traceable Markdown project documentation, local observability, and safe migration.",
+  "version": "1.0.0",
+  "author": "yw9299-stack",
+  "homepage": "https://github.com/yw9299-stack/project-orrery",
+  "skills": []
+}
