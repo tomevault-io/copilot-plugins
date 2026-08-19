@@ -1,0 +1,9 @@
+{
+  "name": "netresearch--go-development-skill",
+  "displayName": "go-development-skill",
+  "description": "Agent Skill: Enterprise Go development patterns - resilient services, testing | Claude Code compatible",
+  "version": "1.0.0",
+  "author": "netresearch",
+  "homepage": "https://github.com/netresearch/go-development-skill",
+  "skills": []
+}
