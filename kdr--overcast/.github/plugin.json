@@ -1,0 +1,9 @@
+{
+  "name": "kdr--overcast",
+  "displayName": "overcast",
+  "description": "Video OSINT agent: senses + OSINT reach for any agent.",
+  "version": "1.0.0",
+  "author": "kdr",
+  "homepage": "https://github.com/kdr/overcast",
+  "skills": []
+}
