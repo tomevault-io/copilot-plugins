@@ -1,0 +1,9 @@
+{
+  "name": "hoornet--vega",
+  "displayName": "vega",
+  "description": "Cross-platform Nostr desktop client for Mac, Windows & Linux. Built with Tauri + React + NDK. Deep Lightning integration via NWC (NIP-47), full zap support, multi-relay management, and a UI that actua",
+  "version": "1.0.0",
+  "author": "hoornet",
+  "homepage": "https://github.com/hoornet/vega",
+  "skills": []
+}
