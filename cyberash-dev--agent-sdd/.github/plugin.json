@@ -1,0 +1,9 @@
+{
+  "name": "cyberash-dev--agent-sdd",
+  "displayName": "agent-sdd",
+  "description": "CLI for Spec-Driven Development: freshness tokens, spec-lint, human-gated approvals, and one-command SDD methodology install for AI coding agents (Claude Code, Codex).",
+  "version": "1.0.0",
+  "author": "cyberash-dev",
+  "homepage": "https://github.com/cyberash-dev/agent-sdd",
+  "skills": []
+}
