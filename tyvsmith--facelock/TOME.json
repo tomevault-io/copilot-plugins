@@ -4,7 +4,7 @@
   "repo": "facelock",
   "description": "Modern Face Authentication for Linux",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tyvsmith/facelock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T08:35:49Z"
+  "distributed_at": "2026-08-19T08:42:12Z"
 }
