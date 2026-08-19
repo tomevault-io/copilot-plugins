@@ -1,0 +1,9 @@
+{
+  "name": "mixedbread-ai--skills",
+  "displayName": "skills",
+  "description": "Agent skills for search, RAG, and document parsing with Mixedbread. Install with: npx skills add mixedbread-ai/skills",
+  "version": "1.0.0",
+  "author": "mixedbread-ai",
+  "homepage": "https://github.com/mixedbread-ai/skills",
+  "skills": []
+}
