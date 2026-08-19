@@ -1,0 +1,9 @@
+{
+  "name": "kasway-tech--pos",
+  "displayName": "pos",
+  "description": "A Flutter-based point-of-sale terminal that accepts Kaspa (KAS) payments via QR code.",
+  "version": "1.0.0",
+  "author": "Kasway-Tech",
+  "homepage": "https://github.com/Kasway-Tech/pos",
+  "skills": []
+}
