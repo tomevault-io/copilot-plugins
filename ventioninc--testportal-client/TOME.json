@@ -4,7 +4,7 @@
   "repo": "TestPortal-client",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VENTIONINC/TestPortal-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T22:48:44Z"
+  "distributed_at": "2026-08-19T22:54:54Z"
 }
