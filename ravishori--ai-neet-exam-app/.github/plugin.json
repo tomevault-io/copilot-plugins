@@ -1,0 +1,9 @@
+{
+  "name": "ravishori--ai-neet-exam-app",
+  "displayName": "ai-neet-exam-app",
+  "description": "Enterprise AI-powered NEET preparation platform built using FastAPI, Next.js, PostgreSQL, AI, and Cursor AI.",
+  "version": "1.0.0",
+  "author": "ravishori",
+  "homepage": "https://github.com/ravishori/ai-neet-exam-app",
+  "skills": []
+}
