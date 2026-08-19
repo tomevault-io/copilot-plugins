@@ -1,0 +1,9 @@
+{
+  "name": "lamost423--dsh-trace-compare",
+  "displayName": "dsh-trace-compare",
+  "description": "Trace Compare & Live Maze for DeepSeek Harness: visualize agent exploration (main path, detours, backtracks) from session logs or live sessions",
+  "version": "1.0.0",
+  "author": "lamost423",
+  "homepage": "https://github.com/lamost423/dsh-trace-compare",
+  "skills": []
+}
