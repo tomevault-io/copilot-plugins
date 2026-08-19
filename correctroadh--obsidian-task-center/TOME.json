@@ -4,7 +4,7 @@
   "repo": "obsidian-task-center",
   "description": "Task board + CLI for energy-based task management on top of Obsidian Tasks syntax",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CorrectRoadH/obsidian-task-center",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T22:43:00Z"
+  "distributed_at": "2026-08-19T22:50:43Z"
 }
