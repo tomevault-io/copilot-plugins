@@ -1,0 +1,44 @@
+{
+  "name": "dsh-feishu",
+  "owner": "PGZXB",
+  "repo": "dsh-feishu",
+  "description": "The Feishu UI for DeepSeek Harness  \u2014 a panel-driven control console: every slash command a button on the \u2699\ufe0f control-panel card, in-card approvals & questions, live streaming cards, one-QR setup. | DeepSeek Harness \u7684\u98de\u4e66 UI\uff1a\u9762\u677f\u9a71\u52a8\u63a7\u5236\u53f0\u2014\u2014\u6bcf\u4e2a\u547d\u4ee4\u90fd\u662f\u5361\u7247\u6309\u94ae\uff0c\u5361\u5185\u5ba1\u6279\u4e0e\u63d0\u95ee\uff0c\u6d41\u5f0f\u5361\u7247\uff0c\u626b\u7801\u4e00\u952e\u914d\u7f6e\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PGZXB/dsh-feishu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T00:33:58Z"
+}
