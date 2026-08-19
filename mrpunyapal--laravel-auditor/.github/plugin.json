@@ -1,0 +1,9 @@
+{
+  "name": "mrpunyapal--laravel-auditor",
+  "displayName": "laravel-auditor",
+  "description": "Evidence-based audit methodology and read-only Laravel context tools for existing AI coding agents.",
+  "version": "1.0.0",
+  "author": "MrPunyapal",
+  "homepage": "https://github.com/MrPunyapal/laravel-auditor",
+  "skills": []
+}
