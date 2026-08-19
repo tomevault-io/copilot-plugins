@@ -1,0 +1,44 @@
+{
+  "name": "risty-portfolio",
+  "owner": "Ristyanugrah",
+  "repo": "risty-portfolio",
+  "description": "A modern personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS. Showcasing my projects, certifications, technical skills, and experience in Data Analytics, Business Intelligence, SQL, Python, Power BI, Tableau, and Web Development.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ristyanugrah/risty-portfolio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T10:56:26Z"
+}
