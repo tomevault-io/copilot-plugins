@@ -1,0 +1,9 @@
+{
+  "name": "jillesme--talk-to-webpage",
+  "displayName": "talk-to-webpage",
+  "description": "Voice-controlled web navigation with Cloudflare Browser Run, Voice, Workers AI, and Flue.",
+  "version": "1.0.0",
+  "author": "jillesme",
+  "homepage": "https://github.com/jillesme/talk-to-webpage",
+  "skills": []
+}
