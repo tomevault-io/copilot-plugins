@@ -1,0 +1,9 @@
+{
+  "name": "dogukanurker--benchkit",
+  "displayName": "BenchKit",
+  "description": "Benchmark your local LLMs with real evaluation suites. Not vibes - actual scores.",
+  "version": "1.0.0",
+  "author": "DogukanUrker",
+  "homepage": "https://github.com/DogukanUrker/BenchKit",
+  "skills": []
+}
