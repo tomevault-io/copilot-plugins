@@ -1,0 +1,261 @@
+{
+  "name": "spellbook",
+  "owner": "axiomantic",
+  "repo": "spellbook",
+  "description": "Multi-platform AI assistant skills and workflows. Serious engineering. Also fun.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "advanced-code-review",
+      "path": "skills/advanced-code-review",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/advanced-code-review",
+      "description": ""
+    },
+    {
+      "name": "analyzing-skill-usage",
+      "path": "skills/analyzing-skill-usage",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/analyzing-skill-usage",
+      "description": ""
+    },
+    {
+      "name": "async-await-patterns",
+      "path": "skills/async-await-patterns",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/async-await-patterns",
+      "description": ""
+    },
+    {
+      "name": "auditing-green-mirage",
+      "path": "skills/auditing-green-mirage",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/auditing-green-mirage",
+      "description": ""
+    },
+    {
+      "name": "autonomous-roundtable",
+      "path": "skills/autonomous-roundtable",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/autonomous-roundtable",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "path": "skills/debugging",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/debugging",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "path": "skills/deep-research",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/deep-research",
+      "description": ""
+    },
+    {
+      "name": "designing-workflows",
+      "path": "skills/designing-workflows",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/designing-workflows",
+      "description": ""
+    },
+    {
+      "name": "devils-advocate",
+      "path": "skills/devils-advocate",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/devils-advocate",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "documentation-updates",
+      "path": ".claude/skills/documentation-updates",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/.claude/skills/documentation-updates",
+      "description": ""
+    },
+    {
+      "name": "documenting-tools",
+      "path": "skills/documenting-tools",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/documenting-tools",
+      "description": ""
+    },
+    {
+      "name": "emotional-stakes",
+      "path": "skills/emotional-stakes",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/emotional-stakes",
+      "description": ""
+    },
+    {
+      "name": "enforcing-code-quality",
+      "path": "skills/enforcing-code-quality",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/enforcing-code-quality",
+      "description": ""
+    },
+    {
+      "name": "fact-checking",
+      "path": "skills/fact-checking",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/fact-checking",
+      "description": ""
+    },
+    {
+      "name": "finding-dead-code",
+      "path": "skills/finding-dead-code",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/finding-dead-code",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": "skills/finishing-a-development-branch",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "fixing-tests",
+      "path": "skills/fixing-tests",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/fixing-tests",
+      "description": ""
+    },
+    {
+      "name": "instruction-engineering",
+      "path": "skills/instruction-engineering",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/instruction-engineering",
+      "description": ""
+    },
+    {
+      "name": "isolated-testing",
+      "path": "skills/isolated-testing",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/isolated-testing",
+      "description": ""
+    },
+    {
+      "name": "managing-artifacts",
+      "path": "skills/managing-artifacts",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/managing-artifacts",
+      "description": ""
+    },
+    {
+      "name": "optimizing-instructions",
+      "path": "skills/optimizing-instructions",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/optimizing-instructions",
+      "description": ""
+    },
+    {
+      "name": "project-encyclopedia",
+      "path": "skills/project-encyclopedia",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/project-encyclopedia",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "skills/requesting-code-review",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "resolving-merge-conflicts",
+      "path": "skills/resolving-merge-conflicts",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/resolving-merge-conflicts",
+      "description": ""
+    },
+    {
+      "name": "reviewing-design-docs",
+      "path": "skills/reviewing-design-docs",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/reviewing-design-docs",
+      "description": ""
+    },
+    {
+      "name": "reviewing-impl-plans",
+      "path": "skills/reviewing-impl-plans",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/reviewing-impl-plans",
+      "description": ""
+    },
+    {
+      "name": "sharpening-prompts",
+      "path": "skills/sharpening-prompts",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/sharpening-prompts",
+      "description": ""
+    },
+    {
+      "name": "spellbook-auditing",
+      "path": ".claude/skills/spellbook-auditing",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/.claude/skills/spellbook-auditing",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "skills/test-driven-development",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": "skills/using-git-worktrees",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-lsp-tools",
+      "path": "skills/using-lsp-tools",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/using-lsp-tools",
+      "description": ""
+    },
+    {
+      "name": "using-skills",
+      "path": "skills/using-skills",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/using-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "skills/writing-plans",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "skills/writing-skills",
+      "github_url": "https://github.com/axiomantic/spellbook/tree/main/skills/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/axiomantic/spellbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T18:30:49Z"
+}
