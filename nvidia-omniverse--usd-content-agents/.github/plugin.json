@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--usd-content-agents",
+  "displayName": "usd-content-agents",
+  "description": "AI-powered agents for automating 3D content workflows using Vision-Language Models (VLMs). Content Agents analyze 3D assets and automate material assignment, physics property classification, and textu",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/usd-content-agents",
+  "skills": []
+}
