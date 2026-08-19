@@ -1,0 +1,9 @@
+{
+  "name": "jawwad-ali--ai-customer-support-agent",
+  "displayName": "ai-customer-support-agent",
+  "description": "AI customer support agent with semantic search \u2014 handles Gmail, WhatsApp & web via OpenAI Agents SDK + FastAPI",
+  "version": "1.0.0",
+  "author": "jawwad-ali",
+  "homepage": "https://github.com/jawwad-ali/ai-customer-support-agent",
+  "skills": []
+}
