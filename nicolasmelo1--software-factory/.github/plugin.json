@@ -1,0 +1,9 @@
+{
+  "name": "nicolasmelo1--software-factory",
+  "displayName": "software-factory",
+  "description": "A method for building software with agents, packaged as a single binary. Every rule that matters is written twice \u2014 once as prose that says why, once as a check that fails \u2014 and every check has a muta",
+  "version": "1.0.0",
+  "author": "nicolasmelo1",
+  "homepage": "https://github.com/nicolasmelo1/software-factory",
+  "skills": []
+}
