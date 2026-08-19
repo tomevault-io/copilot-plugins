@@ -1,0 +1,44 @@
+{
+  "name": "Fastllm-proxy",
+  "owner": "azrtydxb",
+  "repo": "Fastllm-proxy",
+  "description": "The lowest-overhead LLM router. Production-ready, highly available, one OpenAI-compatible endpoint in front of 80 providers and your own vLLM/SGLang \u2014 0.76 \u00b5s per request, no I/O on the request path, cache-affinity routing, RBAC, budgets and a 13-screen UI in the binary.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/azrtydxb/Fastllm-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T17:31:35Z"
+}
