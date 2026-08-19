@@ -1,0 +1,9 @@
+{
+  "name": "meltforce--freereps",
+  "displayName": "FreeReps",
+  "description": "Self-hosted health data server with visualization dashboard and MCP interface",
+  "version": "1.0.0",
+  "author": "meltforce",
+  "homepage": "https://github.com/meltforce/FreeReps",
+  "skills": []
+}
