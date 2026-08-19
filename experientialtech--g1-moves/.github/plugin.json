@@ -1,0 +1,9 @@
+{
+  "name": "experientialtech--g1-moves",
+  "displayName": "g1-moves",
+  "description": "Motion capture clips for Unitree G1 humanoid robot",
+  "version": "1.0.0",
+  "author": "experientialtech",
+  "homepage": "https://github.com/experientialtech/g1-moves",
+  "skills": []
+}
