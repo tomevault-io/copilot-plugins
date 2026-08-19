@@ -1,0 +1,9 @@
+{
+  "name": "lza6--image-to-2api",
+  "displayName": "Image-to-2api",
+  "description": "\u8fd9\u662f\u4e00\u6b3e\u9002\u5408\u4f01\u4e1a\u5185\u90e8\u4f7f\u7528\u7684imageAPI\u900f\u4f20\u5de5\u5177\uff0c\u81ea\u52a8\u8fc7CF\u4e94\u79d2\u76fe\u4eba\u673a\u9a8c\u8bc1\u7b49\uff0c\u5728\u8fd9\u4e2a2\u68382G\u7684\u670d\u52a1\u5668\u4e0a\u5e76\u53d1\u8fbe\u5230\u4e8610\u4e2a\u3002\u540c\u65f6CF\u81ea\u52a8\u8fc7\u89e3",
+  "version": "1.0.0",
+  "author": "lza6",
+  "homepage": "https://github.com/lza6/Image-to-2api",
+  "skills": []
+}
