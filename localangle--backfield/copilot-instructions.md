@@ -1,0 +1,20 @@
+## core-workflow
+
+> Core Backfield workflow expectations for every task
+
+
+# Core Workflow
+
+- Use `Makefile` targets when they exist instead of inventing new command flows. For stack operations (`up`, `down`, `logs`, `ps`, `restart`, `reset-db`, `clear-entity-data`) the **`backfield` CLI** is the source of truth and the `make` targets are thin wrappers around it.
+- Keep diffs surgical and tied to the request.
+- Update the matching source-of-truth doc when behavior, architecture, or operations change.
+- Prefer readable, explicit code over cleverness.
+- Run relevant validation before finishing:
+  - default: `make lint` and `make test`
+  - runtime changes: also run `make smoke`
+- **Branching (agent default):** within a single agent session, **do not create or check out new branches unless the user explicitly asks**. Stay on the currently-checked-out branch and keep diffs surgical and tied to the request.
+- **New sessions:** start a new agent session on a **fresh branch** cut from the task’s base (usually `main`) unless the task explicitly says to continue existing work.
+
+---
+> Source: [localangle/backfield](https://github.com/localangle/backfield) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
