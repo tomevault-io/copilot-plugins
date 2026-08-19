@@ -1,0 +1,9 @@
+{
+  "name": "polinnizhong--dsh-omi-voice",
+  "displayName": "dsh-omi-voice",
+  "description": "DeepSeek Harness \u8bed\u97f3\u6717\u8bfb\u63d2\u4ef6\uff1a\u6c89\u6d78\u5f0f\u542c\u6717\u8bfb\uff0c\u7528\u8c46\u5305 TTS \u81ea\u7136\u97f3\u8272\u8bfb AI \u56de\u590d\uff08BYOK \u00b7 \u70b9\u8bfb/\u6682\u505c/\u7ee7\u7eed\uff09",
+  "version": "1.0.0",
+  "author": "PolinniZhong",
+  "homepage": "https://github.com/PolinniZhong/dsh-omi-voice",
+  "skills": []
+}
