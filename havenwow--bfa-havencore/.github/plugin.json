@@ -1,0 +1,9 @@
+{
+  "name": "havenwow--bfa-havencore",
+  "displayName": "BFA-HavenCore",
+  "description": "BFA-HavenCore is a open-source project for World of Warcraft, currently supporting the 8.3.7 (build 35662) game version.",
+  "version": "1.0.0",
+  "author": "HavenWoW",
+  "homepage": "https://github.com/HavenWoW/BFA-HavenCore",
+  "skills": []
+}
