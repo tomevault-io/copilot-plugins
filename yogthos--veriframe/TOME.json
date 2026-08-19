@@ -4,7 +4,7 @@
   "repo": "veriframe",
   "description": "An OpenAI-compatible bridge that anchors LLM reasoning in logical reality by using Z3 to incrementally verify, self-correct, and prove the uniqueness of SMT-encoded solutions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yogthos/veriframe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T23:02:41Z"
+  "distributed_at": "2026-08-19T23:16:17Z"
 }
