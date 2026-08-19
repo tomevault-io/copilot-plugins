@@ -1,0 +1,9 @@
+{
+  "name": "pgzxb--dsh-feishu",
+  "displayName": "dsh-feishu",
+  "description": "The Feishu UI for DeepSeek Harness  \u2014 a panel-driven control console: every slash command a button on the \u2699\ufe0f control-panel card, in-card approvals & questions, live streaming cards, one-QR setup. | De",
+  "version": "1.0.0",
+  "author": "PGZXB",
+  "homepage": "https://github.com/PGZXB/dsh-feishu",
+  "skills": []
+}
