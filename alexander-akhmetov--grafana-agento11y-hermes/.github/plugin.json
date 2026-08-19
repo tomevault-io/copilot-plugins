@@ -1,0 +1,9 @@
+{
+  "name": "alexander-akhmetov--grafana-agento11y-hermes",
+  "displayName": "grafana-agento11y-hermes",
+  "description": "Unofficial Grafana Agent Observability plugin for Hermes Agent",
+  "version": "1.0.0",
+  "author": "alexander-akhmetov",
+  "homepage": "https://github.com/alexander-akhmetov/grafana-agento11y-hermes",
+  "skills": []
+}
