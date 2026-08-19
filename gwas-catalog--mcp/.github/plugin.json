@@ -1,0 +1,9 @@
+{
+  "name": "gwas-catalog--mcp",
+  "displayName": "mcp",
+  "description": "GWAS Catalog Model Context Protocol server, supporting natural language queries of associations, studies, and traits",
+  "version": "1.0.0",
+  "author": "gwas-catalog",
+  "homepage": "https://github.com/gwas-catalog/mcp",
+  "skills": []
+}
