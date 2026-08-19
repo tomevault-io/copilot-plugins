@@ -1,0 +1,44 @@
+{
+  "name": "hunch-it-archive",
+  "owner": "Omnis-Labs",
+  "repo": "hunch-it-archive",
+  "description": "Hunch it is your personal AI trading desk for tokenized stocks and crypto on Solana. As you review, skip, and execute trades, you unlock new AI trading agents, level up their capabilities, and receive increasingly personalized trade proposals with one-tap execution and built-in TP/SL.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Omnis-Labs/hunch-it-archive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T22:40:54Z"
+}
