@@ -1,0 +1,9 @@
+{
+  "name": "agents365-ai--zotero-cli-ai",
+  "displayName": "zotero-cli-ai",
+  "description": "Zotero CLI for Claude Code \u2014 SQLite reads + Web API writes",
+  "version": "1.0.0",
+  "author": "Agents365-ai",
+  "homepage": "https://github.com/Agents365-ai/zotero-cli-ai",
+  "skills": []
+}
