@@ -4,7 +4,7 @@
   "repo": "agent-sdd",
   "description": "CLI for Spec-Driven Development: freshness tokens, spec-lint, human-gated approvals, and one-command SDD methodology install for AI coding agents (Claude Code, Codex).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyberash-dev/agent-sdd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T22:59:26Z"
+  "distributed_at": "2026-08-19T23:12:54Z"
 }
