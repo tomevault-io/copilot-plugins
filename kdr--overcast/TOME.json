@@ -4,7 +4,7 @@
   "repo": "overcast",
   "description": "Video OSINT agent: senses + OSINT reach for any agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kdr/overcast",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T22:57:59Z"
+  "distributed_at": "2026-08-19T23:11:43Z"
 }
