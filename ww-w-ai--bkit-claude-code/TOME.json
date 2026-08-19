@@ -1,0 +1,44 @@
+{
+  "name": "bkit-claude-code",
+  "owner": "ww-w-ai",
+  "repo": "bkit-claude-code",
+  "description": "bkit Vibecoding Kit - PDCA methodology + Claude Code mastery for AI-native development",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ww-w-ai/bkit-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T15:30:48Z"
+}
