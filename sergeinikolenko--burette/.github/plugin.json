@@ -1,0 +1,9 @@
+{
+  "name": "sergeinikolenko--burette",
+  "displayName": "Burette",
+  "description": "macOS desktop app and Quick Look extension for molecular previews: Mol* 3D, xyzrender SVG, and RDKit grids.",
+  "version": "1.0.0",
+  "author": "SergeiNikolenko",
+  "homepage": "https://github.com/SergeiNikolenko/Burette",
+  "skills": []
+}
