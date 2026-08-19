@@ -1,0 +1,9 @@
+{
+  "name": "kacperkwapisz--mail-mcp",
+  "displayName": "mail-mcp",
+  "description": "MCP server bridging IMAP/SMTP email accounts to Poke \u2014 search, read, send, and watch emails via AI agents",
+  "version": "1.0.0",
+  "author": "kacperkwapisz",
+  "homepage": "https://github.com/kacperkwapisz/mail-mcp",
+  "skills": []
+}
