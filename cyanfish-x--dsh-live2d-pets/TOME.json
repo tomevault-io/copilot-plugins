@@ -1,0 +1,44 @@
+{
+  "name": "dsh-live2d-pets",
+  "owner": "cyanfish-x",
+  "repo": "dsh-live2d-pets",
+  "description": "Live2D \u684c\u5ba0\u63d2\u4ef6 for DeepSeek Harness\uff1aAgent \u72b6\u6001\u955c\u50cf + \u4e92\u52a8\u966a\u4f34\uff0c\u5185\u7f6e\u5bbd\u677e\u8bb8\u53ef\u9884\u8bbe\u6a21\u578b / Live2D pet plugin: agent state mirror + interactive companion with curated permissive-license presets",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cyanfish-x/dsh-live2d-pets",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T12:34:34Z"
+}
