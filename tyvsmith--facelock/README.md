@@ -7,11 +7,11 @@ Modern Face Authentication for Linux
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tyvsmith/facelock](https://github.com/tyvsmith/facelock).
+Original source: `CLAUDE.md` in [tyvsmith/facelock](https://github.com/tyvsmith/facelock).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
