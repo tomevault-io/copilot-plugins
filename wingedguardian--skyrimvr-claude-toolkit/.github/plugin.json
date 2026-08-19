@@ -1,0 +1,9 @@
+{
+  "name": "wingedguardian--skyrimvr-claude-toolkit",
+  "displayName": "skyrimvr-claude-toolkit",
+  "description": "AI-assisted Skyrim modding environment for Claude Code. SE/AE/VR \u2014 ESP tools, safety hooks, 600+ lines of engine knowledge, pre-configured.",
+  "version": "1.0.0",
+  "author": "WingedGuardian",
+  "homepage": "https://github.com/WingedGuardian/skyrimvr-claude-toolkit",
+  "skills": []
+}
