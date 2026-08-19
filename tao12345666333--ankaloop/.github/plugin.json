@@ -1,0 +1,9 @@
+{
+  "name": "tao12345666333--ankaloop",
+  "displayName": "ankaloop",
+  "description": "Out-of-the-box coding-agent runtime for terminal, IDE, server, and Telegram: built-in tools, subagents, skills, memory, MCP/ACP, hooks, and automation.",
+  "version": "1.0.0",
+  "author": "tao12345666333",
+  "homepage": "https://github.com/tao12345666333/ankaloop",
+  "skills": []
+}
