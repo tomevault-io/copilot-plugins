@@ -1,0 +1,9 @@
+{
+  "name": "datadog--fastjq",
+  "displayName": "fastjq",
+  "description": "A fast jq engine for Go with a principled allocation model, designed for high-throughput structured log processing.",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/fastjq",
+  "skills": []
+}
