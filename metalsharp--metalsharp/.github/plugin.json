@@ -1,0 +1,9 @@
+{
+  "name": "metalsharp--metalsharp",
+  "displayName": "MetalSharp",
+  "description": "Run Windows games and Windows applications natively on MacOS M-Series with MetalSharp. https://www.metalsharpmac.com/",
+  "version": "1.0.0",
+  "author": "metalsharp",
+  "homepage": "https://github.com/metalsharp/MetalSharp",
+  "skills": []
+}
