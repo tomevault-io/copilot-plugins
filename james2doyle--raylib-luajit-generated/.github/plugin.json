@@ -1,0 +1,9 @@
+{
+  "name": "james2doyle--raylib-luajit-generated",
+  "displayName": "raylib-luajit-generated",
+  "description": "An attempt at Raylib LuaJit bindings that are generated from the raylib-parser API docs",
+  "version": "1.0.0",
+  "author": "james2doyle",
+  "homepage": "https://github.com/james2doyle/raylib-luajit-generated",
+  "skills": []
+}
