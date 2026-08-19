@@ -1,0 +1,9 @@
+{
+  "name": "robertsamples--meltcalc",
+  "displayName": "meltcalc",
+  "description": "Hotend and polymer melt index tool",
+  "version": "1.0.0",
+  "author": "robertsamples",
+  "homepage": "https://github.com/robertsamples/meltcalc",
+  "skills": []
+}
