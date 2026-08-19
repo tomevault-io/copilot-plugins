@@ -1,0 +1,9 @@
+{
+  "name": "soba-labs--langchain-agent-skills",
+  "displayName": "langchain-agent-skills",
+  "description": "A collection of agent-optimized LangChain, LangGraph and LangSmith skills for AI coding assistants.",
+  "version": "1.0.0",
+  "author": "soba-labs",
+  "homepage": "https://github.com/soba-labs/langchain-agent-skills",
+  "skills": []
+}
