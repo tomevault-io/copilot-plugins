@@ -1,0 +1,9 @@
+{
+  "name": "takara-ai--miru-code",
+  "displayName": "miru-code",
+  "description": "Code search that lets AI coding agents find the right files in fewer steps. Use the hosted endpoint or self-host, works with Claude Code, Copilot and Cursor via MCP.",
+  "version": "1.0.0",
+  "author": "takara-ai",
+  "homepage": "https://github.com/takara-ai/miru-code",
+  "skills": []
+}
