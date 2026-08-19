@@ -1,0 +1,9 @@
+{
+  "name": "fazer-ai--mcp-chatwoot",
+  "displayName": "mcp-chatwoot",
+  "description": "MCP server for Chatwoot (TypeScript + Bun)",
+  "version": "1.0.0",
+  "author": "fazer-ai",
+  "homepage": "https://github.com/fazer-ai/mcp-chatwoot",
+  "skills": []
+}
