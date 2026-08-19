@@ -4,7 +4,7 @@
   "repo": "cygnus-server",
   "description": "\ud504\ub85c\ub355\ud2b8\ud300 \uba54\uc778 Spring Boot Server \ud83c\udf31",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UMC-PRODUCT/cygnus-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T18:32:52Z"
+  "distributed_at": "2026-08-19T18:33:38Z"
 }
