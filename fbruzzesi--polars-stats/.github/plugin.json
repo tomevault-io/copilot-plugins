@@ -1,0 +1,9 @@
+{
+  "name": "fbruzzesi--polars-stats",
+  "displayName": "polars-stats",
+  "description": "Polars expression plugin that exposes `scipy.stats`-style probability distributions",
+  "version": "1.0.0",
+  "author": "FBruzzesi",
+  "homepage": "https://github.com/FBruzzesi/polars-stats",
+  "skills": []
+}
