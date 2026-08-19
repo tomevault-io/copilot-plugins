@@ -4,7 +4,7 @@
   "repo": "agi-cli",
   "description": "AGI CLI ~ a meta-harness for building Agent Factories",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phnx-labs/agi-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T22:34:11Z"
+  "distributed_at": "2026-08-19T22:35:28Z"
 }
