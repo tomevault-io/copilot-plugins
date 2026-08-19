@@ -1,0 +1,9 @@
+{
+  "name": "dewebprotocol--malt-core",
+  "displayName": "malt-core",
+  "description": "Application-neutral MALT authentication Core SDK: canonical Map/List semantics, commitments, ProofLists, Resolve/Read/Writer contracts, and local verification",
+  "version": "1.0.0",
+  "author": "DeWebProtocol",
+  "homepage": "https://github.com/DeWebProtocol/malt-core",
+  "skills": []
+}
