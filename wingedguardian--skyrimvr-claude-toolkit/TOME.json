@@ -4,7 +4,7 @@
   "repo": "skyrimvr-claude-toolkit",
   "description": "AI-assisted Skyrim modding environment for Claude Code. SE/AE/VR \u2014 ESP tools, safety hooks, 600+ lines of engine knowledge, pre-configured.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WingedGuardian/skyrimvr-claude-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T06:38:13Z"
+  "distributed_at": "2026-08-19T06:39:26Z"
 }
