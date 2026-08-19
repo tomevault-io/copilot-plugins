@@ -1,0 +1,9 @@
+{
+  "name": "kongesque--locus-vision",
+  "displayName": "locus-vision",
+  "description": "\ud83d\udc41\ufe0f The Open Source Vision Analytics Engine. optimized for edge devices. Object detection, tracking, line crossing, and zone counting. fully self-hosted.",
+  "version": "1.0.0",
+  "author": "kongesque",
+  "homepage": "https://github.com/kongesque/locus-vision",
+  "skills": []
+}
