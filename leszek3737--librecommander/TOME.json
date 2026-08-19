@@ -4,7 +4,7 @@
   "repo": "LibreCommander",
   "description": "Modern dual-panel MC for Norton/MC muscle memory in one offline Rust binary \u2014 no async runtime, forbid(unsafe), zip-safe archives.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leszek3737/LibreCommander",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T23:04:05Z"
+  "distributed_at": "2026-08-19T23:16:47Z"
 }
