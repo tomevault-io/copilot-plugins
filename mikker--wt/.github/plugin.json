@@ -1,0 +1,9 @@
+{
+  "name": "mikker--wt",
+  "displayName": "wt",
+  "description": "Ephemeral Git worktree manager",
+  "version": "1.0.0",
+  "author": "mikker",
+  "homepage": "https://github.com/mikker/wt",
+  "skills": []
+}
