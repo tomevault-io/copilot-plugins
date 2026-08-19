@@ -1,0 +1,9 @@
+{
+  "name": "frankchu91--mindbase-llm-wiki",
+  "displayName": "mindbase-llm-wiki",
+  "description": "Karpathy's LLM Wiki idea as a product \u2014 an AI that builds and maintains a markdown wiki from your notes and sources. MCP server + web UI, runs on free local models (Ollama), no API key needed. MIT.",
+  "version": "1.0.0",
+  "author": "frankchu91",
+  "homepage": "https://github.com/frankchu91/mindbase-llm-wiki",
+  "skills": []
+}
