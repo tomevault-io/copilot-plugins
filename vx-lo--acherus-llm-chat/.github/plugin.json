@@ -1,0 +1,9 @@
+{
+  "name": "vx-lo--acherus-llm-chat",
+  "displayName": "acherus-llm-chat",
+  "description": "LLM-powered Trade Chat for Acherus",
+  "version": "1.0.0",
+  "author": "VX-Lo",
+  "homepage": "https://github.com/VX-Lo/acherus-llm-chat",
+  "skills": []
+}
