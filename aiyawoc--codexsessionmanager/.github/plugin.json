@@ -1,0 +1,9 @@
+{
+  "name": "aiyawoc--codexsessionmanager",
+  "displayName": "CodexSessionManager",
+  "description": "Safety-first GUI and CLI for auditing, backing up, importing, cleaning, and trimming Codex conversations without editing internal storage.",
+  "version": "1.0.0",
+  "author": "Aiyawoc",
+  "homepage": "https://github.com/Aiyawoc/CodexSessionManager",
+  "skills": []
+}
