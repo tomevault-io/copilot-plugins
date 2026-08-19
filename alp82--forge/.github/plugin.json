@@ -1,0 +1,9 @@
+{
+  "name": "alp82--forge",
+  "displayName": "forge",
+  "description": "Complexity-aware agentic coding pipeline for Claude Code",
+  "version": "1.0.0",
+  "author": "alp82",
+  "homepage": "https://github.com/alp82/forge",
+  "skills": []
+}
