@@ -1,0 +1,44 @@
+{
+  "name": "first-tree",
+  "owner": "first-tree-ai",
+  "repo": "first-tree",
+  "description": "First-tree routes work to the right agent, gives it the same context your team has, and loops humans in only when the rules say so. Lives in your GitHub. Open source.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/first-tree-ai/first-tree",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T05:34:31Z"
+}
