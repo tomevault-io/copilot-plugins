@@ -4,7 +4,7 @@
   "repo": "flashy",
   "description": "A simple browser-based ESP firmware flasher powered by Web Serial.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shenjingnan/flashy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T10:53:04Z"
+  "distributed_at": "2026-08-19T10:55:07Z"
 }
