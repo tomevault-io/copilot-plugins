@@ -1,0 +1,9 @@
+{
+  "name": "makenotion--lore",
+  "displayName": "lore",
+  "description": "Persistent, shared AI memory backed by Notion for MCP-compatible assistants.",
+  "version": "1.0.0",
+  "author": "makenotion",
+  "homepage": "https://github.com/makenotion/lore",
+  "skills": []
+}
