@@ -1,0 +1,9 @@
+{
+  "name": "villith--relink-logs",
+  "displayName": "relink-logs",
+  "description": "Relink Logs lets you track damage statistics with a nice overlay DPS meter for Granblue Fantasy: Relink.",
+  "version": "1.0.0",
+  "author": "villith",
+  "homepage": "https://github.com/villith/relink-logs",
+  "skills": []
+}
