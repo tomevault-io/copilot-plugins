@@ -1,0 +1,44 @@
+{
+  "name": "deep-work",
+  "owner": "Sungmin-Cho",
+  "repo": "deep-work",
+  "description": "Evidence-Driven Development Protocol for Claude Code and Codex \u2014 spec-first, TDD-enforced Brainstorm \u2192 Research \u2192 Plan \u2192 Implement \u2192 Test workflow. Part of deep-suite.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Sungmin-Cho/deep-work",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T10:45:51Z"
+}
