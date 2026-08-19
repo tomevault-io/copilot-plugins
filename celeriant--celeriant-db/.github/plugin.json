@@ -1,0 +1,9 @@
+{
+  "name": "celeriant--celeriant-db",
+  "displayName": "celeriant-db",
+  "description": "Fast, distributed per-aggregate event log with strict ordering and optimistic concurrency control.",
+  "version": "1.0.0",
+  "author": "celeriant",
+  "homepage": "https://github.com/celeriant/celeriant-db",
+  "skills": []
+}
