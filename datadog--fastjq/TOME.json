@@ -4,7 +4,7 @@
   "repo": "fastjq",
   "description": "A fast jq engine for Go with a principled allocation model, designed for high-throughput structured log processing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DataDog/fastjq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T09:35:19Z"
+  "distributed_at": "2026-08-19T09:36:02Z"
 }
