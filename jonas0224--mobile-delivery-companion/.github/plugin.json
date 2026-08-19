@@ -1,0 +1,9 @@
+{
+  "name": "jonas0224--mobile-delivery-companion",
+  "displayName": "mobile-delivery-companion",
+  "description": "DropRoute: offline-first field companion with SQLite outbox sync and conflict resolution",
+  "version": "1.0.0",
+  "author": "jonas0224",
+  "homepage": "https://github.com/jonas0224/mobile-delivery-companion",
+  "skills": []
+}
