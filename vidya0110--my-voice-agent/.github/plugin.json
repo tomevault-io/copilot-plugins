@@ -1,0 +1,9 @@
+{
+  "name": "vidya0110--my-voice-agent",
+  "displayName": "my-voice-agent",
+  "description": "AI-powered voice interviewer built with Murf Falcon, LiveKit, Deepgram, and Gemini/OpenAI. Developed as part of the #VoiceForBharat 10 Days of Voice Agents challenge.",
+  "version": "1.0.0",
+  "author": "vidya0110",
+  "homepage": "https://github.com/vidya0110/my-voice-agent",
+  "skills": []
+}
