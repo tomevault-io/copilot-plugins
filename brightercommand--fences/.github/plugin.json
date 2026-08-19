@@ -1,0 +1,9 @@
+{
+  "name": "brightercommand--fences",
+  "displayName": "Fences",
+  "description": "Fences is a .NET resilience and transient-fault-handling library that allows developers to express policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and th",
+  "version": "1.0.0",
+  "author": "BrighterCommand",
+  "homepage": "https://github.com/BrighterCommand/Fences",
+  "skills": []
+}
