@@ -1,0 +1,9 @@
+{
+  "name": "hotchpotch--trn",
+  "displayName": "trn",
+  "description": "trn - Fast translation CLI using Apple's Translation framework",
+  "version": "1.0.0",
+  "author": "hotchpotch",
+  "homepage": "https://github.com/hotchpotch/trn",
+  "skills": []
+}
