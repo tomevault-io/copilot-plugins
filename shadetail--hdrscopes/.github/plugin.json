@@ -1,0 +1,9 @@
+{
+  "name": "shadetail--hdrscopes",
+  "displayName": "HDRScopes",
+  "description": "Real-time video scopes for the live Windows HDR signal - waveform, histogram, vectorscope, CIE chromaticity",
+  "version": "1.0.0",
+  "author": "Shadetail",
+  "homepage": "https://github.com/Shadetail/HDRScopes",
+  "skills": []
+}
