@@ -4,7 +4,7 @@
   "repo": "agent.pw",
   "description": "Share APIs with agents, without sharing secrets.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clavia-labs/agent.pw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T09:33:19Z"
+  "distributed_at": "2026-08-19T09:34:02Z"
 }
