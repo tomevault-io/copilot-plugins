@@ -1,16 +1,19 @@
-## frontend-standards
+## python-standards
 
-> Frontend conventions for Agate UI, Stylebook UI, and shared TS/React UI
+> Python readability and structure conventions for Backfield
 
 
-# Frontend Standards
+# Python Standards
 
-- **User-visible copy:** write labels, errors, tooltips, empty states, and dialogs for a **non-technical end user**. **Avoid technical or code-related language** (API routes, field names, stack traces, env vars, DB terms, etc.) unless the screen is explicitly developer-only. See `docs/development/frontend/conventions.md` → **User-facing copy** and `AGENTS.md` → **Engineering posture**.
-- Keep components readable and explicit; extract smaller helpers or components when files become hard to scan.
-- Prefer typed props and API response shapes over `any`.
-- Reuse shared API helpers, UI primitives, and existing patterns before adding a new abstraction.
-- Keep browser storage keys and custom event names consistent with existing prefixes and docs.
-- Do not hand-edit generated node registry output unless the generation flow itself is changing.
+- Prefer **strict typing**: type hints on public functions, methods, and module-level values where the type is not obvious from context. Avoid `Any` unless unavoidable; prefer concrete types, unions, generics, or `TypedDict` when a full Pydantic model is not warranted.
+- Prefer **Pydantic** for structured data: use `BaseModel` (or existing project models such as `GraphSpec` and SQLModel row types) for HTTP bodies, validated JSON, and config shapes. Parse at boundaries; do not thread raw untyped `dict`/`list` through multiple layers when a model fits.
+- Use `from __future__ import annotations` in new modules when it keeps forward references and annotations readable (match surrounding files in the same package).
+- Put imports at the top of the file unless a local import is needed to avoid a circular import or heavy optional dependency.
+- If you use a local import, add a short comment explaining why.
+- Prefer human readability over idiomatic cleverness.
+- Split large functions into smaller focused helpers, including private helpers, when that improves scanning the file.
+- Use descriptive names for functions, classes, variables, and tests.
+- Avoid speculative abstraction or generic helpers that only serve one call site.
 
 ---
 > Source: [localangle/backfield](https://github.com/localangle/backfield) — distributed by [TomeVault](https://tomevault.io).
