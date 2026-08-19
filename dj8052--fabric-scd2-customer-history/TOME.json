@@ -1,0 +1,44 @@
+{
+  "name": "fabric-scd2-customer-history",
+  "owner": "DJ8052",
+  "repo": "fabric-scd2-customer-history",
+  "description": "Microsoft Fabric SCD Type 2 customer history implementation using Dataflow Gen2, Lakehouse staging, Warehouse dimensional modeling, and T-SQL stored procedures.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DJ8052/fabric-scd2-customer-history",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T02:54:34Z"
+}
