@@ -1,0 +1,9 @@
+{
+  "name": "phnx-labs--agi-cli",
+  "displayName": "agi-cli",
+  "description": "AGI CLI ~ a meta-harness for building Agent Factories",
+  "version": "1.0.0",
+  "author": "phnx-labs",
+  "homepage": "https://github.com/phnx-labs/agi-cli",
+  "skills": []
+}
