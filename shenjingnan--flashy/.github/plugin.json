@@ -1,0 +1,9 @@
+{
+  "name": "shenjingnan--flashy",
+  "displayName": "flashy",
+  "description": "A simple browser-based ESP firmware flasher powered by Web Serial.",
+  "version": "1.0.0",
+  "author": "shenjingnan",
+  "homepage": "https://github.com/shenjingnan/flashy",
+  "skills": []
+}
