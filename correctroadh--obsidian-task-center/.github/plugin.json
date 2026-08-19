@@ -1,0 +1,9 @@
+{
+  "name": "correctroadh--obsidian-task-center",
+  "displayName": "obsidian-task-center",
+  "description": "Task board + CLI for energy-based task management on top of Obsidian Tasks syntax",
+  "version": "1.0.0",
+  "author": "CorrectRoadH",
+  "homepage": "https://github.com/CorrectRoadH/obsidian-task-center",
+  "skills": []
+}
