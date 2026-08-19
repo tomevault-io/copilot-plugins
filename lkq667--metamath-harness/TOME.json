@@ -1,0 +1,44 @@
+{
+  "name": "metamath-harness",
+  "owner": "LKQ667",
+  "repo": "metamath-harness",
+  "description": "DeepSeek Harness 0.1.0-rc.6 \u6570\u5b66\u5efa\u6a21\u589e\u5f3a\u5957\u4ef6\uff1a\u5916\u7f6e\u63d2\u4ef6 + Preset + 17 \u4e2a\u624b\u52a8 Skill \u5361\u7247 + Windows \u4fbf\u643a\u7248\u811a\u672c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LKQ667/metamath-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-19T20:34:11Z"
+}
