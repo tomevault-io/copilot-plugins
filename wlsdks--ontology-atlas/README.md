@@ -7,11 +7,11 @@ Understand what your AI agents are building. Agent-native, human-sovereign ontol
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wlsdks/ontology-atlas](https://github.com/wlsdks/ontology-atlas).
+Original source: `AGENTS.md` in [wlsdks/ontology-atlas](https://github.com/wlsdks/ontology-atlas).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
