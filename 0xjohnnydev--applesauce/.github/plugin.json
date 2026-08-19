@@ -1,0 +1,9 @@
+{
+  "name": "0xjohnnydev--applesauce",
+  "displayName": "Applesauce",
+  "description": "A playful emulator for iOS. Plays supported 32-bit iPhone games on iOS 15+ \u2014 no jailbreak needed, though JIT is. An unaffiliated fork of touchHLE and HyperHLE; neither project endorses it.",
+  "version": "1.0.0",
+  "author": "0xjohnnydev",
+  "homepage": "https://github.com/0xjohnnydev/Applesauce",
+  "skills": []
+}
