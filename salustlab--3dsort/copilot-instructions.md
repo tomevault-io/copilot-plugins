@@ -1,0 +1,819 @@
+## 3dsort
+
+> Contexto estático para desenvolvimento assistido por IA. Leia antes de qualquer mudança.
+
+# CLAUDE.md — 3DSort
+
+Contexto estático para desenvolvimento assistido por IA. Leia antes de qualquer mudança.
+Última revisão: 2026-08-16 (suporte a CARTÃO MULTI-CONSOLE: id0 desempatado pelo
+movable, script de dump console-agnóstico, container alheio degrada para read-only,
+ver §5.1/§5.8/§10. Antes: Fase 4 e gates de hardware 0B/0C, §10).
+
+## 1. O que é o projeto
+
+**3DSort** é um app desktop (Windows-first) que reorganiza o layout do HOME menu do
+Nintendo 3DS editando o SD card do console montado no PC: reordenar ícones por
+drag-and-drop, mover jogos entre pastas, presets de ordenação, preview ao vivo de como
+ficará no console, escrita staged com backup automático e histórico restaurável.
+
+- **Público**: comunidade 3DS (consoles com CFW — Luma3DS + GodMode9). Distribuído
+  como **exe portátil sem instalador** (PyInstaller onefile, `3DSort.spec`, §10).
+  Windows-first no empacotamento; o código roda no Linux a partir do fonte
+  (detecção de mount + nome do binário são platform-aware, §10/README).
+- **Protótipo visual de referência**: `prototype/3DSort Prototype.dc.html` (com
+  `prototype/support.js`, que é apenas o runtime do mockup — ignorar como código de
+  produção). A UI real em `ui/` porta esse visual; em dúvida de UX/estética, consultar o
+  protótipo.
+- **Escopo v1**: abas GRID, SYNC, INSTRUCTIONS e SETTINGS; ícones reais dos jogos (requisito firme do
+  usuário); staging/undo/redo; backups. Abas RULES (auto-sort por regras) e THEMES/badges
+  ficaram para v2. v1.1 (implementado e validado em hardware, §10): reordenar apps
+  NAND/pastas/Game Card e criar/renomear/apagar pastas via escrita do Launcher.dat com
+  injeção assistida por GodMode9; desembrulho automático e preservação de tema.
+
+## 2. Arquitetura (decidida e aprovada — não reabrir sem motivo novo)
+
+**Backend Python + UI HTML via pywebview + binário `save3ds` embarcado.**
+
+- Webapp hospedado foi **descartado**: servidor não acessa o SD local do usuário.
+- Tauri/Rust descartado: save3ds já resolve a parte difícil como CLI; reescrever o backend
+  em Rust não traz ganho funcional.
+- Webapp estático + File System Access API descartado: Chromium-only e exigiria
+  reimplementar a criptografia do 3DS em JS.
+- A UI conversa com a MESMA classe `Api` por dois canais: ponte `js_api` do pywebview
+  (app real, janela nativa via WebView2) e modo dev `--serve` (stdlib `http.server`,
+  `POST /api/<metodo>` com corpo `{"args": [...]}` posicional). O modo `--serve` existe
+  para testes Playwright e desenvolvimento.
+
+### Mapa do repositório
+
+```
+F:\Projects\3DSort\
+├── CLAUDE.md               ← este arquivo
+├── 3DSort.spec             ← build PyInstaller onefile/windowed (Fase 4)
+├── LICENSE                 ← GPL-3.0 (mesma do Cthulhu, de onde veio o desembrulho §5.4)
+├── requirements.txt        ← runtime (pywebview, Pillow, pyctr)
+├── requirements-dev.txt    ← -r requirements.txt + pytest + pyinstaller
+├── docs/images/            ← screenshots do README (capturadas em --mock: SEM dados
+│                             do console real; `/*.png` do .gitignore é ancorado na raiz)
+├── prototype/              ← mockup visual de referência (não é código de produção)
+├── app.py                  ← Api (camada única UI↔core), FakeSave3ds/mock, --serve, --selftest, main
+├── spike.py                ← prova de viabilidade da Fase 1 (histórico; já cumpriu o papel)
+├── conftest.py             ← vazio; existe só para o pytest achar core/ no sys.path
+├── core/
+│   ├── savedata.py         ← parse/serialize do SaveData.dat (layout do HOME menu)
+│   ├── launcher.py         ← classe Launcher: parse/serialize do Launcher.dat (NAND)
+│   ├── icons.py            ← Cache.dat/CacheD.dat → nomes + ícones PNG base64 (SMDH)
+│   ├── store.py            ← Staging (undo/redo por snapshot) e Backups (.3dsl + jsonl)
+│   ├── sdcard.py           ← detecção SD/console/região + wrapper save3ds (--sdext e --nandsave)
+│   ├── titledates.py       ← tid → data de lançamento (tabela offline embutida)
+│   └── titledates.json.gz  ← tabela gerada por tools/build_titledates.py (COMMITADA; ~16KB)
+├── ui/
+│   ├── index.html          ← tela única, CSS fiel ao protótipo (paleta creme/DotGothic16)
+│   ├── app.js              ← JS puro; render por innerHTML + bind(); estado P (prefs) + S (backend)
+│   ├── fonts/              ← Nunito (variável) + DotGothic16 woff2 latin, servidas offline
+│   └── 3dsort.ico          ← ícone do exe e favicon (gerado por tools/make_icon.py)
+├── tests/
+│   ├── test_savedata.py    ← unit: round-trip binário, invariantes
+│   ├── test_launcher.py    ← unit: parse + round-trip/diff-locality/lifecycle do Launcher
+│   ├── test_icons.py       ← unit: decode Morton/RGB565 (com encoder inverso), nomes SMDH
+│   ├── test_store.py       ← unit: staging, backups, prune, histórico
+│   ├── test_sdcard.py      ← unit: console/região; id0 do movable; árvore NAND sintética
+│   ├── test_api_state.py   ← unit: merge launcher/SD no get_state (mock)
+│   ├── test_api_launcher_edit.py ← unit: swaps entre tipos, lifecycle de pastas, inject
+│   ├── test_titledates.py  ← unit: tabela de datas + presets de sort por data
+│   ├── test_api_setup.py   ← unit: get_setup_state (estágios do wizard de onboarding)
+│   ├── test_packaging.py   ← unit: --selftest, datas do .spec, ícone, fontes vendorizadas
+│   ├── test_ui_boot.py     ← unit: escolha de canal no boot (armadilha do 405, §7)
+│   └── test_integration.py ← integração REAL (sdext + nandsave) sobre cópias + guard do G:
+├── tools/save3ds/save3ds_fuse.exe  ← v1.3.0 (wwylele/save3ds), extract/import de extdata
+├── tools/build_titledates.py ← gera core/titledates.json.gz (3dsdb + GameTDB; precisa internet)
+├── tools/make_icon.py      ← gera ui/3dsort.ico (Pillow; cartao SD + grid, 16..256px)
+└── sandbox/                ← NUNCA versionar. Cópia do SD real + chaves do console do dev
+    ├── sd/Nintendo 3DS/<id0>/<id1>/extdata/00000000/0000008f/...
+    └── keys/{boot9.bin, movable.sed, essential.exefs}
+```
+
+Dados de runtime do app instalado: `%USERPROFILE%\3DSort\{work,backups,settings.json}`
+(settings.json = escolhas do usuario: sd_root e backups_dir; lido pelo build_api,
+`--sd` da CLI vence sem sobrescrever o arquivo).
+
+## 3. Regras de segurança INEGOCIÁVEIS
+
+1. **Nenhum teste, script ou experimento escreve no SD real** (`G:` na máquina do dev).
+   Todo trabalho roda contra o **sandbox** (cópia). `tests/test_integration.py::test_real_sd_untouched_guard`
+   compara hash do extdata real entre execuções e FALHA se algo escreveu lá — não remover
+   nem enfraquecer esse teste.
+2. **Toda escrita no SD é precedida de backup automático** (`Backups.create(kind="auto")`
+   dentro de `Api.write_sd`). Regra de produto, não detalhe: nunca remover.
+3. **Escrita real só por ação explícita do usuário** (modal de confirmação no app).
+4. `sandbox/`, `*.sed`, `boot9.bin`, `essential.exefs` são **segredos/dados pessoais do
+   console** — nunca commitar, nunca publicar, nunca embutir no exe (boot9 é copyright
+   Nintendo; movable é único por console).
+5. Restaurar backup vira mudança **staged** (commit "Restored backup …") — o usuário
+   precisa poder ESCREVER o estado restaurado; não "otimizar" isso para aplicar direto.
+
+## 4. Como rodar
+
+```powershell
+# testes (148; integração real é pulada sem sandbox/chaves; o guard do SD real
+# registra uma baseline POR PASTA id0 e só compara as que já conhece. ATENÇÃO: um
+# write LEGÍTIMO pelo app também dispara o guard — conferir os timestamps do extdata
+# contra o history.jsonl dos backups antes de culpar um teste, depois re-registrar)
+python -m pytest tests -q
+
+# UI no navegador com dados reais do sandbox (modo de desenvolvimento padrão)
+python app.py --serve --sd F:\Projects\3DSort\sandbox\sd    # → http://127.0.0.1:8347
+
+# UI com dados sintéticos (sem SD/chaves — funciona em qualquer máquina)
+python app.py --serve --mock
+
+# como acima, mas sem Launcher.dat (testa a degradação: sistema/pastas read-only)
+python app.py --serve --mock --no-launcher
+
+# janela nativa (pywebview/WebView2)
+python app.py --sd F:\Projects\3DSort\sandbox\sd
+
+# spike histórico da Fase 1 (round-trip completo no sandbox)
+python spike.py
+
+# build do exe portátil + smoke dos recursos embutidos
+pyinstaller 3DSort.spec
+dist\3DSort.exe --selftest      # exit 0 = ui/, save3ds e titledates achados no bundle
+```
+
+Dependências: Python 3.10 (pyenv-win). `requirements.txt` = runtime
+(pywebview, Pillow, pyctr); `requirements-dev.txt` acrescenta pytest e
+pyinstaller. Linux: precisa de backend explícito do pywebview
+(`pip install pywebview[gtk]` ou `[qt]`) e do save3ds_fuse compilado
+(cargo) — ver README.
+
+## 5. Conhecimento de domínio 3DS (caro de redescobrir — confie nisto)
+
+### 5.1 Estrutura do SD
+
+```
+SD:\Nintendo 3DS\<id0 32 hex>\<id1 32 hex>\
+├── extdata\00000000\<extdataID baixo>\00000000\{00000001..00000005}
+├── title\...   (jogos instalados, também criptografados)
+└── dbs\...
+```
+
+- extdata do HOME menu por região: **JPN `00000082` · USA `0000008f` · EUR `00000098`
+  · CHN `000000a1` · KOR `000000a9` · TWN `000000b1`** (mapa em
+  `core/sdcard.py::HOME_EXTDATA_IDS`). O console do dev é **USA**. JPN/USA/EUR são
+  validados em hardware; CHN/KOR/TWN entraram em 2026-08-17 a partir do 3dbrew e do
+  3ds.hacks.guide (secção de limpar extdata do HOME) e **nunca rodaram num console**
+  — o `NAND_SAVE_IDS` é DERIVADO (`0002` + nº da região), regra que vale nos três
+  validados. O ID do extdata NÃO deriva do title ID do HOME menu (USA = title
+  `9902`, extdata `8f`): são numerações independentes, não "simplificar" isso.
+  As pastas podem estar em MAIÚSCULA (é assim que a documentação escreve), então
+  `find_console` e `Console.extdata_dir` casam sem depender de caixa: só o `8f`
+  tinha letra entre as 3 originais, e por isso o bug nunca apareceu.
+- **UM CARTÃO PODE TER VÁRIOS id0** (aprendido em 2026-08-16, §10): usado em mais de um
+  console, ou mantido através de um formato de sistema, o SD acumula pastas id0 órfãs
+  INDISTINGUÍVEIS da viva (todas com extdata do HOME). `find_console(sd, prefer_id0=)`
+  desempata pelo `id0_from_movable` do `movable.sed` do próprio cartão
+  (`Api._sd_movable_id0`); sem dica, primeira encontrada. Nunca assumir id0 único.
+- Após decriptação via save3ds, o extdata vira: `user/SaveData.dat`, `user/Cache.dat`,
+  `user/CacheD.dat`, `icon`, `boss/`.
+
+### 5.2 Criptografia
+
+- Tudo sob `Nintendo 3DS/<id0>/<id1>/` é AES por chaves únicas do console:
+  KeyX 0x34 (vem do **boot9.bin**, bootrom, igual em todos os consoles) + KeyY (vem do
+  **movable.sed**, único por console, MUDA a cada formato de sistema/transferência).
+- O CTR deriva do caminho do arquivo RELATIVO à raiz id1 — renomear id0/id1 não quebra a
+  decriptação (útil para montar sandboxes).
+- **id0 = SHA-256(KeyY)[0:16] lidos como 4 u32 little-endian, cada um em hex** (é o
+  DIGEST que sofre o swap de bytes, não a KeyY), onde KeyY = bytes `0x110:0x120` do
+  movable.sed. Implementado e validado contra o console real em
+  `core/sdcard.py::id0_from_movable`. O save3ds usa isso para achar a pasta — se o
+  movable for de outro estado do console, dá `NotFound` (pasta não existe para aquele
+  id0) ou `Signature mismatch` (CMAC não bate).
+
+### 5.3 A ARMADILHA da chave velha (custou horas — não repetir)
+
+Backups do GodMode9 podem conter **movable.sed obsoleto**:
+- `essential.exefs` (em `gm9/backups/`) e o essential **embutido a offset 0x200 dentro de
+  imagens de NAND** `.bin` do GM9 refletem o estado NA ÉPOCA DO BACKUP.
+- Se o console passou por formato/transferência depois, esse movable NÃO decripta o SD
+  atual (sintomas acima).
+- **Fonte confiável**: dump direto no console — GodMode9 → `[1:] SYSNAND CTRNAND` →
+  `private/movable.sed` → Copy to `0:/gm9/out`. boot9: GodMode9 → `[M:] MEMORY VIRTUAL` →
+  `boot9.bin` (65536 bytes) → Copy.
+- IMPLEMENTADO (2026-08-15): o `3DSort_dump.gm9` dumpa as chaves direto do console
+  (`1:/private/movable.sed` e `M:/boot9.bin` → `0:/3DSort/`) junto do container, e
+  `Api._resolve_keys` valida o movable contra o id0 da pasta em todo import
+  (`id0_from_movable`); chave de outro estado do console = erro pedindo re-dump.
+  O onboarding da Fase 4 só precisa apontar o script; nunca aproveitar backups antigos.
+
+### 5.4 SaveData.dat (formato v4 — fonte: 3dbrew /wiki/Home_Menu)
+
+Tamanho exato `0x2DA0`. Offsets implementados em `core/savedata.py`:
+
+| Offset | Tipo | Conteúdo |
+|--------|------|----------|
+| 0x0 | u8 | versão (só aceitamos 4) |
+| 0x8 | u64[360] | title IDs dos ícones |
+| 0xB48 | s8[360] | flag de embrulho (gift box): **0 = desembrulhado SEMPRE** (mecanismo do "Unwrap all" do Cthulhu, github.com/Ryuzaki-MrL/Cthulhu GPL-3, reimplementado em `set_all_status`); 1 = embrulhável (só embrulha combinado com condição de "novo" do console). NÃO é critério de exibição; nunca filtrar por ele. TODO write zera o array (decisão do usuário 2026-08-15: sem opção, sempre ligado) |
+| 0xCB0 | s16[360] | posição linear no grid |
+| 0xF80 | s8[360] | pasta do ícone (−1 = home grid) |
+| 0x10E8–0x12C8 | ? | NÃO documentado — preservar byte a byte |
+| 0x12C8 | u32[60] | nº de batismo por pasta, fid-indexado (60×4 termina exato em 0x13B8) — provado no gate 0B (2026-08-14): create escreve o próximo nº, rename não toca, delete deixa órfão |
+| 0x13B8+ | — | temas/shuffle (`OFF_THEMES`). O write ENXERTA esta região da versão ATUAL do cartão (`graft_tail`, extract fresco em `write_sd`): tema trocado no console nunca regride, nem via restore |
+
+- **Preservação é a estratégia central**: `SaveData` guarda o buffer inteiro e só reescreve
+  os arrays conhecidos. Round-trip byte-idêntico é garantido por construção e testado.
+- **Critério de ativo = tid ∉ {0, 0xFFFF…} e pos ≥ 0, IGUAL ao Launcher** (3dbrew:
+  "equivalent to the same array in Launcher.dat"). Corrigido no gate 0C (2026-08-14):
+  o critério antigo `status == 1` escondia 15 jogos reais do console do dev (9 no home
+  pos 26–34, 6 dentro da pasta Homebrew pos 0–5 — por isso o H&S ficava na pos 6) e
+  causou colisão real: `folder_create` pôs a pasta na pos 26, em cima de jogo oculto;
+  o console exibiu a pasta e RESOLVEU sozinho reescrevendo o SaveData no boot
+  (jogos 26–34 viraram 27–35), sem corromper nada.
+- **Embrulho (gift box) NÃO vive nos arquivos que gerenciamos** (0C: console
+  desembrulhou 5 ícones com SaveData/Cache byte-intocados). Cosmético, some ao abrir
+  o título; não caçar mais. Pós-write o console também pode REORDENAR itens novos
+  dentro de pasta (permuta tid↔slot content-preserving) e ajustar status de slots
+  vazios — diffs assim são normais, tolerar. **Confirmado também no HOME GRID
+  (2026-08-16, 2º console)**: sort A→Z de 118 jogos chegou perfeito exceto por UMA
+  troca de vizinhos na primeira posição de jogo (o app escreveu `80's OVERDRIVE`
+  na pos 15 e `Animal Crossing` na 16; o console exibiu invertido, resto intacto).
+  Escala de 1 permuta em 118 e localizada na fronteira NAND/cart→SD: é o console,
+  não o `apply_order` (que é sequencial e não tem como intercalar um item só).
+  Não perseguir; se incomodar, arrastar os dois no app e reescrever.
+- **O espaço de posições é COMPARTILHADO entre NAND e SD** (confirmado empiricamente:
+  no console do dev os jogos SD ocupam 13, 15–25; 0–12 e 14 são apps NAND — pode haver
+  app NAND misturado no meio dos jogos). As posições NAND vivem no Launcher.dat (§5.8).
+  `apply_order` distribui posições **por contêiner** (home grid e cada pasta), pulando
+  as reservadas: menores posições livres na ordem dada. COM launcher, reservas = só as
+  posições do Launcher.dat (apps NAND, tiles de pasta, cart): todo dono é conhecido
+  desde o fix do critério tid+pos (o "buraco da pos 11" era o cart; os demais eram
+  jogos status-0), então buraco = vaga livre real e o write compacta (gate 0C; o
+  console exibe buracos sem drama, mas o usuário quer compactação). SEM launcher,
+  lacunas continuam reservadas (donos invisíveis possíveis). A antiga densificação
+  0..n-1 foi removida; a reserva eterna de buracos com launcher também (2026-08-15).
+- **Posições são LOCAIS ao contêiner** (CONFIRMADO no dump real do Launcher.dat: Health &
+  Safety tem pos=6 dentro da pasta 0 enquanto AR Games tem pos=6 no home grid). Item de
+  pasta reinicia a contagem na própria pasta.
+- **O console exibe o grid em ordem COLUNA-MAJOR**: posição linear `n` → coluna `n÷linhas`,
+  linha `n mod linhas` (preenche de cima para baixo, depois para a direita). Provado pelas
+  6 fotos em `sample/` (2026-08-14, uma por modo de visão): o buraco da pos 11 e a pasta
+  na pos 12 caem exatamente onde a fórmula prevê em todos os modos. O preview da UI
+  transpõe por isso (`ui/app.js::previewCol`); desde 2026-08-14 o grid de edição usa a
+  MESMA transposição/paginação (pedido do usuário — antes era row-major). Colunas
+  inteiras visíveis por modo (contadas nas fotos): 3/3/5/7/9/10.
+
+### 5.5 Ícones e nomes (Cache.dat / CacheD.dat)
+
+- `Cache.dat`: header 8 bytes (byte 0 = versão) + entradas de 16 bytes
+  `{u64 titleID, u32 versão, u32 ?}`; tid `0xFFFF…` = slot vazio. Índice da entrada = índice
+  no CacheD.
+- `CacheD.dat`: um **SMDH completo (0x36C0)** por entrada — dá ícone E nomes localizados.
+  Nome curto UTF-16LE em `0x8 + lang*0x200` (lang 1 = inglês). Ícone grande 48×48 a
+  `0x24C0`, RGB565, tiles 8×8 em **ordem Morton** (z-curve, tabela `MORTON` em
+  `core/icons.py`). Entradas sem magic `SMDH` são títulos **TWL/DSiWare**: header SRL
+  @0x0 (título 12 bytes + gamecode) + **banner NDS @0x378** (validado em dump real) —
+  versão u16 ∈ {1,2,3,0x103}, ícone 32×32 4bpp @+0x20 (tiles 8×8 lineares, nibble baixo
+  = pixel esquerdo), paleta RGB555 @+0x220 (índice 0 = transparente), títulos UTF-16
+  0x100 bytes/língua @+0x240 (lang 1 = inglês; 1ª linha = nome). Decode em
+  `core/icons.py::twl_short_name/twl_icon_png_b64`.
+- O cache do console pode ter MAIS nomes que ícones ativos (39 nomes vs 12 ativos no SD do
+  dev) — normal, inclui títulos NAND.
+
+### 5.6 save3ds (tools/save3ds/save3ds_fuse.exe, v1.3.0)
+
+```
+save3ds_fuse --sdext <16 dígitos hex, ex 000000000000008f>
+             --sd <raiz do SD> --boot9 <boot9.bin> --movable <movable.sed>
+             --extract|--import <dir>
+```
+
+- `--extract` LÊ o SD; `--import` LIMPA e reescreve o extdata a partir do dir. Import é o
+  modo recomendado pelo autor para modificar extdata (mount FUSE não existe no Windows).
+- Extdata não suporta resize nativo; save3ds recria arquivos ao redimensionar (lento) e
+  **arquivos de tamanho zero quebram no console** — nunca criar.
+- **ARMADILHA do import incompleto (custou o incidente da 0C)**: importar o extdata SEM
+  o diretório `boss/` (mesmo vazio) faz o HOME menu RECONSTRUIR o SaveData.dat no boot:
+  slots reindexados, status = 1 em tudo, ícones SD embrulhados, tema resetado ao
+  default, membros de pasta ejetados ao home, Cache/CacheD regenerados (dados não são
+  perdidos: layout precisa ser rearrumado e tema reativado à mão). Zip de backup
+  descartava diretórios vazios — corrigido em `Backups.create` (entries de diretório)
+  + cinto em `restore_backup` (garante `boss/`). A árvore importada deve SEMPRE
+  espelhar a estrutura completa do extract.
+- Releases: binário Windows só até v1.3.0 (v1.4.0 não tem assets).
+- pyctr complementa: `ExeFSReader` para ler `movable` de essential.exefs; SMDH de títulos
+  se um dia o CacheD não bastar.
+
+### 5.7 Pastas (v1.1 — implementado, gates de hardware pendentes)
+
+`SaveData.dat` (SD) guarda apenas **a qual pasta cada ícone pertence** (s8). As
+**definições** das pastas — nome, posição, linhas — vivem em `Launcher.dat` (§5.8).
+Desde 2026-08-14 o app EDITA o Launcher.dat via container do system save:
+- Reordenar/renomear/criar/apagar pastas e mover apps NAND entre contêineres:
+  implementado como mudanças staged (chaves de entidade, §6); a escrita gera payload
+  de injeção + scripts GM9 (§5.8).
+- Nome de pasta: 0x22 bytes UTF-16LE = **16 unidades + NUL garantido** (validado em
+  `Launcher.set_folder_name`). Create usa o menor fid livre (fpos<0 e sem referência
+  ativa em SD/NAND), nome "New folder", rows 2. Delete zera nome, rows=2, fpos=-1 e
+  devolve membros ao home (jogos por rank no fim; NAND com posições explícitas depois).
+- **GATE 0B CUMPRIDO** (2026-08-14, console real, dumps em `sandbox/gate0B/`):
+  - create (console): fpos=35 (fim do grid, NÃO a menor livre), rows=1 (nosso default 2
+    também é aceito — Homebrew usa 2), nome default "２" (nº fullwidth) JÁ gravado no
+    Launcher; SaveData: nº de batismo escrito em `numeros[fid]` (u32 @0x12C8, §5.4);
+    Launcher: contador "próximo nº de pasta" (u32 @0xD80 + byte espelho @0xD85)
+    incrementado.
+  - rename (console): só o campo de nome no Launcher; SaveData byte-idêntico.
+  - delete (console): fpos=−1, nome zerado, rows fica como estava; nº no SaveData fica
+    ÓRFÃO e o contador @0xD80 NÃO decrementa.
+  - Patch de espelhamento IMPLEMENTADO (2026-08-14): `write_sd` escreve o nº de
+    batismo das pastas novas (`SaveData.set_folder_number`, contador lido do Launcher
+    corrente) e `_write_launcher` incrementa o contador
+    (`Launcher.set_next_folder_number`). Delete não limpa nada (igual ao console).
+    Prova final (boot com pasta criada pelo app) fica na Fase 0C.
+
+### 5.8 Launcher.dat (apps NAND — leitura E escrita em core/launcher.py)
+
+- Local: system save do HOME menu na NAND — `nand:/data/<id0>/sysdata/<ID>/00000000`,
+  ID por região: **JPN `00020082` · USA `0002008f` · EUR `00020098` · CHN `000200a1`
+  · KOR `000200a9` · TWN `000200b1`** (mapa `NAND_SAVE_IDS` em core/sdcard.py,
+  derivado do `HOME_EXTDATA_IDS`; ver a ressalva de §5.1 sobre CHN/KOR/TWN).
+- **REGION CHANGE (limitação conhecida, 2026-08-17)**: `_nand_save_id()` tira a
+  região do EXTDATA DO SD, enquanto o `3DSort_dump.gm9` usa o `$[REGION]` do
+  SecureInfo da NAND. Num console com região trocada as duas fontes podem
+  discordar e o app pediria `--nandsave` com o ID errado. Não corrompe: o
+  `save3ds` falha e o `_read_launcher` degrada para read-only (§5.8). O
+  `prefer_id0` torna isso raro (a pasta escolhida é a que casa com o movable
+  atual). Se aparecer relato, a correção é ler a região do próprio container em
+  vez do SD.
+- **Fontes, em ordem de precedência** (`Api._find_container`/`_read_launcher`):
+  1. CONTAINER `homemenu_save.bin` (o arquivo `00000000` inteiro, DISA 64KB) — canal
+     EDITÁVEL. Procurado em `<sd>/3DSort/homemenu_save.bin` (onde o script GM9 de dump
+     deixa), `sandbox/keys/` (dev) e `%USERPROFILE%\3DSort\`. Com escrita pendente, o
+     payload gerado `homemenu_save_new.bin` tem precedência (a verdade do app).
+     Container de OUTRO console (fallback do `sandbox/`/`APP_DIR` com cartão novo) não
+     decripta: `nand_extract` levanta `Signature mismatch`, e desde 2026-08-16
+     `_read_launcher` CAI PARA O FALLBACK read-only em vez de derrubar o import
+     (§10, bug do segundo console).
+  2. `Launcher.dat` plano (dump via mount A:) — fallback READ-ONLY (comportamento v1).
+  3. Nada — inferência por lacunas (placeholders "System app").
+- **Canal de escrita (validado no spike 0A de 2026-08-14)**: save3ds
+  `--nandsave <ID8hex> --nand <dir> --boot9 <boot9> --extract|--import` sobre árvore
+  NAND sintética `nand/{private/movable.sed, data/<id0>/sysdata/<id>/00000000}`
+  (`Save3ds.build_nand_tree`). Extract do container real == dump GM9 byte a byte; o
+  save contém APENAS `Launcher.dat`. Patch raw do container é INVIÁVEL (IVFC).
+- **Disciplina da âncora (aprendida a ferro na 0C)**: TODA sessão do HOME drifta bytes
+  voláteis do container, então `homemenu_save.bin.sha` só é confiável vindo do
+  `cp --hash` do `3DSort_dump`. O app NUNCA fabrica essa âncora; escrita de launcher
+  exige o par bin+sha fresco (senão erro pedindo re-dump) e o promote pós-inject
+  DESCARTA as âncoras de propósito. Ciclo de escrita do launcher sempre começa com
+  dump fresco. Restore total pode fazer dump+inject na mesma sessão GM9 (gate 2 vira
+  tautologia, aceitável só porque a intenção é sobrescrever tudo).
+- **Chaves sem cópia manual (2026-08-15)**: `3DSort_dump.gm9` é publicado em TODO
+  `import_sd` (não só na escrita — mata o chicken-and-egg do usuário novo) e dumpa,
+  além do container, `movable.sed` (de `1:/private/`) e `boot9.bin` (de `M:/`) em
+  `0:/3DSort/`. `Api._resolve_keys` procura boot9/movable em `<sd>/3DSort/` >
+  `<sd>/gm9/out/` > paths do `build_api` (`sandbox/keys/` > `%USERPROFILE%\3DSort\`),
+  valida o movable contra `console.id0` e devolve erro amigável (chaves ausentes ou
+  de outro estado do console) em vez do `FileNotFoundError` cru.
+- **Script de dump é CONSOLE-AGNÓSTICO (2026-08-16)**: `gm9_dump_script()` não recebe
+  mais id0/save_id. O script resolve tudo no console via variáveis do GodMode9:
+  `$[SYSID0]` (id0 do movable da SysNAND, mesmo `1:` de onde ele copia) e `$[REGION]`
+  (do SecureInfo) num `if chk`/`elif` gerado a partir de `NAND_SAVE_IDS`, com `else`
+  que aborta dizendo que a região não é suportada (evita `sysdata//00000000` mudo em
+  AUS/UNK). Motivo: id0 embutido = script quebrado em qualquer cartão multi-console
+  (§10). O `3DSort_inject.gm9` CONTINUA por console: quando ele é gerado as chaves já
+  foram validadas contra o id0 certo e os 3 gates sha abortam em console errado.
+- **Injeção**: o app publica `<sd>/3DSort/homemenu_save_new.bin` + `.sha` + scripts
+  `<sd>/gm9/scripts/3DSort_{dump,inject}.gm9`. O inject tem gates sha duros (payload
+  íntegro; NAND == dump original, aborta se o HOME bootou no meio; cópia bit-perfeita)
+  + `fixcmac` + recibo `inject_done.sha`. O app confirma o recibo no próximo import e
+  promove o payload a dump corrente.
+- **SCRIPT DE INJECT NUNCA SOBREVIVE AO PAYLOAD (2026-08-16, relatado pelo usuário)**:
+  `_promote_payload` apagava os `.sha` mas DEIXAVA o `3DSort_inject.gm9` no cartão.
+  Rodar esse script órfão aborta no GATE 1 (payload não existe), o que na tela do
+  console é indistinguível de "a escrita quebrou" — susto grande, causa nenhuma.
+  Corrigido: `_promote_payload` chama `_delete_inject_script()` (helper reusado pelo
+  `cancel_inject`), então verify/confirm/cancel removem o script junto. O
+  `3DSort_dump.gm9` FICA sempre (é o próximo passo do usuário). Coberto por
+  `test_consumed_inject_script_is_removed` (verify E confirm). **GATE PENDENTE (Fase 0C)**: uma escrita real
+  validada no console (trocar 2 apps NAND, injetar, bootar, fotografar, restaurar).
+- Tamanho: 3dbrew documenta `0x2490`, mas o console real (11.17 USA) produz **`0x2558`**
+  — 200 bytes extras no FIM, offsets conhecidos idênticos (validado no dump do dev; o
+  parser aceita `>= 0x2490`). Offsets: tids NAND u64[360] @0x8; posições s16[360] @0xD9A
+  (locais ao contêiner, ver §5.4); pasta s8[360] @0x106A. Pastas: posições s16[60] @0x11DC
+  (−1 = apagada), linhas u8[60] @0x1434, nomes UTF-16LE 0x22 bytes @0x1560.
+- Campos empíricos fora dos arrays (gate 0B, 2026-08-14): u32 @0xD80 + byte espelho
+  @0xD85 = "próximo nº de pasta" (nome default); bytes voláteis @0xB51/@0xB54/@0xB5C
+  (estado de cursor/UI, mudam a cada sessão do HOME) e ~12 bytes de estatísticas na
+  cauda (0x1FA4, 0x2298, …) — o console regenera sozinho; stale pós-inject presumido
+  inofensivo (confirmar na 0C).
+- Validado no dump do dev: critério de ativo = tid ∉ {0, 0xFFFF…} e pos ≥ 0; a lista de
+  tids NAND inclui títulos **TWL/DSiWare** (tid high `00048004`, ex. TWiLight Menu++ =
+  `0004800453524c41`, gamecode "SRLA" — NÃO é o slot de cartucho); pasta id 0 = "Homebrew"
+  @pos 12 com Health & Safety dentro. **Slot do cartucho: u16 @0x2 do Launcher.dat**
+  ("cart launcher position"; ≥360 = inválido) — no console do dev vale 11. Reservas sem
+  dono restantes viram placeholder "System app" (união de reservas, §5.4).
+- **Escrita real na NAND é SEMPRE do usuário** (script GM9 de injeção, com `ask` de
+  consentimento no console) — o app só edita a CÓPIA no SD. Sem container, apps NAND
+  ficam pinned (v1). Buracos abaixo do máximo: com launcher são vagas livres DE
+  VERDADE (sem tile, compactadas no próximo write, 2026-08-15); sem launcher, donos
+  desconhecidos ("System app", reservados para sempre).
+- Sem Launcher.dat o app infere os slots NAND pelas LACUNAS nas posições SD (placeholders
+  "System app" sem nome; apps NAND depois do último jogo ficam invisíveis).
+- O Cache/CacheD do SD já contém nome+ícone dos títulos NAND (§5.5) — o Launcher só
+  fornece as posições. Pendente validar com dump real: critério de slot ativo (tid≠0 e
+  pos≥0), entrada do gamecard (tid `0004800453524c41` "SRLA" visto no cache do dev).
+
+## 6. Backend (app.py + core/) — contratos
+
+- **Chaves de entidade** (posicionais, JSON-simples): `"g:<slot>"` jogo SD, `"n:<slot>"`
+  app NAND, `"f:<id>"` tile de pasta, `"cart"` Game Card. Int puro = `g:<slot>`
+  (retrocompatível). Parse em `Api._key`.
+- `Api.get_state()` → `{items: [{key,slot,pos,tid,folder,name,icon}...],
+  system: [{key,slot,tid,pos,folder,pinned,name,icon,hole?}...] (pinned = launcher
+  read-only; hole=True = vaga livre conhecida "Empty slot"; sem launcher, placeholders
+  "System app"), folderNames/folderPos/folderRows: {fid: ...} (do STAGING),
+  launcherWritable, launcherDirty, pendingInject: {sha,when,changes}|null,
+  staged, canUndo, canRedo, sd, backups_dir, history}`. Toda mutação retorna o estado
+  completo novo (UI re-renderiza inteira).
+- Snapshot do staging: `{order, folders, tids, nand_tids, nand_pos, nand_folder,
+  folder_defs: {fid:{pos,name,rows}}, cart_pos}` — undo/redo/restore cobrem tudo.
+  Jogos NÃO têm posição explícita: `assign_positions` distribui as menores livres por
+  contêiner, pulando `_reserved_now` (posições staged de NAND/pasta/cart; sem
+  launcher, também os buracos sem dono). Invariante do swap exato: sem launcher, todo
+  buraco abaixo do máximo é reservado, logo livre == ocupado pelos jogos; com
+  launcher, livre ⊇ ocupado e o write compacta jogos nas menores vagas (testado em
+  test_api_launcher_edit).
+- Mutações staged: `move_item(slot, before|null)`, `swap_items(a, b)` (QUALQUER par de
+  tipos; pasta/cart só no home), `set_folder(key, folder)` (g/n; NAND ganha posição
+  explícita = menor livre no destino), `folder_create()`, `folder_rename(fid, name)`,
+  `folder_empty(fid)`, `folder_delete(fid)` (membros voltam ao home), `sort_preset`,
+  `undo/redo/reset_staging`. `folder_create(name=None)` aceita nome opcional (mesma
+  validação do rename: 1..16 unidades UTF-16; None/"" = "New folder") — a UI pede o
+  nome num modal antes de criar (Cancel não cria). `sort_preset` aceita `az`, `za`,
+  `date_asc`, `date_desc`; os de data usam `core/titledates.py` (tabela offline
+  tid→"YYYY-MM-DD" gerada por `tools/build_titledates.py` de 3dsdb + GameTDB;
+  título sem data vai para o FIM nos dois sentidos; tabela ausente = tudo sem data,
+  sort vira no-op estável). Mutações de launcher exigem `launcherWritable`.
+  Todo `write_sd` zera o array de status (desembrulho sempre ligado, §5.4) e
+  enxerta a região de temas 0x13B8+ da versão atual do cartão (graft, §5.4).
+- `write_sd()` é **all-or-nothing** (SD + launcher do MESMO snapshot): staged>0 →
+  gate de container obsoleto (sha) → gate de dump fresco (par bin+sha do GM9 ao
+  lado do container, §5.8) → backup auto (inclui `__nand__/Launcher.dat` +
+  container) → SaveData → se `launcherDirty`: edita Launcher no container via
+  nandsave, `validate()`, publica payload+scripts no SD, marker `pending_inject.json`
+  no workdir. Falha no ramo launcher NÃO limpa o staging (retry idempotente).
+  `verify_inject()`/`confirm_inject()` fecham o ciclo (recibo do GM9, §5.8).
+  `import_sd()`: checa recibo, re-extrai e RESETA o staging.
+  `cancel_inject()` (2026-08-15): abandona payload pendente. Exige marker
+  (senão `{"error"}`); apaga do SD `3DSort/{homemenu_save_new.bin,.bin.sha,
+  homemenu_save.bin.sha,inject_done.sha}` + `gm9/scripts/3DSort_inject.gm9`,
+  o marker POR ÚLTIMO (`_find_container` prefere o payload enquanto ele
+  existe); PRESERVA `homemenu_save.bin` (verdade estrutural de leitura) e o
+  SaveData já escrito (console tolera SaveData novo + launcher velho, §10).
+  Apagar a âncora é de propósito: força dump fresco antes da próxima escrita
+  de launcher (§5.8). Retorna `import_sd()`.
+- `get_setup_state()` (2026-08-15): `{stage, detail}` para o wizard de
+  onboarding. `ready` (staging existe = atalho, ou get_state OK) | `no_keys` |
+  `stale_keys` | `no_sd` | `error`. Classifica por substring das NOSSAS
+  mensagens de erro, server-side; ordem importa (a msg de chaves contém "not
+  found"). Envolve `get_state` em try/except porque `find_console` levanta
+  direto no canal js_api. Mock sempre resolve `ready`.
+- Settings (2026-08-15): `list_drives()` → `{drives: [{root, current}]}` (varredura
+  D..P por `Nintendo 3DS/` + sd_root atual); `set_sd_root(path)` valida, re-importa
+  (staging resetado — mesma carta em letra nova é o caso comum, pending inject é
+  mantido); `set_backups_dir(path)` move zips + history.jsonl junto
+  (`Backups.move_root`). `pick_backups_dir()` abre o seletor de pasta NATIVO
+  (`pick_folder_native`: pywebview create_file_dialog quando há janela; senão
+  tkinter — o backend do --serve roda na mesma máquina do navegador) e aplica.
+  Ambos persistem em `settings.json` ao lado do workdir (mock = tmp, sem tocar a
+  máquina). Na UI: dropdown no chip do drive (varredura ~2ms) e o botão Change…
+  do Backup folder chama o dialogo nativo (SETTINGS).
+- `Staging` (core/store.py): snapshots imutáveis com deepcopy; `commit` limpa redo;
+  `clear()` após write. `Backups`: zip `.3dsl` + `history.jsonl`, mantém últimos 20;
+  `create(..., extra={arcname: bytes|Path})` guarda arquivos fora da árvore de extdata
+  (prefixo `__nand__/`, removido do extract no restore antes de qualquer import).
+- Erros da API viram `{"error": msg}` (o handler HTTP captura exceções); a UI mostra toast.
+- Mock (`--mock`): `FakeSave3ds` copia árvore plana em vez de decriptar; `make_mock_extdata`
+  gera 12 jogos com SMDH sintético; o "container" mock é um arquivo cujos bytes SÃO o
+  Launcher.dat (nand_extract/import = cópia). `--no-launcher` testa a degradação.
+  O mock exercita 100% do código real exceto a crypto — é o modo dos testes de UI.
+
+## 7. Frontend (ui/) — convenções
+
+- **JS puro, sem framework, sem build step.** Render = template strings + `innerHTML` +
+  `bind()` re-liga handlers após cada render. Estado: `S` (espelho do backend) e `P`
+  (prefs locais: tab, iconSize, viewRows, page, showLabels → localStorage).
+- **ARMADILHA DO CANAL NO BOOT (custou uma tela em branco no exe, 2026-08-15)**:
+  na janela nativa o `app.js` roda ANTES de o pywebview injetar
+  `window.pywebview`, e a página é servida pelo servidor Bottle DO PRÓPRIO
+  pywebview, que NÃO tem rota `/api/` (responde **405**). Ou seja: qualquer
+  boot que caia no fallback `fetch` renderiza NADA, sem erro visível. Testar
+  `window.pywebview !== undefined` não basta (ainda é undefined) e o user agent
+  é Edge puro, sem "pywebview". A distinção correta é a flag `window.SERVE_MODE`,
+  injetada pelo `do_GET` do `--serve` no `index.html` (o arquivo em disco fica
+  limpo); sem ela, o boot ESPERA o evento `pywebviewready`. Guardado por
+  `tests/test_ui_boot.py`. `--serve` sozinho NUNCA pega esse bug: lá o `/api/`
+  existe de verdade.
+- `call(name, args[])` roteia pywebview vs fetch automaticamente — **argumentos sempre
+  posicionais** para manter os dois canais idênticos. `callRaw(name, args[])`
+  devolve o resultado CRU (inclui `{error}`, rejeição do js_api virada em
+  `{error}`); `call` é o wrapper que faz toast e retorna null. Use `callRaw`
+  onde a mensagem precisa ficar na tela (modal de write, wizard).
+- Visual: seguir o protótipo (fundo `#fdf5e8`, cartões `#fffdf8`, vermelho `#d31e40`,
+  fonte Nunito + DotGothic16 para elementos "de console"). Fontes VENDORIZADAS
+  em `ui/fonts/` (woff2 latin, @font-face no index.html; Nunito é variável, um
+  arquivo cobre 200..1000) — nada de CDN, o exe portátil renderiza igual offline.
+- Drag-and-drop HTML5 nativo (`draggable`), sem lib, com semântica de **SWAP** (decisão
+  do usuário 2026-08-14): identidade do drag = `P.dragKey` (chave de entidade, §6) lida
+  de `data-ekey` — jogos sempre; apps NAND/pastas/cart só com `launcherWritable`. Drop
+  sobre qualquer tile com ekey = `swap_items` (`.swap-with`); jogo/NAND sobre pasta =
+  `set_folder` (`.drop-into`, anel azul de pasta) — para trocar COM a pasta,
+  arrasta-se a PASTA sobre o item. Células vazias e holes não são alvo (swap não tem
+  par). Nada muda no DOM durante o drag; commit no drop + animação FLIP
+  (`captureGrid`/`playFlip`, WAAPI) por `data-key` (`s<slot>`/`n<slot>`/`cart`/
+  `f<id>`/`h<pos>`). Clique abre pasta; `#removeZone` = tirar da pasta; drag cancelado
+  limpa via `render()` no dragend. Separadores `.page-sep` = quebras de página do
+  console. Lifecycle de pastas: botão `+ Folder` no grid-head abre modal de nome
+  (Save cria com o nome ou "New folder" se vazio; Cancel não cria), rename por input
+  (commit em Enter/blur — NUNCA por tecla, o innerHTML rouba o foco), delete com modal
+  de confirmação. SYNC mostra banner de inject pendente com Verify/`Mark as done`.
+- Decisões visuais de 2026-08-15: pastas são SEMPRE azuis (`FOLDER_BLUE = #3b4cca`;
+  seletor de cor removido — não existe no 3DS real) e tiles de sistema sem
+  transparência (o fluxo NAND é cidadão de primeira classe desde a 0C).
+- **Projeto é inglês-only** (decisão do usuário 2026-08-15): UI, comentários de
+  código, mensagens de erro e scripts GM9 gerados. O seletor de idioma do SETTINGS
+  foi removido (era stub sem i18n); não reintroduzir i18n sem pedido novo.
+- **Conteúdo de orientação tem FONTE ÚNICA** (`INSTRUCTION_PAGES`, redesenho de
+  2026-08-15): array `{title, body}` com 6 páginas (o que precisa, entrar no GM9,
+  rodar script, dump, inject, troubleshooting). A aba INSTRUCTIONS mapeia esse
+  array; o guia de setup pagina o MESMO array. Não duplicar texto de orientação
+  em outro lugar. Consts de GM9 (`GM9_ENTER`, `GM9_RUN_SCRIPT`, `GM9_DUMP_WHAT`)
+  alimentam as páginas E os modais.
+- **Rótulo de botão citado em texto é SEMPRE const** (`BTN_IMPORT`,
+  `BTN_VERIFY_INJECT`, `BTN_WIZ_VERIFY`): prosa com literal + botão com rótulo
+  condicional foi a causa do "press Verify below" sob um botão escrito DONE
+  (reportado pelo usuário). Texto e botão interpolam a mesma const.
+- **Aba INSTRUCTIONS**: terceira aba do strip (`["GRID","SYNC","INSTRUCTIONS"]`
+  em `renderTop`; o dispatch do `render()` precisa de `else if` explícito, senão
+  cai no fallback SETTINGS).
+- **Wizard e guia SEPARADOS POR PROPÓSITO** (redesenho 2026-08-15, depois de 3
+  bugs seguidos na mesma tela). Os dois são caminhos de render próprios porque
+  `S` pode ser null e `renderTop`/`bind` desreferenciam `S.*`:
+  - `renderWizard(stage, detail)` EXECUTA o setup e só existe quando o app não
+    abre. Sem modo e sem flag: o estágio escolhe a tela, cada tela tem os seus
+    botões. `no_sd` (drives + pré-requisito CFW + Rescan), `no_keys`/`stale_keys`
+    (passos do dump + `BTN_WIZ_VERIFY`), `error` (**tela própria**: falha real
+    não pode se disfarçar de instalação nova). Toda tela mostra o `detail` do
+    backend e um link "Read the guide".
+  - `renderGuide(page)` só LÊ: pagina `INSTRUCTION_PAGES` com Back/Next/Close,
+    sem botão de ação e sem chamada de backend. É o que a linha "Setup guide" do
+    SETTINGS abre.
+  - **Clique no drive consome o retorno de `set_sd_root`** (que devolve o estado
+    completo, app.py): sucesso entra no app; erro chama `wizAdvance` e NAVEGA
+    para a tela do que falta. Antes pintava erro e encalhava o usuário na tela 1
+    com a solução a um passo: o caminho principal do primeiro uso estava
+    quebrado e não apareceu porque o cartão do dev sempre teve chaves.
+  - Nunca aparece no mock (sempre `ready`); hook de UI `?wizard=<stage>`.
+  - Guardado por `tests/test_ui_boot.py` (separação, consts de rótulo, `detail`
+    em toda tela, consumo do retorno, guia sem ações).
+- **SCROLL PRESERVADO ENTRE RENDERS** (2026-08-17, pedido do usuário): `render()`
+  troca `#screen.innerHTML` inteiro, o que DESTRÓI os painéis roláveis
+  (`.grid` e `.preview-col`, `overflow:auto` no index.html) e os recria em
+  `scrollTop 0`. Sintoma: swap com o grid rolado (página 2 em diante) jogava a
+  tela para o topo a cada mudança staged. `SCROLL_PANES` + `captureScroll()`/
+  `restoreScroll()` em volta do bloco de innerHTML; o restore vem ANTES do
+  `playFlip` porque as deltas do FLIP são relativas à viewport. Painel rolável
+  novo → acrescentar o seletor em `SCROLL_PANES`. Guardado por
+  `test_render_restores_the_scroll_of_the_scrollable_panes`.
+- **"O script já está no cartão" é const única** (`GM9_SCRIPT_ON_CARD`,
+  2026-08-17): `_publish_dump_script` grava `gm9/scripts/3DSort_dump.gm9` em
+  TODO import e write, mas o usuário continuava procurando um arquivo para
+  baixar. A frase (com o caminho `gm9/scripts`) aparece no wizard de dump, na
+  aba SYNC e na página 4 do `INSTRUCTION_PAGES` — sempre pela mesma const, para
+  o caminho não divergir do que o backend escreve. Guardado por
+  `test_the_script_is_already_on_the_card_is_one_const_shown_where_it_matters`.
+- **Erro de write_sd fica NO MODAL** (2026-08-15, pedido do usuário): bloco
+  vermelho persistente `#writeError` + botão vira RETRY, modal não fecha. Antes
+  era toast de 2.2s e passava despercebido, custando idas ao console.
+- **Modal bloqueante pós-write** (`postWriteWarning`, 2026-08-15): após write
+  que gera `pendingInject`, avisa para NÃO bootar o HOME antes do
+  3DSort_inject. Sem `id="modalBg"` no backdrop e sem Cancel = não é
+  dispensável por clique fora; "I UNDERSTAND" leva para a aba SYNC.
+- **Cancel inject**: terceiro botão do banner de inject pendente, com modal de
+  confirmação que aponta o Verify como alternativa se o script já rodou.
+
+## 8. Testes — estratégia em camadas (manter TODAS)
+
+1. **Unit** (`pytest`, rápidos, qualquer máquina): fixtures sintéticas construídas byte a
+   byte; round-trip binário idêntico; invariantes (nenhum título perdido/duplicado);
+   decode de ícone testado com ENCODER inverso no próprio teste.
+2. **Integração real** (pulada sem chaves): save3ds de verdade sobre **cópia fresca do
+   sandbox por teste** (fixture `sd`); extract → editar → import → re-extract → comparar.
+   Inclui o **guard do SD real** (§3.1).
+3. **UI em tela via Playwright** (MCP, manual-assistido): contra `--serve` (mock ou
+   sandbox). Cobertura já validada: drag reordena + staging; pastas (entrar/tirar/drill-in);
+   presets; undo/redo; modal write (confirmar/cancelar); persistência pós-import; restore;
+   toggles; preview (contagem de células por modo de visão). Screenshots `0*-*.png` na raiz.
+4. Bug real já pego por essa pirâmide: restore não deixava escrever o estado restaurado
+   (staging vazio) — corrigido tornando o restore uma mudança staged.
+
+Ao adicionar operação nova na Api: teste unit do core + caso de integração se tocar o SD +
+passo Playwright se tiver gesto de UI.
+
+## 9. Ambiente de dev (Windows) — pegadinhas conhecidas
+
+- **PowerShell 5.1**: sem `&&`/`||`; `Get-Process` NÃO tem `.CommandLine` (usar
+  `Get-CimInstance Win32_Process` para matar por linha de comando); `python -c` multilinha
+  quebra (hooks embrulham o comando) — escrever script no scratchpad e executar.
+- **Dois servidores na mesma porta**: `http.server` usa SO_REUSEADDR; no Windows isso
+  permite DOIS processos escutando 127.0.0.1:8347 ao mesmo tempo (requests vão para o
+  antigo → parece que o hot-fix "não funcionou"). SEMPRE matar o servidor antigo antes de
+  subir outro.
+- SD do dev monta em `G:`; console USA, Luma + GM9. Serial e id0 NÃO ficam
+  documentados aqui: o repo é público e eles identificam o console (o id0 real
+  sai do `movable.sed` do sandbox quando preciso).
+- Encoding: manter arquivos .py sem acento em strings de código quando possível (console
+  Windows cp1252 já corrompeu saída de erro do save3ds); UI/HTML é UTF-8 normal.
+
+## 10. Estado atual e roadmap
+
+**Feito (2026-08-14, manhã)**: spike round-trip OK em dados reais; core completo;
+UI GRID/SYNC/SETTINGS portada e validada em tela com ícones reais; modo mock; backups +
+restore staged; apps NAND no grid com Launcher.dat REAL dumpado e validado — visão do
+console reproduzida 1:1. Sandbox re-copiado do SD real.
+
+**Feito (2026-08-14, v1.1 — 77 testes)**: escrita do Launcher.dat de ponta a ponta.
+Spike 0A validou o canal save3ds --nandsave (extract == dump GM9 byte a byte).
+`Launcher` com preservação/validate/lifecycle; canal NAND no `Save3ds` + FakeSave3ds;
+modelo unificado de entidades (g:/n:/f:/cart) com reservas dinâmicas e staging
+completo (undo/redo/restore cobrem launcher); swap entre QUAISQUER tipos; pastas
+criar/renomear/esvaziar/apagar; write all-or-nothing com payload de injeção + scripts
+GM9 gerados + recibo verificado; backups incluem launcher/container; UI com drag por
+ekey, lifecycle de pastas, banner de inject no SYNC — tudo validado em tela
+(Playwright, mock) incluindo degradação `--no-launcher`.
+
+**Feito (2026-08-15, gates de hardware no console real)**: além dos gates abaixo, a
+sessão rendeu: critério de ativo corrigido (tid+pos; 15 jogos status-0 invisíveis e
+colisão real de pasta, §5.4); incidente do `boss/` no restore (§5.6) corrigido;
+disciplina da âncora de inject (§5.8: dump fresco obrigatório, promote descarta
+âncoras); buracos livres com launcher (§5.4); desembrulho automático em todo write
+(§5.4, Cthulhu); tema preservado via graft (§5.4). 89 testes.
+
+**Feito (2026-08-15, tarde)**: fluxo sem cópia manual (§5.3/§5.8): `3DSort_dump.gm9`
+publicado em todo import e dumpando container + movable.sed + boot9.bin em
+`0:/3DSort/`; `Api._resolve_keys` (SD > gm9/out > sandbox/APP_DIR, com validação
+de id0 e erros amigáveis). VALIDADO NO CONSOLE REAL no mesmo dia: `3DSort_dump`
+novo rodado no GM9 deixou movable.sed (320B), boot9.bin (64KB) e container+.sha
+em `0:/3DSort/`; id0 do movable bateu com a pasta; o app resolveu as chaves do
+próprio SD (`G:\3DSort\`). 98 testes (novos em `tests/test_api_keys.py`).
+
+**Feito (2026-08-15, SETTINGS)**: linhas "SD card drive" e "Backup folder" funcionais
+(§6: list_drives/set_sd_root/set_backups_dir + settings.json; UI com dropdown e
+modal; import re-autodetecta drive se a letra persistida sumiu). 106 testes
+(novos em `tests/test_api_settings.py`). Validado em tela (mock, Playwright).
+
+**GATES DE HARDWARE (CONCLUÍDOS em 2026-08-14/15)**:
+- Fase 0B: FEITA em 2026-08-14 (ver §5.7). Veredito: create/delete SHIPA. Patch de
+  espelhamento (`numeros[fid]` no SaveData @0x12C8 + contador @0xD80/@0xD85 no
+  Launcher) implementado e testado no mesmo dia.
+- Fase 0C: INJEÇÃO VALIDADA em 2026-08-14 (console real, foto conferida): swap de 2
+  apps NAND + pasta criada pelo app (com nº de batismo e contador do gate 0B) chegaram
+  ao HOME exatamente como o modelo previu. Scripts GM9 validados em hardware
+  (dump com `--hash`, inject com os 3 gates, `allow`, `fixcmac`, recibo; `ask` ok).
+  O gate 2 foi validado AO VIVO (abortou corretamente sempre que o HOME bootou entre
+  write e inject; recovery: dump fresco + Import + re-staging). RESTORE validado em
+  hardware (expôs e corrigiu o incidente do `boss/`, §5.6). **GATE 0C FECHADO em
+  2026-08-15**: ciclo final limpo no console (pasta compactada, swap NAND↔jogo dentro
+  de pasta, desembrulho em massa, tema preservado via graft). Resíduo conhecido:
+  1 título ficou embrulhado (condição interna de "novo" do console, fora dos nossos
+  arquivos) — abre-se uma vez e resolve.
+
+**Feito (2026-08-15, polish inglês-only + sort por data)**: seletor de idioma
+removido do SETTINGS (projeto inglês-only, §7); todos os comentários/docstrings e
+mensagens de erro do código traduzidos para inglês (incluindo os comentários dentro
+dos scripts GM9 gerados); transparência dos tiles de sistema removida; cor de pasta
+fixa em azul (seletor removido); sort por data de lançamento asc/desc
+(`core/titledates.py` + tabela offline de 3756 títulos, 16KB gz, §6); `+ Folder`
+com modal de nome (Cancel não cria). 113 testes.
+
+**Feito (2026-08-15, Fase 4 + pendências pré-release — 128 testes)**:
+- **Empacotamento**: `3DSort.spec` (onefile, windowed, `excludes=['tkinter',
+  'pytest']`), datas espelhando o layout do repo (`ui/`,
+  `tools/save3ds/save3ds_fuse.exe`, `core/titledates.json.gz`) — PyInstaller
+  ≥4.3 põe `__file__` no caminho absoluto dentro do bundle, então `ROOT` e
+  `TABLE_PATH` funcionam SEM mudança de código. `sandbox/` nunca vai no bundle
+  (o lookup degrada sozinho). `--selftest` verifica os 3 recursos e sai 0/1
+  (pega a degradação SILENCIOSA da tabela de datas, cujo `_load` engole
+  OSError). Ícone `ui/3dsort.ico` (cartão SD + grid, gerado por
+  `tools/make_icon.py`, também favicon do index.html).
+- **Exe TESTADO de ponta a ponta (2026-08-15)**: 25.6 MB; `--selftest` exit 0;
+  `--serve` servindo ui/, fontes e API de dentro do bundle; UI renderizando 12
+  ícones (Pillow/SMDH OK congelados) e sort por data funcional (tabela
+  embutida viva); janela nativa abrindo com título "3DSort" + árvore WebView2
+  (o processo pai de 8 MB é só o bootloader do onefile, o filho é o app);
+  ícone confirmado no binário via `ExtractAssociatedIcon`. Primeira execução
+  com HOME limpo e sem `--mock` AUTODETECTA o SD real e importa (só leitura;
+  o guard do §3 passou intocado depois).
+- **BUG PEGO PELO USUÁRIO (2026-08-15)**: duplo clique no exe abria janela com
+  topbar e conteúdo VAZIO. Causa: a reescrita do `boot()` para o wizard trocou
+  a condição de espera do `pywebviewready` e passou a cair no `fetch` na janela
+  nativa (405 do servidor do pywebview, §7). Meus smokes anteriores não pegaram
+  porque `--serve` tem `/api/` real e o `--mock` que rodei carregava o app.js
+  pré-reescrita. Corrigido com a flag `SERVE_MODE` + `tests/test_ui_boot.py`
+  (o teste FALHA com a condição antiga). LIÇÃO: todo smoke do exe tem que
+  SCREENSHOTAR a janela; "processo vivo com título" não prova que renderizou.
+- **Pronto para Linux** (código; binário/build ficam para quem rodar lá):
+  `core.sdcard.default_sd_candidates()` (win32 = D..P; senão 1 nível sob
+  `/media/<user>`, `/media`, `/run/media/<user>`, `/mnt`, `/Volumes`),
+  `SAVE3DS_NAME` (`.exe` só no win32) e `_RUN_KW` (CREATE_NO_WINDOW só no
+  Windows: mata o flash de console por chamada do save3ds no build windowed;
+  `creationflags` nem existe fora do Windows). O picker de pasta já era
+  cross-platform (pywebview → tkinter), só a docstring mentia.
+- **Onboarding guiado**: `get_setup_state` + wizard (§7).
+- **Aba INSTRUCTIONS**, **cancel_inject**, **erro de write no modal**,
+  **modal bloqueante pós-write**, **fontes offline** (§6/§7).
+- Validado em tela (Playwright, mock): abas, INSTRUCTIONS sem travessão,
+  wizard nos 2 estágios até entrar no app, Setup guide + Back, erro de write
+  com RETRY, modal bloqueante (clique fora não fecha), cancel inject,
+  zero requests ao Google + `document.fonts.check` OK. Smoke da janela nativa
+  (`--mock`) OK = canal js_api vivo.
+
+**Feito (2026-08-15, README de distribuição)**: repo é PÚBLICO
+(`github.com/SalustianCreativeLabs/3DSort`), então screenshot com biblioteca
+real vazaria dados do console (§3.4) — as 4 imagens de `docs/images/` foram
+capturadas em `--mock` e o caminho do SD foi neutralizado na captura (o mock
+mostra `%USERPROFILE%` no cartão). README com badges estáticos (sem CI/release
+que não existem), LICENSE GPL-3.0 (alinhada ao Cthulhu). Versão unificada em
+`VERSION` no ui/app.js (era literal duplicado em 2 lugares, divergindo do §10):
+**v1.1.0**.
+
+**Feito (2026-08-16, bug do SEGUNDO CONSOLE — 147 testes)**: usuário rodou o
+`3DSort_dump` no segundo console (New 3DS, USA) e o script abortou com "HOME menu
+save not found". Diagnóstico no cartão real: ele tem **3 pastas id0**, todas com
+extdata do HOME; `find_console` pegava a PRIMEIRA (`1dcb1d45…`, órfã de um estado
+antigo) e assava esse id0 no script, mandando o GM9 para um caminho que não existe
+na NAND. Região nunca foi o problema (a mensagem sugeria isso e enganou). Três
+correções, todas com teste:
+- `find_console(sd, prefer_id0=)` + `Api._sd_movable_id0()`: a pasta viva é a que
+  casa com o movable do cartão (§5.1). No cartão real: sem dica `1dcb1d45…`,
+  com dica `4c8ea115…` (a viva, 22 extdatas).
+- `gm9_dump_script()` sem parâmetros, resolvendo `$[SYSID0]`/`$[REGION]` no próprio
+  console (§5.8): um script serve qualquer console e nunca fica obsoleto.
+- `_read_launcher` degrada para read-only quando o container não decripta
+  (§5.8): antes o `Signature mismatch` cru do save3ds derrubava o import inteiro
+  — era o container do console do dev vindo do fallback `sandbox/keys/`.
+- Mensagem de `_resolve_keys` agora cobre os dois casos do mismatch de id0 (chave
+  velha OU console novo no cartão, que precisa bootar o HOME uma vez).
+- `test_real_sd_untouched_guard` passou a hashear POR PASTA id0 (o glob pegava a
+  primeira e acusou falso "REAL SD WAS MODIFIED" ao trocar de cartão; verificado
+  arquivo a arquivo que nada foi escrito — extdata de 15/02/2024).
+Validado no cartão real (só leitura): app abre com o cartão do segundo console,
+135 jogos com ícones, 14 apps de sistema, pasta Homebrew; `launcherWritable` false
+até o usuário rodar o dump novo.
+
+**CICLO COMPLETO VALIDADO NO 2º CONSOLE (2026-08-16, exe rebuildado)**: dump →
+sort A→Z de 135 títulos → write → inject → boot. Todos os ícones chegaram na
+ordem certa, SEM necessidade de desembrulhar nada (o zeramento de status do §5.4
+funcionou em massa num console que nunca tinha rodado o app). Pastas reais do
+usuário (`APPS & LAUNCHER`, `Virtual Console`) preservadas. Única divergência:
+1 permuta de vizinhos feita pelo console (§5.4). Isso fecha o gate de "validar
+em 2º console" que bloqueava a release. ATENÇÃO OPERACIONAL: `dist\3DSort.exe`
+não se atualiza sozinho — o usuário rodou o exe de 15/08 depois do fix e viu a
+tela de "chave velha" do código antigo; sempre `pyinstaller 3DSort.spec` antes
+de pedir teste em hardware.
+
+**Feito (2026-08-17, polish de UI — 149 testes)**: scroll preservado entre
+renders (§7: o swap na página 2 não joga mais a tela para o topo; validado em
+browser real, scrollTop 189 antes e depois do swap, era 189→0) e a const
+`GM9_SCRIPT_ON_CARD` deixando explícito no wizard e no SYNC que o app já
+escreveu o `3DSort_dump.gm9` em `gm9/scripts` (§7).
+
+**Distribuição (restante)**: publicar release (exe + README) e smoke em máquina
+limpa SEM Python (aqui o exe roda na máquina de dev, que tem Python instalado;
+falta a prova em máquina virgem, principalmente WebView2 ausente).
+
+**v2**: aba RULES (motor de regras), THEMES/badges.
+
+**Dívidas conscientes**: `spike.py` não usa core/ nem `SAVE3DS_NAME` (era pra ser
+descartável; apagar quando ninguém mais consultar o histórico da Fase 1). Observações de hardware já incorporadas: console
+exibe buracos sem drama (0B/0C) e o app compacta por decisão de produto quando o
+launcher está presente (§5.4); boot do HOME entre write e inject → gate 2 aborta
+corretamente e o app exige dump fresco antes de escrita de launcher (§5.8); console
+tolera SaveData novo + launcher velho sem corromper; embrulho residual em título
+recém-movido é estado interno do console (abre-se uma vez, §5.4/§10).
+
+## 11. Regras de trabalho para a IA neste repo
+
+- Antes de mexer em formato binário, releia §5 e os testes de round-trip; qualquer campo
+  novo descoberto empiricamente → documentar AQUI e no 3dbrew-style (offset/tamanho/prova).
+- Simplicidade primeiro (stdlib > dependência nova), mas NUNCA à custa das regras do §3.
+- Não versionar/expor `sandbox/`, chaves, ou dados do console do usuário.
+- Mudanças em `Api`: manter os dois canais (js_api posicional + HTTP `{"args": []}`).
+- Validar sempre com `python -m pytest tests -q` + fluxo Playwright quando houver UI.
+- O protótipo `.dc.html` é REFERÊNCIA visual, não código: não importar seu runtime.
+
+---
+> Source: [SalustLab/3DSort](https://github.com/SalustLab/3DSort) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
