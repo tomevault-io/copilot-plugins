@@ -1,0 +1,9 @@
+{
+  "name": "arkangelai--second-brain",
+  "displayName": "second-brain",
+  "description": "Local-first, AI-native knowledge management system. Markdown + QMD hybrid search + Obsidian + any AI agent.",
+  "version": "1.0.0",
+  "author": "arkangelai",
+  "homepage": "https://github.com/arkangelai/second-brain",
+  "skills": []
+}
