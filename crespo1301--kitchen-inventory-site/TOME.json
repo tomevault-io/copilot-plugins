@@ -4,7 +4,7 @@
   "repo": "kitchen-inventory-site",
   "description": "Marketing site for Kitchen Inventory \u2014 restaurant stock & ordering app",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Crespo1301/kitchen-inventory-site",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T02:49:56Z"
+  "distributed_at": "2026-08-20T03:05:06Z"
 }
