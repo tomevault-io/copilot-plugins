@@ -1,0 +1,44 @@
+{
+  "name": "PE-reverse-skill",
+  "owner": "DamonZS",
+  "repo": "PE-reverse-skill",
+  "description": "\u901a\u7528\u5168\u5e73\u53f0\u9006\u5411\u5206\u6790\u5de5\u5177\uff0c\u8986\u76d6Web\u4e3b\u52a8\u5f0f\u4fb5\u5165\u53ca Windows PE/EXE/DLL\u3001Android APK\u3001iOS IPA \u4e09\u5927\u5e73\u53f0\uff0c \u4ee5\u53ca API \u63a5\u53e3\u9006\u5411\u3002\u652f\u6301\u4ece\u9759\u6001\u5206\u6790 \u2192 \u52a0\u58f3\u68c0\u6d4b \u2192 \u8131\u58f3 \u2192 \u53cd\u7f16\u8bd1\u5230\u6e90\u7801 \u2192 \u4fee\u6539\u6e90\u7801 \u2192 \u91cd\u6784\u5efa\u5b8c\u6574\u94fe\u8def\u3002 \u5f53\u7528\u6237\u53d1\u9001\u4e8c\u8fdb\u5236\u6587\u4ef6\uff08.exe/.dll/.apk/.ipa/.app\uff09\u5e76\u8981\u6c42\u9006\u5411\u3001\u5206\u6790\u3001\u8131\u58f3\u3001\u53cd\u7f16\u8bd1\u3001\u4fee\u6539\u3001\u91cd\u6253\u5305\u3001\u627e flag/\u5e8f\u5217\u53f7/\u63a5\u53e3\u65f6\u4f7f\u7528\u3002 \u9002\u7528\u4e8e CTF \u9006\u5411\u9898\u3001\u6076\u610f\u8f6f\u4ef6\u5206\u6790\u3001APP \u5b89\u5168\u5ba1\u8ba1\u3001API \u9006\u5411\u5de5\u7a0b\u3002\u4f5c\u8005API\u4e2d\u8f6c\u7ad9https://api.toporeduce.cn/  \u8bf7\u5404\u4f4d\u652f\u6301\u4e00\u4e0b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DamonZS/PE-reverse-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T06:38:11Z"
+}
