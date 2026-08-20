@@ -4,7 +4,7 @@
   "repo": "asi",
   "description": "ASI \u2014 continual reinforcement learning framework (The Alberta Plan) in JAX; trains elizaOS robot policies",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SlopDotCash/asi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T07:31:26Z"
+  "distributed_at": "2026-08-20T07:32:12Z"
 }
