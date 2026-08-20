@@ -1,0 +1,9 @@
+{
+  "name": "unok--myime",
+  "displayName": "myime",
+  "description": "Windows IME using Mozc + AzooKey Kana-Kanji Converter with Zenzai AI",
+  "version": "1.0.0",
+  "author": "unok",
+  "homepage": "https://github.com/unok/myime",
+  "skills": []
+}
