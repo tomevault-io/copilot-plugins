@@ -1,0 +1,9 @@
+{
+  "name": "eeegoloauq--music-bot",
+  "displayName": "music-bot",
+  "description": "Telegram companion for your Navidrome library: paste a link to get a tagged FLAC (via Soulseek), share what you're playing, grab lyrics, manage and retag your collection.",
+  "version": "1.0.0",
+  "author": "eeegoloauq",
+  "homepage": "https://github.com/eeegoloauq/music-bot",
+  "skills": []
+}
