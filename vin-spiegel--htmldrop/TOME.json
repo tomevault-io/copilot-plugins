@@ -4,7 +4,7 @@
   "repo": "htmldrop",
   "description": "Publish HTML for agents \u2014 one API call, MCP server included",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vin-spiegel/htmldrop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T01:08:58Z"
+  "distributed_at": "2026-08-20T01:32:36Z"
 }
