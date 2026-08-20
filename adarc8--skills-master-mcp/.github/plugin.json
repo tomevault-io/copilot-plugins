@@ -1,0 +1,9 @@
+{
+  "name": "adarc8--skills-master-mcp",
+  "displayName": "skills-master-mcp",
+  "description": "MCP server for the SkillsMP marketplace. Search, discover, read, install, and remove AI coding skills - zero configuration required.",
+  "version": "1.0.0",
+  "author": "adarc8",
+  "homepage": "https://github.com/adarc8/skills-master-mcp",
+  "skills": []
+}
