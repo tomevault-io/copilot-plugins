@@ -1,0 +1,44 @@
+{
+  "name": "antigravity2-win-linux-cn",
+  "owner": "Lucian-02",
+  "repo": "antigravity2-win-linux-cn",
+  "description": "Antigravity 2.0 \u7b80\u4f53\u4e2d\u6587\u6c49\u5316\u5f15\u64ce\uff0c\u652f\u6301 Windows / Linux \u4e00\u952e\u5b89\u88c5\u3001\u52a8\u6001\u754c\u9762\u7ffb\u8bd1\u4e0e\u65e0\u635f\u8fd8\u539f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lucian-02/antigravity2-win-linux-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T01:11:51Z"
+}
