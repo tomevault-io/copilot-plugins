@@ -1,0 +1,9 @@
+{
+  "name": "robotflow-labs--docker-mlx-cpp",
+  "displayName": "docker_mlx_cpp",
+  "description": "The NVIDIA Container Toolkit for Mac \u2014 Give any Docker container full Apple Silicon Metal GPU access. 100+ GPU operations, LLM inference, training, image gen, audio, embeddings. Zero CUDA. Just Metal.",
+  "version": "1.0.0",
+  "author": "RobotFlow-Labs",
+  "homepage": "https://github.com/RobotFlow-Labs/docker_mlx_cpp",
+  "skills": []
+}
