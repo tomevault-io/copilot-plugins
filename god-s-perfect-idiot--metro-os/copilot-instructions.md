@@ -1,0 +1,73 @@
+## metro-android-ui
+
+> WP8.1 Metro UI rules for Kotlin and Compose files
+
+
+# Metro Android UI
+
+**Full per-control spec:** [`toolkits/metro-ui-android/METRO-UX-LANGUAGE.md`](../../toolkits/metro-ui-android/METRO-UX-LANGUAGE.md)
+
+## Shape language (summary)
+
+- **Squares (0dp corners):** tiles, border text buttons, lists, dialogs, slider thumb/track
+- **Circles / pills (exceptions):** app bar icon press, radio (toggle is sharp rectangle)
+- **Never:** Material cards, FAB, rounded-corner photo frames
+
+## Theme
+
+```kotlin
+MetroTheme(darkTheme = MetroPreferences.isDark, accent = MetroPreferences.accent) {
+    // content
+}
+```
+
+## Typography
+
+- Noto Sans only for Metro chrome (never Roboto in system UI)
+- Min 15sp interactive text; page titles 64sp flush-left
+- **Page / hub / pivot titles never wrap** — one line, overflow off the right screen edge
+  (no ellipsis). Use start inset only; never `padding(horizontal)` on a title. `MetroText`
+  enforces this for `PageTitle` / `HubTitle` / `PivotTab`.
+- **App title is ALL CAPS:** the small app-name overline above a hub/pivot/panorama title must be
+  uppercase. Always render it with `MetroAppTitle(...)` (from `metro-ui-android`), never a raw
+  `MetroText`, so casing/style stay consistent across apps.
+
+## Layout
+
+- 12dp horizontal list margins; 44dp min touch targets
+- App bar at **bottom**; minimized (ellipsis) on panorama pages
+- Page transitions: 300ms horizontal slide, ease-out
+- **`MetroAppTitle` owns the 12dp start inset** — do not also put `padding(horizontal)` on its
+  parent `Column`. Pad sibling titles/body/buttons per-child.
+- **`MetroBorderButton` is flush left** and hugs its label — never `fillMaxWidth()`, never center
+  the bordered chrome in the row.
+- **Respect the navigation bar (mandatory):** the navbar is a separate overlay window, so it is
+  never reported as a system inset. Every screen's root content container MUST call
+  `Modifier.metroNavBarPadding()` (from `metro-ui-android`) so content, app bars, and action
+  buttons clear the soft keys whenever the navbar is enabled. Keep existing
+  `statusBarsPadding()` / `navigationBarsPadding()`; apply `metroNavBarPadding()` after them and
+  before `background(...)`. Never hard-code the 48dp navbar height — use the modifier.
+
+## Controls
+
+Import from `metro-ui-android`: `MetroAppBar`, `MetroBorderButton`, `MetroIconButton`, `MetroPivot`, `MetroPanorama`, `MetroListItem`, `MetroToggleSwitch`, `MetroTextBox`, etc.
+
+| Need | Use |
+|------|-----|
+| Primary action with icon | App bar icon (circular press) |
+| Dialog / settings commit | Border text button (square outline) |
+| In-page icon-only | `MetroIconButton` |
+
+## Navigation
+
+- Pivot = filter/categorize (max 7 items)
+- Panorama = hub/overview only
+- No drawer, no bottom nav, no FAB
+
+## Checklist
+
+Run through `docs/DESIGN-CHECKLIST.md` and `toolkits/metro-ui-android/METRO-UX-LANGUAGE.md` before marking UI tasks complete.
+
+---
+> Source: [god-s-perfect-idiot/metro-os](https://github.com/god-s-perfect-idiot/metro-os) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
