@@ -1,0 +1,9 @@
+{
+  "name": "jasonyang170--esp-dev-skill",
+  "displayName": "esp-dev-skill",
+  "description": "Espressif \u5168\u751f\u6001\u7edf\u4e00 AI \u6280\u80fd\u3002Unified AI Skill for the entire Espressif ecosystem.",
+  "version": "1.0.0",
+  "author": "JasonYANG170",
+  "homepage": "https://github.com/JasonYANG170/esp-dev-skill",
+  "skills": []
+}
