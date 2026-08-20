@@ -1,0 +1,9 @@
+{
+  "name": "mohamed-benoughidene--openreview-cli",
+  "displayName": "openreview-cli",
+  "description": "Privacy-first open-source contract review CLI. Multi-agent AI pipeline strips PII locally (fail-closed) before any cloud call. 21 contract types, 17 AI providers, local-first by default with Ollama. R",
+  "version": "1.0.0",
+  "author": "mohamed-benoughidene",
+  "homepage": "https://github.com/mohamed-benoughidene/openreview-cli",
+  "skills": []
+}
