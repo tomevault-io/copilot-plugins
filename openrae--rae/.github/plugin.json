@@ -1,0 +1,9 @@
+{
+  "name": "openrae--rae",
+  "displayName": "rae",
+  "description": "SDL, tools, runtime, and a reference backend for reproducible agentic environments.",
+  "version": "1.0.0",
+  "author": "OpenRAE",
+  "homepage": "https://github.com/OpenRAE/rae",
+  "skills": []
+}
