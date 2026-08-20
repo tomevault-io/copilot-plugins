@@ -1,0 +1,44 @@
+{
+  "name": "pepin",
+  "owner": "stephrobert",
+  "repo": "pepin",
+  "description": "CSPM multi-cloud souverain : \u00e9value la posture d'un cloud (Outscale, Scaleway, Exoscale\u2026) contre un r\u00e9f\u00e9rentiel commun ancr\u00e9 sur SCSL, SecNumCloud, CIS et ISO.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stephrobert/pepin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T08:37:56Z"
+}
