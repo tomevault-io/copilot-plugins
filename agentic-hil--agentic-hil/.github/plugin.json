@@ -1,0 +1,9 @@
+{
+  "name": "agentic-hil--agentic-hil",
+  "displayName": "agentic-hil",
+  "description": "Your AI agent develops firmware on its own: build, flash, stimulate real hardware, observe, fix - policy-gated MCP tools + pytest plugin.",
+  "version": "1.0.0",
+  "author": "agentic-hil",
+  "homepage": "https://github.com/agentic-hil/agentic-hil",
+  "skills": []
+}
