@@ -1,0 +1,9 @@
+{
+  "name": "blackleets--aegis",
+  "displayName": "aegis",
+  "description": "AI-enhanced OSINT and situational awareness platform with live map layers, browser recon tools, and fusion dossiers.",
+  "version": "1.0.0",
+  "author": "Blackleets",
+  "homepage": "https://github.com/Blackleets/aegis",
+  "skills": []
+}
