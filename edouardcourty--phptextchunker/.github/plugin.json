@@ -1,0 +1,9 @@
+{
+  "name": "edouardcourty--phptextchunker",
+  "displayName": "PHPTextChunker",
+  "description": "A fast and memory-efficient PHP text chunker",
+  "version": "1.0.0",
+  "author": "EdouardCourty",
+  "homepage": "https://github.com/EdouardCourty/PHPTextChunker",
+  "skills": []
+}
