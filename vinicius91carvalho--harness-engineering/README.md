@@ -7,11 +7,11 @@ Harness Engineering for Claude Code, Codex, Opencode, Pi and integration with He
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vinicius91carvalho/harness-engineering](https://github.com/vinicius91carvalho/harness-engineering).
+Original source: `AGENTS.md` in [vinicius91carvalho/harness-engineering](https://github.com/vinicius91carvalho/harness-engineering).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
