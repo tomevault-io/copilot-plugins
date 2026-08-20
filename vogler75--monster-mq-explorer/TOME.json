@@ -4,7 +4,7 @@
   "repo": "monster-mq-explorer",
   "description": "High-performance MQTT explorer with topic tree visualization, real-time charting, and Web Worker\u2013based message processing. Supports MQTT and WinCC Unified and WiCC Open Architecture.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vogler75/monster-mq-explorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T16:55:55Z"
+  "distributed_at": "2026-08-20T17:01:40Z"
 }
