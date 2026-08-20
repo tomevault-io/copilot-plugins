@@ -1,0 +1,9 @@
+{
+  "name": "numentech-co--numentext",
+  "displayName": "numentext",
+  "description": "Terminal-based IDE written in Go, inspired by Borland C++ and Turbo C",
+  "version": "1.0.0",
+  "author": "numentech-co",
+  "homepage": "https://github.com/numentech-co/numentext",
+  "skills": []
+}
