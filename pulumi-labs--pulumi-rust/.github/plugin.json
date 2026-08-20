@@ -1,0 +1,9 @@
+{
+  "name": "pulumi-labs--pulumi-rust",
+  "displayName": "pulumi-rust",
+  "description": "Rust SDK and language plugin for the Pulumi Infrastructure as Code Platform (experimental)",
+  "version": "1.0.0",
+  "author": "pulumi-labs",
+  "homepage": "https://github.com/pulumi-labs/pulumi-rust",
+  "skills": []
+}
