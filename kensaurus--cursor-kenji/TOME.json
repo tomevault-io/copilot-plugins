@@ -1,0 +1,63 @@
+{
+  "name": "cursor-kenji",
+  "owner": "kensaurus",
+  "repo": "cursor-kenji",
+  "description": "\ud83e\udd96Curated Cursor AI agent skills, slash commands, MCP configs, subagents & rules for full-stack dev \u2014 React 19, Next.js 15, Supabase, Tailwind v4, TypeScript",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "test-emulator",
+      "path": "skills/test-emulator",
+      "github_url": "https://github.com/kensaurus/cursor-kenji/tree/main/skills/test-emulator",
+      "description": ""
+    },
+    {
+      "name": "create-rule",
+      "path": "skills-cursor/create-rule",
+      "github_url": "https://github.com/kensaurus/cursor-kenji/tree/main/skills-cursor/create-rule",
+      "description": ""
+    },
+    {
+      "name": "audit-i18n",
+      "path": "skills/audit-i18n",
+      "github_url": "https://github.com/kensaurus/cursor-kenji/tree/main/skills/audit-i18n",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kensaurus/cursor-kenji",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T22:30:26Z"
+}
