@@ -4,7 +4,7 @@
   "repo": "Neumar",
   "description": "Desktop AI agent workspace \u2014 source-available, free for personal/non-commercial use",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bravew/Neumar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T04:32:36Z"
+  "distributed_at": "2026-08-20T04:43:00Z"
 }
