@@ -1,0 +1,69 @@
+## eink-chess
+
+> This project (`eink-chess`) is a web-based chess game specifically designed for E-ink devices (like Amazon Kindle).
+
+# ♟ EinkChess - Core Guidelines
+
+This project (`eink-chess`) is a web-based chess game specifically designed for E-ink devices (like Amazon Kindle).
+Whenever you work on this project, you MUST strictly adhere to the following rules.
+
+## 1. ❓ Clarification & Questions (Ask Clarifying Questions First - CRITICAL)
+- When receiving a request, identify potential blind spots — ambiguous requirements, edge cases, or design decisions whose answers would change the implementation approach.
+- Ask these questions before writing code.
+
+## 2. 🚫 NO Animations & 🚫 NO Effects
+- Do NOT use CSS transitions, `keyframes`, `box-shadow` (for blur), `opacity` animations, or gradients.
+- E-ink screens suffer from severe ghosting and slow refresh rates. Animations cause the screen to flash constantly.
+- Use solid colors and thick borders (e.g. `outline: 3px solid #000; outline-offset: -3px;`) for selected states.
+
+## 3. ⚡ Cache Busting (CRITICAL)
+- E-ink devices cache static assets (CSS, JS) very aggressively and it is difficult for users to clear the cache.
+- Whenever you modify a CSS or JS file, you MUST go to the corresponding HTML file(s) and update the version query parameter (e.g., `<script src="js/app.js?v=1.0.2"></script>`). Use a timestamp or increment the version number.
+
+## 4. 📦 Build After Code Updates (CRITICAL)
+- Always run `npm run build` immediately after making code, HTML, CSS, or asset changes so that the `dist/` directory is updated (the local development server serves from `dist/`).
+
+## 5. 💾 ES5 Javascript & Old WebKit Constraints
+- Kindle Experimental Browser is based on an old WebKit engine.
+- Write **ES5 compliant** JavaScript.
+- Do NOT use `const`, `let`, arrow functions `() => {}`, template literals, classes, or `async`/`await`.
+- Do NOT use WebAssembly (WASM) or Web Workers.
+- Do NOT use modern CSS like `clamp()`, `aspect-ratio`, or Flexbox `gap`. Use fallbacks.
+
+## 6. 👆 Touch Targets & Interaction
+- Ensure all interactive elements (buttons, squares) are large enough (minimum 44x44px) to easily tap on an e-reader screen.
+- Remove tap highlights (`-webkit-tap-highlight-color: transparent`) to prevent extra screen flashes.
+- For DOM updates, use Incremental DOM patching (only update the elements that actually changed) to trigger fast partial refreshes instead of full page redraws.
+
+## 7. 🎨 High Contrast Monochrome
+- Stick to Black, White, and high-contrast Gray colors.
+- Do not use pitch black for dark squares to ensure black pieces remain visible. Use `#888888` or `#2a2a2a`.
+
+## 8. 📝 Sync Requirements (CRITICAL)
+- Whenever you add a new feature, modify logic, or change the architecture, you MUST automatically update the `requirements_einkchess.md` file to keep it in sync with the codebase.
+- The `requirements_einkchess.md` is the single source of truth for the project's specification.
+
+## 9. 🔒 Git Operations (Do NOT Commit or Push)
+- The human developer handles all git operations (`commit`, `push`, `tag`, `release`).
+- The agent may stage changes or suggest commit messages, but MUST NOT run `git commit` or `git push`.
+
+## 10. 🧪 Testing & Execution (Do NOT Run Tests Without Confirmation)
+- The agent may update or propose test plans, but MUST ask for confirmation before executing automated test suites or external test commands. Note that `npm run build` is required and permitted to keep `dist/` in sync.
+
+## 11. 💬 Comment Preservation
+- Preserve existing comments.
+- Do NOT remove comments explaining complex logic — especially stack-based algorithms.
+
+## 12. 🚫 NO Modern Color Emojis (Font Compatibility - CRITICAL)
+- Kindle and E-ink devices lack modern color emoji font glyphs (e.g. 🔥, 🏆, 🎯, 🚀, 💡). They render as broken square boxes ("tofu") or question marks.
+- NEVER use modern color emojis in UI text, buttons, labels, or modals.
+- ONLY use:
+  1. Standard classic Unicode chess glyphs (`♙`, `♟`, `♔`, `♚`, `♖`, `♜`, `♗`, `♝`, `♘`, `♞`)
+  2. Basic geometric / punctuation symbols (`★`, `☆`, `✔`, `✖`, `·`, `↗`, `—`)
+  3. Crisp inline SVGs (`<svg width="..." height="..." ...><path .../></svg>`) or image assets.
+
+By following these rules, we ensure a smooth, flash-free, and functional experience on all Kindle and E-ink devices.
+
+---
+> Source: [thaibm/eink-chess](https://github.com/thaibm/eink-chess) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
