@@ -4,7 +4,7 @@
   "repo": "verun",
   "description": "Parallel Claude Code Agent Orchestrator for macOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SoftwareSavants/verun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T14:41:26Z"
+  "distributed_at": "2026-08-20T14:49:53Z"
 }
