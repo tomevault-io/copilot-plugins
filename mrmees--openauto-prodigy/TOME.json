@@ -4,7 +4,7 @@
   "repo": "openauto-prodigy",
   "description": "Open-source replacement for OpenAuto Pro",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrmees/openauto-prodigy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T10:33:41Z"
+  "distributed_at": "2026-08-20T10:34:24Z"
 }
