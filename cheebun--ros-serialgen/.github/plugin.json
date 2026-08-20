@@ -1,0 +1,9 @@
+{
+  "name": "cheebun--ros-serialgen",
+  "displayName": "ros-serialgen",
+  "description": "RouterOS L6 Serial Generator & License Key Converter \u2014 AVX-512 SIMD collision search",
+  "version": "1.0.0",
+  "author": "cheebun",
+  "homepage": "https://github.com/cheebun/ros-serialgen",
+  "skills": []
+}
