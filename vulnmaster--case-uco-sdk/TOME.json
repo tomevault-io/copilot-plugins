@@ -1,0 +1,44 @@
+{
+  "name": "CASE-UCO-SDK",
+  "owner": "vulnmaster",
+  "repo": "CASE-UCO-SDK",
+  "description": "Multi-language SDK (Python, C#, Java, Rust) for building validated CASE/UCO JSON-LD graphs for digital forensics and cyber-investigation. AI-agent ready with MCP server. Support for Project VIC's Crimes Against Children Ontology, the Adversary Engagement Ontology, many Upper and Extension Ontologies. Model anything in the cyber domain!",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vulnmaster/CASE-UCO-SDK",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T16:32:47Z"
+}
