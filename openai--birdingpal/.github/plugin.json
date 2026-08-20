@@ -1,0 +1,9 @@
+{
+  "name": "openai--birdingpal",
+  "displayName": "birdingpal",
+  "description": "BirdingPal is an ChatGPT-enabled partner for identifying birds.",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/birdingpal",
+  "skills": []
+}
