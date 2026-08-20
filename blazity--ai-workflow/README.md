@@ -7,11 +7,11 @@ Open-source AI agent that turns Jira tickets into pull requests. Runs in Vercel 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Blazity/ai-workflow](https://github.com/Blazity/ai-workflow).
+Original source: `CLAUDE.md` in [Blazity/ai-workflow](https://github.com/Blazity/ai-workflow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
