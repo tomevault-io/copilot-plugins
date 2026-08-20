@@ -1,0 +1,9 @@
+{
+  "name": "pome-sh--digital-twins",
+  "displayName": "digital-twins",
+  "description": "Self-hostable Digital Twins of Different APIs For E2E & Agent Simulation Testing",
+  "version": "1.0.0",
+  "author": "pome-sh",
+  "homepage": "https://github.com/pome-sh/digital-twins",
+  "skills": []
+}
