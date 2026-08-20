@@ -1,0 +1,9 @@
+{
+  "name": "feizhululu--agent-bridge",
+  "displayName": "Agent-Bridge",
+  "description": "Agent Bridge is a connector that links various local agents, enabling users to coordinate multiple other agents simply by interacting with a single powerful agent. It currently supports Codex as the c",
+  "version": "1.0.0",
+  "author": "FeiZhuLulu",
+  "homepage": "https://github.com/FeiZhuLulu/Agent-Bridge",
+  "skills": []
+}
