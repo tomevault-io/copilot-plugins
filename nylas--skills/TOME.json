@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "Agent Skills for building with the Nylas platform \u2014 email, calendar, contacts. Works with Claude Code, Cursor, Copilot, and 30+ AI coding agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nylas/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T16:59:13Z"
+  "distributed_at": "2026-08-20T17:03:01Z"
 }
