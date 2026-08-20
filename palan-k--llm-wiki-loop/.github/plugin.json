@@ -1,0 +1,9 @@
+{
+  "name": "palan-k--llm-wiki-loop",
+  "displayName": "llm-wiki-loop",
+  "description": "The reference architecture for LLM-maintained knowledge vaults \u2014 schema, lifecycle loop, machine verification, self-installation",
+  "version": "1.0.0",
+  "author": "PALAN-K",
+  "homepage": "https://github.com/PALAN-K/llm-wiki-loop",
+  "skills": []
+}
