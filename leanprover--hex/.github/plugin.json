@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--hex",
+  "displayName": "hex",
+  "description": "Verified computational algebra in Lean 4: aggregator for the released hex libraries",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/hex",
+  "skills": []
+}
