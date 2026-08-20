@@ -1,0 +1,9 @@
+{
+  "name": "fakehank--ai-report-to-me",
+  "displayName": "ai-report-to-me",
+  "description": "Your AI coding sessions deserve better management \ud83c\udfa7 \u2014 daily reports & 90-day summaries from Claude Code, Gemini CLI, Codex & OpenCode logs.",
+  "version": "1.0.0",
+  "author": "FakeHank",
+  "homepage": "https://github.com/FakeHank/ai-report-to-me",
+  "skills": []
+}
