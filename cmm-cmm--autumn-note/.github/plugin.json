@@ -1,0 +1,9 @@
+{
+  "name": "cmm-cmm--autumn-note",
+  "displayName": "Autumn-Note",
+  "description": "Zero-dependency WYSIWYG rich-text editor in vanilla JavaScript (ES2022+) \u2014 no jQuery. Dark mode, RTL, 8 locales, @mention, markdown shortcuts, tables, ARIA-accessible toolbar. React + Vue 3 wrappers, ",
+  "version": "1.0.0",
+  "author": "cmm-cmm",
+  "homepage": "https://github.com/cmm-cmm/Autumn-Note",
+  "skills": []
+}
