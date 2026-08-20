@@ -1,0 +1,9 @@
+{
+  "name": "spacegass--space-gass-api",
+  "displayName": "space-gass-api",
+  "description": "Official SPACE GASS API specifications, developer SDKs, and automation examples",
+  "version": "1.0.0",
+  "author": "SpaceGass",
+  "homepage": "https://github.com/SpaceGass/space-gass-api",
+  "skills": []
+}
