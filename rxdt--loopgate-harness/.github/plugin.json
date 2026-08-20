@@ -1,0 +1,9 @@
+{
+  "name": "rxdt--loopgate-harness",
+  "displayName": "loopgate_harness",
+  "description": "A repo-native coding-agent loop harness for Claude, Codex, Copilot, and other CLI agents. Agents can edit. Gates decide what lands. You set the plan in motion. The agents take a prompt, and each itera",
+  "version": "1.0.0",
+  "author": "rxdt",
+  "homepage": "https://github.com/rxdt/loopgate_harness",
+  "skills": []
+}
