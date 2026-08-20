@@ -1,0 +1,9 @@
+{
+  "name": "wxhou--openspec-playwright",
+  "displayName": "openspec-playwright",
+  "description": "OpenSpec + Playwright Test Agents integration for automated E2E verification",
+  "version": "1.0.0",
+  "author": "wxhou",
+  "homepage": "https://github.com/wxhou/openspec-playwright",
+  "skills": []
+}
