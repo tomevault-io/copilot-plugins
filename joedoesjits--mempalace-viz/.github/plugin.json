@@ -1,0 +1,9 @@
+{
+  "name": "joedoesjits--mempalace-viz",
+  "displayName": "mempalace-viz",
+  "description": "Futuristic knowledge graph visualization for MemPalace \u2014 D3.js force-directed graph with semantic clustering, real-time MCP integration, and Cloudflare zero-trust hosting",
+  "version": "1.0.0",
+  "author": "JoeDoesJits",
+  "homepage": "https://github.com/JoeDoesJits/mempalace-viz",
+  "skills": []
+}
