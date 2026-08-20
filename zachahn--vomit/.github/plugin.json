@@ -1,0 +1,9 @@
+{
+  "name": "zachahn--vomit",
+  "displayName": "vomit",
+  "description": "Clean up Claude 5's token vomit with a separate LLM. Save your tokens, Claude 5 is hopeless",
+  "version": "1.0.0",
+  "author": "zachahn",
+  "homepage": "https://github.com/zachahn/vomit",
+  "skills": []
+}
