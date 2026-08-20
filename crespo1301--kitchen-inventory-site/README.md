@@ -7,11 +7,11 @@ Marketing site for Kitchen Inventory — restaurant stock & ordering app
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Crespo1301/kitchen-inventory-site](https://github.com/Crespo1301/kitchen-inventory-site).
+Original source: `AGENTS.md` in [Crespo1301/kitchen-inventory-site](https://github.com/Crespo1301/kitchen-inventory-site).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
