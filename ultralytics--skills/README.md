@@ -7,11 +7,11 @@ Agent skills for Ultralytics YOLO, covering models, datasets, training, tuning, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ultralytics/skills](https://github.com/ultralytics/skills).
+Original source: `AGENTS.md` in [ultralytics/skills](https://github.com/ultralytics/skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
