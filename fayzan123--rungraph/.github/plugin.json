@@ -1,0 +1,9 @@
+{
+  "name": "fayzan123--rungraph",
+  "displayName": "rungraph",
+  "description": "See your agent runs as a graph \u2014 zero-setup, agent-first visualizer for Claude Code sessions and workflows",
+  "version": "1.0.0",
+  "author": "fayzan123",
+  "homepage": "https://github.com/fayzan123/rungraph",
+  "skills": []
+}
