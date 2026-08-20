@@ -1,0 +1,9 @@
+{
+  "name": "flyersworder--agentic-data-contracts",
+  "displayName": "agentic-data-contracts",
+  "description": "YAML-first, domain-driven data governance for AI agents \u2014 teach agents your business domains, metrics, and rules before they write SQL",
+  "version": "1.0.0",
+  "author": "flyersworder",
+  "homepage": "https://github.com/flyersworder/agentic-data-contracts",
+  "skills": []
+}
