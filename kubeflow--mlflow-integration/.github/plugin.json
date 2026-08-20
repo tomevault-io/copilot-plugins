@@ -1,0 +1,9 @@
+{
+  "name": "kubeflow--mlflow-integration",
+  "displayName": "mlflow-integration",
+  "description": "mlflow-integration",
+  "version": "1.0.0",
+  "author": "kubeflow",
+  "homepage": "https://github.com/kubeflow/mlflow-integration",
+  "skills": []
+}
