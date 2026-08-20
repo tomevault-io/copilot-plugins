@@ -1,0 +1,9 @@
+{
+  "name": "jrb00013--rudycanshoot",
+  "displayName": "rudycanshoot",
+  "description": "MCP server + CLI that lets AI assistants take and view screenshots. Auto-installs into Claude Code, Cursor, Windsurf, Codex, Gemini CLI, OpenCode, Continue, Cline, and more.",
+  "version": "1.0.0",
+  "author": "jrb00013",
+  "homepage": "https://github.com/jrb00013/rudycanshoot",
+  "skills": []
+}
