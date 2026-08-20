@@ -1,0 +1,9 @@
+{
+  "name": "rgranet--project-coding-companion-skill",
+  "displayName": "project-coding-companion-skill",
+  "description": "A Claude Skill that coaches you to write better coding prompts before implementing \u2014 evaluate, clarify, plan, code, review.",
+  "version": "1.0.0",
+  "author": "rgranet",
+  "homepage": "https://github.com/rgranet/project-coding-companion-skill",
+  "skills": []
+}
