@@ -1,0 +1,9 @@
+{
+  "name": "remocn--remocn-studio",
+  "displayName": "remocn-studio",
+  "description": "A standalone, hosted in-browser video editor that assembles videos from first-party remocn components: drag components onto a typed timeline, configure them, preview in the browser, and render an MP4 ",
+  "version": "1.0.0",
+  "author": "Remocn",
+  "homepage": "https://github.com/Remocn/remocn-studio",
+  "skills": []
+}
