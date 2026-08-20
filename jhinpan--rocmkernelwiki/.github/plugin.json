@@ -1,0 +1,9 @@
+{
+  "name": "jhinpan--rocmkernelwiki",
+  "displayName": "ROCmKernelWiki",
+  "description": "Agent-queryable ROCm kernel optimization knowledge base for AMD Instinct MI300/gfx942 and MI350/MI355X/gfx950, packaged for Codex CLI and Claude Code with merged-PR provenance, real-silicon validation",
+  "version": "1.0.0",
+  "author": "jhinpan",
+  "homepage": "https://github.com/jhinpan/ROCmKernelWiki",
+  "skills": []
+}
