@@ -1,0 +1,9 @@
+{
+  "name": "nmarijane--saas-boilerplate",
+  "displayName": "saas-boilerplate",
+  "description": "SaaS boilerplate - Next.js 16 + Better Auth + Stripe + Drizzle ORM",
+  "version": "1.0.0",
+  "author": "nmarijane",
+  "homepage": "https://github.com/nmarijane/saas-boilerplate",
+  "skills": []
+}
