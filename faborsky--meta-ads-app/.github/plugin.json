@@ -1,0 +1,9 @@
+{
+  "name": "faborsky--meta-ads-app",
+  "displayName": "meta-ads-app",
+  "description": "Python CLI pro Meta Ads (Marketing API v25.0) \u2014 47 p\u0159\u00edkaz\u016f, dry-run z\u00e1pisy, rate-limit guard, stav\u011bn\u00e9 pro orchestraci AI agentem (Claude Code). Sou\u010d\u00e1st ekosyst\u00e9mu kurzu AI First.",
+  "version": "1.0.0",
+  "author": "faborsky",
+  "homepage": "https://github.com/faborsky/meta-ads-app",
+  "skills": []
+}
