@@ -4,7 +4,7 @@
   "repo": "Prompt-Library",
   "description": "A curated library of production-ready system prompts for building with AI. Static, dark-themed, mobile-first web app. No frameworks, no build step.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SarutobiSasuke8/Prompt-Library",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T14:54:49Z"
+  "distributed_at": "2026-08-20T15:00:14Z"
 }
