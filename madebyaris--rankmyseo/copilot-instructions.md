@@ -1,69 +1,130 @@
-## composer-fullstack-delivery
+## composer-orchestration
 
-> Stack-agnostic delivery — define seams first, ship one vertical slice, treat failure modes as first-class
+> Subagents, plan mode, parallel workstreams, long-running tasks — when to delegate vs do inline
 
 
-# Composer full-stack delivery
+# Composer orchestration
 
-Use when a change spans **multiple layers**: client + server, server + persistence, service + service, code + migration. Skip when a single-module tweak suffices.
+Use when work spans multiple files, parallel tracks, long-running commands, plan mode, or you need context isolation. For single-file edits, stay in the parent agent.
 
-This rule is technology-neutral. Replace "client/server/persistence" with whatever your spine actually is.
+Companion rules: [composer-reasoning](composer-reasoning.mdc) (intent, tradeoffs on complex work), [composer-fullstack-delivery](composer-fullstack-delivery.mdc) (vertical slice), [composer-debugging](composer-debugging.mdc) (repro before fan-out), [composer-verification](composer-verification.mdc) (status labels).
 
-## Step 1 — Freeze the seams
+## When to delegate
 
-Before writing code, write down the boundaries (briefly — a few bullets, not a doc).
+| Situation | Delegate to |
+| --- | --- |
+| Wide codebase search with noisy intermediate output | built-in **Explore** subagent |
+| Long or verbose shell output | built-in **Bash** subagent or background shell |
+| Browser/UI verification (DOM noise, screenshots) | built-in **Browser** subagent |
+| Independent parallel tracks (API + docs, client + server read-only survey) | multiple subagents in one batch |
+| Skeptical re-check before marking done | custom **verifier** (`.cursor/agents/verifier.md`) |
+| Isolated debug with full stack context | custom **debugger** (`.cursor/agents/debugger.md`) |
 
-- **User-visible behavior** for the smallest useful story.
-- **Contracts at every seam**: API shape, event shape, function signature, error semantics.
-- **Trust boundaries**: who is the actor, what's authenticated, what's authorized.
-- **Consistency expectations**: transactions, retries, idempotency keys where partial failure repeats.
-- **Observability**: which logs, traces, or metrics already exist at these seams; where to add minimum new ones.
+## When not to delegate
 
-If two of these conflict, surface the conflict before coding around it.
+- Single-file edit, one test run, one MCP call.
+- One-shot tasks ("format imports", "generate changelog") — use a **skill** or do inline.
+- Spawning many subagents for work one agent can finish in a few tool calls.
 
-## Step 2 — Ship one vertical slice
+Default: parent does the work unless isolation or parallelism clearly wins.
 
-Build a thin column end-to-end before widening:
+## Subagent prompt contract
 
-1. One client/caller path.
-2. One server handler or worker.
-3. One persistence or integration edge if persistence is new.
+Subagents start with a **clean context** — they do not see prior chat history. Every delegation prompt must include:
 
-Use the **minimum UI** needed to expose the state transitions; defer layout, animation, and polish.
+1. **Goal** — observable outcome.
+2. **Constraints** — what not to change, style, scope limits.
+3. **Pointers** — file paths, symbols, error messages, branch names.
+4. **Definition of done** — what "finished" means for this handoff.
+5. **Return shape** — summary format the parent needs (not raw logs).
 
-Resist building the second screen, the second endpoint, or the speculative migration until the first slice **demonstrably works** at the surface that matters.
+Bad: "Look at the auth code."
+Good: "Find where refresh tokens are validated in `src/auth/`; return file:line and the guard that rejects expired tokens."
 
-## Step 3 — Treat failure modes as first-class
+## Foreground vs background
 
-Happy path is half the work. Enumerate, at minimum:
+| Mode | Use when |
+| --- | --- |
+| **Foreground** | Next step depends on the result (schema found, test output needed). |
+| **Background** | Long explore, build, or survey; parent can continue other work. |
 
-- **Validation** failures vs. **semantic** rejections — different responses, different recovery.
-- **Authorization** failures distinguished from **not found**, mindful of existence-leak trade-offs.
-- **Timeouts and partial outages** — retry, backoff, or degrade with a clear contract.
-- **Duplicate submissions** — idempotency or explicit user-visible handling.
-- **Empty / boundary states** — empty list, single item, max length.
+If you continue while a background subagent runs, **label assumptions** you are making. Reconcile when results arrive. Do not mark work **verified** from a child summary alone — see verification rule.
 
-These deserve the same attention as the happy path when they affect trust or correctness.
+## Parallelism
 
-## Step 4 — Proportional verification
+- Batch **independent** subagents in one turn; do not serialize unnecessarily.
+- Do not launch five agents to edit one file.
+- Parent owns **integration**: merge findings, resolve conflicts, apply edits, run final verification.
 
-Match test depth to risk and to the project's existing investment.
+## Nested subagents and resume
 
-- If the project has contract or integration tests, use them.
-- If only unit tests exist, write the smallest unit test that covers the seam.
-- For ad-hoc verification, use scripted curl / CLI / browser checks — but capture them as artifacts (a script, a doc, a fixture) rather than throwaway gestures.
-- If verification can't run, label `implemented but unverified` per the verification rule with the precise gap.
+Subagents may spawn children for large trees (multi-file features, deep refactors). The **parent** still owns the final answer and conflict resolution.
 
-Don't bolt on a heavy test framework mid-slice; don't refactor the test layout to accommodate one new test.
+- Children return **summaries**, not full tool logs.
+- **Resume** with agent ID when continuing prior work — do not re-derive context from scratch.
+- Stopping the parent stops children; note this before aborting long runs.
 
-## Coordination
+## Plan mode
 
-- Parallelize **reading**: explore client, server, schema, and tests at once.
-- Sequentialize **writing** when there are dependencies: migrate before code that depends on it; regenerate types after schema change; deploy server before client expects new endpoints.
+Enter plan mode (or honor user plan mode) when:
 
-## Closeout
+- Multiple valid designs exist and the choice changes architecture.
+- Blast radius is large (migrations, auth, public API).
+- User asked to plan first or enabled plan mode.
 
-Demonstrate the slice works at the surface that matters. Hand back artifacts another engineer can rerun: command, request, expected output, or screenshot. List what's intentionally deferred ("phase 2: bulk delete, error toast, retry banner").
+**In plan mode, deliver a structured plan.** Fill every section below; mark sections **N/A** when they genuinely do not apply. For when to ask vs assume, see [clarify-first](clarify-first.mdc) plan-mode exception. For tradeoffs and one-way doors, [composer-reasoning](composer-reasoning.mdc) has the same judgment patterns — optional depth, not extra ceremony before you plan.
+
+| Section | Content |
+| --- | --- |
+| **Summary** | 2–4 sentences: what ships, what does not |
+| **Current state** | What exists today (files, flows, pain) — cite paths |
+| **Goals & non-goals** | Observable goals; explicit exclusions |
+| **Constraints** | Backward compat, perf, security, timeline, deps |
+| **Options** | 2–3 viable designs with **pros / cons / blast radius** |
+| **Recommendation** | Pick one; **why** over alternatives |
+| **Architecture** | Mermaid or bullet flow for data/control |
+| **Change inventory** | Table: path → what changes (create/modify/delete) |
+| **Contracts** | API shapes, types, events, config keys affected |
+| **Phased rollout** | Ordered steps; which slice is MVP |
+| **Risks & mitigations** | What could go wrong + guard |
+| **Rollback** | How to undo if slice 1 fails |
+| **Verification matrix** | Check \| command or action \| expected result |
+| **Open questions** | Only blocking items (max 1–2); else state assumptions |
+| **Style / tech-debt (optional)** | Separate from MVP unless user opts in |
+
+**Plan depth (quality bar):**
+
+- Every recommendation tied to **evidence** (file:line, doc, or command output from inspection).
+- Change inventory must be **actionable** (not "update auth").
+- Verification matrix must be **runnable** where possible.
+- **Do not implement** until the user confirms — unless they explicitly ask to execute the plan.
+
+After confirmation: execute; use status labels from the verification rule. **Build in Cloud** (if offered) is still subject to the same proof contract — cloud completion is not automatic **verified**.
+
+## Long-running work
+
+For tasks that span many steps:
+
+1. Checkpoint progress in plain language (what's done, what's next).
+2. Ship one **vertical slice** before widening (see fullstack delivery rule).
+3. Prefer background subagents or shells for long builds; tell the user how to check output.
+4. Defer polish until the slice is **verified** at the surface that matters.
+
+## Anti-patterns
+
+- Vague subagents with no definition of done.
+- Parent and child both editing the same files without coordination.
+- Marking **verified** because a subagent said "done."
+- Delegating a 2-minute task and paying context startup cost.
+- Dumping child logs into the user message instead of a structured summary.
+
+## Skills vs subagents
+
+| Use a **skill** when… | Use a **subagent** when… |
+| --- | --- |
+| Single-purpose, repeatable workflow | Long research or exploration |
+| Fits in one context window | Parallel independent workstreams |
+| No separate context needed | Specialized skepticism (verifier) or isolation |
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
