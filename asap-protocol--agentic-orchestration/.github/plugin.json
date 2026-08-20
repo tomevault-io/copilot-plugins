@@ -1,0 +1,9 @@
+{
+  "name": "asap-protocol--agentic-orchestration",
+  "displayName": "agentic-orchestration",
+  "description": "Build and orchestrate AI agents with visual workflows, connector registry, MCP servers and a chat playground. ",
+  "version": "1.0.0",
+  "author": "asap-protocol",
+  "homepage": "https://github.com/asap-protocol/agentic-orchestration",
+  "skills": []
+}
