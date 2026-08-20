@@ -1,0 +1,9 @@
+{
+  "name": "slopdotcash--asi",
+  "displayName": "asi",
+  "description": "ASI \u2014 continual reinforcement learning framework (The Alberta Plan) in JAX; trains elizaOS robot policies",
+  "version": "1.0.0",
+  "author": "SlopDotCash",
+  "homepage": "https://github.com/SlopDotCash/asi",
+  "skills": []
+}
