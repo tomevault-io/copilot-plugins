@@ -1,0 +1,44 @@
+{
+  "name": "VibeApp",
+  "owner": "Skykai521",
+  "repo": "VibeApp",
+  "description": "VibeApp is an on-device Android app builder powered by a specialized harness for code generation, build validation, and crash-repair loops.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Skykai521/VibeApp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T18:57:30Z"
+}
