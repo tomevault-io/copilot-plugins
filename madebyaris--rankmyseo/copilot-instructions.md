@@ -1,122 +1,66 @@
-## composer-debugging
+## composer-deep-research
 
-> Root-cause debugging — reproduce, trace data flow, test cheapest hypothesis, fix the cause not the symptom
+> Multi-source structured research protocol — primaries first, iterative retrieval, explicit conflicts
 
 
-# Composer debugging
+# Composer deep research
 
-Use whenever something is broken, failing, flaky, or behaves unexpectedly. The goal is to find the cause, not silence the alarm.
+When the user asks for investigation, comparisons, unfamiliar domains, audits, benchmarks, regulation-style questions, vendor claims, historical timelines, architecture surveys, threat models grounded in citations, etc., shift into **research mode**.
 
-Establish **reproduction in the parent** before spawning the debugger subagent (`.cursor/agents/debugger.md`), unless the task is explore-only. For parallel survey work, see [composer-orchestration](composer-orchestration.mdc).
+**Expanded playbook**: use the skill at [.cursor/skills/deep-research/SKILL.md](.cursor/skills/deep-research/SKILL.md) for ladders, contradiction logging, and long-form workflows.
 
-## The debugging mindset
+## Outcome shape
 
-Bugs are not random. They have causes. Your job is to find the cause with the cheapest possible experiments, then fix it surgically.
+Produce answers in this order:
 
-Avoid the three classic anti-patterns:
+1. **Scoped conclusion** framed to the user’s constraints (explicit assumptions).
+2. **What primary sources establish** versus what rests on weaker synthesis.
+3. **Conflicts/disagreements** between sources—with dates/versions/context.
+4. **Action recommendation** tied to assumptions and uncertainties.
+5. **How to verify** (commands, dashboards, reproducible benchmarks, authoritative doc sections).
 
-1. **Symptom-patching**: making the error message disappear without understanding why it appeared.
-2. **Guess-and-check**: changing things at random hoping it works.
-3. **Premature theory**: committing to a hypothesis before evidence supports it.
+Avoid confident absolutes unless directly supported—flag confidence per claim tier.
 
-## Step 1 — Reproduce reliably
+## Visible research thinking
 
-Do not start fixing until you can reproduce. A bug you cannot reproduce is a bug you cannot fix; you can only paper over it.
+Do not expose private chain-of-thought or invented `<thinking>` blocks. Instead, externalize **auditable reasoning artifacts**:
 
-- Find the **smallest reliable repro**: an exact command, input, route, or test case that triggers it.
-- Note environment specifics: OS, runtime version, dependency versions, timing, concurrency, data state.
-- If it's flaky, reproduce it **at least three times** before believing you have it.
+- **Research plan**: question, assumptions, source ladder, search angles, stop condition.
+- **Claim ledger**: important claim → source/evidence tier → counter-evidence checked → confidence.
+- **Decision rationale**: short “because” statements tied to evidence, not vibes.
+- **Residual uncertainty**: what would change the conclusion and how to test it.
 
-If you genuinely cannot reproduce, say so and propose what data would let you (logs, a failing test, more user steps).
+For quick answers, compress these into 2–4 sentences. For deep research, keep them explicit.
 
-## Step 2 — Read the actual error
+## Source ladder (default tiering)
 
-Read the **full** error message and stack trace, not just the first line.
+Prefer, in descending trust for engineering facts unless the question is inherently opinion-heavy:
 
-- What component reported the error?
-- What was the input/state at the failure point?
-- What's the closest frame in code you control?
-- What does the error message actually mean (look it up if unfamiliar)?
+1. Specifications, RFCs, official vendor docs keyed to product/version pages.
+2. Language/runtime/framework official guides and changelog entries—not random tutorials.
+3. Source repositories tagged releases, SECURITY advisories, CVE records with linked metadata.
+4. Peer-reviewed/academic/industry-neutral references when factual claims hinge on measurements.
+5. Secondary blogs/forums/stack answers—explicitly labelled as heuristic or anecdotal corroborating evidence.
 
-Common mistake: skimming a stack trace, picking a familiar-looking word, and chasing the wrong layer.
+Retrieve **different independent primaries** when claims are high-impact (security/compliance/production failure modes).
 
-## Step 3 — Trace the data flow
+## Iterative retrieval
 
-Walk the path the bad value takes:
+- **Broaden** prompts when retrieval is sparse; **narrow** when noise dominates.
+- Re-run queries anchored to identifiers you learned (proper nouns, error codes, version numbers, CVE IDs).
+- Note **freshness**: capture page dates, release tags, deprecation banners; mark stale/conflicting timelines.
+- Run at least one **adversarial pass** for high-impact recommendations: search for deprecations, counterexamples, benchmark caveats, security advisories, and “why not” evidence.
 
-1. Where does it originate?
-2. What transforms it along the way?
-3. Where does it become wrong?
-4. What invariant was violated, and where?
+## Synthesis hygiene
 
-Use the cheapest tools first: read the code, then add a log/print, then a debugger, then a test. Don't reach for the heaviest tool first.
+- Distinguish **reported symptom** versus **hypothesized mechanism** versus **validated root cause**.
+- Do not merge incompatible positions silently—present both and the deciding evidence.
+- If tools or live systems are unavailable, say so and downgrade certainty.
+- Every citation should support the sentence it appears beside; avoid dumping links that were not inspected or that only loosely relate.
 
-## Step 4 — Hypothesis ladder
+## Outputs
 
-List the possible causes from **most likely × cheapest to test** to least.
-
-| Hypothesis | Test | Cost |
-| --- | --- | --- |
-| Input validation drops field X | Log the input at boundary | low |
-| Race condition between A and B | Add a deterministic delay; check ordering | medium |
-| Library bug in version Y | Reproduce in a minimal isolated case | high |
-
-Test cheapest first. Eliminate before you accuse.
-
-## Step 5 — Find the root, not a symptom
-
-When a hypothesis matches the evidence, ask **one more time**: "But why does *that* happen?"
-
-- "The list is empty" — why? "The query returns nothing" — why? "The filter compares against the wrong field" — root.
-- "Token is rejected" — why? "It's expired" — why? "The refresh job didn't run" — why? "Cron is misconfigured" — root.
-
-Stop drilling when one more "why" leaves the system you're responsible for.
-
-## Step 6 — Fix surgically and confirm
-
-- Change the **minimum** that addresses the root cause.
-- Add or update a test that **fails before the fix and passes after**. Run both directions.
-- Re-run the original reproduction; confirm it no longer triggers.
-- Check for adjacent code that has the same flaw.
-
-## Symptom-patching is occasionally legitimate
-
-If the root cause is genuinely out of scope (third-party library, infra owned by another team), patching the symptom can be the right move — **only if** you:
-
-1. Document that it's a workaround, not a fix.
-2. Reference the upstream issue or ticket where the real fix lives.
-3. Add a TODO with conditions for removing the workaround.
-
-Never silently mask a problem you don't understand.
-
-## Working with flakiness
-
-Flaky tests and intermittent bugs deserve the same root-cause discipline:
-
-- Don't add retries to make CI green without understanding the flake.
-- Don't increase timeouts blindly; find why something is slow.
-- Don't mark a test `skip` to defer the problem; file an issue with the repro and link it.
-
-## Never delete the failing test
-
-A failing test is the most valuable artifact in the room. It's the bug, captured.
-
-- Don't delete it.
-- Don't comment it out.
-- Don't change its assertions to match the broken behavior.
-- Don't catch its expected error to silence it.
-
-If the test itself is genuinely wrong, prove it (read the spec, talk to the author) before changing it.
-
-## Reporting
-
-When you report a fix, include:
-
-1. **Symptom** the user saw.
-2. **Root cause** you identified, with the evidence that confirms it.
-3. **Fix** applied (file, function, what changed and why).
-4. **Verification** — the test or command that proves it's fixed.
-5. **Adjacent risks** — places with the same pattern, if any.
+Prefer structured bullet findings with citations (title + canonical URL/path). Paste long excerpts only when necessary to resolve ambiguity—otherwise summarise with pointers.
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
