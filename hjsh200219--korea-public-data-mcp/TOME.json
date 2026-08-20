@@ -4,7 +4,7 @@
   "repo": "korea-public-data-mcp",
   "description": "\ub300\ud55c\ubbfc\uad6d \uacf5\uacf5\ub370\uc774\ud130 MCP(Model Context Protocol) \uc11c\ubc84\uc785\ub2c8\ub2e4. \ubc95\uc81c\ucc98 \uad6d\uac00\ubc95\ub839\uc815\ubcf4\uc13c\ud130, DART \uc804\uc790\uacf5\uc2dc\uc2dc\uc2a4\ud15c, \uacf5\uacf5\ub370\uc774\ud130\ud3ec\ud138 API\ub97c \ud1b5\ud569\ud558\uc5ec \ubc95\ub839\u00b7\ud310\ub840\u00b7\uae30\uc5c5\uacf5\uc2dc\u00b7\uc0dd\ud65c\uc815\ubcf4\ub97c \uac80\uc0c9/\uc870\ud68c\ud569\ub2c8\ub2e4.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hjsh200219/korea-public-data-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T20:33:05Z"
+  "distributed_at": "2026-08-20T20:42:53Z"
 }
