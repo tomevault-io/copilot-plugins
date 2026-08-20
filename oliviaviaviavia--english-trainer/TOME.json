@@ -1,0 +1,44 @@
+{
+  "name": "english-trainer",
+  "owner": "Oliviaviaviavia",
+  "repo": "english-trainer",
+  "description": "\u5f00\u6e90\u672c\u5730\u7248 Language Reactor + ELSA\uff1a\u628a\u4efb\u610f\u89c6\u9891\u53d8\u6210\u542c\u529b / \u8ddf\u8bfb / \u53d1\u97f3\u8bad\u7ec3 \u00b7 Open-source local alternative \u2014 turn any video into listening, shadowing & pronunciation practice",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Oliviaviaviavia/english-trainer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T01:28:34Z"
+}
