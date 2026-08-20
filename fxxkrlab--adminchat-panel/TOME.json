@@ -1,0 +1,44 @@
+{
+  "name": "ADMINCHAT_PANEL",
+  "owner": "fxxkrlab",
+  "repo": "ADMINCHAT_PANEL",
+  "description": "Telegram Bot Customer Service Platform - Multi-bot pool, bidirectional messaging, FAQ engine (8 modes + AI), real-time web chat, user management. Python/FastAPI + React/TypeScript + PostgreSQL + Redis. Docker deployable.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fxxkrlab/ADMINCHAT_PANEL",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T03:33:20Z"
+}
