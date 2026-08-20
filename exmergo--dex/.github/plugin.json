@@ -1,0 +1,9 @@
+{
+  "name": "exmergo--dex",
+  "displayName": "dex",
+  "description": "Dex is the agent-native analytics engineering toolkit. Point it at your warehouse and your dbt project. It learns the landscape, authors your transformations, and tells you exactly what to fix when th",
+  "version": "1.0.0",
+  "author": "exmergo",
+  "homepage": "https://github.com/exmergo/dex",
+  "skills": []
+}
