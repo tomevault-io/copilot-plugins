@@ -1,0 +1,9 @@
+{
+  "name": "false-systems--sykli-elixir",
+  "displayName": "sykli-elixir",
+  "description": "The contract layer between AI agents and the work they execute.",
+  "version": "1.0.0",
+  "author": "false-systems",
+  "homepage": "https://github.com/false-systems/sykli-elixir",
+  "skills": []
+}
