@@ -4,7 +4,7 @@
   "repo": "herdr-agent-quota",
   "description": "Never hit a quota limit mid-task: see Claude, Codex, Grok and Agy usage live in your Herdr sidebar. 5h and weekly percent remaining.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/levi-qiao/herdr-agent-quota",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T10:36:03Z"
+  "distributed_at": "2026-08-20T10:37:12Z"
 }
