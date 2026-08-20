@@ -1,8 +1,8 @@
-## autocommit
+## keep-layout
 
-> 每次code change之后自动帮我commit代码
+> 任何的code change都不要改变Jekyll博客的整体布局框架，只需要改动单个博客文章内部的样式。
 
-每次code change之后自动帮我commit代码
+任何的code change都不要改变Jekyll博客的整体布局框架，只需要改动单个博客文章内部的样式。
 
 ---
 > Source: [zuozuo/zuozuo.github.io](https://github.com/zuozuo/zuozuo.github.io) — distributed by [TomeVault](https://tomevault.io).
