@@ -1,0 +1,9 @@
+{
+  "name": "udaykanthr--agentchanti",
+  "displayName": "agentchanti",
+  "description": "Autonomous multi-agent AI coding CLI & Python library with built-in RAG. Plans, codes, reviews, tests \u2014 works with local LLMs (Ollama, LM Studio) or cloud (OpenAI, Gemini, Claude).",
+  "version": "1.0.0",
+  "author": "udaykanthr",
+  "homepage": "https://github.com/udaykanthr/agentchanti",
+  "skills": []
+}
