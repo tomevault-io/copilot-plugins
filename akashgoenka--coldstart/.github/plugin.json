@@ -1,0 +1,9 @@
+{
+  "name": "akashgoenka--coldstart",
+  "displayName": "coldstart",
+  "description": "Self-maintaining and persistent codebase memory for AI coding agents \u2014 a deterministic AST index plus agent-written notes that flag themselves stale when the code changes. Works with Claude Code, Curs",
+  "version": "1.0.0",
+  "author": "AkashGoenka",
+  "homepage": "https://github.com/AkashGoenka/coldstart",
+  "skills": []
+}
