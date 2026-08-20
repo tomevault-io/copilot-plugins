@@ -1,0 +1,9 @@
+{
+  "name": "omarchy-rs--omarchy-rs",
+  "displayName": "omarchy-rs",
+  "description": "Omarchy Linux Rust user-space acceleration layer",
+  "version": "1.0.0",
+  "author": "Omarchy-rs",
+  "homepage": "https://github.com/Omarchy-rs/omarchy-rs",
+  "skills": []
+}
