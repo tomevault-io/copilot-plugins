@@ -1,0 +1,9 @@
+{
+  "name": "diegopeixoto--posterpilot",
+  "displayName": "posterpilot",
+  "description": "PosterPilot is a self-hosted artwork manager for Plex, Jellyfin, and Emby. It scans your library, finds posters/backgrounds from multiple providers, and lets you apply them directly to your media serv",
+  "version": "1.0.0",
+  "author": "diegopeixoto",
+  "homepage": "https://github.com/diegopeixoto/posterpilot",
+  "skills": []
+}
