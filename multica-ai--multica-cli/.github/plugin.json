@@ -1,0 +1,9 @@
+{
+  "name": "multica-ai--multica-cli",
+  "displayName": "multica-cli",
+  "description": "Agent skill for operating Multica through the local CLI",
+  "version": "1.0.0",
+  "author": "multica-ai",
+  "homepage": "https://github.com/multica-ai/multica-cli",
+  "skills": []
+}
