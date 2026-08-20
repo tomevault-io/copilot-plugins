@@ -4,7 +4,7 @@
   "repo": "project-coding-companion-skill",
   "description": "A Claude Skill that coaches you to write better coding prompts before implementing \u2014 evaluate, clarify, plan, code, review.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rgranet/project-coding-companion-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T18:33:43Z"
+  "distributed_at": "2026-08-20T19:05:49Z"
 }
