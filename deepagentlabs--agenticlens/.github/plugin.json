@@ -1,0 +1,9 @@
+{
+  "name": "deepagentlabs--agenticlens",
+  "displayName": "agenticlens",
+  "description": "An open-source profiler for AI agents that analyzes token usage, cost, latency, and optimization opportunities across LLM workflows.",
+  "version": "1.0.0",
+  "author": "DeepAgentLabs",
+  "homepage": "https://github.com/DeepAgentLabs/agenticlens",
+  "skills": []
+}
