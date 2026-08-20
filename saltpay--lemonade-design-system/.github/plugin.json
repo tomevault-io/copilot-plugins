@@ -1,0 +1,14 @@
+{
+  "name": "saltpay--lemonade-design-system",
+  "displayName": "lemonade-design-system",
+  "description": "Compose Multiplatform, Swift UI and Flutter implementation of Teya's Lemonade design system",
+  "version": "1.0.0",
+  "author": "saltpay",
+  "homepage": "https://github.com/saltpay/lemonade-design-system",
+  "skills": [
+    {
+      "name": "kotlin-conventions",
+      "description": ""
+    }
+  ]
+}
