@@ -4,7 +4,7 @@
   "repo": "enkinex-odcs",
   "description": "Enkinex KCL Library for ODCS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/enkinex/enkinex-odcs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T01:29:12Z"
+  "distributed_at": "2026-08-20T02:50:37Z"
 }
