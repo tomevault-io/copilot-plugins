@@ -1,0 +1,9 @@
+{
+  "name": "vogler75--monster-mq-explorer",
+  "displayName": "monster-mq-explorer",
+  "description": "High-performance MQTT explorer with topic tree visualization, real-time charting, and Web Worker\u2013based message processing. Supports MQTT and WinCC Unified and WiCC Open Architecture.",
+  "version": "1.0.0",
+  "author": "vogler75",
+  "homepage": "https://github.com/vogler75/monster-mq-explorer",
+  "skills": []
+}
