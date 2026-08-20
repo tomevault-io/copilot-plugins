@@ -1,29 +1,21 @@
-## platform-gotchas
+## project-context
 
-> Platform-specific gotchas – Flatpak, Export/Import, Edit mode, etc.
+> Project context and onboarding - read when resuming work in GitSyncMarks-App
 
 
-# Platform Gotchas
+# GitSyncMarks-App – Project Context
 
-Known pitfalls and conventions when working on lib/ or flatpak/:
+When starting or resuming work on this project, especially in a new IDE session:
 
-## Flatpak
+1. **Read [docs/CONTEXT.md](docs/CONTEXT.md)** – Origin, decisions, POC status
+2. **Read [docs/PLAN.md](docs/PLAN.md)** – Implementation phases, next steps
+3. **Read [docs/BOOKMARK-FORMAT.md](docs/BOOKMARK-FORMAT.md)** – Bookmark JSON structure, GitHub API
 
-- **libsecret:** `flutter_secure_storage` requires D-Bus access. In [flatpak/io.github.d0dg3r.GitSyncMarksApp.yml](flatpak/io.github.d0dg3r.GitSyncMarksApp.yml) `finish-args` must include `--talk-name=org.freedesktop.secrets`.
+This is a Flutter app (Android, iOS, Windows, macOS, Linux) that syncs bookmarks from a GitHub repo (GitSyncMarks format), opens URLs in the user's browser, and supports move/reorder/delete/add (synced to repo). Android stable; other platforms alpha.
 
-## Export/Import
+**Parent project:** https://github.com/d0dg3r/GitSyncMarks (browser extension)
 
-- **Desktop (Linux, Windows, macOS):** `FilePicker.platform.saveFile` – `Share.shareXFiles` is not implemented on Linux
-- **Mobile (Android, iOS):** `Share.shareXFiles`
-- **Import:** Show spinner during encrypted import; call `syncBookmarks()` explicitly after import; offer import on empty state
-
-## Edit Mode
-
-- **allowMoveReorder:** Transient (not in `Profile.toJson()`); always `false` in `Profile.fromJson()` – never persist. Default: locked.
-
-## Default Profile
-
-- Create a default profile when `_profiles` is empty after migration (`loadCredentials()` in BookmarkProvider)
+**Workflow:** Test locally, ask before commit, small steps (see User Rules). For releases: [release-workflow.mdc](release-workflow.mdc). For platform code: [platform-gotchas.mdc](platform-gotchas.mdc).
 
 ---
 > Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
