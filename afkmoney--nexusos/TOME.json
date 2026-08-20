@@ -2,7 +2,7 @@
   "name": "nexusOS",
   "owner": "AFKmoney",
   "repo": "nexusOS",
-  "description": "",
+  "description": "Meet Daemon, the Self-Evolving Operating System.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/AFKmoney",
+  "source_url": "https://github.com/AFKmoney/nexusOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T07:44:29Z"
+  "distributed_at": "2026-08-20T16:37:26Z"
 }
