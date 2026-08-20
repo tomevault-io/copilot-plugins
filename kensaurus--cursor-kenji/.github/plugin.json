@@ -1,0 +1,22 @@
+{
+  "name": "kensaurus--cursor-kenji",
+  "displayName": "cursor-kenji",
+  "description": "\ud83e\udd96Curated Cursor AI agent skills, slash commands, MCP configs, subagents & rules for full-stack dev \u2014 React 19, Next.js 15, Supabase, Tailwind v4, TypeScript",
+  "version": "1.0.0",
+  "author": "kensaurus",
+  "homepage": "https://github.com/kensaurus/cursor-kenji",
+  "skills": [
+    {
+      "name": "test-emulator",
+      "description": ""
+    },
+    {
+      "name": "create-rule",
+      "description": ""
+    },
+    {
+      "name": "audit-i18n",
+      "description": ""
+    }
+  ]
+}
