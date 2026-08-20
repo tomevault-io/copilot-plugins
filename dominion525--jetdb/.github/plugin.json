@@ -1,0 +1,9 @@
+{
+  "name": "dominion525--jetdb",
+  "displayName": "jetdb",
+  "description": "A pure Rust library for reading Microsoft Access databases (.mdb/.accdb)",
+  "version": "1.0.0",
+  "author": "dominion525",
+  "homepage": "https://github.com/dominion525/jetdb",
+  "skills": []
+}
