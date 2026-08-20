@@ -7,11 +7,11 @@ Composable security scanning harness for agent skills
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [openclaw/clawscan](https://github.com/openclaw/clawscan).
+Original source: `AGENTS.md` in [openclaw/clawscan](https://github.com/openclaw/clawscan).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
