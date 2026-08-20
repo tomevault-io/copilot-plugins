@@ -1,0 +1,9 @@
+{
+  "name": "shuxiachai--academic-commercialization-agent",
+  "displayName": "academic-commercialization-agent",
+  "description": "Turn any research paper into a commercialization report \u2014 6 AI agents, TRL/MRL scoring, patent landscape, market intelligence, verified citations. DeepSeek / OpenAI / Claude.",
+  "version": "1.0.0",
+  "author": "shuxiachai",
+  "homepage": "https://github.com/shuxiachai/academic-commercialization-agent",
+  "skills": []
+}
