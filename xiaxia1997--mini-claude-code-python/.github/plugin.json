@@ -1,0 +1,9 @@
+{
+  "name": "xiaxia1997--mini-claude-code-python",
+  "displayName": "mini-claude-code-python",
+  "description": "Python implementation of coding agent core mechanisms, with architecture comparison across Claude Code / Kimi Code / Codex",
+  "version": "1.0.0",
+  "author": "Xiaxia1997",
+  "homepage": "https://github.com/Xiaxia1997/mini-claude-code-python",
+  "skills": []
+}
