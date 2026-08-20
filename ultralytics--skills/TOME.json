@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "Agent skills for Ultralytics YOLO, covering models, datasets, training, tuning, inference, tracking, and export.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ultralytics/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T02:43:18Z"
+  "distributed_at": "2026-08-20T03:01:26Z"
 }
