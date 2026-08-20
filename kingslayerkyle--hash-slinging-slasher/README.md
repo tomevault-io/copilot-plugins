@@ -7,11 +7,11 @@ Finding the names for hashed assets in CoD games
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [KingslayerKyle/hash-slinging-slasher](https://github.com/KingslayerKyle/hash-slinging-slasher).
+Original source: `AGENTS.md` in [KingslayerKyle/hash-slinging-slasher](https://github.com/KingslayerKyle/hash-slinging-slasher).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
