@@ -1,0 +1,9 @@
+{
+  "name": "longtimec0ming--hevymap",
+  "displayName": "hevymap",
+  "description": "Sub-muscle volume tracker for Hevy, open source. Hevy tracks muscle groups coarsely (\"chest\", \"shoulders\"). HevyMap pulls in your workouts.",
+  "version": "1.0.0",
+  "author": "longtimec0ming",
+  "homepage": "https://github.com/longtimec0ming/hevymap",
+  "skills": []
+}
