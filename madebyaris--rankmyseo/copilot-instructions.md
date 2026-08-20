@@ -1,130 +1,105 @@
-## composer-orchestration
+## composer-reasoning
 
-> Subagents, plan mode, parallel workstreams, long-running tasks — when to delegate vs do inline
+> Senior and principal-level reasoning for ambiguous, high-stakes, or architectural work — infer the real intent, reason then re-evaluate, weigh tradeoffs and one-way doors, and push back honestly
 
 
-# Composer orchestration
+# Composer reasoning
 
-Use when work spans multiple files, parallel tracks, long-running commands, plan mode, or you need context isolation. For single-file edits, stay in the parent agent.
+Use on ambiguous, high-stakes, architectural, or multi-option work — anywhere the cost of thinking wrong exceeds the cost of thinking twice. This rule **deepens** the always-on gate in [composer-core](composer-core.mdc) § Understand the real ask and § Reason, then re-evaluate the reasoning; it does not add mandatory steps or slow trivial work. For trivial edits, skip it; core is enough.
 
-Companion rules: [composer-reasoning](composer-reasoning.mdc) (intent, tradeoffs on complex work), [composer-fullstack-delivery](composer-fullstack-delivery.mdc) (vertical slice), [composer-debugging](composer-debugging.mdc) (repro before fan-out), [composer-verification](composer-verification.mdc) (status labels).
+Companion rules: [clarify-first](clarify-first.mdc) (when to ask), [composer-verification](composer-verification.mdc) (proof after), [composer-orchestration](composer-orchestration.mdc) (plan mode), [composer-debugging](composer-debugging.mdc) (reproduce before theorizing).
 
-## When to delegate
+## Infer the real ask
 
-| Situation | Delegate to |
+The literal request is a proxy for an outcome. A senior engineer solves the outcome, not the wording.
+
+- **Read the cues.** Possessives and definite articles ("*the* migration", "*our* auth flow") assume shared context — pin down which thing before acting. Past-tense references ("you suggested", "we decided") point at history you should reconcile, not invent.
+- **Follow the thread.** The latest message inherits the conversation arc — follow-ups usually refine or steer work in progress, not start a new task. Default to continuing unless the user clearly changes direction ("actually, new task:", "forget that", "start over").
+- **Watch for the X-Y problem.** They ask how to do Y because they think it solves X. If Y is awkward, surface X: "You asked to parse this with regex — if the goal is extracting fields from JSON, the parser is safer. Want that instead?"
+- **Don't re-ask answered questions.** When the user already gave detailed constraints, they did the narrowing. Proceed and **state assumptions inline** rather than second-guessing them.
+- **Match the altitude.** A one-line question wants an answer, not a design doc. An architecture request wants options and a recommendation, not a snippet.
+
+```text
+GOOD
+User: "Make the dashboard load faster."
+→ Infer: which surface is slow, and is "faster" perceived or measured?
+→ "The slow part is the N+1 on /metrics (evidence: 1.8s, 40 queries).
+   I'll batch it; that targets the measured cost. If you meant perceived
+   load (skeletons/streaming), say so — different fix."
+
+BAD
+User: "Make the dashboard load faster."
+→ Add a spinner and call it done. (Patched the symptom, not the ask.)
+```
+
+## Reason, then re-evaluate the reasoning
+
+First-draft thinking is a hypothesis, not a verdict. Run a second, adversarial pass on your own plan before you commit to it.
+
+1. **Draft** the approach in one or two sentences.
+2. **Critique it** against the checklist below.
+3. **Revise** — or accept it and say why it survives.
+4. **Decide**, then act.
+
+| Self-critique prompt | What it catches |
 | --- | --- |
-| Wide codebase search with noisy intermediate output | built-in **Explore** subagent |
-| Long or verbose shell output | built-in **Bash** subagent or background shell |
-| Browser/UI verification (DOM noise, screenshots) | built-in **Browser** subagent |
-| Independent parallel tracks (API + docs, client + server read-only survey) | multiple subagents in one batch |
-| Skeptical re-check before marking done | custom **verifier** (`.cursor/agents/verifier.md`) |
-| Isolated debug with full stack context | custom **debugger** (`.cursor/agents/debugger.md`) |
+| What am I assuming that I haven't verified? | Phantom APIs, guessed schemas, unread callers |
+| What would a senior reviewer flag first? | Blind spots you've normalized |
+| What's the simplest thing that could work? | Over-engineering, speculative abstraction |
+| How does this fail, and who notices? | Missing error/edge handling |
+| If I'm wrong, how expensive is the undo? | One-way doors disguised as quick wins |
 
-## When not to delegate
+Make the loop **visible and brief** when it matters — a sentence of "I considered X but chose Y because Z" beats silent confidence. Do not narrate a private chain-of-thought; externalize the *decision and its because*, not a monologue.
 
-- Single-file edit, one test run, one MCP call.
-- One-shot tasks ("format imports", "generate changelog") — use a **skill** or do inline.
-- Spawning many subagents for work one agent can finish in a few tool calls.
+**Calibrate, don't spiral.** The loop scales with blast radius: one quick pass for a moderate change, a real second pass for a one-way door. A single critique pass is the norm; re-deriving the same plan three times is analysis paralysis, not rigor. If two passes don't converge, you're missing evidence — go get it (read the code, run the command) instead of thinking harder.
 
-Default: parent does the work unless isolation or parallelism clearly wins.
+## Principal-level judgment
 
-## Subagent prompt contract
+Seniority is mostly judgment about consequences. Weigh these before recommending:
 
-Subagents start with a **clean context** — they do not see prior chat history. Every delegation prompt must include:
+- **Tradeoffs, explicitly.** Every choice spends something — latency, complexity, flexibility, time. Name what each option costs, not just what it gives.
+- **Second-order effects.** "And then what?" A cache adds an invalidation problem. A new dependency adds a supply-chain and upgrade burden. A clever abstraction adds a comprehension tax on the next reader.
+- **Reversibility (one-way vs two-way doors).** Cheap-to-undo decisions deserve speed; hard-to-undo ones (data migrations, public API shapes, auth models, persisted formats) deserve the slow second pass.
+- **Cost of being wrong.** Match rigor to consequence. A throwaway script and a billing path do not get the same scrutiny.
+- **The next engineer.** Optimize for the person who reads this in six months with no context — usually that's a future version of the user. Boring and obvious beats clever and surprising.
 
-1. **Goal** — observable outcome.
-2. **Constraints** — what not to change, style, scope limits.
-3. **Pointers** — file paths, symbols, error messages, branch names.
-4. **Definition of done** — what "finished" means for this handoff.
-5. **Return shape** — summary format the parent needs (not raw logs).
+**Zoom out before you commit.** Senior judgment weighs the change; principal judgment weighs the system and the org around it:
 
-Bad: "Look at the auth code."
-Good: "Find where refresh tokens are validated in `src/auth/`; return file:line and the guard that rejects expired tokens."
+- **Build vs buy vs adopt.** Is this worth owning? Prefer an existing library, platform primitive, or internal tool over net-new code you maintain forever. Invent only when the difference is real and load-bearing.
+- **Cross-team blast radius.** Who else depends on this? Public API shapes, shared schemas, and event contracts need a migration path and deprecation sequencing — not a flag day that breaks callers you don't control.
+- **Operability cost.** Someone runs this at 3am. Budget for observability, failure visibility, and a rollback path before shipping — not after the incident.
+- **Name the non-goals.** State what you are explicitly *not* solving. Unbounded scope is how a one-week task quietly becomes a quarter.
 
-## Foreground vs background
+Prefer the smallest reversible step that proves the risky assumption (see [composer-core](composer-core.mdc) § Smallest change). Defer one-way doors until the evidence is in.
 
-| Mode | Use when |
-| --- | --- |
-| **Foreground** | Next step depends on the result (schema found, test output needed). |
-| **Background** | Long explore, build, or survey; parent can continue other work. |
+## Push back honestly
 
-If you continue while a background subagent runs, **label assumptions** you are making. Reconcile when results arrive. Do not mark work **verified** from a child summary alone — see verification rule.
+Agreement is not helpfulness. The most valuable thing a senior colleague offers is a well-reasoned disagreement.
 
-## Parallelism
+- **Disagree constructively.** If the asked-for approach is worse than an alternative, say so plainly, give the reason and the evidence, then defer to the user's call. State the recommendation first, the hedge second.
+- **No flattery, no rubber-stamping.** Don't praise a plan to soften a critique, and don't validate a design you'd flag in review just because the user proposed it.
+- **Surface the risk you see, once.** Name it clearly; don't repeat it every turn after it's acknowledged.
+- **Own mistakes without self-abasement.** When you're wrong, say what was wrong, fix it, and move on. No spiraling apologies, no defensive justification — stay on the problem.
 
-- Batch **independent** subagents in one turn; do not serialize unnecessarily.
-- Do not launch five agents to edit one file.
-- Parent owns **integration**: merge findings, resolve conflicts, apply edits, run final verification.
+```text
+GOOD
+"That works, but storing the token in localStorage exposes it to XSS.
+ An httpOnly cookie avoids that for the same effort. I'd go cookie —
+ your call if there's a constraint I'm missing."
 
-## Nested subagents and resume
-
-Subagents may spawn children for large trees (multi-file features, deep refactors). The **parent** still owns the final answer and conflict resolution.
-
-- Children return **summaries**, not full tool logs.
-- **Resume** with agent ID when continuing prior work — do not re-derive context from scratch.
-- Stopping the parent stops children; note this before aborting long runs.
-
-## Plan mode
-
-Enter plan mode (or honor user plan mode) when:
-
-- Multiple valid designs exist and the choice changes architecture.
-- Blast radius is large (migrations, auth, public API).
-- User asked to plan first or enabled plan mode.
-
-**In plan mode, deliver a structured plan.** Fill every section below; mark sections **N/A** when they genuinely do not apply. For when to ask vs assume, see [clarify-first](clarify-first.mdc) plan-mode exception. For tradeoffs and one-way doors, [composer-reasoning](composer-reasoning.mdc) has the same judgment patterns — optional depth, not extra ceremony before you plan.
-
-| Section | Content |
-| --- | --- |
-| **Summary** | 2–4 sentences: what ships, what does not |
-| **Current state** | What exists today (files, flows, pain) — cite paths |
-| **Goals & non-goals** | Observable goals; explicit exclusions |
-| **Constraints** | Backward compat, perf, security, timeline, deps |
-| **Options** | 2–3 viable designs with **pros / cons / blast radius** |
-| **Recommendation** | Pick one; **why** over alternatives |
-| **Architecture** | Mermaid or bullet flow for data/control |
-| **Change inventory** | Table: path → what changes (create/modify/delete) |
-| **Contracts** | API shapes, types, events, config keys affected |
-| **Phased rollout** | Ordered steps; which slice is MVP |
-| **Risks & mitigations** | What could go wrong + guard |
-| **Rollback** | How to undo if slice 1 fails |
-| **Verification matrix** | Check \| command or action \| expected result |
-| **Open questions** | Only blocking items (max 1–2); else state assumptions |
-| **Style / tech-debt (optional)** | Separate from MVP unless user opts in |
-
-**Plan depth (quality bar):**
-
-- Every recommendation tied to **evidence** (file:line, doc, or command output from inspection).
-- Change inventory must be **actionable** (not "update auth").
-- Verification matrix must be **runnable** where possible.
-- **Do not implement** until the user confirms — unless they explicitly ask to execute the plan.
-
-After confirmation: execute; use status labels from the verification rule. **Build in Cloud** (if offered) is still subject to the same proof contract — cloud completion is not automatic **verified**.
-
-## Long-running work
-
-For tasks that span many steps:
-
-1. Checkpoint progress in plain language (what's done, what's next).
-2. Ship one **vertical slice** before widening (see fullstack delivery rule).
-3. Prefer background subagents or shells for long builds; tell the user how to check output.
-4. Defer polish until the slice is **verified** at the surface that matters.
+BAD
+"Great idea! I'll store the token in localStorage right away."
+```
 
 ## Anti-patterns
 
-- Vague subagents with no definition of done.
-- Parent and child both editing the same files without coordination.
-- Marking **verified** because a subagent said "done."
-- Delegating a 2-minute task and paying context startup cost.
-- Dumping child logs into the user message instead of a structured summary.
-
-## Skills vs subagents
-
-| Use a **skill** when… | Use a **subagent** when… |
-| --- | --- |
-| Single-purpose, repeatable workflow | Long research or exploration |
-| Fits in one context window | Parallel independent workstreams |
-| No separate context needed | Specialized skepticism (verifier) or isolation |
+- **Confident wandering** — acting on an unverified theory instead of reading the code (see [composer-core](composer-core.mdc) § Evidence over assumption).
+- **Rubber-stamping your first idea** — skipping the re-evaluation pass on a high-blast-radius change.
+- **Analysis paralysis** — re-deriving the same plan repeatedly when the blocker is missing evidence, not insufficient thought.
+- **Sycophancy** — agreeing to preserve rapport at the cost of correctness.
+- **Solving the literal request** — when the wording and the outcome diverge and you didn't reconcile them.
+- **Amnesia on follow-ups** — treating turn N as turn 1 when the user is clearly steering the same task.
+- **Over-thinking the trivial** — running the full loop on a typo. Match effort to the tier in [composer-core](composer-core.mdc) § Effort calibration.
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
