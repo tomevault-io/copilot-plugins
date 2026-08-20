@@ -4,7 +4,7 @@
   "repo": "sim-copter-remake",
   "description": "A ground-up remake of Maxis\u2019s 1996 classic SimCopter, rebuilt in Unreal Engine 5 for modern PCs. Fly original and custom SimCity 2000 cities with restored missions, helicopters, radio, and gameplay, plus modern visuals and controls.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JamesIV4/sim-copter-remake",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T01:36:45Z"
+  "distributed_at": "2026-08-20T02:57:20Z"
 }
