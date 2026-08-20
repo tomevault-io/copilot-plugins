@@ -1,0 +1,9 @@
+{
+  "name": "activitylauncher--activitylaunchershizukuplugin",
+  "displayName": "ActivityLauncherShizukuPlugin",
+  "description": "Plugin for ActivityLauncher that uses Shizuku for launching private Activities",
+  "version": "1.0.0",
+  "author": "ActivityLauncher",
+  "homepage": "https://github.com/ActivityLauncher/ActivityLauncherShizukuPlugin",
+  "skills": []
+}
