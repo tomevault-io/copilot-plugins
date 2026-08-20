@@ -1,0 +1,9 @@
+{
+  "name": "colaberry--worldoftaxonomy",
+  "displayName": "WorldOfTaxonomy",
+  "description": "1,000+ open taxonomy systems with 1.2M+ codes and 320K+ crosswalk edges. NAICS, ISIC, NACE, HS, SOC, ISCO, ESCO, CPC, UNSPSC, ICD-10/11, Patent CPC, GDPR, and more - all connected. REST API + MCP serv",
+  "version": "1.0.0",
+  "author": "colaberry",
+  "homepage": "https://github.com/colaberry/WorldOfTaxonomy",
+  "skills": []
+}
