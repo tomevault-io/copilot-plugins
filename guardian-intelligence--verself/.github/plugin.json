@@ -1,0 +1,9 @@
+{
+  "name": "guardian-intelligence--verself",
+  "displayName": "verself",
+  "description": "Self-hosted bare-metal PaaS with Forgejo, Firecracker CI, ZFS, ClickHouse observability, TigerBeetle billing, Zitadel auth, and a product console.",
+  "version": "1.0.0",
+  "author": "guardian-intelligence",
+  "homepage": "https://github.com/guardian-intelligence/verself",
+  "skills": []
+}
