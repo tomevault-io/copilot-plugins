@@ -1,38 +1,35 @@
-## metro-harness
+## metro-os-core
 
-> Harness engineering — verify loop and self-correction
+> Core metro-os agent rules — WP8.1 1:1 Android suite
 
 
-# Harness engineering
+# metro-os core rules
 
-## Verify commands
+Read before any code change:
+1. `scope.md` — design system and app inventory
+2. `toolkits/metro-ui-android/METRO-UX-LANGUAGE.md` — per-control WP8.1 UX (UI work)
+3. `AGENTS.md` — workflow and hard rules
+4. Target `apps/<name>/AGENTS.md` or `toolkits/<name>/AGENTS.md`
+5. Target `apps/<name>/README.md` when working in an app — app README files are the detailed implementation brief, page inventory, system contract guide, and guardrail checklist
 
-```bash
-./scripts/verify-env.sh              # environment
-./scripts/verify-toolkit.sh <name>   # toolkits
-./scripts/verify-app.sh <name>       # apps
-./scripts/run-app.sh <name> --verify # build + install + AVD checks
-./scripts/agent-overseer.sh <name> "<task>"  # Cursor agent orchestration
-./scripts/verify-all.sh              # full suite
-```
+## Non-negotiable
 
-## Self-correction loop
+- **1:1 WP8.1 Metro UI** — not Material, not "inspired by"
+- **No Material** in app UI (`com.google.android.material`, Material3 components, FAB, snackbars, bottom sheets, drawer nav)
+- **Toolkit first** — use `toolkits/metro-ui-android` before custom controls (including the shared icon set: `MetroSystemIconType`, `MetroMediaGlyph`, `MetroAppGlyphs`)
+- **Reference-first** — before building/scaffolding an app, prefill `apps/<name>/references/` (blueprint, `web-resources.md`, and a real WP8.1 capture in `images/` per blueprint page) or document each gap in `references/known-gaps.md`. Never start UI work against an empty `images/`. See `AGENTS.md` § Reference research (Phase 0).
+- **Verify before done** — `./scripts/verify-app.sh <name>` or `verify-toolkit.sh`
+- **Self-correct** up to 5 verify iterations; then postmortem and stop
 
-implement → verify → read `deploy/verify-report.json` → fix ONE failure → re-verify (max 5×)
+## Build order
 
-## Golden screenshots
+toolkits → launcher → statusbar → notifications → navbar → Tier 1 apps → Tier 2 apps
 
-- Path: `apps/<name>/screenshots/golden/`
-- Source WP8.1 captures: `apps/<name>/references/images/`
-- Agents must NOT update golden files to pass diff
-- Primary device profile: `lumia-925` (768×1280 xhdpi)
+## Commit format
 
-## Reports
+`<app-or-toolkit>: <imperative summary>`
 
-- App: `apps/<name>/deploy/verify-report.json`
-- Suite: `deploy/verify-suite.json`
-
-See `docs/HARNESS.md` and `docs/TROUBLESHOOTING.md`.
+Do not commit unless the user asks.
 
 ---
 > Source: [god-s-perfect-idiot/metro-os](https://github.com/god-s-perfect-idiot/metro-os) — distributed by [TomeVault](https://tomevault.io).
