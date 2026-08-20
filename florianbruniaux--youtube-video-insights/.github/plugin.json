@@ -1,0 +1,9 @@
+{
+  "name": "florianbruniaux--youtube-video-insights",
+  "displayName": "youtube-video-insights",
+  "description": "Point it at a YouTube channel. Get per-video insights, an aggregate report, and scored Short moments. yt-dlp + any LLM.",
+  "version": "1.0.0",
+  "author": "FlorianBruniaux",
+  "homepage": "https://github.com/FlorianBruniaux/youtube-video-insights",
+  "skills": []
+}
