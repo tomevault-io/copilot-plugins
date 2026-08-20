@@ -1,0 +1,9 @@
+{
+  "name": "aenix-io--aeman",
+  "displayName": "aeman",
+  "description": "A short-term planning system for engineering teams \u2014 keep engineers focused, run daily sprints, and track unplanned work. Built on GitHub Projects v2 (no database of its own): one Go binary with an em",
+  "version": "1.0.0",
+  "author": "aenix-io",
+  "homepage": "https://github.com/aenix-io/aeman",
+  "skills": []
+}
