@@ -4,7 +4,7 @@
   "repo": "posterpilot",
   "description": "PosterPilot is a self-hosted artwork manager for Plex, Jellyfin, and Emby. It scans your library, finds posters/backgrounds from multiple providers, and lets you apply them directly to your media server or export them as Kometa-compatible YAML. Runs in a single Docker container and is open source (MIT).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/diegopeixoto/posterpilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T01:22:53Z"
+  "distributed_at": "2026-08-20T02:37:34Z"
 }
