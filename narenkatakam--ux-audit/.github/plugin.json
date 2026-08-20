@@ -1,0 +1,9 @@
+{
+  "name": "narenkatakam--ux-audit",
+  "displayName": "ux-audit",
+  "description": "Give your AI coding assistant a design eye. 12 principles, 13 reference docs, 7 component checklists. Works with Claude Code, Cursor, Codex, and Windsurf.",
+  "version": "1.0.0",
+  "author": "narenkatakam",
+  "homepage": "https://github.com/narenkatakam/ux-audit",
+  "skills": []
+}
