@@ -1,0 +1,9 @@
+{
+  "name": "halidecx--fmetrics",
+  "displayName": "fmetrics",
+  "description": "Fast image & video fidelity metrics in C, Zig",
+  "version": "1.0.0",
+  "author": "halidecx",
+  "homepage": "https://github.com/halidecx/fmetrics",
+  "skills": []
+}
