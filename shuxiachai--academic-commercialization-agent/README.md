@@ -7,11 +7,11 @@ Turn any research paper into a commercialization report — 6 AI agents, TRL/MRL
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shuxiachai/academic-commercialization-agent](https://github.com/shuxiachai/academic-commercialization-agent).
+Original source: `CLAUDE.md` in [shuxiachai/academic-commercialization-agent](https://github.com/shuxiachai/academic-commercialization-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
