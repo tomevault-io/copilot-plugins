@@ -1,0 +1,44 @@
+{
+  "name": "llama-moe-cache",
+  "owner": "ongunm",
+  "repo": "llama-moe-cache",
+  "description": "Expert cache + predictive prefetch for MoE inference in llama.cpp. A 12GB GPU can run a 120GB model at native speed. At 3% sparsity, a single workstation could theoretically run a 1T parameter model. 500 LoC, zero training, 99.5% cache hit rate.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ongunm/llama-moe-cache",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T02:38:00Z"
+}
