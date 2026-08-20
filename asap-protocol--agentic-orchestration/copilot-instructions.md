@@ -1,37 +1,60 @@
-## architecture-principles
+## frontend-best-practices
 
-> SOLID/DRY principles and architecture guidance for this Next.js app
+> Standards for modern Frontend development using Next.js 16 (App Router), React 19, Tailwind CSS v4, and Shadcn/UI. Apply when working on `src/app` or `src/components`.
 
 
-# Architecture & Principles (SOLID/DRY)
+# Frontend Best Practices (Next.js 16 + Tailwind)
 
-## Project structure
+## 1. Core Stack
+- **Framework**: Next.js 15 (App Router). Do NOT use `pages/`.
+- **Language**: TypeScript (Strict).
+- **Styling**: Tailwind CSS v4. No CSS-in-JS.
+- **Components**: Shadcn/UI (Radix Primitives).
+- **Icons**: Lucide React.
 
-- **Stack atual:** Next.js (App Router) + React 19 + TypeScript, com frontend em `src/` (não há backend Python dentro deste repositório).
-- **Camadas principais:** `src/app`, `src/components`, `src/lib`, `src/hooks`, `src/test`.
-- **Estado e dados:** usar Server Components como padrão; empurrar estado de UI para componentes client com `"use client"` apenas quando necessário.
-- **Serviços externos:** preferir wrappers em `src/lib` para integração com APIs e serviços (Supabase, etc.), com validação explícita de contratos.
+## 2. Server Components (RSC) First
+- **Default to Server**: All components are Server Components by default.
+- **Use Client sparingly**: Only add `"use client"` when you need:
+  - Event listeners (`onClick`, `onChange`).
+  - React Hooks (`useState`, `useEffect`).
+  - Browser-only APIs.
+- **Pattern**: Push client logic down the tree. Keep the page layout server-side.
 
-## Code Quality Standards
+## 3. Data Fetching
+- **Server Actions**: Use Server Actions for mutations (`<form action={...}>`).
+- **Fetch**: Use standard `fetch` in RSCs for data loading.
+- **No useEffect for data**: Avoid fetching data in `useEffect`. Use Server Components or React Query (if absolutely necessary for client-side polling).
 
-### SOLID
+## 4. Styling (Tailwind v4)
+- **Utility First**: Use utility classes directly.
+- **CN Helper**: ALWAYS use `cntl` or `cn` (clsx + tailwind-merge) for conditional classes.
+  ```tsx
+  <div className={cn("p-4", isActive && "bg-blue-500")}>
+  ```
+- **No arbitrary values**: Avoid `w-[123px]`. Use theme tokens (e.g., `w-32`).
+- **Design Aesthetic ("The Clean Architect")**: 
+  - Follow a minimalism approach. 
+  - Use Pure Black (`#000`) or Dark Zinc backgrounds. 
+  - Rely on 1px subtle borders and high contrast text (White/Grey). 
+  - Strictly **NO** heavy neon glows or excessive gradients. Functional minimalism is key.
 
-1. **Single Responsibility**: each module should have one reason to change.
-2. **Open/Closed**: extend behavior sem precisar reescrever fluxos estáveis.
-3. **Liskov Substitution**: componentes/serviços devem ser substituíveis por versões compatíveis.
-4. **Interface Segregation**: expor interfaces pequenas e específicas por consumidor.
-5. **Dependency Inversion**: depender de abstrações (`types`, `interfaces`, adapters`) em vez de acoplamento direto.
+## 5. Component Architecture
+- **Shadcn**: Use `packages/ui` components (e.g., `<Button>`, `<Card>`) instead of HTML tags.
+- **Composition**: Build complex UIs by composing small, single-responsibility components.
+- **Accessibility**: Use semantic HTML (`<main>`, `<article>`, `<button>`) and ARIA roles where Shadcn doesn't cover it.
 
-### DRY
+## 6. Project Structure `src/`
+- `src/app/`: Routes and layouts.
+- `src/components/`: Feature-specific components.
+- `src/lib/`: Utilities and generic helpers.
+- `src/hooks/`: Custom React hooks.
+- Aligned with [ASAP Protocol Lean Marketplace](https://github.com/asap-protocol/asap-protocol) for future integration.
 
-- Se uma regra de negócio, transformação ou layout for reaproveitada 2+ vezes, extrair para utilitário, hook, componente ou service.
-- Evitar duplicar mapeamentos de tipos e schemas; centralizar em camadas de domínio.
-
-### Clean code
-
-- **Nomeação semântica:** variáveis, funções e componentes devem comunicar intenção.
-- **Funções pequenas:** cada função testa/aplica uma responsabilidade bem definida.
-- **Baixa aninhamento:** preferir `guard clauses` e extração de etapas.
+## 7. State Management
+1. **URL State**: Query params (`?search=foo`) for shareable state.
+2. **Server State**: RSC + Cache.
+3. **Local State**: `useState` / `useReducer`.
+4. **Global State**: Minimal usage (Zustand) if props drilling becomes unmanageable.
 
 ---
 > Source: [asap-protocol/agentic-orchestration](https://github.com/asap-protocol/agentic-orchestration) — distributed by [TomeVault](https://tomevault.io).
