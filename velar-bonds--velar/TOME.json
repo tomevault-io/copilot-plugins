@@ -1,0 +1,44 @@
+{
+  "name": "Velar",
+  "owner": "Velar-Bonds",
+  "repo": "Velar",
+  "description": "VELAR is a public blockchain-based platform designed to track, validate, and audit political debt records through transparent and verifiable traceability.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Velar-Bonds/Velar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T06:41:35Z"
+}
