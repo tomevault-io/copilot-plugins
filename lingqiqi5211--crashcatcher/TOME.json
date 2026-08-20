@@ -1,0 +1,44 @@
+{
+  "name": "CrashCatcher",
+  "owner": "lingqiqi5211",
+  "repo": "CrashCatcher",
+  "description": "\u8bb0\u5f55\u5e94\u7528\u5d29\u6e83\u3001ANR \u4e0e\u539f\u751f\u5d29\u6e83\u7684 zygisk \u6a21\u5757\uff1aRust \u5b88\u62a4\u8fdb\u7a0b + Compose \u7ba1\u7406\u5668\uff0c\u65e0\u9700\u6ce8\u5165\u4efb\u4f55\u8fdb\u7a0b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lingqiqi5211/CrashCatcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T06:35:18Z"
+}
