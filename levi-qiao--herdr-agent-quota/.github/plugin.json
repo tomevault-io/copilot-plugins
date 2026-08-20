@@ -1,0 +1,9 @@
+{
+  "name": "levi-qiao--herdr-agent-quota",
+  "displayName": "herdr-agent-quota",
+  "description": "Never hit a quota limit mid-task: see Claude, Codex, Grok and Agy usage live in your Herdr sidebar. 5h and weekly percent remaining.",
+  "version": "1.0.0",
+  "author": "levi-qiao",
+  "homepage": "https://github.com/levi-qiao/herdr-agent-quota",
+  "skills": []
+}
