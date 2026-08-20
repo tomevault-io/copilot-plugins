@@ -4,7 +4,7 @@
   "repo": "cislunarspace",
   "description": "\u5730\u6708\u7a7a\u95f4\u5165\u95e8\u6307\u5357 / Cislunar Space Beginner's Guide",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cislunarspace/cislunarspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T20:47:59Z"
+  "distributed_at": "2026-08-20T20:53:02Z"
 }
