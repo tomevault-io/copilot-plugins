@@ -4,7 +4,7 @@
   "repo": "ai-workflow",
   "description": "Open-source AI agent that turns Jira tickets into pull requests. Runs in Vercel Sandbox, wires into GitHub and Slack, and hands back to humans for review.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Blazity/ai-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T19:00:17Z"
+  "distributed_at": "2026-08-20T19:06:25Z"
 }
