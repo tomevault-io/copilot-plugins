@@ -1,0 +1,9 @@
+{
+  "name": "softwaresavants--verun",
+  "displayName": "verun",
+  "description": "Parallel Claude Code Agent Orchestrator for macOS",
+  "version": "1.0.0",
+  "author": "SoftwareSavants",
+  "homepage": "https://github.com/SoftwareSavants/verun",
+  "skills": []
+}
