@@ -1,0 +1,9 @@
+{
+  "name": "dmmulroy--pi-mcp",
+  "displayName": "pi-mcp",
+  "description": "Pi extension for OpenCode-style MCP client support",
+  "version": "1.0.0",
+  "author": "dmmulroy",
+  "homepage": "https://github.com/dmmulroy/pi-mcp",
+  "skills": []
+}
