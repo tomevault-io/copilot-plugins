@@ -1,0 +1,9 @@
+{
+  "name": "ochyai--m5stack-stopwatch-simulator",
+  "displayName": "m5stack-stopwatch-simulator",
+  "description": "A compiler-driven simulator for M5Stack StopWatch (C152) firmware: the production C++ runs on your Mac with the device's own font metrics, replayable sessions, and golden frames.",
+  "version": "1.0.0",
+  "author": "ochyai",
+  "homepage": "https://github.com/ochyai/m5stack-stopwatch-simulator",
+  "skills": []
+}
