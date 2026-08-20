@@ -1,0 +1,9 @@
+{
+  "name": "ebourmalo--hatcher",
+  "displayName": "hatcher",
+  "description": "Deploy your local agent to any remote sandbox. Claude Code - Hermes agent - Cloudflare Sandbox - Daytona - more to come",
+  "version": "1.0.0",
+  "author": "ebourmalo",
+  "homepage": "https://github.com/ebourmalo/hatcher",
+  "skills": []
+}
