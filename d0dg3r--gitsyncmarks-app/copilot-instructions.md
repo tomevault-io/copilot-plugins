@@ -1,29 +1,33 @@
-## release-checklist-hygiene
+## release-workflow
 
-> Enforce release checklist hygiene for user-visible changes
+> Release workflow – Tag, F-Droid, GitHub Releases
 
 
-# Release Checklist Hygiene
+# Release Workflow
 
-For user-visible changes or release preparation:
+When preparing or executing a release:
 
-1. **Update [CHANGELOG.md](CHANGELOG.md)** — add to `[Unreleased]` before finishing; move to version section when releasing
+1. **Order (mandatory):** Finalize version/changelog → Merge to `main` → Tag on final merge commit → Verify GitHub release workflow success → Verify F-Droid `commit:` hash → Submit to F-Droid
 
-2. **Keep release docs aligned** — [README.md](README.md), [docs/README.md](docs/README.md), [ROADMAP.md](ROADMAP.md) when scope/status changes
+2. **Tag:** Set on exactly the final merge commit (not on an older commit)
 
-3. **Store-facing text** — features, platforms, limits must reflect current behavior (F-Droid, Flatpak metainfo, README)
+3. **F-Droid:** `commit:` in [fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml) must match the tag commit. Verify before submit: `git rev-parse vX.Y.Z` = `commit:` in the YAML.
 
-4. **CI/release workflow** — if tags, artifacts, or workflow change, update [ARCHITECTURE.md](ARCHITECTURE.md) and [.github/workflows/](.github/workflows/) references
+4. **GitHub Releases:** Only stable tags (`v*` without `-`) as "latest"; pre-releases (`-beta`, `-rc`, `-test`) visible but not latest
 
-5. **Screenshots** — locally: `./scripts/generate-screenshots.sh` → commit before tagging (Light + Dark for README, Flatpak, F-Droid)
+5. **Screenshots:** Generate locally with `./scripts/generate-screenshots.sh` before tagging (Light + Dark for README, Flatpak, F-Droid). CI screenshot disabled until fonts/CI consistency is fixed.
 
-6. **F-Droid** — update [fdroid/](fdroid/) metadata and changelogs with each release. Submit file [com.d0dg3r.gitsyncmarks-fdroid-submit.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml) only with stable versions (see fdroid-maintenance rule). **Verify F-Droid commit = tag commit** before submit.
+6. **Before F-Droid MR:** Run `./fdroid/submit-to-gitlab.sh` – validates version/tag/hash/changelog gates and copies the submit file
 
-7. **Completeness:** Verify before release: docs, tests, [ARCHITECTURE.md](ARCHITECTURE.md), and store assets (screenshots, icons, metainfo, F-Droid changelogs) are up to date.
+7. **Hard stop gates:** Do not submit if any of these fail:
+   - `pubspec.yaml` version != `CurrentVersion` in submit metadata
+   - missing F-Droid changelog file for `CurrentVersionCode`
+   - missing tag `vX.Y.Z` for `CurrentVersion`
+   - tag commit != submit metadata `commit:`
 
-See [release-workflow.mdc](release-workflow.mdc) for the full release workflow.
+8. **Recovery for wrong tag/release:** If a release tag was set on the wrong commit, delete local+remote tag, finish merges, recreate the tag on final `main` commit, and then update submit metadata `commit:` to the new tag hash.
 
-Prefer small, complete checklist updates over deferred documentation.
+See also [release-checklist-hygiene.mdc](release-checklist-hygiene.mdc), [fdroid-maintenance.mdc](fdroid-maintenance.mdc), and [fdroid/README.md](fdroid/README.md).
 
 ---
 > Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
