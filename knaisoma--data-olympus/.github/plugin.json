@@ -1,0 +1,9 @@
+{
+  "name": "knaisoma--data-olympus",
+  "displayName": "data-olympus",
+  "description": "Governance-grade, OKF-compatible knowledge-base format with a single-writer MCP server and CLI. Pre-release.",
+  "version": "1.0.0",
+  "author": "knaisoma",
+  "homepage": "https://github.com/knaisoma/data-olympus",
+  "skills": []
+}
