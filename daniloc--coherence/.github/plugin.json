@@ -1,0 +1,9 @@
+{
+  "name": "daniloc--coherence",
+  "displayName": "coherence",
+  "description": "The missing spine for agent-driven coding. Create the structure you need to reduce the cost of changes, verification and fixes.",
+  "version": "1.0.0",
+  "author": "daniloc",
+  "homepage": "https://github.com/daniloc/coherence",
+  "skills": []
+}
