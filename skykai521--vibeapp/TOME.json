@@ -4,7 +4,7 @@
   "repo": "VibeApp",
   "description": "VibeApp is an on-device Android app builder powered by a specialized harness for code generation, build validation, and crash-repair loops.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Skykai521/VibeApp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T18:57:30Z"
+  "distributed_at": "2026-08-20T19:05:18Z"
 }
