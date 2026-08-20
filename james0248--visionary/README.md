@@ -7,11 +7,11 @@ Training models inside world models
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [james0248/visionary](https://github.com/james0248/visionary).
+Original source: `CLAUDE.md` in [james0248/visionary](https://github.com/james0248/visionary).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
