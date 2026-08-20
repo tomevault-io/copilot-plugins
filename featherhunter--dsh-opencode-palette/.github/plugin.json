@@ -1,0 +1,9 @@
+{
+  "name": "featherhunter--dsh-opencode-palette",
+  "displayName": "dsh-opencode-palette",
+  "description": "\ud83c\udfa8 \u770b\u817b\u4e86 DSH \u9ed8\u8ba4\u76ae\u80a4\uff1f34 \u6b3e opencode \u7ecf\u5178\u914d\u8272\u4e00\u952e\u6362\u4e0a\u2014\u2014tokyonight\u3001dracula\u3001gruvbox\u3001matrix\u3001rose-pine\u2026\u2026\u5373\u70b9\u5373\u6362\uff0c\u91cd\u542f\u4e0d\u4e22\u300234 opencode themes for DeepSeek Harness, one click, persisted. More by @FeatherHunter: \u26a1 dsh-prompt \u00b7 \ud83e\udde0 ds",
+  "version": "1.0.0",
+  "author": "FeatherHunter",
+  "homepage": "https://github.com/FeatherHunter/dsh-opencode-palette",
+  "skills": []
+}
