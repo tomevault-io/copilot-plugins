@@ -2,9 +2,9 @@
   "name": "sdd-pilot",
   "owner": "attilaszasz",
   "repo": "sdd-pilot",
-  "description": "Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD Pilot enforces structured development phases and quality gates, leveraging AI agents to conduct online research for best practices and plan your architecture before a single line of code is written.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,405 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-qc/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-qc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-qc/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-qc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-prd/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-prd/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-plan/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-init/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-init/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-plan/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-amend/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-amend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-regen/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-regen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-amend/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-amend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-regen/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-regen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-tasks/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-tasks/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-devops/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-devops/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-specify/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-clarify/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-analyze/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-analyze/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-specify/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-clarify/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-devsetup/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-devsetup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-devsetup/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-devsetup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-checklist/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-checklist/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-implement/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-implement/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-autopilot/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-autopilot/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-projectplan/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-projectplan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-projectplan/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-projectplan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-systemdesign/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-systemdesign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-systemdesign/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-systemdesign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".claude/skills/sddp-implement-qc-loop/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.claude/skills/sddp-implement-qc-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".agents/skills/sddp-implement-qc-loop/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.agents/skills/sddp-implement-qc-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/init-project/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/init-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/plan-feature/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/plan-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/clarify-spec/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/clarify-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/amend-project/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/amend-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/adr-authoring/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/adr-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/system-design/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/system-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/plan-authoring/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/plan-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/spec-authoring/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/spec-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/generate-tasks/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/generate-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/prototype-regen/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/prototype-regen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/quality-control/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/quality-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/specify-feature/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/specify-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/task-generation/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/task-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/implement-tasks/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/implement-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/sdd-methodology/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/sdd-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/project-planning/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/project-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/product-document/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/product-document/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/environment-setup/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/environment-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/quality-assurance/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/quality-assurance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/implement-qc-loop/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/implement-qc-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/analyze-compliance/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/analyze-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/autopilot-pipeline/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/autopilot-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/generate-checklist/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/generate-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/artifact-conventions/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/artifact-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/markdown-compression/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/markdown-compression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/deployment-operations/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/deployment-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/compact-communication/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/compact-communication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/instructions-management/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/instructions-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/clarification-strategies/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/clarification-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdd-pilot",
+      "path": ".github/skills/implementation-standards/SKILL.md",
+      "github_url": "https://github.com/attilaszasz/sdd-pilot/tree/main/.github/skills/implementation-standards/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/attilaszasz/sdd-pilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T05:57:26Z"
+  "distributed_at": "2026-08-20T18:55:58Z"
 }
