@@ -1,0 +1,44 @@
+{
+  "name": "mycelium-hypha",
+  "owner": "mycelium-cmbse",
+  "repo": "mycelium-hypha",
+  "description": "Hypha is the AI agent of the Mycelium ecosystem, a connecting filament between engineers and the SysML v2 specification. Packaged as a Claude plugin with skills and subagents for metamodel lookup, spec citation, and SysML v2 validation.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mycelium-cmbse/mycelium-hypha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T01:35:22Z"
+}
