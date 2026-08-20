@@ -7,11 +7,11 @@ Rust SDK and language plugin for the Pulumi Infrastructure as Code Platform (exp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pulumi-labs/pulumi-rust](https://github.com/pulumi-labs/pulumi-rust).
+Original source: `AGENTS.md` in [pulumi-labs/pulumi-rust](https://github.com/pulumi-labs/pulumi-rust).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
