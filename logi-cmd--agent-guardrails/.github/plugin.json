@@ -1,0 +1,9 @@
+{
+  "name": "logi-cmd--agent-guardrails",
+  "displayName": "agent-guardrails",
+  "description": "Checks AI-generated code changes before merge: scope, validation, risk, review evidence, and optional Verity receipts.",
+  "version": "1.0.0",
+  "author": "logi-cmd",
+  "homepage": "https://github.com/logi-cmd/agent-guardrails",
+  "skills": []
+}
