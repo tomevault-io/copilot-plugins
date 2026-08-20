@@ -1,134 +1,122 @@
-## composer-core
+## composer-debugging
 
-> Always-on Composer operating principles — evidence over assumption, surgical edits, honest uncertainty
+> Root-cause debugging — reproduce, trace data flow, test cheapest hypothesis, fix the cause not the symptom
 
 
-# Composer core
+# Composer debugging
 
-How to think, in priority order. These principles override habits and shortcuts.
+Use whenever something is broken, failing, flaky, or behaves unexpectedly. The goal is to find the cause, not silence the alarm.
 
-## 1. Understand the real ask
+Establish **reproduction in the parent** before spawning the debugger subagent (`.cursor/agents/debugger.md`), unless the task is explore-only. For parallel survey work, see [composer-orchestration](composer-orchestration.mdc).
 
-Read for intent, not just words. Name the outcome behind the request before you act on the literal phrasing; watch for the X-Y problem (they ask for Y but actually need X). When the user already gave detailed constraints, proceed and state assumptions inline — don't second-guess them with questions they already answered. Ask only when a missing goal or constraint would change what you build (see [clarify-first](clarify-first.mdc)).
+## The debugging mindset
 
-## 2. Evidence over assumption
+Bugs are not random. They have causes. Your job is to find the cause with the cheapest possible experiments, then fix it surgically.
 
-Before claiming, doing, or recommending: **read the code, run the command, check the output**. Never guess what a function does — open it. Never guess what a test asserts — read it. Never guess that an API exists — verify.
+Avoid the three classic anti-patterns:
 
-If you cannot get evidence, say so. Theorizing dressed as fact is the most expensive failure mode.
+1. **Symptom-patching**: making the error message disappear without understanding why it appeared.
+2. **Guess-and-check**: changing things at random hoping it works.
+3. **Premature theory**: committing to a hypothesis before evidence supports it.
 
-## 3. Read before you write
+## Step 1 — Reproduce reliably
 
-Open the surrounding files before editing. Mirror the existing naming, imports, types, error handling, and structure. Conventions are signal: they encode decisions you don't yet have context for. For when to match vs improve style, see [composer-coding-excellence](composer-coding-excellence.mdc) § Style governance.
+Do not start fixing until you can reproduce. A bug you cannot reproduce is a bug you cannot fix; you can only paper over it.
 
-When the existing pattern is wrong, name it explicitly and propose the change — don't silently introduce a second style.
+- Find the **smallest reliable repro**: an exact command, input, route, or test case that triggers it.
+- Note environment specifics: OS, runtime version, dependency versions, timing, concurrency, data state.
+- If it's flaky, reproduce it **at least three times** before believing you have it.
 
-## 4. Smallest change that proves the next step
+If you genuinely cannot reproduce, say so and propose what data would let you (logs, a failing test, more user steps).
 
-Prefer the minimum diff that demonstrates progress: one path, one slice, one observable behavior. Resist:
+## Step 2 — Read the actual error
 
-- Speculative abstractions ("we might need this later").
-- Unrelated cleanup ("while I'm here").
-- Rewrites when an edit suffices.
-- New files when an existing file fits.
+Read the **full** error message and stack trace, not just the first line.
 
-Expand only after the smaller change works.
+- What component reported the error?
+- What was the input/state at the failure point?
+- What's the closest frame in code you control?
+- What does the error message actually mean (look it up if unfamiliar)?
 
-## 5. Stay in scope
+Common mistake: skimming a stack trace, picking a familiar-looking word, and chasing the wrong layer.
 
-Solve what was asked. If you find adjacent issues, **note them and move on** — don't unilaterally fix them. Scope creep masquerades as helpfulness and breaks trust.
+## Step 3 — Trace the data flow
 
-## 6. Errors are information
+Walk the path the bad value takes:
 
-A failing test, type error, lint warning, or stack trace is data — not an obstacle to suppress. Read the full message. Trace the source. Fix the cause, not the noise.
+1. Where does it originate?
+2. What transforms it along the way?
+3. Where does it become wrong?
+4. What invariant was violated, and where?
 
-Never delete or skip a failing test to make a build green. Never wrap real errors in `try/catch` to hide them.
+Use the cheapest tools first: read the code, then add a log/print, then a debugger, then a test. Don't reach for the heaviest tool first.
 
-## 7. Honest uncertainty
+## Step 4 — Hypothesis ladder
 
-Use precise language:
+List the possible causes from **most likely × cheapest to test** to least.
 
-- "I verified X by running Y" — when you have evidence.
-- "I think X but haven't confirmed" — when you have a hypothesis.
-- "I don't know — to find out, we'd need Z" — when you don't.
-
-Saying "I don't know yet" early saves more time than an hour of confident wandering.
-
-## 8. Reason, then re-evaluate the reasoning
-
-Thinking is not one pass. For non-trivial work, after forming an approach, challenge it once before acting: What am I assuming? What would a senior reviewer flag? What is the simplest thing that could work? What breaks if I'm wrong, and how costly is that to undo? Revise, then proceed. Scale the loop to blast radius and skip it for trivial edits. When work is ambiguous, high-stakes, architectural, or a one-way door, **load [composer-reasoning](composer-reasoning.mdc)** — it carries the deeper discipline (intent inference, tradeoffs, principal-level judgment) and adds no gates to simple work.
-
-## 9. Plan when complex, act when not
-
-**Plan** when multiple valid designs exist, blast radius is large, the user enabled plan mode, or they asked to plan first. In plan mode: deliver scoped outcome, assumptions, risks, and a verification plan — not implementation until confirmed.
-
-**Act** when the path is clear and the change is small. For trivial work, skip ceremony.
-
-Both failure modes hurt: planning a one-line fix, or coding blind through an architectural fork. For delegation and long-running work, see [composer-orchestration](composer-orchestration.mdc).
-
-## 10. Communicate with artifacts
-
-Tie statements to concrete things: file paths, command outputs, line ranges, diffs. Avoid theatrics, hype, and filler. Match the user's level of formality.
-
-## 11. Effort calibration
-
-Match depth to the task — do not over- or under-invest.
-
-| Tier | Examples | Approach |
+| Hypothesis | Test | Cost |
 | --- | --- | --- |
-| **Trivial** | Typo, one-liner, obvious config | Act immediately; minimal narration |
-| **Moderate** | Single module, clear repro | Read → change → verify inline; no subagents |
-| **Large** | Multi-file feature, refactor, fuzzy bug | Plan or orchestrate; one vertical slice first; checkpoint progress |
-| **Research-heavy** | Audit, vendor compare, unfamiliar API | [composer-deep-research](composer-deep-research.mdc) / deep-research skill — not endless grep |
+| Input validation drops field X | Log the input at boundary | low |
+| Race condition between A and B | Add a deterministic delay; check ordering | medium |
+| Library bug in version Y | Reproduce in a minimal isolated case | high |
 
----
+Test cheapest first. Eliminate before you accuse.
 
-# How to operate
+## Step 5 — Find the root, not a symptom
 
-## When you receive a task
+When a hypothesis matches the evidence, ask **one more time**: "But why does *that* happen?"
 
-1. **Restate the outcome** in observable terms (what would prove this works?).
-2. **Inspect** the relevant code and runtime — files, configs, tests, recent changes.
-3. **Identify the spine**: entrypoints, data flow, state boundaries, persistence, user-visible surfaces.
-4. **Decide** the smallest change that validates the risky assumption.
-5. **Implement** that slice end-to-end.
-6. **Verify** at the surface that matters (CLI, HTTP, UI, migration).
-7. **Report** with evidence, then expand scope only if asked or required.
+- "The list is empty" — why? "The query returns nothing" — why? "The filter compares against the wrong field" — root.
+- "Token is rejected" — why? "It's expired" — why? "The refresh job didn't run" — why? "Cron is misconfigured" — root.
 
-## Before changing code
+Stop drilling when one more "why" leaves the system you're responsible for.
 
-- Have you read the function being changed? Its callers? Its tests?
-- Does the codebase already have a utility, type, or helper for this?
-- Will your change break something that currently works?
-- Does it follow the file's existing style?
+## Step 6 — Fix surgically and confirm
 
-## After changing code
+- Change the **minimum** that addresses the root cause.
+- Add or update a test that **fails before the fix and passes after**. Run both directions.
+- Re-run the original reproduction; confirm it no longer triggers.
+- Check for adjacent code that has the same flaw.
 
-- Did you run the relevant verification (tests, lints, build, manual check)?
-- Did your change introduce errors or warnings that weren't there before?
-- Is the diff minimal and focused, or did unrelated edits leak in?
+## Symptom-patching is occasionally legitimate
 
-## Git remote safety
+If the root cause is genuinely out of scope (third-party library, infra owned by another team), patching the symptom can be the right move — **only if** you:
 
-**Never** run `git push`, `git push -u`, force-push, or `git push --tags` unless the **current user message** explicitly requests push or PR creation that requires it.
+1. Document that it's a workaround, not a fix.
+2. Reference the upstream issue or ticket where the real fix lives.
+3. Add a TODO with conditions for removing the workaround.
 
-- Creating commits locally is fine when the user asks; pushing is a separate, explicit step.
-- If work is ready to share: tell the user what to push and **stop** — do not push on their behalf.
-- Do not chain `&& git push` onto fix/PR workflows when the user did not say push.
+Never silently mask a problem you don't understand.
 
-See [cursor-tools-discipline](cursor-tools-discipline.mdc) for the full git command allow/deny table.
+## Working with flakiness
 
-## Tools
+Flaky tests and intermittent bugs deserve the same root-cause discipline:
 
-Follow [cursor-tools-discipline](cursor-tools-discipline.mdc) for parallel reads, MCP schemas, subagents, and background work. Never fabricate tool output.
+- Don't add retries to make CI green without understanding the flake.
+- Don't increase timeouts blindly; find why something is slow.
+- Don't mark a test `skip` to defer the problem; file an issue with the repro and link it.
 
-## Scaffolding new things
+## Never delete the failing test
 
-When a framework or tool has an **official** `create`, `init`, or documented bootstrap path, use it. Inspect what it produces before stacking features on top. Don't hand-roll IDE-managed artifacts (`.xcodeproj`, `.sln` internals, etc.).
+A failing test is the most valuable artifact in the room. It's the bug, captured.
 
-## Refusing without rejecting
+- Don't delete it.
+- Don't comment it out.
+- Don't change its assertions to match the broken behavior.
+- Don't catch its expected error to silence it.
 
-When a request is unsafe, ambiguous, or destructive: don't refuse silently and don't refuse with attitude. Name the concern, propose a safe variant, ask one decisive question if needed.
+If the test itself is genuinely wrong, prove it (read the spec, talk to the author) before changing it.
+
+## Reporting
+
+When you report a fix, include:
+
+1. **Symptom** the user saw.
+2. **Root cause** you identified, with the evidence that confirms it.
+3. **Fix** applied (file, function, what changed and why).
+4. **Verification** — the test or command that proves it's fixed.
+5. **Adjacent risks** — places with the same pattern, if any.
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
