@@ -1,0 +1,56 @@
+## docs-sync
+
+> Keep documentation in sync when making code or feature changes
+
+
+# Documentation Sync
+
+When making changes to the project (features, fixes, architecture, setup), **always update the relevant documentation** in the same session.
+
+## Documents to Consider
+
+| Document | Update when |
+|----------|-------------|
+| [README.md](README.md) | New features, installation changes, platform support |
+| [CHANGELOG.md](CHANGELOG.md) | Any user-visible change (add to Unreleased) |
+| [docs/CONTEXT.md](docs/CONTEXT.md) | Decisions, scope, platform status, tech stack |
+| [docs/PLAN.md](docs/PLAN.md) | Phases, future work, project structure |
+| [docs/README.md](docs/README.md) | Doc structure, quick links, current status |
+| [ROADMAP.md](ROADMAP.md) | Milestones, near-term goals, vision |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Architecture, CI, services |
+| [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) | Implementation overview |
+| [SETUP.md](SETUP.md) | Setup steps, dependencies |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution workflow changes |
+| [fdroid/](fdroid/) | App metadata, changelogs, store submission (see fdroid-maintenance rule) |
+| [fdroid/README.md](fdroid/README.md) | Submit flow changes |
+
+## Tests
+
+Keep tests in sync when making code or feature changes: `test/`, `integration_test/`, goldens (`test/goldens/`, `flatpak/screenshots/`).
+
+## Architecture
+
+Update [ARCHITECTURE.md](ARCHITECTURE.md) when CI, workflow, service, or structure changes.
+
+## Store Assets
+
+Check when making UI or feature changes: screenshots (README, Flatpak, F-Droid), icons, metainfo.
+
+## Completeness Checklist
+
+| Area | What to keep in sync |
+|---------|------------------------|
+| **Docs** | README, CHANGELOG, CONTEXT, PLAN, ROADMAP, ARCHITECTURE, SETUP, fdroid/README |
+| **Tests** | `test/`, `integration_test/`, goldens (`test/goldens/`, `flatpak/screenshots/`) |
+| **Architecture** | ARCHITECTURE.md when CI, workflows, services, or project structure change |
+| **Store Assets** | Screenshots (README, Flatpak, F-Droid), icons, metainfo, F-Droid changelogs |
+
+## Workflow
+
+1. After implementing a change, identify which docs, tests, architecture, and store assets are affected.
+2. **Always update everything** – Update docs, tests, architecture, and store assets in the same session.
+3. Do not leave documentation outdated.
+
+---
+> Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
