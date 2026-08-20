@@ -1,0 +1,9 @@
+{
+  "name": "mallikarjun-roddannavar--playwright-agentic-automation",
+  "displayName": "playwright-agentic-automation",
+  "description": "Playwright + TypeScript agentic automation framework with a local LLM Wiki/codebase second brian. agent skills, UI/API testing, Page Objects, fixtures and reusable services",
+  "version": "1.0.0",
+  "author": "Mallikarjun-Roddannavar",
+  "homepage": "https://github.com/Mallikarjun-Roddannavar/playwright-agentic-automation",
+  "skills": []
+}
