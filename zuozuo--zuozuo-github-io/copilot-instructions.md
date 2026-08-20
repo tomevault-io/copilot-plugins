@@ -1,23 +1,8 @@
-## 30day-transformer
+## auto-seo
 
-> 30 天 transformer 学习计划
+> 每次生成新的blog或者更新blog的时候，自动帮我进行相应的seo优化
 
-1. 代码统一放在目录 transformer-learning 下面
-目录结构参考：
-transformer-learning/
-├── day01-attention-basics/
-├── day02-self-attention/
-├── ...
-├── requirements.txt
-├── README.md
-└── utils/
-    ├── __init__.py
-    ├── visualization.py
-    └── data_utils.py
-
-2. python环境使用 conda 的 名字为torch 的环境
-3. ide 统一使用当前我用的cursor
-4. GPU使用 Mac 的 M 系列GPU芯片
+每次生成新的blog或者更新blog的时候，自动帮我进行相应的seo优化
 
 ---
 > Source: [zuozuo/zuozuo.github.io](https://github.com/zuozuo/zuozuo.github.io) — distributed by [TomeVault](https://tomevault.io).
