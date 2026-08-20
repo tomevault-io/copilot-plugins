@@ -1,0 +1,9 @@
+{
+  "name": "shilo--pixellab-pip",
+  "displayName": "pixellab-pip",
+  "description": "Meet PixelLab Pip: a tiny pup who fetches the right PixelLab workflow. He follows human commands to create, edit, and animate pixel assets, then sniffs out a bigger prompt, scouts for a useful tool, a",
+  "version": "1.0.0",
+  "author": "Shilo",
+  "homepage": "https://github.com/Shilo/pixellab-pip",
+  "skills": []
+}
