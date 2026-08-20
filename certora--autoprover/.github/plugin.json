@@ -1,0 +1,9 @@
+{
+  "name": "certora--autoprover",
+  "displayName": "AutoProver",
+  "description": "AutoProver",
+  "version": "1.0.0",
+  "author": "Certora",
+  "homepage": "https://github.com/Certora/AutoProver",
+  "skills": []
+}
