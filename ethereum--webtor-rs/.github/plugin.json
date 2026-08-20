@@ -1,0 +1,9 @@
+{
+  "name": "ethereum--webtor-rs",
+  "displayName": "webtor-rs",
+  "description": "A browser-focused Tor client written in Rust and compiled to WebAssembly (WASM)",
+  "version": "1.0.0",
+  "author": "ethereum",
+  "homepage": "https://github.com/ethereum/webtor-rs",
+  "skills": []
+}
