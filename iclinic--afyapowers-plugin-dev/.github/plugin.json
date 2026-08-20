@@ -1,0 +1,9 @@
+{
+  "name": "iclinic--afyapowers-plugin-dev",
+  "displayName": "afyapowers-plugin-dev",
+  "description": "A deterministic, phase-gated development workflow plugin for Claude Code. Forked from superpowers. Enforces 5-phase feature development (design \u2192 plan \u2192 implement \u2192 review \u2192 complete) with persistent ",
+  "version": "1.0.0",
+  "author": "iclinic",
+  "homepage": "https://github.com/iclinic/afyapowers-plugin-dev",
+  "skills": []
+}
