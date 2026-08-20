@@ -1,0 +1,9 @@
+{
+  "name": "joshrotenberg--mcp-proxy",
+  "displayName": "mcp-proxy",
+  "description": "A config-driven Model Context Protocol (MCP) reverse proxy built in Rust. Aggregates multiple MCP backends behind a single endpoint with per-backend middleware, authentication, and observability.",
+  "version": "1.0.0",
+  "author": "joshrotenberg",
+  "homepage": "https://github.com/joshrotenberg/mcp-proxy",
+  "skills": []
+}
