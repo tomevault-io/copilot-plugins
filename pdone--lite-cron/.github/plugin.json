@@ -1,0 +1,9 @@
+{
+  "name": "pdone--lite-cron",
+  "displayName": "lite-cron",
+  "description": "\u8f7b\u91cf\u7ea7\u5b9a\u65f6\u4efb\u52a1\u8c03\u5ea6\u5668 | A Lightweight Scheduler for Scheduling Tasks",
+  "version": "1.0.0",
+  "author": "pdone",
+  "homepage": "https://github.com/pdone/lite-cron",
+  "skills": []
+}
