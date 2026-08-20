@@ -1,0 +1,9 @@
+{
+  "name": "azrtydxb--procoder",
+  "displayName": "procoder",
+  "description": "Senior-developer discipline for AI coding agents. A commit gate that counts unchecked as failing, quality controllers that refuse to call unfinished work done, and a lessons loop that closes each esca",
+  "version": "1.0.0",
+  "author": "azrtydxb",
+  "homepage": "https://github.com/azrtydxb/procoder",
+  "skills": []
+}
