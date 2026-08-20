@@ -4,7 +4,7 @@
   "repo": "Iron-Jarvis",
   "description": "The Orchestrator you always wanted !",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RealDealCPA-VR/Iron-Jarvis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T23:35:14Z"
+  "distributed_at": "2026-08-20T23:37:14Z"
 }
