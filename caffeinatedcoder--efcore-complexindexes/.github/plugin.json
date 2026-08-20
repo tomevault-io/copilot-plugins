@@ -1,0 +1,9 @@
+{
+  "name": "caffeinatedcoder--efcore-complexindexes",
+  "displayName": "EFCore.ComplexIndexes",
+  "description": "Index support for complex type properties in EF Core migrations \u2014 the missing piece for value object-driven architectures.",
+  "version": "1.0.0",
+  "author": "CaffeinatedCoder",
+  "homepage": "https://github.com/CaffeinatedCoder/EFCore.ComplexIndexes",
+  "skills": []
+}
