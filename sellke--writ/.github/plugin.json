@@ -1,0 +1,9 @@
+{
+  "name": "sellke--writ",
+  "displayName": "writ",
+  "description": "AI-powered development workflow framework \u2014 contract-first specs, multi-agent SDLC, automated quality gates",
+  "version": "1.0.0",
+  "author": "sellke",
+  "homepage": "https://github.com/sellke/writ",
+  "skills": []
+}
