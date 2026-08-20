@@ -1,0 +1,44 @@
+{
+  "name": "job-radar",
+  "owner": "Jasmine-Liu-min",
+  "repo": "job-radar",
+  "description": "27\u5c4a\u62db\u8058\u4fe1\u606f\u53f0\uff1a\u81ea\u52a8\u540c\u6b65\u5b98\u7f51/\u56fd\u8058/\u592e\u56fd\u4f01/\u9ad8\u6821/\u725b\u5ba2\u7ebf\u7d22\uff0c\u805a\u7126\u4ea7\u54c1\u3001AI\u4ea7\u54c1\u3001\u7b56\u7565\u3001\u6570\u636e\u4e0e\u7b97\u6cd5\u5c97\u4f4d\uff0c\u5e76\u901a\u8fc7 GitHub Actions \u63a8\u9001\u6bcf\u65e5\u65b0\u589e\u673a\u4f1a\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jasmine-Liu-min/job-radar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T02:49:17Z"
+}
