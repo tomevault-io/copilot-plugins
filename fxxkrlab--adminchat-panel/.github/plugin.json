@@ -1,0 +1,9 @@
+{
+  "name": "fxxkrlab--adminchat-panel",
+  "displayName": "ADMINCHAT_PANEL",
+  "description": "Telegram Bot Customer Service Platform - Multi-bot pool, bidirectional messaging, FAQ engine (8 modes + AI), real-time web chat, user management. Python/FastAPI + React/TypeScript + PostgreSQL + Redis",
+  "version": "1.0.0",
+  "author": "fxxkrlab",
+  "homepage": "https://github.com/fxxkrlab/ADMINCHAT_PANEL",
+  "skills": []
+}
