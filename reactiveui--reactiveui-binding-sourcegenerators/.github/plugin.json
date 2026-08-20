@@ -1,0 +1,9 @@
+{
+  "name": "reactiveui--reactiveui-binding-sourcegenerators",
+  "displayName": "ReactiveUI.Binding.SourceGenerators",
+  "description": "The source generation binding engine for ReactiveUI",
+  "version": "1.0.0",
+  "author": "reactiveui",
+  "homepage": "https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators",
+  "skills": []
+}
