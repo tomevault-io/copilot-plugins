@@ -1,0 +1,9 @@
+{
+  "name": "walkindude--cli-bridge",
+  "displayName": "cli-bridge",
+  "description": "Turn any CLI into an MCP tool that agents actually use.",
+  "version": "1.0.0",
+  "author": "walkindude",
+  "homepage": "https://github.com/walkindude/cli-bridge",
+  "skills": []
+}
