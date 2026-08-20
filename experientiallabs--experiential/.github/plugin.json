@@ -1,0 +1,9 @@
+{
+  "name": "experientiallabs--experiential",
+  "displayName": "experiential",
+  "description": "An open source model gateway that provides one control plane across closed, open-source, local, and custom models.",
+  "version": "1.0.0",
+  "author": "experientiallabs",
+  "homepage": "https://github.com/experientiallabs/experiential",
+  "skills": []
+}
