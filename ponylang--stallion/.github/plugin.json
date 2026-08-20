@@ -1,0 +1,9 @@
+{
+  "name": "ponylang--stallion",
+  "displayName": "stallion",
+  "description": "An HTTP server for Pony",
+  "version": "1.0.0",
+  "author": "ponylang",
+  "homepage": "https://github.com/ponylang/stallion",
+  "skills": []
+}
