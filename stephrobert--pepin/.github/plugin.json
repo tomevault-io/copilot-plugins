@@ -1,0 +1,9 @@
+{
+  "name": "stephrobert--pepin",
+  "displayName": "pepin",
+  "description": "CSPM multi-cloud souverain : \u00e9value la posture d'un cloud (Outscale, Scaleway, Exoscale\u2026) contre un r\u00e9f\u00e9rentiel commun ancr\u00e9 sur SCSL, SecNumCloud, CIS et ISO.",
+  "version": "1.0.0",
+  "author": "stephrobert",
+  "homepage": "https://github.com/stephrobert/pepin",
+  "skills": []
+}
