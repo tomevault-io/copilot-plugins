@@ -1,0 +1,9 @@
+{
+  "name": "xsploit--webwaifu3",
+  "displayName": "webwaifu3",
+  "description": "VRM companion app \u2014 SvelteKit 2, Three.js, multi-provider LLM, Kokoro/Fish TTS, Whisper STT, semantic memory",
+  "version": "1.0.0",
+  "author": "xsploit",
+  "homepage": "https://github.com/xsploit/webwaifu3",
+  "skills": []
+}
