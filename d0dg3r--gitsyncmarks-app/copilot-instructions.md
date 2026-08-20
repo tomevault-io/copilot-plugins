@@ -1,55 +1,48 @@
-## docs-sync
+## fdroid-maintenance
 
-> Keep documentation in sync when making code or feature changes
+> Keep F-Droid metadata and submission in sync with releases
 
 
-# Documentation Sync
+# F-Droid Store Maintenance
 
-When making changes to the project (features, fixes, architecture, setup), **always update the relevant documentation** in the same session.
+**Listing status (2026-04):** The **fdroiddata** MR was **closed**; the app is **not** on F-Droid. Metadata in `fdroid/` is retained for a **future** resubmit. See [fdroid/README.md](../../fdroid/README.md#listing-status-paused).
 
-## Documents to Consider
+When changing app metadata, release notes, screenshots, package IDs, or submission flow:
 
-| Document | Update when |
-|----------|-------------|
-| [README.md](README.md) | New features, installation changes, platform support |
-| [CHANGELOG.md](CHANGELOG.md) | Any user-visible change (add to Unreleased) |
-| [docs/CONTEXT.md](docs/CONTEXT.md) | Decisions, scope, platform status, tech stack |
-| [docs/PLAN.md](docs/PLAN.md) | Phases, future work, project structure |
-| [docs/README.md](docs/README.md) | Doc structure, quick links, current status |
-| [ROADMAP.md](ROADMAP.md) | Milestones, near-term goals, vision |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Architecture, CI, services |
-| [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) | Implementation overview |
-| [SETUP.md](SETUP.md) | Setup steps, dependencies |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution workflow changes |
-| [fdroid/](fdroid/) | App metadata, changelogs, store submission (see fdroid-maintenance rule) |
-| [fdroid/README.md](fdroid/README.md) | Submit flow changes |
+1. **Submit metadata (for F-Droid MRs)** — [fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml) must contain **only stable versions** (no -beta, -alpha, -rc). CI fails if pre-releases are present. Use [com.d0dg3r.gitsyncmarks.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks.yml) for development (may include pre-releases).
 
-## Tests
+   **Flutter build config (do not change):** F-Droid reviewer (linsui) requires pinning the version in the repo and extracting it. Use `srclibs: flutter@stable` plus prebuild steps that extract from `.github/workflows/release.yml`. The prebuild line must use **rewritemeta-compatible format** (long lines split so `fdroid rewritemeta` produces no diff; CI fails otherwise):
+   ```yaml
+   - flutterVersion=$(sed -n -E "s/.*flutter-version:\ '(.*)'/\1/p" .github/workflows/release.yml
+     | head -1)
+   - '[[ $flutterVersion ]]'
+   - git -C $$flutter$$ checkout -f $flutterVersion
+   ```
+   Do **not** hardcode `flutter@3.41.1` in the metadata.
 
-Keep tests in sync when making code or feature changes: `test/`, `integration_test/`, goldens (`test/goldens/`, `flatpak/screenshots/`).
+2. **Update F-Droid metadata** in the same session:
+   - [fdroid/metadata/com.d0dg3r.gitsyncmarks.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks.yml) — versionName, versionCode, commit, build config (development)
+   - [fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/changelogs/{versionCode}.txt](fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/changelogs/) — changelog per release
+   - [fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/short_description.txt](fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/short_description.txt)
+   - [fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/full_description.txt](fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/full_description.txt)
 
-## Architecture
+3. **Ensure changelog file exists** for each release: `fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/changelogs/{versionCode}.txt`
 
-Update [ARCHITECTURE.md](ARCHITECTURE.md) when CI, workflow, service, or structure changes.
+4. **Keep version aligned** with `pubspec.yaml` and `CHANGELOG.md`
 
-## Store Assets
+5. **UpdateCheckMode:** `Tags ^v[0-9.]+$` – filters pre-releases from auto-updates
 
-Check when making UI or feature changes: screenshots (README, Flatpak, F-Droid), icons, metainfo.
+6. **Builds:** Chronological (older versions first)
 
-## Completeness Checklist
+7. **Commit hash:** Must exactly match the tag commit. See [release-workflow.mdc](release-workflow.mdc) for release workflow.
 
-| Area | What to keep in sync |
-|---------|------------------------|
-| **Docs** | README, CHANGELOG, CONTEXT, PLAN, ROADMAP, ARCHITECTURE, SETUP, fdroid/README |
-| **Tests** | `test/`, `integration_test/`, goldens (`test/goldens/`, `flatpak/screenshots/`) |
-| **Architecture** | ARCHITECTURE.md when CI, workflows, services, or project structure change |
-| **Store Assets** | Screenshots (README, Flatpak, F-Droid), icons, metainfo, F-Droid changelogs |
+8. **Verify screenshot/icon paths** if referenced in metadata (`metadata/en-US/images/`)
 
-## Workflow
+9. **Update [fdroid/README.md](fdroid/README.md)** if submission steps or paths change
 
-1. After implementing a change, identify which docs, tests, architecture, and store assets are affected.
-2. **Always update everything** – Update docs, tests, architecture, and store assets in the same session.
-3. Do not leave documentation outdated.
+10. **Before submit:** Run `./fdroid/submit-to-gitlab.sh` — it validates and copies the submit file
+
+Do not leave F-Droid-facing metadata partially updated.
 
 ---
 > Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
