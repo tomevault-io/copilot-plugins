@@ -1,0 +1,9 @@
+{
+  "name": "rustedbytes--unlimited-ocr-server",
+  "displayName": "unlimited-ocr-server",
+  "description": "An inference server for the Unlimited-OCR model",
+  "version": "1.0.0",
+  "author": "RustedBytes",
+  "homepage": "https://github.com/RustedBytes/unlimited-ocr-server",
+  "skills": []
+}
