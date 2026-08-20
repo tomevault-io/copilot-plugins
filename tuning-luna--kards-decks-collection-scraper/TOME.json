@@ -1,0 +1,44 @@
+{
+  "name": "kards-decks-collection-scraper",
+  "owner": "Tuning-Luna",
+  "repo": "kards-decks-collection-scraper",
+  "description": "Automated crawler for Kards CCG card images \u2014 fetches all cards via GraphQL API, organizes by nation & cost, converts AVIF to PNG. | Kards \u5361\u724c\u56fe\u7247\u81ea\u52a8\u722c\u53d6\u5de5\u5177 \u2014 \u901a\u8fc7 GraphQL \u63a5\u53e3\u62c9\u53d6\u5168\u91cf\u5361\u724c\uff0c\u6309\u56fd\u5bb6\u4e0e\u8d39\u7528\u5206\u7c7b\uff0cAVIF \u81ea\u52a8\u8f6c PNG ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tuning-Luna/kards-decks-collection-scraper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T22:53:44Z"
+}
