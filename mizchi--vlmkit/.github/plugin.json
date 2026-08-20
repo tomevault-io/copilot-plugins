@@ -1,0 +1,9 @@
+{
+  "name": "mizchi--vlmkit",
+  "displayName": "vlmkit",
+  "description": "VRT + Semantic Verification Harness \u2014 Visual regression testing with a11y semantic verification, AI reasoning, and multi-step goal runner",
+  "version": "1.0.0",
+  "author": "mizchi",
+  "homepage": "https://github.com/mizchi/vlmkit",
+  "skills": []
+}
