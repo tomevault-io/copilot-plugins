@@ -1,0 +1,9 @@
+{
+  "name": "marimo-team--jetbrains-marimo",
+  "displayName": "jetbrains-marimo",
+  "description": "Open and run marimo notebooks in PyCharm and other JetBrains IDEs",
+  "version": "1.0.0",
+  "author": "marimo-team",
+  "homepage": "https://github.com/marimo-team/jetbrains-marimo",
+  "skills": []
+}
