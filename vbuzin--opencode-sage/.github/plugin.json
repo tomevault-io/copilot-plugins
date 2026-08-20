@@ -1,0 +1,9 @@
+{
+  "name": "vbuzin--opencode-sage",
+  "displayName": "opencode-sage",
+  "description": "Opencode configuration splitting architectural thinking (sage agent) from everyday coding (dev agent), with ADRs, session journals, and light/full modes.",
+  "version": "1.0.0",
+  "author": "vbuzin",
+  "homepage": "https://github.com/vbuzin/opencode-sage",
+  "skills": []
+}
