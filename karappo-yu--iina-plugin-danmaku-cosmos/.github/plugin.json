@@ -1,0 +1,9 @@
+{
+  "name": "karappo-yu--iina-plugin-danmaku-cosmos",
+  "displayName": "iina-plugin-danmaku-cosmos",
+  "description": "niconico / bilibili / DanDanPlay \u5f39\u5e55 for IINA \u2014 dual CSS & Canvas rendering, Nico & Bilibili style presets, local file & network danmaku",
+  "version": "1.0.0",
+  "author": "karappo-yu",
+  "homepage": "https://github.com/karappo-yu/iina-plugin-danmaku-cosmos",
+  "skills": []
+}
