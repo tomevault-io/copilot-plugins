@@ -1,0 +1,9 @@
+{
+  "name": "nutstore--creatorweave",
+  "displayName": "creatorweave",
+  "description": "Local-first AI workspace for creators \u2014 browser-based,   privacy-first, multi-agent collaboration",
+  "version": "1.0.0",
+  "author": "nutstore",
+  "homepage": "https://github.com/nutstore/creatorweave",
+  "skills": []
+}
