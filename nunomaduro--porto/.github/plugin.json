@@ -1,0 +1,9 @@
+{
+  "name": "nunomaduro--porto",
+  "displayName": "porto",
+  "description": "porto is a dependency audit ledger for php",
+  "version": "1.0.0",
+  "author": "nunomaduro",
+  "homepage": "https://github.com/nunomaduro/porto",
+  "skills": []
+}
