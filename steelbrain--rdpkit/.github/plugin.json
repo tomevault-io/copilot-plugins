@@ -1,0 +1,9 @@
+{
+  "name": "steelbrain--rdpkit",
+  "displayName": "RDPKit",
+  "description": "Pure Swift RDP library for Apple platforms, built around Apple media, security, and networking primitives.",
+  "version": "1.0.0",
+  "author": "steelbrain",
+  "homepage": "https://github.com/steelbrain/RDPKit",
+  "skills": []
+}
