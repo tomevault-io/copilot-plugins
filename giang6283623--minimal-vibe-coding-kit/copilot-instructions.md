@@ -1,19 +1,20 @@
-## 060-response-format
+## 070-proportional-effort
 
-> Response format - outcome first, decision tables with fixed columns, and a Done/Next/Decision-needed status block for multi-step work.
+> Proportional effort - triage task size, match process weight, and gate visual/e2e loops behind a 0-6 score plus user approval.
 
 
-# Response format rules
+# Proportional effort rules
 
-- Lead with the outcome: the first one or two sentences state the result, answer, or recommendation. Supporting detail comes after.
-- Keep main points short and scannable; expand only where the reader needs it to act.
-- When the user must choose, present a decision table with the columns Option, What it does, Cost, Risk, Recommended. Mark exactly one option as recommended and give the reason in one line under the table.
-- Use tables for comparable facts only; keep reasoning in prose around the table, not inside cells.
-- End every multi-step task response with a status block:
-  - Done: what was completed and how it was verified.
-  - Next: the next task in order, or "none" when the work is complete.
-  - Decision needed: present only when a blocking choice belongs to the user.
-- When several tasks remain, list them in order and name the one that starts next.
+- Match process weight to task size; review must never cost more than the change itself.
+- Triage each request in one line before working:
+  - trivial: typo, comment, one-liner, no agent-surface impact. Edit, validate, report. No plan, no subagents, no review loops.
+  - small: one file or one skill document. Two-line plan, edit, validate.
+  - medium: several files or shared behavior. Short plan, edit, validate, one diff self-review.
+  - large or risky: installers, validators, security, agent surfaces, destructive paths. Full plan plus the skills and probes the security rules require.
+- Never launch parallel-analysis, graph orchestration, multi-agent review, visual loops, or e2e suites for trivial or small tasks unless the user asks.
+- Visual and e2e gate: never run `visual-design-loop` or full e2e suites by default. Score 0-2 per question: (1) user-visible surface changed, (2) outcome depends on subjective visual judgment, (3) a visual regression could reach users unnoticed by existing tests.
+- Score 0-2: skip and rely on the `backbone.yml` validation command. Score 3-4: one screenshot check, at most one targeted fix, no loop. Score 5-6: propose the run with budget and estimated cost, then wait for explicit user approval.
+- Always report the gate in one line, for example: "visual gate 2/6: skipped".
 
 ---
 > Source: [giang6283623/minimal-vibe-coding-kit](https://github.com/giang6283623/minimal-vibe-coding-kit) — distributed by [TomeVault](https://tomevault.io).
