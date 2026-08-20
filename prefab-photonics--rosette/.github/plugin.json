@@ -1,0 +1,9 @@
+{
+  "name": "prefab-photonics--rosette",
+  "displayName": "rosette",
+  "description": "Photonics design tools for agents",
+  "version": "1.0.0",
+  "author": "PreFab-Photonics",
+  "homepage": "https://github.com/PreFab-Photonics/rosette",
+  "skills": []
+}
