@@ -7,11 +7,11 @@ A durable and modular agent harness
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [clavia-labs/tardigrade](https://github.com/clavia-labs/tardigrade).
+Original source: `AGENTS.md` in [clavia-labs/tardigrade](https://github.com/clavia-labs/tardigrade).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
