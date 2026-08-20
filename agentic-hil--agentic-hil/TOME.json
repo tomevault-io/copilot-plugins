@@ -4,7 +4,7 @@
   "repo": "agentic-hil",
   "description": "Your AI agent develops firmware on its own: build, flash, stimulate real hardware, observe, fix - policy-gated MCP tools + pytest plugin.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentic-hil/agentic-hil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T01:19:33Z"
+  "distributed_at": "2026-08-20T01:38:35Z"
 }
