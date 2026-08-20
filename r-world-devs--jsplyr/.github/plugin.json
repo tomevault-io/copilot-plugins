@@ -1,0 +1,9 @@
+{
+  "name": "r-world-devs--jsplyr",
+  "displayName": "jsplyr",
+  "description": "A dplyr backend for shiny to manipulate data in the browser.",
+  "version": "1.0.0",
+  "author": "r-world-devs",
+  "homepage": "https://github.com/r-world-devs/jsplyr",
+  "skills": []
+}
