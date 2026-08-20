@@ -1,0 +1,9 @@
+{
+  "name": "jonastbrg--flipperagent",
+  "displayName": "FlipperAgent",
+  "description": "CyberPhysical Agent for Flipper Zero",
+  "version": "1.0.0",
+  "author": "jonastbrg",
+  "homepage": "https://github.com/jonastbrg/FlipperAgent",
+  "skills": []
+}
