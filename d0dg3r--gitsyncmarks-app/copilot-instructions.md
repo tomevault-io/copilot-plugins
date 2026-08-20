@@ -1,48 +1,29 @@
-## fdroid-maintenance
+## platform-gotchas
 
-> Keep F-Droid metadata and submission in sync with releases
+> Platform-specific gotchas – Flatpak, Export/Import, Edit mode, etc.
 
 
-# F-Droid Store Maintenance
+# Platform Gotchas
 
-**Listing status (2026-04):** The **fdroiddata** MR was **closed**; the app is **not** on F-Droid. Metadata in `fdroid/` is retained for a **future** resubmit. See [fdroid/README.md](../../fdroid/README.md#listing-status-paused).
+Known pitfalls and conventions when working on lib/ or flatpak/:
 
-When changing app metadata, release notes, screenshots, package IDs, or submission flow:
+## Flatpak
 
-1. **Submit metadata (for F-Droid MRs)** — [fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml) must contain **only stable versions** (no -beta, -alpha, -rc). CI fails if pre-releases are present. Use [com.d0dg3r.gitsyncmarks.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks.yml) for development (may include pre-releases).
+- **libsecret:** `flutter_secure_storage` requires D-Bus access. In [flatpak/io.github.d0dg3r.GitSyncMarksApp.yml](flatpak/io.github.d0dg3r.GitSyncMarksApp.yml) `finish-args` must include `--talk-name=org.freedesktop.secrets`.
 
-   **Flutter build config (do not change):** F-Droid reviewer (linsui) requires pinning the version in the repo and extracting it. Use `srclibs: flutter@stable` plus prebuild steps that extract from `.github/workflows/release.yml`. The prebuild line must use **rewritemeta-compatible format** (long lines split so `fdroid rewritemeta` produces no diff; CI fails otherwise):
-   ```yaml
-   - flutterVersion=$(sed -n -E "s/.*flutter-version:\ '(.*)'/\1/p" .github/workflows/release.yml
-     | head -1)
-   - '[[ $flutterVersion ]]'
-   - git -C $$flutter$$ checkout -f $flutterVersion
-   ```
-   Do **not** hardcode `flutter@3.41.1` in the metadata.
+## Export/Import
 
-2. **Update F-Droid metadata** in the same session:
-   - [fdroid/metadata/com.d0dg3r.gitsyncmarks.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks.yml) — versionName, versionCode, commit, build config (development)
-   - [fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/changelogs/{versionCode}.txt](fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/changelogs/) — changelog per release
-   - [fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/short_description.txt](fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/short_description.txt)
-   - [fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/full_description.txt](fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/full_description.txt)
+- **Desktop (Linux, Windows, macOS):** `FilePicker.platform.saveFile` – `Share.shareXFiles` is not implemented on Linux
+- **Mobile (Android, iOS):** `Share.shareXFiles`
+- **Import:** Show spinner during encrypted import; call `syncBookmarks()` explicitly after import; offer import on empty state
 
-3. **Ensure changelog file exists** for each release: `fdroid/metadata/com.d0dg3r.gitsyncmarks/en-US/changelogs/{versionCode}.txt`
+## Edit Mode
 
-4. **Keep version aligned** with `pubspec.yaml` and `CHANGELOG.md`
+- **allowMoveReorder:** Transient (not in `Profile.toJson()`); always `false` in `Profile.fromJson()` – never persist. Default: locked.
 
-5. **UpdateCheckMode:** `Tags ^v[0-9.]+$` – filters pre-releases from auto-updates
+## Default Profile
 
-6. **Builds:** Chronological (older versions first)
-
-7. **Commit hash:** Must exactly match the tag commit. See [release-workflow.mdc](release-workflow.mdc) for release workflow.
-
-8. **Verify screenshot/icon paths** if referenced in metadata (`metadata/en-US/images/`)
-
-9. **Update [fdroid/README.md](fdroid/README.md)** if submission steps or paths change
-
-10. **Before submit:** Run `./fdroid/submit-to-gitlab.sh` — it validates and copies the submit file
-
-Do not leave F-Droid-facing metadata partially updated.
+- Create a default profile when `_profiles` is empty after migration (`loadCredentials()` in BookmarkProvider)
 
 ---
 > Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
