@@ -1,0 +1,44 @@
+{
+  "name": "phlox",
+  "owner": "robert-mcdermott",
+  "repo": "phlox",
+  "description": "Phlox is a self-hostable chat platform with an agentic harness, document RAG, code execution, MCP integration and LLM gateway \u2014 running over any model provider: AWS Bedrock or any OpenAI-compatible endpoint (OpenAI, Ollama, OpenRouter, vLLM, LiteLLM, LM Studio, local models).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/robert-mcdermott/phlox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T23:38:26Z"
+}
