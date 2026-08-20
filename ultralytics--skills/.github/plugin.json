@@ -1,0 +1,9 @@
+{
+  "name": "ultralytics--skills",
+  "displayName": "skills",
+  "description": "Agent skills for Ultralytics YOLO, covering models, datasets, training, tuning, inference, tracking, and export.",
+  "version": "1.0.0",
+  "author": "ultralytics",
+  "homepage": "https://github.com/ultralytics/skills",
+  "skills": []
+}
