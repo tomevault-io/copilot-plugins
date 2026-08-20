@@ -1,9 +1,9 @@
-## 001-vibe-core
+## 010-init
 
-> Minimal Vibe Coding Kit core workflow for all Cursor agent tasks.
+> First-time init rules for Minimal Vibe Coding Kit.
 
 
-Read `backbone.yml` before changing code. If `meta.template_status` is `uninitialized`, follow `.vibekit/init/FIRST_TIME_INIT.md` and wait for approval before writing. After init, follow `backbone.yml` `conventions`. Keep diffs small, validate after relevant edits, and preserve user instructions outside managed blocks.
+For init, print requirements first, detect stack and project conventions from files, propose one diff for `backbone.yml` plus rules, and wait for `yes`, `edit`, or `abort`. Do not overwrite existing `CLAUDE.md` or `AGENTS.md`.
 
 ---
 > Source: [giang6283623/minimal-vibe-coding-kit](https://github.com/giang6283623/minimal-vibe-coding-kit) — distributed by [TomeVault](https://tomevault.io).
