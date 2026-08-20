@@ -4,7 +4,7 @@
   "repo": "rudycanshoot",
   "description": "MCP server + CLI that lets AI assistants take and view screenshots. Auto-installs into Claude Code, Cursor, Windsurf, Codex, Gemini CLI, OpenCode, Continue, Cline, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jrb00013/rudycanshoot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T00:51:16Z"
+  "distributed_at": "2026-08-20T01:02:52Z"
 }
