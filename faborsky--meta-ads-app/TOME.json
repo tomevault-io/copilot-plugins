@@ -1,0 +1,44 @@
+{
+  "name": "meta-ads-app",
+  "owner": "faborsky",
+  "repo": "meta-ads-app",
+  "description": "Python CLI pro Meta Ads (Marketing API v25.0) \u2014 47 p\u0159\u00edkaz\u016f, dry-run z\u00e1pisy, rate-limit guard, stav\u011bn\u00e9 pro orchestraci AI agentem (Claude Code). Sou\u010d\u00e1st ekosyst\u00e9mu kurzu AI First.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/faborsky/meta-ads-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T02:36:27Z"
+}
