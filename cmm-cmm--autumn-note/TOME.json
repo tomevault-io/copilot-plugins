@@ -1,0 +1,44 @@
+{
+  "name": "Autumn-Note",
+  "owner": "cmm-cmm",
+  "repo": "Autumn-Note",
+  "description": "Zero-dependency WYSIWYG rich-text editor in vanilla JavaScript (ES2022+) \u2014 no jQuery. Dark mode, RTL, 8 locales, @mention, markdown shortcuts, tables, ARIA-accessible toolbar. React + Vue 3 wrappers, TypeScript types, SSR-safe.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cmm-cmm/Autumn-Note",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T16:38:46Z"
+}
