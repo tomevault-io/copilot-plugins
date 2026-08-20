@@ -4,7 +4,7 @@
   "repo": "moe-sovereign",
   "description": "Self-hosted Compound AI System for sovereign environments. Features token-saving complexity routing, deterministic MCP tools for math/logic, configurable expert templates, causal/reinforcement learning, agentic loops, and a federated Neo4j GraphRAG.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/h3rb3rn/moe-sovereign",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T14:50:23Z"
+  "distributed_at": "2026-08-20T14:58:03Z"
 }
