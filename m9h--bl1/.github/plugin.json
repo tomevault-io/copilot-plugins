@@ -1,0 +1,9 @@
+{
+  "name": "m9h--bl1",
+  "displayName": "bl1",
+  "description": "In-silico cortical culture simulator (DishBrain-inspired) \u2014 JAX-based spiking neural network with STDP, virtual MEA, and closed-loop game experiments",
+  "version": "1.0.0",
+  "author": "m9h",
+  "homepage": "https://github.com/m9h/bl1",
+  "skills": []
+}
