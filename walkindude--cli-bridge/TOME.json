@@ -4,7 +4,7 @@
   "repo": "cli-bridge",
   "description": "Turn any CLI into an MCP tool that agents actually use.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/walkindude/cli-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T16:45:21Z"
+  "distributed_at": "2026-08-20T16:46:06Z"
 }
