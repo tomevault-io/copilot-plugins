@@ -4,7 +4,7 @@
   "repo": "coodle-moodle45agentskills",
   "description": "Moodle development skills and plugin guidance",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/catalanml/coodle-moodle45agentskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T04:39:24Z"
+  "distributed_at": "2026-08-20T04:42:34Z"
 }
