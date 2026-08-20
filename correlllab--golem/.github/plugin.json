@@ -1,0 +1,9 @@
+{
+  "name": "correlllab--golem",
+  "displayName": "GOLEM",
+  "description": "Provides simulation container intended to be used by the Correll lab for the H12",
+  "version": "1.0.0",
+  "author": "correlllab",
+  "homepage": "https://github.com/correlllab/GOLEM",
+  "skills": []
+}
