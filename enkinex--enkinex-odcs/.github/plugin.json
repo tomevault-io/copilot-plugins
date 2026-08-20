@@ -1,0 +1,9 @@
+{
+  "name": "enkinex--enkinex-odcs",
+  "displayName": "enkinex-odcs",
+  "description": "Enkinex KCL Library for ODCS",
+  "version": "1.0.0",
+  "author": "enkinex",
+  "homepage": "https://github.com/enkinex/enkinex-odcs",
+  "skills": []
+}
