@@ -7,11 +7,11 @@ Official SPACE GASS API specifications, developer SDKs, and automation examples
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SpaceGass/space-gass-api](https://github.com/SpaceGass/space-gass-api).
+Original source: `CLAUDE.md` in [SpaceGass/space-gass-api](https://github.com/SpaceGass/space-gass-api).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
