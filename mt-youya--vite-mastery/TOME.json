@@ -4,7 +4,7 @@
   "repo": "vite-mastery",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mt-Youya/vite-mastery",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T23:33:43Z"
+  "distributed_at": "2026-08-20T23:36:43Z"
 }
