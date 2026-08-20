@@ -1,0 +1,9 @@
+{
+  "name": "renikud--renikud",
+  "displayName": "renikud",
+  "description": "Hebrew grapheme-to-phoneme (G2P) model that converts unvocalized text to IPA",
+  "version": "1.0.0",
+  "author": "renikud",
+  "homepage": "https://github.com/renikud/renikud",
+  "skills": []
+}
