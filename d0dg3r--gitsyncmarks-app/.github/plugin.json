@@ -1,0 +1,9 @@
+{
+  "name": "d0dg3r--gitsyncmarks-app",
+  "displayName": "GitSyncMarks-App",
+  "description": "Cross-platform app (Android, iOS, Windows, macOS, Linux) that syncs bookmarks from your GitHub repo. Companion to the GitSyncMarks browser extension.",
+  "version": "1.0.0",
+  "author": "d0dg3r",
+  "homepage": "https://github.com/d0dg3r/GitSyncMarks-App",
+  "skills": []
+}
