@@ -1,0 +1,9 @@
+{
+  "name": "maxmart--eclipse-mcp-server",
+  "displayName": "eclipse-mcp-server",
+  "description": "Eclipse IDE plugin exposing workspace operations to Claude Code via MCP",
+  "version": "1.0.0",
+  "author": "maxmart",
+  "homepage": "https://github.com/maxmart/eclipse-mcp-server",
+  "skills": []
+}
