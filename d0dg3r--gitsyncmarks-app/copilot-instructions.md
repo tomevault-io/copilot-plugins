@@ -1,21 +1,29 @@
-## project-context
+## release-checklist-hygiene
 
-> Project context and onboarding - read when resuming work in GitSyncMarks-App
+> Enforce release checklist hygiene for user-visible changes
 
 
-# GitSyncMarks-App – Project Context
+# Release Checklist Hygiene
 
-When starting or resuming work on this project, especially in a new IDE session:
+For user-visible changes or release preparation:
 
-1. **Read [docs/CONTEXT.md](docs/CONTEXT.md)** – Origin, decisions, POC status
-2. **Read [docs/PLAN.md](docs/PLAN.md)** – Implementation phases, next steps
-3. **Read [docs/BOOKMARK-FORMAT.md](docs/BOOKMARK-FORMAT.md)** – Bookmark JSON structure, GitHub API
+1. **Update [CHANGELOG.md](CHANGELOG.md)** — add to `[Unreleased]` before finishing; move to version section when releasing
 
-This is a Flutter app (Android, iOS, Windows, macOS, Linux) that syncs bookmarks from a GitHub repo (GitSyncMarks format), opens URLs in the user's browser, and supports move/reorder/delete/add (synced to repo). Android stable; other platforms alpha.
+2. **Keep release docs aligned** — [README.md](README.md), [docs/README.md](docs/README.md), [ROADMAP.md](ROADMAP.md) when scope/status changes
 
-**Parent project:** https://github.com/d0dg3r/GitSyncMarks (browser extension)
+3. **Store-facing text** — features, platforms, limits must reflect current behavior (F-Droid, Flatpak metainfo, README)
 
-**Workflow:** Test locally, ask before commit, small steps (see User Rules). For releases: [release-workflow.mdc](release-workflow.mdc). For platform code: [platform-gotchas.mdc](platform-gotchas.mdc).
+4. **CI/release workflow** — if tags, artifacts, or workflow change, update [ARCHITECTURE.md](ARCHITECTURE.md) and [.github/workflows/](.github/workflows/) references
+
+5. **Screenshots** — locally: `./scripts/generate-screenshots.sh` → commit before tagging (Light + Dark for README, Flatpak, F-Droid)
+
+6. **F-Droid** — update [fdroid/](fdroid/) metadata and changelogs with each release. Submit file [com.d0dg3r.gitsyncmarks-fdroid-submit.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml) only with stable versions (see fdroid-maintenance rule). **Verify F-Droid commit = tag commit** before submit.
+
+7. **Completeness:** Verify before release: docs, tests, [ARCHITECTURE.md](ARCHITECTURE.md), and store assets (screenshots, icons, metainfo, F-Droid changelogs) are up to date.
+
+See [release-workflow.mdc](release-workflow.mdc) for the full release workflow.
+
+Prefer small, complete checklist updates over deferred documentation.
 
 ---
 > Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
