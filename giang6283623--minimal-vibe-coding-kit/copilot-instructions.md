@@ -1,9 +1,9 @@
-## 010-init
+## 020-security-agentshield
 
-> First-time init rules for Minimal Vibe Coding Kit.
+> AgentShield security review for agent surfaces, skills, commands, hooks, MCP, and installer changes.
 
 
-For init, print requirements first, detect stack and project conventions from files, propose one diff for `backbone.yml` plus rules, and wait for `yes`, `edit`, or `abort`. Do not overwrite existing `CLAUDE.md` or `AGENTS.md`.
+Run or ask to run `node .vibekit/scripts/agentshield-probe.mjs .` before merging agent-surface changes. Do not run untrusted hooks, MCP servers, deploys, migrations, or remote installers during review. Use `path-sensitive-shell-safety` before changing shell/deploy/installer/repair logic that builds paths from variables or can delete, move, copy, replace, clean, or reset files.
 
 ---
 > Source: [giang6283623/minimal-vibe-coding-kit](https://github.com/giang6283623/minimal-vibe-coding-kit) — distributed by [TomeVault](https://tomevault.io).
