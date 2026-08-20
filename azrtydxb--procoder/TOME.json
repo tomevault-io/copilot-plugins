@@ -4,7 +4,7 @@
   "repo": "procoder",
   "description": "Senior-developer discipline for AI coding agents. A commit gate that counts unchecked as failing, quality controllers that refuse to call unfinished work done, and a lessons loop that closes each escaped bug's class. One Go binary, no runtime deps, works with 20+ agents.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/azrtydxb/procoder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T13:32:29Z"
+  "distributed_at": "2026-08-20T13:32:52Z"
 }
