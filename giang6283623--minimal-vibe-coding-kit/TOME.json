@@ -4,7 +4,7 @@
   "repo": "minimal-vibe-coding-kit",
   "description": "A lightweight, reusable kit of shared rules, skills, and agent/command prompts for AI-assisted coding across projects.  B\u1ed9 c\u00f4ng c\u1ee5 t\u1ed1i gi\u1ea3n, d\u00f9ng l\u1ea1i \u0111\u01b0\u1ee3c, t\u1ed5ng h\u1ee3p rules, skills v\u00e0 agent/command chung cho nhi\u00ea\u0300u d\u01b0\u0323 a\u0301n",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/giang6283623/minimal-vibe-coding-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T00:56:49Z"
+  "distributed_at": "2026-08-20T01:16:11Z"
 }
