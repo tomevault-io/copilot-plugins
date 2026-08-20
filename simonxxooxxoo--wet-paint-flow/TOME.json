@@ -1,0 +1,44 @@
+{
+  "name": "wet-paint-flow",
+  "owner": "simonxxooxxoo",
+  "repo": "wet-paint-flow",
+  "description": "Real-time Three.js flow-field painter with persistent B\u00e9zier strokes and wet impasto shading.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/simonxxooxxoo/wet-paint-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T13:33:25Z"
+}
