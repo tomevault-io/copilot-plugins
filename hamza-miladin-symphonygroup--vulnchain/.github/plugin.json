@@ -1,0 +1,9 @@
+{
+  "name": "hamza-miladin-symphonygroup--vulnchain",
+  "displayName": "Vulnchain",
+  "description": "AI-powered multi-language security scanner: 154 Semgrep rules, 13 Joern CPG scripts, AI code detection, and attack-chain correlation",
+  "version": "1.0.0",
+  "author": "hamza-miladin-symphonygroup",
+  "homepage": "https://github.com/hamza-miladin-symphonygroup/Vulnchain",
+  "skills": []
+}
