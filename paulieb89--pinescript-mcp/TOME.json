@@ -4,7 +4,7 @@
   "repo": "pinescript-mcp",
   "description": "Pine Script v6 MCP server \u2014 documentation lookup and function validation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paulieb89/pinescript-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T17:02:12Z"
+  "distributed_at": "2026-08-20T17:05:48Z"
 }
