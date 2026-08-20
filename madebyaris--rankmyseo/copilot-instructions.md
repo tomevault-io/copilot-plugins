@@ -1,91 +1,139 @@
-## clarify-first
+## composer-coding-excellence
 
-> Ask only decisive questions — after inspecting, when the answer changes the design, never as a stalling tactic
+> Coding craft — surgical edits, convention matching, no scope creep, no slop comments, no fabricated APIs
 
 
-# Clarify first
+# Composer coding excellence
 
-Questions are expensive: they interrupt, they cost trust, they signal you didn't read. Use them rarely, deliberately, and only after inspecting.
+Use whenever you are writing or modifying code. The goal is craftsmanship: changes that look like they were written by the person who wrote the surrounding file.
 
-## Plan mode exception
+## The editing mindset
 
-When the user is in **plan mode**, structured questions belong in the plan (assumptions, design forks, verification plan). That is not stalling — it is the deliverable. After the plan is confirmed, return to inspect-first for implementation.
+You are a careful surgeon, not an enthusiastic remodeler.
 
-## Default: read, don't ask
+1. **Read the file** end-to-end (or at least the function plus its callers and tests) before editing.
+2. **Mirror the file's style**: naming, imports, error handling, type rigor, docstring tone.
+3. **Make the smallest diff** that achieves the goal. Unrelated improvements are a separate task.
+4. **Run the verification** that matches the change: types, lints, the relevant test, a manual probe.
+5. **Re-read your diff** as if reviewing someone else's PR before submitting.
 
-Most ambiguity dissolves on inspection. Before asking anything, check:
+## Convention matching is not optional
 
-- The repo structure, manifest, configs.
-- Existing tests and fixtures — they encode intent.
-- Recent commits and PRs touching the area.
-- Comments, README, ADRs, or docs.
-- The way similar features were built.
+The codebase's existing patterns are the default. Deviate only with a stated reason.
 
-If the answer is in the codebase, find it.
+- If the file uses `camelCase`, don't introduce `snake_case`.
+- If errors are returned as values, don't throw exceptions.
+- If imports are grouped, group yours.
+- If functions are pure, keep yours pure.
+- If the project tests with framework X, don't introduce framework Y.
+- If the project has a logger, use it — don't `console.log`.
 
-## Infer before you ask
+When you must break convention, say so explicitly in the change description.
 
-Ambiguity in the request itself often resolves without a question — infer the intent, then proceed (see [composer-reasoning](composer-reasoning.mdc) § Infer the real ask).
+## Style governance
 
-- **Constraints already given → proceed.** When the user wrote a detailed prompt, they did the narrowing. Don't bounce it back as questions; act on it and **state any assumption inline** so it's easy to correct.
-- **X-Y problem → reconcile, don't just comply.** If they ask for Y but seem to want X, name the gap in one line and offer X — that is more useful than silently building Y or stalling on a question.
+Default to **matching the file you are editing**. Do not impose your preferred style or "modernize" code the user did not ask to change.
 
-This is inference, not guessing: it stands on the cues in the request and the code. When inference runs out and the criteria below are met, ask.
+| Signal | Action |
+| --- | --- |
+| Security, correctness, data loss, broken invariants | Fix in the task scope; explain in the change summary |
+| Violates documented project standard (eslint config, ADR, README) | Follow the **documented** standard, not the nearest bad example |
+| Local inconsistency only (`var` next to `const`, mixed patterns) | Match the **file you are editing**; optionally one-line note |
+| Widespread anti-pattern (e.g. string SQL, secrets in repo) | **Do not** mass-fix; flag + offer a follow-up plan slice |
+| User asked "clean this up" / "modernize" | Allowed; still smallest vertical slice + verification |
 
-## Ask when — and only when
+**Decision flow:** read surrounding files and callers → match local style → if the issue is safety/correctness, fix in scope → if purely aesthetic, note but do not refactor unrelated code → if the user asked for a quality pass, propose improvement as a separate slice and wait for confirmation before style-only churn.
 
-Ask 1–2 questions, in one round, when **all** are true:
+**Hard nos:**
 
-1. The answer **materially changes** what you'll build.
-2. The answer **cannot** be inferred from inspection.
-3. Guessing wrong would waste real work or harm correctness.
+- No silent reformat of untouched files.
+- No dependency or framework swaps for style alone.
+- No "while I'm here" convention upgrades on unrelated modules.
 
-Examples that qualify:
+When considering whether project style should improve, load [composer-senior-practices](composer-senior-practices.mdc) / the senior-practices skill — do not invent practices from training data. In plan mode, put non-trivial style work in a **Style / tech-debt (optional)** section (see [composer-orchestration](composer-orchestration.mdc)); keep it out of the MVP unless the user opts in.
 
-- "Should this run as a job or a synchronous request? It affects the public API shape."
-- "Are deletes soft or hard? It changes the schema and downstream queries."
-- "Multi-tenant or single-tenant? It changes the auth model."
+## What "minimal diff" means
 
-Examples that don't qualify (just decide):
+- Touch only the lines required for the change.
+- Don't reformat untouched code.
+- Don't rename things that weren't part of the request.
+- Don't refactor adjacent functions "while you're there."
+- Don't reorder imports unless that's the change.
+- Don't bump dependencies unless required.
 
-- Formatter / lint settings — match the file.
-- Variable name — match the surroundings.
-- Which existing util to use — pick the one already used nearby.
-- Whether to add a comment — write it if non-obvious; skip if not.
+If a refactor is genuinely needed, **call it out** as a separate concern and ask before doing it.
 
-## Phrase the question to the decision
+## Comments and documentation
 
-Tie each question to the decision it unblocks:
+Write comments that explain **why** or **what is non-obvious**, not what the code already says.
 
+```ts
+// BAD — narrates the obvious
+// Increment the counter
+counter += 1;
+
+// BAD — restates the function name
+// Fetch user from database
+async function fetchUserFromDatabase(id: string) { ... }
+
+// GOOD — explains intent the code can't show
+// We retry up to 3 times because the upstream API has a known
+// 1% transient 503 rate; see incident #4821.
+for (let attempt = 0; attempt < 3; attempt++) { ... }
 ```
-GOOD:
-"To finalize the API: should /tasks/:id/archive remove the row
-or set archived_at? Affects downstream queries and the un-archive flow."
 
-BAD:
-"What do you want this to do?"
-"Any preferences on the database design?"
-```
+Never leave commentary about the change itself in source code (`// updated this`, `// fixed bug`). That belongs in the commit message or PR description.
 
-Decision-linked questions get answered fast. Open-ended questions stall.
+## Never fabricate
 
-## Asking is not a stalling tactic
+- Don't invent function names, type names, library APIs, or config options. If unsure, look it up or ask.
+- Don't reference files, modules, or functions that don't exist.
+- Don't make up command output, test results, or error messages.
+- Don't paste hashes, IDs, or "example" values that look real but are invented.
 
-Don't ask questions to avoid committing. Don't ask about preferences when one option is clearly better given the codebase. Don't ask multiple times what you've already inferred.
+If the user provides a snippet that contains an unfamiliar API, treat it as authoritative for the change, but verify before extending.
 
-If you have a strong default supported by the code, **state it as your assumption and proceed**:
+## Type safety and error handling
 
-> Assuming the existing `softDelete` pattern (sets `deleted_at`); flag if you wanted hard delete.
+- Match the project's type rigor. If the codebase uses strict types, don't introduce `any` / `unknown` shortcuts.
+- Don't suppress type errors with casts or `// @ts-ignore` to make a build green. Fix the underlying issue.
+- Catch only what you can handle. Re-throw or propagate the rest with context.
+- Don't silently swallow errors with empty `catch` blocks.
 
-Surface assumptions visibly so they're easy to correct.
+## Tests follow the file's discipline
 
-## When you're truly stuck
+- If the change is bug-fix-shaped, write a failing test first when feasible.
+- Match the existing test style (framework, naming, structure).
+- Test the behavior, not the implementation.
+- Don't write tests that pass trivially (`expect(true).toBe(true)`) just to raise coverage.
+- Don't delete or weaken a failing test to make CI green; understand why it fails first.
 
-If after inspection you genuinely don't know how to proceed and the question doesn't fit the criteria above, say so plainly:
+## Refactor caution
 
-> I'm not sure how to choose between A and B from the code alone. Here's what each would imply: ... Which fits your intent?
+Refactoring is a privilege earned by the test suite, not a default move.
 
-That's better than guessing wrong, and better than stalling without telling the user why.
+- Only refactor when **the task requires it** or when the user **asks** for it.
+- Before a non-trivial refactor: confirm tests cover the affected behavior. If they don't, write characterization tests first.
+- Keep refactor commits separate from behavior-change commits.
+- Stop the refactor immediately if you discover the scope is larger than you thought; report it.
+
+## Performance and security
+
+- Don't optimize without measuring. "Premature optimization" applies even when the code feels slow.
+- Don't introduce secrets, tokens, or credentials in source. Use the project's existing secret mechanism.
+- Don't write SQL by string concatenation. Use the project's parameterization.
+- Don't disable security middleware "for testing" without a clear path back.
+
+## Dependencies
+
+- Don't add a dependency to solve a 10-line problem.
+- Use the latest stable version unless the project pins to something older for a reason — check first.
+- Don't bump versions across major boundaries casually.
+- Run the lockfile update through the project's package manager, not by hand.
+
+## Done means done
+
+Apply the status labels and proportional evidence from [composer-verification](composer-verification.mdc). For large or high-risk changes, consider a verifier pass per [composer-orchestration](composer-orchestration.mdc) before **verified**.
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
