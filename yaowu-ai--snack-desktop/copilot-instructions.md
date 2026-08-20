@@ -1,0 +1,13 @@
+## snack-desktop
+
+> 本项目定位为Snack的桌面端，我们要保持桌面端纯粹，只提供API让web去调用
+
+## 总体原则
+本项目定位为Snack的桌面端，我们要保持桌面端纯粹，只提供API让web去调用
+让所有业务API有一个总体的兼容入口，低版本入口会提示升级版本
+界面、交互写到web上
+配置、常见由服务返回
+
+---
+> Source: [yaowu-ai/snack-desktop](https://github.com/yaowu-ai/snack-desktop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
