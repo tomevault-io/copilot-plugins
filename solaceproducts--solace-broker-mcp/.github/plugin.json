@@ -1,0 +1,9 @@
+{
+  "name": "solaceproducts--solace-broker-mcp",
+  "displayName": "solace-broker-mcp",
+  "description": "Production MCP server for the Solace broker",
+  "version": "1.0.0",
+  "author": "SolaceProducts",
+  "homepage": "https://github.com/SolaceProducts/solace-broker-mcp",
+  "skills": []
+}
