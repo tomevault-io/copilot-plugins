@@ -7,11 +7,11 @@ A free, open-source macOS menu bar app for monitoring your system and controllin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [idevtim/chillmac](https://github.com/idevtim/chillmac).
+Original source: `CLAUDE.md` in [idevtim/chillmac](https://github.com/idevtim/chillmac).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
