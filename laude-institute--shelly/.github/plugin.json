@@ -1,0 +1,9 @@
+{
+  "name": "laude-institute--shelly",
+  "displayName": "shelly",
+  "description": "Shell tools for building AIs, including a recursive LLM CLI. Of bash, by bash, for bash; it's shells all the way down.",
+  "version": "1.0.0",
+  "author": "laude-institute",
+  "homepage": "https://github.com/laude-institute/shelly",
+  "skills": []
+}
