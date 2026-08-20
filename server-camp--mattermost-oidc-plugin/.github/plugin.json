@@ -1,0 +1,9 @@
+{
+  "name": "server-camp--mattermost-oidc-plugin",
+  "displayName": "mattermost-oidc-plugin",
+  "description": "Generic OIDC Plugin for Mattermost / Mostlymatter",
+  "version": "1.0.0",
+  "author": "server-camp",
+  "homepage": "https://github.com/server-camp/mattermost-oidc-plugin",
+  "skills": []
+}
