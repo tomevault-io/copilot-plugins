@@ -1,7 +1,7 @@
 {
   "name": "dbfx--wsl-cleaner",
   "displayName": "wsl-cleaner",
-  "description": "wsl-cleaner",
+  "description": "Clean your development WSL setup, and compact the disk to save 10-100+ GB. ",
   "version": "1.0.0",
   "author": "dbfx",
   "homepage": "https://github.com/dbfx/wsl-cleaner",
