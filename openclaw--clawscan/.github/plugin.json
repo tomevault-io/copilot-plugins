@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--clawscan",
+  "displayName": "clawscan",
+  "description": "Composable security scanning harness for agent skills",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/clawscan",
+  "skills": []
+}
