@@ -7,11 +7,11 @@ VibeApp is an on-device Android app builder powered by a specialized harness for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Skykai521/VibeApp](https://github.com/Skykai521/VibeApp).
+Original source: `CLAUDE.md` in [Skykai521/VibeApp](https://github.com/Skykai521/VibeApp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
