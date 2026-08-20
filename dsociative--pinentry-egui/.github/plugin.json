@@ -1,0 +1,9 @@
+{
+  "name": "dsociative--pinentry-egui",
+  "displayName": "pinentry-egui",
+  "description": "A modern, native Wayland pinentry implementation for GPG using egui.",
+  "version": "1.0.0",
+  "author": "dsociative",
+  "homepage": "https://github.com/dsociative/pinentry-egui",
+  "skills": []
+}
