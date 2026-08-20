@@ -1,0 +1,44 @@
+{
+  "name": "health-md-android",
+  "owner": "CodyBontecou",
+  "repo": "health-md-android",
+  "description": "Health Connect to Markdown, JSON, CSV, and Obsidian Bases \u2014 local-first Android exporter.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CodyBontecou/health-md-android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T16:55:11Z"
+}
