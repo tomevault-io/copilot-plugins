@@ -1,0 +1,9 @@
+{
+  "name": "standardbeagle--agnt",
+  "displayName": "agnt",
+  "description": "MCP Server for Development Tooling - Project Detection, Process Management, and Reverse Proxy with Frontend Instrumentation",
+  "version": "1.0.0",
+  "author": "standardbeagle",
+  "homepage": "https://github.com/standardbeagle/agnt",
+  "skills": []
+}
