@@ -1,0 +1,9 @@
+{
+  "name": "catoncat--herdr-trail",
+  "displayName": "herdr-trail",
+  "description": "Herd-wide shared memos for herdr: agents jot follow-ups, humans manage one global list, every entry jumps back to its source conversation",
+  "version": "1.0.0",
+  "author": "catoncat",
+  "homepage": "https://github.com/catoncat/herdr-trail",
+  "skills": []
+}
