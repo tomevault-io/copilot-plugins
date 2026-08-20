@@ -4,7 +4,7 @@
   "repo": "You-are-really-bold",
   "description": "This is a cute character derived from the kangaroo icon of a Chinese food delivery app. I named it \"Feidudu\" and made it a pet for the ChatGPT desktop version.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peibingchen/You-are-really-bold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T20:40:40Z"
+  "distributed_at": "2026-08-20T20:43:31Z"
 }
