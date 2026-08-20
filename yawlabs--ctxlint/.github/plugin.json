@@ -1,0 +1,9 @@
+{
+  "name": "yawlabs--ctxlint",
+  "displayName": "ctxlint",
+  "description": "Lint your AI agent context files (CLAUDE.md, AGENTS.md, etc.) against your actual codebase",
+  "version": "1.0.0",
+  "author": "YawLabs",
+  "homepage": "https://github.com/YawLabs/ctxlint",
+  "skills": []
+}
