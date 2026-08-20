@@ -1,0 +1,9 @@
+{
+  "name": "semantic-reasoning--verinote",
+  "displayName": "verinote",
+  "description": "Honest knowledge base: an LLM extracts source-backed facts, the wirelog logic engine verifies them. Local web app.",
+  "version": "1.0.0",
+  "author": "semantic-reasoning",
+  "homepage": "https://github.com/semantic-reasoning/verinote",
+  "skills": []
+}
