@@ -1,0 +1,9 @@
+{
+  "name": "mitsudolab--wacrm-workspace",
+  "displayName": "wacrm-workspace",
+  "description": "Self-hostable CRM template for WhatsApp \u2014 shared inbox, contacts, sales pipelines, broadcasts, and no-code automations. Fork it, brand it, host it.",
+  "version": "1.0.0",
+  "author": "mitsudolab",
+  "homepage": "https://github.com/mitsudolab/wacrm-workspace",
+  "skills": []
+}
