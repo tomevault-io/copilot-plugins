@@ -1,0 +1,53 @@
+## multica-cli
+
+> Operate Multica through the authenticated `multica` CLI (issues, comments, metadata, mentions, status). Use whenever the user asks to read, triage, reply to, or update Multica issues or other Multica resources.
+
+
+# Multica CLI
+
+Use the local `multica` CLI as the source of truth for all Multica operations.
+This rule does not grant permissions — they come only from the user's installed,
+logged-in CLI and explicit approval to run commands.
+
+**Requires `multica` v0.4.26 or newer.** Commands below (notably `--no-start`)
+do not exist in earlier versions. Check with `multica version`; if it reports
+anything older, stop and ask the user to upgrade
+(`brew upgrade multica-ai/tap/multica`, or `multica update`) instead of working
+around the missing flags.
+
+## Core rules
+
+- **Read before write.** Gather context with JSON output first:
+  `multica issue get <id> --output json`, then scan threads with
+  `multica issue comment list <id> --roots-only --summary --compact --output json`
+  and open only what matters with `--thread <comment-id> --tail 30 --compact`.
+  Resolved threads are folded by default; pass `--full` to unfold them.
+- **Prefer `--output json`** and parse it; discover unfamiliar commands with `--help`.
+- **Comments go through a file**, never inline: write the body to a UTF-8 file and
+  post with `multica issue comment add <id> --content-file ./reply.md`, then delete
+  the file. Shells rewrite backticks, `$()`, quotes, and newlines in inline `--content`.
+  The file must be inside the current working directory — `/tmp` is rejected.
+  Add `--parent <comment-id>` when replying to a thread; it is required if a comment
+  triggered the task, and omitted for a new top-level comment.
+- **Writes are side effects — confirm first** unless the user clearly authorized the
+  exact action. This includes comments, status changes, assignments, reruns, and new issues.
+- **`--no-start` when only recording state.** `issue status`, `issue assign`, and
+  `issue update` can each enqueue a fresh agent run. Pass `--no-start` when the work
+  is already underway; omit it when genuinely handing work off.
+- **Mentions are actions.** `mention://agent/<id>` enqueues that agent and
+  `mention://squad/<id>` enqueues the squad leader — both cost money;
+  `mention://member/<id>` notifies that person and `mention://all/all` notifies the
+  whole workspace. Only `mention://issue/<id>` and `mention://project/<id>` are inert
+  links. Do not mention an agent or a person merely to thank or sign off.
+- **Never store or expose tokens**, and never bypass workspace permissions via private HTTP APIs.
+- **Say when the CLI can't do it.** Name the step and point at Multica Web rather than
+  letting a partial run read as a completed one.
+
+## Full reference
+
+The complete command recipes and safety rules live in `skills/multica-cli/SKILL.md`
+(install it into `~/.cursor/skills/multica-cli/` for the full skill).
+
+---
+> Source: [multica-ai/multica-cli](https://github.com/multica-ai/multica-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
