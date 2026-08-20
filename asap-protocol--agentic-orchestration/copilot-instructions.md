@@ -1,39 +1,52 @@
-## security-standards
+## testing-fe-standards
 
-> Security standards for TypeScript code: secrets, validation, and access control.
+> Testing standards for Next.js/TypeScript with Vitest and Playwright
 
 
-# Security Standards
+# Testing Standards (Next.js + TypeScript)
 
-## 1. Secrets Management
-- **NO Hardcoded Secrets**: Never commit API keys, tokens, or passwords.
-- **Detection**: Patterns like `sk-`, `ghp_`, `eyJ` (JWT) are strictly forbidden in code.
-- **Env Vars**: Use `process.env` with `.env` files and load only non-secret defaults for local dev.
-- **Access**: Treat `.env` as sensitive. Add to `.gitignore`.
+## 1. Tooling & Environment
+- **Unit, component and API tests:** Vitest via npm scripts (`npm run test`, `npm run test:run`).
+- **E2E:** Playwright via `npm run test:e2e` (or `npm run test:e2e:ui` for local interactive runs).
+- Keep TypeScript type checks active; tests should compile under the same strict project settings as app code.
+- Prefer local, deterministic environments: avoid relying on production services in tests.
+- Mock external HTTP/API calls in unit/component tests unless explicitly testing integration contracts.
 
-## 2. Input Validation (Zero Trust)
-- **Trust No Input**: unexpected JSON fields, query params, or headers.
-- **TypeScript/React**: Use **Zod** schema validation para formulários, actions e rotas de API.
-  ```ts
-  const schema = z.object({ email: z.string().email() });
-  ```
+## 2. Directory Structure
+- **Unit logic:** `tests/lib/**/*.test.ts` (pure functions/services, no UI runtime).
+- **Component behavior:** `tests/components/**/*.test.tsx` (React Testing Library + Vitest).
+- **API/data-layer behaviors:** `tests/api/**/*.test.ts` (service calls, data mappers, client wrappers).
+- **Playwright E2E:** `e2e/**/*.spec.ts` and `e2e/**/*.spec.tsx`.
 
-## 3. Dependency Security
-- **Lock files**: manter `package-lock.json` atualizado e versionado.
-- **Revisão**: rodar `npm audit` antes de merges relevantes.
+## 3. Test Implementation Standards
+- Write tests in TypeScript and keep assertions behavior-focused.
+- Use `describe`/`it` with clear scenario names that state intent.
+- Use `@testing-library/react`, user events, and accessible queries (`getByRole`, `getByLabelText`) for component tests.
+- Use `vi.mock`, `vi.spyOn`, and explicit mocks for external dependencies.
+- Reset shared test state in `beforeEach` (`vi.clearAllMocks`, `vi.resetAllMocks`, `cleanup` patterns where needed).
+- Set up shared DOM/browser polyfills in `src/test/setup.ts`; avoid duplicating this setup in each file.
+- For async behavior, use `await` + `waitFor`/RTL expectations instead of sleep-based polling.
+- Avoid hardcoded URLs with secrets; pass endpoints through env vars and keep credentials out of the repository.
 
-## 4. Output Encoding
-- **No InnerHTML**: Avoid `dangerouslySetInnerHTML` in React unless sanitized (DOMPurify).
-- **Persistência e consultas**: evitar composição manual de consultas (strings); use APIs tipadas e parâmetros.
+## 4. Security in tests
+- Never embed secrets/tokens in test fixtures.
+- External calls in tests must be HTTPS/TLS-backed and should be mocked unless there is a dedicated integration target.
+- Prefer local/stubbed responses over live third-party calls to reduce flakiness and security risk.
+- For Playwright flows that touch auth, validate redirects and session state without leaking provider tokens in logs.
 
-## 5. Authentication & AuthZ
-- **Least Privilege**: aplicar escopo mínimo para integrações OAuth e chaves externas.
-- **Sessão**: não persistir tokens/secretos sensíveis em `localStorage`; usar cookies `httpOnly` quando aplicável.
-- **Requisições autenticadas**: validar sessão/claims no fluxo de cada rota/somente onde houver verificação de identidade.
+## 5. Anti-Patterns
+- Do not depend on arbitrary timeout sleeps (`setTimeout`, `sleep`) as stability gates.
+- Do not assert via fragile selectors (deep class selectors) when role/text/label queries exist.
+- Do not mix unrelated assertions in the same test; keep one behavior per test.
+- Do not bypass lint, typecheck, or format rules in test files.
+- Avoid using `any` just to satisfy quick assertions; prefer explicit test types or helper builders.
 
-## 6. Transport Security
-- Prefira HTTPS/TLS em integrações e rotas externas em produção.
-- Em testes, nunca registrar tokens, cookies ou headers com credenciais.
+## 6. CI and execution guidance
+- **Pre-merge baseline:** `npm run check` (`lint` + `format:check` + `tsc --noEmit` + `vitest run`).
+- **Component/unit test gate:** `npm run test:run`.
+- **E2E gate:** `npm run test:e2e` (starts app server automatically via Playwright config).
+- Keep Playwright selectors resilient: `getByRole`, `getByText`, explicit URLs, and retries where UI is dynamic.
+- Run ad-hoc scripts like `test-routes.js` only for local smoke diagnostics, not as a replacement for `npm run test:e2e`.
 
 ---
 > Source: [asap-protocol/agentic-orchestration](https://github.com/asap-protocol/agentic-orchestration) — distributed by [TomeVault](https://tomevault.io).
