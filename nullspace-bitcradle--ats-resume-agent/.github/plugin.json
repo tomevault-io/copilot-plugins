@@ -1,0 +1,9 @@
+{
+  "name": "nullspace-bitcradle--ats-resume-agent",
+  "displayName": "ats-resume-agent",
+  "description": "AI agent for Claude Code that tailors resumes to job descriptions with ATS optimization and LaTeX PDF output. Zero fabrication - every claim sourced from your career document.",
+  "version": "1.0.0",
+  "author": "NullSpace-BitCradle",
+  "homepage": "https://github.com/NullSpace-BitCradle/ats-resume-agent",
+  "skills": []
+}
