@@ -4,7 +4,7 @@
   "repo": "turso_ex",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bytebottom/turso_ex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T18:56:05Z"
+  "distributed_at": "2026-08-20T19:04:12Z"
 }
