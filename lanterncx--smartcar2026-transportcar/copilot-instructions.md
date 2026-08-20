@@ -1,0 +1,25 @@
+## smartcar2026-transportcar
+
+> 1. OpenART 视觉仓库: vision/（submodule, 跟踪 dev 分支）
+
+## Info
+注：非必要不查看
+1. OpenART 视觉仓库: vision/（submodule, 跟踪 dev 分支）
+2. 主机端侧手柄控制上位机: controller/（submodule, 跟踪 main 分支）
+
+## Rules
+1. 使用 uv 管理项目，使用 uv 进行 python 脚本运行、单元测试等等，尽量避免使用额外工具链。
+2. 对于任何硬件高度相关的开发，如果我没有给出具体的引脚号等硬件相关信息，请查找确认后你向我询问，不要进行自己的猜测。
+3. 仓库新构建的所有文档、代码注释、Skill 和 Serena memory 都使用中文。
+4. 不要写不必要的兜底代码，除非这个地方真的值得写入。
+5. 这个仓库因为竞赛需求，所有的重构都不需要保留兼容层。如果你觉得 TDD 的奖励会错使 Agent 更倾向于保留兼容层，请你先删除有关测试再进行重构。
+6. 编码时应该主动根据规则维护注释，编码结束之后应该主动维护文档。
+7. 有关参数的测试都不要写死，对于有明确依据的参数，可以加上参数范围或者枚举值进行测试，其余保持动态引入。
+8. 更新 vision/ 或 controller/ 后，需要同步提交主仓库中的 submodule 指针。
+9. 主仓库 LSP 契约只检查主仓库 `src/` 和 `tests/`，不要用主仓库 Pyright 配置扫描 `vision/`、`controller/` 或子仓库 stub；视觉仓库测试在 `vision/` 目录内按其 README 和 `pyrightconfig.json` 单独运行。
+10. 在需要撰写长期协作记忆的场景，写入 Serena memory。
+11. 不创建 `CONTEXT.md`、`CONTEXT-MAP.md` 或 `docs/adr/`；相关长期信息只进入 Serena memory。
+
+---
+> Source: [LanternCX/SmartCar2026-TransportCar](https://github.com/LanternCX/SmartCar2026-TransportCar) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
