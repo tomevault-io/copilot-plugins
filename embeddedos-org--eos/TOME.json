@@ -4,7 +4,7 @@
   "repo": "eos",
   "description": "EoS Embedded Operating system",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/embeddedos-org/eos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T16:40:32Z"
+  "distributed_at": "2026-08-20T16:41:48Z"
 }
