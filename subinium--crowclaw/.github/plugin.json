@@ -1,0 +1,9 @@
+{
+  "name": "subinium--crowclaw",
+  "displayName": "CrowClaw",
+  "description": "\ud83d\udc26\u200d\u2b1b\ud83e\udd9e A self-improving TypeScript agent framework that learns from every conversation",
+  "version": "1.0.0",
+  "author": "subinium",
+  "homepage": "https://github.com/subinium/CrowClaw",
+  "skills": []
+}
