@@ -1,0 +1,9 @@
+{
+  "name": "vulnmaster--case-uco-sdk",
+  "displayName": "CASE-UCO-SDK",
+  "description": "Multi-language SDK (Python, C#, Java, Rust) for building validated CASE/UCO JSON-LD graphs for digital forensics and cyber-investigation. AI-agent ready with MCP server. Support for Project VIC's Crim",
+  "version": "1.0.0",
+  "author": "vulnmaster",
+  "homepage": "https://github.com/vulnmaster/CASE-UCO-SDK",
+  "skills": []
+}
