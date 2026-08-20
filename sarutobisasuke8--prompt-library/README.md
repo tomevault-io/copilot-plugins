@@ -7,11 +7,11 @@ A curated library of production-ready system prompts for building with AI. Stati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SarutobiSasuke8/Prompt-Library](https://github.com/SarutobiSasuke8/Prompt-Library).
+Original source: `AGENTS.md` in [SarutobiSasuke8/Prompt-Library](https://github.com/SarutobiSasuke8/Prompt-Library).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
