@@ -4,7 +4,7 @@
   "repo": "seo-skills-ai",
   "description": "SEO Skills AI: Universal AI SEO Agent & Technical Optimization Suite across Claude Code, Antigravity, Cursor, Windsurf, Copilot, ChatGPT, and Cline.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seoskillsai/seo-skills-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T15:31:15Z"
+  "distributed_at": "2026-08-20T15:32:08Z"
 }
