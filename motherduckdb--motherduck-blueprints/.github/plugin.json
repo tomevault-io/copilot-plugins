@@ -1,0 +1,9 @@
+{
+  "name": "motherduckdb--motherduck-blueprints",
+  "displayName": "motherduck-blueprints",
+  "description": "CLI, GitHub Action, and repository template for deploying MotherDuck Flights, Dives, and shares from Git",
+  "version": "1.0.0",
+  "author": "motherduckdb",
+  "homepage": "https://github.com/motherduckdb/motherduck-blueprints",
+  "skills": []
+}
