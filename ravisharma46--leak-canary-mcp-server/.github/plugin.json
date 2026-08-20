@@ -1,0 +1,9 @@
+{
+  "name": "ravisharma46--leak-canary-mcp-server",
+  "displayName": "Leak-Canary-Mcp-Server",
+  "description": "Leak Canary MCP Server \ud83d\ude80  AI-powered Android leak detection & fixing tool. Collects LeakCanary reports via MCP and uses Cursor, Copilot, Claude, etc. to analyze and suggest fixes automatically. Helps ",
+  "version": "1.0.0",
+  "author": "ravisharma46",
+  "homepage": "https://github.com/ravisharma46/Leak-Canary-Mcp-Server",
+  "skills": []
+}
