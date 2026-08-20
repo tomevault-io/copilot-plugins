@@ -1,0 +1,44 @@
+{
+  "name": "playwright-agentic-automation",
+  "owner": "Mallikarjun-Roddannavar",
+  "repo": "playwright-agentic-automation",
+  "description": "Playwright + TypeScript agentic automation framework with a local LLM Wiki/codebase second brian. agent skills, UI/API testing, Page Objects, fixtures and reusable services",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mallikarjun-Roddannavar/playwright-agentic-automation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T18:50:02Z"
+}
