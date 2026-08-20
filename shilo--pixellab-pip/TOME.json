@@ -4,7 +4,7 @@
   "repo": "pixellab-pip",
   "description": "Meet PixelLab Pip: a tiny pup who fetches the right PixelLab workflow. He follows human commands to create, edit, and animate pixel assets, then sniffs out a bigger prompt, scouts for a useful tool, and carries back what happened.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shilo/pixellab-pip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T00:37:07Z"
+  "distributed_at": "2026-08-20T01:17:16Z"
 }
