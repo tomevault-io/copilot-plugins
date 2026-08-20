@@ -4,7 +4,7 @@
   "repo": "tuweb.dev",
   "description": "Tu decides c\u00f3mo es esta web",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/tuweb.dev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T03:30:55Z"
+  "distributed_at": "2026-08-20T03:31:36Z"
 }
