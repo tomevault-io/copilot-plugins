@@ -1,0 +1,9 @@
+{
+  "name": "rylena--sshdesk",
+  "displayName": "sshdesk",
+  "description": "A full interactive remote desktop delivered entirely through SSH and displayed directly in your terminal.",
+  "version": "1.0.0",
+  "author": "rylena",
+  "homepage": "https://github.com/rylena/sshdesk",
+  "skills": []
+}
