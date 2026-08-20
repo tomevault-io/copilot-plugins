@@ -1,0 +1,44 @@
+{
+  "name": "lite-cron",
+  "owner": "pdone",
+  "repo": "lite-cron",
+  "description": "\u8f7b\u91cf\u7ea7\u5b9a\u65f6\u4efb\u52a1\u8c03\u5ea6\u5668 | A Lightweight Scheduler for Scheduling Tasks",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pdone/lite-cron",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T22:48:28Z"
+}
