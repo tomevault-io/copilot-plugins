@@ -1,0 +1,9 @@
+{
+  "name": "blazity--ai-workflow",
+  "displayName": "ai-workflow",
+  "description": "Open-source AI agent that turns Jira tickets into pull requests. Runs in Vercel Sandbox, wires into GitHub and Slack, and hands back to humans for review.",
+  "version": "1.0.0",
+  "author": "Blazity",
+  "homepage": "https://github.com/Blazity/ai-workflow",
+  "skills": []
+}
