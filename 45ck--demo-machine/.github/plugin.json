@@ -1,0 +1,9 @@
+{
+  "name": "45ck--demo-machine",
+  "displayName": "demo-machine",
+  "description": "Demo as code \u2014 turn YAML specs into polished product demo videos with smooth cursor animation, natural typing, and professional overlays",
+  "version": "1.0.0",
+  "author": "45ck",
+  "homepage": "https://github.com/45ck/demo-machine",
+  "skills": []
+}
