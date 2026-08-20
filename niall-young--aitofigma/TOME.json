@@ -1,0 +1,44 @@
+{
+  "name": "AItoFigma",
+  "owner": "Niall-Young",
+  "repo": "AItoFigma",
+  "description": "\u4e00\u4e2a AI skill\uff0c\u53ef\u4ee5\u628a\u56fe\u7247\u6216\u662f\u76f4\u63a5\u662f\u5185\u5bb9\u8f93\u51fa\u5230 figma\uff0c\u5e76\u4e14\u6709\u8fd9\u89c4\u8303\u7684\u5c3a\u5bf8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Niall-Young/AItoFigma",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T14:31:29Z"
+}
