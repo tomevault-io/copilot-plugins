@@ -1,0 +1,44 @@
+{
+  "name": "WorldOfTaxonomy",
+  "owner": "colaberry",
+  "repo": "WorldOfTaxonomy",
+  "description": "1,000+ open taxonomy systems with 1.2M+ codes and 320K+ crosswalk edges. NAICS, ISIC, NACE, HS, SOC, ISCO, ESCO, CPC, UNSPSC, ICD-10/11, Patent CPC, GDPR, and more - all connected. REST API + MCP server for AI agents. Open source (MIT) by Colaberry Inc.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/colaberry/WorldOfTaxonomy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T14:45:53Z"
+}
