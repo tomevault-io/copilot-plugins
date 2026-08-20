@@ -1,0 +1,44 @@
+{
+  "name": "moe-sovereign",
+  "owner": "h3rb3rn",
+  "repo": "moe-sovereign",
+  "description": "Self-hosted Compound AI System for sovereign environments. Features token-saving complexity routing, deterministic MCP tools for math/logic, configurable expert templates, causal/reinforcement learning, agentic loops, and a federated Neo4j GraphRAG.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/h3rb3rn/moe-sovereign",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T14:50:23Z"
+}
