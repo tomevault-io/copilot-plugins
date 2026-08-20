@@ -1,0 +1,44 @@
+{
+  "name": "unifi-tools",
+  "owner": "brianbell-x",
+  "repo": "unifi-tools",
+  "description": "UniFi network management for AI agents: the complete Network API (73 tools) plus a gateway-SSH escape hatch, exposed as both a CLI and an MCP server.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/brianbell-x/unifi-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T22:54:25Z"
+}
