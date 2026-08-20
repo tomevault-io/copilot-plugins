@@ -1,0 +1,9 @@
+{
+  "name": "ibuildthecloud--winterm-ghostty",
+  "displayName": "winterm-ghostty",
+  "description": "Windows Terminal's shell with ghostty's engine behind the pane, selectable per profile",
+  "version": "1.0.0",
+  "author": "ibuildthecloud",
+  "homepage": "https://github.com/ibuildthecloud/winterm-ghostty",
+  "skills": []
+}
