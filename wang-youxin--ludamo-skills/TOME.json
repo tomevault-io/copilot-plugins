@@ -4,7 +4,7 @@
   "repo": "ludamo-skills",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wang-youxin/ludamo-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T01:14:23Z"
+  "distributed_at": "2026-08-20T01:34:55Z"
 }
