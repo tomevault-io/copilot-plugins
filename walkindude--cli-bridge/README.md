@@ -7,11 +7,11 @@ Turn any CLI into an MCP tool that agents actually use.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [walkindude/cli-bridge](https://github.com/walkindude/cli-bridge).
+Original source: `CLAUDE.md` in [walkindude/cli-bridge](https://github.com/walkindude/cli-bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
