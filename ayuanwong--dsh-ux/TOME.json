@@ -4,7 +4,7 @@
   "repo": "dsh-ux",
   "description": "\u957f\u4efb\u52a1\uff0c\u4e0d\u5237\u5c4f\uff1a\u5173\u952e\u8fdb\u5ea6\u6e05\u6670\u53ef\u89c1\uff0c\u5b8c\u6210\u540e\u81ea\u52a8\u6298\u53e0\uff0c\u8be6\u60c5\u968f\u65f6\u5c55\u5f00\u3002 Long agent tasks, without transcript clutter: focused progress, auto-folded history, details on demand.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ayuanwong/dsh-ux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T02:31:50Z"
+  "distributed_at": "2026-08-20T02:59:02Z"
 }
