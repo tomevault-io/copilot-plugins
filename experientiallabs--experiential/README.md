@@ -7,11 +7,11 @@ An open source model gateway that provides one control plane across closed, open
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [experientiallabs/experiential](https://github.com/experientiallabs/experiential).
+Original source: `CLAUDE.md` in [experientiallabs/experiential](https://github.com/experientiallabs/experiential).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
