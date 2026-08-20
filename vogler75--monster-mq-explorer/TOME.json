@@ -1,0 +1,44 @@
+{
+  "name": "monster-mq-explorer",
+  "owner": "vogler75",
+  "repo": "monster-mq-explorer",
+  "description": "High-performance MQTT explorer with topic tree visualization, real-time charting, and Web Worker\u2013based message processing. Supports MQTT and WinCC Unified and WiCC Open Architecture.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vogler75/monster-mq-explorer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T16:55:55Z"
+}
