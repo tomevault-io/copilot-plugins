@@ -1,0 +1,44 @@
+{
+  "name": "minimal-vibe-coding-kit",
+  "owner": "giang6283623",
+  "repo": "minimal-vibe-coding-kit",
+  "description": "A lightweight, reusable kit of shared rules, skills, and agent/command prompts for AI-assisted coding across projects.  B\u1ed9 c\u00f4ng c\u1ee5 t\u1ed1i gi\u1ea3n, d\u00f9ng l\u1ea1i \u0111\u01b0\u1ee3c, t\u1ed5ng h\u1ee3p rules, skills v\u00e0 agent/command chung cho nhi\u00ea\u0300u d\u01b0\u0323 a\u0301n",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/giang6283623/minimal-vibe-coding-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T00:42:42Z"
+}
