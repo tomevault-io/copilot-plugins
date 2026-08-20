@@ -1,66 +1,69 @@
-## composer-deep-research
+## composer-fullstack-delivery
 
-> Multi-source structured research protocol — primaries first, iterative retrieval, explicit conflicts
+> Stack-agnostic delivery — define seams first, ship one vertical slice, treat failure modes as first-class
 
 
-# Composer deep research
+# Composer full-stack delivery
 
-When the user asks for investigation, comparisons, unfamiliar domains, audits, benchmarks, regulation-style questions, vendor claims, historical timelines, architecture surveys, threat models grounded in citations, etc., shift into **research mode**.
+Use when a change spans **multiple layers**: client + server, server + persistence, service + service, code + migration. Skip when a single-module tweak suffices.
 
-**Expanded playbook**: use the skill at [.cursor/skills/deep-research/SKILL.md](.cursor/skills/deep-research/SKILL.md) for ladders, contradiction logging, and long-form workflows.
+This rule is technology-neutral. Replace "client/server/persistence" with whatever your spine actually is.
 
-## Outcome shape
+## Step 1 — Freeze the seams
 
-Produce answers in this order:
+Before writing code, write down the boundaries (briefly — a few bullets, not a doc).
 
-1. **Scoped conclusion** framed to the user’s constraints (explicit assumptions).
-2. **What primary sources establish** versus what rests on weaker synthesis.
-3. **Conflicts/disagreements** between sources—with dates/versions/context.
-4. **Action recommendation** tied to assumptions and uncertainties.
-5. **How to verify** (commands, dashboards, reproducible benchmarks, authoritative doc sections).
+- **User-visible behavior** for the smallest useful story.
+- **Contracts at every seam**: API shape, event shape, function signature, error semantics.
+- **Trust boundaries**: who is the actor, what's authenticated, what's authorized.
+- **Consistency expectations**: transactions, retries, idempotency keys where partial failure repeats.
+- **Observability**: which logs, traces, or metrics already exist at these seams; where to add minimum new ones.
 
-Avoid confident absolutes unless directly supported—flag confidence per claim tier.
+If two of these conflict, surface the conflict before coding around it.
 
-## Visible research thinking
+## Step 2 — Ship one vertical slice
 
-Do not expose private chain-of-thought or invented `<thinking>` blocks. Instead, externalize **auditable reasoning artifacts**:
+Build a thin column end-to-end before widening:
 
-- **Research plan**: question, assumptions, source ladder, search angles, stop condition.
-- **Claim ledger**: important claim → source/evidence tier → counter-evidence checked → confidence.
-- **Decision rationale**: short “because” statements tied to evidence, not vibes.
-- **Residual uncertainty**: what would change the conclusion and how to test it.
+1. One client/caller path.
+2. One server handler or worker.
+3. One persistence or integration edge if persistence is new.
 
-For quick answers, compress these into 2–4 sentences. For deep research, keep them explicit.
+Use the **minimum UI** needed to expose the state transitions; defer layout, animation, and polish.
 
-## Source ladder (default tiering)
+Resist building the second screen, the second endpoint, or the speculative migration until the first slice **demonstrably works** at the surface that matters.
 
-Prefer, in descending trust for engineering facts unless the question is inherently opinion-heavy:
+## Step 3 — Treat failure modes as first-class
 
-1. Specifications, RFCs, official vendor docs keyed to product/version pages.
-2. Language/runtime/framework official guides and changelog entries—not random tutorials.
-3. Source repositories tagged releases, SECURITY advisories, CVE records with linked metadata.
-4. Peer-reviewed/academic/industry-neutral references when factual claims hinge on measurements.
-5. Secondary blogs/forums/stack answers—explicitly labelled as heuristic or anecdotal corroborating evidence.
+Happy path is half the work. Enumerate, at minimum:
 
-Retrieve **different independent primaries** when claims are high-impact (security/compliance/production failure modes).
+- **Validation** failures vs. **semantic** rejections — different responses, different recovery.
+- **Authorization** failures distinguished from **not found**, mindful of existence-leak trade-offs.
+- **Timeouts and partial outages** — retry, backoff, or degrade with a clear contract.
+- **Duplicate submissions** — idempotency or explicit user-visible handling.
+- **Empty / boundary states** — empty list, single item, max length.
 
-## Iterative retrieval
+These deserve the same attention as the happy path when they affect trust or correctness.
 
-- **Broaden** prompts when retrieval is sparse; **narrow** when noise dominates.
-- Re-run queries anchored to identifiers you learned (proper nouns, error codes, version numbers, CVE IDs).
-- Note **freshness**: capture page dates, release tags, deprecation banners; mark stale/conflicting timelines.
-- Run at least one **adversarial pass** for high-impact recommendations: search for deprecations, counterexamples, benchmark caveats, security advisories, and “why not” evidence.
+## Step 4 — Proportional verification
 
-## Synthesis hygiene
+Match test depth to risk and to the project's existing investment.
 
-- Distinguish **reported symptom** versus **hypothesized mechanism** versus **validated root cause**.
-- Do not merge incompatible positions silently—present both and the deciding evidence.
-- If tools or live systems are unavailable, say so and downgrade certainty.
-- Every citation should support the sentence it appears beside; avoid dumping links that were not inspected or that only loosely relate.
+- If the project has contract or integration tests, use them.
+- If only unit tests exist, write the smallest unit test that covers the seam.
+- For ad-hoc verification, use scripted curl / CLI / browser checks — but capture them as artifacts (a script, a doc, a fixture) rather than throwaway gestures.
+- If verification can't run, label `implemented but unverified` per the verification rule with the precise gap.
 
-## Outputs
+Don't bolt on a heavy test framework mid-slice; don't refactor the test layout to accommodate one new test.
 
-Prefer structured bullet findings with citations (title + canonical URL/path). Paste long excerpts only when necessary to resolve ambiguity—otherwise summarise with pointers.
+## Coordination
+
+- Parallelize **reading**: explore client, server, schema, and tests at once.
+- Sequentialize **writing** when there are dependencies: migrate before code that depends on it; regenerate types after schema change; deploy server before client expects new endpoints.
+
+## Closeout
+
+Demonstrate the slice works at the surface that matters. Hand back artifacts another engineer can rerun: command, request, expected output, or screenshot. List what's intentionally deferred ("phase 2: bulk delete, error toast, retry banner").
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
