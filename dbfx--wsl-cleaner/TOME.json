@@ -2,9 +2,9 @@
   "name": "wsl-cleaner",
   "owner": "dbfx",
   "repo": "wsl-cleaner",
-  "description": "",
+  "description": "Clean your development WSL setup, and compact the disk to save 10-100+ GB. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dbfx/wsl-cleaner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:09:59Z"
+  "distributed_at": "2026-08-20T22:49:42Z"
 }
