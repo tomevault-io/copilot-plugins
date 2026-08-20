@@ -1,0 +1,9 @@
+{
+  "name": "dylanpersonguy--moneyprinterv2",
+  "displayName": "MoneyPrinterV2",
+  "description": "Automate online income with AI \u2014 YouTube Shorts generation, Twitter bots, affiliate marketing, and cold outreach. Powered by Ollama (local LLM), Selenium, MoviePy, and a modern Flask web dashboard.",
+  "version": "1.0.0",
+  "author": "dylanpersonguy",
+  "homepage": "https://github.com/dylanpersonguy/MoneyPrinterV2",
+  "skills": []
+}
