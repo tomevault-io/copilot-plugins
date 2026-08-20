@@ -1,0 +1,9 @@
+{
+  "name": "preloopdev--preloop",
+  "displayName": "preloop",
+  "description": "agent-native, drop-in Github Actions that can run locally or self-hosted in microvms, with debug-on-failure",
+  "version": "1.0.0",
+  "author": "preloopdev",
+  "homepage": "https://github.com/preloopdev/preloop",
+  "skills": []
+}
