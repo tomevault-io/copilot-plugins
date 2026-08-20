@@ -1,0 +1,9 @@
+{
+  "name": "martinambrus--rdforward",
+  "displayName": "RDForward",
+  "description": "A modern modding toolchain for Minecraft rd-132211 onwards. Features a custom Fabric implementation, Multiplayer server, Android support, and cross-version compatibility.",
+  "version": "1.0.0",
+  "author": "martinambrus",
+  "homepage": "https://github.com/martinambrus/RDForward",
+  "skills": []
+}
