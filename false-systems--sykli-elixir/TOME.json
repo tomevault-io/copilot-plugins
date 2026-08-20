@@ -4,7 +4,7 @@
   "repo": "sykli-elixir",
   "description": "The contract layer between AI agents and the work they execute.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/false-systems/sykli-elixir",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T20:30:22Z"
+  "distributed_at": "2026-08-20T20:31:09Z"
 }
