@@ -4,7 +4,7 @@
   "repo": "music-bot",
   "description": "Telegram companion for your Navidrome library: paste a link to get a tagged FLAC (via Soulseek), share what you're playing, grab lyrics, manage and retag your collection.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eeegoloauq/music-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T22:45:47Z"
+  "distributed_at": "2026-08-20T22:51:52Z"
 }
