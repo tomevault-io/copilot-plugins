@@ -1,19 +1,18 @@
-## 040-safe-delete
+## 050-writing-style
 
-> Safe-delete guardrail - prefer trash over rm so deletions stay recoverable.
+> Writing style - no emoji and no em/en dashes in generated prose unless explicitly requested.
 
 
-# Safe delete rules
+# Writing style rules
 
-- Never delete permanently by default. Prefer `trash` over `rm`, `rm -rf`, `rmdir`, and `find -delete` so deletions stay recoverable.
-- Before deleting, check availability with `command -v trash`. If available, use `trash <path>`.
-- If `trash` is missing, recommend installing it instead of falling back to `rm`:
-  - macOS 14 or newer: built in at `/usr/bin/trash`, nothing to install.
-  - Older macOS: `brew install trash` (https://formulae.brew.sh/formula/trash).
-  - Linux: `sudo apt install trash-cli` or `pip install trash-cli` (https://github.com/andreafrancia/trash-cli).
-  - Any OS with Node.js: `npm install --global trash-cli` (https://github.com/sindresorhus/trash-cli).
-- Permanent deletion requires the user's explicit approval of the exact paths, and the `path-sensitive-shell-safety` skill first when paths come from variables.
-- Honor the deletion preference recorded in `backbone.yml` `conventions.custom_rules` during first-time init.
+- Never use emoji in responses, code, comments, commit messages, docs, or diagrams unless the user explicitly asks for them.
+- Do not use em dashes or en dashes in generated prose. Use ASCII punctuation instead: comma, colon, semicolon, hyphen, or parentheses.
+- Apply the rule to everything you write: chat responses, documentation, skill files, Mermaid diagram labels, and code comments.
+- Exceptions: verbatim quotes of existing content, strings pinned by validators or tests, and files whose established style already uses these characters. When editing such files, keep existing characters and apply the rule only to new text.
+- If the user requests a cleanup of existing emoji or dashes, propose the diff first and confirm the validation command in `backbone.yml` still passes.
+- Plain-language register in every reply language: lead with the outcome, keep sentences short with one idea each, prefer active voice and concrete verbs, put known information before new information, and define project terms at first use.
+- Reuse the project's vocabulary from the glossary named in `backbone.yml` `project.context` when present instead of rotating synonyms. When replying in English, keep one meaning per word (ASD-STE100-style simplicity); never apply English-only word lists to other languages.
+- Reply in the user's conversation language; quote code identifiers, commands, file paths, and error text verbatim in every language. When a message does not land, the user can invoke `/wait-what` for a plain-language re-pitch.
 
 ---
 > Source: [giang6283623/minimal-vibe-coding-kit](https://github.com/giang6283623/minimal-vibe-coding-kit) — distributed by [TomeVault](https://tomevault.io).
