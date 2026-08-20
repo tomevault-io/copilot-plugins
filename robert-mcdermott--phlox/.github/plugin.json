@@ -1,0 +1,9 @@
+{
+  "name": "robert-mcdermott--phlox",
+  "displayName": "phlox",
+  "description": "Phlox is a self-hostable chat platform with an agentic harness, document RAG, code execution, MCP integration and LLM gateway \u2014 running over any model provider: AWS Bedrock or any OpenAI-compatible en",
+  "version": "1.0.0",
+  "author": "robert-mcdermott",
+  "homepage": "https://github.com/robert-mcdermott/phlox",
+  "skills": []
+}
