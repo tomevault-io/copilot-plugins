@@ -1,0 +1,35 @@
+## ai-demos
+
+> - Never use the terms `Codex` or `Claude`, in any capitalization, in branch
+
+# Repository instructions
+
+## Naming and public metadata
+
+- Never use the terms `Codex` or `Claude`, in any capitalization, in branch
+  names, commit subjects or bodies, pull request titles or descriptions,
+  issue titles or descriptions, release names or notes, demo names, headings,
+  summaries, generated metadata, or any other title or description.
+- This instruction file is the sole exception needed to state and preserve the
+  rule itself.
+- Name work after the user-visible demo, outcome, behavior, or fix.
+- Before creating a branch, commit, pull request, issue, or release, inspect
+  its proposed name and descriptive text case-insensitively for the forbidden
+  terms.
+
+## Repository structure
+
+- Keep demos under one shallow, outcome-based category at the repository root:
+  `<category>/<outcome>/`.
+- Keep every demo self-contained unless shared code is essential to understand
+  or run it.
+- Add every demo to `CATALOG.md` and the root `README.md`.
+- Include a **Model(s)** column in demo indexes. Add newly verified models to
+  an existing demo row instead of creating duplicate rows for the same demo.
+- Do not commit secrets, private endpoints, private inputs, logs, or production
+  receipts.
+- State local and hosted execution boundaries accurately.
+
+---
+> Source: [maziyarpanahi/ai-demos](https://github.com/maziyarpanahi/ai-demos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
