@@ -1,0 +1,9 @@
+{
+  "name": "wangwilly--octopusbeak",
+  "displayName": "OctopusBeak",
+  "description": "a personal banking automation project. downloads or parses account, card, loan, fund, and trading records into local files.",
+  "version": "1.0.0",
+  "author": "WangWilly",
+  "homepage": "https://github.com/WangWilly/OctopusBeak",
+  "skills": []
+}
