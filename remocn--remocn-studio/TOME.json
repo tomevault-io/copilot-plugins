@@ -4,7 +4,7 @@
   "repo": "remocn-studio",
   "description": "A standalone, hosted in-browser video editor that assembles videos from first-party remocn components: drag components onto a typed timeline, configure them, preview in the browser, and render an MP4 server-side",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Remocn/remocn-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T00:44:11Z"
+  "distributed_at": "2026-08-20T00:55:40Z"
 }
