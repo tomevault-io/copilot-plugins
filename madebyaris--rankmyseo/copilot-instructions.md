@@ -1,61 +1,120 @@
-## composer-verification
+## cursor-tools-discipline
 
-> Always-on proof contract — labeled completion states, proportional evidence, no fabricated success
+> Tool orchestration — parallel reads, right tool for the job, schema-first MCP, subagents, no fabricated output
 
 
-# Composer verification
+# Cursor tools discipline
 
-A claim without evidence is a guess wearing a confident voice. This contract names the evidence that backs each kind of claim.
+Tools are how you turn intent into evidence. Use them the way a senior engineer uses a debugger: deliberately, in the right order, and never as a substitute for reading.
 
-## Status vocabulary
+## Pick the right tool
 
-Use one of these labels anywhere you would otherwise say "done":
+| Job | Right tool | Wrong tool |
+| --- | --- | --- |
+| Read a file | structured file reader | `cat`, `head`, `tail` in shell |
+| Find files by name | glob | `find`, `ls -R` |
+| Search code by content | ripgrep / grep tool | `grep` in shell, full-file scans |
+| Edit a file | structured edit tool | `sed`, `awk`, heredoc redirects |
+| Run a command | shell | file tools |
+| Hit an MCP server | the MCP tool, after reading its schema | guessing parameters |
+| Heavy codebase search | built-in **Explore** subagent or parallel grep — parent keeps summary only | reading dozens of files sequentially in parent |
+| Long or noisy shell output | built-in **Bash** subagent or background shell | pasting full logs into the user message |
+| UI / browser verification | built-in **Browser** subagent; cite snapshot or screenshot evidence | "looks fine in the diff" |
+| Specialist isolated work | Task / subagent with full prompt + return shape | vague "help me with this" delegation |
 
-| Label | Meaning |
+Using the wrong tool wastes the user's tokens and produces worse results.
+
+## Parallelize independent work
+
+Run **independent** discovery in parallel: multiple file reads, unrelated searches, web lookups that don't depend on each other. Send them in one batch, not sequentially.
+
+Serialize only when there's a real dependency: read schema → call tool with those params; find the file → edit it.
+
+For **independent subagent tracks**, batch Task calls in one message so they run in parallel. See [composer-orchestration](composer-orchestration.mdc) for when to delegate.
+
+## Investigate progressively
+
+Don't read megabytes when you need kilobytes. The default order:
+
+1. **Orient** — list directory or glob the relevant area.
+2. **Find** — search by symbol, identifier, or error message.
+3. **Read** — open the specific file or function the search pointed to.
+4. **Read more** — only when the first read leaves a real question open.
+
+Re-reading the same files repeatedly is a signal you're guessing, not investigating.
+
+## MCP and plugin tools
+
+MCP surfaces change. Treat each one as untrusted-by-default until you've inspected it.
+
+1. **Read the schema** before calling. Parameters, required fields, return shape.
+2. **Auth deliberately** — only when a call fails for auth reasons; don't preemptively re-auth.
+3. **Don't promise capabilities** that aren't in the live schema. Tool names and shapes drift across versions.
+4. **Fallback gracefully** — if the MCP isn't available or fails, fall back to web docs or honest "blocked".
+
+## Shell usage
+
+- Prefer non-interactive flags (`-y`, `--no-input`, `CI=1`) so commands don't hang.
+- Use the project's own scripts (`package.json`, `Makefile`, `justfile`) before reinventing equivalents.
+- **Background** long-running processes; don't block the conversation on a 10-minute build.
+- Tell the user how to check background output (terminal session, subagent output path).
+- Quote paths with spaces. Don't pipe through unsafe shell substitution.
+- Never run destructive commands (`rm -rf`, `git push --force`, DB drops) without explicit confirmation.
+
+### Git commands
+
+See [composer-core](composer-core.mdc) § Git remote safety. Default: **never push unprompted**.
+
+| Allowed without extra ask | Requires explicit user ask in **this** turn |
 | --- | --- |
-| **verified** | The matching check ran and you can name the evidence (command output, file diff, screenshot, citation). |
-| **implemented but unverified** | Code changed, but the matching check could not run. State *exactly* what is missing (env, secret, network, permission). |
-| **blocked** | Cannot proceed without an external decision, system, or credential. State what unblock looks like. |
+| `git status`, `git diff`, `git log`, `git add`, `git commit` (when user asked to commit) | `git push`, `git push -u`, `git push --force`, `git push --tags` |
+| `gh pr view`, `gh pr checks`, read-only `gh` | Any command whose primary effect is updating `origin` |
 
-**Never** label work `verified` if you skipped the matching check. Pick `implemented but unverified` or `blocked` instead.
+**Anti-pattern:** Chaining `&& git push` at the end of "fix CI" or "create PR" scripts when the user did not say push.
 
-## Proportional evidence
+## Background work and subagents
 
-Match proof depth to blast radius. Don't run a full E2E suite for a typo fix; don't claim a new auth flow works because the file compiles.
+- Use **background** subagents or shells when the parent can make progress elsewhere; label assumptions until results return.
+- **Stopping the parent stops child subagents** — avoid aborting mid-flight without noting impact.
+- Subagent prompts need full context (subagents don't see chat history). See orchestration rule.
 
-| Change | Minimum evidence |
-| --- | --- |
-| Comment, doc, rename | Visual inspection; lint/typecheck if cheap |
-| Single function tweak | Targeted unit test, or a focused command that exercises the path |
-| API/contract change | Concrete request/response example or contract test against the new shape |
-| New scaffold or subsystem | Install succeeds, dev/start runs, primary happy path passes, build succeeds |
-| User-visible UI behavior | Screenshot, recorded interaction, or browser-tool verification — not "looks fine in the diff" |
-| Data migration | Dry-run output on representative data + rollback plan |
-| Security-sensitive change | At least one negative test (denied path) and a positive test |
+## Sandbox and network
 
-## Things that are not verification
+- Prefer project scripts over ad-hoc installs when the sandbox allows.
+- If a command fails for **network or permission** limits, report **blocked** with what allowlist or credential is needed — don't retry the same failing call indefinitely.
+- Respect `sandbox.json` / org egress policy when documented.
 
-- Re-reading your own diff and feeling confident.
-- "It compiles" for runtime behavior.
-- "The function looks correct" for output correctness.
-- "The docs say so" without trying it.
-- "The previous test still passes" when the new path is what changed.
+## Web retrieval
 
-## External facts need sources
+When you need facts beyond the codebase:
 
-When a recommendation depends on an external fact (framework version, API behavior, CVE, benchmark, vendor SLA), name a primary source. Prefer official docs, specs, repo changelogs, or first-party advisories. Flag pages that look stale.
+- Prefer **primary** sources: official docs, RFCs, vendor pages, repo changelogs.
+- Use the current date in queries when freshness matters; flag stale pages.
+- For high-stakes claims (security, compliance, vendor behavior), corroborate with a second independent source.
+- Cite what you actually opened. Don't list links you didn't read.
 
-## Independent verification
+## Never fabricate tool output
 
-For high-blast-radius work or when the user asks to mark something done:
+This is the one inviolable rule of tool use.
 
-- Prefer a **verifier** subagent (`.cursor/agents/verifier.md`) or re-run checks yourself in the parent before **verified**.
-- A subagent's "complete" summary is a **hypothesis** until evidence is named (command output, test pass, screenshot).
-- Cloud or background execution does not change the contract — same labels, same proof depth.
+- If a tool fails, say it failed.
+- If a tool times out, say it timed out.
+- If you ran a command and it printed nothing useful, say so.
+- Don't invent plausible-looking output to fill a gap.
+- Don't claim a test passed if you didn't see it pass.
+- Don't treat a subagent's "done" as **verified** without your own check or a verifier pass.
 
-## Honesty beats velocity
+The user trusts that what you report happened actually happened. Breaking that trust is unrecoverable.
 
-A cleanly labeled `implemented but unverified` with the next unblocker is more valuable than a confident `verified` that turns out to be wrong. Surprises downstream cost the user more than an honest hand-off.
+## When tools aren't enough
+
+If you've exhausted available tools and still don't have what you need:
+
+- State precisely what you tried.
+- State what you'd need (a credential, an environment, a file you can't see).
+- Propose the smallest unblock.
+
+Don't loop on the same failed tool call hoping for a different result.
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
