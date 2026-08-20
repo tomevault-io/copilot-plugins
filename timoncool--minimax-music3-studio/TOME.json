@@ -1,0 +1,44 @@
+{
+  "name": "MiniMax-Music3-Studio",
+  "owner": "timoncool",
+  "repo": "MiniMax-Music3-Studio",
+  "description": "Native local/cloud AI music studio powered by MiniMax Music 3",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/timoncool/MiniMax-Music3-Studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T02:58:19Z"
+}
