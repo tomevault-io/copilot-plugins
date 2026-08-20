@@ -1,0 +1,9 @@
+{
+  "name": "primerhq--primer",
+  "displayName": "primer",
+  "description": "Self-hosted control plane for fleets of small, context-optimized agents: graphs, workspaces, channels, triggers, MCP.",
+  "version": "1.0.0",
+  "author": "primerhq",
+  "homepage": "https://github.com/primerhq/primer",
+  "skills": []
+}
