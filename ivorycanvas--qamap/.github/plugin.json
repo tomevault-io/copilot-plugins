@@ -1,0 +1,9 @@
+{
+  "name": "ivorycanvas--qamap",
+  "displayName": "QAMap",
+  "description": "Local zero-LLM PR QA designer: turns commits and diffs into behavior lifecycles, QA scenarios, and deterministic automation drafts.",
+  "version": "1.0.0",
+  "author": "IvoryCanvas",
+  "homepage": "https://github.com/IvoryCanvas/QAMap",
+  "skills": []
+}
