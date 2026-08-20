@@ -4,7 +4,7 @@
   "repo": "experiential",
   "description": "An open source model gateway that provides one control plane across closed, open-source, local, and custom models.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/experientiallabs/experiential",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T23:31:40Z"
+  "distributed_at": "2026-08-20T23:32:24Z"
 }
