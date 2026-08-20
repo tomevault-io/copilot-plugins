@@ -1,0 +1,9 @@
+{
+  "name": "sign-protocol--sign-tools",
+  "displayName": "sign-tools",
+  "description": "Reference implementations and utilities for SIGN (Sigil Intelligence Graph Notation) \u2014 sign-ingest and sign-draft.",
+  "version": "1.0.0",
+  "author": "sign-protocol",
+  "homepage": "https://github.com/sign-protocol/sign-tools",
+  "skills": []
+}
