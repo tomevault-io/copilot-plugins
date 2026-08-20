@@ -1,0 +1,9 @@
+{
+  "name": "kbwen--agent-virtual-office",
+  "displayName": "agent-virtual-office",
+  "description": "\ud83c\udfe2 Watch your AI coding agents live their office life \u2014 Claude Code, Codex & Gemini show up as tiny pixel coworkers who type, take coffee breaks, get blocked, and ship. Real-time, cozy, runs right in y",
+  "version": "1.0.0",
+  "author": "KbWen",
+  "homepage": "https://github.com/KbWen/agent-virtual-office",
+  "skills": []
+}
