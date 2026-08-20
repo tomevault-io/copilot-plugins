@@ -1,0 +1,9 @@
+{
+  "name": "otheru-ai--ember",
+  "displayName": "ember",
+  "description": "DeepSeek-V4-Flash inference for AMD Strix Halo",
+  "version": "1.0.0",
+  "author": "otheru-ai",
+  "homepage": "https://github.com/otheru-ai/ember",
+  "skills": []
+}
