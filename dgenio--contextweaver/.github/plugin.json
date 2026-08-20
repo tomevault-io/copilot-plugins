@@ -1,0 +1,9 @@
+{
+  "name": "dgenio--contextweaver",
+  "displayName": "contextweaver",
+  "description": "Budget-aware context compilation and context firewall for tool-heavy AI agents.",
+  "version": "1.0.0",
+  "author": "dgenio",
+  "homepage": "https://github.com/dgenio/contextweaver",
+  "skills": []
+}
