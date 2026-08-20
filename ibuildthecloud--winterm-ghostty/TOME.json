@@ -4,7 +4,7 @@
   "repo": "winterm-ghostty",
   "description": "Windows Terminal's shell with ghostty's engine behind the pane, selectable per profile",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ibuildthecloud/winterm-ghostty",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T02:44:28Z"
+  "distributed_at": "2026-08-20T03:01:56Z"
 }
