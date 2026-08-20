@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [StefanCHEN2026/Chinese-Legal-Citation-skill](https://github.com/StefanCHEN2026/Chinese-Legal-Citation-skill).
+Original source: `AGENTS.md` in [StefanCHEN2026/Chinese-Legal-Citation-skill](https://github.com/StefanCHEN2026/Chinese-Legal-Citation-skill).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
