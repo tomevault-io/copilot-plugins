@@ -1,0 +1,9 @@
+{
+  "name": "nylas--skills",
+  "displayName": "skills",
+  "description": "Agent Skills for building with the Nylas platform \u2014 email, calendar, contacts. Works with Claude Code, Cursor, Copilot, and 30+ AI coding agents.",
+  "version": "1.0.0",
+  "author": "nylas",
+  "homepage": "https://github.com/nylas/skills",
+  "skills": []
+}
