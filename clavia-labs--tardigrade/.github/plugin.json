@@ -1,0 +1,9 @@
+{
+  "name": "clavia-labs--tardigrade",
+  "displayName": "tardigrade",
+  "description": "A durable and modular agent harness",
+  "version": "1.0.0",
+  "author": "clavia-labs",
+  "homepage": "https://github.com/clavia-labs/tardigrade",
+  "skills": []
+}
