@@ -1,0 +1,9 @@
+{
+  "name": "embeddedos-org--eos",
+  "displayName": "eos",
+  "description": "EoS Embedded Operating system",
+  "version": "1.0.0",
+  "author": "embeddedos-org",
+  "homepage": "https://github.com/embeddedos-org/eos",
+  "skills": []
+}
