@@ -1,0 +1,9 @@
+{
+  "name": "rossoctl--context-guru",
+  "displayName": "context-guru",
+  "description": "Context engineering manages an agentic system's context: persisting and efficiently retrieving conversations and trajectories for the purpose of optimizing LLM context, this may include compacting and",
+  "version": "1.0.0",
+  "author": "rossoctl",
+  "homepage": "https://github.com/rossoctl/context-guru",
+  "skills": []
+}
