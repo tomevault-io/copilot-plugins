@@ -1,45 +1,61 @@
-## composer-senior-practices
+## composer-verification
 
-> Version-pinned framework and coding best practices from primary docs and corroborated senior guidance — use for unfamiliar stacks, migrations, architecture reviews, or when style improvement needs evidence
+> Always-on proof contract — labeled completion states, proportional evidence, no fabricated success
 
 
-# Composer senior practices
+# Composer verification
 
-Load the [senior-practices skill](../skills/senior-practices/SKILL.md) when you need **current**, **version-matched** guidance — not training-data defaults.
+A claim without evidence is a guess wearing a confident voice. This contract names the evidence that backs each kind of claim.
 
-## When to use
+## Status vocabulary
 
-- Unfamiliar framework, library, or language feature in the repo.
-- User asks for "best practice", "modern approach", or "how should we…"
-- Upgrade, migration, or new pattern introduction.
-- Architecture or code review where recommendations need citations.
-- Style governance decision: is local style wrong enough to improve? (see [composer-coding-excellence](composer-coding-excellence.mdc) § Style governance)
+Use one of these labels anywhere you would otherwise say "done":
 
-## When not to use
+| Label | Meaning |
+| --- | --- |
+| **verified** | The matching check ran and you can name the evidence (command output, file diff, screenshot, citation). |
+| **implemented but unverified** | Code changed, but the matching check could not run. State *exactly* what is missing (env, secret, network, permission). |
+| **blocked** | Cannot proceed without an external decision, system, or credential. State what unblock looks like. |
 
-- Trivial edits where the file's existing pattern is clear.
-- Pure codebase archaeology (use Explore subagent / grep instead).
-- Deep multi-vendor research (use [composer-deep-research](composer-deep-research.mdc) / deep-research skill).
+**Never** label work `verified` if you skipped the matching check. Pick `implemented but unverified` or `blocked` instead.
 
-## Source tiers
+## Proportional evidence
 
-| Tier | Examples | Use for |
-| --- | --- | --- |
-| **T1 — Primary** | Official docs, RFCs, release notes, security advisories | Defaults, APIs, deprecations |
-| **T2 — Maintainer / platform** | Framework team blogs, platform engineering guides (version-matched) | Patterns endorsed by platform owners |
-| **T3 — Corroborated senior** | Widely cited talks/posts **only when** aligned with T1/T2 or reproducible | Tradeoffs, operational wisdom |
-| **Reject** | Random tutorials, outdated Stack Overflow, unversioned "best practices" | Do not cite as authority |
+Match proof depth to blast radius. Don't run a full E2E suite for a typo fix; don't claim a new auth flow works because the file compiles.
 
-## Contract with style governance
+| Change | Minimum evidence |
+| --- | --- |
+| Comment, doc, rename | Visual inspection; lint/typecheck if cheap |
+| Single function tweak | Targeted unit test, or a focused command that exercises the path |
+| API/contract change | Concrete request/response example or contract test against the new shape |
+| New scaffold or subsystem | Install succeeds, dev/start runs, primary happy path passes, build succeeds |
+| User-visible UI behavior | Screenshot, recorded interaction, or browser-tool verification — not "looks fine in the diff" |
+| Data migration | Dry-run output on representative data + rollback plan |
+| Security-sensitive change | At least one negative test (denied path) and a positive test |
 
-Recommendations must reconcile with **this repo**: existing libs, ADRs, lint config, and [composer-coding-excellence](composer-coding-excellence.mdc) minimal-diff rules.
+## Things that are not verification
 
-- **Apply now** — safe within the current task scope.
-- **Follow-up plan** — style or tech-debt slice; do not drive-by refactor.
+- Re-reading your own diff and feeling confident.
+- "It compiles" for runtime behavior.
+- "The function looks correct" for output correctness.
+- "The docs say so" without trying it.
+- "The previous test still passes" when the new path is what changed.
 
-Never mass-fix unrelated modules based on external guidance alone.
+## External facts need sources
 
-See [reference.md](../skills/senior-practices/reference.md) for the compact checklist.
+When a recommendation depends on an external fact (framework version, API behavior, CVE, benchmark, vendor SLA), name a primary source. Prefer official docs, specs, repo changelogs, or first-party advisories. Flag pages that look stale.
+
+## Independent verification
+
+For high-blast-radius work or when the user asks to mark something done:
+
+- Prefer a **verifier** subagent (`.cursor/agents/verifier.md`) or re-run checks yourself in the parent before **verified**.
+- A subagent's "complete" summary is a **hypothesis** until evidence is named (command output, test pass, screenshot).
+- Cloud or background execution does not change the contract — same labels, same proof depth.
+
+## Honesty beats velocity
+
+A cleanly labeled `implemented but unverified` with the next unblocker is more valuable than a confident `verified` that turns out to be wrong. Surprises downstream cost the user more than an honest hand-off.
 
 ---
 > Source: [madebyaris/rankmyseo](https://github.com/madebyaris/rankmyseo) — distributed by [TomeVault](https://tomevault.io).
