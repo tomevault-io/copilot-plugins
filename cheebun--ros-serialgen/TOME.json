@@ -4,7 +4,7 @@
   "repo": "ros-serialgen",
   "description": "RouterOS L6 Serial Generator & License Key Converter \u2014 AVX-512 SIMD collision search",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cheebun/ros-serialgen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T08:32:30Z"
+  "distributed_at": "2026-08-20T08:34:35Z"
 }
