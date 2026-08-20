@@ -1,0 +1,44 @@
+{
+  "name": "DoveVannoINostriSoldi",
+  "owner": "Italian-Builders-Org",
+  "repo": "DoveVannoINostriSoldi",
+  "description": "Raccogliamo e analizziamo i dati sulla spesa pubblica italiana per individuare, grazie all\u2019AI, dove \u00e8 possibile migliorare l\u2019efficienza e l\u2019utilizzo delle risorse pubbliche.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Italian-Builders-Org/DoveVannoINostriSoldi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T19:34:00Z"
+}
