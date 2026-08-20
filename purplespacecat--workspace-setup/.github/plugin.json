@@ -1,0 +1,9 @@
+{
+  "name": "purplespacecat--workspace-setup",
+  "displayName": "workspace-setup",
+  "description": "This repo contains some scripts to quickly setup a working environment on new laptop/vm",
+  "version": "1.0.0",
+  "author": "purplespacecat",
+  "homepage": "https://github.com/purplespacecat/workspace-setup",
+  "skills": []
+}
