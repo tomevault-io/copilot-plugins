@@ -1,33 +1,36 @@
-## release-workflow
+## gitsyncmarks-app
 
-> Release workflow – Tag, F-Droid, GitHub Releases
+> Kurze Anleitung für AI-Agenten (Cursor, etc.) bei der Arbeit an diesem Projekt.
 
+# AI Agent Guidance – GitSyncMarks-App
 
-# Release Workflow
+Kurze Anleitung für AI-Agenten (Cursor, etc.) bei der Arbeit an diesem Projekt.
 
-When preparing or executing a release:
+## Projekt
 
-1. **Order (mandatory):** Finalize version/changelog → Merge to `main` → Tag on final merge commit → Verify GitHub release workflow success → Verify F-Droid `commit:` hash → Submit to F-Droid
+- **Flutter-App** (Android, iOS, Windows, macOS, Linux) – Sync von Bookmarks aus GitHub-Repo (GitSyncMarks-Format)
+- **Android:** Stable | **andere Plattformen:** Alpha
+- **Parent:** [GitSyncMarks](https://github.com/d0dg3r/GitSyncMarks) (Browser-Extension)
 
-2. **Tag:** Set on exactly the final merge commit (not on an older commit)
+## Wichtige Regeln
 
-3. **F-Droid:** `commit:` in [fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml](fdroid/metadata/com.d0dg3r.gitsyncmarks-fdroid-submit.yml) must match the tag commit. Verify before submit: `git rev-parse vX.Y.Z` = `commit:` in the YAML.
+1. **`.cursor/rules/`** lesen – alle MDC-Regeln beachten
+2. **Docs, Tests, Architektur, Store-Assets** immer mitsynchronisieren (siehe docs-sync rule)
+3. **Keine Co-authored-by** in Commits
+4. **Commit nur nach Freigabe** – vorher fragen
 
-4. **GitHub Releases:** Only stable tags (`v*` without `-`) as "latest"; pre-releases (`-beta`, `-rc`, `-test`) visible but not latest
+## Release
 
-5. **Screenshots:** Generate locally with `./scripts/generate-screenshots.sh` before tagging (Light + Dark for README, Flatpak, F-Droid). CI screenshot disabled until fonts/CI consistency is fixed.
+- Ablauf Schritt für Schritt: [docs/skills/gitsyncmarks-app-release/SKILL.md](docs/skills/gitsyncmarks-app-release/SKILL.md) (nach Merge: `./scripts/finish-release-fdroid-commit.sh --tag` falls noch nicht gelaufen)
+- Tag auf den **Release-Quell-Commit** (gleicher SHA wie `commit:` in `com.d0dg3r.gitsyncmarks-fdroid-submit.yml`)
+- Siehe [.cursor/rules/release-workflow.mdc](.cursor/rules/release-workflow.mdc)
+- **F-Droid (Stand):** Kein aktives Listing — früheres fdroiddata-MR gelöscht; Metadaten bleiben für später; Details: [fdroid/README.md](fdroid/README.md#listing-status-paused)
 
-6. **Before F-Droid MR:** Run `./fdroid/submit-to-gitlab.sh` – validates version/tag/hash/changelog gates and copies the submit file
+## Dokumentation
 
-7. **Hard stop gates:** Do not submit if any of these fail:
-   - `pubspec.yaml` version != `CurrentVersion` in submit metadata
-   - missing F-Droid changelog file for `CurrentVersionCode`
-   - missing tag `vX.Y.Z` for `CurrentVersion`
-   - tag commit != submit metadata `commit:`
-
-8. **Recovery for wrong tag/release:** If a release tag was set on the wrong commit, delete local+remote tag, finish merges, recreate the tag on final `main` commit, and then update submit metadata `commit:` to the new tag hash.
-
-See also [release-checklist-hygiene.mdc](release-checklist-hygiene.mdc), [fdroid-maintenance.mdc](fdroid-maintenance.mdc), and [fdroid/README.md](fdroid/README.md).
+- [docs/CONTEXT.md](docs/CONTEXT.md) – Origin, Entscheidungen, Scope
+- [docs/PLAN.md](docs/PLAN.md) – Phasen, nächste Schritte
+- [docs/BOOKMARK-FORMAT.md](docs/BOOKMARK-FORMAT.md) – Bookmark-JSON, GitHub API
 
 ---
 > Source: [d0dg3r/GitSyncMarks-App](https://github.com/d0dg3r/GitSyncMarks-App) — distributed by [TomeVault](https://tomevault.io).
