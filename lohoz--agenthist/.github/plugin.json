@@ -1,0 +1,9 @@
+{
+  "name": "lohoz--agenthist",
+  "displayName": "agenthist",
+  "description": "Manage, migrate, convert, and extract recurring experience from local coding Agent history",
+  "version": "1.0.0",
+  "author": "lohoz",
+  "homepage": "https://github.com/lohoz/agenthist",
+  "skills": []
+}
