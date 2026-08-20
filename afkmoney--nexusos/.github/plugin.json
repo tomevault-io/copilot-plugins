@@ -1,9 +1,9 @@
 {
   "name": "afkmoney--nexusos",
   "displayName": "nexusOS",
-  "description": "nexusOS",
+  "description": "Meet Daemon, the Self-Evolving Operating System.",
   "version": "1.0.0",
   "author": "AFKmoney",
-  "homepage": "https://tomevault.io/claim/AFKmoney",
+  "homepage": "https://github.com/AFKmoney/nexusOS",
   "skills": []
 }
