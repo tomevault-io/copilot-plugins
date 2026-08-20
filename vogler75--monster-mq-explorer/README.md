@@ -7,11 +7,11 @@ High-performance MQTT explorer with topic tree visualization, real-time charting
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vogler75/monster-mq-explorer](https://github.com/vogler75/monster-mq-explorer).
+Original source: `AGENTS.md` in [vogler75/monster-mq-explorer](https://github.com/vogler75/monster-mq-explorer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
