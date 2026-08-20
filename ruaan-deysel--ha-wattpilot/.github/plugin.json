@@ -1,0 +1,9 @@
+{
+  "name": "ruaan-deysel--ha-wattpilot",
+  "displayName": "ha-wattpilot",
+  "description": "This is a custom component to allow control of Fronius Wattpilot wallbox/electro vehicle charging devices in Homeassistant.",
+  "version": "1.0.0",
+  "author": "ruaan-deysel",
+  "homepage": "https://github.com/ruaan-deysel/ha-wattpilot",
+  "skills": []
+}
