@@ -4,7 +4,7 @@
   "repo": "demo-machine",
   "description": "Demo as code \u2014 turn YAML specs into polished product demo videos with smooth cursor animation, natural typing, and professional overlays",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/45ck/demo-machine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T22:37:04Z"
+  "distributed_at": "2026-08-20T22:41:30Z"
 }
