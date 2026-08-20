@@ -1,0 +1,44 @@
+{
+  "name": "rudycanshoot",
+  "owner": "jrb00013",
+  "repo": "rudycanshoot",
+  "description": "MCP server + CLI that lets AI assistants take and view screenshots. Auto-installs into Claude Code, Cursor, Windsurf, Codex, Gemini CLI, OpenCode, Continue, Cline, and more.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jrb00013/rudycanshoot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T00:33:46Z"
+}
