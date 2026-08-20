@@ -4,7 +4,7 @@
   "repo": "ux-audit",
   "description": "Give your AI coding assistant a design eye. 12 principles, 13 reference docs, 7 component checklists. Works with Claude Code, Cursor, Codex, and Windsurf.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/narenkatakam/ux-audit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T20:41:34Z"
+  "distributed_at": "2026-08-20T20:49:32Z"
 }
