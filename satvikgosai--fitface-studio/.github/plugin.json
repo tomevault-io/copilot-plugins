@@ -1,0 +1,9 @@
+{
+  "name": "satvikgosai--fitface-studio",
+  "displayName": "fitface-studio",
+  "description": "Android app for browsing, editing and installing Galaxy Fit3 (SM-R390) watch faces \u2014 edit the face's own binary on a canvas, validate it, then send it to the watch over Bluetooth.",
+  "version": "1.0.0",
+  "author": "satvikgosai",
+  "homepage": "https://github.com/satvikgosai/fitface-studio",
+  "skills": []
+}
