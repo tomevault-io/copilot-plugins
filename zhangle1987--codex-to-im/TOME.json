@@ -4,7 +4,7 @@
   "repo": "codex-to-im",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhangle1987/codex-to-im",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T17:00:51Z"
+  "distributed_at": "2026-08-20T17:04:25Z"
 }
