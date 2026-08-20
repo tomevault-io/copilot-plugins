@@ -1,0 +1,44 @@
+{
+  "name": "dsh-chat-imagine",
+  "owner": "corrinehu",
+  "repo": "dsh-chat-imagine",
+  "description": "\u5728 DSH \u804a\u5929\u7a97\u53e3\u81ea\u52a8\u8c03\u7528\u751f\u56fe\u5de5\u5177\uff08API \u6e20\u9053\uff0c\u6216\u672c\u673a CLI\uff1a\u5df2\u652f\u6301mmx / codex / agy\uff09\u5e76\u5c55\u793a\u56fe\u7247\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/corrinehu/dsh-chat-imagine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-20T12:32:44Z"
+}
