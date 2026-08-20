@@ -1,0 +1,9 @@
+{
+  "name": "brilliantlabsar--halo-firmware",
+  "displayName": "halo-firmware",
+  "description": "Firmware for Halo, Brilliant Labs' AI glasses \u2014 Zephyr RTOS on the Alif Balletto, with a Lua runtime for on-device apps and BLE OTA updates",
+  "version": "1.0.0",
+  "author": "brilliantlabsAR",
+  "homepage": "https://github.com/brilliantlabsAR/halo-firmware",
+  "skills": []
+}
