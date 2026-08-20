@@ -1,0 +1,9 @@
+{
+  "name": "mstan--emeraldrecomp",
+  "displayName": "EmeraldRecomp",
+  "description": "Pok\u00e9mon Emerald recompiled for the Game Boy Advance using gbarecomp \u00b7 Part of the R.A.I.D. community",
+  "version": "1.0.0",
+  "author": "mstan",
+  "homepage": "https://github.com/mstan/EmeraldRecomp",
+  "skills": []
+}
