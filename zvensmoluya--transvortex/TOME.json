@@ -4,7 +4,7 @@
   "repo": "TransVortex",
   "description": "\u672c\u5730\u4f18\u5148\u7684 AI \u5b57\u5e55\u5236\u4f5c\u5de5\u5177\uff0c\u652f\u6301 Windows \u684c\u9762\u7aef\u3001CLI / Agent\u3001\u591a\u79cd\u8bed\u97f3\u8bc6\u522b\u4e0e\u7ffb\u8bd1\u670d\u52a1\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zvensmoluya/TransVortex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T22:44:20Z"
+  "distributed_at": "2026-08-20T22:49:11Z"
 }
