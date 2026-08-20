@@ -1,0 +1,9 @@
+{
+  "name": "welsione--dsh-mmx-bridge",
+  "displayName": "dsh-mmx-bridge",
+  "description": "\u4e00\u4e2a\u5de5\u5177 = MiniMax \u5168\u90e8\u591a\u6a21\u6001\u80fd\u529b\uff1aDSH \u7eaf\u6587\u672c\u6a21\u578b\u770b\u56fe/\u753b\u56fe/\u751f\u89c6\u9891/\u8bf4\u8bdd/\u5531\u6b4c/\u7ffb\u5531/\u641c\u7d22/\u67e5\u989d\u5ea6 | One mmx_bridge tool = all MiniMax multimodal (VLM/image/video/speech/music/cover/search/quota) for DeepSeek Harness (DSH)",
+  "version": "1.0.0",
+  "author": "welsione",
+  "homepage": "https://github.com/welsione/dsh-mmx-bridge",
+  "skills": []
+}
