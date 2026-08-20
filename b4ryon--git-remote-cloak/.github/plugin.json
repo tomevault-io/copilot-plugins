@@ -1,0 +1,9 @@
+{
+  "name": "b4ryon--git-remote-cloak",
+  "displayName": "git-remote-cloak",
+  "description": "Encrypted git remote helper: end-to-end encrypted mirror of a git repository on any ordinary git host (git-remote-gcrypt replacement)",
+  "version": "1.0.0",
+  "author": "b4ryon",
+  "homepage": "https://github.com/b4ryon/git-remote-cloak",
+  "skills": []
+}
