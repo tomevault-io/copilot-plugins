@@ -1,0 +1,9 @@
+{
+  "name": "locez--kotonoha",
+  "displayName": "kotonoha",
+  "description": "Linux desktop lyrics overlay which reads the current track and playback position from any MPRIS player, then shows synchronized lyrics in a translucent Wayland overlay.",
+  "version": "1.0.0",
+  "author": "locez",
+  "homepage": "https://github.com/locez/kotonoha",
+  "skills": []
+}
