@@ -1,0 +1,14 @@
+{
+  "name": "phantom--phantom-agent-kit",
+  "displayName": "phantom-agent-kit",
+  "description": "phantom-agent-kit",
+  "version": "1.0.0",
+  "author": "phantom",
+  "homepage": "https://github.com/phantom/phantom-agent-kit",
+  "skills": [
+    {
+      "name": "setup-react-native-app",
+      "description": ""
+    }
+  ]
+}
