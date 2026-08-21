@@ -1,0 +1,44 @@
+{
+  "name": "douyin-dl",
+  "owner": "Janusilver",
+  "repo": "douyin-dl",
+  "description": "\u591a\u5e73\u53f0\u65e0\u6c34\u5370\u4e0b\u8f7d\u5668\uff1a\u6296\u97f3 / \u5c0f\u7ea2\u4e66 / \u5feb\u624b / B\u7ad9\uff0c\u56fe\u6587\u539f\u56fe\u3001\u5b9e\u51b5\u56fe\u52a8\u56fe\u3001\u65e0\u6c34\u5370\u89c6\u9891\u4e00\u952e\u4e0b\u8f7d\uff08Python + tkinter GUI\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Janusilver/douyin-dl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T04:35:00Z"
+}
