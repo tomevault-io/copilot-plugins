@@ -1,73 +1,75 @@
-## go-standards
+## cerebro
 
-> Go coding standards for Cerebro — error handling, logging, context, concurrency
+> Quick commands and tribal-knowledge notes that don't fit inside per-package docs.
 
+# Cerebro — Agent / Operator Notes
 
-# Go Coding Standards
+Quick commands and tribal-knowledge notes that don't fit inside per-package docs.
+See `CLAUDE.md` for the canonical architecture + conventions.
 
-## Error Handling
+## Verification
 
-Always wrap errors with context; never silently discard them.
-
-```go
-// ❌ BAD
-result, _ := doThing()
-if err != nil { return err }
-
-// ✅ GOOD
-result, err := doThing()
-if err != nil {
-    return fmt.Errorf("doThing: %w", err)
-}
+```bash
+make build         # build binary
+make test          # unit tests
+make lint          # golangci-lint
+make check         # dry-run config validation
 ```
 
-Sentinel errors live in the same package as the function that produces them, prefixed `Err`:
-```go
-var ErrOrderRejected = errors.New("order rejected by risk gate")
+## CryptoPanic news scraper
+
+Scraper lives at `internal/ingest/news/cryptopanic/`. Two tiers:
+
+1. **RE (primary)** — `client.go` + `crypto.go`. Pure-Go AES-128-CBC + zlib
+   decrypt of the `/web-api/posts/` endpoint. ~200ms per scrape.
+2. **Browser (fallback)** — `browser.go`. Headless Chromium that hooks
+   `JSON.parse` and captures the decrypted payload. ~5s per scrape.
+
+`fallback.go` composes the two with a circuit breaker: after 3 consecutive
+`ErrBadPayload` failures from the RE path (key rotation, IV formula
+change, etc.), it cools down for 1 hour and routes all traffic through
+the browser. A single `system_alerts` notification is sent per cool-down.
+
+### When the alert fires: refresh the AES key
+
+```bash
+scripts/extract_cryptopanic_key.sh
 ```
 
-## Logging
+The script:
+1. Fetches `https://cryptopanic.com/` and locates the current
+   `cryptopanic.min.*.js` bundle.
+2. Extracts the packed `dk()` function and executes it in Node to resolve
+   the 16-byte AES key.
+3. Prints the new key + bundle hash so you can diff against `key.go`.
 
-Use `log/slog` (stdlib structured logging). Always pass context and structured key-value pairs:
+If the key changed:
+1. Update `const aesKey` and `const sourceBundleHash` in
+   `internal/ingest/news/cryptopanic/key.go`.
+2. Capture a fresh ciphertext/plaintext pair in
+   `internal/ingest/news/cryptopanic/testdata/` (see the node script at
+   `/tmp/verify.js` during development, or write a small capture helper).
+3. `go test ./internal/ingest/news/cryptopanic` must pass.
 
-```go
-slog.InfoContext(ctx, "order submitted", "symbol", symbol, "qty", qty, "side", side)
-slog.ErrorContext(ctx, "broker unavailable", "err", err, "attempt", attempt)
+### Live smoke test
+
+The `live` build tag lets you hit the real CryptoPanic site:
+
+```bash
+go test -tags=live ./internal/ingest/news/cryptopanic -run TestLive -v
 ```
 
-Never use `fmt.Println` or `log.Printf` in production paths.
+Expect ~50 posts in ~1.5s when the RE path is healthy.
 
-## Context
+### Cache layout
 
-- Every function in a hot path must accept `ctx context.Context` as the **first parameter**.
-- Respect cancellation: check `ctx.Err()` inside loops and before I/O.
-- Never store a context in a struct field.
+The ingest scheduler writes to Redis on each tick:
+- `news:latest` — global newest-first list, TTL = interval × 3
+- `news:by_asset:<CODE>` — per-currency list for each code listed in
+  `ingest.cryptopanic.currencies`, same TTL
 
-## Concurrency
-
-- Use `errgroup.WithContext` (from `golang.org/x/sync/errgroup`) for goroutine fan-out.
-- Protect shared state with a `sync.Mutex` or channel — document which pattern and why.
-- Goroutines must respect context cancellation to allow clean shutdown.
-
-## Money / Decimal
-
-**Never use `float64` for prices, quantities, or PnL.** Always use `github.com/shopspring/decimal`:
-
-```go
-// ❌ BAD
-price := 42000.5 * 0.01
-
-// ✅ GOOD
-price := decimal.NewFromFloat(42000.5)
-fee := price.Mul(decimal.NewFromFloat(0.01))
-```
-
-## General
-
-- Prefer table-driven tests with `t.Run`.
-- Unexported helpers over large exported APIs.
-- Build tags for optional features: `//go:build metrics`.
-- `golangci-lint` must pass with zero warnings before merging.
+The agent `fetch_latest_news` tool reads these keys first and only falls
+back to a live scrape on cache miss.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
