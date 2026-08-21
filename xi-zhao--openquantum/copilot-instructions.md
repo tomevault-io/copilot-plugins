@@ -58,5 +58,5 @@ OpenQuantum Validator/eval 提供。
 - 每次变更运行最相关的检查，并明确报告未通过或未验证的部分。
 
 ---
-> Source: [xi-zhao/openQuantum](https://github.com/xi-zhao/openQuantum) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
+> Source: [xi-zhao/OpenQuantum](https://github.com/xi-zhao/OpenQuantum) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
