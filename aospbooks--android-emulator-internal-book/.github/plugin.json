@@ -1,0 +1,9 @@
+{
+  "name": "aospbooks--android-emulator-internal-book",
+  "displayName": "android-emulator-internal-book",
+  "description": "The book introduces the internal of Android Emulator",
+  "version": "1.0.0",
+  "author": "aospbooks",
+  "homepage": "https://github.com/aospbooks/android-emulator-internal-book",
+  "skills": []
+}
