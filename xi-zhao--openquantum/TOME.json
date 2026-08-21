@@ -1,7 +1,7 @@
 {
-  "name": "openQuantum",
+  "name": "OpenQuantum",
   "owner": "xi-zhao",
-  "repo": "openQuantum",
+  "repo": "OpenQuantum",
   "description": "Open-source quantum Agent workspace built on DeepSeek Harness",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/xi-zhao/openQuantum",
+  "source_url": "https://github.com/xi-zhao/OpenQuantum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T16:34:47Z"
+  "distributed_at": "2026-08-21T09:30:22Z"
 }
