@@ -1,0 +1,9 @@
+{
+  "name": "gsemet--okf-schema",
+  "displayName": "okf-schema",
+  "description": "Open Knowledge Format with JSONSchema",
+  "version": "1.0.0",
+  "author": "gsemet",
+  "homepage": "https://github.com/gsemet/okf-schema",
+  "skills": []
+}
