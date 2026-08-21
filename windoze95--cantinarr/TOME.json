@@ -4,7 +4,7 @@
   "repo": "cantinarr",
   "description": "Self-hosted and self-healing discovery, media requests, and *arr stack management through a Go server and Flutter app with TMDB and Trakt discovery, an AI assistant, and an OAuth-secured MCP server featuring 38 tools that let any MCP client discover, request, and manage your media.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/windoze95/cantinarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T06:30:21Z"
+  "distributed_at": "2026-08-21T06:34:56Z"
 }
