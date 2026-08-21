@@ -1,0 +1,9 @@
+{
+  "name": "astrabert--workerbase",
+  "displayName": "workerbase",
+  "description": "Knowledge base running on Cloudflare workers",
+  "version": "1.0.0",
+  "author": "AstraBert",
+  "homepage": "https://github.com/AstraBert/workerbase",
+  "skills": []
+}
