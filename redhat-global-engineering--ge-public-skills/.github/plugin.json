@@ -1,0 +1,9 @@
+{
+  "name": "redhat-global-engineering--ge-public-skills",
+  "displayName": "ge-public-skills",
+  "description": "Global Engineering Public Skills Repository",
+  "version": "1.0.0",
+  "author": "redhat-global-engineering",
+  "homepage": "https://github.com/redhat-global-engineering/ge-public-skills",
+  "skills": []
+}
