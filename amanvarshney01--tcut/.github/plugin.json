@@ -1,0 +1,9 @@
+{
+  "name": "amanvarshney01--tcut",
+  "displayName": "tcut",
+  "description": "Script terminal sessions in TypeScript, render reproducible MP4/GIF/SVG/HTML with Bun",
+  "version": "1.0.0",
+  "author": "AmanVarshney01",
+  "homepage": "https://github.com/AmanVarshney01/tcut",
+  "skills": []
+}
