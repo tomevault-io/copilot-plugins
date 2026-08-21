@@ -1,0 +1,9 @@
+{
+  "name": "wierdling--gofitsv3",
+  "displayName": "gofitsv3",
+  "description": "Make pretty pictures from the Hubble or JWST",
+  "version": "1.0.0",
+  "author": "wierdling",
+  "homepage": "https://github.com/wierdling/gofitsv3",
+  "skills": []
+}
