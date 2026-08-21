@@ -1,0 +1,9 @@
+{
+  "name": "off-grid-ai--ogac",
+  "displayName": "OGAC",
+  "description": "Open-source control plane for private, governed enterprise AI \u2014 one gateway for every model, composable governed pipelines, and apps your whole team builds in plain language, on infrastructure you own",
+  "version": "1.0.0",
+  "author": "off-grid-ai",
+  "homepage": "https://github.com/off-grid-ai/OGAC",
+  "skills": []
+}
