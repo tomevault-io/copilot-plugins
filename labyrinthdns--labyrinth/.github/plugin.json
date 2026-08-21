@@ -1,0 +1,9 @@
+{
+  "name": "labyrinthdns--labyrinth",
+  "displayName": "labyrinth",
+  "description": "Pure Go Recursive DNS Resolver with Web Dashboard",
+  "version": "1.0.0",
+  "author": "labyrinthdns",
+  "homepage": "https://github.com/labyrinthdns/labyrinth",
+  "skills": []
+}
