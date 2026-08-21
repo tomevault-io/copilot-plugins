@@ -7,13 +7,13 @@ QQ空间时光机 - 全量导出与本地浏览工具 | Archive your entire QZon
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [nixliuxin/QZone-Time-Machine](https://github.com/nixliuxin/QZone-Time-Machine).
+Original source: `AGENTS.md` in [nixliuxin/QZone-Time-Machine](https://github.com/nixliuxin/QZone-Time-Machine).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
