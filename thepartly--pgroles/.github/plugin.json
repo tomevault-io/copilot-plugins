@@ -1,0 +1,9 @@
+{
+  "name": "thepartly--pgroles",
+  "displayName": "pgroles",
+  "description": "Declarative PostgreSQL role graph manager. Define roles, memberships, object privileges, and default privileges in YAML.",
+  "version": "1.0.0",
+  "author": "thepartly",
+  "homepage": "https://github.com/thepartly/pgroles",
+  "skills": []
+}
