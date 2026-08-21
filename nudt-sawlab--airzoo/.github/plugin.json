@@ -1,0 +1,9 @@
+{
+  "name": "nudt-sawlab--airzoo",
+  "displayName": "AirZoo",
+  "description": "Dataset and Code for \"AirZoo : A Unified Large-Scale Dataset for Grounding Aerial Geometric 3D Vision\", ECCV 2026",
+  "version": "1.0.0",
+  "author": "nudt-sawlab",
+  "homepage": "https://github.com/nudt-sawlab/AirZoo",
+  "skills": []
+}
