@@ -4,7 +4,7 @@
   "repo": "drs-core-template",
   "description": "Next + .NET + keycloak + bicep + CI/CD",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uon-drs/drs-core-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T12:51:34Z"
+  "distributed_at": "2026-08-21T12:54:41Z"
 }
