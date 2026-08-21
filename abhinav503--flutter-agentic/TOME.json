@@ -4,7 +4,7 @@
   "repo": "flutter-agentic",
   "description": "Flutter Clean Architecture template optimised for AI coding agents \u2014 BLoC, Freezed, Dio, fpdart, GoRouter. Native rules for Claude Code, Cursor, Gemini, Codex & Amazon Q",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abhinav503/flutter-agentic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T02:33:06Z"
+  "distributed_at": "2026-08-21T02:45:11Z"
 }
