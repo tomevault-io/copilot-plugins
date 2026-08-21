@@ -7,14 +7,14 @@ MCP server + agent skills for AI tooling to discover, drive, observe, and test M
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [meshtastic/meshtastic-mcp](https://github.com/meshtastic/meshtastic-mcp).
+Original source: `GEMINI.md` in [meshtastic/meshtastic-mcp](https://github.com/meshtastic/meshtastic-mcp).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/meshtastic/meshtastic-mcp](https://github.com/meshtastic/meshtastic-mcp)
