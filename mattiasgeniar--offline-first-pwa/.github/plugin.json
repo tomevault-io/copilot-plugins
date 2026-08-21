@@ -1,0 +1,9 @@
+{
+  "name": "mattiasgeniar--offline-first-pwa",
+  "displayName": "offline-first-pwa",
+  "description": "Agent skill: the rules for building offline-first PWAs that launch instantly from the home screen",
+  "version": "1.0.0",
+  "author": "mattiasgeniar",
+  "homepage": "https://github.com/mattiasgeniar/offline-first-pwa",
+  "skills": []
+}
