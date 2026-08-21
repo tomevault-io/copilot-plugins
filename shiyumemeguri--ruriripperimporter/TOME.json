@@ -1,0 +1,44 @@
+{
+  "name": "RuriRipperImporter",
+  "owner": "ShiyumeMeguri",
+  "repo": "RuriRipperImporter",
+  "description": "\ud83d\ude07\u5ac1\u8aad\u5e7e\u4f55\u52d5\u57df",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShiyumeMeguri/RuriRipperImporter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T00:46:50Z"
+}
