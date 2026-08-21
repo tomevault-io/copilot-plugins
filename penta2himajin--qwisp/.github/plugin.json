@@ -1,0 +1,9 @@
+{
+  "name": "penta2himajin--qwisp",
+  "displayName": "qwisp",
+  "description": "Fast, optionally-lossless local inference for Qwen3.6-35B-A3B (MoE) on Apple Silicon \u2014 OpenAI-compatible server + CLI over a raw-Metal decode engine (Seedless) on MLX.",
+  "version": "1.0.0",
+  "author": "penta2himajin",
+  "homepage": "https://github.com/penta2himajin/qwisp",
+  "skills": []
+}
