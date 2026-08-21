@@ -1,0 +1,9 @@
+{
+  "name": "openai--terraform-provider-openai",
+  "displayName": "terraform-provider-openai",
+  "description": "The official Terraform provider for OpenAI.",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/terraform-provider-openai",
+  "skills": []
+}
