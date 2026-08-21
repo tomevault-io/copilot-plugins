@@ -1,9 +1,9 @@
 {
   "name": "matrixorigin--memoria",
-  "displayName": "Memoria",
-  "description": "Memoria",
+  "displayName": "memoria",
+  "description": "Secure memory management for AI Agents \u2022 Ensures data integrity \u2022 Reduces hallucinations \u2022 Maintains consistent long-term context",
   "version": "1.0.0",
   "author": "matrixorigin",
-  "homepage": "https://github.com/matrixorigin/Memoria",
+  "homepage": "https://github.com/matrixorigin/memoria",
   "skills": []
 }
