@@ -1,0 +1,9 @@
+{
+  "name": "m18h--kanea",
+  "displayName": "kanea",
+  "description": "Container orchestration in one binary - containerd, its own eBPF datapath, Let's Encrypt TLS, GitOps, autoscaling, and an MCP server. No Kubernetes.",
+  "version": "1.0.0",
+  "author": "m18h",
+  "homepage": "https://github.com/m18h/kanea",
+  "skills": []
+}
