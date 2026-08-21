@@ -1,93 +1,18 @@
-## release
+## review-code
 
-> Release workflow for FlutterAgentic. Follow these steps when the user asks to do a release.
+> Apply when user asks to review, check, audit, or validate generated or modified code against project rules.
 
 
-When the user asks to do a release, follow these steps interactively — ask for confirmation at each step before proceeding.
+Run after any AI-generated code to catch rule violations before committing.
 
-**Prerequisites** — this repo uses **multiple GitHub accounts**, so release auth must be explicit. The token lives in a git-ignored `.env` at the repo root. Load it and verify `gh`:
-```bash
-which gh
-set -a && . ./.env && set +a    # exports GH_TOKEN from the root .env
-gh auth status
-```
-`gh auth status` should report `Logged in … (GH_TOKEN)`. Source `.env` in every shell that runs a `gh` command — non-interactive shells don't inherit it. If `gh` is missing: `brew install gh`. If `.env` has no `GH_TOKEN`, create a fine-grained PAT (Contents: Read and write on this repo) at https://github.com/settings/personal-access-tokens/new and add it as `GH_TOKEN=…` to `.env` (never commit it). Stop if not ready. If `gh auth status` reports the token as invalid, confirm the shell has network access before replacing it — in a sandboxed agent environment, blocked network access can surface as an auth failure; re-run with network permission and `.env` sourced first.
+If no files were specified, ask: "Which files or feature should I review?"
 
-**Step 1 — Identify release branch**
-```bash
-git branch --show-current
-```
-If not `main`, ask: "Release from `{branch}`? Confirm or type a different name." Record as `{RELEASE_BRANCH}`.
+Read the project rules in this order before checking anything:
+1. `docs/ai-rules/conventions.md` — forbidden patterns and build rules
+2. `docs/reference/architecture.md` — layer boundaries, naming, DI, error flow, testing
 
-**Step 2 — Compare to main**
-```bash
-git log main..{RELEASE_BRANCH} --oneline
-git diff main..{RELEASE_BRANCH} --stat
-```
-Show the commit list for the user to review.
-
-**Step 3 — Version bump** — read current version:
-```bash
-grep "^version:" pubspec.yaml
-```
-Format: `MAJOR.MINOR.PATCH`. Rules: Major = breaking change; Minor = any `feat:` commit or new component/skill; Patch = fix/chore/docs/refactor only. Propose bump with one sentence of reasoning. Wait for confirmation.
-
-**Step 4 — Update `pubspec.yaml`** — replace the version line with the confirmed version.
-
-**Step 5 — Write release notes** — create `docs/releases/v{NEW_VERSION}.md` from `docs/releases/_template.md`. Two sections only:
-- **Features** — what a developer gains: new components, apps, integrations
-- **Agent Context Improvements** — what AI agents gain: new skills, rules, doc refs
-
-Rules: plain language only; one bullet per change; one sentence per bullet; no duplicates across sections; nothing obvious. Show draft and ask "Does this look good?" Wait for confirmation.
-
-**Step 6 — Commit on release branch**
-```bash
-git add pubspec.yaml docs/releases/v{NEW_VERSION}.md
-git commit -m "chore: release v{NEW_VERSION}"
-git push
-```
-
-**Step 7 — Merge to main**
-```bash
-git checkout main && git pull origin main
-git merge --no-ff {RELEASE_BRANCH} -m "chore: merge {RELEASE_BRANCH} into main for v{NEW_VERSION}"
-git push origin main
-```
-Stop on conflicts — ask user to resolve, then continue.
-
-**Step 8 — Tag and GitHub Release**
-```bash
-git tag v{NEW_VERSION}
-git push origin v{NEW_VERSION}
-gh release create v{NEW_VERSION} \
-  --title "v{NEW_VERSION} — {SUMMARY_TITLE}" \
-  --notes-file docs/releases/v{NEW_VERSION}.md \
-  --target main
-```
-Report the release URL to the user.
-
-**Step 8b — Build and attach Android APK (optional, per app)**
-
-> **Monorepo:** the repo root has no runnable app — build from inside an app folder (`apps/<app>/`), never the root. Skip for a pure template release that ships no binary.
-
-Ask which app to attach (e.g. `doc_scanner`, `jokes`) and record it as `{APP}`. Build the release APK from that app:
-```bash
-cd apps/{APP} && fvm flutter build apk --release
-```
-If `fvm` is unavailable, fall back to `cd apps/{APP} && flutter build apk --release`. Output: `apps/{APP}/build/app/outputs/flutter-apk/app-release.apk`.
-
-Upload as a named asset (named after the app + version):
-```bash
-gh release upload v{NEW_VERSION} \
-  apps/{APP}/build/app/outputs/flutter-apk/app-release.apk#{APP}-v{NEW_VERSION}.apk
-```
-Confirm the asset appears on the release page before continuing.
-
-**Step 9 — Clean up** — ask: "`{RELEASE_BRANCH}` has been merged. Delete it?" If yes:
-```bash
-git branch -d {RELEASE_BRANCH}
-git push origin --delete {RELEASE_BRANCH}
-```
+Then audit the specified files against every check in `docs/how-to/review-code.md`
+and report a ✅/❌ checklist. Offer to fix each violation after reporting.
 
 ---
 > Source: [abhinav503/flutter-agentic](https://github.com/abhinav503/flutter-agentic) — distributed by [TomeVault](https://tomevault.io).
