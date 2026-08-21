@@ -1,0 +1,9 @@
+{
+  "name": "flukelaster--siahra",
+  "displayName": "SIAHRA",
+  "description": "3D geospatial hazard-intelligence platform for Thailand \u2014 real-time flood, rainfall, dam and earthquake monitoring on an interactive provincial digital terrain.",
+  "version": "1.0.0",
+  "author": "flukelaster",
+  "homepage": "https://github.com/flukelaster/SIAHRA",
+  "skills": []
+}
