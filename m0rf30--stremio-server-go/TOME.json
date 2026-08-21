@@ -1,0 +1,44 @@
+{
+  "name": "stremio-server-go",
+  "owner": "M0Rf30",
+  "repo": "stremio-server-go",
+  "description": "UNOFFICIAL IPv6-capable, pure-Go drop-in for Stremio's streaming server (enginefs API): dual-stack torrents, with HLS transcoding and DLNA casting.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/M0Rf30/stremio-server-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T01:16:37Z"
+}
