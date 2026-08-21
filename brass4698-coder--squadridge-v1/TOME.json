@@ -4,7 +4,7 @@
   "repo": "squadridge-v1",
   "description": "Small squads. Big bridges. A privacy-first platform for cross-border dialogue and global conflict prevention.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brass4698-coder/squadridge-v1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T12:39:59Z"
+  "distributed_at": "2026-08-21T12:41:04Z"
 }
