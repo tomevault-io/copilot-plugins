@@ -1,0 +1,9 @@
+{
+  "name": "lianghsun--open-sheet",
+  "displayName": "open-sheet",
+  "description": "The spreadsheet framework built for agents \u2014 write the model as React, export a live .xlsx. The third medium, after open-slide and open-doc.",
+  "version": "1.0.0",
+  "author": "lianghsun",
+  "homepage": "https://github.com/lianghsun/open-sheet",
+  "skills": []
+}
