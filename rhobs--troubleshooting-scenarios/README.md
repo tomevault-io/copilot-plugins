@@ -7,11 +7,11 @@ Reproducible OpenShift scenarios for AI-assisted troubleshooting.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rhobs/troubleshooting-scenarios](https://github.com/rhobs/troubleshooting-scenarios).
+Original source: `AGENTS.md` in [rhobs/troubleshooting-scenarios](https://github.com/rhobs/troubleshooting-scenarios).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
