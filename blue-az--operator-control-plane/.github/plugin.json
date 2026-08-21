@@ -1,0 +1,9 @@
+{
+  "name": "blue-az--operator-control-plane",
+  "displayName": "operator-control-plane",
+  "description": "Local control plane for coordinating multi-agent work \u2014 tasks, claims, evidence, verification gates, and handoff briefs across sessions/agents.",
+  "version": "1.0.0",
+  "author": "blue-az",
+  "homepage": "https://github.com/blue-az/operator-control-plane",
+  "skills": []
+}
