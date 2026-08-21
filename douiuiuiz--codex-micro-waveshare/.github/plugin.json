@@ -1,0 +1,9 @@
+{
+  "name": "douiuiuiz--codex-micro-waveshare",
+  "displayName": "codex-micro-waveshare",
+  "description": "Codex Micro-compatible wireless controller for ChatGPT running on Waveshare ESP32-S3-Touch-AMOLED-1.75C (Windows). Community port of codex-micro-stopwatch.",
+  "version": "1.0.0",
+  "author": "Douiuiuiz",
+  "homepage": "https://github.com/Douiuiuiz/codex-micro-waveshare",
+  "skills": []
+}
