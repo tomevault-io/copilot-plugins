@@ -1,0 +1,9 @@
+{
+  "name": "m0rf30--stremio-server-go",
+  "displayName": "stremio-server-go",
+  "description": "UNOFFICIAL IPv6-capable, pure-Go drop-in for Stremio's streaming server (enginefs API): dual-stack torrents, with HLS transcoding and DLNA casting.",
+  "version": "1.0.0",
+  "author": "M0Rf30",
+  "homepage": "https://github.com/M0Rf30/stremio-server-go",
+  "skills": []
+}
