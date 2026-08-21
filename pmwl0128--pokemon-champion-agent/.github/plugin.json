@@ -1,0 +1,9 @@
+{
+  "name": "pmwl0128--pokemon-champion-agent",
+  "displayName": "pokemon_champion_agent",
+  "description": "Pok\u00e9mon Champions Agent Skills set for battle dex, metagame data, exact damage/Speed calculation, and audited Singles/Doubles team building.",
+  "version": "1.0.0",
+  "author": "pmwl0128",
+  "homepage": "https://github.com/pmwl0128/pokemon_champion_agent",
+  "skills": []
+}
