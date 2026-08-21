@@ -1,0 +1,9 @@
+{
+  "name": "j0ruge--skills-commands-manager",
+  "displayName": "skills_commands_manager",
+  "description": "Chewiesoft Marketplace \u2014 Claude Code plugin marketplace with skills and commands for development workflows",
+  "version": "1.0.0",
+  "author": "j0ruge",
+  "homepage": "https://github.com/j0ruge/skills_commands_manager",
+  "skills": []
+}
