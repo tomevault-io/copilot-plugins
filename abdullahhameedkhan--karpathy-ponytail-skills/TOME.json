@@ -4,7 +4,7 @@
   "repo": "karpathy-ponytail-skills",
   "description": "Karpathy's LLM coding guidelines merged with Ponytail's laziness ladder, think before coding, climb the simplicity ladder, touch only what you must.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AbdullahHameedKhan/karpathy-ponytail-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T00:32:36Z"
+  "distributed_at": "2026-08-21T00:50:18Z"
 }
