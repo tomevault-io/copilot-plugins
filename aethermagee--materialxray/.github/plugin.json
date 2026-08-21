@@ -1,0 +1,9 @@
+{
+  "name": "aethermagee--materialxray",
+  "displayName": "MaterialXray",
+  "description": "Proxy client for Android with rootful capabilities and Material Design style. Powered by Xray-core.",
+  "version": "1.0.0",
+  "author": "AetherMagee",
+  "homepage": "https://github.com/AetherMagee/MaterialXray",
+  "skills": []
+}
