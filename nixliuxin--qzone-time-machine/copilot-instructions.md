@@ -1,0 +1,31 @@
+## english-only
+
+> All technical content must be English-only
+
+
+# English-Only Technical Content
+
+All **technical content** in this repository MUST be written in English.
+This is a coding style rule, not a localization rule.
+
+Technical content includes:
+
+- Code: variable names, function names, class names, constants
+- Comments: inline, block, JSDoc annotations
+- Commit messages and PR descriptions
+- AI rules (`.mdc` files), `AGENTS.md`, any developer-facing docs
+- Log/print output, error messages, CLI help text
+
+**Exceptions** (non-technical, user-facing content — may be Chinese or multilingual):
+
+- `README.md` (Chinese primary README)
+- `README.en.md` (English README)
+- Viewer UI labels, navigation text, tooltips, status messages
+  (QZone is a Chinese product; viewer renders Chinese user data)
+- Future i18n locale/string-table files if added
+- QZone API parameter values that must match upstream protocol
+  (e.g. `format: 'jsonp'`, `inCharset: 'utf-8'`)
+
+---
+> Source: [nixliuxin/QZone-Time-Machine](https://github.com/nixliuxin/QZone-Time-Machine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
