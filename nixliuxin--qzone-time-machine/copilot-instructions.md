@@ -1,25 +1,17 @@
-## no-autonomous-git
+## no-cursor-attribution
 
-> Require explicit user permission before any git write or rule/config change
+> Never add AI-tool attribution trailers to git commits
 
 
-# No Autonomous Git Writes or Rule Changes
+# No AI Attribution in Commits
 
-## Forbidden without explicit user permission
-- Any git command that changes state: `commit`, `add`/stage, `push`, `merge`,
-  `rebase`, `reset`, `checkout`/`switch`, `restore`, `stash`, `tag`,
-  `cherry-pick`, `revert`, `branch -D`, `clean`.
-- Creating, editing, or deleting rule files (`.cursor/rules/**`, `AGENTS.md`)
-  or project config — unless the user asks for it in the current turn.
+When creating git commit messages, **never** append any of these trailers:
 
-## Allowed without asking
-- Read-only git: `status`, `diff`, `log`, `show`, `branch --list`.
-- Normal source/file edits that are not git commits and not rule changes.
+- `Co-authored-by: Cursor <cursoragent@cursor.com>`
+- `Made-with: Cursor`
+- Any other AI-tool attribution line
 
-## Workflow
-- When changes are ready, summarize what changed and ask before committing.
-- A one-time "commit" instruction authorizes only that commit, not future ones.
-- If unsure whether an action counts as a write, ask first.
+Commit messages must contain only the human-authored subject and body.
 
 ---
 > Source: [nixliuxin/QZone-Time-Machine](https://github.com/nixliuxin/QZone-Time-Machine) — distributed by [TomeVault](https://tomevault.io).
