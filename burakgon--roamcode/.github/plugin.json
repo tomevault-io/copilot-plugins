@@ -1,0 +1,9 @@
+{
+  "name": "burakgon--roamcode",
+  "displayName": "roamcode",
+  "description": "Self-hosted mission control for real Claude Code and Codex sessions \u2014 persistent terminals, automations, and browser/mobile control.",
+  "version": "1.0.0",
+  "author": "burakgon",
+  "homepage": "https://github.com/burakgon/roamcode",
+  "skills": []
+}
