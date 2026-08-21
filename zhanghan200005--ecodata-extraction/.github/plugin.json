@@ -1,0 +1,9 @@
+{
+  "name": "zhanghan200005--ecodata-extraction",
+  "displayName": "EcoData_Extraction",
+  "description": "A human-in-the-loop AI system for extracting and evaluating structured data from scientific literature. Integrated literature search, LLM semantic filtering, PDF structure parsing, OCR/table extractio",
+  "version": "1.0.0",
+  "author": "ZhangHan200005",
+  "homepage": "https://github.com/ZhangHan200005/EcoData_Extraction",
+  "skills": []
+}
