@@ -1,0 +1,9 @@
+{
+  "name": "sound-systems--fileloft",
+  "displayName": "fileloft",
+  "description": "a framework agnostic, composable implementation of the tus resumable upload protocol in rust.",
+  "version": "1.0.0",
+  "author": "sound-systems",
+  "homepage": "https://github.com/sound-systems/fileloft",
+  "skills": []
+}
