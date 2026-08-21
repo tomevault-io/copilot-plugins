@@ -1,0 +1,9 @@
+{
+  "name": "ohdearquant--moodboard",
+  "displayName": "moodboard",
+  "description": "Visual coherence measurement: score how well an image fits a moodboard's look, with calibrated intervals and a fully traceable offline report.",
+  "version": "1.0.0",
+  "author": "ohdearquant",
+  "homepage": "https://github.com/ohdearquant/moodboard",
+  "skills": []
+}
