@@ -4,7 +4,7 @@
   "repo": "moodboard",
   "description": "Visual coherence measurement: score how well an image fits a moodboard's look, with calibrated intervals and a fully traceable offline report.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ohdearquant/moodboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T01:15:53Z"
+  "distributed_at": "2026-08-21T01:30:39Z"
 }
