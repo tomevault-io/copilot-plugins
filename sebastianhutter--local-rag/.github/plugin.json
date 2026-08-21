@@ -1,0 +1,9 @@
+{
+  "name": "sebastianhutter--local-rag",
+  "displayName": "local-rag",
+  "description": "A simple local RAG with sqlite and ollama. All data is kept local, MCP exposes it for further use.",
+  "version": "1.0.0",
+  "author": "sebastianhutter",
+  "homepage": "https://github.com/sebastianhutter/local-rag",
+  "skills": []
+}
