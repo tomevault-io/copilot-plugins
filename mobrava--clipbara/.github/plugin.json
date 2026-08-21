@@ -1,0 +1,9 @@
+{
+  "name": "mobrava--clipbara",
+  "displayName": "Clipbara",
+  "description": "Free, open-source clipboard manager for macOS. Native card-style UI with Pinboards, Quick Look, and 100% local storage.",
+  "version": "1.0.0",
+  "author": "mobrava",
+  "homepage": "https://github.com/mobrava/Clipbara",
+  "skills": []
+}
