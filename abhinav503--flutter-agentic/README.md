@@ -7,11 +7,11 @@ Flutter Clean Architecture template optimised for AI coding agents — BLoC, Fre
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [abhinav503/flutter-agentic](https://github.com/abhinav503/flutter-agentic).
+Original source: `AGENTS.md` in [abhinav503/flutter-agentic](https://github.com/abhinav503/flutter-agentic).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
