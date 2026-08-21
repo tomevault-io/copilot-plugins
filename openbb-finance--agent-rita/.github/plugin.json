@@ -1,0 +1,9 @@
+{
+  "name": "openbb-finance--agent-rita",
+  "displayName": "agent-rita",
+  "description": "An open-source, model-agnostic agent for the OpenBB Workspace",
+  "version": "1.0.0",
+  "author": "OpenBB-finance",
+  "homepage": "https://github.com/OpenBB-finance/agent-rita",
+  "skills": []
+}
