@@ -1,0 +1,9 @@
+{
+  "name": "kunmoe--kun-galgame-infra",
+  "displayName": "kun-galgame-infra",
+  "description": "Kun Visual Novel infrastructures, oauth service, image service, moderation service, artifacts service, etc.",
+  "version": "1.0.0",
+  "author": "KunMoe",
+  "homepage": "https://github.com/KunMoe/kun-galgame-infra",
+  "skills": []
+}
