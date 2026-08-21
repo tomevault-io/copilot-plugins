@@ -1,0 +1,9 @@
+{
+  "name": "aknochow--ogo",
+  "displayName": "ogo",
+  "description": "OGO (OpenShell Gateway Operator): Deploy and manage NVIDIA OpenShell Gateway instances on OpenShift",
+  "version": "1.0.0",
+  "author": "aknochow",
+  "homepage": "https://github.com/aknochow/ogo",
+  "skills": []
+}
