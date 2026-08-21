@@ -1,185 +1,120 @@
-## 00-project-context
+## 01-architecture
 
-> Repository layout source-of-truth for AI context
+> Repo dependency direction, layer boundaries, and state/context rules
 
 
-# Project Context
+# Architecture
 
-This rule set provides a permanent and sustainable **AI development context / architecture system** for this repository[cite: 1].
+This document formalizes the "layer dependency" and "state/context" approach of the existing code inside the repo[cite: 2]. The goal is not to redesign the architecture, but to make the existing pattern a rule for AI[cite: 2].
 
-## Repository root
+## Layers (derived from real code)
 
-Repo root[cite: 1]:
+1. `src/components/`[cite: 2]
+   - UI components[cite: 2].
+   - Imports its own styling from under `src/assets/css/components/**`[cite: 2].
+   - Composition between components is free, but `src/libs/**` is preferred for shared abstractions[cite: 2].
 
-- `src/` : actual library source code[cite: 1]
-- `docs/` : docs site (MDX + demo/example pages)[cite: 1]
-- `dist/` : build output (for package publishing)[cite: 1]
+2. `src/libs/infrastructure/`[cite: 2]
+   - Shared utility & design tokens & types[cite: 2].
+   - Most commonly used ones[cite: 2]:
+     - `src/libs/infrastructure/shared/Utils.ts`[cite: 2]
+     - `src/libs/infrastructure/shared/DATE.ts`[cite: 2]
+     - `src/libs/infrastructure/shared/Enums.ts`[cite: 2]
+     - `src/libs/infrastructure/types/index.ts`[cite: 2]
+     - `src/libs/infrastructure/types/IGlobalProps.ts`[cite: 2]
 
-## Main source directory
+3. `src/libs/core/application/`[cite: 2]
+   - Context/provider and hooks layer[cite: 2].
+   - Usage-focused infrastructure[cite: 2]:
+     - `ConfigProvider`, `NotificationProvider`, `LoadingProvider`[cite: 2]
+     - `useConfirm`, `useNotification`, `useValidation`, `useLayout`, `useLoading`[cite: 2]
 
-`src/` is the main source[cite: 1].
+## Dependency direction (practical rule)
 
-Specifically[cite: 1]:
+- Components (UI) -> frequently import `libs/infrastructure` types and utilities[cite: 2].
+  - e.g., Inside `Select`: `Utils.GetClassName` + `Option` type[cite: 2].
+    - `src/components/form/select/index.tsx`[cite: 2]
+  - e.g., Inside `Table`: `FilterOperator` enum[cite: 2].
+    - `src/components/data-display/table/index.tsx`[cite: 2]
 
-- Public entry/export: `src/index.ts`[cite: 1]
-- Public helpers/utilities: `src/libs/infrastructure/shared/*`[cite: 1]
-- Components: `src/components/*`[cite: 1]
-- Provider/Context + hooks: `src/libs/core/application/*`[cite: 1]
+- `core/application` -> `components` dependency exists in real code (especially in Notification payload render helpers)[cite: 2].
+  - e.g., `useNotification` hook uses `components/feedback/notification/helpers` functions[cite: 2].
+    - `src/libs/core/application/hooks/useNotification.ts`[cite: 2]
+  - Therefore, instead of an "idealistic layer arrow direction": an approach of _not changing the dependencies the existing code works with_ is adopted[cite: 2].
 
-## Components / hooks / utilities / types / enums
+## State management rules
 
-### Components
+State across the repo is managed in 2 main ways[cite: 2]:
 
-Components under `src/components/` are divided into categories[cite: 1]. Example[cite: 1]:
+### 1) Controlled state (parent-owned)
 
-- `src/components/form/date-picker/`[cite: 1]
-- `src/components/feedback/modal/`[cite: 1]
-- `src/components/feedback/tooltip/`[cite: 1]
-- `src/components/navigation/steps/`[cite: 1]
+- State values such as `value`, `currentStep`, `open.get/set` either come directly from props or are committed to the parent[cite: 2].
 
-In each component folder, there are usually[cite: 1]:
+Example references[cite: 2]:
 
-- `index.tsx` (public component default export)[cite: 1]
-- `IProps.ts` or `Props.ts` (prop types)[cite: 1]
-- `helpers.ts` (helper functions)[cite: 1]
-- related `styles.css` import (component's styling)[cite: 1]
+- Modal open state is managed externally as "getter/setter"[cite: 2]:
+  - `src/components/feedback/modal/index.tsx`[cite: 2]
+  - `src/components/feedback/modal/IProps.ts` (`open: { get; set }`)[cite: 2]
+- Steps controlled / uncontrolled[cite: 2]:
+  - `src/components/navigation/steps/index.tsx` (`isControlled` + `currentStep`)[cite: 2]
+  - `src/components/navigation/steps/IProps.ts`[cite: 2]
 
-Example references[cite: 1]:
+### 2) Uncontrolled / internal state (component-owned)
 
-- `src/components/form/button/index.tsx`[cite: 1]
-- `src/components/form/button/Button.tsx`[cite: 1]
-- `src/components/form/select/index.tsx`[cite: 1]
-- `src/components/feedback/modal/index.tsx`[cite: 1]
+- Overlay components such as Modal/Popover/Tooltip use "internal mounted/entered/exited" state for animation[cite: 2].
+  - Modal: `mounted/entered/exited` etc[cite: 2].
+    - `src/components/feedback/modal/index.tsx`[cite: 2]
+  - Popover: `open/mounted/entered/exited`[cite: 2]
+    - `src/components/feedback/popover/index.tsx`[cite: 2]
 
-### Hooks + Context/Provider
+### "Local ref as latest" pattern
 
-Provider/context layer[cite: 1]:
+To reduce the callback stale closure problem in many large components[cite: 2]:
 
-- `src/libs/core/application/contexts/Config.tsx` (`ConfigProvider`)[cite: 1]
-- `src/libs/core/application/contexts/Notification.tsx` (`NotificationProvider`)[cite: 1]
-- `src/libs/core/application/contexts/Loading.tsx` (`LoadingProvider`)[cite: 1]
+- "latest prop" values are kept with `useRef`[cite: 2]
+- handlers read the updated value via ref[cite: 2]
 
-Hooks[cite: 1]:
+Example[cite: 2]:
 
-- `src/libs/core/application/hooks/useConfirm.ts`[cite: 1]
-- `src/libs/core/application/hooks/useNotification.ts`[cite: 1]
-- `src/libs/core/application/hooks/useValidation.ts`[cite: 1]
-- Hook barrel: `src/libs/core/application/hooks/index.ts`[cite: 1]
+- KanbanBoard:
+  - `src/components/data-display/kanban-board/index.tsx`[cite: 2]
 
-Context/hook example references[cite: 1]:
+## Context/Provider pattern
 
-- `NotificationProvider` usage flow: `src/libs/core/application/contexts/Notification.tsx`[cite: 1]
-- `useValidation` usage flow: `src/libs/core/application/hooks/useValidation.ts`[cite: 1]
+Context/provider layer[cite: 2]:
 
-### Utilities + shared types/enums
+- `ConfigProvider` (configs like list pagination defaults)[cite: 2]
+  - `src/libs/core/application/contexts/Config.tsx`[cite: 2]
+- `LoadingProvider`[cite: 2]
+  - `src/libs/core/application/contexts/Loading.tsx`[cite: 2]
+- `NotificationProvider`[cite: 2]
+  - `src/libs/core/application/contexts/Notification.tsx`[cite: 2]
 
-Shared utilities[cite: 1]:
+NotificationProvider:
 
-- `src/libs/infrastructure/shared/Utils.ts`[cite: 1]
-- `src/libs/infrastructure/shared/DATE.ts`[cite: 1]
-- `src/libs/infrastructure/shared/Enums.ts`[cite: 1]
-- `src/libs/infrastructure/shared/CodingConventions.ts`[cite: 1]
+- Provides `dispatchToast` and `askConfirm` via context[cite: 2]
+- Related UI components are rendered inside the provider[cite: 2]
+  - `Notification` + `PopupConfirm`[cite: 2]
+  - `src/components/feedback/notification` + `src/components/feedback/popup-confirm`[cite: 2]
 
-Shared design tokens & types[cite: 1]:
+## Styling + theme
 
-- `src/libs/infrastructure/types/index.ts` (e.g., component-friendly types like `Variants`, `Color`, `Sizes`, `Option`, `FilterOperator`, etc.)[cite: 1]
-- `src/libs/infrastructure/types/IGlobalProps.ts` (common prop mixins: `IVariantProps`, `IIconProps`, `IBorderProps`, etc.)[cite: 1]
+- Global token CSS[cite: 2]:
+  - `src/index.ts` -> `./assets/css/core/har-core.css`[cite: 2]
+- Component-level CSS[cite: 2]:
+  - Inside component: `../../../assets/css/components/**/styles.css`[cite: 2]
+- Theme is usually applied via CSS variables (inline style)[cite: 2]:
+  - Steps theme:
+    - `src/components/navigation/steps/helpers.ts` (`--steps-current`, `--steps-completed`, `--steps-pending`)[cite: 2]
 
-Enum reference[cite: 1]:
+## Public API boundaries
 
-- `src/libs/infrastructure/shared/Enums.ts` (e.g., `FilterOperator`)[cite: 1]
+- The library's public API is determined by `export { ... }` inside `src/index.ts`[cite: 2].
+  - `src/index.ts`[cite: 2]
 
-## Styling / theme system
+Rule:
 
-### Global core CSS
-
-`src/index.ts` imports core tokens/CSS[cite: 1]:
-
-- Inside `src/index.ts`: `import "./assets/css/core/har-core.css";`[cite: 1]
-
-### Component-level CSS
-
-Components import their own CSS files[cite: 1]:
-
-- e.g., Inside `src/components/form/select/index.tsx`: `../../../assets/css/components/form/select/styles.css`[cite: 1]
-- e.g., Inside `src/components/feedback/modal/index.tsx`: `../../../assets/css/components/feedback/modal/styles.css`[cite: 1]
-
-Component style entry example references[cite: 1]:
-
-- `src/assets/css/core/har-core.css`[cite: 1]
-- `src/assets/css/components/feedback/modal/styles.css`[cite: 1]
-
-### Inline theme (example)
-
-Some components apply a "theme" via CSS variables[cite: 1]. E.g., Steps[cite: 1]:
-
-- Inside `src/components/navigation/steps/helpers.ts`: `getStepsThemeStyle`[cite: 1]
-
-## Test infrastructure
-
-In the repo, as the test framework[cite: 1]:
-
-- Node built-in test: `node:test`[cite: 1]
-
-Example[cite: 1]:
-
-- `src/components/navigation/pagination/helpers.test.ts`[cite: 1]
-- `src/components/navigation/steps/helpers.test.ts` (available)[cite: 1]
-
-Important: There is no unit test script in package scripts; `helpers.test.ts` files exist for the "helper level"[cite: 1].
-
-## Story/demo infrastructure
-
-Docs site[cite: 1]:
-
-- Demo sources: `docs/components/demos/**`[cite: 1]
-- MDX component map: `docs/components/mdx.tsx` (e.g., registers exports like `ButtonBasic`, `ModalBasic`)[cite: 1]
-
-Example references[cite: 1]:
-
-- `docs/components/mdx.tsx`[cite: 1]
-- `docs/components/demos/feedback/modal/basic.tsx`[cite: 1]
-
-## Public exports / export graph
-
-The public API of the library is provided as "named exports" via `src/index.ts`[cite: 1].
-
-Examples in `src/index.ts`[cite: 1]:
-
-- `export { Button, Select, Modal, Tooltip, ... }`[cite: 1]
-- Provider/hook exports: `ConfigProvider`, `NotificationProvider`, `LoadingProvider`, `useLayout`, `useNotification`, `useConfirm`, `useLoading`[cite: 1]
-
-There is also a category barrel export pattern, but the primary source public API is `src/index.ts`[cite: 1]:
-
-- `src/components/charts/index.ts`[cite: 1]
-
-## Build system
-
-`package.json` build[cite: 1]:
-
-- TypeScript compilation with `tsc`[cite: 1]
-- Copy `./src/assets`: `cp -r ./src/assets dist/`[cite: 1]
-- `node src/scripts/prepare-package.mjs` (post-build `dist/styles.css` generation / CSS import flattening)[cite: 1]
-
-References[cite: 1]:
-
-- `package.json` scripts[cite: 1]
-- `src/scripts/prepare-package.mjs`[cite: 1]
-
-## Linting / formatting
-
-There is no standard `eslint`/`prettier` script at the repo root (only `prettier` as a dependency)[cite: 1].
-
-The main verification is done through "build (tsc)"[cite: 1].
-
-## Naming convention "source notes"
-
-- Component folder: `kebab-case` (e.g., `date-picker`, `upload`)[cite: 1]
-- Component name (export): `PascalCase` (e.g., `DatePicker`, `Upload`)[cite: 1]
-- Props file:
-  - in most places: `IProps.ts` or `Props.ts`[cite: 1]
-  - example: `src/components/form/select/Props.ts`, `src/components/feedback/modal/IProps.ts`[cite: 1]
-- Component index file: mostly `index.tsx`[cite: 1]
+- When a new component is added, updating the public API on `src/index.ts` is a "priority"[cite: 2].
 
 ---
 > Source: [kaancetin-f/harjs-design-react-ui](https://github.com/kaancetin-f/harjs-design-react-ui) — distributed by [TomeVault](https://tomevault.io).
