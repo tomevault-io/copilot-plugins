@@ -1,0 +1,9 @@
+{
+  "name": "panchorange--voxmap",
+  "displayName": "voxmap",
+  "description": "Open-source speaker diarization library and voxmap-studio annotation tool",
+  "version": "1.0.0",
+  "author": "panchorange",
+  "homepage": "https://github.com/panchorange/voxmap",
+  "skills": []
+}
