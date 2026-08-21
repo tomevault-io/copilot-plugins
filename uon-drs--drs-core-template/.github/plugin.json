@@ -1,0 +1,9 @@
+{
+  "name": "uon-drs--drs-core-template",
+  "displayName": "drs-core-template",
+  "description": "Next + .NET + keycloak + bicep + CI/CD",
+  "version": "1.0.0",
+  "author": "uon-drs",
+  "homepage": "https://github.com/uon-drs/drs-core-template",
+  "skills": []
+}
