@@ -1,0 +1,9 @@
+{
+  "name": "mintotsukino--claude-novel-workflow",
+  "displayName": "claude-novel-workflow",
+  "description": "Canon-driven multi-agent Claude Code workflow for long-form fiction, with a real working novel as the example project.",
+  "version": "1.0.0",
+  "author": "MintoTsukino",
+  "homepage": "https://github.com/MintoTsukino/claude-novel-workflow",
+  "skills": []
+}
