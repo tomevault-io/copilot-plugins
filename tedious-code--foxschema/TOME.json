@@ -4,7 +4,7 @@
   "repo": "foxschema",
   "description": "FoxSchema \u2014 database schema diff & migration tool (monorepo: web, desktop, cli + core/shared).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tedious-code/foxschema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T00:42:38Z"
+  "distributed_at": "2026-08-21T01:38:26Z"
 }
