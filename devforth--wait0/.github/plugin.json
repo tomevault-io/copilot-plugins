@@ -1,0 +1,9 @@
+{
+  "name": "devforth--wait0",
+  "displayName": "wait0",
+  "description": "Instant cache-first HTTP proxy for SSR. Serves dynamic HTML from RAM now, revalidates in background.",
+  "version": "1.0.0",
+  "author": "devforth",
+  "homepage": "https://github.com/devforth/wait0",
+  "skills": []
+}
