@@ -1,0 +1,9 @@
+{
+  "name": "hamanpaul--testpilot-core",
+  "displayName": "testpilot-core",
+  "description": "TestPilot core (plugin SDK + runtime; split from hamanpaul/testpilot)",
+  "version": "1.0.0",
+  "author": "hamanpaul",
+  "homepage": "https://github.com/hamanpaul/testpilot-core",
+  "skills": []
+}
