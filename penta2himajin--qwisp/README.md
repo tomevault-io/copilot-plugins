@@ -7,11 +7,11 @@ Fast, optionally-lossless local inference for Qwen3.6-35B-A3B (MoE) on Apple Sil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [penta2himajin/qwisp](https://github.com/penta2himajin/qwisp).
+Original source: `AGENTS.md` in [penta2himajin/qwisp](https://github.com/penta2himajin/qwisp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
