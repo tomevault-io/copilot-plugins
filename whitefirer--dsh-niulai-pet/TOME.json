@@ -1,0 +1,44 @@
+{
+  "name": "dsh-niulai-pet",
+  "owner": "whitefirer",
+  "repo": "dsh-niulai-pet",
+  "description": "\u725b\u6765\u684c\u5ba0\uff1aagent \u4efb\u52a1\u5b8c\u6210\u5b83\u5c31\u8e66\u51fa\u6765\u558a\u300c\u5988\uff5e\uff5e\u5988\uff5e\uff5e\u300d\u2014\u2014dsh \u7eaf\u5ba2\u6237\u7aef\u684c\u5ba0\u63d2\u4ef6\uff086 \u76ae\u80a4/\u7b7e\u540d\u52a8\u4f5c/\u5408\u6210\u53eb\u58f0\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whitefirer/dsh-niulai-pet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T10:36:26Z"
+}
