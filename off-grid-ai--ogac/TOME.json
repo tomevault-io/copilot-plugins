@@ -4,7 +4,7 @@
   "repo": "OGAC",
   "description": "Open-source control plane for private, governed enterprise AI \u2014 one gateway for every model, composable governed pipelines, and apps your whole team builds in plain language, on infrastructure you own.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/off-grid-ai/OGAC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T00:58:48Z"
+  "distributed_at": "2026-08-21T01:07:29Z"
 }
