@@ -1,0 +1,44 @@
+{
+  "name": "meshtastic-mcp",
+  "owner": "meshtastic",
+  "repo": "meshtastic-mcp",
+  "description": "MCP server + agent skills for AI tooling to discover, drive, observe, and test Meshtastic devices and apps",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/meshtastic/meshtastic-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T00:33:14Z"
+}
