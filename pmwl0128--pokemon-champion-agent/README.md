@@ -7,11 +7,11 @@ Pokémon Champions Agent Skills set for battle dex, metagame data, exact damage/
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pmwl0128/pokemon_champion_agent](https://github.com/pmwl0128/pokemon_champion_agent).
+Original source: `AGENTS.md` in [pmwl0128/pokemon_champion_agent](https://github.com/pmwl0128/pokemon_champion_agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
