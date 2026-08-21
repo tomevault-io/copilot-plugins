@@ -1,0 +1,9 @@
+{
+  "name": "cyrusmaher--efficient-esmc",
+  "displayName": "efficient-esmc",
+  "description": "Efficient ESMC research: distillation, JAX, quantization, and single-GPU training",
+  "version": "1.0.0",
+  "author": "cyrusmaher",
+  "homepage": "https://github.com/cyrusmaher/efficient-esmc",
+  "skills": []
+}
