@@ -1,0 +1,9 @@
+{
+  "name": "indradhanush--skills",
+  "displayName": "skills",
+  "description": "Collection of Claude skills installable as plugins",
+  "version": "1.0.0",
+  "author": "indradhanush",
+  "homepage": "https://github.com/indradhanush/skills",
+  "skills": []
+}
