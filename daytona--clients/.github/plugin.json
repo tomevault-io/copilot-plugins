@@ -1,0 +1,9 @@
+{
+  "name": "daytona--clients",
+  "displayName": "clients",
+  "description": "Official SDKs, API clients, and CLI/MCP tools for Daytona, the secure and elastic infrastructure for running AI-generated code",
+  "version": "1.0.0",
+  "author": "daytona",
+  "homepage": "https://github.com/daytona/clients",
+  "skills": []
+}
