@@ -1,103 +1,61 @@
-## 04-naming-and-exports
+## 05-testing
 
-> Naming convention + public export and barrel export rules
+> Repo test infrastructure (helper tests + compatibility smoke test)
 
 
-# Naming & Exports
+# Testing Rules
 
-In this repo, naming and export rules are derived from real code[cite: 5].
+The repo does not have a "component rendering" style test infrastructure; instead[cite: 6]:
 
-## Naming convention (real examples)
+- helper unit tests via `node:test` for pure logic functions[cite: 6]
+- build/compat smoke test at package level[cite: 6]
 
-### Folder
+## Framework / tooling
 
-- Under `src/components/`: category -> component folder[cite: 5]
-- Component folder: `kebab-case`[cite: 5]
-  - `src/components/form/date-picker/`[cite: 5]
-  - `src/components/form/upload/`[cite: 5]
-  - `src/components/feedback/tooltip/`[cite: 5]
+- Test framework: Node built-in `node:test`[cite: 6]
+  - example:
+    - `src/components/navigation/pagination/helpers.test.ts`[cite: 6]
+    - `src/components/navigation/steps/helpers.test.ts`[cite: 6]
+    - `src/components/layout/layout/helpers.test.ts`[cite: 6]
 
-### Component name (export)
+File naming:
 
-- Exported component name: `PascalCase`[cite: 5]
-  - `DatePicker`, `Upload`, `Tooltip`, `Modal`, `Steps`[cite: 5]
+- `helpers.test.ts` (in the same folder as helper files)[cite: 6]
 
-### Props type file
+Coverage/RTL/snapshot:
 
-- Usually `IProps.ts` or `Props.ts`[cite: 5]
-  - Modal: `src/components/feedback/modal/IProps.ts`[cite: 5]
-  - Steps: `src/components/navigation/steps/IProps.ts`[cite: 5]
-  - Select: `src/components/form/select/Props.ts`[cite: 5]
-  - Upload: `src/components/form/upload/Props.ts`[cite: 5]
+- No Snapshot / React Testing Library / Jest/Vitest/Playwright present[cite: 6].
 
-### Helper / positioning files
+## Test execution scripts
 
-- `helpers.ts` (logic)[cite: 5]
-  - `src/components/navigation/steps/helpers.ts`[cite: 5]
-  - `src/components/navigation/pagination/helpers.ts`[cite: 5]
-- `position.ts` (overlay position)[cite: 5]
-  - `src/components/feedback/popover/position.ts`[cite: 5]
-  - `src/components/feedback/tooltip/position.ts`[cite: 5]
+As test script in `package.json`[cite: 6]:
 
-### Constants / fixtures
-
-- Constants like `PER_PAGE_OPTIONS`: kept in ALL_CAPS inside `helpers.ts` or helper files[cite: 5]:
-  - `src/components/navigation/pagination/helpers.ts`[cite: 5]
-
-## Export pattern (real examples)
-
-### Inside component
-
-- In every component folder[cite: 5]:
-  - `index.tsx` : `export default` (public component)[cite: 5]
-  - If a compound component exists: static property attach inside `index.tsx`[cite: 5]
-
-Example:
-
-- Button compound attach:
-  - `src/components/form/button/index.tsx` (Button.Group/Action/Split)[cite: 5]
-  - Base:
-    - `src/components/form/button/Button.tsx`[cite: 5]
-
-- Input compound attach:
-  - `src/components/form/input/index.tsx` (AddonBefore/AddonAfter/Icon/Pin, etc.)[cite: 5]
-
-### Public API (library export)
-
-- Public API of the library is `src/index.ts`[cite: 5]:
-  - Individual imports + `export { ... }` inside `src/index.ts`[cite: 5]
-
-Example:
-
-- `src/index.ts`:
-  - `import DatePicker from "./components/form/date-picker";`[cite: 5]
-  - `export { DatePicker, Select, Modal, Tooltip, ... }`[cite: 5]
-
-Rule:
-
-- When creating a new component, update `src/index.ts` first[cite: 5].
-- Category-level barrel (`src/components/charts/index.ts`) _exists_, but primary source for public API is `src/index.ts`[cite: 5].
-  - e.g.,
-    - `src/components/charts/index.ts`[cite: 5]
-
-### Package entry points (package.json exports)
-
-Inside `package.json`, there are only exports for `dist/` and some sub-paths[cite: 5]:
-
-- `.` -> `./dist/index.js`[cite: 5]
-- `./config` -> dist contexts index[cite: 5]
-- `./hooks` -> dist hooks index[cite: 5]
-- `./types` -> dist infrastructure/types index[cite: 5]
-- `./utils` -> dist infrastructure/shared index[cite: 5]
-- `./styles.css` -> dist/styles.css[cite: 5]
+- `test:compat`[cite: 6]
+  - `src/scripts/compatibility/verify.mjs`[cite: 6]
+  - This script packs the library with `npm pack` and performs smoke tests via `npm run build` in different application templates[cite: 6].
 
 Reference:
 
-- `package.json` `exports` section[cite: 5]
+- `package.json` -> `test:compat`[cite: 6]
+- `src/scripts/compatibility/verify.mjs`[cite: 6]
 
-Rule:
+## Test rule for new components
 
-- If a new public API needs to be added, `src/index.ts` + `package.json exports` are evaluated together[cite: 5].
+If a new component contains "logic" rather than "UI state"[cite: 6]:
+
+- separate logic helpers into `helpers.ts`[cite: 6]
+- add `helpers.test.ts`[cite: 6]
+- use `node:test` + `assert/strict` pattern[cite: 6]
+
+UI behaviors like Overlay/focus[cite: 6]:
+
+- Since the repo lacks renderer test infrastructure to test such behaviors,
+  - focus on testing helper calculation functions (e.g., `position.ts`, `calculate*`)[cite: 6].
+
+## What is triggered in CI? (repo introspection)
+
+Since there is no script in the repo that runs unit tests,
+the primary assurance is "typecheck + build" and `test:compat` smoke test[cite: 6].
 
 ---
 > Source: [kaancetin-f/harjs-design-react-ui](https://github.com/kaancetin-f/harjs-design-react-ui) — distributed by [TomeVault](https://tomevault.io).
