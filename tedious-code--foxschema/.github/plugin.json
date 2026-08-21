@@ -1,0 +1,9 @@
+{
+  "name": "tedious-code--foxschema",
+  "displayName": "foxschema",
+  "description": "FoxSchema \u2014 database schema diff & migration tool (monorepo: web, desktop, cli + core/shared).",
+  "version": "1.0.0",
+  "author": "tedious-code",
+  "homepage": "https://github.com/tedious-code/foxschema",
+  "skills": []
+}
