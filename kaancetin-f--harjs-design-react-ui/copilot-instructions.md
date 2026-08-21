@@ -1,120 +1,162 @@
-## 01-architecture
+## 02-components
 
-> Repo dependency direction, layer boundaries, and state/context rules
+> Existing component architecture, compound patterns, and overlay/controlled rules
 
 
-# Architecture
+# Components System
 
-This document formalizes the "layer dependency" and "state/context" approach of the existing code inside the repo[cite: 2]. The goal is not to redesign the architecture, but to make the existing pattern a rule for AI[cite: 2].
+This file supports the "do not invent" principle when building new components: it formalizes existing component patterns from real code[cite: 3].
 
-## Layers (derived from real code)
+## Folder structure (real pattern)
 
-1. `src/components/`[cite: 2]
-   - UI components[cite: 2].
-   - Imports its own styling from under `src/assets/css/components/**`[cite: 2].
-   - Composition between components is free, but `src/libs/**` is preferred for shared abstractions[cite: 2].
+- Components are under `src/components/<category>/<component>/`[cite: 3].
+- Public entry: `index.tsx` in most components[cite: 3]
+  - e.g.,
+    - `src/components/form/date-picker/index.tsx`[cite: 3]
+    - `src/components/feedback/modal/index.tsx`[cite: 3]
+    - `src/components/feedback/tooltip/index.tsx`[cite: 3]
+- Prop types[cite: 3]:
+  - Usually `IProps.ts` (e.g., Modal, Steps, Table)[cite: 3]
+  - In some components `Props.ts` (e.g., Select)[cite: 3]
+  - e.g.,
+    - `src/components/feedback/modal/IProps.ts`[cite: 3]
+    - `src/components/navigation/steps/IProps.ts`[cite: 3]
+    - `src/components/form/select/Props.ts`[cite: 3]
+- Component sub-parts[cite: 3]:
+  - Files like `helpers.ts` / `position.ts`[cite: 3]
+  - e.g.,
+    - `src/components/feedback/popover/position.ts`[cite: 3]
+    - `src/components/feedback/tooltip/position.ts`[cite: 3]
 
-2. `src/libs/infrastructure/`[cite: 2]
-   - Shared utility & design tokens & types[cite: 2].
-   - Most commonly used ones[cite: 2]:
-     - `src/libs/infrastructure/shared/Utils.ts`[cite: 2]
-     - `src/libs/infrastructure/shared/DATE.ts`[cite: 2]
-     - `src/libs/infrastructure/shared/Enums.ts`[cite: 2]
-     - `src/libs/infrastructure/types/index.ts`[cite: 2]
-     - `src/libs/infrastructure/types/IGlobalProps.ts`[cite: 2]
+## Styling entry rule
 
-3. `src/libs/core/application/`[cite: 2]
-   - Context/provider and hooks layer[cite: 2].
-   - Usage-focused infrastructure[cite: 2]:
-     - `ConfigProvider`, `NotificationProvider`, `LoadingProvider`[cite: 2]
-     - `useConfirm`, `useNotification`, `useValidation`, `useLayout`, `useLoading`[cite: 2]
+- Every component index file includes its relevant CSS import[cite: 3]:
+  - `src/components/form/select/index.tsx` -> `assets/css/components/form/select/styles.css`[cite: 3]
+  - `src/components/feedback/modal/index.tsx` -> `assets/css/components/feedback/modal/styles.css`[cite: 3]
 
-## Dependency direction (practical rule)
+When adding a new component[cite: 3]:
 
-- Components (UI) -> frequently import `libs/infrastructure` types and utilities[cite: 2].
-  - e.g., Inside `Select`: `Utils.GetClassName` + `Option` type[cite: 2].
-    - `src/components/form/select/index.tsx`[cite: 2]
-  - e.g., Inside `Table`: `FilterOperator` enum[cite: 2].
-    - `src/components/data-display/table/index.tsx`[cite: 2]
+- New CSS must comply with the "library root" rule (token / nesting rules)[cite: 3].
 
-- `core/application` -> `components` dependency exists in real code (especially in Notification payload render helpers)[cite: 2].
-  - e.g., `useNotification` hook uses `components/feedback/notification/helpers` functions[cite: 2].
-    - `src/libs/core/application/hooks/useNotification.ts`[cite: 2]
-  - Therefore, instead of an "idealistic layer arrow direction": an approach of _not changing the dependencies the existing code works with_ is adopted[cite: 2].
+## Compound component pattern (static property attachment)
 
-## State management rules
+This repo usually implements the "compound component" pattern via `index.tsx`[cite: 3]:
 
-State across the repo is managed in 2 main ways[cite: 2]:
+- Defines the base component inside `Button.tsx`, `Input/index.tsx`, etc[cite: 3].
+- Performs static attachment inside `index.tsx`[cite: 3].
 
-### 1) Controlled state (parent-owned)
+Example:
 
-- State values such as `value`, `currentStep`, `open.get/set` either come directly from props or are committed to the parent[cite: 2].
+- Button:
+  - Base:
+    - `src/components/form/button/Button.tsx`[cite: 3]
+  - Compound attachment:
+    - `src/components/form/button/index.tsx`[cite: 3]
+  - Names:
+    - `Button.Group`, `Button.Action`, `Button.Split`[cite: 3]
 
-Example references[cite: 2]:
+Example (Input):
 
-- Modal open state is managed externally as "getter/setter"[cite: 2]:
-  - `src/components/feedback/modal/index.tsx`[cite: 2]
-  - `src/components/feedback/modal/IProps.ts` (`open: { get; set }`)[cite: 2]
-- Steps controlled / uncontrolled[cite: 2]:
-  - `src/components/navigation/steps/index.tsx` (`isControlled` + `currentStep`)[cite: 2]
-  - `src/components/navigation/steps/IProps.ts`[cite: 2]
+- `Input` compound parts:
+  - `Input.AddonBefore`, `Input.AddonAfter`, `Input.Icon`[cite: 3]
+  - `src/components/form/input/index.tsx`[cite: 3]
 
-### 2) Uncontrolled / internal state (component-owned)
+When building a new compound component:
 
-- Overlay components such as Modal/Popover/Tooltip use "internal mounted/entered/exited" state for animation[cite: 2].
-  - Modal: `mounted/entered/exited` etc[cite: 2].
-    - `src/components/feedback/modal/index.tsx`[cite: 2]
-  - Popover: `open/mounted/entered/exited`[cite: 2]
-    - `src/components/feedback/popover/index.tsx`[cite: 2]
+- Implement base UI functionality in a single "root" component[cite: 3].
+- Expose children externally via static attach in `index.tsx`[cite: 3].
+- Children can be exported in separate files (e.g., `src/components/form/button/group/index.tsx`)[cite: 3].
 
-### "Local ref as latest" pattern
+## Controlled component pattern (controlled/uncontrolled)
 
-To reduce the callback stale closure problem in many large components[cite: 2]:
+### Select (discriminated controlled via union props)
 
-- "latest prop" values are kept with `useRef`[cite: 2]
-- handlers read the updated value via ref[cite: 2]
+Props union depending on Select's `multiple` state[cite: 3]:
 
-Example[cite: 2]:
+- `src/components/form/select/Props.ts`[cite: 3]
 
-- KanbanBoard:
-  - `src/components/data-display/kanban-board/index.tsx`[cite: 2]
+Code[cite: 3]:
 
-## Context/Provider pattern
+- `src/components/form/select/index.tsx`[cite: 3]
+- `multiple ? value: Option[] : value: Option | undefined`[cite: 3]
 
-Context/provider layer[cite: 2]:
+Rule for new Select-like components:
 
-- `ConfigProvider` (configs like list pagination defaults)[cite: 2]
-  - `src/libs/core/application/contexts/Config.tsx`[cite: 2]
-- `LoadingProvider`[cite: 2]
-  - `src/libs/core/application/contexts/Loading.tsx`[cite: 2]
-- `NotificationProvider`[cite: 2]
-  - `src/libs/core/application/contexts/Notification.tsx`[cite: 2]
+- Make the "single vs multiple" distinction type-safe using union props[cite: 3].
 
-NotificationProvider:
+### Steps (controlled via `currentStep` existence)
 
-- Provides `dispatchToast` and `askConfirm` via context[cite: 2]
-- Related UI components are rendered inside the provider[cite: 2]
-  - `Notification` + `PopupConfirm`[cite: 2]
-  - `src/components/feedback/notification` + `src/components/feedback/popup-confirm`[cite: 2]
+Steps:
 
-## Styling + theme
+- controlled logic:
+  - if `currentStep` is a number, `isControlled=true`[cite: 3]
+- uncontrolled:
+  - holds state with `internalStep`[cite: 3]
+- additionally:
+  - if `isAutomatic` is present, it does not write to internal state[cite: 3]
+  - sessionStorage:
+    - `getStepsStorageKey` + `parseStoredStep`[cite: 3]
 
-- Global token CSS[cite: 2]:
-  - `src/index.ts` -> `./assets/css/core/har-core.css`[cite: 2]
-- Component-level CSS[cite: 2]:
-  - Inside component: `../../../assets/css/components/**/styles.css`[cite: 2]
-- Theme is usually applied via CSS variables (inline style)[cite: 2]:
-  - Steps theme:
-    - `src/components/navigation/steps/helpers.ts` (`--steps-current`, `--steps-completed`, `--steps-pending`)[cite: 2]
+Example references[cite: 3]:
 
-## Public API boundaries
+- `src/components/navigation/steps/index.tsx`[cite: 3]
+- `src/components/navigation/steps/helpers.ts`[cite: 3]
+- `src/components/navigation/steps/IProps.ts`[cite: 3]
 
-- The library's public API is determined by `export { ... }` inside `src/index.ts`[cite: 2].
-  - `src/index.ts`[cite: 2]
+### Table (ref forwarding + parent-owned pagination)
+
+Table uses `forwardRef`[cite: 3]:
+
+- `src/components/data-display/table/index.tsx`[cite: 3]
+
+Pagination part is parent-owned (optional, but committed with a callback if present)[cite: 3]:
+
+- `src/components/data-display/table/IProps.ts`[cite: 3]
+- `src/components/navigation/pagination/index.tsx`[cite: 3]
+
+## Overlay pattern (createPortal + focus management)
+
+In overlays, this repo[cite: 3]:
+
+- renders to `document.body` via `createPortal`[cite: 3]
+- applies escape/click-outside/focus management[cite: 3]
+
+### Modal
+
+- Open control comes externally (controlled)[cite: 3]:
+  - `open: { get: boolean; set: Dispatch<SetStateAction<boolean>> }`[cite: 3]
+  - `src/components/feedback/modal/IProps.ts`[cite: 3]
+- Focus restore + body scroll lock[cite: 3]:
+  - `src/components/feedback/modal/index.tsx`[cite: 3]
+
+Demo usage (open setter/get)[cite: 3]:
+
+- `docs/components/demos/feedback/modal/basic.tsx`[cite: 3]
+
+### Popover
+
+- Popover trigger is the child element; ARIA information is injected via `React.cloneElement`[cite: 3]
+  - `src/components/feedback/popover/index.tsx`[cite: 3]
+- ESC + click-outside[cite: 3]:
+  - `src/components/feedback/popover/index.tsx`[cite: 3]
+
+### Tooltip
+
+- Tooltip trigger is the child element, `aria-describedby` is injected into trigger[cite: 3]
+  - `src/components/feedback/tooltip/index.tsx`[cite: 3]
+- Tooltip portal:
+  - `createPortal` -> `document.body`[cite: 3]
+
+## Event handling + keyboard/A11y
+
+- Tab trap and ESC handling are implemented in existing overlays[cite: 3]:
+  - Modal: `src/components/feedback/modal/index.tsx`[cite: 3]
+  - Popover: `src/components/feedback/popover/index.tsx`[cite: 3]
+  - Tooltip: `src/components/feedback/tooltip/index.tsx`[cite: 3]
 
 Rule:
 
-- When a new component is added, updating the public API on `src/index.ts` is a "priority"[cite: 2].
+- "interactive panel" => design together with `role`, `aria-*`, and keyboard behavior[cite: 3].
 
 ---
 > Source: [kaancetin-f/harjs-design-react-ui](https://github.com/kaancetin-f/harjs-design-react-ui) — distributed by [TomeVault](https://tomevault.io).
