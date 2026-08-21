@@ -1,0 +1,9 @@
+{
+  "name": "lightonai--lighton-python-sdk",
+  "displayName": "lighton-python-sdk",
+  "description": "Python SDK for Lighton API, the \ud83c\uddea\ud83c\uddfa European industrial-grade retrieval infrastructure powered by its frontier retrieval models developed in-house",
+  "version": "1.0.0",
+  "author": "lightonai",
+  "homepage": "https://github.com/lightonai/lighton-python-sdk",
+  "skills": []
+}
