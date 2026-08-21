@@ -1,0 +1,9 @@
+{
+  "name": "abhinav503--flutter-agentic",
+  "displayName": "flutter-agentic",
+  "description": "Flutter Clean Architecture template optimised for AI coding agents \u2014 BLoC, Freezed, Dio, fpdart, GoRouter. Native rules for Claude Code, Cursor, Gemini, Codex & Amazon Q",
+  "version": "1.0.0",
+  "author": "abhinav503",
+  "homepage": "https://github.com/abhinav503/flutter-agentic",
+  "skills": []
+}
