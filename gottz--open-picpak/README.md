@@ -7,11 +7,11 @@ The open firmware, tooling and documentation the PicPak e-ink frame should have 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [GottZ/open-PicPak](https://github.com/GottZ/open-PicPak).
+Original source: `AGENTS.md` in [GottZ/open-PicPak](https://github.com/GottZ/open-PicPak).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
