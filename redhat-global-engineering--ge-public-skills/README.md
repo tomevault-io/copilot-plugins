@@ -7,11 +7,11 @@ Global Engineering Public Skills Repository
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [redhat-global-engineering/ge-public-skills](https://github.com/redhat-global-engineering/ge-public-skills).
+Original source: `AGENTS.md` in [redhat-global-engineering/ge-public-skills](https://github.com/redhat-global-engineering/ge-public-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
