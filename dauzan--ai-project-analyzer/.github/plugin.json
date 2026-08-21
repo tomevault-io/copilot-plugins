@@ -1,0 +1,9 @@
+{
+  "name": "dauzan--ai-project-analyzer",
+  "displayName": "AI-Project-Analyzer",
+  "description": "Interactive codebase architecture visualizer powered by Google Gemini AI & React Flow.",
+  "version": "1.0.0",
+  "author": "dauzan",
+  "homepage": "https://github.com/dauzan/AI-Project-Analyzer",
+  "skills": []
+}
