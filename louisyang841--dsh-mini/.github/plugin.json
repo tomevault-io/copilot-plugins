@@ -1,0 +1,9 @@
+{
+  "name": "louisyang841--dsh-mini",
+  "displayName": "dsh-mini",
+  "description": "DeepSeek Harness \u6838\u5fc3\u7684\u4fbf\u643a\u5f15\u64ce + Termux \u53cb\u597d\u7684\u7ec8\u7aef\u7f16\u7a0b Agent CLI\uff08pi \u58f3 + DSH \u5f15\u64ce\uff0c\u96f6\u8fd0\u884c\u65f6\u4f9d\u8d56\uff0c359MB\u21927.6MB \u5355\u6587\u4ef6\uff09",
+  "version": "1.0.0",
+  "author": "LouisYang841",
+  "homepage": "https://github.com/LouisYang841/dsh-mini",
+  "skills": []
+}
