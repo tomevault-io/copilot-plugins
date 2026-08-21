@@ -1,0 +1,44 @@
+{
+  "name": "litellm-free-models-prox-DNy",
+  "owner": "Danissimode",
+  "repo": "litellm-free-models-prox-DNy",
+  "description": "Hardened local-only LiteLLM gateway \u2014 auto-discovers free/trial LLM models from 15+ providers (OpenRouter, Groq, Gemini, Cerebras, NVIDIA NIM, SambaNova, Cohere, GitHub Models, etc.). Single OpenAI-compatible endpoint at 127.0.0.1:4000. Role-based aliases for AI coding agents.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Danissimode/litellm-free-models-prox-DNy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T01:26:13Z"
+}
