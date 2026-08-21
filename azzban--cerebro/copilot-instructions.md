@@ -1,53 +1,73 @@
-## config-conventions
+## go-standards
 
-> Config loading, validation, and usage conventions for Cerebro
+> Go coding standards for Cerebro — error handling, logging, context, concurrency
 
 
-# Config Conventions
+# Go Coding Standards
 
-## Four-File Model
+## Error Handling
 
-| File | Contains | Tracked in Git? |
-|---|---|---|
-| `configs/app.yaml` | Engine, risk, TUI, ingest, agent settings | ✅ (sanitised) |
-| `configs/markets.yaml` | Venues, symbols, leverage | ✅ |
-| `configs/strategies.yaml` | Strategy parameters | ✅ |
-| `configs/secrets.env` | API keys, DB URL, bot tokens | ❌ (gitignored) |
-
-Always edit `*.example` files alongside the real files when adding new config fields.
-
-## Struct Conventions
-
-- All config structs live in `internal/config/`.
-- Nested structs mirror YAML hierarchy (e.g. `Config.Engine.KillSwitch`).
-- Secret values loaded from env via `godotenv`; **never hardcode them in YAML**.
-- Every new field needs a validation check in `config.Validate()`.
-
-## Accessing Config
-
-Config is passed **once** through `internal/app.New(cfg)` and stored on the `App` struct. Downstream packages receive **only the fields they need** — do not pass the full `*config.Config` deep into domain logic.
+Always wrap errors with context; never silently discard them.
 
 ```go
-// ❌ BAD — passes whole config into a strategy
-strategy.New(cfg)
+// ❌ BAD
+result, _ := doThing()
+if err != nil { return err }
 
-// ✅ GOOD — pass specific values
-strategy.New(cfg.Strategy.RSIPeriod, cfg.Strategy.BBWidth)
+// ✅ GOOD
+result, err := doThing()
+if err != nil {
+    return fmt.Errorf("doThing: %w", err)
+}
 ```
 
-## Environment Safety
+Sentinel errors live in the same package as the function that produces them, prefixed `Err`:
+```go
+var ErrOrderRejected = errors.New("order rejected by risk gate")
+```
 
-`Environment` must be one of `paper` | `production`. The CLI enforces triple-agreement at startup:
+## Logging
 
-1. `ENVIRONMENT=production` in `secrets.env`
-2. `environment: production` in `app.yaml`
-3. `--live` flag passed to `run`
+Use `log/slog` (stdlib structured logging). Always pass context and structured key-value pairs:
 
-Any mismatch is a **fatal validation error** — do not weaken these checks.
+```go
+slog.InfoContext(ctx, "order submitted", "symbol", symbol, "qty", qty, "side", side)
+slog.ErrorContext(ctx, "broker unavailable", "err", err, "attempt", attempt)
+```
 
-## Makefile / Docker
+Never use `fmt.Println` or `log.Printf` in production paths.
 
-`DATABASE_URL` and other secrets in `Makefile` must only ever be set via environment variables or a local `.env` override, never hardcoded in the file that gets committed.
+## Context
+
+- Every function in a hot path must accept `ctx context.Context` as the **first parameter**.
+- Respect cancellation: check `ctx.Err()` inside loops and before I/O.
+- Never store a context in a struct field.
+
+## Concurrency
+
+- Use `errgroup.WithContext` (from `golang.org/x/sync/errgroup`) for goroutine fan-out.
+- Protect shared state with a `sync.Mutex` or channel — document which pattern and why.
+- Goroutines must respect context cancellation to allow clean shutdown.
+
+## Money / Decimal
+
+**Never use `float64` for prices, quantities, or PnL.** Always use `github.com/shopspring/decimal`:
+
+```go
+// ❌ BAD
+price := 42000.5 * 0.01
+
+// ✅ GOOD
+price := decimal.NewFromFloat(42000.5)
+fee := price.Mul(decimal.NewFromFloat(0.01))
+```
+
+## General
+
+- Prefer table-driven tests with `t.Run`.
+- Unexported helpers over large exported APIs.
+- Build tags for optional features: `//go:build metrics`.
+- `golangci-lint` must pass with zero warnings before merging.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
