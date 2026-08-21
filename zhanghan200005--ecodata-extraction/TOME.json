@@ -1,0 +1,44 @@
+{
+  "name": "EcoData_Extraction",
+  "owner": "ZhangHan200005",
+  "repo": "EcoData_Extraction",
+  "description": "A human-in-the-loop AI system for extracting and evaluating structured data from scientific literature. Integrated literature search, LLM semantic filtering, PDF structure parsing, OCR/table extraction, chart indexing, and human-in-the-loop quality checking",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZhangHan200005/EcoData_Extraction",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T00:59:31Z"
+}
