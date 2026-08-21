@@ -7,11 +7,11 @@ Effect checking for Gleam
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alvivi/graded](https://github.com/alvivi/graded).
+Original source: `CLAUDE.md` in [alvivi/graded](https://github.com/alvivi/graded).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
