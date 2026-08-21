@@ -1,0 +1,401 @@
+## piren
+
+> These instructions apply to agents working in this source repository:
+
+# Piren Agent Instructions
+
+These instructions apply to agents working in this source repository:
+
+```text
+/home/davide/src/piren
+```
+
+They are stable project implementation rules. Keep phase-specific handoff details in the vault handoff prompt, not here.
+
+## Required context before coding
+
+Before non-trivial implementation work:
+
+1. Load relevant skills:
+   - `test-driven-development` for production behavior changes.
+   - `pi-coding-agent-extensions` for Pi extension, CLI, tool, smoke, or package work.
+2. Read the Piren vault project docs, at minimum:
+   - `/mnt/nas/Piren/Projects/Piren/index.md`
+   - `/mnt/nas/Piren/Projects/Piren/knowledge-lifecycle.md`
+   - `/mnt/nas/Piren/Projects/Piren/implementation-plan.md`
+   - `/mnt/nas/Piren/Projects/Piren/handoff-prompt.md`
+3. For architecture or authority-boundary changes, also read:
+   - `/mnt/nas/Piren/Projects/Piren/architecture.md`
+   - `/mnt/nas/Piren/Projects/Piren/bootstrap-config.md`
+   - `/mnt/nas/Piren/Projects/Piren/vault-protocol.md`
+   - `/mnt/nas/Piren/Projects/Piren/runtime-placement.md`
+
+## Product thesis to preserve
+
+Piren is not only an agent launcher or task queue. It is a vault-backed team knowledge substrate for a stewarded team of agents, merging LLM-Wiki and Second Brain workflows with explicit multi-agent task execution.
+
+Until the first release candidate, preserve the thesis in:
+
+```text
+/mnt/nas/Piren/Projects/Piren/knowledge-lifecycle.md
+/mnt/nas/Piren/Projects/Piren/decisions/ADR-0010-vault-as-team-knowledge-substrate.md
+```
+
+Every non-trivial task should consider its knowledge delta. Update the minimum useful durable artifact, not everything.
+
+Preferred artifact order:
+
+```text
+raw task/session evidence
+  -> summary or result
+  -> project log
+  -> current project docs or handoff
+  -> ADR, runbook, wiki page, or skill candidate
+```
+
+Raw task/session traces are evidence. Current project docs and ADRs are synthesized truth.
+
+## Architecture boundaries
+
+Keep Piren v1 boring:
+
+- Explicit vault tools, not transparent shell/file interception.
+- One file per task.
+- Append-only logs where practical.
+- External gateway later, through a separate RPC process.
+- Pi runtime requirement: local `pi` must be installed on PATH. No npx runtime fallback.
+- No hidden memory mutation.
+
+Do not add default automatic inbox polling to interactive `piren run`. Polling belongs only to opt-in worker mode:
+
+```text
+piren worker
+PIREN_WORKER=1
+```
+
+Worker polling must only run for agents explicitly allowed by local installation policy.
+
+## Authority boundaries
+
+Local installation authority lives outside the vault:
+
+```text
+~/.config/piren/config.yml
+```
+
+This is where these belong:
+
+```yaml
+vault_root: /path/to/vault
+allowed_agents:
+  - piren
+excluded_agents:
+  - other-agent
+```
+
+Agent-local preferences live in:
+
+```text
+team/<agent>/config.yml
+```
+
+Use agent-local config only for runtime preferences such as model and polling. Do not put `allowed_agents` there.
+
+Piren-owned machine-local secrets or config belong under `~/.config/piren/`. Provider credentials and custom model definitions stay provider-native, for example Pi under:
+
+```text
+~/.pi/agent/auth.json
+~/.pi/agent/settings.json
+~/.pi/agent/models.json
+```
+
+Do not put `.env` under `team/<agent>/`.
+
+Do not put `AGENTS.md` under `team/<agent>/`. Piren identity is `SOUL.md`. Project `AGENTS.md` files belong in source repositories like this one.
+
+## Integrated web UI scope
+
+The integrated web UI is intentionally minimal per ADR-0012. It is an emergency interface, not a primary workspace. It provides agent selection, chat, steering, approval gates, a read-only vault browser, and a read-only context indicator. It does NOT provide model or thinking controls: those belong in `team/<agent>/config.yml`, the single source of truth. The model/thinking/agent-switch API routes remain available for external integrations. Rich external solutions (Open WebUI-compatible, purpose-built dashboards) can be built on the HTTP API.
+
+## Extensibility
+
+Piren core is minimal. Additional capabilities come from Pi packages (ADR-0013), declared in `~/.config/piren/config.yml` and loaded as additional `--extension` flags. Vault skills (ADR-0014/ADR-0028) provide reusable procedures stored in `vault/skills/`, future group-scoped `agent-groups/<group>/skills/`, and `team/<agent>/skills/`, injected into agent context at startup.
+
+## Development workflow
+
+Use strict TDD for production behavior changes:
+
+1. Write one failing test for the next tracer bullet.
+2. Run the specific test and confirm the expected failure.
+3. Implement minimal production code.
+4. Run the specific test and confirm it passes.
+5. Run the full verification baseline.
+6. Update README and relevant vault docs.
+7. Search for stale baselines and stale next-step wording.
+
+Keep core logic testable without live Pi auth. Use fake filesystem tests and the fake Pi harness for extension behavior.
+
+Separate core logic from Pi adaptation:
+
+- Core modules should be callable directly from tests.
+- Pi extension code should mostly adapt registered tool params to core helpers.
+- Avoid hiding important behavior in lifecycle hooks when it can be tested directly.
+
+## Verification commands
+
+From repository root:
+
+```bash
+cd /home/davide/src/piren
+npm test -- tests/<specific>.test.ts
+npm test
+npm run typecheck
+npm run build
+npm run smoke
+npm run clean-install:check
+```
+
+Current baseline:
+
+```text
+Test Files  118 passed (118)
+Tests       1884 passed (1884)
+SMOKE PASSED
+```
+
+Smoke and tests must not depend on Davide's real `~/.config/piren/config.yml` unless explicitly testing local installation config.
+
+## Current implementation surface
+
+Phase 0, Phase 0.5, Phase 1, and Phase 2 are complete. Phase 3 tracer bullets 1-11 are done (RPC client, HTTP/SSE transport, read-only vault browser, model/thinking control + agent switching, steering + approval gates, auth token gate, web UI frontend, session resume + abort, Telegram, Discord, OpenAI-compatible API). `piren ask`, `piren chat` (alias for run), and `piren clean` are also implemented. Vault skills with lazy loading (ADR-0014 + ADR-0017), Pi package extensibility (ADR-0013), Phase 4 knowledge lifecycle tools (ADR-0015), ADR-0019 vault-backed cron, and the ADR-0020 README/docs split are implemented. The gateway-web-ui.md "Sequencing" section has the per-tracer-bullet detail; this section summarizes the stable surface.
+
+Gateway RPC surface (Phase 3, `src/gateway-rpc.ts`):
+
+- `buildPiRunCommand({ rpcMode: true })` in `src/run.ts` appends `--mode rpc` and sets `stdio: "pipe"`.
+- `PiRpcClient` spawns Pi in RPC mode, speaks strict LF-only JSONL (`src/jsonl.ts`, no readline), pairs commands with ack responses by id, and drains streaming events until `agent_end`.
+- `prompt(message)` sends a prompt and resolves after the ack; `onEvent`/`onExit` deliver live events and process exits. `extractAssistantText(events)` reads nested `message_update.assistantMessageEvent.text_delta`.
+- `getState()`, `getAvailableModels()`, `setModel(provider, modelId)`, `setThinkingLevel(level)` reach through to Pi's native RPC capabilities. Exported types: `RpcSessionState`, `RpcAvailableModels`, `RpcModel`.
+- `steer(message)` and `followUp(message)` interrupt or queue after the current run. `respondToUiRequest(id, response)` writes an `extension_ui_response` to stdin via `writeRaw()` (no ack is sent back). Exported type: `ExtensionUiResponse`.
+- `abort()` stops the active turn mid-stream (emits `agent_end`, draining active streams). `getMessages()` returns the full transcript of the current session (`RpcMessages`). `switchSession(sessionPath)` resumes a past session and returns `{cancelled}` (`RpcSessionSwitch`). Exported types: `RpcMessages`, `RpcSessionSwitch`.
+- Fake Pi process fixture: `tests/fixtures/fake-pi-rpc.cjs` (handles prompt, get_state, get_available_models, set_model, set_thinking_level, steer, follow_up, extension_ui_response, abort, get_messages, switch_session; emits queue_update after prompt and extension_ui_request on "approve").
+
+Gateway HTTP/SSE surface (Phase 3, `src/gateway-http.ts` + `src/gateway-bridge.ts`):
+
+- `piEventToSse(event)` in `src/gateway-bridge.ts` translates Pi events to SSE: `text_delta` -> `token`, `tool_execution_*` -> `tool`, `agent_end` -> `done`, `model_changed` -> `model_changed`, `thinking_level_changed` -> `thinking_changed`, `queue_update` -> `queue`, `extension_ui_request` (confirm/select/input) -> `approval`.
+- `GatewayServer` in `src/gateway-http.ts` owns one `PiRpcClient`, serves `POST /api/chat/start` (returns `{stream_id}`, optional `mode` for steer/follow_up) and `GET /api/chat/stream?stream_id=...` (drains SSE until done/error, 30s heartbeat). stdlib `http`, no WebSocket.
+- OpenAI-compatible route: `POST /api/v1/chat/completions` accepts `messages`, optional `model`, and optional `stream`; non-streaming responses return a `chat.completion` object, while streaming responses emit OpenAI-style `chat.completion.chunk` SSE frames and terminate with `data: [DONE]`. It reuses the same `PiRpcClient` and `/api/*` Bearer auth gate. Tests: `tests/gateway-http.test.ts`.
+- Model/thinking/state routes: `GET /api/chat/models`, `GET /api/chat/state`, `POST /api/chat/model`, `POST /api/chat/thinking`.
+- Agent switching routes: `GET /api/chat/agents` (returns `{agents, current}`), `POST /api/chat/switch` (validates runnable set, swaps the PiRpcClient, closes old streams). Enforces the local runnable-agent policy.
+- Steering/approval routes: `POST /api/chat/approve` (responds to extension_ui_request via `client.respondToUiRequest`).
+- Session resume/abort routes (tracer bullet 8): `POST /api/chat/abort` (aborts the active turn), `GET /api/chat/messages` (current transcript), `POST /api/chat/resume` (resumes a past session, returns `{cancelled}`), `GET /api/chat/sessions` (lists vault session summaries from `src/session-browser.ts` `listAgentSessions`, newest-first, for the current agent).
+- Auth token gate (tracer bullet 6): `src/gateway-auth.ts` provides `isLocalhostBind`, `isBearerAuthorized` (constant-time), `assertAuthGate` (fail-closed on non-localhost without token), `generateToken`, and `resolveGatewayToken` (CLI `--token` > `PIREN_TOKEN` env > `~/.config/piren/gateway-token` file > auto-generate). `GatewayServer` gained an optional `authToken` option: `GET /api/auth/info` is public and reports `{authRequired}`; all other `/api/*` routes require `Authorization: Bearer *** or return 401. The CLI auto-generates and prints a token on first non-localhost run. Tests: `tests/gateway-auth.test.ts`, `tests/gateway-auth-routes.test.ts`.
+- Static file serving + web UI (frontend): `GatewayServer` gained an optional `publicDir` option. `GET /` serves `index.html`; other GET requests serve static files by relative path with MIME detection. API routes always take priority. Path traversal rejected via `relative()` check (defense-in-depth). The `public/` directory contains `index.html`, `style.css`, `app.js` (vanilla JS, no framework, no build step). The build script copies `public/` to `dist/public/`. The CLI resolves `publicDir` via `import.meta.url` (same pattern as the extension path). Tests: `tests/gateway-static.test.ts`.
+- `piren gateway` (alias `piren web`) CLI command with `--port` (default 7317), `--host` (default 127.0.0.1), and `--token`; wires `runnableAgents`, `initialAgent`, `targetBuilder`, `authToken`, and `publicDir` from `listPirenAgents`, `buildPiRunCommand`, `resolveGatewayToken`, and `resolvePublicDir`.
+
+Telegram transport surface (Phase 3 bullet 9 first slice, `src/transport-session-manager.ts` + `src/telegram-transport.ts`):
+
+- `TransportSessionManager` owns one `PiRpcClient` lifecycle per transport conversation and active runnable Piren agent. `getSession(transport, conversationId, agent?)` starts or reuses the session; `switchAgent(...)` enforces runnable-agent policy and swaps the client; `abort(...)`, `closeIdleSessions(...)`, and `closeAll()` manage lifecycle.
+- `TelegramTransport` authorizes Telegram `chat.id` against local `telegram.allowed_chat_ids`, exposes `/start`, `/agents`, `/agent <name>`, `/whoami`, and `/abort`, and forwards plain text prompts to the active chat session's `PiRpcClient.promptAndWait()`. Long assistant responses are split into multiple messages via `chunkTelegramMessage` (`TELEGRAM_MESSAGE_LIMIT = 4000`) so each fits Telegram's sendMessage length limit. ADR-0025 transport feedback is implemented: default-on receipt reaction, typing action, and completion reaction, with every feedback call best-effort so failures never abort the response. The default completion reaction is transport-specific (`TELEGRAM_DEFAULT_FEEDBACK` in `src/transport-feedback.ts`): Telegram defaults to `👍` because `✅` is not a Telegram-valid reaction emoji (REACTION_INVALID); Discord keeps `✅`. Explicit `reaction_on_complete` overrides pass through unchanged and are used best-effort without platform validation.
+- `TelegramBotApiHttpClient` is a minimal Telegram Bot API adapter using long polling (`getUpdates`), `sendMessage`, `sendChatAction`, and best-effort `setMessageReaction`. `runTelegramPolling` advances the getUpdates offset to `update_id + 1` and calls `onError` (or rethrows) on recoverable failures. `piren telegram` reads `telegram.bot_token`, `telegram.allowed_chat_ids`, optional `telegram.feedback`, and optional `telegram.default_agent` from `~/.config/piren/config.yml`, then routes chats to the local runnable-agent set. HTTP bearer auth is not used for Telegram.
+- `piren doctor` reports a `telegram` check (status warn/ok) only when a `telegram:` block is present in local config, via the pure `checkTelegramConfig(config, runnableAgents)` exported from `src/doctor.ts`. An installation without Telegram config produces no telegram check, so normal doctor never depends on Telegram being configured.
+
+Discord transport surface (Phase 3 bullet 10, `src/discord-transport.ts`):
+
+- `DiscordTransport` authorizes messages by `guild_id` against `discord.allowed_guild_ids` and non-thread messages by `channel_id` against `discord.allowed_channel_ids`. Threaded messages require an explicit `discord.allowed_thread_ids` match so thread access fails closed. A real Discord Gateway `MESSAGE_CREATE` sent inside a thread carries the thread's own id in `channel_id` with no `thread_id` property; routing accepts that shape only when the `channel_id` value matches `allowed_thread_ids`, and the two allowlists are checked independently so `allowed_thread_ids` never widens `allowed_channel_ids`. ADR-0040 D1 direct messages: a non-guild message is accepted only when `author.id` is explicitly in `discord.allowed_dm_user_ids` (omitted = all DMs denied) AND a Bot API channel-metadata lookup confirms Discord channel type 1; group DMs (type 3), unknown types, lookup failures, and missing/unlisted senders are rejected silently, the DM conversation key is collision-safe `dm:<channel_id>`, guild traffic never triggers the lookup, and the DM allowlist never widens guild/channel/thread access. It exposes `/start`, `/agents`, `/agent <name>`, `/whoami`, and `/abort`, and forwards plain text prompts to the active conversation session's `PiRpcClient.promptAndWait()`. The conversation key is `guild_id:channel_id` plus optional `:thread_id`. Long assistant responses are split via `chunkDiscordMessage` (`DISCORD_MESSAGE_LIMIT = 2000`, reusing the Telegram chunker algorithm). Leading bot mentions (`<@id>`) are stripped before command parsing. ADR-0025 transport feedback is implemented with default-on receipt reaction, typing indicator, and completion reaction, all best-effort.
+- `DiscordBotApiHttpClient` is a minimal Discord REST adapter for creating messages (`POST /channels/{id}/messages`), typing indicators (`POST /channels/{id}/typing`), and best-effort reactions (`PUT /channels/{id}/messages/{message_id}/reactions/{emoji}/@me`) authenticated with a Bot token header. `runDiscordGateway` drives the Discord WebSocket gateway: it sends `Identify` (op 2) on `Hello` (op 10), dispatches `MESSAGE_CREATE` (op 0) to the transport, tracks the last sequence number, and sends `Heartbeat` (op 1) at the negotiated interval and on demand. `createNativeDiscordGatewaySocket` wraps the native `WebSocket` (Node >= 22) into the `DiscordGatewaySocket` interface; tests inject a fake socket via `socketFactory`. The gateway loop is generic over the client type for testability. An unexpected socket close, socket error, or factory/open failure retries the connection indefinitely with bounded exponential backoff (default 1 s initial, 30 s cap) through an injectable `scheduler` seam; each attempt is a superseding generation (stale heartbeats/events are inert, a close/error pair schedules at most one retry), READY resets the backoff, `onReconnecting` reports a non-secret delay/attempt notice, and explicit `close()` cancels pending retries and closes the transport exactly once.
+- `piren discord` reads `discord.bot_token`, `discord.allowed_guild_ids`, `discord.allowed_channel_ids`, optional `discord.allowed_thread_ids`, optional `discord.allowed_dm_user_ids`, optional `discord.feedback`, optional `discord.application_id`/`discord.install_url`, and optional `discord.default_agent` from `~/.config/piren/config.yml`, then routes conversations to the local runnable-agent set. ADR-0040 D3: when `discord.application_id` is set, it registers the five native application commands (`/start`, `/agents`, `/agent <name>`, `/whoami`, `/abort`) via narrow per-command create/update (never deleting unrelated commands), degrading to text commands with a non-secret warning on failure; `INTERACTION_CREATE` dispatches traverse the same fail-closed authorization as ordinary messages and answer through interaction callbacks. The WebSocket gateway client is a platform-mandated dial-out connection, not a WebSocket server added to Piren; the web UI remains SSE plus POST per ADR-0012.
+- `piren doctor` reports a `discord` check (status warn/ok) only when a `discord:` block is present in local config, via the pure `checkDiscordConfig(config, runnableAgents)` exported from `src/doctor.ts`. An installation without Discord config produces no discord check, so normal doctor never depends on Discord being configured.
+- Discord diagnosis note: `discord.allowed_guild_ids` means server IDs, not user IDs. To diagnose no-reply reports, compare the configured channel metadata from Discord REST (`GET /channels/{channel_id}`) to the local guild/channel allowlists. Bot-authored `MESSAGE_CREATE` events are ignored to avoid self-loops.
+
+Implemented CLI:
+
+- `piren init`
+- `piren status`
+- `piren agents`
+- `piren doctor`
+- `piren setup` (interactive wizard when run bare in a TTY; batch with `--apply`)
+- `piren run`
+- `piren chat` (alias for run)
+- `piren worker`
+- `piren gateway` (alias `piren web`)
+- `piren telegram` (`piren telegram configure` runs the guided local onboarding flow: secret token input, explicit chat IDs, feedback preferences with platform-correct reaction defaults, runnable-set default agent, redacted preview + confirmation, atomic local-only write, no daemon/service/platform contact)
+- `piren discord` (`piren discord configure` is the same guided flow with distinct guild/channel/thread ID fields plus an optional one-to-one DM user allowlist; blank DM input leaves every DM denied)
+- `piren ask "message"`
+- `piren scheduler` (opt-in loop: refreshes heartbeats, plans claims, executes at most one claimed item per tick, sleeps until SIGINT/SIGTERM)
+- `piren scheduler --once` (one live tick: refresh, plan, claim, execute at most one item, stop)
+- `piren scheduler --dry-run` (LLM-free, claim-free: preview proposed claims for one tick)
+- `piren scheduler --report` (read-only operator report: dependency cycles, invalid/exhausted retry metadata, and claimed-task manual-triage items for the locally enabled agent set; never claims, spawns, writes, or calls an LLM; never labels a claimed task ambiguous)
+- `piren service <install|remove|start|stop|restart|status> <gateway|telegram|discord|scheduler>`
+- `piren agent <add|remove|clone|list> [name]` (manages team/<agent>/ identity AND local allowed_agents; remove prompts before deleting the vault dir, `--yes` skips; clone copies a source agent verbatim)
+- `piren package <list|explain|doctor> [--agent <agent>]` (read-only vault-scoped package manifest CLI; list effective packages, explain provenance, doctor compares vault intent against local config and Node resolvability; no package installation or mutation, per ADR-0032)
+- `piren group <list|show|create|add-agent|remove-agent|fallback set|validate> [args] [--force]` (vault-owned agent group config management for `agent-groups/<group>/config.yml`; create writes an empty config plus the `skills/` subdir; validate reports missing config.yml, dangling fallback references, missing `team/<agent>/` dirs, and duplicate-across-groups notes; never mutates `~/.config/piren/config.yml`; no fallback assignment or rerouting)
+- `piren task <list|send|show|claim|complete|cancel> [args] [--agent <agent>] [--body <vault-file>] [--result <vault-file>] [--priority normal|high|urgent] [--device <id>]` (human-facing inbox task CLI over the existing one-file-per-task inbox primitives; reuses `createInboxTask`/`listInboxTasks`/`claimInboxTask`/`updateInboxTaskStatus`; default sender `from: steward`; no polling, no scheduler changes, no Web UI, no new task-file schema)
+- `piren clean`
+- `piren version`
+- `piren update` (runs `npm install -g @odiobill/piren`; refuses a major-version jump unless `--yes`)
+- `piren -h|--help` and `piren <command> --help`
+
+Implemented extension command:
+
+- `piren_status`
+
+Implemented extension tools:
+
+- `vault_read(path)`
+- `vault_read_cached(path)`
+- `vault_write(path, content)`
+- `vault_list(path)`
+- `vault_patch(path, old_text, new_text)`
+- `vault_append_log(path, entry)`
+- `session_write_summary(summary, title?)`
+- `send_to_agent(to, title, body)`
+- `task_update_status(task_path, status, result?)`
+- `inbox_list()`
+- `task_claim(task_path, device_id?, stale_after_ms?)`
+- `flag_steward(title, body, severity?, notify?)`
+- `skill_list()`
+- `skill_read(name)`
+- `project_status(project)`
+- `project_append_log(project, entry)`
+- `decision_record(project, id, title, context, decision, consequences?, alternatives?)`
+- `project_update_handoff(project, content)`
+- `runbook_write(project, title, content)`
+- `skill_candidate_write(name, description, body, scope?)`
+- `wiki_update_concept(title, content, description?, tags?, links?)`
+- `wiki_update_entity(title, content, description?, tags?, links?)`
+- `self_improvement_trigger_check(message)`
+- `cron_list()`
+- `cron_claim(job_path, device_id?, stale_after_ms?)`
+- `cron_record_run(job_path, status, result, started_at, finished_at)`
+- `cron_runs(job_id?)`
+- `vault_conformance_check()`
+
+Vault skills (ADR-0014 + ADR-0017, implemented):
+- `src/skills.ts` exports `loadVaultSkills(vaultRoot, agentName)` and `formatSkillCatalogForContext(skills)`. Skills are currently loaded from `vault/skills/` (shared) and `team/<agent>/skills/` (agent-specific, overrides shared on name collision). ADR-0028 reserves `agent-groups/<group>/skills/` as the group-scoped middle layer; fresh scaffolds create `agent-groups/` so vaults are compatible before group resolution is implemented. Both loose `.md` files and directory-based `SKILL.md` skills are supported. Frontmatter (`name`, `description`) is parsed; the name falls back to the filename stem. The loader is tolerant: missing directories return an empty list, malformed frontmatter does not crash.
+- The startup context prompt now injects a compact "Available Skills" catalog only: name, source, description, and vault-relative path. Full skill bodies are not injected at startup.
+- `skill_list()` returns the same compact catalog. `skill_read(name)` returns the selected full skill body and rejects unknown names with a clear error. Agent-specific overrides are resolved at startup by the loader, so the tools use the same precedence as the prompt.
+- `piren_status` reports `skills_loaded: <count>`.
+- Tests: `tests/skills.test.ts` (10 tests), `tests/pi-extension.test.ts` (lazy context catalog, `skill_list`, `skill_read`, and status count).
+
+Context-injection runtime preference (design slices C1-C3, implemented; C4 live validation/default-flip pending):
+- `src/agent-config.ts` is the shared `team/<agent>/config.yml` parsing boundary: `readAgentConfigFileRaw` propagates read/parse errors (run-path contract: `buildPiRunCommand` rejects missing/malformed config) and `readAgentConfigFileBestEffort` catches to `null` (extension contract). `src/run.ts` and `src/pi-extension.ts` both use it; no third parser remains.
+- `src/context-injection.ts` is the pure resolver: `context_injection.mode` enum (`per_turn` default, `session_start_only`), `PIREN_CONTEXT_INJECTION` one-process override precedence, deterministic warnings, `shouldInjectContext`. Never reads files/YAML.
+- The extension resolves the mode once per process; `before_agent_start` keeps `per_turn` byte-for-byte, while `session_start_only` injects the persistent visible `piren-context` message once per session (instance-local flag + `session_start` reset, fail-useful without `session_start`). `piren_status` reports `context_injection: <mode>`.
+- `piren doctor` warns on a present-but-invalid `context_injection` block via pure `checkContextInjectionConfig` (agent config only, never the env override; missing/malformed config and missing block stay quiet). Tests: `tests/agent-config.test.ts`, `tests/context-injection.test.ts`, `tests/doctor-context-injection.test.ts`, `tests/context-injection-docs.test.ts`, plus extension event-order pins in `tests/pi-extension.test.ts`.
+
+Pi package extensibility (ADR-0013, implemented):
+- `src/packages.ts` exports `resolvePackages(packages, resolver)` (pure core: takes a list of package names and an injected resolver, returns resolved entry points plus missing packages) and `defaultPackageResolver(name)` (production resolver using `require.resolve`). The resolver is injected so tests use a fake without a live node_modules tree. Declaration order is preserved; missing packages are collected rather than crashing resolution.
+- `LocalPirenConfig` in `src/bootstrap.ts` gained `packages?: string[]`. `PirenContext` gained `packages: string[]`, populated by `loadPirenContext` from the config's `packages` field.
+- `buildPiRunCommand` in `src/run.ts` resolves each declared package to its entry point and appends `--extension` flags after the core extension in declaration order. Missing packages are skipped (doctor reports them separately). The `packageResolver` option on `BuildPiRunCommandOptions` lets tests inject a fake resolver.
+- `piren doctor` validates that all declared packages are installed via `checkPackages` (status `warn` for missing, `ok` when all installed, omitted when no packages declared). `DoctorPirenOptions` gained `packageResolver` for test injection. `DoctorReport` gained `packages: string[]`. `formatDoctorReport` prints the declared packages.
+- `piren_status` reports declared packages as `packages: <list>` (or `packages: <none>`). The `PirenStatusReport` and `BuildPirenStatusReportOptions` gained `packages`; the status builder falls back to `context.packages`.
+- Tests: `tests/packages.test.ts` (5 tests), `tests/run.test.ts` (3 new for package extension flags), `tests/doctor.test.ts` (3 new for package validation), `tests/pi-extension.test.ts` (2 new for status reporting).
+
+Phase 4 knowledge lifecycle tools (ADR-0015 + ADR-0018, implemented):
+- `src/knowledge.ts` exports `projectStatus(options)` (read `Projects/<project>/index.md` frontmatter, returns `{project, path, available, title, status, updated}`), `projectAppendLog(options)` (append to `Projects/<project>/log.md` with agent attribution, uses the existing `vaultAppendLog` core), and `decisionRecord(options)` (write `ADR-<id>-<slug>.md` under `Projects/<project>/decisions/` with standard ADR structure). Project names are validated to reject `/`, `\`, and `..`. ADR id must match `^\d{4}$`. Optional `consequences` and `alternatives` sections are included only when provided (built with conditional assignment for `exactOptionalPropertyTypes`).
+- ADR-0018 inspectable self-improvement tools are also implemented in `src/knowledge.ts`: `projectUpdateHandoff(options)` writes `Projects/<project>/handoff-prompt.md`, `runbookWrite(options)` writes `Projects/<project>/runbooks/<slug>.md` with runbook frontmatter, and `skillCandidateWrite(options)` writes reviewable drafts under `skill-candidates/<name>.md` or `Projects/<scope>/skill-candidates/<name>.md`. Skill candidates are not active skills until promoted.
+- Phase C OKF wiki tools are implemented in `src/knowledge.ts`: `wikiUpdateConcept(options)` writes `type: Concept` documents under `wiki/concepts/<slug>.md`, and `wikiUpdateEntity(options)` writes `type: Entity` documents under `wiki/entities/<slug>.md`. Both accept title, body content, optional description/tags, and bundle-relative or HTTP links, and reuse the authoritative `vaultWrite` path boundary.
+- Registered as `project_status`, `project_append_log`, `decision_record`, `project_update_handoff`, `runbook_write`, `skill_candidate_write`, `wiki_update_concept`, and `wiki_update_entity` extension tools. The context prompt gains a "Knowledge Lifecycle" section guiding agents to leave durable artifacts after non-trivial work.
+- ADR-0024 first through third slices are implemented in `src/self-improvement.ts`: Hermes-style correction trigger heuristics (strong/weak/negative regex patterns plus directive-word filtering), visible artifact suggestions retargeted at `project_append_log`, `skill_candidate_write`, `decision_record`, `wiki_update_concept`, and `wiki_update_entity`, and the read-only `self_improvement_trigger_check(message)` extension tool. It is advisory only: no hidden memory store, no SQLite, and no always-on silent background writes. Opt-in auto-nudge wiring is implemented: `resolveAutoNudgeConfig({env, config})` (env `PIREN_AUTO_NUDGE` overrides agent-local `self_improvement.auto_nudge`, default OFF) and `buildAutoNudgeNotification(message)`. Opt-in review-loop wiring is implemented: `resolveReviewLoopConfig({env, config})`, `collectReviewConversation(entries, recentMessages)`, and `buildSelfImprovementReviewPrompt(input)`; when enabled through `self_improvement.review_loop.enabled` or `PIREN_REVIEW_LOOP=1`, the extension installs a `turn_end` handler that runs a child `pi -p --no-session --no-extensions --extension <piren> --vault-root <root> --agent <agent>` review prompt after the configured interval. The review prompt may use only visible vault tools and must reply `Nothing to promote.` when there is no durable knowledge delta.
+- Tests: `tests/knowledge.test.ts` (17 tests), `tests/self-improvement.test.ts` (15 tests: correction detection, artifact suggestions, auto-nudge config resolution, auto-nudge notification builder, review-loop config, conversation collection, review prompt builder), `tests/pi-extension.test.ts` (extension coverage for all knowledge, wiki, and trigger tools, the opt-in auto-nudge `message_end` handler, the opt-in review-loop `turn_end` child prompt, context prompt assertions). Smoke covers all six knowledge/self-improvement tools plus wiki concept/entity writes, the trigger-check nudge, the opt-in auto-nudge wiring, and the opt-in review-loop child prompt.
+
+Vault-backed cron (ADR-0019, implemented):
+- `src/cron.ts` is the pure scheduling + coordination core, callable directly from tests without Pi auth. It exports `parseSchedule` (five-field cron strings and interval syntax `30m`/`6h`/`1d`), `isScheduleDue` (interval elapsed-time logic and cron field matching with once-per-minute dedup), `readCronJob`/`listCronJobs` (frontmatter parsing of `id`, `agent`, `schedule`, `mode`, `script`, `enabled`, `device_policy`, `stale_after_seconds`, `last_run`, `last_claimed_by` plus the `# Prompt` body; shared `cron/jobs/` and agent-scoped `team/<agent>/cron/jobs/`), `selectOwningDevice` (highest-priority, lowest-number selection among eligible active devices, restricted by `device_policy.allowed_devices`), `listActiveDevices` (reads `team/<agent>/devices/*.json` heartbeats, filters stale), `claimCronJob` (atomic rename to `.claimed.<device>.md` with `last_claimed_by` injected and stale recovery via device heartbeats), `recordCronRun` (writes inspectable run records under `cron/runs/` or `team/<agent>/cron/runs/`, restores the unclaimed job with `last_run` set and the stale claim line removed), `executeScriptCronJob` (ADR-0023 script-mode executor: resolves a vault-relative script inside the vault, runs it with `PIREN_VAULT_ROOT` and `PIREN_AGENT`, captures capped stdout/stderr, records status/output, and restores the job), and `listCronRuns` (run history newest-first, optional `job_id` filter).
+- Registered as `cron_list`, `cron_claim`, `cron_record_run`, and `cron_runs` extension tools. `cron_record_run` trusts the device id encoded in the claimed path rather than the runtime hostname. The context prompt gains a \"Vault-Backed Cron\" section. Secrets never belong in cron job files.
+- Worker mode (`PIREN_WORKER=1`, locally-allowed agent only) surfaces due agent-mode jobs owned by this device via active-device-priority, but does NOT auto-run them: it notifies the agent, which claims and records runs via the tools so every run is inspectable. Script-mode jobs (`mode: script`) are claimed and executed directly by worker mode with no agent prompt or LLM call, then recorded through the same run-record machinery. Default cron device staleness is 5 minutes, overridable via `PIREN_CRON_STALE_MS`; script timeout defaults to 60 seconds, overridable via `PIREN_SCRIPT_CRON_TIMEOUT_MS`. No UI, no leases, no central DB in RC.
+- Tests: `tests/cron.test.ts` (30 tests covering scheduling, due detection, job I/O, device ownership, active-device discovery, atomic claiming with stale recovery, run records, run history, script-mode parsing/path safety/execution), `tests/pi-extension.test.ts` (4 cron extension tests: full lifecycle, worker surfacing does-not-auto-run, script-mode worker execution, context prompt). Smoke covers cron_list/claim/record_run/runs and script-only execution.
+
+Clean-install validation (RC hardening, implemented):
+- `src/clean-install.ts` exports `assessCleanInstall(probe)` (pure, unit-tested: given the observed state of a fresh install, returns a structured pass/fail report with checks for `dist-cli`, `dist-public`, `dist-extension`, `binary-runs`, and `pi-runtime`), `formatCleanInstallReport`, and `runCleanInstallCheck(options)` / `defaultCleanInstallCheck(spec, opts)` which orchestrate a real `npm install` into an isolated clean HOME and prefix, then feed the observed probe to the pure core. The Pi runtime policy is parsed from `piren doctor` output run in the clean env: `path` when `pi` is on PATH, `unavailable` otherwise. Missing Pi is a hard failure, not an npx fallback.
+- Clean-install validation now also guards the install lifecycle: `package.json` does not define `prepare`, so `npm install -g --install-links github:Odiobill/piren` does not compile TypeScript on the target machine. GitHub installs use the committed `dist/` release artifacts. `prepack` still rebuilds `dist/` for tarball creation. `package.json` declares `engines.node: ">=22"`.
+- `scripts/clean-install-check.ts` wires ADR-0033 Slice R1 and P1: the DEFAULT path packs the exact local source via `npm pack`, validates the packed surface, then installs that tarball into an isolated HOME/prefix (no `github:` fetch, no `--install-links` in the normal path, not blocked by `EALLOWGIT`). `resolveInstallSpec(args)` returns `{kind:"packed-tarball",source:"local"}` by default, `{kind:"prebuilt-tarball",spec}` when a local `.tgz` positional is passed (ADR-0033 P1: validate the packed surface of an existing tarball then install that exact tarball; used by the publication workflow), or `{kind:"explicit",spec}` for other positionals (github:/git+ escape hatch). `runPackedCleanInstallCheck` delegates the install + dist/binary/Pi checks to the existing `runCleanInstallCheck` (which adds `--install-links` only when `needsInstallLinks(spec)` is true for git/github specs). `runPrebuiltTarballCheck` reuses `checkPackedArtifacts` (surface) + `runCleanInstallCheck` (install) and never removes the caller-owned tarball. CLI: `npm run clean-install:check [-- <spec>] [--allow-scripts] [--keep]`. Exits non-zero on failure so it is CI-safe.
+- `.github/workflows/release-publish.yml` (ADR-0033 P1 + P1b) is the ONLY workflow that publishes Piren to npm. It is split into an unprotected `verify` job (`contents: read` only) that checks out the tag, runs the four quality gates, checks tag/package version agreement, builds one explicit tarball (`npm pack`), validates+installs that exact tarball via the clean-install machinery with the CI-only fake pi shim, and uploads it as a workflow artifact; and a `publish` job (`needs: verify`, `environment: npm-production`, `contents: read` + `id-token: write`) that downloads the verified artifact and publishes only it with `npm publish --provenance --access public --tag latest`. `id-token: write` and the steward approval gate apply only after verification completes. P1b enforces the npm trusted-publishing toolchain floor: both jobs pin Node `22.14.0`, and the publish job installs `npm@11.5.1` and runs a fail-closed Node/npm version preflight (Node >=22.14.0, npm >=11.5.1) before the provenance publish. P1c + P3c + P3e add three narrowly bounded manual-bootstrap exceptions: the `publish` job is skipped for exactly `v0.1.1`, `v0.1.2`, and `v0.1.3` (`if: github.ref_name != 'v0.1.1' && github.ref_name != 'v0.1.2' && github.ref_name != 'v0.1.3'`) — v0.1.1 (failed verification) and v0.1.2 (unscoped name rejected by npm similarity, ADR-0037) are permanently unpublished candidates, and v0.1.3 is the sole scoped `@odiobill/piren` one-time manual bootstrap; the `verify` job still runs for all three, and v0.1.4+ use the normal OIDC path. `release-verify.yml` stays verification-only.
+- Tests: `tests/clean-install.test.ts` (7 tests) + `tests/clean-install-pack.test.ts` (resolveInstallSpec incl. prebuilt-tarball routing, packed-artifact surface check incl. a stable docs file, `npm pack --json` parsing, `buildLocalTarball` with injected deps, `parseTarListing`, `runPrebuiltTarballCheck` with injected list/install deps, `needsInstallLinks`, source-aware formatting, `engines.node`, and tarball-cleanup regression over failure/success/--keep/thrown-install paths via an injected `InstallRunner`) + `tests/release-publish-workflow.test.ts` (static contract for the publication workflow + verification-only invariant for release-verify.yml). The full real packed-tarball install is exercised manually via `npm run clean-install:check`, not in the unit suite.
+
+Service lifecycle management (ADR-0021, implemented):
+- `src/service-lifecycle.ts` exports the pure core: `SERVICE_TRANSPORTS` (gateway/telegram/discord), `SERVICE_ACTIONS` (install/remove/start/stop/restart/status), `detectServiceManager(probe)` (returns `systemd` > `tmux-cron` > `none` via an injected availability probe), `generateSystemdUnit()` (user unit: Type=simple, Restart=on-failure, WantedBy=default.target), `generateTmuxLaunchScript()` (idempotent detached tmux session), `generateCronEntry()` (`@reboot` line), `installPlan()`/`removePlan()` (exact file paths + commands + instructions), `controlCommands()` (start/stop/restart/status), `executeServiceAction()` orchestration with injected `ServiceExecDeps` (writeFile/removeFile/runCommand/log), `resolvePirenCommand()`, and `updateServiceStatusYaml()` (merges `services.transports.<name>` status into config.yml). All generated files live under `~/.config/piren/services/`. `ServiceTransport` and `ServiceAction` types are exported.
+- `src/help.ts` exports `formatHelp()`, `formatCommandHelp(command)`, `isHelpRequest(argv)`, and `HELP_TOPICS`. The parser (`src/parse-args.ts`) sets `parsed.help=true` for `-h`/`--help` anywhere before the `--` passthrough; the CLI routes help before command dispatch.
+- `src/wizard.ts` exports the first-run setup flow: pure helpers (`isExistingVault`, `PI_PROVIDERS`, `formatProviderMenu`, `MODEL_CATALOG` + `formatModelMenu`/`resolveModelChoice`/`buildAgentModelConfig`, `buildAgentConfigYaml`, `mergeTransportConfigYaml`, `buildAuthJsonEntry`, `serializeAuthJson`, `buildLocalConfigPatch`, `parseCommaList`) plus `runWizard(prompt, deps)` which first requires a local `pi` binary and existing Pi-native auth, then creates or reuses a vault, selects locally runnable agents, copies Pi default provider/model/thinking settings into the newly created agent config when available, and writes local config. Bare `piren setup` does not configure provider keys, model choice, Telegram, Discord, or services interactively; it prints `/login` + `/quit` guidance when Pi auth is missing and optional service commands after setup. `src/prompt.ts` provides the `ReadlinePrompt` adapter (text/secret/confirm/select/list); the `WizardPrompt` interface is injected so the step logic is pure and unit-tested.
+- `src/doctor.ts` gained an opt-in `checkServiceConfig(config)` that reports a `services` check only when a `services.transports` block is present, warning on declared-but-not-installed or installed-but-not-running transports. `ServicesLocalConfig` and `ServiceStatusEntry` added to `src/bootstrap.ts`.
+- The CLI wires: `piren -h|--help` and `piren <cmd> --help`; `piren setup` interactive when bare in a TTY (explicit `process.exit(0)` after the wizard to avoid an unsettled top-level await from the readline interface); `piren service <action> <transport>` with real `systemctl --user`/`tmux`/`crontab` detection probes, best-effort service-status writeback to config.yml after install/remove (only when files were generated, i.e. manager is not `none`).
+- Tests: `tests/service-lifecycle.test.ts` (22), `tests/service-lifecycle-exec.test.ts` (7), `tests/service-status-yaml.test.ts` (5), `tests/help.test.ts` (12), `tests/wizard.test.ts` (16), `tests/wizard-models.test.ts` (10), `tests/wizard-agent-config.test.ts` (4), `tests/wizard-transport-config.test.ts` (5), `tests/wizard-run.test.ts` (7), `tests/doctor-service.test.ts` (7), plus parser help tests.
+
+Device-local scheduler service MVP (ADR-0029, O7 S2-S6, implemented):
+- `src/scheduler.ts` is the pure scheduler planner core, callable directly from tests without Pi auth. It exports `planSchedulerTick` (takes enabled agents, active devices, pending tasks, due cron jobs, and `now`; returns proposed claim attempts sorted by device priority). Composes with the existing `selectOwningDevice` and `listActiveDevices` from `src/cron.ts`. `PlannerTask` carries optional `id`/`dependsOn`/`dependsOnError`; `PlanSchedulerTickOptions` carries an optional `dependencyNodes` resolver map. A pending task with unsatisfied/invalid `depends_on` is never proposed for a claim (fail-closed when a declaration exists but the resolver is unavailable).
+- Scheduler task dependency eligibility (ADR-0038 R1, implemented): `src/scheduler-dependencies.ts` is the pure core, callable directly from tests without Pi auth. It exports `TASK_ID_PATTERN` (`^[0-9]{8}T[0-9]{9}Z-[a-z0-9]+(?:-[a-z0-9]+)*$`), `extractDependsOn` (parse the `depends_on` YAML sequence from frontmatter), `parseDependencyTaskNode` (tolerant per-file parser), `evaluateTaskDependencyEligibility` (validate and resolve a candidate against a node map; only an ordinary, unclaimed `status: completed` target satisfies — a claimed target never satisfies even when its status field is completed; reports malformed/duplicate/self/missing/cycle/unsatisfied/claimed with an exact reason; takes an optional `duplicateIds` set so a candidate whose own id collides or a dependency that resolves to a duplicated id is blocked), plus the thin real fs adapter `loadInboxDependencyNodes`/`loadSchedulerInboxState` (reads ordinary AND `.claimed.<device>.md` inbox files across enabled agents; preserves the claimed marker into resolver nodes; pending unclaimed files become candidates, all files populate the resolver; duplicate visible task ids are recorded in a `duplicateIds` set and excluded from the resolver — never last-writer-wins). `schedulerDryRun` and `schedulerOnce` load this state and pass `dependencyNodes` + `duplicateIds` to the planner; dry-run emits `[BLOCK]` lines with the exact reason and never mutates the vault. No retry, no execution/timeout changes, no new task statuses, no rerouting, no Web UI, no polling changes, and no hidden state.
+- Scheduler retry state core (ADR-0038 R2, implemented): `src/scheduler-retry.ts` is the pure retry-policy/state-transition core for scheduler-claimed inbox tasks, callable directly from tests without Pi auth. It exports `parseRetryPolicy` (optional `retry` mapping: requires `safe_to_retry: true`, positive-integer `max_attempts`, non-negative-integer `backoff_seconds`; absent disables automatic retry, invalid yields an exact reason), `parseRetryState` (scheduler-written visible `retry_state`: `attempts`, `last_attempt_at`, `next_eligible_at`, `last_failure: launch_failure`; malformed state fails closed), `evaluateRetryEligibility` (planner-facing verdict: invalid policy/state — including explicit `null` and non-canonical ISO timestamps, which fail closed with exact reasons — backoff window, and exhausted attempts each block with an exact reason), `isLaunchFailure`, the `SchedulerFailureKind` union, and `applySchedulerFailureTransition` (the bounded claimed-task transition). The only automatic retry trigger is a pre-spawn `launch_failure`: with a valid policy and attempts remaining it records `retry_state`, applies backoff, and restores the claimed task to its ordinary pending filename through a fail-closed, no-clobber TWO-STEP protocol (temp file + hard link, then unlink claimed — NOT a single atomic rename; a crash between link and unlink can leave duplicate visible task IDs, which is intentional fail-closed state that R1 duplicate-ID handling blocks for both candidates and dependency targets). Exhausted attempts rewrite the final state into the CLAIMED file and never requeue; absent/invalid policy holds the claim untouched. Post-start failures (timeout, non-zero exit, provider error, disconnect) are never automatically retried — the claimed file is preserved byte-for-byte for explicit coordinator/steward triage. All filesystem/unique-temp-name effects go through the injected `RetryTransitionIo` seam (`createNodeRetryTransitionIo()` is the production adapter, with best-effort temp cleanup that never masks the original write/sync error) so transitions are deterministically testable with a fake filesystem. Every expected I/O failure is total — it returns `held` with an exact reason rather than rejecting: collision (EEXIST) and restore/rewrite errors keep the claim, and a post-link claimed-unlink failure retains BOTH files (the restored pending file is never deleted since it may already be observed) as the intentional duplicate visible-ID recovery state for R1/R3 triage. All state lives in task frontmatter and survives restart from the file alone. NOT wired into `scheduler --once`, the loop, dry-run, worker polling, or Web UI (that is R3); no new statuses, no hidden state, no broadened triggers, R1 behavior unchanged. Tests: `tests/scheduler-retry.test.ts` (58 tests: policy/state parsing incl. null + canonical-ISO rejection, eligibility, post-start holds, requeue + backoff, restart recovery, exhaustion, unsafe/invalid/malformed holds, real-fs and fake-fs restore/claim races, deterministic I/O protocol assertions incl. exact non-ENOENT claimed-read failure reporting, exhausted rewrite/rename failure holds, claimed-unlink duplicate-recovery hold, production adapter contract).
+- Scheduler completion release (ADR-0038 revision 2, R3 first slice, implemented): `src/scheduler-release.ts` is the pure release core, callable directly from tests without Pi auth. It exports `evaluateReleaseEligibility` (pure frontmatter gate: eligible only when the claimed task's `status` is exactly `completed`; completion is never inferred from the result body) and `releaseCompletedClaimedTask` (device-ownership check against the claimed suffix, claimed-file re-read, then byte-for-byte restore to the ordinary inbox filename through the R2 two-step no-clobber protocol — temp + hard link + claimed unlink, never a single rename; every expected validation/I/O failure returns `held` with an exact reason and preserves the claim; the link/unlink crash window retains both files as intentional duplicate-visible-ID state that R1 blocks fail-closed). `atomicCreateNoClobber` is exported from `src/scheduler-retry.ts` and shared with this module. `schedulerOnce` gained the injected `release?: SchedulerOnceRelease` seam (production default `defaultRelease`): after a successful inbox execution (`res.ok`) the tick calls it exactly once with `expectedDeviceId`, records `releaseStatus`/`releaseReason` on `SchedulerOnceResult`, and prints `release:` lines in the summary; a held or throwing release never fails the tick. Cron jobs never pass through the seam (they self-restore via `cron_record_run`). Tests: `tests/scheduler-release.test.ts` (29: eligibility gates, real-fs release/holds/collision/byte-for-byte/retry_state preservation, fake-I/O protocol determinism incl. exact non-ENOENT read-failure reporting, duplicate-ID crash-window + R1 composition, dependent advancement), `tests/scheduler-once.test.ts` (+9 → 31: seam invocation, held reason, no release on failure/throw, cron exclusion, default production release, two-tick dependent chain advancement).
+- Scheduler typed failure classification (ADR-0038 revision 3, implemented): `src/ask.ts` exports `askAgentClassified` with typed `BoundedRunFailure`/`AskOutcome` and an injectable `clientFactory` (`PiRpcClientLike`). Exactly two `launch_failure` milestones exist — `target_build` (target-builder throw) and `start_rejection` (`PiRpcClient.start()` rejection) — classified by control-flow position only, never error text; the prompt handoff is the point of no return and every at/after-handoff outcome is `ambiguous`. The ask wait settles on BOTH post-start `exit` and `error` paths via a per-start one-shot `PiRpcClient.onExit` notification. `askAgent` remains a thin throwing wrapper (ordinary `piren ask`/gateway behavior preserved). `createAskRunner` propagates the typed `failure`; `executeClaimedInboxTask` preserves it and synthesizes `ambiguous` for legacy thrown runners/nonzero exits. Tests: `tests/ask-classified.test.ts` (10), `tests/gateway-rpc.test.ts` (+2), `tests/scheduler-executor.test.ts` (+7 → 29).
+- Scheduler retry wiring (ADR-0038 R3, implemented): the pure planner (`planSchedulerTick`) evaluates the accepted R2 `evaluateRetryEligibility` for pending tasks with parsed frontmatter — invalid retry policy/state, exhausted attempts, and unexpired backoff are never proposed for claims; `PlannerTask`/`LoadedInboxTask` carry the parsed `frontmatter` from the tolerant loader. `piren scheduler --dry-run` reports retry-blocked tasks as `[BLOCK]` lines with the exact R2 reason and stays mutation-free. `schedulerOnce` gained the injected `retryTransition?: SchedulerOnceRetryTransition` seam (production default `defaultRetryTransition` over `applySchedulerFailureTransition`): after a claimed inbox execution returns non-ok, the tick calls it ONLY when the classified `failure.kind` is exactly `launch_failure` (the input type encodes this), records `retryStatus` (`requeued`/`exhausted`/`held`)/`retryReason` on `SchedulerOnceResult`, and prints `retry:` lines in the summary; a held or throwing transition never fails the tick. Ambiguous and legacy/untyped failures never invoke the seam and stay claimed; failed tasks are never completion-released; claim-first and at-most-one execution per tick are unchanged; the opt-in loop inherits `schedulerOnce` with no separate policy. Tests: `tests/scheduler.test.ts` (+8 → 35: backoff/exhausted/invalid-policy/invalid-state blocked, eligible cases), `tests/scheduler-cli.test.ts` (+5 → 20: dry-run exact R2 reasons + expired-backoff claim), `tests/scheduler-once.test.ts` (+10 → 41: seam invocation/requeued/exhausted/held/throwing, ambiguous+legacy never call it, no release on failure, default production requeue on a real vault, end-to-end target_build/start_rejection drive the seam while spawn-worded prompt-handoff failure stays ambiguous).
+- Tests: `tests/scheduler-dependencies.test.ts` (41: pattern, extraction, all eligibility cases incl. cross-agent, claimed (pending + completed) prerequisites, and duplicate task ids, parsing, fs loaders), plus planner/dry-run/once coverage in `tests/scheduler.test.ts` (+8), `tests/scheduler-cli.test.ts` (+5), and `tests/scheduler-once.test.ts` (+2).
+- `src/scheduler-executor.ts` exports the bounded inbox task executor core: `buildClaimedInboxTaskPrompt`, `parseClaimedInboxTaskPath`, `executeClaimedInboxTask`, and `createAskRunner` (adapts to `piren ask` for live execution). Agent-mode claims receive a claim-scoped prompt that reads the claimed file, executes it, writes status/result, and stops.
+- `src/scheduler-cron-executor.ts` exports the bounded cron executor core: `buildClaimedCronJobPrompt`, `parseClaimedCronJobPath`, and `executeClaimedAgentCronJob`. Script-mode cron jobs reuse the existing `executeScriptCronJob` from `src/cron.ts` with no LLM.
+- `src/scheduler-once.ts` exports the one-shot execution core `schedulerOnce` (refreshes heartbeats, plans, attempts atomic claims, executes at most one successfully claimed item, and stops) plus `sanitizeDeviceId` and `createSchedulerExecutors` (factory for inbox/cron executors).
+- `src/scheduler-loop.ts` exports `resolveSchedulerConfig` (reads the `scheduler:` block from `~/.config/piren/config.yml` and resolves `poll_interval_seconds`, `stale_after_seconds`, `max_concurrent_agents`, and `device_id` with deterministic defaults and warnings), `runSchedulerLoop` (repeats ticks at the configured interval until SIGINT/SIGTERM), and `createSchedulerLoopController`/`createRealSchedulerLoopSleep`. Defaults: 30s poll, 300s stale, 1 max concurrent agent.
+- `src/scheduler-cli.ts` exports `schedulerDryRun` and `resolveEnabledAgents` for the CLI dry-run path.
+- `piren scheduler --dry-run` prints proposed claims without claiming or spawning; `piren scheduler --once` runs one live tick; `piren scheduler` runs the opt-in loop. All three are LLM-free on the planning tick. CLI dispatch wired in `src/scheduler-cli.ts`, `src/cli.ts`, and `src/parse-args.ts`.
+- Service lifecycle target: `piren service <action> scheduler` generates `piren-scheduler.service` (systemd) / `piren-scheduler.tmux.sh` + `.cron` (tmux-cron), launching `<resolved piren command> scheduler` with no `--vault-root`/`--agent` (the loop reads local config on each tick). Wired through the existing `SERVICE_TRANSPORTS`, `targetStartCommand`, and `executeServiceAction` machinery.
+- Scheduler is off by default, respects local `allowed_agents`/`excluded_agents`, uses claim-first semantics, executes at most one item per tick, has no automatic cross-agent fallback, no hidden state, no gateway/Web UI controls, and no interactive polling.
+- Tests: `tests/scheduler.test.ts` (12 tests), `tests/scheduler-executor.test.ts` (22 tests), `tests/scheduler-cron-executor.test.ts` (23 tests), `tests/scheduler-once.test.ts` (20 tests), `tests/scheduler-loop.test.ts` (28 tests), `tests/scheduler-cli.test.ts` (5 tests), `tests/cli-scheduler.test.ts` (5 tests), `tests/cli-service.test.ts` (3 tests). Service lifecycle tests extended for scheduler in `tests/service-lifecycle.test.ts` (+12 → 50), `tests/service-status-yaml.test.ts` (+1 → 6), `tests/doctor-service.test.ts` (+2 → 9). Smoke covers all four scheduler layers.
+
+Steward alert mirror (ADR-0039 E1, M1 + M2 + M3 implemented):
+- `src/alert-mirror.ts` is the pure, injected core for the opt-in best-effort mirror of already-written `steward-inbox/alerts/<id>.md` alerts, callable directly from tests with no Pi auth, filesystem, or network. It exports `ALERT_MIRROR_RATE_LIMIT_MS` (fixed 5s per-destination minimum send interval; process-local, drop-not-queue, timestamp updated only after a successful send; not configurable in E1), `AlertMirrorDestination`, `ResolvedAlertMirrorConfig`, `AlertMirrorSenders`, `AlertMirrorDelivery`/`AlertMirrorOutcome`, `AlertMirrorState` + `createAlertMirrorState()`, `resolveAlertMirrorConfig` (deterministic fail-closed resolution of the local `alert_mirror:` block: absent/disabled is inert with no warnings; destinations require a valid ID and the matching existing `telegram.bot_token`/`discord.bot_token`, otherwise skipped with a deterministic non-secret warning; invalid `min_severity` disables mirroring with a warning; inclusive floor `low < normal < high < urgent`, default `low`), `buildAlertNotificationText` (default three-facts-in-two-lines payload `[severity] title` + vault-relative path; body appended only when `include_body: true`; no platform chunking in the core — chunking lives in the M3 sender adapters), and `mirrorStewardAlert` (never throws; `notify: false`/disabled/below-floor are no-op `[]` with no state mutation; process-local dedupe via `seenAlertIds`; kind-qualified rate-limit keys `kind:id`; missing sender -> `skipped-no-sender`; sender rejection -> normalized `failed` with no raw exception text; per-destination independence).
+- `LocalPirenConfig` gained `alert_mirror?: AlertMirrorLocalConfig` (`enabled`, `min_severity`, `include_body`, `telegram.chat_id`, `discord.channel_id`). Destination IDs and tokens stay in `~/.config/piren/config.yml` only; no inbound-allowlist interaction.
+- M2: `checkAlertMirrorConfig(config)` in `src/doctor.ts` is a pure opt-in check reusing the M1 resolver: absent block -> `null` (normal doctor unchanged); present-but-disabled -> `ok` (declared intent inspectable); invalid `min_severity` -> `warn`; enabled with no usable destination (none configured or matching bot token missing/empty) -> actionable non-secret `warn`; enabled with usable destination(s) but resolver warnings -> `warn`; otherwise `ok` with a count-only message (never kinds/IDs/tokens). Wired once in `doctorPiren` alongside the telegram/discord local transport checks so both flows (single-agent and multi-agent vault) observe it. All alert-mirror findings stay `warn`, never `fail`.
+- No outbound HTTP in M1/M2; M3 wires the feature end-to-end.
+- M3: `src/alert-mirror-senders.ts` exports `createAlertMirrorSenders(config, fetchImpl?)` — production adapters over `TelegramBotApiHttpClient.sendMessage` / `DiscordBotApiHttpClient.createMessage` reusing the existing trimmed bot tokens, applying `chunkTelegramMessage`/`chunkDiscordMessage` in the adapter (sequential chunks; any chunk failure rejects the logical sender so M1 records one aggregate `failed`). The extension resolves `resolveAlertMirrorConfig(context.config)` once at startup with one process-local `createAlertMirrorState()`; `flag_steward` calls `createStewardAlert` first (unchanged), then `mirrorStewardAlert`, appending a normalized `mirror: ...` advisory line only when deliveries exist (`<kind> sent|failed|skipped (rate limited|duplicate|no sender)`; unexpected mirror exceptions degrade to `mirror: failed`). Delivery objects never enter tool `details` (they carry local destination IDs). `piren_status` reports only `alert_mirror: disabled` / `alert_mirror: enabled (<n> destinations)` via `AlertMirrorStatusSummary` in `src/status.ts`. Test-only seam: `PirenExtensionTestOptions.alertMirrorSenders` injects fake senders for extension/smoke tests; production always builds the real adapters. `formatAlertMirrorDeliveries` is exported from `src/alert-mirror.ts`. Operator docs: `docs/configuration.md` "Steward alert mirror (opt-in)".
+- Tests: `tests/alert-mirror.test.ts` (30 tests), `tests/alert-mirror-senders.test.ts` (8 tests), `tests/doctor-alert-mirror.test.ts` (12 tests), plus 7 M3 tests in `tests/pi-extension.test.ts` and smoke coverage with an injected fake sender.
+
+Steward inspection (ADR-0039 E2, all three slices implemented) — read-only guidance for stewards:
+- E2-S1 scheduler report: `SchedulerReportFinding` in `src/scheduler-report.ts` gained required `authority: string` and `nextStep: string`. The classifier (`classifySchedulerReportFindings`) sets both deterministically per category without changing categories/reasons, scheduler selection, I/O, or orchestration. `formatSchedulerReport` renders each finding as the existing reason line, then an aligned non-action `authority:` boundary line, then an aligned one-action `next: piren task show <path>` line. Per-category authority: triage (Piren cannot tell from vault state whether the claim is active, interrupted, or an ambiguous failure — no ambiguity classification is persisted); retry-invalid (Piren will not infer invalid retry policy or retry_state; task remains unclaimable while metadata is invalid); retry-exhausted (Piren will not automatically requeue exhausted attempts); cycle (Piren leaves affected tasks fail-closed rather than infer a dependency repair). No new report categories, no reason-text change, no failure inference, no planner/once/dry-run/retry/release/doctor/alert/Web UI changes. Empty reports keep their footer byte-for-byte with no authority/next lines. Operator docs updated in `docs/scheduler.md` (operator-report example + prose). Tests: `tests/scheduler-report.test.ts` (+7 → 21).
+- E2-S2 doctor WARN guidance (`src/doctor.ts`): the five local-config checks (`checkTelegramConfig`, `checkDiscordConfig`, `checkAlertMirrorConfig`, `checkServiceConfig`, `checkContextInjectionConfig`) render every WARN message as `<condition>. Authority: <fixed non-action boundary> Next: inspect <one key/block> in <one local config path>.` via `withWarnGuidance` (normalizes condition terminator). Authority families: transport (credentials+routing local-only, not inferable from the vault), mirror (destinations+credentials local-only), services (machine-local supervision, doctor read-only), context-injection (mode not inferred from a malformed declaration). `alertMirrorNextTarget` picks the reported cause's key: invalid severity → `alert_mirror.min_severity`; a configured destination missing its token → `telegram.bot_token`/`discord.bot_token` (Telegram-first); no configured destination → the `alert_mirror` block. All OK messages/statuses stay byte-for-byte unchanged; absent blocks still return null; no `Configure`/`Run piren service` instructions remain; no secrets/destination IDs in guidance. Tests: `tests/doctor-e2-s2-guidance.test.ts` (20 exact-message + negative tests) plus updated legacy pins in `tests/doctor-alert-mirror.test.ts` and `tests/doctor-service.test.ts`.
+- E2-S3 docs: `docs/troubleshooting.md` opens with "Start here: the read-only inspection loop" (doctor → scheduler --report → steward-inbox/alerts), non-prescriptive, linking rather than duplicating triage/recovery procedures. Design: `Projects/Piren/steward-inspection-design.md`; the alert-footer template decision (S3.1) remains an open review choice, not implemented.
+
+Vault-scoped package manifest CLI (ADR-0032, Slice F, implemented):
+- `src/package-manifest.ts` is the pure core, callable directly from tests without Pi auth or a real vault. It exports `parsePackageManifest` (parse YAML package manifest strings), `mergeEffectivePackages` (merge shared + groups + agent manifests deterministically), `diagnosePackages` (compare effective packages against local config `packages` and an injected `packageInstalled` resolver), and formatting helpers `formatPackageList`, `formatPackageExplain`, and `formatPackageDoctor`. Exported types: `PackageManifest`, `PackageSource`, `EffectivePackage`, `PackageState`, `DiagnosedPackage`.
+- CLI command `piren package <list|explain|doctor> [--agent <agent>]`. `list` prints effective required and recommended packages with source manifests. `explain` shows detailed provenance for each package (kind, source, scope). `doctor` compares vault intent against `~/.config/piren/config.yml` `packages`, `package_policy.blocked`, and Node `require.resolve`, reporting five distinct states: `missing-from-local-config`, `blocked-by-policy` (triggered by `package_policy.blocked` in local config), `declared-but-not-installed`, `recommended-missing`, and the OK states `ok-required` / `ok-recommended`. Doctor without `--agent` runs for all vault agents. All commands are read-only: no package installation, no loading from vault manifests, no mutation of local config.
+- Manifest locations: `packages.yml` at vault root (shared), `agent-groups/<group>/packages.yml` (group), `team/<agent>/packages.yml` (agent). Resolution order: shared -> groups -> agent, last-writer wins on name collision.
+- Tests: `tests/package-manifest.test.ts` (23 tests).
+
+Agent group config CLI (Slice A, ADR-0028, implemented):
+- `src/group-config.ts` is the pure writer/validator core, callable directly from tests without Pi auth or a real filesystem. It exports the config model `GroupConfigData` (`agents: string[]`, `fallback_order: Record<string, string[]>`), the injected-filesystem interface `GroupWriteDeps` (`readFile`/`writeFile`/`mkdir`/`stat`/`readdir`, structurally compatible with `node:fs/promises`), and the real adapter `createRealGroupWriteDeps()`. Operations: `readGroupConfig` (null when no config.yml; tolerant parse; throws naming the group on malformed YAML), `writeGroupConfig` (deterministic block-style YAML via the `yaml` library, round-trips through `readGroupConfig` and the existing `parseGroupConfigs`), `createGroup` (mkdir + `skills/` subdir + empty config.yml; refuses existing group without `--force`), `addAgentToGroup` (`{added}`; no-op when already a member, order preserved), `removeAgentFromGroup` (`{removed, existed}`; also prunes the agent's own fallback entry and any candidate references), `setFallbackOrder` (creates/replaces one entry; refuses when the agent is not a member), and `validateGroups` (reports `missing-config`, `dangling-fallback`, `missing-agent-dir` errors plus `duplicate-across-groups` info notes). `isValidGroupName` rejects empty, `.`, `..`, path separators, and leading-dot names (which `parseGroupConfigs` skips as dotfiles). Formatters `formatGroupList`/`formatGroupConfig`/`formatValidationReport` keep the CLI thin. Every operation throws on misuse (missing group, invalid name, non-member fallback) so the CLI surfaces one message and exits non-zero.
+- CLI command `piren group <list|show|create|add-agent|remove-agent|fallback set|validate>`. `list` reuses the existing read-only `parseGroupConfigs` so it observes exactly what `piren agents` and `piren doctor` observe. `fallback set` is a two-word subcommand (`group = positionals[2]`, `agent = positionals[3]`, `candidates = positionals.slice(4)`). `validate` exits non-zero only on `error`-severity issues (info notes are non-fatal). Group commands are vault-owned only: they never mutate `~/.config/piren/config.yml`, never assign fallbacks or reroute tasks, and add no Web UI / scheduler / polling behavior. No changes to `src/agent-groups.ts`, `src/agents.ts`, `src/doctor.ts`, `src/skills.ts`, or `src/pi-extension.ts` group parsing/resolution.
+- Tests: `tests/group-config.test.ts` (34 tests, fake FS through injected deps), `tests/cli-group.test.ts` (18 tests, real CLI binary dispatch against a temp vault).
+
+Open Knowledge Format conformance and graph surface (ADR-0022/0026):
+- `piren init` creates the top-level `Projects/` directory as part of the default OKF vault shape, alongside `wiki/`, `team/`, `agent-groups/`, shared `skills/`, and `templates/`.
+- Fresh `steward-directives.md` and agent `SOUL.md` files tell agents importing older project material to preserve project-specific docs under `Projects/<Project>/` while promoting reusable concepts/entities through `wiki_update_concept` and `wiki_update_entity`, so the Knowledge Graph has linked OKF nodes instead of a copied folder tree.
+- The Knowledge Graph indexes all OKF-typed Markdown from the vault root, not only `wiki/concepts/` and `wiki/entities/`.
+
+Open Knowledge Format conformance (ADR-0022, implemented):
+- `src/okf.ts` is the pure OKF v0.1 conformance core, callable directly from tests without Pi auth or a real filesystem. It exports `parseOkfFrontmatter(src)` (splits frontmatter/body, flags unterminated blocks and malformed YAML), `checkOkfConceptDocument(path, src)` (enforces the single hard delta, a required non-empty `type` field; tolerates unknown types per OKF 4.1), `PIREN_OKF_TYPES` (descriptive taxonomy: Concept, Entity, Runbook, ADR, Skill, Project Index, Project Log, Session Summary, Task, Cron Job, Cron Run), the filename predicates `isOkfReservedFilename` / `isOkfSystemFilename` / `isOkfConceptFilename` / `isClaimedFilename`, `checkVaultConformance({root, reader, exclude?, maxFiles?})` (a tree walk over an injected `VaultDirReader` that skips dotfiles, reserved filenames, system files, claimed coordination files, and excluded dirs), `createRealVaultDirReader()` (the shared real-fs adapter used by both doctor and the extension tool), and `formatVaultConformanceReport(result)`.
+- `src/doctor.ts` gained `checkVaultOkfConformance(vaultRoot, {vaultDirReader?, exclude?})`, wired into `doctorPiren` as a `vault-okf-conformance` WARNING check (never a hard fail). `DoctorPirenOptions` gained `vaultDirReader` for test injection.
+- `src/pi-extension.ts` registers the read-only `vault_conformance_check()` extension tool and adds an "Open Knowledge Format (ADR-0022)" section to the startup context prompt.
+- `src/knowledge.ts` ADR renderer now emits `type: ADR` so `decision_record` output is OKF-conformant. Runbook and skill-candidate renderers already carried a non-empty type.
+- Tests: `tests/okf.test.ts` (23), `tests/doctor-okf.test.ts` (4), plus 3 new in `tests/pi-extension.test.ts` and 1 in `tests/knowledge.test.ts`.
+
+## Common pitfalls
+
+- This directory is a git repository. Remote: `https://github.com/Odiobill/piren.git`, default branch `main`. Prefer small, focused commits with clear messages. Do not force-push to `main` or rewrite shared history.
+- `vault_write` with local outbox must not create a missing vault root as authoritative state.
+- Path traversal outside the vault is a hard rejection, not an outbox proposal.
+- `vault_read_cached` is explicit and non-authoritative. Keep `vault_read` authoritative by default.
+- Avoid `loadPirenContext()` in doctor-style missing-file checks because context loading creates runtime directories.
+- With TypeScript unions, prefer property checks such as `"path" in result`, `"outboxPath" in result`, or `"reason" in result` when narrowing is stubborn.
+- With `exactOptionalPropertyTypes`, do not pass optional properties as explicit `undefined`. Build option objects with required fields first, then assign optional fields only when defined.
+- When writing YAML or multi-line string content through patch/write tools, avoid TypeScript template literals with escaped newlines in test fixtures. Prefer string concatenation to avoid JSON escaping corruption.
+- When updating docs, search both this repository and `/mnt/nas/Piren/Projects/Piren/` for stale verification baselines and stale next-step wording.
+
+## Phase-specific handoff location
+
+The current next tracer bullet and transient setup notes live here:
+
+```text
+/mnt/nas/Piren/Projects/Piren/handoff-prompt.md
+```
+
+Do not duplicate long phase histories in prompts. Put stable implementation rules here, current project truth in vault project docs, and only volatile next-session instructions in the handoff prompt.
+
+---
+> Source: [Odiobill/piren](https://github.com/Odiobill/piren) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
