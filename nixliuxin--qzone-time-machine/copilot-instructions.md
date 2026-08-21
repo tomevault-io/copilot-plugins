@@ -1,54 +1,26 @@
-## no-personal-info
+## versioning
 
-> Do not leak author personal backup stats, paths, or identifiers in published repo content
+> SemVer versioning policy for QZone-Time-Machine releases
 
 
-# No Personal Information in Published Content
+# Versioning Policy
 
-This is a **public open-source** project. Never embed the maintainer's (or any
-user's) real backup statistics, local paths, or social-graph details in content
-that ships with or is published from the repo.
+QZone-Time-Machine uses **SemVer** to communicate change impact to users.
 
-## Forbidden in repo-published content
+| Bump | When | Examples |
+|------|------|----------|
+| **patch** x.x.+1 | Bug fixes, internal improvements users barely notice | Retry logic fix, edge-case parse fix, refactor |
+| **minor** x.+1.0 | Changes users actively notice — new capabilities, UX improvements | New backup module, viewer feature, new output format |
+| **major** +1.0.0 | Breaking changes to CLI flags, output format, or data layout | JSON schema change, removed command |
 
-Includes release notes, README/examples, docs, commit messages, PR descriptions,
-CLI help examples, code comments, and AI rule files:
+Rule of thumb: if the release notes wouldn't excite a typical user,
+it's a **patch**.
 
-- **Backup statistics from a real run** — e.g. exact friend counts (`N 好友`),
-  number of packed users (`M`), archive sizes (`X GB`), success/failure counts
-  from a personal batch
-- **Local or cloud paths** — e.g. `L:/DATA`, `D:/archives`, Dropbox folder paths,
-  machine-specific working copy dirs
-- **Real QQ identifiers** — UINs, nicknames, remarks, friend names in examples
-- **Session / auth artifacts** — cookies, tokens, qr paths tied to a real account
+## Version sources
 
-## Use generic placeholders instead
-
-| Instead of | Use |
-|---|---|
-| `N 好友 · M 有本地备份` | `完整 QQ 好友列表 · 本地备份 / 访问权限筛选` |
-| `L:/DATA/qzone-backup` | `./qzone-backup`, `<backup-root>`, `<archive-dir>` |
-| `1234567890_example-user` | `<uin>_<remark>` or fictional `1234567890_demo` |
-| `packed M/M, X GB` | `packed N users` / omit sizes |
-
-## Allowed
-
-- **Runtime UI** — launcher/viewer showing counts from the *current user's*
-  loaded archive (data stays local; not authored into the repo)
-- **Copyright / author name** in LICENSE and About page
-- **Public GitHub URLs** for the project itself
-- **Protocol constants** required by QZone APIs (e.g. `appid: 311`)
-
-## Local-only scripts
-
-Personal debug / batch drivers (`packages/cli/measure-data.mjs`,
-`packages/cli/scripts/probe-enrich.cjs`, etc.) must **not** be committed.
-
-## Before publishing releases or docs
-
-Scan for digits+单位 patterns tied to personal batches, drive letters with
-project-specific folder names, and real remark/nickname strings. Replace with
-generic descriptions.
+The single source of truth is the root `package.json` `version` field.
+Individual package versions (`packages/cli/package.json`,
+`packages/viewer/package.json`) should stay in sync.
 
 ---
 > Source: [nixliuxin/QZone-Time-Machine](https://github.com/nixliuxin/QZone-Time-Machine) — distributed by [TomeVault](https://tomevault.io).
