@@ -4,7 +4,7 @@
   "repo": "tcut",
   "description": "Script terminal sessions in TypeScript, render reproducible MP4/GIF/SVG/HTML with Bun",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AmanVarshney01/tcut",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T08:31:07Z"
+  "distributed_at": "2026-08-21T08:31:56Z"
 }
