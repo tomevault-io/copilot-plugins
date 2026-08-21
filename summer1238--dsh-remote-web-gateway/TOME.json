@@ -1,0 +1,44 @@
+{
+  "name": "dsh-remote-web-gateway",
+  "owner": "summer1238",
+  "repo": "dsh-remote-web-gateway",
+  "description": "\u624b\u673a\u8fdc\u7a0b DeepSeek Harness\uff1a\u626b\u7801\u5373\u53ef\u7ee7\u7eed\u4f7f\u7528\u7535\u8111\u4e0a\u7684 DSH\uff0c\u65e0\u9700\u8fdc\u7a0b\u684c\u9762 / SSH / \u516c\u7f51 IP\uff0c\u652f\u6301\u4e00\u6b21\u6027\u914d\u5bf9\u3001\u72ec\u7acb\u8bbe\u5907\u6388\u6743\u4e0e\u968f\u65f6\u64a4\u9500\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/summer1238/dsh-remote-web-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T05:32:09Z"
+}
