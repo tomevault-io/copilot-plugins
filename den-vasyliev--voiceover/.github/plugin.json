@@ -1,0 +1,9 @@
+{
+  "name": "den-vasyliev--voiceover",
+  "displayName": "voiceover",
+  "description": "A conversational AI agent and voice assistant application built with the LiveKit Agents framework",
+  "version": "1.0.0",
+  "author": "den-vasyliev",
+  "homepage": "https://github.com/den-vasyliev/voiceover",
+  "skills": []
+}
