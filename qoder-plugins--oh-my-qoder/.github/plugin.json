@@ -1,0 +1,9 @@
+{
+  "name": "qoder-plugins--oh-my-qoder",
+  "displayName": "oh-my-qoder",
+  "description": "Loop engineering practices for Qoder",
+  "version": "1.0.0",
+  "author": "qoder-plugins",
+  "homepage": "https://github.com/qoder-plugins/oh-my-qoder",
+  "skills": []
+}
