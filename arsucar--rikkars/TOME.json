@@ -1,0 +1,44 @@
+{
+  "name": "RikkaRs",
+  "owner": "Arsucar",
+  "repo": "RikkaRs",
+  "description": "RikkaRs is an Android APP that fork from rikkahub/rikkahub. \u4e00\u4e2a\u975e\u5e38\u597d\u7528\u7684rikkahub\u5206\u652f\uff0c\u96c6\u6210\u5b50\u4ee3\u7406\u3001\u8bb0\u5fc6\u8868\u683c\u7b49\u7279\u8272\u529f\u80fd\uff0c\u4f18\u5316\u5404\u79cd\u4ea4\u4e92\u903b\u8f91\u4f8b\u5982\u7528\u9690\u85cf\u4ee3\u66ff\u5220\u9664\u7684\u538b\u7f29\u4e0a\u4e0b\u6587\u3001\u5206\u4eab\u591a\u9009\u65f6\u6298\u53e0\u5185\u5bb9\u4e3a\u4e09\u884c\u3001\u66f4\u6613\u7528\u7684\u4e0a\u4e0b\u6587\u67e5\u770b\u9875\u9762\u3001\u589e\u52a0\u591a\u79cd\u6307\u4ee4\u5982\uff5e\u5207\u6362\u9884\u8bbe\uff08\u805a\u5408\u5feb\u901f\u6ce8\u5165\uff09\u5982/\u4e3b\u52a8\u6fc0\u6d3bskills\uff1b\u6b64\u5916\u4e3a\u4e86\u66f4\u597d\u8e6c\u516c\u76ca\u7ad9\u800c\u63d0\u4f9b\u4f9b\u5e94\u5546\u6807\u7b7e\u3001\u5206\u7ec4\u3001rpm\u672c\u5730\u9650\u5236\u7b49\u7279\u8272",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Arsucar/RikkaRs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T03:10:10Z"
+}
