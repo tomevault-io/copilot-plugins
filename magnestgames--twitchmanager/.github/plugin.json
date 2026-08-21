@@ -1,0 +1,9 @@
+{
+  "name": "magnestgames--twitchmanager",
+  "displayName": "TwitchManager",
+  "description": "Unofficial Twitch manager for OBS: title presets, auto shoutouts, streamer ID lists, notifications, and commands.",
+  "version": "1.0.0",
+  "author": "MagnestGames",
+  "homepage": "https://github.com/MagnestGames/TwitchManager",
+  "skills": []
+}
