@@ -7,11 +7,11 @@ Agentic Development in VS Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [a9a4k/vscode-deck](https://github.com/a9a4k/vscode-deck).
+Original source: `AGENTS.md` in [a9a4k/vscode-deck](https://github.com/a9a4k/vscode-deck).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
