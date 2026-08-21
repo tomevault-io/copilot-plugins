@@ -4,7 +4,7 @@
   "repo": "lighton-python-sdk",
   "description": "Python SDK for Lighton API, the \ud83c\uddea\ud83c\uddfa European industrial-grade retrieval infrastructure powered by its frontier retrieval models developed in-house",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lightonai/lighton-python-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T01:00:11Z"
+  "distributed_at": "2026-08-21T01:09:49Z"
 }
