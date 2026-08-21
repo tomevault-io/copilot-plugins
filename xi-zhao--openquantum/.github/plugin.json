@@ -1,9 +1,9 @@
 {
   "name": "xi-zhao--openquantum",
-  "displayName": "openQuantum",
+  "displayName": "OpenQuantum",
   "description": "Open-source quantum Agent workspace built on DeepSeek Harness",
   "version": "1.0.0",
   "author": "xi-zhao",
-  "homepage": "https://github.com/xi-zhao/openQuantum",
+  "homepage": "https://github.com/xi-zhao/OpenQuantum",
   "skills": []
 }
