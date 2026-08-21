@@ -1,0 +1,9 @@
+{
+  "name": "leethobbit--obsidian-inkswell-plugin",
+  "displayName": "obsidian-inkswell-plugin",
+  "description": "Plan, draft, track, revise, and publish longform fiction entirely inside your Obsidian vault using a single host view that organizes Home, Plan, Write, Revise, Publish plus Codex and Track tools.",
+  "version": "1.0.0",
+  "author": "leethobbit",
+  "homepage": "https://github.com/leethobbit/obsidian-inkswell-plugin",
+  "skills": []
+}
