@@ -1,0 +1,44 @@
+{
+  "name": "proxypin-mcp-workbench",
+  "owner": "sinyu1012",
+  "repo": "proxypin-mcp-workbench",
+  "description": "\u57fa\u4e8e ProxyPin \u4e0e MCP \u7684\u81ea\u52a8\u5316\u6293\u5305\u3001API \u5206\u6790\u3001Mock \u573a\u666f\u548c\u6570\u636e\u5f52\u6863\u5de5\u4f5c\u53f0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sinyu1012/proxypin-mcp-workbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T07:31:55Z"
+}
