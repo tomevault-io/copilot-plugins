@@ -1,111 +1,103 @@
-## 03-types-and-enums
+## 04-naming-and-exports
 
-> Repo type/enum approach, discriminated unions, and global prop mixins
+> Naming convention + public export and barrel export rules
 
 
-# Types & Enums
+# Naming & Exports
 
-This file derives the answer to "which types should I add where when developing a new component" from the repo code[cite: 4].
+In this repo, naming and export rules are derived from real code[cite: 5].
 
-## Design tokens & global prop mixins
+## Naming convention (real examples)
 
-Common types[cite: 4]:
+### Folder
 
-- `src/libs/infrastructure/types/index.ts`[cite: 4]
-  - `Variants`, `Status`, `Color`, `Sizes`, `BorderRadiuses`[cite: 4]
-  - `Option`, `Icon`, etc[cite: 4].
+- Under `src/components/`: category -> component folder[cite: 5]
+- Component folder: `kebab-case`[cite: 5]
+  - `src/components/form/date-picker/`[cite: 5]
+  - `src/components/form/upload/`[cite: 5]
+  - `src/components/feedback/tooltip/`[cite: 5]
 
-Common prop mixins[cite: 4]:
+### Component name (export)
 
-- `src/libs/infrastructure/types/IGlobalProps.ts`[cite: 4]
-  - `IVariantProps`[cite: 4]
-  - `IStatusProps`[cite: 4]
-  - `IColorProps`[cite: 4]
-  - `IBorderProps`[cite: 4]
-  - `IIconProps`[cite: 4]
-  - `ISizeProps`[cite: 4]
-  - `IUpperCaseProps`[cite: 4]
-  - also other common props like input[cite: 4]
+- Exported component name: `PascalCase`[cite: 5]
+  - `DatePicker`, `Upload`, `Tooltip`, `Modal`, `Steps`[cite: 5]
 
-Rule:
+### Props type file
 
-- When adding a new component, do not invent new variant/status/type under the guise of "best practice"[cite: 4].
-- First check if an appropriate type exists in `IGlobalProps` + `types/index.ts`[cite: 4].
+- Usually `IProps.ts` or `Props.ts`[cite: 5]
+  - Modal: `src/components/feedback/modal/IProps.ts`[cite: 5]
+  - Steps: `src/components/navigation/steps/IProps.ts`[cite: 5]
+  - Select: `src/components/form/select/Props.ts`[cite: 5]
+  - Upload: `src/components/form/upload/Props.ts`[cite: 5]
 
-## Enums (string/number enums)
+### Helper / positioning files
 
-The real enum pattern in the repo[cite: 4]:
+- `helpers.ts` (logic)[cite: 5]
+  - `src/components/navigation/steps/helpers.ts`[cite: 5]
+  - `src/components/navigation/pagination/helpers.ts`[cite: 5]
+- `position.ts` (overlay position)[cite: 5]
+  - `src/components/feedback/popover/position.ts`[cite: 5]
+  - `src/components/feedback/tooltip/position.ts`[cite: 5]
 
-- `export enum FilterOperator`[cite: 4]:
-  - `src/libs/infrastructure/shared/Enums.ts`[cite: 4]
+### Constants / fixtures
 
-This enum is used in filter systems like Table[cite: 4]:
+- Constants like `PER_PAGE_OPTIONS`: kept in ALL_CAPS inside `helpers.ts` or helper files[cite: 5]:
+  - `src/components/navigation/pagination/helpers.ts`[cite: 5]
 
-- `src/components/data-display/table/index.tsx` (`FilterOperator`)[cite: 4]
+## Export pattern (real examples)
 
-There are also session/storage token enums in the same file[cite: 4]:
+### Inside component
 
-- `SessionStorage`[cite: 4]
-- `DispatchEvent`[cite: 4]
-  - `src/libs/infrastructure/shared/Enums.ts`[cite: 4]
+- In every component folder[cite: 5]:
+  - `index.tsx` : `export default` (public component)[cite: 5]
+  - If a compound component exists: static property attach inside `index.tsx`[cite: 5]
 
-Rule:
+Example:
 
-- Before considering extending an existing enum, find a similar usage example first[cite: 4].
-- Currently, the only "active" enum set in the repo is inside shared/Enums.ts[cite: 4].
+- Button compound attach:
+  - `src/components/form/button/index.tsx` (Button.Group/Action/Split)[cite: 5]
+  - Base:
+    - `src/components/form/button/Button.tsx`[cite: 5]
 
-## Discriminated unions / controlled props types
+- Input compound attach:
+  - `src/components/form/input/index.tsx` (AddonBefore/AddonAfter/Icon/Pin, etc.)[cite: 5]
 
-Controlled/uncontrolled in the repo is mostly separated using union types[cite: 4].
+### Public API (library export)
 
-Example: `Select`[cite: 4]
+- Public API of the library is `src/index.ts`[cite: 5]:
+  - Individual imports + `export { ... }` inside `src/index.ts`[cite: 5]
 
-- `src/components/form/select/Props.ts`[cite: 4]
-  - `IMultiple`:[cite: 4]
-    - `multiple: true`[cite: 4]
-    - `value: Option[]`[cite: 4]
-  - `ISingle`:[cite: 4]
-    - `multiple?: false`[cite: 4]
-    - `value: Option | undefined`[cite: 4]
+Example:
 
-Example: Table filter value model[cite: 4]
-
-- `src/components/data-display/table/IProps.ts`[cite: 4]
-  - `FilterValue`:[cite: 4]
-    - `value: string | number | boolean | DateRangeValue`[cite: 4]
-    - `operator: FilterOperator`[cite: 4]
-
-Example: Upload progress controlled map[cite: 4]
-
-- `src/libs/infrastructure/types/index.ts`:[cite: 4]
-  - `UploadProgress = Record<string, UploadProgressItem>`[cite: 4]
-  - `UploadProgressItem { percent; status? }`[cite: 4]
-
-Upload component[cite: 4]:
-
-- `src/components/form/upload/Props.ts`[cite: 4]
-
-## Constants pattern
-
-Const patterns in the repo[cite: 4]:
-
-- "constant lists" are kept in helper files[cite: 4]:
-  - Pagination:
-    - `src/components/navigation/pagination/helpers.ts` (`PER_PAGE_OPTIONS`, `TOOLTIP`, etc.)[cite: 4]
-- Calculation constants like overlay positioning are in separate files[cite: 4]:
-  - Tooltip:
-    - `src/components/feedback/tooltip/position.ts` (`TOOLTIP_OFFSET`, `VIEWPORT_PADDING`)[cite: 4]
-
-## Shared utility-driven type checks
-
-Utility example[cite: 4]:
-
-- `Utils.IsNullOrEmpty`[cite: 4]
-  - `src/libs/infrastructure/shared/Utils.ts`[cite: 4]
+- `src/index.ts`:
+  - `import DatePicker from "./components/form/date-picker";`[cite: 5]
+  - `export { DatePicker, Select, Modal, Tooltip, ... }`[cite: 5]
 
 Rule:
 
-- Most components directly use this in type "exists/does not exist" checks (e.g., `Utils.IsNullOrEmpty(validation?.text)`)[cite: 4].
+- When creating a new component, update `src/index.ts` first[cite: 5].
+- Category-level barrel (`src/components/charts/index.ts`) _exists_, but primary source for public API is `src/index.ts`[cite: 5].
+  - e.g.,
+    - `src/components/charts/index.ts`[cite: 5]
+
+### Package entry points (package.json exports)
+
+Inside `package.json`, there are only exports for `dist/` and some sub-paths[cite: 5]:
+
+- `.` -> `./dist/index.js`[cite: 5]
+- `./config` -> dist contexts index[cite: 5]
+- `./hooks` -> dist hooks index[cite: 5]
+- `./types` -> dist infrastructure/types index[cite: 5]
+- `./utils` -> dist infrastructure/shared index[cite: 5]
+- `./styles.css` -> dist/styles.css[cite: 5]
+
+Reference:
+
+- `package.json` `exports` section[cite: 5]
+
+Rule:
+
+- If a new public API needs to be added, `src/index.ts` + `package.json exports` are evaluated together[cite: 5].
 
 ---
 > Source: [kaancetin-f/harjs-design-react-ui](https://github.com/kaancetin-f/harjs-design-react-ui) — distributed by [TomeVault](https://tomevault.io).
