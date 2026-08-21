@@ -1,0 +1,9 @@
+{
+  "name": "diagridio--dev-dashboard",
+  "displayName": "dev-dashboard",
+  "description": "A local dashboard for Dapr developers that offers a live view of everything Dapr running on your machine, plus guided builders for authoring Dapr components and resiliency policies.",
+  "version": "1.0.0",
+  "author": "diagridio",
+  "homepage": "https://github.com/diagridio/dev-dashboard",
+  "skills": []
+}
