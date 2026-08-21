@@ -1,0 +1,9 @@
+{
+  "name": "codriverlabs--kubemicrovm",
+  "displayName": "KubeMicroVM",
+  "description": "The first community Kubernetes controller for AWS Lambda MicroVMs, with JOSDK, Quarkus and GraalVM",
+  "version": "1.0.0",
+  "author": "codriverlabs",
+  "homepage": "https://github.com/codriverlabs/KubeMicroVM",
+  "skills": []
+}
