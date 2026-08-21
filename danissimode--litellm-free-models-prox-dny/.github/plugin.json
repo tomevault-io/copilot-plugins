@@ -1,0 +1,9 @@
+{
+  "name": "danissimode--litellm-free-models-prox-dny",
+  "displayName": "litellm-free-models-prox-DNy",
+  "description": "Hardened local-only LiteLLM gateway \u2014 auto-discovers free/trial LLM models from 15+ providers (OpenRouter, Groq, Gemini, Cerebras, NVIDIA NIM, SambaNova, Cohere, GitHub Models, etc.). Single OpenAI-co",
+  "version": "1.0.0",
+  "author": "Danissimode",
+  "homepage": "https://github.com/Danissimode/litellm-free-models-prox-DNy",
+  "skills": []
+}
