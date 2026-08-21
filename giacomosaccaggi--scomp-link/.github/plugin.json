@@ -1,0 +1,9 @@
+{
+  "name": "giacomosaccaggi--scomp-link",
+  "displayName": "scomp_link",
+  "description": "End-to-end ML toolkit automating the complete workflow \u2014 data profiling, preprocessing, feature engineering, model selection, training, validation, explainability, drift monitoring, fairness checks, a",
+  "version": "1.0.0",
+  "author": "GiacomoSaccaggi",
+  "homepage": "https://github.com/GiacomoSaccaggi/scomp_link",
+  "skills": []
+}
