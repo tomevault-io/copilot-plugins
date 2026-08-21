@@ -1,0 +1,9 @@
+{
+  "name": "crabbuild--trail",
+  "displayName": "trail",
+  "description": "Trail is a local-first, prolly tree backed operation database for code and text worktrees. Git records committed snapshots; Trail records the work that happens between commits: saves, patches, branche",
+  "version": "1.0.0",
+  "author": "crabbuild",
+  "homepage": "https://github.com/crabbuild/trail",
+  "skills": []
+}
