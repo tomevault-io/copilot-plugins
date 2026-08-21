@@ -1,0 +1,9 @@
+{
+  "name": "harcochen--dsh-vsc-integration",
+  "displayName": "dsh-vsc-integration",
+  "description": "Deepseek-Harness Vscode Integration",
+  "version": "1.0.0",
+  "author": "HarcoChen",
+  "homepage": "https://github.com/HarcoChen/dsh-vsc-integration",
+  "skills": []
+}
