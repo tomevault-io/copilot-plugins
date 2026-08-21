@@ -4,7 +4,7 @@
   "repo": "podium",
   "description": "Podium is an ADE with built-in cross-harness subagents and agent communication. It runs on desktop, mobile and VPS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/madeinorbit/podium",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T03:07:37Z"
+  "distributed_at": "2026-08-21T03:29:52Z"
 }
