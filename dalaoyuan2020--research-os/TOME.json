@@ -1,0 +1,44 @@
+{
+  "name": "research-os",
+  "owner": "Dalaoyuan2020",
+  "repo": "research-os",
+  "description": "Agentic \u5b66\u672f\u5de5\u5177\u7ad9 \u2014 \u6bcf\u5929\u4ece GitHub \u6311\u51fa\u6700\u503c\u5f97\u7528\u7684\u5b66\u672f AI \u5de5\u5177\u4e0e Skill,\u6309\u7814\u7a76\u9636\u6bb5\u5206\u7c7b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dalaoyuan2020/research-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T01:11:01Z"
+}
