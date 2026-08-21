@@ -4,7 +4,7 @@
   "repo": "pokemon_champion_agent",
   "description": "Pok\u00e9mon Champions Agent Skills set for battle dex, metagame data, exact damage/Speed calculation, and audited Singles/Doubles team building.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pmwl0128/pokemon_champion_agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T00:44:42Z"
+  "distributed_at": "2026-08-21T00:48:03Z"
 }
