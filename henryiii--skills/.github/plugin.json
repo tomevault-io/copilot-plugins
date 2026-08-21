@@ -1,0 +1,9 @@
+{
+  "name": "henryiii--skills",
+  "displayName": "skills",
+  "description": "Some agent skills that are useful for coding.",
+  "version": "1.0.0",
+  "author": "henryiii",
+  "homepage": "https://github.com/henryiii/skills",
+  "skills": []
+}
