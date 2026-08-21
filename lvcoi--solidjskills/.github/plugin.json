@@ -1,0 +1,9 @@
+{
+  "name": "lvcoi--solidjskills",
+  "displayName": "solidJSkills",
+  "description": "A repo intended to be an mcp server for SolidJS Agentic Skills",
+  "version": "1.0.0",
+  "author": "lvcoi",
+  "homepage": "https://github.com/lvcoi/solidJSkills",
+  "skills": []
+}
