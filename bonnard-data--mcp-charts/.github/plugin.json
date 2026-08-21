@@ -1,0 +1,9 @@
+{
+  "name": "bonnard-data--mcp-charts",
+  "displayName": "mcp-charts",
+  "description": "Add agent-ready, interactive charts to your MCP server in a few lines.",
+  "version": "1.0.0",
+  "author": "bonnard-data",
+  "homepage": "https://github.com/bonnard-data/mcp-charts",
+  "skills": []
+}
