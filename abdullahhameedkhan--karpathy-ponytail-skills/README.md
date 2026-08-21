@@ -7,13 +7,13 @@ Karpathy's LLM coding guidelines merged with Ponytail's laziness ladder, think b
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [AbdullahHameedKhan/karpathy-ponytail-skills](https://github.com/AbdullahHameedKhan/karpathy-ponytail-skills).
+Original source: `CLAUDE.md` in [AbdullahHameedKhan/karpathy-ponytail-skills](https://github.com/AbdullahHameedKhan/karpathy-ponytail-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
