@@ -1,0 +1,9 @@
+{
+  "name": "johnsite07--spms-deployment",
+  "displayName": "SPMS_Deployment",
+  "description": "Deployement environment for the Secure Password Management System for the Seneca BTT 4th Semester Programming Project",
+  "version": "1.0.0",
+  "author": "JohnSite07",
+  "homepage": "https://github.com/JohnSite07/SPMS_Deployment",
+  "skills": []
+}
