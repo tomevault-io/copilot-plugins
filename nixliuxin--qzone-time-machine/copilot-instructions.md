@@ -1,30 +1,25 @@
-## english-only
+## no-autonomous-git
 
-> All technical content must be English-only
+> Require explicit user permission before any git write or rule/config change
 
 
-# English-Only Technical Content
+# No Autonomous Git Writes or Rule Changes
 
-All **technical content** in this repository MUST be written in English.
-This is a coding style rule, not a localization rule.
+## Forbidden without explicit user permission
+- Any git command that changes state: `commit`, `add`/stage, `push`, `merge`,
+  `rebase`, `reset`, `checkout`/`switch`, `restore`, `stash`, `tag`,
+  `cherry-pick`, `revert`, `branch -D`, `clean`.
+- Creating, editing, or deleting rule files (`.cursor/rules/**`, `AGENTS.md`)
+  or project config — unless the user asks for it in the current turn.
 
-Technical content includes:
+## Allowed without asking
+- Read-only git: `status`, `diff`, `log`, `show`, `branch --list`.
+- Normal source/file edits that are not git commits and not rule changes.
 
-- Code: variable names, function names, class names, constants
-- Comments: inline, block, JSDoc annotations
-- Commit messages and PR descriptions
-- AI rules (`.mdc` files), `AGENTS.md`, any developer-facing docs
-- Log/print output, error messages, CLI help text
-
-**Exceptions** (non-technical, user-facing content — may be Chinese or multilingual):
-
-- `README.md` (Chinese primary README)
-- `README.en.md` (English README)
-- Viewer UI labels, navigation text, tooltips, status messages
-  (QZone is a Chinese product; viewer renders Chinese user data)
-- Future i18n locale/string-table files if added
-- QZone API parameter values that must match upstream protocol
-  (e.g. `format: 'jsonp'`, `inCharset: 'utf-8'`)
+## Workflow
+- When changes are ready, summarize what changed and ask before committing.
+- A one-time "commit" instruction authorizes only that commit, not future ones.
+- If unsure whether an action counts as a write, ask first.
 
 ---
 > Source: [nixliuxin/QZone-Time-Machine](https://github.com/nixliuxin/QZone-Time-Machine) — distributed by [TomeVault](https://tomevault.io).
