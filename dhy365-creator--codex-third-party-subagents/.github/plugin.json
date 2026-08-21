@@ -1,0 +1,9 @@
+{
+  "name": "dhy365-creator--codex-third-party-subagents",
+  "displayName": "codex-third-party-subagents",
+  "description": "Use third-party and Chinese model APIs as bounded Codex subagents while keeping Codex as the main agent.",
+  "version": "1.0.0",
+  "author": "dhy365-creator",
+  "homepage": "https://github.com/dhy365-creator/codex-third-party-subagents",
+  "skills": []
+}
