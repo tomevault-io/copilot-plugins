@@ -1,0 +1,9 @@
+{
+  "name": "noitom-robotics--adapt",
+  "displayName": "AdaPT",
+  "description": "The official implementation of \"AdaPT: Towards Professional Tennis Styles for Humanoid Robots with Adaptive Motion Planning and Tracking.\"",
+  "version": "1.0.0",
+  "author": "noitom-robotics",
+  "homepage": "https://github.com/noitom-robotics/AdaPT",
+  "skills": []
+}
