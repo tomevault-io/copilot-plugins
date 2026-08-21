@@ -1,63 +1,48 @@
-## myket-gradle-mirror
+## project-resume
 
-> Use Myket Iranian Maven/Gradle mirrors for Android builds
+> Brick Blast project state — read when resuming work after a break
 
 
-# Myket Maven & Gradle Mirror (Iran)
+# Brick Blast — resume context
 
-Always configure Android/Gradle projects to use the Iranian Myket mirror first.
+**Path:** `/home/mostafa/AndroidStudioProjects/BrickBlast`  
+**Package:** `com.mostafa.brickblast`  
+**Branch:** `main` (keep clean before switching away)  
+**Release:** v1.5.1 (versionCode 9), tag `v1.5.1`  
+**Remote:** `git@github.com:ashrafimostafa/Brick-Blast.git`
 
-## Maven repository
+## How to reopen
 
-URL: `https://maven.myket.ir`
+1. **File → Open Folder** → `BrickBlast`
+2. Chat history for this folder is kept in Cursor when you return
+3. Run `git status` and `git pull` before continuing
 
-In `settings.gradle.kts`, put Myket **before** `google()` and `mavenCentral()`:
+## What shipped in v1.5.1
 
-```kotlin
-pluginManagement {
-    repositories {
-        maven(url = "https://maven.myket.ir")
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
+- Fix pause buffering / challenge bypass (issue #7)
+- Updated app / F-Droid icon
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        maven(url = "https://maven.myket.ir")
-        google()
-        mavenCentral()
-    }
-}
-```
+## Key areas
 
-For legacy Groovy `build.gradle`:
+| Feature | Files |
+|---------|--------|
+| Pause / round advance | `GameEngine.kt`, `GameViewModel.kt`, `NavGraph.kt` |
+| Audio / SFX | `game/audio/AudioManager.kt`, `GameViewModel.kt` |
+| Explosions | `game/particle/ParticleSystem.kt`, `GameEngine.kt`, Settings |
+| F-Droid | `metadata/com.mostafa.brickblast.yml`, `docs/F-DROID.md`, `fdroid` flavor |
+| Changelog | `CHANGELOG.md`, `fastlane/.../changelogs/9.txt` |
 
-```groovy
-repositories {
-    maven { url 'https://maven.myket.ir' }
-    google()
-    mavenCentral()
-}
-```
+## Local conventions
 
-## Gradle Wrapper distribution
+- Use **Myket mirror first** in Gradle (see `myket-gradle-mirror.mdc`); F-Droid prebuild strips it
+- Do **not** commit unless asked
+- Easter egg: tap Shop “Board Color Packs” title 7× — not in changelog
 
-In `gradle/wrapper/gradle-wrapper.properties`, use Myket for the Gradle ZIP:
+## Likely next steps (when user returns)
 
-```properties
-distributionUrl=https\://maven.myket.ir/gradle/distributions/gradle-<VERSION>-bin.zip
-```
-
-Replace `<VERSION>` with the project's Gradle version (e.g. `8.9`).
-
-## When creating new Android projects
-
-1. Add Myket to `settings.gradle.kts` repositories (first entry).
-2. Point `gradle-wrapper.properties` `distributionUrl` to `https://maven.myket.ir/gradle/distributions/...`.
-3. Do not remove `google()` / `mavenCentral()` — keep them as fallback after Myket.
+- Commit 1.5.1 prep, tag `v1.5.1`, push main + tag for GitHub release CI
+- F-Droid fdroiddata MR for 1.5.1 if not merged
+- New features per user request
 
 ---
 > Source: [ashrafimostafa/Brick-Blast](https://github.com/ashrafimostafa/Brick-Blast) — distributed by [TomeVault](https://tomevault.io).
