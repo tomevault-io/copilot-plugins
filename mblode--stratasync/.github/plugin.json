@@ -1,0 +1,9 @@
+{
+  "name": "mblode--stratasync",
+  "displayName": "stratasync",
+  "description": "Sync that works offline.",
+  "version": "1.0.0",
+  "author": "mblode",
+  "homepage": "https://github.com/mblode/stratasync",
+  "skills": []
+}
