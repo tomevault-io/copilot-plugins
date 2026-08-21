@@ -1,0 +1,9 @@
+{
+  "name": "walterra--bot-prompt",
+  "displayName": "bot-prompt",
+  "description": "System prompt that turns AI coding agents from human-like coworkers into CLI-style tools. No praise, no apologies, no \"Happy to help.\"",
+  "version": "1.0.0",
+  "author": "walterra",
+  "homepage": "https://github.com/walterra/bot-prompt",
+  "skills": []
+}
