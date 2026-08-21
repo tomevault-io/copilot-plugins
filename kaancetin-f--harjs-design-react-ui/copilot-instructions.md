@@ -1,162 +1,111 @@
-## 02-components
+## 03-types-and-enums
 
-> Existing component architecture, compound patterns, and overlay/controlled rules
+> Repo type/enum approach, discriminated unions, and global prop mixins
 
 
-# Components System
+# Types & Enums
 
-This file supports the "do not invent" principle when building new components: it formalizes existing component patterns from real code[cite: 3].
+This file derives the answer to "which types should I add where when developing a new component" from the repo code[cite: 4].
 
-## Folder structure (real pattern)
+## Design tokens & global prop mixins
 
-- Components are under `src/components/<category>/<component>/`[cite: 3].
-- Public entry: `index.tsx` in most components[cite: 3]
-  - e.g.,
-    - `src/components/form/date-picker/index.tsx`[cite: 3]
-    - `src/components/feedback/modal/index.tsx`[cite: 3]
-    - `src/components/feedback/tooltip/index.tsx`[cite: 3]
-- Prop types[cite: 3]:
-  - Usually `IProps.ts` (e.g., Modal, Steps, Table)[cite: 3]
-  - In some components `Props.ts` (e.g., Select)[cite: 3]
-  - e.g.,
-    - `src/components/feedback/modal/IProps.ts`[cite: 3]
-    - `src/components/navigation/steps/IProps.ts`[cite: 3]
-    - `src/components/form/select/Props.ts`[cite: 3]
-- Component sub-parts[cite: 3]:
-  - Files like `helpers.ts` / `position.ts`[cite: 3]
-  - e.g.,
-    - `src/components/feedback/popover/position.ts`[cite: 3]
-    - `src/components/feedback/tooltip/position.ts`[cite: 3]
+Common types[cite: 4]:
 
-## Styling entry rule
+- `src/libs/infrastructure/types/index.ts`[cite: 4]
+  - `Variants`, `Status`, `Color`, `Sizes`, `BorderRadiuses`[cite: 4]
+  - `Option`, `Icon`, etc[cite: 4].
 
-- Every component index file includes its relevant CSS import[cite: 3]:
-  - `src/components/form/select/index.tsx` -> `assets/css/components/form/select/styles.css`[cite: 3]
-  - `src/components/feedback/modal/index.tsx` -> `assets/css/components/feedback/modal/styles.css`[cite: 3]
+Common prop mixins[cite: 4]:
 
-When adding a new component[cite: 3]:
-
-- New CSS must comply with the "library root" rule (token / nesting rules)[cite: 3].
-
-## Compound component pattern (static property attachment)
-
-This repo usually implements the "compound component" pattern via `index.tsx`[cite: 3]:
-
-- Defines the base component inside `Button.tsx`, `Input/index.tsx`, etc[cite: 3].
-- Performs static attachment inside `index.tsx`[cite: 3].
-
-Example:
-
-- Button:
-  - Base:
-    - `src/components/form/button/Button.tsx`[cite: 3]
-  - Compound attachment:
-    - `src/components/form/button/index.tsx`[cite: 3]
-  - Names:
-    - `Button.Group`, `Button.Action`, `Button.Split`[cite: 3]
-
-Example (Input):
-
-- `Input` compound parts:
-  - `Input.AddonBefore`, `Input.AddonAfter`, `Input.Icon`[cite: 3]
-  - `src/components/form/input/index.tsx`[cite: 3]
-
-When building a new compound component:
-
-- Implement base UI functionality in a single "root" component[cite: 3].
-- Expose children externally via static attach in `index.tsx`[cite: 3].
-- Children can be exported in separate files (e.g., `src/components/form/button/group/index.tsx`)[cite: 3].
-
-## Controlled component pattern (controlled/uncontrolled)
-
-### Select (discriminated controlled via union props)
-
-Props union depending on Select's `multiple` state[cite: 3]:
-
-- `src/components/form/select/Props.ts`[cite: 3]
-
-Code[cite: 3]:
-
-- `src/components/form/select/index.tsx`[cite: 3]
-- `multiple ? value: Option[] : value: Option | undefined`[cite: 3]
-
-Rule for new Select-like components:
-
-- Make the "single vs multiple" distinction type-safe using union props[cite: 3].
-
-### Steps (controlled via `currentStep` existence)
-
-Steps:
-
-- controlled logic:
-  - if `currentStep` is a number, `isControlled=true`[cite: 3]
-- uncontrolled:
-  - holds state with `internalStep`[cite: 3]
-- additionally:
-  - if `isAutomatic` is present, it does not write to internal state[cite: 3]
-  - sessionStorage:
-    - `getStepsStorageKey` + `parseStoredStep`[cite: 3]
-
-Example references[cite: 3]:
-
-- `src/components/navigation/steps/index.tsx`[cite: 3]
-- `src/components/navigation/steps/helpers.ts`[cite: 3]
-- `src/components/navigation/steps/IProps.ts`[cite: 3]
-
-### Table (ref forwarding + parent-owned pagination)
-
-Table uses `forwardRef`[cite: 3]:
-
-- `src/components/data-display/table/index.tsx`[cite: 3]
-
-Pagination part is parent-owned (optional, but committed with a callback if present)[cite: 3]:
-
-- `src/components/data-display/table/IProps.ts`[cite: 3]
-- `src/components/navigation/pagination/index.tsx`[cite: 3]
-
-## Overlay pattern (createPortal + focus management)
-
-In overlays, this repo[cite: 3]:
-
-- renders to `document.body` via `createPortal`[cite: 3]
-- applies escape/click-outside/focus management[cite: 3]
-
-### Modal
-
-- Open control comes externally (controlled)[cite: 3]:
-  - `open: { get: boolean; set: Dispatch<SetStateAction<boolean>> }`[cite: 3]
-  - `src/components/feedback/modal/IProps.ts`[cite: 3]
-- Focus restore + body scroll lock[cite: 3]:
-  - `src/components/feedback/modal/index.tsx`[cite: 3]
-
-Demo usage (open setter/get)[cite: 3]:
-
-- `docs/components/demos/feedback/modal/basic.tsx`[cite: 3]
-
-### Popover
-
-- Popover trigger is the child element; ARIA information is injected via `React.cloneElement`[cite: 3]
-  - `src/components/feedback/popover/index.tsx`[cite: 3]
-- ESC + click-outside[cite: 3]:
-  - `src/components/feedback/popover/index.tsx`[cite: 3]
-
-### Tooltip
-
-- Tooltip trigger is the child element, `aria-describedby` is injected into trigger[cite: 3]
-  - `src/components/feedback/tooltip/index.tsx`[cite: 3]
-- Tooltip portal:
-  - `createPortal` -> `document.body`[cite: 3]
-
-## Event handling + keyboard/A11y
-
-- Tab trap and ESC handling are implemented in existing overlays[cite: 3]:
-  - Modal: `src/components/feedback/modal/index.tsx`[cite: 3]
-  - Popover: `src/components/feedback/popover/index.tsx`[cite: 3]
-  - Tooltip: `src/components/feedback/tooltip/index.tsx`[cite: 3]
+- `src/libs/infrastructure/types/IGlobalProps.ts`[cite: 4]
+  - `IVariantProps`[cite: 4]
+  - `IStatusProps`[cite: 4]
+  - `IColorProps`[cite: 4]
+  - `IBorderProps`[cite: 4]
+  - `IIconProps`[cite: 4]
+  - `ISizeProps`[cite: 4]
+  - `IUpperCaseProps`[cite: 4]
+  - also other common props like input[cite: 4]
 
 Rule:
 
-- "interactive panel" => design together with `role`, `aria-*`, and keyboard behavior[cite: 3].
+- When adding a new component, do not invent new variant/status/type under the guise of "best practice"[cite: 4].
+- First check if an appropriate type exists in `IGlobalProps` + `types/index.ts`[cite: 4].
+
+## Enums (string/number enums)
+
+The real enum pattern in the repo[cite: 4]:
+
+- `export enum FilterOperator`[cite: 4]:
+  - `src/libs/infrastructure/shared/Enums.ts`[cite: 4]
+
+This enum is used in filter systems like Table[cite: 4]:
+
+- `src/components/data-display/table/index.tsx` (`FilterOperator`)[cite: 4]
+
+There are also session/storage token enums in the same file[cite: 4]:
+
+- `SessionStorage`[cite: 4]
+- `DispatchEvent`[cite: 4]
+  - `src/libs/infrastructure/shared/Enums.ts`[cite: 4]
+
+Rule:
+
+- Before considering extending an existing enum, find a similar usage example first[cite: 4].
+- Currently, the only "active" enum set in the repo is inside shared/Enums.ts[cite: 4].
+
+## Discriminated unions / controlled props types
+
+Controlled/uncontrolled in the repo is mostly separated using union types[cite: 4].
+
+Example: `Select`[cite: 4]
+
+- `src/components/form/select/Props.ts`[cite: 4]
+  - `IMultiple`:[cite: 4]
+    - `multiple: true`[cite: 4]
+    - `value: Option[]`[cite: 4]
+  - `ISingle`:[cite: 4]
+    - `multiple?: false`[cite: 4]
+    - `value: Option | undefined`[cite: 4]
+
+Example: Table filter value model[cite: 4]
+
+- `src/components/data-display/table/IProps.ts`[cite: 4]
+  - `FilterValue`:[cite: 4]
+    - `value: string | number | boolean | DateRangeValue`[cite: 4]
+    - `operator: FilterOperator`[cite: 4]
+
+Example: Upload progress controlled map[cite: 4]
+
+- `src/libs/infrastructure/types/index.ts`:[cite: 4]
+  - `UploadProgress = Record<string, UploadProgressItem>`[cite: 4]
+  - `UploadProgressItem { percent; status? }`[cite: 4]
+
+Upload component[cite: 4]:
+
+- `src/components/form/upload/Props.ts`[cite: 4]
+
+## Constants pattern
+
+Const patterns in the repo[cite: 4]:
+
+- "constant lists" are kept in helper files[cite: 4]:
+  - Pagination:
+    - `src/components/navigation/pagination/helpers.ts` (`PER_PAGE_OPTIONS`, `TOOLTIP`, etc.)[cite: 4]
+- Calculation constants like overlay positioning are in separate files[cite: 4]:
+  - Tooltip:
+    - `src/components/feedback/tooltip/position.ts` (`TOOLTIP_OFFSET`, `VIEWPORT_PADDING`)[cite: 4]
+
+## Shared utility-driven type checks
+
+Utility example[cite: 4]:
+
+- `Utils.IsNullOrEmpty`[cite: 4]
+  - `src/libs/infrastructure/shared/Utils.ts`[cite: 4]
+
+Rule:
+
+- Most components directly use this in type "exists/does not exist" checks (e.g., `Utils.IsNullOrEmpty(validation?.text)`)[cite: 4].
 
 ---
 > Source: [kaancetin-f/harjs-design-react-ui](https://github.com/kaancetin-f/harjs-design-react-ui) — distributed by [TomeVault](https://tomevault.io).
