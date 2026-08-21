@@ -1,0 +1,9 @@
+{
+  "name": "janusilver--douyin-dl",
+  "displayName": "douyin-dl",
+  "description": "\u591a\u5e73\u53f0\u65e0\u6c34\u5370\u4e0b\u8f7d\u5668\uff1a\u6296\u97f3 / \u5c0f\u7ea2\u4e66 / \u5feb\u624b / B\u7ad9\uff0c\u56fe\u6587\u539f\u56fe\u3001\u5b9e\u51b5\u56fe\u52a8\u56fe\u3001\u65e0\u6c34\u5370\u89c6\u9891\u4e00\u952e\u4e0b\u8f7d\uff08Python + tkinter GUI\uff09",
+  "version": "1.0.0",
+  "author": "Janusilver",
+  "homepage": "https://github.com/Janusilver/douyin-dl",
+  "skills": []
+}
