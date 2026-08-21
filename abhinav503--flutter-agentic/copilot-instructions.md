@@ -1,173 +1,93 @@
-## conventions
+## release
 
-> Project-wide coding conventions and rules for FlutterAgentic. Always include for all code generation tasks.
+> Release workflow for FlutterAgentic. Follow these steps when the user asks to do a release.
 
 
-## Documentation Index
+When the user asks to do a release, follow these steps interactively — ask for confirmation at each step before proceeding.
 
-Read before writing or modifying any code:
-- `docs/reference/architecture.md` — core folder map, layer patterns, naming, DI, error flow, design system, testing
-- `docs/explanation/end-goal.md` — project vision and guiding principles
-
-Read on demand:
-- `docs/how-to/contributing.md` — contributor workflow and git hooks
-- `docs/how-to/add-feature-template.md` — full folder tree, empty class skeletons, DI wiring, and forbidden-pattern checklist for scaffolding a new feature
-- `docs/how-to/add-usecase.md` — create a use case class and register it in `injection_container.dart`
-- `docs/how-to/design-screen-state.md` — business-logic naming for events and states, retry context rules, screen rendering pattern; use the jokes feature as the reference
-- `docs/how-to/review-code.md` — when asked to review, audit, or check generated code; run through the full checklist and report ✅/❌ per section
-- `docs/how-to/change-app-id.md` — when asked to change the application ID or bundle identifier; covers Android (`build.gradle.kts` + `MainActivity.kt` package path) and iOS (`project.pbxproj`), with Xcode manual steps and provisioning notes
-- `docs/how-to/rename-app.md` — when asked to rename the app; covers display name, package name, and all files that reference the old name
-- `docs/how-to/connect-firebase.md` — when connecting an app to Firebase; covers checking/installing the Firebase + FlutterFire CLIs, running `flutterfire configure`, per-app `firebase_core`, `main.dart` init, Android Gradle plugin, iOS deployment target (15.0+), and the Xcode `GoogleService-Info.plist` registration check
-- `docs/tutorials/solid-principles.md` — how SOLID principles are applied across all layers; useful when designing new classes or reviewing layer boundaries
-- `docs/tutorials/design-patterns-and-concepts.md` — design patterns used in this codebase (Singleton, Repository, DTO, Either, Sealed Classes, Strategy, and more)
-- `docs/explanation/ai-agents.md` — per-agent install and usage
-- **Release workflow** — see `release.mdc` in this rules folder
-
----
-
-## Monorepo Layout
-
-Dart pub-workspace monorepo: one shared `core` package consumed by multiple Flutter apps.
-
-```
-packages/core/   shared toolbelt → import 'package:core/core/…'   (no app-specific code)
-apps/jokes/      demo app          apps/doc_scanner/  request/response app
-apps/ai_chat/    streaming app
-```
-
-One `flutter pub get` at the repo root resolves all packages; editing `core` is live in any running app. Each app owns its `main.dart`, `app.dart`, `di/injection_container.dart`, `constants/` (`ValueConst`/`ApiConstants`), and `feature/home/`; `core` holds only `CoreConst`. Run `make` targets from the repo root; run an app from its folder (`apps/<app>`).
-
----
-
-## Build & Run
-
-After cloning, run `make setup` once to install git hooks and fetch packages.
-
+**Prerequisites** — this repo uses **multiple GitHub accounts**, so release auth must be explicit. The token lives in a git-ignored `.env` at the repo root. Load it and verify `gh`:
 ```bash
-make setup            # first-time setup: git hooks + root flutter pub get
-make run-jokes        # run the jokes app (cd apps/jokes && flutter run)
-make run-doc-scanner  # run the doc_scanner app
-make run-ai-chat      # run the ai_chat app
-make web-jokes        # run jokes on Chrome
-make test             # flutter test in each app
-make analyze          # flutter analyze — whole workspace
-make gen              # build_runner in core + each app
-make clean            # flutter clean per package, then root pub get
+which gh
+set -a && . ./.env && set +a    # exports GH_TOKEN from the root .env
+gh auth status
 ```
+`gh auth status` should report `Logged in … (GH_TOKEN)`. Source `.env` in every shell that runs a `gh` command — non-interactive shells don't inherit it. If `gh` is missing: `brew install gh`. If `.env` has no `GH_TOKEN`, create a fine-grained PAT (Contents: Read and write on this repo) at https://github.com/settings/personal-access-tokens/new and add it as `GH_TOKEN=…` to `.env` (never commit it). Stop if not ready. If `gh auth status` reports the token as invalid, confirm the shell has network access before replacing it — in a sandboxed agent environment, blocked network access can surface as an auth failure; re-run with network permission and `.env` sourced first.
 
-The pre-commit hook formats staged Dart files and runs `flutter analyze` at the root — commits are blocked if analysis fails.
-
----
-
-## Forbidden Patterns
-
-- Hardcoded colours, strings, spacing, or radii in widget files
-- Business logic in `build()` or widget classes
-- `import 'package:dio/...'` from `domain/`
-- `if (state is XState)` — always use exhaustive `switch`
-- Giving an enum methods/fields in its own body (enhanced enum) when an `extension on` it would do — keep enums as bare case lists; put helpers, `switch` mappings, and string ↔ enum conversion in an extension beside the enum. Likewise, put repeated `String`/`num`/`DateTime` logic in an `extension on` that type, not a `*Utils` helper class or inline. Don't add a conversion extension for an enum that never crosses a string boundary; parse wire strings in the `*Model` (data layer), not the UI
-- Comments that restate what the code or name already says — with business-logic naming most doc comments are redundant. Write **why** (non-obvious decisions, gotchas, constraints), not **what**. Don't repeat the same note in two places, and reserve longer comments for genuinely complex logic. Examples:
-  - ❌ `/// Stops the app.` above `Future<…> stopApp(String name)` — the name says it
-  - ❌ `/// Param is the app name.` above `RunAppUseCase` — the signature says it
-  - ✅ `// Not const — owns the live WebSocket the other methods act on`
-  - ✅ `// Returning a state equal to the current one is a no-op, so per-chunk updates don't rebuild`
-- `context.read<T>()` after an `await` without a `mounted` check
-- More than one feature's logic in a single BLoC
-- Exposing `*Model` classes outside the `data/` layer
-- Calling `AppBottomSheet.show()` directly in a screen — use `showAppBottomSheet()` from `BaseScreenState`
-- Extending `StatelessWidget`/`StatefulWidget` directly for full pages or screens
-- Manually editing `.freezed.dart` or `.g.dart` files
-- Using `setState` in a screen to store values that come from BLoC events — put them in BLoC state instead
-- Putting a screen-specific BLoC in `buildBlocProviders` when it is not needed above the body — provide it in `buildBody` wrapping the screen instead
-- Calling `add()` from inside a BLoC event handler — factor shared logic into a private method instead
-- Using Flutter's built-in button widgets (`ElevatedButton`, `TextButton`, `OutlinedButton`, `FilledButton`) in screens or molecules — use `AppButton` with the appropriate `AppButtonVariant`
-- Using a raw `PopupMenuButton` / `DropdownButton` for a menu/select — use `AppDropdownMenu` (themed, with `AppDropdownItem`)
-- Inline `CircularProgressIndicator` in screens — use `LoadingIndicator` (spinner) or `LoadingDots` (inline "working…") from `package:core/core/ui/atoms/`
-- A hand-rolled empty/placeholder view — use the `EmptyState` molecule
-- Error states that omit the data needed to retry — every `*Error` state must carry enough context (e.g. `searchTerm`, `page`) for the BLoC to re-dispatch without reading prior state; screens must never inspect preceding states for retry inputs
-- Creating a new entity that is structurally identical to an existing one — reuse the existing entity; a single entity works for both single-result and list-result use cases
-- Adding constructor parameters to data source impls for infrastructure — data sources are `const` no-arg; they reach infrastructure through static singleton `.instance` calls
-- Duplicating UI concerns (safe-area padding, snackbars, bottom sheet or dialog presentation) across screens — these belong in `BaseScreenState`, `AppBottomSheet`, or `AppDialog`; if something appears in more than one screen, move it to the appropriate base class
-- Creating a `*Model` without a corresponding `*Entity`, or a `*Entity` without a corresponding `*Model` — every DTO in `data/` must map to an entity in `domain/` and vice versa; they are always a pair
-- Registering a static-singleton service (`HttpService`, `SharedPreferenceService`, `ImagePickerService`, or any class with a `static final instance`) in GetIt, or calling `sl<T>()` for it — these are never in the GetIt graph; always access them via `ServiceName.instance`
-- Writing field-by-field `Model(field: entity.field, ...)` construction inside a repository — use `Model.fromEntity(entity)` and `model.toEntity()` instead; every `*Model` must expose both
-- Putting app-specific copy, feature logic, or product API URLs in `core` — `core` is the generic shared toolbelt; product strings/URLs go in each app's `lib/constants/` (`ValueConst`/`ApiConstants`), `core` keeps only `CoreConst`
-- Listing a package in an app's `pubspec.yaml` the app doesn't import directly — declare only direct deps; keep `core` dependency-lean
-- Naming the primary feature after the product — it's always `feature/home/` with `HomePage`/`HomeScreen`
-- Unguarded native-only init or actions — apps are **previewed as Flutter Web**, so the boot path and tap handlers must never crash on web. Guard native/platform code behind `kIsWeb`: wrap web-throwing init (`Firebase.initializeApp`, FCM, `flutter_local_notifications`) in `if (!kIsWeb) { … }`; make native-only user actions (camera/gallery, native share) no-op **with a snackbar** (e.g. `'… only available on mobile'`) — never a silent dead button or a thrown exception. Prefer plugins with a web implementation. **If a package won't *compile* for web** (pulls in `dart:io`/`dart:ffi`), a runtime `kIsWeb` isn't enough — isolate it behind a **conditional import** with a web stub (`export 'x_stub.dart' if (dart.library.io) 'x_io.dart' if (dart.library.js_interop) 'x_web.dart';`), not Dart deferred loading. Rule: *compiles but throws* → `kIsWeb`; *won't compile* → conditional import
-
----
-
-## UI Molecules
-
-Use these shared components rather than their raw Flutter equivalents:
-
-| Component | Use instead of |
-|---|---|
-| `AppBottomSheet.show(context, title:, child:)` | `showModalBottomSheet` directly |
-| `AppDialog.show(context, title:, child:, actions:)` | `showDialog` + `AlertDialog` directly |
-| `AppButton` with `AppButtonVariant` | `ElevatedButton`, `TextButton`, `FilledButton`, etc. |
-| `AppDropdownMenu` with `AppDropdownItem` | raw `PopupMenuButton` / `DropdownButton` |
-| `LoadingIndicator` / `LoadingDots` | `CircularProgressIndicator` inline |
-| `EmptyState` | hand-rolled empty/placeholder view |
-
----
-
-## Theme
-
-Config-driven: each app's `assets/theme/theme_config.json` → `AppTheme.fromConfig` → `ThemeData`. A new look is a new config, never per-app theme Dart.
-
-- **Colours:** `activeTheme` picks a preset (`dadJokes`, `oceanBreeze`, `forestWalk`, `rocketWarm`); a seed generates all M3 roles, any role overridable by key. Extra success/warning roles → `AppColorsExtension`.
-- **Shape:** optional `"shape": { button, chip, card, input, sheet }` (+ `"density"`) sets brand corner radii. These populate `ThemeData`'s component themes (`elevatedButtonTheme`, `chipTheme`, `cardTheme`, …) **and** the `AppShapes` extension the atoms read — so a raw `ElevatedButton` and `AppButton` match and re-skin together. Read radius from `Theme.of(context).extension<AppShapes>()!`, never hardcode it.
-- **Dark/light:** `ThemeMode.system` by default. Manual toggle = `ThemeModeController` (persisted `ValueNotifier<ThemeMode>` in core — not a Cubit, keeps core free of `flutter_bloc`) + `ThemeModeScope` + the `ThemeModeToggle` atom (System→Light→Dark) in the AppBar.
-- Full detail: `docs/reference/architecture.md` → Theme configuration.
-
----
-
-## Code Generation
-
-Run after changing any `@freezed` or `@JsonSerializable` file:
-
+**Step 1 — Identify release branch**
 ```bash
-dart run build_runner build --delete-conflicting-outputs
+git branch --show-current
+```
+If not `main`, ask: "Release from `{branch}`? Confirm or type a different name." Record as `{RELEASE_BRANCH}`.
+
+**Step 2 — Compare to main**
+```bash
+git log main..{RELEASE_BRANCH} --oneline
+git diff main..{RELEASE_BRANCH} --stat
+```
+Show the commit list for the user to review.
+
+**Step 3 — Version bump** — read current version:
+```bash
+grep "^version:" pubspec.yaml
+```
+Format: `MAJOR.MINOR.PATCH`. Rules: Major = breaking change; Minor = any `feat:` commit or new component/skill; Patch = fix/chore/docs/refactor only. Propose bump with one sentence of reasoning. Wait for confirmation.
+
+**Step 4 — Update `pubspec.yaml`** — replace the version line with the confirmed version.
+
+**Step 5 — Write release notes** — create `docs/releases/v{NEW_VERSION}.md` from `docs/releases/_template.md`. Two sections only:
+- **Features** — what a developer gains: new components, apps, integrations
+- **Agent Context Improvements** — what AI agents gain: new skills, rules, doc refs
+
+Rules: plain language only; one bullet per change; one sentence per bullet; no duplicates across sections; nothing obvious. Show draft and ask "Does this look good?" Wait for confirmation.
+
+**Step 6 — Commit on release branch**
+```bash
+git add pubspec.yaml docs/releases/v{NEW_VERSION}.md
+git commit -m "chore: release v{NEW_VERSION}"
+git push
 ```
 
----
-
-## Git
-
+**Step 7 — Merge to main**
+```bash
+git checkout main && git pull origin main
+git merge --no-ff {RELEASE_BRANCH} -m "chore: merge {RELEASE_BRANCH} into main for v{NEW_VERSION}"
+git push origin main
 ```
-<type>: <summary under 72 chars>
+Stop on conflicts — ask user to resolve, then continue.
 
-What changed:
-- bullet
-
-Why:
-- bullet
+**Step 8 — Tag and GitHub Release**
+```bash
+git tag v{NEW_VERSION}
+git push origin v{NEW_VERSION}
+gh release create v{NEW_VERSION} \
+  --title "v{NEW_VERSION} — {SUMMARY_TITLE}" \
+  --notes-file docs/releases/v{NEW_VERSION}.md \
+  --target main
 ```
+Report the release URL to the user.
 
-Types: `feat` `fix` `chore` `refactor` `test` `docs` `ci`
+**Step 8b — Build and attach Android APK (optional, per app)**
 
----
+> **Monorepo:** the repo root has no runnable app — build from inside an app folder (`apps/<app>/`), never the root. Skip for a pure template release that ships no binary.
 
-## Maintaining agent instructions
+Ask which app to attach (e.g. `doc_scanner`, `jokes`) and record it as `{APP}`. Build the release APK from that app:
+```bash
+cd apps/{APP} && fvm flutter build apk --release
+```
+If `fvm` is unavailable, fall back to `cd apps/{APP} && flutter build apk --release`. Output: `apps/{APP}/build/app/outputs/flutter-apk/app-release.apk`.
 
-This repo serves **7 AI agents** across **6 instruction surfaces** (Codex CLI + Android Studio share `AGENTS.md`). The canonical rule docs are `docs/ai-rules/conventions.md` and `docs/reference/architecture.md`.
+Upload as a named asset (named after the app + version):
+```bash
+gh release upload v{NEW_VERSION} \
+  apps/{APP}/build/app/outputs/flutter-apk/app-release.apk#{APP}-v{NEW_VERSION}.apk
+```
+Confirm the asset appears on the release page before continuing.
 
-When you change a shared rule, update **every** surface in the same commit:
-
-| Surface | Agent(s) | Picks up canonical-doc edits |
-|---|---|---|
-| `CLAUDE.md` | Claude Code | ✅ auto (`@docs/…` import) |
-| `GEMINI.md` | Gemini CLI | ✅ auto (`@docs/…` import) |
-| `.amazonq/rules/` | Amazon Q | ⚠️ hybrid — plain rule docs are **symlinks** into `docs/` (auto-sync); per-skill files are **self-contained copies** (hand-sync, drift). Amazon Q reads symlink targets but cannot follow `@docs/…` prose references |
-| `.cursor/rules/conventions.mdc` | Cursor | ⚠️ hand-sync — self-contained copy |
-| `.github/copilot-instructions.md` | GitHub Copilot | ⚠️ hand-sync — self-contained copy |
-| `AGENTS.md` | Codex CLI, Android Studio | ⚠️ hand-sync — self-contained copy |
-
-The three ⚠️ files only **name** the doc path as prose; they carry their own condensed copy that drifts unless edited directly. Full per-agent detail: `docs/explanation/ai-agents.md`.
-
-**Skills live in two parallel trees — keep them in sync.** Both Claude Code (`.claude/skills/`) and Codex CLI (`.codex/skills/`) read per-skill `SKILL.md` folders, but in different formats: Claude skills are thin (body + `@docs/…` import), Codex skills are **self-contained inline** (full content with YAML frontmatter, since Codex can't follow `@docs/…`). When you add, remove, or rename a skill, update **both** trees in the same commit — `.codex/skills/` does not inherit `.claude/skills/` edits — and add the matching self-contained `.amazonq/rules/<skill>.md`. A skill that exists in only one tree is the most common drift; verify with `ls .claude/skills .codex/skills`.
+**Step 9 — Clean up** — ask: "`{RELEASE_BRANCH}` has been merged. Delete it?" If yes:
+```bash
+git branch -d {RELEASE_BRANCH}
+git push origin --delete {RELEASE_BRANCH}
+```
 
 ---
 > Source: [abhinav503/flutter-agentic](https://github.com/abhinav503/flutter-agentic) — distributed by [TomeVault](https://tomevault.io).
