@@ -1,0 +1,44 @@
+{
+  "name": "bot-prompt",
+  "owner": "walterra",
+  "repo": "bot-prompt",
+  "description": "System prompt that turns AI coding agents from human-like coworkers into CLI-style tools. No praise, no apologies, no \"Happy to help.\"",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/walterra/bot-prompt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T01:39:48Z"
+}
