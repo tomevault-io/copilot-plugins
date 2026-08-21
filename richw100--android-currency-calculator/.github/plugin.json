@@ -1,0 +1,9 @@
+{
+  "name": "richw100--android-currency-calculator",
+  "displayName": "android-currency-calculator",
+  "description": "Android calculator app with live dual-currency conversion. Kotlin + Jetpack Compose.",
+  "version": "1.0.0",
+  "author": "richw100",
+  "homepage": "https://github.com/richw100/android-currency-calculator",
+  "skills": []
+}
