@@ -1,0 +1,95 @@
+## roamcode
+
+> These instructions apply to the entire repository. This is a public repository: write every file, commit,
+
+# Repository instructions for coding agents
+
+These instructions apply to the entire repository. This is a public repository: write every file, commit,
+log, issue, release note, and command as if it will be visible to anyone on the internet.
+
+## Public-repository safety
+
+- Never commit, print, paste, or request credentials, access tokens, cookies, private keys, `.npmrc` contents,
+  signing material, or authenticated URLs. Use the existing GitHub environments and trusted publishing.
+- Never add a maintainer's username, home directory, machine-specific absolute path, private hostname, tunnel URL,
+  session identifier, or production log contents to the repository.
+- Keep local service data, live sessions, and unrelated worktree changes intact. Do not clean, reset, or overwrite
+  changes that are outside the requested task.
+- Do not mutate or restart a developer's installed RoamCode service merely to test a change. A live install, manual
+  migration, rollback, or restart requires an explicit user request. Use isolated tests and GitHub Actions for boot
+  and package-install smoke tests.
+
+## Stable release and OTA contract
+
+- A commit or push to `main` is not an update. Users discover updates only through stable, non-draft GitHub Releases.
+- Stable SemVer (`X.Y.Z`) is the only release identity. The workspace, CLI, server, web package, npm artifacts,
+  GitHub tag/release, release manifest, and Homebrew formula must agree on the exact version.
+- The stable release workflow must publish npm artifacts and the Homebrew formula before it creates the discoverable
+  GitHub Release. Never manually reverse this order.
+- OTA installs the exact npm version whose integrity is recorded in `roamcode-release.json`; do not reintroduce
+  commit-, branch-, or checkout-based update behavior.
+- Release descriptions are user-facing OTA data. `scripts/release-notes.mjs` extracts them from `CHANGELOG.md`, and
+  the web client groups their Markdown bullets under headings such as `Added`, `Fixed`, and `Changed`. Every release
+  section must contain at least one accurate bullet so **What's new** is never empty.
+- Never reuse a published version for different package bytes. If a workflow fails, first determine which external
+  artifacts exist; resume only when the workflow can prove any existing immutable npm artifacts match exactly.
+
+## Releasing a stable version
+
+Only perform release mutations—version bump, release commit, push, workflow dispatch, tag, or external
+publication—when the user explicitly asks to release or publish. For implementation-only requests, prepare and
+verify the change but leave publication to the user.
+
+The canonical design and channel details are in `docs/releases.md`. When a release is authorized:
+
+1. Inspect the worktree and current releases. Preserve unrelated user changes and choose the next unused stable
+   SemVer version.
+2. Move the relevant notes from `CHANGELOG.md`'s `Unreleased` section into `## [X.Y.Z] - YYYY-MM-DD`. Write concise,
+   user-facing Markdown bullets describing actual behavior; do not use commit messages as release notes.
+3. Run `pnpm release:prepare X.Y.Z`. Confirm all four package manifests carry the same version and review the
+   resulting diff.
+4. Run proportionate local checks, including formatting, lint, type checking, relevant unit tests, and package builds.
+   Keep this gate scoped to the changed behavior instead of routinely duplicating the complete CI suite locally. Do
+   not use the developer's live service or default tmux/data locations as a test fixture. If that exact source diff
+   already passed its proportionate checks before `release:prepare` and preparation changed only version manifests
+   and release notes, do not rerun the same full test/build suite; review those mechanical changes and let exact-commit
+   CI perform the expensive gate once.
+5. Commit only the intended release scope and push the reviewed commit to `main`. That push starts the full parallel
+   `CI` run, which performs the expensive verification once and preserves the attested npm tarballs.
+6. Immediately dispatch the single release orchestrator; it waits for that exact commit's complete successful CI run
+   and fails closed if CI fails or `main` moves:
+
+   ```sh
+   gh workflow run release.yml -f version=X.Y.Z
+   ```
+
+7. Monitor that exact workflow run through the CI wait, candidate checksum/attestation verification, npm publication,
+   manifest creation, Homebrew update, and the final GitHub Release step. Do not report success while the run is
+   queued or partial. A release workflow must never rebuild candidate bytes.
+8. Verify the final GitHub Release has `roamcode-release.json` and non-empty notes, all three npm packages resolve to
+   `X.Y.Z`, and the Homebrew formula references `X.Y.Z`.
+
+The clean public installer smoke runs weekly and whenever installer code changes. Manually dispatch it for changes to
+the installer, updater, package layout, native dependencies, or release infrastructure; an ordinary UI-only release
+must not wait on a duplicate public install after its packed-runtime candidate has already passed.
+
+Do not run `npm publish`, create the stable GitHub Release, push a release tag, or edit the Homebrew tap by hand during
+the normal flow. `.github/workflows/release.yml` is the release authority and creates the GitHub Release last.
+
+## OTA changes
+
+When changing the updater or its UI, preserve these invariants:
+
+- A detached helper must report durable progress and an early exit must become an explicit failure, never an endless
+  `Starting…` state.
+- The client tracks the accepted operation id and target version, ignores stale status from older attempts, persists
+  an in-flight operation across PWA reloads, and also treats the running target version as authoritative success.
+- Planned restart disconnects are shown as reconnecting. Hiding the detail sheet must leave compact progress visible.
+- The previous verified release remains available for rollback, and activation happens only after package integrity
+  checks and an isolated boot smoke.
+- Add or update tests for helper packaging, lifecycle reconciliation, reload recovery, stale-operation rejection,
+  failure reporting, and user-facing progress copy.
+
+---
+> Source: [burakgon/roamcode](https://github.com/burakgon/roamcode) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
