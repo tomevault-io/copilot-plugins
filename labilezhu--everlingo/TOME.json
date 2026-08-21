@@ -1,0 +1,44 @@
+{
+  "name": "everlingo",
+  "owner": "labilezhu",
+  "repo": "everlingo",
+  "description": "EverLingo is an AI language companion that helps you learn in context and remember what you learn. It captures meaningful moments as you explore words, sentences, and ideas, turning them into useful notes. Later, EverLingo recalls those notes when relevant, making your learning more personal, connected, and effective.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/labilezhu/everlingo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T03:01:33Z"
+}
