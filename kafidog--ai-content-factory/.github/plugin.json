@@ -1,0 +1,9 @@
+{
+  "name": "kafidog--ai-content-factory",
+  "displayName": "ai-content-factory",
+  "description": "Provider-neutral, offline-first AI content pipeline for deterministic multi-platform content packages.",
+  "version": "1.0.0",
+  "author": "kafidog",
+  "homepage": "https://github.com/kafidog/ai-content-factory",
+  "skills": []
+}
