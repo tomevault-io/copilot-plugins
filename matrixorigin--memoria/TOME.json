@@ -1,8 +1,8 @@
 {
-  "name": "Memoria",
+  "name": "memoria",
   "owner": "matrixorigin",
-  "repo": "Memoria",
-  "description": "",
+  "repo": "memoria",
+  "description": "Secure memory management for AI Agents \u2022 Ensures data integrity \u2022 Reduces hallucinations \u2022 Maintains consistent long-term context",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/matrixorigin/Memoria",
+  "source_url": "https://github.com/matrixorigin/memoria",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T14:24:22Z"
+  "distributed_at": "2026-08-21T05:31:37Z"
 }
