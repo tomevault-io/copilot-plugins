@@ -7,11 +7,11 @@ The spreadsheet framework built for agents — write the model as React, export 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lianghsun/open-sheet](https://github.com/lianghsun/open-sheet).
+Original source: `CLAUDE.md` in [lianghsun/open-sheet](https://github.com/lianghsun/open-sheet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
