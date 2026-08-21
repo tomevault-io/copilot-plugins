@@ -1,0 +1,9 @@
+{
+  "name": "rhobs--troubleshooting-scenarios",
+  "displayName": "troubleshooting-scenarios",
+  "description": "Reproducible OpenShift scenarios for AI-assisted troubleshooting. ",
+  "version": "1.0.0",
+  "author": "rhobs",
+  "homepage": "https://github.com/rhobs/troubleshooting-scenarios",
+  "skills": []
+}
