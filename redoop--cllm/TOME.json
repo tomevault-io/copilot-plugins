@@ -1,0 +1,44 @@
+{
+  "name": "cLLM",
+  "owner": "redoop",
+  "repo": "cLLM",
+  "description": "\u5c06 xLLM Python \u7248\u672c\u91cd\u6784\u4e3a C++ \u5b9e\u73b0\uff0c\u4ee5\u83b7\u5f97\u66f4\u9ad8\u7684\u6027\u80fd\u548c\u66f4\u597d\u7684\u8d44\u6e90\u5229\u7528\u7387\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/redoop/cLLM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T12:36:44Z"
+}
