@@ -1,0 +1,44 @@
+{
+  "name": "paper-graph-manager",
+  "owner": "li-xiu-qi",
+  "repo": "paper-graph-manager",
+  "description": "\u8bba\u6587\u56fe\u8c31\u7ba1\u7406\u5de5\u5177\u3002\u4ee5\u7ba1\u7406\u4e3a\u6838\u5fc3\uff0c\u7ed3\u5408 AI \u80fd\u529b\uff0c\u5e2e\u52a9\u7528\u6237\u53d1\u73b0\u3001\u8bc4\u4f30\u3001\u5165\u5e93\u3001\u5206\u6790\u548c\u6c89\u6dc0\u8bba\u6587\u77e5\u8bc6\u5e93\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/li-xiu-qi/paper-graph-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T02:58:59Z"
+}
