@@ -1,0 +1,9 @@
+{
+  "name": "repuso-hq--gemini-extension",
+  "displayName": "gemini-extension",
+  "description": "Repuso reviews API extension for Gemini CLI - review monitoring on 50+ platforms via MCP",
+  "version": "1.0.0",
+  "author": "repuso-hq",
+  "homepage": "https://github.com/repuso-hq/gemini-extension",
+  "skills": []
+}
