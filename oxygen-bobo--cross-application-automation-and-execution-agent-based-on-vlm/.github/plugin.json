@@ -1,0 +1,9 @@
+{
+  "name": "oxygen-bobo--cross-application-automation-and-execution-agent-based-on-vlm",
+  "displayName": "Cross-Application-Automation-and-Execution-Agent-Based-on-VLM",
+  "description": "This repository builds an intelligent agent capable of executing complex tasks across multiple desktop applications. It uses visual recognition with VLM to locate interface elements and combines this ",
+  "version": "1.0.0",
+  "author": "Oxygen-Bobo",
+  "homepage": "https://github.com/Oxygen-Bobo/Cross-Application-Automation-and-Execution-Agent-Based-on-VLM",
+  "skills": []
+}
