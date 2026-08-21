@@ -1,0 +1,9 @@
+{
+  "name": "openlegged--usd-viewer",
+  "displayName": "usd-viewer",
+  "description": "A Web viewer for robot models with USD/USDA/USDC loading. \u673a\u5668\u4ebaUSD\u6a21\u578b\u5728\u7ebf\u67e5\u770b\u5668",
+  "version": "1.0.0",
+  "author": "OpenLegged",
+  "homepage": "https://github.com/OpenLegged/usd-viewer",
+  "skills": []
+}
