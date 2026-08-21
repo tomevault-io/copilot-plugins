@@ -1,0 +1,9 @@
+{
+  "name": "eikarna--kerux",
+  "displayName": "kerux",
+  "description": "A high-performance Rust implementation orchestration loop for LLM-driven tool execution.",
+  "version": "1.0.0",
+  "author": "eikarna",
+  "homepage": "https://github.com/eikarna/kerux",
+  "skills": []
+}
