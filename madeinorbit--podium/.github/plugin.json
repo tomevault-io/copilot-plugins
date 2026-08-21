@@ -1,0 +1,9 @@
+{
+  "name": "madeinorbit--podium",
+  "displayName": "podium",
+  "description": "Podium is an ADE with built-in cross-harness subagents and agent communication. It runs on desktop, mobile and VPS.",
+  "version": "1.0.0",
+  "author": "madeinorbit",
+  "homepage": "https://github.com/madeinorbit/podium",
+  "skills": []
+}
