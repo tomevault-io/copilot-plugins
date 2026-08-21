@@ -7,11 +7,11 @@ Python SDK for Lighton API, the 🇪🇺 European industrial-grade retrieval inf
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lightonai/lighton-python-sdk](https://github.com/lightonai/lighton-python-sdk).
+Original source: `AGENTS.md` in [lightonai/lighton-python-sdk](https://github.com/lightonai/lighton-python-sdk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
