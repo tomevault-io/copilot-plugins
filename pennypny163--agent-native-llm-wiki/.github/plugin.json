@@ -1,0 +1,9 @@
+{
+  "name": "pennypny163--agent-native-llm-wiki",
+  "displayName": "agent-native-llm-wiki",
+  "description": "Agent-native LLM, RAG and Agent knowledge system with traceable Markdown, MCP tools and MkDocs.",
+  "version": "1.0.0",
+  "author": "pennypny163",
+  "homepage": "https://github.com/pennypny163/agent-native-llm-wiki",
+  "skills": []
+}
