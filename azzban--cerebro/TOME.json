@@ -4,7 +4,7 @@
   "repo": "cerebro",
   "description": "Cerebro \u2014 AI-powered automated trading system",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AzzBAN/cerebro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T12:53:40Z"
+  "distributed_at": "2026-08-21T12:54:02Z"
 }
