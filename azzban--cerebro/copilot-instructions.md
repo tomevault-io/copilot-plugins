@@ -1,61 +1,53 @@
-## agent-llm
+## config-conventions
 
-> LLM agent layer patterns, prompt templates, and multi-provider conventions
+> Config loading, validation, and usage conventions for Cerebro
 
 
-# Agent / LLM Layer
+# Config Conventions
 
-## Three-Agent Model
+## Four-File Model
 
-| Agent | Role | Port |
+| File | Contains | Tracked in Git? |
 |---|---|---|
-| **Screener** | Filters market data for tradeable setups | `port.LLM` |
-| **Copilot** | Generates trade suggestions with reasoning | `port.LLM` |
-| **Reviewer** | Post-trade audit, lesson extraction | `port.LLM` |
+| `configs/app.yaml` | Engine, risk, TUI, ingest, agent settings | ✅ (sanitised) |
+| `configs/markets.yaml` | Venues, symbols, leverage | ✅ |
+| `configs/strategies.yaml` | Strategy parameters | ✅ |
+| `configs/secrets.env` | API keys, DB URL, bot tokens | ❌ (gitignored) |
 
-Each agent is an independent struct that depends on `port.LLM` — never on a concrete provider.
+Always edit `*.example` files alongside the real files when adding new config fields.
 
-## Provider Abstraction
+## Struct Conventions
 
-All LLM calls go through `port.LLM`. Concrete providers live in `internal/adapter/llm/`:
+- All config structs live in `internal/config/`.
+- Nested structs mirror YAML hierarchy (e.g. `Config.Engine.KillSwitch`).
+- Secret values loaded from env via `godotenv`; **never hardcode them in YAML**.
+- Every new field needs a validation check in `config.Validate()`.
 
-```go
-// internal/port/llm.go
-type LLM interface {
-    Complete(ctx context.Context, req LLMRequest) (LLMResponse, error)
-}
-```
+## Accessing Config
 
-To add a new provider (e.g. Gemini Flash), implement `port.LLM` in `internal/adapter/llm/gemini/` — zero changes to agent code.
-
-## Prompt Templates
-
-Prompts live in `internal/agent/prompts/*.tmpl` (Go `text/template`):
+Config is passed **once** through `internal/app.New(cfg)` and stored on the `App` struct. Downstream packages receive **only the fields they need** — do not pass the full `*config.Config` deep into domain logic.
 
 ```go
-// ✅ GOOD — load once at startup, execute per request
-var screenerTmpl = template.Must(template.ParseFiles("internal/agent/prompts/screener.tmpl"))
+// ❌ BAD — passes whole config into a strategy
+strategy.New(cfg)
+
+// ✅ GOOD — pass specific values
+strategy.New(cfg.Strategy.RSIPeriod, cfg.Strategy.BBWidth)
 ```
 
-- **Never hardcode prompt strings** in Go source files.
-- Template data structs are defined in the same `agent` sub-package that uses them.
-- System prompts and user prompts are kept in **separate template files**.
+## Environment Safety
 
-## Safety Rules
+`Environment` must be one of `paper` | `production`. The CLI enforces triple-agreement at startup:
 
-- Agents are **advisory only** — they produce suggestions, never execute trades directly.
-- Every agent output must pass through the **risk gate** before being acted upon.
-- Agent calls must respect `ctx` (timeout + cancellation): set a deadline on the context before calling `LLM.Complete`.
+1. `ENVIRONMENT=production` in `secrets.env`
+2. `environment: production` in `app.yaml`
+3. `--live` flag passed to `run`
 
-```go
-ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
-defer cancel()
-resp, err := a.llm.Complete(ctx, req)
-```
+Any mismatch is a **fatal validation error** — do not weaken these checks.
 
-## Logging Agent Decisions
+## Makefile / Docker
 
-All agent decisions (input, provider used, output, latency) must be written to `port.AgentLogStore` for auditability. Never log raw API keys or user secrets.
+`DATABASE_URL` and other secrets in `Makefile` must only ever be set via environment variables or a local `.env` override, never hardcoded in the file that gets committed.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
