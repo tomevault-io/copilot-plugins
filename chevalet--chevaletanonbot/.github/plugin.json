@@ -1,0 +1,9 @@
+{
+  "name": "chevalet--chevaletanonbot",
+  "displayName": "chevaletAnonBot",
+  "description": "A fully-featured Telegram bot for sending anonymous messages between users \u2014 written in Go (gotgbot + pgx/PostgreSQL). The bot's interface is in Persian.",
+  "version": "1.0.0",
+  "author": "Chevalet",
+  "homepage": "https://github.com/Chevalet/chevaletAnonBot",
+  "skills": []
+}
