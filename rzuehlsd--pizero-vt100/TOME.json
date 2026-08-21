@@ -1,0 +1,44 @@
+{
+  "name": "PiZero_VT100",
+  "owner": "rzuehlsd",
+  "repo": "PiZero_VT100",
+  "description": "Bare-metal Pi Zero VT100 terminal emulator based on Circle framework for 60% terminal replica. Supports original DEC VT100 ROM fonts in double width and double width double height and tries to be as close as possible to the original. Adds pcb design with power supply, connectors, bell and Rx/Tx switching to simulate null modem RS232 cable.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rzuehlsd/PiZero_VT100",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T10:32:35Z"
+}
