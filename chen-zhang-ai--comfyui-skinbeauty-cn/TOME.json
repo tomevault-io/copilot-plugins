@@ -1,0 +1,44 @@
+{
+  "name": "ComfyUI-SkinBeauty-CN",
+  "owner": "chen-zhang-ai",
+  "repo": "ComfyUI-SkinBeauty-CN",
+  "description": "ComfyUI skin-tone correction nodes with bilingual UI, full-resolution exact preview, zero required extra dependencies, and optional MediaPipe masks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chen-zhang-ai/ComfyUI-SkinBeauty-CN",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T03:26:40Z"
+}
