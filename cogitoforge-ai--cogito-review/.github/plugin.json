@@ -1,0 +1,9 @@
+{
+  "name": "cogitoforge-ai--cogito-review",
+  "displayName": "cogito-review",
+  "description": "An AI agent for code-review",
+  "version": "1.0.0",
+  "author": "CogitoForge-AI",
+  "homepage": "https://github.com/CogitoForge-AI/cogito-review",
+  "skills": []
+}
