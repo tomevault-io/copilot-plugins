@@ -1,0 +1,9 @@
+{
+  "name": "meshtastic--meshtastic-mcp",
+  "displayName": "meshtastic-mcp",
+  "description": "MCP server + agent skills for AI tooling to discover, drive, observe, and test Meshtastic devices and apps",
+  "version": "1.0.0",
+  "author": "meshtastic",
+  "homepage": "https://github.com/meshtastic/meshtastic-mcp",
+  "skills": []
+}
