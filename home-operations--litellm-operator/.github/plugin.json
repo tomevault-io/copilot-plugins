@@ -1,0 +1,9 @@
+{
+  "name": "home-operations--litellm-operator",
+  "displayName": "litellm-operator",
+  "description": "kubernetes native litellm operator",
+  "version": "1.0.0",
+  "author": "home-operations",
+  "homepage": "https://github.com/home-operations/litellm-operator",
+  "skills": []
+}
