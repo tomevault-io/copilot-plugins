@@ -1,0 +1,9 @@
+{
+  "name": "per-simmons--murmur-youtube",
+  "displayName": "murmur-youtube",
+  "description": "Push-to-talk dictation, on-device. Native macOS (Swift) and Windows (C#/Avalonia), sharing one behavioural contract for the correction dictionary.",
+  "version": "1.0.0",
+  "author": "per-simmons",
+  "homepage": "https://github.com/per-simmons/murmur-youtube",
+  "skills": []
+}
