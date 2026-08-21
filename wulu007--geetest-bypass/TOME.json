@@ -1,0 +1,44 @@
+{
+  "name": "geetest-bypass",
+  "owner": "wulu007",
+  "repo": "geetest-bypass",
+  "description": "Geetest CAPTCHA v4 bypass library \u6781\u9a8c\u884c\u4e3a\u9a8c\u8bc1 v4 \u81ea\u52a8\u5316\u901a\u8fc7\u5e93\uff08\u7eaf Python\uff0c\u65e0\u9700 Node.js\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wulu007/geetest-bypass",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T00:30:20Z"
+}
