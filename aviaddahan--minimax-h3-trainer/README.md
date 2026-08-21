@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AviadDahan/MiniMax-H3-Trainer](https://github.com/AviadDahan/MiniMax-H3-Trainer).
+Original source: `AGENTS.md` in [AviadDahan/MiniMax-H3-Trainer](https://github.com/AviadDahan/MiniMax-H3-Trainer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
