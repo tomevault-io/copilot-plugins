@@ -1,0 +1,9 @@
+{
+  "name": "alvivi--graded",
+  "displayName": "graded",
+  "description": "Effect checking for Gleam",
+  "version": "1.0.0",
+  "author": "alvivi",
+  "homepage": "https://github.com/alvivi/graded",
+  "skills": []
+}
