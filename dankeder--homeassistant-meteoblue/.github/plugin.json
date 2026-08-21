@@ -1,0 +1,9 @@
+{
+  "name": "dankeder--homeassistant-meteoblue",
+  "displayName": "HomeAssistant-MeteoBlue",
+  "description": "A Home Assistant integration for the MeteoBlue weather service. ",
+  "version": "1.0.0",
+  "author": "dankeder",
+  "homepage": "https://github.com/dankeder/HomeAssistant-MeteoBlue",
+  "skills": []
+}
