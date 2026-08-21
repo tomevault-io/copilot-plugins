@@ -1,0 +1,44 @@
+{
+  "name": "Cross-Application-Automation-and-Execution-Agent-Based-on-VLM",
+  "owner": "Oxygen-Bobo",
+  "repo": "Cross-Application-Automation-and-Execution-Agent-Based-on-VLM",
+  "description": "This repository builds an intelligent agent capable of executing complex tasks across multiple desktop applications. It uses visual recognition with VLM to locate interface elements and combines this with an LLM to decide the next action.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Oxygen-Bobo/Cross-Application-Automation-and-Execution-Agent-Based-on-VLM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-21T02:56:12Z"
+}
