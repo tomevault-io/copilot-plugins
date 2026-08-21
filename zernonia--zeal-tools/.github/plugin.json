@@ -1,0 +1,9 @@
+{
+  "name": "zernonia--zeal-tools",
+  "displayName": "zeal-tools",
+  "description": "Free tools, made with zeal. No sign-ups, no watermarks, no nonsense. Every tool usable three ways: UI \u00b7 REST API \u00b7 MCP.",
+  "version": "1.0.0",
+  "author": "zernonia",
+  "homepage": "https://github.com/zernonia/zeal-tools",
+  "skills": []
+}
