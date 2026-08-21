@@ -1,61 +1,116 @@
-## 05-testing
+## 06-code-generation
 
-> Repo test infrastructure (helper tests + compatibility smoke test)
+> Code generation protocol to be followed by AI when a new component / feature request arrives
 
 
-# Testing Rules
+# Code Generation Protocol
 
-The repo does not have a "component rendering" style test infrastructure; instead[cite: 6]:
+This rule set forces AI to automatically search for repo patterns and proceed within the correct architecture, even when the user only says[cite: 7]:
 
-- helper unit tests via `node:test` for pure logic functions[cite: 6]
-- build/compat smoke test at package level[cite: 6]
+- `Add new component X`[cite: 7]
 
-## Framework / tooling
+## USER REQUEST -> IMPLEMENTATION flow
 
-- Test framework: Node built-in `node:test`[cite: 6]
-  - example:
-    - `src/components/navigation/pagination/helpers.test.ts`[cite: 6]
-    - `src/components/navigation/steps/helpers.test.ts`[cite: 6]
-    - `src/components/layout/layout/helpers.test.ts`[cite: 6]
+### 1) Clarify requirements
 
-File naming:
+- Component name (exists or not)[cite: 7]
+- Props/API expectations (controlled/uncontrolled, overlay present, compound)[cite: 7]
+- Necessary type/enum/constant needs[cite: 7]
 
-- `helpers.test.ts` (in the same folder as helper files)[cite: 6]
+> Even if API/UX is not clear: do not create a new abstraction without searching for an "existing similar component"[cite: 7].
 
-Coverage/RTL/snapshot:
+### 2) Repo search (mandatory)
 
-- No Snapshot / React Testing Library / Jest/Vitest/Playwright present[cite: 6].
+Search inside `src/components/**` for the same family/functionality as the new component[cite: 7].
 
-## Test execution scripts
+Mandatory target:
 
-As test script in `package.json`[cite: 6]:
+- Inspect at least 2 similar components[cite: 7].
 
-- `test:compat`[cite: 6]
-  - `src/scripts/compatibility/verify.mjs`[cite: 6]
-  - This script packs the library with `npm pack` and performs smoke tests via `npm run build` in different application templates[cite: 6].
+Similarity criteria:
 
-Reference:
+- "overlay" behavior (Modal/Popover/Tooltip)[cite: 7]
+- "controlled" type (value/currentStep/open.get/set)[cite: 7]
+- "compound" attachment (Button/Input/Addons)[cite: 7]
+- "filter/table/menu/navigation" domain[cite: 7]
 
-- `package.json` -> `test:compat`[cite: 6]
-- `src/scripts/compatibility/verify.mjs`[cite: 6]
+### 3) Select architecture from similar references
 
-## Test rule for new components
+For each similar component, inspect[cite: 7]:
 
-If a new component contains "logic" rather than "UI state"[cite: 6]:
+- `index.tsx` main render flow[cite: 7]
+- `IProps.ts` / `Props.ts` type contract[cite: 7]
+- related `helpers.ts` / `position.ts`[cite: 7]
+- related CSS import pattern[cite: 7]
+- export pattern[cite: 7]
 
-- separate logic helpers into `helpers.ts`[cite: 6]
-- add `helpers.test.ts`[cite: 6]
-- use `node:test` + `assert/strict` pattern[cite: 6]
+### 4) Type/enum/constant selection
 
-UI behaviors like Overlay/focus[cite: 6]:
+- First find suitable types inside `src/libs/infrastructure/types/index.ts` + `IGlobalProps.ts`[cite: 7].
+- If enum is required, follow the pattern inside `src/libs/infrastructure/shared/Enums.ts`[cite: 7].
+- Add a new enum/union only if it is actually missing[cite: 7].
 
-- Since the repo lacks renderer test infrastructure to test such behaviors,
-  - focus on testing helper calculation functions (e.g., `position.ts`, `calculate*`)[cite: 6].
+### 5) Export & public API check
 
-## What is triggered in CI? (repo introspection)
+- If the new component must be public API:
+  - Update `src/index.ts`[cite: 7].
+- If a component category barrel exists (e.g., `src/components/charts/index.ts`):
+  - Follow repo pattern and add only when necessary[cite: 7].
 
-Since there is no script in the repo that runs unit tests,
-the primary assurance is "typecheck + build" and `test:compat` smoke test[cite: 6].
+Rule:
+
+- Do not make breaking changes to Public API[cite: 7].
+
+### 6) Styling pattern
+
+- Add related CSS import inside component `index.tsx`[cite: 7]:
+  - `../../../assets/css/components/<...>/styles.css`[cite: 7]
+- Continue to comply with root nesting / token rules[cite: 7].
+
+### 7) Test pattern
+
+- No renderer test infrastructure for UI components[cite: 7].
+- If logic helpers exist[cite: 7]:
+  - Add `helpers.ts` + `helpers.test.ts` (node:test + assert/strict)[cite: 7].
+
+### 8) Build/typecheck verification (mandatory)
+
+Run at least[cite: 7]:
+
+- `npm run build`[cite: 7]
+
+Additional (if available): package-level smoke test[cite: 7]:
+
+- `npm run test:compat`[cite: 7]
+
+### 9) Architectural consistency & self validation
+
+Apply the following checklist after completing the new component[cite: 7]:
+
+- [ ] Existing similar components inspected[cite: 7]
+- [ ] Correct architecture pattern selected[cite: 7]
+- [ ] Correct naming convention used[cite: 7]
+- [ ] Correct types created[cite: 7]
+- [ ] Correct enum/union pattern used[cite: 7]
+- [ ] Correct styling pattern used[cite: 7]
+- [ ] Correct exports updated[cite: 7]
+- [ ] Tests created/updated[cite: 7]
+- [ ] No unnecessary dependencies[cite: 7]
+- [ ] No unnecessary refactor[cite: 7]
+- [ ] Typecheck passes (tsc inside build)[cite: 7]
+- [ ] Lint passes (no eslint script in repo; build/tsc is essential)[cite: 7]
+- [ ] Tests pass (if applicable helper tests + test:compat)[cite: 7]
+- [ ] Build passes[cite: 7]
+- [ ] Public API remains consistent[cite: 7]
+
+## What AI must NOT do (hard rules)
+
+- Do not perform unnecessary refactor / architecture rewrite[cite: 7]
+- Do not change naming convention / folder structure[cite: 7]
+- Do not add new dependencies[cite: 7]
+- Do not impose a pattern not present in the repo as "best practice"[cite: 7]
+- Do not break the export system[cite: 7]
+- Do not produce breaking changes (be careful with public API updates)[cite: 7]
 
 ---
 > Source: [kaancetin-f/harjs-design-react-ui](https://github.com/kaancetin-f/harjs-design-react-ui) — distributed by [TomeVault](https://tomevault.io).
