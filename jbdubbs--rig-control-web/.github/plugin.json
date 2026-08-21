@@ -1,0 +1,9 @@
+{
+  "name": "jbdubbs--rig-control-web",
+  "displayName": "Rig-Control-Web",
+  "description": "Full amateur radio rig control including remote SSB, CW, and digital contacts.  Anywhere.",
+  "version": "1.0.0",
+  "author": "jbdubbs",
+  "homepage": "https://github.com/jbdubbs/Rig-Control-Web",
+  "skills": []
+}
