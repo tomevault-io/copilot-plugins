@@ -1,0 +1,9 @@
+{
+  "name": "mudb0y--openevv",
+  "displayName": "openevv",
+  "description": "Reimplementation of IBM's Embedded ViaVoice / ETI Eloquence SF in portable C",
+  "version": "1.0.0",
+  "author": "Mudb0y",
+  "homepage": "https://github.com/Mudb0y/openevv",
+  "skills": []
+}
