@@ -4,7 +4,7 @@
   "repo": "QZone-Time-Machine",
   "description": "QQ\u7a7a\u95f4\u65f6\u5149\u673a - \u5168\u91cf\u5bfc\u51fa\u4e0e\u672c\u5730\u6d4f\u89c8\u5de5\u5177 | Archive your entire QZone and browse it offline",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nixliuxin/QZone-Time-Machine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T02:43:22Z"
+  "distributed_at": "2026-08-21T03:28:45Z"
 }
