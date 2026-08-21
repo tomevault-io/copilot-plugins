@@ -1,0 +1,9 @@
+{
+  "name": "nickalaslight--vibeharness",
+  "displayName": "VibeHarness",
+  "description": "A tiny, dependency-free Ralph-loop agent harness for small local models (VibeThinker-3B via Ollama).",
+  "version": "1.0.0",
+  "author": "NickalasLight",
+  "homepage": "https://github.com/NickalasLight/VibeHarness",
+  "skills": []
+}
