@@ -4,7 +4,7 @@
   "repo": "DomainPrimitives",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/altasoft/DomainPrimitives",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T05:51:33Z"
+  "distributed_at": "2026-08-24T13:04:30Z"
 }
