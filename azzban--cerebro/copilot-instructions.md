@@ -1,59 +1,58 @@
-## migrations
+## project-overview
 
-> SQL migration conventions using Goose for Cerebro's PostgreSQL schema
+> Core project context, architecture, and tech-stack overview for Cerebro
 
 
-# Database Migrations
+# Cerebro — Project Overview
 
-## Tool: Goose
+**Cerebro** is a Go CLI automated trading system for Binance (spot + futures) with paper-trade-first safety, a multi-agent LLM layer, and a terminal TUI.
 
-Migrations are managed by **Goose** (Docker Compose profile `migrate`). Use the `migrate-up` / `migrate-down` Makefile targets for local development.
+## Tech Stack
 
-```bash
-make migrate-up    # applies all pending migrations
-make migrate-down  # rolls back one step
-```
-
-## File Naming
-
-```
-NNN_descriptive_name.up.sql
-NNN_descriptive_name.down.sql
-```
-
-- `NNN` is zero-padded sequential (e.g. `004`, `005`).
-- Name describes the **intent**, not the mechanism: `004_add_strategy_snapshots` not `004_alter_table`.
-- Every `.up.sql` must have a matching `.down.sql` that fully reverses it.
-
-## SQL Conventions
-
-```sql
--- ✅ GOOD — idempotent, explicit types, named constraints
-CREATE TABLE IF NOT EXISTS order_intents (
-    id          UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
-    symbol      TEXT        NOT NULL,
-    side        TEXT        NOT NULL CHECK (side IN ('BUY', 'SELL')),
-    quantity    NUMERIC(20,8) NOT NULL,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-CREATE INDEX IF NOT EXISTS idx_order_intents_symbol ON order_intents (symbol);
-```
-
-- Use `TIMESTAMPTZ` (never `TIMESTAMP`) for all time columns.
-- Use `NUMERIC(20,8)` for prices and quantities — never `FLOAT` or `DOUBLE PRECISION`.
-- Always `IF NOT EXISTS` / `IF EXISTS` for idempotency.
-- Name all foreign keys and check constraints explicitly.
-
-## Schema Baseline
-
-| Migration | Tables Created |
+| Concern | Choice |
 |---|---|
-| `001_initial_schema` | `order_intents`, `trades` |
-| `002_agent_tables` | Agent log tables |
-| `003_audit_events` | `audit_events` |
+| Language | Go 1.25 (module: `github.com/azhar/cerebro`) |
+| CLI | `cobra` |
+| TUI | `bubbletea` + `lipgloss` |
+| Exchange | `go-binance/v2` |
+| DB | `pgx/v5` (PostgreSQL) |
+| Cache | `go-redis/v9` |
+| Config | `yaml.v3` + `godotenv` |
+| LLM | `go-openai` + custom Anthropic/Gemini HTTP clients |
+| ChatOps | `telegram-bot-api/v5`, `discordgo` |
+| Numerics | `shopspring/decimal` — **never `float64` for money** |
+| IDs | `google/uuid` |
+| Concurrency | `golang.org/x/sync/errgroup` |
 
-Never modify a migration that has already been applied in any environment. Write a new migration instead.
+## Architecture
+
+Strict **hexagonal (ports-and-adapters)**:
+
+```
+cmd/cerebro/main.go → internal/cli → internal/app (composition root)
+   ├─ internal/domain     (pure types, no deps)
+   ├─ internal/port       (interfaces only)
+   ├─ internal/adapter    (implementations: binance, postgres, redis, llm, bots)
+   ├─ internal/config     (load + validate)
+   └─ internal/app        (wiring + lifecycle via errgroup)
+```
+
+## Safety Invariants
+
+- Paper mode is **default and mandatory** until live path is fully implemented.
+- Triple agreement required to go live: `ENVIRONMENT=production` in secrets, `environment: production` in `app.yaml`, and `--live` flag.
+- Kill-switch (`engine.kill_switch: true`) halts all execution immediately.
+- **Never bypass the risk gate** (`internal/risk`) in execution paths.
+
+## Key Directories
+
+- `internal/domain/` — enums, value types, no outward imports
+- `internal/port/` — Go interfaces (ports)
+- `internal/adapter/` — external system implementations
+- `internal/app/runtime.go` — composition root / goroutine wiring
+- `configs/` — `app.yaml`, `markets.yaml`, `strategies.yaml`, `secrets.env`
+- `scripts/migrations/` — Goose SQL migrations
+- `deploy/` — `Dockerfile`, `docker-compose.yaml`
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
