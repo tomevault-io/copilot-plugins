@@ -1,0 +1,9 @@
+{
+  "name": "fenkohq--passkey-vault",
+  "displayName": "passkey-vault",
+  "description": "A fully functioning passkey vault - For developers",
+  "version": "1.0.0",
+  "author": "FenkoHQ",
+  "homepage": "https://github.com/FenkoHQ/passkey-vault",
+  "skills": []
+}
