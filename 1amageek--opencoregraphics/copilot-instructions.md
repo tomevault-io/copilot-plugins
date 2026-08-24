@@ -1,0 +1,835 @@
+## opencoregraphics
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+OpenCoreGraphics targets full CoreGraphics API compatibility for WebAssembly (WASM) environments. Current completion is measured per API and rendering path.
+
+### Core Principle: Full Compatibility
+
+**The target API must be 100% compatible with CoreGraphics.** This means:
+- Identical type names, method signatures, and property names
+- Implemented behavior and semantics must be independently validated against CoreGraphics
+- Compatibility claims must identify the exercised surface and evidence
+
+### How `canImport` Works
+
+Users of this library will write code like:
+
+```swift
+#if canImport(CoreGraphics)
+import CoreGraphics
+#else
+import OpenCoreGraphics
+#endif
+
+// This code works in both environments
+let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
+```
+
+- **When CoreGraphics is available** (iOS, macOS, etc.): Users import CoreGraphics directly
+- **When CoreGraphics is NOT available** (WASM): Users import OpenCoreGraphics, which provides identical APIs
+
+This library exists so that cross-platform Swift code can use CoreGraphics APIs even in WASM environments where Apple's CoreGraphics is not available.
+
+## Build Commands
+
+```bash
+# Build the package (macOS)
+swift build
+
+# Run focused tests (macOS) with a process timeout
+perl -e 'alarm 30; exec @ARGV' -- \
+  xcodebuild test -scheme OpenCoreGraphics -destination 'platform=macOS' \
+  -only-testing:OpenCoreGraphicsTests
+
+# Build for WASM
+TOOLCHAINS=org.swift.64202607171a xcrun swift build \
+  --swift-sdk swift-6.4.x-DEVELOPMENT-SNAPSHOT-2026-07-17-a_wasm
+```
+
+## Architecture
+
+### 設計原則: CoreGraphicsと完全に同じ使い方
+
+ユーザーはネイティブでもWASMでも**完全に同じコード**を書きます。初期化関数やレンダラー設定は不要です。
+
+```swift
+#if canImport(CoreGraphics)
+import CoreGraphics
+#else
+import OpenCoreGraphics
+#endif
+
+// これだけ。初期化関数は不要。CoreGraphicsと完全に同じAPI。
+let context = CGContext(
+    data: nil,
+    width: 800,
+    height: 600,
+    bitsPerComponent: 8,
+    bytesPerRow: 0,
+    space: CGColorSpace(name: CGColorSpace.sRGB)!,
+    bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+)!
+
+context.setFillColor(.red)
+context.fill(CGRect(x: 0, y: 0, width: 100, height: 100))
+
+let image = context.makeImage()  // WASMでもネイティブでも動作
+```
+
+### Native vs WASM: 根本的な違い
+
+**このライブラリはWASM専用です。** ネイティブプラットフォームではAppleのCoreGraphicsを直接使用します。
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    ネイティブ (macOS/iOS/tvOS/watchOS)                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ユーザーコード                                                          │
+│       │                                                                 │
+│       ▼                                                                 │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │              Apple CoreGraphics (システム提供)                    │   │
+│  ├─────────────────────────────────────────────────────────────────┤   │
+│  │  • Quartz 2D エンジン                                            │   │
+│  │  • ハードウェアアクセラレーション (Metal/GPU)                      │   │
+│  │  • フォントレンダリング (Core Text 連携)                          │   │
+│  │  • PDF 生成・解析                                                 │   │
+│  │  • 画像フォーマット対応 (ImageIO 連携)                            │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                                                                         │
+│  OpenCoreGraphics: 使用しない (canImport(CoreGraphics) = true)         │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                              WASM                                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ユーザーコード                                                          │
+│       │                                                                 │
+│       ▼                                                                 │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                      OpenCoreGraphics                            │   │
+│  ├─────────────────────────────────────────────────────────────────┤   │
+│  │  Graphics/ (全アーキテクチャ)                                     │   │
+│  │  • CoreGraphics 互換 API (CGContext, CGPath, CGColor, etc.)     │   │
+│  │  • 状態管理 (CTM, クリッピング, シャドウ)                          │   │
+│  │                                                                  │   │
+│  │  Rendering/WebGPU/ (#if arch(wasm32) のみ)                       │   │
+│  │  • WebGPU によるGPUレンダリング (自動設定)                        │   │
+│  │  • パステッセレーション                                           │   │
+│  │  • ブレンドモード (Porter-Duff)                                   │   │
+│  │  • グラデーション・シェーディング                                  │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                                                                         │
+│  ※ setupGraphicsContext() 呼び出し後、レンダラーは内部で自動設定される  │
+│   （ユーザーはレンダラーを意識する必要なし）                             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+| 環境 | CoreGraphics | OpenCoreGraphics | レンダリング |
+|------|--------------|------------------|-------------|
+| **macOS/iOS** | ✅ システム提供 | ❌ 使用しない | Apple Quartz 2D |
+| **WASM** | ❌ 存在しない | ✅ 使用する | WebGPU (setupGraphicsContext()後に自動設定) |
+
+**重要**: OpenCoreGraphics のコードは `#if !canImport(CoreGraphics)` で囲まれており、ネイティブ環境ではコンパイルされません。
+
+### モジュール構成
+
+```
+Sources/OpenCoreGraphics/
+├── Graphics/                    # 全プラットフォーム共通
+│   ├── CGContext.swift          # #if arch(wasm32) で自動的にWebGPUを設定
+│   ├── CGPath.swift
+│   ├── CGPath+Stroking.swift    # Software/WebGPU共通ストローク形状
+│   ├── CGColor.swift
+│   ├── CGImage.swift
+│   └── ...
+│
+└── Rendering/                   # WASM専用 (#if arch(wasm32))
+    └── WebGPU/
+        ├── CGWebGPUContextRenderer.swift  # WebGPUレンダラー実装
+        ├── PathTessellator.swift
+        ├── EarClipping.swift
+        ├── Shaders.swift
+        └── Internal/
+            ├── BufferPool.swift
+            ├── TextureManager.swift
+            └── ...
+```
+
+### WebGPU初期化
+
+WebGPUの初期化は非同期処理が必要なため、アプリケーション起動時に `setupGraphicsContext()` を呼び出す必要があります。
+
+```swift
+// ユーザーコード
+@main
+struct MyApp {
+    static func main() async throws {
+        // WebGPUを初期化（起動時に1回呼び出す）
+        try await setupGraphicsContext()
+
+        // 以降、CGContextは通常通り使用可能
+        let context = CGContext(...)!
+        context.setFillColor(.red)
+        context.fill(CGRect(x: 0, y: 0, width: 100, height: 100))
+
+        let image = await context.makeImageAsync()
+    }
+}
+```
+
+### 内部実装
+
+`setupGraphicsContext()` はWebGPUのアダプターとデバイスを取得し、グローバル変数に保存します。
+`CGContext` の初期化時に、このデバイスを使用してレンダラーが自動設定されます。
+
+```swift
+// OpenCoreGraphics.swift (公開API)
+public func setupGraphicsContext() async throws {
+    let gpu = JSObject.global.navigator.gpu
+    let adapter = try await JSPromise(gpu.requestAdapter().object!)!.value
+    let device = try await JSPromise(adapter.requestDevice().object!)!.value
+    JSObject.global.__cgDevice = device
+}
+
+// CGContext.swift (内部実装)
+public init?(data: UnsafeMutableRawPointer?, width: Int, height: Int, ...) {
+    // 既存の初期化コード
+    ...
+
+    // WASMでは常にWebGPUレンダラーを設定
+    #if arch(wasm32)
+    let renderer = CGWebGPUContextRenderer(width: width, height: height)
+    renderer.setup()
+    self.rendererDelegate = renderer
+    #endif
+}
+```
+
+**重要**:
+- `rendererDelegate` は `internal` です。ユーザーがレンダラーを意識したり設定したりする必要はありません。
+- `setupGraphicsContext()` を呼び出さずに WebGPU-backed `CGContext` を作成すると、初期化は `nil` を返します。初期化失敗を成功値や software fallback に丸めません。
+
+### Platform Differences: OpenFoundation, CoreGraphics, and swift-corelibs-foundation
+
+Understanding the relationship between these frameworks is critical:
+
+OpenCoreGraphics source obtains Foundation-compatible values through the
+`OpenFoundation` dependency. On ordinary targets, OpenFoundation re-exports the
+Foundation module supplied by the pinned Swift toolchain, so the type identity
+described below is unchanged. On Embedded Swift, OpenFoundation supplies only
+the documented portable subset, including the canonical CFCG value declarations.
+OpenCoreGraphics re-exports those values and owns operations, drawing, and rendering.
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                     Apple Platforms (macOS/iOS)                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌─────────────────────┐    ┌─────────────────────────────────────┐    │
+│  │     Foundation      │    │          CoreGraphics               │    │
+│  ├─────────────────────┤    ├─────────────────────────────────────┤    │
+│  │ CGFloat ❌ protocols │    │ CGFloat ✅ Equatable,Hashable,etc   │    │
+│  │ CGPoint ❌ protocols │    │ CGPoint ✅ Equatable,Hashable,etc   │    │
+│  │ CGSize  ❌ protocols │    │ CGSize  ✅ Equatable,Hashable,etc   │    │
+│  │ CGRect  ❌ protocols │    │ CGRect  ✅ Equatable,Hashable,etc   │    │
+│  │                     │    │ CGAffineTransform ✅                 │    │
+│  │                     │    │ CGVector ✅                          │    │
+│  │                     │    │ CGPath (class) ✅                    │    │
+│  └─────────────────────┘    └─────────────────────────────────────┘    │
+│                                                                         │
+│  ※ Foundation exposes the CFCG declarations. OpenCoreGraphics adds      │
+│    graphics operations and any compatibility conformances it owns.      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                              WASM                                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌─────────────────────────────────────┐                                │
+│  │    swift-corelibs-foundation        │    CoreGraphics: ❌ N/A        │
+│  ├─────────────────────────────────────┤                                │
+│  │ CGFloat ✅ Equatable,Hashable,etc   │                                │
+│  │ CGPoint ✅ Equatable,Hashable,etc   │                                │
+│  │ CGSize  ✅ Equatable,Hashable,etc   │                                │
+│  │ CGRect  ✅ Equatable,Hashable,etc   │                                │
+│  │                                     │                                │
+│  │ CGAffineTransform: ❌ N/A           │                                │
+│  │ CGVector: ❌ N/A                    │                                │
+│  │ CGPath: ❌ N/A                      │                                │
+│  └─────────────────────────────────────┘                                │
+│                                                                         │
+│  ※ OpenFoundation re-exports Foundation geometry without shadow aliases │
+│    supplies the missing portable vector/affine value family.            │
+│    OpenCoreGraphics supplies CGPath, contexts, and drawing behavior.    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Types Available Through Foundation on macOS (CoreFoundation/CFCGTypes.h)
+
+On macOS, `import Foundation` implicitly makes certain CoreGraphics types available through CoreFoundation:
+
+**Types available via Foundation (need `#if !canImport(CoreGraphics)` guard):**
+
+| Type | Available | Source |
+|------|-----------|--------|
+| CGFloat | ✅ | CoreFoundation/CFCGTypes.h |
+| CGPoint | ✅ | CoreFoundation/CFCGTypes.h |
+| CGSize | ✅ | CoreFoundation/CFCGTypes.h |
+| CGRect | ✅ | CoreFoundation/CFCGTypes.h |
+| CGVector | ✅ | CoreFoundation/CFCGTypes.h |
+| CGAffineTransform | ✅ | CoreFoundation/CFCGTypes.h |
+| CGAffineTransformComponents | ✅ | CoreFoundation/CFCGTypes.h |
+
+**Types NOT available via Foundation (no guard needed - CoreGraphics only):**
+
+| Type | Available | Category |
+|------|-----------|----------|
+| CGColorSpace | ❌ | Color |
+| CGColor | ❌ | Color |
+| CGColorSpaceModel | ❌ | Color |
+| CGColorRenderingIntent | ❌ | Color |
+| CGPath | ❌ | Path |
+| CGMutablePath | ❌ | Path |
+| CGPathFillRule | ❌ | Path |
+| CGPathElementType | ❌ | Path |
+| CGContext | ❌ | Context |
+| CGBlendMode | ❌ | Context |
+| CGLineCap | ❌ | Context |
+| CGLineJoin | ❌ | Context |
+| CGInterpolationQuality | ❌ | Context |
+| CGTextDrawingMode | ❌ | Context |
+| CGImage | ❌ | Image |
+| CGBitmapInfo | ❌ | Image |
+| CGImageAlphaInfo | ❌ | Image |
+| CGGradient | ❌ | Drawing |
+| CGPattern | ❌ | Drawing |
+| CGShading | ❌ | Drawing |
+| CGLayer | ❌ | Layer |
+| CGDataProvider | ❌ | Data |
+| CGDataConsumer | ❌ | Data |
+| CGFont | ❌ | Font |
+| CGFunction | ❌ | Function |
+| CGPDFDocument | ❌ | PDF |
+| CGPDFPage | ❌ | PDF |
+| CGError | ❌ | Error |
+
+**Important**: OpenFoundation owns declaration identity, while OpenCoreGraphics owns
+graphics operations such as `.identity`, `applying`, concatenation, and path/context behavior.
+
+### Declaration and operation split
+
+- CFCG value declarations are imported from OpenFoundation on every target.
+- `CGVector.swift`, `CGAffineTransform.swift`, and
+  `CGAffineTransformComponents.swift` contain OpenCoreGraphics operations and
+  target-appropriate compatibility conformances; they must not redeclare a second value type.
+- Other CG files continue to own CoreGraphics-only APIs such as color, path, context, image, and PDF.
+
+### Testing Strategy and Protocol Conformances
+
+**Important:** Tests run on macOS using Foundation (not CoreGraphics).
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         Testing Environment                              │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  macOS (テスト実行環境)                                                  │
+│  ├── OpenFoundation -> toolchain Foundation identity                   │
+│  ├── OpenCoreGraphics adds graphics operations                         │
+│  └── canImport(CoreGraphics) = true                                    │
+│                                                                         │
+│  WASM (本番環境)                                                         │
+│  ├── OpenFoundation -> Swift SDK Foundation identity                   │
+│  ├── missing CFCG values are supplied by OpenFoundation                │
+│  └── canImport(CoreGraphics) = false                                   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Solution: Add protocol conformances for macOS testing**
+
+Since tests use Foundation on macOS (which lacks protocol conformances), we must add them. But on WASM, swift-corelibs-foundation already provides these conformances, so adding them would cause duplicate declaration errors.
+
+```swift
+// Protocol conformances for macOS testing
+// On WASM, swift-corelibs-foundation already provides these
+#if canImport(CoreGraphics)
+extension CGPoint: Equatable {
+    public static func == (lhs: CGPoint, rhs: CGPoint) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
+    }
+}
+
+extension CGPoint: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(y)
+    }
+}
+
+// CGSize, CGRect similarly...
+#endif
+```
+
+**Key insight:**
+- `#if canImport(CoreGraphics)` = true on macOS → Add protocol conformances for testing
+- `#if canImport(CoreGraphics)` = false on WASM → Don't add (swift-corelibs-foundation already has them)
+
+### Types Provided by swift-corelibs-foundation (Detailed)
+
+swift-corelibs-foundation (WASM environment) provides the following CoreGraphics-compatible types:
+
+| Type | Protocol Conformances | Notes |
+|------|----------------------|-------|
+| **CGFloat** | Equatable, Hashable, Codable, Sendable, BinaryFloatingPoint, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible, CustomDebugStringConvertible, Strideable | Implemented as Float (32-bit) or Double (64-bit) |
+| **CGPoint** | Equatable, Hashable, Codable, Sendable, CustomDebugStringConvertible | Struct with x, y (CGFloat) |
+| **CGSize** | Equatable, Hashable, Codable, Sendable, CustomDebugStringConvertible | Struct with width, height (CGFloat) |
+| **CGRect** | Equatable, Hashable, Codable, Sendable, CustomDebugStringConvertible | Struct with origin (CGPoint), size (CGSize). Also provides minX, midX, maxX, minY, midY, maxY, width, height properties |
+| **AffineTransform** | Equatable, Hashable, Codable, Sendable | **NOT CGAffineTransform**. Has m11, m12, m21, m22, tX, tY properties |
+
+**Important**: swift-corelibs-foundation provides `AffineTransform`, but this is a **different type** from `CGAffineTransform`. CoreGraphics-compatible `CGAffineTransform` is NOT provided.
+
+### Types NOT Provided by swift-corelibs-foundation
+
+The following types do not exist in swift-corelibs-foundation and must be implemented by OpenCoreGraphics:
+
+| Type | Category |
+|------|----------|
+| CGAffineTransform | Transform |
+| CGAffineTransformComponents | Transform |
+| CGVector | Geometry |
+| CGPath | Path |
+| CGMutablePath | Path |
+| CGColor | Color |
+| CGColorSpace | Color Space |
+| CGColorSpaceModel | Color Space |
+| CGColorRenderingIntent | Color Space |
+| CGContext | Drawing Context |
+| CGImage | Image |
+| CGGradient | Gradient |
+| CGPattern | Pattern |
+| CGLayer | Layer |
+| CGDataProvider | Data |
+| CGDataConsumer | Data |
+| CGPDFDocument | PDF |
+| CGPDFPage | PDF |
+| All other CG* types | - |
+
+### What This Library Provides for WASM
+
+The library provides CoreGraphics-compatible types that swift-corelibs-foundation does NOT provide:
+
+| Type | swift-corelibs-foundation | This Library |
+|------|---------------------------|--------------|
+| CGFloat | ✅ Provided (with protocols) | - |
+| CGPoint | ✅ Provided (with protocols) | Extensions (`applying()`, etc.) |
+| CGSize | ✅ Provided (with protocols) | Extensions (`applying()`, etc.) |
+| CGRect | ✅ Provided (with protocols) | Extensions (`applying()`, `insetBy()`, etc.) |
+| AffineTransform | ✅ Provided (different type) | - |
+| CGAffineTransform | ❌ Not provided | ✅ Full implementation |
+| CGAffineTransformComponents | ❌ Not provided | ✅ Full implementation |
+| CGVector | ❌ Not provided | ✅ Full implementation |
+| CGPath | ❌ Not provided | ✅ Full implementation |
+| CGMutablePath | ❌ Not provided | ✅ Full implementation |
+| CGColor | ❌ Not provided | ✅ Full implementation |
+| CGColorSpace | ❌ Not provided | ✅ Full implementation |
+| CGContext | ❌ Not provided | ✅ Full implementation |
+| ... | ... | ... |
+
+### Conditional Compilation Rules
+
+**1. Extensions to Foundation types (CGPoint, CGSize, CGRect methods like `applying()`, `zero`, etc.):**
+
+These should be wrapped with `#if !canImport(CoreGraphics)` because CoreGraphics already provides them on Apple platforms.
+
+```swift
+#if !canImport(CoreGraphics)
+extension CGPoint {
+    public static var zero: CGPoint { ... }
+    public func applying(_ t: CGAffineTransform) -> CGPoint { ... }
+}
+#endif
+```
+
+**2. New types not in swift-corelibs-foundation (CGVector, CGAffineTransform, CGPath, etc.):**
+
+These should be wrapped with `#if !canImport(CoreGraphics)` to avoid duplicate definitions on Apple platforms.
+
+```swift
+#if !canImport(CoreGraphics)
+public struct CGAffineTransform { ... }
+public struct CGVector { ... }
+public class CGPath { ... }
+#endif
+```
+
+**3. Protocol conformances for Foundation types (for macOS testing):**
+
+These should be wrapped with `#if canImport(CoreGraphics)` because:
+- macOS needs them (Foundation lacks conformances)
+- WASM doesn't need them (swift-corelibs-foundation already has them)
+
+```swift
+#if canImport(CoreGraphics)
+extension CGPoint: Equatable { ... }
+extension CGPoint: Hashable { ... }
+extension CGSize: Equatable { ... }
+// etc.
+#endif
+```
+
+### Protocol Conformances Reference
+
+From Apple's CoreGraphics documentation:
+
+| Type | Conformances |
+|------|-------------|
+| CGFloat | Equatable, Hashable, Codable, Sendable, BinaryFloatingPoint, ... |
+| CGPoint | Equatable, Hashable, Codable, Sendable |
+| CGSize | Equatable, Hashable, Codable, Sendable |
+| CGRect | Equatable, Hashable, Codable, Sendable |
+| CGVector | Equatable, Hashable, Codable, Sendable |
+| CGAffineTransform | Equatable, Hashable, Codable, Sendable |
+| CGPath | Equatable, Hashable (class, not struct) |
+
+## Testing
+
+Uses Swift Testing framework (not XCTest). Test syntax:
+
+```swift
+import Testing
+@testable import OpenCoreGraphics
+
+@Test func testCGPointEquality() {
+    let p1 = CGPoint(x: 1.0, y: 2.0)
+    let p2 = CGPoint(x: 1.0, y: 2.0)
+    #expect(p1 == p2)
+}
+```
+
+### Testing on macOS
+
+- Tests use Foundation (not CoreGraphics directly)
+- Protocol conformances are added via `#if canImport(CoreGraphics)` for testing
+- The `#if !canImport(CoreGraphics)` blocks are NOT compiled on macOS
+
+### Building for WASM
+
+```bash
+TOOLCHAINS=org.swift.64202607171a xcrun swift build \
+  --swift-sdk swift-6.4.x-DEVELOPMENT-SNAPSHOT-2026-07-17-a_wasm
+```
+
+- Uses swift-corelibs-foundation (has protocol conformances)
+- `#if canImport(CoreGraphics)` blocks are NOT compiled
+- `#if !canImport(CoreGraphics)` blocks ARE compiled
+
+## Implementation Policy
+
+- **NEVER import CoreGraphics** - This library is a replacement for CoreGraphics. Importing CoreGraphics defeats the entire purpose of this library. Foundation-compatible values must enter through `OpenFoundation`; do not add direct `Foundation` or `FoundationEssentials` imports to shared OpenCoreGraphics source.
+- **Do NOT implement deprecated APIs** - Only implement current, non-deprecated CoreGraphics APIs
+- Focus on APIs that are meaningful for WASM environments (skip macOS-only display/window services)
+- Always refer to Apple's official CoreGraphics documentation: https://developer.apple.com/documentation/coregraphics
+
+### CoreFoundation (CF) Types Policy
+
+**Do NOT use or emulate CoreFoundation types.** Use Swift native types instead.
+
+#### Rationale
+
+1. **CoreFoundation is unavailable on WASM** - CF types (`CFData`, `CFMutableData`, `CFString`, `CFArray`, etc.) do not exist in the WASM environment
+2. **Modern Swift prefers native types** - Even on Apple platforms, Swift code uses `Data` instead of `CFData`, `String` instead of `CFString`
+3. **Reference semantics are not required** - CF's reference-based patterns (e.g., `CFMutableData` for in-place modification) can be replaced with Swift-idiomatic approaches
+
+#### Type Mapping
+
+| CoreFoundation Type | Use Instead | Notes |
+|---------------------|-------------|-------|
+| `CFData` | `Data` | Value type, use properties to expose results |
+| `CFMutableData` | `Data` (mutable var) | Do not emulate reference semantics |
+| `CFString` | `String` | Swift native string |
+| `CFArray` | `[T]` | Swift native array |
+| `CFDictionary` | `[K: V]` | Swift native dictionary |
+| `CFNumber` | `Int`, `Double`, etc. | Swift native numeric types |
+
+#### Example: CGDataConsumer
+
+Instead of emulating `CFMutableData` reference semantics:
+
+```swift
+// ❌ Don't try to emulate CFMutableData behavior
+let mutableData = NSMutableData()
+let consumer = CGDataConsumer(data: mutableData)  // Won't work as expected
+
+// ✅ Use a property to retrieve the result
+let consumer = CGDataConsumer()
+consumer.putBytes(buffer, count: length)
+let result = consumer.data  // Get the accumulated data via property
+```
+
+#### What Compatibility Means
+
+**API Surface Compatibility:**
+- Same type names (`CGDataConsumer`, `CGDataProvider`, `CGImage`, etc.)
+- Same method signatures
+- Same behavior for the same inputs
+
+**NOT Required:**
+- Internal use of CF types
+- CF-style reference semantics
+- `CFTypeID` or other CF runtime features
+
+### Legacy API Policy
+
+**Do NOT implement legacy/deprecated CoreGraphics APIs.** Follow Apple's modern framework design.
+
+#### Framework Responsibility Separation
+
+Apple's modern design separates concerns across frameworks:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    Modern Apple Framework Design                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│   [ User Code ]                                                         │
+│        │                                                                │
+│        ├──────────────────┬──────────────────┐                         │
+│        ▼                  ▼                  ▼                          │
+│   ┌─────────┐      ┌─────────────┐    ┌─────────────┐                  │
+│   │ ImageIO │      │ CoreGraphics │    │   PDFKit    │                  │
+│   │         │      │              │    │             │                  │
+│   │ Decode/ │      │ Represent/   │    │ Parse/      │                  │
+│   │ Encode  │      │ Draw         │    │ Render PDF  │                  │
+│   └────┬────┘      └──────────────┘    └─────────────┘                  │
+│        │                  ▲                                             │
+│        │                  │                                             │
+│        └──────────────────┘                                             │
+│              CGImage                                                    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+| Framework | Responsibility |
+|-----------|---------------|
+| **CoreGraphics** | Image representation (`CGImage`), drawing (`CGContext`), geometry |
+| **ImageIO** | Image format decoding/encoding (JPEG, PNG, HEIC, etc.) |
+| **PDFKit** | PDF document parsing and rendering |
+
+#### Legacy APIs NOT Implemented
+
+The following CoreGraphics APIs are considered legacy and are **intentionally not implemented**:
+
+| Legacy API | Modern Alternative | Reason |
+|------------|-------------------|--------|
+| `CGImage(jpegDataProviderSource:...)` | ImageIO | Apple docs: "Use Image I/O instead" |
+| `CGImage(pngDataProviderSource:...)` | ImageIO | Apple docs: "Use Image I/O instead" |
+| `CGPDFDocument` / `CGPDFPage` parsing | PDFKit | Complex parsing belongs in dedicated framework |
+
+#### WASM Implementation Strategy
+
+For WASM environments, create separate modules following Apple's design:
+
+```swift
+// ❌ Wrong: Implement decoders in CoreGraphics
+let image = CGImage(pngDataProviderSource: provider, ...)  // Not available
+
+// ✅ Correct: Use dedicated module for decoding
+import OpenImageIO  // Separate module for WASM
+let image = ImageSource(data: pngData).createImage()  // Returns CGImage
+```
+
+This separation provides:
+- **Cleaner architecture** - Each module has single responsibility
+- **Smaller binaries** - Users only import what they need
+- **Independent updates** - Decoders can be updated without affecting core graphics
+
+### Rendering Architecture: 内部実装詳細 (WASM専用)
+
+**このセクションはライブラリ開発者向けの内部実装詳細です。ユーザーはレンダリングアーキテクチャを意識する必要はありません。**
+
+OpenCoreGraphics uses a delegate pattern for rendering internally. All drawing operations in `CGContext` are forwarded to an internal `rendererDelegate` that implements the actual rendering.
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                     Internal Rendering Architecture                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  User Code (CoreGraphicsと完全に同じAPI)                                 │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  let context = CGContext(...)  // 自動的にWebGPUレンダラーを設定  │   │
+│  │  context.setFillColor(.red)                                     │   │
+│  │  context.fill(CGRect(x: 0, y: 0, width: 100, height: 100))      │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                              │                                          │
+│                              ▼                                          │
+│  CGContext                                                              │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  • Manages graphics state (CTM, colors, line properties, etc.)  │   │
+│  │  • Builds paths                                                  │   │
+│  │  • Applies CTM to paths/coordinates                              │   │
+│  │  • Forwards drawing commands to rendererDelegate (internal)     │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                              │                                          │
+│                              ▼                                          │
+│  rendererDelegate (internal)                                            │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  CGWebGPUContextRenderer (自動設定)                              │   │
+│  │  • Tessellates paths into triangles                              │   │
+│  │  • Uploads vertices to GPU                                       │   │
+│  │  • Executes WebGPU render passes                                 │   │
+│  │  • Handles clipping via stencil buffer                           │   │
+│  │  • Implements blend modes via pipeline states                    │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Key Design Decisions
+
+1. **レンダラーは内部で自動設定される（非オプショナル）**
+   - `CGContext.init()` 内で `#if arch(wasm32)` により自動的に設定
+   - ユーザーはレンダラーを意識しない
+   - `rendererDelegate` は `internal` アクセス修飾子
+   - **WASMでは非オプショナル** - nilになることはない
+
+2. **コマンドバッファリングによる遅延初期化**
+   - WebGPU初期化は非同期だが、CGContext.init()は同期
+   - `CGWebGPUContextRenderer`は内部でコマンドをバッファリング
+   - `makeImageAsync()`呼び出し時にWebGPUを初期化し、バッファをフラッシュ
+
+   ```
+   CGContext.init()     → CGWebGPUContextRenderer作成（デバイスなし）
+   fill(), stroke()     → コマンドをバッファに記録
+   makeImageAsync()     → WebGPU初期化 → バッファのコマンドを実行 → 画像返却
+   ```
+
+3. **CGContext does NOT render directly to pixels**
+   - The internal `data` buffer is NOT updated by drawing operations
+   - All rendering is delegated to `rendererDelegate`
+   - Use `makeImageAsync()` for GPU readback
+
+4. **Two delegate protocols (internal)**
+   - `CGContextRendererDelegate`: Basic protocol with essential drawing methods
+   - `CGContextStatefulRendererDelegate`: Extended protocol with full state (clip paths, shadows)
+
+5. **State is passed to delegates**
+   - CTM is applied to paths/coordinates before delegation
+   - Clip paths are passed as an array (for intersection)
+   - Shadow parameters are included in `CGDrawingState`
+
+#### CGContextStatefulRendererDelegate
+
+For full feature support (clipping, shadows, transparency layers), renderers should adopt `CGContextStatefulRendererDelegate`:
+
+```swift
+public protocol CGContextStatefulRendererDelegate: CGContextRendererDelegate {
+    func fill(path: CGPath, color: CGColor, alpha: CGFloat,
+              blendMode: CGBlendMode, rule: CGPathFillRule,
+              state: CGDrawingState)
+
+    func stroke(path: CGPath, color: CGColor, lineWidth: CGFloat, ...,
+                state: CGDrawingState)
+
+    func beginTransparencyLayer(in rect: CGRect?, auxiliaryInfo: [String: Any]?,
+                                 state: CGDrawingState)
+
+    func endTransparencyLayer(alpha: CGFloat, blendMode: CGBlendMode,
+                               state: CGDrawingState)
+    // ... other methods
+}
+```
+
+#### CGDrawingState Structure
+
+```swift
+public struct CGDrawingState {
+    /// Multiple clip paths (intersection of all)
+    public var clipPaths: [CGPath]
+
+    /// Current transformation matrix
+    public var ctm: CGAffineTransform
+
+    /// Shadow parameters
+    public var shadowOffset: CGSize
+    public var shadowBlur: CGFloat
+    public var shadowColor: CGColor?
+
+    /// Convenience properties
+    public var hasClipping: Bool { !clipPaths.isEmpty }
+    public var hasShadow: Bool { shadowColor != nil && ... }
+}
+```
+
+#### Implications for Implementation
+
+**When adding new drawing features:**
+1. Add the method to `CGContextRendererDelegate` protocol
+2. Add a stateful version to `CGContextStatefulRendererDelegate`
+3. Add default implementation that forwards to non-stateful version
+4. Update `CGContext` to call the delegate method
+5. Implement in `CGWebGPUContextRenderer`
+
+**When modifying existing features:**
+- Ensure CTM is applied consistently to coordinates/paths
+- Pass full state via `CGDrawingState` for stateful delegates
+- Update documentation to reflect delegate-based behavior
+
+#### 実装状況 (WASM/WebGPU)
+
+以下は WASM/WebGPU で実装と画素検証が存在する範囲です。CoreGraphics 全体との同等性を示す表ではありません。
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Blend modes | 部分実装 | 13 modes have dedicated `GPUBlendState`; remaining modes require semantic validation |
+| Gradients | 実装済み範囲あり | Linear and radial paths with extend options are exercised |
+| Shading | 部分実装 | Axial/radial tessellation exists; full function semantics remain open |
+| Image rendering | 実装済み範囲あり | Texture sampling and image-mask clipping have browser pixel proof |
+| Clipping | 実装済み範囲あり | Path intersection uses stencil; image masks use continuous alpha textures |
+| Shadows | 部分実装 | Path blur/composite exists; image-alpha shadows remain open |
+| Pattern rendering | 実装済み範囲あり | Callback cell texture with matrix/phase/step and mask clipping has browser pixel proof |
+| `makeImageAsync()` | 実装済み範囲あり | GPU readback is covered by browser tests |
+
+#### makeImage() の使用方法
+
+WASMでは `makeImageAsync()` を使用してGPU readbackを行います。レンダラーの設定は不要です。
+
+```swift
+// CoreGraphicsと完全に同じAPI
+let context = CGContext(
+    data: nil,
+    width: 800,
+    height: 600,
+    bitsPerComponent: 8,
+    bytesPerRow: 0,
+    space: CGColorSpace(name: CGColorSpace.sRGB)!,
+    bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+)!
+
+// 描画
+context.setFillColor(.red)
+context.fill(CGRect(x: 0, y: 0, width: 100, height: 100))
+
+// GPU からの読み取り (WASMでは内部的にWebGPU readbackを実行)
+let image = await context.makeImageAsync()
+```
+
+**注意**: 同期版の `makeImage()` はWASMでは空の画像を返す可能性があります。非同期版の `makeImageAsync()` を使用してください。
+
+---
+> Source: [1amageek/OpenCoreGraphics](https://github.com/1amageek/OpenCoreGraphics) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
