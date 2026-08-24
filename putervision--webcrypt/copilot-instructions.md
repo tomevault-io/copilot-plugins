@@ -1,31 +1,36 @@
-## state-graph-mcp
+## state-memory-mcp
 
-> This project tracks workflow state, tasks, design decisions, and blockers using `state-graph-mcp`.
+> This project tracks workflow state, tasks, design decisions, and blockers using `state-memory-mcp` with project slug `"webcrypt"`.
 
-## State Graph (state-graph-mcp)
+## State Memory (state-memory-mcp)
 
-This project tracks workflow state, tasks, design decisions, and blockers using `state-graph-mcp`.
+This project tracks workflow state, tasks, design decisions, and blockers using `state-memory-mcp` with project slug `"webcrypt"`.
 
 ### 1. Priority Order
 Before doing any coding or investigation:
-1. `get_project_summary` — Always run this first to understand current project state, active branches, and overall progress.
-2. `find_blockers` — Identify any active blockers preventing progress.
-3. `list_nodes` — Find pending tasks, past decisions, or milestones.
-4. `trace_dependencies` — Trace what depends on or blocks a task.
+1. `manage_sessions(action: "start")` — Start a tracking session for full change attribution.
+2. `get_analytics(action: "summary")` — Run to understand current project state, active branches, and overall progress.
+3. `manage_tasks(action: "next")` — Query prioritized runnable tasks.
+4. `manage_tasks(action: "find_blockers")` — Identify any active blockers preventing progress.
+5. `manage_nodes(action: "list")` — Find pending tasks, past decisions, or milestones.
+6. `query_graph(action: "trace")` — Trace what depends on or blocks a task.
 
 ### 2. When to Write to the Graph
 You MUST update the graph as you work:
-- **Starting a new task**: Create a node with `add_node(type: "task", title: "...")`.
-- **Making a design or implementation decision**: Document it with `add_node(type: "decision", title: "...", metadata: { "rationale": "..." })`.
-- **Encountering a blocker**: Record the blocker with `add_node(type: "blocker", ...)` and connect it to the blocked task using `add_edge(type: "blocks", source_id: blocker_id, target_id: task_id)`.
-- **Completing a task**: Update the status to done using `update_node(id: task_id, status: "done")`.
-- **Creating/generating a new file**: Create an artifact node with `add_node(type: "artifact", ...)` and connect it using `add_edge(type: "produces")`.
+- **Starting a session**: Always call `manage_sessions(action: "start", agent_id: "my-agent")` to track all mutations under a unique session.
+- **Starting a new task**: Create a node with `manage_nodes(action: "create", type: "task", title: "...", session_id: session_id)`.
+- **Making a design or implementation decision**: Document it with `manage_nodes(action: "create", type: "decision", title: "...", metadata: { "rationale": "..." }, session_id: session_id)`.
+- **Encountering a blocker**: Record the blocker with `manage_nodes(action: "create", type: "blocker", title: "...", session_id: session_id)` and connect it using `manage_edges(action: "add", type: "blocks", source_id: blocker_id, target_id: task_id, session_id: session_id)`.
+- **Adding observation notes**: Atomically log notes using `manage_nodes(action: "add_note", text: "...", attach_to: node_id)`.
+- **Batch updates**: Bulk update tasks/nodes using `manage_nodes(action: "batch_update", ids: ["..."], status: "done")`.
+- **Completing a task**: Update status to done using `manage_tasks(action: "complete", task_id: task_id)` or `manage_nodes(action: "update", id: task_id, status: "done")`.
+- **Creating/generating a new file**: Create an artifact node with `manage_nodes(action: "create", type: "artifact", title: "...", session_id: session_id)` and connect it using `manage_edges(action: "add", type: "produces", source_id: task_id, target_id: artifact_id)`.
 
 ### 3. Workflow Pattern
-1. **Start of session**: Run `get_project_summary` and `find_blockers` to align on current status.
+1. **Start of session**: Call `manage_sessions(action: "start")` to align and track work, then run `get_analytics(action: "summary")`, `manage_tasks(action: "next")`, and `manage_tasks(action: "find_blockers")`.
 2. **Task decomposition**: Decompose user requests into tasks and add them to the graph.
 3. **Execution**: Mark tasks as "in_progress", document design decisions as they occur, and log blockers if you hit any obstacles.
-4. **Resolution**: Mark tasks as "done", document completed artifacts, and resolve blockers.
+4. **Validation & Resolution**: Run `run_diagnostics(action: "validate")` to ensure no cycles/orphans/contradictions, mark tasks as "done", document completed artifacts, and resolve blockers. Call `manage_sessions(action: "end")` to finalize.
 
 ### 4. Codebase Seeding on Initialization
 If the project was just initialized or is missing high-level structure (Plans, Milestones, Decisions):
