@@ -1,0 +1,87 @@
+{
+  "name": "akasha",
+  "owner": "iii-org",
+  "repo": "akasha",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "akasha",
+      "path": "user-guide/en/tutorials/skill.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/user-guide/en/tutorials/skill.md",
+      "description": ""
+    },
+    {
+      "name": "akasha",
+      "path": "user-guide/zh-TW/tutorials/skill.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/user-guide/zh-TW/tutorials/skill.md",
+      "description": ""
+    },
+    {
+      "name": "akasha",
+      "path": "examples/examples_skills/hello-skill/SKILL.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/examples/examples_skills/hello-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akasha",
+      "path": "examples/examples_skills/python-repl-skill/SKILL.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/examples/examples_skills/python-repl-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akasha",
+      "path": "tests/fixtures/skills/research/SKILL.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/tests/fixtures/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akasha",
+      "path": "tests/fixtures/skills/mismatched/SKILL.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/tests/fixtures/skills/mismatched/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akasha",
+      "path": "tests/fixtures/skills/invalid-name/SKILL.md",
+      "github_url": "https://github.com/iii-org/akasha/tree/main/tests/fixtures/skills/invalid-name/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iii-org/akasha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:21:01Z"
+}
