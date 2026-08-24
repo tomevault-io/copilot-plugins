@@ -1,0 +1,44 @@
+{
+  "name": "RoboSim",
+  "owner": "rsasaki0109",
+  "repo": "RoboSim",
+  "description": "Robot Native Engine \u2014 robot-native Rust simulation core with physics, sensors, Python bindings, and optional ROS 2 adapters.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rsasaki0109/RoboSim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T15:54:10Z"
+}
