@@ -1,0 +1,9 @@
+{
+  "name": "jonbng--betterlectio",
+  "displayName": "betterlectio",
+  "description": "Browser extension to improve Lectio's UI with modern sidebar navigation",
+  "version": "1.0.0",
+  "author": "jonbng",
+  "homepage": "https://github.com/jonbng/betterlectio",
+  "skills": []
+}
