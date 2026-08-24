@@ -1,0 +1,9 @@
+{
+  "name": "elgatosf--elgato-mcp-server",
+  "displayName": "elgato-mcp-server",
+  "description": "A Model Context Protocol (MCP) server that provides automation capabilities with Elgato apps.",
+  "version": "1.0.0",
+  "author": "elgatosf",
+  "homepage": "https://github.com/elgatosf/elgato-mcp-server",
+  "skills": []
+}
