@@ -1,33 +1,35 @@
-## cdk-cloudfront-webacl-retention
+## cdk-stage-lifecycle
 
-> Preserve CloudFront WebACL associations during CDK updates in protected stages.
+> CDK stage lifecycle and deploy workflow invariants.
 
 
-# CloudFront WebACL Retention
+# CDK Stage Lifecycle Contract
 
-When changing CDK infrastructure for CloudFront distributions, preserve the existing `webAclId` for protected stages (`prod` and `main`) instead of hardcoding a value in construct props.
+Keep stage normalization and lifecycle behavior centralized so deploy, destroy, and promotion flows are deterministic.
 
-- Resolve the current distribution WebACL from existing distribution state at deploy time.
-- Reuse that resolved value when updating the distribution configuration.
-- For `prod`/`main`, treat the existing console-managed WebACL as required external state.
-- For `prod`/`main`, always set `DistributionConfig.WebACLId` from the resolved value path.
-- Never synthesize protected-stage updates that omit `DistributionConfig.WebACLId`.
-- Use fail-fast behavior if lookup cannot provide a non-empty value.
-- Never use `AWS::NoValue` fallback for protected-stage `DistributionConfig.WebACLId`.
-- Keep behavior unchanged for non-protected stages.
+- Normalize stage names through `lib/stage-name.ts`.
+- Resolve workflow stage values through `scripts/resolve-stage.ts`; do not duplicate slug logic in workflow YAML.
+- Workflow stage resolution contract:
+  - Pass source ref/input explicitly with `--stage "<value>"`.
+  - Write normalized output from `scripts/resolve-stage.ts` to workflow output, then set `APP_STAGE` from that output for CDK commands.
+  - Source mapping:
+    - `deploy-feature.yml`: `github.ref_name` + `--lifecycle ephemeral`
+    - `deploy-main.yml`: `github.ref_name` + `--lifecycle permanent`
+    - `deploy-prod.yml`: `github.event.inputs.stage` + `--lifecycle permanent`
+    - `destroy-feature-on-merge.yml`: `github.event.pull_request.head.ref` + `--lifecycle ephemeral`
+- Treat `main` and `prod` as permanent stages; all other stages are ephemeral.
+- If a branch normalizes to a reserved permanent name, prefix it (for example `feature-main`) so it remains ephemeral.
+- In `bin/app.ts`, classify lifecycle and instantiate the stack before applying ephemeral cleanup policies.
+- For ephemeral stages, apply cleanup at app scope with `RemovalPolicies.of(app).destroy()` and `Mixins.of(app).apply(new s3Mixins.BucketAutoDeleteObjects())`.
+- This mirrors `bin/app.ts`, where lifecycle is classified and cleanup mixins are applied at the app level.
+- Keep stacks (for example `lib/tanstack-aws.ts`) focused on resource definition and avoid lifecycle-control props like `appLifecycle`.
+- Destroy workflows must be idempotent: treat "stack does not exist" as successful cleanup.
+- Cleanup can run for PRs merged into `main`; fork PR cleanup should safely no-op when no matching feature stack exists.
+- Ephemeral cleanup has no resource-level exceptions: destroy all stack resources for ephemeral stages.
 
 ## Why
 
-This prevents accidental WebACL detachment during CloudFront updates. For pricing-plan protected distributions, safety takes priority over convenience: deployment must fail fast if the existing console-managed WebACL cannot be resolved.
-
-## Known Failure Mode To Avoid
-
-For protected stages, fallback logic that uses `AWS::NoValue` for `DistributionConfig.WebACLId` is unsafe and must not be used.
-
-- If lookup fails and `AWS::NoValue` is emitted, CloudFormation omits `WebACLId` from the update payload.
-- Omitting `WebACLId` is interpreted as an attempt to remove/replace the current WebACL association.
-- CloudFront pricing-plan protected distributions reject that update path with:
-  `"You can't remove or replace the web ACL for your distribution..."`.
+This prevents divergence between app bootstrap behavior, workflow stage resolution, and stack lifecycle policy.
 
 ---
 > Source: [JohannesKonings/tanstack-aws](https://github.com/JohannesKonings/tanstack-aws) — distributed by [TomeVault](https://tomevault.io).
