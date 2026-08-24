@@ -1,29 +1,26 @@
-## architecture
+## design-system
 
-> Three-tier architecture, i18n, and platform invariants
+> Design system & on-system conventions (colors, tokens, dark mode)
 
 
-# Architecture & invariants
+# Stay on-system
 
-**Three tiers:** Components (`src/components/ui/**`) → Sections
-(`src/components/sections/**`) → Pages (`src/pages/**`). Compose pages from
-sections; compose sections from components. Register new sections in
-`src/components/sections/index.ts` and `src/registry.json`.
+Single source of truth for design lives in `system/globals/` and the tokens in
+`src/styles/tokens/*.css` (exposed via the `@theme` block in `global.css`).
 
-**i18n:** English is the default locale (no prefix); Indonesian is under `/id/`.
-Every route must exist in **both** `src/pages/x.astro` and
-`src/pages/[locale]/x.astro`. Use `t(locale, key)` and `resolveRoute(locale, path)`.
+- **Colors:** use semantic tokens only — `bg-primary`, `text-foreground`,
+  `var(--muted-foreground)`, etc. **Never** hardcode hex/rgb or use Tailwind palette
+  utilities like `bg-blue-500`. Palette is monochrome OKLCH; functional status colors
+  (success/warning/destructive) are the only chromatic tokens.
+- **Dark mode:** class strategy (`.dark`). Every token has light+dark values; never
+  hand-invert colors.
+- **Spacing/typography/radius/shadows:** use the scale tokens, not magic numbers.
+- **Effects:** subtle shadows + hairline borders; decorative layers are
+  `aria-hidden` and `pointer-events: none`.
 
-**Preserve (never break):** Git-based Markdown content collections, Cloudflare
-Pages (+ optional R2), SEO (OG images, JSON-LD, sitemap, RSS, robots, llms.txt),
-Pagefind search, Starlight docs.
-
-**Rendering:** static Astro by default; React islands only where interaction truly
-requires it (e.g. `FeatureTabs`), hydrated with the narrowest directive
-(`client:visible` over `client:load` when possible).
-
-**Verify:** `pnpm build` and `pnpm lint` (includes `check:kpis`) must pass; add both
-locales when adding routes; check accessibility (`system/globals/accessibility.md`).
+Before finishing UI work: run `pnpm run check:kpis` (also part of `pnpm lint`). It
+fails on hardcoded colors, deprecated imports, and a stray `tailwind.config.*`.
+See `system/globals/colors.md`, `effects.md`, `typography.md`, `spacing.md`.
 
 ---
 > Source: [milzamsz/astro-emdash-sqlite-r2-starter](https://github.com/milzamsz/astro-emdash-sqlite-r2-starter) — distributed by [TomeVault](https://tomevault.io).
