@@ -4,7 +4,7 @@
   "repo": "dotfiles",
   "description": "\u2744 NIX \u2744\ufe0f",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/derangga/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T23:30:20Z"
+  "distributed_at": "2026-08-24T23:58:04Z"
 }
