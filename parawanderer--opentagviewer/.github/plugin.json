@@ -1,0 +1,18 @@
+{
+  "name": "parawanderer--opentagviewer",
+  "displayName": "OpenTagViewer",
+  "description": "OpenTagViewer",
+  "version": "1.0.0",
+  "author": "parawanderer",
+  "homepage": "https://github.com/parawanderer/OpenTagViewer",
+  "skills": [
+    {
+      "name": "OpenTagViewer",
+      "description": ""
+    },
+    {
+      "name": "OpenTagViewer",
+      "description": ""
+    }
+  ]
+}
