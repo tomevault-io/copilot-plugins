@@ -1,0 +1,9 @@
+{
+  "name": "robertsdotpm--warpgate",
+  "displayName": "warpgate",
+  "description": "One-shot Python NAT traversal: 8-plugin cascade, IPv4 + IPv6, multi-NIC, zero infrastructure to run.",
+  "version": "1.0.0",
+  "author": "robertsdotpm",
+  "homepage": "https://github.com/robertsdotpm/warpgate",
+  "skills": []
+}
