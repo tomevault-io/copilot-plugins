@@ -1,0 +1,81 @@
+{
+  "name": "webrtc",
+  "owner": "webrtc-sdk",
+  "repo": "webrtc",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "webrtc",
+      "path": "agents/skills/git-cl/SKILL.md",
+      "github_url": "https://github.com/webrtc-sdk/webrtc/tree/main/agents/skills/git-cl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "path": "agents/skills/hta-reviewer/SKILL.md",
+      "github_url": "https://github.com/webrtc-sdk/webrtc/tree/main/agents/skills/hta-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "path": "agents/skills/gtest-parallel/SKILL.md",
+      "github_url": "https://github.com/webrtc-sdk/webrtc/tree/main/agents/skills/gtest-parallel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "path": "agents/skills/include-cleaner/SKILL.md",
+      "github_url": "https://github.com/webrtc-sdk/webrtc/tree/main/agents/skills/include-cleaner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "path": "agents/skills/gn-check-autofix/SKILL.md",
+      "github_url": "https://github.com/webrtc-sdk/webrtc/tree/main/agents/skills/gn-check-autofix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "path": "agents/skills/webrtc-changelog/SKILL.md",
+      "github_url": "https://github.com/webrtc-sdk/webrtc/tree/main/agents/skills/webrtc-changelog/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/webrtc-sdk/webrtc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:28:58Z"
+}
