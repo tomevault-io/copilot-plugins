@@ -1,132 +1,185 @@
-## architecture
+## decomposition
 
-> FastAPI layer architecture rules — Router → Service → Repository with Protocol injection
+> File and folder decomposition rules — when and how to split
 
 
-# Layer Architecture Rules
+# Decomposition Rules
 
-This codebase follows **strict 4-layer architecture**: Router → Service → Repository → ORM/HTTP/Storage.
-Imports flow downward only. Each layer has hard boundaries you must NOT cross.
+Files grow. Without a rule, they grow until grep is the only navigation tool. These rules tell you exactly when to split, and how to split safely.
 
-## Hard Rules
+## File Size Limits
 
-### 1. Router files (`app/routers/**`)
+| LOC range  | State  | Action required                                                  |
+| ---------- | ------ | ---------------------------------------------------------------- |
+| 0–400      | Green  | None.                                                            |
+| 400–600    | Yellow | Plan a split. Add `# TODO(decompose): A1 — split by ...` header. |
+| 600+       | Red    | **Block the merge.** Decompose first.                            |
 
-- Handlers are **thin**: ≤10 lines of executable code per handler.
-- Allowed imports: `fastapi`, `app.schemas.*`, `app.core.deps`, `app.services.*`.
-- **Forbidden imports**: `sqlalchemy`, `httpx`, `boto3`, `app.models.*`, `app.repositories.*` (except via `Depends`).
-- Every endpoint declares `response_model=` for OpenAPI fidelity.
-- Every endpoint (except `/auth/*`) requires `user_id: str = Depends(get_current_user_id)`.
-- Business logic lives in services. Routers parse input, call one service method, return a response.
+CI runs `python scripts/check_loc.py app/` and fails on any file > 600 LOC.
+
+## When to Convert a File into a Package
+
+Convert `<file>.py` into `<file>/` when **any** is true:
+
+- Crosses 400 LOC and the next change would push it past 500.
+- Contains 2+ disjoint sub-domains (image vs video, user vs admin).
+- Mixes HTTP handlers with worker handlers.
+- Mixes Pydantic schemas + auth deps + route handlers.
+- Has 2+ callers each importing only one symbol — the split lines are obvious.
+
+## How to Split Safely (Atomic PR Pattern)
+
+1. **Create the package.** `<file>/__init__.py` is empty for now.
+2. **Move disjoint pieces to sub-files** (`a.py`, `b.py`, `c.py`).
+3. **Re-export old public names** from `__init__.py`:
+
+   ```python
+   # services/wallet/__init__.py
+   from .user import WalletUserService
+   from .admin import WalletAdminService
+
+   # backwards-compat alias for old imports
+   WalletService = WalletUserService
+
+   __all__ = ["WalletUserService", "WalletAdminService", "WalletService"]
+   ```
+
+4. **Run tests** — they must pass without changes.
+5. **Open a follow-up PR** to migrate callers off the legacy alias. Once it lands, delete the alias.
+
+## Static Data Separation
+
+Static data goes in `app/data/` (project-wide) or `<domain>/registry.py` (domain-local). **Never** inline:
 
 ```python
+# ❌ BAD — pricing constants tangled into service file
+class AIService:
+    PRICING = {
+        "gpt-4o":     Decimal("0.005"),
+        "claude-3-5": Decimal("0.003"),
+        # ... 80 more lines ...
+    }
+    async def generate(self, ...): ...
+```
+
+```python
+# ✅ GOOD — static data in its own module
+# app/data/model_pricing.py
+from decimal import Decimal
+PRICING: dict[str, Decimal] = {
+    "gpt-4o":     Decimal("0.005"),
+    "claude-3-5": Decimal("0.003"),
+}
+
+# app/services/ai/orchestrator.py
+from app.data.model_pricing import PRICING
+```
+
+## Folder-per-Domain Examples
+
+When `routers/generate.py` reaches 400 LOC because it handles image, video, audio:
+
+```
+# BEFORE
+app/routers/generate.py        # 820 LOC
+
+# AFTER
+app/routers/generate/
+    __init__.py                # combines and re-exports `router`
+    image.py                   # ~150 LOC
+    video.py                   # ~180 LOC
+    audio.py                   # ~120 LOC
+```
+
+`__init__.py`:
+
+```python
+from fastapi import APIRouter
+from .image import router as image_router
+from .video import router as video_router
+from .audio import router as audio_router
+
+router = APIRouter(prefix="/generate", tags=["generate"])
+router.include_router(image_router)
+router.include_router(video_router)
+router.include_router(audio_router)
+```
+
+`main.py` keeps `from app.routers.generate import router` — **zero caller changes**.
+
+## Provider Decomposition
+
+A vendor with multiple format APIs:
+
+```
+# BEFORE
+providers/falai.py             # 640 LOC
+
+# AFTER
+providers/falai/
+    __init__.py                # exports FalImageAdapter, FalVideoAdapter
+    _client.py                 # HTTP plumbing, auth, retries (shared)
+    image.py                   # FalImageAdapter
+    video.py                   # FalVideoAdapter
+```
+
+`_client.py` is package-internal (underscore prefix) — never imported across packages.
+
+## Service Decomposition
+
+A `wallet_service.py` doing user + admin + history work:
+
+```
+# BEFORE
+services/wallet_service.py     # 720 LOC
+
+# AFTER
+services/wallet/
+    __init__.py                # re-exports
+    user.py                    # WalletUserService — end-user methods
+    admin.py                   # WalletAdminService — admin tools
+    history.py                 # WalletHistoryService — read-only history
+    _writer.py                 # apply_ledger_entry — single writer
+    _repo.py                   # internal repo interface (if shared)
+    exceptions.py              # InsufficientFundsError, etc.
+```
+
+Admin code cannot leak into user paths. The single-writer file (`_writer.py`) is the only place that mutates balance.
+
+## Worker Handlers vs. Routers
+
+```
+# ❌ BAD — router contains worker logic
+app/routers/tasks.py           # 800 LOC: HTTP enqueue + image processing + video processing
+
 # ✅ GOOD
-@router.post("/wallet/charge", response_model=WalletResponse, status_code=201)
-async def charge(
-    req: ChargeRequest,
-    user_id: str = Depends(get_current_user_id),
-    svc: WalletUserService = Depends(get_wallet_service),
-) -> WalletResponse:
-    wallet = await svc.charge(user_id=user_id, amount=req.amount, key=req.idempotency_key)
-    return WalletResponse.from_domain(wallet)
+app/routers/tasks.py           # ~60 LOC: enqueue, list, cancel
+app/services/task_handlers/
+    __init__.py
+    image.py                   # process_image_task(payload, deps)
+    video.py                   # process_video_task(payload, deps)
+    audio.py                   # process_audio_task(payload, deps)
 ```
 
-```python
-# ❌ BAD — business logic and SQL in router
-@router.post("/wallet/charge")
-async def charge(req: ChargeRequest, db: Session = Depends(get_db)):
-    wallet = db.query(Wallet).filter(Wallet.user_id == user_id).with_for_update().one()
-    if wallet.balance < req.amount:
-        raise HTTPException(402)
-    wallet.balance -= req.amount
-    db.commit()
-    return wallet
-```
+The queue worker imports from `services/task_handlers`, not from routers.
 
-### 2. Service files (`app/services/**`)
+## Naming for Internal Files
 
-- **Forbidden imports**: `sqlalchemy`, `httpx`, `boto3`, `redis`, FastAPI `Request`/`Response`/`HTTPException`.
-- Allowed imports: `app.repositories.protocols`, `app.providers._types`, `app.domain.*`, stdlib, Pydantic.
-- Services raise **domain exceptions** (e.g. `InsufficientFundsError`); routers map them to HTTP.
-- Constructor injects **Protocol-typed** dependencies, not concrete classes.
+Files prefixed with `_` are **package-internal**:
 
-```python
-# ✅ GOOD
-from app.repositories.protocols import WalletRepoProtocol
+- Not re-exported from `__init__.py`.
+- Not imported from outside the package.
+- Examples: `_client.py`, `_writer.py`, `_repo.py`.
 
-class WalletUserService:
-    def __init__(self, repo: WalletRepoProtocol):
-        self._repo = repo
+## When NOT to Split
 
-    async def charge(self, user_id: str, amount: Decimal, key: UUID) -> Wallet:
-        return await apply_ledger_entry(self._repo, LedgerEntry.deduct(user_id, amount, key))
-```
+Resist premature decomposition:
 
-```python
-# ❌ BAD — service depends on SQLAlchemy
-from sqlalchemy.orm import Session
+- File is 280 LOC but holds a coherent single concept → leave it.
+- File is 350 LOC of generated code (Pydantic v2 OpenAPI client output) → leave it; it's data-shaped.
+- Splitting would create files of <60 LOC each that do nothing meaningful alone → leave it. Single concept = single file.
 
-class WalletUserService:
-    def __init__(self, db: Session):
-        self._db = db
-```
-
-### 3. Repository files (`app/repositories/sqlalchemy/**`)
-
-- The only layer allowed to import `sqlalchemy`.
-- Each repo class implements a Protocol from `app/repositories/protocols.py`.
-- Returns **domain objects**, not ORM models. Translation happens at this boundary.
-- Every query scoped by `user_id` (multi-tenancy).
-
-### 4. Provider files (`app/providers/<vendor>/**`)
-
-- The only layer allowed to import `httpx` directly.
-- Each adapter returns `GenerateResult | ProviderError` — never raw `dict`.
-- Uses the per-provider `httpx.AsyncClient` from `app/core/http.py`.
-
-## Dependency Injection
-
-Use FastAPI `Depends()` + factory functions in `app/core/deps.py`. **Do not** install `dependency-injector`, `punq`, or any other DI container.
-
-```python
-# app/core/deps.py
-def get_wallet_service(db: Session = Depends(get_db)) -> WalletUserService:
-    return WalletUserService(repo=SQLAlchemyWalletRepo(db))
-```
-
-## Domain Exceptions
-
-Services raise domain errors. Routers translate to HTTP.
-
-```python
-# app/services/wallet/exceptions.py
-class InsufficientFundsError(Exception): ...
-class WalletNotFoundError(Exception): ...
-
-# app/routers/wallet.py
-try:
-    wallet = await svc.charge(...)
-except InsufficientFundsError:
-    raise HTTPException(402, detail="insufficient funds")
-except WalletNotFoundError:
-    raise HTTPException(404, detail="wallet not found")
-```
-
-## Quick Layer Audit
-
-When editing a file, ask:
-
-1. **Is the file in the right layer for what it does?** A function that calls `httpx` belongs in a provider, not a service.
-2. **Does this import cross the boundary?** Run mentally: would moving this import remove the violation? If yes, do it.
-3. **If the test file requires mocking `Session`, the service is wrong.** Refactor to accept a Protocol.
-
-## Anti-Patterns Rejected on Sight
-
-- `def some_service_method(self, db: Session, ...)` → use Protocol-typed repo
-- `from app.models.user import User` inside a service → return domain types from the repo
-- `httpx.AsyncClient()` instantiated inside a function → use the shared per-provider client from `core/http.py`
-- `raise HTTPException(...)` inside a service → raise a domain exception
-- `db.query(...)` inside a router → move to service, then repo
+A 400 LOC file doing one thing is healthier than four 100 LOC files that nobody can locate without grep.
 
 ---
 > Source: [yerdaulet-damir/vibe-coding-rules](https://github.com/yerdaulet-damir/vibe-coding-rules) — distributed by [TomeVault](https://tomevault.io).
