@@ -4,7 +4,7 @@
   "repo": "open-planner-studio",
   "description": "Open Source Project Planner ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenAEC-Foundation/open-planner-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T19:52:54Z"
+  "distributed_at": "2026-08-24T20:02:08Z"
 }
