@@ -1,0 +1,9 @@
+{
+  "name": "yerdaulet-damir--vibe-coding-rules",
+  "displayName": "vibe-coding-rules",
+  "description": "54 production architecture rules for vibe coding with Claude Code & Cursor. Drop-in CLAUDE.md, .cursor/rules, and .claude/skills for FastAPI, Next.js 15, and Go 1.22+ \u2014 turn AI-assisted coding from pr",
+  "version": "1.0.0",
+  "author": "yerdaulet-damir",
+  "homepage": "https://github.com/yerdaulet-damir/vibe-coding-rules",
+  "skills": []
+}
