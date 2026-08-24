@@ -1,0 +1,9 @@
+{
+  "name": "oghie--skillsets",
+  "displayName": "skillsets",
+  "description": "My personal collection of agent skills for software, security, product and research engineering. Runs on Claude (Claude Code), Codex, OpenCode, Antigravity (Gemini), and Hermes.",
+  "version": "1.0.0",
+  "author": "oghie",
+  "homepage": "https://github.com/oghie/skillsets",
+  "skills": []
+}
