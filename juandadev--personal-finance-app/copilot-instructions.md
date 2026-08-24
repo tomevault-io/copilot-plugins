@@ -1,13 +1,16 @@
-## run-format-after-requests
+## sole-git-author
 
-> Run project formatter after every completed request
+> User is the sole git author; never add AI/Cursor co-authors
 
 
-# Format After Requests
+# Sole Git Author
 
-- Before finishing any request that involved work in this repository, run `bun run format`.
-- Treat formatting as part of the completion checklist, after edits and before the final response.
-- If `bun run format` cannot be run or fails, mention that in the final response with the reason.
+The user is the only author. Commits may be created when appropriate, but attribution must never include Cursor, AI tools, or any other co-author.
+
+- Never add `Co-authored-by`, `Signed-off-by`, `Generated-by`, or similar trailers for Cursor, Copilot, Claude, agents, or any other tool or person.
+- Never pass `--author` (or equivalent) to attribute a commit to anyone other than the repo’s configured user identity.
+- Commit messages must not credit Cursor or other AI tools as authors or co-authors.
+- Use the existing local git `user.name` / `user.email`; do not invent or substitute another identity.
 
 ---
 > Source: [juandadev/personal-finance-app](https://github.com/juandadev/personal-finance-app) — distributed by [TomeVault](https://tomevault.io).
