@@ -1,0 +1,9 @@
+{
+  "name": "omarespejel--monero-starknet-atomic-swap",
+  "displayName": "monero-starknet-atomic-swap",
+  "description": "Cross-chain atomic swap: Monero adaptor signatures + Starknet Cairo contracts with ED25519 MSM verification and DLEQ proofs",
+  "version": "1.0.0",
+  "author": "omarespejel",
+  "homepage": "https://github.com/omarespejel/monero-starknet-atomic-swap",
+  "skills": []
+}
