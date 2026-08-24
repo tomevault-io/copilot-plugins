@@ -1,0 +1,9 @@
+{
+  "name": "avwohl--80un",
+  "displayName": "80un",
+  "description": "An unpacker for the CP/M archive and compression formats LBR, ARC, squeeze, crunch, and CrLZH. A Python 3 program and a native CP/M program give the same output.",
+  "version": "1.0.0",
+  "author": "avwohl",
+  "homepage": "https://github.com/avwohl/80un",
+  "skills": []
+}
