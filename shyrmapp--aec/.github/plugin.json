@@ -1,0 +1,9 @@
+{
+  "name": "shyrmapp--aec",
+  "displayName": "aec",
+  "description": "Pure-Go CCSDS 121.0-B-3 (AEC) decoder \u2014 GRIB2, HDF5 szip, satellite telemetry. No cgo.",
+  "version": "1.0.0",
+  "author": "shyrmapp",
+  "homepage": "https://github.com/shyrmapp/aec",
+  "skills": []
+}
