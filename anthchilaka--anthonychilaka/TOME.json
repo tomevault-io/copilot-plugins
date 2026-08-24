@@ -4,7 +4,7 @@
   "repo": "anthonychilaka",
   "description": "Brandwebsite built on Google Project IDX using Vite, React, and TypeScript. Styled with Tailwind CSS v4.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anthchilaka/anthonychilaka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-21T12:37:25Z"
+  "distributed_at": "2026-08-24T18:10:09Z"
 }
