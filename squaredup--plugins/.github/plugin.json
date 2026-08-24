@@ -1,0 +1,9 @@
+{
+  "name": "squaredup--plugins",
+  "displayName": "plugins",
+  "description": "This repository contains all community-authored plugins for SquaredUp and provides guidance on how to author your own plugin.",
+  "version": "1.0.0",
+  "author": "squaredup",
+  "homepage": "https://github.com/squaredup/plugins",
+  "skills": []
+}
