@@ -1,0 +1,9 @@
+{
+  "name": "stevenfackley--repo-template-python-fastapi",
+  "displayName": "repo-template-python-fastapi",
+  "description": "Template: Python 3.11 FastAPI (see CLAUDE.md, docs/, .github/)",
+  "version": "1.0.0",
+  "author": "stevenfackley",
+  "homepage": "https://github.com/stevenfackley/repo-template-python-fastapi",
+  "skills": []
+}
