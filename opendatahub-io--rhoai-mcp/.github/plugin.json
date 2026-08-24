@@ -1,0 +1,9 @@
+{
+  "name": "opendatahub-io--rhoai-mcp",
+  "displayName": "rhoai-mcp",
+  "description": "Prototype MCP server for RHOAI",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/rhoai-mcp",
+  "skills": []
+}
