@@ -1,0 +1,9 @@
+{
+  "name": "family-mruby--family-mruby",
+  "displayName": "family-mruby",
+  "description": "A development platform that enables mruby development and execution directly on microcontrollers. It features audio and graphics capabilities and is designed to run on ESP32.",
+  "version": "1.0.0",
+  "author": "family-mruby",
+  "homepage": "https://github.com/family-mruby/family-mruby",
+  "skills": []
+}
