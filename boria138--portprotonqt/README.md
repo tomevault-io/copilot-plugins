@@ -1,0 +1,26 @@
+# PortProtonQt
+
+> Source: [Boria138/PortProtonQt](https://github.com/Boria138/PortProtonQt). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+ Read-only mirror of https://git.linux-gaming.ru/Linux-Gaming/PortProtonQt
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [Boria138/PortProtonQt](https://github.com/Boria138/PortProtonQt).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+From [Boria138/PortProtonQt](https://github.com/Boria138/PortProtonQt) — a repo with 8+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-s -->
