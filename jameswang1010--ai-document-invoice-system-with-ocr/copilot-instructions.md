@@ -1,35 +1,44 @@
-## fastapi
+## specify-rules
 
-> Here are some best practices and rules you must follow:
+> Auto-generated from all feature plans. Last updated: 2026-01-05
 
-Here are some best practices and rules you must follow:
+# ai-einvoicing Development Guidelines
 
-- You use Python 3.12
-- Frameworks:
-  - pydantic
-  - fastapi
-  - sqlalchemy
-- You use poetry for dependency management
-- You use alembic for database migrations
-- You use fastapi-users for user management
-- You use fastapi-jwt-auth for authentication
-- You use fastapi-mail for email sending
-- You use fastapi-cache for caching
-- You use fastapi-limiter for rate limiting
-- You use fastapi-pagination for pagination
+Auto-generated from all feature plans. Last updated: 2026-01-05
 
-1. **Use Meaningful Names**: Choose descriptive variable, function, and class names.
-2. **Follow PEP 8**: Adhere to the Python Enhancement Proposal 8 style guide for formatting.
-3. **Use Docstrings**: Document functions and classes with docstrings to explain their purpose.
-4. **Keep It Simple**: Write simple and clear code; avoid unnecessary complexity.
-5. **Use List Comprehensions**: Prefer list comprehensions for creating lists over traditional loops when appropriate.
-6. **Handle Exceptions**: Use try-except blocks to handle exceptions gracefully.
-7. **Use Virtual Environments**: Isolate project dependencies using virtual environments (e.g., `venv`).
-8. **Write Tests**: Implement unit tests to ensure code reliability.
-9. **Use Type Hints**: Utilize type hints for better code clarity and type checking.
-10. **Avoid Global Variables**: Limit the use of global variables to reduce side effects.
+## Active Technologies
+- Python 3.12 + FastAPI 0.115.0+, Streamlit 1.39.0+, SQLAlchemy 2.0.36+, Pydantic 2.9.0+ (003-dataset-upload-ui)
+- PostgreSQL (asyncpg), File system (data/ directory structure) (003-dataset-upload-ui)
+- Python 3.12 + FastAPI 0.115.x, Streamlit 1.40.x, SQLAlchemy 2.0.36, Pydantic 2.10.x, pandas 2.2.3, pypdf 5.1.x, PaddleOCR 2.9.x, OpenAI 1.58.x (001-ui-data-extract-quality)
+- PostgreSQL 17 with pgvector extension (001-ui-data-extract-quality)
+- Python 3.12 + FastAPI, Pydantic v2, SQLAlchemy 2.0 (async), asyncpg, structlog (001-resilient-config)
+- Python 3.12 + FastAPI, Pydantic v2, SQLAlchemy 2.0 (async), asyncpg, paddleocr, deepseek (001-ocr-switch-options)
 
-These rules will help you write clean, efficient, and maintainable Python code.
+- Python 3.12 + Streamlit >=1.39.0, pandas >=2.2.0, plotly >=5.18.0 (for charts), reportlab >=4.0.0 (for PDF export), sqlalchemy[asyncio] >=2.0.36 (002-dashboard-improvements)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] pytest [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] ruff check .
+
+## Code Style
+
+Python 3.12: Follow standard conventions
+
+## Recent Changes
+- 001-ocr-switch-options: Added Python 3.12 + FastAPI, Pydantic v2, SQLAlchemy 2.0 (async), asyncpg, paddleocr, deepseek
+- 001-resilient-config: Added Python 3.12 + FastAPI, Pydantic v2, SQLAlchemy 2.0 (async), asyncpg, structlog
+- 001-ui-data-extract-quality: Added Python 3.12 + FastAPI 0.115.x, Streamlit 1.40.x, SQLAlchemy 2.0.36, Pydantic 2.10.x, pandas 2.2.3, pypdf 5.1.x, PaddleOCR 2.9.x, OpenAI 1.58.x
+
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
 
 ---
 > Source: [jameswang1010/AI-Document-Invoice-System-with-OCR](https://github.com/jameswang1010/AI-Document-Invoice-System-with-OCR) — distributed by [TomeVault](https://tomevault.io).
