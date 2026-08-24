@@ -1,0 +1,9 @@
+{
+  "name": "catuscio--gh-stars-classifier-skill",
+  "displayName": "gh-stars-classifier-skill",
+  "description": "Classify your GitHub stars into semantic categories and sync to GitHub Lists, using LLM's reasoning.",
+  "version": "1.0.0",
+  "author": "catuscio",
+  "homepage": "https://github.com/catuscio/gh-stars-classifier-skill",
+  "skills": []
+}
