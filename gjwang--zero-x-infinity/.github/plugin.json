@@ -1,0 +1,9 @@
+{
+  "name": "gjwang--zero-x-infinity",
+  "displayName": "zero_x_infinity",
+  "description": "The Hardest Core HFT Exchange Engine in Rust. From Hello World to 1.3M TPS. \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "gjwang",
+  "homepage": "https://github.com/gjwang/zero_x_infinity",
+  "skills": []
+}
