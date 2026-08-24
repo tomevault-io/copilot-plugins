@@ -1,0 +1,9 @@
+{
+  "name": "masonsxu--cloudwego-microservice-demo",
+  "displayName": "cloudwego-microservice-demo",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e CloudWeGo \u751f\u6001 (Kitex + Hertz) \u6784\u5efa\u7684\uff0c\u53ef\u7528\u4e8e\u751f\u4ea7\u73af\u5883\u7684\u5fae\u670d\u52a1\u67b6\u6784 Demo\u3002",
+  "version": "1.0.0",
+  "author": "masonsxu",
+  "homepage": "https://github.com/masonsxu/cloudwego-microservice-demo",
+  "skills": []
+}
