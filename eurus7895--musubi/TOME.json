@@ -1,0 +1,44 @@
+{
+  "name": "Musubi",
+  "owner": "Eurus7895",
+  "repo": "Musubi",
+  "description": "CopilotHarness is a pure Python MCP server that acts as the harness layer for GitHub Copilot's multi-agent team \u2014 it controls what each agent sees, validates what each agent produces, enforces the correction loop, serves skills on demand, and runs code to verify it actually works.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Eurus7895/Musubi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T14:34:47Z"
+}
