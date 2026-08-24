@@ -16,7 +16,7 @@ Original source: `` in [hummingbot/condor](https://github.com/hummingbot/condor)
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [hummingbot/condor](https://github.com/hummingbot/condor) — a repo with 144+ stars on GitHub.
+From [hummingbot/condor](https://github.com/hummingbot/condor) — a repo with 162+ stars on GitHub.
 
 ---
 
