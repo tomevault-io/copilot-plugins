@@ -1,0 +1,69 @@
+{
+  "name": "jquantstats",
+  "owner": "Jebel-Quant",
+  "repo": "jquantstats",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jquantstats",
+      "path": "plugin/skills/portfolio-analysis/SKILL.md",
+      "github_url": "https://github.com/Jebel-Quant/jquantstats/tree/main/plugin/skills/portfolio-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jquantstats",
+      "path": "plugin/skills/quantstats-migration/SKILL.md",
+      "github_url": "https://github.com/Jebel-Quant/jquantstats/tree/main/plugin/skills/quantstats-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jquantstats",
+      "path": "plugin/skills/portfolio-robustness/SKILL.md",
+      "github_url": "https://github.com/Jebel-Quant/jquantstats/tree/main/plugin/skills/portfolio-robustness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jquantstats",
+      "path": "plugin/skills/portfolio-diagnostics/SKILL.md",
+      "github_url": "https://github.com/Jebel-Quant/jquantstats/tree/main/plugin/skills/portfolio-diagnostics/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Jebel-Quant/jquantstats",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:09:47Z"
+}
