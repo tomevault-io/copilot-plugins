@@ -1,0 +1,14 @@
+{
+  "name": "vishalsachdev--learning-design-pillars",
+  "displayName": "learning-design-pillars",
+  "description": "Claude Code skills for applying evidence-based learning design principles (Four Pillars framework) with Canvas LMS integration via canvas-mcp",
+  "version": "1.0.0",
+  "author": "vishalsachdev",
+  "homepage": "https://github.com/vishalsachdev/learning-design-pillars",
+  "skills": [
+    {
+      "name": "canvas-course-audit",
+      "description": ""
+    }
+  ]
+}
