@@ -7,11 +7,11 @@ AstrBot 的 QQ 官方 REST API 平台适配器插件。不依赖 botpy（qq-botp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Wanyi424/astrbot_plugin_qq_restapi](https://github.com/Wanyi424/astrbot_plugin_qq_restapi).
+Original source: `CLAUDE.md` in [Wanyi424/astrbot_plugin_qq_restapi](https://github.com/Wanyi424/astrbot_plugin_qq_restapi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
