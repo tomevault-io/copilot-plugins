@@ -1,51 +1,42 @@
-## pr-reviews
+## ui-shadcn-preference
 
-> Pull request hygiene — description, scope, and review-ready bundles
+> Prefer shadcn/ui + shared tokens; stop custom design sprawl
 
 
-# Pull requests — review conventions
+# UI — shadcn first (no custom chrome sprawl)
 
-Use this when opening or updating a PR so reviewers and future you can ship safely.
+User mandate: use shadcn for design; do **not** invent one-off visual systems unless necessary.
 
-## Human voice before the PR ships
+## mf-web / mf-desktop
 
-Automation and agents tend to spit out stiff bullets. **Normalize on maintainer-shaped copy on GitHub** before you mark a PR ready or merge:
+- Prefer existing shadcn/ui in `src/components/ui/*` and shared **`packages/mf-tracker-ui`** tokens (`tokens.css`, `chrome.css`).
+- Compose with **Button, Card, Input, Tabs, Sheet, Badge, Separator** (and siblings already in-tree).
+- Do **not** invent neon cards, custom chip languages, rainbow accents, or parallel design kits.
 
-- **Pull request description** — Same facts as below (what / why / verify / risk / pre-review), but written in short, plain paragraphs: how you’d explain the change to a teammate, not a spec template. It is fine to keep checklists under that prose.
-- **First PR comment (optional but encouraged when the diff is large or non-obvious)** — One short note in your own words: tradeoffs, what you did not do, or how you tested. This is not a substitute for the description; it is context that reads like a human thread.
+```tsx
+// ❌ BAD — one-off neon / decorative card system
+<div className="rounded-2xl bg-gradient-to-br from-violet-500/20 … shadow-[0_0_40px_…]">
 
-## Before opening / marking Ready for review
+// ✅ GOOD — shadcn primitives + tracker tokens
+<Card><CardHeader>…</CardHeader><CardContent>…</CardContent></Card>
+```
 
-1. **One coherent slice** — PR title and description match the diff; unrelated refactors or drive-by edits belong in a separate PR.
-2. **Description** — Include:
-   - **What** changed (user- or operator-visible behavior)
-   - **Why** (problem, constraint, or ticket reference if you use one)
-   - **How to verify** (commands, screens, Postman flows if API-related)
-   - **Risk / rollbacks** if migrations, auth, or data deletion are involved
-   - **Pre-review** — A short checklist in the PR body tying back to this section (one coherent slice, cross-project note if needed, applicable ship-checklist items marked N/A or done) so drafts are review-ready when marked ready.
-3. **Cross-project** — If the PR depends on **masterfabric-core-base** (mf-go) or **masterfabric-particulars**, say how they deploy together (API / Particular first vs compatible client fallbacks) and link sibling PRs.
-4. **Checklists** — When applicable:
-   - **`mf-expo`:** `.cursor/rules/mf-expo-ship-checklist.mdc` (i18n + `CHANGELOG.md` + API usage)
-   - Backend ship checklists live in the sibling repos that own mf-go / Particulars — see `.cursor/rules/backend-ownership.mdc`
+## mf-expo
 
-## Merge progression (do in order)
+- No full shadcn-RN migration — **do not** expand scope into one.
+- Reuse existing primitives; keep visuals aligned with MasterFabric / shadcn: **neutral slate, hairlines, simple buttons**.
+- Prefer SoftCard / existing inputs over new illustration-heavy chrome.
+- **SVGs only for empty states** (or when explicitly requested). Stop bold-block / rainbow / duplicate chrome.
 
-1. **Finish the work in git** — Commits pushed; scope matches the title.
-2. **Run the ship checklists** for every area you touched in this repo (`mf-expo` rules above). Skip only what those rules say is skippable.
-3. **Open or update the PR** — Draft is fine while iterating. When the diff stabilizes, set the **description** to human-shaped prose + structured sections (see **Human voice** above).
-4. **Optional thread comment** — Add a brief human note if it helps reviewers orient.
-5. **Mark Ready for review** — Only after description + applicable checklists are honest.
-6. **Merge** — After required CI / review policy; prefer updating local `main` (`pull`) right after. Delete the branch when your workflow allows (`After merge` below).
+## Information architecture
 
-## For reviewers (and authors self-reviewing)
+- **Home** = general overview
+- **My tasks** = personal list
+- Implement with **simple structures**, not decorative frameworks.
 
-- Confirm **user-facing copy** has **EN + TR** (or project-agreed locales) when strings ship to the app.
-- Confirm **GraphQL** client usage (`mf-go-api.ts` / `graphqlRequest` / Particular envelope) matches the **core-base** / Particular schemas the app targets.
-- Prefer **small commits** with clear messages; squash policy is team choice, but history should remain understandable from PR description + commits.
+## Shipping
 
-## After merge
-
-- Delete merged feature branches when your workflow allows; keep `main` the integration branch.
+- Version bump when shipping user-visible UI; commit only when the user asks.
 
 ---
 > Source: [masterfabric/masterfabric-project-tracker](https://github.com/masterfabric/masterfabric-project-tracker) — distributed by [TomeVault](https://tomevault.io).
