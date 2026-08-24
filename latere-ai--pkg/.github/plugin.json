@@ -1,0 +1,9 @@
+{
+  "name": "latere-ai--pkg",
+  "displayName": "pkg",
+  "description": "Platform-wide Go packages for Latere AI",
+  "version": "1.0.0",
+  "author": "latere-ai",
+  "homepage": "https://github.com/latere-ai/pkg",
+  "skills": []
+}
