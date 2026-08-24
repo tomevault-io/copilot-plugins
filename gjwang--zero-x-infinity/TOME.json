@@ -1,0 +1,44 @@
+{
+  "name": "zero_x_infinity",
+  "owner": "gjwang",
+  "repo": "zero_x_infinity",
+  "description": "The Hardest Core HFT Exchange Engine in Rust. From Hello World to 1.3M TPS. \ud83d\ude80",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gjwang/zero_x_infinity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T23:33:40Z"
+}
