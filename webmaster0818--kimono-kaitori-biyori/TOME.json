@@ -4,7 +4,7 @@
   "repo": "kimono-kaitori-biyori",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/webmaster0818/kimono-kaitori-biyori",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T17:41:35Z"
+  "distributed_at": "2026-08-24T17:45:43Z"
 }
