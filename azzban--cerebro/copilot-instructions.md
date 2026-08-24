@@ -1,67 +1,73 @@
-## runtime-wiring
+## testing-standards
 
-> Composition root patterns and goroutine lifecycle in internal/app
+> Testing standards and patterns for Cerebro
 
 
-# Runtime Wiring (`internal/app`)
+# Testing Standards
 
-## Sole Responsibility
+## Test Types
 
-`internal/app` is the **composition root only**. It:
-- Instantiates adapters (broker, cache, stores, notifiers).
-- Wires them to business services via port interfaces.
-- Launches goroutines via `errgroup.WithContext`.
-- Handles shutdown on context cancellation.
+| Tag | Purpose | Command |
+|---|---|---|
+| _(none)_ | Unit tests — no external deps, pure in-memory | `make test` |
+| `integration` | Requires Binance testnet, Postgres, Redis | `make test-int` |
 
-**No business logic lives here.** If you find yourself adding a trading decision to `runtime.go`, it belongs in `internal/strategy`, `internal/risk`, or `internal/execution`.
-
-## Goroutine Pattern
-
-All long-running goroutines follow this template:
+Always use build tags to separate them:
 
 ```go
-g.Go(func() error {
-    slog.InfoContext(ctx, "component starting", "name", "market-hub")
-    if err := hub.Run(ctx); err != nil && !errors.Is(err, context.Canceled) {
-        return fmt.Errorf("market hub: %w", err)
-    }
-    return nil
-})
+//go:build integration
 ```
 
-- Always check `context.Canceled` / `context.DeadlineExceeded` and return `nil` for them — they are clean shutdowns, not errors.
-- `errgroup` cancels the group context on the first non-nil error; all goroutines must react promptly.
+## Table-Driven Tests
 
-## Paper vs Live Guard
-
-The live broker path **must** remain behind an explicit guard until fully implemented and audited:
+All unit tests use table-driven style with `t.Run`:
 
 ```go
-if a.cfg.Environment == domain.EnvironmentProduction {
-    return fmt.Errorf("live broker not yet implemented — use --paper")
+func TestRiskGate_Allow(t *testing.T) {
+    tests := []struct {
+        name    string
+        order   domain.OrderIntent
+        wantErr bool
+    }{
+        {"within limits", validOrder, false},
+        {"exceeds max notional", bigOrder, true},
+    }
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            gate := risk.NewGate(testConfig)
+            err := gate.Allow(context.Background(), tt.order)
+            if (err != nil) != tt.wantErr {
+                t.Errorf("Allow() err = %v, wantErr %v", err, tt.wantErr)
+            }
+        })
+    }
 }
 ```
 
-Never remove this guard without:
-1. A complete adapter implementation.
-2. Integration tests passing on Binance testnet.
-3. Risk gate coverage for the live path.
+## Mocking Ports
 
-## In-Memory vs Real Adapters
+Never mock concrete adapters. Test against the port interface using hand-written stubs or `testify/mock`:
 
-Currently the paper path uses in-memory stores (`newMemoryCache`, `newMemoryTradeStore`, etc.). When wiring real Postgres/Redis adapters:
+```go
+type stubBroker struct{ submitted []domain.OrderIntent }
+func (s *stubBroker) Submit(ctx context.Context, o domain.OrderIntent) error {
+    s.submitted = append(s.submitted, o)
+    return nil
+}
+```
 
-- Instantiate the adapter (e.g. `postgres.NewTradeStore(pool)`).
-- Assign it to the port interface variable.
-- Do **not** change any code outside `internal/app` — ports guarantee the swap is transparent.
+The stub lives in `internal/<package>/testhelpers_test.go` (unexported, test-only).
 
-## Startup Sequence
+## Assertions
 
-1. Load + validate config.
-2. Connect external services (DB, Redis, exchange WS) — fail fast here.
-3. Build domain services with injected ports.
-4. Start goroutines via `errgroup`.
-5. Block until `ctx` is cancelled or a fatal error propagates.
+Use stdlib `testing` + comparison with `decimal.Equal` for money. Avoid assertion libraries unless they're already in `go.mod`.
+
+## What Must Have Tests
+
+- Every function in `internal/risk/` — risk gate logic is safety-critical.
+- Every `port` implementation (adapter unit tests with a fake/in-memory upstream).
+- Every strategy signal generator.
+- CLI flag parsing and config validation paths.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
