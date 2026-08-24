@@ -4,7 +4,7 @@
   "repo": "Mempalace",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kike2638/Mempalace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T16:00:07Z"
+  "distributed_at": "2026-08-24T16:04:52Z"
 }
