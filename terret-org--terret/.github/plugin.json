@@ -1,0 +1,9 @@
+{
+  "name": "terret-org--terret",
+  "displayName": "terret",
+  "description": "Ruby-native, model-agnostic agent harness where everything is a plugin",
+  "version": "1.0.0",
+  "author": "terret-org",
+  "homepage": "https://github.com/terret-org/terret",
+  "skills": []
+}
