@@ -1,0 +1,9 @@
+{
+  "name": "furkankly--zoetrope",
+  "displayName": "zoetrope",
+  "description": "Watch a Claude Code session as a live flow graph, in your terminal or your browser.",
+  "version": "1.0.0",
+  "author": "furkankly",
+  "homepage": "https://github.com/furkankly/zoetrope",
+  "skills": []
+}
