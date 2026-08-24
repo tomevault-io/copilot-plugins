@@ -1,0 +1,9 @@
+{
+  "name": "shinjiyu--holdem",
+  "displayName": "holdem",
+  "description": "Embeddable NLHE engine for Cursor / DeepSeek Harness / Codex / CLI \u2014 portable ADL + multi-agent kernel",
+  "version": "1.0.0",
+  "author": "shinjiyu",
+  "homepage": "https://github.com/shinjiyu/holdem",
+  "skills": []
+}
