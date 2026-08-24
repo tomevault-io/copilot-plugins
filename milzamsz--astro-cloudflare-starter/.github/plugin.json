@@ -1,0 +1,9 @@
+{
+  "name": "milzamsz--astro-cloudflare-starter",
+  "displayName": "astro-cloudflare-starter",
+  "description": "Static Astro marketing + blog + docs starter for Cloudflare Pages. Markdown content, Starlight docs with full-text search, i18n-ready, SEO, light/dark \u2014 no CMS, no database.",
+  "version": "1.0.0",
+  "author": "milzamsz",
+  "homepage": "https://github.com/milzamsz/astro-cloudflare-starter",
+  "skills": []
+}
