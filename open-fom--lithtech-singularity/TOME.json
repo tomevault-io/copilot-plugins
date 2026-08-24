@@ -4,7 +4,7 @@
   "repo": "lithtech-singularity",
   "description": "LithTech Singularity - Game Engine for the 26th Century",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Open-FoM/lithtech-singularity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T20:05:36Z"
+  "distributed_at": "2026-08-24T20:06:24Z"
 }
