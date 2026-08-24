@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--opencoregraphics",
+  "displayName": "OpenCoreGraphics",
+  "description": "OpenCoreGraphics provides a pure Swift implementation of Apple's CoreGraphics       framework, enabling cross-platform 2D graphics with full API compatibility       for WebAssembly and other non-Apple",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/OpenCoreGraphics",
+  "skills": []
+}
