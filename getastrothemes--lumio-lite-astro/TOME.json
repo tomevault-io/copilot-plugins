@@ -4,7 +4,7 @@
   "repo": "lumio-lite-astro",
   "description": "Lumio is a modern, high-performance Astro 6 & Tailwind CSS theme crafted for IT companies, digital agencies, and consulting firms",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getastrothemes/lumio-lite-astro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T13:58:32Z"
+  "distributed_at": "2026-08-24T16:23:46Z"
 }
