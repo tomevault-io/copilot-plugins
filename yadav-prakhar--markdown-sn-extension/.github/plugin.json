@@ -1,0 +1,9 @@
+{
+  "name": "yadav-prakhar--markdown-sn-extension",
+  "displayName": "markdown-sn-extension",
+  "description": "Write markdown in ServiceNow easily. From headings to tables & github style alerts. Powerful markdown features without any hassle.",
+  "version": "1.0.0",
+  "author": "yadav-prakhar",
+  "homepage": "https://github.com/yadav-prakhar/markdown-sn-extension",
+  "skills": []
+}
