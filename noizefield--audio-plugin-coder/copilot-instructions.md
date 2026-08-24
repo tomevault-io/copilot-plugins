@@ -1,269 +1,75 @@
 ## audio-plugin-coder
 
-> **Role:** You are the Lead Architect of the audio-plugin-coder (APC).
+> These instructions apply to the entire repository and are written for any coding agent that reads the `AGENTS.md` standard (Codex, Cursor, and others). Agents with their own APC configuration (Claude Code via `.claude/`, Kilo via `.kilocode/`) should treat that configuration as primary; this file stays consistent with it.
 
-# APC AGENT (Master Dispatcher)
+# Audio Plugin Coder — Agent Guidance
 
-**Role:** You are the Lead Architect of the audio-plugin-coder (APC).
-**System:** Windows 11 | VS Code | JUCE 8 | Visage | WebView | CMake.
+## Scope
 
-## ⚠️ CRITICAL RULES (ANTI-HALLUCINATION)
+These instructions apply to the entire repository and are written for any coding agent that reads the `AGENTS.md` standard (Codex, Cursor, and others). Agents with their own APC configuration (Claude Code via `.claude/`, Kilo via `.kilocode/`) should treat that configuration as primary; this file stays consistent with it.
 
-### 1. OS & Shell Protocol
-*   **No Bash/Linux:** NEVER use `mkdir -p`, `rm`, `cp`.
-*   **PowerShell Only:** Use `New-Item`, `Remove-Item`, `Copy-Item`.
-*   **Path Separators:** Always use backslashes (`\`) for paths in commands.
+## First run
 
-### 2. UI Architecture Protocol (The Fork)
-You must determine the **UI_FRAMEWORK** selection from `status.json` before generating code.
+- New checkouts should start with **`/apc-setup`** (skill action `setup`) before creating plugins.
+- Setup writes machine-local `apc.config.json` (see `apc.config.example.json`). Paths, UI defaults, and per-phase model preferences live there.
+- Resolve plugin/build/release directories via `scripts/lib/Get-ApcPaths.ps1` or `scripts/lib/apc-paths.sh` — do not assume `./plugins` if config overrides exist.
+- `/apc-ship` writes installers and zips to `paths.release_dir` (default `release/`). Do not use `dist/` as the ship output.
 
-*   **PATH A: VISAGE (Pure C++)**
-    *   **FORBIDDEN:** HTML, CSS, JavaScript, `juce::WebBrowserComponent`.
-    *   **HEADERS:** `visage/visage.h` does not exist. Use `#include "visage/app.h"` or `#include "visage/ui.h"`.
-    *   **WIDGETS:** Do not assume `visage::Knob` exists. Implement `Source/VisageControls.h` inheriting from `visage::Frame` with custom `draw()`.
+## Attribution
 
-*   **PATH B: WEBVIEW (Hybrid)**
-    *   **REQUIRED:** `juce::WebBrowserComponent`, `juce::WebBrowserComponent::Options`
-    *   **CRITICAL:** Canvas-based implementation using HTML5 Canvas API
-    *   **CONSTRAINT:** All frontend assets must be inline or strictly relative
-    *   **PERFORMANCE:** Use JUCE frontend library for canvas rendering optimization
+- Do **not** add `Co-authored-by` trailers for AI agents.
+- Do **not** list AI agents as contributors, authors, or acknowledgments.
+- Do **not** post GitHub comments, reviews, or issues in the name of an AI agent.
+- If a host injects an AI co-author trailer into a commit message, strip it before the commit is pushed.
 
-### 3. Build Protocol
-*   **NEVER** run `cmake` manually.
-*   **Preview (Visage):** `powershell -ExecutionPolicy Bypass -File .\scripts\preview-design.ps1 -PluginName <Name>`
-*   **Preview (WebView):** Open `plugins/[Name]/Design/index.html` in Edge/Chrome.
-*   **Full Build:** `powershell -ExecutionPolicy Bypass -File .\scripts\build-and-install.ps1 -PluginName <Name>`
+## APC Workflow
 
-## 🛑 PHASE GATING PROTOCOL (STRICT)
-**You are strictly forbidden from "rushing ahead."**
+- Use the `audio-plugin-coder` skill for APC lifecycle work.
+- **Primary slash commands** are prefixed: `/apc-setup`, `/apc-dream`, `/apc-plan`, `/apc-design`, `/apc-impl`, `/apc-test`, `/apc-debug`, `/apc-ship`, `/apc-status`, `/apc-resume`, `/apc-new`.
+- Short forms (`/dream`, `/design`, `/impl`, …) remain as **deprecated aliases** that redirect to `/apc-*`.
+- If the agent host does not expose slash commands, use the `audio-plugin-coder` skill or an equivalent natural-language request.
 
-1.  **State Injection:** Before executing any command, read `plugins/[Name]/status.json`.
-    *   **Check Phase:** Ensure previous phase is complete (e.g., do not `/impl` if phase is "ideation").
-    *   **Check Framework:** If `ui_framework` is "visage", do not suggest HTML.
-    *   **Use State Management:** Import `scripts/state-management.ps1` and use `Test-PluginState` for validation.
-2.  **One Phase at a Time:** You may ONLY execute instructions from the *current* active Skill file.
-3.  **State Updates:** After each phase completion, use `Update-PluginState` to update `status.json`.
-4.  **Error Recovery:** Always backup state before major operations using `Backup-PluginState`.
-5.  **Termination Rule:** After completing the output for a command, you must **STOP**. Do not auto-start the next phase.
+## Codex
 
-## 📂 FILE SYSTEM PROTOCOL
-*   **The Sanctuary (`plugins/[Name]/`):**
-    *   `status.json`: **(CRITICAL)** The Project State / Config.
-    *   `.ideas/`: Text files (specs, briefs, notes).
-    *   `Design/`: Visuals (Visage Specs) OR Web Assets (HTML/CSS).
-    *   `Source/`: Clean C++ Code (`PluginProcessor`, `PluginEditor`).
-*   **The Dirty Zone (`build/`):** All artifacts/compilation. Located at Project Root.
-*   **The Shipping Zone (`dist/`):** Final Zips/Installers. Located at Project Root.
-*   **The Knowledge Base (`...kilocode/troubleshooting/`):** Known issues and resolutions.
+- Invoke APC as `$audio-plugin-coder:audio-plugin-coder <action> <PluginName>` or use an equivalent natural-language request.
+- Actions include `setup`, `dream`, `plan`, `design`, `impl`, `test`, `debug`, `status`, `resume`, `ship`, `new` (also accept `apc-dream` style names by stripping the `apc-` prefix).
+- Never use Codex `/plan` or `/status` as APC workflow commands; those names are reserved by Codex built-ins. Prefer `/apc-plan` / `/apc-status` in docs, or the skill actions above.
+- See `docs/codex-compatibility.md` for setup and the full command mapping.
 
-## 🔧 AUTOMATIC TROUBLESHOOTING CAPTURE
+## Required Context
 
-### Detection Protocol
-**CRITICAL:** If you encounter an error and make **3+ attempts** to fix the same issue, OR spend **>5 minutes** on the same error, OR recognize a **recurring pattern**, you MUST trigger auto-capture.
+- Before changing a plugin under the configured plugins directory, read its `status.json`.
+- Resolve the plugin directory with `Get-ApcPluginPath` / `apc_plugin_path` (from `scripts/lib/Get-ApcPaths.ps1` or `scripts/lib/apc-paths.sh`). Do **not** hardcode `plugins/<Name>` — honor `paths.plugins_dir` in `apc.config.json`.
+- Read the relevant workflow and skill under `.claude/`; fall back to the matching `.agent/` file if needed.
+- Also read `.claude/rules/juce-build-protocols.md` and `.claude/rules/file-naming-conventions.md` before implementation, build, or packaging work.
+- Preserve the selected `ui_framework`: Visage work must not introduce WebView files, and WebView work must not introduce Visage controls.
+- Announce the preferred model from `apc.config.json` → `models.phases.<phase>` at phase start (see `docs/model-routing.md`).
 
-### Step 1: Search Known Issues FIRST
-Before attempting ANY troubleshooting, check if this is a known issue:
-```powershell
-# Extract error pattern from error message
-$errorPattern = [extract key phrases from error]
+## Platform Rules
 
-# Check known issues database
-$issuesYaml = Get-Content ...kilocode\troubleshooting\known-issues.yaml -Raw
-if ($issuesYaml -match $errorPattern) {
-    Write-Host "✓ KNOWN ISSUE DETECTED" -ForegroundColor Green
-    Write-Host "Searching resolution database..."
-    
-    # Find matching issue and load solution
-    # Apply documented fix immediately
-    # Skip trial-and-error phase
-}
-```
+- Detect the host OS before choosing commands.
+- Use PowerShell and `.ps1` scripts on Windows.
+- Use Bash/Zsh and `.sh` scripts on macOS or Linux.
+- Do not copy a PowerShell example from an APC workflow verbatim on macOS or Linux; use the equivalent shell function or script.
 
-### Step 2: If Unknown Issue - Attempt Resolution
-Proceed with troubleshooting, but COUNT your attempts:
-```powershell
-$attemptCount = 0
-$maxAttempts = 3
+## Phase Gates
 
-while ($attemptCount -lt $maxAttempts -and -not $resolved) {
-    $attemptCount++
-    Write-Host "Troubleshooting attempt $attemptCount of $maxAttempts"
-    
-    # Try solution
-    # Test if resolved
-}
+- Complete only the requested APC phase.
+- Validate the prior phase before writing files.
+- Back up plugin state before implementation, debugging, or packaging changes.
+- Update `status.json` through the platform state-management script when a phase completes.
+- Stop after the requested phase instead of automatically starting the next phase.
+- If `setup.completed` is false, warn once and suggest `/apc-setup` (do not hard-block).
 
-# If reached 3 attempts without resolution, trigger capture
-if ($attemptCount -ge $maxAttempts) {
-    # TRIGGER AUTO-CAPTURE (see Step 3)
-}
-```
+## Build and Validation
 
-### Step 3: Auto-Capture Protocol
-When threshold is reached (3 attempts OR 5 minutes), automatically execute:
-```powershell
-# Generate unique issue ID
-$category = "build" # or "webview", "packaging", "dsp", "ui"
-$existingIssues = (Get-Content ...kilocode\troubleshooting\known-issues.yaml | Select-String -Pattern "id: $category-" | Measure-Object).Count
-$newId = "$category-$(($existingIssues + 1).ToString('000'))"
-
-# Create new issue entry
-$newIssue = @"
-
-  - id: $newId
-    title: "[Auto] $errorSummary"
-    category: $category
-    severity: high
-    symptoms:
-      - "$errorMessage"
-    error_patterns:
-      - "$keyPattern1"
-      - "$keyPattern2"
-    resolution_status: investigating
-    resolution_file: resolutions/$newId.md
-    frequency: 1
-    last_occurred: $(Get-Date -Format "yyyy-MM-dd")
-    attempts_before_resolution: $attemptCount
-"@
-
-# Append to known-issues.yaml
-Add-Content -Path ...kilocode\troubleshooting\known-issues.yaml -Value $newIssue
-
-# Create resolution document from template
-Copy-Item ...kilocode\troubleshooting\_template.md ...kilocode\troubleshooting\resolutions\$newId.md
-
-# Fill in basic info
-$templateContent = Get-Content ...kilocode\troubleshooting\resolutions\$newId.md -Raw
-$templateContent = $templateContent -replace '\[auto-generated-id\]', $newId
-$templateContent = $templateContent -replace '\[Issue Title\]', $errorSummary
-$templateContent = $templateContent -replace '\[date\]', (Get-Date -Format "yyyy-MM-dd HH:mm")
-Set-Content -Path ...kilocode\troubleshooting\resolutions\$newId.md -Value $templateContent
-```
-
-**Notify user:**
-```
-⚠️ Issue detected and logged!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Issue ID: $newId
-Status: Investigating
-Attempts: $attemptCount
-See: ...kilocode\troubleshooting\resolutions\$newId.md
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-### Step 4: When Solution Found
-Once you successfully resolve the issue:
-```powershell
-# Update YAML status
-$yamlContent = Get-Content ...kilocode\troubleshooting\known-issues.yaml -Raw
-$yamlContent = $yamlContent -replace "id: $newId.*?resolution_status: investigating", "id: $newId`n    resolution_status: solved"
-Set-Content -Path ...kilocode\troubleshooting\known-issues.yaml -Value $yamlContent
-
-# Complete resolution document
-# Fill out:
-# - Root Cause section
-# - Solution section with exact commands
-# - Verification steps
-# - Prevention tips
-```
-
-**Notify user:**
-```
-✅ Issue resolved and documented!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Issue ID: $newId
-Status: SOLVED
-Solution: [brief description]
-Full details: ...kilocode\troubleshooting\resolutions\$newId.md
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-This solution will be applied automatically if this issue occurs again.
-```
-
-### Step 5: For Existing Issues
-If the error matches a known issue in the database:
-```powershell
-# Increment frequency counter
-$frequency = [current frequency from YAML] + 1
-
-# Update last_occurred date
-$lastOccurred = Get-Date -Format "yyyy-MM-dd"
-
-# Update YAML file
-```
-
-**Inform user:**
-```
-📚 Known issue detected!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Issue ID: cmake-001
-Title: CMake duplicate target error
-Status: SOLVED
-Frequency: 12 occurrences
-Applying documented solution...
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-### Critical Rules for Auto-Capture
-1. **Always search first** - Check `...kilocode/troubleshooting/known-issues.yaml` before trying random solutions
-2. **Count attempts** - Track how many solutions you try
-3. **Capture at threshold** - Auto-create issue entry at 3 attempts
-4. **Document solutions** - When resolved, complete the resolution document
-5. **Update frequency** - Increment counter for recurring issues
-6. **User transparency** - Always inform user when logging or resolving issues
-
-### Issue Categories
-- `build` - CMake, compilation, linking errors
-- `webview` - WebView2, HTML/JS loading, browser issues
-- `packaging` - VST3 installation, distribution, DAW detection
-- `dsp` - Audio processing, buffer issues, parameter problems
-- `ui` - Visage rendering, control issues, layout problems
-
-## PHASE MAP (The Lifecycle)
-
-### 1. PHASE 1: DREAM (Ideation)
-*   **Trigger:** `/dream [Name]`
-*   **Skill File:** `...kilocode/skills/skill_ideation/SKILL.md`
-*   **Action:** Create brief, parameter spec, and initialize `status.json`.
-*   **State:** `ideation_complete`
-
-### 2. PHASE 2: PLAN (Architecture)
-*   **Trigger:** `/plan [Name]`
-*   **Skill File:** `...kilocode/skills/skill_planning/SKILL.md`
-*   **Action:** Define DSP graph, class structure, and **update `status.json` with UI selection** (Visage vs WebView).
-*   **State:** `plan_complete`
-
-### 3. PHASE 3: DESIGN (GUI)
-*   **Trigger:** `/design [Name]`
-*   **Skill File:** `...kilocode/skills/skill_design/SKILL.md`
-*   **Action:**
-    *   If **Visage**: Create C++ Mockups and `VisageControls.h`.
-    *   If **WebView**: Create HTML/CSS mockups and integration glue.
-*   **State:** `design_complete`
-
-### 4. PHASE 4: CODE (DSP)
-*   **Trigger:** `/impl [Name]`
-*   **Skill File:** `...kilocode/skills/skill_implementation/SKILL.md`
-*   **Action:** Implement `PluginProcessor.cpp` and bind parameters to UI.
-*   **State:** `code_complete`
-
-### 5. PHASE 5: SHIP (Release)
-*   **Trigger:** `/ship [Name]`
-*   **Skill File:** `...kilocode/skills/skill_packaging/SKILL.md`
-*   **Action:** Final build, testing, and zipping.
-*   **State:** `ship_complete`
-
-### MAINTENANCE
-*   **Backup:** `/backup [Name]` -> `powershell -File .\scripts\backup.ps1 ...`
-*   **Rollback:** `/rollback [Name]` -> `powershell -File .\scripts\rollback.ps1 ...`
-
----
-**DEFAULT BEHAVIOR:**
-If the user types a command (e.g., `/dream GainKnob`), **LOAD THE SKILL FILE** and follow its "Step 1" instructions exactly. Do NOT hallucinate the rest of the process.
-
-**ERROR HANDLING:**
-If any command fails, **CHECK KNOWN ISSUES FIRST** before attempting random solutions. Search `...kilocode/troubleshooting/known-issues.yaml` for matching error patterns. If found, apply documented solution. If not found and after 3 attempts, trigger auto-capture protocol.
+- Run build operations from the repository root.
+- Do not invoke raw `cmake`, `xcodebuild`, `msbuild`, or compiler commands for normal APC builds.
+- Use `scripts/build-and-install.ps1` on Windows or `scripts/build-and-install.sh` on macOS/Linux (they honor `apc.config.json` paths).
+- Start with the narrowest validation relevant to the changed plugin.
+- Do not alter unrelated generated plugins, build artifacts, or user debug output.
+- APC targets **JUCE 9** (`_tools/JUCE`). WebView interop: `@juce-framework/webview` or `native/typescript/webview-interop/dist/index.js`.
 
 ---
 > Source: [Noizefield/audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
