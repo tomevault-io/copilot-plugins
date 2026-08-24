@@ -1,0 +1,9 @@
+{
+  "name": "monkey1wizard--golem-agents-legion",
+  "displayName": "Golem-Agents-Legion",
+  "description": " A cross-provider AI orchestration system built in Rust, running natively across Claude Code, Codex CLI, GitHub Copilot, Antigravity CLI, and OpenCode.",
+  "version": "1.0.0",
+  "author": "monkey1wizard",
+  "homepage": "https://github.com/monkey1wizard/Golem-Agents-Legion",
+  "skills": []
+}
