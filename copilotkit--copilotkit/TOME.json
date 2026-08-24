@@ -3,7 +3,7 @@
   "owner": "CopilotKit",
   "repo": "CopilotKit",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,123 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "chatgpt-app-builder",
-      "path": "examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/chatgpt-app-builder",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/chatgpt-app-builder",
-      "description": ""
-    },
-    {
-      "name": "copilotkit-demo-parity",
-      "path": ".claude/skills/copilotkit-demo-parity",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/.claude/skills/copilotkit-demo-parity",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/runtime/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/runtime/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/react-core/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/react-core/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/a2ui-renderer/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/a2ui-renderer/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-agui/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-agui/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-setup/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-setup/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-debug/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-debug/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-develop/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-develop/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-upgrade/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-upgrade/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-contribute/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-contribute/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-self-update/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-self-update/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "skills/copilotkit-integrations/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/skills/copilotkit-integrations/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "packages/runtime/skills/runtime/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/packages/runtime/skills/runtime/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "packages/react-core/skills/react-core/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/packages/react-core/skills/react-core/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "packages/a2ui-renderer/skills/a2ui-renderer/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/packages/a2ui-renderer/skills/a2ui-renderer/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/mcp-builder/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/mcp-builder/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/mcp-apps-builder/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/mcp-apps-builder/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "CopilotKit",
-      "path": "examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/chatgpt-app-builder/SKILL.md",
-      "github_url": "https://github.com/CopilotKit/CopilotKit/tree/main/examples/showcases/open-mcp-client/apps/mcp-use-server/.agent/skills/chatgpt-app-builder/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/CopilotKit/CopilotKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T04:54:38Z"
+  "distributed_at": "2026-08-24T13:44:14Z"
 }
