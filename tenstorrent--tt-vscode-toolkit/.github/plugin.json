@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-vscode-toolkit",
+  "displayName": "tt-vscode-toolkit",
+  "description": "A complete learning and development environment for Tenstorrent hardware and software",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-vscode-toolkit",
+  "skills": []
+}
