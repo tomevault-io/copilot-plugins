@@ -1,0 +1,22 @@
+{
+  "name": "testronai--promptwright",
+  "displayName": "promptwright",
+  "description": "promptwright",
+  "version": "1.0.0",
+  "author": "testronai",
+  "homepage": "https://github.com/testronai/promptwright",
+  "skills": [
+    {
+      "name": "promptwright",
+      "description": ""
+    },
+    {
+      "name": "promptwright",
+      "description": ""
+    },
+    {
+      "name": "promptwright",
+      "description": ""
+    }
+  ]
+}
