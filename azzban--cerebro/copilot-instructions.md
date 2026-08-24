@@ -1,58 +1,67 @@
-## project-overview
+## runtime-wiring
 
-> Core project context, architecture, and tech-stack overview for Cerebro
+> Composition root patterns and goroutine lifecycle in internal/app
 
 
-# Cerebro — Project Overview
+# Runtime Wiring (`internal/app`)
 
-**Cerebro** is a Go CLI automated trading system for Binance (spot + futures) with paper-trade-first safety, a multi-agent LLM layer, and a terminal TUI.
+## Sole Responsibility
 
-## Tech Stack
+`internal/app` is the **composition root only**. It:
+- Instantiates adapters (broker, cache, stores, notifiers).
+- Wires them to business services via port interfaces.
+- Launches goroutines via `errgroup.WithContext`.
+- Handles shutdown on context cancellation.
 
-| Concern | Choice |
-|---|---|
-| Language | Go 1.25 (module: `github.com/azhar/cerebro`) |
-| CLI | `cobra` |
-| TUI | `bubbletea` + `lipgloss` |
-| Exchange | `go-binance/v2` |
-| DB | `pgx/v5` (PostgreSQL) |
-| Cache | `go-redis/v9` |
-| Config | `yaml.v3` + `godotenv` |
-| LLM | `go-openai` + custom Anthropic/Gemini HTTP clients |
-| ChatOps | `telegram-bot-api/v5`, `discordgo` |
-| Numerics | `shopspring/decimal` — **never `float64` for money** |
-| IDs | `google/uuid` |
-| Concurrency | `golang.org/x/sync/errgroup` |
+**No business logic lives here.** If you find yourself adding a trading decision to `runtime.go`, it belongs in `internal/strategy`, `internal/risk`, or `internal/execution`.
 
-## Architecture
+## Goroutine Pattern
 
-Strict **hexagonal (ports-and-adapters)**:
+All long-running goroutines follow this template:
 
-```
-cmd/cerebro/main.go → internal/cli → internal/app (composition root)
-   ├─ internal/domain     (pure types, no deps)
-   ├─ internal/port       (interfaces only)
-   ├─ internal/adapter    (implementations: binance, postgres, redis, llm, bots)
-   ├─ internal/config     (load + validate)
-   └─ internal/app        (wiring + lifecycle via errgroup)
+```go
+g.Go(func() error {
+    slog.InfoContext(ctx, "component starting", "name", "market-hub")
+    if err := hub.Run(ctx); err != nil && !errors.Is(err, context.Canceled) {
+        return fmt.Errorf("market hub: %w", err)
+    }
+    return nil
+})
 ```
 
-## Safety Invariants
+- Always check `context.Canceled` / `context.DeadlineExceeded` and return `nil` for them — they are clean shutdowns, not errors.
+- `errgroup` cancels the group context on the first non-nil error; all goroutines must react promptly.
 
-- Paper mode is **default and mandatory** until live path is fully implemented.
-- Triple agreement required to go live: `ENVIRONMENT=production` in secrets, `environment: production` in `app.yaml`, and `--live` flag.
-- Kill-switch (`engine.kill_switch: true`) halts all execution immediately.
-- **Never bypass the risk gate** (`internal/risk`) in execution paths.
+## Paper vs Live Guard
 
-## Key Directories
+The live broker path **must** remain behind an explicit guard until fully implemented and audited:
 
-- `internal/domain/` — enums, value types, no outward imports
-- `internal/port/` — Go interfaces (ports)
-- `internal/adapter/` — external system implementations
-- `internal/app/runtime.go` — composition root / goroutine wiring
-- `configs/` — `app.yaml`, `markets.yaml`, `strategies.yaml`, `secrets.env`
-- `scripts/migrations/` — Goose SQL migrations
-- `deploy/` — `Dockerfile`, `docker-compose.yaml`
+```go
+if a.cfg.Environment == domain.EnvironmentProduction {
+    return fmt.Errorf("live broker not yet implemented — use --paper")
+}
+```
+
+Never remove this guard without:
+1. A complete adapter implementation.
+2. Integration tests passing on Binance testnet.
+3. Risk gate coverage for the live path.
+
+## In-Memory vs Real Adapters
+
+Currently the paper path uses in-memory stores (`newMemoryCache`, `newMemoryTradeStore`, etc.). When wiring real Postgres/Redis adapters:
+
+- Instantiate the adapter (e.g. `postgres.NewTradeStore(pool)`).
+- Assign it to the port interface variable.
+- Do **not** change any code outside `internal/app` — ports guarantee the swap is transparent.
+
+## Startup Sequence
+
+1. Load + validate config.
+2. Connect external services (DB, Redis, exchange WS) — fail fast here.
+3. Build domain services with injected ports.
+4. Start goroutines via `errgroup`.
+5. Block until `ctx` is cancelled or a fatal error propagates.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
