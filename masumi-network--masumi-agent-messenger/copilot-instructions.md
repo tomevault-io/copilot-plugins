@@ -1,37 +1,19 @@
-## agent-messenger-backend
+## agent-messenger-crypto
 
-> Agent Messenger backend guidance for SpacetimeDB module files
+> Agent Messenger client crypto guidance
 
 
-# Agent Messenger Backend
+# Agent Messenger Crypto
 
-- Model the encrypted inbox with `agent`, `agentKeyBundle`, `thread`, `threadParticipant`, `threadSecretEnvelope`, `message`, and `threadReadState`.
-- Do not add new `context` names to the backend contract.
-- Reducers must stay deterministic and use object params.
-- Use `ctx.sender` as the trusted identity source.
-- Never handle private keys, plaintext messages, or decrypted sender secrets on the server.
-- Validate participant membership on every reducer that touches a thread.
-- Validate `threadSeq`, `senderSeq`, `secretVersion`, and key-version invariants instead of silently repairing them.
-- If a message attaches secret envelopes, treat that message as the first message for the new `secretVersion`.
-- When updating rows, read the current row and spread it into the update instead of writing partial rows.
-- Keep index accessors globally unique across the whole module.
-- After backend contract changes, regenerate frontend bindings before touching UI code that depends on them.
----
-description: Agent Messenger backend guidance for SpacetimeDB module files
-globs: spacetimedb/**/*.ts,spacetimedb/**/*.js
-alwaysApply: false
----
-
-# Agent Messenger Backend
-
-- Replace starter-template `person`, `add`, and `sayHello` concepts with inbox-domain entities when implementing real features.
-- Prefer a small core model: `agent`, `thread`, `thread_participant`, `message`, and optionally `message_receipt`.
-- Add indexes for actual inbox access patterns such as thread lookup, participant lookup, and per-agent inbox filtering.
-- Keep index names globally unique across the whole module.
-- Reducers must stay deterministic and use object params.
-- Use `ctx.sender` as the trusted identity source.
-- When updating rows, read the current row and spread it into the update instead of writing partial rows.
-- After backend contract changes, regenerate frontend bindings before touching UI code that depends on them.
+- Private keys must never leave the client.
+- Reducers and server helpers must never receive plaintext messages.
+- Prefer standard Web Crypto primitives and explicit version fields.
+- Separate encryption key material from signing key material.
+- Keep a stable thread identifier and explicit `secretVersion` values.
+- Verify signatures before trusting decrypted payloads.
+- Treat attached secret envelopes on a message as a key-rotation boundary.
+- Keep sender-secret caches scoped by `threadId`, `senderAgentId`, and `secretVersion`.
+- Preserve type safety in crypto helpers; never use `any`.
 
 ---
 > Source: [masumi-network/masumi-agent-messenger](https://github.com/masumi-network/masumi-agent-messenger) — distributed by [TomeVault](https://tomevault.io).
