@@ -1,16 +1,15 @@
 # Echoglossian
 
-> Source: [lokinmodar/Echoglossian](https://github.com/lokinmodar/Echoglossian). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [lokinmodar/Echoglossian](https://github.com/lokinmodar/Echoglossian). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [lokinmodar/Echoglossian](https://github.com/lokinmodar/Echoglossian).
+Original source: `AGENTS.md` in [lokinmodar/Echoglossian](https://github.com/lokinmodar/Echoglossian).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +20,7 @@ Original source: `` in [lokinmodar/Echoglossian](https://github.com/lokinmodar/E
 - [Echoglossian](https://github.com/lokinmodar/Echoglossian/tree/main/.agents/skills/dalamud-gamewindow-workflow/SKILL.md)
 - [Echoglossian](https://github.com/lokinmodar/Echoglossian/tree/main/.agents/skills/dalamud-stringarraydata-workflow/SKILL.md)
 
-From [lokinmodar/Echoglossian](https://github.com/lokinmodar/Echoglossian) — a repo with 118+ stars on GitHub.
+From [lokinmodar/Echoglossian](https://github.com/lokinmodar/Echoglossian) — a repo with 120+ stars on GitHub.
 
 ---
 
