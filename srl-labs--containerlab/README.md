@@ -1,6 +1,6 @@
 # containerlab
 
-> Source: [srl-labs/containerlab](https://github.com/srl-labs/containerlab). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [srl-labs/containerlab](https://github.com/srl-labs/containerlab). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [srl-labs/containerlab](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [srl-labs/containerlab](https://github.com/srl-labs/containerlab) — a repo with 2697+ stars on GitHub.
+From [srl-labs/containerlab](https://github.com/srl-labs/containerlab) — a repo with 2760+ stars on GitHub.
 
 ---
 
