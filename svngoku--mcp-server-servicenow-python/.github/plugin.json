@@ -1,0 +1,9 @@
+{
+  "name": "svngoku--mcp-server-servicenow-python",
+  "displayName": "mcp-server-servicenow-python",
+  "description": "Generated from alpic-ai/mcp-server-template-python",
+  "version": "1.0.0",
+  "author": "svngoku",
+  "homepage": "https://github.com/svngoku/mcp-server-servicenow-python",
+  "skills": []
+}
