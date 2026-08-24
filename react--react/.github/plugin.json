@@ -1,0 +1,122 @@
+{
+  "name": "react--react",
+  "displayName": "react",
+  "description": "react",
+  "version": "1.0.0",
+  "author": "react",
+  "homepage": "https://github.com/react/react",
+  "skills": [
+    {
+      "name": "extract-errors",
+      "description": ""
+    },
+    {
+      "name": "feature-flags",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "description": ""
+    },
+    {
+      "name": "flags",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "compiler-commit",
+      "description": ""
+    },
+    {
+      "name": "compiler-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "compiler-port",
+      "description": ""
+    },
+    {
+      "name": "compiler-review",
+      "description": ""
+    },
+    {
+      "name": "compiler-verify",
+      "description": ""
+    },
+    {
+      "name": "plan-update",
+      "description": ""
+    },
+    {
+      "name": "rust-port-status",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    }
+  ]
+}
