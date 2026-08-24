@@ -1,41 +1,82 @@
 ## sunsynk
 
-> Inverter Modbus sensor definitions — profiles, inheritance, single vs three phase
+> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
 
 
-# Sunsynk inverter definitions (`src/sunsynk/definitions/`)
+# Karpathy behavioral guidelines
 
-## What lives here
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions
+as needed.
 
-All **Modbus register → sensor** mappings for supported inverters live under
-**`src/sunsynk/definitions/`**. Each **named definition profile** (loaded via `import_defs` in
-`__init__.py`) corresponds to a **distinct inverter family / register layout**, not a small tweak on
-the same map.
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## Building on another profile
+## 1. Think Before Coding
 
-Some definitions **reuse another module’s `SENSORS`** and patch or append registers (e.g.
-`single_phase_16kw.py` starts from `single_phase` and overrides selected sensors). That pattern
-means a **large common register set** with **local overrides** — but only where the hardware
-actually matches.
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-## Single-phase vs three-phase
+Before implementing:
 
-**Single-phase** (`single_phase.py`, …) and **three-phase** (`three_phase_common.py` plus
-`three_phase_lv.py` / `three_phase_hv.py`) are **not** two views of the same register file: they use
-**different definitions and different register semantics**. When adding or comparing sensors:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
-- **Do not assume** the same holding register number means the same physical quantity across
-  profiles.
-- Prefer **reading the target profile’s file** end-to-end for that inverter before copying a sensor
-  from another profile.
+## 2. Simplicity First
 
-## Canonical profile names
+**Minimum code that solves the problem. Nothing speculative.**
 
-The add-on / library config string for each profile is listed in **`ALL_DEFS`** in
-`src/sunsynk/definitions/__init__.py` (e.g. `single-phase`, `single-phase-16kw`, `three-phase`,
-`three-phase-hv`). New profiles must be wired there (and in docs / schema as needed).
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```text
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant
+clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to
+overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ---
 > Source: [kellerza/sunsynk](https://github.com/kellerza/sunsynk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
