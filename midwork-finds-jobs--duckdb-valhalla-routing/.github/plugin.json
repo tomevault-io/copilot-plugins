@@ -1,0 +1,9 @@
+{
+  "name": "midwork-finds-jobs--duckdb-valhalla-routing",
+  "displayName": "duckdb-valhalla-routing",
+  "description": "WIP:\u00a0Attempt to package valhalla routing engine to duckdb",
+  "version": "1.0.0",
+  "author": "midwork-finds-jobs",
+  "homepage": "https://github.com/midwork-finds-jobs/duckdb-valhalla-routing",
+  "skills": []
+}
