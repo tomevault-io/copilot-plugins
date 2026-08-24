@@ -1,0 +1,410 @@
+{
+  "name": "google--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/skills",
+  "skills": [
+    {
+      "name": "alloydb-basics",
+      "description": ""
+    },
+    {
+      "name": "bigquery-basics",
+      "description": ""
+    },
+    {
+      "name": "cloud-run-basics",
+      "description": ""
+    },
+    {
+      "name": "cloud-sql-basics",
+      "description": ""
+    },
+    {
+      "name": "firebase-basics",
+      "description": ""
+    },
+    {
+      "name": "gemini-api",
+      "description": ""
+    },
+    {
+      "name": "gke-basics",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-networking-observability",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-recipe-auth",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-recipe-onboarding",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-waf-cost-optimization",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-waf-reliability",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-slo-alert-configuration",
+      "description": ""
+    }
+  ]
+}
