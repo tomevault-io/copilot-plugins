@@ -1,73 +1,75 @@
-## testing-standards
+## cerebro
 
-> Testing standards and patterns for Cerebro
+> Quick commands and tribal-knowledge notes that don't fit inside per-package docs.
 
+# Cerebro — Agent / Operator Notes
 
-# Testing Standards
+Quick commands and tribal-knowledge notes that don't fit inside per-package docs.
+See `CLAUDE.md` for the canonical architecture + conventions.
 
-## Test Types
+## Verification
 
-| Tag | Purpose | Command |
-|---|---|---|
-| _(none)_ | Unit tests — no external deps, pure in-memory | `make test` |
-| `integration` | Requires Binance testnet, Postgres, Redis | `make test-int` |
-
-Always use build tags to separate them:
-
-```go
-//go:build integration
+```bash
+make build         # build binary
+make test          # unit tests
+make lint          # golangci-lint
+make check         # dry-run config validation
 ```
 
-## Table-Driven Tests
+## CryptoPanic news scraper
 
-All unit tests use table-driven style with `t.Run`:
+Scraper lives at `internal/ingest/news/cryptopanic/`. Two tiers:
 
-```go
-func TestRiskGate_Allow(t *testing.T) {
-    tests := []struct {
-        name    string
-        order   domain.OrderIntent
-        wantErr bool
-    }{
-        {"within limits", validOrder, false},
-        {"exceeds max notional", bigOrder, true},
-    }
-    for _, tt := range tests {
-        t.Run(tt.name, func(t *testing.T) {
-            gate := risk.NewGate(testConfig)
-            err := gate.Allow(context.Background(), tt.order)
-            if (err != nil) != tt.wantErr {
-                t.Errorf("Allow() err = %v, wantErr %v", err, tt.wantErr)
-            }
-        })
-    }
-}
+1. **RE (primary)** — `client.go` + `crypto.go`. Pure-Go AES-128-CBC + zlib
+   decrypt of the `/web-api/posts/` endpoint. ~200ms per scrape.
+2. **Browser (fallback)** — `browser.go`. Headless Chromium that hooks
+   `JSON.parse` and captures the decrypted payload. ~5s per scrape.
+
+`fallback.go` composes the two with a circuit breaker: after 3 consecutive
+`ErrBadPayload` failures from the RE path (key rotation, IV formula
+change, etc.), it cools down for 1 hour and routes all traffic through
+the browser. A single `system_alerts` notification is sent per cool-down.
+
+### When the alert fires: refresh the AES key
+
+```bash
+scripts/extract_cryptopanic_key.sh
 ```
 
-## Mocking Ports
+The script:
+1. Fetches `https://cryptopanic.com/` and locates the current
+   `cryptopanic.min.*.js` bundle.
+2. Extracts the packed `dk()` function and executes it in Node to resolve
+   the 16-byte AES key.
+3. Prints the new key + bundle hash so you can diff against `key.go`.
 
-Never mock concrete adapters. Test against the port interface using hand-written stubs or `testify/mock`:
+If the key changed:
+1. Update `const aesKey` and `const sourceBundleHash` in
+   `internal/ingest/news/cryptopanic/key.go`.
+2. Capture a fresh ciphertext/plaintext pair in
+   `internal/ingest/news/cryptopanic/testdata/` (see the node script at
+   `/tmp/verify.js` during development, or write a small capture helper).
+3. `go test ./internal/ingest/news/cryptopanic` must pass.
 
-```go
-type stubBroker struct{ submitted []domain.OrderIntent }
-func (s *stubBroker) Submit(ctx context.Context, o domain.OrderIntent) error {
-    s.submitted = append(s.submitted, o)
-    return nil
-}
+### Live smoke test
+
+The `live` build tag lets you hit the real CryptoPanic site:
+
+```bash
+go test -tags=live ./internal/ingest/news/cryptopanic -run TestLive -v
 ```
 
-The stub lives in `internal/<package>/testhelpers_test.go` (unexported, test-only).
+Expect ~50 posts in ~1.5s when the RE path is healthy.
 
-## Assertions
+### Cache layout
 
-Use stdlib `testing` + comparison with `decimal.Equal` for money. Avoid assertion libraries unless they're already in `go.mod`.
+The ingest scheduler writes to Redis on each tick:
+- `news:latest` — global newest-first list, TTL = interval × 3
+- `news:by_asset:<CODE>` — per-currency list for each code listed in
+  `ingest.cryptopanic.currencies`, same TTL
 
-## What Must Have Tests
-
-- Every function in `internal/risk/` — risk gate logic is safety-critical.
-- Every `port` implementation (adapter unit tests with a fake/in-memory upstream).
-- Every strategy signal generator.
-- CLI flag parsing and config validation paths.
+The agent `fetch_latest_news` tool reads these keys first and only falls
+back to a live scrape on cache miss.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
