@@ -1,0 +1,9 @@
+{
+  "name": "pengfeiqiao--kunpeng",
+  "displayName": "kunpeng",
+  "description": "\u9cb2\u9e4f Kunpeng \u2014 \u8dd1\u5728\u672c\u5730\u7684\u4e2d\u6587 AIGC \u521b\u4f5c\u5de5\u4f5c\u53f0\uff08Tauri + React + Rust\uff0c\u5185\u5d4c DeepSeek Harness \u5f15\u64ce\uff09",
+  "version": "1.0.0",
+  "author": "pengfeiqiao",
+  "homepage": "https://github.com/pengfeiqiao/kunpeng",
+  "skills": []
+}
