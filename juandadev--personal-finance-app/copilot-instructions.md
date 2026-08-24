@@ -1,20 +1,13 @@
-## protect-dev-database
+## run-format-after-requests
 
-> The database in `.env.local` contains real user data, not disposable fixtures.
+> Run project formatter after every completed request
 
-# Protect Dev Database
 
-The database in `.env.local` contains real user data, not disposable fixtures.
+# Format After Requests
 
-- Never run `bun run db:seed`, data-mutating scripts, or manual SQL writes
-  against it without explicit permission in the current chat.
-- `bun run db:migrate` may be run when a task requires a new migration, but
-  migrations must be replay-safe (the runner re-executes every file) and must
-  never rewrite or reassign rows owned by existing users.
-- Never create test accounts or insert test rows in this database without
-  asking first. Prefer asking the user to verify flows themselves.
-- Before any data repair, run it as a dry run inside a transaction and show
-  the output before applying.
+- Before finishing any request that involved work in this repository, run `bun run format`.
+- Treat formatting as part of the completion checklist, after edits and before the final response.
+- If `bun run format` cannot be run or fails, mention that in the final response with the reason.
 
 ---
 > Source: [juandadev/personal-finance-app](https://github.com/juandadev/personal-finance-app) — distributed by [TomeVault](https://tomevault.io).
