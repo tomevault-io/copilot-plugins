@@ -1,64 +1,59 @@
-## hexagonal-architecture
+## migrations
 
-> Hexagonal architecture conventions — domain, port, adapter boundaries
+> SQL migration conventions using Goose for Cerebro's PostgreSQL schema
 
 
-# Hexagonal Architecture
+# Database Migrations
 
-## Layer Rules
+## Tool: Goose
 
-| Layer | Package | Rule |
-|---|---|---|
-| **Domain** | `internal/domain` | Pure Go types and constants. **Zero external imports.** No business logic. |
-| **Ports** | `internal/port` | Interfaces only. One file per abstraction group (`broker.go`, `store.go`, …). |
-| **Adapters** | `internal/adapter/<system>/` | Implements a port. Imports the port interface, not sibling adapters. |
-| **App** | `internal/app` | Composition root only. Wires ports to adapters. No business logic here. |
-| **Domain logic** | `internal/risk`, `internal/execution`, `internal/strategy`, `internal/agent` | Depends on domain + ports; never on adapters. |
+Migrations are managed by **Goose** (Docker Compose profile `migrate`). Use the `migrate-up` / `migrate-down` Makefile targets for local development.
 
-## Dependency Direction
-
-```
-cmd → cli → app → [domain, port, risk, execution, strategy, agent]
-                        ↑
-                    adapter (implements port)
+```bash
+make migrate-up    # applies all pending migrations
+make migrate-down  # rolls back one step
 ```
 
-Adapters **must not** import each other. If two adapters need shared behaviour, extract it into a `pkg/` utility.
+## File Naming
 
-## Adding a New Port
-
-1. Define the interface in `internal/port/`.
-2. Write the adapter in `internal/adapter/<system>/`.
-3. Register it in `internal/app/runtime.go` — no other file should do wiring.
-
-```go
-// internal/port/notifier.go
-type Notifier interface {
-    Notify(ctx context.Context, msg domain.Alert) error
-}
-
-// internal/adapter/telegram/notifier.go
-type Notifier struct { bot *tgbotapi.BotAPI; chatID int64 }
-func (n *Notifier) Notify(ctx context.Context, msg domain.Alert) error { … }
+```
+NNN_descriptive_name.up.sql
+NNN_descriptive_name.down.sql
 ```
 
-## Domain Types
+- `NNN` is zero-padded sequential (e.g. `004`, `005`).
+- Name describes the **intent**, not the mechanism: `004_add_strategy_snapshots` not `004_alter_table`.
+- Every `.up.sql` must have a matching `.down.sql` that fully reverses it.
 
-- Enums are **typed string constants**, not `iota`:
-  ```go
-  type Side string
-  const (
-      SideBuy  Side = "BUY"
-      SideSell Side = "SELL"
-  )
-  ```
-- All monetary values use `decimal.Decimal`.
-- IDs use `uuid.UUID`.
+## SQL Conventions
 
-## What Doesn't Belong Where
+```sql
+-- ✅ GOOD — idempotent, explicit types, named constraints
+CREATE TABLE IF NOT EXISTS order_intents (
+    id          UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+    symbol      TEXT        NOT NULL,
+    side        TEXT        NOT NULL CHECK (side IN ('BUY', 'SELL')),
+    quantity    NUMERIC(20,8) NOT NULL,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 
-- No `pgx` / Redis imports inside `internal/domain`, `internal/port`, or any strategy/risk/execution package.
-- No business decisions inside adapters — they translate, not decide.
+CREATE INDEX IF NOT EXISTS idx_order_intents_symbol ON order_intents (symbol);
+```
+
+- Use `TIMESTAMPTZ` (never `TIMESTAMP`) for all time columns.
+- Use `NUMERIC(20,8)` for prices and quantities — never `FLOAT` or `DOUBLE PRECISION`.
+- Always `IF NOT EXISTS` / `IF EXISTS` for idempotency.
+- Name all foreign keys and check constraints explicitly.
+
+## Schema Baseline
+
+| Migration | Tables Created |
+|---|---|
+| `001_initial_schema` | `order_intents`, `trades` |
+| `002_agent_tables` | Agent log tables |
+| `003_audit_events` | `audit_events` |
+
+Never modify a migration that has already been applied in any environment. Write a new migration instead.
 
 ---
 > Source: [AzzBAN/cerebro](https://github.com/AzzBAN/cerebro) — distributed by [TomeVault](https://tomevault.io).
