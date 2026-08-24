@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [Noizefield/audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder).
+Original source: `AGENTS.md` in [Noizefield/audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (28)
+## Bundled Skills (33)
 
 - [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/impl/SKILL.md)
 - [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/ship/SKILL.md)
@@ -46,8 +45,13 @@ Original source: `` in [Noizefield/audio-plugin-coder](https://github.com/Noizef
 - [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_implementation/SKILL.md)
 - [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_design_webview/SKILL.md)
 - [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_troubleshooting/SKILL.md)
+- [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/apc-setup/SKILL.md)
+- [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/apc-setup/SKILL.md)
+- [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/skills/audio-plugin-coder/SKILL.md)
+- [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/apc-setup/SKILL.md)
+- [audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder/tree/main/.agents/skills/audio-plugin-coder/SKILL.md)
 
-From [Noizefield/audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder) — a repo with 294+ stars on GitHub.
+From [Noizefield/audio-plugin-coder](https://github.com/Noizefield/audio-plugin-coder) — a repo with 309+ stars on GitHub.
 
 ---
 
