@@ -1,0 +1,9 @@
+{
+  "name": "smaharajan--copilot-sessions",
+  "displayName": "copilot-sessions",
+  "description": "Fast terminal browser for GitHub Copilot CLI sessions \u2014 search, inspect and resume any past session, fully local.",
+  "version": "1.0.0",
+  "author": "smaharajan",
+  "homepage": "https://github.com/smaharajan/copilot-sessions",
+  "skills": []
+}
