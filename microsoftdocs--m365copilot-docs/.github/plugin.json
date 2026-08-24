@@ -1,0 +1,9 @@
+{
+  "name": "microsoftdocs--m365copilot-docs",
+  "displayName": "m365copilot-docs",
+  "description": "m365copilot-docs",
+  "version": "1.0.0",
+  "author": "MicrosoftDocs",
+  "homepage": "https://github.com/MicrosoftDocs/m365copilot-docs",
+  "skills": []
+}
