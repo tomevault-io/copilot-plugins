@@ -4,7 +4,7 @@
   "repo": "flutter",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -103,9 +103,33 @@
       "path": ".agents/agents/reidbaker-agent/skills/natural-writing/SKILL.md",
       "github_url": "https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/natural-writing/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/flutter-cherry-pick/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/flutter-cherry-pick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/shepherd-prs/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/shepherd-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/engine-whats-new/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/engine-whats-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/run-devicelab-with-led/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/run-devicelab-with-led/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/flutter/flutter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T09:34:53Z"
+  "distributed_at": "2026-08-24T12:55:28Z"
 }
