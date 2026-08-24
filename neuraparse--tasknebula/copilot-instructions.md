@@ -1,18 +1,13 @@
 ## tasknebula
 
-> Public repository hygiene and local-only workspace boundaries
+> Canonical TaskNebula project instructions
 
 
-# Keep the mobile workspace local
-
-- The root `mobile/` directory is intentionally local-only. Never add or
-  force-add it, stage/commit/push any descendant, or copy its source into a
-  tracked artifact.
-- Do not list `mobile/` in public workspace manifests, lockfiles, CI, or release
-  steps. Work inside it only when the user explicitly requests local mobile
-  work; use the workspace and lockfile contained inside that directory.
-- Run `pnpm hygiene:check` before committing or publishing repository changes.
+Read the root `CLAUDE.md` and the nearest package `CLAUDE.md`; they are the
+single source of truth for stack, commands, tenancy, migrations, design,
+verification, and publication. Cursor-specific files are thin adapters and do
+not override those guides.
 
 ---
 > Source: [neuraparse/taskNebula](https://github.com/neuraparse/taskNebula) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
