@@ -1,0 +1,117 @@
+{
+  "name": "playwright-movies-app",
+  "owner": "debs-obrien",
+  "repo": "playwright-movies-app",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "playwright-movies-app",
+      "path": ".agents/skills/learn-dogfood/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.agents/skills/learn-dogfood/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".claude/skills/learn-dogfood/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.claude/skills/learn-dogfood/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".agents/skills/learn-lab-coach/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.agents/skills/learn-lab-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".claude/skills/learn-lab-coach/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.claude/skills/learn-lab-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".agents/skills/playwright-trace/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.agents/skills/playwright-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".claude/skills/playwright-trace/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.claude/skills/playwright-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".agents/skills/movies-playwright/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.agents/skills/movies-playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".claude/skills/movies-playwright/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.claude/skills/movies-playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".agents/skills/playwright-component-testing/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.agents/skills/playwright-component-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-movies-app",
+      "path": ".claude/skills/playwright-component-testing/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/playwright-movies-app/tree/main/.claude/skills/playwright-component-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/debs-obrien/playwright-movies-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:10:50Z"
+}
