@@ -1,0 +1,14 @@
+{
+  "name": "quantmind--quantflow",
+  "displayName": "quantflow",
+  "description": "quantflow",
+  "version": "1.0.0",
+  "author": "quantmind",
+  "homepage": "https://github.com/quantmind/quantflow",
+  "skills": [
+    {
+      "name": "quantflow",
+      "description": ""
+    }
+  ]
+}
