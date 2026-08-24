@@ -7,11 +7,11 @@ An experimental port of the faro web sdk to react native
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [grafana/faro-react-native-sdk](https://github.com/grafana/faro-react-native-sdk).
+Original source: `AGENTS.md` in [grafana/faro-react-native-sdk](https://github.com/grafana/faro-react-native-sdk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
