@@ -7,7 +7,7 @@ Lumio is a modern, high-performance Astro 6 & Tailwind CSS theme crafted for IT 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [getastrothemes/lumio-lite-astro](https://github.com/getastrothemes/lumio-lite-astro).
+Original source: `GEMINI.md` in [getastrothemes/lumio-lite-astro](https://github.com/getastrothemes/lumio-lite-astro).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [getastrothemes/lumio-lite-astro](htt
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [getastrothemes/lumio-lite-astro](https://github.com/getastrothemes/lumio-lite-astro) — a repo with 10+ stars on GitHub.
 
