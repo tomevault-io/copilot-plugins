@@ -1,0 +1,165 @@
+{
+  "name": "asm",
+  "owner": "luongnv89",
+  "repo": "asm",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "asm",
+      "path": "skills/hello-world/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/hello-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/find-me-skills/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/find-me-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-upstream-pr/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/skill-upstream-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-index-updater/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/skill-index-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-auto-improver/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/skill-auto-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/invalid-effort/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/invalid-effort/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/actual-dir-name/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/actual-dir-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/effort-xhigh-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/effort-xhigh-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "tests/fixtures/skills/well-formed/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/tests/fixtures/skills/well-formed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "tests/fixtures/skills/missing-frontmatter/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/tests/fixtures/skills/missing-frontmatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-install-improved/SKILL.md",
+      "github_url": "https://github.com/luongnv89/asm/tree/main/skills/skill-install-improved/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/luongnv89/asm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:02:04Z"
+}
