@@ -1,0 +1,63 @@
+{
+  "name": "promptwright",
+  "owner": "testronai",
+  "repo": "promptwright",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "promptwright",
+      "path": "packages/core/src/personas/record-and-repeat/SKILL.md",
+      "github_url": "https://github.com/testronai/promptwright/tree/main/packages/core/src/personas/record-and-repeat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "promptwright",
+      "path": "packages/core/src/personas/api-test-execution/SKILL.md",
+      "github_url": "https://github.com/testronai/promptwright/tree/main/packages/core/src/personas/api-test-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "promptwright",
+      "path": "packages/core/src/personas/manual-test-execution/SKILL.md",
+      "github_url": "https://github.com/testronai/promptwright/tree/main/packages/core/src/personas/manual-test-execution/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/testronai/promptwright",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:24:16Z"
+}
