@@ -1,0 +1,261 @@
+{
+  "name": "toh-framework",
+  "owner": "wasintoh",
+  "repo": "toh-framework",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-engineer",
+      "path": "src/skills/backend-engineer",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/backend-engineer",
+      "description": ""
+    },
+    {
+      "name": "design-excellence",
+      "path": "src/skills/design-excellence",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/design-excellence",
+      "description": ""
+    },
+    {
+      "name": "design-mastery",
+      "path": "src/skills/design-mastery",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/design-mastery",
+      "description": ""
+    },
+    {
+      "name": "dev-engineer",
+      "path": "src/skills/dev-engineer",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/dev-engineer",
+      "description": ""
+    },
+    {
+      "name": "platform-specialist",
+      "path": "src/skills/platform-specialist",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/platform-specialist",
+      "description": ""
+    },
+    {
+      "name": "premium-experience",
+      "path": "src/skills/premium-experience",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/premium-experience",
+      "description": ""
+    },
+    {
+      "name": "prompt-optimizer",
+      "path": "src/skills/prompt-optimizer",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "smart-routing",
+      "path": "src/skills/smart-routing",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/smart-routing",
+      "description": ""
+    },
+    {
+      "name": "ui-first-builder",
+      "path": "src/skills/ui-first-builder",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/ui-first-builder",
+      "description": ""
+    },
+    {
+      "name": "vibe-orchestrator",
+      "path": "src/skills/vibe-orchestrator",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/vibe-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/preview-mode/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/preview-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/dev-engineer/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/dev-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/integrations/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/integrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/memory-system/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/memory-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/smart-routing/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/smart-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/design-mastery/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/design-mastery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/debug-protocol/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/debug-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/version-control/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/version-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/response-format/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/response-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/session-recovery/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/session-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/prompt-optimizer/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/prompt-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/ui-first-builder/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/ui-first-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/backend-engineer/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/backend-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/business-context/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/business-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/design-excellence/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/design-excellence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/plan-orchestrator/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/plan-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/progress-tracking/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/progress-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/security-engineer/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/security-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/vibe-orchestrator/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/vibe-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/smart-suggestions/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/smart-suggestions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/premium-experience/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/premium-experience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/platform-specialist/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/platform-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/design-craft/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/design-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/engineer-harness/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/engineer-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toh-framework",
+      "path": "src/skills/orchestration-protocol/SKILL.md",
+      "github_url": "https://github.com/wasintoh/toh-framework/tree/main/src/skills/orchestration-protocol/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wasintoh/toh-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T12:46:26Z"
+}
