@@ -1,0 +1,9 @@
+{
+  "name": "hyperwhisper--app",
+  "displayName": "app",
+  "description": "\ud83d\udde3\ufe0f\ud83d\udcc3 a minimal speech-to-text application with real-time transcription",
+  "version": "1.0.0",
+  "author": "hyperwhisper",
+  "homepage": "https://github.com/hyperwhisper/app",
+  "skills": []
+}
