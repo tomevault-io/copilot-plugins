@@ -4,7 +4,7 @@
   "repo": "audio-plugin-coder",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -205,9 +205,39 @@
       "path": ".kilocode/skills/skill_troubleshooting/SKILL.md",
       "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_troubleshooting/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/apc-setup/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/apc-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/apc-setup/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/apc-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": "skills/audio-plugin-coder/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/skills/audio-plugin-coder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/apc-setup/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/apc-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agents/skills/audio-plugin-coder/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agents/skills/audio-plugin-coder/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/Noizefield/audio-plugin-coder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T15:41:36Z"
+  "distributed_at": "2026-08-24T12:57:45Z"
 }
