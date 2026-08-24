@@ -1,0 +1,219 @@
+{
+  "name": "spotify_sdk",
+  "owner": "brim-borium",
+  "repo": "spotify_sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/teach/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/wizard/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/wizard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/to-spec/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/to-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/ask-matt/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/ask-matt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/wayfinder/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/wayfinder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/wait-what/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/wait-what/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/implement/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/to-tickets/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/to-tickets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/build-runner/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/build-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/android-setup/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/android-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/platform-sync/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/platform-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/example-runner/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/example-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/diagnosing-bugs/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/diagnosing-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/writing-for-agents/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/writing-for-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/android-e2e-tester/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/android-e2e-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/resolving-merge-conflicts/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/resolving-merge-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spotify_sdk",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/brim-borium/spotify_sdk/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/brim-borium/spotify_sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:18:11Z"
+}
