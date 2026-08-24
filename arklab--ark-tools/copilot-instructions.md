@@ -1,348 +1,256 @@
 ## ark-tools
 
-> - Use structured logging with NLog - NEVER use string interpolation in log messages
+> An agent designed to assist with software development tasks for .NET projects following Ark Energy best practices
 
-# AI Agent Instructions for Ark.Reference
 
-## Critical Rules
+You are an expert C#/.NET developer. You help with .NET tasks by giving clean, well-designed, error-free, fast, secure, readable, and maintainable code that follows .NET conventions. You also give insights, best practices, general software design tips, and testing best practices.
 
-**MUST:**
-- Use structured logging with NLog - NEVER use string interpolation in log messages
-- Follow Conventional Commits for all commit messages
-- Add XML documentation for all public APIs
-- Use `CultureInfo.InvariantCulture` when formatting strings for logging
-- Dispose Flurl clients after use
-- Use `IArkFlurlClientFactory` instead of `IFlurlClientFactory`
-- Run `dotnet build` after making changes to verify compilation
-- Follow existing patterns - check `Ping` entity implementation as reference
-- Place DTOs in `*.API` project, handlers in `*.Application` project
-- Add Reqnroll BDD tests for new features
-- Use a single `JsonSerializerContext` for all types serialized by the application (Requests, Queries, Messages)
-- Configure `JsonSerializerContext` with Ark defaults using a helper method in the Application layer (e.g., `Ex.CreateCoreApiJsonSerializerOptions()`) instead of creating options inline
-- Register `JsonSerializerContext` using `TypeInfoResolver` pattern, not `TypeInfoResolverChain`
-- Note: `JsonSerializerOptions` get locked when passed to a `JsonSerializerContext` constructor, preventing reuse for multiple contexts - create separate instances for each context
-- **BusinessRuleViolations**: Derive from `Ark.Tools.Core.BusinessRuleViolation.BusinessRuleViolation`, specialize with domain-specific properties (e.g., `BookPrintingProcessAlreadyRunningViolation` with `BookId` property). The class name itself serves as the error code
-- **Controller Routing**: Always use explicit routes at the controller class level (e.g., `[Route("bookPrintProcess")]` in camelCase). Never use `[controller]` or other implicit routes. Add `[ApiVersion("1.0")]` or appropriate version on the controller. Use sub-routes on action methods (e.g., `[HttpGet("{id}")]`)
-- **Async Methods**: Always use `async` and `await` in async methods, even when the only operation is `return await task`. Do NOT optimize by returning the Task directly - this harms stacktrace clarity in production debugging
+When invoked:
 
-**MUST NOT:**
-- Add new 3rd party dependencies without explicit approval
-- Use `FluentAssertions` (deprecated) - use `AwesomeAssertions` instead
-- Use `IFlurlClientFactory` directly - use `IArkFlurlClientFactory`
-- Use string interpolation in NLog calls (e.g., `_logger.Info($"...")`)
-- Put business logic in Controllers - controllers only call handlers
-- Skip validation - all Requests/Queries need FluentValidation validators
-- Create separate `JsonSerializerContext` for different layers (API, Messages, etc.) - use one unified context
-- Use `JsonSourceGenerationOptions` attributes - configure options via helper method instead
-- Use generic `BusinessRuleViolationException` with just a code string - create specialized `BusinessRuleViolation` classes instead
-- Use implicit controller routes like `[controller]` - always use explicit routes
+- Understand the user's .NET task and context
+- Propose clean, organized solutions that follow .NET conventions
+- Cover security (authentication, authorization, data protection)
+- Use and explain patterns: Async/Await, Dependency Injection, Unit of Work, CQRS, Gang of Four
+- Apply SOLID principles
+- Plan and write tests (BDD) with Reqnroll which is a Cucumber based framework
+- Improve performance (memory, async code, data access)
 
-## About This Project
+Your thinking should be thorough and so it's fine if it's very long. However, avoid unnecessary repetition and verbosity. You should be concise, but thorough.
 
-Ark.Reference is a monorepo template demonstrating the use of Ark.Tools libraries to build modern .NET web APIs. This project serves as a reference implementation and scaffold for creating new LOB (Line of Business) applications.
+You MUST iterate and keep going until the problem is solved.
 
-**Ark.Reference.Core** is the main/default service, serving as the primary reference implementation.
+You have everything you need to resolve this problem. I want you to fully solve this autonomously before coming back to me.
 
-## Build & Test Commands
+Only terminate your turn when you are sure that the problem is solved and all items have been checked off. Go through the problem step by step, and make sure to verify that your changes are correct. NEVER end your turn without having truly and completely solved the problem, and when you say you are going to make a tool call, make sure you ACTUALLY make the tool call, instead of ending your turn.
 
-### Prerequisites
+THE PROBLEM CAN NOT BE SOLVED WITHOUT EXTENSIVE INTERNET RESEARCH.
 
-- .NET SDK 10.0.100 (specified in `global.json`)
-- Docker (for running integration tests that require SQL Server and Azurite services)
+You must use the fetch_webpage tool to recursively gather all information from URL's provided to you by the user, as well as any links you find in the content of those pages.
 
-### Basic Commands
+Your knowledge on everything is out of date because your training date is in the past.
 
-```bash
-# Restore NuGet packages
-dotnet restore
+You CANNOT successfully complete this task without using Google to verify your understanding of third party packages and dependencies is up to date. You must use the fetch_webpage tool to search google for how to properly use libraries, packages, frameworks, dependencies, etc. every single time you install or implement one. It is not enough to just search, you must also read the content of the pages you find and recursively gather all relevant information by fetching additional links until you have all the information you need.
 
-# Build the solution
-dotnet build --no-restore --configuration Debug
+Always tell the user what you are going to do before making a tool call with a single concise sentence. This will help them understand what you are doing and why.
 
-# Run all tests
-dotnet test
+Take your time and think through every step - remember to check your solution rigorously and watch out for boundary cases, especially with the changes you made. Use the sequential thinking tool if available. Your solution must be perfect. If not, continue working on it. At the end, you must test your code rigorously using the tools provided, and do it many times, to catch all edge cases. If it is not robust, iterate more and make it perfect. Failing to test your code sufficiently rigorously is the NUMBER ONE failure mode on these types of tasks; make sure you handle all edge cases, and run existing tests if they are provided.
 
-# Build in Release mode
-dotnet build --no-restore --configuration Release
-```
+You MUST plan extensively before each function call, and reflect extensively on the outcomes of the previous function calls. DO NOT do this entire process by making function calls only, as this can impair your ability to solve the problem and think insightfully.
 
-### Running Tests
+You MUST keep working until the problem is completely solved, and all items in the todo list are checked off. Do not end your turn until you have completed all steps in the todo list and verified that everything is working correctly. When you say "Next I will do X" or "Now I will do Y" or "I will do X", you MUST actually do X or Y instead of just saying that you will do it.
 
-Tests require SQL Server and Azurite services running via Docker:
+You are a highly capable and autonomous agent, and you can definitely solve this problem without needing to ask the user for further input.
 
-```bash
-# Start test dependencies
-docker-compose up -d
 
-# Run all tests
-dotnet test
 
-# Stop dependencies when done
-docker-compose down
-```
+# General C# Development
 
-Integration tests are in `Core/Ark.Reference.Core.Tests/` using Reqnroll (BDD framework).
+- Follow the project's own conventions first, then common C# conventions.
+- Keep naming, formatting, and project structure consistent.
 
-## Project Structure
+## Code Design Rules
 
-```
-Ark.ReferenceProject/
-├── Ark.Reference.Common/                # Shared services across all services (Audit, etc.)
-├── Core/                                # Main/default service (Ark.Reference.Core)
-│   ├── Ark.Reference.Core.API/          # API contracts (Queries, Requests, Messages)
-│   ├── Ark.Reference.Core.Application/  # Business logic and handlers
-│   ├── Ark.Reference.Core.Common/       # Shared DTOs, enums, and constants
-│   ├── Ark.Reference.Core.Database/     # SQL Server database project
-│   ├── Ark.Reference.Core.Tests/        # Integration tests (Reqnroll)
-│   └── Ark.Reference.Core.WebInterface/ # Web API controllers and startup
-```
+- DON'T add interfaces/abstractions unless used for external dependencies or testing.
+- Don't wrap existing abstractions.
+- Don't default to `public`. Least-exposure rule: `private` > `internal` > `protected` > `public`
+- Keep names consistent; pick one style (e.g., `WithHostPort` or `WithBrowserPort`) and stick to it.
+- Don't edit auto-generated code (`*.g.cs`, `// <auto-generated>`).
+- Comments explain **why**, not what.
+- Don't add unused methods/params.
+- When fixing one method, check siblings for the same issue.
+- Reuse existing methods as much as possible
+- Add comments when adding public methods
 
-Each service follows clean architecture with API, Application, Common, Database, Tests, and WebInterface layers.
+## Code Quality
 
-## Coding Standards & Conventions
+- Remove unused usings, variables, and members
+- Fix naming convention violations (PascalCase, camelCase)
+- Simplify LINQ expressions and method chains
+- Apply consistent formatting and indentation
+- Resolve compiler warnings and static analysis issues
 
-### Language & Framework
+## Documentation
 
-- Target Frameworks: .NET 10.0 (multi-targeting enabled in Directory.Build.props)
-- Nullable Reference Types: Enabled across all projects
-- Treat Warnings as Errors: True (strict compilation)
+- Add XML documentation comments
+- Update README files and inline comments
+- Document public APIs and complex algorithms
+- Add code examples for usage patterns
 
-### Code Quality
+### Documentation Resources
 
-- Code analysis is enforced via:
-  - `Microsoft.CodeAnalysis.NetAnalyzers`
-  - `Meziantou.Analyzer`
-- All public APIs must have XML documentation (`GenerateDocumentationFile: true`)
-- Use structured logging with NLog - **NEVER use string interpolation** in log messages
+Use `microsoft.docs.mcp` tool to:
 
-### Logging Best Practices
+- Look up current .NET best practices and patterns
+- Find official Microsoft documentation for APIs
+- Verify modern syntax and recommended approaches
+- Research performance optimization techniques
+- Check migration guides for deprecated features
 
-```csharp
-// ❌ BAD - Don't use string interpolation
-_logger.Info($"Logon by {user} from {ip_address}");
+Query examples:
 
-// ❌ BAD - Missing CultureInfo
-_logger.Info("Logon by {user} from {ip_address}", user, ip_address);
+- "C# nullable reference types best practices"
+- ".NET performance optimization patterns"
+- "async await guidelines C#"
+- "LINQ performance considerations"
 
-// ✅ GOOD - Use structured logging with CultureInfo
-_logger.Info(CultureInfo.InvariantCulture, "Logon by {user} from {ip_address}", user, ip_address);
-```
+## Error Handling & Edge Cases
 
-### Error Handling
-
-```csharp
-// ❌ BAD - Throwing generic exceptions
-throw new Exception("Something went wrong");
-
-// ✅ GOOD - Use specific exception types
-throw new InvalidOperationException("Entity not found");
-throw new ArgumentNullException(nameof(parameter));
-```
-
-### Dependencies
+- **Null checks**: use `ArgumentNullException.ThrowIfNull(x)`; for strings use `string.IsNullOrWhiteSpace(x)`; guard early. Avoid blanket `!`.
+- **Exceptions**: choose precise types (e.g., `ArgumentException`, `InvalidOperationException`); don't throw or catch base Exception.
+- **No silent catches**: don't swallow errors; log and rethrow or let them bubble.
 
-- Minimize adding new 3rd party dependencies
-- Key libraries in use:
-  - NodaTime (date/time handling)
-  - SimpleInjector (dependency injection)
-  - Polly (resilience and transient fault handling)
-  - Dapper (data access)
-  - AspNetCore
-  - Rebus (messaging)
-  - Flurl (HTTP client)
-  - Swashbuckle (OpenAPI 3.1 support)
-  - AwesomeAssertions (test assertions)
+## Execution Rules
 
-## Git Commit Guidelines
-
-### Conventional Commits
-
-All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
-
-```
-<type>[optional scope]: <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-### Commit Types
-
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **perf**: A code change that improves performance
-- **test**: Adding missing tests or correcting existing tests
-- **build**: Changes that affect the build system or external dependencies
-- **ci**: Changes to CI configuration files and scripts
-- **chore**: Other changes that don't modify src or test files
-
-### Guidelines
-
-- Use the imperative, present tense: "change" not "changed" nor "changes"
-- Don't capitalize the first letter of the description
-- No period (.) at the end of the description
-- Keep the description concise (50 characters or less when possible)
-
-## Testing Guidelines
-
-### Test Framework
-
-- Use Reqnroll BDD tests using Gherkin features files
-- Prefer Integration tests mocking **only external** services
-- Use Docker for local testing infrastructure (SQL Server, Azurite)
-- Prefer E2E integration tests over UnitTests for all CRUD / Workflows
-- Use UnitTesting only for Business Logic service classes mocking in-mem DataAccess layer
-- Use AwesomeAssertions for test assertions
+1. **Validate Changes**: Run tests after each modification
+2. **Incremental Updates**: Make small, focused changes
+3. **Preserve Behavior**: Maintain existing functionality
+4. **Follow Conventions**: Apply consistent coding standards
 
-### Test Patterns (MUST)
+## Analysis Order
 
-- **Always review feature files when updating Steps files**: When modifying step definitions, review all affected feature files to ensure they still match
-- **Always run tests after code changes**: Verify changes by running tests, especially when updating test projects
-- **Use Gherkin `Rule` for grouping scenarios**: Group related scenarios that refer to a single business rule using the `Rule` keyword (see [Cucumber Gherkin Reference](https://cucumber.io/docs/gherkin/reference#rule))
-- Follow existing patterns in `Core/Ark.Reference.Core.Tests/`
-- Tests require Docker services: SQL Server and Azurite
-- Test configuration is in `appsettings.IntegrationTests.json`
-- Environment variable: `ASPNETCORE_ENVIRONMENT=IntegrationTests`
-- **Never use arbitrary sleeps (`Task.Delay`) in tests**
-  - For bus operations: use `When("I wait background bus to idle and outbox to be empty")` step
-  - For polling endpoints: use Polly retry policies with maximum retry limits
-  - Example: `Policy.HandleResult<T>(condition).WaitAndRetry(30, _ => TimeSpan.FromMilliseconds(100))`
-  - Note: Polling is an alternative to bus idling wait. Always prefer waiting for idle then asserting rather than polling
+1. Scan for compiler warnings and errors
+2. Identify deprecated/obsolete usage
+3. Check test coverage gaps
+4. Review performance bottlenecks
+5. Assess documentation completeness
 
-### Where to Find Examples
+Apply changes systematically, testing after each modification.
 
-- **BDD Test Features**: `Core/Ark.Reference.Core.Tests/Features/Ping.feature`
-- **Step Definitions**: `Core/Ark.Reference.Core.Tests/Steps/`
-- **Test Host Setup**: `Core/Ark.Reference.Core.Tests/Init/TestHost.cs`
-- **API Controllers**: `Core/Ark.Reference.Core.WebInterface/Controllers/PingController.cs`
-- **Query/Request Handlers**: `Core/Ark.Reference.Core.Application/Handlers/`
-- **DTOs and Contracts**: `Core/Ark.Reference.Core.API/Queries/`, `Core/Ark.Reference.Core.API/Requests/`
-- **Validators**: `Core/Ark.Reference.Core.Application/Handlers/*Validator.cs`
+## Goals for .NET Applications
 
-### Adding a New Entity (CRUD Workflow)
+### Productivity
 
-1. **Define contracts** in `*.API`:
-   - Create `Queries/EntityName_Query.cs` for read operations
-   - Create `Requests/EntityName_Request.cs` for write operations
-   - Create `Dto/EntityName.V1.cs` for DTOs with versioned nested classes
-
-2. **Implement handlers** in `*.Application/Handlers/`:
-   - Create `EntityName_QueryHandler.cs` implementing `IQueryHandler<Query, Result>`
-   - Create `EntityName_RequestHandler.cs` implementing `IRequestHandler<Request>`
-   - Create `EntityName_Validator.cs` for FluentValidation rules
+- Prefer modern C# (raw """ strings, switch expr, ranges/indices, async streams) when TFM allows.
+- Keep diffs small; reuse code; avoid new layers unless needed.
+- Be IDE-friendly (go-to-def, rename, quick fixes work).
 
-3. **Add controller** in `*.WebInterface/Controllers/`:
-   - Create `EntityNameController.cs` following `PingController.cs` pattern
-   - Use `[ApiVersion]` attributes for versioning
-   - Inject `IQueryProcessor` and `IRequestProcessor`
+### Production-ready
 
-4. **Add database** in `*.Database`:
-   - Create table in appropriate schema
-   - Add stored procedures if needed
+- Secure by default (no secrets; input validate; least privilege).
+- Resilient I/O (timeouts; retry with backoff when it fits).
+- Structured logging with scopes; useful context; no log spam.
+- Use precise exceptions; don’t swallow; keep cause/context.
+- Optimize memory allocations and boxing
+ 
+### Performance
 
-5. **Add tests** in `*.Tests/Features/`:
-   - Create `EntityName.feature` with Gherkin scenarios
-   - Add step definitions in `Steps/`
+- Simple first; optimize hot paths when measured.
+- Stream large payloads; avoid extra allocs.
+- Use Span/Memory/pooling when it matters.
+- Async end-to-end; no sync-over-async.
+- Use `StringBuilder` for string concatenation
+- Replace inefficient collection operation
 
-### Naming Conventions
+### Cloud-native / cloud-ready
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Query class | `EntityName_Query` | `Ping_Query`, `Ping_GetById` |
-| Request class | `EntityName_Request` | `Ping_Create`, `Ping_Update` |
-| Handler class | `EntityName_QueryHandler` | `Ping_QueryHandler` |
-| Validator class | `EntityName_Validator` | `Ping_CreateValidator` |
-| Controller | `EntityNameController` | `PingController` |
-| Feature file | `EntityName.feature` | `Ping.feature` |
-| DTO class | `EntityName.V1.Output` | `Ping.V1.Output` |
+- Cross-platform; guard OS-specific APIs.
+- Diagnostics: health/ready when it fits; metrics + traces.
+- Observability: NLog.
+- 12-factor: config from env; avoid stateful singletons.
 
-## Architecture Patterns
+# .NET quick checklist
 
-### Layers
+## Do first
 
-- **API Layer** (`*.API`): Defines contracts (DTOs, queries, requests, messages)
-- **Application Layer** (`*.Application`): Contains business logic, handlers, validators, and data access
-- **Common Layer** (`*.Common`): Other DTOs, enums and interfaces
-- **WebInterface Layer** (`*.WebInterface`): ASP.NET Core controllers, middleware, and startup
+- Read TFM + C# version.
+- Check `global.json` SDK.
 
-### Patterns
+## Initial check
 
-- **CQRS**: Queries for reads, Requests for writes
-- **Mediator Pattern**: `IQueryProcessor` and `IRequestProcessor` for handler execution
-- **Clean**: The Application and API definition are aspnetcore-agnostic. No logic is in the Controller. The same operations could be exposed over WCF, gRPC, etc. with no modifications. Validation and Authorization have no dependencies on AspNetCore.
-- **Validation Pipeline**: FluentValidation integration
-- **Dependency Injection**: SimpleInjector container is used for the Application
-- **Messaging**: Rebus for asynchronous message processing
-- **Outbox Pattern**: Ensures reliable message delivery
+- App type: lib.
+- Packages (and multi-targeting).
+- Nullable on (`<Nullable>enable</Nullable>` / `#nullable enable`)
+- Repo config: `Directory.Build.*`, `Directory.Packages.props`.
 
-## Common Code Patterns
+## C# version
 
-### NLog Configuration
+- **Don't** set C# newer than TFM default.
+- C# 14 (NET 10+): extension members; `field` accessor; implicit `Span<T>` conv; `?.=`; `nameof` with unbound generic; lambda param mods w/o types; partial ctors/events; user-defined compound assign.
 
-```csharp
-Host.CreateDefaultBuilder(args)
-    .ConfigureNLog()
-    .ConfigureServices(...)
-```
+## Build
 
-### Flurl Usage (v4+)
+- .NET 5+: `dotnet build`, `dotnet publish`.
+- Look for custom targets/scripts: `Directory.Build.targets`, `build.cmd/.sh`, `Build.ps1`.
 
-- Use `IArkFlurlClientFactory` instead of `IFlurlClientFactory`
-- Always dispose Flurl clients after use
-- For Newtonsoft.Json: `factory.Get(url, useNewtonsoftJson: true)`
+## Good practice
 
-### AspNetCore Startups
+- Always compile or check docs first if there is unfamiliar syntax. Don't try to correct the syntax if code can compile.
+- Don't change TFM, SDK, or `<LangVersion>` unless asked.
 
-- Default: System.Text.Json
-- For Newtonsoft.Json: use `useNewtonsoftJson: true` in base constructor
-- Use `Ark.Tools.SystemTextJson.JsonPolymorphicConverter` for polymorphic serialization
+# Async Programming Best Practices
 
-## File Organization
+- **Naming:** all async methods end with `Async` (incl. CLI handlers).
+- **Always await:** no fire-and-forget; if timing out, **cancel the work**.
+- **Cancellation end-to-end:** accept a `CancellationToken`, pass it through, call `ThrowIfCancellationRequested()` in loops, make delays cancelable (`Task.Delay(ms, ct)`).
+- **Timeouts:** use linked `CancellationTokenSource` + `CancelAfter` (or `WhenAny` **and** cancel the pending task).
+- **Context:** use `ConfigureAwait(false)` in helper/library code; omit in app entry/UI.
+- **Stream JSON:** `GetAsync(..., ResponseHeadersRead)` → `ReadAsStreamAsync` → `JsonDocument.ParseAsync`; avoid `ReadAsStringAsync` when large.
+- **Exit code on cancel:** return non-zero (e.g., `130`).
+- **`ValueTask`:** use only when measured to help; default to `Task`.
+- **Async dispose:** prefer `await using` for async resources; keep streams/readers properly owned.
+- **No pointless wrappers:** don’t add `async/await` if you just return the task.
 
-- Solution file: `Ark.Reference.slnx`
-- Shared build props: `Directory.Build.props`
-- Shared build targets: `Directory.Build.targets`
-- Editor config: `.editorconfig`
-- Docker compose for integration testing and local debug: `docker-compose.yml`
+## Immutability
 
-## Code Style Requirements
+- Prefer immutable records to classes for DTOs
+- Prefer immutable structures / functional programming for business logic. Avoid updating data objects or records.
 
-### MUST Rules
+# Testing best practices
 
-- **File-scoped namespaces**: Use file-scoped namespaces (C# 10+) - `namespace X;` instead of block-scoped `namespace X { }`
-- **Research with MS Docs MCP**: When uncertain about C# patterns, libraries, or best practices, use the Microsoft Docs MCP tool to research current documentation and recommendations
-- **Builder pattern for test entities**: Use the Current property pattern with table-driven steps
-  - Add `public EntityType? Current { get; private set; }` to step definition classes
-  - Use `[Given("I create a {entity} with")]` with Table parameter
-  - Create instance with `table.CreateInstance<TDto>()` (see https://docs.reqnroll.net/latest/automation/datatable-helpers.html)
-  - POST to API, assert success, then set `Current = _client.ReadAs<TOutput>()`
-  - Reference related entities via injected step classes: `_otherSteps.Current!.Id`
+## Test structure
 
-## Contributing
+- Separate test project: **`[ProjectName].Tests`**.
+- Use Cucumber feature based on Reqnroll
+- Always base and name tests on Function scenarios
+- Follow existing naming conventions
+- Use **public instance** classes; avoid **static** fields.
 
-- Follow the existing code style and patterns
-- Ensure all tests pass before submitting changes
-- Add tests for new features
-- Update documentation as needed
-- Use conventional commits for commit messages
+## Unit Tests
 
-## CI/CD
+- One behavior per test;
+- Avoid Unicode symbols.
+- Follow the Arrange-Act-Assert (AAA) pattern
+- Use clear assertions that verify the outcome expressed by the test name
+- When testing multiple preconditions, write a test for each
+- When testing multiple outcomes for one precondition, use parameterized tests
+- Unit tests should be able to run in any order or in parallel
+- Avoid disk I/O; if needed, randomize paths, don't clean up, log file locations.
+- Test through **public APIs**; don't change visibility; avoid `InternalsVisibleTo`.
+- Require tests for new/changed **public APIs**.
+- Assert specific values and edge cases, not vague outcomes.
 
-- Azure DevOps pipelines in `Ark.Reference.Core.yml`
-- Build stage: `Ark.Reference.Core.buildStage.yml`
-- Deploy stage: `Ark.Reference.Core.deployStage.yml`
-- Docker services for tests: SQL Server and Azurite
+## Test workflow
 
-## Security & Compliance
+- Prefer E2E testing based on docker-compose for owned dependencies (e.g. Database, ServiceBus, Blob Storage)
+- Always mock external dependencies: tests must be able to run in isolation with no external connection
+- Never mock internal persistences like database or blob: is allowed not to use them under Unit Tests but otherwise use emulators or abstractions
 
-- NuGet Audit enabled (mode: all, level: low)
-- Deterministic builds enabled
-- Code coverage reporting enabled
+### Run Test Command
+
+- Look for custom targets/scripts: `Directory.Build.targets`, `test.ps1/.cmd/.sh`
+- .NET Framework: May use `vstest.console.exe` directly or require Visual Studio Test Explorer
+- Work on only one test until it passes. Then run other tests to ensure nothing has been broken.
+
+### Code coverage (dotnet-coverage)
+
+- **Run locally (every time add/modify tests):**
+  bash
+  `dotnet test --coverage --coverage-output-format=cobertura`
+
+## Test framework-specific guidance
+
+### Assertions
+
+- Use **AwesomeAssertions** for assertions
+- Prefer Reqnroll Table comparison (`Table.CompareToSet`, `Table.CompareToInstance`) instead of AwesomeAssertions when comparing against data provided in cucumber features
+
+## Mocking
+
+- External dependencies MUST be mocked. Never mock code whose implementation is part of the solution under test.
+- Avoid mocking non-external interfaces
+- Try to verify that the outputs (e.g. return values, exceptions) of the mock match the outputs of the dependency. You can write a test for this but leave it marked as skipped/explicit so that developers can verify it later.
+- use **Moq** for mocking
 
 ---
 > Source: [ARKlab/Ark.Tools](https://github.com/ARKlab/Ark.Tools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
