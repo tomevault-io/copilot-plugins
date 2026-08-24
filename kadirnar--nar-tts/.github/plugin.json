@@ -1,0 +1,9 @@
+{
+  "name": "kadirnar--nar-tts",
+  "displayName": "nar-tts",
+  "description": "Nar TTS: high-throughput Qwen3 + Mimi text-to-speech",
+  "version": "1.0.0",
+  "author": "kadirnar",
+  "homepage": "https://github.com/kadirnar/nar-tts",
+  "skills": []
+}
