@@ -1,147 +1,50 @@
-## monero-starknet-atomic-swap
+## cairo-starknet
 
-> Trustless atomic swap between Monero (XMR) and Starknet tokens using DLEQ proofs.
+> Cairo/Starknet development rules
 
-# Monero↔Starknet Atomic Swap
 
-## Project Overview
+# Cairo Development Rules
 
-Trustless atomic swap between Monero (XMR) and Starknet tokens using DLEQ proofs.
+## EC Operations
 
-- **Version**: 0.7.1 (Key Splitting Approach)
-- **Status**: E2E tests passing, production prototype
+- ALWAYS use Garaga for elliptic curve operations
+- NEVER implement custom point arithmetic
+- Use `msm_g1` for scalar multiplication
 
-## Architecture
-
-### Key Splitting (Serai DEX Pattern)
-
-```
-x = x_partial + t
-- Alice keeps x_partial secret
-- T = t·G published to Starknet with DLEQ proof
-- When t revealed, Alice recovers x = x_partial + t
-- Alice spends Monero with full key x
-```
-
-### DLEQ Proof
-
-```
-Proves: ∃t such that SHA256(t) = H ∧ t·G = T
-Challenge: c = BLAKE2s("DLEQ" || G || Y || T || U || R1 || R2 || hashlock) mod n
-Response: s = k + c·t mod n
-```
-
-### Components
-
-| Layer | Tech | Purpose |
-|-------|------|---------|
-| Rust | curve25519-dalek, blake2, sha2 | Key splitting, DLEQ generation |
-| Cairo | Garaga v1.0.1, OpenZeppelin | AtomicLock contract, MSM verification |
-| Python | garaga module | Hint generation for MSM |
-
-## Key Files
-
-- `rust/src/monero/key_splitting.rs` - SwapKeyPair generation & recovery
-- `rust/src/dleq.rs` - DLEQ proof generation with BLAKE2s
-- `cairo/src/lib.cairo` - AtomicLock contract
-- `cairo/src/blake2s_challenge.cairo` - Challenge computation
-
-## Repository Structure
-
-- `docs/`: All documentation (architecture, protocol, decisions)
-- `rust/`: Rust library (key splitting, DLEQ proofs)
-- `cairo/`: Cairo contract (AtomicLock, DLEQ verification)
-- `tools/`: Python utilities (hints, verify, convert, archive)
-
-## Code Standards
-
-### Cryptography Rules (CRITICAL)
-
-1. **NO custom crypto** - Use only audited libraries
-2. **Zeroize secrets** - All `Scalar` types must derive `Zeroize, ZeroizeOnDrop`
-3. **Domain separation** - All hashes must have unique prefixes (e.g., `b"DLEQ_NONCE_V1"`)
-4. **Input validation** - Check `scalar != Scalar::ZERO` before operations
-5. **Constant-time** - curve25519-dalek handles this, don't add custom branches
-
-### Rust Patterns
-
-```rust
-// GOOD: Proper secret handling
-#[derive(Zeroize, ZeroizeOnDrop)]
-pub struct SwapKeyPair {
-    partial_key: Scalar,
-    adaptor_scalar: Scalar,
-}
-
-// BAD: Leaks secret
-pub fn bad_function(secret: Scalar) -> String {
-    format!("{:?}", secret)  // DON'T DO THIS
-}
-```
-
-### Cairo Patterns
+## Point Validation
 
 ```cairo
-// GOOD: Use Garaga for EC operations
-use garaga::ec_ops::msm_g1;
-use garaga::definitions::G1Point;
+use garaga::ec_ops::assert_on_curve_excluding_infinity;
 
-// BAD: Custom EC math
-fn custom_point_add(...) // DON'T IMPLEMENT
+// ALWAYS validate points from external input
+assert_on_curve_excluding_infinity(point);
 ```
 
-## Testing Requirements
+## u256 Byte Order
 
-1. **Property-based tests** (proptest) for all crypto functions
-2. **Security tests**: zero points, low-order points, double-unlock
-3. **E2E tests**: Rust→Cairo proof verification
-4. **Edge cases**: max scalar, boundary values
+- Cairo u256 has `low` and `high` fields
+- Use `tools/hex_to_cairo_u256.py` for conversions
+- NEVER manually swap bytes without the tool
 
-## Common Pitfalls
+## Testing
 
-| Issue | Solution |
-|-------|----------|
-| Wrong byte order in Cairo u256 | Use `tools/hex_to_cairo_u256.py` |
-| BLAKE2s hash mismatch | Check IV initialization (RFC 7693) |
-| MSM hint mismatch | Regenerate with `tools/generate_hints_exact.py` |
-| Scalar reduction | Both Rust and Cairo use `% ED25519_ORDER` |
+- Use `snforge` for all tests
+- Test naming: `test_{category}_{description}.cairo`
+- Security tests: `test_security_*.cairo`
 
-## Current Focus (Dec 2025)
+## Imports
 
-- [x] Add input validation to `generate_dleq_proof()`
-- [x] Add domain separation to nonce generation
-- [x] Add property-based tests with proptest
-- [ ] Fix CI workflows
-
-## Commands
-
-```bash
-# Rust tests
-cd rust && cargo test
-
-# Cairo tests  
-cd cairo && scarb test
-
-# Security tests (CRITICAL)
-cd cairo && snforge test security -v
-
-# E2E tests
-cd cairo && snforge test e2e -v
-
-# Generate context for AI
-make context-monero  # Monero-focused
-make context-cairo    # Cairo-focused
-make context          # Full project
-
-# Cross-platform verification
-python tools/verify/rust_cairo_compatibility.py
+```cairo
+use garaga::ec_ops::{msm_g1, G1Point};
+use openzeppelin::security::ReentrancyGuardComponent;
+use core::blake::blake2s;
 ```
 
-## Don't Modify Without Understanding
+## Gas Optimization
 
-- `cairo/src/blake2s_challenge.cairo` - RFC 7693 compliant, working
-- ED25519 constants - Verified against RFC 8032
-- MSM hint format - Must match Garaga's expected structure
+- Prefer BLAKE2s over Poseidon (8x cheaper)
+- Batch MSM operations where possible
+- Use hints for expensive computations
 
 ---
 > Source: [omarespejel/monero-starknet-atomic-swap](https://github.com/omarespejel/monero-starknet-atomic-swap) — distributed by [TomeVault](https://tomevault.io).
