@@ -7,11 +7,11 @@ DSH网络设置插件 | DeepSeek Harness network diagnostics, proxy detection an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kanneiren/dsh-network-settings](https://github.com/kanneiren/dsh-network-settings).
+Original source: `AGENTS.md` in [kanneiren/dsh-network-settings](https://github.com/kanneiren/dsh-network-settings).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
