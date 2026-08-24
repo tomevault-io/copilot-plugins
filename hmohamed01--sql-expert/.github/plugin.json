@@ -1,0 +1,9 @@
+{
+  "name": "hmohamed01--sql-expert",
+  "displayName": "SQL-Expert",
+  "description": "A Claude Code skill for T-SQL and SQL Server expertise: query patterns, performance tuning, security, and transactions",
+  "version": "1.0.0",
+  "author": "hmohamed01",
+  "homepage": "https://github.com/hmohamed01/SQL-Expert",
+  "skills": []
+}
