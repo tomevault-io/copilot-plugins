@@ -1,0 +1,9 @@
+{
+  "name": "rsasaki0109--robosim",
+  "displayName": "RoboSim",
+  "description": "Robot Native Engine \u2014 robot-native Rust simulation core with physics, sensors, Python bindings, and optional ROS 2 adapters.",
+  "version": "1.0.0",
+  "author": "rsasaki0109",
+  "homepage": "https://github.com/rsasaki0109/RoboSim",
+  "skills": []
+}
