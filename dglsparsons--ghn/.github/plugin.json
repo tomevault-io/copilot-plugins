@@ -1,0 +1,9 @@
+{
+  "name": "dglsparsons--ghn",
+  "displayName": "ghn",
+  "description": "A fast, keyboard-driven TUI for GitHub notifications. Built for power users who live in the terminal.",
+  "version": "1.0.0",
+  "author": "dglsparsons",
+  "homepage": "https://github.com/dglsparsons/ghn",
+  "skills": []
+}
