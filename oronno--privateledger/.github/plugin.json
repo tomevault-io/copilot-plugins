@@ -1,0 +1,9 @@
+{
+  "name": "oronno--privateledger",
+  "displayName": "privateledger",
+  "description": "PrivateLedger is a privacy-first, local-only expense tracker that consolidates bank transactions and provides automated spending insights - without sending your financial data anywhere.",
+  "version": "1.0.0",
+  "author": "oronno",
+  "homepage": "https://github.com/oronno/privateledger",
+  "skills": []
+}
