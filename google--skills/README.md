@@ -1,0 +1,127 @@
+# skills
+
+> Tome by [google](https://github.com/google/skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [google/skills](https://github.com/google/skills).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (100)
+
+- [alloydb-basics](https://github.com/google/skills/tree/main/skills/cloud/alloydb-basics)
+- [bigquery-basics](https://github.com/google/skills/tree/main/skills/cloud/bigquery-basics)
+- [cloud-run-basics](https://github.com/google/skills/tree/main/skills/cloud/cloud-run-basics)
+- [cloud-sql-basics](https://github.com/google/skills/tree/main/skills/cloud/cloud-sql-basics)
+- [firebase-basics](https://github.com/google/skills/tree/main/skills/cloud/firebase-basics)
+- [gemini-api](https://github.com/google/skills/tree/main/skills/cloud/gemini-api)
+- [gke-basics](https://github.com/google/skills/tree/main/skills/cloud/gke-basics)
+- [google-cloud-networking-observability](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-networking-observability)
+- [google-cloud-recipe-auth](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-auth)
+- [google-cloud-recipe-onboarding](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-onboarding)
+- [google-cloud-waf-cost-optimization](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-cost-optimization)
+- [google-cloud-waf-reliability](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-reliability)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gcloud/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gemini-api/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/alloydb-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/firebase-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/bigquery-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/cloud-run-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/cloud-sql-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gemini-agents-api/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-tuning/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-deploy/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gemini-interactions-api/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/workload-manager-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-auth/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-inference/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-eval-flywheel/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-reliability/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-model-registry/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-skill-registry/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-onboarding/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-sustainability/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-prompt-management/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-tuning-management/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-endpoint-management/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-cost-optimization/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-rag-engine-management/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-migrate-from-ai-studio/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-networking-observability/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-operational-excellence/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-performance-optimization/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-upgrades/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/bigquery-ai-ml/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/bigtable-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-storage/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/ima-sdk-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-inference/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-batch-hpc/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-backup-dr/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-networking/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gemini-live-api/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-reliability/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-golden-path/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-multitenancy/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-productionize/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-observability/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-cost-analysis/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-app-onboarding/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/bigquery-bigframes/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-compute-classes/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/datalineage-summary/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-cluster-creation/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-workload-scaling/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/data-manager-api-setup/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-cost-optimization/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-workload-security/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-platform-security/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-ads-api-mcp-setup/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-service-networking/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-cluster-autoscaler/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-banner/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-ads-api-quickstart/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-rewarded/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-get-started/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-agents-cli-onboarding/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-interstitial/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/data-manager-api-event-ingestion/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/cloud-logging-query-generation/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/data-manager-api-audience-ingestion/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/cloud-monitoring-metric-selection/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/agent-platform-alert-configuration/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-architecture/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/analytics/google-analytics-data-api-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/analytics/google-analytics-admin-api-basics/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-foundation-builder/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/detection-engineering-coverage-evaluation/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-build-deploy-agents/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/datalineage-bigquery-asset-impact-analysis/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-global-frontend-configuration/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-android-migrate-to-next-gen/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-guided-gke-ai-migration/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-n-tier-serverless-web-app/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/gke-ai-troubleshooting-handle-disruption-gpu-tpu/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-rag-enterprise-search-gke-sqldb/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-ai-data-science-workflow/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-ai-bidirectional-streaming/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-ai-borderless-data-lakehouse/SKILL.md)
+- [skills](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-analytics-spark-knowledge-catalog/SKILL.md)
+- [google-cloud-slo-alert-configuration](https://github.com/google/skills/tree/main/skills/cloud/google-cloud-slo-alert-configuration)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/google/skills](https://github.com/google/skills)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-p -->
