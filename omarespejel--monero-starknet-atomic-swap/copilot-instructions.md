@@ -1,50 +1,38 @@
-## cairo-starknet
+## python-tools
 
-> Cairo/Starknet development rules
+> Python tooling rules
 
 
-# Cairo Development Rules
+# Python Tooling Rules
 
-## EC Operations
+## Purpose
 
-- ALWAYS use Garaga for elliptic curve operations
-- NEVER implement custom point arithmetic
-- Use `msm_g1` for scalar multiplication
+Python scripts generate hints for Cairo MSM operations.
+They are NOT part of the production system.
 
-## Point Validation
+## Key Scripts
 
-```cairo
-use garaga::ec_ops::assert_on_curve_excluding_infinity;
+- `generate_hints_exact.py` - MSM hints with Garaga decompression
+- `hex_to_cairo_u256.py` - Convert hex to Cairo format
+- `verify_full_compatibility.py` - Cross-platform verification
 
-// ALWAYS validate points from external input
-assert_on_curve_excluding_infinity(point);
+## Dependencies
+
+```bash
+cd tools && uv sync  # Use uv for dependency management
 ```
 
-## u256 Byte Order
+## Garaga Integration
 
-- Cairo u256 has `low` and `high` fields
-- Use `tools/hex_to_cairo_u256.py` for conversions
-- NEVER manually swap bytes without the tool
-
-## Testing
-
-- Use `snforge` for all tests
-- Test naming: `test_{category}_{description}.cairo`
-- Security tests: `test_security_*.cairo`
-
-## Imports
-
-```cairo
-use garaga::ec_ops::{msm_g1, G1Point};
-use openzeppelin::security::ReentrancyGuardComponent;
-use core::blake::blake2s;
+```python
+from garaga.definitions import G1Point, CurveID
+from garaga.hints import get_msm_hint
 ```
 
-## Gas Optimization
+## Output Format
 
-- Prefer BLAKE2s over Poseidon (8x cheaper)
-- Batch MSM operations where possible
-- Use hints for expensive computations
+- All hints output as JSON
+- Match exact format expected by Cairo tests
 
 ---
 > Source: [omarespejel/monero-starknet-atomic-swap](https://github.com/omarespejel/monero-starknet-atomic-swap) — distributed by [TomeVault](https://tomevault.io).
