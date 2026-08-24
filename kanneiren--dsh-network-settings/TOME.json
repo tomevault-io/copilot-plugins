@@ -1,0 +1,44 @@
+{
+  "name": "dsh-network-settings",
+  "owner": "kanneiren",
+  "repo": "dsh-network-settings",
+  "description": "DSH\u7f51\u7edc\u8bbe\u7f6e\u63d2\u4ef6 | DeepSeek Harness network diagnostics, proxy detection and repair for Windows/WSL/MacOS",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kanneiren/dsh-network-settings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T19:45:57Z"
+}
