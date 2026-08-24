@@ -1,22 +1,21 @@
-## design-system
+## tech-stack
 
-> Keep docs/DESIGN_SYSTEM.md updated when design tokens or shared UI change
+> Keep docs/TECH_STACK.md updated when stack-related changes are made
 
 
-# Design system documentation
+# Tech stack documentation
 
-Canonical reference: [`docs/DESIGN_SYSTEM.md`](../../docs/DESIGN_SYSTEM.md)
+Canonical reference: [`docs/TECH_STACK.md`](../../docs/TECH_STACK.md)
 
-When adding or changing design-system items, update that file in the same change:
+When adding or changing stack-related items, update that file in the same change:
 
-- **Tokens** (colors, spacing, radius, shadows, typography) in `src/design/`
-- **Motion** presets in `src/ui/motion/`
-- **Shared UI components** in `src/components/ui/` or `src/ui/`
-- **Visual patterns** (glass, sheets, chrome, cards)
+- New or removed **npm dependencies** (especially runtime deps)
+- **Supabase** migrations, Edge Functions, secrets, or env vars
+- **EAS** build profiles, Expo plugins, or native modules
+- **External services** (OpenAI, Google Places, RevenueCat, Sentry, etc.)
+- **Build / CI / deploy** tooling
 
 Add a row to the **Changelog** section with the date and a one-line summary.
-
-Use `useTheme()` for scaled tokens in components. Follow the [Apple HIG rule](./apple-hig.mdc) for spacing, touch targets, and sheets.
 
 ---
 > Source: [cameronconspm/Listio](https://github.com/cameronconspm/Listio) — distributed by [TomeVault](https://tomevault.io).
