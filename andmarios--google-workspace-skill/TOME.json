@@ -2,9 +2,9 @@
   "name": "google-workspace-skill",
   "owner": "andmarios",
   "repo": "google-workspace-skill",
-  "description": "",
+  "description": "Claude Code skill for Google Workspace management (drive, docs, sheets, slides, gmail, calendar, contacts)",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andmarios/google-workspace-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T00:50:10Z"
+  "distributed_at": "2026-08-24T22:19:14Z"
 }
