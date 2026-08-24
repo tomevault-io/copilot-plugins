@@ -1,142 +1,73 @@
-## code-documentation
+## cursor-rules-location
 
-> Code Documentation and Readability Standards
+> Rules for placing and organizing Cursor rule files in the repository.
 
-# Code Documentation and Readability Standards
+# Cursor Rules Location
 
-Standards for writing readable and well-documented Go code, with emphasis on clear function documentation and examples.
+Rules for placing and organizing Cursor rule files in the repository.
 
 <rule>
-name: code_documentation
-description: Standards for documenting code and maintaining readability
-
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
-  # Match Go files
+  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.go$"
-  # Match function declarations
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
   - type: content
-    pattern: "^func\\s+([A-Z]\\w*)|^type\\s+([A-Z]\\w*)"
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
   - type: suggest
     message: |
-      When writing Go code:
+      When creating Cursor rules:
 
-      1. Document all exported (public) functions and types:
-         ```go
-         // ProcessRequest handles incoming HTTP requests and returns a formatted response.
-         // It validates the request body against the provided schema and applies business rules.
-         //
-         // Parameters:
-         //   - r: The HTTP request containing the data to process
-         //   - schema: Validation schema to apply to the request
-         //
-         // Returns:
-         //   - Response: Processed response object
-         //   - error: Non-nil if processing failed
-         func ProcessRequest(r *http.Request, schema *Schema) (*Response, error)
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
          ```
 
-      2. For utility functions, include usage examples:
-         ```go
-         // FormatDateTime converts a time.Time to a standardized string format.
-         // The output format is "YYYY-MM-DD HH:mm:ss".
-         //
-         // Parameters:
-         //   - t: Time to format
-         //
-         // Returns:
-         //   - Formatted time string
-         //
-         // Example:
-         //   t := time.Now()
-         //   formatted := FormatDateTime(t)
-         //   // formatted = "2024-03-14 15:30:45"
-         func FormatDateTime(t time.Time) string
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
+
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
          ```
 
-      3. Document complex types:
-         ```go
-         // RequestProcessor handles the lifecycle of HTTP request processing.
-         // It manages validation, transformation, and response generation
-         // while maintaining thread safety for concurrent requests.
-         type RequestProcessor struct {
-             // Schema defines the validation rules
-             Schema *Schema
-
-             // MaxConcurrent specifies the maximum number of concurrent requests
-             MaxConcurrent int
-
-             // timeout specifies the maximum processing duration
-             timeout time.Duration
-         }
-         ```
-
-      4. Include context in error messages:
-         ```go
-         // Bad: Generic error
-         return nil, errors.New("validation failed")
-
-         // Good: Contextual error
-         return nil, fmt.Errorf("validation failed for user %s: %w", userID, err)
-         ```
-
-      5. Document package-level variables and constants:
-         ```go
-         // MaxRetries defines the maximum number of retry attempts for failed operations.
-         // This applies to all network operations in the package.
-         const MaxRetries = 3
-
-         // DefaultTimeout is the standard timeout duration for operations.
-         // Can be overridden per operation if needed.
-         var DefaultTimeout = 30 * time.Second
-         ```
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      // Bad: Unclear documentation
-      func Process(d *Data) error {
-          return nil
-      }
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
 
-      // Good: Clear documentation with parameters and returns
-      // Process validates and transforms the input data according to business rules.
-      // It applies data sanitization and format validation before processing.
-      //
-      // Parameters:
-      //   - d: Input data to process
-      //
-      // Returns:
-      //   - error: Non-nil if validation or processing fails
-      func Process(d *Data) error {
-          return nil
-      }
-    output: "Well-documented function"
-
-  - input: |
-      // Bad: Missing example for utility function
-      func ParseConfig(path string) (*Config, error)
-
-      // Good: Documented utility function with example
-      // ParseConfig reads and parses a configuration file from the given path.
-      // It supports both YAML and JSON formats, automatically detected by file extension.
-      //
-      // Parameters:
-      //   - path: Path to the configuration file
-      //
-      // Returns:
-      //   - *Config: Parsed configuration
-      //   - error: Non-nil if reading or parsing fails
-      //
-      // Example:
-      //   cfg, err := ParseConfig("./config.yaml")
-      //   if err != nil {
-      //       log.Fatal(err)
-      //   }
-      //   fmt.Printf("Loaded config: %+v\n", cfg)
-      func ParseConfig(path string) (*Config, error)
-    output: "Well-documented utility function with example"
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
