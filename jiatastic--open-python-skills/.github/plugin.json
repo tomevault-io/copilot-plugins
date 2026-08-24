@@ -1,0 +1,38 @@
+{
+  "name": "jiatastic--open-python-skills",
+  "displayName": "open-python-skills",
+  "description": "AI skill sets that provides intelligence for building solid Python backends across multiple platforms and frameworks.",
+  "version": "1.0.0",
+  "author": "jiatastic",
+  "homepage": "https://github.com/jiatastic/open-python-skills",
+  "skills": [
+    {
+      "name": "excalidraw-ai",
+      "description": ""
+    },
+    {
+      "name": "logfire",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "description": ""
+    },
+    {
+      "name": "ruff-linter",
+      "description": ""
+    },
+    {
+      "name": "fastapi-design",
+      "description": ""
+    },
+    {
+      "name": "ty-skills",
+      "description": ""
+    }
+  ]
+}
