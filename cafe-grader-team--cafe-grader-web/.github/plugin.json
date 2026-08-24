@@ -1,0 +1,14 @@
+{
+  "name": "cafe-grader-team--cafe-grader-web",
+  "displayName": "cafe-grader-web",
+  "description": "cafe-grader-web",
+  "version": "1.0.0",
+  "author": "cafe-grader-team",
+  "homepage": "https://github.com/cafe-grader-team/cafe-grader-web",
+  "skills": [
+    {
+      "name": "cafe-grader-web",
+      "description": ""
+    }
+  ]
+}
