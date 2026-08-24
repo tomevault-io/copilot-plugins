@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [flutter/flutter](https://github.com/flutter/flutter).
+Original source: `AGENTS.md` in [flutter/flutter](https://github.com/flutter/flutter).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (11)
+## Bundled Skills (15)
 
 - [rebuilding-flutter-tool](https://github.com/flutter/flutter/tree/main/.agents/skills/rebuilding-flutter-tool)
 - [code-review](https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/code-review)
@@ -28,8 +28,12 @@ Original source: `GEMINI.md` in [flutter/flutter](https://github.com/flutter/flu
 - [flutter](https://github.com/flutter/flutter/tree/main/.agents/skills/flutter-pr-checks-finder/SKILL.md)
 - [flutter](https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/code-review/SKILL.md)
 - [flutter](https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/natural-writing/SKILL.md)
+- [flutter](https://github.com/flutter/flutter/tree/main/.agents/skills/flutter-cherry-pick/SKILL.md)
+- [flutter](https://github.com/flutter/flutter/tree/main/.agents/skills/shepherd-prs/SKILL.md)
+- [flutter](https://github.com/flutter/flutter/tree/main/.agents/skills/engine-whats-new/SKILL.md)
+- [flutter](https://github.com/flutter/flutter/tree/main/.agents/skills/run-devicelab-with-led/SKILL.md)
 
-From [flutter/flutter](https://github.com/flutter/flutter) — a repo with 177917+ stars on GitHub.
+From [flutter/flutter](https://github.com/flutter/flutter) — a repo with 178607+ stars on GitHub.
 
 ---
 
