@@ -1,0 +1,9 @@
+{
+  "name": "reviu-dev--reviu",
+  "displayName": "reviu",
+  "description": "Keyboard-first desktop Git client in Rust + GPUI. Review your AI agent's code before you push",
+  "version": "1.0.0",
+  "author": "reviu-dev",
+  "homepage": "https://github.com/reviu-dev/reviu",
+  "skills": []
+}
