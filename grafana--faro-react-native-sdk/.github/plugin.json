@@ -1,0 +1,9 @@
+{
+  "name": "grafana--faro-react-native-sdk",
+  "displayName": "faro-react-native-sdk",
+  "description": "An experimental port of the faro web sdk to react native",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/faro-react-native-sdk",
+  "skills": []
+}
