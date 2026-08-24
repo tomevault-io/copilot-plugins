@@ -1,0 +1,634 @@
+## tt-vscode-toolkit
+
+> Validates that markdown and JSON are in sync:
+
+# CLAUDE.md (Condensed)
+
+Guidance for Claude Code working with this Tenstorrent VSCode extension.
+
+## Project Overview
+
+VSCode extension for Tenstorrent hardware development:
+
+1. **Walkthroughs** - Step-by-step guides via VSCode Walkthroughs API
+2. **Device Monitoring** - Statusbar with tt-smi integration
+3. **Chat Integration** - @tenstorrent participant via vLLM
+4. **Templates** - Production-ready Python scripts
+5. **Auto-config** - Solarized Dark + terminal on activation
+6. **Lesson Metadata** - Hardware compatibility and validation tracking (see LESSON_METADATA.md)
+
+## Hardware Compatibility Goal: Wormhole<sup>™</sup> + Blackhole (TT-QuietBox<sup>®</sup> 2 Readiness, Apr 2026)
+
+All lessons and templates must work on both **Wormhole** (n150/n300/T3000/Galaxy) and
+**Blackhole** (p100/p150/p300c/TT-QuietBox 2) hardware. Key constraints:
+
+- **p300c = p100 mode for single-chip work**: a p300c ASIC is a single Blackhole chip, so
+  single-device lessons/templates treat it exactly like a p100. **Correction (verified
+  2026-07-09):** a TT-QuietBox 2 is NOT "4 independent chips" — it is 4 Blackhole chips wired
+  in a ring (`P300_X2`, a 2×2 mesh), and **multi-chip tt-train DDP works on it** (near-linear:
+  ~1.95× at 2 chips, ~3.98× at 4). The catch: ttml ships default mesh-graph descriptors only
+  for 8-dev (T3000) and 32-dev (Galaxy), so for 2/4-dev Blackhole you must set
+  `TT_MESH_GRAPH_DESC_PATH` to a matching descriptor (shipped `p300_mesh_graph_descriptor.textproto`
+  for [1,2]; a custom `[1,4]` `dim_types [LINE, RING]` descriptor for [1,4]) — otherwise fabric
+  router sync times out. See lesson `ct5-multi-device-training` and `reference_ttml_build_blackhole`.
+- **TT-QuietBox 2 ships without `~/tt-metal`**: Pre-configured TT-QuietBox 2 images have TT-NN<sup>™</sup> and vLLM
+  pre-installed but do not include the tt-metal source tree. Lessons must not assume
+  `~/tt-metal` exists — link to `build-tt-metal` lesson for users who need it.
+- **`hf` CLI, not `huggingface-cli`**: All lessons and templates must use the new
+  `hf` CLI commands: `hf auth login`, `hf auth whoami`, `hf download`.
+- **`DispatchCoreAxis.ROW` crashes on Blackhole**: Never use
+  `ttnn.DispatchCoreConfig(ttnn.DispatchCoreType.WORKER, ttnn.DispatchCoreAxis.ROW)`.
+  Use `ttnn.DispatchCoreConfig(ttnn.DispatchCoreType.WORKER)` — TT-NN auto-detects
+  the correct axis (COL on Blackhole, ROW on Wormhole).
+- **`TT_METAL_ARCH_NAME`**: Must be `blackhole` for P-series, `wormhole_b0` for N-series.
+  Use `: "${TT_METAL_ARCH_NAME:=wormhole_b0}"` pattern to honour user-supplied values.
+- **Qwen3-0.6B first**: n150 and p300c reliably run Qwen3-0.6B. Llama-3.1-8B-Instruct
+  exhausts n150 DRAM and requires n300+ or P-series hardware. Lead with Qwen.
+
+### WH/BH Compatibility Checklist
+
+When authoring or reviewing a lesson or template, verify:
+
+- [ ] `hf` CLI used throughout (not `huggingface-cli`)
+- [ ] `DispatchCoreAxis.ROW` not present in any template
+- [ ] `~/tt-metal` existence not assumed without fallback / link to build-TT-Metalium<sup>™</sup>
+- [ ] `p300c` added to `supportedHardware` and `validatedOn` in front matter where applicable
+- [ ] TT-QuietBox 2 callout or note added for lessons that behave differently on TT-QuietBox 2
+- [ ] `HF_MODEL` exported before any inference command that requires it
+- [ ] `pip install --upgrade pip setuptools wheel` before `requirements-dev.txt` install
+  (fixes `pkg_resources` missing on fresh TT-QuietBox 2 environments)
+
+## 🔧 Recent Multi-Device API Update (Jan 2026)
+
+**IMPORTANT:** Multi-device TT-NN code must now use `CreateDevices`/`CloseDevices` API.
+
+**Problem:** Opening/closing devices individually causes dispatch core errors:
+```python
+# ❌ OLD (Broken)
+for id in range(4):
+    device = ttnn.open_device(device_id=id)
+    devices.append(device)
+for device in devices:
+    ttnn.close_device(device)  # Crashes with dispatch core error
+```
+
+**Solution:** Use coordinated device management:
+```python
+# ✅ NEW (Required)
+num_devices = ttnn.GetNumAvailableDevices()
+devices = ttnn.CreateDevices(list(range(num_devices)))
+try:
+    # Use devices...
+finally:
+    ttnn.CloseDevices(devices)  # Proper cleanup
+```
+
+**Updated templates:**
+- `content/templates/cookbook/particle_life/particle_life_multi_device.py`
+- `content/templates/cookbook/particle_life/test_multi_device.py`
+
+See `MULTI_DEVICE_FIX.md` for full details.
+
+## Hardware Configuration Formatting
+
+**v0.0.98+ (Current)**: Lesson 7 uses clean markdown headers for better walkthrough rendering:
+
+```markdown
+### n150 (Wormhole - Single Chip) - Most common for development
+
+**✅ Recommended: Qwen3-0.6B** - Tiny, fast, reasoning-capable!
+
+```bash
+command here...
+```
+
+---
+```
+
+- Pure markdown (no HTML)
+- Better multi-line code block rendering
+- Cleaner, more maintainable
+
+**v0.0.85-0.0.97 (Legacy)**: Some lessons still use CSS-styled `<details>` sections:
+
+```html
+<details open style="border: 1px solid var(--vscode-panel-border); ...">
+<summary><b>🔧 Hardware Name</b></summary>
+Content...
+</details>
+```
+
+- Used in Lessons 6, 9, 12 (not yet migrated)
+- See `HARDWARE_CONFIG_TEMPLATE.md` + `STYLING_GUIDE.md`
+
+## Build Commands
+
+```bash
+npm install           # Install dependencies
+npm run build         # Compile TS → dist/
+npm run watch         # Auto-recompile on changes
+npm run package       # Create .vsix (auto-adds -dev suffix for non-main branches)
+```
+
+**Packaging Behavior:**
+- **main/master branch:** `TT-VSCode-Toolkit-X.Y.Z.vsix` (production)
+- **Other branches:** `TT-VSCode-Toolkit-X.Y.Z-dev.vsix` (development)
+- Implemented in `scripts/package-extension.js` for easy identification of dev builds
+
+## Bundling (webpack)
+
+**v0.0.335+:** Extension successfully bundles with webpack via `vscode:prepublish`.
+
+- `isomorphic-dompurify` (which needed jsdom) replaced with `sanitize-html` (pure JS)
+- `npm run build` (tsc) still available for dev/test
+- `npm run package` / `vsce package` runs webpack automatically via `vscode:prepublish`
+- Package file count reduced from ~2186 to ~373; node_modules no longer shipped
+
+**Earlier failures (esbuild, v0.0.125-226):** esbuild + jsdom was incompatible; webpack + sanitize-html resolved those issues.
+
+## Version Management
+
+**⚠️ CRITICAL: ALWAYS increment version in `package.json` after ANY changes:**
+- **Bug fixes:** increment PATCH (0.0.224 → 0.0.225)
+- **New features:** increment MINOR (0.0.36 → 0.0.37)
+- **Breaking changes:** increment MAJOR
+- **Content changes:** increment PATCH (markdown edits, templates, etc.)
+
+**Why this matters:**
+- VSCode extension caching causes issues without version changes
+- Users may see stale content/functionality if version doesn't increment
+- Even small changes (single line fixes) require version bump
+- **Rule:** After completing ANY bugfix, content change, or series of alterations → increment version → rebuild → repackage
+
+## Testing
+
+Press `F5` to launch Extension Development Host.
+
+**Manually open walkthrough:**
+1. Cmd+Shift+P → "Welcome: Open Walkthrough"
+2. Select "Get Started with Tenstorrent"
+
+Or run: "Tenstorrent: Show Welcome Page"
+
+## File Structure
+
+```
+content/
+  lessons/        # Markdown content (editable by writers)
+  templates/      # Python script templates
+  welcome/        # Welcome page HTML
+src/
+  extension.ts    # Main extension code
+  commands/terminalCommands.ts  # Command definitions
+vendor/           # Reference repos (NOT deployed with extension)
+  tt-metal/       # Main tt-metal repo - demos, examples, APIs
+  vllm/           # TT vLLM fork - production inference
+  tt-xla/         # TT-XLA/JAX - compiler, examples
+  tt-forge-fe/    # TT-Forge frontend - experimental compiler
+  tt-inference-server/  # Production deployment automation
+  tt-installer/   # Installation automation reference
+  ttsim/          # Simulator reference
+package.json      # Extension manifest + walkthrough definitions
+```
+
+**Generated:** `~/tt-scratchpad/` - Extension-created scripts
+
+**⚠️ Important:** The `vendor/` directory contains reference repositories for lesson authoring:
+- **TT-Metalium** - Primary reference: demos, APIs, examples, model implementations
+- **vllm** - Production inference patterns, server examples
+- **TT-XLA** - JAX/TT-XLA examples, demos, compiler documentation
+- **tt-forge-fe** - TT-Forge<sup>™</sup> examples, experimental compiler reference
+- **TT-Inference-Server** - Production deployment automation, MODEL_SPECS
+- **TT-Installer** - Installation workflows, setup patterns
+- **ttsim** - Simulator reference for testing without hardware
+
+These repos are **NOT deployed** with the extension - they're local references only for development and lesson authoring. Always verify commands, paths, and API examples against these repos before publishing lessons.
+
+**🚀 CRITICAL FOR CLAUDE CODE:** When working on lessons or features, **liberally clone/checkout packages to `vendor/` as needed**. Don't work blind - get the actual reference implementation first:
+
+```bash
+# Clone new reference repo when needed
+cd vendor/
+git clone https://github.com/tenstorrent/[repo-name].git
+
+# Update existing repos
+cd vendor/[repo-name]
+git pull origin main
+```
+
+**Examples when you should clone/update vendor repos:**
+- Authoring a new lesson about a feature
+- Updating commands or API examples in existing lessons
+- Verifying hardware configurations or flags
+- Checking model paths, formats, or implementations
+- Confirming environment variable names
+- Finding correct import paths or function signatures
+
+**Don't guess - check the source!** The vendor directory exists specifically so you can reference actual implementations.
+
+**Note:** `vendor/` is in `.gitignore` - these reference repos are NOT committed to the extension's git repository. They're local-only for development. Each developer/AI should clone what they need.
+
+## Lesson Metadata System (v0.0.86+)
+
+**Every lesson now has metadata for hardware compatibility and validation tracking.**
+
+See `LESSON_METADATA.md` for complete documentation.
+
+**Quick reference:**
+```json
+"metadata": {
+  "supportedHardware": ["n150", "n300", "t3k", "p100", "p150", "galaxy"],
+  "status": "validated" | "draft" | "blocked",
+  "validatedOn": ["n150", "n300"],
+  "blockReason": "Optional reason if blocked",
+  "minTTMetalVersion": "v0.51.0"
+}
+```
+
+**Hardware values:** `n150`, `n300`, `t3k`, `p100`, `p150`, `Galaxy`, `sim`
+
+**Status values:**
+- `validated` - Tested and ready for production release
+- `draft` - In development, hide in production builds
+- `blocked` - Known issue, show with warning
+
+**Use cases:**
+1. **Release gating** - Filter lessons by status before packaging
+2. **Hardware filtering** - Show only relevant lessons for detected hardware
+3. **Quality tracking** - Know which configs have been tested
+4. **Development workflow** - Clear status for each lesson
+
+**All 16 lessons have metadata as of v0.0.86.**
+
+## Lesson Registry Sync Workflow (v0.0.301+)
+
+**Source of Truth: Markdown front matter** in `content/lessons/*.md`
+
+The extension uses a hybrid approach for lesson metadata:
+- **Content fields** (id, title, description, category, tags, supportedHardware, status, validatedOn, estimatedMinutes) live in markdown front matter
+- **Extension fields** (order, previousLesson, nextLesson, completionEvents, markdownFile) live in lesson-registry.json
+
+### Fields Split
+
+**Markdown owned** (auto-synced to JSON):
+- `id` - Lesson identifier
+- `title` - Lesson title
+- `description` - Lesson description
+- `category` - Category classification
+- `tags` - Array of tags
+- `supportedHardware` - Array of hardware types
+- `status` - `validated`, `draft`, or `blocked`
+- `validatedOn` - Array of tested hardware
+- `estimatedMinutes` - Time estimate
+
+**JSON owned** (manually maintained):
+- `order` - Display order in lesson list
+- `previousLesson` - Navigation link
+- `nextLesson` - Navigation link
+- `completionEvents` - VSCode completion tracking
+- `markdownFile` - File path
+- `recommended_metal_version` - Version recommendation
+- `minTTMetalVersion` - Minimum version
+- `validationDate` - Date validated
+- `validationNotes` - Validation notes
+
+### Validation Script
+
+Validates that markdown and JSON are in sync:
+
+```bash
+npm run validate:lessons
+```
+
+**Features:**
+- Compares 9 markdown fields against JSON
+- Deep equality checks for arrays/objects
+- Clear error reporting with file/field specifics
+- Exit code 0 (success) or 1 (errors)
+- **Integrated into build** - `npm run build` fails if validation fails
+
+**Use cases:**
+- Pre-commit checks (verify before committing)
+- CI/CD validation (automated checks)
+- Manual verification after editing lessons
+
+### Generator Script
+
+Regenerates lesson-registry.json from markdown front matter:
+
+```bash
+# Dry-run (shows changes without applying)
+npm run generate:lessons
+
+# Apply changes with confirmation
+npm run generate:lessons -- --execute
+
+# Apply changes without confirmation
+npm run generate:lessons -- --execute --force
+```
+
+**Safety Features:**
+- **Dry-run by default** - Shows color-coded diff preview without applying changes
+- **Automatic backups** - Creates timestamped backup in `.backups/` before changes
+- **User confirmation** - Prompts for confirmation unless `--force` flag used
+- **Restoration instructions** - Shows how to restore backup on error
+- **Preserves manual fields** - Keeps order, navigation, completionEvents unchanged
+- **Order preservation** - Maintains existing lesson order, appends new lessons at end
+
+**Output example:**
+```
+📋 CHANGES PREVIEW
+
+📝 MODIFY: ct1-understanding-training
+   ~ CHANGE description:
+    OLD: "Learn the fundamentals of fine-tuning..."
+    NEW: "Learn the fundamentals of custom training..."
+   + ADD estimatedMinutes: 15
+
+✅ Backup created: .backups/lesson-registry-2026-02-04T19-12-49.json
+✅ Successfully updated lesson-registry.json
+```
+
+### Workflow for Editing Lessons
+
+**When editing lesson content:**
+1. Edit markdown front matter in `content/lessons/*.md`
+2. Run validation: `npm run validate:lessons`
+3. If validation fails, run generator: `npm run generate:lessons -- --execute`
+4. Rebuild extension: `npm run build`
+
+**When adding new lessons:**
+1. Create markdown file with complete front matter
+2. Run generator to add to JSON: `npm run generate:lessons -- --execute`
+3. Manually edit JSON to add navigation (order, previousLesson, nextLesson)
+4. Add to `package.json` → `contributes.walkthroughs[0].steps`
+5. Rebuild extension: `npm run build`
+
+**When editing extension-specific fields:**
+1. Edit lesson-registry.json directly (order, navigation, completionEvents)
+2. Run validation to ensure no drift: `npm run validate:lessons`
+3. Rebuild extension: `npm run build`
+
+**⚠️ Warning in lesson-registry.json:**
+The JSON file includes a warning header:
+```json
+{
+  "version": "1.0.0",
+  "_warning": "⚠️  PARTIALLY AUTO-GENERATED - Source of truth: Markdown front matter in content/lessons/*.md. Fields like id, title, description, category, tags, supportedHardware, status, validatedOn, estimatedMinutes MUST match markdown. Fields like order, previousLesson, nextLesson, completionEvents are manually maintained here. Run 'npm run validate:lessons' to check sync. See CLAUDE.md for workflow.",
+  "categories": [...],
+  "lessons": [...]
+}
+```
+
+### Script Files
+
+- `scripts/validate-lesson-registry.js` - Validation script (200+ lines)
+- `scripts/generate-lesson-registry.js` - Generator script (300+ lines)
+- Both scripts use `js-yaml` for parsing markdown front matter
+- Color-coded terminal output for clear feedback
+
+## Architecture
+
+**Content-First Design:** Content in markdown, code handles execution only.
+
+**Walkthrough Structure:** Defined in `package.json` → `contributes.walkthroughs`
+- Steps auto-complete via `completionEvents`
+- Markdown rendered natively by VSCode
+- Command links as buttons (on own line)
+- Each step now includes `metadata` field (v0.0.86+)
+
+**Terminal Management (v0.0.66+):**
+- **2 terminals only:** `main` (setup/testing) and `server` (long-running)
+- Reuse existing terminals (no terminal clutter)
+- Environment persists across lessons
+
+**Device Detection:** `updateDeviceStatus()` parses tt-smi, caches device info
+
+## Adding New Lessons
+
+1. **Research:** Check `vendor/` directory for reference implementations:
+   - `vendor/tt-metal/` - Demos, examples, API patterns, model implementations
+   - `vendor/vllm/` - Production inference, server configurations
+   - `vendor/tt-xla/` - JAX examples, PJRT integration, demos
+   - `vendor/tt-forge-fe/` - TT-Forge examples, experimental models
+   - `vendor/tt-inference-server/` - MODEL_SPECS, validated configs, workflows
+   - `vendor/tt-installer/` - Installation workflows, setup automation
+   - `vendor/ttsim/` - Simulator for testing without hardware
+
+   **If repo missing or outdated:** Clone/update it! Don't work without references:
+   ```bash
+   cd vendor/
+   git clone https://github.com/tenstorrent/[repo-name].git
+   # or update existing:
+   cd vendor/[repo-name] && git pull origin main
+   ```
+
+2. Create `content/lessons/XX-your-lesson.md`
+3. Add to `package.json` → `contributes.walkthroughs[0].steps`
+4. Define commands needed
+5. Implement handlers in `src/extension.ts`
+6. Register commands in `activate()`
+
+**For hardware-specific lessons:** Use styled `<details>` pattern from template.
+
+**Best practice:** Always verify commands, paths, and examples against the vendor repos before publishing. They're cloned specifically for this purpose. **Clone liberally - don't guess!**
+
+## Critical Patterns
+
+**TT-Metalium builds:**
+```bash
+./install_dependencies.sh  # ALWAYS run first
+./build_metal.sh --clean   # Troubleshooting
+./build_metal.sh --enable-ccache  # Fast rebuilds
+```
+
+**vLLM commands (Lesson 7):**
+- Hardware-specific Llama: `startVllmServerN150/n300/T3000/p100()`
+- Hardware-specific Qwen: `startVllmServerN150Qwen/N300Qwen/T3KQwen/P100Qwen()` (v0.0.89+)
+- Helper: `startVllmServerForHardware(hardware, config)` - accepts optional `modelPath` parameter
+- All use `'server'` terminal type
+
+**Model Support (updated v0.0.97):**
+- **Qwen3-0.6B** - Ultra-lightweight (0.6B params), dual thinking modes, reasoning excellence ✅ **PRIMARY RECOMMENDATION for n150**
+  - MMLU-Redux: 55.6, MATH-500: 77.6 (impressive for 0.6B!)
+  - Sub-millisecond inference, 10,000+ QPS capable
+  - Multilingual, 32K context
+  - **Perfect for development and many production use cases**
+- **Gemma 3-1B-IT** - Small (1B params), multilingual (140+ langs), 32K context ✅ **Good for n150**
+- **Llama-3.1-8B-Instruct** - General-purpose chat (8B params, gated) ⚠️ **Requires n300/T3000/p100**
+- **Qwen3-8B** - Multilingual coding/math (8B params) ⚠️ **Requires n300+ for reliable operation**
+
+**🔑 HF_MODEL Auto-Detection (v0.0.97):**
+- `start-vllm-server.py` now auto-detects and sets `HF_MODEL` from `--model` path
+- Qwen models: `HF_MODEL=Qwen/{model_name}` (e.g., `Qwen/Qwen3-0.6B`)
+- Gemma models: `HF_MODEL=google/{model_name}` (e.g., `google/gemma-3-1b-it`)
+- Llama models: No HF_MODEL needed (auto-detects correctly)
+- **Users no longer need to manually export HF_MODEL** - script handles it automatically!
+
+**⚠️ n150 DRAM Reality:**
+- Llama-3.1-8B-Instruct consistently exhausts DRAM on n150
+- **Solution**: Start with Qwen3-0.6B (13x smaller, reasoning-capable, production-ready)
+- Lesson 7 completely rewritten around Qwen3-0.6B as the hero model (v0.0.97)
+
+**Symlink Workaround Technical Details (v0.0.92):**
+```typescript
+// Helper function creates symlink if needed
+async function createQwenSymlink(qwenPath: string): Promise<string> {
+  // Target: ~/models/Llama-3.1-8B-Instruct-qwen -> ~/models/Qwen3-8B
+  // Path contains expected string, points to actual Qwen model
+  // Checks if symlink already exists and points to correct location
+  // Returns symlink path to use with vLLM
+}
+
+// All 4 Qwen handlers now:
+// 1. Show informational dialog about symlink
+// 2. Call createQwenSymlink() to create/verify symlink
+// 3. Pass symlink path to startVllmServerForHardware()
+// 4. vLLM's path check passes, model loads successfully
+```
+
+**User Experience:**
+- Click Qwen command → See explanation dialog → Click "Start Server"
+- Extension creates symlink (shows confirmation)
+- vLLM starts with symlink path
+- Everything works transparently
+- Symlink persists for future use
+
+**Model Registry:** `MODEL_REGISTRY` in `src/extension.ts`
+- Current default: Llama-3.1-8B-Instruct
+- Add models here to make available throughout extension
+
+## Key Implementation Notes
+
+- **No custom UI** - All UI from VSCode native
+- **Markdown deployed** - `content/` copied to `dist/`
+- **Terminal persistence** - Survives between invocations
+- **Password input** - `password: true` in `showInputBox()`
+- **Completion tracking** - VSCode auto-tracks via `completionEvents`
+
+## Lessons Summary
+
+| Lesson | Focus | Hardware Variants |
+|--------|-------|-------------------|
+| 1-5 | Setup, Direct API | Generic |
+| 6-7 | Production (TT-Inference-Server, vLLM) | ✅ n150/n300/T3000/p100 |
+| 8 | VSCode Chat | Generic |
+| 9 | Image Generation (SD 3.5) | ✅ n150/n300/T3000/p100 |
+| 10 | Coding Assistant | Generic |
+| 11 | TT-Forge (experimental) | n150 only |
+| 12 | TT-XLA JAX | ✅ n150/n300/T3000/Galaxy |
+
+## Troubleshooting
+
+**Environment variables matter:**
+- vLLM: `TT_METAL_HOME`, `MESH_DEVICE`, `PYTHONPATH`
+- Blackhole (p100): Also needs `TT_METAL_ARCH_NAME=blackhole`
+- TT-Forge: `unset TT_METAL_HOME TT_METAL_VERSION`
+
+**Model paths:**
+- HuggingFace format: `~/models/Llama-3.1-8B-Instruct`
+- Meta format: `~/models/Llama-3.1-8B-Instruct/original`
+
+## Documentation Files
+
+- `CLAUDE.md` - Full details (this file)
+- `HARDWARE_CONFIG_TEMPLATE.md` - Pattern for hardware configs
+- `STYLING_GUIDE.md` - CSS styling reference
+- `FAQ.md` - User-facing troubleshooting
+- `README.md` - Public-facing documentation
+
+## Vendor Directory Reference Guide
+
+**When authoring lessons, check these repos:**
+
+| Lesson Type | Primary Reference | Secondary References |
+|-------------|-------------------|---------------------|
+| Setup/Installation | `TT-Installer/` | `tt-metal/` |
+| Direct API (TT-Metalium) | `tt-metal/models/` | `tt-metal/demos/` |
+| vLLM Production | `vllm/tt_metal/` | `TT-Inference-Server/` |
+| TT-Inference-Server | `TT-Inference-Server/` | `vllm/` |
+| Image Generation | `tt-metal/models/experimental/` | - |
+| TT-Forge | `tt-forge-fe/` | `tt-metal/` |
+| TT-XLA/JAX | `tt-xla/demos/` | `tt-xla/` |
+| Simulator Testing | `ttsim/` | `tt-metal/` |
+
+**Always verify:**
+- Command syntax and flags
+- Model paths and formats
+- Environment variables
+- Hardware configurations
+- API examples and patterns
+
+## Changelog Policy
+
+**⚠️ IMPORTANT: As of v0.0.268, changelog management has been standardized:**
+
+### Where to Find Version History
+
+1. **CHANGELOG.md** - Complete version history in Keep a Changelog format
+   - **All releases** documented here with full details
+   - Follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) specification
+   - Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
+   - **This is the single source of truth for version history**
+
+2. **README.md** - User-facing highlights only
+   - **Most recent 2 releases** with brief highlights
+   - Links to CHANGELOG.md for complete history
+   - Designed for quick overview of latest features
+
+3. **CLAUDE.md** - No version history
+   - This file (CLAUDE.md) contains **no changelog entries**
+   - Documents project structure, workflows, and development guidance
+   - References CHANGELOG.md for version history
+
+### Version Management Workflow
+
+**⚠️ CRITICAL: ALWAYS increment version in `package.json` after ANY changes:**
+- **Bug fixes:** increment PATCH (0.0.268 → 0.0.269)
+- **New features:** increment MINOR (0.0.268 → 0.1.0)
+- **Breaking changes:** increment MAJOR (0.0.268 → 1.0.0)
+- **Content changes:** increment PATCH (markdown edits, templates, etc.)
+
+**After making changes:**
+1. Increment version in `package.json`
+2. Add entry to `CHANGELOG.md` with proper categorization (Added/Changed/Fixed/Removed)
+3. If this is one of the 2 most recent releases, update `README.md` highlights
+4. Rebuild and repackage extension
+5. Test installation to verify no caching issues
+
+**Why this matters:**
+- VSCode extension caching causes issues without version changes
+- Users may see stale content/functionality if version doesn't increment
+- Even small changes (single line fixes) require version bump
+- **Rule:** After completing ANY bugfix, content change, or series of alterations → increment version → rebuild → repackage
+
+### CHANGELOG Best Practices
+
+**⚠️ AVOID line number references in CHANGELOG entries:**
+- Line numbers drift as code changes, making historical references incorrect
+- Instead, describe the change with sufficient context (function names, feature areas, file names)
+- Use git blame or PR links for exact historical context when needed
+
+**Good examples:**
+- ✅ "Fixed terminal accumulation in API test commands by adding reusable terminal helper"
+- ✅ "Removed broken FAQ link from OpenClaw TT-QuietBox 2 assistant walkthrough"
+- ✅ "Updated default terminal name to match environment registry for proper detection"
+
+**Bad examples:**
+- ❌ "Fixed bug in extension.ts:1057, 1075" (line numbers will drift)
+- ❌ "Updated qb2-openclaw-assistant.md:993" (too specific, will become outdated)
+
+**Rationale:**
+- CHANGELOG is long-lived documentation read months/years later
+- Line numbers are accurate only at time of writing
+- Descriptive context remains useful even as code evolves
+
+### Historical Note
+
+Prior to v0.0.268, this file contained extensive changelog entries spanning 500+ lines. This has been consolidated to improve maintainability and reduce duplication. All historical version information remains available in `CHANGELOG.md`.
+
+**See [CHANGELOG.md](CHANGELOG.md) for complete version history.**
+
+---
+> Source: [tenstorrent/tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
