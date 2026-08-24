@@ -1,0 +1,87 @@
+{
+  "name": "bootstrap-vue-next",
+  "owner": "bootstrap-vue-next",
+  "repo": "bootstrap-vue-next",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vitepress",
+      "path": ".agents/skills/vitepress",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/vitepress",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-vue-next",
+      "path": ".agents/skills/vitepress/SKILL.md",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/vitepress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-vue-next",
+      "path": ".agents/skills/vue-debug-guides/SKILL.md",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/vue-debug-guides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-vue-next",
+      "path": ".agents/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/vue-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-vue-next",
+      "path": ".agents/skills/vue-router-best-practices/SKILL.md",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/vue-router-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-vue-next",
+      "path": ".agents/skills/vue-testing-best-practices/SKILL.md",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/vue-testing-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-vue-next",
+      "path": ".agents/skills/create-adaptable-composable/SKILL.md",
+      "github_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next/tree/main/.agents/skills/create-adaptable-composable/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bootstrap-vue-next/bootstrap-vue-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:13:00Z"
+}
