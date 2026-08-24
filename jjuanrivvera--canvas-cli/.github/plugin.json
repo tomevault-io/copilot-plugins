@@ -1,0 +1,9 @@
+{
+  "name": "jjuanrivvera--canvas-cli",
+  "displayName": "canvas-cli",
+  "description": "A powerful command-line interface for Canvas LMS, built with Go.",
+  "version": "1.0.0",
+  "author": "jjuanrivvera",
+  "homepage": "https://github.com/jjuanrivvera/canvas-cli",
+  "skills": []
+}
