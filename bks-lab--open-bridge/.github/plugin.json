@@ -1,0 +1,9 @@
+{
+  "name": "bks-lab--open-bridge",
+  "displayName": "open-bridge",
+  "description": "Your AI coding agent starts every session knowing your repos, your clients, and how you work \u2014 a plain git repo of markdown + YAML it reads at session start, independent of model or frontend. Context ",
+  "version": "1.0.0",
+  "author": "bks-lab",
+  "homepage": "https://github.com/bks-lab/open-bridge",
+  "skills": []
+}
