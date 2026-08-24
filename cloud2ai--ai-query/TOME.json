@@ -1,0 +1,44 @@
+{
+  "name": "ai-query",
+  "owner": "cloud2ai",
+  "repo": "ai-query",
+  "description": "ai-query is a lightweight retrieval engine for answering questions over configured document sets and local codebases. It uses project profiles so each workspace can define its own sources, ranking strategies, prompts, and skill overlays.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cloud2ai/ai-query",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T18:05:32Z"
+}
