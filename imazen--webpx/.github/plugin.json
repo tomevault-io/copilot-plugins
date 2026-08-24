@@ -1,0 +1,9 @@
+{
+  "name": "imazen--webpx",
+  "displayName": "webpx",
+  "description": "Complete WebP encoding/decoding for Rust - safe bindings to libwebp",
+  "version": "1.0.0",
+  "author": "imazen",
+  "homepage": "https://github.com/imazen/webpx",
+  "skills": []
+}
