@@ -7,11 +7,11 @@ Multi-currency personal finance PWA with offline support and real-time conversio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [erfanansari/kharji](https://github.com/erfanansari/kharji).
+Original source: `CLAUDE.md` in [erfanansari/kharji](https://github.com/erfanansari/kharji).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
