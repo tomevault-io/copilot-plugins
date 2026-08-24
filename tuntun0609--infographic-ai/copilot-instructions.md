@@ -1,16 +1,151 @@
-## project
+## ultracite
 
-> 这是一个 Nextjs16 的项目，使用 App Router。
+> Ultracite Rules - AI-Ready Formatter and Linter
 
 
-这是一个 Nextjs16 的项目，使用 App Router。
-使用 shadcn/ui 作为组件库，基础组件库是 base-ui。
-使用 drizzle-orm 作为数据库。
-使用 better-auth 作为认证。
-使用 vercel 的 ai sdk v6 作为 Agent SDK。
-不要修改 `src/components/ui` 和 `src/components/ai-elements` 目录下的文件。
+# Ultracite Code Standards
 
-*如果遇到不确定的库相关的问题，请使用 context7 的 mcp 来解决。*
+This project uses **Ultracite**, a zero-config Biome preset that enforces strict code quality standards through automated formatting and linting.
+
+## Quick Reference
+
+- **Format code**: `bun x ultracite fix`
+- **Check for issues**: `bun x ultracite check`
+- **Diagnose setup**: `bun x ultracite doctor`
+
+Biome (the underlying engine) provides extremely fast Rust-based linting and formatting. Most issues are automatically fixable.
+
+---
+
+## Core Principles
+
+Write code that is **accessible, performant, type-safe, and maintainable**. Focus on clarity and explicit intent over brevity.
+
+### Code Formatting
+
+- Use single quotes (`'`) for strings (configured in biome.json)
+- Semicolons are optional - only add them when needed (configured as `asNeeded`)
+- Follow Biome's automatic formatting for consistent style
+
+### Type Safety & Explicitness
+
+- Use explicit types for function parameters and return values when they enhance clarity
+- Prefer `unknown` over `any` when the type is genuinely unknown, but `any` is allowed when necessary (rule: `noExplicitAny: "off"`)
+- Use const assertions (`as const`) for immutable values and literal types
+- Leverage TypeScript's type narrowing instead of type assertions
+- Magic numbers are allowed, but prefer meaningful variable names when it enhances clarity (rule: `noMagicNumbers: "off"`)
+- Prefer `interface` over `type` for object type definitions (rule: `useConsistentTypeDefinitions: "warn"`)
+- Non-null assertions (`!`) are allowed when you're certain a value is not null (rule: `noNonNullAssertion: "off"`)
+
+### Modern JavaScript/TypeScript
+
+- Use arrow functions for callbacks and short functions
+- Prefer `for...of` loops over `.forEach()` and indexed `for` loops
+- Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access
+- Prefer template literals over string concatenation
+- Use destructuring for object and array assignments
+- Use `const` by default, `let` only when reassignment is needed, never `var`
+
+### Async & Promises
+
+- Always `await` promises in async functions - don't forget to use the return value
+- Use `async/await` syntax instead of promise chains for better readability
+- Handle errors appropriately in async code with try-catch blocks
+- Don't use async functions as Promise executors
+
+### React & JSX
+
+- Use function components over class components
+- Call hooks at the top level only, never conditionally
+- Specify all dependencies in hook dependency arrays correctly
+- Use the `key` prop for elements in iterables (array indices are allowed when appropriate - rule: `noArrayIndexKey: "off"`)
+- Nest children between opening and closing tags instead of passing as props
+- Don't define components inside other components
+- Use semantic HTML and ARIA attributes for accessibility:
+  - Provide meaningful alt text for images
+  - Use proper heading hierarchy
+  - Add labels for form inputs
+  - Include keyboard event handlers alongside mouse events
+  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
+
+### Error Handling & Debugging
+
+- `console.log` statements are allowed for debugging (rule: `noConsole: "off"`), but remove unnecessary ones before production
+- Remove `debugger` and `alert` statements from production code
+- Throw `Error` objects with descriptive messages, not strings or other values
+- Use `try-catch` blocks meaningfully - don't catch errors just to rethrow them
+- Prefer early returns over nested conditionals for error cases
+
+### Code Organization
+
+- Keep functions focused and under reasonable cognitive complexity limits
+- Extract complex conditions into well-named boolean variables
+- Use early returns to reduce nesting
+- Prefer simple conditionals over nested ternary operators
+- Group related code together and separate concerns
+
+### Security
+
+- Add `rel="noopener"` when using `target="_blank"` on links
+- Avoid `dangerouslySetInnerHTML` unless absolutely necessary
+- Don't use `eval()` or assign directly to `document.cookie`
+- Validate and sanitize user input
+
+### Performance
+
+- Avoid spread syntax in accumulators within loops
+- Use top-level regex literals instead of creating them in loops
+- Namespace imports are allowed when appropriate (rule: `noNamespaceImport: "off"`)
+- Barrel files (index files that re-export everything) are allowed (rule: `noBarrelFile: "off"`)
+- `<img>` tags are allowed when appropriate (rule: `noImgElement: "off"`), but prefer Next.js `<Image>` component for optimization
+
+### Framework-Specific Guidance
+
+**Next.js:**
+- Prefer Next.js `<Image>` component for images (though `<img>` is allowed)
+- Use `next/head` or App Router metadata API for head elements
+- Use Server Components for async data fetching instead of async Client Components
+
+**React 19+:**
+- Use ref as a prop instead of `React.forwardRef`
+
+**Solid/Svelte/Vue/Qwik:**
+- Use `class` and `for` attributes (not `className` or `htmlFor`)
+
+---
+
+## Testing
+
+- Write assertions inside `it()` or `test()` blocks
+- Avoid done callbacks in async tests - use async/await instead
+- Don't use `.only` or `.skip` in committed code
+- Keep test suites reasonably flat - avoid excessive `describe` nesting
+
+## When Biome Can't Help
+
+Biome's linter will catch most issues automatically. Focus your attention on:
+
+1. **Business logic correctness** - Biome can't validate your algorithms
+2. **Meaningful naming** - Use descriptive names for functions, variables, and types
+3. **Architecture decisions** - Component structure, data flow, and API design
+4. **Edge cases** - Handle boundary conditions and error states
+5. **User experience** - Accessibility, performance, and usability considerations
+6. **Documentation** - Add comments for complex logic, but prefer self-documenting code
+
+---
+
+## Project-Specific Configuration
+
+This project has custom Biome rules configured in `biome.json`:
+
+- **Formatting**: Single quotes, semicolons as needed
+- **Linter overrides**: Several strict rules are disabled for flexibility:
+  - `noConsole`, `noExplicitAny`, `noMagicNumbers`, `noNonNullAssertion` are off
+  - `noArrayIndexKey`, `noNamespaceImport`, `noBarrelFile`, `noImgElement` are off
+  - `useConsistentTypeDefinitions` warns to prefer `interface` over `type`
+- **Ignored directories**: `src/components/ui` and `src/components/ai-elements` are excluded from linting
+
+Most formatting and common issues are automatically fixed by Biome. Run `bun x ultracite fix` before committing to ensure compliance.
 
 ---
 > Source: [tuntun0609/infographic-ai](https://github.com/tuntun0609/infographic-ai) — distributed by [TomeVault](https://tomevault.io).
