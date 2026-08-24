@@ -1,0 +1,9 @@
+{
+  "name": "stevenfackley--repo-template-astro-supabase",
+  "displayName": "repo-template-astro-supabase",
+  "description": "Template: Astro 6 SSR + Supabase + R2 (see CLAUDE.md, docs/, .github/)",
+  "version": "1.0.0",
+  "author": "stevenfackley",
+  "homepage": "https://github.com/stevenfackley/repo-template-astro-supabase",
+  "skills": []
+}
