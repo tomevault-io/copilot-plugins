@@ -1,52 +1,20 @@
-## commits
+## incremental-work
 
-> Conventional commit message format
+> Work in verifiable commit-ready chunks; one concern per step
 
 
-# Commit style
+# Incremental work
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) for all commit messages.
+When implementing or refactoring:
 
-## Format
+1. **Plan in chunks** — Break work into steps where each step has one purpose and leaves the repo buildable/testable.
+2. **Finish one chunk before starting the next** — Do not mix unrelated concerns in the same edit pass.
+3. **Verify after each chunk** — Run relevant tests, lint, or smoke checks before proceeding.
+4. **Commit boundaries** — Treat each chunk as commit-ready, but only create commits when the user asks (or at an explicit checkpoint they approve).
+5. **Report progress** — After each chunk, briefly state what changed, verification result, and the next chunk.
+6. **After the user commits** — Introduce the next chunk in a concise paragraph (what it does, what files it touches, how to verify). Also give a concise overview of the remaining chunks in the plan as a clean table so the user always sees what's left.
 
-```
-<type>(<scope>): <summary>
-
-[optional body]
-```
-
-- **Summary:** imperative mood, ≤72 characters, no trailing period
-- **Body:** only when the *why* is not obvious from the summary
-
-## Types
-
-| Type | Use for |
-|------|---------|
-| `feat` | New behavior or capability |
-| `fix` | Bug fix |
-| `refactor` | Behavior-preserving restructure |
-| `test` | Tests only |
-| `chore` | Tooling, deps, rename-only moves |
-| `docs` | Documentation only |
-
-## Scopes
-
-Use a short module name when it helps: `story`, `image`, `job`, `auth`, `api`, `core`. Omit scope when the change spans many areas or scope adds no clarity.
-
-## Examples
-
-```
-test(api): add error contract tests for 404 and validation
-fix(image): pass OpenRouter API key from settings
-refactor(story): split LLM generation from persistence
-chore(core): rename models.py to llm_schemas.py
-```
-
-## Avoid
-
-- Vague summaries: `fix stuff`, `updates`, `WIP`
-- Past tense: `added`, `fixed`, `updated`
-- Mixing unrelated changes in one commit
+A chunk is too big if it needs "and also" in the summary or cannot be verified independently.
 
 ---
 > Source: [cheuyin/createyourstory.ai](https://github.com/cheuyin/createyourstory.ai) — distributed by [TomeVault](https://tomevault.io).
