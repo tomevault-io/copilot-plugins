@@ -1,0 +1,9 @@
+{
+  "name": "hovborg--unifi-protect-bridge-cli",
+  "displayName": "unifi-protect-bridge-cli",
+  "description": "Optional global CLI for UniFi Protect Bridge: login once, inspect cameras and automations, diff/apply bridge-owned webhooks, and trigger HA resync.",
+  "version": "1.0.0",
+  "author": "Hovborg",
+  "homepage": "https://github.com/Hovborg/unifi-protect-bridge-cli",
+  "skills": []
+}
