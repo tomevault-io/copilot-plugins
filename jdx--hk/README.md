@@ -1,16 +1,15 @@
 # hk
 
-> Tome by [jdx](https://github.com/jdx/hk) — distributed by [TomeVault](https://tomevault.io)
-
-git hooks and project lints
+> Tome by [jdx](https://github.com/jdx/hk), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jdx/hk](https://github.com/jdx/hk).
+Original source: `` in [jdx/hk](https://github.com/jdx/hk).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
