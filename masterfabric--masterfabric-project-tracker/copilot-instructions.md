@@ -1,22 +1,51 @@
-## monorepo-overview
+## pr-reviews
 
-> Client repo — mf-expo (+ web/macos); GraphQL in core-base; domain via Particular
+> Pull request hygiene — description, scope, and review-ready bundles
 
 
-# MasterFabric Project Tracker
+# Pull requests — review conventions
 
-- **mf-expo**: React Native + Expo app (TypeScript) — primary mobile client
-- **mf-web** / **mf-macos**: optional web and macOS companions in this repo
+Use this when opening or updating a PR so reviewers and future you can ship safely.
 
-**GraphQL platform API** lives in **masterfabric-core-base** (`mf-go`). Clients talk to it via `EXPO_PUBLIC_GRAPHQL_URL` / `EXPO_PUBLIC_DEV_GRAPHQL_URL` in repo-root `local.env` (default `http://localhost:8080/graphql`).
+## Human voice before the PR ships
 
-**Organization projects / todos / purchases** hop through mf-go `particularGraphqlEnvelope` to **particular-project-tracker** in **masterfabric-particulars** (particular key `EXPO_PUBLIC_MF_PROJECT_TRACKER_PARTICULAR`, default `project_tracker`).
+Automation and agents tend to spit out stiff bullets. **Normalize on maintainer-shaped copy on GitHub** before you mark a PR ready or merge:
 
-Do **not** add or maintain an in-repo `mf-go` here. Platform schema/migrations/Postman → core-base. Particular domain API → masterfabric-particulars. After backend changes, update this repo’s GraphQL usage (`mf-go-api.ts`, envelope helpers) as needed.
+- **Pull request description** — Same facts as below (what / why / verify / risk / pre-review), but written in short, plain paragraphs: how you’d explain the change to a teammate, not a spec template. It is fine to keep checklists under that prose.
+- **First PR comment (optional but encouraged when the diff is large or non-obvious)** — One short note in your own words: tradeoffs, what you did not do, or how you tested. This is not a substitute for the description; it is context that reads like a human thread.
 
-mf-expo ship checklist: i18n (EN + TR), GraphQL usage, UX notes — `.cursor/rules/mf-expo-ship-checklist.mdc`.
+## Before opening / marking Ready for review
 
-PR conventions: `.cursor/rules/pr-reviews.mdc`.
+1. **One coherent slice** — PR title and description match the diff; unrelated refactors or drive-by edits belong in a separate PR.
+2. **Description** — Include:
+   - **What** changed (user- or operator-visible behavior)
+   - **Why** (problem, constraint, or ticket reference if you use one)
+   - **How to verify** (commands, screens, Postman flows if API-related)
+   - **Risk / rollbacks** if migrations, auth, or data deletion are involved
+   - **Pre-review** — A short checklist in the PR body tying back to this section (one coherent slice, cross-project note if needed, applicable ship-checklist items marked N/A or done) so drafts are review-ready when marked ready.
+3. **Cross-project** — If the PR depends on **masterfabric-core-base** (mf-go) or **masterfabric-particulars**, say how they deploy together (API / Particular first vs compatible client fallbacks) and link sibling PRs.
+4. **Checklists** — When applicable:
+   - **`mf-expo`:** `.cursor/rules/mf-expo-ship-checklist.mdc` (i18n + `CHANGELOG.md` + API usage)
+   - Backend ship checklists live in the sibling repos that own mf-go / Particulars — see `.cursor/rules/backend-ownership.mdc`
+
+## Merge progression (do in order)
+
+1. **Finish the work in git** — Commits pushed; scope matches the title.
+2. **Run the ship checklists** for every area you touched in this repo (`mf-expo` rules above). Skip only what those rules say is skippable.
+3. **Open or update the PR** — Draft is fine while iterating. When the diff stabilizes, set the **description** to human-shaped prose + structured sections (see **Human voice** above).
+4. **Optional thread comment** — Add a brief human note if it helps reviewers orient.
+5. **Mark Ready for review** — Only after description + applicable checklists are honest.
+6. **Merge** — After required CI / review policy; prefer updating local `main` (`pull`) right after. Delete the branch when your workflow allows (`After merge` below).
+
+## For reviewers (and authors self-reviewing)
+
+- Confirm **user-facing copy** has **EN + TR** (or project-agreed locales) when strings ship to the app.
+- Confirm **GraphQL** client usage (`mf-go-api.ts` / `graphqlRequest` / Particular envelope) matches the **core-base** / Particular schemas the app targets.
+- Prefer **small commits** with clear messages; squash policy is team choice, but history should remain understandable from PR description + commits.
+
+## After merge
+
+- Delete merged feature branches when your workflow allows; keep `main` the integration branch.
 
 ---
 > Source: [masterfabric/masterfabric-project-tracker](https://github.com/masterfabric/masterfabric-project-tracker) — distributed by [TomeVault](https://tomevault.io).
