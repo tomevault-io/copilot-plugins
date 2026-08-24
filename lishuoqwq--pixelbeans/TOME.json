@@ -4,7 +4,7 @@
   "repo": "PixelBeans",
   "description": "\u4e13\u95e8\u751f\u6210\u62fc\u8c46\u56fe\u7eb8\u7684\u7f51\u7ad9\uff08\u50cf\u7d20\u8c46\u8c46\uff1aPixelBeans\uff09",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lishuoqwq/PixelBeans",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T14:16:59Z"
+  "distributed_at": "2026-08-24T19:59:22Z"
 }
