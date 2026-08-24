@@ -1,18 +1,20 @@
-## design-source-of-truth
+## protect-dev-database
 
-> Require DESIGN.md for all UI design work
+> The database in `.env.local` contains real user data, not disposable fixtures.
 
+# Protect Dev Database
 
-# Design Source Of Truth
+The database in `.env.local` contains real user data, not disposable fixtures.
 
-For any request that creates or modifies UI, UX, visual styling, layout,
-components, pages, forms, navigation, charts, or user-facing copy:
-
-1. Read `DESIGN.md` before planning or editing.
-2. Treat `DESIGN.md` as the only source of truth for app design decisions.
-3. Reuse tokens from `app/globals.css` and primitives from `components/ui`.
-4. If a needed design decision is not covered, update `DESIGN.md` first.
-5. Do not introduce competing design standards in other files.
+- Never run `bun run db:seed`, data-mutating scripts, or manual SQL writes
+  against it without explicit permission in the current chat.
+- `bun run db:migrate` may be run when a task requires a new migration, but
+  migrations must be replay-safe (the runner re-executes every file) and must
+  never rewrite or reassign rows owned by existing users.
+- Never create test accounts or insert test rows in this database without
+  asking first. Prefer asking the user to verify flows themselves.
+- Before any data repair, run it as a dry run inside a transaction and show
+  the output before applying.
 
 ---
 > Source: [juandadev/personal-finance-app](https://github.com/juandadev/personal-finance-app) — distributed by [TomeVault](https://tomevault.io).
