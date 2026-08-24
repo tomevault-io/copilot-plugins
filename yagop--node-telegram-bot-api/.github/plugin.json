@@ -1,0 +1,22 @@
+{
+  "name": "yagop--node-telegram-bot-api",
+  "displayName": "node-telegram-bot-api",
+  "description": "node-telegram-bot-api",
+  "version": "1.0.0",
+  "author": "yagop",
+  "homepage": "https://github.com/yagop/node-telegram-bot-api",
+  "skills": [
+    {
+      "name": "node-telegram-bot-api",
+      "description": ""
+    },
+    {
+      "name": "node-telegram-bot-api",
+      "description": ""
+    },
+    {
+      "name": "node-telegram-bot-api",
+      "description": ""
+    }
+  ]
+}
