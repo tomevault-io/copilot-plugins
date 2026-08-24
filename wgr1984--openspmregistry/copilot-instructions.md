@@ -1,41 +1,142 @@
-## openspmregistry
+## code-documentation
 
-> name: concise_explanations
+> Code Documentation and Readability Standards
 
-# Cursor Rules
+# Code Documentation and Readability Standards
+
+Standards for writing readable and well-documented Go code, with emphasis on clear function documentation and examples.
 
 <rule>
-name: concise_explanations
-description: Standards for keeping explanations concise
+name: code_documentation
+description: Standards for documenting code and maintaining readability
 
 filters:
-  - type: all_files
-    pattern: "*"
+  # Match Go files
+  - type: file_extension
+    pattern: "\\.go$"
+  # Match function declarations
+  - type: content
+    pattern: "^func\\s+([A-Z]\\w*)|^type\\s+([A-Z]\\w*)"
 
 actions:
   - type: suggest
     message: |
-      When explaining code or changes:
+      When writing Go code:
 
-      1. Keep explanations brief and focused:
-         - One line per main point
-         - No redundant information
-         - Skip obvious details
+      1. Document all exported (public) functions and types:
+         ```go
+         // ProcessRequest handles incoming HTTP requests and returns a formatted response.
+         // It validates the request body against the provided schema and applies business rules.
+         //
+         // Parameters:
+         //   - r: The HTTP request containing the data to process
+         //   - schema: Validation schema to apply to the request
+         //
+         // Returns:
+         //   - Response: Processed response object
+         //   - error: Non-nil if processing failed
+         func ProcessRequest(r *http.Request, schema *Schema) (*Response, error)
+         ```
 
-      2. For code changes:
-         - State what changed
-         - State why (if not obvious)
-         - No need to explain unchanged code
+      2. For utility functions, include usage examples:
+         ```go
+         // FormatDateTime converts a time.Time to a standardized string format.
+         // The output format is "YYYY-MM-DD HH:mm:ss".
+         //
+         // Parameters:
+         //   - t: Time to format
+         //
+         // Returns:
+         //   - Formatted time string
+         //
+         // Example:
+         //   t := time.Now()
+         //   formatted := FormatDateTime(t)
+         //   // formatted = "2024-03-14 15:30:45"
+         func FormatDateTime(t time.Time) string
+         ```
 
-      3. For errors:
-         - State the error
-         - State the fix
-         - No need for apologies
+      3. Document complex types:
+         ```go
+         // RequestProcessor handles the lifecycle of HTTP request processing.
+         // It manages validation, transformation, and response generation
+         // while maintaining thread safety for concurrent requests.
+         type RequestProcessor struct {
+             // Schema defines the validation rules
+             Schema *Schema
 
-      4. For test results:
-         - State pass/fail
-         - If failed, state why
-         - No need for detailed logs unless relevant
+             // MaxConcurrent specifies the maximum number of concurrent requests
+             MaxConcurrent int
+
+             // timeout specifies the maximum processing duration
+             timeout time.Duration
+         }
+         ```
+
+      4. Include context in error messages:
+         ```go
+         // Bad: Generic error
+         return nil, errors.New("validation failed")
+
+         // Good: Contextual error
+         return nil, fmt.Errorf("validation failed for user %s: %w", userID, err)
+         ```
+
+      5. Document package-level variables and constants:
+         ```go
+         // MaxRetries defines the maximum number of retry attempts for failed operations.
+         // This applies to all network operations in the package.
+         const MaxRetries = 3
+
+         // DefaultTimeout is the standard timeout duration for operations.
+         // Can be overridden per operation if needed.
+         var DefaultTimeout = 30 * time.Second
+         ```
+
+examples:
+  - input: |
+      // Bad: Unclear documentation
+      func Process(d *Data) error {
+          return nil
+      }
+
+      // Good: Clear documentation with parameters and returns
+      // Process validates and transforms the input data according to business rules.
+      // It applies data sanitization and format validation before processing.
+      //
+      // Parameters:
+      //   - d: Input data to process
+      //
+      // Returns:
+      //   - error: Non-nil if validation or processing fails
+      func Process(d *Data) error {
+          return nil
+      }
+    output: "Well-documented function"
+
+  - input: |
+      // Bad: Missing example for utility function
+      func ParseConfig(path string) (*Config, error)
+
+      // Good: Documented utility function with example
+      // ParseConfig reads and parses a configuration file from the given path.
+      // It supports both YAML and JSON formats, automatically detected by file extension.
+      //
+      // Parameters:
+      //   - path: Path to the configuration file
+      //
+      // Returns:
+      //   - *Config: Parsed configuration
+      //   - error: Non-nil if reading or parsing fails
+      //
+      // Example:
+      //   cfg, err := ParseConfig("./config.yaml")
+      //   if err != nil {
+      //       log.Fatal(err)
+      //   }
+      //   fmt.Printf("Loaded config: %+v\n", cfg)
+      func ParseConfig(path string) (*Config, error)
+    output: "Well-documented utility function with example"
 
 metadata:
   priority: high
@@ -43,6 +144,5 @@ metadata:
 </rule> 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wgr1984)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/wgr1984)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [wgr1984/openspmregistry](https://github.com/wgr1984/openspmregistry) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
