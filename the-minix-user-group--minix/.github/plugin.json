@@ -1,0 +1,9 @@
+{
+  "name": "the-minix-user-group--minix",
+  "displayName": "minix",
+  "description": "Cat MINIX sources - Rebased from gerrit.minix3.org",
+  "version": "1.0.0",
+  "author": "The-Minix-User-Group",
+  "homepage": "https://github.com/The-Minix-User-Group/minix",
+  "skills": []
+}
