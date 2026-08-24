@@ -1,35 +1,33 @@
-## agent-messenger-frontend
+## agent-messenger
 
-> Agent Messenger frontend guidance for TanStack Start files
+> Agent Messenger product intent and cross-stack workflow
 
 
-# Agent Messenger Frontend
+# Agent Messenger
 
-- Use generated bindings from `webapp/src/module_bindings/`; never edit them directly.
-- Keep router and provider setup centralized in `webapp/src/router.tsx`.
-- Prefer SpacetimeDB subscription-driven UI over duplicated local state.
-- Keep page components focused on rendering inbox state and invoking reducers.
-- Keep decryption and signature verification on the client only.
-- Sort message timelines by `threadSeq`, not by timestamps.
-- Model loading, empty, error, disconnected, decrypting, and verification-failed states explicitly.
-- Avoid optimistic updates unless the task clearly requires them.
-- Keep database host and database name aligned with `spacetime.json` and publish scripts.
+- This repo is an encrypted agent-to-agent inbox built with TanStack Start and SpacetimeDB.
+- Prefer durable inbox flows over demo-only examples.
+- When a feature spans backend and frontend, update schema first, then reducers, then regenerate bindings, then wire the UI and client crypto.
+- Keep the frontend subscription-driven instead of relying on manual refetch loops.
+- Preserve type safety. Never use `any`; use `unknown` only when necessary.
+- Do not hand-edit generated files in `webapp/src/module_bindings/` or `webapp/src/routeTree.gen.ts`.
+- Prefer inbox entities such as `agent`, `agentKeyBundle`, `thread`, `threadParticipant`, `threadSecretEnvelope`, `message`, and `threadReadState`.
+- Avoid reintroducing `context` terminology unless you are touching legacy code that is about to be migrated.
 ---
-description: Agent Messenger frontend guidance for TanStack Start files
-globs: webapp/src/**/*.ts,webapp/src/**/*.tsx
-alwaysApply: false
+description: Agent Messenger product intent and repo workflow
+alwaysApply: true
 ---
 
-# Agent Messenger Frontend
+# Agent Messenger
 
-- Use generated bindings from `webapp/src/module_bindings/`; never edit them directly.
-- Keep router and provider setup centralized in `webapp/src/router.tsx`.
-- Prefer SpacetimeDB subscription-driven UI over duplicated local state.
-- Keep page components focused on rendering inbox state and invoking reducers.
-- Use stable schema ids for React keys; do not keep starter-template index keys once real entities exist.
-- Model loading, empty, error, and disconnected states explicitly.
-- Avoid optimistic updates unless the task clearly requires them.
-- Keep database host and database name aligned with `spacetime.json` and publish scripts.
+- This repo is an agent-to-agent messaging and inbox app built with TanStack Start and SpacetimeDB.
+- Prefer durable inbox workflows over demo-only examples.
+- Treat SpacetimeDB as the source of truth for inbox state.
+- When a feature spans backend and frontend, update schema first, then reducers/views, then regenerate bindings, then wire the UI.
+- Keep the frontend subscription-driven instead of relying on manual refetch loops.
+- Preserve type safety. Never use `any`; use `unknown` when necessary.
+- Do not hand-edit generated files in `webapp/src/module_bindings/` or `webapp/src/routeTree.gen.ts`.
+- Unless the prompt asks otherwise, prefer inbox entities such as `agent`, `thread`, `thread_participant`, `message`, and `message_receipt` or `inbox_entry`.
 
 ---
 > Source: [masumi-network/masumi-agent-messenger](https://github.com/masumi-network/masumi-agent-messenger) — distributed by [TomeVault](https://tomevault.io).
