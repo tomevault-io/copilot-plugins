@@ -2,9 +2,9 @@
   "name": "klag",
   "owner": "themoah",
   "repo": "klag",
-  "description": "new kafka lag exporter: lightweight and extendable.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/themoah/klag",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T02:36:31Z"
+  "distributed_at": "2026-08-24T20:04:36Z"
 }
