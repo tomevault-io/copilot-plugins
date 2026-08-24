@@ -3,8 +3,8 @@
   "owner": "javedh-dev",
   "repo": "tracktor",
   "description": "Vehicle Tracking Management System",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tracktor",
+      "path": ".agents/skills/shadcn-svelte/SKILL.md",
+      "github_url": "https://github.com/javedh-dev/tracktor/tree/main/.agents/skills/shadcn-svelte/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/javedh-dev/tracktor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T01:08:40Z"
+  "distributed_at": "2026-08-24T12:54:28Z"
 }
