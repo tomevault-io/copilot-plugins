@@ -1,0 +1,9 @@
+{
+  "name": "manufosela--own-drive",
+  "displayName": "own-drive",
+  "description": "Personal cloud drive app - Astro + Lit + PostgreSQL + Docker",
+  "version": "1.0.0",
+  "author": "manufosela",
+  "homepage": "https://github.com/manufosela/own-drive",
+  "skills": []
+}
