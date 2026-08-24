@@ -1,0 +1,9 @@
+{
+  "name": "cloud2ai--ai-query",
+  "displayName": "ai-query",
+  "description": "ai-query is a lightweight retrieval engine for answering questions over configured document sets and local codebases. It uses project profiles so each workspace can define its own sources, ranking str",
+  "version": "1.0.0",
+  "author": "cloud2ai",
+  "homepage": "https://github.com/cloud2ai/ai-query",
+  "skills": []
+}
