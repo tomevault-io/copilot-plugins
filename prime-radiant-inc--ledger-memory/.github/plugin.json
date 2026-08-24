@@ -1,0 +1,9 @@
+{
+  "name": "prime-radiant-inc--ledger-memory",
+  "displayName": "ledger-memory",
+  "description": "Ledger-backed persistent memory plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "prime-radiant-inc",
+  "homepage": "https://github.com/prime-radiant-inc/ledger-memory",
+  "skills": []
+}
