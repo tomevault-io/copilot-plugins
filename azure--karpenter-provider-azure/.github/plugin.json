@@ -1,0 +1,14 @@
+{
+  "name": "azure--karpenter-provider-azure",
+  "displayName": "karpenter-provider-azure",
+  "description": "karpenter-provider-azure",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/karpenter-provider-azure",
+  "skills": [
+    {
+      "name": "karpenter-provider-azure",
+      "description": ""
+    }
+  ]
+}
