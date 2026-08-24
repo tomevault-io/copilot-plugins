@@ -4,7 +4,7 @@
   "repo": "Macaros",
   "description": "Macaros packages AROS, the open-source AmigaOS-compatible operating system, as a native Apple Silicon Mac application. AROS runs as an arm64 process, presents the Wanderer desktop in a Cocoa/Metal window, and uses macOS for display, sound, networking, clipboard, and access to shared files.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonx/Macaros",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T22:23:47Z"
+  "distributed_at": "2026-08-24T22:37:35Z"
 }
