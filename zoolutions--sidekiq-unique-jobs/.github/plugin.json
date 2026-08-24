@@ -1,0 +1,14 @@
+{
+  "name": "zoolutions--sidekiq-unique-jobs",
+  "displayName": "sidekiq-unique-jobs",
+  "description": "sidekiq-unique-jobs",
+  "version": "1.0.0",
+  "author": "zoolutions",
+  "homepage": "https://github.com/zoolutions/sidekiq-unique-jobs",
+  "skills": [
+    {
+      "name": "sidekiq-unique-jobs",
+      "description": ""
+    }
+  ]
+}
