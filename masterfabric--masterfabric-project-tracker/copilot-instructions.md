@@ -1,51 +1,22 @@
-## mf-expo-ship-checklist
+## monorepo-overview
 
-> When mf-expo work is finished — i18n, API usage, CHANGELOG
+> Client repo — mf-expo (+ web/macos); GraphQL in core-base; domain via Particular
 
 
-# mf-expo — Ship checklist (i18n + API + Changelog)
+# MasterFabric Project Tracker
 
-Treat a slice of **mf-expo** work as **not finished** until the items below are done when the change affects **user-visible UI**, **GraphQL usage**, **auth/session flows**, or **navigation** that operators or release notes should know about.
+- **mf-expo**: React Native + Expo app (TypeScript) — primary mobile client
+- **mf-web** / **mf-macos**: optional web and macOS companions in this repo
 
-## 1. Review what changed
+**GraphQL platform API** lives in **masterfabric-core-base** (`mf-go`). Clients talk to it via `EXPO_PUBLIC_GRAPHQL_URL` / `EXPO_PUBLIC_DEV_GRAPHQL_URL` in repo-root `local.env` (default `http://localhost:8080/graphql`).
 
-- Inspect recent edits: `app/`, `src/screens/`, `src/shared/services/` (especially `mf-go-api.ts`, `graphql-client.ts`), hooks, store, and `packages/masterfabric-expo-core` when shared UI/helpers changed.
-- If the change is **internal-only** (refactor, types, no user-visible or API contract change), you may skip `CHANGELOG.md` unless release notes should still mention it.
+**Organization projects / todos / purchases** hop through mf-go `particularGraphqlEnvelope` to **particular-project-tracker** in **masterfabric-particulars** (particular key `EXPO_PUBLIC_MF_PROJECT_TRACKER_PARTICULAR`, default `project_tracker`).
 
-## 2. Internationalization (i18n)
+Do **not** add or maintain an in-repo `mf-go` here. Platform schema/migrations/Postman → core-base. Particular domain API → masterfabric-particulars. After backend changes, update this repo’s GraphQL usage (`mf-go-api.ts`, envelope helpers) as needed.
 
-- **User-visible strings** belong in **`mf-expo/src/shared/i18n/translations/`** — update **`en.json`** and **`tr.json`** together for the same keys.
-- Avoid hard-coded English (or Turkish-only) copy on screens users see; use `t('…')` / existing i18n helpers.
-- After adding keys, quick sanity check: switch device language (or app language) if the feature exposes it.
+mf-expo ship checklist: i18n (EN + TR), GraphQL usage, UX notes — `.cursor/rules/mf-expo-ship-checklist.mdc`.
 
-## 3. GraphQL / backend coupling
-
-- New or changed operations must be reflected in **`mf-go-api.ts`** (or explicit `graphqlRequest` / Particular envelope helpers) and match the **core-base mf-go** (and Particular) schemas the app targets.
-- If the backend added fields or operations: confirm **`EXPO_PUBLIC_GRAPHQL_URL`** / `local.env` and document any **minimum server version** in the PR description when relevant.
-- Prefer **`graphqlRequest` options** (e.g. `silent: true`) consistent with nearby calls; handle older backends only when the product explicitly supports version skew.
-
-## 4. UX / platform notes
-
-- **Destructive or irreversible flows** (delete account, sign out, data loss): confirm confirmation UI, loading/error states, and **token/session cleanup** paths.
-- **Modals / bottom sheets:** verify **small-screen height**, scroll, and safe areas; avoid clipping primary actions.
-- **Navigation:** `expo-router` routes and auth gates (`isAuthenticated`) should remain consistent after the change.
-
-## 5. Changelog
-
-- Update repo-root **`CHANGELOG.md`** for user-relevant or operator-relevant **mf-expo** changes (features, notable fixes, breaking UI).
-- Match existing style: version/date section, **`### Added` / `### Changed` / `### Fixed`**, bullet lines prefixed with **`mf-expo:`** (see current file).
-
-## 6. Paired backend work
-
-If this PR depends on **core-base mf-go** or **particular-project-tracker** schema/behavior changes, those land in the sibling repos (see `.cursor/rules/backend-ownership.mdc`). Link sibling PRs and note deploy order in the client PR description.
-
-## 7. Before the PR is merged (human copy + order)
-
-- On GitHub, align the PR description and any first comment with **`.cursor/rules/pr-reviews.mdc`**: readable maintainer voice *before* marking Ready, then follow the **Merge progression** there (ship steps → prose → ready → CI → merge). Skip the human polish only for truly internal-only diffs that skip this checklist anyway.
-
----
-
-If this rule is in context because **`mf-expo/**`** files were edited, perform steps **2–5** before ending the task when the change is **user-visible**, touches **GraphQL**, or should appear in **release notes**.
+PR conventions: `.cursor/rules/pr-reviews.mdc`.
 
 ---
 > Source: [masterfabric/masterfabric-project-tracker](https://github.com/masterfabric/masterfabric-project-tracker) — distributed by [TomeVault](https://tomevault.io).
