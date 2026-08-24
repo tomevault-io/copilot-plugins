@@ -4,7 +4,7 @@
   "repo": "Echoglossian",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/lokinmodar/Echoglossian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T07:41:05Z"
+  "distributed_at": "2026-08-24T13:05:19Z"
 }
