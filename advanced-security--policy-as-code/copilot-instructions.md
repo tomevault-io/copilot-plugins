@@ -1,46 +1,26 @@
 ## policy-as-code
 
-> This project is a Python CLI and GitHub Action policy-as-code engine and toolkit.
+> This project lints Markdown with `markdownlint-cli` (config: `--disable MD013` only; see [CONTRIBUTING.md](../../CONTRIBUTING.md)).
 
 
-This project is a Python CLI and GitHub Action policy-as-code engine and toolkit.
-It uses Python 3.10+ and Pipenv for dependency management, Black for code formatting, and unittest for testing.
+# Markdown Linting
 
-## Coding Guidelines
+This project lints Markdown with `markdownlint-cli` (config: `--disable MD013` only; see [CONTRIBUTING.md](../../CONTRIBUTING.md)).
 
-- Follow [PEP 8](https://peps.python.org/pep-0008/) style guidelines.
-- Use type hints for all function signatures.
-- Write clear, concise docstrings for all public functions and classes.
-- Use `os.path.join()` for all path concatenations.
-- Prefer f-strings for string interpolation.
-- Ensure cross-platform compatibility (Linux, macOS, Windows).
-- Avoid hardcoding paths or platform-specific logic.
-- Keep functions small and focused; prefer composition over inheritance.
+## Important: the CI check lints the whole repo, not your diff
 
-## Testing & Quality
+The `Markdown Lint` check (`.github/workflows/markdown.yml`, using `advanced-security/reusable-workflows`) only *runs* when a PR touches at least one `.md` file - but once triggered, it lints `**/*.md` across the **entire repository**, not just the files you changed. If it fails on a file you never touched, that is very likely pre-existing, unrelated debt - check the failure's file path against your diff before assuming you introduced it.
 
-- Write unit tests for all new features and bug fixes.
-- Ensure all tests pass before committing code.
-- Maintain good test coverage; aim for 90%+ where practical.
-- Use descriptive test names and keep tests isolated.
-
-**Run tests with:**
+- It is **not** currently a required status check for merging into `main` (only `run (3.10/3.11/3.12/3.13)` and `e2e-tests` are required), so pre-existing failures won't block your PR.
+- Still, always fix any violation your own change introduces.
+- Before committing Markdown changes, run the same check locally so you're not surprised by CI:
 
 ```bash
-pipenv run test
+npx --yes --ignore-scripts markdownlint-cli@0.49.1 '**/*.md' --ignore node_modules --disable MD013
 ```
 
-**Format code before committing:**
-
-```bash
-pipenv run fmt
-```
-
-## Documentation
-
-- Document all public APIs and modules with docstrings.
-- Update Sphinx documentation in `docs/` for new features or changes.
+If that reports pre-existing errors unrelated to your change, it's safe to leave them for a separate cleanup - just don't add new ones.
 
 ---
 > Source: [advanced-security/policy-as-code](https://github.com/advanced-security/policy-as-code) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
