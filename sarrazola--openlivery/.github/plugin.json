@@ -1,0 +1,9 @@
+{
+  "name": "sarrazola--openlivery",
+  "displayName": "openlivery",
+  "description": "Open-source, white-label AI agent platform for agencies to deploy and manage branded WhatsApp agents across client accounts, with human handoff, knowledge bases, custom tools, and self-hosting.",
+  "version": "1.0.0",
+  "author": "sarrazola",
+  "homepage": "https://github.com/sarrazola/openlivery",
+  "skills": []
+}
