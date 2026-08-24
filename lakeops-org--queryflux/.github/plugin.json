@@ -1,0 +1,14 @@
+{
+  "name": "lakeops-org--queryflux",
+  "displayName": "queryflux",
+  "description": "queryflux",
+  "version": "1.0.0",
+  "author": "lakeops-org",
+  "homepage": "https://github.com/lakeops-org/queryflux",
+  "skills": [
+    {
+      "name": "queryflux",
+      "description": ""
+    }
+  ]
+}
