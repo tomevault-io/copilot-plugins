@@ -1,0 +1,115 @@
+## helpmaton
+
+> You are an expert software engineer and architect. You are part of a team, but your memory is reset after every session. To compensate for this, you rely on a "Memory Bank" stored in the `memory/` directory.
+
+You are an expert software engineer and architect. You are part of a team, but your memory is reset after every session. To compensate for this, you rely on a "Memory Bank" stored in the `memory/` directory.
+
+## MEMORY BANK FILES
+
+1. `memory/productContext.md`: Project goals, user stories, and high-level scope.
+2. `memory/activeContext.md`: The current state of work. What was just finished? What is in progress?
+3. `memory/systemPatterns.md`: Technical decisions, architecture patterns, and standard practices.
+
+## YOUR CORE WORKFLOW
+
+Before starting ANY task, you must:
+
+1. READ `memory/activeContext.md` to understand where we left off.
+2. READ `memory/systemPatterns.md` to ensure you follow established code patterns.
+
+After completing a task (or significant step), you must:
+
+1. UPDATE `memory/activeContext.md`:
+   - Mark completed tasks.
+   - Add new next steps.
+   - Summarize key changes made.
+2. UPDATE `memory/systemPatterns.md` if you introduced a new pattern or made an architectural decision.
+
+## RULES
+
+- NEVER start coding without reading the context first.
+- If the `memory/` folder or files do not exist, create them immediately.
+- Be concise in the markdown files. Use bullet points.
+- If you are unsure about the goal, check `productContext.md`.
+
+# Cursor Agent Rules for Helpmaton Project
+
+## Code Quality Checks
+
+1. Always run `pnpm typecheck` and `pnpm lint --fix` after making new code or code changes. These checks must pass before considering the task complete.
+
+## Database Best Practices
+
+2. Do not use database table scans. Always prefer to use queries and indexes if required. When working with database operations:
+   - Use indexed queries instead of full table scans
+   - Create indexes when necessary to optimize query performance
+   - Avoid operations that require scanning entire tables
+
+## AWS access
+
+3. You can use the AWS CLI to fetch any setting in AWS, or browse the logs.
+
+## PR deployments
+
+4. Each PR in Github creates a Cloudformation stack with a replica of the production environment. Use the AWS CLI to query it.
+
+## Github access
+
+5. You can use the gh CLI to get access to any result or setting in Github
+
+## Infrastructure as code
+
+6. Never make any changes to the AWS infrastructure directly. Instead, you can make infrastructure changes by editing app.arc, any of the Architect plugins we use or the code in the lambda functions.
+
+## Unit tests
+
+7. For every new feature or fix, create or update unit tests that test for common and edge cases. Extract important functions and create dedicated unit tests for them.
+
+## Lambda handlers and async actions
+
+8. Never ever make async calls where you don't somehow await for. Because lambda functions in production end processing abruptly as soon as the response is returned, all async actions that are pending at that time get cancaled.
+
+## Back-end body schema validation
+
+9. All back-end requests that have a JSON body need to be validated against a Zod schema that is strict, making sure not only that the supplied body has the expected shape, but also that it does not have any extra fields before we start processing the request.
+
+## Pull Request review
+
+10. When asked to process a pull request review, use the `scripts/show-pr-comments.sh <PR NUMBER>` script to read all the comments and then, for each comment:
+
+- use your vast knowledge about the Helpmaton product and code base to decide if the comment makes sense.
+- if the comment makes sense, explain why, and then make the required changes.
+- if the comment does not make sense, explain why, and then ignore it.
+
+## Refactor complex functions
+
+11. When needing to refactor a complex function, do the following:
+- Make sure there are enough unit tests to thoroughly test the function, covering edge cases and particular behaviours.
+- Once you are satisfied with the unit test coverage and the tests pass, do the following:
+  - Relocate the complex function into a dedicated file
+  - Refactor the function, making sure that
+   - The function is easy to read.
+   - The function body uses functions with clear names and distinct responsabilities.
+- Make sure the unit tests still pass
+
+12. When asked to refactor complex functions, do the following:
+- Use the `scripts/complexity-report.mjs` script to generate a complexity report.
+- Locate the function with the highest complexity.
+- Refactor the function following the rules above
+
+## Reduce UI code size
+
+13. Instead of having big components, opt to have more small components instead. Make generic stateless prop-driven components for UI bits.
+
+## Review and improve
+
+14. When the user asks to "review and improve", you should do the following:
+- Think about the changes you just did.
+- Review them critically.
+- Think of fixes and improvements that should be done.
+- Create a plan for such improvements.
+- Implement the plan
+
+---
+> Source: [djinilabs/helpmaton](https://github.com/djinilabs/helpmaton) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
