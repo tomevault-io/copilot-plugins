@@ -1,0 +1,44 @@
+{
+  "name": "cloudwego-microservice-demo",
+  "owner": "masonsxu",
+  "repo": "cloudwego-microservice-demo",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e CloudWeGo \u751f\u6001 (Kitex + Hertz) \u6784\u5efa\u7684\uff0c\u53ef\u7528\u4e8e\u751f\u4ea7\u73af\u5883\u7684\u5fae\u670d\u52a1\u67b6\u6784 Demo\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/masonsxu/cloudwego-microservice-demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T22:33:57Z"
+}
