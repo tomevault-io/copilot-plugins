@@ -1,0 +1,9 @@
+{
+  "name": "lightconeresearch--astra-tools",
+  "displayName": "astra-tools",
+  "description": "SDK for ASTRA \u2014 Agentic Schema for Transparent Research Analysis",
+  "version": "1.0.0",
+  "author": "LightconeResearch",
+  "homepage": "https://github.com/LightconeResearch/astra-tools",
+  "skills": []
+}
