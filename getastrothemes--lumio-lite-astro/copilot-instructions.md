@@ -1,26 +1,36 @@
-## lumio-lite-astro
+## theme-architecture
 
-> Follow `AGENTS.md` for the full project instructions.
+> Read `AGENTS.md` before generating or editing code in this theme.
 
-# GitHub Copilot Instructions
 
-Follow `AGENTS.md` for the full project instructions.
+# Theme Architecture Rules
 
-This is an Astro and Tailwind CSS theme. Generate code that matches the existing theme architecture:
+Read `AGENTS.md` before generating or editing code in this theme.
 
+Core rules:
+
+- This is an Astro and Tailwind CSS theme.
 - Reuse existing components, widgets, cards, schemas, styles, and content patterns.
-- Keep editable section content in `src/content/sections/{language}/`.
-- Add or update schemas in `src/sections.schema.ts` when adding content fields.
-- For new sections, create both a `.astro` section component and a matching `.md` or `.mdx` content file.
-- Use page frontmatter named blocks for page-specific overrides.
-- Use `Button.astro`, `Icons.astro`, and `OptimizedImage.astro` for shared UI primitives.
+- Section components live in `src/layouts/components/sections/`.
+- Section content lives in `src/content/sections/{language}/`.
+- For every new section, create one `.astro` component and one `.md` or `.mdx` content file.
+- For page-specific sections, use `Section` in the component name and `-section` in the content filename.
+- Put editable copy, links, images, buttons, and options in content files.
+- Update `src/sections.schema.ts` when adding content fields.
+- Use page frontmatter named blocks for page-specific section overrides.
+- Use `Button.astro`, `Icons.astro`, and `OptimizedImage.astro` instead of rebuilding shared primitives.
 - Use nearest Tailwind theme values from `src/styles/theme.css`.
 - Avoid Tailwind arbitrary values.
+- Check `base.css`, `components.css`, and `safe.css` before adding new CSS or duplicated utility classes.
 - Do not add heading classes already covered by `base.css`, including default font weight, tracking, leading, or wrapping classes.
-- Prefer static rendering and avoid unnecessary client JavaScript.
-- Keep reusable content generic for a shippable theme.
+- Keep imports clean. Do not add unused wrappers, unused JS, or duplicate abstractions.
+- Prefer static rendering. Add client JavaScript only for required interaction.
+- Keep copy generic for a shippable theme; avoid hardcoded brand names in reusable section content.
 
-Run `npm run astro-check` after code or schema changes. Run `npm run build` for broad content, route, or asset changes.
+Before finishing:
+
+- Run `npm run astro-check` after code or schema changes.
+- Run `npm run build` for broad changes that affect routing, content collections, or assets.
 
 ---
 > Source: [getastrothemes/lumio-lite-astro](https://github.com/getastrothemes/lumio-lite-astro) — distributed by [TomeVault](https://tomevault.io).
