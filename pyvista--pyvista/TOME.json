@@ -1,0 +1,75 @@
+{
+  "name": "pyvista",
+  "owner": "pyvista",
+  "repo": "pyvista",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pyvista",
+      "path": ".claude/skills/pyvista-pr/SKILL.md",
+      "github_url": "https://github.com/pyvista/pyvista/tree/main/.claude/skills/pyvista-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyvista",
+      "path": ".claude/skills/pyvista-dev/SKILL.md",
+      "github_url": "https://github.com/pyvista/pyvista/tree/main/.claude/skills/pyvista-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyvista",
+      "path": ".claude/skills/pyvista-vtk/SKILL.md",
+      "github_url": "https://github.com/pyvista/pyvista/tree/main/.claude/skills/pyvista-vtk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyvista",
+      "path": ".claude/skills/pyvista-review/SKILL.md",
+      "github_url": "https://github.com/pyvista/pyvista/tree/main/.claude/skills/pyvista-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyvista",
+      "path": ".claude/skills/pyvista-testing/SKILL.md",
+      "github_url": "https://github.com/pyvista/pyvista/tree/main/.claude/skills/pyvista-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pyvista/pyvista",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:19:54Z"
+}
