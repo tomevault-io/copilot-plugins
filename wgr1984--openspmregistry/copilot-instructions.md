@@ -1,94 +1,67 @@
-## golang-standards
+## spm-registry-spec
 
-> Golang Standards and Best Practices
+> Standards for using the SPM-Registry-Spec.md as the authoritative reference for API implementation.
 
-# Golang Standards and Best Practices
+# SPM Registry Specification Reference
 
-Standards for writing Go code with emphasis on using standard library features and minimal dependencies.
+Standards for using the SPM-Registry-Spec.md as the authoritative reference for API implementation.
 
 <rule>
-name: golang_standards
-description: Standards for writing idiomatic Go code using standard library features
+name: spm_registry_spec_reference
+description: Use SPM-Registry-Spec.md as the authoritative reference for implementing API endpoints
 
 filters:
-  # Match Go files
+  # Match Go files that might contain API implementations
   - type: file_extension
     pattern: "\\.go$"
-  # Match import statements
+  # Match files that look like they contain HTTP handlers or API code
   - type: content
-    pattern: "^\\s*import\\s*\\("
+    pattern: "(http\\.HandlerFunc|gin\\.HandlerFunc|func.*\\(.*http\\..*\\))"
 
 actions:
   - type: suggest
     message: |
-      When writing Go code:
+      When implementing API endpoints:
 
-      1. Prefer standard library packages over external dependencies:
-         ```go
-         // Preferred: Using net/http
-         import "net/http"
+      1. ALWAYS consult SPM-Registry-Spec.md for:
+         - Exact endpoint paths and methods
+         - Required request/response headers
+         - Response status codes and their conditions
+         - Response body formats and required fields
+         - Error handling requirements
 
-         // Avoid when possible: Using external HTTP libraries
-         import "github.com/external/http-lib"
-         ```
+      2. For any ambiguity or uncertainty about:
+         - Request handling
+         - Response formatting
+         - Header requirements
+         - Status code usage
+         - Error scenarios
+         REFER TO the corresponding section in SPM-Registry-Spec.md
 
-      2. Use latest Go features and patterns:
-         - Use Go 1.22+ features where applicable
-         - Utilize built-in generics (Go 1.18+)
-         - Use structured logging with slog (Go 1.21+)
-         - Implement context.Context for cancellation
-         - Use error wrapping (Go 1.13+)
+      3. The specification in SPM-Registry-Spec.md takes precedence over:
+         - Common HTTP practices
+         - Framework defaults
+         - Similar implementations in other systems
+         - Personal preferences
 
-      3. HTTP Server Guidelines:
-         - Use net/http for HTTP servers
-         - Use http.ServeMux for routing
-         - Use http.Client for HTTP clients
-         - Use context for timeouts and cancellation
-
-      4. Common Standard Libraries to Prefer:
-         - net/http: HTTP client/server
-         - encoding/json: JSON handling
-         - html/template: HTML templating
-         - database/sql: Database access
-         - crypto/*: Cryptographic operations
-         - log/slog: Structured logging
-         - context: Context handling
-         - sync: Synchronization primitives
-         - time: Time handling
-         - errors: Error handling
-
-      5. Testing:
-         - Use testing package
-         - Use httptest for HTTP testing
-         - Use testing/quick for property testing
-         - Use go test -race for race detection
-
-      6. Linting:
-         - Run project lint before committing or after any change: make lint
-         - Lint runs staticcheck, golangci-lint, and errcheck (see Makefile)
+      4. When reviewing or modifying API code:
+         - Verify compliance with SPM-Registry-Spec.md
+         - Update implementation if it deviates from the spec
+         - Add comments referencing relevant spec sections
 
 examples:
   - input: |
-      # Bad: Using external HTTP library
-      import (
-          "github.com/gin-gonic/gin"
-      )
+      // Bad: Implementing without consulting spec
+      func handlePackageList(w http.ResponseWriter, r *http.Request) {
+          // Assumptions about response format
+      }
 
-      # Good: Using standard library
-      import (
-          "net/http"
-          "html/template"
-          "encoding/json"
-      )
-    output: "Using standard library packages"
-
-  - input: |
-      # Bad: Old style logging
-      log.Printf("error: %v", err)
-
-      # Good: Using structured logging
-      slog.Error("operation failed", "err", err)
-    output: "Using modern Go features"
+      // Good: Implementation following spec section 4.1
+      func handlePackageList(w http.ResponseWriter, r *http.Request) {
+          // See SPM-Registry-Spec.md section 4.1 "List package releases"
+          // for response format and requirements
+      }
+    output: "Implementation with spec reference"
 
 metadata:
   priority: high
