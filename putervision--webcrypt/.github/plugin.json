@@ -1,0 +1,9 @@
+{
+  "name": "putervision--webcrypt",
+  "displayName": "WebCrypt",
+  "description": "Zero-dependency Web Crypto suite & Model Context Protocol (MCP) server for AES-256-GCM, RSA-4096, and AI agent security.",
+  "version": "1.0.0",
+  "author": "putervision",
+  "homepage": "https://github.com/putervision/WebCrypt",
+  "skills": []
+}
