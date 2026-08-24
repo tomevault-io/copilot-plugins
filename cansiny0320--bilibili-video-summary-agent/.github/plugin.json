@@ -1,0 +1,9 @@
+{
+  "name": "cansiny0320--bilibili-video-summary-agent",
+  "displayName": "bilibili-video-summary-agent",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e LLM \u7684 Bilibili \u89c6\u9891\u603b\u7ed3\u547d\u4ee4\u884c\u5de5\u5177\u3002CLI tool to summarize Bilibili videos via subtitles or audio transcription using LLMs.",
+  "version": "1.0.0",
+  "author": "Cansiny0320",
+  "homepage": "https://github.com/Cansiny0320/bilibili-video-summary-agent",
+  "skills": []
+}
