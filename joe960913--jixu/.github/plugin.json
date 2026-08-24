@@ -1,0 +1,9 @@
+{
+  "name": "joe960913--jixu",
+  "displayName": "Jixu",
+  "description": "A durable single-Agent Harness for TypeScript with recoverable Threads, explicit side-effect boundaries, and a native terminal UI.",
+  "version": "1.0.0",
+  "author": "joe960913",
+  "homepage": "https://github.com/joe960913/Jixu",
+  "skills": []
+}
