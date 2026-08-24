@@ -1,0 +1,63 @@
+{
+  "name": "arcjet-js",
+  "owner": "arcjet",
+  "repo": "arcjet-js",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arcjet-js",
+      "path": "arcjet-guard/skills/integrate-arcjet-guard-eve/SKILL.md",
+      "github_url": "https://github.com/arcjet/arcjet-js/tree/main/arcjet-guard/skills/integrate-arcjet-guard-eve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arcjet-js",
+      "path": "arcjet-guard/skills/integrate-arcjet-guard-agents/SKILL.md",
+      "github_url": "https://github.com/arcjet/arcjet-js/tree/main/arcjet-guard/skills/integrate-arcjet-guard-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arcjet-js",
+      "path": "arcjet-guard/skills/integrate-arcjet-guard-mastra/SKILL.md",
+      "github_url": "https://github.com/arcjet/arcjet-js/tree/main/arcjet-guard/skills/integrate-arcjet-guard-mastra/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/arcjet/arcjet-js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:15:01Z"
+}
