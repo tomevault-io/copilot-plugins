@@ -1,0 +1,17 @@
+## project
+
+> 这是一个 Nextjs16 的项目，使用 App Router。
+
+
+这是一个 Nextjs16 的项目，使用 App Router。
+使用 shadcn/ui 作为组件库，基础组件库是 base-ui。
+使用 drizzle-orm 作为数据库。
+使用 better-auth 作为认证。
+使用 vercel 的 ai sdk v6 作为 Agent SDK。
+不要修改 `src/components/ui` 和 `src/components/ai-elements` 目录下的文件。
+
+*如果遇到不确定的库相关的问题，请使用 context7 的 mcp 来解决。*
+
+---
+> Source: [tuntun0609/infographic-ai](https://github.com/tuntun0609/infographic-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
