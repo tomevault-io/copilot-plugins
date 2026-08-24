@@ -1,38 +1,49 @@
-## python-tools
+## rust-crypto
 
-> Python tooling rules
+> Rust cryptography security rules
 
 
-# Python Tooling Rules
+# Rust Cryptography Rules
 
-## Purpose
+## Security Requirements
 
-Python scripts generate hints for Cairo MSM operations.
-They are NOT part of the production system.
+- All `Scalar` types MUST derive `Zeroize, ZeroizeOnDrop`
+- All hash functions MUST have domain separation prefix
+- All public functions MUST validate inputs (check != 0)
+- NEVER use `format!("{:?}", secret)` or similar debug output for secrets
 
-## Key Scripts
+## Required Imports
 
-- `generate_hints_exact.py` - MSM hints with Garaga decompression
-- `hex_to_cairo_u256.py` - Convert hex to Cairo format
-- `verify_full_compatibility.py` - Cross-platform verification
-
-## Dependencies
-
-```bash
-cd tools && uv sync  # Use uv for dependency management
+```rust
+use zeroize::{Zeroize, ZeroizeOnDrop};
+use curve25519_dalek::scalar::Scalar;
+use curve25519_dalek::constants::ED25519_BASEPOINT_POINT;
 ```
 
-## Garaga Integration
+## Nonce Generation Pattern
 
-```python
-from garaga.definitions import G1Point, CurveID
-from garaga.hints import get_msm_hint
+```rust
+fn generate_nonce(secret: &Scalar, context: &[u8]) -> Result<Scalar, DleqError> {
+    let mut hasher = Sha256::new();
+    hasher.update(b"DOMAIN_PREFIX_V1");  // REQUIRED
+    hasher.update(secret.to_bytes());
+    hasher.update(context);
+    // ... validate result != 0
+    // ... retry if zero
+}
 ```
 
-## Output Format
+## Error Handling
 
-- All hints output as JSON
-- Match exact format expected by Cairo tests
+- Return `Result<T, CryptoError>` not `T`
+- Define explicit error types for crypto failures
+- Never panic on invalid inputs, return errors
+
+## Testing
+
+- Use proptest for property-based tests
+- Test edge cases: zero, max scalar, identity point
+- Test input validation: wrong points, wrong hashlocks
 
 ---
 > Source: [omarespejel/monero-starknet-atomic-swap](https://github.com/omarespejel/monero-starknet-atomic-swap) — distributed by [TomeVault](https://tomevault.io).
