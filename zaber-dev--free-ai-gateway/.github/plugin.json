@@ -1,0 +1,9 @@
+{
+  "name": "zaber-dev--free-ai-gateway",
+  "displayName": "free-ai-gateway",
+  "description": "Enterprise-grade capability-driven AI routing engine, proxy gateway, MCP server, developer CLI, and agentic skills aggregator for 19+ free-tier AI providers.",
+  "version": "1.0.0",
+  "author": "zaber-dev",
+  "homepage": "https://github.com/zaber-dev/free-ai-gateway",
+  "skills": []
+}
