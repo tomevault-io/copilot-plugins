@@ -1,0 +1,44 @@
+{
+  "name": "psd-to-figma",
+  "owner": "4NaNBo1",
+  "repo": "psd-to-figma",
+  "description": "\u6b22\u8fce Star\uff01\u4e00\u4e2a\u9ad8\u8d28\u91cf\u7684\u7528\u4e8e\u5feb\u901f\u5728 Figma / MasterGo \u548c PSD \u4e4b\u95f4\u4e92\u8f6c\u7684\u672c\u5730\u63d2\u4ef6\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/4NaNBo1/psd-to-figma",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T20:07:40Z"
+}
