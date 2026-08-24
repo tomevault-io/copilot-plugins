@@ -1,0 +1,26 @@
+{
+  "name": "nibzard--scribe",
+  "displayName": "scribe",
+  "description": "Distraction-Free Writing firmware for the M5stack ESP32 based Tab5 device",
+  "version": "1.0.0",
+  "author": "nibzard",
+  "homepage": "https://github.com/nibzard/scribe",
+  "skills": [
+    {
+      "name": "doc-maintainer",
+      "description": ""
+    },
+    {
+      "name": "feature-workflow",
+      "description": ""
+    },
+    {
+      "name": "release-runbook",
+      "description": ""
+    },
+    {
+      "name": "todo-github",
+      "description": ""
+    }
+  ]
+}
