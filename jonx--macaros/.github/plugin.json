@@ -1,0 +1,9 @@
+{
+  "name": "jonx--macaros",
+  "displayName": "Macaros",
+  "description": "Macaros packages AROS, the open-source AmigaOS-compatible operating system, as a native Apple Silicon Mac application. AROS runs as an arm64 process, presents the Wanderer desktop in a Cocoa/Metal win",
+  "version": "1.0.0",
+  "author": "jonx",
+  "homepage": "https://github.com/jonx/Macaros",
+  "skills": []
+}
