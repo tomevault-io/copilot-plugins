@@ -1,0 +1,9 @@
+{
+  "name": "johanneskonings--tanstack-aws",
+  "displayName": "tanstack-aws",
+  "description": "TanStack examples with AWS provisioned with CDK",
+  "version": "1.0.0",
+  "author": "JohannesKonings",
+  "homepage": "https://github.com/JohannesKonings/tanstack-aws",
+  "skills": []
+}
