@@ -1,0 +1,9 @@
+{
+  "name": "openadaptai--openadapt-capture",
+  "displayName": "openadapt-capture",
+  "description": "Canonical native screen, mouse, keyboard, timing, window-scoping, and media-capture component for OpenAdapt Desktop and Flow.",
+  "version": "1.0.0",
+  "author": "OpenAdaptAI",
+  "homepage": "https://github.com/OpenAdaptAI/openadapt-capture",
+  "skills": []
+}
