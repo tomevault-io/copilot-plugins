@@ -1,7 +1,7 @@
 {
   "name": "andmarios--google-workspace-skill",
   "displayName": "google-workspace-skill",
-  "description": "google-workspace-skill",
+  "description": "Claude Code skill for Google Workspace management (drive, docs, sheets, slides, gmail, calendar, contacts)",
   "version": "1.0.0",
   "author": "andmarios",
   "homepage": "https://github.com/andmarios/google-workspace-skill",
