@@ -1,16 +1,19 @@
-## agent-no-git-commits
+## backend-ownership
 
-> Agents must not create git commits or remotes unless the user explicitly asks
+> Backend work belongs in sibling repos — not here
 
 
-# Git — agent boundaries
+# Backend ownership (out of this repo)
 
-- **Do not run `git commit`** (and do not create commits via any tool) **unless the user explicitly asks** for a commit in that message.
-- **Do not add, change, or remove `git remote`** (e.g. `origin`) **unless the user explicitly asks**.
-- **Do not run `git push`**, **`git pull`**, **`git fetch`**, **`git rebase`**, **`git merge`**, or **history-rewriting** commands (`reset --hard`, `rebase`, `filter-repo`, deleting `.git`) **unless the user explicitly asks**.
-- It is fine to run **read-only** git commands when needed (`git status`, `git diff`, `git log`, `git remote -v`).
+This repository is **clients only** (mf-expo, mf-web, mf-macos). There is no local `mf-go/`.
 
-When the user wants history or remotes changed, **state what you will do and wait for explicit confirmation** if there is any risk of data loss.
+| Change type | Where to work |
+|-------------|----------------|
+| Platform GraphQL (auth, user, settings, orgs, personal todos, Particular hop, Postman, migrations) | **masterfabric-core-base** (`mf-go/`) — follow that repo’s ship checklist and changelog |
+| Org project / todo / purchase domain API | **masterfabric-particulars** (`particular-project-tracker/`) |
+| Mobile / web / macOS UI and client GraphQL calls | **this repo** |
+
+When a client PR depends on a backend change, note the sibling PR and deploy order (API / Particular first vs compatible client fallbacks) in the PR description. Do not invent an in-tree backend or duplicate Postman/migrations here.
 
 ---
 > Source: [masterfabric/masterfabric-project-tracker](https://github.com/masterfabric/masterfabric-project-tracker) — distributed by [TomeVault](https://tomevault.io).
