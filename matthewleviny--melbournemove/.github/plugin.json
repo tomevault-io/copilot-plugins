@@ -1,0 +1,9 @@
+{
+  "name": "matthewleviny--melbournemove",
+  "displayName": "MelbourneMove",
+  "description": "Real-time interactive map of Melbourne's public transport network. Live tracking of metro trains, V/Line services, and trams using PTV GTFS-Realtime data, displayed on a dark-themed MapLibre GL   map ",
+  "version": "1.0.0",
+  "author": "MatthewLeviny",
+  "homepage": "https://github.com/MatthewLeviny/MelbourneMove",
+  "skills": []
+}
