@@ -1,22 +1,40 @@
-## scientific-fa-translation
+## scientific-fa-translation-skill
 
-> Load scientific Persian translation skill for papers, RTL, and PDFs.
+> This repository is a single Cursor skill. `SKILL.md` is at the clone
 
+# scientific-fa-translation-skill
 
-Routing only. The policy lives in the skill; do not restate it here, so
-there is one place to change it.
+This repository is a single Cursor skill. `SKILL.md` is at the clone
+root so it is discoverable when cloned into `/home/$USER/.cursor/skills`:
 
-If the user asks to translate a scientific document, article, book, or
-technical docs into Persian, or mentions ترجمه علمی, RTL, راست‌چین, PDF, or
-چاپ, read `SKILL.md` and follow it. Do not wait for a slash command. If
-the user asks whether a finished Persian translation follows the rules,
-that is the same skill's review mode.
+```text
+/home/$USER/.cursor/skills/scientific-fa-translation-skill/SKILL.md
+```
 
-Cursor chat is not the RTL surface: write a PDF to `/home/$USER/Documents/books` and
-keep chat to a short pointer.
+Cursor only looks one level deep. Do not nest this clone under another
+folder inside `/home/$USER/.cursor/skills`, and do not clone it *as*
+`/home/$USER/.cursor/skills` itself.
 
-Skip this for coding, commits, UI copy, literary translation, and casual
-Persian chat.
+When the user wants to translate a paper, article, book, or technical
+document into scientific Persian — or asks for RTL, چاپ, or a PDF, or
+asks whether a finished Persian translation follows the rules — read and
+follow `SKILL.md` before producing output. Do this even if
+`/scientific-fa-translation-skill` is missing from the slash menu.
+
+Do not use that skill for coding, commits, UI copy, or casual chat.
+
+## Working on the skill itself
+
+- The terminology policy has one owner: `references/terminology.md`.
+  Lists live in `glossary.md` and `glossary-domains.md`; forbidden
+  Persian calques live in `references/term-pairs.tsv`. Do not restate
+  the policy in a second file.
+- A new rule that a machine could check belongs in `scripts/check-fa.py`
+  with a fixture in `tests/fixtures/`, not only in prose. Run
+  `bash tests/run.sh` after touching the checker or a fixture. Pass
+  `--level journal` when the fixture is a paper, not a sysadmin guide.
+- Keep `SKILL.md` short. It is loaded in full whenever the skill
+  triggers; detail belongs in `references/`.
 
 ---
 > Source: [isArman/scientific-fa-translation-skill](https://github.com/isArman/scientific-fa-translation-skill) — distributed by [TomeVault](https://tomevault.io).
