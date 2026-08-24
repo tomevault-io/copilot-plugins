@@ -1,0 +1,44 @@
+{
+  "name": "minibots-2026",
+  "owner": "Saint-Francis-Robotics-Team2367",
+  "repo": "minibots-2026",
+  "description": "A repository to hold the codebase for all endpoints of MiniBots",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Saint-Francis-Robotics-Team2367/minibots-2026",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T23:38:25Z"
+}
