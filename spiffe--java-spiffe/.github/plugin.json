@@ -1,0 +1,9 @@
+{
+  "name": "spiffe--java-spiffe",
+  "displayName": "java-spiffe",
+  "description": "java-spiffe",
+  "version": "1.0.0",
+  "author": "spiffe",
+  "homepage": "https://github.com/spiffe/java-spiffe",
+  "skills": []
+}
