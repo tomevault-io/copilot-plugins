@@ -1,0 +1,9 @@
+{
+  "name": "benchbox-dev--benchbox",
+  "displayName": "BenchBox",
+  "description": "BenchBox is a \"benchmarking toolbox\" that makes it simple to benchmark analyitic (OLAP) data tools.",
+  "version": "1.0.0",
+  "author": "BenchBox-dev",
+  "homepage": "https://github.com/BenchBox-dev/BenchBox",
+  "skills": []
+}
