@@ -1,0 +1,645 @@
+{
+  "name": "skills",
+  "owner": "google",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "alloydb-basics",
+      "path": "skills/cloud/alloydb-basics",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/alloydb-basics",
+      "description": ""
+    },
+    {
+      "name": "bigquery-basics",
+      "path": "skills/cloud/bigquery-basics",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/bigquery-basics",
+      "description": ""
+    },
+    {
+      "name": "cloud-run-basics",
+      "path": "skills/cloud/cloud-run-basics",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/cloud-run-basics",
+      "description": ""
+    },
+    {
+      "name": "cloud-sql-basics",
+      "path": "skills/cloud/cloud-sql-basics",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/cloud-sql-basics",
+      "description": ""
+    },
+    {
+      "name": "firebase-basics",
+      "path": "skills/cloud/firebase-basics",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/firebase-basics",
+      "description": ""
+    },
+    {
+      "name": "gemini-api",
+      "path": "skills/cloud/gemini-api",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gemini-api",
+      "description": ""
+    },
+    {
+      "name": "gke-basics",
+      "path": "skills/cloud/gke-basics",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-basics",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-networking-observability",
+      "path": "skills/cloud/google-cloud-networking-observability",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-networking-observability",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-recipe-auth",
+      "path": "skills/cloud/google-cloud-recipe-auth",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-auth",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-recipe-onboarding",
+      "path": "skills/cloud/google-cloud-recipe-onboarding",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-onboarding",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-waf-cost-optimization",
+      "path": "skills/cloud/google-cloud-waf-cost-optimization",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-cost-optimization",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-waf-reliability",
+      "path": "skills/cloud/google-cloud-waf-reliability",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-reliability",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gcloud/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gcloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gemini-api/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gemini-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/alloydb-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/alloydb-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/firebase-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/firebase-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/bigquery-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/bigquery-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/cloud-run-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/cloud-run-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/cloud-sql-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/cloud-sql-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gemini-agents-api/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gemini-agents-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-tuning/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-deploy/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gemini-interactions-api/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gemini-interactions-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/workload-manager-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/workload-manager-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-recipe-auth/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-inference/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-eval-flywheel/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-eval-flywheel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-waf-reliability/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-reliability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-model-registry/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-model-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-skill-registry/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-skill-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-recipe-onboarding/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-waf-sustainability/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-sustainability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-prompt-management/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-prompt-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-tuning-management/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-tuning-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-endpoint-management/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-endpoint-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-waf-cost-optimization/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-cost-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-rag-engine-management/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-rag-engine-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-migrate-from-ai-studio/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-migrate-from-ai-studio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-networking-observability/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-networking-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-waf-operational-excellence/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-operational-excellence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-waf-performance-optimization/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-waf-performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-upgrades/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-upgrades/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/bigquery-ai-ml/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/bigquery-ai-ml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/bigtable-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/bigtable-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-storage/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/ima-sdk-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/ima-sdk-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-inference/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-batch-hpc/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-batch-hpc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-backup-dr/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-backup-dr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-networking/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gemini-live-api/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gemini-live-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-reliability/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-reliability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-golden-path/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-golden-path/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-multitenancy/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-multitenancy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-productionize/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-productionize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-observability/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-cost-analysis/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-cost-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-app-onboarding/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-app-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/bigquery-bigframes/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/bigquery-bigframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-compute-classes/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-compute-classes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/datalineage-summary/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/datalineage-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-cluster-creation/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-cluster-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-workload-scaling/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-workload-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/data-manager-api-setup/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/data-manager-api-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-cost-optimization/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-cost-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-workload-security/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-workload-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-platform-security/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-platform-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-ads-api-mcp-setup/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-ads-api-mcp-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-service-networking/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-service-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-cluster-autoscaler/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-cluster-autoscaler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-mobile-ads-banner/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-banner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-ads-api-quickstart/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-ads-api-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-mobile-ads-rewarded/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-rewarded/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-mobile-ads-get-started/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-get-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-agents-cli-onboarding/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-agents-cli-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-mobile-ads-interstitial/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-interstitial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/data-manager-api-event-ingestion/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/data-manager-api-event-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/cloud-logging-query-generation/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/cloud-logging-query-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/data-manager-api-audience-ingestion/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/data-manager-api-audience-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/cloud-monitoring-metric-selection/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/cloud-monitoring-metric-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/agent-platform-alert-configuration/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/agent-platform-alert-configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-architecture/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/analytics/google-analytics-data-api-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/analytics/google-analytics-data-api-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/analytics/google-analytics-admin-api-basics/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/analytics/google-analytics-admin-api-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-recipe-foundation-builder/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-recipe-foundation-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/detection-engineering-coverage-evaluation/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/detection-engineering-coverage-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-build-deploy-agents/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-build-deploy-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/datalineage-bigquery-asset-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/datalineage-bigquery-asset-impact-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-global-frontend-configuration/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-global-frontend-configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/ads/google-mobile-ads-android-migrate-to-next-gen/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/ads/google-mobile-ads-android-migrate-to-next-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-guided-gke-ai-migration/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-guided-gke-ai-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-n-tier-serverless-web-app/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-n-tier-serverless-web-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/gke-ai-troubleshooting-handle-disruption-gpu-tpu/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/gke-ai-troubleshooting-handle-disruption-gpu-tpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-rag-enterprise-search-gke-sqldb/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-rag-enterprise-search-gke-sqldb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-agentic-ai-data-science-workflow/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-ai-data-science-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-agentic-ai-bidirectional-streaming/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-ai-bidirectional-streaming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-agentic-ai-borderless-data-lakehouse/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-ai-borderless-data-lakehouse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cloud/google-cloud-solution-agentic-analytics-spark-knowledge-catalog/SKILL.md",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-solution-agentic-analytics-spark-knowledge-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-slo-alert-configuration",
+      "path": "skills/cloud/google-cloud-slo-alert-configuration",
+      "github_url": "https://github.com/google/skills/tree/main/skills/cloud/google-cloud-slo-alert-configuration",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T12:51:38Z"
+}
