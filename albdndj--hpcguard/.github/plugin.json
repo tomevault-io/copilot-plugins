@@ -1,0 +1,9 @@
+{
+  "name": "albdndj--hpcguard",
+  "displayName": "hpcguard",
+  "description": "A user-space safety net that helps researchers prevent AI agents from overloading shared HPC login nodes.",
+  "version": "1.0.0",
+  "author": "ALBDNDJ",
+  "homepage": "https://github.com/ALBDNDJ/hpcguard",
+  "skills": []
+}
