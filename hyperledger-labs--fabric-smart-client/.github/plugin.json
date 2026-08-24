@@ -1,0 +1,9 @@
+{
+  "name": "hyperledger-labs--fabric-smart-client",
+  "displayName": "fabric-smart-client",
+  "description": "fabric-smart-client",
+  "version": "1.0.0",
+  "author": "hyperledger-labs",
+  "homepage": "https://github.com/hyperledger-labs/fabric-smart-client",
+  "skills": []
+}
