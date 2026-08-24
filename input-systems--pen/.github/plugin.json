@@ -1,0 +1,9 @@
+{
+  "name": "input-systems--pen",
+  "displayName": "pen",
+  "description": "Rich text editor for AI and human collaboration. Headless. Extendable.",
+  "version": "1.0.0",
+  "author": "input-systems",
+  "homepage": "https://github.com/input-systems/pen",
+  "skills": []
+}
