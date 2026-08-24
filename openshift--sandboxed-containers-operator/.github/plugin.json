@@ -1,0 +1,14 @@
+{
+  "name": "openshift--sandboxed-containers-operator",
+  "displayName": "sandboxed-containers-operator",
+  "description": "sandboxed-containers-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/sandboxed-containers-operator",
+  "skills": [
+    {
+      "name": "sandboxed-containers-operator",
+      "description": ""
+    }
+  ]
+}
