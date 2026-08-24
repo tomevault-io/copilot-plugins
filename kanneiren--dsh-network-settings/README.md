@@ -1,0 +1,26 @@
+# dsh-network-settings
+
+> Tome by [kanneiren](https://github.com/kanneiren/dsh-network-settings), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+DSH网络设置插件 | DeepSeek Harness network diagnostics, proxy detection and repair for Windows/WSL/MacOS
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [kanneiren/dsh-network-settings](https://github.com/kanneiren/dsh-network-settings).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [kanneiren/dsh-network-settings](https://github.com/kanneiren/dsh-network-settings) — a repo with 9+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:t-e-s -->
