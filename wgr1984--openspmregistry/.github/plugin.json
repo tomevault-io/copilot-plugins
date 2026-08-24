@@ -1,9 +1,9 @@
 {
   "name": "wgr1984--openspmregistry",
   "displayName": "openspmregistry",
-  "description": "openspmregistry",
+  "description": "A reference implementation of Swift Package Manager Registry in Golang",
   "version": "1.0.0",
   "author": "wgr1984",
-  "homepage": "https://tomevault.io/claim/wgr1984",
+  "homepage": "https://github.com/wgr1984/openspmregistry",
   "skills": []
 }
