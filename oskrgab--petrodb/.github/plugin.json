@@ -1,0 +1,9 @@
+{
+  "name": "oskrgab--petrodb",
+  "displayName": "petrodb",
+  "description": "Repository of public Oil & Gas datasets in parquet format",
+  "version": "1.0.0",
+  "author": "oskrgab",
+  "homepage": "https://github.com/oskrgab/petrodb",
+  "skills": []
+}
