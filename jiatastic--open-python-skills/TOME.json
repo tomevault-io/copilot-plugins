@@ -1,0 +1,87 @@
+{
+  "name": "open-python-skills",
+  "owner": "jiatastic",
+  "repo": "open-python-skills",
+  "description": "AI skill sets that provides intelligence for building solid Python backends across multiple platforms and frameworks.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "excalidraw-ai",
+      "path": "skills/excalidraw-ai",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/excalidraw-ai",
+      "description": ""
+    },
+    {
+      "name": "logfire",
+      "path": "skills/logfire",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/logfire",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "path": "skills/commit-message",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/commit-message",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "path": "skills/error-handling",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/error-handling",
+      "description": ""
+    },
+    {
+      "name": "ruff-linter",
+      "path": "skills/ruff-linter",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/ruff-linter",
+      "description": ""
+    },
+    {
+      "name": "fastapi-design",
+      "path": "skills/fastapi-design",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/fastapi-design",
+      "description": ""
+    },
+    {
+      "name": "ty-skills",
+      "path": "skills/ty-skills",
+      "github_url": "https://github.com/jiatastic/open-python-skills/tree/main/skills/ty-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jiatastic/open-python-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T12:45:20Z"
+}
