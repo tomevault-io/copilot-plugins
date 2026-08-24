@@ -1,0 +1,9 @@
+{
+  "name": "kanneiren--dsh-network-settings",
+  "displayName": "dsh-network-settings",
+  "description": "DSH\u7f51\u7edc\u8bbe\u7f6e\u63d2\u4ef6 | DeepSeek Harness network diagnostics, proxy detection and repair for Windows/WSL/MacOS",
+  "version": "1.0.0",
+  "author": "kanneiren",
+  "homepage": "https://github.com/kanneiren/dsh-network-settings",
+  "skills": []
+}
