@@ -1,0 +1,9 @@
+{
+  "name": "eurus7895--musubi",
+  "displayName": "Musubi",
+  "description": "CopilotHarness is a pure Python MCP server that acts as the harness layer for GitHub Copilot's multi-agent team \u2014 it controls what each agent sees, validates what each agent produces, enforces the cor",
+  "version": "1.0.0",
+  "author": "Eurus7895",
+  "homepage": "https://github.com/Eurus7895/Musubi",
+  "skills": []
+}
