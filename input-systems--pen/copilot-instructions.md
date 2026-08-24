@@ -1,24 +1,16 @@
-## pen-core-engineering
+## pen-extension-resilience
 
-> Core engineering rules for consistent Pen OSS contributions
+> Extension isolation and resilience for extension package work
 
 
-# Core Engineering Rules
+# Extension Resilience
 
-- Keep Pen headless and extension-first: implement behavior/state, not opinionated styling.
-- Preserve the architecture split: schema/data, headless behavior, rendering UI.
-- Respect package boundaries:
-  - `@pen/types` for contracts and lightweight helpers.
-  - `@pen/core` for runtime editor behavior.
-- Code against stable interfaces/adapters; avoid coupling shared code to concrete framework or CRDT internals.
-- Use `editor.apply(ops, { origin })` as the canonical mutation path, and do not bypass the pipeline for document writes.
-- Set operation origin intentionally (`user`, `ai`, `collaborator`, `input-rule`, etc.) so undo/hooks/diagnostics stay correct.
-- Keep `onBeforeApply` transforms bounded and deterministic; use them for auth/suggest/input-rule transformations only.
-- Prefer non-fatal behavior in runtime paths: drop invalid mutations with diagnostics rather than crashing editor sessions.
-- Keep normalization incremental and idempotent (dirty-block focused; repeated passes should not introduce new changes).
-- For document-wide features (export/search/history), traverse all blocks including nested/layout children.
-- Prefer consistency with existing local patterns over introducing new abstractions.
-- Keep public API and package exports stable unless the task explicitly requires API change.
+- Keep extensions isolated: one failing extension must not break core editor behavior.
+- Prefer diagnostics and graceful degradation over throwing from extension hooks.
+- Treat `observe()` and `decorations()` as best-effort hooks; guard unsafe assumptions.
+- Keep extension state explicit and namespaced; avoid hidden cross-extension coupling.
+- Preserve schema validation at boundaries: reject or sanitize malformed extension/tool payloads before writes.
+- For AI/collab/streaming flows, favor recoverable behavior (abort/cleanup/retry path) over hard failure.
 
 ---
 > Source: [input-systems/pen](https://github.com/input-systems/pen) — distributed by [TomeVault](https://tomevault.io).
