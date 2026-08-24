@@ -1,50 +1,83 @@
 ## agentkit
 
-> AI Interview Preparation Agent helps candidates prepare for technical interviews by analyzing a candidate's resume against a target job description.
+> AccessLens is a security analysis agent that detects permission drift by comparing two explicit sources of truth:
 
-# AI Interview Preparation Agent
+# AccessLens — Permission Drift Auditor
 
 ## Overview
 
-AI Interview Preparation Agent helps candidates prepare for technical interviews by analyzing a candidate's resume against a target job description.
+AccessLens is a security analysis agent that detects permission drift by comparing two explicit sources of truth:
 
-The agent identifies strengths, skill gaps, and generates personalized interview questions with ideal answer guidance.
+1. **Intended Policy** — the permissions that should exist.
+2. **Current Access** — the permissions that currently exist.
 
-## Inputs
+It identifies meaningful differences between these states and produces an evidence-based permission audit containing:
 
-* Candidate Resume
-* Job Description
+- Drift findings
+- Drift categories
+- Risk levels
+- Evidence for each finding
+- Recommended remediation
+- Coverage statistics
+- Uncertain or incomplete areas
 
-## Outputs
+AccessLens does not modify permissions, accounts, roles, resources, or policies.
 
-* Candidate strengths
-* Skill gaps
-* Tailored interview questions
-* Interview preparation recommendations
+It is an analysis and recommendation system intended to help security and engineering teams identify access-control changes that no longer match their intended authorization model.
 
-## Flow
+---
 
-1. Receive resume and job description.
-2. Analyze candidate qualifications.
-3. Compare qualifications with job requirements.
-4. Identify strengths and missing skills.
-5. Generate role-specific interview questions.
-6. Provide ideal answer outlines.
+## Problem
 
-## Use Cases
+Permission systems change continuously.
 
-* Internship preparation
-* Software engineering interviews
-* AI/ML role preparation
-* Resume gap analysis
-* Candidate screening
+Users change roles, permissions are added or removed, resources move between scopes, and access relationships can gradually diverge from the authorization state that was originally intended.
 
-## Guardrails
+Traditional access reviews often require manually comparing policy definitions with exported IAM/RBAC state. Small but important differences can therefore be difficult to identify consistently.
 
-* Provides guidance only.
-* Does not make hiring decisions.
-* Uses only information supplied by the user.
+AccessLens turns this comparison into a repeatable audit.
+
+The key question it answers is:
+
+> **Does the access that exists today still match the access that was intended?**
+
+---
+
+## Core Workflow
+
+```text
+                INTENDED POLICY
+                      │
+                      │
+                      ▼
+               ┌──────────────┐
+               │              │
+               │  AccessLens  │
+               │    Audit     │
+               │              │
+               └──────────────┘
+                      ▲
+                      │
+                      │
+                CURRENT ACCESS
+                      │
+                      ▼
+              Explicit Comparison
+                      │
+                      ▼
+              Drift Classification
+                      │
+              ┌───────┴────────┐
+              ▼                ▼
+        Risk Assessment   Evidence Analysis
+              │                │
+              └───────┬────────┘
+                      ▼
+                 Remediation
+                      │
+                      ▼
+                 Audit Report
 
 ---
 > Source: [Lamatic/AgentKit](https://github.com/Lamatic/AgentKit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
