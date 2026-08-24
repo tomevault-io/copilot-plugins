@@ -1,0 +1,44 @@
+{
+  "name": "bonsai-ninja",
+  "owner": "gromhacks",
+  "repo": "bonsai-ninja",
+  "description": "\ud83e\udd77 Give your codebase a black belt. Local code intelligence, security analysis, and compiler-backed facts for humans and AI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gromhacks/bonsai-ninja",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T23:57:24Z"
+}
