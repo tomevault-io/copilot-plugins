@@ -1,0 +1,9 @@
+{
+  "name": "houseofcwk--website",
+  "displayName": "website",
+  "description": "CWK Experience \u2014 PLOS product website built with Astro, deployed to Cloudflare Pages",
+  "version": "1.0.0",
+  "author": "houseofcwk",
+  "homepage": "https://github.com/houseofcwk/website",
+  "skills": []
+}
