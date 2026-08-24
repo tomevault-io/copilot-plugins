@@ -1,0 +1,9 @@
+{
+  "name": "hottweelz--writing-template-for-ai",
+  "displayName": "writing-template-for-ai",
+  "description": "Write a book from first idea to a finished EPUB/PDF with AI \u2014 one cross-tool system for Claude Code, Codex, Gemini CLI, and GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "hottweelz",
+  "homepage": "https://github.com/hottweelz/writing-template-for-ai",
+  "skills": []
+}
