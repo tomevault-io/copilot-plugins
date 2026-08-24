@@ -1,0 +1,9 @@
+{
+  "name": "kevinten-ai--ai-agent-langgraph",
+  "displayName": "ai-agent-langgraph",
+  "description": "\u4ece\u96f6\u5230\u751f\u4ea7\u7684 Agent Platform \u5b8c\u6574\u5b66\u4e60\u8def\u7ebf \u2014 LangChain + LangGraph 9 Phase \u7cfb\u7edf\u5316\u5b66\u4e60",
+  "version": "1.0.0",
+  "author": "kevinten-ai",
+  "homepage": "https://github.com/kevinten-ai/ai-agent-langgraph",
+  "skills": []
+}
