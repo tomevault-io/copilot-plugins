@@ -1,19 +1,16 @@
-## backend-ownership
+## mf-expo-patterns
 
-> Backend work belongs in sibling repos — not here
+> mf-expo patterns and conventions
 
 
-# Backend ownership (out of this repo)
+# mf-expo Patterns
 
-This repository is **clients only** (mf-expo, mf-web, mf-macos). There is no local `mf-go/`.
-
-| Change type | Where to work |
-|-------------|----------------|
-| Platform GraphQL (auth, user, settings, orgs, personal todos, Particular hop, Postman, migrations) | **masterfabric-core-base** (`mf-go/`) — follow that repo’s ship checklist and changelog |
-| Org project / todo / purchase domain API | **masterfabric-particulars** (`particular-project-tracker/`) |
-| Mobile / web / macOS UI and client GraphQL calls | **this repo** |
-
-When a client PR depends on a backend change, note the sibling PR and deploy order (API / Particular first vs compatible client fallbacks) in the PR description. Do not invent an in-tree backend or duplicate Postman/migrations here.
+- **GraphQL**: `graphqlRequest` from `src/shared/services/graphql-client`; `setGraphQLAuthToken` / `clearGraphQLAuthToken` for auth
+- **Toast**: `useToast()` → `success()`, `error()`, `warning()`, `info()` — from `@/src/shared/hooks/use-toast`
+- **Screens**: PascalCase folders (e.g. `ProfileScreen/ProfileScreen.tsx`)
+- **Core**: `packages/masterfabric-expo-core` — PascalCase for views
+- **Style**: Functional components, TypeScript interfaces, Prettier; avoid enums (use maps)
+- **State**: Zustand, React Query; minimize useState/useEffect
 
 ---
 > Source: [masterfabric/masterfabric-project-tracker](https://github.com/masterfabric/masterfabric-project-tracker) — distributed by [TomeVault](https://tomevault.io).
