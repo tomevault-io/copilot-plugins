@@ -1,0 +1,9 @@
+{
+  "name": "altic-dev--envault",
+  "displayName": "envault",
+  "description": "Let agents safely manage env variables",
+  "version": "1.0.0",
+  "author": "altic-dev",
+  "homepage": "https://github.com/altic-dev/envault",
+  "skills": []
+}
