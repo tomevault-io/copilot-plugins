@@ -1,73 +1,94 @@
-## cursor-rules-location
+## golang-standards
 
-> Rules for placing and organizing Cursor rule files in the repository.
+> Golang Standards and Best Practices
 
-# Cursor Rules Location
+# Golang Standards and Best Practices
 
-Rules for placing and organizing Cursor rule files in the repository.
+Standards for writing Go code with emphasis on using standard library features and minimal dependencies.
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: golang_standards
+description: Standards for writing idiomatic Go code using standard library features
+
 filters:
-  # Match any .mdc files
+  # Match Go files
   - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
+    pattern: "\\.go$"
+  # Match import statements
   - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+    pattern: "^\\s*import\\s*\\("
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
     message: |
-      When creating Cursor rules:
+      When writing Go code:
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
+      1. Prefer standard library packages over external dependencies:
+         ```go
+         // Preferred: Using net/http
+         import "net/http"
 
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
+         // Avoid when possible: Using external HTTP libraries
+         import "github.com/external/http-lib"
          ```
 
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      2. Use latest Go features and patterns:
+         - Use Go 1.22+ features where applicable
+         - Utilize built-in generics (Go 1.18+)
+         - Use structured logging with slog (Go 1.21+)
+         - Implement context.Context for cancellation
+         - Use error wrapping (Go 1.13+)
+
+      3. HTTP Server Guidelines:
+         - Use net/http for HTTP servers
+         - Use http.ServeMux for routing
+         - Use http.Client for HTTP clients
+         - Use context for timeouts and cancellation
+
+      4. Common Standard Libraries to Prefer:
+         - net/http: HTTP client/server
+         - encoding/json: JSON handling
+         - html/template: HTML templating
+         - database/sql: Database access
+         - crypto/*: Cryptographic operations
+         - log/slog: Structured logging
+         - context: Context handling
+         - sync: Synchronization primitives
+         - time: Time handling
+         - errors: Error handling
+
+      5. Testing:
+         - Use testing package
+         - Use httptest for HTTP testing
+         - Use testing/quick for property testing
+         - Use go test -race for race detection
+
+      6. Linting:
+         - Run project lint before committing or after any change: make lint
+         - Lint runs staticcheck, golangci-lint, and errcheck (see Makefile)
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
+      # Bad: Using external HTTP library
+      import (
+          "github.com/gin-gonic/gin"
+      )
 
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+      # Good: Using standard library
+      import (
+          "net/http"
+          "html/template"
+          "encoding/json"
+      )
+    output: "Using standard library packages"
+
+  - input: |
+      # Bad: Old style logging
+      log.Printf("error: %v", err)
+
+      # Good: Using structured logging
+      slog.Error("operation failed", "err", err)
+    output: "Using modern Go features"
 
 metadata:
   priority: high
