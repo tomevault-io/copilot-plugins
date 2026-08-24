@@ -1,0 +1,9 @@
+{
+  "name": "ipythoning--ai-video-studio",
+  "displayName": "ai-video-studio",
+  "description": "AI Video Studio \u2014 OpenClaw skill for AI video generation (Seedance 2.0) + editing (CapCut Mate / FFmpeg). Generate \u2192 Edit \u2192 Export, all server-side.",
+  "version": "1.0.0",
+  "author": "iPythoning",
+  "homepage": "https://github.com/iPythoning/ai-video-studio",
+  "skills": []
+}
