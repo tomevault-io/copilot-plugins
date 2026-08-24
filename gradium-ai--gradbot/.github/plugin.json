@@ -1,0 +1,14 @@
+{
+  "name": "gradium-ai--gradbot",
+  "displayName": "gradbot",
+  "description": "gradbot",
+  "version": "1.0.0",
+  "author": "gradium-ai",
+  "homepage": "https://github.com/gradium-ai/gradbot",
+  "skills": [
+    {
+      "name": "gradbot",
+      "description": ""
+    }
+  ]
+}
