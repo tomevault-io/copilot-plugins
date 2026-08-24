@@ -1,0 +1,9 @@
+{
+  "name": "sealjay--mcp-hey",
+  "displayName": "mcp-hey",
+  "description": "MCP server for Hey.com: read, send, search, and organise email from Claude or any MCP client. Runs locally, stores no credentials, respects rate limits.",
+  "version": "1.0.0",
+  "author": "Sealjay",
+  "homepage": "https://github.com/Sealjay/mcp-hey",
+  "skills": []
+}
