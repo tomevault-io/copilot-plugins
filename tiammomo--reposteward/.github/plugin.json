@@ -1,0 +1,9 @@
+{
+  "name": "tiammomo--reposteward",
+  "displayName": "RepoSteward",
+  "description": "Local-first, policy-gated control plane for turning GitHub issues into verified, human-reviewed pull requests with coding agents.",
+  "version": "1.0.0",
+  "author": "tiammomo",
+  "homepage": "https://github.com/tiammomo/RepoSteward",
+  "skills": []
+}
