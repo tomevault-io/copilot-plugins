@@ -1,6 +1,6 @@
 # tandem-browser
 
-> Source: [hydro13/tandem-browser](https://github.com/hydro13/tandem-browser) — distributed by [TomeVault](https://tomevault.io)
+> Source: [hydro13/tandem-browser](https://github.com/hydro13/tandem-browser). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -19,10 +19,10 @@ Original source: `CLAUDE.md` in [hydro13/tandem-browser](https://github.com/hydr
 
 - [tandem-browser](https://github.com/hydro13/tandem-browser/tree/main/skill/SKILL.md)
 
-From [hydro13/tandem-browser](https://github.com/hydro13/tandem-browser) — a repo with 0+ stars on GitHub.
+From [hydro13/tandem-browser](https://github.com/hydro13/tandem-browser) — a repo with 576+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
