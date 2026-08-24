@@ -1,0 +1,77 @@
+## agent-nexus
+
+> Human operators — managers and executives — who need to triage organizational state, track commitments, and intervene decisively. They come to Agent Nexus when something needs their attention: a decision, an exception, a stalled commitment. They are busy and context-switching; they do not browse Agent Nexus for pleasure. Their primary job-to-be-done is to rapidly understand what needs attention and act on it, then leave.
+
+## Design Context
+
+### Users
+
+Human operators — managers and executives — who need to triage organizational state, track commitments, and intervene decisively. They come to Agent Nexus when something needs their attention: a decision, an exception, a stalled commitment. They are busy and context-switching; they do not browse Agent Nexus for pleasure. Their primary job-to-be-done is to rapidly understand what needs attention and act on it, then leave.
+
+At the top level (inbox, thread list) they are optimizing for speed: scan, triage, dispatch. When they drill into a thread or artifact they shift into an inspection mode and need to feel genuinely in control — confident that what they are seeing is accurate, evidence-backed, and complete.
+
+### Brand Personality
+
+Focused · Serious · Reliable
+
+Agent Nexus is an operating system for organizational work, not a project tracker. Every surface should communicate that real, durable, evidence-backed decisions happen here. The brand is sober and precise. It earns trust through information density and clarity, not warmth or delight.
+
+Voice and tone: direct, unambiguous, operator-grade. Avoid consumer-app softness, marketing language, or playful microcopy. Labels should be domain-accurate (use the schema vocabulary: thread, topic, card, board, receipt, review, artifact, event, inbox, provenance, actor).
+
+### Aesthetic Direction
+
+**Dark-first.** The UI is dark by design and intent. Light mode is a future possibility, not a current requirement. All design decisions are made for the dark theme. Do not introduce light-mode assumptions into token choices.
+
+**Compact and information-dense**, in the style of Linear or Slack. Tighter padding, smaller type, less vertical waste. Every pixel must earn its place.
+
+**Flat and monochromatic.** Single-level card surfaces with dividers, not nested card stacks. Color is reserved strictly for semantic status (error, warning, success, info, urgency). Never use color for decoration.
+
+**Accent**: cyan/teal in the current runtime contract — `#22d3ee` (`--accent`, focus rings) / `#5eead4` (`--accent-text`, links) / `#155e75` (`--accent-solid`, filled accent actions). This is the only brand hue family. Do not introduce other hues for brand purposes unless you are doing a coordinated token migration.
+
+**Anti-references:**
+- **Jira / enterprise bloat** — no cluttered toolbars, heavy form-heavy workflows, or badge-everywhere information hierarchy.
+- **Consumer apps** — no rounded-pill UI, bright saturated color palettes, gamification, or whitespace-heavy layouts.
+
+### Design Principles
+
+1. **Triage over browse.** The inbox and list views are the first thing operators see. Design for fast scanning: dense rows, clear status signals, minimal chrome. Reserve expansive layouts for detail surfaces where operators need to read carefully.
+
+2. **Provenance is first-class.** Evidence-backed state and inferred state are fundamentally different. The UI must make this distinction visible at all times — different colors, labels, or icons — never collapsing them into a single undifferentiated display.
+
+3. **Flat and readable over layered and clever.** Prefer a single bordered container with dividers over nested card hierarchies. Prefer the project type scale (`text-micro`, `text-meta`, `text-body`, `text-subtitle`, `text-title`) over Tailwind utility shorthands (`text-sm`, `text-xs`). Prefer `rounded-md` consistently over mixing radii.
+
+4. **Graceful forward-compatibility.** Unknown event types, artifact kinds, ref prefixes, and object fields must stay visible — never hidden, never silently dropped. The UI is one client among many and must degrade safely when anx-core introduces newer data.
+
+5. **Intervention, not orchestration.** The UI surfaces human decisions, acknowledgments, reviews, and snapshot edits. It does not automate, orchestrate agents, or maintain its own source of truth. Design affordances that make safe, explicit human action easy, and that surface the evidence behind every consequential state change.
+
+### Unification Decisions
+
+- Keep the current cyan/teal token contract for this migration; do not mix in an indigo rebrand.
+- Prefer semantic Tailwind keys (`bg-panel`, `border-line`, `text-fg-muted`) for new and touched markup.
+- Do not keep backwards-compatible wrappers for internal UI components during the unification. Replace call sites directly and delete obsolete APIs in the same change.
+- Use CSS primitives for pure visual recipes; use Svelte components for structure, slots, and behavior.
+- Keep common card/discussion controls visible as compact footer or action-row affordances rather than hiding them behind menus.
+- Layout shells are styling-only and must not own fetching, resource semantics, or core writes.
+
+### Token Quick Reference
+
+| Purpose | Value |
+|---|---|
+| Page background | `#0b0d12` / `bg-bg` / `var(--bg)` |
+| Muted page/inset surface | `#11141b` / `bg-bg-soft` / `var(--bg-soft)` |
+| Panel / card surface | `#161922` / `bg-panel` / `var(--panel)` |
+| Standard border | `#2a2f3d` / `border-line` / `var(--line)` |
+| Primary text | `#e8ebf1` / `text-fg` / `var(--fg)` |
+| Muted text | `#a1a7b4` / `text-fg-muted` / `var(--fg-muted)` |
+| Accent (focus) | `#22d3ee` / `border-accent` / `var(--accent)` |
+| Accent text (links) | `#5eead4` / `text-accent-text` / `var(--accent-text)` |
+| Base font size | `13px` |
+| Font family | Inter, system UI stack |
+| Default radius | `rounded-md` |
+
+Full visual rules: `web-ui/docs/style-guide.md`
+Full product/UX spec: `web-ui/docs/anx-ui-spec.md`
+
+---
+> Source: [Git-on-my-level/agent-nexus](https://github.com/Git-on-my-level/agent-nexus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
