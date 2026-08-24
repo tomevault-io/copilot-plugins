@@ -1,0 +1,44 @@
+{
+  "name": "open-bridge",
+  "owner": "bks-lab",
+  "repo": "open-bridge",
+  "description": "Your AI coding agent starts every session knowing your repos, your clients, and how you work \u2014 a plain git repo of markdown + YAML it reads at session start, independent of model or frontend. Context compounds instead of restarting. MIT.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bks-lab/open-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:53:22Z"
+}
