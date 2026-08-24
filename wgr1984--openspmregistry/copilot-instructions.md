@@ -1,67 +1,134 @@
-## spm-registry-spec
+## testing-standards
 
-> Standards for using the SPM-Registry-Spec.md as the authoritative reference for API implementation.
+> Standards for writing tests in Go using only the standard library testing package.
 
-# SPM Registry Specification Reference
+# Testing Standards
 
-Standards for using the SPM-Registry-Spec.md as the authoritative reference for API implementation.
+Standards for writing tests in Go using only the standard library testing package.
 
 <rule>
-name: spm_registry_spec_reference
-description: Use SPM-Registry-Spec.md as the authoritative reference for implementing API endpoints
+name: testing_standards
+description: Standards for writing tests using only the Go standard library testing package
 
 filters:
-  # Match Go files that might contain API implementations
+  # Match Go test files
   - type: file_extension
-    pattern: "\\.go$"
-  # Match files that look like they contain HTTP handlers or API code
+    pattern: "_test\\.go$"
+  # Match import statements in test files
   - type: content
-    pattern: "(http\\.HandlerFunc|gin\\.HandlerFunc|func.*\\(.*http\\..*\\))"
+    pattern: "^\\s*import\\s*\\("
 
 actions:
   - type: suggest
     message: |
-      When implementing API endpoints:
+      When writing Go tests:
 
-      1. ALWAYS consult SPM-Registry-Spec.md for:
-         - Exact endpoint paths and methods
-         - Required request/response headers
-         - Response status codes and their conditions
-         - Response body formats and required fields
-         - Error handling requirements
+      1. Use only the standard library testing package:
+         ```go
+         import (
+             "testing"
+             "net/http/httptest"  // For HTTP testing
+             "context"
+             "time"
+         )
+         ```
 
-      2. For any ambiguity or uncertainty about:
-         - Request handling
-         - Response formatting
-         - Header requirements
-         - Status code usage
-         - Error scenarios
-         REFER TO the corresponding section in SPM-Registry-Spec.md
+      2. DO NOT use external testing frameworks:
+         - No testify
+         - No gomega
+         - No ginkgo
+         - No gocheck
+         - No any other third-party testing frameworks
 
-      3. The specification in SPM-Registry-Spec.md takes precedence over:
-         - Common HTTP practices
-         - Framework defaults
-         - Similar implementations in other systems
-         - Personal preferences
+      3. Use standard library testing patterns:
+         ```go
+         func TestSomething(t *testing.T) {
+             // Arrange
+             expected := "expected"
+             input := "input"
 
-      4. When reviewing or modifying API code:
-         - Verify compliance with SPM-Registry-Spec.md
-         - Update implementation if it deviates from the spec
-         - Add comments referencing relevant spec sections
+             // Act
+             result, err := SomeFunction(input)
+
+             // Assert
+             if err != nil {
+                 t.Errorf("unexpected error: %v", err)
+             }
+             if result != expected {
+                 t.Errorf("got %q, want %q", result, expected)
+             }
+         }
+         ```
+
+      4. For table-driven tests:
+         ```go
+         func TestSomething(t *testing.T) {
+             tests := []struct {
+                 name     string
+                 input    string
+                 want     string
+                 wantErr  bool
+             }{
+                 {
+                     name:    "valid case",
+                     input:   "valid",
+                     want:    "expected",
+                     wantErr: false,
+                 },
+                 // More test cases...
+             }
+
+             for _, tt := range tests {
+                 t.Run(tt.name, func(t *testing.T) {
+                     got, err := SomeFunction(tt.input)
+                     if (err != nil) != tt.wantErr {
+                         t.Errorf("unexpected error: %v", err)
+                     }
+                     if got != tt.want {
+                         t.Errorf("got %q, want %q", got, tt.want)
+                     }
+                 })
+             }
+         }
+         ```
+
+      5. For HTTP testing, use httptest package:
+         ```go
+         func TestHTTPHandler(t *testing.T) {
+             req := httptest.NewRequest("GET", "/test", nil)
+             w := httptest.NewRecorder()
+             handler := http.HandlerFunc(YourHandler)
+             handler.ServeHTTP(w, req)
+
+             if w.Code != http.StatusOK {
+                 t.Errorf("got status %d, want %d", w.Code, http.StatusOK)
+             }
+         }
+         ```
 
 examples:
   - input: |
-      // Bad: Implementing without consulting spec
-      func handlePackageList(w http.ResponseWriter, r *http.Request) {
-          // Assumptions about response format
+      # Bad: Using external testing framework
+      import (
+          "github.com/stretchr/testify/assert"
+          "testing"
+      )
+
+      func TestFunction(t *testing.T) {
+          result := SomeFunction()
+          assert.Equal(t, "expected", result)
       }
 
-      // Good: Implementation following spec section 4.1
-      func handlePackageList(w http.ResponseWriter, r *http.Request) {
-          // See SPM-Registry-Spec.md section 4.1 "List package releases"
-          // for response format and requirements
+      # Good: Using standard library
+      import "testing"
+
+      func TestFunction(t *testing.T) {
+          result := SomeFunction()
+          if result != "expected" {
+              t.Errorf("got %q, want %q", result, "expected")
+          }
       }
-    output: "Implementation with spec reference"
+    output: "Using standard library testing package"
 
 metadata:
   priority: high
