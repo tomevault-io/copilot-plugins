@@ -1,61 +1,314 @@
 ## maintainerr
 
-> Think in terms of consistency first, not isolated fixes.
+> Read this before adding or changing any user-facing text in `apps/ui`.
 
 
-## Implementation direction
+# Translations (Lingui + Weblate)
 
-Think in terms of consistency first, not isolated fixes.
-Follow the UI direction set by PRs 2543, 2545, and 2549: stable hook APIs, direct callback-driven state updates, resilient shell-first loading, and no flashy spinner regressions.
-Prefer inline page feedback over toasts for normal settings saves, and keep behavior shared through `useSettingsFeedback.tsx`.
-Avoid layout shift: reserve space for late-loading UI, keep tab/card structure stable, and do not let placeholders change active state or move surrounding UI.
-Treat full `LoadingSpinner` as delayed, `SmallLoadingSpinner` as immediate, and validate with focused UI tests before broader refactors.
+Read this before adding or changing any user-facing text in `apps/ui`.
+Catalogs live in `apps/ui/src/locales/*.po` and are translated on
+[Weblate](https://hosted.weblate.org/engage/maintainerr/).
 
-Read [ARCHITECTURE.md](../../ARCHITECTURE.md) for the system architecture overview before changing cross-module boundaries.
+---
 
-## General
+## A translation must never change behavior
 
-When implementing against any external API or SDK (Plex, Jellyfin, TypeORM, etc.), read the official API documentation to confirm behaviour. Do not guess or assume - facts only, based on current documentation.
+Translate text the user reads, and nothing else. A string that is displayed
+*and* used for something else stops being display text: switching language then
+changes what the app does, and no test written in English can see it.
 
-### Workspace MCP servers
+Before wrapping a string, follow where the value goes. It must not reach:
 
-- Workspace MCP config lives in `.vscode/mcp.json` (VS Code), `.mcp.json` (Claude Code), and `.codex/config.toml` (Codex). Keep all three in sync.
-- `github` MCP: read-only - use for live GitHub context, never for writes.
-- `playwright` MCP: use for browser-driven UI validation. **Screenshots must be saved as `filename: ".playwright-mcp/<name>.png"`** - bare filenames land at the repo root (the `--output-dir` flag doesn't apply to explicit filenames).
-- **Browser:** the MCP uses the **system Chromium baked into the devbox image** (`/usr/bin/chromium`, via `--executable-path` + `--no-sandbox` because the container runs as root). It does **not** download a browser per-session - the per-session CDN download is blocked by the IPv4-only egress firewall (the CDN redirects to IPv6 hosts with no route). If `/usr/bin/chromium` is missing, the devbox image needs rebuilding (it's installed in `infra/Dockerfile.agents`).
-- **These stdio MCP servers only load when your AI client (VS Code, Claude Code, or Codex) is launched from inside devbox at `/workspace`** - `npx` (the server command) is only on PATH in the container, and the client must start at the repo root to pick up its mcp config. Launched on the bare host or from another directory, the `playwright`/`github` servers never register. Reload the editor / restart the client session after editing any mcp config.
+- **Anything persisted or sent to a server.** A default collection name built
+  from a translated word is stored on Plex in whatever language the form was
+  submitted in.
+- **Anything parsed or compared.** `startsWith`, `includes`, `===`, a `switch`,
+  `.toLowerCase()` - a prefix agreed between two functions must be a constant
+  they share, never a message.
+- **Any key or identifier.** Grouping keys, `Map`/`Set` members, TanStack Query
+  keys, React keys, DOM `id`/`name`. Key on the enum or id the label was
+  derived from, and translate only at the point of display.
+- **Any hook dependency array that guards work.** See below.
 
-### API documentation references
+Sorting a list by its displayed labels is fine - that is display order, and it
+is *meant* to follow the language.
 
-#### Media management services
+## Where a translation resolves
 
-- Sonarr: https://raw.githubusercontent.com/Sonarr/Sonarr/develop/src/Sonarr.Api.V3/openapi.json
-- Radarr: https://raw.githubusercontent.com/Radarr/Radarr/develop/src/Radarr.Api.V3/openapi.json
-- Tautulli: https://docs.tautulli.com/extending-tautulli/api-reference
+`useLingui()`'s `t` is a render-scoped value: it changes when the locale
+changes, which is exactly why a component re-renders in the new language. That
+also makes it a dependency.
 
-#### Request management services
+- **In render** - use the hook's `t`. The component re-renders on a language
+  switch and the text follows.
+- **In an effect, an async callback, or an event handler** - use `t` from
+  `@lingui/core/macro`, aliased as `globalT` when the file also uses the hook.
+  It resolves against the active locale when it runs, and it is not reactive,
+  so it stays out of the dependency array.
 
-- Seerr: https://docs.seerr.dev/
+When aliasing an existing file to `globalT`, rename the call sites by hand.
+A blind replace of ``t` `` also rewrites the `t` that ends a message
+(``t`Delete Soonest` `` becomes ``globalT`Delete SoonesglobalT` ``), which still
+compiles and still renders text. Diff the message strings against the previous
+revision afterwards.
 
-#### Media server services
+Putting the hook's `t` in an effect's dependencies makes that effect re-run on
+every language switch: re-fetching data, re-firing toasts, and in one case
+reloading a form and discarding the user's unsaved edits.
 
-- Plex (python-plexapi): https://python-plexapi.readthedocs.io/en/latest/index.html
-- Plex (OpenAPI): https://raw.githubusercontent.com/LukeHagar/plex-api-spec/refs/heads/main/src/pms-spec.yaml
-- Jellyfin: https://api.jellyfin.org/
+A component that renders translated text must consume the i18n context, or a
+language switch will not reach it. `I18nProvider` re-renders context consumers
+only - React reuses the untouched children subtree - so a component that calls
+core-macro `t` in its render path and never calls `useLingui()` keeps the
+language it first mounted with. Navigation hides this by remounting the page;
+anything mounted during the switch shows it.
 
-## Rules
+## Which macro
 
-1. DRY: avoid one-off logic or duplicated feedback/loading patterns.
-2. Follow repository copilot instructions and existing project conventions.
-3. Keep separation of concerns clear and maintenance burden low.
-4. Match existing codebase patterns and avoid regressions or unnecessary abstraction.
-5. UI components: favor reusable, consistent components and solid React patterns. Promote shared helpers and modals from `apps/ui/src/components/Common/` where they exist - for example use `SaveButton` and `TestingButton` instead of rolling custom save/test buttons.
-6. Media server abstraction: keep `modules/api/media-server/` server-agnostic. The interface (`media-server.interface.ts`), factory, controller, and shared utilities must never import or reference Plex/Jellyfin types directly. Use `supportsFeature()` for conditional behaviour - never branch on server type in the shared layer. All server-specific logic (constants, mappers, batch sizes, caching, SDK calls) belongs exclusively in `plex/` or `jellyfin/`. Mappers are type-conversion only - no business logic. Any new method added to the abstracted layer must be implemented by all media servers - partial support belongs behind `supportsFeature()`, not in the interface itself.
-7. Contracts package: any new DTOs or request/response shapes should be deliberate and minimal.
-8. Database/migrations: if persistence changes are needed, keep migrations safe, reversible, and edge-case aware. All migrations MUST be generated and run via TypeORM - never manually crafted SQL. You MUST always follow [typeorm_instructions.txt](../../typeorm_instructions.txt) for migration commands and workflow. A migration is NEVER considered working until it has been tested - run it end-to-end and verify the result before treating it as done.
-9. Rules/metadata systems: make sure any cache invalidation approach stays consistent with existing getter/provider patterns.
-10. Rule naming standards: preserve established rule `name` and `humanName` conventions for equivalent concepts across media servers. Do not rename user-facing rule labels to encode backend caveats; keep naming stable and document server-specific semantics in code comments and focused tests instead.
+| Where | Import | Use |
+| --- | --- | --- |
+| Inside a React component | `@lingui/react/macro` | `<Trans>` for JSX text, `` t` ` `` from `useLingui()` for attributes, toasts, handlers, `<Plural>` for counts |
+| Plain module (`utils/`, `api/`, helpers) | `@lingui/core/macro` | `` t` ` `` / `plural()` - resolves when the function runs |
+| A value held before render | `@lingui/core/macro` | `msg` descriptor, translated at the call site with `t(descriptor)` |
+
+Never call the runtime `i18n._()` directly - `useLingui()`'s `t` resolves a
+descriptor just as well and keeps the underscore API out of the codebase.
+
+## Module scope freezes a translation
+
+A `const` holding `` t` ` `` is evaluated once, at import, in whichever locale
+loaded first. Anything defined outside a render must be either a `msg`
+descriptor or a builder function called during render:
+
+```ts
+// wrong - frozen at import
+const OPTIONS = [{ value: 'movie', label: t`Movies` }]
+
+// right - resolved per render
+const buildOptions = () => [{ value: 'movie', label: t`Movies` }]
+```
+
+The same applies to **default parameter values**, which run before
+`useLingui()`. Resolve them in the body instead: `const label = props.label ?? t\`Save\``.
+
+## Placeholders
+
+- Give every placeholder a name. Hoist member expressions into a local, or use
+  the labelled form: `` t`Failed to reach ${{ serverName }}` ``. An unnamed
+  `{0}` tells a translator nothing. Keep the **whole** expression when you
+  hoist - `props.collection.title`, never `props.collection`.
+- **A single quote is an ICU escape character.** `'{name}'` renders the literal
+  text `{name}` and eats the quotes, silently dropping the value. Write a
+  literal apostrophe beside a placeholder as `''` (`&apos;&apos;` in JSX). A
+  lone apostrophe not touching a brace ("don't") is fine.
+- `<Plural one="... {name}">` does **not** bind `name`. Use `plural()` from the
+  core macro with the placeholder inside each choice instead.
+
+## Counted text
+
+Never build a plural by appending `s`. `${n} item${n === 1 ? '' : 's'}` is
+wrong in most languages - use `plural()` or `<Plural>` so translators can
+supply their own forms.
+
+## Whole sentences, not fragments
+
+A sentence split across several messages cannot be reordered by a translator.
+Keep inline markup and values inside one `<Trans>`. Where the original built a
+sentence from a ternary (`Unmonitor this ${type}`), spell out one complete
+message per branch rather than interpolating a bare noun.
+
+## Translations never change behavior
+
+A translation may change display text and nothing else. Hard rules, in
+priority order:
+
+- Nothing translated may feed logic: no comparisons (`===`, `startsWith`),
+  no object/map/query/React keys, no DOM ids or `name` attributes, no sort
+  values, no storage, no API payloads, and never data persisted anywhere.
+- Wrapping a string is outcome-identical. The English output stays
+  byte-for-byte what it was, and the surrounding code keeps its shape: do
+  not add or remove memoization, change dependency arrays, or reword copy
+  to make a message "translate better". The code is the fixed point;
+  translations adapt to it.
+- Tokens a translator must not be able to alter live outside the message.
+  Units are assembled in code (`` label={`${t`Max Size`} (MB)`} ``); cron
+  expressions, file extensions, example values and domain names arrive as
+  named placeholders fed from the same constant the logic uses, so message
+  and behavior cannot disagree.
+- One source of truth for label maps. Lingui only extracts literal
+  descriptors, so a `msg` map in the UI replaces a shared string map -
+  delete the old constant rather than mirroring it.
+- Dates and times come from `Intl` with `i18n.locale`, not from catalog
+  messages. Local formats are wanted; hand-rolled month or weekday
+  messages are not.
+
+## Security: translator input is untrusted
+
+Weblate translators are third parties, and a `msgstr` ships to every
+user's browser after an automated merge pipeline.
+
+- URLs and domains are never translatable. `href`s live in code only;
+  visible link text and domain mentions ride through as named placeholders
+  (`{tmdbDomain}`), so no translation can display a target the link does
+  not open.
+- A checker is only worth what it reads. Lingui's PO parser is more forgiving
+  than ours, and two shapes once slipped a translation past every content
+  check while Lingui still bound it to a live message: an obsolete `#~` block
+  (skipped here as a comment, restored by Lingui onto the live id) and a
+  `msgstr` written above its `msgid`. The validator now rejects both outright
+  rather than trying to mirror Lingui's leniency - the catalogs are
+  machine-written, so any deviation from canonical form is either corruption
+  or hand-shaping. Keep it that way, and when adding a content check ask first
+  whether the entry it inspects is the one the app will render.
+- The integrity check is keyed on the pull request's **author**, never its
+  branch name: a contributor picks their own branch name, so matching
+  `weblate-*` would let anyone switch off the check that judges their
+  translations.
+- `yarn i18n:validate` is the deterministic gate and a required check on
+  every PR. Beyond placeholder parity it rejects the Trojan Source bidi
+  set (overrides, embeddings and isolates), invisible characters (zero
+  width space, word joiner, soft hyphen, Braille blank, BOM, interlinear
+  annotation, the Tags block), Zalgo combining runs, entries over 1000
+  characters, any message that does not compile as ICU MessageFormat, any
+  translation that keeps an argument's name but changes its structure (a
+  plural rewritten as a plain value, a plural category the locale needs
+  dropped, a number format stripped, a select branch dropped or added),
+  any translation that introduces a URL marker (`://`, the
+  fullwidth-colon homoglyph, `www.`, `mailto:`, `tel:`) absent from its
+  source, and any source message containing a URL marker at all. Do not
+  weaken it: it is the line that holds even if Weblate-side checks are
+  reconfigured or a commit lands between review approval and the
+  automated merge.
+
+## Do NOT translate
+
+Every message costs translator budget, and some translations actively cause
+harm by disagreeing with the value beside them.
+
+- URLs and domains, in any form - see the security section above.
+
+- Product names on their own: Plex, Jellyfin, Emby, Radarr, Sonarr, Sportarr,
+  Seerr, Tautulli, Streamystats, Tracearr, Maintainerr, TMDB, TVDB,
+  qBittorrent. A *phrase* containing one is translated (`Plex Settings`).
+- Universal acronyms and notation: `URL`, `TLS`, `API`, geometry labels
+  (`X`, `Y`, `W`, `H`).
+- Units and the sizes built from them: `MB`, `GB`, `ms`, `N/A`, `< 1 MB`. A
+  translated unit can contradict the number printed next to it.
+- CSS classes, design tokens, colours, cron expressions, file paths, example
+  values and placeholders (`http://localhost:8080`).
+- Image `alt` text - it is not worth the catalog budget.
+- Strings that never reach the screen: `console.*`, thrown `Error` messages
+  that are caught internally, `errorContext` telemetry, and **the summary
+  passed to `logClientError`**, which is a server log line.
+- Overlay template seed content (`New Text`, `in {0} days`) - that is stored
+  data a user edits, not UI chrome.
+
+## Tests
+
+- Specs must import `render`/`renderHook` from `src/test-utils/render`, which
+  supplies the i18n context. `src/test-utils/i18n.tsx` is also listed in
+  `setupFiles`, so plain modules translate in specs too. An empty catalog makes
+  Lingui fall back to the message id, i.e. the English source - existing
+  assertions keep working.
+- `src/locales/catalog-icu.spec.tsx` renders both the source text and every
+  non-empty translation in all 13 catalogs through the real `<Trans>` runtime
+  with a sentinel per argument. If a value stops reaching the screen, it fails.
+  Translations are checked because the realistic ICU-quoting bug arrives from
+  Weblate, and placeholder-parity validation cannot see it - a quoted
+  `'{name}'` is still textually present. Keep both halves.
+- `src/locales/core-macro.spec.ts` proves a plain-module string resolves
+  through the catalog. Without it nothing would catch a `t` that stopped
+  being compiled, because an untransformed macro returns the source string
+  and every other assertion still passes.
+- **A catalog is keyed by a generated message id, not by the source text.**
+  Loading `{ 'Delete Soonest': '...' }` in a spec silently matches nothing.
+  Derive the key instead - `` const m = msg`Delete Soonest` `` gives the same
+  id the macro emits, so load `{ [m.id]: '...' }`. Placeholders are part of
+  the id, so the labelled names must match the source exactly.
+
+## Before you push
+
+```bash
+yarn workspace @maintainerr/ui i18n:extract   # catalogs follow the source
+yarn i18n:validate                            # placeholder parity across locales
+yarn workspace @maintainerr/ui i18n:check     # catalog is current
+yarn i18n:verify                              # against a running app (see below)
+```
+
+`i18n:verify` writes a sentinel into `sv.po`, drives the running app in Swedish,
+checks the sentinel reaches the screen for each macro form, and restores the
+catalog - including on failure. It needs Playwright, which is deliberately not
+a repo dependency because it downloads browser binaries; the script prints the
+install command. `--dry-run` exercises the catalog round trip without a
+browser.
+
+Never hand-edit a `msgstr` in a catalog to "fix" something - that is Weblate's
+job, and the next sync will overwrite it. CI enforces this: `yarn i18n:validate`
+by default fails if a translated `msgstr` was altered or added versus the base
+branch, so a code PR can only add empty entries for new source strings, never
+touch a translation. Weblate syncs opt out with `--no-base`.
+
+---
+
+## Reviewing an i18n change
+
+Do not review only the happy path. Wrapping a string can change what the user
+sees even when the diff looks mechanical, and the compiler cannot see any of
+it. Each item below has bitten this codebase at least once:
+
+**1. A quoted value silently disappears.** `You are cloning the rule group
+'{name}'.` renders the literal text `{name}` - the apostrophes make ICU quote
+the braces. Grep the diff for a quote or apostrophe next to a placeholder.
+`catalog-icu.spec.tsx` fails on this, so if that spec is weakened or deleted,
+push back.
+
+**2. A value is dropped while hoisting.** Placeholders need names, so
+`{collection.title}` usually becomes a local. Check the local holds the
+**whole** expression - `props.collection.title`, not `props.collection`. A
+truncated hoist still compiles and still renders *something*.
+
+**3. A sentence loses a fragment.** Where copy was assembled from a ternary or
+a trailing conditional, confirm every branch survived as its own message.
+Count the interpolations in the original and in the new message.
+
+**4. Strings that were never wrapped at all.** JSX text is the easy half.
+Copy also hides in shapes a naive scan misses: `setError({ message })`,
+`showSuccess(\`...\`)`, zod `.min(1, 'msg')`, object literals, and default
+parameter values. Assume some are still unwrapped. Sweep the touched files for
+every string and template literal rather than trusting the JSX was the job.
+
+**5. Something got translated that must not be.** See the do-not-translate
+list above. Units, notation and anything whose translation could disagree with
+a number beside it are the dangerous ones.
+
+**6. A translation frozen at import.** Anything computed outside render, in a
+default parameter, or inside a `useMemo` whose deps do not change with the
+locale will keep serving the first language loaded.
+
+**7. A translation that changes what the app does.** The rule at the top of
+this file. Trace each newly wrapped value: stored, sent, parsed, compared, used
+as a key, or listed in a hook's dependencies means the wrap is wrong, however
+right the rendered text looks. English hides all of it, so every spec still
+passes.
+
+**8. A message shape that will be expensive to change.** A msgid is the
+contract translators work against. Renaming a placeholder, splitting a
+fragment, or merging duplicates after the fact discards the translations
+already made for the old shape across every locale, and a plural rewrite will
+not even fuzzy-match. Get the shape right before it ships; adding a missed
+string later costs nothing.
+
+**9. A test that cannot fail.** A spec asserting English text passes whether
+or not the string is wired up, because an untransformed macro and an empty
+catalog both yield the source. Before trusting a new i18n guard, break the
+thing it guards and watch it go red.
+
+**Verify in the browser, not only in specs.** A spec proves a string resolves
+against a catalog it built itself; only the app proves the shipped catalogs,
+the `.po` compilation and the locale switch work together. Put a sentinel in a
+`msgstr` in `sv.po`, switch the language in Settings, confirm it renders, then
+restore the catalog. `yarn i18n:verify` automates that round trip.
 
 ---
 > Source: [Maintainerr/Maintainerr](https://github.com/Maintainerr/Maintainerr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
