@@ -4,7 +4,7 @@
   "repo": "markdown-sn-extension",
   "description": "Write markdown in ServiceNow easily. From headings to tables & github style alerts. Powerful markdown features without any hassle.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yadav-prakhar/markdown-sn-extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T13:57:25Z"
+  "distributed_at": "2026-08-24T23:45:05Z"
 }
