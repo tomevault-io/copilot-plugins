@@ -1,0 +1,153 @@
+{
+  "name": "foundationdb-dotnet-client",
+  "owner": "SnowBankSDK",
+  "repo": "foundationdb-dotnet-client",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/crystaljson/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/crystaljson/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/snowbank-contracts/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/snowbank-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/snowbank-betterhttp/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/snowbank-betterhttp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/foundationdb-aspire/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/foundationdb-aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/foundationdb-transactions/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/foundationdb-transactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/snowbank-slices-and-buffers/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/snowbank-slices-and-buffers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/foundationdb-keys-and-layers/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/foundationdb-keys-and-layers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/snowbank-distributed-testing/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/snowbank-distributed-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": ".claude/skills/foundationdb-advanced-layers/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/.claude/skills/foundationdb-advanced-layers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/crystaljson/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/crystaljson/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/snowbank-contracts/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/snowbank-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/snowbank-betterhttp/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/snowbank-betterhttp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/foundationdb-aspire/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/foundationdb-aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/foundationdb-transactions/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/foundationdb-transactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/snowbank-slices-and-buffers/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/snowbank-slices-and-buffers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/foundationdb-keys-and-layers/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/foundationdb-keys-and-layers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/snowbank-distributed-testing/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/snowbank-distributed-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foundationdb-dotnet-client",
+      "path": "plugins/foundationdb-skills/skills/foundationdb-advanced-layers/SKILL.md",
+      "github_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client/tree/main/plugins/foundationdb-skills/skills/foundationdb-advanced-layers/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SnowBankSDK/foundationdb-dotnet-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T13:27:24Z"
+}
