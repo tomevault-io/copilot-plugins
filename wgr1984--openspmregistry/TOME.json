@@ -2,7 +2,7 @@
   "name": "openspmregistry",
   "owner": "wgr1984",
   "repo": "openspmregistry",
-  "description": "",
+  "description": "A reference implementation of Swift Package Manager Registry in Golang",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/wgr1984",
+  "source_url": "https://github.com/wgr1984/openspmregistry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T02:48:23Z"
+  "distributed_at": "2026-08-24T18:22:31Z"
 }
