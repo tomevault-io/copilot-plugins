@@ -1,7 +1,6 @@
-## project
+## clickerscriptinglibrary
 
-> ClickerScriptingLibrary — iOS device automation via Nomix Clicker API
-
+> iOS device automation via Nomix Clicker API. Scripts simulate touch input and use AI screen recognition to navigate apps.
 
 # ClickerScriptingLibrary
 
