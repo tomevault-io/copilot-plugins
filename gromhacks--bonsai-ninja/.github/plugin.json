@@ -1,0 +1,9 @@
+{
+  "name": "gromhacks--bonsai-ninja",
+  "displayName": "bonsai-ninja",
+  "description": "\ud83e\udd77 Give your codebase a black belt. Local code intelligence, security analysis, and compiler-backed facts for humans and AI.",
+  "version": "1.0.0",
+  "author": "gromhacks",
+  "homepage": "https://github.com/gromhacks/bonsai-ninja",
+  "skills": []
+}
