@@ -1,0 +1,225 @@
+{
+  "name": "caffeine",
+  "owner": "ben-manes",
+  "repo": "caffeine",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-jmm/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-jmm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/sim-analyze/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/sim-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/sim-compare/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/sim-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/review-change/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/review-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-build-ci/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-build-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-liveness/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-liveness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-iteration/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-iteration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-lifecycle/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-reentrancy/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-reentrancy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-arithmetic/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-arithmetic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-performance/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-adversarial/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-adversarial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-map-contract/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-map-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-temporal-walk/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-temporal-walk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-serialization/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-serialization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-coverage-gaps/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-coverage-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-contract-drift/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-contract-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-linearizability/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-linearizability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-memory-retention/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-memory-retention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-exception-safety/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-exception-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-subsystem-safety/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-subsystem-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-correctness-proof/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-correctness-proof/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-adversarial-input/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-adversarial-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-sibling-divergence/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-sibling-divergence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-feature-interaction/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-feature-interaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-adaptivity/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-adaptivity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-state-machine/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-state-machine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-jcache-conformance/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-jcache-conformance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/audit-third-party-contracts/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/audit-third-party-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caffeine",
+      "path": ".claude/skills/climber-minimize/SKILL.md",
+      "github_url": "https://github.com/ben-manes/caffeine/tree/main/.claude/skills/climber-minimize/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ben-manes/caffeine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-24T12:56:31Z"
+}
