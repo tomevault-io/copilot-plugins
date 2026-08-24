@@ -1,34 +1,23 @@
-## apple-hig
+## architecture
 
-> Apple Human Interface Guidelines for iOS UI
+> Keep docs/ARCHITECTURE.md updated when app structure or data flow changes
 
 
-# Apple Design Foundation (HIG)
+# Architecture documentation
 
-Follow Apple Human Interface Guidelines for all UI work in Listio.
+Canonical reference: [`docs/ARCHITECTURE.md`](../../docs/ARCHITECTURE.md)
 
-## Spacing
-- Use consistent 16–24pt between form sections and content blocks
-- Use 8pt for tight spacing between related elements (e.g., label and input)
-- Minimum 44pt touch targets for buttons and tappable controls
+Update when changing:
 
-## Typography
-- Use the project's typography scale (typography.body, typography.footnote, etc.)
-- Labels in footnote/subhead style; primary content in body
+- App bootstrap gates or provider tree (`App.tsx`)
+- Auth, bootstrap, or premium gate flow
+- React Query keys, persistence, or bundle fetch patterns
+- Service boundaries (client vs Edge Functions)
+- Realtime, import, or sync behavior
 
-## Layout
-- Prefer vertical stacking with clear visual hierarchy
-- Align related controls horizontally when they belong together (e.g., quantity + unit)
-- Use flex-end or center alignment to align labels with controls in rows
+Add a row to the **Changelog** section with the date and a one-line summary.
 
-## Modals and Sheets
-- Provide a drag handle for dismissible sheets
-- Adequate padding (16–24pt) around content
-- Use KeyboardAvoidingView for forms
-
-## Colors
-- Use theme tokens (theme.textPrimary, theme.textSecondary, theme.surface, theme.accent)
-- Ensure sufficient contrast for accessibility
+Cross-update [`docs/DATA_MODEL.md`](../../docs/DATA_MODEL.md) if entity relationships or RLS scope change.
 
 ---
 > Source: [cameronconspm/Listio](https://github.com/cameronconspm/Listio) — distributed by [TomeVault](https://tomevault.io).
