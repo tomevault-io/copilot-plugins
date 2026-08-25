@@ -1,0 +1,9 @@
+{
+  "name": "sourcenetwork--defradb-rs",
+  "displayName": "defradb.rs",
+  "description": "A full implementation of DefraDB in Rust",
+  "version": "1.0.0",
+  "author": "sourcenetwork",
+  "homepage": "https://github.com/sourcenetwork/defradb.rs",
+  "skills": []
+}
