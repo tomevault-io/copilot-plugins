@@ -1,0 +1,9 @@
+{
+  "name": "marmyx77--omni-ai-mcp",
+  "displayName": "omni-ai-mcp",
+  "description": "Full-featured MCP server for Google Gemini. multiple tools: text generation with thinking mode, code review, web search with citations, RAG document search, native image generation (4K), Veo 3.1 video",
+  "version": "1.0.0",
+  "author": "marmyx77",
+  "homepage": "https://github.com/marmyx77/omni-ai-mcp",
+  "skills": []
+}
