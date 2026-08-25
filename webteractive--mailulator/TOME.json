@@ -4,7 +4,7 @@
   "repo": "mailulator",
   "description": "Self-hosted, Laravel-native Mailtrap alternative.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/webteractive/mailulator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T05:44:28Z"
+  "distributed_at": "2026-08-25T08:17:43Z"
 }
