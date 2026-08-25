@@ -1,0 +1,270 @@
+## mdns-tui-browser
+
+> This file contains guidelines and commands for agentic coding agents working in this repository.
+
+# AGENTS.md
+
+This file contains guidelines and commands for agentic coding agents working in this repository.
+
+## Build Commands
+
+### Development
+```bash
+# Run the application in development mode
+cargo run
+
+# Run with custom service types
+cargo run -- --service-types "_http._tcp.local.,_ssh._tcp.local."
+```
+
+### Building
+```bash
+# Build optimized release version
+cargo build --release
+
+# Build with audit trail (used in CI for releases)
+cargo auditable build --release
+```
+
+### Testing
+```bash
+# Run all tests using nextest (preferred)
+cargo nextest run --profile ci
+
+# Run all tests using standard cargo test
+cargo test
+
+# Run a single test
+cargo nextest run --profile ci test_name
+
+# Run tests matching a pattern
+cargo nextest run --profile ci test_pattern
+
+# Run tests for a specific module
+cargo nextest run --profile ci tui_app::tests
+```
+
+### Linting and Formatting
+```bash
+# Format code (will check CI)
+cargo fmt
+
+# Check formatting (fails in CI if not formatted)
+cargo fmt -- --check
+
+# Run clippy lints (fails in CI on warnings)
+cargo clippy --tests -- -D warnings
+
+# Check for typos
+cargo install typos-cli
+typos
+
+# Check GitHub Actions workflows and reusable actions
+actionlint
+
+# Validate renovate configuration
+docker run --rm --volume=$(pwd):$(pwd):ro --workdir=$(pwd) kokuwaio/renovate-config-validator:latest
+```
+
+## Code Style Guidelines
+
+### Safety Policy
+- **FORBIDDEN**: No `unsafe` blocks allowed anywhere in the codebase
+- **REQUIRED**: `#![forbid(unsafe_code)]` at the top of every Rust file
+- This is a **Safe Rust Only** project - memory safety is non-negotiable
+
+### Imports and Dependencies
+- Use `use` statements at the top of files in alphabetical order
+- Group imports: std library, external crates, local modules
+- Preferred libraries used in this project:
+  - `ratatui` for TUI
+  - `tokio` for async runtime
+  - `crossterm` for terminal handling
+  - `flume` for async channels
+  - `mdns_sd` for service discovery
+  - `clap` for CLI parsing
+  - `chrono` for date/time handling
+
+### Code Formatting
+- Use `rustfmt` with default settings
+- Maximum line length: 100 characters (rustfmt default)
+- 4-space indentation (rustfmt default)
+- Use `cargo fmt -- --check` to verify formatting
+
+### Naming Conventions
+- **Types**: `PascalCase` (structs, enums, type aliases)
+- **Functions**: `snake_case`
+- **Variables**: `snake_case`
+- **Constants**: `SCREAMING_SNAKE_CASE`
+- **Modules**: `snake_case`
+- **Enums**: PascalCase for enum name, PascalCase for variants
+- **Fields**: `snake_case` for struct fields
+
+### Error Handling
+- Use `Result<T, Box<dyn std::error::Error>>` for main functions
+- Prefer `Option<T>` for values that may be absent
+- Use `?` operator for error propagation
+- Avoid panic! except in unrecoverable situations
+- Use `unwrap()` only in tests or when absolutely certain
+
+### Async/Concurrency Patterns
+- Use `tokio::sync::RwLock` for shared state
+- Use `flume` channels for async communication
+- Mark async functions with `async`
+- Use `.await` for async operations
+- Prefer `Arc<RwLock<T>>` for shared mutable state
+
+### Testing Guidelines
+- Write unit tests in `#[cfg(test)]` modules
+- Use descriptive test names following `test_functionality_expected_result` pattern
+- Use `assert_eq!`, `assert!`, `assert_ne!` for assertions
+- Test edge cases and error conditions
+- Integration tests go in `tests/` directory (if present)
+- Use `cargo nextest` for faster test execution
+- Test configuration in `.config/nextest.toml`
+
+### TUI Specific Patterns
+- Use `ratatui` for all UI components
+- Handle events with `crossterm::event`
+- Use `ListState` for selection state management
+- Separate UI logic from business logic
+- Use `Frame<'_>` for rendering
+- Follow the existing app structure: `AppState` for state, `run_tui` for main loop
+
+### Documentation
+- Add doc comments to public functions with `///`
+- Use `///` for module-level documentation
+- Include examples in doc comments when helpful
+- Keep documentation concise and focused
+- Document all key bindings in README
+
+### Performance Considerations
+- Use `--release` builds for performance testing
+- Profile with appropriate tools if needed
+- Consider allocation patterns in hot paths
+- Use `BTreeMap`/`BTreeSet` when ordering matters
+- Use `HashMap`/`HashSet` for O(1) lookups when order doesn't matter
+
+## Project Structure
+
+```
+src/
+├── main.rs          # Entry point, CLI argument parsing
+├── tui_app.rs       # Main TUI application logic and tests
+├── input.rs         # User input handling (filter, service type)
+├── popup.rs         # Popup UI components (help, metrics)
+├── scroll.rs        # Scroll state management
+├── models.rs        # Data models
+└── terminal.rs     # Terminal handling
+```
+
+## Development Workflow
+
+1. REQUIRED: Create a branch for your changes with an appropriate prefix (e.g., `feat/`, `fix/`, `chore/`, `refactor/`, `docs/`)
+2. Make changes to source code
+3. Run `cargo fmt` to format code
+4. Run `cargo clippy --tests -- -D warnings` to check for issues
+5. Run `cargo nextest run --profile ci` to run tests
+6. Run `cargo build --release` to build release version
+7. Run `cargo clippy --release -- -D warnings` to ensure no warnings in release
+ 8. Run `actionlint` to check GitHub Actions workflows if modified
+ 9. Run renovate config validator if `.github/renovate.json5` was modified
+10. Test the application manually with `cargo run`
+11. If README.md was updated, update the manpage (`docs/mdns-tui-browser.1`)
+12. Commit only when all checks pass
+13. Use conventional commit format (e.g., `feat:`, `fix:`, `docs:`) for commit messages
+14. **REQUIRED**: After committing, immediately push the branch and create a pull request - do not wait for the user to ask
+
+## Packaging
+
+### AUR Packaging Tests
+Run these commands from the repository root:
+
+```bash
+# Test source and binary packages
+~/.local/bin/test-aur-local --variant=both
+
+# Test one package variant
+~/.local/bin/test-aur-local --variant=source
+~/.local/bin/test-aur-local --variant=bin
+```
+
+- Use `--no-build` only for generator and lint smoke tests; omit it to test package creation and installation.
+- Use `--no-install` to skip installing the `-bin` package, and `--no-cleanup` or `--keep-dir=<path>` to retain build artifacts for debugging.
+
+### Changelog Inclusion
+When adding or modifying packaging configurations, ensure `CHANGELOG.md` is included:
+- **Debian packages**: Set `changelog = "CHANGELOG.md"` in `Cargo.toml` `[package.metadata.deb]`
+- **AUR packages**: Install `CHANGELOG.md` to `/usr/share/doc/$pkgname/` in the `package()` function
+- **Release archives** (tar.gz/zip): Copy `CHANGELOG.md` into the staging directory in `build-reusable.yml`
+- **macOS DMGs**: Copy `CHANGELOG.md` into the app bundle's `Contents/Resources/`
+
+## Documentation Maintenance
+
+### Manpage Updates
+The manpage (`docs/mdns-tui-browser.1`) must be kept in sync with `README.md`. When updating documentation:
+
+1. **CLI Options**: Update both README.md CLI Options section and manpage OPTIONS section
+2. **Controls**: Update both README.md Controls section and manpage CONTROLS section  
+3. **Service Types**: Update both README.md Service Types section and manpage SERVICE TYPES section
+4. **Examples**: Update both README.md Examples section and manpage EXAMPLES section
+5. **Date**: REQUIRED - Update the manpage date to current date in YYYY-MM-DD format in the .TH header
+
+The manpage should contain only essential usage information without excessive detail, focusing on what users need to know to use the program effectively.
+
+## CI/CD Integration
+
+- Tests run on Ubuntu, macOS, and Windows in CI
+- Nextest generates JUnit XML reports
+- Formatting and clippy must pass before merging
+- Release builds use `cargo auditable` for security
+- Typos checked with `typos-cli` configuration in `typos.toml`
+- GitHub Actions workflows validated with `actionlint`
+- Renovate configuration validated with `renovate-config-validator`
+
+## Common Pitfalls to Avoid
+
+- **Never** use `unsafe` code - this will cause CI to fail
+- **Never** add `#[allow(warnings)]` attributes to suppress warnings - fix the underlying issues instead
+- **Never** amend commits - commits will be squashed in GitHub, just create a new commit instead
+- **Always** format code before committing
+- **Always** run clippy and fix warnings (both debug and release)
+- **Don't** add dependencies without updating Cargo.toml properly
+- **Don't** break the async patterns used throughout the codebase
+- **Don't** ignore test failures - all tests must pass
+- **Don't** have warnings in release builds - run `cargo clippy --release` before committing
+- **Don't** add new CLI options without including them in the JSON state dump - see [State Dump Management](#state-dump-management)
+
+## State Dump Management
+
+When adding new CLI options, ensure they are included in the JSON state dump for full state restoration:
+
+1. **Add to `AppOptions`** in `src/models.rs`:
+   - Add the field to the `AppOptions` struct
+   - Ensure it has proper `Serialize`/`Deserialize` derive
+
+2. **Update `AppState`** in `src/tui_app.rs`:
+   - Add the field to the `AppState` struct
+   - Update the `Clone` impl
+   - Pass through `AppState::new()` constructor
+
+3. **Update state dump functions** in `src/tui_app.rs`:
+   - Update `create_state_dump()` to include the new option
+   - Update `load_from_state_dump()` to restore the new option
+
+4. **Maintain backward compatibility**:
+   - Use `#[serde(default)]` on fields in `AppOptions`
+   - Test loading old state dumps without the new field
+
+## Specific Notes for This Project
+
+- mDNS service discovery is the core functionality
+- TUI responsiveness is critical - avoid blocking operations
+- Service filtering and sorting are key features
+- Real-time updates should not block the UI thread
+- Memory usage should be reasonable for long-running sessions
+- Error messages should be user-friendly in the TUI context
+
+---
+> Source: [hrzlgnm/mdns-tui-browser](https://github.com/hrzlgnm/mdns-tui-browser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
