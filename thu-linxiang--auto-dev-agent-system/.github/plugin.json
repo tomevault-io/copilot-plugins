@@ -1,0 +1,9 @@
+{
+  "name": "thu-linxiang--auto-dev-agent-system",
+  "displayName": "auto-dev-agent-system",
+  "description": "A file-based, validator-gated CodeBuddy harness that turns PRDs into traceable native Android Automotive OS (AAOS) applications with recoverable multi-agent workflows.",
+  "version": "1.0.0",
+  "author": "THU-linxiang",
+  "homepage": "https://github.com/THU-linxiang/auto-dev-agent-system",
+  "skills": []
+}
