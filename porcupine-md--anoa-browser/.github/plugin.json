@@ -1,0 +1,9 @@
+{
+  "name": "porcupine-md--anoa-browser",
+  "displayName": "anoa-browser",
+  "description": "Headless browser with full Chrome DevTools Protocol (CDP) support. Distributed as a single self-contained binary \u2014 no Node.js or npm required.",
+  "version": "1.0.0",
+  "author": "porcupine-md",
+  "homepage": "https://github.com/porcupine-md/anoa-browser",
+  "skills": []
+}
