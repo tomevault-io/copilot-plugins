@@ -1,0 +1,9 @@
+{
+  "name": "pcharbon70--elixir-ontologies",
+  "displayName": "elixir-ontologies",
+  "description": "A set of ontologis to represent Elixir static code, OTP and code evolution",
+  "version": "1.0.0",
+  "author": "pcharbon70",
+  "homepage": "https://github.com/pcharbon70/elixir-ontologies",
+  "skills": []
+}
