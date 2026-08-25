@@ -1,0 +1,9 @@
+{
+  "name": "levi-qiao--obsidian-llm-wiki",
+  "displayName": "obsidian-llm-wiki",
+  "description": "Compile notes into a linked Obsidian wiki at ingest time with Claude Code, following Karpathy's LLM Wiki idea instead of RAG-at-query.",
+  "version": "1.0.0",
+  "author": "levi-qiao",
+  "homepage": "https://github.com/levi-qiao/obsidian-llm-wiki",
+  "skills": []
+}
