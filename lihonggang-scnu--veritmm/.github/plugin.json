@@ -1,0 +1,9 @@
+{
+  "name": "lihonggang-scnu--veritmm",
+  "displayName": "VeriTMM",
+  "description": "Verifier-first transfer-matrix workbench for multilayer optics and differentiable inverse design",
+  "version": "1.0.0",
+  "author": "Lihonggang-scnu",
+  "homepage": "https://github.com/Lihonggang-scnu/VeriTMM",
+  "skills": []
+}
