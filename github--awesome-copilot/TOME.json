@@ -4,7 +4,7 @@
   "repo": "awesome-copilot",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/github/awesome-copilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T10:10:50Z"
+  "distributed_at": "2026-08-25T18:37:36Z"
 }
