@@ -1,0 +1,9 @@
+{
+  "name": "suzike--matlab-simulink-superagent",
+  "displayName": "Matlab-Simulink-SuperAgent",
+  "description": "\u5185\u5d4c\u8fdb MATLAB/Simulink \u754c\u9762\u7684 AI \u52a9\u624b\u4fa7\u8fb9\u680f\uff0c\u652f\u6301 Claude Code/Codex \u540e\u7aef\u3002",
+  "version": "1.0.0",
+  "author": "suzike",
+  "homepage": "https://github.com/suzike/Matlab-Simulink-SuperAgent",
+  "skills": []
+}
