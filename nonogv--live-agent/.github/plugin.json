@@ -1,0 +1,9 @@
+{
+  "name": "nonogv--live-agent",
+  "displayName": "live-agent",
+  "description": "AI agent for Ableton Live \u2014 chat with GPT, Claude, or Gemini to control your session",
+  "version": "1.0.0",
+  "author": "nonogv",
+  "homepage": "https://github.com/nonogv/live-agent",
+  "skills": []
+}
