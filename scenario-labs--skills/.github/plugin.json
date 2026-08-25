@@ -1,0 +1,9 @@
+{
+  "name": "scenario-labs--skills",
+  "displayName": "skills",
+  "description": "Agent Skills for Scenario: image, video, audio, texture, 3D and custom-model workflows over the Scenario MCP. For games, entertainment and any creative vertical. Install: `npx skills add scenario-labs",
+  "version": "1.0.0",
+  "author": "scenario-labs",
+  "homepage": "https://github.com/scenario-labs/skills",
+  "skills": []
+}
