@@ -4,7 +4,7 @@
   "repo": "icd-11-nextjs-nestjs-boilerplate",
   "description": "ICD-11 NextJS NestJS Boilerplate project",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alirezarezvani/icd-11-nextjs-nestjs-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T03:52:23Z"
+  "distributed_at": "2026-08-25T19:37:56Z"
 }
