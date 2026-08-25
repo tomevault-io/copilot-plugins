@@ -7,11 +7,11 @@ Agent Lattice: a knowledge graph for your codebase, written in markdown.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vercel-labs/lat.md](https://github.com/vercel-labs/lat.md).
+Original source: `AGENTS.md` in [vercel-labs/lat.md](https://github.com/vercel-labs/lat.md).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
