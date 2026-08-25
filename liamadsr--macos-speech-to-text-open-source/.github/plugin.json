@@ -1,0 +1,9 @@
+{
+  "name": "liamadsr--macos-speech-to-text-open-source",
+  "displayName": "macOS-speech-to-text-open-source",
+  "description": "Native macOS speech-to-text app with active speech detection and amazing intuitive UX. Help us make this the official open-source alternative to Wispr Flow!",
+  "version": "1.0.0",
+  "author": "liamadsr",
+  "homepage": "https://github.com/liamadsr/macOS-speech-to-text-open-source",
+  "skills": []
+}
