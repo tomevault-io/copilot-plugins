@@ -1,0 +1,9 @@
+{
+  "name": "yonk-labs--pg-raggraph",
+  "displayName": "pg-raggraph",
+  "description": "PostgreSQL-native GraphRAG. Vector search, full-text, and knowledge-graph traversal in a single SQL query. No Neo4j. No Pinecone. No AGE.",
+  "version": "1.0.0",
+  "author": "yonk-labs",
+  "homepage": "https://github.com/yonk-labs/pg-raggraph",
+  "skills": []
+}
