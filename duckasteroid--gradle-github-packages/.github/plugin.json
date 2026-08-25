@@ -1,0 +1,9 @@
+{
+  "name": "duckasteroid--gradle-github-packages",
+  "displayName": "gradle-github-packages",
+  "description": "Plugins for Gradle to make it easier to configure GH packages as maven repositories; in both settings and build files.",
+  "version": "1.0.0",
+  "author": "duckAsteroid",
+  "homepage": "https://github.com/duckAsteroid/gradle-github-packages",
+  "skills": []
+}
