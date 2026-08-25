@@ -4,7 +4,7 @@
   "repo": "lattice",
   "description": "Isometric games made easy \u2014 an agentic game kit. 12 agent skills over 9 zero-dependency TypeScript packages. Type one sentence, get a playable game.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/plausibleventures/lattice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:19:40Z"
+  "distributed_at": "2026-08-25T23:48:44Z"
 }
