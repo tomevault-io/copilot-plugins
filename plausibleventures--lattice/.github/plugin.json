@@ -1,0 +1,9 @@
+{
+  "name": "plausibleventures--lattice",
+  "displayName": "lattice",
+  "description": "Isometric games made easy \u2014 an agentic game kit. 12 agent skills over 9 zero-dependency TypeScript packages. Type one sentence, get a playable game.",
+  "version": "1.0.0",
+  "author": "plausibleventures",
+  "homepage": "https://github.com/plausibleventures/lattice",
+  "skills": []
+}
