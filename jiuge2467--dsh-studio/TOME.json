@@ -1,0 +1,44 @@
+{
+  "name": "dsh-studio",
+  "owner": "jiuge2467",
+  "repo": "dsh-studio",
+  "description": "\u73b0\u4ee3\u5316 DeepSeek Harness (DSH) \u5168\u6808\u589e\u5f3a\u5de5\u4f5c\u53f0 \u00b7 \u591a\u6e90 MCP \u53ef\u89c6\u5316\u8c03\u8bd5\u4e2d\u67a2 \u00b7 \u89c6\u89c9\u601d\u8003\u5f15\u64ce \u00b7 \u7075\u52a8\u6781\u5ba2\u4f34\u4fa3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jiuge2467/dsh-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T02:35:50Z"
+}
