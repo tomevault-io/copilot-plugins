@@ -1,0 +1,9 @@
+{
+  "name": "drewnekota--cetus",
+  "displayName": "cetus",
+  "description": "One macOS app for Claude Code, Codex, and every agent runtime you use \u2014 scheduled runs, global hotkey launcher, per-run git worktrees, one review board.",
+  "version": "1.0.0",
+  "author": "drewnekota",
+  "homepage": "https://github.com/drewnekota/cetus",
+  "skills": []
+}
