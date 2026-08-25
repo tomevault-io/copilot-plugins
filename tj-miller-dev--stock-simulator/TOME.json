@@ -1,0 +1,44 @@
+{
+  "name": "stock_simulator",
+  "owner": "tj-miller-dev",
+  "repo": "stock_simulator",
+  "description": "100% real fake market data \u2014 a free, deterministic, Alpaca-compatible synthetic market data API. No key, no signup. Runs locally or in cloud (EKS + ArgoCD + Terraform).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tj-miller-dev/stock_simulator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T18:19:32Z"
+}
