@@ -1,0 +1,9 @@
+{
+  "name": "tqbf--swiftui-app",
+  "displayName": "swiftui-app",
+  "description": "A clean, modern SwiftUI macOS app template you fork by copying \u2014 no Xcode project, SwiftPM only.",
+  "version": "1.0.0",
+  "author": "tqbf",
+  "homepage": "https://github.com/tqbf/swiftui-app",
+  "skills": []
+}
