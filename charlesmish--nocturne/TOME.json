@@ -1,0 +1,44 @@
+{
+  "name": "nocturne",
+  "owner": "CharlesMish",
+  "repo": "nocturne",
+  "description": "Nocturne is a small local sleep app. It gives you a few simple ways to settle in: ambient sound beds, a soft sky view, and a local radio space for your own bedtime audio that runs on your machine. The public alpha is focused on three modes: Onsen, Sky, and Radio.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CharlesMish/nocturne",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T09:55:28Z"
+}
