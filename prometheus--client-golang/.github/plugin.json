@@ -1,0 +1,9 @@
+{
+  "name": "prometheus--client-golang",
+  "displayName": "client_golang",
+  "description": "client_golang",
+  "version": "1.0.0",
+  "author": "prometheus",
+  "homepage": "https://github.com/prometheus/client_golang",
+  "skills": []
+}
