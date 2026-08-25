@@ -1,0 +1,9 @@
+{
+  "name": "rommellnelson-ux--ruggylab-os",
+  "displayName": "ruggylab-os",
+  "description": "Secure FastAPI laboratory backend for patient intake, sample tracking, result validation, reagent monitoring, audit trails, and reporting.",
+  "version": "1.0.0",
+  "author": "rommellnelson-ux",
+  "homepage": "https://github.com/rommellnelson-ux/ruggylab-os",
+  "skills": []
+}
