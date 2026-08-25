@@ -1,0 +1,9 @@
+{
+  "name": "bazel-contrib--bcr-frontend",
+  "displayName": "bcr-frontend",
+  "description": "Bazel Central Registry UI",
+  "version": "1.0.0",
+  "author": "bazel-contrib",
+  "homepage": "https://github.com/bazel-contrib/bcr-frontend",
+  "skills": []
+}
