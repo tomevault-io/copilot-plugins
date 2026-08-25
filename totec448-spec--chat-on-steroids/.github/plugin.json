@@ -1,0 +1,9 @@
+{
+  "name": "totec448-spec--chat-on-steroids",
+  "displayName": "chat-on-steroids",
+  "description": "Local Windows coding and computer-use bridge for ChatGPT over MCP, limited to folders and capabilities you approve.",
+  "version": "1.0.0",
+  "author": "totec448-spec",
+  "homepage": "https://github.com/totec448-spec/chat-on-steroids",
+  "skills": []
+}
