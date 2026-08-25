@@ -1,0 +1,44 @@
+{
+  "name": "Mimir",
+  "owner": "Scifi-ally",
+  "repo": "Mimir",
+  "description": "Mimir is a high-performance, AI-driven trading terminal built for the Indian stock market. Powered by advanced predictive models and the Upstox API, it provides real-time market scanning, deep historical context analysis, automated trading signals, and paper trading capabilities\u2014all wrapped in a premium, lightning-fast UI.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Scifi-ally/Mimir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T01:45:08Z"
+}
