@@ -1,0 +1,185 @@
+## fb-ig-video-extractor
+
+> A Telegram bot that takes a Facebook Reels or Instagram Reels URL, automatically
+
+# CLAUDE.md — FB/IG Video Extractor
+
+## What this project does
+
+A Telegram bot that takes a Facebook Reels or Instagram Reels URL, automatically
+pulls the video content, transcribes the audio, extracts the place and saves the
+metadata to Google Sheets.
+
+Live demo of the map (static sample data, no bot required):
+https://tomas-novak.github.io/fb-ig-video-extractor/ (source: `docs/index.html`).
+
+## Architecture
+
+```
+User (phone)
+  → sends a URL to the Telegram bot
+      → Python API (VPS)
+          → yt-dlp downloads the VIDEO (not audio – FB offers no audio-only stream to datacenters)
+          → Gemini Flash analyzes the video: audio transcript + on-screen text + caption (one call)
+          → Google Sheets API saves a row
+          → Telegram Bot API replies to the user
+```
+
+Note: we send Gemini the whole video (not extracted audio). The reason: on a
+datacenter IP Facebook does not offer a separate audio stream, only video. On top
+of that Gemini reads the text shown in the video, which makes the place
+determination more accurate.
+
+## Stack
+
+- **Runtime**: Python 3.10+ (verified on 3.10.12 on the production VPS; no construct in the code requires 3.11)
+- **Web framework**: FastAPI + uvicorn
+- **Telegram**: python-telegram-bot or direct Bot API calls
+- **Video download**: yt-dlp (format `hd/sd/best`)
+- **AI (video analysis)**: Google Gemini 2.5 Flash (multimodal video – audio + image)
+- **Database**: Google Sheets (google-auth + gspread)
+- **Hosting**: own VPS (Ubuntu 22.04, systemd + Caddy)
+
+## Key files
+
+```
+FB_IG_video_extractor/
+├── CLAUDE.md          # this file
+├── README.md          # user documentation (English, default)
+├── README.cs.md       # user documentation (Czech)
+├── main.py            # FastAPI app + Telegram webhook handler
+├── extractor.py       # yt-dlp download logic
+├── analyzer.py        # Gemini API calls (transcription + analysis)
+├── i18n.py            # bot language (BOT_LANGUAGE) + categories (CATEGORIES) + texts
+├── sheets.py          # Google Sheets writing
+├── models.py          # data models (VideoMetadata)
+├── requirements.txt
+├── deploy/            # systemd unit, Caddyfile, update and DuckDNS scripts
+├── docs/deploy-vps.md # general guide for deploying to your own VPS (English)
+├── docs/index.html    # static public demo of the map (GitHub Pages), sample data only
+├── railway.toml       # Railway build/deploy config
+├── nixpacks.toml      # Railway: adds ffmpeg to the auto-detected Python
+├── gen_railway_env.py # helper script: .env -> railway-variables.local.txt
+└── .env.example       # environment variables template
+```
+
+## Environment variables
+
+Full reference with descriptions: `.env.example` (kept as the single source
+of truth rather than duplicated here).
+
+The three required for any deployment: `TELEGRAM_BOT_TOKEN`, `GEMINI_API_KEY`,
+`GOOGLE_SHEETS_ID` (+ `GOOGLE_SERVICE_ACCOUNT_FILE` for local dev or
+`GOOGLE_SERVICE_ACCOUNT_JSON` for servers — see `sheets.py`). `PUBLIC_URL`/
+`HOST` matter specifically for deployment - see below.
+
+## Google Sheets structure (Sheet1)
+
+| A: Date | B: URL | C: Author | D: Title | E: Place | F: Lat | G: Lng | H: Category | I: Tags | J: Summary | K: Transcript | L: Source | M: group_id |
+
+**M: group_id** — places with the same group_id are shown on the map as a single
+pin with multiple videos. Merging is proposed by Claude Haiku (the dedup command
+in Telegram → Merge/Keep buttons). See `dedup.py`. Merging deletes nothing and is
+reversible (clear the group_id in the sheet).
+
+## Supported URL formats
+
+- `https://www.facebook.com/reel/ID`
+- `https://www.instagram.com/reel/ID`
+- `https://www.instagram.com/p/ID`
+- `https://www.tiktok.com/@user/video/ID`
+- `https://www.youtube.com/shorts/ID`
+- Share links (shortened: `fb.watch`, `vm.tiktok.com`, `youtu.be`) — yt-dlp expands them automatically
+
+## Categories (for filtering on the map)
+
+Default (en): `swimming` · `hiking` · `food` · `culture` · `nature` · `sport` · `fun` · `hotel` · `other`
+
+Default (cs): `koupání` · `turistika` · `jídlo` · `kultura` · `příroda` · `sport` · `zábava` · `hotel` · `jiné`
+
+Categories are configurable through the `CATEGORIES` env variable (see `i18n.py`);
+the last one in the list is the fallback. The language of the bot's replies, the
+map and Gemini summaries is driven by `BOT_LANGUAGE` (`en` default / `cs`); the
+audio transcript stays in the language of the video.
+
+## Development
+
+```bash
+python -m venv venv
+venv\Scripts\activate       # Windows
+pip install -r requirements.txt
+cp .env.example .env        # fill in the values
+uvicorn main:app --reload --port 8000
+```
+
+## Language policy
+
+The repository is public and English is its working language.
+
+- Write commit messages, branch names and PR text in **English**.
+- Code comments, docstrings and development documentation (this file) are in **English**.
+- Czech stays only where it is product data, not prose:
+  - `README.cs.md` (Czech user documentation)
+  - the `cs` message catalog, command names and categories in `i18n.py`
+  - the `cs` Gemini prompt templates in `analyzer.py`
+  - the `T_cs` map UI dictionary in `map_page.py`
+  - test fixtures and assertions, since `tests/conftest.py` pins `BOT_LANGUAGE=cs`
+    to exercise the Czech path
+
+## Deployment
+
+Three supported options, documented in the README ("Deployment" section):
+
+**VPS (our production instance):** a general step-by-step guide (for anyone, not
+just our server) — `docs/deploy-vps.md`.
+
+1. The application lives in `/opt/fbig-bot`, Python venv, runs as a systemd
+   service (`deploy/fbig-bot.service`) under the `fbigbot` user
+2. Caddy as a reverse proxy (`deploy/Caddyfile`) — HTTPS from Let's Encrypt
+   automatically, domain via DuckDNS
+3. `HOST=127.0.0.1` in `.env` — only Caddy is exposed
+4. The webhook registers itself at startup based on `PUBLIC_URL`
+   (manual variant: `python main.py --set-webhook <url>`)
+5. Updates: `deploy/update.sh` (git pull + dependencies + yt-dlp + restart)
+
+The unit sets `MemoryMax`, `OOMScoreAdjust=1000` and a lower CPU/IO weight so
+that under memory pressure the system always kills the bot and not the other
+services on the server.
+
+**Docker** (`Dockerfile`, `docker-compose.yml`) — VPS/NAS/Raspberry Pi without
+systemd, or when you already have your own reverse proxy.
+
+**Railway** (`railway.toml`, `nixpacks.toml`) — the easiest one to try out, with
+no HTTPS/`PUBLIC_URL` to sort out (`main.py` picks up `RAILWAY_PUBLIC_DOMAIN`
+automatically). `gen_railway_env.py` generates `railway-variables.local.txt`
+from a local `.env` for quick pasting into the Railway dashboard.
+
+A public domain has to be generated in the Railway dashboard first — until it
+exists `RAILWAY_PUBLIC_DOMAIN` is unset, so `_public_url()` returns `""` and no
+webhook is registered. The deploy still passes its `/health` check, so this
+fails silently: the bot looks healthy and never replies.
+
+**Applies to all three:** only one instance may run at a time — whichever one
+registers its webhook with Telegram last receives the traffic. When switching
+between them, always genuinely stop the old instance. Clearing `PUBLIC_URL` and
+restarting is enough for VPS/Docker, but not for Railway — it falls back to its
+own `RAILWAY_PUBLIC_DOMAIN` and re-registers the webhook regardless; a Railway
+instance has to be paused/removed directly in the dashboard.
+
+## History
+
+The project originally ran only on Railway. Since 2026-08-06 our production
+instance runs on its own VPS (see above) because the Railway trial expired;
+support for Railway as a deployment option for anyone else was kept/restored
+alongside VPS and Docker.
+
+## Future extensions
+
+- Google My Maps integration (showing pins from Sheets)
+- Filtering the map by category
+- Migrating the database to Supabase + the map to Vercel — a finished design
+  exists, the owner keeps it outside the repo
+
+---
+> Source: [tomas-novak/fb-ig-video-extractor](https://github.com/tomas-novak/fb-ig-video-extractor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
