@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [moturus/motor-os](https://github.com/moturus/mo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [moturus/motor-os](https://github.com/moturus/motor-os) — a repo with 1090+ stars on GitHub.
+From [moturus/motor-os](https://github.com/moturus/motor-os) — a repo with 1089+ stars on GitHub.
 
 ---
 
