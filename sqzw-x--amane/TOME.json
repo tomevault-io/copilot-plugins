@@ -4,7 +4,7 @@
   "repo": "amane",
   "description": "AI \u65f6\u4ee3\u7684\u79c1\u4eba\u5f71\u5e93",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sqzw-x/amane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:18:08Z"
+  "distributed_at": "2026-08-25T23:44:32Z"
 }
