@@ -1,0 +1,9 @@
+{
+  "name": "chnnic--ssh-hardening",
+  "displayName": "SSH-Hardening",
+  "description": "IMPART OPS\uff1a\u4e00\u7ad9\u5f0f Linux VPS \u8fd0\u7ef4\u4e0e\u5b89\u5168\u52a0\u56fa\u811a\u672c\uff0c\u96c6\u6210 SSH\u9632\u62a4\u3001BBR/tc\u9650\u901f\u3001DDNS\u3001\u9632\u706b\u5899\u3001Caddy\u3001Docker\u3001\u7f51\u7edc\u8bca\u65ad\u3001\u76d1\u63a7\u544a\u8b66\u53ca\u79bb\u7ebf\u5b89\u88c5\u3002",
+  "version": "1.0.0",
+  "author": "chnnic",
+  "homepage": "https://github.com/chnnic/SSH-Hardening",
+  "skills": []
+}
