@@ -1,54 +1,52 @@
-## 800-testing-standards
+## 850-mcp-and-prd
 
-> Require deterministic Vitest mocks and CI-first heavy suites per docs/CI.md
+> Consult roadmap and docs hub before cross-cutting product or integration work
 
 
-# Testing (Vitest + Playwright)
+# Produktkontext, Doku-Hub & MCP
 
-## Determinismus
+## Vor großen Änderungen lesen
 
-- Tests **isoliert**: keine Reihenfolge-, Netzwerk- oder `Date.now()`-Abhängigkeit ohne Mock/Fake-Timer.
-- Redux, `localStorage`, IDB: Reset via `tests/setup.ts` oder explizite Fixtures.
-- Vitest: **`maxWorkers: 1`** im Repo — keinen parallelen schweren Lauf neben Build/E2E auf Low-RAM-Maschinen.
+| Dokument | Rolle |
+|----------|--------|
+| [`ROADMAP.md`](../../ROADMAP.md) | Geplante Features, Prioritäten |
+| [`AUDIT.md`](../../AUDIT.md) | Inventar, Follow-ups, Metriken |
+| [`docs/BEST-PRACTICES.md`](../../docs/BEST-PRACTICES.md) | Architektur, Content, CI-first |
+| [`docs/CI.md`](../../docs/CI.md) | Workflow, lokale vs. CI-Tiers |
+| [`CHANGELOG.md`](../../CHANGELOG.md) | Release-Notizen |
+| [`README.md`](../../README.md) | Documentation Hub |
 
-## Mocks
+`PRD.md` / `instructions.md`: anlegen, sobald das Team sie nutzt — bis dahin ROADMAP + AUDIT als Quelle.
 
-- `@google/genai`, `@ai-sdk/*`, Tauri, `fetch`, schwere ML-Peers: **`vi.mock`** / Aliase wie in `vitest.config.ts`.
-- Keine echten API-Keys oder Produktions-URLs.
+## Session-Gedächtnis
 
-## Verbotene „Grün-Tricks“
+- Beschlüsse kurz in **`.notes/meeting_notes.md`** (chronologisch/thematisch).
 
-- Kein Auskommentieren von Assertions, kein dauerhaftes Ignorieren flakiger Unit-Tests.
-- `it.skip`/`describe.skip` nur mit **Dateikommentar** (Grund, Ticket) und bewusst deaktivierten Suites — nicht statt Fix.
+## Graphify & Hooks
 
-## Assertions & E2E-Hilfen
+- Optional nach größeren Strukturänderungen: `pnpm run graphify:update` / `graphify:bootstrap` ([`docs/graphify.md`](../../docs/graphify.md)).
+- Git-Hooks: `simple-git-hooks` + lint-staged (siehe `CONTRIBUTING.md`).
 
-- Interaktion: `@testing-library/user-event`; async: `findBy*`/`waitFor`.
-- E2E: [`tests/e2e/helpers.ts`](../../tests/e2e/helpers.ts) (SPA-ready, kein `networkidle` unter Vite).
-- **axe:** schwere/critical Verstöße in `tests/e2e/a11y.spec.ts` und erweiterten Routen vermeiden — [`docs/ACCESSIBILITY.md`](../../docs/ACCESSIBILITY.md).
+## MCP (lokal in Cursor)
 
-## Spezialfälle
+| Bereich | Rolle |
+|---------|--------|
+| Repository | GitHub/Git für Issues, PRs, Diffs |
+| Qualität | CI-Artefakte, Coverage-Reports |
+| Doku | Notion o. ä. — siehe [`.cursor/settings.json`](../settings.json) Plugins |
 
-- `sceneRevisionService` / reine IDB: `@vitest-environment node` + `IDBFactory` + `_resetDbForTest()` (siehe `CLAUDE.md`).
-- Risiko-Hotspots bei Änderungen testen: `dbService`, `aiProviderService`, Import/Export, `storageBackend`.
+Server-Namen und Tokens **nur** in lokaler Cursor-Konfiguration — nie ins Repo.
 
-## CI-first (kanonisch: [`docs/CI.md`](../../docs/CI.md))
+## Agent-Parität
 
-| Tier | Befehle |
-|------|---------|
-| **Lokal schnell** | `lint`, `typecheck`, `i18n:check`; optional `pnpm exec vitest run` **ohne** `--coverage` |
-| **CI schwer** | Vitest **mit** Coverage (Schwellen 63/55/54/62 — lines/branches/functions/statements), `CI=true pnpm run test:e2e`, LHCI, `bundle:budget` |
-
-- Merge-Bar = **grüner GitHub-Workflow**, nicht voller lokaler E2E auf schwacher Hardware.
-- Mobile E2E lokal nur mit `RUN_MOBILE_E2E=1` (siehe `playwright.config.ts`).
-- **Stryker:** informativ (`continue-on-error`); Score-Gate nicht umgehen durch Test-Löschung.
+- [`CLAUDE.md`](../../CLAUDE.md), [`.github/copilot-instructions.md`](../../.github/copilot-instructions.md) und **diese `.mdc`-Regeln** sollten bei Stack-Updates zusammen gehalten werden.
 
 <example>
-`aiProviderService`: `vi.mock` für SDK; feste Antwort; bei IDB-Test `node`-Environment + Factory-Reset.
+Neues Plot-Board-Feature: ROADMAP-Eintrag prüfen; BEST-PRACTICES Glossar; nach Merge CI-Metriken in README/AUDIT (nur wenn Maintainer es verlangt).
 </example>
 
 <example type="invalid">
-Flaky Test auskommentieren ohne Ticket; Coverage-Schwelle senken statt Test hinzufügen; E2E mit echtem Gemini-Key.
+Großer Architektur-Pivot ohne ROADMAP/AUDIT; MCP-Token in `.cursor/settings.json` committen; nur Copilot-Instructions aktualisieren, `.mdc` vergessen.
 </example>
 
 ---
