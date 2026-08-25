@@ -1,35 +1,144 @@
-## cdk-stage-lifecycle
+## tanstack-aws
 
-> CDK stage lifecycle and deploy workflow invariants.
+> - Keep this file concise and global. If guidance is file/domain-specific, put it in `.cursor/rules/*.mdc`.
 
+# AGENTS.md
 
-# CDK Stage Lifecycle Contract
+- Keep this file concise and global. If guidance is file/domain-specific, put it in `.cursor/rules/*.mdc`.
 
-Keep stage normalization and lifecycle behavior centralized so deploy, destroy, and promotion flows are deterministic.
+## Cursor Cloud specific instructions
 
-- Normalize stage names through `lib/stage-name.ts`.
-- Resolve workflow stage values through `scripts/resolve-stage.ts`; do not duplicate slug logic in workflow YAML.
-- Workflow stage resolution contract:
-  - Pass source ref/input explicitly with `--stage "<value>"`.
-  - Write normalized output from `scripts/resolve-stage.ts` to workflow output, then set `APP_STAGE` from that output for CDK commands.
-  - Source mapping:
-    - `deploy-feature.yml`: `github.ref_name` + `--lifecycle ephemeral`
-    - `deploy-main.yml`: `github.ref_name` + `--lifecycle permanent`
-    - `deploy-prod.yml`: `github.event.inputs.stage` + `--lifecycle permanent`
-    - `destroy-feature-on-merge.yml`: `github.event.pull_request.head.ref` + `--lifecycle ephemeral`
-- Treat `main` and `prod` as permanent stages; all other stages are ephemeral.
-- If a branch normalizes to a reserved permanent name, prefix it (for example `feature-main`) so it remains ephemeral.
-- In `bin/app.ts`, classify lifecycle and instantiate the stack before applying ephemeral cleanup policies.
-- For ephemeral stages, apply cleanup at app scope with `RemovalPolicies.of(app).destroy()` and `Mixins.of(app).apply(new s3Mixins.BucketAutoDeleteObjects())`.
-- This mirrors `bin/app.ts`, where lifecycle is classified and cleanup mixins are applied at the app level.
-- Keep stacks (for example `lib/tanstack-aws.ts`) focused on resource definition and avoid lifecycle-control props like `appLifecycle`.
-- Destroy workflows must be idempotent: treat "stack does not exist" as successful cleanup.
-- Cleanup can run for PRs merged into `main`; fork PR cleanup should safely no-op when no matching feature stack exists.
-- Ephemeral cleanup has no resource-level exceptions: destroy all stack resources for ephemeral stages.
+### Overview
 
-## Why
+TanStack AWS is a single TanStack Start (React SSR) application built with Vite + Nitro. It showcases TanStack libraries (Start, Router, DB, AI, Query, Store, Form, Table) with AWS services. There is no monorepo structure — one `package.json` at the root, pnpm as the package manager.
 
-This prevents divergence between app bootstrap behavior, workflow stage resolution, and stack lifecycle policy.
+## Global conventions
+
+- Use `vp` for package, build, lint, and test commands. Do not run `pnpm`, `npm`, or `yarn` directly.
+- TypeScript: do not use `any` or `as` casts to silence type errors unless unavoidable and justified.
+- Before completing substantial code changes, run `vp check` and `vp test`.
+
+## Rules index
+
+- CDK lifecycle + workflow stage handling: `.cursor/rules/cdk-stage-lifecycle.mdc`
+- CloudFront/WAF retention behavior: `.cursor/rules/cdk-cloudfront-webacl-retention.mdc`
+
+## Agent skills
+
+Matt Pocock engineering skills live in `.agents/skills/`. Sync with `npx skills update -p` (or `vp dlx skills@latest update -p`). Restore from lockfile: `npx skills experimental_install`.
+
+- **Setup**: run `/setup-matt-pocock-skills` once after changing tracker or domain-doc layout.
+- **Code review**: prefer `/code-review` (standards + spec). Use `/review-security` only for security-focused review.
+- **Tests**: prefer `/tdd` for feature work; run `vp check` and `vp test` per global conventions below.
+
+### Issue tracker
+
+GitHub Issues on `JohannesKonings/tanstack-aws`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five-role vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
+
+<!-- intent-skills:start -->
+
+# Skill mappings — when working in these areas, load the linked skill file into context.
+
+skills:
+
+- task: "building or changing TanStack Start routes, server functions, and route handlers"
+  load: "node_modules/@tanstack/react-start/skills/react-start/SKILL.md"
+- task: "implementing TanStack DB collections and React DB live queries"
+  load: "node_modules/@tanstack/react-db/skills/react-db/SKILL.md"
+- task: "configuring TanStack Devtools Vite plugin integration"
+  load: "node_modules/@tanstack/devtools-vite/skills/devtools-vite-plugin/SKILL.md"
+- task: "instrumenting custom devtools events and typed event clients"
+  load: "node_modules/@tanstack/devtools-event-client/skills/devtools-event-client/SKILL.md"
+- task: "working with Nitro server runtime and deployment behavior"
+  load: "node_modules/nitro/skills/nitro/SKILL.md"
+
+<!-- intent-skills:end -->
+
+<!--VITE PLUS START-->
+
+# Using Vite+, the Unified Toolchain for the Web
+
+This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, but it invokes Vite through `vp dev` and `vp build`.
+
+## Vite+ Workflow
+
+`vp` is a global binary that handles the full development lifecycle. Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
+
+### Start
+
+- create - Create a new project from a template
+- migrate - Migrate an existing project to Vite+
+- config - Configure hooks and agent integration
+- staged - Run linters on staged files
+- install (`i`) - Install dependencies
+- env - Manage Node.js versions
+
+### Develop
+
+- dev - Run the development server
+- check - Run format, lint, and TypeScript type checks
+- lint - Lint code
+- fmt - Format code
+- test - Run tests
+
+### Execute
+
+- run - Run monorepo tasks
+- exec - Execute a command from local `node_modules/.bin`
+- dlx - Execute a package binary without installing it as a dependency
+- cache - Manage the task cache
+
+### Build
+
+- build - Build for production
+- pack - Build libraries
+- preview - Preview production build
+
+### Manage Dependencies
+
+Vite+ automatically detects and wraps the underlying package manager such as pnpm, npm, or Yarn through the `packageManager` field in `package.json` or package manager-specific lockfiles.
+
+- add - Add packages to dependencies
+- remove (`rm`, `un`, `uninstall`) - Remove packages from dependencies
+- update (`up`) - Update packages to latest versions
+- dedupe - Deduplicate dependencies
+- outdated - Check for outdated packages
+- list (`ls`) - List installed packages
+- why (`explain`) - Show why a package is installed
+- info (`view`, `show`) - View package information from the registry
+- link (`ln`) / unlink - Manage local package links
+- pm - Forward a command to the package manager
+
+### Maintain
+
+- upgrade - Update `vp` itself to the latest version
+
+These commands map to their corresponding tools. For example, `vp dev --port 3000` runs Vite's dev server and works the same as Vite. `vp test` runs JavaScript tests through the bundled Vitest. The version of all tools can be checked using `vp --version`. This is useful when researching documentation, features, and bugs.
+
+## Common Pitfalls
+
+- **Using the package manager directly:** Do not use pnpm, npm, or Yarn directly. Vite+ can handle all package manager operations.
+- **Always use Vite commands to run tools:** Don't attempt to run `vp vitest` or `vp oxlint`. They do not exist. Use `vp test` and `vp lint` instead.
+- **Running scripts:** Vite+ commands take precedence over `package.json` scripts. If there is a `test` script defined in `scripts` that conflicts with the built-in `vp test` command, run it using `vp run test`.
+- **Do not install Vitest, Oxlint, Oxfmt, or tsdown directly:** Vite+ wraps these tools. They must not be installed directly. You cannot upgrade these tools by installing their latest versions. Always use Vite+ commands.
+- **Use Vite+ wrappers for one-off binaries:** Use `vp dlx` instead of package-manager-specific `dlx`/`npx` commands.
+- **Import JavaScript modules from `vite-plus`:** Instead of importing from `vite` or `vitest`, all modules should be imported from the project's `vite-plus` dependency. For example, `import { defineConfig } from 'vite-plus';` or `import { expect, test, vi } from 'vite-plus/test';`. You must not install `vitest` to import test utilities.
+- **Type-Aware Linting:** There is no need to install `oxlint-tsgolint`, `vp lint --type-aware` works out of the box.
+
+## Review Checklist for Agents
+
+- [ ] Run `vp install` after pulling remote changes and before getting started.
+- [ ] Run `vp check` and `vp test` to validate changes.
+
+<!--VITE PLUS END-->
 
 ---
 > Source: [JohannesKonings/tanstack-aws](https://github.com/JohannesKonings/tanstack-aws) — distributed by [TomeVault](https://tomevault.io).
