@@ -1,0 +1,44 @@
+{
+  "name": "ZataTree",
+  "owner": "ZataZhang",
+  "repo": "ZataTree",
+  "description": "\u672c\u4ed3\u5e93\u65e8\u5728\u4e3a\u8ba1\u7b97\u673a\u79d1\u5b66\u53ca\u76f8\u5173\u9886\u57df\u7684\u5b66\u4e60\u8005\u548c\u4ece\u4e1a\u8005\u63d0\u4f9b\u4e00\u4e2a\u7cfb\u7edf\u5316\u7684\u77e5\u8bc6\u6982\u89c8\u3002\u5185\u5bb9\u8986\u76d6\u8ba1\u7b97\u673a\u57fa\u7840\u3001\u7f16\u7a0b\u8bed\u8a00\u3001\u7b97\u6cd5\u4e0e\u6570\u636e\u7ed3\u6784\u3001\u64cd\u4f5c\u7cfb\u7edf\u3001\u7f51\u7edc\u3001\u6570\u636e\u5e93\u3001\u4eba\u5de5\u667a\u80fd\u7b49\u591a\u4e2a\u9886\u57df\uff0c\u6240\u6709\u5185\u5bb9\u5747\u4ee5\u7b80\u660e\u627c\u8981\u7684\u65b9\u5f0f\u5448\u73b0\uff0c\u9002\u5408\u5feb\u901f\u67e5\u9605\u548c\u5165\u95e8\u5b66\u4e60\u3002\u65e0\u8bba\u662f\u521d\u5b66\u8005\u8fd8\u662f\u5e0c\u671b\u5de9\u56fa\u57fa\u7840\u77e5\u8bc6\u7684\u5f00\u53d1\u8005\uff0c\u90fd\u53ef\u4ee5\u5728\u8fd9\u91cc\u627e\u5230\u6709\u4ef7\u503c\u7684\u4fe1\u606f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZataZhang/ZataTree",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T20:08:40Z"
+}
