@@ -7,11 +7,11 @@ Pure-Rust LLM runtime: one binary serves (OpenAI-compatible), runs local agents,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [acupof-ai/arle](https://github.com/acupof-ai/arle).
+Original source: `AGENTS.md` in [acupof-ai/arle](https://github.com/acupof-ai/arle).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
