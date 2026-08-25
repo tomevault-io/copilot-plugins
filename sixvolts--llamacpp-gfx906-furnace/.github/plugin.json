@@ -1,0 +1,9 @@
+{
+  "name": "sixvolts--llamacpp-gfx906-furnace",
+  "displayName": "llamacpp-gfx906-furnace",
+  "description": "Optimized build of llama.cpp for gfx906/Vega20. ",
+  "version": "1.0.0",
+  "author": "sixvolts",
+  "homepage": "https://github.com/sixvolts/llamacpp-gfx906-furnace",
+  "skills": []
+}
