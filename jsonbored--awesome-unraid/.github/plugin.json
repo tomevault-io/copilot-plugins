@@ -1,0 +1,9 @@
+{
+  "name": "jsonbored--awesome-unraid",
+  "displayName": "awesome-unraid",
+  "description": "Production-grade Unraid CA templates for self-hosters tired of half-baked XML files \u2014 every env var documented, sane defaults, working init scripts, and actually maintained.",
+  "version": "1.0.0",
+  "author": "JSONbored",
+  "homepage": "https://github.com/JSONbored/awesome-unraid",
+  "skills": []
+}
