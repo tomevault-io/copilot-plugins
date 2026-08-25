@@ -1,0 +1,9 @@
+{
+  "name": "lntvan166--paddock",
+  "displayName": "paddock",
+  "description": "A mobile-first dashboard for herdr \u2014 reads its unix socket. Run on your phone without any configuration.",
+  "version": "1.0.0",
+  "author": "lntvan166",
+  "homepage": "https://github.com/lntvan166/paddock",
+  "skills": []
+}
