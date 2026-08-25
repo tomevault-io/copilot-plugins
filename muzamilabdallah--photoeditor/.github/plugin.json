@@ -1,0 +1,9 @@
+{
+  "name": "muzamilabdallah--photoeditor",
+  "displayName": "photoEditor",
+  "description": "WhatsApp-style photo editor for Android, built with Jetpack Compose \u2014 overlay text, emoji, freehand drawings & shapes, then export. Published as two libraries: photoeditor-core (engine) + photoeditor-",
+  "version": "1.0.0",
+  "author": "Muzamilabdallah",
+  "homepage": "https://github.com/Muzamilabdallah/photoEditor",
+  "skills": []
+}
