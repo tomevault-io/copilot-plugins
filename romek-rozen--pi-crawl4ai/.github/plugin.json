@@ -1,0 +1,9 @@
+{
+  "name": "romek-rozen--pi-crawl4ai",
+  "displayName": "pi-crawl4ai",
+  "description": "Crawl4AI extension for pi \u2014 LLM-friendly web crawling, scraping and structured extraction as a pi tool, slash commands and agents",
+  "version": "1.0.0",
+  "author": "romek-rozen",
+  "homepage": "https://github.com/romek-rozen/pi-crawl4ai",
+  "skills": []
+}
