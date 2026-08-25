@@ -1,0 +1,9 @@
+{
+  "name": "tutunak--jcli",
+  "displayName": "jcli",
+  "description": "A command-line tool for Jira workflow management. Quickly select issues, track your current work, and generate consistent branch names.",
+  "version": "1.0.0",
+  "author": "tutunak",
+  "homepage": "https://github.com/tutunak/jcli",
+  "skills": []
+}
