@@ -7,11 +7,11 @@ Never ship 'delve' again
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yasyf/slop-cop](https://github.com/yasyf/slop-cop).
+Original source: `AGENTS.md` in [yasyf/slop-cop](https://github.com/yasyf/slop-cop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
