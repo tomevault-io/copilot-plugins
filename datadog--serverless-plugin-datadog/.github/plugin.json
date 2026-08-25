@@ -1,0 +1,9 @@
+{
+  "name": "datadog--serverless-plugin-datadog",
+  "displayName": "serverless-plugin-datadog",
+  "description": "serverless-plugin-datadog",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/serverless-plugin-datadog",
+  "skills": []
+}
