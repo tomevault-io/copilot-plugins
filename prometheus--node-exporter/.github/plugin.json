@@ -1,0 +1,9 @@
+{
+  "name": "prometheus--node-exporter",
+  "displayName": "node_exporter",
+  "description": "node_exporter",
+  "version": "1.0.0",
+  "author": "prometheus",
+  "homepage": "https://github.com/prometheus/node_exporter",
+  "skills": []
+}
