@@ -1,0 +1,9 @@
+{
+  "name": "superpiorg--superpi",
+  "displayName": "superpi",
+  "description": "pi agent management via desktop app",
+  "version": "1.0.0",
+  "author": "superpiorg",
+  "homepage": "https://github.com/superpiorg/superpi",
+  "skills": []
+}
