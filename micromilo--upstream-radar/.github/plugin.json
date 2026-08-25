@@ -1,0 +1,9 @@
+{
+  "name": "micromilo--upstream-radar",
+  "displayName": "upstream-radar",
+  "description": "Always-on compatibility testing for DeepSeek Harness plugins: exact releases, isolated runners, and fixable upstream issues.",
+  "version": "1.0.0",
+  "author": "MicroMilo",
+  "homepage": "https://github.com/MicroMilo/upstream-radar",
+  "skills": []
+}
