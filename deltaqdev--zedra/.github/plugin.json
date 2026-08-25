@@ -1,0 +1,9 @@
+{
+  "name": "deltaqdev--zedra",
+  "displayName": "zedra",
+  "description": "Remote control for AI coding agents. Rust + GPUI + QUIC/UDP. Available on iOS/Android",
+  "version": "1.0.0",
+  "author": "deltaqdev",
+  "homepage": "https://github.com/deltaqdev/zedra",
+  "skills": []
+}
