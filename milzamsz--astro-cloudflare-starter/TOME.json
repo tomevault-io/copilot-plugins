@@ -4,7 +4,7 @@
   "repo": "astro-cloudflare-starter",
   "description": "Static Astro marketing + blog + docs starter for Cloudflare Pages. Markdown content, Starlight docs with full-text search, i18n-ready, SEO, light/dark \u2014 no CMS, no database.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/milzamsz/astro-cloudflare-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T23:54:17Z"
+  "distributed_at": "2026-08-25T11:52:46Z"
 }
