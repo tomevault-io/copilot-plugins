@@ -1,0 +1,125 @@
+## quireink
+
+> Public, source-available blog platform (PolyForm Noncommercial, [ADR 0015](./docs/decisions/0015-relicense-polyform-noncommercial.md);
+
+# Quire Ink
+
+Public, source-available blog platform (PolyForm Noncommercial, [ADR 0015](./docs/decisions/0015-relicense-polyform-noncommercial.md);
+unmodified releases may be run commercially, [ADR 0023](./docs/decisions/0023-commercial-use-of-unmodified-releases.md)).
+One **Bun + Hono + SQLite** process; `src/` at the repository root serves the live site.
+
+**Zero personal data in this repo.** No IP, user, port or host, ever: they live in the
+private sibling with the worklog, the tasks and the audits. Credentials live only in the
+gitignored `.env`.
+
+## Verify
+
+```
+bun run check:all
+```
+
+Typecheck, the seven static guards (`filesize` · `css` · `nul` · `routes` · `type` ·
+`admin-kit` · `docs`) and `bun test`. About 2 minutes. A change under `src/render` or
+`src/web` also runs the golden compare.
+
+`check:all` proves the code compiles and the seams hold. It cannot tell you a column
+collapsed to `reader@e…` or that three columns are 14px out of alignment. Both shipped,
+because nobody opened the page.
+
+```
+bun run tour
+```
+
+Sixty flows in a real browser, each with a verdict: the reader's controls, every admin
+page, a draft saved and published and trashed and restored, an upload refused for being too
+large, the archive built. It seeds its own instance on **port 3399** and deletes it after, so it
+never touches a real one — and it refuses to start if something already holds that port, because
+a tour on a busy port silently tours the other instance and fails every admin flow on a session
+that database never issued. `PORT=` moves it. Flows live in [`scripts/tour-flows.ts`](./scripts/tour-flows.ts);
+the browser plumbing is [`scripts/tour.ts`](./scripts/tour.ts).
+
+It then runs [`scripts/restore-check.ts`](./scripts/restore-check.ts), because a browser
+cannot untar an archive or open a SQLite file. The tour proves the backup BUILDS; this opens
+it — `integrity_check` on both databases, no table with fewer rows than before the snapshot,
+every upload byte-identical. A backup nobody has restored is not a backup.
+
+For one page, looked at rather than asserted: [`scripts/drive.ts`](./scripts/drive.ts) and
+[`scripts/shot.ts`](./scripts/shot.ts). Verify against the **origin**, never through the CDN.
+
+## Read first
+
+| Doing | Read |
+|---|---|
+| Anything at all | [`docs/invariants.md`](./docs/invariants.md) — the 7 load-bearing rules |
+| Understanding how a part fits | [`docs/README.md`](./docs/README.md) — the index of everything below |
+| Touching fonts, CSS, images or island JS | [`docs/performance.md`](./docs/performance.md) — the resource-loading law |
+| Touching the cache, the CDN purge or compression | [`docs/delivery.md`](./docs/delivery.md) |
+| Touching a public view | [`docs/conventions/`](./docs/conventions/README.md) — type · layout · colour · motion · admin: [`docs/admin-design.md`](./docs/admin-design.md) |
+| Touching the schema | [`docs/spec/01-schema.md`](./docs/spec/01-schema.md) · [`src/store/schema.sql`](./src/store/schema.sql) |
+| Wondering whether 1.x did it differently | [`docs/spec/07-parity-public.md`](./docs/spec/07-parity-public.md) · [owner-facing half](./docs/spec/07-parity-admin.md) |
+| Cutting a release, or touching the image | [`docs/conventions/releases.md`](./docs/conventions/releases.md) — the version is the owner's call, and a tag publishes the Docker image by itself |
+| Going against a past decision | [`docs/decisions/`](./docs/decisions/README.md) — read the in-force index first |
+| Picking up work, or logging it | the private sibling repo ([ADR 0017](./docs/decisions/0017-move-state-and-instance-config-private.md)) |
+
+**Do not read `CHANGELOG.md` while coding.** It is append-only at release time and its
+history is never needed to fix or understand code.
+
+## Debug router — a symptom, and the files to open first
+
+| Symptom / area | Read these first |
+|---|---|
+| Routing, middleware, what a request does | `src/web/app.ts`, `src/web/guard.ts`, `src/web/cache-headers.ts` |
+| Cache, or content not updating | `src/server/cache.ts` (in-process), `src/web/cache-headers.ts` (shared), `src/server/edge-cache.ts` |
+| A page's HTML | `src/web/{layout,chrome,article,listing}.ts`, `src/web/*.css.ts` |
+| Markdown → HTML, highlighting, footnotes | `src/render/` |
+| Island JS: search, theme, comments, subscribe, book mode | `src/assets/js/` |
+| Admin SPA, editor | `src/admin/`, `src/web/admin/` |
+| Sign-in, TOTP, sessions, recovery codes | `src/auth/`, `src/web/auth-routes.ts` |
+| Posts, pages, slugs, series, revisions, settings | `src/content/` |
+| Uploads, image variants, ranges | `src/media/` |
+| Newsletter, broadcast, SMTP | `src/news/` |
+| Comments · Analytics | `src/comments/` · `src/analytics/` (writes go through `buffer.ts`) |
+| SQL, migrations, the live/trashed predicate | `src/store/` |
+| Scheduled publishing, redirects, rate limit, activity | `src/server/` |
+| MCP server, tokens | `src/mcp/`, `src/web/admin/mcp-transport.ts`, `src/web/admin/mcp.ts` |
+| UI strings, translations | `src/i18n/`, `src/locales/` |
+| WordPress import | `src/import/wordpress.ts`, `src/web/admin/ops.ts` |
+
+## Hard rules — each one is a bug that already shipped
+
+- **No `any`** — use `unknown` and narrow. Acceptable only at a JSON boundary that
+  immediately validates into a typed shape.
+- **No VALUE is ever interpolated into SQL.** Values are bound, always. What may be
+  interpolated is a fixed IDENTIFIER from a module constant or a closed set: a column list
+  (`META_COLS`), the `liveOnly()` predicate, a table name, the analytics facet
+  ([`docs/spec/01-schema.md`](./docs/spec/01-schema.md) §3). Sixteen such sites exist and
+  none reads a request.
+- **Every write route is mounted on the owner-gated router group**, not checked inside the
+  handler ([invariant 4](./docs/invariants.md)).
+- **Every handler** times and logs its request, catches and logs errors, and returns a typed
+  error response.
+- **Secrets never reach a client-bound payload**: `users.password_hash`, `users.totp_secret`,
+  `recovery_codes`, `integration_keys`, `mcp_tokens`.
+- **Public UI colours come ONLY from theme tokens.** Never a hardcoded `neutral-*`, `white`,
+  `black` or hex. ONE typeface, no hardcoded sizes, one divider style, never ALL-CAPS.
+- **UI strings live in `src/i18n` only**, all 6 languages in sync (en, then vi, de, ja, zh, ko).
+
+## Danger zones
+
+- **`golden/v1/corpus/` is not leftover from the retired 1.x tree.** It is captured reference
+  HTML and it is the golden compare's contract; `src/render/golden.test.ts` reads it on every
+  run. **Never regenerate it.** Those files are what 1.x actually printed, captured by running
+  a renderer that no longer exists — overwriting them does not update the reference, it
+  destroys it, and the gate then reports parity against our own output. When output changes on
+  purpose, name the fixture in `DIVERGED` in that test and capture the new answer under
+  `golden/v2/corpus/`; both stay on disk and the other 42 keep the original contract.
+- **The retired Next.js implementation is gone from the tree** ([ADR 0019](./docs/decisions/0019-remove-the-frozen-tree-from-the-working-copy.md)),
+  preserved at tag `v1-final`. Do not reintroduce it, and do not "fix" a doc by pointing at
+  a `v1/` path.
+- **Production is not a test environment.** A newsletter cannot be unsent.
+- **All scratch goes under `.tmp/`.** One gitignored root, deletable at any moment. Never a
+  new scratch directory at the repository root.
+
+---
+> Source: [joiha-steven/quireink](https://github.com/joiha-steven/quireink) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
