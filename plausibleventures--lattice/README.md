@@ -7,11 +7,11 @@ Isometric games made easy — an agentic game kit. 12 agent skills over 9 zero-d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [plausibleventures/lattice](https://github.com/plausibleventures/lattice).
+Original source: `AGENTS.md` in [plausibleventures/lattice](https://github.com/plausibleventures/lattice).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
