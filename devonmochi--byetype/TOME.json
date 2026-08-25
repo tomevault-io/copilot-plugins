@@ -4,7 +4,7 @@
   "repo": "byetype",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devonmochi/byetype",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T04:28:36Z"
+  "distributed_at": "2026-08-25T13:42:52Z"
 }
