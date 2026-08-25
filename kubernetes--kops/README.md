@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [kubernetes/kops](https://github.com/kubernetes/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [kubernetes/kops](https://github.com/kubernetes/kops) — a repo with 16650+ stars on GitHub.
+From [kubernetes/kops](https://github.com/kubernetes/kops) — a repo with 16667+ stars on GitHub.
 
 ---
 
