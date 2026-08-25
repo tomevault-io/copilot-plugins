@@ -1,0 +1,9 @@
+{
+  "name": "gaossr--best-claude-hud",
+  "displayName": "best-claude-hud",
+  "description": "Minimal Claude Code statusline HUD powered by Rust.",
+  "version": "1.0.0",
+  "author": "GaoSSR",
+  "homepage": "https://github.com/GaoSSR/best-claude-hud",
+  "skills": []
+}
