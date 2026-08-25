@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--libmongocrypt",
+  "displayName": "libmongocrypt",
+  "description": "libmongocrypt",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/libmongocrypt",
+  "skills": []
+}
