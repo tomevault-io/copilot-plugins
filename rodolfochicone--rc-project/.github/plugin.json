@@ -1,0 +1,9 @@
+{
+  "name": "rodolfochicone--rc-project",
+  "displayName": "rc-project",
+  "description": "Plugin de skills e agentes para Claude Code workflows de engenharia reais, do PRD ao PR",
+  "version": "1.0.0",
+  "author": "rodolfochicone",
+  "homepage": "https://github.com/rodolfochicone/rc-project",
+  "skills": []
+}
