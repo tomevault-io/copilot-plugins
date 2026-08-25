@@ -1,0 +1,9 @@
+{
+  "name": "holepunchto--bare-tui",
+  "displayName": "bare-tui",
+  "description": "A TUI framework for Bare, based on bubbletea",
+  "version": "1.0.0",
+  "author": "holepunchto",
+  "homepage": "https://github.com/holepunchto/bare-tui",
+  "skills": []
+}
