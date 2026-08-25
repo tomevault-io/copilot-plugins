@@ -1,0 +1,9 @@
+{
+  "name": "code-yeongyu--pi-rules",
+  "displayName": "pi-rules",
+  "description": "Rule context loader extension for the pi coding agent",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/pi-rules",
+  "skills": []
+}
