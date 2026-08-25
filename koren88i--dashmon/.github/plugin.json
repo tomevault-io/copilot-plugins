@@ -1,0 +1,9 @@
+{
+  "name": "koren88i--dashmon",
+  "displayName": "dashmon",
+  "description": "Dashboard SRE \u2014 probe engine, meta-dashboard, and alert rules for Grafana dashboard health monitoring",
+  "version": "1.0.0",
+  "author": "koren88i",
+  "homepage": "https://github.com/koren88i/dashmon",
+  "skills": []
+}
