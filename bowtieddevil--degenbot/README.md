@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [BowTiedDevil/degenbot](https://github.com/BowTi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [BowTiedDevil/degenbot](https://github.com/BowTiedDevil/degenbot) — a repo with 550+ stars on GitHub.
+From [BowTiedDevil/degenbot](https://github.com/BowTiedDevil/degenbot) — a repo with 563+ stars on GitHub.
 
 ---
 
