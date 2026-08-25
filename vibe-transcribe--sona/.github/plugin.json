@@ -1,0 +1,9 @@
+{
+  "name": "vibe-transcribe--sona",
+  "displayName": "sona",
+  "description": "Sona is a local transcription runner built on top of whisper.cpp.",
+  "version": "1.0.0",
+  "author": "vibe-transcribe",
+  "homepage": "https://github.com/vibe-transcribe/sona",
+  "skills": []
+}
