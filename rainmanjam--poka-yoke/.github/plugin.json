@@ -1,0 +1,9 @@
+{
+  "name": "rainmanjam--poka-yoke",
+  "displayName": "poka-yoke",
+  "description": "Mistake-proofing for software. Shigeo Shingo's poka-yoke method as a Claude Code plugin: audit code for footguns, design APIs that resist misuse, install guardrails, turn incidents into devices.",
+  "version": "1.0.0",
+  "author": "rainmanjam",
+  "homepage": "https://github.com/rainmanjam/poka-yoke",
+  "skills": []
+}
