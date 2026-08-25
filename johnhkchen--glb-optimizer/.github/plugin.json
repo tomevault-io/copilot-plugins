@@ -1,0 +1,9 @@
+{
+  "name": "johnhkchen--glb-optimizer",
+  "displayName": "glb-optimizer",
+  "description": "simple go webapp to clean up GLB files",
+  "version": "1.0.0",
+  "author": "johnhkchen",
+  "homepage": "https://github.com/johnhkchen/glb-optimizer",
+  "skills": []
+}
