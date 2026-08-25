@@ -1,15 +1,17 @@
 ## state-in-url
 
-> The translation guide lives in **[AGENTS.md](AGENTS.md)** beside this file — the
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# CLAUDE.md
+<!-- BEGIN:nextjs-agent-rules -->
 
-The translation guide lives in **[AGENTS.md](AGENTS.md)** beside this file — the
-cross-tool convention, same as the repository root. `TRANSLATING.md` is the
-prompt a translating model is given; `GLOSSARY.md` is the protected-term list.
+# This is NOT the Next.js you know
 
-@AGENTS.md
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [asmyshlyaev177/state-in-url](https://github.com/asmyshlyaev177/state-in-url) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
