@@ -1,177 +1,116 @@
-## 05-web-development
+## 06-api-development
 
-> 1. Always write complete, functional components using `tsx` with a named `export function Component`.
+> - **Define routes inline for simplicity**
 
-# Web application
+# REST API 
 
-## Guidelines
+## Routing & Handler Structure
 
-1. Always write complete, functional components using `tsx` with a named `export function Component`.
-2. Use Tailwind CSS classes for styling and accessibility best practices.
-3. Prefer `shadcn/ui` and `lucide-react` if appropriate.
-4. All code should work in a Vite + React + TypeScript setup.
-5. Include only one file per code block. Avoid multi-file outputs.
-6. Use Vitest for testing; include test blocks where relevant.
-7. Use `import type` when importing types from libraries.
-8. Avoid dynamic imports, external APIs, or CDN usage unless requested.
-9. Escaped JSX characters like `<`, `>`, `{`, and `}` must be in string literals.
+- **Define routes inline for simplicity**  
+  Avoid traditional "controller" layers. Use route handlers directly with Hono for better type inference and simpler structure.
 
-## Code block structure
+  ```ts
+  app.get('/books/:id', (c) => {
+    const id = c.req.param('id');
+    return c.json({ id });
+  });
+  ```
 
-Use the following format for code blocks:
+- **Modularize routes by feature**  
+  Use `app.route()` to separate route logic into distinct modules.
 
-```tsx project="ProjectName" file="path/to/file.tsx" type="react"
-export function Component() {
-  // your component here
-}
-```
+  ```ts
+  // routes/books.ts
+  import { Hono } from 'hono';
 
-## Examples
+  const books = new Hono();
 
-Good Example: React component using Tailwind and `shadcn/ui`
-```tsx project="ButtonExample" file="Button.tsx" type="react"
-import { Button } from "@/components/ui/button"
+  books.get('/', (c) => c.json(['book1', 'book2']));
+  books.get('/:id', (c) => c.json({ id: c.req.param('id') }));
 
-export function Component() {
-  return <Button className="text-primary">Click me</Button>
-}
-```
+  export default books;
 
-Bad Example: Missing export, bad styling, incorrect file structure
-```tsx
-function Button() {
-  return <button style={{ color: 'blue' }}>Click</button>
-}
-// Missing `export default`
-// Uses inline styles instead of Tailwind
-// No project/file/type metadata
-```
+  // main.ts
+  import books from './routes/books';
+  const app = new Hono();
+  app.route('/books', books);
+  ```
 
-Good Example: Test file using Vitest
-```ts project="AddTest" file="add.test.ts" type="code"
-import { describe, it, expect } from "vitest"
-import { add } from "./add"
+## Type Safety & Validation with Zod
 
-describe("add", () => {
-  it("adds two numbers", () => {
-    expect(add(2, 3)).toBe(5)
-  })
-})
-```
+- **Use Zod for schema validation**  
+  Combine `zod` and `@hono/zod-validator` for strict runtime and compile-time validation.
 
-Bad Example: Jest used instead of Vitest
-```ts
-import { test, expect } from "@jest/globals"
+  ```ts
+  import { z } from 'zod';
+  import { zValidator } from '@hono/zod-validator';
 
-test("adds numbers", () => {
-  expect(add(2, 3)).toBe(5)
-})
-// This is incorrect because the project uses Vitest, not Jest
-```
+  const userSchema = z.object({
+    name: z.string(),
+  });
 
-## React Loading State Best Practices with SWR
+  app.post('/users', zValidator('json', userSchema), (c) => {
+    const data = c.req.valid('json');
+    return c.json({ message: `Hello, ${data.name}` });
+  });
+  ```
 
-When fetching data in React components, use the library SWR (`stale-while-revalidate`) for its benefits in caching, revalidation, and focus tracking. The primary approach should be to consolidate related data fetching for a view into a single `useSWR` call.
+- **Always validate request bodies, query params, and route params** to prevent runtime issues and improve DX.
 
-This approach is preferred when:
-- All data is necessary for the component to render meaningfully.
-- You want a unified loading state for a set of related data.
-- Simplicity in state management for data fetching is desired.
+## Middleware Usage
 
-Example: Using a single `useSWR` to fetch multiple related resources.
-```tsx
-import useSWR from 'swr';
+- **Built-in Middleware**  
+  Use Hono's middleware for logging, CORS, etc.
 
-export function MyDashboard() {
-  // The key is an array of the individual resource keys/URLs.
-  const { data, error, isLoading } = useSWR(
-    ['/api/resourceA', '/api/resourceB'], // Unique keys for SWR
-    async (keys: [string, string]) => {
-        const [keyA, keyB] = keys;
-        const [resourceA, resourceB] = await Promise.all([
-            fetchResourceA(keyA),
-            fetchResourceB(keyB),
-        ]);
-        return { resourceA, resourceB };
-    };
-  );
+  ```ts
+  import { logger } from 'hono/logger';
+  import { cors } from 'hono/cors';
 
-  if (isLoading) return <p>Loading dashboard data...</p>;
-  if (error) return <p>Error loading data: {error.message}</p>;
-  // data will be { resourceA: {...}, resourceB: {...} }
+  app.use('*', logger());
+  app.use('*', cors());
+  ```
 
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      {data && (
-        <>
-          <section>
-            <h3>Resource A</h3>
-            <p>{data.resourceA.content}</p>
-          </section>
-          <section>
-            <h3>Resource B</h3>
-            <p>{data.resourceB.data}</p>
-          </section>
-        </>
-      )}
-    </div>
-  );
-}
-```
+- **Custom Middleware for JWT and API key Auth (see [auth.ts](mdc:apps/api/src/auth.ts))**
 
-By using a single `useSWR` call with a fetcher that handles multiple requests (e.g., via `Promise.all`), you maintain a single `isLoading` and `error` state for the entire set of data required by the view. This simplifies the component logic and provides a more coherent loading experience.
+## Authorization & Organization Scoping
 
-Best Practice:
-"Prefer showing meaningful parts of the UI as soon as possible by fetching all necessary data for a view with a single, consolidated `useSWR` call. This avoids janky partial loading and simplifies state management unless specific sections truly require independent data fetching lifecycles."
+- **Authentication & Context Establishment**:
+  - Authentication is handled by custom middleware detailed in `[auth.ts](mdc:apps/api/src/auth.ts)`.
+  - This middleware supports both **JWT (JSON Web Tokens)** for user sessions and **API Keys** for programmatic access.
+  - Upon successful authentication, the middleware establishes the **`organizationId`** in the request context (e.g., `c.set("organizationId", ...)`) based on the authenticated user or API key.
 
-Avoid:
-- Overcomplicating state logic with too many flags.
-- Tightly coupling data fetching to UI components.
-- Omitting proper error handling and fallback UIs.
+- **Lazy-mounted org routes** (`lazy-route.ts`):
+  - Org-scoped route modules are mounted lazily; the sub-app does not receive `:organizationId` as a route param.
+  - **Always use** `c.get("organizationId")` in handlers under `apps/api/src/routes/**` — never `c.req.param("organizationId")`.
+  - CI guard: `pnpm run check:lazy-route-org-id`.
 
-## React Hook Usage Best Practices
+- **Data Isolation**:
+  - Route handlers retrieve the `organizationId` from the request context (e.g., `c.get("organizationId")`).
+  - This `organizationId` is then consistently used in database queries and other business logic to scope data access.
+  - This ensures strict data isolation between different organizations, preventing unauthorized access or data leakage.
+  - The middleware guarantees that if a route handler is reached, a valid `organizationId` associated with the authenticated entity is available.
 
-useEffect:
-- Avoid by default. Ask: can this logic exist outside React?
-- Always include dependencies; don't silence lint rules.
-- Use an inner async function if needed:
+## Error Handling
 
-```tsx
-useEffect(() => {
-  const load = async () => {
-    const res = await fetchData()
-    setData(res)
-  }
-  load()
-}, [])
-```
+- **Global error handler**
 
-- Avoid setting derived state inside useEffect. Prefer deriving it during render.
+  ```ts
+  app.onError((err, c) => {
+    console.error(err);
+    return c.text('Internal Server Error', 500);
+  });
+  ```
 
-useMemo:
-- Use only for expensive calculations to avoid unnecessary recalculations.
-- Not needed for simple or fast operations.
+- **Custom 404 handler**
 
-```tsx
-const filteredItems = useMemo(() => {
-  return items.filter(i => i.active)
-}, [items])
-```
+  ```ts
+  app.notFound((c) => c.text('Not Found', 404));
+  ```
 
-useCallback:
-- Useful when passing callbacks to memoized child components.
-- Prevents unnecessary re-renders due to function identity changes.
+## Deployment Considerations
 
-useRef:
-- Use for storing mutable values that persist without triggering re-renders.
-- Useful for DOM element references (e.g., input focus).
-- Don't overuse for general state—it can lead to bugs.
-
-General Rules:
-- Never call hooks inside conditions, loops, or nested functions.
-- Always call hooks at the top level of your component.
-- Group and co-locate related hooks to make code easier to read and maintain.
+- **Built for the edge**  
+  Hono is ideal for Cloudflare Workers — it uses Web Standard APIs and avoids Node.js-only features.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
