@@ -1,0 +1,9 @@
+{
+  "name": "rabbytesoftware--quiver-core",
+  "displayName": "quiver.core",
+  "description": "Quiver is a multi-platform package manager - probably the only one you'll ever need! It's designed to make complex installation processes quick and easy for both technical and non-technical users, whi",
+  "version": "1.0.0",
+  "author": "rabbytesoftware",
+  "homepage": "https://github.com/rabbytesoftware/quiver.core",
+  "skills": []
+}
