@@ -7,11 +7,11 @@ Robot Native Engine — robot-native Rust simulation core with physics, sensors,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rsasaki0109/RoboSim](https://github.com/rsasaki0109/RoboSim).
+Original source: `AGENTS.md` in [rsasaki0109/RoboSim](https://github.com/rsasaki0109/RoboSim).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
