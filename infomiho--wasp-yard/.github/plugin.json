@@ -1,0 +1,9 @@
+{
+  "name": "infomiho--wasp-yard",
+  "displayName": "wasp-yard",
+  "description": "Interactive walkthrough of the two SDK shapes in Wasp",
+  "version": "1.0.0",
+  "author": "infomiho",
+  "homepage": "https://github.com/infomiho/wasp-yard",
+  "skills": []
+}
