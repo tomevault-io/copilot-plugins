@@ -1,0 +1,44 @@
+{
+  "name": "ai_graph_engineer",
+  "owner": "megh193",
+  "repo": "ai_graph_engineer",
+  "description": "Implementing a new AI paradigm centered around Graph Engineering, integrating multiple intelligent agents with parallel processing to enable scalable, efficient, and collaborative AI workflows.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/megh193/ai_graph_engineer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T02:09:43Z"
+}
