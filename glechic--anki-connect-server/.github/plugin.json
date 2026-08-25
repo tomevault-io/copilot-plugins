@@ -1,0 +1,9 @@
+{
+  "name": "glechic--anki-connect-server",
+  "displayName": "anki-connect-server",
+  "description": "Headless AnkiConnect-compatible REST API server with AnkiWeb sync support and MCP server integration.",
+  "version": "1.0.0",
+  "author": "glechic",
+  "homepage": "https://github.com/glechic/anki-connect-server",
+  "skills": []
+}
