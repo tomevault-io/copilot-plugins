@@ -1,0 +1,9 @@
+{
+  "name": "dexpace--kuri",
+  "displayName": "kuri",
+  "description": "A standards-faithful URI and URL library for Kotlin Multiplatform and Java",
+  "version": "1.0.0",
+  "author": "dexpace",
+  "homepage": "https://github.com/dexpace/kuri",
+  "skills": []
+}
