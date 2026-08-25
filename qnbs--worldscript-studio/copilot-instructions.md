@@ -1,249 +1,47 @@
-## worldscript-studio
+## 200-architecture-limits
 
-> WorldScript Studio is an AI-powered creative writing application built as an offline-first PWA. It combines a React 19 SPA with Google Gemini AI integration, IndexedDB persistence, and optional Tauri desktop packaging.
+> Keep files small and reuse logic via services,hooks,and feature slices
 
-# Copilot Instructions — WorldScript Studio
 
-## Project Overview
+# Architektur: KISS, DRY, Grenzen
 
-WorldScript Studio is an AI-powered creative writing application built as an offline-first PWA. It combines a React 19 SPA with Google Gemini AI integration, IndexedDB persistence, and optional Tauri desktop packaging.
+## Prinzipien
 
-**Live:** `https://qnbs.github.io/WorldScript-Studio/`
+- **KISS:** Einfachste Lösung mit `strict` Types und testbaren Seams.
+- **DRY:** Logik in `services/`, `hooks/`, `features/*/thunks` — nicht in Views duplizieren.
 
-**Documentation map:** [`README.md`](../README.md#-documentation-hub) § Documentation Hub lists every maintainer `.md` guide (see also [`AUDIT.md`](../AUDIT.md)).
+## View-Muster (StoryCraft)
 
-## Architecture
+- **Component + Hook + Context:** Rendering in `components/*View.tsx`, Logik in `hooks/use*View.ts`, Kontext für Kindbaum.
+- **Redux** für persistierten App-State; **Zustand** nur transient (`app/transientUiStore.ts`).
+- **Undo:** `redux-undo` am Projekt-Slice; Plot-Board-**Viewport** lokal — Verbindungen/Subplots im `projectSlice` wenn undo-relevant.
+- Schwere Views: `React.lazy` in `App.tsx`; Plot-Board-Subchunks, ForceGraph, Collaboration lazy; `listenerMiddleware` + `aiApi` dynamic import für DuckDB/RAG/Provider.
+- **ProForge Pipeline** (`services/proForge/`, `features/proForge/`, `components/proForge/`): 8-stage Agentic-Pipeline hinter `enableProForge`-Flag. Orchestrator nie direkt in Komponenten instantiieren — über `hooks/useProForgeOrchestrator.ts`.
+- **Voice** (`services/voice/`): Abstract-Engine-Pattern; `VoiceCommandService` als Singleton hinter `enableVoiceSupport`-Flag.
 
-### Tech Stack
+## Dateigrößen
 
-- **Frontend:** React 19 + TypeScript (strict mode), Vite 8
-- **State:** Redux Toolkit 2.x + Redux-Undo, feature-sliced design
-- **Styling:** Tailwind CSS 4.x with CSS custom properties for theming
-- **AI:** Google Gemini API via `@google/genai`, multi-provider abstraction (`aiProviderService.ts`)
-- **Storage:** Dual IndexedDB via `services/storage/` (decomposed from `dbService.ts` in Phase 1); LZ-String compression + AES-256-GCM key encryption; `storageEncryptionService.ts` for at-rest IDB encryption (B-1, v1.19.0); `storageService.ts` switches browser vs Tauri filesystem
-- **Collaboration:** Yjs + `packages/collab-transport` (vendor fork of y-webrtc 10.3.0, RTCDataChannel E2E AES-256-GCM) for P2P real-time editing
-- **Desktop:** Tauri 2 (optional)
-- **Package manager:** pnpm@11.x
-- **Testing:** Vitest + @testing-library/react (unit), Playwright (E2E)
+- **Ziel:** 200–700 Zeilen. **> 700:** splitten (Hook, Subkomponente, Selektoren, Tests).
+- Reducer schlank; Thunks in `features/project/thunks/` (inkl. `aiThunkUtils` für deduplizierte KI-Requests).
 
-### Directory Structure
+## Workspace & Typen
 
-```text
-app/              → Redux store, hooks (useAppDispatch/useAppSelector), listener middleware, utils
-components/       → React view components (one per view)
-  ui/             → Reusable design system primitives (Button, Modal, Card, Toast, etc.)
-contexts/         → React context providers (one per major view + I18nContext + CommandExecutorContext)
-features/         → Redux Toolkit slices: project, settings, status, writer, versionControl, featureFlags
-hooks/            → Custom hooks with view business logic (one hook per view)
-services/         → External adapters: geminiService, aiProviderService, dbService (dual IndexedDB + migration), storageService, collaborationService; **ai/** (aiModeService — execution modes, aiPolicy, aiRetry; **providers/** — openrouterProvider with circuit breaker); **copilot/** (heuristicEngine 8 rules, insightGenerator, copilotContextService, actionApplier); **commands/** (palette registry); **keyboard/** (shortcut matching); **help/** (doc retrieval for AI); **settingsExchange** (settings JSON)
-locales/          → i18n source files — de/en/es/fr/it (core) + ar/he/fa (RTL Beta) + el/ja/pt/zh/fi/sv/hu/is/eu/ru/ko (Beta) × 21 JSON modules (19 locales; see the README badge for the live key count)
-public/locales/   → i18n runtime files served at BASE_URL
-tests/            → Unit + E2E tests (Vitest + Playwright)
-types/            → Additional TypeScript type definitions
-types.ts          → Core shared interfaces and types
-```
+- Shared Code in **`packages/ai-core`**, **`packages/ui`** — nicht ungefragt in Root duplizieren.
+- Schnittstellen an `types.ts` / Feature-Typen; kein `any`-Workaround.
 
-### Key Patterns
+## Feature Flags
 
-1. **View = Component + Hook + Context:** Each major view (e.g., Dashboard) has:
-   - `components/Dashboard.tsx` — Pure rendering
-   - `hooks/useDashboard.ts` — Business logic, Redux selectors, thunk dispatches
-   - `contexts/DashboardContext.ts` — React context to pass hook return to child components
+- Experimentelles über `features/featureFlags/featureFlagsSlice.ts` (19 Flags) — nicht verstreute `if (true)`-Hacks.
+- Standard **ein**: `enableCodexAutoTracking`, `enableCrossProjectSearch`, `enablePlotBoardV2`. Alle anderen: aus.
+- Major-Features (Voice, ProForge, DuckDB, LoRA, CloudSync, PluginSystem) müssen per Flag ein-/ausgeschaltet werden.
 
-2. **Redux:** All state mutations go through Redux slices. Async operations use `createAsyncThunk`. Side effects (auto-save) run in the listener middleware. The `project` slice is wrapped with `redux-undo` for undo/redo.
-   - `features/project/aiThunkUtils.ts` provides a reusable deduplicated async-thunk wrapper for AI requests.
+<example>
+Manuskript >700 Zeilen: `ManuscriptInspector.tsx` + `hooks/useManuscript.ts`; Plot-Board-Canvas eigene Datei unter `components/plotBoard/`.
+</example>
 
-3. **AI Service:** `services/ai/index.ts` is the canonical entry (Vercel AI SDK layer). `geminiService.ts` is the primary legacy adapter. `aiProviderService.ts` provides the multi-provider abstraction (Gemini, OpenAI, OpenRouter, Claude, Grok, Ollama, WebLLM, ONNX, Transformers.js). **AI Execution Modes** (`aiModeService.ts`): `hybrid` | `cloud` | `local` | `eco` — control routing strategy, persisted to `settings.aiMode`. **OpenRouter** (`services/ai/providers/openrouterProvider.ts`): Cloud 5 in the routing chain, circuit breaker (4×429 → 5 min pause), free-tier catalog (`:free` suffix models). All cloud AI calls gated by `assertCloudAiAllowed` from `aiPolicy.ts`; retries via `withTransientRetry` in `aiRetry.ts`.
-
-4. **Storage:** `dbService.ts` wraps **dual** IndexedDB (state vs data stores, legacy migration) with compression (LZ-String for payloads > 10KB) and encryption (AES-256-GCM for API keys). `storageService.ts` provides a unified interface that auto-detects IndexedDB vs Tauri filesystem.
-
-5. **i18n:** Custom React Context system in `I18nContext.tsx`. Translation keys use dot notation (`common.save`, `dashboard.wordCount`). All user-facing strings MUST be translation keys, never hardcoded text.
-
-6. **Code Splitting:** All views are lazy-loaded in `App.tsx` via `React.lazy()`. Heavy dependencies (Konva, Leaflet, react-force-graph) are in separate Vite manual chunks. The export stack also uses dynamic imports for `docx` and `jszip` so large document libraries are only loaded when export actions are executed.
-
-7. **Command Center:** Palette commands live in **`services/commands/`** (i18n keys, fuzzy search, recent/pinned). **`CommandExecutorProvider`** exposes execution for Help „Try it” (`tryActionId`) and toasts with **`commandId`**. **`useGlobalKeyboardShortcuts`** reads Redux shortcut bindings; **`app/transientUiStore`** toggles palette visibility.
-
-8. **ProForge Pipeline:** 8-stage agentic manuscript editing pipeline gated behind `featureFlags.enableProForge` (on by default). Stage sequence: `intake` → `structural` → `lineProse` → `copyEdit` → `proof` → `production` → `publishing` → `analytics`. Manuscripts are **never auto-modified** — each stage pauses at `awaitingReview`. Orchestrator: `services/proForge/proForgeOrchestrator.ts`; Redux slice: `features/proForge/proForgeSlice.ts`; UI: `components/proForge/` (ProForgeDashboard, PipelineProgressPanel, PipelineReviewPanel); docs: `docs/PROFORGE-PIPELINE.md`.
-
-9. **Voice Full Support:** Gated behind `featureFlags.enableVoiceSupport` + `settings.voice.enabled`. Abstract engine pattern in `services/voice/voiceTypes.ts` (SttEngine, TtsEngine, VadEngine, WakeWordEngine, IntentEngine). `VoiceCommandService` singleton manages state machine (idle → listening → processing → speaking). Web Speech API fallbacks require zero downloads. Hooks: `useVoice`, `usePushToTalk` (Ctrl+Shift+V), `useVoiceDictation`.
-
-10. **Feature Flags:** **23 flags** in `features/featureFlags/featureFlagsSlice.ts`. New installs get the **full feature set** — all default **on** except seven opt-in flags that default **off**: `enableRtlLayout`, `enableVoiceSupport`, `enableProForge`, `enableVoiceWasm`, `enableGlobalCopilot`, `enableLocalFirstSync`, `enableBrowserOllama`. (`enableCodexAutoTracking` + `enableCrossProjectSearch` were promoted to permanent core; `enablePlotBoardV2` + `enableCloudSync` were retired — none remain in the slice.) See `docs/FEATURE-PARITY.md`. Do not use scattered `if (true)` hacks — all experimental features must go through a flag.
-
-11. **Global AI Copilot (v2):** `enableGlobalCopilot` flag. `CopilotPanel` (dialog/sidebar mode), `CopilotMessageList` (markdown rendering via DOMPurify), `InlineAnnotationLayer` (badge in ManuscriptEditor). Heuristic rules: `services/copilot/heuristicEngine.ts` (8 rules). Apply-to-chapter: `services/copilot/actionApplier.ts` (offset-safe edit, redux-undo, ≥70% length gate). ProForge integration: Ask-Copilot chip on each `ReviewItemCard`. Docs: `docs/COPILOT.md`, `docs/HEURISTIC-RULES.md`.
-
-## Coding Standards
-
-### TypeScript
-
-- `strict: true` is enforced globally — do NOT add `any` types
-- `exactOptionalPropertyTypes: true` — use `undefined` explicitly for optional props
-- Use typed Redux hooks: `useAppDispatch()`, `useAppSelector()`, `useAppSelectorShallow()`
-- Prefer `interface` for component props, `type` for unions and utility types
-
-### React
-
-- Functional components only, use `React.memo()` for expensive renders
-- Props forwarding with `React.forwardRef()` for UI primitives
-- Hooks must follow the `use*View` naming convention for view logic hooks
-- Always clean up event listeners, timeouts, and subscriptions in `useEffect` return
-
-### Accessibility (WCAG 2.2 AA-oriented)
-
-- See [`docs/ACCESSIBILITY.md`](../docs/ACCESSIBILITY.md) for architecture (`LiveRegionProvider`, focus traps, CI gates).
-- All interactive elements need proper `role`, `aria-label`, `aria-expanded`, etc.
-- Modals must trap focus and restore focus on close
-- Icons must have `aria-hidden="true"` when decorative
-- Use `focus-visible:ring-2` for keyboard focus styles
-- Dynamic content updates need `aria-live` regions
-
-### Security
-
-- NEVER log, console.log, or expose API keys
-- API keys are encrypted with AES-256-GCM before IndexedDB storage
-- Never store sensitive data in localStorage (use IndexedDB with encryption)
-- Sanitize any user input before rendering (XSS prevention)
-- AI API responses are text-only — never execute or `eval()` them
-- Gemini API calls must use `NetworkOnly` caching strategy (never cache AI responses)
-
-#### CI/CD Security Hardening (QNBS-v3)
-
-- **Token-Permissions**: All workflow files MUST have `permissions: contents: read` at top-level. Write permissions belong at job-level only.
-- **Pinned-Dependencies**: All GitHub Actions MUST be pinned to SHA hashes (e.g., `actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10`). Branch/tags are only acceptable when upstream does not provide SHA tags.
-- **Proactive Security Remediation**: On every PR and commit, treat ALL security alerts (OpenSSF Scorecard, CodeQL, Dependabot, Renovate, CodeAnt AI) as actionable work to be addressed immediately — never defer. Validate against current code, implement root-cause fixes, and verify via CI.
-
-### Pull Request Workflow (QNBS-v3)
-
-- **Branch-based development**: All changes MUST be made on feature branches (e.g., `fix/security-vulnerabilities-2026-06-06`). Never commit directly to `main`.
-- **CI verification**: Push to branch and wait for ALL CI jobs (security, quality, build, e2e, lighthouse) to pass before merging.
-- **PR merge**: Only merge to `main` when CI is fully green. Use "Squash and merge" for clean history.
-- **Inline comment handling — the CodeRabbit Correction Loop (proactive, automatic, every PR):**
-  Address ALL inline review comments (CodeRabbit + any other bot/human) **without being asked**. Canonical
-  procedure: [`docs/CODEANT-REVIEW-LOOP.md`](../docs/CODEANT-REVIEW-LOOP.md). Each pass:
-  1. Fetch unresolved threads via GraphQL (`reviewThreads` → `isResolved:false`).
-  2. Validate each finding against the **current** code (anchors may be stale).
-  3. Implement the real **root-cause** fix (code **+ tests + i18n + docs**), or reply with evidence
-     if false-positive / by-design. **Never** add a new `biome-ignore` (suppression ratchet fails
-     CI — refactor instead; run `node scripts/check-suppressions.mjs`).
-  4. Local gate (sequential): lint + typecheck + targeted vitest green.
-  5. Commit + push; reply to **every** thread citing the resolving commit, then resolve it → **0 unresolved**.
-  6. Re-trigger: `gh pr comment <N> --body "@coderabbitai review"`; check the **full** review history,
-     not just the latest status (a rate-limited latest status can hide an earlier real review).
-  - **Iron rule — loop until quiescent:** a push triggers a fresh review that often raises NEW
-    findings (a "wave"). Repeat until **BOTH** a fresh review yields **0 new comments** AND **0 threads
-    unresolved**. Never stop while comments still arrive.
-  - CodeAnt AI shows up as 5 CI **status checks** (`CodeAnt - Quality Gates/SAST/SCA/SCR/Test Coverage`)
-    to verify green — it is not the bot posting inline comments in this repo, so don't re-trigger it
-    expecting a comment thread.
-
-### Test Stability Guidelines (QNBS-v3)
-
-- **ICU-dependent APIs**: Tests using `Intl.Segmenter`, `Intl.PluralRules`, or other ICU-dependent APIs MUST use relaxed assertions (non-zero counts, monotonic behavior, locale invariants) instead of exact counts to ensure cross-environment stability.
-- **Environment variance**: Node.js ICU versions and browser implementations can differ; tests should verify behavior, not exact output.
-
-### Code Comment Convention & Recurring Review-Loop Findings (QNBS-v3)
-
-On any non-trivial code change add a single-line comment explaining **why**, not what: `// QNBS-v3: <reason / impact>` (TS/JS), `{/* QNBS-v3: … */}` (JSX, only when needed), `/* QNBS-v3: … */` (CSS). No inline comment in pure JSON/YAML config — explain in the commit message instead.
-
-**Hard rule — never wrap:** the comment MUST fit on a single physical line, however long. Never split it across two `//` lines. This exact mistake has recurred 3× in one PR and is a guaranteed CodeRabbit nitpick — shorten the wording instead of wrapping it.
-
-**Other recurring findings, codified so they stop recurring:**
-- Name DOM elements created for download/print descriptively (`anchor`, not `a`).
-- Never mutate `ref.current` during render — sync via `useEffect(() => { ref.current = value }, [value])`, never as a bare statement in the component body.
-- Prefer `@testing-library/user-event` over `fireEvent` for click/type/change interactions in tests.
-- Prefer a lookup table (`Partial<Record<Key, Fn>>`) over long `if/else if` dispatch chains to keep cyclomatic complexity low, especially inside `useCallback`.
-
-### Testing
-
-- Unit tests: Vitest + @testing-library/react in `tests/unit/` (see `tests/setup.ts`)
-- E2E tests: Playwright in **`tests/e2e/*.spec.ts`** — **`CI=true`** is required (`pnpm run test:e2e`). Shared waits/bootstrap live in **`tests/e2e/helpers.ts`**; do **not** use `networkidle` against the Vite dev server (HMR keeps sockets open). Scope sidebar navigation via **`#sidebar`** when both mobile and desktop nav exist.
-- Test file naming: `ComponentName.test.tsx` or `serviceName.test.ts`
-- Mock external services (Gemini API, IndexedDB) in unit tests
-- Verify accessibility: assert `role`, `aria-*` attributes in component tests
-
-### i18n
-
-- All user-facing strings must use `t('key.path')` from `useTranslation()`
-- Source files: `locales/{lang}/{module}.json` (15 modules). Runtime: **one** merged **`public/locales/{lang}/bundle.json`** per language — regenerate with **`pnpm run i18n:bundle`** or **`pnpm run i18n:check`** (parity check **and** bundle build); **`predev`** / **`prebuild`** also rebuild bundles so the UI never shows raw keys after editing locale JSON.
-- **19 locales ship** (de/en/es/fr/it core + ar/he/fa RTL + el/ja/pt/zh/fi/sv/hu/is/eu/ru/ko Beta); all must keep key parity with English (`pnpm run i18n:check` in CI). The `/i18n-key` skill auto-fills the **5 core** (de/en/es/fr/it); update Beta/RTL locales manually afterward.
-- English is the fallback language
-- New keys: add to **`locales/en/`** first, then **de**, **fr**, **es**, **it** (or run `node scripts/check-i18n-keys.mjs --fix` and translate), then commit updated **`bundle.json`** files
-
-### Git & CI
-
-- Conventional Commits format: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`
-- Pre-commit: after explicit `pnpm run hooks:install`, `simple-git-hooks` runs Biome on staged files; CI is mandatory regardless
-- **⚠️ Constrained local hardware — do NOT run heavy suites locally.** This machine has ~3–4 GB RAM. **Never** run the full Vitest **coverage** suite, **Playwright E2E**, **Stryker mutation**, **Lighthouse CI**, or the **Storybook test-runner** locally — they are **CI-only by design**. Run **one heavy command at a time** (no parallel `vitest`/`biome`/`tsc`/`vite`).
-- Local preflight (sequential, minimal): `pnpm run lint` → `pnpm run typecheck` → `pnpm run i18n:check` (only when locale JSON changed) → **targeted** `pnpm exec vitest run <path>` (no `--coverage`). Run `pnpm run build && pnpm run smoke:prod` only when you touched `vite.config.ts`, `packages/ai-core`, or `workers/`. Coverage, E2E, Lighthouse, Stryker, and Storybook are **CI gate jobs** — let GitHub Actions run them.
-- **Vitest watch-mode hard rule:** Never run `pnpm test`, `npm run test`, a bare Vitest command, or an untargeted wrapper. Always use `pnpm exec vitest run <path>`; CI is the only place that runs the full coverage suite.
-- CI pipeline (see [`docs/CI.md`](../docs/CI.md)): **`security` → `quality`** (Biome + `tsc` + Vitest matrix) **→ `build` / `e2e` / `storybook` in parallel** → **`lighthouse`** after build → **`deploy`** on `main` after build+e2e
-- Branch protection should require the **`quality`** job (and other checks your team enables); job ids match `.github/workflows/ci.yml`
-- CI runs **`pnpm audit`** every workflow; **dependency-review** on pull requests
-- CI installs dependencies with `pnpm install --frozen-lockfile`
-- Local CI can be simulated with `act` (requires Docker), e.g. `act pull_request --job security --job quality`
-- Local developers should use `pnpm install` to install dependencies
-- Most repo-facing markdown is English for accessibility; user-facing app strings remain fully i18n-driven
-
-## Known Technical Debt
-
-See `AUDIT.md` and `TODO.md`. Key items:
-
-- **`StorageBackend` parity** — tighten typings across `dbService` / `fileSystemService` / `storageService`
-- `components/AdvancedImportExport.tsx` — some export paths remain Tauri-centric; keep browser fallbacks explicit
-- `app/listenerMiddleware.ts` — occasional TypeScript friction with redux-undo `StateWithHistory`
-- `workers/inference.worker.ts:50` — `@ts-expect-error` on `@xenova/transformers` dynamic import (Vite resolves at build, `tsc` cannot)
-- **DS-5:** Delete legacy bridge block from `index.css` — deferred until DS-1 token migration verified in production
-- **v2.0 stubs behind feature flags:** RTL layout (`enableRtlLayout`), LoRA adapter inference (`enableLoraAdapters`), Plugin system loader (`enablePluginSystem`). (The Cloud-Sync R2 adapter's `enableCloudSync` flag was **retired** in v1.20 — activation is now `CloudSyncBackend.create(..., explicitConsent)`.)
-- RTCDataChannel in-flight E2E encryption is **shipped** (y-webrtc patch v1.17.0) — no longer open
-
-## Commands
-
-```bash
-pnpm run dev          # Start dev server on port 3000
-pnpm run build        # Production build to dist/
-pnpm run preview      # Preview production build locally
-pnpm run lint         # Biome lint check
-pnpm run lint:fix     # Biome auto-fix (lint + format)
-pnpm run format       # Biome format
-pnpm run typecheck    # TypeScript type checking (tsc --noEmit)
-pnpm exec vitest run <path>             # Targeted Vitest single run
-pnpm exec vitest run <path> --coverage \
-  --coverage.thresholds.lines=0 --coverage.thresholds.functions=0 \
-  --coverage.thresholds.branches=0 --coverage.thresholds.statements=0  # Targeted coverage debugging
-pnpm run test:e2e     # Playwright E2E (requires CI=true per package.json scripts)
-pnpm run storybook    # Storybook on port 6006
-```
-
-## Storage Health
-
-`services/dbInitialization.ts` exports `checkStorageHealth()` — proactive low-storage warning that runs on app init and surfaces a toast. Returns `StorageHealth`; does not block writes.
-
-## Collaboration
-
-Real-time P2P via Yjs + y-webrtc (`services/collaborationService.ts`). **RTCDataChannel in-flight E2E encryption** is shipped via `patches/y-webrtc@10.3.0.patch` (v1.17.0). Signaling-channel encryption: AES-256-GCM / PBKDF2 (600 000 iterations, SHA-256), deterministic salt from `projectId`.
-
-## graphify
-
-Before answering architecture or codebase questions, read `graphify-out/GRAPH_REPORT.md` if it exists.
-If `graphify-out/wiki/index.md` exists, navigate it for deep questions.
-Type `/graphify` in Copilot Chat to build or update the knowledge graph (semantic / LLM-backed).
-
-From the repo shell, **`pnpm run graphify:update`** refreshes the AST-only graph (works even when `graphify` is not on `PATH`, e.g. after `pip install graphifyy` on Windows); see `docs/graphify.md` and `scripts/graphify-cli.mjs`.
-
-## codegraph
-
-This project uses CodeGraph (`.codegraph/`) for semantic code intelligence via MCP. Read `.codegraph/CODEGRAPH_REPORT.md` for index status before deep code navigation.
-
-Rules:
-- For code-structure, caller/callee, or impact questions, prefer CodeGraph MCP tools (`codegraph_context`, `codegraph_impact`, `codegraph_trace`)
-- If `.codegraph/` exists, answer directly with CodeGraph — don't delegate exploration to a file-reading sub-agent
-- For "how does X reach Y", use `codegraph_trace` instead of manual Grep + Read chains
-- After modifying code, the graph auto-syncs (2s debounce). For large refactors, run `pnpm run codegraph:update`
-- To find affected tests: `pnpm run codegraph:affected`
-
-### Dual-Graph workflow
-1. Architecture / high-level questions: Read `graphify-out/GRAPH_REPORT.md` first
-2. Code navigation / symbols / impact: Use CodeGraph MCP tools
-3. Cross-module relationships: Use Graphify `query`/`path` or CodeGraph `context`
+<example type="invalid">
+700+ Zeilen nur mit Kommentar-Abschnitten; Plot-Subplot-State nur in localStorage ohne Undo-Strategie; drittes State-Framework neben Redux/Zustand.
+</example>
 
 ---
 > Source: [qnbs/WorldScript-Studio](https://github.com/qnbs/WorldScript-Studio) — distributed by [TomeVault](https://tomevault.io).
