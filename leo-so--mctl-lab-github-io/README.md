@@ -7,11 +7,11 @@ The Music and Culture Technology Lab was founded in 2017.  We devote ourselves t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leo-so/mctl-lab.github.io](https://github.com/leo-so/mctl-lab.github.io).
+Original source: `AGENTS.md` in [leo-so/mctl-lab.github.io](https://github.com/leo-so/mctl-lab.github.io).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
