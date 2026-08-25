@@ -1,0 +1,9 @@
+{
+  "name": "donaldgifford--zfs-exporter",
+  "displayName": "zfs_exporter",
+  "description": "A ZFS Prometheus exporter",
+  "version": "1.0.0",
+  "author": "donaldgifford",
+  "homepage": "https://github.com/donaldgifford/zfs_exporter",
+  "skills": []
+}
