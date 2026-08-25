@@ -1,0 +1,9 @@
+{
+  "name": "aisland-sjl--dsh-worktable",
+  "displayName": "dsh-worktable",
+  "description": "\ud83d\udda5\ufe0f Agent-project workbench for DeepSeek Harness \u2014 sidebar app drawer + dockable split workspace + a live control room watching every project.",
+  "version": "1.0.0",
+  "author": "Aisland-SJL",
+  "homepage": "https://github.com/Aisland-SJL/dsh-worktable",
+  "skills": []
+}
