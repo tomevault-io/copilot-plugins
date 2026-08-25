@@ -1,0 +1,9 @@
+{
+  "name": "rimalazar2--qr-code-etudiants",
+  "displayName": "qr-code-etudiants",
+  "description": "Plateforme de gestion academique avec verification par QR code (etudiants, releves, diplomes, filieres)",
+  "version": "1.0.0",
+  "author": "rimalazar2",
+  "homepage": "https://github.com/rimalazar2/qr-code-etudiants",
+  "skills": []
+}
