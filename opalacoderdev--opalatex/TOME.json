@@ -4,7 +4,7 @@
   "repo": "OpalaTex",
   "description": "OpalaTex: your local academic production studio Create papers, classes, tutorials, and presentations with AI when you need it, paying for real usage while keeping control of your data.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opalacoderdev/OpalaTex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:06:57Z"
+  "distributed_at": "2026-08-25T11:49:00Z"
 }
