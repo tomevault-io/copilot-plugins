@@ -1,0 +1,9 @@
+{
+  "name": "stefanko-ch--nexus-stack",
+  "displayName": "Nexus-Stack",
+  "description": "One-command deployment: Hetzner + Cloudflare Zero Trust + Docker",
+  "version": "1.0.0",
+  "author": "stefanko-ch",
+  "homepage": "https://github.com/stefanko-ch/Nexus-Stack",
+  "skills": []
+}
