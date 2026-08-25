@@ -1,0 +1,9 @@
+{
+  "name": "florian-strasser--lokalboards",
+  "displayName": "LokalBoards",
+  "description": "LokalBoards is an open-source (MIT License), self-hosted Kanban board system with an integrated REST API and MCP-Server.",
+  "version": "1.0.0",
+  "author": "florian-strasser",
+  "homepage": "https://github.com/florian-strasser/LokalBoards",
+  "skills": []
+}
