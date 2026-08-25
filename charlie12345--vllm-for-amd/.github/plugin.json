@@ -1,0 +1,9 @@
+{
+  "name": "charlie12345--vllm-for-amd",
+  "displayName": "vLLM_for_AMD",
+  "description": "vLLM optimized for AMD",
+  "version": "1.0.0",
+  "author": "charlie12345",
+  "homepage": "https://github.com/charlie12345/vLLM_for_AMD",
+  "skills": []
+}
