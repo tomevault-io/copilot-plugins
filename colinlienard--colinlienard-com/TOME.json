@@ -4,7 +4,7 @@
   "repo": "colinlienard.com",
   "description": "\ud83d\udef0\ufe0f My minimalist personal website",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/colinlienard/colinlienard.com",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:09:42Z"
+  "distributed_at": "2026-08-25T11:51:31Z"
 }
