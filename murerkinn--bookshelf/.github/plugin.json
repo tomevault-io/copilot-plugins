@@ -1,0 +1,9 @@
+{
+  "name": "murerkinn--bookshelf",
+  "displayName": "bookshelf",
+  "description": "Self-hosted ebook library that runs on object storage - a Cloudflare Worker over R2, or a Node server over a directory. No database.",
+  "version": "1.0.0",
+  "author": "murerkinn",
+  "homepage": "https://github.com/murerkinn/bookshelf",
+  "skills": []
+}
