@@ -1,0 +1,44 @@
+{
+  "name": "opencode-draw-free",
+  "owner": "mathruffian-dot",
+  "repo": "opencode-draw-free",
+  "description": "\u514d\u8cbb AI \u751f\u5716\u6280\u80fd for OpenCode/Claude Code \u2014 \u96f6 API Key\u3001\u96f6 Python\u3001\u96f6 GPU\uff0c\u53ea\u8981 Windows PowerShell + Pollinations.ai",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mathruffian-dot/opencode-draw-free",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T12:11:11Z"
+}
