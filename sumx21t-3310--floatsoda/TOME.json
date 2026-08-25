@@ -1,0 +1,44 @@
+{
+  "name": "FloatSoda",
+  "owner": "sumx21t-3310",
+  "repo": "FloatSoda",
+  "description": "Flutter-like declarative UI framework for SteamVR overlays in C#/.NET. SkiaSharp rendering, OpenVR integration, dashboard / world-space / device-tracked overlays.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sumx21t-3310/FloatSoda",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T16:20:46Z"
+}
