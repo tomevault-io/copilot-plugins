@@ -4,7 +4,7 @@
   "repo": "relayBrain",
   "description": "Coordination and context layer for AI coding agents. Shared file locks, live patch sync, and portable project memory across Claude Code, Cursor, Copilot, Codex and Antigravity with rooms for team-wide collaboration. Conflicts prevented at the edit, not discovered at the merge.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prakrititz/relayBrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T03:33:05Z"
+  "distributed_at": "2026-08-25T19:32:49Z"
 }
