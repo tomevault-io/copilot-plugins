@@ -1,0 +1,9 @@
+{
+  "name": "neoclide--coc-nvim",
+  "displayName": "coc.nvim",
+  "description": "coc.nvim",
+  "version": "1.0.0",
+  "author": "neoclide",
+  "homepage": "https://github.com/neoclide/coc.nvim",
+  "skills": []
+}
