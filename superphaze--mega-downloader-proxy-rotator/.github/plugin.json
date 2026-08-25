@@ -1,0 +1,9 @@
+{
+  "name": "superphaze--mega-downloader-proxy-rotator",
+  "displayName": "mega-downloader-proxy-rotator",
+  "description": "Windows desktop app to download from Mega.nz through rotating free proxies \u2014 parallel chunks, scored proxy pool, live decryption.",
+  "version": "1.0.0",
+  "author": "SuperPHaze",
+  "homepage": "https://github.com/SuperPHaze/mega-downloader-proxy-rotator",
+  "skills": []
+}
