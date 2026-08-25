@@ -1,0 +1,44 @@
+{
+  "name": "packet-tracer-mcp",
+  "owner": "Jcorderop02",
+  "repo": "packet-tracer-mcp",
+  "description": "MCP server for Cisco Packet Tracer 9 \u2014 let Claude/ChatGPT design, build and validate Cisco network topologies in real time (OSPF, BGP, VLAN, NAT, VoIP, QoS, IPv6, wireless). 57 MCP tools, live HTTP bridge, TypeScript on Bun.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jcorderop02/packet-tracer-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T06:44:15Z"
+}
