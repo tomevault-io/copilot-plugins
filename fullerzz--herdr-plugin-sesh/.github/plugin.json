@@ -1,0 +1,9 @@
+{
+  "name": "fullerzz--herdr-plugin-sesh",
+  "displayName": "herdr-plugin-sesh",
+  "description": "Sesh-style workspace picker TUI for Herdr. Integrates with zoxide to create workspaces from commonly used directories.",
+  "version": "1.0.0",
+  "author": "fullerzz",
+  "homepage": "https://github.com/fullerzz/herdr-plugin-sesh",
+  "skills": []
+}
