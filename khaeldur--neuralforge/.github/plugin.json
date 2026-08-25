@@ -1,0 +1,9 @@
+{
+  "name": "khaeldur--neuralforge",
+  "displayName": "NeuralForge",
+  "description": "On-device LLM fine-tuning for Apple Silicon (ANE)",
+  "version": "1.0.0",
+  "author": "Khaeldur",
+  "homepage": "https://github.com/Khaeldur/NeuralForge",
+  "skills": []
+}
