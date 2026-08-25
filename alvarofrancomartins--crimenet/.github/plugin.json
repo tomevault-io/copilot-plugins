@@ -1,0 +1,9 @@
+{
+  "name": "alvarofrancomartins--crimenet",
+  "displayName": "CRIMENET",
+  "description": "Open-source knowledge graph of relationships between criminal organizations worldwide, extracted from multi-language Wikipedia with an LLM pipeline.",
+  "version": "1.0.0",
+  "author": "alvarofrancomartins",
+  "homepage": "https://github.com/alvarofrancomartins/CRIMENET",
+  "skills": []
+}
