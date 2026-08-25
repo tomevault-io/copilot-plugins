@@ -1,0 +1,44 @@
+{
+  "name": "openyoko",
+  "owner": "ThoBustos",
+  "repo": "openyoko",
+  "description": "That's how you 10x yourself. Introducing my personal agent OS. You need to pair it with your personal vault/2nd brain. More in the readme.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ThoBustos/openyoko",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T14:16:32Z"
+}
