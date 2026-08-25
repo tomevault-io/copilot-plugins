@@ -1,0 +1,9 @@
+{
+  "name": "crowdsecurity--crowdsec",
+  "displayName": "crowdsec",
+  "description": "crowdsec",
+  "version": "1.0.0",
+  "author": "crowdsecurity",
+  "homepage": "https://github.com/crowdsecurity/crowdsec",
+  "skills": []
+}
