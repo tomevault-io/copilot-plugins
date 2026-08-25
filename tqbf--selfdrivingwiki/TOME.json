@@ -4,7 +4,7 @@
   "repo": "selfdrivingwiki",
   "description": "an llmwiki app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tqbf/selfdrivingwiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T00:13:53Z"
+  "distributed_at": "2026-08-25T00:19:52Z"
 }
