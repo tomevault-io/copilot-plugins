@@ -1,0 +1,9 @@
+{
+  "name": "xp3ta--hermes-console",
+  "displayName": "hermes-console",
+  "description": "Android-first Flutter client for self-hosted Hermes Agent \u2014 chat, Bots, Voice and private remote control.",
+  "version": "1.0.0",
+  "author": "xP3ta",
+  "homepage": "https://github.com/xP3ta/hermes-console",
+  "skills": []
+}
