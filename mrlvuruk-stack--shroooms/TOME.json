@@ -4,7 +4,7 @@
   "repo": "shroooms",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrlvuruk-stack/shroooms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T14:32:49Z"
+  "distributed_at": "2026-08-25T07:58:46Z"
 }
