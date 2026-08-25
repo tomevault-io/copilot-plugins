@@ -1,0 +1,9 @@
+{
+  "name": "dbl8005--sitrep-panel",
+  "displayName": "sitrep-panel",
+  "description": "A live local HTML report Claude keeps updated as it works \u2014 status board, running narrative, screenshots, newest-first log, live-reload. No cloud, no build step.",
+  "version": "1.0.0",
+  "author": "dbl8005",
+  "homepage": "https://github.com/dbl8005/sitrep-panel",
+  "skills": []
+}
