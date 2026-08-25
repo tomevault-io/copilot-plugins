@@ -1,0 +1,9 @@
+{
+  "name": "enteros-ai--enteros-plugin-workflow-triage",
+  "displayName": "enteros-plugin-workflow-triage",
+  "description": "EnterOS mirror of molecule-ai-plugin-molecule-workflow-triage",
+  "version": "1.0.0",
+  "author": "EnterOS-AI",
+  "homepage": "https://github.com/EnterOS-AI/enteros-plugin-workflow-triage",
+  "skills": []
+}
