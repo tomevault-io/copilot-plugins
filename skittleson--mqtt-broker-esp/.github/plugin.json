@@ -1,0 +1,9 @@
+{
+  "name": "skittleson--mqtt-broker-esp",
+  "displayName": "mqtt_broker_esp",
+  "description": "A standalone MQTT 3.1.1 broker that runs entirely on a $10 microcontroller.",
+  "version": "1.0.0",
+  "author": "skittleson",
+  "homepage": "https://github.com/skittleson/mqtt_broker_esp",
+  "skills": []
+}
