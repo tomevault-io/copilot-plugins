@@ -1,0 +1,9 @@
+{
+  "name": "adminturneddevops--abox",
+  "displayName": "ABox",
+  "description": "A microVM-native, zero-trust agent harness with semantic authorization",
+  "version": "1.0.0",
+  "author": "AdminTurnedDevOps",
+  "homepage": "https://github.com/AdminTurnedDevOps/ABox",
+  "skills": []
+}
