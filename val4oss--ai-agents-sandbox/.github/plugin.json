@@ -1,0 +1,9 @@
+{
+  "name": "val4oss--ai-agents-sandbox",
+  "displayName": "ai-agents-sandbox",
+  "description": "A secure, isolated container environment for running AI coding agents.",
+  "version": "1.0.0",
+  "author": "val4oss",
+  "homepage": "https://github.com/val4oss/ai-agents-sandbox",
+  "skills": []
+}
