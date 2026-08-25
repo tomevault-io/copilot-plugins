@@ -1,0 +1,9 @@
+{
+  "name": "robsonscheffer--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Personal dotfiles managed with chezmoi. Includes zsh, Neovim, Ghostty, Claude Code skills & hooks,   oh-my-posh, and mise configurations for macOS.",
+  "version": "1.0.0",
+  "author": "robsonscheffer",
+  "homepage": "https://github.com/robsonscheffer/dotfiles",
+  "skills": []
+}
