@@ -1,26 +1,36 @@
-## design-system
+## astro-cloudflare-starter
 
-> Design system & on-system conventions (colors, tokens, dark mode)
+> This project is an AI-operable Astro starter. Follow the canonical conventions —
 
+# Copilot instructions
 
-# Stay on-system
+This project is an AI-operable Astro starter. Follow the canonical conventions —
+do not improvise design or architecture.
 
-Single source of truth for design lives in `system/globals/` and the tokens in
-`src/styles/tokens/*.css` (exposed via the `@theme` block in `global.css`).
+## Read first
 
-- **Colors:** use semantic tokens only — `bg-primary`, `text-foreground`,
-  `var(--muted-foreground)`, etc. **Never** hardcode hex/rgb or use Tailwind palette
-  utilities like `bg-blue-500`. Palette is monochrome OKLCH; functional status colors
-  (success/warning/destructive) are the only chromatic tokens.
-- **Dark mode:** class strategy (`.dark`). Every token has light+dark values; never
-  hand-invert colors.
-- **Spacing/typography/radius/shadows:** use the scale tokens, not magic numbers.
-- **Effects:** subtle shadows + hairline borders; decorative layers are
-  `aria-hidden` and `pointer-events: none`.
+- `system/globals/` — design knowledge base (colors, typography, spacing,
+  interaction, imagery, effects, responsiveness, accessibility, components,
+  patterns). `components.md` catalogs the library; `patterns.md` has the reusable
+  composition recipes.
+- `src/registry.json` — components/sections/pages catalog.
 
-Before finishing UI work: run `pnpm run check:kpis` (also part of `pnpm lint`). It
-fails on hardcoded colors, deprecated imports, and a stray `tailwind.config.*`.
-See `system/globals/colors.md`, `effects.md`, `typography.md`, `spacing.md`.
+## Rules
+
+- **Design tokens only.** No hardcoded hex/rgb; no Tailwind palette classes
+  (`bg-blue-500`). Use semantic tokens (`bg-primary`, `text-foreground`,
+  `var(--muted-foreground)`). Palette is monochrome OKLCH.
+- **Dark mode** uses the `.dark` class; never hand-invert colors.
+- **Three tiers:** Components → Sections (`src/components/sections`) → Pages.
+- **i18n:** English default + Indonesian `/id/`; add every route in both
+  `src/pages/x.astro` and `src/pages/[locale]/x.astro`.
+- **Preserve:** Git-based Markdown content, Cloudflare Pages, SEO/OG/RSS/
+  sitemap/llms.txt, Pagefind, Starlight docs.
+
+## Verify
+
+Run `pnpm lint` (includes `pnpm check:kpis`) and `pnpm build` before finishing.
+`check:kpis` is the source of truth and fails on off-system edits.
 
 ---
 > Source: [milzamsz/astro-cloudflare-starter](https://github.com/milzamsz/astro-cloudflare-starter) — distributed by [TomeVault](https://tomevault.io).
