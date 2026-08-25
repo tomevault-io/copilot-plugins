@@ -1,0 +1,9 @@
+{
+  "name": "bjornmelin--grammarly-mcp",
+  "displayName": "grammarly-mcp",
+  "description": "MCP server for Grammarly AI detection and plagiarism scoring via Stagehand + Browserbase browser automation, with Claude-powered text optimization",
+  "version": "1.0.0",
+  "author": "BjornMelin",
+  "homepage": "https://github.com/BjornMelin/grammarly-mcp",
+  "skills": []
+}
