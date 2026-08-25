@@ -1,0 +1,9 @@
+{
+  "name": "bordeux--ha-oukitel-powerstation",
+  "displayName": "ha-oukitel-powerstation",
+  "description": "Home Assistant integration for Oukitel portable power stations (P2001E Plus and other Quectel/Acceleronix \"WonderFree\" models) \u2014 fully local LAN control, no cloud at runtime.",
+  "version": "1.0.0",
+  "author": "bordeux",
+  "homepage": "https://github.com/bordeux/ha-oukitel-powerstation",
+  "skills": []
+}
