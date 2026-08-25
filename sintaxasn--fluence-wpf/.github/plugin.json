@@ -1,0 +1,9 @@
+{
+  "name": "sintaxasn--fluence-wpf",
+  "displayName": "Fluence.Wpf",
+  "description": "Fluence.Wpf is a modern theming and control library based on WinUI 3, but for WPF on .NET 4.7.2 / .NET 10",
+  "version": "1.0.0",
+  "author": "sintaxasn",
+  "homepage": "https://github.com/sintaxasn/Fluence.Wpf",
+  "skills": []
+}
