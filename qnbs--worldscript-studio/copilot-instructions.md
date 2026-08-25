@@ -1,0 +1,56 @@
+## 000-cursor-rules
+
+> ALWAYS use when asked to CREATE A RULE or UPDATE A RULE or when taught a lesson to RETAIN AS NEW RULE
+
+
+# Meta-Regeln für Cursor-Regeln (.mdc)
+
+## Wann diese Datei gilt
+
+- Nutzer fordert **neue** oder **aktualisierte** Repo-Regel.
+- Aus Korrektur eine **dauerhafte** Leitplanke ableiten.
+- Nach Stack-Änderung (Vite, Coverage, KI-Schicht): betroffene `.mdc` **und** [`.cursor/index.mdc`](../index.mdc) abstimmen.
+
+## Verpflichtend
+
+- Dateien nur unter **`.cursor/rules/`**; Kebab-Case + dreistelliges Präfix:
+  - `001–099` Core/Security
+  - `100–199` Integrations/APIs/KI
+  - `150–159` i18n/Content (siehe `150-i18n-and-content.mdc`)
+  - `200–299` Architektur
+  - `300–399` UI
+  - `800–899` Testing/Workflows
+- Frontmatter **`description`:** ATO (Action, Trigger, Outcome), **< 120 Zeichen**.
+- **`globs`:** kommagetrennt, **keine Leerzeichen**, keine Anführungszeichen — z. B. `globs: services/**/*.ts,features/**/*.ts`.
+- **`alwaysApply: true`** nur für [`.cursor/index.mdc`](../index.mdc) (Manifest). Fachregeln: `false` + passende `globs`.
+- **≤ 200 Zeilen** pro Datei; Code nicht duplizieren — verweise auf kanonische Pfade (`@services/logger.ts`).
+- Pflicht: `<example>` und `<example type="invalid">`.
+- Regeln mit **Plain-Text-Editor** schreiben (MDC-UI-Bugs vermeiden).
+
+## Frontmatter-Referenz
+
+```yaml
+---
+description: <ATO unter 120 Zeichen>
+globs: <Pfadmuster oder ~ für manuell>
+alwaysApply: <true nur Manifest>
+---
+```
+
+## Pflege
+
+- Keine Secrets, keine generierten Report-Pfade in Regeln.
+- Bei neuer Domäne: eigene Nummer, nicht alles in `index.mdc` stopfen.
+- Querverweise: [`docs/BEST-PRACTICES.md`](../../docs/BEST-PRACTICES.md), [`AUDIT.md`](../../AUDIT.md).
+
+<example>
+Hybrid-KI-Regel: `101-hybrid-ai-orchestration.mdc`, `globs: services/ai/**/*.ts,services/aiProviderService.ts`, Verweis auf `services/ai/index.ts` Header-Kommentar.
+</example>
+
+<example type="invalid">
+`globs: *.ts, *.tsx` (Leerzeichen); 300-Zeilen-Regel mit kopiertem Redux-Reducer; `alwaysApply: true` auf jeder Fachregel.
+</example>
+
+---
+> Source: [qnbs/WorldScript-Studio](https://github.com/qnbs/WorldScript-Studio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-25 -->
