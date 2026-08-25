@@ -1,0 +1,9 @@
+{
+  "name": "bytenaija--worker-secrets",
+  "displayName": "worker-secrets",
+  "description": "Encrypted secret management for Cloudflare Workers \u2014 a self-hosted vault with CLI.",
+  "version": "1.0.0",
+  "author": "bytenaija",
+  "homepage": "https://github.com/bytenaija/worker-secrets",
+  "skills": []
+}
