@@ -1,0 +1,9 @@
+{
+  "name": "sweetrb--apple-photos-mcp",
+  "displayName": "apple-photos-mcp",
+  "description": "MCP server for Apple Photos - query, search, export, and inspect the macOS Photos library via Claude and other AI assistants, plus opt-in album/metadata write tools (read-only by default)",
+  "version": "1.0.0",
+  "author": "sweetrb",
+  "homepage": "https://github.com/sweetrb/apple-photos-mcp",
+  "skills": []
+}
