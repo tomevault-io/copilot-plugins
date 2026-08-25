@@ -1,0 +1,9 @@
+{
+  "name": "dbjpanda--kwery",
+  "displayName": "kwery",
+  "description": "Server state for Android. Decides when your app calls the network, dedupes in-flight requests, and replays writes made offline.",
+  "version": "1.0.0",
+  "author": "dbjpanda",
+  "homepage": "https://github.com/dbjpanda/kwery",
+  "skills": []
+}
