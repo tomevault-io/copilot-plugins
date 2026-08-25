@@ -1,0 +1,9 @@
+{
+  "name": "timescale--crayon",
+  "displayName": "crayon",
+  "description": "AI-native workflow engine for GTM/RevOps automation",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/crayon",
+  "skills": []
+}
