@@ -1,0 +1,87 @@
+## outreachmagic
+
+> Read this first when changing skills, install, or release.
+
+# Agent guide — outreachmagic/outreachmagic monorepo
+
+Read this first when changing skills, install, or release.
+
+## Layout
+
+| Skill | CLI | Config |
+|-------|-----|--------|
+| outreachmagic | `skills/outreachmagic/scripts/pipeline.py` | `skill-suite.json` |
+
+**Single source of truth:** [`skill-suite.json`](skill-suite.json) — install pins, manifest file lists, public repos.
+
+## If you add `skills/<skill>/scripts/*.py`
+
+1. Add to `script_exclude` in `skill-suite.json` **only** if the file must not ship (e.g. `run_v22_tests.py`).
+2. Run: `python3 scripts/generate_skill_manifest.py <skill>` or `make manifests`
+3. Run: `make release-check`
+
+Do **not** edit `UPDATE_FILES` or hand-maintained manifest tuples — tools read `update-manifest.json` keys at update time.
+
+## Public README (outreachmagic skill)
+
+**Single file:** [`skills/outreachmagic/README.md`](skills/outreachmagic/README.md) — published to [outreachmagic/outreachmagic](https://github.com/outreachmagic/outreachmagic) and the [GitHub org profile](https://github.com/outreachmagic). Do not add copies under `platforms/`. See [`docs/github-org-profile.md`](docs/github-org-profile.md).
+
+After README edits: `make manifests` then commit (manifest hash for `README.md` must match).
+
+## If you change pricing / billing limits
+
+1. `tests/billing_contract.json`
+
+## Release (outreachmagic)
+
+1. Add section to `CHANGELOG.md` for the new version (use human-readable, user-facing language).
+2. Update the `AGENTS-INSTALL.md` link in `skills/outreachmagic/SKILL.md` to point at the new version tag (`.../blob/vX.Y.Z/AGENTS-INSTALL.md`), so agents installed from a non-`main` tag see the matching doc version.
+3. Bump version and run gate:
+
+```bash
+echo X.Y.Z > skills/outreachmagic/scripts/VERSION
+python3 -c "import sys; sys.path.insert(0,'skills/outreachmagic/scripts'); import pipeline as om; om.sync_skill_md_version()"
+python3 scripts/sync_install_docs.py
+make release-check
+git commit -am "Release vX.Y.Z"
+git tag vX.Y.Z
+git push origin main --tags
+```
+
+## Testing before tagging
+
+- **`dev_repo` config** — point `outreachmagic_config.json` at a local clone. `pipeline.py update` copies from disk.
+- **`--channel main`** — merge to `main`, then run `pipeline.py update --channel main` on the test machine. Release tags trigger CI to create GitHub Releases directly on this repo.
+- **RC tags** — tag `vX.Y.Z-rc.1` to publish a prerelease to the public repo. Testers run `pipeline.py update --tag vX.Y.Z-rc.1`.
+
+## Development checkout conventions
+
+- The dev clone should NOT have `skills/outreachmagic/config/outreachmagic_config.json`
+  commitable. Config options in there (like `data_root`) cause `pipeline.py rollback`
+  and `pipeline.py update` to read from the real installed location and write into
+  the dev checkout — silently clobbering source files.
+- `update_skill` and `rollback_skill` are guarded: they refuse to run if
+  `skill_scripts_dir()` is inside a git working tree. This is why test v1.33
+  now uses an isolated `OUTREACHMAGIC_DATA_ROOT`.
+- Always commit to a clean tree. Experiment with reverts/refactors on throwaway
+  branches. Big changes across multiple files should land in their own PRs.
+
+## Brand assets
+
+Logos live in `brand/` and are served via `raw.githubusercontent.com/outreachmagic/outreachmagic/main/brand/`.
+
+## Public vs private
+
+This repo is public. All source code is visible. Secrets live in environment variables and `skills/outreachmagic/config/` (gitignored). Org profile publishes to `outreachmagic/.github`.
+
+**Never reference real client/customer names, their domains, or identifying business details anywhere in this repo** — code, tests, fixtures, comments, commit messages, docs. This includes names picked up from other conversation context (e.g. an Obsidian vault, another private repo, a pasted log/payload) — a real client name or domain in a sample payload is not fair game for a test fixture here just because it showed up in chat. Use obviously generic placeholders instead (e.g. `Acme` / `acme` / `acmemail.com`), consistently, the same way `example.com` / `Jane Doe` are used elsewhere in this codebase's tests. If you're about to paste in a real CSV export, webhook payload, or DB row as a test fixture, sanitize every identifying field first (names, emails, domains, workspace slugs, tags).
+
+## Tests before tag
+
+```bash
+make release-check          # full pre-tag gate
+```
+
+---
+> Source: [outreachmagic/outreachmagic](https://github.com/outreachmagic/outreachmagic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
