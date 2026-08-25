@@ -2,7 +2,7 @@
 
 > Two halves of one pipeline (merged from the retired private `flip-omop-db` repo, FLIP#834):
 
-# CLAUDE.md — trust/omop-db
+# AGENTS.md — trust/omop-db
 
 ## What this directory is
 
@@ -98,4 +98,4 @@ make local_test                     # ruff + mypy + pytest tests/unit (no DB nee
 
 ---
 > Source: [londonaicentre/FLIP](https://github.com/londonaicentre/FLIP) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
