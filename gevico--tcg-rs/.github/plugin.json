@@ -1,0 +1,9 @@
+{
+  "name": "gevico--tcg-rs",
+  "displayName": "tcg-rs",
+  "description": "Rust for QEMU TCG.",
+  "version": "1.0.0",
+  "author": "gevico",
+  "homepage": "https://github.com/gevico/tcg-rs",
+  "skills": []
+}
