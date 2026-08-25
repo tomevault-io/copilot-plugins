@@ -1,0 +1,9 @@
+{
+  "name": "lexlapax--allbert-assist",
+  "displayName": "allbert-assist",
+  "description": "Allbert Assist is a local-first assistant runtime for long-running personal work built in elixir/otp, jido agents etc",
+  "version": "1.0.0",
+  "author": "lexlapax",
+  "homepage": "https://github.com/lexlapax/allbert-assist",
+  "skills": []
+}
