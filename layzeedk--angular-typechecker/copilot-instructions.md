@@ -1,0 +1,519 @@
+## angular-typechecker
+
+> enables `version.adjustSemverBumpsForZeroMajorVersion` (default `true`, and this repo does
+
+# AGENTS.md -- angular-typechecker
+
+Agent-agnostic instructions for any AI coding agent working in this repository.
+(Claude Code loads this via the `@AGENTS.md` reference at the top of `CLAUDE.md`.)
+
+## Changing this file
+
+**Any change to `AGENTS.md` MUST be code-reviewed.** This file governs how every AI agent
+works in this repository, so an inaccurate, ambiguous, or unverified instruction propagates
+silently into all future agent behavior. The review may be satisfied EITHER by an explicit
+independent review before commit, OR by the mandatory `/gsd-code-review` step that runs
+during phase execution (the `code_review_gate`), which reviews every source file changed in
+the phase -- including this one. Either way, an `AGENTS.md` change is not "done" until a
+code review has checked it for factual accuracy against the actual codebase and tooling,
+clarity, and internal consistency, and every finding is resolved. (This rule exists because
+a release-mechanics claim in this file was once wrong about the 0.x semver bump shift and
+about `--skip-publish` semantics -- review is what caught both.)
+
+## Conventional Commits drive the changelog and the released version
+
+This repository releases `angular-typechecker` to npm with **`nx release`** configured
+for **`version.conventionalCommits: true`** (see `nx.json` -> `release`). That means the
+NEXT version number AND the generated changelog are computed **from the commit log** --
+not chosen by hand. Every commit you write is release input. Follow these rules so the
+release machinery behaves predictably.
+
+### Commit message format
+
+```
+type(scope): short imperative description
+
+optional body explaining what and why
+
+optional footer (e.g. BREAKING CHANGE: ..., Refs: ...)
+```
+
+- `type` is required and lowercase. `scope` is optional but, when present, is rendered
+  verbatim in the changelog (see the scope-hygiene rule below).
+- A breaking change is marked EITHER by a `!` before the colon (`feat(core)!: ...`) OR by
+  a `BREAKING CHANGE:` footer.
+
+### How each type influences the version bump
+
+`nx release` maps conventional-commit types to a SemVer bump. The version bump for a
+release is the HIGHEST bump implied by any qualifying commit since the previous release
+tag.
+
+**IMPORTANT -- this repo is pre-1.0, so the bumps are shifted DOWN one level.** Nx 23
+enables `version.adjustSemverBumpsForZeroMajorVersion` (default `true`, and this repo does
+NOT override it; verified in nx 23.0.1 `config.js` and in `.planning/research/FOLLOWUP-FINDINGS.md`).
+While the current version is `0.x`, every bump nx computes is lowered one step:
+`major -> minor`, `minor -> patch`, `patch -> patch`. So the operative mapping right now is:
+
+| Commit type                                                           | Standard (post-1.0) | EFFECT NOW (0.x, this repo) | In the changelog?                   |
+| --------------------------------------------------------------------- | ------------------- | --------------------------- | ----------------------------------- |
+| `feat`                                                                | minor               | **patch** (0.0.1 -> 0.0.2)  | Yes (Features)                      |
+| `fix`                                                                 | patch               | patch (0.0.1 -> 0.0.2)      | Yes (Fixes)                         |
+| `feat!` / `fix!` / `BREAKING CHANGE:`                                 | major               | **minor** (0.0.1 -> 0.1.0)  | Yes (Breaking Changes)              |
+| `perf`                                                                | none                | none                        | Yes (Performance) -- shown, no bump |
+| `docs`, `chore`, `refactor`, `test`, `build`, `ci`, `style`, `revert` | none                | none                        | No (hidden by default)              |
+
+Two consequences to internalize:
+
+- **While in 0.x, `feat` and `fix` both produce a patch bump** -- they are
+  indistinguishable for the VERSION (they still land in different changelog sections).
+  A breaking change is what cuts a new minor (e.g. `0.1.0`). This stays true until the
+  first `1.0.0`, after which the standard column applies.
+- **A release window that contains only no-bump types (`docs`/`chore`/`perf`/etc.)
+  produces NO version bump** -- `nx release` reports no releasable change. Only `feat`,
+  `fix`, and breaking changes move the version.
+
+### Always confirm with a dry run
+
+Because the 0.x adjustment surprises people, never assume the computed version. Preview it
+with the UNIFIED command:
+
+```
+npx nx release --dry-run
+```
+
+The dry run prints BOTH the version nx will pick and the changelog it will write, sourced
+from the commit log. Treat its output as the source of truth.
+
+**Always use the unified `nx release` command, NOT the `nx release version` subcommand.**
+Newly verified against nx 23.0.1: the `version` subcommand REJECTS the top-level
+`release.git` block in `nx.json` and errors out (it tells you to move git options under
+`release.version.git` / `release.changelog.git`). Only the unified `nx release` (and its
+`--dry-run`) honors the top-level `release.git` block this repo relies on, so it is the only
+command that previews and cuts with the correct `commit`/`tag`/`push` behavior. Use the
+unified command for every preview and every cut.
+
+(The "nx release configuration norms" note in `CLAUDE.md` states the standard post-1.0
+mapping `feat -> minor, fix -> patch`; the 0.x-adjusted column above is what actually
+happens until `1.0.0`.)
+
+### Only commits that touch the published project count
+
+`nx.json` scopes releases with `release.projects: ["angular-typechecker"]`. With
+`conventionalCommits`, the version of that package is derived from commits whose changes
+touch the package's project graph -- commits that only touch `.planning/`, docs, or other
+projects do NOT bump `angular-typechecker`. (This is why a stretch of `docs(...)` commits
+under `.planning/` leaves the package version untouched.)
+
+Attribution is decided by the FILES a commit changes, NOT by the commit message's scope
+text. A `feat(anything): ...` that edits files under `packages/angular-typechecker/` WILL
+count toward that package's bump; a `feat(core): ...` that only edits `.planning/` will
+NOT. So the scope is cosmetic for both attribution and (post-curation) the changelog --
+write accurate `type`s and put real changes in the package's files.
+
+## Repo-specific gotchas (learned in production)
+
+1. **When there is no releasable (`feat`/`fix`) commit, pin the version explicitly.**
+   If you must cut a release in a window that contains only `docs`/`chore` commits (for
+   example, a verification or maintenance release), `conventionalCommits` will compute no
+   bump. Pass the target version explicitly instead of relying on derivation:
+
+   ```
+   npx nx release 0.0.2 --skip-publish
+   ```
+
+   Confirm with `--dry-run` first. Note: a LITERAL version (`0.0.2`) bypasses
+   conventional-commits derivation AND the 0.x adjustment entirely -- you get exactly what
+   you typed. A keyword specifier (`patch`/`minor`/`major`) instead still goes through the
+   0.x shift-down, so prefer a literal version when you want a deterministic result.
+
+2. **The auto-generated changelog renders the commit SCOPE -- keep scopes clean for
+   public releases.** Internal workflow scopes (for example GSD plan ids like
+   `feat(05-01):` or `fix(04-03):`) leak straight into the generated CHANGELOG and the
+   GitHub Release notes, and decision refs such as `[#1]` can be mis-parsed as issue
+   links. This is not hypothetical: a live `npx nx release --dry-run` PROVED that the raw
+   nx changelog renders plan-id scopes verbatim as bold headings such as `**06-02:**` --
+   exactly the internal phase/plan numbers a public changelog must never expose. For any
+   PUBLIC release, hand-curate a clean `CHANGELOG.md` entry (match the existing `0.0.1`
+   entry's style) rather than shipping the raw generated dump. Prefer release-meaningful
+   scopes (`core`, `executor`, `release`, `deps`) over internal ids in commits that will
+   reach a public changelog.
+
+3. **Releases go through a Release PR; the cut creates NO tag, and you tag the MERGE
+   COMMIT after the PR lands.** `main` is PR-only (see "The default-branch ruleset" note
+   below), so you NEVER cut or push a release directly to `main`. `nx.json` sets
+   `release.git` to `{ commit: true, tag: false, push: false }` (plus
+   `changelog.workspaceChangelog.createRelease: false`), so `npx nx release --skip-publish`
+   commits the version bump + changelog and does NOTHING else: with `tag: false` it creates
+   NO git tag at all, and with `push: false` + `createRelease: false` it pushes nothing.
+   The tag is created separately, by hand, on the merge commit AFTER the PR merges. Full
+   order:
+   - (1) Off an up-to-date `main`, branch `git switch -c release/x.y.z`.
+   - (2) Preview with `npx nx release --dry-run`, then cut with `npx nx release --skip-publish`
+     (one commit lands on the branch: version + raw changelog; NO tag, NO push).
+   - (3) Curate `CHANGELOG.md` (strip plan-id scopes; add the prose summary + Compatibility
+     block) and amend it onto the version commit (`git commit --amend --no-edit`).
+   - (4) Push the branch and open a PR into `main`. The PR CARRIES the code AND the
+     `.planning/` updates (do NOT strip `.planning/` -- this repo wants planning artifacts on
+     `main`). Self-merge once the required `ci` check is green, as a MERGE COMMIT (the repo's
+     `allowed_merge_methods` is `["merge"]`; the tag will target that merge commit).
+   - (5) On the merged `main` HEAD, create the tag on the MERGE COMMIT with the EXACT name
+     `angular-typechecker@x.y.z` (NO `v` prefix -- the `v`-prefixed form would not match
+     `release.yml`'s `on: push: tags: ['angular-typechecker@*']` filter):
+     `git tag angular-typechecker@x.y.z <merge-sha>`.
+   - (6) BEFORE pushing, verify the tagged tree carries the bump:
+     `git show angular-typechecker@x.y.z:packages/angular-typechecker/package.json` must show
+     the new `"version"`. Then `git push origin angular-typechecker@x.y.z` -- which fires
+     `.github/workflows/release.yml` -> OIDC publish with provenance (approve the
+     `npm-publish` environment).
+   - (7) Create the GitHub Release from the curated `CHANGELOG.md` section yourself:
+     `gh release create angular-typechecker@x.y.z --notes-file <curated-section> --verify-tag`.
+     NEVER use `--generate-notes`: it builds notes from PR TITLES and cannot strip text inside
+     a title, so a PR titled `feat(NN-NN): ...` would leak the internal scope verbatim.
+
+   The tag push and the GitHub Release are done by a human on purpose -- the CI publish job
+   holds only `id-token: write`, never `contents: write`, and the irreversible "publish"
+   action stays behind a manual gate. (Why manual tagging rather than CI-automated: the
+   default `GITHUB_TOKEN` cannot trigger another workflow, so a CI-pushed tag would NOT fire
+   `release.yml`; a PAT/GitHub App would reintroduce a long-lived `contents`-scoped secret
+   that contradicts the repo's tokenless-OIDC posture. Manual keeps `release.yml`
+   byte-unchanged and adds zero secrets.)
+
+   **LANDMINE -- do NOT re-enable `changelog.workspaceChangelog.createRelease: "github"`.**
+   nx 23 requires `git push` whenever `createRelease` is set (it must push the tag to tie the
+   GitHub Release to it). How that manifests depends on the current `git.push` value -- and
+   BOTH outcomes defeat the curate-before-push flow:
+   - **With the repo's current explicit `release.git.push: false`:** nx HARD-ERRORS at
+     config-load time with `GIT_PUSH_FALSE_WITH_CREATE_RELEASE` ("The createRelease option for
+     changelogs cannot be enabled when git push is explicitly disabled ...") and
+     `process.exit(1)` -- verified in nx 23.0.1 `command-line/release/config/config.js` (raised
+     ~136-149, reported + exit ~899-913). Every `nx release` then fails until you revert one of
+     the two settings; nothing is pushed.
+   - **If you ALSO drop the explicit `git.push: false`:** nx defaults the changelog git `push`
+     to `true` whenever `createRelease` is set (config.js ~150-160), so `nx release` pushes the
+     version commit + tag during the LOCAL step -- BEFORE you curate. `--skip-publish` does NOT
+     suppress this (the push is gated by `changelog.git.push` at changelog.js:566, not by
+     `skipPublish`). This is the real silent-push hazard that once pushed an un-curated commit +
+     tag to a force-push-protected `main`, which could not be cleanly undone.
+
+   `release.git.push: false` + `createRelease: false` is the fix for both: the local cut stays
+   push-free, and curation always precedes the manual `git push origin angular-typechecker@<version>`.
+
+## Quick checklist before cutting a release
+
+The release goes through a Release PR; the cut creates NO tag. Tag the merge commit AFTER
+the PR lands, and never push a release directly to `main`.
+
+1. Are the changes since the last tag committed as `feat`/`fix` (so they bump + appear in
+   the changelog), or is this an explicit-version maintenance release?
+2. Branch off an up-to-date `main`: `git switch -c release/x.y.z`.
+3. Run `npx nx release --dry-run` (the unified command, NOT `nx release version`) and read
+   the proposed version + changelog. If only `docs`/`chore` commits exist, pin the version
+   explicitly (see gotcha 1).
+4. Cut on the branch with `npx nx release --skip-publish`. With `git.tag: false` this
+   creates NO tag, and with `push: false` + `createRelease: false` it pushes nothing -- it
+   only commits the version bump + raw changelog.
+5. Curate `CHANGELOG.md` so no internal scopes/ids leak into the public changelog, and amend
+   it onto the version commit (`git commit --amend --no-edit`).
+6. Push the branch and open a PR into `main` that carries BOTH the code and the `.planning/`
+   updates. Self-merge once the required `ci` check is green, as a MERGE COMMIT.
+7. On the merged `main` HEAD, tag the MERGE COMMIT with the exact name
+   `angular-typechecker@x.y.z` (no `v`); verify the tagged tree carries the bump with
+   `git show angular-typechecker@x.y.z:packages/angular-typechecker/package.json`; then
+   `git push origin angular-typechecker@x.y.z` to fire CI. Approve the `npm-publish`
+   environment for the OIDC publish, and create the GitHub Release from the curated changelog
+   with `gh release create angular-typechecker@x.y.z --notes-file <curated-section> --verify-tag`
+   (never `--generate-notes`). See `.github/workflows/release.yml` for the full mechanics.
+
+## The default-branch ruleset: `main` is PR-only
+
+`main` is governed by an active "Default branch" ruleset with an EMPTY bypass list -- even
+the repository owner cannot push directly to `main`. Every change (code AND `.planning/`)
+reaches `main` only through a PR that satisfies the required status checks (`ci` plus the
+CodeQL `Analyze (actions)` / `Analyze (javascript-typescript)` checks -- produced since
+2026-07-25 by the committed `.github/workflows/codeql.yml` (ADVANCED setup; default setup is
+disabled), whose `analyze` job `name:` RENDERS those two contexts. That job name is
+BYTE-LOAD-BEARING: renaming it makes the required checks never report and wedges `main` for
+every PR, including the one trying to fix it). Do NOT attempt a direct
+`git push origin main`; it will be rejected.
+This is why releases run through the Release PR above rather than a local cut pushed to
+`main`.
+
+Release TAGS are governed by a SEPARATE "Release tag" ruleset, not the default-branch one, so
+the empty branch bypass does not block pushing `angular-typechecker@x.y.z` after a merge.
+
+**Lockout recovery (the cost of the empty bypass):** if the required `ci` check ever goes
+red or stops reporting and the merge button is blocked, recover by EDITING the ruleset --
+repo admins can edit a ruleset even though they cannot bypass it. Toggle the ruleset's
+`enforcement` to `disabled`, push the fix, then re-enable `enforcement: active`. Prefer this
+temporary enforcement toggle over adding a standing bypass actor (a standing bypass would
+permanently weaken the PR-only guarantee).
+
+### Enabling the "Require code scanning results" ruleset (human-run, real-CI-only)
+
+The agent NEVER flips the `main` "Require code scanning results" ruleset (or any `main`
+ruleset) via `gh api` or any automated call, and that same prohibition covers changing a
+CodeQL setup -- disabling default setup, or switching default -> advanced, is likewise a
+repository security-configuration change on the gate guarding `main`, so it too is
+human-only. Enabling this second hard gate is a human maintainer action performed in the
+GitHub UI -- GitHub SARIF ingestion and ruleset evaluation are provable only on GitHub
+(real-CI-only), and flipping a `main` protection the owner cannot bypass is exactly the
+class of irreversible control this repo keeps human-only.
+
+STATUS: this gate is ACTIVE on `main` (enabled 2026-07-22) with `angular-typechecker` and
+CodeQL as the required Code Scanning tools, proven clean on both a `.planning/`-only probe
+PR and a code probe PR. The CodeQL default -> ADVANCED setup migration (quick task 260725-73m,
+PR #69) is COMPLETE as of 2026-07-25: default setup is `state: not-configured`, and `main`
+carries live analyses with
+`analysis_key: .github/workflows/codeql.yml:analyze` for both `/language:actions` and
+`/language:javascript-typescript`. Verified end-to-end on throwaway probe PR #70 with CodeQL
+required again -- `CodeQL`, `angular-typechecker`, `Analyze (actions)` and
+`Analyze (javascript-typescript)` ALL pass. Item 7 owns why default setup must not return. The
+steps below are the runbook that was followed and remain the reference for re-enabling or
+auditing it; run them in this fixed order and do NOT skip the orphan-cleanup prerequisite
+or Evaluate.
+
+0. **PREREQUISITE -- delete orphaned Code Scanning configs FIRST (load-bearing; this was
+   the ONLY real blocker).** The gate matches each required tool by its
+   `(analysis_key, category, environment)` tuple, NOT by tool name. A CATEGORY rename leaves
+   the OLD config ORPHANED on `main`: a tuple the gate still expects but that no future upload
+   can ever reproduce. That happened once here -- the dogfood category rename
+   `angular-typechecker` -> `angular-typecheck` in an earlier phase, since cleaned up.
+
+   **The 2026-07-25 CodeQL default -> advanced migration did NOT orphan its config, and no
+   cleanup was needed.** Scope this claim carefully -- it is ONE observation, not a general law:
+   - WHAT WAS OBSERVED (proven): the migration kept `category` byte-identical
+     (`/language:actions`, `/language:javascript-typescript`) while changing BOTH
+     `analysis_key` (`dynamic/github-code-scanning/codeql:analyze` ->
+     `.github/workflows/codeql.yml:analyze`) AND `environment` (default setup's carried
+     `category`/`language`/`runner`; the workflow's carries `build-mode`/`language`). Probe
+     PR #70 then ran with CodeQL required again, with all 126 historical default-setup
+     analyses STILL PRESENT on `main`, and the `CodeQL` tool check PASSED. Nothing was deleted.
+   - WHAT IS INFERRED (not proven): that preserving the category is WHY it carried over.
+     Competing explanations fit the same evidence and were not excluded -- disabling default
+     setup may itself retire its config (there is no equivalent "disable" signal for a
+     third-party tool or a renamed workflow), or the gate may simply expect the newest
+     configuration per (tool, category).
+   - THEREFORE, do NOT generalise this to the required `angular-typechecker` tool. Renaming
+     `ci.yml` or its `code-scanning` job would change that tool's `analysis_key` with no
+     accompanying "disable" signal, and n=1 on CodeQL says nothing about it. Treat any category
+     rename, and any analysis_key change to a NON-CodeQL required tool, as still orphaning
+     until proven otherwise -- and prove it on a throwaway probe PR before trusting it.
+
+   A required tool with a genuinely orphaned config blocks EVERY PR permanently with
+   "1 configuration not found" -- the hardest-to-diagnose failure here (the red herrings
+   single-run-vs-multi-run SARIF, head-ref-vs-merge-ref upload, and a supposed GitHub
+   product limitation were ALL pursued and disproven before the orphan surfaced). KEY
+   DISTINCTION: "configuration not found" is TRANSIENT for a LIVE config (it clears as soon
+   as CI uploads a matching analysis) but PERMANENT for an ORPHANED one. Before enabling
+   the rule, list the tool's Code Scanning analyses on `main` and DELETE any orphaned ones
+   via the Code Scanning API
+   (`DELETE /repos/{owner}/{repo}/code-scanning/analyses/{id}`); references: community
+   discussion #153284, github/codeql #18506, microsoft/hve-core #248. When deleting a SET
+   of analyses, follow each response's `next_analysis_url` for ordering; the LAST analysis
+   in a set returns HTTP 400 unless you pass `?confirm_delete=true`. NO `ci.yml` change is
+   needed -- the EXISTING multi-run + default (merge-ref) SARIF upload already satisfies the
+   gate once the orphan is gone.
+
+1. **Add the rule -- `angular-typechecker` + CodeQL ONLY.** Settings -> Rules -> Rulesets
+   -> the `main` ruleset -> add "Require code scanning results". Under "Required tools and
+   alert thresholds", "Add tool" for `angular-typechecker` (CodeQL is already required --
+   its analyses come from the committed `.github/workflows/codeql.yml` since item 7's
+   migration landed on 2026-07-25).
+   Do NOT add `fallow` -- its findings already gate via the `ci` `fallow` job, so requiring
+   it as a Code Scanning tool is redundant. (Its file-less-SARIF upload bug, which used to
+   cost the whole fallow analysis, was FIXED on 2026-07-25 by
+   `tools/ci/normalize-fallow-sarif.mjs` -- quick task 260725-cs0, PR #67 -- so that is no
+   longer a reason either way.) NEVER add `angular-typechecker-red-proof`: the
+   proof tool reports DELIBERATE errors, so requiring it would permanently block every PR.
+   Set the alert threshold conservatively so this is an ANALYSIS-EXISTENCE gate, not a
+   second findings gate -- findings already gate via `ci`'s `test` (`nx run-many -t
+typecheck`). The load-bearing block is the MISSING-analysis block, which fires whenever
+   a required tool's analysis is missing / not-configured / in-progress, regardless of the
+   alert threshold.
+2. **Evaluate mode FIRST.** Enable the rule in Evaluate mode before Active -- Evaluate
+   records would-be blocks WITHOUT blocking (GitHub's recommended de-risking). Caveat
+   to confirm in the live UI: for repo-level rulesets, Evaluate availability may depend
+   on the GitHub plan tier; if it is unavailable, verify on a throwaway-branch-scoped
+   ruleset and lean on the `enforcement: disabled` recovery in step 5.
+3. **Probe both PR kinds.** Push a deliberate `.planning/`-only PR AND a code-touching
+   PR. In the ruleset's evaluation view (the "Ruleset Insights" view -- confirm the
+   exact label live), confirm NEITHER would be blocked: the planning-only PR produces an
+   `angular-typechecker` analysis (the dogfood job is un-path-gated), and the code PR
+   produces that plus the proof tool's analysis. (This was proven clean on probe PRs #64
+   planning-only and #65 code.)
+4. **Flip to Active** only after step 3 confirms no would-be block.
+5. **Recovery.** If Active wedges the empty-bypass `main` merge button, toggle the
+   ruleset `enforcement` to `disabled`, merge the fix, then re-enable -- exactly as
+   "Lockout recovery" above. NEVER add a standing bypass actor.
+6. **Fork / Dependabot PRs -- the real mechanism (Dependabot FIXED by item 7's migration;
+   real forks STILL BLOCKED).** A read-only token does NOT by itself suppress the SARIF
+   upload: code scanning "always allows the uploading of results when the `pull_request`
+   event triggers the action run" (GitHub Docs, code scanning troubleshooting). PROVEN in
+   this repo for the TOKEN half -- Dependabot PR #46 runs with a read-only `GITHUB_TOKEN`
+   (GitHub treats Dependabot-triggered runs "as if they were opened from a repository
+   fork", scoped to token and secret access), yet its `ci.yml` `code-scanning` job uploaded
+   BOTH the `angular-typechecker` and `fallow` SARIF successfully (`refs/pull/46/merge`;
+   angular-typechecker 2026-07-25T02:58:33Z, fallow 02:58:39Z).
+   The actual cause of the permanent block was CodeQL **default setup**, which ran as
+   event `dynamic`, not `pull_request`. Empirically GitHub never scheduled that run at all
+   on a Dependabot-triggered ref, so its required `Analyze (actions)` /
+   `Analyze (javascript-typescript)` checks never reported. The EFFECT is proven (maintainer
+   PRs #64/#65 got both checks; Dependabot PRs #46/#59 got neither); the REASON is
+   INFERENCE -- GitHub documents no such behaviour for default setup on Dependabot refs,
+   and the `pull_request` exemption governs upload PERMISSION, not run SCHEDULING, so it
+   cannot by itself explain a run that was never created.
+   The advanced-setup migration (`.github/workflows/codeql.yml`, quick task 260725-73m) moved
+   CodeQL onto `pull_request` and therefore REMOVED that cause. **This is now PROVEN by direct
+   observation, not inference:** Dependabot PR #68 (`app/dependabot`) was updated after the
+   migration landed, its `codeql` workflow ran on `event=pull_request`, and it received
+   `Analyze (actions)`, `Analyze (javascript-typescript)` and `CodeQL` -- all passing, with
+   analyses under `analysis_key: .github/workflows/codeql.yml:analyze`. A Dependabot PR opened
+   BEFORE the migration keeps its pre-migration run and shows no such checks until it is
+   updated (`gh pr update-branch <n>`), which is a stale run, not a regression. It LANDED
+   2026-07-25 in
+   PR #69 (see STATUS), and item 7 owns the ordering that was used. It did NOT orphan the old
+   default-setup config, because the category was kept byte-identical (step 0); no CodeQL
+   cleanup was needed and none was done.
+   REAL EXTERNAL FORKS ARE A DIFFERENT CASE AND ARE STILL BLOCKED. #46 does not bear on
+   them: `head.repo.fork` is FALSE for a Dependabot PR (the branch lives in this repo), so
+   #46 took the NON-fork path -- GitHub's "as if opened from a fork" wording covers the
+   token and secrets only and does NOT set `head.repo.fork`. `ci.yml` gates both uploads on
+   `github.event.pull_request.head.repo.fork == false` ("Upload angular-typechecker SARIF"
+   / "Upload fallow SARIF"), so on a genuine fork PR the scan RUNS but nothing is uploaded
+   and no `angular-typechecker` analysis exists -- and `angular-typechecker` is a REQUIRED
+   tool of this gate. So real forks are blocked by this repo's OWN gate, independently of
+   whatever CodeQL does after the migration. Whether GitHub would ACCEPT a fork-PR upload
+   is untested here, precisely because that gate prevents the attempt. The standing answer
+   for a real external contributor is therefore unchanged: a maintainer-side re-run or the
+   `enforcement: disabled` toggle per step 5 and "Lockout recovery". Practical impact stays
+   low (no external contributors; the maintainer self-merges). Do NOT remove ci.yml's fork
+   gates on the strength of the #46 result -- #46 proves only that a read-only token permits
+   the upload, never that a fork PR's upload would be accepted.
+7. **Never reintroduce CodeQL default setup.** Default setup runs as event `dynamic`, not
+   `pull_request`, so its `Analyze (*)` checks never report on Dependabot PRs and those PRs
+   can never satisfy this gate (proven for Dependabot -- see item 6; for real external
+   forks the block has a second, independent cause, also in item 6). That is why CodeQL
+   belongs in the committed `.github/workflows/codeql.yml` instead. THE MIGRATION IS DONE
+   (2026-07-25, PR #69 -- see STATUS). This item is the SINGLE place the ordering is stated --
+   step 0 and item 6 point here. What was actually done, in order, and what to repeat on any
+   future re-run:
+   (a) **Temporarily remove ONLY the `CodeQL` leg from the ruleset's "Require code scanning
+   results" required-tool list** (leaving `angular-typechecker` required, `enforcement` still
+   `active`, `bypass_actors` still EMPTY). Prefer this surgical edit over the whole-ruleset
+   `enforcement: disabled` toggle, which would also relax `ci` and branch protection.
+   (b) **Disable default setup BEFORE the advanced workflow FIRST RUNS** -- and because
+   `codeql.yml`'s `pull_request:` trigger is UNFILTERED, that first run happens when the branch
+   is PUSHED and a PR opened, NOT at merge. Both setups would otherwise upload the
+   deliberately-identical category on the same `refs/pull/<n>/merge`. So the disable gates the
+   PUSH. (GitHub's documented switch procedure disables CodeQL before the workflow is even
+   committed; here it was already committed, which is why the gate moves to the push.)
+   (c) Push, open the PR, confirm `Analyze (actions)` + `Analyze (javascript-typescript)`
+   report and pass -- that is the first real proof the job name renders byte-exactly -- then
+   merge. The push-to-`main` run produces the first advanced-setup analyses.
+   (d) **Re-add `CodeQL` to the required-tool list** at its original thresholds
+   (`errors` / `high_or_higher`), then verify on a throwaway probe PR.
+   NO orphan cleanup was needed -- see step 0, and note the reason it carried over is INFERRED,
+   not proven. Probe PR #70 passed the `CodeQL` tool check with all 126 historical
+   default-setup analyses still present. Do NOT delete them.
+
+   Disabling default setup and editing the ruleset remain HUMAN-ONLY, exactly as the
+   prohibition at the top of this section states. That rule is UNCHANGED. (Historical record,
+   not a carve-out: on 2026-07-25 the maintainer explicitly authorized an agent to perform
+   these two actions for this migration. That was a one-off instruction for one migration; it
+   grants no standing permission, and absent such an explicit instruction the answer is still
+   no.)
+
+## Parallel execution in git worktrees: the `node_modules` junction
+
+When an agent runs phase plans in PARALLEL, each plan's executor works in an isolated git
+worktree. A fresh worktree branches from a clean tree where `node_modules` is gitignored and
+therefore ABSENT. An executor with no `node_modules` cannot run `nx build` / `nx test` /
+`tsc`, so it cannot verify its own work -- unacceptable for a type-checking tool whose entire
+value is correctness. Provision the worktree's dependencies before any verification, using
+ONE of the two patterns below.
+
+### Pattern A -- share via a `node_modules` junction (DEFAULT, only when deps are unchanged)
+
+When a plan changes NO dependencies (pure source/test edits -- the common case), share the
+main checkout's already-installed, lockfile-pinned `node_modules` instead of re-installing.
+As the executor's FIRST action AFTER the worktree HEAD/branch assertion (and BEFORE any
+`nx`/`tsc`/`vitest`), create a directory junction (Windows) or symlink (POSIX) from the
+worktree's `node_modules` to the main checkout's `node_modules`, then verify it resolves:
+
+```bash
+# Windows (the primary dev environment): a directory junction.
+cmd //c "mklink /J node_modules <ABS-PATH-TO-MAIN-CHECKOUT>\node_modules"
+# POSIX equivalent: ln -s <abs-path-to-main-checkout>/node_modules node_modules
+test -d node_modules/typescript && test -d node_modules/@angular/compiler-cli \
+  || { echo "FATAL: node_modules junction failed"; exit 1; }
+```
+
+Run these FROM THE WORKTREE ROOT -- the `node_modules` paths are relative to it. The
+`cmd //c` prefix is the Git Bash spelling (the double slash stops MSYS from rewriting the
+`/c` argument into a Windows path); from PowerShell use `cmd /c "mklink /J ..."` or
+`New-Item -ItemType Junction`.
+The `test -d` assertion runs under Git Bash on any OS.
+
+**VALIDITY CONDITION (do not skip):** sharing is correct ONLY when `package.json`,
+`package-lock.json`, and the Node version are identical between the worktree and the main
+checkout. That holds for any plan that does not touch dependencies. If a plan ADDS, REMOVES,
+or UPGRADES a dependency, Pattern A is INVALID for that worktree -- use Pattern B.
+
+### Pattern B -- per-worktree install (when a plan changes dependencies)
+
+If the plan modifies `package.json` / `package-lock.json`, the worktree needs its OWN
+`npm ci` so it builds against the deps the plan declares -- never a junction into the main
+checkout's stale tree.
+
+### Worktree base, concurrency, and teardown rules
+
+- **Base ref.** The dev environment sets `worktree.baseRef: "head"` in Claude Code
+  `settings.json` so worktrees branch from local HEAD, not `origin/HEAD`. Whatever the
+  runtime, a DEPENDENT wave's worktree MUST start from a commit that already contains the
+  prerequisite plan's work; otherwise it builds against stale sources.
+- **Concurrency under a shared junction.** When multiple worktrees share one junctioned
+  `node_modules` and run `nx` concurrently, set `NX_DAEMON=false` and pass `--skip-nx-cache`
+  so concurrent runs do not race on the shared `node_modules/.cache/nx`. Each worktree keeps
+  its own `dist/` and `.nx/`, so only the shared cache path needs guarding.
+- **Teardown is LINK-ONLY and orchestrator-owned (load-bearing safety).** After EVERY agent
+  in the wave has returned, the orchestrator removes each worktree's `node_modules` junction
+  LINK-ONLY before `git worktree remove`:
+  ```bash
+  # Git Bash orchestrator (the primary path in this repo): unlink the junction LINK-ONLY with a
+  # NON-recursive `rm`. A `mklink /J` junction surfaces in Git Bash as a symlink (`ls -ld` shows
+  # `lrwxrwxrwx ... -> <target>`), and `rm <link>` removes the link WITHOUT following it into the
+  # main checkout's deps. Then assert it is gone before `git worktree remove`:
+  rm "<ABS-PATH-TO-WORKTREE>/node_modules"              # link-only unlink; NO -r
+  test ! -e "<ABS-PATH-TO-WORKTREE>/node_modules" || { echo "FATAL: junction still present"; exit 1; }
+  # DO NOT use `cmd //c "rmdir <win-path>\node_modules"` from Git Bash: it was observed to FAIL
+  # with "path not found" -- MSYS mangles the Windows backslash path/quoting passed to cmd.exe
+  # before cmd runs (NOT a cmd.exe or junction problem: native `rmdir <win-path>` on a junction,
+  # without /s, removes the link and leaves the target intact). Verified in Phase 17 -- all four
+  # wave teardowns used `rm <link>` and the main node_modules held at its baseline count.
+  # From a real cmd.exe / PowerShell shell, `rmdir <win-path>\node_modules` (WITHOUT /s) is the
+  # equivalent link-only removal.
+  ```
+  Target the specific worktree's path explicitly: teardown is orchestrator-owned and the
+  orchestrator's CWD is the MAIN checkout, so a bare relative `node_modules` would resolve to
+  the wrong tree. NEVER `rm -rf node_modules` and never run a RECURSIVE delete on a worktree
+  that still contains the junction -- a recursive delete follows the junction and wipes the
+  MAIN checkout's deps. This LINK-ONLY rule applies ONLY to Pattern A (junctioned) worktrees;
+  a Pattern B worktree has a REAL `node_modules`, so `git worktree remove` cleans it normally.
+  After teardown, verify the main checkout's `node_modules` entry count is unchanged. (If it
+  is ever lost, `npm ci` restores it -- cheap, but the correct teardown order avoids needing
+  it.) Never let one worktree's teardown fire while a sibling executor is still using the
+  shared `node_modules`; defer all teardown until the wave completes.
+- **Single-plan wave: skip worktrees.** When there is no parallelism to gain, run the
+  executor sequentially on the main checkout (no worktree isolation) so it has real
+  `node_modules` with zero provisioning.
+- **Post-merge gate.** Per-worktree self-checks pass in isolation but cannot catch cross-plan
+  integration breaks. After merging a wave's worktree branches back, run the full build +
+  test on the MERGED main checkout as the authoritative gate.
+
+CI does NOT use worktrees -- it runs a fresh `npm ci` per job (see `.github/workflows/ci.yml`),
+so the junction is a local parallel-execution mechanism only.
+
+---
+> Source: [LayZeeDK/angular-typechecker](https://github.com/LayZeeDK/angular-typechecker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
