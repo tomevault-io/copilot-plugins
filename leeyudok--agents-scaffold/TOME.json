@@ -4,7 +4,7 @@
   "repo": "agents-scaffold",
   "description": "Fork-and-fill bootstrap for AI coding agents (Claude Code first, Codex/Gemini via AGENTS.md) \u2014 agents, skills, hooks, tiered rules (P0/P1/P2) and stack presets composed into one enforced pre-commit gate. \ud55c\uad6d\uc5b4/English",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LeeYudok/agents-scaffold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T02:16:09Z"
+  "distributed_at": "2026-08-25T04:28:40Z"
 }
