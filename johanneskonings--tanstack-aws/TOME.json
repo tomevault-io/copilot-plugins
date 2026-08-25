@@ -4,7 +4,7 @@
   "repo": "tanstack-aws",
   "description": "TanStack examples with AWS provisioned with CDK",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JohannesKonings/tanstack-aws",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T16:19:16Z"
+  "distributed_at": "2026-08-25T02:23:01Z"
 }
