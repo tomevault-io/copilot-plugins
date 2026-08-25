@@ -1,0 +1,9 @@
+{
+  "name": "enteros-ai--enteros-plugin-hitl",
+  "displayName": "enteros-plugin-hitl",
+  "description": "EnterOS mirror of molecule-ai-plugin-molecule-hitl",
+  "version": "1.0.0",
+  "author": "EnterOS-AI",
+  "homepage": "https://github.com/EnterOS-AI/enteros-plugin-hitl",
+  "skills": []
+}
