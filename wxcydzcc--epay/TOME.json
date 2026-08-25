@@ -1,0 +1,44 @@
+{
+  "name": "epay",
+  "owner": "wxcydzcc",
+  "repo": "epay",
+  "description": "WooCommerce \u6613\u652f\u4ed8\u7f51\u5173\uff0c\u652f\u6301\u591a\u79cd\u72ec\u7acb\u652f\u4ed8\u901a\u9053",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wxcydzcc/epay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T23:30:20Z"
+}
