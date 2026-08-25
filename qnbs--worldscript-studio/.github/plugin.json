@@ -1,0 +1,9 @@
+{
+  "name": "qnbs--worldscript-studio",
+  "displayName": "WorldScript-Studio",
+  "description": "\ud83d\udd8b\ufe0f AI-powered writing studio for authors & screenwriters. Story planning, character & world building, AI assistants, offline PWA + desktop app with strong privacy focus.",
+  "version": "1.0.0",
+  "author": "qnbs",
+  "homepage": "https://github.com/qnbs/WorldScript-Studio",
+  "skills": []
+}
