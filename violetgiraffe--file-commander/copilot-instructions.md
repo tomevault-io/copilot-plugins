@@ -1,19 +1,38 @@
 ## file-commander
 
-> **Keep the comments terse.** Challenge whether a comment is needed at all, and whether instead the code can be made more self-documenting. Pass every single new line of comments through this filter, as well as the filters from previous global instructions.
+> - File Commander is a cross-platform orthodox dual-panel file manager. Windows is the primary target; macOS and Linux are also supported. FreeBSD is best-effort only: support it where the Linux implementation works unchanged, but do not add FreeBSD-specific code or compatibility work.
 
-**Keep the comments terse.** Challenge whether a comment is needed at all, and whether instead the code can be made more self-documenting. Pass every single new line of comments through this filter, as well as the filters from previous global instructions.
+# File Commander project guidance
 
-The user spent a lot of time and effort to keep the comments high value and low noise, please respect that.
+## Project essentials
 
-The rest of this repo's authoring preferences — C++/Qt specifics, the mandatory concurrency review pass, the tests' scripting rule — live in [doc/coding-style.md](doc/coding-style.md). Read it before writing code here.
+- File Commander is a cross-platform orthodox dual-panel file manager. Windows is the primary target; macOS and Linux are also supported. FreeBSD is best-effort only: support it where the Linux implementation works unchanged, but do not add FreeBSD-specific code or compatibility work.
+- The codebase is C++23 with Qt 6.8+ and uses qmake (`file-commander.pro` plus `.pro`/`.pri` files), not CMake.
+- The main dependency direction is `qt-app/` (Qt Widgets GUI) -> `file-commander-core/` (controller, panels, filesystem and operations). Native plugins under `plugins/` depend on the core interface but are loaded dynamically. Keep UI access to panels and filesystem objects behind `CController`.
+- Several top-level dependency directories are Git submodules. Treat them as separate repositories.
 
-The docs (`doc/*.md`) are for 3 things:
-  * to establish the high level architecture overview;
-  * to help you navigate the code;
-  * to store knowledge difficult (or impossible) to derive from brief read of the code.
-The **docs are NOT FOR RECITING THE CODE in prose.** The docs exist to help you read the code, not to replace reading the code. Whenever you're editing the docs, use this rule. Often times the correct location for the info you're about to write down is a code comment, or nowhere at all because that comment already exists.
+## Documentation routing
+
+- Start with `doc/README.md`, then read the documents relevant to the change. The documentation is an architecture map, not a substitute for checking the current code.
+- Writing code in any area: `doc/coding-style.md` for this repo's authoring preferences, including the mandatory review pass for anything touching concurrency.
+- Core, filesystem, file operations, or concurrency: `doc/core-engine.md` and `doc/threading.md`.
+- GUI or tabs: `doc/qt-ui.md` and `doc/tabs.md`.
+- Settings or session restoration: `doc/persistence.md`.
+- Plugins: `doc/plugins.md`.
+- Build, tests, CI, or dependencies: `doc/build-ci-deps.md`.
+- Installer, version, vendor, license, or other release identity: `doc/release-metadata-audit.md`.
+- Do not build or compile the project; the user performs build verification.
+
+## Invariants to preserve
+
+- Each side always has at least one tab, and each tab owns a `CPanel`. `CController::panel(side)` returns that side's active tab. Tabs have stable IDs independent of their display positions.
+- Each UI tab has its own model/proxy/selection triplet, but those models resolve data through the active `CPanel`; only the active tab's triplet may be queried or attached to the shared view.
+- Filesystem items are identified throughout the core, UI, selection state, and plugin API by their deterministic `qulonglong` path hash, not directly by path.
+- Core-to-UI notifications use listener/observer interfaces. Slow work runs off the UI thread and returns through execution queues or buffered observer callbacks.
+- All `CPanel` work posted to the shared panel worker pool must carry the panel's task tag. Panel destruction retires that tag; preserve this lifetime guarantee when adding asynchronous work.
+- Every asynchronous `CPanel` operation that can replace the file list must carry the current file-list generation, path, and display mode, build its result locally, and publish only through the guarded commit funnel. Never build or replace `_items` incrementally from a worker.
+- Filesystem links are entries distinct from their targets. Use `CFileSystemObject::isLink()` when that distinction matters, and ensure delete/move operations on a link cannot affect the target. Read the traversal rules in `doc/core-engine.md` before changing recursive operations.
 
 ---
 > Source: [VioletGiraffe/file-commander](https://github.com/VioletGiraffe/file-commander) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
