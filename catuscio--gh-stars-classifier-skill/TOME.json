@@ -4,7 +4,7 @@
   "repo": "gh-stars-classifier-skill",
   "description": "Classify your GitHub stars into semantic categories and sync to GitHub Lists, using LLM's reasoning.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/catuscio/gh-stars-classifier-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T14:28:56Z"
+  "distributed_at": "2026-08-25T06:09:03Z"
 }
