@@ -1,0 +1,9 @@
+{
+  "name": "hrzlgnm--mdns-tui-browser",
+  "displayName": "mdns-tui-browser",
+  "description": "Cross platform TUI mdns-browser written in rust, vibe coded with opencode free model",
+  "version": "1.0.0",
+  "author": "hrzlgnm",
+  "homepage": "https://github.com/hrzlgnm/mdns-tui-browser",
+  "skills": []
+}
