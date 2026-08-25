@@ -1,0 +1,9 @@
+{
+  "name": "rhinoc--douvo",
+  "displayName": "douvo",
+  "description": "Apple Silicon macOS voice input app with Doubao ASR and optional local/remote AI correction.",
+  "version": "1.0.0",
+  "author": "rhinoc",
+  "homepage": "https://github.com/rhinoc/douvo",
+  "skills": []
+}
