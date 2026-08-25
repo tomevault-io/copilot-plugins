@@ -1,0 +1,9 @@
+{
+  "name": "mortennordbye--headroom",
+  "displayName": "headroom",
+  "description": "A self-hosted personal finance tracker for budgets, assets, investments, and loan modeling. Dockerized with local SQLite storage.",
+  "version": "1.0.0",
+  "author": "mortennordbye",
+  "homepage": "https://github.com/mortennordbye/headroom",
+  "skills": []
+}
