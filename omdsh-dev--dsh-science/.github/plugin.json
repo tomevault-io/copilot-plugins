@@ -1,0 +1,9 @@
+{
+  "name": "omdsh-dev--dsh-science",
+  "displayName": "dsh-science",
+  "description": "Reproducible Python and R work on DeepSeek Harness, built as plugins.",
+  "version": "1.0.0",
+  "author": "omdsh-dev",
+  "homepage": "https://github.com/omdsh-dev/dsh-science",
+  "skills": []
+}
