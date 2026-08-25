@@ -1,0 +1,9 @@
+{
+  "name": "unitaryfoundation--qldpc-challenge",
+  "displayName": "qldpc-challenge",
+  "description": "Public challenge to find optimal qLDPC codes.",
+  "version": "1.0.0",
+  "author": "unitaryfoundation",
+  "homepage": "https://github.com/unitaryfoundation/qldpc-challenge",
+  "skills": []
+}
