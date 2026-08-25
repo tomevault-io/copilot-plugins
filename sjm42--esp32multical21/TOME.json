@@ -4,7 +4,7 @@
   "repo": "esp32multical21",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sjm42/esp32multical21",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:25:54Z"
+  "distributed_at": "2026-08-25T23:55:42Z"
 }
