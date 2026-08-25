@@ -1,0 +1,9 @@
+{
+  "name": "trace-ios--trace",
+  "displayName": "Trace",
+  "description": "Native iOS network debugger.",
+  "version": "1.0.0",
+  "author": "Trace-iOS",
+  "homepage": "https://github.com/Trace-iOS/Trace",
+  "skills": []
+}
