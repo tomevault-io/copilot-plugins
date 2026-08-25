@@ -1,0 +1,9 @@
+{
+  "name": "divingsbysangam--salesforce-compound-engineering-plugin",
+  "displayName": "salesforce-compound-engineering-plugin",
+  "description": "Salesforce-aware compound engineering plugin for Claude Code, Cursor, Codex and other AI coding tools",
+  "version": "1.0.0",
+  "author": "divingsbysangam",
+  "homepage": "https://github.com/divingsbysangam/salesforce-compound-engineering-plugin",
+  "skills": []
+}
