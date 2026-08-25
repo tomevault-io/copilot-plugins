@@ -1,0 +1,9 @@
+{
+  "name": "redhatqe--openshift-virtualization-tests-design-docs",
+  "displayName": "openshift-virtualization-tests-design-docs",
+  "description": "This repository is used to manager openshift-virtualization-tests software test plans (STPs) allowing enhanced SIG improvement and collaboration",
+  "version": "1.0.0",
+  "author": "RedHatQE",
+  "homepage": "https://github.com/RedHatQE/openshift-virtualization-tests-design-docs",
+  "skills": []
+}
