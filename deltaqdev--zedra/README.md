@@ -7,11 +7,11 @@ Remote control for AI coding agents. Rust + GPUI + QUIC/UDP. Available on iOS/An
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [deltaqdev/zedra](https://github.com/deltaqdev/zedra).
+Original source: `AGENTS.md` in [deltaqdev/zedra](https://github.com/deltaqdev/zedra).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
