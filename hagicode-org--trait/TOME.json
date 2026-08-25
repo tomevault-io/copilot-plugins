@@ -4,7 +4,7 @@
   "repo": "trait",
   "description": "Frontend workspace for Trait Builder, where HagiCode traits are searched and self-built drafts are composed.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HagiCode-org/trait",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T09:44:59Z"
+  "distributed_at": "2026-08-25T13:52:27Z"
 }
