@@ -1,0 +1,9 @@
+{
+  "name": "voidzero-dev--pkg-pr-registry-bridge",
+  "displayName": "pkg-pr-registry-bridge",
+  "description": "A registry bridge for installing `pkg.pr.new` like preview builds as normal npm versions.",
+  "version": "1.0.0",
+  "author": "voidzero-dev",
+  "homepage": "https://github.com/voidzero-dev/pkg-pr-registry-bridge",
+  "skills": []
+}
