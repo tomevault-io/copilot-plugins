@@ -1,0 +1,9 @@
+{
+  "name": "layzeedk--angular-typechecker",
+  "displayName": "angular-typechecker",
+  "description": "A type-checker (no build/emit) for Angular projects, including libraries. Perfect for Agentic Experience (AX), CI, and Nx workspaces.",
+  "version": "1.0.0",
+  "author": "LayZeeDK",
+  "homepage": "https://github.com/LayZeeDK/angular-typechecker",
+  "skills": []
+}
