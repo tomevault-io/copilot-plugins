@@ -4,7 +4,7 @@
   "repo": "backpass",
   "description": "You don't write AGENTS.md. You train it with gradient descent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunchenguid/backpass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T13:56:05Z"
+  "distributed_at": "2026-08-25T22:21:42Z"
 }
