@@ -1,0 +1,44 @@
+{
+  "name": "Provenance",
+  "owner": "011-sam-110",
+  "repo": "Provenance",
+  "description": "Governments, space agencies, seismologists and UN clusters publish an enormous amount of live data for free, in formats almost nobody can read. Provenance renders 41 of those feeds on one globe: government road cameras, aircraft, satellites, earthquakes, wildfires, undersea cables, national internet shutdowns, conflict, displacement, markets & news",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/011-sam-110/Provenance",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T00:35:19Z"
+}
