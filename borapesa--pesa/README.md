@@ -7,11 +7,11 @@ A unified, open-source payments SDK for Tanzania.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [borapesa/pesa](https://github.com/borapesa/pesa).
+Original source: `CLAUDE.md` in [borapesa/pesa](https://github.com/borapesa/pesa).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
