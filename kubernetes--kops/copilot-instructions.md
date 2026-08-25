@@ -1,49 +1,223 @@
 ## kops
 
-> - This is a Go workspace (`go.work`) with three modules: root `github.com/linode/linodego/v2`, `./k8s`, and `./test`.
+> Quick reference guide for AI coding agents working in the Gophercloud repository.
 
 # AGENTS.md
 
-## Repo Shape
-- This is a Go workspace (`go.work`) with three modules: root `github.com/linode/linodego/v2`, `./k8s`, and `./test`.
-- Root package files implement the public API client; `k8s/` is a separate helper module for LKE Kubernetes client behavior; `test/` is a separate module for unit and integration tests and replaces both local modules.
-- API resource files follow a flat root pattern (`instances.go`, `volumes.go`, etc.) and usually pair public types with `Client` methods that call helpers in `request_helpers.go`.
+Quick reference guide for AI coding agents working in the Gophercloud repository.
 
-## Commands
-- Full CI-like local check: `make test` runs build, lint, unit tests, and fixture-backed integration tests; it can be slow because `test-int` uses a 5h timeout.
-- Faster focused default: run `go test ./...` at the repo root for root-module unit coverage only, then run focused tests in `test/` or `k8s/` as needed.
-- Unit tests excluding integration playback: `make test-unit`; pass focused args as `make TEST_ARGS="-run TestName" test-unit`.
-- Integration fixture playback: `make test-int`; focused playback: `make TEST_ARGS="-run TestListVolumes" test-int`.
-- K8s module verification: `cd k8s && go test ./...` or use root `make build`/`make vet`, which enter `k8s/` explicitly.
-- Tidy all modules after dependency changes: `make tidy`.
+**Project:** Gophercloud - Go SDK for OpenStack services
+**Module:** `github.com/gophercloud/gophercloud/v2`
+**Language:** Go (see version in [go.mod](go.mod))
+**Stable Branch:** v2 (main development on `main`)
 
-## Lint And Formatting
-- `make lint` uses Docker by default: `docker run ... golangci/golangci-lint:latest`; set `SKIP_DOCKER=1` to use local `golangci-lint`.
-- `golangci-lint fmt` is the preferred formatter, if available. Fallback to `gofumpt` if `golangci-lint` is unavailable. Fallback to `go fmt` if `gofumpt` is unavailable.
-- `make build` already depends on `vet` and `lint`; use `SKIP_LINT=1 make test` only when intentionally matching CI's test job behavior.
-- CI runs `make tidy`, then installs `gofumpt` at commit `86bffd62437a3c437c0b84d5d5ab244824e762fc` and runs `gofumpt -l -w .`, then fails on any diff.
+## Build, Test & Lint Commands
 
-## Tests And Fixtures
-- `test/unit` uses embedded JSON fixtures from `test/unit/fixtures/*.json` and `ClientBaseCase` helpers in `test/unit/base.go`; add/update JSON fixtures there for unit tests.
-- `test/integration` uses go-vcr YAML fixtures under `test/integration/fixtures`; `make test-int` runs them in replay mode with a fake token and `LINODE_API_VERSION=v4beta`.
-- To record integration fixtures, set a real `LINODE_TOKEN` and run `make fixtures`; focus recording with `make TEST_ARGS="-run TestName" fixtures`.
-- Fixture recording creates real Linode resources and `TestMain` creates a Cloud Firewall by default; set `ENABLE_CLOUD_FW=false` only if you intentionally want to skip that setup.
-- Fixture sanitization is partial: auth headers, dates, some keys, and IPv6 are scrubbed, but `README.md` warns that sensitive account details such as `fixtures/*Account*.yaml` are not fully sanitized. Inspect recorded fixture diffs before committing.
-- Smoke tests are live record-mode tests: `make test-smoke` requires `LINODE_TOKEN`.
+### Running Tests
 
-## Environment
-- `.env` is loaded by the root Makefile if present; `.gitignore` excludes it.
-- Common env vars: `LINODE_TOKEN`, `LINODE_DEBUG`, `LINODE_URL`, `LINODE_API_VERSION`, `LINODE_CA`, `LINODE_CONFIG`, and `LINODE_PROFILE`.
-- `NewClient` reads `LINODE_URL`, `LINODE_API_VERSION`, `LINODE_CA`, and `LINODE_DEBUG`; `NewClientFromEnv` prefers `LINODE_TOKEN` over config-file profiles.
+**Unit tests (default):**
+```bash
+make unit
+```
 
-## Conventions And Gotchas
-- Optional fields in create or update options structs must use `json:",omitzero"`.
-- Optional fields in create or update options structs must be pointer types so explicit zero values can be serialized when needed.
-- List APIs mutate the supplied `*ListOptions` with `Page`, `Pages`, and `Results`; do not reuse one `ListOptions` across list calls.
-- Use `formatAPIPath` for endpoint paths with user-provided string path segments so path escaping matches the client helpers.
-- CI enforces PR titles like `TPT-1234: Description` unless labels exempt the PR (`dependencies`, `hotfix`, `community-contribution`, `ignore-for-release`).
-- The `e2e_scripts` directory is a git submodule used by CI report/upload and cleanup jobs; clone/update submodules before reproducing those workflows.
+**Unit tests with verbose output:**
+```bash
+go test -v ./...
+```
+
+**Run single test by name:**
+```bash
+cd openstack/compute/v2/servers
+go test -run TestCreateServer ./...
+```
+
+**Coverage:**
+```bash
+make coverage
+```
+
+**Acceptance tests (requires live OpenStack - may incur charges):**
+```bash
+make acceptance              # All services
+make acceptance-compute      # Specific service
+```
+
+**Run single acceptance test:**
+```bash
+cd internal/acceptance/openstack/compute/v2
+go test -timeout 60m -tags "acceptance" -run TestServersList
+```
+
+### Linting & Formatting
+
+```bash
+make lint     # Run golangci-lint in container (Docker/Podman)
+make format   # Run gofmt with simplify flag
+```
+
+**Note:** If lint fails with SELinux errors, run:
+```bash
+chcon -Rt svirt_sandbox_file_t .
+chcon -Rt svirt_sandbox_file_t ~/.cache/golangci-lint
+```
+
+## Code Style Guidelines
+
+### Import Organization
+
+Group imports in this order (separated by blank lines):
+1. Standard library (alphabetically)
+2. External dependencies (alphabetically)
+3. Gophercloud internal packages (alphabetically)
+
+Example:
+```go
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+
+    "github.com/gophercloud/gophercloud/v2"
+    "github.com/gophercloud/gophercloud/v2/pagination"
+)
+```
+
+### File Structure
+
+Standard package structure under `openstack/<service>/<service_version>/<resource>/`:
+- **`requests.go`** - HTTP request functions and OptsBuilder types
+- **`results.go`** - Response structs and extraction methods
+- **`urls.go`** - Endpoint URL construction helpers
+- **`microversions.go`** - Microversion-specific types (when needed)
+- **`testing/`** - Unit tests with HTTP mocking
+
+### Naming Conventions
+
+**Result receivers and variables:**
+- Result method receiver: `r`
+- Unmarshalled variable: `s`
+- Request function return value: `r`
+
+**OptsBuilder pattern:**
+- Interface name: `<Action>OptsBuilder` (e.g., `CreateOptsBuilder`, `ListOptsBuilder`)
+- Method for request body: `To<Resource><Action>Map` (e.g., `ToServerCreateMap`)
+- Method for query string: `To<Resource><Action>Query` (e.g., `ToServerListQuery`)
+
+Example:
+```go
+type CreateOptsBuilder interface {
+    ToServerCreateMap() (map[string]interface{}, error)
+}
+
+type CreateOpts struct {
+    Name string `json:"name"`
+}
+
+func (opts CreateOpts) ToServerCreateMap() (map[string]interface{}, error) {
+    return gophercloud.BuildRequestBody(opts, "server")
+}
+```
+
+### Types & Pointers
+
+- **New response fields (microversions):** Use pointer types to allow nil-checking
+- **Optional request fields:** Always use `omitempty` JSON tag
+- **Required fields:** No `omitempty` tag
+
+### Error Handling
+
+- Use `gophercloud.Result` and `gophercloud.ErrResult` types
+- Extract errors with `.ExtractErr()` method
+- Return errors directly, don't wrap unless adding context
+
+### Documentation
+
+- **All struct fields** must have GoDoc comments
+- **Microversion-dependent fields** must document required version in GoDoc
+- **Package documentation** goes in `doc.go`
+- Follow existing comment style in similar packages
+
+Example:
+```go
+// This requires the client to be set to microversion 2.52 or later.
+// Tags is the list of server tags.
+Tags []string `json:"tags,omitempty"`
+```
+
+### Testing Requirements
+
+**Unit tests (in `testing/` subdirectory):**
+- Use `testhelper` package to mock HTTP
+- `fakeServer := th.SetupHTTP()` / `defer fakeServer.Teardown()` for setup/teardown
+- `fakeServer.Mux.HandleFunc()` to register mock endpoints
+- Test ALL options (every field in request/response structs)
+- Use assertion helpers from `testhelper/convenience.go` (value assertions) and `testhelper/http_responses.go` (HTTP request assertions)
+- `Assert*` variants are fatal (`t.Fatalf`), `Check*` variants are non-fatal (`t.Errorf`)
+- Assertion argument order is **expected first, actual second**: `th.AssertEquals(t, "expected_value", actual.Field)`
+
+**Acceptance tests:**
+- Located in `internal/acceptance/openstack/<service>/`
+- Test against real OpenStack APIs
+- Cover all operation variants
+
+## Microversions
+
+Set microversion on ServiceClient:
+```go
+client.Microversion = "2.52"
+```
+
+**Implementation rules:**
+- **New request fields:** Must use `omitempty` + document microversion
+- **New response fields:** Add as pointer types
+- **Changed response types:** Create new structs in `microversions.go`
+
+See `docs/MICROVERSIONS.md` for details.
+
+## Pull Request Requirements
+
+**Before opening PR:**
+1. **GitHub issue must exist** with core contributor approval
+2. **PR description must include:**
+   - `For #<ISSUE_NUMBER>` reference
+   - Link(s) to OpenStack source code (non-master branch) proving validity
+3. **Keep PRs focused:** Group related operations together; avoid mixing unrelated changes
+4. **Tests required:** Unit tests AND acceptance tests covering all options
+5. **Work-in-progress:** Prefix title with `[wip]` until ready
+6. **Dependencies:** Prefix with `[Pending #PRNUM]` if depends on another PR
+
+**During review:**
+- Do NOT squash commits (only append)
+- Follow existing patterns in codebase
+- Address all reviewer feedback
+
+## Common Patterns
+
+**Context usage:**
+Always pass `context.Context` to API operations:
+```go
+servers.List(client, opts).EachPage(ctx, func(ctx context.Context, page pagination.Page) (bool, error) {
+    // ...
+})
+```
+
+**Pagination:**
+```go
+pager := servers.List(client, servers.ListOpts{})
+err := pager.EachPage(ctx, func(ctx context.Context, page pagination.Page) (bool, error) {
+    servers, err := servers.ExtractServers(page)
+    // process...
+    return true, nil
+})
+```
+
+## Key Reminders
+
+- Module path: `github.com/gophercloud/gophercloud/v2` (note the `/v2`)
+- Gophercloud does NOT validate microversion compatibility
+- PRs target `main` branch, not `v2`
+- Documentation auto-generated from GoDoc comments
 
 ---
 > Source: [kubernetes/kops](https://github.com/kubernetes/kops) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
