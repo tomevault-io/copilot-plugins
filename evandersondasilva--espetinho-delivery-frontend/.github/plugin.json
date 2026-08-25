@@ -1,0 +1,9 @@
+{
+  "name": "evandersondasilva--espetinho-delivery-frontend",
+  "displayName": "espetinho-delivery-frontend",
+  "description": "Sistema full stack de delivery desenvolvido com Node.js, Next.js e PostgreSQL.",
+  "version": "1.0.0",
+  "author": "EvandersondaSilva",
+  "homepage": "https://github.com/EvandersondaSilva/espetinho-delivery-frontend",
+  "skills": []
+}
