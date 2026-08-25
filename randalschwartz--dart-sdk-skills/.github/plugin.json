@@ -1,0 +1,9 @@
+{
+  "name": "randalschwartz--dart-sdk-skills",
+  "displayName": "dart-sdk-skills",
+  "description": "Agent skills for Dart & Flutter SDK versioning, language features, widget migrations, and minSdk lookups",
+  "version": "1.0.0",
+  "author": "RandalSchwartz",
+  "homepage": "https://github.com/RandalSchwartz/dart-sdk-skills",
+  "skills": []
+}
