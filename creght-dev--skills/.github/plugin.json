@@ -1,0 +1,9 @@
+{
+  "name": "creght-dev--skills",
+  "displayName": "skills",
+  "description": "Codex and agent skills for Cregh.",
+  "version": "1.0.0",
+  "author": "creght-dev",
+  "homepage": "https://github.com/creght-dev/skills",
+  "skills": []
+}
