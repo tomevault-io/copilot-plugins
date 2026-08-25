@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes--ingress-gce",
+  "displayName": "ingress-gce",
+  "description": "ingress-gce",
+  "version": "1.0.0",
+  "author": "kubernetes",
+  "homepage": "https://github.com/kubernetes/ingress-gce",
+  "skills": []
+}
