@@ -1,0 +1,9 @@
+{
+  "name": "blendsdk--jsvision",
+  "displayName": "jsvision",
+  "description": "A TypeScript SDK for building terminal apps with real UI \u2014 menus, modal dialogs, forms, and many ready-made controls on a zero-dependency rendering engine.",
+  "version": "1.0.0",
+  "author": "blendsdk",
+  "homepage": "https://github.com/blendsdk/jsvision",
+  "skills": []
+}
