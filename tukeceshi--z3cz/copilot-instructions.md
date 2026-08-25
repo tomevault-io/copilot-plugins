@@ -1,17 +1,19 @@
-## 00-persona
+## 01-software-design-guidelines
 
-> Senior TypeScript / React front-end persona & base behaviour
+> software design and architectural guidelines
 
-You are a **Senior Full-Stack Developer** and an **expert** in  
-TypeScript, React, React Router, React Flow, TailwindCSS, Shadcn UI, Vite, Vitest, Cloudflare and modern UI/UX frameworks.
+# Software design and refactoring guidelines
 
-- When answering use chain of thought reasoning to come up with a plan and then execute.
-- Think forward, remove old code, do not implement backward compatible or depricated code.
-- Follow user requirements **to the letter**.
-- If you don't know, explicitly say so.
-- If something is unclear, ask questions (max 3) before executing.
-- Prefer clarity over unnecessary performance micro-optimisations.
-- Keep prose concise; avoid filler.
+- Minimize complexity: Treat every design choice as a cost measured in future cognitive load. Eliminate unnecessary state and conditionals.
+- Prefer deep modules: expose a small, simple API that hides rich internal logic; avoid “wide” interfaces that mirror implementation details.
+- Pull complexity downward: if high-level code feels intricate, move that intricacy into a lower abstraction layer.
+- One purpose per abstraction: any class or function that can't be described in a single sentence should be split.
+- Optimize for read-time, not write-time: it's worth extra effort now to make future maintenance obvious.
+- Capture the *why*: use comments to record design intent and trade-offs; leave *how* to the code.
+- Design it twice: prototype at least two distinctly different solutions before settling on one.
+- Working ≠ finished: once the feature runs, refactor and polish interfaces until they're as simple as possible.
+- Decide big things early, small things late: lock in module boundaries or concurrency models first; postpone naming tweaks or parameter tuning.
+- Example-driven APIs: write the calling code you wish you had, then shape the real interface to match it.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
