@@ -1,18 +1,19 @@
 ## setup-vp
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to coding agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents working in this repository.
 
 ## Guidelines
 
-- Do not commit changes automatically. Wait for explicit user request to commit.
+- Do not commit changes automatically. Wait for an explicit user request to commit.
+- Keep `dist/index.mjs`, `dist/gitlab/index.mjs`, and `dist/azure/index.mjs` in sync with source changes by running `vp run build` before committing.
 
 ## Project Overview
 
-GitHub Action to set up [Vite+](https://github.com/voidzero-dev/vite-plus) (`vp`) with dependency caching support. This action installs Vite+ globally via official install scripts and optionally caches project dependencies based on lock file detection.
+GitHub Action to set up [Vite+](https://viteplus.dev) (`vp`) with dependency caching support. The action installs Vite+ globally, can set up Node.js via `vp env use`, optionally configures registry auth, restores/saves dependency cache, and can run `vp install` with optional Socket Firewall Free (`sfw`) wrapping. GitLab and Azure Pipelines entry points reuse a dependency-light portable runtime under `src/ci/`.
 
 ## Commands
 
@@ -34,38 +35,49 @@ vp run check
 vp run check:fix
 ```
 
-**Important:** Always run `vp run check:fix` and `vp run build` before committing - the `dist/index.mjs` must be committed.
+**Important:** Always run `vp run check:fix` and `vp run build` before committing. The compiled `dist/index.mjs` must be committed when source changes affect the action bundle.
 
 ## Architecture
 
-This is a GitHub Action with main and post execution phases (defined in `action.yml`):
+The action has main and post execution phases. Both are served by `src/index.ts` / `dist/index.mjs`; the phase is selected from GitHub Actions runtime state.
 
-- **Main phase** (`src/index.ts` → `runMain`):
-  1. Install Vite+ globally via bash/PowerShell install scripts
-  2. Set up Node.js version via `vp env use` if specified
-  3. Restore dependency cache if enabled
-  4. Run `vp install` if requested
+- **Main phase** (`runMain`):
+  1. Parse and validate inputs.
+  2. Install Vite+ globally via official bash/PowerShell install scripts.
+  3. Set up Node.js with `vp env use` when requested.
+  4. Configure registry auth from `registry-url`, or propagate auth from the project `.npmrc`.
+  5. Restore dependency cache when enabled.
+  6. Run `vp install` when requested, optionally wrapped with `sfw`.
 
-- **Post phase** (`src/index.ts` → `runPost`):
-  1. Save dependency cache if enabled
+- **Post phase** (`runPost`):
+  1. Save dependency cache when enabled.
 
 ### Key Modules
 
-- `src/inputs.ts` - Parse and validate action inputs using Zod schemas
-- `src/install-viteplus.ts` - Install Vite+ globally via official install scripts
-- `src/cache-restore.ts` / `src/cache-save.ts` - Dependency caching via `@actions/cache`
-- `src/run-install.ts` - Execute `vp install` with optional cwd/args
-- `src/types.ts` - Shared types, enums, and Zod schemas
-- `src/utils.ts` - Lock file detection, package manager cache path resolution
+- `src/index.ts` - Main/post orchestration and action state handling.
+- `src/inputs.ts` - Parse and validate action inputs using Zod schemas.
+- `src/types.ts` - Shared types, enums, and Zod schemas.
+- `src/install-viteplus.ts` - Install Vite+ globally via official install scripts.
+- `src/node-version-file.ts` - Resolve Node.js versions from supported version files.
+- `src/auth.ts` - Configure npm registry authentication from action inputs and repo `.npmrc`.
+- `src/cache-restore.ts` / `src/cache-save.ts` - Dependency caching via `@actions/cache`.
+- `src/run-install.ts` - Execute `vp install` entries with optional cwd/args.
+- `src/install-sfw.ts` - Install or reuse Socket Firewall Free for wrapped installs.
+- `src/utils.ts` - Lock file detection, package-manager cache paths, and shared helpers.
+- `src/ci/*` - Shared dependency-light primitives for GitLab and Azure runtimes.
+- `src/gitlab/*` - GitLab runtime adapters around `src/ci/*`.
+- `src/azure/*` - Azure Pipelines runtime and logging-command adapters.
+- `azure/setup-vp.yml` - Azure step template.
+- `gitlab/setup-vp.yml` - GitLab remote template.
 
 ### Lock File Detection
 
-Auto-detects package manager from lock files: `pnpm-lock.yaml`, `package-lock.json`, `yarn.lock`
+Auto-detects package manager from lock files: `pnpm-lock.yaml`, `bun.lockb`, `bun.lock`, `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock`.
 
 ## Testing
 
-Tests are colocated with source files (e.g., `src/inputs.test.ts`). Run with `vp run test`.
+Tests are colocated with source files (for example, `src/inputs.test.ts`). Run `vp run test` for test coverage, then run `vp run check:fix` and `vp run build` before committing.
 
 ---
 > Source: [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
