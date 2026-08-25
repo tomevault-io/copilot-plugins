@@ -1,0 +1,9 @@
+{
+  "name": "luadch-ng--luadch-ng",
+  "displayName": "luadch-ng",
+  "description": "Modernised fork of luadch a DC++ ADC hub server in Lua.",
+  "version": "1.0.0",
+  "author": "luadch-ng",
+  "homepage": "https://github.com/luadch-ng/luadch-ng",
+  "skills": []
+}
