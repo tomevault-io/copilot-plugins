@@ -1,78 +1,177 @@
-## 04-code-implementation-guidelines
+## 05-web-development
 
-> Coding standards, naming, testing & style rules
+> 1. Always write complete, functional components using `tsx` with a named `export function Component`.
 
-# Development Guidelines
+# Web application
 
-## General
-- Write **correct, DRY, bug-free** code — leave **no TODOs**.
-- Prefer **functional components** and **hooks**; use **TypeScript** types/interfaces consistently.
-- Use **early returns** to reduce nesting.
-- Choose **descriptive names** for variables, functions, and components.
+## Guidelines
 
-## Typing
-- Use **strict TypeScript**: avoid `any`, `unknown`, and implicit `any`.
-- Prefer `interface` over `type` aliases, unless a type cannot be expressed with an interface.
-- Always type:
-  - Props
-  - State
-  - Event handlers
-  - Returned values
-- Favor **`readonly`** and **`as const`** assertions for immutability and safety.
-- Narrow types when possible (e.g., `'small' | 'medium' | 'large'` instead of `string`).
-- Use utility types like `Partial`, `Pick`, `Omit` thoughtfully to improve clarity and type safety.
+1. Always write complete, functional components using `tsx` with a named `export function Component`.
+2. Use Tailwind CSS classes for styling and accessibility best practices.
+3. Prefer `shadcn/ui` and `lucide-react` if appropriate.
+4. All code should work in a Vite + React + TypeScript setup.
+5. Include only one file per code block. Avoid multi-file outputs.
+6. Use Vitest for testing; include test blocks where relevant.
+7. Use `import type` when importing types from libraries.
+8. Avoid dynamic imports, external APIs, or CDN usage unless requested.
+9. Escaped JSX characters like `<`, `>`, `{`, and `}` must be in string literals.
 
-## Styling
-- Use **Tailwind CSS** exclusively — do not use external CSS or styled-components.
-- Use the `cn` utility from `@/utils/utils` for conditional class names.
-  - Avoid ternaries in className strings.
+## Code block structure
 
-## Form inputs (non-login)
+Use the following format for code blocks:
 
-Settings, wizards, and admin config forms are **not** login forms. Avoid `type="email"`, `type="password"`, and names like `email` / `username` / `password` — browsers and password managers will autofill them incorrectly.
+```tsx project="ProjectName" file="path/to/file.tsx" type="react"
+export function Component() {
+  // your component here
+}
+```
 
-Use `@/components/credential-secret-input` instead:
+## Examples
 
-| Field | Component |
-|-------|-----------|
-| Text, hostname, API key id, port, etc. | `CredentialPlainInput` |
-| Secrets (API keys, tokens, SMTP password) | `CredentialSecretInput` |
+Good Example: React component using Tailwind and `shadcn/ui`
+```tsx project="ButtonExample" file="Button.tsx" type="react"
+import { Button } from "@/components/ui/button"
 
-Also: `autoComplete="off"` on the `<form>`, semantic `name` (e.g. `auth_config_smtp_host`), unique `id` prefix per page.
+export function Component() {
+  return <Button className="text-primary">Click me</Button>
+}
+```
 
-Reference: `credential-secret-input.tsx`, `volcano-credential-fields.tsx`, `admin-login-methods-page.tsx`.
+Bad Example: Missing export, bad styling, incorrect file structure
+```tsx
+function Button() {
+  return <button style={{ color: 'blue' }}>Click</button>
+}
+// Missing `export default`
+// Uses inline styles instead of Tailwind
+// No project/file/type metadata
+```
 
-Login/sign-up pages may use normal `Input` with appropriate `autoComplete` (`email`, `current-password`, `one-time-code`).
+Good Example: Test file using Vitest
+```ts project="AddTest" file="add.test.ts" type="code"
+import { describe, it, expect } from "vitest"
+import { add } from "./add"
 
-## Naming Conventions
-- **kebab-case** for file names (e.g., `my-component.tsx`).
-- **camelCase** for hooks and utility functions (e.g., `useMyHook`, `formatDate`).
-- Prefix event handlers with `handle` (e.g., `handleSubmit`, `handleClick`).
+describe("add", () => {
+  it("adds two numbers", () => {
+    expect(add(2, 3)).toBe(5)
+  })
+})
+```
 
-## Testing & QA
-- Write tests using **Vitest**.
-- Cover critical paths, edge cases, and user-facing logic.
-- Provide fallback UI and error boundaries where appropriate.
+Bad Example: Jest used instead of Vitest
+```ts
+import { test, expect } from "@jest/globals"
 
-## REST API Best Practices
+test("adds numbers", () => {
+  expect(add(2, 3)).toBe(5)
+})
+// This is incorrect because the project uses Vitest, not Jest
+```
 
-### Shared Types
-- Define shared types in: `packages/types/src/index.ts`
-- Use them:
-  - To serialize data in API routes (backend).
-  - To deserialize and validate data on the frontend.
-- This ensures **type safety and consistency** across backend and frontend.
+## React Loading State Best Practices with SWR
 
-### Statelessness
-- REST APIs must be **stateless**:
-  - Each request must be self-contained.
-  - The server must not depend on in-memory or session state.
-- Clients manage session (e.g., cookies, auth headers, tokens).
-- Use headers or tokens to communicate user context, not prior API calls.
+When fetching data in React components, use the library SWR (`stale-while-revalidate`) for its benefits in caching, revalidation, and focus tracking. The primary approach should be to consolidate related data fetching for a view into a single `useSWR` call.
 
-#### Benefits
-- Enables better scalability and server independence.
-- Reduces bugs and improves debuggability by avoiding implicit state.
+This approach is preferred when:
+- All data is necessary for the component to render meaningfully.
+- You want a unified loading state for a set of related data.
+- Simplicity in state management for data fetching is desired.
+
+Example: Using a single `useSWR` to fetch multiple related resources.
+```tsx
+import useSWR from 'swr';
+
+export function MyDashboard() {
+  // The key is an array of the individual resource keys/URLs.
+  const { data, error, isLoading } = useSWR(
+    ['/api/resourceA', '/api/resourceB'], // Unique keys for SWR
+    async (keys: [string, string]) => {
+        const [keyA, keyB] = keys;
+        const [resourceA, resourceB] = await Promise.all([
+            fetchResourceA(keyA),
+            fetchResourceB(keyB),
+        ]);
+        return { resourceA, resourceB };
+    };
+  );
+
+  if (isLoading) return <p>Loading dashboard data...</p>;
+  if (error) return <p>Error loading data: {error.message}</p>;
+  // data will be { resourceA: {...}, resourceB: {...} }
+
+  return (
+    <div>
+      <h2>Dashboard</h2>
+      {data && (
+        <>
+          <section>
+            <h3>Resource A</h3>
+            <p>{data.resourceA.content}</p>
+          </section>
+          <section>
+            <h3>Resource B</h3>
+            <p>{data.resourceB.data}</p>
+          </section>
+        </>
+      )}
+    </div>
+  );
+}
+```
+
+By using a single `useSWR` call with a fetcher that handles multiple requests (e.g., via `Promise.all`), you maintain a single `isLoading` and `error` state for the entire set of data required by the view. This simplifies the component logic and provides a more coherent loading experience.
+
+Best Practice:
+"Prefer showing meaningful parts of the UI as soon as possible by fetching all necessary data for a view with a single, consolidated `useSWR` call. This avoids janky partial loading and simplifies state management unless specific sections truly require independent data fetching lifecycles."
+
+Avoid:
+- Overcomplicating state logic with too many flags.
+- Tightly coupling data fetching to UI components.
+- Omitting proper error handling and fallback UIs.
+
+## React Hook Usage Best Practices
+
+useEffect:
+- Avoid by default. Ask: can this logic exist outside React?
+- Always include dependencies; don't silence lint rules.
+- Use an inner async function if needed:
+
+```tsx
+useEffect(() => {
+  const load = async () => {
+    const res = await fetchData()
+    setData(res)
+  }
+  load()
+}, [])
+```
+
+- Avoid setting derived state inside useEffect. Prefer deriving it during render.
+
+useMemo:
+- Use only for expensive calculations to avoid unnecessary recalculations.
+- Not needed for simple or fast operations.
+
+```tsx
+const filteredItems = useMemo(() => {
+  return items.filter(i => i.active)
+}, [items])
+```
+
+useCallback:
+- Useful when passing callbacks to memoized child components.
+- Prevents unnecessary re-renders due to function identity changes.
+
+useRef:
+- Use for storing mutable values that persist without triggering re-renders.
+- Useful for DOM element references (e.g., input focus).
+- Don't overuse for general state—it can lead to bugs.
+
+General Rules:
+- Never call hooks inside conditions, loops, or nested functions.
+- Always call hooks at the top level of your component.
+- Group and co-locate related hooks to make code easier to read and maintain.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
