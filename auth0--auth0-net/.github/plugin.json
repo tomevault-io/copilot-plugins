@@ -1,0 +1,9 @@
+{
+  "name": "auth0--auth0-net",
+  "displayName": "auth0.net",
+  "description": "auth0.net",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/auth0.net",
+  "skills": []
+}
