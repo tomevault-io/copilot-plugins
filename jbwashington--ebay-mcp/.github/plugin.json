@@ -1,0 +1,9 @@
+{
+  "name": "jbwashington--ebay-mcp",
+  "displayName": "ebay-mcp",
+  "description": "eBay listing automation plugin for Claude Code with AI-powered image analysis, pricing research, and fraud detection",
+  "version": "1.0.0",
+  "author": "jbwashington",
+  "homepage": "https://github.com/jbwashington/ebay-mcp",
+  "skills": []
+}
