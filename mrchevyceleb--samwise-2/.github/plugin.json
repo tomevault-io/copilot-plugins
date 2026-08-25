@@ -1,0 +1,9 @@
+{
+  "name": "mrchevyceleb--samwise-2",
+  "displayName": "samwise-2",
+  "description": "Personal web chat for Claude Code, served from a Mac Mini over Tailscale. The Reading Room.",
+  "version": "1.0.0",
+  "author": "mrchevyceleb",
+  "homepage": "https://github.com/mrchevyceleb/samwise-2",
+  "skills": []
+}
