@@ -1,23 +1,21 @@
 # AI instruction files for setup-vp
 
-> Sourced from [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-GitHub Action to set up Vite+ with dependency caching support.
+> Sourced from [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp).
+Original source: `AGENTS.md` in [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp) — a repo with 79+ stars on GitHub.
+From [voidzero-dev/setup-vp](https://github.com/voidzero-dev/setup-vp) — a repo with 103+ stars on GitHub.
 
 ---
 
