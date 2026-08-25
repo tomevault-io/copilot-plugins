@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [mlflow-oidc/mlflow-oidc-auth](https://github.com/mlflow-oidc/mlflow-oidc-auth).
+Original source: `AGENTS.md` in [mlflow-oidc/mlflow-oidc-auth](https://github.com/mlflow-oidc/mlflow-oidc-auth).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mlflow-oidc/mlflow-oidc-auth](https://github.com/mlflow-oidc/mlflow-oidc-auth) — a repo with 123+ stars on GitHub.
+From [mlflow-oidc/mlflow-oidc-auth](https://github.com/mlflow-oidc/mlflow-oidc-auth) — a repo with 124+ stars on GitHub.
 
 ---
 
