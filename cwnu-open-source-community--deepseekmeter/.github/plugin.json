@@ -1,0 +1,9 @@
+{
+  "name": "cwnu-open-source-community--deepseekmeter",
+  "displayName": "DeepSeekMeter",
+  "description": "macOS menu bar app that monitors your DeepSeek account balance & token usage in real time",
+  "version": "1.0.0",
+  "author": "CWNU-Open-Source-Community",
+  "homepage": "https://github.com/CWNU-Open-Source-Community/DeepSeekMeter",
+  "skills": []
+}
