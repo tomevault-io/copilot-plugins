@@ -1,0 +1,9 @@
+{
+  "name": "justpinero--repeaty",
+  "displayName": "Repeaty",
+  "description": "A PWA that unifies SRS flashcards, comprehension speed scoring, and Whisper pronunciation feedback into one personalized loop, with AI-generated decks and feedback for Pro tier.",
+  "version": "1.0.0",
+  "author": "JustPinero",
+  "homepage": "https://github.com/JustPinero/Repeaty",
+  "skills": []
+}
