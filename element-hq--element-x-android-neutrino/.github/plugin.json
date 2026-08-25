@@ -1,0 +1,9 @@
+{
+  "name": "element-hq--element-x-android-neutrino",
+  "displayName": "element-x-android-neutrino",
+  "description": "Fork of element-x-android with an embedded Neutrino homeserver.",
+  "version": "1.0.0",
+  "author": "element-hq",
+  "homepage": "https://github.com/element-hq/element-x-android-neutrino",
+  "skills": []
+}
