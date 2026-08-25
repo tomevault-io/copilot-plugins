@@ -1,0 +1,9 @@
+{
+  "name": "ultradeepautomation--voice-transcriptor",
+  "displayName": "Voice-Transcriptor",
+  "description": "Desktop speech-to-text with global hotkeys and auto-paste: live mic transcription via local Whisper (offline) or Deepgram, file/video transcription, searchable local history, and AI text cleanup. macO",
+  "version": "1.0.0",
+  "author": "UltraDeepAutomation",
+  "homepage": "https://github.com/UltraDeepAutomation/Voice-Transcriptor",
+  "skills": []
+}
