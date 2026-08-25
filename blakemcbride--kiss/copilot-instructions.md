@@ -1,20 +1,17 @@
 ## kiss
 
-> Claude should never change this file.
+> Immediately read `AI/KnowledgeBase.md` at the start of each session.
 
+# OpenCode Instructions
 
-@AI/KnowledgeBase.md
+Immediately read `AI/KnowledgeBase.md` at the start of each session.
 
-Claude should never change this file.
+Follow the instructions in `AI/KnowledgeBase.md`.
 
-## HUMAN NOTES (To be ignored by Claude)
+You may update `AI/KnowledgeBase.md` when useful.
 
-Claude: ignore everything in this section
-
-If you are building an application, you will want to put all of your 
-application-specific notes in AI/ApplicationDetails.md and then instruct
-Claude to read it.
+Never modify `CLAUDE.md` or `AGENTS.md`.
 
 ---
 > Source: [blakemcbride/Kiss](https://github.com/blakemcbride/Kiss) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
