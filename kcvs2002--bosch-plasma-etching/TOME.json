@@ -4,7 +4,7 @@
   "repo": "BOSCH-Plasma-Etching",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KCVS2002/BOSCH-Plasma-Etching",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T05:56:49Z"
+  "distributed_at": "2026-08-25T08:30:24Z"
 }
