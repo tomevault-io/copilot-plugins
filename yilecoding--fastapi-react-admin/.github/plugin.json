@@ -1,0 +1,9 @@
+{
+  "name": "yilecoding--fastapi-react-admin",
+  "displayName": "fastapi-react-admin",
+  "description": "FastAPI + React 19 + shadcn/ui \u4e2d\u540e\u53f0\u5e95\u5ea7 \u2014\u2014 \u6743\u9650\u7ec6\u5230\u6309\u94ae\u548c\u6570\u636e\u884c\uff0c\u591a\u9875\u7b7e\u5207\u8d70\u771f\u7684\u4fdd\u72b6\u6001\uff0c\u539f\u751f\u8dd1 SQL Server\uff08fork \u81ea fastapi-best-architecture\uff09",
+  "version": "1.0.0",
+  "author": "yilecoding",
+  "homepage": "https://github.com/yilecoding/fastapi-react-admin",
+  "skills": []
+}
