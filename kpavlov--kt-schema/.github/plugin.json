@@ -1,0 +1,9 @@
+{
+  "name": "kpavlov--kt-schema",
+  "displayName": "kt-schema",
+  "description": "{\ud83d\ude38} Java and Kotlin Multiplatform library for generating JSON Schemas and LLM function schemas from Java and Kotlin classes and functions using Java annotation processing, reflection, KSP, or kotlinx.",
+  "version": "1.0.0",
+  "author": "kpavlov",
+  "homepage": "https://github.com/kpavlov/kt-schema",
+  "skills": []
+}
