@@ -4,7 +4,7 @@
   "repo": "ai-video-studio",
   "description": "AI Video Studio \u2014 OpenClaw skill for AI video generation (Seedance 2.0) + editing (CapCut Mate / FFmpeg). Generate \u2192 Edit \u2192 Export, all server-side.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iPythoning/ai-video-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T03:48:14Z"
+  "distributed_at": "2026-08-25T06:05:18Z"
 }
