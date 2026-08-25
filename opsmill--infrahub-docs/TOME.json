@@ -1,0 +1,44 @@
+{
+  "name": "infrahub-docs",
+  "owner": "opsmill",
+  "repo": "infrahub-docs",
+  "description": "This repository is a documentation aggregation site that combines documentation from multiple Infrahub repositories. Most of the documentation content here is READ-ONLY and automatically synced from other repositories.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/opsmill/infrahub-docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T13:51:40Z"
+}
