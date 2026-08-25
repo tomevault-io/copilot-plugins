@@ -1,0 +1,9 @@
+{
+  "name": "jclee941--terraform",
+  "displayName": "terraform",
+  "description": "Homelab infrastructure-as-code for Proxmox, networking, monitoring, and services",
+  "version": "1.0.0",
+  "author": "jclee941",
+  "homepage": "https://github.com/jclee941/terraform",
+  "skills": []
+}
