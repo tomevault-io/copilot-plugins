@@ -1,0 +1,9 @@
+{
+  "name": "ghostshift-content--archon",
+  "displayName": "ARCHON",
+  "description": "ARCHON runs a squad of LLM-powered specialist agents against a web target, independently verifies every finding, and validates each one live onto your Findings board as it goes.",
+  "version": "1.0.0",
+  "author": "ghostshift-content",
+  "homepage": "https://github.com/ghostshift-content/ARCHON",
+  "skills": []
+}
