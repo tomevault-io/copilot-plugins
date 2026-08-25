@@ -1,0 +1,9 @@
+{
+  "name": "mosajjal--fortitool",
+  "displayName": "fortitool",
+  "description": "Fortinet Firmware decryption and analysis tools",
+  "version": "1.0.0",
+  "author": "mosajjal",
+  "homepage": "https://github.com/mosajjal/fortitool",
+  "skills": []
+}
