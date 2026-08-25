@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--cuml",
+  "displayName": "cuml",
+  "description": "cuml",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cuml",
+  "skills": []
+}
