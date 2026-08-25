@@ -1,62 +1,96 @@
 ## gungraun
 
-> Tests for the `valgrind-requests` crate's architecture-specific client request
+> End-to-end system tests for Gungraun. Executes real benchmark binaries under
 
-# Valgrind Requests Tests
-
-Tests for the `valgrind-requests` crate's architecture-specific client request
-implementation. Not published; excluded from `just test-all`.
+# System Tests Domain Knowledge
 
 ## Overview
 
-These tests verify that `valgrind-requests` emits correct magic sequences and
-client requests for each supported architecture. We do not test Valgrind itself,
-only that our assembly and request encoding match what Valgrind expects.
-
-Native tests run the test binaries directly. Cross-target tests run inside QEMU
-system images via `cross`, using custom Docker images with Valgrind
-pre-installed.
+End-to-end system tests for Gungraun. Executes real benchmark binaries under
+Valgrind, captures output, and compares against checked-in expectations. Runs
+outside `just test-all`; prefer `just system-test <bench>` for targeted
+verification.
 
 ## Structure
 
-| Path                            | Role                                                                               |
-| ------------------------------- | ---------------------------------------------------------------------------------- |
-| `src/bin/`                      | Test binaries (`*-reqs-test.rs`) plus `valgrind-wrapper.rs`                        |
-| `tests/common/mod.rs`           | Test harness: runner detection, fixture loading, matchers                          |
-| `tests/test_valgrind_requests/` | Per-tool test modules (valgrind, memcheck, callgrind, cachegrind, print_macros)    |
-| `tests/fixtures/`               | Target-specific stderr snapshots for cross-architecture comparison                 |
-| `build.rs`                      | Sets fixture path (`valgrind_requests_TESTS_FIXTURES`) for native vs `qemu-system` |
-| `./Cross.toml`                  | Cross target definitions with custom `ghcr.io/gungraun/...` images                 |
+```text
+crates/gungraun-tests/
+|- src/bench.rs          # Harness binary: discovers, runs, asserts
+|- src/lib.rs            # Shared helpers: bubble_sort, fibonacci, primes, env
+|- src/helper/           # Fake binaries: echo, cat, sort, exit-with, leak-memory, ...
+|- benches/              # Benchmark cases grouped by domain
+|  |- test_lib_bench/*/  # Library benchmark cases
+|  |- test_bin_bench/*/  # Binary benchmark cases
+|  |- guide/             # Documentation examples also serving as tests
+|- tests/                # Unit tests for parsers and internal components
+|- fixtures/             # Static files for file-parameter benchmarks
+```
+
+## Where To Look
+
+| Task                    | Location                                            | Notes                                                                                 |
+| ----------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Harness orchestration   | `src/bench.rs`                                      | `SystemTestRunner` loads `.conf.yml`, runs `cargo bench`, filters and compares output |
+| Benchmark case source   | `benches/test_*/<name>/<name>.rs`                   | Library or binary benchmark under test                                                |
+| Case configuration      | `benches/test_*/<name>/<name>.conf.yml`             | Groups, runs, args, envs, expectations                                                |
+| Expected stdout/stderr  | `benches/test_*/<name>/expected_stdout*`            | Filtered before comparison (numbers normalized)                                       |
+| Expected file manifests | `benches/test_*/<name>/expected_files*.yml`         | Per-group/function/id file lists                                                      |
+| Helper binaries         | `src/helper/*.rs`                                   | Small tools consumed by binary benchmarks                                             |
+| Parser tests            | `tests/test_callgrind/`, `test_dhat/`, `test_tool/` | Unit tests for runner output parsers                                                  |
+| Just recipes            | `../../Justfile`                                    | Targeted: `system-test`, `system-test-overwrite`; quick: `bench`                      |
 
 ## Conventions
 
-- **Native path**: `cargo test -p valgrind-requests-tests --test tests` runs
-  binaries directly.
-- **Cross path**: `just reqs-test <target>` (e.g. `x86_64-unknown-linux-gnu`)
-  runs via `cross` + QEMU.
-- **Exit codes**: Test binaries exit `0` when not under Valgrind, `1` when under
-  Valgrind. Higher codes are not tested.
-- **Wrapper**: `valgrind-wrapper` invokes Valgrind, filters
-  architecture-specific output (addresses, backtraces, numbers), and emits
-  normalized stderr for fixture comparison.
-- **Fixtures**: Named `<test>.<target>.stderr` or
-  `<test>.since_<rust-version>.<target>.stderr` for per-target or per-version
-  variance.
-- **Features**: `_stubs` (default) and `_act` map to `valgrind-requests/stubs`
-  and `valgrind-requests/act`.
-- **Architecture guards**: Tests use `cfg!(target_arch)` and `cfg!(target_os)`
-  to select the correct fixture.
+- **Harness/case relationship**: `src/bench.rs` discovers all
+  `benches/**/*.conf.yml`, builds `gungraun-runner`, then runs each configured
+  group. A case is a `.conf.yml` plus its `.rs` source and expected fixtures.
+- **System-test commands**: Use `just system-test <bench>` to verify one
+  benchmark against expectations. Use `just bench <bench>` only for a quick run
+  without expectation verification. `just system-test-all` verifies the full
+  suite and takes approximately 20-30 minutes.
+- **`.conf.yml` header**: System test configuration files must include a test
+  case description comment block at the top with the following fields:
+
+| Field             | Required | Purpose                                                                                      |
+| ----------------- | -------- | -------------------------------------------------------------------------------------------- |
+| Test Case         | Yes      | Unique identifier for the test usually the file name of the test without the `.rs` suffix    |
+| Description       | Yes      | Brief explanation of what is being tested                                                    |
+| Test Steps        | Yes      | Numbered sequence of actions performed during the test                                       |
+| Test Inputs       | Yes      | Specific inputs, configurations, or scenarios being tested                                   |
+| Expected Outcomes | Yes      | Clear, measurable expectations for correct execution                                         |
+| Preconditions     | No       | Conditions that must be met before test execution                                            |
+| Postconditions    | No       | Expected state after test execution (only include if it adds value beyond Expected Outcomes) |
+| Test Environment  | No       | Specific environment requirements (e.g., tool versions)                                      |
+
+- **Groups and runs**: A configuration has `groups`, each with `runs`. Runs
+  specify `args`, `cargo_args`, `envs`, `setup`/`teardown`, and `expected`.
+  Groups can be gated by `runs_on` target triple or `rust_version`.
+- **Output comparison**: The harness filters stdout/stderr to normalize PIDs,
+  absolute paths, commands with random hashes, percentages, and timing details.
+  Coverage runs get additional normalization.
+- **File assertions**: `expected.files` points to a YAML manifest listing
+  `group`, `function`, `id`, and required files per benchmark output directory.
+  `summary.json` is validated against the JSON schema.
+- **Expected-output update**: Prefer `just system-test-overwrite <bench>` or
+  `BENCH_OVERWRITE=yes just system-test <bench>` when only one benchmark is
+  affected. Use `just system-test-all-overwrite` only when all fixtures need
+  regeneration. Validate the behavior change before committing updates.
+- **Flaky runs**: A run can set `flaky: N` to allow N retries on assertion
+  failure.
+- **Templated benchmarks**: When `template` is set in the config, the harness
+  renders a Jinja template into `test_bench_template.rs` before running.
 
 ## Anti-Patterns
 
-- Do not expect `just test-all` to cover this crate; cross-target runs require
-  `cross` and Docker.
-- Do not conflate these with `gungraun-tests`; they test different layers.
-- Do not add new test binaries without updating `tests/test_valgrind_requests/`
-  and fixtures.
-- Do not assume all targets share the same stderr output; always provide a
-  target-specific fixture when output differs.
+- Do not update expected output before confirming the behavior change is
+  intentional.
+- Do not add a `Notes` section to `.conf.yml` headers; use only the fields
+  listed above.
+- Always ask and wait for explicit user approval before running
+  `just system-test-all` or `just system-test-all-overwrite`.
+- Do not run benchmark system tests via `cargo test`; they require the `bench`
+  binary harness.
 
 ---
 > Source: [gungraun/gungraun](https://github.com/gungraun/gungraun) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
