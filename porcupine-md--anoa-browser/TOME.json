@@ -4,7 +4,7 @@
   "repo": "anoa-browser",
   "description": "Headless browser with full Chrome DevTools Protocol (CDP) support. Distributed as a single self-contained binary \u2014 no Node.js or npm required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/porcupine-md/anoa-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T07:31:13Z"
+  "distributed_at": "2026-08-25T10:23:27Z"
 }
