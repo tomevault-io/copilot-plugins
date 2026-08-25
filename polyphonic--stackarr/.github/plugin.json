@@ -1,0 +1,9 @@
+{
+  "name": "polyphonic--stackarr",
+  "displayName": "stackarr",
+  "description": "Agentic control plane for your homelab",
+  "version": "1.0.0",
+  "author": "polyphonic",
+  "homepage": "https://github.com/polyphonic/stackarr",
+  "skills": []
+}
