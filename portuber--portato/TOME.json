@@ -1,0 +1,44 @@
+{
+  "name": "portato",
+  "owner": "portuber",
+  "repo": "portato",
+  "description": "SSH port-forwarding manager with a TUI \u2014 toggle local, remote and SOCKS5 tunnels from one screen. Single Go binary, background daemon, autostart.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/portuber/portato",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T12:07:09Z"
+}
