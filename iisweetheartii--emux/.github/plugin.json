@@ -1,0 +1,9 @@
+{
+  "name": "iisweetheartii--emux",
+  "displayName": "emux",
+  "description": "A modern terminal multiplexer built in Rust \u2014 zero config, session persistence, and 1,199 tests.",
+  "version": "1.0.0",
+  "author": "IISweetHeartII",
+  "homepage": "https://github.com/IISweetHeartII/emux",
+  "skills": []
+}
