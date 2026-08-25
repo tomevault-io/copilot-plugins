@@ -1,0 +1,9 @@
+{
+  "name": "os-factory--har",
+  "displayName": "har",
+  "description": "HAR: open agent harness (CLI + MCP) for coding agents. Isolated worktrees, deterministic verify, software factory workflows for Claude Code, Cursor, and Codex.",
+  "version": "1.0.0",
+  "author": "os-factory",
+  "homepage": "https://github.com/os-factory/har",
+  "skills": []
+}
