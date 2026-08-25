@@ -1,0 +1,9 @@
+{
+  "name": "umikok7--roxy-agent",
+  "displayName": "roxy-agent",
+  "description": "\ud83d\udca7\u2728 A customizable desktop AI Agent featuring 3D-VRM Roxy, powered by modular deer-flow runtime with built-in RoxySkills for fans of the Overlord series. \uff5c \u4e00\u6b3e\u6d1b\u742a\u5e0c\u4e3b\u9898\u76843D\u684c\u9762 AI Agent\uff0c\u57fa\u4e8e deer-flow \u6a21\u5757\u5316\u8fd0\u884c\u65f6\u5f15\u64ce\u6784\u5efa",
+  "version": "1.0.0",
+  "author": "umikok7",
+  "homepage": "https://github.com/umikok7/roxy-agent",
+  "skills": []
+}
