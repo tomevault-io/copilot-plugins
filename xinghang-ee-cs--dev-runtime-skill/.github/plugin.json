@@ -1,0 +1,9 @@
+{
+  "name": "xinghang-ee-cs--dev-runtime-skill",
+  "displayName": "dev-runtime-skill",
+  "description": "AI coding assistant skills that structure the full development lifecycle into planning \u2192 implementation \u2192 testing \u2192 release \u2014 each phase managed by a dedicated skill. Works with Claude Code and any ag",
+  "version": "1.0.0",
+  "author": "xinghang-ee-cs",
+  "homepage": "https://github.com/xinghang-ee-cs/dev-runtime-skill",
+  "skills": []
+}
