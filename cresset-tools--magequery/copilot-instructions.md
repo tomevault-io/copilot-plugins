@@ -1,0 +1,2031 @@
+## magequery
+
+> Handles `//`/`#`/`/* */` comments, strings, and PHP 8 `#[attributes]` (not treated as
+
+# magequery
+
+A fast, Rust-based developer tool for understanding a Magento 2 codebase from the command
+line: modules, DI resolution (preferences/plugins/virtual types), events/observers, cron,
+routes, config across scopes, and (phase 2) live DB/Redis introspection.
+
+The value prop is **speed and zero-bootstrap**: answer "what's going on in this codebase"
+in milliseconds, ideally on a checkout that has *never been set up* — no DB, no DI
+compile, no working PHP. `bin/magento`/magerun bootstrap the whole framework (1–3s/call);
+magequery does not.
+
+## Locked decisions
+
+- **Pure static engine.** Re-implement Magento's config-merge semantics in Rust by parsing
+  the source XML/PHP directly. Do **not** read `var/cache` or `generated/` merged
+  artifacts — those only exist after setup/compile, which breaks the fresh-checkout
+  promise.
+- **Target: Magento 2.4 OSS only** for the MVP. No Adobe Commerce / Mage-OS / OpenMage yet.
+- **Depth-first on the flagship `resolve`/`di` command** before breadth. The DI resolver is
+  the hard 80%; the other commands are simpler projections of the same index.
+- **Library-first.** `magequery-core` computes and returns owned, structured data; it never
+  prints, exits, or reads ambient state. The CLI is a thin renderer on top.
+
+## Architecture
+
+Workspace:
+- `magequery-core` — parsing, indexing, resolution. Deps: `quick-xml`, `serde` (default
+  feature), `thiserror`. **No `clap`, no output, no `anyhow`.**
+- `magequery-cli` — `clap` + table/`--json` renderers. May use `anyhow` internally to
+  flatten errors for `main`.
+- `magequery-lsp` — the language server (see "LSP + editor plugins"): a third renderer
+  over core, speaking LSP instead of ANSI. Depends on core **without** the `db` feature.
+  (`editors/zed` holds a fourth crate, detached from the workspace — it compiles to WASM.)
+
+### The central engine
+
+Everything routes through one config-merge engine; subcommands are views over it.
+1. **Module discovery + load order** from `app/etc/config.php` (`modules` map = enabled +
+   authoritative order) and each `etc/module.xml` `<sequence>`. Load order makes merges
+   deterministic.
+2. **Area-aware merge.** For each config type, merge `global` (base) overlaid by the
+   per-area config, in module load order.
+3. **Per-node merge rules.** Preferences = last-wins, followed to a fixpoint. Plugins =
+   keyed by name, honor `disabled` + `sortOrder`, split before/around/after. Observers =
+   keyed by name, honor `disabled`.
+
+### The flagship `resolve(type, area)`
+
+```
+concrete = follow_preferences(type, area)   # fixpoint over merged preference map
+chain    = ancestors(concrete)              # parents + interfaces
+plugins  = plugins on concrete OR any ancestor/interface, merged (global ← area),
+           drop disabled, sort by sortOrder, split before/around/after
+args     = merged <arguments> (+ virtualType layering + parent-type inheritance)
+→ every row tagged with Source { module, file, line, area }
+```
+
+### Pure static still needs PHP parsing (not execution)
+
+Plugins declared on an **interface or parent class apply to all implementations/
+subclasses** — the case people miss. So `resolve` needs the class hierarchy, which lives
+in PHP. Approach (keeps the no-bootstrap promise):
+- Use composer PSR-4 autoload maps for `class → file` (pure string math; vendor is too big
+  to scan — 716 modules in the test checkout).
+- Parse PHP **on demand**, only for classes on the resolution path, extracting just
+  `extends`/`implements` from the class header. Cache it. (tree-sitter-php or a focused
+  header parser — never execute PHP.)
+
+### Areas
+
+Fixed 2.4 OSS set, hardcoded, never discovered from the filesystem (`etc/` contains
+non-area dirs like `postcode_eu/`, `some_config/`, `redis/`):
+`global, frontend, adminhtml, crontab, webapi_rest, webapi_soap, graphql`. `global` is the
+base; every real area = `global` overlaid by itself.
+
+CLI area model:
+- *(default)* collapsed diff — `global` base + per-area deltas only (silence = same
+  everywhere = information).
+- `--area <name>` — single area.
+- `--all-areas` — full per-area expansion. (`--area`/`--all-areas` are mutually exclusive.)
+- `routes` defaults to all-areas (frontend vs adminhtml routers are the point).
+
+The collapse lives in **core** as `ByArea::deltas()`, so library users and the CLI render
+from the same computation.
+
+## Type design (`magequery-core`)
+
+- **Typed identifiers, never stringly-typed**: `ClassName`, `ModuleName`, `EventName`,
+  `ConfigPath`, `Area` (enum). `ClassName::new` **strips a leading backslash** (`\Foo\Bar`
+  ≡ `Foo\Bar`) — the invariant is enforced at construction, not at call sites, mirroring
+  Magento's `ltrim($type, '\\')` at every config read. Both spellings occur in real di.xml
+  (core module-elasticsearch writes `type="\Magento\…"`) and must merge/compare as one
+  name; before this was enforced, `uses` missed backslash-declared virtualTypes and their
+  arg inheritance silently failed to merge.
+- **Provenance everywhere**: `Source { module, file, line, area }` on every returned fact;
+  `.location()` → clickable `file:42`. This is the whole point — answers jump to source.
+- **Errors vs diagnostics split** (the key, hard-to-retrofit decision):
+  - `Error` (`#[non_exhaustive]`, returns `Err`) = can't produce a meaningful answer at
+    all (no Magento root, unreadable `config.php`, unknown class).
+  - `Diagnostic` (collected on the index, surfaced via `Magento::diagnostics()`) =
+    non-fatal per-file problem (one malformed `di.xml` among hundreds). `open()` succeeds
+    on messy codebases; a single broken file never blinds the tool.
+- **Owned returns** (clone out of the index) so callers don't thread the `Magento`
+  handle's lifetime. Data is small.
+- `#[non_exhaustive]` on public enums/structs so the API can grow without major bumps.
+- All public types derive `serde::Serialize`; `--json` and library use share one type set.
+  (serde is a hard dependency, not feature-gated: `serde_json` — required for parsing
+  `installed.json` — pulls serde into the build unconditionally, so gating it bought
+  nothing.)
+- Core is **sync** (file-bound, fast). Phase-2 DB/Redis go behind `db`/`redis` features and
+  may block — core never pulls in an async runtime.
+
+## Output styling (colors) — cross-cutting
+
+Colors are a **CLI-only** concern; `magequery-core` never emits escape codes (library-first).
+A central `style` module in `magequery-cli` owns the palette, and **every renderer styles by
+semantic role**, so a given kind of entity is the same color in every command. New commands
+MUST reuse these helpers, never hardcode colors.
+
+Palette (semantic role → color):
+- class/interface (FQCN) → cyan
+- module name (`Vendor_Module`) → magenta
+- area tag (`base`/`frontend`/…) → yellow
+- file path / `file:line` → dim (bright-black), rendered as `# file:line` (the leading `#`
+  makes it a trailing comment so a line copy-pastes cleanly); root-relative via `short_loc`
+- declaration name (plugin name, event name) → green
+- interception kind (`before`/`around`/`after`) → blue
+- target method / `▶` actual implementation → bold
+- enabled/`on` → green; disabled/`off`/errors → red; warnings → yellow
+- literal syntax (di.xml arg values, PHP-style): string `"…"` → green, number → yellow,
+  `true`/`false`/`null` → magenta, object/`\Class` → cyan (class)
+
+Rules:
+- Color is enabled only when stdout is a TTY; honor `NO_COLOR` and a global
+  `--color <auto|always|never>` flag (default `auto`), decided once at startup via
+  `style::init`.
+- **Never colorize `--json`** — machine output stays clean. (Diagnostics on stderr may use
+  color independently of stdout's choice.)
+- All escapes go through `style::*` (built on `anstyle`); retheme in one place.
+- Width/alignment: pad the *plain* string, then color (escape codes don't count toward
+  display width), or color first and pad with computed spaces.
+
+## Command surface (organization — LOCKED)
+
+**The one grammar rule: `magequery <command> [target] [flags]`.** The command names what
+you're inspecting (a noun); the argument is a *Magento entity* (a class, event, config path,
+table). One level deep. The namespace stays **flat** — `di Foo` must never become `wiring di
+Foo`; grep-ability and muscle memory are the whole UX. Grouping is a *help-rendering* concern
+(the `Command` enum order + a hand-rendered root help screen), **not** a typing one.
+
+**Nesting earns its keep in exactly one case: a noun with multiple verbs** — `db info`/`db
+ping`, `redis info`/`redis ping`, `queue info`/`topology`/`backlog` (bare `queue` = `queue info`,
+kept for back-compat via an optional clap subcommand). Info-only nouns
+(`session`/`cache`/`lock`) stay flat.
+
+The `Command` enum in `main.rs` is ordered into these seven groups (banner comments mark
+them). clap can't natively head-group subcommands without *nesting* them (which would break
+flat invocation), and its `help_template` can't color literal text — so `main.rs` renders the
+**root** help/no-args screen itself (`print_help` + the `HELP_GROUPS`/`HELP_OPTIONS` tables,
+styled through the `style` module, so it's grouped *and* colored, and plain when piped). It's
+intercepted by `wants_root_help` *before* clap parses; every `magequery <command> --help`
+still uses clap's native per-command help. Keep `HELP_GROUPS` in sync with the enum. New
+commands MUST slot into a group, never append to the end ad hoc — and be reflected in the
+`skill` command's `assets/skill/SKILL.md` too (the hard sync rule is under *Tooling
+meta-commands* below):
+
+```
+WIRING        (object manager — how a class is assembled)
+  di <type>            flagship: preference + plugins + args + vtypes
+  preference <class>     focused view of di
+  plugins <class>        focused view of di  [--chain]
+  events [<event>]       observers per event   (NOT `observers` — that name is retired)
+  uses <class>           reverse DI: who injects it
+
+ENTRY POINTS  (how execution starts)
+  routes [--area]    actions [<url>]    webapi [<url>]    cron [<group>|<job>] [--db]
+  commands [<filter>]                   graphql [<type>|<Type.field>]
+
+DATA          (persistence & model)
+  schema [<table>] [--db]       indexers [<id>] [--db]
+  extension-attributes [<type>]    catalog-attributes [<group>|<attr>]    eav [<attr>|<entity>] [--db]
+  fieldset [<id>|<field>]
+  product <sku> [--id <n>] [--store <code>]   price <sku> [--id <n>]   (live DB)
+  category [<id>|<name>] [--store] [--products]   order <increment#> [--id]
+  customer <email> [--id]   quote <id|email>
+  invoice|shipment|creditmemo <increment#>   order-statuses [<filter>]   sequences [<entity>]
+  sales-rule <coupon|id|name>   catalog-rule [<id|name>]   tax [<filter>]   (live DB)
+
+CONFIG & ADMIN (where settings & permissions live)
+  config <path> [--scope] [--db] [--decrypt]    system-config [<filter>]
+  acl [<resource>]                              menu [<item>]
+  admin-users [<user>]   admin-roles [<role>]   integrations [<name>]   (live DB)
+
+FRONTEND      (presentation)
+  layout [<handle>] [--area]    templates [<Vendor_Module::path.phtml>] [--area]
+  widgets [<id>]    email-templates [<id>]    translations <str> [--locale] [--db]
+  ui-components [<name>] [--area]
+  cms-page|cms-block [<identifier>] [--id <n>] [--content]   (live DB)
+
+RUNTIME       (env.php config & live connections)
+  db info|ping     redis info|ping     url-rewrites [<path>] [--store] [--redirects] [--limit]
+  queue [info]|topology [<topic>]|backlog      session   cache   lock   (info-only)
+  stores   (the scope tree, live DB)
+
+PROJECT       (the codebase itself)
+  info      mode   maintenance   base-url [--secure]   admin-url   (single-fact views of info)
+  modules [--check] [--enabled|--disabled] [--source app|vendor]
+  deps <module>             doctor [--source]          whatis <class>   patches [--db|--pending]
+```
+
+**Tooling meta-commands** (`completions <shell>`, `man`, `skill`, `lsp`) sit *outside* the
+seven groups — they describe/serve the CLI itself, not a Magento entity, so they'd violate the
+"noun = Magento entity" grammar. All four are `#[command(hide = true)]` (absent from the
+grouped help screen but still `--help`-discoverable and tab-completable) and are dispatched
+**before** `Magento::open`. `completions` uses `clap_complete` (bash/zsh/fish/elvish/powershell
+→ stdout), `man` uses `clap_mangen` (roff → stdout), `skill` prints `assets/skill/SKILL.md`
+(embedded via `include_str!`, so it always matches this binary's command surface) — the Claude
+Code agent skill that teaches an AI agent to reach for magequery on "how is this wired"
+questions instead of grepping; users install it with
+`magequery skill > .claude/skills/magequery/SKILL.md` — and `lsp` runs the language server on
+stdio (it discovers Magento roots per workspace folder itself, which is why it too skips the
+CLI's `Magento::open`; spawned by editor plugins, not by hand — see "LSP + editor plugins").
+
+**Keeping `SKILL.md` in sync is a hard rule.** Unlike `completions`/`man` (generated from the
+`Command` enum, so always current), the skill is **hand-maintained**: its frontmatter
+`description` (the trigger phrases an agent matches on) and its body (a question→command map
+over the whole surface, plus the `--json`/`--area`/`--db` conventions) must be updated by hand
+whenever a command is added, renamed, removed, or has its args/flags/behavior changed —
+otherwise `magequery skill` emits a stale map that silently steers agents to the wrong
+command. Treat `assets/skill/SKILL.md` as part of the command-surface contract, alongside
+`HELP_GROUPS`.
+
+**`magecommand` carries its own skill, under the same rule.** `magecommand skill` (hidden,
+dispatched before anything touches a Magento root, so it works from any directory) prints
+`assets/skill/magecommand/SKILL.md`, embedded via `include_str!` exactly like magequery's.
+It is hand-maintained too: adding or changing anything in the `di`/`static` groups means
+updating it. Its frontmatter deliberately **never mentions magequery** — naming the read-side
+tool in the write-side trigger only confuses an agent choosing between them; the guardrail is
+stated positively instead ("only to generate artifacts, never to inspect, explain, or debug").
+The installer's `install-success-msg` advertises both skills, so both lines must stay in step
+with the two commands.
+
+Distribution is the `curl | sh` cargo-dist installer, which **cannot run custom logic or
+place extra files** (confirmed: axodotdev/cargo-dist#1696), so
+`[workspace.metadata.dist] install-success-msg` (root `Cargo.toml`) tells users to **source**
+completions from the subcommand in their shell config — `source <(magequery completions
+bash|zsh)` (process substitution; zsh after `compinit`) or `magequery completions fish |
+source` (only fish's `source` reads a pipe). Sourcing over writing a file: no `mkdir`/`fpath`
+setup and never stale, at the cost of running the binary once per shell start (vs the file's
+lazy load). The message is kept free of `"`/`$`/backticks/`\` so the installer can't
+misinterpret it when echoing. `main` also
+restores the default SIGPIPE handler on Unix (`libc::signal(SIGPIPE, SIG_DFL)`) so any command
+piped into `head`/`less` and quit early terminates cleanly instead of panicking on a broken
+pipe (Rust ignores SIGPIPE by default, which `println!`/clap_complete unwrap into a panic).
+
+### Cross-cutting flag vocabulary (a flag means the same thing everywhere)
+
+- **`--area <name>`** — only on area-aware commands (`di`, `preference`, `plugins`,
+  `events`, `routes`, `actions`, `webapi`, `uses`, `layout`, `templates`, `ui-components`).
+  **`--all-areas`** is available on the commands that render per-area DI/config views.
+  Default = collapsed diff where applicable. (`uses` has no `--all-areas`: its default is
+  already the merged union.)
+- **`--json`** and **`--color auto|always|never`** + **`--root <path>`** — global, every command.
+- **`--db`** — the opt-in switch on every *hybrid static-or-live* command (`config`,
+  `schema`, `patches`, `eav`, `indexers`, `cron`). Static by default; DB overlay when asked;
+  clean `Error::Db` if unreachable. Pure-live commands (`db`/`redis` `ping`, `url-rewrites`)
+  require the `db`/`redis` build feature instead.
+- **`--source app|vendor`** — listing commands, "only my code" (today `modules`; generalize).
+
+### Consolidations baked into this lock
+
+- `observers` is folded into **`events [<event>]`** (one command). Already done in code.
+- `preference` / `plugins` are **focused views of `di`** — kept flat (high-frequency), but
+  documented as such; `di <type>` is the single full entry point.
+- reverse-DI shipped as **`uses <class>`** (never a literal `reverse-di` command); if
+  `whatis` is ever built, `uses` becomes one of its focused views. `doctor` is the home for cross-index lints (the `modules --check`
+  philosophy, generalized: preference/vtype cycles, di refs to missing classes, plugins on
+  `final`/non-shared, `<sequence>` cycles).
+
+## Module discovery (step 1, done)
+
+Do **not** brute-walk `vendor/` — on a real install that's ~38k directories to find ~500
+modules. Use composer metadata:
+
+- **Vendor**: read `vendor/composer/installed.json` once. For each package, candidate
+  module roots = the dir of every `autoload.files` entry (registration.php) **plus** the
+  conventional `pkg/etc` and `pkg/src/etc`. The `autoload.files` entries are what catch
+  packages that *bundle several modules under `src/`* (e.g. `mirasvit/module-dynamic-category`
+  → `src/DynamicCategory`, `src/Merchandiser`). A path is a module root iff `etc/module.xml`
+  exists there. Falls back to the recursive scan only if `installed.json` is unreadable.
+  This is also *more correct* than scanning: it naturally excludes `dev/tests/.../_files`
+  test-fixture modules.
+- **app/code**: small and not composer-managed → pruned recursive scan (stops at module
+  roots; skips `Test`, `_files`, `var`, `generated`, …).
+- `config.php` order is the authoritative, already-sequence-resolved load order; disk
+  discovery only supplies path/source/`<sequence>`.
+
+Result on the 2.4.8 store checkout: 655 modules (matches `config.php` exactly), ~16ms warm
+(was ~180ms with the brute walk).
+
+Discovery is parallel (rayon): each package's candidate roots are probed via a pure
+`read_module_root` in `par_iter().flat_map_iter(...)`, collected in package order, then
+merged sequentially so "first wins" stays deterministic. Phase timing is available behind
+`MQ_PROFILE=1`. Warm costs (~13ms wall): parallel module.xml reads ~5ms, app/code scan ~3ms,
+installed.json parse ~1.7ms, config.php ~0.1ms. `installed.json` is parsed with a typed
+zero-copy (`Cow`) `Deserialize` over only the fields we use (name, install-path, autoload,
+require) — not `serde_json::Value` —
+which cut its parse from ~4.6ms to ~1.7ms. Remaining costs are I/O-bound (file reads + the
+app/code directory walk); parallel file reading pays off more in step 2's di.xml pass.
+
+### `modules --check` (lint)
+
+Module-set consistency is exposed structurally as `ModuleCheck` (not always-on diagnostic
+noise) via `Magento::module_check()`, and surfaced by `magequery modules --check`:
+- `on_disk_not_in_config` — registered on disk but absent from `config.php` ⇒ "forgot
+  `setup:upgrade`". Reported with a fix hint; CLI exits non-zero.
+- `in_config_not_on_disk` — listed in `config.php` but no `module.xml` on disk ⇒ broken.
+Only genuine parse/read failures remain as `Diagnostic`s.
+
+## DI index (step 2, done)
+
+`di.rs` builds the merged DI config per area, mirroring Magento: merge Magento's **primary
+config first** (it's where framework-level preferences live — `CommandListInterface →
+CommandList`, `ScopeConfigInterface → App\Config`, ~230 preferences on a real install;
+`Source.module` is the synthetic `(primary)`, module load orders shift by 1), then every
+module's `etc/di.xml` in load order → `global`; then each real area = `global.clone()`
+overlaid by that area's `etc/<area>/di.xml` in load order. The primary file set is
+Magento's exact bootstrap glob (`App\Arguments\FileResolver\Primary`): `{*di.xml,
+*/*di.xml}` under `app/etc` — any file *ending in* `di.xml`, top level + one subdirectory
+level, in glob order (so a project's `app/etc/zz_di.xml` overrides `app/etc/di.xml`) —
+matching Magento's real sequence `extend(primary)` → `configure(global)` →
+`configure(<area>)`, verified against `ObjectManagerFactory`/`Environment\Developer`
+source. Files are read+parsed in parallel (rayon), merged sequentially in load order so
+last-wins is deterministic.
+
+- `parse::di_xml` extracts preferences, plugins, and virtualTypes with **exact line
+  provenance** (`LineMap`: byte offset → 1-based line via binary search over newline
+  offsets; offset from `quick-xml`'s `buffer_position()`). `<plugin>` is attributed to its
+  enclosing `<type>`/`<virtualType>`.
+- Merge rules: preferences & virtualTypes last-wins; **plugins are attribute-level merged
+  by name** (a later `<plugin name=.. disabled="true"/>` updates only `disabled`, keeping
+  the earlier `type`) — `RawPlugin` fields are `Option` to make this work.
+- `Source.area` records where a declaration came from: an entry inherited from global keeps
+  `area = Global` even when viewed in adminhtml; an override cites the area file. This drives
+  honest collapsed-diff output.
+- Exposed so far: `Magento::preference(class, area)` (preference fixpoint with cycle guard;
+  no preference ⇒ class is its own concrete). Plugins/virtualTypes are parsed & merged into
+  `AreaConfig` but not yet surfaced by a command — that comes with step 4.
+- Cost: ~22ms to parse ~900 di.xml files (parallel); ~30ms total index. Now the dominant
+  phase, as expected — this is where rayon earns its keep.
+
+Validated on the 2.4.8 store: `CartManagementInterface → QuoteManagement` (di.xml:25);
+`IsProductSalableInterface` collapsed-diff correctly shows global + frontend + graphql
+overrides while adminhtml/crontab/webapi inherit; line numbers exact.
+
+## Class resolver (step 3, file-resolution half done)
+
+`resolver.rs` maps a class name to its source file via PSR-4, so we can answer "does this
+class exist?":
+- **Vendor**: PSR-4 maps from `installed.json`'s embedded `autoload.psr-4` (700/789 packages),
+  parsed alongside `autoload.files` in `composer.rs` (prefix → absolute dirs).
+- **app/code**: not composer-managed → synthesize the convention `Vendor_Module` →
+  namespace `Vendor\Module\` rooted at the module dir. (Limitation: a module whose PHP
+  namespace diverges from its name would be missed; revisit by reading app/code
+  composer.json if it ever bites.)
+- `file_for` does PSR-4 longest-prefix-first match, `stat`s candidates, returns the first
+  that exists. Built once from the already-parsed `packages` (parsing installed.json once,
+  shared with module discovery).
+
+Wired into `preference`: when no preference applies, the class is its own concrete type
+**only if it actually exists** — otherwise `Error::ClassNotFound`. The CLI prints a clean
+"class not found" message (namespace/spelling hint) and exits non-zero. `class_known` also
+treats a name as real if it's a virtualType or a DI-referenced type, to avoid false
+negatives when the PSR-4 map is incomplete.
+
+### PHP header parse + ancestor walk (done)
+
+`php.rs` is a focused, non-executing PHP tokenizer that reads a class file's header:
+`namespace`, `use` imports (incl. `as` aliases and group `use A\{B, C}`), and the
+`extends`/`implements` names — each resolved to an FQCN via PHP name rules (leading `\` =
+absolute; first segment matching a `use` alias expands; else relative to namespace).
+Handles `//`/`#`/`/* */` comments, strings, and PHP 8 `#[attributes]` (not treated as
+comments). Stops at the first type declaration.
+
+`resolver.rs` adds:
+- `header(class)` — lazily reads+parses a class's header, cached in a `Mutex<HashMap>`
+  (`None` = file missing, e.g. PHP built-ins — that just ends a branch).
+- `ancestors(class)` — BFS over extends+implements, transitively, nearest-first. **This is
+  what makes plugin resolution correct**: a plugin declared on an interface/parent applies
+  to every implementation/subclass.
+- `plugin_methods(class)` — parses the plugin file for its **public** `before*`/`around*`/
+  `after*` methods (skips private/protected via a modifier look-back) and derives the
+  intercepted target method (`beforeSave` → `save`, `afterGetList` → `getList`). Returns
+  `Vec<PluginMethod { kind, target, plugin_method }>`. (Heuristic: doesn't follow plugin
+  inheritance/traits, but matches Magento's convention.)
+
+`Magento::plugins(class, area)` resolves the preference → concrete, collects plugins from
+the concrete **and every ancestor/interface**, dedups by plugin name across the hierarchy
+(nearest wins, as Magento merges by name), tags each with `declared_on` and its intercepted
+methods, includes-but-flags disabled. **Order = Magento's**: ascending `sort_order`, ties
+broken by *declaration order* — `order_key = (area_rank, module load_order, line)` stored on
+each plugin in the DI index (global rank 0 before area-overlay rank 1; set at first
+declaration, preserved across attribute-merges). NOT alphabetical by name. (Earlier versions
+tiebroke by name — coincidentally identical on the 2.4.8 store, but wrong in general.)
+`magequery plugins <Class>` renders it with `← declared on <Ancestor>` for inherited
+plugins, an `intercepts: before save, after getList` line per plugin, and provenance.
+`--area` overlays that area's plugins.
+
+`Magento::plugin_chains(class, area, only)` builds the **execution onion** per intercepted
+method: before plugins ascending `sort_order`, around plugins nested (ascending = outer),
+the target method, then around unwinding and after plugins **descending**. Disabled plugins
+excluded. `magequery plugins <Class> --chain [--method <m>]` renders it with indentation for
+around nesting (`around↘`/`▶ target`/`around↖`). Plugins render compactly with an inline **`area=` tag** (`base` for global, else the area
+name) on every plugin/step — flat: 2 lines (`sort name [intercepts] ← origin` / `class ·
+area=X · file:line`); chain steps: `[Class::method  so=N  area=X]`. `--all-areas` is a
+single **merged** view, not per-area sections: `plugins_all_areas`/`plugin_chains_all_areas`
+union every area's plugins (deduped by name, base wins a clash) into one ordered list/onion,
+each tagged with the **full set** of areas it's declared in (`Plugin.areas`/
+`ChainPluginRef.areas`) — e.g. `area=base` or `area=webapi_rest,webapi_soap` — so a base
+plugin appears once, not per area. Targets come from the global concrete (preference rarely
+differs per area). `--all-areas` is mutually exclusive with `--area`. (Simplification: the standard onion;
+Magento's exact segmentation when arounds interleave with other plugins' before/after across
+sort orders is not modeled — accurate for the common case.) Verified on the 2.4.8 store: webapi_rest
+`save()` shows before ascending (so 0,10,10) and after descending (so 10 then 0).
+
+Validated on the 2.4.8 store: `ProductRepositoryInterface` plugins (all declared on the interface)
+correctly attributed to the concrete `ProductRepository`; global set exactly matches ground
+truth; `--area webapi_rest` correctly adds the REST-only `product_authorization` + Mirasvit
+plugins. ~38ms total (ancestor walk + header parse is negligible).
+
+## Resolution (`di`, step 4, done)
+
+`Magento::resolve(class, area) -> Resolution` is the flagship: concrete type + preference
+chain + `instantiates` (for a virtual type, the real class it builds — follows the
+`virtualType type=` chain to a non-virtual class, cycle-guarded) + merged constructor
+arguments + plugin chain + contributing ancestors, all with provenance. `magequery di <Type>`
+renders it (colored), with argument values shown as **PHP-style literals** (strings quoted,
+objects as `\FQCN`, arrays as `['k' => v, …]`) via `render_arg`.
+
+- **Arguments**: `parse::di_xml` now parses `<arguments>` via a stack-based recursive parser
+  (`parse_arguments`) into a typed `ArgValue` (`Object`/`Scalar{xsi_type,text}`/`Array`/`Null`),
+  attributed to the enclosing `<type>`/`<virtualType>`. Stored per type in
+  `AreaConfig.type_args` (type → arg name → value).
+- **Merge semantics** (`ArgValue::merged_with`): **array arguments merge item-by-item by key
+  across modules** (newer overrides same-key, appends new keys, recursing into nested arrays);
+  scalars/objects replace. Applied both cross-module (di.rs `merge_file`) and across the type
+  hierarchy / virtual layering (`args_of`). Validated: `EntryConverterPool`'s collection
+  accumulates `image` + `external-video` from two modules.
+- **Per-item provenance**: each array item is an `ArgItem { key, value, source }` — its own
+  module/file/line, set at merge time (parser emits a source-free `RawArg` with line numbers;
+  `di::to_arg_value` attaches the `Source` from the file being merged; on override the newer
+  item's source wins). `di` expands array arguments one item per line with provenance, so e.g.
+  `di Magento\Framework\App\RouterList --area frontend` shows which module added each router
+  (`blog` → magefan, `prismicio` → elgentos, …).
+- **`args_of(name, area)`**: virtual type → inherit base type's args then overlay its own;
+  real type → merge parent-type args along the PHP ancestor chain (distant first), then self.
+  Cycle-guarded. Result sorted by argument name.
+- Limitations: `init_parameter`/`const` values shown verbatim (not evaluated); doesn't model
+  rare di.xml `<argument>` removal/`shared` nuances.
+
+## Breadth (step 5, done)
+
+`breadth.rs` holds four thin projection indexes, each parsed from a per-module XML file and
+merged in load order. **Built lazily** via `OnceLock` on the `Magento` handle (built on first
+query), so they don't slow `modules`/`di`/`plugins`. The per-module file reads+parses are
+**parallel** (rayon) via the shared `read_parse` helper (read+parse all modules' `etc/[<area>/]
+<file>` concurrently, returning results in module/load order for a deterministic sequential
+merge) — events ~108ms→25ms, routes ~100ms→21ms.
+
+- **events/observers** — `events.xml`, per-area (global + overlay), observers merged by name
+  within an event (last-wins, disabled/shared attrs). `Magento::observers(event, area)`,
+  `events(area)`. CLI: `events [<event>] [--area]` (list with counts, or one event's observers).
+- **cron** — `crontab.xml` (global; the parser fills `<schedule>`/`<config_path>` text into
+  the current `<job>`). Merged by (group, name). `cron_jobs(group?, include_db) ->
+  Result<CronJobs>`; with `include_db` each job carries a `CronJobLive` from
+  `cron_schedule` — status counts over the retained window, the most recently *started*
+  row as the last outcome (executed_at age + duration on the DB clock), the latest
+  retained error message, and the next pending run — plus `CronJobs.orphaned_codes`: job
+  codes in the table no crontab.xml defines (removed modules' leftover schedules;
+  unfiltered runs only, like `Patches::orphaned_applied`). `cron_history(code, limit)` =
+  the recent non-pending rows (Magento schedules ahead — future pendings would drown the
+  log). CLI: `cron [<group>|<job>] [--db]` — arg is a group (grouped list, live tag `✓
+  12m ago`/red `✕ error`/`(N missed)` per job), an exact/single-match job code (detail
+  card: class, schedule, last/next run, error message, count breakdown, and `recent
+  runs:` log lines with durations + messages), or a code substring. Both dev stores'
+  cron_schedule tables are empty (no cron daemon; success rows prune within the hour) —
+  zero states validated (`never ran`, no orphans, clean down-DB error); real history
+  rendering awaits a live shop.
+- **routes** — `routes.xml`, per-area (frontend/adminhtml/…); routes keyed by (router, id),
+  modules accumulated across modules. `routes(area)`. CLI: `routes [--area]` (defaults to
+  frontend+adminhtml). (Limitation: module `before`/`after` ordering within a route not
+  applied — modules listed in encounter order.)
+- **webapi** — `webapi.xml` (global), keyed by (method, url). `webapi(url_filter?)`. CLI:
+  `webapi [<url-substr>]`. Shows service class::method + ACL resources.
+
+Validated on the 2.4.8 store: 269 events, cron groups with literal + `config:` schedules, frontend
+routes (frontName → modules), 688 REST endpoints — all with provenance.
+
+### `actions` (controller subroutes)
+
+`Magento::actions(area, url_filter)` lists controller actions (the "subroutes" that aren't in
+any XML — they're `Controller/<Path>/<Action>.php` classes by convention). For each route's
+modules it scans `Controller/` (frontend) or `Controller/Adminhtml/` (admin), maps each file
+to `frontName/controller/action`, and keeps only **concrete action classes** —
+`resolver.is_action` checks the PHP header (`php.rs` now tracks `is_interface`/`is_abstract`)
+and that ancestors include a Magento action base (`ActionInterface` etc.), so abstract bases
+and interfaces are excluded. The class name is built from the `Vendor_Module → Vendor\Module`
+convention (limitation: a module whose PHP namespace diverges from its name is missed). The
+`url_filter` is applied to the URL *before* parsing the PHP, so `actions catalog` is cheap.
+CLI: `magequery actions [<url-substr>] [--area]` — greppable `url  class  file` lines
+(frontend default). ~95ms for all frontend actions.
+
+**Lazy di (done):** the di.xml index is built lazily via `OnceLock<DiBuilt>` on `Magento`
+(`di_index()` builds it + collects its diagnostics on first DI query), so `modules` and the
+breadth-only commands no longer pay the ~22ms di parse — `modules` is back to ~16ms (was
+~68ms). The resolver stays eager (cheap: PSR-4 maps only; PHP parsing is lazy). `diagnostics()`
+now returns an owned `Vec` merging index + di (once built); the CLI prints diagnostics *after*
+the command so lazily-built di parse warnings are included.
+
+### `schema` (declarative `db_schema.xml`, static, done)
+
+Tables read from each module's `etc/db_schema.xml` — Magento's **declarative schema** source
+of truth since 2.3 — so this is fully static (no DB; fits the no-bootstrap promise). Another
+`SchemaIndex` in `breadth.rs`, built lazily (`OnceLock` on `Magento`), parsed in parallel via
+the shared `read_parse`, merged in load order.
+- `parse::db_schema_xml` → `Vec<RawTable>` with exact line provenance. The subtlety: a
+  `<column>` directly under `<table>` is a **definition** (carries `xsi:type`), but a
+  `<column>` inside a `<constraint>`/`<index>` is a **reference** (only `name`) — routed by
+  tracking the current `in_constraint`/`in_index` context. That context is opened only on a
+  `Start` event, never an `Empty` one, so a self-closing foreign `<constraint/>` (no `End`)
+  can't capture the following table's columns. `xsi:type` matched namespace-prefix-agnostically.
+  Two unit tests lock these two edge cases.
+- Merge (`SchemaIndex::build`): tables keyed by `name`; within a table, columns by `name`,
+  constraints/indexes by `referenceId` — last-wins, `disabled="true"` removes (a whole table
+  too). A module can add columns/constraints/indexes to **another module's** table; each
+  merged item keeps the **adding** module's `Source`. Table-level attrs are last-wins; the
+  table `Source` keeps the first declaration.
+- `Magento::schema(name_substr?)` (list, sorted) + `Magento::table(name)` (one, exact, full).
+  CLI `magequery schema [<table>]`: exact name → full DDL-ish view (columns with
+  `type(len)`/`unsigned`/`NULL`/`auto_increment`/`default`, constraints incl. FK `→
+  refTable(refCol) ON DELETE …`, indexes); otherwise a name-substring **list** (`name  N cols
+  # loc`); no arg lists all. Columns added by a **different** module than the table's are
+  tagged `← Vendor_Module` — the payoff of cross-module merge. Validated on the 2.4.8 store: 545
+  tables; `sales_order` shows 152 columns merged from 8 module files, each third-party
+  extension column attributed (`← Magento_Paypal`, `← Billink_Billink`, …); FKs/indexes/types
+  exact; ~20ms.
+
+### `extension-attributes` (extension_attributes.xml, static, done)
+
+Who bolts what onto which API data interface — the mechanism behind the generated
+`…Extension` classes. An `ExtAttrIndex` in `breadth.rs` (lazy, parallel `read_parse` over
+`etc/extension_attributes.xml`). `parse::extension_attributes_xml` captures per attribute:
+`code`, declared `type` (class or `[]`-suffixed scalar), the gating ACL `<resources>`, and
+the `<join>` spec (reference table/fields — the auto-join repositories perform). Merge:
+keyed `(for, code)`, last declaration wins wholesale, each attribute keeps the **adding**
+module's `Source` — the point: `ProductInterface` is extended by inventory, bundle,
+downloadable, configurable, sales-rule, … . `Magento::extension_attributes(filter?)` +
+`extended_type(name)`. CLI `magequery extension-attributes [<type>]`: exact type → the
+full set (`code  type  ← Vendor_Module  # loc`, plus dim `acl:`/`join:` lines); substring
+→ matching types with counts; no arg → all. Validated on commerce-store: 43 extended
+types; ProductInterface = 9 attributes from 6 modules, stock_item's ACL gate shown; the
+magento_bulk join renders.
+
+### `schema --db` (schema drift vs the live database, done)
+
+The schema half of "is this environment in sync with the code" (`patches --pending` is the
+other half): `magequery schema --db` compares the merged declarative schema **and the
+`db_schema_whitelist.json` union** against `information_schema`. Four sections, by
+severity:
+- **declared but missing live** (red) — what `setup:upgrade` would create;
+- **whitelisted but no longer declared** (red) — the declarative system owns these, so
+  `setup:upgrade` would **DROP** them: the pending-destructive-change detector;
+- **declared but not in any whitelist** (yellow) — `generate-whitelist` wasn't run, so a
+  future removal would be inert. Real upstream findings: mage-os's
+  `email_template.is_legacy` and the tfa_* columns ship unwhitelisted;
+- **live but unmanaged** (yellow) — legacy install scripts / non-declarative modules;
+  declarative schema won't touch these.
+
+Runtime-managed tables are excluded and counted (`is_runtime_table`): mview `*_cl`
+changelogs, `*_replica`, flats, `*_index_store*` dimension tables, `sequence_*`, and the
+framework's bookkeeping (`setup_module`, `patch_list`, `cache`, `cache_tag`, `flag`,
+`session`) — checked **before** the whitelist, mirroring Magento's diff ignore-list (MSI's
+whitelists infamously include `patch_list`; it still never gets dropped). Presence-level
+only by design — type/nullability comparison is where the false positives live.
+`Magento::schema_drift() -> SchemaDrift`; `schema <table> --db` appends per-table drift
+markers ("live schema matches" / missing / unmanaged columns) under the DDL view. ~45ms.
+
+### `catalog-attributes` (etc/catalog_attributes.xml, static, done)
+
+Which attributes Magento loads in each context group (`quote_item`, `wishlist_item`,
+`catalog_product`/`catalog_category` collections, `unassignable`, …) — the "why isn't my
+attribute available on the quote item" surface. A `CatalogAttrIndex` (lazy, `read_parse`),
+attributes unioned per group with the **adding** module's `Source` (Sales adds
+`special_price` to `quote_item`, extensions add their own). CLI
+`magequery catalog-attributes [<group>|<attribute>]`: no arg → groups with counts; an
+exact group → its attributes with `← module` provenance; anything else is an **attribute**
+search showing every group containing it (`catalog-attributes special_price` → 2
+occurrences with who added each).
+
+### `fieldset` (etc/fieldset.xml — the object-copy map, static, done)
+
+Why a custom quote-item field never reaches `sales_order_item`. `Magento\Framework\
+DataObject\Copy` drives entity conversion from `etc/fieldset.xml`
+(`<scope id><fieldset id><field name><aspect name= targetField=>`), and it is merged
+config like everything else here: a `FieldsetIndex` (lazy `OnceLock`, parallel
+`read_parse`, global) keyed `(scope, fieldset id)`; fields merge by name with the first
+declaration owning `Source`; **aspects merge by name individually**, each keeping the
+module that declared *it* — the payoff, since core declares the field and another module
+often declares the aspect that carries it (validated: `customer_account.dob` is
+Magento_Customer's, its `to_quote → customer_dob` aspect is Magento_Sales').
+`parse::fieldset_xml` attaches `<aspect>` to the enclosing `<field>` and only a
+non-self-closing `Start` opens one, so a bare `<field/>` cannot swallow the next field's
+aspects (the db_schema column-reference pattern; two unit tests lock it).
+
+`Magento::fieldsets(filter?)` / `fieldset(id)` / `fieldset_field(name)` (exact hits, else
+substring). CLI `fieldset [<id>|<field>]`: no arg → every fieldset with field/aspect
+counts; exact id → fields with `← module` and each aspect (`to_order_item → qty_backordered
+← Magento_Quote`), a field with **no aspect** flagged red (declared but never copied);
+anything else → a field search across all fieldsets, the reverse lookup. Validated on the
+proforto store: 24 fieldsets, exactly matching a grep of the 15 `etc/fieldset.xml` files
+(the `sales_convert_quote_item` in magento2-base is a *test fixture* and correctly absent);
+line provenance verified by hand; ~18ms.
+
+### `templates`: PHP bindings (the other half of "who uses this")
+
+Layout XML is only one way a template is used, so `templates` counting only layout ops
+made a PHP-bound template read as dead code. Two changes: the count is labelled
+**`N layout.xml use(s)`** (the qualifier travels with the number), and
+`Magento::template_php_usages(reference)` reports the PHP half — `php::template_binds`
+classifies each string literal as `$_template` / `setTemplate()` / bare `Mention` by
+looking *back* from the literal, over the enabled modules' PHP in parallel. It searches
+the full `Vendor_Module::path.phtml` **and** the bare relative path (the short form a
+block in the owning module may write), where a short-form hit only counts inside the
+reference's own module, so another module's `order/detail.phtml` is never miscredited
+(rendered `as '<short>'`). Deliberately **not** folded into `template()`: it greps the
+module trees, and `template()` is on the LSP's hover/definition path. The CLI prints a
+`bound in PHP:` section, says "rendered from PHP, not layout XML" when layout uses are
+zero, and only claims dead code when **both** halves are empty.
+
+### Cross-area hint on a miss
+
+`layout`/`templates`/`ui-components` default to one area, and a miss there used to be a
+bare error even though the index already knew where the thing lived. `other_area_hint`
+probes the other presentation area (base folds into frontend, so the two are the whole
+space) and appends "Found in adminhtml — pass `--area adminhtml`".
+
+### `system-config` (admin settings map from `adminhtml/system.xml`, static, done)
+
+The inverse of `config`: `config` resolves a path's **value**; `system-config` says **where
+that path lives in the admin** (Stores → Configuration → tab → section → group → field) and how
+it behaves. A `SystemConfigIndex` in `breadth.rs`, lazy (`OnceLock`), parsed in parallel via
+`read_parse` over `etc/adminhtml/system.xml`, merged in load order.
+- `parse::system_xml` walks the tab/section/group/field tree. The leaf values (`<label>`,
+  `<tab>` ref, `<resource>`, `<source_model>`/`<backend_model>`/`<config_path>`) are **text**,
+  not attributes, so a `SysText` target enum routes each text run to the innermost open
+  element. Top-level `<tab id=>` (a tab definition) is told apart from a section's `<tab>id
+  </tab>` (a reference) by the presence of the `id` attribute. Line provenance per field.
+- Merge (`SystemConfigIndex::build`): tabs by id, sections by id, groups by id within a
+  section, fields by id within a group — **merge-non-empty** (a later module may only tweak a
+  field, e.g. add a scope, without re-stating label/model), so labels/models carry forward.
+  Breadcrumb labels are resolved at flatten time (`fields()`), so a field keeps the right
+  section/group/tab label even when a *different* module declared those. Config path =
+  `section/group/field` unless the field's `<config_path>` overrides. Scopes from
+  `showInDefault`/`showInWebsite`/`showInStore`. Each field tagged with the **declaring**
+  module's `Source`.
+- `Magento::system_config(filter?)` — filter matches the config path **or** the label (so you
+  can find a setting by its human name without knowing the path). CLI `magequery system-config
+  [<filter>]`: greppable `path  Tab > Section > Group > Field  [scopes]  # loc`; hidden
+  config-only fields (no label) fall back to the field id. Validated on the 2.4.8 store: 2656
+  settings; `web/unsecure/base_url → General > Web > Base URLs > Base URL [default, website,
+  store]`; cross-module section/group labels resolve (e.g. a third-party delivery method under
+  `Sales > Delivery Methods`); ~find by label works (`"sort order"`).
+
+### `menu` (admin menu tree from `adminhtml/menu.xml`, static, done)
+
+The admin sidebar as data: *where does an admin page live, what route does it open, which
+ACL resource guards it.* A `MenuIndex` in `breadth.rs` (lazy, parallel `read_parse` over
+`etc/adminhtml/menu.xml`), shaped like `AclIndex` with one structural difference: parents
+come from the **`parent` attribute**, not nesting, and declarations are **ops** —
+`parse::menu_xml` yields `Upsert` (`<add>`/`<update>` merge identically for us:
+attribute-level upsert, the title-giver owns `Source`) and `Remove` (deletes the id;
+validated live: CurrencySymbol removes `Magento_Backend::system_currency` and replaces
+it). An item whose parent doesn't exist is treated as a root so nothing silently vanishes.
+Children by (`sortOrder`, id); pre-order DFS for the tree. `Magento::menu(filter?)`,
+`menu_item(id)`, `menu_ancestors(id)`, `menu_children(id)`.
+
+CLI `magequery menu [<item>]`: no arg → the whole tree indented by depth (`id  Title
+action  # loc`); substring → flat list (matches id or title); exact id → detail with the
+breadcrumb (`Catalog → Inventory → Products`), action, the guarding ACL resource with a
+`→ magequery acl <id>` cross-link (the loop with `acl`/`system-config`), dependsOn
+module/config, and children. Validated on mageos-lite: 76 items, tree exact, the remove
+case, filter by title.
+
+### `acl` (admin permission tree from `acl.xml`, static, done)
+
+The inverse lookup for the `<resource>` ids that `webapi` and `system-config` already print:
+*where does `Magento_Sales::actions_view` sit in the admin permission tree, what does it grant,
+who declares it.* Another lazy `AclIndex` (`OnceLock`) in `breadth.rs`, parsed in parallel via
+`read_parse` over `etc/acl.xml` (a **global** file — `read_parse(Area::Global, …)` — though
+each resource's `Source.area` is tagged `adminhtml`, its domain), merged in load order.
+- `parse::acl_xml` walks the nested `<resource>` tree with a **stack of enclosing ids**, so each
+  resource records its `parent` (from nesting), `title`/`sortOrder`/`disabled` (attributes, not
+  text — simpler than `system.xml`), and line. Only a non-self-closing `Start` pushes the stack,
+  so a leaf `<resource/>` can't capture following siblings. Two unit tests lock nesting + the
+  anchor-restatement case.
+- Merge (`AclIndex::build`): resources keyed by id, **merge-non-empty** — a later file re-states
+  ancestors as bare path anchors (no title) only to attach a child under another module's
+  resource, so title/sortOrder carry forward and the module that gives the **title** owns the
+  `Source`. After merge, children lists are built from the parent pointers (sorted by
+  `sortOrder` then id) and the whole forest is flattened to a **pre-order DFS** `order` for
+  stable tree rendering. Cycle-guarded (malformed parent loops can't hang the DFS/breadcrumb).
+- `Magento::acl(filter?)` (tree pre-order, or id/title substring matches), `acl_resource(id)`,
+  `acl_ancestors(id)` (breadcrumb), `acl_children(id)`. CLI `magequery acl [<resource>]`: exact
+  id → detail (the resource + its `Magento Admin → … →` breadcrumb + the sub-resources it
+  grants, all with provenance); substring → flat aligned list; no arg → the whole tree, indented
+  by depth. Validated on mageos-lite: the Sales permission tree renders nested with exact lines;
+  `acl Magento_Catalog::products` resolves the very resource `webapi /V1/products` cites
+  (`→ Catalog → Inventory`, grants `update_attributes` + …) — the loop the command closes.
+
+### `commands` (console commands from di.xml, static, done)
+
+"What custom `bin/magento` commands does this codebase add?" — a projection over the DI
+index, not a new parser. Modules register commands as items of the `commands` array argument
+on **either** `Magento\Framework\Console\CommandListInterface` (most) **or** the concrete
+`CommandList` (e.g. Magento_EncryptionKey); Magento unions them because argument config
+merges along the class hierarchy (`Relations` = parents + interfaces). `console_commands()`
+mirrors that: resolve the preference (declared in `app/etc/di.xml` — why the primary-config
+merge above was a prerequisite) → `args_of(concrete)` (whose ancestor walk pulls in the
+interface's args) → expand the array items, each with per-item provenance.
+
+The **actual CLI name** (`cache:clean` — the item key is just a merge identity) is extracted
+from the command class by `php.rs::command_info`: a token scan for `setName(…)`/
+`setDescription(…)` (incl. the `__('…')` translation wrapper), Symfony's `$defaultName`/
+`$defaultDescription`, and `parent::__construct('…')`; values may be literals, `self::CONST`,
+or `$this->prop` — consts/property-defaults are collected from the file and, when the
+reference isn't local, resolved via the **ancestor files** (`resolver::command_info`). A
+`\Proxy` class suffix (generated lazy wrapper, absent on a fresh checkout) is stripped to
+read the real class. Only whole-argument values count (a concatenation like
+`$this->prefix . 'x'` stays unknown → the CLI falls back to the dimmed `(item_key)`).
+Round-trip unit tests in `php::command_tests`. Limitation: commands registered via
+`cli_commands.php`/`CommandLocator` (a handful of framework ones: `maintenance:*`,
+setup's) have no di.xml declaration and aren't listed.
+
+CLI `magequery commands [<filter>]` (filter matches name/class/item key, case-insensitive):
+2 lines per command — `name  description` / `class  # di.xml:line`. Validated on
+mageos-lite: 64 commands, every name resolved (incl. `$this->commandName` property
+indirection in Indexer's dimension commands and the four MessageQueue `\Proxy` entries);
+`encryption:*` proves the interface+concrete union. ~20ms (di parse dominates).
+
+### `indexers` (indexer.xml + mview.xml, static + `--db` status, done)
+
+The "why isn't this index updating" surface: indexer definitions joined with the tables
+whose changes feed them. An `IndexerIndex` in `breadth.rs` (lazy `OnceLock`, parallel
+`read_parse`, both files global):
+- `parse::indexer_xml` — `<indexer id= view_id= class= shared_index=>` with `<title>`/
+  `<description>` text children and `<dependencies>`. The subtlety (same shape as
+  db_schema's column-reference case): an `<indexer>` inside `<dependencies>` is a
+  *reference* to another indexer, not a definition — routed by an `in_dependencies` context
+  opened only on a `Start` event. Unit tests lock it.
+- `parse::mview_xml` — `<view id=><subscriptions><table name= entity_column=/></…>`. Only
+  the id (join key) + subscriptions are read.
+- Merge: indexers keyed by id, merge-non-empty (a later module may re-state one to override
+  its class or **add dependencies** — e.g. Elasticsearch adds three deps to
+  `catalogsearch_fulltext`); dependencies union; `source` keeps the first declaration.
+  View subscriptions merge by table name, each keeping the **adding** module's `Source`.
+  Join `indexer.view_id → view` at build time.
+- `Magento::indexers(filter?, include_db)` (id/title substring) +
+  `Magento::indexer(id, include_db)` — with `include_db`, each `Indexer` carries an
+  [`IndexerLive`]: `indexer_state.status` (valid/invalid/working/suspended), update mode
+  from `mview_state.mode` (enabled = by schedule, disabled = on save), the view's own
+  status, and the **backlog** — mirroring `IndexerStatusCommand`'s exact semantics,
+  `COUNT(DISTINCT entity_id) FROM <view_id>_cl WHERE version_id > state.version_id`
+  (changelog table names identifier-sanitized; a missing `_cl` table — created lazily on
+  first subscribe — degrades to `None`, as does a missing state row: rendered honestly as
+  "(no state row)", the flat indexers' normal state on installs that never enabled flat).
+
+CLI `magequery indexers [<id>] [--db]`: exact id → detail (title, description, class, view,
+`status valid · by schedule · backlog 0 (updated …)` with `--db`,
+`shared` + the other indexers sharing that physical index, `depends on`, and the
+subscription list with cross-module `← Vendor_Module` tags); substring → filtered list;
+no arg → all (`id  Title  N tables  [live tag]  # loc`; invalid/suspended/backlog>0 red,
+working yellow, backlog shown only in schedule mode). Validated on mageos-lite: 12 indexers;
+`catalog_product_price` shows `catalogrule_product_price ← Magento_CatalogRule`; the
+`category_product` shared-index pair cross-references; deps exact; `--db` joins all
+scheduled views with backlog 0 (~33ms). Commerce-store: 13 indexers all `on save`;
+clean `Error::Db` + exit 1 when the DB is down. ~3ms static.
+
+### `queue topology` (message-queue wiring, static, done)
+
+The static half of the queue story (`queue info` = the env.php connections): *when code
+publishes topic X, which queue does it land in and who processes it* — joined from four
+global files in an `MqIndex` (lazy `OnceLock`, parallel `read_parse`):
+- `communication.xml` → topics + handlers (`parse::communication_xml`); topics merge by
+  name, handlers by name **attribute-level** (like plugins — `disabled` is `Option<bool>`
+  so a later `<handler name=… disabled="true"/>` keeps the class).
+- `queue_consumer.xml` → consumers by name, merge-non-empty (`connection` is optional —
+  Magento defaults amqp with db fallback at runtime; reported, not resolved).
+- `queue_topology.xml` → exchanges keyed **(connection, name)** (same exchange name on
+  amqp and db = two exchanges; connection absent ⇒ XSD default `amqp`), bindings by id.
+- `queue_publisher.xml` → publishers by topic; `<connection>` children merged by name,
+  flattened to the one enabled connection. Also parses the **direct `queue=` shorthand**
+  (`<publisher topic=… queue=…/>`, in this codebase's publisher.xsd) — most core modules
+  use it.
+
+`Magento::queue_topics(filter?)` (list) + `Magento::queue_topic(name)` → `MqTopicRoute`:
+topic + publisher + routes, where each route = one **queue**, every `via` leading to it (the
+publisher's direct `queue=` and/or each enabled binding whose **AMQP pattern matches** —
+`topic_matches` implements `.`-word semantics, `*` = one word, `#` = zero+, unit-tested),
+and the queue's consumers (joined by queue name). A topic declared only in
+queue_publisher.xml still routes (stub topic, empty handlers). CLI: `queue topology`
+(list: `topic  → queue(s)  (N handler, M consumer)  # loc`), exact topic → detail
+(request/response/schema, handlers, `publishes to exchange`, per-queue `via …` lines +
+consumers, red flag when **no consumer reads a queue** or no route exists). Validated on
+mageos-lite: sales_rule.codegenerator routes to queue `codegenerator` via both the direct
+publisher and its binding on exchange magento (amqp), consumer joined; ~3ms.
+
+### `queue backlog` (live message counts, done)
+
+The runtime half: *is anything stuck in the queues.* `MqIndex::queues()` = every queue
+the static config knows (consumer `queue=`, publisher direct `queue=`, binding
+destinations) with its consumers; `Magento::queue_backlog()` (db feature) joins that with
+the **MysqlMq driver tables** — `queue` (names; populated at setup:upgrade) +
+`queue_message_status` counts grouped by status (constants verified from
+`MysqlMq\Model\QueueManagement`: 2 new, 3 in-progress, 4 complete, 5 retry, 6 error, 7
+to-be-deleted; 4+7 collapse to `done` = cleanup pending), plus the oldest waiting
+(new/retry) message's age on the DB clock. **MySQL (db) queue driver only** — three
+honesty cases: a static queue absent from the `queue` table → `in_db: false` ("amqp-only,
+or setup:upgrade pending" — the broker's backlog isn't inspectable without an AMQP
+client, which we deliberately don't ship); a DB queue no static config references →
+`orphaned` (removed module's leftover); and when **env.php configures an amqp
+connection**, a stderr note warns that the counts cover only the db driver — a queue can
+hold rows in MySQL while its real traffic flows through RabbitMQ, so zeros there are not
+proof of an empty queue (both dev stores configure amqp; the note fires on both). CLI `magequery
+queue backlog`: `queue  N waiting  N in progress  N retry  N error  [N done]  [oldest
+waiting 3h]  → consumers` — zeros dim so nonzero pops, errors red, oldest-waiting red past
+1h, red "(no consumer reads this queue)" only when messages are actually waiting; summary
+`N queue(s) · M waiting · K error(s)`. Validated on mageos-lite (10 queues) and
+commerce-store (23, incl. MSI/media queues), consumers joined, all zero-backlog (idle dev
+stores — no publishes happen); down-DB errors cleanly. Real message rows await a live
+shop.
+
+### `info` + fact commands (the everyday facts, done)
+
+`magequery info` — one screen for "what am I looking at": Magento **version** (from the
+product package in `installed.json` — `*/product-enterprise-edition` →
+`*/product-community-edition` → `*/magento2-base`, first hit; the package name also tells
+the distribution apart), **deploy mode** (`env.php` `MAGE_MODE`; absent = "default"),
+**maintenance** (`var/.maintenance.flag` + exempt IPs from `var/.maintenance.ip`),
+**base URLs**, **admin URL**, the **frontend stack**, and — the sys:info parity set — **search engine**
+(`catalog/search/engine`), **db** (dbname @ host/socket + table prefix, credentials
+deliberately omitted from this paste-into-a-ticket view), **session** and **cache**
+one-liners (reusing the env.php extractors; an empty backend class renders as the implicit
+`file` default), the **store hierarchy** (websites → stores/groups → store views, counted from the live
+DB when reachable — `db::fetch_scope_counts` — else from `config.php`'s `scopes` node when
+the config is dumped; the synthetic admin scopes are excluded either way; unknown levels
+are skipped, never guessed), the **checkout stack** (a curated package map — Hyvä Checkout, Loki
+Checkout (`loki-checkout/magento2-core` matched before the vendor prefix so the version is
+core's, not an add-on's), Firecheckout, Mageplaza OSC, OneStepCheckout, Bold — then a
+generic "any non-core package named *checkout*" fallback reported verbatim; nothing found
+renders as "default (Luma)". Hyvä Checkout additionally exposes *which* checkout is
+selected — `hyva_themes_checkout/general/checkout`, read through the same ConfigSet:
+`default` = the Magento/Luma original is still active, rendered "installed, not selected";
+any other value is the chosen namespace, shown verbatim as "(active: …)" — installed ≠
+selected. Theme values may be stored in the full-path form (`frontend/Hyva/default`, as
+found live on commerce-store); the leading area segment is normalized away before
+classification/ancestry matching),
+**module counts split vendor / app/code**, the **composer package count**, the
+**install date** (`env.php` `install/date`), **locale · currency · timezone**, the
+**search host** (`catalog/search/<engine>_server_hostname`), the **FPC application**
+(built-in vs varnish, on the cache line), the **queue endpoint**, and **cron health** —
+seconds since the last successful `cron_schedule` run, computed with the DB server's own
+clock (`TIMESTAMPDIFF`, no client-side time): green under 15 minutes, red "STALE" beyond,
+red "no successful runs recorded" when the table has none; the line is skipped when the DB
+is unreachable (unknown ≠ alarming).
+
+Rendering: rows go through `info_row` (labels padded *plain* then dimmed, so escape codes
+don't break alignment; values carry the color), grouped into blank-line-separated blocks —
+identity / web / stack (frontend, checkout, search) / infra (db, session, cache, queue,
+cron) / content (stores, modules, packages).
+
+Frontend detection (`theme`/`frontend`/`frontend_version`): the active theme =
+`design/theme/theme_id` (default scope; a numeric id is resolved — and its ancestry
+walked — via the DB `theme` table through `db::fetch_themes`; a path string works without
+it), falling back to the DI default (`Magento\Theme\Model\View\Design`'s
+`themes['frontend']` argument — what Magento itself uses when nothing is configured). The
+chain is classified: any `Hyva/*` ancestor → Hyvä (version from the
+`hyva-themes/magento2-default-theme` package), `*breeze*` → Breeze (swissup packages),
+`Magento/luma`/`Magento/blank` → Luma/Blank; an unclassified path renders as "(custom
+theme)". Two honesty rules: when only packages identify the stack (active theme
+unresolvable) the CLI says "(installed; active theme unknown)", and the DI default is NOT
+trusted when the DB is unreachable while Hyvä/Breeze packages are installed — the real
+theme row is invisible and "Luma" would be a confident wrong answer on a Hyvä shop. Unlike the `--db` commands, `info`
+**always tries the database** (base URLs usually live only in `core_config_data`) and
+degrades to the static sources when unreachable — `InstanceInfo.db_error` records why and
+the CLI prints a stderr note; the fail-fast TCP pre-check keeps the down-DB case at ~50ms.
+Admin URL mirrors Magento: base = `admin/url/custom` when `use_custom`, else the first
+*concrete* base URL (secure preferred, never a `{{base_url}}` placeholder = auto-detect);
+path = `custom_path` when `use_custom_path`, else `env.php` `backend/frontName`.
+`installed.json` parsing also extracts each package's `version` (kept on `PackageMeta`).
+Every env-derived field degrades to `None` on a fresh checkout with no `env.php`.
+
+**Fact commands** — script-friendly single values, all views of `info()`: `mode` (prints
+`developer`/`production`/`default`), `maintenance` (`on`/`off`), `base-url [--secure]`,
+`admin-url`. Bare value on stdout; when the value isn't concrete (placeholder base URL, no
+frontName) they exit non-zero with the reason — incl. the DB error when that's why — so
+scripts can branch. Validated on mageos-lite against its live MariaDB (full URLs resolve
+with no flags) and on a synthetic root with an unreachable DB (static fallback + note,
+`admin-url` exits 1, maintenance flag + IPs read).
+
+### `graphql` (schema types → resolvers, static, done)
+
+`magequery graphql [<Type>|<Type.field>]` — the GraphQL schema as Magento actually
+assembles it, with every field mapped to its `@resolver` class. `graphql.rs` is a focused
+hand-written SDL parser (own module, like `php.rs` — no parser crate): a lexer (commas =
+whitespace per spec, `#` comments, `"…"`/`"""…"""` strings unescaped — the `\\Magento…`
+FQCNs in directive strings become real backslashes, then `ClassName::new` normalizes the
+leading one) + tolerant recursive descent over type/interface/input/enum/union/scalar
+definitions, field args with defaults, and directives. `extend type X` is treated as a
+plain re-declaration (the merge unions it — also how Magento's stitching reader treats
+re-declared types); `schema {}` and `directive @x on …` *definitions* are skipped. The
+subtle bugs are greedy name lists: `union A = B | C` members and `implements A & B` names
+are only consumed behind an explicit `|`/`&`, else a bodiless definition would swallow the
+next definition's keyword. Unit test locks all of it.
+
+`GqlIndex` (lazy, parallel `read_parse` over `etc/schema.graphqls`, `Source.area` tagged
+Graphql): types merge by name — implements/enum-values/union-members union, `@typeResolver`
+and `@doc` overwrite-when-present, **fields union by name** (a re-declaration replaces,
+last module wins, and keeps the declaring module's provenance — the point: `Query` is
+assembled from dozens of modules). Extracted per field: `@resolver(class:)`, `@doc`,
+`@deprecated(reason:)`, `@cache(cacheable:)`. `Magento::graphql_types(filter?)` +
+`graphql_type(name)`.
+
+CLI: list = `Name  kind  N fields  # loc`; exact type → detail (description, implements,
+`@typeResolver`, then fields as `name(arg, names): Type` with the `@resolver` line,
+cross-module `← Vendor_Module` tags, red `[deprecated: reason]`, dim `[not cacheable]`);
+`Type.field` → one field with fully-typed args. The di join: each shown resolver is run
+through `preference()` and a redirect renders as `→ preference Concrete` — what you'd miss
+reading the schema alone. Validated on mageos-additive-boot (45 schema files, 415 types):
+`Query` = 36 fields from ~15 modules each correctly attributed; `ProductInterface` = 53
+fields incl. Inventory/GiftMessage additions; the `extend type ShippingCartAddress` case
+merges; enum/union/field views exact. List ~10ms; type detail ~23ms (builds the DI index
+for the preference join).
+
+### `doctor` (cross-index lints, done)
+
+`magequery doctor [--source app|vendor]` — everything the merged config references that
+doesn't exist, structural breakage, and probably-forgotten wiring. Pure projection over the
+existing indexes (~90–140ms); exits 1 on **errors** only, so warnings can't fail CI.
+`doctor.rs` in core, `Magento::doctor(source?) -> DoctorReport` (typed `DoctorLint` +
+`Severity` per finding, provenance where there is one).
+
+**Errors** (break at runtime): preference targets / virtualType bases / plugin classes /
+di argument objects / observer instances / cron instances / webapi services / console
+commands / mq handlers+consumers / GraphQL resolvers referencing **missing classes**;
+webapi `<resource>` ids no acl.xml declares; preference/virtualType/`<sequence>` cycles;
+`in_config_not_on_disk` modules. **Warnings**: `on_disk_not_in_config` modules
+(setup:upgrade drift), queues no consumer reads, and the **unregistered-code** lints —
+classes under `Console/`/`Observer/`/`Plugin/` that are concrete, match their base type
+(Symfony Command / ObserverInterface / has `before*`/`around*`/`after*` methods) and are
+wired **nowhere**. `--source` restricts only these scans; candidates are verified by
+resolving the conventional class name back through PSR-4 to the same file (namespace-
+diverging modules are skipped, never misreported).
+
+The false-positive war is the design (doctor must not cry wolf) — `class_known` accepts:
+global-namespace names (PHP built-ins like `DateTime`), virtual types, generated code
+(`\Proxy`/`\Interceptor`/`…Factory` verified against their base; `…Extension[Interface]`
+as-is), and **namespaces no autoload prefix covers** (classmap packages are unverifiable
+from installed.json). "Registered" sets are widened by virtual-type bases (Sales registers
+grid observers as virtualTypes), ancestors of registered classes, and **any class
+referenced anywhere in DI** (preference targets — how Elgentos swaps in its
+GenerateVclCommand — and argument objects). Building doctor also drove two resolver fixes:
+**PSR-0 support** (`Cm\RedisSession` — session save handler classes) and the **root
+composer.json autoload** (`Magento\Setup\`, and the whole framework on git checkouts).
+
+Validated on mageos-lite (down to 2 errors + 2 warnings, all four *genuine upstream
+Magento bugs/dead code*: the dangling `Magento\Indexer\Model\Handler\DefaultHandler` di
+argument, the `ProductRenderSearchResultsInterface` preference to a nonexistent class,
+`MaxHeapTableSizeProcessorOnFullReindex`, `CouponUsagesDecrement`) and commerce-store
+(caught a real mage-os bug: crontab.xml references `Cron\UpdateRemoteTemplates`, the class
+on disk is `UpdateRemoteTemplateList`; plus genuine Hyvä-modules-not-in-config.php drift).
+A synthetic broken module exercises every lint in one run.
+
+### `patches` (setup patches, static + `--db`, done)
+
+`magequery patches [<filter>] [--db|--pending]` — every `Setup/Patch/Data|Schema` class of
+the enabled modules (what `setup:upgrade` runs). The scan reuses doctor's walker +
+PSR-4-verified class derivation, keeps only concrete classes whose ancestors include
+`DataPatchInterface`/`SchemaPatchInterface` (the dirs also hold helpers), and sorts by
+(module, class). `--db` marks each **applied/PENDING** per the `patch_list` table
+(`patch_name`, leading backslashes normalized; clean `Error::Db` when unreachable) and
+reports **orphaned** applied entries no on-disk class explains (patches of removed modules
+— never silently dropped, stderr note). `--pending` shows only unapplied ones (implies
+`--db`) — the pre-deploy question. `Magento::patches(filter?, include_db)` → `Patches`.
+Validated: 133 patches on mageos-lite / 196 on commerce-store, all applied on both (fully
+upgraded stores), filter and pending modes exact.
+
+### `whatis` (everything about one class, done)
+
+`magequery whatis <Class>` — the aggregate view for "what IS this thing": pure composition
+(`whatis.rs`) of existing queries plus the doctor-style cross-index sweep scoped to one
+class. Sections (empty ones omitted): **identity** — file, kind (class/abstract/interface
+from the header; "virtual type" flagged), owning module (longest module-path prefix of the
+file) + composer package/version (root-ancestor walk over `PackageMeta`), direct
+extends/implements; **DI summary** — `resolves to` (preference redirect), `instantiates`
+(vtype base), plugin/argument counts with a `→ magequery di X` pointer, and the inlined
+`Uses` counts with `→ magequery uses X` (whatis stays scannable; the focused commands are
+the drill-downs); **the sweep** — events it observes, cron jobs, webapi routes, the
+`bin/magento` command name, GraphQL `@resolver`/`@typeResolver` fields, mq topic handlers
++ consumers, and controller URLs (the directory scan only runs when the name contains
+`\Controller\`). Works on virtual types. A real file with **zero references** prints the
+interesting negative: "(no configuration references this class — candidate dead code, or
+wired only in PHP)". Unknown name + no references = `ClassNotFound`. ~30ms warm on lite.
+Validated across every role: mq handler class, preference target, console command,
+observer, controller (URL resolved), virtual type, GraphQL resolver, dead code
+(`CouponUsagesDecrement`).
+
+### `deps` (module dependency graph, done)
+
+`magequery deps <Module>` — both directions, from the two static sources:
+- **`<sequence>`** (module.xml, load-order deps) — already on `Module.sequence`; reverse =
+  every module whose sequence names the target.
+- **composer `require`** — `installed.json` now also yields `name` + `require` per package
+  (`ComposerPackage` grew two fields; `Index` retains a slim `PackageMeta` list). A module
+  finds its owning package by walking its path's ancestors to a package root; each required
+  package maps back to the module(s) it provides. app/code modules aren't in installed.json,
+  so their own `composer.json` is read instead (`read_app_composer`).
+
+Edges dedup by module with `via_sequence`/`via_composer` OR-ed (source = the declaring
+file: module.xml wins when both). Composer edges have composer's granularity (a required
+package bundling several modules ⇒ one edge per module; same-package siblings are not
+edges). Each edge carries `installed`/`enabled` — a `<sequence>` entry naming an absent
+optional module is common and flagged `(not installed)`, never hidden; requires that no
+installed module provides go to `other_requires` (framework, libs, `php`/`ext-*`).
+`Error::ModuleNotFound` (new variant) for an unknown name; the CLI hints at
+`modules | grep -i`. CLI line: `Module  sequence, composer  [(not installed)]  # loc`.
+Validated on mageos-lite (`Magento_SalesRule`: 21 forward — 4 via both sources — 3
+reverse) and a synthetic app/code module (composer.json read, missing sequence target
+flagged). ~4ms; `modules` unaffected.
+
+### `uses` (reverse DI, done)
+
+The flip side of `di`: `di Foo` = "when Magento builds Foo, what does it get"; `uses Foo` =
+"who receives Foo" — the impact-analysis question. A pure inversion of the in-memory DI
+index (`Magento::uses(class, area?)` → `Uses`), no new parsing:
+- **`preferred_for`** — preference entries whose *target* is the class (which interfaces
+  resolve to it), directly (one hop, not transitive).
+- **`virtual_types`** — virtualTypes built on it (`type=` the class).
+- **`injections`** — every constructor argument wiring it in, walking argument trees
+  recursively: `Object` values matching the class **or its generated `\Proxy`** (lazy
+  wrappers count as injections, flagged `via \Proxy`), and `xsi:type="string"` values
+  spelling its FQCN (factory/pool-style registration, flagged `as string` — this is how
+  `RouterList` entries reference router classes, so it matters). Each hit carries the
+  consumer (flagged when itself a virtual type), the argument name + **array-key path**
+  (`$routerList['cms']['class']`), and the item-level `Source`. Whole-value matches only.
+
+Area model: default = the merged union — scan global fully, then each area keeping only
+declarations made **in that area's own files** (`source.area == area`), so global-inherited
+facts aren't repeated per area; each hit's `source.area` is the honest tag. `--area <name>`
+= that area's fully merged config instead. No `--all-areas` (the default is already the
+union). The target may itself be a virtual type (pools inject vtypes; works naturally, and
+`class_known` already treats vtypes as real). Zero hits on an unknown name →
+`Error::ClassNotFound`; on a real class → an honest "(nothing in di.xml references it)"
+note that autowired constructor type-hints have no di.xml declaration (the known scope
+limit: full constructor scanning would break the on-demand-PHP philosophy).
+
+Validated on mageos-lite: `Cms\Controller\Router` → `$routerList['cms']['class']` as
+string, area=frontend; `Session\Storage` → 1 reverse preference + 8 vtypes (incl. per-area
+declarations, each with its own source); a vtype target (`Backend\Model\Session\Storage`)
+resolves its injector. ~19ms (di parse dominates).
+
+### `layout` (layout handles, static, done — first of the FRONTEND group)
+
+`magequery layout [<handle>] [--area]` — which files contribute to a layout handle and
+what they do to the page: the "where does this block come from" question. A `LayoutIndex`
+in `breadth.rs` over **two layers**: every enabled module's `view/{base,frontend,
+adminhtml}/layout/*.xml` (base applies to both areas; merged in load order — Magento's
+real base merge) and every **theme**'s `<theme>/<Vendor_Module>/layout/*.xml`. Themes are
+discovered statically (`discover_themes`): composer packages holding a `theme.xml` — probed
+at the package **root and each `autoload.files` (registration.php) directory**, so a theme
+bundled under a subdir (Hyvä's admin theme `adminhtml/Hyva/commerce` at `src/theme/`) is
+found, not just root-level ones; the recorded dir is the theme's real dir, deduped so a
+normal root-level theme isn't double-counted — same `src/`-bundling trick vendor **module**
+discovery uses (id read from `registration.php`'s `'frontend/Vendor/name'` literal) plus
+`app/design/<area>/<Vendor>/<theme>`. Theme files are listed after modules tagged
+`theme <id>` — theme *application* order depends on the active theme's ancestry (runtime
+state), so it's reported, not resolved. Handle = file stem; all files parsed in parallel.
+
+`parse::layout_xml` flattens each file into **ops** with an enclosing-element stack (only
+`Start` pushes, so self-closing references can't corrupt nesting — unit-tested): `+ block`
+(class, template, `(in parent)`), `+ container`, `~ referenceBlock/Container`,
+`✕ remove` (`remove="true"`), `← update <handle>`, `→ move X to Y`. The index also builds
+the **handle-inclusion graph**: each view lists `includes:` (its `<update>`s) and
+`included by:` (who pulls it in). CLI: no arg → handle list with file counts (102 frontend
+handles on lite); `<handle>` → per-file op stream with per-op `#line`. Known limitation:
+theme `layout/override/` replacement semantics not modeled. Validated: Luma's
+catalog_product_view `<move>`s render under the theme layer; commerce-store's `default`
+handle = 53 files, 12ms.
+
+### `templates` (PHTML files, theme overrides, and layout usages, static, done)
+
+`magequery templates [<Vendor_Module::path.phtml>] [--area]` catalogs every `.phtml`
+under enabled modules' `view/{base,frontend,adminhtml}/templates` trees and every theme's
+`<Vendor_Module>/templates` overrides, then joins them to `template=` assignments from the
+layout index. Short module-layout references (`template="path.phtml"`) normalize to the
+owning module's full reference. No arg lists references with file/use counts; an exact or
+single substring match shows module file, every theme override candidate, and each layout
+handle/block/class use with provenance. Missing files and templates unused by layout XML are
+reported honestly. Theme application depends on active-theme state, so candidates are listed,
+never falsely resolved to one.
+
+### `widgets` (widget types from `etc/widget.xml`, static, done)
+
+What the admin's "Insert Widget" dropdown offers, as data: id, label, the **block class**
+that renders it, and the full parameter set. A `WidgetIndex` (lazy, `read_parse` over
+`etc/widget.xml`, widgets merged by id / parameters by name). `parse::widget_xml` handles
+the two traps: a `<parameter>` inside `<depends>` is a *reference* (the db_schema
+column-reference pattern — never a definition), and `<label>` occurs at widget, parameter,
+AND option level — routed to the innermost open context, option labels ignored. Captured
+per parameter: name, `xsi:type`, `required`, label, `source_model`, `<value>` default;
+plus the widget's `<container>` placements. CLI `magequery widgets [<id>]`: list (`id
+Label  class  # loc`), exact id or single-match substring → detail with the aligned
+parameter table (`name[*] type  Label  source_model  default=`). Validated on mageos-lite
+(9 widgets; products_list = 7 params with requireds, defaults, and Yesno source model
+exact). Unit test locks the depends/options traps.
+
+### `email-templates` (etc/email_templates.xml, static, done)
+
+Transactional templates as data: id (= the value config stores when a template is
+selected), label, type, area, and — the payoff — the **resolved file** and **theme
+overrides**. The declared `file` lives in the *referenced* module's `view/<area>/email/`
+(the `module` attribute may differ from the declaring module; last declaration per id
+wins, since modules re-register each other's templates). Every discovered theme
+(`discover_themes`, shared with `layout`) is probed for `<theme>/<Module>/email/<file>`;
+matches are listed as overrides — which one applies depends on the active theme, so
+reported, not resolved. A declared-but-missing file renders a red `[file missing]`.
+CLI `magequery email-templates [<id>]`: list (`id  Label  file  # loc`, `themed×N` tag),
+exact/single-match → detail with the resolved path and per-theme override files.
+Validated on mageos-lite: 32 templates; `customer_create_account_email_template` resolves
+its module file and Luma's override.
+
+### `translations` (dictionary rows in precedence order, done)
+
+`magequery translations <str> [--locale] [--db]` — every dictionary row for a phrase, in
+Magento's precedence order, **verified from `Framework\Translate` source** before
+building: (1) module `i18n/<locale>.csv` in load order, where at runtime the *current
+request's controller module* additionally loads last and wins the layer — request-scoped,
+not phrase-scoped, so it can't be resolved statically and the CLI prints the caveat when
+module rows conflict; (2) language packs (root `language.xml` probed on composer packages
++ `app/i18n`, filtered by locale code, ordered by `sort_order`; `<use>` inheritance not
+modeled); (3) theme `i18n/<locale>.csv` (parents load first, child wins — which chain
+applies is active-theme state, caveat printed); (4) the `translation` DB table via `--db`
+(store_id shown). **The `_addData` twist is modeled**: an identity row (`key == value`)
+*deletes* earlier translations — rendered red "(identity row — deletes earlier
+translations)", and the effective-value fold honors it, ending in "(untranslated — the
+phrase renders as-is)" when a reset lands last. `parse::i18n_csv` is a real CSV state
+machine (quotes, `""` escapes, multiline values, legacy extra columns ignored;
+unit-tested). Locale defaults to the configured `general/locale/code`. Exact phrase (or a
+single substring hit) → the layered view with `← effective`; multiple hits → key list.
+Validated synthetically: module load-order layering, theme override winning, and an
+identity row deleting an earlier module's translation.
+
+### `ui-components` (admin grids & forms, static, done — completes the FRONTEND group)
+
+`magequery ui-components [<name>] [--area]` — the "which module added this column to
+sales_order_grid" surface: every `view/{base,frontend,adminhtml}/ui_component/<name>.xml`
+of the enabled modules (base applies to both areas) plus theme overrides
+(`<theme>/<Vendor_Module>/ui_component/`, via the shared `discover_themes` — reported
+after modules, application depends on the active theme). Component name = file stem; only
+*direct* children of `ui_component/` count (Magento_Ui's `ui_component/etc/definition/`
+holds component *type* definitions, excluded by the non-recursive listing; magento2-base
+test fixtures never appear because only enabled modules are scanned). A `UiComponentIndex`
+in `breadth.rs` (lazy `OnceLock`, parallel parse), shaped like `LayoutIndex`: per (area,
+name) → contributions per file, honest per-file streams rather than a synthetic merge.
+
+`parse::ui_component_xml` exploits that the XML is **open-vocabulary** — the element name
+IS the component type and Magento merges by `(element, name)` — so any element with a
+`name` attribute is a node, EXCEPT inside `<argument>` (config-data trees; `<item name=>`
+is a key) and inside `<settings>` (semantic config; `<param>`/`<option>`/`<link>` all
+carry `name`), where only `<button>` is still real. `<settings>` children
+`label`/`disabled`/`visible` are routed to the enclosing node through at most one
+`<settings>` hop (a button's `<label>` is direct; an `<option><label>` is correctly NOT —
+unit-tested). Captured per node: element, name, `class=` (PHP), `component=` (JS),
+`formElement=`, `sortOrder=`, nesting depth + parent. Root element = the component kind
+(`listing`/`form`).
+
+CLI: list = `name  kind  N file(s)` (default area adminhtml, `--area frontend` for the
+widget grids); exact name or single-match substring → per-file node **tree** (indented by
+depth, mirroring the XML): `element name  "label"  \Class  formElement=  js=  so=` with
+red `✕ disabled` (removed on merge), yellow `[hidden]` (`visible=false`), per-node
+`#line`. Validated on mageos-lite (50 adminhtml components; sales_order_grid's full
+toolbar/massaction/columns tree with hidden flags exact; product_form = 4 modules,
+CatalogInventory's dynamicRows nesting + disabled template fields exact) and
+commerce-store (116 components, ~30ms; product_listing = 6 modules — InventorySalesAdminUi's
+`salable_quantity` column attributed with class/js/sortOrder). Known limitation: no
+cross-file merge resolution (a later file re-stating a node isn't diffed against the
+earlier one — each file's stream is shown with provenance instead).
+
+### `eav` (attributes: live rows + creator-patch join, static + `--db`, done)
+
+`magequery eav [<attr>|<entity>] [--db]` — "what IS this attribute". EAV attributes are
+runtime rows (`eav_attribute` + friends), so the live data needs `--db`; the hybrid twist
+is the **static join**: an `EavSetupIndex` (`eav.rs`, lazy `OnceLock`, parallel over
+enabled modules' `Setup/` trees via doctor's `walk_php`) scans for literal
+`addAttribute`/`updateAttribute`/`removeAttribute` calls — `php.rs::eav_setup_calls`, a
+token scan (the tokenizer grew a positional variant, `tokenize_at`, for line provenance).
+Entity arg: string literal or a mapped `Class::CONST` (`Product::ENTITY`,
+`ProductAttributeInterface::ENTITY_TYPE_CODE`, customer metadata consts …); attribute code
+must be literal; the props array is parsed shallowly into typed scalars
+(str/num/bool/null/`::class`/other — nested arrays survive as `[…]`). Guards against
+same-named methods (SimpleXML's `addAttribute(name, value)`): adds require an array third
+arg, update/remove a recognizable entity; method *definitions* (EavSetup itself) are
+skipped by a `function` look-back. Unit-tested. Core catalog attributes won't appear —
+Magento installs them from data arrays (`getDefaultEntities`), not `addAttribute`; the
+scan's value is third-party/project attributes (and core patch-era ones: `tax_class_id`,
+gift-message).
+
+DB side (`db.rs`): `fetch_eav_entities` (+counts), `fetch_eav_attributes` (all rows joined
+with entity code + `catalog_eav_attribute`, columns taken by index — 23 cols beat the
+tuple limit), `fetch_eav_sets` (memberships + the entity's total-set denominator),
+`fetch_eav_options` (admin-store labels). `Magento::eav_setup_refs(code?)` (static),
+`eav_entity_types()`, `eav_attributes(entity?)` (aliases: `product`→`catalog_product`, …),
+`eav_attribute_cards(code)` — one card per entity type declaring the code (`name` = 2:
+product + category), each with sets/options/setup-refs; `value_table` computed
+(`<entity_table>_<backend_type>`, honoring `value_table_prefix`; `static` → column on the
+entity table).
+
+CLI dispatch: no query + `--db` → entity types with counts; entity/alias → attribute list
+(`code  entity  type(input)  Label  [user-defined]`); exact code (or single
+substring/label match) → the card: label, `type → value_table` (or "static — column on
+…"), input, scope (`is_global` decoded), required/unique/default, the three **models**
+each run through `preference()` (redirect rendered `→ preference X`; missing class = red
+"(class not found)" — the attribute-page-500 symptom), catalog **flags** (✓ green/✗ dim),
+apply_to, **sets** ("Default (1 of 5 sets · group …)"; red "in none of the N sets" — often
+the whole bug), options (first 12), and `created by`/`modified by` lines from the setup
+join. Without `--db`: the setup-call view alone — list (`+/~/✕ entity code ← module #
+loc`) or per-call detail with the full literal props rendered PHP-style; empty results
+point at `--db`. Validated on mageos-lite (51 product attributes; `tax_class_id` card
+shows scope website, default "2", source model, created-by AddTaxAttributeAndTaxClasses:64
++ modified-by UpdateTaxClassAttributeVisibility:55; `sku` static→entity-table note; vanilla
+`color` correctly flagged red as in-no-set) and commerce-store (66 product attrs; label
+search "tax class" resolves; `gift` single-match → GiftMessage card; unregistered Hyvä
+module's attribute honestly absent from both halves — its patch never ran). ~25ms static,
+~75ms with DB.
+
+### `product` (one product as the DB stores it, live DB, done)
+
+The data-side twin of `eav`: `config`-style scope honesty applied to entity values —
+not "the price is 49.95" but which scope row provides each value and which value table
+it lives in. Pure-live (like `url-rewrites`). `db::fetch_product` gathers everything on
+one connection: the entity row, per-scope EAV values from all five value tables (joined
+with attribute metadata), admin option labels, `tax_class`, websites, MSI
+`inventory_source_item` (keyed by SKU; tolerated absent) + legacy
+`cataloginventory_stock_item`, categories with admin-style breadcrumbs (path components
+past the two roots, names from the category `name` attribute), `url_rewrite` rows, and
+`catalog_product_super_link` both directions. OSS schema (`entity_id`; Commerce `row_id`
+staging out of scope). Label resolution in `to_product`: booleans Yes/No,
+`status`/`visibility` source-model constants (hardcoded faithfully to core), tax classes,
+select/multiselect via the option tables (multiselect splits the id CSV).
+**Scope naming is the `config` convention** — `default` (store_id 0) vs `stores/<code>` —
+because nearly every install has a store view *coded* "default" that must not collide
+with the default scope (the synthetic-DB validation caught exactly this).
+
+**Lookup rule** (SKUs can be numeric, so `<sku|id>` is ambiguous): exact SKU always wins;
+`--id <n>` is the unambiguous entity_id lookup; a numeric positional with no SKU match
+falls back to entity_id (header note "(matched by entity_id — no SKU equals it)"); when
+an exact SKU *shadows* a valid entity_id, a stderr note names the other product and
+points at `--id`. Then SKU substring → list (`sku  id  type  name  [disabled]`, LIMIT+1
+truncation note). `--store <code>` folds each attribute to that store's resolved value —
+`(stores/de)` vs inherited `(default)` tag, honest "(not set here — only: …)" when
+neither row exists. `Magento::product_by_sku/product_by_id/products_like`.
+
+Validated against a **private scratchpad MariaDB** (both dev stores have empty catalogs;
+bougie's mariadbd binaries run a throwaway instance with a synthetic 19-table catalog —
+never touching a shared DB): store overrides per scope, every label kind, NULL value
+rows (rendered `NULL` — a real row stating no value), multi-source MSI incl. out-of-stock
+red, breadcrumbs, a 301 rewrite, variant links, the shadow note, numeric fallback, and
+the `--store` fold all exact. Real-catalog validation joins the live-shop test list.
+
+### `price` (every price of one product, live DB, done)
+
+The "why does the storefront show this price" command — all four price layers side by
+side, sharing `product`'s lookup rule (exact SKU → `--id` → numeric fallback → shadow
+note; the note logic is factored into `shadow_note` using the light
+`product_sku_of_id`). `db::fetch_product_prices` on one connection:
+1. **EAV price attributes** (`price`, `special_price` + from/to dates, `cost`, `msrp`,
+   `minimal_price`) from the decimal+datetime value tables, per scope
+   (`default`/`stores/<code>`), rendered with the shared `ProductValue` machinery;
+2. **tier prices** (`catalog_product_entity_tier_price`): fixed value or `-N%`
+   percentage rows, `ALL GROUPS`/named groups, website `(all)` for website_id 0;
+3. **catalog-rule prices** (`catalogrule_product_price` — the rule engine's materialized
+   ±1-day rows) per date/website/group;
+4. **the price index** (`catalog_product_index_price` — what the storefront reads):
+   price/final/min/max/tier per (website, customer group), `final < price` highlighted
+   green; **zero index rows = red** "product is invisible on the storefront — reindex".
+Header shows `catalog/price/scope` (global vs website) from `core_config_data`.
+Tier/rule/index queries tolerate missing tables (`unwrap_or_default`) — never-reindexed
+installs. Customer-group ids resolve to names via `customer_group`.
+**Composites** — a composite's storefront price derives from its components, so a
+per-component section (`variants` / `associated products` / `selections` by type) lists
+each one's own default-scope price/special and index final range — a `[disabled]` or red
+`not indexed` component explains the parent's min/max. Configurables =
+`catalog_product_super_link`; grouped = `catalog_product_link` type 3; bundles =
+`catalog_product_bundle_selection`, plus the `price_type` attribute in the header
+(`fixed`/`dynamic`) and per-selection price adjustments (`sel 45.00` / `sel 10%` —
+what a fixed-price bundle actually charges). `product` correspondingly grew `varies by` (super attributes, from
+`catalog_product_super_attribute`) and a full `variants (N):` table — each child's SKU,
+its **super-attribute values resolved to option labels** ("Blue / 32" — which variant it
+IS), legacy stock qty + in/out-of-stock, and `[disabled]`. Grouped products get the same
+table as `associated products (N):` with the **default add-to-cart qty** from the link
+attributes (`catalog_product_link` type 3 — up-/cross-sells correctly excluded); bundles
+get a `bundle options (N):` tree — per option the title (store-0), input type,
+required/optional, and each selection with qty, `(default)`, and disabled/out-of-stock
+tags (an option with zero selections is red: the bundle can't be bought).
+`Magento::product_prices_by_sku/by_id`. Validated on the same scratchpad MariaDB
+(customer_group/tier/rule/index/super_attribute tables added): website price scope read,
+per-scope special_price incl. the NULL row, percentage + ALL-GROUPS tiers, rule rows,
+index with green reduced finals, the red empty-index case, and a two-child configurable
+whose disabled/unindexed variant visibly explains the parent's range.
+
+### `category` (the tree + one category's visibility diagnosis, live DB, done)
+
+The category entity card plus the tree. No SKU-like business key exists, so the lookup is
+simpler than `product`: numeric = id, else exact `url_key`, else name/url_key substring
+(single match → card). No arg → the **tree** (pre-order DFS built in Rust from
+`parent_id` — string-sorting paths would misorder ids; cycle-guarded), each node with
+default-scope flags (`[disabled]`/`[not in menu]`/`[anchor]`), direct product count, and
+each level-1 root tagged with the store groups using it via
+`store_group.root_category_id` (an unreferenced root gets a yellow note).
+
+The card's two payoffs:
+1. **The visibility diagnosis** — own `is_active` *effective* per scope (store row
+   overrides default; no row = active) plus the same walk over every path ancestor: an
+   inactive ancestor hides the whole subtree, reported per scope ("ancestor Women (20) is
+   inactive on stores/de — the whole subtree is invisible there"); fully-off renders as
+   "all scopes". `CategoryVisibilityIssue` in the model.
+2. **Direct vs indexed counts** — `catalog_category_product` vs the per-store-view
+   dimension tables (`catalog_category_product_index_store<store_id>`, probed tolerantly;
+   the gap = anchor-inherited products; `0 indexed but N assigned` → red "stale index?").
+
+Rest of the card: per-scope values through the shared `ProductValue` machinery (name,
+is_active/include_in_menu/is_anchor with Yes/No labels, url_key/url_path, display_mode,
+sort settings, landing_page raw), admin breadcrumb (path names past the tree root), tree
+line (path · parent · children · position), `root of` store groups, category rewrites,
+and `--products` (opt-in: `sku  id  pos  name`) plus `--indexed` — the per-store
+*index* list (what the storefront shows): each row tagged `(via anchor)` when
+`is_parent = 0` (inherited, not assigned here) and `[search only]`/`[not visible]` from
+the row's visibility; the `--store` view's table is read (default: first store view),
+a missing table renders red ("indexer never ran"), an unknown code errors. `--store`
+folds values like `product`.
+`Magento::category_tree()/categories_like()/category(id, include_products)`. Validated on
+the scratchpad DB: the tree with root tag + flags, the ancestor-disabled warning firing
+through a store-scope override, anchor gap visible (1 assigned · 2 indexed), url_key
+exact lookup, store fold, and the assigned-products list.
+
+### `order` (one order, live DB, done — first of the sales cards)
+
+`magequery order <increment#> [--id <entity_id>]` — the admin order view plus the
+diagnostics it doesn't show. Sales tables are flat (no EAV), so this is one
+`db::fetch_order` over `sales_order` + satellites (items, addresses, payment,
+`sales_payment_transaction`, invoices, shipments + tracks, creditmemos, status history,
+`sales_order_status` label). Lookup: exact increment_id → numeric falls back to
+entity_id (header note) → substring over increment ids, customer emails, AND **PSP
+transaction refs** (`sales_order_payment.last_trans_id` + `sales_payment_transaction.
+txn_id`, DISTINCT-joined) — `order jelle@` lists a customer's orders, `order tr_abc123`
+resolves a Mollie/Adyen reference straight to its order.
+
+The card: status colored by *state* (state shown too — custom statuses explained), the
+**grid-drift check** (`sales_order` row missing from `sales_order_grid` = red "invisible
+in the admin grid — grid indexer behind"), customer (guest-tagged), both address
+snapshots, shipping method, **payment with the flattened `additional_information` JSON**
+(where every PSP stashes its transaction state; nested values compact, capped at 12 keys
+with a --json pointer) + the transaction rows, the **item lifecycle matrix** (`2 ordered
+· 2 invoiced · 1 shipped …`, composite children dim `↳`, yellow `[not fully invoiced]` /
+`[not fully shipped]` heuristics on top-level lines — virtual/downloadable skipped,
+configurables checked on the parent where Magento books shipment, bundles skipped as
+shipment_type-ambiguous), **dual-currency totals** (order currency primary, base in dim
+parens when they differ; nonzero `due` red), coupon + applied rule ids, documents
+(invoice/creditmemo states decoded, shipments with carrier + tracking numbers), and the
+status history with customer-notified tags. Validated on the scratchpad DB: a
+USD-on-EUR-base order with configurable parent/child lines, Mollie-style payment blob,
+paid invoice, PostNL track, the grid-drift warning, and the fulfillment tags; plus a
+guest order (in-grid, red due) and the email search.
+
+### `customer` (one customer account, live DB, done)
+
+`magequery customer <email> [--id <entity_id>]` — the account-state card. Lookup: exact
+email (numeric = entity_id; no shadow case, emails aren't numeric), else substring over
+email + name → newest-first list. The card: name/group/website, `created_in` snapshot,
+**account-state tags** (red `[inactive]`, `[confirmation pending — can't log in]` from a
+non-NULL `confirmation` token, `[LOCKED]` with expiry — the "why can't this customer log
+in" answers), last login/logout from `customer_log`, dob/taxvat, addresses with
+default-billing/shipping tags, per-store **newsletter status** (`newsletter_subscriber`
+decoded, matched by customer_id OR email), **custom EAV values** (customer value tables —
+not store-scoped; vanilla installs have none, extensions add loyalty points etc.), the
+**order summary** (count, lifetime base sum, first/latest, last order increment+status),
+and **guest orders** — orders carrying this email but not linked to the account (the
+"customer says they ordered but their account shows nothing" answer). Validated on the
+scratchpad DB: full card incl. custom attribute + per-store newsletter, the
+locked+unconfirmed tags, search list.
+
+### `quote` (one cart as checkout computed it, live DB, done)
+
+`magequery quote <id|email>` — where checkout bugs live. Numeric = entity_id; anything
+else searches `customer_email` (newest first) — a customer's abandoned carts in one
+command. Quote tables carry no `sales_` prefix. The card: **state first** — `converted →
+order X` (joined via `sales_order.quote_id`), with a yellow **"[still active — checkout
+didn't deactivate it]"** when an order exists but `is_active=1` (a real bug symptom the
+synthetic seed hit by accident); `active`; or dim "inactive, never converted" — plus the
+cart's age (`last touched 12d ago`, DB clock). Then: customer (guest-tagged),
+checkout_method, the reserved increment, both addresses, the **chosen shipping/payment
+methods with honest "(no method chosen yet)"** for carts stuck mid-checkout (payment
+`additional_information` flattened like the order card — issuer selections etc.), items
+(qty × price, row totals, discounts, composite children dim), and the totals blend —
+subtotal/grand total from the quote row, shipping/tax/discount from the **shipping
+address** (where checkout collects them), dual-currency like `order`. Coupon + applied
+rule ids. Validated on the scratchpad DB: a converted USD quote with coupon and iDEAL
+issuer selection, a mid-checkout guest cart with empty address and no methods, the
+stale-active flag, and the email search.
+
+### `invoice` / `shipment` / `creditmemo` (thin document cards, live DB, done)
+
+For when the *starting point* is a document number (accounting hands you an invoice,
+the carrier email a shipment increment). Three flat commands — deliberately NOT one
+`document <#>`: increment sequences are per-entity-type, so invoice `100000042` and
+order `100000042` legitimately coexist and a combined lookup would be ambiguous by
+construction. One shared implementation (`SalesDocKind` enum, `Magento::sales_document`
++ `sales_documents_like`, one renderer): exact increment → card, substring → newest-first
+list. Each card: decoded state (invoice open/paid/canceled, memo open/refunded/canceled),
+the **order cross-link** (`→ magequery order X`, red "(order row missing!)" if the parent
+is gone), kind-specifics (invoice: transaction id; shipment: packed qty + tracking
+numbers, "(no tracking numbers)" flagged; creditmemo: adjustment_positive/negative in the
+totals), item lines, and the totals in order currency (zero rows filtered). Validated on
+the scratchpad DB: all three cards, single-match substring, clean unknown error.
+
+### `integrations` (API access audit, live DB, done)
+
+The third leg of the access story (`admin-users`/`admin-roles` are the human half):
+`magequery integrations [<name>]`. List = `name  status  token-state  access  setup`;
+single named match → the card. Joins: `integration` + `oauth_token` (access-token
+**presence/revocation only — the secret is never selected**, verified in tests: zero
+occurrences even in --json) + the integration's `authorization_role` (`user_type = '1'`,
+per `UserContextInterface`) rules, each resource titled from the static acl.xml index —
+untitled = stale grant of a removed module (on the synthetic root everything flags since
+the fake root ships no acl.xml; on a real store only genuinely-gone modules do).
+Red flags: `full access (Magento_Backend::all)`, revoked tokens; dim honesty for
+never-activated integrations and zero-grant ones ("the API rejects it").
+
+**`--token [WHICH]`** — the explicit scripting escape hatch for the four OAuth 1.0a
+credentials a live integration holds (`oauth_consumer.key`/`.secret` + `oauth_token.token`/
+`.secret` for `type='access'`). Bare-stdout, single value, requires an unambiguous named
+match (errors listing candidates otherwise — never emits a secret for an ambiguous query),
+mirroring `cms --content` and the `db info` "show the real password" precedent (the owner
+already has DB access). `--token` alone = the access token (the bearer case); pass
+`access-token`/`access-secret`/`consumer-key`/`consumer-secret` for a specific one, or `all`
+for tab-separated `kind\tvalue` lines. Magento stores these through its Encryptor, so the raw
+DB read is ciphertext (`keyVersion:cipher:…`); by default `--token` prints the value
+**verbatim** (with a dim `pass --decrypt to reveal it` hint on **stderr** when it's encrypted,
+so a script doesn't silently pipe ciphertext into an API call). **`--decrypt`** (explicit,
+mirroring `config --decrypt`) decrypts with `env.php`'s `crypt/key` via the same `Decryptor`;
+plaintext values from older stores pass through either way. Under `--decrypt`, a value
+encrypted with a key not in this `env.php` (a DB imported from another environment) can't be
+recovered: a single selector then **exits non-zero with a clean error and prints nothing**
+(never leaks ciphertext into a script), while `all` keeps its column structure by emitting the
+raw envelope and flagging that field on **stderr**. Revoked access token → the value still
+prints, with a `revoked — it won't authenticate` warning on **stderr** (pipe stays clean);
+never-activated → non-zero exit ("no access token"). This is the ONLY path that selects a secret: a dedicated
+`db::fetch_integration_secrets` + `Magento::integration_credentials` returning a **non-`Serialize`**
+`IntegrationCredentials` (so no `--json` path can carry it) — the default list/card/`--json`
+still select only presence/revocation, re-verified: zero secret *values* in `--json` (the 3
+grep hits are the `"token": "active"/"revoked"/"none"` state field).
+
+### `order-statuses` + `sequences` (small sales views, live DB, done)
+
+`magequery order-statuses [<filter>]` — every status with its `sales_order_status_state`
+mapping: `status  Label  state: X (default) (visible on front)`, sorted by state; a
+status **mapped to no state** (extension misconfiguration — assignable manually, never
+set automatically) sorts last with a yellow flag. Filter matches status/label/state.
+
+`magequery sequences [<entity>]` — the `sales_sequence_meta`/`_profile` machinery joined
+with each sequence table's `MAX(sequence_value)` (table names identifier-sanitized;
+missing tables tolerated): per (entity type × store) the current value and the **computed
+next increment id** (default pattern — prefix + 9-digit zero-pad + suffix; custom
+patterns honestly footnoted as not modeled), red `[inactive profile]` and
+`[past warning value N]` flags. Answers "why did increment ids jump / what number is
+next". Validated on the scratchpad DB: prefix rendering (`2000000151`), the past-warning
+flag, unmapped custom status.
+
+### `stores` (the scope tree, live DB, done)
+
+`magequery stores` — websites → store groups → store views in one tree (admin scopes
+excluded), the backbone every `--store <code>` flag assumes you know: ids, codes, names,
+**default-website/group/view flags**, each group's root category (named via the category
+`name` attribute; falls back to the id), red `[inactive]` on disabled views, and red
+"unusable" notes for websites without groups / groups without views (real broken-scope
+states). Footer: the `directory_currency_rate` table. `Magento::store_tree()`. Validated
+on the synthetic DB (two websites, an inactive default view, unnamed root) AND live on
+mageos-lite (real tree + real currency rates — the first entity command validated against
+a genuine database).
+
+### `sales-rule` (why a coupon won't apply, live DB, done)
+
+`magequery sales-rule <coupon|id|name>` — the most common support question, answered as
+a checklist. Lookup order: **exact coupon code first** (codes can be numeric, so coupon
+beats rule-id on collision), then rule_id, then name/description substring. The card
+opens with the **blockers**, each computed on the DB clock: rule disabled, today outside
+the from/to window, the matched coupon expired, its usage limit exhausted
+(`times_used >= usage_limit`); zero blockers ends with the honest footer "no blockers
+found — conditions are not evaluated statically". Facts below: decoded action
+(`by_percent`/`by_fixed`/`cart_fixed`/`buy_x_get_y` → "10% off", + free-shipping /
+applies-to-shipping), coupon_type, window, **websites and customer groups** (red
+"(none — the rule can never apply)" for empty link tables), usage counters (0 rendered
+as `unlimited`), priority + stops-further-rules, the matched coupon's own usage/expiry,
+the rule's coupon list (COUNT + first 10 — auto-generated rules have thousands), and
+`conditions_serialized` truncated ("displayed, not evaluated"; --json for full).
+Validated on the scratchpad DB: healthy coupon, window+expiry double blocker, exhausted
+limit, disabled rule, name search.
+
+### `cms-page` / `cms-block` (live DB, done)
+
+One shared implementation (`CmsKind`): no arg → the full list (`identifier  id  title
+stores  [disabled] [layout XML]`); exact identifier → the card — and since **the same
+identifier can exist as several rows scoped to different stores**, every matching row
+renders with a "N rows share this identifier (per-store scoping)" header, never a silent
+pick (the classic "why is this page different/404 on store X"). Substring → list, single
+match → card. The card: title, **store assignment** (`(all stores)` for store 0; red
+"(no store assignment — invisible everywhere)"), page layout, meta title, a yellow
+**"custom layout update attached"** for pages carrying `layout_update_xml` (invisible
+behavior source), timestamps, and a whitespace-collapsed 160-char content preview with
+the char count. **`--content` prints ONLY the raw body** (bare stdout, for
+`> block.html` scripting — the fact-command philosophy); an identifier matching several
+store-scoped rows errors with the row ids instead of concatenating, and `--id <n>` is
+the unambiguous row handle (works for cards too). List widths use char counts, not byte
+lengths (Über/café titles mis-padded otherwise). Validated on the scratchpad DB: the
+about-us per-store collision pair, layout-XML + disabled tags, --content, substring.
+
+### `catalog-rule` (live DB, done)
+
+The sibling of `sales-rule` and the partner of `price`'s rule section: `magequery
+catalog-rule [<id|name>]`. No arg → every rule with its **materialized product count**
+from `catalogrule_product` — an active rule at `0 products` gets yellow "not applied?"
+right in the list. The card: the sales-rule blocker checklist (disabled / outside
+window, DB clock) plus the catalog-rule-specific diagnosis — everything green but zero
+`catalogrule_product` rows → yellow **"Apply Rules"/the catalogrule indexer never ran,
+or the conditions match nothing** (the single most common "rule enabled, prices
+unchanged" cause). Facts: decoded action (`by_percent`/`by_fixed`/`to_percent`/
+`to_fixed`), window, websites/groups (empty = red can-never-apply), priority +
+stops-further-rules, applied count with a `price <sku>` cross-link, conditions truncated
+(displayed, not evaluated). Validated on the scratchpad DB: applied, never-applied, and
+disabled+expired rules.
+
+### `tax` (classes, rules, rates — the why-is-tax-wrong matrix, live DB, done)
+
+`magequery tax [<filter>]` — one screen for the whole calculation setup, with the
+misconfiguration diagnoses inline:
+- **classes** (`tax_class`, customer + product) — a **product class referenced by no
+  rule renders red "(in no rule — products in it are UNTAXED)"**, the classic silent
+  zero-tax bug; unused customer classes yellow.
+- **rules** (`tax_calculation_rule` + the `tax_calculation` link table): each rule's
+  customer × product class combination and its rates (`code country region postcode
+  rate%` — regions resolved via `directory_country_region`, `*` for all; zip ranges
+  collapsed to `from–to`); a rule with zero rates renders red "taxes nothing"; zero
+  rules at all → red "nothing is ever taxed".
+- **rates no rule uses** — configured but dead.
+Filter narrows all sections (country code exact, rate/rule/class substring). Validated
+on the scratchpad DB: the untaxed-class flag, a three-rate rule incl. a US-CA zip-range
+rate, the unused BE rate, and country filtering.
+
+### `admin-users` / `admin-roles` (live DB, done)
+
+Who can get into the admin and what they're allowed to do. Both are **pure-live** (like
+`url-rewrites` — the tables have no static source; clean `Error::Db` when unreachable),
+and they close the ACL loop: role rules cite the resource ids `acl`/`webapi`/`menu`
+already work with.
+- `db::fetch_admin_users` — `admin_user` LEFT-JOINed twice through `authorization_role`
+  (the user's `role_type='U'`/`user_type='2'` row → its `parent_id` group row = the role
+  name; user_type '2' = admin per `UserContextInterface`). Lock state
+  (`lock_expires > NOW()`) and login age (`TIMESTAMPDIFF`) computed on the **DB server's
+  clock** — no client-side time. Wide row → columns by index.
+- `db::fetch_admin_roles` — `role_type='G'` groups + member usernames + every
+  `authorization_rule` row. `Magento::admin_roles()` joins each rule's resource id with
+  its **title from the static acl.xml index** (`None` title = no module declares it — a
+  stale rule of a removed module, rendered as a yellow warning);
+  `Magento_Backend::all` allow = `all_resources` (rendered green "full access" instead of
+  a rule dump).
+
+CLI `magequery admin-users [<user>]` (exact username/email, else substring over
+username/email/name; single match → card): list = `username  Name  email  role
+last-login`, red `[inactive]`/`[LOCKED]` tags; card adds role (with a `→ magequery
+admin-roles` cross-link), `last login … (8d ago · 42 logins)` via `humanize_secs`,
+failures + lock expiry, created, locale. `magequery admin-roles [<role>]`: list = `name
+N user(s)  full access|N resource(s)`; detail = members + the permission list (`✓`
+allow / red `✕ deny`, each resource id titled from acl.xml). Validated on mageos-lite +
+commerce-store (single full-access Administrators; never-logged-in rendered honestly;
+down-DB exits 1 cleanly). The granular-role/deny/stale-rule branches are
+straightforward format arms verified by inspection — neither test store has a granular
+role, and seeding one into a live DB was deliberately not done.
+
+## LSP + editor plugins (done)
+
+The binary doubles as a language server: the hidden `magequery lsp` meta-command runs
+`magequery_lsp::run_stdio()` — a third workspace crate; core computes, the CLI renders
+ANSI, the LSP renders LSP. Stack: `lsp-server` + `lsp-types` **pinned `0.95`** (0.96
+swapped `Url` for a bare `Uri` type and lost the file-path conversions) — the
+rust-analyzer stack: sync, channel-based, no async runtime, matching core's philosophy.
+Three locked design properties:
+- **Open buffers overlay the checkout (the VFS overlay).** Content sync is FULL;
+  didOpen/didChange/didClose maintain a buffers map that every rebuild hands to
+  `Magento::open_with_overlay` — core's `Vfs` (vfs.rs) serves overlay content for open
+  buffers, disk for everything else, so diagnostics/answers are **as-you-type**
+  (didChange marks dirty; the 300ms debounce is the typing cadence). Scope is content
+  only: discovery/existence stay on the real filesystem (a never-saved new file is
+  invisible until saved); composer metadata + `var/.maintenance.ip` deliberately stay
+  disk-only. Overlay keys are inserted under both the URI path and its canonicalized
+  form (macOS `/private`). Frontends read files via `Magento::read_source` so their
+  positions match the index. Pristine didOpen doesn't rebuild; didClose with unsaved
+  changes reverts to disk.
+- **Full rebuild is the invalidation.** Single-threaded event loop over the crossbeam
+  channels; per-workspace dirty flag; a `recv_timeout(300ms)` quiet period is the whole
+  debounce, and a request arriving mid-burst forces the rebuild first so answers never
+  come from a stale index. `Magento::open` at ~tens of ms makes incrementality not worth
+  owning. Gotcha: the `Connection` must drop **before** `io_threads.join()` — the writer
+  thread runs while any sender lives, so exit hangs otherwise (found live).
+- **Not a PHP language server.** Runs alongside Intelephense/Phpactor; owns the XML
+  config layer plus Magento-semantic overlays on PHP.
+
+Features: **diagnostics** — doctor findings (kebab-case `DoctorLint` serialization as the
+LSP code) + parse `Diagnostic`s, grouped per file, whole-line ranges (core has no column
+provenance), published project-wide after every rebuild with stale-file clearing;
+**definition** — class → PSR-4 file at the `class X` header line, and when a preference
+redirects, *also* the resolved concrete (the answer you'd miss reading the file); event →
+its observer declarations; config path → the system.xml field + every static value
+source; ACL id → acl.xml; module → its module.xml; **hover** — class = compressed
+`whatis` card (kind · module · package version, preference resolution, plugin/argument
+counts, wired-in count, observes/cron/webapi/command roles), event = observer list,
+config path = admin breadcrumb + per-scope static values, ACL = title/breadcrumb/grants;
+**references** — `uses()` reverse DI + the whatis sweep + plugins declared on the class,
+deduped by (uri, line); **code lens** — on a PHP class declaration: `N plugin(s)` (with
+"via ancestors" split) and `wired in N config place(s)`; per *method*: `intercepted by N
+plugin method(s)` on each targeted method and `intercepts Save::execute()` on each
+interception method of a plugin class (`method_decl_spans` scans the file's `function
+<name>(` declarations; the plugin set is fetched once per file). All lenses carry the
+command `magequery.showReferences` (the VS Code client maps it onto the peek view;
+clients without it show inert text); **inlay hints** mirror the per-method lens facts
+inline (`« N plugin(s) »` at the end of an intercepted method's signature line,
+`→ Save::execute()` on interception methods; tooltip = the hover breakdown, label part
+links to the first location) — the indicator Zed can render, since it has no code-lens
+support (behind Zed's `"inlay_hints": {"enabled": true}` setting); **plugin-method jump** — definition on a
+`before*/around*/after*` *declaration* in a plugin class lands on the intercepted method:
+`Magento::plugin_targets(class)` (the reverse of `plugins` — which `<plugin>` declarations
+use this class; the old private helper of that name is now `plugin_lookup_chain`) →
+preference-resolve each target → walk `Magento::ancestors` nearest-first for the file
+whose `function <name>(` actually defines it. Hover on the method says what it intercepts
+(target → concrete, plugin name, disabled tag); references are the declaring di.xml
+`<plugin>` lines. Both APIs are public on `Magento` for exactly this. **And the
+reverse**: any other method *declaration* (`Entity::Method`) resolves the plugins
+intercepting it — definition/references land on the `before*/around*/after*` methods in
+the plugin classes (via `plugins_all_areas`, so interface/ancestor-declared plugins show
+up on the concrete's methods — validated live: `Save::execute` → 7 interceptors incl.
+the ActionInterface-declared ones), hover lists them in execution order. An
+interception-*shaped* name that isn't a declared plugin (a model's own `beforeSave`)
+falls back to this reverse lookup; when a class has no plugins every verb returns None
+and the PHP language server keeps the floor.
+
+`entity.rs` is the position→entity inversion layer, deliberately **pure text** (no DOM,
+no `Magento` handle): a line-local scan finds the attribute value / text node / PHP token
+at the offset. Classification is *position first* — `type=`/`instance=`/`class=`/
+`service=`/`for=`/`handler=`, `name=` on di `<type>`/`<virtualType>`, `<event name=>`,
+`<source_model>`-style text elements, and `<argument>`/`<item>` text under
+`xsi:type="object"` are class/event-valued whatever the value looks like (virtual type
+names have no backslash) — *shape second*: `\` → class (`::method` suffixes stripped),
+`Vendor_Module::x` → ACL id, `Vendor_Module` → module, ≥3 lowercase `/`-segments →
+config path (two-segment strings stay unclassified so URL paths don't light up). PHP:
+FQCN tokens, `use`-import resolution for bare identifiers, the file's own declaration via
+its `namespace` line, strings → config path / ACL / event (events only behind `dispatch`
+on the same line). graphqls: `\\`-escaped FQCNs in directive strings. Known limits:
+multi-line XML attribute values, PHP group-`use`. `class_of_file` (code lens) derives
+`Vendor\Module\…` from the owning module's path and **verifies by resolving back through
+PSR-4 to the same file** — doctor's namespace-divergence rule.
+
+Workspaces: folders from `initialize` → `Magento::find_root` each (walk up, then direct
+children in name order); several folders inside one install share a handle; files outside
+every root answer null; a failed rebuild (half-saved config.php) clears the handle so
+requests answer null rather than lying from a stale index. Watched files: dynamic
+registration of the `watch_globs()` set per root (`RelativePattern` when the client
+supports it), `didSave` of interesting extensions as the fallback invalidation.
+
+Core APIs added for the LSP: `Magento::find_root`/`discover` (editors hand you folders,
+not roots), `root()`, `class_file()` (public PSR-4 jump-to-source), `watch_globs()` (one
+canonical watch list, LSP glob semantics), and a compile-time `Send + Sync` assertion on
+`Magento`. CI gained `cargo check -p magequery-lsp` because workspace feature-unification
+otherwise never builds core **without** `db` — that exact configuration had already
+broken silently once (an ungated `to_product`, fixed alongside).
+
+**Completions** — the daily-driver feature. `entity.rs::completion_context` detects the
+value being typed, tolerant of mid-edit states (an unterminated `type="Mag`, an
+auto-paired `type="Mag|"`, a partial text node) — position rules mirror `entity_at`:
+class-valued attributes/text, `<event name=`, `<module name=` in sequences,
+`ref`/`resource` ACL attrs, `referenceTable`, `<config_path>`, and PHP strings behind
+`dispatch`/`getValue`/`isSetFlag`/`isAllowed`. Candidates: **classes** from
+`Magento::class_names()` — a new parallel resolver walk mapping every PSR-4/PSR-0 dir's
+`.php` files back to FQCNs (Test/_files skipped, `generated/`+`var/` autoload roots
+excluded — runtime-written interceptors/proxies are never typed into config; ~24k names
+in ~25-230ms on lite) — plus `virtual_type_names()` (all areas, tagged "virtual type");
+events/config-paths/ACL/modules/tables enumerate cheaply from existing indexes per
+request. **The catalog is cached in the LSP outside the handle** (critical under
+as-you-type rebuilds: the handle dies per keystroke, the class *set* only changes when
+PHP files are created/deleted — watched-file events evict it). Ranking:
+segment-boundary prefix (`Magento\Quote` lists `Quote\Api\…` before `QuoteGraphQl\…`,
+whose `G` would byte-sort first) → plain prefix → short-name prefix → substring, capped
+at 200 with `is_incomplete` so clients re-query; items carry a `TextEdit` over the
+typed span (client word-boundary heuristics break on backslashes). Validated live:
+catalog 21,899 names, 2-28ms per request, full-name query → exactly 1 item.
+
+**Layout-layer navigation + symbols + observer lens** (the second magento2-lsp parity
+round). New entities: `Template` (`Vendor_Module::path.phtml` — the `.`/`/` in the path
+half distinguishes it from ACL ids; `template=` attrs anywhere + PHP strings),
+`LayoutHandle` (`<update handle=>`), `BlockName` (block/container/reference*/move
+attrs), `Table` (db_schema `table=`/`referenceTable=`/`<table name=>`). `layout.rs`
+holds the helpers: `area_of_file` (view/<area>/ path or theme-id prefix; base folds into
+frontend), `resolve_template` (module area+base file, then every theme override —
+candidates reported, never resolved to one: active theme is runtime state; uses the new
+public `Magento::themes()`), `template_ref_of_file` (phtml → its `Module::rel` ref +
+override provenance), `ops_where` (scan over `layout_handles`+`layout` — no new core
+index). Definition on a template → all resolving files; handle → contributing files;
+block name → its declaration (cross-handle: `breadcrumbs` referenced in
+catalog_product_view resolves to its `default`-handle declaration — validated live).
+References/hovers per entity; completions for template refs (the referenced-set, no
+walk), handles, block names. `.phtml` files get lenses (`overrides X`/`overridden in N
+theme(s)`/`used in N layout op(s)`); the VS Code selector gained `**/*.phtml`; watch
+globs gained it too. **Document symbols**: a generic nested XML outline (`symbols.rs`,
+quick-xml) — any element with an identifying attr (name/id/for/code/handle/instance)
+becomes a symbol; covers every config dialect without per-type parsers. **Workspace
+symbols**: query across the class catalog, events, config paths, ACL ids, modules,
+tables (same rank-and-cap as completions, min 2 chars). **Observer lens**: `execute()`
+in a registered observer gets `→ event_name` (events.xml locations). Skipped
+deliberately: short template paths (no module prefix), magic-method gd, XSD/URN.
+
+**Quick fixes (code actions)** — `actions.rs`, driven by structured diagnostic data:
+`DoctorFinding` gained `subject: Option<String>` (the class/module/ACL id the finding is
+*about*; populated at the fix-relevant emission sites via `error_on`/`warn_on`) and
+diag.rs round-trips it as the LSP diagnostic's `data`, so fixes never parse messages.
+Fixes: **did-you-mean** replacements on all ten missing-class lints + `acl-resource-
+unknown` (bounded Levenshtein, early-abandon + length prefilter, against the cached
+class catalog ∪ virtual types / the ACL index; top 3, distance-capped); **remove from
+config.php** on `module-missing-on-disk` (whose finding now carries a real config.php
+line as its Source — it previously had none and was invisible in editors); **register
+boilerplate** on the unregistered trio — `command-unregistered` is fully mechanical
+(CommandListInterface item), observers/plugins insert with an `EVENT_NAME_TODO`/
+`TARGET_CLASS_TODO` placeholder — inserting before `</config>` of the owning module's
+etc file, or CreateFile + full content when absent. Vendor-module fixes are offered
+knowingly (composer wipes them; the edit preview shows the path).
+
+**Parity nits** (closing the magento2-lsp comparison):
+short template paths (`template="x.phtml"`, no module prefix) normalize LSP-side via the
+declaring layout file's owning module — mirroring core's `normalize_template_ref` — and
+the whole LSP template layer now rides the core template index from the `templates`
+command (`Magento::template()` files + usages; physical probe kept as fallback for
+unreferenced overrides). `referenceColumn=` completes the same tag's `referenceTable`
+columns (`CompletionKind::Column(table)`, tag-local scan); `table=` on constraints
+completes tables. routes.xml: `Entity::Route` on `<route id=/frontName=>` —
+gd/references → the declaration, hover → router/frontName/handling modules, area from
+the `etc/<area>/` path segment. Two new checks: `DoctorLint::TemplateFileMissing`
+(layout assigns a template no module/theme file provides — pure projection over the
+template index, `.phtml`-suffix-guarded so dynamic values never flag; zero false
+positives on lite) and a parse-channel diagnostic for a plugin name declared twice for
+one type *in one file* (attribute merge silently keeps the later; cross-file stays
+legal override semantics — detected in di::build beside the parse diagnostics).
+
+**Rename (`textDocument/rename` + `prepareRename`)** — `rename.rs`, the last magento2-lsp
+parity item. Scope is deliberately narrow: the pure-Magento **string** identifiers a PHP
+language server can't see and that are a literal string wherever they occur — **ACL
+resource ids, event names, layout block/container names**. `prepareRename` gates it
+per-cursor (returns the identifier's range + placeholder), so a class, config path, or
+anything unclassified declines cleanly with a null response. Deliberately **not**
+renameable, each for a principled reason: **classes** (the file + `class` decl + every
+`use`/type ref belong to Intelephense — the "not a PHP language server" line; ours would
+leave PHP half-renamed), **config paths** (nested XML *elements* in config.xml/system.xml,
+not a renameable string), **templates/handles** (bound to a `.phtml`/handle *file* — a
+filesystem move, not a text edit). Mechanism: candidate files come from
+`Magento::files_containing(id)` — a new core primitive that greps every enabled module's
+`.php`/`.xml`/`.phtml`/`.graphqls` under its dir in parallel via the VFS (so PHP
+`dispatch()`/`isAllowed()` string literals no index holds are reached; ~30ms warm on lite,
+the class-walk exclusions skip generated/fixtures) — for ACL/event ids, and from the
+already-parsed layout ops for block names. **Precision is re-classification, not
+grep**: every candidate occurrence is run back through `entity_at`, and only a span that
+classifies to the *same* entity is rewritten — so a longer id that has ours as a prefix
+(`Foo::sales` inside `Foo::sales_view`) or a snake_case string that isn't an event (no
+`dispatch` on the line) is left alone; the whole-line `Source` provenance never needed
+column precision this way. `.phtml` is classified as PHP so a template's dispatch/isAllowed
+participates. The core grep is public and reusable; `occurrences()` (the pure edit finder)
+unit-tests without a handle, and the e2e renames `acme_thing_saved` across events.xml + a
+PHP dispatch while a class cursor declines. No editor-side change: rename is a standard LSP
+capability the generic clients pick up from `rename_provider`. (Client applies the
+`WorkspaceEdit`; we never write files.) Known scope limits, by design: config.xml default
+values (structural), theme layout files outside module dirs, and block names in PHP
+`getBlock()` (too common a substring — layout-XML only).
+
+**Editors live in `editors/` (monorepo, locked); publisher identity is `cresset-tools`.**
+- `editors/vscode` — TypeScript client (`vscode-languageclient` 9, esbuild bundle).
+  Activation `workspaceContains:**/app/etc/config.php` (never wakes in non-Magento
+  projects); document selector php/xml/`**/*.graphqls`. Binary resolution:
+  `magequery.serverPath` setting → PATH (min-version handshake via `--version`,
+  `MIN_SERVER_VERSION` const) → download from the GitHub release by cargo-dist triple
+  into globalStorage (extracts with system `tar`, which reads both .tar.gz and .zip on
+  macOS/Linux/Win10+). Registers the `magequery.showReferences` command.
+- `editors/zed` — Rust shim compiled to wasm32-wasip1 against `zed_extension_api` 0.1,
+  with its own empty `[workspace]` table so the root workspace never builds it. Declares
+  `[language_servers.magequery] languages = ["PHP", "XML"]` (Zed binds servers per
+  language, alongside the primary server). PATH first, else `latest_github_release` +
+  `download_file`, one directory per version, older versions swept. Published via PR to
+  zed-industries/extensions (submodule + `path = "editors/zed"` for the monorepo).
+  **Registry id is `magequery-lsp`** (name "magequery LSP"), *not* the bare tool name:
+  the publishing prerequisites keep the top-level namespace for languages and popular
+  tooling, so a language-server extension must carry an LSP-ish suffix (`maho-lsp`,
+  `odoo-lsp`, `schemalock-lsp` — the review on PR
+  https://github.com/zed-industries/extensions/pull/6783 asked for exactly this). The id
+  is **permanent once published**, and the submodule directory (`extensions/magequery-lsp`)
+  plus the `extensions.toml` key must match it. The *language server* id inside
+  extension.toml stays `magequery` — that's the settings key (`"lsp": {"magequery": …}`)
+  and the binary's own name; only the extension id is namespaced.
+  **MIT-licensed, deliberately unlike the repo's EUPL-1.2**: the Zed registry validates
+  the extension *directory's* LICENSE (verified in their `package-extensions.js`:
+  candidates come from `join(submodule, path)`) against an allowlist — Apache-2.0,
+  BSD-2/3, CC-BY-4.0, GPLv3, LGPLv3, MIT, Unlicense, zlib — that excludes EUPL. Only the
+  shim is MIT; the binary it downloads stays EUPL (explicitly allowed by their docs).
+
+Validated end-to-end against mageos-lite with a python LSP-stdio driver (scratchpad):
+initialize/capabilities, watcher registration (8 globs), the exact 4 doctor findings as
+diagnostics with codes/lines, definition on `CartManagementInterface` in di.xml → both
+the interface file and `QuoteManagement` at their declaration lines, the whatis hover
+card, event hover, references (7 webapi.xml citations), code lens on QuoteManagement.php
+(`2 plugin(s)`, `wired in 3 config place(s)`), watched-file change → debounced rebuild →
+republish, clean shutdown/exit. The CI twin is `crates/magequery-lsp/tests/e2e.rs`:
+`run()` is public and transport-generic, so the test drives the whole protocol through
+`Connection::memory()` against a synthetic root (broken preference → diagnostic with
+code/line, definition, event hover, watched-file fix → diagnostic cleared, shutdown). dist targets grew `aarch64-unknown-linux-gnu` (native arm
+runner via `[dist.github-custom-runners]`; dist computes the release matrix from
+dist-workspace.toml at run time, so no release.yml regeneration was needed) and
+`x86_64-apple-darwin` — **the editor extensions' platform→triple download maps must stay
+in sync with the dist target list** (noted in dist-workspace.toml too). The VS Code
+extension's `MIN_SERVER_VERSION` is 0.5.0 — the release that first ships `magequery lsp`.
+
+## Future query tools (backlog — empty)
+
+Everything scoped during breadth has been built — the whole command surface above plus
+the DB-backed extras (`eav`, `indexers --db`, `cron --db`, `admin-users`/`admin-roles`,
+`queue backlog`, `product`). New ideas go here.
+Backlog: reviews, wishlists, search terms — waiting for a real need.
+
+## Build order
+
+1. ~~`ModuleIndex` — parse `config.php` + `module.xml` sequence, classify app/vendor →
+   `magequery modules`.~~ **Done** (composer-based discovery + `--check` lint).
+2. ~~Provenance-tracking `di.xml` indexer (per-area; `quick-xml` + byte→line table).~~
+   **Done** — see "DI index" below. `magequery preference <Class>` works.
+3. ~~`ClassResolver` (composer autoload → on-demand PHP-header parse + cache).~~ **Done** —
+   PSR-4 class→file + PHP-header ancestor walk. `magequery plugins <Class>` works.
+4. ~~`magequery di <Type>` — wire it together.~~ **Done** — see "Resolution (`di`)" below.
+5. ~~Breadth (`observers`, `cron`, `routes`, `webapi`).~~ **Done** — see "Breadth" below.
+
+Validate early against a real 2.4 checkout (resolve a class with a known
+interface-declared plugin) to catch merge-semantics surprises before building breadth.
+
+## Phase 2 (deployment config / DB)
+
+### PHP array parser + `db` commands (done)
+
+- `phparray.rs` — a focused parser for the `<?php return [...];` literals in
+  `env.php`/`config.php` (hand-written tokenizer + recursive descent → `PhpValue`
+  enum: Array/Str/Int/Float/Bool/Null/Const). Handles `'...'`/`"..."` (PHP escape rules),
+  comments, `array(...)` form, and keeps `\Class::CONST` references verbatim as `Const`. We
+  never execute PHP. `PhpValue::get`/`as_str`/`as_array`/`scalar_string` for navigation.
+- `deploy.rs` — `read_env(root)` parses `app/etc/env.php`; `db_config` extracts the `db`
+  section (table prefix + connections). Host parsing splits `host:port`, and a host starting
+  with `/` (or an explicit `unix_socket`) is treated as a socket. `Index` now stores `root`.
+- `Magento::db_config()` (always available) + `Magento::ping_db(name)` (behind the **`db`
+  feature**, which pulls the `mysql` client — `default-features=false, features=["minimal"]`
+  to avoid the openssl/TLS build dependency). `db.rs` does a fast `TcpStream::connect_timeout`
+  pre-check (5s) so an unreachable host fails fast, then connects + `SELECT VERSION()`.
+- CLI (cli enables the `db` feature): `magequery db info` (connections incl. the real
+  password — no masking; `(empty)` shown only when the value is genuinely empty) and
+  `magequery db ping [<connection>]` (OK/FAIL + server version + ms, non-zero exit on fail).
+  Validated on the 2.4.8 store: parsed the socket connection / dbname / empty password correctly;
+  ping fails cleanly when the socket isn't reachable.
+- `Magento::redis_config()` + `deploy::redis_config` extract every Redis/Valkey usage from
+  `env.php`: cache frontends (`cache/frontend/<id>` with a `Redis`/`RemoteSynchronized…`
+  backend → `backend_options`/`remote_backend_options`) and session (`session/save == redis`
+  → `session/redis`). Handles socket hosts (`/…`) and null ports.
+- `Magento::ping_redis()` + `redis.rs` test connectivity over the **raw RESP protocol** (no
+  client crate — pure `std::net`, works over TCP and unix sockets): connect → optional
+  `AUTH` → `SELECT <db>` → `PING` → `INFO server` for the version. One result per instance.
+- CLI: `magequery redis info` / `redis ping` (mirrors `db info`/`db ping`).
+  Validated on the 2.4.8 store (Valkey over socket): info shows cache→db3, page_cache→db2,
+  session→db1; ping connected to all three (`redis 7.2.4`, ~1ms).
+
+### Deployment-info commands (`session`/`cache`/`lock`/`queue`, done)
+
+Thin `env.php`-parsing projections, same shape as `db`/`redis` (info only — no connectivity
+test). Each is a `deploy::<x>_config(env) -> <X>Config` extractor + a `Magento::<x>_config()`
+accessor + a CLI renderer; all reuse the shared `redis_endpoint`/`host_port` helpers.
+- **session** (`session` section): `save` handler (`files`/`db`/`redis`); for redis the
+  server/socket + db, for files the `save_path`. `SessionConfig { handler, location, database }`.
+- **cache** (`cache` + `cache_types`): backend per frontend (`default`, `page_cache`) with its
+  Redis location/db, plus every cache type's enable flag with an `N/M enabled` summary.
+  `CacheConfig { frontends: Vec<CacheFrontend>, types: Vec<CacheType> }`.
+- **lock** (`lock` section): `provider` (`db`/`file`/`zookeeper`/`cache`) + provider-specific
+  settings (`BTreeMap`, NULL/empty entries dropped). `LockConfig { provider, config }`.
+- **queue** (`queue` section): the `amqp` block plus any `queue/connections/<name>`, each with
+  host/port/user/password/virtualhost; + the `consumers_wait_for_messages` flag. Passwords
+  shown raw (matching `db info`). `QueueConfig { connections, consumers_wait_for_messages }`.
+Validated on the 2.4.8 store: session→redis socket db1; cache default→db3/page_cache→db2 + 14/16
+types on (layout, full_page off); lock→db; queue→amqp localhost:5672 vhost store.
+
+### `url-rewrites` (DB-only, done)
+
+URL rewrites are **runtime data** (generated from products/categories/CMS pages, plus manual
+entries) living only in the `url_rewrite` table — there is no static source, so this command
+necessarily needs the `db` feature and a reachable DB (no static fallback; clean `Error::Db`
+otherwise). `db::fetch_url_rewrites` reads the table, resolving each row's `store_id` to a
+store code via `store`. **Filters are pushed into SQL** because the table is often huge:
+request/target path substring (`LIKE`, bound via `params!` to avoid injection), `--store`
+(resolved to an id first), `--redirects` (`redirect_type <> 0`). Fetches `limit + 1` to detect
+truncation and returns `UrlRewrites { rewrites, truncated }`; the CLI flags "showing first N"
+on stderr (no silent caps). `Magento::url_rewrites(path, store, redirects_only, limit)`.
+- CLI `magequery url-rewrites [<path>] [--store <code>] [--redirects] [--limit 200]`: greppable
+  aligned lines — `request_path  →|⇒301  target_path  # entity:id · store=code [manual]`
+  (internal rewrites use a dim `→`; redirects a red `⇒<code>`; `manual` marks
+  non-autogenerated). Validated on the 2.4.8 store: combined path+store+redirect filtering, manual vs
+  autogenerated flagged, store codes resolved, truncation note, clean error on unknown store.
+
+### `config` (system config resolution — static sources, done)
+
+`sysconfig.rs` resolves a config `path` at a `scope` from the **static** sources, merged in
+Magento's precedence (lower → higher, higher overrides). The recognized source layers are:
+1. `ModularConfigSource` → module `config.xml` `<default>` (parsed in parallel via
+   `parse::config_xml_defaults`, which flattens `<config><default|websites|stores>…` into
+   `(scope, path, value, line)`),
+2. `RuntimeConfigSource` → `core_config_data` (DB, opt-in via `--db`),
+3. `InitialConfigSource` → the deployment config: `config.php` `system` then `env.php`
+   `system` node (both flattened from the parsed PhpValue).
+Then `CONFIG__*` env vars (`CONFIG__<SCOPE>__<PATH>`, path lowercased) override everything.
+Stored as `(scope, path) -> ConfigValue { value, source, file, line }`; later sources
+overwrite earlier ones.
+
+**Order is derived from di.xml, not hardcoded** (the architecture-faithful refinement, done):
+`Magento::system_config_source_order()` reads the `systemConfigSourceAggregated` virtual
+type's `sources` argument from the DI index, follows each source's virtual-type indirection
+to a concrete class (`classify_config_source`), and sorts by the declared `sortOrder`
+(modular 10 → dynamic 100 → initial 1000 by default). A module that re-orders or drops a
+source via di.xml is therefore honored; unrecognized custom `ConfigSourceInterface`s are
+skipped. Falls back to the default order if the di declaration can't be read. (`CONFIG__*`
+env vars are applied last unconditionally — they're the deployment-config overlay, not one of
+the aggregated sources.)
+
+- `Magento::config_get(scope, path)` (scope fallback chain mirrors Magento: a **store** falls
+  back to its parent **website**, then `default`; a website falls back to `default`). The
+  store→website parentage is read **statically** from `config.php`'s `scopes` node
+  (`scope_parents`: `scopes/websites/*` gives `website_id → code`, then each `scopes/stores/*`
+  `website_id` resolves to its website code) — no DB needed. `config_section(scope, prefix)`,
+  `config_scopes(path)`.
+- CLI `magequery config <path> [--scope]`: **by default shows the value in every scope that
+  sets it** (e.g. each store's `web/secure/base_url`) — for a multi-store install seeing only
+  `default` is useless. `--scope <scope>` resolves a single scope (with `(inherited)` note);
+  a prefix lists the section, and **omitting the path lists every key** (empty prefix matches
+  all — `under("", …)` is true). Each line: `[source]` tag + `# file:line` provenance; `EnvVar`
+  shows the reconstructed `$CONFIG__…` name.
+
+### DB config source (`--db`, done)
+
+`Magento::config(include_db) -> ConfigSet` is the public API (replaced the old per-path
+methods + the `OnceLock` cache — built fresh per call). With `include_db`, `db::fetch_config`
+queries `core_config_data` + `store_website`/`store` (table-prefixed) and resolves each row's
+`scope`/`scope_id` to `default`/`websites/<code>`/`stores/<code>`; those rows are applied as
+`ConfigSourceKind::Database` **between** config.xml (modular, 10) and the config.php/env.php
+`system` overrides (initial, 1000) — so the `system` node correctly wins over the DB, matching
+Magento's `sortOrder`. CLI: `magequery config <path> --db` (opt-in; clean `Error::Db` if the
+DB is unreachable; static-only otherwise). Validated on the 2.4.8 store: pulled website-scope
+base_urls that exist only in the DB (`[db]` source), while `default`/store values from env.php
+still won as `[env.php]`. The DB layer's position is **derived** from di.xml's `sortOrder`
+(see "Order is derived from di.xml" above), not hardcoded; custom `ConfigSourceInterface`s
+aren't read.
+
+### `--decrypt` (done, Magento-faithful)
+
+`decrypt.rs` (`Decryptor`) decrypts Magento-encrypted config values, mirroring
+`Magento\Framework\Encryption\Encryptor`.
+- **Key loading**: `crypt_keys` splits `env.php` `crypt/key` on **whitespace**
+  (`str::split_whitespace`, like Magento's `preg_split('/\s+/', trim($key))`) → the rotated
+  keys. The value's `keyVersion` indexes this list; the key is used **directly** (Magento does
+  no further derivation).
+- **Format parsing** (`parse`): `keyVersion:cipher[:iv]:base64`, with the 1/2/3/4-part
+  shorthands Magento accepts (`cipher:data` → keyVersion 0; bare `data` → Blowfish; 4-part →
+  Rijndael-256). Picks the right key + the value's own cipher.
+- **Ciphers**: 3 = ChaCha20-Poly1305 IETF (modern default, RustCrypto `chacha20poly1305`,
+  12-byte nonce + 32-byte key + empty AAD = `SodiumChachaIetf`); 1 = Rijndael-128/ECB
+  (= AES-256-ECB via the `aes` crate, zero-padding stripped); 2 = Rijndael-256/CBC (a 256-bit
+  *block*, not AES — via the `simple-rijndael` crate, `RijndaelCbc<ZeroPadding>` at block size
+  32, mirroring mcrypt's `MCRYPT_RIJNDAEL_256` CBC + 32-byte key/IV; the IV is the 4-part
+  form's 3rd field, accepted base64 or raw, zero IV when absent; trailing `\0` stripped). Only
+  0 = Blowfish remains **unsupported** (no maintained Rust impl) — flagged distinctly in the
+  CLI. Result is trimmed (as `Encryptor::decrypt` does).
+- `Magento::decryptor()` + `magequery config <path> --decrypt`. Plaintext untouched; an
+  undecryptable encrypted value is flagged `(encrypted — crypt key mismatch?)` (or
+  `legacy Blowfish cipher unsupported`). The mismatch case is common: a DB imported from
+  another environment whose key isn't in this `env.php`.
+
+Verified by round-trip unit tests (`decrypt::tests`): ChaCha v3 + AES-ECB v1 + Rijndael-256 v2
+decrypt, correct key-version selection (wrong version fails), wrong IV ≠ plaintext, Blowfish
+returns `None`, `is_encrypted` heuristic. On the 2.4.8 store the DB secrets are v3 from a foreign env,
+so they correctly stay flagged.
+
+**Phase 2 is complete** (db info/ping, redis info/ping, config static + DB source, decrypt;
+config precedence now derived from di.xml's `systemConfigSourceAggregated` `sortOrder`, not
+hardcoded; store→website scope inheritance via `config.php`'s `scopes` node;
+`session`/`cache`/`lock`/`queue` deployment-info commands; `url-rewrites`; `schema` from
+`db_schema.xml`; decrypt covers every cipher except legacy Blowfish). No open refinements
+outstanding.
+
+## Test checkout
+
+`/Users/jelle/www/store` — a real Magento 2.4 install (716 modules: 563 vendor + 153
+app/code). Validated: `config.php` shape, per-area `di.xml` layout, PSR-4 autoload
+(`"Magento\\Catalog\\": ""` = module root), and real plugin-on-interface declarations.
+
+---
+> Source: [cresset-tools/magequery](https://github.com/cresset-tools/magequery) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-24 -->
