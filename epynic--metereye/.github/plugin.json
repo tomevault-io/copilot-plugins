@@ -1,0 +1,9 @@
+{
+  "name": "epynic--metereye",
+  "displayName": "MeterEye",
+  "description": "A camera reads my electricity meter's LCD so I don't have to. ESP32-CAM + custom 7-segment decoder, no ML, no cloud",
+  "version": "1.0.0",
+  "author": "epynic",
+  "homepage": "https://github.com/epynic/MeterEye",
+  "skills": []
+}
