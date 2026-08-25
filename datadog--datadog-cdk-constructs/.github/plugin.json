@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-cdk-constructs",
+  "displayName": "datadog-cdk-constructs",
+  "description": "datadog-cdk-constructs",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-cdk-constructs",
+  "skills": []
+}
