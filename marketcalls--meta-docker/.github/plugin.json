@@ -1,0 +1,9 @@
+{
+  "name": "marketcalls--meta-docker",
+  "displayName": "meta-docker",
+  "description": "Headless MetaTrader 5 in Docker with REST, WebSocket and gRPC APIs",
+  "version": "1.0.0",
+  "author": "marketcalls",
+  "homepage": "https://github.com/marketcalls/meta-docker",
+  "skills": []
+}
