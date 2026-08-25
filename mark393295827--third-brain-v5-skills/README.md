@@ -1,8 +1,6 @@
 # third-brain-v5-skills
 
-> Source: [Mark393295827/third-brain-v5-skills](https://github.com/Mark393295827/third-brain-v5-skills) — distributed by [TomeVault](https://tomevault.io)
-
-claude sikkls
+> Source: [Mark393295827/third-brain-v5-skills](https://github.com/Mark393295827/third-brain-v5-skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
