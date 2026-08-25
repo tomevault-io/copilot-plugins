@@ -1,0 +1,9 @@
+{
+  "name": "jl1nie--mfsk-core",
+  "displayName": "mfsk-core",
+  "description": "Pure-Rust library for WSJT-family digital amateur-radio modes (FT8/FT4/FST4/WSPR/JT9/JT65). Protocol traits, DSP, FEC codecs and synthesisers, unified behind a zero-cost generic abstraction.",
+  "version": "1.0.0",
+  "author": "jl1nie",
+  "homepage": "https://github.com/jl1nie/mfsk-core",
+  "skills": []
+}
