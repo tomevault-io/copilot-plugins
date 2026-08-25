@@ -4,7 +4,7 @@
   "repo": "gongkao-assistant",
   "description": "\u516c\u8003\u5c0f\u52a9\u624b - \u684c\u9762\u7aef\u516c\u8003\u5b66\u4e60\u5de5\u5177",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/12sysw/gongkao-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T04:10:11Z"
+  "distributed_at": "2026-08-25T06:45:45Z"
 }
