@@ -1,0 +1,9 @@
+{
+  "name": "pushkinist--rmlx",
+  "displayName": "rMLX",
+  "description": "Native Rust, single-binary MLX inference server for Apple Silicon. OpenAI/Anthropic-compatible LLM serving \u2014 text, vision, audio, embeddings \u2014 with the widest weight\u00d7KV quantization matrix of any MLX ",
+  "version": "1.0.0",
+  "author": "Pushkinist",
+  "homepage": "https://github.com/Pushkinist/rMLX",
+  "skills": []
+}
