@@ -1,13 +1,13 @@
-# noiceSS
+# AI instruction files for NoiceSS
 
-> Source: [ishivamgaur/noiceSS](https://github.com/ishivamgaur/noiceSS). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+> Sourced from [ishivamgaur/NoiceSS](https://github.com/ishivamgaur/NoiceSS), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 Make your screenshots look absolutely stunning.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ishivamgaur/noiceSS](https://github.com/ishivamgaur/noiceSS).
+Original source: `AGENTS.md` in [ishivamgaur/NoiceSS](https://github.com/ishivamgaur/NoiceSS).
 
 ## Also available for
 
@@ -17,10 +17,14 @@ Original source: `AGENTS.md` in [ishivamgaur/noiceSS](https://github.com/ishivam
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ishivamgaur/noiceSS](https://github.com/ishivamgaur/noiceSS)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ishivamgaur/NoiceSS](https://github.com/ishivamgaur/NoiceSS)
 
 ---
 
-Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+Install this config instantly:
+```
+npx tomevault install ishivamgaur/NoiceSS
+```
+Source: [github.com/ishivamgaur/NoiceSS](https://github.com/ishivamgaur/NoiceSS).
 
-<!-- genome:d-c-p -->
+<!-- genome:a-i-p -->
