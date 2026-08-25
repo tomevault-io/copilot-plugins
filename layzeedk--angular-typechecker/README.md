@@ -7,11 +7,11 @@ A type-checker (no build/emit) for Angular projects, including libraries. Perfec
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LayZeeDK/angular-typechecker](https://github.com/LayZeeDK/angular-typechecker).
+Original source: `AGENTS.md` in [LayZeeDK/angular-typechecker](https://github.com/LayZeeDK/angular-typechecker).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
