@@ -1,0 +1,9 @@
+{
+  "name": "walvez--dsh-codex-sync",
+  "displayName": "dsh-codex-sync",
+  "description": "One-tap Codex move-in to DSH: auto-import project chats, two-way Skills & MCP sync.",
+  "version": "1.0.0",
+  "author": "Walvez",
+  "homepage": "https://github.com/Walvez/dsh-codex-sync",
+  "skills": []
+}
