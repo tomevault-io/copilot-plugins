@@ -1,0 +1,9 @@
+{
+  "name": "neuromancer--wc2-re",
+  "displayName": "wc2-re",
+  "description": "Wing Commander 2 source reconstruction and SDL2 port",
+  "version": "1.0.0",
+  "author": "neuromancer",
+  "homepage": "https://github.com/neuromancer/wc2-re",
+  "skills": []
+}
