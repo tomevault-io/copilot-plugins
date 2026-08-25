@@ -1,0 +1,9 @@
+{
+  "name": "arpasan--jaxs-knife",
+  "displayName": "jaxs-knife",
+  "description": "Agent Skill for a Gelman\u2013Vehtari Bayesian workflow on Stan and JAX.",
+  "version": "1.0.0",
+  "author": "arpasan",
+  "homepage": "https://github.com/arpasan/jaxs-knife",
+  "skills": []
+}
