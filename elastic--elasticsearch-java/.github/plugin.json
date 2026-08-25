@@ -1,0 +1,9 @@
+{
+  "name": "elastic--elasticsearch-java",
+  "displayName": "elasticsearch-java",
+  "description": "elasticsearch-java",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/elasticsearch-java",
+  "skills": []
+}
