@@ -1,0 +1,9 @@
+{
+  "name": "whitebite--domain-hunter",
+  "displayName": "Domain-Hunter",
+  "description": "Check bulk domain availability 100% in your browser \u2014 free, open-source RDAP domain checker & name generator. 140+ TLDs, live registrar prices, TLD hacks, CSV export. No servers, no API keys, no track",
+  "version": "1.0.0",
+  "author": "WhiteBite",
+  "homepage": "https://github.com/WhiteBite/Domain-Hunter",
+  "skills": []
+}
