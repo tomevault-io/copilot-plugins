@@ -1,10 +1,10 @@
 ## new-school-sdk
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository.
 
 ## Project
 
@@ -23,6 +23,12 @@ cd test && python test.py
 # Format code
 autopep8 --in-place --recursive school_sdk/
 
+# Offline tests (mocked, no live school system needed)
+uv run pytest tests/
+
+# Install pre-commit hook (runs offline tests before every commit)
+uv run pre-commit install
+
 # Build package
 uv build
 
@@ -30,7 +36,7 @@ uv build
 uv run --with mkdocs-material mkdocs serve
 ```
 
-There is no pytest or automated test suite — only `test/test.py`, which is a manual integration test against a live school system.
+Automated offline tests live in `tests/test_offline_smoke.py` (mocked HTTP responses, pytest-compatible). `test/test.py` is a manual integration test against a live school system and is excluded from git via `.gitignore`.
 
 ## Architecture
 
@@ -67,7 +73,7 @@ Both `BaseUserClient` and `BaseCrawler` expose `.get()` / `.post()` / `._request
 ### CAPTCHA recognition (`school_sdk/check_code/`)
 
 - `ZFCaptchaDistinguish` wraps both CAPTCHA types
-- Image captcha uses a 3-conv-layer CNN (`model.py`) with pre-trained weights in `model.pkl` (~39 MB binary committed to git), requiring PyTorch + torchvision
+- Image captcha uses a 3-conv-layer CNN (`model.py`) with pre-trained weights in `model.pkl` (~39 MB binary committed to git), requiring PyTorch + torchvision. These are an **optional extra** since v1.9.0 — install via `pip install school-sdk[kaptcha]`
 - Slider captcha uses a heuristic in `type.py`
 
 ### URL endpoint configuration
@@ -80,7 +86,7 @@ All API paths are defined in `school_sdk/config.py` as a `URL_ENDPOINT` dict. Ev
 
 ## Git commits
 
-All commits must include a DCO sign-off. Always use `git commit -s` (or `--signoff`) when committing.
+All commits must include a DCO sign-off. Always use `git commit -s` (or `--signoff`) when committing. A pre-commit hook (`.pre-commit-config.yaml`) runs hygiene checks and the offline smoke tests before each commit; install it once after cloning with `uv run pre-commit install`.
 
 ## Known stubs and WIP
 
@@ -90,4 +96,4 @@ All commits must include a DCO sign-off. Always use `git commit -s` (or `--signo
 
 ---
 > Source: [FarmerChillax/new-school-sdk](https://github.com/FarmerChillax/new-school-sdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
