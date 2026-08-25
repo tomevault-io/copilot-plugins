@@ -1,0 +1,9 @@
+{
+  "name": "abhishekgahlot2--pi-dsh",
+  "displayName": "pi-dsh",
+  "description": "Pi coding-agent harness with durable sessions, causal history, reversible components, and approval-gated host self-extension.",
+  "version": "1.0.0",
+  "author": "abhishekgahlot2",
+  "homepage": "https://github.com/abhishekgahlot2/pi-dsh",
+  "skills": []
+}
