@@ -4,7 +4,7 @@
   "repo": "obsidian-verso",
   "description": "Verso is a quiet, native-feeling standalone theme for Obsidian.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linuz90/obsidian-verso",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T07:50:38Z"
+  "distributed_at": "2026-08-25T10:38:00Z"
 }
