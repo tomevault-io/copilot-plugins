@@ -1,0 +1,9 @@
+{
+  "name": "teya-engineering--lemonade-design-system",
+  "displayName": "lemonade-design-system",
+  "description": "Compose Multiplatform, Swift UI and Flutter implementation of Teya's Lemonade design system",
+  "version": "1.0.0",
+  "author": "teya-engineering",
+  "homepage": "https://github.com/teya-engineering/lemonade-design-system",
+  "skills": []
+}
