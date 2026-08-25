@@ -1,0 +1,44 @@
+{
+  "name": "claudeleaf",
+  "owner": "lonetis",
+  "repo": "claudeleaf",
+  "description": "Bring Claude (and any agent) into Overleaf. Claudeleaf is a reliable TypeScript bridge that drives the Overleaf web editor in real time \u2014 listing your projects, opening documents, reading them, and inserting/changing/deleting text \u2014 exactly as if a person were typing, so collaborators see the edits live. It ships as SDK, CLI, and MCP server.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lonetis/claudeleaf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T01:40:52Z"
+}
