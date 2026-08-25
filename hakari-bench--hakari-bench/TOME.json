@@ -4,7 +4,7 @@
   "repo": "hakari-bench",
   "description": "\u2696\ufe0f HAKARI-Bench is a lightweight IR benchmark that rebuilds retrieval tasks as small Nano-sets, making model selection, regression checks, quantization, truncation, and reranking comparisons practical under the same conditions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hakari-bench/hakari-bench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T07:43:45Z"
+  "distributed_at": "2026-08-25T10:30:08Z"
 }
