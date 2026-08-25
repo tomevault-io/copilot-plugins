@@ -1,41 +1,68 @@
 ## mlflow-oidc-auth
 
-> Python coding conventions and guidelines
+> Extends the [root AGENTS.md](../AGENTS.md). Applies to everything under `mlflow_oidc_auth/`.
 
+# AGENTS.md — backend (`mlflow_oidc_auth/`)
 
-# Python Coding Conventions
+Extends the [root AGENTS.md](../AGENTS.md). Applies to everything under `mlflow_oidc_auth/`.
 
-## Functions and Types
+## Where things live
 
-- Require type hints on all function parameters and return values; use `typing` and `collections.abc` abstractions instead of concrete containers where possible.
-- Keep functions small and single-purpose; extract helpers when a block becomes hard to scan.
-- Provide PEP 257 docstrings with clear Parameters/Returns sections when intent is not obvious from the signature.
-- Favor pure functions where practical; minimize hidden mutation and global state.
+| Concern | Location |
+|---|---|
+| FastAPI app factory, middleware wiring, Flask mount | `app.py` |
+| Authentication (Basic / Bearer / session) | `middleware/auth_middleware.py` |
+| JWT + JWKS validation | `auth.py` |
+| OIDC client registration | `oauth.py` |
+| Route → validator mapping for MLflow's API | `hooks/before_request.py` |
+| Grant-on-create, search filtering, cascades | `hooks/after_request.py` |
+| Per-resource permission checks | `validators/` |
+| Data access facade | `store.py` → `sqlalchemy_store.py` → `repository/` |
+| ORM models (`Sql*`) | `db/models/` · migrations in `db/migrations/versions/` |
+| Domain entities (plain classes) | `entities/` |
+| Pydantic request/response models | `models/` |
+| FastAPI endpoints | `routers/` · auth gates in `dependencies.py` |
+| Config + secret providers | `config.py`, `config_providers/` |
 
-## Comments and Documentation
+## Adding a router
 
-- Comment for intent and edge cases, not for restating code; briefly explain non-trivial algorithms or design choices.
-- Document assumptions and expected invariants near the logic that depends on them.
-- When using external libraries, note why the library is needed or any important configuration choices.
+1. `routers/my_feature.py` with `my_feature_router = APIRouter(tags=["my-feature"])`.
+2. Register in `get_all_routers()` in `routers/__init__.py`.
+3. Gate every endpoint with a dependency — never check permissions inline:
 
-## Style and Formatting
+```python
+from mlflow_oidc_auth.dependencies import check_admin_permission
 
-- Follow PEP 8 and Black with the project limit of 160 characters; use 4 spaces for indentation.
-- Place docstrings immediately after `def`/`class`; keep imports grouped by stdlib/third-party/local modules.
-- Prefer f-strings for string formatting; avoid implicit string concatenation across lines.
+@my_feature_router.post("/admin-only")
+async def endpoint(username: str = Depends(check_admin_permission)):
+    ...  # username is already validated
+```
 
-## Error Handling
+## Adding coverage for a new MLflow API surface
 
-- Validate inputs early and raise specific exceptions with actionable messages; avoid silent failures.
-- Log or attach context when catching exceptions, then re-raise or translate to a clearer error.
-- Do not swallow exceptions unless there is a deliberate fallback path that is documented.
+An MLflow route with no entry in `hooks/before_request.py` is **unauthorized by omission**. When
+MLflow adds RPCs:
 
-## Testing and Edge Cases
+1. Map the protobuf request class → a validator in `hooks/before_request.py`.
+2. Implement the validator in `validators/`, resolving permission through the store.
+3. If the RPC creates a resource, add the grant-on-create path in `hooks/after_request.py`.
+4. If it lists resources, add search filtering — an unfiltered list leaks across tenants.
+5. Add a **negative** test: a user without permission is denied.
 
-- Add or update unit tests for new logic and critical paths; keep tests deterministic and isolated.
-- Cover edge cases such as empty inputs, invalid types, boundary values, and large datasets.
-- Use descriptive test names and docstrings to convey the scenario and expectation.
+## Permissions
+
+Levels `READ` < `USE` < `EDIT` < `MANAGE`, plus `NO_PERMISSIONS` (explicit denial).
+Resolution order comes from `PERMISSION_SOURCE_ORDER` (default `user,group,regex,group-regex`);
+first match wins, then `DEFAULT_MLFLOW_PERMISSION`. Admins bypass checks — so any code path that
+sets `is_admin` is security-critical.
+
+## Tests
+
+- Live in `mlflow_oidc_auth/tests/`, mirroring the package layout.
+- **Do not run the whole `hooks/` directory locally** — `test_after_request.py` hangs. Run per file.
+- Every auth change needs a denial test, not only a success test.
+- Migration tests run forward and backward, on SQLite and PostgreSQL.
 
 ---
 > Source: [mlflow-oidc/mlflow-oidc-auth](https://github.com/mlflow-oidc/mlflow-oidc-auth) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
