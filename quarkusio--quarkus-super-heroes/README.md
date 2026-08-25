@@ -1,6 +1,6 @@
 # quarkus-super-heroes
 
-> Source: [quarkusio/quarkus-super-heroes](https://github.com/quarkusio/quarkus-super-heroes). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [quarkusio/quarkus-super-heroes](https://github.com/quarkusio/quarkus-super-heroes). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [quarkusio/quarkus-super-heroes](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [quarkusio/quarkus-super-heroes](https://github.com/quarkusio/quarkus-super-heroes) — a repo with 385+ stars on GitHub.
+From [quarkusio/quarkus-super-heroes](https://github.com/quarkusio/quarkus-super-heroes) — a repo with 389+ stars on GitHub.
 
 ---
 
