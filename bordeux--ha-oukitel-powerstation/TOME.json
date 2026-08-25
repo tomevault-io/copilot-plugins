@@ -1,0 +1,44 @@
+{
+  "name": "ha-oukitel-powerstation",
+  "owner": "bordeux",
+  "repo": "ha-oukitel-powerstation",
+  "description": "Home Assistant integration for Oukitel portable power stations (P2001E Plus and other Quectel/Acceleronix \"WonderFree\" models) \u2014 fully local LAN control, no cloud at runtime.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bordeux/ha-oukitel-powerstation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T08:05:31Z"
+}
