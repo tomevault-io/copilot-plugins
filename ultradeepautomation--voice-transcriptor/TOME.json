@@ -1,0 +1,44 @@
+{
+  "name": "Voice-Transcriptor",
+  "owner": "UltraDeepAutomation",
+  "repo": "Voice-Transcriptor",
+  "description": "Desktop speech-to-text with global hotkeys and auto-paste: live mic transcription via local Whisper (offline) or Deepgram, file/video transcription, searchable local history, and AI text cleanup. macOS, Windows, Linux.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/UltraDeepAutomation/Voice-Transcriptor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T05:43:48Z"
+}
