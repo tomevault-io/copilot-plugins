@@ -1,0 +1,9 @@
+{
+  "name": "jsoncut--jsoncut-skill",
+  "displayName": "jsoncut-skill",
+  "description": "AI agent skill for seamless integration with JsonCut, enabling automated creation and editing of videos and images using the jsoncut.com API",
+  "version": "1.0.0",
+  "author": "jsoncut",
+  "homepage": "https://github.com/jsoncut/jsoncut-skill",
+  "skills": []
+}
