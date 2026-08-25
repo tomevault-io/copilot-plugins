@@ -7,11 +7,11 @@ Trình chỉnh sửa video local-first với ASR, OCR phụ đề gốc, dịch 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Lexombien/lemyloi-dichvideos](https://github.com/Lexombien/lemyloi-dichvideos).
+Original source: `AGENTS.md` in [Lexombien/lemyloi-dichvideos](https://github.com/Lexombien/lemyloi-dichvideos).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
