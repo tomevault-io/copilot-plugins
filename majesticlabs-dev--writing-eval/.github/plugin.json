@@ -1,0 +1,9 @@
+{
+  "name": "majesticlabs-dev--writing-eval",
+  "displayName": "writing-eval",
+  "description": "Writing Eval evaluates AI-generated text against configurable style rules and profiles to detect AI-writing patterns and produce deterministic Markdown/JSON audit reports.",
+  "version": "1.0.0",
+  "author": "majesticlabs-dev",
+  "homepage": "https://github.com/majesticlabs-dev/writing-eval",
+  "skills": []
+}
