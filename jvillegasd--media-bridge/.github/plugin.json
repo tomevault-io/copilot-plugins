@@ -1,0 +1,9 @@
+{
+  "name": "jvillegasd--media-bridge",
+  "displayName": "media-bridge",
+  "description": "  Browser extension to detect and download HLS, DASH, and M3U8 video streams. Supports quality selection, live stream   recording, partial saves, cloud upload (Google Drive & S3), and FFmpeg-powered m",
+  "version": "1.0.0",
+  "author": "jvillegasd",
+  "homepage": "https://github.com/jvillegasd/media-bridge",
+  "skills": []
+}
