@@ -1,0 +1,71 @@
+## monmap
+
+> Rules that every package in this monorepo must follow.
+
+# monmap conventions
+
+Rules that every package in this monorepo must follow.
+
+**Before writing a query or UI view against the handbook data**, skim
+[`docs/handbook-internals.md`](docs/handbook-internals.md) — it
+captures the non-obvious shape of Monash's data (CourseLoop field
+conventions, what the tree JSONB looks like, fields that silently
+lie about their content, cross-year references) that won't be
+apparent from the schema or the column names alone.
+
+## 1. `.env` lives at the repository root
+
+There is exactly one `.env` file, at the repo root. Packages do **not** ship
+their own `.env` or read from `packages/*/`. Anything that needs env vars
+(drizzle config, the ingest CLI, future web servers) must resolve the
+root `.env` explicitly — e.g.:
+
+```ts
+import { config } from "dotenv";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+config({
+  path: resolve(fileURLToPath(import.meta.url), "../../../.env"),
+});
+```
+
+If a new package needs a new env var, add it to the root `.env` (and its
+documented `.env.example`), never fragment configuration across packages.
+
+## 2. Drizzle: generate + migrate, never push
+
+The workflow is:
+
+```bash
+pnpm db:generate      # write a new SQL migration file to packages/db/drizzle/
+pnpm db:migrate       # apply pending migrations to the database in DATABASE_URL
+```
+
+`drizzle-kit push` is **not** available as a script and must not be added.
+Push bypasses the migration history — great for throwaway prototypes,
+disastrous for a shared dev/prod DB where you want an auditable log of
+every schema change. Always go through a reviewed migration file.
+
+## 3. Never start the Next.js dev server yourself
+
+The user runs `pnpm dev` themselves. Don't spawn it, don't background it,
+don't "just smoke-test it" — `next dev` holds a lockfile at
+`packages/webapp/.next/dev/lock`, and a second instance fights the
+user's instance over the port and the lock, leaves orphaned processes,
+and corrupts the build cache. If you need to verify a route, ask the
+user to hit it (or to share the response), or write a unit test. Same
+applies to `next start` and any other long-running server.
+
+## 4. Yellow surfaces pair with `text-primary-foreground`, never `text-primary`
+
+`--primary` is Monash yellow (`#ffe330`). Yellow text on a yellow tint
+(`bg-primary/15 text-primary` and friends) is unreadable. The brand
+defines `--primary-foreground` as `#1d1300` ("yellow ink") for exactly
+this pairing — use it on any yellow-tinted chip, badge, or pill, and
+bump the tint (≈`/40`) so the surface still reads as yellow rather
+than gray.
+
+---
+> Source: [monashcoding/monmap](https://github.com/monashcoding/monmap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
