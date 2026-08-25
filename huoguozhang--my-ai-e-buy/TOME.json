@@ -1,0 +1,44 @@
+{
+  "name": "my-ai-e-buy",
+  "owner": "huoguozhang",
+  "repo": "my-ai-e-buy",
+  "description": "ai\u7535\u5546\u7cfb\u7edf\uff0c\u4e3b\u8981\u4fa7\u91cd\u4e8e\u529f\u80fd\uff08\u6bd4\u5982\u667a\u80fd\u5ba2\u670d\u3001\u667a\u80fd\u63a8\u8350\u7b49\uff09\uff0c\u540e\u7aef\u529f\u80fd\u8bbe\u8ba1\u7684\u6bd4\u8f83\u7b80\u5355",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huoguozhang/my-ai-e-buy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T00:40:43Z"
+}
