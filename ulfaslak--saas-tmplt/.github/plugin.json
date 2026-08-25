@@ -1,0 +1,9 @@
+{
+  "name": "ulfaslak--saas-tmplt",
+  "displayName": "saas_tmplt",
+  "description": "SaaS template for Claude Code agents \u2014 SvelteKit + Postgres + Drizzle skeleton with auth, multi-tenancy, and production deploy. Bundles the agent workflow (CLAUDE.md, DNA, slash commands) that drives ",
+  "version": "1.0.0",
+  "author": "ulfaslak",
+  "homepage": "https://github.com/ulfaslak/saas_tmplt",
+  "skills": []
+}
