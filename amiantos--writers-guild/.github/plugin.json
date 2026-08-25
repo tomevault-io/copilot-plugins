@@ -1,0 +1,9 @@
+{
+  "name": "amiantos--writers-guild",
+  "displayName": "writers-guild",
+  "description": "A SillyTavern alternative focused on short story writing with full support for Tavern cards and Lorebooks",
+  "version": "1.0.0",
+  "author": "amiantos",
+  "homepage": "https://github.com/amiantos/writers-guild",
+  "skills": []
+}
