@@ -1,0 +1,9 @@
+{
+  "name": "frankxai--agentic-creator-os",
+  "displayName": "agentic-creator-os",
+  "description": "Creator operating system for AI-native workflows: skills, commands, agents, and plugins for Codex, Claude Code, Cursor, Grok and Antigravity Gemini.",
+  "version": "1.0.0",
+  "author": "frankxai",
+  "homepage": "https://github.com/frankxai/agentic-creator-os",
+  "skills": []
+}
