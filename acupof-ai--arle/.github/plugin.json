@@ -1,0 +1,9 @@
+{
+  "name": "acupof-ai--arle",
+  "displayName": "arle",
+  "description": "Pure-Rust LLM runtime: one binary serves (OpenAI-compatible), runs local agents, and distills models on their own rollouts \u2014 on Apple Silicon and NVIDIA. No Python on the hot path.",
+  "version": "1.0.0",
+  "author": "acupof-ai",
+  "homepage": "https://github.com/acupof-ai/arle",
+  "skills": []
+}
