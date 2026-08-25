@@ -7,11 +7,11 @@ Free, local-first evaluation dashboard for agent CLIs with cross-harness transcr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [RasputinKaiser/OpenEval](https://github.com/RasputinKaiser/OpenEval).
+Original source: `AGENTS.md` in [RasputinKaiser/OpenEval](https://github.com/RasputinKaiser/OpenEval).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
