@@ -4,7 +4,7 @@
   "repo": "Vibesecurity",
   "description": "AI-powered security auditing for web and mobile applications. Built for vibe coding workflows with Codex and Claude Code, VibeSecurity reviews your projects, detects vulnerabilities, identifies security risks, and suggests or applies fixes to make AI-generated software safer, more reliable, and production-ready.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eticmedya/Vibesecurity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T15:58:08Z"
+  "distributed_at": "2026-08-25T15:55:43Z"
 }
