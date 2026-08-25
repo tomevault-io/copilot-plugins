@@ -1,0 +1,44 @@
+{
+  "name": "folio",
+  "owner": "WDQ-CN",
+  "repo": "folio",
+  "description": "Folio\uff08\u5bf9\u5f00\u672c\uff09\u2014\u2014\u9762\u5411\u4e13\u4e1a\u7f51\u7edc\u5c0f\u8bf4\u4f5c\u8005\u7684\u514d\u8d39\u5f00\u6e90 Windows \u684c\u9762\u521b\u4f5c\u5e73\u53f0\uff08\u672c\u5730\u4f18\u5148 \u00b7 \u6570\u636e\u5f00\u653e\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WDQ-CN/folio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T14:23:33Z"
+}
