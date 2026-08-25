@@ -1,57 +1,128 @@
-## writing-scannable-code
+## lemyloi-dichvideos
 
-> Code should be scannable through proper abstraction, not comments. Use variables and helper functions to make intent clear at a glance.
+> Privacy-first video editor, with a focus on simplicity and ease of use.
 
+# AGENTS.md
 
-# Scannable Code Guidelines/Separating Concerns.
+## Overview
 
-## Core Principle
+Privacy-first video editor, with a focus on simplicity and ease of use.
 
-Code should be scannable through proper abstraction, not comments. Use variables and helper functions to make intent clear at a glance.
+## Lib vs Utils
 
-## Good Scannable Code
+- `lib/` - domain logic (specific to this app)
+- `utils/` - small helper utils (generic, could be copy-pasted into any other app)
 
-- Extract complex logic into well-named variables
-- Create helper functions for multi-step operations
-- Use descriptive names that explain intent
+## Core Editor System
 
-Examples:
+The editor uses a **singleton EditorCore** that manages all editor state through specialized managers.
 
-```javascript
-// ✅ Scannable: Intent is clear from variable names
-const isValidUser = user.isActive && user.hasPermissions;
-const shouldProcessPayment = amount > 0 && !order.isPaid;
+### Architecture
 
-// ✅ Scannable: Complex logic extracted to helper
-const searchParams = buildFreesoundSearchParams({ query, filters, pagination });
-const transformedResults = transformFreesoundResults({ rawResults });
+```
+EditorCore (singleton)
+├── playback: PlaybackManager
+├── timeline: TimelineManager
+├── scene: SceneManager
+├── project: ProjectManager
+├── media: MediaManager
+└── renderer: RendererManager
 ```
 
-## Bad Unscannable Code
+### When to Use What
 
-Avoid:
+#### In React Components
 
-```javascript
-// ❌ Hard to scan: What does this condition mean?
-if (type === "effects" || !type) {
-  params.append("filter", "duration:[* TO 30.0]");
-  params.append("filter", `avg_rating:[${min_rating} TO *]`);
-  if (commercial_only) {
-    params.append("filter", 'license:("Attribution" OR "Creative Commons 0")');
-  }
+**Always use the `useEditor()` hook:**
+
+```typescript
+import { useEditor } from '@/hooks/use-editor';
+
+function MyComponent() {
+  const editor = useEditor();
+  const tracks = editor.timeline.getTracks();
+
+  // Call methods
+  editor.timeline.addTrack({ type: 'media' });
+
+  // Display data (auto re-renders on changes)
+  return <div>{tracks.length} tracks</div>;
 }
-
-// ❌ Hard to scan: Complex ternary
-const sortParam = query
-  ? sort === "score"
-    ? "score"
-    : `${sort}_desc`
-  : `${sort}_desc`;
 ```
 
-## Rule
+The hook:
 
-Make code scannable by extracting intent into variables and helper functions. If you need to think about what code does, extract it. The reader should understand the flow without diving into implementation details.
+- Returns the singleton instance
+- Subscribes to all manager changes
+- Automatically re-renders when state changes
+
+#### Outside React Components
+
+**Use `EditorCore.getInstance()` directly:**
+
+```typescript
+// In utilities, event handlers, or non-React code
+import { EditorCore } from "@/core";
+
+const editor = EditorCore.getInstance();
+await editor.export({ format: "mp4", quality: "high" });
+```
+
+## Actions System
+
+Actions are the trigger layer for user-initiated operations. The single source of truth is `@/lib/actions/definitions.ts`.
+
+**To add a new action:**
+
+1. Add it to `ACTIONS` in `@/lib/actions/definitions.ts`:
+
+```typescript
+export const ACTIONS = {
+  "my-action": {
+    description: "What the action does",
+    category: "editing",
+    defaultShortcuts: ["ctrl+m"],
+  },
+  // ...
+};
+```
+
+2. Add handler in `@/hooks/use-editor-actions.ts`:
+
+```typescript
+useActionHandler(
+  "my-action",
+  () => {
+    // implementation
+  },
+  undefined,
+);
+```
+
+**In components, use `invokeAction()` for user-triggered operations:**
+
+```typescript
+import { invokeAction } from '@/lib/actions';
+
+// Good - uses action system
+const handleSplit = () => invokeAction("split-selected");
+
+// Avoid - bypasses UX layer (toasts, validation feedback)
+const handleSplit = () => editor.timeline.splitElements({ ... });
+```
+
+Direct `editor.xxx()` calls are for internal use (commands, tests, complex multi-step operations).
+
+## Commands System
+
+Commands handle undo/redo. They live in `@/lib/commands/` organized by domain (timeline, media, scene).
+
+Each command extends `Command` from `@/lib/commands/base-command` and implements:
+
+- `execute()` - saves current state, then does the mutation
+- `undo()` - restores the saved state
+
+Actions and commands work together: actions are "what triggered this", commands are "how to do it (and undo it)".
 
 ---
 > Source: [Lexombien/lemyloi-dichvideos](https://github.com/Lexombien/lemyloi-dichvideos) — distributed by [TomeVault](https://tomevault.io).
