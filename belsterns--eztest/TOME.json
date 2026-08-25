@@ -4,7 +4,7 @@
   "repo": "eztest",
   "description": "Lightweight, powerful test management platform that runs on minimal hardware. Perfect for teams who want control without complexity.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/belsterns/eztest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T23:36:08Z"
+  "distributed_at": "2026-08-25T23:39:53Z"
 }
