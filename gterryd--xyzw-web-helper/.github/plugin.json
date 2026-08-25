@@ -1,0 +1,9 @@
+{
+  "name": "gterryd--xyzw-web-helper",
+  "displayName": "xyzw-web-helper",
+  "description": "\u54b8\u9c7c\u4e4b\u738b\u52a9\u624b - \u524d\u540e\u7aef\u7248\uff08Vue3 + Node.js\uff09\uff0c\u8fd8\u6709\u76d0\u573a\u81ea\u52a8\u5e03\u9635\u3001\u540e\u7aef\u63a8\u5173\u7b49",
+  "version": "1.0.0",
+  "author": "gterryd",
+  "homepage": "https://github.com/gterryd/xyzw-web-helper",
+  "skills": []
+}
