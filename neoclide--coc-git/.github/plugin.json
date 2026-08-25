@@ -1,0 +1,9 @@
+{
+  "name": "neoclide--coc-git",
+  "displayName": "coc-git",
+  "description": "coc-git",
+  "version": "1.0.0",
+  "author": "neoclide",
+  "homepage": "https://github.com/neoclide/coc-git",
+  "skills": []
+}
