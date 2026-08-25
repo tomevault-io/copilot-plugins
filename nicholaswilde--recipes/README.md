@@ -1,6 +1,6 @@
 # recipes
 
-> Tome by [nicholaswilde](https://github.com/nicholaswilde/recipes) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [nicholaswilde](https://github.com/nicholaswilde/recipes), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `AGENTS.md` in [nicholaswilde/recipes](https://github.com/nicho
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/nicholaswilde/recipes](https://github.com/nicholaswilde/recipes)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/nicholaswilde/recipes](https://github.com/nicholaswilde/recipes)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
