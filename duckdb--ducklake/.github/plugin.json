@@ -1,0 +1,9 @@
+{
+  "name": "duckdb--ducklake",
+  "displayName": "ducklake",
+  "description": "ducklake",
+  "version": "1.0.0",
+  "author": "duckdb",
+  "homepage": "https://github.com/duckdb/ducklake",
+  "skills": []
+}
