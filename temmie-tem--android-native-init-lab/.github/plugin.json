@@ -1,0 +1,9 @@
+{
+  "name": "temmie-tem--android-native-init-lab",
+  "displayName": "android-native-init-lab",
+  "description": "Custom static /init (PID 1) and minimal native Linux userspace on Android vendor kernels \u2014 reproducible, recovery-safe bring-up for hardware reuse.",
+  "version": "1.0.0",
+  "author": "Temmie-Tem",
+  "homepage": "https://github.com/Temmie-Tem/android-native-init-lab",
+  "skills": []
+}
