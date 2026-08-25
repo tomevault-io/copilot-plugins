@@ -1,0 +1,9 @@
+{
+  "name": "boarteam--fix-protocol",
+  "displayName": "fix-protocol",
+  "description": "Dictionary-driven, zero-dependency FIX protocol toolkit for TypeScript (browser + Node).",
+  "version": "1.0.0",
+  "author": "boarteam",
+  "homepage": "https://github.com/boarteam/fix-protocol",
+  "skills": []
+}
