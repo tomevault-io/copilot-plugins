@@ -1,0 +1,9 @@
+{
+  "name": "trust1509--immich-family-tools",
+  "displayName": "immich-family-tools",
+  "description": "Cross-account face matching and shared album management for self-hosted Immich",
+  "version": "1.0.0",
+  "author": "Trust1509",
+  "homepage": "https://github.com/Trust1509/immich-family-tools",
+  "skills": []
+}
