@@ -1,18 +1,78 @@
-## 03-project-structure
+## 04-code-implementation-guidelines
 
-> The repository is organized in a monorepo using pnpm workspaces: [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml). It contains the following:
+> Coding standards, naming, testing & style rules
 
-# Project Structure
+# Development Guidelines
 
-The repository is organized in a monorepo using pnpm workspaces: [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml). It contains the following:
+## General
+- Write **correct, DRY, bug-free** code — leave **no TODOs**.
+- Prefer **functional components** and **hooks**; use **TypeScript** types/interfaces consistently.
+- Use **early returns** to reduce nesting.
+- Choose **descriptive names** for variables, functions, and components.
 
-- **apps/api**: [package.json](mdc:apps/api/package.json)
-- **apps/web**: [package.json](mdc:apps/web/package.json)
-- **pacakges/types**: [package.json](mdc:packages/types/package.json)
+## Typing
+- Use **strict TypeScript**: avoid `any`, `unknown`, and implicit `any`.
+- Prefer `interface` over `type` aliases, unless a type cannot be expressed with an interface.
+- Always type:
+  - Props
+  - State
+  - Event handlers
+  - Returned values
+- Favor **`readonly`** and **`as const`** assertions for immutability and safety.
+- Narrow types when possible (e.g., `'small' | 'medium' | 'large'` instead of `string`).
+- Use utility types like `Partial`, `Pick`, `Omit` thoughtfully to improve clarity and type safety.
 
-With the root package.json being: [package.json](mdc:package.json)
+## Styling
+- Use **Tailwind CSS** exclusively — do not use external CSS or styled-components.
+- Use the `cn` utility from `@/utils/utils` for conditional class names.
+  - Avoid ternaries in className strings.
 
-- When executing command in specific workspaces, use the `--filter @dafthunk/web` for example in order to execute a pnpm command in the web workspace.
+## Form inputs (non-login)
+
+Settings, wizards, and admin config forms are **not** login forms. Avoid `type="email"`, `type="password"`, and names like `email` / `username` / `password` — browsers and password managers will autofill them incorrectly.
+
+Use `@/components/credential-secret-input` instead:
+
+| Field | Component |
+|-------|-----------|
+| Text, hostname, API key id, port, etc. | `CredentialPlainInput` |
+| Secrets (API keys, tokens, SMTP password) | `CredentialSecretInput` |
+
+Also: `autoComplete="off"` on the `<form>`, semantic `name` (e.g. `auth_config_smtp_host`), unique `id` prefix per page.
+
+Reference: `credential-secret-input.tsx`, `volcano-credential-fields.tsx`, `admin-login-methods-page.tsx`.
+
+Login/sign-up pages may use normal `Input` with appropriate `autoComplete` (`email`, `current-password`, `one-time-code`).
+
+## Naming Conventions
+- **kebab-case** for file names (e.g., `my-component.tsx`).
+- **camelCase** for hooks and utility functions (e.g., `useMyHook`, `formatDate`).
+- Prefix event handlers with `handle` (e.g., `handleSubmit`, `handleClick`).
+
+## Testing & QA
+- Write tests using **Vitest**.
+- Cover critical paths, edge cases, and user-facing logic.
+- Provide fallback UI and error boundaries where appropriate.
+
+## REST API Best Practices
+
+### Shared Types
+- Define shared types in: `packages/types/src/index.ts`
+- Use them:
+  - To serialize data in API routes (backend).
+  - To deserialize and validate data on the frontend.
+- This ensures **type safety and consistency** across backend and frontend.
+
+### Statelessness
+- REST APIs must be **stateless**:
+  - Each request must be self-contained.
+  - The server must not depend on in-memory or session state.
+- Clients manage session (e.g., cookies, auth headers, tokens).
+- Use headers or tokens to communicate user context, not prior API calls.
+
+#### Benefits
+- Enables better scalability and server independence.
+- Reduces bugs and improves debuggability by avoiding implicit state.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
