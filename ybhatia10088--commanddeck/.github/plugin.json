@@ -1,0 +1,9 @@
+{
+  "name": "ybhatia10088--commanddeck",
+  "displayName": "CommandDeck",
+  "description": "Voice-native mission control for robot fleets. Coordinate many autonomous units by speaking, via MCP + Convex. Built at the VoiceOS hackathon.",
+  "version": "1.0.0",
+  "author": "ybhatia10088",
+  "homepage": "https://github.com/ybhatia10088/CommandDeck",
+  "skills": []
+}
