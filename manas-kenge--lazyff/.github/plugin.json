@@ -1,0 +1,9 @@
+{
+  "name": "manas-kenge--lazyff",
+  "displayName": "lazyff",
+  "description": "An interactive TUI for ffmpeg that makes video and audio operations simple without complex commands.",
+  "version": "1.0.0",
+  "author": "Manas-Kenge",
+  "homepage": "https://github.com/Manas-Kenge/lazyff",
+  "skills": []
+}
