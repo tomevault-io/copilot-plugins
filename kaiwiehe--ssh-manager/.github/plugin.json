@@ -1,0 +1,9 @@
+{
+  "name": "kaiwiehe--ssh-manager",
+  "displayName": "ssh_manager",
+  "description": "SSH Manager is a lightweight Windows desktop app for organizing and launching SSH sessions from one place. It combines WinSCP sessions, ~/.ssh/config hosts, and custom app-defined entries into a singl",
+  "version": "1.0.0",
+  "author": "KaiWiehe",
+  "homepage": "https://github.com/KaiWiehe/ssh_manager",
+  "skills": []
+}
