@@ -1,0 +1,9 @@
+{
+  "name": "kcsinclair--kaos-control",
+  "displayName": "kaos-control",
+  "description": "Self-hosted orchestrator for Claude Code agents: drive ideas through a role-gated SDLC (plan \u2192 build \u2192 test \u2192 release), with per-agent sandboxing, live run streaming, and markdown-on-disk as the sourc",
+  "version": "1.0.0",
+  "author": "kcsinclair",
+  "homepage": "https://github.com/kcsinclair/kaos-control",
+  "skills": []
+}
