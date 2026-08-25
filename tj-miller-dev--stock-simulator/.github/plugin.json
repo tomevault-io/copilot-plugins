@@ -1,0 +1,9 @@
+{
+  "name": "tj-miller-dev--stock-simulator",
+  "displayName": "stock_simulator",
+  "description": "100% real fake market data \u2014 a free, deterministic, Alpaca-compatible synthetic market data API. No key, no signup. Runs locally or in cloud (EKS + ArgoCD + Terraform).",
+  "version": "1.0.0",
+  "author": "tj-miller-dev",
+  "homepage": "https://github.com/tj-miller-dev/stock_simulator",
+  "skills": []
+}
