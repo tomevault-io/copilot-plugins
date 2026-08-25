@@ -4,7 +4,7 @@
   "repo": "WebCrypt",
   "description": "Zero-dependency Web Crypto suite & Model Context Protocol (MCP) server for AES-256-GCM, RSA-4096, and AI agent security.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/putervision/WebCrypt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T21:42:40Z"
+  "distributed_at": "2026-08-25T04:01:58Z"
 }
