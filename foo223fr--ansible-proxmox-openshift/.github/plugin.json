@@ -1,0 +1,9 @@
+{
+  "name": "foo223fr--ansible-proxmox-openshift",
+  "displayName": "ansible-proxmox-openshift",
+  "description": "Ansible automation for deploying OpenShift on Proxmox VE \u2014 bare-metal IPI on a homelab",
+  "version": "1.0.0",
+  "author": "fOO223Fr",
+  "homepage": "https://github.com/fOO223Fr/ansible-proxmox-openshift",
+  "skills": []
+}
