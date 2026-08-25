@@ -1,0 +1,44 @@
+{
+  "name": "richard-med",
+  "owner": "SuWh1",
+  "repo": "richard-med",
+  "description": "Aviasales for medicine - search one medical service and compare real clinic prices across Kazakhstan with source proof, freshness, and a map.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SuWh1/richard-med",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T02:06:19Z"
+}
