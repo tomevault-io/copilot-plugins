@@ -1,0 +1,9 @@
+{
+  "name": "pale-knight--redteam-skill",
+  "displayName": "redteam-skill",
+  "description": "Redteam / Pentest Skill Pack \u2014 semi-automated workflow + on-demand module selection + real-world attack chains | Kali + Claude Code \u7ea2\u961f/\u6e17\u900f/\u6280\u80fd\u5305 - \u534a\u81ea\u52a8\u5de5\u4f5c\u6d41 + \u6309\u9700\u70b9\u9009\u6a21\u5757 + \u5b9e\u6218\u5229\u7528\u94fe | \u57fa\u4e8e Kali \u4e0e Claude Code",
+  "version": "1.0.0",
+  "author": "pale-knight",
+  "homepage": "https://github.com/pale-knight/redteam-skill",
+  "skills": []
+}
