@@ -7,11 +7,11 @@ Mimir is a high-performance, AI-driven trading terminal built for the Indian sto
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Scifi-ally/Mimir](https://github.com/Scifi-ally/Mimir).
+Original source: `AGENTS.md` in [Scifi-ally/Mimir](https://github.com/Scifi-ally/Mimir).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
