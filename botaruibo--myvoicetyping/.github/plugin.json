@@ -1,0 +1,9 @@
+{
+  "name": "botaruibo--myvoicetyping",
+  "displayName": "MyVoiceTyping",
+  "description": "Local-first Chinese voice typing for macOS \u2014 offline ASR, local polishing model, hotwords, and Self-Evolution.",
+  "version": "1.0.0",
+  "author": "botaruibo",
+  "homepage": "https://github.com/botaruibo/MyVoiceTyping",
+  "skills": []
+}
