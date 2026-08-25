@@ -1,0 +1,44 @@
+{
+  "name": "multiplatform-downloader",
+  "owner": "Janusilver",
+  "repo": "multiplatform-downloader",
+  "description": "\u591a\u5e73\u53f0\u65e0\u6c34\u5370\u4e0b\u8f7d\u5668\uff1a\u6296\u97f3 / \u5c0f\u7ea2\u4e66 / \u5feb\u624b / B\u7ad9 / X (Twitter) / Instagram \u4e00\u952e\u4e0b\u8f7d\uff08Python + tkinter GUI\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Janusilver/multiplatform-downloader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T02:39:48Z"
+}
