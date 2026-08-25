@@ -41,5 +41,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   - Always remember to use `e.stopPropagation()` on `onClick` AND `onPointerDown` for interactive canvas elements (like watermarks) so they don't accidentally trigger canvas deselection.
 
 ---
-> Source: [ishivamgaur/noiceSS](https://github.com/ishivamgaur/noiceSS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
+> Source: [ishivamgaur/NoiceSS](https://github.com/ishivamgaur/NoiceSS) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
