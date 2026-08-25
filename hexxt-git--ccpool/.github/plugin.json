@@ -1,0 +1,9 @@
+{
+  "name": "hexxt-git--ccpool",
+  "displayName": "ccpool",
+  "description": "a cli to equally share a claude code subscription for low budget teams",
+  "version": "1.0.0",
+  "author": "hexxt-git",
+  "homepage": "https://github.com/hexxt-git/ccpool",
+  "skills": []
+}
