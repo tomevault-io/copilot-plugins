@@ -1,0 +1,9 @@
+{
+  "name": "dokkimi--dokkimi",
+  "displayName": "dokkimi",
+  "description": "Integration, E2E, and visual regression testing for microservices without changing your code.",
+  "version": "1.0.0",
+  "author": "dokkimi",
+  "homepage": "https://github.com/dokkimi/dokkimi",
+  "skills": []
+}
