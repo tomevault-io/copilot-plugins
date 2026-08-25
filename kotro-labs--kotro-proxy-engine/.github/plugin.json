@@ -1,0 +1,9 @@
+{
+  "name": "kotro-labs--kotro-proxy-engine",
+  "displayName": "kotro-proxy-engine",
+  "description": "Local coding-agent control plane \u2014 MCP action governance + LLM-path protection + cost control. One Rust binary, no SaaS.",
+  "version": "1.0.0",
+  "author": "kotro-labs",
+  "homepage": "https://github.com/kotro-labs/kotro-proxy-engine",
+  "skills": []
+}
