@@ -1,46 +1,51 @@
-## 200-architecture-limits
+## 300-ui-components
 
-> Keep files small and reuse logic via services,hooks,and feature slices
+> Enforce accessible,i18n-ready React UI in shared components
 
 
-# Architektur: KISS, DRY, Grenzen
+# UI-Komponenten (React 19)
 
-## Prinzipien
+## Paradigma
 
-- **KISS:** Einfachste Lösung mit `strict` Types und testbaren Seams.
-- **DRY:** Logik in `services/`, `hooks/`, `features/*/thunks` — nicht in Views duplizieren.
+- Funktionale Komponenten; Redux für App-State, lokales UI-State nur wo sinnvoll.
+- Primitive: **`components/ui/*`**; Design-Tokens optional **`@domain/ui`**.
+- **Alle** nutzersichtlichen Strings über **i18n** (`useTranslation` / Kontext).
 
-## View-Muster (StoryCraft)
+## Props & Struktur
 
-- **Component + Hook + Context:** Rendering in `components/*View.tsx`, Logik in `hooks/use*View.ts`, Kontext für Kindbaum.
-- **Redux** für persistierten App-State; **Zustand** nur transient (`app/transientUiStore.ts`).
-- **Undo:** `redux-undo` am Projekt-Slice; Plot-Board-**Viewport** lokal — Verbindungen/Subplots im `projectSlice` wenn undo-relevant.
-- Schwere Views: `React.lazy` in `App.tsx`; Plot-Board-Subchunks, ForceGraph, Collaboration lazy; `listenerMiddleware` + `aiApi` dynamic import für DuckDB/RAG/Provider.
-- **ProForge Pipeline** (`services/proForge/`, `features/proForge/`, `components/proForge/`): 8-stage Agentic-Pipeline hinter `enableProForge`-Flag. Orchestrator nie direkt in Komponenten instantiieren — über `hooks/useProForgeOrchestrator.ts`.
-- **Voice** (`services/voice/`): Abstract-Engine-Pattern; `VoiceCommandService` als Singleton hinter `enableVoiceSupport`-Flag.
+- Props strikt typisiert (`exactOptionalPropertyTypes`).
+- Handler `onX`; Booleans `is*/has*`.
+- Teure Listen: `React.memo`; UI-Primitives mit `forwardRef` wo nötig.
 
-## Dateigrößen
+## Accessibility
 
-- **Ziel:** 200–700 Zeilen. **> 700:** splitten (Hook, Subkomponente, Selektoren, Tests).
-- Reducer schlank; Thunks in `features/project/thunks/` (inkl. `aiThunkUtils` für deduplizierte KI-Requests).
+- Klick = `button` oder `role` + **Tastatur** (`useKeyWithClickEvents`).
+- Modale: Fokus-Falle (`useFocusTrap`), ESC, Backdrop als schließbarer `button` mit `aria-label` — siehe `Modal.tsx`, `CommandPalette.tsx`.
+- Formulare: `htmlFor`/ARIA; `useButtonType`.
+- Ladezustände KI: `aria-busy` + kurzes `aria-live` wo Status wechselt.
+- `dangerouslySetInnerHtml` nur sanitisiert (DOMPurify).
+- Status: `LiveRegionProvider` / `useAnnounce()` für wichtige Wechsel.
 
-## Workspace & Typen
+## Command Center & Hilfe
 
-- Shared Code in **`packages/ai-core`**, **`packages/ui`** — nicht ungefragt in Root duplizieren.
-- Schnittstellen an `types.ts` / Feature-Typen; kein `any`-Workaround.
+- Palette: keine zweite Open-State-Quelle neben `transientUiStore`.
+- Tooltips/EmptyState aus `components/ui/`; Toasts mit `commandId` wo passend.
 
-## Feature Flags
+## Styling & Hosts
 
-- Experimentelles über `features/featureFlags/featureFlagsSlice.ts` (19 Flags) — nicht verstreute `if (true)`-Hacks.
-- Standard **ein**: `enableCodexAutoTracking`, `enableCrossProjectSearch`, `enablePlotBoardV2`. Alle anderen: aus.
-- Major-Features (Voice, ProForge, DuckDB, LoRA, CloudSync, PluginSystem) müssen per Flag ein-/ausgeschaltet werden.
+- Tailwind; Inline nur für gemessene Werte.
+- **Keine** `@tauri-apps/api` in UI-Atoms — Services/Hooks.
+
+## Storybook
+
+- Neue Primitive: Story + **addon-a11y** prüfen (`pnpm run storybook`).
 
 <example>
-Manuskript >700 Zeilen: `ManuscriptInspector.tsx` + `hooks/useManuscript.ts`; Plot-Board-Canvas eigene Datei unter `components/plotBoard/`.
+Neues Panel: `Modal` + i18n-Titel; Fokus zurück auf Trigger; Tastatur-Reihenfolge in Scene Board wie `moveManuscriptSectionWithinAct`.
 </example>
 
 <example type="invalid">
-700+ Zeilen nur mit Kommentar-Abschnitten; Plot-Subplot-State nur in localStorage ohne Undo-Strategie; drittes State-Framework neben Redux/Zustand.
+`<div onClick>` ohne Keyboard; hardcodierter Button-Text `"Save"`; rohes HTML aus KI-Output; Tauri-FS im Button-Handler.
 </example>
 
 ---
