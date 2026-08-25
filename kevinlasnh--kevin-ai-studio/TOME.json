@@ -4,7 +4,7 @@
   "repo": "kevin-AI-studio",
   "description": "A personal open-source hub by kevinlasnh \u2014 agents, knowledge, systems.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kevinlasnh/kevin-AI-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T04:07:26Z"
+  "distributed_at": "2026-08-25T06:42:49Z"
 }
