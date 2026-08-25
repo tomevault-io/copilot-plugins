@@ -1,0 +1,9 @@
+{
+  "name": "nomadcxx--searxng-rama",
+  "displayName": "searxng-RAMA",
+  "description": "SearXNG with custom themes, privacy defaults and an installer.",
+  "version": "1.0.0",
+  "author": "Nomadcxx",
+  "homepage": "https://github.com/Nomadcxx/searxng-RAMA",
+  "skills": []
+}
