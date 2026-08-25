@@ -1,0 +1,9 @@
+{
+  "name": "openemu-silicon--openemu-silicon",
+  "displayName": "OpenEmu-Silicon",
+  "description": "Native ARM64 port of OpenEmu for Apple Silicon MacBooks",
+  "version": "1.0.0",
+  "author": "OpenEmu-Silicon",
+  "homepage": "https://github.com/OpenEmu-Silicon/OpenEmu-Silicon",
+  "skills": []
+}
