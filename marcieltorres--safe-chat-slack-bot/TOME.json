@@ -4,7 +4,7 @@
   "repo": "safe-chat-slack-bot",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marcieltorres/safe-chat-slack-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T17:02:50Z"
+  "distributed_at": "2026-08-25T18:27:08Z"
 }
