@@ -1,0 +1,9 @@
+{
+  "name": "arin-jaff--traininggeeks",
+  "displayName": "TrainingGeeks",
+  "description": "Own your training data! Open-source, self-hosted training log & analytics. Calendar, fitness/fatigue/form, dashboards, zones, peak curves & intervals.icu sync.",
+  "version": "1.0.0",
+  "author": "arin-jaff",
+  "homepage": "https://github.com/arin-jaff/TrainingGeeks",
+  "skills": []
+}
