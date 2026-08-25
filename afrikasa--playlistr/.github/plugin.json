@@ -1,0 +1,9 @@
+{
+  "name": "afrikasa--playlistr",
+  "displayName": "playlistr",
+  "description": "Spotify playlist downloader \u2014 MP3 via YouTube, UI React + FastAPI backend",
+  "version": "1.0.0",
+  "author": "afrikasa",
+  "homepage": "https://github.com/afrikasa/playlistr",
+  "skills": []
+}
