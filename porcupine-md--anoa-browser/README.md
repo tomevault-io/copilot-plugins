@@ -7,11 +7,11 @@ Headless browser with full Chrome DevTools Protocol (CDP) support. Distributed a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [porcupine-md/anoa-browser](https://github.com/porcupine-md/anoa-browser).
+Original source: `AGENTS.md` in [porcupine-md/anoa-browser](https://github.com/porcupine-md/anoa-browser).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
