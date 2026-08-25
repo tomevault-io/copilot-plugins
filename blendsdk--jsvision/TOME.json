@@ -4,7 +4,7 @@
   "repo": "jsvision",
   "description": "A TypeScript SDK for building terminal apps with real UI \u2014 menus, modal dialogs, forms, and many ready-made controls on a zero-dependency rendering engine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blendsdk/jsvision",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:18:13Z"
+  "distributed_at": "2026-08-25T12:14:10Z"
 }
