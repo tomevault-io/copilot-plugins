@@ -1,0 +1,9 @@
+{
+  "name": "holy-templar--marketing-agi",
+  "displayName": "marketing-agi",
+  "description": "Marketing AGI: an entire marketing department as one Claude skill. 14 modules: audits scored 0-100, an 18-tactic hook engine, copy graded before you see it, ad diagnosis, GEO, email, launches, pricing",
+  "version": "1.0.0",
+  "author": "holy-templar",
+  "homepage": "https://github.com/holy-templar/marketing-agi",
+  "skills": []
+}
