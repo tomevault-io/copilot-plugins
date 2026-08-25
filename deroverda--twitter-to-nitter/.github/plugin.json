@@ -1,0 +1,9 @@
+{
+  "name": "deroverda--twitter-to-nitter",
+  "displayName": "twitter-to-nitter",
+  "description": "Firefox extension that redirects x.com/twitter.com links to a working Nitter instance, testing each candidate and falling back automatically if it's rate-limited, broken, or errors out.",
+  "version": "1.0.0",
+  "author": "deroverda",
+  "homepage": "https://github.com/deroverda/twitter-to-nitter",
+  "skills": []
+}
