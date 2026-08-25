@@ -1,0 +1,9 @@
+{
+  "name": "extracurricular-ai--codex-rewind",
+  "displayName": "codex-rewind",
+  "description": "Unofficial distribution of OpenAI Codex CLI that adds /rewind and /redo \u2014 restores your files, not just the conversation. Git-free     snapshots that never touch your git state. Tracks upstream releas",
+  "version": "1.0.0",
+  "author": "extracurricular-ai",
+  "homepage": "https://github.com/extracurricular-ai/codex-rewind",
+  "skills": []
+}
