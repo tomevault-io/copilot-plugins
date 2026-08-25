@@ -1,0 +1,9 @@
+{
+  "name": "nginx--nginx-s3-gateway",
+  "displayName": "nginx-s3-gateway",
+  "description": "nginx-s3-gateway",
+  "version": "1.0.0",
+  "author": "nginx",
+  "homepage": "https://github.com/nginx/nginx-s3-gateway",
+  "skills": []
+}
