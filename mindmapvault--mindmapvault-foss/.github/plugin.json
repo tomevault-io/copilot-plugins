@@ -1,0 +1,9 @@
+{
+  "name": "mindmapvault--mindmapvault-foss",
+  "displayName": "mindmapvault-foss",
+  "description": "Offline\u2011first encrypted mind\u2011map editor (FOSS, local\u2011only, zero telemetry)",
+  "version": "1.0.0",
+  "author": "mindmapvault",
+  "homepage": "https://github.com/mindmapvault/mindmapvault-foss",
+  "skills": []
+}
