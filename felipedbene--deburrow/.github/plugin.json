@@ -1,0 +1,9 @@
+{
+  "name": "felipedbene--deburrow",
+  "displayName": "deburrow",
+  "description": "\ud83d\udc39 A modern, native Android Gopher client. Kotlin \u00b7 Jetpack Compose \u00b7 Material 3 \u2014 browsing the small internet over gopher:// and gophers://, the way 1991 intended.",
+  "version": "1.0.0",
+  "author": "felipedbene",
+  "homepage": "https://github.com/felipedbene/deburrow",
+  "skills": []
+}
