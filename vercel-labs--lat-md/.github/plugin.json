@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--lat-md",
+  "displayName": "lat.md",
+  "description": "Agent Lattice: a knowledge graph for your codebase, written in markdown.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/lat.md",
+  "skills": []
+}
