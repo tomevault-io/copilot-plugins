@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--individuality-community",
+  "displayName": "individuality-community",
+  "description": "Pallets and a runtime to manage Proof-of-Personhood (PoP) and related on-chain logic.",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/individuality-community",
+  "skills": []
+}
