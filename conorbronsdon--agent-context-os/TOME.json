@@ -4,7 +4,7 @@
   "repo": "agent-context-os",
   "description": "A Git-backed context and workflow layer for Claude Code, Codex, Hermes Agent, and compatible coding agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/conorbronsdon/agent-context-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T02:38:25Z"
+  "distributed_at": "2026-08-25T05:46:37Z"
 }
