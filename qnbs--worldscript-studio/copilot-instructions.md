@@ -1,45 +1,40 @@
-## 100-ai-providers-and-storage
+## 150-i18n-and-content
 
-> Apply hybrid AI,IndexedDB,and storage patterns when editing services or features
+> Enforce i18n key parity and content guard when editing locales or copy
 
 
-# KI-Anbieter, Speicher & Workspace-Pakete
+# i18n & Content
 
-## Orchestrierung (kanonisch)
+## Schlüssel & Bundles
 
-- Einstieg **`services/ai/index.ts`**: Strangler neben Legacy; Writer-Streaming → **`writer`-Slice**, Manuskript erst nach **Accept**.
-- Netzwerk-KI: **`aiProviderService.ts`**, **`geminiService.ts`** — keine parallele SDK-Init in Komponenten.
-- Vercel AI SDK (`ai`, `@ai-sdk/google`, `@ai-sdk/openai`): neue Pfade über `services/ai/` und Hooks (`useStoryCraftAI` o. ä.), nicht doppelte Retry-Logik.
-- **`assertCloudAiAllowed`:** Cloud nur wenn Policy/Settings es erlauben.
+- Quelle: **`locales/<lang>/*.json`** (de, en, fr, es, it) — **alle fünf** Locales bei neuen Keys.
+- Runtime: **`public/locales/<lang>/bundle.json`** via `node scripts/build-i18n.mjs` (läuft in `predev` / `i18n:check`).
+- CI: **`pnpm run i18n:check`** (Key-Parität + Bundle + `content:guard`).
+- UI-Text nur als **Übersetzungsschlüssel** (Dot-Notation), nie hardcodiert in TSX — außer Dev-Debug.
 
-## Hybrid & lokale Inferenz
+## Ton & Glossar
 
-- Presets: Ollama/LM Studio/vLLM via `settings.advancedAi`; Cloud-Router über `openAiCompatibleBaseUrl` + Key-Slot.
-- Fallback-Kette in `aiProviderService` für Legacy-Thunks respektieren.
-- WebLLM/GPU: **`gpuResourceManager`**, Tab-Leader (`packages/ai-core` / BroadcastChannel) — kein zweiter schwerer Inferenz-Tab.
-- Lokales RAG/Embeddings: bestehende Speicher (`saveRagVectors`), chunked yields; `@xenova/transformers` nur über etablierte Pfade.
+- KI als **Co-Pilot**, nicht Ghostwriter; Fehler: Was passiert → Was tun → optional `tryActionId`/Command.
+- Begriffe konsistent (siehe [`docs/BEST-PRACTICES.md`](../../docs/BEST-PRACTICES.md)): Manuscript, Outline, Template, Snapshot vs. Scene Revision, Writing Session, Subplot, Connection.
 
-## Google GenAI
+## Community & Help
 
-- Facade `geminiService.ts`, Typen `types.ts`; Schema/Streaming wie im Bestand.
+- Templates: kanonisches **Englisch** in `community-templates/index.json` + Spiegel unter `public/community-templates/`; Zod in `fetchCommunityTemplates`.
+- Help-Struktur: **`services/help/helpCatalog.ts`** (nicht `help.categories` in JSON); Texte in `locales/<lang>/help.json`. Neue Artikel: Katalog + alle 5 Locales (siehe `scripts/help-extra-keys.json`, `scripts/help-locales-es-fr-it.json`).
+- Help-Artikel: **`tryActionId`** für Palette/Navigation; Suche über `helpSearch.ts`; Demo-Feedback über Toasts, nicht `alert`.
 
-## IndexedDB & Storage
+## PR-Checkliste
 
-- Zugriff über `dbService.ts`, `storageService.ts`, **`storageBackend.ts`** (`saveEnvelopeFromProjectData` — kein roher Cast im Listener).
-- Record-Keys/Migrationen nicht willkürlich umbenennen; Scene-Revisions → `sceneRevisionService.ts` (eigener Store).
-- `checkStorageHealth()` in `services/dbInitialization.ts` — liefert `StorageHealth`; wird beim App-Start ausgeführt (Low-Storage-Toast).
-- Kollaboration: nur **eine** CRDT-Schicht (`collaborationService.ts` + Yjs). RTCDataChannel-Verschlüsselung läuft über den y-webrtc-Patch (`patches/y-webrtc@10.3.0.patch`) — nicht erneut implementieren.
-
-## Privacy
-
-- Offline-first: keine stillen Cloud-Uploads; neue Netzwerkpfade dokumentieren und nutzersteuerbar halten.
+1. Keys in allen Locales
+2. `pnpm run i18n:check` lokal (Quick-Tier)
+3. Keine Secrets/PII in JSON-Beispielen
 
 <example>
-Neuer Writer-Stream: Hook/`streamText` in `services/ai/`, Redux-Update im `writer`-Slice; Cloud-Gate via `assertCloudAiAllowed`.
+Neuer Settings-String: Key in `locales/en/settings.json` + de/fr/es/it; `i18n:check` grün; Help-Link mit `tryActionId: 'nav-settings'`.
 </example>
 
 <example type="invalid">
-`new GoogleGenAI({ apiKey: '…' })` in `components/`; zweites IndexedDB-Schema für Projektstate; WebLLM ohne Tab-Leader auf allen Tabs starten.
+Nur `en` befüllt; UI zeigt rohe Keys weil `bundle.json` nicht gebaut; deutscher Fließtext direkt in `components/Dashboard.tsx`.
 </example>
 
 ---
