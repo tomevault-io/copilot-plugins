@@ -1,0 +1,9 @@
+{
+  "name": "docling-project--docling-rs",
+  "displayName": "docling.rs",
+  "description": "Full Rust port of Python docling",
+  "version": "1.0.0",
+  "author": "docling-project",
+  "homepage": "https://github.com/docling-project/docling.rs",
+  "skills": []
+}
