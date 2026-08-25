@@ -1,0 +1,9 @@
+{
+  "name": "friedbotstudio--baseline",
+  "displayName": "baseline",
+  "description": "A discipline layer for Claude Code. Hooks at every tool boundary, a workflow that runs from intake to commit, and a small constitution the agent cannot bypass.",
+  "version": "1.0.0",
+  "author": "friedbotstudio",
+  "homepage": "https://github.com/friedbotstudio/baseline",
+  "skills": []
+}
