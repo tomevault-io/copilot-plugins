@@ -1,57 +1,26 @@
 ## claudian
 
-> `src/app/` owns application-scoped state services and adapters used by the composition root. Features and providers access these capabilities through stable host and core contracts rather than importing the concrete plugin class.
+> - `CollabAuthoritySessionFactory` is stateless. It constructs one membership-generation session composed of authority-neutral control, event, and Git-network ports, then transfers disposal ownership to `CollabProjectWorkSession`.
 
-# Application Services
-
-`src/app/` owns application-scoped state services and adapters used by the composition root. Features and providers access these capabilities through stable host and core contracts rather than importing the concrete plugin class.
-
-## Dependency Direction
-
-- `src/main.ts` is the concrete composition root. It constructs app services and wires core registries, providers, and features.
-- App repositories, storage, and settings services depend on core contracts. They must not import chat views, feature controllers, renderers, or provider-native protocol implementations.
-- `FeatureHost` is the feature-facing application boundary; user-facing features must not import `ClaudianPlugin` from `src/main.ts`.
-- `ProviderHost` is the provider-facing application boundary; provider runtime code must not reach through it to chat views or feature controllers.
-- Concrete provider imports are allowed only in composition and provider-default assembly. Do not introduce them into conversation, storage, or settings transaction logic.
-- Existing Claude compatibility imports of app settings or storage are migration seams. Do not use them as precedent; move a shared contract into `core/` before creating another provider-to-app dependency.
+# Remote Collab authority
 
 ## Ownership
 
-| Component | Authority |
-| --- | --- |
-| `ConversationRepository` | The canonical in-memory Claudian conversation collection, hydration status, pin/archive and note-link metadata, deletion transactions, per-conversation persistence queues, input-ledger coordination, historical model recovery, selected-model availability reconciliation, and execution-snapshot binding |
-| `SharedStorageService` | Plugin-data and vault persistence I/O plus construction of shared persistence adapters |
-| `SettingsCoordinator` | Serialization of settings mutations, rollback before failed persistence, and post-commit publication ordering |
-| `ChatModelSelectionCoordinator` | Application-wide ordering and durable settings commits for explicit future-tab model-seed intents |
-| `PinnedLinkedNotePathCoordinator` | Pinned linked-note path mutation, folder-descendant rewrite, deduplication, and deletion cleanup through ordered settings transactions |
-| `ClaudianProviderHost` | Typed delegation to application capabilities; it owns no duplicate settings, storage, view, or execution state |
+- `CollabAuthoritySessionFactory` is stateless. It constructs one membership-generation session composed of authority-neutral control, event, and Git-network ports, then transfers disposal ownership to `CollabProjectWorkSession`.
+- `CollabProjectWorkSessionRegistry` remains the sole retained per-Project lifecycle registry. A work session owns at most one authority session, event connection, refresh queue, and mutation queue and closes them before its membership generation changes.
+- `LanAuthorityAdapter` wraps the existing LAN clients and lifecycle extensions without changing LAN v9 binding, credentials, CA pinning, discovery, Host, or transfer semantics.
+- `CloudAuthorityAdapter` owns Cloud binding-v1 capability negotiation, package-owned route construction and codecs, development-principal presentation, snapshot/event transport, safe error mapping, and Git endpoint construction. It never implements server Project policy or translates Cloud lifecycle into LAN lifecycle.
 
-Storage adapters own I/O mechanics, not domain decisions. Callers decide what state is valid; adapters merge and persist it without inventing conversation, tab, provider, or settings semantics.
+## Dependency and safety
 
-## State and Persistence Boundaries
+- Publication, projection, review, reconciliation, feature, UI, and Agent-facing services depend on the neutral ports and never construct LAN or Cloud transports directly.
+- Cloud Projects expose only negotiated capabilities. Host transfer, membership administration, Manager responsibility, Leave, Retire, and LAN diagnostics remain LAN-only and must not fall back to a stale LAN session.
+- Canonicalize self-host URLs once and compare exact normalized values. Git environments may carry multiple headers and an optional CA path. Credential-bearing headers are sensitive by default and their values plus private paths never enter process arguments, logs, errors, or persisted diagnostics. A non-credential routing header must be explicitly marked non-sensitive so its domain identifier may independently appear in a Git ref argument; the header itself still enters Git only through the isolated environment.
 
-- `ConversationRepository` is the source of truth for Claudian's current in-memory conversation projection. Feature code must request conversation mutations through `FeatureHost` instead of mutating cached conversations independently.
-- Claudian metadata and accepted-input ledgers are durable Claudian state.
-- Provider session IDs, resume checkpoints, and opaque `providerState` may be interpreted only by provider snapshots or typed provider history/state helpers. Generic app code may store those opaque values but must not infer or rewrite their fields.
-- `AppTabManagerState` is a separate current-tab snapshot. New writes retain only the active tab identity and conversation binding; legacy multi-tab snapshots are restored as the active entry only. It must not duplicate conversation messages, provider state, draft content, or runtime objects.
-- `Conversation.modelRecoverySource` is a read-only native locator used only to recover missing historical model metadata. It must never be treated as a resumable provider binding, and a successful recovery or fresh provider session retires it.
-- `Conversation.currentNote` is a vault-relative full path. Vault rename events must rewrite matching note paths, including descendants for folder renames, through `ConversationRepository` rather than presentation code.
-- `SharedStorageService.setTabManagerState()` must preserve unrelated plugin data when updating the tab-layout snapshot.
-- Settings changes must go through `SettingsCoordinator` or the application mutation APIs so persistence, rollback, provider reconciliation, and publication remain ordered.
-- Provider model-option changes reconcile affected durable conversation selections through `ConversationRepository` before views refresh. Providers and features may publish the change but must not rewrite cached conversations themselves.
-- Environment changes that can alter model options use the same provider model-option reconciliation boundary; direct model-selector refresh is not an allowed shortcut.
-- Deferred metadata with a stored model that needs fallback is withheld until `ConversationRepository` persists and adopts the replacement. Safe model-less shells may remain incrementally readable for environment-invalidation coordination; they must not expose a synthesized fallback before its write.
-- A model recovered from provider-native history is availability-reconciled before its single durable write and before callers may publish it as recovered.
+## Verification
 
-## Invariants
-
-- Failed settings persistence restores the pre-mutation in-memory settings snapshot.
-- A post-commit publication failure is reported as committed state; it must not roll back data that was already persisted.
-- Conversation persistence for one conversation remains ordered, and stale execution snapshots must not overwrite newer provider state.
-- Deletion, hydration, and execution-snapshot writes must preserve their existing generation and binding fences.
-- Archiving clears pin state, cannot be inferred from tab closure, and never mutates provider-native history.
-- Historical model recovery is best-effort, concurrency-bounded, provider-owned, and must not overwrite a model selected or recovered by a newer operation.
+- Adapter contract tests keep owned application modules real, prove LAN behavior is preserved, prove unknown Cloud capabilities are ignored while unknown binding/wire/schema values fail closed, and prove replacing a membership generation disposes the old session exactly once.
 
 ---
 > Source: [YishenTu/claudian](https://github.com/YishenTu/claudian) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
