@@ -1,0 +1,9 @@
+{
+  "name": "animaapp--smarter-agent",
+  "displayName": "smarter-agent",
+  "description": "Minimal, self-checking, simulation-driven improvement for AI agents",
+  "version": "1.0.0",
+  "author": "AnimaApp",
+  "homepage": "https://github.com/AnimaApp/smarter-agent",
+  "skills": []
+}
