@@ -1,0 +1,9 @@
+{
+  "name": "hatimlagzar--trading-journal",
+  "displayName": "trading-journal",
+  "description": "A trading journal SaaS made with Next.js and Supabase",
+  "version": "1.0.0",
+  "author": "HatimLagzar",
+  "homepage": "https://github.com/HatimLagzar/trading-journal",
+  "skills": []
+}
