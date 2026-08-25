@@ -4,7 +4,7 @@
   "repo": "mcp-blender-agent",
   "description": "MCP server giving AI agents complete control of Blender, modeling, rigging, animation, materials, render, export. Mirror architecture of mcp-unreal-agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PoBruno/mcp-blender-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T02:27:53Z"
+  "distributed_at": "2026-08-25T04:41:27Z"
 }
