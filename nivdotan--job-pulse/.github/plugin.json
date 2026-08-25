@@ -1,0 +1,9 @@
+{
+  "name": "nivdotan--job-pulse",
+  "displayName": "Job-Pulse",
+  "description": "Automated job aggregation platform - scrapes 400+ Israeli tech companies, classifies listings with LLM, and emails curated junior-developer opportunities daily.",
+  "version": "1.0.0",
+  "author": "NivDotan",
+  "homepage": "https://github.com/NivDotan/Job-Pulse",
+  "skills": []
+}
