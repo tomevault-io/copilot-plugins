@@ -1,0 +1,9 @@
+{
+  "name": "ovenpasta--adi2",
+  "displayName": "adi2",
+  "description": "A modern GUI library for Ada: CSS styling, XML UI, SDL3",
+  "version": "1.0.0",
+  "author": "ovenpasta",
+  "homepage": "https://github.com/ovenpasta/adi2",
+  "skills": []
+}
