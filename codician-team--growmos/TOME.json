@@ -4,7 +4,7 @@
   "repo": "growmos",
   "description": "\ud83e\ude90 Growmos: A new approach to agentic AI\u2014a living system expanding its knowledge like the universe, compounding its capabilities, and getting more work done with fewer tokens.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/codician-team/growmos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T00:05:04Z"
+  "distributed_at": "2026-08-25T00:09:30Z"
 }
