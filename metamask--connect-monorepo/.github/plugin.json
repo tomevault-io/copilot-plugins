@@ -1,0 +1,9 @@
+{
+  "name": "metamask--connect-monorepo",
+  "displayName": "connect-monorepo",
+  "description": "The simplest yet most secure way to connect your blockchain-based applications to millions of MetaMask Wallet users.",
+  "version": "1.0.0",
+  "author": "MetaMask",
+  "homepage": "https://github.com/MetaMask/connect-monorepo",
+  "skills": []
+}
