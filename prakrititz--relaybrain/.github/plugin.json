@@ -1,0 +1,9 @@
+{
+  "name": "prakrititz--relaybrain",
+  "displayName": "relayBrain",
+  "description": "Coordination and context layer for AI coding agents. Shared file locks, live patch sync, and portable project memory across Claude Code, Cursor, Copilot, Codex and Antigravity with rooms for team-wide",
+  "version": "1.0.0",
+  "author": "prakrititz",
+  "homepage": "https://github.com/prakrititz/relayBrain",
+  "skills": []
+}
