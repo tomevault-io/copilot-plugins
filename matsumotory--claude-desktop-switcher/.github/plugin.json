@@ -1,0 +1,9 @@
+{
+  "name": "matsumotory--claude-desktop-switcher",
+  "displayName": "claude-desktop-switcher",
+  "description": "Claude Desktop + CLI context synchronization tool for multi-account environments",
+  "version": "1.0.0",
+  "author": "matsumotory",
+  "homepage": "https://github.com/matsumotory/claude-desktop-switcher",
+  "skills": []
+}
