@@ -1,39 +1,45 @@
-## 001-core-security
+## 100-ai-providers-and-storage
 
-> Protect secrets,logs,and CSP when touching any project file
+> Apply hybrid AI,IndexedDB,and storage patterns when editing services or features
 
 
-# Core Security & Betrieb
+# KI-Anbieter, Speicher & Workspace-Pakete
 
-## Secrets & Konfiguration
+## Orchestrierung (kanonisch)
 
-- API-Schlüssel (Gemini, OpenRouter, OpenAI-kompatibel u. a.), Tokens und Passwörter **niemals** committen oder hardcoden.
-- Client-Env nur `import.meta.env.VITE_*` für explizit freigegebene Variablen; `.env` / `.env.local` nicht versionieren.
-- Nutzer-Keys: **IndexedDB** + Verschlüsselung wie in `dbService.ts` — keine parallele Geheimablage ohne Abstimmung.
-- **Settings-Exchange / Export-JSON:** keine Klartext-Keys in geteilten Dateien; dokumentierte Felder redigieren.
+- Einstieg **`services/ai/index.ts`**: Strangler neben Legacy; Writer-Streaming → **`writer`-Slice**, Manuskript erst nach **Accept**.
+- Netzwerk-KI: **`aiProviderService.ts`**, **`geminiService.ts`** — keine parallele SDK-Init in Komponenten.
+- Vercel AI SDK (`ai`, `@ai-sdk/google`, `@ai-sdk/openai`): neue Pfade über `services/ai/` und Hooks (`useStoryCraftAI` o. ä.), nicht doppelte Retry-Logik.
+- **`assertCloudAiAllowed`:** Cloud nur wenn Policy/Settings es erlauben.
 
-## Tauri / CSP / Integrationen
+## Hybrid & lokale Inferenz
 
-- Neue externe Endpunkte (KI, LanguageTool, Signaling): `src-tauri` **CSP** `connect-src` prüfen/erweitern — nicht nur Web-`fetch`.
-- LanguageTool und ähnliche Dienste: nur **nutzerkonfigurierte URL** + Privacy-Gating (`integrations.languageTool*`).
-- Community-Templates: Zod + `pnpm run content:guard` — keine eingebetteten Secrets oder `eval`-ähnliche Payloads.
+- Presets: Ollama/LM Studio/vLLM via `settings.advancedAi`; Cloud-Router über `openAiCompatibleBaseUrl` + Key-Slot.
+- Fallback-Kette in `aiProviderService` für Legacy-Thunks respektieren.
+- WebLLM/GPU: **`gpuResourceManager`**, Tab-Leader (`packages/ai-core` / BroadcastChannel) — kein zweiter schwerer Inferenz-Tab.
+- Lokales RAG/Embeddings: bestehende Speicher (`saveRagVectors`), chunked yields; `@xenova/transformers` nur über etablierte Pfade.
 
-## Fehlerbehandlung
+## Google GenAI
 
-- Nutzerfehler: kurz, handlungsorientiert; Technik nur in `services/logger.ts` (`warn`/`error` per Biome).
-- Async: `try/catch` oder Result; keine stillen Swallows außer dokumentiert (Abort).
+- Facade `geminiService.ts`, Typen `types.ts`; Schema/Streaming wie im Bestand.
 
-## Logging
+## IndexedDB & Storage
 
-- Kein `console.log` in Produktionspfaden (Biome `noConsole` außer Allowlist).
-- **Niemals** Keys, IVs, Entschlüsseltes oder vollständige Manuskript-Payloads loggen.
+- Zugriff über `dbService.ts`, `storageService.ts`, **`storageBackend.ts`** (`saveEnvelopeFromProjectData` — kein roher Cast im Listener).
+- Record-Keys/Migrationen nicht willkürlich umbenennen; Scene-Revisions → `sceneRevisionService.ts` (eigener Store).
+- `checkStorageHealth()` in `services/dbInitialization.ts` — liefert `StorageHealth`; wird beim App-Start ausgeführt (Low-Storage-Toast).
+- Kollaboration: nur **eine** CRDT-Schicht (`collaborationService.ts` + Yjs). RTCDataChannel-Verschlüsselung läuft über den y-webrtc-Patch (`patches/y-webrtc@10.3.0.patch`) — nicht erneut implementieren.
+
+## Privacy
+
+- Offline-first: keine stillen Cloud-Uploads; neue Netzwerkpfade dokumentieren und nutzersteuerbar halten.
 
 <example>
-OpenAI-kompatible Base-URL in Settings speichern → Redux `settings.advancedAi` + bestehende Validierung; Tauri-CSP um Host ergänzen.
+Neuer Writer-Stream: Hook/`streamText` in `services/ai/`, Redux-Update im `writer`-Slice; Cloud-Gate via `assertCloudAiAllowed`.
 </example>
 
 <example type="invalid">
-`const key = 'sk-…'` in TSX; `console.log({ apiKey, manuscript })`; Signaling-URL ohne Nutzereinstellung hardcoden.
+`new GoogleGenAI({ apiKey: '…' })` in `components/`; zweites IndexedDB-Schema für Projektstate; WebLLM ohne Tab-Leader auf allen Tabs starten.
 </example>
 
 ---
