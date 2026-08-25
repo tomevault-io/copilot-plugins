@@ -1,0 +1,44 @@
+{
+  "name": "tender-writer-v4",
+  "owner": "Hugin-Z",
+  "repo": "tender-writer-v4",
+  "description": "\u628a\u653f\u5e9c\u7c7b\u9879\u76ee\u6280\u672f\u6807\u7684\u9996\u8f6e\u7ed3\u6784\u5316\u62c6\u89e3\u4e0e\u521d\u7a3f\u7ec4\u88c5\u538b\u7f29\u5230\u5206\u949f\u7ea7;\u6b63\u5f0f\u6295\u6807\u4ecd\u9700\u4eba\u5de5\u6269\u5199\u3001\u6821\u6838\u548c\u5ba1\u7a3f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Hugin-Z/tender-writer-v4",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T20:01:12Z"
+}
