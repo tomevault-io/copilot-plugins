@@ -4,7 +4,7 @@
   "repo": "abicheck",
   "description": "API/ABI checker: castxml-based header dumper + Python checker + LLVM/GCC support",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abicheck/abicheck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:22:27Z"
+  "distributed_at": "2026-08-25T12:15:48Z"
 }
