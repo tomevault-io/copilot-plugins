@@ -4,7 +4,7 @@
   "repo": "parse-domain",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peerigon/parse-domain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T17:47:49Z"
+  "distributed_at": "2026-08-25T18:07:57Z"
 }
