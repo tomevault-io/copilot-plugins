@@ -1,0 +1,9 @@
+{
+  "name": "nano-step--nano-brain",
+  "displayName": "nano-brain",
+  "description": "Persistent memory & code intelligence server for AI coding agents. Deploy on VPS for shared memory across machines. Hybrid search (BM25 + pgvector), knowledge graph, impact analysis. 14 MCP tools. Wor",
+  "version": "1.0.0",
+  "author": "nano-step",
+  "homepage": "https://github.com/nano-step/nano-brain",
+  "skills": []
+}
