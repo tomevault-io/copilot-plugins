@@ -4,7 +4,7 @@
   "repo": "moneyprinter-pro",
   "description": "AI-powered YouTube Shorts & content automation using free opensource tools",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrepichardo/moneyprinter-pro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:35:40Z"
+  "distributed_at": "2026-08-25T12:24:31Z"
 }
