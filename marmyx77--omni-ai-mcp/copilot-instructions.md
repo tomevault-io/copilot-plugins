@@ -1,0 +1,739 @@
+## omni-ai-mcp
+
+> <!-- doc-status: current | updated: 2026-07-05 -->
+
+# CLAUDE.md
+
+<!-- doc-status: current | updated: 2026-07-05 -->
+
+This file provides context to Claude Code when working with this repository.
+
+## Project Overview
+
+This is a **multi-provider MCP server** bridging Claude Code with Google Gemini AI and 400+ models via OpenRouter. Claude can access Gemini's unique capabilities (1M context, video, TTS, Deep Research, RAG) plus any model available on OpenRouter (GPT-4o, Llama, Mistral, Claude, etc.) through a single unified interface.
+
+**Version:** 4.5.0
+**SDK:** google-genai >= 2.0.0 (Interactions API, 'steps' schema) + FastMCP + filelock
+**Architecture:** Modular package structure with SQLite persistence, dynamic model registry, and multi-provider routing
+
+See also: [CHANGELOG.md](CHANGELOG.md) for release notes, and `DEVELOPMENT_ROADMAP.md` for future plans (internal file, git-ignored — exists only in local checkouts, so no markdown link: it would 404 on GitHub).
+
+## Architecture (v4.5.0)
+
+**Production-grade MCP server** with FastMCP SDK:
+
+```
+omni-ai-mcp/
+├── run.py                    # Entry point wrapper
+├── pyproject.toml            # Package configuration
+├── app/
+│   ├── __init__.py          # Package init, exports main(), __version__
+│   ├── server.py            # FastMCP server (20 tools with @mcp.tool())
+│   ├── cli.py               # Setup wizard CLI (omni-ai-mcp-setup)
+│   │
+│   ├── core/                # Infrastructure & cross-cutting concerns
+│   │   ├── __init__.py      # Core exports
+│   │   ├── config.py        # Configuration (env vars, defaults, version, model IDs)
+│   │   ├── logging.py       # StructuredLogger, activity logging, JSON format
+│   │   └── security.py      # PathValidator, SecretsSanitizer, SafeFileWriter, cross-platform file locking
+│   │
+│   ├── services/            # External service integrations
+│   │   ├── __init__.py      # Service exports
+│   │   ├── gemini.py        # Gemini client wrapper, generate_with_fallback()
+│   │   ├── model_registry.py # Dynamic model discovery, cache, fallback (NEW v4.0)
+│   │   ├── openrouter.py    # OpenRouter client, 400+ models (NEW v4.0)
+│   │   └── persistence.py   # SQLite conversation storage + conversation index
+│   │
+│   ├── tools/               # MCP tool implementations (by domain)
+│   │   ├── __init__.py      # Tool registration, get_tools_list()
+│   │   ├── registry.py      # ToolRegistry with @tool decorator
+│   │   ├── text/            # Text/reasoning tools
+│   │   │   ├── ask_gemini.py    # Text generation with thinking + dual mode
+│   │   │   ├── ask_model.py     # Multi-provider routing: Gemini + OpenRouter (NEW v4.0)
+│   │   │   ├── models.py        # Live model catalog with deprecation warnings (NEW v4.0)
+│   │   │   ├── brainstorm.py    # Creative ideation (6 methodologies)
+│   │   │   ├── challenge.py     # Critical thinking / Devil's Advocate
+│   │   │   ├── code_review.py   # Code analysis
+│   │   │   └── conversations.py # Conversation management (list, delete)
+│   │   ├── code/            # Code tools
+│   │   │   ├── analyze_codebase.py # Large-scale analysis (1M context, 5MB limit)
+│   │   │   └── generate_code.py    # Structured generation with dry-run & XML sanitization
+│   │   ├── media/           # Media tools
+│   │   │   ├── analyze_image.py  # Vision analysis
+│   │   │   ├── generate_image.py # Imagen image generation
+│   │   │   ├── generate_video.py # Veo video generation
+│   │   │   └── text_to_speech.py # TTS with 30 voices
+│   │   ├── web/             # Web tools
+│   │   │   ├── web_search.py     # Google-grounded search
+│   │   │   └── deep_research.py  # Deep Research Agent (Interactions API)
+│   │   └── rag/             # RAG tools
+│   │       ├── file_store.py    # Create/list file stores
+│   │       ├── file_search.py   # Query documents
+│   │       └── upload.py        # Upload to stores
+│   │
+│   ├── utils/               # Helper functions
+│   │   ├── __init__.py
+│   │   ├── file_refs.py     # @file expansion, expand_file_references()
+│   │   └── tokens.py        # Token estimation, size limits
+│   │
+│   ├── schemas/             # Pydantic v2 validation
+│   │   ├── __init__.py
+│   │   └── inputs.py        # Tool input schemas (7 validated tools)
+│   │
+│   └── middleware/          # Request processing
+│       └── __init__.py
+│
+└── tests/                   # Test suite (file counts: see «Test Structure» below)
+    ├── conftest.py          # Pytest fixtures
+    ├── unit/                # Unit tests
+    └── integration/         # Integration tests
+```
+
+### Key Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| Entry Point | `run.py` | Wrapper that imports and runs `app.main()` |
+| FastMCP Server | `app/server.py` | FastMCP server with 20 `@mcp.tool()` registrations |
+| Config | `app/core/config.py` | Environment variables, defaults, version, model IDs |
+| Logging | `app/core/logging.py` | StructuredLogger with JSON support |
+| Security | `app/core/security.py` | Sandboxing, sanitization, safe writes, cross-platform file locking |
+| Tool Registry | `app/tools/registry.py` | @tool decorator, tool discovery |
+| Gemini Client | `app/services/gemini.py` | API wrapper with generate_with_fallback() |
+| Model Registry | `app/services/model_registry.py` | Dynamic discovery of 44+ models, cache TTL 1h, auto-fallback |
+| OpenRouter Client | `app/services/openrouter.py` | 400+ models via OpenRouter API |
+| Persistence | `app/services/persistence.py` | SQLite conversation storage + conversation index |
+
+### Available Tools (20)
+
+| Tool | Description | Default Model |
+|------|-------------|---------------|
+| `ask_model` | **NEW** Multi-provider routing: Gemini + 400+ via OpenRouter | auto-detected |
+| `gemini_list_models` | **NEW** Live model catalog with deprecation warnings | - |
+| `ask_gemini` | Text generation with thinking + dual mode (local/cloud) | Gemini 3.1 Pro |
+| `gemini_code_review` | Code analysis | Gemini 3.1 Pro |
+| `gemini_brainstorm` | Advanced brainstorming (6 methodologies) | Gemini 3.1 Pro |
+| `gemini_challenge` | Critical thinking / Devil's Advocate | Gemini 3.1 Pro |
+| `gemini_web_search` | Google-grounded search | Gemini 3.5 Flash |
+| `gemini_deep_research` | Autonomous multi-step research (5-60 min) | Deep Research Agent |
+| `gemini_list_conversations` | **NEW** List conversations with title, mode, activity | - |
+| `gemini_delete_conversation` | **NEW** Delete conversations by ID or title | - |
+| `gemini_file_search` | RAG document queries | Gemini 3.5 Flash |
+| `gemini_create_file_store` | Create RAG stores | - |
+| `gemini_upload_file` | Upload to RAG stores | - |
+| `gemini_list_file_stores` | List RAG stores | - |
+| `gemini_analyze_image` | Image analysis (vision) | Gemini 3.5 Flash |
+| `gemini_generate_image` | Image generation | Gemini 3 Pro Image |
+| `gemini_generate_video` | Video generation (sync polling) | Veo 3.1 |
+| `gemini_text_to_speech` | TTS with 30 voices | Gemini 3.1 Flash TTS |
+| `gemini_analyze_codebase` | Large codebase analysis (1M context, 5MB limit) | Gemini 3.1 Pro |
+| `gemini_generate_code` | Structured code generation (dry-run, XML sanitization) | Gemini 3.1 Pro |
+
+
+## Development Commands
+
+### Run server locally for testing
+```bash
+GEMINI_API_KEY=your_key python3 run.py
+```
+
+### Test JSON-RPC manually
+```bash
+# Initialize
+echo '{"jsonrpc":"2.0","method":"initialize","id":1}' | GEMINI_API_KEY=your_key python3 run.py
+
+# List tools
+echo '{"jsonrpc":"2.0","method":"tools/list","id":2}' | GEMINI_API_KEY=your_key python3 run.py
+```
+
+### Install to Claude Code
+```bash
+./setup.sh YOUR_API_KEY
+```
+
+### Reinstall after changes
+```bash
+rsync -a app/ ~/.claude-mcp-servers/omni-ai-mcp/app/
+cp run.py ~/.claude-mcp-servers/omni-ai-mcp/
+# Then restart Claude Code
+```
+
+### Run tests
+```bash
+# Quick verification (no pytest needed)
+python3 -c "
+from app.core.config import config
+from app.tools.code.generate_code import parse_generated_code, sanitize_xml_content
+print(f'Version: {config.version}')
+print('All imports OK')
+"
+
+# Full test suite (requires pytest)
+python3 -m pytest tests/unit/ -v
+```
+
+## Code Style
+
+- **Python 3.9+** required (FastMCP SDK requirement)
+- Type hints for function signatures
+- Docstrings for public functions (Google style)
+- Keep tool implementations self-contained
+- Error handling returns user-friendly messages
+- Use Pydantic for input validation
+
+## Adding a New Tool
+
+### Step 1: Create the tool file
+
+```python
+# app/tools/domain/my_tool.py
+
+from ...tools.registry import tool
+from ...services import client, types, generate_with_fallback
+from ...core import log_activity
+
+MY_TOOL_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "param": {"type": "string", "description": "Required parameter"},
+        "optional": {"type": "string", "default": "default"}
+    },
+    "required": ["param"]
+}
+
+@tool(
+    name="gemini_my_tool",
+    description="What the tool does",
+    input_schema=MY_TOOL_SCHEMA,
+    tags=["category"]
+)
+def my_tool(param: str, optional: str = "default") -> str:
+    """
+    Tool implementation docstring.
+
+    Args:
+        param: Required parameter description
+        optional: Optional parameter description
+
+    Returns:
+        Result string
+    """
+    try:
+        response = generate_with_fallback(
+            model_id=model_registry.resolve("text_pro"),  # dynamic resolution
+            contents=param,
+            config=types.GenerateContentConfig(temperature=0.5),
+            operation="my_tool"
+        )
+        return response.text
+    except Exception as e:
+        return f"Error: {str(e)}"
+```
+
+### Step 2: Register in tools/domain/__init__.py
+
+```python
+# app/tools/domain/__init__.py
+from . import my_tool
+```
+
+### Step 3: Add Pydantic schema (recommended)
+
+```python
+# app/schemas/inputs.py
+
+class MyToolInput(BaseModel):
+    param: str = Field(..., min_length=1)
+    optional: str = Field(default="default")
+```
+
+## Key Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `GEMINI_API_KEY` | Required | Google Gemini API key |
+| `GEMINI_SANDBOX_ROOT` | cwd | Root directory for file access |
+| `GEMINI_SANDBOX_ENABLED` | true | Enable path sandboxing |
+| `GEMINI_MAX_FILE_SIZE` | 102400 | Max file size in bytes (100KB) |
+| `GEMINI_ACTIVITY_LOG` | true | Enable activity logging |
+| `GEMINI_LOG_DIR` | ~/.omni-ai-mcp | Log directory |
+| `GEMINI_LOG_FORMAT` | text | "json" or "text" |
+| `GEMINI_CONVERSATION_TTL_HOURS` | 3 | Thread expiration |
+| `GEMINI_CONVERSATION_MAX_TURNS` | 50 | Max turns per thread |
+| `GEMINI_DISABLED_TOOLS` | - | Comma-separated tool names to disable |
+| `GEMINI_MODEL_PRO` | gemini-3.1-pro-preview | Override Pro model |
+| `GEMINI_MODEL_FLASH` | gemini-3.5-flash | Override Flash model |
+| `GEMINI_MODEL_IMAGE_PRO` | gemini-3-pro-image | Override Image model |
+| `GEMINI_MODEL_VEO31` | veo-3.1-generate-preview | Override Veo 3.1 model |
+| `GEMINI_MODEL_TTS_FLASH` | gemini-3.1-flash-tts-preview | Override TTS model |
+| `OPENROUTER_API_KEY` | — | OpenRouter key (enables ask_model for 400+ models) |
+| `OPENROUTER_DEFAULT_MODEL` | openai/gpt-4o | Default model for OpenRouter |
+| `OPENROUTER_TIMEOUT` | 120 | OpenRouter generation timeout in seconds (search models need headroom) |
+
+## Security Features
+
+### Path Sandboxing
+```python
+from app.core.security import validate_path, secure_read_file
+
+# Validates path is within sandbox, blocks traversal attacks
+safe_path = validate_path(user_input)
+content = secure_read_file(file_path)
+```
+
+### Safe File Writing
+```python
+from app.core.security import SafeFileWriter, secure_write_file
+
+# Atomic writes with automatic backup
+result = secure_write_file("/path/to/file.py", "content")
+# Creates backup at .gemini_backups/path/to/file.py.TIMESTAMP.bak
+```
+
+### Secrets Sanitization
+```python
+from app.core.security import secrets_sanitizer
+
+# Detects and masks sensitive data
+safe_text = secrets_sanitizer.sanitize("API key: AIzaSyB...")
+# Returns: "API key: [REDACTED_GOOGLE_API_KEY]"
+```
+
+### XML Sanitization (v3.0.1)
+```python
+from app.tools.code.generate_code import sanitize_xml_content, parse_generated_code
+
+# Sanitizes XML before parsing to prevent injection
+clean_xml = sanitize_xml_content(raw_output)
+files = parse_generated_code(clean_xml)
+# Validates action types, blocks path traversal in generated paths
+```
+
+### Detected Secret Patterns
+- Google API keys (AIza...)
+- AWS keys (AKIA...)
+- GitHub tokens (ghp_, gho_, ghs_, ghr_, ghu_)
+- JWT tokens
+- Bearer tokens
+- Private keys (PEM format)
+- URL passwords
+- Anthropic API keys (sk-ant-...)
+- OpenAI API keys (sk-...)
+- Slack tokens (xox...)
+
+## Input Validation
+
+Pydantic v2 schemas for type-safe validation:
+
+```python
+from app.schemas.inputs import validate_tool_input
+
+# Validates and applies defaults
+args = validate_tool_input("ask_gemini", {
+    "prompt": "Hello",
+    "temperature": 0.9
+})
+
+# Raises ValueError for invalid input
+validate_tool_input("ask_gemini", {"prompt": "", "temperature": 2.0})
+# ValueError: temperature must be <= 1.0
+```
+
+### Validated Tools
+- `ask_gemini` - prompt, model, temperature, thinking_level
+- `gemini_generate_code` - prompt, context_files, language, style, dry_run
+- `gemini_challenge` - statement, context, focus
+- `gemini_analyze_codebase` - prompt, files, analysis_type
+- `gemini_code_review` - code, focus, model
+- `gemini_brainstorm` - topic, methodology, idea_count
+- `gemini_deep_research` - query, max_wait_minutes, continuation_id
+
+## Interactions API Integration (v3.2.0 + v3.3.0)
+
+The server integrates with Google's **Interactions API** for cloud-based features:
+
+### Available Modes
+
+| Tool | API | Mode | Use Case |
+|------|-----|------|----------|
+| `gemini_deep_research` | Interactions API | Background (5-60 min) | Autonomous multi-step research |
+| `ask_gemini` | Interactions API | Synchronous (`mode="cloud"`) | Cloud-persisted conversations |
+| `ask_gemini` | SQLite | Local (`mode="local"`) | Fast local conversations |
+
+### Cloud Mode (ask_gemini)
+
+```python
+# Start cloud conversation
+result = ask_gemini(
+    prompt="Analyze this architecture",
+    mode="cloud",
+    title="Architecture Review"
+)
+# Returns: continuation_id: int_v1_abc123...
+
+# Resume from any device (55-day retention)
+result = ask_gemini(
+    prompt="What about security?",
+    continuation_id="int_v1_abc123..."
+)
+```
+
+### Deep Research
+
+```python
+# Start autonomous research (runs 5-60 minutes)
+result = gemini_deep_research(
+    query="Compare React vs Vue for enterprise apps",
+    max_wait_minutes=30
+)
+
+# Follow up on results
+result = gemini_deep_research(
+    query="Focus on performance benchmarks",
+    continuation_id="int_abc123..."
+)
+```
+
+### API Documentation
+- Official docs: https://ai.google.dev/gemini-api/docs/interactions
+- `model` parameter: Standard queries (sync, no background)
+- `agent` parameter: Agent workflows (requires `background=true`)
+
+## Conversation Memory
+
+Multi-turn conversations using `continuation_id` with **dual storage**:
+
+### Local Mode (SQLite - Default)
+```python
+from app.services.persistence import conversation_memory
+
+# Get or create thread
+thread_id, is_new, thread = conversation_memory.get_or_create_thread(continuation_id)
+
+# Build context from history
+if not is_new:
+    context = conversation_memory.build_context(thread_id)
+    full_prompt = f"{context}\n\n{prompt}"
+
+# Add turns
+conversation_memory.add_turn(thread_id, "user", prompt, "tool_name", files)
+conversation_memory.add_turn(thread_id, "assistant", response, "tool_name", [])
+
+# Return with continuation_id
+return f"{response}\n\n---\n*continuation_id: {thread_id}*"
+```
+
+### Cloud Mode (Interactions API)
+```python
+from app.services import client
+
+# Create interaction with model (not agent!)
+interaction = client.interactions.create(
+    model="gemini-3.1-pro-preview",  # Use model for sync queries
+    input=prompt,
+    previous_interaction_id=continuation_id  # For follow-ups
+)
+
+# Response is immediate (no polling needed)
+response_text = interaction.outputs[-1].text
+thread_id = f"int_{interaction.id}"  # Cloud IDs prefixed with int_
+```
+
+### Storage Comparison
+
+| Feature | Local (SQLite) | Cloud (Interactions API) |
+|---------|---------------|--------------------------|
+| Storage | `~/.omni-ai-mcp/conversations.db` | Google servers |
+| Retention | Configurable TTL (default 3h) | 55 days (paid tier) |
+| Cross-device | No | Yes |
+| Speed | Faster | Slightly slower |
+| ID prefix | UUID | `int_` |
+
+## @File References
+
+Tools support @ syntax to include file contents:
+
+- `@file.py` - Single file with line numbers
+- `@src/main.py` - Path with directories
+- `@*.py` - Glob patterns (max 10 files)
+- `@src/**/*.ts` - Recursive glob
+- `@.` - Current directory listing
+
+```python
+from app.utils.file_refs import expand_file_references
+
+expanded = expand_file_references("Review @src/main.py")
+# Includes file content with line numbers
+```
+
+### Line Numbers Format
+```
+  1│ #!/usr/bin/env python3
+  2│ def hello():
+  3│     print("Hello")
+```
+
+Skipped for non-code files: `.json`, `.md`, `.txt`, `.csv`
+
+## Logging
+
+### Structured JSON Logging
+```python
+from app.core.logging import structured_logger
+
+# Log tool events
+structured_logger.tool_start("ask_gemini", "req123", {"prompt": "..."})
+structured_logger.tool_success("ask_gemini", "req123", 1500.5, 2048)
+structured_logger.tool_error("ask_gemini", "req123", 500.0, "API error")
+```
+
+### JSON Output Format
+```json
+{
+  "timestamp": "2025-12-08T14:30:00.000Z",
+  "level": "INFO",
+  "tool": "ask_gemini",
+  "status": "start",
+  "request_id": "a1b2c3d4",
+  "details": {"args_keys": ["prompt", "model"]}
+}
+```
+
+### Activity Logging
+```python
+from app.core.logging import log_activity
+
+log_activity("ask_gemini", "success", duration_ms=1500,
+             details={"result_len": 2048})
+```
+
+## Test Suite
+
+```bash
+# Run all tests
+python3 -m pytest tests/ -v
+
+# Run unit tests only
+python3 -m pytest tests/unit/ -v
+
+# Run integration tests
+python3 -m pytest tests/integration/ -v
+
+# Run specific test file
+python3 -m pytest tests/unit/test_safe_write.py -v
+
+# Run with coverage
+python3 -m pytest tests/ --cov=app --cov-report=html
+```
+
+### Test Structure
+
+Test files: <!--fact:unit-test-files-->10<!--/fact--> unit + <!--fact:integration-test-files-->5<!--/fact--> integration (markers enforced by `virgilio check` against the real filesystem — update them when adding/removing a test file).
+```
+tests/
+├── conftest.py                    # Shared fixtures (temp_sandbox, etc.)
+├── unit/                          # Unit tests
+│   ├── test_safe_write.py         # SafeFileWriter, atomic writes, backups
+│   ├── test_parse_generated_code.py
+│   ├── test_expand_file_references.py
+│   ├── test_add_line_numbers.py
+│   ├── test_validate_path.py      # Path traversal prevention
+│   ├── test_pydantic_schemas.py   # Input validation
+│   ├── test_secrets_sanitizer.py  # Secret detection patterns
+│   └── test_ask_model.py          # Multi-provider routing (37 tests)
+└── integration/                   # v3.0.0+ integration tests
+    ├── test_fastmcp_server.py     # FastMCP initialization (16 tests)
+    ├── test_mcp_tools.py          # Tool signatures & schemas (32 tests)
+    ├── test_sqlite_persistence.py # SQLite storage (26 tests)
+    ├── test_security_v3.py        # Security features (26 tests)
+    └── real_outputs/              # Live MCP tool call outputs
+```
+
+## Documentation governance (virgilio)
+
+- **Before every commit** that touches a doc/plan: `node virgilio/bin/cli.mjs check --config virgilio.config.json` must be **green**. Full rulebook: [DOC_GOVERNANCE.md](DOC_GOVERNANCE.md).
+- **Release status** is never declared "released/published" without the tag on `origin/main` and a green CI run. PyPI/`.dxt` state is external tier (no probe configured): if you can't verify it, write "not verifiable", never "verified".
+- **End of milestone / pre-release / suspected drift**: run the `virgilio/modes/audit.md` playbook (§9, 3 axes vs. reality). Standing §9 items: the MCP tool count (20), roadmap «Planned» sections vs. shipped versions, PyPI publication vs. "released" claims.
+- **Every false claim you find** that's cleanly mechanizable → a new rule in `virgilio.config.json` + a bite fixture. One-offs stay with the human audit (proportionality).
+- **Per-fact SSOT**: a count/status/version lives in **exactly one** owner doc (map in [DOC_GOVERNANCE.md](DOC_GOVERNANCE.md) §2); elsewhere, LINK to it. Never copy it.
+- **Status flip = Definition of Done**: if a task closes a phase, updating the status is **inside** the task: this file's `doc-status` date + Roadmap section (CI-enforced), and `DEVELOPMENT_ROADMAP.md` («Current Status», Handoff log — internal, git-ignored, checked locally only).
+
+## Release Process
+
+> **IMPORTANT — never leave work uncommitted and untagged.**
+> Any session that modifies code, tools, documentation, or plugin files
+> MUST end with either a commit+push (for minor work) or a full release
+> (for anything user-facing). If you close the session without tagging,
+> the `.dxt` on GitHub Releases and the PyPI package will be stale
+> and won't reflect the actual state of the repo.
+
+### When to release vs. when to just commit
+
+| Change type | Action |
+|-------------|--------|
+| Bug fix in code/tools | `patch` release (X.Y.**Z+1**) |
+| New feature, new command, new agent | `minor` release (X.**Y+1**.0) |
+| Breaking change or major rewrite | `major` release (**X+1**.0.0) |
+| Docs only (README, CLAUDE.md, CHANGELOG) | `git commit + push` — no tag needed |
+| Config/CI only | `git commit + push` — no tag needed |
+
+**When in doubt, release.** A patch release costs nothing and keeps PyPI and the `.dxt` in sync.
+
+### End-of-session checklist
+
+Before ending any working session:
+- [ ] Is there uncommitted work? → `git status`
+- [ ] Does the uncommitted work touch code, tools, or plugin files? → release
+- [ ] Does it touch only docs/config? → commit + push without tag
+
+Every release must keep 4 version files in sync:
+
+| File | Field |
+|------|-------|
+| `pyproject.toml` | `version = "X.Y.Z"` — **source of truth** |
+| `app/__init__.py` | `__version__ = "X.Y.Z"` |
+| `app/core/config.py` | `version: str = "X.Y.Z"` |
+| `manifest.json` | `"version": "X.Y.Z"` — DXT plugin for Claude Desktop |
+
+### Step-by-step release
+
+```bash
+# 1. Bump all 4 version files at once
+bash scripts/bump_version.sh 4.1.0
+
+# 2. Add release notes (required)
+# Edit CHANGELOG.md — add a new ## [4.1.0] section at the top
+
+# 3. Commit and tag
+git add -A
+git commit -m "chore: bump version to 4.1.0"
+git tag v4.1.0
+git push origin main v4.1.0
+```
+
+### What happens automatically (GitHub Actions)
+
+On `git push ... v4.1.0`, the CI pipeline runs `.github/workflows/publish.yml`:
+
+1. Builds and publishes the Python package to PyPI (`pip install omni-ai-mcp`)
+2. Builds `omni-ai-mcp-v4.1.0.dxt` (Claude Desktop extension)
+3. Attaches the `.dxt` to the GitHub Release as a downloadable asset
+
+### Local .dxt build (optional)
+
+```bash
+bash scripts/build_dxt.sh
+# → produces omni-ai-mcp-v4.1.0.dxt
+# Install: double-click in Finder, or drag into Claude Desktop
+```
+
+> **Note:** `build_dxt.sh` always injects the version from `pyproject.toml` into the
+> bundled manifest, so even if you forget to run `bump_version.sh` first, the `.dxt`
+> will still have the correct version. But run `bump_version.sh` anyway to keep all
+> files consistent.
+
+### Checklist before tagging
+
+- [ ] `bash scripts/bump_version.sh X.Y.Z` run successfully
+- [ ] `CHANGELOG.md` updated with `## [X.Y.Z]` entry
+- [ ] `python3 -m pytest tests/unit/ -v` passes
+- [ ] Version consistency: `python3 -c "from app.core.config import config; print(config.version)"`
+
+## Docker Deployment
+
+```bash
+# Build and run
+docker-compose up -d
+
+# With monitoring
+docker-compose --profile monitoring up -d
+```
+
+### docker-compose.yml Features
+- Non-root user execution
+- Health check every 30 seconds
+- Read-only filesystem with tmpfs
+- Resource limits (2 CPU, 2GB RAM)
+- Log rotation (10MB max, 3 files)
+
+## Gemini API Nuances
+
+### Thinking Mode
+- Gemini 3 Pro: Use `thinking_level` ("low" or "high")
+- Gemini 2.5: Use `thinking_budget` (1024 for low, 8192 for high)
+- Set `include_thoughts=True` to see reasoning process
+
+### Web Search
+- Uses `google_search` tool in config
+- Grounding metadata contains source URLs
+- Extract from `candidate.grounding_metadata.grounding_chunks`
+
+### File Search (RAG)
+- Stores persist on Google's servers
+- Use `file_search_stores.create()` to make stores
+- Upload with `file_search_stores.upload_to_file_search_store()`
+- Query with `file_search` tool in generate_content config
+
+### Image Generation
+- Pro model supports up to 4K resolution
+- Flash model limited to 1024px
+- Response contains `inline_data` with image bytes
+
+### Video Generation
+- Veo 3.1 supports native audio (dialogue, effects, ambient)
+- 1080p requires 8 second duration
+- Uses async polling with `asyncio.to_thread()` (v3.0.1)
+- Can take 1-6 minutes to generate
+
+### Text-to-Speech
+- 30 voice options with different characteristics
+- Multi-speaker supports up to 2 voices
+- Output is PCM 24kHz, 16-bit, mono WAV
+
+## Security Notes
+
+- Never commit API keys
+- API key passed via environment variable
+- Test files (test_*.png, test_*.mp4) are git-ignored
+- Server validates API key presence before initializing
+- All file operations respect sandbox boundaries
+- XML output from LLM is sanitized before parsing (v3.0.1)
+- Total byte limit prevents DoS in codebase analysis (v3.0.1)
+
+## Roadmap
+
+### v4.5.0 (Current) - OpenRouter Citations + Timeout
+- ✅ `ask_model` appends a **Sources** section from OpenRouter citations (Perplexity `citations` + OpenAI-style `url_citation` annotations)
+- ✅ `OPENROUTER_TIMEOUT` env var (default 120s, was hardcoded 30s) — enables `perplexity/sonar-*` search models
+
+### v4.4.0 (Released) - Latest Gemini Models
+- ✅ All model defaults aligned with latest Gemini IDs, verified live against the API
+- ✅ Flash → `gemini-3.5-flash`, Flash-Lite → `gemini-3.1-flash-lite`
+- ✅ Image → `gemini-3-pro-image` / `gemini-3.1-flash-image`, TTS → `gemini-3.1-flash-tts-preview`
+- ✅ Fixed deep research agent (`deep-research-pro-preview` 404 → `deep-research-preview-04-2026`) <!-- virgilio:allow-status-mention (historical mention of the removed model) -->
+
+### v4.0.1 (Released) - Bug Fixes + CI
+- ✅ Python 3.11 SyntaxError fix in `challenge.py`
+- ✅ All 174 unit tests passing (stale imports fixed)
+- ✅ Model registry names corrected (`gemini-3-flash-preview`, `gemini-3.1-flash-lite-preview`)
+- ✅ `ask_model` routing: Gemini model + `provider='openrouter'` → native API when key available
+
+### v4.0.0 (Released) - Multi-Provider + Dynamic Registry + PyPI
+- ✅ **`ask_model`**: Routes to Gemini native or 400+ models via OpenRouter
+- ✅ **`gemini_list_models`**: Live model catalog with deprecation warnings
+- ✅ **Dynamic Model Registry**: Runtime API discovery with 1h cache, fallback to config
+- ✅ **OpenRouter Integration**: Optional `OPENROUTER_API_KEY` enables 400+ models
+- ✅ **PyPI**: `pip install omni-ai-mcp` works
+- ✅ **GitHub Actions**: CI (Python 3.11/3.12) + Trusted Publishing to PyPI
+
+### Next minor (Planned)
+- Streaming responses for `ask_gemini`
+- Multi-turn conversation support for `ask_model`
+- defusedxml parser replacing regex XML parsing
+- Cost tracking per session
+
+Full roadmap: `DEVELOPMENT_ROADMAP.md` (internal, git-ignored)
+
+---
+> Source: [marmyx77/omni-ai-mcp](https://github.com/marmyx77/omni-ai-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-21 -->
