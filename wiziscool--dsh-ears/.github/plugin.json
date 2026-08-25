@@ -1,0 +1,9 @@
+{
+  "name": "wiziscool--dsh-ears",
+  "displayName": "dsh-ears",
+  "description": "A voice-input plugin for DeepSeek Harness that supports multiple ASR backends and polishing through dsh's own LLM route.",
+  "version": "1.0.0",
+  "author": "WizisCool",
+  "homepage": "https://github.com/WizisCool/dsh-ears",
+  "skills": []
+}
