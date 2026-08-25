@@ -1,0 +1,9 @@
+{
+  "name": "portuber--portato",
+  "displayName": "portato",
+  "description": "SSH port-forwarding manager with a TUI \u2014 toggle local, remote and SOCKS5 tunnels from one screen. Single Go binary, background daemon, autostart.",
+  "version": "1.0.0",
+  "author": "portuber",
+  "homepage": "https://github.com/portuber/portato",
+  "skills": []
+}
