@@ -4,7 +4,7 @@
   "repo": "writing-template-for-ai",
   "description": "Write a book from first idea to a finished EPUB/PDF with AI \u2014 one cross-tool system for Claude Code, Codex, Gemini CLI, and GitHub Copilot.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hottweelz/writing-template-for-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T16:29:07Z"
+  "distributed_at": "2026-08-25T15:59:54Z"
 }
