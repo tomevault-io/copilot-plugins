@@ -1,0 +1,9 @@
+{
+  "name": "a-box-of-tools--website",
+  "displayName": "website",
+  "description": "Source for https://abox.tools/ \u2014 a box of small web tools for images, video, audio, PDFs and text. Your files never leave your machine, because there is no code path that could send them anywhere.",
+  "version": "1.0.0",
+  "author": "A-Box-of-Tools",
+  "homepage": "https://github.com/A-Box-of-Tools/website",
+  "skills": []
+}
