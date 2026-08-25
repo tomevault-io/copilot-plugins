@@ -4,7 +4,7 @@
   "repo": "ILLIP",
   "description": "Your AI company, in your device. Local-first AI platform: chat, agent crew, memory, and a model store sized to your hardware - from 4GB laptops to big GPUs. One-click setup, fully private.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Yashwanth-pilli/ILLIP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:11:14Z"
+  "distributed_at": "2026-08-25T12:00:07Z"
 }
