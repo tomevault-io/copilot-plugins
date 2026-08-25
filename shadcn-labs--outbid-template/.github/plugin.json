@@ -1,0 +1,9 @@
+{
+  "name": "shadcn-labs--outbid-template",
+  "displayName": "outbid-template",
+  "description": "Template for creating sites like outbid.lol",
+  "version": "1.0.0",
+  "author": "shadcn-labs",
+  "homepage": "https://github.com/shadcn-labs/outbid-template",
+  "skills": []
+}
