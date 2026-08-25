@@ -4,7 +4,7 @@
   "repo": "RoboSim",
   "description": "Robot Native Engine \u2014 robot-native Rust simulation core with physics, sensors, Python bindings, and optional ROS 2 adapters.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rsasaki0109/RoboSim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T09:54:53Z"
+  "distributed_at": "2026-08-25T14:07:11Z"
 }
