@@ -1,0 +1,9 @@
+{
+  "name": "open-rgs--open-rgs",
+  "displayName": "open-rgs",
+  "description": "A small, MIT-licensed Remote Game Server. Bun-native orchestrator, snap-in Lua maths, pluggable wallet adapters, binary-msgpack on the wire.",
+  "version": "1.0.0",
+  "author": "open-rgs",
+  "homepage": "https://github.com/open-rgs/open-rgs",
+  "skills": []
+}
