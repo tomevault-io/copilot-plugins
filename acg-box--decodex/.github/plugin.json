@@ -1,0 +1,9 @@
+{
+  "name": "acg-box--decodex",
+  "displayName": "decodex",
+  "description": "A signal layer for Codex \u2014 tracking updates, shifts, and community feedback.",
+  "version": "1.0.0",
+  "author": "acg-box",
+  "homepage": "https://github.com/acg-box/decodex",
+  "skills": []
+}
