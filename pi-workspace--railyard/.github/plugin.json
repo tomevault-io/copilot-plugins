@@ -1,0 +1,9 @@
+{
+  "name": "pi-workspace--railyard",
+  "displayName": "railyard",
+  "description": "Railyard is a local desktop app for working with Pi across Git repositories and long-running goals. Plan, implement, and pick up where you left off.",
+  "version": "1.0.0",
+  "author": "pi-workspace",
+  "homepage": "https://github.com/pi-workspace/railyard",
+  "skills": []
+}
