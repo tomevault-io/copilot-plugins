@@ -1,0 +1,9 @@
+{
+  "name": "osac-project--host-management-openstack",
+  "displayName": "host-management-openstack",
+  "description": "[Archived] OSAC Host Management Operator for OpenStack",
+  "version": "1.0.0",
+  "author": "osac-project",
+  "homepage": "https://github.com/osac-project/host-management-openstack",
+  "skills": []
+}
