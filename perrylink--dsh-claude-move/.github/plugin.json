@@ -1,0 +1,9 @@
+{
+  "name": "perrylink--dsh-claude-move",
+  "displayName": "dsh-claude-move",
+  "description": "Four-source migration wizard for DeepSeek Harness: move Claude Code, Codex, OpenCode and Hermes sessions, memories, skills, instructions and slash commands into DSH (/move wizard + resumable sessions,",
+  "version": "1.0.0",
+  "author": "PerryLink",
+  "homepage": "https://github.com/PerryLink/dsh-claude-move",
+  "skills": []
+}
