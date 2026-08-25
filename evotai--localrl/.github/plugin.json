@@ -1,0 +1,9 @@
+{
+  "name": "evotai--localrl",
+  "displayName": "localrl",
+  "description": "Local domain RL on Apple Silicon \u2014 train in the browser with GRPO.",
+  "version": "1.0.0",
+  "author": "evotai",
+  "homepage": "https://github.com/evotai/localrl",
+  "skills": []
+}
