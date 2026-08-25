@@ -1,0 +1,9 @@
+{
+  "name": "ddalcu--zigui",
+  "displayName": "zigui",
+  "description": "A SwiftUI-like UI library in pure Zig \u2014 macOS/SwiftUI look across macOS, Linux, Windows",
+  "version": "1.0.0",
+  "author": "ddalcu",
+  "homepage": "https://github.com/ddalcu/zigui",
+  "skills": []
+}
