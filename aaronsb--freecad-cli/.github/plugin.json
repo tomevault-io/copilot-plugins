@@ -1,0 +1,9 @@
+{
+  "name": "aaronsb--freecad-cli",
+  "displayName": "freecad-cli",
+  "description": "A command line for FreeCAD, in the app and in your terminal. Type a command or click to place it. Drive a running session from a shell, or script it.",
+  "version": "1.0.0",
+  "author": "aaronsb",
+  "homepage": "https://github.com/aaronsb/freecad-cli",
+  "skills": []
+}
