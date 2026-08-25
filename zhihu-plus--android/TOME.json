@@ -4,7 +4,7 @@
   "repo": "android",
   "description": "Zhihu+ | \u77e5\u4e4e+: Ad-free, low cost, content archiving Zhihu Android 3rd-party client. \u53bb\u5e7f\u544a\u3001\u5360\u7528\u4f4e\u3001\u652f\u6301\u5185\u5bb9\u5b58\u6863\u7684\u65b0\u65f6\u4ee3\u77e5\u4e4e\u5b89\u5353\u7aef\u4f53\u9a8c",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhihu-plus/android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T02:41:11Z"
+  "distributed_at": "2026-08-25T05:57:29Z"
 }
