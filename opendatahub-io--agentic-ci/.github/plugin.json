@@ -1,0 +1,9 @@
+{
+  "name": "opendatahub-io--agentic-ci",
+  "displayName": "agentic-ci",
+  "description": "Run AI coding agents in sandboxed CI environments",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/agentic-ci",
+  "skills": []
+}
