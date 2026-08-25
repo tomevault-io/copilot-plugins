@@ -1,0 +1,9 @@
+{
+  "name": "belsterns--eztest",
+  "displayName": "eztest",
+  "description": "Lightweight, powerful test management platform that runs on minimal hardware. Perfect for teams who want control without complexity.",
+  "version": "1.0.0",
+  "author": "belsterns",
+  "homepage": "https://github.com/belsterns/eztest",
+  "skills": []
+}
