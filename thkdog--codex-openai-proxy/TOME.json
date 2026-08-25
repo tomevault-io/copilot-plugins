@@ -1,0 +1,44 @@
+{
+  "name": "codex-openai-proxy",
+  "owner": "thkdog",
+  "repo": "codex-openai-proxy",
+  "description": "A local OpenAI-compatible proxy that reuses ~/.codex/auth.json to forward requests to the Codex backend API, with support for models, responses, and chat/completions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thkdog/codex-openai-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T06:31:02Z"
+}
