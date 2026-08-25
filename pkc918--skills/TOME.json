@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "\u9752\u6912\u8089\u4e1d'skills",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pkc918/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:07:43Z"
+  "distributed_at": "2026-08-25T22:40:45Z"
 }
