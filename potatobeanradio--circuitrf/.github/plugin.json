@@ -1,0 +1,9 @@
+{
+  "name": "potatobeanradio--circuitrf",
+  "displayName": "circuitRF",
+  "description": "Lightweight cross-platform RF circuit simulator \u2014 DC, S-parameters, harmonic balance, loadpull/sourcepull. Not a SPICE simulator.",
+  "version": "1.0.0",
+  "author": "potatobeanradio",
+  "homepage": "https://github.com/potatobeanradio/circuitRF",
+  "skills": []
+}
