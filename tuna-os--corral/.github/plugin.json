@@ -1,0 +1,9 @@
+{
+  "name": "tuna-os--corral",
+  "displayName": "corral",
+  "description": "\ud83e\udd20 Herd your VMs into your tailnet \u2014 QEMU + KubeVirt VM manager with a Proxmox-style web UI",
+  "version": "1.0.0",
+  "author": "tuna-os",
+  "homepage": "https://github.com/tuna-os/corral",
+  "skills": []
+}
