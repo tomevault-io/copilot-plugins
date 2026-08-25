@@ -4,7 +4,7 @@
   "repo": "OpenEval",
   "description": "Free, local-first evaluation dashboard for agent CLIs with cross-harness transcript collection, live trace intelligence, deterministic graders, and accuracy audits.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RasputinKaiser/OpenEval",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:19:29Z"
+  "distributed_at": "2026-08-25T12:15:01Z"
 }
