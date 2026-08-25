@@ -1,0 +1,9 @@
+{
+  "name": "abicheck--abicheck",
+  "displayName": "abicheck",
+  "description": "API/ABI checker: castxml-based header dumper + Python checker + LLVM/GCC support",
+  "version": "1.0.0",
+  "author": "abicheck",
+  "homepage": "https://github.com/abicheck/abicheck",
+  "skills": []
+}
