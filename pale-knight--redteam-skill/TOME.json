@@ -1,0 +1,44 @@
+{
+  "name": "redteam-skill",
+  "owner": "pale-knight",
+  "repo": "redteam-skill",
+  "description": "Redteam / Pentest Skill Pack \u2014 semi-automated workflow + on-demand module selection + real-world attack chains | Kali + Claude Code \u7ea2\u961f/\u6e17\u900f/\u6280\u80fd\u5305 - \u534a\u81ea\u52a8\u5de5\u4f5c\u6d41 + \u6309\u9700\u70b9\u9009\u6a21\u5757 + \u5b9e\u6218\u5229\u7528\u94fe | \u57fa\u4e8e Kali \u4e0e Claude Code",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pale-knight/redteam-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T16:38:47Z"
+}
