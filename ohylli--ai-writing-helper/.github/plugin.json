@@ -1,0 +1,9 @@
+{
+  "name": "ohylli--ai-writing-helper",
+  "displayName": "ai-writing-helper",
+  "description": "A Windows system tray app that fixes typos and transcribes speech using AI, triggered by global hotkeys.",
+  "version": "1.0.0",
+  "author": "ohylli",
+  "homepage": "https://github.com/ohylli/ai-writing-helper",
+  "skills": []
+}
