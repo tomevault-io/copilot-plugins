@@ -1,0 +1,9 @@
+{
+  "name": "humanbean17--jrag",
+  "displayName": "jrag",
+  "description": "A rag + rag-graph native code intelligence layer for Java microservice estates, exposed to LLM agents via CLI",
+  "version": "1.0.0",
+  "author": "HumanBean17",
+  "homepage": "https://github.com/HumanBean17/jrag",
+  "skills": []
+}
