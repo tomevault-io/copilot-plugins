@@ -7,11 +7,11 @@ You don't write AGENTS.md. You train it with gradient descent.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kunchenguid/backpass](https://github.com/kunchenguid/backpass).
+Original source: `AGENTS.md` in [kunchenguid/backpass](https://github.com/kunchenguid/backpass).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
