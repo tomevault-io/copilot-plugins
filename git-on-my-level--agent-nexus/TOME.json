@@ -4,7 +4,7 @@
   "repo": "agent-nexus",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Git-on-my-level/agent-nexus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T15:38:32Z"
+  "distributed_at": "2026-08-25T12:17:38Z"
 }
