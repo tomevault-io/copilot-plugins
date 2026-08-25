@@ -1,0 +1,29 @@
+## live-agent
+
+> Live Agent project standards — TypeScript, ESM, testing, docs
+
+
+# Live Agent — Development Standards
+
+Full standards are in [`CONTRIBUTING.md`](../../CONTRIBUTING.md). Key rules:
+
+## Non-negotiable
+- The core extension must remain **free to use** with free/local models — no charges from us.
+- No `any`. Use `unknown` and narrow. Strict mode is on.
+- All local imports need `.js` extensions (ESM/NodeNext).
+
+## Every change must include
+- Unit tests for new logic (`*.test.ts` next to source)
+- JSDoc on all exported symbols
+- README update if public-facing behavior changed
+- BACKLOG.md tick-off for completed tasks
+
+## Project-specific
+- Webview UI is **React** (functional components + hooks, built with Vite). No class components. No Angular.
+- Generated files (`generated-tools.ts`, `generated-executor.ts`) are never edited by hand — run `npm run generate`.
+- Errors must be logged and rethrown — never silently swallowed.
+- In-extension undo/checkpoints are out of scope (#20–#23); rely on Live's native undo.
+
+---
+> Source: [nonogv/live-agent](https://github.com/nonogv/live-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-25 -->
