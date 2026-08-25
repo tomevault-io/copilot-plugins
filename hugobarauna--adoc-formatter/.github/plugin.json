@@ -1,0 +1,9 @@
+{
+  "name": "hugobarauna--adoc-formatter",
+  "displayName": "adoc_formatter",
+  "description": "Source-preserving AsciiDoc formatter written in Elixir",
+  "version": "1.0.0",
+  "author": "hugobarauna",
+  "homepage": "https://github.com/hugobarauna/adoc_formatter",
+  "skills": []
+}
