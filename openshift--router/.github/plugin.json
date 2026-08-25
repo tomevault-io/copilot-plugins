@@ -1,0 +1,9 @@
+{
+  "name": "openshift--router",
+  "displayName": "router",
+  "description": "router",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/router",
+  "skills": []
+}
