@@ -1,0 +1,9 @@
+{
+  "name": "gpuopen-librariesandsdks--vulkanmemoryallocator",
+  "displayName": "VulkanMemoryAllocator",
+  "description": "VulkanMemoryAllocator",
+  "version": "1.0.0",
+  "author": "GPUOpen-LibrariesAndSDKs",
+  "homepage": "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator",
+  "skills": []
+}
