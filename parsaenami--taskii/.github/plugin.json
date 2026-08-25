@@ -1,0 +1,9 @@
+{
+  "name": "parsaenami--taskii",
+  "displayName": "taskii",
+  "description": "TASKII - A terminal dashboard for tasks, notes, and focus, built with Go and Bubble Tea.",
+  "version": "1.0.0",
+  "author": "parsaenami",
+  "homepage": "https://github.com/parsaenami/taskii",
+  "skills": []
+}
