@@ -1,0 +1,9 @@
+{
+  "name": "tmchow--hermes-kids-profile-blueprint",
+  "displayName": "hermes-kids-profile-blueprint",
+  "description": "Parent-operated starter kit for designing a private, child-facing Hermes Agent profile",
+  "version": "1.0.0",
+  "author": "tmchow",
+  "homepage": "https://github.com/tmchow/hermes-kids-profile-blueprint",
+  "skills": []
+}
