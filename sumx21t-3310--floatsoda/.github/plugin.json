@@ -1,0 +1,9 @@
+{
+  "name": "sumx21t-3310--floatsoda",
+  "displayName": "FloatSoda",
+  "description": "Flutter-like declarative UI framework for SteamVR overlays in C#/.NET. SkiaSharp rendering, OpenVR integration, dashboard / world-space / device-tracked overlays.",
+  "version": "1.0.0",
+  "author": "sumx21t-3310",
+  "homepage": "https://github.com/sumx21t-3310/FloatSoda",
+  "skills": []
+}
