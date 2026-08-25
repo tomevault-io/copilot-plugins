@@ -1,0 +1,9 @@
+{
+  "name": "needlestack--gmc64",
+  "displayName": "gmc64",
+  "description": "A JavaScript recreation of the classic C64 GameMaker",
+  "version": "1.0.0",
+  "author": "needlestack",
+  "homepage": "https://github.com/needlestack/gmc64",
+  "skills": []
+}
