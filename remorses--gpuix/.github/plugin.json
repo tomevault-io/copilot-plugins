@@ -1,0 +1,9 @@
+{
+  "name": "remorses--gpuix",
+  "displayName": "gpuix",
+  "description": "Node.js & React bindings for Zed GPUI. Very experimental and broken",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/gpuix",
+  "skills": []
+}
