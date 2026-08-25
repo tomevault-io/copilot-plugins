@@ -4,7 +4,7 @@
   "repo": "sprawling",
   "description": "Local multi-agent city for running persistent agent teams, long-run, society-simulation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/2youg1/sprawling",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:12:04Z"
+  "distributed_at": "2026-08-25T23:37:57Z"
 }
