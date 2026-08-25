@@ -1,0 +1,9 @@
+{
+  "name": "yankewei--herdr-focus-notify",
+  "displayName": "herdr-focus-notify",
+  "description": "Clickable macOS notifications for Herdr agents. Sends a native toast when an agent becomes blocked or done; clicking it brings the terminal forward and focuses the correct Herdr pane.",
+  "version": "1.0.0",
+  "author": "yankewei",
+  "homepage": "https://github.com/yankewei/herdr-focus-notify",
+  "skills": []
+}
