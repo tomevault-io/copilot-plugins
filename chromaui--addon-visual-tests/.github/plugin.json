@@ -1,0 +1,9 @@
+{
+  "name": "chromaui--addon-visual-tests",
+  "displayName": "addon-visual-tests",
+  "description": "addon-visual-tests",
+  "version": "1.0.0",
+  "author": "chromaui",
+  "homepage": "https://github.com/chromaui/addon-visual-tests",
+  "skills": []
+}
