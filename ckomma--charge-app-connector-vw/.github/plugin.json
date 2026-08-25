@@ -1,0 +1,9 @@
+{
+  "name": "ckomma--charge-app-connector-vw",
+  "displayName": "charge-app-connector-vw",
+  "description": "Read and control Volkswagen vehicle data through the Android app using ADB UI automation",
+  "version": "1.0.0",
+  "author": "ckomma",
+  "homepage": "https://github.com/ckomma/charge-app-connector-vw",
+  "skills": []
+}
