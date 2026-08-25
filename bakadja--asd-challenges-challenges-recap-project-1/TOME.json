@@ -1,0 +1,44 @@
+{
+  "name": "asd-challenges-challenges-recap-project-1",
+  "owner": "bakadja",
+  "repo": "asd-challenges-challenges-recap-project-1",
+  "description": "\ud83c\udf93 Recap project for the Neue Fische bootcamp. A lightweight IT-Book Library application demonstrating TypeScript, Bun, and DOM manipulation.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bakadja/asd-challenges-challenges-recap-project-1",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T09:58:14Z"
+}
