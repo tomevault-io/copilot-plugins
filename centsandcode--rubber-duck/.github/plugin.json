@@ -1,0 +1,9 @@
+{
+  "name": "centsandcode--rubber-duck",
+  "displayName": "rubber-duck",
+  "description": "Socratic debugging for AI agents. Don't give me the answer. Help me find it.",
+  "version": "1.0.0",
+  "author": "centsandcode",
+  "homepage": "https://github.com/centsandcode/rubber-duck",
+  "skills": []
+}
