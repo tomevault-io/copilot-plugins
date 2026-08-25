@@ -1,0 +1,9 @@
+{
+  "name": "bassdaddydevices--midi-daddy",
+  "displayName": "midi-daddy",
+  "description": "Ableton Live Extension: chord progressions and matching melodies from a 19,529-file MIDI library, scale-aware via Live's Scale Mode.",
+  "version": "1.0.0",
+  "author": "bassDaddyDevices",
+  "homepage": "https://github.com/bassDaddyDevices/midi-daddy",
+  "skills": []
+}
