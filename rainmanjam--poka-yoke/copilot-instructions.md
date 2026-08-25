@@ -1,0 +1,14 @@
+## poka-yoke
+
+> Contributor guidance for the poka-yoke repository
+
+
+See [AGENTS.md](../../AGENTS.md) for the full guidance.
+
+- A change that relies on someone remembering something is not finished; add the device.
+- Prove a new check can fail: break the thing on purpose, watch it go red, put it back.
+- No runtime-specific path variables in skills, and no shelling out by path.
+
+---
+> Source: [rainmanjam/poka-yoke](https://github.com/rainmanjam/poka-yoke) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-25 -->
