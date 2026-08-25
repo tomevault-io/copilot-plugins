@@ -1,0 +1,9 @@
+{
+  "name": "qos-ch--slf4j",
+  "displayName": "slf4j",
+  "description": "slf4j",
+  "version": "1.0.0",
+  "author": "qos-ch",
+  "homepage": "https://github.com/qos-ch/slf4j",
+  "skills": []
+}
