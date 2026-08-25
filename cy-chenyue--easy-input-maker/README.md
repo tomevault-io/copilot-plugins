@@ -7,11 +7,11 @@ EasyInput V2.0 完整固件基线，面向 AI 修改与可验证共创
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CY-CHENYUE/easy-input-maker](https://github.com/CY-CHENYUE/easy-input-maker).
+Original source: `AGENTS.md` in [CY-CHENYUE/easy-input-maker](https://github.com/CY-CHENYUE/easy-input-maker).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
