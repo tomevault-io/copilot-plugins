@@ -7,11 +7,11 @@ Verifiable agent actions. Every action becomes signed context for the next. Ed25
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [creatornader/atrib](https://github.com/creatornader/atrib).
+Original source: `AGENTS.md` in [creatornader/atrib](https://github.com/creatornader/atrib).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
