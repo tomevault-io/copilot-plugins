@@ -1,0 +1,44 @@
+{
+  "name": "EcommerceSite-1",
+  "owner": "Jure135",
+  "repo": "EcommerceSite-1",
+  "description": "EcommerceSite - 1 | NOVA Store \u2014 fullstack e-commerce (ASP.NET Core 8 + HTML/JS)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jure135/EcommerceSite-1",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T03:44:00Z"
+}
