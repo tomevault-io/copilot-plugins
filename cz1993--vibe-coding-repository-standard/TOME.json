@@ -1,0 +1,44 @@
+{
+  "name": "vibe-coding-repository-standard",
+  "owner": "cz1993",
+  "repo": "vibe-coding-repository-standard",
+  "description": "Open-source repository standard, starter template, validator, and multi-agent workflow for making vibe-coded and AI-generated software understandable, testable, reviewable, and maintainable. Codex-first reference implementation.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cz1993/vibe-coding-repository-standard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T06:28:09Z"
+}
