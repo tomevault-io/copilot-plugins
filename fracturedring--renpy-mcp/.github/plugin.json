@@ -1,0 +1,9 @@
+{
+  "name": "fracturedring--renpy-mcp",
+  "displayName": "renpy-mcp",
+  "description": "AI-friendly visual novel toolkit: a browser-based Ren'Py editor plus a 74-tool MCP server. Build VNs by clicking, by code, or by talking to Claude Code / Cursor / hermes-agent.",
+  "version": "1.0.0",
+  "author": "fracturedring",
+  "homepage": "https://github.com/fracturedring/renpy-mcp",
+  "skills": []
+}
