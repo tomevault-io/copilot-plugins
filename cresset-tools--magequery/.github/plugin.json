@@ -1,0 +1,9 @@
+{
+  "name": "cresset-tools--magequery",
+  "displayName": "magequery",
+  "description": "A fast Rust CLI that answers \"how is this Magento 2 codebase wired?\" without booting the framework.",
+  "version": "1.0.0",
+  "author": "cresset-tools",
+  "homepage": "https://github.com/cresset-tools/magequery",
+  "skills": []
+}
