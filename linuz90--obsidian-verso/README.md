@@ -7,11 +7,11 @@ Verso is a quiet, native-feeling standalone theme for Obsidian.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [linuz90/obsidian-verso](https://github.com/linuz90/obsidian-verso).
+Original source: `AGENTS.md` in [linuz90/obsidian-verso](https://github.com/linuz90/obsidian-verso).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
