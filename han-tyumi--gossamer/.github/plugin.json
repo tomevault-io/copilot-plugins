@@ -1,0 +1,9 @@
+{
+  "name": "han-tyumi--gossamer",
+  "displayName": "gossamer",
+  "description": "Web API bindings for Gleam",
+  "version": "1.0.0",
+  "author": "han-tyumi",
+  "homepage": "https://github.com/han-tyumi/gossamer",
+  "skills": []
+}
