@@ -4,7 +4,7 @@
   "repo": "Ark.Tools",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ARKlab/Ark.Tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T14:04:07Z"
+  "distributed_at": "2026-08-25T21:51:58Z"
 }
