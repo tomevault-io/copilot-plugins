@@ -1,0 +1,9 @@
+{
+  "name": "tomowang--dsh-tui",
+  "displayName": "dsh-tui",
+  "description": "An open-source terminal front door for DeepSeek Harness (dsh).",
+  "version": "1.0.0",
+  "author": "tomowang",
+  "homepage": "https://github.com/tomowang/dsh-tui",
+  "skills": []
+}
