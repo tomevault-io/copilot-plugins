@@ -1,116 +1,73 @@
-## 06-api-development
+## 07-database-development
 
-> - **Define routes inline for simplicity**
+> - Cloudflare D1 uses SQLite under the hood.
 
-# REST API 
+# Database Design Best Practices
 
-## Routing & Handler Structure
+## Use SQL-Compatible Types
+- Cloudflare D1 uses SQLite under the hood.
+- Use Drizzle's SQLite helpers (`integer()`, `text()`, `sqliteTable()`, etc.).
+- Be mindful of SQLite's flexible typing and ensure type safety using Drizzle.
 
-- **Define routes inline for simplicity**  
-  Avoid traditional "controller" layers. Use route handlers directly with Hono for better type inference and simpler structure.
+```ts
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
+```
 
-  ```ts
-  app.get('/books/:id', (c) => {
-    const id = c.req.param('id');
-    return c.json({ id });
-  });
-  ```
+## Model Relationships Carefully
+- D1 (SQLite) does support foreign keys, but indexing is crucial for performance.
+- Use `.references()` in Drizzle to define relationships explicitly.
 
-- **Modularize routes by feature**  
-  Use `app.route()` to separate route logic into distinct modules.
+```ts
+export const posts = sqliteTable("posts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  authorId: integer("author_id").references(() => users.id),
+  title: text("title").notNull(),
+});
+```
 
-  ```ts
-  // routes/books.ts
-  import { Hono } from 'hono';
+## Use Enums Where Needed (with Caution)
+- SQLite does not have native enum support.
+- Instead, constrain values manually in your application or through custom Zod validation.
 
-  const books = new Hono();
+## Use snake_case for SQL Fields
+- Stick to `snake_case` in table and column names.
+- Use `camelCase` in TypeScript with `InferModel`.
 
-  books.get('/', (c) => c.json(['book1', 'book2']));
-  books.get('/:id', (c) => c.json({ id: c.req.param('id') }));
+```ts
+export const tasks = sqliteTable("tasks", {
+  createdAt: text("created_at"),
+});
+```
 
-  export default books;
+## Timestamps & Defaults
+- Use SQL-level defaults like `CURRENT_TIMESTAMP` to avoid time zone mismatches.
+- Avoid setting defaults in TypeScript for critical database fields.
 
-  // main.ts
-  import books from './routes/books';
-  const app = new Hono();
-  app.route('/books', books);
-  ```
+## Type Inference
+- Always use Drizzle's `InferModel` to export consistent types.
 
-## Type Safety & Validation with Zod
+```ts
+export type User = InferModel<typeof users>;
+export type NewUser = InferModel<typeof users, "insert">;
+```
 
-- **Use Zod for schema validation**  
-  Combine `zod` and `@hono/zod-validator` for strict runtime and compile-time validation.
+## Migrations
+- Use `drizzle-kit` to generate and run migrations.
+- Keep migrations version-controlled and consistent across environments.
+- Don't mutate tables manually in production.
 
-  ```ts
-  import { z } from 'zod';
-  import { zValidator } from '@hono/zod-validator';
+## Avoid Nullable Unless Necessary
+- Prefer strict types to nullable columns.
+- Design schema around clear assumptions; nulls can be a source of bugs.
 
-  const userSchema = z.object({
-    name: z.string(),
-  });
-
-  app.post('/users', zValidator('json', userSchema), (c) => {
-    const data = c.req.valid('json');
-    return c.json({ message: `Hello, ${data.name}` });
-  });
-  ```
-
-- **Always validate request bodies, query params, and route params** to prevent runtime issues and improve DX.
-
-## Middleware Usage
-
-- **Built-in Middleware**  
-  Use Hono's middleware for logging, CORS, etc.
-
-  ```ts
-  import { logger } from 'hono/logger';
-  import { cors } from 'hono/cors';
-
-  app.use('*', logger());
-  app.use('*', cors());
-  ```
-
-- **Custom Middleware for JWT and API key Auth (see [auth.ts](mdc:apps/api/src/auth.ts))**
-
-## Authorization & Organization Scoping
-
-- **Authentication & Context Establishment**:
-  - Authentication is handled by custom middleware detailed in `[auth.ts](mdc:apps/api/src/auth.ts)`.
-  - This middleware supports both **JWT (JSON Web Tokens)** for user sessions and **API Keys** for programmatic access.
-  - Upon successful authentication, the middleware establishes the **`organizationId`** in the request context (e.g., `c.set("organizationId", ...)`) based on the authenticated user or API key.
-
-- **Lazy-mounted org routes** (`lazy-route.ts`):
-  - Org-scoped route modules are mounted lazily; the sub-app does not receive `:organizationId` as a route param.
-  - **Always use** `c.get("organizationId")` in handlers under `apps/api/src/routes/**` — never `c.req.param("organizationId")`.
-  - CI guard: `pnpm run check:lazy-route-org-id`.
-
-- **Data Isolation**:
-  - Route handlers retrieve the `organizationId` from the request context (e.g., `c.get("organizationId")`).
-  - This `organizationId` is then consistently used in database queries and other business logic to scope data access.
-  - This ensures strict data isolation between different organizations, preventing unauthorized access or data leakage.
-  - The middleware guarantees that if a route handler is reached, a valid `organizationId` associated with the authenticated entity is available.
-
-## Error Handling
-
-- **Global error handler**
-
-  ```ts
-  app.onError((err, c) => {
-    console.error(err);
-    return c.text('Internal Server Error', 500);
-  });
-  ```
-
-- **Custom 404 handler**
-
-  ```ts
-  app.notFound((c) => c.text('Not Found', 404));
-  ```
-
-## Deployment Considerations
-
-- **Built for the edge**  
-  Hono is ideal for Cloudflare Workers — it uses Web Standard APIs and avoids Node.js-only features.
+## D1 Considerations
+- Cloudflare D1 is a distributed SQLite; consider its eventual consistency.
+- Avoid relying on rapid writes followed immediately by reads (i.e., eventual read-after-write delays).
+- Be cautious with large data writes or transactions—D1 is optimized for light, edge-ready workloads.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
