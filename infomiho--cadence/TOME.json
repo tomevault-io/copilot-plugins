@@ -4,7 +4,7 @@
   "repo": "cadence",
   "description": "A minimal native Spotify player for macOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/infomiho/cadence",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T01:46:33Z"
+  "distributed_at": "2026-08-25T02:19:14Z"
 }
