@@ -1,0 +1,9 @@
+{
+  "name": "athroniaeth--piighost",
+  "displayName": "piighost",
+  "description": "Keep PII out of your LLM prompts without breaking the app. piighost de-identifies text and agent conversations, then restores the real values in the response. Pluggable detectors (regex, NER, LLM) and",
+  "version": "1.0.0",
+  "author": "Athroniaeth",
+  "homepage": "https://github.com/Athroniaeth/piighost",
+  "skills": []
+}
