@@ -2,7 +2,7 @@
   "name": "third-brain-v5-skills",
   "owner": "Mark393295827",
   "repo": "third-brain-v5-skills",
-  "description": "claude sikkls",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mark393295827/third-brain-v5-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T01:46:34Z"
+  "distributed_at": "2026-08-25T12:03:31Z"
 }
