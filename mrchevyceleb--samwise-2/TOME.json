@@ -4,7 +4,7 @@
   "repo": "samwise-2",
   "description": "Personal web chat for Claude Code, served from a Mac Mini over Tailscale. The Reading Room.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrchevyceleb/samwise-2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T06:34:56Z"
+  "distributed_at": "2026-08-25T10:08:47Z"
 }
