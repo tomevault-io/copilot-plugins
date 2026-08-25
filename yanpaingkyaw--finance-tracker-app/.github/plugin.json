@@ -1,0 +1,9 @@
+{
+  "name": "yanpaingkyaw--finance-tracker-app",
+  "displayName": "finance-tracker-app",
+  "description": "Mini Finance Tracker App which can Track transactions, compare spending against category budgets, and auto-carry unused budget into a global pool.",
+  "version": "1.0.0",
+  "author": "yanpaingkyaw",
+  "homepage": "https://github.com/yanpaingkyaw/finance-tracker-app",
+  "skills": []
+}
