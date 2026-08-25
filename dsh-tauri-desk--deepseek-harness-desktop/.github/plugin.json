@@ -1,0 +1,9 @@
+{
+  "name": "dsh-tauri-desk--deepseek-harness-desktop",
+  "displayName": "deepseek-harness-desktop",
+  "description": "DeepSeek Harness Tauri \u684c\u9762\u7248 | Only 5mb installer, zero environment setup, preset plugins, Windows / macOS / Linux.",
+  "version": "1.0.0",
+  "author": "dsh-tauri-desk",
+  "homepage": "https://github.com/dsh-tauri-desk/deepseek-harness-desktop",
+  "skills": []
+}
