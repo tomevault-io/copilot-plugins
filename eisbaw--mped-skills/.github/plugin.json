@@ -1,0 +1,9 @@
+{
+  "name": "eisbaw--mped-skills",
+  "displayName": "mped-skills",
+  "description": "Public subset of my Claude Code skills and agents",
+  "version": "1.0.0",
+  "author": "eisbaw",
+  "homepage": "https://github.com/eisbaw/mped-skills",
+  "skills": []
+}
