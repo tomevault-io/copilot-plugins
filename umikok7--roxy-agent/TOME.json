@@ -1,0 +1,44 @@
+{
+  "name": "roxy-agent",
+  "owner": "umikok7",
+  "repo": "roxy-agent",
+  "description": "\ud83d\udca7\u2728 A customizable desktop AI Agent featuring 3D-VRM Roxy, powered by modular deer-flow runtime with built-in RoxySkills for fans of the Overlord series. \uff5c \u4e00\u6b3e\u6d1b\u742a\u5e0c\u4e3b\u9898\u76843D\u684c\u9762 AI Agent\uff0c\u57fa\u4e8e deer-flow \u6a21\u5757\u5316\u8fd0\u884c\u65f6\u5f15\u64ce\u6784\u5efa\uff0c\u5185\u7f6e RoxySkills  \u6280\u80fd\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/umikok7/roxy-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T03:44:40Z"
+}
