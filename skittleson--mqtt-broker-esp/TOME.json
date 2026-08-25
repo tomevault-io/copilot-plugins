@@ -1,0 +1,44 @@
+{
+  "name": "mqtt_broker_esp",
+  "owner": "skittleson",
+  "repo": "mqtt_broker_esp",
+  "description": "A standalone MQTT 3.1.1 broker that runs entirely on a $10 microcontroller.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/skittleson/mqtt_broker_esp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T07:47:13Z"
+}
