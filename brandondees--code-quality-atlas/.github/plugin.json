@@ -1,0 +1,9 @@
+{
+  "name": "brandondees--code-quality-atlas",
+  "displayName": "code-quality-atlas",
+  "description": "From-first-principles research toward a standalone agent skill suite for code review & maintenance \u2014 a comprehensive map of what factors into code quality.",
+  "version": "1.0.0",
+  "author": "brandondees",
+  "homepage": "https://github.com/brandondees/code-quality-atlas",
+  "skills": []
+}
