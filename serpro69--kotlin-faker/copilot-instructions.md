@@ -1,142 +1,104 @@
 ## kotlin-faker
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Capy MCP tools protect your context window by keeping raw tool output in sandboxed subprocesses and indexing it for on-demand search.
 
-# CLAUDE.md
+# capy — context-window routing
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Capy MCP tools protect your context window by keeping raw tool output in sandboxed subprocesses and indexing it for on-demand search.
 
-## Project Overview
+## Decision principle
 
-Kotlin-faker is a comprehensive fake data generation library for the JVM, supporting Kotlin, Java, Android, and other JVM languages. It's a Kotlin port of the Ruby faker gem, providing realistic-looking fake data across various domains (names, addresses, books, games, etc.).
+Choose the tool based on what you need from the output:
 
-## Build Commands
+- **Comprehension** (understand the full content) → direct tools (Bash, Read)
+- **Extraction** (specific facts from large output) → capy tools
 
-### Standard Development
+## When to use direct tools (Bash / Read)
 
-```bash
-# Run unit tests
-./gradlew clean test
+- **Git commands:** diffs, logs, status, branch — always Bash. Diffs are comprehension content; BM25 fragments destroy review quality.
+- **Small-output commands (<~50 lines):** ls, wc, file, git status — Bash directly. Sandbox overhead exceeds savings.
+- **Files to comprehend or edit:** Read tool. Required before Edit.
+- **Sequential/ordered content:** test output, build logs where order matters — Bash or Read.
+- **Instruction files, checklists, configs:** Read and internalize whole. BM25 returns ranked fragments, destroying structural relationships.
+- **Small authoritative web pages:** GitHub issues, PR descriptions, short specs, doc pages — use runtime-native tools when available (e.g., `gh issue view` for GitHub, `WebSearch` for general queries). These are comprehension content; BM25 fragments destroy context just as they do for diffs.
 
-# Run integration tests
-./gradlew clean integrationTest
+## When to use capy tools
 
-# Run code formatting checks
-./gradlew spotlessCheck
+- **`capy_batch_execute`:** Broad exploration — multiple commands + queries in one call. Example: initial repo scan with `rg --files` + symbol searches.
+- **`capy_execute` / `capy_execute_file`:** Single command or file producing hundreds+ lines where you only need extracted facts. API calls, log analysis, data processing.
+- **`capy_fetch_and_index`:** Fetch and index large web content for extraction. Default ephemeral (24h TTL, excluded from default search). Best for large web artifacts (transcripts, logs, long docs) and content needing follow-up `source:` queries. Pass `kind: "durable"` for reference docs to persist across sessions. NOT for small authoritative pages you need to comprehend — use runtime web tools for those.
+- **`capy_index`:** Persist curated knowledge durably. Content you explicitly want searchable across sessions.
+- **`capy_search`:** Query indexed content. Batch all questions as array. Default excludes ephemeral — use `include_kinds` or `source:` to include.
 
-# Full build with all checks
-./gradlew clean test integrationTest spotlessCheck build shadowJar
+## Blocked commands — enforced by hooks
 
-# Build native CLI image (requires GraalVM JDK 17)
-./gradlew nativeCompile
-```
+### curl / wget — BLOCKED
+Any Bash command containing `curl` or `wget` is intercepted and replaced with an error message. Do NOT retry.
+Instead use:
+- `capy_fetch_and_index(url, source)` to fetch and index web pages
+- `capy_execute(language: "javascript", code: "const r = await fetch(...)")` to run HTTP calls in sandbox
 
-### Single Test Execution
+### Inline HTTP — BLOCKED
+Any Bash command containing `fetch('http`, `requests.get(`, `requests.post(`, `http.get(`, or `http.request(` is intercepted and replaced with an error message. Do NOT retry with Bash.
+Instead use:
+- `capy_execute(language, code)` to run HTTP calls in sandbox — only stdout enters context
 
-```bash
-# Run a specific test class
-./gradlew test --tests "ClassName"
+### WebFetch — BLOCKED
+WebFetch calls are denied entirely. Instead use:
+- For git platform issues/PRs/MRs: platform CLI (e.g., `gh issue view N`) or `WebSearch` for full comprehension
+- For other small pages needing comprehension: `WebSearch` or other runtime web tools
+- For large web content or extraction: `capy_fetch_and_index(url, source)` then `capy_search(queries)`
 
-# Run a specific test method
-./gradlew test --tests "ClassName.testMethodName"
-```
+## Source kinds
 
-### Documentation
+Every indexed entry has a **kind** that controls its lifecycle and search visibility:
 
-```bash
-# Serve documentation locally
-mkdocs serve
+| Kind | What produces it | Retention | Included by default in search? |
+|------|-----------------|-----------|-------------------------------|
+| `durable` | `capy_index`, `capy_fetch_and_index(kind: "durable")` | Retention-score tiers (hot → warm → cold → evictable) | Yes |
+| `ephemeral` | `capy_execute`, `capy_execute_file`, `capy_batch_execute`, `capy_fetch_and_index` (default) | Strict TTL — swept after expiry | No |
+| `session` | `capy sweep` (indexes past conversation transcripts) | Strict TTL — swept after expiry | Yes |
 
-# Generate API documentation
-./gradlew dokkaGfmMultiModule
-```
+**Querying non-default kinds:** pass `include_kinds` to `capy_search`:
+- `include_kinds: ["durable", "ephemeral"]` — recover output from earlier commands in this session
+- `include_kinds: ["durable", "ephemeral", "session"]` — search everything
+- Or use `source: "<label>"` to bypass kind filtering entirely (matches any kind)
 
-## Architecture
+## Read vs capy_execute_file
 
-### Module Structure
+**Default to `Read`.** It's cheap for normal-sized files, shows you actual content (not just patterns you knew to grep for), and is required if an Edit follows. Use `offset`/`limit` to scope large files.
 
-The project follows a multi-module Gradle build:
+**Reach for `capy_execute_file` only when ALL of these hold:**
+1. The file is genuinely large (10k+ lines, or measured >100 KB), AND
+2. You want a *derived answer* (count, stats, extracted pattern, structural summary) — not the content itself, AND
+3. You can write the exact grep/awk/script upfront. If you'd struggle to, you don't know enough yet — just `Read`.
 
-- **core**: Core faker functionality with the main `Faker` class and common data providers (names, addresses, internet, etc.)
-- **faker/**: Domain-specific faker submodules (books, commerce, creatures, databases, edu, games, humor, japmedia, lorem, misc, movies, music, pictures, sports, tech, travel, tvshows)
-- **extension/**: Third-party testing library extensions (blns, kotest-property)
-- **cli-bot**: Command-line application for quick faker function lookup (built as GraalVM native image)
-- **bom**: Bill-of-Materials for dependency management
-- **test**: Helper utilities for integration testing
-- **buildSrc/**: Custom Gradle convention plugins that standardize build configuration across modules
+**Anti-patterns — do NOT do this:**
+- `capy_execute_file` to grep section headings, then `Read` the file anyway to Edit it. The Read makes the capy call pure overhead.
+- `capy_execute_file` on a code file to "explore structure." Use `grep`, `find`, or language-specific tools instead.
+- `capy_execute_file` on a small/medium file (<2k lines) "to save context." The savings don't exist; you're adding latency.
+- `capy_index` on instruction files (skill definitions, checklists, plugin configs, review profiles). These documents must be `Read` and internalized whole — BM25 returns ranked fragments, which destroys structural relationships between sections. A checklist item saying "check X, but only if Y" becomes meaningless when Y landed in a different search result.
+- `capy_index` on files outside the project directory (e.g. plugin caches under `~/.claude/`, tool configs, system paths). These are instructions or configuration the LLM needs to follow, not project data to query.
 
-### Data Generation Architecture
+**Rule of thumb:** capy saves context only when raw data would otherwise flood context and you don't need the full content. If the document is meant to be followed as instructions, applied as a checklist, or read for comprehension — use `Read`. Indexing turns a coherent document into a bag of fragments.
 
-1. **Dictionary Files**: Fake data definitions live in YAML files under `core/src/main/resources/locales/{locale}/`
-2. **Data Providers**: Classes extending `YamlFakeDataProvider` expose data generation functions (e.g., `Name`, `Address`)
-3. **Faker Entry Point**: The `Faker` class (or domain-specific faker classes) provides access to all data providers
-4. **YAML Processing**: The custom `yaml-to-json` Gradle plugin converts YAML dictionaries to JSON at build time
-5. **FakerService**: Central service that loads dictionaries and resolves data values with support for locales and expressions
+## Output constraints
 
-### Key Patterns
+- Keep responses under 500 words.
+- Write artifacts (code, configs, PRDs) to FILES — never return them as inline text. Return only: file path + 1-line description.
+- When indexing content, use descriptive source labels so others can `capy_search(source: "label")` later.
 
-- **Provider Pattern**: Each data category (Name, Address, etc.) is implemented as a provider class with functions that map to dictionary keys
-- **Localization**: Dictionary files organized by locale (`en/`, `uk.yml`, etc.) with the default being `en`
-- **Category-based Organization**: Dictionary structure follows `{locale}.faker.{category}.{function_name}` hierarchy
-- **Unique Data Generation**: Providers support `.unique` for generating non-repeating values
+## Subagent routing
 
-## Adding New Data Providers
+When spawning subagents (Agent/Task tool), the routing block is automatically injected into their prompt. Bash-type subagents are upgraded to general-purpose so they have access to MCP tools. You do NOT need to manually instruct subagents about capy.
 
-When adding a new provider to `core` or creating a new faker module:
+## capy commands
 
-1. Add YAML dictionary file to `core/src/jvmMain/resources/locales/en/{category}.yml` (or to appropriate faker module)
-2. Create provider class extending `YamlFakeDataProvider` in `core/src/jvmMain/kotlin/io/github/serpro69/kfaker/provider/` (or faker module's provider package)
-3. Add property to `Faker` class (or appropriate faker class) that instantiates the provider
-4. Update `cli-bot/src/main/kotlin/io/github/serpro69/kfaker/app/Constants.kt` for CLI support
-5. Update native-image `reflect-config.json` in `cli-bot/src/main/resources/META-INF/native-image/`
-6. Update test constants in `core/src/jvmTest/kotlin/io/github/serpro69/kfaker/TestConstants.kt`
-7. Update `cli-bot/src/test/kotlin/io/github/serpro69/kfaker/app/cli/IntrospectorTest.kt`
-
-See CONTRIBUTING.md for detailed step-by-step instructions and examples.
-
-## Java Version Requirements
-
-- **Runtime**: Java 11 + Kotlin 2.x
-- **Build**: Requires JDK 21 (configured via Gradle toolchains)
-- **Native Image**: Requires GraalVM CE JDK 17 for building cli-bot native image
-
-The project uses Gradle toolchains to automatically provision correct JDK versions.
-
-## Code Style
-
-- Follow official Kotlin code style as defined by JetBrains
-- Spotless is configured to enforce formatting: `./gradlew spotlessCheck`
-- Apply formatting fixes: `./gradlew spotlessApply`
-
-## Testing Requirements
-
-- 100% test coverage for new code (run `./gradlew clean test` for coverage check)
-- Integration tests for larger changes and new features (`./gradlew integrationTest`)
-- Most providers are covered by dynamic integration tests that use reflection to call all public provider functions
-
-## Publishing
-
-Versioning uses semantic versioning via gradle plugin. Use Makefile targets for releases:
-
-```bash
-# Snapshot releases
-make snapshot-minor
-
-# Pre-releases
-make pre-release-major|minor|patch
-make next-pre-release
-
-# Full releases
-make release-major|minor|patch
-make promote-to-release
-```
-
-Or use `./gradlew tag` task with appropriate flags (see README.md "Build and Deploy" section).
-
-## Extra Instuctions
-
-@.claude/CLAUDE.extra.md
+| Command | Action |
+|---------|--------|
+| `capy stats` | Call the `capy_stats` MCP tool and display the full output verbatim |
+| `capy doctor` | Call the `capy_doctor` MCP tool and display as checklist |
 
 ---
 > Source: [serpro69/kotlin-faker](https://github.com/serpro69/kotlin-faker) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
