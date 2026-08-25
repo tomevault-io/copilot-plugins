@@ -4,7 +4,7 @@
   "repo": "cove",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chenyang-zz/cove",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T01:32:56Z"
+  "distributed_at": "2026-08-25T01:56:54Z"
 }
