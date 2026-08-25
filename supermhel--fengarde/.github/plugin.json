@@ -1,0 +1,9 @@
+{
+  "name": "supermhel--fengarde",
+  "displayName": "fengarde",
+  "description": "Open-source SIEM pipeline: raw security logs \u2192 OCSF \u2192 correlation rules \u2192 alerts. OT and IT in one pipeline. Local-first AI triage, 10-minute self-hosted quickstart.",
+  "version": "1.0.0",
+  "author": "supermhel",
+  "homepage": "https://github.com/supermhel/fengarde",
+  "skills": []
+}
