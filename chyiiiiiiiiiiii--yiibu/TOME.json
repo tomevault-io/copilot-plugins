@@ -1,0 +1,44 @@
+{
+  "name": "yiibu",
+  "owner": "chyiiiiiiiiiiii",
+  "repo": "yiibu",
+  "description": "Turn a folder of phone clips into a publish-ready 9:16 short \u2014 one step, with the quality bar enforced by gates rather than by remembering.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chyiiiiiiiiiiii/yiibu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T19:41:09Z"
+}
