@@ -4,7 +4,7 @@
   "repo": "vibe-coding-rules",
   "description": "54 production architecture rules for vibe coding with Claude Code & Cursor. Drop-in CLAUDE.md, .cursor/rules, and .claude/skills for FastAPI, Next.js 15, and Go 1.22+ \u2014 turn AI-assisted coding from prototype hack to production.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yerdaulet-damir/vibe-coding-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T22:15:17Z"
+  "distributed_at": "2026-08-25T04:26:35Z"
 }
