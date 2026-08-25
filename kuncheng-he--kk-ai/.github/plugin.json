@@ -1,0 +1,9 @@
+{
+  "name": "kuncheng-he--kk-ai",
+  "displayName": "kk-ai",
+  "description": "\u6211\u5728\u4f7f\u7528opencode\u548cpi\u8fc7\u7a0b\u4e2d\uff0c\u4f7f\u7528\u5230\u7684\u4e00\u4e9b\u516c\u5f00\u7684skill\u4ee5\u53ca\u81ea\u5df1\u5f00\u53d1\u7684\u4e00\u4e9bskill\u548cagent\uff0c\u8fd8\u6709pi\u7684\u6269\u5c55",
+  "version": "1.0.0",
+  "author": "KunCheng-He",
+  "homepage": "https://github.com/KunCheng-He/kk-ai",
+  "skills": []
+}
