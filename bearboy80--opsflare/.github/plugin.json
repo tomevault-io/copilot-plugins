@@ -1,0 +1,9 @@
+{
+  "name": "bearboy80--opsflare",
+  "displayName": "opsflare",
+  "description": "Unofficial Cloudflare multi-account client for iOS & Android (Expo). \u975e\u5b98\u65b9 Cloudflare \u591a\u8d26\u53f7\u79fb\u52a8\u5ba2\u6237\u7aef\u3002API token \u5373\u53ef\u4f7f\u7528\uff1bOAuth \u9700\u5148\u90e8\u7f72 oauth-relay \u5e76\u81ea\u884c\u6ce8\u518c\u5ba2\u6237\u7aef\u3002",
+  "version": "1.0.0",
+  "author": "bearBoy80",
+  "homepage": "https://github.com/bearBoy80/opsflare",
+  "skills": []
+}
