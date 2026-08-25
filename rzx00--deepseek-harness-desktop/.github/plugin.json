@@ -1,0 +1,9 @@
+{
+  "name": "rzx00--deepseek-harness-desktop",
+  "displayName": "deepseek-harness-desktop",
+  "description": "DeepSeek Harness with a Windows desktop build: an Electron shell over the dsh web profile, packaged as an installer",
+  "version": "1.0.0",
+  "author": "RZX00",
+  "homepage": "https://github.com/RZX00/deepseek-harness-desktop",
+  "skills": []
+}
