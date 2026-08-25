@@ -1,0 +1,9 @@
+{
+  "name": "zane456--pcb-agent-teams",
+  "displayName": "PCB-Agent-Teams",
+  "description": "A multi-agent KiCad PCB design workspace: 9 skills driving a Phase 0-5 pipeline from topology discussion to Gerber shipout. Noncommercial.",
+  "version": "1.0.0",
+  "author": "Zane456",
+  "homepage": "https://github.com/Zane456/PCB-Agent-Teams",
+  "skills": []
+}
