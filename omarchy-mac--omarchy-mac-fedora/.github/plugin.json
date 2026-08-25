@@ -1,0 +1,9 @@
+{
+  "name": "omarchy-mac--omarchy-mac-fedora",
+  "displayName": "omarchy-mac-fedora",
+  "description": "Opinionated Fedora/Hyprland Setup for Apple Silicon Macs M1/M2",
+  "version": "1.0.0",
+  "author": "omarchy-mac",
+  "homepage": "https://github.com/omarchy-mac/omarchy-mac-fedora",
+  "skills": []
+}
