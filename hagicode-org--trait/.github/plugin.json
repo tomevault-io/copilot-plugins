@@ -1,0 +1,9 @@
+{
+  "name": "hagicode-org--trait",
+  "displayName": "trait",
+  "description": "Frontend workspace for Trait Builder, where HagiCode traits are searched and self-built drafts are composed.",
+  "version": "1.0.0",
+  "author": "HagiCode-org",
+  "homepage": "https://github.com/HagiCode-org/trait",
+  "skills": []
+}
