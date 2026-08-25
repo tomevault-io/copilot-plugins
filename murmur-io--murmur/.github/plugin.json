@@ -1,0 +1,9 @@
+{
+  "name": "murmur-io--murmur",
+  "displayName": "murmur",
+  "description": "\ud83c\udf99\ufe0f\ud83e\udde0 Local-first macOS meeting + document notebook \u2014 on-device Whisper transcription, source-linked notes, @brain and history Q&A, a read-only local MCP server, E2EE sharing, and plain Markdown exports",
+  "version": "1.0.0",
+  "author": "murmur-io",
+  "homepage": "https://github.com/murmur-io/murmur",
+  "skills": []
+}
