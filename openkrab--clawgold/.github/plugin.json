@@ -1,0 +1,9 @@
+{
+  "name": "openkrab--clawgold",
+  "displayName": "ClawGold",
+  "description": "ClawGold is an AI-powered XAUUSD (Gold) trading system with multi-source news aggregation, sentiment analysis, and advanced trading strategies.",
+  "version": "1.0.0",
+  "author": "OpenKrab",
+  "homepage": "https://github.com/OpenKrab/ClawGold",
+  "skills": []
+}
