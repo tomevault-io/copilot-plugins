@@ -1,0 +1,9 @@
+{
+  "name": "codingjoe--threadmill",
+  "displayName": "threadmill",
+  "description": "Durable high-performance backend for Django's task framework.",
+  "version": "1.0.0",
+  "author": "codingjoe",
+  "homepage": "https://github.com/codingjoe/threadmill",
+  "skills": []
+}
