@@ -1,0 +1,9 @@
+{
+  "name": "slicedbread-marc--sbc-dev-claude-workflow",
+  "displayName": "sbc-dev-claude-workflow",
+  "description": "Structured SDLC workflow for Claude Code \u2014 brainstorm, plan, review, implement, verify",
+  "version": "1.0.0",
+  "author": "slicedBread-marc",
+  "homepage": "https://github.com/slicedBread-marc/sbc-dev-claude-workflow",
+  "skills": []
+}
