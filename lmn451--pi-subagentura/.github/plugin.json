@@ -1,0 +1,9 @@
+{
+  "name": "lmn451--pi-subagentura",
+  "displayName": "pi-subagentura",
+  "description": "Orchestrator, reusable multi-agent workflows and observable, attachable sub-agents for the Pi coding agent.",
+  "version": "1.0.0",
+  "author": "lmn451",
+  "homepage": "https://github.com/lmn451/pi-subagentura",
+  "skills": []
+}
