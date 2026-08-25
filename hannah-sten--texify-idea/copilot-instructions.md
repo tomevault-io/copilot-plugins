@@ -1,88 +1,45 @@
 ## texify-idea
 
-> Extends: `undici.Dispatcher`
+> This document provides specialized guidance for AI agents contributing to this project.
 
-# Agent
+# Guidelines for AI Agents working on TeXiFy-IDEA
 
-Extends: `undici.Dispatcher`
+This document provides specialized guidance for AI agents contributing to this project.
 
-Agent allow dispatching requests against multiple different origins.
+## Key Technical Context
 
-Requests are not guaranteed to be dispatched in order of invocation.
+### Plugin Dependencies and Loading
+The project uses the `org.jetbrains.intellij.platform` Gradle plugin.
+- Plugin dependencies are managed in `build.gradle.kts` within the `intellijPlatform` block.
+- If certain platform features (like `com.intellij.java`) fail to load in tests, ensure all required platform modules are included using `bundledModule()` or `bundledPlugin()`.
 
-## `new undici.Agent([options])`
+### Project Structure
+- `src/`: Main source code (Kotlin).
+- `test/`: Unit and integration tests.
+- `resources/META-INF/`: Plugin configuration files.
+- `Writerside/`: Project documentation (viewable as a website).
+- `gen/`: Generated code from Grammar-Kit and JFlex (do not edit directly).
 
-Arguments:
+## Common Tasks
 
-* **options** `AgentOptions` (optional)
+### Adding metadata for LaTeX commands/environments
+Metadata for autocompletion, inspections, etc., is defined in `src/nl/hannahsten/texifyidea/lang/predefined/`.
+Refer to `Contributing-to-the-source-code.md` in the Writerside documentation for examples of how to use the DSL to add new definitions.
 
-Returns: `Agent`
+### Working with Lexers and Parsers
+- Grammar files (`.bnf`) and Lexer files (`.flex`) are located in `src/nl/hannahsten/texifyidea/grammar/`.
+- After modifying these files, run the corresponding Gradle tasks (e.g., `generateLatexParser`, `generateLatexLexer`) to update the generated code in `gen/`.
 
-### Parameter: `AgentOptions`
+## Testing
+- Run specific tests using `./gradlew test --tests "full.package.path.TestClassName.testMethodName"`.
+- Use `BasePlatformTestCase` or its subclasses for IntelliJ Platform tests.
+- If you see `java.lang.UnsupportedOperationException: class redefinition failed` when using Mockk, consider using a manual mock or recording object, as some platform test instrumentation interferes with Mockk.
 
-Extends: [`PoolOptions`](Pool.md#parameter-pooloptions)
-
-* **factory** `(origin: URL, opts: Object) => Dispatcher` - Default: `(origin, opts) => new Pool(origin, opts)`
-* **maxRedirections** `Integer` - Default: `0`. The number of HTTP redirection to follow unless otherwise specified in `DispatchOptions`.
-* **interceptors** `{ Agent: DispatchInterceptor[] }` - Default: `[RedirectInterceptor]` - A list of interceptors that are applied to the dispatch method. Additional logic can be applied (such as, but not limited to: 302 status code handling, authentication, cookies, compression and caching). Note that the behavior of interceptors is Experimental and might change at any given time.
-
-## Instance Properties
-
-### `Agent.closed`
-
-Implements [Client.closed](Client.md#clientclosed)
-
-### `Agent.destroyed`
-
-Implements [Client.destroyed](Client.md#clientdestroyed)
-
-## Instance Methods
-
-### `Agent.close([callback])`
-
-Implements [`Dispatcher.close([callback])`](Dispatcher.md#dispatcherclosecallback-promise).
-
-### `Agent.destroy([error, callback])`
-
-Implements [`Dispatcher.destroy([error, callback])`](Dispatcher.md#dispatcherdestroyerror-callback-promise).
-
-### `Agent.dispatch(options, handler: AgentDispatchOptions)`
-
-Implements [`Dispatcher.dispatch(options, handler)`](Dispatcher.md#dispatcherdispatchoptions-handler).
-
-#### Parameter: `AgentDispatchOptions`
-
-Extends: [`DispatchOptions`](Dispatcher.md#parameter-dispatchoptions)
-
-* **origin** `string | URL`
-* **maxRedirections** `Integer`.
-
-Implements [`Dispatcher.destroy([error, callback])`](Dispatcher.md#dispatcherdestroyerror-callback-promise).
-
-### `Agent.connect(options[, callback])`
-
-See [`Dispatcher.connect(options[, callback])`](Dispatcher.md#dispatcherconnectoptions-callback).
-
-### `Agent.dispatch(options, handler)`
-
-Implements [`Dispatcher.dispatch(options, handler)`](Dispatcher.md#dispatcherdispatchoptions-handler).
-
-### `Agent.pipeline(options, handler)`
-
-See [`Dispatcher.pipeline(options, handler)`](Dispatcher.md#dispatcherpipelineoptions-handler).
-
-### `Agent.request(options[, callback])`
-
-See [`Dispatcher.request(options [, callback])`](Dispatcher.md#dispatcherrequestoptions-callback).
-
-### `Agent.stream(options, factory[, callback])`
-
-See [`Dispatcher.stream(options, factory[, callback])`](Dispatcher.md#dispatcherstreamoptions-factory-callback).
-
-### `Agent.upgrade(options[, callback])`
-
-See [`Dispatcher.upgrade(options[, callback])`](Dispatcher.md#dispatcherupgradeoptions-callback).
+## Documentation
+- The user-facing documentation is located in `Writerside/topics/`.
+- When adding new features, consider updating the relevant `.md` file in that directory.
+- `Contributing-to-the-source-code.md` is the primary resource for developers.
 
 ---
 > Source: [Hannah-Sten/TeXiFy-IDEA](https://github.com/Hannah-Sten/TeXiFy-IDEA) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
