@@ -1,0 +1,9 @@
+{
+  "name": "dsebastien--obsidian-kanban-action-planner",
+  "displayName": "obsidian-kanban-action-planner",
+  "description": "An Obsidian plugin that adds a new Base view type with a Kanban board for managing & planning actions (goals, projects, plans and tasks) ",
+  "version": "1.0.0",
+  "author": "dsebastien",
+  "homepage": "https://github.com/dsebastien/obsidian-kanban-action-planner",
+  "skills": []
+}
