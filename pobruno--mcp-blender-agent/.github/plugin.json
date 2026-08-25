@@ -1,0 +1,9 @@
+{
+  "name": "pobruno--mcp-blender-agent",
+  "displayName": "mcp-blender-agent",
+  "description": "MCP server giving AI agents complete control of Blender, modeling, rigging, animation, materials, render, export. Mirror architecture of mcp-unreal-agent.",
+  "version": "1.0.0",
+  "author": "PoBruno",
+  "homepage": "https://github.com/PoBruno/mcp-blender-agent",
+  "skills": []
+}
