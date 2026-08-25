@@ -1,0 +1,9 @@
+{
+  "name": "mango1135--mangonaut",
+  "displayName": "mangonaut",
+  "description": "AI agent that watches your errors and opens fix PRs",
+  "version": "1.0.0",
+  "author": "mango1135",
+  "homepage": "https://github.com/mango1135/mangonaut",
+  "skills": []
+}
