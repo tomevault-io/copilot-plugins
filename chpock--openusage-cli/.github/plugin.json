@@ -1,0 +1,9 @@
+{
+  "name": "chpock--openusage-cli",
+  "displayName": "openusage-cli",
+  "description": "Local daemon and CLI that collects AI provider usage/quota via OpenUsage plugins and exposes normalized data through a local REST API",
+  "version": "1.0.0",
+  "author": "chpock",
+  "homepage": "https://github.com/chpock/openusage-cli",
+  "skills": []
+}
