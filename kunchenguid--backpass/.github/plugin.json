@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--backpass",
+  "displayName": "backpass",
+  "description": "You don't write AGENTS.md. You train it with gradient descent.",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/backpass",
+  "skills": []
+}
