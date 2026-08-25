@@ -1,0 +1,9 @@
+{
+  "name": "andrewkernel--aerolens",
+  "displayName": "aerolens",
+  "description": "End-to-end differentiable inverse aerodynamic design from schlieren images using Tesseract.",
+  "version": "1.0.0",
+  "author": "andrewkernel",
+  "homepage": "https://github.com/andrewkernel/aerolens",
+  "skills": []
+}
