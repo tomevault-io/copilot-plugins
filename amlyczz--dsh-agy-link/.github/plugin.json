@@ -1,0 +1,9 @@
+{
+  "name": "amlyczz--dsh-agy-link",
+  "displayName": "dsh-agy-link",
+  "description": "Google Antigravity (agy CLI) models for DeepSeek Harness \u2014 streaming chat, thinking, tool activity, usage, in-GUI Google OAuth login",
+  "version": "1.0.0",
+  "author": "amlyczz",
+  "homepage": "https://github.com/amlyczz/dsh-agy-link",
+  "skills": []
+}
