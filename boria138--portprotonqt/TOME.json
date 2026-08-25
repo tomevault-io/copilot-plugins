@@ -4,7 +4,7 @@
   "repo": "PortProtonQt",
   "description": " Read-only mirror of https://git.linux-gaming.ru/Linux-Gaming/PortProtonQt",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Boria138/PortProtonQt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T16:33:04Z"
+  "distributed_at": "2026-08-25T16:45:40Z"
 }
