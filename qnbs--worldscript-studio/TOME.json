@@ -4,7 +4,7 @@
   "repo": "WorldScript-Studio",
   "description": "\ud83d\udd8b\ufe0f AI-powered writing studio for authors & screenwriters. Story planning, character & world building, AI assistants, offline PWA + desktop app with strong privacy focus.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qnbs/WorldScript-Studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T21:37:27Z"
+  "distributed_at": "2026-08-25T21:38:43Z"
 }
