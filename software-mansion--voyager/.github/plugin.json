@@ -1,0 +1,9 @@
+{
+  "name": "software-mansion--voyager",
+  "displayName": "voyager",
+  "description": "Observe, debug, and understand running BEAM systems",
+  "version": "1.0.0",
+  "author": "software-mansion",
+  "homepage": "https://github.com/software-mansion/voyager",
+  "skills": []
+}
