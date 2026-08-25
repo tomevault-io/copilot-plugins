@@ -1,0 +1,9 @@
+{
+  "name": "ianhi--xarray-ome",
+  "displayName": "xarray-ome",
+  "description": "load ome-zarr files in xarray",
+  "version": "1.0.0",
+  "author": "ianhi",
+  "homepage": "https://github.com/ianhi/xarray-ome",
+  "skills": []
+}
