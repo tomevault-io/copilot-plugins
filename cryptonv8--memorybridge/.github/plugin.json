@@ -1,0 +1,9 @@
+{
+  "name": "cryptonv8--memorybridge",
+  "displayName": "memorybridge",
+  "description": "Award 1 winner in Agents for Good \u2014 safety-first multi-agent dementia care support prototype built with Google ADK, MCP, Cloud Run, and human approval.",
+  "version": "1.0.0",
+  "author": "CryptonV8",
+  "homepage": "https://github.com/CryptonV8/memorybridge",
+  "skills": []
+}
