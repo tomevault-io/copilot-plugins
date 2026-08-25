@@ -1,0 +1,9 @@
+{
+  "name": "elastic--elasticsearch-ruby",
+  "displayName": "elasticsearch-ruby",
+  "description": "elasticsearch-ruby",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/elasticsearch-ruby",
+  "skills": []
+}
