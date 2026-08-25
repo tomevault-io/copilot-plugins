@@ -1,0 +1,9 @@
+{
+  "name": "agentflock--myna",
+  "displayName": "myna",
+  "description": "Local-first AI Chief of Staff for engineering leaders",
+  "version": "1.0.0",
+  "author": "agentflock",
+  "homepage": "https://github.com/agentflock/myna",
+  "skills": []
+}
