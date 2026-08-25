@@ -1,51 +1,54 @@
-## 300-ui-components
+## 800-testing-standards
 
-> Enforce accessible,i18n-ready React UI in shared components
+> Require deterministic Vitest mocks and CI-first heavy suites per docs/CI.md
 
 
-# UI-Komponenten (React 19)
+# Testing (Vitest + Playwright)
 
-## Paradigma
+## Determinismus
 
-- Funktionale Komponenten; Redux für App-State, lokales UI-State nur wo sinnvoll.
-- Primitive: **`components/ui/*`**; Design-Tokens optional **`@domain/ui`**.
-- **Alle** nutzersichtlichen Strings über **i18n** (`useTranslation` / Kontext).
+- Tests **isoliert**: keine Reihenfolge-, Netzwerk- oder `Date.now()`-Abhängigkeit ohne Mock/Fake-Timer.
+- Redux, `localStorage`, IDB: Reset via `tests/setup.ts` oder explizite Fixtures.
+- Vitest: **`maxWorkers: 1`** im Repo — keinen parallelen schweren Lauf neben Build/E2E auf Low-RAM-Maschinen.
 
-## Props & Struktur
+## Mocks
 
-- Props strikt typisiert (`exactOptionalPropertyTypes`).
-- Handler `onX`; Booleans `is*/has*`.
-- Teure Listen: `React.memo`; UI-Primitives mit `forwardRef` wo nötig.
+- `@google/genai`, `@ai-sdk/*`, Tauri, `fetch`, schwere ML-Peers: **`vi.mock`** / Aliase wie in `vitest.config.ts`.
+- Keine echten API-Keys oder Produktions-URLs.
 
-## Accessibility
+## Verbotene „Grün-Tricks“
 
-- Klick = `button` oder `role` + **Tastatur** (`useKeyWithClickEvents`).
-- Modale: Fokus-Falle (`useFocusTrap`), ESC, Backdrop als schließbarer `button` mit `aria-label` — siehe `Modal.tsx`, `CommandPalette.tsx`.
-- Formulare: `htmlFor`/ARIA; `useButtonType`.
-- Ladezustände KI: `aria-busy` + kurzes `aria-live` wo Status wechselt.
-- `dangerouslySetInnerHtml` nur sanitisiert (DOMPurify).
-- Status: `LiveRegionProvider` / `useAnnounce()` für wichtige Wechsel.
+- Kein Auskommentieren von Assertions, kein dauerhaftes Ignorieren flakiger Unit-Tests.
+- `it.skip`/`describe.skip` nur mit **Dateikommentar** (Grund, Ticket) und bewusst deaktivierten Suites — nicht statt Fix.
 
-## Command Center & Hilfe
+## Assertions & E2E-Hilfen
 
-- Palette: keine zweite Open-State-Quelle neben `transientUiStore`.
-- Tooltips/EmptyState aus `components/ui/`; Toasts mit `commandId` wo passend.
+- Interaktion: `@testing-library/user-event`; async: `findBy*`/`waitFor`.
+- E2E: [`tests/e2e/helpers.ts`](../../tests/e2e/helpers.ts) (SPA-ready, kein `networkidle` unter Vite).
+- **axe:** schwere/critical Verstöße in `tests/e2e/a11y.spec.ts` und erweiterten Routen vermeiden — [`docs/ACCESSIBILITY.md`](../../docs/ACCESSIBILITY.md).
 
-## Styling & Hosts
+## Spezialfälle
 
-- Tailwind; Inline nur für gemessene Werte.
-- **Keine** `@tauri-apps/api` in UI-Atoms — Services/Hooks.
+- `sceneRevisionService` / reine IDB: `@vitest-environment node` + `IDBFactory` + `_resetDbForTest()` (siehe `CLAUDE.md`).
+- Risiko-Hotspots bei Änderungen testen: `dbService`, `aiProviderService`, Import/Export, `storageBackend`.
 
-## Storybook
+## CI-first (kanonisch: [`docs/CI.md`](../../docs/CI.md))
 
-- Neue Primitive: Story + **addon-a11y** prüfen (`pnpm run storybook`).
+| Tier | Befehle |
+|------|---------|
+| **Lokal schnell** | `lint`, `typecheck`, `i18n:check`; optional `pnpm exec vitest run` **ohne** `--coverage` |
+| **CI schwer** | Vitest **mit** Coverage (Schwellen 63/55/54/62 — lines/branches/functions/statements), `CI=true pnpm run test:e2e`, LHCI, `bundle:budget` |
+
+- Merge-Bar = **grüner GitHub-Workflow**, nicht voller lokaler E2E auf schwacher Hardware.
+- Mobile E2E lokal nur mit `RUN_MOBILE_E2E=1` (siehe `playwright.config.ts`).
+- **Stryker:** informativ (`continue-on-error`); Score-Gate nicht umgehen durch Test-Löschung.
 
 <example>
-Neues Panel: `Modal` + i18n-Titel; Fokus zurück auf Trigger; Tastatur-Reihenfolge in Scene Board wie `moveManuscriptSectionWithinAct`.
+`aiProviderService`: `vi.mock` für SDK; feste Antwort; bei IDB-Test `node`-Environment + Factory-Reset.
 </example>
 
 <example type="invalid">
-`<div onClick>` ohne Keyboard; hardcodierter Button-Text `"Save"`; rohes HTML aus KI-Output; Tauri-FS im Button-Handler.
+Flaky Test auskommentieren ohne Ticket; Coverage-Schwelle senken statt Test hinzufügen; E2E mit echtem Gemini-Key.
 </example>
 
 ---
