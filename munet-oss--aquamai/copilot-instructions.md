@@ -1,60 +1,48 @@
 ## aquamai
 
-> TOML-based configuration system with reflection-driven section/entry discovery, versioned migration, and bilingual serialization.
+> Separate MelonLoader auto-updater mod. Downloads, signature-verifies, and loads the latest AquaMai.dll at boot — independent of the AquaMai solution. Bilingual error messages (zh/en) via `ErrorOverlay`.
 
-# AquaMai.Config
+# MuMod
 
-TOML-based configuration system with reflection-driven section/entry discovery, versioned migration, and bilingual serialization.
+Separate MelonLoader auto-updater mod. Downloads, signature-verifies, and loads the latest AquaMai.dll at boot — independent of the AquaMai solution. Bilingual error messages (zh/en) via `ErrorOverlay`.
 
 ## STRUCTURE
 
 ```
-AquaMai.Config/
-├── Config.cs             # Main config class — SectionState/EntryState records
-├── ConfigParser.cs       # Parses TOML ConfigView into Config object
-├── ConfigSerializer.cs   # Serializes Config back to TOML (with comments, i18n)
-├── ConfigView.cs         # TOML document abstraction layer
-├── ApiVersion.cs         # Config API version constant
-├── Utility.cs            # Shared utilities (logging delegate)
-├── Attributes/           # [ConfigSection], [ConfigEntry], [ConfigCollapseNamespace], EnableCondition
-├── Migration/            # Version chain: V1.0 → V2.0 → V2.1 → V2.2 → V2.3 → V2.4
-├── Reflection/           # ReflectionManager, SystemReflectionProvider, MonoCecil provider
-└── Types/                # Config value types (KeyCodeOrName, SoundChannel, IOKeyMap, etc.)
+MuMod/
+├── Main.cs                # MelonMod entry — early-init fetch/verify/cache/load pipeline
+├── Models/                # AquaMaiVersionInfo (API payload), MuModConfig (MuMod.toml)
+├── Utils/
+│   ├── VersionApi.cs      # Dual-source (COS + Cloudflare) version fetch, race to fastest
+│   ├── AquaMaiSignatureV2.cs  # ECDSA-P521 signature verify via raw BCrypt (Unity Mono shim)
+│   ├── ConfigManager.cs   # MuMod.toml load + path/channel resolution
+│   ├── ErrorOverlay.cs    # Full-screen error block + IMGUI render
+│   └── TomletShim.cs      # Tomlet wrapper
+└── MuMod.toml             # Runtime config (Channel, CachePath); see MuMod.example.toml
 ```
 
-## WHERE TO LOOK
+## PIPELINE (`Main.OnEarlyInitializeMelon`)
 
-| Task | File |
-|------|------|
-| Add new config attribute | `Attributes/` — implement matching interface from `Config.Interfaces` |
-| Add config migration | `Migration/` — new `IConfigMigration` impl + register in `ConfigMigrationManager` |
-| Change TOML parsing | `ConfigParser.cs` |
-| Change TOML output | `ConfigSerializer.cs` — respects `Options.Lang` for bilingual output |
-| Add custom value type | `Types/` — may need parser/serializer support |
-| Headless config access | `AquaMai.Config.HeadlessLoader` project (separate) |
+1. `ConfigManager.Load()` → resolve channel (`fast`→`ci`, `slow`→`slow`)
+2. `VersionApi.GetVersionInfo(channel)` — races COS + CF, first response wins
+3. With version: load cache → mismatch/absent → download → `VerifySignature` → cache
+4. Without version: try cache (signature-validated), else show error
+5. `LoadAssembly`: `Assembly.Load` → `MelonAssembly` → register melons
 
-## MIGRATION SYSTEM
+## CONVENTIONS
 
-- `ConfigMigrationManager` chains migrations sequentially
-- Each migration implements `IConfigMigration` with source/target version
-- Operates on `ConfigView` (TOML level) — not on typed Config object
-- Old config backed up as `AquaMai.toml.old-v{version}.`
+- **Cache**: `LocalAssets\MuMod.cache` (configurable). Signature must be valid — else deleted + re-downloaded.
+- **Config** via `Samboy063.Tomlet` (only NuGet dep) — no shared AquaMai config types.
+- **Errors**: always bilingual, `ErrorOverlay.SetError(...)`; `ErrorOverlay.BlockGame` halts boot on failure.
+- **Channel values**: `fast` = CI builds, `slow` = stable.
 
-## REFLECTION SYSTEM
+## KEY RULES
 
-- `ReflectionManager` discovers `[ConfigSection]` classes + `[ConfigEntry]` fields from mods assembly
-- `SystemReflectionProvider` — runtime reflection (used in game)
-- `MonoCecilAssemblyReflectionProvider` — Mono.Cecil-based (used by HeadlessLoader + Build tools)
-- Section paths derived from namespace: `AquaMai.Mods.Fix.DisableReboot` → `Fix.DisableReboot`
-
-## NOTES
-
-- Config is case-insensitive (uses `StringComparer.OrdinalIgnoreCase`)
-- `[ConfigSection(alwaysEnabled: true)]` reserved for `General` only
-- `[ConfigEntry(hideWhenDefault: true)]` — only for truly unused options
-- Serializer outputs bilingual comments based on `Options.Lang`
-- `Polyfills.cs` provides .NET compatibility shims for older framework target
+- **Do NOT** reference AquaMai source types — fully independent project.
+- `codePage 65001` set at early init so Chinese output isn't garbled.
+- `AquaMaiSignatureV2` bypasses .NET `ECDsa` (unreliable on Unity Mono) → P/Invoke `bcrypt.dll` ECDSA_P521 directly.
+- Signature is a trailing `AquaMaiSignatureBlock` (magic `"AquaMaiSig"`, version 1, KeyId + 132-byte sig) attached by the CI signing step.
 
 ---
 > Source: [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS/AquaMai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
