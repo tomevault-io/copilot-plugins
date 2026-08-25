@@ -1,0 +1,9 @@
+{
+  "name": "presmihaylov--tanban",
+  "displayName": "tanban",
+  "description": "A keyboard-driven kanban board for your terminal (TODO / In Progress / Blocked / Done), built with OpenTUI + Bun.",
+  "version": "1.0.0",
+  "author": "presmihaylov",
+  "homepage": "https://github.com/presmihaylov/tanban",
+  "skills": []
+}
