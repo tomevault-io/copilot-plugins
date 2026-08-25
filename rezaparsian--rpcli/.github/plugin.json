@@ -1,0 +1,9 @@
+{
+  "name": "rezaparsian--rpcli",
+  "displayName": "RpCli",
+  "description": "A command-line interface tool that leverages AI to help with Git commit message generation.",
+  "version": "1.0.0",
+  "author": "RezaParsian",
+  "homepage": "https://github.com/RezaParsian/RpCli",
+  "skills": []
+}
