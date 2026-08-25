@@ -1,0 +1,9 @@
+{
+  "name": "dazza-dev--astro-starter-kit",
+  "displayName": "astro-starter-kit",
+  "description": "Starter kit for building websites with Astro 6 and WordPress as a headless CMS using GraphQL.",
+  "version": "1.0.0",
+  "author": "dazza-dev",
+  "homepage": "https://github.com/dazza-dev/astro-starter-kit",
+  "skills": []
+}
