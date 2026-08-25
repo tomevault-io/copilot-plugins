@@ -1,0 +1,9 @@
+{
+  "name": "nigo-studio--ai-film-skills",
+  "displayName": "ai-film-skills",
+  "description": "Claude Code skills from an AI action-film pipeline: video prompt direction and character consistency for Seedance 2.5",
+  "version": "1.0.0",
+  "author": "nigo-studio",
+  "homepage": "https://github.com/nigo-studio/ai-film-skills",
+  "skills": []
+}
