@@ -1,0 +1,9 @@
+{
+  "name": "borapesa--pesa",
+  "displayName": "pesa",
+  "description": "A unified, open-source payments SDK for Tanzania.",
+  "version": "1.0.0",
+  "author": "borapesa",
+  "homepage": "https://github.com/borapesa/pesa",
+  "skills": []
+}
