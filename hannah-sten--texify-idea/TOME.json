@@ -4,7 +4,7 @@
   "repo": "TeXiFy-IDEA",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hannah-Sten/TeXiFy-IDEA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T06:13:45Z"
+  "distributed_at": "2026-08-25T18:09:20Z"
 }
