@@ -1,0 +1,9 @@
+{
+  "name": "sandersonb--solitaire-king",
+  "displayName": "solitaire-king",
+  "description": "A playable CLI/GUI and web Solitaire game + solver",
+  "version": "1.0.0",
+  "author": "sandersonb",
+  "homepage": "https://github.com/sandersonb/solitaire-king",
+  "skills": []
+}
