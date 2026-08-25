@@ -4,7 +4,7 @@
   "repo": "arle",
   "description": "Pure-Rust LLM runtime: one binary serves (OpenAI-compatible), runs local agents, and distills models on their own rollouts \u2014 on Apple Silicon and NVIDIA. No Python on the hot path.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/acupof-ai/arle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T02:18:31Z"
+  "distributed_at": "2026-08-25T04:32:33Z"
 }
