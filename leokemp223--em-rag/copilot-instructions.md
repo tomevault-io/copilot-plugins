@@ -1,15 +1,18 @@
-## em-rag-agent
+## em-rag
 
-> em_rag agent workflow and MCP tool rules
+> Read `AGENTS.md` first. It is the canonical agent workflow for this repository.
 
+# Gemini Guide
 
 Read `AGENTS.md` first. It is the canonical agent workflow for this repository.
 
-- For engineering questions, use `list_docs` when RAG state is unknown, then `search_docs` before answering from datasheets, SDK docs, source files, or board documentation.
-- Do not call `index_doc` unless the user explicitly asks to add, rebuild, refresh, or index documents.
-- Do not call `remove_doc` unless the user explicitly asks to remove a document.
-- Default PDF backend is `pymupdf`; use MinerU only for scanned PDFs, complex layouts, or explicit user requests.
-- Retrieval uses `.em_rag/chroma_db` and `.em_rag/fts.db`; `.em_rag/mineru` and `.em_rag/figures` are generated assets.
+Key rules:
+
+- Use `list_docs` to discover indexed documents when the RAG state is unknown.
+- Use `search_docs` before answering questions about chips, registers, datasheets, SDK APIs, source files, or board behavior.
+- Do not index by default. Only call `index_doc` when the user explicitly asks to add, rebuild, refresh, or index documents.
+- Do not remove indexed documents unless the user explicitly asks for removal.
+- Prefer the default `pymupdf` PDF backend for normal PDFs; use MinerU for scanned or complex-layout PDFs.
 
 ---
 > Source: [LeoKemp223/em_rag](https://github.com/LeoKemp223/em_rag) — distributed by [TomeVault](https://tomevault.io).
