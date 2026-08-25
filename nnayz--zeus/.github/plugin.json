@@ -1,0 +1,9 @@
+{
+  "name": "nnayz--zeus",
+  "displayName": "zeus",
+  "description": "Agentic macOS orchestrator for coding agents, run them in parallel across git worktrees and remote hosts",
+  "version": "1.0.0",
+  "author": "nnayz",
+  "homepage": "https://github.com/nnayz/zeus",
+  "skills": []
+}
