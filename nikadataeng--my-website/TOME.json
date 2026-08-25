@@ -4,7 +4,7 @@
   "repo": "my-website",
   "description": "hosting my website's code here <3 ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nikadataeng/my-website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:44:23Z"
+  "distributed_at": "2026-08-25T12:34:33Z"
 }
