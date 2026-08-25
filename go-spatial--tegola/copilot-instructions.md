@@ -1,81 +1,117 @@
 ## tegola
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# CLAUDE.md
+# Agent Guide for opentelemetry-go
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-## Project Overview
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-pgx is a PostgreSQL driver and toolkit for Go (`github.com/jackc/pgx/v5`). It provides both a native PostgreSQL interface and a `database/sql` compatible driver. Requires Go 1.25+ and supports PostgreSQL 14+ and CockroachDB.
+## Core expectations
 
-## Build & Test Commands
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-```bash
-# Run all tests (requires PGX_TEST_DATABASE to be set)
-go test ./...
+## Default workflow
 
-# Run a specific test
-go test -run TestFunctionName ./...
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-# Run tests for a specific package
-go test ./pgconn/...
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-# Run tests with race detector
-go test -race ./...
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-# DevContainer: run tests against specific PostgreSQL versions
-./test.sh pg18                      # Default: PostgreSQL 18
-./test.sh pg16 -run TestConnect     # Specific test against PG16
-./test.sh crdb                      # CockroachDB
-./test.sh all                       # All targets (pg14-18 + crdb)
+## Verification
 
-# Format (always run after making changes)
-goimports -w .
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-# Lint
-golangci-lint run ./...
-```
+## Documentation and changelog
 
-## Test Database Setup
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-Tests require `PGX_TEST_DATABASE` environment variable. In the devcontainer, `test.sh` handles this. For local development:
+## Repository habits
 
-```bash
-export PGX_TEST_DATABASE="host=localhost user=postgres password=postgres dbname=pgx_test"
-```
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-The test database needs extensions: `hstore`, `ltree`, and a `uint64` domain. See `testsetup/postgresql_setup.sql` for full setup. Many tests are skipped unless additional `PGX_TEST_*` env vars are set (for TLS, SCRAM, MD5, unix socket, PgBouncer testing).
+## Personas
 
-## Architecture
+### Feature Agent
 
-The codebase is a layered architecture, bottom-up:
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-- **pgproto3/** — PostgreSQL wire protocol v3 encoder/decoder. Defines `FrontendMessage` and `BackendMessage` types for every protocol message.
-- **pgconn/** — Low-level connection layer (roughly libpq-equivalent). Handles authentication, TLS, query execution, COPY protocol, and notifications. `PgConn` is the core type.
-- **pgx** (root package) — High-level query interface built on `pgconn`. Provides `Conn`, `Rows`, `Tx`, `Batch`, `CopyFrom`, and generic helpers like `CollectRows`/`ForEachRow`. Includes automatic statement caching (LRU).
-- **pgtype/** — Type system mapping between Go and PostgreSQL types (70+ types). Key interfaces: `Codec`, `Type`, `TypeMap`. Custom types (enums, composites, domains) are registered through `TypeMap`.
-- **pgxpool/** — Concurrency-safe connection pool built on `puddle/v2`. `Pool` is the main type; wraps `pgx.Conn`.
-- **stdlib/** — `database/sql` compatibility adapter.
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-Supporting packages:
-- **internal/stmtcache/** — Prepared statement cache with LRU eviction
-- **internal/sanitize/** — SQL query sanitization
-- **tracelog/** — Logging adapter that implements tracer interfaces
-- **multitracer/** — Composes multiple tracers into one
-- **pgxtest/** — Test helpers for running tests across connection types
+### Refactoring Agent
 
-## Key Design Conventions
+Use this persona when improving structure without intentionally changing behavior.
 
-- **Semantic versioning** — strictly followed. Do not break the public API (no removing or renaming exported types, functions, methods, or fields; no changing function signatures).
-- **Minimal dependencies** — adding new dependencies is strongly discouraged (see CONTRIBUTING.md).
-- **Context-based** — all blocking operations take `context.Context`.
-- **Tracer interfaces** — observability via `QueryTracer`, `BatchTracer`, `CopyFromTracer`, `PrepareTracer` on `ConnConfig.Tracer`.
-- **Formatting** — always run `goimports -w .` after making changes to ensure code is properly formatted. CI checks formatting via `gofmt -l -s -w . && git diff --exit-code`. `gofumpt` with extra rules is also enforced via `golangci-lint`.
-- **Linters** — `govet` and `ineffassign` only (configured in `.golangci.yml`).
-- **CI matrix** — tests run against Go 1.25/1.26 × PostgreSQL 14-18 + CockroachDB, on Linux and Windows. Race detector enabled on Linux only.
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
+
+### Test Agent
+
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
+
+### Performance Agent
+
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+
+### Review Agent
+
+Use this persona when asked to review code, patches, or pull requests.
+
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [go-spatial/tegola](https://github.com/go-spatial/tegola) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
