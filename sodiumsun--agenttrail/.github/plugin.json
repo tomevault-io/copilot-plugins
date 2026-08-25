@@ -1,0 +1,9 @@
+{
+  "name": "sodiumsun--agenttrail",
+  "displayName": "agenttrail",
+  "description": "Local observability map for AI coding agents. Watch Claude Code, Codex, and Cursor plans, tool calls, file changes, and progress in real time.",
+  "version": "1.0.0",
+  "author": "sodiumsun",
+  "homepage": "https://github.com/sodiumsun/agenttrail",
+  "skills": []
+}
