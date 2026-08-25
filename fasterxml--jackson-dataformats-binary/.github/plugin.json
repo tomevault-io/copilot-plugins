@@ -1,0 +1,9 @@
+{
+  "name": "fasterxml--jackson-dataformats-binary",
+  "displayName": "jackson-dataformats-binary",
+  "description": "jackson-dataformats-binary",
+  "version": "1.0.0",
+  "author": "FasterXML",
+  "homepage": "https://github.com/FasterXML/jackson-dataformats-binary",
+  "skills": []
+}
