@@ -1,0 +1,9 @@
+{
+  "name": "costiash--claude-code-docs",
+  "displayName": "claude-code-docs",
+  "description": "Always-current official Claude docs inside Claude Code. A 3 MB metadata plugin: live on-demand fetching from Anthropic's servers, zero content redistributed. Auto-discovery skill, instant search, inte",
+  "version": "1.0.0",
+  "author": "costiash",
+  "homepage": "https://github.com/costiash/claude-code-docs",
+  "skills": []
+}
