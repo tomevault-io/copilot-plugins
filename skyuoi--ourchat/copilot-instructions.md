@@ -1,10 +1,10 @@
 ## ourchat
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with the **web-panel** portion of this repository.
+> This file provides guidance to AI coding agents (Claude Code, opencode, etc.) when working with the **web-panel** portion of this repository.
 
-# CLAUDE.md - Web Panel
+# AGENTS.md - Web Panel
 
-This file provides guidance to Claude Code (claude.ai/code) when working with the **web-panel** portion of this repository.
+This file provides guidance to AI coding agents (Claude Code, opencode, etc.) when working with the **web-panel** portion of this repository.
 
 ## Overview
 
@@ -429,8 +429,8 @@ pnpx protoc service/*.proto \
 - [gRPC-Web Documentation](https://github.com/grpc/grpc-web)
 - [Tailwind CSS Documentation](https://tailwindcss.com/)
 
-Refer to the main project CLAUDE.md for server-side integration details.
+Refer to the main project AGENTS.md for server-side integration details.
 
 ---
 > Source: [SkyUOI/OurChat](https://github.com/SkyUOI/OurChat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
