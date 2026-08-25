@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--django-x509",
+  "displayName": "django-x509",
+  "description": "django-x509",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/django-x509",
+  "skills": []
+}
