@@ -1,0 +1,9 @@
+{
+  "name": "featherhunter--dsh-mattpocock-skills-deck",
+  "displayName": "dsh-mattpocock-skills-deck",
+  "description": "\u62e8\u5f00\u8ff7\u96fe\u770b\u89c1\u7ec8\u70b9\uff0c\u5269\u4e0b\u7684\u4ea4\u7ed9\u4efb\u52a1\u680f\u3002Part the fog, see the end \u2014 the task bar handles the rest. \ud83c\udfae mattpocock/skills \u7684 DSH \u6e38\u620f\u4efb\u52a1\u7cfb\u7edf\uff1amap \u62e8\u8ff7\u96fe\uff0c\u4efb\u52a1\u680f\u63a8\u8fdb\u4e00\u6b65\u3002A game-like mission system for Matt Pocock skills in DeepSeek Harness. Mor",
+  "version": "1.0.0",
+  "author": "FeatherHunter",
+  "homepage": "https://github.com/FeatherHunter/dsh-mattpocock-skills-deck",
+  "skills": []
+}
