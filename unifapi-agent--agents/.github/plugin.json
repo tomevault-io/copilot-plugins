@@ -1,0 +1,9 @@
+{
+  "name": "unifapi-agent--agents",
+  "displayName": "agents",
+  "description": "agents",
+  "version": "1.0.0",
+  "author": "unifapi-agent",
+  "homepage": "https://github.com/unifapi-agent/agents",
+  "skills": []
+}
