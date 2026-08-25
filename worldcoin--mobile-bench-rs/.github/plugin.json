@@ -1,0 +1,9 @@
+{
+  "name": "worldcoin--mobile-bench-rs",
+  "displayName": "mobile-bench-rs",
+  "description": "Benchmarking tool for Rust functions on mobile devices using BrowserStack.",
+  "version": "1.0.0",
+  "author": "worldcoin",
+  "homepage": "https://github.com/worldcoin/mobile-bench-rs",
+  "skills": []
+}
