@@ -1,0 +1,9 @@
+{
+  "name": "libp2p--go-libp2p-kad-dht",
+  "displayName": "go-libp2p-kad-dht",
+  "description": "go-libp2p-kad-dht",
+  "version": "1.0.0",
+  "author": "libp2p",
+  "homepage": "https://github.com/libp2p/go-libp2p-kad-dht",
+  "skills": []
+}
