@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS/AquaMai) — a repo with 105+ stars on GitHub.
+From [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS/AquaMai) — a repo with 107+ stars on GitHub.
 
 ---
 
