@@ -1,0 +1,9 @@
+{
+  "name": "joiha-steven--quireink",
+  "displayName": "quireink",
+  "description": "A self-hosted blog for one person, with an MCP server so an AI agent can write and publish to it. One Bun process, two SQLite files, no cloud account in the path.",
+  "version": "1.0.0",
+  "author": "joiha-steven",
+  "homepage": "https://github.com/joiha-steven/quireink",
+  "skills": []
+}
