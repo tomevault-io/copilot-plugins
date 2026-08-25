@@ -1,0 +1,44 @@
+{
+  "name": "ansible-proxmox-openshift",
+  "owner": "fOO223Fr",
+  "repo": "ansible-proxmox-openshift",
+  "description": "Ansible automation for deploying OpenShift on Proxmox VE \u2014 bare-metal IPI on a homelab",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fOO223Fr/ansible-proxmox-openshift",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T08:27:21Z"
+}
