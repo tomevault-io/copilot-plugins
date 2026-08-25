@@ -1,0 +1,9 @@
+{
+  "name": "pawaca--dsh-edge",
+  "displayName": "dsh-edge",
+  "description": "Your DeepSeek Harness, anywhere \u2014 deploy a persistent personal coding agent to Cloudflare Workers in one command.",
+  "version": "1.0.0",
+  "author": "pawaca",
+  "homepage": "https://github.com/pawaca/dsh-edge",
+  "skills": []
+}
