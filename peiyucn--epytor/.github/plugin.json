@@ -1,0 +1,9 @@
+{
+  "name": "peiyucn--epytor",
+  "displayName": "epytor",
+  "description": "WYSIWYG Markdown editor for VS Code, powered by Milkdown.",
+  "version": "1.0.0",
+  "author": "peiyucn",
+  "homepage": "https://github.com/peiyucn/epytor",
+  "skills": []
+}
