@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--moon-ide",
+  "displayName": "moon-ide",
+  "description": "IDE for moon team",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/moon-ide",
+  "skills": []
+}
