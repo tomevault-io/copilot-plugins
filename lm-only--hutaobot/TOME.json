@@ -1,0 +1,44 @@
+{
+  "name": "HutaoBot",
+  "owner": "Lm-Only",
+  "repo": "HutaoBot",
+  "description": "H\u1959t\u1972\u1946B\u1946t V10 \ud83e\udd8b D\u1971\u1949\u1971\u1952\u194e\u1946\u1963\u194e\u03b9d\u1972 \u03c1\u1972r\u1972 At\u1971\u1952d\u1971r T\u1946d\u1972\u1949 \u1972\u1949 S\u1959\u1972\u1949 N\u1971\u1974\u1971\u1949\u1949\u03b9d\u1972d\u1971\u1949, \ud83d\ude47\u200d\u2640\ufe0f S\u1971g\u1959r\u1972\u1952\u00e7\u1972 \ud83d\udee1 \u1971 M\u1946d\u1946 d\u1971 U\u1949\u1946. \u2728 L\u1971\u03b9\u1972 \u1974\u1946\ua9d1 b\u1972\u1949t\u1972\u1952t\u1971 \u1972t\u1971\u1952\u00e7\u00e3\u1946 \u1972 d\u1946\u1974\u1959\ua9d1\u1971\u1952t\u1972\u00e7\u00e3\u1946 \u1972b\u1972\u03b9\u194a\u1946! \ud83d\udc8e",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lm-Only/HutaoBot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T23:33:17Z"
+}
