@@ -1,0 +1,9 @@
+{
+  "name": "neroued--ninfer",
+  "displayName": "ninfer",
+  "description": "High-performance single-GPU inference for selected model checkpoints and GPUs.",
+  "version": "1.0.0",
+  "author": "Neroued",
+  "homepage": "https://github.com/Neroued/ninfer",
+  "skills": []
+}
