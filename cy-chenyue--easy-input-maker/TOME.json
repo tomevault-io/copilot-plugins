@@ -4,7 +4,7 @@
   "repo": "easy-input-maker",
   "description": "EasyInput V2.0 \u5b8c\u6574\u56fa\u4ef6\u57fa\u7ebf\uff0c\u9762\u5411 AI \u4fee\u6539\u4e0e\u53ef\u9a8c\u8bc1\u5171\u521b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CY-CHENYUE/easy-input-maker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T03:51:40Z"
+  "distributed_at": "2026-08-25T06:10:20Z"
 }
