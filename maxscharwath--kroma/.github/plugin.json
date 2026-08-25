@@ -1,0 +1,9 @@
+{
+  "name": "maxscharwath--kroma",
+  "displayName": "kroma",
+  "description": "Self-hosted, direct-play, HEVC-first media streaming \u2014 Rust server + web, Samsung (Tizen) & LG (webOS) TV clients. A personal Netflix/Plex for your NAS.",
+  "version": "1.0.0",
+  "author": "maxscharwath",
+  "homepage": "https://github.com/maxscharwath/kroma",
+  "skills": []
+}
