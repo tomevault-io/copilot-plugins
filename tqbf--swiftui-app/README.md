@@ -7,11 +7,11 @@ A clean, modern SwiftUI macOS app template you fork by copying — no Xcode proj
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tqbf/swiftui-app](https://github.com/tqbf/swiftui-app).
+Original source: `AGENTS.md` in [tqbf/swiftui-app](https://github.com/tqbf/swiftui-app).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
