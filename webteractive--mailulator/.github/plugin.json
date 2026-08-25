@@ -1,0 +1,9 @@
+{
+  "name": "webteractive--mailulator",
+  "displayName": "mailulator",
+  "description": "Self-hosted, Laravel-native Mailtrap alternative.",
+  "version": "1.0.0",
+  "author": "webteractive",
+  "homepage": "https://github.com/webteractive/mailulator",
+  "skills": []
+}
