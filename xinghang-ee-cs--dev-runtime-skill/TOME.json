@@ -1,0 +1,44 @@
+{
+  "name": "dev-runtime-skill",
+  "owner": "xinghang-ee-cs",
+  "repo": "dev-runtime-skill",
+  "description": "AI coding assistant skills that structure the full development lifecycle into planning \u2192 implementation \u2192 testing \u2192 release \u2014 each phase managed by a dedicated skill. Works with Claude Code and any agent that loads Markdown skill descriptions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xinghang-ee-cs/dev-runtime-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T11:33:11Z"
+}
