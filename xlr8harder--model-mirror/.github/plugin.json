@@ -1,0 +1,9 @@
+{
+  "name": "xlr8harder--model-mirror",
+  "displayName": "model-mirror",
+  "description": "Download and validate mirrors of hf models",
+  "version": "1.0.0",
+  "author": "xlr8harder",
+  "homepage": "https://github.com/xlr8harder/model-mirror",
+  "skills": []
+}
