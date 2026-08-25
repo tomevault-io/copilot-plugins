@@ -1,0 +1,9 @@
+{
+  "name": "rasputinkaiser--openeval",
+  "displayName": "OpenEval",
+  "description": "Free, local-first evaluation dashboard for agent CLIs with cross-harness transcript collection, live trace intelligence, deterministic graders, and accuracy audits.",
+  "version": "1.0.0",
+  "author": "RasputinKaiser",
+  "homepage": "https://github.com/RasputinKaiser/OpenEval",
+  "skills": []
+}
