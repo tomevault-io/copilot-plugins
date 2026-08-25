@@ -1,19 +1,37 @@
-## 01-software-design-guidelines
+## 02-development-environment
 
-> software design and architectural guidelines
+> Tooling & environment constants for the project
 
-# Software design and refactoring guidelines
+# Tech Stack Overview
 
-- Minimize complexity: Treat every design choice as a cost measured in future cognitive load. Eliminate unnecessary state and conditionals.
-- Prefer deep modules: expose a small, simple API that hides rich internal logic; avoid “wide” interfaces that mirror implementation details.
-- Pull complexity downward: if high-level code feels intricate, move that intricacy into a lower abstraction layer.
-- One purpose per abstraction: any class or function that can't be described in a single sentence should be split.
-- Optimize for read-time, not write-time: it's worth extra effort now to make future maintenance obvious.
-- Capture the *why*: use comments to record design intent and trade-offs; leave *how* to the code.
-- Design it twice: prototype at least two distinctly different solutions before settling on one.
-- Working ≠ finished: once the feature runs, refactor and polish interfaces until they're as simple as possible.
-- Decide big things early, small things late: lock in module boundaries or concurrency models first; postpone naming tweaks or parameter tuning.
-- Example-driven APIs: write the calling code you wish you had, then shape the real interface to match it.
+This repository uses the following technologies and tools:
+
+## Both 
+
+- **pnpm** for fast and efficient package management with workspace support.
+- **TypeScript** for static typing and enhanced developer experience.
+- **Vitest** for unit and integration testing.
+- **Cloudflare** for edge-optimized deployment and performance.
+
+### Adding or changing dependencies
+
+This monorepo shares a single root **`pnpm-lock.yaml`**. After editing **any** workspace `package.json` (`apps/*`, `packages/*`):
+
+1. Run **`pnpm install`** at the repository root and commit the updated **`pnpm-lock.yaml`** with the `package.json` change.
+2. Do not commit `package.json` alone — Docker dev entrypoints run **`pnpm install --frozen-lockfile`**; a stale lockfile causes install failure and leaves the **api** container unhealthy (app/www then fail with `dependency failed to start` even when only app deps changed).
+
+## Backend
+
+- **Hono** for lightweight, expressive REST API development.
+
+## Frontend
+
+- **Vite** as the build tool and dev server for lightning-fast development.
+- **React 19** for building interactive user interfaces.
+- **React Router v7** for declarative client-side routing, `react-router-dom` is depricated, instead import from `react-router`.
+- **React Flow** for rendering interactive node-based diagrams.
+- **Tailwind CSS** for utility-first styling.
+- **shadcn/ui** for headless, accessible component primitives.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
