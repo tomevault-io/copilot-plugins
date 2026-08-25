@@ -1,0 +1,9 @@
+{
+  "name": "dialog-tools--reddit-research-mcp",
+  "displayName": "reddit-research-mcp",
+  "description": "Turn Reddit's chaos into structured insights with full citations. MCP server for competitive analysis, customer discovery, and market research. Zero-setup hosted solution with semantic search across 2",
+  "version": "1.0.0",
+  "author": "dialog-tools",
+  "homepage": "https://github.com/dialog-tools/reddit-research-mcp",
+  "skills": []
+}
