@@ -4,7 +4,7 @@
   "repo": "Golem-Agents-Legion",
   "description": " A cross-provider AI orchestration system built in Rust, running natively across Claude Code, Codex CLI, GitHub Copilot, Antigravity CLI, and OpenCode.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/monkey1wizard/Golem-Agents-Legion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T02:17:21Z"
+  "distributed_at": "2026-08-25T04:29:50Z"
 }
