@@ -1,0 +1,9 @@
+{
+  "name": "offline-protocol--offline-protocol-sdk",
+  "displayName": "offline-protocol-sdk",
+  "description": "Transport and coordination layer for the disconnected edge. Build apps, agents, and devices that discover peers, communicate securely, and coordinate across BLE, Wi-Fi Direct, internet, Reticulum, and",
+  "version": "1.0.0",
+  "author": "Offline-Protocol",
+  "homepage": "https://github.com/Offline-Protocol/offline-protocol-sdk",
+  "skills": []
+}
