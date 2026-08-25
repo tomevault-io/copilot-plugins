@@ -1,0 +1,9 @@
+{
+  "name": "eai-scrmdemo--crm",
+  "displayName": "crm",
+  "description": "Mirror of frappe/crm (eai-scrmdemo sandbox)",
+  "version": "1.0.0",
+  "author": "eai-scrmdemo",
+  "homepage": "https://github.com/eai-scrmdemo/crm",
+  "skills": []
+}
