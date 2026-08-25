@@ -1,0 +1,9 @@
+{
+  "name": "stenion-lab--stenion",
+  "displayName": "stenion",
+  "description": "Open-source, continuous risk intelligence for Stellar/Soroban DeFi protocols \u2014 live on-chain scoring with a fully public, auditable methodology.",
+  "version": "1.0.0",
+  "author": "stenion-lab",
+  "homepage": "https://github.com/stenion-lab/stenion",
+  "skills": []
+}
