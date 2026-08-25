@@ -7,11 +7,11 @@ Local multi-agent city for running persistent agent teams, long-run, society-sim
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [2youg1/sprawling](https://github.com/2youg1/sprawling).
+Original source: `AGENTS.md` in [2youg1/sprawling](https://github.com/2youg1/sprawling).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
