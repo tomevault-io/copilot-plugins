@@ -1,0 +1,9 @@
+{
+  "name": "physicsrob--torchwright-doom",
+  "displayName": "torchwright_doom",
+  "description": "DOOM compiled to a transformer",
+  "version": "1.0.0",
+  "author": "physicsrob",
+  "homepage": "https://github.com/physicsrob/torchwright_doom",
+  "skills": []
+}
