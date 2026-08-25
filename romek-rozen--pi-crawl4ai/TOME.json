@@ -1,0 +1,44 @@
+{
+  "name": "pi-crawl4ai",
+  "owner": "romek-rozen",
+  "repo": "pi-crawl4ai",
+  "description": "Crawl4AI extension for pi \u2014 LLM-friendly web crawling, scraping and structured extraction as a pi tool, slash commands and agents",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/romek-rozen/pi-crawl4ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T06:39:56Z"
+}
