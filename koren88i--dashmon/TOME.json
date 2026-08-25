@@ -4,7 +4,7 @@
   "repo": "dashmon",
   "description": "Dashboard SRE \u2014 probe engine, meta-dashboard, and alert rules for Grafana dashboard health monitoring",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/koren88i/dashmon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T08:32:32Z"
+  "distributed_at": "2026-08-25T12:21:31Z"
 }
