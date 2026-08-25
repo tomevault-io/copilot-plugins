@@ -1,0 +1,44 @@
+{
+  "name": "omarchy-mac-fedora",
+  "owner": "omarchy-mac",
+  "repo": "omarchy-mac-fedora",
+  "description": "Opinionated Fedora/Hyprland Setup for Apple Silicon Macs M1/M2",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/omarchy-mac/omarchy-mac-fedora",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T05:45:13Z"
+}
