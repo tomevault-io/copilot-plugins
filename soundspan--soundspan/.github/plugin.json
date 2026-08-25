@@ -1,0 +1,9 @@
+{
+  "name": "soundspan--soundspan",
+  "displayName": "soundspan",
+  "description": "A self-hosted media hub for music lovers: local library + streaming integration, podcasts, audiobooks, and intelligent discovery",
+  "version": "1.0.0",
+  "author": "soundspan",
+  "homepage": "https://github.com/soundspan/soundspan",
+  "skills": []
+}
