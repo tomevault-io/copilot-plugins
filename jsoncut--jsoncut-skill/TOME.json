@@ -4,7 +4,7 @@
   "repo": "jsoncut-skill",
   "description": "AI agent skill for seamless integration with JsonCut, enabling automated creation and editing of videos and images using the jsoncut.com API",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jsoncut/jsoncut-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T01:57:22Z"
+  "distributed_at": "2026-08-25T02:33:56Z"
 }
