@@ -1,0 +1,9 @@
+{
+  "name": "ryonakae--shepherd",
+  "displayName": "shepherd",
+  "description": "Worker observability daemon and runtime bridges for Herdr-managed coding agents.",
+  "version": "1.0.0",
+  "author": "ryonakae",
+  "homepage": "https://github.com/ryonakae/shepherd",
+  "skills": []
+}
