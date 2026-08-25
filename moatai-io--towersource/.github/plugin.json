@@ -1,0 +1,9 @@
+{
+  "name": "moatai-io--towersource",
+  "displayName": "towersource",
+  "description": "Tower self-hosted source snapshot",
+  "version": "1.0.0",
+  "author": "moatai-io",
+  "homepage": "https://github.com/moatai-io/towersource",
+  "skills": []
+}
