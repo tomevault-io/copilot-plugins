@@ -1,0 +1,9 @@
+{
+  "name": "sopaco--terrain",
+  "displayName": "terrain",
+  "description": "AI-native engineering environment management that makes your codebase agent-ready.",
+  "version": "1.0.0",
+  "author": "sopaco",
+  "homepage": "https://github.com/sopaco/terrain",
+  "skills": []
+}
