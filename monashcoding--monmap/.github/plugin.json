@@ -1,0 +1,9 @@
+{
+  "name": "monashcoding--monmap",
+  "displayName": "monmap",
+  "description": "Course mapper for Monash students, meant to replace MonPlan (which was sunset June 2026)",
+  "version": "1.0.0",
+  "author": "monashcoding",
+  "homepage": "https://github.com/monashcoding/monmap",
+  "skills": []
+}
