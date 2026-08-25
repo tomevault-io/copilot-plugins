@@ -1,0 +1,9 @@
+{
+  "name": "dongkyu-es--persona-lightsim",
+  "displayName": "persona-lightsim",
+  "description": "Lightweight persona market-research & simulation harness for Claude Code \u2014 10-country Nemotron-Personas lite pack (63MB), batch judgment, mean-field 2-pass, persona cards",
+  "version": "1.0.0",
+  "author": "Dongkyu-ES",
+  "homepage": "https://github.com/Dongkyu-ES/persona-lightsim",
+  "skills": []
+}
