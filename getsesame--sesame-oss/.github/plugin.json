@@ -1,0 +1,9 @@
+{
+  "name": "getsesame--sesame-oss",
+  "displayName": "sesame-oss",
+  "description": "Minimal source-available, self-host edition of Sesame \u2014 a credential broker for AI agents (broker + dashboard + CLI).",
+  "version": "1.0.0",
+  "author": "getsesame",
+  "homepage": "https://github.com/getsesame/sesame-oss",
+  "skills": []
+}
