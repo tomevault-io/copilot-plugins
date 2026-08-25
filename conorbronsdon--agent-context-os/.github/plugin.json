@@ -1,0 +1,9 @@
+{
+  "name": "conorbronsdon--agent-context-os",
+  "displayName": "agent-context-os",
+  "description": "A Git-backed context and workflow layer for Claude Code, Codex, Hermes Agent, and compatible coding agents.",
+  "version": "1.0.0",
+  "author": "conorbronsdon",
+  "homepage": "https://github.com/conorbronsdon/agent-context-os",
+  "skills": []
+}
