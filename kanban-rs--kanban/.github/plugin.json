@@ -1,0 +1,9 @@
+{
+  "name": "kanban-rs--kanban",
+  "displayName": "kanban",
+  "description": "Terminal based project management solution",
+  "version": "1.0.0",
+  "author": "kanban-rs",
+  "homepage": "https://github.com/kanban-rs/kanban",
+  "skills": []
+}
