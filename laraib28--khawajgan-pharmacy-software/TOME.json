@@ -1,0 +1,44 @@
+{
+  "name": "khawajgan-pharmacy-software",
+  "owner": "laraib28",
+  "repo": "khawajgan-pharmacy-software",
+  "description": "it is pharmac softwrae for khawajgan add inventory check and also make a reciept",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/laraib28/khawajgan-pharmacy-software",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T06:07:12Z"
+}
