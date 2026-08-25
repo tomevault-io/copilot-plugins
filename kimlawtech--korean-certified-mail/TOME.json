@@ -1,0 +1,44 @@
+{
+  "name": "korean-certified-mail",
+  "owner": "kimlawtech",
+  "repo": "korean-certified-mail",
+  "description": "\ud55c\uad6d \ub0b4\uc6a9\uc99d\uba85 \uc790\ub3d9 \uc791\uc131 Claude Code \uc2a4\ud0ac \u2014 14\uac1c \uc720\ud615 \uc9c0\uc6d0, \ubc95\uc6d0 \uc81c\ucd9c \uae30\uc900 DOCX \ucd9c\ub825, \ubc95\ub839 \ud658\uac01 \ubc29\uc9c0, MCP \uac1c\uc778\uc815\ubcf4 \ubcf4\ud638",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kimlawtech/korean-certified-mail",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-25T07:49:55Z"
+}
