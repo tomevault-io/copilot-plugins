@@ -1,39 +1,20 @@
 ## third-brain-v5-skills
 
-> This repository contains Agent Skills for knowledge compounding, behavior design, and creativity. Compatible with Gemini CLI.
+> This project runs on **Codex OS**. This file remains only as a compatibility
 
-# Third Brain V5 Skills — Agent Guidelines
 
-This repository contains Agent Skills for knowledge compounding, behavior design, and creativity. Compatible with Gemini CLI.
+# Claude Compatibility Redirect — V8.1
 
-## Skill Format
+This project runs on **Codex OS**. This file remains only as a compatibility
+pointer for older Vault integrations that still look for a Claude-named note.
+It is not an execution authority and must not carry independent skill counts,
+paths, permissions, or workflow rules.
 
-All skills follow the [Agent Skills specification](https://agentskills.io):
-
-```
-skill-name/
-├── SKILL.md       # Required: YAML frontmatter + Markdown instructions
-```
-
-## Available Skills
-
-| Skill | Description |
-|-------|-------------|
-| [wiki-ingest](skills/wiki-ingest/SKILL.md) | Ingest sources into a persistent interlinked wiki |
-| [daily-okr](skills/daily-okr/SKILL.md) | Daily 7 KR knowledge compound closed loop |
-| [cognitive-compile](skills/cognitive-compile/SKILL.md) | 7-step deep learning framework |
-| [behavior-design](skills/behavior-design/SKILL.md) | Goals → Habits → SOPs → Review |
-| [creativity-engine](skills/creativity-engine/SKILL.md) | Combinatorial ideation + experiments |
-| [session-learn](skills/session-learn/SKILL.md) | Extract knowledge patterns from sessions |
-| [verify-before-claim](skills/verify-before-claim/SKILL.md) | Evidence before completion claims |
-| [wiki-lint](skills/wiki-lint/SKILL.md) | 8-dimension wiki health check |
-
-## Key Principles
-
-1. Knowledge compounds — every operation should make the wiki richer
-2. Evidence before claims — never assert completion without verification
-3. TDD for SOPs — define failure mode before writing the SOP
+Use [`codex.md`](codex.md) for the canonical host instructions, then
+[`vault-navigation.md`](vault-navigation.md),
+[`workflow-registry.md`](workflow-registry.md), and
+[`run-history-index.md`](run-history-index.md).
 
 ---
 > Source: [Mark393295827/third-brain-v5-skills](https://github.com/Mark393295827/third-brain-v5-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
