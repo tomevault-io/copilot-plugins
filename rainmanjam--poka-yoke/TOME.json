@@ -4,7 +4,7 @@
   "repo": "poka-yoke",
   "description": "Mistake-proofing for software. Shigeo Shingo's poka-yoke method as a Claude Code plugin: audit code for footguns, design APIs that resist misuse, install guardrails, turn incidents into devices.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rainmanjam/poka-yoke",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T13:32:43Z"
+  "distributed_at": "2026-08-25T20:13:21Z"
 }
