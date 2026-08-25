@@ -1,0 +1,9 @@
+{
+  "name": "nacos-group--nacos-k8s",
+  "displayName": "nacos-k8s",
+  "description": "nacos-k8s",
+  "version": "1.0.0",
+  "author": "nacos-group",
+  "homepage": "https://github.com/nacos-group/nacos-k8s",
+  "skills": []
+}
