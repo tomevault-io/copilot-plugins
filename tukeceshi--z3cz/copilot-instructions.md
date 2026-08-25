@@ -1,37 +1,18 @@
-## 02-development-environment
+## 03-project-structure
 
-> Tooling & environment constants for the project
+> The repository is organized in a monorepo using pnpm workspaces: [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml). It contains the following:
 
-# Tech Stack Overview
+# Project Structure
 
-This repository uses the following technologies and tools:
+The repository is organized in a monorepo using pnpm workspaces: [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml). It contains the following:
 
-## Both 
+- **apps/api**: [package.json](mdc:apps/api/package.json)
+- **apps/web**: [package.json](mdc:apps/web/package.json)
+- **pacakges/types**: [package.json](mdc:packages/types/package.json)
 
-- **pnpm** for fast and efficient package management with workspace support.
-- **TypeScript** for static typing and enhanced developer experience.
-- **Vitest** for unit and integration testing.
-- **Cloudflare** for edge-optimized deployment and performance.
+With the root package.json being: [package.json](mdc:package.json)
 
-### Adding or changing dependencies
-
-This monorepo shares a single root **`pnpm-lock.yaml`**. After editing **any** workspace `package.json` (`apps/*`, `packages/*`):
-
-1. Run **`pnpm install`** at the repository root and commit the updated **`pnpm-lock.yaml`** with the `package.json` change.
-2. Do not commit `package.json` alone — Docker dev entrypoints run **`pnpm install --frozen-lockfile`**; a stale lockfile causes install failure and leaves the **api** container unhealthy (app/www then fail with `dependency failed to start` even when only app deps changed).
-
-## Backend
-
-- **Hono** for lightweight, expressive REST API development.
-
-## Frontend
-
-- **Vite** as the build tool and dev server for lightning-fast development.
-- **React 19** for building interactive user interfaces.
-- **React Router v7** for declarative client-side routing, `react-router-dom` is depricated, instead import from `react-router`.
-- **React Flow** for rendering interactive node-based diagrams.
-- **Tailwind CSS** for utility-first styling.
-- **shadcn/ui** for headless, accessible component primitives.
+- When executing command in specific workspaces, use the `--filter @dafthunk/web` for example in order to execute a pnpm command in the web workspace.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
