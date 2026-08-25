@@ -1,0 +1,19 @@
+## pv-migrate
+
+> Read `AGENTS.md` in the repository root first. It is the project guide, and everything below is only the short version for when you have not opened it.
+
+# Copilot instructions
+
+Read `AGENTS.md` in the repository root first. It is the project guide, and everything below is only the short version for when you have not opened it.
+
+- The rsync and rclone commands are built in Go as **shell strings** that the embedded Helm chart interpolates into a `sh -c` script inside a YAML block scalar. Every path, host and spec that goes into one is quoted as a single shell word by `internal/shell`, and a value containing a character YAML will not carry on one line is rejected rather than quoted, because it would break the chart's rendering instead of the command. `extraArgs` is the one deliberate exception and stays raw.
+- A user-supplied `--source-path` or `--dest-path` is resolved against the container's mount point and must stay inside it. `--dest-path ../` would otherwise name the container's root, which rsync writes to and, with the delete flag, deletes from.
+- The operation ID's length limit is set by **Helm's 53-character release name limit**, not Kubernetes' 63. It lives in `internal/opid` and is checked by a test that hands the worst-case names to Helm's own validator.
+- The Helm chart in `internal/helm/pv-migrate` is embedded in the binary, so editing a template is a code change. Its `README.md` is generated from the comments in `values.yaml` by helm-docs, and `docs/cli-reference.md` is generated from the commands' help output. Never edit either by hand: run `task generate-all`, which CI checks for drift.
+- Progress is scraped from the job pod's log because neither data mover has a progress API. A parsed update must have a percentage between 0 and 100 and a total no smaller than what has been transferred. An estimated total is corrected up to meet that; a number the mover states outright and that cannot satisfy it makes the line refused instead, since a fabricated 100% reads as a finished transfer. The two parsers refuse different things because they read different formats: a percentage above 100 does not match rsync's pattern, and a negative byte count is only expressible in rclone's typed JSON.
+- Verify with `task test` (which also replays the fuzz seed corpora) and `task lint`. The integration suites are behind build tags and need real clusters.
+- Commits follow the conventional-commit format (`type(scope): imperative description`) with a body explaining what changed and why, and carry a DCO sign-off. A behaviour fix belongs in a `fix:` commit even when it arrives with the tests that found it, because the changelog is grouped on the type. One commit per pull request is strongly preferred, and its title and body are then the pull request's title and description verbatim, minus the sign-off trailer. Commits are deliberately not cryptographically signed, because a signature does not survive the rebase or squash that lands a change, so do not add `-S`. Do not add AI attribution of any kind, such as "generated with" lines or AI co-author trailers.
+
+---
+> Source: [utkuozdemir/pv-migrate](https://github.com/utkuozdemir/pv-migrate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
