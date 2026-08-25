@@ -1,0 +1,9 @@
+{
+  "name": "ultrawidelock--ultrawidelock",
+  "displayName": "ultrawidelock",
+  "description": "Apple Wallet UWB/NFC compatible firmware for smart locks. No app. No cloud. Works on a $20 chip. Handsfree. With a dead phone.",
+  "version": "1.0.0",
+  "author": "ultrawidelock",
+  "homepage": "https://github.com/ultrawidelock/ultrawidelock",
+  "skills": []
+}
