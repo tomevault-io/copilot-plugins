@@ -1,0 +1,9 @@
+{
+  "name": "endstonemc--papi",
+  "displayName": "papi",
+  "description": "PlaceholderAPI is a plugin for Endstone servers that allows server owners to display information from various plugins with a uniform format.",
+  "version": "1.0.0",
+  "author": "EndstoneMC",
+  "homepage": "https://github.com/EndstoneMC/papi",
+  "skills": []
+}
