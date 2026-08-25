@@ -1,73 +1,10 @@
-## 07-database-development
+## 08-web-routes
 
-> - Cloudflare D1 uses SQLite under the hood.
+> Adding or updating web application routes
 
-# Database Design Best Practices
+The current routes are defined in [routes.tsx](mdc:apps/web/src/routes.tsx). All the pages are defined in the apps/web/src/pages directory.
 
-## Use SQL-Compatible Types
-- Cloudflare D1 uses SQLite under the hood.
-- Use Drizzle's SQLite helpers (`integer()`, `text()`, `sqliteTable()`, etc.).
-- Be mindful of SQLite's flexible typing and ensure type safety using Drizzle.
-
-```ts
-export const users = sqliteTable("users", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  email: text("email").notNull().unique(),
-  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
-});
-```
-
-## Model Relationships Carefully
-- D1 (SQLite) does support foreign keys, but indexing is crucial for performance.
-- Use `.references()` in Drizzle to define relationships explicitly.
-
-```ts
-export const posts = sqliteTable("posts", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  authorId: integer("author_id").references(() => users.id),
-  title: text("title").notNull(),
-});
-```
-
-## Use Enums Where Needed (with Caution)
-- SQLite does not have native enum support.
-- Instead, constrain values manually in your application or through custom Zod validation.
-
-## Use snake_case for SQL Fields
-- Stick to `snake_case` in table and column names.
-- Use `camelCase` in TypeScript with `InferModel`.
-
-```ts
-export const tasks = sqliteTable("tasks", {
-  createdAt: text("created_at"),
-});
-```
-
-## Timestamps & Defaults
-- Use SQL-level defaults like `CURRENT_TIMESTAMP` to avoid time zone mismatches.
-- Avoid setting defaults in TypeScript for critical database fields.
-
-## Type Inference
-- Always use Drizzle's `InferModel` to export consistent types.
-
-```ts
-export type User = InferModel<typeof users>;
-export type NewUser = InferModel<typeof users, "insert">;
-```
-
-## Migrations
-- Use `drizzle-kit` to generate and run migrations.
-- Keep migrations version-controlled and consistent across environments.
-- Don't mutate tables manually in production.
-
-## Avoid Nullable Unless Necessary
-- Prefer strict types to nullable columns.
-- Design schema around clear assumptions; nulls can be a source of bugs.
-
-## D1 Considerations
-- Cloudflare D1 is a distributed SQLite; consider its eventual consistency.
-- Avoid relying on rapid writes followed immediately by reads (i.e., eventual read-after-write delays).
-- Be cautious with large data writes or transactions—D1 is optimized for light, edge-ready workloads.
+Note that the `handle.head` component is rendered on the server with SSR, the rest of the route is rendered on the client with CSR.
 
 ---
 > Source: [tukeceshi/z3cz](https://github.com/tukeceshi/z3cz) — distributed by [TomeVault](https://tomevault.io).
