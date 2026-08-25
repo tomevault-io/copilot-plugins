@@ -1,0 +1,9 @@
+{
+  "name": "infomiho--cadence",
+  "displayName": "cadence",
+  "description": "A minimal native Spotify player for macOS",
+  "version": "1.0.0",
+  "author": "infomiho",
+  "homepage": "https://github.com/infomiho/cadence",
+  "skills": []
+}
