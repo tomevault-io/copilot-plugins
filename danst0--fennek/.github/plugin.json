@@ -1,0 +1,9 @@
+{
+  "name": "danst0--fennek",
+  "displayName": "fennek",
+  "description": "\ud83e\udd8a Fennek \u2014 alternative open-source firmware for the LilyGO T-Deck Pro: music, audiobooks, eBooks & LoRa mesh chat (MeshCore). GPL-3.0+",
+  "version": "1.0.0",
+  "author": "danst0",
+  "homepage": "https://github.com/danst0/fennek",
+  "skills": []
+}
