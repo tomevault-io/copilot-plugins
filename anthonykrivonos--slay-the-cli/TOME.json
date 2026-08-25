@@ -4,7 +4,7 @@
   "repo": "slay-the-cli",
   "description": "Faithful recreation of Slay the Spire for nerds.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anthonykrivonos/slay-the-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T00:24:42Z"
+  "distributed_at": "2026-08-25T16:16:12Z"
 }
