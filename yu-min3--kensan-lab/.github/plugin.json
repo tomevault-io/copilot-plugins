@@ -1,0 +1,9 @@
+{
+  "name": "yu-min3--kensan-lab",
+  "displayName": "kensan-lab",
+  "description": "kensan (\u7814\u947d) \u2014 sharpen your K8s skills with a production-grade homelab: ArgoCD, Istio, Backstage on bare-metal",
+  "version": "1.0.0",
+  "author": "yu-min3",
+  "homepage": "https://github.com/yu-min3/kensan-lab",
+  "skills": []
+}
