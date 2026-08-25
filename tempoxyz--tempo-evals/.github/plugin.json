@@ -1,0 +1,9 @@
+{
+  "name": "tempoxyz--tempo-evals",
+  "displayName": "tempo-evals",
+  "description": "Harbor benchmark for Tempo integration evaluations",
+  "version": "1.0.0",
+  "author": "tempoxyz",
+  "homepage": "https://github.com/tempoxyz/tempo-evals",
+  "skills": []
+}
