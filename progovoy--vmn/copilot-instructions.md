@@ -2,17 +2,17 @@
 
 > When generating commit messages, pull request text, patches, or any code-related output, never include this line:
 
-# CLAUDE.md
+# AGENTS.md
 
-# Claude Code instructions
+# Codex instructions
 
 When generating commit messages, pull request text, patches, or any code-related output, never include this line:
 
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+Co-Authored-By: Codex Opus 4.6 <noreply@anthropic.com>
 
-Omit any Claude co-author trailer unless I explicitly ask for it.
+Omit any Codex co-author trailer unless I explicitly ask for it.
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 # Splitting tasks
 Always split big tasks into separate worktrees and do in parallel.
@@ -28,7 +28,7 @@ If you see API timeouts, split the current task into smaller parallel worktrees 
 - Before starting new work, check for and clean up any stale worktrees from previous sessions (`git worktree list`).
 
 ## Permissions hygiene
-- Do not accumulate one-off permission rules in `.claude/settings.local.json`.
+- Do not accumulate one-off permission rules in `.Codex/settings.local.json`.
 - Prefer broad wildcards (e.g., `Bash(git:*)`) over specific subcommand rules.
 - Keep the allow list under 30 entries.
 
@@ -138,6 +138,11 @@ Per-app config in `.vmn/{app_name}/conf.yml`. Key fields:
 - `vmn add -v <version> --bm <metadata> <name>`: Attach build metadata.
 - `vmn config <name>`: TUI config editor. `--vim` for $EDITOR, `--global` for repo-level config. `--branch` edits the current branch's canonical branch conf (seeded from the effective conf).
 - `vmn config gen <name>`: Non-interactively create a config file (no TTY needed, for CI/scripting). Default creates `conf.yml`; `--branch` (± `--root`) creates the canonical branch conf seeded from the existing effective conf. Never overwrites an existing file.
+- `vmn worktrees create <name>`: Create isolated development islands (git worktrees for main repo + all deps). `--island-name`, `--from-version`, `--no-stamp`, `--shallow-deps`, `--editable-dep`.
+- `vmn worktrees list`: List active islands.
+- `vmn worktrees remove <island>`: Clean up an island.
+- `vmn --completion [SHELL]`: Print shell completion setup script (bash/zsh/fish/tcsh). Auto-detects shell.
+- `vmn --completion-install [SHELL]`: Append completion to shell rc file. Idempotent.
 
 ## Environment Variables
 
@@ -147,4 +152,4 @@ Per-app config in `.vmn/{app_name}/conf.yml`. Key fields:
 
 ---
 > Source: [progovoy/vmn](https://github.com/progovoy/vmn) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
