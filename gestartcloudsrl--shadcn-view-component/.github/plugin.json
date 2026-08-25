@@ -1,0 +1,9 @@
+{
+  "name": "gestartcloudsrl--shadcn-view-component",
+  "displayName": "shadcn_view_component",
+  "description": "A 1:1 port of the shadcn/ui component registry to Rails ViewComponent.",
+  "version": "1.0.0",
+  "author": "gestartcloudsrl",
+  "homepage": "https://github.com/gestartcloudsrl/shadcn_view_component",
+  "skills": []
+}
