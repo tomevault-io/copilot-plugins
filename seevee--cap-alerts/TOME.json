@@ -4,7 +4,7 @@
   "repo": "cap_alerts",
   "description": "HA multi-region weather alerts integration: one entity per active weather alert, modeled on CAP fields. Solves the 16KB attribute limit.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seevee/cap_alerts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T04:36:53Z"
+  "distributed_at": "2026-08-25T08:00:40Z"
 }
