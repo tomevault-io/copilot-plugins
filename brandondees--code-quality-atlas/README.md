@@ -1,0 +1,26 @@
+# code-quality-atlas
+
+> Source: [brandondees/code-quality-atlas](https://github.com/brandondees/code-quality-atlas). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+From-first-principles research toward a standalone agent skill suite for code review & maintenance — a comprehensive map of what factors into code quality.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [brandondees/code-quality-atlas](https://github.com/brandondees/code-quality-atlas).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [brandondees/code-quality-atlas](https://github.com/brandondees/code-quality-atlas) — a repo with 9+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:d-e-s -->
