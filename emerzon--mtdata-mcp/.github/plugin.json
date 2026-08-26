@@ -1,0 +1,9 @@
+{
+  "name": "emerzon--mtdata-mcp",
+  "displayName": "mtdata-mcp",
+  "description": "A MetaTrader 5 research toolkit with 90+ AI tools for forecasting, regime detection, pattern recognition, and live trading.",
+  "version": "1.0.0",
+  "author": "emerzon",
+  "homepage": "https://github.com/emerzon/mtdata-mcp",
+  "skills": []
+}
