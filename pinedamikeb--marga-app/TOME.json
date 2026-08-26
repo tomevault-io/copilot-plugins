@@ -4,7 +4,7 @@
   "repo": "marga-app",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PinedaMikeB/marga-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T03:32:21Z"
+  "distributed_at": "2026-08-26T08:06:25Z"
 }
