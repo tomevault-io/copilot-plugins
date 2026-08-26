@@ -1,0 +1,9 @@
+{
+  "name": "mowd--facebook-feed-filter",
+  "displayName": "facebook-feed-filter",
+  "description": "Remove sponsored posts and recommendations from Facebook",
+  "version": "1.0.0",
+  "author": "Mowd",
+  "homepage": "https://github.com/Mowd/facebook-feed-filter",
+  "skills": []
+}
