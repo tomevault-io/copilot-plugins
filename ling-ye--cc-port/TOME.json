@@ -1,0 +1,44 @@
+{
+  "name": "cc-port",
+  "owner": "Ling-ye",
+  "repo": "cc-port",
+  "description": "Private Git-backed, rollback-safe sync for AI coding resources across Codex, Claude Code, Cursor, Windsurf and OpenCode. \u79c1\u6709\u3001\u5b89\u5168\u3001\u53ef\u56de\u6eda\u7684 AI Coding \u8d44\u6e90\u540c\u6b65\u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ling-ye/cc-port",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T06:03:44Z"
+}
