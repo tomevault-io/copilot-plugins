@@ -1,0 +1,44 @@
+{
+  "name": "meting-api-enhanced",
+  "owner": "qijie233",
+  "repo": "meting-api-enhanced",
+  "description": "\u5b8c\u5168\u517c\u5bb9 meting \u534f\u8bae\u7684\u7f51\u6613\u4e91\u97f3\u4e50 API\uff0c\u652f\u6301 VIP \u89e3\u9501\u3001\u81ea\u52a8\u89e3\u7070\u548c\u8c03\u7528\u7edf\u8ba1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qijie233/meting-api-enhanced",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T00:18:47Z"
+}
