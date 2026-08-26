@@ -4,7 +4,7 @@
   "repo": "your-saas-starterkit",
   "description": "A production-ready SaaS boilerplate: React 19, Elysia, Astro, PostgreSQL, Drizzle, Better Auth, TanStack Query/Router, shadcn/ui, and Tailwind CSS.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JuanPabloGilA/your-saas-starterkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T19:32:50Z"
+  "distributed_at": "2026-08-26T19:34:17Z"
 }
