@@ -1,0 +1,44 @@
+{
+  "name": "ProcrastiLearn",
+  "owner": "Vladyslav-Soldatenko",
+  "repo": "ProcrastiLearn",
+  "description": "Android app that turns doomscrolling into flashcard reps. Pick apps to gate (TikTok, etc.) \u2014 opening them triggers a full-screen spaced-repetition vocabulary card you must review first. Anki import, optional AI-generated translations. 100% local, no ads/analytics.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Vladyslav-Soldatenko/ProcrastiLearn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T13:34:10Z"
+}
