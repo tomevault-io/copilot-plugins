@@ -7,11 +7,11 @@ Mistake-proofing for software. Shigeo Shingo's poka-yoke method as a Claude Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rainmanjam/poka-yoke](https://github.com/rainmanjam/poka-yoke).
+Original source: `AGENTS.md` in [rainmanjam/poka-yoke](https://github.com/rainmanjam/poka-yoke).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
