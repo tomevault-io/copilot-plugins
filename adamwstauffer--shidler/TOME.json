@@ -1,0 +1,75 @@
+{
+  "name": "shidler",
+  "owner": "adamwstauffer",
+  "repo": "shidler",
+  "description": "Templates, assignments, and other material for Adam's Shidler courses",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brand-guidelines",
+      "path": ".claude/skills/brand-guidelines",
+      "github_url": "https://github.com/adamwstauffer/shidler/tree/main/.claude/skills/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": ".claude/skills/docx",
+      "github_url": "https://github.com/adamwstauffer/shidler/tree/main/.claude/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "path": ".claude/skills/internal-comms",
+      "github_url": "https://github.com/adamwstauffer/shidler/tree/main/.claude/skills/internal-comms",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": ".claude/skills/pptx",
+      "github_url": "https://github.com/adamwstauffer/shidler/tree/main/.claude/skills/pptx",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "path": ".claude/skills/xlsx",
+      "github_url": "https://github.com/adamwstauffer/shidler/tree/main/.claude/skills/xlsx",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adamwstauffer/shidler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T16:30:22Z"
+}
