@@ -1,9 +1,8 @@
-## do-not-mock-in-integration-tests
+## do-pull-frequently
 
-> Do not use mocks - integration tests supposed to use real objects, real connections, real or real-like data from fixtures.
+> Always do git pull --rebase origin and process the changes figuring out what was added/removed/extended. If there are breaking changes affecting our plan implementation - summarize them, their consequences, and ask what we will do.
 
-Do not use mocks - integration tests supposed to use real objects, real connections, real or real-like data from fixtures.
-Think of them as acceptance tests - just without UI.
+Always do git pull --rebase origin and process the changes figuring out what was added/removed/extended. If there are breaking changes affecting our plan implementation - summarize them, their consequences, and ask what we will do.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
