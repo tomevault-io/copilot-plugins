@@ -1,36 +1,41 @@
-## 02-deep-learning-model
+## 03-websocket-data-processing
 
-> 本项目使用双向LSTM(Long Short-Term Memory)网络结合注意力机制进行局部放电检测和分类。主要模型定义在 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 文件中。
+> 本项目使用WebSocket实现实时数据传输和处理。主要逻辑在 [websocketapp/consumers.py](mdc:websocketapp/consumers.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中。
 
-# 深度学习模型
+# WebSocket实时数据处理
 
-## 模型结构
+## 数据流程
 
-本项目使用双向LSTM(Long Short-Term Memory)网络结合注意力机制进行局部放电检测和分类。主要模型定义在 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 文件中。
+本项目使用WebSocket实现实时数据传输和处理。主要逻辑在 [websocketapp/consumers.py](mdc:websocketapp/consumers.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中。
 
-核心组件：
+数据处理流程：
 
-1. **注意力机制** - `Attn` 类实现了注意力层，用于在序列数据中识别重要特征
-2. **LSTM网络** - `Bi_lstm` 类实现了主要的网络结构，包括：
-   - LSTM层处理时序信息
-   - 注意力层提取关键特征
-   - 全连接层进行分类
+1. **连接建立** - 客户端与服务器建立WebSocket连接
+2. **数据接收** - 服务器接收客户端发送的数据（文本或二进制）
+3. **数据解析** - 根据数据类型进行解析：
+   - 文本数据：解析为JSON或控制命令
+   - 二进制数据：累积到缓冲区，等待完整数据块
+4. **数据处理** - 处理完整数据，包括：
+   - 解析头部信息
+   - 识别图谱类型（高频PRPD、超声特征等）
+   - 按图谱类型处理数据
+5. **结果返回** - 将处理结果通过WebSocket发送给客户端
 
-## 预测流程
+## 图谱类型
 
-1. 数据预处理 - 使用已保存的缩放器标准化输入数据
-2. 模型加载 - 从保存的权重文件加载预训练模型
-3. 推理过程 - 将预处理后的数据输入模型进行预测
-4. 后处理 - 解析输出结果，返回分类标签
+系统支持多种图谱类型的处理：
 
-## 模型使用
+- 高频图谱 (HF) - 包括PRPD、PRPS和脉冲波形图
+- 超声图谱 (US) - 包括特征图、相位图、脉冲图和波形图
+- 瞬态接地电压 (TEV) - 暂态接地电压测量
 
-模型可以通过以下方式使用：
+## 数据存储
 
-- 同步函数 `PD_detect_sync`
-- 异步函数 `PD_detect`
-- WebSocket接口（实时处理）
-- HTTP API接口（批量处理）
+处理后的数据会存储到MySQL数据库中，包括：
+
+- 头文件信息
+- 各类图谱数据
+- 分析结果
 
 ---
 > Source: [BruceYang521/pd_web_serve](https://github.com/BruceYang521/pd_web_serve) — distributed by [TomeVault](https://tomevault.io).
