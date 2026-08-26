@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--trac-mcp",
+  "displayName": "trac-mcp",
+  "description": "MCP for WordPress Trac",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/trac-mcp",
+  "skills": []
+}
