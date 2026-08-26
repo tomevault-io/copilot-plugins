@@ -1,0 +1,9 @@
+{
+  "name": "endformdev--playwright-opentelemetry",
+  "displayName": "playwright-opentelemetry",
+  "description": "A opentelemetry reporter for Playwright test suites",
+  "version": "1.0.0",
+  "author": "endformdev",
+  "homepage": "https://github.com/endformdev/playwright-opentelemetry",
+  "skills": []
+}
