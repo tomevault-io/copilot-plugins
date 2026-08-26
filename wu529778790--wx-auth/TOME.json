@@ -4,7 +4,7 @@
   "repo": "wx-auth",
   "description": "\u5fae\u4fe1\u8ba2\u9605\u53f7\u626b\u7801\u8ba4\u8bc1\u7cfb\u7edf\uff1a\u7528\u6237\u5173\u6ce8\u516c\u4f17\u53f7\u81ea\u52a8\u83b7\u53d6 6 \u4f4d\u9a8c\u8bc1\u7801\uff0c\u8f93\u5165\u5373\u5b8c\u6210\u7f51\u7ad9\u8eab\u4efd\u8ba4\u8bc1\u3002\u96f6\u914d\u7f6e SDK\uff08wx-auth-sdk\uff09+ Nuxt 4 \u540e\u7aef\uff0c\u652f\u6301\u591a\u7ad9\u70b9 SaaS \u63a5\u5165\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wu529778790/wx-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T23:38:27Z"
+  "distributed_at": "2026-08-26T07:43:18Z"
 }
