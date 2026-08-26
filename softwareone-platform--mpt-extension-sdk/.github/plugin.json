@@ -1,0 +1,9 @@
+{
+  "name": "softwareone-platform--mpt-extension-sdk",
+  "displayName": "mpt-extension-sdk",
+  "description": "SDK for SoftwareONE python extensions",
+  "version": "1.0.0",
+  "author": "softwareone-platform",
+  "homepage": "https://github.com/softwareone-platform/mpt-extension-sdk",
+  "skills": []
+}
