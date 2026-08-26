@@ -4,7 +4,7 @@
   "repo": "mimir",
   "description": "Mimir is a foundation for self-evolving methodologies for well-defined tasks - it provides a framework to capture your methodology as a Playbook, enable its consumption via MCP, and enable AI-driven evolution as inspired by genetic algorithms.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FeatureFactory-io/mimir",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T01:40:53Z"
+  "distributed_at": "2026-08-26T01:41:23Z"
 }
