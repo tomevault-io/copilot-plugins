@@ -1,0 +1,9 @@
+{
+  "name": "devbauerflorian--qwen3-8-27b-rtx5090",
+  "displayName": "qwen3.8-27b-rtx5090",
+  "description": "Docker deployment of Qwen3.8-27B (NVFP4) on a single RTX 5090: Full native 256K-token context (FP8 KV) + MTP working at 120-170 tokens/s, OpenAI-compatible API via vLLM, caddy Basic-auth gateway, and ",
+  "version": "1.0.0",
+  "author": "devbauerflorian",
+  "homepage": "https://github.com/devbauerflorian/qwen3.8-27b-rtx5090",
+  "skills": []
+}
