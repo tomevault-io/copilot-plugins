@@ -1,0 +1,9 @@
+{
+  "name": "7ochan--kairoscv",
+  "displayName": "KairosCV",
+  "description": "An AI-driven tool that rephrases and optimizes resumes to align with specific job descriptions while maintaining factual accuracy.",
+  "version": "1.0.0",
+  "author": "7ochan",
+  "homepage": "https://github.com/7ochan/KairosCV",
+  "skills": []
+}
