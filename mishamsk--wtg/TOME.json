@@ -4,7 +4,7 @@
   "repo": "wtg",
   "description": "A snarky but helpful CLI tool to identify git commits, issues, PRs and file changes, and tell you which release they shipped in.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mishamsk/wtg",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T10:53:47Z"
+  "distributed_at": "2026-08-26T10:59:37Z"
 }
