@@ -1,0 +1,9 @@
+{
+  "name": "chendaqian--quicklook-plugin-gitfolderviewer",
+  "displayName": "QuickLook.Plugin.GitFolderViewer",
+  "description": ".git folder info: branch, remote, HEAD commit, recent activity",
+  "version": "1.0.0",
+  "author": "Chendaqian",
+  "homepage": "https://github.com/Chendaqian/QuickLook.Plugin.GitFolderViewer",
+  "skills": []
+}
