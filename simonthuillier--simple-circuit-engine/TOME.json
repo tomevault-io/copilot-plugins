@@ -4,7 +4,7 @@
   "repo": "simple-circuit-engine",
   "description": "Educational electronic circuits Build & Simulation engine with THREE.js 3D visualization",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SimonThuillier/simple-circuit-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T07:43:49Z"
+  "distributed_at": "2026-08-26T08:27:15Z"
 }
