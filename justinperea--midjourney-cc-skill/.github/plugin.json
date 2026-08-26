@@ -1,0 +1,9 @@
+{
+  "name": "justinperea--midjourney-cc-skill",
+  "displayName": "midjourney-cc-skill",
+  "description": "A Claude Code skill that learns Midjourney prompt engineering through iterative refinement, pattern extraction, and browser automation.",
+  "version": "1.0.0",
+  "author": "JustinPerea",
+  "homepage": "https://github.com/JustinPerea/midjourney-cc-skill",
+  "skills": []
+}
