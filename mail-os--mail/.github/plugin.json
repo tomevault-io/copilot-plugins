@@ -1,0 +1,9 @@
+{
+  "name": "mail-os--mail",
+  "displayName": "mail",
+  "description": "A performant & secure SMTP server implementation, designed for self-hosting email infrastructure.",
+  "version": "1.0.0",
+  "author": "mail-os",
+  "homepage": "https://github.com/mail-os/mail",
+  "skills": []
+}
