@@ -4,7 +4,7 @@
   "repo": "dsh-edge",
   "description": "Your DeepSeek Harness, anywhere \u2014 deploy a persistent personal coding agent to Cloudflare Workers in one command.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pawaca/dsh-edge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T19:48:33Z"
+  "distributed_at": "2026-08-26T06:08:17Z"
 }
