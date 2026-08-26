@@ -1,13 +1,17 @@
-## do-small-increments
+## do-skeletons-first
 
-> Work in method-by-method steps.
+> The core principle is that the developer who has no knowledge of the system can implement methods/properties etc. following only documentation in the skeleton - think its like you are a designer defining the task for the implementer.
 
-# Rule: Small Increments
+The core principle is that the developer who has no knowledge of the system can implement methods/properties etc. following only documentation in the skeleton - think its like you are a designer defining the task for the implementer.
 
-Work in method-by-method steps.
-- Implement small vertical slices.
-- After every change: write → run → test → evaluate → fix.
-- No large PRs or 1000-line commits.
+Do as follows:
+- Read `.windsurf/rules/do-write-concise-methods.md`
+- Read .windsurf/rules/keep-docstrings-consistent.md
+- Create class and method/function stubs and document them
+- Include full docstrings, return types (eg "-> list[str]", and sample return values (per global rules)
+- Use `raise NotImplementedError()` in each method.
+- Do not skip type hints or documentation
+- Add comments inside the methods pointing attention to the logic flow, exception handling, logging etc.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
