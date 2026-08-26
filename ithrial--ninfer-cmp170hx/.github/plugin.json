@@ -1,0 +1,9 @@
+{
+  "name": "ithrial--ninfer-cmp170hx",
+  "displayName": "ninfer-cmp170hx",
+  "description": "NInfer SM80 port for NVIDIA CMP 170HX",
+  "version": "1.0.0",
+  "author": "Ithrial",
+  "homepage": "https://github.com/Ithrial/ninfer-cmp170hx",
+  "skills": []
+}
