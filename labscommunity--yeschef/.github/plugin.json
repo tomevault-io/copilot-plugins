@@ -1,0 +1,9 @@
+{
+  "name": "labscommunity--yeschef",
+  "displayName": "yeschef",
+  "description": "Local AI coworkers for Claude Code and Codex",
+  "version": "1.0.0",
+  "author": "labscommunity",
+  "homepage": "https://github.com/labscommunity/yeschef",
+  "skills": []
+}
