@@ -1,0 +1,9 @@
+{
+  "name": "segator--wibox-media",
+  "displayName": "wibox-media",
+  "description": "Fermax WiBox SIP media: audio + video via GK710X",
+  "version": "1.0.0",
+  "author": "segator",
+  "homepage": "https://github.com/segator/wibox-media",
+  "skills": []
+}
