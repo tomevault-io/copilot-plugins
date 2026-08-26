@@ -1,0 +1,9 @@
+{
+  "name": "fly233338--dsh-overleaf",
+  "displayName": "dsh-overleaf",
+  "description": "Connect Overleaf projects to DeepSeek Harness (DSH) through OverleafMCP and MCP tools.",
+  "version": "1.0.0",
+  "author": "fly233338",
+  "homepage": "https://github.com/fly233338/dsh-overleaf",
+  "skills": []
+}
