@@ -1,0 +1,9 @@
+{
+  "name": "onceuponadev--power-dial",
+  "displayName": "power-dial",
+  "description": "A GNOME Shell extension that provides a quick power menu with suspend, restart, power off, and logout options.",
+  "version": "1.0.0",
+  "author": "OnceUponADev",
+  "homepage": "https://github.com/OnceUponADev/power-dial",
+  "skills": []
+}
