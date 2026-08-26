@@ -1,0 +1,9 @@
+{
+  "name": "jyyyyyt--dev-report-weekly",
+  "displayName": "dev-report-weekly",
+  "description": "Local-first desktop app that turns reviewed Git history into auditable weekly reports with Codex, Claude Code, or your own model.",
+  "version": "1.0.0",
+  "author": "JYYYYYT",
+  "homepage": "https://github.com/JYYYYYT/dev-report-weekly",
+  "skills": []
+}
