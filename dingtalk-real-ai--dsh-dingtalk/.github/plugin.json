@@ -1,0 +1,9 @@
+{
+  "name": "dingtalk-real-ai--dsh-dingtalk",
+  "displayName": "dsh-dingtalk",
+  "description": "Official DingTalk connector for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "DingTalk-Real-AI",
+  "homepage": "https://github.com/DingTalk-Real-AI/dsh-dingtalk",
+  "skills": []
+}
