@@ -1,0 +1,9 @@
+{
+  "name": "fengyunhe--jrxml-web-designer",
+  "displayName": "jrxml_web_designer",
+  "description": "A web-based report editor that supports JRXML file editing, tailored for integration with the JasperReports Library. ",
+  "version": "1.0.0",
+  "author": "fengyunhe",
+  "homepage": "https://github.com/fengyunhe/jrxml_web_designer",
+  "skills": []
+}
