@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--open-flow",
+  "displayName": "open-flow",
+  "description": "Build workflows you can see, code, run, and own. Open-source visual workflow automation with real TypeScript, isolated execution, and a self-hosted Control API.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/open-flow",
+  "skills": []
+}
