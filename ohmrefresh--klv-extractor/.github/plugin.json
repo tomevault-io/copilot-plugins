@@ -1,0 +1,9 @@
+{
+  "name": "ohmrefresh--klv-extractor",
+  "displayName": "klv-extractor",
+  "description": "KLV Data Extraction Suite",
+  "version": "1.0.0",
+  "author": "ohmrefresh",
+  "homepage": "https://github.com/ohmrefresh/klv-extractor",
+  "skills": []
+}
