@@ -1,0 +1,44 @@
+{
+  "name": "dsh-web",
+  "owner": "zhu1090093659",
+  "repo": "dsh-web",
+  "description": "DeepSeek Harness\uff08DSH\uff09Web GUI \u63d2\u4ef6\u4e0e\u76ae\u80a4\u751f\u6001\uff1a\u4e00\u5207\u7686\u63d2\u4ef6\u3002\u4efb\u52a1\u770b\u677f\u3001\u79fb\u52a8\u7aef\u8fdc\u7a0b\u4e0e SSH \u8fd0\u7ef4\u6784\u7b51\u5f00\u53d1\u5de5\u4f5c\u53f0\uff1b\u76ae\u80a4\u7ecf WebGL \u6df1\u5ea6\u4f18\u5316\uff0c\u66f4\u652f\u6301 Wallpaper Engine \u58c1\u7eb8\uff1b\u76ae\u80a4\u3001\u5ba0\u7269\u3001\u63d2\u4ef6\u7531 DSH \u5927\u5e02\u573a\u4e00\u952e\u5b89\u88c5\uff0c\u6b63\u8fc8\u5411 DSH \u521b\u610f\u5de5\u574a\u3002A pluggable plugin-skin ecosystem for the DSH Web GUI - Task board, remote mobile UI, SSH ops, WebGL-optimized skins with Wallpaper Engine wallpapers - becoming a DSH creative workshop.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhu1090093659/dsh-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T02:34:21Z"
+}
