@@ -4,7 +4,7 @@
   "repo": "agenttrail",
   "description": "Local observability map for AI coding agents. Watch Claude Code, Codex, and Cursor plans, tool calls, file changes, and progress in real time.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sodiumsun/agenttrail",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T16:35:35Z"
+  "distributed_at": "2026-08-26T02:18:40Z"
 }
