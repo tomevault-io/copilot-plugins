@@ -1,0 +1,9 @@
+{
+  "name": "adulari--forge",
+  "displayName": "forge",
+  "description": "Fast, model-agnostic AI coding harness and CLI in Rust \u2014 routes every task to the optimal model for cost \u00d7 capability.",
+  "version": "1.0.0",
+  "author": "adulari",
+  "homepage": "https://github.com/adulari/forge",
+  "skills": []
+}
