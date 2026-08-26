@@ -1,8 +1,14 @@
-## do-add-todos-for-incomplete-items
+## do-check-before-deleting
 
-> If the work is not completed - there are outstanding items to complete - add TODO: to the areas where the work was not completing, stating what needs to be done, who is affected, and why is it important.
+> Never mindlessly delete functions, variables, classes etc. Follow these steps:
 
-If the work is not completed - there are outstanding items to complete - add TODO: to the areas where the work was not completing, stating what needs to be done, who is affected, and why is it important.
+# Rule: Check Before Deleting Code
+
+Never mindlessly delete functions, variables, classes etc. Follow these steps:
+- First ask yourself: "Why do I need to delete it? What will happen if it's not there?"
+- Check if there are instantiations of the class or calls to a function.
+- Even when you see that there is not a single instantiation of the class or call to a function - ask the user with the proposal to delete it, explain your analysis and tell why you think it's safe to delete it.
+- Even if the user agrees - add a tag "deleted def func_x" on the commit.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
