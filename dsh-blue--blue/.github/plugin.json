@@ -1,0 +1,9 @@
+{
+  "name": "dsh-blue--blue",
+  "displayName": "blue",
+  "description": "Blue: a TUI is not a package, it is a Cordis plugin tree \u2014 a modern terminal UI for DeepSeek Harness with hot-swappable render, interaction, and command plugins.",
+  "version": "1.0.0",
+  "author": "dsh-blue",
+  "homepage": "https://github.com/dsh-blue/blue",
+  "skills": []
+}
