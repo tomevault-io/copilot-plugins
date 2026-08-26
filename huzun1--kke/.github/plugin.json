@@ -1,0 +1,9 @@
+{
+  "name": "huzun1--kke",
+  "displayName": "kke",
+  "description": "Windows 2D rendering engine built on Direct2D, DirectWrite, and WIC.",
+  "version": "1.0.0",
+  "author": "huzun1",
+  "homepage": "https://github.com/huzun1/kke",
+  "skills": []
+}
