@@ -1,0 +1,9 @@
+{
+  "name": "diffohq--diffo",
+  "displayName": "diffo",
+  "description": "Local, live code review for the AI age - read what the agent wrote and send feedback straight back",
+  "version": "1.0.0",
+  "author": "DiffoHQ",
+  "homepage": "https://github.com/DiffoHQ/diffo",
+  "skills": []
+}
