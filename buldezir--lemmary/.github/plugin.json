@@ -1,0 +1,9 @@
+{
+  "name": "buldezir--lemmary",
+  "displayName": "lemmary",
+  "description": "Document storage built with Go + PocketBase and a React + TanStack Router frontend. Upload documents, run OCR, extract metadata with an OpenAI-compatible AI provider, and review results in the UI.",
+  "version": "1.0.0",
+  "author": "buldezir",
+  "homepage": "https://github.com/buldezir/lemmary",
+  "skills": []
+}
