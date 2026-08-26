@@ -1,0 +1,9 @@
+{
+  "name": "truster-dev--truster",
+  "displayName": "truster",
+  "description": "Truster is an open source OIDC issuer for authenticating users and services to your apps or Kubernetes clusters, using an upstream auth provider you trust",
+  "version": "1.0.0",
+  "author": "truster-dev",
+  "homepage": "https://github.com/truster-dev/truster",
+  "skills": []
+}
