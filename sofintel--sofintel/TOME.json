@@ -4,7 +4,7 @@
   "repo": "sofintel",
   "description": "Sofintel - Software Intelligence all-in-1 lightweight rust zed-derived IDE where everything is in one environment. Build, test, and ship without switching apps.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sofintel/sofintel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T23:33:24Z"
+  "distributed_at": "2026-08-26T23:36:56Z"
 }
