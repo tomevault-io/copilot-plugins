@@ -1,0 +1,9 @@
+{
+  "name": "zbigniewsobiecki--llmist",
+  "displayName": "llmist",
+  "description": "Streaming-first multi-provider LLM client in TypeScript with home-made tool calling",
+  "version": "1.0.0",
+  "author": "zbigniewsobiecki",
+  "homepage": "https://github.com/zbigniewsobiecki/llmist",
+  "skills": []
+}
