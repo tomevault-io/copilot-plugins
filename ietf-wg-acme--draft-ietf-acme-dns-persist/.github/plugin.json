@@ -1,0 +1,9 @@
+{
+  "name": "ietf-wg-acme--draft-ietf-acme-dns-persist",
+  "displayName": "draft-ietf-acme-dns-persist",
+  "description": "draft-ietf-acme-dns-persist",
+  "version": "1.0.0",
+  "author": "ietf-wg-acme",
+  "homepage": "https://github.com/ietf-wg-acme/draft-ietf-acme-dns-persist",
+  "skills": []
+}
