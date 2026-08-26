@@ -1,44 +1,50 @@
-## vx-core
+## vx-mcp
 
-> Core vx project rules: terminology, commands, architecture, and coding standards for the universal dev tool manager
+> Rules for configuring MCP servers with vx — replace npx/uvx with vx for zero-config tool management
 
 
-# VX Project Rules
+# VX MCP Integration Rules
 
-vx is a universal development tool manager (v0.8.20, Rust, 138 providers, Starlark DSL).
-Users prefix commands with `vx` (e.g., `vx node --version`) and tools auto-install on first use.
+When configuring MCP (Model Context Protocol) servers, **always** use `vx` instead of `npx` or `uvx`:
 
-## Commands
+## Pattern
 
-- Always use `vx` prefix: `vx npm install`, `vx cargo build`, `vx go run main.go`
-- Never suggest manual tool installation — vx handles it automatically
-- Task runner: `vx just <task>` (see `justfile`)
-- Pre-commit: `vx just quick` (format → lint → test → build)
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "vx",
+      "args": ["npx", "-y", "@scope/package@latest"]
+    }
+  }
+}
+```
 
-## Terminology (enforced)
+## Benefits
 
-- **Runtime** (not Tool, not VxTool)
-- **Provider** (not Plugin, not Bundle)
-- **provider.star** (not provider config)
-- **ProviderRegistry** (not BundleRegistry)
+- Users don't need Node.js/Python pre-installed
+- Same config works across Windows, macOS, Linux
+- Tool versions managed by vx.toml if present
 
-## Code Style
+## Migration
 
-- Rust edition 2024, MSRV 1.93+
-- Logging: `tracing::info!`, `tracing::debug!` — never `println!` or `eprintln!`
-- Error handling: `anyhow::Result` (app), `thiserror` (lib)
-- Import order: stdlib → external → internal, separated by blank lines
-- File size: Keep under 500 lines
-- Commits: Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`)
+| Replace | With |
+|---------|------|
+| `"command": "npx"` | `"command": "vx", "args": ["npx", ...]` |
+| `"command": "uvx"` | `"command": "vx", "args": ["uvx", ...]` |
+| `"command": "node"` | `"command": "vx", "args": ["node", ...]` |
+| `"command": "python"` | `"command": "vx", "args": ["python", ...]` |
 
-## Architecture (layers go downward only)
+## Common MCP Servers with vx
 
-1. **CLI**: `vx-cli`
-2. **Orchestration**: `vx-resolver`, `vx-setup`, `vx-project-analyzer`
-3. **Service**: `vx-runtime`, `vx-starlark`, `vx-installer`, `vx-config`, `vx-console`
-4. **Foundation**: `vx-core`, `vx-paths`, `vx-cache`, `vx-versions`, `vx-manifest`
-5. **Providers**: `vx-providers/*` (138 Starlark DSL definitions)
+```json
+{
+  "filesystem": { "command": "vx", "args": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "/path"] },
+  "github": { "command": "vx", "args": ["npx", "-y", "@modelcontextprotocol/server-github"] },
+  "sqlite": { "command": "vx", "args": ["uvx", "mcp-server-sqlite", "--db-path", "db.sqlite"] }
+}
+```
 
 ---
 > Source: [loonghao/vx](https://github.com/loonghao/vx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
