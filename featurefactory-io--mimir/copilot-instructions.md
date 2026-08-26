@@ -1,27 +1,13 @@
-## do-test-first
+## do-small-increments
 
-> Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
+> Work in method-by-method steps.
 
-Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
+# Rule: Small Increments
 
-- New code structure: follow `.windsurf/rules/do-skeletons-first.md` (docstrings, types, stubs).
-- Write tests **before** implementation. Do not write tests whose only purpose is to hit `NotImplementedError`—write assertions that **should pass** once real behavior exists.
-- Cover **success** (returns) **and** **failure** (`raises`, errors, edge cases) for each unit of behavior.
-- If implementation contradicts docstring, ask the user which wins.
-- Use `docs/features/` to align scenarios with tests.
-- Order: method-level → API → integration. For integration, follow `.windsurf/rules/do-not-mock-in-integration-tests.md`.
-- Red–green: make the test fail, then implement until green.
-- Use pytest; avoid mocks unless unavoidable.
-
-**Layout (never put tests in repo root):**
-
-| Kind | Path |
-|------|------|
-| Unit | `tests/unit/` |
-| Integration | `tests/integration/` |
-| API | `tests/api/` |
-| E2E | `tests/e2e/` |
-| Service | `tests/services/` |
+Work in method-by-method steps.
+- Implement small vertical slices.
+- After every change: write → run → test → evaluate → fix.
+- No large PRs or 1000-line commits.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
