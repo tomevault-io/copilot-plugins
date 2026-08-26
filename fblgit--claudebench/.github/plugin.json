@@ -1,0 +1,9 @@
+{
+  "name": "fblgit--claudebench",
+  "displayName": "claudebench",
+  "description": "Claude Code Best Friend, a workbench for task management and swarm orchestration",
+  "version": "1.0.0",
+  "author": "fblgit",
+  "homepage": "https://github.com/fblgit/claudebench",
+  "skills": []
+}
