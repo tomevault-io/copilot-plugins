@@ -1,0 +1,9 @@
+{
+  "name": "wbsmolen--aerospork",
+  "displayName": "aerospork",
+  "description": "An i3-like tiling window manager for macOS \u2014 tree layout, instant virtual workspaces, TOML config, and a settings GUI. Fork of AeroSpace.",
+  "version": "1.0.0",
+  "author": "wbsmolen",
+  "homepage": "https://github.com/wbsmolen/aerospork",
+  "skills": []
+}
