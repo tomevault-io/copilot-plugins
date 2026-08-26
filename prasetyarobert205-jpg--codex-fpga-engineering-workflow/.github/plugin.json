@@ -1,0 +1,9 @@
+{
+  "name": "prasetyarobert205-jpg--codex-fpga-engineering-workflow",
+  "displayName": "codex-fpga-engineering-workflow",
+  "description": "Evidence-driven multi-agent FPGA/SoC FPGA workflow for Codex: RTL, CDC/RDC, STA, verification, single-writer implementation, and independent sign-off.",
+  "version": "1.0.0",
+  "author": "prasetyarobert205-jpg",
+  "homepage": "https://github.com/prasetyarobert205-jpg/codex-fpga-engineering-workflow",
+  "skills": []
+}
