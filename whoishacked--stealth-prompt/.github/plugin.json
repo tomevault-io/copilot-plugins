@@ -1,0 +1,9 @@
+{
+  "name": "whoishacked--stealth-prompt",
+  "displayName": "stealth_prompt",
+  "description": "An automated browser-based tool for pentesting AI agents using LLM-generated payloads and real UI interaction.",
+  "version": "1.0.0",
+  "author": "whoishacked",
+  "homepage": "https://github.com/whoishacked/stealth_prompt",
+  "skills": []
+}
