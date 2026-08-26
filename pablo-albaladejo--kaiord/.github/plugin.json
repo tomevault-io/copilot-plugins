@@ -1,0 +1,26 @@
+{
+  "name": "pablo-albaladejo--kaiord",
+  "displayName": "kaiord",
+  "description": "Open-source, local-first training platform: calendar, AI assistant, Garmin & WHOOP sync \u2014 plus a TypeScript SDK, CLI, and MCP server for FIT, TCX, ZWO, and Garmin Connect workout files.",
+  "version": "1.0.0",
+  "author": "pablo-albaladejo",
+  "homepage": "https://github.com/pablo-albaladejo/kaiord",
+  "skills": [
+    {
+      "name": "arch-review",
+      "description": ""
+    },
+    {
+      "name": "deploy-spa",
+      "description": ""
+    },
+    {
+      "name": "npm-review",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    }
+  ]
+}
