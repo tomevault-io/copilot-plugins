@@ -1,0 +1,9 @@
+{
+  "name": "huakunshen--lightweight-charts-svelte",
+  "displayName": "lightweight-charts-svelte",
+  "description": "Svelte Wrapper for lightweight Chart, support svelte v5 and lightweight v5",
+  "version": "1.0.0",
+  "author": "HuakunShen",
+  "homepage": "https://github.com/HuakunShen/lightweight-charts-svelte",
+  "skills": []
+}
