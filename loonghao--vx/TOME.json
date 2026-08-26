@@ -4,7 +4,7 @@
   "repo": "vx",
   "description": "Universal Development Tool Manager",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -85,9 +85,273 @@
       "path": ".claude/skills/vx-usage",
       "github_url": "https://github.com/loonghao/vx/tree/main/.claude/skills/vx-usage",
       "description": ""
+    },
+    {
+      "name": "vx-usage",
+      "path": ".agents/skills/vx-usage",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.agents/skills/vx-usage",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": "skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": "skills/worktrunk/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/skills/worktrunk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": "skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": "skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".roo/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.roo/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".kiro/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.kiro/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".trae/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.trae/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".cline/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.cline/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".roo/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.roo/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".agents/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.agents/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".claude/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.claude/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".cursor/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.cursor/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".kiro/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.kiro/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".trae/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.trae/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".roo/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.roo/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": "skills/vx-agent-workflow/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/skills/vx-agent-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".cline/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.cline/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".kiro/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.kiro/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".trae/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.trae/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".windsurf/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.windsurf/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".opencode/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.opencode/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".agents/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.agents/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".claude/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.claude/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".cursor/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.cursor/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".cline/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.cline/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/vx-usage/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/remotion/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/remotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".agents/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.agents/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".claude/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.claude/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".cursor/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.cursor/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".opencode/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.opencode/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".windsurf/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.windsurf/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/vx-project/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".opencode/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.opencode/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".windsurf/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.windsurf/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/rfc-creator/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/rfc-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/vx-commands/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".claude/skills/vx-agent-workflow/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.claude/skills/vx-agent-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/project-analyze/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/project-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/llms-txt-generator/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/llms-txt-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/vx-provider-updater/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-provider-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/vx-provider-creator/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-provider-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vx",
+      "path": ".codebuddy/skills/self-improving-agent/SKILL.md",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/self-improving-agent/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/loonghao/vx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T22:31:28Z"
+  "distributed_at": "2026-08-26T12:38:27Z"
 }
