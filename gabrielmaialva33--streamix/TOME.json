@@ -2,9 +2,9 @@
   "name": "streamix",
   "owner": "gabrielmaialva33",
   "repo": "streamix",
-  "description": "",
+  "description": "\ud83d\udcfa A streaming experience bringing all your IPTV providers into one intelligent, beautiful interface.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/gabrielmaialva33",
+  "source_url": "https://github.com/gabrielmaialva33/streamix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T22:49:23Z"
+  "distributed_at": "2026-08-26T08:05:40Z"
 }
