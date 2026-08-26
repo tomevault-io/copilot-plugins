@@ -1,0 +1,246 @@
+## visualplan
+
+> A pnpm monorepo for `vplan`: a Node CLI that renders a plan written as MDX into a
+
+# Visual Plan
+
+A pnpm monorepo for `vplan`: a Node CLI that renders a plan written as MDX into a
+polished, self-contained HTML page, so an AI agent can present plans as scannable visuals
+(diagrams, charts, file-change maps, option comparisons) instead of walls of terminal text.
+
+## What it does
+
+- `vplan <file.mdx>` (alias `render`) opens the plan in an **interactive review by default** (see
+  the review bullet below). A static output flag opts out into a one-shot artifact: `--static`
+  compiles a single self-contained `<file>.plan.html` and opens it (the pre-review default);
+  `--stdout` writes the HTML to stdout (so it composes in a pipeline); `--out <path>` sets a file
+  path; `--watch` starts a hot-reloading dev server (on `--port`, default 9140, auto-incrementing if
+  taken; needs a real file, not stdin). `--no-open` suppresses the browser. The mode is decided by
+  `rendersReview()`: review unless one of `--static`/`--watch`/`--stdout`/`--out` is set. `--review`
+  is kept as an explicit, now-redundant selector and conflicts with the static flags. Input is a
+  file, `-`, or piped stdin.
+- `vplan check <file.mdx>` validates a plan without rendering (the self-correction
+  loop): MDX compile errors plus static component checks, printed as `file:line:col`.
+- `vplan share <file.mdx|->` prints a stateless `visualplan.dev/view?data=...` link encoding the
+  plan's MDX (deflate + base64url), validating first so a broken plan is never shared. Reads a file
+  or stdin.
+- `vplan render --review <file.mdx|->` opens the plan as an interactive review session: the user
+  comments on sections (or selected text) and clicks Approve / Deny / Iterate, and the CLI blocks
+  until then, prints the feedback to stdout, and exits (approve 0, deny 1, iterate 2, timeout 3).
+  `--timeout` (default 15m) bounds the wait; a closed tab resolves as Deny. `-i/--iteration N` shows
+  the revision number in the review bar (the agent increments it each re-review). By default the
+  review joins a shared **Review Queue daemon** (see below) so plans from many sessions land in one
+  tab; `--no-daemon` forces the legacy one-shot server (one tab per review, no queue).
+- `vplan review <files...>` queues several plans for review at once and prints each verdict: it
+  enqueues every file into the shared daemon, opens the queue tab (if not already open), and streams
+  each plan's feedback the instant it is decided (exit 0 iff all approved); `--json` prints one
+  record keyed by file path instead. The **Review Queue daemon** is a per-user background process the
+  first `--review`/`review` auto-starts (detached; an atomic `~/.vplan/review-daemon.json` lockfile
+  mutex collapses simultaneous launches to one). It owns one browser tab with a left sidebar of
+  queued plans (title + origin-dir basename + status), serves each plan as a same-origin review-mode
+  iframe, routes each plan's verdict back to the caller waiting on it, drops a plan whose caller
+  disconnects, denies every queued plan and exits when the tab closes, and lingers `daemonTimeout`
+  (config, default 15m) after the queue empties so a re-plan reuses the warm tab. See
+  `packages/cli/AGENTS.md` (daemon) and `packages/runtime/AGENTS.md` (shell).
+- `vplan open` opens the queue tab on its own (`ensureDaemon` + open the shell URL), starting the
+  daemon if needed and enqueuing nothing; it does not block. Use it to open or re-open the queue
+  without a plan, so later reviews join the tab. `--no-open` just starts the daemon and prints the
+  URL (e.g. to warm the daemon headlessly).
+- Iteration diffing: a render of a plan *file* snapshots its source (`~/.vplan/snapshots`, keyed by
+  the absolute path), and the next render of that path diffs the new source against the snapshot,
+  injecting `__VP_DIFF__` so the runtime marks added/edited sections git-gutter style. `--diff <path>`
+  forces an explicit baseline (no cache touch); `--no-diff` opts out. Works on render, `--watch`, and
+  `--review`; a `--stdout` render never auto-diffs (it stays deterministic for pipelines).
+- `vplan export <pdf|jpg> <file.mdx>` builds the same self-contained page, then renders it to a
+  static file via a headless Chromium (`playwright-core`): `pdf` prints a paginated A4 document,
+  `jpg` a full-page hi-dpi screenshot. Output defaults to `<file>.pdf` / `<file>.jpg` (`--out`
+  overrides; stdin input requires it); `--theme` overrides the baked scheme, `--no-open` suppresses
+  opening. Chromium is sourced system-first (Chrome/Edge channel) then a `playwright`-installed one,
+  with `--browser`/`VPLAN_CHROMIUM` overrides, else an error naming `npx playwright install chromium`.
+- `vplan components` prints the component vocabulary cheat-sheet.
+- A programmatic API (`import { renderPlan, checkPlan } from 'vplan'`) renders/validates a plan from
+  an in-memory MDX string, with a named export per catalog entry. See `packages/cli/src/api.ts`.
+- A persistent CLI config at `~/.vplan/config.json` (`packages/cli/src/config.ts`) sets the default
+  `theme` (`light`|`dark`|`system`) baked into a rendered plan (the plan's in-page cog overrides it
+  per-view via `localStorage`) and `daemonTimeout` (the Review Queue daemon's idle TTL in ms, default
+  15m). `vplan config [get|set|path]` views and edits it.
+
+Plans use a fixed, tiny component vocabulary (`Phase`, `FileTree`, `Chart`, `Compare`, `Matrix`,
+`Callout`, `Questions`, `Checklist`, and ` ```mermaid ` / ` ```math ` fences) with no imports — the
+components are auto-injected into MDX scope. A plan starts with a `# Title` heading; there
+is no frontmatter. `Phase` sections render as a numbered vertical timeline; no sidebar. The
+data components (`FileTree`, `Chart`, `Stat`, `Compare`, `Matrix`, `Questions`, `Checklist`) are authored
+as **markdown children** (a bullet/task list, `Compare` headings, or a GFM table for `Matrix` and
+a multi-series `Chart`), not inline object-array props; only scalar settings (`title`, `type`,
+`status`) are attributes.
+
+## Workspace layout
+
+`pnpm-workspace.yaml` globs `packages/*`. Five packages, one published:
+
+- `packages/cli` — **the only published package** (`vplan`). Two entries built by tsup: the Node CLI
+  (commander dispatch + Vite/MDX build) at `dist/index.js` (the `bin`), and the programmatic API at
+  `dist/api.js` (the `import` entry, `src/api.ts`). Holds `templates/example.mdx` (used by the
+  integration tests) and `scripts/vendor.mjs`.
+- `packages/runtime` — `@visualplan/runtime` (private). The browser/React code, shipped as
+  **source** and compiled at render time by Vite. Components, `Layout.tsx`, `main.tsx`,
+  `index.tsx` (MDX scope + `mount`), `theme.css`, `fullscreen.ts`.
+- `packages/core` — `@visualplan/core` (private). The isomorphic component vocabulary
+  (zod schemas + `CATALOG`); imported by the runtime, the CLI, and `compile`.
+- `packages/compile` — `@visualplan/compile` (private). The shared MDX compile pipeline (remark
+  plugins, the `plan-blocks` parser, Expressive Code options, the untrusted-input safety gate)
+  imported by BOTH the CLI render path and the `/view` browser compiler, so a plan renders
+  identically either way. Bundled into the CLI's `dist` (tsup `noExternal`); the Node-only
+  file-icons plugin is a `/file-icons` subpath the browser never imports.
+- `packages/app` — `@visualplan/app` (private, never published). The visualplan.dev docs site:
+  a plain Astro static site, deployed to GitHub Pages on release by `.github/workflows/docs.yml`.
+  Unrelated to the CLI render pipeline; it duplicates the runtime's ink design tokens by design.
+- `skills/visual-plan/` — the agent skill (a top-level sibling, not a package). The plural
+  `skills/` name is required for the skills.sh CLI (`npx skills add ...`) to discover it.
+- `assets/` — README marketing images (`banner.jpg` plus `example`/`review`/`queue`/`components.jpg`).
+  All but the banner are generated by `assets/scripts/generate.mjs` (dev-only, not shipped): it
+  imports the built CLI's `renderPlan` and drives `playwright-core` to compose dark HTML "stages"
+  screenshotted at 2x. Plan cards are real renders; the review chrome is captured from a REAL
+  review-mode page (review globals injected so the actual `ReviewLayer` mounts, then driven); the
+  bento uses a justified layout that measures each component's aspect. Needs `pnpm build` first and a
+  Chromium. Rerun: `node assets/scripts/generate.mjs [example|review|queue|components]`.
+
+## Publishing (single package, vendored)
+
+Only `vplan` is published; `core` and `runtime` are private and **vendored** into the
+tarball, because the runtime is compiled from source at render time and must physically ship.
+
+- `cli` depends on the third-party packages the vendored runtime needs at render time
+  (react, recharts, beautiful-mermaid, tabler, mdx, vite, ...) as real `dependencies`, and
+  references `@visualplan/{core,runtime}` only as `workspace:*` **devDependencies**.
+- `tsup` bundles `@visualplan/core` into `dist/` (`noExternal`) for the Node check/components
+  path. `compile.ts` resolves the runtime in dev (workspace) or prod (vendored) and aliases
+  `@visualplan/core` to the core source in the Vite build either way.
+- `prepack` runs `scripts/vendor.mjs` (copies `packages/runtime` -> `cli/runtime` and the core
+  entry -> `cli/core/index.ts`, both git-ignored) then `tsup`. `files` ships `dist`, `runtime`,
+  `core`. The CI publish (below) uses `npm pkg delete devDependencies` + `npm publish` instead,
+  which sidesteps the `workspace:*` protocol entirely.
+
+## Releasing
+
+A release is cut by creating a GitHub release; the tag is the published version and triggers
+`.github/workflows/publish.yml`, which publishes `vplan` to npm via OIDC trusted publishing
+(no token). Creating the release IS the publish, so confirm before cutting it.
+
+- **Tags and versions are bare semver, no leading `v`** (`0.2.0`, never `v0.2.0`). The workflow
+  derives the version from the tag (`npm version ${GITHUB_REF_NAME#v}`); do not bump
+  `package.json` in the repo, its version field stays at a baseline.
+- Pick the next version from the conventional commits since the last tag: `feat` is a minor
+  bump, `fix`/`perf`/`refactor`/`docs` a patch, a `feat!`/`BREAKING CHANGE` a major. In `0.x`,
+  treat breaking as a minor bump unless intentionally going to `1.0.0`; confirm the version.
+- Write notes grouped by change type (Features / Fixes / Other), conventional prefixes stripped.
+- Cut and verify it:
+  ```bash
+  gh release create <X.Y.Z> --target main --title "<X.Y.Z>" --notes "..."
+  gh run list --workflow=publish.yml --limit 1   # then: npm view vplan version
+  ```
+
+## Conventions
+
+- TypeScript ESM, biome (`single` quotes, no semicolons), pnpm. Build: tsup. Tests: vitest.
+- `tsconfig.base.json` holds shared strict options; each package extends it with its own
+  `tsconfig.json` (core/cli are NodeNext, runtime is Bundler + DOM/JSX). `pnpm typecheck`
+  runs `tsc` in every package. `pnpm test` runs one vitest config with a project per package.
+  `pnpm check` runs biome. `pnpm build` builds the CLI.
+- No emojis or em/en dashes in code, output, or docs.
+- When a change adds or alters the component vocabulary (a new component, a chart type, or an
+  authoring syntax), update `skills/visual-plan/SKILL.md` to match: it is the agent-facing source
+  of truth for how a plan is written. Do this only when the change genuinely adds author-facing
+  substance; skip purely internal refactors that do not change how a plan is authored.
+
+## Critical Constraints
+
+- **Render uses Vite with esbuild's automatic JSX and NO `@vitejs/plugin-react`.** This is
+  deliberate: plugin-react's babel transform skips `node_modules`, so the shipped runtime
+  `.tsx` would fail to compile once the CLI is installed. Vite's `root` is the runtime dir and
+  the user's MDX is injected via the `virtual:plan` resolve alias. Do not add plugin-react.
+- **`@visualplan/core` is imported by both the runtime and the Node CLI.** Keep it isomorphic:
+  no React, recharts, or mermaid imports. It is the only place the vocabulary is defined.
+- **`check` is static (AST-based).** It validates string-literal enum props, flags unknown
+  components, and validates the markdown-children of the list components (via the shared
+  `plan-blocks.ts` parser: bad change verb, non-numeric chart value, missing `pro:`/`con:`).
+  Remaining shape validation happens at render time by zod. Do not overclaim it.
+- **Single-file output cannot be verified by scanning for external `<script src>`/`<link>`
+  tags** — the bundles contain those as JS string literals. Assert the positive (inline
+  `<script type="module">` and `<style>` with content) instead.
+- Node-side tests (`check`, `compile`, `render`) declare `// @vitest-environment node`; under
+  jsdom `import.meta.url` is an `http:` URL and `fileURLToPath` throws.
+- **The vendored `cli/runtime` and `cli/core` are generated** (git-ignored, written by
+  `vendor.mjs`). Never edit them; edit `packages/runtime` / `packages/core` and re-vendor.
+
+## Key Decisions
+
+- 2026-06-28: The Review Queue is a single per-user **detached daemon process** (not a server hosted
+  inside the first caller). Why: a caller must return its own verdict to its agent promptly while the
+  queue keeps serving other sessions, which a caller-hosted server cannot do. One shared machine-wide
+  queue (the sidebar shows each plan's origin-dir basename to disambiguate projects), per the
+  approved plan; a `~/.vplan/review-daemon.json` `wx` lockfile is the start-race mutex.
+- 2026-06-28: Each queued plan keeps its review chrome **inside its own same-origin iframe** rather
+  than lifting commenting into the parent shell. Why: the plans are the user's own local plans (no
+  untrusted-input threat, unlike the docs site's sandboxed `/plan-frame`), so same-origin reuses the
+  existing `ReviewLayer` whole and avoids a cross-frame selection bridge. The shell owns only the
+  sidebar, navigation, and the `/__vp_events` SSE that doubles as the daemon's tab-close kill switch.
+- 2026-06-24: `vplan export` renders headless via `playwright-core` (a prod dep) and sources Chromium
+  system-first, never bundling a browser binary. Why: a bundled `playwright` would add a huge
+  postinstall to a CLI whose whole point is a small self-contained package; reusing a present Chrome
+  keeps the install tiny. PDF paginates (A4) and JPG is one full-page image, per the approved plan.
+- 2026-06-24: The single-file render bundles only the heavy renderers the plan authors (a
+  source-token scan stubs unused `Mermaid`->elkjs and `Chart`->recharts at the component boundary,
+  one-shot build only). Why: elkjs alone was 62% of every bundle; a renderer-free plan drops from
+  ~2.3MB to ~320KB. Detection biases toward inclusion so a miss can never break a render.
+- 2026-06-24: Iteration diffing is section-level and maps a status onto a DOM section by
+  **document-order index**, so `splitSections` (mdast, `@visualplan/compile`) and the runtime's
+  `collectSections` (DOM) MUST enumerate the same sections in the same order; two parity goldens
+  (compile + runtime) pin this. Why: index mapping avoids cross-boundary label/hash matching, and a
+  count mismatch degrades to "no cue" rather than a mislabeled one. Renames are detected by content
+  similarity (no authored section IDs) per the approved plan.
+- 2026-06-22: CLI config persists to `~/.vplan/config.json` (literal path via `homedir()`, NOT
+  `env-paths`); the only setting is the default `theme`. The in-page theme cog overrides per-view via
+  `localStorage` and never writes the file. Why: a static `file://` plan cannot reach the disk, so
+  the on-disk default and the in-page override are deliberately separate layers.
+- 2026-06-21: Plan sharing encodes the plan's **MDX source** (deflate + base64url) into a
+  `visualplan.dev/view?data=...` link, not the compiled output. Why: the source is small, compresses
+  well, and is the one form `/view` recompiles in-browser with the same plugins (`@visualplan/compile`);
+  the codec (`@visualplan/core/share`) stays isomorphic.
+- 2026-06-21: `/view` renders untrusted shared plans in a sandboxed `/plan-frame` iframe
+  (`allow-scripts`, no `allow-same-origin`) after a static safety gate. Why: defense in depth around
+  in-browser MDX evaluation; the opaque-origin iframe relies on GitHub Pages' `ACAO: *` to load its
+  bundle (see packages/app/AGENTS.md), a constraint that must not be broken.
+- 2026-06-20: Plans authored as MDX with a fixed component vocabulary, rendered to a
+  self-contained HTML page. Why: visual, scannable plans without per-plan toolchain setup.
+- 2026-06-20: Mermaid (one ` ```mermaid ` fence) covers diagrams instead of bespoke components.
+  Why: text-based, reliable for an agent to author, one dep covers many shapes.
+- 2026-06-20: Diagrams render via `beautiful-mermaid` (`renderMermaidSVG`). Why: synchronous,
+  DOM-free (renders in static HTML), themes from our CSS vars. Tradeoff: no gantt/pie.
+- 2026-06-20: Math (` ```math ` fence) renders via `temml` to MathML at build time, not a runtime
+  library. Why: MathML is pure markup (no fonts) so the single-file output stays tiny, and it
+  themes via `currentColor`; KaTeX's HTML mode would need ~20 inlined font files. System math
+  fonts render well; bundle Latin Modern Math only if fidelity gaps appear.
+- 2026-06-20: Fenced code highlighted by `rehype-expressive-code` (build-time), with a
+  `remarkMermaid` plugin extracting mermaid fences BEFORE it. Why: file-title frames + dual
+  light/dark; the remark step keeps mermaid out of the highlighter. Replaced highlight.js.
+- 2026-06-20: Expressive Code runs `expressive-code-color-chips` plus our own file-icons plugin
+  (`packages/cli/src/build/expressive-code-file-icons.ts`), which sources icons from
+  `material-icon-theme`. Why: color swatches and Material file-type icons aid code scanning; both
+  inline their markup at build time so the single-file output holds. The file icons are
+  intentionally colored (a scoped exception to the monochrome-chrome rule), so do not strip them as
+  off-palette. We own the plugin (vs the third-party `@xt0rted` one) to pick the icon set and avoid
+  its stale `@expressive-code/core` peer range.
+- 2026-06-20: Icons use `@tabler/icons-react` project-wide. Why: design standard forbids
+  hand-rolled icon paths / text glyphs.
+- 2026-06-20: Monorepo with one published package (`vplan`); `core` and `runtime` are
+  private and vendored into the tarball at pack time. Why: the runtime ships as source, so a
+  single self-contained published package must physically contain it; the split keeps the
+  catalog and React surface as their own units without three npm entries.
+- 2026-06-20: Published npm name and CLI command are `vplan`, not `visualplan`. Why: npm's
+  similarity filter rejects `visualplan` as too close to the existing `visual-plan` package.
+  The product display name (Visual Plan) and the private `@visualplan/*` scope are unaffected.
+
+---
+> Source: [brandonburrus/visualplan](https://github.com/brandonburrus/visualplan) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
