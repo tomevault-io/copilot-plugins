@@ -7,11 +7,11 @@ TSRX language, compilers, tooling, and editor integrations
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tsrx-org/tsrx](https://github.com/tsrx-org/tsrx).
+Original source: `CLAUDE.md` in [tsrx-org/tsrx](https://github.com/tsrx-org/tsrx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
