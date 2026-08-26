@@ -1,0 +1,9 @@
+{
+  "name": "swombat--souls-house",
+  "displayName": "souls-house",
+  "description": "Core template for full-featured Svelte/Rails/Inertia apps",
+  "version": "1.0.0",
+  "author": "swombat",
+  "homepage": "https://github.com/swombat/souls-house",
+  "skills": []
+}
