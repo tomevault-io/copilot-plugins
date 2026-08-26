@@ -1,27 +1,17 @@
-## lg-workflow
+## modal-ux
 
-> lg" means commit + push + full hygiene (security, deps, docs, changelog)
+> Modal UX contract — Escape, click-away, stack, Ctrl/Cmd+Enter
 
 
-# LG (Looks Good) Workflow
+# Modal UX Contract
 
-When the user says **lg** or **LG**, **you must run the full workflow yourself** from hygiene through **push to the current branch**. Do not stop at commit or ask the user to push manually.
+**Authoritative source:** `docs/contracts/ui-designer.md` Section 6. This file is a condensed mirror kept only so Cursor auto-attaches it when `modal-manager.js` or templates are open -- edit the canonical doc first, then sync this excerpt; don't let them diverge.
 
-Perform in order:
+Quick reference (see Section 6 for full rules): Escape closes the topmost modal only, restoring the previous stack entry or the base page; click-away behaves the same via `elementFromPoint` + `closeModal(modalId, clickedElement)`; opening pushes onto the stack via `ModalManager.register`/`ModalManager.open(id, hidePrevious)`; any modal with inputs MUST support Ctrl+Enter/Cmd+Enter for its primary action (plain Enter in textareas must not submit).
 
-1. **Full hygiene** (so the commit includes these updates):
-   - **Changelog** — Update CHANGELOG (or docs/CHANGELOG.md) with this session’s changes.
-   - **Docs** — Ensure docs reflect changes (README, GETTING_STARTED, or touched features).
-   - **Deps** — Verify dependency hygiene (e.g. `pip check`, lockfiles).
-   - **Security** — Run `pip-audit` and `safety scan` (requires `pip install -r requirements-test.txt`).
-   - **Vulture** — Run `.venv/bin/vulture src scripts` for dead-code detection. Fix or whitelist findings before commit.
-2. **Stage** — `git add` (or equivalent) so all changes are staged.
-3. **Commit** — Commit with a clear message (no auto-commit before user says LG).
-4. **Push** — Push the current branch (e.g. `git push origin HEAD` or `git push`). Complete the push; do not hand off to the user.
+**Implementation reference:** `src/web/static/js/modal-manager.js` (header and `closeModal` / `setupClickAwayHandler` / `setupKeyboardShortcuts`).
 
-If the environment’s `git` wrapper breaks (e.g. unsupported `--trailer`), use the real git binary (e.g. `/usr/local/bin/git`) so the workflow completes.
-
-Only run this workflow when the user has said LG. Do not commit/push on "go" or "implement" unless they also say LG.
+**Tests:** `tests/ui/test_modal_interactions.py` — extend to cover stack restoration, click-away target, and Cmd/Ctrl+Enter where missing.
 
 ---
 > Source: [dfirtnt/Huntable-CTI-Studio](https://github.com/dfirtnt/Huntable-CTI-Studio) — distributed by [TomeVault](https://tomevault.io).
