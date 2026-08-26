@@ -7,11 +7,11 @@ Run Codex and Cursor as background workers inside Claude Code. Reviews, tasks, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zebbern/agent-collab](https://github.com/zebbern/agent-collab).
+Original source: `AGENTS.md` in [zebbern/agent-collab](https://github.com/zebbern/agent-collab).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
