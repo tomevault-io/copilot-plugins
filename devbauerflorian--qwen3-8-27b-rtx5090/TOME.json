@@ -1,0 +1,44 @@
+{
+  "name": "qwen3.8-27b-rtx5090",
+  "owner": "devbauerflorian",
+  "repo": "qwen3.8-27b-rtx5090",
+  "description": "Docker deployment of Qwen3.8-27B (NVFP4) on a single RTX 5090: Full native 256K-token context (FP8 KV) + MTP working at 120-170 tokens/s, OpenAI-compatible API via vLLM, caddy Basic-auth gateway, and Prometheus + Grafana + DCGM monitoring.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/devbauerflorian/qwen3.8-27b-rtx5090",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T14:44:10Z"
+}
