@@ -1,126 +1,21 @@
-## do-informative-logging
+## do-not-go-into-debugging-loops
 
-> **Mimir metadata (required on apply):** `always_apply: true` (currently false). This rule absorbs and replaces `add-logging`.
+> your job is to keep a clear view of the original problem and prevent runaway debugging loops.
 
-**Mimir metadata (required on apply):** `always_apply: true` (currently false). This rule absorbs and replaces `add-logging`.
+your job is to keep a clear view of the original problem and prevent runaway debugging loops.
 
-Every service call or controller action must log to `logs/app.log` (or the project’s designated app log) at **INFO**. Configure logging if missing: logger + file handler that rotates / clears on every app relaunch so diagnosis starts clean.
+Always follow these steps:
 
-Use `logs/app.log` to troubleshoot who was doing what with which data when error X occurred. For UI / HTMX flows use `console.log` for decisions, actions, and results (map to the same story beats below).
+1. **Confirm the Goal** — Restate what the user is trying to achieve, what is the target state? 
+2. **Diagnose, Don’t Guess** — Do not blindly patch symptoms. Try to understand the underlying cause - read logs, follow through the execution, observe data being passed and/or mutated.
+3. **Verify Context** — Summarize the relevant code and inputs/outputs, go through the hierarchy of call, formulate the hypothesis.
+4. **Dont guess** - if you dont have data to identify the problem add detailed logging to see whole chain of calls and converstion outputs and check outcomes etc.
+5. **Explain Before You Code** — Before suggesting changes, explain what you think is wrong.
+6. **Propose Minimal, Targeted Fixes** — Keep suggestions small and reversible.
+7. **Reflect After Each Fix** — Evaluate if the result aligns with the goal. If not, go back to Step 1.
+8. When completed the fix - write/update the test and RUN IT to verify the fix.
 
-**Ban deferred-logging slices.** Logging ships in the same green slice as behavior — never a final “informative logging pass” after tests are green.
-
-**Ask yourself before writing each log line:**
-- What information will I need to precisely pinpoint where the error is occurring?
-- What context will I need in the logs to understand why it happened?
-- What data transformations or validations occurred?
-- Which decisions led to the current point?
-
-## Story beats (minimum narrative)
-
-On each major step emit the applicable beats so a reader can reconstruct the path:
-
-`entry → config → validation → processing → branch → exit → error`
-
-## Preferred line format (grep / caplog friendly)
-
-```text
-{logger_name} | {Class.method} | {beat} | key=value ...
-```
-
-Legacy `Class.method: message | key=value` is acceptable if `where` + beat intent remain searchable.
-
-## Logging setup
-
-```python
-import logging
-import io
-from pprint import pformat
-from tabulate import tabulate
-
-logger = logging.getLogger(__name__)
-buffer = io.StringIO()  # structured dumps
-```
-
-**Buffers:** use `StringIO`; log `buffer.getvalue()`, then `truncate(0)` (and `seek(0)` if reusing). **Summaries:** include shape/types, `head`/`tail`/`describe`, null counts where useful.
-
-## Patterns (examples)
-
-**1. Entry**
-
-```python
-def method_name(self, param1, param2):
-    logger.info(
-        f'{self.__class__.__name__}.method_name | entry | param1={param1} param2_shape={getattr(param2, "shape", type(param2))}'
-    )
-```
-
-**2. Structures**
-
-```python
-df.info(buf=buffer)
-logger.info(f'{dataset_name}:\n{buffer.getvalue()}')
-buffer.truncate(0)
-logger.info(f'Config:\n{pformat(config_dict)}')
-logger.info(f'Preview:\n{tabulate(df.head(), headers=df.columns.tolist())}')
-```
-
-**3. Branches**
-
-```python
-if condition:
-    logger.info(f'{self.__class__.__name__}.method_name | branch | column={column_name} present=true')
-else:
-    logger.warning(f'{self.__class__.__name__}.method_name | branch | column={column_name} missing default={default}')
-```
-
-**4. Validation / transforms**
-
-```python
-logger.debug(f'Input dtypes: {df.dtypes.to_dict()}')
-logger.info(f'{operation_name}:\n{result.describe()}')
-```
-
-**5. Errors**
-
-```python
-try:
-    logger.info(f'{operation_name} | exit | status=ok')
-except Exception as e:
-    logger.error(f'{operation_name} | error | err={e} param1={param1} data_shape={getattr(data, "shape", None)}')
-    logger.info('Attempting recovery...')
-```
-
-## Minimum on each major step
-
-- **Method entry:** operation name, key parameters, data shapes/types
-- **Configuration:** setup decisions, rule books, parameters used
-- **Data validation:** input validation results, type conversions, missing data handling
-- **Processing steps:** each major transformation with before/after summaries
-- **Conditional logic:** why paths were taken
-- **Results / exit:** success/failure indicators, output shapes
-- **Error context:** full parameter context, data state, recovery attempts
-
-## Levels
-
-- **DEBUG:** flow, dtypes, internal state; sample values when feasible
-- **INFO:** entry/exit, config, main steps, outcomes
-- **WARNING:** recoverable issues, fallbacks, data quality
-- **ERROR:** failures needing attention
-
-## Every INFO line must answer (when relevant)
-
-- Who triggered the action (user or AI agent)
-- What the action did (inputs, affected models/records)
-- Why the action occurred (intent, rule, or logic)
-- Where it happened (class, method/function)
-- Key identifiers (never raw secrets/tokens/passwords)
-- Unexpected condition (if any)
-- Relevant context (user ID, request/run ID, environment)
-
-Design messages so you can find root cause without reproducing the problem blindly.
-
-**Prove the story in tests** — see rule `do-assert-log-story` and skill *Pytest Log Story Assertions*.
+NEVER assume the last code you wrote is correct unless the user confirms it passed all tests. Ask for clarification if confused.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
