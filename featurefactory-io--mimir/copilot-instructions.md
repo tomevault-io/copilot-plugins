@@ -1,27 +1,11 @@
-## do-test-first
+## do-update-tests-after-bugfixing
 
-> Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
+> When the bug was discovered, you performed and investigation anf fix, ask yourself - "why our current test(s) was not able to find it?"
 
-Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
-
-- New code structure: follow `.windsurf/rules/do-skeletons-first.md` (docstrings, types, stubs).
-- Write tests **before** implementation. Do not write tests whose only purpose is to hit `NotImplementedError`—write assertions that **should pass** once real behavior exists.
-- Cover **success** (returns) **and** **failure** (`raises`, errors, edge cases) for each unit of behavior.
-- If implementation contradicts docstring, ask the user which wins.
-- Use `docs/features/` to align scenarios with tests.
-- Order: method-level → API → integration. For integration, follow `.windsurf/rules/do-not-mock-in-integration-tests.md`.
-- Red–green: make the test fail, then implement until green.
-- Use pytest; avoid mocks unless unavoidable.
-
-**Layout (never put tests in repo root):**
-
-| Kind | Path |
-|------|------|
-| Unit | `tests/unit/` |
-| Integration | `tests/integration/` |
-| API | `tests/api/` |
-| E2E | `tests/e2e/` |
-| Service | `tests/services/` |
+When the bug was discovered, you performed and investigation anf fix, ask yourself - "why our current test(s) was not able to find it?"
+If there is no test for that part of functionality - time to create it.
+If there are test(s) for that part of functionality - extend it to prove that the bug does not exist anymore.
+When completing the fix - run the test to prove that bug does not exist.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
