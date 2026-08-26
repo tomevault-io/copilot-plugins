@@ -1,0 +1,9 @@
+{
+  "name": "nekroai--nekro-nxt",
+  "displayName": "nekro-nxt",
+  "description": "NekroNXT\uff1a\u57fa\u4e8e DeepSeek Harness\uff08DSH\uff09\u7684\u591a\u5e73\u53f0\u7fa4\u804a\u667a\u80fd\u4f53\u7cfb\u7edf\uff5cA DSH-powered multi-platform group-chat agent system",
+  "version": "1.0.0",
+  "author": "NekroAI",
+  "homepage": "https://github.com/NekroAI/nekro-nxt",
+  "skills": []
+}
