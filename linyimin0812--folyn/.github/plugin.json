@@ -1,0 +1,9 @@
+{
+  "name": "linyimin0812--folyn",
+  "displayName": "folyn",
+  "description": "  Local-first, vault-isolated, AI-native knowledge workspace. Markdown, whiteboards, ER diagrams & mind maps in one editor, with Claude Code / Codex / Gemini CLI agents wired in. Built with Tauri 2 + ",
+  "version": "1.0.0",
+  "author": "linyimin0812",
+  "homepage": "https://github.com/linyimin0812/folyn",
+  "skills": []
+}
