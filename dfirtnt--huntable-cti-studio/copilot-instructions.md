@@ -1,34 +1,46 @@
-## python-package-safety
+## ui-designer
 
-> Use safety-mcp for Python package security and version selection
+> UI designer rules — theme variables, color usage, no literal hex in app code
 
 
-# Python Package Safety (safety-mcp)
+# UI Designer Rules (Color & Theme)
 
-## When Adding or Importing Packages
+**Authoritative source:** `docs/contracts/ui-designer.md` (the full UX contract). This file covers `theme-variables.css` authoring/maintenance specifically -- template/component usage rules (cards, typography, modals, a11y) live in the canonical doc; don't restate them here.
 
-Whenever you:
-- Add a package to `requirements.txt`, `requirements-*.txt`, or `pyproject.toml`
-- Import a new Python package in code
+## 1. Where colors live
+- **Single source of truth:** `src/web/static/css/theme-variables.css`. No literal hex/`rgb()`/`rgba()` in app templates, JS, or component CSS -- see the canonical doc's "Colors -- CSS variables only" rule.
+- **Exception:** Browser extension may keep literal hex; it is exempt from var() enforcement but must remain palette-aligned.
 
-You **MUST**:
-1. Call **safety-mcp** `get_recommended_version` (or `check_package_security`) for the package.
-2. Use the **recommended / latest secure version** returned by safety-mcp—not an arbitrary or outdated version.
-3. If safety-mcp reports vulnerabilities for your chosen version, upgrade to the secure version before adding it.
+## 2. Theme file structure
+- Keep the **12-section layout**: Panel backgrounds → Text → Brand purple → Semantic actions → Step colors → Step status → Badges → Borders & surfaces → Shadows → Charts → Component-specific → Utility classes.
+- Use **hex (lowercase)** for all solid colors.
+- Use **rgba() only for real transparency** (opacity < 1). Never `rgba(..., 1)`; use hex instead.
+- Keep the file **under ~300 lines**; consolidate before adding more vars.
 
-## When User Asks to Check Existing Package
+## 3. Naming and consolidation
+- **Actions:** `--action-{semantic}` (e.g. success, warning, info, danger, execute) with `-dark`, `-bg`, `-fill`, `-hover` only when needed. Prefer one “dark” var for both hover and dark state (e.g. `--action-execute-dark`, not a separate hover var).
+- **No duplicate semantics:** One variable per role (e.g. chart green → `--action-success-light`). If two vars would have the same value, keep one and reference it; add a short comment if the alias is intentional.
+- **Chart fills:** One opacity per base color (e.g. 0.6 for chart fills). Do not keep both 0.6 and 0.8 for the same color.
 
-When a user asks you to check an existing package for vulnerabilities:
-1. Call **safety-mcp** `check_package_security` with the package name and current version.
-2. Evaluate whether there are **secure versions within the same major version** (e.g., 2.x → 2.y) and report these options.
-3. Inform the user of the **latest secure version** of the package (from `get_recommended_version`).
-4. For vulnerability details, use `list_vulnerabilities_affecting_version` only when the user asks for more detail.
+## 4. Charts, print, and component-specific
+- **Charts:** In JS, read theme via `getThemeColor('--...')` (with a literal fallback only when vars might be missing). Prefer semantic vars (e.g. `--action-success-light`, `--action-warning`, `--purple-deep`) over chart-only names unless the shade is truly chart-specific (e.g. `--chart-cyan` for a series).
+- **Print / plain view:** Use theme vars (e.g. `--text-print`, `--surface-print`, `--border-print`) so print stays consistent.
+- **Component-specific (eval, MLOps, modals):** May live in the theme file with a short comment (“global to avoid per-page CSS” or “used by X”). Do not move them to component CSS unless we also load that CSS everywhere the var is used.
 
-## Tool Usage
+## 5. Tailwind and documentation
+- Add **Tailwind reference comments** for main action and semantic colors (e.g. `/* green-600 / bg-green-600 */`).
+- In the theme header, keep a **short cluster summary** (which vars map to greens, blues, yellows, purples, grays) so future edits don’t reintroduce duplicates.
 
-- **get_recommended_version**: `packages: [{"name": "package-name", "ecosystem": "pypi"}]` — returns recommended secure version.
-- **check_package_security**: `packages: [{"name": "package-name", "version": "1.2.3", "ecosystem": "pypi"}]` — checks if version has vulnerabilities.
-- **list_vulnerabilities_affecting_version**: Use when user explicitly asks for vulnerability details.
+## 6. Do-nots
+- **Do not** add new hex/rgb in templates or JS; use theme vars.
+- **Do not** add new Tailwind arbitrary color classes (e.g. `bg-[#0a0e1a]`); use theme vars and utility classes (e.g. `.bg-panel-0`).
+- **Do not** introduce a new variable that duplicates an existing one without a comment and a clear semantic reason.
+- **Do not** change visual color values when refactoring to vars; only the *source* of the color (literal → var) should change unless the plan explicitly fixes a typo or consolidates on a new canonical shade.
+
+## 7. Validation
+- After theme or color refactors: run **Playwright color-related specs** (e.g. `verify_text_colors`, `workflow_executions`) and fix any failures.
+- **Grep** for literal hex/rgb in `src/web` (templates, JS, CSS) to ensure no new literals in app code; theme-variables.css is the only place that defines hex/rgb.
+- Do a **quick visual check** on key screens (workflow, article detail, charts, modals) to confirm no unintended color changes.
 
 ---
 > Source: [dfirtnt/Huntable-CTI-Studio](https://github.com/dfirtnt/Huntable-CTI-Studio) — distributed by [TomeVault](https://tomevault.io).
