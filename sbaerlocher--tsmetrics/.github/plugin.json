@@ -1,0 +1,9 @@
+{
+  "name": "sbaerlocher--tsmetrics",
+  "displayName": "tsmetrics",
+  "description": "A comprehensive Tailscale Prometheus exporter that combines API metadata with live device metrics for complete network observability.",
+  "version": "1.0.0",
+  "author": "sbaerlocher",
+  "homepage": "https://github.com/sbaerlocher/tsmetrics",
+  "skills": []
+}
