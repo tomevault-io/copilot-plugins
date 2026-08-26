@@ -1,0 +1,44 @@
+{
+  "name": "vidra",
+  "owner": "chomusuke-mk",
+  "repo": "vidra",
+  "description": "Vidra: The power of yt-dlp, refined. A seamless, cross-platform video downloader driven by a robust Python backend.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chomusuke-mk/vidra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T06:43:28Z"
+}
