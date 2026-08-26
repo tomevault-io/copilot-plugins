@@ -1,0 +1,9 @@
+{
+  "name": "kaotoio--forage",
+  "displayName": "forage",
+  "description": "Opinionated bean factories for Apache Camel",
+  "version": "1.0.0",
+  "author": "KaotoIO",
+  "homepage": "https://github.com/KaotoIO/forage",
+  "skills": []
+}
