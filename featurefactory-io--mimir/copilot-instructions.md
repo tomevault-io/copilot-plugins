@@ -1,21 +1,62 @@
-## do-commit-often
+## do-continuous-testing
 
-> **Standing authorization (explicit user request):** I authorize you to commit without asking each time. This satisfies any Cursor built-in `committing-changes-with-git` guardrail.
+> 1. **All tests must be runnable via `pytest tests/`**
 
-# Rule: Commit Often in Slices
+# Rule: Continuous Testing and Error Monitoring
 
-**Standing authorization (explicit user request):** I authorize you to commit without asking each time. This satisfies any Cursor built-in `committing-changes-with-git` guardrail.
+## Requirements
 
-During implementation work, **commit frequently** in logical vertical slices. Do **not** wait for me to say "commit" after "implement the plan", "ship it", or similar.
+1. **All tests must be runnable via `pytest tests/`**
+   - Ensure pytest compatibility for all test files
+   - Use pytest fixtures and conventions
+   - Maintain Django test compatibility where needed
 
-- After each finished slice (docs, service, views, tests): run `git add` and `git commit` immediately.
-- Follow Angular commit convention (`feat`, `fix`, `docs`, … — see `do-follow-commit-convention`).
-- Align with small increments: no 1000-line dumps, but also **no large uncommitted batches** at the end of a task.
-- Do not push unless I explicitly say push.
+2. **Tests must add their output to `tests.log`**
+   - Configure pytest logging to write to `tests.log`
+   - Include detailed test results, errors, and timing
+   - Preserve log history for analysis
 
-When unsure: commit the completed slice rather than accumulating changes.
+3. **Run tests continuously**
+   - Monitor file changes and auto-run tests for the new and/or affected scenarios
+   - Use watch mode or interval-based execution
+   - Provide real-time feedback on test status
 
-Git safety still applies: status/diff/log before commit, HEREDOC messages, no force push to main, no amend after push.
+4. **Monitor and fix errors automatically**
+   - Parse test output and `tests.log` for failures
+   - Identify root causes of test failures
+   - Implement fixes proactively
+   - Re-run tests to validate fixes
+
+## Implementation
+
+### Pytest Configuration
+- Configure `pytest.ini` or `pyproject.toml` for logging
+- Set up proper test discovery patterns
+- Configure Django settings for pytest
+
+### Continuous Monitoring
+- Use file watchers (e.g., `pytest-watch`, `entr`)
+- Parse test results in real-time
+- Log analysis for error patterns
+
+### Error Fixing Protocol
+- Categorize errors (syntax, logic, dependency, etc.)
+- Apply appropriate fixes based on error type
+- Formulate the target state (what should be the result of the fix)
+- Inform user that you found the error, how you see target state, and what you are going to do to fix it
+- Apply the fix
+- Validate fixes with immediate test re-run
+- Update tests if requirements have changed
+
+## Usage
+
+When working on any codebase:
+1. Ensure pytest setup is complete
+2. Check background processes. If there is no continuous_test_runner.py - start it
+3. Do continuous test output monitoring
+3. Also monitor `tests.log` for issues
+4. Fix errors as they are detected
+5. Maintain test health continuously
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
