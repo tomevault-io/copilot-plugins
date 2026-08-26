@@ -1,16 +1,9 @@
-## do-look-via-human-eye
+## do-not-mock-in-integration-tests
 
-> Render and review as a human would: zoom to ~50% and scan for clarity.
+> Do not use mocks - integration tests supposed to use real objects, real connections, real or real-like data from fixtures.
 
-Render and review as a human would: zoom to ~50% and scan for clarity.
-
-**Layout:** no overlapping shapes; consistent spacing/grid; readable text size and contrast; legend if symbols/colors need explanation.
-
-**Flow:** obvious direction; minimize crossing lines; stagger parallel edges; separate error/retry paths from happy path; decision diamonds readable (clear branches).
-
-**Hierarchy:** group related shapes; similar nodes similar size; primary journey visually strongest.
-
-**Before sign-off:** zoom-out test; “fresh eyes” readability; print/B&W sanity; trace each arrow without ambiguity.
+Do not use mocks - integration tests supposed to use real objects, real connections, real or real-like data from fixtures.
+Think of them as acceptance tests - just without UI.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
