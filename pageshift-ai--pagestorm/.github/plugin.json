@@ -1,0 +1,9 @@
+{
+  "name": "pageshift-ai--pagestorm",
+  "displayName": "pagestorm",
+  "description": "Standalone vLLM interface for the Pagestorm story models",
+  "version": "1.0.0",
+  "author": "Pageshift-ai",
+  "homepage": "https://github.com/Pageshift-ai/pagestorm",
+  "skills": []
+}
