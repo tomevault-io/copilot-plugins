@@ -4,7 +4,7 @@
   "repo": "writing-eval",
   "description": "Writing Eval evaluates AI-generated text against configurable style rules and profiles to detect AI-writing patterns and produce deterministic Markdown/JSON audit reports.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/majesticlabs-dev/writing-eval",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T17:40:31Z"
+  "distributed_at": "2026-08-26T02:37:52Z"
 }
