@@ -1,0 +1,9 @@
+{
+  "name": "ruashots--comfyui-openh3-ir",
+  "displayName": "ComfyUI-OpenH3-IR",
+  "description": "Four ComfyUI nodes for MiniMax H3: name your media with @, lock exact dialogue, and get the structured brief H3 wants. No <Picture 1> bookkeeping, no second service to start.",
+  "version": "1.0.0",
+  "author": "ruashots",
+  "homepage": "https://github.com/ruashots/ComfyUI-OpenH3-IR",
+  "skills": []
+}
