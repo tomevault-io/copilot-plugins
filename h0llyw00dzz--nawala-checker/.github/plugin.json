@@ -1,0 +1,9 @@
+{
+  "name": "h0llyw00dzz--nawala-checker",
+  "displayName": "nawala-checker",
+  "description": "A Go SDK for checking whether domains are blocked by Indonesian ISP DNS filters (Nawala/Kominfo (now Komdigi)). It works by querying configurable DNS servers and scanning the responses for blocking ke",
+  "version": "1.0.0",
+  "author": "H0llyW00dzZ",
+  "homepage": "https://github.com/H0llyW00dzZ/nawala-checker",
+  "skills": []
+}
