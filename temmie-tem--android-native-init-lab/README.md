@@ -7,11 +7,11 @@ Custom static /init (PID 1) and minimal native Linux userspace on Android vendor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Temmie-Tem/android-native-init-lab](https://github.com/Temmie-Tem/android-native-init-lab).
+Original source: `AGENTS.md` in [Temmie-Tem/android-native-init-lab](https://github.com/Temmie-Tem/android-native-init-lab).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
