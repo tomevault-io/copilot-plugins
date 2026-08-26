@@ -1,20 +1,8 @@
-## do-follow-commit-convention
+## do-import-on-module-level
 
-> When committing, follow the Angular convention:
+> Do not import locally inside the method - import at the module level. It will make patching and mocking easier for you.
 
-# Rule: Follow Angular Commit Convention
-
-When committing, follow the Angular convention:
-
-```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body - what changed>
-<BLANK LINE>
-<footer>
-```
-
-Reference: https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines
+Do not import locally inside the method - import at the module level. It will make patching and mocking easier for you.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
