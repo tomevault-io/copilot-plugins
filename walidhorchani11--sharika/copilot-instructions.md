@@ -1,160 +1,221 @@
-## memory-bank
+## project-learnings
 
-> I am Cursor, an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+> - When a phone number is entered, check for existing orders
 
-# Cursor's Memory Bank
+# Project Learnings
 
-I am Cursor, an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+## Critical Implementation Paths
 
-## Memory Bank Structure
+### 1. Order Form Auto-fill Pattern
+- When a phone number is entered, check for existing orders
+- Auto-fill customer information (name, alt phone, address, governorate, delegation)
+- Clear auto-filled data when phone number changes or becomes invalid
+- Display customer statistics (active orders, total orders, last order details)
+- Use `lastAutoFilledPhone` state to manage clearing logic
 
-The Memory Bank consists of required core files and optional context files, all in Markdown format. Files build upon each other in a clear hierarchy:
+### 2. Real-time Validation Pattern
+- Use `fieldErrors` state object to track validation errors per field
+- `validateField` function provides immediate feedback as user types
+- Display errors with visual indicators (red border, error message)
+- Validate on blur and on change for better UX
 
-\```mermaid
-flowchart TD
-    PB[projectbrief.md] --> PC[productContext.md]
-    PB --> SP[systemPatterns.md]
-    PB --> TC[techContext.md]
-    
-    PC --> AC[activeContext.md]
-    SP --> AC
-    TC --> AC
-    
-    AC --> P[progress.md]
-\```
+### 3. Excel/CSV Import Pattern
+- Always use `xlsx` library for parsing Excel files
+- For CSV files, implement custom parser to handle quoted values correctly
+- Always include preview step before applying updates
+- Use multi-criteria search when exact match fails (tracking_id → phone+name → phone only)
+- Implement scoring system for ambiguous matches (price, date, tracking ID, company)
+- Always allow manual selection/validation before applying updates
+- Display comprehensive statistics and details in preview tables
 
-### Core Files (Required)
-1. `projectbrief.md`
-   - Foundation document that shapes all other files
-   - Created at project start if it doesn't exist
-   - Defines core requirements and goals
-   - Source of truth for project scope
+### 4. Payment Resolution Pattern
+- When payment not found by tracking_id, search by customer name
+- Use multi-criteria scoring system:
+  - Tracking ID missing (+20 points)
+  - Tracking ID different (+15 points)
+  - Price matching exactly (+10) or close (+5)
+  - Date matching exactly (+10) or close (+5)
+  - Already Intigo (+5)
+- Minimum score of 10 required for automatic resolution
+- Always show preview before applying updates
+- Update tracking_id and delivery company to Intigo if needed
 
-2. `productContext.md`
-   - Why this project exists
-   - Problems it solves
-   - How it should work
-   - User experience goals
+### 5. Server-Side Pagination Pattern
+- Always use server-side pagination for large lists (100+ items)
+- Implement debouncing for search terms (300ms delay)
+- Use `range()` for pagination in Supabase queries
+- Use `count: 'exact'` to get total count
+- Pass pagination metadata (page, limit, totalCount, totalPages) to client
 
-3. `activeContext.md`
-   - Current work focus
-   - Recent changes
-   - Next steps
-   - Active decisions and considerations
+### 6. Search Pattern
+- Use Supabase `or()` with `ilike` for case-insensitive partial matching
+- Support multiple fields: `customer_name.ilike.%term%,customer_phone.ilike.%term%,order_number.ilike.%term%,delivery_tracking_id.ilike.%term%`
+- Always update placeholder to indicate all searchable fields
 
-4. `systemPatterns.md`
-   - System architecture
-   - Key technical decisions
-   - Design patterns in use
-   - Component relationships
+## User Preferences & Workflow
 
-5. `techContext.md`
-   - Technologies used
-   - Development setup
-   - Technical constraints
-   - Dependencies
+### Framework Version
+- **ALWAYS use Next.js 16** - Never use older versions
+- Use Next.js 16 App Router features (Server Components, Client Components, useSearchParams)
+- User explicitly requested this preference
 
-6. `progress.md`
-   - What works
-   - What's left to build
-   - Current status
-   - Known issues
+### Package Manager
+- **ALWAYS use `pnpm`** - Never use `npm` or `yarn`
+- User explicitly requested this preference
 
-### Additional Context
-Create additional files/folders within memory-bank/ when they help organize:
-- Complex feature documentation
-- Integration specifications
-- API documentation
-- Testing strategies
-- Deployment procedures
+### Build & Testing
+- Always run `pnpm run build` after significant changes
+- Fix linter errors immediately
+- Test build before considering task complete
 
-## Core Workflows
+### Code Style
+- Use TypeScript strictly
+- Prefer functional components with hooks
+- Use Tailwind CSS for styling
+- Mobile-first responsive design
+- **Accessibility contrast rule (user-requested): never use near-white text colors on light backgrounds**
+  - Forbidden text color range on light surfaces: `#EFEFEF` to `#FFFFFF` (includes `#F1F1F1`)
+  - Minimum readable text tone on light backgrounds: `#374151` or darker
+  - If a utility class maps to very light text (`text-gray-100/200/300`), override to readable contrast
 
-### Plan Mode
-\```mermaid
-flowchart TD
-    Start[Start] --> ReadFiles[Read Memory Bank]
-    ReadFiles --> CheckFiles{Files Complete?}
-    
-    CheckFiles -->|No| Plan[Create Plan]
-    Plan --> Document[Document in Chat]
-    
-    CheckFiles -->|Yes| Verify[Verify Context]
-    Verify --> Strategy[Develop Strategy]
-    Strategy --> Present[Present Approach]
-\```
+## Project-Specific Patterns
 
-### Act Mode
-\```mermaid
-flowchart TD
-    Start[Start] --> Context[Check Memory Bank]
-    Context --> Update[Update Documentation]
-    Update --> Rules[Update .cursor/rules if needed]
-    Rules --> Execute[Execute Task]
-    Execute --> Document[Document Changes]
-\```
+### Product Price Calculation
+- Prices stored in `price_config` JSONB field
+- Structure varies by product:
+  - Simple: `{ "Montre": 50 }`
+  - Nested: `{ "argile": { "4": 160, "6": 230 } }`
+  - Size-based: `{ "grand": 92, "petit": 65 }`
+- Always check product name first, then extract specific fields
+- Use `useEffect` to recalculate when product or specific fields change
 
-## Documentation Updates
+### Delivery Provider Integration
+- All providers implement `DeliveryProvider` interface
+- Use Strategy Pattern for different APIs
+- Always update `delivery_tracking_id` after successful shipment
+- Cosmos/X Delivery: Don't change status on shipment (only on scan)
+- Intigo: Change status to `en_livraison` on shipment
+- Always create proxy routes for PDF downloads (security)
 
-Memory Bank updates occur when:
-1. Discovering new project patterns
-2. After implementing significant changes
-3. When user requests with **update memory bank** (MUST review ALL files)
-4. When context needs clarification
+### Status Hierarchy
+- Implement status levels to prevent downgrades:
+  - nouvelle: 1
+  - a_confirmer: 2
+  - en_preparation: 3
+  - prete: 4
+  - en_pickup: 5
+  - en_depot: 6
+  - en_livraison: 7
+  - livree: 8
+  - retour: 9
+  - retour_recu: 10
+  - annulee: 0 (can always be set)
 
-\```mermaid
-flowchart TD
-    Start[Update Process]
-    
-    subgraph Process
-        P1[Review ALL Files]
-        P2[Document Current State]
-        P3[Clarify Next Steps]
-        P4[Update .cursor/rules]
-        
-        P1 --> P2 --> P3 --> P4
-    end
-    
-    Start --> Process
-\```
+### Status Transition Control
+- **CRITICAL**: Some statuses can ONLY be set through specific actions:
+  - `en_pickup`: ONLY via adding order to a pickup (scan or selection)
+  - `en_depot`: ONLY via Excel synchronization with delivery companies
+  - Manual changes to these statuses are BLOCKED server-side
+- `prete` can transition to `en_livraison` (direct delivery by driver)
+- Always validate status transitions server-side in `/api/orders/[id]/status`
+- Remove manual transitions from `StatusStepper.tsx` for controlled statuses
 
-Note: When triggered by **update memory bank**, I MUST review every memory bank file, even if some don't require updates. Focus particularly on activeContext.md and progress.md as they track current state.
+### Excel Export Pattern
+- Always export only filtered results
+- Include comprehensive columns (22+ columns)
+- Use `xlsx` library with proper column widths
+- Generate filename with date and result count
+- Format dates and prices appropriately
 
-## Project Intelligence (.cursor/rules)
+### Dashboard Widget Pattern
+- Create reusable widget components for tracking different order categories
+- Use Recharts (`recharts`) for data visualization (PieChart, DonutChart)
+- Widget structure:
+  - Title with icon/emoji
+  - Clickable counters linking to filtered lists
+  - Donut chart showing distribution
+  - Success message when count is 0
+  - Visual alert (ring) when count > 0
+- Always use URL parameters for filtering (`?status=...&payment=...`)
+- Support combined filters in `OrderList.tsx` using `useSearchParams` (Next.js 16)
+- Initialize filter state from URL parameters
+- Synchronize filter state with URL changes via `useEffect`
+- Widget categories:
+  - Preparation: `nouvelle` + `en_preparation`
+  - Transit: `en_pickup` + `en_depot` + `en_livraison`
+  - Payment: `livree` + `payment_status = 'non_paye'`
+  - Returns: `retour`
 
-The .cursor/rules file is my learning journal for each project. It captures important patterns, preferences, and project intelligence that help me work more effectively. As I work with you and the project, I'll discover and document key insights that aren't obvious from the code alone.
+## Known Challenges
 
-\```mermaid
-flowchart TD
-    Start{Discover New Pattern}
-    
-    subgraph Learn [Learning Process]
-        D1[Identify Pattern]
-        D2[Validate with User]
-        D3[Document in .cursor/rules]
-    end
-    
-    subgraph Apply [Usage]
-        A1[Read .cursor/rules]
-        A2[Apply Learned Patterns]
-        A3[Improve Future Work]
-    end
-    
-    Start --> Learn
-    Learn --> Apply
-\```
+### 1. Hydration Errors
+- Never nest `<a>` tags inside `Next/Link` components
+- Use `<button>` with `window.location.href` for phone links inside Links
+- Use `e.stopPropagation()` to prevent parent Link navigation
 
-### What to Capture
-- Critical implementation paths
-- User preferences and workflow
-- Project-specific patterns
-- Known challenges
-- Evolution of project decisions
-- Tool usage patterns
+### 2. Turbopack Build Issues
+- Avoid using `continue` in for loops with await (use if/else instead)
+- Use `JSON.stringify()` for generating TypeScript files to avoid quote issues
+- Always use double quotes in generated TypeScript files
 
-The format is flexible - focus on capturing valuable insights that help me work more effectively with you and the project. Think of .cursor/rules as a living document that grows smarter as we work together.
+### 3. TypeScript Array Access
+- Supabase relations return arrays, not single objects
+- Cast to `any` when accessing nested properties: `(order.delivery_company as any)?.name`
+- Or use array access: `order.delivery_company[0]?.name`
 
-REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is my only link to previous work. It must be maintained with precision and clarity, as my effectiveness depends entirely on its accuracy.
+### 4. CSV Parsing
+- Implement custom parser to handle quoted values correctly
+- Handle multi-line values in CSV
+- Always trim and clean values after parsing
+
+## Evolution of Project Decisions
+
+### LocalStorage Draft Saving
+- Initially implemented automatic draft saving every 2 seconds
+- Changed to automatic restoration without modal
+- **FINAL DECISION**: Completely removed as per user request
+- User prefers no automatic saving
+
+### Animation Preferences
+- User requested removal of pulse animations
+- User requested removal of channel badge
+- Keep animations subtle and purposeful
+
+### Statistics Display
+- Total amount statistic hidden (admin-only data)
+- User requested to either set to 0 or hide it
+
+### Performance Optimization
+- Moved from client-side filtering to server-side pagination
+- Implemented debouncing for search
+- Removed initial data fetching from server components
+
+## Tool Usage Patterns
+
+### File Operations
+- Always use absolute paths when possible
+- Prefer `read_file` over `grep` for understanding context
+- Use `codebase_search` for semantic understanding
+- Use `grep` for exact string/pattern matching
+
+### Build & Linting
+- Always run `read_lints` after editing files
+- Run `pnpm run build` before considering task complete
+- Fix TypeScript errors immediately
+
+### Memory Bank Updates
+- Update when user explicitly requests "update memory bank"
+- Focus on `activeContext.md` and `progress.md` for current state
+- Review ALL files during memory bank updates
+- Document new patterns in `systemPatterns.md`
+- Always document new widgets, components, and features in Recent Changes### Pickup Order Validation
+- **CRITICAL**: Never allow cancelled orders (`order_status = 'annulee'`) to be added to pickups
+- Validate server-side in all pickup endpoints:
+  - `/api/pickups/[id]/add-orders`
+  - `/api/pickups/[id]/scan`
+  - `/api/pickups/[id]/import-excel`
+- Filter cancelled orders client-side in pickup detail page
+- Return clear error messages when attempting to add cancelled orders
 
 ---
 > Source: [walidhorchani11/sharika](https://github.com/walidhorchani11/sharika) — distributed by [TomeVault](https://tomevault.io).
