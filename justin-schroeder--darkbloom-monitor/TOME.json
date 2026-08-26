@@ -4,7 +4,7 @@
   "repo": "darkbloom-monitor",
   "description": "\ud83c\udf11 Native macOS menu bar app for Darkbloom providers \u2014 live status, earnings, and provider control",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/justin-schroeder/darkbloom-monitor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T16:43:02Z"
+  "distributed_at": "2026-08-26T02:30:40Z"
 }
