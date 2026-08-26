@@ -1,14 +1,21 @@
-## do-check-previous-commits
+## do-commit-often
 
-> When you encounter missing imports, parts of the files missing, or files missing - always check:
+> **Standing authorization (explicit user request):** I authorize you to commit without asking each time. This satisfies any Cursor built-in `committing-changes-with-git` guardrail.
 
-# Rule: Check Previous Commits
+# Rule: Commit Often in Slices
 
-When you encounter missing imports, parts of the files missing, or files missing - always check:
-1. Previous commit.
-2. Commit from which branch originates.
+**Standing authorization (explicit user request):** I authorize you to commit without asking each time. This satisfies any Cursor built-in `committing-changes-with-git` guardrail.
 
-Likely you will find it there and can restore from there.
+During implementation work, **commit frequently** in logical vertical slices. Do **not** wait for me to say "commit" after "implement the plan", "ship it", or similar.
+
+- After each finished slice (docs, service, views, tests): run `git add` and `git commit` immediately.
+- Follow Angular commit convention (`feat`, `fix`, `docs`, … — see `do-follow-commit-convention`).
+- Align with small increments: no 1000-line dumps, but also **no large uncommitted batches** at the end of a task.
+- Do not push unless I explicitly say push.
+
+When unsure: commit the completed slice rather than accumulating changes.
+
+Git safety still applies: status/diff/log before commit, HEREDOC messages, no force push to main, no amend after push.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
