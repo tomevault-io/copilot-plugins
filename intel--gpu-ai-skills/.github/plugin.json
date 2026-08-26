@@ -1,0 +1,9 @@
+{
+  "name": "intel--gpu-ai-skills",
+  "displayName": "gpu-ai-skills",
+  "description": "Agent Skills for running, benchmarking, and profiling Hugging Face models on Intel GPUs \u2014 PyTorch, vLLM-XPU, and SGLang-XPU",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/gpu-ai-skills",
+  "skills": []
+}
