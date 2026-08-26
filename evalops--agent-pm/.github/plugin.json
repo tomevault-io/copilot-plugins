@@ -1,0 +1,9 @@
+{
+  "name": "evalops--agent-pm",
+  "displayName": "agent-pm",
+  "description": "Agent PM: OpenAI Agents-powered product management orchestrator with automated PRDs, tickets, and comms.",
+  "version": "1.0.0",
+  "author": "evalops",
+  "homepage": "https://github.com/evalops/agent-pm",
+  "skills": []
+}
