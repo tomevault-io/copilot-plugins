@@ -1,0 +1,9 @@
+{
+  "name": "henrikkvamme--portfolio",
+  "displayName": "portfolio",
+  "description": "Portfolio website powered by Three.js and bun. Hosted on VPS using Dokploy.",
+  "version": "1.0.0",
+  "author": "henrikkvamme",
+  "homepage": "https://github.com/henrikkvamme/portfolio",
+  "skills": []
+}
