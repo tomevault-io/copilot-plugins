@@ -1,0 +1,9 @@
+{
+  "name": "k4zoku--ff-webhid",
+  "displayName": "FF-WebHID",
+  "description": "Brings the WebHID API to Firefox, letting websites talk directly to HID devices like controllers and stream decks via a fast local daemon.",
+  "version": "1.0.0",
+  "author": "K4zoku",
+  "homepage": "https://github.com/K4zoku/FF-WebHID",
+  "skills": []
+}
