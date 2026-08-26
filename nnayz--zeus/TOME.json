@@ -4,7 +4,7 @@
   "repo": "zeus",
   "description": "Agentic macOS orchestrator for coding agents, run them in parallel across git worktrees and remote hosts",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nnayz/zeus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:36:55Z"
+  "distributed_at": "2026-08-26T00:01:35Z"
 }
