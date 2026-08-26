@@ -4,7 +4,7 @@
   "repo": "research-os",
   "description": "Research capability for coding agents: multi-source corroboration, active discovery, logical-space thinking, structured output. Browser-first evidence.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lxinfei5/research-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:43:18Z"
+  "distributed_at": "2026-08-26T00:05:24Z"
 }
