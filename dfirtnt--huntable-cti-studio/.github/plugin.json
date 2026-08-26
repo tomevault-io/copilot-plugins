@@ -1,0 +1,9 @@
+{
+  "name": "dfirtnt--huntable-cti-studio",
+  "displayName": "Huntable-CTI-Studio",
+  "description": "Huntable CTI Studio is an AI-assisted cyber threat intelligence workbench that turns open-source CTI into Sigma rules.",
+  "version": "1.0.0",
+  "author": "dfirtnt",
+  "homepage": "https://github.com/dfirtnt/Huntable-CTI-Studio",
+  "skills": []
+}
