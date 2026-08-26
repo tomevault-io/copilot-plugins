@@ -1,0 +1,9 @@
+{
+  "name": "acryldev--acryl",
+  "displayName": "acryl",
+  "description": "ACRYL - Agent Context Relay Yielding Lifecycles. One persistent workspace, one canonical context, any coding agent.",
+  "version": "1.0.0",
+  "author": "acryldev",
+  "homepage": "https://github.com/acryldev/acryl",
+  "skills": []
+}
