@@ -1,0 +1,9 @@
+{
+  "name": "mishamsk--wtg",
+  "displayName": "wtg",
+  "description": "A snarky but helpful CLI tool to identify git commits, issues, PRs and file changes, and tell you which release they shipped in.",
+  "version": "1.0.0",
+  "author": "mishamsk",
+  "homepage": "https://github.com/mishamsk/wtg",
+  "skills": []
+}
