@@ -4,7 +4,7 @@
   "repo": "claudesky",
   "description": "Cross-platform desktop app for agentic chat powered by Claude Agent SDK.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jasonkneen/claudesky",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T07:42:24Z"
+  "distributed_at": "2026-08-26T08:26:42Z"
 }
