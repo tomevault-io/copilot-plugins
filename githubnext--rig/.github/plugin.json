@@ -1,0 +1,9 @@
+{
+  "name": "githubnext--rig",
+  "displayName": "rig",
+  "description": "Multi Agent Harness as a Skill",
+  "version": "1.0.0",
+  "author": "githubnext",
+  "homepage": "https://github.com/githubnext/rig",
+  "skills": []
+}
