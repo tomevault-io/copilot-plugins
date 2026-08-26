@@ -1,134 +1,122 @@
-## review-gate
+## vue3
 
-> This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
+> description: This rule provides best practices and coding standards for Vue 3 projects, covering code organization, performance, security, testing, tooling, and common pitfalls to ensure maintainable and efficient applications. It aims to guide developers in writing high-quality Vue 3 code.
 
 ---
-description: 
-globs: 
-alwaysApply: true
+description: This rule provides best practices and coding standards for Vue 3 projects, covering code organization, performance, security, testing, tooling, and common pitfalls to ensure maintainable and efficient applications. It aims to guide developers in writing high-quality Vue 3 code.
+globs: *.vue
 ---
-# AI Agent Protocol: Self-Contained Mandatory Interactive Final Review Loop with Auto-Script Creation (Version 3)
+- **Code Organization and Structure**:
+  - **Directory Structure**: Adopt a feature-based directory structure. Group related files (components, stores, utilities) within feature-specific directories rather than separating by file type. This enhances maintainability and discoverability.
+    - Example:
+      
+      src/
+        components/
+          MyComponent.vue
+          ...
+        views/
+          MyView.vue
+          ...
+        features/
+          user-profile/
+            components/
+              UserProfileCard.vue
+            composables/
+              useUserProfileData.js
+            store/
+              userProfile.js
+          ...
+      
+  - **File Naming Conventions**: Use PascalCase for component file names (e.g., `MyComponent.vue`). Use camelCase for variable and function names (e.g., `myVariable`, `myFunction`). Use kebab-case for component selectors in templates (e.g., `<my-component>`).
+  - **Module Organization**: Utilize ES modules (`import`/`export`) for modularity and code reusability. Group related functions and components into modules.
+  - **Component Architecture**: Favor a component-based architecture. Design components to be small, reusable, and composable. Use props for data input and events for data output. Consider using a component library (e.g., Vuetify, Element Plus) for pre-built components.
+  - **Code Splitting Strategies**: Implement lazy loading for components and routes to reduce initial bundle size. Use dynamic imports for on-demand loading of modules.
+    - Example:
+      javascript
+      // Route-based code splitting
+      const routes = [
+        {
+          path: '/about',
+          component: () => import('./views/About.vue')
+        }
+      ]
+      
 
-## 0. User Advisory & Safety:
-This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
+- **Common Patterns and Anti-patterns**:
+  - **Design Patterns**: Apply common design patterns such as composition API, provider/inject, and observer pattern where applicable.
+    - **Composition API**: Organize component logic into composable functions for reusability and maintainability.
+    - **Provider/Inject**: Use `provide` and `inject` to share data between components without prop drilling.
+  - **Recommended Approaches**: Utilize `v-model` for two-way data binding, computed properties for derived state, and watchers for side effects. Use the Composition API for enhanced code organization and reusability.
+  - **Anti-patterns and Code Smells**: Avoid directly mutating props. Avoid excessive use of global variables. Avoid complex logic within templates. Avoid tight coupling between components. Avoid over-engineering solutions.
+  - **State Management**: Choose a state management solution (e.g., Vuex, Pinia) for complex applications.  Favor Pinia for Vue 3 due to its simpler API and improved TypeScript support. Decouple components from state management logic using actions and mutations.
+  - **Error Handling**: Implement global error handling using `app.config.errorHandler`. Use `try...catch` blocks for handling synchronous errors. Utilize `Promise.catch` for handling asynchronous errors. Provide user-friendly error messages.
+    - Example:
+      javascript
+      // Global error handler
+      app.config.errorHandler = (err, vm, info) => {
+        console.error('Global error:', err, info);
+        // Report error to server or display user-friendly message
+      }
+      
 
-## 1. Core Principle & Context:
-Your primary task processing includes a **mandatory final interactive review stage** driven by user input through a specific Python script (`final_review_gate.py`). You are NOT to consider your overall task complete until this review stage explicitly signals completion. This protocol leverages your known capability to run commands in a sub-terminal (displayed within the chat interface) and read their output.
+- **Performance Considerations**:
+  - **Optimization Techniques**: Use `v-once` for static content. Use `v-memo` to memoize parts of the template. Use `key` attribute for `v-for` loops to improve rendering performance.
+  - **Memory Management**: Avoid creating memory leaks by properly cleaning up event listeners and timers. Use `onBeforeUnmount` lifecycle hook to release resources.
+  - **Rendering Optimization**: Use virtual DOM efficiently. Minimize unnecessary re-renders by using `ref` and `reactive` appropriately. Use `shouldUpdate` hook in functional components to control updates.
+  - **Bundle Size Optimization**: Use code splitting, tree shaking, and minification to reduce bundle size. Remove unused dependencies. Use smaller alternative libraries where possible.
+  - **Lazy Loading**: Implement lazy loading for images, components, and routes. Use `IntersectionObserver` API for lazy loading images.
 
-## Phase 0: Ensure `final_review_gate.py` Script Exists
-(This phase is executed ONCE per user request that triggers this overall protocol, or if the script is missing or its content is incorrect.)
+- **Security Best Practices**:
+  - **Common Vulnerabilities**: Prevent Cross-Site Scripting (XSS) attacks by sanitizing user input. Prevent Cross-Site Request Forgery (CSRF) attacks by using CSRF tokens. Prevent SQL injection attacks by using parameterized queries.
+  - **Input Validation**: Validate user input on both client-side and server-side. Use appropriate data types and formats. Escape special characters.
+  - **Authentication and Authorization**: Implement secure authentication and authorization mechanisms. Use HTTPS to encrypt communication. Store passwords securely using hashing and salting.
+  - **Data Protection**: Protect sensitive data using encryption. Avoid storing sensitive data in client-side storage. Follow privacy best practices.
+  - **Secure API Communication**: Use HTTPS for API communication. Validate API responses. Implement rate limiting to prevent abuse.
 
-1.  **Define Script Details:**
-    * **Script Name:** `final_review_gate.py`
-    * **Target Location:** Directly in the root of the current project/workspace.
-    * **Python Script Content (ensure this exact content is used):**
-        ```python
-        # final_review_gate.py
-        import sys
-        import os
+- **Testing Approaches**:
+  - **Unit Testing**: Write unit tests for individual components, functions, and modules. Use Jest or Vitest as a test runner. Mock dependencies to isolate units of code.
+  - **Integration Testing**: Write integration tests to verify the interaction between components and modules. Use Vue Test Utils for component testing.
+  - **End-to-End Testing**: Write end-to-end tests to simulate user interactions and verify the application's overall functionality. Use Cypress or Playwright for end-to-end testing.
+  - **Test Organization**: Organize tests into separate directories based on the component or module being tested. Use descriptive test names.
+  - **Mocking and Stubbing**: Use mocks and stubs to isolate units of code and simulate dependencies. Use `jest.mock` or `vi.mock` for mocking modules.
 
-        if __name__ == "__main__":
-            # Try to make stdout unbuffered for more responsive interaction.
-            # This might not work on all platforms or if stdout is not a TTY,
-            # but it's a good practice for this kind of interactive script.
-            try:
-                sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
-            except Exception:
-                pass # Ignore if unbuffering fails, e.g., in certain environments
+- **Common Pitfalls and Gotchas**:
+  - **Frequent Mistakes**: Forgetting to register components. Incorrectly using `v-if` and `v-show`. Mutating props directly. Not handling asynchronous operations correctly. Ignoring error messages.
+  - **Edge Cases**: Handling empty arrays or objects. Dealing with browser compatibility issues. Managing state in complex components.
+  - **Version-Specific Issues**: Being aware of breaking changes between Vue 2 and Vue 3. Using deprecated APIs.
+  - **Compatibility Concerns**: Ensuring compatibility with different browsers and devices. Testing on different screen sizes and resolutions.
+  - **Debugging Strategies**: Using Vue Devtools for debugging. Using `console.log` statements for inspecting variables. Using a debugger for stepping through code.
 
-            try:
-                sys.stderr = os.fdopen(sys.stderr.fileno(), 'w', buffering=1)
-            except Exception:
-                pass # Ignore
+- **Tooling and Environment**:
+  - **Recommended Development Tools**: Use VS Code with the Volar extension for Vue 3 development. Use Vue CLI or Vite for project scaffolding. Use Vue Devtools for debugging.
+  - **Build Configuration**: Configure Webpack or Rollup for building the application. Optimize build settings for production. Use environment variables for configuration.
+  - **Linting and Formatting**: Use ESLint with the `eslint-plugin-vue` plugin for linting Vue code. Use Prettier for code formatting. Configure linting and formatting rules to enforce code style.
+  - **Deployment Best Practices**: Use a CDN for serving static assets. Use server-side rendering (SSR) or pre-rendering for improved SEO and performance. Deploy to a reliable hosting platform.
+  - **CI/CD Integration**: Integrate linting, testing, and building into the CI/CD pipeline. Use automated deployment tools. Monitor application performance and errors.
 
-            print("--- FINAL REVIEW GATE ACTIVE ---", flush=True)
-            print("AI has completed its primary actions. Awaiting your review or further sub-prompts.", flush=True)
-            print("Type your sub-prompt, or one of: 'TASK_COMPLETE', 'Done', 'Quit', 'q' to signal completion.", flush=True) # MODIFIED
-            
-            active_session = True
-            while active_session:
-                try:
-                    # Signal that the script is ready for input.
-                    # The AI doesn't need to parse this, but it's good for user visibility.
-                    print("REVIEW_GATE_AWAITING_INPUT:", end="", flush=True) 
-                    
-                    line = sys.stdin.readline()
-                    
-                    if not line:  # EOF
-                        print("--- REVIEW GATE: STDIN CLOSED (EOF), EXITING SCRIPT ---", flush=True)
-                        active_session = False
-                        break
-                    
-                    user_input = line.strip()
+- **Additional Best Practices**: 
+  - **Accessibility (A11y)**: Ensure components are accessible by using semantic HTML, providing ARIA attributes where necessary, and testing with screen readers. 
+  - **Internationalization (i18n)**: Implement i18n from the start if multilingual support is required. Use a library like `vue-i18n` to manage translations. 
+  - **Documentation**: Document components and composables using JSDoc or similar tools. Generate documentation automatically using tools like Storybook. 
 
-                    # Check for exit conditions
-                    if user_input.upper() in ['TASK_COMPLETE', 'DONE', 'QUIT', 'Q']: # MODIFIED: Empty string no longer exits
-                        print(f"--- REVIEW GATE: USER SIGNALED COMPLETION WITH '{user_input.upper()}' ---", flush=True)
-                        active_session = False
-                        break
-                    elif user_input: # If there's any other non-empty input (and not a completion command)
-                        # This is the critical line the AI will "listen" for.
-                        print(f"USER_REVIEW_SUB_PROMPT: {user_input}", flush=True)
-                    # If user_input was empty (and not a completion command),
-                    # the loop simply continues, and "REVIEW_GATE_AWAITING_INPUT:" will be printed again.
-                    
-                except KeyboardInterrupt:
-                    print("--- REVIEW GATE: SESSION INTERRUPTED BY USER (KeyboardInterrupt) ---", flush=True)
-                    active_session = False
-                    break
-                except Exception as e:
-                    print(f"--- REVIEW GATE SCRIPT ERROR: {e} ---", flush=True)
-                    active_session = False
-                    break
-                    
-            print("--- FINAL REVIEW GATE SCRIPT EXITED ---", flush=True)
-        ```
+- **Vue 3 Specific Recommendations**:
+    - **TypeScript**: Use TypeScript for improved type safety and code maintainability. Define component props and emits with type annotations.
+    - **Teleport**: Use the `Teleport` component to render content outside the component's DOM hierarchy, useful for modals and tooltips.
+    - **Suspense**: Use the `Suspense` component to handle asynchronous dependencies gracefully, providing fallback content while waiting for data to load.
 
-2.  **Ensure Script Existence and Correctness:**
-    a.  Use your file system tools to check if the file `final_review_gate.py` exists in the project root.
-    b.  **If the file `final_review_gate.py` does NOT exist OR if its content does not EXACTLY match the Python script provided in section "Phase 0.1.Python Script Content" (you may need to read the existing file and compare):**
-        i.  You MUST create or overwrite the `final_review_gate.py` file in the project root.
-        ii. The content of this file MUST be *exactly* the Python script content provided above. Ensure all indentation, comments, and lines are preserved perfectly. Use your "create file" or "edit file" tool.
-        iii. After creating/overwriting it, announce: "The `final_review_gate.py` script has been created/updated in the project root with the latest interaction enhancements."
-    c.  **If the file `final_review_gate.py` already exists and its content is correct:** You may skip announcing its creation.
-    d.  If you encounter any errors checking for, reading, or creating/writing the file (e.g., permission issues), you MUST report this to the user. State clearly: "Error managing `final_review_gate.py`: [specific error]. Cannot proceed with interactive review." and then conclude the interaction for the main task as best as you can without this interactive step.
+- **Naming Conventions**:
+    - Components: PascalCase (e.g., `MyComponent.vue`)
+    - Variables/Functions: camelCase (e.g., `myVariable`, `myFunction`)
+    - Props/Events: camelCase (e.g., `myProp`, `myEvent`)
+    - Directives: kebab-case (e.g., `v-my-directive`)
 
-## Phase 1: Primary Task Execution
-1.  Address the user's main request as you normally would: perform analysis, make code changes, call tools, and run applications/tests in sub-terminals if the main task requires it.
-    * **Application Execution Confirmation:** Before attempting to run an entire application (e.g., a web server, a full front-end build, a long-running background process), you MUST ask the user for explicit confirmation. For example: "I am about to run the [application name/command]. Is it okay to proceed, or is it possibly already running?"
-    * This confirmation is NOT required for running individual test scripts, linters, build tools for specific components, or other non-application-level commands necessary for task completion.
-    * If the user indicates an application is already running or denies permission, adapt your strategy accordingly (e.g., focus on tests or specific file executions).
-2.  Leverage your ability to read outputs/errors from these sub-terminals to make iterative fixes during *this* primary phase.
+- **Composition API Best Practices**:
+  - **Reactive Refs**: Use `ref` for primitive values and `reactive` for objects. 
+  - **Readonly Refs**: Use `readonly` to prevent accidental mutations of reactive data.
+  - **Computed Properties**: Use `computed` for derived state and avoid complex logic within templates.
+  - **Lifecycle Hooks**: Use `onMounted`, `onUpdated`, `onUnmounted`, etc., to manage component lifecycle events.
 
-## Phase 2: Mandatory Final Interactive Review Script Execution
-1.  **Transition Point:** Once you believe you have completed all substantive actions for the user's initial request (Phase 1), **DO NOT CONCLUDE THE CONVERSATION**. You MUST now transition to this Final Interactive Review phase.
-2.  **Action:** Execute the `final_review_gate.py` script (which you ensured exists and is correct in Phase 0) from the project root.
-    * Determine the correct Python interpreter command (e.g., `python`, `python3`) available in the execution environment. A robust command attempt would be `python3 ./final_review_gate.py` and if that fails, try `python ./final_review_gate.py`.
-    * **Crucially, the terminal for this script MUST run directly within the chat window, and its output MUST be continuously visible to the user as it is generated.** It must NOT pop open as a separate window or run hidden in the background. You MUST wait for the script (and its terminal interaction) to fully complete and exit before you proceed with any further actions or attempt to conclude the overall task. Your processing will be blocked by this script's execution.
-3.  **Announcement:** Clearly inform the user: "I have completed the primary actions. Now initiating the mandatory Final Interactive Review by running `./final_review_gate.py`. The review terminal is now active **in this chat window, and its output will be displayed live**. Please provide any sub-prompts directly into that script's input area, or type 'TASK_COMPLETE', 'Done', 'Quit', or 'q' when satisfied." (MODIFIED: Removed "or simply press Enter")
-
-## Phase 3: Interactive Review Loop (Monitoring Script Output)
-1.  **Active Monitoring & Display:** Continuously monitor the standard output (stdout) of the launched `final_review_gate.py` script **as it appears live in the chat window**. Ensure the user sees all script output, including the `REVIEW_GATE_AWAITING_INPUT:` prompt. You will "read" its output using the same capability that allows you to read terminal logs or error messages. The script will loop and re-prompt if an empty input is given.
-2.  **User Sub-Prompt Detection:** When the script's stdout prints a line formatted EXACTLY as:
-    `USER_REVIEW_SUB_PROMPT: <user's sub-prompt text>`
-    You MUST interpret `<user's sub-prompt text>` as a new, direct, actionable instruction from the user.
-3.  **Processing Sub-Prompts:**
-    a.  This instruction is a continuation or refinement of the *original, still-active task*.
-    b.  Analyze the sub-prompt. Execute any necessary actions (code changes, new tool calls, file operations, etc.). **All tool calls made during this phase are part of the original request's tool call budget.** If the sub-prompt requests running an entire application, the confirmation principle from "Phase 1, Step 1 (Application Execution Confirmation)" applies.
-    c.  Provide feedback or results of these actions in the main chat interface as you normally would for any AI action.
-    d.  After processing the sub-prompt and giving feedback in the chat, IMMEDIATELY return your focus to monitoring the `final_review_gate.py` script's terminal output (which remains live and visible in the chat) for the next user instruction or completion signal. This loop is critical.
-4.  **Completion Signal Detection:** The interactive review loop continues until the script's stdout (visible in the chat window) prints a line containing:
-    * `--- REVIEW GATE: USER SIGNALED COMPLETION WITH 'TASK_COMPLETE' ---` (or 'DONE', 'QUIT', 'Q' as per script logic)
-    * OR `--- FINAL REVIEW GATE SCRIPT EXITED ---` (or any other script exit/error message like `REVIEW GATE: STDIN CLOSED` or `REVIEW GATE SCRIPT ERROR:`)
-    (MODIFIED: Removed specific "EMPTY INPUT RECEIVED" as a completion signal, as the script no longer behaves this way for completion.)
-
-## Phase 4: True Task Conclusion
-1.  Only after the `final_review_gate.py` script has terminated (as observed by its terminal session in the chat window closing and its final exit messages being printed and visible) are you permitted to consider the user's original request fully satisfied.
-2.  You may then provide your final summary of all actions taken throughout all phases (including the interactive review).
-
-## Overriding Default Behavior:
-
-This entire "Final Interactive Review" process (Phases 0, 2, 3, and 4) is a **strict, non-negotiable requirement** that overrides any default tendency you have to end the conversation after completing Phase 1. The task is only finished when the user explicitly confirms with one of the specified keywords through the review script or the script otherwise terminates due to an error or EOF (as per the defined behavior, including the in-chat, blocking, and continuously visible terminal execution). Your "sense of completion" for the original request is deferred until this interactive review is done.
+  - **Watchers**: Use `watch` for reacting to reactive data changes and performing side effects.
 
 ---
 > Source: [banyue0618/billiards-miniapp](https://github.com/banyue0618/billiards-miniapp) — distributed by [TomeVault](https://tomevault.io).
