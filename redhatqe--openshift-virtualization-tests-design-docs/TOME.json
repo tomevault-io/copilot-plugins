@@ -4,7 +4,7 @@
   "repo": "openshift-virtualization-tests-design-docs",
   "description": "This repository is used to manager openshift-virtualization-tests software test plans (STPs) allowing enhanced SIG improvement and collaboration",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RedHatQE/openshift-virtualization-tests-design-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T21:42:47Z"
+  "distributed_at": "2026-08-26T06:47:26Z"
 }
