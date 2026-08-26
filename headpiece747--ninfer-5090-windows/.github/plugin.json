@@ -1,0 +1,9 @@
+{
+  "name": "headpiece747--ninfer-5090-windows",
+  "displayName": "ninfer-5090-windows",
+  "description": "Native Windows MSVC port of NInfer optimized for NVIDIA RTX 5090. Features NVFP4 inference, MTP3 speculative decoding, and massive 262k context support.",
+  "version": "1.0.0",
+  "author": "headpiece747",
+  "homepage": "https://github.com/headpiece747/ninfer-5090-windows",
+  "skills": []
+}
