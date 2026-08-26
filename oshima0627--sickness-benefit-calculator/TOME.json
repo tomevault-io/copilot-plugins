@@ -1,0 +1,44 @@
+{
+  "name": "sickness-benefit-calculator",
+  "owner": "oshima0627",
+  "repo": "sickness-benefit-calculator",
+  "description": "\u50b7\u75c5\u624b\u5f53\u91d1\u30b7\u30df\u30e5\u30ec\u30fc\u30bf\u30fc",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oshima0627/sickness-benefit-calculator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T05:46:04Z"
+}
