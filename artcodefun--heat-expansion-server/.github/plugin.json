@@ -1,0 +1,9 @@
+{
+  "name": "artcodefun--heat-expansion-server",
+  "displayName": "heat-expansion-server",
+  "description": "Backend for Heat Expansion game",
+  "version": "1.0.0",
+  "author": "artcodefun",
+  "homepage": "https://github.com/artcodefun/heat-expansion-server",
+  "skills": []
+}
