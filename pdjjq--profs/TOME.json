@@ -4,7 +4,7 @@
   "repo": "profs",
   "description": "chat with experts ! \u548c\u4e13\u5bb6\u4eec\u804a\u4e00\u804a\u5427!",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pDJJq/profs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T23:46:28Z"
+  "distributed_at": "2026-08-26T07:52:13Z"
 }
