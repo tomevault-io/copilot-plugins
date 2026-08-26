@@ -1,0 +1,9 @@
+{
+  "name": "fxerkan--my-network-scanner",
+  "displayName": "my_network_scanner",
+  "description": "See every device on your home network - including the Zigbee, Z-Wave, Matter and Bluetooth LE ones an IP scan cannot find. Self-hosted, MIT, with two-way Home Assistant integration.",
+  "version": "1.0.0",
+  "author": "fxerkan",
+  "homepage": "https://github.com/fxerkan/my_network_scanner",
+  "skills": []
+}
