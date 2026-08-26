@@ -1,0 +1,9 @@
+{
+  "name": "nokkies--modbusforge",
+  "displayName": "ModbusForge",
+  "description": "ModbusForge \u2014 .NET 8 Avalonia Modbus TCP/RTU/ASCII client/server with simulation, trending, and headless runtime (Windows & Linux).",
+  "version": "1.0.0",
+  "author": "nokkies",
+  "homepage": "https://github.com/nokkies/ModbusForge",
+  "skills": []
+}
