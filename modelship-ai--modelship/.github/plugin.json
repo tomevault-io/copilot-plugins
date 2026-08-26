@@ -1,0 +1,9 @@
+{
+  "name": "modelship-ai--modelship",
+  "displayName": "modelship",
+  "description": "Self-hosted, OpenAI-compatible inference for the agentic era: reasoning LLMs, universal tool calling, and the Responses API alongside embeddings, speech, and image models \u2014 many models sharing your GP",
+  "version": "1.0.0",
+  "author": "modelship-ai",
+  "homepage": "https://github.com/modelship-ai/modelship",
+  "skills": []
+}
