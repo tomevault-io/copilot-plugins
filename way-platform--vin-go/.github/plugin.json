@@ -1,0 +1,9 @@
+{
+  "name": "way-platform--vin-go",
+  "displayName": "vin-go",
+  "description": "Go SDK for VIN decoding",
+  "version": "1.0.0",
+  "author": "way-platform",
+  "homepage": "https://github.com/way-platform/vin-go",
+  "skills": []
+}
