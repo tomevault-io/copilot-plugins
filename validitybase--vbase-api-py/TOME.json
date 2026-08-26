@@ -4,7 +4,7 @@
   "repo": "vbase-api-py",
   "description": "Python Client for the vBase REST API",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/validityBase/vbase-api-py",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T07:48:34Z"
+  "distributed_at": "2026-08-26T08:28:24Z"
 }
