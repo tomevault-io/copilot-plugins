@@ -7,13 +7,13 @@ prompt - interactive terminal prompts library in Go
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [nao1215/prompt](https://github.com/nao1215/prompt).
+Original source: `CLAUDE.md` in [nao1215/prompt](https://github.com/nao1215/prompt).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
