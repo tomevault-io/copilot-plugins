@@ -1,30 +1,34 @@
-## pytest-run-tests-integration
+## python-package-safety
 
-> All pytest tests for ongoing use must be runnable via run_tests.py
+> Use safety-mcp for Python package security and version selection
 
 
-# Pytest — run_tests.py Integration
+# Python Package Safety (safety-mcp)
 
-## Rule
+## When Adding or Importing Packages
 
-All pytest tests built for **ongoing use** in this project **MUST** be integrated into the `./run_tests.py` wrapper. Tests must be discoverable and executable via one of the runner’s categories or markers—not only via raw `pytest` invocations.
+Whenever you:
+- Add a package to `requirements.txt`, `requirements-*.txt`, or `pyproject.toml`
+- Import a new Python package in code
 
-## What “integrated” means
+You **MUST**:
+1. Call **safety-mcp** `get_recommended_version` (or `check_package_security`) for the package.
+2. Use the **recommended / latest secure version** returned by safety-mcp—not an arbitrary or outdated version.
+3. If safety-mcp reports vulnerabilities for your chosen version, upgrade to the secure version before adding it.
 
-- **Discovery:** Tests live under `tests/` and are selected by an existing `run_tests.py` category (e.g. `smoke`, `unit`, `api`, `integration`, `ui`) or by a marker category (e.g. `regression`, `contract`, `security`, `a11y`) that `run_tests.py` already supports.
-- **Execution:** A full run of the relevant category (e.g. `python3 run_tests.py unit` or `python3 run_tests.py regression --paths tests/quality/...`) includes the new tests.
-- **No orphan tests:** Do not add pytest files that are only meant to be run manually with `pytest path/to/file.py` or custom one-off commands, unless they are explicitly one-off/throwaway (e.g. spike scripts). Ongoing tests belong in the wrapper.
+## When User Asks to Check Existing Package
 
-## When adding new tests
+When a user asks you to check an existing package for vulnerabilities:
+1. Call **safety-mcp** `check_package_security` with the package name and current version.
+2. Evaluate whether there are **secure versions within the same major version** (e.g., 2.x → 2.y) and report these options.
+3. Inform the user of the **latest secure version** of the package (from `get_recommended_version`).
+4. For vulnerability details, use `list_vulnerabilities_affecting_version` only when the user asks for more detail.
 
-1. Place tests under `tests/` in the appropriate subtree (e.g. `tests/api/`, `tests/unit/`, `tests/quality/`).
-2. Use the markers/paths already used by `run_tests.py` so the new tests are included when that category is run (path-based discovery is the norm; only add `run_tests.py` changes if a new category or marker is required).
-3. If introducing a **new category or marker**, update `run_tests.py` (e.g. `RunTestType`, `_build_pytest_command`, subparser) so the new tests are runnable via e.g. `python3 run_tests.py <category>`.
+## Tool Usage
 
-## Summary
-
-- **Ongoing pytest tests → must be runnable via `run_tests.py`.**
-- One-off / spike scripts may stay outside the wrapper if clearly marked as such.
+- **get_recommended_version**: `packages: [{"name": "package-name", "ecosystem": "pypi"}]` — returns recommended secure version.
+- **check_package_security**: `packages: [{"name": "package-name", "version": "1.2.3", "ecosystem": "pypi"}]` — checks if version has vulnerabilities.
+- **list_vulnerabilities_affecting_version**: Use when user explicitly asks for vulnerability details.
 
 ---
 > Source: [dfirtnt/Huntable-CTI-Studio](https://github.com/dfirtnt/Huntable-CTI-Studio) — distributed by [TomeVault](https://tomevault.io).
