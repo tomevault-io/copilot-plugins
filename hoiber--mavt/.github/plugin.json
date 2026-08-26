@@ -1,0 +1,9 @@
+{
+  "name": "hoiber--mavt",
+  "displayName": "mavt",
+  "description": "A Go application that tracks Apple App Store app version updates. Run it as a CLI tool or as a containerized daemon to monitor your favorite iOS apps for version changes.",
+  "version": "1.0.0",
+  "author": "hoiber",
+  "homepage": "https://github.com/hoiber/mavt",
+  "skills": []
+}
