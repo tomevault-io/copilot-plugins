@@ -1,0 +1,9 @@
+{
+  "name": "ericsanchezok--repo-seed",
+  "displayName": "repo-seed",
+  "description": "Seed agent-native, self-governing repos: AGENTS.md, MADR decision logs, deterministic gates & pre-commit hooks. Upgradeable \u2014 never overwrites your edits.",
+  "version": "1.0.0",
+  "author": "EricSanchezok",
+  "homepage": "https://github.com/EricSanchezok/repo-seed",
+  "skills": []
+}
