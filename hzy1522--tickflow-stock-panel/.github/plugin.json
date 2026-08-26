@@ -1,0 +1,9 @@
+{
+  "name": "hzy1522--tickflow-stock-panel",
+  "displayName": "tickflow-stock-panel",
+  "description": "\u591a\u5e02\u573a\u667a\u80fd\u91cf\u5316\u5de5\u4f5c\u53f0\uff08A\u80a1/\u6e2f\u80a1/\u7f8e\u80a1\uff09\u2014 \u57fa\u4e8e shy3130/tickflow-stock-panel \u4e8c\u6b21\u5f00\u53d1\uff0c\u65b0\u589e\u6e2f\u7f8e\u80a1\u591a\u5e02\u573a\u652f\u6301\u3002\u81ea\u6258\u7ba1\u9009\u80a1+\u76d1\u63a7+\u56de\u6d4b\u3002MIT\u3002",
+  "version": "1.0.0",
+  "author": "hzy1522",
+  "homepage": "https://github.com/hzy1522/tickflow-stock-panel",
+  "skills": []
+}
