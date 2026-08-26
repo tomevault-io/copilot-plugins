@@ -1,0 +1,9 @@
+{
+  "name": "cars-10--windchill-mcp-server",
+  "displayName": "windchill-mcp-server",
+  "description": "Test bed for a MCP server for Windchill. Running in Docker",
+  "version": "1.0.0",
+  "author": "Cars-10",
+  "homepage": "https://github.com/Cars-10/windchill-mcp-server",
+  "skills": []
+}
