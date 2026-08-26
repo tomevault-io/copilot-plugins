@@ -1,0 +1,9 @@
+{
+  "name": "nathanliow--trickshot",
+  "displayName": "trickshot",
+  "description": "Rebuild any Solana token from the chain and replay what any wallet did on it.",
+  "version": "1.0.0",
+  "author": "nathanliow",
+  "homepage": "https://github.com/nathanliow/trickshot",
+  "skills": []
+}
