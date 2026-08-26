@@ -4,7 +4,7 @@
   "repo": "jupyter-ai-acp-client",
   "description": "The ACP client implementation in Jupyter AI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jupyter-ai-contrib/jupyter-ai-acp-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T17:52:24Z"
+  "distributed_at": "2026-08-26T03:57:02Z"
 }
