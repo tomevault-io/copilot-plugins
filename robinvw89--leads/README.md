@@ -7,11 +7,11 @@ site internet les pro de l'yonne
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [RobinVW89/Leads](https://github.com/RobinVW89/Leads).
+Original source: `AGENTS.md` in [RobinVW89/Leads](https://github.com/RobinVW89/Leads).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
