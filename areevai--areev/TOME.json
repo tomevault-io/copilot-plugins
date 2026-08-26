@@ -4,7 +4,7 @@
   "repo": "areev",
   "description": "Self-improving agents, governed. Areev is the substrate for adaptive agents \u2014 agents that get better from their own history, under human authority, in steps you can inspect, undo, and re-measure.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AreevAI/areev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T20:38:51Z"
+  "distributed_at": "2026-08-26T20:40:55Z"
 }
