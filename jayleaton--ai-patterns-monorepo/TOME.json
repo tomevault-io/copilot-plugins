@@ -4,7 +4,7 @@
   "repo": "ai-patterns-monorepo",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jayleaton/ai-patterns-monorepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T20:44:18Z"
+  "distributed_at": "2026-08-26T20:47:24Z"
 }
