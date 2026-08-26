@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-harness-desktop",
+  "owner": "baihejiangnan",
+  "repo": "deepseek-harness-desktop",
+  "description": "DeepSeek Harness \u4e09\u7aef\u517c\u5bb9\u684c\u9762\u542f\u52a8\u5668\uff1a\u591a\u5b9e\u4f8b\u5b8c\u5168\u9694\u79bb\u3001\u5e76\u884c\u534f\u4f5c\uff0c\u534f\u4f5c\u753b\u5e03\u7f16\u6392 Agent \u5de5\u4f5c\u6d41\uff1b\u4fbf\u643a\u7248 Exe \u4e00\u952e\u542f\u52a8\u3001\u4ec5\u7ea6 18M\uff08\u4e0d\u8d85\u8fc7 20M\uff09\uff1b\u53cc\u9694\u79bb\u673a\u5236\u8ba9\u517c\u5bb9\u6027\u6781\u5f3a\uff0c\u65e0\u8bba DSH \u672c\u4f53\u5982\u4f55\u66f4\u65b0\uff0c\u517c\u5bb9\u539f\u751f\u5230\u91ce\u751f\u72d7\u5976\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/baihejiangnan/deepseek-harness-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T06:05:14Z"
+}
