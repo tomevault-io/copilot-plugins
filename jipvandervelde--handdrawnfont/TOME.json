@@ -1,0 +1,44 @@
+{
+  "name": "HandDrawnFont",
+  "owner": "jipvandervelde",
+  "repo": "HandDrawnFont",
+  "description": "A plug-and-play SwiftUI package for animated hand-drawn text, glyphs, and font authoring \u2014 by Jip van der Velde and Michel Elings, creators of Apple Design Award winner grug.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jipvandervelde/HandDrawnFont",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T11:32:38Z"
+}
