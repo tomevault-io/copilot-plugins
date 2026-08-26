@@ -1,0 +1,9 @@
+{
+  "name": "orbasker--ltree2viz",
+  "displayName": "ltree2viz",
+  "description": "CLI tool to visualize PostgreSQL ltree hierarchies as Mermaid diagrams or interactive HTML trees. Install via cargo, npm/npx, Homebrew, or prebuilt binary.",
+  "version": "1.0.0",
+  "author": "Orbasker",
+  "homepage": "https://github.com/Orbasker/ltree2viz",
+  "skills": []
+}
