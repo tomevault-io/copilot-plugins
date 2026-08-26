@@ -1,0 +1,9 @@
+{
+  "name": "bashebr--ai-native-sdlc",
+  "displayName": "ai-native-sdlc",
+  "description": "AI-native SDLC workflow as a reusable Codex and Claude Code skill and plugin",
+  "version": "1.0.0",
+  "author": "bashebr",
+  "homepage": "https://github.com/bashebr/ai-native-sdlc",
+  "skills": []
+}
