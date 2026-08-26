@@ -7,11 +7,11 @@ Coordination and context layer for AI coding agents. Shared file locks, live pat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [prakrititz/relayBrain](https://github.com/prakrititz/relayBrain).
+Original source: `AGENTS.md` in [prakrititz/relayBrain](https://github.com/prakrititz/relayBrain).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
