@@ -1,0 +1,9 @@
+{
+  "name": "blacktea0--bangumi-proxy",
+  "displayName": "bangumi-proxy",
+  "description": "Local HTTP proxy that unblocks Bangumi (bgm.tv) using ECH to bypass SNI-based blocking",
+  "version": "1.0.0",
+  "author": "Blacktea0",
+  "homepage": "https://github.com/Blacktea0/bangumi-proxy",
+  "skills": []
+}
