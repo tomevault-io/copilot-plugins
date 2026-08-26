@@ -1,49 +1,58 @@
-## component-build
+## design-pattern
 
-> Always perform full component build & integration steps when updating or creating any child component in the frontend. Follow Shadcn patterns, ensure ui-components are exported via index.js, use Tailwind only (no CSS files), and enforce design system. Applies on every change to children components.
+> Unified Design System for Chapadevs - Modern IT Consultancy (Green/White/Black)
 
 
-# Full Component Build & Integration (on All Child Component Updates)
+# Chapadevs Unified Design System & Workflow
 
-**Apply EVERY TIME a child component is updated or created in the frontend.**
+## 🎯 Component Strategy
+- **Hybrid Core**: Use Shadcn for complex layout structures (Sidebar, Tabs, Dialog) and local `ui-components` for atomic elements (Button, Card, Badge, PageTitle).
+- **Barrel Export**: All components MUST be exported and imported via `@/components/ui-components/index.js`.
+- **Standardization**: Never create one-off styles. Use the library components below.
 
-## 1. Integrate or Update the Component in the Frontend
+## 🛠️ Workflow: Adding New Shadcn Components
+1. **CLI**: Run `npx shadcn@latest add "component-name"`.
+2. **Folder**: Create a new folder `frontend/src/components/shadcn-components/shadcn-"component-name"/`.
+3. **Move**: Relocate the generated `.jsx` file into this folder.
+4. **Reskin (MANDATORY)**:
+   - Replace all `rounded-*` classes with `rounded-none`.
+   - Map typography to `font-heading` for headers and `font-body` for content.
+5. **Export**: Add `export * from "@/components/shadcn-components/shadcn-folder/file"` to the barrel index.
 
-Whenever you update or create any child component:
+## 🎨 Visual Identity & Style Guide
+- **Sharp Look**: `border-radius: 0` (rounded-none) on everything (Buttons, Cards, Inputs, Modals).
+- **Typography**:
+  - Headings: `font-heading` (Code Bold, monospace, uppercase).
+  - Buttons/Nav: `font-button` (Creato Display Medium).
+  - Body: `font-body` (Coolvetica).
+- **Color Palette**:
+  - Primary: `#059669` (bg-primary / text-primary).
+  - Surface: `#ffffff` (bg-surface).
+  - Border: `#e5e7eb` (border-border).
 
-- **Barrel Exports**: Ensure the component is exported from `frontend/src/components/ui-components/index.js` (e.g. `export { default as MyComponent } from './MyComponent/MyComponent'` or `export * from './MyComponent'`).
-- **Consumers**: Update any page, parent, or consumer to use the new or updated component from `@/components/ui-components`, replacing any custom markup or obsolete imports.
-- **Design System**: Strictly follow `.cursor/rules/design-pattern.mdc` for sharp look, typography, and palette. Use existing ui-components or Shadcn where possible instead of new one-off styles.
+## 📑 Component Reference (Legacy Styles)
+| Component | Variant / Usage |
+|-----------|-----------------|
+| `Button` | Variants: `primary`, `secondary`, `ghost`, `danger`. Renders as `Link` if `to` prop is present. |
+| `Card` | Variants: `default`, `elevated`, `accent` (green bottom border), `ghost`, `outline`. |
+| `Badge` | Status: `holding`, `open`, `ready`, `development`, `completed`. Semantic: `success`, `error`, `neutral`. |
+| `PageTitle`| H1 with green left border, Code Bold, Uppercase. |
+| `Alert` | Conditionally rendered variants: `error` (red), `success` (green), `info` (blue), `warning` (amber). |
 
-## 2. Shadcn & Other Library Patterns (apply on every update)
+## 🛠️ Sidebar Docking Rule
+- The `SidebarTrigger` MUST be absolute-positioned inside the `Sidebar` at `right-[-14px] top-20 z-50` to stay docked to the border.
 
-- **Use Shadcn as the base when available** (e.g. Sidebar, Tabs, Dialog, Card, Avatar, etc.).
-- **Pattern Requirements**:
-  - **Create with CLI**: `npx shadcn@latest add "component-name"` if adding.
-  - **Folder Convention**: Place in `frontend/src/components/shadcn-components/shadcn-<component-name>/`.
-  - **Local Utility Import**: Use `import { cn } from "@/utils/shadcn"` within Shadcn components.
-  - **Re-export via ui-components**: Make accessible from `@/components/ui-components`:
-    - Either with `export * from "@/components/shadcn-components/shadcn-<name>/<file>"` in `frontend/src/components/ui-components/<Name>/index.js`, and then `export * from './<Name>'` in the main barrel.
-    - Or simply ensure consumers only import from the barrel.
-  - **Reskin Mandatory**: Immediately replace all `rounded-*` with `rounded-none` and update to use `font-heading`/`font-body` as per the design system.
+## 🚀 Pre-flight Checklist
+- [ ] Component installed via Shadcn CLI and moved to dedicated folder?
+- [ ] All `rounded` classes removed?
+- [ ] Exported via `@/components/ui-components`?
+- [ ] Content wrapped in `max-w-[1200px] mx-auto` or `<Container>`?
 
-For non-Shadcn library components, mirror these patterns: dedicated folder, export through ui-components, and design system compliance.
-
-## 3. ui-components: Import & Styling Rules for All Updates
-
-- **Imports**: Always import UI components from `@/components/ui-components`. Never use internal component paths in app code—add (or verify) the export in the barrel index.
-- **No CSS Files**: Do not create or update `.css` files for individual components. Use Tailwind utility classes only.
-- **Styling**: Tailwind controls both layout and tweaks. Use design tokens (e.g. `bg-primary`, `font-heading`, `rounded-none`) per the system spec.
-
-## Checklist (for every child component update)
-
-- [ ] Component is exported via `frontend/src/components/ui-components/index.js` (inc. any folder/subfolder index).
-- [ ] If using Shadcn (or other library), all folder, app import, and reskinning/re-export rules followed.
-- [ ] No new or changed CSS files; all style changes with Tailwind.
-- [ ] All call sites and parent components updated to use the exported component, not old markup.
-- [ ] Strict adherence to approved design system (sharp edges, standard palette, typography).
-
-**This rule applies AUTOMATICALLY on every update to any child component in the frontend.**
+## Rules
+  *Dont Children component styles and applying them on Parent components
+  *New props should be asked before added
+  *Priority to Shadcn components styles
+  *No more new CSS files for individual components 
 
 ---
 > Source: [Chapadevs/Chapadevs](https://github.com/Chapadevs/Chapadevs) — distributed by [TomeVault](https://tomevault.io).
