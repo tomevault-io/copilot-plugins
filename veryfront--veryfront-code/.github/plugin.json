@@ -1,0 +1,9 @@
+{
+  "name": "veryfront--veryfront-code",
+  "displayName": "veryfront-code",
+  "description": "Full-stack framework for building AI apps and agents with TypeScript and React. Works with Node.js, Deno, and Bun.",
+  "version": "1.0.0",
+  "author": "veryfront",
+  "homepage": "https://github.com/veryfront/veryfront-code",
+  "skills": []
+}
