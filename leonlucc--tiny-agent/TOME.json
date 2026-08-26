@@ -1,0 +1,44 @@
+{
+  "name": "tiny-agent",
+  "owner": "leonlucc",
+  "repo": "tiny-agent",
+  "description": "\u4e00\u4e2a\u4ece\u96f6\u5b9e\u73b0 AI Agent \u7684\u5f00\u6e90\u5b66\u4e60\u9879\u76ee\u2014\u2014\u6bcf\u4e00\u6b65\u90fd\u6709\u6e90\u7801\uff0c\u6bcf\u4e00\u7ae0\u90fd\u80fd\u8fd0\u884c\uff0c\u6e10\u8fdb\u5f0f\u7406\u89e3\u667a\u80fd\u4f53\u3002Build an AI Agent from Scratch \u2014 Learn AI Agents step by step with runnable source code.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leonlucc/tiny-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T00:14:41Z"
+}
