@@ -7,11 +7,11 @@ Unified PyTorch implementations of RT-DETRv3, D-FINE, DEIM, RT-DETRv4 & DEIMv2 �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yyq19990828/DETR-series](https://github.com/yyq19990828/DETR-series).
+Original source: `AGENTS.md` in [yyq19990828/DETR-series](https://github.com/yyq19990828/DETR-series).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
