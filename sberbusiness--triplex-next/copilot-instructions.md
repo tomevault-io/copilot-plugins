@@ -1,0 +1,33 @@
+## ai-entrypoint
+
+> Triplex-Next design system component conventions and AI workflow
+
+
+## Triplex-Next Design System
+
+Treat `docs/ai/*` as the source of truth for project conventions.
+
+Before modifying components:
+- Read `docs/ai/CONTEXT.md`
+- Read `docs/ai/codestyle.md`
+- If present, read `src/components/{ComponentName}/{ComponentName}-ai.md`
+
+Then follow the detailed guide for the area you touch:
+- `docs/ai/codestyle.md`
+- `docs/ai/tests.md`
+- `docs/ai/stories-guide.md`
+- `docs/ai/commits.md`
+- `docs/ai/ai-refactoring.md` (rules for ROADMAP "AI refactoring" column)
+
+Use `docs/ai/CONTEXT.md` for source priority and verification expectations.
+
+If `{ComponentName}-ai.md` does not exist:
+- inspect the component source, stories, and tests
+- follow the local file pattern
+- do not create a new `*-ai.md` file unless the task explicitly asks for it
+
+Keep this Cursor rule as a thin entrypoint. Do not duplicate detailed rules here if they already live in `docs/ai/*`.
+
+---
+> Source: [SberBusiness/triplex-next](https://github.com/SberBusiness/triplex-next) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-26 -->
