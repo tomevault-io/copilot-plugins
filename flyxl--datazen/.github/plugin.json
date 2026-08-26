@@ -1,0 +1,9 @@
+{
+  "name": "flyxl--datazen",
+  "displayName": "datazen",
+  "description": "Lightweight GPL-3.0 desktop database client (PostgreSQL / MySQL / SQLite / Redis). Built with Tauri + Rust, under 10MB.",
+  "version": "1.0.0",
+  "author": "flyxl",
+  "homepage": "https://github.com/flyxl/datazen",
+  "skills": []
+}
