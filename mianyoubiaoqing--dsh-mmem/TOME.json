@@ -1,0 +1,44 @@
+{
+  "name": "dsh-Mmem",
+  "owner": "mianyoubiaoqing",
+  "repo": "dsh-Mmem",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u652f\u6301\u540cdsh\u8fdb\u7a0b\u591a\u8bb0\u5fc6\u7a7a\u95f4\u7684dsh\u8bb0\u5fc6\u63d2\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mianyoubiaoqing/dsh-Mmem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T06:11:07Z"
+}
