@@ -1,42 +1,27 @@
-## langchain-workflow-provider-agnostic
+## lg-workflow
 
-> Langchain workflow changes must work regardless of model/provider choice
+> lg" means commit + push + full hygiene (security, deps, docs, changelog)
 
 
-# Langchain Workflow — Provider-Agnostic Implementation
+# LG (Looks Good) Workflow
 
-Changes to the LangGraph workflow and LLM service **must** work regardless of which model/provider is chosen (lmstudio, openai, anthropic).
+When the user says **lg** or **LG**, **you must run the full workflow yourself** from hygiene through **push to the current branch**. Do not stop at commit or ask the user to push manually.
 
-## Rules
+Perform in order:
 
-1. **No provider-specific branching** — Do not add logic that only runs for one provider (e.g. `if provider == "openai"` for behavior changes). Use the existing `LLMService` abstraction and `_canonicalize_provider` for routing.
+1. **Full hygiene** (so the commit includes these updates):
+   - **Changelog** — Update CHANGELOG (or docs/CHANGELOG.md) with this session’s changes.
+   - **Docs** — Ensure docs reflect changes (README, GETTING_STARTED, or touched features).
+   - **Deps** — Verify dependency hygiene (e.g. `pip check`, lockfiles).
+   - **Security** — Run `pip-audit` and `safety scan` (requires `pip install -r requirements-test.txt`).
+   - **Vulture** — Run `.venv/bin/vulture src scripts` for dead-code detection. Fix or whitelist findings before commit.
+2. **Stage** — `git add` (or equivalent) so all changes are staged.
+3. **Commit** — Commit with a clear message (no auto-commit before user says LG).
+4. **Push** — Push the current branch (e.g. `git push origin HEAD` or `git push`). Complete the push; do not hand off to the user.
 
-2. **Use config-driven provider/model** — Read provider and model from `config_models` or `config_snapshot`; never hardcode a provider or model name in workflow logic.
+If the environment’s `git` wrapper breaks (e.g. unsupported `--trailer`), use the real git binary (e.g. `/usr/local/bin/git`) so the workflow completes.
 
-3. **Prompt and schema parity** — Prompts, output schemas, and parsing must work across all providers. Avoid provider-specific prompt variants or response formats.
-
-4. **Parameter bounds** — Temperature, max_tokens, and other inference params must use provider-agnostic defaults or provider-specific defaults from `provider_defaults`; do not assume LMStudio-only semantics.
-
-## Examples
-
-```python
-# ❌ BAD — provider-specific behavior
-if provider == "lmstudio":
-    messages = build_messages_v1(prompt)
-else:
-    messages = build_messages_v2(prompt)
-
-# ✅ GOOD — single path for all providers
-messages = build_messages(prompt)
-```
-
-```python
-# ❌ BAD — hardcoded model
-model = "gpt-4o-mini"
-
-# ✅ GOOD — from config/env
-model = config_models.get("RankAgent") or self.provider_defaults.get(provider)
-```
+Only run this workflow when the user has said LG. Do not commit/push on "go" or "implement" unless they also say LG.
 
 ---
 > Source: [dfirtnt/Huntable-CTI-Studio](https://github.com/dfirtnt/Huntable-CTI-Studio) — distributed by [TomeVault](https://tomevault.io).
