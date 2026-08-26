@@ -1,0 +1,9 @@
+{
+  "name": "dudeaint--brownbear",
+  "displayName": "brownbear",
+  "description": "An iOS power browser that runs real Chrome & Firefox extensions and userscripts \u2014 a Tampermonkey/ScriptCat-class script manager with background @crontab scripts, uBlock-style ad-blocking, a sandboxed ",
+  "version": "1.0.0",
+  "author": "DudeAint",
+  "homepage": "https://github.com/DudeAint/brownbear",
+  "skills": []
+}
