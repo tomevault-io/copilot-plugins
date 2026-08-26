@@ -4,7 +4,7 @@
   "repo": "vx",
   "description": "Universal Development Tool Manager",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -353,5 +353,5 @@
   ],
   "source_url": "https://github.com/loonghao/vx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T12:38:27Z"
+  "distributed_at": "2026-08-26T12:39:15Z"
 }
