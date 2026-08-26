@@ -1,0 +1,25 @@
+## gitlab-reviewer
+
+> 这是一个gitlab仓库代码review的辅助工具。
+
+这是一个gitlab仓库代码review的辅助工具。
+
+这是本项目的基本功能：
+1.前端有一个记录每一次提交是否有review，被谁review的，是否review的依据是gitlab上的commit是否有评论。
+2.后端需要配置gitlab的相关配置
+3.支持多个项目的配置
+4.项目不使用数据库，只使用json文件来存储数据，保存路径在server/data目录下，projects.json是项目的配置信息。
+
+这是本项目所采用的技术栈:
+1.前端使用 react + ant design pro
+2.后端使用 nodejs + express
+3.前后端都使用 typescript
+
+当前的开发环境是windows，使用的命令行是powershell，所以请使用powershell的命令。
+当我叫你调试的时候，你才写测试脚本，否则不要写测试脚本。
+
+不要自动提交代码！你在修改完代码后，可以给我建议commit log，中文，不超过20字。
+
+---
+> Source: [xcoding1024/gitlab-reviewer](https://github.com/xcoding1024/gitlab-reviewer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-26 -->
