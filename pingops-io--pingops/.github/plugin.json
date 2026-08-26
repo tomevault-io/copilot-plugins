@@ -1,0 +1,9 @@
+{
+  "name": "pingops-io--pingops",
+  "displayName": "pingops",
+  "description": "Open-source observability for external APIs \u2014 OTLP ingest, multi-tenant dashboard, alerts, and analytics.",
+  "version": "1.0.0",
+  "author": "pingops-io",
+  "homepage": "https://github.com/pingops-io/pingops",
+  "skills": []
+}
