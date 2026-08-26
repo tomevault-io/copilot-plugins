@@ -4,7 +4,7 @@
   "repo": "har",
   "description": "HAR: open agent harness (CLI + MCP) for coding agents. Isolated worktrees, deterministic verify, software factory workflows for Claude Code, Cursor, and Codex.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/os-factory/har",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:44:55Z"
+  "distributed_at": "2026-08-26T00:05:55Z"
 }
