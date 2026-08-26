@@ -1,0 +1,9 @@
+{
+  "name": "epam--ai-dial-admin-evaluation-metrics",
+  "displayName": "ai-dial-admin-evaluation-metrics",
+  "description": "Metrics calculation service for the AI DIAL evaluation framework.",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/ai-dial-admin-evaluation-metrics",
+  "skills": []
+}
