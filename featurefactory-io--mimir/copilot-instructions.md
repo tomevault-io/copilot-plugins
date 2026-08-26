@@ -1,8 +1,17 @@
-## do-pull-frequently
+## do-plan-before-doing
 
-> Always do git pull --rebase origin and process the changes figuring out what was added/removed/extended. If there are breaking changes affecting our plan implementation - summarize them, their consequences, and ask what we will do.
+> 1. Read the feature or spec in full.
 
-Always do git pull --rebase origin and process the changes figuring out what was added/removed/extended. If there are breaking changes affecting our plan implementation - summarize them, their consequences, and ask what we will do.
+# Rule: Plan Before Doing
+
+1. Read the feature or spec in full.
+2. If you need new packages, pick one path with the user when multiple fit; update `requirements.txt` when adding dependencies.
+3. Assess the codebase: what exists, what must change, what must be added. Do not trust signature + docstring alone—open the body; you may find `TODO` or `NotImplementedError`.
+4. Scan `docs/architecture/`; note doc vs code drift and ask the user to resolve.
+5. Write a step-by-step plan (models, APIs, services, views, **tests**, templates, styles).
+6. **Show the plan and get approval or refinements before coding.**
+7. **After each step:** update the plan, show where you stand, state the next step, then implement.
+8. When reality diverges (e.g. missing API you assumed), revise the plan and repeat from step 6.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
