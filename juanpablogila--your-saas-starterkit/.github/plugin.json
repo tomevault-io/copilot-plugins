@@ -1,0 +1,9 @@
+{
+  "name": "juanpablogila--your-saas-starterkit",
+  "displayName": "your-saas-starterkit",
+  "description": "A production-ready SaaS boilerplate: React 19, Elysia, Astro, PostgreSQL, Drizzle, Better Auth, TanStack Query/Router, shadcn/ui, and Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "JuanPabloGilA",
+  "homepage": "https://github.com/JuanPabloGilA/your-saas-starterkit",
+  "skills": []
+}
