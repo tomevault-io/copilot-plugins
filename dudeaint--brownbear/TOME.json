@@ -1,0 +1,44 @@
+{
+  "name": "brownbear",
+  "owner": "DudeAint",
+  "repo": "brownbear",
+  "description": "An iOS power browser that runs real Chrome & Firefox extensions and userscripts \u2014 a Tampermonkey/ScriptCat-class script manager with background @crontab scripts, uBlock-style ad-blocking, a sandboxed GM API, and a clean light/dark UI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DudeAint/brownbear",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T02:33:06Z"
+}
