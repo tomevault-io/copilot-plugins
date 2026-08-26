@@ -1,0 +1,44 @@
+{
+  "name": "botler-agent",
+  "owner": "crossoverJie",
+  "repo": "botler-agent",
+  "description": "Lightweight personal agent framework: receives messages from Telegram / Feishu / WeChat (iLink) and autonomously completes short,   well-scoped tasks (meal logging, vocab lookups, reminders) inside your data directory. Token-thrifty, no heavy runtime \u2014 with optional   scheduler, WebUI, and monitoring.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/crossoverJie/botler-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T10:41:27Z"
+}
