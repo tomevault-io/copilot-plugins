@@ -1,11 +1,20 @@
-## client
+## global
 
-> Use when writing webview code
+> When building these experiences, people will refer to the "devvit app" ([/src/devvit](mdc:src/devvit)) and "client" ([/src/client](mdc:src/client)).
 
-Guidelines:
-- Use NPM dependencies if needed, ensure they are web compatible
-- You cannot use websockets. Call devvit_search and query for "realtime" to get more information
-- Obey the rules of hooks and only write valid React code
+
+When building these experiences, people will refer to the "devvit app" ([/src/devvit](mdc:src/devvit)) and "client" ([/src/client](mdc:src/client)).
+
+Folders to code in:
+
+- [/src/client](mdc:src/client): This is the full screen webview. To persist data and access the server, call `fetch(/my/api/endpoint)`. This is how you get access to the APIs you write in [/src/server](mdc:src/server).
+- [/src/server](mdc:src/server): This is a serverless backend written in Node. This is where you can access redis and save data.
+- [/src/shared](mdc:src/shared): This is where you can place code that is to be shared between the devvit app, client, and server and the webview. It's a great place for shared types.
+
+Rules:
+
+- Assume that typescript, vite, tailwind, eslint, prettier, and all codebase configuration is working. If there is a bug, it is more likely your code than the codebase configuration.
+- Prefer type aliases over interfaces when writing typescript
 
 ---
 > Source: [kaivalyagandhi/ai-or-not-game](https://github.com/kaivalyagandhi/ai-or-not-game) — distributed by [TomeVault](https://tomevault.io).
