@@ -1,0 +1,9 @@
+{
+  "name": "tetsuya-zama--aws-invoice-gatherer",
+  "displayName": "aws_invoice_gatherer",
+  "description": "AWS\u306e\u8acb\u6c42\u66f8\u3092\u96c6\u3081\u3066\u304f\u308b\u30b9\u30af\u30ea\u30d7\u30c8",
+  "version": "1.0.0",
+  "author": "tetsuya-zama",
+  "homepage": "https://github.com/tetsuya-zama/aws_invoice_gatherer",
+  "skills": []
+}
