@@ -1,0 +1,9 @@
+{
+  "name": "jarbozhang--bit-sender",
+  "displayName": "bit-sender",
+  "description": "Cross-platform network packet crafting, sending & capturing \u2014 Rust + Tauri, type-safe protocol builders with real checksums.",
+  "version": "1.0.0",
+  "author": "jarbozhang",
+  "homepage": "https://github.com/jarbozhang/bit-sender",
+  "skills": []
+}
