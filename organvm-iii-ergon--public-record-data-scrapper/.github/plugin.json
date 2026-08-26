@@ -1,9 +1,9 @@
 {
   "name": "organvm-iii-ergon--public-record-data-scrapper",
   "displayName": "public-record-data-scrapper",
-  "description": "public-record-data-scrapper",
+  "description": "50-state UCC public-records intelligence \u2014 fresh, enriched, scored MCA / financing leads via dashboard, REST API, and CLI.",
   "version": "1.0.0",
   "author": "organvm-iii-ergon",
-  "homepage": "https://tomevault.io/claim/organvm-iii-ergon",
+  "homepage": "https://github.com/organvm-iii-ergon/public-record-data-scrapper",
   "skills": []
 }
