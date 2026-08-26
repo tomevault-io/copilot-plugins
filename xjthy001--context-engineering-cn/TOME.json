@@ -4,7 +4,7 @@
   "repo": "Context-Engineering-CN",
   "description": "Context Engineering\u5b8c\u6574\u4e2d\u6587\u6559\u7a0b\uff1aRAG\u7cfb\u7edf\u3001\u8bb0\u5fc6\u67b6\u6784\u3001\u591a\u667a\u80fd\u4f53\u3001\u8ba4\u77e5\u5de5\u5177\u3001\u795e\u7ecf\u573a\u8bba |   750K+\u5b57 | \u5373\u7528\u6a21\u677f",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xjthy001/Context-Engineering-CN",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T10:34:00Z"
+  "distributed_at": "2026-08-26T10:55:33Z"
 }
