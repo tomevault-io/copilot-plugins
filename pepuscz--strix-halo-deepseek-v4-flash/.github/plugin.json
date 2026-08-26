@@ -1,0 +1,9 @@
+{
+  "name": "pepuscz--strix-halo-deepseek-v4-flash",
+  "displayName": "strix-halo-deepseek-v4-flash",
+  "description": "Production-ready, reproducible Ansible for DeepSeek V4 Flash on 128 GiB AMD Strix Halo, with two qualified Vulkan/ROCmFPX stacks, matched quality and throughput benchmarks, and 512K context validation",
+  "version": "1.0.0",
+  "author": "pepuscz",
+  "homepage": "https://github.com/pepuscz/strix-halo-deepseek-v4-flash",
+  "skills": []
+}
