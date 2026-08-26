@@ -1,0 +1,20 @@
+## cursor-learn
+
+> - **Prefer well-maintained packages over reinventing the wheel**: If a utility or helper (like date formatting, rich text editing, virtualized lists, etc.) is already available via a well-maintained package, use it instead of building from scratch—unless customization is truly necessary.
+
+# Cursor Rules
+
+## Package Philosophy
+- **Prefer well-maintained packages over reinventing the wheel**: If a utility or helper (like date formatting, rich text editing, virtualized lists, etc.) is already available via a well-maintained package, use it instead of building from scratch—unless customization is truly necessary.
+- Always check existing dependencies first before adding new ones.
+- Prefer packages that are simple yet powerful, providing maximum functionality with minimal API surface.
+
+## Code Style
+- Keep UI minimal and clean - avoid over-designing
+- Follow existing patterns in the codebase
+- Optimize for performance when dealing with large datasets (use virtualization, pagination, debouncing)
+- Use TypeScript types properly - prefer interfaces for objects, types for unions
+
+---
+> Source: [suraj-xd/cursor-learn](https://github.com/suraj-xd/cursor-learn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-26 -->
