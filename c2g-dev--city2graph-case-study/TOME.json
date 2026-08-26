@@ -4,7 +4,7 @@
   "repo": "city2graph-case-study",
   "description": "The case study of City2Graph",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c2g-dev/city2graph-case-study",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T05:31:08Z"
+  "distributed_at": "2026-08-26T08:18:33Z"
 }
