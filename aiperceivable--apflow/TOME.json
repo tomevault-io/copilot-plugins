@@ -4,7 +4,7 @@
   "repo": "apflow",
   "description": "**AI-Perceivable Distributed Orchestration**  apflow is a distributed task orchestration engine where every capability is AI-perceivable \u2014 discoverable, understandable, and invocable by AI agents through the apcore module standard.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aiperceivable/apflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T09:45:04Z"
+  "distributed_at": "2026-08-26T09:48:23Z"
 }
