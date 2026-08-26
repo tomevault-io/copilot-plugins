@@ -1,11 +1,36 @@
-## do-update-tests-after-bugfixing
+## do-view-drawio-diagrams
 
-> When the bug was discovered, you performed and investigation anf fix, ask yourself - "why our current test(s) was not able to find it?"
+> When you encounter a Draw.io file (.drawio extension) that contains embedded images or screenshots, automatically convert it to a viewable format to analyze the visual content and annotations.
 
-When the bug was discovered, you performed and investigation anf fix, ask yourself - "why our current test(s) was not able to find it?"
-If there is no test for that part of functionality - time to create it.
-If there are test(s) for that part of functionality - extend it to prove that the bug does not exist anymore.
-When completing the fix - run the test to prove that bug does not exist.
+# Rule: View Draw.io Diagrams with Embedded Images
+
+When you encounter a Draw.io file (.drawio extension) that contains embedded images or screenshots, automatically convert it to a viewable format to analyze the visual content and annotations.
+
+## Process
+
+1. **Detect Draw.io Files**: When asked to analyze a .drawio file
+2. **Check for Embedded Content**: Look for embedded images or screenshots
+3. **Convert to Viewable Format**: Use one of these methods:
+   - Export to PNG using Draw.io CLI: `drawio -x -f png -o output.png input.drawio`
+   - Export to SVG using Draw.io CLI: `drawio -x -f svg -o output.svg input.drawio`
+   - Open in browser and capture screenshot if CLI not available
+4. **Analyze Visual Content**: View the converted image to understand:
+   - Red annotation rectangles and their purpose
+   - Embedded screenshots and UI mockups
+   - Design patterns being highlighted
+   - Implementation guidance provided
+
+## Tools to Use
+
+- Draw.io CLI (if available): /Applications/draw.io.app/Contents/MacOS/draw.io
+- Browser preview with screenshot capture
+- File conversion utilities
+
+## Expected Outcome
+
+- Ability to see and analyze embedded images within Draw.io files
+- Understanding of red annotation system and design guidance
+- Clear interpretation of UI patterns and implementation notes
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
