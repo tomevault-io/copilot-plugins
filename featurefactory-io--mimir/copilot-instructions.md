@@ -1,90 +1,110 @@
-## do-validate-api-contracts
+## do-write-scenarios
 
-> - **Always** define TypeScript interfaces that match exact backend response structure
+> - Before writing any feature story, check if a feature specification exists.
 
-## Requirements
+# Writing Effective BDD Feature Files
 
-### 1. Frontend Interface Validation
-- **Always** define TypeScript interfaces that match exact backend response structure
-- Include ALL fields returned by backend, including nested objects and metadata
-- Validate both success and error response formats
-- Example:
-```typescript
-// ❌ WRONG - Missing authentication fields
-interface UserResponse {
-  id: number;
-  username: string;
-  email: string;
-}
+## 1. Principle: Always Start With a Feature Specification
 
-// ✅ CORRECT - Matches backend response exactly
-interface UserResponse {
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    first_name?: string;
-    last_name?: string;
-    // ... all user fields
-  };
-  authenticated: boolean;
-  token_valid: boolean;
-  token_expires_at?: string;
-}
+- Before writing any feature story, check if a feature specification exists.
+- If it does **not** exist, write one first. A good feature spec:
+  - Assess docs/ux/demo-flow.md - what we are doing and why? what will be affected?
+  - Defines the **user** (role or persona).
+  - States the **goal** (what the user wants to achieve).
+  - Describes the **context** (why the goal matters).
+  - Clarifies any **assumptions** or **preconditions**.
+  - Consist of one or many scenarios user is going through to achieve the goal
+  - Pick an ID (like a prefix for all scenarios in the file), like abbreviation "Library" -> LIB, "Dataset" - DS etc.
+  - Analyze the codebase - which pages/views are already available? what we will use? what we will build?
+ 
+
+
+### Example Feature Spec
+> Alex Chen wants to apply a moving average to Apple stock price data so they can observe trends and test signals over a historical period.
+
+---
+
+## 2. Principle: Be Specific — Who Does What, and Why
+
+Each `Scenario` should:
+- Identify the **actor** clearly (`Fund Analyst`, `Quant`, `User`).
+- Describe **what they are trying to do**, in plain English, very specific - "Enters ABC into XYZ"
+- State **why** it matters for the workflow or outcome.
+- Capture precise values — asset identifiers, transformations, expected results.
+- Have ID like "Scenario: LIB 1.1 Add Dataset"
+
+## 3. Structure
+
+Each `Scenario` should follow the format:
+
+```gherkin
+Scenario: <ID> <User goal>
+  Given <initial system state or data>
+  When <action is taken>
+  Then <expected result or outcome>
 ```
 
-### 2. Response Validation Logic
-- **Never** assume HTTP 200 means success - always check response data fields
-- Validate authentication/authorization flags in response
-- Handle nested response structures correctly
-- Example:
-```typescript
-// ❌ WRONG - Only checking HTTP status
-if (response.status === 200 && response.data) {
-  setUser(response.data); // Assumes flat structure
-}
+Include **exact DSL inputs**, **parameter values**, and **visual/verbal feedback** expectations.
 
-// ✅ CORRECT - Full validation with nested structure
-if (response.status === 200 && response.data && 
-    response.data.authenticated && response.data.token_valid) {
-  setUser(response.data.user); // Correctly accessing nested user
-}
+---
+
+## 4. Example: Data Transformation Scenario
+
+```gherkin
+Feature: DSL 1.1 Applying SMA transformation to a selected equity
+
+  Scenario: Applies applies 12-month simple moving average to AAPL equity
+    Given the user is in the "Workspace"
+    And the asset "US.Equity.AAPL" is selected in the data table "Assets"
+    When the user applies "transformation" "SMA(12)" to the time series in the row
+    Then the chart "Moving Avg: should update to show a new line representing the 12-month SMA
+    And the data table "Moving Avg: Table" should display the transformed values under a new column
 ```
 
-### 3. Documentation Requirements
-- Document exact API response formats in Architecture_FULL.md
-- Include example JSON responses for all authentication endpoints
-- Specify frontend validation requirements
-- Update documentation when API contracts change
+---
 
-### 4. Testing Requirements
-- Write integration tests that validate actual API responses
-- Test both success and failure scenarios
-- Verify frontend handles all response fields correctly
-- Include API contract tests in continuous testing
+## 5. Example: Error Handling Scenario
 
-## Prevention Checklist
+```gherkin
+Feature: DSL 1.2 Handling invalid DSL expression
 
-Before implementing frontend API calls:
-- [ ] Check Architecture_FULL.md for documented response format
-- [ ] Define TypeScript interface matching exact backend response
-- [ ] Implement full response validation (not just HTTP status)
-- [ ] Test with actual backend responses
-- [ ] Update documentation if response format differs
+  Scenario: Quant enters malformed DSL syntax
+    Given the user is on the Asset Selection screen
+    When the user enters "US.Equity..AAPL.SMA("
+    Then the system should display an error message "Invalid DSL syntax: unexpected token '.' at position 13"
+    And no data should be loaded
+    And the input field should remain editable
+```
 
-Before deploying API changes:
-- [ ] Verify frontend interfaces match new backend response
-- [ ] Update all affected frontend validation logic
-- [ ] Run integration tests to validate contract compatibility
-- [ ] Update Architecture_FULL.md with new response formats
+---
 
-## Common Pitfalls to Avoid
+## 6. Common BDD Mistakes to Avoid
 
-1. **Assuming flat response structure** - Many APIs return nested objects
-2. **Only checking HTTP status** - 200 OK doesn't guarantee valid data
-3. **Missing authentication flags** - Backend may return success with auth failures
-4. **Outdated interfaces** - Frontend types drift from backend reality
-5. **No integration testing** - Unit tests don't catch contract mismatches
+- ❌ Vague actor roles (e.g., "user" instead of "Fund Manager or Alex Chen")
+- ❌ Missing context (why is the user doing this?)
+- ❌ Leaving values generic (e.g., “some stock” instead of “US.Equity.AAPL”)
+- ❌ Ambiguous outcomes (“should work” instead of what exactly should happen)
+
+---
+
+## 7. When in Doubt: Ask These Questions
+
+- **Who** is performing the action? (Analyst, Fund Manager, Quant…)
+- **What** are they trying to achieve?
+- **Why** is it important?
+- **Which exact input(s)** are used?
+- **What are the expected outputs**, UI reactions, or system responses?
+
+---
+
+## 8. Optional Extensions
+
+- Tag scenarios with `@core`, `@error`, `@backtest`, `@universe`, etc.
+- Pick a FA Pro icon and add it to comments if user did not do that
+
+---
+
+By adhering to these principles, we ensure every story is understandable, testable, and traceable to real user needs.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
