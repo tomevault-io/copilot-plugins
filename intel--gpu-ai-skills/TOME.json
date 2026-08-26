@@ -4,7 +4,7 @@
   "repo": "gpu-ai-skills",
   "description": "Agent Skills for running, benchmarking, and profiling Hugging Face models on Intel GPUs \u2014 PyTorch, vLLM-XPU, and SGLang-XPU",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/intel/gpu-ai-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T20:41:30Z"
+  "distributed_at": "2026-08-26T20:42:10Z"
 }
