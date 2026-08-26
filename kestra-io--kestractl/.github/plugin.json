@@ -1,0 +1,9 @@
+{
+  "name": "kestra-io--kestractl",
+  "displayName": "kestractl",
+  "description": "A Go-based command-line interface for managing Kestra flows, executions, and namespaces.",
+  "version": "1.0.0",
+  "author": "kestra-io",
+  "homepage": "https://github.com/kestra-io/kestractl",
+  "skills": []
+}
