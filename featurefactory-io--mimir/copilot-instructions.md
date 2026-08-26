@@ -1,97 +1,27 @@
-## do-test-fixture-data-management
+## do-test-first
 
-> Think of `e2e_seed.json` like a test-suite-level setUp() method. All test data lives in fixtures. No ORM operations during test execution.
+> Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
 
-# Rule: E2E Test Fixture Data Management
+Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
 
+- New code structure: follow `.windsurf/rules/do-skeletons-first.md` (docstrings, types, stubs).
+- Write tests **before** implementation. Do not write tests whose only purpose is to hit `NotImplementedError`—write assertions that **should pass** once real behavior exists.
+- Cover **success** (returns) **and** **failure** (`raises`, errors, edge cases) for each unit of behavior.
+- If implementation contradicts docstring, ask the user which wins.
+- Use `docs/features/` to align scenarios with tests.
+- Order: method-level → API → integration. For integration, follow `.windsurf/rules/do-not-mock-in-integration-tests.md`.
+- Red–green: make the test fail, then implement until green.
+- Use pytest; avoid mocks unless unavoidable.
 
+**Layout (never put tests in repo root):**
 
-## Core Principle
-Think of `e2e_seed.json` like a test-suite-level setUp() method. All test data lives in fixtures. No ORM operations during test execution.
-
-## Adding Test Data to e2e_seed.json
-
-### 1. Review Current Data
-```bash
-# Check what data already exists
-cat tests/fixtures/e2e_seed.json | jq '.[].model' | sort | uniq -c
-```
-
-### 2. Add Authentication Token to Fixtures
-```json
-// Add to tests/fixtures/e2e_seed.json
-[
-  // ... existing data ...
-  {
-    "model": "authtoken.token",
-    "pk": 1,
-    "fields": {
-      "user": 1,
-      "created": "2023-01-01T00:00:00.000Z",
-      "key": "abcdef1234567890abcdef1234567890abcdef12"
-    }
-  }
-]
-```
-
-### 3. Option A: Generate from Database
-```bash
-# Create the data you need in Django admin or shell
-python manage.py shell
->>> from api.models import Intent
->>> Intent.objects.create(user_id=1, name="Test Intent", startag="TEST", motive="Testing")
-
-# Export to fixture format
-python manage.py dumpdata api.Intent --indent 2 >> new_data.json
-
-# Merge into e2e_seed.json (manually or with jq)
-```
-
-### 4. Option B: Write JSON Directly
-```json
-// Add to tests/fixtures/e2e_seed.json
-[
-  // ... existing data ...
-  {
-    "model": "api.intent",
-    "pk": 99,
-    "fields": {
-      "user": 1,
-      "name": "Test Scenario Intent",
-      "startag": "TESTSCENARIO",
-      "motive": "For testing specific scenario",
-      "color": "#ff6b6b",
-      "priority": 99,
-      "active": true
-    }
-  }
-]
-```
-
-### 5. Reference Known Data in Tests
-```python
-# In your test, reference the pre-seeded data
-def test_scenario(self, authenticated_page, base_url):
-    app_url = base_url or "http://localhost:5173"
-    intents_page = IntentsPage(authenticated_page, app_url)
-    intents_page.goto()
-    
-    # Use known data from e2e_seed.json
-    # User: denis.petelin (pk=1)
-    # Intent: WORK (pk=1), TESTSCENARIO (pk=99)
-    # Token: abcdef1234567890abcdef1234567890abcdef12
-    
-    # Verify authentication worked
-    expect(authenticated_page.get_by_text("Add Intent")).to_be_visible()
-```
-
-### 6. Database Setup (Already Handled)
-```python
-# This runs automatically before all E2E tests
-@pytest.fixture(scope="session", autouse=True)
-def setup_e2e_database():
-    call_command('loaddata', 'tests/fixtures/e2e_seed.json')
-```
+| Kind | Path |
+|------|------|
+| Unit | `tests/unit/` |
+| Integration | `tests/integration/` |
+| API | `tests/api/` |
+| E2E | `tests/e2e/` |
+| Service | `tests/services/` |
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
