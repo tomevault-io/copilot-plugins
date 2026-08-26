@@ -7,11 +7,11 @@ This repository is used to manager openshift-virtualization-tests software test 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [RedHatQE/openshift-virtualization-tests-design-docs](https://github.com/RedHatQE/openshift-virtualization-tests-design-docs).
+Original source: `AGENTS.md` in [RedHatQE/openshift-virtualization-tests-design-docs](https://github.com/RedHatQE/openshift-virtualization-tests-design-docs).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
