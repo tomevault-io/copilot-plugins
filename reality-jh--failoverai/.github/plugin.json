@@ -1,0 +1,9 @@
+{
+  "name": "reality-jh--failoverai",
+  "displayName": "FailoverAI",
+  "description": "Open-source gateway for reliable image, video and LLM jobs. | \u9762\u5411\u53ef\u9760\u56fe\u7247\u3001\u89c6\u9891\u548c LLM \u4efb\u52a1\u7684\u5f00\u6e90\u7f51\u5173\u3002",
+  "version": "1.0.0",
+  "author": "Reality-JH",
+  "homepage": "https://github.com/Reality-JH/FailoverAI",
+  "skills": []
+}
