@@ -4,7 +4,7 @@
   "repo": "tsrx",
   "description": "TSRX language, compilers, tooling, and editor integrations",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsrx-org/tsrx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T21:32:27Z"
+  "distributed_at": "2026-08-26T21:33:05Z"
 }
