@@ -1,0 +1,44 @@
+{
+  "name": "codex-fpga-engineering-workflow",
+  "owner": "prasetyarobert205-jpg",
+  "repo": "codex-fpga-engineering-workflow",
+  "description": "Evidence-driven multi-agent FPGA/SoC FPGA workflow for Codex: RTL, CDC/RDC, STA, verification, single-writer implementation, and independent sign-off.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/prasetyarobert205-jpg/codex-fpga-engineering-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T06:06:00Z"
+}
