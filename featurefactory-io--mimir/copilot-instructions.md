@@ -1,17 +1,9 @@
-## do-plan-before-doing
+## do-not-mock-in-integration-tests
 
-> 1. Read the feature or spec in full.
+> Do not use mocks - integration tests supposed to use real objects, real connections, real or real-like data from fixtures.
 
-# Rule: Plan Before Doing
-
-1. Read the feature or spec in full.
-2. If you need new packages, pick one path with the user when multiple fit; update `requirements.txt` when adding dependencies.
-3. Assess the codebase: what exists, what must change, what must be added. Do not trust signature + docstring alone—open the body; you may find `TODO` or `NotImplementedError`.
-4. Scan `docs/architecture/`; note doc vs code drift and ask the user to resolve.
-5. Write a step-by-step plan (models, APIs, services, views, **tests**, templates, styles).
-6. **Show the plan and get approval or refinements before coding.**
-7. **After each step:** update the plan, show where you stand, state the next step, then implement.
-8. When reality diverges (e.g. missing API you assumed), revise the plan and repeat from step 6.
+Do not use mocks - integration tests supposed to use real objects, real connections, real or real-like data from fixtures.
+Think of them as acceptance tests - just without UI.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
