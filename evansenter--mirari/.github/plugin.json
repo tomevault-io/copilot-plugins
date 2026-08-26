@@ -1,0 +1,9 @@
+{
+  "name": "evansenter--mirari",
+  "displayName": "mirari",
+  "description": "iOS app for Magic: The Gathering card recognition using Gemini AI",
+  "version": "1.0.0",
+  "author": "evansenter",
+  "homepage": "https://github.com/evansenter/mirari",
+  "skills": []
+}
