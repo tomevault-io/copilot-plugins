@@ -1,0 +1,9 @@
+{
+  "name": "royerlab--tfm-perturbation",
+  "displayName": "tfm-perturbation",
+  "description": "Shared Repo for multi-modal modeling of OPS and CROP-seq data",
+  "version": "1.0.0",
+  "author": "royerlab",
+  "homepage": "https://github.com/royerlab/tfm-perturbation",
+  "skills": []
+}
