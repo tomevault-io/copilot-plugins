@@ -1,0 +1,9 @@
+{
+  "name": "heymaikol--network-doctor",
+  "displayName": "network-doctor",
+  "description": "Network Doctor is a cross-platform network troubleshooting TUI that turns interface, DNS, TCP, TLS, HTTP, proxy, and path-MTU checks into one plain-English diagnosis.",
+  "version": "1.0.0",
+  "author": "heymaikol",
+  "homepage": "https://github.com/heymaikol/network-doctor",
+  "skills": []
+}
