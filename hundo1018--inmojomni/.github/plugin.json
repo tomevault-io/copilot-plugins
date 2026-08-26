@@ -1,0 +1,9 @@
+{
+  "name": "hundo1018--inmojomni",
+  "displayName": "inmojomni",
+  "description": "Bare-metal Raspberry Pi Pico (RP2040) and Pico 2 (RP2350) firmware, written in Mojo.",
+  "version": "1.0.0",
+  "author": "Hundo1018",
+  "homepage": "https://github.com/Hundo1018/inmojomni",
+  "skills": []
+}
