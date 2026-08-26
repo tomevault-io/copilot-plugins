@@ -7,11 +7,11 @@ Research capability for coding agents: multi-source corroboration, active discov
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lxinfei5/research-os](https://github.com/lxinfei5/research-os).
+Original source: `AGENTS.md` in [lxinfei5/research-os](https://github.com/lxinfei5/research-os).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
