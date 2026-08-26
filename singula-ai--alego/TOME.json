@@ -4,7 +4,7 @@
   "repo": "alego",
   "description": "Build AI Agents like playing LEGOs. Everything is a Plugin.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/singula-ai/alego",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T20:10:12Z"
+  "distributed_at": "2026-08-26T06:30:38Z"
 }
