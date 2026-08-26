@@ -1,0 +1,40 @@
+## deepseek-harness-book
+
+> - `book/outline.md` 是全书目录的唯一依据。修改部分、章、节的编号或标题前，先取得明确确认。
+
+# 仓库协作说明
+
+## 书稿范围
+
+- `book/outline.md` 是全书目录的唯一依据。修改部分、章、节的编号或标题前，先取得明确确认。
+- 每章使用独立的 `book/chapterN.md`，不要把多章正文合并到一个文件。
+- 当前以第一部分的实战内容为优先，不提前扩写第二、第三部分。
+- 章标题和节标题必须保留构建器使用的 `{#ch-N}` 与 `{#sec-N-M}` ID。
+
+## 写作要求
+
+- 编写或修改书稿正文前，必须阅读并遵循 `docs/writing-guide.md`。
+- 正文使用 Markdown。
+- 实战步骤必须来自真实操作，不能补造界面、运行结果、命令输出或截图。
+- 关键操作、状态变化和最终结果应配截图。文字保持简洁，重点帮助读者完成操作。
+- 截图的选取和正文排版遵循 `docs/writing-guide.md`，完整截图、裁剪图、命名和清晰度遵循 `book/assets/README.md`。
+- 本规范生效后新增或重拍的正文截图，都要保留一份未经裁剪的完整截图；不追溯补齐已有图片。裁剪不得劈开文字或界面容器，也不得把过细的局部异常放大。
+- 截图和示例中不得出现 API Key、访问令牌、个人路径、内部地址或其他敏感信息。
+- dsh 的功能、配置和界面行为以当前源码或实际运行结果为准。
+- 修改目录、标题、图片或 PDF 主题后，运行 `./scripts/build_pdf.sh` 并检查生成的 PDF。
+
+## 仓库写作 Skills
+
+- 新写或大幅改写中文书稿时，优先使用 `.agents/skills/human-writing/`。
+- 已有稿件需要降低 AI 写作痕迹时，使用 `.agents/skills/humanizer-zh/`。
+- Skill 只负责写作与改稿，不能覆盖本文件中的目录约束、事实核验、截图和敏感信息要求。
+
+## 本地参考源码
+
+- `deepseek-harness/` 是独立的上游源码 checkout，只用于查阅和验证。
+- 不要修改、暂存或提交 `deepseek-harness/`。
+- 书稿仓库的修改只发生在根目录自己的 Markdown、图片和协作文件中。
+
+---
+> Source: [Prism-Shadow/deepseek-harness-book](https://github.com/Prism-Shadow/deepseek-harness-book) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-26 -->
