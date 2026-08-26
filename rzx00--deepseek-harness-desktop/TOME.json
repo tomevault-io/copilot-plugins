@@ -4,7 +4,7 @@
   "repo": "deepseek-harness-desktop",
   "description": "DeepSeek Harness with a Windows desktop build: an Electron shell over the dsh web profile, packaged as an installer",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RZX00/deepseek-harness-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T20:22:21Z"
+  "distributed_at": "2026-08-26T06:37:15Z"
 }
