@@ -1,0 +1,9 @@
+{
+  "name": "buldezir--herdglass",
+  "displayName": "Herdglass",
+  "description": "Native macOS GUI client for remote Herdr servers, with a GPU terminal via libghostty",
+  "version": "1.0.0",
+  "author": "buldezir",
+  "homepage": "https://github.com/buldezir/Herdglass",
+  "skills": []
+}
