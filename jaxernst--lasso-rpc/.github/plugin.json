@@ -1,0 +1,9 @@
+{
+  "name": "jaxernst--lasso-rpc",
+  "displayName": "lasso-rpc",
+  "description": "Fault-tolerant Ethereum JSON-RPC proxy with scalable, fault tolerant, and intelligent routing and deeply configurable provider configurations. Lasso makes your blockchain apps faster, more reliable",
+  "version": "1.0.0",
+  "author": "jaxernst",
+  "homepage": "https://github.com/jaxernst/lasso-rpc",
+  "skills": []
+}
