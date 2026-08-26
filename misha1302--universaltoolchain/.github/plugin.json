@@ -1,0 +1,9 @@
+{
+  "name": "misha1302--universaltoolchain",
+  "displayName": "UniversalToolchain",
+  "description": "An extensible compiler framework (UniversalToolchain) and the Wist language, allowing you to incrementally add language features through a module-based system.",
+  "version": "1.0.0",
+  "author": "Misha1302",
+  "homepage": "https://github.com/Misha1302/UniversalToolchain",
+  "skills": []
+}
