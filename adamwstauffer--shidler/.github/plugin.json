@@ -1,0 +1,30 @@
+{
+  "name": "adamwstauffer--shidler",
+  "displayName": "shidler",
+  "description": "Templates, assignments, and other material for Adam's Shidler courses",
+  "version": "1.0.0",
+  "author": "adamwstauffer",
+  "homepage": "https://github.com/adamwstauffer/shidler",
+  "skills": [
+    {
+      "name": "brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "description": ""
+    }
+  ]
+}
