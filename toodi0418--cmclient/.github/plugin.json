@@ -1,0 +1,9 @@
+{
+  "name": "toodi0418--cmclient",
+  "displayName": "CMClient",
+  "description": "CallMesh APRS Gateway for Meshtastic",
+  "version": "1.0.0",
+  "author": "toodi0418",
+  "homepage": "https://github.com/toodi0418/CMClient",
+  "skills": []
+}
