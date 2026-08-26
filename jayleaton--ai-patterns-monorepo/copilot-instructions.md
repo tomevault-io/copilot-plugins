@@ -1,119 +1,46 @@
-## main-project-guidelines
+## testing-patterns
 
-> This is the **Better-Stack** (Next.js Better Stack Monorepo) project.
-
-
-# CLAUDE.md - Instructions for AI Assistant
-
-## Project Overview
-
-This is the **Better-Stack** (Next.js Better Stack Monorepo) project.
-It is a modern full-stack web application built with Next.js 16, Better Auth, and Drizzle ORM. 
-INSERT SHORT GUIDING PRINCIPES HERE FOR YOUR PROJECT
-Example:
-We create modern easy to use templates for better DX when creating new software projects efficiently
-
-## Critical File Reading Guidelines
-
-When analyzing large codebases or multiple files that might exceed context limits, use the Gemini CLI & MCP with its massive context window.
-
-### ⚠️ NEVER READ THESE FILES UNLESS ABSOLUTELY REQUIRED:
-- `node_modules/`
-- `pnpm-lock.yaml`
-- `.next/`
-- `dist/`
-- Large log files or build artifacts
-
-### READ THESE FILES FOR CONTEXT:
-- `apps/web-app/package.json` All project bash commands
-- `packages/database/src/schemas.ts` (Database definitions)
-- `.cursor/rules/main-project-guidelines.mdc` (Detailed patterns)
-- `apps/web-app/lib/config/featureToggles.ts` (Routes configuration)
-
-## Architecture & Patterns
-
-### Code Organization
-- **Monorepo Structure:**
-  - `apps/web-app`: Main Next.js application
-  - `packages/database`: Shared database schema, repositories and configurations
-  - `packages/services`: Shared business logic service layer
-- **Domain-Driven Design:**
-  - `apps/<app-name>/lib/services/`: App specifc Business logic (e.g., `companyService.ts`)
-  - `packages/database/src/repositories/`: Data access layer (in `packages/database` or `lib`)
-  - `apps/<app-name>/lib/validators/`: Centralized Zod schemas
-- **Server Communication:**
-  - **Server Actions:** Located in `apps/<app-name>/actions/`, must use `secureFetch`.
-  - **API Routes:** Located in `apps/<app-name>/app/(routes)/api/core/` and `apps/<app-name>/app/(routes)/api/auth/`.
-  - **Routes Configuration:** Defined in `apps/<app-name>/lib/config/featureToggles.ts` (ApiRoutes/AppRoutes).
-
-### Key Patterns (Enforced)
-
-1. **Server Communication**:
-   - **ALWAYS** use `secureFetch` from `lib/serverUtils.ts` for authenticated calls.
-   - **ALWAYS** use `publicFetch` from `lib/serverUtils.ts` for non-authenticated calls.
-   - **NEVER** use magic strings for URLs. Use `ApiRoutes` and `AppRoutes` from `lib/config/featureToggles.ts`.
-   - **NEVER** call API routes from any client component, ALWAYS use server actions..
-   - **Server Actions** Authenticated user calls must handle API calls via `secureFetch()`.
-   - **Server Actions** NOT Authenticated user calls (`isPublic: true`) must handle API calls via `publicFetch()`.
-
-2. **Zod Validation**:
-   - All schemas in `lib/validators/`.
-   - Use CRUD naming: `createEventSchema`, `updateEventSchema`.
-   - **NEVER** define schemas inline.
-
-3. **Loading States**:
-   - Every page must have a `loading.tsx`.
-   - Use `LoadingLink` or `NavigationButton` for navigation.
-   - Use `Skeleton` components for data fetching states.
-
-4. **API Structure**:
-   - Use `createRouteHandler` wrapper for API routes.
-   - Return format: `{ data: T | null, error: string | null }`.
-
-5. **API Structure**:
-   - ALWAYS correctly type params for `createRouteHandler` wrapper in API routes to prevent build errors
-   - ALWAYS `await params`
-   `(req, { params }: { params: Promise<{ companyId: string }> })`.
-
-5. **Middleware**:
-   - Only use middleware for global patterns
+> Testing patterns and conventions using Vitest
 
 
-## Development Commands
+# Testing Patterns
 
-All commands are to be run from the root of the project.
+## Test Structure
+- **Vitest** with TypeScript support
+- **Black box testing** with service layer testing mandatory
+- **Mock repositories** for testing services
+- **Test files** end with `.test.ts` or `.test.tsx`
 
-### Package Management
-```bash
-pnpm install
+## Service Testing Pattern
+```typescript
+describe("ServiceName", () => {
+    const createTestService = () => {
+        const repositories = {
+            userRepo: new MockUserRepository(),
+            // ... other mocks
+        }
+        
+        const service = new ServiceName(repositories.userRepo)
+        return { ...repositories, service }
+    }
+    
+    it("should do something", async () => {
+        const { service } = createTestService()
+        // ... test logic
+    })
+})
 ```
 
-### Development Server
-```bash
-pnpm dev                # Run all apps
-pnpm --filter web-dashboard dev  # Run specific app
-```
+## Test Commands
+- `pnpm test` - Run all tests
+- `pnpm test:watch` - Run tests in watch mode
 
-### Database (Drizzle)
-Run these from root of the project:
-```bash
-pnpm db:generate   # Generate migrations
-pnpm db:migrate    # Run migrations
-pnpm db:studio     # Open Drizzle Studio
-```
-
-### Testing & Linting
-```bash
-pnpm test          # Run Vitest
-pnpm lint          # Run ESLint
-pnpm type-check    # Run TypeScript check
-```
-
-## Important Notes
-- **Server Components:** Default to Server Components and always use server pages with data requests. Add `'use client'` only when necessary and never call api routes from the client directly.
-- **Server-Only:** Mark server-only code with `import 'server-only'`.
-- **Translations:** Use `next-intl` for all user-facing non dynamic text and ensure all included languages are translated correctly.
-- **Strict TypeScript:** No `any` types.
+## Best Practices
+- Test business logic thoroughly
+- Mock external dependencies
+- Test error conditions and edge cases
+- Use descriptive test names
+- Setup tests in `tests/domain/`
 
 ---
 > Source: [jayleaton/ai-patterns-monorepo](https://github.com/jayleaton/ai-patterns-monorepo) — distributed by [TomeVault](https://tomevault.io).
