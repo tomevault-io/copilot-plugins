@@ -1,0 +1,9 @@
+{
+  "name": "feuerlost--dsa-maze-explorer",
+  "displayName": "dsa-maze-explorer",
+  "description": "UCAS 26Spring Data Structure and Analysis course project. A simple maze explore demonstration of algorithms DFS & BFS.",
+  "version": "1.0.0",
+  "author": "feuerlost",
+  "homepage": "https://github.com/feuerlost/dsa-maze-explorer",
+  "skills": []
+}
