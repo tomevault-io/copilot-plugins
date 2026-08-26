@@ -1,0 +1,9 @@
+{
+  "name": "jillesme--thecoffeecluster",
+  "displayName": "thecoffeecluster",
+  "description": "Cloudflare Worker <-> PlanetScale <-> Hyperdrive",
+  "version": "1.0.0",
+  "author": "jillesme",
+  "homepage": "https://github.com/jillesme/thecoffeecluster",
+  "skills": []
+}
