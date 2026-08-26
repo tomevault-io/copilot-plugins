@@ -1,0 +1,9 @@
+{
+  "name": "crossoverjie--botler-agent",
+  "displayName": "botler-agent",
+  "description": "Lightweight personal agent framework: receives messages from Telegram / Feishu / WeChat (iLink) and autonomously completes short,   well-scoped tasks (meal logging, vocab lookups, reminders) inside yo",
+  "version": "1.0.0",
+  "author": "crossoverJie",
+  "homepage": "https://github.com/crossoverJie/botler-agent",
+  "skills": []
+}
