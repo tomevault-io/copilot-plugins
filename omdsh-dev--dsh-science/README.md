@@ -7,11 +7,11 @@ Reproducible Python and R work on DeepSeek Harness, built as plugins.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [omdsh-dev/dsh-science](https://github.com/omdsh-dev/dsh-science).
+Original source: `AGENTS.md` in [omdsh-dev/dsh-science](https://github.com/omdsh-dev/dsh-science).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
