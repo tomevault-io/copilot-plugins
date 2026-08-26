@@ -1,0 +1,9 @@
+{
+  "name": "wooyulin--gosql-executor",
+  "displayName": "gosql-executor",
+  "description": "gosql-executor",
+  "version": "1.0.0",
+  "author": "Wooyulin",
+  "homepage": "https://github.com/Wooyulin/gosql-executor",
+  "skills": []
+}
