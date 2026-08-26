@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jido-behaviortree",
+  "displayName": "jido_behaviortree",
+  "description": "Behavior tree engine for Jido agent decision-making",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_behaviortree",
+  "skills": []
+}
