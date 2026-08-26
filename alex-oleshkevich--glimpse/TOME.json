@@ -4,7 +4,7 @@
   "repo": "glimpse",
   "description": "Wayland desktop toolkit for Niri: panel, wallpaper, lock screen, night light, and other.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alex-oleshkevich/glimpse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T20:37:14Z"
+  "distributed_at": "2026-08-26T20:39:36Z"
 }
