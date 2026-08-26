@@ -1,0 +1,9 @@
+{
+  "name": "lamost423--dsh-maze",
+  "displayName": "dsh-maze",
+  "description": "The execution maze for DeepSeek Harness agents \u2014 see how the agent actually worked: maze timeline, per-step data tracks, deterministic execution analysis, multi-session comparison. Formerly dsh-trace-",
+  "version": "1.0.0",
+  "author": "lamost423",
+  "homepage": "https://github.com/lamost423/dsh-maze",
+  "skills": []
+}
