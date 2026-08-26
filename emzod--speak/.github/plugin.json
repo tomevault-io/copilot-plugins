@@ -1,0 +1,9 @@
+{
+  "name": "emzod--speak",
+  "displayName": "speak",
+  "description": "A fast CLI tool for Agents to convert their text output to speech using Chatterbox TTS on Apple Silicon. Agent SKILL files included.",
+  "version": "1.0.0",
+  "author": "EmZod",
+  "homepage": "https://github.com/EmZod/speak",
+  "skills": []
+}
