@@ -1,0 +1,9 @@
+{
+  "name": "gominimal--minimal",
+  "displayName": "minimal",
+  "description": "Build Software You Can Trust. Isolated, reproducible development environments and a secure package manager that give your whole team identical environments, while keeping AI agents off the laptop.",
+  "version": "1.0.0",
+  "author": "gominimal",
+  "homepage": "https://github.com/gominimal/minimal",
+  "skills": []
+}
