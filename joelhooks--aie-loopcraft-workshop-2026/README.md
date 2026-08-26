@@ -7,11 +7,11 @@ Loopcraft AI Engineer workshop learner rig for building an issue-progress loop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [joelhooks/aie-loopcraft-workshop-2026](https://github.com/joelhooks/aie-loopcraft-workshop-2026).
+Original source: `AGENTS.md` in [joelhooks/aie-loopcraft-workshop-2026](https://github.com/joelhooks/aie-loopcraft-workshop-2026).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
