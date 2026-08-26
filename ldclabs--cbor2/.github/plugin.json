@@ -1,0 +1,9 @@
+{
+  "name": "ldclabs--cbor2",
+  "displayName": "cbor2",
+  "description": "\ud83d\udc7e Full-featured RFC 8949 CBOR for Rust: async item I/O, serde round trips, canonical/deterministic encoding, Value/RawValue, CBOR simple values, COSE-style integer map keys, semantic tags, diagnostic ",
+  "version": "1.0.0",
+  "author": "ldclabs",
+  "homepage": "https://github.com/ldclabs/cbor2",
+  "skills": []
+}
