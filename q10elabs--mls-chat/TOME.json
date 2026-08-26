@@ -4,7 +4,7 @@
   "repo": "mls-chat",
   "description": "Example client/server for the MLS protocol based on the OpenMLS library",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/q10elabs/mls-chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T09:47:37Z"
+  "distributed_at": "2026-08-26T09:50:58Z"
 }
