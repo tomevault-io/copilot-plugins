@@ -1,0 +1,9 @@
+{
+  "name": "modeldriven-hu--ontology-diagram-editor",
+  "displayName": "ontology-diagram-editor",
+  "description": "An editor for ontology backed diagrams.",
+  "version": "1.0.0",
+  "author": "modeldriven-hu",
+  "homepage": "https://github.com/modeldriven-hu/ontology-diagram-editor",
+  "skills": []
+}
