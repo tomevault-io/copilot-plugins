@@ -1,0 +1,9 @@
+{
+  "name": "milkdomeda--ai-mechanical-3dcad-design-agent",
+  "displayName": "ai-mechanical-3dcad-design-agent",
+  "description": "The mechanical CAD generation agent capable for recording and learning your own design skill and product features, it can growth like your own mechanical design specialist",
+  "version": "1.0.0",
+  "author": "Milkdomeda",
+  "homepage": "https://github.com/Milkdomeda/ai-mechanical-3dcad-design-agent",
+  "skills": []
+}
