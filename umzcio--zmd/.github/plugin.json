@@ -1,0 +1,9 @@
+{
+  "name": "umzcio--zmd",
+  "displayName": "zMD",
+  "description": "A lightweight macOS markdown viewer with tab support and export capabilities",
+  "version": "1.0.0",
+  "author": "umzcio",
+  "homepage": "https://github.com/umzcio/zMD",
+  "skills": []
+}
