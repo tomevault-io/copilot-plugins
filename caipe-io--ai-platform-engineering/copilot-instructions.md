@@ -1,82 +1,65 @@
-## safe-git-worktree
+## specify-rules
 
-> Protect the user's live working tree during branch/PR work; verify a current base, preserve uncommitted edits, and isolate risky work in a worktree
+> Project Development Guidelines
 
 
-# Safe Git: Protect the User's Working Tree
+# ai-platform-engineering-fix-thinking-collapse Development Guidelines
 
-The user's checked-out branch and working tree are theirs. Before doing any
-branch/PR work, make sure you will not lose their edits or churn thousands of
-files. The failure that motivated this rule was switching branches across a
-**stale local `main` (37 commits behind `origin/main`)**, which rewrote ~3,800
-`docs/` files in the user's tree.
+Auto-generated from all feature plans. Last updated: 2026-05-20
 
-## Always (universal — applies to every repo and agent)
+## Active Technologies
+- N/A (UI state only) (095-fix-thinking-panel-expand)
+- Python 3.11+ (supervisor, `skills_middleware`), TypeScript / Next.js 16 + React 19 (UI) + LangGraph, LangChain, `deepagents` (≥0.3.8, `SkillsMiddleware`), FastAPI (`skills_middleware.router`), A2A binding (`AIPlatformEngineerA2ABinding`), httpx, PyJWT/jose for JWKS (097-skills-middleware-integration)
+- MongoDB (`agent_skills`, optional `skills`, `skill_hubs`, `catalog_api_keys`, `skill_scan_findings`); filesystem `SKILLS_DIR` for packaged defaults; in-process catalog cache with explicit generation counters (097-skills-middleware-integration)
+- Python 3.11+ (supervisor, `skills_middleware`); TypeScript / Node 20+ (Next.js UI) + LangGraph, LangChain, `deepagents` (≥0.3.8, `SkillsMiddleware`), FastAPI, A2A protocol; Next.js 16, React 19, Tailwind; optional **`cisco-ai-skill-scanner`** CLI/package for hub/CI scans per [skill-scanner](https://github.com/cisco-ai-defense/skill-scanner) (097-skills-middleware-integration)
+- Python 3.11+ + LangGraph, deepagents, LangChain, FastAPI (098-unify-single-distributed-binding)
+- MongoDB/Redis (checkpointer/store — unchanged by this feature) (098-unify-single-distributed-binding)
+- Python 3.11+ + LangGraph, LangChain, FastAPI, A2A Protocol, deepagents (≥0.3.8) (098-unify-single-distributed-binding)
+- MongoDB (checkpoints, store), Redis (alternative checkpointer), InMemorySaver (fallback) (098-unify-single-distributed-binding)
+- Python 3.11+ (supervisor, agents, slack-bot); TypeScript / Next.js (CAIPE UI, BFF API routes) + NextAuth.js (OIDC), MongoDB (users, policies, app metadata), RAG server (existing group-based roles), Slack Bolt (or equivalent) for Slack surfaces (098-enterprise-rbac-slack-ui)
+- Hybrid — **Keycloak** for authz policies (resources, scopes, permissions), realm roles, user attributes (slack_user_id); **MongoDB** for team/KB assignments, app metadata, operational state (FR-023) (098-enterprise-rbac-slack-ui)
+- TypeScript (Next.js 16, React 19) + NextAuth.js, Keycloak Admin REST API, MongoDB (teams), Tailwind CSS, shadcn/ui components (098-enterprise-rbac-slack-ui)
+- Keycloak (users, roles, user attributes, sessions) + MongoDB (team memberships, slack_user_metrics) (098-enterprise-rbac-slack-ui)
+- TypeScript (Next.js 16, React 19) + Python 3.11+ (Slack bot) + NextAuth.js, Keycloak Admin REST API, MongoDB, Slack Web API (`@slack/web-api`), Tailwind CSS, shadcn/ui (098-enterprise-rbac-slack-ui)
+- Keycloak (users, roles, attributes, sessions) + MongoDB (teams, slack_link_nonces, slack_user_metrics) (098-enterprise-rbac-slack-ui)
+- Python 3.11+ (supervisor, agents, Slack bot, RAG server), TypeScript / Next.js 16 + React 19 (UI) + LangGraph, LangChain, FastAPI, NextAuth.js, Keycloak (OIDC + AuthZ Services), Agent Gateway, MongoDB, cel-python (Python CEL), cel-js (TypeScript CEL), Slack Web API (`@slack/web-api`), Tailwind CSS, shadcn/ui (098-enterprise-rbac-slack-ui)
+- MongoDB (teams, KB ownership, app metadata, nonces, metrics), Keycloak (policies, resources, roles, user attributes) (098-enterprise-rbac-slack-ui)
+- TypeScript 5.x, Node 20+, Next.js App Router (16), React 19 + Next.js route handlers, Motor-backed patterns via existing Mongo helpers in UI (`getCollection`), JWT/session auth via existing API middleware (fix/skills-ai-generate-use-dynamic-agents)
+- MongoDB collection `agent_skills` only (no new collection); chart-mounted `SKILL.md` + `metadata.json` for packaged templates (fix/skills-ai-generate-use-dynamic-agents)
+- TypeScript / Next.js 16 + React 19 for CAIPE Admin UI and BFF APIs; Python 3.11+ for Slack bot and AgentGateway OpenFGA bridge. + NextAuth.js, MongoDB driver, Keycloak Admin REST, OpenFGA HTTP API, AgentGateway ext_authz, Slack Web API/Bolt, React Flow for graph visualization. (2026-05-11-identity-group-rebac)
+- MongoDB for sync rules, sync runs, external group links, membership sources, team/channel/resource intent, audit metadata, and policy ownership metadata; OpenFGA for authorization tuples; Keycloak for identity, token issuance, limited realm roles, users, and upstream attributes. (2026-05-11-identity-group-rebac)
+- TypeScript 5.x / Node 20+ for the BFF; Python 3.11+ for Dynamic Agents + Next.js route handlers, existing BFF auth helpers, FastAPI, Starlette middleware, OpenFGA HTTP API, existing ReBAC tuple helpers (2026-05-16-dynamic-agent-pdp-gate)
+- Existing OpenFGA store and MongoDB-backed Dynamic Agent records; no schema migration required (2026-05-16-dynamic-agent-pdp-gate)
+- Python 3.13 runtime in the scanner image; TypeScript client behavior only for verification if needed + `cisco-ai-skill-scanner`, FastAPI scanner API, Docker/Helm scanner packaging, Next.js server-side scanner client (2026-05-13-skill-scanner-load-error)
+- N/A — no persisted storage change (2026-05-13-skill-scanner-load-error)
+- TypeScript 5.x / Node 20+ for Next.js 16 + React 19 UI/BFF; Python 3.11+ for Dynamic Agents and MCP auth paths; Go for the GitHub MCP server + Next.js App Router, NextAuth/OIDC session and JWT validation, MongoDB driver, OpenFGA HTTP API, Keycloak OIDC/Admin APIs, Dynamic Agents FastAPI services, existing MCP auth middleware, AWS KMS or equivalent KMS for production key wrapping (2026-05-20-openbao-credential-exchange)
+- MongoDB credential metadata and encrypted payload collections; OpenFGA tuples for `secret_ref` and connector/provider use; KMS/CMK for wrapping per-credential data keys; no OpenBao datastore in the first release (2026-05-20-openbao-credential-exchange)
 
-- **Never assume local `main` is current.** Run `git fetch origin <base>` and
-  branch from the *remote* ref (`origin/main`), not the local one.
-- **Preserve uncommitted work.** Run `git status` before any git command. If the
-  tree is dirty, do not switch/reset/checkout over those edits — commit, stash
-  *with the user's awareness*, or isolate in a worktree instead.
-- **Never push to a shared branch.** Push only to feature branches; never
-  `push`/`--force` to `origin/main` (or any protected branch).
-- **Never rewrite shared history** (`reset --hard`, force-push) on a branch
-  others may have pulled.
-- **Branch naming:** use the `prebuild/` prefix when the branch should trigger CI
-  Docker image builds (see `AGENTS.md`).
+- TypeScript (UI), React 19 + Next.js 16, React, Tailwind CSS, feature-flag store (e.g. Zustand) (094-fix-thinking-panel-expand)
 
-## Prefer an isolated worktree when the work is risky or parallel
+## Project Structure
 
-Reach for a throwaway worktree when you need to *experiment*, run work *in
-parallel* with the user's current branch, or when the tree is dirty and you must
-not disturb it:
-
-```bash
-git fetch origin main
-git worktree add /tmp/caipe-<task> origin/main -b prebuild/<feat-branch>
-cd /tmp/caipe-<task>          # do edits, commits, pushes here
-# when done:
-cd -                          # user's repo, untouched
-git worktree remove /tmp/caipe-<task>
+```text
+src/
+tests/
 ```
 
-Worktree caveats to handle (don't assume the worktree "just works"):
+## Commands
 
-- **Untracked-but-essential files don't come along.** Gitignored config such as
-  `.env` is absent in a fresh worktree — copy or symlink what the task needs.
-- **Virtualenvs are not shared.** Per `CLAUDE.md`, each worktree (and each
-  subpackage: RAG ingestors/server, MCP agents) needs its own
-  `uv venv --python python3.13 --clear .venv && uv sync`.
-- `/tmp` is cleared on reboot and duplicates large caches — fine for short tasks,
-  not for long-lived state.
+npm test && npm run lint
 
-## A plain feature branch is acceptable when the base is current and the tree is clean
+## Code Style
 
-If `git status` is clean and your base is up to date with `origin`, branching in
-the user's repo is normal git flow and is fine:
+TypeScript (UI), React 19: Follow standard conventions
 
-```bash
-git fetch origin main
-git switch -c prebuild/<feat-branch> origin/main
-```
+## Recent Changes
+- 2026-05-20-openbao-credential-exchange: Added TypeScript 5.x / Node 20+ for Next.js 16 + React 19 UI/BFF; Python 3.11+ for Dynamic Agents and MCP auth paths; Go for the GitHub MCP server + Next.js App Router, NextAuth/OIDC session and JWT validation, MongoDB driver, OpenFGA HTTP API, Keycloak OIDC/Admin APIs, Dynamic Agents FastAPI services, existing MCP auth middleware, AWS KMS or equivalent KMS for production key wrapping
+- 2026-05-13-skill-scanner-load-error: Added Python 3.13 runtime in the scanner image; TypeScript client behavior only for verification if needed + `cisco-ai-skill-scanner`, FastAPI scanner API, Docker/Helm scanner packaging, Next.js server-side scanner client
+- 2026-05-16-dynamic-agent-pdp-gate: Added TypeScript 5.x / Node 20+ for the BFF; Python 3.11+ for Dynamic Agents + Next.js route handlers, existing BFF auth helpers, FastAPI, Starlette middleware, OpenFGA HTTP API, existing ReBAC tuple helpers
 
-The point of this rule is **not** "never branch" — it is "never destroy the
-user's uncommitted work or branch from a stale base."
 
-## If you only need to *read* another branch/commit
-
-Use `git show <ref>:<path>`, `git diff <ref>`, or `git log <ref>` — these never
-touch the working tree. Switch to an edit workflow (branch or worktree) only when
-you need to build, edit, or commit.
-
-## Enforcement
-
-Prose rules are advisory. For a hard gate, this repo ships a
-`beforeShellExecution` hook (`.cursor/hooks/guard-git-branch-ops.sh`) that pauses
-for confirmation on branch/history-mutating git commands while letting read-only
-git through. See `.cursor/hooks.json`.
-
-See the `using-git-worktrees` skill for the full isolation procedure.
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
 
 ---
 > Source: [caipe-io/ai-platform-engineering](https://github.com/caipe-io/ai-platform-engineering) — distributed by [TomeVault](https://tomevault.io).
