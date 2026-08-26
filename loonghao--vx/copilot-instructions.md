@@ -1,49 +1,52 @@
-## vx-mcp
+## vx-testing
 
-> Rules for configuring MCP servers with vx — replace npx/uvx with vx for zero-config tool management
+> Testing conventions for vx: test file locations, frameworks, and patterns
 
 
-# VX MCP Integration Rules
+# VX Testing Rules
 
-When configuring MCP (Model Context Protocol) servers, **always** use `vx` instead of `npx` or `uvx`:
+## Test File Location
 
-## Pattern
+Tests go in `crates/<name>/tests/` directories — NEVER inline `#[cfg(test)]` modules in source files.
 
-```json
-{
-  "mcpServers": {
-    "server-name": {
-      "command": "vx",
-      "args": ["npx", "-y", "@scope/package@latest"]
-    }
-  }
+```
+crates/vx-resolver/tests/
+├── resolver_tests.rs
+├── executor_tests.rs
+└── spec_tests.rs
+```
+
+## Framework
+
+Use `rstest` for parameterized tests:
+
+```rust
+use rstest::rstest;
+
+#[rstest]
+#[case("node", Ecosystem::NodeJs)]
+#[case("npm", Ecosystem::NodeJs)]
+#[case("go", Ecosystem::Go)]
+fn test_ecosystem_detection(#[case] name: &str, #[case] expected: Ecosystem) {
+    let spec = RuntimeSpec::new(name);
+    assert_eq!(spec.ecosystem, expected);
 }
 ```
 
-## Benefits
+## Naming Convention
 
-- Users don't need Node.js/Python pre-installed
-- Same config works across Windows, macOS, Linux
-- Tool versions managed by vx.toml if present
+```rust
+#[test]
+fn test_<function_name>_<scenario>() { }
 
-## Migration
-
-| Replace | With |
-|---------|------|
-| `"command": "npx"` | `"command": "vx", "args": ["npx", ...]` |
-| `"command": "uvx"` | `"command": "vx", "args": ["uvx", ...]` |
-| `"command": "node"` | `"command": "vx", "args": ["node", ...]` |
-| `"command": "python"` | `"command": "vx", "args": ["python", ...]` |
-
-## Common MCP Servers with vx
-
-```json
-{
-  "filesystem": { "command": "vx", "args": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "/path"] },
-  "github": { "command": "vx", "args": ["npx", "-y", "@modelcontextprotocol/server-github"] },
-  "sqlite": { "command": "vx", "args": ["uvx", "mcp-server-sqlite", "--db-path", "db.sqlite"] }
-}
+#[tokio::test]
+async fn test_<function_name>_<scenario>() { }
 ```
+
+## Mock Usage
+
+- Mock network calls in unit tests — never use real HTTP
+- Use `vx-runtime::testing` mock utilities when available
 
 ---
 > Source: [loonghao/vx](https://github.com/loonghao/vx) — distributed by [TomeVault](https://tomevault.io).
