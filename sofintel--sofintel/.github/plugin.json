@@ -1,0 +1,9 @@
+{
+  "name": "sofintel--sofintel",
+  "displayName": "sofintel",
+  "description": "Sofintel - Software Intelligence all-in-1 lightweight rust zed-derived IDE where everything is in one environment. Build, test, and ship without switching apps.",
+  "version": "1.0.0",
+  "author": "sofintel",
+  "homepage": "https://github.com/sofintel/sofintel",
+  "skills": []
+}
