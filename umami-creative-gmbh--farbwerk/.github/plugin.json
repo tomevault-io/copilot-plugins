@@ -1,0 +1,9 @@
+{
+  "name": "umami-creative-gmbh--farbwerk",
+  "displayName": "farbwerk",
+  "description": "Farbwerk takes a base color, builds the eleven Tailwind steps, lets you add a secondary and tertiary scale linked by a harmony rule, scores every contrast pair with APCA and WCAG 2, and repaints a gal",
+  "version": "1.0.0",
+  "author": "Umami-Creative-GmbH",
+  "homepage": "https://github.com/Umami-Creative-GmbH/farbwerk",
+  "skills": []
+}
