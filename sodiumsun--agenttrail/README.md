@@ -7,11 +7,11 @@ Local observability map for AI coding agents. Watch Claude Code, Codex, and Curs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sodiumsun/agenttrail](https://github.com/sodiumsun/agenttrail).
+Original source: `AGENTS.md` in [sodiumsun/agenttrail](https://github.com/sodiumsun/agenttrail).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
