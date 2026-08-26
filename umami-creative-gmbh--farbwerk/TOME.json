@@ -1,0 +1,44 @@
+{
+  "name": "farbwerk",
+  "owner": "Umami-Creative-GmbH",
+  "repo": "farbwerk",
+  "description": "Farbwerk takes a base color, builds the eleven Tailwind steps, lets you add a secondary and tertiary scale linked by a harmony rule, scores every contrast pair with APCA and WCAG 2, and repaints a gallery of real components so you can see the palette doing its job before you export it.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Umami-Creative-GmbH/farbwerk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T04:14:26Z"
+}
