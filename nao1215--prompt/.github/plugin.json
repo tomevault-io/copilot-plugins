@@ -1,0 +1,9 @@
+{
+  "name": "nao1215--prompt",
+  "displayName": "prompt",
+  "description": "prompt - interactive terminal prompts library in Go",
+  "version": "1.0.0",
+  "author": "nao1215",
+  "homepage": "https://github.com/nao1215/prompt",
+  "skills": []
+}
