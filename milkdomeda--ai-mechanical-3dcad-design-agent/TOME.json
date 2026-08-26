@@ -1,0 +1,44 @@
+{
+  "name": "ai-mechanical-3dcad-design-agent",
+  "owner": "Milkdomeda",
+  "repo": "ai-mechanical-3dcad-design-agent",
+  "description": "The mechanical CAD generation agent capable for recording and learning your own design skill and product features, it can growth like your own mechanical design specialist",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Milkdomeda/ai-mechanical-3dcad-design-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T05:49:31Z"
+}
