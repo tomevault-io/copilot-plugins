@@ -1,0 +1,9 @@
+{
+  "name": "zhizhuodemao--ai-reverse-resources",
+  "displayName": "ai-reverse-resources",
+  "description": "Plugin marketplace for AI-assisted reverse engineering across Codex and Claude Code.",
+  "version": "1.0.0",
+  "author": "zhizhuodemao",
+  "homepage": "https://github.com/zhizhuodemao/ai-reverse-resources",
+  "skills": []
+}
