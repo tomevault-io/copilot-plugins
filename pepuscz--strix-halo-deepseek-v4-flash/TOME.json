@@ -1,0 +1,44 @@
+{
+  "name": "strix-halo-deepseek-v4-flash",
+  "owner": "pepuscz",
+  "repo": "strix-halo-deepseek-v4-flash",
+  "description": "Production-ready, reproducible Ansible for DeepSeek V4 Flash on 128 GiB AMD Strix Halo, with two qualified Vulkan/ROCmFPX stacks, matched quality and throughput benchmarks, and 512K context validation.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pepuscz/strix-halo-deepseek-v4-flash",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T00:22:58Z"
+}
