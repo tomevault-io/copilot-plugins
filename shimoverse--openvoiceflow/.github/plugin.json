@@ -1,0 +1,9 @@
+{
+  "name": "shimoverse--openvoiceflow",
+  "displayName": "openvoiceflow",
+  "description": "Free, open-source voice dictation for macOS. On-device WhisperKit transcription + optional LLM cleanup. The $0 alternative to Wispr Flow ($144/yr).",
+  "version": "1.0.0",
+  "author": "shimoverse",
+  "homepage": "https://github.com/shimoverse/openvoiceflow",
+  "skills": []
+}
