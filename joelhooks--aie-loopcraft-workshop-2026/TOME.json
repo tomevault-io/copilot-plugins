@@ -4,7 +4,7 @@
   "repo": "aie-loopcraft-workshop-2026",
   "description": "Loopcraft AI Engineer workshop learner rig for building an issue-progress loop",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joelhooks/aie-loopcraft-workshop-2026",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T15:31:11Z"
+  "distributed_at": "2026-08-26T00:08:50Z"
 }
