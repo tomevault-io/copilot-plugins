@@ -1,0 +1,9 @@
+{
+  "name": "modeldrivendevopsai--mddoai",
+  "displayName": "mddoai",
+  "description": "Transform manual pipeline configuration into automated generation. MDDOAI combines Model-Driven Engineering with AI to synthesize deployable CI/CD pipelines directly from your software architecture.",
+  "version": "1.0.0",
+  "author": "modeldrivendevopsai",
+  "homepage": "https://github.com/modeldrivendevopsai/mddoai",
+  "skills": []
+}
