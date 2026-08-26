@@ -1,0 +1,9 @@
+{
+  "name": "agentic-lineage--lineage",
+  "displayName": "lineage",
+  "description": "Package and share AI agent workflows, skills, agents, and policies across Claude Code, Codex, and other coding agents.",
+  "version": "1.0.0",
+  "author": "agentic-lineage",
+  "homepage": "https://github.com/agentic-lineage/lineage",
+  "skills": []
+}
