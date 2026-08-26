@@ -1,0 +1,9 @@
+{
+  "name": "01mvp--photodelete",
+  "displayName": "PhotoDelete",
+  "description": "OnePhoto / \u5220\u56fe: local-first iPhone photo cleaner. Swipe, confirm, then delete. AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "01MVP",
+  "homepage": "https://github.com/01MVP/PhotoDelete",
+  "skills": []
+}
