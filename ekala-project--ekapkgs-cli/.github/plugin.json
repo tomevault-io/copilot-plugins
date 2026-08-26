@@ -1,0 +1,9 @@
+{
+  "name": "ekala-project--ekapkgs-cli",
+  "displayName": "ekapkgs-cli",
+  "description": "Official CLI for use with ekapkgs",
+  "version": "1.0.0",
+  "author": "ekala-project",
+  "homepage": "https://github.com/ekala-project/ekapkgs-cli",
+  "skills": []
+}
