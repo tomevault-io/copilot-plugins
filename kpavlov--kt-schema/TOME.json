@@ -4,7 +4,7 @@
   "repo": "kt-schema",
   "description": "{\ud83d\ude38} Java and Kotlin Multiplatform library for generating JSON Schemas and LLM function schemas from Java and Kotlin classes and functions using Java annotation processing, reflection, KSP, or kotlinx.serialization",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kpavlov/kt-schema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T16:04:26Z"
+  "distributed_at": "2026-08-26T00:29:16Z"
 }
