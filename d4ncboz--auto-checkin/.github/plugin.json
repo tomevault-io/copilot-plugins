@@ -1,0 +1,9 @@
+{
+  "name": "d4ncboz--auto-checkin",
+  "displayName": "auto-checkin",
+  "description": "Autonomous multi-account daily check-in toolkit for GoRouter, Tabi AI, and JustDoWork with automated YesCaptcha Turnstile bypass.",
+  "version": "1.0.0",
+  "author": "d4ncboz",
+  "homepage": "https://github.com/d4ncboz/auto-checkin",
+  "skills": []
+}
