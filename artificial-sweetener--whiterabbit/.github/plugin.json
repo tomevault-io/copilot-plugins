@@ -1,0 +1,9 @@
+{
+  "name": "artificial-sweetener--whiterabbit",
+  "displayName": "WhiteRabbit",
+  "description": "Powerful video frame manipulation nodes for ComfyUI such as: efficient high quality batch scaling, arbitrary framerate resampling, seamless video loop tools, batch watermark composite, and more.",
+  "version": "1.0.0",
+  "author": "Artificial-Sweetener",
+  "homepage": "https://github.com/Artificial-Sweetener/WhiteRabbit",
+  "skills": []
+}
