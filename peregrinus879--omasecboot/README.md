@@ -7,11 +7,11 @@ Omarchy Secure Boot: sbctl signing, Limine enrollment, pacman hook, and Windows 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [peregrinus879/omasecboot](https://github.com/peregrinus879/omasecboot).
+Original source: `AGENTS.md` in [peregrinus879/omasecboot](https://github.com/peregrinus879/omasecboot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
