@@ -7,11 +7,11 @@ Self-hosted, OpenAI-compatible inference for the agentic era: reasoning LLMs, un
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [modelship-ai/modelship](https://github.com/modelship-ai/modelship).
+Original source: `AGENTS.md` in [modelship-ai/modelship](https://github.com/modelship-ai/modelship).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
