@@ -4,7 +4,7 @@
   "repo": "sourcepoet",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rewelser/sourcepoet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T18:22:05Z"
+  "distributed_at": "2026-08-26T04:18:56Z"
 }
