@@ -1,0 +1,9 @@
+{
+  "name": "collectionbuilder--cb-essay",
+  "displayName": "cb-essay",
+  "description": "CB-Essay is a platform for publishing long-form, multi-modal essays and monographs. Built on CollectionBuilder, the framework features longform content (connected essays, books, etc.) in front, with C",
+  "version": "1.0.0",
+  "author": "CollectionBuilder",
+  "homepage": "https://github.com/CollectionBuilder/cb-essay",
+  "skills": []
+}
