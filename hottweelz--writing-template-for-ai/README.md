@@ -7,11 +7,11 @@ Write a book from first idea to a finished EPUB/PDF with AI — one cross-tool s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hottweelz/writing-template-for-ai](https://github.com/hottweelz/writing-template-for-ai).
+Original source: `AGENTS.md` in [hottweelz/writing-template-for-ai](https://github.com/hottweelz/writing-template-for-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
