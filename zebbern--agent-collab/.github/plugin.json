@@ -1,0 +1,9 @@
+{
+  "name": "zebbern--agent-collab",
+  "displayName": "agent-collab",
+  "description": "Run Codex and Cursor as background workers inside Claude Code. Reviews, tasks, and rescues with tracked jobs, live progress, and session handoffs. ",
+  "version": "1.0.0",
+  "author": "zebbern",
+  "homepage": "https://github.com/zebbern/agent-collab",
+  "skills": []
+}
