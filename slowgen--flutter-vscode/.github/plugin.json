@@ -1,0 +1,9 @@
+{
+  "name": "slowgen--flutter-vscode",
+  "displayName": "flutter_vscode",
+  "description": "A package to assist in developing vscode extensions using Flutter/Dart",
+  "version": "1.0.0",
+  "author": "SlowGen",
+  "homepage": "https://github.com/SlowGen/flutter_vscode",
+  "skills": []
+}
