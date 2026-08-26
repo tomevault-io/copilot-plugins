@@ -1,97 +1,90 @@
-## do-test-fixture-data-management
+## do-validate-api-contracts
 
-> Think of `e2e_seed.json` like a test-suite-level setUp() method. All test data lives in fixtures. No ORM operations during test execution.
+> - **Always** define TypeScript interfaces that match exact backend response structure
 
-# Rule: E2E Test Fixture Data Management
+## Requirements
 
+### 1. Frontend Interface Validation
+- **Always** define TypeScript interfaces that match exact backend response structure
+- Include ALL fields returned by backend, including nested objects and metadata
+- Validate both success and error response formats
+- Example:
+```typescript
+// ❌ WRONG - Missing authentication fields
+interface UserResponse {
+  id: number;
+  username: string;
+  email: string;
+}
 
-
-## Core Principle
-Think of `e2e_seed.json` like a test-suite-level setUp() method. All test data lives in fixtures. No ORM operations during test execution.
-
-## Adding Test Data to e2e_seed.json
-
-### 1. Review Current Data
-```bash
-# Check what data already exists
-cat tests/fixtures/e2e_seed.json | jq '.[].model' | sort | uniq -c
+// ✅ CORRECT - Matches backend response exactly
+interface UserResponse {
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    first_name?: string;
+    last_name?: string;
+    // ... all user fields
+  };
+  authenticated: boolean;
+  token_valid: boolean;
+  token_expires_at?: string;
+}
 ```
 
-### 2. Add Authentication Token to Fixtures
-```json
-// Add to tests/fixtures/e2e_seed.json
-[
-  // ... existing data ...
-  {
-    "model": "authtoken.token",
-    "pk": 1,
-    "fields": {
-      "user": 1,
-      "created": "2023-01-01T00:00:00.000Z",
-      "key": "abcdef1234567890abcdef1234567890abcdef12"
-    }
-  }
-]
+### 2. Response Validation Logic
+- **Never** assume HTTP 200 means success - always check response data fields
+- Validate authentication/authorization flags in response
+- Handle nested response structures correctly
+- Example:
+```typescript
+// ❌ WRONG - Only checking HTTP status
+if (response.status === 200 && response.data) {
+  setUser(response.data); // Assumes flat structure
+}
+
+// ✅ CORRECT - Full validation with nested structure
+if (response.status === 200 && response.data && 
+    response.data.authenticated && response.data.token_valid) {
+  setUser(response.data.user); // Correctly accessing nested user
+}
 ```
 
-### 3. Option A: Generate from Database
-```bash
-# Create the data you need in Django admin or shell
-python manage.py shell
->>> from api.models import Intent
->>> Intent.objects.create(user_id=1, name="Test Intent", startag="TEST", motive="Testing")
+### 3. Documentation Requirements
+- Document exact API response formats in Architecture_FULL.md
+- Include example JSON responses for all authentication endpoints
+- Specify frontend validation requirements
+- Update documentation when API contracts change
 
-# Export to fixture format
-python manage.py dumpdata api.Intent --indent 2 >> new_data.json
+### 4. Testing Requirements
+- Write integration tests that validate actual API responses
+- Test both success and failure scenarios
+- Verify frontend handles all response fields correctly
+- Include API contract tests in continuous testing
 
-# Merge into e2e_seed.json (manually or with jq)
-```
+## Prevention Checklist
 
-### 4. Option B: Write JSON Directly
-```json
-// Add to tests/fixtures/e2e_seed.json
-[
-  // ... existing data ...
-  {
-    "model": "api.intent",
-    "pk": 99,
-    "fields": {
-      "user": 1,
-      "name": "Test Scenario Intent",
-      "startag": "TESTSCENARIO",
-      "motive": "For testing specific scenario",
-      "color": "#ff6b6b",
-      "priority": 99,
-      "active": true
-    }
-  }
-]
-```
+Before implementing frontend API calls:
+- [ ] Check Architecture_FULL.md for documented response format
+- [ ] Define TypeScript interface matching exact backend response
+- [ ] Implement full response validation (not just HTTP status)
+- [ ] Test with actual backend responses
+- [ ] Update documentation if response format differs
 
-### 5. Reference Known Data in Tests
-```python
-# In your test, reference the pre-seeded data
-def test_scenario(self, authenticated_page, base_url):
-    app_url = base_url or "http://localhost:5173"
-    intents_page = IntentsPage(authenticated_page, app_url)
-    intents_page.goto()
-    
-    # Use known data from e2e_seed.json
-    # User: denis.petelin (pk=1)
-    # Intent: WORK (pk=1), TESTSCENARIO (pk=99)
-    # Token: abcdef1234567890abcdef1234567890abcdef12
-    
-    # Verify authentication worked
-    expect(authenticated_page.get_by_text("Add Intent")).to_be_visible()
-```
+Before deploying API changes:
+- [ ] Verify frontend interfaces match new backend response
+- [ ] Update all affected frontend validation logic
+- [ ] Run integration tests to validate contract compatibility
+- [ ] Update Architecture_FULL.md with new response formats
 
-### 6. Database Setup (Already Handled)
-```python
-# This runs automatically before all E2E tests
-@pytest.fixture(scope="session", autouse=True)
-def setup_e2e_database():
-    call_command('loaddata', 'tests/fixtures/e2e_seed.json')
-```
+## Common Pitfalls to Avoid
+
+1. **Assuming flat response structure** - Many APIs return nested objects
+2. **Only checking HTTP status** - 200 OK doesn't guarantee valid data
+3. **Missing authentication flags** - Backend may return success with auth failures
+4. **Outdated interfaces** - Frontend types drift from backend reality
+5. **No integration testing** - Unit tests don't catch contract mismatches
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
