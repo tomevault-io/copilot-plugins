@@ -1,39 +1,11 @@
-## do-write-concise-methods
+## tooltips
 
-> When designing new methods:
+> Font Awesome Pro Icons Required - Every action button/link needs an icon; if not specified, you shall propose 3 options
 
-# Rule: Write Concise Methods
-
-When designing new methods:
-- Ensure the top-level (public) method is concise—ideally 20–30 lines maximum.
-- Move all supporting logic and details into well-named private (or inner/helper) methods.
-- The top-level method should clearly express the main workflow, delegating specifics to lower-level helpers.
-
-Example:
-```python
-class SomeObject:
-    def main_method(self, id):
-        # Inner/helper method for a single, focused operation
-        def _short_method(arg): 
-            return op(arg)
-
-        target = self._get_target(_short_method(id))
-        result = self._do_magic_on(target)
-        return result
-
-    def _get_target(self, id):
-        # Implementation here
-        pass
-
-    def _do_magic_on(self, target):
-        # Implementation here
-        pass
-```
-
-Guidelines:
-- Keep the top-level method readable and high-level—think of it as a summary of the operation.
-- Each helper/private method should do one thing and have a clear, descriptive name.
-- Avoid cramming complex logic into the top-level method; instead, encapsulate details in private helpers.
+Font Awesome Pro Icons Required - Every action button/link needs an icon; if not specified, you shall propose 3 options
+Bootstrap Tooltips Required - Every button needs hover text that:
+Explains the action for active buttons
+Explains why it's disabled and how to enable it for disabled buttons
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
