@@ -1,0 +1,9 @@
+{
+  "name": "capawesome-team--zodline",
+  "displayName": "zodline",
+  "description": "\ud83d\udcdf A powerful CLI parser built with TypeScript and Zod for type-safe command-line interfaces.",
+  "version": "1.0.0",
+  "author": "capawesome-team",
+  "homepage": "https://github.com/capawesome-team/zodline",
+  "skills": []
+}
