@@ -1,0 +1,9 @@
+{
+  "name": "gui-wf--purelymail-mcp-server",
+  "displayName": "purelymail-mcp-server",
+  "description": "MCP Server for PurelyMail email service API",
+  "version": "1.0.0",
+  "author": "gui-wf",
+  "homepage": "https://github.com/gui-wf/purelymail-mcp-server",
+  "skills": []
+}
