@@ -4,7 +4,7 @@
   "repo": "VeriTMM",
   "description": "Verifier-first transfer-matrix workbench for multilayer optics and differentiable inverse design",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lihonggang-scnu/VeriTMM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T20:14:40Z"
+  "distributed_at": "2026-08-26T06:34:04Z"
 }
