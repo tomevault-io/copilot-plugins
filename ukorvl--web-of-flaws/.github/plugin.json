@@ -1,0 +1,9 @@
+{
+  "name": "ukorvl--web-of-flaws",
+  "displayName": "web-of-flaws",
+  "description": "A structured library of web security flaws for humans and coding agents with vulnerable examples, attack paths, and secure replacements.",
+  "version": "1.0.0",
+  "author": "ukorvl",
+  "homepage": "https://github.com/ukorvl/web-of-flaws",
+  "skills": []
+}
