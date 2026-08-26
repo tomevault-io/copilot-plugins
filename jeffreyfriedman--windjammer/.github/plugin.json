@@ -1,0 +1,9 @@
+{
+  "name": "jeffreyfriedman--windjammer",
+  "displayName": "windjammer",
+  "description": "A high-level programming language that combines Go's ergonomics with Rust's safety and performance\u2014plus world-class IDE support.",
+  "version": "1.0.0",
+  "author": "jeffreyfriedman",
+  "homepage": "https://github.com/jeffreyfriedman/windjammer",
+  "skills": []
+}
