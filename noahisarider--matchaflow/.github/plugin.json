@@ -1,0 +1,9 @@
+{
+  "name": "noahisarider--matchaflow",
+  "displayName": "MatchaFlow",
+  "description": "MatchaFlow is a large language model (LLM) based multi-agent system that simulates a complete software project management workflow.",
+  "version": "1.0.0",
+  "author": "NoahIsARider",
+  "homepage": "https://github.com/NoahIsARider/MatchaFlow",
+  "skills": []
+}
