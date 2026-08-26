@@ -4,7 +4,7 @@
   "repo": "Leads",
   "description": "site internet les pro de l'yonne",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RobinVW89/Leads",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T05:50:14Z"
+  "distributed_at": "2026-08-26T08:20:58Z"
 }
