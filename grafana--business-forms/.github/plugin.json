@@ -1,0 +1,9 @@
+{
+  "name": "grafana--business-forms",
+  "displayName": "business-forms",
+  "description": "The Business Forms panel is a conceptually new plugin for Grafana. It is the first plugin that allows inserting and updating application data, as well as modifying configuration directly from your Gra",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/business-forms",
+  "skills": []
+}
