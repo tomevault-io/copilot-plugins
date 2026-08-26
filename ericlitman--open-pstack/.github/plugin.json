@@ -1,0 +1,9 @@
+{
+  "name": "ericlitman--open-pstack",
+  "displayName": "open-pstack",
+  "description": "pstack for Claude Code and Codex, tracking Cursor pstack upstream",
+  "version": "1.0.0",
+  "author": "ericlitman",
+  "homepage": "https://github.com/ericlitman/open-pstack",
+  "skills": []
+}
