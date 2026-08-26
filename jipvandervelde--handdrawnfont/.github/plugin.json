@@ -1,0 +1,9 @@
+{
+  "name": "jipvandervelde--handdrawnfont",
+  "displayName": "HandDrawnFont",
+  "description": "A plug-and-play SwiftUI package for animated hand-drawn text, glyphs, and font authoring \u2014 by Jip van der Velde and Michel Elings, creators of Apple Design Award winner grug.",
+  "version": "1.0.0",
+  "author": "jipvandervelde",
+  "homepage": "https://github.com/jipvandervelde/HandDrawnFont",
+  "skills": []
+}
