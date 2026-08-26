@@ -7,11 +7,11 @@ Desktop app that sets up a WordPress core development environment with no prereq
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [WordPress/contributor-toolkit](https://github.com/WordPress/contributor-toolkit).
+Original source: `AGENTS.md` in [WordPress/contributor-toolkit](https://github.com/WordPress/contributor-toolkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
