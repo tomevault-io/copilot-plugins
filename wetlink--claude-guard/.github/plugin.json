@@ -1,0 +1,9 @@
+{
+  "name": "wetlink--claude-guard",
+  "displayName": "claude-guard",
+  "description": "Claude Code \u542f\u52a8\u95e8\u7981\u4e0e\u8fd0\u884c\u770b\u95e8\u72d7 / Startup guard and dry-run watchdog for official Claude Code",
+  "version": "1.0.0",
+  "author": "wetlink",
+  "homepage": "https://github.com/wetlink/claude-guard",
+  "skills": []
+}
