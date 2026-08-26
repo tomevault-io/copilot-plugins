@@ -7,11 +7,11 @@ Agent Skills for Scenario: image, video, audio, texture, 3D and custom-model wor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [scenario-labs/skills](https://github.com/scenario-labs/skills).
+Original source: `AGENTS.md` in [scenario-labs/skills](https://github.com/scenario-labs/skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
