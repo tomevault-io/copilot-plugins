@@ -1,0 +1,9 @@
+{
+  "name": "thc2mdma--omnicampaign-multiplatform-ad-management-web-app",
+  "displayName": "OmniCampaign-MultiPlatform-Ad-Management-Web-App",
+  "description": "Centralize your digital advertising. A unified web app to create, manage, and analyze campaigns across Facebook, Google, and LinkedIn from a single dashboard. Built with React & Node.js.",
+  "version": "1.0.0",
+  "author": "thc2mdma",
+  "homepage": "https://github.com/thc2mdma/OmniCampaign-MultiPlatform-Ad-Management-Web-App",
+  "skills": []
+}
