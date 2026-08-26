@@ -1,0 +1,44 @@
+{
+  "name": "star-dsh-desktop",
+  "owner": "dabaicai001",
+  "repo": "star-dsh-desktop",
+  "description": "StarHub \u662f\u4e00\u6b3e\u8de8\u5e73\u53f0\u684c\u9762\u5e94\u7528\uff08Tauri 2 + Rust \u4e3b\u8fdb\u7a0b + DeepSeek Harness React \u5de5\u4f5c\u53f0 + Go Sidecar\uff09\uff0c\u628a\u5f00\u53d1\u8fd0\u7ef4\u65e5\u5e38\u9ad8\u9891\u5de5\u5177\u6574\u5408\u5230\u540c\u4e00\u4e2a\u7a97\u53e3 \u2014\u2014 \u6570\u636e\u5e93\u3001SSH/SFTP\u3001Docker \u9762\u677f\u4e0e AI \u52a9\u624b\u3002\u76ee\u6807\u662f\u51cf\u5c11\u5728 Navicat\u3001Xshell\u3001Portainer\u3001\u6587\u4ef6\u7ba1\u7406\u5668\u548c AI \u5bf9\u8bdd\u7a97\u53e3\u4e4b\u95f4\u6765\u56de\u5207\u6362\u7684\u6210\u672c\u3002  \u524d\u7aef\u67b6\u6784\uff1a\u57fa\u4e8e DeepSeek Harness \u539f\u751f React \u5de5\u4f5c\u53f0\uff08/starhub-react \u8def\u7531\uff09\u3002\u8d44\u4ea7\u3001\u8bbe\u7f6e\u3001SSH \u7ec8\u7aef\u3001SFTP\u3001\u6570\u636e\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dabaicai001/star-dsh-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T06:19:25Z"
+}
