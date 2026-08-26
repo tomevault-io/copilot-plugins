@@ -1,41 +1,61 @@
-## 03-websocket-data-processing
+## 04-api-deployment-guide
 
-> 本项目使用WebSocket实现实时数据传输和处理。主要逻辑在 [websocketapp/consumers.py](mdc:websocketapp/consumers.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中。
+> 系统提供多个API端点，定义在 [main.py](mdc:main.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中：
 
-# WebSocket实时数据处理
+# API和部署指南
 
-## 数据流程
+## API端点
 
-本项目使用WebSocket实现实时数据传输和处理。主要逻辑在 [websocketapp/consumers.py](mdc:websocketapp/consumers.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中。
+系统提供多个API端点，定义在 [main.py](mdc:main.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中：
 
-数据处理流程：
+1. **主页** - `GET /`
+   - 返回系统首页HTML
+   
+2. **WebSocket** - `WebSocket /ws`
+   - 用于实时数据交换
+   - 支持文本和二进制数据
 
-1. **连接建立** - 客户端与服务器建立WebSocket连接
-2. **数据接收** - 服务器接收客户端发送的数据（文本或二进制）
-3. **数据解析** - 根据数据类型进行解析：
-   - 文本数据：解析为JSON或控制命令
-   - 二进制数据：累积到缓冲区，等待完整数据块
-4. **数据处理** - 处理完整数据，包括：
-   - 解析头部信息
-   - 识别图谱类型（高频PRPD、超声特征等）
-   - 按图谱类型处理数据
-5. **结果返回** - 将处理结果通过WebSocket发送给客户端
+3. **数据处理** - `POST /api/data/process`
+   - 用于异步处理大批量数据
+   - 使用后台任务进行处理
 
-## 图谱类型
+4. **局部放电API** - `POST /pd/api/predict`
+   - 接收局部放电数据，返回预测结果
 
-系统支持多种图谱类型的处理：
+## 部署指南
 
-- 高频图谱 (HF) - 包括PRPD、PRPS和脉冲波形图
-- 超声图谱 (US) - 包括特征图、相位图、脉冲图和波形图
-- 瞬态接地电压 (TEV) - 暂态接地电压测量
+系统可以在开发或生产环境中部署：
 
-## 数据存储
+### 开发环境
 
-处理后的数据会存储到MySQL数据库中，包括：
+使用Uvicorn启动服务：
 
-- 头文件信息
-- 各类图谱数据
-- 分析结果
+```bash
+# 使用Python直接运行main.py
+python main.py
+
+# 或使用Uvicorn
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### 生产环境
+
+1. **使用Uvicorn（Windows）**:
+   ```bash
+   uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+   ```
+
+2. **使用Gunicorn（Linux/macOS）**:
+   ```bash
+   gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
+   ```
+
+## 文档访问
+
+启动服务后，可通过以下URL访问自动生成的API文档：
+
+- Swagger UI：`http://localhost:8000/docs`
+- ReDoc：`http://localhost:8000/redoc`
 
 ---
 > Source: [BruceYang521/pd_web_serve](https://github.com/BruceYang521/pd_web_serve) — distributed by [TomeVault](https://tomevault.io).
