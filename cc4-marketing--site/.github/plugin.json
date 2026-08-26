@@ -1,0 +1,14 @@
+{
+  "name": "cc4-marketing--site",
+  "displayName": "site",
+  "description": "Website for Claude Code for Marketers (cc4.marketing) \u2014 course docs, 18 lesson pages, and live changelog. Built with Astro.",
+  "version": "1.0.0",
+  "author": "cc4-marketing",
+  "homepage": "https://github.com/cc4-marketing/site",
+  "skills": [
+    {
+      "name": "seo-audit",
+      "description": ""
+    }
+  ]
+}
