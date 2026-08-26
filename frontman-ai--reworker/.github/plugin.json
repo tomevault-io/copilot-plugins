@@ -1,0 +1,9 @@
+{
+  "name": "frontman-ai--reworker",
+  "displayName": "reworker",
+  "description": "Type-safe, chunked message passing for Chrome extensions/WebWorkers/ServiceWorkers with zero runtime dependencies. Built with ReScript GADTs for compile-time safety.",
+  "version": "1.0.0",
+  "author": "frontman-ai",
+  "homepage": "https://github.com/frontman-ai/reworker",
+  "skills": []
+}
