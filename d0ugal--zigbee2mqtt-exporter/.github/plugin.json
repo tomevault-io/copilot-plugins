@@ -1,0 +1,9 @@
+{
+  "name": "d0ugal--zigbee2mqtt-exporter",
+  "displayName": "zigbee2mqtt-exporter",
+  "description": "Prometheus metrics exporter for Zigbee2MQTT with device type classification and real-time metrics via WebSocket API.",
+  "version": "1.0.0",
+  "author": "d0ugal",
+  "homepage": "https://github.com/d0ugal/zigbee2mqtt-exporter",
+  "skills": []
+}
