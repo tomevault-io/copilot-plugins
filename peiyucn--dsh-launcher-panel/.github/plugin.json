@@ -1,0 +1,9 @@
+{
+  "name": "peiyucn--dsh-launcher-panel",
+  "displayName": "dsh-launcher-panel",
+  "description": "Start DeepSeek Harness (dsh) inside VS Code and open its web UI in the built-in browser.",
+  "version": "1.0.0",
+  "author": "peiyucn",
+  "homepage": "https://github.com/peiyucn/dsh-launcher-panel",
+  "skills": []
+}
