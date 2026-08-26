@@ -1,0 +1,9 @@
+{
+  "name": "metrolistgroup--innertubex",
+  "displayName": "innertubex",
+  "description": "eXtended InnerTube API library for Kotlin",
+  "version": "1.0.0",
+  "author": "MetrolistGroup",
+  "homepage": "https://github.com/MetrolistGroup/innertubex",
+  "skills": []
+}
