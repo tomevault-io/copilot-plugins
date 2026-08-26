@@ -1,0 +1,9 @@
+{
+  "name": "phulin--poker2",
+  "displayName": "poker2",
+  "description": "Neural network strategies for Texas Hold 'Em",
+  "version": "1.0.0",
+  "author": "phulin",
+  "homepage": "https://github.com/phulin/poker2",
+  "skills": []
+}
