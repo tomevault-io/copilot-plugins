@@ -1,0 +1,9 @@
+{
+  "name": "foldaway--mrtdown-site",
+  "displayName": "mrtdown-site",
+  "description": "Community-run Singapore MRT/LRT disruption tracker.",
+  "version": "1.0.0",
+  "author": "foldaway",
+  "homepage": "https://github.com/foldaway/mrtdown-site",
+  "skills": []
+}
