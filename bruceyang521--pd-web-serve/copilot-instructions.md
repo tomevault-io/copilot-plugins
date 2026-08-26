@@ -1,61 +1,49 @@
-## 04-api-deployment-guide
+## 05-workflow-guide
 
-> 系统提供多个API端点，定义在 [main.py](mdc:main.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中：
+> 本系统采用前后端分离架构，通过以下方式进行数据交互：
 
-# API和部署指南
+# 系统工作流程
 
-## API端点
+## 前后端数据流
 
-系统提供多个API端点，定义在 [main.py](mdc:main.py) 和 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 中：
+本系统采用前后端分离架构，通过以下方式进行数据交互：
 
-1. **主页** - `GET /`
-   - 返回系统首页HTML
-   
-2. **WebSocket** - `WebSocket /ws`
-   - 用于实时数据交换
-   - 支持文本和二进制数据
+1. **前端展示**
+   - 网页界面展示局部放电相关图表和数据
+   - 使用HTML/JavaScript构建用户界面
+   - 可能使用图表库（如Chart.js、ECharts）可视化局部放电数据
 
-3. **数据处理** - `POST /api/data/process`
-   - 用于异步处理大批量数据
-   - 使用后台任务进行处理
+2. **实时数据通信**
+   - 前端通过WebSocket与后端建立持久连接
+   - 实现实时数据传输，即时显示最新检测结果
+   - 当有新的局部放电数据产生时，后端立即推送给前端
 
-4. **局部放电API** - `POST /pd/api/predict`
-   - 接收局部放电数据，返回预测结果
+3. **数据处理流程**
+   - 后端接收传感器或其他来源的原始局部放电数据
+   - 使用深度学习模型（LSTM和注意力机制）进行处理和分类
+   - 将处理结果返回给前端进行展示
 
-## 部署指南
+## 数据处理步骤
 
-系统可以在开发或生产环境中部署：
+1. **数据接收**
+   - 通过WebSocket接收客户端发送的二进制数据
+   - 数据缓冲区累积直到完整数据块接收完毕
 
-### 开发环境
+2. **数据解析**
+   - 解析头部信息，识别数据格式和图谱数量
+   - 根据图谱类型将数据分发到对应的处理器
 
-使用Uvicorn启动服务：
+3. **特征提取**
+   - 从原始数据中提取特征
+   - 使用标准化器处理数据
 
-```bash
-# 使用Python直接运行main.py
-python main.py
+4. **模型推理**
+   - 将特征数据输入到深度学习模型
+   - 模型输出分类结果或预测值
 
-# 或使用Uvicorn
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-### 生产环境
-
-1. **使用Uvicorn（Windows）**:
-   ```bash
-   uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
-   ```
-
-2. **使用Gunicorn（Linux/macOS）**:
-   ```bash
-   gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
-   ```
-
-## 文档访问
-
-启动服务后，可通过以下URL访问自动生成的API文档：
-
-- Swagger UI：`http://localhost:8000/docs`
-- ReDoc：`http://localhost:8000/redoc`
+5. **结果处理**
+   - 将模型输出转换为可理解的结果
+   - 将结果通过WebSocket实时返回前端
 
 ---
 > Source: [BruceYang521/pd_web_serve](https://github.com/BruceYang521/pd_web_serve) — distributed by [TomeVault](https://tomevault.io).
