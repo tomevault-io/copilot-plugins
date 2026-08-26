@@ -1,0 +1,9 @@
+{
+  "name": "rwjdk--agent-framework-samples",
+  "displayName": "agent-framework-samples",
+  "description": "Samples demonstrating the Microsoft Agent Framework in C#",
+  "version": "1.0.0",
+  "author": "rwjdk",
+  "homepage": "https://github.com/rwjdk/agent-framework-samples",
+  "skills": []
+}
