@@ -1,0 +1,9 @@
+{
+  "name": "afcoo--thrurndis",
+  "displayName": "ThruRNDIS",
+  "description": "Use Android RNDIS USB tethering on macOS 27+",
+  "version": "1.0.0",
+  "author": "Afcoo",
+  "homepage": "https://github.com/Afcoo/ThruRNDIS",
+  "skills": []
+}
