@@ -1,0 +1,9 @@
+{
+  "name": "zendevve--opencade",
+  "displayName": "OpenCade",
+  "description": "OpenCade \u2014 open-source arcade netplay platform (clean-room Fightcade alternative). Tauri+React+TS client, Rust+Axum+Postgres server.",
+  "version": "1.0.0",
+  "author": "Zendevve",
+  "homepage": "https://github.com/Zendevve/OpenCade",
+  "skills": []
+}
