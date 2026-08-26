@@ -1,0 +1,9 @@
+{
+  "name": "tirforge--aruvi",
+  "displayName": "Aruvi",
+  "description": "Self-hosted media platform \u2014 stream your Telegram files to Web, Android, Android-TV & Desktop. Multi-bot parallel streaming, two-tier caching, FastAPI + React + Kotlin.",
+  "version": "1.0.0",
+  "author": "tirforge",
+  "homepage": "https://github.com/tirforge/Aruvi",
+  "skills": []
+}
