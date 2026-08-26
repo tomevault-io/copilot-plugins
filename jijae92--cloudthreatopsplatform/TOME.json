@@ -1,0 +1,44 @@
+{
+  "name": "CloudThreatOpsPlatform",
+  "owner": "jijae92",
+  "repo": "CloudThreatOpsPlatform",
+  "description": "Cloud ThreatOps Platform \u2014 \u201c\uc9c0\ub2a5\ud615 \ud074\ub77c\uc6b0\ub4dc \uc704\ud611 \uac00\uc2dc\ud654\u00b7\ub300\uc751 \ud50c\ub7ab\ud3fc\u201d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jijae92/CloudThreatOpsPlatform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T10:57:23Z"
+}
