@@ -1,0 +1,9 @@
+{
+  "name": "ling-ye--cc-port",
+  "displayName": "cc-port",
+  "description": "Private Git-backed, rollback-safe sync for AI coding resources across Codex, Claude Code, Cursor, Windsurf and OpenCode. \u79c1\u6709\u3001\u5b89\u5168\u3001\u53ef\u56de\u6eda\u7684 AI Coding \u8d44\u6e90\u540c\u6b65\u5de5\u5177\u3002",
+  "version": "1.0.0",
+  "author": "Ling-ye",
+  "homepage": "https://github.com/Ling-ye/cc-port",
+  "skills": []
+}
