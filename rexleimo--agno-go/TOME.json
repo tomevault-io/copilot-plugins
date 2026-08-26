@@ -1,8 +1,8 @@
 {
-  "name": "agno-Go",
+  "name": "agno-go",
   "owner": "rexleimo",
-  "repo": "agno-Go",
-  "description": "",
+  "repo": "agno-go",
+  "description": "Agno-Go: A High-Performance Multi-Agent System Framework Based on Golang. Inheriting the Agno design philosophy, it leverages Golang's concurrency model and per",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/rexleimo/agno-Go",
+  "source_url": "https://github.com/rexleimo/agno-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T04:05:35Z"
+  "distributed_at": "2026-08-26T07:49:21Z"
 }
