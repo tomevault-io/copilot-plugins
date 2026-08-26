@@ -1,0 +1,9 @@
+{
+  "name": "corallibra--tcm-eclinic",
+  "displayName": "tcm_eclinic",
+  "description": "TCM_eclinic is a desktop application for TCM outpatient prescription management, multi-language prescription entry, intelligent Word import, advanced search, statistics, and traditional Chinese medici",
+  "version": "1.0.0",
+  "author": "corallibra",
+  "homepage": "https://github.com/corallibra/tcm_eclinic",
+  "skills": []
+}
