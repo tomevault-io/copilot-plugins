@@ -1,0 +1,9 @@
+{
+  "name": "jzli559--gaussianbeam",
+  "displayName": "GaussianBeam",
+  "description": "A Python toolkit for modeling Gaussian beam propagation using the ABCD matrix formalism. Supports symbolic (SymPy) and numeric (NumPy) calculations, abstracted optical elements, and intuitive chain-st",
+  "version": "1.0.0",
+  "author": "jzli559",
+  "homepage": "https://github.com/jzli559/GaussianBeam",
+  "skills": []
+}
