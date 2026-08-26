@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vulcan-forge/lerobot-vulcan](https://github.com/vulcan-forge/lerobot-vulcan).
+Original source: `CLAUDE.md` in [vulcan-forge/lerobot-vulcan](https://github.com/vulcan-forge/lerobot-vulcan).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
