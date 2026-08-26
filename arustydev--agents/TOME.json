@@ -4,7 +4,7 @@
   "repo": "agents",
   "description": "AI Contexts, Commands, Plugins, Docs, Examples, Specs, Etc",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aRustyDev/agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T09:54:39Z"
+  "distributed_at": "2026-08-26T09:57:45Z"
 }
