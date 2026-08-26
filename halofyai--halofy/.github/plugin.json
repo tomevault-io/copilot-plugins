@@ -1,0 +1,9 @@
+{
+  "name": "halofyai--halofy",
+  "displayName": "halofy",
+  "description": "Halofy is the open access and governance layer for AI agents across your organization. Identity, policy, provenance, audit, and signed erasure.",
+  "version": "1.0.0",
+  "author": "halofyai",
+  "homepage": "https://github.com/halofyai/halofy",
+  "skills": []
+}
