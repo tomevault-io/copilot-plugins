@@ -1,0 +1,9 @@
+{
+  "name": "viktor-platform--aps-automation-sdk",
+  "displayName": "aps-automation-sdk",
+  "description": "A Python SDK that wraps the Autodesk Platform Services (APS) Automation API",
+  "version": "1.0.0",
+  "author": "viktor-platform",
+  "homepage": "https://github.com/viktor-platform/aps-automation-sdk",
+  "skills": []
+}
