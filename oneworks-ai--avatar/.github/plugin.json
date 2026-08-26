@@ -1,0 +1,9 @@
+{
+  "name": "oneworks-ai--avatar",
+  "displayName": "avatar",
+  "description": "OneWorks agent avatar preview and GitHub Pages site",
+  "version": "1.0.0",
+  "author": "oneworks-ai",
+  "homepage": "https://github.com/oneworks-ai/avatar",
+  "skills": []
+}
