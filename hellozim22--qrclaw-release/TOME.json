@@ -4,7 +4,7 @@
   "repo": "QRclaw_release",
   "description": "QRClaw Release Repository",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hellozim22/QRclaw_release",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T14:47:49Z"
+  "distributed_at": "2026-08-26T00:07:15Z"
 }
