@@ -1,0 +1,9 @@
+{
+  "name": "cjtrowbridge--ebe-boilerplate",
+  "displayName": "ebe-boilerplate",
+  "description": "Boilerplate CICD pipeline for agentic Ebitengine cross-platform development and deployment",
+  "version": "1.0.0",
+  "author": "cjtrowbridge",
+  "homepage": "https://github.com/cjtrowbridge/ebe-boilerplate",
+  "skills": []
+}
