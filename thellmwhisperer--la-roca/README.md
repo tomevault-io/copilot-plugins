@@ -7,11 +7,11 @@ La Roca: from dev environment to agentic ecosystem. Your agents write history no
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [thellmwhisperer/la-roca](https://github.com/thellmwhisperer/la-roca).
+Original source: `AGENTS.md` in [thellmwhisperer/la-roca](https://github.com/thellmwhisperer/la-roca).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
