@@ -1,0 +1,9 @@
+{
+  "name": "silentfellow--nvim-db",
+  "displayName": "nvim-db",
+  "description": "A tiny, native Neovim database client powered by your local database CLIs.",
+  "version": "1.0.0",
+  "author": "silentFellow",
+  "homepage": "https://github.com/silentFellow/nvim-db",
+  "skills": []
+}
