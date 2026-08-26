@@ -1,0 +1,9 @@
+{
+  "name": "bnjam--stac-mcp",
+  "displayName": "stac-mcp",
+  "description": "An MCP Server for STAC requests",
+  "version": "1.0.0",
+  "author": "BnJam",
+  "homepage": "https://github.com/BnJam/stac-mcp",
+  "skills": []
+}
