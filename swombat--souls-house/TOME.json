@@ -4,7 +4,7 @@
   "repo": "souls-house",
   "description": "Core template for full-featured Svelte/Rails/Inertia apps",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/swombat/souls-house",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T14:30:26Z"
+  "distributed_at": "2026-08-26T14:31:20Z"
 }
