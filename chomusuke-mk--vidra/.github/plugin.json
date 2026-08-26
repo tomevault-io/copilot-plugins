@@ -1,0 +1,9 @@
+{
+  "name": "chomusuke-mk--vidra",
+  "displayName": "vidra",
+  "description": "Vidra: The power of yt-dlp, refined. A seamless, cross-platform video downloader driven by a robust Python backend.",
+  "version": "1.0.0",
+  "author": "chomusuke-mk",
+  "homepage": "https://github.com/chomusuke-mk/vidra",
+  "skills": []
+}
