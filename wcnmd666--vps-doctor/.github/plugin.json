@@ -1,0 +1,9 @@
+{
+  "name": "wcnmd666--vps-doctor",
+  "displayName": "vps-doctor",
+  "description": "Diagnose common Linux server failures in one command \u2014 then fix them safely.",
+  "version": "1.0.0",
+  "author": "wcnmd666",
+  "homepage": "https://github.com/wcnmd666/vps-doctor",
+  "skills": []
+}
