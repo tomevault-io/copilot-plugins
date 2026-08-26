@@ -1,0 +1,9 @@
+{
+  "name": "lna-lab--distill-kura",
+  "displayName": "distill-kura",
+  "description": "\u84b8\u7559\u8535 \u2014 distilled long-term memory for agents: recall by meaning, writing gated by evidence, one kura per agent mode. Ships as a DeepSeek Harness plugin and an MCP server.",
+  "version": "1.0.0",
+  "author": "lna-lab",
+  "homepage": "https://github.com/lna-lab/distill-kura",
+  "skills": []
+}
