@@ -1,0 +1,9 @@
+{
+  "name": "hafizmmoaz--prism-db",
+  "displayName": "prism-db",
+  "description": "A multi-model database engine with unified ACID transactions across relational, document, and key-value access methods.",
+  "version": "1.0.0",
+  "author": "HafizMMoaz",
+  "homepage": "https://github.com/HafizMMoaz/prism-db",
+  "skills": []
+}
