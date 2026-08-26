@@ -1,0 +1,9 @@
+{
+  "name": "nomadamas--dupey",
+  "displayName": "dupey",
+  "description": "Office document family detector: exact hash, MinHash near-dup, explainable latest candidate",
+  "version": "1.0.0",
+  "author": "NomaDamas",
+  "homepage": "https://github.com/NomaDamas/dupey",
+  "skills": []
+}
