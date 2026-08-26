@@ -1,32 +1,36 @@
-## 01-project-overview
+## 02-deep-learning-model
 
-> 本项目是一个基于深度学习的局部放电(PD)检测系统，使用FastAPI作为后端框架，结合WebSocket实现实时数据处理和预测。
+> 本项目使用双向LSTM(Long Short-Term Memory)网络结合注意力机制进行局部放电检测和分类。主要模型定义在 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 文件中。
 
-# 局部放电检测系统 (FastAPI版)
+# 深度学习模型
 
-## 项目结构
+## 模型结构
 
-本项目是一个基于深度学习的局部放电(PD)检测系统，使用FastAPI作为后端框架，结合WebSocket实现实时数据处理和预测。
+本项目使用双向LSTM(Long Short-Term Memory)网络结合注意力机制进行局部放电检测和分类。主要模型定义在 [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) 文件中。
 
-主要文件和目录：
+核心组件：
 
-- [main.py](mdc:main.py) - 主入口文件，FastAPI应用程序的入口点
-- [pddetectionapp/](mdc:pddetectionapp) - 包含深度学习模型和局部放电检测逻辑
-  - [pddetectionapp/pddetect.py](mdc:pddetectionapp/pddetect.py) - 模型定义和预测函数
-- [websocketapp/](mdc:websocketapp) - WebSocket服务和实时数据处理
-  - [websocketapp/consumers.py](mdc:websocketapp/consumers.py) - WebSocket消费者实现
-- [realtime_data/](mdc:realtime_data) - 实时数据处理模块
-- [requirements.txt](mdc:requirements.txt) - 项目依赖
-- [index.html](mdc:index.html) - 主页面
+1. **注意力机制** - `Attn` 类实现了注意力层，用于在序列数据中识别重要特征
+2. **LSTM网络** - `Bi_lstm` 类实现了主要的网络结构，包括：
+   - LSTM层处理时序信息
+   - 注意力层提取关键特征
+   - 全连接层进行分类
 
-## 技术栈
+## 预测流程
 
-- **后端框架**: FastAPI
-- **深度学习**: PyTorch, LSTM, 注意力机制
-- **数据处理**: Pandas, NumPy, Joblib
-- **异步处理**: asyncio, WebSocket
-- **前端**: HTML, JavaScript
-- **部署**: Uvicorn/Gunicorn
+1. 数据预处理 - 使用已保存的缩放器标准化输入数据
+2. 模型加载 - 从保存的权重文件加载预训练模型
+3. 推理过程 - 将预处理后的数据输入模型进行预测
+4. 后处理 - 解析输出结果，返回分类标签
+
+## 模型使用
+
+模型可以通过以下方式使用：
+
+- 同步函数 `PD_detect_sync`
+- 异步函数 `PD_detect`
+- WebSocket接口（实时处理）
+- HTTP API接口（批量处理）
 
 ---
 > Source: [BruceYang521/pd_web_serve](https://github.com/BruceYang521/pd_web_serve) — distributed by [TomeVault](https://tomevault.io).
