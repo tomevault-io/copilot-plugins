@@ -1,0 +1,44 @@
+{
+  "name": "pd_web_serve",
+  "owner": "BruceYang521",
+  "repo": "pd_web_serve",
+  "description": "\u672c\u9879\u76ee\u662f\u4e00\u4e2a\u57fa\u4e8e\u6df1\u5ea6\u5b66\u4e60\u7684\u5c40\u90e8\u653e\u7535(PD)\u68c0\u6d4b\u7cfb\u7edf\uff0c\u4f7f\u7528FastAPI\u4f5c\u4e3a\u540e\u7aef\u6846\u67b6\uff0c\u7ed3\u5408WebSocket\u5b9e\u73b0\u5b9e\u65f6\u6570\u636e\u5904\u7406\u548c\u9884\u6d4b\u3002\u7cfb\u7edf\u901a\u8fc7LSTM\u548c\u6ce8\u610f\u529b\u673a\u5236\u5bf9\u5c40\u90e8\u653e\u7535\u6570\u636e\u8fdb\u884c\u5206\u7c7b\uff0c\u53ef\u7528\u4e8e\u7535\u529b\u8bbe\u5907\u7684\u9884\u6d4b\u6027\u7ef4\u62a4\u548c\u6545\u969c\u8bca\u65ad\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BruceYang521/pd_web_serve",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T23:40:10Z"
+}
