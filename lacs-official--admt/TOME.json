@@ -1,0 +1,44 @@
+{
+  "name": "admt",
+  "owner": "LACS-Official",
+  "repo": "admt",
+  "description": "\u73a9\u673a\u7ba1\u5bb6 (ADMT) \u662f\u4e00\u6b3e\u73b0\u4ee3\u5316\u7684\u684c\u9762\u7aef Android \u8bbe\u5907\u5237\u673a\u73a9\u673a\u4e00\u7ad9\u5f0f\u7684\u89e3\u51b3\u65b9\u6848\u3002\u501f\u52a9 Rust + Tauri v2 \u67b6\u6784\u5e26\u6765\u7684\u6781\u81f4\u8f7b\u91cf\u4e0e\u9ad8\u6027\u80fd\uff0c\u542f\u52a8\u901f\u5ea6\u98de\u5feb\u3002\u65e0\u8bba\u4f60\u662f Android \u73a9\u673a\u6781\u5ba2\u3001\u5e94\u7528\u5f00\u53d1\u8005\u3001\u5237\u673a\u7231\u597d\u8005\uff0c\u8fd8\u662f\u666e\u901a\u673a\u4e3b\uff0c\u90fd\u80fd\u901a\u8fc7\u73a9\u673a\u7ba1\u5bb6\u8f7b\u677e\u5b8c\u6210\u5404\u7c7b\u8bbe\u5907\u7ba1\u7406\u64cd\u4f5c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LACS-Official/admt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T13:33:24Z"
+}
