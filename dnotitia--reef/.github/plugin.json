@@ -1,0 +1,9 @@
+{
+  "name": "dnotitia--reef",
+  "displayName": "reef",
+  "description": "Agentic, AKB-backed issue tracking that keeps issues, plans, and reports in sync with what developers and coding agents actually do in your GitHub repos.",
+  "version": "1.0.0",
+  "author": "dnotitia",
+  "homepage": "https://github.com/dnotitia/reef",
+  "skills": []
+}
