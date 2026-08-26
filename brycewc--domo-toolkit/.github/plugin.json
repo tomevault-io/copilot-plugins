@@ -1,0 +1,9 @@
+{
+  "name": "brycewc--domo-toolkit",
+  "displayName": "domo-toolkit",
+  "description": "A Chromium browser extension that enhances the Domo experience for power users, providing quick access to frequently used operations, data discovery, and administrative tools within Domo's platform.",
+  "version": "1.0.0",
+  "author": "brycewc",
+  "homepage": "https://github.com/brycewc/domo-toolkit",
+  "skills": []
+}
