@@ -4,7 +4,7 @@
   "repo": "barkeep",
   "description": "Manage hidden macOS menu bar items from one place",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iannuttall/barkeep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T20:20:54Z"
+  "distributed_at": "2026-08-26T06:36:42Z"
 }
