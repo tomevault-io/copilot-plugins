@@ -1,0 +1,9 @@
+{
+  "name": "ankaboot-source--supabase-selfhost-ops",
+  "displayName": "supabase-selfhost-ops",
+  "description": "Self-host Supabase in production, AI-ready: read-only MCP for your coding agent with zero secret exposure, SSO, PITR backups, monitoring, disk encryption, and one-command migration off Supabase Cloud.",
+  "version": "1.0.0",
+  "author": "ankaboot-source",
+  "homepage": "https://github.com/ankaboot-source/supabase-selfhost-ops",
+  "skills": []
+}
