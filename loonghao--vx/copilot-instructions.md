@@ -1,53 +1,30 @@
-## vx-testing
+## vx
 
-> Testing conventions for vx: test file locations, frameworks, and patterns
+> > All project instructions are in [AGENTS.md](AGENTS.md) — follow it exactly.
 
+# Cline Rules for vx
 
-# VX Testing Rules
+> All project instructions are in [AGENTS.md](AGENTS.md) — follow it exactly.
+> This file only adds Cline-specific notes.
 
-## Test File Location
+## Cline Specifics
 
-Tests go in `crates/<name>/tests/` directories — NEVER inline `#[cfg(test)]` modules in source files.
+- Use Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
+- Run `vx just quick` before submitting PR
+- PRs target `main` branch
+- Provider count is 137 (update docs when adding new providers)
 
-```
-crates/vx-resolver/tests/
-├── resolver_tests.rs
-├── executor_tests.rs
-└── spec_tests.rs
-```
+## Quick Reference
 
-## Framework
-
-Use `rstest` for parameterized tests:
-
-```rust
-use rstest::rstest;
-
-#[rstest]
-#[case("node", Ecosystem::NodeJs)]
-#[case("npm", Ecosystem::NodeJs)]
-#[case("go", Ecosystem::Go)]
-fn test_ecosystem_detection(#[case] name: &str, #[case] expected: Ecosystem) {
-    let spec = RuntimeSpec::new(name);
-    assert_eq!(spec.ecosystem, expected);
-}
-```
-
-## Naming Convention
-
-```rust
-#[test]
-fn test_<function_name>_<scenario>() { }
-
-#[tokio::test]
-async fn test_<function_name>_<scenario>() { }
-```
-
-## Mock Usage
-
-- Mock network calls in unit tests — never use real HTTP
-- Use `vx-runtime::testing` mock utilities when available
+| Task | Command |
+|------|---------|
+| Full check | `vx just quick` |
+| Format | `vx just fmt` |
+| Lint | `vx just lint` |
+| Test | `vx just test` |
+| Build | `vx just build` |
+| Single crate | `vx cargo test -p <crate-name>` |
 
 ---
 > Source: [loonghao/vx](https://github.com/loonghao/vx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
