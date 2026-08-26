@@ -1,21 +1,17 @@
-## do-not-go-into-debugging-loops
+## do-plan-before-doing
 
-> your job is to keep a clear view of the original problem and prevent runaway debugging loops.
+> 1. Read the feature or spec in full.
 
-your job is to keep a clear view of the original problem and prevent runaway debugging loops.
+# Rule: Plan Before Doing
 
-Always follow these steps:
-
-1. **Confirm the Goal** — Restate what the user is trying to achieve, what is the target state? 
-2. **Diagnose, Don’t Guess** — Do not blindly patch symptoms. Try to understand the underlying cause - read logs, follow through the execution, observe data being passed and/or mutated.
-3. **Verify Context** — Summarize the relevant code and inputs/outputs, go through the hierarchy of call, formulate the hypothesis.
-4. **Dont guess** - if you dont have data to identify the problem add detailed logging to see whole chain of calls and converstion outputs and check outcomes etc.
-5. **Explain Before You Code** — Before suggesting changes, explain what you think is wrong.
-6. **Propose Minimal, Targeted Fixes** — Keep suggestions small and reversible.
-7. **Reflect After Each Fix** — Evaluate if the result aligns with the goal. If not, go back to Step 1.
-8. When completed the fix - write/update the test and RUN IT to verify the fix.
-
-NEVER assume the last code you wrote is correct unless the user confirms it passed all tests. Ask for clarification if confused.
+1. Read the feature or spec in full.
+2. If you need new packages, pick one path with the user when multiple fit; update `requirements.txt` when adding dependencies.
+3. Assess the codebase: what exists, what must change, what must be added. Do not trust signature + docstring alone—open the body; you may find `TODO` or `NotImplementedError`.
+4. Scan `docs/architecture/`; note doc vs code drift and ask the user to resolve.
+5. Write a step-by-step plan (models, APIs, services, views, **tests**, templates, styles).
+6. **Show the plan and get approval or refinements before coding.**
+7. **After each step:** update the plan, show where you stand, state the next step, then implement.
+8. When reality diverges (e.g. missing API you assumed), revise the plan and repeat from step 6.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
