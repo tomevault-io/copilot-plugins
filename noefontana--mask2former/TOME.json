@@ -4,7 +4,7 @@
   "repo": "mask2former",
   "description": "A (in-progress) reimplementation of Mask2Former (https://arxiv.org/pdf/2112.01527)",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NoeFontana/mask2former",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T10:40:47Z"
+  "distributed_at": "2026-08-26T10:56:05Z"
 }
