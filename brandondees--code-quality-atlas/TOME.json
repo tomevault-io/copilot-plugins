@@ -4,7 +4,7 @@
   "repo": "code-quality-atlas",
   "description": "From-first-principles research toward a standalone agent skill suite for code review & maintenance \u2014 a comprehensive map of what factors into code quality.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brandondees/code-quality-atlas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T19:55:18Z"
+  "distributed_at": "2026-08-26T06:17:19Z"
 }
