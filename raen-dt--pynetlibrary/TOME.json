@@ -4,7 +4,7 @@
   "repo": "PyNetLibrary",
   "description": "API context and reference scripts for Autodesk applications (Navisworks, Revit, Civil 3D), designed for the PyNet Platform. This repo provides Python-style stubs of the Autodesk",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RAEN-DT/PyNetLibrary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T10:38:51Z"
+  "distributed_at": "2026-08-26T10:46:38Z"
 }
