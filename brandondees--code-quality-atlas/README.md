@@ -7,11 +7,11 @@ From-first-principles research toward a standalone agent skill suite for code re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [brandondees/code-quality-atlas](https://github.com/brandondees/code-quality-atlas).
+Original source: `AGENTS.md` in [brandondees/code-quality-atlas](https://github.com/brandondees/code-quality-atlas).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
