@@ -1,0 +1,9 @@
+{
+  "name": "presence-calculus--samplepath-flow",
+  "displayName": "samplepath-flow",
+  "description": "Applying sample path techniques and Little's Law to measure flow in real-world operational processes.",
+  "version": "1.0.0",
+  "author": "presence-calculus",
+  "homepage": "https://github.com/presence-calculus/samplepath-flow",
+  "skills": []
+}
