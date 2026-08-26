@@ -1,0 +1,9 @@
+{
+  "name": "openipc--ak3918ev200",
+  "displayName": "ak3918ev200",
+  "description": "Reverse engineering of the AK3918EV200 ISP: tools, logs, and decompiled analysis to document ioctl mappings, payloads, and initialization sequences for IP camera SoCs.",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/ak3918ev200",
+  "skills": []
+}
