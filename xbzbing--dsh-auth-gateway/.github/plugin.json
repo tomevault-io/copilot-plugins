@@ -1,0 +1,9 @@
+{
+  "name": "xbzbing--dsh-auth-gateway",
+  "displayName": "dsh-auth-gateway",
+  "description": "\u4e3a DeepSeek Harness \u589e\u52a0\u8fdc\u7a0b\u8bbf\u95ee\u80fd\u529b\uff0c\u5e76\u901a\u8fc7\u5bc6\u7801\u548c OTP \u8fdb\u884c\u5b89\u5168\u52a0\u56fa\u3002 Adds secure remote access to DeepSeek Harness with password auth and TOTP two-factor authentication (2FA).",
+  "version": "1.0.0",
+  "author": "xbzbing",
+  "homepage": "https://github.com/xbzbing/dsh-auth-gateway",
+  "skills": []
+}
