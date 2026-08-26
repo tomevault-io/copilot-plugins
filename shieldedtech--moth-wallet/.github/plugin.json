@@ -1,0 +1,9 @@
+{
+  "name": "shieldedtech--moth-wallet",
+  "displayName": "moth-wallet",
+  "description": "Moth wallet for Midnight (reference implementation; non-production use only)",
+  "version": "1.0.0",
+  "author": "shieldedtech",
+  "homepage": "https://github.com/shieldedtech/moth-wallet",
+  "skills": []
+}
