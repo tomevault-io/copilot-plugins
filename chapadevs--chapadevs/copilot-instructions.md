@@ -1,58 +1,89 @@
-## design-pattern
+## project-context
 
-> Unified Design System for Chapadevs - Modern IT Consultancy (Green/White/Black)
+> Chapadevs (https://chapadevs.com) is a platform that bridges non-technical clients with vetted developers.
 
+# Chapadevs — Project Context & Agent Rules
 
-# Chapadevs Unified Design System & Workflow
+## What is Chapadevs?
+Chapadevs (https://chapadevs.com) is a platform that bridges non-technical clients with vetted developers.
+The core value proposition: a client describes their messy idea in plain language → AI generates a live visual preview → a developer is assigned and builds from that preview → the project is managed end-to-end in a shared workspace.
 
-## 🎯 Component Strategy
-- **Hybrid Core**: Use Shadcn for complex layout structures (Sidebar, Tabs, Dialog) and local `ui-components` for atomic elements (Button, Card, Badge, PageTitle).
-- **Barrel Export**: All components MUST be exported and imported via `@/components/ui-components/index.js`.
-- **Standardization**: Never create one-off styles. Use the library components below.
+## The Problem We Solve
+Non-technical clients struggle to communicate their ideas to developers. This leads to:
+- Misaligned builds (devs building the wrong thing)
+- No visibility into progress
+- Wasted time and money on failed projects
 
-## 🛠️ Workflow: Adding New Shadcn Components
-1. **CLI**: Run `npx shadcn@latest add "component-name"`.
-2. **Folder**: Create a new folder `frontend/src/components/shadcn-components/shadcn-"component-name"/`.
-3. **Move**: Relocate the generated `.jsx` file into this folder.
-4. **Reskin (MANDATORY)**:
-   - Replace all `rounded-*` classes with `rounded-none`.
-   - Map typography to `font-heading` for headers and `font-body` for content.
-5. **Export**: Add `export * from "@/components/shadcn-components/shadcn-folder/file"` to the barrel index.
+Chapadevs solves this by acting as the translation layer between idea and execution.
 
-## 🎨 Visual Identity & Style Guide
-- **Sharp Look**: `border-radius: 0` (rounded-none) on everything (Buttons, Cards, Inputs, Modals).
-- **Typography**:
-  - Headings: `font-heading` (Code Bold, monospace, uppercase).
-  - Buttons/Nav: `font-button` (Creato Display Medium).
-  - Body: `font-body` (Coolvetica).
-- **Color Palette**:
-  - Primary: `#059669` (bg-primary / text-primary).
-  - Surface: `#ffffff` (bg-surface).
-  - Border: `#e5e7eb` (border-border).
+---
 
-## 📑 Component Reference (Legacy Styles)
-| Component | Variant / Usage |
-|-----------|-----------------|
-| `Button` | Variants: `primary`, `secondary`, `ghost`, `danger`. Renders as `Link` if `to` prop is present. |
-| `Card` | Variants: `default`, `elevated`, `accent` (green bottom border), `ghost`, `outline`. |
-| `Badge` | Status: `holding`, `open`, `ready`, `development`, `completed`. Semantic: `success`, `error`, `neutral`. |
-| `PageTitle`| H1 with green left border, Code Bold, Uppercase. |
-| `Alert` | Conditionally rendered variants: `error` (red), `success` (green), `info` (blue), `warning` (amber). |
+## Core Features
 
-## 🛠️ Sidebar Docking Rule
-- The `SidebarTrigger` MUST be absolute-positioned inside the `Sidebar` at `right-[-14px] top-20 z-50` to stay docked to the border.
+### 1. AI-Generated Previews (KEY DIFFERENTIATOR)
+- Client writes a plain-language description of their project
+- AI generates a live visual/website preview
+- Developer receives the preview + code as a starting blueprint
+- Located under: Workspace > Previews
 
-## 🚀 Pre-flight Checklist
-- [ ] Component installed via Shadcn CLI and moved to dedicated folder?
-- [ ] All `rounded` classes removed?
-- [ ] Exported via `@/components/ui-components`?
-- [ ] Content wrapped in `max-w-[1200px] mx-auto` or `<Container>`?
+### 2. Shared Workspace
+Each project has a dedicated workspace with:
+- Overview — project summary, status (Open/In Progress/Completed), dates, assigned programmer, client info, "I'm Ready" / "Start Development" CTAs
+- Previews — AI generation input + list of generated previews with copy code / download zip options
+- Timeline — project milestones and schedule
+- Team — client and assigned programmer(s)
+- Assets — project files and resources
+- Calendar — scheduling
+- Activity — project activity log
+- Chat — direct messaging between client and developer
 
-## Rules
-  *Dont Children component styles and applying them on Parent components
-  *New props should be asked before added
-  *Priority to Shadcn components styles
-  *No more new CSS files for individual components 
+### 3. Developer Assignment
+- Developers are vetted and matched to project type
+- "Ready confirmed" system (e.g. "1 of 2") tracks when both parties confirm readiness before development starts
+
+### 4. Project Status Flow
+OPEN → (both parties confirm ready) → START DEVELOPMENT → IN PROGRESS → COMPLETED
+
+---
+
+## Tech & UI Conventions
+
+### Design Language
+- Primary color: #1D9E75 (teal/green)
+- Font style: clean, modern, minimal
+- Status badges: uppercase, outlined (e.g. OPEN, COMPLETED)
+- Action buttons: uppercase, filled teal for primary, outlined for secondary
+- Danger actions (e.g. Leave Project) use red background
+
+### Key UI Patterns
+- Sidebar navigation: Overview, Workspace (Previews, Timeline, Team, Assets, Calendar), Activity, Chat
+- Project header: title + status badge + primary CTAs
+- Project summary card: Start Date, Due Date, Completed Date, Duration, Project Type, Client, Assigned Programmer(s), Ready Confirmed
+- Danger Zone section at the bottom of Overview for destructive actions
+
+### Project Types (examples)
+- Management Panel / ERP / CRM
+- Websites / Landing Pages
+- Web Apps
+
+---
+
+## Tone & Messaging Guidelines
+- Speak directly to non-technical clients — no jargon
+- Lead with the problem (messy ideas, miscommunication, wasted money)
+- The AI preview is the hero feature — always highlight it
+- Positioning: "You describe it, we visualize it, devs build it"
+- Avoid sounding like a generic freelancer marketplace
+
+---
+
+## What Agents Should Always Do
+- Follow the workspace structure above when building or modifying any feature
+- Keep the client/developer relationship at the center of every feature decision
+- The AI preview flow (describe → generate → copy/download code) must always be preserved and prioritized
+- Status flows should be respected: never skip the "Ready Confirmed" step before development starts
+- Design should match existing conventions: teal primary, minimal UI, uppercase status labels
+- When in doubt about a feature's purpose, default to: "does this help a non-technical client understand or control their project?"
 
 ---
 > Source: [Chapadevs/Chapadevs](https://github.com/Chapadevs/Chapadevs) — distributed by [TomeVault](https://tomevault.io).
