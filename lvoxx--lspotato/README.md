@@ -7,11 +7,11 @@ Blender Addon to cheese with LSCherry
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lvoxx/LSPotato](https://github.com/lvoxx/LSPotato).
+Original source: `AGENTS.md` in [lvoxx/LSPotato](https://github.com/lvoxx/LSPotato).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
