@@ -4,7 +4,7 @@
   "repo": "individuality-community",
   "description": "Pallets and a runtime to manage Proof-of-Personhood (PoP) and related on-chain logic.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paritytech/individuality-community",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T16:41:57Z"
+  "distributed_at": "2026-08-26T02:29:40Z"
 }
