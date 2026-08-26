@@ -1,0 +1,9 @@
+{
+  "name": "noefontana--mask2former",
+  "displayName": "mask2former",
+  "description": "A (in-progress) reimplementation of Mask2Former (https://arxiv.org/pdf/2112.01527)",
+  "version": "1.0.0",
+  "author": "NoeFontana",
+  "homepage": "https://github.com/NoeFontana/mask2former",
+  "skills": []
+}
