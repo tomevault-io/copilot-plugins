@@ -1,0 +1,9 @@
+{
+  "name": "fernandopalafox--max",
+  "displayName": "max",
+  "description": "MAX is an experimental RL library built with JAX for research in information gathering and online adaptation. It supports model-based control with parameter beliefs, model-free methods, and multi-agen",
+  "version": "1.0.0",
+  "author": "fernandopalafox",
+  "homepage": "https://github.com/fernandopalafox/max",
+  "skills": []
+}
