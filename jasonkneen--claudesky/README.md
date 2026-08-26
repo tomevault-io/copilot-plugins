@@ -7,11 +7,11 @@ Cross-platform desktop app for agentic chat powered by Claude Agent SDK.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jasonkneen/claudesky](https://github.com/jasonkneen/claudesky).
+Original source: `AGENTS.md` in [jasonkneen/claudesky](https://github.com/jasonkneen/claudesky).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
