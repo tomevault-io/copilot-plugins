@@ -1,24 +1,13 @@
-## do-semantic-versioning-on-ui-elements
+## do-small-increments
 
-> **Selector order (use in this order):** `get_by_test_id` → `get_by_role` → `get_by_label` → `get_by_text` (stable only). Do **not** use CSS/XPath for primary flows.
+> Work in method-by-method steps.
 
-# UI naming for Playwright and accessibility
+# Rule: Small Increments
 
-**Selector order (use in this order):** `get_by_test_id` → `get_by_role` → `get_by_label` → `get_by_text` (stable only). Do **not** use CSS/XPath for primary flows.
-
-**Every interactive control:** stable `data-testid`, plus `aria-label` or visible label; forms need `Label` + `aria-describedby` for errors; dialogs need unique accessible name.
-
-**Naming:** hierarchical `feature-area--role`, e.g. `intent-form-dialog`, `intent-name-input`, `save-intent-button`. Lists/cards: container + per-item ids (`data-intent-id`).
-
-**State:** expose `data-state`, `data-valid`, `aria-invalid`, `aria-pressed` where it affects tests.
-
-**Portals (dialogs/menus):** query from `page`, not a nested container—`page.get_by_test_id("…")`.
-
-**Tests:** disable animations in test env (1ms transitions). Prefer stable `data-testid` over dynamic button text.
-
-**Checklist before merge:** ids on interactive nodes; labels on inputs; dialog names; no CSS-only E2E selectors; portals from `page`.
-
-See project E2E docs for full examples when needed.
+Work in method-by-method steps.
+- Implement small vertical slices.
+- After every change: write → run → test → evaluate → fix.
+- No large PRs or 1000-line commits.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
