@@ -4,7 +4,7 @@
   "repo": "decision-os-v13-loopkit",
   "description": "V12\u2192V13 LoopKit: turns completion records into governed next-loop decisions using GO / HOLD / CAP / BLOCK.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shin4141/decision-os-v13-loopkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T19:31:47Z"
+  "distributed_at": "2026-08-26T05:33:54Z"
 }
