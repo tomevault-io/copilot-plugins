@@ -1,0 +1,9 @@
+{
+  "name": "ralsina--mcp",
+  "displayName": "mcp",
+  "description": "A crystal shard to create Model Context Protocol servers",
+  "version": "1.0.0",
+  "author": "ralsina",
+  "homepage": "https://github.com/ralsina/mcp",
+  "skills": []
+}
