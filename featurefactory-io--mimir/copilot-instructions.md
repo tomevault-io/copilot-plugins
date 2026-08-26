@@ -1,90 +1,11 @@
-## do-validate-api-contracts
+## do-update-tests-after-bugfixing
 
-> - **Always** define TypeScript interfaces that match exact backend response structure
+> When the bug was discovered, you performed and investigation anf fix, ask yourself - "why our current test(s) was not able to find it?"
 
-## Requirements
-
-### 1. Frontend Interface Validation
-- **Always** define TypeScript interfaces that match exact backend response structure
-- Include ALL fields returned by backend, including nested objects and metadata
-- Validate both success and error response formats
-- Example:
-```typescript
-// ❌ WRONG - Missing authentication fields
-interface UserResponse {
-  id: number;
-  username: string;
-  email: string;
-}
-
-// ✅ CORRECT - Matches backend response exactly
-interface UserResponse {
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    first_name?: string;
-    last_name?: string;
-    // ... all user fields
-  };
-  authenticated: boolean;
-  token_valid: boolean;
-  token_expires_at?: string;
-}
-```
-
-### 2. Response Validation Logic
-- **Never** assume HTTP 200 means success - always check response data fields
-- Validate authentication/authorization flags in response
-- Handle nested response structures correctly
-- Example:
-```typescript
-// ❌ WRONG - Only checking HTTP status
-if (response.status === 200 && response.data) {
-  setUser(response.data); // Assumes flat structure
-}
-
-// ✅ CORRECT - Full validation with nested structure
-if (response.status === 200 && response.data && 
-    response.data.authenticated && response.data.token_valid) {
-  setUser(response.data.user); // Correctly accessing nested user
-}
-```
-
-### 3. Documentation Requirements
-- Document exact API response formats in Architecture_FULL.md
-- Include example JSON responses for all authentication endpoints
-- Specify frontend validation requirements
-- Update documentation when API contracts change
-
-### 4. Testing Requirements
-- Write integration tests that validate actual API responses
-- Test both success and failure scenarios
-- Verify frontend handles all response fields correctly
-- Include API contract tests in continuous testing
-
-## Prevention Checklist
-
-Before implementing frontend API calls:
-- [ ] Check Architecture_FULL.md for documented response format
-- [ ] Define TypeScript interface matching exact backend response
-- [ ] Implement full response validation (not just HTTP status)
-- [ ] Test with actual backend responses
-- [ ] Update documentation if response format differs
-
-Before deploying API changes:
-- [ ] Verify frontend interfaces match new backend response
-- [ ] Update all affected frontend validation logic
-- [ ] Run integration tests to validate contract compatibility
-- [ ] Update Architecture_FULL.md with new response formats
-
-## Common Pitfalls to Avoid
-
-1. **Assuming flat response structure** - Many APIs return nested objects
-2. **Only checking HTTP status** - 200 OK doesn't guarantee valid data
-3. **Missing authentication flags** - Backend may return success with auth failures
-4. **Outdated interfaces** - Frontend types drift from backend reality
-5. **No integration testing** - Unit tests don't catch contract mismatches
+When the bug was discovered, you performed and investigation anf fix, ask yourself - "why our current test(s) was not able to find it?"
+If there is no test for that part of functionality - time to create it.
+If there are test(s) for that part of functionality - extend it to prove that the bug does not exist anymore.
+When completing the fix - run the test to prove that bug does not exist.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
