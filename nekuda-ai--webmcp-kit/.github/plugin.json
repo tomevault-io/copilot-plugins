@@ -1,0 +1,9 @@
+{
+  "name": "nekuda-ai--webmcp-kit",
+  "displayName": "webmcp-kit",
+  "description": "Make your website agent-ready: a coding-agent plugin for Claude Code and Codex that adds WebMCP tools to your web app",
+  "version": "1.0.0",
+  "author": "nekuda-ai",
+  "homepage": "https://github.com/nekuda-ai/webmcp-kit",
+  "skills": []
+}
