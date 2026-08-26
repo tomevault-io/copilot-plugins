@@ -1,60 +1,68 @@
-## code
+## apflow
 
-> High-Quality Code Specification – Simplicity First
+> The core of `apflow` is **task orchestration and execution specifications**. It provides a unified task orchestration framework that supports execution of multiple task types.
 
+# High-Quality Code Specification – Simplicity, Readability, and Maintainability First
+
+## Project Overview
+The core of `apflow` is **task orchestration and execution specifications**. It provides a unified task orchestration framework that supports execution of multiple task types.
 
 ## Core Principles
-- Simplicity, readability, maintainability highest priority.
-- No premature abstraction, optimization, or over-engineering.
-- Code must be clear in ≤10 seconds; prefer simple over "elegant".
+- Prioritize **simplicity, readability, and maintainability** above all.
+- Avoid premature abstraction, optimization, or over-engineering.
+- Code should be understandable in ≤10 seconds; favor straightforward over clever.
+- Always follow: Understand → Plan → Implement minimally → Test/Validate → Commit.
 
 ## Python Code Quality
 
 ### Readability
-- Precise full-word names (limited standard abbreviations).
+- Use precise, full-word names (standard abbreviations only when conventional).
 - Functions ≤50 lines, single responsibility, verb-named.
-- No obscure tricks or overuse of comprehensions/*args/**kwargs/decorators.
-- Break complex logic into small functions.
+- Avoid obscure tricks, heavy comprehensions, excessive *args/**kwargs, unnecessary decorators.
+- Break complex logic into small, well-named helpers.
 
 ### Types (Mandatory)
-- Full type annotations.
-- No `Any` except dynamic JSON/third-party.
-- Use `dataclass`, `TypedDict`, `Protocol`, `NewType`.
+- Full type annotations everywhere.
+- Avoid `Any` except for dynamic/external data.
+- Prefer `dataclass`, `TypedDict`, `Protocol`, `NewType`.
 
 ### Design
-- Functional + data classes preferred; avoid deep inheritance.
-- Composition > inheritance; ABC/Protocol only for real multiples.
+- Favor functional style + data classes; minimize inheritance.
+- Composition > inheritance; use Protocols/ABCs only for true interfaces.
 - No circular imports.
-- Dependency injection for config/logging/DB.
+- Dependency injection for config, logging, DB, etc.
 
 ### Errors & Resources
 - Explicit exception handling; no bare `except:`.
-- Context managers for resources.
-- Validate all public inputs.
+- Context managers for files/DB/connections.
+- Validate/sanitize all public inputs.
 
 ### Logging
-- `info` for critical paths; `error` with context for exceptions.
-- No `print()` debugging.
+- Use `logging.info` for key paths.
+- `logging.error` + context for exceptions.
+- No `print()` in production/debug code.
 
 ### Testing
-- Unit tests for core logic in `tests/`; ≥90% coverage.
-- Names: `test_<feature>_<behavior>`.
-- No changes without tests.
+- Unit tests in `tests/`, ≥90% coverage on core logic.
+- Name: `test_<unit>_<behavior>`.
+- Never change prod code without/updating tests.
 
-### Performance & Security
-- No unjustified O(n²)+ in hot paths.
-- Sanitize user input.
-- Secrets only from config/secret management.
+### Formatting & Linting
+- After changes, always run:
+  - ruff check --fix .
+  - black .
+  - pyright .
+- Zero errors/warnings before commit.
 
-### Cursor Rules
-- Never auto-create docs or examples.
-- No extra `.pyi` or bloated `__init__.py`.
-- English only for comments/docstrings/logs/errors.
-- Fully understand context before logic changes.
+### Security & Performance
+- Never hardcode secrets; use env/config.
+- Validate/sanitize inputs.
+- Avoid unjustified quadratic+ complexity in hot paths.
 
-### Formatting
-- Zero errors: `ruff` + `black` + `pyright`.
-- Imports sorted: std → third-party → local.
+## General Guidelines
+- English ONLY for comments, docstrings, logs, errors, commit messages.
+- Fully understand surrounding code before changes.
+- Do not generate unnecessary documentation, examples, stubs, or bloated `__init__.py` files unless explicitly requested.
 
 ---
 > Source: [aiperceivable/apflow](https://github.com/aiperceivable/apflow) — distributed by [TomeVault](https://tomevault.io).
