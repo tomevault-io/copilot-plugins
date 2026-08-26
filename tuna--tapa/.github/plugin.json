@@ -1,0 +1,9 @@
+{
+  "name": "tuna--tapa",
+  "displayName": "tapa",
+  "description": "TAPA compiles task-parallel HLS program into high-performance FPGA accelerators.",
+  "version": "1.0.0",
+  "author": "tuna",
+  "homepage": "https://github.com/tuna/tapa",
+  "skills": []
+}
