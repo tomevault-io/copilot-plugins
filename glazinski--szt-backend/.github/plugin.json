@@ -1,0 +1,9 @@
+{
+  "name": "glazinski--szt-backend",
+  "displayName": "szt-backend",
+  "description": "Recipe Management Platform - Spring REST API",
+  "version": "1.0.0",
+  "author": "glazinski",
+  "homepage": "https://github.com/glazinski/szt-backend",
+  "skills": []
+}
