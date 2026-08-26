@@ -4,7 +4,7 @@
   "repo": "acryl",
   "description": "ACRYL - Agent Context Relay Yielding Lifecycles. One persistent workspace, one canonical context, any coding agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/acryldev/acryl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T17:30:21Z"
+  "distributed_at": "2026-08-26T17:31:13Z"
 }
