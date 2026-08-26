@@ -7,11 +7,11 @@ Unofficial Safari port of asciimoo/hister
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nburns/hister-safari](https://github.com/nburns/hister-safari).
+Original source: `AGENTS.md` in [nburns/hister-safari](https://github.com/nburns/hister-safari).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
