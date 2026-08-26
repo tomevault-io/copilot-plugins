@@ -1,0 +1,69 @@
+{
+  "name": "kaiord",
+  "owner": "pablo-albaladejo",
+  "repo": "kaiord",
+  "description": "Open-source, local-first training platform: calendar, AI assistant, Garmin & WHOOP sync \u2014 plus a TypeScript SDK, CLI, and MCP server for FIT, TCX, ZWO, and Garmin Connect workout files.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arch-review",
+      "path": ".claude/skills/arch-review",
+      "github_url": "https://github.com/pablo-albaladejo/kaiord/tree/main/.claude/skills/arch-review",
+      "description": ""
+    },
+    {
+      "name": "deploy-spa",
+      "path": ".claude/skills/deploy-spa",
+      "github_url": "https://github.com/pablo-albaladejo/kaiord/tree/main/.claude/skills/deploy-spa",
+      "description": ""
+    },
+    {
+      "name": "npm-review",
+      "path": ".claude/skills/npm-review",
+      "github_url": "https://github.com/pablo-albaladejo/kaiord/tree/main/.claude/skills/npm-review",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": ".claude/skills/test",
+      "github_url": "https://github.com/pablo-albaladejo/kaiord/tree/main/.claude/skills/test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pablo-albaladejo/kaiord",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T09:30:21Z"
+}
