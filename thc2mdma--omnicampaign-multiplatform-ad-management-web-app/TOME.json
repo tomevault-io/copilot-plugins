@@ -1,0 +1,44 @@
+{
+  "name": "OmniCampaign-MultiPlatform-Ad-Management-Web-App",
+  "owner": "thc2mdma",
+  "repo": "OmniCampaign-MultiPlatform-Ad-Management-Web-App",
+  "description": "Centralize your digital advertising. A unified web app to create, manage, and analyze campaigns across Facebook, Google, and LinkedIn from a single dashboard. Built with React & Node.js.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thc2mdma/OmniCampaign-MultiPlatform-Ad-Management-Web-App",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T08:07:10Z"
+}
