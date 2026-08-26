@@ -1,0 +1,44 @@
+{
+  "name": "VulnHunter-White",
+  "owner": "1diot9",
+  "repo": "VulnHunter-White",
+  "description": "\u57fa\u4e8e LLM \u7684\u767d\u76d2\u6f0f\u6d1e\u6316\u6398 Agent\u3002\u4e09\u79cd\u6a21\u5f0f\uff08\u542f\u53d1\u5f0f\u5168\u8986\u76d6\u3001\u5386\u53f2\u6f0f\u6d1e\u7ed5\u8fc7\u3001Sink \u56de\u6eaf\uff09+ Docker/Mock/\u9759\u6001\u9a8c\u8bc1\uff0c\u652f\u6301\u4e92\u8054\u7f51\u590d\u73b0\u4e0e\u653b\u51fb\u94fe\u4e32\u8054\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1diot9/VulnHunter-White",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T02:37:08Z"
+}
