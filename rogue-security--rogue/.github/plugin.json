@@ -1,0 +1,9 @@
+{
+  "name": "rogue-security--rogue",
+  "displayName": "rogue",
+  "description": "AI Agent Evaluator & Red Team Platform",
+  "version": "1.0.0",
+  "author": "rogue-security",
+  "homepage": "https://github.com/rogue-security/rogue",
+  "skills": []
+}
