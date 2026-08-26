@@ -1,0 +1,9 @@
+{
+  "name": "wfjsw--shitspeak-rs",
+  "displayName": "shitspeak-rs",
+  "description": "Geo-distributed Mumble Server in Rust",
+  "version": "1.0.0",
+  "author": "wfjsw",
+  "homepage": "https://github.com/wfjsw/shitspeak-rs",
+  "skills": []
+}
