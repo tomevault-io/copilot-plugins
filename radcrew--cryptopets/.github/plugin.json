@@ -1,0 +1,9 @@
+{
+  "name": "radcrew--cryptopets",
+  "displayName": "cryptopets",
+  "description": "NFT pet game on Ethereum & Solana - mint, breed, train, and battle pets with Chainlink VRF-powered combat and on-chain progression.",
+  "version": "1.0.0",
+  "author": "radcrew",
+  "homepage": "https://github.com/radcrew/cryptopets",
+  "skills": []
+}
