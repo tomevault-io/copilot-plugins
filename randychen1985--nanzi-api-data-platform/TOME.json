@@ -1,0 +1,44 @@
+{
+  "name": "nanzi-api-data-platform",
+  "owner": "RandyChen1985",
+  "repo": "nanzi-api-data-platform",
+  "description": "NanZi\u00b7\u6570\u636e\u670d\u52a1\u5e73\u53f0\u662f\u4f01\u4e1a\u7ea7 Data API \u4e0e\u5143\u6570\u636e\u6cbb\u7406\u5e73\u53f0\u3002\u5c06\u7269\u7406\u8868\u3001\u81ea\u5b9a\u4e49 SQL \u4e0e\u8bed\u4e49\u5143\u6570\u636e\u5c01\u88c5\u4e3a\u53ef\u6cbb\u7406\u3001\u53ef\u5ba1\u8ba1\u7684 RESTful API\uff0c\u652f\u6301 MySQL / ClickHouse / Oracle \u591a\u6e90\u63a5\u5165\uff0c\u63d0\u4f9b SQL \u5b9e\u9a8c\u5ba4\u3001\u7ec6\u7c92\u5ea6 RBAC \u4e0e\u5168\u94fe\u8def\u8c03\u7528\u5ba1\u8ba1\uff0c\u53ef\u4f5c\u4e3a AI Agent \u4e0e\u4e1a\u52a1\u7cfb\u7edf\u7684\u7edf\u4e00\u6570\u636e\u670d\u52a1\u5e95\u5ea7\u3002\ud83d\udcda \u6570\u636e\u4ea7\u54c1\u76ee\u5f55 \u00b7 \ud83e\uddea SQL Lab \u5168\u6808 \u00b7 \ud83d\udd0d AI \u667a\u80fd\u6478\u6392 \u00b7 \ud83d\uddc4\ufe0f SQL Server \u591a\u6e90 \ud83d\udd14 \u53d8\u66f4\u901a\u77e5 \u00b7 \ud83d\udcdc \u914d\u7f6e\u7248\u672c\u5386\u53f2 \u00b7 \ud83d\udd0c MCP Server \u00b7 \ud83c\udfa8 \u54c1\u724c\u4e2a\u6027\u5316 \ud83d\udcf1 \u79fb\u52a8\u7aef\u7ba1\u7406\u53f0 \u00b7 \ud83d\udee1\ufe0f \u7ec6\u7c92\u5ea6 RBAC\u00b7 \ud83d\udccb \u5ba1\u8ba1\u4e0e\u53ef\u89c2\u6d4b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RandyChen1985/nanzi-api-data-platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-26T00:10:56Z"
+}
