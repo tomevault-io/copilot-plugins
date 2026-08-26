@@ -1,0 +1,9 @@
+{
+  "name": "polarsquad--knr-ops",
+  "displayName": "knr-ops",
+  "description": "Kubernetes-Native Resource Operations",
+  "version": "1.0.0",
+  "author": "polarsquad",
+  "homepage": "https://github.com/polarsquad/knr-ops",
+  "skills": []
+}
