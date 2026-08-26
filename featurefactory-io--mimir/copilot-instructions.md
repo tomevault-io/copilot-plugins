@@ -1,40 +1,10 @@
-## do-docstring-format
+## do-fix-tests
 
-> Every public function/method needs a docstring in this shape:
+> Failing tests are major problem - we don't start new development until we fix them.
 
-# Docstring format (with examples)
-
-Every public function/method needs a docstring in this shape:
-
-```python
-def name(p: T) -> R:
-    """
-    One-line summary.
-
-    :param p: what it is as Type. Example: concrete_value
-    :return: what you return as Type. Example: concrete_value
-    :raises SomeError: when
-    """
-```
-
-**Rules:** summary line, blank line, then `:param` / `:return` / `:raises` with **example values** on every param and return (and raises where applicable). Types belong in the signature; docstring repeats them for humans.
-
-**Minimal good example**
-
-```python
-def get_workflow(workflow_id: str) -> dict:
-    """
-    Load workflow by id.
-
-    :param workflow_id: id as str. Example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-    :return: workflow dict. Example: {"id": "a1b2c3d4", "name": "Build Feature"}
-    :raises ValueError: if id invalid
-    """
-```
-
-**Anti-patterns:** no examples; vague "the name"; missing return example; docstring contradicts implementation (ask user which wins).
-
-**Optional / *args / **kwargs:** document each; examples show typical values.
+Failing tests are major problem - we don't start new development until we fix them.
+If its a test problem - fix it.
+If its a implementation details VS test diff - either fix the test, or ask user what takes precedence.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
