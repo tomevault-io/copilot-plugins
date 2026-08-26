@@ -4,7 +4,7 @@
   "repo": "NewShoes",
   "description": "The original Command & Conquer: Generals Zero Hour engine, ported to WebAssembly and playable in the browser.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Agusx1211/NewShoes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T15:36:30Z"
+  "distributed_at": "2026-08-26T00:16:15Z"
 }
