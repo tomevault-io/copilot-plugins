@@ -7,11 +7,11 @@ Quiver is a multi-platform package manager - probably the only one you'll ever n
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rabbytesoftware/quiver.core](https://github.com/rabbytesoftware/quiver.core).
+Original source: `AGENTS.md` in [rabbytesoftware/quiver.core](https://github.com/rabbytesoftware/quiver.core).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
