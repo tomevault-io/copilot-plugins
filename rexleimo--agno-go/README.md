@@ -1,11 +1,13 @@
-# AI instruction files for agno-Go
+# agno-go
 
-> Sourced from [rexleimo/agno-Go](https://github.com/rexleimo/agno-Go), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+> Source: [rexleimo/agno-go](https://github.com/rexleimo/agno-go). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+Agno-Go: A High-Performance Multi-Agent System Framework Based on Golang. Inheriting the Agno design philosophy, it leverages Golang's concurrency model and per
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rexleimo/agno-Go](https://github.com/rexleimo/agno-Go).
+Original source: `AGENTS.md` in [rexleimo/agno-go](https://github.com/rexleimo/agno-go).
 
 ## Also available for
 
@@ -15,14 +17,10 @@ Original source: `AGENTS.md` in [rexleimo/agno-Go](https://github.com/rexleimo/a
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rexleimo/agno-Go](https://github.com/rexleimo/agno-Go) — a repo with 63+ stars on GitHub.
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rexleimo/agno-go](https://github.com/rexleimo/agno-go)
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install rexleimo/agno-Go
-```
-Source: [github.com/rexleimo/agno-Go](https://github.com/rexleimo/agno-Go).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-i-s -->
+<!-- genome:d-c-p -->
