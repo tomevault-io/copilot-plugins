@@ -1,17 +1,27 @@
-## do-skeletons-first
+## do-test-first
 
-> The core principle is that the developer who has no knowledge of the system can implement methods/properties etc. following only documentation in the skeleton - think its like you are a designer defining the task for the implementer.
+> Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
 
-The core principle is that the developer who has no knowledge of the system can implement methods/properties etc. following only documentation in the skeleton - think its like you are a designer defining the task for the implementer.
+Tests prove behavior. You **cannot claim** a scenario, class, or method is implemented until tests pass.
 
-Do as follows:
-- Read `.windsurf/rules/do-write-concise-methods.md`
-- Read .windsurf/rules/keep-docstrings-consistent.md
-- Create class and method/function stubs and document them
-- Include full docstrings, return types (eg "-> list[str]", and sample return values (per global rules)
-- Use `raise NotImplementedError()` in each method.
-- Do not skip type hints or documentation
-- Add comments inside the methods pointing attention to the logic flow, exception handling, logging etc.
+- New code structure: follow `.windsurf/rules/do-skeletons-first.md` (docstrings, types, stubs).
+- Write tests **before** implementation. Do not write tests whose only purpose is to hit `NotImplementedError`—write assertions that **should pass** once real behavior exists.
+- Cover **success** (returns) **and** **failure** (`raises`, errors, edge cases) for each unit of behavior.
+- If implementation contradicts docstring, ask the user which wins.
+- Use `docs/features/` to align scenarios with tests.
+- Order: method-level → API → integration. For integration, follow `.windsurf/rules/do-not-mock-in-integration-tests.md`.
+- Red–green: make the test fail, then implement until green.
+- Use pytest; avoid mocks unless unavoidable.
+
+**Layout (never put tests in repo root):**
+
+| Kind | Path |
+|------|------|
+| Unit | `tests/unit/` |
+| Integration | `tests/integration/` |
+| API | `tests/api/` |
+| E2E | `tests/e2e/` |
+| Service | `tests/services/` |
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
