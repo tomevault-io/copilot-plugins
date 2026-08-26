@@ -1,0 +1,17 @@
+## effect-attio
+
+> This repository uses the Effect Typescript library.
+
+# Learning more about Effect
+
+This repository uses the Effect Typescript library.
+
+Before writing any Effect code, first read `node_modules/effect/AGENTS.md`
+**completely**, and follow the links in the file when required.
+
+If you need to learn more about particular Effect APIs and concepts that the
+guide does not cover, search through the source code in `node_modules/effect/src`.
+
+---
+> Source: [tobimori/effect-attio](https://github.com/tobimori/effect-attio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-26 -->
