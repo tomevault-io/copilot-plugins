@@ -1,8 +1,11 @@
-## keep-docstrings-consistent
+## never-delete-mindlessly
 
-> When performing edits - always check docstring and keep them up-to-date with :param:, :raises:, :return: etc.
+> Never mindlessly delete functions, variables, classes etc. - first ask yoursefl "why I do I need to delete it? what will happen if its not there?"
 
-When performing edits - always check docstring and keep them up-to-date with :param:, :raises:, :return: etc.
+Never mindlessly delete functions, variables, classes etc. - first ask yoursefl "why I do I need to delete it? what will happen if its not there?"
+First check if there are instantions of the class or calls to a function.
+Even when you see that there is not a single instantiation of the class or call to a function - ask user with the proposal to delete it, explain your analysis and tell why you think its safe to delete it.
+Even if user agreed - add a tag "deleted def func_x" on the commit.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
