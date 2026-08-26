@@ -1,135 +1,134 @@
-## java-spring-boot
+## review-gate
 
-> **目标**: 提高代码的可读性、可维护性，促进各层职责清晰，并确保API的一致性。
+> This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
 
-## Java Spring Boot 代码规范与实践规则
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# AI Agent Protocol: Self-Contained Mandatory Interactive Final Review Loop with Auto-Script Creation (Version 3)
 
-**目标**: 提高代码的可读性、可维护性，促进各层职责清晰，并确保API的一致性。
+## 0. User Advisory & Safety:
+This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
 
-### 1. Controller 层 (`controller`)
+## 1. Core Principle & Context:
+Your primary task processing includes a **mandatory final interactive review stage** driven by user input through a specific Python script (`final_review_gate.py`). You are NOT to consider your overall task complete until this review stage explicitly signals completion. This protocol leverages your known capability to run commands in a sub-terminal (displayed within the chat interface) and read their output.
 
-*   **职责**:
-    *   接收 HTTP 请求。
-    *   校验请求参数的合法性（基础校验，如 `@NotBlank`, `@NotNull`, `@Validated` 配合分组校验 `AddGroup`, `EditGroup`）。复杂业务校验应在 Service 层。
-    *   调用 Service 层处理业务逻辑。
-    *   将 Service 层返回的业务对象（通常是实体或实体的 `IPage`）转换为视图对象 (VO) 或视图对象的 `IPage`。
-    *   统一响应格式，例如使用 `R<T>` ，包含成功/失败状态码、消息和数据。
-    *   保持 Controller 方法简洁，通常每个方法只有几行代码（参数校验、服务调用、VO 转换、返回响应）。
-*   **命名**:
-    *   类名以 `Controller` 结尾 (e.g., `StoreController`, `UserController`)。
-    *   管理端接口使用 `@RestController("adminXXXController")` 或类似方式区分。小程序端接口使用 `@RestController("miniappXXXController")`。
-    *   请求路径 (`@RequestMapping`):
-        *   管理端统一前缀，如 `/api/admin/...`。
-        *   小程序端统一前缀，如 `/api/miniapp/...`。
-        *   RESTful 风格的路径命名 (e.g., `GET /users`, `GET /users/{id}`, `POST /users`, `PUT /users/{id}`, `DELETE /users/{id}` )。
-*   **参数**:
-    *   `GET` 请求的查询参数使用 `@RequestParam`。路径参数使用 `@PathVariable`。
-    *   `POST`, `PUT` 请求的请求体使用 `@RequestBody`，并与对应的 DTO 绑定。
-    *   使用 `@Validated` 注解配合分组校验 (`AddGroup`, `EditGroup`) 对 DTO 进行校验。
-*   **返回**:
-    *   统一返回 VO (View Object) 或 VO 的分页对象 (`IPage<SomeVO>`)。
-    *   禁止直接返回实体 (Entity)。
-    *   操作成功返回 `ApiResult.success(data)` 或 `ApiResult.success(true)`。
-    *   操作失败（由 Service 层抛出异常，全局异常处理器捕获）或参数校验失败（由框架自动处理）时，Controller 不直接处理错误返回，而是依赖全局异常处理机制。
-*   **依赖**:
-    *   注入对应的 `Service` 接口。
-    *   注入对应的 `Convert` 接口实例 (e.g., `UserConvert.INSTANCE`)。
+## Phase 0: Ensure `final_review_gate.py` Script Exists
+(This phase is executed ONCE per user request that triggers this overall protocol, or if the script is missing or its content is incorrect.)
 
-### 2. Service 层 (`service` 和 `service.impl`)
+1.  **Define Script Details:**
+    * **Script Name:** `final_review_gate.py`
+    * **Target Location:** Directly in the root of the current project/workspace.
+    * **Python Script Content (ensure this exact content is used):**
+        ```python
+        # final_review_gate.py
+        import sys
+        import os
 
-*   **职责**:
-    *   处理核心业务逻辑。
-    *   进行复杂的业务校验和数据一致性校验。
-    *   调用 Mapper/DAO 层与数据库交互。
-    *   处理事务 (`@Transactional`)。
-    *   执行 DTO 到 Entity 的转换（如果 Controller 传入 DTO，Service 需要操作 Entity）。
-    *   设置实体的默认值、状态等。
-    *   如果操作失败或数据未找到，应抛出自定义的业务异常 (e.g., `BilliardsException.of(ResultCode.XXX)`)。
-*   **接口 (`service/MyService.java`)**:
-    *   定义清晰的业务方法。
-    *   方法参数应能清晰表达业务意图，可以是基本类型、ID，或特定场景的 DTO。
-    *   方法返回值通常是实体 (Entity) 或实体的集合/分页对象 (`List<Entity>`, `IPage<Entity>`)，或者 `boolean` 表示操作成功与否。
-*   **实现 (`service/impl/MyServiceImpl.java`)**:
-    *   实现对应的 Service 接口。
-    *   注入 Mapper 接口。
-    *   注入其他需要的 Service 接口。
-    *   注入对应的 `Convert` 接口实例（如果需要将 DTO 转换为 Entity）。
-    *   在方法开头进行必要的参数校验（例如 `null` 检查，空字符串检查）。
-    *   对于查询操作，如果未找到数据且业务上认为这是异常情况，应抛出异常 (e.g., `BilliardsException.of(ResultCode.NOT_FOUND)`)。
-    *   对于写操作（创建、更新、删除），如果操作失败（e.g., `save()` 返回 `false`），应抛出异常。
-*   **命名**:
-    *   接口名以 `Service` 结尾 (e.g., `StoreService`)。
-    *   实现类名以 `ServiceImpl` 结尾 (e.g., `StoreServiceImpl`)。
+        if __name__ == "__main__":
+            # Try to make stdout unbuffered for more responsive interaction.
+            # This might not work on all platforms or if stdout is not a TTY,
+            # but it's a good practice for this kind of interactive script.
+            try:
+                sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
+            except Exception:
+                pass # Ignore if unbuffering fails, e.g., in certain environments
 
-### 3. 数据传输对象 (DTO) 和视图对象 (VO)
+            try:
+                sys.stderr = os.fdopen(sys.stderr.fileno(), 'w', buffering=1)
+            except Exception:
+                pass # Ignore
 
-*   **DTO (`model.dto.request` 或 `model.dto`)**:
-    *   用于封装 Controller 接收的请求数据。
-    *   字段应与请求参数对应。
-    *   可以使用 Bean Validation 注解进行数据校验 (`@NotBlank`, `@NotNull`, `@Min`, `@Max`, `@Size`, `@Pattern`, etc.)。
-    *   使用分组校验 (`AddGroup`, `EditGroup`) 区分不同操作场景的校验规则。
-    *   命名规范：`XxxDto.java` 或 `XxxRequest.java`, `XxxQuery.java`。
-        *   `XxxDto` + `AddGroup` 用于创建。
-        *   `XxxDto` + `EditGroup` 用于更新。
-        *   `XxxQueryRequest` (通常继承通用分页类 `PageQuery`) 用于列表/分页查询。
-*   **VO (`model.vo`)**:
-    *   用于封装 Controller 返回给客户端的响应数据。
-    *   只包含客户端需要的字段，可能对实体字段进行裁剪、格式化或添加额外计算字段。
-    *   敏感信息不应包含在 VO 中，或应进行脱敏处理。
-    *   日期时间字段使用 `@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")` 进行格式化。
-    *   命名规范：`XxxVO.java`。
-*   **原则**:
-    *   **DTO 用于输入，VO 用于输出。**
-    *   **禁止在 Controller 方法中直接使用 Entity 作为请求体或响应体。**
-    *   保持 DTO 和 VO 的纯粹性，它们只应包含数据和校验注解，不应包含业务逻辑。
+            print("--- FINAL REVIEW GATE ACTIVE ---", flush=True)
+            print("AI has completed its primary actions. Awaiting your review or further sub-prompts.", flush=True)
+            print("Type your sub-prompt, or one of: 'TASK_COMPLETE', 'Done', 'Quit', 'q' to signal completion.", flush=True) # MODIFIED
+            
+            active_session = True
+            while active_session:
+                try:
+                    # Signal that the script is ready for input.
+                    # The AI doesn't need to parse this, but it's good for user visibility.
+                    print("REVIEW_GATE_AWAITING_INPUT:", end="", flush=True) 
+                    
+                    line = sys.stdin.readline()
+                    
+                    if not line:  # EOF
+                        print("--- REVIEW GATE: STDIN CLOSED (EOF), EXITING SCRIPT ---", flush=True)
+                        active_session = False
+                        break
+                    
+                    user_input = line.strip()
 
-### 4. 转换层 (`convert`)
-
-*   **职责**:
-    *   负责 Entity, DTO, VO 之间的相互转换。
-    *   使用 MapStruct (`@Mapper(componentModel = "spring")`) 实现。
-*   **接口 (`MyConvert.java`)**:
-    *   定义转换方法，如 `toVo(Entity entity)`, `toEntity(Dto dto)`, `toVoList(List<Entity> list)`, `updateEntityFromDto(Dto dto, @MappingTarget Entity entity)`。
-    *   提供 `INSTANCE = Mappers.getMapper(MyConvert.class)` 以便获取实例。
-    *   对于更新操作，使用 `@MappingTarget` 注解，并可以使用 `@Mapping(target = "xxx", ignore = true)` 忽略不需要更新的字段（如 `id`, `createTime`）。
-    *   为 `IPage` 提供默认的转换方法，如:
-        ```java
-        default IPage<MyVo> toVoPage(IPage<MyEntity> entityPage) {
-            if (entityPage == null) {
-                return null;
-            }
-            IPage<MyVo> voPage = new Page<>(entityPage.getCurrent(), entityPage.getSize(), entityPage.getTotal());
-            voPage.setRecords(toVoList(entityPage.getRecords()));
-            return voPage;
-        }
+                    # Check for exit conditions
+                    if user_input.upper() in ['TASK_COMPLETE', 'DONE', 'QUIT', 'Q']: # MODIFIED: Empty string no longer exits
+                        print(f"--- REVIEW GATE: USER SIGNALED COMPLETION WITH '{user_input.upper()}' ---", flush=True)
+                        active_session = False
+                        break
+                    elif user_input: # If there's any other non-empty input (and not a completion command)
+                        # This is the critical line the AI will "listen" for.
+                        print(f"USER_REVIEW_SUB_PROMPT: {user_input}", flush=True)
+                    # If user_input was empty (and not a completion command),
+                    # the loop simply continues, and "REVIEW_GATE_AWAITING_INPUT:" will be printed again.
+                    
+                except KeyboardInterrupt:
+                    print("--- REVIEW GATE: SESSION INTERRUPTED BY USER (KeyboardInterrupt) ---", flush=True)
+                    active_session = False
+                    break
+                except Exception as e:
+                    print(f"--- REVIEW GATE SCRIPT ERROR: {e} ---", flush=True)
+                    active_session = False
+                    break
+                    
+            print("--- FINAL REVIEW GATE SCRIPT EXITED ---", flush=True)
         ```
-       或者直接使用 MybatisPlus 的 `page.convert(this::toVo)`。
 
-### 5. 实体层 (`model.entity`)
+2.  **Ensure Script Existence and Correctness:**
+    a.  Use your file system tools to check if the file `final_review_gate.py` exists in the project root.
+    b.  **If the file `final_review_gate.py` does NOT exist OR if its content does not EXACTLY match the Python script provided in section "Phase 0.1.Python Script Content" (you may need to read the existing file and compare):**
+        i.  You MUST create or overwrite the `final_review_gate.py` file in the project root.
+        ii. The content of this file MUST be *exactly* the Python script content provided above. Ensure all indentation, comments, and lines are preserved perfectly. Use your "create file" or "edit file" tool.
+        iii. After creating/overwriting it, announce: "The `final_review_gate.py` script has been created/updated in the project root with the latest interaction enhancements."
+    c.  **If the file `final_review_gate.py` already exists and its content is correct:** You may skip announcing its creation.
+    d.  If you encounter any errors checking for, reading, or creating/writing the file (e.g., permission issues), you MUST report this to the user. State clearly: "Error managing `final_review_gate.py`: [specific error]. Cannot proceed with interactive review." and then conclude the interaction for the main task as best as you can without this interactive step.
 
-*   与数据库表结构对应。
-*   使用 Lombok (`@Data`, `@EqualsAndHashCode(callSuper = true)`)。
-*   使用 MybatisPlus 注解 (`@TableName`, `@TableId`, `@TableField`)。
-*   继承通用的 `BaseEntity` (如果项目中定义了，包含 `createTime`, `updateTime` 等公共字段)。
+## Phase 1: Primary Task Execution
+1.  Address the user's main request as you normally would: perform analysis, make code changes, call tools, and run applications/tests in sub-terminals if the main task requires it.
+    * **Application Execution Confirmation:** Before attempting to run an entire application (e.g., a web server, a full front-end build, a long-running background process), you MUST ask the user for explicit confirmation. For example: "I am about to run the [application name/command]. Is it okay to proceed, or is it possibly already running?"
+    * This confirmation is NOT required for running individual test scripts, linters, build tools for specific components, or other non-application-level commands necessary for task completion.
+    * If the user indicates an application is already running or denies permission, adapt your strategy accordingly (e.g., focus on tests or specific file executions).
+2.  Leverage your ability to read outputs/errors from these sub-terminals to make iterative fixes during *this* primary phase.
 
-### 6. 异常处理
+## Phase 2: Mandatory Final Interactive Review Script Execution
+1.  **Transition Point:** Once you believe you have completed all substantive actions for the user's initial request (Phase 1), **DO NOT CONCLUDE THE CONVERSATION**. You MUST now transition to this Final Interactive Review phase.
+2.  **Action:** Execute the `final_review_gate.py` script (which you ensured exists and is correct in Phase 0) from the project root.
+    * Determine the correct Python interpreter command (e.g., `python`, `python3`) available in the execution environment. A robust command attempt would be `python3 ./final_review_gate.py` and if that fails, try `python ./final_review_gate.py`.
+    * **Crucially, the terminal for this script MUST run directly within the chat window, and its output MUST be continuously visible to the user as it is generated.** It must NOT pop open as a separate window or run hidden in the background. You MUST wait for the script (and its terminal interaction) to fully complete and exit before you proceed with any further actions or attempt to conclude the overall task. Your processing will be blocked by this script's execution.
+3.  **Announcement:** Clearly inform the user: "I have completed the primary actions. Now initiating the mandatory Final Interactive Review by running `./final_review_gate.py`. The review terminal is now active **in this chat window, and its output will be displayed live**. Please provide any sub-prompts directly into that script's input area, or type 'TASK_COMPLETE', 'Done', 'Quit', or 'q' when satisfied." (MODIFIED: Removed "or simply press Enter")
 
-*   **自定义业务异常**: 定义一个基础业务异常类，如 `BilliardsException`，继承自 `RuntimeException`。
-*   **错误码**: 使用统一的错误码枚举 (e.g., `ResultCode`)，包含错误码和错误信息。
-*   **Service 层抛出**: Service 层在遇到业务错误或数据校验失败时，抛出 `BilliardsException.of(ResultCode.XXX_ERROR, "可选的详细信息")`。
-*   **全局异常处理器**: 实现一个全局异常处理器 (`@RestControllerAdvice`) 来捕获 `BilliardsException` 和其他常见异常（如参数校验异常 `MethodArgumentNotValidException`, `BindException`），并返回统一的 JSON 响应格式。
+## Phase 3: Interactive Review Loop (Monitoring Script Output)
+1.  **Active Monitoring & Display:** Continuously monitor the standard output (stdout) of the launched `final_review_gate.py` script **as it appears live in the chat window**. Ensure the user sees all script output, including the `REVIEW_GATE_AWAITING_INPUT:` prompt. You will "read" its output using the same capability that allows you to read terminal logs or error messages. The script will loop and re-prompt if an empty input is given.
+2.  **User Sub-Prompt Detection:** When the script's stdout prints a line formatted EXACTLY as:
+    `USER_REVIEW_SUB_PROMPT: <user's sub-prompt text>`
+    You MUST interpret `<user's sub-prompt text>` as a new, direct, actionable instruction from the user.
+3.  **Processing Sub-Prompts:**
+    a.  This instruction is a continuation or refinement of the *original, still-active task*.
+    b.  Analyze the sub-prompt. Execute any necessary actions (code changes, new tool calls, file operations, etc.). **All tool calls made during this phase are part of the original request's tool call budget.** If the sub-prompt requests running an entire application, the confirmation principle from "Phase 1, Step 1 (Application Execution Confirmation)" applies.
+    c.  Provide feedback or results of these actions in the main chat interface as you normally would for any AI action.
+    d.  After processing the sub-prompt and giving feedback in the chat, IMMEDIATELY return your focus to monitoring the `final_review_gate.py` script's terminal output (which remains live and visible in the chat) for the next user instruction or completion signal. This loop is critical.
+4.  **Completion Signal Detection:** The interactive review loop continues until the script's stdout (visible in the chat window) prints a line containing:
+    * `--- REVIEW GATE: USER SIGNALED COMPLETION WITH 'TASK_COMPLETE' ---` (or 'DONE', 'QUIT', 'Q' as per script logic)
+    * OR `--- FINAL REVIEW GATE SCRIPT EXITED ---` (or any other script exit/error message like `REVIEW GATE: STDIN CLOSED` or `REVIEW GATE SCRIPT ERROR:`)
+    (MODIFIED: Removed specific "EMPTY INPUT RECEIVED" as a completion signal, as the script no longer behaves this way for completion.)
 
-### 7. Lombok 和 MapStruct
+## Phase 4: True Task Conclusion
+1.  Only after the `final_review_gate.py` script has terminated (as observed by its terminal session in the chat window closing and its final exit messages being printed and visible) are you permitted to consider the user's original request fully satisfied.
+2.  You may then provide your final summary of all actions taken throughout all phases (including the interactive review).
 
-*   广泛使用 Lombok 减少样板代码 (`@Data`, `@RequiredArgsConstructor` 等)。
-*   使用 MapStruct 进行对象转换，避免手动编写大量 `get/set` 代码。
+## Overriding Default Behavior:
 
-### 8. 其他
-
-*   **日志**: 在关键业务点（如 Controller 入口、Service 方法调用、异常捕获处）记录适当的日志 (`log.info()`, `log.error()`)。
-*   **事务管理**: Service 层的写操作方法应添加 `@Transactional(rollbackFor = Exception.class)` 注解。
-*   **代码风格**: 遵循统一的 Java 代码风格指南（如 Google Java Style Guide 或项目内部约定）。
-*   **注释**: 对复杂的业务逻辑、非显而易见的代码路径、公共方法和类的用途进行必要的注释。
+This entire "Final Interactive Review" process (Phases 0, 2, 3, and 4) is a **strict, non-negotiable requirement** that overrides any default tendency you have to end the conversation after completing Phase 1. The task is only finished when the user explicitly confirms with one of the specified keywords through the review script or the script otherwise terminates due to an error or EOF (as per the defined behavior, including the in-chat, blocking, and continuously visible terminal execution). Your "sense of completion" for the original request is deferred until this interactive review is done.
 
 ---
 > Source: [banyue0618/billiards-miniapp](https://github.com/banyue0618/billiards-miniapp) — distributed by [TomeVault](https://tomevault.io).
