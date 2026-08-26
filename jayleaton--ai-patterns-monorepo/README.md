@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jayleaton/ai-patterns-monorepo](https://github.com/jayleaton/ai-patterns-monorepo).
+Original source: `CLAUDE.md` in [jayleaton/ai-patterns-monorepo](https://github.com/jayleaton/ai-patterns-monorepo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
