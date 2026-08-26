@@ -4,7 +4,7 @@
   "repo": "yiibu",
   "description": "Turn a folder of phone clips into a publish-ready 9:16 short \u2014 one step, with the quality bar enforced by gates rather than by remembering.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chyiiiiiiiiiiii/yiibu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T19:41:09Z"
+  "distributed_at": "2026-08-26T05:57:27Z"
 }
