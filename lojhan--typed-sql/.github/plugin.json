@@ -1,0 +1,9 @@
+{
+  "name": "lojhan--typed-sql",
+  "displayName": "typed-sql",
+  "description": "TypeScript 7-native SQL inference with real editor semantics",
+  "version": "1.0.0",
+  "author": "Lojhan",
+  "homepage": "https://github.com/Lojhan/typed-sql",
+  "skills": []
+}
