@@ -4,7 +4,7 @@
   "repo": "xmrig-android",
   "description": "Cross-platform Monero (XMR) miner: Android app (XMRig 6.21.0) + Web miner (RandomX.js). Material Design 3 UI, multi-pool support.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ImL1s/xmrig-android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T21:33:38Z"
+  "distributed_at": "2026-08-26T06:44:13Z"
 }
