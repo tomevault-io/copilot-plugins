@@ -4,7 +4,7 @@
   "repo": "forage",
   "description": "Opinionated bean factories for Apache Camel",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KaotoIO/forage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T16:34:21Z"
+  "distributed_at": "2026-08-26T16:35:11Z"
 }
