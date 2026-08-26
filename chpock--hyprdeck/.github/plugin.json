@@ -1,0 +1,9 @@
+{
+  "name": "chpock--hyprdeck",
+  "displayName": "hyprdeck",
+  "description": "Tab-group workspaces for Hyprland: one tile visible, the rest behind it as tabs, with group-aware focus/move dispatchers.",
+  "version": "1.0.0",
+  "author": "chpock",
+  "homepage": "https://github.com/chpock/hyprdeck",
+  "skills": []
+}
