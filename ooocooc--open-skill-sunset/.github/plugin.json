@@ -1,0 +1,9 @@
+{
+  "name": "ooocooc--open-skill-sunset",
+  "displayName": "open-skill-sunset",
+  "description": "Audit and safely retire stale generic AI agent instructions.",
+  "version": "1.0.0",
+  "author": "ooocooc",
+  "homepage": "https://github.com/ooocooc/open-skill-sunset",
+  "skills": []
+}
