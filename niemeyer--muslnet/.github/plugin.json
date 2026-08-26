@@ -1,0 +1,9 @@
+{
+  "name": "niemeyer--muslnet",
+  "displayName": "muslnet",
+  "description": "TinyGo support for networking on Linux",
+  "version": "1.0.0",
+  "author": "niemeyer",
+  "homepage": "https://github.com/niemeyer/muslnet",
+  "skills": []
+}
