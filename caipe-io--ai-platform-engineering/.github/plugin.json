@@ -1,0 +1,9 @@
+{
+  "name": "caipe-io--ai-platform-engineering",
+  "displayName": "ai-platform-engineering",
+  "description": "CAIPE is an open-source AI platform for building, deploying, governing, and operating AI agents and agentic workflows for platform engineering and beyond.",
+  "version": "1.0.0",
+  "author": "caipe-io",
+  "homepage": "https://github.com/caipe-io/ai-platform-engineering",
+  "skills": []
+}
