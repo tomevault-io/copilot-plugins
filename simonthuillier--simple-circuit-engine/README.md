@@ -7,11 +7,11 @@ Educational electronic circuits Build & Simulation engine with THREE.js 3D visua
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SimonThuillier/simple-circuit-engine](https://github.com/SimonThuillier/simple-circuit-engine).
+Original source: `AGENTS.md` in [SimonThuillier/simple-circuit-engine](https://github.com/SimonThuillier/simple-circuit-engine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
