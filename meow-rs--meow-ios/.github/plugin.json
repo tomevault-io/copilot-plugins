@@ -1,0 +1,9 @@
+{
+  "name": "meow-rs--meow-ios",
+  "displayName": "meow-ios",
+  "description": "iOS port of meow \u2014 VPN/proxy client for iOS 26, powered by meow-rs",
+  "version": "1.0.0",
+  "author": "meow-rs",
+  "homepage": "https://github.com/meow-rs/meow-ios",
+  "skills": []
+}
