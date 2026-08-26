@@ -7,11 +7,11 @@ The case study of City2Graph
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [c2g-dev/city2graph-case-study](https://github.com/c2g-dev/city2graph-case-study).
+Original source: `AGENTS.md` in [c2g-dev/city2graph-case-study](https://github.com/c2g-dev/city2graph-case-study).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
