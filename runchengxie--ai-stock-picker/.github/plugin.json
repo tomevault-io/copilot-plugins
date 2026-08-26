@@ -1,0 +1,9 @@
+{
+  "name": "runchengxie--ai-stock-picker",
+  "displayName": "ai-stock-picker",
+  "description": "ai-stock-picker takes a pre-generated candidate pool, invokes a large language model to rerank the candidates, and outputs validated JSON results.",
+  "version": "1.0.0",
+  "author": "runchengxie",
+  "homepage": "https://github.com/runchengxie/ai-stock-picker",
+  "skills": []
+}
