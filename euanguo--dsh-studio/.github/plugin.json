@@ -1,0 +1,9 @@
+{
+  "name": "euanguo--dsh-studio",
+  "displayName": "dsh-studio",
+  "description": "DSH Studio \u2014 a local development workbench for DeepSeek Harness: project tree, Git review, terminal, and plugin marketplace (Desktop + Web)",
+  "version": "1.0.0",
+  "author": "euanguo",
+  "homepage": "https://github.com/euanguo/dsh-studio",
+  "skills": []
+}
