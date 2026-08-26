@@ -1,0 +1,9 @@
+{
+  "name": "nibblebot--omp-web",
+  "displayName": "omp-web",
+  "description": "multi-session web UI for oh-my-pi coding harness",
+  "version": "1.0.0",
+  "author": "nibblebot",
+  "homepage": "https://github.com/nibblebot/omp-web",
+  "skills": []
+}
