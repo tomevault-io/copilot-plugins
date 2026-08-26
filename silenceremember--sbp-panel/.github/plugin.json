@@ -1,0 +1,9 @@
+{
+  "name": "silenceremember--sbp-panel",
+  "displayName": "sbp-panel",
+  "description": "Minimal self-hosted control panel for Xray, AmneziaWG and whitelist-bypass services",
+  "version": "1.0.0",
+  "author": "silenceremember",
+  "homepage": "https://github.com/silenceremember/sbp-panel",
+  "skills": []
+}
