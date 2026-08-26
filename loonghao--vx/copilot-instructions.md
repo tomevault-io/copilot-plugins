@@ -1,30 +1,44 @@
-## vx
+## vx-core
 
-> > All project instructions are in [AGENTS.md](AGENTS.md) — follow it exactly.
+> Core vx project rules: terminology, commands, architecture, and coding standards for the universal dev tool manager
 
-# Cline Rules for vx
 
-> All project instructions are in [AGENTS.md](AGENTS.md) — follow it exactly.
-> This file only adds Cline-specific notes.
+# VX Project Rules
 
-## Cline Specifics
+vx is a universal development tool manager (v0.8.20, Rust, 138 providers, Starlark DSL).
+Users prefix commands with `vx` (e.g., `vx node --version`) and tools auto-install on first use.
 
-- Use Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
-- Run `vx just quick` before submitting PR
-- PRs target `main` branch
-- Provider count is 137 (update docs when adding new providers)
+## Commands
 
-## Quick Reference
+- Always use `vx` prefix: `vx npm install`, `vx cargo build`, `vx go run main.go`
+- Never suggest manual tool installation — vx handles it automatically
+- Task runner: `vx just <task>` (see `justfile`)
+- Pre-commit: `vx just quick` (format → lint → test → build)
 
-| Task | Command |
-|------|---------|
-| Full check | `vx just quick` |
-| Format | `vx just fmt` |
-| Lint | `vx just lint` |
-| Test | `vx just test` |
-| Build | `vx just build` |
-| Single crate | `vx cargo test -p <crate-name>` |
+## Terminology (enforced)
+
+- **Runtime** (not Tool, not VxTool)
+- **Provider** (not Plugin, not Bundle)
+- **provider.star** (not provider config)
+- **ProviderRegistry** (not BundleRegistry)
+
+## Code Style
+
+- Rust edition 2024, MSRV 1.93+
+- Logging: `tracing::info!`, `tracing::debug!` — never `println!` or `eprintln!`
+- Error handling: `anyhow::Result` (app), `thiserror` (lib)
+- Import order: stdlib → external → internal, separated by blank lines
+- File size: Keep under 500 lines
+- Commits: Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`)
+
+## Architecture (layers go downward only)
+
+1. **CLI**: `vx-cli`
+2. **Orchestration**: `vx-resolver`, `vx-setup`, `vx-project-analyzer`
+3. **Service**: `vx-runtime`, `vx-starlark`, `vx-installer`, `vx-config`, `vx-console`
+4. **Foundation**: `vx-core`, `vx-paths`, `vx-cache`, `vx-versions`, `vx-manifest`
+5. **Providers**: `vx-providers/*` (138 Starlark DSL definitions)
 
 ---
 > Source: [loonghao/vx](https://github.com/loonghao/vx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
