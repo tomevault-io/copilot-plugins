@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--contributor-toolkit",
+  "displayName": "contributor-toolkit",
+  "description": "Desktop app that sets up a WordPress core development environment with no prerequisites, applies the work already on a Trac ticket, and submits a contribution back.",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/contributor-toolkit",
+  "skills": []
+}
