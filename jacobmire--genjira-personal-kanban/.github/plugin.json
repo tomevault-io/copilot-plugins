@@ -1,0 +1,9 @@
+{
+  "name": "jacobmire--genjira-personal-kanban",
+  "displayName": "GenJira-Personal-Kanban",
+  "description": "A responsive, real-time, multi-user Kanban web application that enables teams to plan, track, and manage workflows collaboratively.",
+  "version": "1.0.0",
+  "author": "JacobMire",
+  "homepage": "https://github.com/JacobMire/GenJira-Personal-Kanban",
+  "skills": []
+}
