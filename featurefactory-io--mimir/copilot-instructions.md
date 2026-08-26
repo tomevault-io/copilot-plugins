@@ -1,17 +1,24 @@
-## do-skeletons-first
+## do-semantic-versioning-on-ui-elements
 
-> The core principle is that the developer who has no knowledge of the system can implement methods/properties etc. following only documentation in the skeleton - think its like you are a designer defining the task for the implementer.
+> **Selector order (use in this order):** `get_by_test_id` → `get_by_role` → `get_by_label` → `get_by_text` (stable only). Do **not** use CSS/XPath for primary flows.
 
-The core principle is that the developer who has no knowledge of the system can implement methods/properties etc. following only documentation in the skeleton - think its like you are a designer defining the task for the implementer.
+# UI naming for Playwright and accessibility
 
-Do as follows:
-- Read `.windsurf/rules/do-write-concise-methods.md`
-- Read .windsurf/rules/keep-docstrings-consistent.md
-- Create class and method/function stubs and document them
-- Include full docstrings, return types (eg "-> list[str]", and sample return values (per global rules)
-- Use `raise NotImplementedError()` in each method.
-- Do not skip type hints or documentation
-- Add comments inside the methods pointing attention to the logic flow, exception handling, logging etc.
+**Selector order (use in this order):** `get_by_test_id` → `get_by_role` → `get_by_label` → `get_by_text` (stable only). Do **not** use CSS/XPath for primary flows.
+
+**Every interactive control:** stable `data-testid`, plus `aria-label` or visible label; forms need `Label` + `aria-describedby` for errors; dialogs need unique accessible name.
+
+**Naming:** hierarchical `feature-area--role`, e.g. `intent-form-dialog`, `intent-name-input`, `save-intent-button`. Lists/cards: container + per-item ids (`data-intent-id`).
+
+**State:** expose `data-state`, `data-valid`, `aria-invalid`, `aria-pressed` where it affects tests.
+
+**Portals (dialogs/menus):** query from `page`, not a nested container—`page.get_by_test_id("…")`.
+
+**Tests:** disable animations in test env (1ms transitions). Prefer stable `data-testid` over dynamic button text.
+
+**Checklist before merge:** ids on interactive nodes; labels on inputs; dialog names; no CSS-only E2E selectors; portals from `page`.
+
+See project E2E docs for full examples when needed.
 
 ---
 > Source: [FeatureFactory-io/mimir](https://github.com/FeatureFactory-io/mimir) — distributed by [TomeVault](https://tomevault.io).
