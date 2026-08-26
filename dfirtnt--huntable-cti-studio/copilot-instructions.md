@@ -1,81 +1,42 @@
-## fail-closed-verification
+## langchain-workflow-provider-agnostic
 
-> Fail-closed verification protocol — direct validation required; no speculation; mutable data/config protected
+> Langchain workflow changes must work regardless of model/provider choice
 
 
-# FAIL-CLOSED VERIFICATION PROTOCOL (MANDATORY)
+# Langchain Workflow — Provider-Agnostic Implementation
 
-**Core Principle:** Nothing is considered complete unless directly observed and validated. Inference, assumption, or expectation is not verification.
+Changes to the LangGraph workflow and LLM service **must** work regardless of which model/provider is chosen (lmstudio, openai, anthropic).
 
----
+## Rules
 
-## 1. ZERO-SPECULATION POLICY
+1. **No provider-specific branching** — Do not add logic that only runs for one provider (e.g. `if provider == "openai"` for behavior changes). Use the existing `LLMService` abstraction and `_canonicalize_provider` for routing.
 
-- **NEVER** say: "It should work", "This likely fixes it", or similar.
-- **NEVER** ask the user to test something you can test yourself.
-- If something cannot be verified, explicitly state it is **unverified**.
+2. **Use config-driven provider/model** — Read provider and model from `config_models` or `config_snapshot`; never hardcode a provider or model name in workflow logic.
 
----
+3. **Prompt and schema parity** — Prompts, output schemas, and parsing must work across all providers. Avoid provider-specific prompt variants or response formats.
 
-## 2. MUTABLE DATA & LIVE CONFIG PROTECTION (CRITICAL)
+4. **Parameter bounds** — Temperature, max_tokens, and other inference params must use provider-agnostic defaults or provider-specific defaults from `provider_defaults`; do not assume LMStudio-only semantics.
 
-Before performing **ANY** verification step that could:
+## Examples
 
-- Modify database records, user data, or system state
-- Update environment variables or application configuration
-- Trigger irreversible workflows or impact live/production systems
-- Send emails, notifications, payments, or external API calls
-- Execute migrations or destructive operations
+```python
+# ❌ BAD — provider-specific behavior
+if provider == "lmstudio":
+    messages = build_messages_v1(prompt)
+else:
+    messages = build_messages_v2(prompt)
 
-You **MUST**:
+# ✅ GOOD — single path for all providers
+messages = build_messages(prompt)
+```
 
-1. Explicitly identify the risk.
-2. Describe what data/config may change.
-3. Request user approval before proceeding.
-4. Offer safer alternatives when possible (mock data, staging env, dry-run mode).
+```python
+# ❌ BAD — hardcoded model
+model = "gpt-4o-mini"
 
-**DO NOT:** Mutate live data silently; run destructive verification automatically; assume non-production context unless explicitly confirmed.
-
-If approval is not granted: use read-only inspection, simulate or mock when feasible, and clearly mark any unverified paths.
-
----
-
-## 3. REQUIRED VERIFICATION CHECKPOINTS
-
-For **ANY** change, all applicable checkpoints must pass:
-
-- **[A – Reproduction]** If fixing a bug, reproduce first; capture exact failing behavior (UI, console, network, logs).
-- **[B – Implementation]** Apply the fix.
-- **[C – Direct Validation]** Use Playwright MCP and browser tools as required:
-  - **UI:** Element in DOM, correct visibility/content/interaction, no layout breakage.
-  - **Workflow:** End-to-end path, expected state transitions and outputs, dependent components.
-  - **Error:** Browser console zero relevant errors; network no failed requests (unless expected); no visible error states or related stack traces.
-
----
-
-## 4. REGRESSION SAFETY
-
-When reasonably testable: re-run adjacent flows; confirm no new errors or broken UI interactions.
-
----
-
-## 5. COMPLETION CRITERIA (ALL REQUIRED)
-
-Return control **only if**:
-
-- Issue reproduced (if applicable), fix applied, fix validated through direct observation.
-- No visible UI errors, no console errors, no relevant network failures.
-- No regression detected; no unintended data/config mutations.
-
-If any item is not confirmed, the task is **incomplete**.
-
----
-
-## 6. FAILURE HANDLING
-
-If verification fails: continue debugging; do not return control; do not defer testing to the user.
-
-**Verification is mandatory. Data safety is mandatory. Completion without both is prohibited.**
+# ✅ GOOD — from config/env
+model = config_models.get("RankAgent") or self.provider_defaults.get(provider)
+```
 
 ---
 > Source: [dfirtnt/Huntable-CTI-Studio](https://github.com/dfirtnt/Huntable-CTI-Studio) — distributed by [TomeVault](https://tomevault.io).
