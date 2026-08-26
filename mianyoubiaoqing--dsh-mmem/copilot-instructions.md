@@ -1,0 +1,58 @@
+## dsh-mmem
+
+> 本仓库用于把 MistyMoon 的 Memory 能力演化为独立 DeepSeek Harness（DSH）插件。修改前必须阅读本文件、`README.md`、`CONTEXT.md` 与受影响包的说明。
+
+# dsh-Mmem Agent 协作约定
+
+本仓库用于把 MistyMoon 的 Memory 能力演化为独立 DeepSeek Harness（DSH）插件。修改前必须阅读本文件、`README.md`、`CONTEXT.md` 与受影响包的说明。
+
+## 产品不变量
+
+- DSH 拥有 Agent Runtime、Session、工具、权限、模型路由与 Web Host；本插件只使用 DSH 公开扩展点。
+- DSH 拥有 Workspace 的身份与生命周期；本插件只把 Memory Space 绑定到 DSH 提供的 Workspace，不创建平行的 Workspace 标识或路径规则。
+- Memory 拥有 Observation、Candidate、Confirmed Memory、revision、Archive、治理策略、召回与审计；Persona/RP 不是本仓库职责。
+- 未过期 pending 只能作为醒目标注、预算受限的 Provisional Recall 在其 Source Space 内召回；rejected、expired、import draft、跨 Owner/scope 或未获披露授权的内容不得进入召回。
+- 模型可见 Recall Snapshot 与 AI review 必须能从 DSH Session 日志重建。
+- 默认审批模式是定时自动审批；Owner 可显式切换为人工审批。自动审批必须可撤销、失败关闭并保留来源与策略 revision。
+- CI/CD 不读取或修改真实用户 Memory、DSH Home、Session 或凭据；凌晨批处理运行在用户本机 DSH Runtime 内。
+
+## 隐私与发布
+
+- 不读取、复制、提交或回显真实 Persona、Memory、DSH Home、会话、日志、凭据、迁移数据库或诊断转储。
+- 测试只使用中性生成数据和系统临时目录。
+- 未经 Owner 明确授权，不 commit、push、创建 Release、发布 npm 包、迁移真实档案或启用远端 Provider。
+- 发布前必须完成许可证、第三方资产、构建产物和隐私审计。
+- 根 workspace 与内部开发包保持 `private: true`；唯一公开安装面是单一 `@mistymoon/dsh-mmem` bundle，不能要求用户安装未发布的 workspace 包。
+- `pnpm pack:npm` 只生成并审计 `.tgz`。npm 登录、token、`npm publish`、dist-tag 与撤回始终由 Owner 手动执行，Agent 不代为发布。
+
+## TypeScript 与 DSH
+
+- 使用 ESM、严格 TypeScript、包名导入；本地相对导入保留 `.js` 后缀。
+- 公共导出和非直观约束需要简洁 JSDoc；不可信 JSON/JSONL、配置、工具参数、Provider 输出和进程输出必须校验。
+- Cordis 生命周期副作用使用 `ctx.effect()`、`ctx.on()` 或返回 disposer 的注册接口。
+- Waterfall listener 必须调用 `next()`，除非明确且有测试地终止流程。
+- 存储格式带版本；破坏性变更必须有显式 plan/apply、备份和回滚演练。
+- Windows 进程只停止自己启动并记录句柄的进程。
+
+## 工作流
+
+1. 先运行 `git status --short` 并保留已有改动。
+2. 先写能复现行为的测试，再实现变更。
+3. 让 DSH tools、Settings Host、CLI 与 tests 穿过同一个 Governed Memory Interface，避免复制治理规则。
+4. 先运行定向测试，交付前运行 `pnpm check`。
+5. 只报告实际执行过的命令和仍存在的限制。
+
+## Git
+
+- 分支默认使用 `codex/` 前缀。
+- 不使用 `git reset --hard`、`git clean` 或覆盖用户改动的命令。
+- 未经明确授权不提交、不推送、不发布。
+
+## DSH 兼容基线
+
+- 当前完整开发检查以 DSH `0.1.0-rc.8` 为基线；公开 peer range 保留已经验证过的 `rc.7`，覆盖 `>=0.1.0-rc.7 <0.1.0`。
+- 扩大 DSH 兼容范围前必须在新版本上实际运行 typecheck、全部测试、构建和 packed smoke，不只修改 manifest。
+
+---
+> Source: [mianyoubiaoqing/dsh-Mmem](https://github.com/mianyoubiaoqing/dsh-Mmem) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-25 -->
