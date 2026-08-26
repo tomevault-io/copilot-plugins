@@ -1,0 +1,9 @@
+{
+  "name": "youversion--platform-sdk-swift",
+  "displayName": "platform-sdk-swift",
+  "description": "Swift SDK for the YouVersion Platform",
+  "version": "1.0.0",
+  "author": "youversion",
+  "homepage": "https://github.com/youversion/platform-sdk-swift",
+  "skills": []
+}
