@@ -1,0 +1,9 @@
+{
+  "name": "sigilco--agentplugins",
+  "displayName": "agentplugins",
+  "description": "Write AI agent plugins once, ship to multiple agents (Claude Code, OpenCode, Pi, and more). One manifest, any adapters.",
+  "version": "1.0.0",
+  "author": "sigilco",
+  "homepage": "https://github.com/sigilco/agentplugins",
+  "skills": []
+}
