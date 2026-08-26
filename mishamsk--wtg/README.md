@@ -7,11 +7,11 @@ A snarky but helpful CLI tool to identify git commits, issues, PRs and file chan
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mishamsk/wtg](https://github.com/mishamsk/wtg).
+Original source: `CLAUDE.md` in [mishamsk/wtg](https://github.com/mishamsk/wtg).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
