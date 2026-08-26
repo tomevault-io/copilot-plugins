@@ -4,7 +4,7 @@
   "repo": "modelship",
   "description": "Self-hosted, OpenAI-compatible inference for the agentic era: reasoning LLMs, universal tool calling, and the Responses API alongside embeddings, speech, and image models \u2014 many models sharing your GPUs, one gateway. Powered by Ray Serve.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modelship-ai/modelship",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T15:31:12Z"
+  "distributed_at": "2026-08-26T15:33:30Z"
 }
