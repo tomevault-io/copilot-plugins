@@ -1,0 +1,9 @@
+{
+  "name": "jaswanthsai1--jacky-cli",
+  "displayName": "jacky-cli",
+  "description": "Jacky CLI \u2014 an AI agent CLI with dual local/cloud model support and a built-in bug-bounty hunt-loop methodology. A personalized fork of Nous Research's Hermes Agent.",
+  "version": "1.0.0",
+  "author": "jaswanthsai1",
+  "homepage": "https://github.com/jaswanthsai1/jacky-cli",
+  "skills": []
+}
