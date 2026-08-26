@@ -1,0 +1,9 @@
+{
+  "name": "masroorahmd--gpu-ocr-processor",
+  "displayName": "GPU-OCR-Processor",
+  "description": "GPU-accelerated OCR pipeline using PaddleOCR with LLM-based post-processing",
+  "version": "1.0.0",
+  "author": "masroorahmd",
+  "homepage": "https://github.com/masroorahmd/GPU-OCR-Processor",
+  "skills": []
+}
