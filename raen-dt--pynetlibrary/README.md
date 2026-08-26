@@ -7,11 +7,11 @@ API context and reference scripts for Autodesk applications (Navisworks, Revit, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [RAEN-DT/PyNetLibrary](https://github.com/RAEN-DT/PyNetLibrary).
+Original source: `AGENTS.md` in [RAEN-DT/PyNetLibrary](https://github.com/RAEN-DT/PyNetLibrary).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
