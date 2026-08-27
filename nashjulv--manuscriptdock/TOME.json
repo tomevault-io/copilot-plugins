@@ -1,0 +1,44 @@
+{
+  "name": "ManuscriptDock",
+  "owner": "nashjulv",
+  "repo": "ManuscriptDock",
+  "description": "ManuscriptDock: Paper Prep\uff1bFormat, review and resubmit\uff1bFrom manuscript to submission-ready package.\u6295\u7a3f\u8231\uff1a\u8bba\u6587\u6392\u7248\u4e0e\u6295\u7a3f --\u751f\u6210\u6295\u7a3f\u5305\uff0c\u8bc4\u5ba1\u4e0e\u8fd4\u4fee \u9996\u5c4f\u6587\u6848--\u5bfc\u5165\u8bba\u6587\uff0c\u9009\u62e9\u76ee\u6807\u671f\u520a\uff0c\u751f\u6210\u5b8c\u6574\u6295\u7a3f\u6750\u6599",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nashjulv/ManuscriptDock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T00:47:16Z"
+}
