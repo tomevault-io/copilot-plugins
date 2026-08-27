@@ -1,0 +1,9 @@
+{
+  "name": "dsh-ssh--dsh-ssh",
+  "displayName": "dsh-ssh",
+  "description": "SSH remote workspaces for DeepSeek Harness \u2014 run bash, file, and search tools on any remote machine.",
+  "version": "1.0.0",
+  "author": "dsh-ssh",
+  "homepage": "https://github.com/dsh-ssh/dsh-ssh",
+  "skills": []
+}
