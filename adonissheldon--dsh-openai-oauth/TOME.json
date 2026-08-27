@@ -1,0 +1,44 @@
+{
+  "name": "dsh-openai-oauth",
+  "owner": "AdonisSheldon",
+  "repo": "dsh-openai-oauth",
+  "description": "Use ChatGPT OAuth and OpenAI Codex models in DeepSeek Harness\u2014no API key or Codex CLI required.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AdonisSheldon/dsh-openai-oauth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T19:11:43Z"
+}
