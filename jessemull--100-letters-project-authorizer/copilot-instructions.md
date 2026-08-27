@@ -1,13 +1,25 @@
-## 100-imports-boundaries
+## 100-letters-project-authorizer
 
-> Import and module boundary expectations for the authorizer.
+> Before making any changes to this repository:
 
+# Gemini Agent Instructions — 100 Letters Project Authorizer
 
-# Imports and boundaries
+Before making any changes to this repository:
 
-- No path aliases configured — keep imports shallow.
-- Runtime code in `src/` should not import local `scripts/`.
-- Prefer `jose` + `aws-lambda` types only in the handler bundle surface.
+1. Read `CONTEXT.md` — mandatory loading order, precedence chain, quality gates
+2. Read `AGENTS.md` — complete development rules and constraints
+3. Read all mandatory `docs/` listed in CONTEXT.md (items 3–10)
+
+Do NOT duplicate governance from AGENTS.md or docs/ here. This file exists only as an entry point redirect.
+
+## Quick Reference
+
+- Install: `npm install`
+- Preflight: `make preflight`
+- Lint (auto-fix): `make lint`
+- Test: `make test`
+- Build: `make build`
+- Package: `make package`
 
 ---
 > Source: [jessemull/100-letters-project-authorizer](https://github.com/jessemull/100-letters-project-authorizer) — distributed by [TomeVault](https://tomevault.io).
