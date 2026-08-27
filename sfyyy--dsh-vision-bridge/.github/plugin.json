@@ -1,0 +1,9 @@
+{
+  "name": "sfyyy--dsh-vision-bridge",
+  "displayName": "dsh-vision-bridge",
+  "description": "On-demand vision for text-only DeepSeek Harness (DSH) sessions: images become markers, and a vision_describe tool sends only image + question to an OpenAI-compatible vision model",
+  "version": "1.0.0",
+  "author": "sfyyy",
+  "homepage": "https://github.com/sfyyy/dsh-vision-bridge",
+  "skills": []
+}
