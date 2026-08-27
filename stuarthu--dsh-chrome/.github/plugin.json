@@ -1,0 +1,9 @@
+{
+  "name": "stuarthu--dsh-chrome",
+  "displayName": "dsh-chrome",
+  "description": "DeepSeek Harness (dsh) browser companion: Chrome side panel embedding the full dsh web UI + host plugins for page reading, HTTP capture, and browser control.",
+  "version": "1.0.0",
+  "author": "stuarthu",
+  "homepage": "https://github.com/stuarthu/dsh-chrome",
+  "skills": []
+}
