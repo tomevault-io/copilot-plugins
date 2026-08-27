@@ -1,0 +1,9 @@
+{
+  "name": "kamp-us--demlik",
+  "displayName": "demlik",
+  "description": "TEA-faithful state machine substrate for TypeScript \u2014 one pure reducer, every host adapter. The @demlik/tea package.",
+  "version": "1.0.0",
+  "author": "kamp-us",
+  "homepage": "https://github.com/kamp-us/demlik",
+  "skills": []
+}
