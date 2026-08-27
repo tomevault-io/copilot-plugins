@@ -1,57 +1,50 @@
-## 10-tool-development-contract
+## 20-bm25-search-guide
 
-> Contract for developing new MCP tools in this project
+> Guide for using and extending BM25 search in this project
 
 
-# MCP 도구 개발 계약
+# BM25 검색 가이드
 
-## 도구 파일 패턴
+## 아키텍처
+```
+API 호출 (법제처) → 결과 목록 (list[dict]) → BM25 재랭킹 → 상위 K개 반환
+```
+
+BM25는 API 결과를 **클라이언트 측에서 재랭킹**합니다.
+API 자체의 검색 능력을 대체하는 것이 아니라 보완합니다.
+
+## 핵심 함수
 
 ```python
-from ..server import mcp
-from ..utils.law_tools_utils import _make_legislation_request  # 또는 직접 구현
+from mcp_kr_legislation.utils.bm25_search import rank_search_results
 
-@mcp.tool(
-    name="tool_name",
-    description="...",
-    tags={"카테고리", "기능"},
+ranked = rank_search_results(
+    query="개인정보 처리 동의",
+    results=api_results,          # list[dict]
+    text_keys=["법령명한글", "소관부처명"],  # 인덱싱 대상 필드
+    top_k=10,                      # 상위 K개
 )
-def tool_name(
-    param: Annotated[str, "파라미터 설명"],
-) -> TextContent:
-    """한 줄 설명"""
-    params = {"query": param, ...}
-    data = _make_legislation_request("target", params, use_cache=True)
-    # 결과 포맷팅
-    return TextContent(type="text", text=...)
+# 결과: 각 항목에 _bm25_score 추가, 점수 기준 내림차순 정렬
 ```
 
-## 필수 체크리스트
-- [ ] `@mcp.tool` 데코레이터에 `name`, `description`, `tags` 포함
-- [ ] `description`에 사용 예시 포함
-- [ ] `use_cache=True` 사용
-- [ ] 빈 입력 처리 (early return)
-- [ ] `TextContent` 반환
-- [ ] `server.py`의 `tool_modules`에 등록
+## 텍스트 키 선택 가이드
+| 도구 유형 | 권장 text_keys |
+|-----------|---------------|
+| 법령 검색 | `["법령명한글", "소관부처명", "법령구분명"]` |
+| 판례 검색 | `["사건명", "법원명", "사건종류명"]` |
+| 위원회결정문 | `["사건명", "결정유형명"]` |
+| 행정규칙 | `["법령명", "소관부처명"]` |
+| 법령용어 | `["법령용어명", "뜻풀이"]` |
 
-## 캐시 키 생성
-```python
-cache_key = get_cache_key(f"{target}_{param}", "list")
-```
+## 새 BM25 도구 추가
+1. `search_enhance_tools.py`에 추가
+2. `_raw_search(target, query, display)` 호출
+3. `_extract_list(data, root_key)` 로 결과 추출
+4. `rank_search_results(...)` 재랭킹
+5. `_bm25_score` 포함하여 결과 반환
 
-## 오류 처리
-```python
-try:
-    data = _make_legislation_request(target, params, use_cache=True)
-except Exception as e:
-    return TextContent(type="text", text=f"오류: {e}")
-```
-
-## 테스트
-```bash
-# 법제처 API 직접 확인
-curl "http://www.law.go.kr/DRF/lawSearch.do?OC=lchangoo&target=TARGET&type=JSON&query=검색어"
-```
+## rank-bm25 없을 때
+자동으로 TF 폴백 사용 (설치 권장: `uv add rank-bm25`)
 
 ---
 > Source: [ChangooLee/mcp-kr-legislation](https://github.com/ChangooLee/mcp-kr-legislation) — distributed by [TomeVault](https://tomevault.io).
