@@ -1,0 +1,9 @@
+{
+  "name": "hradec--comfyui-hr-endless-sampler",
+  "displayName": "ComfyUI-HR-Endless-Sampler",
+  "description": "Chunked MiniMax H3 video/audio sampling for ComfyUI with latent continuation, frame-accurate shot prompt rewriting, and reduced VRAM usage.",
+  "version": "1.0.0",
+  "author": "hradec",
+  "homepage": "https://github.com/hradec/ComfyUI-HR-Endless-Sampler",
+  "skills": []
+}
