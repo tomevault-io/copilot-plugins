@@ -1,0 +1,9 @@
+{
+  "name": "zorca-org--zorca",
+  "displayName": "zorca",
+  "description": "A native Agent Development Environment built on Zed",
+  "version": "1.0.0",
+  "author": "zorca-org",
+  "homepage": "https://github.com/zorca-org/zorca",
+  "skills": []
+}
