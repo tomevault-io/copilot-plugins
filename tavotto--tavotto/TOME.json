@@ -4,7 +4,7 @@
   "repo": "Tavotto",
   "description": "Make AI-generated scientific figures editable without losing the code behind them.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tavotto/Tavotto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T21:49:33Z"
+  "distributed_at": "2026-08-27T22:33:13Z"
 }
