@@ -1,0 +1,44 @@
+{
+  "name": "sparrow",
+  "owner": "maoruibin",
+  "repo": "sparrow",
+  "description": "\u9ebb\u96c0 Sparrow \u00b7 \u5199\u4e2a Markdown\uff0c\u4e0d\u7528\u8bf7\u5c0a\u4f5b\u3002A tiny but complete Markdown editor. ~10MB, macOS + Windows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maoruibin/sparrow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:43:20Z"
+}
