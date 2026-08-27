@@ -1,0 +1,44 @@
+{
+  "name": "dsh-plugin-mall",
+  "owner": "1e0zj",
+  "repo": "dsh-plugin-mall",
+  "description": "DSH \u63d2\u4ef6\u5e02\u573a\uff1a\u641c\u7d22 GitHub dsh-plugin \u8bdd\u9898\u63d2\u4ef6\uff0c\u4e00\u952e\u5b89\u88c5\u5230\u672c\u5730 dsh\uff08agent \u5de5\u5177 + \u8bbe\u7f6e\u9875\u63d2\u4ef6\u5e02\u573a tab\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1e0zj/dsh-plugin-mall",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:33:48Z"
+}
