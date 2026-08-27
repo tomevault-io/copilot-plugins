@@ -1,0 +1,9 @@
+{
+  "name": "levi-qiao--dsh-plugin-longgraph",
+  "displayName": "dsh-plugin-longgraph",
+  "description": "DeepSeek Harness community plugin: longgraph / loop-graph / loop-converge authoring skills on ctx.skills",
+  "version": "1.0.0",
+  "author": "levi-qiao",
+  "homepage": "https://github.com/levi-qiao/dsh-plugin-longgraph",
+  "skills": []
+}
