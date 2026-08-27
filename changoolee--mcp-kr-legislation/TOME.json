@@ -4,7 +4,7 @@
   "repo": "mcp-kr-legislation",
   "description": "\ud55c\uad6d \ubc95\uc81c\ucc98 OPEN API\ub97c \ud1b5\ud569\ud55c Model Context Protocol(MCP) \uc11c\ubc84\uc785\ub2c8\ub2e4. 130\uac1c \uc774\uc0c1\uc758 \ud3ec\uad04\uc801\uc778 \ub3c4\uad6c\ub97c \ud1b5\ud574 \ubc95\ub839, \ubd80\uac00\uc11c\ube44\uc2a4, \ud589\uc815\uaddc\uce59, \uc790\uce58\ubc95\uaddc, \ud310\ub840, \uc704\uc6d0\ud68c\uacb0\uc815\ubb38, \uc870\uc57d, \ubcc4\ud45c\uc11c\uc2dd, \ud559\uce59\uacf5\ub2e8, \ubc95\ub839\uc6a9\uc5b4, \ub9de\ucda4\ud615, \uc9c0\uc2dd\ubca0\uc774\uc2a4, \ud2b9\ubcc4\ud589\uc815\uc2ec\ud310, \uc911\uc559\ubd80\ucc98\ud574\uc11d \ub4f1 \ubaa8\ub4e0 \ubc95\ub960 \uc815\ubcf4\uc5d0 \ub300\ud55c \uc811\uadfc\uc744 \uc81c\uacf5\ud569\ub2c8\ub2e4.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChangooLee/mcp-kr-legislation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T00:48:42Z"
+  "distributed_at": "2026-08-27T00:49:05Z"
 }
