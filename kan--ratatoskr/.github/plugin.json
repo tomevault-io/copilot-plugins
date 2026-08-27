@@ -1,0 +1,9 @@
+{
+  "name": "kan--ratatoskr",
+  "displayName": "ratatoskr",
+  "description": "livedoor Reader \u306e\u64cd\u4f5c\u611f\u3092\u518d\u73fe\u3059\u308b\u3001Cloudflare Workers + D1 \u4e0a\u306e\u30bb\u30eb\u30d5\u30db\u30b9\u30c8\u578b RSS \u30ea\u30fc\u30c0\u30fc",
+  "version": "1.0.0",
+  "author": "kan",
+  "homepage": "https://github.com/kan/ratatoskr",
+  "skills": []
+}
