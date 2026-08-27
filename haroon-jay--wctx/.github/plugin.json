@@ -1,0 +1,9 @@
+{
+  "name": "haroon-jay--wctx",
+  "displayName": "wctx",
+  "description": "Cross-repository context for coding agents. A local-first MCP server that turns finished sessions into findings with commit provenance and staleness checks.",
+  "version": "1.0.0",
+  "author": "Haroon-jay",
+  "homepage": "https://github.com/Haroon-jay/wctx",
+  "skills": []
+}
