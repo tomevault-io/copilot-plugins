@@ -1,0 +1,9 @@
+{
+  "name": "huchundong--hamsterhq",
+  "displayName": "HamsterHQ",
+  "description": "Multi-tenant cloud deployment for DSH: an authenticating gateway, per-tenant sandboxes on CubeSandbox, and persistent volumes over S3.",
+  "version": "1.0.0",
+  "author": "HuChundong",
+  "homepage": "https://github.com/HuChundong/HamsterHQ",
+  "skills": []
+}
