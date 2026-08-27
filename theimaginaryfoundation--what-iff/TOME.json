@@ -4,7 +4,7 @@
   "repo": "what-iff",
   "description": "Self-hostable personal AI assistant",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theimaginaryfoundation/what-iff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T17:37:17Z"
+  "distributed_at": "2026-08-27T17:37:43Z"
 }
