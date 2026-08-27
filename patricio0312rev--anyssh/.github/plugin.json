@@ -1,0 +1,9 @@
+{
+  "name": "patricio0312rev--anyssh",
+  "displayName": "anyssh",
+  "description": "Open-source SSH client for iPhone and iPad: terminal, remote git and files, tmux and herdr. No backend, no telemetry.",
+  "version": "1.0.0",
+  "author": "patricio0312rev",
+  "homepage": "https://github.com/patricio0312rev/anyssh",
+  "skills": []
+}
