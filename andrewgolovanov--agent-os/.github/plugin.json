@@ -1,0 +1,9 @@
+{
+  "name": "andrewgolovanov--agent-os",
+  "displayName": "agent-os",
+  "description": "Open-source local-first task board and macOS control plane for OpenAI Codex, with MCP plugins, durable tasks, and multi-project workflows.",
+  "version": "1.0.0",
+  "author": "andrewgolovanov",
+  "homepage": "https://github.com/andrewgolovanov/agent-os",
+  "skills": []
+}
