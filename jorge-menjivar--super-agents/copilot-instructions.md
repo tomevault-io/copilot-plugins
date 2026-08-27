@@ -1,0 +1,408 @@
+## super-agents
+
+> This file provides guidance to AI assistants when working with code in this repository.
+
+# Repository Guidelines
+
+This file provides guidance to AI assistants when working with code in this repository.
+
+## Project Structure & Module Organization
+
+This is a **TypeScript monorepo** using pnpm workspaces with three packages:
+
+```
+packages/
+├── web/           # Vite + TanStack Router SPA (React 19)
+│   └── src/
+│       ├── routes/        # TanStack Router file-based routes
+│       ├── components/    # React components
+│       ├── providers/     # React context providers
+│       ├── hooks/         # Custom React hooks
+│       └── api/           # API client functions
+├── api/           # Hono API server (Node.js)
+│   └── src/
+│       ├── api/           # API routes
+│       ├── ai-providers/  # AI provider integrations (40+)
+│       ├── connectors/    # Database connectors
+│       └── middlewares/   # Hono middlewares
+└── shared/        # Shared types, Zod schemas, utilities
+    └── src/
+        ├── types/         # TypeScript types
+        └── utils/         # Shared utilities
+```
+
+Other directories:
+- **`tests/`**: Vitest suites mirroring packages (client, server, shared)
+- **`examples/`**: Example implementations
+- **`supabase/`**: Local dev DB config, migrations, `seed.sql`
+- **`docker/`**: Docker configuration files
+
+**Key path aliases**:
+- `@web/*` - Web package (`packages/web/src/*`)
+- `@api/*` or `@server/*` - API package (`packages/api/src/*`)
+- `@shared/*` - Shared package (`packages/shared/src/*`)
+
+## Essential Commands
+
+**You must run these commands after modifying any file to ensure code quality:**
+```bash
+pnpm typecheck  # TypeScript type checking (uses Turborepo) - REQUIRED
+pnpm check      # Biome linting and formatting - REQUIRED
+pnpm check:fix  # Auto-fix linting and formatting issues
+```
+
+### Development Commands
+```bash
+# Installation and setup
+pnpm install
+
+# Database
+supabase start  # Start local Supabase database
+supabase stop   # Stop local database
+
+# Development server (runs both web and API via Turborepo)
+pnpm dev        # Start all dev servers in parallel
+pnpm dev:web    # Start only web dev server (Vite on port 3000)
+pnpm dev:api    # Start only API dev server (Hono on port 8787)
+
+# Testing
+pnpm test                      # Run all tests (excludes in-depth integration tests)
+pnpm test path/to/test.ts      # Run specific test file
+pnpm test:watch                # Run tests in watch mode
+
+# In-depth integration tests (slower, more comprehensive)
+INCLUDE_IN_DEPTH=true pnpm test
+
+# Runtime checks (also run in CI; both are slow, so they are not part of `pnpm test`)
+pnpm verify:worker     # Bundle and boot the API on workerd
+pnpm verify:container  # Build the all-in-one image and smoke test it (needs Docker)
+
+# Build (uses Turborepo with caching)
+pnpm build      # Build all packages
+pnpm build:web  # Build only web package
+pnpm build:api  # Build only API package
+
+# Code quality
+pnpm lint       # Run linter
+pnpm format     # Check formatting
+pnpm format:fix # Auto-fix formatting
+
+# API testing (all requests go through port 3000, proxied to API)
+curl "http://localhost:3000/v1/endpoint" -H "Authorization: Bearer super-agents"
+```
+
+## Architecture
+
+### Web Application (packages/web)
+- **Framework**: Vite + TanStack Router (SPA mode)
+- **Routing**: File-based routing in `src/routes/`
+  - `_main.tsx` - Layout wrapper with sidebar
+  - `$paramName` - Dynamic route parameters
+  - `.index.tsx` - Index routes for parent paths
+- **Auto-generated**: `routeTree.gen.ts` (do not edit, in .gitignore)
+
+### API Server (packages/api)
+- **Framework**: Hono web framework
+- **Entry**: `src/server.ts` (Node.js) or `src/index.ts` (Cloudflare Workers)
+- **Routes**: `src/api/v1/`
+
+#### The API runs on two runtimes
+
+`pnpm dev:api` runs `wrangler dev`, so **workerd is the development runtime**,
+while the Docker image runs the same code on Node through `src/server.ts`.
+Anything reachable from `src/index.ts` has to work on both. In practice:
+
+- **No module-scope I/O, timers, or randomness.** Workers reject these outright
+  — `utils/sse-event-manager.ts` starts its ping interval on first use for this
+  reason. Prefer a first-request flag over doing work at import time.
+- **Node-only packages have to stay off the Workers path.** A driver with native
+  bindings fails to bundle. Where a package ships a Workers build (`/web` entry
+  or a `workerd` export condition), use it.
+- **`node:` builtins are the quiet case.** Wrangler's unenv layer substitutes a
+  stub, so the import resolves and the Worker boots — it throws only when the
+  stub is called. Neither CI check catches this; review does.
+
+`pnpm verify:worker` bundles and boots the Worker, and runs in CI.
+
+### Request Flow
+```
+Development:  Browser (:3000) → Vite proxy → API (:8787)
+Production:   Browser (:3000) → Hono (:3000)
+```
+
+In development, Vite proxies `/v1/*` requests to the API server on port 8787.
+
+In production there is no proxy: a single Hono process serves both. Because the
+API carries a `/v1` base path, `/v1/*` reaches the API routes and every other
+path falls through to the dashboard's static build. See `packages/api/src/server.ts`.
+
+## API Structure (Hono-based)
+
+Key API endpoints:
+- `/v1/chat/completions` - OpenAI-compatible chat API
+- `/v1/super-agents/agents` - Agent management
+- `/v1/super-agents/evaluations` - Dataset and evaluation management
+- `/v1/super-agents/observability/logs` - Request logging
+
+The gateway endpoints (`/v1/chat/completions`, `/v1/completions`, `/v1/responses`,
+`/v1/embeddings`) are also mounted under
+`/v1/agents/:agent_name/skills/:skill_name/...`. That form names the agent and
+skill in the path instead of in the `sa-config` header, which makes the header
+optional. `commonVariablesMiddleware` merges the path names into the config (the
+path wins over the header) and route matching is done against the canonical path.
+
+**Hono Syntax**: Always use chained method syntax for proper type inference:
+```typescript
+// Use this pattern:
+const app = new Hono<AppEnv>().get().post().fetch();
+
+// Instead of:
+const app = new Hono<AppEnv>();
+app.get();
+app.post();
+app.fetch();
+```
+
+## Database Integration
+
+Uses **connector pattern** for data access:
+- Abstract interfaces in `packages/api/src/types/connector.ts`:
+  `UserDataStorageConnector`, `LogsStorageConnector`, `CacheStorageConnector`
+- All CRUD operations use Zod schema validation
+
+### Backends
+
+| Backend | Location | Status |
+| --- | --- | --- |
+| Supabase / PostgREST | `packages/api/src/connectors/supabase/` | complete; what the app uses |
+| libSQL | `packages/api/src/connectors/libsql/` | complete |
+
+**Selection** lives in `packages/api/src/connectors/index.ts`. Setting
+`LIBSQL_URL` chooses libSQL; leaving it unset keeps Supabase, which is what
+every existing deployment does. The URL scheme carries the rest of the
+decision — `file:` is an embedded database, `libsql://` or `https://` is a
+remote one.
+
+The choice is made **per request**, not at module load, because on Workers
+there is no environment until a request arrives. That is why the three storage
+middlewares take a resolver rather than a connector.
+
+libSQL migrations run on the first request that touches storage
+(`ensureStorageReady`); Postgres is migrated by the `migrations` compose
+service. Single-container deployment: see `docker-compose.libsql.yml`.
+
+Its schema (`connectors/libsql/schema.ts`) is a translation of
+`supabase/migrations/`, not a replay: one consolidated migration describing the
+current shape. Notable differences, all deliberate:
+
+- **No stored procedures.** SQLite has none, so the five RPCs the API calls
+  become explicit transactions in `connectors/libsql/user-data.ts`, and
+  `get_evaluation_scores_by_time_bucket` becomes `connectors/libsql/time-bucket.ts`.
+- **NULL stays NULL.** PostgREST serialises a NULL column as JSON `null` and
+  the Zod schemas use `.nullable()`, so row decoding preserves null rather than
+  mapping it to `undefined`.
+- **Updates re-select instead of using `RETURNING`.** SQLite computes RETURNING
+  before AFTER triggers run, so it would return a stale `updated_at`.
+- **`libsql` is external to the esbuild bundle.** It loads a platform-specific
+  native addon through a runtime require, so `packages/api/build.js` excludes it
+  and the Docker images install it in the runner stage. Bundling it produces an
+  image that fails at boot with `Cannot find module '@libsql/linux-x64-gnu'`.
+- **Row-level security is dropped.** The Postgres policies grant unrestricted
+  access to the service role, which is the only role the API connects as.
+- **`PRAGMA foreign_keys = ON` per connection.** SQLite leaves foreign keys
+  unenforced by default, so without it no `ON DELETE CASCADE` would fire.
+- **Types are narrower.** `JSONB`, `TIMESTAMPTZ`, `BOOLEAN`, `TEXT[]` and
+  `FLOAT[]` all collapse onto TEXT/INTEGER/REAL; `connectors/libsql/rows.ts`
+  owns the conversions and the mapping table is documented in `schema.ts`.
+
+Database management:
+- Postgres migrations: `supabase/migrations/` (immutable once merged — CI
+  verifies existing files are unchanged; add a new file instead)
+- libSQL migrations: append to `libsqlMigrations` in `connectors/libsql/schema.ts`
+- Seed data: `supabase/seed.sql`
+- Start/stop: `supabase start|stop`
+
+Core data models:
+- `Agent` - AI agent configurations
+- `Dataset`/`Log` - Training/evaluation data with many-to-many relationships
+- `EvaluationRun`/`LogOutput` - Model evaluation system
+- `Feedback`/`ImprovedResponse` - User feedback loop
+
+Database management:
+- Migrations: `supabase/migrations/`
+- Seed data: `supabase/seed.sql`
+- Start/stop: `supabase start|stop`
+
+## Coding Style & Naming Conventions
+
+- **Language**: TypeScript, React 19, Vite, TanStack Router
+- **Formatting via Biome**: 2-space indent, LF, single quotes, semicolons, import organize
+  - Auto-fix: `pnpm check:fix` or `pnpm format:fix`
+- **Files**: kebab-case for filenames (e.g., `add-logs-dialog.tsx`)
+- **Components**: PascalCase exports
+- **Paths**: prefer `@web`, `@api`, `@shared` over long relative paths
+
+## Testing Guidelines
+
+**Framework**: Vitest (jsdom) + Testing Library
+- **Location**: under `tests/` mirroring source paths
+- **Naming**: `*.test.ts` or `*.test.tsx`
+- **Run**: `pnpm test` (CI mode) or `pnpm test:watch` (dev)
+- **Coverage**: Reports generated in text/json/html
+
+### Testing Patterns
+
+**Mock Strategy**: Always mock the full connector in tests:
+```typescript
+const mockUserDataStorageConnector: unknown = {
+  getAgents: vi.fn(),
+  createAgent: vi.fn(),
+  updateAgent: vi.fn(),
+  deleteAgent: vi.fn(),
+  // ... all other connector methods
+};
+```
+
+**Client API Tests**: Mock the entire API module:
+```typescript
+vi.mock('@web/api/v1/super-agents/agents', () => ({
+  getAgents: vi.fn().mockImplementation(async (params) => {
+    const response = await mockGet({ query: params });
+    if (!response.ok) throw new Error('Failed to fetch agents');
+    return response.json();
+  }),
+}));
+```
+
+**Server API Tests**: Use Hono testClient with middleware injection:
+```typescript
+const app = new Hono<AppEnv>()
+  .use('*', async (c, next) => {
+    c.set('user_data_storage_connector', mockConnector);
+    await next();
+  })
+  .route('/', routerUnderTest);
+
+const client = testClient(app);
+```
+
+## AI Provider System
+
+The application supports 40+ AI providers through a unified interface. Each provider implements:
+- `chat-complete` - Chat completions
+- `complete` - Text completions
+- `embed` - Embeddings
+- `image-generate` - Image generation
+
+Provider implementations are in `packages/api/src/ai-providers/[provider]/`.
+
+## Authentication
+
+- **API**: Hono middleware with Bearer token validation (`Authorization: Bearer super-agents`)
+- **Dashboard**: Client-side authentication (when ACCESS_PASSWORD is set)
+
+## Docker Deployment
+
+```bash
+docker compose up  # Start all services
+```
+
+Services:
+- **postgres**: PostgreSQL database
+- **migrations**: one-shot migration runner
+- **postgrest**: PostgREST API for database access
+- **super-agents**: Hono API + dashboard in one process (port 3000)
+
+The `super-agents` container serves both halves itself — no nginx:
+1. `/v1/*` routes to the API
+2. Static files from the Vite build are served from `./public`
+3. Unmatched paths fall back to `index.html` for SPA routing
+
+Two images are published:
+- `ghcr.io/idkhub-com/super-agents` — API + dashboard (used by compose)
+- `ghcr.io/idkhub-com/super-agents-api` — API only, for gateway-only deployments
+
+Set `SERVE_DASHBOARD=false` to run the all-in-one image as a gateway only.
+
+## Agent Validation & Readiness
+
+- **Agent Requirements**: All agents must have at least one skill configured to be considered "ready"
+- **Skill Requirements**: All skills must meet the following to be considered "ready":
+  - At least one model must be configured
+  - If optimization is enabled, at least one evaluation must be configured
+- **Validation Logic**:
+  - Agent validation: `packages/shared/src/utils/agent-validation.ts`
+  - Skill validation: `packages/shared/src/utils/skill-validation.ts`
+
+## Skill Optimization System
+
+### System Prompt Evolution
+
+System prompts evolve through two distinct phases:
+
+1. **Early Regeneration (after 5 skill requests)**:
+   - Triggered once per skill when `evaluations_regenerated_at` is undefined
+   - Regenerates evaluations with real examples from the first 5 requests
+   - Generates new system prompts for ALL arms
+   - Resets all cluster `total_steps` to 0
+
+2. **Reflection-based Regeneration (ongoing per cluster)**:
+   - Triggered when all arms in a cluster meet the minimum request threshold
+   - Uses contrastive examples (high-scoring vs low-scoring logs)
+   - Conservative algorithm: best arm never modified
+
+### Internal Skills
+
+The system uses special auto-generated skills in the `super-agents` agent (defined in `SA_SKILLS` constant):
+- `system-prompt-seeding`: Initial prompt generation
+- `system-prompt-seeding-with-context`: Context-aware generation
+- `system-prompt-reflection`: Reflection-based improvements
+- `create-evaluations`: Evaluation method generation
+- `judge`: Evaluation scoring
+- `extract-task-and-outcome`: Task/outcome extraction
+- `embedding`: Text embedding generation
+
+## Development Workflow
+
+1. Run `pnpm dev` to start both web and API servers
+2. Web app available at `http://localhost:3000`
+3. API requests are proxied through port 3000
+4. **Always run `pnpm typecheck` and `pnpm check` after changes**
+5. Use TypeScript path aliases: `@web/*`, `@api/*`, `@shared/*`
+
+## Commit & Pull Request Guidelines
+
+- **Conventional Commits required**. Examples:
+  - `feat(server): add feedback endpoint`
+  - `fix(web): handle empty dataset state`
+- **Before pushing**: `pnpm typecheck && pnpm check && pnpm test`
+- **PRs include**: problem/solution summary, linked issues, screenshots for UI, test notes
+
+## Security & Configuration
+
+- **Secrets**: Never commit secrets; use `.env` for local development
+- **Environment variables**:
+  - `API_URL` - API server URL (server-side)
+  - `BEARER_TOKEN` - API authentication token
+  - `ACCESS_PASSWORD` - Dashboard password (optional)
+  - `AUTH_JWT_SECRET` - JWT signing secret for the dashboard session cookie (required in production)
+  - `AI_PROVIDER_API_KEY_ENCRYPTION_KEY` - Encryption key for stored AI provider API keys (required in production)
+  - `LIBSQL_URL` - libSQL database, and the switch that selects the libSQL
+    backend. `file:` for an embedded SQLite file, `libsql://` or `https://`
+    for a remote one. Unset means Supabase.
+  - Note: tests for the libSQL connector use a temp **file** database, not
+    `:memory:` — `client.transaction()` checks out a separate connection, and
+    for an in-memory database that is a separate, empty database.
+  - `LIBSQL_AUTH_TOKEN` - Auth token for a remote libSQL database. Not used by `file:` databases.
+  - `WEB_APP_URL` - Comma-separated origins allowed to make credentialed cross-origin
+    requests. Only needed when the dashboard is hosted separately from the API; the
+    Docker and Vite setups both proxy `/v1/*` from the same origin.
+- **Reading env vars**: Never read `process.env` from request-handling code. Every
+  environment value is exposed as a getter in `packages/api/src/constants.ts` that
+  takes the Hono context (e.g. `getAccessPassword(c)`), so the same code works on
+  Node and Cloudflare Workers. `packages/api/src/server.ts` merges `process.env`
+  into `c.env` for the Node entrypoint.
+
+---
+> Source: [jorge-menjivar/super-agents](https://github.com/jorge-menjivar/super-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
