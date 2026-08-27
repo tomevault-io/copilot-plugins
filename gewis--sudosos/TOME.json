@@ -4,7 +4,7 @@
   "repo": "sudosos",
   "description": "SudoSOS is a Node.js-based Bar and POS system made for study association GEWIS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GEWIS/sudosos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:03:49Z"
+  "distributed_at": "2026-08-27T23:31:53Z"
 }
