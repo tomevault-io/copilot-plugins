@@ -1,0 +1,44 @@
+{
+  "name": "dsh-auth-gate",
+  "owner": "TecFancy",
+  "repo": "dsh-auth-gate",
+  "description": "Login gate for the DeepSeek Harness (dsh) web surface: password or shared-token authentication, session cookies, rate limiting, and a user-management CLI. | DeepSeek Harness (dsh) \u7f51\u9875\u7248\u767b\u5f55\u95e8\u63d2\u4ef6:\u8d26\u53f7\u53e3\u4ee4\u6216\u5171\u4eab\u4ee4\u724c\u8ba4\u8bc1\u3001\u4f1a\u8bdd cookie\u3001\u767b\u5f55\u9650\u901f,\u9644\u7528\u6237\u7ba1\u7406 CLI\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TecFancy/dsh-auth-gate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T08:32:44Z"
+}
