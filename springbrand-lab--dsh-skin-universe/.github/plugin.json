@@ -1,0 +1,9 @@
+{
+  "name": "springbrand-lab--dsh-skin-universe",
+  "displayName": "dsh-skin-universe",
+  "description": "Themes and web GUI plugins for DeepSeek Harness: task board, Git graph, file panel, SSH, mobile remote, companion, live stats, and five installable themes.",
+  "version": "1.0.0",
+  "author": "springbrand-lab",
+  "homepage": "https://github.com/springbrand-lab/dsh-skin-universe",
+  "skills": []
+}
