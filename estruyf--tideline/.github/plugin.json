@@ -1,0 +1,9 @@
+{
+  "name": "estruyf--tideline",
+  "displayName": "tideline",
+  "description": "An app that files older downloads into folders named for the day they arrived",
+  "version": "1.0.0",
+  "author": "estruyf",
+  "homepage": "https://github.com/estruyf/tideline",
+  "skills": []
+}
