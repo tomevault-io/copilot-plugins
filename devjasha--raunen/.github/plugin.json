@@ -1,0 +1,9 @@
+{
+  "name": "devjasha--raunen",
+  "displayName": "raunen",
+  "description": "A small terminal agent for local LLMs. One Go binary, no runtime, no server. Point it at Ollama, LM Studio, llama.cpp, vLLM, OpenRouter \u2014 anything that speaks the OpenAI /v1/chat/completions format. I",
+  "version": "1.0.0",
+  "author": "devjasha",
+  "homepage": "https://github.com/devjasha/raunen",
+  "skills": []
+}
