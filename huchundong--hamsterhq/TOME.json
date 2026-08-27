@@ -4,7 +4,7 @@
   "repo": "HamsterHQ",
   "description": "Multi-tenant cloud deployment for DSH: an authenticating gateway, per-tenant sandboxes on CubeSandbox, and persistent volumes over S3.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HuChundong/HamsterHQ",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T21:53:29Z"
+  "distributed_at": "2026-08-27T22:46:17Z"
 }
