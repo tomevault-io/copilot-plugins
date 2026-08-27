@@ -1,0 +1,9 @@
+{
+  "name": "riesbri--dshline",
+  "displayName": "dshline",
+  "description": "The terminal-native frontend for the DeepSeek Harness plugin ecosystem.",
+  "version": "1.0.0",
+  "author": "riesbri",
+  "homepage": "https://github.com/riesbri/dshline",
+  "skills": []
+}
