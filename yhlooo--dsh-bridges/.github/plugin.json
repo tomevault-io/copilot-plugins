@@ -1,0 +1,9 @@
+{
+  "name": "yhlooo--dsh-bridges",
+  "displayName": "dsh-bridges",
+  "description": "\u5c06 DeepSeek Harness \u6865\u63a5\u5230\u5df2\u914d\u7f6e\u5176\u5b83 Harness Agent \u7684\u9879\u76ee\u3002\u652f\u6301 CodeBuddy / Codex / OpenCode / Claude Code / ...",
+  "version": "1.0.0",
+  "author": "yhlooo",
+  "homepage": "https://github.com/yhlooo/dsh-bridges",
+  "skills": []
+}
