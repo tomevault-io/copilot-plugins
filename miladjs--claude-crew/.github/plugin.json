@@ -1,0 +1,9 @@
+{
+  "name": "miladjs--claude-crew",
+  "displayName": "claude-crew",
+  "description": "A multi-agent engineering crew for Claude Code \u2014 one manager plans and verifies, specialist agents read, write, test, research, and review. Hard role separation, cost-tiered models, custom gateway rea",
+  "version": "1.0.0",
+  "author": "miladjs",
+  "homepage": "https://github.com/miladjs/claude-crew",
+  "skills": []
+}
