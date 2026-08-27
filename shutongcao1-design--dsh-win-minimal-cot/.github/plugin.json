@@ -1,0 +1,9 @@
+{
+  "name": "shutongcao1-design--dsh-win-minimal-cot",
+  "displayName": "dsh-win-minimal-cot",
+  "description": "Experimental Windows-first fork of DeepSeek Harness: minimal preset with pwsh + str_replace_editor, trimmed prompts, anchored bootstrap presets, and We Let's Think chain-of-thought triggers. DeepSeek ",
+  "version": "1.0.0",
+  "author": "shutongcao1-design",
+  "homepage": "https://github.com/shutongcao1-design/dsh-win-minimal-cot",
+  "skills": []
+}
