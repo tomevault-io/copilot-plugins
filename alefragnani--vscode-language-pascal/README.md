@@ -1,15 +1,16 @@
 # vscode-language-pascal
 
-> Source: [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal).
+Original source: `` in [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -17,8 +18,8 @@ Original source: `AGENTS.md` in [alefragnani/vscode-language-pascal](https://git
 
 ## Bundled Skills (2)
 
-- [vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal/tree/main/.github/skills/vscode-ext-commands/SKILL.md)
-- [vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal/tree/main/.github/skills/vscode-ext-localization/SKILL.md)
+- [vscode-pascal-formatter](https://github.com/alefragnani/vscode-language-pascal/tree/main/.github/skills/vscode-ext-commands/SKILL.md)
+- [vscode-pascal-formatter](https://github.com/alefragnani/vscode-language-pascal/tree/main/.github/skills/vscode-ext-localization/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal)
 
