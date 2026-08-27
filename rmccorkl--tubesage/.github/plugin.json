@@ -1,0 +1,9 @@
+{
+  "name": "rmccorkl--tubesage",
+  "displayName": "TubeSage",
+  "description": "An Obsidian Plugin for Youtube Transcript LLM Summary",
+  "version": "1.0.0",
+  "author": "rmccorkl",
+  "homepage": "https://github.com/rmccorkl/TubeSage",
+  "skills": []
+}
