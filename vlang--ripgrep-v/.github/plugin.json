@@ -1,0 +1,9 @@
+{
+  "name": "vlang--ripgrep-v",
+  "displayName": "ripgrep.v",
+  "description": "V translation of ripgrep with V3 ownership",
+  "version": "1.0.0",
+  "author": "vlang",
+  "homepage": "https://github.com/vlang/ripgrep.v",
+  "skills": []
+}
