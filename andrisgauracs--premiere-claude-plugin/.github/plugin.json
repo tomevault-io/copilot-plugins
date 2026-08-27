@@ -1,0 +1,9 @@
+{
+  "name": "andrisgauracs--premiere-claude-plugin",
+  "displayName": "Premiere-Claude-Plugin",
+  "description": "A plugin to let Claude autonomously control Adobe Premiere",
+  "version": "1.0.0",
+  "author": "andrisgauracs",
+  "homepage": "https://github.com/andrisgauracs/Premiere-Claude-Plugin",
+  "skills": []
+}
