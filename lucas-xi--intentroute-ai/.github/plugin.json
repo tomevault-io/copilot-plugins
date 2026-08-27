@@ -1,0 +1,9 @@
+{
+  "name": "lucas-xi--intentroute-ai",
+  "displayName": "IntentRoute-AI",
+  "description": "Open-source AI-assisted per-application routing for Windows with OpenAI/Ollama drafts and a sing-box TUN data plane.",
+  "version": "1.0.0",
+  "author": "Lucas-Xi",
+  "homepage": "https://github.com/Lucas-Xi/IntentRoute-AI",
+  "skills": []
+}
