@@ -1,0 +1,9 @@
+{
+  "name": "adonissheldon--dsh-openai-oauth",
+  "displayName": "dsh-openai-oauth",
+  "description": "Use ChatGPT OAuth and OpenAI Codex models in DeepSeek Harness\u2014no API key or Codex CLI required.",
+  "version": "1.0.0",
+  "author": "AdonisSheldon",
+  "homepage": "https://github.com/AdonisSheldon/dsh-openai-oauth",
+  "skills": []
+}
