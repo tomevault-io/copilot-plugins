@@ -1,0 +1,9 @@
+{
+  "name": "hiqs-labs--xyz-forge",
+  "displayName": "XYZ-forge",
+  "description": "XYZ (Forge) lets several AI coding agents \u2014 Claude Code, Codex, and agy (Google's Antigravity CLI) \u2014 work on the same repo at the same time without overwriting each other's work.",
+  "version": "1.0.0",
+  "author": "HiQS-Labs",
+  "homepage": "https://github.com/HiQS-Labs/XYZ-forge",
+  "skills": []
+}
