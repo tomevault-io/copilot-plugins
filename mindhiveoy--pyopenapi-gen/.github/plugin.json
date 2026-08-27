@@ -1,0 +1,14 @@
+{
+  "name": "mindhiveoy--pyopenapi-gen",
+  "displayName": "pyopenapi_gen",
+  "description": "Python OpenAPI client generator",
+  "version": "1.0.0",
+  "author": "mindhiveoy",
+  "homepage": "https://github.com/mindhiveoy/pyopenapi_gen",
+  "skills": [
+    {
+      "name": "openapi-gen",
+      "description": ""
+    }
+  ]
+}
