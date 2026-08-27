@@ -1,0 +1,9 @@
+{
+  "name": "steelbrain--experiment-macos-arm64-on-linux-x86",
+  "displayName": "experiment-macOS-arm64-on-linux-x86",
+  "description": "Experiment: Patched QEMU that can run macOS 13 arm64 on linux x86 hosts",
+  "version": "1.0.0",
+  "author": "steelbrain",
+  "homepage": "https://github.com/steelbrain/experiment-macOS-arm64-on-linux-x86",
+  "skills": []
+}
