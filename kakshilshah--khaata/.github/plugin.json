@@ -1,0 +1,9 @@
+{
+  "name": "kakshilshah--khaata",
+  "displayName": "khaata",
+  "description": "Self-hosted bookkeeping that reads your Indian bank statements \u2014 import CSVs, AI-categorize UPI/NEFT, reconcile monthly. Next.js + Supabase, MIT.",
+  "version": "1.0.0",
+  "author": "kakshilshah",
+  "homepage": "https://github.com/kakshilshah/khaata",
+  "skills": []
+}
