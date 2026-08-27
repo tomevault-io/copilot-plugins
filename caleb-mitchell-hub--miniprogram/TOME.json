@@ -1,0 +1,44 @@
+{
+  "name": "miniprogram",
+  "owner": "Caleb-Mitchell-hub",
+  "repo": "miniprogram",
+  "description": "\u57fa\u4e8e\u5fae\u4fe1\u5c0f\u7a0b\u5e8f\u539f\u751f\u80fd\u529b\u4e0e TypeScript \u6784\u5efa\u7684\u8fdb\u9500\u5b58 / WMS \u4e1a\u52a1\u7ba1\u7406\u524d\u7aef\uff0c\u8986\u76d6\u5e93\u5b58\u3001\u9500\u552e\u3001\u91c7\u8d2d\u3001\u8d22\u52a1\u3001\u57fa\u7840\u8d44\u6599\u3001\u5ba1\u6279\u4e0e AI \u8f85\u52a9\u7b49\u6838\u5fc3\u4e1a\u52a1\u573a\u666f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Caleb-Mitchell-hub/miniprogram",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:45:30Z"
+}
