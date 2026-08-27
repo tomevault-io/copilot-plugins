@@ -4,7 +4,7 @@
   "repo": "codemap",
   "description": "A Claude skill that turns a codebase into an explorable isometric diagram, with real data moving along the edges",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beadnall/codemap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T18:32:51Z"
+  "distributed_at": "2026-08-27T19:03:39Z"
 }
