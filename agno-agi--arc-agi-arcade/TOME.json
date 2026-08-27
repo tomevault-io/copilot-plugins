@@ -4,7 +4,7 @@
   "repo": "arc-agi-arcade",
   "description": "Agents playing the ARC-AGI-3. Top score: a verified 100.00 RHAE.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agno-agi/arc-agi-arcade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T06:32:08Z"
+  "distributed_at": "2026-08-27T06:36:09Z"
 }
