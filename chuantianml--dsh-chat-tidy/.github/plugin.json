@@ -1,0 +1,9 @@
+{
+  "name": "chuantianml--dsh-chat-tidy",
+  "displayName": "dsh-chat-tidy",
+  "description": "Restrained chat typography and layout for DeepSeek Harness Web",
+  "version": "1.0.0",
+  "author": "ChuanTianML",
+  "homepage": "https://github.com/ChuanTianML/dsh-chat-tidy",
+  "skills": []
+}
