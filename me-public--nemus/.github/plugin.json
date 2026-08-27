@@ -1,0 +1,9 @@
+{
+  "name": "me-public--nemus",
+  "displayName": "nemus",
+  "description": "Multi-repo Git workspaces for the AI-agent era \u2014 group repos, operate in bulk, wire them to your coding agent.",
+  "version": "1.0.0",
+  "author": "me-public",
+  "homepage": "https://github.com/me-public/nemus",
+  "skills": []
+}
