@@ -4,7 +4,7 @@
   "repo": "deal-scale",
   "description": "DealScale is a cutting-edge platform that leverages AI to transform business operations, providing intelligent solutions for deal management, customer engagement, and data-driven decision making.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TechWithTy/deal-scale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T00:33:59Z"
+  "distributed_at": "2026-08-27T00:37:09Z"
 }
