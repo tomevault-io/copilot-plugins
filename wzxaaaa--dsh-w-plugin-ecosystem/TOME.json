@@ -1,0 +1,44 @@
+{
+  "name": "dsh-w-plugin-ecosystem",
+  "owner": "wzxaaaa",
+  "repo": "dsh-w-plugin-ecosystem",
+  "description": "\u4e3adsh\u4e13\u5c5e\u6253\u9020\u7684\u8d34\u8fd1\u539f\u751f\u7684\u81ea\u5b9a\u4e49\u63d2\u4ef6\u751f\u6001\uff0c\u652f\u6301\u63d2\u4ef6\u53ef\u914d\u7f6e\uff0c\u72ec\u7acb\u534f\u8bae\uff0c\u70ed\u62d4\u63d2",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wzxaaaa/dsh-w-plugin-ecosystem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T05:31:03Z"
+}
