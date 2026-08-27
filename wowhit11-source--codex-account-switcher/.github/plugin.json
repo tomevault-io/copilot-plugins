@@ -1,0 +1,9 @@
+{
+  "name": "wowhit11-source--codex-account-switcher",
+  "displayName": "codex-account-switcher",
+  "description": "Apple Silicon macOS menu bar app for safely switching between user-owned ChatGPT/Codex accounts while preserving local sessions",
+  "version": "1.0.0",
+  "author": "wowhit11-source",
+  "homepage": "https://github.com/wowhit11-source/codex-account-switcher",
+  "skills": []
+}
