@@ -1,0 +1,222 @@
+## lucene-kmp
+
+> I'm porting apache lucene from java to platform agnostic kotlin common code.
+
+## Project Overview
+I'm porting apache lucene from java to platform agnostic kotlin common code.
+This project is a sub directory under the the root directory of the porting project and the directory name is lp.
+Under this directory you find two sub directories:
+
+1. lucene sub directory
+   This is the source code of java lucene. the commit id is fixed to ec75fcad5a4208c7b9e35e870229d9b703cda8f3 until all java classes/unit tests ported. After all ported, the project will proceed to the next phase to port commit by commit from this commit id to catch up with the latest lucene code. The code will be ported from this read-only repository.
+
+2. lucene-kmp (kmp stands for kotlin multiplatform) sub directory, which is THIS project
+
+## Porting Guideline
+
+- The GitHub copilot never make any change to lucene java source code but only read, copy from, analyze and answer question based on its content. If it's in agent mode, it can use git commands which does not change any code but only read the code and history.
+
+- **Do not deviate from Java Lucene logic.** The Kotlin port must be an exact behavioral port. Only deviate when unavoidable for KMP (e.g., okio for IO, coroutines for threading). Any deviation must be explicitly justified and minimized.
+- Exception for development speed: Java-Kotlin numeric-value discrepancies are allowed only when reducing test/runtime iteration counts to speed up local iteration or CI.
+- Speed-up reductions must be order-of-magnitude changes, not tiny tweaks:
+  - Target example: if a test takes ~10 minutes, reduce to ~3 seconds when possible.
+  - Numeric example: if iteration/repeat is `1000`, reduce to `10`; if still >30 seconds, reduce to `3`.
+  - Counter example: do not treat small edits like `19 -> 15` as sufficient speed-up by default.
+- For every such discrepancy, add an inline comment immediately after the exact reduced line (not above it).
+- Required comment format:
+  - Starts with `// TODO`
+  - States the reduction values explicitly (example: `reduced valueA = x1 to x2, valueB = y1 to y2`)
+  - Ends with `for dev speed`
+  - Example: `// TODO reduced valueA = 1025 to 5, valueB = 500 to 3 for dev speed`
+
+- When porting, class name, interface name, method name, variable name should be the same as much as possible especially for APIs which is used by other classes.
+
+- root package name of java lucene is org.apache.lucene. The root package name of the kotlin common code is org.gnit.lucene-kmp. The sub package structure under the root package should be the same as much as possible.
+
+- When porting, when the certain java class included in JDK (e.g. java.util.List, java.util.Map, java.lang.String, etc) is used in lucene java code, you should use kotlin common code equivalent class (e.g. kotlin.collections.List, kotlin.collections.Map, kotlin.String, etc) instead of the JDK class. If those equivalent class is not found in kotlin common code of kotlin standard library, this project will copy the source code of the JDK class which is missing in kotlin std lib and port it into kotlin common code in a package called org.gnit.lucene-kmp.jdkport. These jdk ported classes/interface need to have annotation called @Ported with argument called from like this: @Ported(from="java.util.List") So when porting, if you encounter compilation error saying unresolved reference to certain JDK class/interface, you should first look into the package org.gnit.lucene-kmp.jdkport to see if the ported class/interface is already there. Only when if not found, it should be ported form JDK source code. Most of the missing JDK classes are already in the package.
+
+- Do not port `getXxx()` `setXxx()` method from java when there is `val xxx` or `var xxx` in kotlin common. porting them will end up compilation error regarding platform declaration.   
+
+- The ported project is targeting following platforms:
+    1. jvm (jvm server, jvm desktop, Android)
+    2. native (iOS, linux)
+
+- The linux native target is not for projection but for development in linux desktop environment. The kotlin native uses LLVM as its compiler and gradle kotlin compile job emits almost exact same compilation error for native/linux and native/iOS. So even in the linux box which does not have build toolchain for iOS, you can quickly check if the ported code compiles for iOS or not by compiling for native/linux target.
+
+- The porting project prioritizes kotlin common code over expect/actual mechanism to reduce the amount of platform specific code. So when porting, first try to use kotlin common code only. Only when if not possible, you should use expect/actual mechanism. When using expect/actual mechanism, the platform specific code should be created in following 2 source sets:
+    1. jvmAndroidMain, jvmAndroidTest for jvm/android platform
+    2. nativeMain, nativeTest for native platform (iOS, linux)
+
+- If the target java class to port into kotlin common is too large for your context size, eg. more than 500 LOC, or more than 50 unit test functions, try porting again baby step strategy. For example, create a class with empty functions with // TODO comments, or when you port unit test class, first create empty test class with no-op tests with //TODO comments as skeleton. Then one by one implement the //TODO of each functions.
+
+- What should be ported next can be detemined by the output file of `progress.main.kts` script named `PROGERSS.md`. The md file is automatically geneted by the script and should be only be updated by the script. The script shows the Unit test classes which are not yet ported yet. Also, in the same way, `progressv2.main.kts` generates `PROGRESS2.md` which comes with more detailed porting progress info which includes number of methods and dependency depth. The higher the depth the sooner the porting must be done. For example, depth 7 dependency class should be ported first because those are not using other class, but other classes are using that class. After porting of depth 7 dependency classes finished, porting of depth 6 classes can start, then depth 5, 4, 3, 2, and 1. However, if I ask you to port specific class, port that class and its dependency classes.
+
+- I asked AI agent to create `TODO.md` and `TODO_TEST.md` which is simple TODO lists of what to port next. You follow this TODO list from top to bottom. First, we will port from the `TODO_TEST.md` Test* classes with its couneter part marked as (Ported) from top to bottom. Because classes of priority 1 API and its dependenceis are already ported, and tests which verify them is needed. When you finished porting a Test class, delete the entry in `TODO_TEST.md`.
+
+## Specific Instruction
+* do not use String.toByteArray() but use String.encodeToByteArray() instead.
+* because this project is kotlin common project, in common code, do not use String.format function but use kotlin string interpolation.
+* @Ignore annotation in the test will not take any arguments in kmp.
+* do not use resource files in code or unit tests; Kotlin/Native does not support resources. Inline fixed data in code/tests or inject a custom ResourceLoader in tests.
+
+## Logging
+* when logging, use the following code:
+* import io.github.oshai.kotlinlogging.KotlinLogging
+* private val logger = KotlinLogging.logger {}
+* logger.debug { "message" }
+* 
+## Debugging Methods (Kotlin/Native + Hang Timeouts)
+* Kotlin/Native-specific debugging method:
+* Reproduce first on native target (`linuxX64Test` on Linux or `macosX64Test` on macOS), then verify behavior against `jvmTest`.
+* Add narrowly-scoped, structured debug logs around suspicious boundaries (merge lifecycle, close/rollback, latch handoff, refcount/deleter transitions).
+* Keep logs stable and grep-friendly: include `phase`, `run`, `attempt`, elapsed time, and key counters (merge-thread count, pending merges, segment count, latch counts).
+* For native-only crash/hang, log state immediately before and after each blocking/state-transition point; avoid wide noisy logging.
+* Keep reusable Kotlin/Native debugging infra in place so future native failures can reuse the same probes quickly.
+* Use `core/src/commonMain/kotlin/org/gnit/lucenekmp/util/NativeCrashProbe.kt` as the standard native probe:
+* update probe state at every major boundary (`run/attempt/phase/updates` plus relevant counters), and trigger probe dump/signal helpers on timeout/fatal paths so native backtraces carry current probe context.
+* keep probe updates inside long-running loops/merge execution so snapshots are not stale.
+* For Linux native runs, configure logging via `core/src/linuxX64Main/kotlin/org/gnit/lucenekmp/util/LoggingConfig.kt` early in startup so probe/debug lines are deterministic and easy to correlate with phase logs.
+* Hang-debugging method with `TimeSource.Monotonic`:
+* Replace unbounded waits/spins with bounded loops using `TimeSource.Monotonic.markNow()` and explicit timeout limits.
+* Emit periodic state snapshots while waiting (not every loop) so stall phase/owner is visible.
+* On timeout, throw `AssertionError` with actionable state snapshot including elapsed duration, current phase, latch/counter values, merge-thread counts, and pending-merge plus segment/file state.
+* Prefer this fail-fast pattern in tests and debug-only code paths to turn silent hangs into deterministic failures.
+
+## Agent‑Human Coworking Flow
+
+### Step 1: Suggest & Discuss
+
+* Propose multiple solutions using your built‑in knowledge.
+* Only perform external research if:
+    * You are uncertain about an API or behavior, **or**
+    * I explicitly request official documentation or references.
+* Otherwise, skip research and move straight to proposing fixes.
+
+### Step 2: Code, Run, Debug
+1. Apply the chosen code changes. when you code be careful of writing code in platform agnostic kotlin common code. avoid expect/actual pattern as much as possible. do not mix platform specific code such as jvm code in commonMain/commonTest.
+2. **After any file change, run `open_file_in_editor` first, wait 2 seconds, then run `get_file_problems` for each changed file and fix all compile errors before proceeding.**
+2. Use `open_file_in_editor` tool of `jetbrains` MCP server first, wait 2 seconds, then run `get_file_problems` to check if there are any compilation errors for each files you changed. `get_file_problems` may not emit diagnostics unless the file is opened in the editor first. iterate over until you solve all errors for Kotiln/JVM.
+3. Use `get_run_configuration` tool `jetbrains` MCP server to find proper run configuration. to run either [`compileKotlinLinuxX64` and `compileTestKotlinLiuxX64` on linux] or [`compileKotlinMacosX64` and `compileTestKotlinMacosX64` on macOS], to check if there are any compilation errors for each files you changed especially for Kotlin/Native. iterate over until you solve all errors.
+4. Use `get_run_configuration` tool `jetbrains` MCP server to find proper run configuration. to run specific unit test and use execute_run_configuration to run tests. if any test fail, find out root cause, iterate over until you fix all of them. tests should pass both in `jvmTest` and tests for native env which is either `linuxX64Test` or `macosX64Test` depending on your work env, plus `iosX64Test` where applicable.
+5. Perform internet search **only** if an error is unclear and you need confirmation of a fix. If you are confident in the solution, skip research and proceed.
+6. lucene is very complex software. if you are not sure where is the bug, use `val logger = KotlinLogging.logger{}` if not found, add it, and `logger.debug { "things you want to see: $xxxx" }` to output debug log in the
+   suspicious lines of code and make sure. then run the tests to see the debug log. then rethink the next suspicious code to track down the root cause of the bug.
+
+## Current Multithreading Port Status
+
+- Threading/synchronization porting is still partial. Many Java `synchronized` methods/blocks in `IndexWriter`, `DocumentsWriter`, flush-control/pool classes, reader/update classes, and merge classes are still commented out as placeholders.
+- Current rule: if a multithreaded test fails, first compare the failing Kotlin code to upstream Java and restore the exact missing synchronization boundary before trying broader redesigns.
+- Proven example: `TestBinaryDocValuesUpdates.testStressMultiThreading` failed because Java monitor boundaries had been lost around delete-queue mutation and queue replacement during concurrent update/full-flush/commit.
+- The successful fix restored explicit `ReentrantLock`-backed synchronization in:
+- `core/src/commonMain/kotlin/org/gnit/lucenekmp/index/DocumentsWriterDeleteQueue.kt`
+- `add`
+- `updateSlice`
+- `advanceQueue`
+- `close`
+- `core/src/commonMain/kotlin/org/gnit/lucenekmp/index/DocumentsWriter.kt`
+- `applyDeleteOrUpdate`
+- `abort`
+- `nextSequenceNumber`
+- `resetDeleteQueue`
+- After restoring those boundaries, the original multithreaded shape of `TestBinaryDocValuesUpdates.testStressMultiThreading` passed again, the full `TestBinaryDocValuesUpdates` JVM class passed, and `compileKotlinMacosX64` stayed green.
+- Failure signatures that should make you suspect a missing `synchronized` port first:
+- delete-queue slice invariant errors such as `slice property violated between the head on the tail must not be a null node`
+- sequence-number assertions involving `maxSeqNo`, `nextSeqNo`, or queue advancement/close
+- `AlreadyClosedException` during concurrent update/commit/full-flush
+- intermittent failures that disappear when thread count is reduced
+- Practical fix workflow:
+1. Read the upstream Java method/block around the failing line and identify the exact `synchronized` boundary.
+2. Find the matching Kotlin placeholder `/*@Synchronized*/` or commented `//synchronized(...) {`.
+3. Restore the same critical section with a dedicated `org.gnit.lucenekmp.jdkport.ReentrantLock` or an existing nearby lock, keeping scope as close to Java as possible.
+4. Re-run the narrow failing run configuration first.
+5. Then re-run the broader test class and native compile checks.
+- Do not assume the current coroutine/Job/Mutex-based emulation is complete. Remaining commented-out synchronization sites are still likely sources of real multithreading bugs.
+
+## Tool Use Priority
+
+### Priority 1, jetbrains MCP Server (always)
+When you have access to jetbrains MCP server, you should use the IDEA's internal test runner. `.run` dir contains.
+Example agent runtime environment: locally running ai coding agent in desktop/laptop of a developer such as codex cli, GitHub Copilot Agent.
+
+### Priority 2, Gradle command line (avoid as much as possible)
+When you don't have access to jetbrains MCP server, first ask Human developer to enable it and wait until it is enabled! Never use Gradle wrapper (./gradlew).
+If you are in cloud environment where you have NO access to jetbrains MCP server, you are allowed to use the command line Gradle wrapper (./gradlew) to compile and run tests. In that case assume that GRADLE_USER_HOME is already set system-wide so just use it without overriding.
+Example agent runtime environment: desktop/laptop but human developer forgot to launch JetBrains IDEs, or cloud coding agent such as codex web, Google Jules.
+When you use ./gradlew command line tool, use like following (e.g. when you develop core module):
+1. First write the code, then run `./gradlew core:compileKotlinJvm` and `./gradlew core:compileTestKotlinJvm` to check if there are compilation errors on Kotlin/JVM.
+2. If you encounter compilation errors, find out the cause of the error, edit the code to fix the error, then repeat step 1.
+3. Then, run if you are on linux run `./gradlew core:compileKotlinLinuxX64` and `./gradlew core:compileTestKotlinLiuxX64` or if you are on macOS run `./gradlew core:compileKotlinMacosX64` and `./gradlew core:compileTestKotlinMacosX64` to check if there are compilation errors on Kotlin/Native. 
+4. If you encounter compilation errors, find out the cause of the error, edit the code to fix the error, then repeat step 3.
+5. If there is no compilation error with jvm compile, then run `./gradlew core:compileKotlinLinuxX64` and `./gradlew core:compileTestKotlinLinuxX64` which is kotlin/native that covers both linux and ios
+6. If there is no compilation error with both kotlni/jvm and kotlin/native, run unit tests, but run specific test class which you just ported or modified, not all tests.
+7. If the specific test fails, find out the cause of the failure, edit the code to fix the error, then repeat step 3.
+8. If the specific test passes, run `./gradlew jvmTest` to run all jvm tests.
+9. If all jvm tests pass, run `./gradlew allTests` to run all tests for all platforms.
+
+### OOM guard for command-line Gradle (required on local desktop)
+When running any `./gradlew` command locally, start `earlyoom` first so memory pressure kills Gradle/Java processes before system-wide freeze.
+
+1. Start `/usr/bin/earlyoom` with Gradle/Java prefer-regex:
+   - `sudo /usr/bin/earlyoom -r 60 --prefer '(^|/)(gradle|gradlew|java|kotlinc)( |$)' --avoid '(Xorg|Xwayland|gnome-shell|plasmashell|kwin_wayland)'`
+2. Run the intended `./gradlew ...` command(s).
+3. Stop `earlyoom` when done if you started it manually. If managed by service, keep service enabled with equivalent regex config.
+
+## Git Commit Policy (GPG Signed)
+
+- When user asks to commit, always create a GPG-signed commit.
+- Use per-command unsandboxed execution (escalated command) for signing commands.
+- Run commit command in a PTY and export `GPG_TTY=$(tty)` in the same command.
+- Standard commit flow:
+  1. `git add <intended files only>`
+  2. `export GPG_TTY=$(tty) && git commit -S -m "<message>"`
+  3. `git log --show-signature -1` and confirm `Good signature`.
+- Do not fall back to unsigned commit unless the user explicitly asks for unsigned commit.
+
+
+### troubleshooting java/cacerts problem
+When you try to run `./gradldew` and get `Trust store file /etc/ssl/certs/java/cacerts does not exist or is not readable. This may lead to SSL connection failures.`, try to run following command to solve it:
+
+```
+keytool -importcert -noprompt -trustcacerts \
+        -alias isrgrootx1 \
+        -file /usr/share/ca-certificates/mozilla/ISRG_Root_X1.crt \
+        -keystore "$JAVA_HOME/lib/security/cacerts" \
+        -storepass changeit
+```
+
+### Priority 1, Intelij IDEA MCP Server
+When you have access to Intelij IDEA MCP server, you should use the IDEA's internal test runner.
+
+### Priority 2, Gradle command line
+When you don't have access to Intelij IDEA MCP server, you should use the command line Gradle test runner.
+
+## Additional Unit Test Porting Rules
+
+- **Parity with Java tests**
+    - All Lucene unit tests should be *ported*, not newly created. Keep method names, signatures, and local variable names **exactly** the same as the original Java tests.
+    - Replace Java assertions (`assertTrue`, `assertEquals`, etc.) with the equivalent Kotlin test assertions.
+    - Do not invent new tests or expectations beyond what exists in the Java source.
+
+- **Package mapping**
+    - For Lucene packages (`analysis, codecs, document, index, internal, search, store, util`), map:
+        - `org.apache.lucene.*` → `org.gnit.lucenekmp.*` (for both code and tests).
+    - For JDK classes missing from Kotlin stdlib, always check `org.gnit.lucenekmp.jdkport.*` first. If absent, port the class/method and add unit tests there.
+
+- **Superclass methods**
+    - If the class under test is a subclass of an abstract or base class and the subclass does not override some methods, create tests for those inherited methods as well.
+
+- **Naming convention for jdkport tests**
+    - For each ported JDK class, create a test named `ClassNameTest.kt`. Example:
+        - `org.gnit.lucenekmp.jdkport.CharacterTest`
+        - `org.gnit.lucenekmp.jdkport.Inet4AddressTest`
+
+- **Test ordering / coverage**
+    - JDK ported classes have tests created in alphabetical order. Interfaces and abstract classes can be skipped for direct tests.
+
+- **Examples**
+    - Java: `org.apache.lucene.util.TestUnicodeUtil`  
+      Kotlin: `org.gnit.lucenekmp.util.TestUnicodeUtil`
+
+---
+> Source: [nehemiaharchives/lucene-kmp](https://github.com/nehemiaharchives/lucene-kmp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
