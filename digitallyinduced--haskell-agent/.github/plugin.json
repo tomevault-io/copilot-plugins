@@ -1,0 +1,9 @@
+{
+  "name": "digitallyinduced--haskell-agent",
+  "displayName": "haskell-agent",
+  "description": "an agent harness is just a monoid in the category of endofunctors",
+  "version": "1.0.0",
+  "author": "digitallyinduced",
+  "homepage": "https://github.com/digitallyinduced/haskell-agent",
+  "skills": []
+}
