@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--pi-until",
+  "displayName": "pi-until",
+  "description": "\u23f3 Session-scoped shell-condition watches that wake Pi when work is ready.",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/pi-until",
+  "skills": []
+}
