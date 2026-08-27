@@ -1,0 +1,9 @@
+{
+  "name": "chumingjun--dsh-harness-one",
+  "displayName": "dsh-harness-one",
+  "description": "Visual AI workflow orchestrator for DeepSeek Harness (dsh): multi-agent DAGs, live execution, recovery, and Feishu integration.",
+  "version": "1.0.0",
+  "author": "chumingjun",
+  "homepage": "https://github.com/chumingjun/dsh-harness-one",
+  "skills": []
+}
