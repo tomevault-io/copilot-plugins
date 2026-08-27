@@ -1,0 +1,146 @@
+## ch-queries
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
+
+## Project overview
+
+This is an OCaml project named "ch_queries" using dune as the build system.
+
+## Building and debugging the project
+
+- Build project with `dune build <dir>`, build often while doing changes, so
+  you can catch errors early
+- To run tests:
+  - `dune test <specific test>` runs a specific test, prefer it when working on a specific feature
+  - `dune test` runs all tests, run it at the end to validate everything works
+- When running an executable, use `dune exec ch_queries -- ARGS...`
+
+If you need verify something or debug some thing, it's a good idea to add a
+small test instead and run it with `dune test <test_file>`. Consider keeping
+the test in `test/` directory if it's generally useful.
+
+## How to add tests
+
+- Add test cases in `test/` directory in cram format (`*.t` files).
+- Run them: `dune test test/<your_test_file>.t`
+- Verify outputs are correct.
+- To update expected outputs after verifying correctness: `dune test --auto-promote`
+
+## Project structure
+
+- **ch_queries/** - core libary which implements typesafe DSL combinators for query generation
+- **ch_queries_syntax/** - surface syntax + lexer/parser for the DSL
+    - **syntax.ml** - AST types and data structures for the DSL
+    - **lexer.mll** - lexer for the DSL (tokens are defined in the parser)
+    - **parser.mly** - parser for the DSL
+    - **printer.ml** - printer for the syntax, uses pprint library
+    - **ulexer.mll** - lexer for unsafe expressions (`%eu`), only recognizes `$param` and `x.y` refs
+    - **uparser.mly** - parser for unsafe expressions
+    - **loc.ml** - source location types
+    - **eq_class.ml** - equivalence classes for the type system
+- **ch_queries_ppx/** - a ppx rewriter which translates surface syntax to the typesafe DSL combinators
+- **bin/** - some debug UI
+- **test/** - tests in cram format (`*.t`)
+    - to run: `dune test`
+    - to run and promote the changes in expected vs current: `dune test --auto-promote`, only use when you've verified the changes are correct
+
+when exploring a project structure, it is fine to read entire files (they are small)
+
+## Architecture overview
+
+The `ch_queries_ppx` parses the surface syntax with `ch_queries_syntax` and
+translates it to the typesafe DSL combinators defined in `ch_queries`.
+
+The `ch_queries` combinators are being translated back to `ch_queries_syntax`
+but only to the subset which maps to SQL. Which is then printed to SQL string.
+
+## Adding new syntax features
+
+When adding new syntax to the query language, follow this pattern:
+
+1. **Add to syntax.ml**: Define the AST types for the new feature
+2. **Add to lexer.mll**: Add new keywords to the keywords table and handle in string_of_token
+3. **Add to parser.mly**:
+   - Add token declarations
+   - Add parsing rules
+   - Include new fields in existing rules (e.g., SELECT queries)
+4. **If adding new column/param-like constructs**: Consider updating ulexer.mll/uparser.mly for `%eu` support
+5. **Update printer.ml**: Add pretty-printing support for the new syntax
+6. **Update ch_queries.ml**: Add the feature to the core DSL types and translation
+7. **Update ch_queries.mli**: Add interface signatures for new functions
+8. **Update ch_queries_ppx.ml**: Add PPX transformation support
+9. **Run `dune build`** and fix any build errors systematically
+
+Always check that interface files (.mli) match implementation files (.ml) when adding new optional parameters to functions.
+
+## Adding new ClickHouse types
+
+Simple named types (like `JSON`, `String`, `Int32`) need no syntax changes — they
+are parsed as `T "TypeName"` by the existing grammar. To add a new one:
+
+1. **ch_queries.ml / ch_queries.mli**: Define a phantom type if needed (e.g.
+   `type json0 = private Json`), or reuse an existing OCaml type (e.g. `json`
+   polymorphic variant, `string`, `int`). Types like `int` and `string` are
+   reused directly; compound types like `date` use phantom types (`date0
+   timestamp`).
+2. **ch_queries_ppx.ml — `stage_typ'`**: Add a pattern matching the type name
+   string to the OCaml phantom type (e.g. `T { node = "JSON"; _ } ->
+   (\`NON_NULL, [%type: Ch_queries.json])`).
+3. **ch_queries_ppx.ml — `stage_typ_to_parser`**: Add a pattern mapping the
+   type name to a `Parse.t` value (e.g. `T { node = "JSON"; _ } -> [%expr
+   Ch_queries.Parse.json]`).
+4. **ch_queries.ml — `Parse` module**: Add a `Parse.t` value that pairs a JSON
+   decoder with an SQL expression constructor (e.g. `let json = VAL (Fun.id,
+   unparse)`). Expose it in `ch_queries.mli`.
+5. **Add tests** in `test/` covering type position (`[%t "..."]`), expression
+   ascription (`::TypeName`), query column usage, and `Parse` round-tripping.
+
+## Code Style
+
+- **Naming**: `snake_case` for values/functions/types, `My_module` for modules/variants
+- **Philosophy**: Unix-style - do one thing well, fail loudly, clarity over cleverness
+- **Interfaces**: One `.mli` per `.ml`, keep minimal
+- **Docs**: Terse first line, document invariants not obvious behavior
+- **Errors**: `function_name: what went wrong` format, fail fast
+- **Type annotations**: Avoid explicit types unless required by type checker
+- **Git Commits**:
+    - use imperative mood, e.g., "Add feature X", "Fix bug Y", "Refactor Z"
+    - be concise but descriptive
+    - no need to repeat everything you've done in the commit
+
+## Developing with OCaml
+
+We use `containers` library as a standard library. We prefer the version with
+labels `ContainersLabels`. We configure in `dune` to always have `-open
+ContainersLabels` in the compilation flags, so we don't have to write
+`ContainersLabels.` before every module.
+
+For parsing we use `menhir`, a parser generator. We use new syntax for rules.
+
+For command line interfaces we use `cmdliner`.
+
+For pretty printing we use `pprint` library.
+
+When adding a new opam package, we need to install it, then add package to the
+`dune-project`. Finall to use it, we need to add the lib (or ppx) to the `dune`
+file in the relevant directory.
+
+By default, as we use `containers`, the `=` operator has the type `int -> int
+-> bool`. To compare values we need type specific operators, like
+`String.equal` or `List.equal` and etc. Same holds for `compare` function (and
+`>`, `<`, `>=`, `<=` operators).
+
+## Developing with OCaml: common pitfalls
+
+- **Record field access**: When the compiler can't infer types, use qualified access like `id.Syntax.node` instead of `id.node`
+- **Pattern matching**: Always handle all cases in pattern matches. Use `_` only when explicitly ignoring unused variants  
+- **Record construction**: When adding fields to existing record types, think first where the field values should come from (function arguments, extending other types), then consider default/empty values as a last resort
+
+---
+> Source: [andreypopp/ch_queries](https://github.com/andreypopp/ch_queries) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-26 -->
