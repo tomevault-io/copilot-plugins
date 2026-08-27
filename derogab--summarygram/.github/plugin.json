@@ -1,0 +1,9 @@
+{
+  "name": "derogab--summarygram",
+  "displayName": "summarygram",
+  "description": "A Dockerized Telegram bot that summarize last messages in a group",
+  "version": "1.0.0",
+  "author": "derogab",
+  "homepage": "https://github.com/derogab/summarygram",
+  "skills": []
+}
