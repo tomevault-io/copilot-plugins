@@ -1,0 +1,9 @@
+{
+  "name": "hanzhangzzz--dsh-diagram",
+  "displayName": "dsh-diagram",
+  "description": "Turn DeepSeek Harness articles into editable Excalidraw canvases \u2014 live diagrams, not disposable Mermaid output.",
+  "version": "1.0.0",
+  "author": "hanzhangzzz",
+  "homepage": "https://github.com/hanzhangzzz/dsh-diagram",
+  "skills": []
+}
