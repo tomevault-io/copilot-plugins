@@ -4,7 +4,7 @@
   "repo": "vscode-pascal-formatter",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/alefragnani/vscode-pascal-formatter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T03:44:20Z"
+  "distributed_at": "2026-08-27T16:09:14Z"
 }
