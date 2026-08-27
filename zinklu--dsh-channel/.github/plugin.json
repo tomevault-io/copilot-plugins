@@ -1,0 +1,9 @@
+{
+  "name": "zinklu--dsh-channel",
+  "displayName": "dsh-channel",
+  "description": "A DeepSeek Harness channel plugin written entirely by DeepSeek Harness itself.",
+  "version": "1.0.0",
+  "author": "ZinkLu",
+  "homepage": "https://github.com/ZinkLu/dsh-channel",
+  "skills": []
+}
