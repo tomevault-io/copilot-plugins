@@ -1,0 +1,9 @@
+{
+  "name": "srcrip--ecto-n-plus-one",
+  "displayName": "ecto_n_plus_one",
+  "description": "Detect possible N+1 problems in your Ecto queries.",
+  "version": "1.0.0",
+  "author": "srcrip",
+  "homepage": "https://github.com/srcrip/ecto_n_plus_one",
+  "skills": []
+}
