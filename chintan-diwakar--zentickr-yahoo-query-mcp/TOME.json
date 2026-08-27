@@ -1,0 +1,44 @@
+{
+  "name": "zentickr-yahoo-query-mcp",
+  "owner": "chintan-diwakar",
+  "repo": "zentickr-yahoo-query-mcp",
+  "description": "MCP server exposing financial data using Yahoo Finance via yahooquery. Provides stock insights, historical prices, earnings, recommendations, and ownership info. Built for Zentickr AI tools and compatible with research agents or financial copilots.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chintan-diwakar/zentickr-yahoo-query-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T00:37:53Z"
+}
