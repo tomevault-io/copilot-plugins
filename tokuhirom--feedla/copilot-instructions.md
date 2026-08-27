@@ -1,0 +1,66 @@
+## feedla
+
+> feedla の開発運用に関する指示。設計・アーキテクチャは docs/DESIGN.md を参照。
+
+# CLAUDE.md
+
+feedla の開発運用に関する指示。設計・アーキテクチャは docs/DESIGN.md を参照。
+
+## ツールチェーン
+
+- go/lefthook/golangci-lint/pnpm は mise で管理する。lefthook 経由で mise 管理外のツールを呼ぶ場合は
+  `mise exec pnpm -- pnpm ...` のように `mise exec` 越しに呼び、go の PATH には触れないこと。
+- pre-commit で lefthook + golangci-lint + web-typecheck が走る。
+- `go build` の前に `pnpm run build`(または `make build`)でフロントエンドをビルドしておくこと
+  (`internal/web/dist` は `.gitignore` 対象で go:embed の対象)。
+
+## セキュリティ
+
+- **認可判定を伴うエンドポイントの新規追加・変更には、複数ユーザー視点の
+  テスト(IDOR テスト)を必須とする。** 所有者以外の第三者ユーザー(必要なら
+  admin ユーザーも)でアクセスし、意図どおり拒否される/意図どおり許可される
+  ことを検証すること。`internal/api/idor_test.go` の `createTestUser` ヘルパー
+  と、`e2e/tests/multi-user-isolation.spec.ts` の2ブラウザセッションパターンを
+  再利用する。
+  - 理由: マルチユーザー化 Phase C で見つかった認可漏れ4件(`docs/security-review-2026-08.md`
+    「追記(2026-08-17)」節)は、すべて「所有権/購読チェックの書き忘れ」で
+    混入しており、単一ユーザー視点の単体テストでは検出できなかった。うち
+    `AddPin` の実装バグ(未購読フィードへの pin が可能だった)は、事前の設計
+    レビューでも見逃され、クロスユーザーテストを書いて初めて発見された。
+  - 対象: リソース ID をパスパラメータ/ボディで受け取り、DB から取得して
+    返す・更新する・削除する・副作用のある操作(クロール強制実行や外部 URL
+    fetch を伴う preview 系を含む)を行う全エンドポイント。
+
+## ドキュメント・成果物での第三者サイトの扱い
+
+- **コード・コミットメッセージ・PR説明・docs 等、リポジトリに永続的に残る
+  成果物には、特定の第三者サイト名(個別ブログ名・SNSプラットフォーム名等)や
+  個別URLを書かない。** 会話や動作確認のきっかけとして特定サイトを話題に
+  することはあっても、成果物では一般化した表現(`example.com` 等の合成URL、
+  「SNS投稿の embed」「フィード非提供サイト」のようなカテゴリ名)に
+  置き換えること。
+  - 同様に、特定サイトに対してスクレイピング・監視(pagewatch 等)を
+    行っていること自体も、対象サイト名を明示する形では記録しない。
+  - 理由: 話題にしたサイトを成果物に固定化しない配慮(対象サイト・
+    サイト運営者への配慮)。
+  - 対象: `docs/` 配下のドキュメント・ADR、コミットメッセージ、PR 説明、
+    テストフィクスチャ名など、**成果物の説明文**。
+  - 対象外: 特定プラットフォームの embed/API 連携など、機能実装上その
+    プラットフォーム名を書かざるを得ないコード(関数名・ファイル名・
+    コード内コメント・ドメイン文字列や URL パターンのリテラル)。
+    ドメイン文字列がコードにデータとして必須で登場する以上、識別子や
+    コメントだけ伏せても実効性がなく可読性を損なうだけのため。
+
+## Git ワークフロー
+
+- **main に直接コミットしない。** 作業は `feat/xxx`・`fix/xxx` のようなトピックブランチで行い、
+  `gh pr create` で PR を作成し、`gh pr merge --auto --merge` で auto-merge を有効化する
+  (CI が通り次第、ユーザーの追加確認なしに自動でマージされる)。
+- tagpr のリリース PR (`tagpr-from-*`) も同じ auto-merge 運用に乗る。
+- 作業開始前に `git fetch && git log HEAD..origin/main` で最新化を確認し、必要なら
+  `git pull --ff-only` してからブランチを切ること。
+- force push や履歴改変など明確に破壊的な git 操作は対象外(通常どおり別途確認する)。
+
+---
+> Source: [tokuhirom/feedla](https://github.com/tokuhirom/feedla) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
