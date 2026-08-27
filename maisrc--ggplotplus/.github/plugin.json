@@ -1,0 +1,9 @@
+{
+  "name": "maisrc--ggplotplus",
+  "displayName": "ggplotplus",
+  "description": "Package home for ggplot_plus",
+  "version": "1.0.0",
+  "author": "MAISRC",
+  "homepage": "https://github.com/MAISRC/ggplotplus",
+  "skills": []
+}
