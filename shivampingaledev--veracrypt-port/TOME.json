@@ -1,0 +1,44 @@
+{
+  "name": "Veracrypt_port",
+  "owner": "ShivamPingaleDev",
+  "repo": "Veracrypt_port",
+  "description": "VC Port \u2014 open VeraCrypt locked files on Android and iPhone. Free. Offline. Not named VeraCrypt. Not unbreakable. Downloads on Releases Still Proof of concept app (POC)",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShivamPingaleDev/Veracrypt_port",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T21:48:14Z"
+}
