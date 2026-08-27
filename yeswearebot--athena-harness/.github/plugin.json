@@ -1,0 +1,9 @@
+{
+  "name": "yeswearebot--athena-harness",
+  "displayName": "athena-harness",
+  "description": "An experimental digital life runtime kernel built on Cordis v4 and AI SDK v7.",
+  "version": "1.0.0",
+  "author": "YesWeAreBot",
+  "homepage": "https://github.com/YesWeAreBot/athena-harness",
+  "skills": []
+}
