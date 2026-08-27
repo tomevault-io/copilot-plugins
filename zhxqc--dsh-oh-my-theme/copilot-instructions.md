@@ -1,0 +1,42 @@
+## dsh-oh-my-theme
+
+> `dsh-oh-my-theme` is a build-free DeepSeek Harness web plugin. The root README is Chinese; `docs/README.en.md` is the English counterpart.
+
+# Project guidance
+
+## Scope
+
+`dsh-oh-my-theme` is a build-free DeepSeek Harness web plugin. The root README is Chinese; `docs/README.en.md` is the English counterpart.
+
+## Runtime shape
+
+- `lib/index.js` is the host half and exposes read-only, workspace-scoped Typert methods.
+- `lib/client.js` is the browser half and is served verbatim; keep it valid plain JavaScript without adding a build requirement.
+- `package.json#dsh.bundle.patch` and `cordis.patch.yml` are the install manifest. Keep the loader package name aligned with the npm package name.
+- Official `@deepseek-ai/*` packages remain `peerDependencies` to avoid duplicate runtimes inside a profile.
+
+## Safety boundaries
+
+- Workspace file methods must resolve paths inside the active session cwd and reject traversal.
+- File preview remains read-only, rejects binary content, and keeps its existing size limits.
+- Keep client and host Typert invocation descriptors wire-identical.
+
+## Verification
+
+```sh
+node --test test/host.test.mjs
+node test/client.smoke.mjs
+npm pack --dry-run
+```
+
+When changing user-visible behavior, update both README files in the same commit.
+
+## Release workflow
+
+- Keep `package.json#version` and the release tag in sync; use an annotated `vX.Y.Z` tag and never reuse an existing version or tag.
+- Before publishing, run the host/client tests, `pnpm install --frozen-lockfile`, and `npm pack --dry-run`.
+- Publish to the npm registry only after the release commit and tag are ready; push the branch and tag explicitly.
+
+---
+> Source: [zhxqc/dsh-oh-my-theme](https://github.com/zhxqc/dsh-oh-my-theme) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
