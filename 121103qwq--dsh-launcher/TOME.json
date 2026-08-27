@@ -1,0 +1,44 @@
+{
+  "name": "DSH-Launcher",
+  "owner": "121103qwq",
+  "repo": "DSH-Launcher",
+  "description": "\u9762\u5411 Windows x64 \u7684 DeepSeek Harness \u542f\u52a8\u5668\u4e0e\u751f\u6001\u7ba1\u7406\u5668\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/121103qwq/DSH-Launcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T18:58:45Z"
+}
