@@ -1,50 +1,50 @@
-## 20-bm25-search-guide
+## 30-cache-management
 
-> Guide for using and extending BM25 search in this project
+> Cache management rules and patterns for this project
 
 
-# BM25 검색 가이드
+# 캐시 관리 규칙
 
-## 아키텍처
-```
-API 호출 (법제처) → 결과 목록 (list[dict]) → BM25 재랭킹 → 상위 K개 반환
-```
+## 캐시 구조
+- **위치**: `~/.cache/mcp-kr-legislation/`
+- **형식**: `{md5_hash}.json` (메타데이터 + 실제 데이터)
+- **TTL**: 7일 (CACHE_DAYS)
+- **최대 크기**: 100MB (cleanup_cache_tool 수동 실행 필요)
 
-BM25는 API 결과를 **클라이언트 측에서 재랭킹**합니다.
-API 자체의 검색 능력을 대체하는 것이 아니라 보완합니다.
-
-## 핵심 함수
+## 캐시 사용 패턴
 
 ```python
-from mcp_kr_legislation.utils.bm25_search import rank_search_results
-
-ranked = rank_search_results(
-    query="개인정보 처리 동의",
-    results=api_results,          # list[dict]
-    text_keys=["법령명한글", "소관부처명"],  # 인덱싱 대상 필드
-    top_k=10,                      # 상위 K개
+# 캐시 저장/로드
+from mcp_kr_legislation.utils.legislation_utils import (
+    get_cache_key, load_from_cache, save_to_cache
 )
-# 결과: 각 항목에 _bm25_score 추가, 점수 기준 내림차순 정렬
+
+key = get_cache_key(f"target_{query}", "list")
+cached = load_from_cache(key)
+if cached:
+    return cached  # 캐시 히트
+# API 호출 후
+save_to_cache(key, data)
 ```
 
-## 텍스트 키 선택 가이드
-| 도구 유형 | 권장 text_keys |
-|-----------|---------------|
-| 법령 검색 | `["법령명한글", "소관부처명", "법령구분명"]` |
-| 판례 검색 | `["사건명", "법원명", "사건종류명"]` |
-| 위원회결정문 | `["사건명", "결정유형명"]` |
-| 행정규칙 | `["법령명", "소관부처명"]` |
-| 법령용어 | `["법령용어명", "뜻풀이"]` |
+## _make_legislation_request 캐시 파라미터
+```python
+# 캐시 사용 (기본, 권장)
+data = _make_legislation_request("law", params, use_cache=True)
 
-## 새 BM25 도구 추가
-1. `search_enhance_tools.py`에 추가
-2. `_raw_search(target, query, display)` 호출
-3. `_extract_list(data, root_key)` 로 결과 추출
-4. `rank_search_results(...)` 재랭킹
-5. `_bm25_score` 포함하여 결과 반환
+# 캐시 우회 (강제 갱신 시만)
+data = _make_legislation_request("law", params, use_cache=False)
+```
 
-## rank-bm25 없을 때
-자동으로 TF 폴백 사용 (설치 권장: `uv add rank-bm25`)
+## 캐시 관리 도구 (MCP)
+- `get_cache_status()` — 현재 상태 조회
+- `cleanup_cache_tool(max_age_days=30)` — 오래된 캐시 정리
+- `invalidate_law_cache(law_id=...)` — 특정 법령 즉시 무효화
+
+## 캐시 무효화 시점
+- 법령 개정 확인 후 → `invalidate_law_cache(mst_번호)`
+- 정기 정리 (월 1회) → `cleanup_cache_tool(max_age_days=30)`
+- 디스크 부족 시 → `cleanup_cache_tool(max_size_mb=50)`
 
 ---
 > Source: [ChangooLee/mcp-kr-legislation](https://github.com/ChangooLee/mcp-kr-legislation) — distributed by [TomeVault](https://tomevault.io).
