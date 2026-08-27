@@ -1,0 +1,9 @@
+{
+  "name": "tailscale--aperture-plus",
+  "displayName": "aperture-plus",
+  "description": "Experimental: pure userspace Tailscale web browser for iOS/macOS with Aperture Chat and Thundersnap VM",
+  "version": "1.0.0",
+  "author": "tailscale",
+  "homepage": "https://github.com/tailscale/aperture-plus",
+  "skills": []
+}
