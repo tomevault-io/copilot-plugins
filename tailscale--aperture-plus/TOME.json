@@ -1,0 +1,44 @@
+{
+  "name": "aperture-plus",
+  "owner": "tailscale",
+  "repo": "aperture-plus",
+  "description": "Experimental: pure userspace Tailscale web browser for iOS/macOS with Aperture Chat and Thundersnap VM",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tailscale/aperture-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:37:34Z"
+}
