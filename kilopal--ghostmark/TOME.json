@@ -1,0 +1,44 @@
+{
+  "name": "GhostMark",
+  "owner": "kilopal",
+  "repo": "GhostMark",
+  "description": "The world's first 100% client-side AI watermark stripper. Pure Rust \u2192 WASM. Browser extension + web playground. Defeats SynthID, C2PA, and Unicode marks",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kilopal/GhostMark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T18:37:09Z"
+}
