@@ -1,0 +1,9 @@
+{
+  "name": "csuftt--zcode-jetbrains-plugin",
+  "displayName": "zcode-jetbrains-plugin",
+  "description": "ZCode\uff08Z.ai/GLM\uff09AI \u7f16\u7a0b\u52a9\u624b JetBrains \u63d2\u4ef6\uff1a\u591a\u6807\u7b7e\u5bf9\u8bdd\u3001\u6d41\u5f0f\u8f93\u51fa\u3001\u6a21\u578b\u4e0e\u6743\u9650\u5207\u6362\u3001\u4efb\u52a1/\u5b50\u4ee3\u7406\u53ef\u89c6\u5316\uff0cAI \u53ef\u7ecf browser-use \u9a71\u52a8\u5185\u5d4c JCEF \u6d4f\u89c8\u5668 | ZCode (Z.ai/GLM) AI coding assistant for JetBrains IDEs: multi-tab chat, streaming output, model & pe",
+  "version": "1.0.0",
+  "author": "csuftt",
+  "homepage": "https://github.com/csuftt/zcode-jetbrains-plugin",
+  "skills": []
+}
