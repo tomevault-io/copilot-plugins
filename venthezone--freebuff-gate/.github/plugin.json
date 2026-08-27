@@ -1,0 +1,9 @@
+{
+  "name": "venthezone--freebuff-gate",
+  "displayName": "freebuff-gate",
+  "description": "Freebuff Gate: browser UI layer, mobile relay, and Android/iOS pairing apps for Freebuff Desktop",
+  "version": "1.0.0",
+  "author": "VenTheZone",
+  "homepage": "https://github.com/VenTheZone/freebuff-gate",
+  "skills": []
+}
