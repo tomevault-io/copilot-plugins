@@ -1,0 +1,9 @@
+{
+  "name": "nixentric--stash",
+  "displayName": "stash",
+  "description": "A lightweight, offline-first creative asset manager for editors and designers \u2014 asset organization, usage tracking, fast search, and interactive brand guidelines in one portable workspace.",
+  "version": "1.0.0",
+  "author": "nixentric",
+  "homepage": "https://github.com/nixentric/stash",
+  "skills": []
+}
