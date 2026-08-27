@@ -1,0 +1,9 @@
+{
+  "name": "coldteadotai--pr-lens",
+  "displayName": "pr-lens",
+  "description": "PR Lens draws every PR as animated architecture and data-flow diagrams, inside the pull request itself. Use it as a GitHub App, GitHub Action, CLI, or a skill for your coding agent",
+  "version": "1.0.0",
+  "author": "coldteadotai",
+  "homepage": "https://github.com/coldteadotai/pr-lens",
+  "skills": []
+}
