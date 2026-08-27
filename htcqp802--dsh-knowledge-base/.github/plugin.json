@@ -1,0 +1,9 @@
+{
+  "name": "htcqp802--dsh-knowledge-base",
+  "displayName": "dsh-knowledge-base",
+  "description": "DeepSeek Harness (DSH) knowledge base plugin: import PDF/DOCX/Markdown documents, organize them in folders, full-text search with FTS5 (BM25), and manage everything in a Web UI",
+  "version": "1.0.0",
+  "author": "htcqp802",
+  "homepage": "https://github.com/htcqp802/dsh-knowledge-base",
+  "skills": []
+}
