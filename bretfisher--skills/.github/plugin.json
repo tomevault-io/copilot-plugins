@@ -1,0 +1,9 @@
+{
+  "name": "bretfisher--skills",
+  "displayName": "skills",
+  "description": "My handcrafted agent skills for DevOps, CI/CD, and platforms",
+  "version": "1.0.0",
+  "author": "BretFisher",
+  "homepage": "https://github.com/BretFisher/skills",
+  "skills": []
+}
