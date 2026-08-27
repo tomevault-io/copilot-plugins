@@ -7,14 +7,14 @@ A high-performance, data-driven rendering engine for Neovim and terminal environ
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [igmrrf/distract.nvim](https://github.com/igmrrf/distract.nvim).
+Original source: `CLAUDE.md` in [igmrrf/distract.nvim](https://github.com/igmrrf/distract.nvim).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/igmrrf/distract.nvim](https://github.com/igmrrf/distract.nvim)
