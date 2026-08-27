@@ -1,0 +1,9 @@
+{
+  "name": "zhxqc--dsh-oh-my-theme",
+  "displayName": "dsh-oh-my-theme",
+  "description": "DeepSeek Harness (dsh) web plugin with themes, global typography, @file mentions, project file tree, and Markdown preview.",
+  "version": "1.0.0",
+  "author": "zhxqc",
+  "homepage": "https://github.com/zhxqc/dsh-oh-my-theme",
+  "skills": []
+}
