@@ -1,28 +1,24 @@
-## mount-container-save
+## no-proc-self-fd
 
-> Mounted volume save-back, hash banner, and import temp hygiene
+> Never use /proc/self/fd as a VeraCrypt native Open path
 
 
-# Mount container save-back
+# No `/proc/self/fd` native paths
 
-Opened containers are copied to app cache (`ensureContainerPath` / `copyScopedFile`). Writes stay in cache until flushed back to the user's picked `content://` or `file://` URI.
+VeraCrypt `File::Open` does `open(path)`. Android SAF only gives a `ParcelFileDescriptor`. A `/proc/self/fd/N` path dies when:
+
+- Home / `onStop` closes the descriptor
+- Dismount / header tools close then reopen the volume
+- SELinux denies reopen even while Java still holds the PFD
 
 ## Required
 
-- **Flush before write-back:** call `vc_flush_volume` / `NativeBridge.flushVolume` / `VcMobileBridge.flush` while the volume is still open, then `copyFileToUri` / security-scoped copy. Do not wipe the cache copy while mounted.
-- **Auto-save after volume mutations:** any path that changes FAT contents (`importFromDevice`, `transferBetweenVolumes`, `mkdirInVolume`, etc.) must call `autoSaveSaveWarning` for affected mount handles. Warn on failure only; do not block the import.
-- **Dismount × / Dismount / idle / screen-lock:** `saveMountedContainer` or `saveAllMountedSync` before clearing session. `dismountOnLeave` (Home) saves too.
-- **Panic:** `panicWipe` uses `closeVolume` / `closeMountedVolume` only — **no** write-back to the original file.
-- **hashResult / hashResultState:** clear when changing folder, mount slot, selection, or starting a new hash — not only on full dismount.
+- Container Open goes through `ensureContainerPath` → `copyToCache` (or a real `file://` path).
+- `containerPathUsable` must return false for empty paths and any `/proc/self/fd/` path.
+- Payload import (`importFromDevice`, `importUriIntoVolume`) copies the URI into cache, then passes that filesystem path to `NativeBridge.importFile`. Do not pass `/proc/self/fd/${pfd.fd}` to native.
+- Do not add `bindContainerFd` or store a proc fd in `pathState`.
 
-## Import plaintext temps (same as basket)
-
-- Copy SAF payload to a real cache path (`copyUriForNativeImport` / `copyScopedFile`). Never pass `/proc/self/fd` to native import.
-- After `importFile`, wipe temps with `KeyfileIo.wipe` (Android) or `wipeFile` (iOS), not plain `delete()` / `removeItem`.
-
-## Host regressions
-
-`ports/tests/test_contracts.py`: `test_mount_container_persistence`, `test_auto_save_after_volume_import`, `test_hash_and_pim_show_progress_not_background`, `test_copy_move_device_files_on_android_and_ios`.
+Host tests in `ports/tests/test_contracts.py` (`test_choose_container_keeps_session_and_shows_name`, `test_copy_move_device_files_on_android_and_ios`) must keep failing if fd paths come back.
 
 ---
 > Source: [ShivamPingaleDev/Veracrypt_port](https://github.com/ShivamPingaleDev/Veracrypt_port) — distributed by [TomeVault](https://tomevault.io).
