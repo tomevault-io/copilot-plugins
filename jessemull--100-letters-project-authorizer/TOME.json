@@ -4,7 +4,7 @@
   "repo": "100-letters-project-authorizer",
   "description": "100 letters, 100 people, 1 year.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jessemull/100-letters-project-authorizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T04:38:38Z"
+  "distributed_at": "2026-08-27T04:39:01Z"
 }
