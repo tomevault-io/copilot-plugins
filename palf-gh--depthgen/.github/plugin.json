@@ -1,0 +1,9 @@
+{
+  "name": "palf-gh--depthgen",
+  "displayName": "DepthGen",
+  "description": "After Effects effect that generates a relative depth map from the source layer. Choose ZipDepth (speed) or Depth Anything V2 Small (quality).",
+  "version": "1.0.0",
+  "author": "palf-gh",
+  "homepage": "https://github.com/palf-gh/DepthGen",
+  "skills": []
+}
