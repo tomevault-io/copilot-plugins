@@ -1,0 +1,9 @@
+{
+  "name": "retab-dev--retab-ui",
+  "displayName": "retab-ui",
+  "description": "Headless React components for document processing pipelines. File viewers and the JSON Schema builder, distributed via a shadcn registry.",
+  "version": "1.0.0",
+  "author": "retab-dev",
+  "homepage": "https://github.com/retab-dev/retab-ui",
+  "skills": []
+}
