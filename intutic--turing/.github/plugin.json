@@ -1,0 +1,9 @@
+{
+  "name": "intutic--turing",
+  "displayName": "turing",
+  "description": "\u26a1 High-throughput LLM serving runtime to run frontier 70B\u2013753B models on a single 24GB GPU (RTX 4090/L4). Features 75% KV compression, 57% subspace activation pruning, and dual OpenAI + Anthropic APIs",
+  "version": "1.0.0",
+  "author": "intutic",
+  "homepage": "https://github.com/intutic/turing",
+  "skills": []
+}
