@@ -1,0 +1,9 @@
+{
+  "name": "feesimple1--lod-bot",
+  "displayName": "lod-bot",
+  "description": "Automation of bots to run the board game Liberty or Death",
+  "version": "1.0.0",
+  "author": "FeeSimple1",
+  "homepage": "https://github.com/FeeSimple1/lod-bot",
+  "skills": []
+}
