@@ -1,0 +1,9 @@
+{
+  "name": "eavae--cordis-rs",
+  "displayName": "cordis-rs",
+  "description": "An unofficial Rust implementation of [Cordis](https://github.com/cordisjs/cordis) \u2014 a meta-framework of spatiotemporal composability for plugin-based applications.",
+  "version": "1.0.0",
+  "author": "eavae",
+  "homepage": "https://github.com/eavae/cordis-rs",
+  "skills": []
+}
