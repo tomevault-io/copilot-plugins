@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--arc-agi-arcade",
+  "displayName": "arc-agi-arcade",
+  "description": "Agents playing the ARC-AGI-3. Top score: a verified 100.00 RHAE.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/arc-agi-arcade",
+  "skills": []
+}
