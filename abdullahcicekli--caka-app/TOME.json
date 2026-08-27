@@ -4,7 +4,7 @@
   "repo": "caka.app",
   "description": "Demo project for caka",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abdullahcicekli/caka.app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T21:42:44Z"
+  "distributed_at": "2026-08-27T22:08:52Z"
 }
