@@ -1,0 +1,9 @@
+{
+  "name": "owenb321--mister-dvd",
+  "displayName": "MiSTer_DVD",
+  "description": "DVD-Video player core for MiSTer FPGA \u2014 disc menus, navigation, subtitles and in-fabric AC-3 audio",
+  "version": "1.0.0",
+  "author": "owenb321",
+  "homepage": "https://github.com/owenb321/MiSTer_DVD",
+  "skills": []
+}
