@@ -1,0 +1,9 @@
+{
+  "name": "kinoward--dsh-plugin-subhub",
+  "displayName": "dsh-plugin-subhub",
+  "description": "Bring third-party subscription accounts into DeepSeek Harness - \u4e3a DeepSeek Harness \u63a5\u5165\u7b2c\u4e09\u65b9\u8ba2\u9605\u8d26\u6237(\u5f53\u524d\u652f\u6301 OpenAI / ChatGPT\u3001xAI (Grok)\u3001GitHub Copilot,\u5168\u90e8\u901a\u8fc7\u6d4f\u89c8\u5668\u6388\u6743\u767b\u5f55)",
+  "version": "1.0.0",
+  "author": "kinoward",
+  "homepage": "https://github.com/kinoward/dsh-plugin-subhub",
+  "skills": []
+}
