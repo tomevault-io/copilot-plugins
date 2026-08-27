@@ -1,0 +1,9 @@
+{
+  "name": "yourtion--mcp-knot",
+  "displayName": "mcp-knot",
+  "description": "A centralized hub server engineered to consolidate multiple MCP servers into dedicated Streamable HTTP or SSE endpoints, each tailored to specific use scenarios.",
+  "version": "1.0.0",
+  "author": "yourtion",
+  "homepage": "https://github.com/yourtion/mcp-knot",
+  "skills": []
+}
