@@ -1,0 +1,9 @@
+{
+  "name": "nehemiaharchives--lucene-kmp",
+  "displayName": "lucene-kmp",
+  "description": "Kotlin Multiplatform port of Apache Lucene Full Text Search Library works on iOS & Android",
+  "version": "1.0.0",
+  "author": "nehemiaharchives",
+  "homepage": "https://github.com/nehemiaharchives/lucene-kmp",
+  "skills": []
+}
