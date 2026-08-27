@@ -1,0 +1,9 @@
+{
+  "name": "boonkgim--mcp-gmail-multi-account",
+  "displayName": "mcp-gmail-multi-account",
+  "description": "Remote MCP server for Gmail with support for multiple connected accounts, deployed on Cloudflare Workers, for use as a claude.ai custom connector",
+  "version": "1.0.0",
+  "author": "boonkgim",
+  "homepage": "https://github.com/boonkgim/mcp-gmail-multi-account",
+  "skills": []
+}
