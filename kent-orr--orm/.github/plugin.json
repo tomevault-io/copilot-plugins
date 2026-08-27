@@ -1,0 +1,9 @@
+{
+  "name": "kent-orr--orm",
+  "displayName": "oRm",
+  "description": "A lightweight, R6-based ORM for R that mimics SQLAlchemy-style models using DBI and dbplyr.",
+  "version": "1.0.0",
+  "author": "kent-orr",
+  "homepage": "https://github.com/kent-orr/oRm",
+  "skills": []
+}
