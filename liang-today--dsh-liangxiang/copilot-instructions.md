@@ -1,0 +1,34 @@
+## git-commit-push
+
+> 每次完成的改动必须立刻 git commit 并 push 到已跟踪远程
+
+
+# Git：改完即提交并推送（硬规则）
+
+本仓库每一次完成的改动（修 bug、改产品契约、改 UI、改后端）都必须：
+
+1. `git commit`（说明性信息，写清为什么）
+2. 立刻 `git push` 到已跟踪远程
+
+不要等用户再说「提交 / 推送」。`AGENTS.md` §15 覆盖旧 Prompt「禁止 git push」。
+
+```bash
+# ❌ BAD — 改完停在工作区
+# （用户下一次打开仓库还是脏的）
+
+# ✅ GOOD — 验证通过后立刻
+git add <相关文件>
+git commit -m "fix(host): …"
+git push
+```
+
+例外（仍然不要 commit）：
+
+- `src/host/staging-defaults.ts` 等含社区口令 / 密钥的本地文件
+- 用户明确说「先别提交」的那一次
+
+部署社区后端仍只走 `scripts/deploy.sh`，不是 push 的替代。
+
+---
+> Source: [liang-today/dsh-liangxiang](https://github.com/liang-today/dsh-liangxiang) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
