@@ -4,7 +4,7 @@
   "repo": "dsh-oh-my-theme",
   "description": "DeepSeek Harness (dsh) web plugin with themes, global typography, @file mentions, project file tree, and Markdown preview.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhxqc/dsh-oh-my-theme",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T21:36:17Z"
+  "distributed_at": "2026-08-27T22:06:05Z"
 }
