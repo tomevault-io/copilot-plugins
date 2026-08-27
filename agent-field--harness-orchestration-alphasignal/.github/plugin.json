@@ -1,0 +1,9 @@
+{
+  "name": "agent-field--harness-orchestration-alphasignal",
+  "displayName": "harness-orchestration-alphasignal",
+  "description": "Learn harness orchestration: seven notebooks that climb from one agent call to a system that writes its own execution graph. Companion to the AlphaSignal talk.",
+  "version": "1.0.0",
+  "author": "Agent-Field",
+  "homepage": "https://github.com/Agent-Field/harness-orchestration-alphasignal",
+  "skills": []
+}
