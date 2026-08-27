@@ -40,16 +40,15 @@ Residual risks: DNS rebinding, Chromium DNS TOCTOU, redirects, and debug-server 
 - `MAX_AX_DEPTH = 32` (not 50)
 - `MAX_DIMENSION = 10000` (not 2048 — this is the desktop screenshot cap; browser screenshots have a separate `SCREENSHOT_MAX_DIMENSION = 8000` in `src/agent-browser.ts:74`)
 
-### Browser tool schema limitations
-The registered `browser` tool in `src/index.ts` does not expose `compact`, `semanticAction`, `job`, or `batch` parameters in its schema — but `src/browser-policy.ts:validateBrowserRequest` handles all of them. Agents using tool schemas for planning won't discover these features. This is a known gap.
+### Browser tool schema
+The registered `browser` tool in `src/index.ts` exposes `compact`, `semanticAction`, `job`, and `batch` parameters in its schema, matching the capabilities handled by `src/browser-policy.ts:validateBrowserRequest`.
 
 ### semanticAction uses `verb` and `query` fields (not `action` and `role`)
 `src/browser-policy.ts:SemanticActionRequest` shape: `{ locator, query, verb, name?, index?, value?, exact? }`. The README code example was fixed to match; double-check any new docs or agent prompts that reference the old `{ action, role }` field names.
 
 ## Architecture Notes
 - `src/native-tools.ts` is an ~900-line dispatcher mixing web search backends, semantic crawl, academic research, GitHub API, and embedding pipeline. This is the most coupled file in the codebase — refactoring it is deferred technical debt, not a quick fix.
-- `src/reach-tools.ts` has a `case 'browser'` in `dispatchReachTool` that is **dead code** — the `browser` tool is registered independently in `src/index.ts` and never flows through this dispatcher. Do not add logic there expecting it to execute.
-- `src/cdp.ts` is a self-contained CDP implementation (793 lines, zero external deps). It has no WebSocket connection-failure or protocol-error tests — if CDP behavior changes, those paths need coverage.
+- `src/cdp.ts` is a self-contained CDP implementation (793 lines, zero external deps). WebSocket failure and protocol-error CDP responses are covered by `test/cdp.test.ts` (timeout, onclose rejection, error-result propagation).
 - The desktop control stack (`desktop-tools.ts` → `cua-client.ts`) is cleanly separated from search and browser modules with no cross-imports.
 
 ## Residual Risks
@@ -64,4 +63,4 @@ The registered `browser` tool in `src/index.ts` does not expose `compact`, `sema
 
 ---
 > Source: [rhinos0608/Pi-Northstar](https://github.com/rhinos0608/Pi-Northstar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
