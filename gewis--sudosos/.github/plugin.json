@@ -1,0 +1,9 @@
+{
+  "name": "gewis--sudosos",
+  "displayName": "sudosos",
+  "description": "SudoSOS is a Node.js-based Bar and POS system made for study association GEWIS.",
+  "version": "1.0.0",
+  "author": "GEWIS",
+  "homepage": "https://github.com/GEWIS/sudosos",
+  "skills": []
+}
