@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--tons-of-skills-marketplace",
+  "displayName": "tons-of-skills-marketplace",
+  "description": "471 plugins, 3,069 skills, 347 agents for Claude Code. Open-source marketplace at tonsofskills.com with the ccpi CLI package manager.",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/tons-of-skills-marketplace",
+  "skills": []
+}
