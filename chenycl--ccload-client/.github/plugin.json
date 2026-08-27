@@ -1,0 +1,9 @@
+{
+  "name": "chenycl--ccload-client",
+  "displayName": "ccload-client",
+  "description": "Desktop client for the ccLoad multi-channel LLM gateway",
+  "version": "1.0.0",
+  "author": "ChenYCL",
+  "homepage": "https://github.com/ChenYCL/ccload-client",
+  "skills": []
+}
