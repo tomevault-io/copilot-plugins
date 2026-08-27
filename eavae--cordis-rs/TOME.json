@@ -1,0 +1,44 @@
+{
+  "name": "cordis-rs",
+  "owner": "eavae",
+  "repo": "cordis-rs",
+  "description": "An unofficial Rust implementation of [Cordis](https://github.com/cordisjs/cordis) \u2014 a meta-framework of spatiotemporal composability for plugin-based applications.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eavae/cordis-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T16:30:24Z"
+}
