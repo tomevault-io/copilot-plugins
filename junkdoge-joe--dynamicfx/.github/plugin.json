@@ -1,0 +1,9 @@
+{
+  "name": "junkdoge-joe--dynamicfx",
+  "displayName": "dynamicfx",
+  "description": "An open shader runtime for After Effects - GLSL in an expression, multi-pass GPU effects, temporal feedback, 8/16/32-bpc",
+  "version": "1.0.0",
+  "author": "JUNKDOGE-JOE",
+  "homepage": "https://github.com/JUNKDOGE-JOE/dynamicfx",
+  "skills": []
+}
