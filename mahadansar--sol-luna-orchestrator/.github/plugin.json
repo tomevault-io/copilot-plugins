@@ -1,0 +1,9 @@
+{
+  "name": "mahadansar--sol-luna-orchestrator",
+  "displayName": "sol-luna-orchestrator",
+  "description": "Adaptive orchestration for OpenAI Codex \u2014 decide when to delegate, route bounded work to isolated GPT-5.6 Luna workers, and independently verify the result.",
+  "version": "1.0.0",
+  "author": "mahadansar",
+  "homepage": "https://github.com/mahadansar/sol-luna-orchestrator",
+  "skills": []
+}
