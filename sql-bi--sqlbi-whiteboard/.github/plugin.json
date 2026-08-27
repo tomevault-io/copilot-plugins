@@ -1,0 +1,9 @@
+{
+  "name": "sql-bi--sqlbi-whiteboard",
+  "displayName": "SQLBI-Whiteboard",
+  "description": "A free, open-source, native Windows 11 whiteboard for teaching DAX, SQL, and data modeling - pen ink, live application capture, and syntax-highlighted code",
+  "version": "1.0.0",
+  "author": "sql-bi",
+  "homepage": "https://github.com/sql-bi/SQLBI-Whiteboard",
+  "skills": []
+}
