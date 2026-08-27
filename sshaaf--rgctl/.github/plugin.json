@@ -1,0 +1,9 @@
+{
+  "name": "sshaaf--rgctl",
+  "displayName": "rgctl",
+  "description": "A code knowledge graph built for LLM agents \u2014 accurate answers, minimal tokens, maximum speed",
+  "version": "1.0.0",
+  "author": "sshaaf",
+  "homepage": "https://github.com/sshaaf/rgctl",
+  "skills": []
+}
