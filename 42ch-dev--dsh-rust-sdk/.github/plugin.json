@@ -1,0 +1,9 @@
+{
+  "name": "42ch-dev--dsh-rust-sdk",
+  "displayName": "dsh-rust-sdk",
+  "description": "Rust SDK for DSH(Deepseek Harness)  ",
+  "version": "1.0.0",
+  "author": "42ch-dev",
+  "homepage": "https://github.com/42ch-dev/dsh-rust-sdk",
+  "skills": []
+}
