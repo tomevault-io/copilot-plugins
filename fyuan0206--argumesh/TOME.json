@@ -1,0 +1,44 @@
+{
+  "name": "ArguMesh",
+  "owner": "Fyuan0206",
+  "repo": "ArguMesh",
+  "description": "\u9762\u5411\u79d1\u7814\u4eba\u5458\u3001\u7814\u7a76\u751f\u548c\u8bba\u6587\u4f5c\u8005\u7684\u6587\u732e\u7814\u7a76\u5de5\u4f5c\u53f0\u3002\u5b83\u628a\u201c\u5efa\u7acb\u8bfe\u9898\u2014\u6536\u96c6\u8bba\u6587\u2014\u7cbe\u8bfb\u4e0e\u6458\u5f55\u2014\u6bd4\u8f83\u8bc1\u636e\u2014\u5f62\u6210\u89c2\u70b9\u2014\u8bbe\u8ba1\u7814\u7a76\u65b9\u6848\u201d\u653e\u8fdb\u540c\u4e00\u4e2a\u53ef\u8ffd\u6eaf\u7684\u5de5\u4f5c\u6d41\uff0c\u51cf\u5c11\u5728 PDF \u9605\u8bfb\u5668\u3001\u8868\u683c\u3001\u7b14\u8bb0\u8f6f\u4ef6\u548c\u804a\u5929\u5f0f AI \u4e4b\u95f4\u53cd\u590d\u642c\u8fd0\u4fe1\u606f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Fyuan0206/ArguMesh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:50:54Z"
+}
