@@ -1,0 +1,9 @@
+{
+  "name": "soolaugust--deepseek-harness-cli",
+  "displayName": "deepseek-harness-cli",
+  "description": "Interactive terminal agent (fork of DeepSeek Harness): Claude Code-style REPL \u2014 full-screen UI, markdown rendering, session stats, permission cycling, custom OpenAI-compatible providers.",
+  "version": "1.0.0",
+  "author": "soolaugust",
+  "homepage": "https://github.com/soolaugust/deepseek-harness-cli",
+  "skills": []
+}
