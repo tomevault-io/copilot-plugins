@@ -1,0 +1,44 @@
+{
+  "name": "zcode-jetbrains-plugin",
+  "owner": "csuftt",
+  "repo": "zcode-jetbrains-plugin",
+  "description": "ZCode\uff08Z.ai/GLM\uff09AI \u7f16\u7a0b\u52a9\u624b JetBrains \u63d2\u4ef6\uff1a\u591a\u6807\u7b7e\u5bf9\u8bdd\u3001\u6d41\u5f0f\u8f93\u51fa\u3001\u6a21\u578b\u4e0e\u6743\u9650\u5207\u6362\u3001\u4efb\u52a1/\u5b50\u4ee3\u7406\u53ef\u89c6\u5316\uff0cAI \u53ef\u7ecf browser-use \u9a71\u52a8\u5185\u5d4c JCEF \u6d4f\u89c8\u5668 | ZCode (Z.ai/GLM) AI coding assistant for JetBrains IDEs: multi-tab chat, streaming output, model & permission switching, task/subagent visibility, and an embedded JCEF browser driven by the AI via browser-use",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/csuftt/zcode-jetbrains-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T22:31:46Z"
+}
