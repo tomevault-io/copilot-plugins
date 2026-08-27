@@ -1,194 +1,113 @@
-## project-rules
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> - **ALWAYS** check Linear for existing issues before starting any development task
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
 
-# TestFlight PM Project Rules
+Default to using Bun instead of Node.js.
 
-## 🎯 Project Management & Linear Integration
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-### Linear SDK as Single Source of Truth
-- **ALWAYS** check Linear for existing issues before starting any development task
-- **REQUIRED**: Create Linear issues for any new development work using `LinearClient.createIssueFromTestFlight()`
-- **REQUIRED**: Update Linear issue status using `LinearClient.updateIssueStatus()` when work is completed
-- **REQUIRED**: Use Linear issue IDs in commit messages (format: `[VJ-##] Description`)
-- **REQUIRED**: Reference Linear issues in PR descriptions and code comments when relevant
+## APIs
 
-### Task Management Workflow
-1. **Before Starting Work**: Search Linear for existing issues using `LinearClient.getRecentIssues()` or `LinearClient.findDuplicateIssue()`
-2. **New Tasks**: Create Linear issue with proper team, priority, and labels using `LinearClient.createIssueFromTestFlight()`
-3. **During Development**: Update issue status to "In Progress" using `LinearClient.updateIssueStatus()`
-4. **Code Reviews**: Reference issue ID in PR title and description
-5. **Completion**: Mark issue as "Done" and add completion comment using `LinearClient.addCommentToIssue()`
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-### Issue Creation Standards
-- **Title**: Clear, actionable description (e.g., "TF-001: TestFlight Connect API integration")
-- **Description**: Include acceptance criteria, technical approach, and context
-- **Labels**: Apply appropriate labels (Feature, Bug, Improvement, Research)
-- **Priority**: Set based on project roadmap (Urgent, High, Medium, Low)
-- **Team**: Always assign to "TestFlight PM" team (use `LinearClient.getTeam()` to get team info)
+## Testing
 
-## 🏗️ Code Quality & Architecture Standards
+Use `bun test` to run tests.
 
-### DRY (Don't Repeat Yourself) Enforcement
-- **SCAN**: Before writing code, search existing codebase for similar functionality using `grep_search` and `codebase_search`
-- **EXTRACT**: Create reusable utilities in `src/utils/` for repeated logic patterns
-- **ABSTRACT**: Use TypeScript interfaces and generic types for common data structures
-- **MODULARIZE**: Break down large functions into smaller, composable units
-- **CONFIGURATION**: Extract magic numbers and strings into `src/config/` constants
+```ts#index.test.ts
+import { test, expect } from "bun:test";
 
-### SOLID Principles Implementation
-
-#### Single Responsibility Principle (SRP)
-- **CLASSES**: Each class should handle only one aspect of functionality
-- **MODULES**: Organize by domain (e.g., `src/api/`, `src/analysis/`, `src/integrations/`)
-- **FUNCTIONS**: Functions should do one thing well, max 20 lines
-- **INTERFACES**: Define focused contracts for specific use cases
-
-#### Open/Closed Principle (OCP)
-- **EXTENSION**: Use composition and dependency injection over inheritance
-- **PLUGINS**: Design plugin-style architecture for integrations (`src/integrations/`)
-- **STRATEGY**: Implement strategy pattern for varying algorithms (analysis, formatting)
-- **CONFIGURATION**: Make behavior configurable rather than hardcoded
-
-#### Liskov Substitution Principle (LSP)
-- **CONTRACTS**: Ensure subclasses honor parent class contracts
-- **INTERFACES**: Use TypeScript interfaces to enforce substitutability
-- **TESTING**: Write tests that verify substitutability of implementations
-- **ERROR HANDLING**: Maintain consistent error behavior across implementations
-
-#### Interface Segregation Principle (ISP)
-- **FOCUSED**: Create small, client-specific interfaces
-- **COMPOSITION**: Compose larger interfaces from smaller ones when needed
-- **CLIENTS**: Don't force clients to depend on methods they don't use
-- **API DESIGN**: Design APIs with minimal required methods
-
-#### Dependency Inversion Principle (DIP)
-- **ABSTRACTIONS**: Program to interfaces, not concrete implementations
-- **INJECTION**: Use dependency injection for external services (APIs, databases)
-- **FACTORIES**: Use factory patterns for complex object creation
-- **MOCKING**: Enable easy testing through abstraction layers
-
-## 🛠️ Technology Stack Standards
-
-### Bun-First Development
-- **RUNTIME**: Always use `bun` instead of Node.js, npm, or pnpm
-- **TESTING**: Use `bun:test` framework exclusively
-- **APIS**: Prefer Bun built-ins (`bun:sqlite`, `Bun.serve`, `Bun.file`)
-- **MODULES**: Use native ES modules and TypeScript
-
-### Database & Storage
-- **PRIMARY**: Use `bun:sqlite` for local data persistence
-- **MIGRATIONS**: Create versioned schema migrations in `src/repository/migrations/`
-- **QUERIES**: Use type-safe query builders or prepared statements
-- **TRANSACTIONS**: Wrap related operations in database transactions
-
-### API Integration Standards
-- **ERROR HANDLING**: Implement retry logic with exponential backoff
-- **RATE LIMITING**: Respect API rate limits with proper queuing
-- **AUTHENTICATION**: Securely store and refresh API tokens
-- **TYPES**: Create TypeScript types for all API responses
-
-### Security & Secret Management Standards
-- **SECRET STORAGE**: All sensitive data MUST be stored in GitHub repository secrets or environment variables
-- **NO HARDCODED SECRETS**: Never commit API keys, tokens, or credentials to repository
-- **JWT HANDLING**: Implement secure JWT token generation and refresh for App Store Connect API
-- **ENVIRONMENT ISOLATION**: Use different secrets for development, staging, and production environments
-- **SECRET ROTATION**: Implement automatic secret rotation where possible
-- **AUDIT LOGGING**: Log all API authentication attempts and secret access (without exposing values)
-- **LEAST PRIVILEGE**: Grant minimum required permissions for API access
-- **SECURE TRANSMISSION**: All API communications must use HTTPS/TLS encryption
-- **SECRET VALIDATION**: Validate secret format and permissions before use
-- **ERROR HANDLING**: Never expose secret values in error messages or logs
-
-## 📁 Project Structure Standards
-
-### Directory Organization
-```
-src/
-├── api/           # External API clients (TestFlight, GitHub, Linear)
-├── analysis/      # Code analysis and correlation logic
-├── cli/           # Command-line interface components
-├── config/        # Configuration management and constants
-├── integrations/  # Plugin-style integrations with external services
-├── repository/    # Database models, migrations, and data access
-└── utils/         # Shared utilities and helper functions
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-### File Naming Conventions
-- **KEBAB-CASE**: Use kebab-case for file names (`testflight-client.ts`)
-- **DESCRIPTIVE**: Use descriptive names that indicate purpose
-- **EXTENSIONS**: Always use `.ts` extension for TypeScript files
-- **TESTS**: Co-locate test files with `.test.ts` suffix
+## Frontend
 
-### Import/Export Standards
-- **EXPLICIT**: Use explicit imports/exports, avoid `export *`
-- **BARREL**: Create index files for clean module exports
-- **ABSOLUTE**: Use absolute imports from project root when possible
-- **ORDERING**: Order imports: built-ins, external, internal
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-## 🧪 Testing & Quality Standards
+Server:
 
-### Test Coverage Requirements
-- **MINIMUM**: 80% code coverage for all new code
-- **CRITICAL**: 100% coverage for API integrations and data processing
-- **TYPES**: Unit tests for pure functions, integration tests for API calls
-- **MOCKING**: Mock external dependencies for isolated testing
+```ts#index.ts
+import index from "./index.html"
 
-### Code Review Standards
-- **REQUIRED**: All code changes must go through PR review
-- **CHECKLIST**: Verify DRY/SOLID principles in review comments
-- **LINEAR**: Reference Linear issue in PR description
-- **TESTS**: Ensure tests are included and passing
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
 
-### Documentation Standards
-- **JSDOC**: Document all public functions and classes
-- **README**: Keep README.md updated with setup and usage instructions
-- **ARCHITECTURE**: Document architectural decisions in `docs/`
-- **LINEAR**: Keep Linear issues updated with progress and blockers
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-## 🚨 Enforcement & Monitoring
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
 
-### Pre-commit Checks
-- Run `bun test` to ensure all tests pass
-- Verify Linear issue is referenced in commit message
-- Check for code duplication using static analysis
-- Validate TypeScript compilation with strict mode
+With the following `frontend.tsx`:
 
-### Continuous Integration
-- **BUILD**: Ensure project builds successfully with `bun build`
-- **TESTS**: Run full test suite with coverage reporting
-- **LINTING**: Enforce code style and complexity rules
-- **SECURITY**: Scan for security vulnerabilities in dependencies
+```tsx#frontend.tsx
+import React from "react";
 
-### Performance Standards
-- **API CALLS**: Target < 2 seconds for external API calls
-- **PROCESSING**: Process TestFlight data within 5 minutes
-- **MEMORY**: Monitor memory usage for large dataset processing
-- **STARTUP**: Application startup time < 5 seconds
+// import .css files directly and it works
+import './index.css';
 
-## 🔄 Workflow Integration
+import { createRoot } from "react-dom/client";
 
-### Development Workflow
-1. **PLANNING**: Check Linear for task details and acceptance criteria
-2. **BRANCHING**: Create feature branch with Linear issue ID (`feature/VJ-##-description`)
-3. **DEVELOPMENT**: Follow DRY/SOLID principles and project standards
-4. **TESTING**: Write comprehensive tests and ensure coverage
-5. **REVIEW**: Submit PR with Linear issue reference
-6. **COMPLETION**: Update Linear issue status and add completion notes
+const root = createRoot(document.body);
 
-### Release Management
-- **VERSIONING**: Use semantic versioning for releases
-- **CHANGELOG**: Maintain CHANGELOG.md with Linear issue references
-- **DEPLOYMENT**: Automate deployment through GitHub Actions
-- **MONITORING**: Track post-deployment metrics and issues
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
 
----
+root.render(<Frontend />);
+```
 
-*These rules ensure consistent, maintainable code while keeping Linear as the authoritative project management source.*
+Then, run index.ts
 
+```sh
+bun --hot ./index.ts
+```
 
-*These rules ensure consistent, maintainable code while keeping Linear as the authoritative project management source.*
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [vishrutkmr7/testflight-pm](https://github.com/vishrutkmr7/testflight-pm) — distributed by [TomeVault](https://tomevault.io).
