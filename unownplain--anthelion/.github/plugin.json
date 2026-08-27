@@ -1,0 +1,9 @@
+{
+  "name": "unownplain--anthelion",
+  "displayName": "anthelion",
+  "description": "Automatically update packages in the Windows Package Manager Community Repository",
+  "version": "1.0.0",
+  "author": "UnownPlain",
+  "homepage": "https://github.com/UnownPlain/anthelion",
+  "skills": []
+}
