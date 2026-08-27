@@ -1,0 +1,9 @@
+{
+  "name": "ziyou979--dsh-llm-oauth",
+  "displayName": "dsh-llm-oauth",
+  "description": "DeepSeek Harness plugin: OAuth / subscription-plan LLM providers (Grok, GitHub Copilot, OpenAI Codex, Anthropic, OpenRouter)",
+  "version": "1.0.0",
+  "author": "ziyou979",
+  "homepage": "https://github.com/ziyou979/dsh-llm-oauth",
+  "skills": []
+}
