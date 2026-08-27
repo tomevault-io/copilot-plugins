@@ -1,0 +1,9 @@
+{
+  "name": "flowzhq--probez",
+  "displayName": "probez",
+  "description": "Records what your coding agent actually did \u2014 locally \u2014 so you can measure it instead of guessing.",
+  "version": "1.0.0",
+  "author": "flowzhq",
+  "homepage": "https://github.com/flowzhq/probez",
+  "skills": []
+}
