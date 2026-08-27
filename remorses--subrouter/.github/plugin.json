@@ -1,0 +1,9 @@
+{
+  "name": "remorses--subrouter",
+  "displayName": "subrouter",
+  "description": "Like OpenRouter, but for your personal AI subscriptions. Cycles Anthropic Claude, OpenAI ChatGPT, xAI Grok and opencode Go accounts when one hits its rate limit",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/subrouter",
+  "skills": []
+}
