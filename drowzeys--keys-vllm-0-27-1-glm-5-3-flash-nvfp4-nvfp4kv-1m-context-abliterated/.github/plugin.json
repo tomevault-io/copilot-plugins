@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-vllm-0-27-1-glm-5-3-flash-nvfp4-nvfp4kv-1m-context-abliterated",
+  "displayName": "keys-vLLm.0.27.1-GLM-5.3-Flash-NVFP4-NVFP4KV-1M-Context-Abliterated",
+  "description": "GLM-5.3-Flash (Z.ai) NVFP4 (LibertAI) + NVFP4 KV, 1M context on 2x DGX Spark GB10 \u2014 vLLM TP2 recipe, walls ledger, benchmarks, needle to 1.04M; abliteration with blackforest_AI next",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-vLLm.0.27.1-GLM-5.3-Flash-NVFP4-NVFP4KV-1M-Context-Abliterated",
+  "skills": []
+}
