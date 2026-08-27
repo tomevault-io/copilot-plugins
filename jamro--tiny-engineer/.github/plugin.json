@@ -1,0 +1,9 @@
+{
+  "name": "jamro--tiny-engineer",
+  "displayName": "tiny-engineer",
+  "description": "A small desktop robot that brings an AI coding assistant to life, physically acting out when it reads files, thinks, writes code, and finishes work.",
+  "version": "1.0.0",
+  "author": "jamro",
+  "homepage": "https://github.com/jamro/tiny-engineer",
+  "skills": []
+}
