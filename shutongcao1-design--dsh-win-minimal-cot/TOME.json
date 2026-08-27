@@ -1,0 +1,44 @@
+{
+  "name": "dsh-win-minimal-cot",
+  "owner": "shutongcao1-design",
+  "repo": "dsh-win-minimal-cot",
+  "description": "Experimental Windows-first fork of DeepSeek Harness: minimal preset with pwsh + str_replace_editor, trimmed prompts, anchored bootstrap presets, and We Let's Think chain-of-thought triggers. DeepSeek Harness \u7684 Windows \u6781\u7b80\u6a21\u5f0f\u5b9e\u9a8c\u7248\uff1apwsh + str_replace_editor\u3001 \u7cbe\u7b80\u63d0\u793a\u8bcd\u3001\u951a\u5b9a\u6807\u51c6\u9884\u8bbe\uff0c\u5e76\u89e6\u53d1 We Let's Think \u601d\u8003\u94fe\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shutongcao1-design/dsh-win-minimal-cot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T22:31:01Z"
+}
