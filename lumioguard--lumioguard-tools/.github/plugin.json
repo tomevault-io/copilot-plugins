@@ -1,0 +1,9 @@
+{
+  "name": "lumioguard--lumioguard-tools",
+  "displayName": "lumioguard-tools",
+  "description": "Paste a URL, find out something true about the site. Three URL-only readings on one page: Slopmeter scores how much of it is still the template, Leakpeek reports what it is exposing, Citecheck reports",
+  "version": "1.0.0",
+  "author": "lumioguard",
+  "homepage": "https://github.com/lumioguard/lumioguard-tools",
+  "skills": []
+}
