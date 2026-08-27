@@ -7,11 +7,11 @@ A free, open-source, native Windows 11 whiteboard for teaching DAX, SQL, and dat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sql-bi/SQLBI-Whiteboard](https://github.com/sql-bi/SQLBI-Whiteboard).
+Original source: `AGENTS.md` in [sql-bi/SQLBI-Whiteboard](https://github.com/sql-bi/SQLBI-Whiteboard).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
