@@ -1,0 +1,9 @@
+{
+  "name": "eelcohoogendoorn--nodejax",
+  "displayName": "nodejax",
+  "description": "Functional JAX middleware using a compute Node abstraction",
+  "version": "1.0.0",
+  "author": "EelcoHoogendoorn",
+  "homepage": "https://github.com/EelcoHoogendoorn/nodejax",
+  "skills": []
+}
