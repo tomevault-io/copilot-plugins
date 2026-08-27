@@ -1,0 +1,9 @@
+{
+  "name": "fishman--notmutt",
+  "displayName": "notmutt",
+  "description": "Async terminal mail client for notmuch: staged undoable tag ops, diff-and-insert refresh, HTML mail rendered in-terminal, easyjump link mode, dry-run filtering by default, optional MCP server (read-on",
+  "version": "1.0.0",
+  "author": "fishman",
+  "homepage": "https://github.com/fishman/notmutt",
+  "skills": []
+}
