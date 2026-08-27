@@ -1,0 +1,9 @@
+{
+  "name": "irrwood--crank",
+  "displayName": "Crank",
+  "description": "Scan a running app into editable Figma layers \u2014 not screenshots.",
+  "version": "1.0.0",
+  "author": "irrwood",
+  "homepage": "https://github.com/irrwood/Crank",
+  "skills": []
+}
