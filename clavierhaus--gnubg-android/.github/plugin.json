@@ -1,0 +1,9 @@
+{
+  "name": "clavierhaus--gnubg-android",
+  "displayName": "gnubg-android",
+  "description": "GNU Backgammon for Android \u2014 the real engine, fully offline. Match play, analysis, rollouts, and correct-or-silent coaching. Free, GPL-3.0, on F-Droid.",
+  "version": "1.0.0",
+  "author": "clavierhaus",
+  "homepage": "https://github.com/clavierhaus/gnubg-android",
+  "skills": []
+}
