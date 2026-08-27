@@ -7,11 +7,11 @@ My handcrafted agent skills for DevOps, CI/CD, and platforms
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [BretFisher/skills](https://github.com/BretFisher/skills).
+Original source: `AGENTS.md` in [BretFisher/skills](https://github.com/BretFisher/skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
