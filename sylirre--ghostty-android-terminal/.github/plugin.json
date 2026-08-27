@@ -1,0 +1,9 @@
+{
+  "name": "sylirre--ghostty-android-terminal",
+  "displayName": "ghostty-android-terminal",
+  "description": "Linux shell for Android OS, backed by ARM64 userspace emulator and Ghostty lib.",
+  "version": "1.0.0",
+  "author": "sylirre",
+  "homepage": "https://github.com/sylirre/ghostty-android-terminal",
+  "skills": []
+}
