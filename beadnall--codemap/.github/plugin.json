@@ -1,0 +1,9 @@
+{
+  "name": "beadnall--codemap",
+  "displayName": "codemap",
+  "description": "A Claude skill that turns a codebase into an explorable isometric diagram, with real data moving along the edges",
+  "version": "1.0.0",
+  "author": "beadnall",
+  "homepage": "https://github.com/beadnall/codemap",
+  "skills": []
+}
