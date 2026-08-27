@@ -1,0 +1,9 @@
+{
+  "name": "maksimryabkin--ipatool-sapfix",
+  "displayName": "ipatool-sapfix",
+  "description": "macOS ipatool IPA downloader fixing Apple App Store login HTTP 403 with SAP X-Apple-ActionSignature via CommerceKit \u2014 Apple Silicon and Intel",
+  "version": "1.0.0",
+  "author": "maksimryabkin",
+  "homepage": "https://github.com/maksimryabkin/ipatool-sapfix",
+  "skills": []
+}
