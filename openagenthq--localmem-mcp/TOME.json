@@ -1,0 +1,44 @@
+{
+  "name": "localmem-mcp",
+  "owner": "OpenAgentHQ",
+  "repo": "localmem-mcp",
+  "description": "Local-first, zero-API memory for AI agents. Persistent, private, and yours \u2014 runs entirely on your machine, no cloud calls, no API keys.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OpenAgentHQ/localmem-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T21:40:16Z"
+}
