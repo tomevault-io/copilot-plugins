@@ -1,0 +1,9 @@
+{
+  "name": "ruocuoguo23--redpacket",
+  "displayName": "redpacket",
+  "description": "A decentralized Ethereum red packet (hongbao) smart contract with Chainlink VRF for verifiable random distribution. Supports ETH and ERC20 tokens with both random and fixed amount modes. Built using F",
+  "version": "1.0.0",
+  "author": "ruocuoguo23",
+  "homepage": "https://github.com/ruocuoguo23/redpacket",
+  "skills": []
+}
