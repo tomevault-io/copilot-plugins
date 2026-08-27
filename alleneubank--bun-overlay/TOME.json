@@ -1,0 +1,44 @@
+{
+  "name": "bun-overlay",
+  "owner": "alleneubank",
+  "repo": "bun-overlay",
+  "description": "This repository provides a Nix flake overlay for Bun, a fast all-in-one JavaScript runtime, bundler, test runner and package manager. The flake packages the pre-built binary releases from the official Bun repository.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alleneubank/bun-overlay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T04:39:35Z"
+}
