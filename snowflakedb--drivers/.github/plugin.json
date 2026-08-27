@@ -1,0 +1,9 @@
+{
+  "name": "snowflakedb--drivers",
+  "displayName": "drivers",
+  "description": "Universal driver",
+  "version": "1.0.0",
+  "author": "snowflakedb",
+  "homepage": "https://github.com/snowflakedb/drivers",
+  "skills": []
+}
