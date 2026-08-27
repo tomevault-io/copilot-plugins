@@ -7,11 +7,11 @@ How AI-ready is your design system? A plug-in benchmark that runs coding agents 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [christophhdesign/open-design-system-bench](https://github.com/christophhdesign/open-design-system-bench).
+Original source: `CLAUDE.md` in [christophhdesign/open-design-system-bench](https://github.com/christophhdesign/open-design-system-bench).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
