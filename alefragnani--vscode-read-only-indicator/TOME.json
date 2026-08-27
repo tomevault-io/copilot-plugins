@@ -4,7 +4,7 @@
   "repo": "vscode-read-only-indicator",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -39,13 +39,13 @@
   ],
   "skills": [
     {
-      "name": "vscode-read-only-indicator",
+      "name": "vscode-pascal-formatter",
       "path": ".github/skills/vscode-ext-commands/SKILL.md",
       "github_url": "https://github.com/alefragnani/vscode-read-only-indicator/tree/main/.github/skills/vscode-ext-commands/SKILL.md",
       "description": ""
     },
     {
-      "name": "vscode-read-only-indicator",
+      "name": "vscode-pascal-formatter",
       "path": ".github/skills/vscode-ext-localization/SKILL.md",
       "github_url": "https://github.com/alefragnani/vscode-read-only-indicator/tree/main/.github/skills/vscode-ext-localization/SKILL.md",
       "description": ""
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/alefragnani/vscode-read-only-indicator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:13:10Z"
+  "distributed_at": "2026-08-27T16:08:34Z"
 }
