@@ -1,0 +1,9 @@
+{
+  "name": "chplus0--dsh-shell-command",
+  "displayName": "dsh-shell-command",
+  "description": "DeepSeek Harness (DSH) plugin: a /! command trigger (run one command, analyze output, inspired by Claude Code's ! gesture) and a /terminal command (interactive PTY popup with on-demand history referen",
+  "version": "1.0.0",
+  "author": "CHplus0",
+  "homepage": "https://github.com/CHplus0/dsh-shell-command",
+  "skills": []
+}
