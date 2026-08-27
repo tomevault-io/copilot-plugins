@@ -1,0 +1,9 @@
+{
+  "name": "l-nmch--hailo-10h-llm-compiler",
+  "displayName": "hailo-10h-llm-compiler",
+  "description": "Compile your own LLM for the Hailo-10H \u2014 an open pipeline from Hugging Face checkpoint to a self-contained HEF, served with hailo-ollama.",
+  "version": "1.0.0",
+  "author": "l-nmch",
+  "homepage": "https://github.com/l-nmch/hailo-10h-llm-compiler",
+  "skills": []
+}
