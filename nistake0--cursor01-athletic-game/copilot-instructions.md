@@ -1,64 +1,31 @@
-## test-aaa-sut
+## todo-check
 
-> テストコードは AAA パターンと sut 命名に従うルール
+> 開発・タスク開始時に TODO を必ず確認するルール
 
 
-# テストコードの書き方（AAA パターン・sut）
+# TODO の確認（必須）
 
-このプロジェクトでは、**単体テスト・統合テストを書くとき**に次のルールに従う。
+このプロジェクトでは、**開発やタスクを開始するときに必ず TODO を確認すること**がルールです。
 
-## 1. AAA パターン
+## 確認するファイル
 
-テストは **Arrange（準備）・Act（実行）・Assert（検証）** の 3 フェーズで構成する。
+- **`docs/TODO.md`** にプロジェクトの TODO が記録されている。
 
-- **Arrange**: モックの用意、テスト対象の生成、前提条件の設定。
-- **Act**: テスト対象のメソッド呼び出しや、検証したい操作を 1 つ実行する。
-- **Assert**: 期待する値・状態・呼び出しを検証する。
+## いつ確認するか
 
-## 2. フェーズを示すコメント（必須）
+- ユーザーが「開発を続ける」「タスクを進める」「実装して」など、開発・実装の依頼をしたとき。
+- 新規機能・リファクタ・バグ修正に着手するとき。
+- 作業の優先順位や次にやることを決めるとき。
 
-各フェーズの**ブロックの直前にコメントを書く**。接頭辞でどのフェーズか分かるようにする。
+## 確認したうえですること
 
-- **Arrange**: `// Arrange.` または `// Arrange: 〜`（何を準備したか短く書いてもよい）
-- **Act**: `// Act.` または `// Act: 〜`
-- **Assert**: `// Assert.` または `// Assert: 〜`
+1. **`docs/TODO.md`** を開き、未完了の項目を確認する。
+2. 今回のタスクと関連する TODO があれば、優先度（高・中・低）を考慮して、必要ならその対応を計画に含める。
+3. ユーザーに「TODO の ○○ が関連していそうです」と伝え、一緒に進めるか確認してもよい。
+4. TODO の項目を完了したら、`docs/TODO.md` の該当チェックボックスを `[x]` に更新する。
+5. **ユーザーが「TODO を更新する」「TODO を整理する」と依頼したとき**は、別ルール **`todo-update-with-diary.mdc`** に従い、作業日報に完了作業を追記し、TODO から完了タスクを削除・整理する。
 
-例:
-
-```ts
-it('zone の gravityFactor が重力に反映される', () => {
-  // Arrange: 空中・zone に gravityFactor 0.5 を返すモック
-  setupGameMock({ getGroundY: () => 600, getCurrentZone: () => ({ gravityFactor: 0.5 }) });
-  const sut = new PlayerManager(mockApp, mockGame as any, eventEmitter);
-  sut.initializePlayer();
-  mockPlayer.x = 100;
-  mockPlayer.y = 400;
-
-  // Act: 1 フレーム update
-  sut.update();
-
-  // Assert: velocityY の増分が GRAVITY * 0.5 であること
-  expect(sut.getVelocityY()).toBe(PLAYER.GRAVITY * 0.5);
-});
-```
-
-## 3. テスト対象オブジェクトの名前は sut（必須）
-
-**テストの主たる対象となるオブジェクト**（クラスのインスタンスや、テスト対象の関数を呼ぶ主体）には、変数名 **`sut`**（Subject Under Test）を使う。
-
-- 例: `const sut = new PlayerManager(...);` のあと、`sut.update()`, `sut.getVelocityY()` のように呼ぶ。
-- 複数の対象がいる場合は、**主に検証の対象になる 1 つ**を `sut` にし、他は役割が分かる名前（例: `mockGame`, `eventEmitter`）のままでもよい。
-
-## 4. コメントで「何をモックしているか」「何を検証しているか」を書く
-
-- **Arrange**: どのモックを用意し、どの値を返すようにしたか（または何を設定したか）が分かるようにする。
-- **Assert**: どの値・どのメソッド呼び出しを、どの期待値で検証しているかを書く。
-
-一瞥してテストの意図と検証内容が把握できるようにする。
-
-## 5. 既存テストの修正
-
-既存の `*.test.ts` / `*.spec.ts` を編集するときも、上記ルールに合わせてコメントの追加・sut へのリネームを行う。
+このルールは、プロジェクト内のどのファイルを編集する場合でも適用する。
 
 ---
 > Source: [nistake0/cursor01-athletic-game](https://github.com/nistake0/cursor01-athletic-game) — distributed by [TomeVault](https://tomevault.io).
