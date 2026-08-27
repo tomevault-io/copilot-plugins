@@ -7,11 +7,11 @@ A lightweight, R6-based ORM for R that mimics SQLAlchemy-style models using DBI 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kent-orr/oRm](https://github.com/kent-orr/oRm).
+Original source: `AGENTS.md` in [kent-orr/oRm](https://github.com/kent-orr/oRm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
