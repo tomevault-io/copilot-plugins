@@ -1,0 +1,44 @@
+{
+  "name": "teaching-design-system-open",
+  "owner": "Devilyuu",
+  "repo": "teaching-design-system-open",
+  "description": "\u9762\u5411\u9ad8\u804c\u9662\u6821\u6559\u5e08\u7684\u667a\u80fd\u5907\u8bfe\u6587\u6863\u751f\u6210\u7cfb\u7edf\uff1a\u4ee5\u8bfe\u7a0b\u6807\u51c6\u3001\u4eba\u624d\u57f9\u517b\u65b9\u6848\u3001\u6559\u52a1\u8bfe\u8868\u548c\u5b66\u6821 Word \u6a21\u677f\u4e3a\u4f9d\u636e\uff0c\u751f\u6210\u683c\u5f0f\u4fdd\u771f\u7684\u8bfe\u7a0b\u5b9e\u65bd\u5927\u7eb2\u3001\u6559\u6848\u4e0e\u4f5c\u4e1a",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Devilyuu/teaching-design-system-open",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:48:12Z"
+}
