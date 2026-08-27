@@ -1,0 +1,9 @@
+{
+  "name": "chengzhi43--dsh-file",
+  "displayName": "dsh-file",
+  "description": "A VS Code-style file manager plugin for DeepSeek Harness Web / DeepSeek Harness \u7684 VS Code \u98ce\u683c\u6587\u4ef6\u7ba1\u7406\u5668\u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "chengzhi43",
+  "homepage": "https://github.com/chengzhi43/dsh-file",
+  "skills": []
+}
