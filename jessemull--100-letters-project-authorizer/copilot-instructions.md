@@ -1,43 +1,25 @@
-## 000-context
+## 100-letters-project-authorizer
 
-> Mandatory governance context loading and non-negotiable constraints before any repository changes.
+> Before making any changes to this repository:
 
+# Gemini Agent Instructions — 100 Letters Project Authorizer
 
-# Repository Context Loading
+Before making any changes to this repository:
 
-Context loading is **not optional** — it is the first step before any work.
+1. Read `CONTEXT.md` — mandatory loading order, precedence chain, quality gates
+2. Read `AGENTS.md` — complete development rules and constraints
+3. Read all mandatory `docs/` listed in CONTEXT.md (items 3–10)
 
-## Before ANY Changes
+Do NOT duplicate governance from AGENTS.md or docs/ here. This file exists only as an entry point redirect.
 
-Read in order:
+## Quick Reference
 
-1. `CONTEXT.md`
-2. `AGENTS.md`
-3. Mandatory docs from CONTEXT.md: `docs/GOVERNANCE.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, `docs/COMMENTS.md`, `docs/SECURITY.md`, `docs/DEPENDENCIES.md`, `docs/RELEASES.md`, `docs/CI_CD.md`
-
-## MUST
-
-- [ ] Read `CONTEXT.md` first
-- [ ] Read `AGENTS.md` second
-- [ ] Read mandatory docs (do not skip as "unrelated")
-
-## MUST NOT
-
-- Skip context loading
-- Selectively read only "relevant" docs
-- Begin changes before loading is complete
-
-## Precedence
-
-CONTEXT.md > GOVERNANCE.md > ARCHITECTURE.md > domain docs > inline comments
-
-## Non-negotiables (summary)
-
-- Lambda TOKEN authorizer; Node 24; fail closed
-- TypeScript strict; ≥80% Jest coverage
-- Conventional Commits + Husky
-- No hardcoded secrets
-- Quality gate: `make preflight`
+- Install: `npm install`
+- Preflight: `make preflight`
+- Lint (auto-fix): `make lint`
+- Test: `make test`
+- Build: `make build`
+- Package: `make package`
 
 ---
 > Source: [jessemull/100-letters-project-authorizer](https://github.com/jessemull/100-letters-project-authorizer) — distributed by [TomeVault](https://tomevault.io).
