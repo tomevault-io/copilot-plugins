@@ -1,128 +1,600 @@
-## what-iff
+## datastore
 
-> - Don't create entire files in one forward pass. Iterate.
+> Rules for persistent datastore logic
 
-# Repository Guidelines
+# Datastore Implementation Guidelines
 
-## General Guidelines
-- Don't create entire files in one forward pass. Iterate.
+## Overview
+Our datastore layer uses [Ent](mdc:https:/entgo.io) as the ORM and follows consistent patterns for data access. This document outlines the key patterns and best practices to follow when working with the datastore package.
 
-## Project Structure & Module Organization
-- Backend (Go): `cmd/api-server/main.go`; additional binaries in `cmd/` (e.g. `generate-test-conversations`). Application code in `internal/{handlers,server,auth,agent,datastore,providers,middleware,...}`.
-- Data layer: Ent ORM generated code in `ent/`; edit schemas in `ent/schema` and run `make generate` (do not edit generated files in `ent/` directly).
-- Frontend (Angular): `web/app/`.
-- Docs: `docs/`, `ARCHITECTURE.md`, `openapi.yaml`, `scripts/`.
+## General Architecture
 
-## Build, Test, and Development Commands
-- `make help` — list tasks.
-- `make run` — run API locally (reads `.env`); `make run-mock` — same but with the in-process mock LLM (no provider keys/egress; ADR 0x018).
-- Local stack helpers: `make check-env`, `make db-up`/`db-down` (Postgres+pgvector in Docker), `make web` (Angular dev server), `make dev-up`/`dev-down` (background API), `make local-superuser` (interactive local admin), `make mock-e2e` (hermetic backend E2E, local/on-demand).
-- `make fmt` / `make fmt-fix` — check/fix Go formatting.
-- `make vet` — static analysis; `make test` — run Go tests; `make build` — verify the build (cross-compiles a throwaway `linux/amd64` binary; the `bootstrap` output name is a legacy artifact of the retired Lambda target).
-- `make tidy` — check `go.mod`/`go.sum` are tidy; `make test-short` — tests without verbose output.
-- `make generate` — regenerate Ent code after schema changes.
-- `make pre-commit` — run all pre-commit checks (`fmt vet tidy test build check-no-local-models`). CI runs the same formatting/vet/tidy/build checks but regenerates Ent code first and uses `make test-ci` (mock LLM, dummy keys, race detector) as its test gate; the frontend is validated by its own `frontend-pr-validation` workflow. Passing locally is a strong signal, not a guarantee.
-- Frontend: `cd web/app && npm install && npm start`.
-- Docker stack: `docker compose up --build`.
-- **CI stays on `make` wherever a target exists.** A workflow step must not
-  inline a raw command that duplicates a Makefile target (e.g. `go generate
-  ./ent` instead of `make generate`) — call the target instead, so the
-  Makefile stays the single source of truth for what the check actually runs
-  and a developer can reproduce a CI failure locally with the same command.
-  Exceptions: bare toolchain/cache steps with no repo-specific behavior
-  (`go mod download`, `npm ci`), and CI-only bootstrapping that has no local
-  dev equivalent (e.g. e2e workflows building and backgrounding a throwaway
-  API binary with container-specific ports/env, which `make run`/`make
-  dev-up` aren't shaped for). When adding a new CI step, check `make help`
-  first; if the step's logic belongs in a target, add one rather than
-  inlining it.
+- **Package**: All datastore code lives in the `internal/datastore` package
+- **Models**: We use models from the `internal/models` package for input/output, never exposing Ent types directly
+- **Client**: The datastore uses an Ent client for database operations
+- **Logging**: We use `zap.Logger` for structured logging throughout the datastore
 
-## Coding Style & Naming Conventions
-- `.editorconfig` enforced.
-  - Go: tabs, `gofmt` required; packages lowercase (no underscores); exported identifiers `CamelCase`.
-  - JS/TS/JSON/YAML: 2-space indent; Prettier configured in the web app.
-- Keep handlers thin; business logic in services/datastore. Avoid editing files under `ent/` manually.
-- API changes must update `openapi.yaml` and related docs.
+```go
+// Base Datastore struct
+type Datastore struct {
+    dbClient *ent.Client
+    logger   *zap.Logger
+}
 
-## Testing Guidelines
-- Backend: Go `testing` with table-driven tests when appropriate. Files end with `_test.go`; test funcs `TestXxx`. Run `go test ./...` or `make test`.
-- Frontend: `cd web/app && npm test`. Runs on Vitest via the `@angular/build:unit-test` builder (jsdom); Karma and Jasmine are gone.
-- Frontend coverage: `make web-unit-coverage` / `make admin-unit-coverage` run the same suites with V8 coverage and rewrite the lcov `SF:` paths to repo-root-relative so Codecov's components match. `make lcov-summary LCOV=<path>` prints a total.
-- Frontend E2E: Playwright suite in `web/app/e2e/` (`poms/`,
-  `fixtures/`, `sdk/`, `tests/{functional,journeys,visual,a11y}`) — run via
-  `npm run e2e`/`e2e:mock-llm`/`e2e:local-llm`/`e2e:mock-llm:visual`
-  (see `e2e/README.md` for prerequisites). Full guidance: the
-  `playwright-e2e` Claude Code skill and `web/app/e2e/README.md`.
-- Prefer unit tests with mocks over hitting external services. Cover handlers, services, and critical utils.
+func NewDatastore(dbClient *ent.Client, logger *zap.Logger) *Datastore {
+    return &Datastore{
+        dbClient: dbClient,
+        logger:   logger,
+    }
+}
+```
 
-## Commit & Pull Request Guidelines
-- Conventional Commits (seen in history): `feat:`, `fix:`, `docs:`, `ci:`, etc.
-  - Example: `feat(auth): implement JIT user provisioning`.
-- Before pushing: `make pre-commit` (or `make install-hooks` once to auto-run checks).
-- **If you touched `openapi.yaml`, regenerate the e2e SDK and commit it** — `cd web/app && npm run sdk:generate`. The spec is a frontend build input, so a backend-only PR that skips this fails `frontend-pr-validation`. Rationale and gotchas in the [architecture summary](docs/ARCHITECTURE_SUMMARY.md).
-- PRs: clear description, linked issues, focused diff, tests added/updated, docs updated (README/ARCHITECTURE/OpenAPI). Include screenshots for UI changes.
+## File Organization
 
-## Architecture & package docs
+Each entity type should have its own file in the datastore package. For example:
+- `content_idea.go` - Content idea based on trending news and posts related to a niche
+- `content_brief.go` - A content development brief including SEO plan
+- `interview_question.go` - An interview question and the user's response for content development
 
-Read these before reasoning about structure, module relationships, or any
-change spanning multiple files — they are the source of truth this file
-deliberately does not duplicate:
+## Standard Methods
 
-- **`docs/ARCHITECTURE_SUMMARY.md`** — start here. System architecture: purpose,
-  layers, data flow, and cross-cutting rules (agent/model-context, data layer).
-  It also defines the repo's documentation map and the `_PACKAGE_SUMMARY.md`
-  template.
-- **`internal/<package>/_PACKAGE_SUMMARY.md`** — per-package docs: role,
-  responsibilities, key entry points, dependencies, non-obvious decisions, and
-  testing notes. List them all with `find internal -name _PACKAGE_SUMMARY.md`.
-- **`ARCHITECTURE.md`** — the long-form reference behind the summary.
+Each entity type should implement the following standard methods:
 
-**Anti-drift expectation:** any change under `internal/...` that affects
-behavior, public API, dependencies, or documented behavior updates the relevant
-`_PACKAGE_SUMMARY.md` — and `docs/ARCHITECTURE_SUMMARY.md` if it touches system
-boundaries — **in the same PR**. The summary's "Documentation maintenance"
-section is the authoritative version of this rule; follow it there rather than
-relying on this summary of it. If the architecture summary itself looks
-outdated, flag it rather than silently working around it.
+1. **Model Conversion Function**: Convert from Ent type to model type
+```go
+// Convert from Ent entity to model
+func toContentIdeaModel(e *ent.ContentIdea) *models.ContentIdea {
+    return &models.ContentIdea{
+        ID:        e.ID,
+        ProjectID: e.Edges.Project.ID,
+        Title:     e.Title,
+        Summary:   e.Summary,
+        SourceURL: e.SourceURL,
+        Approved:  e.Approved,
+        CreatedAt: e.CreatedAt,
+        UpdatedAt: e.UpdatedAt,
+    }
+}
+```
 
-## AI Agent Rules
-- Cursor/agent guidance lives in `.cursor/rules/*.mdc` (`general`, `api`, `datastore`, `ent`, `ui`, `uitesting`). Consult the relevant file before making substantive changes in that area.
-- `CLAUDE.md` and `GEMINI.md` are intentional symlinks to this file (`AGENTS.md`) so every agent reads one source of truth. Edit `AGENTS.md`; do not replace the symlinks with copies (some editors, Windows checkouts, and archive/CI contexts may not preserve them). Their targets are relative, so any future move of these files must preserve the symlinks or update their targets in the same change.
-- Agent skills follow the same one-source-of-truth pattern: `.agents/skills/` is the vendor-neutral source, and `.claude/skills/` contains relative symlinks into it so Claude Code's auto-discovery (which only looks in `.claude/skills/`) still finds them. Edit skill content under `.agents/skills/`; never edit through the `.claude/skills/` symlinks or replace them with copies. `make check-skill-symlinks` (CI-gated on changes under either skills tree or to `AGENTS.md`/`CLAUDE.md`/`GEMINI.md`) verifies every `.agents/skills/<name>` has a matching symlink and that the `CLAUDE.md`/`GEMINI.md` symlinks above exist — run it after adding or renaming a skill.
+2. **Create Method**: Single entity creation with transaction and authorization
+```go
+func (d *Datastore) CreateContentIdea(ctx context.Context, userID uuid.UUID, contentIdea models.ContentIdea) (*models.ContentIdea, error) {
+    // Start transaction
+    tx, err := d.dbClient.Tx(ctx)
+    if err != nil {
+        d.logger.Error("failed to start transaction", zap.Error(err))
+        return nil, err
+    }
 
-  For what each skill covers, read `.agents/skills/<name>/SKILL.md` — its
-  frontmatter `description` is the summary. Listing them here as well only
-  created a second copy to keep in sync, and the copy is the one that goes
-  stale: a skill added or renamed under `.agents/skills/` is discovered
-  automatically, but nothing makes this file follow. `ls .agents/skills/` is
-  the authoritative list.
+    // Rollback in case of error
+    defer func() {
+        if v := recover(); v != nil {
+            tx.Rollback()
+            panic(v)
+        }
+    }()
 
-  Two notes that aren't derivable from the skills themselves: the
-  `playwright-cli`, `playwright-component-testing`, and `playwright-trace`
-  skills are generated by `npx playwright init-skills --loop agents` and should
-  be refreshed with that command rather than hand-edited, and
-  `playwright-component-testing` covers React/Vue component testing, so it is
-  likely inapplicable here (this repo is Angular, e2e-only).
+    // Check if project exists and belongs to the user
+    projectExists, err := tx.Project.Query().
+        Where(
+            project.ID(contentIdea.ProjectID),
+            project.HasOwnerWith(
+                user.ID(userID),
+            ),
+        ).
+        Exist(ctx)
 
-## PR feedback triage
+    if err != nil {
+        d.logger.Error("failed to query project", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
 
-To address the review feedback on a pull request, produce a triage plan first —
-don't edit blind. The workflow lives in the `address-pr-feedback` skill:
+    if !projectExists {
+        d.logger.Error("project not found or user not authorized",
+            zap.String("project_id", contentIdea.ProjectID.String()),
+            zap.String("user_id", userID.String()))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, ErrProjectNotFound
+    }
 
-- Collector: `.agents/skills/address-pr-feedback/scripts/collect.sh [<N>]` —
-  resolves the PR (most recent authored by default) and returns reviews + inline
-  + conversation comments as one pre-filtered JSON blob (regression tables and
-  bare bot approvals dropped; structured findings and human comments kept).
-- Method: `.agents/skills/address-pr-feedback/SKILL.md` — isolate in a worktree,
-  triage by **author-first routing** (human comments are never filed as noise),
-  present a grouped `file:line` plan.
+    // Create entity
+    entContentIdea, err := tx.ContentIdea.Create().
+        SetTitle(contentIdea.Title).
+        SetSummary(contentIdea.Summary).
+        SetSourceURL(contentIdea.SourceURL).
+        SetApproved(contentIdea.Approved).
+        SetProjectID(contentIdea.ProjectID).
+        Save(ctx)
+        
+    if err != nil {
+        d.logger.Error("failed to create content idea", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+    
+    // Load relationships needed for model conversion
+    entContentIdea, err = tx.ContentIdea.Query().
+        Where(contentidea.ID(entContentIdea.ID)).
+        WithProject().
+        Only(ctx)
 
-Read-only — no commits, pushes, or PR replies. Claude Code triggers the skill
-automatically; other agents and humans run the collector and follow SKILL.md.
+    if err != nil {
+        d.logger.Error("failed to load project relationship", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+    
+    // Commit transaction
+    if err := tx.Commit(); err != nil {
+        d.logger.Error("failed to commit transaction", zap.Error(err))
+        return nil, err
+    }
+    
+    // Return model
+    return toContentIdeaModel(entContentIdea), nil
+}
+```
 
-## Security & Configuration Tips
-- Never commit secrets. Copy `.env.example` → `.env`. Typical vars: `OPENAI_API_KEY`, `JWT_SECRET`, `JWT_REFRESH_SECRET`; optional: `AUTO_MIGRATE=true`, `SERVER_PORT`.
-- Deployment: ships as a standard container (see the root `Dockerfile`), runnable on any container platform. Infrastructure-as-code for the maintainers' hosted deployment lives outside this repository and is not required to run the app.
+3. **Query Methods**: Methods to retrieve data with flexible filtering and pagination
+```go
+func (d *Datastore) ListContentIdeas(ctx context.Context, userID uuid.UUID, pageNum, pageSize int, filters models.ContentIdeaFilters) (*models.PaginatedResponse, error) {
+    // Start transaction
+    tx, err := d.dbClient.Tx(ctx)
+    if err != nil {
+        d.logger.Error("failed to start transaction", zap.Error(err))
+        return nil, err
+    }
+
+    // Rollback in case of error
+    defer func() {
+        if v := recover(); v != nil {
+            tx.Rollback()
+            panic(v)
+        }
+    }()
+
+    // Build query with user authorization
+    query := tx.ContentIdea.Query().
+        Where(
+            contentidea.HasProjectWith(
+                project.HasOwnerWith(
+                    user.ID(userID),
+                ),
+            ),
+        ).
+        WithProject()
+
+    // Apply filters if provided
+    if filters.ProjectID != nil {
+        query = query.Where(contentidea.HasProjectWith(project.ID(*filters.ProjectID)))
+    }
+    
+    if filters.Approved != nil {
+        query = query.Where(contentidea.ApprovedEQ(*filters.Approved))
+    }
+    
+    if filters.Title != nil && *filters.Title != "" {
+        query = query.Where(contentidea.TitleContainsFold(*filters.Title))
+    }
+
+    // Get total count
+    totalCount, err := query.Count(ctx)
+    if err != nil {
+        d.logger.Error("failed to count content ideas", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+
+    // Apply pagination
+    if pageNum < 1 {
+        pageNum = 1
+    }
+    if pageSize < 1 {
+        pageSize = 10
+    }
+    
+    offset := (pageNum - 1) * pageSize
+    query = query.
+        Offset(offset).
+        Limit(pageSize).
+        Order(ent.Desc(contentidea.FieldCreatedAt))
+
+    // Execute query
+    entContentIdeas, err := query.All(ctx)
+    if err != nil {
+        d.logger.Error("failed to query content ideas", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+
+    // Convert to model types
+    contentIdeasModels := make([]any, len(entContentIdeas))
+    for i, entContentIdea := range entContentIdeas {
+        contentIdeasModels[i] = toContentIdeaModel(entContentIdea)
+    }
+
+    // Commit transaction
+    if err := tx.Commit(); err != nil {
+        d.logger.Error("failed to commit transaction", zap.Error(err))
+        return nil, err
+    }
+
+    return &models.PaginatedResponse{
+        Results:    contentIdeasModels,
+        TotalCount: totalCount,
+        Page:       pageNum,
+    }, nil
+}
+```
+
+4. **Get By ID Method**: Retrieve a single entity with authorization check
+```go
+func (d *Datastore) GetContentIdea(ctx context.Context, userID, id uuid.UUID) (*models.ContentIdea, error) {
+    // Start transaction
+    tx, err := d.dbClient.Tx(ctx)
+    if err != nil {
+        d.logger.Error("failed to start transaction", zap.Error(err))
+        return nil, err
+    }
+
+    // Rollback in case of error
+    defer func() {
+        if v := recover(); v != nil {
+            tx.Rollback()
+            panic(v)
+        }
+    }()
+
+    // Query content idea with authorization check
+    entContentIdea, err := tx.ContentIdea.Query().
+        Where(
+            contentidea.ID(id),
+            contentidea.HasProjectWith(
+                project.HasOwnerWith(
+                    user.ID(userID),
+                ),
+            ),
+        ).
+        WithProject().
+        Only(ctx)
+
+    if err != nil {
+        if ent.IsNotFound(err) {
+            d.logger.Error("content idea not found or user not authorized",
+                zap.String("content_idea_id", id.String()),
+                zap.String("user_id", userID.String()))
+            if rerr := tx.Rollback(); rerr != nil {
+                d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+            }
+            return nil, ErrContentIdeaNotFound
+        }
+        
+        d.logger.Error("failed to query content idea", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+
+    // Commit transaction
+    if err := tx.Commit(); err != nil {
+        d.logger.Error("failed to commit transaction", zap.Error(err))
+        return nil, err
+    }
+
+    return toContentIdeaModel(entContentIdea), nil
+}
+```
+
+5. **Update Method**: Update an entity with authorization check
+```go
+func (d *Datastore) UpdateContentIdea(ctx context.Context, userID uuid.UUID, contentIdea models.ContentIdea) (*models.ContentIdea, error) {
+    // Start transaction
+    tx, err := d.dbClient.Tx(ctx)
+    if err != nil {
+        d.logger.Error("failed to start transaction", zap.Error(err))
+        return nil, err
+    }
+
+    // Rollback in case of error
+    defer func() {
+        if v := recover(); v != nil {
+            tx.Rollback()
+            panic(v)
+        }
+    }()
+
+    // Check if content idea exists and belongs to the user
+    exists, err := tx.ContentIdea.Query().
+        Where(
+            contentidea.ID(contentIdea.ID),
+            contentidea.HasProjectWith(
+                project.HasOwnerWith(
+                    user.ID(userID),
+                ),
+            ),
+        ).
+        Exist(ctx)
+
+    if err != nil {
+        d.logger.Error("failed to query content idea", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+
+    if !exists {
+        d.logger.Error("content idea not found or user not authorized",
+            zap.String("content_idea_id", contentIdea.ID.String()),
+            zap.String("user_id", userID.String()))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, ErrContentIdeaNotFound
+    }
+
+    // Update content idea
+    entContentIdea, err := tx.ContentIdea.UpdateOneID(contentIdea.ID).
+        SetTitle(contentIdea.Title).
+        SetSummary(contentIdea.Summary).
+        SetSourceURL(contentIdea.SourceURL).
+        SetApproved(contentIdea.Approved).
+        Save(ctx)
+
+    if err != nil {
+        d.logger.Error("failed to update content idea", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+
+    // Load the project relationship
+    entContentIdea, err = tx.ContentIdea.Query().
+        Where(contentidea.ID(entContentIdea.ID)).
+        WithProject().
+        Only(ctx)
+
+    if err != nil {
+        d.logger.Error("failed to load project relationship", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return nil, err
+    }
+
+    // Commit transaction
+    if err := tx.Commit(); err != nil {
+        d.logger.Error("failed to commit transaction", zap.Error(err))
+        return nil, err
+    }
+
+    return toContentIdeaModel(entContentIdea), nil
+}
+```
+
+6. **Delete Method**: Delete an entity with authorization check
+```go
+func (d *Datastore) DeleteContentIdea(ctx context.Context, userID, id uuid.UUID) error {
+    // Start transaction
+    tx, err := d.dbClient.Tx(ctx)
+    if err != nil {
+        d.logger.Error("failed to start transaction", zap.Error(err))
+        return err
+    }
+
+    // Rollback in case of error
+    defer func() {
+        if v := recover(); v != nil {
+            tx.Rollback()
+            panic(v)
+        }
+    }()
+
+    // Check if content idea exists and belongs to the user
+    exists, err := tx.ContentIdea.Query().
+        Where(
+            contentidea.ID(id),
+            contentidea.HasProjectWith(
+                project.HasOwnerWith(
+                    user.ID(userID),
+                ),
+            ),
+        ).
+        Exist(ctx)
+
+    if err != nil {
+        d.logger.Error("failed to query content idea", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return err
+    }
+
+    if !exists {
+        d.logger.Error("content idea not found or user not authorized",
+            zap.String("content_idea_id", id.String()),
+            zap.String("user_id", userID.String()))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return ErrContentIdeaNotFound
+    }
+
+    // Delete content idea
+    err = tx.ContentIdea.DeleteOneID(id).Exec(ctx)
+    if err != nil {
+        d.logger.Error("failed to delete content idea", zap.Error(err))
+        if rerr := tx.Rollback(); rerr != nil {
+            d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+        }
+        return err
+    }
+
+    // Commit transaction
+    if err := tx.Commit(); err != nil {
+        d.logger.Error("failed to commit transaction", zap.Error(err))
+        return err
+    }
+
+    return nil
+}
+```
+
+## Error Handling
+
+- Define common errors in `errors.go`
+- Always log errors with context information
+- Use specific error types for common error conditions
+- Properly handle transaction rollbacks
+
+```go
+// In errors.go
+var (
+    ErrContentIdeaNotFound = errors.New("content idea not found")
+    ErrProjectNotFound     = errors.New("project not found")
+    ErrUnauthorized        = errors.New("user not authorized for this operation")
+)
+
+// Usage in methods
+if !exists {
+    d.logger.Error("content idea not found or user not authorized",
+        zap.String("content_idea_id", id.String()),
+        zap.String("user_id", userID.String()))
+    if rerr := tx.Rollback(); rerr != nil {
+        d.logger.Error("failed to rollback transaction", zap.Error(rerr))
+    }
+    return ErrContentIdeaNotFound
+}
+```
+
+## Authorization Patterns
+
+Always ensure that users can only access their own data through the appropriate ownership relationship. Use Ent's edge predicates to enforce this:
+
+```go
+// Check ownership via project relationship
+contentidea.HasProjectWith(
+    project.HasOwnerWith(
+        user.ID(userID),
+    ),
+)
+```
+
+## Pagination and Filtering
+
+Implement standard pagination with offset and limit:
+
+```go
+// Apply pagination
+if pageNum < 1 {
+    pageNum = 1
+}
+if pageSize < 1 {
+    pageSize = 10
+}
+
+offset := (pageNum - 1) * pageSize
+query = query.
+    Offset(offset).
+    Limit(pageSize).
+    Order(ent.Desc(contentidea.FieldCreatedAt))
+```
+
+Return paginated results using the standard `models.PaginatedResponse` type:
+
+```go
+return &models.PaginatedResponse{
+    Results:    contentIdeasModels,
+    TotalCount: totalCount,
+    Page:       pageNum,
+}, nil
+```
+
+Apply filters conditionally when provided:
+
+```go
+// Apply filters if provided
+if filters.ProjectID != nil {
+    query = query.Where(contentidea.HasProjectWith(project.ID(*filters.ProjectID)))
+}
+
+if filters.Approved != nil {
+    query = query.Where(contentidea.ApprovedEQ(*filters.Approved))
+}
+
+if filters.Title != nil && *filters.Title != "" {
+    query = query.Where(contentidea.TitleContainsFold(*filters.Title))
+}
+```
+
+## Testing
+
+Write unit tests for complex logic:
+
+1. **Table-Driven Tests**: Use table-driven tests for functions with multiple test cases
+```go
+func TestGetMatchingAgeGroups(t *testing.T) {
+    tests := []struct {
+        name     string
+        minAge   int
+        maxAge   int
+        expected []string
+    }{
+        {
+            name:   "Single age group - exact match",
+            minAge: 25,
+            maxAge: 29,
+            expected: []string{
+                "25 to 29",
+            },
+        },
+        // ... more test cases
+    }
+    
+    for _, tc := range tests {
+        t.Run(tc.name, func(t *testing.T) {
+            result := getMatchingAgeGroups(tc.minAge, tc.maxAge)
+            
+            // Sort both slices for comparison
+            sort.Strings(result)
+            sort.Strings(tc.expected)
+            
+            if !reflect.DeepEqual(result, tc.expected) {
+                t.Errorf("Expected %v, got %v", tc.expected, result)
+            }
+        })
+    }
+}
+```
+
+2. **Mock Database**: For integration tests, consider using a mock database or SQLite in-memory database
+
+## Best Practices
+
+1. **Transactions**: Always use transactions for data modifications
+2. **Input Validation**: Validate required parameters before executing database operations
+3. **Consistent Logging**: Log errors with appropriate context
+4. **Model Conversion**: Keep entity-to-model conversion functions consistent
+5. **Error Handling**: Handle all database errors and transaction rollbacks properly
+6. **Query Optimization**: Use appropriate Ent predicates for efficient queries
+7. **Authorization**: Always check that the user is authorized to access/modify the requested data
+8. **Edge Loading**: Always load required edges for model conversion
 
 ---
 > Source: [theimaginaryfoundation/what-iff](https://github.com/theimaginaryfoundation/what-iff) — distributed by [TomeVault](https://tomevault.io).
