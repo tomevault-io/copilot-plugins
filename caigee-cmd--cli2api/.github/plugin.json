@@ -1,0 +1,9 @@
+{
+  "name": "caigee-cmd--cli2api",
+  "displayName": "cli2api",
+  "description": "Self-hosted OpenAI-compatible API for Qoder CLI login,workbuddy, with SQLite multi-account routing and a HeroUI console.",
+  "version": "1.0.0",
+  "author": "caigee-cmd",
+  "homepage": "https://github.com/caigee-cmd/cli2api",
+  "skills": []
+}
