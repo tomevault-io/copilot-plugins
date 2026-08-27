@@ -1,0 +1,9 @@
+{
+  "name": "backnotprop--product-engineering",
+  "displayName": "product-engineering",
+  "description": "Agent skills for the product process: design, build, review, behavior specs, verification recordings, brand assets. ",
+  "version": "1.0.0",
+  "author": "backnotprop",
+  "homepage": "https://github.com/backnotprop/product-engineering",
+  "skills": []
+}
