@@ -1,0 +1,44 @@
+{
+  "name": "DayZ-Modding-Knowledge-Pack",
+  "owner": "willy92wins",
+  "repo": "DayZ-Modding-Knowledge-Pack",
+  "description": "Battle-tested DayZ (Enfusion) modding knowledge for AI coding assistants: 16 domain playbooks, the py3d-dayz MLOD toolchain, strict RTM/SEAnim/ODOL inspectors,, visor tools to help you work with 3d models with AI, the most advanced linter to detect enforce compiling and coding issues, and a UI lab - with every claim carrying its path:line evidence.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/willy92wins/DayZ-Modding-Knowledge-Pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T21:34:53Z"
+}
