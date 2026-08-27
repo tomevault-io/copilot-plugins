@@ -7,11 +7,11 @@ Turn DeepSeek Harness articles into editable Excalidraw canvases — live diagra
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hanzhangzzz/dsh-diagram](https://github.com/hanzhangzzz/dsh-diagram).
+Original source: `AGENTS.md` in [hanzhangzzz/dsh-diagram](https://github.com/hanzhangzzz/dsh-diagram).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
