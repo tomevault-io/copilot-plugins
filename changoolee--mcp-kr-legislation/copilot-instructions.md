@@ -1,39 +1,57 @@
-## 00-core-operating-model
+## 10-tool-development-contract
 
-> Core operating model for all agents working in mcp-kr-legislation
+> Contract for developing new MCP tools in this project
 
 
-# 핵심 운영 모델
+# MCP 도구 개발 계약
 
-## 이 프로젝트
-한국 법제처 OPEN API 173개를 MCP 도구 197개로 제공하는 FastMCP 서버.
-Python 3.10+, uv, FastMCP, rank-bm25 기반.
+## 도구 파일 패턴
 
-## 절대 규칙
-1. **AGENTS.md를 먼저 읽어라** — 모든 작업 전에 AGENTS.md의 해당 섹션을 확인
-2. **API의 단일 진실은 api_layout/*.json** — 코드 수정 전 반드시 이 파일로 API 스펙 확인
-3. **실제 API 호출로 검증** — 코드 변경 후 반드시 법제처 API를 직접 호출하여 확인
-4. **캐시 우선** — 모든 API 호출은 `use_cache=True` 사용
+```python
+from ..server import mcp
+from ..utils.law_tools_utils import _make_legislation_request  # 또는 직접 구현
 
-## 작업 루프 (OODA)
+@mcp.tool(
+    name="tool_name",
+    description="...",
+    tags={"카테고리", "기능"},
+)
+def tool_name(
+    param: Annotated[str, "파라미터 설명"],
+) -> TextContent:
+    """한 줄 설명"""
+    params = {"query": param, ...}
+    data = _make_legislation_request("target", params, use_cache=True)
+    # 결과 포맷팅
+    return TextContent(type="text", text=...)
 ```
-Observe: api_layout/*.json + 실제 API 응답
-Orient: AGENTS.md + skills/*.md
-Decide: 구현 방법 결정
-Act: 코드 작성 → 테스트 → 캐시 확인
+
+## 필수 체크리스트
+- [ ] `@mcp.tool` 데코레이터에 `name`, `description`, `tags` 포함
+- [ ] `description`에 사용 예시 포함
+- [ ] `use_cache=True` 사용
+- [ ] 빈 입력 처리 (early return)
+- [ ] `TextContent` 반환
+- [ ] `server.py`의 `tool_modules`에 등록
+
+## 캐시 키 생성
+```python
+cache_key = get_cache_key(f"{target}_{param}", "list")
 ```
 
-## 도구 추가 절차
-1. `api_layout/<category>.json`에서 target 값 확인
-2. `skills/api-integration/targets.md`에서 target 검증
-3. `_make_legislation_request(target, params, use_cache=True)` 패턴 사용
-4. `server.py`의 `tool_modules`에 모듈명 추가
-5. 실제 API 호출 테스트
+## 오류 처리
+```python
+try:
+    data = _make_legislation_request(target, params, use_cache=True)
+except Exception as e:
+    return TextContent(type="text", text=f"오류: {e}")
+```
 
-## 금지 사항
-- `use_cache=False` 기본값 사용 금지 (단, 강제 갱신 시 예외)
-- 빈 검색어로 API 호출 금지
-- api_layout/*.json 없이 target 값 추정 금지
+## 테스트
+```bash
+# 법제처 API 직접 확인
+curl "http://www.law.go.kr/DRF/lawSearch.do?OC=lchangoo&target=TARGET&type=JSON&query=검색어"
+```
 
 ---
 > Source: [ChangooLee/mcp-kr-legislation](https://github.com/ChangooLee/mcp-kr-legislation) — distributed by [TomeVault](https://tomevault.io).
