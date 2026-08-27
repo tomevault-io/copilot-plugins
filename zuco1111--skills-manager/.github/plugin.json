@@ -1,0 +1,9 @@
+{
+  "name": "zuco1111--skills-manager",
+  "displayName": "skills-manager",
+  "description": "Manage standalone Codex Skills with scoped installation, central storage, groups, migration, and safe symlink exposure.",
+  "version": "1.0.0",
+  "author": "zuco1111",
+  "homepage": "https://github.com/zuco1111/skills-manager",
+  "skills": []
+}
