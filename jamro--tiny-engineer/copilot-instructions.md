@@ -1,17 +1,20 @@
-## compile-after-changes
+## sync-api-endpoints
 
-> After significant code changes, build with pio run to confirm the firmware compiles.
+> When HTTP routes change, update the HTML index page and API docs together.
 
 
-# Compile after significant changes
+# Sync HTTP endpoints across firmware and docs
 
-After any significant code change, run `pio run` from the project root and fix failures before considering the work done.
+When adding, removing, or changing the method, path, or query parameters of any HTTP route, update all of the following in the same change:
 
-Significant: logic, types, APIs, headers, firmware source (`src/`, `include/`, `lib/`), or `platformio.ini`.
+1. **HTML index** — [`src/http/index_page.cpp`](src/http/index_page.cpp): main endpoint table matches all routes; parameter sections for `/anim`, `/settings`, and `/test/servo` list every supported value and range
+2. **API reference** — [`docs/api.md`](docs/api.md): full section per endpoint (curl, JSON, params, errors)
+3. **Summaries** — if the endpoint list, params, or boot URLs changed, also update [`README.md`](README.md) and [`docs/hardware/testing.md`](docs/hardware/testing.md)
+4. **405 paths** — if new `/test/*` or similar paths get wrong-method handling, update `isHttpTestPath()` in [`src/http/test_handlers.cpp`](src/http/test_handlers.cpp) and [`handleNotFound`](src/http/routes.cpp) as needed
 
-Skip: comments-only, docs-only, or tiny formatting.
+Do not duplicate long behavioral docs (animation behavior tables, RGB LED) in the HTML index — one-line route descriptions only, except the supported-parameter lists for `/anim`, `/settings`, and `/test/servo`.
 
-Do not flash (`pio run -t upload`) unless asked.
+Parameter values in the HTML index must match [`docs/api.md`](docs/api.md) exactly.
 
 ---
 > Source: [jamro/tiny-engineer](https://github.com/jamro/tiny-engineer) — distributed by [TomeVault](https://tomevault.io).
