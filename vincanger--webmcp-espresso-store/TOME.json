@@ -4,7 +4,7 @@
   "repo": "webmcp-espresso-store",
   "description": "A web shop example app using WebMCP",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vincanger/webmcp-espresso-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T00:41:29Z"
+  "distributed_at": "2026-08-27T00:45:39Z"
 }
