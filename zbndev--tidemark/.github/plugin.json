@@ -1,0 +1,9 @@
+{
+  "name": "zbndev--tidemark",
+  "displayName": "tidemark",
+  "description": "Track AI provider quota limits on Linux. Rust + GTK4/libadwaita",
+  "version": "1.0.0",
+  "author": "zbndev",
+  "homepage": "https://github.com/zbndev/tidemark",
+  "skills": []
+}
