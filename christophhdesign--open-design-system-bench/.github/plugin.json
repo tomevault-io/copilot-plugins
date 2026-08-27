@@ -1,0 +1,9 @@
+{
+  "name": "christophhdesign--open-design-system-bench",
+  "displayName": "open-design-system-bench",
+  "description": "How AI-ready is your design system? A plug-in benchmark that runs coding agents against your component library and grades the output. Built against a production design system and generalized for any R",
+  "version": "1.0.0",
+  "author": "christophhdesign",
+  "homepage": "https://github.com/christophhdesign/open-design-system-bench",
+  "skills": []
+}
