@@ -1,0 +1,44 @@
+{
+  "name": "keys-Mac-oMLX-0.6.3.2RC-DeepSeekV4F-0731-MXFP4-Abliterated-Dual-ANE-CPU",
+  "owner": "drowzeys",
+  "repo": "keys-Mac-oMLX-0.6.3.2RC-DeepSeekV4F-0731-MXFP4-Abliterated-Dual-ANE-CPU",
+  "description": "1.0 Beta \u00b7 oMLX 0.6.3rc2 Dual-ANE+CPU prefill \u00b7 DSV4F 0731 MXFP4 ablit \u00b7 1M ctx \u00b7 Mac Studio M3 Ultra",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/drowzeys/keys-Mac-oMLX-0.6.3.2RC-DeepSeekV4F-0731-MXFP4-Abliterated-Dual-ANE-CPU",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T23:58:16Z"
+}
