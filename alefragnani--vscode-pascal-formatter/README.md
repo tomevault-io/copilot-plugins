@@ -5,11 +5,12 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alefragnani/vscode-pascal-formatter](https://github.com/alefragnani/vscode-pascal-formatter).
+Original source: `` in [alefragnani/vscode-pascal-formatter](https://github.com/alefragnani/vscode-pascal-formatter).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
