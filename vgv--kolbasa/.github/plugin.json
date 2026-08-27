@@ -1,0 +1,9 @@
+{
+  "name": "vgv--kolbasa",
+  "displayName": "kolbasa",
+  "description": "A reliable message & job queue for Java & Kotlin, built on PostgreSQL \u2014 use the database you already have, no Kafka or RabbitMQ. Transactional sends, deduplication, delays, retries, dead-letter & arch",
+  "version": "1.0.0",
+  "author": "vgv",
+  "homepage": "https://github.com/vgv/kolbasa",
+  "skills": []
+}
