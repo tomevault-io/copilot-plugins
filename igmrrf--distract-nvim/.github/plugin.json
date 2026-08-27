@@ -1,0 +1,9 @@
+{
+  "name": "igmrrf--distract-nvim",
+  "displayName": "distract.nvim",
+  "description": "A high-performance, data-driven rendering engine for Neovim and terminal environments capable of rendering smooth, animated entities and environmental concepts with custom capabilities and state machi",
+  "version": "1.0.0",
+  "author": "igmrrf",
+  "homepage": "https://github.com/igmrrf/distract.nvim",
+  "skills": []
+}
