@@ -1,0 +1,9 @@
+{
+  "name": "andreypopp--ch-queries",
+  "displayName": "ch_queries",
+  "description": "A library to generate ClickHouse SQL queries in a typesafe way with OCaml",
+  "version": "1.0.0",
+  "author": "andreypopp",
+  "homepage": "https://github.com/andreypopp/ch_queries",
+  "skills": []
+}
