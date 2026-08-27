@@ -1,0 +1,9 @@
+{
+  "name": "kilian-group--phantom-reasoning",
+  "displayName": "phantom-reasoning",
+  "description": "Code for Paper: Learning from Synthetic Data Improves Multi-hop Reasoning",
+  "version": "1.0.0",
+  "author": "kilian-group",
+  "homepage": "https://github.com/kilian-group/phantom-reasoning",
+  "skills": []
+}
