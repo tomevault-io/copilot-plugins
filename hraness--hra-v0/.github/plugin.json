@@ -1,0 +1,9 @@
+{
+  "name": "hraness--hra-v0",
+  "displayName": "hra-v0",
+  "description": "Read-only archive of the retired HRA v0 desktop/web app. Current HRA CLI: github.com/hraness/hra",
+  "version": "1.0.0",
+  "author": "hraness",
+  "homepage": "https://github.com/hraness/hra-v0",
+  "skills": []
+}
