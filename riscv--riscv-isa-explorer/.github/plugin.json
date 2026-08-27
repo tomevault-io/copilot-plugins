@@ -1,0 +1,9 @@
+{
+  "name": "riscv--riscv-isa-explorer",
+  "displayName": "riscv-isa-explorer",
+  "description": "A simple and intuitive approach to visualize RISC-V Extensions and Profiles.",
+  "version": "1.0.0",
+  "author": "riscv",
+  "homepage": "https://github.com/riscv/riscv-isa-explorer",
+  "skills": []
+}
