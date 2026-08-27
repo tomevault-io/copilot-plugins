@@ -1,0 +1,9 @@
+{
+  "name": "yujianwudi--ai-image-prompts",
+  "displayName": "ai-image-prompts",
+  "description": "AI\u751f\u56fe\u63d0\u793a\u8bcd\u6a21\u677f\u5e93\uff0c\u6309\u89d2\u8272\u4e0e\u6a21\u677f\u5206\u7c7b\u6574\u7406\uff0c\u5305\u542b\u5199\u5b9ecos\u3001\u6f2b\u5c55\u573a\u666f\u3001\u955c\u5934\u3001\u706f\u5149\u3001\u6750\u8d28\u548c\u8d1f\u9762\u8bcd\u6a21\u677f",
+  "version": "1.0.0",
+  "author": "yujianwudi",
+  "homepage": "https://github.com/yujianwudi/ai-image-prompts",
+  "skills": []
+}
