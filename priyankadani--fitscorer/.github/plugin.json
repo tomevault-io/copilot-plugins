@@ -1,0 +1,9 @@
+{
+  "name": "priyankadani--fitscorer",
+  "displayName": "FitScorer",
+  "description": "Takes a job posting + my profile `jane_doe_profile.md` as inputs, extracts required skills from the posting, compares them against your skills, and outputs a fit score with missing skills + a repositi",
+  "version": "1.0.0",
+  "author": "PriyankaDani",
+  "homepage": "https://github.com/PriyankaDani/FitScorer",
+  "skills": []
+}
