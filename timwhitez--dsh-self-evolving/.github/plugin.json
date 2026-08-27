@@ -1,0 +1,9 @@
+{
+  "name": "timwhitez--dsh-self-evolving",
+  "displayName": "dsh-self-evolving",
+  "description": "Evidence-first, crash-resumable self-evolution engine for DeepSeek Harness and Harbor.",
+  "version": "1.0.0",
+  "author": "timwhitez",
+  "homepage": "https://github.com/timwhitez/dsh-self-evolving",
+  "skills": []
+}
