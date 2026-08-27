@@ -4,7 +4,7 @@
   "repo": "currensee",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MohammedIbrahim8887/currensee",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T21:54:23Z"
+  "distributed_at": "2026-08-27T22:21:03Z"
 }
