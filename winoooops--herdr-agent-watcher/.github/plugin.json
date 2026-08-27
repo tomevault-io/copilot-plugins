@@ -1,0 +1,9 @@
+{
+  "name": "winoooops--herdr-agent-watcher",
+  "displayName": "herdr-agent-watcher",
+  "description": "Coding-agent observability for Herdr: live sidebar cards, lifecycle notifications, and a zero-config Claude Code metrics bridge.",
+  "version": "1.0.0",
+  "author": "winoooops",
+  "homepage": "https://github.com/winoooops/herdr-agent-watcher",
+  "skills": []
+}
