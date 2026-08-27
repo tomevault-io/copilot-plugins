@@ -1,0 +1,9 @@
+{
+  "name": "perrylink--dsh-doublecheck",
+  "displayName": "dsh-doublecheck",
+  "description": "Double-check before you ship: grill the requirements, test the implementation, prove the delivery. An engineering-discipline bundle for DeepSeek Harness.",
+  "version": "1.0.0",
+  "author": "PerryLink",
+  "homepage": "https://github.com/PerryLink/dsh-doublecheck",
+  "skills": []
+}
