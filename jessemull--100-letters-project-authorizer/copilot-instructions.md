@@ -1,11 +1,13 @@
-## 080-comments
+## 100-imports-boundaries
 
-> Comment policy — why not what.
+> Import and module boundary expectations for the authorizer.
 
 
-# Comments
+# Imports and boundaries
 
-Follow `docs/COMMENTS.md`: why-not-what; spacing rules; no commented-out code or contradictory notes.
+- No path aliases configured — keep imports shallow.
+- Runtime code in `src/` should not import local `scripts/`.
+- Prefer `jose` + `aws-lambda` types only in the handler bundle surface.
 
 ---
 > Source: [jessemull/100-letters-project-authorizer](https://github.com/jessemull/100-letters-project-authorizer) — distributed by [TomeVault](https://tomevault.io).
