@@ -1,16 +1,16 @@
-## 010-architecture
+## 040-testing
 
-> Authorizer architecture: handler boundaries, packaging, CloudFormation.
+> Jest coverage and authorizer test expectations.
 
 
-# Architecture
+# Testing
 
-Read `docs/ARCHITECTURE.md`.
+Read `docs/TESTING.md`.
 
-- Keep auth logic in `src/index.ts` (or clearly named modules under `src/` if split later).
-- Do not expand this Lambda into a general API.
-- Preserve Webpack → zip → S3 → CloudFormation deploy topology unless migrating with human approval.
-- Fail closed on auth errors (`Unauthorized`).
+- Keep ≥80% coverage on branches, functions, lines, statements.
+- Mock `jose`; do not call live Cognito in unit tests.
+- Do not delete tests to greenwash coverage.
+- Cover Bearer parsing, verify failures, token_use, scope, success policy.
 
 ---
 > Source: [jessemull/100-letters-project-authorizer](https://github.com/jessemull/100-letters-project-authorizer) — distributed by [TomeVault](https://tomevault.io).
