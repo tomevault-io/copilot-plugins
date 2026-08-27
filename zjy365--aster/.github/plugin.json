@@ -1,0 +1,9 @@
+{
+  "name": "zjy365--aster",
+  "displayName": "aster",
+  "description": "A 28 MB local-first Kubernetes desktop client. Native Tauri shell + Go sidecar, keyboard-first, no account, no telemetry.",
+  "version": "1.0.0",
+  "author": "zjy365",
+  "homepage": "https://github.com/zjy365/aster",
+  "skills": []
+}
