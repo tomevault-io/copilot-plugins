@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-harness-desktop",
+  "owner": "KevPH2026",
+  "repo": "deepseek-harness-desktop",
+  "description": "DeepSeek Harness Desktop \u662f @KevPH2026 \u7ef4\u62a4\u7684\u975e\u5b98\u65b9\u793e\u533a macOS \u684c\u9762\u5c01\u88c5:\u57fa\u4e8e\u5f00\u6e90 DeepSeek Harness,\u5185\u7f6e\u4e00\u952e\u5b89\u88c5\u7684\u7cbe\u9009\u793e\u533a\u76ae\u80a4\u4e2d\u5fc3\u3001Telegram \u624b\u673a\u8fdc\u7a0b\u63a7\u5236\u3001\u53ef\u914d\u7f6e\u7684\u56fe\u7247/\u89c6\u9891\u591a\u6a21\u6001\u751f\u6210\u3001\u7528\u91cf\u9762\u677f\u548c\u6309\u573a\u666f\u5206\u7c7b\u7684 dsh \u63d2\u4ef6\u5e02\u573a\u3002\u540c\u6b65\u793e\u533a\u96f7\u8fbe,\u672a\u7b7e\u540d CI \u53d1\u7248\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KevPH2026/deepseek-harness-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T22:05:16Z"
+}
