@@ -1,0 +1,9 @@
+{
+  "name": "kilopal--ghostmark",
+  "displayName": "GhostMark",
+  "description": "The world's first 100% client-side AI watermark stripper. Pure Rust \u2192 WASM. Browser extension + web playground. Defeats SynthID, C2PA, and Unicode marks",
+  "version": "1.0.0",
+  "author": "kilopal",
+  "homepage": "https://github.com/kilopal/GhostMark",
+  "skills": []
+}
