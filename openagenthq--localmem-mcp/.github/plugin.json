@@ -1,0 +1,9 @@
+{
+  "name": "openagenthq--localmem-mcp",
+  "displayName": "localmem-mcp",
+  "description": "Local-first, zero-API memory for AI agents. Persistent, private, and yours \u2014 runs entirely on your machine, no cloud calls, no API keys.",
+  "version": "1.0.0",
+  "author": "OpenAgentHQ",
+  "homepage": "https://github.com/OpenAgentHQ/localmem-mcp",
+  "skills": []
+}
