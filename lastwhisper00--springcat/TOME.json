@@ -1,0 +1,44 @@
+{
+  "name": "springcat",
+  "owner": "lastwhisper00",
+  "repo": "springcat",
+  "description": "SpringCat is a lightweight desktop companion that tracks AI coding tasks and displays their progress in a transparent, always-on-top panel. It supports tools such as Codex CLI, Cursor, Gemini CLI, Grok CLI, and WorkBuddy while keeping user data private and stored locally.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lastwhisper00/springcat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-27T21:56:34Z"
+}
