@@ -1,25 +1,16 @@
-## 100-letters-project-authorizer
+## 010-architecture
 
-> Before making any changes to this repository:
+> Authorizer architecture: handler boundaries, packaging, CloudFormation.
 
-# Gemini Agent Instructions — 100 Letters Project Authorizer
 
-Before making any changes to this repository:
+# Architecture
 
-1. Read `CONTEXT.md` — mandatory loading order, precedence chain, quality gates
-2. Read `AGENTS.md` — complete development rules and constraints
-3. Read all mandatory `docs/` listed in CONTEXT.md (items 3–10)
+Read `docs/ARCHITECTURE.md`.
 
-Do NOT duplicate governance from AGENTS.md or docs/ here. This file exists only as an entry point redirect.
-
-## Quick Reference
-
-- Install: `npm install`
-- Preflight: `make preflight`
-- Lint (auto-fix): `make lint`
-- Test: `make test`
-- Build: `make build`
-- Package: `make package`
+- Keep auth logic in `src/index.ts` (or clearly named modules under `src/` if split later).
+- Do not expand this Lambda into a general API.
+- Preserve Webpack → zip → S3 → CloudFormation deploy topology unless migrating with human approval.
+- Fail closed on auth errors (`Unauthorized`).
 
 ---
 > Source: [jessemull/100-letters-project-authorizer](https://github.com/jessemull/100-letters-project-authorizer) — distributed by [TomeVault](https://tomevault.io).
