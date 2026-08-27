@@ -1,0 +1,9 @@
+{
+  "name": "nwflower--dsh-file-claim",
+  "displayName": "dsh-file-claim",
+  "description": "File claim / protection for concurrent DeepSeek Harness (DSH) sessions working the same workspace: claim/release, heartbeat stale takeover, async pending merge area (git 3-way merge). DSH Host plugin.",
+  "version": "1.0.0",
+  "author": "Nwflower",
+  "homepage": "https://github.com/Nwflower/dsh-file-claim",
+  "skills": []
+}
