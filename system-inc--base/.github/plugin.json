@@ -1,0 +1,9 @@
+{
+  "name": "system-inc--base",
+  "displayName": "base",
+  "description": "A modular framework for building Cloudflare Worker applications: declarative modules, dependency injection, HTTP/GraphQL/RPC/queue/scheduled/WebSocket dispatch, a Drizzle-backed ORM, and a CLI for the",
+  "version": "1.0.0",
+  "author": "system-inc",
+  "homepage": "https://github.com/system-inc/base",
+  "skills": []
+}
