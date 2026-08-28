@@ -1,0 +1,9 @@
+{
+  "name": "sardonic-labs--fiducial",
+  "displayName": "fiducial",
+  "description": "Turn any AI coding agent into a KiCad hardware design assistant - instruction library + stdlib-only verification tools that catch what ERC misses",
+  "version": "1.0.0",
+  "author": "sardonic-labs",
+  "homepage": "https://github.com/sardonic-labs/fiducial",
+  "skills": []
+}
