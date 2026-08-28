@@ -1,0 +1,44 @@
+{
+  "name": "dsh-whale-tank",
+  "owner": "swell05",
+  "repo": "dsh-whale-tank",
+  "description": "\u9cb8\u9c7c\u7f38\u2014\u2014\u4e00\u4e2aDSH \u63d2\u4ef6\u5f00\u53d1\u6c99\u76d2\u8f85\u52a9\u5de5\u5177\uff1a\u9694\u79bb DSH_HOME\uff0c\u5efa\u7acb\u5f00\u53d1\u6001\u7684DSH\u914d\u7f6e\u6c99\u7bb1\u4e0e\u63d2\u4ef6\u5f00\u53d1\u9aa8\u67b6\u3001\u9644\u5e26\u5f00\u53d1\u77e5\u8bc6\u5305\u3001\u63d2\u62d4\u526f\u4f5c\u7528\u68c0\u6d4b\u4e0e\u6c99\u7bb1\u590d\u539f\u3001\u7b2c\u4e09\u65b9\u63d2\u4ef6vet\u4f53\u68c0\u529f\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/swell05/dsh-whale-tank",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T15:43:31Z"
+}
