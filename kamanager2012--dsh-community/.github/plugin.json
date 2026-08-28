@@ -1,0 +1,9 @@
+{
+  "name": "kamanager2012--dsh-community",
+  "displayName": "dsh-community",
+  "description": "\u57fa\u4e8e\u5b98\u65b9 DeepSeek Harness \u5185\u6838\u7684\u793e\u533a\u53d1\u884c\uff1a\u4e94\u4e2a\u5165\u53e3\uff08WSL/Linux \u7ec8\u7aef\u3001Windows \u684c\u9762\u3001macOS \u684c\u9762\u3001Linux AppImage\u3001Android Labs\uff09\uff0c\u4e0e\u5b98\u65b9 Web \u5171\u7528 ~/.dsh\u3002\u4e0d\u662f\u5b98\u65b9\u5ba2\u6237\u7aef\u3002",
+  "version": "1.0.0",
+  "author": "kamanager2012",
+  "homepage": "https://github.com/kamanager2012/dsh-community",
+  "skills": []
+}
