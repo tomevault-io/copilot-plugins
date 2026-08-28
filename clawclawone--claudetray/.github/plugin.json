@@ -1,0 +1,9 @@
+{
+  "name": "clawclawone--claudetray",
+  "displayName": "ClaudeTray",
+  "description": "Your Claude usage in the macOS menu bar \u2014 5-hour, weekly and per-model quotas. Native SwiftUI, zero dependencies.",
+  "version": "1.0.0",
+  "author": "ClawClawOne",
+  "homepage": "https://github.com/ClawClawOne/ClaudeTray",
+  "skills": []
+}
