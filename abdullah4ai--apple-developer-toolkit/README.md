@@ -1,0 +1,26 @@
+# apple-developer-toolkit
+
+> Source: [Abdullah4AI/apple-developer-toolkit](https://github.com/Abdullah4AI/apple-developer-toolkit). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+Apple Developer Documentation CLI skill for AI agents. Search docs, frameworks, APIs, WWDC videos 2014-2025, and sample code. Direct integration with developer.apple.com
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [Abdullah4AI/apple-developer-toolkit](https://github.com/Abdullah4AI/apple-developer-toolkit).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Abdullah4AI/apple-developer-toolkit](https://github.com/Abdullah4AI/apple-developer-toolkit)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-q -->
