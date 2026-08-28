@@ -7,13 +7,13 @@ An open-source coding agent for the btch API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [hostinger-bot/btch-cli](https://github.com/hostinger-bot/btch-cli).
+Original source: `AGENTS.md` in [hostinger-bot/btch-cli](https://github.com/hostinger-bot/btch-cli).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
