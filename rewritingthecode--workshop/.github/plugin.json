@@ -1,0 +1,9 @@
+{
+  "name": "rewritingthecode--workshop",
+  "displayName": "workshop",
+  "description": "A one-page personal portfolio you build in 90 minutes with Claude Code. RTC workshop starter.",
+  "version": "1.0.0",
+  "author": "RewritingTheCode",
+  "homepage": "https://github.com/RewritingTheCode/workshop",
+  "skills": []
+}
