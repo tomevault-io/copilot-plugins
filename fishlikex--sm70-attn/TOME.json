@@ -4,7 +4,7 @@
   "repo": "sm70-attn",
   "description": "FlashAttention brought back to Tesla V100 \u2014 a deep llama.cpp fork: SM 7.0 D256 kernels, SplitKV3, q4_0 KV cache, DFlash2 speculative decoding and multimodal fixes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fishlikeX/sm70-attn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T07:34:06Z"
+  "distributed_at": "2026-08-28T13:04:47Z"
 }
