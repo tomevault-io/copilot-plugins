@@ -1,0 +1,9 @@
+{
+  "name": "jedmamosto--open-agent-engine",
+  "displayName": "open-agent-engine",
+  "description": "The open-source compiler & multi-agent runtime for coding agents",
+  "version": "1.0.0",
+  "author": "jedmamosto",
+  "homepage": "https://github.com/jedmamosto/open-agent-engine",
+  "skills": []
+}
