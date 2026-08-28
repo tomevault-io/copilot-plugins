@@ -1,0 +1,9 @@
+{
+  "name": "whitebite--opencode-dejavu",
+  "displayName": "opencode-dejavu",
+  "description": "OpenCode plugin: cross-session memory for recurring tool-call failures. Detects repeating bash/read/edit/grep failures, promotes them into enforced gates \u2014 remind first, hard-block on same-session rep",
+  "version": "1.0.0",
+  "author": "WhiteBite",
+  "homepage": "https://github.com/WhiteBite/opencode-dejavu",
+  "skills": []
+}
