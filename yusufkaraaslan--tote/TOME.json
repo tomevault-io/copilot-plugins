@@ -4,7 +4,7 @@
   "repo": "tote",
   "description": "Tote \u2014 one window for all your LLMs. Web apps, native apps and CLI agents (Claude Code, Codex, Gemini, Kimi\u2026) organized around workspaces: switch a space and every tab, terminal and download follows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yusufkaraaslan/tote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:06:26Z"
+  "distributed_at": "2026-08-28T03:30:12Z"
 }
