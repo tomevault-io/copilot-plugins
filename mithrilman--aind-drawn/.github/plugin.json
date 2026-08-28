@@ -1,0 +1,9 @@
+{
+  "name": "mithrilman--aind-drawn",
+  "displayName": "aind-drawn",
+  "description": "Experimental TypeScript library for deterministic, modular procedural assets across hand-drawn 2D, Doodle 3D, and semantic Three.js solids.",
+  "version": "1.0.0",
+  "author": "MithrilMan",
+  "homepage": "https://github.com/MithrilMan/aind-drawn",
+  "skills": []
+}
