@@ -1,0 +1,9 @@
+{
+  "name": "appllama--animated-card-stack",
+  "displayName": "animated-card-stack",
+  "description": "An animated card stack that shuffles like it was designed to. Measured motion, live text, inline SVG art - rebuild it in React or React Native with one prompt.",
+  "version": "1.0.0",
+  "author": "Appllama",
+  "homepage": "https://github.com/Appllama/animated-card-stack",
+  "skills": []
+}
