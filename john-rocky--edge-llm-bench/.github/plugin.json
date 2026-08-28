@@ -1,0 +1,9 @@
+{
+  "name": "john-rocky--edge-llm-bench",
+  "displayName": "edge-llm-bench",
+  "description": "Neutral, reproducible benchmark harness for local LLM engines on real devices \u2014 macOS / iOS / Android; LiteRT-LM, llama.cpp, MLX, Core AI, Cactus",
+  "version": "1.0.0",
+  "author": "john-rocky",
+  "homepage": "https://github.com/john-rocky/edge-llm-bench",
+  "skills": []
+}
