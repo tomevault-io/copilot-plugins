@@ -1,0 +1,9 @@
+{
+  "name": "craig-stevenson--craigvault",
+  "displayName": "craigvault",
+  "description": "A password-protected text editor in a single HTML file. AES-256-GCM, local-only, zero dependencies.",
+  "version": "1.0.0",
+  "author": "craig-stevenson",
+  "homepage": "https://github.com/craig-stevenson/craigvault",
+  "skills": []
+}
