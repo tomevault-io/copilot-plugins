@@ -1,0 +1,9 @@
+{
+  "name": "panaversity--learn-stateless-mcp",
+  "displayName": "learn-stateless-mcp",
+  "description": "Learn the stateless MCP revision (2026-07-28) by building it twice \u2014 once with the Python SDK v2, once with the TypeScript SDK v2. Five lessons that mirror each other file for file: hello world, a ser",
+  "version": "1.0.0",
+  "author": "panaversity",
+  "homepage": "https://github.com/panaversity/learn-stateless-mcp",
+  "skills": []
+}
