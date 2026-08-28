@@ -7,11 +7,11 @@ An editor, a simulator, and a natural-language generator for Petri nets and Petr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sergiorbk/petri-net-sim](https://github.com/sergiorbk/petri-net-sim).
+Original source: `AGENTS.md` in [sergiorbk/petri-net-sim](https://github.com/sergiorbk/petri-net-sim).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
