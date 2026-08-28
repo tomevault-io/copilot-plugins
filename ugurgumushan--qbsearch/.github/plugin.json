@@ -1,0 +1,9 @@
+{
+  "name": "ugurgumushan--qbsearch",
+  "displayName": "qbsearch",
+  "description": "qBittorrent nova2 search-engine plugin collection with an installability test harness",
+  "version": "1.0.0",
+  "author": "UgurGumushan",
+  "homepage": "https://github.com/UgurGumushan/qbsearch",
+  "skills": []
+}
