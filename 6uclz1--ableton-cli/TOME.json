@@ -4,7 +4,7 @@
   "repo": "ableton-cli",
   "description": "Python CLI to control and inspect Ableton Live via a local Remote Script.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/6uclz1/ableton-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T12:47:36Z"
+  "distributed_at": "2026-08-28T23:44:49Z"
 }
