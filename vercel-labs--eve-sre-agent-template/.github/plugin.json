@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--eve-sre-agent-template",
+  "displayName": "eve-sre-agent-template",
+  "description": "Meet sre, an eve incident response agent.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/eve-sre-agent-template",
+  "skills": []
+}
