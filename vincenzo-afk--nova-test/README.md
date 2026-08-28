@@ -7,11 +7,11 @@ Local-first desktop AI agent platform built with TypeScript, Electron, React, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vincenzo-afk/Nova-test](https://github.com/vincenzo-afk/Nova-test).
+Original source: `AGENTS.md` in [vincenzo-afk/Nova-test](https://github.com/vincenzo-afk/Nova-test).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
