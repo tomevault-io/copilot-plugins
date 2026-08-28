@@ -1,0 +1,44 @@
+{
+  "name": "avo",
+  "owner": "gatordevin",
+  "repo": "avo",
+  "description": "Open reproduction of NVIDIA's AVO paper (arXiv:2603.24517): evolutionary search where an autonomous coding agent IS the variation operator \u2014 Vary(P)=Agent(P,K,f). Runs on the Claude Code or Codex session you already have.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gatordevin/avo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T20:51:47Z"
+}
