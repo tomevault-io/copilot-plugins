@@ -1,0 +1,44 @@
+{
+  "name": "blitzlog",
+  "owner": "great-wall-connect",
+  "repo": "blitzlog",
+  "description": "Pin, blitz, merge. Autonomous coding pipeline: GitHub issue \u2192 EC2 spot instance \u2192 OpenCode agent \u2192 pull request. From issue to PR. With a trail.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/great-wall-connect/blitzlog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T07:04:59Z"
+}
