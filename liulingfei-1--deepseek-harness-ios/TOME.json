@@ -4,7 +4,7 @@
   "repo": "deepseek-harness-ios",
   "description": "Native iOS DeepSeek Harness port: BYOK inference, on-device Agent tools, iSH sandbox, Cordis plugins, and trajectory.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liulingfei-1/deepseek-harness-ios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T13:05:18Z"
+  "distributed_at": "2026-08-28T20:49:36Z"
 }
