@@ -1,0 +1,9 @@
+{
+  "name": "jarad-z--dsh-goalmesh",
+  "displayName": "dsh-goalmesh",
+  "description": "Goal-driven multi-agent orchestration for DeepSeek Harness \u2014 bounded DAG scheduling, nested delegation, typed evidence, and durable trajectory UI.",
+  "version": "1.0.0",
+  "author": "Jarad-z",
+  "homepage": "https://github.com/Jarad-z/dsh-goalmesh",
+  "skills": []
+}
