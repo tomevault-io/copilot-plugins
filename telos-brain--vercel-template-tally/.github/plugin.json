@@ -1,0 +1,9 @@
+{
+  "name": "telos-brain--vercel-template-tally",
+  "displayName": "vercel-template-tally",
+  "description": "A clone-and-run personal-finance demo: Next.js app with Clerk auth and Supabase, plus a ready Telos Brain schema. Sign in, chat, paste a bank statement, and manage transactions and budgets. Local Dock",
+  "version": "1.0.0",
+  "author": "telos-brain",
+  "homepage": "https://github.com/telos-brain/vercel-template-tally",
+  "skills": []
+}
