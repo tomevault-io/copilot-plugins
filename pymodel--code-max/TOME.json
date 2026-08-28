@@ -4,7 +4,7 @@
   "repo": "code-max",
   "description": "Agent skill that makes a coding agent verify before it claims done \u2014 no stubs, no fabricated test results, evidence-backed completion reports.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PyModel/code-max",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:38:06Z"
+  "distributed_at": "2026-08-28T19:22:51Z"
 }
