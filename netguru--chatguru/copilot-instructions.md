@@ -1,0 +1,210 @@
+## chatguru
+
+> These rules codify the design decisions and architectural patterns established during development. Follow these rules when making changes to the codebase.
+
+# Project Rules - chatguru Agent
+
+These rules codify the design decisions and architectural patterns established during development. Follow these rules when making changes to the codebase.
+
+## Core Architecture Principles
+
+### 1. Async-First Design
+- **Rule**: All agent operations MUST be async-only. Never add synchronous methods to the Agent class.
+- **Rationale**: Prevents blocking operations, aligns with FastAPI's async nature, ensures consistent API surface.
+- **Implementation**: Use `async def` and `AsyncIterator` for all streaming operations.
+- **Example**: ✅ `async def astream(messages: list[dict[str, str]], ...) -> AsyncIterator[str]` | ❌ `def run(...) -> str`
+
+### 2. WebSocket for Real-Time Communication
+- **Rule**: Use WebSocket endpoints for streaming responses. HTTP POST endpoints are deprecated for chat functionality.
+- **Rationale**: Enables true real-time streaming, better UX, lower latency.
+- **Implementation**: All streaming endpoints use `@router.websocket("/ws")` pattern.
+- **Exception**: Health checks and static content can use HTTP GET.
+
+### 3. Session ID Handling
+- **Rule**: ALWAYS use `is not None` checks for `session_id` values, never truthiness checks.
+- **Rationale**: Preserves empty string values which are valid but falsy.
+- **Example**:
+  ```python
+  # ✅ Correct
+  session_id = value if value is not None else "default"
+
+  # ❌ Wrong - treats empty string as falsy
+  session_id = value or "default"
+  ```
+
+### 4. API Contract Consistency
+- **Rule**: ALL WebSocket responses (success, error, token, end) MUST include `session_id` field.
+- **Rationale**: Maintains API contract, enables client-side error recovery, better debugging.
+- **Implementation**: Extract `session_id` from raw JSON before validation fails, use "unknown" as fallback.
+
+### 5. Comprehensive Error Handling
+- **Rule**: All exceptions MUST be caught and converted to proper WebSocket error messages with `session_id`.
+- **Rationale**: Prevents unhandled exceptions, maintains connection, enables error recovery.
+- **Implementation**:
+  - Agent initialization inside try-except block
+  - Separate handlers for `json.JSONDecodeError`, `ValidationError`, `TypeError`
+  - All error responses follow: `{"type": "error", "content": "...", "session_id": "..."}`
+
+### 6. Type Validation Before Pydantic
+- **Rule**: Validate JSON structure (dict vs array/string) BEFORE passing to Pydantic models.
+- **Rationale**: Prevents `TypeError` from non-dict JSON, better error messages.
+- **Implementation**: Check `isinstance(message_data, dict)` before `ChatMessage(**message_data)`.
+
+### 7. Environment Variable Naming
+- **Rule**: Use `LLM_*` prefix for model/key/version settings. The endpoint uses `OPENAI_ENDPOINT` (and `OPENAI_EMBEDDINGS_ENDPOINT`) because the application targets any OpenAI-compatible API, not just Azure.
+- **Rationale**: Generic naming allows provider switching (true OpenAI, Azure APIM, Azure direct, etc.) without changing code.
+- **Allowed**: `OPENAI_ENDPOINT`, `LLM_API_KEY`, `LLM_DEPLOYMENT_NAME`, `LLM_API_VERSION`, `OPENAI_EMBEDDINGS_ENDPOINT`, `OPENAI_EMBEDDINGS_API_KEY`
+- **Deprecated**: `LLM_ENDPOINT` (replaced by `OPENAI_ENDPOINT`), `AZURE_OPENAI_*`, `BRAND_NAME` (use `APP_NAME`)
+
+### 8. WebSocket Message Protocol
+- **Rule**: Use explicit message types (`token`, `end`, `error`) in JSON format for all WebSocket messages.
+- **Rationale**: Clear message boundaries, easy parsing, extensible.
+- **Format**:
+  ```json
+  {"type": "token" | "end" | "error", "content": "...", "session_id": "..."}
+  ```
+- **Future**: Can extend with new types like `tool_call`, `metadata` without breaking changes.
+- **Client request (incoming JSON)**: Required `messages` array — full conversation for the request; **last entry must be the current user turn** (`role: user`). Optional `session_id`, `visitor_id`. No separate top-level `message` field.
+
+## Code Quality Rules
+
+### 9. Streaming Configuration
+- **Rule**: Enable streaming by default in LLM initialization (`streaming=True`).
+- **Rationale**: Streaming is the primary use case, consistent behavior.
+- **Implementation**: `AzureChatOpenAI(..., streaming=True)`
+
+### 10. Test Client Selection
+- **Rule**: Use FastAPI's `TestClient` for WebSocket testing, not `httpx.AsyncClient`.
+- **Rationale**: Simpler test code, synchronous WebSocket handling, consistent patterns.
+- **Implementation**: `TestClient(create_app())` for WebSocket tests.
+
+### 11. Docker Healthchecks
+- **Rule**: Include `curl` in Docker images for healthcheck functionality.
+- **Rationale**: Enables Docker healthchecks without additional dependencies.
+- **Implementation**: Install curl in Dockerfile, configure healthcheck in docker-compose.yml.
+
+## File Organization Rules
+
+### 12. HTML Templates Location
+- **Rule**: Serve HTML templates from `src/api/templates/` directory.
+- **Rationale**: Keeps templates with API code, simple deployment.
+- **Implementation**: `Path(__file__).parent / "templates" / "index.html"`
+
+### 13. Single Page Application at Root
+- **Rule**: Serve web chat interface at root route (`/`) for simplicity.
+- **Rationale**: Single application deployment, no CORS issues, easier development.
+- **Trade-off**: Can be replaced with separate frontend later if needed.
+
+## Error Handling Patterns
+
+### 14. Exception Handler Hierarchy
+- **Rule**: Use nested try-except blocks MUST preserve `session_id` in error responses.
+- **Pattern**:
+  ```python
+  try:
+      # Operation
+  except SpecificError:
+      # Send error with session_id
+      await websocket.send_json({"type": "error", "session_id": session_id, ...})
+      continue  # Don't break connection
+  ```
+
+### 15. Agent Initialization Error Handling
+- **Rule**: Agent initialization MUST be inside try-except block to catch credential/config errors.
+- **Rationale**: Prevents unhandled exceptions that close WebSocket without proper error message.
+- **Implementation**: `agent = Agent()` inside outer try block.
+
+## Validation Rules
+
+### 16. JSON Structure Validation
+- **Rule**: Validate JSON is dict before Pydantic validation, catch `TypeError` separately.
+- **Implementation**
+  ```python
+  if not isinstance(message_data, dict):
+      raise TypeError("Message must be a JSON object")
+  ```
+
+### 17. Session ID Extraction
+- **Rule**: Extract `session_id` from raw JSON before validation, handle all exceptions.
+- **Implementation**: `_extract_session_id()` function catches `JSONDecodeError`, `AttributeError`, `TypeError`.
+
+## Testing Rules
+
+### 18. Mock Patterns for Pydantic Models
+- **Rule**: Use `object.__setattr__()` to bypass Pydantic validation when mocking.
+- **Rationale**: Pydantic models don't allow arbitrary attribute assignment.
+- **Example**:
+  ```python
+  object.__setattr__(mock_instance, "bind_tools", lambda tools: None)
+  ```
+
+### 19. Test Coverage for Edge Cases
+- **Rule**: Tests MUST cover: empty string session_id, non-dict JSON, initialization failures.
+- **Rationale**: Ensures robustness and API contract compliance.
+
+## Documentation Rules
+
+### 20. Design Decision Documentation
+- **Rule**: All significant architectural decisions MUST be documented in `docs/design-decisions.md`.
+- **Rationale**: Maintains knowledge, explains trade-offs, guides future development.
+
+## Migration Rules
+
+### 21. Breaking Changes
+- **Rule**: Breaking changes (like removing `run()` method) MUST be documented in CHANGELOG.
+- **Rationale**: Helps developers understand migration path.
+
+
+## Testing Rules (additions)
+
+### 24. New Modules Require Tests on Merge
+- **Rule**: Every new module or package MUST ship with a corresponding test file. A commit that adds `src/foo/bar.py` must also add `tests/test_bar.py` (or equivalent). PRs that add logic without tests MUST be rejected.
+- **Rationale**: Untested code accumulates silent bugs. The rate-limit TOCTOU and shared-key issues above went undetected precisely because there were no tests.
+
+### 25. Concurrent / Race-Condition Tests for Shared State
+- **Rule**: Any feature that uses shared mutable state (Redis counters, in-process globals, DB rows) MUST include a concurrency test — typically using `asyncio.gather` with multiple concurrent callers — that verifies the invariant holds under parallel access.
+- **Implementation**: Simulate the atomic operation in-process (without a real Redis) so the test is fast and deterministic.
+- **Example**:
+  ```python
+  results = await asyncio.gather(
+      consume_rate_limit("1.2.3.4"),
+      consume_rate_limit("1.2.3.4"),
+      consume_rate_limit("1.2.3.4"),
+  )
+  assert sum(r is True for r in results) == max_messages
+  ```
+
+## Configuration Rules
+
+### 26. All Docker-Compose Environment Variables Must Be Overridable
+- **Rule**: Every environment variable set in `docker-compose.yml` MUST use the `${VAR_NAME:-default}` expansion pattern so operators can override it without editing the file.
+- **Rationale**: Hardcoded values prevent operators from pointing services at external/managed infrastructure (e.g. a managed Redis or Postgres) without modifying source files.
+- **Example**:
+  ```yaml
+  # ❌ Hardcoded — cannot be changed without editing compose file
+  - RATE_LIMIT_REDIS_URL=redis://redis:6379/0
+
+  # ✅ Overridable with a sensible default
+  - RATE_LIMIT_REDIS_URL=${RATE_LIMIT_REDIS_URL:-redis://redis:6379/0}
+  ```
+
+## Summary
+
+When making changes:
+1. ✅ Use async-only patterns
+2. ✅ Preserve session_id in all responses
+3. ✅ Use explicit `is not None` checks
+4. ✅ Handle all exceptions gracefully
+5. ✅ Validate types before Pydantic
+6. ✅ Use `OPENAI_ENDPOINT` / `LLM_*` environment variables
+7. ✅ Follow WebSocket message protocol
+8. ✅ Document significant decisions
+9. ✅ Ship tests with every new module (rule 24)
+10. ✅ Include concurrency tests for shared mutable state (rule 25)
+11. ✅ Make all docker-compose env vars overridable (rule 26)
+
+These rules ensure consistency, maintainability, and robustness of the codebase.
+
+---
+> Source: [netguru/chatguru](https://github.com/netguru/chatguru) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
