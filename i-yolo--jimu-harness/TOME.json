@@ -4,7 +4,7 @@
   "repo": "JiMu-Harness",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/i-YOLO/JiMu-Harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T06:54:08Z"
+  "distributed_at": "2026-08-28T11:03:57Z"
 }
