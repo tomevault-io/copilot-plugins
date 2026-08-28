@@ -1,0 +1,9 @@
+{
+  "name": "goplasmatic--orion",
+  "displayName": "Orion",
+  "description": "The declarative runtime for AI agents, workflows, microservices, and event processing.",
+  "version": "1.0.0",
+  "author": "GoPlasmatic",
+  "homepage": "https://github.com/GoPlasmatic/Orion",
+  "skills": []
+}
