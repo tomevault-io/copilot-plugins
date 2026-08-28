@@ -1,0 +1,9 @@
+{
+  "name": "byteflow-bilisim--stacksmith",
+  "displayName": "stacksmith",
+  "description": "Autonomous infrastructure changes, tested before PR.",
+  "version": "1.0.0",
+  "author": "ByteFlow-Bilisim",
+  "homepage": "https://github.com/ByteFlow-Bilisim/stacksmith",
+  "skills": []
+}
