@@ -1,0 +1,9 @@
+{
+  "name": "roble3--ynm-skill",
+  "displayName": "ynm-skill",
+  "description": "Project-agnostic iterative review with evidence-backed YES, NO, or MAYBE dispositions and mandatory delivery.",
+  "version": "1.0.0",
+  "author": "RobLe3",
+  "homepage": "https://github.com/RobLe3/ynm-skill",
+  "skills": []
+}
