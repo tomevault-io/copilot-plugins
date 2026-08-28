@@ -1,0 +1,9 @@
+{
+  "name": "mindvirusai--mindvirus-viruschain",
+  "displayName": "mindvirus-viruschain",
+  "description": "Virus Chain \u2014 reproduce Mind Viruses experiments: self-propagating goals in multi-agent LLM systems (arXiv:2608.10218).",
+  "version": "1.0.0",
+  "author": "mindvirusAI",
+  "homepage": "https://github.com/mindvirusAI/mindvirus-viruschain",
+  "skills": []
+}
