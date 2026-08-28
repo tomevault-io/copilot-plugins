@@ -7,11 +7,11 @@ An OKF v0.2-compatible starter kit for human-owned, AI-maintained knowledge base
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [martintoft1/llm-knowledge-base-starter](https://github.com/martintoft1/llm-knowledge-base-starter).
+Original source: `AGENTS.md` in [martintoft1/llm-knowledge-base-starter](https://github.com/martintoft1/llm-knowledge-base-starter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
