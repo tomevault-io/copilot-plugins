@@ -1,0 +1,9 @@
+{
+  "name": "siyuvision--sam-workbench-api",
+  "displayName": "sam-workbench-api",
+  "description": "Single-user SAM Workbench API for QuPath. Fork of ksugar/samapi. Weights and portable runtimes are not in this repo.",
+  "version": "1.0.0",
+  "author": "siyuvision",
+  "homepage": "https://github.com/siyuvision/sam-workbench-api",
+  "skills": []
+}
