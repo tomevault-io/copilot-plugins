@@ -1,0 +1,90 @@
+## fsdb
+
+> fsdb is a MySQL-compatible database server in idiomatic F# (.NET 10): the
+
+# AGENTS.md
+
+fsdb is a MySQL-compatible database server in idiomatic F# (.NET 10): the
+MySQL wire protocol against an in-memory engine (bytes → `Command` → AST →
+logical plan → lazy `seq`). Readable F# is the explicit primary goal; raw
+performance is not — don't optimize by default. MySQL 8.4 is the semantic
+oracle for correctness, never sqlite: where a Laravel-app suite diverges from
+its sqlite baseline, fsdb must match real MySQL 8.4.
+
+## Commands (run via `just`, see justfile)
+
+- `just test [Expecto args...]` — full Expecto suite, or a filtered/configured run
+- `just check` — build + test
+- `just run [--port … --listen … --data-dir …]` — start server (default 127.0.0.1:3307)
+- `just client [port=…]` / `just smoke [port=…]` — mysql shell / liveness probe
+- `just coverage` — branch coverage (needs `dotnet tool install -g coverlet.console` once)
+- `just bench` / `bench-features` / `bench-quick` / `bench-durable` /
+  `bench-scale` / `bench-load` / `bench-load-scale` / `bench-comprehensive` —
+  vs MySQL 8.4
+
+Run one test:
+
+```sh
+just test --filter-test-case <Substring>
+# or a full path: --filter "fsdb/<list>/<case>" ; or --run "<full test name>"
+```
+
+## F# compile order is manual (critical)
+
+`src/Fsdb/Fsdb.fsproj` — and the test/torture/benchmark fsprojs — list
+`Compile Include` entries in dependency order; F# has no top-down symbol
+resolution. Add new `.fs` files *before* the files that consume them, or the
+build fails with "not defined".
+
+## Layout
+
+- `src/Fsdb/` — library + executable in one project (`OutputType` Exe).
+  `Foundation/` contains configuration and low-level utilities; `Sql/` owns
+  SQL values, syntax, parsing, and functions; `Engine/` owns storage,
+  catalogs, authorization, persistence, and execution; `Wire/` owns the MySQL
+  protocol and connection lifecycle. `Db.fs` is the public embedding facade
+  and `Program.fs` is the executable entry point. The project file preserves
+  dependency order across these groups.
+- `tests/Fsdb.Tests/` — Expecto unit + wire-level integration tests.
+- `benchmarks/Fsdb.Benchmarks/` — BenchmarkDotNet, fsdb vs MySQL 8.4.
+- `torture/` — **separate solution** (`torture/Fsdb.Torture.slnx`), deliberately
+  NOT in the root solution or root CI/task gates. Differential harness against a
+  MySQL 8.4 oracle. Exit codes: 0 pass/known gaps, 1 infra, 2 new fsdb findings,
+  3 replay drift. Promote fixed bugs into the Expecto suite; never auto-enroll
+  known gaps (`support/known-gaps.json` is hand-reviewed only).
+
+## Conventions and gotchas
+
+- No CI in this repo; verify locally with `just check` (and the torture harness
+  for compatibility work).
+- Connections authenticate against `mysql.user`: the bootstrap account is
+  `root` with no password (`-uroot`, empty password only); an unknown user is
+  a 1045. Text-probed statements (SET/SHOW/KILL/USE) bypass privilege
+  checks — a documented divergence, see docs/compatibility.md.
+- Comment & doc style: `docs/comment-style.md` is the authority — every
+  comment there must survive a KEEP/DELETE/REWRITE grading (why-not-what,
+  `ponytail:` debt markers, no session narration, milestone names, roadmap,
+  or design-doc references in code, comments, or test names). The same rules
+  apply to markdown prose, and docs use words or `[x]` checkboxes for status,
+  never emoji markers.
+- The justfile resolves `mysql`/`mysqld`/`mysqladmin` from PATH (MySQL 8.4 —
+  homebrew's keg-only `/opt/homebrew/opt/mysql@8.4/bin` is the usual source).
+  Benchmarks refuse to share their fsdb port (3307 by default, override with
+  `FSDB_BENCH_PORT`), and spin up throwaway mysqld on 3316/3317 (ad hoc, no
+  brew services).
+- Persistence is opt-in via `--data-dir` (WAL + snapshot); default in-memory.
+  Both halves are binary, no JSON: WAL `wal.bin` = `[len][crc32]` records over
+  `CommitEvent` payloads (CRC torn-tail detection); snapshot `snapshot.fsdb` =
+  self-delimiting binary tree. fsync via libc — `FileStream.Flush(true)` issues
+  `F_FULLFSYNC` on macOS (~5 ms per call) and diverges from MySQL's own macOS
+  durability semantics.
+- Stored rows have stable, non-reused `RowId`s in fixed-size immutable pages.
+  Point writes copy only touched pages; tombstones keep other identities
+  stable, and ordinary .NET reachability retains pages used by snapshots.
+  Indexed updates lock row stripes while full-scan writes and structural
+  changes retain the per-database publication gate.
+- Keep `.slnx` (new XML solution format), not `.sln`.
+
+---
+> Source: [HelgeSverre/fsdb](https://github.com/HelgeSverre/fsdb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
