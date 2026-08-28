@@ -1,0 +1,9 @@
+{
+  "name": "perrylink--dsh-click",
+  "displayName": "dsh-click",
+  "description": "Cross-platform native desktop control for DeepSeek Harness (Windows first): screen_shot, screen_read, click/type/scroll/key, app_list/app_launch - approval-gated, never stealing foreground focus",
+  "version": "1.0.0",
+  "author": "PerryLink",
+  "homepage": "https://github.com/PerryLink/dsh-click",
+  "skills": []
+}
