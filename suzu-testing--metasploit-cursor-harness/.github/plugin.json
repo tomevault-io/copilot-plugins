@@ -1,0 +1,9 @@
+{
+  "name": "suzu-testing--metasploit-cursor-harness",
+  "displayName": "metasploit-cursor-harness",
+  "description": "Agentic penetration testing harness bridging Cursor AI agents with Metasploit Framework via MCP",
+  "version": "1.0.0",
+  "author": "Suzu-Testing",
+  "homepage": "https://github.com/Suzu-Testing/metasploit-cursor-harness",
+  "skills": []
+}
