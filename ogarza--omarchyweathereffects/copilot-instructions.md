@@ -1,20 +1,33 @@
-## ogarza-weather
+## shaders
 
-> ogarza.weather plugin conventions
+> Fragment shader overlay conventions
 
 
-# ogarza.weather
+# Shaders
 
-Read `AGENTS.md` before non-trivial edits. Keep replies and diffs small.
+- `#version 440`, `qt_TexCoord0` (y=0 top), `fragColor` premultiplied.
+- Copy the existing `layout(std140, binding = 0) uniform buf` from another `.frag`; do not drop unused uniforms. Keep `float quality` last (0 low … 3 extreme). Field order must match `WeatherLayer` (`sheen`, then `lightning` / `frequency` / `azimuth` / `sunDistance` / `night` / `nightTint` / `nightStrength`).
+- `resolution` is framebuffer pixels (DPR × quality scale). Size features with `1.0 / resolution.y` (or `fwidth`) so they stay stable on HiDPI and downscaled quality. `qt_TexCoord0` is still 0–1.
+- Time: `time * <baseline> * max(speed, 0.0)`. Fog baseline ~`0.175`; sunny ~`3.5`.
+- Fog = FBM clouds only. No extra ground/top mist unless asked.
+- Prefer wiring unused uniforms (`scale`, `glow`, `density`, …) before adding new std140 fields.
+- Rebuild: service `scanShaders` / `/usr/lib/qt6/bin/qsb --qt6 -o file.frag.qsb file.frag`.
 
-- Persist via `loadPersisted` / `persistSettings` only (including `quality`, `hyprEnabled`, and `hyprBaseDamage`). Never write `/usr/share/omarchy/` or `~/.config/hypr/`.
-- Mode `none` is default. Follow/Exclusive never select `fire`, `rainbow`, or `custom`.
-- Follow: `locationReady` then Open-Meteo (coords) or wttr. WMO `0` is sunny (`parseWeatherCode`, not `code || ""`).
-- Compositor: fade `overlayFromPreset` → `overlayToPreset`. Follow 10s, panel 2s. Mixes = two or three slots. Quality downscales the layer stack except Extreme. Rain/stormy refract / sunny-fire haze: `HyprShader.js` → Hyprland `screen_shader` (`tex`/`time`) when `hyprEnabled`; skip painted rain when `kind` contains `rain`. Scan sibling plugin folders for `screen_shader` and warn on the panel.
-- Shaders: premultiplied `vec4(rgb * a, a) * qt_Opacity * strength`. Keep the std140 uniform block in sync. Stormy: no arrays / baked bolt tables (blank overlay); see `shaders.mdc`.
-- Panel params: columns from `fieldsForVisualLayer` / `fieldsForPanel`. Follow → live `weatherPreset`; Exclusive → `exclusivePreset`. Mixes and singles expand one column per layer (optional rainbow last). Custom: stacked A/B/C pickers (`none` is off).
-- New weather types: `Model.js` modes + maps + params; `Service.qml` only if compositor/fetch changes.
-- Docs: README + CHANGELOG + manifest version when behavior changes.
+Hyprland `decoration.screen_shader` is a separate path (`HyprShader.js`, `#version 300 es`). Do not feed those sources through `qsb` or the Qt std140 block.
+
+## Qt overlay runtime (hard)
+
+`qsb` succeeding is **not** enough. If the live ShaderEffect rejects the stage, the **whole overlay is blank** (storm rain disappears too). Revert to the last scalar `boltPoint` / `strokeChannel` path in `stormy.frag` rather than iterating.
+
+Do **not** use in these `.frag` files (confirmed to blank Stormy on this stack):
+
+- Writable global or local `vec2` arrays, `inout vec2 pts[N]`
+- Midpoint-displacement that walks integer intervals / early-returns (`evalBoltPt`)
+- Large `const float[]` / `const vec2[]` tables with a dynamic index (prebaked bolts)
+
+Stay on scalars, `vec2`, and small fixed-count loops (the existing 5-octave `boltPoint` + 16-segment stroke). Do not port Shadertoy bolt builders that store polylines.
+
+A library of shapes would need data **outside** the fragment shader (e.g. a texture atlas). Do not try more GLSL storage tricks for lightning.
 
 ---
 > Source: [ogarza/omarchyweathereffects](https://github.com/ogarza/omarchyweathereffects) — distributed by [TomeVault](https://tomevault.io).
