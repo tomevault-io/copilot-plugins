@@ -1,0 +1,107 @@
+## m2shelf
+
+> This file contains stable rules for every coding agent that works in this repository. It is not a copy of any one delivery request.
+
+# M²Shelf Agent Guide
+
+This file contains stable rules for every coding agent that works in this repository. It is not a copy of any one delivery request.
+
+## Read first
+
+For a fresh account, machine, or agent, read in this order before changing code:
+
+1. `AGENTS.md`
+2. `docs/PRODUCT_SPEC.md` — intended product behavior
+3. `docs/PROJECT_CONTEXT.md` — the implementation that exists now
+4. `docs/DECISIONS.md` — decisions that must not be silently reversed
+5. the user's current request
+6. the code and migrations related to that request
+
+Repository documents, code, and tests are the durable source of context. Do not assume access to an earlier chat, Codex Memory, or another agent's private state.
+
+## Product identity
+
+- User-facing brand: **M²Shelf**
+- Technical / ASCII name: **M2Shelf**
+- Subtitle: **MORI MEDIA SHELF**
+- Product: a Windows, local-first media collection browser and manager
+- Use `M²Shelf` in ordinary UI. `M2Shelf` is allowed for executable, archive, package, identifier, and other technical names.
+
+## Non-negotiable product rules
+
+- Treat every user media root as read-only. Never rename, move, delete, rewrite, or create files in it.
+- A display-name change updates M²Shelf's SQLite data only; it never changes a real file or folder name.
+- Bangumi data belongs to the metadata and presentation layer. It never renames source media.
+- A completed scan or an explicit “match existing resources” action may auto-bind an unbound, Bangumi-eligible Node after structured title evidence, at most three official search queries, bounded multilingual candidate scoring, and bounded detail enrichment when needed. Bind the highest-scoring candidate once it reaches the configured direct threshold and has no strong season/year/edition/type conflict; there is no user-visible Pending tier or score-margin gate, and provider rank is the deterministic final tie-breaker. The first eligible result of the primary official query may be raised to the direct threshold but never bypasses a hard conflict or the Container exact-primary rule. Only Bangumi animation (Subject type 2) and live-action (Subject type 6) entries are eligible. A Container must additionally match its primary title exactly. Merge the bounded multi-query candidate pool fairly instead of letting an earlier query consume it. In one matching run, enrich at most the five strongest candidates per Node, reuse cached Subject details, and start no more than 256 new detail requests in total; when the remaining budget permits, reserve at least one uncached detail opportunity for each later Node, then continue from bounded search metadata after exhaustion. Never replace an existing binding or manual cover in the ordinary automatic path, and keep manual search available for correction. Only the user's explicit “rematch selected” action may replace an existing Bangumi binding after the same direct and hard-conflict gates; it still never replaces a manual cover. A non-manually-classified supplementary child such as SP/OVA/Extras under a parent with direct videos is structurally excluded from automatic candidates, while manual Bangumi binding remains available.
+- An explicit manual Bangumi choice may store bounded, cleaned title evidence from that Node as application-owned confirmed aliases. Automatic bindings must never create confirmed aliases. A later automatic match may reuse the first evidence-priority alias whose own stored observations all agree on one supported Bangumi Subject; disagreement for that alias is ambiguous and must fall back to ordinary official search. Preserve meaningful season/year qualifiers in these aliases. The recalled Subject gets bounded official-detail priority, while ordinary official queries remain available if it is stale, conflicted, or unavailable. Confirmed aliases provide exact title evidence only and must not fabricate provider season/year/edition signals. Alias reuse still passes the current Node's hard-conflict and Container safeguards, never sends the alias to a new third-party service, and is removed with its source Node or when that source binding is cleared or replaced.
+- Keep a valid Bangumi binding when cover retrieval fails, expose that failure, and allow an explicit retry. If an automatic cover was cleared or its cached file disappeared, an ordinary scan/match pass may restore only that cover from the retained binding URL; it must not search again, replace the binding, or override a manual cover.
+- Store downloaded and manually selected covers only in the application-owned cache.
+- Non-video files are resources attached to a Node. They do not become works, Bangumi candidates, or project-count entries merely because they exist.
+- Work / Container / Mixed classification remains video-distribution based and must preserve manual overrides across rescans.
+- Every Library Root has an immutable recognition mode chosen when it is added. `FOLDER` preserves the directory tree and existing classification logic. `VIDEO_FILE` recursively indexes each ordinary video as one flat, independently bindable Work beneath the hidden Root Node; a BDMV tree remains one Work instead of one card per stream. Existing databases default to `FOLDER`, and a file-Node rescan request is upgraded to a safe whole-Root scan.
+- Show the player feature as “播放器” in UI. The compatible internal setting name `mpv_path` may remain, and mpv may be mentioned as an example.
+- Use the Windows/system UI font stack. Do not bundle or redistribute `.ttf`, `.otf`, or `.ttc` files.
+- The canonical active M² artwork is `src-tauri/icons/icon-source.png`, created from the user-provided `logo-input-original.png` by making only the four black corner backgrounds transparent. Keep that prepared source byte-for-byte unchanged and derive active PNG / ICO sizes only by full-frame proportional scaling: do not crop, trace, redraw, recolor, sharpen, rearrange, or alter its rounded outline, gradient, glow, or lettering.
+- Keep user-facing copy in the typed i18n resources. The supported interface locales are `zh-CN`, `en-US`, `ja-JP`, and `ko-KR`; changing locale must never change source names or paths.
+- A bound title uses the current locale, then Chinese, the Bangumi main title, the database display name, and the real folder name in that order. Container series suffixes are localized presentation only.
+- Theme changes use shared semantic CSS variables and support `system`, `light`, and `dark`; do not implement dark mode as a color inversion.
+- A custom cover cache must be outside every Library Root and must never turn cache cleanup into deletion of unrelated user files. Keep old cached covers readable after switching roots; do not silently migrate or delete them.
+- User tags are application-owned many-to-many metadata. Preserve them across rescans, keep single and batch tag edits out of source media trees, and keep user tags visually distinct from the three automatic card labels: Work, Series, and Other resources. Batch edit operations must validate and commit their selected Node set transactionally.
+- Favorites are application-owned, one-level named collections beneath the sidebar Favorites entry. A Node may belong to multiple favorites; preserve membership across rescans, remove it only through explicit user actions or normal Node foreign-key cleanup, and validate batch membership changes transactionally without writing into media roots.
+- Recently watched is application-owned Node history. Record it only after the configured player process is successfully spawned, keep one latest timestamp per Node, remove it only through normal SQLite foreign-key cleanup when that Node index is removed, and never infer it from or write it into source media.
+- Opening a new detail starts at the top. Returning through the app, `Alt+Left`, or WebView/system history restores the previous scroll, filter, sort, and grid/list state when a snapshot exists. Sidebar browsing destinations keep separate in-session snapshots (`all`, `search`, `recent`, `favorites`, and each Library Root); switching away and back restores that destination instead of resetting it, while History remains a separate chronological trail. Library and Favorites section restores must rehydrate current indexed rows so navigation state cannot overwrite newer scans or metadata edits. Asynchronous collection loaders must commit and clear loading state only for their latest request generation; do not let an older response overwrite a newer scan, binding, rename, or navigation result.
+- All Resources, Library Browse, and Favorites persist their latest sort choices independently in the application-owned SQLite `settings` key/value table. These navigation preferences stay separate from complete Settings-page `AppSettings` snapshots and never modify Node metadata or source media.
+- Poster artwork must use the shared bounded, DPR-aligned high-quality resampling path without translating the image-bearing frame onto a transformed compositor layer. Keep the source cache unchanged, cap render/request concurrency and DPR, and progressively downscale large artwork. Lazy poster observers must use the real internal scroll container as their root and preheat before artwork becomes visible. Do not release a loaded poster merely because it went off-screen, a timer elapsed, or its page temporarily unmounted: retain exact source previews across route remounts in the 128-entry/32 MiB data-URL LRU, and let already queued reads finish under the four-request concurrency gate so they warm that cache. A superseded per-Node revision may settle but must never re-enter either current display path. Retain final resampled ImageBitmaps in a separate cross-page LRU capped by both 128 entries and 128 MiB so returning visible cards can synchronously repaint their high-quality Canvas during layout. Manage mounted high-DPR Canvas backing stores in the shared 64-entry target working set; over capacity, evict only the oldest poster outside the retention zone and keep its lightweight cached preview visible, allowing a temporary soft overage while more than 64 cards remain inside the retention zone. Exact source-cache eviction must notify released mounted cards so stale data-URL references cannot grow without bound. The main grid, details, and search results share this path. Clearly landscape or near-square provider artwork is contained inside the portrait frame instead of being aggressively cropped and upscaled; ordinary portrait covers remain edge-to-edge.
+- The stable updater accepts only a strictly newer canonical `major.minor.patch` version from the fixed M²Shelf GitHub Release `latest.json`. If that fixed URL returns 404 only after GitHub redirects it to this repository's exact `v{version}/latest.json` path, the tag may be used solely to report “no update” when it is not newer than the client; a newer tag without the signed manifest must still fail closed. Startup auto-check may notify, but it must never download or install without an explicit user action. Update copy and release notes remain available in all four supported locales.
+- Every update artifact must use its exact versioned Windows x64 filename and pass declared-size, SHA-256, and Ed25519 verification bound to the application ID, version, platform, size, and digest before execution or replacement. Never weaken this to a hash supplied by the same unauthenticated manifest, allow downgrade/prerelease versions, or accept arbitrary release URLs.
+- Portable replacement remains transactional: acquire the SQLite single-writer barrier before the rollback snapshot and retain it through old-process exit; have the packaged trusted helper own the separate Windows update mutex; seal and reverify the archive before the running app exits; require the helper-ready handshake; prevent an ordinary second launch during replacement; permit mutex bypass only for the new-version child whose canonical transaction ID is authenticated against the exact active transaction, current executable/version, and `Launched` phase; record and revalidate the snapshot size/SHA-256/`quick_check`; fully preflight and isolate live WAL/SHM sidecars before atomic restore; replace `M2Shelf.exe` last; require the exact-version health receipt plus the complete three-second survival observation; and roll files/database back on handled failure. On success, persist terminal `Completed` while retaining transaction material, finish validated cleanup, and only then clear preservation; startup must resume an interrupted `Completed` cleanup. An abnormally interrupted non-terminal transaction must be marked `RECOVERY_REQUIRED` without guessing an unsafe rollback. Recovery notices remain localized and durable until explicit acknowledgement; media roots are never part of an update transaction.
+- Keep existing behavior compatible unless a current requirement explicitly changes it. Avoid unrelated large refactors.
+
+## Engineering constraints
+
+- Inspect the real data model and call paths before implementing a document's example literally.
+- Every database schema change requires an additive migration that upgrades existing databases without discarding bindings, custom names, covers, settings, or manual type overrides.
+- Scanner changes must be checked against classification, partial scan/ancestor refresh, stale-row cleanup, cancellation, Unicode paths, and the source-read-only boundary.
+- All database access stays in Rust; the WebView uses typed Tauri commands and has no direct SQL or broad filesystem/process permission.
+- Pass paths to native processes as literal arguments. Never interpolate media paths into a shell command. Generic player launch receives exactly the media path; do not prepend mpv-specific options such as `--` to other players.
+- On Windows, revealing a file means selecting that exact file through the native Shell API; Unicode, spaces, brackets, and other path characters must remain literal. Keep the explicit multi-frame ICO and Per-Monitor V2 manifest wiring intact. The 256×256 ICO entry must remain first because Tauri decodes the first frame as its runtime default window/taskbar icon; retain the remaining 128/64/48/32/24/16 frames for Windows resource selection.
+- Keep Bangumi network access explicit, TLS-verified, bounded, and restricted to approved official hosts. Bound search/detail JSON bodies, make only a bounded transient/429 retry with capped `Retry-After`, and stop multiplying one provider-wide search failure across the rest of an automatic matching run.
+- Treat the updater cache as application-owned: its root and every writable or enumerable subdirectory must be a plain, non-reparse directory whose resolved path remains outside every Library Root. Cleanup must remove only strictly recognized updater-owned files and must never recursively delete through a link or untrusted directory.
+- UI changes should extend the established layout and accessibility patterns; check both the default window and the minimum supported window.
+- For i18n/theme changes, check every supported locale, both resolved themes, native dialog labels, ARIA/title text, and system-theme changes while the app is open.
+- When user-facing copy changes, audit the repository for the `M²Shelf` brand and generic “播放器” terminology.
+- Do not commit secrets, access tokens, personal filesystem paths, private chat transcripts, or full copies of one-off requirement documents to project context files.
+- Keep public repository history privacy-safe: use a GitHub `noreply` author address, and do not commit screenshots that expose personal paths, library contents, account details, or machine-specific data.
+- Build public Windows artifacts through `scripts/build_windows_release.ps1` and verify that the final executable and unpacked Portable payload do not contain the builder's user-profile or workspace path before upload.
+- Keep the active daily-signing copy of the production update seed only as the password-encrypted `M2Shelf-Production-Key/encrypted-private-key.m2key` on removable storage; do not bind it to one Windows user or computer, and do not copy it into the repository or everyday development storage. The legacy DPAPI file remains an offline recovery copy until its retirement is explicitly approved, but is not part of daily signing. `tools/portable-key-tool` is a separate, non-distributed utility. Its long-term commands are `verify-key` and `sign-release`; `scripts/sign_update_from_usb.ps1` is the normal signing entry point. The one-time `migrate-dpapi` command may convert the existing CurrentUser-DPAPI seed without changing it, deleting it, changing the public key, or changing the signing protocol, but any operation on a real production seed requires the project owner's new explicit confirmation. Agents may compile and test this flow only with synthetic keys and must never locate, read, migrate, decrypt, or sign with the real production key. Password and decrypted seed stay inside the Rust process, are never passed through environment variables, command arguments, logs, or temporary files, and are zeroized after use. The distributed `M2ShelfUpdater.exe` still exposes no key generator; `tools/offline-key-init` remains historical bootstrap tooling and is not part of daily release signing. GitHub Actions only builds a pinned, unsigned candidate whose JSON provenance is informational; production signing still requires a trusted attestation or independently rebuilt candidate hashes, and publication still uses the fail-closed repository scripts. Never regenerate the production seed or replace `src-tauri/update-public-key.txt` except through an explicitly confirmed key-rotation procedure.
+- The pushed `v0.5.8` tag is an immutable failed-CI marker, `v0.5.9` is an immutable unpublished marker created before the final settings and movie-matching fixes, and `v0.5.10` is an immutable unpublished marker created before the final matching fixes and production-key rotation. None has a GitHub Release, assets, or `latest.json`; never move, reuse, or treat them as updater authorization. `0.5.11` is the designated first updater bootstrap version and may be described as public only after its newly rooted, signed Release actually exists. A client on `0.5.7` or earlier, and any privately distributed old-key test build, cannot acquire that bootstrap through a compatible updater and must install the `0.5.11` Release manually once. Do not claim otherwise in UI or release notes.
+
+## Required verification
+
+After relevant changes, run the applicable full gate and fix failures before handoff:
+
+```text
+npm run typecheck
+npm run build
+npm run validate
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo test --manifest-path src-tauri/Cargo.toml --locked
+cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --locked -- -D warnings
+```
+
+For a release, also build the Tauri binary, NSIS installer, updater helper, and versioned Windows x64 Portable archive; verify executable versions, helper identity, icon, privacy scan, checksums, signatures, manifest/provenance, and smoke-test launch. Follow `docs/UPDATE_RELEASE_PROCESS.md`; never sign in GitHub Actions or modify an already published release. Document any test that genuinely cannot run; never leave a known compile or type error for the next agent.
+
+## Keep durable context current
+
+At the end of each development round, decide whether the work changed stable behavior, architecture, data shape, commands, build steps, or release state. If it did:
+
+- update `docs/PRODUCT_SPEC.md` when intended product behavior changed;
+- update `docs/PROJECT_CONTEXT.md` when actual implementation or build state changed;
+- update `docs/DECISIONS.md` when a long-lived decision was added or deliberately reversed;
+- update this file only when every future agent needs a new stable rule.
+
+If a later requirement reverses a recorded decision, update the code and decision record together and explain the reason. Never leave documentation knowingly describing an obsolete implementation.
+
+---
+> Source: [Undermori/M2Shelf](https://github.com/Undermori/M2Shelf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
