@@ -1,0 +1,9 @@
+{
+  "name": "codephobiia--claude-roblox-game-studio",
+  "displayName": "claude-roblox-game-studio",
+  "description": "Turn Claude Code into a Roblox-native game development studio \u2014 36 agents, 50 skills, 201-page Luau wiki, Studio MCP, Blender MCP, and a coordination system built for Roblox publishing.",
+  "version": "1.0.0",
+  "author": "CodePhobiia",
+  "homepage": "https://github.com/CodePhobiia/claude-roblox-game-studio",
+  "skills": []
+}
