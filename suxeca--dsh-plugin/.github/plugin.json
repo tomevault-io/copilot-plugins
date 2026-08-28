@@ -1,0 +1,9 @@
+{
+  "name": "suxeca--dsh-plugin",
+  "displayName": "dsh-plugin",
+  "description": "DSH \u4f1a\u8bdd\u5207\u6362\u9762\u677f\u63d2\u4ef6\uff08Ctrl+K / Ctrl+[ ]\uff0cnpm \u53ef\u88c5\uff09+ \u63d2\u4ef6\u5f00\u53d1\u6a21\u677f",
+  "version": "1.0.0",
+  "author": "Suxeca",
+  "homepage": "https://github.com/Suxeca/dsh-plugin",
+  "skills": []
+}
