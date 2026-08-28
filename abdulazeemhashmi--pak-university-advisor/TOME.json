@@ -1,0 +1,44 @@
+{
+  "name": "pak-university-advisor",
+  "owner": "AbdulAzeemHashmi",
+  "repo": "pak-university-advisor",
+  "description": "A bilingual (English/Urdu) web app helping Pakistani students find the best university based on budget, location, and degree.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AbdulAzeemHashmi/pak-university-advisor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T20:36:21Z"
+}
