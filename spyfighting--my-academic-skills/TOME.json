@@ -4,7 +4,7 @@
   "repo": "my-academic-skills",
   "description": "Agent skills for research work. Gated, human-in-the-loop protocols where every expert judgement is a checkpoint and every mechanical rule is a script. First skill: binder-design-campaign.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SPYfighting/my-academic-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T09:01:57Z"
+  "distributed_at": "2026-08-28T14:47:25Z"
 }
