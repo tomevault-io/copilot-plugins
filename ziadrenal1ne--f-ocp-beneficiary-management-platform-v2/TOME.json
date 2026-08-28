@@ -1,0 +1,44 @@
+{
+  "name": "F-OCP-beneficiary-management-platform-V2",
+  "owner": "ziadrenal1ne",
+  "repo": "F-OCP-beneficiary-management-platform-V2",
+  "description": "update of Full-stack platform for managing beneficiary data across 1,700+ Moroccan cooperatives \u2014 reporting, ESG tracking, ODD monitoring, and interactive mapping.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ziadrenal1ne/F-OCP-beneficiary-management-platform-V2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T21:22:36Z"
+}
