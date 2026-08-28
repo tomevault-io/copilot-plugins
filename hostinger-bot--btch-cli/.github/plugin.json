@@ -1,0 +1,9 @@
+{
+  "name": "hostinger-bot--btch-cli",
+  "displayName": "btch-cli",
+  "description": "An open-source coding agent for the btch API",
+  "version": "1.0.0",
+  "author": "hostinger-bot",
+  "homepage": "https://github.com/hostinger-bot/btch-cli",
+  "skills": []
+}
