@@ -1,29 +1,32 @@
-## adapters
+## frontend-react
 
-> Adapter-per-source pattern for parsing local AI CLI session data into Usage Records
+> React/TypeScript frontend conventions for the ai-usage-stats webview UI
 
 
-# 适配器（Adapter-per-Source）
+# 前端约定（React + TypeScript + ECharts）
 
-背景：`docs/adr/0001-adapter-per-source-architecture.md`。每个 Source 的本地存储格式互不相同（jsonl / zstd 压缩 jsonl / sqlite / 每消息一个 json），新增或修改一个工具只应改动它自己的 Adapter。摄取模块不认识任何具体来源：扫描、发现、辅助指纹、解析与设置页文案都登记在 `USAGE_ADAPTERS` 表里。
+## 类型安全
 
-## 新增一个 Source 的步骤
+- `tsconfig.json` 已开启 `strict`、`noUnusedLocals`、`noUnusedParameters`；禁止使用 `any`，禁止用 `as any` 逃逸类型检查
+- `src/types.ts` 里的类型手动对应 Rust `domain.rs` 的 DTO（字段名保持 `snake_case`，和后端序列化一致，不要转成 camelCase）；改了 Rust DTO 字段必须同步改这里
+- 组件 props 用内联对象类型或就近的 `type`，不需要为每个组件单独建 `.types.ts` 文件
 
-1. 在 `domain.rs::Source` 枚举、`Source::ALL`、`as_str`、`application_name`、`parse` 中加入新变体
-2. 在 `adapters/` 下新增 `xxx.rs`，实现该来源的 `scan_dirs` / `discover` / `parse`（以及可选的 `sidecar_fingerprint`、`prepare_dir`、`display_dirs`、`detected`），并在 `adapters/mod.rs` 声明 `pub mod xxx;`
-3. 在 `adapters/mod.rs` 的 `USAGE_ADAPTERS` 表加一行：登记扫描目录、发现、解析、是否追加型日志、覆盖说明。漏填会让表完备性测试失败
-4. 在 `src-tauri/tests/fixtures/` 添加最小化脱敏 fixture，并在 `tests/adapters.rs` 写对应单测（参照 `codex_adapter_counts_last_token_usage_not_cumulative`）
-5. 若新增/修改了归一化规则，必须递增 `store.rs::ADAPTER_VERSION`（见 ingestion-cache 规则），否则旧缓存不会重新解析
+## 组件规范
 
-不要在 `ingest.rs` 里按来源加分叉。摄取模块只负责可信摄取语义（发现、比指纹、解析、验证、落库、对账、同步预聚合）。
+- 单个组件文件不超过 400 行；超出时按职责拆分子组件（放进 `src/components/`）或把纯逻辑抽到 `src/lib/`
+- 组件是函数组件 + hooks，不使用 class component；跨组件复用的状态提升到 `App.tsx`，通过 props 下发，没有引入全局状态库（Redux/Zustand），不要新增
+- 纯格式化/计算函数放 `src/lib/format.ts`，图表配色/主题放 `src/lib/chartTheme.ts`，价格预设放 `src/lib/pricePresets.ts`；新增同类工具函数放进对应文件而不是散落在组件里
 
-## 编写 Adapter 时的注意事项
+## 样式
 
-- 用 `adapters::{parse_jsonl_values, i64_field, text_field, finish}` 等共享工具函数，不要在每个 adapter 里重复实现字段提取逻辑
-- 每种工具都要弄清楚它是「累计用量」还是「单轮用量」，只取其一，避免重复计数（例：Codex 同时暴露 `total_token_usage` 与 `last_token_usage`，适配器只用 `last_token_usage` 并对相同 usage 指纹去重，见 `codex.rs`）
-- 会话/项目路径等元信息通常来自目录名而非 payload，优先复用 `adapters/project.rs` 的 `decode_dashed_dir`/`decode_url_dir`/`project_from_source_file`
-- 本机 token 字段格式不确定的来源（如新加的工具）应先用 `src-tauri/src/bin/probe.rs` 探测真实字段结构，再落地为 adapter；探测结果只打印字段位置，不能打印会话正文
-- Cursor 只有代码量数据、amp 等云端数据不纳入 Usage Record 模型，走独立的 `CodeVolumeSummary` 路径（`ingest.rs::load_code_volume`），不要把这类数据强塞进 token 聚合
+- 项目样式集中在单个 `src/styles.css`，用 CSS 自定义属性（`--bg`、`--purple`、`--cyan` 等）做主题色，**没有引入 Tailwind CSS**；新样式沿用「CSS 变量 + BEM 风格 class 名」的既有写法，不要引入新的样式方案（CSS-in-JS、Tailwind、CSS Modules）
+- 深色主题是唯一主题（`color-scheme: dark`），不需要考虑浅色模式适配
+
+## 与 Tauri 后端通信
+
+- 统一通过 `@tauri-apps/api/core` 的 `invoke("command_name", { ... })` 调用 Rust command，参数字段名与 Rust `#[tauri::command]` 签名的参数名一致
+- IPC 失败要按 `App.tsx::humanStatus` 的既有模式转成可读中文提示，不要把原始 error 对象直接展示给用户
+- 图表统一用 `echarts-for-react`，配色/tooltip 格式通过 `lib/chartTheme.ts` 复用，不要在组件里内联一套新的配色逻辑
 
 ---
 > Source: [qqzhangyanhua/mabiao](https://github.com/qqzhangyanhua/mabiao) — distributed by [TomeVault](https://tomevault.io).
