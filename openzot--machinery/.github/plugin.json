@@ -1,0 +1,9 @@
+{
+  "name": "openzot--machinery",
+  "displayName": "machinery",
+  "description": "A software factory that makes machines: every shift, zot designs and builds one working control panel for a machine that does not exist, with its manual, and ships it unreviewed.",
+  "version": "1.0.0",
+  "author": "openzot",
+  "homepage": "https://github.com/openzot/machinery",
+  "skills": []
+}
