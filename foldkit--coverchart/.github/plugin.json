@@ -1,0 +1,9 @@
+{
+  "name": "foldkit--coverchart",
+  "displayName": "coverchart",
+  "description": "A Foldkit app for writing chord charts with lyrics.",
+  "version": "1.0.0",
+  "author": "foldkit",
+  "homepage": "https://github.com/foldkit/coverchart",
+  "skills": []
+}
