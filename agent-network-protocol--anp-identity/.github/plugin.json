@@ -1,0 +1,9 @@
+{
+  "name": "agent-network-protocol--anp-identity",
+  "displayName": "anp-identity",
+  "description": "anp-identity",
+  "version": "1.0.0",
+  "author": "agent-network-protocol",
+  "homepage": "https://github.com/agent-network-protocol/anp-identity",
+  "skills": []
+}
