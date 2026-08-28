@@ -1,0 +1,44 @@
+{
+  "name": "ppt-lai",
+  "owner": "astro-koko",
+  "repo": "ppt-lai",
+  "description": "\u8ba9\u4f20\u7edf PPT \u5236\u4f5c\u6280\u827a\u5728 AI \u65f6\u4ee3\u7ee7\u7eed\u53d1\u5149\uff1a\u4e00\u4e2a\u751f\u6210\u4e0e\u7ffb\u65b0\u5343\u79a7\u5e74\u98ce\u683c\u6f14\u793a\u7a3f\u7684 AI Skill\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/astro-koko/ppt-lai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:46:36Z"
+}
