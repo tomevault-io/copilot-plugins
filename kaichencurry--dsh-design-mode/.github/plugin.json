@@ -1,0 +1,9 @@
+{
+  "name": "kaichencurry--dsh-design-mode",
+  "displayName": "dsh-design-mode",
+  "description": "Agentic image Design Mode for DeepSeek Harness: infinite canvas, ask_user clarification, image tools, comments, and provider routing.",
+  "version": "1.0.0",
+  "author": "KaichenCurry",
+  "homepage": "https://github.com/KaichenCurry/dsh-design-mode",
+  "skills": []
+}
