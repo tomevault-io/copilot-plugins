@@ -1,0 +1,9 @@
+{
+  "name": "robertoecf--openfindata",
+  "displayName": "OpenFinData",
+  "description": "Dados Financeiros Abertos \u2014 infraestrutura open source para dados financeiros p\u00fablicos do Brasil via API REST, MCP, CLI e Python.",
+  "version": "1.0.0",
+  "author": "robertoecf",
+  "homepage": "https://github.com/robertoecf/OpenFinData",
+  "skills": []
+}
