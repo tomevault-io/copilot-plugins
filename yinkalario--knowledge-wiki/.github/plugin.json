@@ -1,0 +1,9 @@
+{
+  "name": "yinkalario--knowledge-wiki",
+  "displayName": "Knowledge-Wiki",
+  "description": "A long-lived personal research knowledge base inspired by Andrej Karpathy's LLM Wiki idea.",
+  "version": "1.0.0",
+  "author": "yinkalario",
+  "homepage": "https://github.com/yinkalario/Knowledge-Wiki",
+  "skills": []
+}
