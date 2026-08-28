@@ -4,7 +4,7 @@
   "repo": "oh-my-vibecode",
   "description": "React Router 8 \u00d7 Cloudflare Workers starter \u2014 auth, D1, streaming SSR and a green test harness on day one. Built to be cloned and extended by AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/craftowen/oh-my-vibecode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:16:01Z"
+  "distributed_at": "2026-08-28T18:56:14Z"
 }
