@@ -1,130 +1,122 @@
-## f2s-topic-authoring
+## flow2spec-deepseek-harness
 
-> Flow2Spec 主题创作准则：topic 命名 / 骨架 / topicMetadata / topicDependencies 判定 / rule 是否需建对应 topic / 写盘权属指针
+> 本文件由 `flow2spec init` 写入仓库根 **`./AGENTS.md`**，作为 Codex 读取的项目入口。**`./.codex/AGENTS.md`** 仅为指针。知识库根目录为 **`./.Knowledge/`**。
 
-# Flow2Spec 主题创作准则（Topic Authoring）
+# Flow2Spec 项目入口
 
-本条为 **创作侧** 单一事实源；凡 `f2s-*` 技能在新增或修改 `.Knowledge/topics/<topic>.md`、调整 `manifest-routing.topicMetadata` / `manifest-routing.topicDependencies`、删除 / 迁移 topic 时，**必须先 Read 本条全文**，再按对应 SKILL 的步骤继续。与 `f2s-flow2spec-unified-entry`（消费侧）**并存**；硬冲突时以统一入口为准。
+本文件由 `flow2spec init` 写入仓库根 **`./AGENTS.md`**，作为 Codex 读取的项目入口。**`./.codex/AGENTS.md`** 仅为指针。知识库根目录为 **`./.Knowledge/`**。
 
-## 适用范围
+## 先做这两步
 
-满足下列任一即「触达本条」：
+1. **本轮首次处理当前仓库相关问题时，先读 `./.Knowledge/manifest-routing.json`。**
+2. **执行任何 `f2s-*` 技能前，先 `Read("flow2spec.config.json")`。**
 
-- 新增或重写 `.Knowledge/topics/<topic>.md`；
-- 修改既有 topic 的标题 / 适用场景 / 关键流程边界；
-- 新增、删除或调整 `manifest-routing.topicMetadata`；
-- 在 `manifest-routing.topicDependencies` 中新增、删除或调整依赖边；
-- 在 `taskToTopicRules[].topics` 中新增引用某个 topic id；
-- 删除或迁移 topic（`f2s-kb-rm` / `f2s-kb-migrate` / `f2s-kb-upgrade`）。
+```text
+必须执行：Read(".Knowledge/manifest-routing.json")
+必须执行：Read("flow2spec.config.json")  ← 仅在进入 f2s-* 技能前
+```
 
-## 1. topic 命名
+禁止在未读 `flow2spec.config.json` 的情况下进入 `f2s-*` 技能正文。
 
-- **id**：`kebab-case`，与 `manifest-routing.topicPaths` 的 key 一致。
-- **文件名**：`.Knowledge/topics/<topic-id>.md`；若该 topic 与同名 `f2s-*` 技能 / 规则强绑定（如 `f2s-task` / `f2s-req-plan`），文件名可加 `f2s-` 前缀以示同源。
-- **不要**：版本后缀（`-v2` / `-new`）、个人花名、与 `index.md` 行级标题冲突的同义词。
+## 配置开关（以磁盘为准）
 
-## 2. topic 定位与正文骨架
+下表只说明字段语义与 `flow2spec init` 写入的默认值；配置真值仍以本轮 `Read("flow2spec.config.json")` 结果为准（用户可能手工改过）。
 
-**topic 的定位**：可执行路由摘要 + 关键边界。topic 可以包含必要的边界说明、关键流程步骤、禁止项、配置摘要——Agent 读完即可执行或判断是否需要继续下钻；**不应承载**完整实现细节、长文背景或可在 stock-doc 里查的原始内容。stock-doc 承载完整背景与长文细节，topic 指向它。
+| 配置项 | init 默认 | 说明 |
+| --- | --- | --- |
+| `subAgent` | `true` | 技能正文写明某步可用子 agent 时，`true` 才允许拆子；`false` 一律主会话完成。用户「动态判断谁用子 agent」仅当本项为 `true` 时有效。 |
+| `switchAgentVerification` | `true` | 切换 agent 校验。仅当本项为 `true` 且当前技能正文明确绑定该字段时启用交叉校验；否则仍是谁落盘谁自验。旧键 `subAgentVerification` 仍可被解析。 |
+| `intentRecognition` | `true` | `true` 时可按 `f2s-intent-routing` 对高置信操作意图自动进入对应 `f2s-*` 技能；`false` 或缺失时不自动分流。 |
+| `changeTracking.feat` | `true` | `true` 时 `f2s-kb-feat` 步骤 0 必须创建/续作 `.task/active/` 变更追踪任务；`false` 时跳过。 |
+| `changeTracking.fix` | `false` | `true` 时 `f2s-kb-fix` 步骤 0 必须创建/续作 `.task/active/` 变更追踪任务；`false` 时跳过。 |
+| `changeTracking.implement` | `true` | `true` 时 `f2s-implement-tech-design` 写入任务清单并在满足归档门禁后归档；`false` 时跳过变更追踪部分。 |
+| `collaboration.enabled` | `true` | `true` 时按 developerId 隔离任务根 `.task/<id>/`；`false` 时始终 legacy 单根 `.task/`。 |
+| `collaboration.developerId` | `""` | 非空则作为任务进度目录名；空则尝试 git user.email/name 规范化；仍无则 legacy `.task/`。解析顺序：config → git → legacy。 |
 
-**长文背景引用的目录边界（硬约束）**：topic 中「详细背景 / 相关资料 / 长文来源 / 参考文档」等**指向长文源**的引用槽位，**只允许**指向 `.Knowledge/stock-docs/*_终稿.md` 或已被归档为长文事实的 `stock-docs/*`；**禁止**把这类槽位挂到 `.Knowledge/req-docs/*`（含澄清 / 技术方案 / SQL / PRD 等）——`req-docs` 是本次交付的**临时输入**，用完会随任务归档或迁移，作为 topic 的长文事实源是悬空引用。若同步 / 新建 topic 时相应 `stock-docs/*_终稿.md` 尚未生成，**必须先触发 `f2s-doc-final` 沉淀终稿**（或与用户确认由手写补齐），再让 topic 指向终稿；不得跳过终稿直接把 topic 挂在 `req-docs` 上。**允许**：topic 正文可**短引**方案里的一句结论或一个字段名作为佐证（如「见 `.Knowledge/req-docs/xxx_技术方案.md`」的偶发点引），但**长文背景槽位**（"详细背景 / 相关资料"整节）仍须指向 stock-doc。
+- `subAgent=true` 时，主 agent 必须在技能前段**显式判断一次**本次是否拆子，并说明原因；即使判断不拆，也必须输出不拆原因。`subAgent=false` 时不得拆子 agent。
+- `intentRecognition=false` 或字段缺失时，禁止自动进入任何 skill；只能按用户显式触发或当前规则允许的高置信分流进入。
 
-每个 topic 至少包含：
+配置细表与补充规则见 **`./.codex/topics/f2s-config-check.md`**。
 
-1. **标题与一句话意图**（一行写清"该 topic 解决什么"）；
-2. **适用场景 / 触发词**（与对应 `matchers/<id>.json` `includeAny` 语义一致）；
-3. **核心规则 / 流程**（可执行知识；步骤须可由 Agent 复现）；
-4. **依赖声明**（若 `topicDependencies` 中存在依赖项，正文须显式写一句「执行前须先读依赖主题 `<dep>`」，参考 `topics/f2s-req-plan.md` 首段写法）；
-5. **边界与禁止项**（避免膨胀到隔壁 topic）；
-6. **长文背景 / 详细资料引用**（如需承载业务背景）：只列 `.Knowledge/stock-docs/*_终稿.md` 的可点击 Markdown 链接（1–3 条即可）；**禁止**直接列 `.Knowledge/req-docs/*` 作为长文背景来源；无对应终稿时**先生成终稿**再回填此小节。
+## KB 路由规则
 
-## 3. topicMetadata 判定准则
+- 机读事实源只认 **`./.Knowledge/manifest-routing.json`** 与其 `matcherPath` 指向的 **`./.Knowledge/matchers/*.json`**。
+- 按 `match -> expand -> verify -> act` 执行：主命中后先展开 `topicDependencies`，再检查是否缺关键上下文。
+- 仅在以下情况允许跨 matcher 全量补检索：无命中、主次候选过近、缺口检查失败、用户明确要求“全量检查/不要遗漏”。
+- `fallbackTopic` 仅作低置信兜底，不能直接作为最终执行依据。
 
-`topicMetadata` 是治理元数据，只影响盘点、审计和阅读预期；不参与 matcher 命中，不决定是否读取 topic，不改变执行强制性。执行强制性以 `AGENTS.md`、rules、skills 与 topic 正文明确要求为准。
+## 普通问答收口门禁
 
-字段：
+- 普通问答 / 排查 / 解释若需要下钻业务源码，先按 **`./.codex/topics/f2s-knowledge-preflight.md`** 执行首读与缺口说明。
+- 只要本轮读取过业务源码，且最终答案引用了源码事实，发出答案前必须按 **`./.codex/topics/f2s-kb-feedback-closing.md`** 四 case 收口；答案末尾必须显式输出 **`知识库补充建议`** 或 **`知识库已覆盖`**，不得静默省略。
+- 已进入 `f2s-*` 技能、`implement-tech-design`、`f2s-git-commit` 或其他已有后续流程时，不重复追加普通问答收口提示。
 
-- `primary`：主分类，单值，取 `feature` / `module` / `config` / `policy`。
-- `tags`：可选，数组，取值范围同 `primary`，不得与 `primary` 重复。用于描述 topic 同时包含的次要性质，仅作审计/阅读预期，不参与路由或执行。
-- `confidence`：取 `manual` / `inferred`。
+## 渐进式读取顺序
 
-判定：
+1. `./.Knowledge/manifest-routing.json`
+2. 命中规则的 `./.Knowledge/matchers/<id>.json`
+3. 相关 `./.Knowledge/topics/<topic>.md`
+4. 仅在 topic 指向或上下文不足时再读 `./.Knowledge/index.md` / `stock-docs` / `req-docs`
+5. 最后才下钻业务代码
 
-1. `topicMetadata` key 必须存在于 `topicPaths`；仅给已存在或本次确认创建的 topicId 写入。
-2. `primary` 取 topic 最核心的性质：读 topic 正文，判断其主要内容属于哪个类型，写入 `primary`。
-3. `config`：配置项、开关、默认值、初始化参数；仅当这些内容构成 topic 的主要语义时才可作为 `primary`。
-4. `policy`：流程、规则、约束、门禁、禁止项、agent 编排、技能步骤；仅当这些内容构成 topic 的主要语义时才可作为 `primary`。。
-5. `feature`：已落地业务 / 产品能力。
-6. `module`：公共能力、公共包、模块边界与工程结构
-7. topic 同时覆盖多个性质时，最主要性质写 `primary`，其余明确成立的性质写 `tags`（可选数组，元素取值同 `primary`，不得与 `primary` 重复）。
-8. `manual` 仅用于用户或维护者明确确认分类值；有明确证据但未人工确认分类值时写 `inferred`。证据不足时**不写 metadata**，但须在摘要中列出推断方向与依据（如「建议 policy，正文含多处强制约束」），供用户确认后手动补写 `manual`。**禁止仅凭 topicId 名称推断分类，必须 Read topic 正文后再判断。** **`inferred` 不需要用户事先同意即可直接落盘**：证据足够时按本条直接写入；只有当用户/维护者主动指定分类、或证据矛盾需要决断时，才升级为 `manual`。把 `inferred` 当作"待用户同意"是常见误读，等同于把"有依据的自动归类"硬变成"必须人工确认"，与本条第 7 项允许 `inferred` 落盘的语义冲突。
+禁止跳过 `manifest-routing.json` 直接全仓搜索。  
+禁止把 `./.Knowledge/stock-docs/` 作为“按方案实现代码”的直接输入。  
+同一任务线内不要反复全文读取 `manifest-routing.json`，除非用户明确说路由/知识已更新。
 
-禁止：为了分类创建、重命名、拆分 topic；在 topic markdown 正文或 `index.md` 中重复写分类块。
+## 执行依据
 
-## 4. topicDependencies 判定准则
+- Flow2Spec 执行依据只认：
+  - 仓库根 **`./AGENTS.md`**
+  - **`./.codex/topics/f2s-*.md`**
+  - **`./.codex/skills/`**
+- **`.codex/AGENTS.md`** 仅为目录指针，不能替代根 `AGENTS.md`。
 
-设当前主题为 A、候选依赖为 B。**四问命中任一即声明 `A → B`**：
+## Codex 规则镜像（按需打开）
 
-1. **前置规则强引用**：A 的执行步骤**显式提到** B 的术语 / 产物 / 落盘约束（例：`f2s-req-plan` 要求「按 `f2s-task` 维护 `.task/`」）。
-2. **缺 B 必出错**：仅读 A 不读 B 能否产出对的结果？答否——典型为 A 写"怎么做"、B 写"在哪做 / 用哪份输入"。
-3. **共享落盘目标**：A、B 写同一组文件且 B 定义写盘格式（如 `.task/`、`.Knowledge/topics/`）。
-4. **fallback 跳转 B**：A 自身覆盖不全，按现有约定回落 B 兜底。
+这些文件由 `flow2spec init codex` 从规则模板镜像到 `.codex/topics/`。它们不会自动全文加载；当前任务需要细则时再打开。
 
-**反向排除**（避免依赖膨胀）：
+| 规则 | 路径 | 什么时候读 |
+| --- | --- | --- |
+| 统一入口 | `./.codex/topics/f2s-flow2spec-unified-entry.md` | 执行 `f2s-*` 技能、判断 KB 路由 / 子 agent / 校验语义时 |
+| 配置前置 | `./.codex/topics/f2s-config-check.md` | 核对 `flow2spec.config.json`、`subAgent`、`changeTracking` 细则时 |
+| 普通问答首读门禁 | `./.codex/topics/f2s-knowledge-preflight.md` | 普通问答要下钻源码前 |
+| 普通问答收口 | `./.codex/topics/f2s-kb-feedback-closing.md` | 普通问答读取源码后判断是否建议补知识库 |
+| 意图识别 | `./.codex/topics/f2s-intent-routing.md` | 仅当 `intentRecognition=true`，需要判断是否自动进入 skill 时 |
 
-- 仅术语相邻（都谈"知识库"）→ 不写依赖，靠 `index.md` 语义边界即可。
-- 跨主题信息互查（A 想"了解一下" B）→ 不写依赖，靠 `taskToTopicRules` 次高候选 + `expand` 补召回。
-- **概述 → 详情导航**：大功能主 topic 与其子模块 topic 之间是"关联/导航"关系，不是强前置依赖——子模块 topic 通过各自的 matcher 独立命中，不写 `A → B`；主 topic 正文里写子模块 stock-doc 的可点击链接作为导航入口。
-- **传递依赖不重复声明**：若 `A→B`、`B→C` 已成立，禁止再写 `A→C`（读 B 时会自然带上 C）。
+`implement-tech-design`、`f2s-doc-routing` 等长文按命中 topic 再打开，不必默认通读。
 
-**DAG 与最小化**：`topicDependencies` 必须是 DAG，禁止环；保持最小边集。
+## Codex Hooks
 
-**判定时机**：终稿与新 / 改 topic 落盘后，扫正文中**反引号引用的其他 topic id 与规则文件名**，逐个套四问；命中即写入 `manifest-routing.topicDependencies`，**并在新 topic 正文显式写依赖声明**（见骨架第 4 条）。
+`flow2spec init codex` 会写入 **`.codex/hooks.json`**。当前 Flow2Spec 在 Codex 侧只把 hooks 用于：
 
-## 5. 大功能拆分策略
+- `SessionStart` 配置摘要提醒：`.codex/hooks/f2s-config-session.js`
+- `SessionStart` 知识库版本检查：`.codex/hooks/f2s-update-check.js`
 
-当一个业务功能体量较大时，推荐「主 topic + 子 topic」结构，而非单个大 topic。
+这些 hook 只做提醒 / 检测，不替代 `Read("flow2spec.config.json")` 与 KB 路由门禁。
 
-**何时拆分（软约束，满足任一评估是否需拆）**：
+## Flow2Spec 技能
 
-- 对应 stock-doc 超过 **300–500 行**：建议评估拆分，不强制阻断；
-- matcher `includeAny` 超过 **12 个**：主题过宽信号；
-- topic 正文包含超过 **3 个不相干职责域**的二级标题；
-- `f2s-kb-upgrade` 审计时发现同一 topic 被多种不相干任务类型反复命中。
+可用技能位于 **`./.codex/skills/`**。仅在用户显式触发或当前规则允许自动分流时进入对应 skill。
 
-**拆分方式**：
-
-- **主 topic**（`primary: feature`）：写业务闭环、入口边界、子模块索引，正文里用可点击 stock-doc 链接指向各细节文档；不写子模块的实现细节。
-- **子模块 topic**：按实际语义各自写 `feature` / `module` / `config` / `policy`，不预设类型；各自拥有独立 matcher，通过细分触发词独立命中。
-- **stock-doc**：允许长文；超过阈值时建议拆成多份 focused stock-doc（如 `<功能名>-业务规则_终稿.md`、`<功能名>-数据模型_终稿.md`），每份对应一个子 topic。
-
-**不要做的事**：
-
-- 不用 `topicDependencies` 表达"概述 → 详情"导航关系（见第 4 节反向排除）；
-- 不为拆分而强行制造子 topic，若子模块本身不会被独立路由命中，不必建 topic。
-
-## 6. rule 是否需新建对应 topic
-
-判据：**该 rule 是否会作为用户任务路由命中**。
-
-- **会**（用户问 / 输入会触发该规则的执行）→ 须在 `.Knowledge/topics/` 建对应路由摘要，并在 `taskToTopicRules` 配置入口。例：`f2s-task`（变更追踪用户场景命中）、`f2s-implement-tech-design`（"按方案实现"用户场景命中）。
-- **不会**（仅被其他规则 / SKILL 内部引用，用户不会直接发起）→ **不建** topic。例：`f2s-knowledge-preflight`、`f2s-karpathy-guidelines`、`f2s-config-check`、本条 `f2s-topic-authoring`。
-
-误区：「重要的规则就该有 topic」——重要不等于"用户路由命中"；让消费方 SKILL 在正文里直接 `Read rules/<id>.*` 全文即可，无需走 manifest 路由。
-
-## 7. 写盘权属（指针）
-
-`manifest-routing.json` / `.Knowledge/index.md` / `.Knowledge/topics/*.md` 的写权约束**以 `f2s-flow2spec-unified-entry` 与各 SKILL 内「写权硬约束」为准**，本条不复述；遇分歧以统一入口与对应 SKILL 为准。
-
-## 禁止项
-
-- 在未读本条的情况下新增 / 修改 topic 或 `topicDependencies`。
-- 为补分类单独创建、重命名或拆分 topic。
-- 在 topic 正文或 `index.md` 中写 `## 概念分类` 等 metadata 副本。
-- 把"重要的规则"硬塞进 `taskToTopicRules`（参见第 4 条）。
-- 用 `topicDependencies` 表达"信息相关"（应通过 `index.md` 语义边界 + matcher 关键词补召回，而非依赖边）。
-- 在 `topicDependencies` 中写传递冗余边或形成环。
-- **在 topic 的「长文背景 / 详细资料 / 相关资料 / 长文来源 / 参考文档」等指向长文源的整节引用槽位里，列出 `.Knowledge/req-docs/*`**（含澄清 / 技术方案 / SQL / PRD）。此类槽位只允许指向 `.Knowledge/stock-docs/*_终稿.md`；无终稿时须先生成再回填。短句/佐证式的偶发点引不受此约束。
+- `f2s-doc-arch`：根据用户说明或文档（或扫描代码）生成项目架构说明初稿，无固定格式，描述清楚即可；触发：项目架构说明、f2s-doc-arch、架构初稿
+- `f2s-doc-final`：将 PDF 或 MD 转为《终稿模版》规范格式，便于后续用 f2s-kb-build 同步 topics/index/manifest；触发：f2s-doc-final、转成概述模板、终稿模版
+- `f2s-doc-milestone`：据 req-docs、git log、.task 与知识库主题语义生成里程碑（《项目里程碑模版》）；触发：f2s-doc-milestone、生成项目里程碑、里程碑。命令后可附语义化范围。本技能固定子 agent 生成、主 agent 验证，不受 flow2spec.config 编排开关影响
+- `f2s-doc-pdf`：将 PDF 技术方案转为 Markdown 并保存到 req-docs，可补全流程说明；触发：PDF转MD、按方案实现前的 PDF
+- `f2s-git-commit`：代码写完后提交 Git：默认检查变更与知识库覆盖；用户明确要求“快捷提交”时跳过知识库覆盖检查；**改动全为纯文档 / 知识库自身**或**近 30 分钟内已跑过 kb-sync/kb-feat/kb-fix** 时自动跳过覆盖检查；生成带 emoji 首行的提交说明后**可直接 commit**（须在当条回复展示首行，不要求用户单独确认 commit）；**git pull 类拉取须用户先确认**。触发：f2s-git-commit、提交代码、快捷提交、git commit、帮我提交
+- `f2s-kb-add`：工作中把已落地能力解析进知识库（多文件聚合）：初稿→终稿→topics/index/manifest；触发：f2s-kb-add、已有能力进知识库、多文件生成上下文
+- `f2s-kb-addRules`：把用户口述的规则沉淀进知识库，自动判定「新建主题 / 并入存量主题」并同步路由；不写代码、不创建 .task/；触发：f2s-kb-addRules、新增规则、口述规则、把这条记到知识库
+- `f2s-kb-build`：根据 .Knowledge/stock-docs 文档生成知识路由主题与索引；触发：生成项目上下文、f2s-kb-build、终稿生成上下文
+- `f2s-kb-distill`：从问答过程中提取可复用知识事实并自动入库；根据下钻深度与命中主题判断新增主题或补充既有主题；触发：f2s-kb-distill、问答知识提取、从对话中提取知识
+- `f2s-kb-feat`：新增能力时补全实现与知识库；已实现则仅同步知识库；触发：f2s-kb-feat、新增能力
+- `f2s-kb-fix`：根据用户指出的实现或规则错误修正代码，并默认同步知识库；触发：f2s-kb-fix、修正实现规则
+- `f2s-kb-merge`：解决 Git 合并后编辑器上下文冲突；可选传入冲突文件；实现侧冲突仅罗列待用户确认；触发：合并上下文冲突、f2s-kb-merge
+- `f2s-kb-migrate`：旧版知识库一次性迁到 `.Knowledge`：以配置根 `docs-index.md` + 规则统一入口（旧版 `rules/main.md(c)` 或新版包 `rules/f2s-flow2spec-unified-entry.md(c)`）为主索引线索，全量处理业务 `rules/` 与业务 `skills/`（排除 `f2s-*` 包技能），并全量迁移 `stock-docs`/`req-docs`；**迁移验收后必选**落盘 `.Knowledge/migration-report.md`（迁移对照表 + 拟删除路径列表）；**收尾必选**删除已迁旧的 `rules/`、已迁业务 `skills/`、旧版 `docs-index.md`/`index-doc.md`；用户只**核对/修订删除清单（排除项）**；触发：f2s-kb-migrate、知识库迁移、旧版迁移
+- `f2s-kb-rm`：删除某 stock-docs 文档对应的知识主题与索引映射；触发：删除项目上下文、f2s-kb-rm
+- `f2s-kb-sync`：可显式给出能力或零输入推断；先输出知识库更新大纲，确认后写入 topics/index/manifest；触发：f2s-kb-sync、全局同步、知识库同步、已实现能力
+- `f2s-kb-upgrade`：知识库模板升级技能（仅指本 SKILL）：**流程分流 V1** 须先 f2s-kb-migrate 再在流程内代跑 flow2spec init；**现行库（流程代号 V2+，含已用 .Knowledge 的 Flow2Spec npm v3.x 等项目）** 则代跑 init 以对齐 manifest-routing + matchers 分片（包内 `manifest-matchers.json` 仅作 init 合并种子，不落盘 .Knowledge）。触发：f2s-kb-upgrade、一键升级迁移、旧项目升级、知识库模板升级。注意：不要把单独的 flow2spec init 称作「升级命令」；**V1/V2+ 为技能内分流代号，不等于 npm 包主版本号**。
+- `f2s-req-clarify`：针对 PRD/需求反问直到清楚，再可用 f2s-req-tech 出技术方案；触发：需求澄清、PRD 澄清
+- `f2s-req-plan`：根据技术方案/需求描述/变更描述规划并实现任务；始终按 f2s-task 维护 .task/；支持子 agent 并行实现；触发：f2s-req-plan、创建任务、任务规划、我需要任务清单
+- `f2s-req-tech`：根据澄清后的需求基于项目知识库/Skills/Rules 生成技术方案文档；触发：生成技术方案、技术方案、f2s-req-tech
 
 ---
 > Source: [double-coding-lab/Flow2Spec-DeepSeek-Harness](https://github.com/double-coding-lab/Flow2Spec-DeepSeek-Harness) — distributed by [TomeVault](https://tomevault.io).
