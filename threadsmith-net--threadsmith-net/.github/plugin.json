@@ -1,0 +1,9 @@
+{
+  "name": "threadsmith-net--threadsmith-net",
+  "displayName": "Threadsmith.NET",
+  "description": " A .NET-native AI coding harness where the host validates plans, tools, mutations, builds, and tests while models remain pluggable reasoning engines. Threadsmith.NET aims to be more efficient with too",
+  "version": "1.0.0",
+  "author": "Threadsmith-NET",
+  "homepage": "https://github.com/Threadsmith-NET/Threadsmith.NET",
+  "skills": []
+}
