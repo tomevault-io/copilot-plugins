@@ -4,7 +4,7 @@
   "repo": "windoc",
   "description": "  Canvas-based document editor for web and React \u2014 pixel-perfect pagination, rich text, tables, and print support.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aliansyahFirdaus/windoc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:45:42Z"
+  "distributed_at": "2026-08-28T23:35:52Z"
 }
