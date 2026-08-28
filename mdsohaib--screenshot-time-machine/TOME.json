@@ -1,0 +1,44 @@
+{
+  "name": "screenshot-time-machine",
+  "owner": "mdsohaib",
+  "repo": "screenshot-time-machine",
+  "description": "Screenshot Time Machine is like a Wayback Machine for your own website, a visual archive of every page over time. One command screenshots every page into dated folders on your machine, and shows which pages changed since your last run. Works with Claude Code, Cursor and Codex. Free and open source.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mdsohaib/screenshot-time-machine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T01:49:39Z"
+}
