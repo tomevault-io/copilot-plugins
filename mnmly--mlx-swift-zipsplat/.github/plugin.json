@@ -1,0 +1,9 @@
+{
+  "name": "mnmly--mlx-swift-zipsplat",
+  "displayName": "mlx-swift-ZipSplat",
+  "description": "Apple Silicon port of ZipSplat: feed-forward 3D Gaussian Splatting on mlx-swift",
+  "version": "1.0.0",
+  "author": "mnmly",
+  "homepage": "https://github.com/mnmly/mlx-swift-ZipSplat",
+  "skills": []
+}
