@@ -4,7 +4,7 @@
   "repo": "fabulous-factory",
   "description": "The Next.js starter built for agent-driven development \u2014 auth, billing, jobs, and guardrails your agents can't talk their way past.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marzapower/fabulous-factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T10:54:47Z"
+  "distributed_at": "2026-08-28T18:04:38Z"
 }
