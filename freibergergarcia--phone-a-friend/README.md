@@ -7,11 +7,11 @@ CLI relay for Claude Code, Codex, and OpenCode. Delegate to Antigravity, Claude,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [freibergergarcia/phone-a-friend](https://github.com/freibergergarcia/phone-a-friend).
+Original source: `AGENTS.md` in [freibergergarcia/phone-a-friend](https://github.com/freibergergarcia/phone-a-friend).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
