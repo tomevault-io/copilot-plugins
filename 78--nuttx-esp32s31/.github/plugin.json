@@ -1,0 +1,9 @@
+{
+  "name": "78--nuttx-esp32s31",
+  "displayName": "nuttx-esp32s31",
+  "description": "Reproducible Apache NuttX integration for the ESP32-S31-Function-CoreBoard-1",
+  "version": "1.0.0",
+  "author": "78",
+  "homepage": "https://github.com/78/nuttx-esp32s31",
+  "skills": []
+}
