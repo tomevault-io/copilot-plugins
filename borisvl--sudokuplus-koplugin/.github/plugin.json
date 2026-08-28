@@ -1,0 +1,9 @@
+{
+  "name": "borisvl--sudokuplus-koplugin",
+  "displayName": "sudokuplus.koplugin",
+  "description": "A full-featured, logical Sudoku puzzle game and interactive tutor crafted specifically for e-ink readers running [KOReader](https://github.com/koreader/koreader) (Kobo, Kindle, PocketBook, Android).",
+  "version": "1.0.0",
+  "author": "Borisvl",
+  "homepage": "https://github.com/Borisvl/sudokuplus.koplugin",
+  "skills": []
+}
