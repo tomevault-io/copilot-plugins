@@ -1,0 +1,9 @@
+{
+  "name": "cerobreath--gnome-kube-monitor",
+  "displayName": "gnome-kube-monitor",
+  "description": "Kubernetes node health in the GNOME top bar. Read-only, uses your existing kubectl and kubeconfig.",
+  "version": "1.0.0",
+  "author": "cerobreath",
+  "homepage": "https://github.com/cerobreath/gnome-kube-monitor",
+  "skills": []
+}
