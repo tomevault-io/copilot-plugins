@@ -1,0 +1,44 @@
+{
+  "name": "text-watermark-remover",
+  "owner": "cyzanfar",
+  "repo": "text-watermark-remover",
+  "description": "Open-source AI text watermark remover for Unicode artifacts, with detector-scoped evaluation of published statistical LLM watermark schemes.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cyzanfar/text-watermark-remover",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T06:57:34Z"
+}
