@@ -4,7 +4,7 @@
   "repo": "biashara-mall-commerce",
   "description": "A multi tenant ecom website with all batteries included",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jinef-john/biashara-mall-commerce",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T04:54:39Z"
+  "distributed_at": "2026-08-28T07:19:27Z"
 }
