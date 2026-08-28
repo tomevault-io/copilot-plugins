@@ -1,29 +1,55 @@
-## ingestion-cache
+## project-overview
 
-> Trusted ingestion and rebuildable cache semantics for local session scanning
+> Project overview, tech stack, directory map and domain vocabulary for the AI usage stats desktop app
 
 
-# 可信摄取与可重建缓存
+# 本机 AI 用量统计（ai-usage-stats）
 
-完整背景与理由：`docs/adr/0003-trusted-ingestion-cache.md`。核心原则：**缓存宁可保留旧结果，也不能用残缺/失败的解析结果覆盖它**。
+桌面 GUI 工具：扫描本机各 AI 编程 CLI（Codex、Claude Code、pi、dsh、opencode、kimi、gemini、grok、qwen、factory…）留下的本地会话文件，归一化为「消耗记录」并聚合展示 token 用量与费用；另有独立的 Cursor「代码量」维度。详见 `README.md` 和 `CONTEXT.md`。
 
-## 必须遵守的语义
+## 技术栈
 
-- 文件只有在完整读取 + 结构校验成功后，才能替换该文件在 `usage_records` 里的旧记录并更新 `ingested_files` 标记；解析失败要保留旧记录，把失败记为该 Source 的诊断问题（`record_failure`）
-- 追加型日志来源（`is_append_log_source`：codex/claude/pi/kimi/dsh/grok）如果新解析出的记录数比缓存里少，视为截断/异常，保留旧缓存并报失败，不要覆盖
-- 每个 Source 扫描完成后按本轮实际看到的路径做删除对账（`reconcile_source`）；但该 Source 本轮只要出现任何 `files_failed`，就必须跳过对账，避免把「解析失败」误判成「文件已删除」
-- 目录读取错误（`walk_matching` 报错）不能触发删除对账，只能记为来源级失败
-- 缓存键 = 主文件的 `(mtime_ms, size)` + `metadata_fingerprint`/`content_fingerprint`（辅助文件，如 Kimi 的 `kimi.json`、Grok 的 `summary.json`、OpenCode 的 `-wal`）+ `ADAPTER_VERSION`；辅助输入变化也必须使缓存失效
+- 核心逻辑：Rust（`src-tauri/src`），Tauri 2 打包成原生桌面 App
+- 界面：React 19 + TypeScript（strict）+ Vite 6 + ECharts，纯前端展示，不含业务逻辑
+- 缓存：sqlite（`rusqlite`，bundled），可完全重建
+- 依赖安装用 `pnpm`（不要用 `npm`/`yarn`）；`npm run tauri dev` / `npm run tauri build` 等 script 名保留但仍应通过 `pnpm run` 调用
 
-## 修改归一化规则时
+## 目录结构
 
-- 任何改变某个 adapter 输出（新字段、修正 bug、调整去重逻辑）的改动，必须同步递增 `store.rs::ADAPTER_VERSION`，否则旧缓存不会被判定为过期，用户看到的数据不会更新
-- `rebuild_cache` 只是把 `adapter_version` 置 0 强制重解析，不会预先清空旧记录；新结果验证失败时旧记录依然保留——不要为了「简化重建」而改成先 DELETE 再解析
+```
+src-tauri/src/
+  domain.rs      # 唯一的数据模型来源（UsageRecord、DTO、Filter…）
+  adapters/      # 每个 Source 一个适配器，解析→归一化
+  ingest.rs      # 扫描文件、可信摄取缓存、来源级对账
+  store.rs       # sqlite schema 与读写
+  query.rs       # 生产用聚合查询（SQL 下推）
+  aggregate.rs   # 内存实现，仅作为 query.rs 的差分测试基准（见 testing 规则）
+  cost.rs        # 费用推导（native_cost 优先，其次价目表）
+  lib.rs         # Tauri command 定义与 AppState
+  bin/probe.rs   # 探测未确认来源的本机字段格式的独立小工具
+src/
+  App.tsx        # 顶层状态与视图切换
+  components/    # 各视图/图表组件
+  lib/           # 格式化、图表主题、价目预设等纯函数工具
+  types.ts       # 与 Rust DTO 对应的 TS 类型（手动保持同步）
+docs/adr/        # 架构决策记录，重大架构变更需新增一份 ADR
+```
 
-## 边界
+## 领域词汇（详见 CONTEXT.md，请勿用其它措辞替代）
 
-- `usage.sqlite` 是纯缓存，可以随时删除重建；`prices.json` 是用户配置，任何清理/重建逻辑都不能触及它
-- 启动摄取（`ingest_all`）和「重建全部」都会先 `remove_unknown_sources` 清理未知 Source 残留；已知列表必须从 `Source::ALL` 推导，不要再手写一份 `KNOWN`
+- **消耗记录 (Usage Record)**：归一化后的标准用量条目，唯一定义在 `domain.rs::UsageRecord`
+- **来源 (Source)**：被统计的 AI 工具（如 codex、claude），避免用「工具/tool/渠道」
+- **适配器 (Adapter)**：把某 Source 的原始格式解析成 Usage Record 的模块，避免用「parser/解析器」
+- **Token 口径 (Token Dimension)**：input/output/cache_read/cache_creation/reasoning/total
+- **代码量 (Code Volume)**：仅 Cursor 编辑器的 AI 生成代码行数统计，与 token 无关，界面上严格分区，避免与「用量/消耗」混用
+- **官方额度 (Official Quota)**：Claude / Codex / Cursor / Grok 的账号级订阅限额，不进 UsageRecord / 本机 token KPI，不与本机 5 小时/7 天估计窗混条
+- **Cursor 账号用量**：不进 UsageRecord / 本机 KPI / 5 小时窗；概览 7 天滚动可单独挂一行，缺价时用 LiteLLM 快照估算
+
+## 关键架构约束
+
+- 统计与界面代码只面向 `UsageRecord`/DTO，不感知任何具体工具的原始格式（`docs/adr/0001-adapter-per-source-architecture.md`）
+- 前后端通过 Tauri command / IPC 交换已聚合的 JSON；webview 只做展示，不做聚合计算（`docs/adr/0002-tauri-rust-desktop-app.md`）
+- 摄取缓存遵循「最后一次正确结果」语义，细节见 `docs/adr/0003-trusted-ingestion-cache.md` 与 ingestion 相关规则
 
 ---
 > Source: [qqzhangyanhua/mabiao](https://github.com/qqzhangyanhua/mabiao) — distributed by [TomeVault](https://tomevault.io).
