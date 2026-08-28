@@ -1,0 +1,9 @@
+{
+  "name": "kayforkind--reimagine-it",
+  "displayName": "reimagine-it",
+  "description": "Claude Code / Cursor / Codex skill. Redesigns any file from its own content \u2014 webpage, PDF, slides, infographic. Offline HTML. No CDN.",
+  "version": "1.0.0",
+  "author": "Kayforkind",
+  "homepage": "https://github.com/Kayforkind/reimagine-it",
+  "skills": []
+}
