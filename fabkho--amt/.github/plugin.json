@@ -1,0 +1,9 @@
+{
+  "name": "fabkho--amt",
+  "displayName": "amt",
+  "description": "Ein Amt f\u00fcr die Jobsuche \u2014 a CLI + MCP job-search clerk that crawls job APIs and LinkedIn, keeps ranked markdown notes, and drafts your CV & cover letters.",
+  "version": "1.0.0",
+  "author": "fabkho",
+  "homepage": "https://github.com/fabkho/amt",
+  "skills": []
+}
