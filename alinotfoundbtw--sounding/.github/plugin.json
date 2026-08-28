@@ -1,0 +1,9 @@
+{
+  "name": "alinotfoundbtw--sounding",
+  "displayName": "sounding",
+  "description": "Governance for agent instructions: audit, score, and pin MCP servers, Agent Skills, and prompts. Deterministic; findings carry a reference and a fix.",
+  "version": "1.0.0",
+  "author": "alinotfoundbtw",
+  "homepage": "https://github.com/alinotfoundbtw/sounding",
+  "skills": []
+}
