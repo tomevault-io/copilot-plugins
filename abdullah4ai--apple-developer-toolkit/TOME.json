@@ -4,7 +4,7 @@
   "repo": "apple-developer-toolkit",
   "description": "Apple Developer Documentation CLI skill for AI agents. Search docs, frameworks, APIs, WWDC videos 2014-2025, and sample code. Direct integration with developer.apple.com",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Abdullah4AI/apple-developer-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T12:36:18Z"
+  "distributed_at": "2026-08-28T23:41:23Z"
 }
