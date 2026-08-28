@@ -1,0 +1,9 @@
+{
+  "name": "ledger--ledger-semantics",
+  "displayName": "ledger-semantics",
+  "description": "Mathematical semantics of Ledger, the double-entry accounting tool",
+  "version": "1.0.0",
+  "author": "ledger",
+  "homepage": "https://github.com/ledger/ledger-semantics",
+  "skills": []
+}
