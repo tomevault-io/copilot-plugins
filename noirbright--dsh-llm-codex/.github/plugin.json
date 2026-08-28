@@ -1,0 +1,9 @@
+{
+  "name": "noirbright--dsh-llm-codex",
+  "displayName": "dsh-llm-codex",
+  "description": "ChatGPT Codex login, sortable catalog, and Fast models for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "NOirBRight",
+  "homepage": "https://github.com/NOirBRight/dsh-llm-codex",
+  "skills": []
+}
