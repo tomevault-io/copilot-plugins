@@ -7,11 +7,11 @@ High-performance local 3-in-1 gateway unlocking Google Gemini as standard OpenAI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [div197/BOB-Gemini-Free](https://github.com/div197/BOB-Gemini-Free).
+Original source: `AGENTS.md` in [div197/BOB-Gemini-Free](https://github.com/div197/BOB-Gemini-Free).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
