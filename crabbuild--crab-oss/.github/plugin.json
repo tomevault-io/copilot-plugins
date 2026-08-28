@@ -1,0 +1,9 @@
+{
+  "name": "crabbuild--crab-oss",
+  "displayName": "crab-oss",
+  "description": "Serverless Git for large files: store models, datasets, and assets in your own S3, GCS, Azure, or S3-compatible bucket.",
+  "version": "1.0.0",
+  "author": "crabbuild",
+  "homepage": "https://github.com/crabbuild/crab-oss",
+  "skills": []
+}
