@@ -4,7 +4,7 @@
   "repo": "agent-handoff",
   "description": "Move native coding-agent sessions between Codex and Claude Code as files or end-to-end encrypted links.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DavidDingXu/agent-handoff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:11:43Z"
+  "distributed_at": "2026-08-28T23:15:12Z"
 }
