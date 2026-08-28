@@ -1,0 +1,44 @@
+{
+  "name": "dsh-whale",
+  "owner": "Miyazawai",
+  "repo": "dsh-whale",
+  "description": "\ud83d\udc33 DSH \u50bb\u74dc\u6574\u5408\u5305\uff1a\u4ee5 Oh-DSH \u4e3a\u57fa\u5ea7\u7684 DeepSeek Harness \u53d1\u884c\u7248\u5916\u58f3\u2014\u2014\u6838\u5fc3 17 \u7ec4\u4ef6\u5f00\u7bb1\u5373\u7528\u3001\u4e09\u754c\u9762\uff08webui/gui/tui\uff09\u4e00\u5305\u5207\u6362\u3001\u6a21\u578b\u2194\u9884\u8bbe\u8054\u52a8\u3001\u4e00\u5207\u7686\u63d2\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Miyazawai/dsh-whale",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T02:01:18Z"
+}
