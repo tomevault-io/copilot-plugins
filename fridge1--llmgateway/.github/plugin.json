@@ -1,0 +1,9 @@
+{
+  "name": "fridge1--llmgateway",
+  "displayName": "llmgateway",
+  "description": "Unified LLM API gateway & commercial platform. Supports OpenAI / Anthropic / Gemini protocols, works with Claude Code, Codex CLI, Cursor, Windsurf. Built-in billing, subscriptions, tenants & admin con",
+  "version": "1.0.0",
+  "author": "fridge1",
+  "homepage": "https://github.com/fridge1/llmgateway",
+  "skills": []
+}
