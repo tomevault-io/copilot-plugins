@@ -1,0 +1,9 @@
+{
+  "name": "mneves75--ffts-grep",
+  "displayName": "ffts-grep",
+  "description": "Fast full-text search file indexer using SQLite FTS5.  A high-performance file indexer that provides sub-10ms queries after initial indexing. Uses SQLite FTS5 with BM25 ranking for relevant search res",
+  "version": "1.0.0",
+  "author": "mneves75",
+  "homepage": "https://github.com/mneves75/ffts-grep",
+  "skills": []
+}
