@@ -4,7 +4,7 @@
   "repo": "sajilo",
   "description": "Nepali daily essentials in your menu bar on macOS, Windows, and Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adarshaacharya/sajilo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:39:35Z"
+  "distributed_at": "2026-08-28T01:33:34Z"
 }
