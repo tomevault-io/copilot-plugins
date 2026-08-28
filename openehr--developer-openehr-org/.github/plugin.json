@@ -1,0 +1,9 @@
+{
+  "name": "openehr--developer-openehr-org",
+  "displayName": "developer.openehr.org",
+  "description": "Developer guidance for implementing and conforming to openEHR.",
+  "version": "1.0.0",
+  "author": "openEHR",
+  "homepage": "https://github.com/openEHR/developer.openehr.org",
+  "skills": []
+}
