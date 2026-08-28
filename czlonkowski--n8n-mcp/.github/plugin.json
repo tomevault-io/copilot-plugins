@@ -1,13 +1,61 @@
 {
   "name": "czlonkowski--n8n-mcp",
   "displayName": "n8n-mcp",
-  "description": "A MCP for Claude Desktop / Claude Code / Windsurf / Cursor to build n8n workflows for you ",
+  "description": "n8n-mcp",
   "version": "1.0.0",
   "author": "czlonkowski",
   "homepage": "https://github.com/czlonkowski/n8n-mcp",
   "skills": [
     {
-      "name": "n8n-mcp-tools-expert",
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp",
+      "description": ""
+    },
+    {
+      "name": "n8n-code-tool",
+      "description": ""
+    },
+    {
+      "name": "n8n-agents",
       "description": ""
     }
   ]
