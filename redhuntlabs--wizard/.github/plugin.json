@@ -1,0 +1,9 @@
+{
+  "name": "redhuntlabs--wizard",
+  "displayName": "wizard",
+  "description": "Build AI spells for what you do - a meta-builder that turns recurring tasks into reusable workflows that any AI assistant can run.",
+  "version": "1.0.0",
+  "author": "redhuntlabs",
+  "homepage": "https://github.com/redhuntlabs/wizard",
+  "skills": []
+}
