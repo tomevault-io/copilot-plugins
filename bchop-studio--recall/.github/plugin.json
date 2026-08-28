@@ -1,0 +1,9 @@
+{
+  "name": "bchop-studio--recall",
+  "displayName": "recall",
+  "description": "Give your AI agents a living per-project memory that Hermes, Claude Code, and Codex all read at session start.",
+  "version": "1.0.0",
+  "author": "bchop-studio",
+  "homepage": "https://github.com/bchop-studio/recall",
+  "skills": []
+}
