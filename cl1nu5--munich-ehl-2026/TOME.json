@@ -4,7 +4,7 @@
   "repo": "munich-ehl-2026",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CL1nu5/munich-ehl-2026",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T13:08:10Z"
+  "distributed_at": "2026-08-28T20:53:55Z"
 }
