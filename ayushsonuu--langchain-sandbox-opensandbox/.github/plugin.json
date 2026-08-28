@@ -1,0 +1,9 @@
+{
+  "name": "ayushsonuu--langchain-sandbox-opensandbox",
+  "displayName": "langchain-sandbox-opensandbox",
+  "description": "OpenSandbox sandbox backend for LangChain Deep Agents - run agent-generated code and file operations in an isolated OpenSandbox environment.",
+  "version": "1.0.0",
+  "author": "AyushSonuu",
+  "homepage": "https://github.com/AyushSonuu/langchain-sandbox-opensandbox",
+  "skills": []
+}
