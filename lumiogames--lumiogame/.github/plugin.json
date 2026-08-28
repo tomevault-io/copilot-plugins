@@ -1,0 +1,9 @@
+{
+  "name": "lumiogames--lumiogame",
+  "displayName": "LumioGame",
+  "description": "Top-level Lumio game product: client, server Gameplay, UI, content, packaging, and release composition.",
+  "version": "1.0.0",
+  "author": "LumioGames",
+  "homepage": "https://github.com/LumioGames/LumioGame",
+  "skills": []
+}
