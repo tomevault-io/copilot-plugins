@@ -1,0 +1,44 @@
+{
+  "name": "BarkOS",
+  "owner": "MuratKomurcu1",
+  "repo": "BarkOS",
+  "description": "Local-first AI company operating system with a Codex lead, Claude and OpenCode workers, and a live pixel office.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MuratKomurcu1/BarkOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T10:40:58Z"
+}
