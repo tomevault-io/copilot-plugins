@@ -1,0 +1,9 @@
+{
+  "name": "jamditis--mooc-starter-kit",
+  "displayName": "mooc-starter-kit",
+  "description": "Starter repo for Advanced Prompt Engineering for Journalists \u2014 a Knight Center MOOC on AI coding tools for newsrooms. Fork this, clone your fork, and use it as your workspace for all four modules.",
+  "version": "1.0.0",
+  "author": "jamditis",
+  "homepage": "https://github.com/jamditis/mooc-starter-kit",
+  "skills": []
+}
