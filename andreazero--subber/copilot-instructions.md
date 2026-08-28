@@ -1,25 +1,17 @@
-## 02-multiagent
+## 03-ui
 
-> Single-lead agent workflow
+> Keep the premium studio UI. Never restore the old utility layout.
 
 
-# Multi-agent
+# UI
 
-Default: **lead unico**, un task, nessun subagent.
+The desktop UI is the premium studio in `src/studio/StudioApp.tsx`, with `src/ui/`, `src/views/`, `src/styles/`.
 
-Subagent solo se due pezzi sono isolati e il lead ha già fissato i contratti (tipi, path, invoke). Un file, un owner. Nessuno inventa cartelle, dipendenze o task fuori ordine.
+`src/main.tsx` must import `StudioApp`, not the old single-file utility screen.
 
-| Ruolo | Scope |
-|---|---|
-| Lead | Integrazione, task corrente, `AGENTS.md` |
-| UI | `src/` React; invoke già definiti |
-| Native | `src-tauri/`; FFmpeg, path, sidecar |
-| ASR | `worker/` trascrizione + export sorgente |
-| Translation | Traduzione su testo già trascritto |
-| Subtitles | Formatter SRT + JSON; non cambia il significato |
-| Review | Solo lettura, difetti concreti |
+Never restore the old layout: centered `.page` / `.hero` / `.dropzone` / `.video-list` / brown utility form. That screen is retired.
 
-Mac: predisporre la build, non eseguirla da Windows.
+If `src/App.tsx` is touched, it must re-export `StudioApp`.
 
 ---
 > Source: [AndreaZero/subber](https://github.com/AndreaZero/subber) — distributed by [TomeVault](https://tomevault.io).
