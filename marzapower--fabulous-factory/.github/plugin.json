@@ -1,0 +1,9 @@
+{
+  "name": "marzapower--fabulous-factory",
+  "displayName": "fabulous-factory",
+  "description": "The Next.js starter built for agent-driven development \u2014 auth, billing, jobs, and guardrails your agents can't talk their way past.",
+  "version": "1.0.0",
+  "author": "marzapower",
+  "homepage": "https://github.com/marzapower/fabulous-factory",
+  "skills": []
+}
