@@ -1,21 +1,20 @@
-## docs
+## ogarza-weather
 
-> Keep plugin docs in sync with behavior changes
+> ogarza.weather plugin conventions
 
 
-# Documentation
+# ogarza.weather
 
-User-facing or agent-facing behavior changes must update docs in the same change.
+Read `AGENTS.md` before non-trivial edits. Keep replies and diffs small.
 
-| Change | Update |
-|--------|--------|
-| Modes, mixes, Follow maps, panel, IPC, params | `README.md` |
-| Any of the above | `CHANGELOG.md` + `manifest.json` `version`. Fold tweaks into the current heading; bump once per release batch, not each tiny edit. |
-| File roles, compositor, persist, shader uniforms | `AGENTS.md` |
-| How to edit the plugin | `.cursor/skills/ogarza-weather/SKILL.md` |
-| Conventions | `.cursor/rules/*.mdc` |
-
-Do not leave README describing old slider layout or stale param names. Panel fields live in `Model.js` `tweakFields` / `fieldsForPanel` — document new keys there and in README Tweaks.
+- Persist via `loadPersisted` / `persistSettings` only (including `quality`, `hyprEnabled`, and `hyprBaseDamage`). Never write `/usr/share/omarchy/` or `~/.config/hypr/`.
+- Mode `none` is default. Follow/Exclusive never select `fire`, `rainbow`, or `custom`.
+- Follow: `locationReady` then Open-Meteo (coords) or wttr. WMO `0` is sunny (`parseWeatherCode`, not `code || ""`).
+- Compositor: fade `overlayFromPreset` → `overlayToPreset`. Follow 10s, panel 2s. Mixes = two or three slots. Quality downscales the layer stack except Extreme. Rain/stormy refract / sunny-fire haze: `HyprShader.js` → Hyprland `screen_shader` (`tex`/`time`) when `hyprEnabled`; skip painted rain when `kind` contains `rain`. Scan sibling plugin folders for `screen_shader` and warn on the panel.
+- Shaders: premultiplied `vec4(rgb * a, a) * qt_Opacity * strength`. Keep the std140 uniform block in sync. Stormy: no arrays / baked bolt tables (blank overlay); see `shaders.mdc`.
+- Panel params: columns from `fieldsForVisualLayer` / `fieldsForPanel`. Follow → live `weatherPreset`; Exclusive → `exclusivePreset`. Mixes and singles expand one column per layer (optional rainbow last). Custom: stacked A/B/C pickers (`none` is off).
+- New weather types: `Model.js` modes + maps + params; `Service.qml` only if compositor/fetch changes.
+- Docs: README + CHANGELOG + manifest version when behavior changes.
 
 ---
 > Source: [ogarza/omarchyweathereffects](https://github.com/ogarza/omarchyweathereffects) — distributed by [TomeVault](https://tomevault.io).
