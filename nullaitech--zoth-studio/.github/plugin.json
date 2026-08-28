@@ -1,0 +1,9 @@
+{
+  "name": "nullaitech--zoth-studio",
+  "displayName": "zoth-studio",
+  "description": "Local-first AI orchestrator with 47+ tools for site generation, security audits, and autonomous workflows. Python runtime, Ollama models, encrypted vault, nginx config management. Ship production-grad",
+  "version": "1.0.0",
+  "author": "NullAITech",
+  "homepage": "https://github.com/NullAITech/zoth-studio",
+  "skills": []
+}
