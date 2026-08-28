@@ -7,11 +7,11 @@ Experimental Windows-first fork of DeepSeek Harness: minimal preset with pwsh + 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shutongcao1-design/dsh-win-minimal-cot](https://github.com/shutongcao1-design/dsh-win-minimal-cot).
+Original source: `AGENTS.md` in [shutongcao1-design/dsh-win-minimal-cot](https://github.com/shutongcao1-design/dsh-win-minimal-cot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
