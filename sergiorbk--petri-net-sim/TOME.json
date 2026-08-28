@@ -4,7 +4,7 @@
   "repo": "petri-net-sim",
   "description": "An editor, a simulator, and a natural-language generator for Petri nets and Petri-object models, in one place",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergiorbk/petri-net-sim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T12:51:05Z"
+  "distributed_at": "2026-08-28T19:52:19Z"
 }
