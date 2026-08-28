@@ -4,7 +4,7 @@
   "repo": "atlas",
   "description": "The open source home for digital nomads. Think nomads.com, but open. Work in progress.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/axadrn/atlas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T23:38:17Z"
+  "distributed_at": "2026-08-28T01:59:29Z"
 }
