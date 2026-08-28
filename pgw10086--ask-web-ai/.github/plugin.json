@@ -1,0 +1,9 @@
+{
+  "name": "pgw10086--ask-web-ai",
+  "displayName": "ask-web-ai",
+  "description": "\u901a\u7528 Agent Skill + CLI\uff0c\u5c06\u7f51\u9875\u7248 AI \u4f5c\u4e3a\u5916\u90e8 Agent\uff0c\u7528\u4e8e\u8c03\u7814\u3001\u8bc4\u5ba1\u4e0e\u65b9\u6848\u8ba8\u8bba\uff0c\u5e2e\u52a9\u964d\u4f4e\u5bbf\u4e3b\u4e0a\u4e0b\u6587\u5360\u7528\u548c API Token \u6d88\u8017\uff1b\u5f53\u524d\u4ec5\u652f\u6301 ChatGPT \u81ea\u52a8\u5316\u3002",
+  "version": "1.0.0",
+  "author": "pgw10086",
+  "homepage": "https://github.com/pgw10086/ask-web-ai",
+  "skills": []
+}
