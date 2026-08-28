@@ -1,0 +1,9 @@
+{
+  "name": "sh7vansh--chrome-bridge",
+  "displayName": "chrome-bridge",
+  "description": "Persistent Python runtime and Native Messaging bridge for agentic Chrome automation.",
+  "version": "1.0.0",
+  "author": "sh7vansh",
+  "homepage": "https://github.com/sh7vansh/chrome-bridge",
+  "skills": []
+}
