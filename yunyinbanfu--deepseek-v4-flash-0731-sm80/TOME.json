@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-v4-flash-0731-sm80",
+  "owner": "yunyinbanfu",
+  "repo": "deepseek-v4-flash-0731-sm80",
+  "description": "SM80/A100 support package for DeepSeek-V4-Flash-0731 on vLLM",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yunyinbanfu/deepseek-v4-flash-0731-sm80",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T18:57:20Z"
+}
