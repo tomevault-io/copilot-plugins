@@ -1,0 +1,9 @@
+{
+  "name": "rajvardhanpatil07--kernel-surface-ledger",
+  "displayName": "kernel-surface-ledger",
+  "description": "A read-only Linux analyzer that maps kernel attack surface to the workloads using it and generates evidence-backed, reversible hardening plans.",
+  "version": "1.0.0",
+  "author": "RajvardhanPatil07",
+  "homepage": "https://github.com/RajvardhanPatil07/kernel-surface-ledger",
+  "skills": []
+}
