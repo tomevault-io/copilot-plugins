@@ -1,0 +1,9 @@
+{
+  "name": "liangy0323--ly-fullstack",
+  "displayName": "ly-fullstack",
+  "description": "AI-friendly full-stack monorepo starter for real-world projects, built with Vue 3, Rsbuild, NestJS, Prisma, PostgreSQL, RBAC, testing and CI/CD.",
+  "version": "1.0.0",
+  "author": "liangy0323",
+  "homepage": "https://github.com/liangy0323/ly-fullstack",
+  "skills": []
+}
