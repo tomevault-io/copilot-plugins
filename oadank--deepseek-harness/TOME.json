@@ -4,7 +4,7 @@
   "repo": "deepseek-harness",
   "description": "\u7ed9 DSH \u914d\u4e0a\u773c\u775b\u3001\u8033\u6735\u548c\u5634\u5df4\u2014\u2014\u5168\u90e8\u514d\u8d39\uff1a\u8bed\u97f3\u8bc6\u522b / TTS / \u97f3\u8272\u514b\u9686 / \u8bc6\u56fe",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oadank/deepseek-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:22:01Z"
+  "distributed_at": "2026-08-28T05:18:57Z"
 }
