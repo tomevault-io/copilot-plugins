@@ -4,7 +4,7 @@
   "repo": "Open-LLM-VTuber-Rinne",
   "description": "Rinne desktop companion based on Open-LLM-VTuber, with long-term memory and GPT-SoVITS integration",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kaidongli30-cpu/Open-LLM-VTuber-Rinne",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T04:47:18Z"
+  "distributed_at": "2026-08-28T07:35:35Z"
 }
