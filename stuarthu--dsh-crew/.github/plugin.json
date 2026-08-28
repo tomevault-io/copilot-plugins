@@ -1,0 +1,9 @@
+{
+  "name": "stuarthu--dsh-crew",
+  "displayName": "dsh-crew",
+  "description": "dsh plugin: run work as a small crew of role agents (product manager, researcher, architect, engineer, QA, code reviewer, security reviewer, doc reviewer) that share work through files on disk",
+  "version": "1.0.0",
+  "author": "stuarthu",
+  "homepage": "https://github.com/stuarthu/dsh-crew",
+  "skills": []
+}
