@@ -1,0 +1,9 @@
+{
+  "name": "sm12x-socom--sm12x-llm-bench",
+  "displayName": "SM12X-LLM-BENCH",
+  "description": "Click-run SM12X LLM benchmark client: TUI + statistically sampled evals (GSM8K, MMLU-Pro, GPQA, BFCL, NIAH, long-context).",
+  "version": "1.0.0",
+  "author": "SM12X-SOCOM",
+  "homepage": "https://github.com/SM12X-SOCOM/SM12X-LLM-BENCH",
+  "skills": []
+}
