@@ -1,0 +1,9 @@
+{
+  "name": "ifence--steward",
+  "displayName": "steward",
+  "description": "Steward is a small, polished launcher and plugin platform for Windows, built with Rust, GPUI, and gpui-component.",
+  "version": "1.0.0",
+  "author": "iFence",
+  "homepage": "https://github.com/iFence/steward",
+  "skills": []
+}
