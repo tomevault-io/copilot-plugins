@@ -1,0 +1,9 @@
+{
+  "name": "larryppgg--chatgpt-codex-bridge",
+  "displayName": "chatgpt-codex-bridge",
+  "description": "Let ChatGPT supervise local Codex through Secure MCP Tunnel.",
+  "version": "1.0.0",
+  "author": "larryppgg",
+  "homepage": "https://github.com/larryppgg/chatgpt-codex-bridge",
+  "skills": []
+}
