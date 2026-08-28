@@ -1,0 +1,9 @@
+{
+  "name": "liulingfei-1--deepseek-harness-ios",
+  "displayName": "deepseek-harness-ios",
+  "description": "Native iOS DeepSeek Harness port: BYOK inference, on-device Agent tools, iSH sandbox, Cordis plugins, and trajectory.",
+  "version": "1.0.0",
+  "author": "liulingfei-1",
+  "homepage": "https://github.com/liulingfei-1/deepseek-harness-ios",
+  "skills": []
+}
