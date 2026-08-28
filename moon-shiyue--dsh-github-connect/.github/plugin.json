@@ -1,0 +1,9 @@
+{
+  "name": "moon-shiyue--dsh-github-connect",
+  "displayName": "dsh-github-connect",
+  "description": "\u4fbf\u643a\u5f0f GitHub \u8fde\u63a5\u63d2\u4ef6 for DeepSeek Harness (DSH)\uff1acomposer \u5de6\u4e0b\u89d2\u4e00\u952e\u6388\u6743\uff0cAI \u53ef\u901a\u8fc7 github_api \u5de5\u5177\u64cd\u4f5c\u4f60\u7684 GitHub\u3002Portable GitHub connection plugin: OAuth device flow / PAT, proxy & system-CA aware.",
+  "version": "1.0.0",
+  "author": "Moon-shiyue",
+  "homepage": "https://github.com/Moon-shiyue/dsh-github-connect",
+  "skills": []
+}
