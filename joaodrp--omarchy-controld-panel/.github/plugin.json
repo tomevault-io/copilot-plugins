@@ -1,0 +1,9 @@
+{
+  "name": "joaodrp--omarchy-controld-panel",
+  "displayName": "omarchy-controld-panel",
+  "description": "What Control D is doing on your machine, in the Omarchy bar. Powered by cdctl.",
+  "version": "1.0.0",
+  "author": "joaodrp",
+  "homepage": "https://github.com/joaodrp/omarchy-controld-panel",
+  "skills": []
+}
