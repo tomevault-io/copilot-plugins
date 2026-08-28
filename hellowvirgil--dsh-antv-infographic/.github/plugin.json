@@ -1,0 +1,9 @@
+{
+  "name": "hellowvirgil--dsh-antv-infographic",
+  "displayName": "dsh-antv-infographic",
+  "description": "Render streaming, editable AntV infographics inside DeepSeek Harness replies.",
+  "version": "1.0.0",
+  "author": "HellowVirgil",
+  "homepage": "https://github.com/HellowVirgil/dsh-antv-infographic",
+  "skills": []
+}
