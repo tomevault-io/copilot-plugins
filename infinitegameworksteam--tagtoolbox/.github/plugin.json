@@ -1,0 +1,9 @@
+{
+  "name": "infinitegameworksteam--tagtoolbox",
+  "displayName": "TagToolbox",
+  "description": "Gameplay Tag quality-of-life suite for Unreal Engine: designer-editable picker filters, tag colors, enhanced browser with references, no-load tag audit, and tag-tinted graph comments.",
+  "version": "1.0.0",
+  "author": "InfiniteGameWorksTeam",
+  "homepage": "https://github.com/InfiniteGameWorksTeam/TagToolbox",
+  "skills": []
+}
