@@ -4,7 +4,7 @@
   "repo": "DeepSeek-Harness-Agent",
   "description": "DeepSeek Harness l\u00e0 n\u1ec1n t\u1ea3ng Agent Harness m\u00e3 ngu\u1ed3n m\u1edf th\u1ebf h\u1ec7 m\u1edbi do DeepSeek ph\u00e1t tri\u1ec3n. T\u00f4i \u0111\u00e3 build l\u1ea1i app desktop + b\u1ed9 nh\u1edb MemOS + browser + Suy Lu\u1eadn S\u00e2u DeepThink",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qtu11/DeepSeek-Harness-Agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T09:20:55Z"
+  "distributed_at": "2026-08-28T15:15:40Z"
 }
