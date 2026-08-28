@@ -1,0 +1,9 @@
+{
+  "name": "bkmashiro--redscript",
+  "displayName": "redscript",
+  "description": "A typed scripting language that compiles to Minecraft datapacks.",
+  "version": "1.0.0",
+  "author": "bkmashiro",
+  "homepage": "https://github.com/bkmashiro/redscript",
+  "skills": []
+}
