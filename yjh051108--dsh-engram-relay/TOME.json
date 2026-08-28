@@ -1,0 +1,44 @@
+{
+  "name": "dsh-engram-relay",
+  "owner": "yjh051108",
+  "repo": "dsh-engram-relay",
+  "description": "dsh-engram-relay \u516c\u5f00\u955c\u50cf\uff08\u4e0a\u6e38\uff1adsh-external/dsh-engram-relay\uff09\uff1a\u8de8\u4f1a\u8bdd\u5206\u5c42\u8bb0\u5fc6 + \u54c8\u5e0c\u00d7\u8bed\u4e49\u00d7\u56e0\u679c\u8d85\u7a00\u758f\u5524\u9192\uff0c13 \u4e2a engram_* \u5de5\u5177\uff0cBSD-3-Clause",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yjh051108/dsh-engram-relay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T00:02:03Z"
+}
