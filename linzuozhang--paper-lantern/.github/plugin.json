@@ -1,0 +1,9 @@
+{
+  "name": "linzuozhang--paper-lantern",
+  "displayName": "Paper-Lantern",
+  "description": "Paper Lantern: a local-first, open-source AI paper reader for PDF annotation, DeepSeek summaries, translation, method breakdowns, and paper Q&A.",
+  "version": "1.0.0",
+  "author": "LinzuoZhang",
+  "homepage": "https://github.com/LinzuoZhang/Paper-Lantern",
+  "skills": []
+}
