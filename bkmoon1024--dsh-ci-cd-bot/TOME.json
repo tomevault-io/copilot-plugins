@@ -4,7 +4,7 @@
   "repo": "dsh-ci-cd-bot",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bkMoon1024/dsh-ci-cd-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T23:32:22Z"
+  "distributed_at": "2026-08-28T01:47:00Z"
 }
