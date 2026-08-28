@@ -1,0 +1,9 @@
+{
+  "name": "bpolaszek--typed-http-client",
+  "displayName": "typed-http-client",
+  "description": "Symfony HTTP Client returning real objects.",
+  "version": "1.0.0",
+  "author": "bpolaszek",
+  "homepage": "https://github.com/bpolaszek/typed-http-client",
+  "skills": []
+}
