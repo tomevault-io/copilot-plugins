@@ -1,0 +1,9 @@
+{
+  "name": "podbay-cloud--podbay",
+  "displayName": "podbay",
+  "description": "Give an agent a computer, on your own metal \u2014 self-hostable persistent workspaces for coding agents (Claude Code, Codex). BSL 1.1.",
+  "version": "1.0.0",
+  "author": "Podbay-Cloud",
+  "homepage": "https://github.com/Podbay-Cloud/podbay",
+  "skills": []
+}
