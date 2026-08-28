@@ -1,0 +1,9 @@
+{
+  "name": "e2b-dev--herdr-e2b-sandbox",
+  "displayName": "herdr-e2b-sandbox",
+  "description": "herdr plugin that mirrors a git worktree into an E2B sandbox \u2014 one box or a branch-per-agent fleet, with a TUI dashboard",
+  "version": "1.0.0",
+  "author": "e2b-dev",
+  "homepage": "https://github.com/e2b-dev/herdr-e2b-sandbox",
+  "skills": []
+}
