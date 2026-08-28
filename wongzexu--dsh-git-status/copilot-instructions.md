@@ -1,0 +1,62 @@
+## dsh-git-status
+
+> > 本文件只含与 agent 协作的**通用约定**与**可复用平台经验**，不含任何项目具体实现细节；
+
+# AGENTS.md（Agent 协作约定 · 参考层）
+
+> 本文件只含与 agent 协作的**通用约定**与**可复用平台经验**，不含任何项目具体实现细节；
+> 可直接复用于本仓库及以后的新项目。
+
+## 改动纪律
+
+1. **先提案后动手**：任何代码/配置改动前，先给出方案并得到确认再执行；方案改动较大时，主动提示"是否先出提案"。
+2. **git 只暂存不提交**：不要自动 commit —— 只 `git add` 暂存，等用户指令再提交。
+3. **不随意 kill 进程**：不要 kill 用户环境里的进程（web 服务、守护进程、IDE 等）；确需重启时先说明原因并征得确认，优先用服务自身的重启机制或等守护进程自愈。
+
+## 文档
+
+4. **动手前先查文档**：新方向开始前，先检查是否已有相关文档/记录，避免重复建设。
+
+## 安全
+
+5. **凭据永不入代码/对话**：令牌/密钥走环境变量或独立配置文件（权限 600），禁止提交、禁止在对话中暴露。
+
+## 验证与交付
+
+6. **小步验证**：每次改动后必须自检（构建/语法/运行检查）通过再交付；涉及 UI 的改动先在预览环境确认效果，再视为完成。
+7. **提交干净**：测试产物、日志、临时文件不进暂存区。
+
+## Agent 协作习惯
+
+8. **任务可见**：后台任务保持进度可追踪（开始即记录 id），结束前汇总结果。
+9. **大块工作先拆解**：长任务先用任务清单/规划拆分，逐个攻克再合并。
+
+## 平台经验：Gitee Issue API
+
+1. **项目型 Issue 用扁平路径**：创建/更新走
+   `POST https://gitee.com/api/v5/repos/{owner}/issues`，仓库名用表单参数
+   `repo={repo}` 传入；标准路径 `/repos/{owner}/{repo}/issues` 只支持简单型
+   Issue，对项目型仓库返回 404 `"project or enterprise"`。
+2. 创建必需参数：`access_token`、`repo`、`title`、`body`、`issue_type`
+   （如 `任务`）；**关闭同样走扁平路径** `PATCH /repos/{owner}/issues/{ident}`
+   + `state=closed`；评论/读取用标准路径即可。
+3. 删除不支持（405），只能 PATCH 关闭；测试 issue 清理需到网页手动删。
+4. Issue 编号是字母数字串（如 `IK8X7H`），不是顺序数字。
+5. 认证：令牌走环境变量或 600 权限文件（本项目：
+   `~/.config/dsh-git-status/gitee-token`），不回显、不入对话/代码。
+
+## 平台经验：UI 问题用 webprobe 实测
+
+1. **排查 UI 样式/布局问题时，先用全局工具 `webprobe` 实测复现与验证**，不要凭代码静态猜测。
+   典型用例（提示框被外部同名 CSS 规则拉伸）：
+   - 体检：`webprobe <url> scan-abnormal`
+   - 查元素命中的全部 CSS 规则：`webprobe <url> rules-of --selector '[data-x]'`
+   - 回归断言（超限退出码 1）：`webprobe <url> assert-size --selector '[data-x]' --max-height 60`
+2. **工具位置**：`~/dev/webprobe`（命令 `webprobe` 已在 PATH；零 npm 依赖，
+   Node ≥ 22 + 任意 Chromium，自动复用 `~/.cache/ms-playwright` 缓存，可用 `CHROME_PATH` 覆盖）。
+3. **本机没有该工具时**：从 `git@gitee.com:wongzexu/webprobe.git` 克隆到任意目录，
+   用 `webprobe` 命令（或 `node webprobe.mjs`）运行；详见仓库 README。
+
+---
+> Source: [Wongzexu/dsh-git-status](https://github.com/Wongzexu/dsh-git-status) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-27 -->
