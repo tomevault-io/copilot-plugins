@@ -1,0 +1,9 @@
+{
+  "name": "nic01asfr--qgisstreammcp",
+  "displayName": "QgisStreamMCP",
+  "description": "QGIS Desktop as an MCP Server \u2014 Full GUI via noVNC, PyQGIS scripting, 1000+ Processing algorithms, smart data pipeline with 30+ French national datasets.",
+  "version": "1.0.0",
+  "author": "nic01asFr",
+  "homepage": "https://github.com/nic01asFr/QgisStreamMCP",
+  "skills": []
+}
