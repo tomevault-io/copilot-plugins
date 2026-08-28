@@ -1,0 +1,9 @@
+{
+  "name": "scarletindustries--bunkit",
+  "displayName": "bunkit",
+  "description": "macOS AppKit in Bun via Bun FFI",
+  "version": "1.0.0",
+  "author": "scarletindustries",
+  "homepage": "https://github.com/scarletindustries/bunkit",
+  "skills": []
+}
