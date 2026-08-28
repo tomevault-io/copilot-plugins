@@ -1,0 +1,9 @@
+{
+  "name": "openagenthq--repo-heart",
+  "displayName": "repo-heart",
+  "description": "\ud83e\udec0 The autonomous heart of your GitHub repo \u2014 24/7 AI agents that triage issues, review PRs, repair CI & keep docs fresh. Runs entirely in GitHub Actions. No server, no database. Provider-agnostic: Cla",
+  "version": "1.0.0",
+  "author": "OpenAgentHQ",
+  "homepage": "https://github.com/OpenAgentHQ/repo-heart",
+  "skills": []
+}
