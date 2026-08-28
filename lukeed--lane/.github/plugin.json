@@ -1,0 +1,9 @@
+{
+  "name": "lukeed--lane",
+  "displayName": "lane",
+  "description": "Copy-on-write worktrees with memory that survives them",
+  "version": "1.0.0",
+  "author": "lukeed",
+  "homepage": "https://github.com/lukeed/lane",
+  "skills": []
+}
