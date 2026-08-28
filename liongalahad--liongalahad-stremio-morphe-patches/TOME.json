@@ -1,0 +1,44 @@
+{
+  "name": "liongalahad-stremio-morphe-patches",
+  "owner": "liongalahad",
+  "repo": "liongalahad-stremio-morphe-patches",
+  "description": "Multi-account and side-by-side installation patches for Stremio Android TV",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liongalahad/liongalahad-stremio-morphe-patches",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T19:27:15Z"
+}
