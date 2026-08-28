@@ -4,7 +4,7 @@
   "repo": "astro-monorepo",
   "description": "A reusable Astro monorepo starter for independently deploying multiple static sites to Cloudflare Workers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brijr/astro-monorepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T07:45:26Z"
+  "distributed_at": "2026-08-28T13:23:05Z"
 }
