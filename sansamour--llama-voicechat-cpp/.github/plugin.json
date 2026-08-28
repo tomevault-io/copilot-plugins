@@ -1,0 +1,9 @@
+{
+  "name": "sansamour--llama-voicechat-cpp",
+  "displayName": "llama-voicechat.cpp",
+  "description": "NVIDIA NemotronLabs VoiceChat 11B on llama.cpp - duplex speech-to-speech on one 12.5 Hz timeline",
+  "version": "1.0.0",
+  "author": "sansamour",
+  "homepage": "https://github.com/sansamour/llama-voicechat.cpp",
+  "skills": []
+}
