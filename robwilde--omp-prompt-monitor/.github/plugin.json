@@ -1,0 +1,9 @@
+{
+  "name": "robwilde--omp-prompt-monitor",
+  "displayName": "omp-prompt-monitor",
+  "description": "Monitor your session prompt context from a single portal and keep an eye on your sessions",
+  "version": "1.0.0",
+  "author": "robwilde",
+  "homepage": "https://github.com/robwilde/omp-prompt-monitor",
+  "skills": []
+}
