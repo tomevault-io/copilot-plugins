@@ -1,0 +1,9 @@
+{
+  "name": "yernsun--project-forge",
+  "displayName": "project-forge",
+  "description": "Agent-ready, evolvable full-stack project generator for reliable AI coding and vibe coding. Scaffold governed FastAPI + Vue 3 repositories with Codex skills, architecture rules, validation harnesses, ",
+  "version": "1.0.0",
+  "author": "yernsun",
+  "homepage": "https://github.com/yernsun/project-forge",
+  "skills": []
+}
