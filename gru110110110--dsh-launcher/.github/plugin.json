@@ -1,0 +1,9 @@
+{
+  "name": "gru110110110--dsh-launcher",
+  "displayName": "dsh-launcher",
+  "description": "\u8ba9 DeepSeek Harness \u4eba\u4eba\u53ef\u7528\u7684\u684c\u9762\u5165\u53e3\u2014\u2014\u4e0d\u7528 Node\u3001\u4e0d\u7528\u547d\u4ee4\u884c\uff0c\u53cc\u51fb\u5373\u7528\uff0c\u8fd8\u65e0\u635f\u8ddf\u968f\u6bcf\u6b21\u5b98\u65b9\u66f4\u65b0\u3002\u652f\u6301MacOs\u548cWindows\u3002DeepSeek Harness, for everyone. No Node.js. No command line. Just double-click and go. Always in step with every official u",
+  "version": "1.0.0",
+  "author": "Gru110110110",
+  "homepage": "https://github.com/Gru110110110/dsh-launcher",
+  "skills": []
+}
