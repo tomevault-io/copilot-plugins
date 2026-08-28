@@ -1,0 +1,9 @@
+{
+  "name": "voktty--voktty",
+  "displayName": "voktty",
+  "description": "Lightweight AI-native terminal workspace with native MCP client and multi-tab workflows for developers and sysadmins.",
+  "version": "1.0.0",
+  "author": "voktty",
+  "homepage": "https://github.com/voktty/voktty",
+  "skills": []
+}
