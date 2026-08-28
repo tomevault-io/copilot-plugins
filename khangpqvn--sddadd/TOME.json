@@ -4,7 +4,7 @@
   "repo": "SDDADD",
   "description": "\ud83d\ude80 SDD + ADD Starter Template \u2014 AI Coding Assistant Governance Framework. Turn your AI coding assistant into a disciplined, spec-driven development partner. This is the definitive starter template for Spec-Driven Development (SDD) + Agent-Driven Development (ADD) \u2014 production-ready governance for Claude Code",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/khangpqvn/SDDADD",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T05:38:40Z"
+  "distributed_at": "2026-08-28T09:52:40Z"
 }
