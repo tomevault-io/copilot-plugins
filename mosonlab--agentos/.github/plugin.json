@@ -1,0 +1,9 @@
+{
+  "name": "mosonlab--agentos",
+  "displayName": "agentos",
+  "description": "A local control plane for coding agents. You write the spec; a twelve-step chain plans, reviews, implements, verifies and merges it. Orchestrates Codex CLI, Claude Code and Pi on your own Mac.",
+  "version": "1.0.0",
+  "author": "mosonlab",
+  "homepage": "https://github.com/mosonlab/agentos",
+  "skills": []
+}
