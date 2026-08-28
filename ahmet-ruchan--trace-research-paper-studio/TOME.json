@@ -1,0 +1,44 @@
+{
+  "name": "trace-research-paper-studio",
+  "owner": "Ahmet-Ruchan",
+  "repo": "trace-research-paper-studio",
+  "description": "Trace \u2014 Research Paper Studio. An AI-powered, evidence-first studio that turns research papers into source-linked workspaces and interactive, exportable web stories.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ahmet-Ruchan/trace-research-paper-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T14:42:41Z"
+}
