@@ -7,11 +7,11 @@ A CLI tool and TypeScript library for browsing, searching, exporting, and managi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [S2thend/claude-code-history](https://github.com/S2thend/claude-code-history).
+Original source: `AGENTS.md` in [S2thend/claude-code-history](https://github.com/S2thend/claude-code-history).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
