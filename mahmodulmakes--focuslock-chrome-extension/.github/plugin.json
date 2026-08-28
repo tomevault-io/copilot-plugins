@@ -1,0 +1,9 @@
+{
+  "name": "mahmodulmakes--focuslock-chrome-extension",
+  "displayName": "focuslock-chrome-extension",
+  "description": "FocusLock \u2014 Chrome extension to block distracting sites, reels, and feeds, with optional password protection.",
+  "version": "1.0.0",
+  "author": "mahmodulmakes",
+  "homepage": "https://github.com/mahmodulmakes/focuslock-chrome-extension",
+  "skills": []
+}
