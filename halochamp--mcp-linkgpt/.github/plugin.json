@@ -1,0 +1,9 @@
+{
+  "name": "halochamp--mcp-linkgpt",
+  "displayName": "MCP-LinkGPT",
+  "description": "Read-only MCP bridge from Codex to ChatGPT Web through a dedicated Chrome profile",
+  "version": "1.0.0",
+  "author": "halochamp",
+  "homepage": "https://github.com/halochamp/MCP-LinkGPT",
+  "skills": []
+}
