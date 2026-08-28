@@ -7,11 +7,11 @@ Keep the current split-diff line in view while reviewing with Hunk.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [modem-dev/hunk-lens](https://github.com/modem-dev/hunk-lens).
+Original source: `AGENTS.md` in [modem-dev/hunk-lens](https://github.com/modem-dev/hunk-lens).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
