@@ -1,23 +1,21 @@
-## backend-agents
+## frontend-react
 
-> Backend Python – Agents, API-Calls, Env
+> Frontend React/TypeScript – API, Hooks, Daten
 
 
-# Backend & Agents (Python)
+# Frontend (React / TypeScript)
 
-## Agents
-- Jeder Agent: `run_*_agent(conflict: str) -> Dict[str, Any]`; synchroner Einstieg, intern `asyncio.run()` für HTTP.
-- Tools mit `@tool`; Aufruf `tool.invoke(args)`.
-- API-Keys über `os.getenv("...")`; fehlende Keys führen zu leeren/Fehler-Ergebnissen, kein Abbruch.
-- Bei LLM-Tool-Calling: JSON-Antwort robuster parsen (z. B. `` ```json `` / `` ``` `` entfernen); bei Parse-Fehler Fallback: Tools direkt aufrufen und Ergebnis aus Rohdaten bauen.
+## API & Env
+- Backend-URL über `import.meta.env.VITE_API_URL` mit Fallback (z. B. Production-URL); keine hart codierten `localhost` in Commit.
+- Fetch zu `/api/analyze`, `/api/export/pdf` etc. mit dieser Basis-URL; Fehlerbehandlung (z. B. Toast) bei Netzwerkfehlern.
 
-## HTTP
-- `httpx.AsyncClient` für alle externen Requests; Timeouts setzen (z. B. 15–20 s).
-- Fehler abfangen (`try/except`), bei Fehlern leere Liste oder Dict mit `"error": str(e)` zurückgeben, damit der Agent nicht crasht.
+## Daten & Typen
+- Analyse-Daten: Typ `ConflictData` in `useConflictWebSocket.ts` (oder gleichwertig); neue Felder (z. B. `sigint.conflict_reports`) dort ergänzen, wenn das Backend sie liefert.
+- `key_findings` ist `string[]`; Anzeige als Liste/Karten je nach Komponente.
 
-## Rückgabe-Format
-- Einheitlich Dict mit mindestens: Score-Feld (z. B. `escalation_score`, `sigint_score`), `summary`, und fachliche Listen (z. B. `aircraft`, `ships`, `polymarket`).
-- Supervisor erwartet benannte Scores und hängt Agent-Ergebnisse an `key_findings` an.
+## Komponenten
+- Funktionale Komponenten; wiederverwendbare Logik in Hooks (z. B. `useConflictWebSocket`, `useToast`).
+- Keine unnötigen direkten Aufrufe von Backend-URLs in vielen Stellen; eine zentrale API-Basis nutzen.
 
 ---
 > Source: [lina767/digital-war-room](https://github.com/lina767/digital-war-room) — distributed by [TomeVault](https://tomevault.io).
