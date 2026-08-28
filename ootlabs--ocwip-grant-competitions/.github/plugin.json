@@ -1,0 +1,9 @@
+{
+  "name": "ootlabs--ocwip-grant-competitions",
+  "displayName": "OCWIP-grant-competitions",
+  "description": "Platforma do obslugi konkursow dotacyjnych OCWIP: ogloszenie naboru, skladanie wnioskow, ocena, umowa, sprawozdanie.",
+  "version": "1.0.0",
+  "author": "ootLabs",
+  "homepage": "https://github.com/ootLabs/OCWIP-grant-competitions",
+  "skills": []
+}
