@@ -1,0 +1,9 @@
+{
+  "name": "soulsniper-v2--scrape-sdk",
+  "displayName": "scrape-sdk",
+  "description": "One TypeScript client for web scraping, crawling, and clean markdown extraction across Firecrawl, Jina, Tavily, and Local Cheerio with automatic failover.",
+  "version": "1.0.0",
+  "author": "SoulSniper-V2",
+  "homepage": "https://github.com/SoulSniper-V2/scrape-sdk",
+  "skills": []
+}
