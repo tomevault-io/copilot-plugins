@@ -1,0 +1,9 @@
+{
+  "name": "meykiio--yalidine-integration-skill",
+  "displayName": "yalidine-integration-skill",
+  "description": "AI agent Skill for integrating the Yalidine (Guepex) delivery API \u2014 parcels, webhooks, fees, and tracking \u2014 into any codebase. Works with Claude, Codex, and opencode.",
+  "version": "1.0.0",
+  "author": "Meykiio",
+  "homepage": "https://github.com/Meykiio/yalidine-integration-skill",
+  "skills": []
+}
