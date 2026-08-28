@@ -1,0 +1,9 @@
+{
+  "name": "jeremybacher--meet-music",
+  "displayName": "meet-music",
+  "description": "Shared music queue inside Google Meet. Paste a YouTube link and the whole meeting hears it, without anyone else installing a thing.",
+  "version": "1.0.0",
+  "author": "jeremybacher",
+  "homepage": "https://github.com/jeremybacher/meet-music",
+  "skills": []
+}
