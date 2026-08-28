@@ -4,7 +4,7 @@
   "repo": "sempods-kotlin",
   "description": "sempods reference implementation for the JVM \u2014 pod server, identity service, hosted MCP, clients",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sempods/sempods-kotlin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T08:36:15Z"
+  "distributed_at": "2026-08-28T08:46:56Z"
 }
