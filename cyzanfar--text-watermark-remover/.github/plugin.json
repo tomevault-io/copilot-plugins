@@ -1,0 +1,9 @@
+{
+  "name": "cyzanfar--text-watermark-remover",
+  "displayName": "text-watermark-remover",
+  "description": "Open-source AI text watermark remover for Unicode artifacts, with detector-scoped evaluation of published statistical LLM watermark schemes.",
+  "version": "1.0.0",
+  "author": "cyzanfar",
+  "homepage": "https://github.com/cyzanfar/text-watermark-remover",
+  "skills": []
+}
