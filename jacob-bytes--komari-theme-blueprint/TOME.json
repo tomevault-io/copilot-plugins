@@ -4,7 +4,7 @@
   "repo": "komari-theme-blueprint",
   "description": "\u7ed9 Komari Monitor \u7684\u4e00\u5957\u300c\u5de5\u7a0b\u84dd\u56fe \u00b7 \u8fd0\u7ef4\u56fe\u7eb8\u300d\u4e3b\u9898",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jacob-bytes/komari-theme-blueprint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:42:34Z"
+  "distributed_at": "2026-08-28T19:28:49Z"
 }
