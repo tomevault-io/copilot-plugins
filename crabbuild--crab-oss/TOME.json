@@ -4,7 +4,7 @@
   "repo": "crab-oss",
   "description": "Serverless Git for large files: store models, datasets, and assets in your own S3, GCS, Azure, or S3-compatible bucket.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/crabbuild/crab-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:30:41Z"
+  "distributed_at": "2026-08-28T05:32:55Z"
 }
