@@ -1,0 +1,44 @@
+{
+  "name": "bigAagent",
+  "owner": "qin-net",
+  "repo": "bigAagent",
+  "description": "\u81ea\u7814\u7092\u80a1\u6a21\u62df\u5668\uff0c\u80fd\u591f\u8ffd\u8e2a\u4e0e\u81ea\u6211\u8fed\u4ee3\u7684agent\u52a9\u624b",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qin-net/bigAagent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T04:49:25Z"
+}
