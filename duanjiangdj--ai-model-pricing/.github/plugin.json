@@ -1,0 +1,9 @@
+{
+  "name": "duanjiangdj--ai-model-pricing",
+  "displayName": "ai-model-pricing",
+  "description": "AI Model Pricing Database \u2014 collect pricing for every obtainable AI model across all billing models (per-token API incl. cache/batch, per-image, per-audio-second, per-request, credits, GPU, subscripti",
+  "version": "1.0.0",
+  "author": "duanjiangDJ",
+  "homepage": "https://github.com/duanjiangDJ/ai-model-pricing",
+  "skills": []
+}
