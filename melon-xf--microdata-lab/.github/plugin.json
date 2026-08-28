@@ -1,0 +1,9 @@
+{
+  "name": "melon-xf--microdata-lab",
+  "displayName": "microdata-lab",
+  "description": "Reproducible public-microdata analyses from official, locally validated source releases",
+  "version": "1.0.0",
+  "author": "melon-xf",
+  "homepage": "https://github.com/melon-xf/microdata-lab",
+  "skills": []
+}
