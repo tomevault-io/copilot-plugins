@@ -1,0 +1,9 @@
+{
+  "name": "fayzan101--chaindrop-shai-hulud-firewall",
+  "displayName": "ChainDrop-Shai-Hulud-Firewall",
+  "description": "A RAG-augmented AI firewall for detecting self-propagating npm supply-chain worms in CI/CD pipelines.",
+  "version": "1.0.0",
+  "author": "fayzan101",
+  "homepage": "https://github.com/fayzan101/ChainDrop-Shai-Hulud-Firewall",
+  "skills": []
+}
