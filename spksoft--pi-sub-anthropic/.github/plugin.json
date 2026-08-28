@@ -1,0 +1,9 @@
+{
+  "name": "spksoft--pi-sub-anthropic",
+  "displayName": "pi-sub-anthropic",
+  "description": "An extension for using anthropic subscription in Pi Agent.",
+  "version": "1.0.0",
+  "author": "spksoft",
+  "homepage": "https://github.com/spksoft/pi-sub-anthropic",
+  "skills": []
+}
