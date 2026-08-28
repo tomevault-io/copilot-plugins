@@ -1,0 +1,44 @@
+{
+  "name": "learn-stateless-mcp",
+  "owner": "panaversity",
+  "repo": "learn-stateless-mcp",
+  "description": "Learn the stateless MCP revision (2026-07-28) by building it twice \u2014 once with the Python SDK v2, once with the TypeScript SDK v2. Five lessons that mirror each other file for file: hello world, a server and client with no session, where your tool's JSON Schema really comes from, and multi round-trip requests.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/panaversity/learn-stateless-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T06:35:18Z"
+}
