@@ -1,0 +1,9 @@
+{
+  "name": "fonsecafns--sentinela",
+  "displayName": "sentinela",
+  "description": "Um auditor de seguran\u00e7a que vive dentro do seu agente de IA. Varre o projeto inteiro, usa ferramentas reais, documenta e sugere mudan\u00e7as que realmente fazem diferen\u00e7a!",
+  "version": "1.0.0",
+  "author": "fonsecafns",
+  "homepage": "https://github.com/fonsecafns/sentinela",
+  "skills": []
+}
