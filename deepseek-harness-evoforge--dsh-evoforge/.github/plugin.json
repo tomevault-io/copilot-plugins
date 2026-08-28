@@ -1,0 +1,9 @@
+{
+  "name": "deepseek-harness-evoforge--dsh-evoforge",
+  "displayName": "dsh-evoforge",
+  "description": "Evidence-driven, cache-stable extensions for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "deepseek-harness-evoforge",
+  "homepage": "https://github.com/deepseek-harness-evoforge/dsh-evoforge",
+  "skills": []
+}
