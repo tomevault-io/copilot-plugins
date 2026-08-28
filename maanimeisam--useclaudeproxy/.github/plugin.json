@@ -1,0 +1,9 @@
+{
+  "name": "maanimeisam--useclaudeproxy",
+  "displayName": "useclaudeproxy",
+  "description": "OAuth device-flow CLI that authenticates the Hermes CLI and runs CLIProxyAPI as a local OpenAI/Claude/Gemini/Codex proxy.",
+  "version": "1.0.0",
+  "author": "maanimeisam",
+  "homepage": "https://github.com/maanimeisam/useclaudeproxy",
+  "skills": []
+}
