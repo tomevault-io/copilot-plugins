@@ -4,7 +4,7 @@
   "repo": "llm-knowledge",
   "description": "LLM \u8bad\u7ec3\u4e0e\u63a8\u7406\u6280\u672f\u77e5\u8bc6\u5e93\uff0c\u7531 Claude Code Agent \u7ef4\u62a4\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suhaibo666/llm-knowledge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:27:47Z"
+  "distributed_at": "2026-08-28T23:29:00Z"
 }
