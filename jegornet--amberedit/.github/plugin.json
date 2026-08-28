@@ -1,0 +1,9 @@
+{
+  "name": "jegornet--amberedit",
+  "displayName": "amberedit",
+  "description": "Terminal-based FTN mail editor for Linux and macOS",
+  "version": "1.0.0",
+  "author": "jegornet",
+  "homepage": "https://github.com/jegornet/amberedit",
+  "skills": []
+}
