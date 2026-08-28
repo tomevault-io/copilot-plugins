@@ -7,13 +7,13 @@ Native DeepSeek Harness plugin for Flow2Spec, powered by @double-coding/flow2spe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [double-coding-lab/Flow2Spec-DeepSeek-Harness](https://github.com/double-coding-lab/Flow2Spec-DeepSeek-Harness).
+Original source: `AGENTS.md` in [double-coding-lab/Flow2Spec-DeepSeek-Harness](https://github.com/double-coding-lab/Flow2Spec-DeepSeek-Harness).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
