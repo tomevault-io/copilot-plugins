@@ -1,0 +1,9 @@
+{
+  "name": "domchurch--gnosis",
+  "displayName": "Gnosis",
+  "description": "Terminal coding agent with browser UI, MCP, Obsidian memory, and live office floor. Any model via OpenRouter. MIT.",
+  "version": "1.0.0",
+  "author": "DOMCHURCH",
+  "homepage": "https://github.com/DOMCHURCH/Gnosis",
+  "skills": []
+}
