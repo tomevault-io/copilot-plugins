@@ -1,0 +1,44 @@
+{
+  "name": "pancakemaker",
+  "owner": "momentmaker",
+  "repo": "pancakemaker",
+  "description": "A personal and business expense tracker that works offline-first with optional cloud sync. Built as a PWA with an in-browser SQLite database, so your data stays on your device until you choose to sync.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/momentmaker/pancakemaker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T16:52:22Z"
+}
