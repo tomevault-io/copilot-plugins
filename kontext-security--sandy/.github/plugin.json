@@ -1,0 +1,9 @@
+{
+  "name": "kontext-security--sandy",
+  "displayName": "sandy",
+  "description": "Secure agents in seconds by running them in a sandbox.",
+  "version": "1.0.0",
+  "author": "kontext-security",
+  "homepage": "https://github.com/kontext-security/sandy",
+  "skills": []
+}
