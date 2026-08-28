@@ -4,7 +4,7 @@
   "repo": "rp2350-doom",
   "description": "Handheld DOOM adaptation for the Waveshare RP2350-Touch-AMOLED-1.8, with touchscreen controls, full-panel graphics, and onboard audio.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/artsvuni/rp2350-doom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:48:19Z"
+  "distributed_at": "2026-08-28T01:43:12Z"
 }
