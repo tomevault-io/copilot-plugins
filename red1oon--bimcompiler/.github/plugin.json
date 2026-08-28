@@ -1,0 +1,9 @@
+{
+  "name": "red1oon--bimcompiler",
+  "displayName": "BIMCompiler",
+  "description": "Deterministic BIM compiler - extracts patterns from IFC databases, generates geometry with validated connections",
+  "version": "1.0.0",
+  "author": "red1oon",
+  "homepage": "https://github.com/red1oon/BIMCompiler",
+  "skills": []
+}
