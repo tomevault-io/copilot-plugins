@@ -1,0 +1,9 @@
+{
+  "name": "opendex-ws--ombra",
+  "displayName": "ombra",
+  "description": "Fully featured trading terminal built on the opendex API",
+  "version": "1.0.0",
+  "author": "opendex-ws",
+  "homepage": "https://github.com/opendex-ws/ombra",
+  "skills": []
+}
