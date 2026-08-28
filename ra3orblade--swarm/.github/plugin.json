@@ -1,0 +1,9 @@
+{
+  "name": "ra3orblade--swarm",
+  "displayName": "swarm",
+  "description": "Local-first control plane for AI-agent development \u2014 watch every Claude Code session live, ledger tasks/worktrees/resources, track token spend and cost, enforce rules.",
+  "version": "1.0.0",
+  "author": "ra3orblade",
+  "homepage": "https://github.com/ra3orblade/swarm",
+  "skills": []
+}
