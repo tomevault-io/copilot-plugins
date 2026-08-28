@@ -1,0 +1,9 @@
+{
+  "name": "rome-os--rome-apps",
+  "displayName": "rome-apps",
+  "description": "AI Native apps for Rome, the agentic OS",
+  "version": "1.0.0",
+  "author": "rome-os",
+  "homepage": "https://github.com/rome-os/rome-apps",
+  "skills": []
+}
