@@ -1,0 +1,9 @@
+{
+  "name": "edgeos-project--workstation",
+  "displayName": "workstation",
+  "description": "EdgeOS Workstation virtual machine manager and development frontend",
+  "version": "1.0.0",
+  "author": "EdgeOS-Project",
+  "homepage": "https://github.com/EdgeOS-Project/workstation",
+  "skills": []
+}
