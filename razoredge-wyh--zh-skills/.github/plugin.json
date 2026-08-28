@@ -1,0 +1,9 @@
+{
+  "name": "razoredge-wyh--zh-skills",
+  "displayName": "zh-skills",
+  "description": "\u7ed9\u4e2d\u6587\u5f00\u53d1\u8005\u7684 Claude Code \u4e2d\u6587\u5de5\u7a0b\u89c4\u8303\u6280\u80fd\u5305\uff1a\u547d\u540d\u3001\u6ce8\u91ca\u3001\u6587\u6863\u3001commit\u3001\u4f53\u68c0\uff0c\u4e00\u6761\u547d\u4ee4\u88c5\u8fdb .claude/skills/",
+  "version": "1.0.0",
+  "author": "RazorEdge-wyh",
+  "homepage": "https://github.com/RazorEdge-wyh/zh-skills",
+  "skills": []
+}
