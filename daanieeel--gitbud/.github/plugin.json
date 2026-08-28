@@ -1,0 +1,9 @@
+{
+  "name": "daanieeel--gitbud",
+  "displayName": "gitbud",
+  "description": "A lightweight and fast Git client written in Rust. Free forever, no catch.",
+  "version": "1.0.0",
+  "author": "Daanieeel",
+  "homepage": "https://github.com/Daanieeel/gitbud",
+  "skills": []
+}
