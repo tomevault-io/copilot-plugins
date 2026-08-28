@@ -4,7 +4,7 @@
   "repo": "llama.cpp-nudge",
   "description": "llama.cpp fork: Strix Halo Vulkan (Nathanw1014) + multi-point reasoning-budget nudges, intro-once mode, usage.reasoning telemetry",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/voidsurfer/llama.cpp-nudge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T07:29:53Z"
+  "distributed_at": "2026-08-28T13:01:57Z"
 }
