@@ -1,0 +1,44 @@
+{
+  "name": "zcode-windows-skin-manager",
+  "owner": "zhongruan0522",
+  "repo": "zcode-windows-skin-manager",
+  "description": "\u7ed9\u4f60\u7684ZCode\u6362\u4e0a\u5fc3\u4eea\u7684\u76ae\u80a4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhongruan0522/zcode-windows-skin-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T09:23:34Z"
+}
