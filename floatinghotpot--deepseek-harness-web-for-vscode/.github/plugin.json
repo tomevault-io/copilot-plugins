@@ -1,0 +1,9 @@
+{
+  "name": "floatinghotpot--deepseek-harness-web-for-vscode",
+  "displayName": "deepseek-harness-web-for-vscode",
+  "description": "Embed DeepSeek Harness Web UI into VS Code (also Antigravity): one-click launch of dsh web, editor-tab panel, shared instance with browser, clipboard & theme sync.",
+  "version": "1.0.0",
+  "author": "floatinghotpot",
+  "homepage": "https://github.com/floatinghotpot/deepseek-harness-web-for-vscode",
+  "skills": []
+}
