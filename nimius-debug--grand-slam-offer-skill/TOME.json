@@ -1,0 +1,44 @@
+{
+  "name": "grand-slam-offer-skill",
+  "owner": "nimius-debug",
+  "repo": "grand-slam-offer-skill",
+  "description": "A Claude Skill that walks you through building an irresistible offer, one step you approve at a time. Based on Alex Hormozi's $100M Offers. Works on web, desktop and phone.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nimius-debug/grand-slam-offer-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T07:12:49Z"
+}
