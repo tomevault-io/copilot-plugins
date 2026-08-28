@@ -1,0 +1,9 @@
+{
+  "name": "yusufkaraaslan--tote",
+  "displayName": "tote",
+  "description": "Tote \u2014 one window for all your LLMs. Web apps, native apps and CLI agents (Claude Code, Codex, Gemini, Kimi\u2026) organized around workspaces: switch a space and every tab, terminal and download follows.",
+  "version": "1.0.0",
+  "author": "yusufkaraaslan",
+  "homepage": "https://github.com/yusufkaraaslan/tote",
+  "skills": []
+}
