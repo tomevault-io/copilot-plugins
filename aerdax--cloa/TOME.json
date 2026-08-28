@@ -4,7 +4,7 @@
   "repo": "Cloa",
   "description": "iOS \u865a\u62df\u8863\u67dc\u5e94\u7528\u3002\u62cd\u7167\u5f55\u5165\u8863\u7269\u5efa\u7acb\u6570\u5b57\u8863\u67dc\uff0c\u7ec4\u5408\u642d\u914d\uff0c\u5e76\u8c03\u7528\u751f\u6210\u5f0f\u56fe\u50cf\u6a21\u578b\u628a\u642d\u914d\u6e32\u67d3\u5230\u865a\u62df\u5f62\u8c61\u4e0a\u3002SwiftUI + Swift 6 + SwiftData\uff0c\u65e0\u7b2c\u4e09\u65b9\u4f9d\u8d56\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aerdax/Cloa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T09:37:16Z"
+  "distributed_at": "2026-08-28T15:34:51Z"
 }
