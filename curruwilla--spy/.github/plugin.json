@@ -1,0 +1,9 @@
+{
+  "name": "curruwilla--spy",
+  "displayName": "spy",
+  "description": "Terminal system monitor. CPU, memory, processes, sorting and a process tree \u2014 all on one screen.",
+  "version": "1.0.0",
+  "author": "curruwilla",
+  "homepage": "https://github.com/curruwilla/spy",
+  "skills": []
+}
