@@ -1,0 +1,9 @@
+{
+  "name": "armax--unitystore-mcp",
+  "displayName": "unitystore-mcp",
+  "description": "Unity Asset Store MCP server. Browse, download, extract, and convert .unitypackage assets to glTF/GLB formats formatsfrom Claude Code or any MCP client",
+  "version": "1.0.0",
+  "author": "Armax",
+  "homepage": "https://github.com/Armax/unitystore-mcp",
+  "skills": []
+}
