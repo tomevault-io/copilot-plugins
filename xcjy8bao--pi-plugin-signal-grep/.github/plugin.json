@@ -1,0 +1,9 @@
+{
+  "name": "xcjy8bao--pi-plugin-signal-grep",
+  "displayName": "pi-plugin-signal-grep",
+  "description": "Context-efficient, correctness-first ripgrep search for the Pi coding agent",
+  "version": "1.0.0",
+  "author": "xcjy8bao",
+  "homepage": "https://github.com/xcjy8bao/pi-plugin-signal-grep",
+  "skills": []
+}
