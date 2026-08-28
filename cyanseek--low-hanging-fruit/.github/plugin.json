@@ -1,0 +1,9 @@
+{
+  "name": "cyanseek--low-hanging-fruit",
+  "displayName": "low-hanging-fruit",
+  "description": "Discover, explain, rank, replay, and verify low-hanging research opportunities in mathematics and LLM research\u2014from one sentence.",
+  "version": "1.0.0",
+  "author": "cyanseek",
+  "homepage": "https://github.com/cyanseek/low-hanging-fruit",
+  "skills": []
+}
