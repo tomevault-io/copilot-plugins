@@ -1,0 +1,94 @@
+## sigrok-mcp-server
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Documentation Language
+
+All documentation, code comments, commit messages, and PR descriptions in this repository must be written in English.
+
+## Project Overview
+
+sigrok-mcp-server is an MCP (Model Context Protocol) server that wraps `sigrok-cli`, exposing sigrok's signal analysis capabilities to LLMs. It translates MCP tool calls into `sigrok-cli` invocations and returns structured results, enabling LLMs to control logic analyzers, decode protocols, and analyze signals.
+
+Written in Go. Licensed under MIT (Kenos, Inc.).
+
+## Language & Build
+
+- **Language:** Go
+- **Module:** `github.com/KenosInc/sigrok-mcp-server`
+- **Build:** `go build ./...`
+- **Run tests:** `go test ./...`
+- **Run single test:** `go test ./... -run TestName`
+- **Lint:** `go vet ./...`
+- **Tidy dependencies:** `go mod tidy`
+
+## Code Style
+
+- Follow standard Go conventions (`gofmt`, `go vet`)
+- Use table-driven tests with `t.Run()` subtests
+- Error handling: return errors, don't panic; wrap with `fmt.Errorf("context: %w", err)`
+- Naming: follow Go conventions — exported names in PascalCase, unexported in camelCase
+- Keep packages small and focused; avoid circular dependencies
+
+## Architecture
+
+- **MCP Server (Go):** Implements the MCP protocol, receives tool calls from LLMs, and delegates to `sigrok-cli`.
+- **sigrok-cli wrapper:** Constructs and executes `sigrok-cli` commands, parses output, and returns structured responses. `sigrok-cli` is the sole interface to sigrok — no C bindings or libsigrok dependency.
+- **Docker container:** The MCP server runs inside a Docker container with `sigrok-cli` pre-installed.
+- **Transport:** MCP communication uses stdio (stdin/stdout JSON-RPC).
+
+## Package Structure
+
+- `cmd/sigrok-mcp-server/` — Entrypoint (`main.go`): wires config, executor, handlers, starts stdio server
+- `internal/config/` — Env-based configuration (`SIGROK_CLI_PATH`, `SIGROK_TIMEOUT_SECONDS`, `SIGROK_WORKING_DIR`)
+- `internal/sigrok/` — CLI executor (`Executor`) and output parsers; testdata/ contains golden output files
+- `internal/serial/` — Serial port querier for direct instrument communication (independent of sigrok-cli)
+- `internal/devices/` — Device profile registry with embedded JSON profiles; supports lookup by name, model, or `*IDN?` response
+- `internal/tools/` — MCP tool definitions (`tools.go`) and handler implementations (`handlers.go`)
+
+## Key Dependencies
+
+- `github.com/mark3labs/mcp-go` — MCP protocol framework (tool registration, JSON-RPC stdio transport)
+- `go.bug.st/serial` — Cross-platform serial port library (pure Go on Linux)
+
+## Environment Variables
+
+- `SIGROK_CLI_PATH` — Path to sigrok-cli binary (default: `sigrok-cli`)
+- `SIGROK_TIMEOUT_SECONDS` — Command timeout in seconds (default: `30`)
+- `SIGROK_WORKING_DIR` — Working directory for sigrok-cli (default: current dir)
+
+## Testing Patterns
+
+- `Runner` interface in `internal/tools/` enables mock-based handler tests
+- `CommandFactory` in `internal/sigrok/executor.go` is a test seam for injecting fake commands
+- `internal/sigrok/testdata/` contains golden `sigrok-cli` output files for parser tests
+
+## Security
+
+- All user inputs are validated with regexes before passing to `sigrok-cli` (command injection prevention)
+- Key regexes: `validIDRe`, `validOptionRe`, `validFilenameRe` in `internal/tools/handlers.go`
+- Filenames are restricted to flat names (no path separators) to prevent path traversal
+
+## Project Metadata
+
+- **GitHub:** `github.com/KenosInc/sigrok-mcp-server`
+- **License:** MIT (Kenos, Inc.)
+- **Main branch:** `main`
+
+## Development Environment
+
+- **Dev container:** Use the devcontainer configuration for local development (`devcontainer.json` in `.devcontainer/`).
+- **CI/CD:** GitHub Actions. Workflows live in `.github/workflows/`.
+
+## Running
+
+- **Local (devcontainer):** Open in VS Code / IDE with devcontainer support, or use `devcontainer up`.
+- **Docker:** `docker build -t sigrok-mcp-server .` then `docker run sigrok-mcp-server`
+
+---
+> Source: [KenosInc/sigrok-mcp-server](https://github.com/KenosInc/sigrok-mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
