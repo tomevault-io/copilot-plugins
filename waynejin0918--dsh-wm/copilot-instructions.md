@@ -1,0 +1,16 @@
+## dsh-wm
+
+> DSH-WM product conventions — built-in vision and affirmative docs
+
+
+# DSH-WM conventions
+
+- Seeing frames is **in this repo**: `wm_inspect` (contact sheet + luma sketch + color/contrast look, and an image block in the tool render). Do not send the agent to Vision Toolkit / `vision_glance` as the look-at-frames path. Toolkit stays in Acknowledgements only.
+- README and publish copy stay **affirmative**. Do not add “Not in 0.x”, “明确不做”, “Still out of scope”, or contrastive “we are not X” lists.
+- Measure family is `wm_discover`, `wm_summarize`, `wm_rollout_diff`, `wm_inspect`, `wm_view`. After a diff names worst frames, inspect those indices, then open `wm_view` so the user can scrub pred vs GT, the diff heat, and the action track.
+- RSI is harness-layer only (skills, `wm.yaml`, eval notes). Do not silently rewrite training / U-Net.
+- World-model knowledge has **three routes**, always named first: `display-3d` (3D display / mesh / Gaussian / occupancy), `pixel-wm` (video-gen / pixel WM), `latent-wm` (JEPA / Dreamer / RSSM). Overview card is `wm-routes`. Map and tropes follow [Awesome World Models](https://github.com/knightnemo/Awesome-World-Models).
+
+---
+> Source: [WayneJin0918/dsh-wm](https://github.com/WayneJin0918/dsh-wm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
