@@ -1,0 +1,9 @@
+{
+  "name": "solarllm--human-proofreader-mcp",
+  "displayName": "human-proofreader-mcp",
+  "description": "\uc0ac\ub78c \ud3b8\uc9d1\uc790\uac00 \uc190\ubcf8 \uac83\ucc98\ub7fc \ud55c\uad6d\uc5b4 \uc6d0\uace0\ub97c \uad50\uc815\ud558\ub294 MCP \uc11c\ubc84 \u2014 Upstage Solar Pro 4 \u00b7 Vercel \u00b7 \ud558\ub8e8 100\ucf5c \ubb34\ub8cc",
+  "version": "1.0.0",
+  "author": "SolarLLM",
+  "homepage": "https://github.com/SolarLLM/human-proofreader-mcp",
+  "skills": []
+}
