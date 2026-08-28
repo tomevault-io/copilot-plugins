@@ -1,0 +1,9 @@
+{
+  "name": "ostapondo--wandful",
+  "displayName": "wandful",
+  "description": "Mouse gestures that fire keyboard shortcuts on macOS and Windows: draw a shape, the shortcut you bound to it fires in the app you were in \u2014 or an app opens. Rust + Tauri 2.",
+  "version": "1.0.0",
+  "author": "ostapondo",
+  "homepage": "https://github.com/ostapondo/wandful",
+  "skills": []
+}
