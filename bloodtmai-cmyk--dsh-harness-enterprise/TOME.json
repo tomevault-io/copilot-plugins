@@ -4,7 +4,7 @@
   "repo": "dsh-harness-enterprise",
   "description": "\u9762\u5411\u4f01\u4e1a\u5185\u90e8\u7ba1\u63a7\u7684 DeepSeek Harness \u7edf\u4e00\u667a\u80fd\u5de5\u4f5c\u53f0\u5165\u53e3",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bloodtmai-cmyk/dsh-harness-enterprise",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:11:36Z"
+  "distributed_at": "2026-08-28T18:52:12Z"
 }
