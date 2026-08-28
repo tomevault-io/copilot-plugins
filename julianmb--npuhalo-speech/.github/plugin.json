@@ -1,0 +1,9 @@
+{
+  "name": "julianmb--npuhalo-speech",
+  "displayName": "npuhalo-speech",
+  "description": "NPU-accelerated speech transcription & speaker diarization on AMD Strix Halo: Whisper-v3-turbo on XDNA 2 + pyannote, OpenAI-compatible API and browser studio",
+  "version": "1.0.0",
+  "author": "julianmb",
+  "homepage": "https://github.com/julianmb/npuhalo-speech",
+  "skills": []
+}
