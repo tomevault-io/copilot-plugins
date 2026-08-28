@@ -1,0 +1,44 @@
+{
+  "name": "DSHL",
+  "owner": "hibays",
+  "repo": "DSHL",
+  "description": "\u6781\u7b80 DeepSeek Harness \u684c\u9762\u7248\uff1a\u5355EXE\uff0c~4M\uff0c\u5373\u5f00\u5373\u7528\uff1b\u81ea\u52a8\u590d\u7528\u672c\u5730 dsh \u5b89\u88c5\u3001\u81ea\u5b89\u88c5/\u66f4\u65b0 dsh\uff0c\u542f\u52a8\u5b8c\u5168\u53ef\u914d\u7f6e\uff1b\u6258\u76d8\u6536\u7eb3\u65f6\u81ea\u52a8\u9500\u6bc1UI\u5c42\uff0c\u5185\u5b58\u5360\u7528\u6781\u4f4e\uff0cdsh \u540e\u53f0\u6301\u7eed\u670d\u52a1\u3001\u968f\u65f6\u5524\u56de\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hibays/DSHL",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T01:53:38Z"
+}
