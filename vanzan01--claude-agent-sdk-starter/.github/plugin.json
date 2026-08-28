@@ -1,0 +1,9 @@
+{
+  "name": "vanzan01--claude-agent-sdk-starter",
+  "displayName": "claude-agent-sdk-starter",
+  "description": "Clean starter kit for building Electron desktop apps with the official Claude Agent SDK",
+  "version": "1.0.0",
+  "author": "vanzan01",
+  "homepage": "https://github.com/vanzan01/claude-agent-sdk-starter",
+  "skills": []
+}
