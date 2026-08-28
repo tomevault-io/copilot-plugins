@@ -1,0 +1,52 @@
+## pragmatic-ddd
+
+> * 核心功能：项目是一个领域驱动设计的框架，包含实体聚合根规则、领域事件、仓储等基础领域驱动设计框架能力，用了 RocketMQ、Kafka 以及 MyBatis 的一些能力集成
+
+# 项目概述
+* 项目名称：pragmatic-ddd
+* 核心功能：项目是一个领域驱动设计的框架，包含实体聚合根规则、领域事件、仓储等基础领域驱动设计框架能力，用了 RocketMQ、Kafka 以及 MyBatis 的一些能力集成
+* 核心技术栈：基于 Java 17 版本开发
+
+# 目录结构
+* pragmatic-ddd-core 该框架的核心基础结构包
+* pragmatic-ddd-mybatis 是提供的一些 Mybatis 的一些能力
+* pragmatic-ddd-rokect-mq 是领域事件基础设施 rocketMQ 实现包
+* pragmatic-ddd-kafka 是领域事件基础设施 kafkaMQ 的实现包
+* pragmatic-ddd-spring-boot 和 SpringBoot 集成的包
+* pragmatic-ddd/docs 里面放的是一些提案文档以及设计文档，设计文档统一放到这个目录下面，可以根据代码的包去分类
+* pragmatic-ddd/documentation 这个目录是放使用文档的地方，注意这个是 VitePress 的文档，生成 markdown 文件时不需要生成目录，因为 VitePress 已有目录
+
+# 设计原则
+* 这是一个领域驱动的框架库，设计时要考虑框架的通用性，以及和其他项目引用该框架后的易于集成
+
+# 语言与编码规范
+* 基于 Java 17 版本开发，在设计和实现代码时尽量使用 Java 17 版本的特性
+* 控制判断不要使用三元表达式，采用 Optional 的方式
+* 集合类型的处理：如果能使用流就使用流；如果不能，退回到 for each
+* 如果 Lambda 可以被方法引用替代，优先使用方法引用
+* 无论多简单的 if 都需要带花括号，不要出现不带花括号的 if 逻辑
+* 一些实体类、DTO 类或数据容器类，可以用 Lombok 去做简化
+* 定义接口时，接口一定要以 I 开头
+
+# 代码注释规范
+* 类级别注释和公有方法需要加注释，私有方法不用加注释
+* 注释仅说明这个类或这个方法是干什么的，不要在注释里增加大量示例代码
+* 注释里的作者统一使用 wizard-lee，不用包含其他版本信息之类的
+
+# 代码排版规范
+* 方法调用/定义的参数如果较多（例如超过两个，或单个参数本身是多键值 Map.of(...)、lambda、长表达式），采用竖排——方法名与第一个参数后换行，每个参数独立成行，保持对齐
+* 参数少且都为简单字面量时保持单行横排即可
+
+# 工作流规范
+* 在有任何变动之前需要输出文档，没有文档不能改代码；如果只是让你分析一下原因（未输出文档），仅输出分析，不要改代码
+* 涉及 pragmatic-ddd-core 包的提案文档和代码重构计划文档放到 docs/design/core 对应目录下
+* 生成 markdown 文档时，在文档开头需要有大纲目录，并可通过点击跳转到对应章节
+
+# 安全与兜底策略
+* 禁止破坏性操作：未经明确确认，严禁执行 rm -rf、git push --force 或清空数据库等高危命令
+* 信息不足时：如果需求模糊或缺少必要上下文，请先列出需要澄清的问题，不要瞎编代码
+* 敏感信息：严禁在代码中硬编码 API Key、密码或内部 IP，必须使用环境变量
+
+---
+> Source: [pragmatic-lee/pragmatic-ddd](https://github.com/pragmatic-lee/pragmatic-ddd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
