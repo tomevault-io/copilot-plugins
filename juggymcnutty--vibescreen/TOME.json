@@ -4,7 +4,7 @@
   "repo": "vibescreen",
   "description": "This is a fork and drop-in replacement of guppyscreen, that is updated with AI assistance. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JuggyMcNutty/vibescreen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:20:12Z"
+  "distributed_at": "2026-08-28T04:55:49Z"
 }
