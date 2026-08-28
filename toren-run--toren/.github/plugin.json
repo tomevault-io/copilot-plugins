@@ -1,0 +1,9 @@
+{
+  "name": "toren-run--toren",
+  "displayName": "toren",
+  "description": "Open-source runtime for durable, long-running AI agents \u2014 in your own cloud. A resumed run never re-pays for a completed model call.",
+  "version": "1.0.0",
+  "author": "toren-run",
+  "homepage": "https://github.com/toren-run/toren",
+  "skills": []
+}
