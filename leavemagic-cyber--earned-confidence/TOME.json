@@ -1,0 +1,44 @@
+{
+  "name": "earned-confidence",
+  "owner": "leavemagic-cyber",
+  "repo": "earned-confidence",
+  "description": "A behavior contract for AI coding agents \u2014 every rule added after a real failure. Ships with a verifier agent that cannot edit what it judges.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leavemagic-cyber/earned-confidence",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T09:13:42Z"
+}
