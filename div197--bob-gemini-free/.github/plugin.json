@@ -1,0 +1,9 @@
+{
+  "name": "div197--bob-gemini-free",
+  "displayName": "BOB-Gemini-Free",
+  "description": "High-performance local 3-in-1 gateway unlocking Google Gemini as standard OpenAI, Anthropic (Claude Code), and Gemini API endpoints for coding agents, IDEs, and tools.",
+  "version": "1.0.0",
+  "author": "div197",
+  "homepage": "https://github.com/div197/BOB-Gemini-Free",
+  "skills": []
+}
