@@ -1,0 +1,9 @@
+{
+  "name": "tractables--vitri",
+  "displayName": "vitri",
+  "description": "CNF preprocessing and vtree construction for circuit compilation and model counting",
+  "version": "1.0.0",
+  "author": "Tractables",
+  "homepage": "https://github.com/Tractables/vitri",
+  "skills": []
+}
