@@ -1,0 +1,9 @@
+{
+  "name": "lexiforest--brimp",
+  "displayName": "brimp",
+  "description": "Lightweight, headless browser for agents, with real behavior like real browsers.",
+  "version": "1.0.0",
+  "author": "lexiforest",
+  "homepage": "https://github.com/lexiforest/brimp",
+  "skills": []
+}
