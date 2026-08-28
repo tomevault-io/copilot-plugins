@@ -1,0 +1,9 @@
+{
+  "name": "cr2007--ait-tagforge",
+  "displayName": "ait-tagforge",
+  "description": "Badge QR check-in and Bluetooth name-tag printing for AI Tinkerers events, entirely from a mobile browser. Built with Bun, React, Vite, and Typst.",
+  "version": "1.0.0",
+  "author": "cr2007",
+  "homepage": "https://github.com/cr2007/ait-tagforge",
+  "skills": []
+}
