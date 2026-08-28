@@ -1,0 +1,9 @@
+{
+  "name": "somaz94--helm-chart-kit",
+  "displayName": "helm-chart-kit",
+  "description": "Scaffold Helm charts and add resources to charts that already exist",
+  "version": "1.0.0",
+  "author": "somaz94",
+  "homepage": "https://github.com/somaz94/helm-chart-kit",
+  "skills": []
+}
