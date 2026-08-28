@@ -1,0 +1,9 @@
+{
+  "name": "6uclz1--ableton-cli",
+  "displayName": "ableton-cli",
+  "description": "Python CLI to control and inspect Ableton Live via a local Remote Script.",
+  "version": "1.0.0",
+  "author": "6uclz1",
+  "homepage": "https://github.com/6uclz1/ableton-cli",
+  "skills": []
+}
