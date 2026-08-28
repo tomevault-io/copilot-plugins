@@ -1,0 +1,44 @@
+{
+  "name": "dsh-zen-remote",
+  "owner": "KyoMio",
+  "repo": "dsh-zen-remote",
+  "description": "Turn DeepSeek Harness into a phone app you can securely reach from anywhere: minimal mobile UI rework + pairing-code gateway + PWA + Web Push. \u8ba9 DSH \u53d8\u6210\u53ef\u516c\u7f51\u5b89\u5168\u8bbf\u95ee\u7684\u624b\u673a App",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KyoMio/dsh-zen-remote",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T02:59:46Z"
+}
