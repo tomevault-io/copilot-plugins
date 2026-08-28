@@ -1,0 +1,9 @@
+{
+  "name": "yigtwxx--j-a-r-v-i-s",
+  "displayName": "J.A.R.V.I.S",
+  "description": "J.A.R.V.I.S: An AI-powered Open Source Intelligence (OSINT) system. It orchestrates deep web scraping and local LLMs to autonomously generate comprehensive intelligence dossiers.",
+  "version": "1.0.0",
+  "author": "Yigtwxx",
+  "homepage": "https://github.com/Yigtwxx/J.A.R.V.I.S",
+  "skills": []
+}
