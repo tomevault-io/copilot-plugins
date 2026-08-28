@@ -1,0 +1,44 @@
+{
+  "name": "ly-fullstack",
+  "owner": "liangy0323",
+  "repo": "ly-fullstack",
+  "description": "AI-friendly full-stack monorepo starter for real-world projects, built with Vue 3, Rsbuild, NestJS, Prisma, PostgreSQL, RBAC, testing and CI/CD.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liangy0323/ly-fullstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T15:31:46Z"
+}
