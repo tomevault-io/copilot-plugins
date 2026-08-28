@@ -1,0 +1,9 @@
+{
+  "name": "astroqore--auspex",
+  "displayName": "auspex",
+  "description": "Watch every AI coding agent running on your Mac \u2014 Claude Code, Codex, Cursor, Grok Build, Grok Bot, AntiGravity, Claude Cowork, ChatGPT Work \u2014 in one live board: what you asked, who is working, who is",
+  "version": "1.0.0",
+  "author": "AstroQore",
+  "homepage": "https://github.com/AstroQore/auspex",
+  "skills": []
+}
