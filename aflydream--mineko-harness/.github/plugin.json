@@ -1,0 +1,9 @@
+{
+  "name": "aflydream--mineko-harness",
+  "displayName": "Mineko-Harness",
+  "description": "An everything-as-a-plugin AI harness for Windows, modified from deepseek-harness.",
+  "version": "1.0.0",
+  "author": "Aflydream",
+  "homepage": "https://github.com/Aflydream/Mineko-Harness",
+  "skills": []
+}
