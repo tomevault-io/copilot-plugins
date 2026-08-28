@@ -4,7 +4,7 @@
   "repo": "t3code-zh-CN",
   "description": "\u975e\u5b98\u65b9\u7b80\u4f53\u4e2d\u6587\u7279\u5316\u7248 \u00b7 \u57fa\u4e8e pingdotgg/t3code",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EclipticAxis/t3code-zh-CN",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T08:55:13Z"
+  "distributed_at": "2026-08-28T23:27:34Z"
 }
