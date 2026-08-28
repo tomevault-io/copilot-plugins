@@ -1,0 +1,9 @@
+{
+  "name": "hackxit--omarchy-chromecast",
+  "displayName": "omarchy-chromecast",
+  "description": "Omarchy Quattro Chromecast bar plugin backed by Chromium Cast/CDP",
+  "version": "1.0.0",
+  "author": "HackXIt",
+  "homepage": "https://github.com/HackXIt/omarchy-chromecast",
+  "skills": []
+}
