@@ -1,0 +1,9 @@
+{
+  "name": "calebhat--omarchy-weather",
+  "displayName": "omarchy-weather",
+  "description": "Omarchy weather pill: today's hourly, five-day forecast, live radar, and peek search. Replaces omarchy.weather.",
+  "version": "1.0.0",
+  "author": "calebhat",
+  "homepage": "https://github.com/calebhat/omarchy-weather",
+  "skills": []
+}
