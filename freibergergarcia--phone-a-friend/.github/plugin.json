@@ -1,0 +1,9 @@
+{
+  "name": "freibergergarcia--phone-a-friend",
+  "displayName": "phone-a-friend",
+  "description": "CLI relay for Claude Code, Codex, and OpenCode. Delegate to Antigravity, Claude, Codex, Gemini, Ollama, or OpenCode with streaming, sessions, and multi-agent teams.",
+  "version": "1.0.0",
+  "author": "freibergergarcia",
+  "homepage": "https://github.com/freibergergarcia/phone-a-friend",
+  "skills": []
+}
