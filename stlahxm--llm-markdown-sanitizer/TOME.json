@@ -4,7 +4,7 @@
   "repo": "llm-markdown-sanitizer",
   "description": "Fix broken markdown that LLMs generate \u2014 tables, lists, emphasis, code fences. Zero dependencies, one function.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stlahxm/llm-markdown-sanitizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T05:13:39Z"
+  "distributed_at": "2026-08-28T09:01:28Z"
 }
