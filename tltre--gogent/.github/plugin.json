@@ -1,0 +1,9 @@
+{
+  "name": "tltre--gogent",
+  "displayName": "gogent",
+  "description": "Gogent \u2014 Go agent infrastructure: modular components, multi-engine LLM providers, ReAct agent loop, multi-app daemon management, centralized tool registry, MCP ecosystem, sandbox, OTel",
+  "version": "1.0.0",
+  "author": "tltre",
+  "homepage": "https://github.com/tltre/gogent",
+  "skills": []
+}
