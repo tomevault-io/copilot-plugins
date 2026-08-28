@@ -1,0 +1,9 @@
+{
+  "name": "theokyr--project8recomp",
+  "displayName": "Project8Recomp",
+  "description": "Native PC port of Tony Hawk's Project 8 (Xbox 360) by static recompilation.",
+  "version": "1.0.0",
+  "author": "theokyr",
+  "homepage": "https://github.com/theokyr/Project8Recomp",
+  "skills": []
+}
