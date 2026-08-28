@@ -1,46 +1,132 @@
-## engagement-roe
+## harness-orchestration
 
-> Enforces rules of engagement for all Metasploit operations
+> Controls phase/gate/subgate workflow routing and subagent delegation
 
 
-# Engagement Rules of Engagement
+# Pentest Workflow Orchestration
 
-All Metasploit operations in this harness are subject to strict rules of engagement.
+All multi-step pentest work follows **phases -> gates -> subgates -> skills**.
 
-## Mandatory Requirements
+## Start here
 
-1. **Workflow**: Follow the phase -> gate -> subgate model in `.cursor/skills/pentest-workflow/SKILL.md`. Do not skip phases or hard gates (G0, G2, G4, G6).
-2. **Scope enforcement**: Every target IP must be in `scope/scope-master.txt` or the active engagement's `roe.yaml` authorized_cidrs. Domains must be in `scope/in-scope-domains.txt` or `authorized_domains`.
-3. **Engagement ID**: Every destructive MCP tool call must include an `engagement_id` parameter. If no engagement is active, create one with `python scripts/create-engagement.py --name <name>`.
-4. **No DoS modules**: Modules matching `auxiliary/dos/*` are forbidden unconditionally. Do not attempt to work around this restriction.
-5. **Check before exploit**: Always run `msf_module_check` before `msf_run_exploit`. The server enforces this when `require_check_before_exploit: true` in the ROE. If the check says "not vulnerable", do not exploit.
-6. **Reviewer gate**: SG4.1-reviewer-gate must pass before any exploitation (G4 hard gate).
-7. **Session limits**: Do not exceed the `max_sessions` value in the active ROE (default: 5). The server fails closed if session count cannot be verified.
-8. **CIDR width**: Scan targets cannot be broader than `max_scan_cidr` (default: /24). Narrow the target range before scanning.
-9. **Evidence**: Tool outputs auto-save to `evidence/msf/` via hooks. Manual evidence should follow the naming conventions in `evidence/msf/README.md`.
+1. Read `.cursor/skills/pentest-workflow/SKILL.md`
+2. Run gate check: `python .cursor/skills/pentest-workflow/scripts/gate-check.py {engagement_id}`
+3. Complete pending subgates by loading each subgate's linked skill
+4. Mark done: `python .cursor/skills/pentest-workflow/scripts/complete-subgate.py {subgate_id}`
 
-## ROE Enforcement Layers
+## Phase routing
 
-| Layer | Mechanism | Behavior |
-|-------|-----------|----------|
-| Python ROE | `msf_harness/mcp/policy/roe.py` | Server-side: CIDR, domain, module, session, exploit-gate, CIDR width |
-| MCP Hooks | `mcp-action-gate.ps1` | Pre-call: scope, domain, CIDR width, forbidden module/pattern check |
-| Shell Hooks | `scope-check.ps1` | Pre-call: IP extraction, domain, CIDR validation |
-| Rate Limit | `rate-limit-gate.ps1` | Pre-call: cooldown for repeated high-risk actions |
-| World-State | `world-state-gate.ps1` | Pre-call: duplicate action detection |
-| Evidence | `mcp-evidence-logger.ps1` | Post-call: auto-save, ledger, atomic world state |
+| Phase | Delegate to | Primary skills |
+|-------|-------------|----------------|
+| pre_engage, model, report | `/harness-orchestrator` | pentest-workflow, methodology-cheatsheets, msf-harness |
+| recon, analyze | `/msf-recon-agent` | msf-recon + domain skill (web, AD, cloud, AI, etc.) |
+| exploit | `/msf-exploit-agent` | msf-exploit-chain |
+| post_exploit | `/msf-post-agent` | msf-post, internal-ad, windows/linux/macos/cloud/container/pivoting/persistence skills |
 
-## Scope File Format
+## Delegation thresholds
 
-`scope/scope-master.txt` contains one CIDR or IP per line. Lines starting with `#` are comments. Lines starting with `!` are exclusions.
+| Trigger | Action |
+|---------|--------|
+| Single subgate, single target | Execute directly using subgate skill |
+| 3+ targets, same subgate type | Delegate to specialized subagent |
+| Phase transition or gate advance | `/harness-orchestrator` |
+| Broad instruction ("start testing") | `/harness-orchestrator` |
+| SG4.1 or pre-exploit | `/msf-reviewer` (mandatory) |
 
-## ROE File Format
+## Subagent reference
 
-`engagements/{engagement_id}/roe.yaml` defines per-engagement rules. Use `engagements/_template/` as a starting point.
+| Agent | Purpose |
+|-------|---------|
+| `/harness-orchestrator` | Phase management, gate advancement, coordination |
+| `/msf-recon-agent` | Recon/analyze subgates |
+| `/msf-exploit-agent` | Exploit subgates |
+| `/msf-post-agent` | Post-exploit subgates |
+| `/msf-reviewer` | G4 hard gate approval |
 
-## When in Doubt
+## Skill reference (57 skills)
 
-If scope or authorization is unclear, **stop and ask the user**. Never assume a target is in scope.
+### Core (7)
+| Skill | Use |
+|-------|-----|
+| `pentest-workflow` | Phase/gate procedure, advancement |
+| `pentest-knowledge-base` | Skill routing by scenario |
+| `methodology-cheatsheets` | SG2 model, shells, cross-cutting refs |
+| `msf-harness` | Setup, ROE, tool reference |
+| `msf-recon` | MCP recon workflow |
+| `msf-exploit-chain` | SG4.* exploit subgates |
+| `msf-post` | Post-exploitation subgates |
+
+### Domain (18)
+| Skill | Subgate use |
+|-------|-------------|
+| `web-app-pentest` | SG-W-* OWASP subgates |
+| `ai-llm-pentest` | SG-W-AI LLM testing |
+| `internal-ad-pentest` | SG-I-* AD/ATT&CK subgates |
+| `windows-pentest` | SG-I-PRIVESC (Windows), credential theft |
+| `hacktricks-methodology` | Service recon subgates |
+| `database-pentest` | MSSQL/MySQL/PostgreSQL service and SQLi follow-up |
+| `cloud-pentest` | SG-I-CLOUD, cloud metadata |
+| `container-devops-pentest` | SG-I-CONTAINERS |
+| `linux-pentest` | SG-I-LINUX |
+| `macos-pentest` | SG-I-MACOS |
+| `mobile-pentest` | Mobile scope when in ROE |
+| `binary-exploit-pentest` | Binary exploit dev when ROE allows |
+| `pivoting-pentest` | SG-I-PIVOT, subnet reachability |
+| `red-team-evasion` | SG-I-EVASION, OPSEC before noisy actions |
+| `persistence-pentest` | SG-I-PERSIST (ROE required) |
+| `initial-access-pentest` | External entry vector planning |
+| `reporting-pentest` | SG6 report phase, finding documentation |
+| `wifi-pentest` | Wireless when explicitly in ROE |
+
+### Service (13) - load when port is discovered
+| Skill | Ports |
+|-------|-------|
+| `smb-pentest` | 445, 139 |
+| `ldap-pentest` | 389, 636 |
+| `rdp-pentest` | 3389 |
+| `ssh-pentest` | 22 |
+| `ftp-pentest` | 21 |
+| `smtp-pentest` | 25, 587 |
+| `dns-pentest` | 53 |
+| `snmp-pentest` | 161, 162 |
+| `vnc-pentest` | 5900 |
+| `winrm-pentest` | 5985, 5986 |
+| `nfs-pentest` | 2049 |
+| `telnet-pentest` | 23 |
+| `memcache-pentest` | 11211 |
+
+### Vuln (15) - load when vuln class detected
+| Skill | Trigger signal |
+|-------|---------------|
+| `sqli-pentest` | SQL errors, `'` in params |
+| `xss-pentest` | Reflected/stored HTML |
+| `ssrf-pentest` | URL fetch, webhooks |
+| `ssti-pentest` | Template syntax `{{`, `${` |
+| `xxe-pentest` | XML/SOAP/SVG input |
+| `cmdi-pentest` | Shell metacharacters |
+| `deserialization-pentest` | Serialized objects |
+| `lfi-pentest` | `page=`, `../` params |
+| `upload-pentest` | File upload forms |
+| `idor-pentest` | Sequential IDs |
+| `jwt-pentest` | JWT `eyJ` tokens |
+| `graphql-pentest` | GraphQL endpoints |
+| `request-smuggling-pentest` | Proxy desync |
+| `prompt-injection-pentest` | LLM chatbot features |
+| `nosql-injection-pentest` | MongoDB operators |
+
+### Niche (4) - conditional scope
+| Skill | When |
+|-------|------|
+| `reversing-pentest` | RE in ROE |
+| `forensics-pentest` | Artifact analysis |
+| `hardware-pentest` | Physical access in ROE |
+| `blockchain-pentest` | Smart contracts in scope |
+
+Full catalog: `python .cursor/skills/pentest-knowledge-base/scripts/generate-skills.py --list`
+
+## Key principle
+
+Never advance a phase until gate-check passes. Every subgate completion must link to evidence and a skill execution.
 
 ---
 > Source: [Suzu-Testing/metasploit-cursor-harness](https://github.com/Suzu-Testing/metasploit-cursor-harness) — distributed by [TomeVault](https://tomevault.io).
