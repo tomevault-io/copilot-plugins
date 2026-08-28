@@ -1,0 +1,9 @@
+{
+  "name": "tarekrached--esphome-sram-axs",
+  "displayName": "esphome-sram-axs",
+  "description": "ESPHome external component for SRAM AXS electronic-shifting battery levels in Home Assistant: decodes eTap BLE broadcasts on the ESP32, no pairing or app, with a full protocol teardown",
+  "version": "1.0.0",
+  "author": "tarekrached",
+  "homepage": "https://github.com/tarekrached/esphome-sram-axs",
+  "skills": []
+}
