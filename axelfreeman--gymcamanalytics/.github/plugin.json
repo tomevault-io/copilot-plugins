@@ -1,0 +1,9 @@
+{
+  "name": "axelfreeman--gymcamanalytics",
+  "displayName": "gymcamanalytics",
+  "description": "MCP server: gym attendance & trainer analytics from existing cameras",
+  "version": "1.0.0",
+  "author": "axelfreeman",
+  "homepage": "https://github.com/axelfreeman/gymcamanalytics",
+  "skills": []
+}
