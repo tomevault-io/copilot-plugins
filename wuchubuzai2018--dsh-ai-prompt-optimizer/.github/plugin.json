@@ -1,0 +1,9 @@
+{
+  "name": "wuchubuzai2018--dsh-ai-prompt-optimizer",
+  "displayName": "dsh-ai-prompt-optimizer",
+  "description": "DeepSeek Harness\uff08DSH\uff09Web \u804a\u5929\u9875\u9762\u7684\u63d0\u793a\u8bcd\u4f18\u5316\u63d2\u4ef6,\u5e2e\u52a9\u4f60\u628a\u7c97\u7565\u60f3\u6cd5\u6574\u7406\u6210\u66f4\u6e05\u6670\u3001\u5b8c\u6574\u3001\u53ef\u76f4\u63a5\u53d1\u9001\u7ed9 AI \u7684\u63d0\u793a\u8bcd",
+  "version": "1.0.0",
+  "author": "wuchubuzai2018",
+  "homepage": "https://github.com/wuchubuzai2018/dsh-ai-prompt-optimizer",
+  "skills": []
+}
