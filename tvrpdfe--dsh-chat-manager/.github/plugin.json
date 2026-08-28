@@ -1,0 +1,9 @@
+{
+  "name": "tvrpdfe--dsh-chat-manager",
+  "displayName": "dsh-chat-manager",
+  "description": "DeepSeek Harness (DSH) Web UI \u4f1a\u8bdd\u7ba1\u7406\u63d2\u4ef6\uff0c\u53ef\u4ee5\u76f4\u63a5\u804a\u5929\u3001\u5220\u9664\u4f1a\u8bdd\u3001\u7ba1\u7406\u5df2\u5f52\u6863\u4f1a\u8bdd",
+  "version": "1.0.0",
+  "author": "tvrpdfe",
+  "homepage": "https://github.com/tvrpdfe/dsh-chat-manager",
+  "skills": []
+}
