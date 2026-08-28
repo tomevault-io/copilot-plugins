@@ -4,7 +4,7 @@
   "repo": "ait-tagforge",
   "description": "Badge QR check-in and Bluetooth name-tag printing for AI Tinkerers events, entirely from a mobile browser. Built with Bun, React, Vite, and Typst.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cr2007/ait-tagforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T14:33:55Z"
+  "distributed_at": "2026-08-28T21:40:16Z"
 }
