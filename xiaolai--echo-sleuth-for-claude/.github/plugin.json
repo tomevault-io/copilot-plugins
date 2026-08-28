@@ -1,0 +1,9 @@
+{
+  "name": "xiaolai--echo-sleuth-for-claude",
+  "displayName": "echo-sleuth-for-claude",
+  "description": "Claude Code plugin: Mine past conversations for decisions, mistakes, patterns, and wisdom",
+  "version": "1.0.0",
+  "author": "xiaolai",
+  "homepage": "https://github.com/xiaolai/echo-sleuth-for-claude",
+  "skills": []
+}
