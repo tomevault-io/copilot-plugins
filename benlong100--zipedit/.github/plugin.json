@@ -1,0 +1,9 @@
+{
+  "name": "benlong100--zipedit",
+  "displayName": "zipedit",
+  "description": "An 80-column Markdown editor for the Enhanced Apple //e, written in 6502 assembly.",
+  "version": "1.0.0",
+  "author": "benlong100",
+  "homepage": "https://github.com/benlong100/zipedit",
+  "skills": []
+}
