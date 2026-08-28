@@ -4,7 +4,7 @@
   "repo": "WrongTrace",
   "description": "AI-native code churn & agent observability daemon - single Go binary with embedded React dashboard, Tree-sitter AST diffing, MCP + IPC telemetry",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WrongStack/WrongTrace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T06:33:16Z"
+  "distributed_at": "2026-08-28T13:01:19Z"
 }
