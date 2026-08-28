@@ -1,0 +1,546 @@
+## phone-a-friend
+
+> Guidance for AI coding agents working in `phone-a-friend`.
+
+# AGENTS.md
+
+Guidance for AI coding agents working in `phone-a-friend`.
+
+## What This Is
+
+`phone-a-friend` is a TypeScript CLI for relaying prompts + repository context to coding backends (Claude, Antigravity, Codex, Gemini, Ollama, OpenCode). Available via `npm install -g @freibergergarcia/phone-a-friend` or from source. All backend `run()` methods are async (`Promise<string>`). Backends may also implement `runStream()` returning `AsyncIterable<string>` for token-level streaming.
+
+## Project Structure
+
+```
+src/
+  index.ts           Entry point — imports backends, runs CLI
+  cli.ts             Commander.js CLI with subcommands
+  relay.ts           Backend-agnostic relay core (relay + relayStream + reviewRelay)
+  stream-parsers.ts  Stream parsers — SSE (OpenAI-compatible), NDJSON (Ollama), Claude JSON snapshots
+  context.ts         RelayContext interface
+  version.ts         Shared version reader
+  detection.ts       Backend detection (CLI, Local, Host)
+  config.ts          TOML configuration system
+  doctor.ts          Health check command
+  setup.ts           Interactive setup wizard
+  installer.ts       Claude/OpenCode host integration installer (symlink/copy)
+  theme.ts           Shared semantic theme (chalk) for CLI styling + banner
+  display.ts         Display helpers (mark, formatBackendLine)
+  jobs.ts            Background job manager (JSON persistence at ~/.config/phone-a-friend/jobs.json)
+  sessions.ts        Relay session store (JSON persistence at ~/.config/phone-a-friend/sessions.json)
+  backends/
+    index.ts         Backend interface, registry, types, BackendCapabilities, spawnCli() async subprocess utility
+    antigravity.ts  Google Antigravity CLI subprocess backend (`agy`, read-only, one-shot)
+    claude.ts        Claude CLI subprocess backend (`claude -p`)
+    codex.ts         Codex subprocess backend
+    gemini.ts        Gemini subprocess backend
+    ollama.ts        Ollama HTTP API backend (native fetch)
+    opencode.ts      OpenCode CLI subprocess backend (`opencode run`, agentic with tool calling)
+  agentic/
+    index.ts         Public API — Orchestrator, TranscriptBus exports
+    types.ts         AgentConfig, AgenticSessionConfig, AgentState, Message, AGENTIC_DEFAULTS
+    orchestrator.ts  Main loop — spawn agents, route messages, guardrails, emit events
+    session.ts       SessionManager — Claude CLI subprocess with UUID-based sessions
+    bus.ts           SQLite transcript bus (better-sqlite3) — append-only session log
+    queue.ts         In-memory MessageQueue for runtime routing
+    events.ts        AgenticEvent discriminated union + EventChannel (push/pull bridge)
+    parser.ts        @mention extraction + system prompt builder
+    names.ts         Creative agent name assignment (e.g., ada.reviewer)
+  tui/
+    App.tsx          Root TUI component — tab bar + panel routing
+    render.tsx       Ink render entry point
+    StatusPanel.tsx  System info + backend detection display
+    BackendsPanel.tsx Per-backend list with detail pane
+    ConfigPanel.tsx  Config view + inline editing
+    ActionsPanel.tsx Async-wrapped executable actions
+    AgenticPanel.tsx Session browser with list view
+    hooks/
+      useDetection.ts    Async detection with throttled refresh
+      usePluginStatus.ts Host integration install status (sync FS check)
+      useAgenticSessions.ts  SQLite session loader for Agentic panel
+    components/
+      TabBar.tsx             Tab navigation bar
+      PluginStatusBar.tsx    Persistent host integration install indicator
+      Badge.tsx              Status badges (✓ ✗ ! ·)
+      KeyHint.tsx            Footer keyboard hints
+      ListSelect.tsx         Scrollable selectable list
+tests/               Vitest tests (mirrors src/ structure, includes spawn-cli, jobs, background-relay)
+commands/<name>.md   Rich Claude Code slash commands (full workflow, argument-hint, Gemini model selection, etc.)
+skills/<name>/SKILL.md         Canonical Agent Skills — primary OpenCode entry point, also auto-discovered by Claude Code as plugin-namespaced skills
+skills/<name>/COMMAND.opencode.md  Thin OpenCode command shim (overlay). Installer prefers this over commands/<name>.md when present, so OpenCode users get a small shim that delegates into SKILL.md while Claude users get the rich commands/<name>.md inline.
+dist/                Built bundle (committed, self-contained)
+```
+
+## Core Behavior
+
+- Relay core is backend-agnostic in `src/relay.ts` — `relay()` for batch, `relayStream()` for streaming, `reviewRelay()` for diff-scoped review, `relayBackground()` for quiet mode with job tracking
+- Backend interface/registry in `src/backends/index.ts` — `run()` required, `runStream()` and `review()` optional, `capabilities` declares resume strategy and session ID requirements
+- Shared `spawnCli()` async subprocess utility in `src/backends/index.ts` — used by all CLI backends (Antigravity, Codex, Claude, Gemini, OpenCode) for non-blocking execution with timeout, signal forwarding, stderr draining, and spawn error handling. Throws `SpawnCliError` (extends `BackendError`) on non-zero exit, preserving stdout/stderr/exitCode for callers that need partial output from failed runs
+- `BackendRunOptions` shared interface in `src/backends/index.ts` — single options type for `run()` and `runStream()` across all backends, includes schema, session, and fast spawn fields
+- Backend `localFileAccess: boolean` property — declares whether the backend can read repo files via its own tooling when given a repo path. `true` for antigravity/codex/gemini/claude/opencode (PaF passes `--repo`/`--dir`/equivalent and the backend reads files itself). `false` for ollama (HTTP API, no native file access; receives only prompt + context + diff payloads, never raw file contents). PaF does not auto-inline repo files for either case — keeping local files out of the relay payload is the responsibility of the caller (see "Context hygiene" rules in the relay-issuing skills/commands).
+- Antigravity backend in `src/backends/antigravity.ts` (`agy --add-dir <repo> --print-timeout <seconds>s --sandbox --mode plan --prompt <prompt>`, read-only only, no sessions yet)
+- Claude backend in `src/backends/claude.ts` (`run()` via `spawnCli()`, `runStream()` via direct `spawn` with streaming parser, Claude Code 2.1.224+ peer messaging via `native|accept|refuse`)
+- Codex backend in `src/backends/codex.ts` (via `spawnCli()`, output file + stdout fallback)
+- Gemini backend in `src/backends/gemini.ts` (via `spawnCli()`)
+- Ollama HTTP backend in `src/backends/ollama.ts` (fetch to localhost:11434, already async)
+- OpenCode CLI backend in `src/backends/opencode.ts` (`run()` and `runStream()` via subprocess, `review()` with native repo access via `--dir`, model normalization `qwen3-coder` to `ollama/qwen3-coder`, NDJSON output parsing, session support via `--session`)
+- Stream parsers in `src/stream-parsers.ts` — SSE (OpenAI-compatible), NDJSON (Ollama), Claude JSON snapshots, OpenCode NDJSON events
+- Backend detection (CLI + Local + Host) in `src/detection.ts`
+- TOML config system in `src/config.ts` — `defaults.stream = true` enables streaming by default
+- Depth guard env var: `PHONE_A_FRIEND_DEPTH`
+- Default sandbox: `read-only`
+
+## Agentic Mode
+
+Multi-agent orchestration where agents communicate via @mentions within a shared session.
+
+### Session lifecycle
+
+```
+run(config)
+  │
+  ├─ 1. Init ─────── Generate session ID, reset state, create SQLite record
+  │                   Assign creative names (e.g. ada.reviewer, fern.critic)
+  │                   Register agents in transcript bus
+  │                   Emit: session_start
+  │
+  ├─ 2. Spawn ────── Phase A — for each agent (sequential):
+  │   (Turn 0)          Build system prompt (role, agent list, turn budget)
+  │                     Spawn Claude subprocess: claude -p --session-id <uuid>
+  │                     Log user→agent prompt delivery, collect response
+  │                     On failure: emit error, mark agent dead
+  │                   Phase B — process all collected responses:
+  │                     Parse each: extract @mentions → queue, notes → transcript
+  │                     Emit: message (per routed msg + notes)
+  │                   Emit: turn_complete (once, after all agents)
+  │
+  ├─ 3. Route ────── while (turn ≤ maxTurns && !stopped):
+  │   (Turn 1..N)     Check timeout → endSession('timeout')
+  │                   Check empty queue → endSession('converged')
+  │                   Dequeue all pending messages, grouped by recipient
+  │                   For each recipient agent:
+  │                     Check ping-pong detection → skip if cycling
+  │                     Build prompt: "@sender says: content" (+ deadline warnings)
+  │                     Resume Claude session: claude -p -r <uuid>
+  │                     Parse response → route @mentions to queue, log notes
+  │                     On failure: emit error, mark agent dead
+  │                   Emit: turn_complete (once, after all recipients)
+  │
+  └─ 4. End ──────── Reason: converged | max_turns | timeout | stopped | error
+                      Update SQLite status, emit session_end, close EventChannel
+```
+
+**Key behaviors:**
+- Turn 0 is two-phase: spawn all agents first, then parse and route all responses together
+- `@all` expands to individual messages for every other agent
+- `@user` messages are logged and emitted but not routed (displayed by CLI consumers)
+- Lines without `@mention` are classified as working notes — persisted but not routed
+- Deadline warnings are injected at `maxTurns - 1` (warning) and `maxTurns` (final)
+- Ping-pong detection uses pair-based counters with per-turn decay (halved each turn)
+- Errors and guardrail triggers emit events and may mark agents dead or end the session
+
+### Architecture
+
+- **Orchestrator-driven**: `Orchestrator` in `src/agentic/orchestrator.ts` runs the main loop — spawns agents, routes messages, enforces guardrails, and emits events
+- **Claude-only backend** currently — spawn via `claude -p --session-id <uuid>`, resume via `claude -p -r <uuid>`
+- **SessionManager** (`src/agentic/session.ts`) wraps CLI subprocesses with UUID-based session IDs for conversation continuity; routes via `BackendCapabilities.resumeStrategy` (`native-session` for Claude, `transcript-replay` fallback for others)
+- **In-memory MessageQueue** (`src/agentic/queue.ts`) handles runtime message routing between agents
+- **SQLite TranscriptBus** (`src/agentic/bus.ts`) provides append-only persistence using better-sqlite3; DB at `~/.config/phone-a-friend/agentic.db`
+- **EventChannel** (`src/agentic/events.ts`) is an `AsyncIterable` bridge that streams `AgenticEvent` discriminated unions to CLI, TUI, and other consumers
+
+### Agent naming & message routing
+
+- Agent names get creative prefixes via `src/agentic/names.ts`: e.g., `ada.reviewer`, `fern.critic`
+- Messages use `@name:` at line start for routing (parsed by `src/agentic/parser.ts`)
+- Lines without `@mention` are working notes — logged to the transcript bus but not routed
+- System prompt is injected per-agent with role, agent list, and turn budget (built by `buildSystemPrompt()` in `src/agentic/parser.ts`)
+
+### Guardrails
+
+All defaults are in `AGENTIC_DEFAULTS` (`src/agentic/types.ts`):
+
+| Guard | Default | Description |
+|-------|---------|-------------|
+| `maxTurns` | 20 | Hard cap on total conversation turns |
+| `timeoutSeconds` | 900 (15 min) | Session wall-clock timeout |
+| `pingPongThreshold` | 6 | Detects agents bouncing messages without progress |
+| `noProgressThreshold` | 2 | Stops session when no meaningful output is produced |
+| `maxMessageSize` | 50 KB | Per-message size limit (not yet enforced) |
+| `maxAgentTurnsPerRound` | 3 | Max turns a single agent gets before yielding (not yet enforced) |
+
+## CLI Contract
+
+After `npm install -g @freibergergarcia/phone-a-friend`, the `phone-a-friend` command is available globally. From the repo root, `./phone-a-friend` also works.
+
+```bash
+# Relay
+phone-a-friend --to codex --repo <path> --prompt "..."
+phone-a-friend --to antigravity --repo <path> --prompt "..." --sandbox read-only
+phone-a-friend --to claude --repo <path> --prompt "..."
+phone-a-friend --to gemini --repo <path> --prompt "..."
+phone-a-friend --to ollama --repo <path> --prompt "..." --model qwen3
+phone-a-friend --to opencode --repo <path> --prompt "..." --model qwen3-coder  # Local agentic (OpenCode + Ollama)
+phone-a-friend --prompt "..."               # Uses default backend from config
+phone-a-friend --to claude --prompt "..." --stream     # Stream tokens as they arrive
+phone-a-friend --to claude --prompt "..." --no-stream  # Disable streaming (batch mode)
+phone-a-friend --to claude --prompt "..." --review     # Review mode (diff-scoped)
+phone-a-friend --to claude --prompt "..." --peer-messaging accept --session coordinator # Unattended cross-session coordination
+phone-a-friend --to codex --review                     # Review mode (--prompt optional, defaults to generic review)
+phone-a-friend --to opencode --review                  # Review with local model (reads repo via tools)
+phone-a-friend --to codex --review --review-scope working-tree # Review staged, unstaged, and untracked files
+phone-a-friend --to codex --review --review-scope all          # Review branch commits plus working-tree changes
+phone-a-friend --to codex --prompt "..." --base develop # Review against specific branch
+phone-a-friend --prompt "..." --context-file notes.md  # Attach file as extra context
+phone-a-friend --prompt "..." --context-text "..."     # Inline extra context
+phone-a-friend --prompt "..." --include-diff           # Append git diff to prompt
+phone-a-friend --prompt "..." --no-include-diff        # Do not append git diff, overriding defaults.include_diff
+phone-a-friend --to codex --prompt "..." --quiet       # Run silently, save result to job store
+phone-a-friend --to claude --prompt "..." --schema '{"type":"object"}'  # Structured JSON output
+phone-a-friend --to codex --review --verdict-json                       # Opinionated verdict envelope (JSON: ship/iterate/abstain + findings)
+phone-a-friend --to codex --review --verdict-json --prompt "focus on auth"  # Verdict envelope scoped to a specific review focus
+phone-a-friend --to codex --prompt "..." --session my-review           # Start or resume a PaF-managed session
+phone-a-friend --to codex --prompt "..." --backend-session 019dd45f-... # Attach to a raw backend thread (no PaF persistence)
+phone-a-friend --to codex --prompt "..." --session adopt --backend-session 019dd45f-...  # Adopt a backend thread under a PaF label
+phone-a-friend --to opencode --prompt "..." --fast                     # Fast mode (--pure for OpenCode)
+
+# Setup & diagnostics
+phone-a-friend setup                        # Interactive setup wizard
+phone-a-friend doctor                       # Health check (human-readable)
+phone-a-friend doctor --json                # Health check (machine-readable)
+
+# Configuration
+phone-a-friend config init                  # Create default config
+phone-a-friend config show                  # Show resolved config
+phone-a-friend config paths                 # Show config file paths
+phone-a-friend config set <key> <value>     # Set a value (dot-notation)
+phone-a-friend config get <key>             # Get a value
+phone-a-friend config edit                  # Open in $EDITOR
+
+# Plugin management
+phone-a-friend plugin install --claude      # Install as Claude plugin
+phone-a-friend plugin install --opencode    # Install OpenCode commands and skills
+phone-a-friend plugin install --codex       # Install Codex plugin (skills + marketplace registration)
+phone-a-friend plugin install --codex --no-codex-cli-sync  # Skip the codex plugin marketplace shell-out (loose-file install only)
+phone-a-friend plugin install --all         # Install all host integrations
+phone-a-friend plugin install --github      # Switch to GitHub marketplace (npm source, replaces local symlink)
+phone-a-friend plugin update --claude       # Update Claude plugin
+phone-a-friend plugin update --opencode     # Update OpenCode commands and skills
+phone-a-friend plugin update --codex        # Update Codex plugin
+phone-a-friend plugin uninstall --claude    # Uninstall Claude plugin
+phone-a-friend plugin uninstall --opencode  # Uninstall OpenCode commands and skills
+phone-a-friend plugin uninstall --codex     # Uninstall Codex plugin (removes plugin registration + skills, plus any stale paf-* subagent symlinks)
+
+# Job management
+phone-a-friend job status                  # List all tracked jobs
+phone-a-friend job status --json           # List as JSON
+phone-a-friend job result <id>             # Show output of a completed job
+phone-a-friend job cancel <id>             # Mark a running/pending job as cancelled
+```
+
+```bash
+# Agentic mode
+phone-a-friend agentic run --agents role:backend,... --prompt "..."
+phone-a-friend agentic run --agents reviewer:claude,critic:claude --prompt "Review auth" --max-turns 15
+phone-a-friend agentic run --agents sec:claude --prompt "Audit" --timeout 600 --sandbox workspace-write
+phone-a-friend agentic logs
+phone-a-friend agentic logs --session <id>
+phone-a-friend agentic replay --session <id>
+```
+
+Backward-compatible aliases: `install`, `update`, `uninstall` still work.
+
+### Interactive TUI
+
+```bash
+phone-a-friend                                # Launches TUI dashboard (TTY only)
+```
+
+No-args in a TTY launches a full-screen Ink (React) dashboard with 5 tabs:
+- **Status** — system info + live backend detection (auto-refreshes)
+- **Backends** — navigable backend list with detail pane
+- **Config** — inline config editing with focus model (nav/edit modes)
+- **Actions** — async-wrapped actions (re-detect, reinstall host integrations, open config)
+- **Agentic** — session browser with list view
+
+A persistent plugin status bar sits between the tab bar and panel content,
+showing Claude and OpenCode host integration state. It updates instantly after
+install/uninstall actions complete.
+
+TTY guard: non-interactive terminals fall back to help/setup nudge.
+Global keys: `q` quit, `Tab`/`1-5` switch tabs, `r` refresh detection.
+
+## Running Tests
+
+```bash
+npm test                  # vitest run
+npm run typecheck         # tsc --noEmit
+npm run build             # tsup (rebuilds dist/)
+```
+
+## Versioning
+
+- Source of truth: `version` in `package.json`
+- Must keep in sync: `.claude-plugin/plugin.json` `version` field (CI enforces this)
+- Runtime access: reads `package.json` via `src/version.ts`
+- CLI: `phone-a-friend --version`
+- **Auto-bump**: version is bumped automatically after merge based on PR labels
+- **Auto-release**: merging to `main` with a new version automatically creates a git tag and GitHub Release
+- **npm publish**: after auto-release, publish to npm with `npm publish` (manual step, requires `npm login`)
+
+### PR labels
+
+**Every PR must have exactly one version label: `patch`, `minor`, or `major`.** The `label-check` CI job enforces this. Do NOT modify version fields in `package.json` or `.claude-plugin/plugin.json` manually — they are bumped automatically on merge by the `auto-bump` workflow.
+
+- **`patch`**: bug fixes, docs, CI changes, refactoring
+- **`minor`**: new features, new CLI flags, new backends
+- **`major`**: breaking changes to CLI contract or relay API
+
+### Branch naming convention
+
+Labels are auto-applied by the `auto-label` workflow when a PR is opened, based on the branch name prefix:
+
+| Prefix | Label |
+|--------|-------|
+| `fix/`, `bugfix/` | `patch` |
+| `chore/`, `docs/`, `ci/`, `refactor/` | `patch` |
+| `feat/`, `feature/` | `minor` |
+| `breaking/` | `major` |
+
+Unrecognized prefixes get no label — the contributor must add one manually. `label-check` blocks merge until a label is present.
+
+Local manual bump (if needed): `npm run bump:patch`, `npm run bump:minor`, `npm run bump:major`
+
+## Build
+
+`dist/` is committed to git for symlink plugin installs. It must stay self-contained (runs without `node_modules/`). CI verifies this.
+
+After changing source: `npm run build && git add dist/`
+
+## Configuration
+
+Config files (TOML format):
+- User: `~/.config/phone-a-friend/config.toml`
+- Repo: `.phone-a-friend.toml` (optional, merges over user config)
+
+Precedence: CLI flags > env vars > repo config > user config > defaults
+
+Environment variables:
+- `PHONE_A_FRIEND_INCLUDE_DIFF=false` — overrides `defaults.include_diff = true` from config without needing `--no-include-diff` on every call. The OpenCode shims in `skills/<name>/COMMAND.opencode.md` use this env var instead of the `--no-include-diff` flag because the flag was added in v2.2.0+ but the env var works on every shipped binary (v1.7.2+). Rich content (`commands/<name>.md` and `skills/<name>/SKILL.md`) uses a probe-and-gate pattern that prefers the explicit flag when available and falls back to this env var on stale CLIs.
+- `PHONE_A_FRIEND_CLAUDE_PEER_MESSAGING=native|accept|refuse` — overrides `backends.claude.peer_messaging`. `native` exposes `ListAgents`/`SendMessage` while respecting Claude's inbound rules; `accept` enables unattended inbound delivery; `refuse` disables both directions.
+- `PHONE_A_FRIEND_HOST=opencode|codex` — recursion guard marker. Install shims set this so that `--to <host>` from inside that host's session is blocked deterministically. `opencode` blocks `--to opencode`; `codex` blocks `--to codex`. Only relevant when invoking PaF programmatically; the slash-command shims handle it automatically.
+- `PHONE_A_FRIEND_DEPTH` — relay depth guard (already documented in Core Behavior).
+- `PHONE_A_FRIEND_UPDATE_CHECK=false` — disable npm update notifications. Equivalent to `defaults.update_check = false` in TOML config. The env var takes precedence.
+
+Claude peer messaging configuration:
+
+```toml
+[backends.claude]
+peer_messaging = "native" # native (default), accept, or refuse
+```
+
+The per-call override is `--peer-messaging <mode>` and is valid only with
+`--to claude`. PaF requires Claude Code 2.1.224+ for `accept`; older versions
+keep the legacy isolated tool surface in `native` mode. Peer-enabled workers
+are named `paf-<session-label>` (or `paf-relay` without `--session`) so other
+Claude sessions can target them predictably.
+
+## Update notification
+
+`src/updates.ts` polls `dist-tags.latest` for `@freibergergarcia/phone-a-friend` from the npm registry, caches the result at `~/.config/phone-a-friend/update-check.json`, and prints a one-line stderr banner on the next interactive run when a newer stable version exists.
+
+- **Notification only**, no self-update. The CLI never modifies the installed npm package.
+- **Cache-driven**: the running invocation reads the cache to decide whether to print the banner. A background refresh kicks off via `setImmediate(...).unref()` with a 5s `AbortController` timeout, so short commands like `--version` exit promptly.
+- **Cooldowns**: 24h between registry fetches, 7d before re-showing the same version's banner.
+- **Suppression**: stderr-only banner; suppressed for `--quiet`, `--schema`, `--verdict-json`, any `--json` subcommand flag, non-TTY stdout/stderr, `CI=true`, `TERM=dumb`, `defaults.update_check=false`, or `PHONE_A_FRIEND_UPDATE_CHECK=false`.
+- **Atomic cache writes**: temp file + `fsync` + rename + parent-dir `fsync`. Corruption is recovered by rotating the bad file aside and starting fresh, no data loss because the file is regenerable.
+- **First run**: never shows a banner. It records the first registry result so the banner can appear on the second run earliest.
+- **Doctor**: `phone-a-friend doctor` surfaces the current cache path, last checked timestamp, latest known version, and config opt-in state. The same fields appear under `updateCheck` in `doctor --json` output.
+
+The pure decision logic (`decideBanner`) is testable in isolation in `tests/updates.test.ts`; CLI wiring lives in `src/cli.ts` (`setupUpdateCheck` + `maybeShowUpdateBanner`).
+
+## Marketplace distribution
+
+Users can install the Claude Code plugin (commands and skills) via the marketplace:
+
+    /plugin marketplace add freibergergarcia/phone-a-friend
+    /plugin install phone-a-friend@phone-a-friend-marketplace
+
+The marketplace manifest at `.claude-plugin/marketplace.json` points to the npm
+package `@freibergergarcia/phone-a-friend`. Claude Code fetches and caches the
+plugin from npm when users install through the marketplace.
+
+Marketplace install provides Claude Code integration only (slash commands and skills).
+For the full CLI (agentic mode and TUI dashboard), users
+still need `npm install -g @freibergergarcia/phone-a-friend`.
+
+OpenCode has no marketplace. `phone-a-friend plugin install --opencode` copies or symlinks the supported OpenCode skills (`phone-a-friend`, `curiosity-engine`) and their corresponding command shims into `~/.config/opencode/skills/` and `~/.config/opencode/commands/`, honoring `$XDG_CONFIG_HOME`. It also removes legacy `phone-a-team` OpenCode artifacts because `/phone-a-team` is Claude-only.
+
+The OpenCode command source uses **overlay inversion**: `installer.ts` `opencodeCommandSource()` prefers `skills/<name>/COMMAND.opencode.md` (the OpenCode-tuned thin shim, env-var-only diff suppression, `PHONE_A_FRIEND_HOST=opencode` prefix) when it exists, and falls back to the rich `commands/<name>.md` only when no overlay is shipped for that skill. This keeps the rich content host-neutral for Claude consumption while letting OpenCode ship a host-tuned shim per skill. Today both shared skills (`phone-a-friend`, `curiosity-engine`) ship overlays.
+
+Codex is shipped as a real Codex plugin (the marketplace + manifest live in the repo) AND via loose-file install for content delivery.
+
+`phone-a-friend plugin install --codex` does two things:
+
+1. **Loose-file skill install.** Copies or symlinks the three Codex skills (`phone-a-friend`, `curiosity-engine`, `phone-a-team`) into `$CODEX_HOME/skills/` (defaulting to `~/.codex/skills/`). Codex auto-discovers SKILL.md files from this path. Earlier versions also installed `paf-*.toml` subagent personas under `$CODEX_HOME/agents/`; that design was dropped (see "Why no subagents" below) and the install path cleans up any stale paf-* symlinks left over from prior PaF versions.
+2. **Marketplace registration.** When `codex` is in PATH, shells out to `codex plugin marketplace add <repo>` followed by `codex plugin add phone-a-friend@phone-a-friend-marketplace`. This registers PaF in Codex's `/plugins` UI and `codex plugin list`. Pass `--no-codex-cli-sync` to skip this step.
+
+Either path delivers the skills on its own. Codex marketplace install fetches the full plugin tree at the `source.path` (`./plugins/phone-a-friend/`) into `~/.codex/plugins/cache/...` and auto-discovers SKILL.md files under the directory declared by `skills:` in the per-plugin `plugin.json`. The loose-file install is the no-marketplace fallback for users on stale Codex CLI versions or who skip CLI sync with `--no-codex-cli-sync`.
+
+Manifest layout:
+
+| File | Purpose |
+|---|---|
+| `.codex-plugin/plugin.json` | Root per-plugin manifest, symmetric with `.claude-plugin/plugin.json` |
+| `plugins/phone-a-friend/.codex-plugin/plugin.json` | Subdir per-plugin manifest consumed by Codex's marketplace install (Codex requires plugins to live in a subdir of the marketplace, not at root). Declares `"skills": "./skills/"`. |
+| `plugins/phone-a-friend/skills/<name>/SKILL.md` | Skill content shipped via marketplace install. Synced from `skills/<name>/{,.codex/}SKILL.md` by `scripts/sync-codex-plugin.mjs` (runs on `npm run build`; CI test enforces no drift). |
+| `.agents/plugins/marketplace.json` | Codex marketplace manifest listing PaF with `source: { source: "local", path: "./plugins/phone-a-friend" }` |
+| `skills/phone-a-team/.codex/SKILL.md` | Codex-tuned `/phone-a-team` orchestration (Bash-driven round loop, no subagent spawn). Source of truth, mirrored into `plugins/phone-a-friend/skills/phone-a-team/SKILL.md` by the sync script. |
+
+All three plugin manifests (`.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `plugins/phone-a-friend/.codex-plugin/plugin.json`) must share `version` with `package.json`. The test `tests/codex-plugin-manifests.test.ts` enforces this in CI.
+
+Codex uses a parallel overlay convention: `installer.ts` `codexSkillSource()` prefers `skills/<name>/.codex/SKILL.md` (Codex-tuned variant in a dotfile subdirectory so it doesn't appear in other hosts' skill scans) when present, and falls back to `skills/<name>/SKILL.md` otherwise. Today `phone-a-team` ships only the `.codex/` overlay (no host-neutral SKILL.md) so OpenCode does not pick it up. `phone-a-friend` and `curiosity-engine` ship a single host-neutral SKILL.md used by both OpenCode and Codex.
+
+### Why no subagents
+
+An earlier draft of this work shipped paf-reviewer / paf-critic / paf-synthesizer as Codex subagents (TOML personas under `agents/codex/`) so each role would show up as a separate thread in `/agent`. The official Codex docs say subagents only spawn on explicit natural-language request ("spawn one agent per role..."), which means casual prompts like "ask claude and gemini X" never triggered them. The Bash-orchestrated `/phone-a-team` is simpler, faster to invoke, and matches how Codex actually behaves with shell tool calls. The orphaned TOML files under `agents/codex/` remain in the tree until explicitly deleted; they are not installed.
+
+## Job tracking
+
+The `--quiet` flag runs a relay without interactive output and persists the result to a job store.
+
+- `JobManager` in `src/jobs.ts` reads/writes `~/.config/phone-a-friend/jobs.json`
+- `relayBackground()` in `src/relay.ts` wraps `relay()` with job lifecycle (pending, running, completed/failed)
+- Jobs are capped at 50, oldest completed/failed/cancelled are pruned on create
+- `--quiet` keeps the process alive until the job finishes (not truly detached). For detached execution, users can combine with `nohup` or `&`.
+- `job cancel` marks the job as cancelled in the store but cannot kill the subprocess (PID tracking is not yet implemented)
+
+## Review scopes
+
+`--review-scope branch|working-tree|all` is valid in review mode and implies `--review` when used alone.
+
+| Scope | Diff contract |
+|---|---|
+| `branch` (default) | Committed changes from the merge base with `--base` through `HEAD` |
+| `working-tree` | Staged, unstaged, and non-ignored untracked files relative to `HEAD` |
+| `all` | Branch changes plus staged, unstaged, and non-ignored untracked files |
+
+- `--repo <path>` may point at a worktree root or any directory inside one; review mode normalizes it to the containing worktree root.
+- Before the first commit, `working-tree` and `all` compare pending files against Git's empty tree.
+- PaF collects and bounds the selected scope before any backend call. The combined diff is subject to `MAX_DIFF_BYTES`; generic diffs represent untracked binary files with a binary marker rather than embedded bytes.
+- A clean scope does not invoke a backend. Plain review returns a no-changes message; `--verdict-json` returns `abstain` with no findings.
+- Codex handles `branch` with native `--base` and `working-tree` with native `--uncommitted`. Unsupported native scopes use PaF's generic diff path.
+- `--verdict-json`, custom prompts, and schemas use the generic path and preserve the selected scope.
+- `--include-diff` is for normal relay mode and is rejected when combined with review mode; use `working-tree` or `all`.
+
+## Structured output
+
+The `--schema` flag requests JSON output matching a JSON Schema from backends that support it.
+
+- Claude: native enforcement via `--output-format json --json-schema`
+- Codex: native enforcement via `--output-schema <tempfile> --json` (schema written to temp file)
+- Antigravity: schema injected into prompt (best-effort, not validated)
+- Gemini: `--output-format json` with schema injected into prompt (best-effort, not validated)
+- Ollama: native enforcement via JSON Schema object in the HTTP `format` field, with the schema also injected into the prompt for grounding
+- OpenCode CLI: schema injected into prompt (best-effort, not validated; the OpenCode SDK has a structured-output surface, but PaF's backend uses `opencode run`)
+- Streaming is disabled when `--schema` is active (structured output requires batch mode)
+- When a `--schema` is set in review mode, native `review()` is bypassed and the generic `run()` path is used so the schema is honored uniformly across backends.
+
+### Verdict envelope (`--verdict-json`)
+
+Opinionated review-mode flag that activates a built-in JSON envelope so callers (especially `/phone-a-team` and downstream skills) can decide iterate-or-stop deterministically without regexing free text.
+
+```bash
+phone-a-friend --to codex --review --verdict-json                       # branch scope (default)
+phone-a-friend --to codex --review --review-scope all --verdict-json    # all current branch/worktree changes
+phone-a-friend --to codex --review --verdict-json --prompt "auth only"  # scoped review focus
+```
+
+- Implies `--review`. Cannot be combined with `--schema` (PaF sets the schema itself; conflicting input errors out).
+- The caller's `--prompt` is preserved as the review request and combined with the canonical envelope instructions; omitting it uses a scope-specific branch, working-tree, or all-changes request.
+- The envelope shape:
+  ```json
+  {
+    "schema_version": 1,
+    "verdict": "ship" | "iterate" | "abstain",
+    "summary": "<one-paragraph synthesis>",
+    "findings": [
+      {
+        "severity": "blocker" | "important" | "nit",
+        "title": "<short headline>",
+        "rationale": "<1-3 sentences>",
+        "location": "<file or file:line> or null"
+      }
+    ]
+  }
+  ```
+- `verdict` is **derived from severities** at parse time, not trusted from the model:
+  - any `blocker` or `important` → `iterate`
+  - empty findings, or only `nit` findings → `ship`
+  - `abstain` is allowed only when findings is empty
+  - if the model's claimed verdict contradicts severities, the response is treated as malformed and PaF fails closed
+- Output: compact one-line JSON on stdout. Pipe through `jq` for human consumption.
+- On parse / validation failure: stderr emits `Verdict parse failed: <reason>` followed by the raw response wrapped in `<<<RAW_BEGIN ... RAW_END>>>` markers. PaF exits with code 2.
+- Implementation: `src/verdict.ts` (schema, prompt, parser, derived-verdict logic). The schema satisfies OpenAI's structured-output strict mode (`additionalProperties: false`, all keys listed in `required`, no unsupported keywords).
+
+## Session continuity
+
+Two flags handle session resume, with separate concerns:
+
+- `--session <label>` is a PaF-managed label. PaF stores the label and the underlying backend session ID together in `~/.config/phone-a-friend/sessions.json` and uses the label for lookup on subsequent calls.
+- `--backend-session <id>` is a raw passthrough. PaF skips the label store and resumes the backend session directly. Combine with `--session <label>` to also start tracking that backend session under a label (adoption). Adoption is idempotent: re-running the same `--session label --backend-session id` pair is fine; conflicts (same label pointing at a different backend, session id, or repo) error explicitly.
+
+Implementation notes:
+
+- `SessionStore` in `src/sessions.ts` reads/writes `~/.config/phone-a-friend/sessions.json`
+- Sessions are capped at 100, oldest by last-used are pruned on overflow
+- Claude: `--session-id` on start, `-r` on resume. UUID generated client-side.
+- Antigravity: sessions unsupported for now (`resumeStrategy: unsupported`); PaF rejects `--session` and `--backend-session`.
+- Gemini: `--session-id <uuid>` on start, `--resume <uuid>` on resume. UUID generated client-side (mirrors Claude). Never `--resume latest`, so a label always maps to one conversation.
+- Codex: thread ID captured from `thread.started` JSONL event, `codex exec resume <thread-id>`
+- Ollama: stateless replay (full history prepended to each request)
+- `--backend-session` is only valid for backends with `resumeStrategy: 'native-session'` (Codex, Claude, Gemini, OpenCode)
+- `--session` errors out for backends with `resumeStrategy: 'unsupported'` instead of silently fresh-spawning each call (currently Antigravity)
+- An unknown `--session <label>` no longer silently fresh-spawns; PaF prints a stderr warning before starting a new session under that label
+- Streaming is disabled when `--session` or `--backend-session` is active
+
+### History persistence rule
+
+PaF only persists conversation `history` for backends whose resume mechanism actually replays it (`resumeStrategy === 'transcript-replay'` — currently only Ollama). For everything else (`native-session`, `unsupported`), the row stores metadata + `backendSessionId` and `history: []`. Existing rows that were created before this rule have their fat history trimmed on the next write to that label.
+
+Why: Codex/Claude/OpenCode resume from their own server-side state. Storing the full expanded prompts + replies on PaF's side is dead weight that bloats `sessions.json` without affecting resume behavior. For Ollama, history *is* the resume mechanism (replay), so it's kept intact.
+
+### Atomicity, corruption, concurrency
+
+- **Atomic writes:** `sessions.json` is written via temp file + `fsync` + rename + parent-dir `fsync`. A crash mid-write cannot produce torn JSON.
+- **Loud corruption recovery:** if the file fails to parse on load, PaF rotates it to `sessions.json.corrupt-<timestamp>`, logs the path to stderr, and starts with an empty store for the current process. The previous behavior silently dropped every session, which made partial writes catastrophic.
+- **Not parallel-write safe:** two PaF processes writing concurrently can lose updates (last-writer-wins on rename). Single-process use only. SQLite migration is the proper fix when concurrency materializes.
+
+### Session management commands
+
+```bash
+phone-a-friend session list                    # show all persisted sessions
+phone-a-friend session list --json             # machine-readable
+phone-a-friend session delete <label>          # remove a single label
+phone-a-friend session prune --older-than 30   # drop sessions older than N days (default 30)
+phone-a-friend session prune --all             # drop everything
+```
+
+### Known limitations
+
+- **Codex resume + schema**: `codex exec resume` does not accept `--output-schema`. Schema is enforced on turn 1 only; subsequent turns rely on model conversation context to maintain the format, with no server-side validation.
+- **Gemini sessions**: supported via `native-session` resume. PaF generates the session UUID client-side, pins it with `--session-id <uuid>` on the first call, and resumes with `--resume <uuid>` on later calls (same model as Claude). History is not replayed (server-side session state), so `run()` does not use `sessionHistory`. Resume depends on Gemini's session retention (`general.sessionRetention.*`); if retention has pruned the session, `--resume` fails loudly rather than silently starting fresh. A Gemini CLI too old to recognize `--session-id`/`--resume` surfaces an actionable upgrade error.
+- **Codex review + custom prompt**: `codex exec review` does not accept both `--base` and a positional prompt. When a custom prompt is provided with `--review`, the relay skips native `review()` and uses the generic `run()` path with the selected scope inlined.
+- **Streaming + sessions**: `relayStream()` forwards session options to backends but does not implement session lifecycle (validation, history persistence). The CLI gates this combination off; only programmatic callers are affected.
+
+## Fast spawn
+
+The `--fast` flag maps to `--pure` for the OpenCode backend, skipping external plugins. It is a no-op for Antigravity, Claude, Codex, Gemini, and Ollama. Claude intentionally does not use `--bare` because bare mode skips OAuth/keychain reads and breaks subscription auth. For OpenCode, this is useful for self-contained tasks where external plugins are not needed.
+
+## Scope
+
+This repository contains relay functionality, backend detection, configuration system, Claude/OpenCode host integration installers, interactive TUI dashboard, agentic multi-agent orchestration, background job tracking, structured output, session continuity, and fast spawn. Policy engines, hooks, approvals, and trusted scripts are intentionally out of scope.
+
+---
+> Source: [freibergergarcia/phone-a-friend](https://github.com/freibergergarcia/phone-a-friend) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
