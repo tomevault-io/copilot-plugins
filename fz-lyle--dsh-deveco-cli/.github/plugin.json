@@ -1,0 +1,9 @@
+{
+  "name": "fz-lyle--dsh-deveco-cli",
+  "displayName": "dsh-deveco-cli",
+  "description": "DevEco CLI \u5c06 DevEco Studio \u5de5\u5177\u94fe\u7edf\u4e00\u5c01\u88c5\u4e3a\u4e00\u4e2a CLI\uff0c\u5185\u7f6e ohpm\u3001hvigor\u3001hdc\u3001emulator\u3001hilog\uff0c\u540c\u65f6\u96c6\u6210 HarmonyOS \u6280\u80fd\u5b89\u88c5\u3001\u9879\u76ee\u811a\u624b\u67b6\u3001\u672c\u5730 HarmonyOS \u6587\u6863\u68c0\u7d22\u548c MCP \u670d\u52a1\u3002",
+  "version": "1.0.0",
+  "author": "fz-lyle",
+  "homepage": "https://github.com/fz-lyle/dsh-deveco-cli",
+  "skills": []
+}
