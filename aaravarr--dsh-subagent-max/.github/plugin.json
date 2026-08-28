@@ -1,0 +1,9 @@
+{
+  "name": "aaravarr--dsh-subagent-max",
+  "displayName": "dsh-subagent-max",
+  "description": "DeepSeek Harness (DSH) plugin \u2014 a subagent_with_model tool plus a live multi-panel subagent viewer.",
+  "version": "1.0.0",
+  "author": "aaravarr",
+  "homepage": "https://github.com/aaravarr/dsh-subagent-max",
+  "skills": []
+}
