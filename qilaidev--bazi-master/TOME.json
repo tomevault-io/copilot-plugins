@@ -1,0 +1,44 @@
+{
+  "name": "bazi-master",
+  "owner": "qilaidev",
+  "repo": "bazi-master",
+  "description": "Global divination web app: BaZi, Tarot, I Ching, Zodiac + AI (React/Express/Postgres). \u547d\u7406\u5168\u6808\u5e73\u53f0\uff08\u516b\u5b57/\u5854\u7f57/\u6613\u7ecf/\u661f\u5ea7\uff09\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qilaidev/bazi-master",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T10:48:56Z"
+}
