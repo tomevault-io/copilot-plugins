@@ -1,0 +1,9 @@
+{
+  "name": "jerryliu369--agent-web-search",
+  "displayName": "agent-web-search",
+  "description": "One web-search tool for AI agents with free keyless defaults, local/remote MCP, CLI, Python, and Hermes.",
+  "version": "1.0.0",
+  "author": "JerryLiu369",
+  "homepage": "https://github.com/JerryLiu369/agent-web-search",
+  "skills": []
+}
