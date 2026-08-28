@@ -1,0 +1,9 @@
+{
+  "name": "raalzate--processflow-architect",
+  "displayName": "processflow-architect",
+  "description": "Event Storming Big Picture (DDD/BPMN/C4/UML) de escritorio, con IA local por defecto (LiteRT-LM sobre WebGPU)",
+  "version": "1.0.0",
+  "author": "raalzate",
+  "homepage": "https://github.com/raalzate/processflow-architect",
+  "skills": []
+}
