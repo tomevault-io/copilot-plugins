@@ -1,0 +1,9 @@
+{
+  "name": "abdullah4ai--apple-developer-toolkit",
+  "displayName": "apple-developer-toolkit",
+  "description": "Apple Developer Documentation CLI skill for AI agents. Search docs, frameworks, APIs, WWDC videos 2014-2025, and sample code. Direct integration with developer.apple.com",
+  "version": "1.0.0",
+  "author": "Abdullah4AI",
+  "homepage": "https://github.com/Abdullah4AI/apple-developer-toolkit",
+  "skills": []
+}
