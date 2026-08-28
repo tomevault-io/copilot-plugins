@@ -1,0 +1,9 @@
+{
+  "name": "intellectronica--opencode-acpx",
+  "displayName": "opencode-acpx",
+  "description": "Use Cursor, Claude, Codex, Grok, Hermes and other ACP agents as OpenCode providers",
+  "version": "1.0.0",
+  "author": "intellectronica",
+  "homepage": "https://github.com/intellectronica/opencode-acpx",
+  "skills": []
+}
