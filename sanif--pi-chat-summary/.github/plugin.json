@@ -1,0 +1,9 @@
+{
+  "name": "sanif--pi-chat-summary",
+  "displayName": "pi-chat-summary",
+  "description": "Pi extension for concise, branch-aware chat summaries",
+  "version": "1.0.0",
+  "author": "sanif",
+  "homepage": "https://github.com/sanif/pi-chat-summary",
+  "skills": []
+}
