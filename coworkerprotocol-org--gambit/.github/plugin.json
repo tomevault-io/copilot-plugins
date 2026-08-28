@@ -1,0 +1,9 @@
+{
+  "name": "coworkerprotocol-org--gambit",
+  "displayName": "gambit",
+  "description": "Agent harness framework for building, running, and verifying LLM workflows",
+  "version": "1.0.0",
+  "author": "coworkerprotocol-org",
+  "homepage": "https://github.com/coworkerprotocol-org/gambit",
+  "skills": []
+}
