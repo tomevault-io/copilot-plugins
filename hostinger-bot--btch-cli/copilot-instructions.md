@@ -1,58 +1,56 @@
-## tools-and-agent
+## typescript-conventions
 
-> Guidelines for the agent system and tool implementations
+> TypeScript coding conventions and style guidelines
 
 
-# Agent & Tools System
+# TypeScript Conventions
 
-## Agent
+## Module System
 
-`Agent` (in `src/agent/agent.ts`) is the core orchestrator. It manages:
+- This is an ESM project (`"type": "module"` in package.json).
+- Always use ES module `import`/`export` syntax — never `require()`.
+- When importing local modules, include the `.js` extension (TypeScript compiles `.ts` → `.js`):
+  ```typescript
+  import { Agent } from "./agent/agent.js";
+  ```
 
-- The OpenAI-compatible provider client (`src/provider/client.ts`)
-- Bash tool for all shell operations
-- Chat history and message accumulation
-- Abort/cancellation support
+## TypeScript Configuration
 
-### Agent Loop
+- Target: ES2022, Module: ESNext, JSX: react
+- `strict: false` and `noImplicitAny: false` — the codebase does not enforce strict mode.
+- `moduleResolution: "Bundler"` is used.
+- Source files live in `src/`, compiled output goes to `dist/`.
 
-The agent uses an iterative tool-call pattern via `processMessage` (async generator):
+## Type Practices
 
-1. Send messages to the LLM via the OpenAI-compatible chat completions API (streaming).
-2. If the response contains tool calls, execute each tool.
-3. Append tool results to the message history.
-4. Repeat until no tool calls remain or `maxToolRounds` is reached.
-5. Yield `StreamChunk` objects for real-time UI updates.
+- Prefer explicit interfaces for public API boundaries (e.g. `ChatEntry`, `ToolResult`, `AgentToolCall`).
+- Use `type` imports when importing only types:
+  ```typescript
+  import type { ChatCompletionMessageParam } from "openai/resources/chat";
+  ```
+- `any` is acceptable where strict typing would add friction, but prefer narrower types when practical.
+- Shared types belong in `src/types/index.ts`.
 
-## Tool Interface
+## Naming Conventions
 
-All tools return a `ToolResult`:
+- **Files**: kebab-case (`agent.ts`, `chat-interface.tsx`, `settings-manager.ts`).
+- **Classes**: PascalCase (`Agent`, `TextEditorTool`, `BashTool`).
+- **Interfaces/Types**: PascalCase (`ChatEntry`, `ToolResult`, `StreamingChunk`).
+- **Functions/variables**: camelCase (`processUserMessage`, `loadApiKey`).
+- **Constants**: camelCase or UPPER_SNAKE_CASE for true constants (`AGENT_TOOLS`).
 
-```typescript
-interface ToolResult {
-  success: boolean;
-  output?: string;
-  error?: string;
-}
-```
+## Error Handling
 
-Tools should never throw — wrap errors in `{ success: false, error: "..." }`.
+- Catch errors as `error: any` and access `.message` for display.
+- Tool execution methods return `ToolResult` objects (`{ success, output?, error? }`) rather than throwing.
+- Use `process.exit(1)` for fatal CLI errors.
 
-## Built-in Tools
+## ESLint Rules
 
-| Tool | File | Purpose |
-|------|------|---------|
-| `BashTool` | `src/tools/bash.ts` | Execute any shell command |
+- `@typescript-eslint/no-unused-vars`: error
+- `@typescript-eslint/no-explicit-any`: warn
 
-## Provider Client
-
-The provider client (in `src/provider/client.ts`) is built on `@ai-sdk/openai-compatible` and points at any OpenAI-compatible endpoint (default `https://ai.tioo.eu.org/v1`).
-
-## Adding a New Tool
-
-1. Add the tool schema to `src/provider/tools.ts` (in the `TOOLS` array).
-2. Add the execution case in `Agent.executeTool()`.
-3. Update the system prompt in `Agent` to document the tool.
+Run `bun run lint` to check and `bun run typecheck` to verify types.
 
 ---
 > Source: [hostinger-bot/btch-cli](https://github.com/hostinger-bot/btch-cli) — distributed by [TomeVault](https://tomevault.io).
