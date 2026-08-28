@@ -4,7 +4,7 @@
   "repo": "gfx906-llama-cpp",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/milpster/gfx906-llama-cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:22:27Z"
+  "distributed_at": "2026-08-28T00:38:41Z"
 }
