@@ -4,7 +4,7 @@
   "repo": "sentinela",
   "description": "Um auditor de seguran\u00e7a que vive dentro do seu agente de IA. Varre o projeto inteiro, usa ferramentas reais, documenta e sugere mudan\u00e7as que realmente fazem diferen\u00e7a!",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fonsecafns/sentinela",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T08:43:46Z"
+  "distributed_at": "2026-08-28T21:34:41Z"
 }
