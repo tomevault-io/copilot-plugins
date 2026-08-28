@@ -1,0 +1,9 @@
+{
+  "name": "che-incubator--tools-injector",
+  "displayName": "tools-injector",
+  "description": "Container images and CLI for dynamically injecting tools into Eclipse Che DevWorkspaces",
+  "version": "1.0.0",
+  "author": "che-incubator",
+  "homepage": "https://github.com/che-incubator/tools-injector",
+  "skills": []
+}
