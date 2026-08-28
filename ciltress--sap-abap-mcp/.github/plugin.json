@@ -1,0 +1,9 @@
+{
+  "name": "ciltress--sap-abap-mcp",
+  "displayName": "sap-abap-mcp",
+  "description": "SAP ABAP MCP with ADT and JSON RPC - Multiple Authentication Methods",
+  "version": "1.0.0",
+  "author": "Ciltress",
+  "homepage": "https://github.com/Ciltress/sap-abap-mcp",
+  "skills": []
+}
