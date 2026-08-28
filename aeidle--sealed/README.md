@@ -7,11 +7,11 @@ One-time secret sharing. Encrypt a secret in your browser, get a link that self-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Aeidle/Sealed](https://github.com/Aeidle/Sealed).
+Original source: `AGENTS.md` in [Aeidle/Sealed](https://github.com/Aeidle/Sealed).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
