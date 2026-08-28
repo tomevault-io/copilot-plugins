@@ -1,0 +1,9 @@
+{
+  "name": "hagaiw--skillroll",
+  "displayName": "skillroll",
+  "description": "The simple eval harness for your skills",
+  "version": "1.0.0",
+  "author": "hagaiw",
+  "homepage": "https://github.com/hagaiw/skillroll",
+  "skills": []
+}
