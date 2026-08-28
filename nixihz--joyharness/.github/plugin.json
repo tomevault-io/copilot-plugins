@@ -1,0 +1,9 @@
+{
+  "name": "nixihz--joyharness",
+  "displayName": "JoyHarness",
+  "description": "Control Codex Desktop on macOS with a game controller, RP2040-powered Codex Micro input, haptics, mouse controls, and push-to-talk.",
+  "version": "1.0.0",
+  "author": "nixihz",
+  "homepage": "https://github.com/nixihz/JoyHarness",
+  "skills": []
+}
