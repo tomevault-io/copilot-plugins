@@ -1,0 +1,9 @@
+{
+  "name": "gombit-dev--gombit",
+  "displayName": "gombit",
+  "description": "Django-inspired full-stack web framework for Go. Gin + GORM + React/TypeScript, with migrations, an admin, and a CLI that generates backend-to-frontend.",
+  "version": "1.0.0",
+  "author": "gombit-dev",
+  "homepage": "https://github.com/gombit-dev/gombit",
+  "skills": []
+}
