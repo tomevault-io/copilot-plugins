@@ -1,0 +1,9 @@
+{
+  "name": "hegsie--leviathan",
+  "displayName": "Leviathan",
+  "description": "A fast, privacy-first Git GUI client built with Tauri, Lit, and Rust \u2014 no telemetry, no accounts, fully offline.",
+  "version": "1.0.0",
+  "author": "hegsie",
+  "homepage": "https://github.com/hegsie/Leviathan",
+  "skills": []
+}
