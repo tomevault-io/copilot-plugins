@@ -4,7 +4,7 @@
   "repo": "counterpoise-ledger",
   "description": "A web-based double-entry accounting application for personal finance management, built with modern technologies and accounting best practices.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeffjjohnston/counterpoise-ledger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:32:28Z"
+  "distributed_at": "2026-08-28T00:51:06Z"
 }
