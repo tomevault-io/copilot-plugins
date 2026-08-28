@@ -1,20 +1,62 @@
-## architecture-first-extension
+## coding-conventions
 
-> 新增功能优先扩展既有权威路径，禁止另起脚手架
+> Alear030 编码规范：命名、风格、架构组织、数据流、错误处理
 
 
-# 新增功能 = 扩展既有架构，不做脚手架
+# Alear030 编码规范
 
-架构成型后，新增功能/模块/机制前先做「架构归位」：
+## 命名规范
 
-- **先回答**：这个功能在稳定模块地图里归哪个模块？生产者是谁、消费者是谁？有没有既有权威路径（tool/hook/prompt 三套自动发现、session/memory 存储、hook 事件流、TUI channel+widget）？
-- **语义相同 → 扩展既有路径**；只有职责、生命周期、事实源确实不同，才新增路径
-- **禁止做脚手架**：不新建平行注册表、平行存储、平行消息总线、平行 prompt 注入、平行 widget 体系
-- **优先走扩展点**：新工具 → `tool/tools/` 一级 package + `agents.yaml` 授权；新 hook → `@hooks.register`；新 prompt → `@register_prompt`
-- **一条关切只保留一个权威表示**，其余注册、缓存、派生展示须可追溯到该来源
-- **替换旧路径时同次收口**：移除本次被替代的旧入口、配置、文档、提示词，不遗留平行双份
+- 变量 `snake_case`，中文直译式、直观（`widget_list`、`extra_info_id`、`now_channel`），一看就懂
+- 方法动作导向「动词+名词」：`get_`/`_build_`/`_update_`/`_make_`/`match_`/`_json_`；私有方法统一单下划线
+- 类 `PascalCase` + 职责后缀：`_Register`/`Manager`/`Runner`/`Handler`/`Core`
+- 常量 `UPPER_SNAKE_CASE`，集中在 `config.py`
+- 公共入口带默认值关键字参数；工具函数保留 `**kwargs` 吸收注入对象
+- 标识符拼写必须正确，新增代码禁止扩散存量 typo（`MEMORTY`/`loker`/`slef`/`tool_autho` 是存量，不追不复制）
+- 类型标注轻量：泛型 `list[str]`/`dict[str,...]`，可空用 `|` 语法，不强制全覆盖
 
-自检：写完后问自己「这个功能是不是在现有架构下以最小新增实现的？」新增的是**扩展点**还是**平行体系**？若两者皆可，选扩展点。
+## 代码风格
+
+- 4 空格缩进，无 tab
+- 核心模块紧凑风：参数贴紧、逗号/冒号后无空格、注解贴紧（`x:str`、`->str`、`{'k':'v'}`）；非用户书写的文件（如 `local_model/`、`tool/tools/command/security.py`）不纳入本规范
+- 注释中文、动词/动作导向、简短，保留英文标识符原文不翻译，不写参数类型清单；整行注释为主
+- 包内相对 import，跨包顶层绝对路径；跟随邻近文件风格，不引入第三种风格
+- 类内方法间 2 空行，方法上方先中文注释再 `def`
+- 改动最小化：不重排方法、不抽公共方法、不顺手清理死代码，只动目标行
+
+## 结构组织与扩展点
+
+- 三套自动发现：tool=`tool/tools/<name>/`+package `__init__.py` 显式导入；hook=`hook/hooks/<hook_point>/<hook_name>/hook.py`+`@hooks.register`；prompt=`prompt/prompts/<name>/prompt.py`+`@register_prompt`
+- 新增功能走既有注册器，不新建平行注册表/平行存储/平行消息总线
+- 注册器通式：私有类 + 模块级单例 + 别名函数导出（`_register`/`tuiwidgets`/`hooks`），dict 查表路由
+- 唯一权威入口：`match_tool`（工具执行）、`self.emit`（外发口）、`build_widget`（widget 工厂）、`event_methods`（事件表）、`build_prompt`（prompt 组装）
+- 依赖边界：`main.py` 只装配；工具运行时对象只经 `pre_toolUse` 注入 + `**kwargs` 取用（判空「报错返回」）；底层 registry/类型/config/存储可直连 import
+- 脚手架方法保留：显式写的方法即使一行也是预留扩展点，禁止以「现在没用」删除/内联/合并
+
+## 数据流与状态管理
+
+- 锁纪律：读改写走 `_json_update(updater)` 模板（持锁读快照→锁外 LLM/embedding→锁内短写），updater 内禁止调模型/embedding
+- 单事实源：`session_messages`/`session_slice` 是事实源；`slice_node`/`user_info`/`timeline` 是可重建派生，禁止反写原文
+- 事件契约：emit 事件名固定集合 + `stream_id` 归组；widget 三态（首建/`update_widget` 增量/`finalize` 收尾）；content 一律 dict
+- 总开关收拢为构造传入的单一实例属性（`pipeline_enabled` 范式），禁止分散传参
+- 持久化：读写显式 `encoding='utf-8'`；JSON `ensure_ascii=False, indent=2`；写前 `mkdir(parents=True, exist_ok=True)`
+
+## 错误处理与健壮性
+
+- 主链路统一兜底：业务异常类 + 单翻译点 + 顶层兜底（`LoopAPIError` 范式），内部不层层 try/except；`raise ... from ee` 保链；后台链路吞异常只记录
+- 工具错误统一收口 `_error_result`（error_key + 中文 message，带 `type(ee).__name__`），失败不伪装成空参数继续
+- 判空三件套：注入对象 `is None` 报错返回；集合/串 `if not` 早退；可选字段 `.get(k, 默认)` + `or {}` 防 None
+- 渲染层三级兜底：Static 占位 / `default` builder / 注册期 `raise ValueError` 防呆；渲染层绝不因未知类型崩溃
+- 流式防御：空 choices 跳过、异常补发 `StreamEnd` 防悬挂、pop 回滚已 append 消息、`has_been_finalized` 幂等收尾
+- 通知统一 `rich_print(message, type=...)`，中文 + 定位前缀；错误带 `type(ee).__name__` 与修复指引
+- 临时截断只加入口 guard 不删实现；禁用走 `enabled=False` 配置式，不删函数体
+
+## 协作与标注
+
+- `@claude` 四态：裸 `@claude`=待办、`@claude bug:`=已知缺陷带根因、`@claude(ignore)`=用户备注不得修改、`done(@claude)`=完成留痕
+- 先预览后落盘：逻辑改动 diff 先在对话展示，用户确认后再写
+- 先验证再下结论：宣称「语法错误/会崩」前先实际运行验证
+- 改动边界最小化：不重构、不顺手清理，只动目标行
 
 ---
 > Source: [Alear030/Alear030](https://github.com/Alear030/Alear030) — distributed by [TomeVault](https://tomevault.io).
