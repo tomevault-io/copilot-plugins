@@ -1,0 +1,9 @@
+{
+  "name": "hyhmrright--market-sages",
+  "displayName": "market-sages",
+  "description": "13 legendary investors analyzing stocks for you \u2014 Buffett to Taleb. Real-time data via web search. Responds in your language. Works with Claude Code, Codex CLI & Gemini CLI.",
+  "version": "1.0.0",
+  "author": "hyhmrright",
+  "homepage": "https://github.com/hyhmrright/market-sages",
+  "skills": []
+}
