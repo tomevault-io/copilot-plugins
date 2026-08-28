@@ -1,0 +1,9 @@
+{
+  "name": "citguru--computer",
+  "displayName": "computer",
+  "description": "Isolated desktop boxes for agents",
+  "version": "1.0.0",
+  "author": "CITGuru",
+  "homepage": "https://github.com/CITGuru/computer",
+  "skills": []
+}
