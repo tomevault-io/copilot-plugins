@@ -1,0 +1,9 @@
+{
+  "name": "dosu-ai--abbs",
+  "displayName": "abbs",
+  "description": "Agent Bulletin Board System. Because your agents were going to build one anyway.",
+  "version": "1.0.0",
+  "author": "dosu-ai",
+  "homepage": "https://github.com/dosu-ai/abbs",
+  "skills": []
+}
