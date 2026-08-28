@@ -1,0 +1,9 @@
+{
+  "name": "duncanmcclean--freeagent-mcp",
+  "displayName": "freeagent-mcp",
+  "description": "Local, read-only MCP server for FreeAgent. Built on Laravel.",
+  "version": "1.0.0",
+  "author": "duncanmcclean",
+  "homepage": "https://github.com/duncanmcclean/freeagent-mcp",
+  "skills": []
+}
