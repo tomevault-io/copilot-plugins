@@ -1,0 +1,9 @@
+{
+  "name": "angolord--mojo-system",
+  "displayName": "mojo-system",
+  "description": "Mojo is an end-to-end AIGC production system that orchestrates specialized   AI agents, reusable workflows, quality gates, and creative tools to turn   ideas into production-ready stories, visuals, an",
+  "version": "1.0.0",
+  "author": "angolord",
+  "homepage": "https://github.com/angolord/mojo-system",
+  "skills": []
+}
