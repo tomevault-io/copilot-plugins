@@ -7,11 +7,11 @@ Fix broken markdown that LLMs generate — tables, lists, emphasis, code fences.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stlahxm/llm-markdown-sanitizer](https://github.com/stlahxm/llm-markdown-sanitizer).
+Original source: `AGENTS.md` in [stlahxm/llm-markdown-sanitizer](https://github.com/stlahxm/llm-markdown-sanitizer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
