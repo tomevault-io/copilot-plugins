@@ -1,0 +1,9 @@
+{
+  "name": "theajr--mongo-weaver",
+  "displayName": "mongo-weaver",
+  "description": "A local, read-only MongoDB GUI and database browser that turns ObjectIds into links \u2014 click a reference and jump to the document it points to",
+  "version": "1.0.0",
+  "author": "theajr",
+  "homepage": "https://github.com/theajr/mongo-weaver",
+  "skills": []
+}
