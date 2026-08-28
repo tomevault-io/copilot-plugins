@@ -7,11 +7,11 @@ Local-first universal clipboard for your own devices. Copy on one, paste on anot
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [x20surya/MeshSync](https://github.com/x20surya/MeshSync).
+Original source: `AGENTS.md` in [x20surya/MeshSync](https://github.com/x20surya/MeshSync).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
