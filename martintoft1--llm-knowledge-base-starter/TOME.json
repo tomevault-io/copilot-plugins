@@ -4,7 +4,7 @@
   "repo": "llm-knowledge-base-starter",
   "description": "An OKF v0.2-compatible starter kit for human-owned, AI-maintained knowledge bases.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/martintoft1/llm-knowledge-base-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T09:16:35Z"
+  "distributed_at": "2026-08-28T15:09:36Z"
 }
