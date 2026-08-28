@@ -1,0 +1,9 @@
+{
+  "name": "joshuabardwell--fpv-latency-tool",
+  "displayName": "fpv-latency-tool",
+  "description": "Glass-to-glass FPV latency analyzer \u2014 measures display lag from video using brightness transition detection",
+  "version": "1.0.0",
+  "author": "joshuabardwell",
+  "homepage": "https://github.com/joshuabardwell/fpv-latency-tool",
+  "skills": []
+}
