@@ -1,0 +1,9 @@
+{
+  "name": "medlzd--store-ready",
+  "displayName": "store-ready",
+  "description": "Catch App Store and Google Play rejections before you submit. A portable agent skill for Claude, Cursor, Codex and ChatGPT.",
+  "version": "1.0.0",
+  "author": "Medlzd",
+  "homepage": "https://github.com/Medlzd/store-ready",
+  "skills": []
+}
