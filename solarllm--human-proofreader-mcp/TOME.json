@@ -1,0 +1,44 @@
+{
+  "name": "human-proofreader-mcp",
+  "owner": "SolarLLM",
+  "repo": "human-proofreader-mcp",
+  "description": "\uc0ac\ub78c \ud3b8\uc9d1\uc790\uac00 \uc190\ubcf8 \uac83\ucc98\ub7fc \ud55c\uad6d\uc5b4 \uc6d0\uace0\ub97c \uad50\uc815\ud558\ub294 MCP \uc11c\ubc84 \u2014 Upstage Solar Pro 4 \u00b7 Vercel \u00b7 \ud558\ub8e8 100\ucf5c \ubb34\ub8cc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SolarLLM/human-proofreader-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T22:54:54Z"
+}
