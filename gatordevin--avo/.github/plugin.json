@@ -1,0 +1,9 @@
+{
+  "name": "gatordevin--avo",
+  "displayName": "avo",
+  "description": "Open reproduction of NVIDIA's AVO paper (arXiv:2603.24517): evolutionary search where an autonomous coding agent IS the variation operator \u2014 Vary(P)=Agent(P,K,f). Runs on the Claude Code or Codex sess",
+  "version": "1.0.0",
+  "author": "gatordevin",
+  "homepage": "https://github.com/gatordevin/avo",
+  "skills": []
+}
