@@ -1,0 +1,9 @@
+{
+  "name": "axelfreeman--tapac-mcp",
+  "displayName": "tapac-mcp",
+  "description": "Find & verify B2B contacts via MCP \u2014 real-time scraping (websites, Discord, Telegram) + SMTP validation. 2\u20135% bounce.",
+  "version": "1.0.0",
+  "author": "axelfreeman",
+  "homepage": "https://github.com/axelfreeman/tapac-mcp",
+  "skills": []
+}
