@@ -4,7 +4,7 @@
   "repo": "eve-sre-agent-template",
   "description": "Meet sre, an eve incident response agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vercel-labs/eve-sre-agent-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:32:30Z"
+  "distributed_at": "2026-08-28T23:31:31Z"
 }
