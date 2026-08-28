@@ -1,0 +1,9 @@
+{
+  "name": "e-conners-lab--networkops-platform",
+  "displayName": "NetworkOps_Platform",
+  "description": "AI-powered network automation via Netbox and Model Context Protocol (MCP). 178 tools for multi-vendor infrastructure   management, self-healing agents, drift detection, and a real-time web dashboard.",
+  "version": "1.0.0",
+  "author": "E-Conners-Lab",
+  "homepage": "https://github.com/E-Conners-Lab/NetworkOps_Platform",
+  "skills": []
+}
