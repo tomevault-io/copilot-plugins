@@ -1,0 +1,9 @@
+{
+  "name": "monotykamary--dsh-fabric",
+  "displayName": "dsh-fabric",
+  "description": "Fabric-style deterministic compaction, checked code execution, durable coordination, and live topology for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "monotykamary",
+  "homepage": "https://github.com/monotykamary/dsh-fabric",
+  "skills": []
+}
