@@ -1,0 +1,9 @@
+{
+  "name": "miyazawai--dsh-whale",
+  "displayName": "dsh-whale",
+  "description": "\ud83d\udc33 DSH \u50bb\u74dc\u6574\u5408\u5305\uff1a\u4ee5 Oh-DSH \u4e3a\u57fa\u5ea7\u7684 DeepSeek Harness \u53d1\u884c\u7248\u5916\u58f3\u2014\u2014\u6838\u5fc3 17 \u7ec4\u4ef6\u5f00\u7bb1\u5373\u7528\u3001\u4e09\u754c\u9762\uff08webui/gui/tui\uff09\u4e00\u5305\u5207\u6362\u3001\u6a21\u578b\u2194\u9884\u8bbe\u8054\u52a8\u3001\u4e00\u5207\u7686\u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "Miyazawai",
+  "homepage": "https://github.com/Miyazawai/dsh-whale",
+  "skills": []
+}
