@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--deepseek-harness-brain",
+  "displayName": "deepseek-harness-brain",
+  "description": "Independent evidence-gated second brain for understanding and porting DeepSeek Harness architecture.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/deepseek-harness-brain",
+  "skills": []
+}
