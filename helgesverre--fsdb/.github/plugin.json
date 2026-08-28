@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--fsdb",
+  "displayName": "fsdb",
+  "description": "A MySQL-compatible database server in idiomatic F# \u2014 wire protocol, FParsec SQL grammar, DU-based relational algebra, SQLite-style function registration",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/fsdb",
+  "skills": []
+}
