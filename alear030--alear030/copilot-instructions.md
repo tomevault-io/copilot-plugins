@@ -1,27 +1,14 @@
-## multitask-parallel-split
+## multitask-pipeline-judge
 
-> Multitask 可拆分工作必须并行多子代理；验收/审查与实现者分离
+> 较大改动自行判断启用 Multitask 满配或轻量；细节见 skill
 
 
-# Multitask 并行拆分与验收分离
+# Multitask 流水线（自行判断）
 
-本 rule 只约束**派几个子代理**与**谁来验**；满配阶段与轻量判断仍以 `$alear030-multitask-pipeline`、`multitask-pipeline-judge.mdc`、`multitask-code-change-workflow.mdc` 为准，不另造平行文档体系。
-
-## 可拆则并行（反模式：一锅炖）
-
-Multitask Mode / Build-in-parallel 下，工作可拆成独立切片（不同文件/模块/交付物）时，协调者**必须**并行拉起多个兄弟子代理，禁止把全部活塞进一个 mega-agent。
-
-- 一个 agent 包办一切 ≈ 协调者自己干 → **反模式**
-- 按所有权边界拆：同一文件同一时刻只给一个 agent 改
-- 独立工作流才并行；一行级小修、不可拆的耦合改动不要硬拆
-
-## 验收与实现分离
-
-验收 / 验证 / review **必须**由相对实现者**新起的**子代理承担，不得以「实现者自测」作为唯一闸门。
-
-- Prefer：implement 子代理收工 → 再 spawn 新的 review/verify 子代理
-- 满配模型对齐既有流水线：execute 之后 **style∥review 并行**（见 multitask-code-change-workflow Phase 3）
-- 实现者可做最小自检，但**不能**替代独立 review/verify 门禁
+- 较大/跨模块/机制路径改动：优先 `$alear030-multitask-pipeline`（plan→拍板→executor→style∥review）
+- 小改（错字、入口 return、单点注释）：轻量 executor+轻 review，不上满配
+- 主对话协调者自行判断；用户也可显式要求
+- 细节以 skill 为准，勿复述全文
 
 ---
 > Source: [Alear030/Alear030](https://github.com/Alear030/Alear030) — distributed by [TomeVault](https://tomevault.io).
