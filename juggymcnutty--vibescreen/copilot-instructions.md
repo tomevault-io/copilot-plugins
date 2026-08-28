@@ -1,0 +1,865 @@
+## vibescreen
+
+> Onboarding for anyone new to this repo, human or AI. `README.md` is for people
+
+# AGENTS.md
+
+Onboarding for anyone new to this repo, human or AI. `README.md` is for people
+installing it, `DEVELOPMENT.md` covers the toolchain and build. This file is the
+working reference: what is known about the hardware, what is known to be broken,
+and the rules that are not obvious from reading the code.
+
+## What this is
+
+Guppyscreen is a touch UI for Klipper printers, talking to Moonraker over a
+websocket, built on LVGL as a standalone binary with no X or Wayland underneath.
+It draws straight to `/dev/fb0` and reads touch from `/dev/input/event0`.
+
+This repo is a **takeover of an abandoned project**. Upstream
+`ballaswag/guppyscreen` stopped at commit `07409cb` on 2024-07-15. We forked
+from that commit and are picking it back up.
+
+It is still stopped, re-checked 2026-08-18: `main` is our fork point exactly,
+and the `dev` and `btt_pad7` branches are stale from December 2023 with nothing
+in them that is not already in `main`. What is left there is 63 open issues and
+6 open pull requests, all triaged in `docs/upstream-issues.md`. Read that before
+acting on anything anyone reports upstream, because about half of it we have
+already fixed.
+
+Our target is a **Creality K1 Max**. Everything measured about it is in
+`docs/k1max-facts.md`. Do not guess at hardware details, that file has the real
+values.
+
+## Read these first
+
+| File | What it is for |
+| --- | --- |
+| `docs/k1max-facts.md` | Real hardware, firmware, framebuffer and input values from the printer |
+| `docs/audit.md` | Known bugs, inherited and our own, with severity and suggested order |
+| `docs/upstream-issues.md` | Upstream's 63 open issues and 6 open PRs, triaged against our tree |
+| `DEVELOPMENT.md` | Toolchain, build targets and running the simulator |
+
+## Build
+
+Three targets, all through one script.
+
+```sh
+scripts/setup-toolchain.sh          # once, downloads both cross toolchains
+scripts/build.sh mips               # K1 / K1 Max binary
+scripts/build.sh arm                # aarch64, Raspberry Pi and BTT Pad
+scripts/build.sh sim                # x86_64 SDL build that runs on your desktop
+```
+
+Useful variants:
+
+```sh
+scripts/build.sh mips zbolt         # Z-Bolt icon set instead of Material
+scripts/build.sh mips --small       # Ender 3 V3 KE / Nebula Pad sized panel
+scripts/build.sh mips --clean       # rebuild the vendored libs too
+PRINTER_HOST=192.168.1.202 scripts/build.sh sim   # point a *new* sim config at a printer
+```
+
+Output is `build/bin/guppyscreen` for every target. Two stamp files track what
+was last built so nothing stale gets linked: `.vendor-target` for the
+architecture, which is all libhv, spdlog and libwpa_client care about, and
+`.build-flags` for architecture plus theme plus small screen, since those change
+`-D` defines that affect every object of ours.
+
+## CI
+
+One workflow, `.github/workflows/build.yml`. It builds the same four variants
+CI has always built, plus the simulator, and it **calls `scripts/build.sh`**
+rather than repeating the flags. If you add a build option, put it in the script
+and reference it from the matrix, so the two cannot drift.
+
+It runs on push to `main` and on pull requests. There is no tag trigger:
+publishing happens per push, so tagging is not how releases are made here.
+
+Two version shapes, and `update.sh` keys off them:
+
+| Trigger | Version | Published as |
+| --- | --- | --- |
+| local `scripts/build.sh` | `dev-<sha>` | nothing, never published |
+| pull request | `dev-<sha>` | nothing, never published |
+| push to `main` | `<date>-<sha>` | its own release, tagged the same |
+
+Every push that changes source and builds cleanly gets its own release, so the
+release list is a build history. Do not go back to a single fixed tag that
+overwrites itself: that was the old arrangement and it left nothing to roll
+back to.
+
+**Documentation-only pushes still build but do not publish.** The `version` job
+diffs against `github.event.before` and skips the release when every changed
+path matches `*.md`, `docs/`, `screenshots/` or `LICENSE`. The filter lists what
+to ignore rather than what to build, so an unrecognised path errs towards
+publishing. Remember that `installer.sh`, `update.sh`, `k1/` and `themes/` ship
+inside the tarball and count as source even though nothing compiles them.
+
+If it ever skips a release you wanted, run the workflow manually: a
+`workflow_dispatch` always publishes.
+
+The version is worked out once in the `version` job and passed to the build and
+release jobs. Computing it in both races across UTC midnight and would tag a
+release differently from the string compiled into the binary. The tag, the
+release name and `.version` are all the same string.
+
+Releases are normal releases, not prereleases, so `releases/latest` resolves to
+the newest build. `update.sh` and both installers follow that rather than any
+fixed tag.
+
+The release is published from its own job, after the whole matrix **and** the
+simulator build pass. Do not move it back into the matrix: four parallel jobs
+race to create the same tag, and a broken variant would produce a half
+populated release.
+
+Release notes are generated in the workflow. Keep them practical: which asset
+suits which printer, and how to install. Anyone arriving from the original
+guppyscreen needs the installer rather than `update.sh`, because that project's
+updater points at upstream and will not see our builds. That is why the commit
+list goes at the bottom rather than the top.
+
+**The commit list is measured from the previous release tag, not from the
+push.** Those are different sets, and the difference matters: a
+documentation-only push builds without publishing, so anything keyed off
+`github.event.before` would drop its commits from every release's notes and
+they would appear in none of them. `git describe` finds the previous tag, and
+it is restricted to `20[0-9][0-9].*` because the upstream history this repo
+carries brings `0.0.x-beta` tags with it and describing against one of those
+would produce a changelog going back to 2024.
+
+Long ranges are capped at 50 commits, newest kept, with a compare link for the
+rest.
+
+CI asserts the mips binary is statically linked, which is the property that
+decides whether it runs at all, since the glibc version moves between Creality
+firmware releases.
+
+**Never call `apt-get` directly in the workflow.** Use
+`scripts/ci-apt-install.sh`, and only for something the runner image genuinely
+lacks. The image already ships cmake, gcc, g++ and make, and both cross targets
+download their own toolchain, so the simulator's `libsdl2-dev` is the only thing
+left that needs apt at all.
+
+The runner's `/etc/apt/apt-mirrors.txt` lists `azure.archive.ubuntu.com` first
+and only fails over to the canonical archives on a hard error, never on a slow
+one. When that mirror degraded in August 2026 the package downloads dropped
+from 11 MB/s to 57 kB/s and then stalled outright. apt's
+`Acquire::http::Timeout` is an inactivity timeout, so a server dribbling a few
+bytes never trips it, and with no job timeout nine jobs sat wedged for hours
+rather than failing. The helper bounds each attempt with `timeout` on wall
+clock time and drops the Azure mirror before retrying. Every job also carries a
+`timeout-minutes`, so a stall now fails the run in minutes instead of sitting
+until the 360 minute default. Keep both: the helper alone cannot catch a hang
+somewhere else, and a timeout alone just fails without trying the good mirror.
+
+**Android is gone.** Upstream built an APK from a separate `android` branch.
+The workflow went with the CI rework and the `OS_ANDROID` guards and
+`platform.h` went with it. Do not add conditional code for a platform that
+cannot be built or tested here.
+
+Two workflows were deleted with the fork's cleanup: `guppydroid.yml`, the
+Android build described above, and `pull_request.yml`, which duplicated the
+build matrix.
+
+Do not reintroduce the `ballaswag/guppydev` container. It is unpinned, sits on
+the abandoned upstream's account, and carries a different toolchain from the one
+we develop against, so a green run in it says nothing about a local build.
+
+This file used to say the simulator ignores `SIGTERM` and that `timeout 20
+./guppyscreen` hangs. **It does not, measured 2026-08-17.** Plain `timeout`,
+`timeout -s INT` and `pkill -x guppyscreen` all end it promptly, under the
+`x11` and `wayland` SDL drivers and with the driver left to autoselect. Use
+whichever you like; there is no workaround to remember.
+
+If you do see it outlive a `SIGTERM`, that is new behaviour and worth writing
+down rather than assuming this note is right.
+
+Host packages needed: `base-devel`, `cmake`, `sdl2` (or `sdl2-compat`),
+`sshpass` for the printer probe.
+
+### The toolchain, and the trap it replaced
+
+Upstream's `DEVELOPMENT.md` told you to use the Ingenic
+`mips-gcc720-glibc229` toolchain. That is what built their last tagged release,
+`0.0.26-beta`, which is dynamically linked against `/lib/ld-linux-mipsn8.so.1`
+and only runs on firmware carrying glibc 2.29. It is why their `installer.sh`
+refuses to install unless it finds `/lib/ld-2.29.so`. Meanwhile their own CI had
+moved to a Bootlin musl toolchain and static linking back at `a42427cb`, so the
+documented route produced a binary that would not run for most people.
+
+Our `DEVELOPMENT.md` has been rewritten and no longer says that, but the history
+is worth knowing before trusting anything else inherited from upstream.
+
+We use Bootlin `mips32el--musl--stable-2025.08-1`: gcc 14.3.0, binutils 2.43.1,
+musl 1.2.5. Static, so the K1's glibc version is irrelevant to us.
+
+The arm target is Arm's own `arm-gnu-toolchain-14.3.rel1-x86_64-aarch64-none-linux-gnu`,
+gcc 14.3.1, downloaded and pinned the same way and verified against the sha256
+Arm publishes beside it. Two things about it are worth knowing.
+
+**The triple is `aarch64-none-linux-gnu-`, not `aarch64-linux-gnu-`.** That is
+what a distribution package would give you, and it is not what `CROSS_COMPILE`
+is set to here. Anything that hardcodes the old prefix will silently pick up the
+host's compiler if it has one, or fail if it does not.
+
+**It is downloaded rather than installed.** This target used to be whatever
+`aarch64-linux-gnu-gcc` happened to be on the machine, which meant the compiler
+that built a published release depended on the runner image. gcc 14.3 was chosen
+to match the mips toolchain's 14.3.0, so a warning or error found on one target
+applies to the other. 15.2.rel1 exists and was skipped on that ground alone.
+
+Both are static, so neither toolchain's glibc constrains its target, and CI
+asserts that for both.
+
+Known-good fallback if gcc 14 ever becomes more trouble than it is worth:
+`mips32el--musl--stable-2024.02-1` (gcc 12.3.0), which is what upstream CI and
+`pellcorp/grumpyscreen` both use. Change the two constants at the top of
+`scripts/setup-toolchain.sh`.
+
+### Verifying a mips build without a printer
+
+Check the ELF. These are the properties that decide whether it runs at all, and
+CI asserts the static one on every build:
+
+```sh
+toolchains/mips32el--musl--stable-2025.08-1/bin/mipsel-linux-readelf -h build/bin/guppyscreen
+```
+
+Expect `ELF32`, little endian, `EXEC`, `MIPS`, and flags **`0x50001007`**
+(`noreorder, pic, cpic, o32, mips32`). There must be no `INTERP` or `DYNAMIC`
+program header, because the K1's glibc version moves between firmware releases
+and only a static binary is immune to that. Stripped it comes to about 6.4 MB.
+
+To compare against a known good binary, pull one of our own releases rather
+than anything of upstream's; ours are built by the same script with the same
+toolchain.
+
+XBurst2 is MIPS32r2, so never emit MIPS r6 instructions.
+
+## Repo layout
+
+```
+src/                  the application, all ours to maintain
+lvgl/                 submodule, release/v8.4 head, see below
+lv_drivers/           submodule, v8.3.0, upstream is dead
+libhv/                submodule, websocket and http client
+mbedtls/              submodule, the TLS backend libhv is built against
+spdlog/               submodule, logging
+wpa_supplicant/       vendored hostap copy, built only for libwpa_client.a
+lv_touch_calibration/ in-tree, not a submodule, touch calibration screens
+patches/              four patches applied to submodules, see below
+k1/                   payload installed onto the printer, init scripts and klippy modules
+assets/               generated LVGL C arrays for icons and fonts
+debian/               Raspberry Pi and Debian packaging, plus the config template
+themes/               primary and secondary colour json, installed to the printer
+scripts/              ours, see below
+tools/                ours, the fakes and shot.py for local testing
+docs/                 ours
+screenshots/          referenced from README.md, ours plus some still upstream's
+```
+
+Not in git: `build/` and `toolchains/`, both generated, plus `releases/`,
+release tarballs, a top level `guppyconfig.json`, the `.vendor-target` and
+`.build-flags` stamps, `__pycache__/` and stray `*.log`. See `.gitignore`.
+
+### Which LVGL we are on, and why not v9
+
+Pinned to `b0c4cb36b` on LVGL's `release/v8.4` branch, dated 2026-04-13. Not a
+tag: v8.4.0 was released in March 2024 and the branch has taken 41 fixes since,
+including a font `load_cmaps_tables` overflow, an `sjpg` double free and a
+`lv_disp` that loaded a screen from the wrong display. A submodule records a
+SHA either way, so a branch head is no less reproducible than a tag.
+
+We were on v8.3.11, from December 2023, until 2026-08-20. Moving needed nothing
+but the pin: `patches/0003-lvgl-dpi-text-scale.patch` applies with its context
+unchanged, and no public function we call was removed. The two symbols the
+header diff appears to drop, `lv_obj_remove_style` and `lv_snapshot_take_to_buf`,
+are both still there with rewrapped prototypes.
+
+**v9 is a project, not a bump.** It deletes `lv_canvas_draw_polygon`, which is
+what `MeshView` draws the bed with, replaces `lv_drivers` with drivers built
+into LVGL itself, and rewrites `lv_conf.h`. It does ship `src/lv_api_map_v8.h`,
+which absorbs most of the renames, so the cost is not the 2634 LVGL calls in
+`src/` that a raw count suggests. It is the canvas work, the driver swap and
+the config. Worth doing eventually, since the drivers moving in-tree would
+retire a dead submodule and most of patch 0001, but it wants its own planning
+pass.
+
+`lv_drivers` stays where it is. Its last substantive change was years ago and
+its current tip is a README edit.
+
+### Which libhv we are on
+
+Pinned to **v1.3.4**, dated 2025-10-25. This is a release tag, unlike LVGL,
+because libhv tags them roughly yearly and the branch between them is where the
+churn is.
+
+We were on `a1d8185` until 2026-08-21, which was `v1.3.1-54-g a1d8185`: a
+mid-branch commit inherited from upstream guppyscreen, dated 2023-09-26, never
+chosen by anyone. Moving 118 commits to v1.3.4 was worth it for what is in
+between:
+
+- `8e380f0` and `f2b969f` fix CVE-2023-26146, 26147 and 26148.
+- `41f679e` fixes HTTP header parsing failing when the response is split across
+  TCP segments. That is a client bug and we are a client.
+- `23ff591` fixes a race after `hio_detach`, `b350201` guards a repeated
+  `EventLoopThread::start`, and `a5b3744` and `bb2fae9` harden multithreading.
+  We run two `hv::EventLoopThread`s, see the threading section.
+- `a622307` fixes a reverse proxy buffer overflow and `e1015fb` a crash when
+  the log buffer's max size is exceeded.
+
+The headers we actually include barely moved. `http/client/WebSocketClient.h`
+and `http/client/requests.h` are byte-identical across the bump. What did move
+is the bundled `cpputil/json.hpp`, **nlohmann/json 3.9.1 to 3.12.0**, which nine
+of our headers pull in via `hv/json.hpp`. Two things about that were checked
+rather than assumed, and both are fine:
+
+- `_json_pointer` moved into `nlohmann::literals::json_literals` in 3.11, but
+  `JSON_USE_GLOBAL_UDLS` defaults to `1`, which re-exports it at global scope.
+  Our `"/printer_state/..."_json_pointer` sites are unaffected.
+- `json_pointer` became templated on the string type in 3.11. Every declaration
+  we have spells it `json::json_pointer` (`src/state.h:28`, `src/config.h:33`),
+  which resolves either way, and nothing reopens `namespace nlohmann`.
+
+It cost about 155 KB in the simulator binary. The stripped mips binary is
+6.4 MB either way.
+
+`master` is a further 42 commits ahead with no release behind it. Prefer the
+tag until there is a specific fix worth chasing.
+
+### mbedTLS, and why there is no trust store
+
+libhv is built `WITH_MBEDTLS=yes` against the `mbedtls` submodule, pinned to
+**v3.6.7**, the head of the 3.6 LTS line. So `wss://` and `https://` work, with
+the certificate actually verified. Nothing in the tree builds such a URL yet:
+`src/guppyscreen.cpp`, `src/printer_select_panel.cpp` and `src/utils.cpp` all
+still construct `ws://` and `http://`. Teaching them a scheme is a separate
+change.
+
+Not mbedTLS 4.x. It moved to PSA-only crypto and changed the `x509` and
+`pk_parse_keyfile` APIs; `libhv/ssl/mbedtls.c` only branches on
+`MBEDTLS_VERSION_MAJOR >= 3` and will not compile against it.
+
+**It costs 817 KB.** The stripped mips binary went from 6.4 MB to 7.2 MB,
+measured, which is twice what this file used to estimate. That is the stock
+`mbedtls_config.h`, which enables TLS 1.2 and 1.3, DTLS, every ciphersuite and
+the self tests. A trimmed config would win most of that back and is the obvious
+lever if the size ever matters, but getting one wrong quietly drops the
+ciphersuite some real server needed, so it wants measuring against a real
+handshake rather than guessing.
+
+Three things about the build are not obvious:
+
+- **mbedtls has a submodule of its own** and `git submodule update --init` does
+  not fetch a nested one. Use `--recursive`. The 3.6 branch commits every file
+  in `library/Makefile`'s `GENERATED_FILES`, so it looks like the framework is
+  unnecessary, and it is not: those files have per-file rules naming
+  `../framework/scripts/*.py` as a prerequisite, and make fails on a
+  prerequisite it cannot build whether or not the target is up to date.
+  `scripts/build.sh` checks for it and says what to run.
+- **We pass `WITH_MBEDTLS=yes` on libhv's make command line** rather than
+  patching its `config.mk`, because a command-line variable beats an included
+  makefile. Our own objects get `-D WITH_MBEDTLS` too, from the top-level
+  `Makefile`, since `hv/hssl.h` decides whether to declare `HV_WITHOUT_SSL`
+  from it.
+- **mbedtls is built `-fPIC`.** Not for us, we link it statically: libhv's own
+  target builds `TARGET_TYPE="SHARED|STATIC"` and the shared half links
+  `-lmbedtls`, which fails against non-PIC archives.
+
+`patches/0004-libhv-mbedtls-ca.patch` is what makes verification work at all.
+libhv's mbedTLS backend ignores `ca_file` and `ca_path` entirely, so without the
+patch a client either verifies nothing or fails every handshake. Read
+`docs/audit.md` B8 before touching it or bumping libhv.
+
+**No CA bundle is shipped.** `src/tls.cpp` looks for one at, in order: the
+`ca_file` key in `guppyconfig.json`, `cacert.pem` beside the binary, then
+`/etc/ssl/certs/ca-certificates.crt`, `/etc/pki/tls/certs/ca-bundle.crt` and
+`/etc/ssl/cert.pem`. A desktop and a Debian install find one; **a K1 has none of
+them**, so on a printer TLS is compiled in and inert until someone drops a
+bundle into `/usr/data/guppyscreen/cacert.pem`. Vendoring a 230 KB Mozilla
+bundle with an expiry date on it, for a feature no URL in the tree uses, is a
+maintenance obligation without a working feature behind it. Ship one as part of
+whatever first needs it.
+
+When nothing is found it still sets `verify_peer` and logs every path it tried.
+That is deliberate: leaving `g_ssl_ctx` unset sends libhv down its
+`hssl_ctx_new(NULL)` fallback, which verifies nothing, so the choice is between
+failing closed and connecting to anyone claiming to be the printer. Measured
+2026-08-21: with no store the handshake ends in `unknown ca` and the UI stays
+disconnected.
+
+**mbedTLS matches `dNSName` and CN, not `iPAddress`.** A certificate carrying
+`IP:127.0.0.1` in its SAN is still rejected for a `wss://127.0.0.1` URL, which
+was measured, not assumed. Anyone putting a real certificate in front of
+Moonraker has to reach it by the name on the certificate.
+
+### `lv_conf.h` is two configs, not one
+
+`lv_conf.h:14` opens `#ifndef SIMULATOR`, `:715` is the `#else`, `:1353` the
+`#endif`. The device build compiles lines 15 to 714 and the simulator 716 to
+1352, and the two are not kept in step.
+
+The difference that bites is fonts. The printer has Montserrat 8, 10, 12, 14,
+16, 20 and 40 only; the simulator half enables every size from 8 to 48. So
+`&lv_font_montserrat_18` builds and looks right in the simulator and fails to
+link for mips. Check which half you are reading before believing anything in
+that file.
+
+Both halves do agree on the things that matter for drawing: `LV_COLOR_DEPTH 32`,
+`LV_DRAW_COMPLEX 1`, `LV_USE_CANVAS 1`, and `LV_MEM_CUSTOM 1`, which means
+`lv_mem_alloc` is plain `malloc` and the `LV_MEM_SIZE` in there is dead config
+sitting inside an `#if LV_MEM_CUSTOM == 0`.
+
+`scripts/` is all new in this fork:
+
+| Script | Purpose |
+| --- | --- |
+| `setup-toolchain.sh` | Downloads and unpacks the cross toolchain. Idempotent |
+| `apply-patches.sh` | Applies `patches/` to submodules. Idempotent |
+| `build.sh` | Builds any target: `mips`, `arm` or `sim` |
+| `probe-printer.sh` | Read-only fact gathering from a printer over SSH |
+| `ci-apt-install.sh` | Bounded, mirror-swapping `apt-get` for CI. See above |
+
+### The patches
+
+Four patches in `patches/` must be applied to submodules before building. They
+are not committed into the submodules, so a fresh clone or a `git submodule
+update` silently reverts them and the build then fails confusingly.
+`scripts/apply-patches.sh` handles this and `scripts/build.sh` calls it every
+time, so you should not need to think about it.
+
+`git status` showing `m lvgl` and friends is expected and correct: that is the
+patch, not a mistake, and staging it would commit patched sources into the
+submodule pointer. **Do not `git add` a submodule for that reason.** Moving a
+pin deliberately is the one exception, and it looks different in `git status`:
+a content change shows as lowercase `m` in the second column, a pointer change
+as `M` in the first. Only the second is ever meant to be committed.
+
+## Git remotes
+
+```
+origin        JuggyMcNutty/vibescreen   ours, this is the one you push to
+upstream      ballaswag/guppyscreen     the abandoned original, fetch only
+grumpyscreen  pellcorp/grumpyscreen     a live fork, reference only
+```
+
+`upstream` and `grumpyscreen` both have their push URL set to a bogus string so
+a stray `git push` to either fails loudly instead of trying.
+
+**Always pass `--repo JuggyMcNutty/vibescreen` to `gh`.** With more than one
+GitHub remote it picks one on its own, and here it picks `upstream`. It does not
+say so. `gh run list` then reports the abandoned project's runs, the newest from
+months ago, and `gh release list` reports its 2024 beta tags, which reads
+exactly like our CI having never run and our releases not existing. Measured
+2026-08-21, after drawing that conclusion and being wrong: the run was there and
+green the whole time. `gh run view <id>` is the one that gives the game away,
+because the 404 it returns names the repository it went looking in.
+
+`grumpyscreen` is configured with `tagOpt = --no-tags`. Do not undo that. One of
+their releases is tagged literally `main`, and fetching it creates a
+`refs/tags/main` that collides with our branch, after which every `git push
+origin main` dies with "src refspec main matches more than one".
+
+Our repo is named **vibescreen**, but nothing inside the tree has been renamed:
+the binary, the install paths, the config file and the init script are all still
+`guppyscreen`. That keeps us drop-in compatible with an existing install and
+with upstream's `installer.sh`. Renaming is a separate decision, not an
+oversight.
+
+We work directly on `main`, stacking our commits on upstream history.
+
+**On grumpyscreen:** it is 233 commits ahead and still active, but it is a
+narrowing fork for pellcorp's Simple AF firmware and much of that lead is
+deletion. It dropped bedmesh, input shaper, belt calibration, TMC tuning,
+multi-printer and theming, which is most of what we care about on a K1 Max. Good
+for reference on touch calibration, wifi and lv_drivers. Not something we can
+bulk merge. Detail in `docs/audit.md`.
+
+## The printer
+
+Development printer is a K1 Max at `192.168.1.202`. It is a **production
+machine**, the one its owner actually prints with, and it runs our published
+builds.
+
+- **Deploying is allowed, but ask first and back up first.** A bad write can
+  leave the display path broken on a machine someone needs.
+- The normal route is `/usr/data/guppyscreen/update.sh` on the printer, which
+  pulls the newest release. Prefer that over copying a binary by hand.
+- Hand-installing a local build is for testing something not yet pushed. Back
+  up, stop the service, smoke test the new binary from the install directory,
+  then install. A locally built binary is versioned `dev-<sha>` and `update.sh`
+  will refuse to replace it without `--force`.
+- Rollbacks live in two places. Inside `/usr/data/guppyscreen/`,
+  `guppyscreen.orig-07409cb` is the upstream build that was there before we
+  touched it, alongside `guppyconfig.json.orig` and `update.sh.orig`. One level
+  up in `/usr/data/` are the full directory snapshots,
+  `guppyscreen-backup-*.tar.gz`, one per deploy. Take a fresh one before
+  installing anything:
+
+  ```sh
+  cd /usr/data && tar czf guppyscreen-backup-<installed-version>.tar.gz guppyscreen/
+  ```
+
+  Outside the directory being archived, or tar recurses into its own output.
+- Credentials come from the environment, never from a committed file:
+  `PRINTER_HOST=... PRINTER_PASS=... scripts/probe-printer.sh`
+- Never commit the SSID, PSK, MAC addresses, printer serial or the Moonraker API
+  key. `probe-printer.sh` strips the API key on the printer before it crosses
+  the wire; the rest is on you to check.
+- Its `curl` is not curl, and the two flags fail differently. `-s` prints
+  `invalid option -- 's'` and then **fetches anyway, exiting 0**, so a script
+  that only checks the exit code will conclude curl works. `--max-time` is
+  fatal: it is unrecognised, the parse then slides and it tries to connect to
+  the timeout value as a host, exiting 234. Use `wget -q -T <sec> -O -` in
+  anything that runs on the printer.
+- Moonraker is at `192.168.1.202:7125` and healthy. Point the sim at it with
+  `PRINTER_HOST=192.168.1.202 scripts/build.sh sim`.
+
+## Sending gcode
+
+Two rules, both learned the hard way. See `docs/audit.md` C6 and C8.
+
+**Wrap modal gcode.** `M83`, `M82`, `G90`, `G91` and friends change state
+globally, not just for the next command. A panel that sets one and does not put
+it back will corrupt a print that is merely paused, not stopped. Always:
+
+```
+SAVE_GCODE_STATE NAME=guppy_<what>
+<the modal command and the move>
+RESTORE_GCODE_STATE NAME=guppy_<what>
+```
+
+`RESTORE_GCODE_STATE` defaults to `MOVE=0`, so it restores the mode without
+moving the toolhead.
+
+**Validate before sending anyway.** `KWebSocketClient::gcode_script` does now
+check the reply and surface a rejection, which it did not before `fc12faa`, so
+a refused command is no longer silent. That is a backstop, not a substitute for
+checking first, because **Klipper abandons the rest of a script at the first
+command it does not like**. Send a command the printer lacks and everything
+after it in the same script never runs, which is a worse failure than not
+offering the button.
+
+So test for what you are about to use. `KUtils::has_gcode_macro` covers macros
+that only exist on modded machines, and `KUtils::is_homed` covers the other
+common precondition. `BedMeshPanel`'s Calibrate is the worked example of both.
+
+For anything that is not a macro, use `KUtils::has_config_section` and not the
+object list. **`printer.objects.list` only reports objects that implement
+`get_status`**, so `resonance_tester` and `adxl345` are both missing from it on
+a K1 Max that plainly has them, measured. `calibrate_shaper_config` does appear,
+because our module defines a `get_status`, but it returns an empty object, so
+the object list can tell you it exists and nothing else. Only `configfile` shows
+a section either way, with its settings, which is why `has_config_section` is
+the one to reach for. `InputShaperPanel::update_available` is
+the worked example, and it disables the button and names the missing section
+rather than hiding the control.
+
+While you are there: `SAVE_CONFIG` restarts Klipper and ends any print. Put it
+behind `ButtonContainer`'s prompt with `prompt_optional` false, so the
+confirmation is not governed by the emergency stop setting, which is about
+something else.
+
+Where a panel offers preset values, clamp them against the printer's own limits
+read from `/printer_state/configfile/settings/...` in `State`.
+`KUtils::config_number` does that lookup, including the lowercasing Klipper
+applies to section names in `configfile.settings`. `ExtruderPanel::init`,
+dispatched from `MainPanel::init`, and `LimitsPanel::init`, dispatched one
+level down from `PrinterTunePanel::init`, are the two worked examples.
+
+`src/utils.h` carries the rest of the shared readers: `has_config_section`,
+`has_gcode_macro`, `is_homed`, `fan_pct_to_raw` and `fan_value_to_pct` for
+the minimum-speed mapping, `short_measure` for a number that must not turn
+into scientific notation, and `moonraker_api_key`. Look there before writing
+another local copy; `src/inputshaper_panel.cpp:48` is one that got away.
+
+## Networking from the printer
+
+Only `raw.githubusercontent.com` is reachable with stock tooling. busybox
+`wget` fails TLS against `api.github.com` and `github.com` with alert 80, and
+`/usr/bin/curl` is not curl, it is a Creality utility with an unrelated command
+line that does not understand `-s` or `-o`.
+
+Upstream worked around this by downloading a curl binary from a third party
+repo over `--no-check-certificate` and running it as root. Do not reintroduce
+that. **Python 3 is already installed for Klipper and reaches everything**, so
+`update.sh` and `installer.sh` use it for all fetching from the internet.
+`update.sh` still uses busybox `wget` for its one local Moonraker query,
+which is plain HTTP to 127.0.0.1 and fine.
+
+For plain HTTP to Moonraker on the printer, `wget -q -T <sec> -O -` is fine.
+
+`update.sh` pulls releases from `JuggyMcNutty/vibescreen`, overridable with
+`GUPPY_UPDATE_REPO`. It refuses to replace a locally built `dev-<sha>` binary
+unless given `--force`, so the Settings panel's "Update Guppy" button cannot
+silently discard a build you are testing on the printer.
+
+**The tarball is not where Klipper reads our macros from.** `installer.sh`
+copies `scripts/*.cfg` into `<config>/GuppyScreen/`, `scripts/*.py` into
+`<config>/GuppyScreen/scripts/`, and `gcode_shell_command.py` and
+`calibrate_shaper_config.py` into `klippy/extras/`. Only
+`guppy_module_loader.py`, `guppy_config_helper.py` and `tmcstatus.py` are
+symlinked back into `/usr/data/guppyscreen`. So anything you change under `k1/`
+reaches an existing install only because `update.sh` now re-copies it, keeping
+one `.bak` of whatever it replaced and telling the user that Klipper needs a
+`FIRMWARE_RESTART`. It never restarts Klipper itself, because that ends a print.
+
+`update.sh --check` answers "is there a newer release" and installs nothing,
+printing `status=`, `current=` and `latest=` on stdout. `UpdateCheck`
+(`src/update_check.cpp`) polls it so the UI can offer an update without this
+binary having to talk to GitHub itself.
+
+**That stays true now that the binary can do TLS.** This paragraph used to say
+the binary had no TLS at all, which stopped being the reason on 2026-08-21. The
+reason it should still shell out is the other half of what was written here: a
+second definition of "newer" in the tree is a bug waiting to happen, and the
+one on disk is the copy that performs the upgrade. See the mbedTLS section
+above for what the binary can and cannot reach.
+
+That refresh runs on the **already up to date** path as well as after an
+install, which is not an optimisation but the only way it ever runs at all:
+the `update.sh` that performs an upgrade is the copy already on disk, so the
+release that first shipped the refresh could not run it, and by the next run
+the version matches. It also skips a destination that is a symlink, because
+on a helper-script install `klippy/extras/gcode_shell_command.py` points into
+someone else's tree and `cp` would write through it. It no-ops entirely
+unless `<config>/GuppyScreen` exists, so a Debian install is left alone.
+
+This was found the hard way: the development printer was running a
+`_GUPPY_LOAD_MATERIAL` that extruded a hardcoded 120mm and ignored the
+`EXTRUDE_LEN` the panel sends, so the Extrude Length selector did nothing there
+while looking correct in the source. That machine was finally refreshed on
+2026-08-19, two days after the fix was written, which is the measure of how
+long a `k1/` change can sit in the tree doing nothing.
+
+## Never let an exception reach LVGL
+
+Every static callback LVGL calls into must contain its own exceptions, using
+`KGuard::event` from `src/event_guard.h`. If you add a new one, guard it.
+
+This is not defensive habit, it is load bearing. LVGL cannot be recovered once
+an exception has unwound through it: `lv_timer_handler` leaves its re-entrancy
+guard set so every later call returns immediately, and the input state machine
+is interrupted mid gesture and re-dispatches the same event forever. Catching in
+the main loop gives a frozen UI, and patching LVGL to release the guard gives an
+infinite exception loop. Both were built and measured, see `docs/audit.md` C10.
+
+The main loop still has a catch, but it logs and aborts on purpose, because
+anything reaching it means LVGL is already unrecoverable and a restart is the
+better outcome.
+
+## Never hand LVGL a non-convex polygon
+
+`lv_canvas_draw_polygon` documents "only convex polygons are supported", and
+the failure mode is not a bad drawing. `lv_draw_sw_polygon` walks a left and a
+right chain from the lowest vertex; on a non-convex polygon neither chain
+advances, `mask_cnt` never reaches `point_cnt`, and it spins forever inside the
+UI lock. The process stays alive, so `supervise-daemon` does not restart it.
+A wedged screen that nothing recovers is the worst outcome available here.
+
+This is not theoretical. `MeshView` hit it drawing a bed mesh that was flat to
+within probe noise: normalising the height blew 8 microns up to full relief,
+the quads folded, and the simulator hung on startup with the mesh panel's
+render still on the stack. It splits a failing quad into triangles, which are
+convex by construction, after testing the rounded integer points rather than
+the floats, since rounding alone can tip a marginal quad over.
+
+If you add anything that fills a computed polygon, prove it is convex or
+triangulate it. `lv_canvas_draw_line` has no such problem.
+
+## Testing UI changes without touching the printer
+
+Pressing Extrude against a live Moonraker really does heat the hotend, and
+the development printer is someone's production machine. Use
+`tools/fake_moonraker.py` for anything that would otherwise command real
+hardware, and point the simulator at `127.0.0.1`:
+
+```sh
+pip install websockets
+python3 tools/fake_moonraker.py 240 240            # reports 240C, accepts gcode
+python3 tools/fake_moonraker.py 240 240 --reject   # rejects every command
+python3 tools/fake_moonraker.py --mesh bowl        # pick a bed mesh shape
+PRINTER_HOST=127.0.0.1 scripts/build.sh sim
+```
+
+It records every `printer.gcode.script` it receives to `$GCODE_LOG`, which is
+how you check what a button actually sends. That log is the only reliable way to
+confirm what a control emits, and it is how the fan slider's scaling was
+settled.
+
+Beyond the bed mesh and shaper flags it grows as panels need it:
+
+```sh
+python3 tools/fake_moonraker.py --print complete --print-seconds 120
+python3 tools/fake_moonraker.py --layer-info none # the K1 Max's shape, see below
+python3 tools/fake_moonraker.py --belts fail      # or slow, timeout, empty
+python3 tools/fake_moonraker.py --drop-file 20    # announce an upload
+python3 tools/fake_moonraker.py --api-key secret  # refuse an anonymous handshake
+```
+
+`--layer-info none` is worth knowing about. By default the fake reports layer
+numbers in `print_stats.info`, and our K1 Max never does, because no file on it
+calls `SET_PRINT_STATS_INFO`. So the default exercises the one path that printer
+never takes, and the layer counter there runs entirely on the estimate from file
+metadata and Z. Measured 2026-08-20, detail in `docs/k1max-facts.md`.
+
+**The wifi panel does not go through Moonraker at all**, so the fake above
+cannot reach it: it opens wpa_supplicant's control socket and speaks its text
+protocol. `tools/fake_wpa_supplicant.py` is that socket. Point the
+`wpa_supplicant` key in `build/bin/guppyconfig.json` at the directory you give
+it:
+
+```sh
+python3 tools/fake_wpa_supplicant.py --dir /tmp/fake-wpa
+python3 tools/fake_wpa_supplicant.py --dir /tmp/fake-wpa --fail wrong-key
+```
+
+Start it before the simulator. The panel opens its control socket once, at
+startup, and does not retry.
+
+It serves a `bed_mesh` object too. `--mesh` picks the shape: `adaptive` is the
+real 3x3 read off the development printer, `full` a 6x6 saddle, then `bowl`,
+`tilt` and `flat`. `BED_MESH_CLEAR` and `BED_MESH_CALIBRATE` are acted on
+rather than logged, and calibrate deliberately replies with a matrices-only
+delta carrying no `profile_name`, which is the shape Moonraker really sends and
+the one panels get wrong.
+
+For screenshots, SDL picks Wayland when it can and the X root window is not
+capturable under XWayland. Force X11, then use `tools/shot.py`:
+
+```sh
+SDL_VIDEODRIVER=x11 ./build/bin/guppyscreen &
+python3 tools/shot.py shot.png
+```
+
+It prints the top-left pixel so a bad capture announces itself. On the dark
+theme that corner is a dark grey, around `(63, 66, 70)` on the left rail and
+`(40, 43, 48)` on a panel. **A blue channel near 255 means the capture is
+wrong, not the UI.**
+
+Two ways to get that wrong, and the second one bit us:
+
+`xwd | xwdtopnm | pnmtopng` looks like the obvious pipeline. On a 32 bpp
+TrueColor visual `xwdtopnm` emits maxval 65535 and maps the channels wrongly,
+pinning blue to `0xff` and turning the whole UI flat blue.
+
+Decoding the header's `red_mask`, `green_mask` and `blue_mask` yourself is
+exact **only if you also read the pixels in the right byte order**. The header
+is big-endian, but the pixel data is in the server's, named by the header's own
+`byte_order` field. Read 32 bpp pixels big-endian on a little-endian server and
+every channel shifts by a byte: red and green swap, and the alpha byte lands
+where blue belongs, so a `(40, 43, 48)` background reads `(43, 40, 255)`. That
+produces a plausible looking image, which is exactly what makes it dangerous.
+This document recommended the mask decode without the byte order until
+2026-08-19, and a capture taken by following it went unnoticed until the
+result was compared against a committed screenshot.
+
+`xdotool` can drive it, but LVGL polls its input device, so an instantaneous
+click gets missed. Move, then `mousedown`, wait ~0.4s, then `mouseup`.
+
+**The window's backing store lags an interaction by much more than a frame.**
+Under XWayland a grab taken a second after a click can still show the state
+before it, which reads exactly like the click having been dropped. Retrying
+then double-presses the button: measured 2026-08-16, that is how an extra tap
+landed on the panel underneath a dialog that had already closed. Do not sleep
+and hope. Grab until two consecutive grabs are identical, then keep that one.
+`tools/shot.py` does this, and **bounds it**, which matters: an unbounded loop
+never terminates on a screen with an animation on it, and the main panel's
+temperature chart redraws every frame. Waiting for two identical grabs there
+hangs until something kills it. `--settle` sets the ceiling, and the last grab
+is used when it runs out.
+
+If input really does stop, the usual cause is a `mouseup` that never arrived,
+leaving the button stuck down so no later press is a new press. `xdotool
+mouseup 1` clears it, and issuing one before every click makes the whole thing
+idempotent.
+
+## Threading model
+
+Four threads, and the boundary is where the bugs are.
+
+- **LVGL thread**: the main loop, all widget calls, and every websocket
+  handler. `GuppyScreen::loop` calls `KWebSocketClient::drain` once a pass,
+  which runs `NotifyConsumer::consume` and every reply callback from here.
+- **libhv event loop thread**: `onmessage`, `onopen` and `onclose` in
+  `src/websocket_client.cpp`. They parse and queue, and do nothing else.
+  Nothing on this thread may touch a widget or `State`, which is the rule the
+  queue exists to make keepable. A connection opening counts: `onopen` runs
+  here too, and building widgets from it is what crashed one startup in six.
+- **`WpaEvent`'s own event loop thread**: a second `hv::EventLoopThread`
+  (`src/wpa_event.cpp`), reading wpa_supplicant's control socket. This file
+  claimed there were three threads for a long time; there are four.
+- **Subprocess workers**: two, both detaching a `std::thread` to run
+  `update.sh` under `sp::Popen`. `UpdateDialog::show` runs the update itself;
+  `UpdateCheck::check_now` runs `--check` on a poll. Neither touches a
+  widget. Each writes into a struct behind its own lock that the LVGL thread
+  drains from an `lv_timer`, which is the shape to copy if anything else needs
+  to run a subprocess without blocking the UI.
+
+  Both also show what that shape has to include: a way to end other than
+  success. The checker abandons a run that has said nothing for three minutes,
+  because otherwise one wedged process leaves the feature silently dead.
+
+Every `lv_timer` callback in the tree contains its exceptions with
+`KGuard::event`, for the reason below: an exception escaping one unwinds
+through `lv_timer_handler` and out of the main loop. `WifiPanel::_drain_wpa` is
+the one that guards inside rather than at the trampoline, per wpa callback, so
+one bad event does not cost the rest of the batch.
+
+LVGL is not thread safe. Panels take `lv_lock` around widget work, **except
+inside an `lv_timer` callback**, where the main loop is already holding it and
+taking it again deadlocks on a non-recursive mutex.
+
+`KWebSocketClient` has a `cb_lock` covering its handler maps. **Never invoke a
+handler while holding it.** `InputShaperPanel` calls back into `gcode_script`
+from inside a reply handler, which self deadlocks, and every `consume()` takes
+`lv_lock`, which inverts the lock order against the LVGL thread. Copy the
+handler out, unlock, then call. Every dispatch site in `dispatch()` does this.
+
+`drain()` is called **outside** the main loop's `lv_lock` guard, and has to be.
+Consumers take `lv_lock` themselves and it is not recursive, so draining under
+it deadlocks on the first consumer. It also takes only what is queued at entry
+rather than looping until empty: handlers send requests whose replies come back
+onto the same queue, so draining to empty would run for as long as the printer
+keeps answering.
+
+`State` has its own separate mutex, and per `docs/audit.md` C1 that mutex does
+not actually protect the reference-returning accessors. Read C1 before touching
+anything in `src/state.cpp` or adding a new `get_data` caller.
+
+Both C1 and the remaining lifetime hazard in C9 dissolve if dispatch moves onto
+a queue drained by the LVGL loop. That is the intended end state, so do not
+solve C1 in a way that would have to be undone to get there.
+
+## House style
+
+The point is that a human or an AI picking this up in a year can read it.
+
+- Small, focused commits. One concern each. Explain **why** in the body, not
+  what the diff already shows.
+- No em dashes. No emoji. No "comprehensive", "robust", "seamlessly", or other
+  filler.
+- Comments explain why, not what. A comment restating the code is worse than no
+  comment.
+- Match the surrounding code. `src/` is LVGL-flavoured C++17, two space indent,
+  `snake_case` methods, `Panel` suffix on panel classes.
+- When you find something broken but out of scope, add it to `docs/audit.md`
+  rather than fixing it inline.
+- Verify claims before writing them down. Several things in this file looked
+  obvious and turned out to be wrong when actually checked.
+
+## Keep this file current
+
+Any change that alters a build command, a script, the repo layout or the remote
+setup updates `AGENTS.md` **in the same commit**. A stale onboarding doc is worse
+than none.
+
+`DEVELOPMENT.md` is the standing example. Its toolchain half was rewritten in
+`5658e14`, but its testing half went on describing three fake Moonraker flags
+long after there were twelve, and never mentioned the wifi fake at all, until
+an audit on 2026-08-19 cut it back to a pointer at this file. Two copies of
+the same instructions is how that happens. Prefer a pointer.
+
+---
+> Source: [JuggyMcNutty/vibescreen](https://github.com/JuggyMcNutty/vibescreen) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
