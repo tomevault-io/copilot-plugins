@@ -1,0 +1,9 @@
+{
+  "name": "andymai--stackchan-kai",
+  "displayName": "stackchan-kai",
+  "description": "Clean-slate Rust firmware for the M5Stack CoreS3 Stack-chan \u2014 no_std, embassy, no cloud.",
+  "version": "1.0.0",
+  "author": "andymai",
+  "homepage": "https://github.com/andymai/stackchan-kai",
+  "skills": []
+}
