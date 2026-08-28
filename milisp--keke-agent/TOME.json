@@ -4,7 +4,7 @@
   "repo": "keke-agent",
   "description": "Local-first AI coding agent & decoupled runtime in Rust. Zero-vendor lock-in, seam-isolated, and compatible with ACP.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/milisp/keke-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T14:56:46Z"
+  "distributed_at": "2026-08-28T22:54:23Z"
 }
