@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--gauntlet-loop-brain",
+  "displayName": "gauntlet-loop-brain",
+  "description": "Evidence-gated Obsidian brain for bounded multi-agent improvement loops.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/gauntlet-loop-brain",
+  "skills": []
+}
