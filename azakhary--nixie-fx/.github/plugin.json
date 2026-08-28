@@ -1,0 +1,9 @@
+{
+  "name": "azakhary--nixie-fx",
+  "displayName": "nixie-fx",
+  "description": "Open-source particle and VFX runtimes for PixiJS and Three.js",
+  "version": "1.0.0",
+  "author": "azakhary",
+  "homepage": "https://github.com/azakhary/nixie-fx",
+  "skills": []
+}
