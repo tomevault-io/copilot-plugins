@@ -1,0 +1,9 @@
+{
+  "name": "crossread--scholion",
+  "displayName": "scholion",
+  "description": "Your genome, labs, prescriptions and wearables sit in silos that never compare notes, so contradictions go unnoticed. This reads them against each other, with the source behind every answer \u2014 one loca",
+  "version": "1.0.0",
+  "author": "CrossRead",
+  "homepage": "https://github.com/CrossRead/scholion",
+  "skills": []
+}
