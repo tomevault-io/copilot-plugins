@@ -1,0 +1,9 @@
+{
+  "name": "rezoch340--any-aicli-remote",
+  "displayName": "any-aicli-remote",
+  "description": "Native iOS and Android remote clients with a provider-neutral Go daemon for AI CLIs.",
+  "version": "1.0.0",
+  "author": "rezoch340",
+  "homepage": "https://github.com/rezoch340/any-aicli-remote",
+  "skills": []
+}
