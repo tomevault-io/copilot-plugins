@@ -4,7 +4,7 @@
   "repo": "vibecarbon",
   "description": "Build the next big thing. Full-stack apps in minutes \u2014 auth, billing, security, AI-guardrails, and powerful automations built-in.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyperformant/vibecarbon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T12:53:52Z"
+  "distributed_at": "2026-08-28T20:33:33Z"
 }
