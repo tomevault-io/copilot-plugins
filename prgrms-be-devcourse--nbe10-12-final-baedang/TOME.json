@@ -4,7 +4,7 @@
   "repo": "NBE10-12-final-BAEDANG",
   "description": "\ud504\ub85c\uadf8\ub798\uba38\uc2a4 \ubc31\uc5d4\ub4dc 10\uae30 12\ud68c\ucc28 \"\ubc30\ub2f9\uc758\ubbfc\uc871\"\ud300\uc758 \ucd5c\uc885 \ud504\ub85c\uc81d\ud2b8",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prgrms-be-devcourse/NBE10-12-final-BAEDANG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T09:46:09Z"
+  "distributed_at": "2026-08-28T16:38:13Z"
 }
