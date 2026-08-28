@@ -1,0 +1,9 @@
+{
+  "name": "ngxson--quant-studio",
+  "displayName": "quant-studio",
+  "description": "llama-quantize but running on GPU",
+  "version": "1.0.0",
+  "author": "ngxson",
+  "homepage": "https://github.com/ngxson/quant-studio",
+  "skills": []
+}
