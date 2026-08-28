@@ -1,0 +1,9 @@
+{
+  "name": "legorobotdude--yt-analysis-mcp",
+  "displayName": "yt-analysis-mcp",
+  "description": "MCP server for YouTube video analysis using Gemini API",
+  "version": "1.0.0",
+  "author": "Legorobotdude",
+  "homepage": "https://github.com/Legorobotdude/yt-analysis-mcp",
+  "skills": []
+}
