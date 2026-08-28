@@ -7,11 +7,11 @@ The missing tool to sift your Claude Code sessions: regex search across all reco
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wdhwg001/csift](https://github.com/wdhwg001/csift).
+Original source: `AGENTS.md` in [wdhwg001/csift](https://github.com/wdhwg001/csift).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
