@@ -1,31 +1,57 @@
-## minimal-disable-preserve-body
+## multitask-code-change-workflow
 
-> Temporary disable must preserve implementation; never delete body for a gate
+> Multitask 模式下改生产代码：先按项目风格规划写法 → 执行 → 审查测试
 
 
-# 临时截断 ≠ 删除实现
+# Multitask 代码改动三段流
 
-当用户要求「最小化截断 / 临时禁用 / 先关掉 / 入口 return」时：
+Multitask Mode 下 Task 子代理改生产代码时**强制**本流程；主对话协调者派发 executor 前也必须先完成 Phase 1。满配四段（plan→executor→style∥review）细节见 `$alear030-multitask-pipeline`，本 rule 不复述全文。
 
-- **只允许**在入口加 `return`、early-return guard、`if disabled: return`，或等价开关。
-- **禁止**删除、清空、或重写成空函数体来达到“不执行”的效果。
-- **禁止**以“反正以后要删整个模块”为借口，先砍掉现有实现。
-- 原逻辑、分支、注释必须原样保留在 guard 之后（即使暂时不可达）。
-- 若计划说“入口 return”，落盘 diff 必须能一眼看出：**新增的只有 guard 行**，不是整段删除。
+## 触发
 
-```python
-# ❌ BAD — 用删实现代替截断
-def rich_print(message: str, type: str = None):
-    return
+- Cursor Multitask Mode / Task 子代理执行代码改动
+- 主对话协调者向 executor 派发非纯文本改动
+- 用户点名「四段 / Multitask / 满配」
 
-# ✅ GOOD — 只加入口，保留原实现
-def rich_print(message: str, type: str = None):
-    return  # temporary cutoff
-    message = message if message else ''
-    # ... 原有全部逻辑保持不动 ...
-```
+## Phase 1 — Plan（默认不落盘）
 
-自检：写完后问自己「用户若去掉这一行 return，原功能能否原样恢复？」不能则改错了。
+**禁止写盘**，除非用户已明确「直接改」。
+
+1. **拟议写法轮廓**（函数/分支级，非愿景）：
+ - 动哪些文件、哪些函数/分支
+ - 命名保留用户已有标识符；同文件 `_helper` 优先，不擅自新文件/平行模块
+ - 对照 `coding-conventions.mdc` + 用户当场命名
+2. **架构归位**：语义相同走既有扩展点（tool/hook/prompt/widget）；见 `architecture-first-extension.mdc`
+3. **明确不改什么**：边界、不顺手重构、不删实现（临时截断只加入口 guard，见 `minimal-disable-preserve-body.mdc`）
+4. **非 trivial 逻辑**：拟议 diff 轮廓经用户确认后再进入 Phase 2（「先预览后落盘」）
+
+### 轻量路径
+
+纯注释/错字/单点日志等**无行为影响**改动：可跳过独立 plan 文档，但仍须在执行前口头点明改哪几行；Phase 3 轻 review 不可省。
+
+## Phase 2 — Execute
+
+1. **拍板后**才写盘；只改 Phase 1 拍板范围
+2. 派 executor 时指令**自包含**（目标、路径、边界、验收方式）
+3. **写法纪律**：
+ - 保留用户标识符；禁止擅自重命名、跨文件搬家、过度抽一行微 helper
+ - 最小 diff：不重排方法、不顺手清理死代码
+ - 注释中文、动作导向；4 空格、紧凑风跟邻近文件
+4. 数据安全：不删/不清/不批量覆盖 `session_detail`、`session_plan`、`memory_storage`、`memory_config`、`memory_log`、`local_model`
+
+## Phase 3 — Review + Test
+
+1. **审查**：满配走 style∥review 并行；轻量至少自审（逻辑/崩溃/并发/Windows）
+2. **验证**：走 `$alear030-verify` — AST → 目标单测/探针；**禁止擅自 `python main.py`**（除非用户批准）
+3. **收口**：阻塞项回 executor 修；不凭「做好了」断言；不 commit 除非用户明确要求
+
+## 协调者 checklist
+
+| 阶段 | 通过标准 |
+|------|----------|
+| Plan | 有 diff 轮廓 + 不改清单 +（非 trivial）用户已拍板 |
+| Execute | 仅拍板范围落盘；标识符与架构路径未漂移 |
+| Review+Test | 有验证输出；无未处理阻塞项 |
 
 ---
 > Source: [Alear030/Alear030](https://github.com/Alear030/Alear030) — distributed by [TomeVault](https://tomevault.io).
