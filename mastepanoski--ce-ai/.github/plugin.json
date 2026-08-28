@@ -1,0 +1,9 @@
+{
+  "name": "mastepanoski--ce-ai",
+  "displayName": "ce-ai",
+  "description": "ce-ai orchestrates distributions of the open-source Compound Engineering Plugin \u2014 a suite of specialized skills, roles, and workflow guidelines for AI coding assistants.",
+  "version": "1.0.0",
+  "author": "mastepanoski",
+  "homepage": "https://github.com/mastepanoski/ce-ai",
+  "skills": []
+}
