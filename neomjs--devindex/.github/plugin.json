@@ -1,0 +1,9 @@
+{
+  "name": "neomjs--devindex",
+  "displayName": "devindex",
+  "description": "The GitHub meritocracy index",
+  "version": "1.0.0",
+  "author": "neomjs",
+  "homepage": "https://github.com/neomjs/devindex",
+  "skills": []
+}
