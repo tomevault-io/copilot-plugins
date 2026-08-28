@@ -7,14 +7,14 @@ Switch cursorline & cursorcolumn automatically on Neovim events
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [yukimemi/autocursor.nvim](https://github.com/yukimemi/autocursor.nvim).
+Original source: `CLAUDE.md` in [yukimemi/autocursor.nvim](https://github.com/yukimemi/autocursor.nvim).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [yukimemi/autocursor.nvim](https://github.com/yukimemi/autocursor.nvim) — a repo with 2+ stars on GitHub.
