@@ -1,0 +1,9 @@
+{
+  "name": "howardzhangdqs--dsh-recap",
+  "displayName": "dsh-recap",
+  "description": "DSH recap plugin: distills every model request (turn:step) into one sentence, rendered inline in the conversation flow",
+  "version": "1.0.0",
+  "author": "Howardzhangdqs",
+  "homepage": "https://github.com/Howardzhangdqs/dsh-recap",
+  "skills": []
+}
