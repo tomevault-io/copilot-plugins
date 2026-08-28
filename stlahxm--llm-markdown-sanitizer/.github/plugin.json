@@ -1,0 +1,9 @@
+{
+  "name": "stlahxm--llm-markdown-sanitizer",
+  "displayName": "llm-markdown-sanitizer",
+  "description": "Fix broken markdown that LLMs generate \u2014 tables, lists, emphasis, code fences. Zero dependencies, one function.",
+  "version": "1.0.0",
+  "author": "stlahxm",
+  "homepage": "https://github.com/stlahxm/llm-markdown-sanitizer",
+  "skills": []
+}
