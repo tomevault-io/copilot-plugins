@@ -1,0 +1,9 @@
+{
+  "name": "songoao25--dsh-virtual-product-team",
+  "displayName": "dsh-virtual-product-team",
+  "description": "Product Team Mode - a DeepSeek Harness agent preset: user-led conversation with a virtual product team (PM to Engineer to QA to Release) walking you from idea to shipped product",
+  "version": "1.0.0",
+  "author": "songoao25",
+  "homepage": "https://github.com/songoao25/dsh-virtual-product-team",
+  "skills": []
+}
