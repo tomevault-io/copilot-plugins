@@ -1,0 +1,9 @@
+{
+  "name": "zircon10086--saberlab",
+  "displayName": "SaberLab",
+  "description": "Why are you losing score? A local-first Beat Saber training laboratory for replay analysis, motion telemetry, experiments, and AI coaching.",
+  "version": "1.0.0",
+  "author": "Zircon10086",
+  "homepage": "https://github.com/Zircon10086/SaberLab",
+  "skills": []
+}
