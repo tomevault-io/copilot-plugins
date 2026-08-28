@@ -1,23 +1,25 @@
-## 01-pipeline
+## 02-multiagent
 
-> Transcription and translation pipeline
+> Single-lead agent workflow
 
 
-# Pipeline
+# Multi-agent
 
-Ordine fisso:
+Default: **lead unico**, un task, nessun subagent.
 
-`video → FFmpeg audio → faster-whisper (task=transcribe) → traduzione contestuale su blocchi se le lingue differiscono → formatter SRT → export`
+Subagent solo se due pezzi sono isolati e il lead ha già fissato i contratti (tipi, path, invoke). Un file, un owner. Nessuno inventa cartelle, dipendenze o task fuori ordine.
 
-Mai tradurre l’audio in un unico passaggio. Non usare Whisper `task=translate` come unico output.
+| Ruolo | Scope |
+|---|---|
+| Lead | Integrazione, task corrente, `AGENTS.md` |
+| UI | `src/` React; invoke già definiti |
+| Native | `src-tauri/`; FFmpeg, path, sidecar |
+| ASR | `worker/` trascrizione + export sorgente |
+| Translation | Traduzione su testo già trascritto |
+| Subtitles | Formatter SRT + JSON; non cambia il significato |
+| Review | Solo lettura, difetti concreti |
 
-Traduzione su contesto: segmento precedente + corrente + successivo.
-
-Output per video: `{nome}.{lang}.txt`, `{nome}.{lang}.srt`, `{nome}.{output}.srt`, `{nome}.json`.
-
-JSON minimo: `start`, `end`, testo sorgente, testo tradotto, `speaker` se c’è, `confidence` se c’è.
-
-Glossario vincola ASR e traduzione: non alterare e non tradurre male i termini protetti.
+Mac: predisporre la build, non eseguirla da Windows.
 
 ---
 > Source: [AndreaZero/subber](https://github.com/AndreaZero/subber) — distributed by [TomeVault](https://tomevault.io).
