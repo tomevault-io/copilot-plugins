@@ -4,7 +4,7 @@
   "repo": "mooc-starter-kit",
   "description": "Starter repo for Advanced Prompt Engineering for Journalists \u2014 a Knight Center MOOC on AI coding tools for newsrooms. Fork this, clone your fork, and use it as your workspace for all four modules.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jamditis/mooc-starter-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:42:55Z"
+  "distributed_at": "2026-08-28T23:34:35Z"
 }
