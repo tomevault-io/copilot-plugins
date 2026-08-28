@@ -1,0 +1,9 @@
+{
+  "name": "vincenzo-afk--nova-test",
+  "displayName": "Nova-test",
+  "description": "Local-first desktop AI agent platform built with TypeScript, Electron, React, and SQLite.",
+  "version": "1.0.0",
+  "author": "vincenzo-afk",
+  "homepage": "https://github.com/vincenzo-afk/Nova-test",
+  "skills": []
+}
