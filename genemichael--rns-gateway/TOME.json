@@ -1,0 +1,44 @@
+{
+  "name": "rns-gateway",
+  "owner": "genemichael",
+  "repo": "rns-gateway",
+  "description": "Reticulum (RNS) gateway over MeshCore LoRa mesh \u2014 single Heltec V4 device: embedded microReticulum transport, on-device TCP server for RNS clients, MeshCore channel as long-haul transport",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/genemichael/rns-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T12:40:18Z"
+}
