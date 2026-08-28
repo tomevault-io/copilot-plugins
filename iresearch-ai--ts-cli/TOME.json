@@ -1,0 +1,44 @@
+{
+  "name": "ts-cli",
+  "owner": "iResearch-AI",
+  "repo": "ts-cli",
+  "description": "ts-cli is a dependency-free, single-binary Go CLI for collecting token usage from local AI coding tools, incrementally syncing it to a server, and querying remote usage summaries.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iResearch-AI/ts-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T19:45:56Z"
+}
