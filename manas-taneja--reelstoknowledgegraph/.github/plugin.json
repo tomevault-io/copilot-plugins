@@ -1,0 +1,9 @@
+{
+  "name": "manas-taneja--reelstoknowledgegraph",
+  "displayName": "ReelsToKnowledgeGraph",
+  "description": "Turn saved Instagram reels into an Obsidian knowledge base: transcribe, OCR, extract, and render as a linked concept graph.",
+  "version": "1.0.0",
+  "author": "Manas-Taneja",
+  "homepage": "https://github.com/Manas-Taneja/ReelsToKnowledgeGraph",
+  "skills": []
+}
