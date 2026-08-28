@@ -1,0 +1,9 @@
+{
+  "name": "hrzn--fiducai",
+  "displayName": "fiducai",
+  "description": "Generate Swiss tax returns using AI",
+  "version": "1.0.0",
+  "author": "hrzn",
+  "homepage": "https://github.com/hrzn/fiducai",
+  "skills": []
+}
