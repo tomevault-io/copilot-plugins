@@ -1,0 +1,9 @@
+{
+  "name": "tongriyaotxt--ai-tongriyao",
+  "displayName": "ai-tongriyao",
+  "description": "An AI stand-in that chats on WeChat as you: persona distillation + pure GUI automation (no injection, no ban risk)",
+  "version": "1.0.0",
+  "author": "tongriyaotxt",
+  "homepage": "https://github.com/tongriyaotxt/ai-tongriyao",
+  "skills": []
+}
