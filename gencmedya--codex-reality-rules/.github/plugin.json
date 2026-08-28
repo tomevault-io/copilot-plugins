@@ -1,0 +1,9 @@
+{
+  "name": "gencmedya--codex-reality-rules",
+  "displayName": "codex-reality-rules",
+  "description": "A production-first AGENTS.md for OpenAI Codex: real end-to-end behavior, surgical changes, protected user work, and evidence-based completion.",
+  "version": "1.0.0",
+  "author": "gencmedya",
+  "homepage": "https://github.com/gencmedya/codex-reality-rules",
+  "skills": []
+}
