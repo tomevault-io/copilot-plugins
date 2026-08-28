@@ -1,0 +1,9 @@
+{
+  "name": "jsight--unofficial-pecron-api",
+  "displayName": "unofficial-pecron-api",
+  "description": "Unofficial Python API client for Pecron portable power stations",
+  "version": "1.0.0",
+  "author": "jsight",
+  "homepage": "https://github.com/jsight/unofficial-pecron-api",
+  "skills": []
+}
