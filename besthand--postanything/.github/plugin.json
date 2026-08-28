@@ -1,0 +1,9 @@
+{
+  "name": "besthand--postanything",
+  "displayName": "PostAnything",
+  "description": "\u8b93\u4e0d\u652f\u63f4\u57f7\u884c\u7a0b\u5f0f\u78bc\u4f46\u5177\u5099\u4f7f\u7528\u700f\u89bd\u5668\u80fd\u529b\u7684 Agent \u5177\u6709\u767c\u9001 HTTP Request \u7684\u80fd\u529b",
+  "version": "1.0.0",
+  "author": "besthand",
+  "homepage": "https://github.com/besthand/PostAnything",
+  "skills": []
+}
