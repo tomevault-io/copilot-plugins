@@ -7,13 +7,13 @@ Common Lisp / Clojure interop via OpenLDK
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [atgreen/cl-clojure](https://github.com/atgreen/cl-clojure).
+Original source: `CLAUDE.md` in [atgreen/cl-clojure](https://github.com/atgreen/cl-clojure).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
