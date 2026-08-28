@@ -1,0 +1,9 @@
+{
+  "name": "tanlee102--erdgo",
+  "displayName": "ErdGo",
+  "description": "Free local-first SQL-to-ERD converter and database schema visualizer for PostgreSQL, MySQL, SQLite, and SQL Server. No account or backend.",
+  "version": "1.0.0",
+  "author": "tanlee102",
+  "homepage": "https://github.com/tanlee102/ErdGo",
+  "skills": []
+}
