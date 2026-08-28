@@ -1,0 +1,9 @@
+{
+  "name": "openlegaldata--oldp-ingestor",
+  "displayName": "oldp-ingestor",
+  "description": "Ingesting legal data like laws and court decisions via OLDP API",
+  "version": "1.0.0",
+  "author": "openlegaldata",
+  "homepage": "https://github.com/openlegaldata/oldp-ingestor",
+  "skills": []
+}
