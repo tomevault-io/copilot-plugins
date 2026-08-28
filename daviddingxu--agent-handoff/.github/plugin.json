@@ -1,0 +1,9 @@
+{
+  "name": "daviddingxu--agent-handoff",
+  "displayName": "agent-handoff",
+  "description": "Move native coding-agent sessions between Codex and Claude Code as files or end-to-end encrypted links.",
+  "version": "1.0.0",
+  "author": "DavidDingXu",
+  "homepage": "https://github.com/DavidDingXu/agent-handoff",
+  "skills": []
+}
