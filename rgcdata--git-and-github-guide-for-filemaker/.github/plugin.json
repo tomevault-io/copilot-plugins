@@ -1,0 +1,9 @@
+{
+  "name": "rgcdata--git-and-github-guide-for-filemaker",
+  "displayName": "git-and-github-guide-for-filemaker",
+  "description": "Reference materials for our easy to follow Git/GitHub guide (hosted on https://rgcdata.com/blog).  One MD file and an offline HTML file as of initial commit.",
+  "version": "1.0.0",
+  "author": "RGCData",
+  "homepage": "https://github.com/RGCData/git-and-github-guide-for-filemaker",
+  "skills": []
+}
