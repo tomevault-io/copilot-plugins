@@ -1,0 +1,9 @@
+{
+  "name": "caspel26--goninja",
+  "displayName": "goninja",
+  "description": "Code-first Go framework: annotate a struct, generate a full CRUD REST API (routing, validation, OpenAPI, filters, pagination).",
+  "version": "1.0.0",
+  "author": "caspel26",
+  "homepage": "https://github.com/caspel26/goninja",
+  "skills": []
+}
