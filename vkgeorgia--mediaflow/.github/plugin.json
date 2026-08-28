@@ -1,0 +1,9 @@
+{
+  "name": "vkgeorgia--mediaflow",
+  "displayName": "mediaflow",
+  "description": "Desktop app for organizing photos and videos \u2014 copy, sort, deduplicate, and edit EXIF and file dates. Windows portable build; MIT licensed.",
+  "version": "1.0.0",
+  "author": "vkgeorgia",
+  "homepage": "https://github.com/vkgeorgia/mediaflow",
+  "skills": []
+}
