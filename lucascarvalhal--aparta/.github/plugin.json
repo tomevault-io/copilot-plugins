@@ -1,0 +1,9 @@
+{
+  "name": "lucascarvalhal--aparta",
+  "displayName": "aparta",
+  "description": "The right account in every folder: isolate git, GitHub CLI, gcloud and AI coding agent identities per project directory. No more commits with the wrong e-mail.",
+  "version": "1.0.0",
+  "author": "lucascarvalhal",
+  "homepage": "https://github.com/lucascarvalhal/aparta",
+  "skills": []
+}
