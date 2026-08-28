@@ -1,0 +1,9 @@
+{
+  "name": "berkut0--vl-ffmpeg",
+  "displayName": "VL.FFmpeg",
+  "description": "Video player for vvvv gamma, powered by FFmpeg",
+  "version": "1.0.0",
+  "author": "berkut0",
+  "homepage": "https://github.com/berkut0/VL.FFmpeg",
+  "skills": []
+}
