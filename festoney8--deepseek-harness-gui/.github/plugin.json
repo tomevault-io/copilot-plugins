@@ -1,0 +1,9 @@
+{
+  "name": "festoney8--deepseek-harness-gui",
+  "displayName": "deepseek-harness-GUI",
+  "description": "DeepSeek Harness \u8d85\u7ea7\u8f7b\u91cf\u684c\u9762\u7248 APP\uff0c\u57fa\u4e8e Tauri \u5c01\u88c5\uff0c\u652f\u6301\u5347\u7ea7 DSH \u5185\u6838\u3001\u63d0\u4f9b\u514d\u5b89\u88c5\u4fbf\u643a\u7248",
+  "version": "1.0.0",
+  "author": "festoney8",
+  "homepage": "https://github.com/festoney8/deepseek-harness-GUI",
+  "skills": []
+}
