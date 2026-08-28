@@ -1,0 +1,9 @@
+{
+  "name": "stag-build--phonebook",
+  "displayName": "phonebook",
+  "description": "The StoryBook for native mobile applications",
+  "version": "1.0.0",
+  "author": "stag-build",
+  "homepage": "https://github.com/stag-build/phonebook",
+  "skills": []
+}
