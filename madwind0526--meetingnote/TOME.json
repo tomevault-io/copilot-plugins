@@ -4,7 +4,7 @@
   "repo": "MeetingNote",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/madwind0526/MeetingNote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T23:44:03Z"
+  "distributed_at": "2026-08-28T02:07:00Z"
 }
