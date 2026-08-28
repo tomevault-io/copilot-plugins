@@ -1,0 +1,9 @@
+{
+  "name": "watermark-hd--ppc-mac-modernization",
+  "displayName": "ppc-mac-modernization",
+  "description": "AquaLink: SMB3 client & WebDAV NAS server for PowerPC Mac (Tiger/Leopard) + Aquafox Japanese localization",
+  "version": "1.0.0",
+  "author": "watermark-hd",
+  "homepage": "https://github.com/watermark-hd/ppc-mac-modernization",
+  "skills": []
+}
