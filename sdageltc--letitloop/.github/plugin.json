@@ -1,0 +1,9 @@
+{
+  "name": "sdageltc--letitloop",
+  "displayName": "letitloop",
+  "description": "Deterministic process durability kernel for Python & AI workflows: 0.94ms WAL crash recovery, fail-closed step execution, and zero duplicate token waste.",
+  "version": "1.0.0",
+  "author": "sdageltc",
+  "homepage": "https://github.com/sdageltc/letitloop",
+  "skills": []
+}
