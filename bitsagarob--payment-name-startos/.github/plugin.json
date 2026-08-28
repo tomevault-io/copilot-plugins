@@ -1,0 +1,9 @@
+{
+  "name": "bitsagarob--payment-name-startos",
+  "displayName": "payment-name-startos",
+  "description": "Get paid by name instead of a long random address. Publishes a BIP-353 record for your silent payment address, and tells you if anyone repoints it.",
+  "version": "1.0.0",
+  "author": "bitsagarob",
+  "homepage": "https://github.com/bitsagarob/payment-name-startos",
+  "skills": []
+}
