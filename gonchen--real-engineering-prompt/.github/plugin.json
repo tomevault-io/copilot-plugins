@@ -1,0 +1,9 @@
+{
+  "name": "gonchen--real-engineering-prompt",
+  "displayName": "real-engineering-prompt",
+  "description": "Bridge the minimal behavioral gap between the latest coding agents and real engineering execution.",
+  "version": "1.0.0",
+  "author": "GonChen",
+  "homepage": "https://github.com/GonChen/real-engineering-prompt",
+  "skills": []
+}
