@@ -1,0 +1,9 @@
+{
+  "name": "pymodel--code-max",
+  "displayName": "code-max",
+  "description": "Agent skill that makes a coding agent verify before it claims done \u2014 no stubs, no fabricated test results, evidence-backed completion reports.",
+  "version": "1.0.0",
+  "author": "PyModel",
+  "homepage": "https://github.com/PyModel/code-max",
+  "skills": []
+}
