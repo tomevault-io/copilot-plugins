@@ -1,0 +1,9 @@
+{
+  "name": "kenosinc--sigrok-mcp-server",
+  "displayName": "sigrok-mcp-server",
+  "description": "AI-powered logic analyzer control via Model Context Protocol - connect Claude, Cursor to sigrok-cli for automated signal capture and protocol decoding",
+  "version": "1.0.0",
+  "author": "KenosInc",
+  "homepage": "https://github.com/KenosInc/sigrok-mcp-server",
+  "skills": []
+}
