@@ -1,0 +1,9 @@
+{
+  "name": "starc007--better-spotlight",
+  "displayName": "better-spotlight",
+  "description": "A fast, native Spotlight replacement for macOS, built with Rust and GPUI.",
+  "version": "1.0.0",
+  "author": "starc007",
+  "homepage": "https://github.com/starc007/better-spotlight",
+  "skills": []
+}
