@@ -1,0 +1,9 @@
+{
+  "name": "claudetool--fleetline",
+  "displayName": "fleetline",
+  "description": "A hardened statusline for Claude Code \u2014 protected against the git-config RCE and ANSI-injection bugs most statuslines ship with. Every segment is independently repositionable with your own separator, ",
+  "version": "1.0.0",
+  "author": "ClaudeTool",
+  "homepage": "https://github.com/ClaudeTool/fleetline",
+  "skills": []
+}
