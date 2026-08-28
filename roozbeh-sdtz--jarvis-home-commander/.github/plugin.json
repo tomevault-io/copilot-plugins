@@ -1,0 +1,9 @@
+{
+  "name": "roozbeh-sdtz--jarvis-home-commander",
+  "displayName": "jarvis-home-commander",
+  "description": "Turn an always-on Mac into a voice-first home commander. \"Hey Siri, Call Jarvis\" opens a conversational AI agent that controls your whole smart home \u2014 HomeKit, Philips Hue, Aqara/Matter, Bosch applian",
+  "version": "1.0.0",
+  "author": "Roozbeh-Sdtz",
+  "homepage": "https://github.com/Roozbeh-Sdtz/jarvis-home-commander",
+  "skills": []
+}
