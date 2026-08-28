@@ -1,0 +1,9 @@
+{
+  "name": "pzc2004--dsh-frostfin",
+  "displayName": "dsh-frostfin",
+  "description": "\u6708\u8292\u971c\u9ccd\u9cb8\u2014\u2014\u8ba9 Kimi Code \u672c\u4eba\u76f4\u63a5\u9a71\u52a8 DeepSeek Harness \u4f1a\u8bdd\u7684 loop \u63d2\u4ef6\u3002DSH \u7684\u58f3\uff0cKimi \u7684\u8111\uff0cACP \u76f4\u8fde\uff0c\u65e0\u4e2d\u95f4\u5c42\u3002 Moonglow Frostfin \u2014 Kimi Code itself as the agent loop of DeepSeek Harness. ACP-bridged, no middleman: DSH's shell, K",
+  "version": "1.0.0",
+  "author": "pzc2004",
+  "homepage": "https://github.com/pzc2004/dsh-frostfin",
+  "skills": []
+}
