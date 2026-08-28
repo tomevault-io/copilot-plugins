@@ -1,0 +1,44 @@
+{
+  "name": "cachehit",
+  "owner": "midagedev",
+  "repo": "cachehit",
+  "description": "\ub2f9\uc2e0\uc758 \uce90\uc2dc \ud788\ud2b8\uc728\uc740? \u2014 CDN\u00b7\uce90\uc2f1\u00b7\uc774\ubbf8\uc9c0/\ub3d9\uc601\uc0c1 \uc11c\ube59 \ud30c\uc774\ud504\ub77c\uc778 \ud034\uc988. \ubaa8\ub4e0 \uc624\ub2f5\uc740 \uc2e4\uc81c \uc624\uac1c\ub150\uc5d0\uc11c.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/midagedev/cachehit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T13:19:33Z"
+}
