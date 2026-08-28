@@ -4,7 +4,7 @@
   "repo": "open-agent-engine",
   "description": "The open-source compiler & multi-agent runtime for coding agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jedmamosto/open-agent-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T09:50:36Z"
+  "distributed_at": "2026-08-28T16:47:29Z"
 }
