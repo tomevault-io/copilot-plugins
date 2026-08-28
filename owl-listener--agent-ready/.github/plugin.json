@@ -1,0 +1,9 @@
+{
+  "name": "owl-listener--agent-ready",
+  "displayName": "agent-ready",
+  "description": "A Figma plugin + Agent skill that scores how AI-ready your design files are.",
+  "version": "1.0.0",
+  "author": "Owl-Listener",
+  "homepage": "https://github.com/Owl-Listener/agent-ready",
+  "skills": []
+}
