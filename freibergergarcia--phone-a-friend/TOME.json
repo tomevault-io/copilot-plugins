@@ -4,7 +4,7 @@
   "repo": "phone-a-friend",
   "description": "CLI relay for Claude Code, Codex, and OpenCode. Delegate to Antigravity, Claude, Codex, Gemini, Ollama, or OpenCode with streaming, sessions, and multi-agent teams.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/freibergergarcia/phone-a-friend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T16:34:48Z"
+  "distributed_at": "2026-08-28T23:42:05Z"
 }
