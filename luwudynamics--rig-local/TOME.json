@@ -1,0 +1,44 @@
+{
+  "name": "rig_local",
+  "owner": "LuwuDynamics",
+  "repo": "rig_local",
+  "description": "RIG \u672c\u5730\u70e7\u5f55\u53f0 \u00b7 \u65e0\u670d\u52a1\u5668\u7248\uff1a\u914d\u7f6e\u5168\u90e8\u5728\u672c\u5730\u5b8c\u6210\uff0c\u70e7\u5f55\u540e\u7531\u8bbe\u5907\u76f4\u8fde LLM / ASR / TTS / VLM \u5382\u5546\uff0c\u4e0d\u7ecf\u8fc7\u4efb\u4f55\u7b2c\u4e09\u65b9\u670d\u52a1\u5668\u3002https://rig-local.xgorobot.com/",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LuwuDynamics/rig_local",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T03:36:54Z"
+}
