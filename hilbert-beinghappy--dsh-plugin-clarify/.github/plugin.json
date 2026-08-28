@@ -1,0 +1,9 @@
+{
+  "name": "hilbert-beinghappy--dsh-plugin-clarify",
+  "displayName": "dsh-plugin-clarify",
+  "description": "Off-transcript clarification Host plugin for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "Hilbert-beinghappy",
+  "homepage": "https://github.com/Hilbert-beinghappy/dsh-plugin-clarify",
+  "skills": []
+}
