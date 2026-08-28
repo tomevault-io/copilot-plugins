@@ -1,0 +1,9 @@
+{
+  "name": "mikewuping--mount",
+  "displayName": "mount",
+  "description": "A UEFI shell mount command to mount ISO, NTFS, EXT4 etc vol",
+  "version": "1.0.0",
+  "author": "MikeWuPing",
+  "homepage": "https://github.com/MikeWuPing/mount",
+  "skills": []
+}
