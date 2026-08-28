@@ -1,0 +1,9 @@
+{
+  "name": "yimmy23--zotero-zest",
+  "displayName": "zotero-zest",
+  "description": "Zest \u2014 a reading-centric Zotero 9/10 plugin: reading time & per-page heat, read status, rating, tag columns (AGPL-3.0, clean-room rewrite inspired by zotero-style)",
+  "version": "1.0.0",
+  "author": "yimmy23",
+  "homepage": "https://github.com/yimmy23/zotero-zest",
+  "skills": []
+}
