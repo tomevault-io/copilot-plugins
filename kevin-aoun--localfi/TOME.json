@@ -4,7 +4,7 @@
   "repo": "LocalFi",
   "description": "A local-first personal finance app for accounts, liabilities, transactions, budgets, assets, investments, travel, and net-worth history. Your data lives in one SQLite file that stays on your machine.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kevin-aoun/LocalFi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T05:22:01Z"
+  "distributed_at": "2026-08-28T16:42:50Z"
 }
