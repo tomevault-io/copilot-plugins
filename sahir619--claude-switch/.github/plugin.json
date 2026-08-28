@@ -1,0 +1,9 @@
+{
+  "name": "sahir619--claude-switch",
+  "displayName": "claude-switch",
+  "description": "Windows tray app: live usage for all your Claude Code accounts at once, one-click account switching, DPAPI-encrypted vault. Unofficial.",
+  "version": "1.0.0",
+  "author": "Sahir619",
+  "homepage": "https://github.com/Sahir619/claude-switch",
+  "skills": []
+}
