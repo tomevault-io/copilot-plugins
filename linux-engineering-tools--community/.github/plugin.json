@@ -1,0 +1,9 @@
+{
+  "name": "linux-engineering-tools--community",
+  "displayName": "community",
+  "description": "Requirements board, specs, and agent skills for Linux Engineering Tools",
+  "version": "1.0.0",
+  "author": "linux-engineering-tools",
+  "homepage": "https://github.com/linux-engineering-tools/community",
+  "skills": []
+}
