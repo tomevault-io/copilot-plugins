@@ -1,0 +1,9 @@
+{
+  "name": "cpp285--model-catalog",
+  "displayName": "model-catalog",
+  "description": "A local-first AI model catalog and evaluation workbench with traceable metadata and official API pricing.",
+  "version": "1.0.0",
+  "author": "cpp285",
+  "homepage": "https://github.com/cpp285/model-catalog",
+  "skills": []
+}
