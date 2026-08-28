@@ -4,7 +4,7 @@
   "repo": "dsh-skills",
   "description": "Generalized development-specification skills distilled from DeepSeek Harness's engineering conventions \u2014 defensive patterns, code conventions, testing tiers, prose standards, decision records, review and PR discipline.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arch3rPro/dsh-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T07:15:49Z"
+  "distributed_at": "2026-08-28T12:42:12Z"
 }
