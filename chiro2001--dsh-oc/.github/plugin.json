@@ -1,0 +1,9 @@
+{
+  "name": "chiro2001--dsh-oc",
+  "displayName": "dsh-oc",
+  "description": "DeepSeek Harness \u00d7 OpenCode TUI \u524d\u7aef\uff1a\u628a dsh \u7684 Agent\u3001\u4f1a\u8bdd\u3001\u5de5\u5177\u63a5\u5165\u5b98\u65b9 opencode \u7ec8\u7aef\u3002OpenCode TUI frontend for the DeepSeek Harness (dsh): agents, sessions and tools in the official opencode terminal.",
+  "version": "1.0.0",
+  "author": "chiro2001",
+  "homepage": "https://github.com/chiro2001/dsh-oc",
+  "skills": []
+}
