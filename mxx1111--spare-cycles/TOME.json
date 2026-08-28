@@ -1,0 +1,44 @@
+{
+  "name": "spare-cycles",
+  "owner": "mxx1111",
+  "repo": "spare-cycles",
+  "description": "\u8ba2\u9605\u5236 AI \u7f16\u7801\u5de5\u5177\u7684\u4f59\u91cf\u4e92\u52a9\u4efb\u52a1\u677f\uff1a\u4e0d\u5171\u4eab\u989d\u5ea6\uff0c\u6709\u4f59\u529b\u7684\u4eba\u5b8c\u6210\u522b\u4eba\u7684\u4efb\u52a1\u5e76\u4ea4\u4ed8 PR / Mutual-aid task board for subscription AI coding tools. No quota sharing \u2014 spare capacity is spent doing the work and delivering a PR.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mxx1111/spare-cycles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T03:16:25Z"
+}
