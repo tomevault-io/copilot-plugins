@@ -1,0 +1,9 @@
+{
+  "name": "nurkamol--website-build-kit",
+  "displayName": "website-build-kit",
+  "description": "Build production marketing sites with Claude Code \u2014 an Astro + Cloudflare Workers template, a WordPress\u2192Astro migration playbook, and 33 silent failures documented from real rebuilds.",
+  "version": "1.0.0",
+  "author": "nurkamol",
+  "homepage": "https://github.com/nurkamol/website-build-kit",
+  "skills": []
+}
