@@ -1,0 +1,9 @@
+{
+  "name": "gozkybrain--ibuild",
+  "displayName": "iBuild",
+  "description": "Guidance files that teach an AI your standards before it touches your code.",
+  "version": "1.0.0",
+  "author": "Gozkybrain",
+  "homepage": "https://github.com/Gozkybrain/iBuild",
+  "skills": []
+}
