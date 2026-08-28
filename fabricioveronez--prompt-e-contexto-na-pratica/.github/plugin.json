@@ -1,0 +1,9 @@
+{
+  "name": "fabricioveronez--prompt-e-contexto-na-pratica",
+  "displayName": "prompt-e-contexto-na-pratica",
+  "description": "Exemplos did\u00e1ticos de engenharia de prompt e engenharia de contexto em Python (LangChain + Streamlit) \u2014 veronez.io",
+  "version": "1.0.0",
+  "author": "fabricioveronez",
+  "homepage": "https://github.com/fabricioveronez/prompt-e-contexto-na-pratica",
+  "skills": []
+}
