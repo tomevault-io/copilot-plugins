@@ -4,7 +4,7 @@
   "repo": "pragmatic-ddd",
   "description": "\u4ee5\"\u52a1\u5b9e\"\u4e3a\u54f2\u5b66\u7684\u8f7b\u91cf\u7ea7 DDD \u6846\u67b6 \u4e0d\u5957\u7528\u6559\u6761\uff0c\u53ea\u4ea4\u4ed8\u53ef\u843d\u5730\u7684\u9886\u57df\u5efa\u6a21\u3001\u89c4\u5219\u6821\u9a8c\u4e0e\u53ef\u9760\u4e8b\u4ef6\u80fd\u529b \u2014\u2014 \u6838\u5fc3\u5e93\u96f6\u4e1a\u52a1\u4fb5\u5165\u3001SPI \u9a71\u52a8",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pragmatic-lee/pragmatic-ddd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T05:34:49Z"
+  "distributed_at": "2026-08-28T09:28:51Z"
 }
