@@ -4,7 +4,7 @@
   "repo": "repo-heart",
   "description": "\ud83e\udec0 The autonomous heart of your GitHub repo \u2014 24/7 AI agents that triage issues, review PRs, repair CI & keep docs fresh. Runs entirely in GitHub Actions. No server, no database. Provider-agnostic: Claude, OpenAI, Gemini & more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenAgentHQ/repo-heart",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T12:31:07Z"
+  "distributed_at": "2026-08-28T19:36:38Z"
 }
