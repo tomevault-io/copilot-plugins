@@ -1,0 +1,9 @@
+{
+  "name": "alux-network--alux-rust",
+  "displayName": "alux-rust",
+  "description": "Typed Rust specifications, interpreted by frameworks you choose",
+  "version": "1.0.0",
+  "author": "alux-network",
+  "homepage": "https://github.com/alux-network/alux-rust",
+  "skills": []
+}
