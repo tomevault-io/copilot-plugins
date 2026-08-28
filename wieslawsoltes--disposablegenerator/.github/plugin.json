@@ -1,0 +1,9 @@
+{
+  "name": "wieslawsoltes--disposablegenerator",
+  "displayName": "DisposableGenerator",
+  "description": "Incremental C# source generator for explicit, inheritance-safe IDisposable and IAsyncDisposable ownership.",
+  "version": "1.0.0",
+  "author": "wieslawsoltes",
+  "homepage": "https://github.com/wieslawsoltes/DisposableGenerator",
+  "skills": []
+}
