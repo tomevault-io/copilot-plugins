@@ -1,0 +1,9 @@
+{
+  "name": "webprodigies--murmur",
+  "displayName": "murmur",
+  "description": "Local-first speech-to-text for macOS. Nothing leaves your Mac.",
+  "version": "1.0.0",
+  "author": "webprodigies",
+  "homepage": "https://github.com/webprodigies/murmur",
+  "skills": []
+}
