@@ -1,0 +1,9 @@
+{
+  "name": "sempods--sempods-kotlin",
+  "displayName": "sempods-kotlin",
+  "description": "sempods reference implementation for the JVM \u2014 pod server, identity service, hosted MCP, clients",
+  "version": "1.0.0",
+  "author": "sempods",
+  "homepage": "https://github.com/sempods/sempods-kotlin",
+  "skills": []
+}
