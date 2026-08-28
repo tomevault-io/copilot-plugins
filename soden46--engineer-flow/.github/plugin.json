@@ -1,0 +1,9 @@
+{
+  "name": "soden46--engineer-flow",
+  "displayName": "engineer-flow",
+  "description": "Framework-agnostic AI engineering control plane with project-aware routing, 0\u20132 specialists, persistent memory, minimal-change development, verification, and mandatory security review.",
+  "version": "1.0.0",
+  "author": "soden46",
+  "homepage": "https://github.com/soden46/engineer-flow",
+  "skills": []
+}
