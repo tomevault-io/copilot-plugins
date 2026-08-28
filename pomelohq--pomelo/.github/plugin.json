@@ -1,0 +1,9 @@
+{
+  "name": "pomelohq--pomelo",
+  "displayName": "pomelo",
+  "description": "A dev environment. One per branch. Native macOS app for per-branch runnable multi-repo environments.",
+  "version": "1.0.0",
+  "author": "pomelohq",
+  "homepage": "https://github.com/pomelohq/pomelo",
+  "skills": []
+}
