@@ -1,0 +1,9 @@
+{
+  "name": "whshang--herdr-mcp",
+  "displayName": "herdr-mcp",
+  "description": "Stable MCP/OAuth edge for remote web planners to control local Herdr with gated fs/git/exec, browser wake, and A/B self-upgrading runtimes.",
+  "version": "1.0.0",
+  "author": "whshang",
+  "homepage": "https://github.com/whshang/herdr-mcp",
+  "skills": []
+}
