@@ -1,0 +1,44 @@
+{
+  "name": "payment-name-startos",
+  "owner": "bitsagarob",
+  "repo": "payment-name-startos",
+  "description": "Get paid by name instead of a long random address. Publishes a BIP-353 record for your silent payment address, and tells you if anyone repoints it.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bitsagarob/payment-name-startos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T23:08:07Z"
+}
