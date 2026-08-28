@@ -1,0 +1,9 @@
+{
+  "name": "adamanz--grok-bot-skill",
+  "displayName": "grok-bot-skill",
+  "description": "Cursor / Agent Skill to chat with Grok Bot teammates and create new Grok Bots from the CLI",
+  "version": "1.0.0",
+  "author": "adamanz",
+  "homepage": "https://github.com/adamanz/grok-bot-skill",
+  "skills": []
+}
