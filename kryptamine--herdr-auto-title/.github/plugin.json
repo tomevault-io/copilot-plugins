@@ -1,0 +1,9 @@
+{
+  "name": "kryptamine--herdr-auto-title",
+  "displayName": "herdr-auto-title",
+  "description": "Tab titles that follow the work in each tab. A Herdr plugin.",
+  "version": "1.0.0",
+  "author": "kryptamine",
+  "homepage": "https://github.com/kryptamine/herdr-auto-title",
+  "skills": []
+}
