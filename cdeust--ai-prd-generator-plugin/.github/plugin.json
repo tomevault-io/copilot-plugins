@@ -1,0 +1,9 @@
+{
+  "name": "cdeust--ai-prd-generator-plugin",
+  "displayName": "ai-prd-generator-plugin",
+  "description": "AI PRD Generator \u2014 Claude Code & Cowork plugin for enterprise PRD generation with verification, JIRA export, and test cases",
+  "version": "1.0.0",
+  "author": "cdeust",
+  "homepage": "https://github.com/cdeust/ai-prd-generator-plugin",
+  "skills": []
+}
