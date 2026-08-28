@@ -1,0 +1,9 @@
+{
+  "name": "kevin-aoun--localfi",
+  "displayName": "LocalFi",
+  "description": "A local-first personal finance app for accounts, liabilities, transactions, budgets, assets, investments, travel, and net-worth history. Your data lives in one SQLite file that stays on your machine.",
+  "version": "1.0.0",
+  "author": "kevin-aoun",
+  "homepage": "https://github.com/kevin-aoun/LocalFi",
+  "skills": []
+}
