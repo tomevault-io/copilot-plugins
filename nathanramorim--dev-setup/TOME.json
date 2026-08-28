@@ -4,7 +4,7 @@
   "repo": "dev-setup",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nathanramorim/dev-setup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T08:50:08Z"
+  "distributed_at": "2026-08-28T14:47:53Z"
 }
