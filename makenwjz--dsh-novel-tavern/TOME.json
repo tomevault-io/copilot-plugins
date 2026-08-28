@@ -1,0 +1,44 @@
+{
+  "name": "dsh-novel-tavern",
+  "owner": "makenwjz",
+  "repo": "dsh-novel-tavern",
+  "description": "DeepSeek Harness \u5c0f\u8bf4\u6a21\u5f0f + \u9152\u9986\u6a21\u5f0f\uff1anovel \u521b\u4f5c\u5de5\u4f5c\u533a\u4e0e SillyTavern \u517c\u5bb9\u9152\u9986\uff0c\u5fae\u4fe1\u5f0f\u804a\u5929 UI\u3001\u89d2\u8272\u5361\u6e32\u67d3\u4e0e\u5361\u6865\u63a5",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/makenwjz/dsh-novel-tavern",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T09:26:16Z"
+}
