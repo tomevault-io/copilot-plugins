@@ -1,0 +1,9 @@
+{
+  "name": "mmathys--noswoosh",
+  "displayName": "noswoosh",
+  "description": "Instant, animation-free switching between macOS Spaces (3-finger swipe or Ctrl+\u2190/\u2192). macOS 26.6+ and 27, no SIP disabling, no global Reduce Motion.",
+  "version": "1.0.0",
+  "author": "mmathys",
+  "homepage": "https://github.com/mmathys/noswoosh",
+  "skills": []
+}
