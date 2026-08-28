@@ -4,7 +4,7 @@
   "repo": "dsh-progressive-tools",
   "description": "Progressive tool discovery for DeepSeek Harness \u2014 tiny stable surface, searchable catalog, real pipeline execution, context cache intact.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/everclear077/dsh-progressive-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:14:51Z"
+  "distributed_at": "2026-08-28T23:15:43Z"
 }
