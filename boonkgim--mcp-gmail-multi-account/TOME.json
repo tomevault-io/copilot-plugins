@@ -4,7 +4,7 @@
   "repo": "mcp-gmail-multi-account",
   "description": "Remote MCP server for Gmail with support for multiple connected accounts, deployed on Cloudflare Workers, for use as a claude.ai custom connector",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/boonkgim/mcp-gmail-multi-account",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:49:39Z"
+  "distributed_at": "2026-08-28T01:45:12Z"
 }
