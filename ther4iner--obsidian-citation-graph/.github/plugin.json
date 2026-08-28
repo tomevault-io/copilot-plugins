@@ -1,0 +1,9 @@
+{
+  "name": "ther4iner--obsidian-citation-graph",
+  "displayName": "obsidian-citation-graph",
+  "description": "A citation graph plugin for doing literature research in an Obsidian canvas.",
+  "version": "1.0.0",
+  "author": "TheR4iner",
+  "homepage": "https://github.com/TheR4iner/obsidian-citation-graph",
+  "skills": []
+}
