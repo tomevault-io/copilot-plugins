@@ -1,0 +1,44 @@
+{
+  "name": "Vow",
+  "owner": "cmehmetd",
+  "repo": "Vow",
+  "description": "A Chrome extension that automatically detects video, audio, and subtitle streams from web pages. Supports M3U8, manifest, playlist, VTT, SRT, and other media URLs, organizing detected links by type and allowing one-click copying.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cmehmetd/Vow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:01:14Z"
+}
