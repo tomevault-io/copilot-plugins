@@ -1,0 +1,44 @@
+{
+  "name": "dsh-frostfin",
+  "owner": "pzc2004",
+  "repo": "dsh-frostfin",
+  "description": "\u6708\u8292\u971c\u9ccd\u9cb8\u2014\u2014\u8ba9 Kimi Code \u672c\u4eba\u76f4\u63a5\u9a71\u52a8 DeepSeek Harness \u4f1a\u8bdd\u7684 loop \u63d2\u4ef6\u3002DSH \u7684\u58f3\uff0cKimi \u7684\u8111\uff0cACP \u76f4\u8fde\uff0c\u65e0\u4e2d\u95f4\u5c42\u3002 Moonglow Frostfin \u2014 Kimi Code itself as the agent loop of DeepSeek Harness. ACP-bridged, no middleman: DSH's shell, Kimi's brain.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pzc2004/dsh-frostfin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T00:41:59Z"
+}
