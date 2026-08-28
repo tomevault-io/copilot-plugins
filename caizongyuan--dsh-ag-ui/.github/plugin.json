@@ -1,0 +1,9 @@
+{
+  "name": "caizongyuan--dsh-ag-ui",
+  "displayName": "dsh-ag-ui",
+  "description": "AG-UI protocol gateway plugin for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "CaiZongyuan",
+  "homepage": "https://github.com/CaiZongyuan/dsh-ag-ui",
+  "skills": []
+}
