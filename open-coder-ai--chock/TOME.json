@@ -4,7 +4,7 @@
   "repo": "chock",
   "description": "Governance-as-code for AI coding agents: author a policy once, enforce it on every agent (Claude, Copilot, Cursor, Codex) via git hooks, CI, and native controls.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-coder-ai/chock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:03:25Z"
+  "distributed_at": "2026-08-28T04:42:46Z"
 }
