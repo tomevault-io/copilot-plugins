@@ -1,0 +1,9 @@
+{
+  "name": "mdsohaib--screenshot-time-machine",
+  "displayName": "screenshot-time-machine",
+  "description": "Screenshot Time Machine is like a Wayback Machine for your own website, a visual archive of every page over time. One command screenshots every page into dated folders on your machine, and shows which",
+  "version": "1.0.0",
+  "author": "mdsohaib",
+  "homepage": "https://github.com/mdsohaib/screenshot-time-machine",
+  "skills": []
+}
