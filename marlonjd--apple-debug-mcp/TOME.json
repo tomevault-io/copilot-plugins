@@ -1,0 +1,44 @@
+{
+  "name": "apple-debug-mcp",
+  "owner": "MarlonJD",
+  "repo": "apple-debug-mcp",
+  "description": "Local, capability-aware MCP server for authorized AI-assisted macOS and iOS debugging, Simulator/device workflows, Apple binary analysis, profiling, and reproducible evidence.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MarlonJD/apple-debug-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T19:42:40Z"
+}
