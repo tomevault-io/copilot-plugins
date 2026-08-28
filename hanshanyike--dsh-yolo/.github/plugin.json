@@ -1,0 +1,9 @@
+{
+  "name": "hanshanyike--dsh-yolo",
+  "displayName": "dsh-yolo",
+  "description": "\u628a\u5bf9\u8bdd\u91cc\u8bf4\u8fc7\u7684\u91cd\u8981\u4e8b\u60c5\uff0c\u53d8\u6210\u6301\u7eed\u53ef\u8ddf\u8fdb\u7684\u8ba1\u5212\u3002  \u4e3a deepseek-harness \u6253\u9020\u7684\u4e2a\u4eba\u52a9\u624b\uff1a\u4ece\u5bf9\u8bdd\u4e2d\u6574\u7406\u4e8b\u9879\u3001\u8ddf\u8e2a\u53d8\u5316\uff0c\u5e76\u5728\u9700\u8981\u65f6\u63d0\u9192\u4f60\u3002",
+  "version": "1.0.0",
+  "author": "hanshanyike",
+  "homepage": "https://github.com/hanshanyike/dsh-yolo",
+  "skills": []
+}
