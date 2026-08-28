@@ -1,0 +1,44 @@
+{
+  "name": "dsh-mcp-admin",
+  "owner": "kairoz9",
+  "repo": "dsh-mcp-admin",
+  "description": "dsh plugin for MCP status inspection and server management | dsh \u7684 MCP\u72b6\u6001\u67e5\u770b\u4e0e\u670d\u52a1\u7ba1\u7406\u63d2\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kairoz9/dsh-mcp-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T00:05:00Z"
+}
