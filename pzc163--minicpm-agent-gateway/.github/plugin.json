@@ -1,0 +1,9 @@
+{
+  "name": "pzc163--minicpm-agent-gateway",
+  "displayName": "MiniCPM-Agent-Gateway",
+  "description": "Local-first MiniCPM Agent routing with policy-aware cloud takeover",
+  "version": "1.0.0",
+  "author": "pzc163",
+  "homepage": "https://github.com/pzc163/MiniCPM-Agent-Gateway",
+  "skills": []
+}
