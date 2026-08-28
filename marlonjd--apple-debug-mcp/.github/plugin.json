@@ -1,0 +1,9 @@
+{
+  "name": "marlonjd--apple-debug-mcp",
+  "displayName": "apple-debug-mcp",
+  "description": "Local, capability-aware MCP server for authorized AI-assisted macOS and iOS debugging, Simulator/device workflows, Apple binary analysis, profiling, and reproducible evidence.",
+  "version": "1.0.0",
+  "author": "MarlonJD",
+  "homepage": "https://github.com/MarlonJD/apple-debug-mcp",
+  "skills": []
+}
