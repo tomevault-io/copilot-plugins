@@ -1,0 +1,9 @@
+{
+  "name": "kairoz9--dsh-mcp-admin",
+  "displayName": "dsh-mcp-admin",
+  "description": "dsh plugin for MCP status inspection and server management | dsh \u7684 MCP\u72b6\u6001\u67e5\u770b\u4e0e\u670d\u52a1\u7ba1\u7406\u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "kairoz9",
+  "homepage": "https://github.com/kairoz9/dsh-mcp-admin",
+  "skills": []
+}
