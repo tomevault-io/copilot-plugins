@@ -4,7 +4,7 @@
   "repo": "reconverge",
   "description": "Static reconvergence analysis for Rust GPU kernels \u2014 catches divergent barriers and non-convergent warp operations at compile time. No GPU required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vyncint/reconverge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:02:38Z"
+  "distributed_at": "2026-08-28T03:27:12Z"
 }
