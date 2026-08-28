@@ -1,0 +1,44 @@
+{
+  "name": "dsh-desktop-min",
+  "owner": "wezoo-wb",
+  "repo": "dsh-desktop-min",
+  "description": "A minimal, product-neutral, extension-first desktop shell for DeepSeek Harness.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wezoo-wb/dsh-desktop-min",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:40:23Z"
+}
