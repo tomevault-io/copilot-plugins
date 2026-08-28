@@ -4,7 +4,7 @@
   "repo": "granny-smith",
   "description": "Macintosh and Apple Lisa emulator in the browser: From Lisa 2 to PowerMac 9500, booting unmodified ROMs into Mac OS, A/UX, MkLinux, Lisa OS, and Xenix",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pappadf/granny-smith",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T16:42:18Z"
+  "distributed_at": "2026-08-28T23:45:28Z"
 }
