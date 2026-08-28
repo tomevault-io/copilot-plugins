@@ -1,0 +1,44 @@
+{
+  "name": "spatiotemporal",
+  "owner": "curtiseng",
+  "repo": "spatiotemporal",
+  "description": "\u65f6\u7a7a\u53ef\u7ec4\u5408\u6027\u6f14\u7b97\u7684 Rust \u5b9e\u73b0\uff1a\u53ef\u64a4\u9500 effect\u3001\u54cd\u5e94\u5f0f coeffect\u3001fiber \u60ef\u6027\u751f\u547d\u5468\u671f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/curtiseng/spatiotemporal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T07:39:06Z"
+}
