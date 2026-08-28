@@ -1,0 +1,9 @@
+{
+  "name": "mayouni--ringpp",
+  "displayName": "ringpp",
+  "description": "Ring, faster and safer, without leaving Ring: a dependency-free library and CLI for performant code, static analysis, and native builds -- no C compiler, ever.",
+  "version": "1.0.0",
+  "author": "mayouni",
+  "homepage": "https://github.com/mayouni/ringpp",
+  "skills": []
+}
