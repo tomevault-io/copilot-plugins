@@ -1,0 +1,9 @@
+{
+  "name": "agenticlab-ai--humansh",
+  "displayName": "humansh",
+  "description": "Your shell, but it also speaks English. No prefix, no mode switch.",
+  "version": "1.0.0",
+  "author": "agenticlab-ai",
+  "homepage": "https://github.com/agenticlab-ai/humansh",
+  "skills": []
+}
