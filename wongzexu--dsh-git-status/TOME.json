@@ -1,0 +1,44 @@
+{
+  "name": "dsh-git-status",
+  "owner": "Wongzexu",
+  "repo": "dsh-git-status",
+  "description": "Git status (Git Graph) plugin for DSH: commit DAG lane graph + uncommitted changes/stash + inline diffs + branch operations. DSH \u63d2\u4ef6\uff1aGit \u72b6\u6001\u6d6e\u7a97\uff08\u6cf3\u9053\u56fe/\u672a\u63d0\u4ea4/stash/diff/\u5206\u652f\u64cd\u4f5c\uff09\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Wongzexu/dsh-git-status",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T01:41:01Z"
+}
