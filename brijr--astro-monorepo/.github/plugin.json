@@ -1,0 +1,9 @@
+{
+  "name": "brijr--astro-monorepo",
+  "displayName": "astro-monorepo",
+  "description": "A reusable Astro monorepo starter for independently deploying multiple static sites to Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "brijr",
+  "homepage": "https://github.com/brijr/astro-monorepo",
+  "skills": []
+}
