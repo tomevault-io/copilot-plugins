@@ -1,0 +1,9 @@
+{
+  "name": "zhoujasper--silk-math-preview",
+  "displayName": "silk-math-preview",
+  "description": "Live LaTeX / Markdown / Jupyter math preview for VS Code. MathJax overlay that follows the caret \u2014 no compile.",
+  "version": "1.0.0",
+  "author": "zhoujasper",
+  "homepage": "https://github.com/zhoujasper/silk-math-preview",
+  "skills": []
+}
