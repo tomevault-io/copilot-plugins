@@ -1,0 +1,44 @@
+{
+  "name": "VidShrink",
+  "owner": "Teknesyum",
+  "repo": "VidShrink",
+  "description": "Shrink video file size to a target MB with minimal quality loss - free offline ffmpeg-based video compressor for Windows, with optional AI-assisted encoding settings.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Teknesyum/VidShrink",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T04:52:05Z"
+}
