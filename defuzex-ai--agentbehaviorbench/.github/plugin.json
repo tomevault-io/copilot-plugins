@@ -1,0 +1,9 @@
+{
+  "name": "defuzex-ai--agentbehaviorbench",
+  "displayName": "AgentBehaviorBench",
+  "description": "A benchmark suite for running and evaluating AI agents across frameworks",
+  "version": "1.0.0",
+  "author": "DefuzeX-AI",
+  "homepage": "https://github.com/DefuzeX-AI/AgentBehaviorBench",
+  "skills": []
+}
