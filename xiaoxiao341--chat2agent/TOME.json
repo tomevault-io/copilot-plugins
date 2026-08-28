@@ -1,0 +1,44 @@
+{
+  "name": "Chat2Agent",
+  "owner": "xiaoxiao341",
+  "repo": "Chat2Agent",
+  "description": "\u8ba9 ChatGPT \u7f51\u9875\u7aef\u901a\u8fc7\u5b98\u65b9 MCP \u62e5\u6709\u672c\u5730\u5de5\u4f5c\u533a\u80fd\u529b\u7684\u5f00\u6e90\u6865\u63a5\u5957\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaoxiao341/Chat2Agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T19:49:57Z"
+}
