@@ -1,0 +1,9 @@
+{
+  "name": "bcharleson--grokbot-for-gtm",
+  "displayName": "grokbot-for-gtm",
+  "description": "Open-source Grok Bot playbook for a complete outbound GTM motion (Instantly, HeyReach, and list/enrichment CLIs)",
+  "version": "1.0.0",
+  "author": "bcharleson",
+  "homepage": "https://github.com/bcharleson/grokbot-for-gtm",
+  "skills": []
+}
