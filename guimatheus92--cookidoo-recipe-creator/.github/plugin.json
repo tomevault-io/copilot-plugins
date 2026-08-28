@@ -1,0 +1,9 @@
+{
+  "name": "guimatheus92--cookidoo-recipe-creator",
+  "displayName": "cookidoo-recipe-creator",
+  "description": "Convert any recipe to Thermomix format and upload to Cookidoo via API. Supports TM7, TM6, TM5, TM31. Multi-language.",
+  "version": "1.0.0",
+  "author": "guimatheus92",
+  "homepage": "https://github.com/guimatheus92/cookidoo-recipe-creator",
+  "skills": []
+}
