@@ -1,0 +1,9 @@
+{
+  "name": "axadrn--goilerplate",
+  "displayName": "goilerplate",
+  "description": "Generate a production-ready Go SaaS. Own every line. Update with Git.",
+  "version": "1.0.0",
+  "author": "axadrn",
+  "homepage": "https://github.com/axadrn/goilerplate",
+  "skills": []
+}
