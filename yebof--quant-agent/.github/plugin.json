@@ -1,0 +1,9 @@
+{
+  "name": "yebof--quant-agent",
+  "displayName": "quant-agent",
+  "description": "LLM multi-agent quantitative trading system for US equities. 9 specialized agents (8 daily + 1 quarterly meta-reflector) with schema-enforced reasoning chains, deterministic Python risk filters, real ",
+  "version": "1.0.0",
+  "author": "yebof",
+  "homepage": "https://github.com/yebof/quant-agent",
+  "skills": []
+}
