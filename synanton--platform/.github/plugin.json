@@ -1,0 +1,9 @@
+{
+  "name": "synanton--platform",
+  "displayName": "platform",
+  "description": "Synanton is an open-source, AI-native enterprise knowledge platform. It unifies full-text search, dense vector search, knowledge-graph reasoning and ontology management into a single modular system - ",
+  "version": "1.0.0",
+  "author": "synanton",
+  "homepage": "https://github.com/synanton/platform",
+  "skills": []
+}
