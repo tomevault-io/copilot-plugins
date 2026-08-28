@@ -1,0 +1,44 @@
+{
+  "name": "zonk",
+  "owner": "DRose-Devs",
+  "repo": "zonk",
+  "description": "Quantitative strategy research and backtesting CLI. Reads all price data from local parquet files \u2014 no external API calls for price data.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DRose-Devs/zonk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T07:22:04Z"
+}
