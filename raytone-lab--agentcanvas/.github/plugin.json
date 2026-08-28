@@ -1,0 +1,9 @@
+{
+  "name": "raytone-lab--agentcanvas",
+  "displayName": "agentcanvas",
+  "description": "A visual UX configurator and scaffold generator for Agent frontends.",
+  "version": "1.0.0",
+  "author": "raytone-lab",
+  "homepage": "https://github.com/raytone-lab/agentcanvas",
+  "skills": []
+}
