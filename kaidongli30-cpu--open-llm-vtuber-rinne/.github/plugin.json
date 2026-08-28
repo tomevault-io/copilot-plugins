@@ -1,0 +1,9 @@
+{
+  "name": "kaidongli30-cpu--open-llm-vtuber-rinne",
+  "displayName": "Open-LLM-VTuber-Rinne",
+  "description": "Rinne desktop companion based on Open-LLM-VTuber, with long-term memory and GPT-SoVITS integration",
+  "version": "1.0.0",
+  "author": "kaidongli30-cpu",
+  "homepage": "https://github.com/kaidongli30-cpu/Open-LLM-VTuber-Rinne",
+  "skills": []
+}
