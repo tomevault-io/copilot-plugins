@@ -1,0 +1,9 @@
+{
+  "name": "michael-obele--sepia",
+  "displayName": "sepia",
+  "description": "A personal, self-hosted remote knowledge-graph memory server for AI coding agents \u2014 a drop-in upgrade from the official local-file memory MCP server",
+  "version": "1.0.0",
+  "author": "Michael-Obele",
+  "homepage": "https://github.com/Michael-Obele/sepia",
+  "skills": []
+}
