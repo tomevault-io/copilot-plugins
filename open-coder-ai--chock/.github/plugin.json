@@ -1,0 +1,9 @@
+{
+  "name": "open-coder-ai--chock",
+  "displayName": "chock",
+  "description": "Governance-as-code for AI coding agents: author a policy once, enforce it on every agent (Claude, Copilot, Cursor, Codex) via git hooks, CI, and native controls.",
+  "version": "1.0.0",
+  "author": "open-coder-ai",
+  "homepage": "https://github.com/open-coder-ai/chock",
+  "skills": []
+}
