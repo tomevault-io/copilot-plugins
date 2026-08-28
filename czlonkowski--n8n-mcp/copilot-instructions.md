@@ -1,218 +1,111 @@
 ## n8n-mcp
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > This file is committed to a public OSS repository. Never add API keys, credentials, private URLs, customer data, or private infrastructure details.
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-> **Note:** This file is committed to a public OSS repository. Never add sensitive information (API keys, internal URLs, credentials, private infrastructure details) here.
+> This file is committed to a public OSS repository. Never add API keys, credentials, private URLs, customer data, or private infrastructure details.
 
 ## Project Overview
 
-n8n-mcp is a comprehensive documentation and knowledge server that provides AI assistants with complete access to n8n node information through the Model Context Protocol (MCP). It serves as a bridge between n8n's workflow automation platform and AI models, enabling them to understand and work with n8n nodes effectively.
+n8n-mcp is a Model Context Protocol server that gives AI assistants access to n8n node documentation, workflow validation, and workflow management. Documentation and validation tools work offline against the bundled SQLite node database. Management tools prefixed with `n8n_` operate on a live n8n instance and require API configuration.
 
-### Current Architecture:
-```
-src/
-├── loaders/
-│   └── node-loader.ts         # NPM package loader for both packages
-├── parsers/
-│   ├── node-parser.ts         # Enhanced parser with version support
-│   └── property-extractor.ts  # Dedicated property/operation extraction
-├── mappers/
-│   └── docs-mapper.ts         # Documentation mapping with fixes
-├── database/
-│   ├── schema.sql             # SQLite schema
-│   ├── node-repository.ts     # Data access layer
-│   └── database-adapter.ts    # Universal database adapter (NEW in v2.3)
-├── services/
-│   ├── property-filter.ts     # Filters properties to essentials (NEW in v2.4)
-│   ├── example-generator.ts   # Generates working examples (NEW in v2.4)
-│   ├── task-templates.ts      # Pre-configured node settings (NEW in v2.4)
-│   ├── config-validator.ts    # Configuration validation (NEW in v2.4)
-│   ├── enhanced-config-validator.ts # Operation-aware validation (NEW in v2.4.2)
-│   ├── node-specific-validators.ts  # Node-specific validation logic (NEW in v2.4.2)
-│   ├── property-dependencies.ts # Dependency analysis (NEW in v2.4)
-│   ├── type-structure-service.ts # Type structure validation (NEW in v2.22.21)
-│   ├── expression-validator.ts # n8n expression syntax validation (NEW in v2.5.0)
-│   └── workflow-validator.ts  # Complete workflow validation (NEW in v2.5.0)
-├── types/
-│   ├── type-structures.ts      # Type structure definitions (NEW in v2.22.21)
-│   ├── instance-context.ts     # Multi-tenant instance configuration
-│   └── session-state.ts        # Session persistence types (NEW in v2.24.1)
-├── constants/
-│   └── type-structures.ts      # 22 complete type structures (NEW in v2.22.21)
-├── templates/
-│   ├── template-fetcher.ts    # Fetches templates from n8n.io API (NEW in v2.4.1)
-│   ├── template-repository.ts # Template database operations (NEW in v2.4.1)
-│   └── template-service.ts    # Template business logic (NEW in v2.4.1)
-├── scripts/
-│   ├── rebuild.ts             # Database rebuild with validation
-│   ├── validate.ts            # Node validation
-│   ├── test-nodes.ts          # Critical node tests
-│   ├── test-essentials.ts     # Test new essentials tools (NEW in v2.4)
-│   ├── test-enhanced-validation.ts # Test enhanced validation (NEW in v2.4.2)
-│   ├── test-structure-validation.ts # Test type structure validation (NEW in v2.22.21)
-│   ├── test-workflow-validation.ts # Test workflow validation (NEW in v2.5.0)
-│   ├── test-ai-workflow-validation.ts # Test AI workflow validation (NEW in v2.5.1)
-│   ├── test-mcp-tools.ts      # Test MCP tool enhancements (NEW in v2.5.1)
-│   ├── test-n8n-validate-workflow.ts # Test n8n_validate_workflow tool (NEW in v2.6.3)
-│   ├── test-typeversion-validation.ts # Test typeVersion validation (NEW in v2.6.1)
-│   ├── test-workflow-diff.ts  # Test workflow diff engine (NEW in v2.7.0)
-│   ├── test-tools-documentation.ts # Test tools documentation (NEW in v2.7.3)
-│   ├── fetch-templates.ts     # Fetch workflow templates from n8n.io (NEW in v2.4.1)
-│   └── test-templates.ts      # Test template functionality (NEW in v2.4.1)
-├── mcp/
-│   ├── server.ts              # MCP server with enhanced tools
-│   ├── tools.ts               # Tool definitions including new essentials
-│   ├── tools-documentation.ts # Tool documentation system (NEW in v2.7.3)
-│   └── index.ts               # Main entry point with mode selection
-├── utils/
-│   ├── console-manager.ts     # Console output isolation (NEW in v2.3.1)
-│   └── logger.ts              # Logging utility with HTTP awareness
-├── http-server-single-session.ts  # Single-session HTTP server (NEW in v2.3.1)
-│                                   # Session persistence API (NEW in v2.24.1)
-├── mcp-engine.ts              # Clean API for service integration (NEW in v2.3.1)
-│                                # Session persistence wrappers (NEW in v2.24.1)
-└── index.ts                   # Library exports
-```
+## Project Structure & Module Organization
 
-## Common Development Commands
+Core TypeScript lives in `src/`. Important subsystems include:
+
+- `src/mcp/` — MCP server, request handlers, tool definitions and documentation, and bundled skills
+- `src/database/` — SQLite adapters, repositories, FTS5 search, and migrations
+- `src/loaders/`, `src/parsers/`, `src/mappers/` — node loading, metadata parsing, and documentation mapping
+- `src/services/` — validation, workflow diffing and autofix, node/version lookup, the n8n API client, and security scanners
+- `src/templates/` and `src/community/` — workflow-template and community-node ingestion and documentation
+- `src/telemetry/`, `src/triggers/`, and `src/n8n/` — telemetry, trigger detection, and the n8n community-node wrapper
+- `src/scripts/` — maintenance scripts compiled to `dist/scripts/`
+- `src/types/`, `src/constants/`, and `src/utils/` — shared types, constants, and helpers
+- `src/http-server*.ts` — HTTP transports and session persistence
+- `src/mcp-engine.ts` and `src/mcp-tools-engine.ts` — APIs for embedding the server
+
+Tests mirror the source areas in `tests/unit/` and `tests/integration/`, with fixtures, factories, helpers, and mocks under `tests/`. React/Vite apps live in `ui-apps/src/`, repository utilities in `scripts/`, documentation in `docs/`, and generated skills and databases in `data/`. Treat `dist/`, coverage output, and `ui-apps/dist/` as generated; do not edit them directly.
+
+## Architecture & MCP Conventions
+
+- Route database operations through repository classes and keep business logic in the service layer.
+- Validation profiles are `minimal`, `runtime`, `ai-friendly`, and `strict`.
+- Prefer diff-based workflow changes through `n8n_update_partial_workflow`; do not replace a whole workflow when a focused operation is sufficient.
+- Offline documentation and validation tools include `search_nodes`, `get_node`, `validate_node`, `validate_workflow`, `search_templates`, `get_template`, and `tools_documentation`.
+- Live management tools use the `n8n_*` prefix and cover workflows, executions, tests, versions, autofix, templates, credentials, datatables, and audits.
+- Request the smallest useful `get_node` detail level: `minimal`, `standard`, or `full`.
+- Validate workflows before deploying them to n8n.
+
+## Build, Test, and Development Commands
 
 ```bash
-# Build and Setup
-npm run build          # Build TypeScript (always run after changes)
-npm run rebuild        # Rebuild node database from n8n packages
-npm run validate       # Validate all node data in database
+# Install and build
+npm install                    # Install root dependencies; repeat in ui-apps/ for UI work
+npm run build                  # Compile production TypeScript to dist/
+npm run build:all              # Sync skills, build UI apps, and compile the server
+npm run typecheck              # Strict TypeScript check without emitting; npm run lint is an alias
 
-# Testing
-npm test               # Run all tests
-npm run test:unit      # Run unit tests only
-npm run test:integration # Run integration tests
-npm run test:coverage  # Run tests with coverage report
-npm run test:watch     # Run tests in watch mode
-npm run test:structure-validation # Test type structure validation (Phase 3)
-
-# Run a single test file
+# Test
+npm test                       # Run all Vitest tests
+npm run test:unit              # Unit tests
+npm run test:integration       # Integration tests
+npm run test:e2e               # End-to-end tests
+npm run test:coverage          # Coverage report
 npm test -- tests/unit/services/property-filter.test.ts
 
-# Linting and Type Checking
-npm run lint           # Check TypeScript types (alias for typecheck)
-npm run typecheck      # Check TypeScript types
+# Run and maintain
+npm start                      # MCP server in stdio mode
+npm run start:http             # MCP server in HTTP mode
+npm run dev:http               # Rebuild and restart HTTP mode on source changes
+npm run rebuild                # Rebuild the bundled node database
+npm run validate               # Validate generated node data
+npm run dev                    # Build, rebuild the database, and validate
 
-# Running the Server
-npm start              # Start MCP server in stdio mode
-npm run start:http     # Start MCP server in HTTP mode
-npm run dev            # Build, rebuild database, and validate
-npm run dev:http       # Run HTTP server with auto-reload
-
-# Update n8n Dependencies
-npm run update:n8n:check  # Check for n8n updates (dry run)
-npm run update:n8n        # Update n8n packages to latest
-
-# Database Management
-npm run db:rebuild     # Rebuild database from scratch
-npm run migrate:fts5   # Migrate to FTS5 search (if needed)
-
-# Template Management
-npm run fetch:templates  # Fetch latest workflow templates from n8n.io
-npm run test:templates   # Test template functionality
+# Update bundled data
+npm run update:n8n:check       # Dry-run n8n dependency update; follow MEMORY_N8N_UPDATE.md
+npm run update:n8n             # Update n8n packages
+npm run fetch:templates        # Fetch n8n.io templates; follow MEMORY_TEMPLATE_UPDATE.md
+npm run fetch:community        # Upsert community nodes while preserving existing docs
+npm run generate:docs:incremental # Generate docs for community nodes missing them
 ```
 
-## High-Level Architecture
+Database rebuilds take several minutes because of the n8n package size. HTTP mode requires valid auth configuration, and live n8n tests require configuration and a clean database state.
 
-### Core Components
+## Coding Style & Naming Conventions
 
-1. **MCP Server** (`mcp/server.ts`)
-   - Implements Model Context Protocol for AI assistants
-   - Provides tools for searching, validating, and managing n8n nodes
-   - Supports both stdio (Claude Desktop) and HTTP modes
+Use strict TypeScript, two-space indentation, single quotes, and semicolons. Prefer `camelCase` for variables and functions, `PascalCase` for classes and types, and kebab-case filenames such as `workflow-auto-fixer.ts`. Use the configured `@/` and `@tests/` aliases where helpful. Keep modules focused, validate external input, and do not use hyperbolic or dramatic language in comments or documentation. No separate formatter is configured; `npm run typecheck` is the required static check.
 
-2. **Database Layer** (`database/`)
-   - SQLite database storing all n8n node information
-   - Universal adapter pattern supporting both better-sqlite3 and sql.js
-   - Full-text search capabilities with FTS5
+## Development & Testing Workflow
 
-3. **Node Processing Pipeline**
-   - **Loader** (`loaders/node-loader.ts`): Loads nodes from n8n packages
-   - **Parser** (`parsers/node-parser.ts`): Extracts node metadata and structure
-   - **Property Extractor** (`parsers/property-extractor.ts`): Deep property analysis
-   - **Docs Mapper** (`mappers/docs-mapper.ts`): Maps external documentation
+- Run `npm run typecheck` after every code change and `npm run build` after MCP server changes.
+- After rebuilding server code, ask the user to reload the MCP server before testing the changed MCP behavior.
+- Name tests `*.test.ts` and place them in the matching test subtree. Use MSW for API mocking.
+- Run focused tests while iterating, `npm run test:unit` for the fast suite, and relevant integration or end-to-end tests for system behavior.
+- Run `npm run test:coverage` before substantial pull requests. Coverage thresholds are 75% for lines, functions, and statements and 70% for branches.
+- Do not mask flaky tests with retries.
+- When reviewing a GitHub issue, use `gh` to fetch the issue and all comments.
 
-4. **Service Layer** (`services/`)
-   - **Property Filter**: Reduces node properties to AI-friendly essentials
-   - **Config Validator**: Multi-profile validation system
-   - **Type Structure Service**: Validates complex type structures (filter, resourceMapper, etc.)
-   - **Expression Validator**: Validates n8n expression syntax
-   - **Workflow Validator**: Complete workflow structure validation
+## Sub-agents
 
-5. **Template System** (`templates/`)
-   - Fetches and stores workflow templates from n8n.io
-   - Provides pre-built workflow examples
-   - Supports template search and validation
+- When a task has genuinely independent subtasks, use appropriately specialized sub-agents in parallel.
+- Give each sub-agent a bounded scope and clear file ownership.
+- Sub-agents must not spawn additional sub-agents, commit, or push. The primary agent owns integration, verification, commits, and pushes.
 
-### Key Design Patterns
+## Commit & Pull Request Guidelines
 
-1. **Repository Pattern**: All database operations go through repository classes
-2. **Service Layer**: Business logic separated from data access
-3. **Validation Profiles**: Different validation strictness levels (minimal, runtime, ai-friendly, strict)
-4. **Diff-Based Updates**: Efficient workflow updates using operation diffs
+Use Conventional Commit prefixes such as `feat:`, `fix:`, `docs:`, `chore:`, and scoped forms such as `ci(deps):`. Work on a feature branch and never commit directly to `main`. Keep commits narrowly scoped and do not include unrelated dirty-worktree changes.
 
-### MCP Tools Architecture
+PRs should explain intent and verification, link relevant issues, include screenshots for UI changes, and enable “Allow edits by maintainers.” Add the following attribution to every commit message and PR description:
 
-The MCP server exposes tools in several categories:
+`Conceived by Romuald Członkowski - www.aiadvisors.pl/en`
 
-1. **Discovery Tools**: Finding and exploring nodes
-2. **Configuration Tools**: Getting node details and examples
-3. **Validation Tools**: Validating configurations before deployment
-4. **Workflow Tools**: Complete workflow validation
-5. **Management Tools**: Creating and updating workflows (requires API config)
+The attribution belongs only in commit messages and PR descriptions. Never add it to source, test, documentation, or other product file contents.
 
-## Memories and Notes for Development
+## Security & Configuration
 
-### Development Workflow Reminders
-- When you make changes to MCP server, you need to ask the user to reload it before you test
-- When the user asks to review issues, you should use GH CLI to get the issue and all the comments
-- When the task can be divided into separated subtasks, you should spawn separate sub-agents to handle them in parallel
-- Use the best sub-agent for the task as per their descriptions
-
-### Testing Best Practices
-- Always run `npm run build` before testing changes
-- Use `npm run dev` to rebuild database after package updates
-- Check coverage with `npm run test:coverage`
-- Integration tests require a clean database state
-
-### Common Pitfalls
-- The MCP server needs to be reloaded in Claude Desktop after changes
-- HTTP mode requires proper CORS and auth token configuration
-- Database rebuilds can take 2-3 minutes due to n8n package size
-- Always validate workflows before deployment to n8n
-
-### Performance Considerations
-- Use `get_node_essentials()` instead of `get_node_info()` for faster responses
-- Batch validation operations when possible
-- The diff-based update system saves 80-90% tokens on workflow updates
-
-### Agent Interaction Guidelines
-- Sub-agents are not allowed to spawn further sub-agents
-- When you use sub-agents, do not allow them to commit and push. That should be done by you
-
-### Development Best Practices
-- Run typecheck and lint after every code change
-
-# important-instruction-reminders
-Do what has been asked; nothing more, nothing less.
-NEVER create files unless they're absolutely necessary for achieving your goal.
-ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
-- When you make changes to MCP server, you need to ask the user to reload it before you test
-- When the user asks to review issues, you should use GH CLI to get the issue and all the comments
-- When the task can be divided into separated subtasks, you should spawn separate sub-agents to handle them in paralel
-- Use the best sub-agent for the task as per their descriptions
-- Do not use hyperbolic or dramatic language in comments and documentation
-- Add to every commit and PR: Concieved by Romuald Członkowski - and then link to www.aiadvisors.pl/en. Don't add it in conversations
+Start from `.env.example` and keep local secrets untracked. Never commit credentials, API keys, private URLs, customer data, or sensitive configuration. Confirm the intended n8n instance before using live management tools, and validate workflows before deployment.
 
 ---
 > Source: [czlonkowski/n8n-mcp](https://github.com/czlonkowski/n8n-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
