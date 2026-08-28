@@ -1,0 +1,44 @@
+{
+  "name": "uplevel",
+  "owner": "rlx",
+  "repo": "uplevel",
+  "description": "A Claude Code skill that finds the engineering controls your repository does not have \u2014 CI that never runs on pull requests, a check target that quietly rewrites files, a migration with nothing in front of it \u2014 and hands back a numbered plan. It changes nothing until you pick.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rlx/uplevel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T09:12:12Z"
+}
