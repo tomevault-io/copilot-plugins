@@ -1,0 +1,9 @@
+{
+  "name": "m1nuzz--flux-launcher",
+  "displayName": "flux-launcher",
+  "description": "A lightweight native Rust alternative to Flow Launcher for Windows 11",
+  "version": "1.0.0",
+  "author": "m1nuzz",
+  "homepage": "https://github.com/m1nuzz/flux-launcher",
+  "skills": []
+}
