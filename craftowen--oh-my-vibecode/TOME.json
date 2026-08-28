@@ -1,0 +1,44 @@
+{
+  "name": "oh-my-vibecode",
+  "owner": "craftowen",
+  "repo": "oh-my-vibecode",
+  "description": "React Router 8 \u00d7 Cloudflare Workers starter \u2014 auth, D1, streaming SSR and a green test harness on day one. Built to be cloned and extended by AI agents.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/craftowen/oh-my-vibecode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:16:01Z"
+}
