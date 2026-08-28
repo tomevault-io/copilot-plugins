@@ -1,0 +1,9 @@
+{
+  "name": "sudoitir--claudecode4j",
+  "displayName": "claudecode4j",
+  "description": "Java integration for Claude Code CLI. Features Virtual Thread execution, Spring Boot auto-configuration, Kafka request-reply adapters, and REST/SSE streaming endpoints.",
+  "version": "1.0.0",
+  "author": "sudoitir",
+  "homepage": "https://github.com/sudoitir/claudecode4j",
+  "skills": []
+}
