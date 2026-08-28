@@ -1,0 +1,9 @@
+{
+  "name": "iresearch-ai--ts-cli",
+  "displayName": "ts-cli",
+  "description": "ts-cli is a dependency-free, single-binary Go CLI for collecting token usage from local AI coding tools, incrementally syncing it to a server, and querying remote usage summaries.",
+  "version": "1.0.0",
+  "author": "iResearch-AI",
+  "homepage": "https://github.com/iResearch-AI/ts-cli",
+  "skills": []
+}
