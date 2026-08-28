@@ -1,68 +1,48 @@
-## development-workflow
+## btch-cli
 
-> Development workflow and common commands
+> btch-cli is a single-package TypeScript CLI tool — no databases, Docker, or background services. See `README.md` for full documentation and usage.
+
+# AGENTS.md
+
+## Cursor Cloud specific instructions
+
+### Overview
+
+btch-cli is a single-package TypeScript CLI tool — no databases, Docker, or background services. See `README.md` for full documentation and usage.
+
+### Quick reference
 
 
-# Development Workflow
+| Action        | Command                                                               |
+| ------------- | --------------------------------------------------------------------- |
+| Install deps  | `bun install` (installs Husky; pre-commit runs Biome on staged files) |
+| Typecheck     | `bun run typecheck`                                                   |
+| Build         | `bun run build`                                                       |
+| Run built CLI | `node dist/index.js`                                                  |
+| Headless mode | `node dist/index.js --prompt "..." --max-tool-rounds N`               |
+| CLI help      | `node dist/index.js --help`                                           |
 
-## Prerequisites
 
-- Bun 1.0+ (required)
+### Version bumps & releases
 
-## Common Commands
+When bumping the version (e.g. `3.0.10` → `3.0.11`), **every place that references the old version must be updated to the new one** so all artifacts stay in sync. Search the repo for the old version string (`grep -rn "<old-version>" --include="*.json" --include="*.md" --include="*.sh" --include="*.yml" .`) and update all matches except historical entries in `CHANGELOG.md`:
 
-```bash
-# Install dependencies
-bun install
+- `package.json` — the source of truth (`version` field)
+- `install.sh` — the `--version` example in help text
+- `README.md` — the `--version` example in install instructions
+- `.github/workflows/release.yml` — the example tag/version in comments
+- `CHANGELOG.md` — add a new entry at the top with the new version
 
-# Development (runs from source with Bun)
-bun run dev
+Then verify consistency (`grep -rn "<new-version>" .` shows no leftover old version outside CHANGELOG history), run `bun run typecheck` + tests, commit, push to `main`, and create a GitHub release with tag `btch-cli@<new-version>` — the CI workflow builds all platform binaries and publishes to npm automatically. Use `btch-cli@` (not `btch-dev@`) as the release tag prefix.
 
-# Build (compile TypeScript to dist/)
-bun run build
+### Known issues
 
-# Type checking (no emit)
-bun run typecheck
+- **ESLint config is broken**: The repo has `.eslintrc.js` (legacy format) but uses ESLint 9 (`^9.31.0`) + `@typescript-eslint` v8, which require flat config (`eslint.config.js`). Additionally, `.eslintrc.js` uses `module.exports` (CJS) but `package.json` has `"type": "module"` (ESM). Running `bun run lint` will fail. Use `bun run typecheck` as the primary code quality check (this is also what CI enforces).
 
-# Linting
-bun run lint
+### Environment
 
-# Format (check / write)
-bun run format
-bun run format:fix
-
-# Run the built CLI
-bun run start
-```
-
-## Environment Variables
-
-| Variable | Required | Description |
-|----|----|----|
-| `BTCH_API_KEY` | Yes | API key for the OpenAI-compatible endpoint |
-| `BTCH_BASE_URL` | No | Custom API endpoint (default: `https://ai.tioo.eu.org/v1`) |
-| `BTCH_MODEL` | No | Model override (defaults to the first model fetched from the endpoint) |
-| `BTCH_MAX_TOKENS` | No | Max tokens per response (default: 16384) |
-
-Copy `.env.example` to `.env` and fill in your values.
-
-## Git hooks
-
-After `bun install`, **Husky** installs a **pre-commit** hook that runs **`lint-staged`**: Biome **format + lint** (`check --write`) on staged `*.{ts,tsx,js,mjs,cjs,json}` files. Fixes are written to disk and re-staged automatically when possible.
-
-## Before Submitting Changes
-
-1. Run `bun run typecheck` — CI enforces this on every PR.
-2. Run `bun run lint` — fix any Biome issues (or let pre-commit apply safe fixes).
-3. Ensure no secrets or `.env` files are committed.
-4. Follow the PR template in `.github/pull_request_template.md`.
-
-## Project Structure Conventions
-
-- Source code lives in `src/`, compiled output in `dist/` (gitignored).
-- The CLI entry point is `src/index.ts` which uses Commander.js for argument parsing.
-- UI is built with OpenTUI React (`@opentui/react`).
-- Only tool is bash — all file operations happen through shell commands.
+- **Bun** must be installed (not pre-installed on Cloud VMs). The update script handles this.
+- `BTCH_API_KEY` environment variable is required for API calls. Set it as a secret.
 
 ---
 > Source: [hostinger-bot/btch-cli](https://github.com/hostinger-bot/btch-cli) — distributed by [TomeVault](https://tomevault.io).
