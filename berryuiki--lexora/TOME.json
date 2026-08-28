@@ -1,0 +1,44 @@
+{
+  "name": "Lexora",
+  "owner": "BerryUIKI",
+  "repo": "Lexora",
+  "description": "Local\u2011first open\u2011source Markdown editor with seamless in\u2011place WYSIWYG. Zero\u2011split\u2011pane workflow, no telemetry, fully offline\u2011capable cross\u2011platform writing tool.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BerryUIKI/Lexora",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T23:02:33Z"
+}
