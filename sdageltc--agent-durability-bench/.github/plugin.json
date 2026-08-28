@@ -1,0 +1,9 @@
+{
+  "name": "sdageltc--agent-durability-bench",
+  "displayName": "agent-durability-bench",
+  "description": "DCP-2.0: Open crash-resilience & SIGKILL fault-injection benchmark for autonomous AI coding agents",
+  "version": "1.0.0",
+  "author": "sdageltc",
+  "homepage": "https://github.com/sdageltc/agent-durability-bench",
+  "skills": []
+}
