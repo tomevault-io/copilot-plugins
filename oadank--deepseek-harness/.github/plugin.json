@@ -1,0 +1,9 @@
+{
+  "name": "oadank--deepseek-harness",
+  "displayName": "deepseek-harness",
+  "description": "\u7ed9 DSH \u914d\u4e0a\u773c\u775b\u3001\u8033\u6735\u548c\u5634\u5df4\u2014\u2014\u5168\u90e8\u514d\u8d39\uff1a\u8bed\u97f3\u8bc6\u522b / TTS / \u97f3\u8272\u514b\u9686 / \u8bc6\u56fe",
+  "version": "1.0.0",
+  "author": "oadank",
+  "homepage": "https://github.com/oadank/deepseek-harness",
+  "skills": []
+}
