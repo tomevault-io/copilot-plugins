@@ -1,0 +1,9 @@
+{
+  "name": "enkialon--coding-pet",
+  "displayName": "coding-pet",
+  "description": "A lightweight native coding pet for Codex, Claude Code and other AI coding tools. Built in Rust with ~14 MB RAM and near-zero idle CPU.",
+  "version": "1.0.0",
+  "author": "Enkialon",
+  "homepage": "https://github.com/Enkialon/coding-pet",
+  "skills": []
+}
