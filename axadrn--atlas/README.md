@@ -7,11 +7,11 @@ The open source home for digital nomads. Think nomads.com, but open. Work in pro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [axadrn/atlas](https://github.com/axadrn/atlas).
+Original source: `AGENTS.md` in [axadrn/atlas](https://github.com/axadrn/atlas).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
