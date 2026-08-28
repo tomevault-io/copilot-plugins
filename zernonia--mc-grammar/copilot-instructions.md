@@ -1,0 +1,136 @@
+## mc-grammar
+
+> Context and hard invariants for Claude Code sessions in this repository.
+
+# CLAUDE.md — McGrammar
+
+Context and hard invariants for Claude Code sessions in this repository.
+
+## What this is
+
+A macOS menu bar utility (Swift + AppKit, SPM, **zero third-party dependencies**) that corrects the
+user's selected text in any app by shelling out to their locally installed, locally authenticated
+Claude Code CLI. Two independent trigger paths: a global hotkey (⌃⌥G) and an NSServices menu item.
+
+## Invariants — do not violate these
+
+### Credentials
+- **Never** add an API key path, token handling, or any login flow. The app invokes the official
+  `claude` binary the user installed and authenticated themselves. That is the entire compliance
+  position; an API-key mode is a roadmap item to be revisited only against current Anthropic policy.
+- `ClaudeRunner.childEnvironment()` strips `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN`. Keep it
+  that way: a key in the environment takes precedence over the subscription login in the CLI.
+- Never use `--bare` mode (API-key only).
+
+### Sync/async structure (`ClaudeRunner`)
+- `fixSync` is the core and blocks its calling thread. `fixAsync` is a thin wrapper for the hotkey
+  path: background queue in, main-thread completion out.
+- **The NSServices handler MUST call `fixSync` directly.** Never wrap `fixAsync` in a semaphore
+  there — the handler runs on the main thread and the completion dispatches back to main, which
+  deadlocks with certainty. This mistake has already been made once on this project.
+
+### Binary discovery
+- Resolve `claude` through a **zsh login shell** (`/bin/zsh -l -c 'command -v claude'`) and cache it.
+  GUI-launched apps do not inherit the terminal PATH — this is the #1 silent failure mode.
+- Keep the disk fallback list (`~/.local/bin`, `~/.claude/local`, `/opt/homebrew/bin`,
+  `/usr/local/bin`) and keep prepending those to the child PATH.
+- The resolved path (or the not-found warning) must stay visible in the menu bar dropdown.
+
+### Invocation
+- `claude -p "<PROMPT>" --max-turns 1`, with the user's text piped over **stdin** — never
+  interpolated into the argument list or a shell string.
+- 60s watchdog; terminate the process if exceeded.
+- Keep the prompt strict. If preamble ever leaks into the output, switch to `--output-format json`
+  and read the `result` field rather than tightening the prompt further.
+- Drain stdout and stderr concurrently; a blocked pipe buffer wedges the child.
+
+### NSServices (Info.plist)
+- `NSMessage` must exactly equal the `@objc` selector name on `NSApp.servicesProvider`:
+  `fixGrammar` ↔ `fixGrammar(_:userData:error:)`.
+- `NSSendTypes` **and** `NSReturnTypes` both `NSStringPboardType`. Removing `NSReturnTypes` makes
+  the service send-only and selection replacement silently stops working.
+- `NSTimeout` = `120000` ms. The default is far too short for Claude Code spin-up.
+- Register at launch: `NSApp.servicesProvider = provider; NSUpdateDynamicServices()`.
+- macOS caches the Services menu aggressively — `make-app.sh` runs `pbs -flush`/`-update`, and the
+  README documents the manual steps. Do not chase this as a bug.
+
+### Bundle
+- `LSUIElement = true` plus `NSApp.setActivationPolicy(.accessory)` — menu bar only, no Dock icon.
+- Ad-hoc `codesign --force --sign -` **plus an explicit designated requirement**:
+  `-r='designated => identifier "com.zernonia.mcgrammar"'`. This is what makes Accessibility (TCC)
+  grants survive rebuilds. `--identifier` alone does NOT: it sets the bundle ID in the code
+  directory, while codesign still derives a DR that pins the exact `cdhash`. Every rebuild then
+  changes the hash and silently voids the grant, and the symptom is nasty — System Settings keeps
+  showing a ticked McGrammar entry that no longer matches the binary, so the app re-prompts while
+  the user is looking at a checkbox that says it is already allowed. Verify after any change to the
+  signing step with `codesign -d --requirements - <app>`; it must print the identifier form, not a
+  `cdhash H"..."`. Kill any running instance before replacing the bundle.
+- Accessibility permission attaches to the *launching* process — test the hotkey from the .app,
+  never from a terminal-launched binary.
+
+### Privacy and cleanup
+- Never log, cache, or persist user text anywhere. The README states this as a guarantee.
+- The CLI itself persists what the app does not: `claude -p` writes a session transcript containing
+  the corrected text under `~/.claude/projects/<cwd slug>/`. The child therefore runs in
+  `~/Library/Application Support/McGrammar/cli-workspace` so those transcripts land in a project
+  folder only McGrammar causes to exist, and `Transcripts.purge` deletes them after every fix.
+  Keep that purge narrow — `.jsonl` only, marker-matched folder only — so an unknown CLI layout
+  degrades to a no-op instead of deleting someone's history. Do **not** re-add a modification-time
+  filter: it sounds safer and leaks. A transcript that misses its own run's purge (flushed late,
+  delete failed, app quit mid-fix) is then older than every later cutoff and survives for good.
+  The folder is ours by construction, so sweeping all of it is both safe and the point.
+- `prepareWorkspace()` returning nil must fail the fix (`.workspaceUnavailable`), never fall back
+  to the home directory: transcripts there land in an unmarked project folder that the purge and
+  `pendingCount` both ignore, so they would pile up while the self-test still reported a clean
+  workspace. The temp-directory fallback exists because its path still carries the marker.
+- A tripped watchdog is a timeout, full stop. Do not also require `terminationReason ==
+  .uncaughtSignal`: a child that catches SIGTERM and exits 0 having flushed a partial answer would
+  then be reported as success, and that truncated text gets pasted over the user's selection.
+- Every run must leave the machine as it found it: no temp files, no stray child processes, and the
+  user's clipboard byte-identical to before. `--selftest` and `scripts/local-test.sh` both assert
+  the transcript half of this; do not let it regress.
+
+### Process and clipboard lifecycle
+- If `process.run()` throws, close all three pipe write ends by hand and `group.wait()` before
+  returning. No spawn means nothing else will ever close them, and the drain closures would block
+  on `read()` forever — a leaked thread and three descriptors per failed launch.
+- The 60s watchdog sends SIGTERM, then SIGKILL after a 5s grace. Without the escalation a wedged
+  child blocks `waitUntilExit` indefinitely and the fix never completes.
+- The hotkey path stays "busy" until the clipboard has been restored, not merely until Claude
+  answers. Releasing the guard earlier lets a second trigger snapshot the correction still sitting
+  on the pasteboard, permanently losing the user's original clipboard.
+
+## Testing
+
+- `./scripts/local-test.sh` — full pre-flight (macOS only).
+- `McGrammar --selftest` — headless: CLI discovery, env hygiene, Info.plist wiring, a real fix.
+- `McGrammar --fix` — stdin → corrected text on stdout.
+- The Services path cannot be tested from `swift run`; it requires the .app bundle.
+
+## Roadmap (post-v1, priority order)
+
+1. **Diff preview HUD** before applying: floating panel, Tab = accept, R = regenerate, Esc = cancel.
+   Biggest UX win over blind replacement.
+2. **Streaming** via `--output-format stream-json` for perceived speed.
+3. **Prompt presets** (Fix / Polish / Translate / Casual↔Formal) with a settings window and
+   per-preset hotkeys.
+4. **Async services variant**: return immediately and paste when done. Unblocks the calling app at
+   the cost of requiring Accessibility — make it opt-in.
+5. **Fallback provider toggle**: direct Anthropic API (Haiku) for sub-second fixes. Also the
+   policy hedge.
+6. Per-app tone profiles; fix-line-at-cursor when nothing is selected; notarized release packaging.
+
+## Watch items
+
+- Anthropic's stance on third-party subscription usage changed twice in 2026. Re-read
+  code.claude.com/docs/en/legal-and-compliance before any distribution, and get written sign-off
+  before charging money.
+- Agent SDK / programmatic credit caps may change; heavy users can hit monthly limits.
+- CLI flags (`-p`, `--max-turns`, `--output-format`) are stable today — verify against current docs
+  when upgrading.
+- Some Electron and sandboxed apps expose neither Services nor synthetic keystrokes. Having both
+  paths is the mitigation; do not remove either.
+
+---
+> Source: [zernonia/mc-grammar](https://github.com/zernonia/mc-grammar) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
