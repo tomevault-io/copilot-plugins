@@ -1,0 +1,9 @@
+{
+  "name": "innocent-children--dev-flow",
+  "displayName": "dev-flow",
+  "description": "Local process control and recovery for Codex and DeepSeek Harness: explicit scope, verification budgets, and durable task state.",
+  "version": "1.0.0",
+  "author": "Innocent-children",
+  "homepage": "https://github.com/Innocent-children/dev-flow",
+  "skills": []
+}
