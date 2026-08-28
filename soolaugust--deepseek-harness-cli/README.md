@@ -7,11 +7,11 @@ Interactive terminal agent (fork of DeepSeek Harness): Claude Code-style REPL �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [soolaugust/deepseek-harness-cli](https://github.com/soolaugust/deepseek-harness-cli).
+Original source: `AGENTS.md` in [soolaugust/deepseek-harness-cli](https://github.com/soolaugust/deepseek-harness-cli).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
