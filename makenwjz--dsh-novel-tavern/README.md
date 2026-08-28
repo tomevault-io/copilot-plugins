@@ -7,11 +7,11 @@ DeepSeek Harness 小说模式 + 酒馆模式：novel 创作工作区与 SillyTav
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [makenwjz/dsh-novel-tavern](https://github.com/makenwjz/dsh-novel-tavern).
+Original source: `AGENTS.md` in [makenwjz/dsh-novel-tavern](https://github.com/makenwjz/dsh-novel-tavern).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
