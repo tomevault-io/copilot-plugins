@@ -1,0 +1,9 @@
+{
+  "name": "jinlio--luckyguo-typecho-suite",
+  "displayName": "luckyguo-typecho-suite",
+  "description": "Reusable Typecho 1.3.0 theme, plugins, Meilisearch search, monitoring, and SSRF hardening with bilingual deployment guides.",
+  "version": "1.0.0",
+  "author": "jinlio",
+  "homepage": "https://github.com/jinlio/luckyguo-typecho-suite",
+  "skills": []
+}
