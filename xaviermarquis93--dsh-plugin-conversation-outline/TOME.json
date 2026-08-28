@@ -1,0 +1,44 @@
+{
+  "name": "dsh-plugin-conversation-outline",
+  "owner": "XavierMarquis93",
+  "repo": "dsh-plugin-conversation-outline",
+  "description": "DeepSeek Harness conversation outline plugin (\u5bf9\u8bdd\u76ee\u5f55)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/XavierMarquis93/dsh-plugin-conversation-outline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T00:29:03Z"
+}
