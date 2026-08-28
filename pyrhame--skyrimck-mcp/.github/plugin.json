@@ -1,0 +1,9 @@
+{
+  "name": "pyrhame--skyrimck-mcp",
+  "displayName": "SkyrimCK-MCP",
+  "description": "MCP server that lets Claude Code read/write Skyrim SE ESP files without opening Creation Kit. Built to make modding accessible to blind modders.",
+  "version": "1.0.0",
+  "author": "Pyrhame",
+  "homepage": "https://github.com/Pyrhame/SkyrimCK-MCP",
+  "skills": []
+}
