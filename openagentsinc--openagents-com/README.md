@@ -7,11 +7,11 @@ The Agent Forge [READONLY MIRROR]
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [OpenAgentsInc/openagents.com](https://github.com/OpenAgentsInc/openagents.com).
+Original source: `AGENTS.md` in [OpenAgentsInc/openagents.com](https://github.com/OpenAgentsInc/openagents.com).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
