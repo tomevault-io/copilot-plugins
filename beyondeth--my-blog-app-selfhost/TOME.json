@@ -4,7 +4,7 @@
   "repo": "my-blog-app-selfhost",
   "description": "Aigory Self-host: an MIT-licensed blog, community, and MCP automation platform",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beyondeth/my-blog-app-selfhost",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:45:17Z"
+  "distributed_at": "2026-08-28T19:33:21Z"
 }
