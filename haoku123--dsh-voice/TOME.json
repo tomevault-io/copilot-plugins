@@ -1,0 +1,44 @@
+{
+  "name": "dsh-voice",
+  "owner": "haoku123",
+  "repo": "dsh-voice",
+  "description": "Full-duplex voice plugin for DeepSeek Harness: mic \u2192 SenseVoice ASR (sherpa-onnx) \u2192 LLM \u2192 Edge TTS with true barge-in. \u5168\u53cc\u5de5\u8bed\u97f3\u63d2\u4ef6\uff1a\u9ea6\u514b\u98ce\u8bed\u97f3\u8f93\u5165\uff0cSenseVoice \u672c\u5730\u8bc6\u522b\uff08\u7b80\u4f53\u4e2d\u6587+\u6807\u70b9+ITN\uff09\uff0c\u6d41\u5f0f TTS \u6717\u8bfb\uff0c\u652f\u6301\u8bed\u97f3\u6253\u65ad\u3002Zero API key.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/haoku123/dsh-voice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T00:49:01Z"
+}
