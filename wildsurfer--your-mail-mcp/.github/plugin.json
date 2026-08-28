@@ -1,0 +1,9 @@
+{
+  "name": "wildsurfer--your-mail-mcp",
+  "displayName": "your-mail-mcp",
+  "description": "Self-hosted, read-only MCP server that serves IMAP mail from a local notmuch index over authenticated HTTP",
+  "version": "1.0.0",
+  "author": "wildsurfer",
+  "homepage": "https://github.com/wildsurfer/your-mail-mcp",
+  "skills": []
+}
