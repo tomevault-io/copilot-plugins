@@ -1,0 +1,44 @@
+{
+  "name": "Threadsmith.NET",
+  "owner": "Threadsmith-NET",
+  "repo": "Threadsmith.NET",
+  "description": " A .NET-native AI coding harness where the host validates plans, tools, mutations, builds, and tests while models remain pluggable reasoning engines. Threadsmith.NET aims to be more efficient with tool and token use my using the semantic capabilities of Roslyn and MSBuild to treat the .NET solution as more than just a nuch of text.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Threadsmith-NET/Threadsmith.NET",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T14:56:02Z"
+}
