@@ -1,0 +1,9 @@
+{
+  "name": "tahash--loopem",
+  "displayName": "loopem",
+  "description": "A picker for lists of any length. Line, arc, wheel, or a layout you write. Virtualized, keyboard-accessible, and it works with any framework.",
+  "version": "1.0.0",
+  "author": "TahaSh",
+  "homepage": "https://github.com/TahaSh/loopem",
+  "skills": []
+}
