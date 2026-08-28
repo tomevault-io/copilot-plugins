@@ -1,0 +1,9 @@
+{
+  "name": "yukimemi--autocursor-nvim",
+  "displayName": "autocursor.nvim",
+  "description": "Switch cursorline & cursorcolumn automatically on Neovim events",
+  "version": "1.0.0",
+  "author": "yukimemi",
+  "homepage": "https://github.com/yukimemi/autocursor.nvim",
+  "skills": []
+}
