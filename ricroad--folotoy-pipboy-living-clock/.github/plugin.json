@@ -1,0 +1,9 @@
+{
+  "name": "ricroad--folotoy-pipboy-living-clock",
+  "displayName": "folotoy-pipboy-living-clock",
+  "description": "A fan-made Pip-Boy Living Clock and Mission Timer for FoloToy AI Passport (ESP32-C3).",
+  "version": "1.0.0",
+  "author": "ricroad",
+  "homepage": "https://github.com/ricroad/folotoy-pipboy-living-clock",
+  "skills": []
+}
