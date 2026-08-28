@@ -1,0 +1,9 @@
+{
+  "name": "seatgeek--next-fastly-image",
+  "displayName": "next-fastly-image",
+  "description": "A stateless, zero-dependency loader that lets next/image delegate image transformation to Fastly Image Optimizer instead of your Next.js server resizing every image, Fastly transforms and caches each ",
+  "version": "1.0.0",
+  "author": "seatgeek",
+  "homepage": "https://github.com/seatgeek/next-fastly-image",
+  "skills": []
+}
