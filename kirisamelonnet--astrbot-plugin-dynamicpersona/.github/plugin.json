@@ -1,0 +1,9 @@
+{
+  "name": "kirisamelonnet--astrbot-plugin-dynamicpersona",
+  "displayName": "astrbot_plugin_DynamicPersona",
+  "description": "AstrBot \u52a8\u6001\u4eba\u683c\u63d2\u4ef6 - \u6839\u636e\u804a\u5929\u5185\u5bb9\u8bed\u4e49\u81ea\u52a8\u5207\u6362 LLM \u4eba\u683c",
+  "version": "1.0.0",
+  "author": "KirisameLonnet",
+  "homepage": "https://github.com/KirisameLonnet/astrbot_plugin_DynamicPersona",
+  "skills": []
+}
