@@ -7,13 +7,13 @@ A clone-and-run personal-finance demo: Next.js app with Clerk auth and Supabase,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [telos-brain/vercel-template-tally](https://github.com/telos-brain/vercel-template-tally).
+Original source: `CLAUDE.md` in [telos-brain/vercel-template-tally](https://github.com/telos-brain/vercel-template-tally).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
