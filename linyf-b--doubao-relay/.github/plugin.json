@@ -1,0 +1,9 @@
+{
+  "name": "linyf-b--doubao-relay",
+  "displayName": "doubao-relay",
+  "description": "\u628a\u8c46\u5305\u7f51\u9875\u7248\u53d8\u6210\u672c\u673a OpenAI \u517c\u5bb9 API\uff1a\u591a\u8d26\u53f7\u8f6e\u6362\u3001Seedream \u6587\u751f\u56fe\u3001Seedance \u6587\u751f\u89c6\u9891\uff0c\u4ee5\u53ca\u591a\u53c2\u8003\u56fe\u89d2\u8272\u4e00\u81f4\u6027\u3002\u65e0\u9700 Docker\uff0c\u4ec5\u9650\u4e2a\u4eba\u81ea\u7528\u3002",
+  "version": "1.0.0",
+  "author": "linyf-B",
+  "homepage": "https://github.com/linyf-B/doubao-relay",
+  "skills": []
+}
