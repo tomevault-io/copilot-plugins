@@ -1,0 +1,9 @@
+{
+  "name": "uriba107--houndtts",
+  "displayName": "HoundTTS",
+  "description": "Native C++ DCS World TTS extension \u2014 transmits Piper, SAPI, Azure, Google, or ElevenLabs speech directly to SRS from mission scripts.",
+  "version": "1.0.0",
+  "author": "uriba107",
+  "homepage": "https://github.com/uriba107/HoundTTS",
+  "skills": []
+}
