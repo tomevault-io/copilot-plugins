@@ -7,11 +7,11 @@ LLM 训练与推理技术知识库，由 Claude Code Agent 维护。
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [suhaibo666/llm-knowledge](https://github.com/suhaibo666/llm-knowledge).
+Original source: `AGENTS.md` in [suhaibo666/llm-knowledge](https://github.com/suhaibo666/llm-knowledge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
