@@ -1,0 +1,9 @@
+{
+  "name": "earlyaidopters--signal-room-starter",
+  "displayName": "signal-room-starter",
+  "description": "Clean-room starter for a creator intelligence workspace with replaceable adapters and an optional local Codex bridge.",
+  "version": "1.0.0",
+  "author": "earlyaidopters",
+  "homepage": "https://github.com/earlyaidopters/signal-room-starter",
+  "skills": []
+}
