@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--hunk-lens",
+  "displayName": "hunk-lens",
+  "description": "Keep the current split-diff line in view while reviewing with Hunk.",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/hunk-lens",
+  "skills": []
+}
