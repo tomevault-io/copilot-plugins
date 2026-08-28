@@ -1,0 +1,9 @@
+{
+  "name": "derekallman--hotcoco",
+  "displayName": "hotcoco",
+  "description": "11-26x faster drop-in replacement for pycocotools - COCO evaluation in Rust",
+  "version": "1.0.0",
+  "author": "derekallman",
+  "homepage": "https://github.com/derekallman/hotcoco",
+  "skills": []
+}
