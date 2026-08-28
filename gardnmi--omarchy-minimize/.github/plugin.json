@@ -1,0 +1,9 @@
+{
+  "name": "gardnmi--omarchy-minimize",
+  "displayName": "omarchy-minimize",
+  "description": "Minimize Hyprland windows into icon-rich Omarchy bar chips with live previews and interactive Peek.",
+  "version": "1.0.0",
+  "author": "gardnmi",
+  "homepage": "https://github.com/gardnmi/omarchy-minimize",
+  "skills": []
+}
