@@ -1,0 +1,9 @@
+{
+  "name": "wurstbrot--ai-security-rules",
+  "displayName": "ai-security-rules",
+  "description": "Secure agentic AI rules to generate more secure code",
+  "version": "1.0.0",
+  "author": "wurstbrot",
+  "homepage": "https://github.com/wurstbrot/ai-security-rules",
+  "skills": []
+}
