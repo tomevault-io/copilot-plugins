@@ -1,0 +1,9 @@
+{
+  "name": "yunyinbanfu--deepseek-v4-flash-0731-sm80",
+  "displayName": "deepseek-v4-flash-0731-sm80",
+  "description": "SM80/A100 support package for DeepSeek-V4-Flash-0731 on vLLM",
+  "version": "1.0.0",
+  "author": "yunyinbanfu",
+  "homepage": "https://github.com/yunyinbanfu/deepseek-v4-flash-0731-sm80",
+  "skills": []
+}
