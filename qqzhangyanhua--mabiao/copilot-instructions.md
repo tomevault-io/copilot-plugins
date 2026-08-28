@@ -1,32 +1,29 @@
-## frontend-react
+## ingestion-cache
 
-> React/TypeScript frontend conventions for the ai-usage-stats webview UI
+> Trusted ingestion and rebuildable cache semantics for local session scanning
 
 
-# 前端约定（React + TypeScript + ECharts）
+# 可信摄取与可重建缓存
 
-## 类型安全
+完整背景与理由：`docs/adr/0003-trusted-ingestion-cache.md`。核心原则：**缓存宁可保留旧结果，也不能用残缺/失败的解析结果覆盖它**。
 
-- `tsconfig.json` 已开启 `strict`、`noUnusedLocals`、`noUnusedParameters`；禁止使用 `any`，禁止用 `as any` 逃逸类型检查
-- `src/types.ts` 里的类型手动对应 Rust `domain.rs` 的 DTO（字段名保持 `snake_case`，和后端序列化一致，不要转成 camelCase）；改了 Rust DTO 字段必须同步改这里
-- 组件 props 用内联对象类型或就近的 `type`，不需要为每个组件单独建 `.types.ts` 文件
+## 必须遵守的语义
 
-## 组件规范
+- 文件只有在完整读取 + 结构校验成功后，才能替换该文件在 `usage_records` 里的旧记录并更新 `ingested_files` 标记；解析失败要保留旧记录，把失败记为该 Source 的诊断问题（`record_failure`）
+- 追加型日志来源（`is_append_log_source`：codex/claude/pi/kimi/dsh/grok）如果新解析出的记录数比缓存里少，视为截断/异常，保留旧缓存并报失败，不要覆盖
+- 每个 Source 扫描完成后按本轮实际看到的路径做删除对账（`reconcile_source`）；但该 Source 本轮只要出现任何 `files_failed`，就必须跳过对账，避免把「解析失败」误判成「文件已删除」
+- 目录读取错误（`walk_matching` 报错）不能触发删除对账，只能记为来源级失败
+- 缓存键 = 主文件的 `(mtime_ms, size)` + `metadata_fingerprint`/`content_fingerprint`（辅助文件，如 Kimi 的 `kimi.json`、Grok 的 `summary.json`、OpenCode 的 `-wal`）+ `ADAPTER_VERSION`；辅助输入变化也必须使缓存失效
 
-- 单个组件文件不超过 400 行；超出时按职责拆分子组件（放进 `src/components/`）或把纯逻辑抽到 `src/lib/`
-- 组件是函数组件 + hooks，不使用 class component；跨组件复用的状态提升到 `App.tsx`，通过 props 下发，没有引入全局状态库（Redux/Zustand），不要新增
-- 纯格式化/计算函数放 `src/lib/format.ts`，图表配色/主题放 `src/lib/chartTheme.ts`，价格预设放 `src/lib/pricePresets.ts`；新增同类工具函数放进对应文件而不是散落在组件里
+## 修改归一化规则时
 
-## 样式
+- 任何改变某个 adapter 输出（新字段、修正 bug、调整去重逻辑）的改动，必须同步递增 `store.rs::ADAPTER_VERSION`，否则旧缓存不会被判定为过期，用户看到的数据不会更新
+- `rebuild_cache` 只是把 `adapter_version` 置 0 强制重解析，不会预先清空旧记录；新结果验证失败时旧记录依然保留——不要为了「简化重建」而改成先 DELETE 再解析
 
-- 项目样式集中在单个 `src/styles.css`，用 CSS 自定义属性（`--bg`、`--purple`、`--cyan` 等）做主题色，**没有引入 Tailwind CSS**；新样式沿用「CSS 变量 + BEM 风格 class 名」的既有写法，不要引入新的样式方案（CSS-in-JS、Tailwind、CSS Modules）
-- 深色主题是唯一主题（`color-scheme: dark`），不需要考虑浅色模式适配
+## 边界
 
-## 与 Tauri 后端通信
-
-- 统一通过 `@tauri-apps/api/core` 的 `invoke("command_name", { ... })` 调用 Rust command，参数字段名与 Rust `#[tauri::command]` 签名的参数名一致
-- IPC 失败要按 `App.tsx::humanStatus` 的既有模式转成可读中文提示，不要把原始 error 对象直接展示给用户
-- 图表统一用 `echarts-for-react`，配色/tooltip 格式通过 `lib/chartTheme.ts` 复用，不要在组件里内联一套新的配色逻辑
+- `usage.sqlite` 是纯缓存，可以随时删除重建；`prices.json` 是用户配置，任何清理/重建逻辑都不能触及它
+- 启动摄取（`ingest_all`）和「重建全部」都会先 `remove_unknown_sources` 清理未知 Source 残留；已知列表必须从 `Source::ALL` 推导，不要再手写一份 `KNOWN`
 
 ---
 > Source: [qqzhangyanhua/mabiao](https://github.com/qqzhangyanhua/mabiao) — distributed by [TomeVault](https://tomevault.io).
