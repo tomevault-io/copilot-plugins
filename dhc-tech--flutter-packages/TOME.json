@@ -4,7 +4,7 @@
   "repo": "flutter-packages",
   "description": "Official collection of production-ready Flutter and Dart packages maintained by DHC Tech.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dhc-tech/flutter-packages",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T02:40:40Z"
+  "distributed_at": "2026-08-28T07:46:08Z"
 }
