@@ -1,0 +1,9 @@
+{
+  "name": "cmehmetd--vow",
+  "displayName": "Vow",
+  "description": "A Chrome extension that automatically detects video, audio, and subtitle streams from web pages. Supports M3U8, manifest, playlist, VTT, SRT, and other media URLs, organizing detected links by type an",
+  "version": "1.0.0",
+  "author": "cmehmetd",
+  "homepage": "https://github.com/cmehmetd/Vow",
+  "skills": []
+}
