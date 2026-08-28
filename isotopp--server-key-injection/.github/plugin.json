@@ -1,0 +1,9 @@
+{
+  "name": "isotopp--server-key-injection",
+  "displayName": "server-key-injection",
+  "description": "Inject a signed ssh-key into a ssh-agent",
+  "version": "1.0.0",
+  "author": "isotopp",
+  "homepage": "https://github.com/isotopp/server-key-injection",
+  "skills": []
+}
