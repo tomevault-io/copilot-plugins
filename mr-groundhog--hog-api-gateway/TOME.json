@@ -1,0 +1,44 @@
+{
+  "name": "hog-api-gateway",
+  "owner": "Mr-Groundhog",
+  "repo": "hog-api-gateway",
+  "description": "\u57fa\u4e8e NewAPI \u4e8c\u6b21\u5f00\u53d1\u7684\u5927\u6a21\u578b AI \u7f51\u5173\u8c03\u5ea6\u7cfb\u7edf\uff0c\u5b9e\u73b0\u591a\u6a21\u578b\u7edf\u4e00\u63a5\u5165\u3001\u667a\u80fd\u8c03\u5ea6\u4e0e\u6743\u9650\u7ba1\u7406\uff0c\u90e8\u7f72\u8f7b\u91cf\u9ad8\u6548\uff0c\u9002\u7528\u4e8e\u4e2a\u4eba\u6280\u672f\u5b66\u4e60\u53ca\u516c\u76ca AI \u7ad9\u70b9\u7b49\u975e\u5546\u7528\u573a\u666f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mr-Groundhog/hog-api-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:41:05Z"
+}
