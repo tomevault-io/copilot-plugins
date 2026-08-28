@@ -4,7 +4,7 @@
   "repo": "deepseek-harness-cli",
   "description": "Interactive terminal agent (fork of DeepSeek Harness): Claude Code-style REPL \u2014 full-screen UI, markdown rendering, session stats, permission cycling, custom OpenAI-compatible providers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/soolaugust/deepseek-harness-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:13:44Z"
+  "distributed_at": "2026-08-28T00:17:16Z"
 }
