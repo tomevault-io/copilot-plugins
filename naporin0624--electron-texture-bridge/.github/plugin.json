@@ -1,0 +1,9 @@
+{
+  "name": "naporin0624--electron-texture-bridge",
+  "displayName": "electron-texture-bridge",
+  "description": "Cross-platform GPU texture sharing for Electron: Spout (Win) + Syphon Metal (Mac)",
+  "version": "1.0.0",
+  "author": "naporin0624",
+  "homepage": "https://github.com/naporin0624/electron-texture-bridge",
+  "skills": []
+}
