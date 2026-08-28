@@ -4,7 +4,7 @@
   "repo": "processflow-architect",
   "description": "Event Storming Big Picture (DDD/BPMN/C4/UML) de escritorio, con IA local por defecto (LiteRT-LM sobre WebGPU)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raalzate/processflow-architect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:29:36Z"
+  "distributed_at": "2026-08-28T19:18:43Z"
 }
