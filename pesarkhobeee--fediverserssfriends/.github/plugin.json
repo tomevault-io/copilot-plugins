@@ -1,0 +1,9 @@
+{
+  "name": "pesarkhobeee--fediverserssfriends",
+  "displayName": "FediverseRssFriends",
+  "description": "A social, RSS-friendly radar for the open web \u2014 self-hosted, magic-link auth, ActivityPub-federated. Fork of rssFriends prepared as a blank-slate template.",
+  "version": "1.0.0",
+  "author": "pesarkhobeee",
+  "homepage": "https://github.com/pesarkhobeee/FediverseRssFriends",
+  "skills": []
+}
