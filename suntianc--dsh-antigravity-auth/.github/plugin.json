@@ -1,0 +1,9 @@
+{
+  "name": "suntianc--dsh-antigravity-auth",
+  "displayName": "dsh-antigravity-auth",
+  "description": "DeepSeek Harness plugin for Antigravity OAuth login and native Antigravity Auth capability bundle",
+  "version": "1.0.0",
+  "author": "suntianc",
+  "homepage": "https://github.com/suntianc/dsh-antigravity-auth",
+  "skills": []
+}
