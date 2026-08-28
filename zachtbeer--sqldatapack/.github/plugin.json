@@ -1,0 +1,9 @@
+{
+  "name": "zachtbeer--sqldatapack",
+  "displayName": "sqldatapack",
+  "description": "Export a slice of a SQL Server database to a single SQLite file, edit it, import it back.",
+  "version": "1.0.0",
+  "author": "zachtbeer",
+  "homepage": "https://github.com/zachtbeer/sqldatapack",
+  "skills": []
+}
