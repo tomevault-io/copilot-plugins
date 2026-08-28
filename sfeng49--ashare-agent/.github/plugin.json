@@ -1,0 +1,9 @@
+{
+  "name": "sfeng49--ashare-agent",
+  "displayName": "ashare-agent",
+  "description": "\u57fa\u4e8e DeepSeek Harness + AKShare \u7684\u672c\u5730 A \u80a1 AI Agent \u5de5\u4f5c\u53f0\uff1a\u6570\u636e\u83b7\u53d6 / \u6bcf\u65e5\u6668\u62a5 / \u4ea4\u6613\u590d\u76d8\u4e09\u5927\u6280\u80fd\uff0c\u53ea\u505a\u5206\u6790\u3001\u4e0d\u505a\u4ea4\u6613\u3002",
+  "version": "1.0.0",
+  "author": "sfeng49",
+  "homepage": "https://github.com/sfeng49/ashare-agent",
+  "skills": []
+}
