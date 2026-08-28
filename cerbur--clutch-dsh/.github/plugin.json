@@ -1,0 +1,9 @@
+{
+  "name": "cerbur--clutch-dsh",
+  "displayName": "clutch-dsh",
+  "description": "Open-source DSH plugins for DeepSeek Harness, clutch-dsh-worktree.",
+  "version": "1.0.0",
+  "author": "Cerbur",
+  "homepage": "https://github.com/Cerbur/clutch-dsh",
+  "skills": []
+}
