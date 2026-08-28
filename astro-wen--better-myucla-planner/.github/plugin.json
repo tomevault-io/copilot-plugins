@@ -1,0 +1,9 @@
+{
+  "name": "astro-wen--better-myucla-planner",
+  "displayName": "better-myucla-planner",
+  "description": "Unofficial Chrome extension that makes reordering the MyUCLA Class Planner bearable. Drag, move-to-top, move-to-position. Never enrolls, never polls, never touches credentials.",
+  "version": "1.0.0",
+  "author": "Astro-wen",
+  "homepage": "https://github.com/Astro-wen/better-myucla-planner",
+  "skills": []
+}
