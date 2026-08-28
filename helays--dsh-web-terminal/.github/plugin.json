@@ -1,0 +1,9 @@
+{
+  "name": "helays--dsh-web-terminal",
+  "displayName": "dsh-web-terminal",
+  "description": "DSH \u63d2\u4ef6\uff1a\u5728 DeepSeek Harness Web \u754c\u9762\uff08\u5bf9\u8bdd/\u8f68\u8ff9\uff09\u9876\u90e8\u65b0\u589e\u300c\u7ec8\u7aef\u300dTab\uff0c\u5185\u7f6e xterm.js + node-pty \u4ea4\u4e92\u5f0f\u7ec8\u7aef\uff0c\u8ba9\u4f60\u5728\u7f16\u7801\u5b8c\u6210\u540e\u5373\u65f6\u5728\u7ec8\u7aef\u6267\u884c\u6307\u4ee4\u8c03\u8bd5\u3002",
+  "version": "1.0.0",
+  "author": "helays",
+  "homepage": "https://github.com/helays/dsh-web-terminal",
+  "skills": []
+}
