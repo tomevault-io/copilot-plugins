@@ -1,0 +1,9 @@
+{
+  "name": "drumandbytes--eraser",
+  "displayName": "eraser",
+  "description": "Free, open-source data broker removal tool: send GDPR/CCPA opt-out requests to 777+ data brokers automatically. Maintained continuation of digisamroc/eraser.",
+  "version": "1.0.0",
+  "author": "drumandbytes",
+  "homepage": "https://github.com/drumandbytes/eraser",
+  "skills": []
+}
