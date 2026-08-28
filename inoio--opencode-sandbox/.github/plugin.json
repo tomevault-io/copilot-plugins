@@ -1,0 +1,9 @@
+{
+  "name": "inoio--opencode-sandbox",
+  "displayName": "opencode-sandbox",
+  "description": "opencode, supercharged \u2014 safely. Launch opencode inside a nearly instant microsandbox VM with your project mounted at /workspace. Unleash your agents' full permissions in a disposable cage, so they ca",
+  "version": "1.0.0",
+  "author": "inoio",
+  "homepage": "https://github.com/inoio/opencode-sandbox",
+  "skills": []
+}
