@@ -7,11 +7,11 @@ Progressive tool discovery for DeepSeek Harness — tiny stable surface, searcha
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [everclear077/dsh-progressive-tools](https://github.com/everclear077/dsh-progressive-tools).
+Original source: `AGENTS.md` in [everclear077/dsh-progressive-tools](https://github.com/everclear077/dsh-progressive-tools).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
