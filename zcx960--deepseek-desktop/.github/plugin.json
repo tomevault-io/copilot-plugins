@@ -1,0 +1,9 @@
+{
+  "name": "zcx960--deepseek-desktop",
+  "displayName": "deepseek-desktop",
+  "description": "DeepSeek Desktop application with Chat and Harness modes;deepseek-harness\u684c\u9762\u7aef\u5e94\u7528\uff0c\u96c6\u6210\u7f51\u9875\u7aefchat\u80fd\u529b\uff0c\u53ef\u624b\u52a8\u5207\u6362\u3002",
+  "version": "1.0.0",
+  "author": "zcx960",
+  "homepage": "https://github.com/zcx960/deepseek-desktop",
+  "skills": []
+}
