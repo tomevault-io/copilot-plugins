@@ -1,0 +1,44 @@
+{
+  "name": "sparklab",
+  "owner": "harshilmathur",
+  "repo": "sparklab",
+  "description": "DeepSeek-V4-Flash on 1-2 NVIDIA DGX Sparks, measured honestly: 65.8 tok/s single-stream, 1M-token context certified, 24h soak \u2014 benchmark harness, every raw CSV, and the operational laws learned the hard way (incl. the kernel 6.17.0-1031 warning)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/harshilmathur/sparklab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T15:05:42Z"
+}
