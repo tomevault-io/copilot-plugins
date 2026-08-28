@@ -1,0 +1,9 @@
+{
+  "name": "ybouane--tiltshift-in-html",
+  "displayName": "tiltshift-in-html",
+  "description": "Depth-aware tilt-shift optics for Three.js \u2014 a tilted (Scheimpflug) focus plane, physical depth of field, and an artistic screen band, in one drop-in pass.",
+  "version": "1.0.0",
+  "author": "ybouane",
+  "homepage": "https://github.com/ybouane/tiltshift-in-html",
+  "skills": []
+}
