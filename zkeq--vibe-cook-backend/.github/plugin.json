@@ -1,0 +1,9 @@
+{
+  "name": "zkeq--vibe-cook-backend",
+  "displayName": "vibe-cook-backend",
+  "description": "\ud83e\udd58 Vibe Cook \u540e\u7aef \u2014 FastAPI + SQLite\uff0c\u628a HowToCook Markdown \u53d8\u6210\u53ef\u8ddf\u505a\u7684\u7ed3\u6784\u5316\u83dc\u8c31 API\u3002",
+  "version": "1.0.0",
+  "author": "zkeq",
+  "homepage": "https://github.com/zkeq/vibe-cook-backend",
+  "skills": []
+}
