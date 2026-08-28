@@ -1,0 +1,9 @@
+{
+  "name": "addisonslewis--delivery-ticket-os",
+  "displayName": "delivery-ticket-os",
+  "description": "Patient + delivery-ticket tracker for DME providers \u2014 Next.js 16 + self-hosted Supabase, deployable to AWS. Sanitized snapshot of a real client project.",
+  "version": "1.0.0",
+  "author": "Addisonslewis",
+  "homepage": "https://github.com/Addisonslewis/delivery-ticket-os",
+  "skills": []
+}
