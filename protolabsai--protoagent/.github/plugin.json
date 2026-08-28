@@ -1,0 +1,9 @@
+{
+  "name": "protolabsai--protoagent",
+  "displayName": "protoAgent",
+  "description": "Template for building protoLabs A2A agents on LangGraph \u2014 fork me",
+  "version": "1.0.0",
+  "author": "protoLabsAI",
+  "homepage": "https://github.com/protoLabsAI/protoAgent",
+  "skills": []
+}
