@@ -1,0 +1,119 @@
+## snapcard
+
+> 开源独立插件（不与杰哥其他插件共享代码仓库），X榜单（xbangdan.com）出品。在 x.com 时间线/详情页每条推文互动栏末尾插「生成卡片」按钮，点击弹预览窗，把推文（头像＋昵称＋@handle＋日期＋正文＋配图＋互动数据）排成分享卡，支持白色/黑色/壁纸三种样式、下载 PNG / 复制到剪贴板；非中文推文可开谷歌翻译出双语卡（原文在上译文在下）。UI（预览 modal + popup）全部简体中文。
+
+# SnapCard · X 推文卡片生成器
+
+开源独立插件（不与杰哥其他插件共享代码仓库），X榜单（xbangdan.com）出品。在 x.com 时间线/详情页每条推文互动栏末尾插「生成卡片」按钮，点击弹预览窗，把推文（头像＋昵称＋@handle＋日期＋正文＋配图＋互动数据）排成分享卡，支持白色/黑色/壁纸三种样式、下载 PNG / 复制到剪贴板；非中文推文可开谷歌翻译出双语卡（原文在上译文在下）。UI（预览 modal + popup）全部简体中文。
+
+## 架构（纯 MV3 插件，零后台服务）
+
+- `manifest.json` MV3；host: x.com / twitter.com / pbs.twimg.com / translate.googleapis.com；`web_accessible_resources` 开放 `assets/*` 给 x.com/twitter.com（Wallpaper 默认背景图用）；`homepage_url` 指向 xbangdan.com
+- `content.js` 注入按钮 + 抓 DOM 数据 + Shadow DOM 预览 modal（含 Style 选择器、自定义背景上传/重置），UI 文案中文
+- `card.js` 卡片 DOM 模板：`buildCard(data, {theme})` 按 `theme` ("white"/"dark") 取一份 palette 对象出全部颜色，不写两份模板；另导出 `buildWallpaperFrame(cardEl, backgroundUrl)` 把白卡包一层背景图+阴影。日期中文格式（`formatTime` 输出「2026年8月19日 10:37」），显示在昵称行蓝V后面，不在底部
+- `render.js` 卡片 DOM → SVG foreignObject → canvas 2x → PNG（零第三方依赖）；Wallpaper 模式直接把 `buildWallpaperFrame` 返回的整个 frame 节点丢进同一条渲染管线，背景图和卡片里所有 `<img>` 一视同仁走通用的 `inlineImages()` 转 dataURL，没有为背景图特殊处理
+- `background.js` 图片代理下载转 dataURL（CORS 兜底）+ 谷歌翻译 translate_a/single
+- `popup.html/js` 署名开关（chrome.storage.sync，默认关）+ GitHub 链接 + 底部 xbangdan 品牌栏（logo+文字，点击新标签打开 xbangdan.com）
+- `assets/bg-aurora.jpg` Wallpaper 模式内置默认背景图（原创渐变，7 张里的第一张，2026-08-20 起替代苹果官方壁纸，见下方关键决策）
+- `assets/xbangdan-logo.svg` popup 品牌栏用的 X榜单官方 logo（蓝紫渐变），**只用在插件自身界面，不进生成的卡片**
+
+## 关键决策（2026-08-19 评估定稿，同日追加 Style 切换 + 中文化 + 品牌栏）
+
+- 数据只读 DOM，不碰 GraphQL 接口，零风控
+- 图片跨域：已验证 pbs.twimg.com 返回 `access-control-allow-origin`（回显 Origin），可直取；onerror 时走 background 代理兜底
+- 长推文折叠：不自动展开，modal 里提示「先点开全文再生成」
+- **署名默认关**，popup 可开（chrome.storage.sync key `watermark` 默认 `false`，content.js/popup.js 两处默认值必须保持一致）
+- 翻译：谷歌免费接口，国内无代理会失败，失败时提示不报错崩溃
+- 色盲安全：UI 不用红绿对，状态用文字＋明度；Style 选择器选中态用蓝底白字，未选中灰底
+- **Style 三态**：White/Dark 是 `card.js` 里两份真实 palette；Wallpaper **不是**第三份 palette，固定用白卡，只是外面包一层背景图框（`buildWallpaperFrame`）——所以 `buildCard` 的 `theme` 参数实际只接受 "white"/"dark"，wallpaper 由调用方（content.js）自己决定「先建白卡→再套框」
+- **Wallpaper 尺寸算法**：`buildWallpaperFrame` 要求传入的 `cardEl` 已经挂载在真实文档里（不能是离屏 detached 节点），用 `getBoundingClientRect()` 量出卡片实际宽高，各自加 15% 当 padding 得到外框尺寸；背景图用 `<img>`（不是 CSS background-image），这样 render.js 现成的「找所有 `<img>` 转 dataURL」逻辑不用改就能顺带处理背景图
+- **主题记忆**：`chrome.storage.sync` key `theme`，默认 "white"，切换即写入，下次打开 modal 直接取上次选择
+- **自定义背景**：`chrome.storage.local`（不是 sync，sync 单 key 8KB 放不下一张图）key `customBg`，上传时用 canvas 等比压到最长边 ≤2400px、JPEG q0.85 再存；有 customBg 时 Wallpaper 优先用它，没有则用内置 `assets/bg-sequoia.webp`（`chrome.runtime.getURL` 取）
+- **UI 中文化**：预览 modal + popup 所有按钮/提示文案改简体中文（样式选择器 白色/黑色/壁纸，操作按钮 翻译/下载 PNG/复制图片/关闭/上传背景/恢复默认），中文标点全角；卡片本身的时间/互动数据格式不受影响（不在本次改动范围）
+- **日期挪位**：卡片底部原来的日期行删掉，日期改中文格式挪到昵称行、蓝V徽章右边，13px 次要灰（跟随 palette.subtle，白卡 #536471／黑卡 #71767b，两个主题天然一致不用额外定义颜色）；昵称行改 `flex-wrap:wrap`，昵称过长时日期换到下一行而不是把卡片撑宽——之前昵称是 `nowrap+ellipsis` 截断，现在容器换行接管这个职责，索性把截断样式也去掉让昵称能完整显示
+- **品牌植入原则（不可动摇）**：卡片本身（不管哪种样式、哪种导出方式）永远不出现 xbangdan 品牌，水印开关只控制「SnapCard」四个字；xbangdan 的 logo/文字/链接只出现在插件自己的 UI（popup 品牌栏 + manifest homepage_url + README），card.js/content.js/render.js/background.js 这四个「卡片生成链路」文件里不允许出现 "xbangdan" 字符串，改完都要 grep 一遍确认
+- **Wallpaper 边距固定 60px（四边相等）**：`buildWallpaperFrame` 里 `WALLPAPER_PAD = 60`，不再按卡片宽高百分比算，避免竖长卡片上下边距明显大于左右
+- **操作条按钮主次**：「复制图片」是主按钮（蓝底白字）排第一位，「下载 PNG」次按钮排第二位，「关闭」最后——大多数用户复制完直接粘贴发出去，比下载文件更高频
+- **modal 超高内容处理**：面板本身 `maxHeight:90vh + overflow:auto` 兜底可滚动，操作条就是文档流里的普通子元素，滚动到底才看得到，不做 sticky 底栏（用户明确要求）；溢出时右下角浮一个「复制按钮在下面 ↓」提示胶囊，滚到接近底部（剩余 < 40px）自动淡出
+- **主题记忆链路**：点样式按钮 → `saveStyle()` 立即写 `chrome.storage.sync` key `theme` → 下次 `handleGenerateClick` 里 `getSavedStyle()` 读回来初始化 `state.style` 和按钮选中态，读不到给默认 "white"，全链路已用 smoke.py 关模态框再重开验证过确实生效
+- **隐藏互动数据**：`chrome.storage.sync` key `hideStats`，默认 `false`，跟 `theme`/`wallpaperBg` 同一套记忆模式；`buildCard(data, {hideStats})` 为 true 时整个 footer（含上边框分隔线）都不创建，不是简单 `display:none`，卡片直接以正文/配图收尾
+- **隐藏时间**：完全照抄「隐藏互动数据」那一套——`chrome.storage.sync` key `hideTime`，默认 `false`；`buildCard(data, {hideTime})` 为 true 时昵称行蓝V后面那个 `dateSpan` 压根不创建（不是 display:none）；操作区 checkbox 排在「隐藏互动数据」后面，同一行同风格。两个 hide 开关目前是完全平行、互不影响的独立实现（各自独立的 storage key、独立的 state 字段、独立的 checkbox），没有抽公共封装——就两个开关，抽象反而增加阅读成本，等出现第三个类似需求再考虑要不要提取。
+- **Wallpaper 背景选择**：一开始按用户要求做过 4 张纯 CSS/canvas 渐变生成的内置背景（`WALLPAPER_PAD` 那次之后的版本），当天晚些时候用户又改主意换成 7 张真实壁纸图（苹果 macOS 官方壁纸，全部方形 700-1002px webp），**canvas 渐变生成那套代码已整个删除**，改成走 `chrome.runtime.getURL(file)` 的统一 `BUILTIN_BACKGROUNDS` 数组（`{id, label, file}`），选中标识存 `storage.sync` key `wallpaperBg`（`custom:N` 或某个内置 id），自定义图升级成 `storage.local.customBgs` 数组（见下）。缩略图行只在 Wallpaper 模式显示，选中项 2px 蓝色描边，未选中 1px 灰色描边（`box-shadow` 模拟，避免描边把布局撑大）；「恢复默认」按钮已按用户要求去掉，点默认缩略图等效。**2026-08-20 这 7 张苹果官方壁纸已整批撤出，见下方 0.8.20 关键决策**，本条只保留架构层面的机制说明（`BUILTIN_BACKGROUNDS` 数组结构、`custom:N`、缩略图描边规则等）。
+- **生成等待态（先弹 modal 再异步渲染）**：`handleGenerateClick` 拆成两段——`createModalShell()` 同步立即建 host/shadow/overlay/panel/previewWrap+灰色 spinner+「卡片生成中，需要等待几秒钟…」，`await nextPaint()`（连续两次 `requestAnimationFrame`）让浏览器先画一帧再往下走，然后才做 `extractTweetData`（真实 X 大推文 DOM clone 可能有感知延迟）+ `Promise.all` 读 5 个 storage 设置，读完调 `finishModal()` 把 spinner 换成真卡片、补齐样式选择器/操作条/滚动提示。两处都检查 `shell.host.isConnected` 防止用户中途关闭 modal 后还在往一个已从文档摘除的节点上做无意义 DOM 操作。**给 smoke.py 踩的坑**：headless Chromium 里 `requestAnimationFrame` 几乎瞬间 resolve（没有真实 vsync 可等），mock 的 storage 回调如果是同步的，整条「建 modal→抓数据→读设置→建卡片」链路会在 Playwright 下一次 CDP 往返都还没到达浏览器之前就跑完，导致 spinner 状态测不到（时序竞态）。修法：mock.html 的 `storage.sync/local.get` 回调统一套一层 `setTimeout(...,30)`，给 spinner 一个确定能被观测到的窗口——这不是在掩盖真实时序，チrome 真实的 storage API 本来就是异步的，只是延迟通常比 30ms 短，mock 里放大一点纯粹是为了测试可观测性。
+- **自定义背景多张化**：`customBg`（单值）→`customBgs`（数组，上限 6 张，`MAX_CUSTOM_BACKGROUNDS`），首次读取时自动迁移（`storage.local` 读到旧 `customBg` 单值就转成 `[customBg]` 写回 `customBgs` 再删旧 key，只会跑一次）。选中标识用 `custom:N`（N 是当前在 `customBgs` 数组里的下标，不是每张图固定分配的 id）——好处是删除中间一张后，后面每张图的「新下标」天然对齐，不用额外维护映射表；唯一要手动处理的是**当前被选中的**那个 `custom:N` 字符串在删除发生时不会自动更新，所以删除逻辑里专门判断：删的是选中项本身→回落 Sequoia；删的下标在选中项之前→选中项下标减一并重新存；删的下标在选中项之后→不受影响。另外在 `handleGenerateClick` 里对刚读出来的 `wallpaperBg` 用 `sanitizeBgId()` 校验一遍下标是否越界（防跨会话的陈旧引用，比如上次开着 modal 时被别的地方改了 storage）。
+- **壁纸缩略图折叠/展开**：默认折叠、每次开 modal 都不记忆展开状态。折叠态只在 DOM 里放 1 个圆形缩略图（当前选中项）+「更多壁纸 ▸」文字按钮，其余 7 内置+自定义+上传按钮**折叠时压根不创建 DOM 节点**（不是 CSS 隐藏）——这是为了让「折叠态总数很少」这件事变成一个能直接数 DOM 节点数的硬断言，不用去猜克隆的节点是不是被裁剪了。展开时才把节点建出来塞进一个 `overflow:hidden; max-width` 的容器再把 `max-width` 从 0 撑到 600px（配 `transition: max-width 250ms ease`）触发滑出动画；收起时反过来先把 `max-width` 收回 0 播放动画，`setTimeout(300ms)` 后才真正清空子节点（给动画留够播放时间，不是收起了动画其实是瞬间清空看不出效果）。**踩过的坑**：一开始选中的自定义图缩略图挪到「常驻可见」那个槽位时被写死 `allowDelete=false`（原意是折叠态那张图不该有删除角标），结果用户选中一张自定义图后它就再也删不掉了——因为它已经不在 `restItems`（会生成删除角标的那个列表）里了。修复：常驻槽位的 `allowDelete` 改成 `bgExpanded && item.id 是 custom:`，折叠时强制不显示（跟需求一致），展开时如果它是自定义图就照常给删除角标。这个 bug 是 smoke.py 第 13 项断言（真删一次）测出来的，光测「有没有角标」测不出来，得真点删除才会暴露。
+- **媒体网格镜像 X 的显示比例（真实用户反馈：竖长截图在卡片里被裁掉下半截）**：`content.js` 的 `extractImages(article)` 现在必须传**活的** `article`（不是 clone），因为要对每张 `[data-testid="tweetPhoto"]` 容器（不是 `<img>` 自然尺寸）跑 `getBoundingClientRect()` 量它在时间线上的真实显示宽高比，量不到（懒加载/未渲染）记 `null`；排除嵌套引用推文的图靠 `img.closest("article") !== article` 判断，不再用「clone 后删掉嵌套 article」那套（那套依赖 clone，clone 是 detached 节点量不出 rect）。`card.js` 的 `images` 从「URL 字符串数组」改成「`{url, aspectRatio}` 对象数组」，2 张图统一取第一张的比例（X 同行两图显示等高），3/4 张每格各自比例、抓不到就退回一个近似旧观感的默认值（3 张：主图 8/9、副图 16/9；4 张：1/1），这样跌落值也总是「一个具体数字」而不是"没有比例靠父级 height:100% 撑"，方便下面的安全阀统一处理。
+- **预览区整卡适配缩放＋点击放大（真实用户反馈：长推文卡片一屏看不全，没法判断整体好不好看）**：`state.exportEl`（render.js 真正要导出的那个原始节点）**从此不再挂载进 previewWrap 常驻显示**——`buildExportEl()` 建完之后，Wallpaper 模式仅用一个即建即拆的离屏 `stage` 短暂挂一下满足 `buildWallpaperFrame` 的测量需求，随后就是纯 JS 引用的 detached 节点，不出现在可见 DOM 里。真正显示在 `previewWrap` 里的，是 `renderScaledPreview()` 另外克隆出来的一份 `previewClone`，量出 `exportEl` 的真实无缩放尺寸后，对**这份克隆**（不是 `exportEl` 本身）设 `transform:scale(s)+transformOrigin:top left`，外面套一层显式 `width/height = 真实尺寸×s` 且 `flexShrink:'0'` 的 wrapper 防止被 flex 主轴压扁（又是 wallpaper-frame 那次 flexShrink 坑的同款预防）。可用视口是 `previewWrap` 里新起的一个 `height:56vh` 的 `div`，每次 `rebuildCard()`（切样式/背景/翻译/隐藏开关）都重新量一遍、重新算 scale，`scale = min(可用宽/真实宽, 可用高/真实高, 1)` 只缩不放。**点击放大**：给 scaledWrapper 挂 click，弹一个更高 z-index、`shadow.appendChild` 追加在最后（同 z-index 靠 DOM 顺序压顶）的深色遮罩，内部是 `exportEl.cloneNode(true)` 出来的**另一份独立克隆**（不动预览里的节点、也不碰 exportEl 本身），1:1 无缩放，`overflow:auto` 支持滚动，点任意位置或 Esc 关闭回预览。
+- **踩坑：放大层 Esc 和 modal 自己的 Esc 抢先触发**：modal 的 Esc-关闭监听器在 `createModalShell()` 里最先注册（`document.addEventListener('keydown', ..., true)`），放大层自己的 Esc 监听器后注册——两个都是同一个 `document` 同一个 capture 阶段的监听器，浏览器按**注册顺序**依次触发，不是"最后加的先跑"也不是`stopPropagation`能拦住的（`stopPropagation`只挡去别的元素，挡不住同一个元素上其他监听器；就算用 `stopImmediatePropagation` 也没用，因为 modal 的监听器注册在前，已经先跑完把整个 modal 关掉了）。**修法：不跟"谁先谁后"较劲，开放大层时直接把 modal 自己的 Esc 监听器摘掉（`document.removeEventListener(...,host.__snapcardEsc,...)`），放大层自己关闭时再挂回去**——同一时刻只有一个 Esc 监听器在跑，行为才可控。
+- **踩坑：smoke.py 对 detached 节点用 `getComputedStyle()` 全部返回空字符串**：`exportEl` 改成纯 JS 引用、不挂载在文档里之后，`getComputedStyle(exportEl).backgroundColor` 在 Chrome 里直接返回 `''`（没有渲染上下文，算不出计算样式），之前一批读卡片背景色/量卡片尺寸的断言全炸了。**读直接设过的内联颜色值用 `element.style.backgroundColor`**（CSSOM 层面的属性读取，不需要文档挂载就能拿到浏览器归一化后的值，比如设成 `#000000` 读出来自动是 `rgb(0, 0, 0)`）；**要量真实像素尺寸（getBoundingClientRect）就必须先把克隆挂到一个离屏 probe 里**——这两条以后测 `host.__snapcardExportEl` 及其克隆时都适用，别再想当然拿 detached 节点直接用 `getComputedStyle`/`getBoundingClientRect`。
+- **调试专用挂钩 `host.__snapcardExportEl`**：`exportEl` 不进可见 DOM 之后，smoke.py 没有任何办法从 shadow DOM 查询到它——`rebuildCard()` 每次都把最新的 `state.exportEl` 顺手存一份到 `host.__snapcardExportEl`，跟 `__snapcardEsc`/`__snapcardResize` 同一套"host 上挂私有调试/清理用属性"的既有惯例，只给测试用，生产逻辑不读它。
+- **媒体区总高度 900px 安全阀**：`buildMediaGrid` 建完网格后，用一个不挂到 wrap 自己身上的离屏 probe（同样吸取了 render.js 那次"改自己 style 被序列化进导出"的教训，绝不直接改 `wrap` 的 style）在卡片固定内容宽度 536px（600 卡片宽 − 32×2 padding）下量一次真实高度，超过 900 就把所有格子的 ratio 统一乘上 `实际高度/900` 的系数（ratio 越大代表越"扁"，格子就越矮）重新建一遍网格，防止一堆极端竖图把卡片撑爆。
+- **content.js/card.js 图片数据结构变化提醒**：改这两个文件涉及 `images` 的地方，记得它已经不是纯字符串数组了，是 `{url, aspectRatio}`；`extractVideo` 兜底给 `images = [poster]` 那行也要包成 `{url: poster, aspectRatio: null}`。
+- **mock.html 新增第二条推文 `#tweet-2col`**：专门为这个纵横比特性造的，两个 `tweetPhoto` 容器显式 `width:254px;height:460px`（约 0.552 竖长比），跟原来那条推文（单图）分开，避免互相干扰旧断言；smoke.py 里所有原来写 `"article .snapcard-btn"` 的地方现在必须加 `:not(#tweet-2col)` 排除，否则 Playwright 会因为选择器命中两个元素报 strict mode violation。
+- **2026-08-20 i18n 改造：自动跟随浏览器语言，不做手动切换按钮**——`_locales/en/messages.json`（32 key，`default_locale`）+ `_locales/zh_CN/messages.json`（同 32 key），`manifest.json` 加 `default_locale: "en"`，`description` 改 `__MSG_extDescription__`。`content.js` 顶部加 `t(key, substitutions)` 辅助函数（走 `chrome.i18n.getMessage`，取不到时兜底 `I18N_FALLBACK` 里的英文文案，兜底表要跟 `_locales/en/messages.json` 保持同步）；`popup.html` 静态文字改 `data-i18n`/`data-i18n-alt` 属性（HTML 本身写英文兜底），`popup.js` 启动时用 `chrome.i18n.getMessage` 替换。带参数的两条消息（自定义背景数量上限、自定义背景序号）用 chrome 官方 `$PLACEHOLDER$` 占位符语法，不是拼字符串。
+- **日期格式跟 UI 语言走**：`card.js` 的 `formatTime` 读 `chrome.i18n.getUILanguage()`，`zh` 开头保持原来的「2026年8月19日 09:41」，否则用 `Intl.DateTimeFormat('en-US', {month:'short',day:'numeric',year:'numeric'})` 拼成「Aug 19, 2026 · 09:41」；每次调用都现读语言，不缓存，所以切语言重开 modal 立即生效，不用重载脚本。
+- **翻译目标语言联动**：`content.js` 新增 `translateTargetLang()`（UI 中文→`zh-CN`，UI 英文→`en`），发 `{type:"translate", text, target}` 消息；`background.js` 的 `handleTranslate(text, target)`／`translateLine(text, target)` 按 `target` 拼谷歌翻译 `tl=` 参数、LRU 缓存 key 也带上 `target` 前缀（不再写死 `zh-CN|`），`target` 缺省时兜底 `zh-CN`（兼容旧调用）。
+- **翻译开关显示条件从「中文占比 <10%」改成「正文主要语言 ≠ UI 语言」**：`isPrimarilyChinese(text)`（中文占比 ≥10% 判定为"主要是中文"，阈值沿用旧的 10% 分界，只是把判断方向从"是否主要非中文"倒过来写成"是否主要中文"）+ `shouldShowTranslate(text)`（UI 中文时=旧行为不变，非中文正文才显示；UI 英文时=中文占比 ≥10% 的正文才显示）。
+- **测试联动（`tests/mock.html` + `tests/smoke.py`）**：mock 的 `chrome.i18n.getUILanguage()` 默认返回 `"zh-CN"`（存在 `window.__snapcardLocale`，可运行期改写不用刷新页面），`chrome.i18n.getMessage()` 自己实现了一份 chrome 官方占位符替换逻辑，但**读的数据不是手抄的**——`smoke.py` 用 Python 直接 `json.load` 两个真实 `_locales/*/messages.json` 文件，通过 `page.add_init_script()` 在页面任何脚本跑之前把内容注入 `window.__snapcardI18nMessages`，保证测的是真文件而不是 mock 里手抄的副本（早先 wallpaper 背景图那次假图坑就是"mock 手造数据看着像但不是真文件"的教训，这次直接照抄那次学到的教训提前避坑）。之所以选 `add_init_script` 注入而不是 mock 里用 `fetch()`/XHR 读 `_locales/*.json`：`file://` 页面里 `fetch()` 读本地文件会被 Chrome 拒绝（同一份故障记录里 wallpaper 背景图导出那条已经踩过一次），Python 直接读盘不受这个限制。新增第 16 项断言：把 `window.__snapcardLocale` 切成 `"en"` 后重新点开卡片按钮（不刷新页面），断言样式选择器变成 `['White','Dark','Wallpaper']`、主按钮变成 `'Copy image'`；原有 1-15 项全部保持字节级一致的中文文案断言不动（`_locales/zh_CN/messages.json` 的取值就是照抄这些文件里原来写死的中文字符串，一个字都没改，包括 emoji/箭头符号）。
+- **2026-08-20（v0.8.20）内置壁纸从苹果官方壁纸整批换成 7 张自制渐变图，纯粹是版权考虑**：准备上架 Chrome Web Store，插件里不能继续分发苹果版权素材（这 7 张 macOS 官方壁纸此前只标注"仅供个人使用"，公开分发会有版权风险）。新资产 `assets/bg-aurora.jpg`/`bg-sunset.jpg`/`bg-rose.jpg`/`bg-ocean.jpg`/`bg-violet.jpg`/`bg-golden.jpg`/`bg-graphite.jpg`，全部原创渐变、1400×1400 JPEG（60-85K），`git rm` 删掉了旧的 8 张苹果 webp 里的 7 张（`xbangdan-logo.svg` 不受影响，那是插件自己的 logo 不是壁纸）。`content.js` 的 `BUILTIN_BACKGROUNDS` 数组 id 从 `sequoia/sparrow/silver/rose-gold/albany-gold/space-gray/gradient-dark` 换成 `aurora/sunset/rose/ocean/violet/golden/graphite`，默认背景（数组第一项，`defaultWallpaperUrl()` 用的就是它）从 aurora 顶替 sequoia 的位置。**存量兼容**：`sanitizeBgId()` 原来只校验 `custom:N` 越界，改成先查 `bgId` 是否命中当前 `BUILTIN_BACKGROUNDS` 任意一项，命中才放行，不命中（包括所有旧苹果壁纸 id）一律回落 `"aurora"`——不能只靠 `resolveBackgroundUrl()` 那边的兜底（虽然它也会兜底出正确的图，但 `state.bgId` 停留在死 id 上会导致缩略图行没有任何一项显示"选中"高亮，是那种"图对了、UI 状态却是错的"典型坑，所以兜底必须做在 `sanitizeBgId` 这一层，让 `state.bgId` 本身就是干净的）。README 中英两版都加了一句：想用苹果官方壁纸的用户自己去苹果官网下载，再走「上传背景」用，插件本身不再内置任何苹果素材。`tests/mock.html`/`tests/smoke.py` 里所有写死的 `bg-sequoia`/`bg-gradient-dark`/`Sequoia 壁纸`/`Gradient Dark 壁纸`/`naturalWidth 2406`/`naturalWidth 700` 全部换成 `bg-aurora`/`bg-graphite`/`Aurora 壁纸`/`Graphite 壁纸`/`naturalWidth 1400`（7 张新图统一 1400×1400，不用像旧图那样每张记不同尺寸）。
+
+- **2026-08-20（v0.8.20.3）三项真实使用反馈改动**：
+  1. **复制按钮改「先交承诺再渲染」**（根因见故障记录的剪贴板手势时效条目）：点击瞬间把 `renderCardToPng(...).then(r => r.blob)` 这个 Promise 直接塞进 `ClipboardItem` 同步调 `clipboard.write`，渲染多慢都不会超出用户手势时效；构造器不接受 Promise 的引擎（同步抛 TypeError）回退旧的先 await 再写路径。复制按钮渲染期间显示「生成中…」（复用 `downloadGeneratingText` key，不新增文案）。
+  2. **modal 右上角「中/EN」手动切换界面语言**：`storage.sync` key `uiLang`（`"auto"` 默认跟浏览器 / `"zh"` / `"en"`）。chrome.i18n 只会说浏览器自己的语言，所以显式选择走 background 新消息 `getMessages` fetch 真实 `_locales/*/messages.json`（background 不需要 web_accessible_resources 就能 fetch 扩展内文件），content.js 的 `t()` 先查 override 表（`resolveRawMessage` 自实现 chrome 官方 `$PLACEHOLDER$` 替换，抄自 mock.html 那份），`uiLanguageIsChinese()`/`effectiveLocale()`/`translateTargetLang()` 全部跟随 override——即翻译方向、卡片日期格式、所有 UI 文案一体联动。按钮显示的是「要切过去的语言」（中文界面显示 EN，英文界面显示 中）。切换实现＝存 uiLang → `closeModal` → 拿着传进 `finishModal` options 的 `article` 重跑 `handleGenerateClick` 整体重建，不做几十个节点的原地改字。popup 不在此范围，仍跟浏览器语言。content.js 启动时异步预读一次 uiLang（让首个 modal 的 spinner 文案也说对语言）。
+  3. **翻译后卡片只显示译文**：card.js 正文只建一个文本块，有 `translatedText` 时 role 是 `text-translated` 且不再创建 `text-original`（原来是原文＋分隔线＋译文双语堆叠），分享出去的卡片只说一种语言。
+  - `buildCard` options 新增 `locale`（content.js 传 `effectiveLocale()`），`formatTime(iso, locale)` 优先用它、缺省才读 `getUILanguage()`。
+  - 测试联动：mock 的 `sendMessage` 对 `getMessages` 返回 smoke.py 注入的真实 messages.json 表、对 `translate` 返回固定「模拟翻译结果」；smoke.py 新增第 17 项（翻译后 `text-translated` 存在且 `text-original` 必须不存在，取消勾选后还原）和第 18 项（中文界面 toggle 显示 EN → 点击后浏览器 locale 仍是 zh-CN 但整个 modal 重建成英文 → 再点回中文），第 16 项（浏览器语言驱动，uiLang=auto）保持原样不动。
+
+- **2026-08-20（v0.8.20.4）媒体布局改成「natural 尺寸终定」两段式＋图片显示规则改版（杰哥当日拍板）**：
+  - **两段式机制**：`buildCard` 先用时间线捕获的显示比例当**预加载占位**（保证图片没到时布局也不是 0 高），content.js 的 `buildExportEl` 在 `waitForImages`（全部 `<img>` decode 完，5 秒兜底超时）之后调 `window.SnapCard.finalizeMediaLayout(card)` 按图片 **naturalWidth/Height** 锁定最终布局，然后才轮到壁纸框测量和预览缩放测量。媒体 wrap 挂 `data-snapcard-media`（"1"/"2"/"3"/"4"/"stack"）供 finalize 定位。
+  - **显示规则**：单图＝完整显示、宽度对齐正文（natural 比例、去掉 700px maxHeight 裁剪，超长截图就让卡片变长，预览会自动缩小属预期）；双图＝并排等高且都完整显示（`gridTemplateColumns` 按两图 natural 比例分 fr，等高是数学必然）；三四图默认仍镜像 X 网格；**3+ 图新增「图片竖排」开关**（`storage.sync` key `stackImages` 默认 false，跟 hideStats/hideTime 同款第三个开关，仍未抽象——三个都还是平行实现，下次再有就该抽了），开了以后全宽竖排一张接一张、各自 natural 比例、900px 安全阀故意不管它。开关只在推文图片 ≥3 张时出现。
+  - **rebuildCard 变 async**：等图片期间不清空 previewWrap（首次保留 spinner、切换保留旧卡片，不闪白），`rebuildSeq` 单调计数丢弃过期重建（快速连点样式按钮时旧的异步结果不许覆盖新的）。
+  - 测试：tweet-2col 的图换成 300×600/600×600 两张不同 natural 比例的 SVG data URI，第 14 项从「镜像时间线比例」改为断言「natural 比例＋等高」；新增 #tweet-3pic（0.5/1.0/1.333 三比例）和第 20 项（默认 kind=3 → 勾竖排变 stack 且三格 536 宽 natural 比例 → 取消还原）；新增 #tweet-long＋smoke 里 `page.route` 人工延迟 400ms 的 http SVG 图，第 19 项断言长卡预览贴合视口＋壁纸框=卡片+120（这条是下面故障记录那个 bug 的回归锁）。
+
+- **2026-08-20（v0.8.20.5）三项真实使用反馈优化**：
+  1. **壁纸模式卡片独立外观**：外层 Style 选「壁纸」后，多一行「卡片：白/黑 ＋ 透明度滑块」（只在壁纸模式显示，跟缩略图行同一个 `updateBgControlsVisibility` 控制）。卡片主题存 `storage.sync` key `wallpaperCardTheme`（"white"/"dark" 默认 white），透明度存 `wallpaperCardOpacity`（整数 30–100 默认 100，低于 30 文字压不住花背景所以下限 30）。**透明度是推文卡片自己的底色透明度，不是背景图的**——实现＝`buildExportEl` 壁纸分支在 buildCard 之后把 `card.style.backgroundColor` 改成对应 rgba，文字/边框/配图全不透明，壁纸从卡片底下透出来；100% 时不动任何样式，跟旧版逐像素一致。**产品动机（杰哥原话）：用户上传自己的背景图＋卡片半透明＝每个人产出的图都不一样，发推查重时天然去重。** 滑块 input 事件只刷百分比文字，change（松手）才 rebuildCard，避免拖动过程逐像素重建。注意 modal 里现在有两组「白色/黑色」按钮（外层 Style 一组、卡片颜色一组），测试用 `data-snapcard-role="card-theme-white/dark"` 区分，按文本 find 会命中 DOM 里靠前的 Style 按钮。
+  2. **翻译开关恒显示＋方向自适应**：删掉 `shouldShowTranslate`（旧规则「推文主语言=UI语言就藏按钮」，把「中文界面看中文推文想翻成英文」这个真实场景堵死了）。`translateTargetLang(text)` 改为按推文定向：主要是中文→`en`，否则→UI 中文时 `zh-CN`、UI 英文时 `en`。英文界面点英文推文=谷歌原样返回，无意义但无害，不为这个边缘加复杂度。
+  3. **中/EN 按钮从 panel 绝对定位改成独立顶行**：原来 `position:absolute` 钉在 panel 右上角，会压在预览图上。现在 `headerRow`（flex 右对齐）`panel.insertBefore(..., panel.firstChild)`，预览从它下面开始，物理上不可能重叠。smoke 第 21 项末尾有矩形不相交断言锁住。
+  - 测试：第 21 项（翻译恒显示＋两个方向断言 target，靠 mock 的 `__sentMessages` 记录）＋第 22 项（壁纸卡片控件可见性、黑色 100%＝`rgb(0,0,0)`、60%＝`rgba(0,0,0,0.6)`，读的是 exportEl 里卡片的 inline style，detached 节点别用 getComputedStyle 的老规矩）。
+
+## X 改版高危点（改版先查这里）
+
+- 按钮注入锚点：`article` 内 `[role="group"]` 互动栏
+- 互动数据解析：`[role="group"][aria-label]` + views 兜底 `a[href$="/analytics"]`
+- 正文抽取：`[data-testid="tweetText"]`，emoji 是 `<img>` 要拼 alt
+- 折叠检测：`[data-testid="tweet-text-show-more-link"]`
+- React 拦截：注入按钮的 click 必须 window capture 阶段监听，只 stopPropagation 不 preventDefault（x-post-launcher 踩过）
+- 类名假设：`isForeignNode()` 认定 X 自有元素类名只有 `css-`/`r-` 前缀（或无 class），用来过滤第三方插件注入；X 若换类名方案，昵称/正文提取会变空（详见故障记录 2026-08-20）
+
+## 发版规范
+
+版本号用杰哥自定的「年序.月.日」格式（2026 为第 0 年）：2026-08-19 发布＝`0.8.19`，2027-02-01＝`1.2.1`。日期不补前导零（manifest 禁止），同天多版加第四段（`0.8.19.2`）。
+
+- `0.8.19`：Style 切换 + 中文化 + 品牌栏首发
+- `0.8.20`：i18n（`chrome.i18n` 自动跟随浏览器语言，en 默认 + zh_CN）+ 内置壁纸从苹果官方壁纸换成 7 张自制渐变图（版权，见上方关键决策）
+- `0.8.20.2`：过滤第三方插件注入元素（`isForeignNode`），修「昵称里冒出已收录」bug（见故障记录）
+- `0.8.20.3`：复制按钮剪贴板手势时效修复＋modal 右上角中/EN 界面语言手动切换＋翻译后只显示译文（见上方关键决策）
+- `0.8.20.4`：修长推文/慢图预览与放大显示不全（decode 后再测量，见故障记录）＋媒体布局改版：单图全显、双图等高全显、3+ 图「图片竖排」开关（见上方关键决策）
+- `0.8.20.5`：壁纸模式卡片白/黑＋透明度（去重用途）＋翻译开关恒显示方向自适应＋中/EN 按钮挪独立顶行不再压图（见上方关键决策）
+
+## 复用来源（只抄不引用）
+
+- x-profile-md-saver：互动数据解析 parseCount（万/亿/K/M/B）
+- x-post-launcher：按钮注入防拦截写法
+- x-article-md：background 图片代理
+- immersive-translate-jedee：谷歌翻译调用＋缓存
+
+## 故障记录
+
+- **2026-08-20（真实使用反馈）长推文/大图推文的预览缩略图显示不全，点放大也看不全顶部**：两个因素叠加。① 单图模式旧实现 `height:auto`，高度取决于图片自然尺寸，图片没下载完时是 0 高（多图网格有显式 aspect-ratio 不受影响）；② 三处一次性测量（`buildWallpaperFrame` 量卡片定外框、`renderScaledPreview` probe 量卡片定缩放、900px 安全阀）全部在图片加载完成**之前**执行。于是长推文（图片下载慢）量出一张「只有文字的矮卡片」，壁纸框和预览 wrapper 按矮的定死，图片到达后卡片猛涨：壁纸模式卡片在固定小框里居中→上下溢出→预览（overflow hidden）裁掉顶部，放大层里上溢部分在滚动容器可达范围之外（flex 居中溢出的上半段滚动条够不到），所以「放大也显示不全」。白卡模式则是预览 wrapper 高度定小了被裁下半截（8/19 三文治图片变扁条同根因）。修复＝`waitForImages`（img.decode 全部完成，5s 兜底）之后才测量＋单图给显式 aspect-ratio（见 v0.8.20.4 关键决策）。**教训：卡片布局里任何依赖图片自然尺寸的地方，都必须保证「测量发生在 decode 之后」或「布局根本不依赖加载状态」，一次性测量+异步资源=定时炸弹。** 回归锁：smoke 第 19 项用 `page.route` 人工延迟 400ms 的图复现，反证过（撤修复→壁纸框 535 vs 卡片 1115，红）。
+- **2026-08-20（真实使用反馈）「复制图片」第一次点经常失败，切过一次样式再点就好了**：根因是 Chrome 的剪贴板写入要求 transient user activation（瞬时用户手势授权，点击后约 5 秒内有效），而旧代码是「先 `await renderCardToPng`（要现场下载头像＋所有配图，国内走代理时轻松超 5 秒）再 `clipboard.write`」——首次渲染冷缓存超时，write 被拒（NotAllowedError）；用户切一次样式等于让图片进了 HTTP 缓存，第二次渲染快到能赶在窗口内，看起来就像「必须先点别的才能用」。修复：点击瞬间就把 blob 的 Promise 塞进 `ClipboardItem` 同步调 `clipboard.write`（规范就是为这个场景设计的），渲染耗时不再受手势时效约束；顺带给复制按钮加了「生成中…」等待态（原来只有下载按钮有，复制按钮静默 disabled，用户以为卡死）。**教训：任何「用户点击 → 长异步 → 需要手势授权的 API（clipboard/window.open/全屏等）」链路都是这个坑，授权敏感调用必须在点击同步栈里发起。**
+- **2026-08-19 render.js 导出的 PNG 全白（无报错、无异常，纯白图）**：`renderCardToPng` 为离屏测量给克隆节点自身加了 `position:fixed;left:-9999px`，但后续 `XMLSerializer` 序列化的正是这同一个节点——`foreignObject` 里的内容因此继承了 `position:fixed`，相对 SVG 渲染上下文的视口定位到画布外，`ctx.drawImage` 什么也画不出来，但不报任何错。**教训：离屏测量绝不能直接改被序列化节点自身的 style，必须包一层 wrapper div 做离屏定位，克隆节点自己的 style 全程保持干净。** 修复后 `tests/smoke.py` 加了第 4 项断言：渲染完成后 `getImageData` 采样全画布像素，要求非白色像素数 > 0，防止这类"跑通但产出空白"的回归再次悄悄溜过。
+- **同日 `toLargeImage()` 把 `data:` URI 也当 http(s) URL 处理**：`new URL(dataUri).searchParams.set('name','large')` 会在 base64 payload 后面拼一个 `?name=large`，把 data URI 直接拼坏（浏览器报 `ERR_INVALID_URL`）。修复：函数开头判断 `url.startsWith('data:')` 直接原样返回，不做任何改写。真实 x.com 环境下配图都是 `https://pbs.twimg.com/...` 不会触发，但 mock 测试用 `data:` URI 模拟图片时会立刻暴露。
+- **2026-08-19（追加验收）正文被拆成多行、emoji 独占一行还带缩进**：根因是 `textWithEmoji()` 把兄弟节点之间的「纯空白文本节点」（HTML 源码里标签之间的换行+缩进，比如 `</span>\n  <img ...>`）当成正文内容原样拼接进去了——真实 tweetText 一行文字中 span/img/span 之间如果 DOM 里存在这种格式化空白，字面的 `\n  ` 就会被当成真实换行和缩进拼进结果。之前只在 pretty-print 过的 mock.html 里暴露（X 真实 React 输出是压缩过的，理论上没有这类空白，但不能假设改版后依然如此）。修复：`textWithEmoji()` 遇到纯空白文本节点时不再原样拼接，折叠成一个空格（非空白内容的文本节点不受影响，保留其中真实的 `\n`）；`extractText`/`extractNameAndHandle` 之后再过一遍 `normalizeExtractedText()`，把空格/制表符折叠、把换行两侧多余空格清掉，但不动换行符本身——这样真实的多段落推文（换行是文本节点内字面 `\n`）依然保留，只有格式化空白被清理。验收用 `getClientRects().length` 在真实渲染后的卡片正文 div 上采样，断言等于推文应有的行数（这条 mock 是 1 行），比单纯比对提取出的字符串更硬——直接验证浏览器实际怎么排版，不是我自己猜的。
+- **同日 Wallpaper 模式预览里背景图不显示**：根因不在 content.js/render.js，而是 `tests/mock.html` 里 `chrome.runtime.getURL` 之前被我 mock 成返回一张 1x1 透明 data URI（是我为了让离线冒烟测试不发真实网络请求特意造的），杰哥的协调方截图验收时看到的「壁纸没铺上」其实是这张假图本身透明，不是产品代码的 bug。修复：mock 的 `getURL` 改成 `(path) => '../' + path`，指回 `tests/` 上一级的真实 `assets/bg-sequoia.webp`，实测背景 `<img>` `naturalWidth` 变成 2406（真实壁纸尺寸），预览截图也确认壁纸铺满、卡片带阴影居中。**顺带发现一个纯测试环境限制**：如果在这之后再跑一次完整 PNG 导出（`renderCardToPng`），`inlineImages()` 内部对背景图调用 `fetch(fileURL, {mode:'cors'})` 会被 Chrome 拒绝并打一条真实 console error（`URL scheme "file" is not supported`），这是 Chrome 对 `fetch()` 访问 `file://` 协议的硬限制，不是代码 bug——真实插件里背景图要么是 `data:`（用户自传壁纸，已经是内联的）要么是 `chrome-extension://`（内置默认壁纸，走 `web_accessible_resources` 声明过，`fetch()` 完全可用），都不会撞上这条限制。所以 smoke.py 里 Wallpaper 场景只验证「背景图在预览里真实解码成功」（`naturalWidth > 0`），没有让 Wallpaper 场景也跑一遍完整导出，避免把测试环境自身的协议限制误判成产品问题。
+- **2026-08-20（真实使用反馈）生成的卡片昵称后面多出「已收录」三个字**：根因是杰哥自己的另一个插件 x-track-badge 往推文 `User-Name` 里注入 `.xtb-badge`（内含 `<img alt="已收录">` 的 JA logo），SnapCard 的 `textWithEmoji()` 把一切 `<img>` 的 alt 当 emoji 文字拼接，于是注入徽章的 alt 被拼进了昵称；未收录账号的「+」徽章（`textContent` 是 `+`）同理会漏进来。修复：新增 `isForeignNode(el)` —— X 自己的 React 输出类名只有 `css-`/`r-` 前缀（或没有 class），元素只要挂了这套之外的任何类名就判定为第三方注入，`textWithEmoji` 递归、`extractNameAndHandle` 的直接子元素遍历、`findHandleNode` 三处统一跳过，顺带把用户装的其它注入型插件（翻译器等）也挡掉。**注意这也进了「X 改版高危点」性质的假设**：如果 X 未来改掉 css-/r- 类名方案，X 自己的元素会被误判为外来元素、昵称/正文提取直接变空——排查「卡片文字突然全空」时先查这里。回归测试：mock.html 第一条推文的 User-Name 里固定放了一个 `.xtb-badge`（alt=已收录），smoke.py 断言 shadow DOM 全文不含「已收录」；撤掉修复反证过，断言确实会红。
+- **2026-08-19（真实用户反馈）Wallpaper 四边 padding 不等，改固定 60px 后仍然不等**：一开始以为是「百分比 vs 固定值」的问题，改成 `WALLPAPER_PAD=60` 固定值后用新加的 smoke 断言一测，左右还是只有 20px（上下正常 60px）。真根因是 `buildWallpaperFrame` 返回的 frame 节点被塞进 `previewWrap`（`display:flex`）之后，没有显式设 `flexShrink:'0'`，默认 `flex-shrink:1` 会在横向（flex 主轴）把 720px 宽的 frame 压缩到跟 modal 面板差不多宽，纵向（非主轴）不受影响，压缩只发生在左右——这才是「上下边距明显大于左右」的真正机制，跟 padding 是百分比还是固定值无关，只是百分比值更大（原来 90px）让压缩量看起来更夸张。**教训：任何一个子元素被塞进 flex 容器、又要求它按精确像素渲染（不能被主轴挤压）时，必须显式 `flexShrink:0`，不能假设「反正我设了 width 就一定按这个宽度画」。** 修复：`wrapper` 加 `flexShrink:'0'`；smoke.py 新增 7b 断言直接量 frame/card 两个矩形的四边差值，四边必须相等且等于 60，这类「肉眼看着对，测出来才发现只有部分方向生效」的偏差以后能被自动挡住。
+
+---
+> Source: [jedeeai/snapcard](https://github.com/jedeeai/snapcard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
