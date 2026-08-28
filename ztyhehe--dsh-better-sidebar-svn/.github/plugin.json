@@ -1,0 +1,9 @@
+{
+  "name": "ztyhehe--dsh-better-sidebar-svn",
+  "displayName": "dsh-better-sidebar-svn",
+  "description": "DSH \u63d2\u4ef6\uff1a\u4e3a dsh-better-sidebar \u6dfb\u52a0 SVN \u6e90\u4ee3\u7801\u7ba1\u7406 Tab\u2014\u2014status/diff/log/commit/update/revert/\u51b2\u7a81\u89e3\u51b3\uff0c\u4e0e\u5185\u7f6e Git \u9762\u677f\u5bf9\u79f0\uff0c\u7eaf svn CLI\uff08--xml \u8f93\u51fa\uff09\u9a71\u52a8\uff0cgit \u76f4\u88c5\u514d\u6784\u5efa",
+  "version": "1.0.0",
+  "author": "ztyhehe",
+  "homepage": "https://github.com/ztyhehe/dsh-better-sidebar-svn",
+  "skills": []
+}
