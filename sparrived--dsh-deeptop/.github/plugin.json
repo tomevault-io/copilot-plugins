@@ -1,0 +1,9 @@
+{
+  "name": "sparrived--dsh-deeptop",
+  "displayName": "DSH-Deeptop",
+  "description": "Deeptop, a lightweight native desktop client for DeepSeek Harness.",
+  "version": "1.0.0",
+  "author": "Sparrived",
+  "homepage": "https://github.com/Sparrived/DSH-Deeptop",
+  "skills": []
+}
