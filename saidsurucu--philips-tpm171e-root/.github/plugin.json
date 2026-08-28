@@ -1,0 +1,9 @@
+{
+  "name": "saidsurucu--philips-tpm171e-root",
+  "displayName": "philips-tpm171e-root",
+  "description": "Magisk-based permanent root on Philips TPM171E Android TVs (49PUS7503, PUS8602, OLED803/873...) \u2014 no fastboot, no serial console. Firmware decryption, kernel exploit chain, LockOSThread fix.",
+  "version": "1.0.0",
+  "author": "saidsurucu",
+  "homepage": "https://github.com/saidsurucu/philips-tpm171e-root",
+  "skills": []
+}
