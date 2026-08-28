@@ -1,0 +1,9 @@
+{
+  "name": "meshtastic--mqttastic-client-kmp",
+  "displayName": "MQTTastic-Client-KMP",
+  "description": "Kotlin MultiPlatform MQTT 5.0 Client Library",
+  "version": "1.0.0",
+  "author": "meshtastic",
+  "homepage": "https://github.com/meshtastic/MQTTastic-Client-KMP",
+  "skills": []
+}
