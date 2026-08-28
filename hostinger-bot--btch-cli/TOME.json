@@ -4,7 +4,7 @@
   "repo": "btch-cli",
   "description": "An open-source coding agent for the btch API",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hostinger-bot/btch-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T04:32:33Z"
+  "distributed_at": "2026-08-28T07:41:50Z"
 }
