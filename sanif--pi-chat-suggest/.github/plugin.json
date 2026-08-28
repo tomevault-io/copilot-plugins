@@ -1,0 +1,9 @@
+{
+  "name": "sanif--pi-chat-suggest",
+  "displayName": "pi-chat-suggest",
+  "description": "Pi extension for contextual next-message ghost suggestions",
+  "version": "1.0.0",
+  "author": "sanif",
+  "homepage": "https://github.com/sanif/pi-chat-suggest",
+  "skills": []
+}
