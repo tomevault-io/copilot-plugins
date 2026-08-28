@@ -1,0 +1,9 @@
+{
+  "name": "quangdang46--beads-viewer-rust",
+  "displayName": "beads_viewer_rust",
+  "description": "Rust port of beads_viewer (bvr): graph-aware triage engine for Beads \u2014 PageRank, critical path, kanban, dependency DAG, robot-mode JSON API. Compatible Rust Successor.",
+  "version": "1.0.0",
+  "author": "quangdang46",
+  "homepage": "https://github.com/quangdang46/beads_viewer_rust",
+  "skills": []
+}
