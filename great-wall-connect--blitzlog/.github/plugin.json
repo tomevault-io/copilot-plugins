@@ -1,0 +1,9 @@
+{
+  "name": "great-wall-connect--blitzlog",
+  "displayName": "blitzlog",
+  "description": "Pin, blitz, merge. Autonomous coding pipeline: GitHub issue \u2192 EC2 spot instance \u2192 OpenCode agent \u2192 pull request. From issue to PR. With a trail.",
+  "version": "1.0.0",
+  "author": "great-wall-connect",
+  "homepage": "https://github.com/great-wall-connect/blitzlog",
+  "skills": []
+}
