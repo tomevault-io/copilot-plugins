@@ -1,0 +1,9 @@
+{
+  "name": "vyncint--reconverge",
+  "displayName": "reconverge",
+  "description": "Static reconvergence analysis for Rust GPU kernels \u2014 catches divergent barriers and non-convergent warp operations at compile time. No GPU required.",
+  "version": "1.0.0",
+  "author": "vyncint",
+  "homepage": "https://github.com/vyncint/reconverge",
+  "skills": []
+}
