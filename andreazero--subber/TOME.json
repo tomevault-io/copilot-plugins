@@ -4,7 +4,7 @@
   "repo": "subber",
   "description": "Free local subtitles for any spoken video. Transcribe and translate offline, export SRT for DaVinci Resolve. Windows + macOS. No upload, no account.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AndreaZero/subber",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T04:57:04Z"
+  "distributed_at": "2026-08-28T13:39:06Z"
 }
