@@ -1,0 +1,44 @@
+{
+  "name": "cocos-extensions",
+  "owner": "hhhh124hhhh",
+  "repo": "cocos-extensions",
+  "description": "\u8ba9 AI \u76f4\u63a5\u9a71\u52a8 Cocos Creator \u505a\u6e38\u620f\u5f00\u53d1 \u2014 DeepSeek Harness MCP \u5168\u6808\u65b9\u6848\uff08\u573a\u666f\u64cd\u4f5c\u3001\u6784\u5efa\u9a8c\u8bc1\u3001\u89c6\u89c9\u9a8c\u8bc1\u3001\u591aAgent\u56e2\u961f\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hhhh124hhhh/cocos-extensions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T05:22:25Z"
+}
