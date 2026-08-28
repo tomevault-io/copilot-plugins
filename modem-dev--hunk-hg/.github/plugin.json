@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--hunk-hg",
+  "displayName": "hunk-hg",
+  "description": "Adds Mercurial support to Hunk",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/hunk-hg",
+  "skills": []
+}
