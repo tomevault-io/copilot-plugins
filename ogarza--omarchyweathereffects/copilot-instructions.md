@@ -1,33 +1,48 @@
-## shaders
+## omarchyweathereffects
 
-> Fragment shader overlay conventions
+> Omarchy Quickshell plugin: fullscreen Wayland overlay shaders plus an optional Hyprland screen shader. Id `ogarza.weather`.
 
+# ogarza.weather
 
-# Shaders
+Omarchy Quickshell plugin: fullscreen Wayland overlay shaders plus an optional Hyprland screen shader. Id `ogarza.weather`.
 
-- `#version 440`, `qt_TexCoord0` (y=0 top), `fragColor` premultiplied.
-- Copy the existing `layout(std140, binding = 0) uniform buf` from another `.frag`; do not drop unused uniforms. Keep `float quality` last (0 low … 3 extreme). Field order must match `WeatherLayer` (`sheen`, then `lightning` / `frequency` / `azimuth` / `sunDistance` / `night` / `nightTint` / `nightStrength`).
-- `resolution` is framebuffer pixels (DPR × quality scale). Size features with `1.0 / resolution.y` (or `fwidth`) so they stay stable on HiDPI and downscaled quality. `qt_TexCoord0` is still 0–1.
-- Time: `time * <baseline> * max(speed, 0.0)`. Fog baseline ~`0.175`; sunny ~`3.5`.
-- Fog = FBM clouds only. No extra ground/top mist unless asked.
-- Prefer wiring unused uniforms (`scale`, `glow`, `density`, …) before adding new std140 fields.
-- Rebuild: service `scanShaders` / `/usr/lib/qt6/bin/qsb --qt6 -o file.frag.qsb file.frag`.
+## Layout
 
-Hyprland `decoration.screen_shader` is a separate path (`HyprShader.js`, `#version 300 es`). Do not feed those sources through `qsb` or the Qt std140 block.
+| Path | Role |
+|------|------|
+| `Service.qml` | Overlay, fetch, persist, compositor, Hyprland apply/clear |
+| `Panel.qml` / `BarWidget.qml` | UI + IPC `ogarza.weather` |
+| `Model.js` | Modes, mixes, WMO/wttr maps, params, `visualNeedsScreenShader` |
+| `HyprShader.js` | Generated GLES 300 es `decoration.screen_shader` (rain refract / haze) |
+| `shaders/*.frag` | Overlay effects; `qsb` → `*.frag.qsb` (gitignored) |
 
-## Qt overlay runtime (hard)
+Do not edit `/usr/share/omarchy/`. Hot-reload on save under `~/.config/omarchy/plugins/`.
 
-`qsb` succeeding is **not** enough. If the live ShaderEffect rejects the stage, the **whole overlay is blank** (storm rain disappears too). Revert to the last scalar `boltPoint` / `strokeChannel` path in `stormy.frag` rather than iterating.
+## Rules of thumb
 
-Do **not** use in these `.frag` files (confirmed to blank Stormy on this stack):
+- Overlay is premultiplied alpha. Uniform block must stay aligned across shaders (unused fields still listed). End the block with `float quality` (0–3). `resolution` is framebuffer pixels (DPR × quality).
+- Hyprland screen shader (rain or stormy `refract` > 0, or sunny/fire `haze` > 0): generate via `HyprShader.js`, write `${XDG_STATE_HOME}/ogarza.weather/current.frag`, `hyprctl eval` with `damage_tracking` first then `screen_shader`. Uniforms: `tex`, `fullSize`, `time` only. Bake sliders as consts. Haze is a small heat warp, no cursor bulge. Never write `~/.config/hypr/` or `/usr/share/omarchy/`. Skip painted rain while Hyprland rain is live (`kind` contains `rain`), including stormy drops. Stormy bolts stay overlay. Regen on `configreloaded`. Clear restores captured `hyprBaseDamage`. Persist `hyprEnabled` (default on); off skips apply and clears. Scan sibling plugin folders for `screen_shader` and surface names on the panel.
+- Follow/Exclusive: never fire, rainbow, or custom. Wait for `locationReady` before fetch. Open-Meteo if lat/lon; else wttr. Parse WMO `0` without `code \|\| ""`.
+- Visual target is a mode id. Mixes use two or three shader slots + `strengthA`/`strengthB`/`strengthC`. Optional rainbow uses `enableC` on every visual except standalone rainbow. Custom layers persist `customShaderA` / `customShaderB` / `customShaderC` (`none` turns a slot off). Quality (`low`/`medium`/`high`/`extreme`) downscales the compositor stack (layer texture) except Extreme. Crossfade: `overlayFromPreset` → `overlayToPreset`, 10s follow / 2s panel.
+- Default mode is `none`. First snap after persist load; then always fade.
+- After `.frag` edits, next `scanShaders` rebuilds `.qsb`. **`qsb` OK ≠ overlay works.** Stormy lightning must stay scalar (`boltPoint` / `strokeChannel`). Arrays, `inout` point lists, midpoint-eval, and baked `const` tables all blanked the fullscreen ShaderEffect (rain included). See `.cursor/rules/shaders.mdc`.
+- Panel: params in columns (`fieldsForVisualLayer` / `fieldsForPanel`). Follow uses `weatherPreset`; Exclusive uses `exclusivePreset`. Mixes edit layer strengths plus each layer shader’s params. User-facing changes also update README, CHANGELOG, and `manifest.json`.
 
-- Writable global or local `vec2` arrays, `inout vec2 pts[N]`
-- Midpoint-displacement that walks integer intervals / early-returns (`evalBoltPt`)
-- Large `const float[]` / `const vec2[]` tables with a dynamic index (prebaked bolts)
+## IPC
 
-Stay on scalars, `vec2`, and small fixed-count loops (the existing 5-octave `boltPoint` + 16-segment stroke). Do not port Shadertoy bolt builders that store polylines.
+```
+omarchy-shell ogarza.weather power toggle
+omarchy-shell ogarza.weather mode rain
+omarchy-shell ogarza.weather preview rain
+omarchy-shell ogarza.weather overlay
+omarchy-shell ogarza.weather quality high
+omarchy-shell ogarza.weather hypr off
+```
 
-A library of shapes would need data **outside** the fragment shader (e.g. a texture atlas). Do not try more GLSL storage tricks for lightning.
+## Skills / rules
+
+- `.cursor/rules/` — conventions (always + shaders + docs).
+- `.cursor/skills/ogarza-weather/` — change workflow.
 
 ---
 > Source: [ogarza/omarchyweathereffects](https://github.com/ogarza/omarchyweathereffects) — distributed by [TomeVault](https://tomevault.io).
