@@ -1,0 +1,9 @@
+{
+  "name": "gregorlueg--edge-rs",
+  "displayName": "edge-rs",
+  "description": "Rust implementation of edgeR",
+  "version": "1.0.0",
+  "author": "GregorLueg",
+  "homepage": "https://github.com/GregorLueg/edge-rs",
+  "skills": []
+}
