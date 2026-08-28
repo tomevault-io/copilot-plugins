@@ -1,55 +1,35 @@
-## project-overview
+## rust-backend
 
-> Project overview, tech stack, directory map and domain vocabulary for the AI usage stats desktop app
+> Rust backend conventions for the Tauri core (domain, ingest, store, query, cost, lib)
 
 
-# 本机 AI 用量统计（ai-usage-stats）
+# Rust 后端约定
 
-桌面 GUI 工具：扫描本机各 AI 编程 CLI（Codex、Claude Code、pi、dsh、opencode、kimi、gemini、grok、qwen、factory…）留下的本地会话文件，归一化为「消耗记录」并聚合展示 token 用量与费用；另有独立的 Cursor「代码量」维度。详见 `README.md` 和 `CONTEXT.md`。
+## 错误处理
 
-## 技术栈
+- 所有可能失败的函数返回 `Result<T, String>`；用 `.map_err(|e| e.to_string())` 转换底层错误，不引入自定义 error enum/`thiserror`
+- 不要 `unwrap()`/`expect()` 处理外部输入（文件内容、用户配置）；仅在测试代码或已知不可能失败处（如 `report.sources.iter_mut().find(...)`）使用 `expect`
 
-- 核心逻辑：Rust（`src-tauri/src`），Tauri 2 打包成原生桌面 App
-- 界面：React 19 + TypeScript（strict）+ Vite 6 + ECharts，纯前端展示，不含业务逻辑
-- 缓存：sqlite（`rusqlite`，bundled），可完全重建
-- 依赖安装用 `pnpm`（不要用 `npm`/`yarn`）；`npm run tauri dev` / `npm run tauri build` 等 script 名保留但仍应通过 `pnpm run` 调用
+## 数据模型
 
-## 目录结构
+- `domain.rs` 是唯一的数据结构来源：新增字段先改 `UsageRecord`/DTO，再改适配器/查询/前端 `types.ts`，禁止在其它模块里定义平行结构体
+- `UsageRecord::with_total()`（经由 `adapters::finish`）在 `total_tokens <= 0` 时才用四个分项之和兜底；不要在适配器里重复这个逻辑
 
-```
-src-tauri/src/
-  domain.rs      # 唯一的数据模型来源（UsageRecord、DTO、Filter…）
-  adapters/      # 每个 Source 一个适配器，解析→归一化
-  ingest.rs      # 扫描文件、可信摄取缓存、来源级对账
-  store.rs       # sqlite schema 与读写
-  query.rs       # 生产用聚合查询（SQL 下推）
-  aggregate.rs   # 内存实现，仅作为 query.rs 的差分测试基准（见 testing 规则）
-  cost.rs        # 费用推导（native_cost 优先，其次价目表）
-  lib.rs         # Tauri command 定义与 AppState
-  bin/probe.rs   # 探测未确认来源的本机字段格式的独立小工具
-src/
-  App.tsx        # 顶层状态与视图切换
-  components/    # 各视图/图表组件
-  lib/           # 格式化、图表主题、价目预设等纯函数工具
-  types.ts       # 与 Rust DTO 对应的 TS 类型（手动保持同步）
-docs/adr/        # 架构决策记录，重大架构变更需新增一份 ADR
-```
+## Tauri command 层（lib.rs）
 
-## 领域词汇（详见 CONTEXT.md，请勿用其它措辞替代）
+- 每个 command 都用 `tauri::async_runtime::spawn_blocking` 包裹阻塞的 sqlite/文件 IO，再 `.await.map_err(...)?`
+- command 内部只做：取 `AppState`、锁 `conn`、按需 `load_prices`，然后委托给 `query`/`ingest` 模块；不要把业务逻辑写进 `lib.rs`
+- 新增 command 必须同时加入 `tauri::generate_handler![...]` 列表
 
-- **消耗记录 (Usage Record)**：归一化后的标准用量条目，唯一定义在 `domain.rs::UsageRecord`
-- **来源 (Source)**：被统计的 AI 工具（如 codex、claude），避免用「工具/tool/渠道」
-- **适配器 (Adapter)**：把某 Source 的原始格式解析成 Usage Record 的模块，避免用「parser/解析器」
-- **Token 口径 (Token Dimension)**：input/output/cache_read/cache_creation/reasoning/total
-- **代码量 (Code Volume)**：仅 Cursor 编辑器的 AI 生成代码行数统计，与 token 无关，界面上严格分区，避免与「用量/消耗」混用
-- **官方额度 (Official Quota)**：Claude / Codex / Cursor / Grok 的账号级订阅限额，不进 UsageRecord / 本机 token KPI，不与本机 5 小时/7 天估计窗混条
-- **Cursor 账号用量**：不进 UsageRecord / 本机 KPI / 5 小时窗；概览 7 天滚动可单独挂一行，缺价时用 LiteLLM 快照估算
+## 费用计算（cost.rs）
 
-## 关键架构约束
+- 费用优先级固定为：`native_cost`（来源自带）> 价目表精确匹配（model+provider）> 价目表 model 兜底（provider 为 None，含 LiteLLM 快照）> 标记 `unpriced`
+- 任何聚合路径（`aggregate.rs` 与 `query.rs`）都必须保持这个优先级语义一致；Cursor 账号用量走同一套 `cost.rs` 计价，不写进 UsageRecord
 
-- 统计与界面代码只面向 `UsageRecord`/DTO，不感知任何具体工具的原始格式（`docs/adr/0001-adapter-per-source-architecture.md`）
-- 前后端通过 Tauri command / IPC 交换已聚合的 JSON；webview 只做展示，不做聚合计算（`docs/adr/0002-tauri-rust-desktop-app.md`）
-- 摄取缓存遵循「最后一次正确结果」语义，细节见 `docs/adr/0003-trusted-ingestion-cache.md` 与 ingestion 相关规则
+## 通用
+
+- 中文错误信息/日志字符串是项目既有约定（如 `format!("扫描目录 {} 失败：{error}", ...)`），保持一致，不要混用英文提示
+- 新增依赖前检查 `src-tauri/Cargo.toml` 是否已有等价库，避免引入功能重复的 crate
 
 ---
 > Source: [qqzhangyanhua/mabiao](https://github.com/qqzhangyanhua/mabiao) — distributed by [TomeVault](https://tomevault.io).
