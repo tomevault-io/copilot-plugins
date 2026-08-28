@@ -7,11 +7,11 @@ FlashAttention brought back to Tesla V100 — a deep llama.cpp fork: SM 7.0 D256
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fishlikeX/sm70-attn](https://github.com/fishlikeX/sm70-attn).
+Original source: `AGENTS.md` in [fishlikeX/sm70-attn](https://github.com/fishlikeX/sm70-attn).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
