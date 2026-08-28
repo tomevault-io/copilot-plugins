@@ -1,0 +1,44 @@
+{
+  "name": "claude-roblox-game-studio",
+  "owner": "CodePhobiia",
+  "repo": "claude-roblox-game-studio",
+  "description": "Turn Claude Code into a Roblox-native game development studio \u2014 36 agents, 50 skills, 201-page Luau wiki, Studio MCP, Blender MCP, and a coordination system built for Roblox publishing.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CodePhobiia/claude-roblox-game-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T16:59:41Z"
+}
