@@ -7,11 +7,11 @@ Running Fedora Linux on ASUS Vivobook 14 X1407Q (Qualcomm Snapdragon X X1-26-100
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pir0c0pter0/fedora-vivobook-x1407q](https://github.com/pir0c0pter0/fedora-vivobook-x1407q).
+Original source: `AGENTS.md` in [pir0c0pter0/fedora-vivobook-x1407q](https://github.com/pir0c0pter0/fedora-vivobook-x1407q).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
