@@ -1,0 +1,9 @@
+{
+  "name": "palewire--isobands",
+  "displayName": "isobands",
+  "description": "Generate filled contour polygons from raster data with Python.",
+  "version": "1.0.0",
+  "author": "palewire",
+  "homepage": "https://github.com/palewire/isobands",
+  "skills": []
+}
