@@ -1,0 +1,9 @@
+{
+  "name": "quintui--dynamic-workflows",
+  "displayName": "dynamic-workflows",
+  "description": "Describe a support-triage process in chat and a Mastra agent authors it as a runnable dynamic workflow \u2014 drawn, saved and run on the canvas.",
+  "version": "1.0.0",
+  "author": "Quintui",
+  "homepage": "https://github.com/Quintui/dynamic-workflows",
+  "skills": []
+}
