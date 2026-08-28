@@ -1,0 +1,9 @@
+{
+  "name": "wrongstack--wrongtrace",
+  "displayName": "WrongTrace",
+  "description": "AI-native code churn & agent observability daemon - single Go binary with embedded React dashboard, Tree-sitter AST diffing, MCP + IPC telemetry",
+  "version": "1.0.0",
+  "author": "WrongStack",
+  "homepage": "https://github.com/WrongStack/WrongTrace",
+  "skills": []
+}
