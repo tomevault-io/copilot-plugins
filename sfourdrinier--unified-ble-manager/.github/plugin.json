@@ -1,0 +1,9 @@
+{
+  "name": "sfourdrinier--unified-ble-manager",
+  "displayName": "unified-ble-manager",
+  "description": "Unified Bluetooth Low Energy manager for React Native, Electron, Web, and desktop.",
+  "version": "1.0.0",
+  "author": "sfourdrinier",
+  "homepage": "https://github.com/sfourdrinier/unified-ble-manager",
+  "skills": []
+}
