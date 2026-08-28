@@ -1,0 +1,9 @@
+{
+  "name": "the-hooman-loop--anti-slop-kit",
+  "displayName": "anti-slop-kit",
+  "description": "Portable, tool-agnostic Agent Skills and prompt cards for using AI without generic, unverified slop.",
+  "version": "1.0.0",
+  "author": "the-hooman-loop",
+  "homepage": "https://github.com/the-hooman-loop/anti-slop-kit",
+  "skills": []
+}
