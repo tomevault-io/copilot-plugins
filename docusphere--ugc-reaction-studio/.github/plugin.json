@@ -1,0 +1,9 @@
+{
+  "name": "docusphere--ugc-reaction-studio",
+  "displayName": "ugc-reaction-studio",
+  "description": "Claude Code skill: phone-realistic UGC reaction ads (Higgsfield generation + Remotion), native-audio-first.",
+  "version": "1.0.0",
+  "author": "docusphere",
+  "homepage": "https://github.com/docusphere/ugc-reaction-studio",
+  "skills": []
+}
