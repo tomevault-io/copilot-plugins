@@ -1,0 +1,9 @@
+{
+  "name": "taimway--deepseek-pp-more",
+  "displayName": "deepseek-pp-more",
+  "description": "DeepSeek Web browser extension: AI agent workspace with MCP tools, memory, Skills, automation, web search, and conversation export.",
+  "version": "1.0.0",
+  "author": "TaimWay",
+  "homepage": "https://github.com/TaimWay/deepseek-pp-more",
+  "skills": []
+}
