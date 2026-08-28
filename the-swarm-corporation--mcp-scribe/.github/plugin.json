@@ -1,0 +1,9 @@
+{
+  "name": "the-swarm-corporation--mcp-scribe",
+  "displayName": "mcp-scribe",
+  "description": "Point it at an OpenAPI schema. Get an MCP server.",
+  "version": "1.0.0",
+  "author": "The-Swarm-Corporation",
+  "homepage": "https://github.com/The-Swarm-Corporation/mcp-scribe",
+  "skills": []
+}
