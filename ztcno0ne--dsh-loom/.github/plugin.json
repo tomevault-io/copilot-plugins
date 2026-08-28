@@ -1,0 +1,9 @@
+{
+  "name": "ztcno0ne--dsh-loom",
+  "displayName": "dsh-loom",
+  "description": "Loom (\u7ec7\u673a) \u2014 external coach / second verifier for DeepSeek Harness: silently evolves your agent's tools, skills, config and model, with deterministic verification and cold-apply.",
+  "version": "1.0.0",
+  "author": "ZTCNO0NE",
+  "homepage": "https://github.com/ZTCNO0NE/dsh-loom",
+  "skills": []
+}
