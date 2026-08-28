@@ -1,0 +1,9 @@
+{
+  "name": "linyunerr--journal-sync",
+  "displayName": "Journal-Sync",
+  "description": "Obsidian plugin for journaling and publishing to multiple platforms.",
+  "version": "1.0.0",
+  "author": "LinYunerr",
+  "homepage": "https://github.com/LinYunerr/Journal-Sync",
+  "skills": []
+}
