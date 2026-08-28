@@ -1,0 +1,44 @@
+{
+  "name": "ashare-agent",
+  "owner": "sfeng49",
+  "repo": "ashare-agent",
+  "description": "\u57fa\u4e8e DeepSeek Harness + AKShare \u7684\u672c\u5730 A \u80a1 AI Agent \u5de5\u4f5c\u53f0\uff1a\u6570\u636e\u83b7\u53d6 / \u6bcf\u65e5\u6668\u62a5 / \u4ea4\u6613\u590d\u76d8\u4e09\u5927\u6280\u80fd\uff0c\u53ea\u505a\u5206\u6790\u3001\u4e0d\u505a\u4ea4\u6613\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sfeng49/ashare-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T07:30:38Z"
+}
