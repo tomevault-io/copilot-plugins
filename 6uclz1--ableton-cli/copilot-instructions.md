@@ -1,13 +1,31 @@
-## python-style
+## ableton-cli
 
-> Python coding standards in ableton-cli
+> ableton-cli repository conventions for Cursor agent
 
 
-- Use `from __future__ import annotations` in new modules, mirroring src/ableton_cli/*.
-- Format with ruff; do not introduce alternative tools.
-- Raise `AppError` with explicit `error_code`/`exit_code` per `src/ableton_cli/errors.py`; do not catch and ignore.
-- No fallback execution paths or compatibility shims.
-- Tests live in `tests/` mirroring source layout; follow existing fixtures in `tests/conftest.py`.
+# ableton-cli (Cursor)
+
+This repo controls Ableton Live via a local Remote Script.
+
+## Non-negotiable principles
+- TDD: red -> green -> refactor.
+- DRY, SOLID; no fallbacks; no backward compatibility shims.
+- Fail explicitly; never silently degrade.
+
+## Authoritative references
+- Command catalog: `skills/ableton-cli/SKILL.md`
+- Stable action mappings: `docs/skills/skill-actions.md`
+- JSON output examples: `docs/skills/examples/*.json`
+
+## Command form
+- Always invoke through uv: `uv run ableton-cli <subcommand>`
+- For machine-readable output: `uv run ableton-cli --output json <subcommand>`
+
+## Validation before handoff
+- `uv run python -m ableton_cli.dev_checks`
+- `uv run ruff check .`
+- `uv run ruff format --check .`
+- `uv run pytest`
 
 ---
 > Source: [6uclz1/ableton-cli](https://github.com/6uclz1/ableton-cli) — distributed by [TomeVault](https://tomevault.io).
