@@ -1,0 +1,9 @@
+{
+  "name": "warmshao--vsurf",
+  "displayName": "vsurf",
+  "description": "vsurf is an open-source coding and research RLM agent for general and long-running work, with first-class browser automation.",
+  "version": "1.0.0",
+  "author": "warmshao",
+  "homepage": "https://github.com/warmshao/vsurf",
+  "skills": []
+}
