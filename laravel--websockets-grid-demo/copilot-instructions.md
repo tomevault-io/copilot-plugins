@@ -1,4 +1,4 @@
-## laravel-boost
+## websockets-grid-demo
 
 > <laravel-boost-guidelines>
 
