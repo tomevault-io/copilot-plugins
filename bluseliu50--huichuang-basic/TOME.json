@@ -4,7 +4,7 @@
   "repo": "huichuang_basic",
   "description": "\u975e\u5b98\u65b9\u56fd\u5bb6\u4e2d\u5c0f\u5b66\u667a\u6167\u6559\u80b2\u5e73\u53f0\uff08basic.smartedu.cn\uff09Flutter \u5ba2\u6237\u7aef \u2014 macOS / Windows / Linux / Android / iOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bluseliu50/huichuang_basic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T14:40:36Z"
+  "distributed_at": "2026-08-28T21:48:23Z"
 }
