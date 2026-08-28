@@ -1,0 +1,9 @@
+{
+  "name": "lianghsun--hsun-trainer",
+  "displayName": "hsun-trainer",
+  "description": "End-to-end LLM training skills for Claude Code: CPT, SFT, GRPO with Traditional Chinese rewards, and zh-TW benchmarking via ai-twinkle/Eval",
+  "version": "1.0.0",
+  "author": "lianghsun",
+  "homepage": "https://github.com/lianghsun/hsun-trainer",
+  "skills": []
+}
