@@ -1,0 +1,9 @@
+{
+  "name": "donvito--coworker",
+  "displayName": "coworker",
+  "description": "AI coworkers that use tools, run tasks, and get work done. Works with OpenRouter, OpenAI and locally via Ollama or LMStudio",
+  "version": "1.0.0",
+  "author": "donvito",
+  "homepage": "https://github.com/donvito/coworker",
+  "skills": []
+}
