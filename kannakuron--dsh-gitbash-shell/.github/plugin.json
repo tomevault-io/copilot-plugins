@@ -1,0 +1,9 @@
+{
+  "name": "kannakuron--dsh-gitbash-shell",
+  "displayName": "dsh-gitbash-shell",
+  "description": "DSH plugin: Git Bash shell for all agent modes on Windows (replaces pwsh executor)",
+  "version": "1.0.0",
+  "author": "KannaKuron",
+  "homepage": "https://github.com/KannaKuron/dsh-gitbash-shell",
+  "skills": []
+}
