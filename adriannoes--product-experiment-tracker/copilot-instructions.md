@@ -1,66 +1,71 @@
-## boas-praticas-frontend
+## qualidade-codigo
 
-> Padrões para frontend com Next.js (App Router), React, TypeScript, Tailwind e Shadcn/Radix. Alinhado a projetos implantáveis na Vercel; adaptar caminhos se o repo usar ou não a pasta `src/`.
+> Princípios gerais de código limpo, testes e controle de versão. Aplicar ao implementar ou revisar código em qualquer linguagem ou stack do repositório.
 
 
-# Boas práticas de frontend (Next.js + Tailwind)
+# Qualidade e código limpo (agnóstico de stack)
 
-**Escopo:** stack típica da demo e de produtos Next hospedados na **Vercel** (runtime Node/Edge conforme o projeto). Não é exclusivo da Vercel — evite APIs só dela salvo necessidade explícita.
+Ao implementar ou refatorar código, seguir estes princípios. Para **UI, Next.js, Tailwind e componentes**, complementar com `.cursor/rules/boas-praticas-frontend.mdc` quando existir.
 
-## 1. Stack principal
+## Constantes em vez de números mágicos
 
-- **Framework:** Next.js com **App Router**. Evitar roteamento legado em `pages/` para novas features (a menos que o projeto já dependa disso).
-- **Linguagem:** TypeScript em modo **strict**, quando o projeto já estiver em TS.
-- **Estilo:** **Tailwind CSS** (v3 ou v4, conforme o scaffold) como padrão de estilo; evitar CSS-in-JS pesado salvo decisão explícita do repo.
-- **Componentes:** **Shadcn/UI** (primitivos Radix) quando disponíveis no projeto.
-- **Ícones:** **Lucide React** (ou a biblioteca de ícones já adotada no repo).
+- Substituir valores fixos no código por constantes nomeadas.
+- Usar nomes de constantes que expliquem a finalidade do valor.
+- Manter constantes no topo do arquivo ou em arquivo dedicado.
 
-## 2. Server Components (RSC) primeiro
+## Nomes significativos
 
-- **Padrão:** componentes são Server Components por omissão.
-- **`"use client"`** só quando houver: eventos (`onClick`, `onChange`), hooks (`useState`, `useEffect`) ou APIs do navegador.
-- Empurrar lógica de cliente para **baixo** na árvore; manter layout/shell no servidor quando possível.
+- Variáveis, funções e classes devem revelar sua finalidade.
+- Nomes devem explicar por que algo existe e como é usado.
+- Evitar abreviações, salvo as universalmente entendidas.
 
-## 3. Busca de dados e mutações
+## Comentários inteligentes
 
-- **Mutações:** preferir **Server Actions** com `<form action={...}>` (ou padrão equivalente do Next em uso).
-- **Leitura em RSC:** `fetch` nativo ou padrão de dados do projeto.
-- Evitar **`useEffect` só para carga inicial** de dados; preferir RSC ou, se necessário, biblioteca de dados no cliente (ex. React Query) com justificativa (polling, etc.).
+- Não comentar o que o código faz — tornar o código autoexplicativo.
+- Usar comentários para explicar *por que* algo foi feito de determinado modo.
+- Documentar APIs, algoritmos complexos e efeitos colaterais não óbvios.
 
-## 4. Estilo (Tailwind)
+## Responsabilidade única
 
-- **Utilities primeiro;** helper **`cn`** / **`clsx` + `tailwind-merge`** (ou o util já existente no projeto, ex. `cntl`) para classes condicionais.
-- Reduzir **valores arbitrários** (`w-[123px]`); preferir **tokens** do tema.
-- **Estética “Clean Architect” (referência do curso):** UI minimalista, fundos escuros (preto ou zinc), bordas sutis, alto contraste; sem excesso de neon/gradiente decorativo — salvo pedido explícito de produto.
+- Cada função deve fazer exatamente uma coisa.
+- Funções devem ser pequenas e focadas.
+- Se uma função precisa de comentário para explicar o que faz, deve ser dividida.
 
-## 5. Arquitetura de componentes
+## DRY (Don't Repeat Yourself)
 
-- Preferir **primitivos de UI do projeto** (Shadcn/Radix) em vez de HTML cru para controles interativos.
-- **Caminho dos componentes:** usar a convenção do repo — ex. `@/components/ui`, `components/ui` ou workspace `packages/ui` **se** for monorepo; não assumir só uma estrutura.
-- **Composição:** componentes pequenos e com responsabilidade clara.
-- **Acessibilidade:** HTML semântico e papéis ARIA onde o design system não cobrir.
+- Extrair código repetido em funções reutilizáveis.
+- Compartilhar lógica comum por abstração adequada.
+- Manter uma única fonte da verdade.
 
-## 6. Estrutura de pastas (flexível)
+## Estrutura limpa
 
-Projetos **com** `src/`:
+- Manter código relacionado junto.
+- Organizar em hierarquia lógica.
+- Usar convenções consistentes de nomes de arquivos e pastas.
 
-- `src/app/` — rotas e layouts  
-- `src/components/` — UI de feature e composição  
-- `src/lib/` — utilitários  
-- `src/hooks/` — hooks React  
+## Encapsulamento
 
-Projetos **sem** `src/` (como em alguns scaffolds):
+- Ocultar detalhes de implementação.
+- Expor interfaces claras.
+- Mover condicionais aninhadas para funções bem nomeadas.
 
-- `app/` na raiz para rotas; `components/`, `lib/`, `hooks/` conforme o que o projeto criar.
+## Manutenção da qualidade do código
 
-Ajuste caminhos à árvore real; não forçar `src/` se o app já estiver sem ela.
+- Refatorar continuamente.
+- Corrigir dívida técnica cedo.
+- Deixar o código mais limpo do que estava.
 
-## 7. Gerenciamento de estado
+## Testes
 
-1. **URL / search params** para estado compartilhável e navegável.  
-2. **Servidor:** RSC + cache quando couber.  
-3. **Local:** `useState` / `useReducer`.  
-4. **Global:** uso mínimo — store leve (ex. Zustand) **só** se o prop drilling ou o fluxo justificarem.
+- Escrever testes antes de corrigir bugs.
+- Manter testes legíveis e sustentáveis.
+- Testar casos extremos e condições de erro.
+
+## Controle de versão
+
+- Escrever mensagens de commit claras.
+- Fazer commits pequenos, atômicos e focados.
+- Usar nomes de branch significativos.
 
 ---
 > Source: [adriannoes/product-experiment-tracker](https://github.com/adriannoes/product-experiment-tracker) — distributed by [TomeVault](https://tomevault.io).
