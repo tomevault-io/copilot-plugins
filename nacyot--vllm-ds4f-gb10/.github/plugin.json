@@ -1,0 +1,9 @@
+{
+  "name": "nacyot--vllm-ds4f-gb10",
+  "displayName": "vllm-ds4f-gb10",
+  "description": "Experimental vLLM 0.27.1 patch set: keep many 400k+ token sessions resident with multi-node disk KV offloading on DGX Spark GB10 (DeepSeek V4 Flash). Opt-in, single-user reference.",
+  "version": "1.0.0",
+  "author": "nacyot",
+  "homepage": "https://github.com/nacyot/vllm-ds4f-gb10",
+  "skills": []
+}
