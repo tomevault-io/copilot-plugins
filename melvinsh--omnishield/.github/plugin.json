@@ -1,0 +1,9 @@
+{
+  "name": "melvinsh--omnishield",
+  "displayName": "omnishield",
+  "description": "Non-root ad and tracker blocker for Android. Kotlin/Compose UI over a Rust core that owns the whole packet path behind VpnService.",
+  "version": "1.0.0",
+  "author": "melvinsh",
+  "homepage": "https://github.com/melvinsh/omnishield",
+  "skills": []
+}
