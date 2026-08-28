@@ -1,0 +1,3288 @@
+## amberedit
+
+> generates its source archives on demand and they are not byte-stable across git
+
+# AGENTS.md
+
+Working notes for anyone — human or agent — changing this repository.
+
+**What each file answers.** The user-facing meaning of a setting — what it does,
+what values it takes, what it defaults to — is written once, in
+`amberedit.cfg.example`. This file says only what the code has to guarantee
+about it: where it is read, where it is applied, and what breaks if that changes.
+
+**Every document here describes the project as it stands.** README.md, INSTALL.md,
+`amberedit.cfg.example`, this file and the comments in the code all say what is
+true now, in the present tense. What was tried and taken out, what a setting used
+to be called, which approach lost — none of it is recorded: it is one more thing
+to keep in step with the code, and a reader who has to work out which paragraphs
+are still true has been given work rather than answers. When something changes,
+rewrite the sentence rather than adding "previously…" beside it, and delete what
+has stopped being true. History belongs in a changelog, and there is no such file
+in this repository yet; if one is added, it is the single exception to this rule
+and nothing leaks back into the documents above.
+
+The rule is about *narrative*, not about reasons. A rule that keeps the next
+change from undoing a deliberate decision stays — written as what holds now and
+why, never as the story of what happened: "horizontal scrolling is deliberately
+unhandled, because nothing the terminal reports carries an event's phase" and not
+"we tried swipe-to-next-message and removed it".
+
+Contents: [What AmberEdit is](#what-amberedit-is) ·
+[Build and test](#build-and-test) · [Packaging](#packaging) ·
+[Layering](#layering) ·
+[Code conventions](#code-conventions) · [Domain notes](#domain-notes) ·
+[The message base drivers](#the-message-base-drivers) ·
+[The nodelist](#the-nodelist) · [The echolist](#the-echolist) ·
+[Commands and the keyboard](#commands-and-the-keyboard) ·
+[Reference material in the tree](#reference-material-in-the-tree) ·
+[Current scope](#current-scope)
+
+## What AmberEdit is
+
+A TUI Fidonet mail editor. It reads message bases (Squish, JAM, Fido `*.msg`)
+on top of an existing tosser configuration and does not duplicate its settings.
+It reads and writes message bases, but it is not a mailer and not a tosser: what
+it writes goes out only when a tosser carries it.
+
+## Build and test
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build -j
+./build/bin/amberedit_tests          # or: ctest --test-dir build
+```
+
+Both must be clean before anything is called done, and the whole thing must
+build from a fresh clone with no network. The build produces one binary; the
+external inputs are the wide ncurses, iconv, zlib — for the zipped nodelists and
+echolists AmberEdit unpacks itself — tl::expected, which every fallible operation
+answers with, and doctest for the tests, all of them found on the system and none
+of them fetched.
+
+It also produces the message catalogs, one
+`build/locale/<lang>/LC_MESSAGES/amberedit.mo` per `po/*.po`, where `msgfmt` is on
+the system. `msgfmt` is not required and the build warns rather than stopping: a
+build without it is a build with the English the source is written in, which is
+every string the program has. gettext's *runtime* — `libintl`, part of libc on
+glibc and a library of its own on macOS — is required, since it is what reads a
+catalog.
+
+Test cases carry their tags inside the name — `TEST_CASE("... [nodelist][ui]")` —
+because doctest's `TEST_CASE` takes a name and nothing else. They are filtered
+with `-tc`, which matches the whole name by wildcard:
+`./build/bin/amberedit_tests -tc="*[squish]*"`.
+
+The code is C++17 and wants GCC 8, Clang 7 or Apple Clang 11 at the least;
+`CMakeLists.txt` refuses anything older by name, because an older compiler
+accepts `-std=c++17` well enough for CMake to call `CMAKE_CXX_STANDARD 17`
+satisfied and then buries the build in errors from inside `<bits/>`.
+
+**That floor is the point of the standard, not an accident of it.** RHEL 8 and
+its rebuilds must build AmberEdit out of the box, with the stock GCC 8.5 and the
+CMake 3.20–3.26 the release ships — no `gcc-toolset`, no newer CMake. Worth
+checking after anything that touches the build or a header, because a Mac's
+Clang accepts most of C++20 under `-std=c++17` with only a warning:
+
+```bash
+docker run --rm -v "$PWD":/src:ro rockylinux:8 sh -c '
+  dnf -y install epel-release &&
+  dnf -y install gcc-c++ cmake make ncurses-devel zlib-devel \
+                 expected-devel doctest-devel &&
+  cp -a /src /work && rm -rf /work/build &&
+  cmake -S /work -B /out && cmake --build /out -j"$(nproc)" &&
+  cd /out && ctest --output-on-failure'
+```
+
+EPEL comes first and on its own line because two of the packages behind it are
+there and nowhere else on RHEL 8: `expected-devel` and `doctest-devel`. Without
+it `cmake` stops at the tl::expected check, which reads as a broken tree rather
+than as a missing repository.
+
+The copy is not incidental: one test opens `testdata/msgbase/charsets` in the
+source tree itself, so a read-only `/src` fails there and nowhere else. Short of
+a container, `-Werror=c++20-extensions` on a Clang build catches the language
+half of the same thing.
+
+**CI runs that same command, on every push.** `.github/workflows/ci.yml` walks
+Rocky 8, 9 and 10, Fedora, Arch, Debian stable and Ubuntu 22.04, 24.04 and 26.04
+this way, plus macOS on both architectures. Arch is the far end of the span
+whose near end is the floor: rolling, so normally ahead of even Fedora on GCC,
+and the one job where the wide ncurses is the only ncurses there is. Two things about the file
+are decisions rather than detail:
+
+- The Linux jobs run their distribution under `docker run` from an ordinary
+  `ubuntu-latest`, **not** through Actions' `container:` key. `container:` makes
+  every action run its own Node inside the image, and RHEL 8's glibc sits exactly
+  on the boundary of what current Node builds accept; checking out on the host
+  and mounting the tree in has no such question in it, and it is this command.
+- The macOS jobs are the only coverage two branches of `CMakeLists.txt` get at
+  all: `find_library(ICONV_LIBRARY ...)`, because glibc has iconv in libc, and
+  the `<ncursesw/curses.h>` spelling. Do not drop them for being slow.
+
+## Packaging
+
+Four formats, and one rule holding them together: **`cmake --install` places
+everything a package ships** — the binary, `default.tpl` and `themes/*.cfg` under
+`${CMAKE_INSTALL_DATADIR}/amberedit`, which is the path `amberedit.cfg.example`
+names, and the message catalogs under `${CMAKE_INSTALL_LOCALEDIR}`, which is
+where gettext looks and so the only place they can go. No package recipe places a data file of its own,
+because a second copy of those paths is a second thing to keep in step with the
+sample config. Only documentation is each format's own: the README and the two
+example configs go through `%doc`, `debian/amberedit.docs`, or the top of an
+archive.
+
+- `amberedit.spec` — RPM, built for Rocky 8, 9 and 10 and Fedora. zlib is asked
+  for as `pkgconfig(zlib)` rather than by name, because RHEL 10 and current
+  Fedora replaced zlib with zlib-ng: the package holding `zlib.h` is
+  `zlib-ng-compat-devel` there and `zlib-devel` on 8 and 9, and the one
+  `pkgconfig()` spelling finds whichever the distribution has. It carries one
+  dependency nothing can work out on its own: **`glibc-gconv-extra` on RHEL 9 and
+  later and on Fedora**, where CP866, CP437 and KOI8-R were split out of the base
+  glibc. A gconv module is opened by name at run time, so there is no linkage for
+  rpm to find and no configure-time probe that would help — the charsets are
+  simply missing at run time and messages read as mojibake. RHEL 8 is the last
+  release with them in libc, so the dependency is conditional; Debian, Ubuntu and
+  macOS all carry the full set. The CI and release matrices install it too, or
+  `%check` fails three charset tests and nothing says why.
+- `debian/` — deb, built for Debian stable and Ubuntu 22.04, 24.04 and 26.04.
+  `dh` runs the tests as part of the build; `doctest-dev` is the build dependency
+  and is spelled the same on all five. `libexpected-dev` is in *universe* on
+  jammy, noble and resolute — the official images enable it and a minimal chroot
+  does not.
+- `PKGBUILD` — Arch: one build and no matrix, Arch being rolling and having one
+  release. `check()` runs the tests, and everything it wants — `ncurses`, `zlib`,
+  `cmake`, `tl-expected`, `doctest` — is in core or extra, so nothing comes from
+  the AUR. No `glibc-gconv-extra` counterpart is in `depends`, because Arch never
+  split those gconv modules out of glibc. `sha256sums` is `SKIP`: GitHub
+  generates its source archives on demand and they are not byte-stable across git
+  versions, so a pinned hash is a package that stops building for a reason that
+  has nothing to do with the release — the release job puts the tarball beside
+  the PKGBUILD instead, where makepkg finds it and fetches nothing, so the
+  package is built from the bytes the RPMs are. `makepkg` refuses to run as root,
+  which is why that job builds as a user it makes on the spot.
+- `.github/workflows/release.yml` — everything a `v*` tag produces. It checks the
+  tag against `project(AmberEdit VERSION ...)` before building anything: a tag
+  disagreeing with the source is a release nobody can rebuild.
+
+So C++20 does not go back in. The three corners that keep wanting to:
+`std::ranges::` algorithms (use the iterator-pair `std::` ones), `starts_with` /
+`ends_with` (use `config::text::startsWith`; `domain/` has its own copy in
+`message.cpp` so that it goes on including only `domain/`), and `contains` on a
+map or set (use `count(k) != 0`). `.clang-tidy` leaves out the three checks that
+would argue for the C++20 spellings for exactly that reason.
+
+Four things in the build follow from the same floor:
+
+- GCC 8 keeps `std::filesystem` in a separate `libstdc++fs`. `CMakeLists.txt`
+  finds out by linking, not by version, and puts the result in the
+  `amberedit_filesystem` interface target that `amberedit_core` exports.
+- **The answer type is `tl::expected` and not `std::expected`, and that too is
+  the floor talking.** `std::expected` is C++23 and GCC 8 has no part of it, so the
+  library is the only way the project gets the type at all — and it is packaged
+  on every target under one header and one CMake package: `expected-devel` on
+  EPEL 8, 9 and 10 and Fedora, `libexpected-dev` on trixie, jammy, noble and
+  resolute, `tl-expected` in Arch's extra and in Homebrew. **What may be used of
+  it is the 1.0.0 API and no more**, because jammy carries 1.0.0:
+  `has_value()`, `operator bool`, `operator*`, `error()`, `value_or()` and
+  `tl::make_unexpected`.
+  Not `transform`, not `transform_error`, and not the deduced `tl::unexpected` —
+  all three are newer, all three compile on Fedora and on a developer's Mac, and
+  all three fail on jammy. `support/result.hpp` says the same thing where the
+  type is declared.
+
+  The other thing asked of it is that it **hold a move-only error**, because
+  `ErrorPtr` is a `unique_ptr`. That is not a version to read off a package but a
+  property to compile, so `CMakeLists.txt` probes for it beside the 1.0.0 API and
+  fails at configure time naming what is missing.
+- **The tests are on doctest, and that is a packaging decision rather than a
+  taste.** Nothing is fetched, so a package build — which has no network — gets
+  the tests too, and doctest is the only framework every target packages under
+  one API: `doctest-devel` on EPEL 8, 9 and 10 and Fedora, `doctest-dev` on
+  trixie, jammy, noble and resolute, `doctest` in Arch's extra and in
+  Homebrew, 2.4.8 through 2.5.x and source-compatible across all of them. Catch2 has no such
+  version — EPEL 8 carries only the 2.13 series and trixie, noble and Homebrew
+  carry only v3, and the two are not source-compatible — so it would need a
+  compatibility header forever.
+
+  What doctest does not have is matchers. A substring assertion is therefore an
+  ordinary predicate, `amberedit::test::contains` from `tests/test_strings.hpp`,
+  paired with `CHECK_MESSAGE` so a failure still prints the string that was
+  searched. `CHECK_THROWS_WITH` compares a whole message and nothing less, which
+  none of these assertions want, so `errorOf` from the same header catches the
+  message — it is what reads `error()->message()`, so a test never spells that
+  out — and `contains` is put to it.
+
+  **Never hand a whole `tl::expected` to an assertion macro** — write
+  `CHECK(base.open(area).has_value())` and `CHECK(valueOf(base.write(m)) == 1)`,
+  never `CHECK(base.open(area))` or `CHECK(base.write(m) == 1)`. doctest
+  decomposes the expression by capturing its left-hand side, and up to 2.4.x it
+  captured that *by value* — which is a copy, and the error is a `unique_ptr`.
+  It compiles on 2.5.x, which captures a reference, so a developer's Mac and
+  Fedora say nothing and RHEL 8, RHEL 9 and jammy fail the build.
+
+- **Never give a type a free `toString()`, and this is a build error rather than
+  a preference.** To print what a failing `CHECK(a == b)` compared, doctest calls
+  an unqualified `toString(a)`, and ADL hands it any free function of that name
+  in the type's own namespace. doctest 2.4 needs one returning `doctest::String`
+  and gets `std::string`, so the test file will not compile; 2.5 wraps the
+  result and compiles fine. Since Fedora and Homebrew are on 2.5 and EPEL,
+  Debian and Ubuntu are all on 2.4, that is a break which passes on a developer's
+  Mac and fails every packaging platform. `domain::nameOf(MsgBaseType)` and
+  `domain::nameOf(AreaKind)` are so named for this reason and no other. A member
+  `.toString()`, as FtnAddress and AddressPattern have, is not found by ADL and
+  is not affected.
+
+To exercise the app itself against the checked-in base:
+
+```bash
+cp amberedit.cfg.example amberedit.cfg       # point tosser_config at a real areas file
+./build/bin/amberedit -c amberedit.cfg
+```
+
+`testdata/msgbase/localnet.*` is a real Squish base with 43 messages, some of
+them in CP866 Cyrillic — the quickest way to see whether decoding still works.
+Copy it somewhere writable first if anything is to be written into it.
+`amberedit.cfg.example` is itself read by a test (`tests/config/app_config_test.cpp`),
+so a setting renamed in the code and not there fails the build.
+
+The version lives in `project(AmberEdit VERSION ...)` in `CMakeLists.txt` and
+nowhere else **that the code can see**: `src/version.hpp.in` is configured into
+`build/generated/version.hpp`, giving `kProgramName` ("AmberEdit"), `kSystemName`
+(`CMAKE_SYSTEM_NAME` lowercased), `kLongProgramName` ("AmberEdit/darwin"),
+`kVersion` and `kProgramId`. `--version` prints `kProgramId`; the template tokens
+are `@pid` (the bare name), `@longpid` (the name with the system under it) and
+`@ver`/`@rev`/`@version` (the number), which is how the default tearline
+`@longpid @version` reaches "AmberEdit/darwin 0.1" with the version standing
+only in `CMakeLists.txt`. The two packaging files state it again — `Version:` in
+`amberedit.spec` and the first line of `debian/changelog` — because neither rpm
+nor dpkg will read it out of a CMake file. Nothing generates those from it, so
+they are checked instead: the release workflow compares all three against the tag
+before it builds anything, a deb being the one that would otherwise fail in
+silence and ship the old number. The tests build their expected tearline from the same
+constants. The tearline and origin *texts* are the user's: `tearline` and
+`origin` are expanded as template lines (`expandTokens` in `app/msg_template`)
+and closed round by `message_builder` — `"--- " + tearline` and
+`" * Origin: " + origin + " (addr)"`.
+
+## Layering
+
+```
+UI (app_shell + the screens, drawn by ui/term on ncurses)
+   ↓
+Application (AreaManager, Navigator)
+   ↓
+Domain (Area, Message, FtnAddress) + Ports (IMsgBase, ILastReadStore, IAreaConfigSource)
+   ↑ implemented by
+Adapters (FtnMsgBase over the msgbase/ format drivers, AppConfig,
+          FidoconfigParser, AreasBbsParser, CharsetDetector, IconvRecoder,
+          MsgBaseLastReadStore)
+
+Support (Error) + i18n — the bottom. Neither includes anything of the project
+                  but the other, and every layer above may include both.
+```
+
+`i18n/` is the interface's own language: `_()` and gettext behind it. It sits
+beside `support/` because everything draws words — the UI, the setup wizard, the
+error sentences in `support/error.cpp` and the command table in `config/` — and
+it includes nothing of the project but `support/error.hpp`. It is the whole of
+what links libintl; see **The interface's language**.
+
+`nodelist/` and `echolist/` stand beside the adapters and lean on the domain, on
+`config/` and on `archive/zip_reader` only — nothing in the core knows either is
+there. The one thing above the nodelist that does is `ui/nodelist_dialog`; the
+echolist is reached only by `main.cpp`, which wraps the area source in it.
+
+`archive/` is the zip reader, and it is what wants zlib. Both subsystems read
+archives and neither may reach through the other to get at one, which is why it
+is a library of its own (`amberedit_zip`) rather than part of either.
+
+Rules that hold the design together:
+
+- `domain/` includes no terminal or msgbase headers. It is plain structs.
+- **ncurses exists only inside `ui/term/`**, and only in `color.cpp` and
+  `terminal.cpp` — both through `ui/term/ncurses.hpp`, the one place that decides
+  which header to include and takes the C macros (`lines`, `columns`, `clear`, …)
+  back off. Nothing above `ui/term/` names a curses type, which is what lets the
+  tests link the drawing and measuring code without a terminal.
+- The `I*` ports do not change without reviewing every adapter that implements
+  them and every consumer in `app/` and `ui/`.
+- The format drivers (`SquishBase`, `JamBase`, `SdmBase`) speak bytes and never
+  escape `FtnMsgBase`: no file descriptor, raw offset or stored charset appears
+  above the adapter layer. Every write and delete goes through `FileLock`, which
+  takes every file of the base and releases them as one.
+- Character-set conversion happens at the adapter boundary. Above `IMsgBase`,
+  every string is UTF-8 and single-byte encodings do not exist.
+
+## Code conventions
+
+- C++17. Formatting follows `.clang-format` (Google style, 90 columns), linting
+  `.clang-tidy`. **The project is clean under its own lint config — keep it that
+  way.** `tests/.clang-tidy` inherits the root config and drops the two checks
+  that only fire on doctest's macros. Every disabled check carries a comment
+  saying why; adding one means adding the reason with it.
+- Const member functions that only compute a value are `[[nodiscard]]`.
+- **Everything in the repository is written in English** — comments, UI strings,
+  exception messages, test names, commit messages. The two exceptions are
+  `po/*.po`, where the translations live and Cyrillic is the point, and
+  deliberate test data (charset conversion, UTF-8 column alignment, a token that
+  must not parse as an FTN address); do not "translate" either. **A string the
+  user reads is still written in English in the source** — it is the msgid, and
+  the catalog is what answers with anything else.
+- Comments explain why, not what, and describe the code as it stands — no "this
+  used to be", no note about what a function was called before. See the rule at
+  the head of this file: it covers the comments as much as the documents.
+- **A message's `Snt`, `Loc`, `Pvt`, `K/s` and the rest are its *attributes*,
+  everywhere** — `domain::attr`, `MessageHeader::attributes`,
+  `messageAttributes()`, `ui/attributes_dialog.cpp`, the `Attrs...` button. Never
+  "flags": FTS-0001 calls them attributes. "Flag" is left for a boolean on a
+  struct, a command-line option, or a bit in someone else's format
+  (`NodeEntry::flags` are FTS-5001's node flags and stay that).
+- **Everything that can fail answers with `tl::expected<T, ErrorPtr>`**, spelt
+  out and not behind an alias of ours, and `error()->message()` is the sentence
+  a person reads, already complete. Nothing throws, nothing keeps a
+  `lastError()` to be asked afterwards, and no bool means "look somewhere else
+  for why". `std::optional` still means *absence* and is not a failure,
+  `std::error_code` with the non-throwing `std::filesystem` overloads is still
+  how the filesystem is asked, and a function answering a plain question —
+  `isOpen()`, `count()` — is still a bool. It is read through `*` after being
+  checked, never through `value()`.
+- **The error is a class and not a sentence, and it is moved and never copied.**
+  `support/error.hpp` holds the closed set: `ConfigError` carries the file and
+  the line, `MsgBaseError` carries a `Kind` and the base, and `PlainError` is the
+  rest — a failure nothing above it could branch on. `message()` builds the
+  sentence out of those parts on demand, so the same failure a screen shows can
+  also be asked what it was: `AreaManager::openArea` tells a base that is not
+  there from one that is broken by asking `MsgBaseError::Kind`, where it used to
+  walk the file system a second time.
+
+  `ErrorPtr` is a `unique_ptr`, which is what makes the moving a rule the
+  compiler keeps rather than one to remember: `tl::make_unexpected(read.error())`
+  does not build, and `std::move(read).error()` is what a propagation says. An
+  answer carries eight bytes of error however deep it is handed up, where a
+  `std::string` error allocated a fresh copy of the sentence at every frame.
+
+  Add a class when something could act on the difference. `failure("…")` builds a
+  `PlainError` and stays the right answer where nothing can.
+- Errors a user can act on **before** the screen opens — a config, a theme, a
+  template, a keyboard layout — come back out to `main()`, which names the file
+  and prints them. Once the interface is up there is nowhere to say anything:
+  there is no status line, and a screen that cannot do what was asked simply
+  does not do it, having said so by drawing its menu button dimmed. The one
+  exception is `ui/error_dialog.cpp`, for an area that will not open — asked for
+  by a key that had every reason to work. A second use for it wants an argument
+  first.
+- **`main()` and the UI's per-frame and per-keystroke handlers still catch**, and
+  those three are the only places that do. Not for AmberEdit's own errors, which
+  are values, but for what the standard library throws underneath: `bad_alloc`,
+  `std::stoll`, the `std::filesystem` overloads that take no `error_code`. A
+  broken area must never take the application down. The two in the UI have
+  nowhere on the screen to say what they caught, so they say it to
+  `ui/error_log` instead — a line naming the screen and the key, in the file
+  `error_log` points at, and nowhere at all where the config names none, which
+  is the ordinary case. `main()` has a terminal and prints to it.
+- **A diagnostic per item is a field and not an answer of its own.** A list where one
+  member is broken and the rest are fine — `AreaEntry::error`,
+  `CompileReport::problems`, `CopyCommand::error`, `StartingText::error` — is a
+  report to be shown beside the things that worked, and an expected there would
+  throw the answer away to keep the complaint.
+- There is no toolbar and no status line, and no bottom bar goes back in: the
+  rows one would take are the message's. What a screen offers is in the menu
+  behind its top-right corner.
+
+## Domain notes
+
+### Messages, indexes and read marks
+
+- **Message indexing is 1-based** throughout `IMsgBase` and the format drivers.
+- **A lastread mark is a UID, never a position.** All three formats store the
+  identifier that outlives a pack — the UMSGID in Squish, the absolute message
+  number in JAM and Fido `*.msg`. `IMsgBase::uidOf()` / `indexOfUid()` are the
+  only conversion and need the base open, which is why `AreaManager` does it
+  rather than the store. Writing a position would point every other reader at the
+  wrong message the first time the base is packed. `indexOfUid()` asks the driver
+  for the nearest earlier message, so a mark on a deleted one lands on the
+  message before it.
+- **The three lastread files have code of their own**, apart from the format
+  drivers: `msgbase/lastread_file.*` does the byte-level I/O, one store per
+  format sits on top, and `MsgBaseLastReadStore` picks between them by base type.
+  Marks go to disk on every message opened, so a reader killed mid-area resumes
+  where it was.
+- **JAM keys its records by a name CRC, not by a user number.** `lastread_user`
+  only fills the record's `UserID`; the config's `name` is the key, which is one
+  of the reasons `fromEntries()` requires it. The CRC is the reflected `edb88320H`
+  polynomial seeded with `ffffffffH` and *not* inverted at the end, over the name
+  with `A-Z` lowered and nothing else — inverting it, or lowering Cyrillic too,
+  gives a hash no other reader agrees with.
+- **"Read" means three different things here, and they are three fields.**
+  `MessageHeader::isRead()` is FTS-0001's `MSGREAD` — the *network* saying a
+  netmail reached the node it was addressed to. The area list's unread count is a
+  *position*: how many messages stand after the lastread mark, moved by
+  `AreaManager::markRead()`. `MessageHeader::seen` is the mark on the one
+  message, which is what the list paints under `highlight_unread`. Reading a
+  message out of order marks it and leaves the count where it was; the two are
+  meant to disagree.
+- **`seen` is a field of its own and not another attribute bit.** Only Squish has
+  a bit for it (`MSGSEEN`, `0x00080000`) and `SquishBase` takes it *out* of
+  `RawHeader::attributes` on the way in and puts it back on the way out, so it
+  never reaches `domain::attr`. JAM and Fido `*.msg` count reads instead
+  (`TimesRead`, the `times_read` word at offset 164), and any count is the mark.
+  Keeping it out of the attributes word is what stops the attributes dialog
+  offering to clear it and "zap all attribs" clearing it. All three drivers'
+  `replace()` carry it over from the stored message, beside the arrival stamp and
+  the thread links.
+- **`markSeen()` patches the field where it lies** — four bytes in Squish, four
+  in JAM, two in a `*.msg` — taking the lock like every other write and re-reading
+  under it. `replace()` would rewrite the whole record and re-date the message.
+  A message already marked is left alone and true comes back, so reading back
+  over an area writes nothing; JAM answers that from its in-core header table. It
+  is called from `loadMessage()` whatever `highlight_unread` says, and a failure
+  is deliberately silent: a read-only area is the ordinary reason.
+- **`Uns` is a virtual attribute, derived and never stored.**
+  `domain::messageAttributes()` turns the XMSG bits into the short forms readers
+  show, and `Uns` stands for no bit: it shows exactly when `Loc` is set and `Snt`
+  is not — `MSGLOCAL` with `MSGSENT` clear. Nothing writes it, nothing reads it back, and the attributes dialog has
+  no checkbox for it, so the editor shows it over a message being written exactly
+  as the reader shows it over one read back (`[Uns Loc]` on a new message). The
+  bit values are spelled out in `domain/message.cpp` rather than included from
+  `msgbase/`; they are FTS-0001's and are the currency every driver translates
+  into, JAM keeping bits of its own on disk.
+- **Dates** in XMSG are DOS-packed, the year counting from 1980 and seconds
+  stored in two-second units.
+
+### Kludges and service lines
+
+- **Kludges** are control lines starting with `\x01` (^A). In Squish and JAM they
+  live apart from the text (a control block, subfields), in Fido `*.msg` inline
+  at its head; the drivers hand them all back as `RawMessage::control`, and
+  `splitBody` in `ftn_msgbase.cpp` marks them. `PATH:` carries a ^A; `SEEN-BY:`
+  does not but is service data all the same. So is the `AREA:` line a packet
+  carries — no ^A, and service data **only as the very first line**, where
+  FTS-0001 puts it and where `splitBody` looks; the same characters further down
+  are a line somebody wrote. Since ^A cannot be printed, `@` stands in for it, so
+  `@PATH:` is right and `@SEEN-BY:` and `@AREA:` are not. The reader hides
+  service lines and shows them on `k`, in dark grey and **in the position the
+  base stores them** — AREA:/MSGID ahead of the text, SEEN-BY and PATH after the
+  origin. Do not gather them into a block. `preservedLines()` puts the ^A-less
+  leading one back at the head of a message being changed, and `standsFirst()`
+  keeps a MSGID from being inserted in front of it.
+- **What the reader is showing is what an answer carries.** `BuildRequest::kludgesShown`
+  is the reader's `k`, and `quotableLines()` keeps the control lines with the text
+  when it is set: a reply quotes them under the same initials as everything else,
+  a forward passes them on where `@message` stands. They go in as the reader shows
+  them, `@` for ^A, since what is carried is text *about* a message and not
+  control data of the answer's own — a forwarded `SEEN-BY:` is one this reader
+  hides again on `k`, and that is right: it is service data wherever it stands.
+  The tearline and origin are left out whether the kludges are on or off; the
+  message being written closes with a pair of its own.
+- **Tearline and origin.** `domain::markTrailer()` flags the pair closing a
+  message, walking back from the last line and stopping at the first thing that
+  is neither; kludges and blanks are stepped over, since SEEN-BY and PATH sit
+  after the origin. It has to be decided over the whole body, because `---` is
+  also used mid-message as a separator and only the closing one is a tearline.
+  The flag travels on `MessageLine`, set by the adapter, so the reader only
+  renders it. `isOriginLine()` checks the prefix and nothing else: the
+  parentheses may hold a 4D address, a 5D one, or the network name too.
+- **A message body has two line terminators, 0DH and 0AH. Every other byte is
+  text.** `splitBody` looks for those two and for nothing else, and nothing may
+  be added that looks for anything else. FTS-0001 (§ Message Text) also gives
+  8DH as a "soft carriage return" marking a previous processor's line wrap, to
+  be ignored. **AmberEdit does not implement that and must not.** 8DH is a
+  character somebody wrote, and a reader that took it for markup would be
+  deleting text out of the body it is showing. Which character it is depends on
+  the charset the message declares, and that is beside the point: the rule is
+  that the byte is never looked at, not that looking at it happens to be safe
+  somewhere.
+  It could not be told from the text in any case. Ahead of the decoding it is a
+  byte like any other; behind the decoding there is no 8DH left to find. So this
+  is not a thing nobody has got round to, and a picture that reached us already
+  broken by a sender's word wrap is not a reason to reach for it.
+
+### Keys, modifiers and the mouse
+
+- **A modifier is a flag on the event, not a byte sequence.** `Event::ctrl()`,
+  `alt()` and `shift()` are settled in `ui/term/terminal.cpp`, which teaches
+  ncurses the sequences terminfo does not describe — kitty's `CSI u`, xterm's
+  modifier 3 and 9, `ESC`+letter — through `define_key()`, so a binding is
+  written once (`isCtrl`, `isAlt` in `ui/event_util.hpp`). The bare
+  `ESC`+letter form of **Alt+letter** is ambiguous with Escape then the letter,
+  so only the letters a layout actually binds claim it: `KeyMap::altLetters()`
+  hands them to `Terminal`, which passes them to `registerModifiedKeys()`. All 26
+  `CSI u` forms are registered already. **Alt+Backspace** goes the same way —
+  both protocol spellings always, the bare `ESC`+DEL (and `ESC`+BS) form only
+  when `KeyMap::altBackspace()` says a layout wants it. It is the one other
+  named key Alt may be written in front of, `takesAlt()` in `ui/keys.cpp`
+  naming the arrows and it; by default it is `compose.delete_word` beside
+  `Ctrl-W`.
+- **Home and End are claimed in every form, through the same `define_key()`.**
+  `khome` and `kend` name the one sequence the terminal their entry was written
+  for sends, and terminals never agreed on this pair, so a session whose TERM
+  describes a different terminal from the one at the other end loses the key
+  entirely. `registerNavigationKeys()` in `ui/term/terminal.cpp` registers all
+  four forms of each — the xterm pair, the VT220 one the Linux console, screen
+  and PuTTY also send, and rxvt's — and none of them is ambiguous, so none waits
+  on the layout the way `ESC`+letter does. Do not narrow it to the forms one
+  terminal happens to need. No other named key needs this: the rest are spelled
+  the same way everywhere.
+- Escape needs no repair: with the kitty protocol on it arrives as `CSI 27 u`,
+  without it ncurses resolves the ambiguity on its own timer
+  (`set_escdelay(25)`).
+- Shift+Space needs the terminal to report modified keys, which none does by
+  default. `runApp()` turns that on (kitty keyboard protocol at the disambiguate
+  level, plus xterm `modifyOtherKeys=1`) and restores it on exit. The side effect
+  is that a bare Escape then arrives as `CSI 27 u`, which `app_shell.cpp` folds
+  back into `Event::Escape` before the screens see it — if you raise the kitty
+  flags, Enter, Tab and Backspace will need the same treatment.
+- `q` and `e` are the reader's for replying and composing, so quitting is
+  `Ctrl-Q` by default — `app.quit`, which a layout may move like any other
+  command. Two things make Ctrl-Q work, both in `app_shell.cpp`: flow control has
+  to be turned off, or the line discipline eats Ctrl-Q as XON, and the chord has
+  to be matched in two forms — the raw C0 byte and the kitty protocol's
+  `CSI <codepoint>;5u`. The input layer folds both into one event. `Ctrl-C` is
+  bound to nothing and `raw()` keeps the terminal from making a signal of it, so
+  it does nothing at all until a layout gives it something to do.
+- The wheel moves a line per notch on every screen — the cursor in the lists, the
+  body in the reader — through `ui::wheelDelta()` (`ui/event_util.hpp`), which
+  returns -1/0/+1 and leaves each screen to decide what that moves. A list whose
+  rows stand more than one line tall counts those notches rather than taking one
+  for a row; the bullet under this one is how. The mouse is
+  turned on in `Terminal`'s constructor with `mouseinterval(0)`: without it
+  ncurses holds a press for a fifth of a second to see whether it becomes a
+  double click. Acting on the press alone matters too — a terminal that also
+  reports the release would move two lines per notch. Which protocol is used is
+  terminfo's decision: an entry with `xm` gets SGR 1006 and works at any width,
+  one without falls back to the original mode, whose coordinates stop at column
+  223. Apple's terminfo has no `xm`; every current Linux one does.
+- **A wheel notch is a line, and a row of a list may be several.** Where
+  `arealist_format` or `msglist_format` holds a `\n`, the two list screens hand
+  each notch to `AppState::wheelSteps()` (`ui/app_state.hpp`) with the height of
+  their row, and it answers with the notch or with 0: the first notch of a run
+  moves the cursor and the rest of that row's worth are swallowed, so a two-line
+  row costs two notches. `ui::WheelThrottle` (`ui/wheel_throttle.hpp`) is the
+  whole of the arithmetic and holds no clock — `AppState::monotonicMs` is read
+  for it, which is what lets a test flick a wheel. A run is notches one way
+  arriving no further apart than `list_wheel_throttle_ms`; slower than that, or
+  with `list_wheel_throttle off`, every notch moves a row. **A swallowed notch is
+  still handled** — the screen returns true and does nothing — or the event would
+  fall through to whatever is under the list.
+- **Putting something else in front of the user ends the flick that was in
+  flight.** A notch arrives after the hand that asked for it — a trackpad reports
+  them once the finger has left it, and a wheel turned faster than the frames are
+  drawn leaves them waiting to be read — so the ones still coming when Escape
+  closes the reader would run the list underneath to its end, the ones still
+  coming when a box opens over it would run the list inside the box, and the ones
+  still coming when → walks to the next message would scroll a message nobody has
+  looked at yet. `ui::focusOf()` (`ui/focus.hpp`) answers all three at once: the
+  screen, which of the modals stands over it, and the message the reader has
+  loaded. The loop in `app_shell.cpp` reads it at the top of every pass and hands
+  `ui::WheelSettle` (`ui/wheel_throttle.hpp`) the moment that answer changes;
+  from there its notches are swallowed at the head of the dispatch chain, ahead
+  of every modal in it. The wheel is live again on the first notch after a gap of
+  `kWheelSettleMs`, on the first one turning the other way, or once
+  `wheel_settle_ms` has passed since the change — that setting is what keeps a
+  hand that goes on turning from meeting a dead wheel, and it is set against how
+  long a hard flick reports for: 1500 by default, and 0 leaves the tail to land
+  where it falls. **Every event goes through `AppState::wheelLeftOver()`**,
+  swallowing or not: the guard has no other way to see when a run ends. The gap
+  that ends a run is a constant and not a setting, and the tail cannot be told
+  from a flick begun inside the window — the same limit of what the terminal
+  reports that the bullet on horizontal scrolling below turns on.
+- **A swallowed notch draws no frame.** The loop polls again from inside the
+  guard rather than going round the top, and that is not an optimisation: a wheel
+  flicked hard leaves hundreds of notches waiting, laying the message out afresh
+  for each of them takes seconds, and those are seconds the tail has to outlive
+  to reach the screen. Draining them at once is what leaves `wheel_settle_ms`
+  measuring the flick and not the redrawing. Nothing changed while they were
+  dropped, so there is nothing a frame would show.
+- **The focus reads `readHeader`'s number and never `messageCursor`.** The reader
+  and the message list share that cursor, and the wheel moves it a row at a time:
+  a cursor in the focus would make every notch over the list a change of what is
+  in front of the user, and the guard would answer by swallowing the rest of the
+  flick. `ui/focus_test.cpp` holds that case, and it is the one to keep passing.
+  `addresseeOf()` is to be kept in step with the dispatch chain in `app_shell.cpp`
+  in the same way: the two list the same modals in the same order, and a box left
+  out of the first is one the tail of a flick can still scroll.
+- Horizontal scrolling is deliberately unhandled, and "swipe to the next message"
+  is not to be reached for again without a new signal: nothing the terminal
+  reports carries an event's phase, so a trackpad's momentum tail cannot be told
+  from a fresh swipe, and any single threshold either locks out a quick second
+  swipe or lets one flick step through ten messages.
+- Measuring wheel behaviour needs a pty harness that drains the app's output
+  continuously. A reader that sleeps between reads lets the terminal buffer fill,
+  which blocks the app mid-frame and shows up as phantom extra events.
+- **A click is shown before it is acted on**, for `click_animation_ms`. A button
+  is taken to the theme's `animated_button_text` — `dialog_flash` where the
+  button stands inside a box — frame and all; a list moves its
+  cursor onto the row the pointer landed on and holds the frame before opening
+  it. Only clicks get it: the keyboard has shown what Enter would act on long
+  before the key is pressed. `AppState::showClick()` is the whole of it — it sets
+  `pressed`, calls `holdFrame` and clears it. `holdFrame` is set in `runApp()`,
+  where the terminal is; the tests leave it unset and every click acts at once.
+  It draws a frame, so **anything a render pass rebuilds is gone across the
+  call** — `readThreadLinks` and the menu's buttons are rebuilt every frame, so
+  what the click needs is copied out before it is shown, not read after.
+
+### The area list
+
+- `Esc` opens the quit confirmation in `ui/quit_dialog.cpp`. It is not a
+  Navigator screen — it draws over whatever was rendered and, while it is up,
+  `app_shell.cpp` feeds every key to it and to nothing else. Ctrl-Q is matched
+  before that check so the unconditional quit stays unconditional.
+- **`/` goes to the next unread area** — downwards from the cursor and round the
+  end, skipping areas that cannot be read: the test is the star column's, since
+  an area with no readable base has no unread messages to go to. The slash is a
+  command and not a character to search by, so `searchInput()` refuses it and
+  `handleEvent()` claims it; the pair holds for the space as well, and both keys
+  are free because no area tag holds either character.
+- **Ctrl-U shows the areas with something unread and nothing else.**
+  `AppState::areaUnreadOnly` is the mode, `arealist_unread_only` is where it
+  starts, and `shownAreas()` in `area_list_screen.cpp` is the whole of it: the
+  rows are places in the manager's list, and `areaCursor` still names an area of
+  that list rather than a row of the screen — which is what lets the cursor keep
+  its area across a toggle and what `rowOf()`/`putOnRow()` convert between.
+  The test for a row is the star column's, the one `/` uses, so an area that
+  cannot be read is off the list too. It is worked out afresh on every frame and
+  every keystroke rather than settled beside the cursor: the counts move only in
+  the reader, so nothing can change under a cursor walking down the list, and a
+  filtered list held in the state would be one more thing every path back here
+  had to rebuild. An area read to its end therefore leaves the list as the
+  reader is left, and the cursor lands on the one that came up under it. The
+  numbers in the `a` column count the rows that are shown; with none of them
+  shown the screen says so under its own heading and rule, and nothing but the
+  key that turned the filter on takes it off again.
+- **Ctrl-R reads everything again** — the tosser config and every base, which is
+  what brings the counts up to date after a tosser run. Deliberately two steps:
+  the key only sets `AppState::rescanning`, and `runApp()` does the reading on
+  the pass after the frame carrying the "Rescanning areas..." modal, because
+  opening every base blocks and there is no second thread to draw from. Hence
+  also `AppState::drawFrame` beside `holdFrame` — the same frame without the
+  pause — for drawing from inside a call the loop is stuck in: `reload()` takes a
+  callback naming each area as it reaches it, and the modal's second line is that
+  name. Keys pressed meanwhile are thrown away (`Terminal::flushInput()`): they
+  were aimed at counts being rebuilt. The cursor is put back by tag and path, not
+  by position, since the list is sorted again and the config may name different
+  areas. `reload()` builds the new list beside the old one and swaps at the end,
+  the modal covering a box in the middle of the list and no more.
+- **The counts are read again, never adjusted.** `AreaManager::refreshArea()` is
+  what a message written, changed or deleted calls, and it re-reads both counts
+  off the base and the mark on disk — the open base where the area is the open
+  one, a handle opened for the reading otherwise. Adding one to
+  `AreaEntry::total` would be right only while nothing else writes to the base,
+  which is exactly what a tosser does between two keystrokes. The moved reply
+  refreshes the target while its base is still open.
+- **Entering an area lands in the reader, not the list.**
+  `AreaManager::startingMessage()` decides: the message after the lastread mark
+  when it points at one that still exists, and **the first message where nothing
+  has been read** — no mark on disk, or one older than anything the base holds.
+  An area is read forwards, and the front is also where ← off the front has to
+  come back to. Landing after the mark rather than on it is
+  `reader_lastread_auto_next`. The list is pushed on top of the reader by `l` and
+  popped by Enter or Esc, so it never stacks a second reader. An empty area opens
+  in the reader too, on blank rows, that being the screen a first message is
+  written from; `l` there refuses with "the area is empty". `leaveArea()` handles
+  every exit, whatever depth it is taken from.
+- **An area with no base on disk has one made on the way in.** A tosser config
+  declares areas before anything has written into them, so refusing such an area
+  would refuse exactly the one a first message is wanted in.
+  `AreaManager::openArea()` is the only place it happens — `reload()` opens every
+  base there is, and creating them all at a rescan would write a spool nobody
+  asked for. It acts on `FtnMsgBase::isAbsent()`: the area states a type and
+  **nothing at all** stands at its path. A base that is half there, or there and
+  unreadable, holds something an empty one written over it would take with it; an
+  area whose type nothing states has no format to guess at.
+  `FormatDriver::create()` is the format's half.
+- **An area that will not open says so and stays on the list.** The row is drawn
+  dimmed, but Enter on it is tried like any other — the dimming is what was true
+  at startup, and the base may have been written since. Only once opening *and*
+  creating have both failed is there anything to say: `AppState::errorMessage`,
+  drawn by `ui/error_dialog.cpp`, acknowledged by Enter, Esc, Space, `o` or its
+  one button, and acknowledging puts the user back on the area list.
+  Entering an area that *did* open calls `AreaManager::refreshArea()` where the
+  row had said it could not be read.
+- **The order is `arealist_sort`'s.** `config/app_config.cpp` parses the letters
+  and `app::sortAreas()` applies them once, at the end of `AreaManager::reload()`:
+  sorting by unread needs counts that only exist after every base has been
+  opened, and re-sorting as messages are read would move the list under the
+  cursor. `std::stable_sort` is the whole of what "areas the criteria cannot tell
+  apart keep the tosser config's order" means.
+- **What a row holds is `arealist_format`'s.** The shape of the value —
+  letters, the width after each, a space standing for itself, `\n` for the next
+  line of the row, at most five lines and no empty ones — is
+  `config/list_format.*`'s, shared with `msglist_format` so that a rule which
+  held for one list cannot fail to hold for the other; which column a letter
+  names is all either setting decides for itself. (The config file knows no
+  escapes of its own, so the backslash of a `\n` arrives as text.) A blank line
+  in a row is written as a space; an empty one is a `\n` typed once too often
+  and is refused. `config/app_config.cpp` maps the letters onto an
+  `AreaListFormat` — a line per line of the row, and on each the `AreaListField`s
+  written on it — and `ui/area_list_format.*` lays them out a line at a time:
+  fields with a width keep it, fields written `0` share what is left of *their
+  own line* equally and the first takes the odd column. The line names one format
+  or two — `"e c u\nd n" "e d c un"` by
+  default — and `AppState::areaListFormat()` picks between them on every frame by
+  `adaptive_ui_threshold`, the same line `when_narrow` and `when_wide` are read
+  against; one format stands for both windows. Each format is one config value,
+  so a third value is refused rather than joined: a format with a gap in it is
+  quoted. The single heading row is built from the format's first line, so the
+  screen knows nothing about which columns there are. A window too narrow for the
+  fixed widths gives the flexible fields nothing and the row is cut at the right
+  edge; counts too wide for their column are shortened rather than cut (`17k`,
+  `1M`, `+`), a column that overflowed moving every field beside it.
+- **A row may be taller than a line, and the list counts areas.**
+  `AppState::areaRowHeight()` is how many lines the format this window follows
+  asks for and `areaListItems()` how many whole areas that leaves room for in
+  `areaListRows()` lines; scrolling, paging, clamping and the scrollbar's thumb
+  are all counted in areas, and the lines at the bottom no whole row fitted in
+  are left blank. Any line of a row is a click on that area. The two formats need
+  not be the same height, so dragging the window across `adaptive_ui_threshold`
+  changes how many areas a screen holds: `area_list_screen.cpp`'s
+  `reflowOffset()` runs at the top of `render()` and holds the line the selected
+  row starts on, working the areas above the cursor out again for the new height
+  — `AppState::areaRowHeightShown` is the height the offset was last settled
+  against. `clampCursor()` still has the last word near the end of a list.
+- **A row's description may come from two places.** The tosser config's `-d` (or
+  an `area … endarea` block) and the compiled echolist both answer for one, and
+  `arealist_description_priority` says which wins — see
+  [The echolist](#the-echolist). Nothing in the area list knows about it: the
+  answer is settled in `AreaConfig::description` before the list is ever built.
+  **What the column shows where neither answered is `arealist_description_default`**,
+  `no description` by default and blank where the setting is written `""`. It stands
+  in at the column and nowhere else — `@CDESC` and `@ODESC` are still empty for
+  an area nothing describes, a dash in a message being a dash rather than a
+  missing description. **The description column is drawn in `dimmed` whatever it
+  holds** — the area's own words as much as the stand-in: it is the one column
+  that is prose rather than a fact about the area, and the names and the counts
+  beside it are what the eye goes down the list for. That is why a row is drawn
+  in `area_format::runs()` — the pieces of it that take one color each, cut only
+  where the color changes — rather than as the one string `row()` still joins
+  them back into. **The row under the cursor keeps the selection's colors
+  throughout**: it is marked out already, and the quiet color on the selection's
+  background would be the one thing on the row that could not be read.
+- **Both lists draw the reader's scrollbar, and it costs their rows a column.**
+  `arealist_scrollbar`, off by default, and `msglist_scrollbar`, on by default,
+  one for each screen; `scrollbar::bar()` in the rightmost column, so a list
+  scrolls the way the message in it does. It is drawn only where the list is longer than the
+  screen — a list that fits has nothing to point at, exactly as the reader shows
+  no bar for a message that fits — and where it is drawn the rows are laid out in
+  `state.width` less that column, so the text runs up to the bar rather than
+  under it: in the area list that narrower width is what `area_format::layout()`
+  divides, in the message list what `msg_format::layout()` does. Where a row
+  stands more than one line tall the bar is built a cell at a time from
+  `scrollbar::thumbOf()` over the *rows* on the screen, each cell drawn down the
+  lines its row takes: what the thumb points at is where in the list the screen
+  is, not how many lines that came to. The bar stands
+  beside the rows alone; the heading, the rule and the message list's title span
+  the whole width, as the reader's rule does over its viewport. Neither setting
+  has a key to toggle it: `b` is the reader's, about a message running past the
+  window rather than about a table with a row count of its own.
+
+### The message list
+
+- **It comes up centred on the current message**, through
+  `message_list::centerCursor()`, called at the moments the list is arrived at
+  or jumped across — `enterArea()`, `l` in the reader, and a number typed into
+  the goto field — and nowhere else: moving inside the list scrolls a row at a
+  time, and a table that re-centred on every keystroke would slide under the
+  cursor. Centring is what the lastread mark asks for: the mark is usually
+  partway down the area with the unread messages after it, and plain "keep the
+  cursor on screen" arithmetic lands it on the bottom row with exactly those
+  messages below the screen. Because the offset is decided when the
+  list opens, the reader moves the cursor alone as it walks between messages.
+- **What a row holds is `msglist_format`'s**, read the way `arealist_format` is
+  and laid out by `ui/msg_list_format.*` — `a` number, `m` mark, `f` from, `t`
+  to, `s` subject, `d` date, `\n` for the next line of the row.
+  `"amf0 t0 d(%d %b %y)\ns" "amf t s d(%d %b %y %H:%M)"` by default: the narrow
+  row puts the subject on a line of its own under the names, the wide one has
+  them all on the one line. **`d` is the one field written by a format of its
+  own**, in brackets after the letter and after its width — `d(%d %b %y)`,
+  `d10(%Y-%m-%d)` — read to the first `)` by `parseListFormat()` and held to
+  exactly what `reader_datetime_format` is held to by `checkTimeFormat()`. A `d`
+  with no brackets is the reader's format, and stays empty in `MsgListField`
+  until the column is drawn: the config is read a line at a time and
+  `msglist_format` may stand above `reader_datetime_format` in the file. Both
+  defaults write the stamp out because a column of stamps is read down for the
+  day, and a format with no `%z` in it measures the same from one screenful to
+  the next where the reader's own widens and narrows with the zones on screen.
+  `AppState::messageListFormat()` picks between the two on every frame,
+  `msgRowHeight()` is how many lines a row stands and `messageListItems()` how
+  many messages the screen holds — scrolling, paging, clamping,
+  `centerCursor()`, `ensureHeaders()`'s window and the scrollbar's thumb are all
+  counted in messages, and any line of a row is a click
+  on that message. `reflowOffset()` at the top of `render()` holds the selected
+  row's screen line when the two formats differ in height, exactly as the area
+  list's does.
+- **The header window is asked for by range**, `ensureHeaders(state, first, count)`,
+  and the no-argument form is the list asking for its own. There is one window and
+  whoever asked last has it, which is fine because the two screens are never both
+  in front of the user: the list re-reads its own as it opens, and the reader asks
+  through `ensureReaderHeaders()` — the sidebar's rows where one is up, the
+  message being loaded where none is. Do not put the list's own call back into the
+  reader's paths: `messageOffset` is wherever the list was left, and a window read
+  around it and then around the panel would be read twice per keystroke.
+- **A digit opens the goto field here too**, `AppState::listGoto`, and it is the
+  reader's field on the other screen showing the same area: the same columns —
+  the pair the title ends in — drawn by the same `ui::inputField()` call on
+  `focused_field`, taking the same digits through `ui/goto_field.hpp`, with
+  Enter to go, Esc to close, Backspace back a digit and an emptied field closed.
+  A number naming no message closes the field and nothing else is said. The one
+  difference is what going means, and that is `msglist_goto_field_opens`: **on
+  by default, the message is opened** — through `openSelected()`, so the number
+  reaches it exactly as Enter on its row does, `twit_mode` and all — and **off,
+  the cursor lands on the row and the list stays up**, for reading around the
+  number before opening anything. The reader's field is not asked about: there
+  is nothing on that screen but the message, so a number typed there can only
+  mean show that one. Either way the cursor is centred first, through
+  `centerCursor()` — a number is a jump across the area, and the least scrolling
+  that shows the row would leave it against the top or the bottom edge.
+  Everything else closes the field and is then answered as it always is, the
+  wheel and the arrows included: the cursor moved by hand is the number given up
+  on. A click on a row closes it, and so does going back to the reader — what
+  was half typed stays on the screen it was typed on.
+- **The width falls out in three passes, not two**, which is the one way
+  `msg_format::layoutLine()` differs from the area list's. First the fields with a
+  width of their own, and the number column, which is as wide as the highest
+  number that can go in it and never under three (`kAutoWidth`, `digitWidth()`,
+  `kMinNumberWidth`) — a handful of messages should read as a column rather than
+  as a stray digit against the left edge. Then the Date columns, each of which
+  takes what the stamps come to and no more: a stamp too wide is cut at the
+  spaces from the end — `fitDate()`: `15 Aug 26 20:28 +0200` → `15 Aug 26 20:28`
+  → `15 Aug 26` → `15 Aug` → `15`. A stamp cut mid-word reads as a different
+  date; one short of its zone still reads as the date it is, and the order of the
+  parts is the column's own format's. Two Date columns are measured apart,
+  through their own formats, and share the pass's room equally. The stamps are
+  measured cut to what is free and over the visible rows only, so column and
+  stamps do not chase each other from frame to frame; the heading is the column's
+  floor where there is room for one. Only then do the fields written `0` share
+  what is left. That middle pass is the whole point of the ordering: what the
+  stamps do not use is worth more to the subject than five empty columns of Date.
+  `render()` gathers the visible rows once, into `msg_format::Row`s, so the pass
+  that measures the stamps and the lines that draw them cannot disagree — a `Row`
+  carries the header and no stamp, `layoutLine()` settles each Date `Column`'s
+  format against `reader_datetime_format`, and `stampOf()` writes it. What is
+  laid out is `state.width` less the scrollbar's column wherever the bar is
+  drawn — the `msglist_scrollbar` half of the bullet under the area list above.
+- **A row is colored by five rules, two over the whole row and three over a
+  cell.** Row-wide: the current row, and a message nobody has read yet
+  (`msglist_unread`, number and date included). Per-cell: a message written here
+  that has not gone out (`unsent`, over the whole row it is on), a From or To
+  naming the user (`own_name`), and **the subject, which is drawn `dimmed`
+  wherever it stands** — the one column that is prose rather than a fact about
+  the message, quiet for the same reason the area list's description is. The
+  cells come out of `msg_format::runs()` as `Ink`s, cut only where the color
+  changes. A row-wide rule leaves its cells plain and paints over the hbox,
+  which works because `Painted` draws the child *after* filling the box — an
+  inner color always wins, so the two kinds compose rather than compete. The
+  selection is the exception, suppressing the cells. Unread sits behind `unsent`
+  deliberately: a message that has not gone out has not been read either, and
+  painting such a row unread would leave nothing saying it is still sitting
+  there. `highlight_unread` turns the unread rule off and nothing else.
+- **`t` and Space mark the message under the cursor**, through
+  `marks::toggle()`, and they are the whole of what this screen answers besides
+  moving about in the area. `msglist.mark_toggle` is the command and the only
+  one the message list has; **Space is not bound and cannot be**, being one of
+  the keys that move about — it is answered in `handleEvent()` beside the
+  command, and it is the one place in AmberEdit where Space means something
+  other than a page. `PgDn` still pages, so nothing was taken away. Both stand
+  ahead of the goto field's digits, exactly as the reader's commands do.
+- **Which columns a narrow window goes without is `msglist_format`'s to say**,
+  and no longer the screen's: the two formats are the setting, and
+  `adaptive_ui_threshold` is the line between them. Only the table is concerned
+  either way — in the reader's block the To row *is* the message, at any width.
+
+### The reader
+
+- **Only the arrow keys move between messages.** `PgUp`, `PgDn`, `Space` and
+  `Shift+Space` stay inside the current message. Walking off the end of the
+  *area* leaves it: → on the last message and ← on the first go back through the
+  same `leaveArea()` Esc calls, which `reader_edge_exit` turns off. The check
+  lives in `switchMessage()`, the one place that has already worked out there is
+  no neighbour, and it covers an empty area as well.
+- **Walking off the front takes the lastread mark off the area**, through
+  `AreaManager::markUnread()`: ← on the first message asks for the message before
+  it, which puts the reader before the area rather than on anything in it. Esc on
+  that same message leaves the mark where reading put it — the whole difference
+  between the two ways out of the first message. An empty area has no first
+  message to stand before. `reader_edge_exit` is read straight off `state.config`
+  rather than copied into `AppState`: the copies are for what the screens read
+  while drawing, and this is read once per keystroke.
+- Leaving that way sets `AppState::discardTypeahead`, and the shell answers it
+  with `Terminal::flushInput()` after the keystroke: → held down to walk through
+  an area opens, on the area list, the area under the cursor — which reopens on
+  the message just left, at its end, ready to be walked off again. It is a
+  general hook, but nothing else asks for it yet.
+- **A digit opens the goto field**, which is `AppState::readGoto` and nothing
+  else: while it holds anything the title shows what is being typed in place of
+  the `12/44` that says where the reader stands — the second is on its way to
+  being the first, and the title says one or the other and never both. Enter
+  goes there through `goToMessage()`, the call a thread marker goes through, so
+  the message named is the message shown and a twit standing at that number
+  opens behind its notice rather than being walked past.
+  - **It is drawn by `ui::inputField()`**, the call the compose screen's From
+    and Subj come through, on `focused_field` with `focused_text` on it and
+    `input_filler` underscoring the room it has left. A box asking for a number
+    should read as the boxes asking for a name and a subject do, and the cursor
+    in it is the inverted cell it is everywhere else — nothing here draws a
+    cursor of its own.
+  - **The box is `12/44`'s own columns and nothing besides**, fixed at that
+    whatever is typed into it. The space in front of it is the title's, the one
+    that set the pair off from the area's name, and the space behind it is the
+    first thread marker's own: the row is column for column what it was, which
+    is what a click on a marker needs — it is tested against where the marker
+    was drawn. A number longer than the box scrolls sideways under the cursor,
+    which `inputField()` does itself, and a window with no room for the whole
+    box narrows it rather than pushing the corner buttons off the row.
+  - **A number naming no message is answered by the field closing on it**, as
+    Esc closes it and as the last Backspace does. There is nowhere on this
+    screen to say more, and a box over a mistyped digit is more than the mistake
+    is worth: `goToMessage()` already does nothing with a number outside the
+    area, so `applyGoto()` clears the field and lets it.
+  - Nine digits at most, which is more than any base has ever held and few
+    enough that what has been typed cannot overflow the `uint32_t` a message
+    number is.
+  - **Digits are claimed after every command**, so a layout binding one keeps
+    it — the key then runs the command and stops being a digit the reader can be
+    sent anywhere by, exactly as a bare letter bound on the area list stops
+    being one a tag is searched by. Once the field is open the digits are the
+    field's, bound or not.
+  - **The digits themselves are `ui/goto_field.hpp`**, which is the whole of
+    what the two screens taking a number share: how many digits a field holds,
+    which events are digits, and what the digits come to. The message list has
+    the same field in the same columns of its own title — see its section
+    below — and a rule about typing a number is written there once.
+  - Every other key closes the field and is then answered as it always is, and a
+    click closes it through `loadMessage()` — where the highlight and the
+    revealed twit are dropped too, that being the one place every way to another
+    message goes.
+- **The scrollbar is drawn only when the body overflows**, so `relayout()` lays
+  out twice: at the full width, and again a column narrower if that overflowed.
+  The two are entangled — the bar costs the columns that decide whether it is
+  needed — and this order terminates, because re-wrapping narrower can only make
+  the body longer. `state.scrollbarShown` carries the verdict to `render()`, and
+  `b` forces a re-layout.
+- **A reply follows the message's own `AREA:` line**, which is `areareplydirect`.
+  `app::areaTagOf()` reads the **first line and no other** — anywhere else those
+  five characters are a line of the message, and following one would answer a
+  reply with whatever somebody quoted. Where the tag names an area the tosser
+  config declares and not the one on screen, `compose::startReply()` writes the
+  answer into that area, and what follows is the reply into another area below.
+  - The three paths are `startReply()`, which decides; the file-local
+    `replyHere()`; and the file-local `replyInto()`, which `startReplyElsewhere()` is
+    the dialog's way to. `startReplyElsewhere()` calls `replyHere()` when the target is
+    the area being read — an area picked by hand is not overruled by a line in a
+    message — which is also what keeps the two from calling each other in a
+    circle.
+  - The setting is read off `AppState::areaConfig`, the area being *read*, not
+    off `composeConfig()`: there is no compose area yet when the question is
+    asked.
+  - **It is a move only as far as the screen is concerned**, which is
+    `ComposeFields::direct` beside `::moved`: `buildRequest()` leaves
+    `originalArea` null, so no `@moved` lines, `@oecho` is the area the answer
+    goes into, and the title says "reply" rather than "moved reply". What `n`
+    does is unchanged — that *is* a move.
+  - The reader's title names the echo — `localnet from test.other (2:382/736)
+    44/44` — whenever the line names another area, whether or not
+    `areareplydirect` is on: it is a fact about the message.
+
+- **`comment_reply` is the same reply addressed to the recipient**: `Alt-Q`,
+  `reader.comment_reply`, `compose::startCommentReply()`. It differs from a
+  reply in `ComposeFields`' To row alone — `app::commentReply()` is
+  `app::reply()` with `toName` off `header.to` and, in netmail, `toAddr` off
+  `header.destAddr`. Both halves come from the recipient: a name at somebody
+  else's node is nobody. The sender AKA rule is left exactly as `reply()` chose
+  it, being a rule about the message being answered rather than about who is
+  written to, so a comment on a netmail that was addressed to us is written
+  from and to the same address.
+  - It shares `beginReply()` with the reply, so `areareplydirect` and the three
+    paths above hold for it unchanged, and `ComposeFields::reply` stays true —
+    the quote, the REPLY kludge, `@Quoted` and the "reply" title are the
+    reply's. There is no comment variant of `n`.
+  - **Offered but not given, and never shown unasked**: `comment_reply` is a
+    command like any other, so `reader_menu` and `reader_hints` may both name
+    it, and it is out of the default `readerMenu` and out of the default
+    `readerHints`. Answering somebody the message did not come from is a thing
+    wanted now and then and never by accident.
+
+- **The sidebar is the reader's and never has the keyboard.** In a window of
+  `reader_sidebar_threshold` columns or more — **`0` unless the config asks for
+  one**, and `120` is the width `amberedit.cfg.example` names as worth turning it
+  on at —
+  `ui/reader_sidebar.*` puts the messages of the area up one side of the reader,
+  with a `separator`-colored rule between it and the text — the right by default,
+  and `reader_sidebar_position` is the whole of that question. The message the reader is
+  showing is the one it marks, read off `readHeader->number` rather than off
+  `messageCursor`: the compose screen loads a message back into the reader
+  directly, and what the panel is for is saying which message is on the screen
+  beside it. A click opens that message through `openMessage()`, the same call a
+  row of the message list opens through — a row of either is a place in the area,
+  so a twit standing there is walked past. The wheel over it scrolls it, through
+  `list_wheel_throttle` like the lists. **Nothing gives it a cursor of its own**:
+  two lists of messages on one screen, each with one, is two places for the
+  reading to be, and `l` still opens the whole message list screen.
+  - `reader_sidebar::follow()` is called from `loadMessage()` and nowhere else,
+    so every way to another message moves the panel with it — the compose
+    screen's way back included, and in a narrow window too, which is what lets
+    dragging the window out open the panel on the right message rather than at
+    the top of the area. It scrolls a row where the message is a row off either
+    edge and centres where it is anywhere else: the first is the reading walking
+    on, the second is a jump — a thread followed, a search landed, an area opened
+    at its mark.
+  - `render()` only clamps the offset to the area, so the wheel can scroll the
+    panel away from the message being read and it stays there. The exception is
+    `readerSidebarItemsShown`: a window resized under the panel can carry that
+    message off it with nothing having been asked for, and then the panel goes
+    back to it.
+  - **Everything the reader draws is measured against `AppState::readerPaneWidth()`**,
+    never `width`: the title, the header block, the rules, `relayout()`'s wrapping
+    and the body's scrollbar. `readerPaneLeft()` is what a click on the Back
+    button is measured from and `readerPaneRight()` what a click on the menu
+    button is measured against — the two buttons hang from the corners of their
+    *screen*, and with a panel on one side or the other those are no longer the
+    terminal's. Neither reads `width`, and neither reads the panel's side: the
+    pane's edges answer for it.
+  - **Which side is `reader_sidebar_position`, and nothing but the order of two
+    columns turns on it.** `readerSidebarOnLeft()` puts the panel and its rule
+    either side of the reader in `render()`, `readerSidebarLeft()` is the column
+    the panel begins in and what `clickedMessage()` and `wheeled()` measure a
+    pointer from. **The right by default**: the message is what the screen is
+    for, and a message beginning in the window's first column begins where the
+    eye already is. Everything else about the panel — the threshold, the width,
+    the format, the following and the marking — is one setting on either side,
+    and a test that says "left" of anything here is a test that will lie the
+    moment the config says otherwise.
+  - **`reader_sidebar_width` is the panel, and a fixed strip on purpose** — 39
+    by default, which is `reader_sidebar_threshold` less the eighty columns an
+    FTN message is written to and the rule between them, so the window where the
+    panel first appears is not also the one where the art in a message starts
+    wrapping. Every column of a wider window goes to the message: a panel that
+    re-shared itself with the terminal would shuffle its fields about under a
+    reader who only wanted a wider message. **A width the window has no room
+    beside is not clamped** — `readerSidebarShown()` keeps the panel off where
+    less than `kSidebarMinPane` would be left, since what remains at that point
+    is a strip rather than a message.
+  - **What a row holds is `reader_sidebar_msglist_format`** — `msglist_format`'s
+    letters, `parseOneListFormat()`, and one format rather than two: the panel is
+    only ever up in a wide window, so there is no narrow one to write a second
+    for. `"f0 t0 d(%d %b %H:%M)\ns"` by default, and no number column, the
+    reader's own title carrying which message of how many.
+  - Rows are drawn by `msg_format::drawLine()`, shared with the message list, so
+    a message reads the same in the panel as it does in the table: `Paint` is the
+    ranking — highlighted over unsent over unread — and the `Ink`s are the runs'.
+  - **The panel says which message is on the screen beside it; it does not
+    choose, and its bar says so.** `Paint::Current` fills the row with
+    `reader_sidebar_msglist_selected` where
+    `Paint::Selected` fills it with `selection`; both write `selection_text` on
+    it, every theme picking something near-white there. The two are never on one
+    screen at once — the row Enter would act on is the list's and the row beside
+    the message is the panel's — and two bars of one loudness would leave the eye
+    to work out which was which. **What goes in the role is the theme's
+    own business**, and nothing here constrains it: `builtin_theme::kSidebarSelection`
+    is a dark step above the built-in palette's near-black, and every file under
+    `themes/` answers for itself. A fill that disappears into one background
+    shouts on the next, so this is a thing chosen by eye against the rest of a
+    palette rather than derived from another role — leave the numbers alone.
+
+- **`reply_to_area` moves the picker's cursor**, and outside this screen says
+  where an echo's carbon copies go. `askArea()` looks the tag up in the
+  manager's list — case-folded, as every echoid is — and only for `For::Reply`:
+  the other three purposes carry the message itself somewhere, which no one
+  setting can name an area for. A tag naming no area leaves the cursor at the
+  top, since the areas come from the tosser config and a setting cannot add to
+  them. It is read off `AppState::areaConfig` and not off `config`, being a
+  setting an area group may state.
+
+### Marked messages
+
+The user picking a handful of messages out of an area and saying, later, what to
+do with them. `ui/message_marks.*` is the whole of what a mark is,
+`ui/mark_dialog.*` is the box that marks a run of them at once, and the two
+screens showing an area draw what the set holds.
+
+- **A mark is a UID in `AppState::marks`, and nothing the base is told about.**
+  Positions are the wrong thing to keep for exactly the reason a lastread mark is
+  a UID: deleting one message out of the middle of an area moves the number of
+  every message after it, and a set of positions would come back pointing at
+  somebody else's mail. `IMsgBase::uidOf()` is the conversion and it wants the
+  base open, which is why every function in `marks::` takes the whole `AppState`
+  and why nothing outside that file touches the set. Zero is never put in it: it
+  is what the port answers for a message that is not there.
+- **The set lives as long as the area does.** `leaveArea()` empties it, and
+  nothing else has to: marking is done to gather messages and then act on them,
+  and a set carried into the next area would be one nobody could see to unmake.
+  Nothing is written to disk — a mark is a note about this session's reading, not
+  a fact about the message.
+- **It is shown in two places and drawn from the same set.** The message list's
+  `m` column is a `*` where the row is marked and a blank where it is not, and
+  the reader's title puts the same star after the pair naming the message —
+  `localnet (2:382/736) 111/111*` — in `header`, the color the block under it is
+  written in, since it is a fact about the message and not a piece of the area's
+  name. The star is taken out of what is left of the title row the way a thread
+  marker is, so a window with no column to spare drops it rather than pushing the
+  row past its edge.
+- **The `m` column is reserved, not conjured.** It stands a column wide whether
+  or not anything is marked, and in both default formats it stands where the
+  blank between the number and the first name stood — so a list with nothing
+  marked in it is byte for byte the list it always was, and marking something
+  shifts no field sideways. A format written without `m` shows no marks and is
+  not corrected: what a row holds is `msglist_format`'s.
+- **Marking one message is a key; marking a run is a box.** `reader.mark_toggle`
+  and `msglist.mark_toggle` are the key on each screen, `t` by default and Space
+  besides in the list; `reader.mark_menu` (`s`) opens `ui/mark_dialog.*`, whose
+  five answers are the whole of what can be done to the set at once — the area
+  entire, nothing at all, inside out, everything after the message being read and
+  everything before it. The three that count from somewhere count from
+  `readHeader`, which is why the box is the reader's and does not open on an area
+  with no message in it. The three that mark a run **add** to the set rather than
+  replacing it.
+- **`apply()` is called after the box is put away**, as every other modal's
+  answer is: the shell copies the answer off the picker, resets it and then acts,
+  so nothing is read back off a box that is gone.
+- **A set standing changes what a key asks first.** `ui/scope_dialog.*` is that
+  question — Marked, Current, Cancel, with the count under it because what
+  follows an answer is not undoable and the marks are spread down an area that
+  does not fit on the screen — and three keys raise it. With nothing marked none
+  of them is ambiguous and the box is never opened: `d` asks its yes/no
+  confirmation, and `m` and `w` put their own boxes up as they always have.
+  `Cancel` carries no letter for the same reason `Marked` and `Current` do carry
+  `m` and `c`: Esc means it everywhere already, and a third letter beside two
+  that act is a letter to press by mistake.
+  - **For `d` the box is the confirmation** and not a step in front of one —
+    Cancel stands where No would, and a second box over it would ask the same
+    thing twice.
+  - **For `w` it stands between the two questions the export already asked** —
+    what the message carries, and where to write — rather than in front of them.
+    The order is the point: **the files are looked for in the message on screen
+    alone**, so a message carrying uuencoded ones raises that question first, and
+    answered with the files there is nothing left to ask about a set the decoding
+    never looked at. A text export with something marked asks the scope, and
+    `ExportPicker::marked` carries it into the file picker, which is the same box
+    however it was reached. `export_dialog::open()` refuses the flag in `Uue`
+    mode outright rather than trusting its callers.
+  - **For `m` it is the first of three**, where with nothing marked there are
+    two. The answer is carried into `ForwardPicker::marked`, which **takes
+    Forward off that box** and opens it on Copy: a forward is a message of one's
+    own with another quoted inside it, and there is no one message a whole set
+    could go into. Move and Copy remain, and they say the same thing however many
+    messages they are answered for. From there it is carried into
+    `AreaPicker::marked`, which is what finally decides between `moveMessage()`
+    and `moveMarked()`. The undrawn Forward button is left `Box::Nowhere()` — a
+    default-constructed `Box` holds the screen's top-left cell, so a button a
+    frame did not draw would otherwise take a click in the corner.
+- **A run into another area opens the target's base once.** `passOnMarked()`
+  reads every draft off the base being read *before* the swap — `storeInto()`
+  closes one base to open the other, so a walk that read as it wrote would be
+  reading from a base that is gone — writes them all, opens the source again, and
+  only then takes out what went in. What the other area refused stays here and
+  stays marked: a message that is not somewhere else is not one to take out of
+  anywhere.
+- **A run into one file is `writeMarked()`**, and the first message carries the
+  answer the file-already-there question was given while every one after it is
+  appended: each writing afresh would leave the file holding the last message
+  alone. The rule `exportMessage()` puts at the head of each is what keeps them
+  apart, and it is the same rule that has always let one message be appended
+  after another. A write that fails stops the run and says so with what went in
+  before it left in the file — nothing here could put a file back the way it was,
+  and going on writing into one that is already wrong is not better.
+- **Copy leaves the set standing and Move empties it.** The rule is that an
+  action which leaves the messages where they are leaves the set alone, and one
+  that takes them out of the area empties it — there is nothing left for those
+  marks to name. Copying into the area being read is the case that makes the
+  rule worth stating: the copies stand beside the originals and it is the
+  originals that are still marked.
+- **`removeUids()` sweeps backwards**, exactly as `killTwits()` does and for the
+  same reason: taking a message out moves the number of every message after it.
+  Where the reader lands is worked out from the UID it stood on, taken *before*
+  the sweep — `indexOfUid()` answers with the nearest earlier survivor, so a
+  reader standing inside the run comes back on the message in front of it, and a
+  run off the top of the area leaves it on the first message left. Both
+  `deleteMarked()` and a Move answered for a set end here, which is what keeps
+  the two agreeing on where reading carries on from. `deleteMarked()` empties the
+  set before the sweep and whether or not the base takes the deletions: what it
+  named is either gone or in an area that will not be written, and neither is
+  worth leaving stars on the screen for.
+- Neither mark command is in the default menu or the default hint row — marking
+  is a key one presses while reading and not a button one goes looking for — but
+  both may be written into `reader_menu` and any of the hint lists, so both carry
+  a glyph and `inMenu`. `msglist.mark_toggle` is the message list's first and
+  only command, and the screen has no menu button to offer it in.
+
+### Finding a message
+
+`Ctrl-F` or `F6` in the reader, `find` in `reader_menu`. Three pieces: `ui/find_dialog.*`
+asks, `message_read::findMessage()` walks the area, and `encoding::TextSearch`
+decides what an occurrence is.
+
+- **The matching is folded by the charset the *message* declares**, never by the
+  locale. `<cctype>` is wrong here twice over — under a single-byte locale it
+  folds the whole high half of the byte range and would make two differently
+  spelled Cyrillic words compare equal, and under a UTF-8 one it folds nothing
+  above ASCII at all — so `encoding/text_search.cpp` writes the folding out over
+  code points: ASCII, the Latin-1 supplement and Cyrillic, which every charset a
+  message states is a subset of. That makes folding the decoded text the same
+  answer folding the stored bytes would give, and it is also the right answer for
+  a message stating UTF-8.
+- **CP866 alone carries the Russian language support quirks.** A message written in it may spell
+  н, р and у with the Latin h, p and y: the glyphs are the same on a DOS screen
+  and the keys are one layout apart. The three pairs are folded together — and
+  the capitals with them, since the lower-casing runs first — and only under that
+  charset, since in a western area they are six different letters. That is the
+  one thing the charset is asked, which is why `MessageHeader::charset` exists
+  beside `MessageBody::charset`: a header-only search must not read every body to
+  learn it.
+- **A search starts on the message in front of the user and stops at the end of
+  the area.** Nothing wraps round to the front. **The same words looked for again
+  start on the message after the one found**, which is what makes `Ctrl-F`,
+  Enter, `Ctrl-F`, Enter walk from occurrence to occurrence; `AppState::LastFind` is the whole of
+  that memory, and it holds the area as well as the query, because the same words
+  looked for in the *next* area are a first search there and starting them one
+  message in would pass over its first message.
+- **What a search reads is `app/message_search.*`**: `searchableHeader()` is the
+  From name and its address, the To name and its address, and the subject — the
+  fields the reader draws, in the order it draws them — and `matchesBody()` is the
+  lines it shows, service data left out. The header is in both scopes: a search
+  of the text alone would answer "no" for the message whose subject is the very
+  words typed.
+- **Twits are stepped over exactly where the reader steps over them**:
+  `twitSkipped()`, so `ignore` passes every twit and `skip` the ones not addressed
+  to the user. `blank` and `kill` are not navigation — a twit they hide is found
+  like any other message and opened behind `kTwitNotice`, and Space then shows the
+  text with the occurrences lit in it.
+- **The highlight belongs to the one message the search landed on.**
+  `AppState::findHighlight` holds the query and `loadMessage()` clears it, so every
+  way to another message takes it off; `findMessage()` puts it back after the
+  message it found is loaded and forces one more `relayout()`. The occurrences
+  travel on `DisplayLine::found`, filled in by `wrapBody()` and cut up between the
+  wrapped rows by `foundForRows()` — the walk `bbs::runsForRows()` makes over the
+  color runs, and for the same reason: a break the window happened to fall inside
+  an occurrence must not take the highlight off either half of it. The header
+  block is lit in `render()` instead, per frame, folding a handful of characters
+  costing less than a field to keep in step.
+- **`found` is a fill and not a foreground**, with `background` written on it. A
+  foreground would be competing with the quote colors, the links and whatever the
+  message's own BBS codes asked for, and it has to be seen at a glance from
+  anywhere in a long message. One role rather than a pair — the screen's own
+  background is legible on anything bright enough to serve here.
+
+### Twits
+
+- **The whole of what decides one is `AppConfig::isTwit()`**: the `twit` lines
+  against the From name or address, against the To ones where `twit_to` is on,
+  and `twit_subj` against the subject. A `twit` line is an address exactly when
+  it holds a ':' and parses as a `domain::AddressPattern`; everything else is a
+  name glob, so a bare `*` is the name it was written as and not "every address
+  there is". Both globs go through `text::globMatches()`, which is also what
+  `AreaTagPattern` matches a `member` line with and what a `nodelist` or
+  `echolist` line holding a `*` is matched against a directory with: one matcher,
+  so a `*` means the same thing wherever the config holds one. They are read off
+  `AppState::areaConfig`, a group's lines *adding* to the file's.
+- `twit_mode` is where the five answers part company, and only two touch anything
+  outside the reader:
+  - `blank` hides the *text* and nothing else. `relayout()` puts one line in
+    `readLines` where the body would go, Space in `handleEvent()` sets
+    `AppState::twitRevealed`, and `loadMessage()` clears that flag again: having
+    asked for one twit is no reason to be shown the next unasked. The header
+    block is drawn as always — whose message is being passed over is what the
+    user is entitled to see.
+  - `skip` and `ignore` are navigation, through `unskipped()`.
+    `switchMessage()` walks in the direction of the key; `openMessage()` — what
+    entering an area and picking a row both go through — walks forward from the
+    message asked for and then backward, those two naming a *place* rather than
+    one message. A run of twits at the end of the area is the end of it, which is
+    `reader_edge_exit`'s business; where every message is a twit the one asked
+    for is opened blanked. The two differ in `skip` sparing what
+    `AppState::addressedToUser()` recognises, and what it spares is *not* blanked
+    — `AppState::twitHidden()` asks `twitSkipped()` rather than `isTwit()` under
+    these two. `goToMessage()` is deliberately not among them: a thread marker
+    names one message and is answered with it, blanked.
+  - `kill` deletes, and `message_list::killTwits()` does it **once, as the area is
+    opened**, backwards so the numbers still to be looked at do not move under
+    the sweep. Everything downstream then sees an area with no twits in it — the
+    numbers, the list, the counts and the thread markers agree, where deleting
+    one at a time would renumber the area under whatever was reading it. It runs
+    after `setCurrentArea()`, the twits being that area's settings, and before
+    `messageCount` is read.
+
+### Writing a message
+
+- **The header and the text are one screen.** `ScreenId::Compose` is the whole of
+  it. `AppState::composeInHeader` is which half the typing goes into and is the
+  only difference between them — the cursor is in a field or in a line, never
+  both, and the block is drawn the same way either way. A **new message and a
+  forward open in the header**, on the To name; a **reply opens in the text**,
+  its header having come off the message it answers, with `composeField` left on
+  the subject. Esc asks before dropping the message wherever the cursor is.
+- **Tab is a ring round the whole of it, the text standing in it where a field
+  would.** Forwards: the four fields, the subject, the attributes button, off the
+  last into the text, and out of the text onto the **first** stop — not the one
+  it was left from, which would cycle between two and never reach the rest.
+  `Shift-Tab` (`Event::TabReverse`) walks it the other way: off the **first**
+  stop down into the text, out of the text onto the last. The To address is
+  skipped in echomail either way, `fieldAfter()` answering for both. **Enter is
+  not the ring**: it walks the fields that are typed into and hands the typing
+  down to the text off the subject, going past the button. Nor are the arrows:
+  `↓` off the subject goes to the button and then into the text because both are
+  drawn below it, and `↑` off the From name stops. `Alt-H` goes back onto the
+  field the cursor was last in — a chord of its own rather than `Ctrl-I`, which
+  is the byte Tab has sent since ASCII and would be the ring on all but a
+  terminal reporting modified keys.
+- **A click is the way between the two halves as well, and puts the cursor where
+  it points.** `clickToCursor()` walks `AppState::composeFieldSpots` (one per
+  field, in `compose::Field` order) and then `composeTextRows` (one per drawn
+  row). Both are filled in by `render()` and hold a `Box` and an `origin`: a
+  field narrower than what is typed into it is drawn scrolled sideways, so the
+  byte the leftmost column shows comes back from the one place that works the
+  scroll out, `ui::inputField()`. `offsetAtColumn()` turns the column into a
+  byte, so a click never lands inside a UTF-8 sequence. What is not drawn answers
+  no click — the To address is `Box::Nowhere()` in echomail — and a click past
+  the end of a field, or on a blank row, lands at the end of what is there.
+  Coming down out of the header is the departure Enter off the last field makes,
+  `leaveToAddr()` and `refreshTemplate()` and all; the one thing a click does not
+  carry over is that a To address that will not parse holds Enter where it
+  stands.
+- **`ui/input_field.*` is the one place a field is drawn** — the import dialog's
+  path and charset boxes included, or the hit test drifts from what was drawn. It
+  holds the UTF-8 stepping a cursor needs (`prevChar`, `charLen`, `charCount`)
+  beside the drawing that uses it. The compose screen's `field()` is a wrapper
+  that adds the `ComposeSpot`. Its `filler` is the color the columns past what is
+  written are underscored in — `input_filler` on a screen, `dialog_hint` in a
+  box, and nothing at all for the row of message text under the cursor, which
+  comes through here to be edited and is not a box asking for anything. A field
+  asks through `fieldFiller()`, which answers with nothing where the theme's
+  `input_filler_show` is off: whether a field wants underscores is the field's
+  answer and whether the theme draws them is the theme's, and that is the one
+  place the two meet.
+- **A long line is broken by the window, never by the editor.**
+  `softWrapOffsets()` (`text_layout.cpp`) says where the window breaks a line and
+  `layoutRows()` (`ui/edit_layout.cpp`) turns the buffer into the `EditRow`s that
+  are drawn. Nothing is inserted into the text: a carriage return the editor
+  added would go out in the message. **The cursor is laid out with the text**,
+  which is why `layoutRows()` takes the whole `TextBuffer`: standing past the end
+  of a line it wants a column of its own, so that line is broken as though it
+  carried one character more — without it, a line filling the window to its last
+  column keeps the cursor past the right edge and `field()` scrolls the row
+  sideways. So `AppState::editScroll` counts **rows of the screen**,
+  `composeTextRows` holds one spot per drawn row with the byte its left edge
+  shows, and the arrows and page keys move by `moveByRows()`: a line four rows
+  tall is four presses tall.
+- The one thing the editor does break is a **quote**: `insertText()` holds a line
+  carrying a quote prefix to `quote_margin` and wraps it under that same prefix,
+  which is the whole of what the setting is for. `quote_margin` says nothing
+  about what the user types.
+- **The text is expanded before the header is filled in, so it is expanded
+  again.** `fillFromTemplate()` runs the moment the message is begun, but a
+  template greets by `@pseudo` and closes with an origin carrying
+  `fields.fromAddr` — fields the user has yet to type. So leaving the header
+  calls `refreshTemplate()`, which expands again under two conditions held on
+  `AppState`: the header differs from `composeStartHeader` (nothing changed means
+  nothing to rebuild, and rebuilding would throw away where the user had scrolled
+  to) and the text still equals `composeStartText` (one character typed makes the
+  message the user's, and it is never rewritten after that).
+- **A new netmail to a robot is begun with no template at all.**
+  `netmail_skip_template` names them — AreaFix, AreaMgr, AllFix, FileFix, T-Fix
+  and FaqServer unless the config says otherwise — and `startingText()` asks
+  `AppConfig::skipsTemplate()` about the To name, whole and case-folded, before
+  it reads the template file. What a robot is sent is commands, and a template's
+  greeting and sign-off come back as complaints about commands it does not know.
+  A **new netmail and nothing else**: a forward carries somebody's message and a
+  reply carries the quote, which is what the template puts in. The tearline and
+  the origin still close it — `closeMessage()` is about the message and not
+  about the template, and a robot stops reading at the tearline. Because
+  `refreshTemplate()` expands again when the header changes, typing the name (or
+  an `address_macro` that fills it in) into a message already opened on the
+  template empties it on the way down into the text.
+- **The addresses are checked when the message is stored, not when the header is
+  left.** `addressesReady()` wants the sender's always — it is what the MSGID is
+  made of — and the recipient's in netmail. Missing and malformed are one case
+  (`FtnAddress::parse` answers both), and the cursor going **up into the header**,
+  onto the field at fault, is what says which it is. It is asked twice:
+  `askToSave()` before raising the confirmation, so a message that cannot be
+  stored is not asked about, and `saveMessage()` again, being the one door the
+  message leaves by. Per-field checking is not wanted: an address is typed
+  through states that do not parse. The one exception is the To address, since
+  leaving it picks the AKA — `leaveToAddr()` runs on every departure, and only
+  the forward one holds the cursor on an address that will not parse.
+- **A netmail recipient may be typed as a word the config gives a whole address
+  to** — `address_macro`, read by `readAddressMacro()` in `config/app_config.cpp`
+  and acted on by `applyAddressMacro()` in `compose_screen.cpp`:
+  - It is Enter in the To name row of a netmail and nothing else, standing ahead
+    of `askNodelist()` in `headerKey()` and short-circuiting it. Echomail has no
+    address field for it to fill in.
+  - **The whole field has to be the macro**, trimmed and case-folded
+    (`AppConfig::addressMacroFor()`). Matching inside a name would make every
+    macro a word nobody could write to — an `af` found in `Olaf`.
+  - **It answers the whole row**, both halves and whatever stood in them, the
+    reasoning `useNode()` fills both halves in by. `leaveToAddr()` then picks the
+    AKA and the cursor rests on the subject.
+  - The subject and the attributes are separately optional; an empty field is one
+    the line did not state.
+  - **The attributes are added, not substituted** — `Loc` and `Pvt` are what a
+    netmail of one's own starts with. `domain::messageAttributeBit()` reads back
+    exactly what `messageAttributes()` writes, off one table, so the config and
+    the interface cannot drift apart. `Uns` is refused by name: it is virtual.
+- **A name takes 35 characters and the subject 71, and the editor refuses the
+  rest.** `fieldLimit()` in `compose_screen.cpp` is asked where a character is
+  inserted, and a keystroke that does not fit is swallowed. That is what XMSG has
+  room for — 36 bytes of a name and 72 of a subject, the terminating zero among
+  them. JAM is roomier (100 characters per subfield), but a message has to
+  survive whichever base it lands in, so the tightest of the three is the limit.
+  It is counted in **characters**, the message being encoded on the way to the
+  base: a Cyrillic name is two bytes here and one in CP866, and a byte limit
+  would refuse half a name that fits. `toFixedField()` still truncates at the
+  driver — only what is typed is held to the limit. The boxes are drawn one
+  column wider than their limit, for the cursor to stand in.
+- **The attributes stand under the addresses and are the button that opens the
+  dialog.** `headerRows()` carries them on the Date row, right-hand column,
+  `[Uns Pvt Loc]`, exactly where the reader shows the same thing — the same
+  `messageAttributes()`, so a message reads the same being written as read. A
+  message carrying none says `Attrs...`. `Ctrl-F` opens the dialog from anywhere
+  on the screen. Six things worth knowing:
+  - **The fields around it are drawn as boxes that take typing**, on the
+    `input_field` fill with `input_text` on it and the width of their column
+    (`headerRows()`'s `cell()`), the room past what is written underscored in
+    `input_filler` where the theme asks for it. A fill says which block may be
+    changed without spending a column either side of every field the way a border
+    would, and the name and address columns stand hard against each other for the
+    same reason; the underscores say the same thing where a theme gives an idle
+    field no fill of its own, which is what `input_filler_show` is for.
+    The fields wear it and so does the attributes button beside them, in the same
+    colors and only as wide as what it says rather than the width of a column: it
+    is a stop of the block, and what the attributes say is its value. The Date and
+    Recd rows are shown rather than typed into and keep `header` on no fill. The field the typing is in takes
+    `focused_field`/`focused_text`, which the button beside them takes as well,
+    so whatever the typing is on wears one color everywhere. That pair defaults
+    to `selection`/`selection_text` — the bar the lists give the row Enter would
+    act on — and is a role of its own so that a theme may mark the field the
+    typing is in and the selected row apart. Every shipped theme states all four.
+  - **The button is a stop in the Tab ring**, `kAttributes`, between the subject
+    and the text — the one stop not typed into, which is why `headerKey()` hands
+    it Enter and Space and then bows out before anything that edits text.
+    `moveTo()` leaves `composeCursor` at zero on it and `valueOf()` is never
+    asked for its text.
+  - The dialog is a checkbox per attribute, turned over by pointing at one, by
+    Space, or by the chord printed beside it. Every toggle lands on
+    `compose.attributes` as it is made, so the row under the addresses moves with
+    the dialog; `Enter` keeps what was done and `Esc` puts back what the dialog
+    opened with, the only copy anyone keeps. `Ctrl-Z` clears the lot.
+  - The list is the attributes AmberEdit has a bit for; the ones it has none for
+    (Archive/Sent, Zonegate, Hub/Host-Route, Xmail, Erase and Truncate
+    File/Sent, Locked, Confirm Rcpt Request, the reserved ones) are left out
+    rather than shown dead. The chords are the ones FTN editors have long used
+    for these bits, less Local, which is `Ctrl-L` here: `Ctrl-W` is the word the
+    editor takes out.
+  - The bits live on `ComposeFields::attributes`, are seeded by
+    `app/compose_prefill.cpp` (`kLocal` always, `kPrivate` in netmail) and reach
+    the base on `MessageDraft::attributes`. `FtnMsgBase::write()` stores that word
+    as it stands and adds nothing of its own.
+  - **Every chord bar `app.quit` is the dialog's while it is up**,
+    `app_shell.cpp` answering the quit key ahead of it and handing it everything
+    else: `Ctrl-C` is Crash here, and a chord it binds nothing to is swallowed
+    rather than passed down. It is the only thing anywhere that can claim a key
+    back from a layout, and it closes on Esc. Hold,
+    Immediate, Return Rcpt Request and Transit are `Ctrl-H`, `Ctrl-I`, `Ctrl-M`
+    and `Ctrl-J`, the bytes Backspace, Tab, Enter and line feed have sent since
+    ASCII: they arrive as chords only on a terminal reporting modified keys,
+    which is why every attribute has a checkbox as well.
+- **The editor draws the reader's scrollbar, a cell at a time.**
+  `ui/scrollbar.hpp` holds the thumb arithmetic and the two glyphs; the reader
+  takes the whole column (`scrollbar::bar()`), the compose screen a cell at a
+  time (`scrollbar::cell()`), an hbox per row. Not a style choice: every row of
+  the editor is a row of the frame and `chrome()` counts them to know how much
+  blank to leave under the message. The editor lays out twice as the reader does
+  (`textLayout()`), and the soft wrap follows the width it settles on, which is
+  why `moveByRows()` and `field()` are given `layout.width` and not
+  `state.width`. `reader_scrollbar` and `b` have no say here: in the editor the
+  bar is the only thing saying the message runs on past the window.
+- **The delete-line button walks the message, and the whole message is laid out
+  narrower for it.** `ui/delete_line_button.hpp` holds the glyphs — a box around
+  the row the cursor is on with a cross in it — and
+  `compose_delete_line_button` says whether it is there, the same four values
+  every other window-led setting takes. It stands in the **three rightmost
+  columns of every row**, not only of the row it closes round: it moves with the
+  cursor, and a width that moved with it would rewrap the message at every
+  keystroke, words jumping a screen away from what was being typed. So
+  `textLayout()` takes those three columns off before the lines are broken, and
+  the scrollbar stands in the last of them rather than asking for one of its
+  own — which is why a message that overflows is not laid out a second time when
+  the button is there. The box closes a row either way and only over rows of the
+  message and rows of the window: over the first row there is the rule closing
+  the header block and under the last the blank the message stopped at, and a
+  side reaching into either would close round what is not the line it deletes.
+  It is drawn while the typing is in the header too — the cursor is in the text
+  either way, and the three columns are gone either way. `render()` reflects a
+  box per row into `AppState::DeleteLineSpots`, three of them because the button
+  is drawn a cell at a time with nothing standing over all three rows; the click
+  is `deleteLine()`, the same call `Ctrl-Y` makes.
+- **What `Ctrl-Y` deletes is kept, and `Ctrl-U` puts it back.** `TextBuffer`
+  carries the stack (`deleted`), `deleteLine()` pushes onto it and
+  `restoreLine()` pops: four presses out and four presses back leave the text as
+  it was, which is what makes deleting a block of quoting and thinking better of
+  it undoable. The line goes back **above the row the cursor is on** — where
+  `Ctrl-Y` took one out, so the two undo each other, and a cursor moved
+  elsewhere first makes the pair a way of moving a line. The two ends need the
+  row the deletion is remembered with: off the bottom there is nothing left to
+  go back above, and the blank the last line of all is emptied into is written
+  over rather than pushed down. **Nothing else fills the stack** — the block
+  `Ctrl-D` takes out and the word `Ctrl-W` takes out are not lines, and a stack
+  that mixed them in would put back something other than what was last seen to
+  go. **It lives and dies with the message**: `leaveEditor()` clears the whole
+  `TextBuffer`, so what was deleted out of one message is nothing the next may
+  be handed. It is not in the hint bar — the row names what there is to do here,
+  and undoing a deletion is only worth knowing about once the deletion is.
+- **The wheel in the editor scrolls the text and drags the cursor** —
+  `wheelScroll()`, a row per notch. The cursor stays where it was written while
+  it is on the screen and is carried onto the nearest row still showing when the
+  window passes it by. It cannot be left off: `render()` calls `scrollToCursor()`
+  on every frame. Both halves of that fall away under an external editor, where
+  the cursor is not in the text at all: `scrollBy()` moves the message and leaves
+  it, and `render()` only holds the scroll inside the message — a frame that
+  scrolled to the cursor would drag the message back wherever it was left
+  standing.
+
+### The external editor
+
+- **`external_editor` takes the internal editor away entirely.** The setting is
+  a command with `$msg` standing where the file goes, the same shape
+  `urlhandler` has and refused the same way — `app_config.cpp` will not read a
+  line that writes the placeholder nowhere, since such a command would open the
+  editor on nothing every time. `AppState::externalEditing()` is the one place
+  the question is asked, and the answer is all-or-nothing: **there is no
+  half-way house** where the internal editor picks up a key the external one
+  left unsatisfied. The header block is untouched; the text below it is drawn,
+  scrolled and never typed into.
+- **Every way down out of the header hands the message over.** `leaveHeader()`
+  is that one door — Enter off the subject, Tab off the last stop, Shift-Tab off
+  the first, `↓` past the button, and a click in the text, which
+  `clickToCursor()` answers by calling it rather than by placing a cursor.
+  `openCompose()` and `openWithText()` call it for the messages that would have
+  opened *in* the text: a reply, a comment reply, a reply moved elsewhere and a
+  message being changed have their headers already, and there is nothing left to
+  ask. A new message and a forward still ask their header first, as they always
+  did.
+- **Nothing runs from the screen.** `askExternalEditor()` sets
+  `AppState::externalEditRequested` and `runApp()` answers it on the next pass,
+  exactly as `reader.shell` and the ten utilities are answered: a screen has no
+  terminal, and the frame the user is looking at while the editor starts is the
+  compose screen rather than a box over it. `app/external_editor.cpp` writes the
+  file, calls `runProgram()` and reads it back; `app_shell.cpp` holds no charset
+  and no filename.
+- **The base is not read again on the way back.** `after_handover::refresh()`
+  returns on the compose screen and this is one more reason why: reopening the
+  area can drop the screen, and the half-written message with it.
+- **A refusal is an untouched file the review box has never stood over.** Both
+  halves are the rule and `AppState::externalReviewShown` is the second of them,
+  counted from the moment the message was begun — `openCompose()` and
+  `openWithText()` clear it, `externalEditReturned()` sets it with the box
+  itself, and `leaveEditor()` clears it again.
+  - The comparison is **the bytes written against the bytes read, not the
+    mtime**: `:wq` in vi rewrites the file unchanged, and a message dropped
+    because a timestamp moved would be a message lost to a habit.
+  - **Box never shown**: `dropMessage()`, straight back to the reader with
+    nothing stored and nothing asked. The editor was the only thing in front of
+    the user, so leaving it without writing is the one way they had of saying no.
+  - **Box shown at any point since**: the box comes back over the message, and
+    it makes no difference how the editor was reached again — Continue, or
+    Header and back down through the block. There is a Discard button on the
+    screen by then, so an untouched file says "I looked and changed nothing" and
+    nothing more. Reading it as "throw the message away" would put an hour's
+    writing behind `:q` and would buy nothing.
+- **What comes back is held to what a message may hold.**
+  `config::text::messageLine()` opens tabs out to the eight-column stop and drops
+  every other control byte, and `splitLines()` takes the line endings off
+  whichever kind the editor wrote. Both are shared with the import, which faces
+  the same problem: bytes from a file somebody else's program wrote. The charset
+  either way is the terminal's own (`ensureUtf8Locale()`) — the editor runs in
+  this terminal — and a message the charset cannot carry is a failure rather
+  than a file full of question marks, the export's rule exactly.
+- **The template is never expanded again over it.** `externalEditReturned()`
+  clears `composeStartText`, which nothing can equal afterwards: the message is
+  the user's from the moment their editor wrote it, and a header changed later
+  changes the kludges and not a word of the text.
+- **One file for the whole message**, `AppState::externalEditPath`, named for the
+  process under `tmpdir` — Continue opens the same file again, which is what
+  makes it a continuation. `leaveEditor()` unlinks it, so a message stored or
+  dropped leaves `tmpdir` as it was found.
+- **The commands that edit text are dead, not merely quiet.** `compose.import`
+  is refused by key and by menu button alike (`commandEnabled()`), and
+  `composeDeleteLineShown()` answers false however the config set it: a button
+  the menu drew dim can still be walked onto and pressed, so the refusal is in
+  both places.
+
+### Carbon copies and crossposts
+
+- **The commands are in the text of the message, and they are carried out when
+  it is stored.** `CC:` sends a copy to somebody else, `XC:`/`XP:` posts the same
+  message in other echoes — the spelling FTN editors have long used, so that a
+  habit brought from one of them goes on working. `app/copy_commands.*` is
+  everything the text alone decides:
+  finding the lines, reading their tokens, finishing an address written in part,
+  building the list the message keeps and rewriting the text round it. Who a name
+  belongs to is not there — that is the nodelist's answer, and `nodelist/` stands
+  where nothing in the core may reach it, so the looking up is
+  `ui/screens/compose_screen.cpp`'s.
+- **A command has to begin its line**, without regard to case, and only an
+  ordinary line can be one: `scannable()` steps over control lines, the tearline
+  and origin closing the message, and anything carrying a quote prefix. What
+  somebody quoted is what they wrote, and carrying out their `CC:` would send
+  copies this writer never asked for.
+- **What comes into a message from elsewhere is disarmed by its prefix** —
+  `disarmCopyCommand()` writes `CC: Ivan` as `!CC: Ivan`. It runs where a
+  forward carries the message it passes on (`contextFor()` in
+  `app/message_builder.cpp`, on `@message`) and where a file is imported as text
+  (`app/import_file.cpp`). By the prefix and not by the whole line: a line
+  carrying recipients is exactly the one worth disarming.
+- **Where the copies go is the area's kind.** `carbonArea()`: netmail answers
+  with itself, an echo with the netmail area its `reply_to_area` names, and a
+  local area with nothing. An echo with nowhere to put them has no `CC:` commands
+  at all — `commandsIn()` drops them, so the lines stay in the message as the
+  text they were typed as and nothing is said about them. That is what makes
+  `reply_to_area` a group setting: it says where an echo's answers belong, and
+  both the reply dialog and the copies follow it.
+- **Storing asks once, and the run is a state machine.** `saveMessage()` finds
+  the commands, puts `Confirm::ProcessCopies` up — the one confirmation whose two
+  answers are Process and Ignore, since the message is stored either way — and
+  comes back through `processCopies()` or `ignoreCopies()`. `AppState::CopyRun`
+  holds how far the walk has got, because a `CC:` naming somebody several nodes
+  answer to (or none) opens the nodelist box, and `useCarbonCopy()` is what takes
+  the walk up again. `askToSave()` drops the run, so a message typed into since
+  the last attempt is asked about afresh.
+- **The message is stored before its copies.** A base refusing the message is a
+  message nothing was copied on account of. Each copy is built by `copyDraft()`
+  against the settings of the area it goes into — its AKA, its charset, its
+  tearline and origin — over the text with the editor's own closing pair taken
+  off (`withoutTrailer()`), and each is written a second on from the last so that
+  their MSGIDs cannot collide. One base is open at a time, so `writeCopies()`
+  swaps as `storeElsewhere()` does and opens the reader's own again at the end.
+- **Nothing is dropped on behalf of something that did not happen.** A recipient
+  nobody could find, a mask no echo matches, a `@file` that will not open: the
+  line stays exactly as it was typed and `reportUnresolved()` says what was not
+  done. That box reports about a screen that is still standing, which is what
+  `AppState::errorEndsScreen` is for — the error dialog's other use resets the
+  navigator because it stands in place of a screen that would not open.
+- **`compose_cc_list` and `compose_xc_list` decide what the message keeps**, and
+  the list stands where the first command line of its kind stood. `keep`/`raw`
+  are the only values that leave the command line itself standing; `hidden` is
+  control lines rather than text and reaches the base through
+  `BuildRequest::extraKludges`. "Originally in" is written only where the message
+  really went somewhere else, and a `#` on the mask covering the area being
+  written in leaves it unsaid.
+
+### Writing into another area
+
+- **`n` and `m`** — answering the message on screen there, and passing it on in
+  one of three senses — with `reply_elsewhere` and `forward` in `reader_menu` for the
+  same two. `ui/area_dialog.*` is the modal both open: every area the tosser
+  config declares, by name, in the order `arealist_sort` puts the area list in.
+  It opens on the first of them and is searched by typing a name the way the area
+  list is. `AreaPicker::purpose` is which of the four asked, and `app_shell.cpp`
+  starts the right message once an area is picked, copying the `AreaConfig` out
+  of the manager's list first, since everything after that opens and closes
+  bases.
+- **`m` asks what before it asks where.** `ui/forward_dialog.*` opens first —
+  Forward, Move, Copy, three buttons on the confirmation's pattern, answered by
+  ←→ and Enter, by their initials, or by a click. Forward is a message of one's
+  own carrying this one; Move and Copy put *this very message* into the other
+  area and differ only in whether it stays here. `AppState::ForwardPicker::Mode`
+  becomes an `AreaPicker::For` in `purposeOf()` and nothing acts until an area
+  has been picked. It opens on Forward deliberately: it is the one answer that
+  writes nothing by itself, and Move empties this area the moment an area is
+  named.
+- **A move and a copy are not the compose screen at all.** `app::copyOf()` builds
+  the draft out of the message as the base holds it — header fields, attributes,
+  the kludges either side of the text, `preservedLines()` making the same split a
+  change makes — and `message_read::copyMessage()`/`moveMessage()` hand it to the
+  other base through the same swap a moved reply makes. Two things follow from
+  "the same message" rather than "a message like it": its **MSGID travels with
+  it**, that being what the network tells two messages apart by, and it **keeps
+  the date it was written on** (`MessageDraft::written`, the one field a base
+  reads off the clock unless the draft states it). The arrival stamp is not
+  stated: when the message reached the base it is going into is that base's own
+  business. A move deletes **only once the write has come back with a number**,
+  and then leaves the reader where a delete leaves it. Picking the area being
+  read is answered by each in its own way: a move there does nothing, a copy
+  there is a second copy in the open base, no swap involved.
+- The two that *are* written — the moved reply and the forward — are the ordinary
+  message with three changes. The prefill is against the area picked, not the one
+  being read (its AKA, and whether there is a recipient — an echo answered into
+  netmail is written as netmail); `ComposeFields::moved` or `::forward` is set
+  and `AppState::targetArea` holds where it is going, which is what
+  `AppState::composeArea()` answers with from then on; and
+  `BuildRequest::originalArea` carries the area left behind, which `@oecho` names
+  and which turns the template's `@moved` lines on.
+- A forward is a *new* message that happens to carry one: `original` is set as
+  for a reply, but `fields.forward` makes the context `@new` rather than
+  `@reply`, fills `@message` instead of `@quote` (both are unconditional inserts
+  in the template AmberEdit ships, `default.tpl`, and filling both would put the
+  message in twice) and writes no REPLY kludge. Its subject comes from the message it passes on,
+  and its editor opens **where `@position` says**: the bare `@position` answers
+  for a forward, since `@quoted@position` stands on a line only a reply reaches
+  and the later one wins where a template has both. That is how a reply lands on
+  its quote and a forward on the line above the signature.
+- Saving hangs on `AppState::composeGoesElsewhere()` rather than on which key
+  began it — a forward into the area being read is an ordinary new message.
+  **One base is open at a time**, so `storeElsewhere()` swaps: `state.base` is
+  dropped, the target opened and written to, and the area being read opened again
+  straight after. Nothing on the screen underneath comes off the base while it is
+  away — the header and body being read are copies, as are the list's headers —
+  so the reader is left exactly as it was, scroll and all, and dropping the
+  message needs no swap at all. A target that refuses the message keeps the
+  editor open on it; a source area that will not reopen ends on the area list.
+
+### Changing a message
+
+- **`reader.change` in the reader** — `c` and F2 by default, with `change` on
+  `reader_menu`. It is the compose
+  screen again, with three differences, all hanging on `ComposeFields::changing`.
+- The editor opens on the **message itself** rather than a template —
+  `compose::startChange()` fills it with the body's visible lines and the header
+  block from the message's own fields — so `refreshTemplate()` is held off
+  entirely (it would throw the message away) and `addressesReady()` passes
+  without asking (nothing is made from those addresses, and JAM keeps no sender
+  address in an echo area). What the editor does not show is kept in
+  `AppState::changeKept`: `app::preservedLines()` splits the service lines where
+  the text begins, and `app::buildChange()` puts both back around the text when
+  it is stored, in the charset the message was read in. No REPLY is invented and
+  no tearline.
+- The exceptions are the two control lines that describe the *writing* rather
+  than the message, both from `app::ChangeStamp`: a **new MSGID**, naming this
+  system (`app::ownAddress()`, falling back to the message's own From address
+  and, with neither, leaving the old line alone — a MSGID without an address is
+  not one) and this moment; and **TZUTC**, which says which clock the new date
+  stands on. A message carrying neither is given both. In-base threading survives
+  — the links are the base's own and `replace()` keeps them — but a REPLY made of
+  the old MSGID on another system no longer names it.
+- Two of the three ways in ask first, and the question is always about somebody
+  else's copy. A message whose sender is not one of ours
+  (`AppConfig::isOwnAddress()`, over the header's address or — in a JAM echo,
+  which stores none — the one its MSGID names) is one we would be writing in
+  another person's name, and answering yes puts the template's `@Changed` lines
+  at the head, expanded with the *current user* as `@CName`/`@CAddr` rather than
+  with the From fields, which here are the original author's. One of ours
+  carrying `MSGSENT` is out of our hands already, and answering yes takes that
+  attribute off (`app::change()`, the one thing the prefill does not carry
+  across), so the message counts as unsent again. Our own unsent message opens at
+  once.
+- Saving goes through `IMsgBase::replace()` rather than `write()` and comes back
+  to the reader on the same message number. `AreaManager::refreshArea()` is
+  called for the same reason a delete calls it: the counts move with the
+  attributes.
+
+### Dialogs
+
+Every modal shares four habits, and a new one is expected to keep them: it is
+**measured once off the window** by `fitBox()` and keeps its size until the
+window changes (a box measured against what it is showing would be a different
+size in every directory and every area, and the row under the pointer would move
+as it was opened again); where it has a frame it is `ui/dialog_frame.*`; it ends
+in **`dialog::surface()`** rather than in `clear_under` — the wipe with the
+box's own `dialog_background` and `dialog_text` laid down over it, so that no
+cell of a dialog is left in whatever color the terminal draws with when nothing
+is asked for; and a click outside it dismisses it without the screen underneath
+acting on the click.
+`ui/dir_listing.*` and `dialog::bottomBar()` are shared the same way — the bottom
+rule carries the keys, and what went wrong in their place, rather than either
+taking a row.
+
+- **`--setup` is the one dialog that runs before there is a config.** It has no
+  `AppState` to hang on — that is built out of an `AppConfig` and an
+  `AreaManager`, and the whole point of the wizard is that there is neither yet —
+  so `ui/setup/*` keeps a `SetupState` of its own and `setup_run.cpp` owns a
+  `Terminal` and a loop of its own, the shape `ui/term/terminal.hpp` describes.
+  Everything but that one file is drawn and dispatched like any other dialog and
+  is driven by the tests without a terminal. It asks five questions — who you
+  are and which tosser config, where that config is, the charset read and the
+  charset written, and a nodelist that may be skipped — and the sixth step is
+  the config itself: what will be written, where, and the button that writes it.
+  - **Enter walks the questions of a step; Next is what checks them.** This is
+    the one dialog where Enter does not act wherever the typing is: a step is
+    several fields, and a name typed with the address still empty is a step being
+    answered rather than a mistake to be told about. So Enter moves to the next
+    thing the step asks for — stepping over Back and Skip — and lands on Next
+    once it has asked everything, and the checks run there, on Enter or on a
+    click. Inside the listing Enter keeps its ordinary meaning: it opens a
+    directory and picks a file, and picking one puts the typing on Next. `main.cpp` refuses it where `findDefaultConfigPath()` already
+  answers, and refuses it with `-c`: it writes a config rather than reading one.
+
+- **The review box is the one dialog with four answers**, `ui/external_dialog.*`,
+  and it comes up over the editor whenever `external_editor`'s program was left
+  having written something. Save stores the message as `Ctrl-S` would — without
+  the confirmation, this box *being* that question, asked of a message the user
+  has just been shown; Discard leaves the editor with nothing stored; Continue
+  opens the same file in the same editor again; Header puts the typing into the
+  block above. **Esc is Header** and never Discard: Escape must not be the key
+  that throws an hour's writing away, and Header is the answer that stores
+  nothing, drops nothing and leaves every other route a keystroke away. The
+  fourth button is not a luxury — with the writing done elsewhere there is no
+  cursor on the screen to walk up into the header with, so the way to the fields
+  has to be a button like the rest. `←→` walk the buttons and `↑↓`, the page keys
+  and the wheel scroll the message behind the box, which is what is being asked
+  about and can be longer than the window.
+- **`i` shows what the base holds about the message** — the storage rather than
+  the message: the stored header field by field, the records naming it, and a
+  hexdump of the bytes each is made of. `ui/info_dialog.*` shows and does not
+  ask: every key either moves inside it (↑↓, PgUp/PgDn, Space, Home/End, `g`/`G`,
+  the wheel) or puts it away (Esc, Backspace, Enter, `i`, a click anywhere). The
+  report comes from `IMsgBase::info()` and is read **once**, when the box opens —
+  a base behind a scrollbar would be read on every frame. The box decides the
+  layout: eighty columns at most, which is what sixteen bytes to the row takes,
+  and in a narrower window the dump gives up bytes to the row (eight, then four)
+  rather than running off the edge, so the rows are laid out again when the width
+  changes. The column beside the bytes is **printable ASCII and dots, not the
+  message's charset**: what is being looked at is the bytes.
+- **`Ctrl-O` and `F3` in the editor read a file into the message**, through
+  `ui/import_dialog.*`: the path, the directory it names — walked with the arrows
+  and searched by typing — and under it the mode, Text or UUE. Tab walks the
+  three stops, Enter acts wherever the typing is, Esc closes. It is the only
+  dialog anywhere that touches the disk.
+  - **The path under the title is a field, not a label**, and Enter on it is
+    answered by the filesystem rather than by a mode the user has to set first:
+    an existing directory is walked into, an existing file is read, anything else
+    is `Path not found`. It takes a leading `~` as a shell does and reads a
+    relative path against the directory on screen. Walking the listing puts the
+    box back to where the listing now is, and Esc puts the directory back before
+    closing the dialog.
+  - **A row is a name, a size and a stamp.** The size is
+    `area_format::countText()` — the same shortening the area list's counts use —
+    and a directory says `<dir>`. The stamp is `reader_datetime_format` through
+    `MessageDate::format()` with **no zone passed**: `%z` says which clock a
+    *message* states it was written by, and a file on this disk states nothing of
+    the kind. Its column is measured off a sample date, not off the files, so the
+    columns do not shift as one is walked into. Both are read once, with the
+    listing.
+  - **The two modes are two different things, and only one is text.**
+    `app/import_file.*` holds both. Text is decoded into UTF-8 and fenced by
+    `import_begin`/`import_end`. UUE is *encoded* rather than decoded and carries
+    its own `begin 644 …`/`end`, so nothing is written round it. A zero goes out
+    as a backquote rather than the space the original encoding used — mail strips
+    a trailing space and the line would arrive a byte short.
+  - **What is read is made safe to carry**, `config::text::messageLine()`. Tabs
+    are opened out to the next eight-column stop and every other control byte is
+    dropped. The NUL is the one that matters: FTS-0001 ends a message at the
+    first one. The external editor shares that call, facing the same problem.
+  - **The charset is the locale's**, the one `term::ensureUtf8Locale()` settled
+    on. `ImportRequest::charset` is still the caller's to name, since `app/` has
+    no business reaching into the terminal's locale.
+  - **Where it lands is where the cursor is, as whole lines**: at the cursor when
+    it stands at the start of a line, after that line otherwise, the cursor
+    coming to rest under the block. It is answered from the header as well. A
+    file that will not open is a line inside the dialog, not a modal over it —
+    which is also why the *dialog* reads the file: `app_shell.cpp` only takes the
+    lines and hands them to `compose::insertImported()`. The directory and the
+    mode outlive the dialog, on `AppState` rather than in the picker.
+- **`Ctrl-F` in the reader looks for a message in the area**, through
+  `ui/find_dialog.*`: the words in a field, and under them a pair of radio
+  buttons saying how much of a message to read them against. Tab walks the three
+  stops — the field, the answers, the **Find** button — and Enter searches from
+  wherever the cursor is, the button being where the ring comes to rest rather
+  than the only place the box can be answered from. A radio is turned over by
+  pointing at it or by ↑↓ and does nothing else: it says what the search will
+  read. A search that came to nothing leaves the box standing with the words
+  still in it, saying so in the bottom rule — the export box's habit, since the
+  words are there to be changed and a box that vanished would have to be opened
+  again. The box asks and does not search: what walks the base and moves the
+  reader is `message_read::findMessage()`, which the shell calls with what the
+  box holds. See [Finding a message](#finding-a-message).
+- **`w` in the reader writes the message out to a text file**, with `export` on
+  the list `reader_menu` may name. `ui/export_dialog.*` is the modal and
+  `app/export_file.*` does the writing; it is the import box with the answers the
+  other way round, sharing its frame and listing. Its own five:
+  - **The listing is directories and nothing else** — what is being picked is
+    somewhere to write, and there is no size column for the same reason. The name
+    is *typed*, in the box under the list.
+  - **A file already there is a question, not a policy**: `File exists:`, the
+    name, and **Overwrite** or **Append** (`o`/`a`, ←→ and Enter, or a click),
+    with Esc for neither, which leaves the name in its box to be typed over.
+    Appending is right for collecting messages into a digest and wrong for every
+    other reason a name is typed twice, and there is nothing in the message to
+    tell the two apart. `app::ExportWrite` carries the answer down; nothing below
+    the dialog decides it. The question is held in `ExportPicker::Existing` and
+    drawn over the box that raised it. Only text mode raises it.
+  - **Nothing invents a name.** The box holds what the last export was called and
+    nothing at all until one has been; Enter on an empty one answers `No file
+    name`. The name a file *was* written under stays, as does the directory.
+  - **What is written is the area, the reader's own header block and then the
+    text** — an `Area` row naming the area's tag over From, To, Subj and Date
+    under the same labels, the rule, and the message with its service lines left
+    out exactly as the reader leaves them out. The area is the one thing the
+    message cannot answer for itself, so `exportedLines()` and `exportMessage()`
+    take it: it names itself on the first row, a file having no title bar to say
+    where a message was read, and it says whether the To row carries an address —
+    only netmail addresses a node, so an echo's destination address is left off
+    exactly as the reader leaves it off. The stamp is `reader_datetime_format`,
+    so the file says what the screen said, and the rule under each header block
+    is what keeps two appended messages apart.
+  - **The charset is the locale's**, as for an import; `ExportRequest::charset`
+    is still the caller's to name.
+- **A message carrying uuencoded files is asked about before it is written.**
+  `app::uueFiles()` reads the message when `w` is pressed (`askExport()` is the
+  whole of the decision), and where it finds anything `ui/export_mode_dialog.*`
+  goes up in the export dialog's place: **Files**, taken back out of the message,
+  or **Text**, the message as it is read. The export dialog follows either
+  answer, so the two boxes are one question in two halves exactly as `m`'s two
+  are. It is the import's UUE mode run backwards, `app/export_file.*` holding it
+  beside the text export the way `app/import_file.*` holds `uuencode()`.
+  - **A block is `begin <mode> <name>`, data lines and `end`, and a block with no
+    `end` is not a file.** That is also how a message carrying **one section of a
+    file split across several** is passed over — multi-section UUE is not
+    supported, and half a file decoded into a whole one will not open. A block
+    damaged in the middle is dropped rather than decoded as far as the damage;
+    scanning goes on from the line after its `begin`, so a good block under a bad
+    one is still found. Several files in **one** message are ordinary.
+  - **The length character at the head of a data line says how many bytes it
+    carries**, and the line is padded with zeros to what it states rather than
+    being required to carry them: an encoder that wrote zero as a space has had
+    those spaces stripped by whatever moved the message. A line *longer* than the
+    length states is refused.
+  - **The name is taken as a name and never as a path.** A `../` would write
+    outside the directory the user picked, and `C:\DL\FILE.ZIP` is a name FTN
+    mail has carried since there was FTN mail. Both separators are cut, and a
+    block naming `.`, `..` or nothing is dropped.
+  - **The names are a label**, in the mode dialog and then in the export box:
+    they are the message's rather than the user's, so there is nothing to type
+    over them and nothing to pick among them, and the Tab ring walks past them.
+    Five at most, the last row counting whatever is left.
+  - **A label cannot take an Enter, so a `Save` button stands under it**, the
+    ring's third stop where a text export has its name box. It is centred by
+    measuring rather than by a `filler()`, and a click on it acts rather than
+    merely focusing it, as the forward dialog's answers do.
+  - **Nothing is written over**, which is where the two modes part company: a
+    decoded file has nobody to ask, those names not being the user's. Every name
+    is looked at before any is written, so a name already taken stops the export
+    with `file exists: <name>` rather than leaving the directory half filled.
+  - **The directory is the same directory**, and `state.exportDirectory` is where
+    the next export starts from whichever mode wrote last. `exportName` is not
+    touched by a decoded export: it is the name a *message* was written under.
+- **The menu behind the corner.** The reader and the editor carry a **menu
+  button** in their top-right corner — `ui/menu_button.hpp`, the back button read
+  from the other side: the same five columns, two rows and colors, with `≡` where
+  the arrow is. It opens `ui/menu_dialog.*`, a modal column of framed buttons
+  standing one under the next so their frames meet and the column reads as one
+  list. Every button is `menu_buttons_width` wide, frame included — **the setting
+  decides, not the labels**. The column stands clear of the box edge by
+  `kMarginX`/`kMarginY`, and `dialog::surface()` fills those margins with it.
+  - **A label is a glyph and a word, and `config::Commands::Info` carries the
+    two apart** — `icon` and `labelId`, `↗` and `Fwd / Copy`, `⚲` and `Nodelist`.
+    `labelId` is the English msgid and `Commands::labelOf()` is what is drawn.
+    The word is the half a translation replaces and the half a hint bar shows;
+    the glyph says the same thing in every language and is the menu's alone.
+    `labelLine()` puts them together for drawing, in a glyph column
+    `iconWidth()` columns wide — the widest glyph in the menu that is up — so
+    that the words all start in the same place. When the room runs out it is the
+    word that is cut, ellipsis and all: the glyph is what a button is picked out
+    of the column by, and it is the half that does not grow when the interface is
+    translated.
+  - **The glyphs are measured, never counted.** `≔` is one code point in one
+    column, `𝒊` is four bytes in one, `⚠︎` is two code points in one and an emoji
+    is one glyph in two — and how many columns any of them takes is the
+    platform's `wcwidth()` to say, so nothing assumes a width and everything asks
+    `displayWidth()`. The U+FE0E on `⚠︎` is the variation selector asking for the
+    text form rather than the emoji one: a zero-width mark that
+    `term::toGlyphs()` attaches to the glyph it follows, so it costs no column.
+    Do not measure a label with `size()`.
+  - `menu_button` is a `config::Visibility` answered by `AppState::shown()`, and
+    both corners cross at `AppConfig::adaptiveUiThreshold` on every frame.
+    `AppState::menuButtonShown()` — and the wrappers `readerMenuShown()` /
+    `composeMenuShown()` — is the one place that answers whether a screen has the
+    corner, and an empty command list counts as none. **The corner costs no
+    row**: it stands in the two the title and the rule already take, which is why
+    nothing subtracts it from a screen's `…Rows()`. It is held against the right
+    edge by a `filler()` that is a **child of the title row itself** — an hbox
+    does not carry a child's flex up to its own parent.
+  - `AppState::MenuView` is the box while it is up: the commands copied out of
+    the config with whether each can be run **decided once, as it opens**, on the
+    message that was in front of the user then. `app_shell.cpp` answers it like
+    every other modal and dispatches by `navigator.current()` to
+    `message_read::runMenuCommand()` or `compose::runMenuCommand()` — the box is
+    put away *first*, since most of those commands put a box of their own up.
+  - Every command is one a key does as well. A command with nothing to do is an
+    `Item` with `enabled` false — drawn in `dimmed`, its click swallowed rather
+    than passed to the screen underneath, and stepped over by the arrows. Which
+    those are is the screen's own judgement: in an empty area everything about
+    the message on screen is dead, `new` and `nodelist` being what is left.
+
+### Text, theme and colors
+
+- **Layout is measured in terminal columns, by `term::stringWidth()`.**
+  `ui::displayWidth()` wraps it, and `substrByWidth`/`truncateToWidth`/`padRight`/
+  `padLeft`/`wrapText` all budget in those units — that is what `ui/text_layout`
+  exists for. Counting bytes or code points is wrong for anything the renderer
+  does not draw one cell wide: a CJK ideograph is one code point and two columns,
+  a combining accent one code point and none, and Cyrillic pushes a table out of
+  line. The measuring here must be the measuring the renderer does, so call into
+  it rather than reimplementing a width table.
+- The screens carry no outer margin. The rules span the full width; the list rows
+  carry a column of margin on each side themselves, so the highlight on the
+  current row covers them rather than starting a column in. The message body is
+  flush, the scrollbar taking the rightmost column when shown.
+- **Quoting.** `ui::quoteDepth()` decides whether a body line is a quote and how
+  deep: optional one or two leading spaces, up to six letters of initials
+  (Cyrillic included, so counted in code points), the `>` markers, and a
+  mandatory space after them. Odd depths render gold, even ones amber. The depth
+  is taken from the source line and copied onto every wrapped piece, or a long
+  quote would lose its color halfway down.
+- **Links** are found by `ui::findLinks()` and colored per run inside the body
+  line, which is why a body line is an hbox of pieces rather than one text when
+  it holds one. Only `http://`, `https://` and `ftp://` count: a schemeless
+  `www.` or a bare domain would mean recoloring ordinary words. Kludge lines are
+  not scanned. The runs of one link are gathered into an element of their own so
+  that where it landed is a single box: a search lighting part of an address
+  splits it into several runs, and a click has to be tested against the whole of
+  it. Those boxes are `AppState::readUrlLinks`, filled by the reader's
+  `render()` — and only where `urlhandler` names a program, since with none a
+  click on a link does nothing and there is nothing to test it against. The
+  vector is built to its final size before the frame is laid out, for the reason
+  `readThreadLinks` is.
+- **The palette is one struct, `ui::theme::palette`.** No screen names a color of
+  its own; a role not in `Palette` does not exist. Its fields are RGB numbers in
+  the terminal's own 256-color palette — `term::Color` holds one, and there is no
+  separate theme color type. It is a global **written once**, in `runApp()`
+  before the screen opens, and only read afterwards; do not write to it anywhere
+  else.
+- **Two fills, and the terminal's own is neither of them.** `app_shell` paints
+  `background` across the whole window with `text` on it, and every modal paints
+  `dialog_background` with `dialog_text` over the box it has just cleared
+  (`dialog::surface()`). A cell left in the default-constructed `term::Color` —
+  "whatever this terminal draws with when nothing is asked for" — is a bug: on a
+  light profile it is black on white in the middle of a dark screen.
+  `clear_under` is the only thing that produces one, and nothing calls it
+  without painting over it in the same breath.
+- **A box has a palette of its own, and a dialog draws from it and not from the
+  screen's.** `dialog_background`, `dialog_text`, `dialog_title`,
+  `dialog_label`, `dialog_hint`, `dialog_field`, `dialog_flash`,
+  `dialog_border` — the frame, the rules closing it and the dividers inside it,
+  `separator`'s counterpart in a box — and `dialog_shadow`, plus `menu_button`,
+  which is only ever drawn inside one. A new dialog reaches for those rather than for `text`,
+  `table_header`, `header`,
+  `screen_buttons`/`dimmed`/`kludge`, `input_field`/`input_text`,
+  `focused_field`/`focused_text`, `input_filler` and `animated_button_text`,
+  which are the screen's counterparts and stay on the screen. The split is what
+  lets `themes/16_colors.cfg` put a light grey DOS window with black in it over
+  a screen that is light on black: one role cannot be legible on both. A test
+  loads every shipped theme and checks that nothing a box draws with is the
+  color of the box — the frame, the fills it puts down over its own, `selection`
+  and `dialog_field`, and what is written on each of them included.
+- **A terminal with fewer colors than a theme asks for** gets the nearest it has
+  (`nearestWithin`), and one already holding the entry gets it untouched — which
+  is what makes `themes/16_colors.cfg`, written in the sixteen ANSI colors,
+  exact on a bare console. A terminal in *direct* mode is the other way round: it
+  reads a color number as a triple, so the entry is expanded through
+  `paletteRgb()` first. Skipping that is a silent wrong-color bug, not a missing
+  optimisation — index 102 would go out as #000066. Color pairs are allocated as
+  first asked for, so the count follows the theme rather than the roles.
+- **Adding a color role means three edits**: the field in `Palette`, the line in
+  `kFields` in `ui/theme.cpp` tying it to its theme-file key (and the array's
+  size with it), and an entry in every file under `themes/`. Tests load the shipped themes — `black.cfg`
+  against the defaults field by field, `16_colors.cfg` for the opposite, that no
+  field was left at a default, and every file against `black.cfg`'s set of keys —
+  so forgetting a file fails the build.
+- **Every modal casts a shadow**, two columns to its right and one row below,
+  wiped to `dialog_shadow`. `dialog::surface()` is the one place it is hung —
+  every box goes through it — and `term::shadow()` is what draws it. It asks for
+  **no room**: the strips fall on cells the screen has already drawn, so a box
+  keeps the size and the place it had before there were shadows and nothing that
+  measures itself against the window had to change. It is also the one node that
+  paints outside its own box; `Screen::at()` drops what falls off the edge, so a
+  box against the right-hand side simply casts less.
+- **A theme is colors and one switch.** `input_filler_show`, `on` or `off` as
+  every other switch AmberEdit reads is written, says whether a field's free
+  columns are underscored; it is a `bool` on `Palette` and a line in `kSwitches`,
+  the same table treatment the colors get, so a second setting is a line rather
+  than a special case. On in the built-in palette, whose fills are steps of
+  near-black, and in `16_colors.cfg`, where an idle field carries the screen's
+  own black; off in `blue.cfg`, which lights its idle fields plainly enough on
+  its own.
+- **The BBS color codes are markup taken out of the text; the style codes are
+  markers left standing in it.** `bbs_codes_renegade` turns on the
+  Renegade/Telegard pipe codes `|00`–`|31`: `ui/bbs_codes` reads them, the first
+  sixteen naming a foreground and the rest a background, in the DOS color order
+  rather than the terminal's (`kDosToTerminal` — blue and red change places, and
+  so do cyan and yellow). `|24`–`|31` are what a DOS adapter drew as either a
+  bright background or a blinking foreground, and they are taken as the
+  background: nothing in a reader should flash. Three things follow from the
+  codes being taken out:
+  - **They are stripped before the body is wrapped**, in `wrapBody()`, not while
+    it is drawn. A code is three bytes and no columns, so a line measured with
+    one in it wraps early, and `quoteDepth()` would not find a marker behind one.
+  - **A color crosses a wrap and stops at a newline.** One break is the window's
+    doing and must not change what the message looks like, the other is the
+    message's own. So `stripRenegade()` reads one line at a time and carries
+    nothing between them — every line opens in the theme's colors, which is what
+    keeps the quote colors, the trailer and the kludges the reader's after a
+    message opens a color and never closes it — while `runsForRows()` cuts a
+    line's runs up between the pieces `wrapText` made of it and opens each in the
+    color the break fell under. A row carries that opening color in
+    `DisplayLine::colorRuns`, because the reader draws only the rows on screen
+    and one that could not say what it opened under would lose the color when a
+    long line was scrolled into from the middle. The rows are found in the text
+    rather than tracked through the wrapping: the layout must not depend on
+    whether the config asked for colors.
+  - **Off is the default and per-area is the point.** A pipe is an ordinary
+    character in every echo not written this way. What the message says nothing
+    about keeps the theme's colors, so an uncolored quote is still a quote.
+- **ANSI graphics are a sequence of drawing operations, not text with colors in
+  it.** `bbs_codes_ansi` turns on the replay; `ui/ansi_canvas` does it. A pipe
+  code says "the rest of this line is green" and leaves the text where it stood,
+  while `ESC[12;30H` says "carry on at row 12, column 30" and the bytes after it
+  belong nowhere in the message's line order. So nothing about this can be done a
+  line at a time: `wrapCanvasBody()` hands the visible body over as **one
+  stream**, `Canvas` plays it onto a grid of cells, and only the grid is a
+  picture with rows in it. Those rows come back as the `bbs::CodedLine` the
+  reader already draws, which is why nothing downstream of the layout had to
+  learn about any of this — `DisplayLine::canvas` says only what must *not*
+  happen to a row.
+  - **The canvas is 80 columns wide and wraps at once.** 80 is the format and not
+    a default: the art was composed on an 80-column terminal, draws a border down
+    the last column, and counts on the next glyph appearing at the start of the
+    next row. A deferred wrap — the pending-wrap state a real terminal keeps, and
+    that the next cursor move cancels — would put that glyph back on top of the
+    border it just drew. `kMaxRows` bounds the other axis, which is a guard and
+    nothing else: a message may write `ESC[999999B` and a reader that believed it
+    would allocate for it.
+  - **A line break in the message is a carriage return and a line feed.** The
+    files are written as chunks that undo their own newline with an `ESC[A` and
+    carry on, so a break that only moved down would leave every chunk a column
+    out.
+  - **The cursor is saved and restored under two spellings.** `ESC 7`/`ESC 8` is
+    the DEC pair and `ESC[s`/`ESC[u` is the CSI one, and BBS art uses whichever
+    the program that wrote it emitted — the second at least as often as the
+    first. Both mean the position and not the pen. Dropping either is not a
+    missing flourish: a file that carries its rows across its own newlines that
+    way falls into strips, one per chunk.
+  - **Every line break the message carries is honoured, and two lines are never
+    joined.** A picture can arrive already broken: tossers and BBS packages word
+    wrap a message on its way out to the network, at a byte count and counting
+    the bytes of an escape sequence like any others, and what they leave behind
+    is an ordinary hard break. Nothing tells it from a break the artist drew —
+    a row of a picture may genuinely end in blanks out at the right-hand edge —
+    so the canvas draws such a message as it arrived rather than guessing which
+    of its breaks were somebody else's. `testdata/ansi/ansi_msg1.txt` is the one
+    that punishes a guess.
+  - **A sequence that does not finish draws nothing.** A message can arrive cut
+    at a byte count, and the cut falls inside a code as readily as between two
+    glyphs. The canvas steps over the `ESC`, the `[` and the parameters behind
+    them: what is left commands nothing, and its digits are not something an
+    artist drew — nobody writes a literal ESC in front of them. Only the opening
+    goes, so a glyph standing right after the stump is still the message's own,
+    and `containsCodes()` still asks for a whole sequence, half of one being no
+    evidence that anybody drew here at all.
+  - **The tearline and the origin line never go through the canvas.** They are
+    not the author's drawing but the network's signature at the foot of it, they
+    say where a message came from, and they are read off the trailer color the
+    theme gives every other message's. Left in the stream they would be drawn
+    wherever the art happened to leave the cursor — over the picture as often as
+    under it — in whatever colors it was last using. `wrapCanvasBody()` breaks
+    the stream at them exactly as it does at a kludge.
+  - **Per message, not per area.** An echo that carries ANSI carries it in a
+    handful of its messages, and `ansiCanvas()` looks for an escape sequence in
+    each one before deciding. The rest go on wrapping, quoting and coloring as
+    they always did. Inside a canvas the other two dialects are suspended however
+    the config has them: a `*` or a `|07` in a picture is a glyph somebody drew
+    with. Nothing wraps either — a row broken to fit the window would stop being
+    the picture, so `render()` cuts each row at the width instead.
+  - **Bold is the bright half of the palette and blinking is passed over.** These
+    codes were written for an adapter where 1 set the intensity bit of the
+    foreground nibble; art is drawn in sixteen colors, not eight in two weights.
+    Blinking is dropped for the reason `|24`–`|31` are taken as backgrounds
+    above: nothing in a reader should flash.
+
+### Charsets and the locale
+
+- **Charset resolution**: the `CHRS:`/`CHARSET:`/`CODEPAGE:` kludge, then
+  `default_charset`. Fidonet names are mapped onto iconv names in
+  `charset_detector.cpp` — `+7_FIDO` and `866` both mean CP866.
+- **Reading and writing have separate settings, both required.**
+  `default_charset` is only ever a fallback for a message being read;
+  `compose_charset` is what a new message is encoded in and what its CHRS
+  announces, and it is the only thing `message_builder.cpp` reads. Neither has a
+  default: a guess would be a silent mojibake in whichever direction it guessed
+  wrong, so `fromEntries()` fails when either is missing, alongside the check
+  that there is an area list at all — `tosser_config`, `area ... endarea`
+  blocks, or both.
+- **`name` and `address` are required too, and for the same kind of reason.**
+  Neither is guessed: without the address a message goes out with no From
+  address and an origin line ending in an empty pair of parentheses, which the
+  tosser bounces, and without the name JAM has no CRC to key a lastread record
+  by, so that format silently keeps no marks. Both are failures a long way from
+  the config that caused them, so `fromEntries()` refuses the config instead. A
+  group may state either for the areas it covers, which is not the file stating
+  it: the group is reached only where the file already has both. That is also
+  why an `akamatch` line needs no check for the address it falls back to.
+- **`IBMPC` is not CP866**, however often it is one in practice. FTS-5003 keeps
+  the name only as an obsolete level-2 one meaning "some IBM PC code page":
+  CP866 in Russian echoes, CP437 or CP850 in western ones, CP852 in central
+  Europe. `normalize()` returns an empty string for it, as for a value that is
+  not there at all, and `detect()` falls back to the default. Mapping it to CP866
+  silently mojibakes every western area that writes it.
+- **Both are per-area, and an area group is where that comes from.** No tosser
+  config format states a charset — husky fidoconfig has no `-charset` option
+  (grep its sources and `doc/`: the word does not appear), and neither do
+  areas.bbs or squish.cfg. A `group ... endgroup` block answers it, and it
+  arrives through the constructor: a `CharsetDetector` belongs to one open
+  `FtnMsgBase`, and `AreaManager` builds that base with
+  `effectiveFor(area).defaultCharset` at all three sites where it builds one.
+- **A header is decoded in the charset its own body declares.** The names and
+  subject sit in XMSG, but the CHRS kludge saying what charset they are in is
+  part of the body, so `readHeader()` reads the control block (`readKludges()`)
+  and asks the detector with that. Skipping it means the message list shows
+  subjects in `default_charset` while the reader shows the body in the charset it
+  declares. `testdata/msgbase/charsets` exists for this: the same word in KOI8-R
+  and CP866 with matching kludges, and one message with no kludge at all.
+- **Everything above the adapter is UTF-8, and the terminal layer encodes on the
+  way out.** A cell reaches ncurses as `wchar_t` through `setcchar`, and ncurses
+  writes it in whatever `LC_CTYPE` names — so an 8-bit terminal is supported by
+  setting the locale to match it (`LC_CTYPE=ru_RU.KOI8-R`) and nothing else. Do
+  not reach for `iconv` for this. `Terminal::codeset()` says what the locale
+  settled on and nothing reports it to the user.
+- **A file on disk that declares nothing is read in the locale's charset.**
+  `encoding::localeCharset()` is `LC_CTYPE` from the environment, and what asks
+  is a `nodelist` or an `echolist` line stating no charset of its own. It is not
+  a fallback for a *message*: a message declares its charset in a CHRS kludge and
+  falls back on `default_charset`, and neither has anything to do with the
+  terminal's.
+- **The locale is not left to chance.** `term::ensureUtf8Locale()` runs before
+  ncurses starts. A locale the user chose is kept, whatever its charset; where
+  the environment names none, or names the C locale, a UTF-8 one is found and
+  installed — under the C locale `wcrtomb()` would drop every non-ASCII character
+  on the way out and `wcwidth()` would refuse to measure one. A VPS with no
+  locale set is the normal case. The consequence: **`<cctype>` must not be
+  trusted for case or whitespace**, since a single-byte locale like KOI8-R folds
+  the high half of the byte range and would make two differently spelled Cyrillic
+  names compare equal. Use `text::asciiLower`/`asciiIsSpace` and the local
+  equivalents in `domain/` and `encoding/`.
+
+### The interface's language
+
+- **Every word AmberEdit draws is written in English in the source and passed
+  through `_()`.** That macro is `i18n::translate` and it is the one macro in the
+  tree; it is spelled the way it is because `xgettext` knows the name and because
+  it stands in front of several hundred literals. `C_(context, msgid)` is the
+  same with a `msgctxt` in front, and `N_()` marks a literal that is translated
+  where it is drawn rather than where it stands.
+- **The language is the environment's, and there is no setting for it.**
+  `LANGUAGE`, `LC_ALL`, `LC_MESSAGES`, `LANG` — gettext's own order, read by
+  gettext itself. `LANG=ru_RU.UTF-8 amberedit` is Russian. `i18n::start()` runs
+  at the top of `main()`, before a word is printed, and touches **only
+  `LC_MESSAGES`**: `LC_CTYPE` is `term::ensureUtf8Locale()`'s and is settled for
+  reasons that have nothing to do with which language the words are in.
+- **Where the catalogs are is compiled in, and there are two.**
+  `AMBEREDIT_BUILD_LOCALEDIR` — this build's own `locale/` — is checked first and
+  `AMBEREDIT_LOCALEDIR` (`${CMAKE_INSTALL_FULL_LOCALEDIR}`) behind it, so a
+  binary that has only been built is already translated and `LANG=ru_RU.UTF-8
+  ./build/bin/amberedit` works out of a fresh checkout. The build path does not
+  exist on a machine the binary was shipped to, so the first check falls through.
+  `bindtextdomain()` has to be told and nothing at run time could work it out.
+- **A locale the system has not generated is where this goes wrong, and it is a
+  warning.** gettext will not translate under `C` or `POSIX`, nor under `C.UTF-8`
+  from about glibc 2.35 — and a stock Debian 13 or Ubuntu 24.04 generates nothing
+  else, so `LANG=ru_RU.UTF-8` there is refused by `setlocale` and the interface
+  stays English. `i18n::start()` answers with `Started{locale, warning}`,
+  `main()` prints the warning to stderr and to the `error_log`, and AmberEdit
+  runs. Nothing here is ever a failure.
+- **The warning is narrow on purpose.** It fires only where the language asked
+  for is one there is a catalog for *and* gettext is still not answering — so a
+  language AmberEdit has no translation into is silent, and so is an environment
+  that asked for nothing. **Whether gettext is answering is asked of gettext
+  itself**, because nothing in the API reports it: `gettext("")` gives the
+  catalog's header entry when one is open and the empty string when none is.
+- **`_nl_msg_cat_cntr` is how a changed `LANGUAGE` is made to take.** Without it
+  gettext answers from its cache for the life of the process, and `i18n::clear()`
+  — which is what a test uses to put a catalog back down — would do nothing. It
+  is in no header, so it is declared by hand and the build probes for it
+  (`AMBEREDIT_HAVE_NL_MSG_CAT_CNTR`).
+- **What comes out of a catalog is UTF-8.** `bind_textdomain_codeset()` settles
+  it whatever the `.po` was compiled in, because everything above `ui/term` is
+  UTF-8 and the terminal layer is what encodes on the way out. It lives as long
+  as the program, which is libintl's own guarantee and is what lets a translation
+  stand where a string literal stood: `Commands::Info::labelId` is the msgid and
+  `Commands::labelOf()` is what a button draws. It is a `const char*` because
+  that is what gettext takes, and the `Id` is the warning that goes with it —
+  `==` on two of those compares pointers, so read it as
+  `std::string_view(info.labelId)`.
+- **A message with something of the user's in it is one message, not a
+  concatenation.** `i18n::format(_("cannot open base {0}: {1}"), {base, why})` —
+  numbered so that a translation may put the parts in another order, which is
+  exactly what a translation does. A translator's `{0}` is text somebody else
+  wrote: `format()` leaves a `{` that is not a placeholder alone and never reads
+  past the end of the argument list.
+- **A count is `i18n::plural()`, and how many forms there are is the catalog's to
+  say.** English has two, Russian three, and nothing in the code knows that —
+  the rule is the `Plural-Forms:` line of the `.po`, read as the C expression it
+  is written as.
+- **A width is measured and never counted.** A label is drawn into a column, and
+  a translation of it is as long as it is: `header_labels::labelWidth()` measures
+  the header block's labels and `attributes_dialog`'s `nameWidth()` measures the
+  attribute names, both once, so that neither block is laid out against the width
+  of the English word. Do not write a constant that is the length of a literal.
+- **What is not translated, and why**:
+  - **The glyphs.** `≡`, `←`, `↩`, `⚠︎` say the same thing in every language and
+    are kept apart from the words for it — `Commands::Info::icon` beside
+    `label`.
+  - **Anything that becomes message content**: `* Origin:`, the tearline, `CC:`,
+    a template's own output. It is read by somebody else's reader, and FTN
+    service lines are what they are.
+  - **The `error_log`.** It is a file the config names, read by whoever runs the
+    system, and a log in the interface's language is a log that cannot be
+    grepped for a phrase from a bug report.
+  - **The config, theme and `keys` diagnostics** — `config/`, `ui/theme.cpp`,
+    `ui/keys.cpp`. They name the keys of a config file, which are English by
+    definition, and they are read while editing that file rather than while
+    reading mail.
+  - **The message-info report.** `Msgbase`, `DateWritten`, `TxtLen` are the field
+    names JAM-001 and Squish give them, and are printed under the names GoldED+
+    prints them under so that a report read here and one read there are the same
+    report.
+- **Adding a language is a `.po` file and nothing else.**
+  `cmake --build build --target pot` writes `po/amberedit.pot` out of the tree,
+  `--target update-po` merges it into every translation beside it, and a
+  `po/<lang>.po` dropped in is compiled and installed by the next configure.
+  Neither target runs as part of a build: what they touch is source.
+- **The catalogs install under `${CMAKE_INSTALL_LOCALEDIR}`** and not under
+  `share/amberedit` with the themes, because that is where gettext looks. It is
+  also what `%find_lang` walks, which is why `amberedit.spec` names no locale in
+  its `%files` list.
+- **A translation may not be longer than the box it goes in.** There is no
+  reflow: a label past its column is cut with an ellipsis and a hint past the
+  width of its dialog is cut at the edge. Keep the words on the buttons and in
+  the column headings short.
+
+### Config and area groups
+
+- **AmberEdit's own config and the themes are one format**, read by
+  `config/cfg_file`: a line is a key and the values after it, double quotes round
+  a value whose spaces matter, a `#` starting a word ending the line. No
+  sections, and no types beyond what reading a key asks for —
+  `CfgEntry::text/one/number/numberIn/flag`, each answering with an expected that
+  names the file and the line. Adding a setting is a branch in `fromEntries()`
+  (`config/app_config.cpp`), and a key not in it is refused rather than passed
+  over: a misspelling should be a message and not a setting quietly back at its
+  default. Keys are lowercased on the way in, values never. The two shapes a file
+  written for the old toml format still has — a `[section]` header and
+  `key = value` — are named for what they are rather than read as odd values.
+  `group ... endgroup` is read out of the flat list by `app_config.cpp`, not by
+  `cfg_file.cpp`, which the themes share and where a block would mean nothing.
+- **`amberedit.cfg.example` is a build input, not only documentation.**
+  `cmake/embed_resources.cmake` puts it and `default.tpl` into the binary, and
+  `config/config_writer.cpp` writes a first config by filling that sample in —
+  so what `--setup` leaves on disk is the whole commented file with the answers
+  in the lines that state them. The lines it edits are matched at column 0 with
+  their trailing space (`name `, `address `, `tosser_config `,
+  `tosser_config_format `, `default_charset `, `compose_charset `, `template `,
+  `origin `, `#nodelist `, `#nodelist_db `), and a sample that no longer holds
+  exactly one of them fails the render rather than writing a config that is
+  missing a required key. Move a setting inside the sample freely; do not take
+  one of those lines out or write a second one.
+- **`tmpdir` is optional, and `config::makeTempDir()` is the one place that
+  knows why.** Whoever needs somewhere to work calls it with `cfg.tempDirPath`
+  and gets a directory made and ready: the setting where it names one, and
+  `amberedit-<uid>` under `std::filesystem::temp_directory_path()` (`$TMPDIR` or
+  `/tmp`) where it does not. Not resolved while the config
+  is read, which parses without standing in for the machine it will run on — the
+  same reason the template is read in `loadFromFile` and not in `fromEntries` —
+  and not made until it is wanted, so a config naming one it never uses leaves
+  nothing on the disk. A directory we fell back on is checked before it is used
+  (no symlink, permissions ours to set), the system's temporary directory being
+  shared with everybody logged in and the names written there not ours to
+  choose; one the config named is used exactly as the user made it. The message
+  says what is wrong with the directory, and the caller adds what it wanted one
+  for. Today the one caller is `NodelistSources::readArchive`.
+- **An area group is per-area settings, and it is not the tosser's group.**
+  `domain::AreaConfig::group` is a label fidoconfig's `-g` prints in a column; a
+  `config::AreaGroup` is a block of AmberEdit's own config, matched on the
+  echotag by `config/area_pattern` (`*`, `?`, ASCII case folding).
+  - **The chain is `applySetting()`**, and a group keeps the `CfgEntry`s it was
+    written on and runs them through it again — which makes a new setting one
+    edit rather than a field, a parse and an apply that drift apart. It also
+    means a group is *applied once while the config is read*, over a copy that is
+    thrown away, so a bad value stops AmberEdit at startup and `effectiveFor()`
+    can never fail — which is why it discards the answer rather than passing it
+    on, and why its 43 call sites have nothing to check.
+  - **What a group may say is a whitelist** (`isGroupSetting()`), not a list of
+    what it may not: a setting added to the chain and not to the table comes out
+    as "not a per-area setting", where the other way round it would come out as a
+    layout key silently overridable per area.
+  - **Groups merge setting by setting**, most specific last — literal characters
+    before the first wildcard, then in the whole pattern, then no wildcard at
+    all. Two patterns that rank equally, cover some tag in common
+    (`AreaTagPattern::overlaps()`, a small DP) and state the same setting are
+    refused at startup; the check is made against the patterns rather than the
+    areas so that it does not wait for the day an echo trips it.
+  - **Three configs reach the screens**, and which to read is one question — may
+    a group state this setting? `AppState::config` is the file as read, for
+    everything a group may not touch; `AppState::areaConfig` is it resolved for
+    `currentArea` (`setCurrentArea()` is the one place either is assigned);
+    `AppState::composeConfig()` is it resolved for `composeArea()`, which is not
+    the same area for a moved reply or a forward. Reading a groupable setting off
+    `config` works everywhere except in the areas a group covers.
+- **`area ... endarea` declares an area AmberEdit's own config owns.** The same
+  fields a tosser states one with — `path`, `type`, `kind`, `description`,
+  `group_label`, `address`, `link` — read into a `domain::AreaConfig` by
+  `readManualAreas()` and kept as `config::ManualArea` (the area and the line
+  the block opened on). Everything above `IAreaConfigSource` is unchanged: an
+  area is an area whichever file declared it, so groups, the AKA fallback, the
+  counts and the base creation all reach it as they always did.
+  - **The list is the tosser's areas and then the blocks**,
+    joined by `config::ManualAreaSource`, which wraps the tosser's parser rather
+    than standing beside it: `AreaManager` knows one source. The wrapper is
+    skipped where there are no blocks, and the tosser's parser is null where
+    there is no `tosser_config` — a config may be all blocks, and
+    `fromEntries()` then insists only that it be *something*, one of the two.
+  - **A tag declared in both is refused where the two lists meet**, in
+    `ManualAreaSource::loadAreas()` and not while the config is read: the
+    tosser's config has not been opened by then. Which is why `ManualArea` keeps
+    a line number — it is all the complaint has to name the block by.
+  - **`group_label`, not `group`**, for what fidoconfig's `-g` sets. The block
+    stands in a file where `group ... endgroup` already means area settings, and
+    one word for both would be the confusion this section warns about, written
+    into the config language itself. `address` *is* reused: inside a group block
+    it already means the area's AKA, and it means the same here.
+  - **Nothing about a block looks at the disk.** A path with no base under it is
+    ordinary — declaring an area before its base exists is what someone writes a
+    block for, and `openArea()` creates it on the way in, which needs the `type`
+    the block states (`FtnMsgBase::isAbsent` answers "not absent" for
+    `Unknown`). Left out, the type is probed from the files instead.
+  - **`splitBlocks()` takes both blocks out of the flat list** in one pass and
+    refuses either inside the other; `readManualAreas()` and `readGroups()` then
+    read what it collected, both after the file's own settings, so an `address`
+    a block states can be added to the AKAs beside an `address` line below it.
+- **Tosser config formats**, all three stated explicitly in AmberEdit's own
+  config and never sniffed: fidoconfig (hpt-style) uses `EchoArea` /
+  `NetmailArea` / … lines with spaced options (`-b squish`, `-g A`,
+  `-a 2:5020/1` for the area's AKA); areas.bbs is line-based, the path prefix
+  naming the base type (`$` Squish, `!` JAM, none Fido `*.msg`) with a bare `P`
+  meaning passthrough; squish.cfg uses `EchoArea` / `NetArea` / … lines whose
+  options carry their value **attached** — `-$` for a Squish base (absent means
+  Fido `*.msg`), `-$gA` for the group, `-p2:382/736` for the area's AKA, bare
+  addresses after them being links. Squish cannot describe JAM at all.
+- **`valueOptions()` in `fidoconfig_parser.cpp` must match husky exactly.** The
+  parser skips any `-option` not in that set, so listing one husky treats as a
+  flag makes it eat the token after it — a stray `-pack` would swallow
+  `-b squish` and leave the area with no base type. The authority is
+  `parseAreaOption()` in `fidoconf/src/line.c`. A value is never allowed to start
+  with `-`, as a second line of defence if the two drift apart.
+- **An area's AKA is not a link.** Both fidoconfig's `-a` and squish.cfg's `-p`
+  name the address the area is presented under and take exactly one; the bare
+  addresses that follow are the links. Reading `-a` as a list of links silently
+  turns the sysop's own address into a downlink.
+- **An area's AKA is the area group's, then the tosser's, then the config's.**
+  Only fidoconfig and squish.cfg can state one per area, and in both the option
+  is optional, so `AreaManager::reload()` fills an unset address in from the
+  config's `address`; areas.bbs never states one, which makes that fallback the
+  common case. An area group naming an `address` beats the tosser outright, and
+  every address any group states is also added to `akaMatches` with no patterns,
+  so `isOwnAddress()` knows a message written under one as the user's own while
+  `akaMatching()` never picks it by destination. With no address anywhere the AKA
+  is left out of the titles.
+
+### Dates
+
+- **Every date is written through `MessageDate::format()`**, with a strftime
+  format from the config: `reader_datetime_format` wherever a stamp is read, and
+  `template_date_format`/`template_time_format` for the template's
+  `@cdate`/`@odate` and `@ctime`/`@otime`. The message list's Date column is the
+  one place that may say otherwise — `msglist_format`'s `d(...)`, which both of
+  its defaults use — and it is judged by the same `checkTimeFormat()`. There is deliberately no fixed-width
+  spelling: **every column showing a stamp measures it** — the reader's header
+  from the two stamps and the attributes, the message list from the rows on
+  screen — so a format may be any length. **The stamp is trimmed at both ends**,
+  because a specifier that writes nothing leaves the space beside it behind and a
+  column measured off a stamp ending in a blank is wider than what stands in it.
+  `checkTimeFormat()` refuses a format that writes more than a line (`%n`, `%t`)
+  or nothing but blank; it checks against a sample stamp that does state a zone,
+  so `%z` alone is not refused for the blank it leaves elsewhere. The fields go
+  to strftime as the base stores them — an FTN stamp is in no time zone, so `%Z`
+  says nothing and `%a`/`%j` are worked out from the date itself rather than
+  through `mktime()`, which would answer in the local zone. They are clamped on
+  the way in: strftime indexes its own tables by them and a base can hold
+  anything.
+- **`%z` is answered from the message, not from strftime.** The only thing that
+  says which clock an FTN stamp is on is the message's own TZUTC control line, so
+  `format()` takes the zone as its second argument and substitutes it before
+  strftime sees a `%z` — glibc would otherwise answer out of `struct tm` and have
+  every message written in UTC. `msgbase::tzutcOffsetOf()` reads that line out of
+  the control block (`TZUTCINFO` too, FTS-4008 §3) and writes it the way `%z`
+  does, with the sign FTS-4008 leaves off a positive offset;
+  `FtnMsgBase::header()` puts it in `MessageHeader::utcOffset`, out of the
+  control lines it reads for the charset anyway, so the message list's Date
+  column costs no second read. A message stating no zone gets an empty string.
+  **Only the written stamp is given one**; the arrival stamp is passed no zone at
+  all on either screen, having been read off this system's clock.
+
+### The header block and adaptive layout
+
+- **The header block has one layout, and the one setting for it is a row.** Six
+  fields on `AppState::kHeaderRows` (4) rows and two columns, whatever the
+  window: the names down the left, hard against them the addresses, then the
+  attributes, then the written stamp on a Date row of its own. Nothing stands
+  between the two columns in either screen — the name cell is padded to its
+  width, so where it ends is where the address begins. The left column is as wide
+  as the widest thing in it: names stop at `kMaxNameWidth` (36, the FTS-0001
+  field), and a stamp may ask for more, in which case the addresses move over
+  with it — which is why `headerLayout()` takes the width it wants rather than
+  capping everything at `kMaxNameWidth`. The window still decides what is cut.
+- **The rightmost column holds either the stamps or the attributes**, so it is
+  reserved whenever there is anything for it, not just when a stamp exists.
+  Sizing it on the stamps alone leaves a message that has none no room for its
+  attributes, the layout squeezes the cells to fit, and the columns silently stop
+  lining up.
+- **The arrival stamp has a row of its own, and `show_recd_date` says whether
+  there is one.** `Recd : 14 Aug 26 20:15` under the Date row, drawn exactly like
+  it, label and stamp in the block's own `header`. `AppState::recdRowShown()`
+  answers the setting and `AppState::headerRows()` is `kHeaderRows` plus that row
+  — **both screens count their chrome from `headerRows()`**, never from
+  `kHeaderRows`, or the block and the text under it come apart. The row does not
+  come and go with the message: one written here arrived from nowhere and the row
+  is simply blank, a block that grew and shrank message by message walking the
+  body up and down the window while reading through an area.
+- **The editor's block is the reader's, field for field**, its Date and Recd rows
+  standing where the reader's do and showing the clock, read afresh every frame:
+  a message being written is written now and arrives here now. The stamps are
+  `app::localStamp()`'s at the moment the message is stored, and neither row is a
+  stop in the ring the cursor walks.
+- **A window of `AppConfig::adaptiveUiThreshold` columns or more is wide**, and
+  that is the line the whole interface adapts on. It is asked on every frame
+  (`wideWindow()`, `AppState::shown()`) rather than settled at startup, because a
+  window can be dragged and the config is read off `AppState::config` each time.
+  Every `config::Visibility` setting — `menu_button`, `back_button`,
+  `show_recd_date`, `dialog_tall_buttons` — is answered by `AppState::shown()`,
+  the one place that reads a `when_narrow` / `when_wide` from either side. Write
+  the width as the setting, never as a literal 80.
+- **A button in a dialog is `dialog::button()` and nothing else**, and
+  `dialog_tall_buttons` is how tall it stands: one row, or three in a frame.
+  Both shapes are the same width — the frame takes the two columns the wider
+  padding takes without it — so a box that centres a button by measuring puts it
+  on the same column either way. A box that counts its own rows counts them with
+  `dialog::buttonRows()`; `export_dialog`'s `belowRows()` is the only one that
+  does. Nothing hit-tests a height: every button is `reflect()`ed, so the box a
+  click is measured against is the box the button was drawn in.
+  **`dialog::framed()` takes the button's height** where it wraps one — a
+  `text()` paints its top row and no other, so a lone `│` beside a framed button
+  would leave the frame open on the two rows under it.
+  - **The context menu does not ask and neither does the wizard.** The menu's
+    buttons are framed whatever the setting says: a column of frames that meet is
+    what makes it read as a list rather than as a heap of words. `--setup` writes
+    the first config, so at the moment it is on the screen there is no setting for
+    it to read, and a wizard that guessed one off the window would hand the user a
+    shape they cannot then turn off.
+- **`reader_sidebar_threshold` is a second line and deliberately so.**
+  `adaptive_ui_threshold` is where the interface stops laying things side by side;
+  the reader's sidebar is a whole panel rather than a column, and wants a window
+  wider than a merely wide one. Nothing else reads it, and `AppState::shown()`
+  knows nothing about it: it is a width against a width
+  (`AppState::readerSidebarShown()`), not a `Visibility`. **Never is written as a
+  width too** — `0`, spelled `off` for whoever prefers the word — rather than as
+  a second setting beside it: the question the line answers is how wide a window
+  has to be, and a width no window reaches is the answer that keeps it one
+  question. Widths between 1 and 80 are refused, and the complaint names zero: the
+  panel wants a window wider than a merely wide one, so the floor is a column
+  over `adaptive_ui_threshold`'s own default, and the ceiling is
+  `reader_sidebar_width`'s 255.
+  **The default is that zero**: the reader is a screen for reading one message
+  on, and a panel is the screen given over to something else — worth having where
+  somebody asks for it and not worth appearing unasked the first time a terminal
+  is dragged wide. `amberedit.cfg.example` ships the line commented out at 120,
+  which is `reader_sidebar_width` plus its rule plus the eighty columns an FTN
+  message is written to; the tests that drive the panel state a threshold of
+  their own rather than leaning on a default that means "no panel".
+- `FtnMsgBase::open()` confirms the base is on disk with `probeType()` first.
+  That one is for the message: the driver would refuse a missing base fine, but
+  its error would not say which format was expected, and squish.cfg reaches the
+  case easily, `*.msg` being its default.
+
+## The message base drivers
+
+`src/msgbase/` reads and writes the three formats itself; there is no
+third-party message base code and no submodule. The layering inside it:
+`BinaryFile` (a descriptor, pread/pwrite at offsets, answering an `IoStatus` that
+tells a file shorter than the record from a read the kernel refused and carries
+the `errno` of the second), `FileLock` (fcntl locks
+over every file of a base), `byte_order`/`raw_message`/`jam_crc32` (the encodings
+the formats share), then one `FormatDriver` per format — `SquishBase`
+(.sqd/.sqi, FSP-1037), `JamBase` (.jhr/.jdx/.jdt, JAM-001), `SdmBase` (N.msg,
+FTS-0001 with the Opus header) — and `FtnMsgBase` on top, the one `IMsgBase`
+implementation, where charsets are converted and lines are marked.
+
+**Every write, change and delete locks the base's files first and releases them
+after** — `.sqd` and `.sqi` for Squish, `.jhr`, `.jdx` and `.jdt` for JAM —
+through `FileLock`, whole files, all-or-nothing, with the state the write depends
+on (counters, free chains, file lengths) re-read under the lock. A tosser may be
+writing the same area between two keystrokes. Fido `*.msg` has no base files to
+lock for a *new* message: a message is a file of its own, created `O_EXCL`, and
+the loser of a race over a number rescans and takes the next. Rewriting one is
+locked all the same — the file is the message.
+
+**An address the header is short of is completed from the kludges** —
+`completeAddresses()` in `raw_message.cpp`, called by the Squish and Fido `*.msg`
+drivers on the control lines they have read anyway. The zones come from `INTL`,
+the points from `FMPT` and `TOPT`. Fido `*.msg` has no field for either; a Squish
+XMSG has words for all four and a great many tossers write netmail with the zone
+words left at zero, FSC-0004 having made the kludge the place a zone is stated —
+without this a netmail area reads as `0:5059/38` and a reply goes nowhere. Only a
+field the header leaves at **zero** is answered for. `INTL` is read the guarded
+way: one whose net and node are not the header's belongs to a message this one
+was routed inside of. Fido `*.msg` alone falls back to the area's own zone where
+no kludge says one; Squish leaves the zero, its header being the place a zone was
+meant to be. `info()` shows the stored words either way — that screen is a dump
+of the record, not of what was made of it.
+
+**Fido `*.msg` is the Opus header, not FTS-0001's.** The 190 bytes a message file
+opens with are: `from` at 0 and `to` at 36, both 36 bytes; the subject at 72, 72
+bytes; the ASCII date at **144**, 20 bytes; times-read at **164**; then
+`destnode`, `orignode`, `cost`, `orignet`, `destnet`, a word each; then **eight
+bytes at 176 that are a union** — FTS-0001 puts `destzone`, `origzone`,
+`destpoint` and `origpoint` there, Opus put the written and the arrived stamp, a
+DOS date word then a DOS time word each; then `replyto` at 184 (which is also
+where `1.msg` keeps an echo's high-water mark), `attr` at 186, `reply1st` at 188,
+and the text from 190, NUL-terminated. Those offsets are named constants in
+`sdm_base.cpp` and are worth reading twice before touching: a date written
+thirty-six bytes early lands *inside* the subject field and leaves offset 144
+zeroed, where every other FTN program looks for it.
+
+AmberEdit reads and writes the **Opus** half, the dominant variant: it is what
+FTN software writes unless it has been told otherwise. There is deliberately **no
+setting and no sniffing** for the other reading: nothing in the bytes tells the
+two apart, and a guess there would silently change a netmail
+*address*. Nothing is lost by not having one — the zones come from `INTL` and the
+points from `FMPT`/`TOPT`, and a header written the FTSC way simply has no stamps
+and is dated by its ASCII date.
+
+**A Fido `*.msg` header has both stamps and often fills in neither.** `SdmBase`
+reads both halves of the union at 176, but plenty of writers leave them empty and
+state only the ASCII date, and a header written the FTS-0001 way has zone and
+point words there instead. Then the written stamp falls back to that date and the
+arrival stamp to the written one, so an SDM message shows the same time on both
+header rows. Squish and JAM keep the two apart. Nothing to fix — just do not read
+equal stamps in a `*.msg` area as a bug.
+
+**`create()` makes an empty base and nothing else.** It is what entering an area
+the tosser config declares but nothing has written into does. Per format: a
+256-byte area header alone in the `.sqd`, its `end_frame` at the end of that
+header (the one field `readBaseHeader()` refuses a zero in, which is how a file
+of zeroes left by a tosser that died mid-creation is told apart from an area
+deliberately empty) beside a zero-length `.sqi`; a 1024-byte JAM info block with
+the signature, `basemsgnum` 1 and no password, beside a zero-length `.jdx` and
+`.jdt`; a directory for Fido `*.msg`. Every file is created `O_EXCL`, and the
+file the type is probed by — the `.sqd`, the `.jhr` — is made **last**, so a
+creation interrupted half way leaves files no base claims rather than a base
+missing what it is read through. Whatever was made is removed again when a later
+step fails. The driver is not left open on what it made: creating a base and
+reading one are two steps.
+
+**`replace()` disturbs the base as little as the format allows.** No other
+message moves and nothing is copied up or down the base — a message changed at
+the head of a large area would otherwise cost the whole of it:
+
+- *Squish* rewrites the message inside the frame it already owns whenever it
+  still fits, the frame marked `kFrameUpdate` while it is half written (which is
+  what `read()` already answers "another task is updating this" to). One that has
+  outgrown its frame takes a frame off the free chain or one at the end of the
+  file, is linked into the chain where the old one stood, and the old frame goes
+  back on the free chain. The index record — one 12-byte write — says where the
+  message now is; its UMSGID never changes.
+- *JAM* writes the text back over itself where it still fits and at the end of
+  the `.jdt` where it does not, and the header in place only when the subfields
+  take **exactly** the room they took, since what stands after a header in the
+  `.jhr` is the next message's. Otherwise a new header goes at the end, the index
+  record is repointed at it and the header left behind is marked deleted for a
+  packer. The index record's position is the message number, so the number — and
+  the UID with it — survives either way.
+- *Fido `*.msg`* rewrites the file and truncates it to what the message now
+  takes. The file name is the number, so nothing else is touched.
+
+What the draft decides is the header fields, the control lines and the text. What
+the *stored* message keeps is its UID or number, the stamp it arrived here under
+and its thread links — read back off the message being written over rather than
+taken from the draft. The date it is **written** under is not kept: a message
+written again is written now, so `FtnMsgBase::replace()` stamps it exactly as
+`write()` does and `TZUTC` is rewritten with it (`app::buildChange()`, the one
+control line a change touches). That is why `FtnMsgBase::encode()` leaves both
+stamps empty and each of the two callers fills in what it means.
+
+**`info()` is the one call that is about the storage rather than the message.**
+It answers the reader's `i`, and each driver answers with its own fields, there
+being nothing in common between a Squish frame and a JAM subfield worth
+pretending there is:
+
+- *Squish* — the XMSG header (names, subject, both stamps as the date they stand
+  for and as the dword they are packed into, the UMSGID and all nine reply
+  slots), then the Message Base Record, the Message Index Record and the Message
+  Frame Record, then dumps of the XMSG, the control block and the text.
+- *JAM* — the fixed header, the index record, the base header, and **every
+  subfield one line each**, under the number and the name JAM-001 gives it: that
+  is where a JAM message keeps what the other two put in a header field or a
+  kludge. Then dumps of the header, the subfield block and the text.
+- *Fido `*.msg`* — the file and its size, the 190-byte header field by field, the
+  eight bytes at 176 read the **Opus** way, then dumps of the header and body.
+
+**The field names are the ones FTN base dumps have always used**: a report read
+here and one read out of another tool are meant to be the same report. Where
+AmberEdit knows something those dumps do not show — the frame's type, JAM's
+FTS-0001 reading of the attribute word — it is added after the common fields and
+said to be an addition in a comment.
+
+Three rules hold across the three drivers. A message that cannot be read comes
+back empty rather than half filled in. A dump is capped at
+`report::kMaxDumpBytes` and a block cut short says so in its own title, so a
+message somebody attached a file to cannot cost the interface a frame. And the
+values that are **text out of the message** — names, subjects, subfields — are
+marked `MessageInfoField::text`, which is what `FtnMsgBase::info()` converts out
+of the message's charset into UTF-8; numbers and offsets are ASCII in every
+charset and are handed on untouched, and the dumped bytes are never converted.
+`msgbase/info_format.*` is where the spelling of a value lives — hex with the
+decimal beside it, an attribute word with its bits — so the three drivers cannot
+drift apart.
+
+When the old smapi implementation (huskyproject/smapi, the reference this code
+was written against) and the format specifications disagree, the tests and the
+checked-in fixtures are the authority: `testdata/msgbase/localnet.*` was written
+by smapi and must keep reading correctly, and what AmberEdit writes must read
+back through its own drivers and through any other FTN software.
+
+## The nodelist
+
+`src/nodelist/` reads FTS-5000 nodelists and compiles them into one binary file,
+which `ui/nodelist_dialog` then searches. Its own library because zlib is wanted
+for it and for nothing else, and because nothing in the core knows it is there.
+Three config lines: `nodelist` — the file and, after it, the charset it is
+written in — `nodelist_db` and `tmpdir`.
+
+**Compiling happens at startup, and only when it is needed.** `main.cpp` calls
+`refreshNodelist()` before the terminal is taken over — the only place left to
+say anything about it — and that compares what each `nodelist` line names *now*
+against what the compiled file says it named *then*: the path, the modification
+time, the length and the charset the line stated, written into the file as a
+`SourceState` per line. A listing and a stat per line, nothing read and no
+archive unpacked. `--compile` compiles anyway.
+
+**Nothing in the compiling fails as a whole.** A nodelist that is missing or will
+not read is a line in `CompileReport::problems`, and its `SourceState` is
+written into the compiled file as the nothing it was — which is what stops every start from trying
+it again. A compiled file that cannot be written leaves `written` false. That
+contract is the reason `compileNodelists` catches around each source and around
+the write: AmberEdit is a mail reader whose nodelist is a convenience, and there
+is no version of "your nodelist is missing" worth standing between the user and
+their mail.
+
+The pieces, in the order the work goes through them:
+
+- `NodelistSpec` / `stateOf` / `NodelistSources` (`nodelist_source`) — what a
+  `nodelist` line names: a filename, a day-number pattern (`Z2DAILY.999`) or a
+  zipped one (`Z2PNT.Z99`). **The extension names the kind and the rest of the
+  filename is a glob.** `.*` and `.Z*` are those two patterns written as
+  wildcards and mean exactly what `.999` and `.Z99` mean; a wildcard against any
+  other extension leaves the kind `Exact` and globs the whole filename.
+  Directories are never globbed — a pattern over them would be a pattern over
+  whose nodelist this is. **Newest is the modification time, with the higher
+  number breaking a tie**, and the later filename after that, so that two files
+  a loose stem matched cannot depend on the order a directory listing handed
+  them over in — the number alone is wrong for the week after New
+  Year, when `.365` is the older file and the larger number. An archive is
+  unpacked without paths into the temporary directory, only the entry carrying
+  the nodelist, and every file it wrote is removed by the destructor, whichever
+  way out is taken. Which directory that is is
+  `config::makeTempDir`'s answer and not this class's — see below. **What stands
+  inside an archive is named by the archive that was found, not by the line that
+  found it**: `Z2PNT.Z99` and `z2*.z*` both land on `Z2PNT.Z19`, and `Z2PNT` with
+  a day number after it is what is looked for inside either way.
+- `archive::ZipArchive` (`archive/zip_reader`) — enough zip for a nodelist or an
+  echolist: stored and deflated entries over the system zlib, the CRC checked.
+  Zip64, encryption and multi-part archives are refused by name rather than
+  half-read. It belongs to neither subsystem, which is why it stands outside
+  both.
+- `parseNodelist` (`nodelist_parser`) — the lines. **Nothing declares whether a
+  file is a nodelist or a pointlist**: `Zone`, `Region` and `Host` set the net
+  the lines under them are in, `Boss` sets the node the lines under *it* are
+  points of, and a file holding both reads correctly for that reason. A line that
+  cannot be read is a `ParseWarning` against its number, never a guess. The DOS
+  end-of-file mark (`^Z`) ends the file, which is what the real ones carry.
+- `writeNodelistDb` (`nodelist_writer`) and `NodelistDb` (`nodelist_db`) — the
+  compiled file, written beside its destination and renamed over it, so a reader
+  never sees half of one.
+- `refreshNodelist` / `nodelistNeedsCompiling` (`nodelist_compiler`) — the two
+  entry points `main.cpp` uses, and the whole of the "when".
+
+**The format is `nodelist_format.hpp`, and its layout is documented there.** Two
+searches decide it:
+
+- An address, whole or in part. Every node is keyed by one 64-bit
+  zone:net/node.point, so the numeric order of the keys is the order an address
+  reads in, and *every* partial address is a contiguous run of the sorted index —
+  `2`, `2:382`, `2:382/736` are the same binary search with a shorter key.
+  `AddressPrefix` is what a typed one parses to; a trailing separator is allowed
+  so a search field can be read while it is still being typed.
+- A sysop's name, whole or in part. The folded names are a pool and the name
+  index is a **suffix array** over it — every position of every name, sorted by
+  the text that follows. Matching inside a word is what that buys, and it is what
+  "partial match" is usually taken to mean.
+
+`format::kVersion` is written into every file and checked when one is opened; a
+file from another version is refused, and `nodelistNeedsCompiling` reads that
+refusal as "compile it again". **It goes up whenever a file written today would
+be misread by the code that reads it** — never for a field added past the end of
+the header, which `headerSize` already accounts for.
+
+Three more things before changing any of it:
+
+- The three fields a nodelist writes spaces in as underscores — the system, the
+  location and the sysop — are stored with the spaces back in them; `toLine()`
+  puts the underscores back. The phone and the flags are kept exactly as written.
+- Where two entries stand at one address, **the first source named wins**, and
+  within one source the first line does. The config's order of `nodelist` lines
+  is the only statement of precedence anybody has made.
+- A nodelist is ASCII by FTS-5000 and a few of them are not — a Latin-1 byte in
+  a Scandinavian name, a whole Russian region in CP866. **The charset is the
+  `nodelist` line's second value**, the `echolist` line's terms exactly: what it
+  states is normalised as a CHRS kludge is, a line that states none is read in
+  the locale's, and the state records the nothing it stated rather than what the
+  machine answered — so a line whose charset has been corrected is compiled
+  again though the file has not moved. `NodelistSources::read` decodes into
+  UTF-8 through `IconvRecoder::toUtf8`, which is the lenient one: a byte the
+  charset has no meaning for becomes U+FFFD rather than costing the nodelist, so
+  what is compiled is UTF-8 like everything else above the file.
+
+`ui/nodelist_dialog` is what a user sees of all this. What was typed into the
+Lookup line is an address when it parses as the beginning of one and a sysop's
+name otherwise — no sysop is called `2:240`. The head of the box is the node
+under the cursor, line for line as the nodelist has it, and the bottom of the
+frame names the file it came from (`sourceAt()` and the `SourceState` behind it).
+
+**`show_location`** puts the sender's location, as the nodelist gives it, into
+the rule that closes the reader's header block — lined up under the addresses, in
+the kludges' color, costing no row since the rule is there either way. A sender
+no compiled nodelist holds leaves the rule exactly as it was. That is also what
+opens the compiled file in an ordinary session, so `AppState::nodelist()` is
+where the lazy open lives rather than in the box.
+
+**A point no nodelist here lists is answered for by the node it hangs off** —
+`NodelistDb::findOrBoss`, which both the location and Ctrl-N go through. A pointlist
+is a separate file most systems never compile, so a point is the address
+likeliest to be missing and its boss is the one thing certainly known about it.
+Ctrl-N opening on a point that fell back puts the boss's address in the Lookup line,
+since that is what the box is showing. **The compose screen does not fall back**:
+`useNode` addresses a message to the node that was picked.
+
+The box opens for three things, and `NodelistView::Purpose` says which:
+
+- **Ctrl-N or F10 in the reader** (`Browse`), on the sender of the message on
+  screen. The
+  list is the whole nodelist and the Lookup line is where the cursor goes; it
+  deliberately does not filter, because a node is worth as much for its
+  neighbours as for itself.
+- **A To name with no address under it** (`PickAddress`), from the compose
+  screen. Here the list *is* what the name found, **closest first** — somebody
+  who typed a name is asking which node is theirs. A name that is an
+  `address_macro` never reaches this.
+- **A To address with no name above it** (`PickName`). The list is the whole
+  nodelist at that address, as the reader's own box shows it.
+
+The two that pick answer `Outcome::Picked` and leave the box standing, so the
+shell can take the node off it — the area picker's shape exactly.
+`compose::useNode` fills in **both halves from the node**, whichever was asked
+about: half a row out of the nodelist beside half a row out of a search field is
+not that node. The name goes in as the nodelist spells it — `Schroeter` is how a
+node is found and `Ulrich Schroeter` is who is there, and that spelling is what
+the system at the other end matches on. The cursor comes to rest on the subject.
+
+Closest first is `NodelistDb::SysopOrder::Relevance`: the whole name, then the
+name the query begins, then a word of it, then the middle of a word — shorter
+names first inside a rank, address order under that. A limit is applied after the
+order and never before it, so it is the best `limit` of them.
+
+It is a modal of a fixed size, measured by `fitBox()` as the import and export
+boxes are. A list longer than the box carries the reader's own scrollbar
+(`ui/scrollbar`, a cell at a time) in the rightmost column inside the frame, and
+no bar at all where the whole list fits. In a box too narrow for the address and
+a whole sysop's name, **the station column goes rather than all three being
+cut**. Backspace edits the Lookup line and never closes the box — the two are a
+keystroke apart while a lookup is being cleared to type another, and Esc is the
+way out. The address the box opened on is `seeded`: the first character typed
+takes the whole line with it, and only the first, since an address with a letter
+added to the end looks up nothing at all.
+
+## The echolist
+
+`src/echolist/` reads echolists and compiles them into one binary file, whose
+descriptions are then laid over the area list. Its own library beside the
+nodelist: the two share the *shape* of the work — a source that may arrive
+zipped, a compiled file with a state per source in it — and nothing else, and
+neither knows the other exists. Four config lines: `echolist`, `echolist_db`,
+`arealist_description_priority` and `tmpdir`.
+
+**An echolist is read for the description and for nothing else.** The tag and
+what an echolist says about it are the whole of what is kept; the status, the
+moderator and their address that a `.lst` line also carries are for other
+programs. That is why the compiled file has one index and no other order, and why
+nothing displays an echolist — there is no browser and no key, and a description
+turns up in `AreaConfig::description` as though the tosser config had carried it.
+
+**Compiling happens at startup on the nodelist's terms exactly**: `main.cpp`
+calls `refreshEcholist()` before the terminal is taken over, the state written
+into the compiled file is compared against a stat per line, `--compile` compiles
+anyway, and **nothing in the compiling fails as a whole**. Read
+[The nodelist](#the-nodelist)
+for the reasoning; all of it holds here word for word.
+
+The pieces, in the order the work goes through them:
+
+- `stateOf` / `EcholistSources` (`echolist_source`) — what an `echolist` line
+  names: a file, or a `.zip` holding several, either of them named outright or
+  by a glob over the filename (`echo*.zip` — the newest match wins, by
+  modification time and then by the later name, so that a name carrying its
+  month settles it in the order such names sort in). There are deliberately
+  **none of the nodelist's sentinels** — no `.999` and no `.Z99` — because an
+  echolist arrives under a name that changes every month rather than every day,
+  and a wildcard says that without a second vocabulary to learn. **Whether what
+  was found is an archive is its own name's to say**, not the line's, so one
+  pattern may cover both kinds and reads whichever it landed on. An archive is
+  unpacked without paths into the temporary directory, **only its `.lst` and
+  `.na` entries** (a distribution carries reports, a readme and further archives
+  beside them), in the order their names sort in so that an archive read twice
+  reads the same way twice. Every file it wrote is removed by the destructor,
+  whichever way out is taken.
+- **The charset is settled here and never survives it.** An `echolist` line
+  states the charset the file is written in and the text is decoded to UTF-8 as
+  it is read, so `parseEcholist` and everything past it see UTF-8 like the rest
+  of the program. A line that states none is read in `encoding::localeCharset()`,
+  which is `LC_CTYPE` and nothing cleverer: a guess in its place would be a
+  silent mojibake in whichever direction it guessed wrong. **The charset is part
+  of the `SourceState`**, so correcting a line recompiles the file it names
+  though the file has not moved.
+- `parseEcholist` (`echolist_parser`) — the lines. **Two shapes, told apart by
+  the extension**: `.na` is the tag, blanks, and the description to the end of
+  the line, and everything else is the comma-separated
+  `[Status],Tag,Comment,Moderator's Name,Address,`. The comma-separated one is
+  the general shape and so the default; the two-column one has to be asked for by
+  name. The format has no quoting and no escape, so a comma in a description is
+  where that description ends — a line whose author cut their own description
+  short, and not something to guess around. **An echo with an empty description
+  is not an entry**: it carries nothing this file is read for, and a `.na` list of
+  bare tags is an ordinary file rather than a mistake to warn about.
+- `writeEcholistDb` (`echolist_writer`) and `EcholistDb` (`echolist_db`) — the
+  compiled file, written beside its destination and renamed over it. Records in
+  folded-tag order with a `u32` index over them; `descriptionOf` is a binary
+  search and the only question the file answers. Where two entries name one tag
+  **the first source named wins**, and within one source the first entry does.
+- `refreshEcholist` / `echolistNeedsCompiling` (`echolist_compiler`) — the two
+  entry points `main.cpp` uses.
+- `EcholistAreaSource` (`echolist_area_source`) — the descriptions over the area
+  list, as an `IAreaConfigSource` wrapping whatever the areas came from. The
+  `ManualAreaSource` shape exactly, and it is outside the core for the reason
+  [Layering](#layering) gives, so `main.cpp` and not `makeAreaSource()` is where
+  the wrapping happens. The compiled file is opened afresh per `loadAreas()` —
+  startup and each Ctrl-R — and **one that will not open leaves every
+  description exactly as it was**.
+
+**`arealist_description_priority`** is `area` or `echolist`, `area` by default.
+**Only a non-empty description counts on either side**: the preferred one steps
+aside for the other where it is empty, so an echo the tosser config says nothing
+about is described by the echolist whichever way round the setting stands. That
+is the whole of the rule and it lives in one `if` in `loadAreas()`. Where neither
+side had anything to say the description stays empty here, and what the area
+list's column draws in its place is `arealist_description_default`'s — a display
+setting, read where the row is laid out and not in the area itself.
+
+**The format is `echolist_format.hpp`, and its layout is documented there.**
+`AMBERECH`, version 1, little-endian, and `format::kVersion` goes up on the same
+terms the nodelist's does.
+
+## Commands and the keyboard
+
+`src/config/commands.*` is the one list of commands there is, and `src/ui/keys.*`
+holds every binding over it. A screen never compares a keystroke against a key of
+its own: it asks `state.keys.is(event, command)`, and what that answers is
+AmberEdit's own layout, the file a `keys` line named, or the two of them put
+together — `keys_mode` says which.
+
+- **`config::Command` is the whole of what can be bound, offered or named**, and
+  `kCommands` in `config/commands.cpp` is the one place a command's name, its
+  screen, the word and glyph it is drawn with, its default keys and whether a
+  menu may hold it are stated. The keyboard, the two context menus and the four
+  hint bars all read `config::Commands` — adding a command means adding a row
+  there and asking for it in the screen that answers it, and nothing else keeps
+  a second list.
+- **A name is written once and spelled one way.** `reader.reply_elsewhere` in a `keys`
+  file; `reply_elsewhere` in `reader_menu` and `reader_hints`, the config key already
+  saying which screen is meant — `Commands::shortNameOf()` is the part after the
+  dot and `Commands::namedOn()` is what a setting reads a word through.
+  - **A `-` reads as a `_`.** Two-word names were written `reply-elsewhere` once,
+    and a config that still says so is still read: both lookups fold the one
+    character into the other. Only the underscore is written — the table, every
+    error message and every example file spell a name one way, and the hyphen is
+    read and never offered.
+- **The list lives in `config/` rather than in `ui/`** because the config layer
+  is what has to name a command — `reader_menu`, `reader_hints` — and it may not
+  include the interface. What is drawn is a word and a glyph, which are data;
+  `ui/keys.hpp` brings the names in with `using config::Command` so that a
+  screen writes `Command::ReaderList` and not the layer it lives in.
+- **Only what runs a command is bindable.** Moving about — the arrows, PgUp and
+  PgDn, Home and End, Space, Enter, Esc, Backspace, Tab — and every key inside a
+  dialog stay where they are, so that no layout can leave a screen with no way
+  out of it. `isReservedKey()` refuses those spellings outright rather than
+  quietly dropping the line.
+
+  A screen may still answer one of them for something of its own, and three do:
+  Space reveals a twit in the reader, marks the message in the message list, and
+  presses the button under the cursor in a dialog. That is a key answered in a
+  `handleEvent()`, never a binding — the layout has nothing to say about it, and
+  the paging keys it stands beside are untouched, so the screen is still one a
+  stock keyboard gets out of.
+- **What a file does to the layout is `keys_mode`'s to say.** `merge`, the
+  default, reads it on top of the defaults: `KeyMap::mergedOnto()` keeps the
+  file's own bindings and then adds every default one the file has not claimed,
+  so a file of three lines says what three keys do and leaves the rest alone.
+  `clear` is the file alone, and then a command it does not name has no key —
+  which is why `amberkeys.cfg.example` is the defaults written out: it is the
+  thing to copy, and it is written for `clear`. A test parses that file and
+  compares it against `KeyMap::defaults()` command by command, so the two cannot
+  drift.
+- **A merged clash is settled for the file, by the rule that refuses one.** A
+  default key goes only where the file gave it to a command `clash()` says it
+  meets — the same screen, or one of the two answered before every screen — the
+  same function the parser stops a file for making a clash with itself. So `k`
+  moved to `reader.list` leaves `reader.kludges` with no key at all, and `F2`
+  given to a reader command takes nothing from `compose.save`. The file's keys
+  stand in front of the kept ones, so a hint is drawn under the key the user
+  chose.
+- **`CommandScreen` is what lets one key mean two things.** `F2` is Change in the
+  reader and Save in the editor; two commands of *one* screen may not share a
+  key, and `app.quit` is answered before every screen and so shares with nothing.
+  It is also what a menu or a hint list is read against, so `reader_menu save` is
+  refused where it is written rather than becoming a button that does nothing.
+- **The layout is read in `main.cpp`**, before the terminal is taken over, so a
+  file that cannot be read is reported like any other startup failure rather than
+  falling back on defaults the user did not ask for. It is also where the two
+  layouts are put together, since `config::AppConfig` carries the path and the
+  `KeysMode` word and nothing more: a layout is about keystrokes and screens,
+  and the config layer knows nothing of either.
+- **A chord the layout does not bind is never typed.** Both halves of the
+  editor swallow one — `headerKey()` and `textKey()` each end on
+  `event.ctrl() || event.alt()` — since on a terminal reporting modified keys a
+  chord arrives as the letter with a flag on it, and falling through to the
+  insert would put that letter in the message.
+- **Two things follow the layout rather than a key.** `Terminal` claims
+  `ESC`+letter only for `KeyMap::altLetters()` and `ESC`+DEL only for
+  `KeyMap::altBackspace()`, and the boxes that close on the key that opened
+  them — Info, the nodelist — ask the layout what that key is. Everything else
+  a modifier reaches AmberEdit through is a CSI sequence and so ambiguous with
+  nothing: Alt with an arrow, Alt with a function key — `Alt-F1` and its eleven
+  fellows, the row the utilities are meant to be bound with — and both
+  protocols' spelling of Alt-Backspace are registered whether a layout binds
+  them or not.
+- **A bare letter bound in the area list stops being a letter the quick search
+  can be typed with**: the commands are answered before `searchInput()`. By
+  default only `/` is taken there.
+- **The one command that is not about a message is `reader.shell`**, and it is
+  written as three things that know nothing of each other. `app/user_shell`
+  is the fork, the exec and the wait, and draws nothing: a shell that ran and
+  exited non-zero is not a failure it reports, since what the user typed in it is
+  between them and it. `Terminal::handOver()` is the screen — everything the
+  constructor put on comes off in the destructor's order and goes back on in the
+  constructor's, and ncurses is told to forget the screen so the frame after
+  paints all of it. The reader is neither: it sets `AppState::shellRequested` and
+  `runApp()` answers it on the next pass, because a screen has no terminal to
+  hand over. The rescan is asked for the same way and for the same reason.
+- **Opening a link and running an external utility are that same shape**, and
+  the three share the middle of it. `app/run_program` is the fork, the `execvp`,
+  the wait and the close-on-exec pipe the child reports a failed exec down —
+  asked of the child rather than read off what it exited with, since a program
+  that never started and one that ran and said 127 are the same number on the
+  way back and the name is looked for on `$PATH`, so there is no file to have
+  asked `access()` about beforehand. `app/url_handler` is what is left of the
+  link: `$url` written into the words, and nothing else.
+  `app/interrupts_aside.hpp` is the one copy of the SIGINT/SIGQUIT handling all
+  three want. The reader sets `AppState::urlRequested` from the box a click
+  landed in, a screen sets `AppState::externUtilRequested` to a slot, and
+  `runApp()` hands the terminal over on the next pass — a text browser wants the
+  screen, and so does whatever `extern_util0` names. Nothing goes through a
+  shell, which is what makes the quoting question not arise: an argument is one
+  argument however many spaces it holds, and an address is written by whoever
+  sent the message.
+- **`external_editor` is the fourth of that shape and the only one with a file
+  in the middle of it.** `app/external_editor` writes the message into `tmpdir`
+  in the terminal's charset, calls `runProgram()` on the words with `$msg`
+  filled in, and reads back what is there; the compose screen sets
+  `AppState::externalEditRequested` and `runApp()` hands the terminal over on the
+  next pass, exactly as the other three are answered. What it adds is an
+  *answer*: the bytes read against the bytes written say whether the user wanted
+  the message at all. `ui/after_handover` is not called — the editor is left
+  alone, for the reason the foot of this section gives.
+- **What the shell and the utilities may have done to the base is read again on
+  the way back**, and `ui/after_handover` is the whole of it. Not the link
+  handler: a browser does not write to a message base, and reopening one after
+  every click on an address would be a file opened for nothing.
+
+  **It is a reopen and not a re-read, and that is the driver's doing.** Every
+  format driver reads its index into memory when the area is opened and re-reads
+  it only under the write lock — `SquishBase`'s index, `JamBase`'s active table,
+  `SdmBase`'s directory listing — so a base another program has written to goes
+  on answering from the index it was opened with, and `header(n)` asked a second
+  time answers the same stale thing. There is no reindex on `IMsgBase` to ask
+  for; `AreaManager::openArea()` is what there is, and it hands back a new
+  pointer, so `state.base` is dropped before anything reopens and the window of
+  headers is thrown away after.
+
+  Three things follow from the order. `AreaManager::reload()` opens by closing
+  the base being read, so `rescan_on_return`'s full rescan runs *before* the
+  area is opened again and never after — and synchronously, inside the helper,
+  because deferring it to `AppState::rescanning` and the frame after would leave
+  a frame standing with nothing to read the area through. The message is found by
+  the UID it was read under and not by its number, the rule a lastread mark
+  follows and for the same reason; `indexOfUid()` answering zero means every
+  survivor is *newer* than the message that went, so the nearest one is the
+  first. And what belongs to the reader rather than to the message — where the
+  text was scrolled to, a twit shown after all, what a search lit — is put back
+  only where the same message came back: onto whatever stood in its place it
+  would be showing a stranger's message unasked, which is why `loadMessage()`
+  clears all three in the first place. Landing anywhere other than on that same
+  message goes through `openMessage()`, so `twit_mode` decides what is walked
+  past exactly as it does on the way into an area.
+
+  **The editor is left alone entirely.** Nothing on it comes off the base, and an
+  area that will not open again drops the screen — and a half-written message
+  with it. The reader underneath is read again when the editor is left, which is
+  when it is next looked at.
+- **The external utilities are thirty commands and ten programs.**
+  `extern_util0` through `extern_util9` are what the config names — a title and
+  then the command, the title first because the parser hands the line over as
+  words and nothing in `diff -u` could say which of them was meant as the name on
+  a button. Each slot is a command on each of three screens
+  (`arealist.extern_util0`, `reader.extern_util0`, `compose.extern_util0`), so
+  what a key means is where it was pressed and what runs is the digit alone. The
+  thirty rows are built in `table()` rather than written out, being one row said
+  thirty times over, and stand together at the end of the enumeration so that
+  `Commands::externUtilOf()` can read a slot off a value. The message list has
+  none: a screen one passes through on the way to a message is not where a
+  program is reached for.
+
+  Three things follow from a title being the config's and not the table's.
+  `AppConfig::labelOf()` is what a menu button and a hint are written with — the
+  title for a utility, `Commands::labelOf()` for everything else — and nothing
+  that draws asks the table directly any more. `Commands::Info::labelId` for a
+  utility is the same word for all thirty and is never drawn: a menu or a hint
+  naming a slot no `extern_utilN` line set is refused as the config is read
+  (after the whole file, since a `reader_menu` line may stand above the
+  `extern_util0` line it names), and `main()` refuses a layout that binds one —
+  the one check that wants both files at once, which is why it is there and not
+  in either of them. A key that ran nothing at all is exactly the shape of a
+  mistake nobody finds.
+- **The hint bar reads the layout rather than naming keys of its own**
+  (`ui/hint_bar.*`). Which commands each screen offers is the config's —
+  `arealist_hints`, `msglist_hints`, `reader_hints`, `compose_hints`, one list
+  per screen and each of them read against that screen through
+  `Commands::In::HintBar`, which is every command the screen answers: a hint is a
+  key with its name beside it, so there is nothing a key does that a hint cannot
+  say. The key in front of each is `KeyMap::preferredKey()` — a bare key before a
+  chord, Ctrl before Alt, a chord before a function key — and a command the
+  layout leaves unbound is left out of the row, as is one the screen cannot run
+  at all (`liveOn()`: with `external_editor` named, the commands that edit text
+  have nothing to act on) and one the window has no room
+  for: `hint_bar` is **on** by default, at every width, and a row longer than the
+  window drops whole hints off its end rather than being squeezed — every hint
+  losing its last letters at once turns `q reply  n reply elsewhere` into
+  `q re n rep`, which names neither a key nor a command. `when_wide` is what to
+  set for the row whole or not at all. `runApp()` takes the row off
+  `state.height` before the screens lay themselves out, so no screen knows the
+  bar is under it, and the row is taken whether or not there is anything to put
+  in it: the message list is given no hints by default, and a row that came and
+  went between screens would move everything else on them. What is left of the row beside the
+  hints is a rule in `separator` — the same rule that closes a screen's
+  headings, closing the interface at the other end — and a screen with no hints
+  leaves it whole. It is drawn after the modals in `document()`, so it says what
+  the screen behind them does.
+- **The word beside a key is the one the menu writes on a button**, from
+  `AppConfig::labelOf()`: what a command is called is settled in one place, and
+  a row calling it something else would be a second name for one thing. The
+  glyph is the menu's and stays there — a row is one line, and a column of
+  glyphs in it is width the words want.
+- **Three settings hold for every screen's row at once**, the four rows being one
+  row that changes with the screen. `hint_bar` is whether it is there;
+  `hint_bar_align` is which side of the hints the rule runs along, **center** by
+  default and the odd column of an uneven remainder going to the right-hand side;
+  `hint_bar_capitalize` is the case the row is written in, **off** by default —
+  `q reply  ctrl-f find` rather than `Q Reply  Ctrl-F Find`. The key is cased
+  with the word, which is what makes that one setting rather than two, and it is
+  the row's spelling of a key rather than the layout's: `g` and `G` are two keys
+  in a `keys` file and one hint either way here.
+- **A hint is clicked by pressing its own key.** `hint_bar::clicked()` shows the
+  press (`Pressed::Hint`, the index) and hands back
+  `KeyMap::preferredKey()` — the very key the hint is written under — which
+  `runApp()` gives to the screen in the click's place. Nothing reaches into a
+  screen's commands: the row says which key runs a command, and a click that did
+  anything else would make the row a lie. Where each hint landed comes off
+  `render()` in `AppState::hintSpots`, as every other clickable thing does, and
+  the two spaces between hints belong to the row so that a click lands on a hint
+  or on nothing.
+
+## Reference material in the tree
+
+- `amberedit.cfg.example` — every setting, what it takes and what it defaults to.
+- `amberkeys.cfg.example` — the default keyboard layout, written out as a `keys`
+  file; a test keeps it equal to `KeyMap::defaults()`.
+  User documentation and a test fixture both.
+- `specs/` — format specifications: `Squish.txt`, `JAM.txt`, `fts-0001.016` (the
+  base message and kludge format), and the ones a written message has to satisfy:
+  `fts-0009.001` (MSGID/REPLY), `fts-4008.002` (TZUTC), `fts-5003.001` (CHRS) and
+  `fsc-0004.001` (INTL).
+- `default.tpl` — the template a message is built from, shipped as it stands and
+  the whole token set `app/msg_template` implements.
+- `themes/` — `black.cfg` is the built-in palette written out, and the only one
+  that has to keep in step with `Palette`'s defaults; `blue.cfg` is a navy
+  screen, `white.cfg` paper for a light terminal, `16_colors.cfg` a sixteen-color
+  DOS one.
+- `testdata/tossers/areas`, `areas.bbs`, `squish.cfg` — real tosser configs,
+  which double as the parser test fixtures. Do not edit them to make a test pass.
+- `testdata/nodelist/Z2DAILY.225` — a real day's Z2DAILY, 1227 nodes, ending in
+  the `^Z` the real ones carry. `testdata/nodelist/Z2PNT.Z19` — a real zipped
+  zone 2 pointlist, 2607 points, also the zip reader's fixture. Do not edit them
+  to make a test pass.
+- `testdata/echolist/echo50.lst` — a real R50 echolist in CP866, 106 echoes,
+  with the comment blocks and the `Hold` statuses the real ones carry.
+  `testdata/echolist/elst2601.zip` — a real ELIST distribution: three `.na` lists,
+  and beside them the reports, the readme and the two further archives that are
+  there to be left alone. Do not edit them to make a test pass.
+- `testdata/ansi/` — three real ANSI messages out of echoes, and each is there
+  for its own idiom. `ansi_msg.txt` carries a row across its own line breaks with
+  `ESC[A`, `ansi_msg1.txt` with the `ESC[s`/`ESC[u` pair; between them they hold
+  both halves of `Canvas::newline()` and both spellings of the cursor save, and
+  both draw a border down column 80 and so pin the wrap as well. `ansi_msg0.txt`
+  reached us cut to 79 bytes a line, twenty-six of them in the middle of a code,
+  and it alone lies here in CP437 as it arrived rather than recoded. Do not edit
+  them to make a test pass.
+- `testdata/msgbase/localnet.*` — the Squish test base described above.
+- `testdata/msgbase/charsets.*` — a small Squish base for the charset tests: the
+  word "Привет" in KOI8-R and in CP866, each with the CHRS kludge that says so,
+  and a third copy with no kludge. Everything in it is addressed 2:382/9999. It
+  is a binary fixture; to change it, write the messages again through
+  `FtnMsgBase::write()` rather than editing the bytes.
+
+## Current scope
+
+Implemented: reading, writing and changing messages in Squish, JAM and Fido
+`*.msg`; creating an empty base for an area that has none; all three tosser
+config formats; charset detection and conversion in both directions, per area
+where an area group says so; four screens (area list → message list → message
+reader → compose) with a screen stack; message templates and quoting; the info
+report behind `reader.info`; reading a file into a message being written, as text or
+uuencoded, and writing one out again, as text or as the files it carries;
+compiling nodelists and pointlists at startup when they change, and the nodelist
+browser behind `reader.nodelist`; compiling echolists on the same terms, and the
+descriptions they carry over the area list; twits, by name, address or subject, with the five `twit_mode`
+answers to what becomes of one; finding a message in the area behind `reader.find`, folded
+by the charset the message declares; the `CC:` and `XC:`/`XP:` lines a message
+being written may carry, and the copies and crossposts they ask for; a keyboard
+layout of one's own, from `keys`; the user's own shell behind `reader.shell`;
+the ten external utilities `extern_util0`..`extern_util9` name, run from a key,
+a menu button or a hint on the area list, in the reader or in the editor, with
+the area they may have written to read again on the way back.
+
+Deliberately out of scope until asked for:
+
+- **Writing** the thread links: `IMsgBase::thread()` reads what a base holds —
+  Squish's `replies[]`, JAM's Reply1st/ReplyNext chain, the one link FTS-0001
+  gives Fido `*.msg` — and the reader walks them with `-`/`+`, but nothing fills
+  them in for a message AmberEdit writes. That needs `replyto` on the new message
+  and its UID added to the answered one. `IMsgBase::replace()` is the machinery
+  for it, but it deliberately *keeps* those links rather than taking them from a
+  draft, so a caller that wants to write one has to widen it first.
+- Netmail routing, packing and unpacking bundles, anything involving sockets.
+
+---
+> Source: [jegornet/amberedit](https://github.com/jegornet/amberedit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
