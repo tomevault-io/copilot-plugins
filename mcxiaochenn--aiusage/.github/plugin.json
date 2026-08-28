@@ -1,0 +1,9 @@
+{
+  "name": "mcxiaochenn--aiusage",
+  "displayName": "AiUsage",
+  "description": "Mobile-first, local-first usage monitor for OpenAI Codex, DeepSeek, and Xiaomi MiMo. Android supported; iOS experimental.",
+  "version": "1.0.0",
+  "author": "mcxiaochenn",
+  "homepage": "https://github.com/mcxiaochenn/AiUsage",
+  "skills": []
+}
