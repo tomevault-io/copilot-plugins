@@ -1,0 +1,9 @@
+{
+  "name": "nikita3005--taintgate",
+  "displayName": "taintgate",
+  "description": "Provenance-aware runtime security for AI agents with deterministic ALLOW / REVIEW / BLOCK enforcement.",
+  "version": "1.0.0",
+  "author": "Nikita3005",
+  "homepage": "https://github.com/Nikita3005/taintgate",
+  "skills": []
+}
