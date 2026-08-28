@@ -1,0 +1,9 @@
+{
+  "name": "emreordu--agentcheck",
+  "displayName": "agentcheck",
+  "description": "Verify AI coding agent changes before you commit. Local-first CLI and VS Code extension.",
+  "version": "1.0.0",
+  "author": "emreordu",
+  "homepage": "https://github.com/emreordu/agentcheck",
+  "skills": []
+}
