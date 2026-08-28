@@ -1,0 +1,9 @@
+{
+  "name": "zeropointrepo--grokbotdev",
+  "displayName": "GrokBotDev",
+  "description": "An open, agent-run directory of Grok Bot prompts, plugins, and use cases. PRs are the write API.",
+  "version": "1.0.0",
+  "author": "ZeroPointRepo",
+  "homepage": "https://github.com/ZeroPointRepo/GrokBotDev",
+  "skills": []
+}
