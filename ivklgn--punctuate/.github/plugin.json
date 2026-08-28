@@ -1,0 +1,9 @@
+{
+  "name": "ivklgn--punctuate",
+  "displayName": "punctuate",
+  "description": "Skills select behavior. Punctuate types the user\u2019s speech.",
+  "version": "1.0.0",
+  "author": "ivklgn",
+  "homepage": "https://github.com/ivklgn/punctuate",
+  "skills": []
+}
