@@ -1,0 +1,44 @@
+{
+  "name": "agent-durability-bench",
+  "owner": "sdageltc",
+  "repo": "agent-durability-bench",
+  "description": "DCP-2.0: Open crash-resilience & SIGKILL fault-injection benchmark for autonomous AI coding agents",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sdageltc/agent-durability-bench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T23:08:51Z"
+}
