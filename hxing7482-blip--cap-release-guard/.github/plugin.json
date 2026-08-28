@@ -1,0 +1,9 @@
+{
+  "name": "hxing7482-blip--cap-release-guard",
+  "displayName": "cap-release-guard",
+  "description": "Catch unsafe Android and Capacitor release mistakes before theyship.",
+  "version": "1.0.0",
+  "author": "hxing7482-blip",
+  "homepage": "https://github.com/hxing7482-blip/cap-release-guard",
+  "skills": []
+}
