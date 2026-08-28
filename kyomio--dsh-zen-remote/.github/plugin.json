@@ -1,0 +1,9 @@
+{
+  "name": "kyomio--dsh-zen-remote",
+  "displayName": "dsh-zen-remote",
+  "description": "Turn DeepSeek Harness into a phone app you can securely reach from anywhere: minimal mobile UI rework + pairing-code gateway + PWA + Web Push. \u8ba9 DSH \u53d8\u6210\u53ef\u516c\u7f51\u5b89\u5168\u8bbf\u95ee\u7684\u624b\u673a App",
+  "version": "1.0.0",
+  "author": "KyoMio",
+  "homepage": "https://github.com/KyoMio/dsh-zen-remote",
+  "skills": []
+}
