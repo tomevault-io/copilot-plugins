@@ -1,0 +1,9 @@
+{
+  "name": "churchpresenter--churchpresenter",
+  "displayName": "ChurchPresenter",
+  "description": "Free, open-source worship presentation software for churches. Distraction-free platform with offline-first architecture, multi-display support, Bible verses, songs, media, and mobile control.",
+  "version": "1.0.0",
+  "author": "ChurchPresenter",
+  "homepage": "https://github.com/ChurchPresenter/ChurchPresenter",
+  "skills": []
+}
