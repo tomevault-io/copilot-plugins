@@ -1,0 +1,44 @@
+{
+  "name": "touchpad-tap-right",
+  "owner": "nec789tw",
+  "repo": "touchpad-tap-right",
+  "description": "TouchpadTapRight \u89f8\u63a7\u677f\u8f15\u89f8\u53f3\u9375\uff1a\u8b93\u53ea\u80fd\u7528\u4e00\u96bb\u624b\u6307\u8f15\u89f8\u89f8\u63a7\u677f\u7684\u4f7f\u7528\u8005\u4e5f\u80fd\u6309\u53f3\u9375\uff0f\u62d6\u66f3\uff08Windows \u8f14\u52a9\u5de5\u5177\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nec789tw/touchpad-tap-right",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T04:31:07Z"
+}
