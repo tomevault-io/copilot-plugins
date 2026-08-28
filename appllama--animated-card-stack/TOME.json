@@ -4,7 +4,7 @@
   "repo": "animated-card-stack",
   "description": "An animated card stack that shuffles like it was designed to. Measured motion, live text, inline SVG art - rebuild it in React or React Native with one prompt.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Appllama/animated-card-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:13:36Z"
+  "distributed_at": "2026-08-28T03:36:26Z"
 }
