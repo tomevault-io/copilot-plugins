@@ -4,7 +4,7 @@
   "repo": "ftsiout",
   "description": "A vibe-coded bilingual research workflow for surviving UT and finally getting the f*** out.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mhyrzt/ftsiout",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:23:46Z"
+  "distributed_at": "2026-08-28T00:40:41Z"
 }
