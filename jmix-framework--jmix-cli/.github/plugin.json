@@ -1,0 +1,9 @@
+{
+  "name": "jmix-framework--jmix-cli",
+  "displayName": "jmix-cli",
+  "description": "Create Jmix projects from the command line. Interactive wizard and non-interactive commands for agents, scripts and CI",
+  "version": "1.0.0",
+  "author": "jmix-framework",
+  "homepage": "https://github.com/jmix-framework/jmix-cli",
+  "skills": []
+}
