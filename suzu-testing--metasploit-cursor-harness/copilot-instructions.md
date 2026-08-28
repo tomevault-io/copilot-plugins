@@ -1,132 +1,85 @@
-## harness-orchestration
+## msf-mcp-routing
 
-> Controls phase/gate/subgate workflow routing and subagent delegation
+> Routes Metasploit operations to MCP tools instead of raw shell commands
 
 
-# Pentest Workflow Orchestration
+# MCP Routing
 
-All multi-step pentest work follows **phases -> gates -> subgates -> skills**.
+Always prefer the msf-harness MCP tools over raw `msfconsole` shell commands.
 
-## Start here
+## When to Use MCP
 
-1. Read `.cursor/skills/pentest-workflow/SKILL.md`
-2. Run gate check: `python .cursor/skills/pentest-workflow/scripts/gate-check.py {engagement_id}`
-3. Complete pending subgates by loading each subgate's linked skill
-4. Mark done: `python .cursor/skills/pentest-workflow/scripts/complete-subgate.py {subgate_id}`
+| Operation | MCP Tool | NOT shell |
+|-----------|----------|-----------|
+| Search modules | `msf_search_modules` | `msfconsole -x "search ..."` |
+| Module details | `msf_module_info` | `msfconsole -x "info ..."` |
+| Module options | `msf_module_options` | `msfconsole -x "show options"` |
+| List by type | `msf_list_modules` | `msfconsole -x "show exploits"` |
+| Running stats | `msf_running_stats` | N/A |
+| Async job results | `msf_module_results` | N/A |
+| Query hosts | `msf_host_info` | `msfconsole -x "hosts"` |
+| Query services | `msf_service_info` | `msfconsole -x "services"` |
+| Query vulns | `msf_vulnerability_info` | `msfconsole -x "vulns"` |
+| Query notes | `msf_note_info` | `msfconsole -x "notes"` |
+| Query creds | `msf_credential_info` | `msfconsole -x "creds"` |
+| Query loot | `msf_loot_info` | `msfconsole -x "loot"` |
+| DB status | `msf_db_status` | `msfconsole -x "db_status"` |
+| RPC status | `msf_status` | `msfconsole -x "version"` |
+| Run exploit | `msf_run_exploit` | `msfconsole -x "use ...; exploit"` |
+| Run auxiliary | `msf_run_auxiliary_module` | `msfconsole -x "use auxiliary/...; run"` |
+| Run post module | `msf_run_post_module` | `msfconsole -x "use post/...; run"` |
+| Check vuln | `msf_module_check` | `msfconsole -x "use ...; check"` |
+| Session commands | `msf_send_session_command` | `msfconsole -x "sessions -i ..."` |
+| Session info | `msf_session_info` | `msfconsole -x "sessions -i X"` |
+| Session script | `msf_session_run_script` | `sessions -i X` then `run <script>` |
+| List sessions | `msf_list_active_sessions` | `msfconsole -x "sessions"` |
+| Start handler | `msf_start_listener` | `msfconsole -x "use multi/handler; ..."` |
+| List handlers | `msf_list_listeners` | `msfconsole -x "jobs"` |
+| Job details | `msf_job_info` | `msfconsole -x "jobs -v"` |
+| Stop job | `msf_stop_job` | `msfconsole -x "jobs -k ..."` |
+| Kill session | `msf_terminate_session` | `msfconsole -x "sessions -k ..."` |
+| Wait for session | `msf_wait_for_session` | polling in shell |
+| List payloads | `msf_list_payloads` | `msfconsole -x "show payloads"` |
+| Generate payload | `msf_generate_payload` | `msfvenom -p ...` |
+| Compatible payloads | `msf_compatible_payloads` | `msfconsole -x "show payloads"` after use |
+| Lab network info | `msf_get_lab_network` | manual YAML reading |
+| Upgrade session | `msf_session_upgrade` | `sessions -u <id>` |
+| List workspaces | `msf_list_workspaces` | `msfconsole -x "workspace"` |
+| Create workspace | `msf_create_workspace` | `msfconsole -x "workspace -a ..."` |
+| Switch workspace | `msf_set_workspace` | `msfconsole -x "workspace ..."` |
+| Delete workspace | `msf_delete_workspace` | `msfconsole -x "workspace -d ..."` |
+| Import scan data | `msf_db_import` | `msfconsole -x "db_import ..."` |
+| Run nmap + import | `msf_db_nmap` | `msfconsole -x "db_nmap ..."` |
+| Clean up jobs | `msf_cleanup_jobs` | `msfconsole -x "jobs -K"` |
+| Console command | `msf_console_execute` | `msfconsole -x "..."` |
+| List consoles | `msf_console_list` | N/A |
+| Session sysinfo | `msf_session_sysinfo` | `sessions -i X` then `sysinfo` |
+| Session getuid | `msf_session_getuid` | `sessions -i X` then `getuid` |
+| Session processes | `msf_session_ps` | `sessions -i X` then `ps` |
+| Download file | `msf_session_download` | `sessions -i X` then `download` |
+| Upload file | `msf_session_upload` | `sessions -i X` then `upload` |
+| List routes | `msf_route_list` | `msfconsole -x "route print"` |
+| Add route | `msf_route_add` | `msfconsole -x "route add ..."` |
+| Remove route | `msf_route_delete` | `msfconsole -x "route remove ..."` |
+| Autoroute | `msf_autoroute` | `run post/multi/manage/autoroute` |
+| Report host | `msf_report_host` | `msfconsole -x "hosts -a ..."` |
+| Store credential | `msf_credential_add` | `msfconsole -x "creds -a ..."` |
+| Add note | `msf_db_add_note` | `msfconsole -x "notes -a ..."` |
 
-## Phase routing
+## When Shell is Acceptable
 
-| Phase | Delegate to | Primary skills |
-|-------|-------------|----------------|
-| pre_engage, model, report | `/harness-orchestrator` | pentest-workflow, methodology-cheatsheets, msf-harness |
-| recon, analyze | `/msf-recon-agent` | msf-recon + domain skill (web, AD, cloud, AI, etc.) |
-| exploit | `/msf-exploit-agent` | msf-exploit-chain |
-| post_exploit | `/msf-post-agent` | msf-post, internal-ad, windows/linux/macos/cloud/container/pivoting/persistence skills |
+- Database operations (`msfdb init`, `msfdb start`)
+- Starting `msfrpcd` in WSL
+- Operations not yet exposed in the MCP
 
-## Delegation thresholds
+## Why MCP over Shell
 
-| Trigger | Action |
-|---------|--------|
-| Single subgate, single target | Execute directly using subgate skill |
-| 3+ targets, same subgate type | Delegate to specialized subagent |
-| Phase transition or gate advance | `/harness-orchestrator` |
-| Broad instruction ("start testing") | `/harness-orchestrator` |
-| SG4.1 or pre-exploit | `/msf-reviewer` (mandatory) |
-
-## Subagent reference
-
-| Agent | Purpose |
-|-------|---------|
-| `/harness-orchestrator` | Phase management, gate advancement, coordination |
-| `/msf-recon-agent` | Recon/analyze subgates |
-| `/msf-exploit-agent` | Exploit subgates |
-| `/msf-post-agent` | Post-exploit subgates |
-| `/msf-reviewer` | G4 hard gate approval |
-
-## Skill reference (57 skills)
-
-### Core (7)
-| Skill | Use |
-|-------|-----|
-| `pentest-workflow` | Phase/gate procedure, advancement |
-| `pentest-knowledge-base` | Skill routing by scenario |
-| `methodology-cheatsheets` | SG2 model, shells, cross-cutting refs |
-| `msf-harness` | Setup, ROE, tool reference |
-| `msf-recon` | MCP recon workflow |
-| `msf-exploit-chain` | SG4.* exploit subgates |
-| `msf-post` | Post-exploitation subgates |
-
-### Domain (18)
-| Skill | Subgate use |
-|-------|-------------|
-| `web-app-pentest` | SG-W-* OWASP subgates |
-| `ai-llm-pentest` | SG-W-AI LLM testing |
-| `internal-ad-pentest` | SG-I-* AD/ATT&CK subgates |
-| `windows-pentest` | SG-I-PRIVESC (Windows), credential theft |
-| `hacktricks-methodology` | Service recon subgates |
-| `database-pentest` | MSSQL/MySQL/PostgreSQL service and SQLi follow-up |
-| `cloud-pentest` | SG-I-CLOUD, cloud metadata |
-| `container-devops-pentest` | SG-I-CONTAINERS |
-| `linux-pentest` | SG-I-LINUX |
-| `macos-pentest` | SG-I-MACOS |
-| `mobile-pentest` | Mobile scope when in ROE |
-| `binary-exploit-pentest` | Binary exploit dev when ROE allows |
-| `pivoting-pentest` | SG-I-PIVOT, subnet reachability |
-| `red-team-evasion` | SG-I-EVASION, OPSEC before noisy actions |
-| `persistence-pentest` | SG-I-PERSIST (ROE required) |
-| `initial-access-pentest` | External entry vector planning |
-| `reporting-pentest` | SG6 report phase, finding documentation |
-| `wifi-pentest` | Wireless when explicitly in ROE |
-
-### Service (13) - load when port is discovered
-| Skill | Ports |
-|-------|-------|
-| `smb-pentest` | 445, 139 |
-| `ldap-pentest` | 389, 636 |
-| `rdp-pentest` | 3389 |
-| `ssh-pentest` | 22 |
-| `ftp-pentest` | 21 |
-| `smtp-pentest` | 25, 587 |
-| `dns-pentest` | 53 |
-| `snmp-pentest` | 161, 162 |
-| `vnc-pentest` | 5900 |
-| `winrm-pentest` | 5985, 5986 |
-| `nfs-pentest` | 2049 |
-| `telnet-pentest` | 23 |
-| `memcache-pentest` | 11211 |
-
-### Vuln (15) - load when vuln class detected
-| Skill | Trigger signal |
-|-------|---------------|
-| `sqli-pentest` | SQL errors, `'` in params |
-| `xss-pentest` | Reflected/stored HTML |
-| `ssrf-pentest` | URL fetch, webhooks |
-| `ssti-pentest` | Template syntax `{{`, `${` |
-| `xxe-pentest` | XML/SOAP/SVG input |
-| `cmdi-pentest` | Shell metacharacters |
-| `deserialization-pentest` | Serialized objects |
-| `lfi-pentest` | `page=`, `../` params |
-| `upload-pentest` | File upload forms |
-| `idor-pentest` | Sequential IDs |
-| `jwt-pentest` | JWT `eyJ` tokens |
-| `graphql-pentest` | GraphQL endpoints |
-| `request-smuggling-pentest` | Proxy desync |
-| `prompt-injection-pentest` | LLM chatbot features |
-| `nosql-injection-pentest` | MongoDB operators |
-
-### Niche (4) - conditional scope
-| Skill | When |
-|-------|------|
-| `reversing-pentest` | RE in ROE |
-| `forensics-pentest` | Artifact analysis |
-| `hardware-pentest` | Physical access in ROE |
-| `blockchain-pentest` | Smart contracts in scope |
-
-Full catalog: `python .cursor/skills/pentest-knowledge-base/scripts/generate-skills.py --list`
-
-## Key principle
-
-Never advance a phase until gate-check passes. Every subgate completion must link to evidence and a skill execution.
+- Structured JSON responses instead of parsing terminal output
+- Server-side ROE enforcement on every call (CIDR, domain, module, session limits)
+- Hook-based audit logging and world-state tracking
+- No risk of shell injection or command parsing errors
+- Engagement ID tracking for attribution
+- Automatic evidence file generation
 
 ---
 > Source: [Suzu-Testing/metasploit-cursor-harness](https://github.com/Suzu-Testing/metasploit-cursor-harness) — distributed by [TomeVault](https://tomevault.io).
