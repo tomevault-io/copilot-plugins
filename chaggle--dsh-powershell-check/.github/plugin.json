@@ -1,0 +1,9 @@
+{
+  "name": "chaggle--dsh-powershell-check",
+  "displayName": "dsh-powershell-check",
+  "description": "Native DeepSeek Harness plugin: gates pwsh tool calls against PowerShell pitfalls via the official tools/pre-execute interception point, bundles the powershell-check skill",
+  "version": "1.0.0",
+  "author": "chaggle",
+  "homepage": "https://github.com/chaggle/dsh-powershell-check",
+  "skills": []
+}
