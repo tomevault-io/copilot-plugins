@@ -1,0 +1,9 @@
+{
+  "name": "mrpunyapal--telescope-inspect",
+  "displayName": "telescope-inspect",
+  "description": "Query Laravel Telescope data from the command line: readable tables for humans, versioned JSON for agents and CI.",
+  "version": "1.0.0",
+  "author": "MrPunyapal",
+  "homepage": "https://github.com/MrPunyapal/telescope-inspect",
+  "skills": []
+}
