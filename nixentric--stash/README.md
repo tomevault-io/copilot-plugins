@@ -7,11 +7,11 @@ A lightweight, offline-first creative asset manager for editors and designers �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nixentric/stash](https://github.com/nixentric/stash).
+Original source: `AGENTS.md` in [nixentric/stash](https://github.com/nixentric/stash).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
