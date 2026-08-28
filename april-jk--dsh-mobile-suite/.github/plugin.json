@@ -1,0 +1,9 @@
+{
+  "name": "april-jk--dsh-mobile-suite",
+  "displayName": "dsh-mobile-suite",
+  "description": "Remote DeepSeek Harness from a paired mobile device through an outbound-only Relay",
+  "version": "1.0.0",
+  "author": "april-jk",
+  "homepage": "https://github.com/april-jk/dsh-mobile-suite",
+  "skills": []
+}
