@@ -1,0 +1,9 @@
+{
+  "name": "pappadf--granny-smith",
+  "displayName": "granny-smith",
+  "description": "Macintosh and Apple Lisa emulator in the browser: From Lisa 2 to PowerMac 9500, booting unmodified ROMs into Mac OS, A/UX, MkLinux, Lisa OS, and Xenix",
+  "version": "1.0.0",
+  "author": "pappadf",
+  "homepage": "https://github.com/pappadf/granny-smith",
+  "skills": []
+}
