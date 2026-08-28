@@ -1,0 +1,9 @@
+{
+  "name": "gelse--caldav-mcp",
+  "displayName": "caldav-mcp",
+  "description": "An MCP server that bridges AI assistants to CalDAV calendars. 14 tools for listing, creating, updating, deleting, and searching events across Nextcloud, Radicale, Baikal, iCloud, and more. Stateless, ",
+  "version": "1.0.0",
+  "author": "gelse",
+  "homepage": "https://github.com/gelse/caldav-mcp",
+  "skills": []
+}
