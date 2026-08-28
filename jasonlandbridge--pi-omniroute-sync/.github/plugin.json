@@ -1,0 +1,9 @@
+{
+  "name": "jasonlandbridge--pi-omniroute-sync",
+  "displayName": "pi-omniroute-sync",
+  "description": "OmniRoute models sync extension for Pi Coding Agent (pi) and Oh My Pi (omp)!",
+  "version": "1.0.0",
+  "author": "JasonLandbridge",
+  "homepage": "https://github.com/JasonLandbridge/pi-omniroute-sync",
+  "skills": []
+}
