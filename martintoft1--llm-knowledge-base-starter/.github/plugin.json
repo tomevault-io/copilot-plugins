@@ -1,0 +1,9 @@
+{
+  "name": "martintoft1--llm-knowledge-base-starter",
+  "displayName": "llm-knowledge-base-starter",
+  "description": "An OKF v0.2-compatible starter kit for human-owned, AI-maintained knowledge bases.",
+  "version": "1.0.0",
+  "author": "martintoft1",
+  "homepage": "https://github.com/martintoft1/llm-knowledge-base-starter",
+  "skills": []
+}
