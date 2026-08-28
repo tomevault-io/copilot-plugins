@@ -1,0 +1,9 @@
+{
+  "name": "jimyuan-98--dsh-console-aio",
+  "displayName": "dsh-console-aio",
+  "description": "All-in-one Windows console for DeepSeek Harness (dsh): SSH tunnel manager, one-click install/update, environment check, session/plugin/profile/usage management. Zero-dependency tkinter GUI.",
+  "version": "1.0.0",
+  "author": "JimyuAn-98",
+  "homepage": "https://github.com/JimyuAn-98/dsh-console-aio",
+  "skills": []
+}
