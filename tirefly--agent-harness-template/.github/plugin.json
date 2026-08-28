@@ -1,0 +1,9 @@
+{
+  "name": "tirefly--agent-harness-template",
+  "displayName": "agent-harness-template",
+  "description": "\u7528\u6237\u7ea7 Agent Harness \u6a21\u677f\uff08\u516c\u5f00\u8131\u654f\u7248\uff09\uff1a\u89c4\u8303\u5c42 + \u8ba4\u77e5\u539f\u5b50\u5e93 + harness \u53cc\u6280\u80fd\uff08router/retro\uff09+ \u8bb0\u5fc6\u9aa8\u67b6",
+  "version": "1.0.0",
+  "author": "Tirefly",
+  "homepage": "https://github.com/Tirefly/agent-harness-template",
+  "skills": []
+}
