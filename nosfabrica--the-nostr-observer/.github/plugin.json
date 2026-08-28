@@ -1,0 +1,9 @@
+{
+  "name": "nosfabrica--the-nostr-observer",
+  "displayName": "the-nostr-observer",
+  "description": "Web-of-trust-based daily newspaper",
+  "version": "1.0.0",
+  "author": "NosFabrica",
+  "homepage": "https://github.com/NosFabrica/the-nostr-observer",
+  "skills": []
+}
