@@ -1,0 +1,9 @@
+{
+  "name": "kaguara--emerging-market-skills",
+  "displayName": "emerging-market-skills",
+  "description": "Agent skills for building software that works on the other five billion phones.",
+  "version": "1.0.0",
+  "author": "Kaguara",
+  "homepage": "https://github.com/Kaguara/emerging-market-skills",
+  "skills": []
+}
