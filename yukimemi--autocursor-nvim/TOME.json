@@ -4,7 +4,7 @@
   "repo": "autocursor.nvim",
   "description": "Switch cursorline & cursorcolumn automatically on Neovim events",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yukimemi/autocursor.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T08:40:17Z"
+  "distributed_at": "2026-08-28T13:38:33Z"
 }
