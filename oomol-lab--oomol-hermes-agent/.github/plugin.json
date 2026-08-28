@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--oomol-hermes-agent",
+  "displayName": "oomol-hermes-agent",
+  "description": "A ready-to-run Docker distribution of Hermes Agent with OO CLI, OOMOL providers, and curated Skills.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/oomol-hermes-agent",
+  "skills": []
+}
