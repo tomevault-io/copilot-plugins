@@ -1,0 +1,9 @@
+{
+  "name": "tuist--micelio",
+  "displayName": "micelio",
+  "description": "Git hosting whose source of truth is a write-ahead log in object storage. Stateless replicas, no control plane, MCP for agents.",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/micelio",
+  "skills": []
+}
