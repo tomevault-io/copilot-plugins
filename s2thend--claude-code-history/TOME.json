@@ -4,7 +4,7 @@
   "repo": "claude-code-history",
   "description": "A CLI tool and TypeScript library for browsing, searching, exporting, and managing your Claude Code conversation history.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/S2thend/claude-code-history",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T10:50:24Z"
+  "distributed_at": "2026-08-28T17:28:20Z"
 }
