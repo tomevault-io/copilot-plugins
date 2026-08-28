@@ -1,0 +1,9 @@
+{
+  "name": "clinteastman--smart-grind-home-assistant",
+  "displayName": "smart-grind-home-assistant",
+  "description": "Home Assistant integration for Smart Grind by Weight",
+  "version": "1.0.0",
+  "author": "Clinteastman",
+  "homepage": "https://github.com/Clinteastman/smart-grind-home-assistant",
+  "skills": []
+}
