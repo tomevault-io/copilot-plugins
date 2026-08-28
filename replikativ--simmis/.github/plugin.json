@@ -1,0 +1,9 @@
+{
+  "name": "replikativ--simmis",
+  "displayName": "simmis",
+  "description": "A self-hosted workspace where people and AI agents share one memory: chat, wiki, knowledge bases, an accounting book and a code repository \u2014 versioned, queryable, one substrate.",
+  "version": "1.0.0",
+  "author": "replikativ",
+  "homepage": "https://github.com/replikativ/simmis",
+  "skills": []
+}
