@@ -7,11 +7,11 @@ A long-lived personal research knowledge base inspired by Andrej Karpathy's LLM 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yinkalario/Knowledge-Wiki](https://github.com/yinkalario/Knowledge-Wiki).
+Original source: `AGENTS.md` in [yinkalario/Knowledge-Wiki](https://github.com/yinkalario/Knowledge-Wiki).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
