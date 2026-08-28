@@ -1,0 +1,9 @@
+{
+  "name": "wingsky-1--dsh-plugin-hub",
+  "displayName": "dsh-plugin-hub",
+  "description": "DSH (DeepSeek Harness) web GUI plugin collection \u2014 notifications, provider usage, LAN proxy, MCP manager, idle archive, file preview. Install: dsh plugin --profile web add @wingsky-1/dsh-plugins-all",
+  "version": "1.0.0",
+  "author": "wingsky-1",
+  "homepage": "https://github.com/wingsky-1/dsh-plugin-hub",
+  "skills": []
+}
