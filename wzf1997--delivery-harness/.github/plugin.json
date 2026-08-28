@@ -1,0 +1,9 @@
+{
+  "name": "wzf1997--delivery-harness",
+  "displayName": "delivery-harness",
+  "description": "Evidence-driven software delivery gates for versions, acceptance, repairs, and releases.",
+  "version": "1.0.0",
+  "author": "wzf1997",
+  "homepage": "https://github.com/wzf1997/delivery-harness",
+  "skills": []
+}
