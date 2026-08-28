@@ -4,7 +4,7 @@
   "repo": "stratos",
   "description": "Vibe code your own agentic UI experience. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ContextSphere/stratos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:48:55Z"
+  "distributed_at": "2026-08-28T23:37:39Z"
 }
