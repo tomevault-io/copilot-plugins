@@ -1,0 +1,9 @@
+{
+  "name": "vukrosic--speculative-decoding-research",
+  "displayName": "speculative-decoding-research",
+  "description": "Evidence-first lab for speculative decoding, DFlash/DFlash2, block diffusion, exactness, acceptance, and inference performance",
+  "version": "1.0.0",
+  "author": "vukrosic",
+  "homepage": "https://github.com/vukrosic/speculative-decoding-research",
+  "skills": []
+}
