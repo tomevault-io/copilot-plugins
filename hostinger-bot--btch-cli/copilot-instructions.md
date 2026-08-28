@@ -1,47 +1,58 @@
-## react-ink-components
+## tools-and-agent
 
-> Guidelines for React components using Ink for terminal UI
+> Guidelines for the agent system and tool implementations
 
 
-# React + Ink Terminal UI
+# Agent & Tools System
 
-## Framework
+## Agent
 
-This project uses [Ink](https://github.com/vadimdemedes/ink) v4 to render React components in the terminal. Ink provides `<Box>`, `<Text>`, and other primitives instead of HTML elements.
+`Agent` (in `src/agent/agent.ts`) is the core orchestrator. It manages:
 
-## Component Patterns
+- The OpenAI-compatible provider client (`src/provider/client.ts`)
+- Bash tool for all shell operations
+- Chat history and message accumulation
+- Abort/cancellation support
 
-- Use **functional components** with hooks — no class components.
-- JSX is compiled with `"jsx": "react"` (classic transform), so `import React from "react"` is required in every `.tsx` file.
-- Components are in `src/ui/components/` and follow kebab-case naming (`chat-interface.tsx`, `diff-renderer.tsx`).
+### Agent Loop
 
-## Key Components
+The agent uses an iterative tool-call pattern via `processMessage` (async generator):
 
-| Component | Purpose |
-|-----------|---------|
-| `ChatInterface` | Main chat loop, orchestrates agent interaction |
-| `ChatHistory` | Renders conversation entries |
-| `ChatInput` | User text input with key bindings |
-| `DiffRenderer` | Displays file diffs |
-| `ModelSelection` | Model picker UI |
-| `LoadingSpinner` | Animated loading indicator |
-| `ConfirmationDialog` | User confirmation prompts for tool operations |
-| `McpStatus` | MCP server connection status |
-| `CommandSuggestions` | Autocomplete suggestions |
-| `ApiKeyInput` | API key entry prompt |
+1. Send messages to the LLM via the OpenAI-compatible chat completions API (streaming).
+2. If the response contains tool calls, execute each tool.
+3. Append tool results to the message history.
+4. Repeat until no tool calls remain or `maxToolRounds` is reached.
+5. Yield `StreamChunk` objects for real-time UI updates.
 
-## Ink-Specific Guidelines
+## Tool Interface
 
-- Use `<Box>` for layout (flexbox model) and `<Text>` for styled text.
-- Use Ink's `useInput` hook for keyboard handling.
-- Use `chalk` for color utilities in `src/ui/utils/colors.ts`.
-- Markdown rendering for chat output uses `marked` + `marked-terminal`.
-- The app is rendered via `render(React.createElement(ChatInterface, { agent, initialMessage }))` in the entry point.
+All tools return a `ToolResult`:
 
-## Hooks
+```typescript
+interface ToolResult {
+  success: boolean;
+  output?: string;
+  error?: string;
+}
+```
 
-- Custom hooks live in `src/hooks/`.
-- Follow the `use` prefix convention (`useInput`, `useChat`, etc.).
+Tools should never throw — wrap errors in `{ success: false, error: "..." }`.
+
+## Built-in Tools
+
+| Tool | File | Purpose |
+|------|------|---------|
+| `BashTool` | `src/tools/bash.ts` | Execute any shell command |
+
+## Provider Client
+
+The provider client (in `src/provider/client.ts`) is built on `@ai-sdk/openai-compatible` and points at any OpenAI-compatible endpoint (default `https://ai.tioo.eu.org/v1`).
+
+## Adding a New Tool
+
+1. Add the tool schema to `src/provider/tools.ts` (in the `TOOLS` array).
+2. Add the execution case in `Agent.executeTool()`.
+3. Update the system prompt in `Agent` to document the tool.
 
 ---
 > Source: [hostinger-bot/btch-cli](https://github.com/hostinger-bot/btch-cli) — distributed by [TomeVault](https://tomevault.io).
