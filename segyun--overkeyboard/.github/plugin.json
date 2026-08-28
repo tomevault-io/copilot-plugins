@@ -1,0 +1,9 @@
+{
+  "name": "segyun--overkeyboard",
+  "displayName": "OverKeyboard",
+  "description": "A Swift Package that allows developers to present custom SwiftUI views above the iOS system keyboard.",
+  "version": "1.0.0",
+  "author": "Segyun",
+  "homepage": "https://github.com/Segyun/OverKeyboard",
+  "skills": []
+}
