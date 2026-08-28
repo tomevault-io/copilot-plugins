@@ -1,0 +1,9 @@
+{
+  "name": "oscarbol09--audiobard",
+  "displayName": "audiobard",
+  "description": "AI-powered multi-voice audiobook generator (Desktop GUI & CLI). 100% free, FOSS-first, offline-capable, and BYOK cloud support.",
+  "version": "1.0.0",
+  "author": "oscarbol09",
+  "homepage": "https://github.com/oscarbol09/audiobard",
+  "skills": []
+}
