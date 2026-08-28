@@ -1,0 +1,9 @@
+{
+  "name": "zazencodes--aicmd",
+  "displayName": "aicmd",
+  "description": "Turn plain English into a shell command without leaving your terminal.",
+  "version": "1.0.0",
+  "author": "zazencodes",
+  "homepage": "https://github.com/zazencodes/aicmd",
+  "skills": []
+}
