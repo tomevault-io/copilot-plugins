@@ -1,0 +1,9 @@
+{
+  "name": "open-mrp--api",
+  "displayName": "api",
+  "description": "OpenMRP's public API.",
+  "version": "1.0.0",
+  "author": "open-mrp",
+  "homepage": "https://github.com/open-mrp/api",
+  "skills": []
+}
