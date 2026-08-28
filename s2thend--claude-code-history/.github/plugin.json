@@ -1,0 +1,9 @@
+{
+  "name": "s2thend--claude-code-history",
+  "displayName": "claude-code-history",
+  "description": "A CLI tool and TypeScript library for browsing, searching, exporting, and managing your Claude Code conversation history.",
+  "version": "1.0.0",
+  "author": "S2thend",
+  "homepage": "https://github.com/S2thend/claude-code-history",
+  "skills": []
+}
