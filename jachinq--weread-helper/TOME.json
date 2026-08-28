@@ -4,7 +4,7 @@
   "repo": "weread_helper",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jachinq/weread_helper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:26:38Z"
+  "distributed_at": "2026-08-28T11:08:11Z"
 }
