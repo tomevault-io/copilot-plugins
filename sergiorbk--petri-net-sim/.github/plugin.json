@@ -1,0 +1,9 @@
+{
+  "name": "sergiorbk--petri-net-sim",
+  "displayName": "petri-net-sim",
+  "description": "An editor, a simulator, and a natural-language generator for Petri nets and Petri-object models, in one place",
+  "version": "1.0.0",
+  "author": "sergiorbk",
+  "homepage": "https://github.com/sergiorbk/petri-net-sim",
+  "skills": []
+}
