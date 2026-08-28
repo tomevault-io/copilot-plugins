@@ -1,35 +1,32 @@
-## rust-backend
+## testing
 
-> Rust backend conventions for the Tauri core (domain, ingest, store, query, cost, lib)
+> Testing strategy for the Rust core — fixtures, adapter tests, and the SQL/in-memory parity test
 
 
-# Rust 后端约定
+# 测试策略（src-tauri）
 
-## 错误处理
+运行：`cargo test --manifest-path src-tauri/Cargo.toml`（或在 `src-tauri` 目录下 `cargo test`）。Rust 测试按域拆在 `src-tauri/src/tests/`（`adapters`、`ingest`、`query`、`parity`、`cursor_*`、`official_quota`、`instructions` 等），共享辅助函数在 `src-tauri/src/test_support/`；`src-tauri/tests/fixtures/` 只放数据夹具。
 
-- 所有可能失败的函数返回 `Result<T, String>`；用 `.map_err(|e| e.to_string())` 转换底层错误，不引入自定义 error enum/`thiserror`
-- 不要 `unwrap()`/`expect()` 处理外部输入（文件内容、用户配置）；仅在测试代码或已知不可能失败处（如 `report.sources.iter_mut().find(...)`）使用 `expect`
+## Adapter 测试
 
-## 数据模型
+- 每个 adapter 至少一个测试：读取 `tests/fixtures/<source>.jsonl`/`.json`（通过 `fixture()` helper），断言解析出的 `UsageRecord` 字段，特别是去重/累计口径这种最容易出 bug 的地方（参考 `codex_adapter_counts_last_token_usage_not_cumulative` 显式断言「求和不等于双倍累计值」）
+- 新增/修改 fixture 时保持内容最小化且脱敏（不含真实用户路径、真实会话内容），复用现有 fixture 命名风格
 
-- `domain.rs` 是唯一的数据结构来源：新增字段先改 `UsageRecord`/DTO，再改适配器/查询/前端 `types.ts`，禁止在其它模块里定义平行结构体
-- `UsageRecord::with_total()`（经由 `adapters::finish`）在 `total_tokens <= 0` 时才用四个分项之和兜底；不要在适配器里重复这个逻辑
+## 聚合测试：`aggregate.rs` 是 `query.rs` 的差分测试基准，不是被替代的旧代码
 
-## Tauri command 层（lib.rs）
+- `aggregate.rs`（内存实现）与 `query.rs`（SQL 下推，生产实际使用）必须对同一组数据产生完全一致的结果；`sql_queries_match_in_memory_aggregates` 测试用同一份 `diverse_records()`/`diverse_prices()` 跑两条路径并逐字段 `assert_eq!`
+- **修改 `query.rs` 的任何聚合/过滤/费用 SQL 时，必须同步验证或更新 `aggregate.rs` 的等价实现，并确保这条 parity 测试仍然通过**；反之亦然。不要因为「SQL 更快」就删除 `aggregate.rs` 或跳过对照
+- 新增聚合维度/DTO 字段时，两边都要实现，并在 parity 测试里补上覆盖
 
-- 每个 command 都用 `tauri::async_runtime::spawn_blocking` 包裹阻塞的 sqlite/文件 IO，再 `.await.map_err(...)?`
-- command 内部只做：取 `AppState`、锁 `conn`、按需 `load_prices`，然后委托给 `query`/`ingest` 模块；不要把业务逻辑写进 `lib.rs`
-- 新增 command 必须同时加入 `tauri::generate_handler![...]` 列表
+## Ingest / store 测试
 
-## 费用计算（cost.rs）
+- 涉及文件系统的测试使用 `tempfile` 构造临时目录模拟 `home`，用 `store::open_memory()` 建内存 sqlite，不要依赖真实的 `~/.codex` 等本机路径
+- 覆盖 `docs/adr/0003-trusted-ingestion-cache.md` 里的场景：文件不变跳过重解析、解析失败保留旧缓存、追加日志记录数下降判定失败、来源消失后对账删除、目录读取错误不误删
 
-- 费用优先级固定为：`native_cost`（来源自带）> 价目表精确匹配（model+provider）> 价目表 model 兜底（provider 为 None，含 LiteLLM 快照）> 标记 `unpriced`
-- 任何聚合路径（`aggregate.rs` 与 `query.rs`）都必须保持这个优先级语义一致；Cursor 账号用量走同一套 `cost.rs` 计价，不写进 UsageRecord
+## 前端
 
-## 通用
-
-- 中文错误信息/日志字符串是项目既有约定（如 `format!("扫描目录 {} 失败：{error}", ...)`），保持一致，不要混用英文提示
-- 新增依赖前检查 `src-tauri/Cargo.toml` 是否已有等价库，避免引入功能重复的 crate
+- 纯函数单测用 Vitest（`pnpm test`），集中在 `src/lib/*.test.ts`，node 环境；暂无组件级/E2E 测试
+- `tsc` 类型检查是 `pnpm run build` 的一部分，改 DTO/`types.ts` 时必须能通过
 
 ---
 > Source: [qqzhangyanhua/mabiao](https://github.com/qqzhangyanhua/mabiao) — distributed by [TomeVault](https://tomevault.io).
