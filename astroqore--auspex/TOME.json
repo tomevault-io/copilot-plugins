@@ -4,7 +4,7 @@
   "repo": "auspex",
   "description": "Watch every AI coding agent running on your Mac \u2014 Claude Code, Codex, Cursor, Grok Build, Grok Bot, AntiGravity, Claude Cowork, ChatGPT Work \u2014 in one live board: what you asked, who is working, who is done, who needs you.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AstroQore/auspex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T07:14:19Z"
+  "distributed_at": "2026-08-28T11:43:20Z"
 }
