@@ -4,7 +4,7 @@
   "repo": "omarchy-quattro-harness",
   "description": "The harness that gives an agent complete freedom on an Omarchy desktop. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fabiopauli/omarchy-quattro-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T13:32:42Z"
+  "distributed_at": "2026-08-28T21:14:20Z"
 }
