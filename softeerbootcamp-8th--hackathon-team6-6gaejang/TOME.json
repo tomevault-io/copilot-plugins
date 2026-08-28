@@ -4,7 +4,7 @@
   "repo": "HACKATHON-TEAM6-6GaeJang",
   "description": "Softeer 8\uae30 6\ud300 \ud574\ucee4\ud1a4",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/softeerbootcamp-8th/HACKATHON-TEAM6-6GaeJang",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:17:44Z"
+  "distributed_at": "2026-08-28T23:18:13Z"
 }
