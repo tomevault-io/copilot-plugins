@@ -1,0 +1,9 @@
+{
+  "name": "howdeploy--remorafish",
+  "displayName": "remorafish",
+  "description": "Agent-first Web2API and MCP provider framework for authorized LLM web sessions",
+  "version": "1.0.0",
+  "author": "howdeploy",
+  "homepage": "https://github.com/howdeploy/remorafish",
+  "skills": []
+}
