@@ -7,11 +7,11 @@ Top-level Lumio game product: client, server Gameplay, UI, content, packaging, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LumioGames/LumioGame](https://github.com/LumioGames/LumioGame).
+Original source: `AGENTS.md` in [LumioGames/LumioGame](https://github.com/LumioGames/LumioGame).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
