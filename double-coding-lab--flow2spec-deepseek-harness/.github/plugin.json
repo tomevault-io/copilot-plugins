@@ -1,0 +1,9 @@
+{
+  "name": "double-coding-lab--flow2spec-deepseek-harness",
+  "displayName": "Flow2Spec-DeepSeek-Harness",
+  "description": "Native DeepSeek Harness plugin for Flow2Spec, powered by @double-coding/flow2spec-core.",
+  "version": "1.0.0",
+  "author": "double-coding-lab",
+  "homepage": "https://github.com/double-coding-lab/Flow2Spec-DeepSeek-Harness",
+  "skills": []
+}
