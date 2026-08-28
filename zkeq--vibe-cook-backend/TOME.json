@@ -1,0 +1,44 @@
+{
+  "name": "vibe-cook-backend",
+  "owner": "zkeq",
+  "repo": "vibe-cook-backend",
+  "description": "\ud83e\udd58 Vibe Cook \u540e\u7aef \u2014 FastAPI + SQLite\uff0c\u628a HowToCook Markdown \u53d8\u6210\u53ef\u8ddf\u505a\u7684\u7ed3\u6784\u5316\u83dc\u8c31 API\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zkeq/vibe-cook-backend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T09:17:52Z"
+}
