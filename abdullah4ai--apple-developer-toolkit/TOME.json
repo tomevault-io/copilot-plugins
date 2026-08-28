@@ -1,0 +1,44 @@
+{
+  "name": "apple-developer-toolkit",
+  "owner": "Abdullah4AI",
+  "repo": "apple-developer-toolkit",
+  "description": "Apple Developer Documentation CLI skill for AI agents. Search docs, frameworks, APIs, WWDC videos 2014-2025, and sample code. Direct integration with developer.apple.com",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Abdullah4AI/apple-developer-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T12:36:18Z"
+}
