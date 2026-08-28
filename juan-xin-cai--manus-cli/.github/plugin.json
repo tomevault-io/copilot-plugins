@@ -1,0 +1,9 @@
+{
+  "name": "juan-xin-cai--manus-cli",
+  "displayName": "manus-cli",
+  "description": "CLI tool for Manus AI Agent API \u2014 interactive REPL & one-shot task execution",
+  "version": "1.0.0",
+  "author": "juan-xin-cai",
+  "homepage": "https://github.com/juan-xin-cai/manus-cli",
+  "skills": []
+}
