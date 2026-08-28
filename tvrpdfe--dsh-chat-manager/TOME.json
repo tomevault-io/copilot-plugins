@@ -1,0 +1,44 @@
+{
+  "name": "dsh-chat-manager",
+  "owner": "tvrpdfe",
+  "repo": "dsh-chat-manager",
+  "description": "DeepSeek Harness (DSH) Web UI \u4f1a\u8bdd\u7ba1\u7406\u63d2\u4ef6\uff0c\u53ef\u4ee5\u76f4\u63a5\u804a\u5929\u3001\u5220\u9664\u4f1a\u8bdd\u3001\u7ba1\u7406\u5df2\u5f52\u6863\u4f1a\u8bdd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tvrpdfe/dsh-chat-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T05:20:34Z"
+}
