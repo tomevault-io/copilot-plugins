@@ -1,0 +1,9 @@
+{
+  "name": "n1snt--livekit-rs-voice",
+  "displayName": "livekit-rs-voice",
+  "description": "A minimal, voice only LiveKit server in Rust.",
+  "version": "1.0.0",
+  "author": "n1snt",
+  "homepage": "https://github.com/n1snt/livekit-rs-voice",
+  "skills": []
+}
