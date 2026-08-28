@@ -1,75 +1,162 @@
-## cursor-cloud
+## t3code-zh-cn
 
-> Cursor Cloud environment setup and run notes for T3 Code (Cursor-specific; not for other editors/CI)
+> T3 Code is a minimal GUI for coding agents. A Node WebSocket server wraps provider CLIs (Codex, Claude Code, Cursor, Grok, OpenCode) and serves web, desktop, and mobile clients.
 
+# T3 Code
 
-# Cursor Cloud specific instructions
+T3 Code is a minimal GUI for coding agents. A Node WebSocket server wraps provider CLIs (Codex, Claude Code, Cursor, Grok, OpenCode) and serves web, desktop, and mobile clients.
 
-These notes apply only to Cursor Cloud agents (kept out of the shared `AGENTS.md` since T3 Code is
-developed in many places). They cover the pre-provisioned VM environment and non-obvious run caveats.
+You can think of T3 Code as an open source "bring-your-own-subscription" alternative to apps like Claude Desktop, Codex App, Cursor Glass and Conductor.
 
-## Toolchain
+## What makes T3 Code special?
 
-Pre-installed and wired into login shells (`~/.bashrc`/`~/.profile`): Node 24 (via nvm), the global
-`vp` (Vite+) CLI, and its bundled pnpm. `vp` is the package manager + task runner for this repo
-(`vp i`, `vp check`, `vp run typecheck`, `vp test`, `vp run --filter <pkg> <script>`).
+We have over 200,000 users who love T3 Code. It's important we maintain the things they love as we continue to iterate on the product. Here's a brief list of the things we can never compromise on.
 
-- Node gotcha: the base image also ships an older Node on `/exec-daemon` that wins on `PATH` in
-  non-login shells. Run commands in a login shell (`bash -lc '...'`) or prepend
-  `$HOME/.nvm/versions/node/v24.13.1/bin` so Node 24 (`engines.node: ^24.13.1`) is used.
-- `vp check` also runs the formatter (not just lint); markdown edits must be formatter-clean. Run
-  `vp check --fix` before committing.
+### 1. Open at the core
 
-## Running the web app
+T3 Code is truly open. We share our roadmap, we share how we think about things, and of course we share all our code. A large number of our users run forks. We work in the open, and should strive to stay that way.
 
-- `npm run dev` (from repo root) starts contracts (watch), web (Vite, port 5733), and the server
-  (`node --watch`, port 13773) together, auto-wiring `VITE_HTTP_URL`/`VITE_WS_URL`. Use
-  `npm run dev:server` / `npm run dev:web` for one side. If base ports are taken it auto-offsets to
-  the next free pair, so read the actual ports from stdout. Avoid production `build`/`start` in dev.
-- Auth/pairing: the server is unauthenticated by default and prints a pairing URL to stdout on startup
-  (e.g. `http://localhost:5733/pair#token=XXXX`). Open that URL in the browser to pair before the web
-  UI can talk to the server. Server state (SQLite, auth, projects) lives under `~/.t3`
-  (`T3CODE_HOME`); multiple `npm run dev` instances bind different ports but share that same DB.
-- Agent providers are external CLIs (`codex`, `claude`, `cursor-agent`, `opencode`) probed on `PATH`.
-  Without one installed the UI loads but no agent can run. Claude Code
-  (`npm i -g @anthropic-ai/claude-code`) works headlessly using `ANTHROPIC_API_KEY` from the
-  environment (the server forwards `process.env` to the child; no interactive `claude auth login`
-  needed). Provider probing runs at startup and refreshes roughly every 5 minutes — restart the dev
-  server to pick up a newly installed provider CLI immediately.
+### 2. Performance without compromise
 
-## Android native builds (apps/mobile)
+Lots of apps have gotten bogged down with bad tech decisions and "slop". We have not, and we're proud of the performance of T3 Code. We regularly audit for performance regressions, often caused by sending too much data over websockets, css animations causing gpu spikes, lists being hard to render, and more. Make sure all changes are considerate of performance impact.
 
-The Android toolchain is pre-installed and wired into login shells: OpenJDK 17
-(`JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64`; the base image's default `java` is 21, so builds must
-use `JAVA_HOME`), and the Android SDK at `$HOME/Android/Sdk` (`ANDROID_HOME`/`ANDROID_SDK_ROOT`) with
-platform-tools, `platforms;android-36`, `build-tools;36.0.0`, `ndk;27.1.12297006`, and `cmake;3.22.1`.
-Gradle auto-downloads any additional pinned SDK packages on demand.
+### 3. Remote ready
 
-- Generate the native project first: from `apps/mobile`,
-  `EXPO_NO_GIT_STATUS=1 APP_VARIANT=development npx expo prebuild --clean --platform android`
-  (the `android/` folder is generated, not committed). RN 0.85 defaults: compileSdk/targetSdk 36,
-  minSdk 24, NDK `27.1.12297006` (see `react-native/gradle/libs.versions.toml`).
-- Build with Gradle from `apps/mobile/android`, e.g. `./gradlew :app:assembleDebug`. First build is
-  slow (Kotlin + C++/NDK codegen). Limit ABIs to speed things up, e.g.
-  `-PreactNativeArchitectures=arm64-v8a`. Verified working end-to-end on a native module:
-  `./gradlew :react-native-worklets:assembleDebug` compiles Kotlin + C++ and emits an AAR + `.so`s.
-- No emulator: this VM has no `/dev/kvm` (nested virtualization), so a hardware-accelerated Android
-  emulator will not run. Use a physical device (`adb`) or EAS cloud builds (`vp run eas:android:*`) to
-  actually run the app. The full IDE GUI is unnecessary here — the SDK/NDK/Gradle toolchain that
-  Android Studio bundles is what is installed.
-- Known blocker for the full-app `:app:assembleDebug` (pre-existing, app-level — not the environment):
-  `:react-native-screens:compileDebugKotlin` fails because `patches/react-native-screens@4.25.2.patch`
-  adds new codegen props (`subtitle`, `largeSubtitle`, `navigationItemStyle`,
-  `headerCenterBarButtonItems`, `headerToolbarItems`) to the JS spec + iOS native code but includes no
-  Android Kotlin setters, so the generated `ScreenStackHeaderConfigManagerInterface` is unimplemented.
-  The mobile README documents only iOS for local builds and routes Android through EAS. Fixing local
-  Android app builds requires an app/patch change (add the Android Kotlin setters), which is out of
-  scope for environment setup.
+The architecture of T3 Code's websocket layer (npx t3) enables a lot of awesome remote features. These have become core to the product. Whether users are connecting directly over their local network, using Tailscale, or leaning in fully with T3 Connect (our tunnel solution, also in this repo), we need to make sure new features are properly supported.
 
-## Known flaky tests (unrelated to setup)
+### 4. Multi-surface
 
-- `apps/server/src/git/GitManager.test.ts` (cross-repo PR metadata, can time out at 12s).
-- `apps/server/src/provider/Layers/ProviderRegistry.test.ts` (codex binaryPath re-probe ordering).
+T3 Code has 3 key app surfaces: **web**, **desktop**, and **mobile**.
+
+**Web** is kind of two surfaces, as we have the public facing "app.t3.codes" as well as locally hosting the web app through the `npx t3` command. Both need to be supported by all new features where reasonable.
+
+**Desktop** is the main surface most users install first. It's a full Electron app that bundles the server runner as well. The desktop app can also be used as the host server, allowing remote connections from app.t3.codes or the mobile app.
+
+**Mobile** is a React Native app for both iOS and Android, available on the App Store and Google Play. The mobile app allows for connecting to any T3 Code server to control work remotely.
+
+## A note from Theo
+
+I like ambitious ideas, simple systems, and software that feels obvious. Do not preserve complexity just because it already exists. Do not introduce machinery because it looks architecturally impressive. Understand the real constraint, then fight for the smallest model that makes the correct behavior unsurprising.
+
+Channel both "measure twice, cut once" and "yagni". Fight scope creep. Try to honor the dev's intent in both a minimal and realistic fashion.
+
+The rest of this document is meant to help you navigate the codebase and make changes effectively. Think of these instructions less as "hard rules", more as "good defaults". The developer's preferences should be able to override anything here.
+
+Of note: Most T3 Code contributions will come from T3 Code itself, often controlled remotely. This means you should be careful about accessing data, killing dev servers, and other things that may damage the T3 Code instance that the contributor is using.
+
+## A small glossary
+
+We need to be on the same page with terminology. When communicating, use this language:
+
+- **you** means the agent reading this file and changing T3 Code.
+- **we, us, and maintainers** mean Theo, Julius and the people building T3 Code. These are who you are talking to now.
+- **user** means the person using T3 Code to direct coding agents.
+- **agent** means the coding agent a user runs inside T3 Code. Depending on context, that may also include you.
+- **provider** means the agent runtime or harness T3 Code talks to, such as Codex, Claude, Cursor, or OpenCode.
+- **client** means the web, desktop, or mobile UI.
+- **environment** means one running T3 server and the machine, filesystem, provider credentials, and state it owns.
+- **project** means an environment-local workspace record rooted at a directory.
+- **thread** means the durable conversation and work history for a project.
+- **turn** means one user-to-agent cycle, including follow-up work such as checkpointing.
+- **T3 home** means the base data directory. Runtime state normally lives below its userdata directory.
+
+## The three ways to hurt yourself
+
+1. **Killing by pattern.** Never `pkill -f`, `pgrep | kill`, or `kill` a PID you found by matching a name, path, or worktree string. Your own agent process has this worktree's path in its argv, and this machine runs several other dev servers at once. Kill only a PID you captured at spawn, or the owner of your port from `ss -H -ltnp` after confirming `/proc/<pid>/cwd` is your worktree.
+2. **Writing to the live install.** `~/.t3/userdata` is the developer's real T3 Code database, in use while you work. Reading it and copying from it are fine, and a good way to get real test data (see Test data). Never start a server against it, never open it read-write, never clean it up.
+3. **Baking in origins.** Never set `VITE_HTTP_URL` or `VITE_WS_URL` for dev. Dev is single-origin and Vite proxies `/api`, `/ws`, `/oauth`, and `/.well-known`. Setting them bakes localhost into the bundle and silently breaks every remote browser.
+
+## Hit every surface
+
+The most common defect in this repo is a change that works on the path you tested and is missing everywhere else. Before calling frontend work done, walk this list and say which entries applied:
+
+- **Entry points.** A behavior reachable from the chat view is usually also reachable from Settings, the command palette, and a keybinding. Fixing one is not fixing the feature.
+- **Clients.** Web, desktop (wraps web, adds Electron shell/IPC), and mobile (React Native, separate navigation). Shared logic lives in `packages/client-runtime`
+- **Providers.** Codex, Claude, Cursor, Grok, and OpenCode each have an adapter. Provider-shaped features need a decision per adapter, even if the decision is "not supported here".
+- **Contracts.** Anything crossing the wire is typed in `packages/contracts`. Change the schema and the server, web, mobile, and desktop all follow.
+- **Reverse states.** If you added a way in, add the way out and the way to see it. Snooze needs unsnooze. Close needs reopen. A one-way door is a bug.
+- **Connection modes.** Local, remote/relay, and tunnel behave differently. Multi-device and multi-environment cases are real.
+- **Docs.** `docs/` splits by audience. Behavior changes that a user would notice belong in `docs/user/` (shipped-product voice, no repo tooling or source paths); architecture and contributor changes in `docs/internals/`; runbooks in `docs/operations/`; new vocabulary in `docs/internals/glossary.md`.
+
+## Dev servers
+
+- `vp i` installs. Worktrees get this from the t3.json setup script; if module resolution looks broken, it probably did not run.
+- `vp run dev` starts server and web. In a worktree, state defaults to that worktree's gitignored `.t3`, which deliberately outranks an ambient `T3CODE_HOME` so you cannot land on shared state by accident. An explicit `--home-dir` still wins.
+- Ports derive from the worktree path and are stable across restarts, but read the real ones from the `[dev-runner]` line since occupied ports shift.
+- Sharing over the tailnet is three steps: run `vp run dev --share` in the background, wait for the `pairingUrl:` line in its output, paste that full URL (token included) in your reply. Do not wire up `tailscale serve` by hand for this, and do not open the URL yourself.
+- The web app requires pairing. Hand over the pairing URL, not the bare origin. A URL without its token is useless to whoever you gave it to. If the token got consumed, mint a fresh one with `node apps/server/src/bin.ts pair` — note it carries standard scopes, while the startup URL carries admin scopes (needed for Settings → Connections management).
+- Stop what you started, by the PID you tracked. See rule 1.
+
+## Test data
+
+An empty database is a bad test. Seed your worktree's `.t3` with a copy of real data instead of pointing at live state:
+
+- Copy from `~/.t3/userdata` (the developer's real data, the most realistic test set) or `~/.t3/dev`. Worktree state lives at `<worktree>/.t3/userdata`.
+- Snapshot the database with `VACUUM INTO`, which is safe even while a server has the source open and yields one consistent file:
+
+  ```bash
+  mkdir -p .t3/userdata
+  rm -f .t3/userdata/state.sqlite*  # VACUUM INTO refuses to overwrite
+  bun -e "new (require('bun:sqlite').Database)(process.env.HOME + '/.t3/userdata/state.sqlite', { readonly: true }).run(\"VACUUM INTO '.t3/userdata/state.sqlite'\")"
+  ```
+
+  A plain `cp` is only safe when no server has the source open, and must bring the `-wal` and `-shm` siblings along. A live file copy is a corrupt copy.
+
+- Bring `secrets` and `settings.json` only if the flow under test needs them.
+- Copy in, never symlink. Data flows one way: into your sandbox, never back out.
+
+## Verifying
+
+- Smallest proof that the change works. `vp test run <files>` for the tests you touched, targeted lint and typecheck for the scope you changed.
+- **Do not run repo-wide checks.** No `vp check`, no `vp run -r test`, no `vp run -r typecheck` unless I ask. CI owns the full suite.
+- Backend behavior changes ship with focused tests for that behavior.
+- The server is event-sourced and its async flows emit typed receipts. Wait on receipts and worker drains, never on sleeps or polling. A test that needs a timeout to pass is wrong.
+- Upon request, user-visible frontend changes should get one integrated pass in a real client: `test-t3-app` for web, `test-t3-mobile` for mobile. The primary agent does this once after integrating. Subagents do not launch their own dev servers. Ask permission before doing computer use or spinning up browsers.
+
+## Pull requests
+
+- Never make a PR unless the developer explicitly asks you to do so.
+- Conventional commit titles, plain language: `fix(web): new threads no longer spike CPU`.
+- Body: the problem in a sentence or two, then how you fixed it. End with the model and harness that did the work.
+- UI changes need before/after images. Motion or timing needs a short video.
+- Upload PR evidence to GitHub. Never commit PR-only screenshots or assets such as `.github/pr-assets/`.
+- One concern per PR. If the description says "also", split it.
+- When babysitting: poll checks and comments newer than the last push, verify each bot finding against the source, fix real ones, dismiss false positives with a written reason. Stay quiet when nothing is new. Stop when the bots are green on the latest commit.
+
+## Plans and work artifacts
+
+- Do not commit implementation plans, research notes, or agent scratch files. Keep temporary working material outside the worktree. `.plans/` is gitignored only as a safety net for legacy tooling.
+- Track active maintainer work in the GitHub issue or project item that owns it. External proposals follow `CONTRIBUTING.md` and belong in Ideas discussions.
+- Put durable architecture, constraints, and decisions in `docs/internals/`. Update those docs when the product changes so agents find current facts instead of abandoned intentions.
+- A merged PR is the implementation record. Close or update its tracking item when the work lands; do not preserve a second checklist in the repository.
+
+## How it works
+
+Clients send typed WebSocket requests. The server turns them into _commands_, a pure _decider_ turns commands into persisted _events_, and a _projector_ derives the read model the UI renders. Provider CLIs run as subprocesses; per-provider _adapters_ translate their native protocols into orchestration events. Side effects run in queue-backed _reactors_ that emit _receipts_ when milestones land. Each turn ends with a _checkpoint_, a hidden git ref, so the app can diff and restore.
+
+Full glossary with file links: `docs/internals/glossary.md`
+
+## Where code lives
+
+- `apps/server` - WebSocket, orchestration, providers, checkpointing. Effect-heavy: read `.repos/effect-smol/LLMS.md` before writing Effect code.
+- `apps/web` - React/Vite UI. `apps/desktop` wraps it, `apps/mobile` is React Native, `apps/marketing` is the site.
+- `packages/contracts` - Effect/Schema contracts plus small derived helpers. No heavy runtime logic.
+- `packages/shared` - shared runtime utils, subpath exports, no barrel.
+- `packages/client-runtime` - client code shared by web and mobile.
+- `.repos/` - vendored read-only references. Prefer their patterns over invented ones. Never edit or import from them. Sync with `vpr sync:repos` when bumping the matching dependency.
+
+## Taste
+
+- Complexity belongs at the adapter boundary. Orchestration stays pure, UI stays dumb.
+- Inferred types over annotations. `any` is the enemy.
+- Comments describe how a thing is used, and move when the code moves. To be used mostly to describe functions, not to annotate every line of behavior.
+- Our users drive agents all day and notice a dropped frame, a lying spinner, and a stale label. No continuously repainting animations; they peg the GPU on high-refresh displays.
+- If a rule here fights the task in front of you, say so loudly and get a human sign-off before breaking it.
+
+## Additional tips
+
+- Don't verify with browsers or computer use unless the user explicitly agrees or requests it.
+- Security is important, but should not be over-indexed on, especially for dev mode/maintainer-only features.
 
 ---
 > Source: [EclipticAxis/t3code-zh-CN](https://github.com/EclipticAxis/t3code-zh-CN) — distributed by [TomeVault](https://tomevault.io).
