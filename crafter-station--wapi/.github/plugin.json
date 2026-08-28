@@ -1,0 +1,9 @@
+{
+  "name": "crafter-station--wapi",
+  "displayName": "wapi",
+  "description": "WhatsApp REST API \u2014 a drop-in-compatible WasenderAPI clone. Baileys engine, Hono API, Next.js dashboard.",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/wapi",
+  "skills": []
+}
