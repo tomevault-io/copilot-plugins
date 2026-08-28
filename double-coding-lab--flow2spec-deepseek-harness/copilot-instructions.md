@@ -1,306 +1,130 @@
-## f2s-task
+## f2s-topic-authoring
 
-> >
+> Flow2Spec 主题创作准则：topic 命名 / 骨架 / topicMetadata / topicDependencies 判定 / rule 是否需建对应 topic / 写盘权属指针
 
+# Flow2Spec 主题创作准则（Topic Authoring）
 
-# f2s-task（变更追踪规则）
+本条为 **创作侧** 单一事实源；凡 `f2s-*` 技能在新增或修改 `.Knowledge/topics/<topic>.md`、调整 `manifest-routing.topicMetadata` / `manifest-routing.topicDependencies`、删除 / 迁移 topic 时，**必须先 Read 本条全文**，再按对应 SKILL 的步骤继续。与 `f2s-flow2spec-unified-entry`（消费侧）**并存**；硬冲突时以统一入口为准。
 
-## 生效条件
+## 适用范围
 
-各技能按自身子项判断：
+满足下列任一即「触达本条」：
 
-- `f2s-kb-feat`：读 `changeTracking.feat`
-- `f2s-kb-fix`：读 `changeTracking.fix`
-- `f2s-implement-tech-design`：读 `changeTracking.implement`
+- 新增或重写 `.Knowledge/topics/<topic>.md`；
+- 修改既有 topic 的标题 / 适用场景 / 关键流程边界；
+- 新增、删除或调整 `manifest-routing.topicMetadata`；
+- 在 `manifest-routing.topicDependencies` 中新增、删除或调整依赖边；
+- 在 `taskToTopicRules[].topics` 中新增引用某个 topic id；
+- 删除或迁移 topic（`f2s-kb-rm` / `f2s-kb-migrate` / `f2s-kb-upgrade`）。
 
-若对应子项为 `false` 或字段不存在，**该技能内的变更追踪步骤不执行**，直接跳过。
+## 1. topic 命名
 
-> `f2s-req-plan` 命令不受此条件约束，始终执行（见 `skills/f2s-req-plan/SKILL.md`）。
+- **id**：`kebab-case`，与 `manifest-routing.topicPaths` 的 key 一致。
+- **文件名**：`.Knowledge/topics/<topic-id>.md`；若该 topic 与同名 `f2s-*` 技能 / 规则强绑定（如 `f2s-task` / `f2s-req-plan`），文件名可加 `f2s-` 前缀以示同源。
+- **不要**：版本后缀（`-v2` / `-new`）、个人花名、与 `index.md` 行级标题冲突的同义词。
 
-## 多人协作与任务根 `TASK_ROOT`（必须先解析）
+## 2. topic 定位与正文骨架
 
-进入本规则任何「读/写 `.task`」步骤前，**必须** `Read("flow2spec.config.json")`，并解析 **`TASK_ROOT`**（本会话内固定，禁止中途改 id）：
+**topic 的定位**：可执行路由摘要 + 关键边界。topic 可以包含必要的边界说明、关键流程步骤、禁止项、配置摘要——Agent 读完即可执行或判断是否需要继续下钻；**不应承载**完整实现细节、长文背景或可在 stock-doc 里查的原始内容。stock-doc 承载完整背景与长文细节，topic 指向它。
 
-| 条件 | `TASK_ROOT` | `developerId` 来源 |
-| --- | --- | --- |
-| `collaboration.enabled === false` | `.task` | legacy（强制单人根） |
-| `collaboration.developerId` 非空（trim 后） | `.task/<sanitize(id)>` | **config** |
-| 否则能读到 `git config user.email` | `.task/<sanitize(email@前)>` | **git-email** |
-| 否则能读到 `git config user.name` | `.task/<sanitize(name)>` | **git-name** |
-| 仍无 | `.task` | **legacy**（单人旧布局；须在回复中提示：建议配置 `collaboration.developerId`） |
+**长文背景引用的目录边界（硬约束）**：topic 中「详细背景 / 相关资料 / 长文来源 / 参考文档」等**指向长文源**的引用槽位，**只允许**指向 `.Knowledge/stock-docs/*_终稿.md` 或已被归档为长文事实的 `stock-docs/*`；**禁止**把这类槽位挂到 `.Knowledge/req-docs/*`（含澄清 / 技术方案 / SQL / PRD 等）——`req-docs` 是本次交付的**临时输入**，用完会随任务归档或迁移，作为 topic 的长文事实源是悬空引用。若同步 / 新建 topic 时相应 `stock-docs/*_终稿.md` 尚未生成，**必须先触发 `f2s-doc-final` 沉淀终稿**（或与用户确认由手写补齐），再让 topic 指向终稿；不得跳过终稿直接把 topic 挂在 `req-docs` 上。**允许**：topic 正文可**短引**方案里的一句结论或一个字段名作为佐证（如「见 `.Knowledge/req-docs/xxx_技术方案.md`」的偶发点引），但**长文背景槽位**（"详细背景 / 相关资料"整节）仍须指向 stock-doc。
 
-**sanitize**：小写；若含 `@` 只取本地部分；非 `[a-z0-9]` 收成 `-`；去首尾 `-`；长度 1–64，否则视为无 id。
+每个 topic 至少包含：
 
-**路径一律用 `TASK_ROOT` 前缀**（下面凡写 `TASK_ROOT/...` 均指解析结果）：
+1. **标题与一句话意图**（一行写清"该 topic 解决什么"）；
+2. **适用场景 / 触发词**（与对应 `matchers/<id>.json` `includeAny` 语义一致）；
+3. **核心规则 / 流程**（可执行知识；步骤须可由 Agent 复现）；
+4. **依赖声明**（若 `topicDependencies` 中存在依赖项，正文须显式写一句「执行前须先读依赖主题 `<dep>`」，参考 `topics/f2s-req-plan.md` 首段写法）；
+5. **边界与禁止项**（避免膨胀到隔壁 topic）；
+6. **长文背景 / 详细资料引用**（如需承载业务背景）：只列 `.Knowledge/stock-docs/*_终稿.md` 的可点击 Markdown 链接（1–3 条即可）；**禁止**直接列 `.Knowledge/req-docs/*` 作为长文背景来源；无对应终稿时**先生成终稿**再回填此小节。
 
-- 索引：`TASK_ROOT/todo.json`
-- 进行中：`TASK_ROOT/active/<task-name>/`
-- 已完成：`TASK_ROOT/completed/<YYYYMMDD>-<task-name>/`
+## 3. topicMetadata 判定准则
 
-**防串戏（硬约束）**：
+`topicMetadata` 是治理元数据，只影响盘点、审计和阅读预期；不参与 matcher 命中，不决定是否读取 topic，不改变执行强制性。执行强制性以 `AGENTS.md`、rules、skills 与 topic 正文明确要求为准。
 
-1. **只**读写当前会话的 `TASK_ROOT`；**禁止**为续作/匹配去遍历 `.task/*/todo.json` 或其他 developer 目录。
-2. keywords 匹配范围 **仅** 当前 `TASK_ROOT/todo.json` 内条目。
-3. 创建任务时 `todo.json` 的 `folder` 必须写成当前 `TASK_ROOT/active/<task-name>/`（posix 相对路径）。
-4. 可选在任务开始时向用户回显一行：`[task] developerId=<id|legacy> TASK_ROOT=<path>`。
-5. **`.Knowledge/` 仍为全员共享**；本规则不按人拆分知识库。
+字段：
 
-> 实现参考（CLI/工具）：包内 `lib/developerId.js` 的 `resolveDeveloperContext` / `taskRootFor`（与上表同口径）。
+- `primary`：主分类，单值，取 `feature` / `module` / `config` / `policy`。
+- `tags`：可选，数组，取值范围同 `primary`，不得与 `primary` 重复。用于描述 topic 同时包含的次要性质，仅作审计/阅读预期，不参与路由或执行。
+- `confidence`：取 `manual` / `inferred`。
 
-## f2s-req-plan 调用时的绑定
+判定：
 
-执行 **`f2s-req-plan`**（或续作命中 `linkedSkill: "f2s-req-plan"`）时：
+1. `topicMetadata` key 必须存在于 `topicPaths`；仅给已存在或本次确认创建的 topicId 写入。
+2. `primary` 取 topic 最核心的性质：读 topic 正文，判断其主要内容属于哪个类型，写入 `primary`。
+3. `config`：配置项、开关、默认值、初始化参数；仅当这些内容构成 topic 的主要语义时才可作为 `primary`。
+4. `policy`：流程、规则、约束、门禁、禁止项、agent 编排、技能步骤；仅当这些内容构成 topic 的主要语义时才可作为 `primary`。。
+5. `feature`：已落地业务 / 产品能力。
+6. `module`：公共能力、公共包、模块边界与工程结构
+7. topic 同时覆盖多个性质时，最主要性质写 `primary`，其余明确成立的性质写 `tags`（可选数组，元素取值同 `primary`，不得与 `primary` 重复）。
+8. `manual` 仅用于用户或维护者明确确认分类值；有明确证据但未人工确认分类值时写 `inferred`。证据不足时**不写 metadata**，但须在摘要中列出推断方向与依据（如「建议 policy，正文含多处强制约束」），供用户确认后手动补写 `manual`。**禁止仅凭 topicId 名称推断分类，必须 Read topic 正文后再判断。** **`inferred` 不需要用户事先同意即可直接落盘**：证据足够时按本条直接写入；只有当用户/维护者主动指定分类、或证据矛盾需要决断时，才升级为 `manual`。把 `inferred` 当作"待用户同意"是常见误读，等同于把"有依据的自动归类"硬变成"必须人工确认"，与本条第 7 项允许 `inferred` 落盘的语义冲突。
 
-- **不受** `changeTracking.feat` / `fix` / `implement` 限制，但 **必须** 按本规则「任务开始 / 执行中 / 中断与会话结束 / 任务完成 / 新会话续作」维护 **`TASK_ROOT`** 下任务树；
-- 技能 **步骤 0** 须 `Read` 本规则全文（**Cursor/Claude**：`rules/f2s-task.*`；**Codex**：`.codex/topics/f2s-task.md`）；
-- 落盘、打钩、归档、`user-todos.md` / `acceptance.md` 格式 **以本规则为准**；技能正文不得省略 `todo.json` / `user-todos.md` / `acceptance.md`，不得改写归档目录命名（`<YYYYMMDD>-<task-name>`）。
+禁止：为了分类创建、重命名、拆分 topic；在 topic markdown 正文或 `index.md` 中重复写分类块。
 
-## 目录结构
+## 4. topicDependencies 判定准则
 
-```
-TASK_ROOT/                             ← `.task` 或 `.task/<developerId>`
-├── todo.json                          ← 活跃任务索引，仅主 agent 写
-├── active/
-│   └── <task-name>/
-│       ├── task.md                    ← checklist（执行步骤）
-│       ├── context.md                 ← 涉及文件路径、相关资料链接
-│       ├── user-todos.md              ← 须用户执行的代办（改库、配环境等），见下文
-│       └── acceptance.md              ← 验收清单：task.md 全部 [x] 后、归档前生成，见下文
-└── completed/
-    └── <YYYYMMDD>-<task-name>/
-        ├── task.md
-        ├── context.md
-        ├── user-todos.md              ← 随任务一并归档，便于验收后逐项消项
-        └── acceptance.md              ← 随任务一并归档，便于用户最终核对
-```
+设当前主题为 A、候选依赖为 B。**四问命中任一即声明 `A → B`**：
 
-**归档目录命名**：`completed/` 下文件夹名为 **`<YYYYMMDD>-<task-name>`**（**本地日历日期 8 位在前**，`<task-name>` 与 `active/` 下一致、为 snake_case；便于按时间排序）。**新归档一律使用本格式**；仓库中已有的旧式 `<task-name>-<YYYYMMDD>` 目录可保留，择机人工重命名即可。
+1. **前置规则强引用**：A 的执行步骤**显式提到** B 的术语 / 产物 / 落盘约束（例：`f2s-req-plan` 要求「按 `f2s-task` 维护 `.task/`」）。
+2. **缺 B 必出错**：仅读 A 不读 B 能否产出对的结果？答否——典型为 A 写"怎么做"、B 写"在哪做 / 用哪份输入"。
+3. **共享落盘目标**：A、B 写同一组文件且 B 定义写盘格式（如 `.task/`、`.Knowledge/topics/`）。
+4. **fallback 跳转 B**：A 自身覆盖不全，按现有约定回落 B 兜底。
 
-**从单人布局迁移**：若磁盘仍有根级 `.task/active/` 与 `.task/todo.json`，而当前已解析出非 legacy 的 `TASK_ROOT=.task/<id>`，可在用户确认后将旧 `active/*` 与条目迁入新根（一次性）；未确认前 **不要** 自动挪动他人可能共用的根目录。
+**反向排除**（避免依赖膨胀）：
 
-## todo.json 结构
+- 仅术语相邻（都谈"知识库"）→ 不写依赖，靠 `index.md` 语义边界即可。
+- 跨主题信息互查（A 想"了解一下" B）→ 不写依赖，靠 `taskToTopicRules` 次高候选 + `expand` 补召回。
+- **概述 → 详情导航**：大功能主 topic 与其子模块 topic 之间是"关联/导航"关系，不是强前置依赖——子模块 topic 通过各自的 matcher 独立命中，不写 `A → B`；主 topic 正文里写子模块 stock-doc 的可点击链接作为导航入口。
+- **传递依赖不重复声明**：若 `A→B`、`B→C` 已成立，禁止再写 `A→C`（读 B 时会自然带上 C）。
 
-```json
-[
-  {
-    "name": "任务名称",
-    "folder": "TASK_ROOT/active/<task-name>/",
-    "keywords": ["关键词1", "关键词2"],
-    "linkedSkill": "f2s-kb-fix",
-    "createdAt": "YYYY-MM-DD",
-    "assignee": "<developerId 或 legacy>"
-  }
-]
-```
+**DAG 与最小化**：`topicDependencies` 必须是 DAG，禁止环；保持最小边集。
 
-`folder` 落盘时须写成真实相对路径（例如 `.task/alice/active/fix_foo/` 或 legacy 的 `.task/active/fix_foo/`）。`assignee` 建议写入当前 `developerId`（legacy 可写 `"legacy"` 或省略）。
+**判定时机**：终稿与新 / 改 topic 落盘后，扫正文中**反引号引用的其他 topic id 与规则文件名**，逐个套四问；命中即写入 `manifest-routing.topicDependencies`，**并在新 topic 正文显式写依赖声明**（见骨架第 4 条）。
 
-**写权约束**：`todo.json` 仅由主 agent 写，禁止子 agent 修改。
+## 5. 大功能拆分策略
 
-## 任务开始（代码变更前）
+当一个业务功能体量较大时，推荐「主 topic + 子 topic」结构，而非单个大 topic。
 
-0. 按上文解析并固定 **`TASK_ROOT`**（及 developerId / legacy）。
-1. 检查 `TASK_ROOT/todo.json` 是否存在活跃任务。
-2. 将用户输入与**该文件内**各条目 `keywords` 匹配（**禁止**读取其他 `TASK_ROOT`）：
-   - 命中一个 → 加载对应 `task.md`、`context.md`，**若存在** `user-todos.md` 则一并加载，展示剩余清单与未消用户代办
-   - 命中多个 → 列出候选，让用户选择
-   - 无命中 → 确认任务名称后创建新任务
-3. 创建新任务（无命中时）：
-   a. 确认任务名称（snake_case，简短描述变更内容）
-   b. 在 `TASK_ROOT/active/<task-name>/` 创建文件夹
-   c. 将本次工作步骤写入 `task.md`
-   d. 将涉及文件路径和相关资料链接写入 `context.md`
-   e. **创建 `user-todos.md`**（固定文件名，与 `task.md` 同目录）：见下文「`user-todos.md` 格式与写盘义务」；尚无代办时可写入占位说明
-   f. 在 `TASK_ROOT/todo.json` 新增条目（仅主 agent 写；`folder` 指向本任务目录）
+**何时拆分（软约束，满足任一评估是否需拆）**：
 
-## 执行中
+- 对应 stock-doc 超过 **300–500 行**：建议评估拆分，不强制阻断；
+- matcher `includeAny` 超过 **12 个**：主题过宽信号；
+- topic 正文包含超过 **3 个不相干职责域**的二级标题；
+- `f2s-kb-upgrade` 审计时发现同一 topic 被多种不相干任务类型反复命中。
 
-- 每完成一个步骤，**立即**用 `Edit` / `Write` 将 `task.md` 中对应 checkbox 由 `[ ]` 改为 `[x]`（与代码改动同等对待，**禁止**仅靠会话内口头宣称「已完成」代替磁盘更新）
-- 禁止批量勾选或跳步
-- **用户代办须落盘**：凡须任务责任人（用户）在本机、数据库、配置平台或流程上完成的项（例如执行 DDL/DML、填密钥、点审批、发版、补数据），**同一会话内**追加写入 `user-todos.md`（`Edit` 追加小节或列表项），**禁止**仅在对话里交代而不写入该文件；可与对话摘要并存，以磁盘文件为交接真值
+**拆分方式**：
 
-## 中断与会话结束（硬约束）
+- **主 topic**（`primary: feature`）：写业务闭环、入口边界、子模块索引，正文里用可点击 stock-doc 链接指向各细节文档；不写子模块的实现细节。
+- **子模块 topic**：按实际语义各自写 `feature` / `module` / `config` / `policy`，不预设类型；各自拥有独立 matcher，通过细分触发词独立命中。
+- **stock-doc**：允许长文；超过阈值时建议拆成多份 focused stock-doc（如 `<功能名>-业务规则_终稿.md`、`<功能名>-数据模型_终稿.md`），每份对应一个子 topic。
 
-- **长记忆以 `task.md` 的 checkbox 为真值**：下一会话通过「首个仍为 `[ ]` 的步骤」定位进度；未写盘则续作失真。
-- 本会话内每真实完成 `task.md` 所列一步：**当步**打钩，不得积压到归档前一次性勾选。
-- 若用户结束对话、工具流中断、或预计无法继续：在结束前至少打钩**已真实完成**的步骤，并在「## 备注」写明阻塞原因或「下一会话从步骤 N 继续」；**禁止**在未更新 `task.md` 的情况下直接结束（否则等同丢失进度信号）。
-- 中断前若本会话已识别出**用户代办**：**必须**写入或追加到 `user-todos.md`，避免下一会话丢失「交给用户的事」。
-- 若本会话为子任务创建过 **`git worktree`** 或等价隔离目录：结束前按 **`f2s-flow2spec-unified-entry`**「Git worktree 与子任务工作目录卫生」完成移除或写明残留路径与删除命令（必要时写入 `user-todos.md`）。
+**不要做的事**：
 
-## 任务完成
+- 不用 `topicDependencies` 表达"概述 → 详情"导航关系（见第 4 节反向排除）；
+- 不为拆分而强行制造子 topic，若子模块本身不会被独立路由命中，不必建 topic。
 
-**归档门禁（须先于移动目录自检）**：
+## 6. rule 是否需新建对应 topic
 
-- 将目录移入 `completed/` **当且仅当** `task.md` 的「## 步骤」下，与本次交付相关的条目**全部为 `[x]`**（或用户明确取消的项已在「## 备注」说明，且对应列表项已改为 `[x]` / 已删除该项并注明取消）。
-- `task.md` 全部 `[x]` 后、移动目录前，**必须**已生成或更新 `acceptance.md`（见下文「acceptance.md 格式与写盘义务」）；缺失 `acceptance.md` 或仍为创建任务时的占位说明 → 视为门禁未过，禁止归档。
-- 若仍存在 `[ ]`：**禁止**移动 `active` → `completed/`、**禁止**从 `todo.json` 删除该条目；应先回到「执行中」补完或改清单后再归档。
+判据：**该 rule 是否会作为用户任务路由命中**。
 
-完成上述门禁后：
+- **会**（用户问 / 输入会触发该规则的执行）→ 须在 `.Knowledge/topics/` 建对应路由摘要，并在 `taskToTopicRules` 配置入口。例：`f2s-task`（变更追踪用户场景命中）、`f2s-implement-tech-design`（"按方案实现"用户场景命中）。
+- **不会**（仅被其他规则 / SKILL 内部引用，用户不会直接发起）→ **不建** topic。例：`f2s-knowledge-preflight`、`f2s-karpathy-guidelines`、`f2s-config-check`、本条 `f2s-topic-authoring`。
 
-1. 将 `TASK_ROOT/active/<task-name>/` 整体移至 `TASK_ROOT/completed/<YYYYMMDD>-<task-name>/`
-2. 从 `TASK_ROOT/todo.json` 删除该条目
-3. 若 `todo.json` 变为空数组，删除该文件
+误区：「重要的规则就该有 topic」——重要不等于"用户路由命中"；让消费方 SKILL 在正文里直接 `Read rules/<id>.*` 全文即可，无需走 manifest 路由。
 
-## 新会话续作
+## 7. 写盘权属（指针）
 
-新会话开始时，先解析 **`TASK_ROOT`**；若存在 `TASK_ROOT/todo.json`：
-
-1. **仅**读取该文件中的活跃任务（禁止合并其他 developer 的 todo）
-2. 将用户首条消息与各条目 `keywords` 匹配
-3. 命中则展示剩余 checklist，**若存在 `user-todos.md` 则摘要其中仍为 `- [ ]` 的用户代办**；**若存在 `acceptance.md` 则提示其当前形态**（占位 / 已成稿；归档前必须成稿）；提示「检测到未完成任务，是否继续？」
-4. 用户确认后：**若 `linkedSkill` 非空，先加载对应技能规则文件（配置根 `skills/<linkedSkill>/SKILL.md`）作为执行上下文**，再按 `task.md` 剩余步骤继续——技能的落盘约束、文风规则、自检清单全部生效，与首次调用一致
-5. 无命中则不打扰，正常响应
-
-**孤儿 `active/`（`todo.json` 缺失或损坏）**：若**当前 `TASK_ROOT`** 下仍存在 `active/<task-name>/` 且其中 `task.md` 含未勾选步骤，应 `Read` 该 `task.md` 并提示用户是否续作；续作前宜按「任务开始」一节恢复或补写 `todo.json`（仅主 agent）。**禁止**扫描其他 `.task/<otherId>/active/` 当作孤儿续作。
-
-## task.md 格式
-
-```markdown
-# <任务名>
-
-## 步骤
-- [ ] 步骤1
-- [ ] 步骤2
-- [x] 步骤3（已完成）
-
-## 备注
-<执行中的发现、决策等>
-```
-
-## context.md 格式
-
-```markdown
-# <任务名> 上下文
-
-## 涉及文件
-- `src/<模块>/callback.js`
-- `src/<模块>/retry.js`
-
-## 相关资料
-- `.Knowledge/req-docs/<能力>-spec.md`
-- `.Knowledge/stock-docs/<能力>-arch.md`
-
-## 用户代办清单
-- 见同目录 `user-todos.md`（须用户执行的项统一写在该文件，勿仅在对话中罗列）
-
-## 验收
-- 见同目录 `acceptance.md`（task.md 全部 `[x]` 后、归档前生成）
-```
-
-## user-todos.md 格式与写盘义务
-
-**路径**：`TASK_ROOT/active/<task-name>/user-todos.md`（归档后位于 `TASK_ROOT/completed/<YYYYMMDD>-<task-name>/user-todos.md`）。**固定文件名** `user-todos.md`，便于 Hook 与脚本引用。
-
-**用途**：汇总 **Agent 无法代劳**、必须由用户（或持权人在平台）完成的项，例如：
-
-- 在指定环境执行 SQL / 迁移脚本（可引用 `req-docs` 或仓库内 `.sql` 路径）
-- 配置中心 / 环境变量 / 密钥 / 白名单
-- 发布、审批、工单、外部系统开关
-
-**写盘义务**：
-
-1. **创建任务时**（`f2s-task`「任务开始」步骤 3.e）：创建该文件；可含简短说明 + 空列表。
-2. **执行中**：每出现一类新的用户代办，**当次**追加（推荐按日期分二级标题 `## YYYY-MM-DD`，下列 `- [ ]` 可勾选项或步骤编号）。
-3. **与 `task.md` 分工**：`task.md` 管 Agent 侧步骤 checkbox；`user-todos.md` 管用户侧待办；**勿**把「仅用户可执行」的长操作说明只写在 `task.md` 步骤正文代替本文件。
-4. **续作**：加载任务时 `Read` 本文件，向用户展示仍未勾选的 `- [ ]` 项（若有）。
-
-**示例结构**：
-
-```markdown
-# 用户代办清单
-
-> Agent 追加；用户完成后可将对应 `- [ ]` 改为 `- [x]` 或删除该行。
-
-## 2026-05-09
-
-- [ ] 在目标环境执行：`.Knowledge/req-docs/xxx.sql`（先备份）
-- [ ] 在配置中心打开功能开关 `feature.foo.enabled`
-
-## 2026-05-10
-
-- [ ] 生产发版后回写实际版本号到本文档备注
-```
-
-## acceptance.md 格式与写盘义务
-
-**路径**：`TASK_ROOT/active/<task-name>/acceptance.md`（归档后位于 `TASK_ROOT/completed/<YYYYMMDD>-<task-name>/acceptance.md`）。**固定文件名** `acceptance.md`，与 `task.md` / `user-todos.md` 同目录。
-
-**用途**：Agent 在 `task.md` 全部 `[x]` 后、归档前，依据本次实际交付沉淀的**验收清单**：用户照单逐项核对就能确认「这次任务真的做完了」。与 `user-todos.md` **职责分离**：
-
-| 文件 | 谁在做 | 内容焦点 |
-| --- | --- | --- |
-| `task.md` | Agent | 实现步骤的进度 checkbox |
-| `user-todos.md` | 用户 | **代办**：Agent 做不了、必须用户在外部（库 / 平台 / 审批）执行的事 |
-| `acceptance.md` | 用户 | **验收**：本轮 Agent 已交付项，用户核对是否真的可用 |
-
-**生效范围**：凡使用 `.task/` 的任务均生成（自动模式 `changeTracking.feat` / `fix` / `implement` 命中、以及显式模式 `f2s-req-plan`）；不区分技能。
-
-**写盘义务**：
-
-1. **创建任务时**（`f2s-task`「任务开始」步骤 3.e 之后）：**可同时创建** `acceptance.md` 并写占位说明（如「task.md 全部 `[x]` 后由 Agent 在此填入验收清单」）；尚未实现时**不得**预先写入验收点，避免与最终交付脱节。
-2. **执行中**：原则上**不写**；若交付边界发生重大变化，可在「## 备注」一行记录，最终成稿时再统一整理。
-3. **task.md 全部 `[x]` 后、归档前**（**必写**）：Agent 基于本次实际改动整理为正式验收清单；占位说明须被替换为成稿。**这是归档门禁**（见「任务完成」）。
-4. **续作**：加载任务时 `Read` 本文件，向用户展示当前形态（占位 / 已成稿）。
-
-**内容形态**：可勾选 `- [ ]` 列表 + 验收方式。每项形如：
-
-```markdown
-- [ ] <验收点：交付了什么>（验收方式：<查看哪份文件 / 跑哪条命令 / 看哪个页面>）
-```
-
-按交付域分二级标题分组（如 `## 代码`、`## 规则与知识库`、`## 任务清单本体`）。**勿**重复列 `task.md` 的执行步骤；**勿**把 `user-todos.md` 中「用户代办」搬入此处。
-
-**示例结构**：
-
-```markdown
-# 验收清单
-
-> Agent 整理；用户核对后可将对应 `- [ ]` 改为 `- [x]`。
-
-## 代码
-
-- [ ] `src/<模块>/<文件>.ts`：<改动点>（验收方式：阅读该文件 / 跑 `npm test -- <文件>`）
-
-## 规则与知识库
-
-- [ ] `.Knowledge/topics/<topic>.md`：<新增/修订说明>（验收方式：打开该文件确认章节齐全）
-- [ ] `.Knowledge/manifest-routing.json`：<是否变更与原因>（验收方式：阅读对应字段）
-
-## 任务清单本体
-
-- [ ] `TASK_ROOT/completed/<YYYYMMDD>-<task-name>/` 目录齐全：`task.md` / `context.md` / `user-todos.md` / `acceptance.md`
-- [ ] `TASK_ROOT/todo.json` 已删除对应条目（或文件已删除，若数组变空）
-```
-
-## 推荐 Hook 配置（Claude Code）
-
-在项目 `.claude/settings.json` 中添加，每次文件变更前将活跃任务注入上下文（示例为 **legacy** 单根；多人请改为当前 `TASK_ROOT/todo.json`，或在命令内按 `flow2spec.config.json` + git 解析路径）：
-
-```json
-{
-  "hooks": {
-    "PreToolUse": [{
-      "matcher": "Edit|Write",
-      "hooks": [{
-        "type": "command",
-        "command": "node -e \"try{const f='.task/todo.json',fs=require('fs');if(fs.existsSync(f)){const t=JSON.parse(fs.readFileSync(f,'utf8'));if(t.length)console.log('[task] 活跃任务: '+t.map(x=>x.name).join(', '))}}catch(e){}\" 2>/dev/null || true"
-      }]
-    }]
-  }
-}
-```
+`manifest-routing.json` / `.Knowledge/index.md` / `.Knowledge/topics/*.md` 的写权约束**以 `f2s-flow2spec-unified-entry` 与各 SKILL 内「写权硬约束」为准**，本条不复述；遇分歧以统一入口与对应 SKILL 为准。
 
 ## 禁止项
 
-- 禁止子 agent 写入 `todo.json`
-- 禁止在所有步骤完成前将任务移至 `completed/`
-- 禁止批量勾选 checkbox（必须逐步勾选）
-- 禁止在 `changeTracking.feat` / `changeTracking.fix` / `changeTracking.implement` 均为 `false` 或字段不存在时创建任务目录（`f2s-req-plan` 不受此约束）
-- 禁止在已使用任务清单的流程中，将「须用户执行的代办」**仅**写在对话或仅写在 `task.md` 而**不**追加到 `user-todos.md`（无代办时文件可保持占位说明）
-- 禁止在 `acceptance.md` 仍为占位说明、或缺失该文件时归档；禁止把 `user-todos.md`（用户代办）与 `acceptance.md`（用户验收）合并写入同一文件
-- 禁止在任务实现完成前预先写入具体验收点（仅可写占位说明），避免与实际交付脱节
-- **禁止**为匹配/续作遍历其他 developer 的 `.task/<otherId>/` 或合并多人 `todo.json`
-- **禁止**在未解析 `TASK_ROOT` 的情况下默认写入仓库根 `.task/active/`（除非当前解析结果即为 legacy `.task`）
+- 在未读本条的情况下新增 / 修改 topic 或 `topicDependencies`。
+- 为补分类单独创建、重命名或拆分 topic。
+- 在 topic 正文或 `index.md` 中写 `## 概念分类` 等 metadata 副本。
+- 把"重要的规则"硬塞进 `taskToTopicRules`（参见第 4 条）。
+- 用 `topicDependencies` 表达"信息相关"（应通过 `index.md` 语义边界 + matcher 关键词补召回，而非依赖边）。
+- 在 `topicDependencies` 中写传递冗余边或形成环。
+- **在 topic 的「长文背景 / 详细资料 / 相关资料 / 长文来源 / 参考文档」等指向长文源的整节引用槽位里，列出 `.Knowledge/req-docs/*`**（含澄清 / 技术方案 / SQL / PRD）。此类槽位只允许指向 `.Knowledge/stock-docs/*_终稿.md`；无终稿时须先生成再回填。短句/佐证式的偶发点引不受此约束。
 
 ---
 > Source: [double-coding-lab/Flow2Spec-DeepSeek-Harness](https://github.com/double-coding-lab/Flow2Spec-DeepSeek-Harness) — distributed by [TomeVault](https://tomevault.io).
