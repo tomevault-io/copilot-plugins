@@ -1,0 +1,9 @@
+{
+  "name": "douglas168--open-genoffice",
+  "displayName": "open-genoffice",
+  "description": "GenOffice fork with a provider-agnostic AI slot \u2014 bring your own local LLM or OpenRouter key",
+  "version": "1.0.0",
+  "author": "douglas168",
+  "homepage": "https://github.com/douglas168/open-genoffice",
+  "skills": []
+}
