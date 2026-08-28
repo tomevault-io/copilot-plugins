@@ -4,7 +4,7 @@
   "repo": "expo-mobile-template",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kitariel/expo-mobile-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T05:12:25Z"
+  "distributed_at": "2026-08-28T15:27:11Z"
 }
