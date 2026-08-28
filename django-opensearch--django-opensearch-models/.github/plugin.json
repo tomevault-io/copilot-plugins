@@ -1,0 +1,9 @@
+{
+  "name": "django-opensearch--django-opensearch-models",
+  "displayName": "django-opensearch-models",
+  "description": "Index your Django models in OpenSearch and keep them in sync automatically.",
+  "version": "1.0.0",
+  "author": "django-opensearch",
+  "homepage": "https://github.com/django-opensearch/django-opensearch-models",
+  "skills": []
+}
