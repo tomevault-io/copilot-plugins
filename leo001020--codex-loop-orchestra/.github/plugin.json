@@ -1,0 +1,9 @@
+{
+  "name": "leo001020--codex-loop-orchestra",
+  "displayName": "codex-loop-orchestra",
+  "description": "A control loop that turns Codex subagents into a continuously refilled engineering team\u2014with isolated workers, independent model review, headless scale, and a live dashboard.",
+  "version": "1.0.0",
+  "author": "LEO001020",
+  "homepage": "https://github.com/LEO001020/codex-loop-orchestra",
+  "skills": []
+}
