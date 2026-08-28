@@ -1,0 +1,9 @@
+{
+  "name": "arch3rpro--dsh-skills",
+  "displayName": "dsh-skills",
+  "description": "Generalized development-specification skills distilled from DeepSeek Harness's engineering conventions \u2014 defensive patterns, code conventions, testing tiers, prose standards, decision records, review ",
+  "version": "1.0.0",
+  "author": "arch3rPro",
+  "homepage": "https://github.com/arch3rPro/dsh-skills",
+  "skills": []
+}
