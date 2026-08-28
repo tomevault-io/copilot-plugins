@@ -1,0 +1,9 @@
+{
+  "name": "genemichael--rns-gateway",
+  "displayName": "rns-gateway",
+  "description": "Reticulum (RNS) gateway over MeshCore LoRa mesh \u2014 single Heltec V4 device: embedded microReticulum transport, on-device TCP server for RNS clients, MeshCore channel as long-haul transport",
+  "version": "1.0.0",
+  "author": "genemichael",
+  "homepage": "https://github.com/genemichael/rns-gateway",
+  "skills": []
+}
