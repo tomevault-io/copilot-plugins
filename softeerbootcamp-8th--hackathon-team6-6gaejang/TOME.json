@@ -1,0 +1,44 @@
+{
+  "name": "HACKATHON-TEAM6-6GaeJang",
+  "owner": "softeerbootcamp-8th",
+  "repo": "HACKATHON-TEAM6-6GaeJang",
+  "description": "Softeer 8\uae30 6\ud300 \ud574\ucee4\ud1a4",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/softeerbootcamp-8th/HACKATHON-TEAM6-6GaeJang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T08:53:02Z"
+}
