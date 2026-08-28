@@ -1,0 +1,44 @@
+{
+  "name": "ai-video-director-skill",
+  "owner": "yomage-ai",
+  "repo": "ai-video-director-skill",
+  "description": "\u5f00\u6e90 AI \u53e3\u64ad\u89c6\u9891\u526a\u8f91\u5bfc\u6f14 Skill | Bilingual AI video director for talking-head editing, B-roll, captions and delivery.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yomage-ai/ai-video-director-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T13:07:26Z"
+}
