@@ -1,0 +1,9 @@
+{
+  "name": "hegjon--omarchy-passwordstore",
+  "displayName": "omarchy-passwordstore",
+  "description": "pass, the standard unix password manager, as an Omarchy launcher",
+  "version": "1.0.0",
+  "author": "hegjon",
+  "homepage": "https://github.com/hegjon/omarchy-passwordstore",
+  "skills": []
+}
