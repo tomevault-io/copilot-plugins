@@ -1,0 +1,9 @@
+{
+  "name": "port-labs--port-cli",
+  "displayName": "port-cli",
+  "description": "CLI for Port \u2014 enables developers to interact and manage Port programmatically.",
+  "version": "1.0.0",
+  "author": "port-labs",
+  "homepage": "https://github.com/port-labs/port-cli",
+  "skills": []
+}
