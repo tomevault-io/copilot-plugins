@@ -1,0 +1,9 @@
+{
+  "name": "harshilmathur--sparklab",
+  "displayName": "sparklab",
+  "description": "DeepSeek-V4-Flash on 1-2 NVIDIA DGX Sparks, measured honestly: 65.8 tok/s single-stream, 1M-token context certified, 24h soak \u2014 benchmark harness, every raw CSV, and the operational laws learned the h",
+  "version": "1.0.0",
+  "author": "harshilmathur",
+  "homepage": "https://github.com/harshilmathur/sparklab",
+  "skills": []
+}
