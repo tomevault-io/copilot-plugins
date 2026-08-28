@@ -1,0 +1,9 @@
+{
+  "name": "snowfluke--indo-g2p",
+  "displayName": "indo-g2p",
+  "description": "Indonesian grapheme-to-phoneme (G2P) and phonemizer for text-to-speech. Converts Bahasa Indonesia text to IPA phonemes, splits words into syllables, resolves schwa and glottal stops. Zero dependencies",
+  "version": "1.0.0",
+  "author": "snowfluke",
+  "homepage": "https://github.com/snowfluke/indo-g2p",
+  "skills": []
+}
