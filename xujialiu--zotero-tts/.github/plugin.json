@@ -1,0 +1,9 @@
+{
+  "name": "xujialiu--zotero-tts",
+  "displayName": "Zotero-TTS",
+  "description": "Enhances Zotero 10's Read Aloud: more voices (OpenAI-compatible servers, Azure Speech, local Kokoro), word and sentence highlighting at once in your own colors, speed and navigation shortcuts, one voi",
+  "version": "1.0.0",
+  "author": "xujialiu",
+  "homepage": "https://github.com/xujialiu/Zotero-TTS",
+  "skills": []
+}
