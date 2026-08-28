@@ -1,56 +1,68 @@
-## typescript-conventions
+## development-workflow
 
-> TypeScript coding conventions and style guidelines
+> Development workflow and common commands
 
 
-# TypeScript Conventions
+# Development Workflow
 
-## Module System
+## Prerequisites
 
-- This is an ESM project (`"type": "module"` in package.json).
-- Always use ES module `import`/`export` syntax — never `require()`.
-- When importing local modules, include the `.js` extension (TypeScript compiles `.ts` → `.js`):
-  ```typescript
-  import { Agent } from "./agent/agent.js";
-  ```
+- Bun 1.0+ (required)
 
-## TypeScript Configuration
+## Common Commands
 
-- Target: ES2022, Module: ESNext, JSX: react
-- `strict: false` and `noImplicitAny: false` — the codebase does not enforce strict mode.
-- `moduleResolution: "Bundler"` is used.
-- Source files live in `src/`, compiled output goes to `dist/`.
+```bash
+# Install dependencies
+bun install
 
-## Type Practices
+# Development (runs from source with Bun)
+bun run dev
 
-- Prefer explicit interfaces for public API boundaries (e.g. `ChatEntry`, `ToolResult`, `AgentToolCall`).
-- Use `type` imports when importing only types:
-  ```typescript
-  import type { ChatCompletionMessageParam } from "openai/resources/chat";
-  ```
-- `any` is acceptable where strict typing would add friction, but prefer narrower types when practical.
-- Shared types belong in `src/types/index.ts`.
+# Build (compile TypeScript to dist/)
+bun run build
 
-## Naming Conventions
+# Type checking (no emit)
+bun run typecheck
 
-- **Files**: kebab-case (`agent.ts`, `chat-interface.tsx`, `settings-manager.ts`).
-- **Classes**: PascalCase (`Agent`, `TextEditorTool`, `BashTool`).
-- **Interfaces/Types**: PascalCase (`ChatEntry`, `ToolResult`, `StreamingChunk`).
-- **Functions/variables**: camelCase (`processUserMessage`, `loadApiKey`).
-- **Constants**: camelCase or UPPER_SNAKE_CASE for true constants (`AGENT_TOOLS`).
+# Linting
+bun run lint
 
-## Error Handling
+# Format (check / write)
+bun run format
+bun run format:fix
 
-- Catch errors as `error: any` and access `.message` for display.
-- Tool execution methods return `ToolResult` objects (`{ success, output?, error? }`) rather than throwing.
-- Use `process.exit(1)` for fatal CLI errors.
+# Run the built CLI
+bun run start
+```
 
-## ESLint Rules
+## Environment Variables
 
-- `@typescript-eslint/no-unused-vars`: error
-- `@typescript-eslint/no-explicit-any`: warn
+| Variable | Required | Description |
+|----|----|----|
+| `BTCH_API_KEY` | Yes | API key for the OpenAI-compatible endpoint |
+| `BTCH_BASE_URL` | No | Custom API endpoint (default: `https://ai.tioo.eu.org/v1`) |
+| `BTCH_MODEL` | No | Model override (defaults to the first model fetched from the endpoint) |
+| `BTCH_MAX_TOKENS` | No | Max tokens per response (default: 16384) |
 
-Run `bun run lint` to check and `bun run typecheck` to verify types.
+Copy `.env.example` to `.env` and fill in your values.
+
+## Git hooks
+
+After `bun install`, **Husky** installs a **pre-commit** hook that runs **`lint-staged`**: Biome **format + lint** (`check --write`) on staged `*.{ts,tsx,js,mjs,cjs,json}` files. Fixes are written to disk and re-staged automatically when possible.
+
+## Before Submitting Changes
+
+1. Run `bun run typecheck` — CI enforces this on every PR.
+2. Run `bun run lint` — fix any Biome issues (or let pre-commit apply safe fixes).
+3. Ensure no secrets or `.env` files are committed.
+4. Follow the PR template in `.github/pull_request_template.md`.
+
+## Project Structure Conventions
+
+- Source code lives in `src/`, compiled output in `dist/` (gitignored).
+- The CLI entry point is `src/index.ts` which uses Commander.js for argument parsing.
+- UI is built with OpenTUI React (`@opentui/react`).
+- Only tool is bash — all file operations happen through shell commands.
 
 ---
 > Source: [hostinger-bot/btch-cli](https://github.com/hostinger-bot/btch-cli) — distributed by [TomeVault](https://tomevault.io).
