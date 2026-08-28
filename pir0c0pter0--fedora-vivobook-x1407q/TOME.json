@@ -4,7 +4,7 @@
   "repo": "fedora-vivobook-x1407q",
   "description": "Running Fedora Linux on ASUS Vivobook 14 X1407Q (Qualcomm Snapdragon X X1-26-100). Custom ISO, firmware extraction, DTB workarounds, DKMS fixes \u2014 and QNN/HTP inference running on the Hexagon NPU.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pir0c0pter0/fedora-vivobook-x1407q",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T15:39:47Z"
+  "distributed_at": "2026-08-28T23:34:06Z"
 }
