@@ -1,0 +1,9 @@
+{
+  "name": "wildpigking--codex-project-skill-manager",
+  "displayName": "codex-project-skill-manager",
+  "description": "Consent-first workspace governance for Codex: standardize future project locations and layouts, organize Skills, generate a routing menu, and improve workflows over time.",
+  "version": "1.0.0",
+  "author": "WildPigKing",
+  "homepage": "https://github.com/WildPigKing/codex-project-skill-manager",
+  "skills": []
+}
