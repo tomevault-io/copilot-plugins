@@ -1,0 +1,9 @@
+{
+  "name": "namedvivin--deepseek-harness-ide",
+  "displayName": "deepseek-harness-ide",
+  "description": "Independently maintained DeepSeek Harness derivative with a side-by-side Workspace IDE: file tree, CodeMirror editing, agent-to-file navigation, Markdown preview, and conflict-safe saves. Source-only ",
+  "version": "1.0.0",
+  "author": "NamedVivin",
+  "homepage": "https://github.com/NamedVivin/deepseek-harness-ide",
+  "skills": []
+}
