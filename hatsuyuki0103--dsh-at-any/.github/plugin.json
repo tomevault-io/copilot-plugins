@@ -1,0 +1,9 @@
+{
+  "name": "hatsuyuki0103--dsh-at-any",
+  "displayName": "dsh-at-any",
+  "description": "Codex-style @file mentions for DeepSeek Harness web GUI - all file formats, no index truncation",
+  "version": "1.0.0",
+  "author": "hatsuyuki0103",
+  "homepage": "https://github.com/hatsuyuki0103/dsh-at-any",
+  "skills": []
+}
