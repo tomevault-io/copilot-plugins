@@ -4,7 +4,7 @@
   "repo": "deepseek_harness_client",
   "description": "\u4e00\u6b3edeepseek-harness\u684c\u9762\u5ba2\u6237\u7aef\u7248\u9879\u76ee\uff0c\u66f4\u65b0\u80cc\u666f\u81ea\u5b9a\u4e49\u548capi\u4f59\u989d\u663e\u793a\u529f\u80fd",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/new-bee-666/deepseek_harness_client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T23:39:43Z"
+  "distributed_at": "2026-08-28T02:00:46Z"
 }
