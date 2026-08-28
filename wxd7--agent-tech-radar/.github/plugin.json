@@ -1,0 +1,9 @@
+{
+  "name": "wxd7--agent-tech-radar",
+  "displayName": "agent-tech-radar",
+  "description": "\u4ee5 AI \u4f1a\u8bdd\u63a2\u7d22\u4e0e\u88ab\u52a8\u77e5\u8bc6\u96f7\u8fbe\u4e3a\u53cc\u91cd\u8f93\u5165\uff0c\u4ee5\u8bc1\u636e\u548c\u5b9e\u9a8c\u6301\u7eed\u6821\u9a8c\u7684\u6280\u672f\u77e5\u8bc6\u8c03\u7814\u4e0e\u6c89\u6dc0\u56fe\u8c31\u3002",
+  "version": "1.0.0",
+  "author": "WXD7",
+  "homepage": "https://github.com/WXD7/agent-tech-radar",
+  "skills": []
+}
