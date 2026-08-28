@@ -1,0 +1,9 @@
+{
+  "name": "yapishu--matpro",
+  "displayName": "matpro",
+  "description": "matrix protocol client & server with federation on urbit",
+  "version": "1.0.0",
+  "author": "yapishu",
+  "homepage": "https://github.com/yapishu/matpro",
+  "skills": []
+}
