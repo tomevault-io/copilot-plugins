@@ -4,7 +4,7 @@
   "repo": "clinmesh",
   "description": "\u9762\u5411 Agent \u8bc4\u6d4b\u3001\u4ea7\u54c1\u9a8c\u8bc1\u548c\u533b\u7597\u4fe1\u606f\u7cfb\u7edf\u7814\u7a76\u7684\u4e2d\u56fd\u516c\u7acb\u533b\u9662 HIS \u865a\u62df\u73af\u5883\uff0c\u63d0\u4f9b FHIR R5 \u63a5\u53e3\u4e0e\u53ef\u91cd\u590d\u3001\u53ef\u5ba1\u8ba1\u7684\u5408\u6210\u4e1a\u52a1\u573a\u666f\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CaiZongyuan/clinmesh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T11:21:29Z"
+  "distributed_at": "2026-08-28T19:03:46Z"
 }
