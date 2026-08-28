@@ -1,0 +1,9 @@
+{
+  "name": "daronthedragon--wallet-forensics",
+  "displayName": "wallet-forensics",
+  "description": "Forensic report for any Ethereum or Solana address: realized PnL, fees burned, MEV extracted from you, approval risk, and what your bags are actually worth if you tried to sell them.",
+  "version": "1.0.0",
+  "author": "daronthedragon",
+  "homepage": "https://github.com/daronthedragon/wallet-forensics",
+  "skills": []
+}
