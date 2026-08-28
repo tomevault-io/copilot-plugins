@@ -1,0 +1,9 @@
+{
+  "name": "xerxes-2--janpo",
+  "displayName": "janpo",
+  "description": "In-browser LLM majhong arena: F# rule engine, BYOK, https://xerxes-2.github.io/janpo",
+  "version": "1.0.0",
+  "author": "Xerxes-2",
+  "homepage": "https://github.com/Xerxes-2/janpo",
+  "skills": []
+}
