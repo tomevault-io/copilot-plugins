@@ -1,0 +1,9 @@
+{
+  "name": "verifio-email--verifio",
+  "displayName": "verifio",
+  "description": "Email verification Infrastructure, An open-source alternative to ZeroBounce, Emailable ",
+  "version": "1.0.0",
+  "author": "verifio-email",
+  "homepage": "https://github.com/verifio-email/verifio",
+  "skills": []
+}
