@@ -1,0 +1,9 @@
+{
+  "name": "twiking--omasettings",
+  "displayName": "omasettings",
+  "description": "One window for every Omarchy setting, from Hyprland to your keybindings to tmux",
+  "version": "1.0.0",
+  "author": "twiking",
+  "homepage": "https://github.com/twiking/omasettings",
+  "skills": []
+}
