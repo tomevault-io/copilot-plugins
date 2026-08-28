@@ -1,0 +1,9 @@
+{
+  "name": "zeke--github-digest",
+  "displayName": "github-digest",
+  "description": "Scheduled Flue agent that emails you a daily GitHub digest",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/github-digest",
+  "skills": []
+}
