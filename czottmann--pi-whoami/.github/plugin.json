@@ -1,0 +1,9 @@
+{
+  "name": "czottmann--pi-whoami",
+  "displayName": "pi-whoami",
+  "description": "A `whoami` tool for pi, reporting the active provider, model, thinking level, and project dir of the current pi session.",
+  "version": "1.0.0",
+  "author": "czottmann",
+  "homepage": "https://github.com/czottmann/pi-whoami",
+  "skills": []
+}
