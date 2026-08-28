@@ -1,0 +1,9 @@
+{
+  "name": "diluka--dsh-agent-plugin-market",
+  "displayName": "dsh-agent-plugin-market",
+  "description": "DSH\uff08DeepSeek Harness\uff09\u63d2\u4ef6\uff1a\u4ee5 git \u4ed3\u5e93\u4e3a agent \u63d2\u4ef6\u5e02\u573a\uff0c\u5b89\u88c5\u5e76\u539f\u5730\u52a0\u8f7d Codex/Claude \u683c\u5f0f\u7684\u6280\u80fd",
+  "version": "1.0.0",
+  "author": "Diluka",
+  "homepage": "https://github.com/Diluka/dsh-agent-plugin-market",
+  "skills": []
+}
