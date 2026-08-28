@@ -1,0 +1,9 @@
+{
+  "name": "openzot--arcade",
+  "displayName": "arcade",
+  "description": "A software factory that makes browser games: zot designs, builds and playtests a new one every shift, then ships it unreviewed.",
+  "version": "1.0.0",
+  "author": "openzot",
+  "homepage": "https://github.com/openzot/arcade",
+  "skills": []
+}
