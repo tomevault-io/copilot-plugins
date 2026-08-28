@@ -4,7 +4,7 @@
   "repo": "Remit",
   "description": "Local-first multi-agent workbench for mathematical modeling | \u672c\u5730\u4f18\u5148\u7684\u591a\u667a\u80fd\u4f53\u6570\u5b66\u5efa\u6a21\u5de5\u4f5c\u53f0",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhou2030109-glitch/Remit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T16:39:33Z"
+  "distributed_at": "2026-08-28T17:19:55Z"
 }
