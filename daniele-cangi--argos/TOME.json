@@ -4,7 +4,7 @@
   "repo": "Argos",
   "description": "ARGOS \u2014 evidence-driven Polymarket probability intelligence research core. No execution surface.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Daniele-Cangi/Argos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T08:31:05Z"
+  "distributed_at": "2026-08-28T13:46:01Z"
 }
