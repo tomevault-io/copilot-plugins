@@ -1,0 +1,9 @@
+{
+  "name": "spyfighting--my-academic-skills",
+  "displayName": "my-academic-skills",
+  "description": "Agent skills for research work. Gated, human-in-the-loop protocols where every expert judgement is a checkpoint and every mechanical rule is a script. First skill: binder-design-campaign.",
+  "version": "1.0.0",
+  "author": "SPYfighting",
+  "homepage": "https://github.com/SPYfighting/my-academic-skills",
+  "skills": []
+}
