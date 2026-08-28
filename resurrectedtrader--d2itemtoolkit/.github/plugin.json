@@ -1,0 +1,9 @@
+{
+  "name": "resurrectedtrader--d2itemtoolkit",
+  "displayName": "D2ItemToolkit",
+  "description": "Reimplementation of Diablo II tooltip generation and item utilities",
+  "version": "1.0.0",
+  "author": "ResurrectedTrader",
+  "homepage": "https://github.com/ResurrectedTrader/D2ItemToolkit",
+  "skills": []
+}
