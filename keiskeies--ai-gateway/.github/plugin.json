@@ -1,0 +1,9 @@
+{
+  "name": "keiskeies--ai-gateway",
+  "displayName": "ai-gateway",
+  "description": "\ud83d\ude80 Cross-Platform AI API Aggregation & Intelligent Traffic Load Balancer - \u7edf\u4e00\u63a5\u5165 OpenAI/Anthropic/DeepSeek/Qwen \u7b49\u591a\u79cd AI \u5e73\u53f0\uff0c\u667a\u80fd\u6d41\u91cf\u8d1f\u8f7d\u5747\u8861",
+  "version": "1.0.0",
+  "author": "keiskeies",
+  "homepage": "https://github.com/keiskeies/ai-gateway",
+  "skills": []
+}
