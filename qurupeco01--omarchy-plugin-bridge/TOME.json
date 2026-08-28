@@ -1,0 +1,44 @@
+{
+  "name": "omarchy-plugin-bridge",
+  "owner": "Qurupeco01",
+  "repo": "omarchy-plugin-bridge",
+  "description": "A simple, fast bridge for supporting omarchy plugins on regular Arch + Hyprland Setups",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Qurupeco01/omarchy-plugin-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T19:49:10Z"
+}
