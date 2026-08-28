@@ -1,0 +1,9 @@
+{
+  "name": "aeidle--sealed",
+  "displayName": "Sealed",
+  "description": "One-time secret sharing. Encrypt a secret in your browser, get a link that self-destructs after a single read. The key never leaves the URL fragment, the server only ever stores ciphertext.",
+  "version": "1.0.0",
+  "author": "Aeidle",
+  "homepage": "https://github.com/Aeidle/Sealed",
+  "skills": []
+}
