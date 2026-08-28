@@ -1,0 +1,9 @@
+{
+  "name": "guiforge--bati",
+  "displayName": "bati",
+  "description": "Dark-fantasy fitness RPG built with Expo, React Native and Tamagui. Offline-first on SQLite: your workouts become quests, boss fights, and a village that grows out of what you actually lifted.",
+  "version": "1.0.0",
+  "author": "Guiforge",
+  "homepage": "https://github.com/Guiforge/bati",
+  "skills": []
+}
