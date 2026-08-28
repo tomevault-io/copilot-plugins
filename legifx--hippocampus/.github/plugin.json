@@ -1,0 +1,9 @@
+{
+  "name": "legifx--hippocampus",
+  "displayName": "hippocampus",
+  "description": "A memory daemon for your filesystem, and the file manager that grew out of it. It forgets, on purpose.",
+  "version": "1.0.0",
+  "author": "legifx",
+  "homepage": "https://github.com/legifx/hippocampus",
+  "skills": []
+}
