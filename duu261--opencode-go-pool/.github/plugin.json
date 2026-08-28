@@ -1,0 +1,9 @@
+{
+  "name": "duu261--opencode-go-pool",
+  "displayName": "opencode-go-pool",
+  "description": "CLIProxyAPI plugin for managing OpenCode Go account pools and quotas",
+  "version": "1.0.0",
+  "author": "duu261",
+  "homepage": "https://github.com/duu261/opencode-go-pool",
+  "skills": []
+}
