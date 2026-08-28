@@ -1,0 +1,9 @@
+{
+  "name": "nrikot--corporate-meeting-ai-scriber",
+  "displayName": "corporate-meeting-ai-scriber",
+  "description": "An advanced meeting assistant, powered by AI of your choice, that joins your calls, transcribes the audio and uses Retrieval-Augmented Generation (RAG) to generate Minutes of Meeting (MoM), action pla",
+  "version": "1.0.0",
+  "author": "nrikot",
+  "homepage": "https://github.com/nrikot/corporate-meeting-ai-scriber",
+  "skills": []
+}
