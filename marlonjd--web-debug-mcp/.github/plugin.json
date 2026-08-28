@@ -1,0 +1,9 @@
+{
+  "name": "marlonjd--web-debug-mcp",
+  "displayName": "web-debug-mcp",
+  "description": "Evidence-first local MCP debugger for React, Vite, Next.js, Chromium, and Safari: reproduce, inspect, replay, and verify web bugs in one bounded workflow.",
+  "version": "1.0.0",
+  "author": "MarlonJD",
+  "homepage": "https://github.com/MarlonJD/web-debug-mcp",
+  "skills": []
+}
