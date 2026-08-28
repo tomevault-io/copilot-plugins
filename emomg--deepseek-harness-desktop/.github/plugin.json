@@ -1,0 +1,9 @@
+{
+  "name": "emomg--deepseek-harness-desktop",
+  "displayName": "deepseek-harness-desktop",
+  "description": "DeepSeek Harness \u539f\u751f Windows \u684c\u9762\u5ba2\u6237\u7aef\uff08\u57fa\u4e8e Tauri 2 + Rust\uff0cMIT\uff09",
+  "version": "1.0.0",
+  "author": "emomg",
+  "homepage": "https://github.com/emomg/deepseek-harness-desktop",
+  "skills": []
+}
