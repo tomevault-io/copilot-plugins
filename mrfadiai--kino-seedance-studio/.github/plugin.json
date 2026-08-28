@@ -1,0 +1,9 @@
+{
+  "name": "mrfadiai--kino-seedance-studio",
+  "displayName": "kino-seedance-studio",
+  "description": "Open-source AI film studio: director agent + Seedance 2.5 (Atlas Cloud MCP / MuAPI) + CapCut-style timeline editor. Generate, QA, assemble, and export cinematic videos from your photos.",
+  "version": "1.0.0",
+  "author": "MrFadiAi",
+  "homepage": "https://github.com/MrFadiAi/kino-seedance-studio",
+  "skills": []
+}
