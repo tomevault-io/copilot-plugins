@@ -1,0 +1,9 @@
+{
+  "name": "evandrocabf--desktop-driver",
+  "displayName": "desktop-driver",
+  "description": "See, inspect and control desktop applications from the shell \u2014 an accessibility-tree CLI for AI agents, on Linux and macOS.",
+  "version": "1.0.0",
+  "author": "evandrocabf",
+  "homepage": "https://github.com/evandrocabf/desktop-driver",
+  "skills": []
+}
