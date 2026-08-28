@@ -1,0 +1,9 @@
+{
+  "name": "mayukh4--perch",
+  "displayName": "perch",
+  "description": "The Raspberry Pi desk dashboard you can talk to: widgets, touch, and a voice button wired to any AI including one running entirely on the Pi. No accounts, no cloud.",
+  "version": "1.0.0",
+  "author": "mayukh4",
+  "homepage": "https://github.com/mayukh4/perch",
+  "skills": []
+}
