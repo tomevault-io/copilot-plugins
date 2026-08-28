@@ -1,0 +1,9 @@
+{
+  "name": "jimy-r--agent-workspace-architecture",
+  "displayName": "agent-workspace-architecture",
+  "description": "Agent-ready knowledge architecture, run daily in Claude Code: turn a coding agent into a system you can hand work to and trust while you're away. Roles library, typed memory, hooks, scheduled agents, ",
+  "version": "1.0.0",
+  "author": "jimy-r",
+  "homepage": "https://github.com/jimy-r/agent-workspace-architecture",
+  "skills": []
+}
