@@ -1,0 +1,9 @@
+{
+  "name": "skilletmd--skillet",
+  "displayName": "skillet",
+  "description": "Registry and sync system for agent skills. Publish a skill once, run it in every agent runtime: Claude Code, Codex, Cursor, Windsurf, and any MCP client.",
+  "version": "1.0.0",
+  "author": "skilletmd",
+  "homepage": "https://github.com/skilletmd/skillet",
+  "skills": []
+}
