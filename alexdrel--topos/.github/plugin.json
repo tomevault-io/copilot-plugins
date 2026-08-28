@@ -1,0 +1,9 @@
+{
+  "name": "alexdrel--topos",
+  "displayName": "topos",
+  "description": "Topos - AI-Era ASCII Diagrams  - Direct graphical editing and rich visualization for plain-text ASCII diagrams, with Markdown integration, SVG/PNG export, CLI rendering, and coding-agent support.",
+  "version": "1.0.0",
+  "author": "alexdrel",
+  "homepage": "https://github.com/alexdrel/topos",
+  "skills": []
+}
