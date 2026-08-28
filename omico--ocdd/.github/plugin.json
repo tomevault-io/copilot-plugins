@@ -1,0 +1,9 @@
+{
+  "name": "omico--ocdd",
+  "displayName": "ocdd",
+  "description": "Omico Contract-Driven Development (OCDD) Specification",
+  "version": "1.0.0",
+  "author": "Omico",
+  "homepage": "https://github.com/Omico/ocdd",
+  "skills": []
+}
