@@ -1,0 +1,9 @@
+{
+  "name": "gentilfp--hunk-codeowners",
+  "displayName": "hunk-codeowners",
+  "description": "CODEOWNERS visibility in hunk",
+  "version": "1.0.0",
+  "author": "gentilfp",
+  "homepage": "https://github.com/gentilfp/hunk-codeowners",
+  "skills": []
+}
