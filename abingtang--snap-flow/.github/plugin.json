@@ -1,0 +1,9 @@
+{
+  "name": "abingtang--snap-flow",
+  "displayName": "snap-flow",
+  "description": "A native desktop app for region capture, OCR, translation, pinboard, and clipboard history. macOS now, Windows coming.",
+  "version": "1.0.0",
+  "author": "abingtang",
+  "homepage": "https://github.com/abingtang/snap-flow",
+  "skills": []
+}
