@@ -1,0 +1,9 @@
+{
+  "name": "callmesoul--deepseek-kanban-plugin",
+  "displayName": "deepseek-kanban-plugin",
+  "description": "DSH (DeepSeek Harness) \u4efb\u52a1\u770b\u677f\u63d2\u4ef6\uff1a\u4e3b\u673a\u72b6\u6001\u673a + git \u8c03\u5ea6 + \u6d4f\u89c8\u5668\u770b\u677f UI\uff0cagent \u81ea\u52a8\u6267\u884c\u4efb\u52a1\u3001\u5ba1\u6838\u540e\u81ea\u52a8\u5408\u5e76\u56de\u57fa\u7840\u5206\u652f",
+  "version": "1.0.0",
+  "author": "callmesoul",
+  "homepage": "https://github.com/callmesoul/deepseek-kanban-plugin",
+  "skills": []
+}
