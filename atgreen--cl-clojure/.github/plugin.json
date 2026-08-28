@@ -1,0 +1,9 @@
+{
+  "name": "atgreen--cl-clojure",
+  "displayName": "cl-clojure",
+  "description": "Common Lisp / Clojure interop via OpenLDK",
+  "version": "1.0.0",
+  "author": "atgreen",
+  "homepage": "https://github.com/atgreen/cl-clojure",
+  "skills": []
+}
