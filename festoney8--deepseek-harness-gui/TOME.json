@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-harness-GUI",
+  "owner": "festoney8",
+  "repo": "deepseek-harness-GUI",
+  "description": "DeepSeek Harness \u8d85\u7ea7\u8f7b\u91cf\u684c\u9762\u7248 APP\uff0c\u57fa\u4e8e Tauri \u5c01\u88c5\uff0c\u652f\u6301\u5347\u7ea7 DSH \u5185\u6838\u3001\u63d0\u4f9b\u514d\u5b89\u88c5\u4fbf\u643a\u7248",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/festoney8/deepseek-harness-GUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T00:07:15Z"
+}
