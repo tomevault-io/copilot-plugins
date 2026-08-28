@@ -1,0 +1,9 @@
+{
+  "name": "up1512001--conductor-hats",
+  "displayName": "conductor-hats",
+  "description": "Run any number of Claude Code or Codex accounts in Conductor, one per workspace. No signing in and out.",
+  "version": "1.0.0",
+  "author": "up1512001",
+  "homepage": "https://github.com/up1512001/conductor-hats",
+  "skills": []
+}
