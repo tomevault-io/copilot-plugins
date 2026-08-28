@@ -1,0 +1,9 @@
+{
+  "name": "milisp--keke-agent",
+  "displayName": "keke-agent",
+  "description": "Local-first AI coding agent & decoupled runtime in Rust. Zero-vendor lock-in, seam-isolated, and compatible with ACP.",
+  "version": "1.0.0",
+  "author": "milisp",
+  "homepage": "https://github.com/milisp/keke-agent",
+  "skills": []
+}
