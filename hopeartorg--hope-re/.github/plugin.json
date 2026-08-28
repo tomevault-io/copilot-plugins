@@ -1,0 +1,9 @@
+{
+  "name": "hopeartorg--hope-re",
+  "displayName": "hope-re",
+  "description": "A rewrite of the original Hope, an AI protection app, in Tauri to support cross-platform",
+  "version": "1.0.0",
+  "author": "HopeArtOrg",
+  "homepage": "https://github.com/HopeArtOrg/hope-re",
+  "skills": []
+}
