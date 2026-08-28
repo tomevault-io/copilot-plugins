@@ -7,11 +7,11 @@ The Raspberry Pi desk dashboard you can talk to: widgets, touch, and a voice but
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mayukh4/perch](https://github.com/mayukh4/perch).
+Original source: `AGENTS.md` in [mayukh4/perch](https://github.com/mayukh4/perch).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
