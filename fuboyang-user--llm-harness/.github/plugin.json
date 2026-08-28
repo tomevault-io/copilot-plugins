@@ -1,0 +1,9 @@
+{
+  "name": "fuboyang-user--llm-harness",
+  "displayName": "llm-harness",
+  "description": "basic on deepseek harness",
+  "version": "1.0.0",
+  "author": "fuboyang-user",
+  "homepage": "https://github.com/fuboyang-user/llm-harness",
+  "skills": []
+}
