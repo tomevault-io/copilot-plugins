@@ -7,11 +7,11 @@ A coding agent framework obsessively optimized for runtime lightness
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [itissika/litecode](https://github.com/itissika/litecode).
+Original source: `AGENTS.md` in [itissika/litecode](https://github.com/itissika/litecode).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
