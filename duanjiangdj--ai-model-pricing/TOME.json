@@ -1,0 +1,44 @@
+{
+  "name": "ai-model-pricing",
+  "owner": "duanjiangDJ",
+  "repo": "ai-model-pricing",
+  "description": "AI Model Pricing Database \u2014 collect pricing for every obtainable AI model across all billing models (per-token API incl. cache/batch, per-image, per-audio-second, per-request, credits, GPU, subscriptions, coding plans). Machine-readable versioned JSON + bilingual human-readable pages, auto-synced daily.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/duanjiangDJ/ai-model-pricing",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T19:23:26Z"
+}
