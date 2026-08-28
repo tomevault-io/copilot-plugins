@@ -1,0 +1,9 @@
+{
+  "name": "noirbright--dsh-llm-ollama",
+  "displayName": "dsh-llm-ollama",
+  "description": "Native Ollama Cloud provider and Web configuration plugin for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "NOirBRight",
+  "homepage": "https://github.com/NOirBRight/dsh-llm-ollama",
+  "skills": []
+}
