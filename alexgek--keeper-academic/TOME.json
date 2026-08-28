@@ -1,0 +1,44 @@
+{
+  "name": "keeper-academic",
+  "owner": "alexgek",
+  "repo": "keeper-academic",
+  "description": "A Pocket replacement that also knows what a DOI is. Save web articles to a clean reader, import papers from Zotero with their metadata and full text, search everything at once, and generate summaries with a local Ollama model that never sends your reading to the cloud. Runs on Cloudflare Workers + D1's free tier, or entirely on your machine.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alexgek/keeper-academic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:01:56Z"
+}
