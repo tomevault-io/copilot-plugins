@@ -1,0 +1,44 @@
+{
+  "name": "wizard",
+  "owner": "redhuntlabs",
+  "repo": "wizard",
+  "description": "Build AI spells for what you do - a meta-builder that turns recurring tasks into reusable workflows that any AI assistant can run.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/redhuntlabs/wizard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T14:35:32Z"
+}
