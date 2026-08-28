@@ -1,0 +1,9 @@
+{
+  "name": "othavi0--omarchy-agent-bar",
+  "displayName": "omarchy-agent-bar",
+  "description": "AI quota in your Omarchy bar. Claude, Codex, Amp and Grok chips with usage windows and reset countdowns.",
+  "version": "1.0.0",
+  "author": "othavi0",
+  "homepage": "https://github.com/othavi0/omarchy-agent-bar",
+  "skills": []
+}
