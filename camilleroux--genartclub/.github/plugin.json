@@ -1,0 +1,9 @@
+{
+  "name": "camilleroux--genartclub",
+  "displayName": "genartclub",
+  "description": "Website of the Generative Artists Club \u2014 a community of generative artists founded in 2019 as a Parisian salon. Built with Astro, one Markdown file per member.",
+  "version": "1.0.0",
+  "author": "camilleroux",
+  "homepage": "https://github.com/camilleroux/genartclub",
+  "skills": []
+}
