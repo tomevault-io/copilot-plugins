@@ -1,0 +1,9 @@
+{
+  "name": "danjdewhurst--dotclaude",
+  "displayName": "dotclaude",
+  "description": "My global agent config: CLAUDE.md linked as AGENTS.md for Codex and friends, shared agent skills, and the bash environment commands run in, symlinked from one repo and synced between machines",
+  "version": "1.0.0",
+  "author": "danjdewhurst",
+  "homepage": "https://github.com/danjdewhurst/dotclaude",
+  "skills": []
+}
