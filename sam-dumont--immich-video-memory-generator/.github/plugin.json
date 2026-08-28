@@ -1,0 +1,9 @@
+{
+  "name": "sam-dumont--immich-video-memory-generator",
+  "displayName": "immich-video-memory-generator",
+  "description": "Turn your Immich photo library into video memory compilations: pick a person, pick a year (or don't), get a video with music and smart cuts",
+  "version": "1.0.0",
+  "author": "sam-dumont",
+  "homepage": "https://github.com/sam-dumont/immich-video-memory-generator",
+  "skills": []
+}
