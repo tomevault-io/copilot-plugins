@@ -1,0 +1,9 @@
+{
+  "name": "railwayapp--domainconnect-go",
+  "displayName": "domainconnect-go",
+  "description": "Go implementation of the Domain Connect protocol",
+  "version": "1.0.0",
+  "author": "railwayapp",
+  "homepage": "https://github.com/railwayapp/domainconnect-go",
+  "skills": []
+}
