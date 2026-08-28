@@ -1,0 +1,9 @@
+{
+  "name": "leavemagic-cyber--earned-confidence",
+  "displayName": "earned-confidence",
+  "description": "A behavior contract for AI coding agents \u2014 every rule added after a real failure. Ships with a verifier agent that cannot edit what it judges.",
+  "version": "1.0.0",
+  "author": "leavemagic-cyber",
+  "homepage": "https://github.com/leavemagic-cyber/earned-confidence",
+  "skills": []
+}
