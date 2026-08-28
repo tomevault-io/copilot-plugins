@@ -4,7 +4,7 @@
   "repo": "friendsofconvex-yapper-leaderboard",
   "description": "Friends of Convex  twitter/x  YapperLeader Board",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/waynesutton/friendsofconvex-yapper-leaderboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T22:42:31Z"
+  "distributed_at": "2026-08-28T01:36:17Z"
 }
