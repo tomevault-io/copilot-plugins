@@ -1,0 +1,9 @@
+{
+  "name": "quzhi1--historyagentskills",
+  "displayName": "HistoryAgentSkills",
+  "description": "Use Agent Skills to search history source and answer questions",
+  "version": "1.0.0",
+  "author": "quzhi1",
+  "homepage": "https://github.com/quzhi1/HistoryAgentSkills",
+  "skills": []
+}
