@@ -1,19 +1,23 @@
-## 00-core
+## 01-pipeline
 
-> Core product rules for Subber
+> Transcription and translation pipeline
 
 
-# Core
+# Pipeline
 
-Desktop app locale: qualsiasi video parlato → trascrizione fedele → traduzione editoriale opzionale → SRT DaVinci.
+Ordine fisso:
 
-Stack: Tauri 2 + React + TS + Rust + FFmpeg + worker Python (faster-whisper). Architettura minima. Niente test framework, CI, microservizi, Docker, astrazioni premature.
+`video → FFmpeg audio → faster-whisper (task=transcribe) → traduzione contestuale su blocchi se le lingue differiscono → formatter SRT → export`
 
-Un task alla volta, app avviabile dopo ogni task. Prima di scrivere: leggi il codice esistente e integra. Non duplicare logica. Non anticipare il task N+1.
+Mai tradurre l’audio in un unico passaggio. Non usare Whisper `task=translate` come unico output.
 
-Non lanciare install/build/server/modelli. Elenca i comandi all’utente.
+Traduzione su contesto: segmento precedente + corrente + successivo.
 
-Dettaglio: `AGENTS.md`.
+Output per video: `{nome}.{lang}.txt`, `{nome}.{lang}.srt`, `{nome}.{output}.srt`, `{nome}.json`.
+
+JSON minimo: `start`, `end`, testo sorgente, testo tradotto, `speaker` se c’è, `confidence` se c’è.
+
+Glossario vincola ASR e traduzione: non alterare e non tradurre male i termini protetti.
 
 ---
 > Source: [AndreaZero/subber](https://github.com/AndreaZero/subber) — distributed by [TomeVault](https://tomevault.io).
