@@ -1,0 +1,9 @@
+{
+  "name": "mnemom--aip",
+  "displayName": "aip",
+  "description": "Agent Integrity Protocol \u2014 real-time thinking block analysis for AI agent alignment",
+  "version": "1.0.0",
+  "author": "mnemom",
+  "homepage": "https://github.com/mnemom/aip",
+  "skills": []
+}
