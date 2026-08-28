@@ -1,0 +1,9 @@
+{
+  "name": "tauruswood--dsh-plugin-appshot",
+  "displayName": "dsh-plugin-appshot",
+  "description": "dsh-plugin-appshot \u2014 a DeepSeek Harness plugin (tool template).",
+  "version": "1.0.0",
+  "author": "TaurusWood",
+  "homepage": "https://github.com/TaurusWood/dsh-plugin-appshot",
+  "skills": []
+}
