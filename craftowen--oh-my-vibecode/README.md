@@ -7,11 +7,11 @@ React Router 8 × Cloudflare Workers starter — auth, D1, streaming SSR and a g
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [craftowen/oh-my-vibecode](https://github.com/craftowen/oh-my-vibecode).
+Original source: `AGENTS.md` in [craftowen/oh-my-vibecode](https://github.com/craftowen/oh-my-vibecode).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
