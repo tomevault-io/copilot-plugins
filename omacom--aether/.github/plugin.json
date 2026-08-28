@@ -1,0 +1,9 @@
+{
+  "name": "omacom--aether",
+  "displayName": "aether",
+  "description": "Aether, native Omarchy theming support. Works standalone for other distros.",
+  "version": "1.0.0",
+  "author": "omacom",
+  "homepage": "https://github.com/omacom/aether",
+  "skills": []
+}
