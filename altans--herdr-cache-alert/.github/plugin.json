@@ -1,0 +1,9 @@
+{
+  "name": "altans--herdr-cache-alert",
+  "displayName": "herdr-cache-alert",
+  "description": "Herdr plugin: prompt-cache countdown on every agent pane, with every cache rule sourced and dated",
+  "version": "1.0.0",
+  "author": "AltanS",
+  "homepage": "https://github.com/AltanS/herdr-cache-alert",
+  "skills": []
+}
