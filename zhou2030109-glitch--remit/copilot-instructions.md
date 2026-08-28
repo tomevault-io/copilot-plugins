@@ -1,45 +1,63 @@
-## structure
+## ws-frontend-backend-interaction
 
-> - **frontend/**：前端，基于 Vue3 + TypeScript + Vite，主要负责用户界面与交互。
+> [backend/app/routers/ws.py](mdc:backend/app/routers/ws.py) 负责处理 WebSocket 连接，路由为 `/task/{task_id}`，用于前端与后端的实时消息通信。
 
-# 项目结构、核心功能与用户使用流程
+# WebSocket 前后端交互规则
 
-## 一、项目整体架构
+[backend/app/routers/ws.py](mdc:backend/app/routers/ws.py) 负责处理 WebSocket 连接，路由为 `/task/{task_id}`，用于前端与后端的实时消息通信。
 
-本项目采用前后端分离架构：
-- **frontend/**：前端，基于 Vue3 + TypeScript + Vite，主要负责用户界面与交互。
-- **backend/**：后端，基于 FastAPI，负责核心建模逻辑、任务调度与 WebSocket 通信。
-- **docker-compose.yml**：支持前后端及依赖服务的容器化部署。
-- **tools/**：Windows 桌面打包与生产启动工具链。
+- 连接建立后，后端会校验 `task_id` 是否存在于 Redis。
+- 若存在，后端会订阅 Redis 频道 `task:{task_id}:messages`，并通过 WebSocket 向前端推送消息。
+- 消息结构体依赖 [backend/app/schemas/response.py](mdc:backend/app/schemas/response.py) 中的 `AgentMessage`、`AgentType`、`SystemMessage`。
+- 后端通过 `ws_manager.send_personal_message_json` 方法将消息以 JSON 格式推送给前端。
+- 前端应监听 WebSocket 消息事件，解析 JSON 数据并进行相应处理。
+- 断开连接或异常时，后端会关闭 WebSocket 并取消 Redis 订阅。
 
-### 主要目录说明
-- `frontend/src/pages/`：核心页面，包括 home（入口）、task（任务工作台）。
-- `frontend/src/pages/task/components/`：任务工作台组件（ProjectWorkspaceShell 为主壳）。
-- `backend/app/routers/`：API 路由，`modeling_router.py` 负责建模任务，`ws_router.py` 负责 WebSocket 实时通信，`files_router.py` 负责文件上传管理，`common_router.py` 负责前端静态资源托管。
-- `backend/app/core/`：核心业务逻辑，如 RemitWorkFlow（建模主流程）、多 Agent 协作与文献/方法检索。
-- `backend/app/models/`、`schemas/`、`utils/`：数据模型、请求响应结构、工具函数等。
-
-## 二、核心功能
-1. **数学建模任务自动化**：用户上传数据集、输入题目，系统自动完成问题拆解、代码生成、论文撰写等。
-2. **多 Agent 协作**：后端通过 CoderAgent、ModelerAgent、CoordinatorAgent、WriterAgent 等智能体协作完成建模与写作。
-3. **WebSocket 实时推送**：任务进度、结果通过 WebSocket 实时推送到前端。
-4. **文献与方法检索**：内置三级方法知识库，自动推荐候选建模方法并生成方法卡片。
-5. **文件上传与管理**：支持多种数据文件上传，自动归档到任务工作目录。
-
-## 三、用户使用流程
-1. **进入主页面（home）**：登录后进入任务列表。
-2. **创建并提交建模任务**：
-   - 粘贴完整题目、上传数据文件、选择模板与输出格式。
-   - 前端调用 `/modeling/` API，后端生成 task_id，异步处理建模任务。
-3. **任务工作台查看**：
-   - 自动跳转到 `/task/{task_id}` 页面。
-   - 前端通过 WebSocket 订阅任务进度、审批与结果。
-   - 在 ProjectWorkspaceShell 中查看问题分析、文献、模型、代码、论文等分栏内容。
-4. **下载与后续操作**：支持结果文件下载与格式转换。
+该机制实现了任务级别的实时消息推送，前端需根据消息结构体进行解析和展示。
 
 ---
 
-如需详细 API 或组件说明，请参考 [frontend-rules.mdc](mdc:frontend-rules.mdc) 与 [backend-rules.mdc](mdc:backend-rules.mdc)。
+## WebSocket API 接口文档
+
+### 1. 连接接口
+- **URL**: `/task/{task_id}`
+- **协议**: WebSocket
+- **方法**: `GET`（升级为 WebSocket）
+- **路径参数**:
+  - `task_id`：任务唯一标识符
+- **连接流程**：
+  1. 前端发起 WebSocket 连接：`ws://<host>/task/{task_id}`
+  2. 后端校验 `task_id` 是否存在于 Redis。
+  3. 校验通过后建立连接，否则关闭连接并返回 code=1008。
+
+### 2. 消息推送
+- **推送时机**：后端监听 Redis 频道 `task:{task_id}:messages`，有新消息时推送。
+- **消息格式**：JSON，结构体定义见 [backend/app/schemas/response.py](mdc:backend/app/schemas/response.py)
+- **示例消息**：
+```json
+{
+  "type": "system", // 或 "agent"
+  "content": "任务开始处理",
+  "agent_type": "bot" // 可选，见 AgentType 定义
+}
+```
+- **字段说明**：
+  - `type`：消息类型（如 system/agent）
+  - `content`：消息内容
+  - `agent_type`：代理类型（可选）
+
+### 3. 断开与异常
+- **断开时机**：
+  - 前端主动断开
+  - 后端检测到异常或任务结束
+- **异常处理**：
+  - 若 `task_id` 不存在，后端关闭连接，code=1008，reason="Task not found"
+  - 其他异常，后端推送 error 字段的 JSON 消息
+
+### 4. 前端处理建议
+- 监听 WebSocket 消息事件，按 type/agent_type 解析内容
+- 断开时可自动重连或提示用户
+- 错误消息应友好展示
 
 ---
 > Source: [zhou2030109-glitch/Remit](https://github.com/zhou2030109-glitch/Remit) — distributed by [TomeVault](https://tomevault.io).
