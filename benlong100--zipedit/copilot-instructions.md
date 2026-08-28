@@ -1,0 +1,264 @@
+## zipedit
+
+> An 80-column, full-screen **Markdown** editor for the Enhanced Apple //e
+
+# a2-editor
+
+An 80-column, full-screen **Markdown** editor for the Enhanced Apple //e
+(128K, ProDOS 8), **written in** 6502 assembly in Merlin syntax. Files are
+drafted on the //e and moved back to a Mac for publishing.
+
+Note the distinction: this is a text editor *implemented in* assembly, not an
+editor *for* assembly source. It is aimed at prose. Hard wrap on entry, no soft
+wrap, and Markdown-aware emphasis shortcuts.
+
+See `docs/design.md` for the memory map, buffer design, and keymap.
+
+A splash screen shows at startup and waits for a key, and the editor then opens
+on an EMPTY document — the sample lives on the disk as `SAMPLE.MD`, which is
+where the suite gets its text. Anything driving the editor has to get past the
+splash first — `reboot` in the suite
+does that.
+
+## Toolchain
+
+Source lives here on the Mac and is cross-assembled; the //e never sees a
+source file we didn't generate.
+
+- **Merlin32** (`tools/merlin32`) — primary assembler. Built from
+  `apple2accumulator/merlin32`.
+- **AppleCommander 13.2** (`tools/ac`) — builds ProDOS disk images. Native
+  arm64 binary, so no JRE is required.
+- **Virtual ][ 11.4** — emulator, driven through AppleScript by `tools/vii.sh`.
+- **Merlin 8 v2.48 (DOS 3.3)** — `vendor/`, the user's original assembler. Kept
+  as the dialect reference, not used in the build.
+
+`tools/bootstrap.sh` reconstructs all of it on a fresh clone.
+
+## Commands
+
+```
+make            assemble $(SRC) with Merlin32
+make disk       build a bootable ProDOS 8 image at build/ZIPEDIT.po
+make run        build, boot in Virtual ][, print the screen
+make test       run the regression suite
+make pull       eject, then extract Markdown from the image into notes/
+make push       convert notes/*.md back onto the image as ProDOS TXT
+make eject      flush the mounted image to disk
+make clean
+```
+
+`SRC` defaults to `src/edit.S`, the editor itself. The spikes are still
+buildable and worth keeping: `make SRC=src/charset.S run` re-runs the character
+generator probe, `src/hello.S` is the minimal toolchain check.
+
+## Conventions
+
+- **Merlin dialect.** Merlin32 is Merlin 16+ flavoured and is not identical to
+  the Merlin 8 on the //e. Stay in the common subset: plain 6502, and the
+  directives `ORG EQU DFB DW DS ASC HEX LUP MAC EOM`. Treat Merlin 8 as ground
+  truth if the two ever disagree.
+- **Case and layout.** Lowercase mnemonics, labels in column 1, opcodes at
+  column 14, operands at column 20, comments at column 40 — matching the
+  Merlin house style in `src/hello.S`.
+- **Local labels** are `:name`, scoped to the enclosing global label.
+- **Never hand-edit the help screen hex.** `src/help.S` holds 42 rows of raw
+  screen codes and they are generated: edit the layout in `tools/genhelp.py`
+  and re-run it. It enforces the column stops, so a description that would
+  overrun the border fails there instead of shipping mangled.
+- **Line breaks come in three kinds.** `HARDCR` is a return the writer typed,
+  `SOFTCR` a wrap that replaced a space, `SOFTWD` a wrap inside a long word.
+  Only `HARDCR` reaches the file. Test for a line end with `cmp #TEXTLO / bcc`,
+  never `cmp #$8d` — a missed one is a break that some subsystem cannot see.
+- **Never hard-code a screen column.** The layout's columns -- the wrap
+  margin, the status row's fields, the prompt's hint, the help box's edge --
+  live in the record in `src/geom.S`, filled at startup from a table. An
+  equate compiled into the code that reads it is an 80-column assumption, and
+  there is a 40-column machine coming. Rows are different: 24 either way, so
+  `CHEATROW`, `STATROW` and `TEXTROWS` stay equates. `SCRW` survives only as
+  the size of the widest line we allocate.
+- **High ASCII.** Anything destined for the screen or for a text file has bit 7
+  set. `asc "..."` (double quotes) sets it; single quotes do not.
+
+## Keymap
+
+Arrows move by character and line. OA-up/OA-down page, OA-`<`/OA-`>` jump to
+the start and end of the document. Ctrl-A/Ctrl-E line ends, Ctrl-B bold (`**`),
+Ctrl-I italic (`*`), Ctrl-D delete forward. OA-R reflow, OA-S save, OA-O open,
+OA-C/OA-X/OA-V copy, cut and paste a line. OA-F find, OA-G find again, OA-L go
+to line, OA-W word count, OA-Delete deletes back to the start of the word. OA-N starts a new document and OA-Q quits, both asking first if the document
+is modified. OA-S saves to the document's own file and only prompts when it has
+no name yet; OA-A is save as, which always prompts and adopts the new name.
+Anything that replaces the document -- OA-N, OA-Q, OA-O -- must go through
+ASKUNSAVED first. OA-? (or OA-H) opens the keyboard help,
+which is two pages -- a key turns to page two, another leaves. OA-/ toggles the
+one-line cheat sheet, OA-Q quits. **OA-`'` types a backtick** -- no Apple II
+keyboard has a grave-accent key, so this is the only way in; three of them
+make a fence. The ][+ spells it `Esc '`, and draws it as an apostrophe because
+that character generator has no glyph for it. `$89` is both Tab and Ctrl-I and dispatches on
+position -- see `docs/design.md`.
+
+## Testing
+
+`tests/run.sh` boots the built image in Virtual ][ and asserts against both the
+emulated screen and emulated RAM. Prefer RAM assertions — `vii.sh dump <addr>
+<len> <bank>` reads the auxiliary bank, so tests can check the text buffer
+directly rather than inferring it from the display.
+
+Use `vii.sh await <substring>` rather than fixed delays; it fails loudly on
+timeout instead of silently reading a stale screen.
+
+## Selection
+
+OA-Space latches selection mode, the arrows paint, Esc cancels. Because the gap
+is at the cursor, a selection is always contiguous in aux — before the gap or
+after it, never split.
+
+**Do not try shift-arrow again.** `$C063` is widely documented as the //e's
+shift-key input but does not track the shift key on real hardware, and Virtual
+][ reads it as permanently held.
+
+## MouseText
+
+The help border and the Open Apple glyph come from MouseText, at screen codes
+`$40-$5F` with the alternate character set on. `make probe` builds a standalone
+disk that identifies the ROM and dumps the glyphs on real hardware; it confirmed
+Virtual ][ matches an Enhanced //e exactly, so glyph questions can be settled in
+the emulator. Useful codes: `$4C`/`$53`/`$5C` horizontal rules at three heights,
+`$5F` vertical, `$4E` solid block, `$5B` diamond, `$40`/`$41` solid and open
+apple. There are **no** corner or T-junction glyphs.
+
+Virtual ][ reads these codes back as the ASCII characters sharing their value,
+so tests assert `\` for `$5C`, `L` for `$4C`, `_` for `$5F` and `A` for `$41`.
+
+**MouseText only exists on an Enhanced //e.** The original keeps a second copy
+of inverse uppercase at `$40-$5F`, so those same codes draw as letters there.
+`src/machine.S` asks the CPU at startup -- decimal-mode `$99 + $01` is `$00` on
+a 65C02 and `$9A` on a 6502, and the enhancement came as a set -- and rewrites
+the help rows to `$20`, an inverse space, when MouseText is absent. `$41` is
+left alone: it lands on inverse `A`, which reads fine as the Apple key.
+
+Virtual ][ has no unenhanced //e, so `make plaindisk` patches an override byte
+into a second image (`tools/forceplain.py`) and the suite drives that. Only the
+detection itself still needs real hardware.
+
+## Gotchas discovered the hard way
+
+- `reset` in AppleScript is a *warm* reset and will not reboot from disk. Use
+  `restart` for a cold boot.
+- `tools/mkdisk.sh` clones the verified ProDOS image rather than formatting a
+  fresh volume, so the boot blocks are known-good. It strips the disk to just
+  `PRODOS` plus our `ZIPEDIT.SYSTEM`, and ProDOS auto-launches the only `.SYSTEM`
+  file present.
+- Never use `close every machine` in AppleScript — it would kill a Merlin
+  session the user has open. `vii.sh` only ever touches `last machine`.
+- ProDOS 8 puts `/RAM` in auxiliary memory on a 128K machine, which collides
+  with the text buffer. It has to be disconnected at startup. See `docs/design.md`.
+- `releases.prodos8.com` serves a GitHub Pages `*.github.io` certificate, so
+  HTTPS fails name validation. `bootstrap.sh` fetches over HTTP and verifies by
+  SHA-256 instead.
+- **Rebuilding a mounted image gets it clobbered.** Virtual ][ buffers writes
+  to a mounted image and flushes them on eject, so `make disk` on an image the
+  emulator still holds is undone the moment the next `boot` ejects it -- and
+  the editor then runs a stale binary. If a refactor moved code without
+  changing its size, the file and the image are the same length and nothing
+  looks wrong until the `toolchain` section compares them. `mkdisk.sh` ejects
+  the image first now.
+- **Only one test run at a time.** There is one front machine, so a second run
+  or a stray `boot` steers it out from under the first, and the failures land
+  in sections nothing touched. `tests/run.sh` takes a lock.
+- **Virtual ][ buffers writes to a mounted image until the disk is ejected.**
+  A file saved inside the emulator will not appear in the `.po` on disk until
+  then, so `make pull` ejects first.
+- **The Apple II keyboard has no buffer.** A ProDOS disk operation takes
+  seconds of emulated time, and anything typed while it runs is dropped
+  entirely. Tests must wait for an observable change rather than sleeping a
+  fixed interval -- this cost two false test failures. Where an operation still
+  prints a message, `vii.sh await` it; where it deliberately says nothing (a
+  successful save or load, a cut), wait for the status row to return or for the
+  text itself to change, and `vii.sh settle` before asserting.
+- ProDOS pathnames are length-prefixed and **low** ASCII, unlike everything
+  else on this machine, which is high ASCII.
+- **Virtual ][ cannot send an arrow key with Open-Apple held.** `type open
+  Apple` takes characters only, and ASCII 10 does not reach the machine as a
+  down arrow. OA-up/OA-down are therefore not verifiable from the suite; the
+  page handlers are `KUP`/`KDOWN` repeated, which the arrow tests do cover, but
+  the bindings themselves need checking by hand.
+- **`X` cannot hold a loop counter across `INSCHR`, `GAPLEFT` or `GAPRIGHT`.**
+  `GAPLEFT` and `GAPRIGHT` `TAX` the byte they read out of aux; `INSCHR` sets
+  `MODFLAG` through `X`. Count in memory. (`PUTAUX` used to belong on this list
+  and no longer does: it saved `A` across a soft-switch write, which `STA` never
+  disturbs in the first place.)
+- **The Makefile must depend on all of `src/*.S`, not just `$(SRC)`.** The rest
+  are pulled in with `put`, and depending on `$(SRC)` alone meant edits to them
+  silently did not rebuild — which produced a stale binary that looked like a
+  runaway bug in new code.
+- **Virtual ][ can leave a machine frozen**, after which every AppleScript
+  command fails with "Cannot perform this command while the machine is frozen"
+  and the screen reads back stale. `vii.sh boot` now thaws first; `vii.sh thaw`
+  does it on demand. A whole round of measurements was invalid before I spotted
+  this.
+- **Pin `keyboard delay`, not the speed.** It is a machine property -- seconds
+  Virtual ][ waits between AppleScript key presses -- and it defaults to `0.0`,
+  which injects keys faster than the editor can read them. The surplus queues
+  up, and that queue **survives `restart`**: reboot, send nothing at all, and
+  the cursor still walks across the screen on its own. One backlog took 33
+  seconds to drain, dribbling into later sections and failing tests that never
+  touched the code under test. `vii.sh boot` pins it to 0.2, which makes a
+  burst of 20 arrows land exactly on target with no shell sleeps at all, even
+  at `maximum`. Override with `VII_KEYDELAY` / `VII_SPEED`.
+- **`restart` resets both `speed` and `keyboard delay`** to the machine's saved
+  defaults, so pin them *after* the restart. Setting either first looks like it
+  worked and silently does nothing. At `maximum` a held key also auto-repeats,
+  so one `type key` can land as two or three keystrokes -- the keyboard delay
+  fixes that; dropping to `regular` does not.
+- **A scattered failure set means the harness, not the code.** Four runs of one
+  unchanged tree gave 1, 29, 10 and 31 failures across unrelated sections. The
+  31-failure run looked exactly like an editor regression and was not: every
+  one was a stale machine or a keystroke backlog. Drain to a known state and
+  re-run before believing any of it.
+- **Virtual ][ cannot deliver `$8A`.** Something between AppleScript and the
+  emulator turns a line feed into a carriage return, so Ctrl-J arrives as
+  `$8D` however it is sent -- `type control "J"` and `character id 10` alike.
+  The suite never noticed because it drives the down arrow with `key "down
+  arrow"`, one of the five real special keys, which works. So `$8A ->
+  KDOWNSEL` is exercised by the arrow key and is untestable via Ctrl-J. On
+  real hardware Ctrl-J does send `$8A` -- confirmed on a ][+ with
+  `make keyprobe` -- so the binding is sound and only the harness is blind to
+  it. Beware the trap this sets: a status row reading `L:6 C:1` looks the same
+  whether the cursor moved down five lines or five newlines were inserted.
+  Dump the buffer.
+- Typing costs a fixed ~100 ms plus ~0.035 ms per buffer byte, so tests must
+  never sleep a fixed interval for a multi-character string. Use `ktext`, which
+  waits for the text to appear.
+- **Do NOT benchmark the redraw with the arrow keys.** This entry used to say
+  exactly that, and it is wrong: an arrow press moves the cursor a whole LINE as
+  well as repainting, and the movement is nearly all of it. Timed that way a
+  full `RENDER` looks like 138-214ms -- the 1.1 table in the changelog is built
+  on those numbers -- and measured properly it is 2-3ms. Believing the wrong
+  figure sent an entire round of optimisation at the redraw, which was never the
+  cost; the reflow was, at ~72% of a mid-paragraph keystroke. Use a key that
+  repaints and does nothing else: an UNBOUND one, which `DISPATCH` ignores while
+  the main loop still draws. Timing a burst of typing is no good either, for the
+  opposite reason -- most keystrokes take the one-row path and never reach
+  `RENDER` at all, so it averages the redraw away. That is how "depth in the
+  document makes no difference" got measured, written into the source comments
+  and believed, while the machine was taking half a second an arrow key at line
+  112.
+- **Virtual ][ cannot reproduce a dropped keystroke.** The real keyboard has no
+  buffer and loses anything typed while the editor is busy; the emulator queues
+  injected keys and delivers every one however slow the editor gets. This also
+  means it cannot exercise the code that PREVENTS a loss: `KBPOLL`, and anything
+  that asks whether a key is waiting, sees an empty latch in the emulator almost
+  every time. Force the condition in a scratch build to measure it, and confirm
+  the behaviour on real hardware. So a
+  chars-per-second figure from the emulator describes throughput with a queue
+  behind it, never what the writer feels. "I have to type slowly or it drops
+  whole words" is a report the harness is structurally unable to make.
+- `ktext` waits for its whole string to appear on one row, so it can never
+  match text long enough to wrap. Type it with `"$VII" text` and `settle`
+  instead.
+
+---
+> Source: [benlong100/zipedit](https://github.com/benlong100/zipedit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
