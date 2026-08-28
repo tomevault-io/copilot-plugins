@@ -1,0 +1,9 @@
+{
+  "name": "lamantinai--mayak",
+  "displayName": "mayak",
+  "description": "A FastAPI backend template for services that are built and maintained by coding agents",
+  "version": "1.0.0",
+  "author": "LamantinAI",
+  "homepage": "https://github.com/LamantinAI/mayak",
+  "skills": []
+}
