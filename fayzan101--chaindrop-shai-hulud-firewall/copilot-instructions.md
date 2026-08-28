@@ -1,38 +1,39 @@
-## git-branches
+## git-commits
 
-> Branch naming, base branch, and when to create a branch
+> When and how to create git commits
 
 
-# Git branches
+# Git commits
 
-- Base all work on `main`. Do not commit implementation directly to `main` unless the user explicitly asks.
-- Create a branch before code changes: `git checkout -b <name>`.
-- Never force-push `main`/`master`. Never `git config`. Never skip hooks. Never destructive git (hard reset, force push) unless the user explicitly requests it.
+- Commit **only** when the user asks. If unclear, ask.
+- Do not update git config, skip hooks, or amend unless the user asked **and** amend rules in the user git protocol are met (this agent’s commit, not pushed, or hook-fixed files). Never amend a failed hook; make a new commit.
 
-## Names (`type/area-short-name`)
+## Message
 
-| Type | When |
-| --- | --- |
-| `feat/` | New behavior (interceptor, classifier, sandbox, rag, action, api, dashboard, eval) |
-| `fix/` | Bug |
-| `docs/` | Documentation only |
-| `chore/` | Scaffold, deps, CI glue (no product behavior) |
-| `eval/` | Held-out harness, splits, frozen pins |
-
-`area` is one of: `interceptor`, `classifier`, `sandbox`, `rag`, `reasoner`, `action`, `api`, `dashboard`, `eval`, `docs`, `policy`.
+Conventional, imperative, 1–2 sentences on **why**:
 
 ```
-✅ feat/interceptor-lockfile-extract
-✅ fix/sandbox-canary-paths
-✅ docs/implementation-phases
-❌ SentryHulud-final
-❌ feature/new
-❌ alfred-wip
+feat(classifier): add entropy features so triage can skip obviously minified droppers
+
+docs: add implementation phases so coding order matches the FYP timeline
 ```
 
-- One concern per branch. Do not mix interceptor + sandbox + RAG in one branch.
-- Dataset/corpus work: `feat/eval-metadata-labels` (or `eval/...`). Never put ChainDrop into train on a “quick” branch.
-- After the user asks for a PR, push with `-u` and open the PR against `main`.
+Types: `feat`, `fix`, `docs`, `chore`, `test`, `refactor`, `eval`. Scope = area (`interceptor`, `action`, …).
+
+## Procedure
+
+1. Parallel: `git status`, `git diff`, `git log -8 --oneline` (match repo style).
+2. Stage only intended files. Do not add `.env`, credentials, `data/raw/malicious/` blobs, or sandbox captures.
+3. `git commit -m "$(cat <<'EOF'
+message
+
+EOF
+)"` — on Windows PowerShell, use an equivalent non-interactive message (`-m` with a here-string or a single `-m` paragraph). Do not use `git commit -i` / `git add -i`.
+4. `git status` to verify. Do not push unless asked.
+
+Do not mention `cursor.com` or Cursor product URLs in the commit message (see `no-cursor-branding` rule).
+
+Classifier/corpus commits must not sneak ChainDrop into `train`/`val` or `no-chaindrop` corpus.
 
 ---
 > Source: [fayzan101/ChainDrop-Shai-Hulud-Firewall](https://github.com/fayzan101/ChainDrop-Shai-Hulud-Firewall) — distributed by [TomeVault](https://tomevault.io).
