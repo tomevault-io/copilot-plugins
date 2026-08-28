@@ -1,0 +1,9 @@
+{
+  "name": "halo-dev--plugin-mcp-server",
+  "displayName": "plugin-mcp-server",
+  "description": "Halo \u7684 MCP \u670d\u52a1\u7aef\u63d2\u4ef6\uff0c\u4f7f\u7528 AI Agent \u7ba1\u7406 Halo \u7f51\u7ad9",
+  "version": "1.0.0",
+  "author": "halo-dev",
+  "homepage": "https://github.com/halo-dev/plugin-mcp-server",
+  "skills": []
+}
