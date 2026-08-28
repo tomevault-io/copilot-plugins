@@ -4,7 +4,7 @@
   "repo": "omarchyweathereffects",
   "description": "Post processing weather effects for Omarchy",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ogarza/omarchyweathereffects",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T06:44:23Z"
+  "distributed_at": "2026-08-28T18:41:28Z"
 }
