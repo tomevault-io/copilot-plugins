@@ -1,0 +1,9 @@
+{
+  "name": "drose-devs--zonk",
+  "displayName": "zonk",
+  "description": "Quantitative strategy research and backtesting CLI. Reads all price data from local parquet files \u2014 no external API calls for price data.",
+  "version": "1.0.0",
+  "author": "DRose-Devs",
+  "homepage": "https://github.com/DRose-Devs/zonk",
+  "skills": []
+}
