@@ -1,0 +1,9 @@
+{
+  "name": "haoku123--dsh-voice",
+  "displayName": "dsh-voice",
+  "description": "Full-duplex voice plugin for DeepSeek Harness: mic \u2192 SenseVoice ASR (sherpa-onnx) \u2192 LLM \u2192 Edge TTS with true barge-in. \u5168\u53cc\u5de5\u8bed\u97f3\u63d2\u4ef6\uff1a\u9ea6\u514b\u98ce\u8bed\u97f3\u8f93\u5165\uff0cSenseVoice \u672c\u5730\u8bc6\u522b\uff08\u7b80\u4f53\u4e2d\u6587+\u6807\u70b9+ITN\uff09\uff0c\u6d41\u5f0f TTS \u6717\u8bfb\uff0c\u652f\u6301\u8bed\u97f3\u6253\u65ad\u3002Zero API key.",
+  "version": "1.0.0",
+  "author": "haoku123",
+  "homepage": "https://github.com/haoku123/dsh-voice",
+  "skills": []
+}
