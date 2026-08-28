@@ -1,0 +1,22 @@
+## docs
+
+> Keep plugin docs in sync with behavior changes
+
+
+# Documentation
+
+User-facing or agent-facing behavior changes must update docs in the same change.
+
+| Change | Update |
+|--------|--------|
+| Modes, mixes, Follow maps, panel, IPC, params | `README.md` |
+| Any of the above | `CHANGELOG.md` + `manifest.json` `version`. Fold tweaks into the current heading; bump once per release batch, not each tiny edit. |
+| File roles, compositor, persist, shader uniforms | `AGENTS.md` |
+| How to edit the plugin | `.cursor/skills/ogarza-weather/SKILL.md` |
+| Conventions | `.cursor/rules/*.mdc` |
+
+Do not leave README describing old slider layout or stale param names. Panel fields live in `Model.js` `tweakFields` / `fieldsForPanel` — document new keys there and in README Tweaks.
+
+---
+> Source: [ogarza/omarchyweathereffects](https://github.com/ogarza/omarchyweathereffects) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
