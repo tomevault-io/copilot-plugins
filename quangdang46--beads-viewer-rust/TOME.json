@@ -1,0 +1,44 @@
+{
+  "name": "beads_viewer_rust",
+  "owner": "quangdang46",
+  "repo": "beads_viewer_rust",
+  "description": "Rust port of beads_viewer (bvr): graph-aware triage engine for Beads \u2014 PageRank, critical path, kanban, dependency DAG, robot-mode JSON API. Compatible Rust Successor.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/quangdang46/beads_viewer_rust",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T21:28:45Z"
+}
