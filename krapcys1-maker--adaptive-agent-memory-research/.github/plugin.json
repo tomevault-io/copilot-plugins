@@ -1,0 +1,9 @@
+{
+  "name": "krapcys1-maker--adaptive-agent-memory-research",
+  "displayName": "adaptive-agent-memory-research",
+  "description": "Open research on local-first, model-agnostic long-term memory for LLM agents",
+  "version": "1.0.0",
+  "author": "krapcys1-maker",
+  "homepage": "https://github.com/krapcys1-maker/adaptive-agent-memory-research",
+  "skills": []
+}
