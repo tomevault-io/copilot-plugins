@@ -1,0 +1,9 @@
+{
+  "name": "i-descry--it-deployment-tool",
+  "displayName": "it-deployment-tool",
+  "description": "a PowerShell-based deployment tool for automated application installation",
+  "version": "1.0.0",
+  "author": "I-Descry",
+  "homepage": "https://github.com/I-Descry/it-deployment-tool",
+  "skills": []
+}
