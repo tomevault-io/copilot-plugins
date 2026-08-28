@@ -1,0 +1,9 @@
+{
+  "name": "seedeai--valo",
+  "displayName": "valo",
+  "description": "WebGPU-native 2D render engine written in Rust. Works on Windows, macOS, Linux, Android, iOS and Web.",
+  "version": "1.0.0",
+  "author": "seedeai",
+  "homepage": "https://github.com/seedeai/valo",
+  "skills": []
+}
