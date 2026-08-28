@@ -1,0 +1,9 @@
+{
+  "name": "kiranandcode--rupi-c",
+  "displayName": "rupi-c",
+  "description": "Adapting CompCert semantics to verify SQLite: a Rupicola-style verified compiler where proof search is compilation",
+  "version": "1.0.0",
+  "author": "kiranandcode",
+  "homepage": "https://github.com/kiranandcode/rupi-c",
+  "skills": []
+}
