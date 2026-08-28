@@ -1,0 +1,44 @@
+{
+  "name": "dsh-agent-plugin-market",
+  "owner": "Diluka",
+  "repo": "dsh-agent-plugin-market",
+  "description": "DSH\uff08DeepSeek Harness\uff09\u63d2\u4ef6\uff1a\u4ee5 git \u4ed3\u5e93\u4e3a agent \u63d2\u4ef6\u5e02\u573a\uff0c\u5b89\u88c5\u5e76\u539f\u5730\u52a0\u8f7d Codex/Claude \u683c\u5f0f\u7684\u6280\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Diluka/dsh-agent-plugin-market",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-28T11:06:42Z"
+}
