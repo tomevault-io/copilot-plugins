@@ -4,7 +4,7 @@
   "repo": "next-fastly-image",
   "description": "A stateless, zero-dependency loader that lets next/image delegate image transformation to Fastly Image Optimizer instead of your Next.js server resizing every image, Fastly transforms and caches each srcset variant at the CDN edge - driven purely by query parameters.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seatgeek/next-fastly-image",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T04:52:48Z"
+  "distributed_at": "2026-08-28T07:12:19Z"
 }
