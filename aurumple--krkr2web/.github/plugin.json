@@ -1,0 +1,9 @@
+{
+  "name": "aurumple--krkr2web",
+  "displayName": "krkr2web",
+  "description": "KRKR2 \u6e38\u620f\u5f15\u64ce\u7684 Web (Wasm/Emscripten) \u79fb\u690d\uff0c\u9762\u5411\u56fa\u5b9a Android WebView 89 \u79bb\u7ebf\u8fd0\u884c",
+  "version": "1.0.0",
+  "author": "aurumple",
+  "homepage": "https://github.com/aurumple/krkr2web",
+  "skills": []
+}
