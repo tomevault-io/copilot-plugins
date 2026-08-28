@@ -1,0 +1,9 @@
+{
+  "name": "jubilee-works--sea-orm-spanner",
+  "displayName": "sea-orm-spanner",
+  "description": "Google Cloud Spanner backend for SeaORM",
+  "version": "1.0.0",
+  "author": "jubilee-works",
+  "homepage": "https://github.com/jubilee-works/sea-orm-spanner",
+  "skills": []
+}
