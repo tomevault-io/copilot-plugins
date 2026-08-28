@@ -4,7 +4,7 @@
   "repo": "langchain-sandbox-opensandbox",
   "description": "OpenSandbox sandbox backend for LangChain Deep Agents - run agent-generated code and file operations in an isolated OpenSandbox environment.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AyushSonuu/langchain-sandbox-opensandbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T03:23:40Z"
+  "distributed_at": "2026-08-28T05:26:34Z"
 }
