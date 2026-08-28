@@ -7,11 +7,11 @@ Macintosh and Apple Lisa emulator in the browser: From Lisa 2 to PowerMac 9500, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pappadf/granny-smith](https://github.com/pappadf/granny-smith).
+Original source: `AGENTS.md` in [pappadf/granny-smith](https://github.com/pappadf/granny-smith).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
