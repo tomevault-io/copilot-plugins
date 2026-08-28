@@ -1,0 +1,9 @@
+{
+  "name": "andybarilla--herdr-scuttlebutt",
+  "displayName": "herdr-scuttlebutt",
+  "description": "A herdr plugin that gives the agents in a herdr session a shared chat room",
+  "version": "1.0.0",
+  "author": "andybarilla",
+  "homepage": "https://github.com/andybarilla/herdr-scuttlebutt",
+  "skills": []
+}
