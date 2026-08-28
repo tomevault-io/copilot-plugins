@@ -1,0 +1,9 @@
+{
+  "name": "featherhunter--dsh-prompt",
+  "displayName": "dsh-prompt",
+  "description": "DeepSeek Harness \u7684 Prompt \u5de5\u5177\u7bb1\uff1a\u522b\u518d\u590d\u5236\u7c98\u8d34\u2014\u201424 \u6761\u6df1\u5ea6\u6a21\u677f\u968f\u624b\u70b9\uff0c/prompt \u4e0e\u667a\u80fd\u63a8\u8350\u4e3b\u52a8\u515c\u5e95\uff0c\u88c5\u597d\u5373\u7528\u3001\u53ef\u81ea\u5b9a\u4e49\u3002 | The Prompt toolbox for DeepSeek Harness: stop copy-pasting \u2014 24 deep templates at a click, /prompt & smart suggestions ",
+  "version": "1.0.0",
+  "author": "FeatherHunter",
+  "homepage": "https://github.com/FeatherHunter/dsh-prompt",
+  "skills": []
+}
