@@ -1,0 +1,9 @@
+{
+  "name": "githubnext--gh-aw-wizard",
+  "displayName": "gh-aw-wizard",
+  "description": "A wizard interface to create GitHub Agentic Workflows",
+  "version": "1.0.0",
+  "author": "githubnext",
+  "homepage": "https://github.com/githubnext/gh-aw-wizard",
+  "skills": []
+}
