@@ -1,0 +1,9 @@
+{
+  "name": "latchkey-dev--gusset",
+  "displayName": "gusset",
+  "description": "Deterministic blast radius for every change. Verified impact on every PR, self-updating architecture docs, autonomy earned via eval scores.",
+  "version": "1.0.0",
+  "author": "latchkey-dev",
+  "homepage": "https://github.com/latchkey-dev/gusset",
+  "skills": []
+}
