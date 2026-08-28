@@ -1,0 +1,9 @@
+{
+  "name": "nimius-debug--grand-slam-offer-skill",
+  "displayName": "grand-slam-offer-skill",
+  "description": "A Claude Skill that walks you through building an irresistible offer, one step you approve at a time. Based on Alex Hormozi's $100M Offers. Works on web, desktop and phone.",
+  "version": "1.0.0",
+  "author": "nimius-debug",
+  "homepage": "https://github.com/nimius-debug/grand-slam-offer-skill",
+  "skills": []
+}
