@@ -4,7 +4,7 @@
   "repo": "prospector-mcp-email-finder",
   "description": "Free B2B email finder & verification MCP server. Find, verify, and enrich business emails without paid API subscriptions. Self-contained DNS/SMTP verification. Hunter.io alternative for AI agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JosieBot26/prospector-mcp-email-finder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T12:33:26Z"
+  "distributed_at": "2026-08-29T12:48:22Z"
 }
