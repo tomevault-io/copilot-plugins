@@ -1,0 +1,9 @@
+{
+  "name": "makio64--vite-plugin-tsl-precompile",
+  "displayName": "vite-plugin-tsl-precompile",
+  "description": "Vite plugin for three.js TSL precompile: author-marked materials compile to static WGSL + AOT updater modules at build time, shipping a slim runtime.",
+  "version": "1.0.0",
+  "author": "Makio64",
+  "homepage": "https://github.com/Makio64/vite-plugin-tsl-precompile",
+  "skills": []
+}
