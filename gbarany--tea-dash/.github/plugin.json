@@ -1,0 +1,9 @@
+{
+  "name": "gbarany--tea-dash",
+  "displayName": "tea-dash",
+  "description": "A gh-dash-style terminal dashboard (TUI) for Gitea & Forgejo \u2014 PRs, issues, notifications, Actions runs, and branches. Go + Bubble Tea.",
+  "version": "1.0.0",
+  "author": "gbarany",
+  "homepage": "https://github.com/gbarany/tea-dash",
+  "skills": []
+}
