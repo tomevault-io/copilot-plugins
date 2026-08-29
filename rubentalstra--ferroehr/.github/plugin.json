@@ -1,0 +1,9 @@
+{
+  "name": "rubentalstra--ferroehr",
+  "displayName": "FerroEHR",
+  "description": "A pure-Rust openEHR Clinical Data Repository: ITS-REST 1.1.0, AQL 1.1, PostgreSQL 18-native storage.",
+  "version": "1.0.0",
+  "author": "rubentalstra",
+  "homepage": "https://github.com/rubentalstra/FerroEHR",
+  "skills": []
+}
