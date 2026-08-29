@@ -1,0 +1,9 @@
+{
+  "name": "openvang--vanguarstew",
+  "displayName": "vanguarstew",
+  "description": "Bittensor Subnet Repository maintainer agent + a GitHub-history benchmark that scores it \u2014 can an agent make the maintainer decisions a strong maintainer would?",
+  "version": "1.0.0",
+  "author": "openvang",
+  "homepage": "https://github.com/openvang/vanguarstew",
+  "skills": []
+}
