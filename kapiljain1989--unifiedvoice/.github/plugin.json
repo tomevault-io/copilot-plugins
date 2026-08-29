@@ -1,0 +1,9 @@
+{
+  "name": "kapiljain1989--unifiedvoice",
+  "displayName": "unifiedVoice",
+  "description": "Enterprise STT/TTS microservices platform \u2014 13 Go services orchestrated via Kafka, with Next.js frontend, Kind/K8s deployment, speaker diarization, language detection, translation, real-time streaming",
+  "version": "1.0.0",
+  "author": "kapiljain1989",
+  "homepage": "https://github.com/kapiljain1989/unifiedVoice",
+  "skills": []
+}
