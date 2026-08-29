@@ -1,0 +1,44 @@
+{
+  "name": "claude.md-boilerplate",
+  "owner": "leighstillard",
+  "repo": "claude.md-boilerplate",
+  "description": "Opinionated claude.md template for Claude Code that enforces software engineering best practices: security, tenant isolation, TDD, observability, secrets management, and error handling. Clearly separates what Claude Code should do in-code from what requires external setup, with a SCAFFOLD/FLAG pattern for the grey zone.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leighstillard/claude.md-boilerplate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T10:43:53Z"
+}
