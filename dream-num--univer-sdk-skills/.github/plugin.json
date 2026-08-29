@@ -1,0 +1,9 @@
+{
+  "name": "dream-num--univer-sdk-skills",
+  "displayName": "univer-sdk-skills",
+  "description": "Developer skills for Univer aimed at AI agents, providing accurate guidance for integration, extension, and development.",
+  "version": "1.0.0",
+  "author": "dream-num",
+  "homepage": "https://github.com/dream-num/univer-sdk-skills",
+  "skills": []
+}
