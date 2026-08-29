@@ -1,0 +1,44 @@
+{
+  "name": "WeChatExporter",
+  "owner": "93857536-pixel",
+  "repo": "WeChatExporter",
+  "description": "\u5fae\u4fe1\u804a\u5929\u8bb0\u5f55\u5bfc\u51fa | macOS DMG + Windows | \u672c\u5730\u8fd0\u884c | Swift + WPF",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/93857536-pixel/WeChatExporter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T06:46:23Z"
+}
