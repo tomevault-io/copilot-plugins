@@ -1,0 +1,9 @@
+{
+  "name": "yunhaoli24--codex-gateway",
+  "displayName": "codex-gateway",
+  "description": "A self-hosted web frontend and SSH gateway for the official Codex app-server.",
+  "version": "1.0.0",
+  "author": "yunhaoli24",
+  "homepage": "https://github.com/yunhaoli24/codex-gateway",
+  "skills": []
+}
