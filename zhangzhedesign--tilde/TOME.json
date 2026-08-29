@@ -1,0 +1,44 @@
+{
+  "name": "tilde",
+  "owner": "zhangzhedesign",
+  "repo": "tilde",
+  "description": "a desktop todo tool for Windows. Centered around a compact pinned quick-entry box, it lets you summon it with a single `~` keypress to capture tasks instantly, or hold `Alt` to speak. Tasks are managed in a kanban with pending/in-progress/completed states, and you can export your completed history. Always-on-top is optional.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhangzhedesign/tilde",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T03:10:27Z"
+}
