@@ -1,0 +1,9 @@
+{
+  "name": "securityfortech--hacking-skills",
+  "displayName": "hacking-skills",
+  "description": "Claude Code skills for finding bugs and vulnerabilities \u2014 bug bounty, pentest, CTF, code review.",
+  "version": "1.0.0",
+  "author": "securityfortech",
+  "homepage": "https://github.com/securityfortech/hacking-skills",
+  "skills": []
+}
