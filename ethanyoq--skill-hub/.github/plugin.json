@@ -1,0 +1,9 @@
+{
+  "name": "ethanyoq--skill-hub",
+  "displayName": "Skill-hub",
+  "description": "Reusable AI agent skills for Codex, Claude Code etc. \u2014 AI coding workflows, SKILL.md templates, and automation practices. \u9762\u5411 Codex\u3001Claude Code\u7b49agents \u7684\u53ef\u590d\u7528 AI Agent Skill \u6280\u80fd\u5e93\uff1aAI \u7f16\u7a0b\u5de5\u4f5c\u6d41\u3001SKILL.md \u6a21\u677f\u4e0e\u81ea\u52a8\u5316\u5b9e\u8df5",
+  "version": "1.0.0",
+  "author": "EthanYoQ",
+  "homepage": "https://github.com/EthanYoQ/Skill-hub",
+  "skills": []
+}
