@@ -1,0 +1,9 @@
+{
+  "name": "muratmula--ai-robinhood-chain",
+  "displayName": "ai-robinhood-chain",
+  "description": "Autonomous multi-agent crypto intelligence & trading ecosystem for Robinhood Chain L2 (EVM #4663) operated via Discord Command Center, Terminal TUI, REST API, & Telegram",
+  "version": "1.0.0",
+  "author": "muratmula",
+  "homepage": "https://github.com/muratmula/ai-robinhood-chain",
+  "skills": []
+}
