@@ -1,0 +1,9 @@
+{
+  "name": "castrojo--cncf-darkmode",
+  "displayName": "cncf-darkmode",
+  "description": "Unified CNCF trilogy websites (projects, endusers, people) \u2014 npm workspaces monorepo",
+  "version": "1.0.0",
+  "author": "castrojo",
+  "homepage": "https://github.com/castrojo/cncf-darkmode",
+  "skills": []
+}
