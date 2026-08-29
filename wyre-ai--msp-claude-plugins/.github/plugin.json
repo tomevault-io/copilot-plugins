@@ -1,0 +1,9 @@
+{
+  "name": "wyre-ai--msp-claude-plugins",
+  "displayName": "msp-claude-plugins",
+  "description": "The community-driven Claude Code plugin marketplace for MSPs \u2014 70+ plugins across PSA, RMM, security, documentation, and accounting, plus cross-vendor industry workflow packs (ops, security, finance, ",
+  "version": "1.0.0",
+  "author": "WYRE-AI",
+  "homepage": "https://github.com/WYRE-AI/msp-claude-plugins",
+  "skills": []
+}
