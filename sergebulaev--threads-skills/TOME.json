@@ -4,7 +4,7 @@
   "repo": "threads-skills",
   "description": "Threads marketing skills for Claude Code and Codex: posts, multi-post threads, hooks, replies, and a weekly plan in your voice. Publish via Publora. Open source, MIT. Content engineering by Creative Content Crafts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergebulaev/threads-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:11:56Z"
+  "distributed_at": "2026-08-29T07:19:25Z"
 }
