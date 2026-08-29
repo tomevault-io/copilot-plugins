@@ -1,0 +1,44 @@
+{
+  "name": "moira",
+  "owner": "moira-mcp",
+  "repo": "moira",
+  "description": "Agent Workflow Engine for AI agents over MCP \u2014 per-step directives, completion conditions, and JSON-Schema validation. Self-hostable (Apache-2.0).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/moira-mcp/moira",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T11:17:04Z"
+}
