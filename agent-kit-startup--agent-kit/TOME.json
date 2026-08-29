@@ -1,0 +1,51 @@
+{
+  "name": "agent-kit",
+  "owner": "agent-kit-startup",
+  "repo": "agent-kit",
+  "description": "Plan, build, review, and ship anything to the real world without leaving your environment. AI harness with built-in Project Management and DevSecOps to code and maintain software that fits in your workflow with zero cost.",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cursor-skills-webdesign",
+      "path": "registry/skills/community/cursor-skills-webdesign",
+      "github_url": "https://github.com/agent-kit-startup/agent-kit/tree/main/registry/skills/community/cursor-skills-webdesign",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agent-kit-startup/agent-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T08:30:25Z"
+}
