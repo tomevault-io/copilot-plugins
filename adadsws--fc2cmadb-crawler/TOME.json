@@ -1,0 +1,44 @@
+{
+  "name": "fc2cmadb-crawler",
+  "owner": "adadsws",
+  "repo": "fc2cmadb-crawler",
+  "description": "A simple crawler for fc2ppvdb with my personal recommendation. Can sort video by same actress.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/adadsws/fc2cmadb-crawler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T02:52:47Z"
+}
