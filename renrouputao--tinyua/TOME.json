@@ -1,0 +1,44 @@
+{
+  "name": "tinyua",
+  "owner": "renrouputao",
+  "repo": "tinyua",
+  "description": "A lightweight, from-scratch OPC UA client stack for .NET 8 \u2014 zero dependency on the OPC Foundation SDK. Implements the full binary protocol: encoding, 4 security policies, message chunking, secure channels, subscriptions, and a Fluent API for connecting to industrial OPC UA servers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/renrouputao/tinyua",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T07:19:56Z"
+}
