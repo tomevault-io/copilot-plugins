@@ -1,0 +1,9 @@
+{
+  "name": "verified-zkevm--riscv-zkvm",
+  "displayName": "riscv-zkvm",
+  "description": "Lean extraction of the Sail RISC-V specification for verified zkVM projects",
+  "version": "1.0.0",
+  "author": "Verified-zkEVM",
+  "homepage": "https://github.com/Verified-zkEVM/riscv-zkvm",
+  "skills": []
+}
