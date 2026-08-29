@@ -1,0 +1,9 @@
+{
+  "name": "lastsearch-hq--lastsearch",
+  "displayName": "lastsearch",
+  "description": "Reliable research infrastructure for AI agents. Evidence-backed web search with citations, confidence scores, and Clarity anti-hallucination. MCP server, REST API, Python SDK.",
+  "version": "1.0.0",
+  "author": "LastSearch-HQ",
+  "homepage": "https://github.com/LastSearch-HQ/lastsearch",
+  "skills": []
+}
