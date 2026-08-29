@@ -1,0 +1,9 @@
+{
+  "name": "yuukidach--wayper",
+  "displayName": "wayper",
+  "description": "Desktop wallpaper manager for Wallhaven \u2014 auto-download, rotate, and manage wallpapers with GUI, CLI, and AI control",
+  "version": "1.0.0",
+  "author": "yuukidach",
+  "homepage": "https://github.com/yuukidach/wayper",
+  "skills": []
+}
