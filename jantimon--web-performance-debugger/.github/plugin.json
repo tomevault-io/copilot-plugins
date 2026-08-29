@@ -1,0 +1,9 @@
+{
+  "name": "jantimon--web-performance-debugger",
+  "displayName": "web-performance-debugger",
+  "description": "Drive Chrome or Firefox (Puppeteer), or profile Node in-process, to attribute layout, style, and paint work, rendering counts, CPU self-time, and allocation back to source lines, with isolated timing ",
+  "version": "1.0.0",
+  "author": "jantimon",
+  "homepage": "https://github.com/jantimon/web-performance-debugger",
+  "skills": []
+}
