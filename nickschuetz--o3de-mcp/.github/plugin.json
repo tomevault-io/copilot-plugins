@@ -1,0 +1,9 @@
+{
+  "name": "nickschuetz--o3de-mcp",
+  "displayName": "o3de-mcp",
+  "description": "Automate Open 3D Engine with AI \u2014 an MCP server for editor control, project & build management",
+  "version": "1.0.0",
+  "author": "nickschuetz",
+  "homepage": "https://github.com/nickschuetz/o3de-mcp",
+  "skills": []
+}
