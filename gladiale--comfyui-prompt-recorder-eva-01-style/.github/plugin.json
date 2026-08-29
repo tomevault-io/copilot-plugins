@@ -1,0 +1,9 @@
+{
+  "name": "gladiale--comfyui-prompt-recorder-eva-01-style",
+  "displayName": "ComfyUI_Prompt_Recorder_EVA-01-Style",
+  "description": "comfyui\u306eprompt word\u3092\u8a18\u9332\u3068\u7d44\u307f\u5408\u308f\u305b\u308b\u305f\u3081\u306echrome\u306e\u62e1\u5f35\u6a5f\u80fd (react)",
+  "version": "1.0.0",
+  "author": "Gladiale",
+  "homepage": "https://github.com/Gladiale/ComfyUI_Prompt_Recorder_EVA-01-Style",
+  "skills": []
+}
