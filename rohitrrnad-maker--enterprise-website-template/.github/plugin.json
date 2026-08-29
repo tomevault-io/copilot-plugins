@@ -1,0 +1,9 @@
+{
+  "name": "rohitrrnad-maker--enterprise-website-template",
+  "displayName": "enterprise-website-template",
+  "description": "A modern enterprise website template built with Next.js and Tailwind CSS, supporting static site generation (SSG).",
+  "version": "1.0.0",
+  "author": "rohitrrnad-maker",
+  "homepage": "https://github.com/rohitrrnad-maker/enterprise-website-template",
+  "skills": []
+}
