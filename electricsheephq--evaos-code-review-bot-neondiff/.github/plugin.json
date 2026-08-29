@@ -1,0 +1,9 @@
+{
+  "name": "electricsheephq--evaos-code-review-bot-neondiff",
+  "displayName": "evaos-code-review-bot-neondiff",
+  "description": "Stop giving away your code. NeonDIFF is your local-first AI PR reviewer for teams that want professional quality code reviews and issue enrichment without handing every diff to a hosted review SaaS.",
+  "version": "1.0.0",
+  "author": "electricsheephq",
+  "homepage": "https://github.com/electricsheephq/evaos-code-review-bot-neondiff",
+  "skills": []
+}
