@@ -1,0 +1,9 @@
+{
+  "name": "egore4606--paddle-ocr-ui",
+  "displayName": "paddle-ocr-ui",
+  "description": "Local-first web UI for PaddleOCR-VL: OCR PDFs and images with Docker, live logs, previews, and ZIP exports.",
+  "version": "1.0.0",
+  "author": "egore4606",
+  "homepage": "https://github.com/egore4606/paddle-ocr-ui",
+  "skills": []
+}
