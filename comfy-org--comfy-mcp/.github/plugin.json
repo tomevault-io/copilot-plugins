@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--comfy-mcp",
+  "displayName": "comfy-mcp",
+  "description": "Local MCP server for ComfyUI \u2014 run your local ComfyUI from AI agents",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/comfy-mcp",
+  "skills": []
+}
