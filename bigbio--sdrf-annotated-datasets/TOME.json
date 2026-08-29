@@ -1,0 +1,44 @@
+{
+  "name": "sdrf-annotated-datasets",
+  "owner": "bigbio",
+  "repo": "sdrf-annotated-datasets",
+  "description": "A repository of datasets in ProteomeXchange annotated in SDRF, previously part of the specification",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bigbio/sdrf-annotated-datasets",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T00:56:25Z"
+}
