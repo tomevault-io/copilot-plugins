@@ -1,0 +1,9 @@
+{
+  "name": "bestwishes--sectvoice",
+  "displayName": "SectVoice",
+  "description": "Windows-first local voice-cloning text reader with continuous playback and instant seek",
+  "version": "1.0.0",
+  "author": "BestWishes",
+  "homepage": "https://github.com/BestWishes/SectVoice",
+  "skills": []
+}
