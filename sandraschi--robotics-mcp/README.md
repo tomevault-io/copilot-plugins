@@ -7,11 +7,11 @@ MCP 3.1 server + Webapp. Yahboom, Dreame, Tdrone, Noetix Bumi collab with shared
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sandraschi/robotics-mcp](https://github.com/sandraschi/robotics-mcp).
+Original source: `AGENTS.md` in [sandraschi/robotics-mcp](https://github.com/sandraschi/robotics-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
