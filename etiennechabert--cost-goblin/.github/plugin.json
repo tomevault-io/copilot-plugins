@@ -1,0 +1,9 @@
+{
+  "name": "etiennechabert--cost-goblin",
+  "displayName": "cost-goblin",
+  "description": "Desktop app for cloud cost visibility. Syncs AWS billing data locally, queries with DuckDB, renders analytical dashboards. No servers, no SaaS, no third-party data sharing.",
+  "version": "1.0.0",
+  "author": "etiennechabert",
+  "homepage": "https://github.com/etiennechabert/cost-goblin",
+  "skills": []
+}
