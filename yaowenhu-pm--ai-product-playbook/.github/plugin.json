@@ -1,0 +1,9 @@
+{
+  "name": "yaowenhu-pm--ai-product-playbook",
+  "displayName": "ai-product-playbook",
+  "description": "AI \u4ea7\u54c1\u7ecf\u7406\u7684\u5b9e\u8df5\u624b\u518c\uff1a\u4ea7\u54c1\u5224\u65ad\u3001Prompt\u3001Skill\u3001Agent \u548c AI \u5de5\u4f5c\u6d41\u6c89\u6dc0",
+  "version": "1.0.0",
+  "author": "yaowenhu-pm",
+  "homepage": "https://github.com/yaowenhu-pm/ai-product-playbook",
+  "skills": []
+}
