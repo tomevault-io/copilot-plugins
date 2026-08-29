@@ -1,0 +1,9 @@
+{
+  "name": "samg-coder--threebrowserstudio",
+  "displayName": "ThreeBrowserStudio",
+  "description": "LLM-first Three.js WebGPU scene and animation authoring with a persistent native viewport and typed MCP editing",
+  "version": "1.0.0",
+  "author": "SamG-Coder",
+  "homepage": "https://github.com/SamG-Coder/ThreeBrowserStudio",
+  "skills": []
+}
