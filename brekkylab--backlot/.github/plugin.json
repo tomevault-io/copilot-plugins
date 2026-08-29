@@ -1,0 +1,9 @@
+{
+  "name": "brekkylab--backlot",
+  "displayName": "backlot",
+  "description": "A local emulator for enterprise SaaS APIs \u2014 Slack, Gmail, Google Drive, GitHub, Jira, Notion, S3 and more \u2014 with the real response shapes, pagination, auth and per-document ACLs, over a corpus you sup",
+  "version": "1.0.0",
+  "author": "brekkylab",
+  "homepage": "https://github.com/brekkylab/backlot",
+  "skills": []
+}
