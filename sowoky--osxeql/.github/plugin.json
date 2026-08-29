@@ -1,0 +1,9 @@
+{
+  "name": "sowoky--osxeql",
+  "displayName": "osxEQL",
+  "description": "Run EverQuest Legends on Apple Silicon Macs with open-source Wine + DXMT (DirectX 11 -> Metal). No CrossOver, no proprietary D3DMetal.",
+  "version": "1.0.0",
+  "author": "sowoky",
+  "homepage": "https://github.com/sowoky/osxEQL",
+  "skills": []
+}
