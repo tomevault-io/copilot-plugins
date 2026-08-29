@@ -1,0 +1,9 @@
+{
+  "name": "toreuyar--opencode-warden",
+  "displayName": "opencode-warden",
+  "description": "Security plugin for OpenCode \u2014 intercepts tool calls to detect secrets, redact sensitive data, evaluate safety risks, block access to sensitive files, and maintain an audit trail",
+  "version": "1.0.0",
+  "author": "toreuyar",
+  "homepage": "https://github.com/toreuyar/opencode-warden",
+  "skills": []
+}
