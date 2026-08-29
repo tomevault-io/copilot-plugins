@@ -1,0 +1,9 @@
+{
+  "name": "redstone-md--g3",
+  "displayName": "g3",
+  "description": "S3-compatible object storage backed by Google Drive \u2014 pooled, balanced, single Go binary with an embedded web panel.",
+  "version": "1.0.0",
+  "author": "redstone-md",
+  "homepage": "https://github.com/redstone-md/g3",
+  "skills": []
+}
