@@ -1,0 +1,9 @@
+{
+  "name": "ventura8--whisper-pro-asr",
+  "displayName": "Whisper-Pro-ASR",
+  "description": "A high-performance Docker container that runs OpenAI's Whisper model. Optimized for CPU, Intel NPU, Intel Arc/iGPU, and NVIDIA CUDA GPUs.",
+  "version": "1.0.0",
+  "author": "ventura8",
+  "homepage": "https://github.com/ventura8/Whisper-Pro-ASR",
+  "skills": []
+}
