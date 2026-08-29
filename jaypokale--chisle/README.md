@@ -7,7 +7,7 @@ Your AI talks less, builds less, says more. Like a senior dev who bills by the s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [JayPokale/Chisle](https://github.com/JayPokale/Chisle).
+Original source: `.windsurf/rules/*.md` in [JayPokale/Chisle](https://github.com/JayPokale/Chisle).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [JayPokale/Chisle](https://github.com/JayPokale/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From [JayPokale/Chisle](https://github.com/JayPokale/Chisle) — a repo with 106+ stars on GitHub.
 
