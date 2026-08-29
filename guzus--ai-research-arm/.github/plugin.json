@@ -1,0 +1,9 @@
+{
+  "name": "guzus--ai-research-arm",
+  "displayName": "ai-research-arm",
+  "description": "Self-running AI-news intelligence pipeline: multi-source agents, validated research artifacts, and a live dashboard.",
+  "version": "1.0.0",
+  "author": "guzus",
+  "homepage": "https://github.com/guzus/ai-research-arm",
+  "skills": []
+}
