@@ -1,0 +1,9 @@
+{
+  "name": "adadsws--fc2cmadb-crawler",
+  "displayName": "fc2cmadb-crawler",
+  "description": "A simple crawler for fc2ppvdb with my personal recommendation. Can sort video by same actress.",
+  "version": "1.0.0",
+  "author": "adadsws",
+  "homepage": "https://github.com/adadsws/fc2cmadb-crawler",
+  "skills": []
+}
