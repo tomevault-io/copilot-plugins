@@ -1,0 +1,27 @@
+## cockpit
+
+> Use only when the user explicitly asks to use Cockpit or work on Cockpit itself.
+
+
+This rule is opt-in. Do not load it for generic Flutter, UI, debugging,
+screenshots, mobile, desktop, browser, or E2E work. Load the `cockpit` skill from
+`.cursor/skills/cockpit` before controlling an application or
+claiming runtime validation. If skill discovery is unavailable, read the
+self-contained `.cursor/skills/cockpit/SKILL.md` directly.
+
+Use the authenticated Supervisor and resolve explicit identities:
+
+```bash
+cockpit daemon status
+cockpit target discover
+cockpit target inspect --target-id <targetId> --profile minimal
+cockpit operation list --workspace-id <workspaceId>
+```
+
+Use a validated `cockpit.test/v2` case or suite for reusable E2E. Prefer
+`.cursor/mcp.json` when MCP is available. Judge success from terminal run
+state, assertions, structured errors, and report-backed evidence.
+
+---
+> Source: [cockpit-dev/cockpit](https://github.com/cockpit-dev/cockpit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
