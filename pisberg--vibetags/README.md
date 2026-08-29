@@ -7,11 +7,11 @@ VibeTags is a Java annotation processor that acts as AI guardrails for code gene
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PIsberg/vibetags](https://github.com/PIsberg/vibetags).
+Original source: `AGENTS.md` in [PIsberg/vibetags](https://github.com/PIsberg/vibetags).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
