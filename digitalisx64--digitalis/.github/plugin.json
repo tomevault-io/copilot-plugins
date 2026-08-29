@@ -1,0 +1,9 @@
+{
+  "name": "digitalisx64--digitalis",
+  "displayName": "digitalis",
+  "description": "The entry repository that contains documentations, AGENT configurations, introduction for digitalis, an open-source arm64->x86_64 translator for AOSP.",
+  "version": "1.0.0",
+  "author": "DigitalisX64",
+  "homepage": "https://github.com/DigitalisX64/digitalis",
+  "skills": []
+}
