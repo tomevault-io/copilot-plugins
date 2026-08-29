@@ -1,0 +1,9 @@
+{
+  "name": "linuxfoundation--lfx-skills",
+  "displayName": "lfx-skills",
+  "description": "lfx-skills",
+  "version": "1.0.0",
+  "author": "linuxfoundation",
+  "homepage": "https://github.com/linuxfoundation/lfx-skills",
+  "skills": []
+}
