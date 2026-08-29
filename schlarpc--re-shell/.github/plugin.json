@@ -1,0 +1,9 @@
+{
+  "name": "schlarpc--re-shell",
+  "displayName": "re-shell",
+  "description": "Nix-powered agentic reverse engineering environment ",
+  "version": "1.0.0",
+  "author": "schlarpc",
+  "homepage": "https://github.com/schlarpc/re-shell",
+  "skills": []
+}
