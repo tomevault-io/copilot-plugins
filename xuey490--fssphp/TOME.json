@@ -1,0 +1,44 @@
+{
+  "name": "Fssphp",
+  "owner": "xuey490",
+  "repo": "Fssphp",
+  "description": "FssPHP is a lightweight Powerful Fast, Simple, Secure PHP framework, \u672c\u9879\u76ee\u662fFssPHP\u6846\u67b6\u7684\u5b9e\u8df5\u4f7f\u7528\u9879\u76ee\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xuey490/Fssphp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T02:39:32Z"
+}
