@@ -1,0 +1,9 @@
+{
+  "name": "samosa-ai-com--opencode-go-multi-auth",
+  "displayName": "opencode-go-multi-auth",
+  "description": "Pool multiple OpenCode Go & Zen subscriptions into one endpoint with automatic failover and a dashboard",
+  "version": "1.0.0",
+  "author": "samosa-ai-com",
+  "homepage": "https://github.com/samosa-ai-com/opencode-go-multi-auth",
+  "skills": []
+}
