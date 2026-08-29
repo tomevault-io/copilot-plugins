@@ -1,0 +1,9 @@
+{
+  "name": "vehiclesdb--vehiclesdb",
+  "displayName": "vehiclesdb",
+  "description": "Open vehicle data: 19,282 models, 933 makes, 6 kinds (cars, motorcycles, mopeds, vans, trucks, buses) reconciled from official registers of 14 countries. Popularity + availability included. CC-BY 4.0,",
+  "version": "1.0.0",
+  "author": "vehiclesdb",
+  "homepage": "https://github.com/vehiclesdb/vehiclesdb",
+  "skills": []
+}
