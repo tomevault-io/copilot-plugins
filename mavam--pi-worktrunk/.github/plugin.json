@@ -1,0 +1,9 @@
+{
+  "name": "mavam--pi-worktrunk",
+  "displayName": "pi-worktrunk",
+  "description": "A pi extension that updates Worktrunk branch markers to show whether pi is working or waiting for input",
+  "version": "1.0.0",
+  "author": "mavam",
+  "homepage": "https://github.com/mavam/pi-worktrunk",
+  "skills": []
+}
