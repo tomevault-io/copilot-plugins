@@ -1,0 +1,9 @@
+{
+  "name": "natlibfi--bibra",
+  "displayName": "BIBRA",
+  "description": "Tool for bibliographic metadata extraction",
+  "version": "1.0.0",
+  "author": "NatLibFi",
+  "homepage": "https://github.com/NatLibFi/BIBRA",
+  "skills": []
+}
