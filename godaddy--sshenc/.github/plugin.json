@@ -1,0 +1,9 @@
+{
+  "name": "godaddy--sshenc",
+  "displayName": "sshenc",
+  "description": "Eliminate plaintext keys: Hardware-backed SSH and Git security via Secure Enclave and TPM 2.0",
+  "version": "1.0.0",
+  "author": "godaddy",
+  "homepage": "https://github.com/godaddy/sshenc",
+  "skills": []
+}
