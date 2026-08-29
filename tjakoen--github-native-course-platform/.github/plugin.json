@@ -1,0 +1,9 @@
+{
+  "name": "tjakoen--github-native-course-platform",
+  "displayName": "github-native-course-platform",
+  "description": "A university coursework, quiz, and grading platform that runs entirely on GitHub Actions, with Canvas as the only external integration.",
+  "version": "1.0.0",
+  "author": "tjakoen",
+  "homepage": "https://github.com/tjakoen/github-native-course-platform",
+  "skills": []
+}
