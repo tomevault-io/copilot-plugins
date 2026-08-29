@@ -1,32 +1,49 @@
-## readme-sync
+## release-versioning
 
-> Keep README.md in sync with the product surface, verified by the readme-check gate
+> Release process, version bumps, and VSIX hygiene for nyx-local-ai
 
 
-# README stays in sync — enforced, not hoped
+# Release & versioning
 
-README.md is the product's single source of documentation. Any change to the
-product surface must update it **in the same commit**:
+The repo slug is **sthamann/nyx-local-ai** — it appears in `install.sh`,
+`install.ps1`, README and `package.json` (`scripts.package` baseImagesUrl).
+Never introduce a different slug.
 
-- new/changed **setting** → Settings table + relevant feature section
-- new/changed **command** → Commands table (and keybinding note if any)
-- new/changed **tool** → Tools table with its default permission
-- new **feature** → Highlights bullet + a "Features in depth" section + a
-  numbered step in "How to test"
-- version bump → status line, `.vsix` mentions, and `src/mcp/client.ts`
-  `clientInfo.version`
+## Version bump checklist (all three, always together)
 
-## The gate
+1. `package.json` → `"version"`
+2. `README.md` → status line (`**vX.Y.Z**`) and every `nyx-local-ai-X.Y.Z.vsix` mention
+3. `src/mcp/client.ts` → `clientInfo.version`
+
+## Quality gates before packaging
+
+Run in this order; all must pass:
 
 ```bash
-node .harness/readme-check.mjs   # must print "README CHECK: ALL PASS"
+npm run typecheck
+node .harness/smoke.mjs         # parser/edit logic — must print ALL PASS
+node .harness/readme-check.mjs  # README/version sync — must print ALL PASS
+npm run build
+npm run package
 ```
 
-It cross-checks README against `package.json` (settings, commands, version),
-the tool schemas, and the MCP client version. Run it **before every commit
-that touches `package.json`, `src/agent/toolSchemas.ts`, or bumps a version**,
-and always before packaging a release. It exists because a silently failing
-`sed` once left the MCP client version three releases behind.
+The readme-check also catches missed version bumps (it verifies all three
+locations), so don't rely on `sed` output alone — seds fail silently.
+
+## Releasing
+
+Releases are produced **only** by CI (`.github/workflows/release.yml`):
+`git tag vX.Y.Z && git push origin vX.Y.Z` builds and attaches
+`nyx-local-ai.vsix` + `checksums.txt` — the exact artifact names
+`install.sh`/`install.ps1` download and verify. Never hand-upload artifacts.
+
+## VSIX size
+
+The package must stay ≈4–6 MB. `node_modules` ships in the VSIX (tesseract.js
+is external), so when adding a runtime dependency, extend `.vscodeignore` to
+strip its dead weight and check the size vsce reports after `npm run package`.
+Dev-only dependencies (bundled by esbuild, e.g. `marked`, `highlight.js`)
+belong in `devDependencies`.
 
 ---
 > Source: [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai) — distributed by [TomeVault](https://tomevault.io).
