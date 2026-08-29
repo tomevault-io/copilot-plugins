@@ -1,0 +1,9 @@
+{
+  "name": "pulseengine--meld",
+  "displayName": "meld",
+  "description": "Meld \u2014 Static WebAssembly component fusion. Part of the PulseEngine toolchain.",
+  "version": "1.0.0",
+  "author": "pulseengine",
+  "homepage": "https://github.com/pulseengine/meld",
+  "skills": []
+}
