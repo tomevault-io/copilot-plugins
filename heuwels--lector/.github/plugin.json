@@ -1,0 +1,9 @@
+{
+  "name": "heuwels--lector",
+  "displayName": "lector",
+  "description": "Language-learning reader: EPUB and YouTube, click-to-translate, cloze SRS, Anki sync. Free for self-hosting with a cloud option.",
+  "version": "1.0.0",
+  "author": "heuwels",
+  "homepage": "https://github.com/heuwels/lector",
+  "skills": []
+}
