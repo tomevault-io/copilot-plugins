@@ -1,0 +1,9 @@
+{
+  "name": "andysparks--sourceconvert",
+  "displayName": "sourceconvert",
+  "description": "Convert PDF books & academic papers to clean Markdown for use in Claude Projects, NotebookLM, and other LLM tools",
+  "version": "1.0.0",
+  "author": "AndySparks",
+  "homepage": "https://github.com/AndySparks/sourceconvert",
+  "skills": []
+}
