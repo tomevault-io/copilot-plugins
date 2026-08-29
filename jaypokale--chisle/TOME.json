@@ -4,7 +4,7 @@
   "repo": "Chisle",
   "description": "Your AI talks less, builds less, says more. Like a senior dev who bills by the syllable.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JayPokale/Chisle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:35:06Z"
+  "distributed_at": "2026-08-29T00:49:29Z"
 }
