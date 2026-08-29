@@ -4,7 +4,7 @@
   "repo": "sheena",
   "description": "A lightweight, in-process sandbox for safely executing the tool calls an AI agent requests",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goccy/sheena",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:13:08Z"
+  "distributed_at": "2026-08-29T07:20:40Z"
 }
