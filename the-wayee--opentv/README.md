@@ -7,11 +7,11 @@ OpenTV·灵感画布 — 短视频内容的策划与生产工具:一个项目 = 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [the-wayee/OpenTV](https://github.com/the-wayee/OpenTV).
+Original source: `AGENTS.md` in [the-wayee/OpenTV](https://github.com/the-wayee/OpenTV).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
