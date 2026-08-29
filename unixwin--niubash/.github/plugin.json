@@ -1,0 +1,9 @@
+{
+  "name": "unixwin--niubash",
+  "displayName": "niubash",
+  "description": "AI-native Bash shell for Windows: bash syntax, native Windows paths, Unix commands, direct execution of real Windows binaries. No WSL, no emulation - for humans and AI agents.",
+  "version": "1.0.0",
+  "author": "unixwin",
+  "homepage": "https://github.com/unixwin/niubash",
+  "skills": []
+}
