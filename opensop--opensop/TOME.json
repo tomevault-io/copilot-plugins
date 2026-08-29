@@ -4,7 +4,7 @@
   "repo": "opensop",
   "description": "Process as Infrastructure for agentic processes \u2014 the OpenSOP specification + a local-first CLI. Declare, version, fork, run, and audit processes as files. Reference server: Chosen9115/opensop-rails.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opensop/opensop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T16:58:05Z"
+  "distributed_at": "2026-08-29T00:47:32Z"
 }
