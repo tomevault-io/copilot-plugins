@@ -1,0 +1,9 @@
+{
+  "name": "thomaswitt--mcp-agents",
+  "displayName": "mcp-agents",
+  "description": "MCP server that wraps the Claude Code and Gemini CLI so any MCP client (e.g. codex) can call it as a tool.",
+  "version": "1.0.0",
+  "author": "thomaswitt",
+  "homepage": "https://github.com/thomaswitt/mcp-agents",
+  "skills": []
+}
