@@ -1,0 +1,9 @@
+{
+  "name": "wyattjoh--herdr-plugin-renamer",
+  "displayName": "herdr-plugin-renamer",
+  "description": "Renames an auto-generated herdr worktree branch and workspace from the agent's first prompt, via on-device Apple FoundationModels or Codex.",
+  "version": "1.0.0",
+  "author": "wyattjoh",
+  "homepage": "https://github.com/wyattjoh/herdr-plugin-renamer",
+  "skills": []
+}
