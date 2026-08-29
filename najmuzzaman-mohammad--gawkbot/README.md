@@ -7,15 +7,15 @@ WUPHF lets you spin up your personal office of AI teammates who collaborate over
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [najmuzzaman-mohammad/gawkbot](https://github.com/najmuzzaman-mohammad/gawkbot).
+Original source: `CLAUDE.md` in [najmuzzaman-mohammad/gawkbot](https://github.com/najmuzzaman-mohammad/gawkbot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/najmuzzaman-mohammad/gawkbot](https://github.com/najmuzzaman-mohammad/gawkbot)
 
