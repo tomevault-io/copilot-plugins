@@ -4,7 +4,7 @@
   "repo": "TeamBrain",
   "description": "The brain is a git repo. Memories are markdown files with YAML   front-matter, committed like any other file. Git history is the audit   trail; pull requests are the approval gate \u2014 nothing is written to the   shared brain without human review.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/donatienmigue/TeamBrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T04:46:27Z"
+  "distributed_at": "2026-08-29T09:01:52Z"
 }
