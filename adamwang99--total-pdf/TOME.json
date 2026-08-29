@@ -4,7 +4,7 @@
   "repo": "total-pdf",
   "description": "Total PDF \u2014 AI-powered PDF suite (fork of Stirling-PDF, rebranded)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adamwang99/total-pdf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:45:39Z"
+  "distributed_at": "2026-08-29T11:13:02Z"
 }
