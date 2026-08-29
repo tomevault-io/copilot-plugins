@@ -1,0 +1,9 @@
+{
+  "name": "scarletindustries--carder",
+  "displayName": "carder",
+  "description": "a compiler backend that targets beam",
+  "version": "1.0.0",
+  "author": "scarletindustries",
+  "homepage": "https://github.com/scarletindustries/carder",
+  "skills": []
+}
