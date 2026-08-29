@@ -1,0 +1,65 @@
+## kylrix
+
+> 1. You are an autonomous software engineering agent tasked with maintaining the [Project Name] ecosystem.
+
+# KylrixOrganization - Organizaion Local Agent Guide
+
+# AGENTS.md - System Orchestration
+
+## Core Operational Directives
+1. You are an autonomous software engineering agent tasked with maintaining the [Project Name] ecosystem.
+2. Your development workflow is strictly governed by financial and performance budgets detailed in `TOKENS.md`.
+
+## Execution Lifecycle
+*   **Phase 1 (Bootstrap):** On initialization, read `TOKENS.md` once to configure your output parser and tool-selection priority weights. For domain work, read `.agents/skills/SKILLS.md` first (catalog of every skill), then open only the matching skill — do not scan skills one-by-one.
+*   **Phase 2 (Execution):** Maintain those constraints across all loop iterations. If your context window approaches 80% capacity, execute a self-directed context summary pass using the guidelines in `TOKENS.md`.
+
+## 🏗️ Architectural Mandates
+
+### 🚫 IMMUTABLE FILES & CLI SAFETY (STRICT)
+- **NEVER Hand-Edit `appwrite.config.json`**: Hand-editing `appwrite.config.json` is strictly forbidden. It causes schema drift and catastrophic data loss.
+- **NEVER Run `appwrite push`**: NEVER execute `appwrite push` or any of its push subcommands (`appwrite push tables`, `appwrite push all`, etc.). Pushing overwrites and wipes live databases and existing user records.
+- **NEVER Run Ad-Hoc Node/TS Scripts Against Appwrite (STRICT)**: Never write or execute ad-hoc Node/TS scripts (`node -e`, `npx tsx`, inline scripts) passing Appwrite admin credentials to query or mutate backend state directly. Schema operations MUST strictly follow `.agents/skills/system.appwrite-cli-ops` via official Appwrite CLI commands (`appwrite tablesdb ...`). All agent and dogfooding interactions MUST go through the **Kylrix HTTP API (`/api/v1`)** using PATs/OAuth.
+- **No internal APIs**: Prefer existing in-process functions, Server Actions, and SDK helpers for in-app flows to keep the open source productivity suite simple and consistent.
+- **Prefer Internal Methods**: Use existing in-process functions, Server Actions, and SDK helpers instead of exposing new API surfaces.
+- **Data Consolidation**: When returning shaped payloads to hydrate multiple UI widgets, use Server Actions or consolidated internal service methods.
+
+### ✅ SOURCE CONTROL PERMISSIONS
+- **Git Operations Permitted**: The agent is permitted and expected to perform Git operations. After implementing any fix or feature, the agent must consolidate the modifications, perform a commit with a descriptive message, and push the changes immediately. **Do not wait for the user to ask** — commit + push is part of finishing the task (see also `shipping-mode`).
+- **Pure Commit Messages (STRICT)**: When committing, NEVER add any co-author metadata (e.g., `Co-authored-by:` headers, names, or emails). Commit messages must contain only the pure commit message description. Leave author identification entirely to the automatic system git configuration.
+
+### ⚡ Development Standards
+- **Canonical App**: Only implement against **`kylrix/`**. Legacy trees at repo root are for reference only.
+- **Tailwind CSS**: Use Tailwind CSS and Vanilla CSS for maximum flexibility and modern looks according to openbricks design language. MUI and its co-dependencies are deprecated and must be removed.
+- **Opaque Surfaces**: No gradients or translucent backgrounds on product chrome. Canonical UI rules: `.agents/skills/openbricks/SKILL.md`.
+- **PNPM Only**: Always use `pnpm` for package management. NEVER use `npm` or `yarn`.
+- **Global Unmount Policy**: Strictly use conditional rendering (`{isOpen && <Component />}`) for all overlays (drawers, modals, sidebars) instead of relying on visibility props. This physically removes the component and its invisible backdrops from the DOM when closed, mathematically preventing interaction blocking.
+- **Interactivity Standards**: Use `keepMounted: false` and `disablePortal: true` for all OpenBricks drawers/modals to ensure they stay contained and cleanup correctly.
+- **Surgical Execution**: For 'surgical fixes', prioritize direct, high-precision code modifications. Skip build/lint/test cycles unless explicitly instructed to validate. Aim for maximum velocity in resolving identified issues. Sometimes you only run `pnpm lint` or nothing at all (instead of running lint and build all the time), especially for minor edits, feature additions, or changes with low LOC and low chances of introducing new bugs.
+- **Zero Speculation**: When the user identifies a specific error (ReferenceError, SyntaxError, etc.), fix exactly that error and stop. DO NOT check for similar errors in other files or attempt to 'proactively find' related issues. Resolve the reported problem surgically and get out of the way immediately.
+- **Strict Scope Enforcement (STRICT)**: DO NOT edit, touch, clean up, refactor, or fix files that were not explicitly mentioned or directly affected by the user's explicit request. Strictly restrict all modifications to the exact target files requested. Unsolicited edits to adjacent or unrelated files are strictly prohibited.
+- **Layman-First**: Prohibit technical jargon (e.g., E2EE, Entropy, Node, Nexus, Decentralized, Agentic) in all UI copy and descriptions. Use simple, direct, layman-friendly English (e.g., Secure, Private, System, Smart). Prioritize accessibility and user adoption over technical metaphors.
+- **Terminology Mandate (STRICT)**: Use **"Table"** instead of "Collection" and **"Row"** instead of "Document" in all code, comments, logs, and internal documentation. The Appwrite-native "document" and "collection" terms are deprecated and must never be reintroduced. This applies to method names (e.g., `listRows` over `listDocuments`), variable names, and UI copy.
+- **Single Database Mandate**: Kylrix uses a single-database design where all tables exist inside a single Appwrite database ID: `passwordManagerDb` (as defined in `appwrite.config.json`). References to `whisperrflow` or any database ID other than `passwordManagerDb` are invalid and will fail runtime execution. Ensure all database operations target `passwordManagerDb` or use the configuration constants.
+
+### 🤖 Agent Verification & Tooling Policy (STRICT)
+- **No Playwright Unless Asked**: Do not run Playwright, headless browser verification, screenshot capture, or pixel/FPS checks unless the user explicitly requests it. User's eyes are the verifier by default.
+- **No Agent Dev Servers**: Do not start dedicated dev servers (`pnpm dev`, `next dev`, etc.) as the agent. Port `3005` is user-pinned — never occupy it or spawn competing servers. If a running server is needed, ask the user to start it.
+- **No Build/Lint Unless Asked (STRICT)**: NEVER run `pnpm build`, `pnpm lint`, `tsc`, or equivalent verification commands unless the user explicitly asks for them in their prompt. Zero unprompted linting or building under all circumstances. Default strictly to surgical code edits.
+- **CI Workflows Disabled By Default (STRICT)**: Ota governance and Docker build/publish GitHub Actions workflows are disabled by default on standard commits to ensure ultra-fast push velocity. They must ONLY run when the user explicitly requests `pnpm build` and `pnpm lint` verification, both commands succeed with 0 errors, and the agent tags the commit message with `[ci-build]` (or uses `workflow_dispatch`). Standard feature/bugfix commits must never trigger CI runs.
+
+### 📡 Real-Time Local Dev Console & Error Streaming (`/api/dev/logs`)
+- **Live Runtime Diagnostics**: In development mode (`localhost:3005`), the Next.js server hooks `console.error`, `console.warn`, `unhandledRejection`, and uncaught client errors into an in-memory ring buffer.
+- **Agent Log Inspection & SSE Streaming**:
+  - `GET http://localhost:3005/api/dev/logs?limit=50&level=error`: Fetches recent errors and stack traces in JSON.
+  - `GET http://localhost:3005/api/dev/logs?stream=true`: Streams live server and client errors via Server-Sent Events (SSE).
+  - `DELETE http://localhost:3005/api/dev/logs`: Resets/clears the in-memory buffer before verifying a fix.
+- **Autonomous Error Tailing**: Agents are encouraged to query this endpoint to inspect runtime exceptions, verify fixes in real-time, and diagnose server/client errors without asking the user for terminal logs.
+- **Ecosystem Self-Hosting (Dogfooding)**: From henceforth, Kylrix itself is the platform and workspace environment used to organize, plan, track, and build this ecosystem. Agents must operate within a dedicated agentic workspace (`isAgentic: true`) to record task goals, ideas, and conversation sessions.
+- **Agent Local API Base URI**: When dogfooding via the Kylrix HTTP API (`/api/v1`), autonomous agents MUST target the local instance at `http://localhost:3005/api/v1` (NOT the public production URI `https://www.kylrix.space`).
+- **Kylrix HTTP API vs Appwrite (STRICT SEPARATION)**: Agents are special dogfooding users of the product. All agent task planning, object CRUD, notes, goals, and communication MUST go through the **Kylrix HTTP API (`/api/v1`)** using PATs/Agent tokens. NEVER confuse or replace Kylrix HTTP API calls with raw Appwrite admin APIs, internal SDKs, or CLI data mutations.
+- **Autonomous API Extension on Gaps**: As agents dogfood and discover missing endpoints (e.g. workspace linking, DMs/chats, goal tracking), agents are empowered and expected to build, fix, and flesh out the corresponding `/api/v1` routes and methods to achieve full ecosystem parity.
+
+---
+> Source: [Kylrix/kylrix](https://github.com/Kylrix/kylrix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
