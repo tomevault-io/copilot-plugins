@@ -1,0 +1,9 @@
+{
+  "name": "pleme-io--iac-forge-cli",
+  "displayName": "iac-forge-cli",
+  "description": "Unified CLI for generating IaC providers from OpenAPI specs",
+  "version": "1.0.0",
+  "author": "pleme-io",
+  "homepage": "https://github.com/pleme-io/iac-forge-cli",
+  "skills": []
+}
