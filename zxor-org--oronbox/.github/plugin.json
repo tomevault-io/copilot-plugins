@@ -1,0 +1,9 @@
+{
+  "name": "zxor-org--oronbox",
+  "displayName": "OronBox",
+  "description": "A pretty fast wearable management tool for VelaOS and ZeppOS, built with Flutter.",
+  "version": "1.0.0",
+  "author": "zxor-org",
+  "homepage": "https://github.com/zxor-org/OronBox",
+  "skills": []
+}
