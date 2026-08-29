@@ -1,0 +1,30 @@
+{
+  "name": "practicalswan--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Skills I use for my Agents (Claude Code, Codex, Copilot)",
+  "version": "1.0.0",
+  "author": "PracticalSwan",
+  "homepage": "https://github.com/PracticalSwan/agent-skills",
+  "skills": [
+    {
+      "name": "documentation-automation",
+      "description": ""
+    },
+    {
+      "name": "documentation-patterns",
+      "description": ""
+    },
+    {
+      "name": "documentation-verification",
+      "description": ""
+    },
+    {
+      "name": "documentation-authoring",
+      "description": ""
+    },
+    {
+      "name": "documentation-quality",
+      "description": ""
+    }
+  ]
+}
