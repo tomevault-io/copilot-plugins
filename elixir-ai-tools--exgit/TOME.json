@@ -1,0 +1,44 @@
+{
+  "name": "exgit",
+  "owner": "elixir-ai-tools",
+  "repo": "exgit",
+  "description": "Pure-Elixir git: clone, fetch, push over smart HTTP v2 with lazy partial-clone and a path-oriented FS API for agents",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/elixir-ai-tools/exgit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T05:36:27Z"
+}
