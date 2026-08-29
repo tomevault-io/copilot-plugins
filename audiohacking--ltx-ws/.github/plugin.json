@@ -1,0 +1,9 @@
+{
+  "name": "audiohacking--ltx-ws",
+  "displayName": "ltx-ws",
+  "description": "LTX2 CLI + WS Server compatible with FastVideo API for Apple Silicon",
+  "version": "1.0.0",
+  "author": "audiohacking",
+  "homepage": "https://github.com/audiohacking/ltx-ws",
+  "skills": []
+}
