@@ -4,7 +4,7 @@
   "repo": "gawkbot",
   "description": "WUPHF lets you spin up your personal office of AI teammates who collaborate over shared context. Supports Claude Code, Codex, OpenClaw, OpenCode, local LLMs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/najmuzzaman-mohammad/gawkbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:48:16Z"
+  "distributed_at": "2026-08-29T11:18:19Z"
 }
