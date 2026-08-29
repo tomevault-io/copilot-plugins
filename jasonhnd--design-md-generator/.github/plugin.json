@@ -1,0 +1,9 @@
+{
+  "name": "jasonhnd--design-md-generator",
+  "displayName": "design-md-generator",
+  "description": "Generate publication-quality DESIGN.md files from any website URL. Extract computed styles, structured tokens, and layout patterns into a unified reference for AI UI coding agents.",
+  "version": "1.0.0",
+  "author": "jasonhnd",
+  "homepage": "https://github.com/jasonhnd/design-md-generator",
+  "skills": []
+}
