@@ -1,0 +1,9 @@
+{
+  "name": "caelum29--calibre-mcp",
+  "displayName": "calibre-mcp",
+  "description": "The most capable Calibre MCP server \u2014 full read/write tools plus multilingual semantic search over your whole ebook library or a single book. For Claude & any MCP client.",
+  "version": "1.0.0",
+  "author": "caelum29",
+  "homepage": "https://github.com/caelum29/calibre-mcp",
+  "skills": []
+}
