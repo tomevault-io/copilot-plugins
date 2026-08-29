@@ -1,0 +1,9 @@
+{
+  "name": "anomalyco--browser-control",
+  "displayName": "browser-control",
+  "description": "Local browser driver for trusted agents: control your existing Chromium browser through a small extension and local relay",
+  "version": "1.0.0",
+  "author": "anomalyco",
+  "homepage": "https://github.com/anomalyco/browser-control",
+  "skills": []
+}
