@@ -1,0 +1,9 @@
+{
+  "name": "audrey-560--bookkeeper-starter",
+  "displayName": "bookkeeper-starter",
+  "description": "AI-operated, human-approved bookkeeping for Claude Code \u2014 multi-client Google Sheets ledgers, statement importers, exception queue, monthly close with period locks. Clone it and run /bk-onboard.",
+  "version": "1.0.0",
+  "author": "audrey-560",
+  "homepage": "https://github.com/audrey-560/bookkeeper-starter",
+  "skills": []
+}
