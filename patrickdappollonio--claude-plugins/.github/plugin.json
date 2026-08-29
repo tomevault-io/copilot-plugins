@@ -1,0 +1,9 @@
+{
+  "name": "patrickdappollonio--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "My collection of Claude (and other AI's) skills, plugins, MCP servers, and more.",
+  "version": "1.0.0",
+  "author": "patrickdappollonio",
+  "homepage": "https://github.com/patrickdappollonio/claude-plugins",
+  "skills": []
+}
