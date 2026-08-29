@@ -1,0 +1,9 @@
+{
+  "name": "1sgtpepper--scieqlint",
+  "displayName": "scieqlint",
+  "description": "Deterministic linter for scientific docs",
+  "version": "1.0.0",
+  "author": "1sgtpepper",
+  "homepage": "https://github.com/1sgtpepper/scieqlint",
+  "skills": []
+}
