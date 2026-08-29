@@ -7,11 +7,11 @@ Process as Infrastructure for agentic processes — the OpenSOP specification + 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [opensop/opensop](https://github.com/opensop/opensop).
+Original source: `AGENTS.md` in [opensop/opensop](https://github.com/opensop/opensop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
