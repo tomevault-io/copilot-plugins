@@ -1,0 +1,9 @@
+{
+  "name": "sthamann--nyx-local-ai",
+  "displayName": "nyx-local-ai",
+  "description": "Local-first AI coding agent for VS Code & Cursor. Ollama, LM Studio & your inference fleet. Cursor-grade agent UX \u2014 offline, private, zero token cost.",
+  "version": "1.0.0",
+  "author": "sthamann",
+  "homepage": "https://github.com/sthamann/nyx-local-ai",
+  "skills": []
+}
