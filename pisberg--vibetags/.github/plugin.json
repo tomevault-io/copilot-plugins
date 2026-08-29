@@ -1,0 +1,9 @@
+{
+  "name": "pisberg--vibetags",
+  "displayName": "vibetags",
+  "description": "VibeTags is a Java annotation processor that acts as AI guardrails for code generation tools like Cursor, Claude, Gemini, and Codex CLI. It allows developers to control AI behavior through simple anno",
+  "version": "1.0.0",
+  "author": "PIsberg",
+  "homepage": "https://github.com/PIsberg/vibetags",
+  "skills": []
+}
