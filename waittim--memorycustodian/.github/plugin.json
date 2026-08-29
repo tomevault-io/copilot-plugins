@@ -1,0 +1,9 @@
+{
+  "name": "waittim--memorycustodian",
+  "displayName": "MemoryCustodian",
+  "description": "Durable, repo-native project memory for coding agents\u2014without context bloat.",
+  "version": "1.0.0",
+  "author": "waittim",
+  "homepage": "https://github.com/waittim/MemoryCustodian",
+  "skills": []
+}
