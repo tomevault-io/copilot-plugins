@@ -1,0 +1,9 @@
+{
+  "name": "unlearndev--feedbackpit",
+  "displayName": "feedbackpit",
+  "description": "FeedbackPit is a suggestion tracking application and the live project powering all workflows across unlearn.dev",
+  "version": "1.0.0",
+  "author": "unlearndev",
+  "homepage": "https://github.com/unlearndev/feedbackpit",
+  "skills": []
+}
