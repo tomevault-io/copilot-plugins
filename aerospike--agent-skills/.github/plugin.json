@@ -1,0 +1,9 @@
+{
+  "name": "aerospike--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Official Aerospike agent skills repo",
+  "version": "1.0.0",
+  "author": "aerospike",
+  "homepage": "https://github.com/aerospike/agent-skills",
+  "skills": []
+}
