@@ -1,0 +1,9 @@
+{
+  "name": "humanlayer--fold",
+  "displayName": "fold",
+  "description": "Fold is an Effect-native, provider-agnostic, isomorphic agent core with an optional opinionated coding agent, CLI, and TUI. It supports multiple model providers (including openai/anthropic-compatible ",
+  "version": "1.0.0",
+  "author": "humanlayer",
+  "homepage": "https://github.com/humanlayer/fold",
+  "skills": []
+}
