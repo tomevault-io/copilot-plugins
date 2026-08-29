@@ -1,0 +1,9 @@
+{
+  "name": "ww-w-ai--super-token-saver",
+  "displayName": "super-token-saver",
+  "description": "Restore prior Claude Code AND Codex sessions with zero LLM calls. Cross-tool session handoff, cache-expiry prevention, real cost dashboard. One plugin, both hosts.",
+  "version": "1.0.0",
+  "author": "ww-w-ai",
+  "homepage": "https://github.com/ww-w-ai/super-token-saver",
+  "skills": []
+}
