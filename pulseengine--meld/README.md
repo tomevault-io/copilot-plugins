@@ -7,11 +7,11 @@ Meld — Static WebAssembly component fusion. Part of the PulseEngine toolchain.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pulseengine/meld](https://github.com/pulseengine/meld).
+Original source: `CLAUDE.md` in [pulseengine/meld](https://github.com/pulseengine/meld).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
