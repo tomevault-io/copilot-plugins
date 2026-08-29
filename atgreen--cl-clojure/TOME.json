@@ -4,7 +4,7 @@
   "repo": "cl-clojure",
   "description": "Common Lisp / Clojure interop via OpenLDK",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atgreen/cl-clojure",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T16:50:50Z"
+  "distributed_at": "2026-08-29T00:39:38Z"
 }
