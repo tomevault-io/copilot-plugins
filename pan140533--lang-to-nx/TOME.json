@@ -1,0 +1,44 @@
+{
+  "name": "lang-to-nx",
+  "owner": "pan140533",
+  "repo": "lang-to-nx",
+  "description": "\u81ea\u7136\u8bed\u8a00\u9a71\u52a8 NX \u4e09\u7ef4\u5efa\u6a21",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pan140533/lang-to-nx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T06:41:39Z"
+}
