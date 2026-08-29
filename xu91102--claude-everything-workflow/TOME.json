@@ -4,7 +4,7 @@
   "repo": "claude-everything-Workflow",
   "description": "\u4e00\u5957\u901a\u7528\u7684\u81ea\u6211\u5b66\u4e60\u8fed\u4ee3\u7684harness \u5de5\u7a0b\u6a21\u677f\uff0c\u53ef\u76f4\u63a5\u590d\u5236\u5230 \u4f7f\u7528\u3002~/.claude/",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xu91102/claude-everything-Workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:39:14Z"
+  "distributed_at": "2026-08-29T01:36:30Z"
 }
