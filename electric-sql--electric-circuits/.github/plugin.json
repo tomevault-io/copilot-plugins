@@ -1,0 +1,9 @@
+{
+  "name": "electric-sql--electric-circuits",
+  "displayName": "electric-circuits",
+  "description": "Electric circuits - turn any static query into a live one. ",
+  "version": "1.0.0",
+  "author": "electric-sql",
+  "homepage": "https://github.com/electric-sql/electric-circuits",
+  "skills": []
+}
