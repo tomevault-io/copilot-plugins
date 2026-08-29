@@ -1,0 +1,9 @@
+{
+  "name": "dmmulroy--cf-twitch",
+  "displayName": "cf-twitch",
+  "description": "Twitch stream integration platform on Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "dmmulroy",
+  "homepage": "https://github.com/dmmulroy/cf-twitch",
+  "skills": []
+}
