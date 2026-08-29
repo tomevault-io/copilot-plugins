@@ -1,0 +1,44 @@
+{
+  "name": "learn-mattpocock-skills",
+  "owner": "CNife",
+  "repo": "learn-mattpocock-skills",
+  "description": "Matt Pocock Skills \u4e2d\u82f1\u53cc\u8bed\u5b66\u4e60\u56fe\u8c31\u4e0e\u5bf9\u7167\u9605\u8bfb\u7ad9",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CNife/learn-mattpocock-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T08:39:42Z"
+}
