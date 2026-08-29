@@ -1,0 +1,9 @@
+{
+  "name": "djiit--obsidian-tasks-kanban",
+  "displayName": "obsidian-tasks-kanban",
+  "description": "Display Tasks in a Kanban board view with columns for each status",
+  "version": "1.0.0",
+  "author": "Djiit",
+  "homepage": "https://github.com/Djiit/obsidian-tasks-kanban",
+  "skills": []
+}
