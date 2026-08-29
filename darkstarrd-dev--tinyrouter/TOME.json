@@ -4,7 +4,7 @@
   "repo": "tinyrouter",
   "description": "Lightweight Utilities bundled local based API router \u3001 AI Chat \u3001Image Generation\u3001 Stream Vedio Download Manager\u3001 Image Viewer\u3001 Video Player ....... with extremely tiny size",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Darkstarrd-dev/tinyrouter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:14:23Z"
+  "distributed_at": "2026-08-29T07:21:56Z"
 }
