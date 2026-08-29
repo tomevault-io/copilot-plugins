@@ -1,13 +1,13 @@
-## no-irrelevant-gpu-comments
+## no-loopback-web
 
-> 評価結果の議論へ無関係なGPU資源の話を持ち込まない
+> 判定・レビュー用 Web は 127.0.0.1 にバインドしない
 
 
-# GPU資源に触れる範囲
+# 判定 Web はループバックに出さない
 
-- ユーザーが費用・計算資源・実行環境を尋ねた場合だけ、H100やV100に触れる。
-- 評価結果、原因分析、次の実験の説明に、既に済んだ資源判断を付け足さない。
-- 次の実験は観測結果から決め、GPUの選択を判断理由にしない。
+この作業機には GUI もブラウザも無い。判定・レビュー用のローカル Web は **既定も例外も `0.0.0.0`（または LAN アドレス）** にする。`127.0.0.1` / `localhost` / `::1` は起動時に拒否する（`scripts/score_server.py` と `scripts/edit_sft_review_server.py` と同じ）。
+
+Makefile の `HOST` 既定も `0.0.0.0`。手順に `http://127.0.0.1:` を書かない。別機体のブラウザから、このマシンの LAN アドレスとポートを開く。
 
 ---
 > Source: [k16shikano/ja-tech-edit-score](https://github.com/k16shikano/ja-tech-edit-score) — distributed by [TomeVault](https://tomevault.io).
