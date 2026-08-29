@@ -1,0 +1,9 @@
+{
+  "name": "eigenius--eigenius",
+  "displayName": "eigenius",
+  "description": "the platform monorepo (kernel, orchestration, CLI, deployment)",
+  "version": "1.0.0",
+  "author": "eigenius",
+  "homepage": "https://github.com/eigenius/eigenius",
+  "skills": []
+}
