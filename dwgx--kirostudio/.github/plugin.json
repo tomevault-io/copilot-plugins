@@ -1,0 +1,9 @@
+{
+  "name": "dwgx--kirostudio",
+  "displayName": "KiroStudio",
+  "description": "Kiro API Gateway \u00b7 Anthropic-compatible proxy for Kiro/AWS Q \u00b7 Multi-account pool \u00b7 Admin UI \u00b7 Claude Code compatible",
+  "version": "1.0.0",
+  "author": "dwgx",
+  "homepage": "https://github.com/dwgx/KiroStudio",
+  "skills": []
+}
