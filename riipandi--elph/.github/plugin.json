@@ -1,0 +1,9 @@
+{
+  "name": "riipandi--elph",
+  "displayName": "elph",
+  "description": "The open AI agent harness. Extensible TUI, mouse support, minimal overhead, with maximum extensibility and control.",
+  "version": "1.0.0",
+  "author": "riipandi",
+  "homepage": "https://github.com/riipandi/elph",
+  "skills": []
+}
