@@ -1,0 +1,9 @@
+{
+  "name": "keugenek--krea-mcp",
+  "displayName": "krea-mcp",
+  "description": "MCP server for Krea.ai - Generate stunning AI images & videos with Flux, Hailuo, Runway, Kling, Ideogram, Imagen & more. Works with Claude Desktop, Claude Code, and any MCP client.",
+  "version": "1.0.0",
+  "author": "keugenek",
+  "homepage": "https://github.com/keugenek/krea-mcp",
+  "skills": []
+}
