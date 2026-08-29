@@ -4,7 +4,7 @@
   "repo": "hope-re",
   "description": "A rewrite of the original Hope, an AI protection app, in Tauri to support cross-platform",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HopeArtOrg/hope-re",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T22:33:00Z"
+  "distributed_at": "2026-08-29T03:23:44Z"
 }
