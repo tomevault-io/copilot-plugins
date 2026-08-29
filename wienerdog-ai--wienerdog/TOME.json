@@ -4,7 +4,7 @@
   "repo": "wienerdog",
   "description": "Give your AI a memory, habits, and a daily routine \u2014 with nothing but files. One-line setup for Claude Code and Codex CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wienerdog-ai/wienerdog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T04:45:02Z"
+  "distributed_at": "2026-08-29T08:54:52Z"
 }
