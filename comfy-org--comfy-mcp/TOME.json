@@ -4,7 +4,7 @@
   "repo": "comfy-mcp",
   "description": "Local MCP server for ComfyUI \u2014 run your local ComfyUI from AI agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Comfy-Org/comfy-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:53:28Z"
+  "distributed_at": "2026-08-29T04:31:27Z"
 }
