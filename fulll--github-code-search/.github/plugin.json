@@ -1,0 +1,9 @@
+{
+  "name": "fulll--github-code-search",
+  "displayName": "github-code-search",
+  "description": "An interactive TUI CLI to search GitHub code across an organization, with per-repository result aggregation, keyboard and mouse navigation, and fine-grained extract selection",
+  "version": "1.0.0",
+  "author": "fulll",
+  "homepage": "https://github.com/fulll/github-code-search",
+  "skills": []
+}
