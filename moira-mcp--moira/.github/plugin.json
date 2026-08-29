@@ -1,0 +1,9 @@
+{
+  "name": "moira-mcp--moira",
+  "displayName": "moira",
+  "description": "Agent Workflow Engine for AI agents over MCP \u2014 per-step directives, completion conditions, and JSON-Schema validation. Self-hostable (Apache-2.0).",
+  "version": "1.0.0",
+  "author": "moira-mcp",
+  "homepage": "https://github.com/moira-mcp/moira",
+  "skills": []
+}
