@@ -1,0 +1,9 @@
+{
+  "name": "openshift--lightspeed-agentic-operator",
+  "displayName": "lightspeed-agentic-operator",
+  "description": "An operator to load the Agentic Lightspeed features of OpenShif",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/lightspeed-agentic-operator",
+  "skills": []
+}
