@@ -1,0 +1,9 @@
+{
+  "name": "pjlsergeant--byre",
+  "displayName": "byre",
+  "description": "A comfortable, constrained agent environment around any folder",
+  "version": "1.0.0",
+  "author": "pjlsergeant",
+  "homepage": "https://github.com/pjlsergeant/byre",
+  "skills": []
+}
