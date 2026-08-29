@@ -1,0 +1,9 @@
+{
+  "name": "nuget-workbench--nuget-workbench-vscode",
+  "displayName": "nuget-workbench-vscode",
+  "description": "NuGet package manager for VS Code with vulnerability scanning, multi-project support, and version consolidation.",
+  "version": "1.0.0",
+  "author": "nuget-workbench",
+  "homepage": "https://github.com/nuget-workbench/nuget-workbench-vscode",
+  "skills": []
+}
