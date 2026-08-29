@@ -1,0 +1,9 @@
+{
+  "name": "wirio-org--wirio-settings",
+  "displayName": "wirio-settings",
+  "description": "Lightning-fast, strongly typed, and zero-boilerplate settings library for Python",
+  "version": "1.0.0",
+  "author": "wirio-org",
+  "homepage": "https://github.com/wirio-org/wirio-settings",
+  "skills": []
+}
