@@ -1,0 +1,9 @@
+{
+  "name": "mcpads--emucap",
+  "displayName": "emucap",
+  "description": "emulator monitor + HITL adaptor \u2014 MCP infrastructure for debugging retro-game patches",
+  "version": "1.0.0",
+  "author": "mcpads",
+  "homepage": "https://github.com/mcpads/emucap",
+  "skills": []
+}
