@@ -7,11 +7,11 @@ Generate publication-quality DESIGN.md files from any website URL. Extract compu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jasonhnd/design-md-generator](https://github.com/jasonhnd/design-md-generator).
+Original source: `AGENTS.md` in [jasonhnd/design-md-generator](https://github.com/jasonhnd/design-md-generator).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
