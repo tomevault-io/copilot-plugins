@@ -1,0 +1,9 @@
+{
+  "name": "get-engram--engram",
+  "displayName": "engram",
+  "description": "Persistent, searchable long-term memory for AI agents. MCP-native. Works with ChatGPT, Claude, Cursor, and any MCP client.",
+  "version": "1.0.0",
+  "author": "get-engram",
+  "homepage": "https://github.com/get-engram/engram",
+  "skills": []
+}
