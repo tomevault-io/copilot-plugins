@@ -1,0 +1,9 @@
+{
+  "name": "robert-malai--anafpy",
+  "displayName": "anafpy",
+  "description": "Typed async Python clients + MCP server for Romania's ANAF web services: e-Factura, e-Transport, and public taxpayer lookups.",
+  "version": "1.0.0",
+  "author": "robert-malai",
+  "homepage": "https://github.com/robert-malai/anafpy",
+  "skills": []
+}
