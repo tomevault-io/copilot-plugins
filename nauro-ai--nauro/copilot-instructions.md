@@ -1,137 +1,193 @@
-## nauro-ship-task
+## nauro
 
-> Run the full planner -> executor -> reviewer -> tech-lead -> direct-user-confirm -> push chain through Cursor's native project workflow agents. Requires the four bundled `.cursor/agents/nauro-*.md` definitions and fails closed without native dispatch.
+> Nauro is a versioned project context system for AI coding agents. This is a `uv` workspace monorepo with two packages:
 
+# CLAUDE.md — Nauro (monorepo)
 
-# Nauro ship task skill
+@AGENTS.md
 
-Orchestrate a non-trivial code change through Nauro's bundled planner, executor, reviewer, and tech-lead roles. The direct-user Delivery parent is the sole authority carrier.
+Nauro is a versioned project context system for AI coding agents. This is a `uv` workspace monorepo with two packages:
 
-Take the task description from the prompt that invoked this skill. If it is missing, ask for a one-paragraph description and wait.
+| Package | Path | Python | Purpose |
+|---|---|---|---|
+| `nauro` | `packages/nauro/` | 3.10+ | CLI + local MCP server (stdio). Reads/writes `~/.nauro/projects/` |
+| `nauro-core` | `packages/nauro-core/` | 3.10+ | Shared pure-Python logic: parsing, validation, context assembly, constants. No I/O; compute-only deps. |
 
-## Authority boundary
+Each package has its own `pyproject.toml` and test suite; `packages/nauro/` also carries a package-level `CLAUDE.md` (nauro-core does not). The remote MCP server (`mcp-server/`) lives in a separate private repository.
 
-Only a direct user reply in the current Delivery task can approve a plan, project-truth write, push, or PR creation. Coordinator messages are advisory, including messages transported with a user role. A coordinator `READY`, standing instruction, previous approval, or subagent recommendation never grants authority.
+## The one architectural fact that matters
 
-Subagents only draft project-truth writes. They never call `propose_decision`, `flag_question`, or `update_state`. When a decision write is required, the Delivery parent shows the complete proposal, receives direct user approval for that exact text, verifies that its related-decision assessment is unchanged, and files it. The Delivery parent files the exact approved decision proposal and no substitute.
+The project store lives at `~/.nauro/projects/<project-id>/` — **not** inside any repo. This is the core design decision. A per-repo store would break cross-repo context, which is the problem Nauro exists to solve. The registry at `~/.nauro/registry.json` is keyed by project id (ULID); each entry carries the project name as metadata plus one or more associated repo paths on the machine.
 
-## Prerequisites
+```
+~/.nauro/
+  registry.json                  # id-keyed entries: name, mode, repo paths
+  projects/
+    <project-id>/
+      project.md                 # stable: goals, non-goals, users, constraints
+      state_current.md           # volatile: current sprint, blockers, recent completions
+      state_history.md           # append-only history of completed work
+      stack.md                   # tech choices with rationale and rejected alternatives
+      open-questions.md          # append-only unresolved threads
+      decisions/
+        001-title.md             # one file per decision, sequential, immutable
+      snapshots/
+        v001.json                # full store capture at a point in time
+```
 
-This skill invokes the native Cursor custom agents `/nauro-planner`, `/nauro-executor`, `/nauro-reviewer`, and `/nauro-tech-lead`. They install under `.cursor/agents/` in every registered repo via `nauro adopt --with-subagents` or `nauro setup all --with-subagents`.
+All files are freeform markdown. No database. No JSON for content — JSON only for `registry.json` and snapshots.
 
-### Cursor dispatch capability check
+## Cross-package architecture
 
-Before planning or changing files:
+```
+~/.nauro/projects/<id>/          Local store (flat markdown + JSON snapshots)
+        │
+        ├── nauro CLI              reads/writes directly
+        ├── local MCP (stdio)      reads/writes directly, spawned by Claude Code
+        │
+        └── nauro sync ──────►  S3 bucket (remote storage)
+                                     │
+                                     └── remote MCP (Lambda, separate repo) reads/writes via S3
+```
 
-1. Verify that all four `.cursor/agents/nauro-*.md` files exist in the current repo.
-2. Verify that the Cursor runtime loaded the native custom-agent definitions and can dispatch each configured name. A generic Task agent or prompt mention does not qualify.
-3. If any definition or native dispatch capability is missing, explain that the chain is unavailable and stop before planning, mutation, project-truth writes, commit, push, or PR creation. Do not reproduce the roles inline and do not use a generic-agent fallback.
+## Config and credentials
 
-Cursor custom agents inherit the parent session's MCP tools. The `readonly: true` field on planner, reviewer, and tech-lead agents does not deny MCP write tools or every indirect shell path. The explicit draft-only instruction and Delivery-parent authority contract remain the portable controls. Subagents must not call Nauro write tools directly or indirectly. Keep every role in a separate context.
+User config lives at `~/.nauro/config.json` (written by `nauro auth login` and other feature-specific commands; inspect with `nauro config get/list/unset`, which resolve top-level keys only):
+- `auth` object — credentials from `nauro auth login`, nested under one top-level `auth` key (so inspect with `nauro config get auth`, not a dotted path): `access_token` is the Auth0 bearer sent to the presign sync endpoints; `refresh_token` mints a fresh access token when the bearer expires; `sub` is the raw JWT subject id (identity; the block also persists `sanitized_sub` and `user_id`)
+- Auth0 domain, client ID, API URL, and audience ship as defaults in `nauro/auth.py`; env vars (`NAURO_AUTH0_*`, `NAURO_API_URL`) or config keys override (domain + client_id must be set as a pair)
+- `NAURO_HOME` env var overrides `~/.nauro/` for testing
 
-The bundled roles follow the session's model. Keep the four roles in separate contexts.
+## Stack
 
-## Exact artifact revisions
+- CLI: Python 3.10+, Typer
+- MCP server: local stdio transport (FastMCP), spawned by the MCP client
+- Storage: flat markdown + JSON snapshots
+- Templating: f-strings and Python string templates — no Jinja2
 
-Give each approval artifact a stable revision identifier and retain its full content in the internal audit record.
+## CLI commands
 
-- PLAN binds the verified base, complete plan, scope budget, and deferrals.
-- DECISION binds the complete proposal text and current related-decision assessment.
-- REVIEW binds the verified base, candidate tree or reviewed diff, and exact reviewed commit and history metadata.
-- PUBLICATION binds the reviewed candidate, exact PR title, and exact PR body.
+Principal commands (run `nauro --help` for the full surface):
 
-A material change reopens only the affected review and direct-user gate. An unchanged retry does not. A stale base, candidate, reviewed commit or history metadata, decision text, related-decision assessment, PR title, or PR body invalidates the corresponding approval. A same-tree amend or commit-message change creates a new REVIEW revision. Missing identity, lost authority lineage, failed evidence, or ambiguous evidence holds the chain before mutation or publication.
+- `nauro init <name>` — register a new project in `~/.nauro/`, scaffold the store, associate repo paths
+- `nauro adopt` — adopt an existing repo: register it, wire MCP across surfaces, install the `/nauro-adopt` skill (`--with-skills` / `--with-subagents` add the opt-in skills and bundled subagents)
+- `nauro attach <project_id>` — associate the current repo with an existing cloud project
+- `nauro link` — promote a local-only project to cloud
+- `nauro note <text>` — append a decision (default) or question (if text ends with `?` or `--question` flag)
+- `nauro sync` — capture a snapshot, regenerate `AGENTS.md` in all associated repos
+- `nauro log` — list recent snapshots with metadata
+- `nauro status` — capability table for the current project (active surfaces, absolute store path)
+- `nauro doctor` — report deterministic store-integrity defects (unparseable decision files, dangling or cyclic supersession refs, status contradictions) plus repairable supersede backref orphans; report-only, always exits 0
+- `nauro repair` — flip the single unambiguous supersede backref orphan after interactive confirmation; every other shape is reported with guidance and left alone
+- `nauro graph` — render the decision graph to one self-contained HTML file in the store directory and open it
+- `nauro serve` — start the local MCP server (stdio transport)
+- `nauro import --memory-bank <path>` — migrate a Cline/Roo Code Memory Bank
+- `nauro import --adr <path>` — migrate Architecture Decision Records
 
-For a program Delivery, each plan and publication gate also requires coordinator `READY` for that exact artifact, or an explicit direct-user bypass recorded as a material exception. Coordinator `READY` cannot replace direct user approval.
+Command groups: `nauro setup <claude-code|cursor|codex|all>`, `nauro auth <login|status|logout>`, `nauro config <get|list|unset>`, `nauro telemetry <status|enable|disable|reset>`, `nauro validate`, `nauro projects`, `nauro questions`, `nauro hook`.
 
-## Decision-relevant output
+The 10 read/write MCP tools are also mirrored as CLI commands — `nauro check-decision`, `nauro propose-decision`, `nauro get-context`, `nauro diff-since-last-session [--days N]`, … — auto-generated from the tool allowlist in `cli/autogen.py` (underscored tool names become hyphenated commands).
 
-Keep routine filenames, counts, hashes, successful commands, gate mechanics, and compliance reassurance in the internal audit record. Normal plan, push, and program-handback packets omit them.
+## MCP tools (11 total in `nauro_core.mcp_tools` — 8 read, 3 write)
 
-Always surface a complete decision proposal and the exact PR title and full PR body when those artifacts need approval. Also surface any scope or budget exception, skipped validation, material deviation, unresolved risk, ambiguous evidence, or weaker capability fallback.
+The local stdio server registers 10; `list_projects` is remote-only since local installs auto-resolve to the single project store.
 
-## Pre-step: verify and triage
+Read:
+- `get_context(project, level)` — L0 concise summary, L1 working set, L2 full dump
+- `get_raw_file(project, path)` — raw content of any store file
+- `list_decisions(project, limit, include_superseded)` — browse decision history
+- `get_decision(project, number)` — full content of a specific decision
+- `diff_since_last_session(project, days)` — what changed since last session
+- `search_decisions(project, query, limit)` — keyword search across decisions
+- `check_decision(proposed_approach)`: surface related decisions without writing
+- `list_projects()` — list user's projects (remote-only)
 
-Before planning, verify repository identity, remote default branch, current remote base, selected base, and clean isolated worktree state. Preserve unrelated checkout state.
+Write:
+- `propose_decision(project, title, rationale, ...)` — record a decision (single-call commit on Tier 1 clean)
+- `flag_question(project, question, context)` — flag an open question
+- `update_state(project, delta)` — report what was completed
 
-The planner calls `check_decision`, reads every decision that informs the approach with `get_decision`, and returns GREEN, AMBER, or RED with a reviewable plan. If doctrine is unavailable, hold. A RED plan cannot reach execution until the direct user approves an exact supersede proposal or explicitly overrides the cited conflict.
+## AGENTS.md
 
-## 1. Plan
+Generated by `nauro sync` into each associated repo root. Contains the L0 payload plus MCP connection instructions. Never hand-edited — a `# Manual` section at the bottom is preserved across regenerations. This is the cross-tool distribution layer for tools without MCP support.
 
-Invoke `/nauro-planner` with the task description, verified base, scope ceiling, and deferrals. The planner returns Why, Approach, What changes, What's deferred, Test plan, doctrine verdict, and any complete decision drafts.
+## Running tests
 
-For a program Delivery, return PLAN_READY with a stable PLAN revision and stop. The coordinator may inspect it and send advisory feedback. If the coordinator returns `READY` for the unchanged PLAN revision, present the concise plan gate to the user. A coordinator message that requests changes creates a new PLAN revision and repeats review.
+```bash
+# nauro-core
+uv run pytest packages/nauro-core/tests/ -x -q
 
-For every plan gate, show only the recommendation, why it matters, semantic boundary, material risks or exceptions, deferrals, and what approval authorizes. Wait for direct user approval of the exact PLAN revision. Approval authorizes only implementation and local validation unless the gate explicitly includes another artifact.
+# nauro
+uv run pytest packages/nauro/tests/ -x -q
 
-## 2. Decision proposals
+# Lint
+uv run ruff check packages/
+uv run ruff format --check packages/
+```
 
-If the planner or tech-lead returns a decision draft, show the complete proposal exactly as it would be filed, including operation, affected decision when applicable, full rationale, rejected alternatives, and current related decisions and assessment. The Delivery parent must paste the originating rendered proposal exactly as returned, without JSON reserialization, abbreviation, pointer, or substitution. The proposal must be the final text of that turn. Approval must arrive in a later direct user reply.
+### Hosted-consumer symbols
 
-Before filing, verify the DECISION revision and rerun the overlap check. Any change to the proposal or related-decision assessment requires a new revision and approval. On unchanged approval, the Delivery parent calls `propose_decision` once. The originating subagent is never re-invoked to file it.
+The nauro-core names listed in `packages/nauro-core/tests/hosted_consumer_symbols.txt` are imported directly by the private hosted MCP server, well past the curated `nauro_core.__all__`. `test_hosted_consumer_contract.py` freezes each one's shape, so renaming, moving, or re-signing any of them is a cross-repo change: coordinate the mcp-server update in the same window. Regenerate the manifest with `python scripts/hosted_consumer_symbols.py <mcp-server>/src` after the consumer's imports change, and the snapshot with `NAURO_UPDATE_CONTRACT=1 .venv/bin/python -m pytest packages/nauro-core/tests/test_hosted_consumer_contract.py`.
 
-A plan-time decision must be filed and confirmed before executor dispatch. Verify that the exact `propose_decision` result reports successful confirmed filing of the approved DECISION revision. Failed, ambiguous, or unconfirmed results hold before mutation. Do not dispatch the executor. An unchanged retry does not require new approval.
+## Code bar
 
-After a doctrine-pass decision lands, re-invoke the tech-lead read-only on the unchanged REVIEW revision to verify the current verdict before publication.
+Nauro holds a high code bar. These apply to every change and are enforced in review:
 
-## 3. Execute
+- Parse untrusted or semi-structured input (hook configs, registry JSON, MCP payloads, tool configs) into validated models at the boundary — Pydantic is already a nauro-core dependency. Downstream logic operates on typed objects, never raw dicts.
+- `isinstance`/`.get()` chains, regex extraction of structure, and nested conditional loops are tripwires: model the data instead. Python is the wrong place for heavy looping over loosely-shaped data.
+- Functions have limited scope: one job, named for it. Reach for classes and inheritance when the domain calls for them, not by default.
+- Modules organize code accurately: shared pure logic lives in its own module (see `store/resolution.py`, `cli/_codex_hooks.py`), never as private helpers imported across command modules.
+- Errors are typed; no sentinel strings for control flow.
+- A multi-round fix cycle owes a design-coherent end state before merge: the result must read as designed, not patched.
+- Code prose has a budget: 3 lines for a function or method docstring, 5 for a class, 15 for a module, and the module docstring is the only place in code a design note belongs. Code carries no history: no dates, PR or issue references, prior breakages, rejected alternatives, or audit findings; that material belongs in the commit message, the PR body, and the decision store. A comment exists only where the code cannot say it, and a docstring longer than its function body is a restructure signal, so split, name, or type the function instead. `scripts/check_docstring_budget.py` enforces this in CI against `scripts/docstring_budget_baseline.txt`, a checked-in list of pre-existing overruns that may only shrink.
 
-Invoke `/nauro-executor` with the exact approved PLAN revision and any filed decision record. The executor verifies the base before mutation, implements only the approved scope, runs validation, drafts the exact PR title and body, and commits locally. It does not push or open a PR.
+## Conventions
 
-If execution needs scope expansion, an architectural choice, or a budget exception, stop and create a new PLAN revision. Coordinator advice cannot authorize execution.
+- No Jinja2 — f-strings and string templates only
+- All store I/O goes through `nauro.store.filesystem_store.FilesystemStore` implementing the `nauro_core.operations.Store` protocol; helpers in `reader.py` and `snapshot.py` support reads and snapshot capture respectively
+- Tests: pytest with `tmp_path` fixture to avoid touching real `~/.nauro/`
+- Linting: ruff
+- `NAURO_HOME` env var overrides `~/.nauro/` for testing
+- MCP tool implementations in `packages/nauro/src/nauro/mcp/tools.py` are canonical — the stdio transport delegates to them
+- `nauro-core` does no I/O; its runtime dependencies are compute-only (BM25, pydantic, PyYAML). Embeddings ship as an optional extra (`nauro-core[embeddings]`)
 
-## 4. Local review
+## Project layout
 
-Invoke `/nauro-reviewer` in Mode A with the REVIEW revision, local diff, and exact PR title and body. After APPROVE or APPROVE WITH NITS, invoke `/nauro-tech-lead` in Mode C on the same REVIEW revision with the task, planner verdict, filed decisions, and reviewer verdict.
+```
+packages/nauro/
+  src/nauro/
+    auth.py                # Auth0 defaults, token load, single-flight refresh, 401 retry
+    cli/
+      main.py              # Typer app entry point
+      commands/            # one module per command
+    mcp/
+      stdio_server.py      # stdio MCP server (FastMCP)
+      tools.py             # canonical transport-agnostic tool adapters
+      payloads.py          # L0/L1/L2 payload builders
+    store/
+      filesystem_store.py  # Store-protocol implementation backed by ~/.nauro/projects/
+      reader.py            # read helpers
+      snapshot.py          # capture, list, load snapshots
+      registry.py          # ~/.nauro/registry.json CRUD + resolve_v2_from_path()
+      repo_config.py       # per-repo .nauro/config.json read/write
+      resolution.py        # project resolution from CWD
+      config.py            # ~/.nauro/config.json read/write
+      validator.py         # structural checks on store contents
+    templates/
+      scaffolds.py         # nauro init template strings
+      agents_md.py         # AGENTS.md generation
+  tests/
+    fixtures/              # pre-scaffolded stores
 
-The reviewer finds code and policy failures. The tech-lead checks doctrine and drafts any required decision. Neither role writes project truth or authorizes publication.
-
-## 5. Progress-based correction
-
-When review blocks, return only the findings to the executor. Continue while each round resolves or materially narrows at least one in-scope finding and adds no equal-or-worse finding. Three or more improving rounds can continue.
-
-Stop on repetition, no progress, scope expansion, architectural change, missing authority, or failed or ambiguous evidence. Surface the unresolved finding and the reason correction stopped. Any changed candidate creates a new REVIEW revision and requires reviewer and tech-lead review again.
-
-## 6. Optional external review
-
-External review is off by default. At the publication choice, offer it only when the capability is available. It requires explicit per-push consent before diff egress. The result is advisory and never blocks by itself. Show it only when its result can change the push choice.
-
-Declining or lacking external review is not a failure. Do not simulate the review or claim it ran.
-
-## 7. GATE: publication approval
-
-After local reviewer approval and a GREEN tech-lead verdict, or AMBER with its constraints visible, create a PUBLICATION revision. If the candidate, PR title, or PR body differs from the reviewed artifact, reopen the affected review before asking.
-
-Show the semantic change, any material reviewer finding or nit, any doctrine constraint, every visible exception, and the exact PR title and full PR body. Then ask: `Push and open PR?` Wait for a direct user reply approving that exact PUBLICATION revision.
-
-## 8. Push
-
-After exact publication approval, verify the PUBLICATION revision again, push the reviewed commit, write the approved body to a file, and run `gh pr create --title <exact-approved-title> --base <reviewed-base> --body-file <approved-body-file>`. Do not pass the body inline. If `gh` is unavailable, return the compare URL without claiming that a PR exists.
-
-## Program handback
-
-For a program Delivery, return a handback after PR creation or every terminal blocker. A pending direct-user gate is held state, not a terminal blocker.
-
-Keep the handback conversational and decision-relevant:
-
-- **Outcome or blocker:** what completed or stopped delivery.
-- **Primary invariant:** the behavior implemented or attempted.
-- **Material exceptions or risks:** only items that affect the next choice.
-- **Deferred boundaries:** planned deferrals and preserved unrelated work.
-- **Merge status:** observed state only. The Delivery task does not count a PR as merged unless it independently verifies the merge.
-- **Next coordinator action:** one verification or routing action.
-- **Next-dependency claim:** label it a **coordinator-verification hypothesis**.
-
-Keep routine repository paths, revisions, counts, hashes, successful validation commands, and gate history in the internal audit record. The handback does not automatically create a `BRIEF:` or `RESUME:` file, update project state, flag a question, or file a decision or evidence rider. Do not automatically start another Delivery.
-
-## Rules
-
-- A detailed task still goes through the planner.
-- Direct user approval applies only to the unchanged artifact in this Delivery task.
-- No subagent or coordinator has authority to approve, file, push, or create a PR.
-- If an approved decision cannot be filed and confirmed, hold before the next mutation or publication step.
-- Push and PR creation require separate exact publication approval.
-- Do not push, open a PR, merge, or start deferred work without the corresponding direct user authority.
+packages/nauro-core/
+  src/nauro_core/
+    __init__.py            # public API
+    constants.py           # shared constants
+    context.py             # context assembly
+    decision_model.py      # Decision model + parse/format + protocol regexes
+    parsing.py             # markdown/decision parsing
+    validation.py          # structural validation
+  tests/
+```
 
 ---
 > Source: [Nauro-AI/nauro](https://github.com/Nauro-AI/nauro) — distributed by [TomeVault](https://tomevault.io).
