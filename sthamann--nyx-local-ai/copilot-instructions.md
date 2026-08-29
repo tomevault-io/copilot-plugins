@@ -1,50 +1,32 @@
-## local-model-safety
+## readme-sync
 
-> Safety invariants for model I/O, secrets, and file mutations in the extension host
+> Keep README.md in sync with the product surface, verified by the readme-check gate
 
 
-# Local-model safety invariants
+# README stays in sync — enforced, not hoped
 
-## Special tokens never survive into persisted state
+README.md is the product's single source of documentation. Any change to the
+product surface must update it **in the same commit**:
 
-Leaked model tokens (DSML fragments, `<｜end▁of▁sentence｜>`) poison future
-prompts: once stored in memory/sessions, models start imitating the junk.
-`stripSpecialTokens` (src/models/client.ts) must therefore be applied at
-these boundaries:
+- new/changed **setting** → Settings table + relevant feature section
+- new/changed **command** → Commands table (and keybinding note if any)
+- new/changed **tool** → Tools table with its default permission
+- new **feature** → Highlights bullet + a "Features in depth" section + a
+  numbered step in "How to test"
+- version bump → status line, `.vsix` mentions, and `src/mcp/client.ts`
+  `clientInfo.version`
 
-- assistant content at stream end (client.ts, `extract` mode)
-- **web-sourced** tool results only (`fetch_url`, `web_search` in agent.ts)
-- memory writes and the one-time migration in `MemoryStore`
-- stored histories in `AgentSession.loadMessages`
+## The gate
 
-**Never sanitize file/command/MCP tool outputs** (`read_file`, `run_command`,
-…): the agent must see workspace content byte-faithfully — sanitizing file
-reads once corrupted source that merely *mentioned* DSML tokens and sent a
-model analyzing phantom bugs.
+```bash
+node .harness/readme-check.mjs   # must print "README CHECK: ALL PASS"
+```
 
-When adding a new boundary (new tool, new store), wire it in and add a case to
-`.harness/smoke.mjs`.
-
-## Tool-call parsing changes require smoke tests
-
-Any change to parsing in src/models/client.ts (JSON extraction, DSML,
-function-style calls, repair) needs a matching test in `.harness/smoke.mjs`.
-Run `node .harness/smoke.mjs` — it must print `ALL PASS`.
-
-## Other invariants
-
-- **Secrets**: API keys live in `SecretStorage` only (`MachineStore`); never
-  write them into settings, session files, or logs. The webview receives
-  `hasApiKey`, never the key.
-- **File writes** go through `applyWrite` → `WorkspaceEdit` (undo/dirty-buffer
-  safe) with checkpoint recording (`recordCheckpointFile`) and backups. Don't
-  add direct `fs.writeFile` paths for workspace files.
-- **Processes**: anything long-running goes through `ProcessManager` so Stop
-  (abort signal) actually kills it. No bare `exec` without a signal.
-- **Untrusted content**: anything fetched from the network is wrapped with
-  `wrapUntrusted` before entering the prompt; `fetch_url` keeps its SSRF guard.
-- **Tool outputs** are truncated (`truncate`, 20k chars) — unbounded strings
-  blow up the context and the session files.
+It cross-checks README against `package.json` (settings, commands, version),
+the tool schemas, and the MCP client version. Run it **before every commit
+that touches `package.json`, `src/agent/toolSchemas.ts`, or bumps a version**,
+and always before packaging a release. It exists because a silently failing
+`sed` once left the MCP client version three releases behind.
 
 ---
 > Source: [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai) — distributed by [TomeVault](https://tomevault.io).
