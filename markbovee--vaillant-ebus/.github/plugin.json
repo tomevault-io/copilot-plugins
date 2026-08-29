@@ -1,0 +1,9 @@
+{
+  "name": "markbovee--vaillant-ebus",
+  "displayName": "vaillant-ebus",
+  "description": "Home Assistant integration for Vaillant heat pumps via direct ebusd TCP \u2014 no MQTT, no cloud",
+  "version": "1.0.0",
+  "author": "MarkBovee",
+  "homepage": "https://github.com/MarkBovee/vaillant-ebus",
+  "skills": []
+}
