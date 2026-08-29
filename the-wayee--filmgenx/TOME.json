@@ -4,7 +4,7 @@
   "repo": "FilmGenX",
   "description": "AI\u52a8\u753b\u5236\u4f5c",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-wayee/FilmGenX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:52:09Z"
+  "distributed_at": "2026-08-29T11:24:47Z"
 }
