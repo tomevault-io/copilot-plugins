@@ -1,0 +1,44 @@
+{
+  "name": "so-novel-rs",
+  "owner": "AhJxs",
+  "repo": "so-novel-rs",
+  "description": "\u5c0f\u8bf4\u4e0b\u8f7d\uff5c\u7f51\u6587\u4e0b\u8f7d | \u7f51\u7edc\u5c0f\u8bf4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AhJxs/so-novel-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T11:07:26Z"
+}
