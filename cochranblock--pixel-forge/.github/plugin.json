@@ -1,0 +1,9 @@
+{
+  "name": "cochranblock--pixel-forge",
+  "displayName": "pixel-forge",
+  "description": "Pixel art sprite generator. Three diffusion models (1M-17M params). Pure Rust, Metal/CUDA/CPU. No Python, no cloud.",
+  "version": "1.0.0",
+  "author": "cochranblock",
+  "homepage": "https://github.com/cochranblock/pixel-forge",
+  "skills": []
+}
