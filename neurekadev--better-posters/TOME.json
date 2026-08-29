@@ -1,8 +1,8 @@
 {
-  "name": "Better-Posters",
+  "name": "better-posters",
   "owner": "neurekadev",
-  "repo": "Better-Posters",
-  "description": "[Mirror] Better Posters is an unofficial Jellyfin plugin that lets you replace standard movie and show posters with customizable posters from btttr.cc.",
+  "repo": "better-posters",
+  "description": "Better Posters is an unofficial Jellyfin plugin that lets you replace standard movie and show posters with customizable posters from btttr.cc.",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/neurekadev/Better-Posters",
+  "source_url": "https://github.com/neurekadev/better-posters",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T05:43:54Z"
+  "distributed_at": "2026-08-29T09:40:00Z"
 }
