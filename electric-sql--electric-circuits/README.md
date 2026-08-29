@@ -7,11 +7,11 @@ Electric circuits - turn any static query into a live one.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [electric-sql/electric-circuits](https://github.com/electric-sql/electric-circuits).
+Original source: `AGENTS.md` in [electric-sql/electric-circuits](https://github.com/electric-sql/electric-circuits).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
