@@ -1,0 +1,52 @@
+## verlet-kernel
+
+> Verlet is a standalone Rust runtime repo, split from the product app repo.
+
+# Verlet Agent Notes
+
+Verlet is a standalone Rust runtime repo, split from the product app repo.
+
+Keep this repo focused on runtime primitives:
+
+- multi-tenant host and supervisor;
+- thread lifecycle, subthread relationships, events, cancellation, resume, and
+  shutdown;
+- agent loop and provider adapters;
+- virtual bash, VFS, sandbox, procedure/reducer, and provider adapter seams.
+- ABI docs and contracts: host-facing ABI powers, guest-declared operations,
+  and CLI/API/tool projections.
+
+Keep product logic out:
+
+- auth, billing, invites, dashboards, Telegram, Railway product deployment, and
+  app-specific ledgers belong in the product repo.
+
+Working rules:
+
+- Use `cargo nextest` before claiming runtime changes are done.
+- Prefer larger, real lifecycle tests over narrow mocks when the cost is low.
+  If a provider-backed path can run in roughly five seconds or less, wire it to
+  a generic OpenAI-compatible or Anthropic-compatible provider and exercise the
+  actual runtime surface instead of stopping at a synthetic unit smoke.
+- Do not commit `scratch/` or `target/`.
+- Prefer small, explicit runtime contracts over product-shaped abstractions.
+- Treat network as the first ABI system surface. POSIX/process scoping is a
+  later design pass and should not be implied by network-only changes.
+- For CLI, virtual bash, and operation/tool projections, follow the Unix-shaped
+  command standard in `docs/command-contracts.md`: stdout is compositional data,
+  stderr is diagnostics/events, exit status drives bash control flow, and
+  ambient host authority must be declared explicitly.
+- For Agent Experience (AX), keep `README.md`, `docs/index.md`, and
+  `docs/public-api-coverage.md` current when changing public positioning,
+  coding-agent workflows, CLI/API/tool projections, or man-page/help surfaces.
+
+Rust Rules
+
+- No use imports. Full paths (crate::foo::Bar, std::collections::HashMap). Exception: use some::Trait as _;. ¬ glob, ¬ super::.
+- No pub use re-exports, except when a module's primary export shares the module name: mod open; pub use open::open;.
+- Visibility: pub / pub(crate) / private.
+- No mod.rs; use foo.rs + foo/bar.rs
+
+---
+> Source: [emotionscientific/verlet-kernel](https://github.com/emotionscientific/verlet-kernel) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
