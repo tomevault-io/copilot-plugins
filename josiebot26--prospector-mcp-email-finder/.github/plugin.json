@@ -1,0 +1,9 @@
+{
+  "name": "josiebot26--prospector-mcp-email-finder",
+  "displayName": "prospector-mcp-email-finder",
+  "description": "Free B2B email finder & verification MCP server. Find, verify, and enrich business emails without paid API subscriptions. Self-contained DNS/SMTP verification. Hunter.io alternative for AI agents.",
+  "version": "1.0.0",
+  "author": "JosieBot26",
+  "homepage": "https://github.com/JosieBot26/prospector-mcp-email-finder",
+  "skills": []
+}
