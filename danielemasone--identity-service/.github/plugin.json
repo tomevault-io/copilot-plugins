@@ -1,0 +1,9 @@
+{
+  "name": "danielemasone--identity-service",
+  "displayName": "identity-service",
+  "description": "OpenAPI-first identity service with versioned APIs, generated Spring MVC contracts, PostgreSQL/Flyway, RFC 7807 errors and Testcontainers.",
+  "version": "1.0.0",
+  "author": "DanieleMasone",
+  "homepage": "https://github.com/DanieleMasone/identity-service",
+  "skills": []
+}
