@@ -1,0 +1,9 @@
+{
+  "name": "miztertea--nim-proxy",
+  "displayName": "nim-proxy",
+  "description": "A tiny, rate-limit-aware OpenAI-compatible proxy for the NVIDIA NIM API, built for agent harnesses like OpenCode, Codex, n8n, and anything else that speaks the OpenAI API.",
+  "version": "1.0.0",
+  "author": "miztertea",
+  "homepage": "https://github.com/miztertea/nim-proxy",
+  "skills": []
+}
