@@ -1,9 +1,9 @@
 {
   "name": "neurekadev--better-posters",
-  "displayName": "Better-Posters",
-  "description": "[Mirror] Better Posters is an unofficial Jellyfin plugin that lets you replace standard movie and show posters with customizable posters from btttr.cc.",
+  "displayName": "better-posters",
+  "description": "Better Posters is an unofficial Jellyfin plugin that lets you replace standard movie and show posters with customizable posters from btttr.cc.",
   "version": "1.0.0",
   "author": "neurekadev",
-  "homepage": "https://github.com/neurekadev/Better-Posters",
+  "homepage": "https://github.com/neurekadev/better-posters",
   "skills": []
 }
