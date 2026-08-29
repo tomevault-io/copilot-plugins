@@ -1,0 +1,9 @@
+{
+  "name": "blackmixture--mix-studio",
+  "displayName": "Mix-Studio",
+  "description": "The cleanest, responsive AI workspace. Run highly tuned image and video workflows flawlessly from your desktop or your phone. Built on ComfyUI.",
+  "version": "1.0.0",
+  "author": "BlackMixture",
+  "homepage": "https://github.com/BlackMixture/Mix-Studio",
+  "skills": []
+}
