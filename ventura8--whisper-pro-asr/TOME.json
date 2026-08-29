@@ -1,0 +1,44 @@
+{
+  "name": "Whisper-Pro-ASR",
+  "owner": "ventura8",
+  "repo": "Whisper-Pro-ASR",
+  "description": "A high-performance Docker container that runs OpenAI's Whisper model. Optimized for CPU, Intel NPU, Intel Arc/iGPU, and NVIDIA CUDA GPUs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ventura8/Whisper-Pro-ASR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T02:47:30Z"
+}
