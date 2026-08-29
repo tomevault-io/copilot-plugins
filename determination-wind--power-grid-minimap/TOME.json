@@ -1,0 +1,44 @@
+{
+  "name": "Power-Grid-Minimap-",
+  "owner": "DeterMination-Wind",
+  "repo": "Power-Grid-Minimap-",
+  "description": "Color each disconnected power network on the minimap/full map and show its power balance at the grid center; includes split alerts and reconnect hints.\u5728\u5c0f\u5730\u56fe/\u5927\u5730\u56fe\u4e0a\u4e3a\u6bcf\u4e2a\u7535\u7f51\u5206\u522b\u7740\u8272\uff0c\u5e76\u5728\u6bcf\u4e2a\u7535\u7f51\u4e2d\u5fc3\u663e\u793a\u7535\u529b\u76c8\u4e8f\uff1b\u652f\u6301\u7535\u7f51\u65ad\u5f00\u544a\u8b66\u4e0e\u5efa\u8bae\u8fde\u63a5\u70b9\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DeterMination-Wind/Power-Grid-Minimap-",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T01:35:13Z"
+}
