@@ -1,0 +1,9 @@
+{
+  "name": "chesha1--rsshub-balancer",
+  "displayName": "rsshub-balancer",
+  "description": "Load balance across multiple RSSHub instances to reuse cached responses and reduce redundant crawling \u4e3a\u591a\u4e2a RSSHub \u5b9e\u4f8b\u505a\u8d1f\u8f7d\u5747\u8861\uff0c\u590d\u7528\u7f13\u5b58\u54cd\u5e94\uff0c\u51cf\u5c11\u91cd\u590d\u6293\u53d6",
+  "version": "1.0.0",
+  "author": "chesha1",
+  "homepage": "https://github.com/chesha1/rsshub-balancer",
+  "skills": []
+}
