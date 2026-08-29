@@ -4,7 +4,7 @@
   "repo": "periscope-mcp",
   "description": "Web-app QA, testing & analysis for AI agents \u2014 74 Playwright tools: authenticated flows (2FA/SSO), 25-action E2E workflows, hard assertions, session reports, and accessibility / SEO / GEO / Core-Web-Vitals + Lighthouse audits across a page or a full crawled site. Battle-tested by an AI agent on real apps.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/segentic-lab/periscope-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T05:01:28Z"
+  "distributed_at": "2026-08-29T09:19:32Z"
 }
