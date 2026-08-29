@@ -1,0 +1,9 @@
+{
+  "name": "petrludwig-collab--agent2telegram",
+  "displayName": "Agent2Telegram",
+  "description": "Connect a coding agent (Claude Code, Codex, Antigravity) to Telegram. Dependency-free, robust, secure.",
+  "version": "1.0.0",
+  "author": "petrludwig-collab",
+  "homepage": "https://github.com/petrludwig-collab/Agent2Telegram",
+  "skills": []
+}
