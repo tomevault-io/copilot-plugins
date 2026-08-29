@@ -1,0 +1,9 @@
+{
+  "name": "concaption--cold-md",
+  "displayName": "cold-md",
+  "description": "One markdown file that tells an AI agent how to do your cold outreach. Open spec + Claude Code skill.",
+  "version": "1.0.0",
+  "author": "concaption",
+  "homepage": "https://github.com/concaption/cold-md",
+  "skills": []
+}
