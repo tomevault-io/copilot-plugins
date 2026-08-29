@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--compose-swing-ui",
+  "displayName": "compose-swing-ui",
+  "description": "A Compose wrapper around Swing components",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/compose-swing-ui",
+  "skills": []
+}
