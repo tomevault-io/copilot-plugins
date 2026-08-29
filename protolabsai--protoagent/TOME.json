@@ -4,7 +4,7 @@
   "repo": "protoAgent",
   "description": "Template for building protoLabs A2A agents on LangGraph \u2014 fork me",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/protoLabsAI/protoAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:08:04Z"
+  "distributed_at": "2026-08-29T01:04:18Z"
 }
