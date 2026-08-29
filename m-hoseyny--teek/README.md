@@ -7,11 +7,11 @@ OpenSource Alternative for OpusClips, free, self-hosted. Create your own viral c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [m-hoseyny/teek](https://github.com/m-hoseyny/teek).
+Original source: `AGENTS.md` in [m-hoseyny/teek](https://github.com/m-hoseyny/teek).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
