@@ -1,0 +1,9 @@
+{
+  "name": "github--spec-kit-copilot",
+  "displayName": "spec-kit-copilot",
+  "description": "Copilot-native integrations for Spec Kit across GitHub Copilot CLI, the Copilot App, and VS Code.",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/spec-kit-copilot",
+  "skills": []
+}
