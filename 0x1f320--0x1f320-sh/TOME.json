@@ -4,7 +4,7 @@
   "repo": "0x1f320.sh",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0x1f320/0x1f320.sh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T22:45:40Z"
+  "distributed_at": "2026-08-29T03:28:01Z"
 }
