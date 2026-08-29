@@ -1,0 +1,9 @@
+{
+  "name": "gilsmt--cache-app",
+  "displayName": "cache-app",
+  "description": "The AI bookmark manager for busy people. Private, with support for links, notes, images, and videos from your favorite platforms",
+  "version": "1.0.0",
+  "author": "gilsmt",
+  "homepage": "https://github.com/gilsmt/cache-app",
+  "skills": []
+}
