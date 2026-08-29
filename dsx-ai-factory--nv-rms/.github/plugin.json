@@ -1,0 +1,9 @@
+{
+  "name": "dsx-ai-factory--nv-rms",
+  "displayName": "nv-rms",
+  "description": "NVIDIA Rack Management Service",
+  "version": "1.0.0",
+  "author": "dsx-ai-factory",
+  "homepage": "https://github.com/dsx-ai-factory/nv-rms",
+  "skills": []
+}
