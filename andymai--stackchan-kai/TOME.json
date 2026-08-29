@@ -4,7 +4,7 @@
   "repo": "stackchan-kai",
   "description": "Clean-slate Rust firmware for the M5Stack CoreS3 Stack-chan \u2014 no_std, embassy, no cloud.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andymai/stackchan-kai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:15:31Z"
+  "distributed_at": "2026-08-29T01:14:38Z"
 }
