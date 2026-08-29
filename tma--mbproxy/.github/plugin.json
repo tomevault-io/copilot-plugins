@@ -1,0 +1,9 @@
+{
+  "name": "tma--mbproxy",
+  "displayName": "mbproxy",
+  "description": "Lightweight Modbus TCP proxy with in-memory caching. ",
+  "version": "1.0.0",
+  "author": "tma",
+  "homepage": "https://github.com/tma/mbproxy",
+  "skills": []
+}
