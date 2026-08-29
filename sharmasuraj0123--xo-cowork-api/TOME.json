@@ -4,7 +4,7 @@
   "repo": "xo-cowork-api",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sharmasuraj0123/xo-cowork-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:23:01Z"
+  "distributed_at": "2026-08-29T01:29:15Z"
 }
