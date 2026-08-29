@@ -1,0 +1,9 @@
+{
+  "name": "jkitchin--differentiable-flowsheets",
+  "displayName": "differentiable-flowsheets",
+  "description": "JAX-based differentiable flowsheet framework for chemical process simulation, optimization, and technoeconomics \u2014 with plugins for bio, rare-earth extraction, carbon capture, and gas networks.",
+  "version": "1.0.0",
+  "author": "jkitchin",
+  "homepage": "https://github.com/jkitchin/differentiable-flowsheets",
+  "skills": []
+}
