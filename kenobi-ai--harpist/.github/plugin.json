@@ -1,0 +1,9 @@
+{
+  "name": "kenobi-ai--harpist",
+  "displayName": "harpist",
+  "description": "Automate and document any website's underlying API and replay it with your agent.",
+  "version": "1.0.0",
+  "author": "kenobi-ai",
+  "homepage": "https://github.com/kenobi-ai/harpist",
+  "skills": []
+}
