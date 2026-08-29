@@ -4,7 +4,7 @@
   "repo": "product-manager",
   "description": "A market-driven Product Manager copilot (Agent Skills + Claude Code plugin) based on the Pragmatic Framework \u2014 guides PMs from idea to launch and produces a client-ready artifact (Markdown or .docx) at every stage.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/julianoczkowski/product-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:41:40Z"
+  "distributed_at": "2026-08-29T06:47:47Z"
 }
