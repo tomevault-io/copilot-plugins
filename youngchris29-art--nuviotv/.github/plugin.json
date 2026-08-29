@@ -1,0 +1,9 @@
+{
+  "name": "youngchris29-art--nuviotv",
+  "displayName": "NuvioTV",
+  "description": "Native tvOS (Apple TV) port of NuvioMobile, reusing its shared Kotlin business logic with a new SwiftUI focus-engine frontend",
+  "version": "1.0.0",
+  "author": "youngchris29-art",
+  "homepage": "https://github.com/youngchris29-art/NuvioTV",
+  "skills": []
+}
