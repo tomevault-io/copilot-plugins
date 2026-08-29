@@ -4,7 +4,7 @@
   "repo": "HistoryAgentSkills",
   "description": "Use Agent Skills to search history source and answer questions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/quzhi1/HistoryAgentSkills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:41:53Z"
+  "distributed_at": "2026-08-29T01:37:45Z"
 }
