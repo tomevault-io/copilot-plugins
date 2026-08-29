@@ -4,7 +4,7 @@
   "repo": "midad-by-foulad",
   "description": "Midad by Foulad \u2014 Arabic-first e-reader firmware for Xteink X4/X3. Fork of CrossPoint Reader with full Arabic UI, RTL, Naskh reading font, reading stats, and Midad library OPDS integration",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sfoulad/midad-by-foulad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T01:38:14Z"
+  "distributed_at": "2026-08-29T06:37:41Z"
 }
