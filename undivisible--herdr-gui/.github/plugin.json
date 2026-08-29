@@ -1,0 +1,9 @@
+{
+  "name": "undivisible--herdr-gui",
+  "displayName": "herdr-gui",
+  "description": "a gui surface for herdr + more. built with crepuscular gpui.",
+  "version": "1.0.0",
+  "author": "undivisible",
+  "homepage": "https://github.com/undivisible/herdr-gui",
+  "skills": []
+}
