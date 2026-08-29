@@ -1,0 +1,44 @@
+{
+  "name": "TokenMeter",
+  "owner": "zensoku142",
+  "repo": "TokenMeter",
+  "description": "Lightweight Windows monitor for subscription quotas, token usage, costs and balances across Codex, Cursor, DeepSeek, Xiaomi MiMo and NayutoAI. \u8f7b\u91cf\u7ea7 Windows AI \u7f16\u7a0b\u8ba2\u9605\u989d\u5ea6\u3001Token \u7528\u91cf\u3001\u8d39\u7528\u4e0e\u4f59\u989d\u76d1\u63a7\u5de5\u5177\uff0c\u652f\u6301 Codex\u3001Cursor\u3001DeepSeek\u3001\u5c0f\u7c73 MiMo \u548c NayutoAI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zensoku142/TokenMeter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T09:00:25Z"
+}
