@@ -1,0 +1,9 @@
+{
+  "name": "clawlight--clawlight-cli",
+  "displayName": "clawlight-cli",
+  "description": "TUI dashboard and macOS menu bar indicator for monitoring Claude Code sessions",
+  "version": "1.0.0",
+  "author": "clawlight",
+  "homepage": "https://github.com/clawlight/clawlight-cli",
+  "skills": []
+}
