@@ -1,0 +1,9 @@
+{
+  "name": "majoorwaldi--comfyui-majoor-h3-guidemaster",
+  "displayName": "ComfyUI-Majoor-H3-GuideMaster",
+  "description": "H3 GuideMaster makes it easy to place images and audio on a MiniMax H3 timeline.",
+  "version": "1.0.0",
+  "author": "MajoorWaldi",
+  "homepage": "https://github.com/MajoorWaldi/ComfyUI-Majoor-H3-GuideMaster",
+  "skills": []
+}
