@@ -1,0 +1,9 @@
+{
+  "name": "marktoda--zj-radar",
+  "displayName": "zj-radar",
+  "description": "A Zellij sidebar that shows Claude Code, Codex, and other AI-agent status across every tab.",
+  "version": "1.0.0",
+  "author": "marktoda",
+  "homepage": "https://github.com/marktoda/zj-radar",
+  "skills": []
+}
