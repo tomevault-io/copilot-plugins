@@ -1,0 +1,9 @@
+{
+  "name": "smk-labs--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "One marketplace for everything I have built for Claude Code: plugins, skills, commands, and agents, organized by category.",
+  "version": "1.0.0",
+  "author": "smk-labs",
+  "homepage": "https://github.com/smk-labs/claude-plugins",
+  "skills": []
+}
