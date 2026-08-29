@@ -1,0 +1,9 @@
+{
+  "name": "anivar--developer-docs-framework",
+  "displayName": "developer-docs-framework",
+  "description": "AI agent skill for technical docs \u2014 Diataxis + 27 rules, 6 style guides (Google, Good Docs). Works with Claude Code, Cursor, Codex, Windsurf.",
+  "version": "1.0.0",
+  "author": "anivar",
+  "homepage": "https://github.com/anivar/developer-docs-framework",
+  "skills": []
+}
