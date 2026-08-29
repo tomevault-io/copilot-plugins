@@ -1,0 +1,44 @@
+{
+  "name": "flyreq-image-studio",
+  "owner": "doudou770",
+  "repo": "flyreq-image-studio",
+  "description": "AI\u751f\u56fe\u5de5\u4f5c\u53f0 (AI Image Generator)\u3001\u89c6\u9891\u5de5\u4f5c\u53f0\u3002\u652f\u6301 Agent \u4e0e\u5de5\u4f5c\u53f0\u6a21\u5f0f\u3001\u65e0\u9650\u753b\u5e03\u3001\u7d20\u6750\u7ba1\u7406\u3001\u63d0\u793a\u8bcd\u53cd\u63a8/\u5e7f\u573a\u53ca PWA\uff0c\u652f\u6301\u5916\u94fe\u5f0f\u914d\u7f6e\uff1b\u53ef\u63a5\u5165 Grok\u3001GPT Image 2 \u7b49\u81ea\u5b9a\u4e49\u6a21\u578b\u751f\u56fe\u3002\u81ea\u9002\u5e94\u624b\u673a\u7aef\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/doudou770/flyreq-image-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T04:43:05Z"
+}
