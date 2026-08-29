@@ -4,7 +4,7 @@
   "repo": "FerroEHR",
   "description": "A pure-Rust openEHR Clinical Data Repository: ITS-REST 1.1.0, AQL 1.1, PostgreSQL 18-native storage.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rubentalstra/FerroEHR",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:44:24Z"
+  "distributed_at": "2026-08-29T07:38:21Z"
 }
