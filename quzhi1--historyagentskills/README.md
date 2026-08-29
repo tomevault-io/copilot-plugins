@@ -7,11 +7,11 @@ Use Agent Skills to search history source and answer questions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [quzhi1/HistoryAgentSkills](https://github.com/quzhi1/HistoryAgentSkills).
+Original source: `AGENTS.md` in [quzhi1/HistoryAgentSkills](https://github.com/quzhi1/HistoryAgentSkills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
