@@ -1,0 +1,9 @@
+{
+  "name": "sergebulaev--x-skills",
+  "displayName": "x-skills",
+  "description": "X (Twitter) marketing skills for Claude Code and Codex: write tweets, threads, and replies in your voice, strip AI tells, and publish via Publora. Open source, MIT. Content engineering by Creative Con",
+  "version": "1.0.0",
+  "author": "sergebulaev",
+  "homepage": "https://github.com/sergebulaev/x-skills",
+  "skills": []
+}
