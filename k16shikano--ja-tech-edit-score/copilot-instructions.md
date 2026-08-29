@@ -1,39 +1,17 @@
-## no-old-scorers
+## no-permission-seek
 
-> 旧採点器の使用禁止と評価器の前提
+> 決まっている次の作業の着手許可をユーザーに返さない
 
 
-# 旧採点器は使わない
+# 決まっている作業に許可を求めない
 
-次の成果物は、旧い選好データ（hunk 中心の採掘、main 先端比較の旧節を含む `pref_dataset` / `pref_split`）で学習したものなので、**採点・勝率・採否・LoRA 評価・難試験の本線判断に一切使わない**。
+計画（`docs/PLAN.md`）や直前の会話で次の作業が決まっているとき、チャット末尾に次の形を置かない。
 
-- `outputs/pref-bt`（`pref-bt-keep` は除く）
-- `outputs/pref-sentseq` および旧系 `outputs/pref-sentseq-*`（例: `pref-sentseq-3e4`。`pref-sentseq-keep` と方向検出用 `pref-sentseq-anchor-*` は除く）
-- `outputs/pref-ce` および `outputs/pref-ce-*`（旧節込みを含むもの）
-- `outputs/pref-static`（旧データ由来のままなら同様）
-- 上記を既定にした `make edit-sft-score` / `make hard-eval-score` / `make rank` などの実行結果を、現行の成否判断に使わない
+- 「〜なら言ってほしい」
+- 「必要なら指示して」
+- 「やってもよいか」
 
-Web / revise / rank の既定は、主評価器 `outputs/pref-sentseq-section-triples`、ゲート `outputs/pref-bt-keep`。
-
-今日までに出した LoRA 評価の `score_report*.md`（旧採点器によるもの）も、現行の判断根拠にしない。
-
-## 使うもの
-
-レビュー済みの推敲前後ペアから作った分割だけを学習に使う。
-
-- データ: `make pref-keep-data` → `data/pref_keep_split_hunk/` と `data/pref_keep_split_section/`
-- BT: hunk のみ → `outputs/pref-bt-keep`（DOK: `docs/DOK-PREF-KEEP.md`）
-- 文列: 節のみ → `outputs/pref-sentseq-keep`
-
-単位を混ぜた一回目の成果物は `outputs/pref-bt-keep-mixed` / `outputs/pref-sentseq-keep-mixed` に退避済み。現行の採点・採否には使わない。
-旧 `data/pref_split` や `outputs/pref-bt` / `outputs/pref-sentseq-*` も使わない。
-
-学び直しが終わるまでは、採点器の数値で LoRA や候補の優劣を断定しない。人が生成文を読むか、新評価器の学習を先に進める。
-
-## 学習に使わないデータ
-
-- `pref_dataset.jsonl` 内の旧節（`section_pair_mined`、`main@…->edit/…`）
-- レビュー前 raw、main 先端比較、袋詰め hunk など、壊れた教師として退避済みのもの
+決まっている作業は着手する。着手しないなら、何が足りないかを事実として書く。許可の呼びかけで終わらない。
 
 ---
 > Source: [k16shikano/ja-tech-edit-score](https://github.com/k16shikano/ja-tech-edit-score) — distributed by [TomeVault](https://tomevault.io).
