@@ -1,0 +1,9 @@
+{
+  "name": "openshift-psap--forge",
+  "displayName": "forge",
+  "description": "Framework for Orchestrating Runtime Gen-AI Experiments",
+  "version": "1.0.0",
+  "author": "openshift-psap",
+  "homepage": "https://github.com/openshift-psap/forge",
+  "skills": []
+}
