@@ -4,7 +4,7 @@
   "repo": "wizard",
   "description": "Build AI spells for what you do - a meta-builder that turns recurring tasks into reusable workflows that any AI assistant can run.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/redhuntlabs/wizard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:05:11Z"
+  "distributed_at": "2026-08-29T00:54:50Z"
 }
