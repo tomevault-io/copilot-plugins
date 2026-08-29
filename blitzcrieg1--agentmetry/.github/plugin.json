@@ -1,0 +1,9 @@
+{
+  "name": "blitzcrieg1--agentmetry",
+  "displayName": "agentmetry",
+  "description": "Local-first SIEM flight recorder for AI coding agents: MITRE-mapped audit trail, sequence detection, DLP",
+  "version": "1.0.0",
+  "author": "blitzcrieg1",
+  "homepage": "https://github.com/blitzcrieg1/agentmetry",
+  "skills": []
+}
