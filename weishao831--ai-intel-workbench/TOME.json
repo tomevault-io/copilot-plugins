@@ -1,0 +1,44 @@
+{
+  "name": "ai-intel-workbench",
+  "owner": "weishao831",
+  "repo": "ai-intel-workbench",
+  "description": "Local-first AI intelligence workbench for agents. Generate daily digests across AI + your chosen industries, including industry news, open-source projects, KOL insights, frontier papers, and finance/crypto signals, then view them in a visual local dashboard with optional scheduling and bot pushes.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/weishao831/ai-intel-workbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T03:22:59Z"
+}
