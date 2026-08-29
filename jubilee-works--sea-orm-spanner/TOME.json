@@ -4,7 +4,7 @@
   "repo": "sea-orm-spanner",
   "description": "Google Cloud Spanner backend for SeaORM",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jubilee-works/sea-orm-spanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T18:42:13Z"
+  "distributed_at": "2026-08-29T02:48:56Z"
 }
