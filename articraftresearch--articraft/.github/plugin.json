@@ -1,0 +1,9 @@
+{
+  "name": "articraftresearch--articraft",
+  "displayName": "Articraft",
+  "description": "A simple AI agent that turns prompts into articulated 3D objects.",
+  "version": "1.0.0",
+  "author": "articraftresearch",
+  "homepage": "https://github.com/articraftresearch/Articraft",
+  "skills": []
+}
