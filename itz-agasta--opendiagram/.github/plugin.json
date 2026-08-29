@@ -1,0 +1,9 @@
+{
+  "name": "itz-agasta--opendiagram",
+  "displayName": "OpenDiagram",
+  "description": "AI diagram generator for software architecture - the open-source Eraser.io alternative. Describe your system in plain English, get editable system design, sequence, ERD & cloud diagrams on an Excalidr",
+  "version": "1.0.0",
+  "author": "Itz-Agasta",
+  "homepage": "https://github.com/Itz-Agasta/OpenDiagram",
+  "skills": []
+}
