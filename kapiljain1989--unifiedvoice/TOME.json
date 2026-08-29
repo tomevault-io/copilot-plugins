@@ -1,0 +1,44 @@
+{
+  "name": "unifiedVoice",
+  "owner": "kapiljain1989",
+  "repo": "unifiedVoice",
+  "description": "Enterprise STT/TTS microservices platform \u2014 13 Go services orchestrated via Kafka, with Next.js frontend, Kind/K8s deployment, speaker diarization, language detection, translation, real-time streaming, in-app    \u258e notifications, billing, analytics, and admin dashboard.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kapiljain1989/unifiedVoice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T02:48:12Z"
+}
