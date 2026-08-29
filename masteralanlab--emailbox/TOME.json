@@ -1,0 +1,44 @@
+{
+  "name": "emailbox",
+  "owner": "MasterAlanLab",
+  "repo": "emailbox",
+  "description": "\u90ae\u7bb1\u7ba1\u7406\u5de5\u5177\uff08\u793a\u4f8b\u7ad9\u4e0d\u4fdd\u8bc1\u53ef\u7528\u6027\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MasterAlanLab/emailbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T17:31:06Z"
+}
