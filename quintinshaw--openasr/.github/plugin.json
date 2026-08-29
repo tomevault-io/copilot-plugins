@@ -1,0 +1,9 @@
+{
+  "name": "quintinshaw--openasr",
+  "displayName": "openasr",
+  "description": "Local-first speech-to-text: no cloud, no telemetry, fail-closed by design. One CLI, seven model families, signed model catalog, OpenAI-compatible local API.",
+  "version": "1.0.0",
+  "author": "QuintinShaw",
+  "homepage": "https://github.com/QuintinShaw/openasr",
+  "skills": []
+}
