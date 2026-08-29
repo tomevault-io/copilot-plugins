@@ -1,0 +1,9 @@
+{
+  "name": "darconeous--umsh",
+  "displayName": "umsh",
+  "description": "An experimental LoRa mesh protocol with strong cryptography, clean layer separation, and strict bandwidth discipline.",
+  "version": "1.0.0",
+  "author": "darconeous",
+  "homepage": "https://github.com/darconeous/umsh",
+  "skills": []
+}
