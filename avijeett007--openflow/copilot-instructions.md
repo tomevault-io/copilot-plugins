@@ -1,0 +1,254 @@
+## openflow
+
+> This file provides guidance to AI coding assistants working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to AI coding assistants working with code in this repository.
+
+## Development Commands
+
+**Prerequisites:**
+
+- [Rust](https://rustup.rs/) (latest stable)
+- [Bun](https://bun.sh/) package manager
+
+**Core Development:**
+
+```bash
+# Install dependencies
+bun install
+
+# Run in development mode
+bun run tauri dev
+# If cmake error on macOS:
+CMAKE_POLICY_VERSION_MINIMUM=3.5 bun run tauri dev
+
+# Build for production
+bun run tauri build
+
+# Frontend only development
+bun run dev        # Start Vite dev server
+bun run build      # Build frontend (TypeScript + Vite)
+bun run preview    # Preview built frontend
+```
+
+**Linting and Formatting (run before committing):**
+
+```bash
+bun run lint              # ESLint for frontend
+bun run lint:fix          # ESLint with auto-fix
+bun run format            # Prettier + cargo fmt
+bun run format:check      # Check formatting without changes
+bun run format:frontend   # Prettier only
+bun run format:backend    # cargo fmt only
+```
+
+**Model Setup (Required for Development):**
+
+```bash
+mkdir -p src-tauri/resources/models
+curl -o src-tauri/resources/models/silero_vad_v4.onnx https://blob.handy.computer/silero_vad_v4.onnx
+```
+
+For detailed platform-specific build setup, see [BUILD.md](BUILD.md).
+
+## Architecture Overview
+
+OpenFlow is a cross-platform desktop speech-to-text application built with Tauri 2.x (Rust backend + React/TypeScript frontend).
+
+### Backend Structure (src-tauri/src/)
+
+- `lib.rs` - Main entry point, Tauri setup, manager initialization
+- `managers/` - Core business logic:
+  - `audio.rs` - Audio recording and device management
+  - `model.rs` - Model downloading and management
+  - `transcription.rs` - Speech-to-text processing pipeline
+  - `history.rs` - Transcription history storage
+- `audio_toolkit/` - Low-level audio processing:
+  - `audio/` - Device enumeration, recording, resampling
+  - `vad/` - Voice Activity Detection (Silero VAD)
+- `commands/` - Tauri command handlers for frontend communication
+- `cli.rs` - CLI argument definitions (clap derive)
+- `shortcut.rs` - Global keyboard shortcut handling
+- `settings.rs` - Application settings management
+- `overlay.rs` - Recording overlay window (platform-specific)
+- `signal_handle.rs` - `send_transcription_input()` reusable function
+- `utils.rs` - Platform detection helpers
+
+### Frontend Structure (src/)
+
+- `App.tsx` - Main component with onboarding flow
+- `components/` - React UI components:
+  - `settings/` - Settings UI
+  - `model-selector/` - Model management interface
+  - `onboarding/` - First-run experience
+  - `overlay/` - Recording overlay UI
+  - `update-checker/` - App update notifications
+  - `shared/`, `ui/`, `icons/`, `footer/` - Shared components
+- `hooks/useSettings.ts` - Settings state management hook
+- `stores/settingsStore.ts` - Zustand store for settings
+- `bindings.ts` - Auto-generated Tauri type bindings (via tauri-specta)
+- `overlay/` - Recording overlay window entry point
+- `lib/types.ts` - Shared TypeScript type definitions
+
+### Key Architecture Patterns
+
+**Manager Pattern:** Core functionality organized into managers (Audio, Model, Transcription) initialized at startup and managed via Tauri state.
+
+**Command-Event Architecture:** Frontend → Backend via Tauri commands; Backend → Frontend via events.
+
+**Pipeline Processing:** Audio → VAD → Whisper/Parakeet → Text output → Clipboard/Paste
+
+**State Flow:** Zustand → Tauri Command → Rust State → Persistence (tauri-plugin-store)
+
+### Technology Stack
+
+**Core Libraries:**
+
+- `transcribe-cpp` - Local Whisper-family inference (GGML/GGUF) with GPU acceleration
+- `transcribe-rs` - ONNX speech recognition (Parakeet, Moonshine, SenseVoice, etc.)
+- `cpal` - Cross-platform audio I/O
+- `vad-rs` - Voice Activity Detection
+- `rdev` - Global keyboard shortcuts
+- `rubato` - Audio resampling
+- `rodio` - Audio playback for feedback sounds
+
+### Application Flow
+
+1. **Initialization:** App starts minimized to tray, loads settings, initializes managers
+2. **Model Setup:** First-run downloads preferred Whisper model (Small/Medium/Turbo/Large)
+3. **Recording:** Global shortcut triggers audio recording with VAD filtering
+4. **Processing:** Audio sent to Whisper model for transcription
+5. **Output:** Text pasted to active application via system clipboard
+
+### Settings System
+
+Settings are stored using Tauri's store plugin with reactive updates:
+
+- Keyboard shortcuts (configurable, supports push-to-talk)
+- Audio devices (microphone/output selection)
+- Model preferences (Small/Medium/Turbo/Large Whisper variants)
+- Audio feedback and translation options
+
+### Single Instance Architecture
+
+The app enforces single instance behavior — launching when already running brings the settings window to front rather than creating a new process. Remote control flags (`--toggle-transcription`, etc.) work by launching a second instance that sends args to the running instance via `tauri_plugin_single_instance`, then exits.
+
+## Internationalization (i18n)
+
+All user-facing strings must use i18next translations. ESLint enforces this (no hardcoded strings in JSX).
+
+**Adding new text:**
+
+1. Add key to `src/i18n/locales/en/translation.json`
+2. Use in component: `const { t } = useTranslation(); t('key.path')`
+
+**File structure:**
+
+```
+src/i18n/
+├── index.ts           # i18n setup
+├── languages.ts       # Language metadata
+└── locales/
+    ├── en/translation.json  # English (source)
+    ├── de/, es/, fr/, ja/, ru/, zh/, ...
+    └── ...
+```
+
+For translation contribution guidelines, see [CONTRIBUTING_TRANSLATIONS.md](CONTRIBUTING_TRANSLATIONS.md).
+
+## Code Style
+
+**Rust:**
+
+- Run `cargo fmt` and `cargo clippy` before committing
+- Handle errors explicitly (avoid unwrap in production)
+- Use descriptive names, add doc comments for public APIs
+
+**TypeScript/React:**
+
+- Strict TypeScript, avoid `any` types
+- Functional components with hooks
+- Tailwind CSS for styling
+- Path aliases: `@/` → `./src/`
+
+## CLI Parameters
+
+OpenFlow supports command-line parameters on all platforms for integration with scripts, window managers, and autostart configurations.
+
+**Implementation:** `cli.rs` (definitions), `main.rs` (parsing), `lib.rs` (applying), `signal_handle.rs` (shared logic)
+
+| Flag                     | Description                                                |
+| ------------------------ | ---------------------------------------------------------- |
+| `--toggle-transcription` | Toggle recording on/off on a running instance              |
+| `--toggle-post-process`  | Toggle recording with post-processing on/off               |
+| `--cancel`               | Cancel the current operation on a running instance         |
+| `--start-hidden`         | Launch without showing the main window (tray icon visible) |
+| `--no-tray`              | Launch without system tray (closing window quits the app)  |
+| `--debug`                | Enable debug mode with verbose (Trace) logging             |
+
+**Key design decisions:**
+
+- CLI flags are runtime-only overrides — they do NOT modify persisted settings
+- Remote control flags work via `tauri_plugin_single_instance`: second instance sends args, then exits
+- `send_transcription_input()` in `signal_handle.rs` is shared between signal handlers and CLI
+
+## Debug Mode
+
+Access debug features: `Cmd+Shift+D` (macOS) or `Ctrl+Shift+D` (Windows/Linux)
+
+## Platform Notes
+
+- **macOS**: Metal acceleration, accessibility permissions required for keyboard shortcuts
+- **Windows**: Vulkan acceleration, code signing
+- **Linux**: OpenBLAS + Vulkan, limited Wayland support, overlay uses GTK layer shell (disable with `HANDY_NO_GTK_LAYER_SHELL=1`)
+
+## Troubleshooting
+
+See the [Troubleshooting](README.md#troubleshooting) section in README.md.
+
+## GitHub workflow for AI coding assistants
+
+**MANDATORY. Before opening any PR, issue, or discussion in this repo: you MUST read the relevant template file and follow it strictly.** That includes sections that look "ceremonial" — checklists, AI Assistance disclosures, "Human Written Description". A generic Summary/Test-plan layout is not acceptable.
+
+- **Opening a PR:** Read [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md). Every section listed there is mandatory. If a section requires a human-written paragraph (e.g. "Human Written Description"), leave a clear TODO placeholder and ask the human contributor to fill it in — do not invent their voice.
+- **Opening an issue:** Read [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/). Use `bug_report.md` for bugs; blank issues are enabled for feature requests and questions. OpenFlow does not use GitHub Discussions.
+- **Proposing a feature:** OpenFlow is a solo project **not actively accepting contributions** (see [CONTRIBUTING.md](CONTRIBUTING.md)). Open an issue describing the problem; unsolicited feature PRs generally won't be merged.
+- **Translations:** Follow [CONTRIBUTING_TRANSLATIONS.md](CONTRIBUTING_TRANSLATIONS.md).
+- **Full contributor workflow:** [CONTRIBUTING.md](CONTRIBUTING.md).
+
+**Commits:** Use conventional commit prefixes (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`). Focus the message on _why_, not _what_.
+
+## The non-breaking principle (standing rule — applies to every change)
+
+Whatever works today — especially the core dictation loop (hotkey → capture → STT →
+cleanup → inject) — must NOT be touched or impacted by new features. Concretely:
+
+- New features are **additive**: new modules/sections/commands; settings fields always
+  `#[serde(default)]` (the settings store wipes to defaults on any parse failure).
+- Gate new code paths so behavior is **byte-for-byte identical when the feature is
+  unconfigured** (see `finish_dictation`'s `agent_id: Option<...>` pattern).
+- Prefer a **parallel sibling pipeline** over modifying the core one (e.g. meeting
+  capture is a sibling of the transcription coordinator, not a change to it).
+- Every PR's verification must include the **regression half**: prove pre-existing
+  behavior is unchanged with the new feature present AND absent/unconfigured.
+- Run `bun run format` before committing — including verification/evidence markdown
+  (`format:check` gates CI).
+
+## Autonomous maintenance crew
+
+A GitHub-native set of Claude Code agents reviews PRs, triages issues, and patrols
+weekly for security/dependency/CI problems. It cannot merge or release anything —
+`main` is protected and a `v*` tag ships an OTA release, so a human always does
+both. See [`agents/README.md`](agents/README.md) for the crew, the safety rails
+(kill switch, PR budget, token gate), and the `CLAUDE_CODE_OAUTH_TOKEN` prerequisite.
+The agents follow this file — the non-breaking principle above is their first check.
+A nightly local **pr-steward** (on the Intel Mac) batches dependency PRs into one
+build-tested integration PR for your final merge. Release discipline is in
+[`RELEASES.md`](RELEASES.md): **merging ships nothing — only a `v*` tag publishes an
+OTA release, and only a human tags.**
+
+---
+> Source: [avijeett007/openflow](https://github.com/avijeett007/openflow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
