@@ -1,0 +1,9 @@
+{
+  "name": "enapt--swarmllm",
+  "displayName": "SwarmLLM",
+  "description": "Decentralized peer-to-peer LLM inference network. Single Rust binary, BitTorrent-inspired incentives, OpenAI-compatible API.",
+  "version": "1.0.0",
+  "author": "enapt",
+  "homepage": "https://github.com/enapt/SwarmLLM",
+  "skills": []
+}
