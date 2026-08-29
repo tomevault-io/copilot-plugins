@@ -1,0 +1,9 @@
+{
+  "name": "hgaiser--pixelforge",
+  "displayName": "pixelforge",
+  "description": "A Vulkan-based video encoding library for Rust",
+  "version": "1.0.0",
+  "author": "hgaiser",
+  "homepage": "https://github.com/hgaiser/pixelforge",
+  "skills": []
+}
