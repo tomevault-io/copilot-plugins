@@ -1,0 +1,9 @@
+{
+  "name": "mbillow--localthings",
+  "displayName": "localthings",
+  "description": "Local-control Home Assistant component that authenticates to newer-firmware Samsung devices and talks over CoAP-DTLS.",
+  "version": "1.0.0",
+  "author": "mbillow",
+  "homepage": "https://github.com/mbillow/localthings",
+  "skills": []
+}
