@@ -1,0 +1,20 @@
+## livehouse
+
+> Livehouse stack, conventions, minimal edits
+
+
+# Livehouse Photography Agent
+
+**Pipeline:** OpenCV stages → aesthetic scoring → VLM → `analysis_results.json` + web galleries.
+
+**Stack:** Python (core); FastAPI `gallery_server.py`; Celery + Redis; Next.js + Tailwind `web/`; Go ingest `cmd/ingest/`; tools `cmd/preview-extractor/`, `cmd/arw-extractor/`, `cmd/jpeg-organizer/`.
+
+**Config:** `configs/livehouse.yaml` (`paths.source_dir`, `model.*`, `processing.*`). JSON: `utils/json_safe` (NumPy). VLM: `PrioritizedInferenceQueue` — no unbounded parallel Ollama. Stage 3: `services/processor/stages/deep_analysis.py`, `engine/models/vlm_model.py`; keep VLM output schema stable unless migrating.
+
+**API / gallery:** Active dir may use `Livehouse_Archive/runtime/latest_session.json`; exports pair `Previews` + sibling `RAW/`. Keep `NEXT_PUBLIC_*` in sync with `/api/*`.
+
+**Edits:** Minimal diffs only; no whole-file rewrites for small fixes; no drive-by refactors or unrelated files; no new docs unless asked. Optimize only hot paths (I/O, decode, VLM queue). Match local naming/imports. `python -m py_compile` on touched `.py` when appropriate.
+
+---
+> Source: [postrockicecola/livehouse-photo-agent](https://github.com/postrockicecola/livehouse-photo-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
