@@ -1,0 +1,44 @@
+{
+  "name": "hongkong-sandbox",
+  "owner": "wiiiimm",
+  "repo": "hongkong-sandbox",
+  "description": "\u9999\u6e2f\u6c99\u76e4 \u00b7 An interactive 3D Hong Kong you can play with \u2014 real LiDAR terrain, live HKO weather & tides, a typhoon simulator (No.1\u201310), live weather stations, and OSM/satellite skins. Bilingual. No build step.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wiiiimm/hongkong-sandbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T03:47:02Z"
+}
