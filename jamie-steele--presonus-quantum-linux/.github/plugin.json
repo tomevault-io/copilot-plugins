@@ -1,0 +1,9 @@
+{
+  "name": "jamie-steele--presonus-quantum-linux",
+  "displayName": "presonus-quantum-linux",
+  "description": "PreSonus Quantum 2626 Thunderbolt audio interface on Linux \u2014 diagnosis, scripts, and driver work.",
+  "version": "1.0.0",
+  "author": "jamie-steele",
+  "homepage": "https://github.com/jamie-steele/presonus-quantum-linux",
+  "skills": []
+}
