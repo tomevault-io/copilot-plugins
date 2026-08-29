@@ -1,0 +1,9 @@
+{
+  "name": "bastidood--skills",
+  "displayName": "skills",
+  "description": "My compendium of skills and best practices attained over a decade of programming.",
+  "version": "1.0.0",
+  "author": "BastiDood",
+  "homepage": "https://github.com/BastiDood/skills",
+  "skills": []
+}
