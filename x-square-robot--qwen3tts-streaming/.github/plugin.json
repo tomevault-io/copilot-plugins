@@ -1,0 +1,9 @@
+{
+  "name": "x-square-robot--qwen3tts-streaming",
+  "displayName": "Qwen3TTS-Streaming",
+  "description": "A streaming i/o engine for Qwen3 TTS.",
+  "version": "1.0.0",
+  "author": "X-Square-Robot",
+  "homepage": "https://github.com/X-Square-Robot/Qwen3TTS-Streaming",
+  "skills": []
+}
