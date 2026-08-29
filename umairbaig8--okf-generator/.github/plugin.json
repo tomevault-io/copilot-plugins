@@ -1,0 +1,9 @@
+{
+  "name": "umairbaig8--okf-generator",
+  "displayName": "okf-generator",
+  "description": "OKF v0.1 knowledge bundle generator \u2014 Claude skill + OpenCode integration",
+  "version": "1.0.0",
+  "author": "UmairBaig8",
+  "homepage": "https://github.com/UmairBaig8/okf-generator",
+  "skills": []
+}
