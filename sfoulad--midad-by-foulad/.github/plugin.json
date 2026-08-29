@@ -1,0 +1,9 @@
+{
+  "name": "sfoulad--midad-by-foulad",
+  "displayName": "midad-by-foulad",
+  "description": "Midad by Foulad \u2014 Arabic-first e-reader firmware for Xteink X4/X3. Fork of CrossPoint Reader with full Arabic UI, RTL, Naskh reading font, reading stats, and Midad library OPDS integration",
+  "version": "1.0.0",
+  "author": "sfoulad",
+  "homepage": "https://github.com/sfoulad/midad-by-foulad",
+  "skills": []
+}
