@@ -7,11 +7,11 @@ AI quota in your Omarchy bar. Claude, Codex, Amp and Grok chips with usage windo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [othavi0/omarchy-agent-bar](https://github.com/othavi0/omarchy-agent-bar).
+Original source: `AGENTS.md` in [othavi0/omarchy-agent-bar](https://github.com/othavi0/omarchy-agent-bar).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
