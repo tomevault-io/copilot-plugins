@@ -4,7 +4,7 @@
   "repo": "aip",
   "description": "Agent Integrity Protocol \u2014 real-time thinking block analysis for AI agent alignment",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mnemom/aip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:48:13Z"
+  "distributed_at": "2026-08-29T02:30:21Z"
 }
