@@ -1,0 +1,9 @@
+{
+  "name": "topos-sh--topos",
+  "displayName": "topos",
+  "description": "Behavior sharing for AI agents in teams \u2014 the topos CLI + self-hostable plane keep every agent's skills current",
+  "version": "1.0.0",
+  "author": "topos-sh",
+  "homepage": "https://github.com/topos-sh/topos",
+  "skills": []
+}
