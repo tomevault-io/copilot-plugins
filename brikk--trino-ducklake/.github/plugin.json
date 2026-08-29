@@ -1,0 +1,9 @@
+{
+  "name": "brikk--trino-ducklake",
+  "displayName": "trino-ducklake",
+  "description": "DuckLake integration layer: catalog management, Trino connector, and foundations for Doris, and other JVM based execution engines.",
+  "version": "1.0.0",
+  "author": "brikk",
+  "homepage": "https://github.com/brikk/trino-ducklake",
+  "skills": []
+}
