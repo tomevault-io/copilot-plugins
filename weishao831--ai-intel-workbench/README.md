@@ -7,11 +7,11 @@ Local-first AI intelligence workbench for agents. Generate daily digests across 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [weishao831/ai-intel-workbench](https://github.com/weishao831/ai-intel-workbench).
+Original source: `AGENTS.md` in [weishao831/ai-intel-workbench](https://github.com/weishao831/ai-intel-workbench).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
