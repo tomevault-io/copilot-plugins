@@ -7,11 +7,11 @@ Local-first analysis of Claude Code and Codex sessions: token spend, context win
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dosu-ai/decant](https://github.com/dosu-ai/decant).
+Original source: `AGENTS.md` in [dosu-ai/decant](https://github.com/dosu-ai/decant).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
