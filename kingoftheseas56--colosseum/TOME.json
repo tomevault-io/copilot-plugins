@@ -4,7 +4,7 @@
   "repo": "Colosseum",
   "description": "A native desktop media environment for manga and comics, books and audiobooks, movies, shows, and anime.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kingoftheseas56/Colosseum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T01:31:34Z"
+  "distributed_at": "2026-08-29T05:37:12Z"
 }
