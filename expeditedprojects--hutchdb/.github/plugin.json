@@ -1,0 +1,9 @@
+{
+  "name": "expeditedprojects--hutchdb",
+  "displayName": "hutchdb",
+  "description": "Simplest self-hostable MCP server for structured agent data. Headless, single-user. AGPL v3.",
+  "version": "1.0.0",
+  "author": "ExpeditedProjects",
+  "homepage": "https://github.com/ExpeditedProjects/hutchdb",
+  "skills": []
+}
