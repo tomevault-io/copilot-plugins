@@ -1,0 +1,44 @@
+{
+  "name": "toplet",
+  "owner": "zaoshangduziteng",
+  "repo": "toplet",
+  "description": "\u5e38\u9a7b macOS \u5218\u6d77\u7684\u672c\u5730\u5de5\u4f5c\u53f0\uff1a\u5f85\u529e\u3001\u526a\u8d34\u677f\u3001Markdown \u901f\u8bb0\u4e0e\u5e94\u7528\u542f\u52a8\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zaoshangduziteng/toplet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T12:34:42Z"
+}
