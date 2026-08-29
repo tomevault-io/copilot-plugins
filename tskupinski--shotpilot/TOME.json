@@ -4,7 +4,7 @@
   "repo": "shotpilot",
   "description": "Agent-first pipeline from raw drone footage to a finished film: OpenCV motion analysis, shot selection, pacing, crossfade montage, color grading, AI music and YouTube publishing assets. Built for Claude Code, works as a plain CLI too.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tskupinski/shotpilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T05:20:13Z"
+  "distributed_at": "2026-08-29T09:37:58Z"
 }
