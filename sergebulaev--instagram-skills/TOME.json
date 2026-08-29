@@ -4,7 +4,7 @@
   "repo": "instagram-skills",
   "description": "Instagram marketing skills for Claude Code and Codex: captions, carousels, hooks, hashtag strategy, and a weekly plan. Draft, humanize, and publish via Publora. MIT. Content engineering by Creative Content Crafts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergebulaev/instagram-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:04:26Z"
+  "distributed_at": "2026-08-29T07:13:11Z"
 }
