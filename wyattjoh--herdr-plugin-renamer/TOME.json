@@ -4,7 +4,7 @@
   "repo": "herdr-plugin-renamer",
   "description": "Renames an auto-generated herdr worktree branch and workspace from the agent's first prompt, via on-device Apple FoundationModels or Codex.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wyattjoh/herdr-plugin-renamer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:57:28Z"
+  "distributed_at": "2026-08-29T07:10:24Z"
 }
