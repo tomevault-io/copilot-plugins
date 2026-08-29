@@ -1,0 +1,9 @@
+{
+  "name": "aflock-ai--rookery",
+  "displayName": "rookery",
+  "description": "Modular attestation monorepo for cilock \u2014 30+ attestors, 9 signers, the rookery builder for custom binaries. The source of the cilock CLI.",
+  "version": "1.0.0",
+  "author": "aflock-ai",
+  "homepage": "https://github.com/aflock-ai/rookery",
+  "skills": []
+}
