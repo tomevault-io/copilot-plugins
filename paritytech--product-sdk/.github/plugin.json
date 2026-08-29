@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--product-sdk",
+  "displayName": "product-sdk",
+  "description": "Prototype for the product-sdk",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/product-sdk",
+  "skills": []
+}
