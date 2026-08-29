@@ -4,7 +4,7 @@
   "repo": "track",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timothy0509/track",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T20:43:34Z"
+  "distributed_at": "2026-08-29T03:15:06Z"
 }
