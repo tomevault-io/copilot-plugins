@@ -7,11 +7,11 @@ PowerShell module for AI-driven TwinCAT 3 automation — 34 cmdlets for IDE cont
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Lance0901/AI-TwinCAT-Skill](https://github.com/Lance0901/AI-TwinCAT-Skill).
+Original source: `AGENTS.md` in [Lance0901/AI-TwinCAT-Skill](https://github.com/Lance0901/AI-TwinCAT-Skill).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
