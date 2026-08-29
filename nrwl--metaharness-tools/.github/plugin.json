@@ -1,0 +1,9 @@
+{
+  "name": "nrwl--metaharness-tools",
+  "displayName": "metaharness.tools",
+  "description": "The guide for AI meta harnesses",
+  "version": "1.0.0",
+  "author": "nrwl",
+  "homepage": "https://github.com/nrwl/metaharness.tools",
+  "skills": []
+}
