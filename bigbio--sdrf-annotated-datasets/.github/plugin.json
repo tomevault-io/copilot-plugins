@@ -1,0 +1,9 @@
+{
+  "name": "bigbio--sdrf-annotated-datasets",
+  "displayName": "sdrf-annotated-datasets",
+  "description": "A repository of datasets in ProteomeXchange annotated in SDRF, previously part of the specification",
+  "version": "1.0.0",
+  "author": "bigbio",
+  "homepage": "https://github.com/bigbio/sdrf-annotated-datasets",
+  "skills": []
+}
