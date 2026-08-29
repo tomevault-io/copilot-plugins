@@ -1,0 +1,9 @@
+{
+  "name": "rryan--tiddly-mcp",
+  "displayName": "tiddly-mcp",
+  "description": "Model Context Protocol (MCP) server for TiddlyWiki - enables AI agents to interact with your wiki.",
+  "version": "1.0.0",
+  "author": "rryan",
+  "homepage": "https://github.com/rryan/tiddly-mcp",
+  "skills": []
+}
