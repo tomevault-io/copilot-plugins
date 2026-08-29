@@ -1,0 +1,9 @@
+{
+  "name": "searchsavior--arcaine",
+  "displayName": "Arcaine",
+  "description": "Inference engine for Intel GPUs  based on SYCL",
+  "version": "1.0.0",
+  "author": "SearchSavior",
+  "homepage": "https://github.com/SearchSavior/Arcaine",
+  "skills": []
+}
