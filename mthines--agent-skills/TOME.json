@@ -1,0 +1,93 @@
+{
+  "name": "agent-skills",
+  "owner": "mthines",
+  "repo": "agent-skills",
+  "description": "A personal collection of skills for AI coding assistants \u2014 covering code review, DX/UX analysis, TDD, holistic debugging, and developer productivity.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-quality",
+      "path": "skills/code-quality",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-mobile",
+      "path": "skills/e2e-testing-mobile",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/e2e-testing-mobile",
+      "description": ""
+    },
+    {
+      "name": "charting",
+      "path": "skills/charting",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/charting",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "skills/documentation",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": "skills/quality/code-quality",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/quality/code-quality",
+      "description": ""
+    },
+    {
+      "name": "rum-tracking",
+      "path": "skills/analysis/rum-tracking",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/analysis/rum-tracking",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-mobile",
+      "path": "skills/testing/e2e-testing-mobile",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/testing/e2e-testing-mobile",
+      "description": ""
+    },
+    {
+      "name": "charting",
+      "path": "skills/design/charting",
+      "github_url": "https://github.com/mthines/agent-skills/tree/main/skills/design/charting",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mthines/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T04:30:18Z"
+}
