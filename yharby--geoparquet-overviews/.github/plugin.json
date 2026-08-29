@@ -1,0 +1,9 @@
+{
+  "name": "yharby--geoparquet-overviews",
+  "displayName": "geoparquet-overviews",
+  "description": "One GeoParquet file a web map previews instantly and a SQL engine reads in full. Draft convention, reference converter, and live viewer.",
+  "version": "1.0.0",
+  "author": "yharby",
+  "homepage": "https://github.com/yharby/geoparquet-overviews",
+  "skills": []
+}
