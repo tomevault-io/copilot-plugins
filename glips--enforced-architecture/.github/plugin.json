@@ -1,0 +1,9 @@
+{
+  "name": "glips--enforced-architecture",
+  "displayName": "enforced-architecture",
+  "description": "Stop your AI agents from turning your codebase into slop soup. Enforce data flow and structure with strong lint rules.",
+  "version": "1.0.0",
+  "author": "GLips",
+  "homepage": "https://github.com/GLips/enforced-architecture",
+  "skills": []
+}
