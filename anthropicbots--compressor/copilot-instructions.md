@@ -1,0 +1,102 @@
+## compressor
+
+> Two independent packages (no monorepo tooling):
+
+# Agents.md — E-commerce
+
+## Project structure
+
+Two independent packages (no monorepo tooling):
+
+- `backend/` — Express 5 + MySQL2 (JWT auth, helmet, rate-limit)
+  Entrypoint: `backend/server.js`
+  Port: 5000 (default)
+- `frontend/` — Vanilla HTML/CSS/JS, no framework, no build step
+  Served via VS Code Live Server on port 5500
+
+## Commands (run from `backend/`)
+
+| Action                    | Command                  |
+| ------------------------- | ------------------------ |
+| Dev server (nodemon)      | `npm run dev`            |
+| Start production          | `npm start`              |
+| Apply DB migrations       | `npm run migrate`        |
+| Show applied vs pending   | `npm run migrate:status` |
+| Adopt baseline (existing) | `npm run migrate:baseline` |
+
+## Database
+
+- MySQL 8.0 via docker-compose (`backend/docker-compose.yml`) or local install
+- Five tables: `users`, `products`, `orders`, `order_items`, `wishlist_items`
+- Schema comes from the ordered sequence in `migrations/`, applied by
+  `backend/scripts/migrate.js`. Never pipe SQL into `mysql` by hand — the runner
+  records what it applied and checksums it, so out-of-band SQL desynchronises it.
+- `migrations/0001_baseline_schema.sql` is the adopted baseline and is immutable
+- `migrations/README.md` records the key strategy, which definition won for each
+  table that used to be declared more than once, and what is still unreconciled
+- Keys: `users`, `products` and `orders` use `CHAR(36)` UUIDs minted by the app;
+  every other table uses `AUTO_INCREMENT` integers. Any column referencing those
+  three must be `CHAR(36)`
+- `backend/sql/` holds feature schemas not yet folded into the sequence; they are
+  not applied by the runner. New schema changes go in `migrations/`
+- `docs/legacy/ecommerce-mysql-dump.sql` is a historical dump, not a setup step
+- DB uses utf8mb4 charset, connection pool with auto-retry and exponential backoff
+
+## Setup
+
+1. `cd backend && cp .env.example .env` — edit DB_PASSWORD, JWT_SECRET, FRONTEND_URL
+2. `npm install` in `backend/`
+3. Start MySQL, create an empty `ecommerce` DB, then `npm run migrate`
+4. `npm run dev`
+5. Open frontend with Live Server (right-click `frontend/index.html` → Open with Live Server)
+
+## Backend conventions
+
+- All responses use envelope: `{ success: boolean, message: string, ... }`
+- Always use safe wrappers from `utils/helpers.js` (safeNumber, safeArray, sanitizeString, escapeHTML) for input handling
+- Auth: JWT Bearer token in `Authorization` header (cookie fallback via `accessToken`)
+- Admin routes require `authMiddleware` + `authorizeRoles("admin")`
+- Rate limits: auth endpoints 20 req/15min, API 120 req/min
+- CORS allows: localhost:5500-5502, specific production URLs
+- Graceful shutdown on SIGINT/SIGTERM; exits on unhandled rejection/exception
+- Transactions: always `withTransaction(async (connection) => { ... })` from
+  `config/db`. Use the connection it hands you for every statement in the
+  transaction; returning commits, throwing rolls back, and the connection is
+  released either way. Never issue `START TRANSACTION` as a pool query — the
+  statements after it can land on other connections, so concurrent transactions
+  interleave. Repositories expose the same thing as `repo.transaction(fn)`, which
+  hands the callback a repository bound to the transaction's connection.
+
+## Frontend conventions
+
+- Shared API client: `window.CONFIG.API_BASE` (auto-detects localhost vs production)
+- Utility helpers in `scripts/utils.js`: `notify(msg, type)`, `apiRequest(url, opts)`, `formatPrice(price)`, `getJSON`/`setJSON`
+- Cart, wishlist, recentlyViewed stored in localStorage
+- Deployed on Vercel; config in `frontend/vercel.json`
+
+## Installed skills
+
+| Skill                        | Usefulness in this repo                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------- |
+| `modern-javascript-patterns` | Vanilla JS frontend + Node.js backend; no framework or build step, so JS patterns matter |
+| `responsive-design`          | E-commerce frontend in vanilla HTML/CSS must be mobile-friendly                          |
+| `css`                        | Vanilla CSS, no framework; useful for consistent styling patterns                        |
+| `semantic-html`              | Vanilla HTML frontend; semantic markup aids SEO and accessibility for product/cart pages |
+| `accessibility-compliance`   | E-commerce checkout/forms need ARIA and keyboard support                                 |
+| `wcag-audit-patterns`        | Audit companion to accessibility-compliance; useful before release                       |
+
+## What's not here
+
+- No test framework, no lint config, no typecheck, no CI workflows, no formatter config
+- No build step for frontend
+- No package manager at root (root `package.json` is a leftover with express-rate-limit only)
+
+## Conventions from CONTRIBUTING.md
+
+- Branch: `main` (production), `develop` (latest), `feature/*`, `fix/*`
+- PRs target `develop`, include screenshots for UI changes
+- No convenventional commits needed — `CONTRIBUTING.md` says nothing about commit format
+
+---
+> Source: [AnthropicBots/compressor](https://github.com/AnthropicBots/compressor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
