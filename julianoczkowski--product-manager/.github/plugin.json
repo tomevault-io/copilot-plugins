@@ -1,0 +1,9 @@
+{
+  "name": "julianoczkowski--product-manager",
+  "displayName": "product-manager",
+  "description": "A market-driven Product Manager copilot (Agent Skills + Claude Code plugin) based on the Pragmatic Framework \u2014 guides PMs from idea to launch and produces a client-ready artifact (Markdown or .docx) a",
+  "version": "1.0.0",
+  "author": "julianoczkowski",
+  "homepage": "https://github.com/julianoczkowski/product-manager",
+  "skills": []
+}
