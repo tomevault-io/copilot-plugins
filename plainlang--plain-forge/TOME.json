@@ -4,7 +4,7 @@
   "repo": "plain-forge",
   "description": "***plain spec writing tool",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/plainlang/plain-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:55:56Z"
+  "distributed_at": "2026-08-29T11:25:47Z"
 }
