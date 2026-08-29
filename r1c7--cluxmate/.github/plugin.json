@@ -1,0 +1,9 @@
+{
+  "name": "r1c7--cluxmate",
+  "displayName": "CluxMate",
+  "description": "AI coding agent with one Python core and three front-ends \u2014 headless CLI, Textual TUI, and an Electron desktop. Works with any OpenAI-compatible API, with risk-tiered permissions, event-sourced replay",
+  "version": "1.0.0",
+  "author": "r1c7",
+  "homepage": "https://github.com/r1c7/CluxMate",
+  "skills": []
+}
