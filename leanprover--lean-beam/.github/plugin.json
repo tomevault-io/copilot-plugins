@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--lean-beam",
+  "displayName": "lean-beam",
+  "description": "Claude/Codex skill and local workflow layer for efficient interaction with Lean 4 and Monte-Carlo Tree Search.",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/lean-beam",
+  "skills": []
+}
