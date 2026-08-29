@@ -1,0 +1,9 @@
+{
+  "name": "plannotator--plannotator-tui",
+  "displayName": "plannotator-tui",
+  "description": "Annotate Markdown in the terminal: select, comment, looks-good, delete; send the review to your agent.",
+  "version": "1.0.0",
+  "author": "plannotator",
+  "homepage": "https://github.com/plannotator/plannotator-tui",
+  "skills": []
+}
