@@ -1,0 +1,9 @@
+{
+  "name": "keystonescience--codex-mem",
+  "displayName": "codex-mem",
+  "description": "Persistent memory for Codex CLI, Claude Code, and MCP clients",
+  "version": "1.0.0",
+  "author": "KeystoneScience",
+  "homepage": "https://github.com/KeystoneScience/codex-mem",
+  "skills": []
+}
