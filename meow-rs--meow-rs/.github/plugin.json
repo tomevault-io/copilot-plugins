@@ -1,0 +1,9 @@
+{
+  "name": "meow-rs--meow-rs",
+  "displayName": "meow-rs",
+  "description": "A high-performance Rust implementation of the mihomo (Clash Meta) proxy kernel.",
+  "version": "1.0.0",
+  "author": "meow-rs",
+  "homepage": "https://github.com/meow-rs/meow-rs",
+  "skills": []
+}
