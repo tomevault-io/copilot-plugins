@@ -1,0 +1,9 @@
+{
+  "name": "briankeegan1--herdkit",
+  "displayName": "herdkit",
+  "description": "Governance and parallelism for herdr-based agent workflows \u2014 a coordinator drains your backlog into isolated worktree builders (Claude Code, Codex, Grok, or Cursor), and a watcher lands each change on",
+  "version": "1.0.0",
+  "author": "briankeegan1",
+  "homepage": "https://github.com/briankeegan1/herdkit",
+  "skills": []
+}
