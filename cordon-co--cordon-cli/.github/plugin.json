@@ -1,0 +1,9 @@
+{
+  "name": "cordon-co--cordon-cli",
+  "displayName": "cordon-cli",
+  "description": "Cordon provides the guardrails for corporate teams adopting code generation tools.",
+  "version": "1.0.0",
+  "author": "cordon-co",
+  "homepage": "https://github.com/cordon-co/cordon-cli",
+  "skills": []
+}
