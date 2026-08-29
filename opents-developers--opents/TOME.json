@@ -4,7 +4,7 @@
   "repo": "OpenTS",
   "description": "A modern and faithful open source rebuild of the Tiberian Sun engine.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenTS-Developers/OpenTS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:32:51Z"
+  "distributed_at": "2026-08-29T00:55:18Z"
 }
