@@ -4,7 +4,7 @@
   "repo": "agentic-product-demo",
   "description": "Create polished product demo videos with AI coding agents and Remotion. The UI is code, not a screen recording.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alexwtlf/agentic-product-demo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T20:31:14Z"
+  "distributed_at": "2026-08-29T02:59:38Z"
 }
