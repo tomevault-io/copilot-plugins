@@ -1,0 +1,9 @@
+{
+  "name": "akopmm--canon-mtp-direct",
+  "displayName": "canon-mtp-direct",
+  "description": "High-speed USB-C transfer utility for Canon .CR3 RAW files. Bypasses Android\u2019s 99-file selection limit using native MTP Host Mode and Foreground Services for stable, large-scale imports.",
+  "version": "1.0.0",
+  "author": "Akopmm",
+  "homepage": "https://github.com/Akopmm/canon-mtp-direct",
+  "skills": []
+}
