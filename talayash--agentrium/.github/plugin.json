@@ -1,0 +1,9 @@
+{
+  "name": "talayash--agentrium",
+  "displayName": "agentrium",
+  "description": "A Modern Multi-Instance Terminal Manager for Claude Code",
+  "version": "1.0.0",
+  "author": "talayash",
+  "homepage": "https://github.com/talayash/agentrium",
+  "skills": []
+}
