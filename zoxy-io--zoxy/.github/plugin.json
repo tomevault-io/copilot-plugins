@@ -1,0 +1,9 @@
+{
+  "name": "zoxy-io--zoxy",
+  "displayName": "zoxy",
+  "description": "A zero-allocation reverse proxy and load balancer in Zig \u26a1",
+  "version": "1.0.0",
+  "author": "zoxy-io",
+  "homepage": "https://github.com/zoxy-io/zoxy",
+  "skills": []
+}
