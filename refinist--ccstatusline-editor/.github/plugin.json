@@ -1,0 +1,9 @@
+{
+  "name": "refinist--ccstatusline-editor",
+  "displayName": "ccstatusline-editor",
+  "description": "A visual editor for building ccstatusline configurations \u2014 drag, drop, pr eview, ship.      \u4e00\u4e2a\u53ef\u89c6\u5316\u7f16\u8f91\u5668\uff0c\u7528\u6765\u642d\u5efa ccstatusline \u72b6\u6001\u680f\u914d\u7f6e\u2014\u2014\u62d6\u62fd\u3001\u9884\u89c8\u3001\u4e00\u952e\u751f\u6210\u3002",
+  "version": "1.0.0",
+  "author": "refinist",
+  "homepage": "https://github.com/refinist/ccstatusline-editor",
+  "skills": []
+}
