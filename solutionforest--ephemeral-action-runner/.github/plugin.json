@@ -1,0 +1,9 @@
+{
+  "name": "solutionforest--ephemeral-action-runner",
+  "displayName": "ephemeral-action-runner",
+  "description": "Warm, disposable GitHub Actions runners with Docker Sandboxes microVM isolation across Linux, macOS, and Windows hosts. Designed for teams that want to use their own compute for CI without running Git",
+  "version": "1.0.0",
+  "author": "solutionforest",
+  "homepage": "https://github.com/solutionforest/ephemeral-action-runner",
+  "skills": []
+}
