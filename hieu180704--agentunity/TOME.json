@@ -4,7 +4,7 @@
   "repo": "AgentUnity",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hieu180704/AgentUnity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:32:25Z"
+  "distributed_at": "2026-08-29T05:25:32Z"
 }
