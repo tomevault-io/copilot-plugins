@@ -1,0 +1,9 @@
+{
+  "name": "naderelewa--product-to-prod",
+  "displayName": "Product-to-Prod",
+  "description": "AI product management skills and plugin for Claude Code, Cowork, Codex and other AI agents: evidence-tagged PRDs, specs, requirements, RICE prioritization, backlog and roadmap scoring, product strateg",
+  "version": "1.0.0",
+  "author": "naderelewa",
+  "homepage": "https://github.com/naderelewa/Product-to-Prod",
+  "skills": []
+}
