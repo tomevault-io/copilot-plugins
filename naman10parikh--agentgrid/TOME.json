@@ -4,7 +4,7 @@
   "repo": "agentgrid",
   "description": "The terminal, leveled up. Spawn grids of AI coding agents (Claude, Codex, Gemini, Cursor) in one command. Status labels, sounds, presets, session resume. Zero dependencies beyond tmux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/naman10parikh/agentgrid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T11:02:19Z"
+  "distributed_at": "2026-08-29T12:58:21Z"
 }
