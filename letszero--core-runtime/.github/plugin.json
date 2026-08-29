@@ -1,0 +1,9 @@
+{
+  "name": "letszero--core-runtime",
+  "displayName": "core-runtime",
+  "description": "Zero language core runtime",
+  "version": "1.0.0",
+  "author": "LetsZero",
+  "homepage": "https://github.com/LetsZero/core-runtime",
+  "skills": []
+}
