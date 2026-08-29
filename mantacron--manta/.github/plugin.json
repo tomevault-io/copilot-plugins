@@ -1,0 +1,9 @@
+{
+  "name": "mantacron--manta",
+  "displayName": "manta",
+  "description": "19 AI agents in your git workflow. Catches secrets, injection flaws, N+1 queries, and bad migrations on every commit. Structured Research \u2192 Plan \u2192 Implement workflow with GO/NO-GO gates before you wri",
+  "version": "1.0.0",
+  "author": "mantacron",
+  "homepage": "https://github.com/mantacron/manta",
+  "skills": []
+}
