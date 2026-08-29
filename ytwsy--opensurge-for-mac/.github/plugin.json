@@ -1,0 +1,9 @@
+{
+  "name": "ytwsy--opensurge-for-mac",
+  "displayName": "OpenSurge-for-Mac",
+  "description": "Surge-style whole-home gateway and control plane for macOS with IPv4/IPv6 support\u2014 mihomo TUN, dnsmasq-powered DHCP/DNS, per-device routing, and an agent-friendly validation workspace.",
+  "version": "1.0.0",
+  "author": "YTwsy",
+  "homepage": "https://github.com/YTwsy/OpenSurge-for-Mac",
+  "skills": []
+}
