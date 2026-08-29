@@ -1,0 +1,9 @@
+{
+  "name": "stabrise--scaledp-ts",
+  "displayName": "ScaleDP-TS",
+  "description": "ScaleDP-TS processes PDFs and images entirely in the browser: PDF rendering, text detection, OCR and named-entity recognition, composed as a pipeline. Inference runs on onnxruntime-web over WebAssembl",
+  "version": "1.0.0",
+  "author": "StabRise",
+  "homepage": "https://github.com/StabRise/ScaleDP-TS",
+  "skills": []
+}
