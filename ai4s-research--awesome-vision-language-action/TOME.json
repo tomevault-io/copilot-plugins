@@ -4,7 +4,7 @@
   "repo": "awesome-vision-language-action",
   "description": "A curated list of Vision-Language-Action (VLA) models for robotics and embodied AI \u2014 foundation models, architectures, benchmarks, datasets, focused on 2025\u20132026.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai4s-research/awesome-vision-language-action",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:56:02Z"
+  "distributed_at": "2026-08-29T07:04:11Z"
 }
