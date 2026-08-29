@@ -1,0 +1,9 @@
+{
+  "name": "cosmol-studio--cosmolkit",
+  "displayName": "COSMolKit",
+  "description": "Pure-Rust cheminformatics toolkit and RDKit-compatible alternative for SMILES/SMARTS, SDF, fingerprints, substructure search, ETKDG, UFF/MMFF, and Python workflows.",
+  "version": "1.0.0",
+  "author": "cosmol-studio",
+  "homepage": "https://github.com/cosmol-studio/COSMolKit",
+  "skills": []
+}
