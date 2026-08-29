@@ -1,0 +1,9 @@
+{
+  "name": "scalefreecom--datavault4dbt-agent-skills",
+  "displayName": "datavault4dbt-agent-skills",
+  "description": "A curated collection of skills for AI agents to properly work with datavault4dbt.",
+  "version": "1.0.0",
+  "author": "ScalefreeCOM",
+  "homepage": "https://github.com/ScalefreeCOM/datavault4dbt-agent-skills",
+  "skills": []
+}
