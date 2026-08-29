@@ -1,0 +1,44 @@
+{
+  "name": "msp-claude-plugins",
+  "owner": "WYRE-AI",
+  "repo": "msp-claude-plugins",
+  "description": "The community-driven Claude Code plugin marketplace for MSPs \u2014 70+ plugins across PSA, RMM, security, documentation, and accounting, plus cross-vendor industry workflow packs (ops, security, finance, compliance, sales, DevOps, cloud infra) that compose whatever tools you have connected.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WYRE-AI/msp-claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T13:32:17Z"
+}
