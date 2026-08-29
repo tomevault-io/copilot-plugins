@@ -1,0 +1,9 @@
+{
+  "name": "secure-phone-apps--secure-dialer",
+  "displayName": "Secure-Dialer",
+  "description": "100% offline, zero-permission FOSS Android dialer & contacts app. The private, ad-free alternative to Google Dialer, Samsung & Truecaller with T9 search, offline spam blocking, AES-256 encrypted backu",
+  "version": "1.0.0",
+  "author": "Secure-Phone-apps",
+  "homepage": "https://github.com/Secure-Phone-apps/Secure-Dialer",
+  "skills": []
+}
