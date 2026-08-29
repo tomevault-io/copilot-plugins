@@ -1,0 +1,57 @@
+## agent-output-hygiene
+
+> Agent output hygiene, chat is not a versioned artifact. Forbids meta-language, internal reasoning, gossip, and personal context in commits, docs, HANDOFF, memory, and code. Product docs: see also docs-professional-standard.
+
+
+# Output hygiene: chat vs repository
+
+Junior agents mix **conversation** with **artifact**. That produces slop, breaks trust, and can leak content that should not be there.
+
+## Golden rule
+
+| Surface | Allowed | Not allowed |
+|---------|---------|--------------|
+| **Chat** (response to the user) | Light tone, humor, echoing the user's urgency | - |
+| **Repo** (commit, PR, README, docs, HANDOFF, memory, comments, CHANGELOG) | Technical fact, decision, next step | Meta-language, gossip, personal motivation, "the agent thought..." |
+
+Product documentation (README, `docs/`, ADRs, runbooks): besides this rule, follow **[docs-professional-standard.mdc](docs-professional-standard.mdc)**, a professional, inheritable standard with no transient references (people, unrelated projects, session).
+
+If the user brings urgency or personal context into the chat:
+
+- **Chat:** fine to acknowledge ("got it, prioritizing this").
+- **Commit / HANDOFF / doc / memory:** professional and **about the project** only. Never repeat an insult, people politics, or drama.
+
+## Forbidden in any versioned artifact
+
+1. **Agent meta-language** - "as an AI...", "in my reasoning...", "I'll use the tool...", "chat context...".
+2. **Internal reasoning** pasted into markdown, code comments, or commits.
+3. **Gossip, insults, people politics.**
+4. **Venting or emotional motivation** used as a technical justification.
+5. **Transient references** - people, projects that are not this repo, orgs unrelated to the product, client workspace IDs. Prefer omitting them or using a generic domain term.
+6. **Commits that narrate the chat.**
+7. **Em dash ("-") as a sentence connector** in commit messages, PRs, docs, README, HANDOFF, memory, or comments. It reads as AI slop; replace with a hyphen, colon, comma, or parentheses. Eliminate it entirely; only keep it when quoting external text/data/API literally. See the `clean-code` skill (pattern 6).
+
+## Required
+
+- Conventional Commits with a **technical** rationale.
+- HANDOFF: phase, to-dos, operational instruction.
+- Memory: symptom, cause, solution, tradeoff, no personal names.
+- Code comments: invariants, not conversation.
+- Product docs: project voice, timeless, inheritable (`docs-professional-standard`).
+
+## Quick test
+
+> "If a stranger opens this on GitHub tomorrow, or a maintainer a year from now, is it embarrassing or useless without the chat?"
+
+If yes, rewrite it.
+
+## Relation to other rules
+
+- **docs-professional-standard** - the project's inheritable documentation standard (write-time voice + read-time delivery truth: docs are indicative).
+- **code-deslop / clean-code** - code slop.
+- **ux-tone** - light tone, chat only.
+- **security-review** - secrets.
+
+---
+> Source: [agent-kit-startup/agent-kit](https://github.com/agent-kit-startup/agent-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
