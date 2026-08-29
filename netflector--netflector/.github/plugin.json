@@ -1,0 +1,9 @@
+{
+  "name": "netflector--netflector",
+  "displayName": "netflector",
+  "description": "mDNS, SSDP/DIAL, WSD, WoL reflector",
+  "version": "1.0.0",
+  "author": "netflector",
+  "homepage": "https://github.com/netflector/netflector",
+  "skills": []
+}
