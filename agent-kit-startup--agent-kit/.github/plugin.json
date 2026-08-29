@@ -1,0 +1,14 @@
+{
+  "name": "agent-kit-startup--agent-kit",
+  "displayName": "agent-kit",
+  "description": "Plan, build, review, and ship anything to the real world without leaving your environment. AI harness with built-in Project Management and DevSecOps to code and maintain software that fits in your wor",
+  "version": "1.0.0",
+  "author": "agent-kit-startup",
+  "homepage": "https://github.com/agent-kit-startup/agent-kit",
+  "skills": [
+    {
+      "name": "cursor-skills-webdesign",
+      "description": ""
+    }
+  ]
+}
