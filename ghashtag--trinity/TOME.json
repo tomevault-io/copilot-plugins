@@ -1,0 +1,44 @@
+{
+  "name": "trinity",
+  "owner": "gHashTag",
+  "repo": "trinity",
+  "description": "The Trinity ternary compute stack \u2014 tri CLI \u00b7 BitNet LLM \u00b7 VSA \u00b7 GF16",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gHashTag/trinity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T18:32:20Z"
+}
