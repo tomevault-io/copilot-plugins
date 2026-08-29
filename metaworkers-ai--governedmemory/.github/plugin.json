@@ -1,0 +1,9 @@
+{
+  "name": "metaworkers-ai--governedmemory",
+  "displayName": "governedmemory",
+  "description": "Open-source governed memory for AI agents: prompt-injection-resistant writes, purpose-bound retrieval, provenance, and tamper-evident audit.",
+  "version": "1.0.0",
+  "author": "Metaworkers-ai",
+  "homepage": "https://github.com/Metaworkers-ai/governedmemory",
+  "skills": []
+}
