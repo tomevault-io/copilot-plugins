@@ -1,0 +1,9 @@
+{
+  "name": "uzyntra-security--uzyntra-ui",
+  "displayName": "uzyntra-ui",
+  "description": "UZYNTRA UI is a modern control plane that provides real-time visibility, threat intelligence, and operational control over API security systems.",
+  "version": "1.0.0",
+  "author": "UZYNTRA-Security",
+  "homepage": "https://github.com/UZYNTRA-Security/uzyntra-ui",
+  "skills": []
+}
