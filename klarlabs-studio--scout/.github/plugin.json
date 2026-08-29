@@ -1,0 +1,9 @@
+{
+  "name": "klarlabs-studio--scout",
+  "displayName": "scout",
+  "description": "Browser automation, one binary. The simpler alternative to Playwright \u2014 no Node, no Python, no runtime. Library, CLI, MCP server, and chat UI for any AI agent.",
+  "version": "1.0.0",
+  "author": "klarlabs-studio",
+  "homepage": "https://github.com/klarlabs-studio/scout",
+  "skills": []
+}
