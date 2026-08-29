@@ -1,0 +1,9 @@
+{
+  "name": "canoo--agent-nexus",
+  "displayName": "agent-nexus",
+  "description": "Multi-model agentic orchestration framework \u2014 route tasks to cloud or local LLMs, manage personas, and configure everything through an interactive TUI.",
+  "version": "1.0.0",
+  "author": "canoo",
+  "homepage": "https://github.com/canoo/agent-nexus",
+  "skills": []
+}
