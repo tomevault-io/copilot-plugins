@@ -4,7 +4,7 @@
   "repo": "threejs-playground",
   "description": "Threejs examples of different game genres and features",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ryanfitzpatrickio/threejs-playground",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T01:01:10Z"
+  "distributed_at": "2026-08-29T04:52:25Z"
 }
