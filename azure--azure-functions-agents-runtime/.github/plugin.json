@@ -1,0 +1,9 @@
+{
+  "name": "azure--azure-functions-agents-runtime",
+  "displayName": "azure-functions-agents-runtime",
+  "description": "Agent Runtime for new Event Driven Serverless Agents on the Azure Functions platform",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-functions-agents-runtime",
+  "skills": []
+}
