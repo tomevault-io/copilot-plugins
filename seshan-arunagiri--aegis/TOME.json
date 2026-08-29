@@ -1,0 +1,44 @@
+{
+  "name": "AEGIS",
+  "owner": "seshan-arunagiri",
+  "repo": "AEGIS",
+  "description": "AgentShield is an AI security middleware that protects LLM agents from MCP tool poisoning and prompt injection attacks by analyzing, sanitizing, and scoring tool responses before they reach the AI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/seshan-arunagiri/AEGIS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T08:58:59Z"
+}
