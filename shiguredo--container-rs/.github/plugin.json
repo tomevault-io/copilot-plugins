@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--container-rs",
+  "displayName": "container-rs",
+  "description": "Runtime-agnostic container library for Rust on macOS and Linux",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/container-rs",
+  "skills": []
+}
