@@ -1,0 +1,9 @@
+{
+  "name": "kunobi-ninja--kobe",
+  "displayName": "kobe",
+  "description": "Kubernetes operator for pools of pre-warmed virtual clusters. Claim a fully configured cluster in under 5 seconds, use it, release it. OIDC auth, no static secrets, policy-as-code. Pluggable k3s, k0s,",
+  "version": "1.0.0",
+  "author": "kunobi-ninja",
+  "homepage": "https://github.com/kunobi-ninja/kobe",
+  "skills": []
+}
