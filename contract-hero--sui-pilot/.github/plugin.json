@@ -1,0 +1,9 @@
+{
+  "name": "contract-hero--sui-pilot",
+  "displayName": "sui-pilot",
+  "description": "Claude Code plugin for full Sui Stack developement",
+  "version": "1.0.0",
+  "author": "contract-hero",
+  "homepage": "https://github.com/contract-hero/sui-pilot",
+  "skills": []
+}
