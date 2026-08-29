@@ -1,0 +1,9 @@
+{
+  "name": "donatienmigue--teambrain",
+  "displayName": "TeamBrain",
+  "description": "The brain is a git repo. Memories are markdown files with YAML   front-matter, committed like any other file. Git history is the audit   trail; pull requests are the approval gate \u2014 nothing is written",
+  "version": "1.0.0",
+  "author": "donatienmigue",
+  "homepage": "https://github.com/donatienmigue/TeamBrain",
+  "skills": []
+}
