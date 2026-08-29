@@ -7,11 +7,11 @@ This is a companion Rails App Template to go along with sneharavindra/superpower
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sneharavindra/superpowers-rails-app-template](https://github.com/sneharavindra/superpowers-rails-app-template).
+Original source: `AGENTS.md` in [sneharavindra/superpowers-rails-app-template](https://github.com/sneharavindra/superpowers-rails-app-template).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
