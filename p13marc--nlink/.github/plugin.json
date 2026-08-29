@@ -1,0 +1,9 @@
+{
+  "name": "p13marc--nlink",
+  "displayName": "nlink",
+  "description": "Async Rust library for Linux network configuration via netlink - a modern alternative to iproute2 \u2014 mirror of https://git.marcpardo.eu/marcpardo/nlink",
+  "version": "1.0.0",
+  "author": "p13marc",
+  "homepage": "https://github.com/p13marc/nlink",
+  "skills": []
+}
