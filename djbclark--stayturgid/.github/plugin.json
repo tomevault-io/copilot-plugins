@@ -1,0 +1,9 @@
+{
+  "name": "djbclark--stayturgid",
+  "displayName": "stayturgid",
+  "description": "Keep wireless ADB (port 5555) and Shizuku alive on Android across reboots \u2014 without root",
+  "version": "1.0.0",
+  "author": "djbclark",
+  "homepage": "https://github.com/djbclark/stayturgid",
+  "skills": []
+}
