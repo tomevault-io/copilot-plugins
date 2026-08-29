@@ -1,0 +1,9 @@
+{
+  "name": "gyorgysh--keepresso",
+  "displayName": "keepresso",
+  "description": "Keep your Mac awake on your terms. A native macOS menu-bar app with condition-based triggers, closed-display mode, and a headless-Mac toolkit. Built for AI agents, servers, and always-on Macs.",
+  "version": "1.0.0",
+  "author": "gyorgysh",
+  "homepage": "https://github.com/gyorgysh/keepresso",
+  "skills": []
+}
