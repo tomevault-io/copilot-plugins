@@ -1,0 +1,9 @@
+{
+  "name": "olafnew--mastermice",
+  "displayName": "MasterMice",
+  "description": "3 MB service that replaces 350 MB of Logi Options+ bloatware. Full haptic motor, force sensor, SmartShift, and button remapping for MX Master 3/3S/4. No accounts. No telemetry. No cloud.",
+  "version": "1.0.0",
+  "author": "olafnew",
+  "homepage": "https://github.com/olafnew/MasterMice",
+  "skills": []
+}
