@@ -1,0 +1,44 @@
+{
+  "name": "new-api",
+  "owner": "MisonL",
+  "repo": "new-api",
+  "description": "\u72ec\u7acb\u6f14\u8fdb\u7684 new-api\uff0c\u6309\u9700\u5438\u7eb3 QuantumNous/new-api \u4e0a\u6e38\u53d8\u66f4\uff0c\u91cd\u70b9\u589e\u5f3a\u4f01\u4e1a SSO\u3001\u534f\u8bae\u8f6c\u6362\u7b56\u7565\u3001\u5185\u5bb9\u65e5\u5fd7\u5ba1\u8ba1\u4e0e\u63a7\u5236\u53f0\u4f53\u9a8c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MisonL/new-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T00:49:59Z"
+}
