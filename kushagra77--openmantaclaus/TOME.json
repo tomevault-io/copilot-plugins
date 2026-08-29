@@ -1,0 +1,44 @@
+{
+  "name": "OpenMantaClaus",
+  "owner": "kushagra77",
+  "repo": "OpenMantaClaus",
+  "description": "Open Source implementation of the MantaClaus AUV from SAUVC. Specificially designed to be low cost with minimal sensors and hardware for full autonomous operation. Includes machine learning models, datasets as well as CAD files and assembly instructions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kushagra77/OpenMantaClaus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T07:22:27Z"
+}
