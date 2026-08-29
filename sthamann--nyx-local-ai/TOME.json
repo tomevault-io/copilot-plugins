@@ -1,0 +1,44 @@
+{
+  "name": "nyx-local-ai",
+  "owner": "sthamann",
+  "repo": "nyx-local-ai",
+  "description": "Local-first AI coding agent for VS Code & Cursor. Ollama, LM Studio & your inference fleet. Cursor-grade agent UX \u2014 offline, private, zero token cost.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sthamann/nyx-local-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T00:37:47Z"
+}
