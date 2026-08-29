@@ -4,7 +4,7 @@
   "repo": "MQTTastic-Client-KMP",
   "description": "Kotlin MultiPlatform MQTT 5.0 Client Library",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meshtastic/MQTTastic-Client-KMP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:06:34Z"
+  "distributed_at": "2026-08-29T01:02:23Z"
 }
