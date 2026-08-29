@@ -1,0 +1,9 @@
+{
+  "name": "hydra-db--hydradb",
+  "displayName": "hydradb",
+  "description": "HydraDB - fast graph database on object storage",
+  "version": "1.0.0",
+  "author": "hydra-db",
+  "homepage": "https://github.com/hydra-db/hydradb",
+  "skills": []
+}
