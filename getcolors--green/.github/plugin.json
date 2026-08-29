@@ -1,0 +1,9 @@
+{
+  "name": "getcolors--green",
+  "displayName": "green",
+  "description": "Clojure/Babashka workflow engine for building idempotent DevOps CLIs.",
+  "version": "1.0.0",
+  "author": "getcolors",
+  "homepage": "https://github.com/getcolors/green",
+  "skills": []
+}
