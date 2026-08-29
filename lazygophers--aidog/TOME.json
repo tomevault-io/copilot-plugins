@@ -4,7 +4,7 @@
   "repo": "aidog",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lazygophers/aidog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:44:27Z"
+  "distributed_at": "2026-08-29T11:10:20Z"
 }
