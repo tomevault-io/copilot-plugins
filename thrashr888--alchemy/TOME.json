@@ -4,7 +4,7 @@
   "repo": "alchemy",
   "description": "MacOS local AI notebook",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thrashr888/alchemy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:58:56Z"
+  "distributed_at": "2026-08-29T07:10:56Z"
 }
