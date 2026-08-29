@@ -1,0 +1,9 @@
+{
+  "name": "pendle-finance--arbitrage-with-crossex",
+  "displayName": "arbitrage-with-crossex",
+  "description": "Local tool for running Funding Rate Arbitrage with CrossEx and Boros",
+  "version": "1.0.0",
+  "author": "pendle-finance",
+  "homepage": "https://github.com/pendle-finance/arbitrage-with-crossex",
+  "skills": []
+}
