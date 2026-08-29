@@ -1,0 +1,9 @@
+{
+  "name": "zhangzhedesign--tilde",
+  "displayName": "tilde",
+  "description": "a desktop todo tool for Windows. Centered around a compact pinned quick-entry box, it lets you summon it with a single `~` keypress to capture tasks instantly, or hold `Alt` to speak. Tasks are manage",
+  "version": "1.0.0",
+  "author": "zhangzhedesign",
+  "homepage": "https://github.com/zhangzhedesign/tilde",
+  "skills": []
+}
