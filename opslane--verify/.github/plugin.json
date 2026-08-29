@@ -1,0 +1,9 @@
+{
+  "name": "opslane--verify",
+  "displayName": "verify",
+  "description": "Verification Layer for Claude Code",
+  "version": "1.0.0",
+  "author": "opslane",
+  "homepage": "https://github.com/opslane/verify",
+  "skills": []
+}
