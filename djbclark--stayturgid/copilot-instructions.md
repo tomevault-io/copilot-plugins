@@ -1,0 +1,205 @@
+## stayturgid
+
+> > **AI agents (any vendor):** this file is the entry point — the AGENTS.md
+
+# stayturgid
+
+> **AI agents (any vendor):** this file is the entry point — the AGENTS.md
+> convention that coding agents from multiple vendors check first. Project
+> overview for humans: [README.md](README.md). Current dated
+> state — fleet health, active blockers, operator-action queue — lives in
+> [docs/STATUS.md](docs/STATUS.md); the most load-bearing parts are inlined
+> below so you have them even if you stop at this file. See "Where
+> documentation goes" further down for what belongs where.
+
+Keeps wireless ADB (port 5555), Shizuku, and SSH alive on unrooted Android phones
+across reboots. Generic example fleet hosts (`oneui-device`, `stock-android-device`,
+`fireos-device`) live in `ansible/inventory/hosts.yml.example`; live inventory
+belongs in a private site overlay (see
+[multi-site-topology.md](docs/architecture/multi-site-topology.md) §4).
+
+## Current state (condensed — full/current version: [docs/STATUS.md](docs/STATUS.md))
+
+**This section only lists active blockers and operator-gated items — it is
+not the full work menu.** Before selecting new work, check
+[docs/options.md](docs/options.md) (strategic/deferred tracks) and the
+[open GitHub issues](https://github.com/djbclark/stayturgid/issues) (discrete
+bugs/follow-ups) for what's actually available to pick up next.
+
+**Active blockers:**
+
+- K1 native-agent cutover (2026-07-22) is **not fully verified** — AutoJs6
+  removal was live-checked 2026-07-25 (the cutover's claim was false; fixed
+  fleet-wide now) but the forced `CLOSED_NO_SHELL` soak still hasn't run.
+  Tracked in [#43](https://github.com/djbclark/stayturgid/issues/43) and
+  [#45](https://github.com/djbclark/stayturgid/issues/45).
+- OpenObserve↔Vector auth **fixed 2026-07-25**, pending 24h clean-log
+  verification before closing. Tracked in
+  [#44](https://github.com/djbclark/stayturgid/issues/44) — see
+  [docs/STATUS.md](docs/STATUS.md) for the root cause.
+
+**Operator-action queue (things only a human can do):**
+
+1. Physically check offline fleet devices (Tailscale unreachable).
+2. Decide the F1 consent-surface phasing question ([#46](https://github.com/djbclark/stayturgid/issues/46)).
+3. Remove (or authorize removal of) a stray `~/stayturgid` file — the real repo is `${OPS_ROOT:-~/ops}/stayturgid`.
+
+If any of this looks stale, trust `docs/STATUS.md` and `git log` over this
+section — it's a snapshot, not updated every commit.
+
+## Quick start
+
+```bash
+cd ${OPS_ROOT:-~/ops}/site-djbclark && just ops-release-status
+cd ${OPS_ROOT:-~/ops}/stayturgid
+just health && just firerpa-health
+```
+
+## Versioned deploy releases — retired
+
+**Retired 2026-08-23.** Work directly in `${OPS_ROOT:-~/ops}` with ordinary
+git: edit, commit to `master`, push. Worktrees and `ops-vMAJOR.MINOR.PATCH`
+releases still work but are optional; `~/ops` is live, so commits land with no
+release gate in front of them. Rationale: "Where work happens" in
+`~/CLAUDE.md`. Commands and full procedure:
+`${OPS_ROOT:-~/ops}/site-djbclark/docs/OPS-RELEASES.md`.
+
+## Key commands
+
+The full command table lives in **[docs/commands.md](docs/commands.md)** —
+moved there 2026-08-24 because it is reference material and this file is
+loaded into context every session.
+
+> **If you cannot read `docs/commands.md`, say so in your reply rather than
+> guessing at commands.** It is a normal file in this repository; being unable
+> to open it means something is wrong with your checkout or your file access,
+> and the operator wants to know.
+
+Day to day: `just health`, `just errors`, `just firerpa-health`, `just test`.
+
+## Environment
+
+- **Orchestration:** `just` (command runner, replaces `make`). The Makefile was migrated to a `justfile` in July 2026. Install: `brew install just`. Run `just --list` to see all targets or `just` for categorized help.
+- **Mac shell:** `/bin/bash` (dotfiles: `~/.bash_profile`, `~/.bashrc`)
+- **FIRERPA venv:** Python 3.12 at `~/.venv-stayturgid-firerpa` — `source ~/.venv-stayturgid-firerpa/bin/activate`
+- **Python tooling:** `uv` (package manager) + `ruff` (linter/formatter) — `brew install uv ruff`
+- **JavaScript tooling:** `bun` (package manager) — `brew install oven-sh/bun/bun`; `biome` (linter/formatter) — `brew install biome`
+- **Shell tooling:** `shellcheck` (linter) + `shfmt` (formatter) — `brew install shellcheck shfmt`
+- **Markdown tooling:** `markdownlint` (linter) + `prettier` (formatter) — `brew install markdownlint-cli prettier`
+- **Ansible tooling:** `ansible-lint` (linter) + `yamllint` (linter) — `uv tool install ansible-lint yamllint`
+- **INI tooling:** `pyinilint` (linter) — `uv tool install pyinilint`
+- **Web tooling:** `html-validate`, `stylelint`, `pa11y`, `puppeteer`, `vnu-jar` — `bun install` (devDependencies); `lychee` (link checker) — `brew install lychee`; `lighthouse` (full-page audit) — `npm install -g lighthouse` (requires Chrome)
+- **Other linters:** `dotenv-linter` (.env) — `brew install dotenv-linter`; `caddy` (Caddyfile fmt) — `brew install caddy`
+- **Git tooling:** `pre-commit` (hooks) + `typos` (spell check) — `brew install pre-commit typos-cli`; run `pre-commit install`
+- **SSH CA:** `~/.ssh/stayturgid_ca` — `just ca-status`
+- **OpenCode web:** site-local service (see site overlay / landing); not a public fixed IP
+- **Secrets:** managed via the privilege-separated `sudo-secretspec` client (`brew install sudo-secretspec`) — never the plain `secretspec` CLI. No manifest path to know or specify; the broker resolves everything from its own vault. Run `just secretspec-check` (wraps `sudo-secretspec check`) before deploys. See the `sudo-secretspec` skill for the full command surface.
+- **Site inventory:** resolved via `ANSIBLE_CONFIG`, `STAYTURGID_SITE_DIR`, `OPS_ROOT/.mysite`, or one discovered `site-*` checkout under `OPS_ROOT` (default `${OPS_ROOT:-~/ops}`), excluding `site-private`; see `control/lib/site_discovery.py` and `control/lib/ansible_context.py`. Commands print the selected path and precedence source. A missing private companion is created at `STAYTURGID_PRIVATE_DIR` (default `OPS_ROOT/site-private`) without Git or secret initialization.
+
+## Example fleet (generic — not a live site)
+
+| Device               | Tailscale  | USB Serial           | SSH                        |
+| -------------------- | ---------- | -------------------- | -------------------------- |
+| oneui-device         | 100.0.0.11 | EXAMPLE-SERIAL-ONEUI | `ssh oneui-device`         |
+| stock-android-device | 100.0.0.12 | EXAMPLE-SERIAL-STOCK | `ssh stock-android-device` |
+| fireos-device        | 100.0.0.13 | EXAMPLE-SERIAL-FIRE  | `ssh fireos-device`        |
+
+## Adding a launchd service
+
+See [docs/adding-a-launchd-service.md](docs/adding-a-launchd-service.md) — two
+paths: `control_node` role for fleet-wide agents, `site_agents` role for
+per-site agents. **Before scheduling anything periodic**, read that doc's
+"Before adding any scheduled/periodic job" section first — the Mac control
+node is a laptop, often off, so GitHub Actions `schedule:` is the default
+unless the job genuinely needs local machine access; never raw `cron`.
+
+## Conventions
+
+- Use bash (not zsh). Termux has no zsh by default.
+- **Modern CLI tools:** use modern Rust rewrites on the Mac control node when available (`rg` instead of `grep`, `fd` instead of `find`, `bat`, `sd`, `eza`, `hck`, `delta`, `jq`).
+- **File counting/listing:** use `git ls-files '*.md'` instead of `find . -name '*.md'` to avoid traversing gitignored bloat (node_modules, caches).
+- Announce before device interaction: 🚨📱🚨 USING — host — why — ~N min
+- Screen control requires `ScreenControlSession` (fail-closed).
+- Accessibility is detection-only. Never `settings put` accessibility services automatically.
+- Logging uses syslog severity levels (EMERG..DEBUG). See `control/lib/logging.py`.
+- Every desired state gets a unique ID in `tests/healing_registry.json`. Pre-flight
+  `just test` fails if a `must_cover` ID is missing from any healing mechanism.
+- Follow multi-agent protocol at bottom of AGENTS.md (fetch-pull before edits).
+- See full policies at `docs/rules/*.md`
+
+## Memory & documentation policy (this repo's slice)
+
+There is **no single canonical policy copy**. Each of the three `${OPS_ROOT:-~/ops}`
+siblings owns the rules that apply to **it**, in that repo's `AGENTS.md`, and
+**must** point at the other two so a full picture requires all three. Cross-repo
+links use absolute
+`https://github.com/<owner>/<repo>/blob/master/...` URLs (GitHub's renderer
+cannot follow relative links across repos); also give the filesystem path
+(`${OPS_ROOT:-~/ops}/...`) for local use. Same-repo links stay relative.
+
+**This repo (stayturgid) owns:**
+
+- Durable facts, conventions, and gotchas about developing or operating
+  **stayturgid** (code, fleet, CI/review) → commit here under `docs/` (often
+  [`docs/notes/lessons-learned.md`](docs/notes/lessons-learned.md) or an
+  existing durable doc), **not** into tool-private stores under `~` (Claude
+  memory under `~/.claude/`, Cursor/Aider/Copilot caches, etc.).
+- **Never** commit passwords or secrets. IPs, hostnames, and machine names are
+  fine in public docs when the doc's audience needs them.
+
+**Optional additional rules (not required of every stayturgid user):**
+
+- Non-sensitive site practice others might still benefit from → that operator's
+  `${OPS_ROOT:-~/ops}/site-<name>` (example for this machine:
+  [`${OPS_ROOT:-~/ops}/site-djbclark/AGENTS.md`](https://github.com/djbclark/site-djbclark/blob/master/AGENTS.md)
+  — private repo; expect 404 if you are not the owner).
+- Private / Mac-wide / not-for-public extras →
+  [`${OPS_ROOT:-~/ops}/site-private/AGENTS.md`](https://github.com/djbclark/site-private/blob/master/AGENTS.md)
+  (always private; expect 404 for other readers).
+
+**Symlinks (filesystem) are reserved for** root-level `~` agent/vendor files
+(`~/AGENTS.md`, `~/CLAUDE.md`, and any other root-level vendor-specific agent
+instruction files), tool memory dirs under `~/.claude/.../memory`, and
+optionally `${OPS_ROOT:-~/ops}/.mysite` → `site-<name>` (supported local convenience).
+Do **not** use in-repo symlinks to reach sibling repos — use path + https links
+in prose instead.
+
+Topology background:
+[multi-site-topology.md §4.10](docs/architecture/multi-site-topology.md#410-the-third-repo-opssite-private).
+
+## Where documentation goes
+
+Canonical map — read this before creating a new doc or wondering where
+something lives. [`README.md`](README.md) and [`docs/STATUS.md`](docs/STATUS.md)
+both point back here rather than duplicating it.
+
+| Location                                                         | What goes here                                                                                                                              | Update cadence                   |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| [`README.md`](README.md)                                         | Human-facing project overview, module list, quick-start                                                                                     | Rare                             |
+| `AGENTS.md` (this file)                                          | Durable coding-agent entry point: conventions, commands, protocols, this doc map, **this repo's slice of the three-way memory/docs policy** | Rare                             |
+| [`docs/STATUS.md`](docs/STATUS.md)                               | Dated snapshot: fleet health, active workstreams, operator-action queue, known gotchas                                                      | Every session that changes state |
+| [`docs/coding-rules.md`](docs/coding-rules.md)                   | Durable implementation, safety, testing, Git, and completion rules                                                                          | Rare                             |
+| [`docs/rules/`](docs/rules/)                                     | Always-on agent policies (self-heal, screen-control, GitHub-issues hygiene)                                                                 | Rare                             |
+| [`docs/notes/lessons-learned.md`](docs/notes/lessons-learned.md) | Session-learned gotchas/conventions, narrower than coding-rules.md/docs/rules/                                                              | As lessons come up               |
+| [`docs/options.md`](docs/options.md)                             | Strategic/deferred work tracks with stable IDs                                                                                              | As tracks open/close             |
+| [GitHub issues](https://github.com/djbclark/stayturgid/issues)   | Discrete bugs, ops follow-ups, soak verifications                                                                                           | As they arise                    |
+| [`docs/operations/sessions/`](docs/operations/sessions/)         | Session-by-session history and handoffs                                                                                                     | Every session                    |
+| [`docs/archive/`](docs/archive/)                                 | Superseded plans and old sessions — historical record only, never treat as current                                                          | Append-only                      |
+| `${OPS_ROOT:-~/ops}/site-<name>` (sibling repo)                  | One operator's site overlay — inventory, credentials-adjacent config, **that site's slice of memory/docs policy**                           | As the site changes              |
+| `${OPS_ROOT:-~/ops}/site-private` (sibling repo)                 | Private/generic companion — **its** slice of memory/docs policy + Claude generic memory                                                     | As generic notes come up         |
+
+Do not put durable rules in STATUS.md, and do not put dated/volatile state in
+AGENTS.md or coding-rules.md — that's the split this table encodes.
+
+## Multi-Agent Protocol
+
+Before any edit in a source task worktree:
+`git fetch origin --prune && git pull --ff-only origin master`.
+Always commit and push when done. Leave no uncommitted changes.
+If `git pull` fails with a merge conflict, STOP and report it.
+Verify changes are yours before editing — if a file has unrelated modifications
+from another agent, leave it alone and report it.
+
+---
+> Source: [djbclark/stayturgid](https://github.com/djbclark/stayturgid) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
