@@ -1,0 +1,9 @@
+{
+  "name": "isbe-tue--ifc2lbd-neo",
+  "displayName": "IFC2LBD-Neo",
+  "description": "IFC-to-LBD converter with native CLI, web app, and Electron desktop app. Converts IFC files to Linked Building Data (RDF/Turtle/N-Quads) with BOT, BEO, bSDD, OMG ontologies.",
+  "version": "1.0.0",
+  "author": "ISBE-TUe",
+  "homepage": "https://github.com/ISBE-TUe/IFC2LBD-Neo",
+  "skills": []
+}
