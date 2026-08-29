@@ -1,0 +1,9 @@
+{
+  "name": "3than777--expressive",
+  "displayName": "Expressive",
+  "description": "Simple VST plugin that makes sounds expressive by dynamically linking note velocity with stereo panning to add depth and intensity to melodies and drums.",
+  "version": "1.0.0",
+  "author": "3than777",
+  "homepage": "https://github.com/3than777/Expressive",
+  "skills": []
+}
