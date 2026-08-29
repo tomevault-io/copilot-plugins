@@ -1,0 +1,9 @@
+{
+  "name": "cgreeno--temporalex",
+  "displayName": "temporalex",
+  "description": "Elixir SDK for Temporal, built on the official Rust Core SDK via Rustler NIFs",
+  "version": "1.0.0",
+  "author": "cgreeno",
+  "homepage": "https://github.com/cgreeno/temporalex",
+  "skills": []
+}
