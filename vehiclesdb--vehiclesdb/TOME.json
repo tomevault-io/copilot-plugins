@@ -1,0 +1,44 @@
+{
+  "name": "vehiclesdb",
+  "owner": "vehiclesdb",
+  "repo": "vehiclesdb",
+  "description": "Open vehicle data: 19,282 models, 933 makes, 6 kinds (cars, motorcycles, mopeds, vans, trucks, buses) reconciled from official registers of 14 countries. Popularity + availability included. CC-BY 4.0, forever.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vehiclesdb/vehiclesdb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T05:28:55Z"
+}
