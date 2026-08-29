@@ -1,0 +1,9 @@
+{
+  "name": "veecle--chiplab",
+  "displayName": "chiplab",
+  "description": "Give agents access to virtual hardware.",
+  "version": "1.0.0",
+  "author": "veecle",
+  "homepage": "https://github.com/veecle/chiplab",
+  "skills": []
+}
