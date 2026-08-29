@@ -1,0 +1,9 @@
+{
+  "name": "markdevshop--vector-mcp",
+  "displayName": "vector-mcp",
+  "description": "Vector MCP Server for AI Agents - Supports ChromaDB, Couchbase, MongoDB, Qdrant, and PGVector",
+  "version": "1.0.0",
+  "author": "markdevshop",
+  "homepage": "https://github.com/markdevshop/vector-mcp",
+  "skills": []
+}
