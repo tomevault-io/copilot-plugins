@@ -1,0 +1,9 @@
+{
+  "name": "zensoku142--tokenmeter",
+  "displayName": "TokenMeter",
+  "description": "Lightweight Windows monitor for subscription quotas, token usage, costs and balances across Codex, Cursor, DeepSeek, Xiaomi MiMo and NayutoAI. \u8f7b\u91cf\u7ea7 Windows AI \u7f16\u7a0b\u8ba2\u9605\u989d\u5ea6\u3001Token \u7528\u91cf\u3001\u8d39\u7528\u4e0e\u4f59\u989d\u76d1\u63a7\u5de5\u5177\uff0c\u652f\u6301 Codex\u3001Cursor\u3001",
+  "version": "1.0.0",
+  "author": "zensoku142",
+  "homepage": "https://github.com/zensoku142/TokenMeter",
+  "skills": []
+}
