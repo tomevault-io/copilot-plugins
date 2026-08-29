@@ -1,0 +1,44 @@
+{
+  "name": "robotics-mcp",
+  "owner": "sandraschi",
+  "repo": "robotics-mcp",
+  "description": "MCP 3.1 server + Webapp. Yahboom, Dreame, Tdrone, Noetix Bumi collab with shared LIDAR maps, SLAM. Physical + virtual robots working as one system",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sandraschi/robotics-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T00:38:25Z"
+}
