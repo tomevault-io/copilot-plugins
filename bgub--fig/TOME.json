@@ -4,7 +4,7 @@
   "repo": "fig",
   "description": "A TypeScript re-implementation of React: fibers, lanes, scheduling, hooks, streaming SSR, and selective hydration \u2014 without the legacy cruft.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bgub/fig",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:35:52Z"
+  "distributed_at": "2026-08-29T06:43:59Z"
 }
