@@ -1,0 +1,9 @@
+{
+  "name": "elastic--sourcerer",
+  "displayName": "sourcerer",
+  "description": "Sourcerer answers questions about your software from the source.",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/sourcerer",
+  "skills": []
+}
