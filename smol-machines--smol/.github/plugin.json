@@ -1,0 +1,9 @@
+{
+  "name": "smol-machines--smol",
+  "displayName": "smol",
+  "description": "Manage lifecycle of smol machines, locally and remote, or embedded in your node|python application.",
+  "version": "1.0.0",
+  "author": "smol-machines",
+  "homepage": "https://github.com/smol-machines/smol",
+  "skills": []
+}
