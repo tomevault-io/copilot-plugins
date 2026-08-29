@@ -1,0 +1,9 @@
+{
+  "name": "mintimate--open-kounter",
+  "displayName": "open-kounter",
+  "description": "A lightweight visitor counter based on Blob, an alternative to LeanCloud.",
+  "version": "1.0.0",
+  "author": "Mintimate",
+  "homepage": "https://github.com/Mintimate/open-kounter",
+  "skills": []
+}
