@@ -4,7 +4,7 @@
   "repo": "marketplace",
   "description": "Install Zapier in your coding agent via the Claude Code, Codex, and Copilot CLI marketplaces.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zapier/marketplace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T02:49:24Z"
+  "distributed_at": "2026-08-29T07:00:24Z"
 }
