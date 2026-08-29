@@ -1,0 +1,9 @@
+{
+  "name": "dososo--agent-loop-skill",
+  "displayName": "agent-loop-skill",
+  "description": "A skill for long-running AI agent loops with contracts, traces, restarts, scoring, and cleanup.",
+  "version": "1.0.0",
+  "author": "dososo",
+  "homepage": "https://github.com/dososo/agent-loop-skill",
+  "skills": []
+}
