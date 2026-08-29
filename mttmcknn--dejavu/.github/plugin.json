@@ -1,0 +1,9 @@
+{
+  "name": "mttmcknn--dejavu",
+  "displayName": "dejavu",
+  "description": "A lightweight framework for tracking and asserting against Jetpack Compose recompositions.",
+  "version": "1.0.0",
+  "author": "mttmcknn",
+  "homepage": "https://github.com/mttmcknn/dejavu",
+  "skills": []
+}
