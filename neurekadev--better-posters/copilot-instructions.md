@@ -16,10 +16,10 @@
 
 ## Release Pipeline
 
-- Releases are published by GitLab CI (`.gitlab-ci.yml`) when a bare SemVer tag (for example `1.2.3`) is pushed. The pipeline packages the plugin with JPRM, publishes a GitLab Release with the zip attached, and regenerates and commits `manifest.json` to the default branch.
-- `CHANGELOG.md` must contain a released section matching the tag (`## [1.2.3] - ...`); the `jellyfin-plugin/release` component reads it for the release notes and fails if it is missing.
-- The manifest-commit step needs the `MANIFEST_TOKEN` CI/CD variable (a `write_repository` token). Without it the Release still publishes, but `manifest.json` is not updated.
+- Releases are published by GitHub Actions (`.github/workflows/CI.yml`) when a bare SemVer tag (for example `1.2.3`) is pushed. The workflow packages the plugin with JPRM, publishes a GitHub Release with the zip and checksums attached, and regenerates and commits `manifest.json` to the default branch.
+- `CHANGELOG.md` must contain a released section matching the tag (`## [1.2.3] - ...`); the workflow reads it for the release notes and fails if it is missing.
+- The release job uses the repository-scoped `GITHUB_TOKEN` with `contents: write`; no separate manifest token is required.
 
 ---
-> Source: [neurekadev/Better-Posters](https://github.com/neurekadev/Better-Posters) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-25 -->
+> Source: [neurekadev/better-posters](https://github.com/neurekadev/better-posters) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
