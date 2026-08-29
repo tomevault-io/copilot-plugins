@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--fuzzer",
+  "displayName": "fuzzer",
+  "description": "Information-dense, coverage-guided binary fuzzer ",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/fuzzer",
+  "skills": []
+}
