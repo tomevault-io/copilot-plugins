@@ -1,0 +1,9 @@
+{
+  "name": "liuyi0808--android-review",
+  "displayName": "android-review",
+  "description": "Android development review skills for Claude Code \u2014 covering OWASP MASVS security audit, Clean Architecture, performance optimization, Jetpack Compose best practices, and Google Play Store compliance",
+  "version": "1.0.0",
+  "author": "liuyi0808",
+  "homepage": "https://github.com/liuyi0808/android-review",
+  "skills": []
+}
