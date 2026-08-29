@@ -1,0 +1,9 @@
+{
+  "name": "renrouputao--tinyua",
+  "displayName": "tinyua",
+  "description": "A lightweight, from-scratch OPC UA client stack for .NET 8 \u2014 zero dependency on the OPC Foundation SDK. Implements the full binary protocol: encoding, 4 security policies, message chunking, secure cha",
+  "version": "1.0.0",
+  "author": "renrouputao",
+  "homepage": "https://github.com/renrouputao/tinyua",
+  "skills": []
+}
