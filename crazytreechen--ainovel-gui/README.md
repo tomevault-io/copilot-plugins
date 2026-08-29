@@ -7,11 +7,11 @@ AI 小说写作引擎 — ainovel-cli 的桌面 GUI 客户端（Electron + React
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [crazytreeChen/ainovel-gui](https://github.com/crazytreeChen/ainovel-gui).
+Original source: `AGENTS.md` in [crazytreeChen/ainovel-gui](https://github.com/crazytreeChen/ainovel-gui).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
