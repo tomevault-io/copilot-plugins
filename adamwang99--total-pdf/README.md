@@ -7,11 +7,11 @@ Total PDF — AI-powered PDF suite (fork of Stirling-PDF, rebranded)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [adamwang99/total-pdf](https://github.com/adamwang99/total-pdf).
+Original source: `AGENTS.md` in [adamwang99/total-pdf](https://github.com/adamwang99/total-pdf).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
