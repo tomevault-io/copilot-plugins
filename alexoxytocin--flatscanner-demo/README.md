@@ -7,11 +7,11 @@ Demo snapshot of flatscanner
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AlexOxytocin/flatscanner-demo](https://github.com/AlexOxytocin/flatscanner-demo).
+Original source: `AGENTS.md` in [AlexOxytocin/flatscanner-demo](https://github.com/AlexOxytocin/flatscanner-demo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
