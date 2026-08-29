@@ -1,0 +1,16 @@
+## dok-train-not-local-gpu
+
+> 文列型・BT の本学習は DOK。手元 GPU を調べて経路を選ばない
+
+
+# 本学習は DOK
+
+文列型と Bradley-Terry 型の本学習（工程 3 の keep、工程 8-mid の三つ組み、8c の 5-fold）は、さくら高火力 DOK で回す。手順は `docs/DOK-PLAN.md`。
+
+手元で `nvidia-smi` や `torch.cuda.is_available()` を見て、ローカル学習か DOK かを選ばない。この作業機に GPU が無いことは既知である。エージェントがやるのはイメージの build / push まで。DOK タスクの起動は判定者である。
+
+`make section-middle-sentseq` や CPU スモークはデバッグ用であり、本学習の代替経路ではない。
+
+---
+> Source: [k16shikano/ja-tech-edit-score](https://github.com/k16shikano/ja-tech-edit-score) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
