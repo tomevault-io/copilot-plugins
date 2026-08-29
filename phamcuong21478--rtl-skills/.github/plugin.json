@@ -1,0 +1,9 @@
+{
+  "name": "phamcuong21478--rtl-skills",
+  "displayName": "rtl-skills",
+  "description": "Claude Code skills & agents that automate a full RTL/Verilog design flow - architecture, RTL coding, lint, simulation, self-checking testbenches, regression, debug, Vivado synthesis, and docs - driven",
+  "version": "1.0.0",
+  "author": "phamcuong21478",
+  "homepage": "https://github.com/phamcuong21478/rtl-skills",
+  "skills": []
+}
