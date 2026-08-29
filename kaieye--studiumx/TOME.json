@@ -1,0 +1,44 @@
+{
+  "name": "StudiumX",
+  "owner": "kaieye",
+  "repo": "StudiumX",
+  "description": "StudiumX \u662f\u4e00\u6b3e\u672c\u5730\u4f18\u5148\u7684 AI \u5b66\u4e60\u5de5\u4f5c\u533a\u3002\u9879\u76ee\u5c06\u5b66\u4e60\u76ee\u6807\u3001\u8bfe\u7a0b\u8bb2\u4e49\u3001\u8d44\u6599\u8d44\u6e90\u3001\u4efb\u52a1\u8ba1\u5212\u3001\u4e13\u6ce8\u8ba1\u65f6\u548c\u5b66\u4e60\u8bb0\u5f55\u6574\u5408\u5230\u7edf\u4e00\u5e73\u53f0\uff0c\u501f\u52a9 AI \u63d0\u4f9b\u4e2a\u6027\u5316\u6559\u5b66\u3001\u8def\u5f84\u89c4\u5212\u4e0e\u5b66\u4e60\u53cd\u9988\u3002\u5e2e\u52a9\u5b66\u4e60\u8005\u5c06\u96f6\u6563\u7684\u5b66\u4e60\u884c\u4e3a\u6c89\u6dc0\u4e3a\u53ef\u6301\u7eed\u8fed\u4ee3\u7684\u4e2a\u4eba\u77e5\u8bc6\u8d44\u4ea7\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kaieye/StudiumX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T05:35:46Z"
+}
