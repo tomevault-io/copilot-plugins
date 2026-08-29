@@ -1,0 +1,9 @@
+{
+  "name": "iagogfe--excalidraw-icons-mcp",
+  "displayName": "excalidraw-icons-mcp",
+  "description": "Excalidraw MCP server with real vendor-icon search & insertion (AWS/Azure/GCP/OCI/Kubernetes) for AI-built architecture diagrams \u2014 live canvas, 31 tools",
+  "version": "1.0.0",
+  "author": "iagogfe",
+  "homepage": "https://github.com/iagogfe/excalidraw-icons-mcp",
+  "skills": []
+}
