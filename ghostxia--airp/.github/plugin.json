@@ -1,0 +1,9 @@
+{
+  "name": "ghostxia--airp",
+  "displayName": "AIRP",
+  "description": "AIRP \u2014 AI Roleplay Platform monorepo: state-protocol + gateway + mcp-server + core + ui (unified Cargo workspace)",
+  "version": "1.0.0",
+  "author": "GhostXia",
+  "homepage": "https://github.com/GhostXia/AIRP",
+  "skills": []
+}
