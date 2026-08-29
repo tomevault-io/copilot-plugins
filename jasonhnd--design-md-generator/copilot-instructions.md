@@ -1,0 +1,55 @@
+## design-md-generator
+
+> You have access to a design system extraction tool. When the user asks you to match a website's visual style, build UI that looks like a specific site, or create a DESIGN.md:
+
+# Design MD Generator
+
+You have access to a design system extraction tool. When the user asks you to match a website's visual style, build UI that looks like a specific site, or create a DESIGN.md:
+
+**Run the full pipeline without stopping.** Do not ask "should I proceed?" between steps.
+
+## Full Pipeline (one command flow)
+
+```bash
+# 1. Extract design tokens
+cd /path/to/dmdg && npx ts-node scripts/extract.ts <URL>
+
+# 2. [YOU] Read tokens.json + screenshots, write DESIGN.md following SKILL.md spec
+#    Write all 9 sections without pausing. Self-audit. Fix issues.
+
+# 3. Validate
+cd /path/to/dmdg && npx ts-node scripts/validate.ts output/<domain>/DESIGN.md output/<domain>/tokens.json
+
+# 4. Generate report + proof
+cd /path/to/dmdg && npx ts-node scripts/preview-gen.ts output/<domain>/tokens.json output/<domain>/
+cd /path/to/dmdg && npx ts-node scripts/proof.ts <URL> output/<domain>/tokens.json output/<domain>/
+cd /path/to/dmdg && npx ts-node scripts/report-gen.ts output/<domain>/tokens.json output/<domain>/ output/<domain>/DESIGN.md
+
+# 5. Open report for user
+open output/<domain>/report.html
+```
+
+## Using an Existing DESIGN.md
+
+If a DESIGN.md already exists in the project:
+
+1. Read it completely before writing any UI code
+2. Use ONLY the colors, fonts, sizes, and shadows specified in it
+3. Do NOT invent values not present in the document
+4. Follow Section 9 (Agent Prompt Guide) for quick reference
+
+## Critical Rules
+
+- ALL numerical values MUST come from tokens.json — never hallucinate
+- 6-digit lowercase hex (#ffffff, not #FFF)
+- Numeric font weights (400, 700) not words (bold)
+- Do not stop between steps to ask for confirmation
+- Present only the final result
+
+## Full Specification
+
+See SKILL.md for the complete 21-step workflow, format spec, writing style guide, and quality checklist.
+
+---
+> Source: [jasonhnd/design-md-generator](https://github.com/jasonhnd/design-md-generator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
