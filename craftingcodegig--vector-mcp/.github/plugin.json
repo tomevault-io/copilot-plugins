@@ -1,0 +1,9 @@
+{
+  "name": "craftingcodegig--vector-mcp",
+  "displayName": "vector-mcp",
+  "description": "Vector MCP Server for AI Agents - Supports ChromaDB, Couchbase, MongoDB, Qdrant, and PGVector",
+  "version": "1.0.0",
+  "author": "craftingcodegig",
+  "homepage": "https://github.com/craftingcodegig/vector-mcp",
+  "skills": []
+}
