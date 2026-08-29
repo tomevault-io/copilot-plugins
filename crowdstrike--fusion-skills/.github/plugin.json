@@ -1,0 +1,9 @@
+{
+  "name": "crowdstrike--fusion-skills",
+  "displayName": "fusion-skills",
+  "description": "AI coding assistant skills for building CrowdStrike Falcon Fusion workflows: action discovery, YAML authoring, deployment, execution monitoring, and best practices for triggers, conditions, loops, and",
+  "version": "1.0.0",
+  "author": "CrowdStrike",
+  "homepage": "https://github.com/CrowdStrike/fusion-skills",
+  "skills": []
+}
