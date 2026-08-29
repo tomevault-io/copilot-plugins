@@ -1,0 +1,9 @@
+{
+  "name": "weklund--fiduciary",
+  "displayName": "fiduciary",
+  "description": "A personal financial advisor that runs locally. Plaid CLI + SQLite + Claude Code skills. Fiduciary-grade advice grounded in your real data.",
+  "version": "1.0.0",
+  "author": "weklund",
+  "homepage": "https://github.com/weklund/fiduciary",
+  "skills": []
+}
