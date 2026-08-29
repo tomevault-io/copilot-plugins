@@ -1,0 +1,9 @@
+{
+  "name": "lauterbach-mirror--t32mcp",
+  "displayName": "t32mcp",
+  "description": "Mirror of MCP server for connecting AI agents to TRACE32, enabling AI-assisted debugging.",
+  "version": "1.0.0",
+  "author": "lauterbach-mirror",
+  "homepage": "https://github.com/lauterbach-mirror/t32mcp",
+  "skills": []
+}
