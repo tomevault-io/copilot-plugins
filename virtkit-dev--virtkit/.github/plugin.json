@@ -1,0 +1,9 @@
+{
+  "name": "virtkit-dev--virtkit",
+  "displayName": "virtkit",
+  "description": "Rootless microVM toolkit",
+  "version": "1.0.0",
+  "author": "virtkit-dev",
+  "homepage": "https://github.com/virtkit-dev/virtkit",
+  "skills": []
+}
