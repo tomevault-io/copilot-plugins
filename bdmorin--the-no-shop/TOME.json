@@ -4,7 +4,7 @@
   "repo": "the-no-shop",
   "description": "Ixian technology for Claude Code. Invisible marketplace where you get tech that probably bends the rules.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bdmorin/the-no-shop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T12:46:57Z"
+  "distributed_at": "2026-08-29T13:09:36Z"
 }
