@@ -4,7 +4,7 @@
   "repo": "rella-aesthetics",
   "description": "Rella Aesthetics med spa \u2014 Next.js 16, Tailwind v4, Sanity CMS, Boulevard booking, GoHighLevel CRM",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zwagner19/rella-aesthetics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T22:32:20Z"
+  "distributed_at": "2026-08-29T03:29:16Z"
 }
