@@ -1,0 +1,9 @@
+{
+  "name": "posiedien76--truemovementanimationsplugin",
+  "displayName": "TrueMovementAnimationsPlugin",
+  "description": "This RuneLite plugin replaces the game's standard character movement animations with a custom movement model. The new model closely matches your character's actual \"true tile\" on the server. This prov",
+  "version": "1.0.0",
+  "author": "Posiedien76",
+  "homepage": "https://github.com/Posiedien76/TrueMovementAnimationsPlugin",
+  "skills": []
+}
