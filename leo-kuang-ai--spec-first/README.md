@@ -7,11 +7,11 @@ spec-first
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leo-kuang-ai/spec-first](https://github.com/leo-kuang-ai/spec-first).
+Original source: `AGENTS.md` in [leo-kuang-ai/spec-first](https://github.com/leo-kuang-ai/spec-first).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
