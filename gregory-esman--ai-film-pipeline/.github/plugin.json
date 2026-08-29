@@ -1,0 +1,9 @@
+{
+  "name": "gregory-esman--ai-film-pipeline",
+  "displayName": "ai-film-pipeline",
+  "description": "claude.ai skill set for high-end AI video production in Higgsfield. Four skills work together: image prompts, Seedance video prompts, orchestrator, and QC. Built on top of Joey's CTRL: Hunters product",
+  "version": "1.0.0",
+  "author": "Gregory-Esman",
+  "homepage": "https://github.com/Gregory-Esman/ai-film-pipeline",
+  "skills": []
+}
