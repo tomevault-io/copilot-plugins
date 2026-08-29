@@ -4,7 +4,7 @@
   "repo": "converge",
   "description": "The Agentic Framework for Building Autonomous Systems",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luanmorenommaciel/converge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:19:57Z"
+  "distributed_at": "2026-08-29T07:26:39Z"
 }
