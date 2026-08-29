@@ -4,7 +4,7 @@
   "repo": "omarchy-agent-bar",
   "description": "AI quota in your Omarchy bar. Claude, Codex, Amp and Grok chips with usage windows and reset countdowns.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/othavi0/omarchy-agent-bar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T18:05:48Z"
+  "distributed_at": "2026-08-29T02:35:24Z"
 }
