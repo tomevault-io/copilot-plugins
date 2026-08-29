@@ -1,0 +1,9 @@
+{
+  "name": "opendatahub-io--odh-cli",
+  "displayName": "odh-cli",
+  "description": "odh-cli",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/odh-cli",
+  "skills": []
+}
