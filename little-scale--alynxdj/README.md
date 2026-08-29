@@ -7,11 +7,11 @@ Atari Lynx Music Tracker
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [little-scale/alynxdj](https://github.com/little-scale/alynxdj).
+Original source: `AGENTS.md` in [little-scale/alynxdj](https://github.com/little-scale/alynxdj).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
