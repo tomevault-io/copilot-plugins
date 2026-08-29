@@ -1,0 +1,9 @@
+{
+  "name": "leocaolab--pyronova",
+  "displayName": "pyronova",
+  "description": " A blazing-fast Python web framework powered by a Rust runtime",
+  "version": "1.0.0",
+  "author": "leocaolab",
+  "homepage": "https://github.com/leocaolab/pyronova",
+  "skills": []
+}
