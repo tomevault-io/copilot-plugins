@@ -1,0 +1,9 @@
+{
+  "name": "sudoeren--tadan",
+  "displayName": "tadan",
+  "description": "AI compliance scanner for Meta, Google, TikTok, and Taboola.",
+  "version": "1.0.0",
+  "author": "sudoeren",
+  "homepage": "https://github.com/sudoeren/tadan",
+  "skills": []
+}
