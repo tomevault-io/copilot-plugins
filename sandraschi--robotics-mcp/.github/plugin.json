@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--robotics-mcp",
+  "displayName": "robotics-mcp",
+  "description": "MCP 3.1 server + Webapp. Yahboom, Dreame, Tdrone, Noetix Bumi collab with shared LIDAR maps, SLAM. Physical + virtual robots working as one system",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/robotics-mcp",
+  "skills": []
+}
