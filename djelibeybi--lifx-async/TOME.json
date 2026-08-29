@@ -4,7 +4,7 @@
   "repo": "lifx-async",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Djelibeybi/lifx-async",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:31:12Z"
+  "distributed_at": "2026-08-29T06:31:47Z"
 }
