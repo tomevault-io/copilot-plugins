@@ -1,0 +1,9 @@
+{
+  "name": "oonid--pr",
+  "displayName": "pr",
+  "description": "Android app that runs Linux distributions via [proot](https://github.com/proot-me/proot) \u2014 no root, no Termux required. pr: ptrace-based root.",
+  "version": "1.0.0",
+  "author": "oonid",
+  "homepage": "https://github.com/oonid/pr",
+  "skills": []
+}
