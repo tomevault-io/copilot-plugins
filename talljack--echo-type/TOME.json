@@ -4,7 +4,7 @@
   "repo": "echo-type",
   "description": "An English learning SaaS for mastering listening, speaking, reading, and writing skills through immersive practice and   typing exercises.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Talljack/echo-type",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T12:44:06Z"
+  "distributed_at": "2026-08-29T13:09:05Z"
 }
