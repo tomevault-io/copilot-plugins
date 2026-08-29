@@ -1,0 +1,9 @@
+{
+  "name": "sidkusnanto--workboard",
+  "displayName": "workboard",
+  "description": "A file-based ticket management system for software work, optimized for coding agents first and humans second.",
+  "version": "1.0.0",
+  "author": "sidkusnanto",
+  "homepage": "https://github.com/sidkusnanto/workboard",
+  "skills": []
+}
