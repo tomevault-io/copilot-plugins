@@ -1,0 +1,9 @@
+{
+  "name": "linky-fit--linky",
+  "displayName": "linky",
+  "description": "PWA for managing Lightning and Nostr contacts",
+  "version": "1.0.0",
+  "author": "linky-fit",
+  "homepage": "https://github.com/linky-fit/linky",
+  "skills": []
+}
