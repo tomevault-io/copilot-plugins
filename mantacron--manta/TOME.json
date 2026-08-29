@@ -4,7 +4,7 @@
   "repo": "manta",
   "description": "19 AI agents in your git workflow. Catches secrets, injection flaws, N+1 queries, and bad migrations on every commit. Structured Research \u2192 Plan \u2192 Implement workflow with GO/NO-GO gates before you write a line. Generates production-ready code, product wikis, and codebase maps on demand. Any language. Free.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mantacron/manta",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T09:21:31Z"
+  "distributed_at": "2026-08-29T12:38:07Z"
 }
