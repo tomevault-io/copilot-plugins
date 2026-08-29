@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--temporal-auto-scaled-workers",
+  "displayName": "temporal-auto-scaled-workers",
+  "description": "temporal-auto-scaled-workers",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/temporal-auto-scaled-workers",
+  "skills": []
+}
