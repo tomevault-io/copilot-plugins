@@ -4,7 +4,7 @@
   "repo": "MemoryCustodian",
   "description": "Durable, repo-native project memory for coding agents\u2014without context bloat.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/waittim/MemoryCustodian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:39:03Z"
+  "distributed_at": "2026-08-29T02:42:50Z"
 }
