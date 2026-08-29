@@ -1,0 +1,9 @@
+{
+  "name": "eeymoo--peregrine",
+  "displayName": "peregrine",
+  "description": "A desktop tool for relieving 3D motion sickness\u3002Peregrine \u662f\u4e00\u6b3e\u4e13\u4e3a 3D \u7729\u6655\u73a9\u5bb6\u8bbe\u8ba1\u7684\u684c\u9762\u8f85\u52a9\u5de5\u5177\uff0c\u901a\u8fc7\u89c6\u89c9\u951a\u70b9\u4e0e\u5c4f\u5e55\u8986\u76d6\u5c42\u6280\u672f\uff0c\u5e2e\u52a9\u73a9\u5bb6\u91cd\u5efa\u7a7a\u95f4\u611f\u77e5\u5e73\u8861\uff0c\u91cd\u65b0\u4eab\u53d7\u7b2c\u4e00\u4eba\u79f0\u4e0e\u5f00\u653e\u4e16\u754c\u6e38\u620f\u3002",
+  "version": "1.0.0",
+  "author": "Eeymoo",
+  "homepage": "https://github.com/Eeymoo/peregrine",
+  "skills": []
+}
