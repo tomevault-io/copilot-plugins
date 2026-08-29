@@ -1,0 +1,9 @@
+{
+  "name": "zapier--marketplace",
+  "displayName": "marketplace",
+  "description": "Install Zapier in your coding agent via the Claude Code, Codex, and Copilot CLI marketplaces.",
+  "version": "1.0.0",
+  "author": "zapier",
+  "homepage": "https://github.com/zapier/marketplace",
+  "skills": []
+}
