@@ -1,0 +1,9 @@
+{
+  "name": "tutanka01--evaruntime",
+  "displayName": "EVARuntime",
+  "description": "EVARuntime turns one or more NVIDIA GPU servers into a controlled, auditable and energy-aware LLM inference platform. ",
+  "version": "1.0.0",
+  "author": "Tutanka01",
+  "homepage": "https://github.com/Tutanka01/EVARuntime",
+  "skills": []
+}
