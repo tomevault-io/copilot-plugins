@@ -1,0 +1,9 @@
+{
+  "name": "jvmguard--jvmguard",
+  "displayName": "jvmguard",
+  "description": "Automatic production profiling for JVMs",
+  "version": "1.0.0",
+  "author": "jvmguard",
+  "homepage": "https://github.com/jvmguard/jvmguard",
+  "skills": []
+}
