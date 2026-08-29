@@ -4,7 +4,7 @@
   "repo": "cloudflarebase",
   "description": "The open-source Firebase for Cloudflare.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloudflarebase/cloudflarebase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:48:00Z"
+  "distributed_at": "2026-08-29T03:45:16Z"
 }
