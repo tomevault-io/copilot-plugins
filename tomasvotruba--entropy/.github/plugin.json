@@ -1,0 +1,9 @@
+{
+  "name": "tomasvotruba--entropy",
+  "displayName": "entropy",
+  "description": "Minimalistic PHP framework to build CLI apps, with zero-config DI and automated console commands",
+  "version": "1.0.0",
+  "author": "TomasVotruba",
+  "homepage": "https://github.com/TomasVotruba/entropy",
+  "skills": []
+}
