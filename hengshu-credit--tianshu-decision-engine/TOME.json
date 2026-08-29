@@ -1,0 +1,44 @@
+{
+  "name": "tianshu-decision-engine",
+  "owner": "hengshu-credit",
+  "repo": "tianshu-decision-engine",
+  "description": "\u5929\u67a2\u51b3\u7b56\u5f15\u64ce\u662f\u4e00\u5957\u57fa\u4e8e Spring Boot 3.5\u3001QLExpress 4\u3001Vue 3 \u548c Element Plus \u7684\u53ef\u89c6\u5316\u98ce\u63a7\u51b3\u7b56\u5e73\u53f0\u3002\u7cfb\u7edf\u9762\u5411\u4e1a\u52a1\u4eba\u5458\u63d0\u4f9b\u89c4\u5219\u9879\u76ee\u3001\u53d8\u91cf\u3001\u540d\u5355\u3001\u5916\u6570 API\u3001\u5916\u90e8\u6570\u636e\u5e93\u3001\u6a21\u578b\u3001\u51fd\u6570\u3001\u89c4\u5219\u6d4b\u8bd5\u3001\u8840\u7f18\u5206\u6790\u3001\u5206\u6d41\u5b9e\u9a8c\u3001\u6267\u884c\u65e5\u5fd7\u548c\u8d26\u5355\u7ba1\u7406\u7b49\u80fd\u529b\u3002\u5929\u5de5\u5f00\u7269\uff0c\u67a2\u8861\u5b9a\u7b56\uff08Creating Possibilities. Calibrating Decisions\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hengshu-credit/tianshu-decision-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T06:58:18Z"
+}
