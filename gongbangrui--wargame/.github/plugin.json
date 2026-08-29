@@ -1,0 +1,9 @@
+{
+  "name": "gongbangrui--wargame",
+  "displayName": "wargame",
+  "description": "Modular cyber wargame for red/blue team exercises, supports custom attack-defense scenarios & real-time scoreboard.",
+  "version": "1.0.0",
+  "author": "gongbangrui",
+  "homepage": "https://github.com/gongbangrui/wargame",
+  "skills": []
+}
