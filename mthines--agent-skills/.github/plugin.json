@@ -1,0 +1,42 @@
+{
+  "name": "mthines--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A personal collection of skills for AI coding assistants \u2014 covering code review, DX/UX analysis, TDD, holistic debugging, and developer productivity.",
+  "version": "1.0.0",
+  "author": "mthines",
+  "homepage": "https://github.com/mthines/agent-skills",
+  "skills": [
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-mobile",
+      "description": ""
+    },
+    {
+      "name": "charting",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "rum-tracking",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-mobile",
+      "description": ""
+    },
+    {
+      "name": "charting",
+      "description": ""
+    }
+  ]
+}
