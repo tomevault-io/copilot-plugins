@@ -1,0 +1,9 @@
+{
+  "name": "flowing-abyss--obsidian-hybrid-search-plugin",
+  "displayName": "obsidian-hybrid-search-plugin",
+  "description": "Obsidian plugin with live preview and local graph in hybrid search modal",
+  "version": "1.0.0",
+  "author": "flowing-abyss",
+  "homepage": "https://github.com/flowing-abyss/obsidian-hybrid-search-plugin",
+  "skills": []
+}
