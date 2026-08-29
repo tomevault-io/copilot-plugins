@@ -4,7 +4,7 @@
   "repo": "ffts-grep",
   "description": "Fast full-text search file indexer using SQLite FTS5.  A high-performance file indexer that provides sub-10ms queries after initial indexing. Uses SQLite FTS5 with BM25 ranking for relevant search results.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mneves75/ffts-grep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T20:42:01Z"
+  "distributed_at": "2026-08-29T03:12:40Z"
 }
