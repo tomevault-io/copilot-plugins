@@ -4,7 +4,7 @@
   "repo": "agent-loop-skill",
   "description": "A skill for long-running AI agent loops with contracts, traces, restarts, scoring, and cleanup.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dososo/agent-loop-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T01:35:53Z"
+  "distributed_at": "2026-08-29T06:35:38Z"
 }
