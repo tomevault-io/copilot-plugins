@@ -4,7 +4,7 @@
   "repo": "arXivTeX",
   "description": "Template the paper for arXiv or any conference",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wanghao9610/arXivTeX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:52:11Z"
+  "distributed_at": "2026-08-29T01:33:02Z"
 }
