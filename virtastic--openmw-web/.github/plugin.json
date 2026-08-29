@@ -1,0 +1,9 @@
+{
+  "name": "virtastic--openmw-web",
+  "displayName": "openmw-web",
+  "description": "Play Morrowind in your browser \u2014 the OpenMW engine compiled to WebAssembly, now with multiplayer and a cloud locker for your own game data.",
+  "version": "1.0.0",
+  "author": "Virtastic",
+  "homepage": "https://github.com/Virtastic/openmw-web",
+  "skills": []
+}
