@@ -4,7 +4,7 @@
   "repo": "zj-radar",
   "description": "A Zellij sidebar that shows Claude Code, Codex, and other AI-agent status across every tab.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marktoda/zj-radar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T01:34:26Z"
+  "distributed_at": "2026-08-29T05:46:40Z"
 }
