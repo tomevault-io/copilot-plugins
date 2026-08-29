@@ -1,0 +1,44 @@
+{
+  "name": "EcomGen",
+  "owner": "linbei0",
+  "repo": "EcomGen",
+  "description": "Local-first AI e-commerce image suite for sellers: Pi Agent storyboards, product-truth protection, OpenAI-compatible image providers, review, editing, and ZIP export.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linbei0/EcomGen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T17:30:22Z"
+}
