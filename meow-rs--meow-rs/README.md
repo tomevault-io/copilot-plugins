@@ -7,11 +7,11 @@ A high-performance Rust implementation of the mihomo (Clash Meta) proxy kernel.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [meow-rs/meow-rs](https://github.com/meow-rs/meow-rs).
+Original source: `AGENTS.md` in [meow-rs/meow-rs](https://github.com/meow-rs/meow-rs).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
