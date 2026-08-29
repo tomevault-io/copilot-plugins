@@ -1,0 +1,9 @@
+{
+  "name": "crazytreechen--ainovel-gui",
+  "displayName": "ainovel-gui",
+  "description": "AI \u5c0f\u8bf4\u5199\u4f5c\u5f15\u64ce \u2014 ainovel-cli \u7684\u684c\u9762 GUI \u5ba2\u6237\u7aef\uff08Electron + React + TypeScript\uff09",
+  "version": "1.0.0",
+  "author": "crazytreeChen",
+  "homepage": "https://github.com/crazytreeChen/ainovel-gui",
+  "skills": []
+}
