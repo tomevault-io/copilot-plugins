@@ -1,0 +1,44 @@
+{
+  "name": "Javdex",
+  "owner": "JavdexLabs",
+  "repo": "Javdex",
+  "description": "Javdex \u662f\u4e00\u6b3e\u5f00\u7bb1\u5373\u7528\u7684\u672c\u5730JAV\u7ba1\u7406\u684c\u9762\u5e94\u7528\uff0c\u57fa\u4e8eElectron\u6784\u5efa\u652f\u6301\u8de8\u5e73\u53f0\u5b89\u88c5\u3002\u5b83\u53ef\u4ee5\u626b\u63cf\u672c\u5730\u89c6\u9891\u6587\u4ef6\u3001\u81ea\u52a8\u89e3\u6790\u756a\u53f7\u3001\u5efa\u7acb SQLite \u5a92\u4f53\u6570\u636e\u5e93\uff0c\u5e76\u901a\u8fc7\u63d2\u4ef6\u5316\u522e\u524a\u7cfb\u7edf\u83b7\u53d6\u5f71\u7247\u5143\u6570\u636e\u3001\u6f14\u5458\u8d44\u6599\u3001\u5c01\u9762\u3001\u6837\u5f20\u3001\u5199\u771f\u3001\u6807\u7b7e\u3001\u8bc4\u5206\u7b49\u4fe1\u606f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JavdexLabs/Javdex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T09:08:21Z"
+}
