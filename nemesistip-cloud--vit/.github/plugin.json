@@ -1,0 +1,9 @@
+{
+  "name": "nemesistip-cloud--vit",
+  "displayName": "vit",
+  "description": "VIT Chain node \u2014 FastAPI kernel, Proof-of-Storage consensus engine, validator staking, genesis, Tachyon storage integration. Chain ID 7764.",
+  "version": "1.0.0",
+  "author": "nemesistip-cloud",
+  "homepage": "https://github.com/nemesistip-cloud/vit",
+  "skills": []
+}
