@@ -1,0 +1,9 @@
+{
+  "name": "ewanc26--inkwell",
+  "displayName": "inkwell",
+  "description": "Native reader and writer for Standard.site on AT Protocol \u2014 monorepo containing iOS (SwiftUI), Android (Kotlin/Compose), and website (SvelteKit)",
+  "version": "1.0.0",
+  "author": "ewanc26",
+  "homepage": "https://github.com/ewanc26/inkwell",
+  "skills": []
+}
