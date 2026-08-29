@@ -1,0 +1,9 @@
+{
+  "name": "alejooroncoy--campus-cli",
+  "displayName": "campus-cli",
+  "description": "CLI no oficial para UPC Aula Virtual (Blackboard Learn) \u2014 terminal + MCP para Claude",
+  "version": "1.0.0",
+  "author": "alejooroncoy",
+  "homepage": "https://github.com/alejooroncoy/campus-cli",
+  "skills": []
+}
