@@ -1,0 +1,9 @@
+{
+  "name": "kroy-the-rabbit--openfpga-carttools",
+  "displayName": "openfpga-carttools",
+  "description": "Cartridge utility for the Analogue Pocket: identifies and dumps Game Boy, Game Boy Color and Game Boy Advance cartridges over the Pocket's own connector",
+  "version": "1.0.0",
+  "author": "kroy-the-rabbit",
+  "homepage": "https://github.com/kroy-the-rabbit/openfpga-carttools",
+  "skills": []
+}
