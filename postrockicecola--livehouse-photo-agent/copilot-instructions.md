@@ -1,19 +1,17 @@
-## livehouse
+## session-defaults
 
-> Livehouse stack, conventions, minimal edits
+> Short replies + when to load Livehouse project rule
 
 
-# Livehouse Photography Agent
+# Session defaults (token-aware)
 
-**Pipeline:** OpenCV stages → aesthetic scoring → VLM → `analysis_results.json` + web galleries.
+- Default to **concise** answers; bullets or short sections unless the user asks for depth.
+- Do **not** paste large code already in context; use ```startLine:endLine:path``` citations or tiny snippets.
+- Prefer **@ single files** over folders or whole-repo context when locating code.
 
-**Stack:** Python (core); FastAPI `gallery_server.py`; Celery + Redis; Next.js + Tailwind `web/`; Go ingest `cmd/ingest/`; tools `cmd/preview-extractor/`, `cmd/arw-extractor/`, `cmd/jpeg-organizer/`.
+# This workspace
 
-**Config:** `configs/livehouse.yaml` (`paths.source_dir`, `model.*`, `processing.*`). JSON: `utils/json_safe` (NumPy). VLM: `PrioritizedInferenceQueue` — no unbounded parallel Ollama. Stage 3: `services/processor/stages/deep_analysis.py`, `engine/models/vlm_model.py`; keep VLM output schema stable unless migrating.
-
-**API / gallery:** Active dir may use `Livehouse_Archive/runtime/latest_session.json`; exports pair `Previews` + sibling `RAW/`. Keep `NEXT_PUBLIC_*` in sync with `/api/*`.
-
-**Edits:** Minimal diffs only; no whole-file rewrites for small fixes; no drive-by refactors or unrelated files; no new docs unless asked. Optimize only hot paths (I/O, decode, VLM queue). Match local naming/imports. `python -m py_compile` on touched `.py` when appropriate.
+- When working on this repo’s **Python / TypeScript / Go / YAML** (or the user clearly means this codebase), apply `.cursor/rules/livehouse.mdc` (stack, paths, minimal edits, VLM/schema).
 
 ---
 > Source: [postrockicecola/livehouse-photo-agent](https://github.com/postrockicecola/livehouse-photo-agent) — distributed by [TomeVault](https://tomevault.io).
