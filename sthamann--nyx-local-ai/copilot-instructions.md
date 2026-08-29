@@ -1,49 +1,27 @@
-## release-versioning
+## webview-conventions
 
-> Release process, version bumps, and VSIX hygiene for nyx-local-ai
+> Structure and messaging conventions for the Nyx webview UI
 
 
-# Release & versioning
+# Webview conventions
 
-The repo slug is **sthamann/nyx-local-ai** — it appears in `install.sh`,
-`install.ps1`, README and `package.json` (`scripts.package` baseImagesUrl).
-Never introduce a different slug.
-
-## Version bump checklist (all three, always together)
-
-1. `package.json` → `"version"`
-2. `README.md` → status line (`**vX.Y.Z**`) and every `nyx-local-ai-X.Y.Z.vsix` mention
-3. `src/mcp/client.ts` → `clientInfo.version`
-
-## Quality gates before packaging
-
-Run in this order; all must pass:
-
-```bash
-npm run typecheck
-node .harness/smoke.mjs         # parser/edit logic — must print ALL PASS
-node .harness/readme-check.mjs  # README/version sync — must print ALL PASS
-npm run build
-npm run package
-```
-
-The readme-check also catches missed version bumps (it verifies all three
-locations), so don't rely on `sed` output alone — seds fail silently.
-
-## Releasing
-
-Releases are produced **only** by CI (`.github/workflows/release.yml`):
-`git tag vX.Y.Z && git push origin vX.Y.Z` builds and attaches
-`nyx-local-ai.vsix` + `checksums.txt` — the exact artifact names
-`install.sh`/`install.ps1` download and verify. Never hand-upload artifacts.
-
-## VSIX size
-
-The package must stay ≈4–6 MB. `node_modules` ships in the VSIX (tesseract.js
-is external), so when adding a runtime dependency, extend `.vscodeignore` to
-strip its dead weight and check the size vsce reports after `npm run package`.
-Dev-only dependencies (bundled by esbuild, e.g. `marked`, `highlight.js`)
-belong in `devDependencies`.
+- **Module boundaries**: `dom.ts` owns the HTML skeleton + element refs,
+  `state.ts` owns shared state + `post()`, `transcript.ts` renders messages and
+  cards, `composer.ts` owns input/queue/attachments, `main.ts` is only the
+  host-message dispatcher. New UI belongs in the matching module, not main.ts.
+- **All host↔webview messages are typed** in `src/types.ts`
+  (`HostToWebview` / `WebviewToHost`). Add the variant there first; the
+  dispatcher switches must stay exhaustive (`never` check in default).
+- **Escape everything user- or model-provided** with `escapeHtml` before
+  `innerHTML`; markdown goes through `renderMarkdown`/`renderMarkdownFinal`.
+- **Streaming renders are throttled** (see `scheduleStreamingRender`): never
+  re-parse full markdown on every delta — that froze the UI on long
+  generations once already.
+- **No external resources**: the CSP allows only bundled assets; libraries
+  (marked, highlight.js) are bundled via esbuild into `media/main.js`.
+- **Verify UI changes in the harness**: `python3 -m http.server 8321` +
+  `http://127.0.0.1:8321/.harness/index.html?scene=chat|approval|machines`
+  renders the real bundle with demo data (also used for README screenshots).
 
 ---
 > Source: [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai) — distributed by [TomeVault](https://tomevault.io).
