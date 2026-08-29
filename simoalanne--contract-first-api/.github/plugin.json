@@ -1,0 +1,9 @@
+{
+  "name": "simoalanne--contract-first-api",
+  "displayName": "contract-first-api",
+  "description": "Contract first library for typesafe API development",
+  "version": "1.0.0",
+  "author": "simoalanne",
+  "homepage": "https://github.com/simoalanne/contract-first-api",
+  "skills": []
+}
