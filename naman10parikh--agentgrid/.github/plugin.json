@@ -1,0 +1,9 @@
+{
+  "name": "naman10parikh--agentgrid",
+  "displayName": "agentgrid",
+  "description": "The terminal, leveled up. Spawn grids of AI coding agents (Claude, Codex, Gemini, Cursor) in one command. Status labels, sounds, presets, session resume. Zero dependencies beyond tmux.",
+  "version": "1.0.0",
+  "author": "naman10parikh",
+  "homepage": "https://github.com/naman10parikh/agentgrid",
+  "skills": []
+}
