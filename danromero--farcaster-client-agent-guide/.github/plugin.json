@@ -1,0 +1,9 @@
+{
+  "name": "danromero--farcaster-client-agent-guide",
+  "displayName": "farcaster-client-agent-guide",
+  "description": "Agent-first runbook and scripts for running the public Farcaster client in an iOS Simulator.",
+  "version": "1.0.0",
+  "author": "danromero",
+  "homepage": "https://github.com/danromero/farcaster-client-agent-guide",
+  "skills": []
+}
