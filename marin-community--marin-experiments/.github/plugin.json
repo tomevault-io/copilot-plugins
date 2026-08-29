@@ -1,0 +1,9 @@
+{
+  "name": "marin-community--marin-experiments",
+  "displayName": "marin-experiments",
+  "description": "Experiments and examples using the Marin framework",
+  "version": "1.0.0",
+  "author": "marin-community",
+  "homepage": "https://github.com/marin-community/marin-experiments",
+  "skills": []
+}
