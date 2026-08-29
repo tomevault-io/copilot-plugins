@@ -1,0 +1,9 @@
+{
+  "name": "cometworks--skills",
+  "displayName": "skills",
+  "description": "Skill library for Space Engineers plugin, mod and in-game script development. Usable with any \"skills\" compatible agentic coding harness.",
+  "version": "1.0.0",
+  "author": "CometWorks",
+  "homepage": "https://github.com/CometWorks/skills",
+  "skills": []
+}
