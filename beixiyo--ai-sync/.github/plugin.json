@@ -1,0 +1,9 @@
+{
+  "name": "beixiyo--ai-sync",
+  "displayName": "ai-sync",
+  "description": "Migrate Commands, Skills, MCP across Cursor, Claude Code, OpenCode, Codex, and other AI CLI tools. \u5728 Cursor\u3001Claude Code\u3001OpenCode\u3001Codex \u7b49\u5de5\u5177\u4e2d\u8fc1\u79fb Commands\u3001Skills\u3001MCP...",
+  "version": "1.0.0",
+  "author": "beixiyo",
+  "homepage": "https://github.com/beixiyo/ai-sync",
+  "skills": []
+}
