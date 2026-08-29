@@ -4,7 +4,7 @@
   "repo": "hutchdb",
   "description": "Simplest self-hostable MCP server for structured agent data. Headless, single-user. AGPL v3.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ExpeditedProjects/hutchdb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T04:57:10Z"
+  "distributed_at": "2026-08-29T09:15:23Z"
 }
