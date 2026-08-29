@@ -1,0 +1,9 @@
+{
+  "name": "glancemap--glancemap",
+  "displayName": "GlanceMap",
+  "description": "Offline Wear OS navigation with an Android companion for transferring maps, GPX tracks, POIs, and routing data to your watch.",
+  "version": "1.0.0",
+  "author": "GlanceMap",
+  "homepage": "https://github.com/GlanceMap/GlanceMap",
+  "skills": []
+}
