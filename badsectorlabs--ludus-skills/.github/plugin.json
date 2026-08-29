@@ -1,0 +1,9 @@
+{
+  "name": "badsectorlabs--ludus-skills",
+  "displayName": "ludus-skills",
+  "description": "[GITLAB MIRROR] AI agent skills Ludus cyber ranges",
+  "version": "1.0.0",
+  "author": "badsectorlabs",
+  "homepage": "https://github.com/badsectorlabs/ludus-skills",
+  "skills": []
+}
