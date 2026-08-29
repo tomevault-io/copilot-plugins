@@ -1,0 +1,51 @@
+## local-model-safety
+
+> Safety invariants for model I/O, secrets, and file mutations in the extension host
+
+
+# Local-model safety invariants
+
+## Special tokens never survive into persisted state
+
+Leaked model tokens (DSML fragments, `<｜end▁of▁sentence｜>`) poison future
+prompts: once stored in memory/sessions, models start imitating the junk.
+`stripSpecialTokens` (src/models/client.ts) must therefore be applied at
+these boundaries:
+
+- assistant content at stream end (client.ts, `extract` mode)
+- **web-sourced** tool results only (`fetch_url`, `web_search` in agent.ts)
+- memory writes and the one-time migration in `MemoryStore`
+- stored histories in `AgentSession.loadMessages`
+
+**Never sanitize file/command/MCP tool outputs** (`read_file`, `run_command`,
+…): the agent must see workspace content byte-faithfully — sanitizing file
+reads once corrupted source that merely *mentioned* DSML tokens and sent a
+model analyzing phantom bugs.
+
+When adding a new boundary (new tool, new store), wire it in and add a case to
+`.harness/smoke.mjs`.
+
+## Tool-call parsing changes require smoke tests
+
+Any change to parsing in src/models/client.ts (JSON extraction, DSML,
+function-style calls, repair) needs a matching test in `.harness/smoke.mjs`.
+Run `node .harness/smoke.mjs` — it must print `ALL PASS`.
+
+## Other invariants
+
+- **Secrets**: API keys live in `SecretStorage` only (`MachineStore`); never
+  write them into settings, session files, or logs. The webview receives
+  `hasApiKey`, never the key.
+- **File writes** go through `applyWrite` → `WorkspaceEdit` (undo/dirty-buffer
+  safe) with checkpoint recording (`recordCheckpointFile`) and backups. Don't
+  add direct `fs.writeFile` paths for workspace files.
+- **Processes**: anything long-running goes through `ProcessManager` so Stop
+  (abort signal) actually kills it. No bare `exec` without a signal.
+- **Untrusted content**: anything fetched from the network is wrapped with
+  `wrapUntrusted` before entering the prompt; `fetch_url` keeps its SSRF guard.
+- **Tool outputs** are truncated (`truncate`, 20k chars) — unbounded strings
+  blow up the context and the session files.
+
+---
+> Source: [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
