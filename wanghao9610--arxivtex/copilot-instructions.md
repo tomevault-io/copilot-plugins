@@ -1,6 +1,8 @@
-## agent-instructions
+## arxivtex
 
 > Behavioral guidelines for reliable scientific writing and LaTeX editing.
+
+# Agent Instructions
 
 Behavioral guidelines for reliable scientific writing and LaTeX editing.
 
