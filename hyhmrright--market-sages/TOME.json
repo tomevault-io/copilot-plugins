@@ -4,7 +4,7 @@
   "repo": "market-sages",
   "description": "13 legendary investors analyzing stocks for you \u2014 Buffett to Taleb. Real-time data via web search. Responds in your language. Works with Claude Code, Codex CLI & Gemini CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyhmrright/market-sages",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T17:11:19Z"
+  "distributed_at": "2026-08-29T01:07:48Z"
 }
