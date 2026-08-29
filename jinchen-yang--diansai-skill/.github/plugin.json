@@ -1,0 +1,9 @@
+{
+  "name": "jinchen-yang--diansai-skill",
+  "displayName": "diansai-skill",
+  "description": "NUEDC \u5c0f\u8f66\u7535\u63a7\u8bbe\u8ba1\u667a\u80fd\u4f53 \u00b7 Claude Code \u9a71\u52a8\u7684\u300c\u8bfb\u9898\u2192\u9009\u578b\u2192\u63a5\u7ebf\u56fe\u2192\u56fa\u4ef6\u300d\u95e8\u63a7\u6d41\u6c34\u7ebf",
+  "version": "1.0.0",
+  "author": "Jinchen-Yang",
+  "homepage": "https://github.com/Jinchen-Yang/diansai-skill",
+  "skills": []
+}
