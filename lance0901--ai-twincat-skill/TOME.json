@@ -4,7 +4,7 @@
   "repo": "AI-TwinCAT-Skill",
   "description": "PowerShell module for AI-driven TwinCAT 3 automation \u2014 34 cmdlets for IDE control, PLC build/deploy, ADS read/write, and automated testing with zero dialog popups",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lance0901/AI-TwinCAT-Skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T08:55:20Z"
+  "distributed_at": "2026-08-29T11:38:45Z"
 }
