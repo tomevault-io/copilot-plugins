@@ -1,0 +1,9 @@
+{
+  "name": "camilleroux--genart-skill",
+  "displayName": "genart-skill",
+  "description": "Generative art skill for Claude Code \u2014 deterministic, hash-seeded, onchain-ready",
+  "version": "1.0.0",
+  "author": "camilleroux",
+  "homepage": "https://github.com/camilleroux/genart-skill",
+  "skills": []
+}
