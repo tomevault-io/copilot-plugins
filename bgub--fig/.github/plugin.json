@@ -1,0 +1,9 @@
+{
+  "name": "bgub--fig",
+  "displayName": "fig",
+  "description": "A TypeScript re-implementation of React: fibers, lanes, scheduling, hooks, streaming SSR, and selective hydration \u2014 without the legacy cruft.",
+  "version": "1.0.0",
+  "author": "bgub",
+  "homepage": "https://github.com/bgub/fig",
+  "skills": []
+}
