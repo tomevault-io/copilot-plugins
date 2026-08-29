@@ -1,10 +1,10 @@
-## agents-md
+## claude-md
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
 repository.
 
 ## Project Overview
@@ -17,37 +17,6 @@ structures from a YAML specification. Published on PyPI as `lifx-async` (`pip in
 **Runtime Dependencies**: Zero - completely dependency-free!
 **Async Framework**: Python's built-in `asyncio` (no external async library required)
 **Test Isolation**: lifx-emulator-core runs embedded in-process for fast, cross-platform testing
-
-## Privacy and Hardware Identifiers
-
-- Never commit personally identifiable information or live infrastructure identifiers. This
-  includes real device serials or MAC addresses, IP addresses, local hostnames, account names and
-  raw hardware-discovery output.
-- Committed evidence must replace every live serial and address with a stable, format-preserving
-  pseudonym from the operator's private mapping. Keep that mapping outside this repository; never
-  copy it into source, planning artefacts, logs, prompts, reports or agent memory.
-- When a check must establish that evidence came from an approved physical device, validate the raw
-  result locally against the external mapping first. Commit only the pseudonymised artefact and
-  retain the identity assertion as operator-controlled evidence outside the repository.
-- Raw probe output may exist transiently in the local terminal or an ignored temporary file, but it
-  must be sanitised before being copied into any tracked file. Tools such as
-  `scripts/ipv6_thread_probe.py` may emit live identifiers, so treat their output as private by
-  default.
-- Tests and documentation must use clearly synthetic identifiers and non-live example addresses.
-  Preserve stable aliases across related artefacts so evidence remains correlatable without
-  revealing the underlying device or network.
-- Before staging hardware or network evidence, inspect the staged diff for serials, MAC addresses,
-  IP addresses, hostnames and other PII. If a raw identifier reaches a local commit, amend or rewrite
-  it before any push; a later redaction commit is insufficient because the identifier remains in
-  history.
-
-## Git Commits
-
-- Use Conventional Commit messages.
-- Do not use GSD phase or plan metadata as a Conventional Commit scope. Scopes such as `10`,
-  `phase-10` and `10-07` describe planning bookkeeping rather than a repository component. Omit the
-  scope when no stable repository-specific scope applies.
-- Always use `git commit -S -s` so every commit is GPG-signed and carries the developer sign-off.
 
 ## Essential Commands
 
@@ -100,7 +69,7 @@ uv run ruff format .
 # Lint with auto-fix
 uv run ruff check . --fix
 
-# Type check (strict Pyright validation)
+# Type check (Pyright, standard mode)
 uv run pyright
 ```
 
@@ -119,6 +88,18 @@ uv run python -m lifx.protocol.generator
 # Regenerate Python product registry
 uv run python -m lifx.products.generator
 ```
+
+### Theme Data Update
+
+```bash
+# Source: data/themes.jsonl (committed; no network, no device required)
+# Regenerate the theme data module
+uv run scripts/generate_theme_data.py
+```
+
+The generator lives in `scripts/`, not the package: its input sits outside `src/` and is
+deliberately not shipped in the wheel. CI regenerates and diffs `src/lifx/theme/data.py`
+on every change to `data/**`.
 
 ### Documentation
 
@@ -212,7 +193,7 @@ gh workflow run docs.yml
 
 6. **Effects Layer** (`src/lifx/effects/`)
 
-   - 30+ built-in effects (aurora, flame, plasma, rainbow, twinkle, etc.)
+   - 26 built-in effects (aurora, flame, plasma, rainbow, twinkle, etc.)
    - `base.py`: Base effect class with frame generation interface
    - `registry.py`: Effect registry for discovering available effects by name
    - `state_manager.py`: Effect state management for running effects on devices
@@ -221,8 +202,24 @@ gh workflow run docs.yml
 
 7. **Theme Layer** (`src/lifx/theme/`)
 
-   - `theme.py`: Theme definitions (named color palettes)
-   - `library.py`: Built-in theme library
+   - `theme.py`: Theme definitions (named color palettes); `palette_equals()` compares
+     palettes as an unordered multiset — `==` is identity, so `Theme` stays hashable.
+     `disposition` (`lifx-app` / `library-only` / `deprecated` / `renamed`) and
+     `replaced_by` record each library theme's 6.4.0 fate; both are `None` on a
+     caller-built Theme. `renamed` was added post-ship in `582f74b` for the 3 alias
+     keys, which would otherwise have inherited their target's `lifx-app` fate
+   - `library.py`: Built-in theme library, reading the generated dict alone.
+     `get_categories()` lists the nine categories; `get_by_category()` matches them
+     case- and punctuation-insensitively. The six pre-6.4.0 category names are **not**
+     accepted: each raises `ValueError` listing the nine real ones and naming no
+     replacement. The `_LEGACY_CATEGORIES` shim that once mapped them was deleted in
+     review of PR #202 (`2e78de9`) because no old name mapped onto a single category,
+     so every candidate replacement would have been a false promise about the old
+     result set
+   - `slug.py`: The one home of the slug-derivation rule, shared by `library.py` and
+     `scripts/generate_theme_data.py` — a leaf module whose only import is `re`
+   - `data.py`: Auto-generated theme records (166 themes, 169 resolvable keys) — **never
+     edit manually**; regenerate from `data/themes.jsonl`
    - `generators.py`: Theme-based color generators for effects
    - `canvas.py`: Canvas abstraction for applying themes to device layouts
 
@@ -260,7 +257,7 @@ All exceptions inherit from `LifxError` (`src/lifx/exceptions.py`): `LifxDeviceN
 ### Key Design Patterns
 
 - **Async Context Managers**: All devices and connections use `async with` for automatic cleanup
-- **Type Safety**: Full type hints with strict Pyright validation
+- **Type Safety**: Full type hints, validated with Pyright (standard mode)
 - **Auto-Generation**: Protocol structures generated from YAML specification
 - **State Caching**: Device properties cache values to reduce network requests
 - **Lazy Connections**: Connections open automatically on first request
@@ -270,6 +267,7 @@ All exceptions inherit from `LifxError` (`src/lifx/exceptions.py`): `LifxDeviceN
 
 - Cached (semi-static): `label`, `version`, `host_firmware`, `wifi_firmware`, `location`, `group`, `hev_config`, `hev_result`, `zone_count`, `multizone_effect`, `tile_chain`, `tile_count`, `tile_effect`
 - **Never cached** (volatile): `power`, `color`, `hev_cycle`, `zones`, `tile_colors`, `ambient_light_level` — always use `get_*()` methods
+- **Opt-in state fields**: `wifi_info` (signal/rssi) and `ambient_light` are only queried when the matching `fetch_wifi_info` / `fetch_ambient_light` flag is on. Both default to off, are settable as constructor arguments *and* as device properties (toggling applies from the next initialization or refresh), join the same parallel batch as the other state requests, and leave their field `None` while disabled (a refresh with the flag off clears the field rather than leaving a stale reading). Both are keyword-only dataclass fields with defaults, so adding them stayed additive for existing state constructors. An ambient reading taken while the light is on is stored as `INVALID_AMBIENT_LIGHT_RESPONSE` (-1.0) because the sensor measures the light's own output. A request that fails outright logs a warning and leaves the field `None` instead of failing state initialization. `get_wifi_info()` / `get_ambient_light_level()` remain the single-request way to read either on demand.
 - `get_color()` returns `(color, power, label)` in a single request/response pair — most efficient way to get color + power
 - No automatic expiration — application controls when to refresh
 
@@ -283,9 +281,11 @@ All exceptions inherit from `LifxError` (`src/lifx/exceptions.py`): `LifxDeviceN
 
 - **Serial vs MAC**: Serial number usually matches MAC address. The one exception is firmware with `version_major == 3 and version_minor >= 70`, whose MAC is the serial with the final octet incremented (wrapping at 256). Both components are compared as integers — minor `9` is *below* minor `70`, so treating the version as a decimal misclassifies 3.9. Earlier 3.x builds (e.g. 3.50) match their serial. MAC calculation logic is in `devices/base.py`; `scripts/serial_mac_audit.py` audits the rule against real hardware via the ARP table.
 - **HSBK dual formats**: User-facing `HSBK` uses float (hue 0-360, sat/bright 0.0-1.0, kelvin 1500-9000). Protocol/animation layer uses raw uint16 (0-65535 for H/S/B). Don't mix them.
-- **`user_x`/`user_y` are not pixels**: A chain reports tile positions in tile-position units where 1.0 is always **8 pixels** — the width of the original Tile — regardless of the reporting tile's own size. Photons proves the constant twice: `rearrange.py` lays parts out with `user_x += part.width / 8`, and the arranger converts a dragged pixel back with `new_user_x / 8`. Scaling by the tile's own width instead is wrong for any mixed-geometry chain. `user_y` also grows **upwards** while canvas rows grow downwards, so it must be negated. One helper owns both rules — `lifx/geometry.py` (`TILE_POSITION_UNIT_PIXELS`, `tile_position_to_pixels()`, `tile_origin_pixels()`) — used by `MatrixLight.apply_theme()`, `MatrixGenerator.from_tiles()` and `FrameBuffer._for_multi_tile()`. It rounds where photons truncates, deliberately: the value only picks a canvas pixel and never goes on the wire. Halves round away from zero, not to even, so two tiles a pixel apart never collapse onto one origin. Tile *sizes* are equally not-8x8 — Candle is 5x6, Ceiling reports 16x8 — so `Canvas.add_points_for_tile()` and `Canvas.points_for_tile()` require explicit width/height and have no defaults. `Canvas` is an internal rendering primitive: it is importable but deliberately absent from `lifx.theme.__all__` and the published API docs, so its signatures can change without a major version.
+- **Kelvin 0 is a wire value**: 1500-9000 (`MIN_KELVIN`/`MAX_KELVIN`) is the product's white-mode range, not the protocol's. Firmware reports `KELVIN_SATURATED` (0) for a colour with no white component, so `validate_kelvin()` accepts 0 alongside 1500-9000 and never clamps it — clamping would send back a colour the device never reported. All eight `HSBK.from_protocol()` call sites are inbound reads; validators reached from an inbound path must not apply user-input rules (see `MatrixEffect(from_device=True)`, which skips send-time validation and default-filling in `get_effect()`).
+- **`user_x`/`user_y` are not pixels**: A chain reports tile positions in tile-position units where 1.0 is always **8 pixels** — the width of the original Tile — regardless of the reporting tile's own size. Photons proves the constant twice: `rearrange.py` lays parts out with `user_x += part.width / 8`, and the arranger converts a dragged pixel back with `new_user_x / 8`. Scaling by the tile's own width instead is wrong for any mixed-geometry chain. `user_y` also grows **upwards** while canvas rows grow downwards, so it must be negated. One helper owns both rules — `lifx/geometry.py` (`TILE_POSITION_UNIT_PIXELS`, `tile_position_to_pixels()`, `tile_origin_pixels()`) — used by `MatrixLight.apply_theme()`, `MatrixGenerator.from_tiles()` and `FrameBuffer._for_multi_tile()`. It rounds where photons truncates, deliberately: the value only picks a canvas pixel and never goes on the wire. Halves round away from zero rather than to even (builtin `round()` is banker's rounding and would collapse two tiles a pixel apart onto one origin). Tile *sizes* are equally not-8x8 — Candle is 5x6, Ceiling reports 16x8 — so `Canvas.add_points_for_tile()` and `Canvas.points_for_tile()` require explicit width/height and have no defaults. `Canvas` is an internal rendering primitive: it is importable but deliberately absent from `lifx.theme.__all__` and the published API docs, so its signatures can change without a major version.
 - **`get_color()` returns a triple**: `(color, power, label)` — most efficient single-request way to get color + power state
-- **Ambient light sensor**: Returns 0.0 for both "no sensor" and "complete darkness". Light must be off for accurate readings.
+- **Ambient light sensor**: Every product answers `SensorGetAmbientLight` (401), so the query never fails on an unsupported device. It returns 0.0 for "no sensor", "sensor unreadable" *and* "complete darkness" — the three are indistinguishable from the response, and the product registry has no ambient-sensor capability flag either. Light must be off for accurate readings; state readings taken with the light on are stored as `INVALID_AMBIENT_LIGHT_RESPONSE` (-1.0).
+- **UDP endpoint death vs peer errors**: On an unconnected datagram socket asyncio reports *all* send/receive `OSError`s (EHOSTDOWN, EHOSTUNREACH, ENETUNREACH, and even EBADF) to `error_received`, and only calls `connection_lost` for `close()`, `abort()` and fatal non-OSError errors — verified on both stdlib asyncio and uvloop. So peer-unreachable storms must never tear the socket down, while EBADF/ENOTSOCK must (`_FATAL_SOCKET_ERRNOS` in `network/transport.py`). `_UdpProtocol` reports death to `UdpTransport._endpoint_lost()`, which clears `_transport`/`_protocol` so `is_open` tells the truth; `DeviceConnection._ensure_open()` then rebuilds on the next request. Ordinary timeouts must not trigger a rebuild.
 - **High-frequency updates**: Use the Animation Layer (`src/lifx/animation/`) for performance-critical frame delivery rather than calling device methods directly.
 - **Packet flow**: Create packet → `DeviceConnection.request()` → response auto-unpacked
 
@@ -312,8 +312,8 @@ The `discover_devices()` function implements DoS protection through:
 - **Network Layer**: 183 tests (transport, discovery, connection, message, mDNS, async generator requests)
 - **Device Layer**: 375 tests (base, light, ceiling, hev, infrared, multizone, matrix, state management, MAC address)
 - **API Layer**: 63 tests (discovery, batch operations, organization, themes, error handling)
-- **Effects Layer**: 1249 tests (30+ built-in effects, registry, state manager, integration, capability filtering)
-- **Theme Layer**: 146 tests (themes, canvas, generators, library, apply_theme)
+- **Effects Layer**: 1249 tests (26 built-in effects, registry, state manager, integration, capability filtering)
+- **Theme Layer**: 418 tests (themes, canvas, generators, library, slug, apply_theme, data generator)
 - **Animation Layer**: 123 tests (animator, framebuffer, packets, orientation)
 - **Utilities**: 127 tests (color conversion, product registry, RGB roundtrip)
 
@@ -351,6 +351,14 @@ This is useful when:
 - Testing against actual LIFX hardware on your network
 - Running the emulator with custom configuration or device setup
 - Debugging emulator behavior separately from the test suite
+
+**Requiring the IPv6 tests to run**:
+
+The IPv6 end-to-end tests run against a second emulator bound to `::1` and skip when the
+host cannot bind IPv6 loopback. Set `LIFX_REQUIRE_IPV6=1` to turn that skip into a failure
+naming the cause. CI sets it on exactly one matrix cell, ubuntu with Python 3.10, so the
+IPv6 tests can never skip on every job at once and still report green. The variable guards
+that probe alone and has no effect on `emulator_available`.
 
 **Key Test Directories:**
 
@@ -403,10 +411,19 @@ Local generator quirks:
   - Unions starting with "Button" or "Relay" are excluded
   - All packets in "button" and "relay" categories are excluded
   - This keeps the library focused on LIFX lighting devices
-- **sensor packets**: Adds undocumented ambient light sensor packets:
-  - `SensorGetAmbientLight` (401): Request packet with no parameters
-  - `SensorStateAmbientLight` (402): Response packet with lux field (float32)
-  - These packets are not in the official protocol.yml but are supported by LIFX devices with ambient light sensors
+- **FirmwareEffect merge**: `MultiZoneEffectType` and `TileEffectType` are merged into one
+  `FirmwareEffect` enum, because both use the same firmware effect protocol values. The members are
+  **listed explicitly** in `apply_firmware_effect_enum_quirk()` rather than derived from
+  protocol.yml, so an effect type added upstream is dropped silently until it is added there —
+  exactly what happened to `COLOR_SWEEP` (6), added in protocol.yml 0.10. Check `TileEffectType` and
+  `MultiZoneEffectType` after every regeneration; `test_generated.py::test_firmware_effect_enum`
+  pins the full member set so a lost value fails the suite.
+- **sensor packets**: No longer a quirk. `SensorGetAmbientLight` (401) and
+  `SensorStateAmbientLight` (402) were absent from protocol.yml and added locally by
+  `apply_sensor_packet_quirks()`; LIFX have since accepted them upstream, so the quirk was removed
+  and both now come straight from the spec. `tests/test_protocol/test_generated.py` asserts their
+  packet types and field structure against the generated code, so an upstream regression fails the
+  suite rather than silently dropping them.
 
 Run `uv run python -m lifx.protocol.generator` to regenerate Python code.
 
