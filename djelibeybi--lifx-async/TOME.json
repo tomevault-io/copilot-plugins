@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/spike-findings-lifx-async/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/lifx-async/tree/main/.claude/skills/spike-findings-lifx-async/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "path": ".agents/skills/spike-findings-lifx-async/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/lifx-async/tree/main/.agents/skills/spike-findings-lifx-async/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Djelibeybi/lifx-async",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-27T21:30:18Z"
+  "distributed_at": "2026-08-29T06:30:18Z"
 }
