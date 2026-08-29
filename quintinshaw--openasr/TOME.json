@@ -4,7 +4,7 @@
   "repo": "openasr",
   "description": "Local-first speech-to-text: no cloud, no telemetry, fail-closed by design. One CLI, seven model families, signed model catalog, OpenAI-compatible local API.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QuintinShaw/openasr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T00:45:43Z"
+  "distributed_at": "2026-08-29T03:43:56Z"
 }
