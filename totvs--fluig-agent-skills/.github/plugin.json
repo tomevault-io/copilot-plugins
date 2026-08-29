@@ -1,0 +1,9 @@
+{
+  "name": "totvs--fluig-agent-skills",
+  "displayName": "fluig-agent-skills",
+  "description": "Agent Skills oficiais da plataforma Fluig para desenvolvimento de solu\u00e7\u00f5es com Intelig\u00eancia Artificial.",
+  "version": "1.0.0",
+  "author": "totvs",
+  "homepage": "https://github.com/totvs/fluig-agent-skills",
+  "skills": []
+}
