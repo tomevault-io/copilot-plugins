@@ -1,0 +1,9 @@
+{
+  "name": "ghashtag--trinity",
+  "displayName": "trinity",
+  "description": "The Trinity ternary compute stack \u2014 tri CLI \u00b7 BitNet LLM \u00b7 VSA \u00b7 GF16",
+  "version": "1.0.0",
+  "author": "gHashTag",
+  "homepage": "https://github.com/gHashTag/trinity",
+  "skills": []
+}
