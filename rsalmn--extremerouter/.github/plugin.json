@@ -1,0 +1,9 @@
+{
+  "name": "rsalmn--extremerouter",
+  "displayName": "ExtremeRouter",
+  "description": "Enchant Version of 9Router. 304+ Providers (API-key, OAuth, free-tier, and 39 web-cookie providers), 6 combo strategies (fallback, round-robin, fusion, swarm, cascade, smart-routing) in One Hand",
+  "version": "1.0.0",
+  "author": "rsalmn",
+  "homepage": "https://github.com/rsalmn/ExtremeRouter",
+  "skills": []
+}
