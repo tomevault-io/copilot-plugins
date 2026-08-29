@@ -1,0 +1,44 @@
+{
+  "name": "bface-agent",
+  "owner": "gmeier909",
+  "repo": "bface-agent",
+  "description": "bface-agent\u662f\u4e00\u4e2a\u7531ClaudeCode\u9a71\u52a8\u7684\u7ea2\u961f\u6e17\u900f\u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gmeier909/bface-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T03:33:05Z"
+}
