@@ -4,7 +4,7 @@
   "repo": "Caduceus",
   "description": "A cross-platform high-performance native client for Multi Agent Systems",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dont-see-big-shark/Caduceus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T18:39:06Z"
+  "distributed_at": "2026-08-29T02:42:24Z"
 }
