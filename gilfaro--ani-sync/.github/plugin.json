@@ -1,0 +1,9 @@
+{
+  "name": "gilfaro--ani-sync",
+  "displayName": "ani-sync",
+  "description": "Ani-Sync is a robust Rust-based CLI tool for people who manage their anime and manga tracking lists across multiple platforms. It provides a non-destructive, ID-based synchronization mechanism to keep",
+  "version": "1.0.0",
+  "author": "Gilfaro",
+  "homepage": "https://github.com/Gilfaro/ani-sync",
+  "skills": []
+}
