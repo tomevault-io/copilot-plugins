@@ -1,0 +1,9 @@
+{
+  "name": "thecarbonlayer--carbon",
+  "displayName": "carbon",
+  "description": "Build a coding agent from scratch, one harness primitive at a time. 15 chapters (ch-00..ch-14), each green on two gates.",
+  "version": "1.0.0",
+  "author": "thecarbonlayer",
+  "homepage": "https://github.com/thecarbonlayer/carbon",
+  "skills": []
+}
