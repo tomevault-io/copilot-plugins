@@ -7,11 +7,11 @@ A pure-Rust openEHR Clinical Data Repository: ITS-REST 1.1.0, AQL 1.1, PostgreSQ
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rubentalstra/FerroEHR](https://github.com/rubentalstra/FerroEHR).
+Original source: `AGENTS.md` in [rubentalstra/FerroEHR](https://github.com/rubentalstra/FerroEHR).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
