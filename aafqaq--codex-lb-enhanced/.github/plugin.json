@@ -1,0 +1,9 @@
+{
+  "name": "aafqaq--codex-lb-enhanced",
+  "displayName": "codex-lb-enhanced",
+  "description": "Production-ready Codex-compatible account-pool gateway with seamless failover, full-session recovery, native quota headers, WebSocket/HTTP bridge, and observability.",
+  "version": "1.0.0",
+  "author": "aafqaq",
+  "homepage": "https://github.com/aafqaq/codex-lb-enhanced",
+  "skills": []
+}
