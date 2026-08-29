@@ -1,0 +1,44 @@
+{
+  "name": "irminsul",
+  "owner": "daidr",
+  "repo": "irminsul",
+  "description": "\u8f7b\u91cf\u7684MC\u670d\u52a1\u5668yggdrasil\u9a8c\u8bc1/\u76ae\u80a4\u52a0\u8f7d\u89e3\u51b3\u65b9\u6848",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daidr/irminsul",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T09:15:53Z"
+}
