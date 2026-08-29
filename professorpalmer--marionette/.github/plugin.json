@@ -1,0 +1,9 @@
+{
+  "name": "professorpalmer--marionette",
+  "displayName": "marionette",
+  "description": "Marionette: an agentic harness built on top of Puppetmaster durable state architecture.",
+  "version": "1.0.0",
+  "author": "professorpalmer",
+  "homepage": "https://github.com/professorpalmer/marionette",
+  "skills": []
+}
