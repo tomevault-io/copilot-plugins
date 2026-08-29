@@ -1,0 +1,9 @@
+{
+  "name": "meow-rs--meow-android",
+  "displayName": "meow-android",
+  "description": "Meow - A Clash/mihomo Android client with Flutter UI, powered by meow-rs and lwip-based tun2socks",
+  "version": "1.0.0",
+  "author": "meow-rs",
+  "homepage": "https://github.com/meow-rs/meow-android",
+  "skills": []
+}
