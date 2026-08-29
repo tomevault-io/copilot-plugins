@@ -1,0 +1,9 @@
+{
+  "name": "leighstillard--claude-md-boilerplate",
+  "displayName": "claude.md-boilerplate",
+  "description": "Opinionated claude.md template for Claude Code that enforces software engineering best practices: security, tenant isolation, TDD, observability, secrets management, and error handling. Clearly separa",
+  "version": "1.0.0",
+  "author": "leighstillard",
+  "homepage": "https://github.com/leighstillard/claude.md-boilerplate",
+  "skills": []
+}
