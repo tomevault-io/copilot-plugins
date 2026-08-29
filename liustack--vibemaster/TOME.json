@@ -4,7 +4,7 @@
   "repo": "vibemaster",
   "description": "The lighter, stronger Superpowers alternative: four skills, one working loop. Shape it, code it, dig it, snapshot it.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liustack/vibemaster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T12:39:48Z"
+  "distributed_at": "2026-08-29T13:06:21Z"
 }
