@@ -1,0 +1,9 @@
+{
+  "name": "thowd22--agent-island-desktop",
+  "displayName": "agent-island-desktop",
+  "description": "A macOS-style Dynamic Island desktop for niri on Fedora, with Claude Code agents in the notch. Fork of patheonsceo/Dynamic-island-for-arch (OpenAgentIsland), ported from Hyprland.",
+  "version": "1.0.0",
+  "author": "thowd22",
+  "homepage": "https://github.com/thowd22/agent-island-desktop",
+  "skills": []
+}
