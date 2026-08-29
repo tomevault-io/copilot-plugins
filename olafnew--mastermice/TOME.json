@@ -1,0 +1,44 @@
+{
+  "name": "MasterMice",
+  "owner": "olafnew",
+  "repo": "MasterMice",
+  "description": "3 MB service that replaces 350 MB of Logi Options+ bloatware. Full haptic motor, force sensor, SmartShift, and button remapping for MX Master 3/3S/4. No accounts. No telemetry. No cloud.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/olafnew/MasterMice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T11:00:06Z"
+}
