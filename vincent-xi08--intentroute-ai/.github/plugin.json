@@ -1,0 +1,9 @@
+{
+  "name": "vincent-xi08--intentroute-ai",
+  "displayName": "IntentRoute-AI",
+  "description": "Open-source AI-assisted per-application routing for Windows with OpenAI/Ollama drafts and a sing-box TUN data plane.",
+  "version": "1.0.0",
+  "author": "Vincent-Xi08",
+  "homepage": "https://github.com/Vincent-Xi08/IntentRoute-AI",
+  "skills": []
+}
