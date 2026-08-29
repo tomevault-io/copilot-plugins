@@ -4,7 +4,7 @@
   "repo": "ai-intel-workbench",
   "description": "Local-first AI intelligence workbench for agents. Generate daily digests across AI + your chosen industries, including industry news, open-source projects, KOL insights, frontier papers, and finance/crypto signals, then view them in a visual local dashboard with optional scheduling and bot pushes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weishao831/ai-intel-workbench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:22:59Z"
+  "distributed_at": "2026-08-29T07:29:23Z"
 }
