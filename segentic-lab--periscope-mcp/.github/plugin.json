@@ -1,0 +1,9 @@
+{
+  "name": "segentic-lab--periscope-mcp",
+  "displayName": "periscope-mcp",
+  "description": "Web-app QA, testing & analysis for AI agents \u2014 74 Playwright tools: authenticated flows (2FA/SSO), 25-action E2E workflows, hard assertions, session reports, and accessibility / SEO / GEO / Core-Web-V",
+  "version": "1.0.0",
+  "author": "segentic-lab",
+  "homepage": "https://github.com/segentic-lab/periscope-mcp",
+  "skills": []
+}
