@@ -1,0 +1,9 @@
+{
+  "name": "harakas--arael",
+  "displayName": "arael",
+  "description": "Rust framework for nonlinear least-squares optimization with compile-time symbolic differentiation",
+  "version": "1.0.0",
+  "author": "harakas",
+  "homepage": "https://github.com/harakas/arael",
+  "skills": []
+}
