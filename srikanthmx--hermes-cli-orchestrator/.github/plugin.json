@@ -1,0 +1,9 @@
+{
+  "name": "srikanthmx--hermes-cli-orchestrator",
+  "displayName": "hermes-cli-orchestrator",
+  "description": "Control plane plugin for Hermes Agent \u2014 pool many free/cheap model providers + local AI CLIs, switch brains from Telegram in one command (even while the model is down), delegate work cap-aware with au",
+  "version": "1.0.0",
+  "author": "srikanthmx",
+  "homepage": "https://github.com/srikanthmx/hermes-cli-orchestrator",
+  "skills": []
+}
