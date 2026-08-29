@@ -1,0 +1,9 @@
+{
+  "name": "elixir-ai-tools--exgit",
+  "displayName": "exgit",
+  "description": "Pure-Elixir git: clone, fetch, push over smart HTTP v2 with lazy partial-clone and a path-oriented FS API for agents",
+  "version": "1.0.0",
+  "author": "elixir-ai-tools",
+  "homepage": "https://github.com/elixir-ai-tools/exgit",
+  "skills": []
+}
