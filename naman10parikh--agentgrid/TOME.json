@@ -1,0 +1,44 @@
+{
+  "name": "agentgrid",
+  "owner": "naman10parikh",
+  "repo": "agentgrid",
+  "description": "The terminal, leveled up. Spawn grids of AI coding agents (Claude, Codex, Gemini, Cursor) in one command. Status labels, sounds, presets, session resume. Zero dependencies beyond tmux.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/naman10parikh/agentgrid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T11:02:19Z"
+}
