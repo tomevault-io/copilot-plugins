@@ -1,0 +1,9 @@
+{
+  "name": "qntx--openai",
+  "displayName": "openai",
+  "description": "Drop-in OpenAI Typescript client with transparent x402 payment support.",
+  "version": "1.0.0",
+  "author": "qntx",
+  "homepage": "https://github.com/qntx/openai",
+  "skills": []
+}
