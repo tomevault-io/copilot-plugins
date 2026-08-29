@@ -7,11 +7,11 @@ A cross-platform high-performance native client for Multi Agent Systems
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dont-see-big-shark/Caduceus](https://github.com/dont-see-big-shark/Caduceus).
+Original source: `AGENTS.md` in [dont-see-big-shark/Caduceus](https://github.com/dont-see-big-shark/Caduceus).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
