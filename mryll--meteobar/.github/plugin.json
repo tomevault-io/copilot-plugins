@@ -1,0 +1,9 @@
+{
+  "name": "mryll--meteobar",
+  "displayName": "meteobar",
+  "description": "Weather forecasts from Open-Meteo for Waybar and the Omarchy shell. No API key. Rust, AUR.",
+  "version": "1.0.0",
+  "author": "mryll",
+  "homepage": "https://github.com/mryll/meteobar",
+  "skills": []
+}
