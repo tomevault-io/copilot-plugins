@@ -4,7 +4,7 @@
   "repo": "facebook-skills",
   "description": "Facebook Pages marketing skills for Claude Code and Codex: high-share posts, hooks, engagement replies, and a weekly plan. Publish via Publora. Open source, MIT. Content engineering by Creative Content Crafts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergebulaev/facebook-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T03:07:26Z"
+  "distributed_at": "2026-08-29T07:15:59Z"
 }
