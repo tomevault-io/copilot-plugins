@@ -1,0 +1,44 @@
+{
+  "name": "agent-nexus",
+  "owner": "canoo",
+  "repo": "agent-nexus",
+  "description": "Multi-model agentic orchestration framework \u2014 route tasks to cloud or local LLMs, manage personas, and configure everything through an interactive TUI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/canoo/agent-nexus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-29T12:36:44Z"
+}
