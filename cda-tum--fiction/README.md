@@ -1,6 +1,6 @@
 # fiction
 
-> Source: [cda-tum/fiction](https://github.com/cda-tum/fiction). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [cda-tum/fiction](https://github.com/cda-tum/fiction). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
