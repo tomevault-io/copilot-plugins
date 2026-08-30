@@ -1,0 +1,9 @@
+{
+  "name": "remiliacorporation--wikitool",
+  "displayName": "wikitool",
+  "description": "A CLI toolkit for MediaWiki article editing, research and maintenance, focused on AI-assisted workflows",
+  "version": "1.0.0",
+  "author": "remiliacorporation",
+  "homepage": "https://github.com/remiliacorporation/wikitool",
+  "skills": []
+}
