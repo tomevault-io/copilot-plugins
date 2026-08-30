@@ -1,107 +1,117 @@
 ## go-ddd
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# CLAUDE.md
+# Agent Guide for opentelemetry-go
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-## About This Project
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-Echo is a high performance, minimalist Go web framework. This is the main repository for Echo v4, which is available as a Go module at `github.com/labstack/echo/v4`.
+## Core expectations
 
-## Development Commands
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-The project uses a Makefile for common development tasks:
+## Default workflow
 
-- `make check` - Run linting, vetting, and race condition tests (default target)
-- `make init` - Install required linting tools (golint, staticcheck)
-- `make lint` - Run staticcheck and golint
-- `make vet` - Run go vet
-- `make test` - Run short tests
-- `make race` - Run tests with race detector
-- `make benchmark` - Run benchmarks
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-Example commands for development:
-```bash
-# Setup development environment
-make init
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-# Run all checks (lint, vet, race)
-make check
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-# Run specific tests
-go test ./middleware/...
-go test -race ./...
+## Verification
 
-# Run benchmarks
-make benchmark
-```
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-## Code Architecture
+## Documentation and changelog
 
-### Core Components
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-**Echo Instance (`echo.go`)**
-- The `Echo` struct is the top-level framework instance
-- Contains router, middleware stacks, and server configuration
-- Not goroutine-safe for mutations after server start
+## Repository habits
 
-**Context (`context.go`)**
-- The `Context` interface represents HTTP request/response context
-- Provides methods for request/response handling, path parameters, data binding
-- Core abstraction for request processing
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-**Router (`router.go`)**
-- Radix tree-based HTTP router with smart route prioritization
-- Supports static routes, parameterized routes (`/users/:id`), and wildcard routes (`/static/*`)
-- Each HTTP method has its own routing tree
+## Personas
 
-**Middleware (`middleware/`)**
-- Extensive middleware system with 50+ built-in middlewares
-- Middleware can be applied at Echo, Group, or individual route level
-- Common middleware: Logger, Recover, CORS, JWT, Rate Limiting, etc.
+### Feature Agent
 
-### Key Patterns
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-**Middleware Chain**
-- Pre-middleware runs before routing
-- Regular middleware runs after routing but before handlers
-- Middleware functions have signature `func(next echo.HandlerFunc) echo.HandlerFunc`
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-**Route Groups**
-- Routes can be grouped with common prefixes and middleware
-- Groups support nested sub-groups
-- Defined in `group.go`
+### Refactoring Agent
 
-**Data Binding**
-- Automatic binding of request data (JSON, XML, form) to Go structs
-- Implemented in `binder.go` with support for custom binders
+Use this persona when improving structure without intentionally changing behavior.
 
-**Error Handling**
-- Centralized error handling via `HTTPErrorHandler`
-- Automatic panic recovery with stack traces
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-## File Organization
+### Test Agent
 
-- Root directory: Core Echo functionality (echo.go, context.go, router.go, etc.)
-- `middleware/`: All built-in middleware implementations
-- `_test/`: Test fixtures and utilities
-- `_fixture/`: Test data files
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
 
-## Code Style
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
 
-- Go code uses tabs for indentation (per .editorconfig)
-- Follows standard Go conventions and formatting
-- Uses gofmt, golint, and staticcheck for code quality
+### Performance Agent
 
-## Testing
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
 
-- Standard Go testing with `testing` package
-- Tests include unit tests, integration tests, and benchmarks
-- Race condition testing is required (`make race`)
-- Test files follow `*_test.go` naming convention
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+
+### Review Agent
+
+Use this persona when asked to review code, patches, or pull requests.
+
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [sklinkert/go-ddd](https://github.com/sklinkert/go-ddd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
