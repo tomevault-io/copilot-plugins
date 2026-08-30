@@ -1,0 +1,9 @@
+{
+  "name": "spxrogers--agentsync",
+  "displayName": "agentsync",
+  "description": "Sync AI coding-agent configs (Claude Code, OpenCode, Codex, and more) from one canonical, committable source.",
+  "version": "1.0.0",
+  "author": "spxrogers",
+  "homepage": "https://github.com/spxrogers/agentsync",
+  "skills": []
+}
