@@ -1,0 +1,14 @@
+{
+  "name": "tya5--reyn",
+  "displayName": "reyn",
+  "description": "AI agent workflow OS . Constrained, validated, replayable execution. Predictability over autonomy.",
+  "version": "1.0.0",
+  "author": "tya5",
+  "homepage": "https://github.com/tya5/reyn",
+  "skills": [
+    {
+      "name": "word-stats-demo",
+      "description": ""
+    }
+  ]
+}
