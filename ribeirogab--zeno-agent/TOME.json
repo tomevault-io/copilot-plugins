@@ -4,7 +4,7 @@
   "repo": "zeno-agent",
   "description": "Self-hosted personal agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ribeirogab/zeno-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:59:57Z"
+  "distributed_at": "2026-08-30T01:05:33Z"
 }
