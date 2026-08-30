@@ -1,0 +1,44 @@
+{
+  "name": "Booking-Ecommerce-System",
+  "owner": "psspl-jackey",
+  "repo": "Booking-Ecommerce-System",
+  "description": "Book Hotels & Flights \u2014 Official site | The best hotels, flights, car rentals & accommodations. Choose From a Wide Range of Properties Which Booking.com Offers. Search Now! 24/7 Customer Service. We speak your language.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/psspl-jackey/Booking-Ecommerce-System",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T01:39:01Z"
+}
