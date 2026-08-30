@@ -25,6 +25,9 @@ go build -o julius ./cmd/julius
 # Validate probe YAML files
 julius validate ./probes
 
+# Run the per-probe behavioral fixture harness (subset of `go test ./...`)
+go test ./pkg/scanner/...
+
 # Test against a target
 ./julius probe https://target.example.com
 
@@ -79,10 +82,20 @@ Probes in `probes/` define service detection. Key fields:
 - `models` - Optional JQ extraction config for model discovery
 - `augustus` - Optional generator config for downstream tooling
 
+### Probe Fixtures
+
+Every shipped probe must have a companion behavioral fixture in
+`pkg/scanner/testdata/fixtures/<probe>.yaml` with **at least one positive and
+one negative case**. The harness (`pkg/scanner/fixture_test.go`) serves canned
+HTTP responses and runs the real probe through the real scanner to assert match
+behavior; `TestEveryProbeHasFixture` fails the build if any probe lacks a
+fixture. When adding a probe, add its fixture — see
+`pkg/scanner/testdata/fixtures/README.md`.
+
 ## Local Files
 
 See `local/CLAUDE.md` for documentation on local research files (gitignored, may vary per developer).
 
 ---
 > Source: [praetorian-inc/julius](https://github.com/praetorian-inc/julius) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
