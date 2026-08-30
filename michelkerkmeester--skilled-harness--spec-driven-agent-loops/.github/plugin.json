@@ -1,0 +1,9 @@
+{
+  "name": "michelkerkmeester--skilled-harness--spec-driven-agent-loops",
+  "displayName": "skilled-harness__spec-driven-agent-loops",
+  "description": "AI-assisted coding setup that helps you spend less time re-explaining context, and more time shipping with better output. Includes a custom spec kit, memory, agent and skill framework.",
+  "version": "1.0.0",
+  "author": "MichelKerkmeester",
+  "homepage": "https://github.com/MichelKerkmeester/skilled-harness__spec-driven-agent-loops",
+  "skills": []
+}
