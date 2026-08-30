@@ -1,106 +1,33 @@
 ## aio-hub
 
-> 去看 .kilocode\rules\rules.md
+> 本文件是 `mobile/` 子树的局部指引。仓库级约束仍以根目录 [`AGENTS.md`](../AGENTS.md) 为准；本文件只补充移动端特有的文档入口、验证边界和实现约定。
 
-去看 .kilocode\rules\rules.md
+# Mobile Workspace Instructions
 
-<!-- gitnexus:start -->
-# GitNexus — Code Intelligence
+本文件是 `mobile/` 子树的局部指引。仓库级约束仍以根目录 [`AGENTS.md`](../AGENTS.md) 为准；本文件只补充移动端特有的文档入口、验证边界和实现约定。
 
-This project is indexed by GitNexus as **all-in-one-tools** (7490 symbols, 19950 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+## 文档入口
 
-> If any GitNexus tool warns the index is stale, run `bunx gitnexus analyze` in terminal first.
+- 当前 UI 规范：[`docs/guide/mobile-ui-development.md`](../docs/guide/mobile-ui-development.md)
+- 设计语言决议：[`docs/guide/mobile-design-language.md`](../docs/guide/mobile-design-language.md)
+- 模块架构：`mobile/src/tools/{toolId}/ARCHITECTURE.md`
+- 仍在施工的跨模块计划：`mobile/docs/plan/`
+- 已完成或稳定的移动端架构：`mobile/docs/architecture/`
+- 历史调查与盘点：`mobile/docs/archive/`
 
-## Always Do
+## 移动端约束
 
-- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
-- **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
-- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
-- When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
-- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
+- 包管理器使用 Bun；前端改动至少运行 `bun run build`，需要时再运行 `bun run test:run`、后端检查和真实 Tauri/Android 验收。
+- 普通浏览器只能验证明确提供 mock 或 fallback 的纯前端行为，不能代替 Tauri WebView、IPC、原生文件选择器、Android/iOS 或平台服务验证。
+- 工具使用 `{toolId}.registry.ts` 注册；页面放在工具 `views/`，业务组件放在 `components/`，跨工具复用才沉淀到 `mobile/src/components/`。
+- UI 页面骨架优先使用原生 Vue 与 AIO Hub token；Varlet 只作为可替换的叶子控件。反馈使用 `mobile/src/utils/feedback.ts`。
+- Rust 返回前端的结构体使用 `#[serde(rename_all = "camelCase")]`，新增 Tauri command 必须注册到 `mobile/src-tauri/src/lib.rs`。
+- 全局资产与 Agent 私有资产分离；聊天只保存 `assetId +` 轻量快照，不把路径或系统 URI 写入业务数据。
 
-## When Debugging
+## 文档维护
 
-1. `gitnexus_query({query: "<error or symptom>"})` — find execution flows related to the issue
-2. `gitnexus_context({name: "<suspect function>"})` — see all callers, callees, and process participation
-3. `READ gitnexus://repo/all-in-one-tools/process/{processName}` — trace the full execution flow step by step
-4. For regressions: `gitnexus_detect_changes({scope: "compare", base_ref: "main"})` — see what your branch changed
-
-## When Refactoring
-
-- **Renaming**: MUST use `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` first. Review the preview — graph edits are safe, text_search edits need manual review. Then run with `dry_run: false`.
-- **Extracting/Splitting**: MUST run `gitnexus_context({name: "target"})` to see all incoming/outgoing refs, then `gitnexus_impact({target: "target", direction: "upstream"})` to find all external callers before moving code.
-- After any refactor: run `gitnexus_detect_changes({scope: "all"})` to verify only expected files changed.
-
-## Never Do
-
-- NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
-- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
-- NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
-- NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
-
-## Tools Quick Reference
-
-| Tool | When to use | Command |
-|------|-------------|---------|
-| `query` | Find code by concept | `gitnexus_query({query: "auth validation"})` |
-| `context` | 360-degree view of one symbol | `gitnexus_context({name: "validateUser"})` |
-| `impact` | Blast radius before editing | `gitnexus_impact({target: "X", direction: "upstream"})` |
-| `detect_changes` | Pre-commit scope check | `gitnexus_detect_changes({scope: "staged"})` |
-| `rename` | Safe multi-file rename | `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` |
-| `cypher` | Custom graph queries | `gitnexus_cypher({query: "MATCH ..."})` |
-
-## Impact Risk Levels
-
-| Depth | Meaning | Action |
-|-------|---------|--------|
-| d=1 | WILL BREAK — direct callers/importers | MUST update these |
-| d=2 | LIKELY AFFECTED — indirect deps | Should test |
-| d=3 | MAY NEED TESTING — transitive | Test if critical path |
-
-## Resources
-
-| Resource | Use for |
-|----------|---------|
-| `gitnexus://repo/all-in-one-tools/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/all-in-one-tools/clusters` | All functional areas |
-| `gitnexus://repo/all-in-one-tools/processes` | All execution flows |
-| `gitnexus://repo/all-in-one-tools/process/{name}` | Step-by-step execution trace |
-
-## Self-Check Before Finishing
-
-Before completing any code modification task, verify:
-1. `gitnexus_impact` was run for all modified symbols
-2. No HIGH/CRITICAL risk warnings were ignored
-3. `gitnexus_detect_changes()` confirms changes match expected scope
-4. All d=1 (WILL BREAK) dependents were updated
-
-## Keeping the Index Fresh
-
-After committing code changes, the GitNexus index becomes stale. Re-run analyze to update it:
-
-```bash
-bunx gitnexus analyze
-```
-
-If the index previously included embeddings, preserve them by adding `--embeddings`:
-
-```bash
-bunx gitnexus analyze --embeddings
-```
-
-To check whether embeddings exist, inspect `.gitnexus/meta.json` — the `stats.embeddings` field shows the count (0 means no embeddings). **Running analyze without `--embeddings` will delete any previously generated embeddings.**
-
-> Claude Code users: A PostToolUse hook handles this automatically after `git commit` and `git merge`.
-
-## CLI
-
-- Re-index: `bunx gitnexus analyze`
-- Check freshness: `bunx gitnexus status`
-- Generate docs: `bunx gitnexus wiki`
-
-<!-- gitnexus:end -->
+施工完成后，将稳定的边界、数据流、已验证行为和剩余平台门禁同步到对应模块的 `ARCHITECTURE.md` 或 `mobile/docs/architecture/`；`mobile/docs/plan/` 只保留仍有明确待办或平台验收门禁的计划。
 
 ---
 > Source: [miaotouy/aio-hub](https://github.com/miaotouy/aio-hub) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
