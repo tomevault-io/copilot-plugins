@@ -1,16 +1,53 @@
-## fpga-compile
+## hardware-constraints
 
-> FPGA compiles must use GitHub Actions only; never local Rosetta Quartus
+> description: Critical SuperStation One / MiSTer hardware, toolchain, and architecture constraints for the DVD player core
 
+---
+description: Critical SuperStation One / MiSTer hardware, toolchain, and architecture constraints for the DVD player core
+alwaysApply: true
+---
 
-# FPGA compile — GitHub Actions only
+# SS1 / MiSTer DVD Core — Non-negotiable Constraints
 
-- **NEVER** run Quartus locally on this Mac.
-- **NEVER** use `quartus-mister-rosetta`, local `docker run … quartus_sh`,
-  or any amd64 Quartus under Rosetta. It does not work for us.
-- **ALWAYS** compile via GitHub Actions `.github/workflows/build-core.yml`.
-  Push the FPGA source, then `gh workflow run build-core.yml --ref <branch>`
-  (or rely on the `fpga/**` push trigger). Download the `DVD.rbf` artifact.
+Target: **SuperStation One (SS1) / MiSTer**. CPU: dual-core ARM **Cortex-A9,
+ARMv7-A, NEON + VFPv3** (⚠️ **no VFPv4 / no fused multiply-add**).
+
+## Toolchain
+
+- ✅ Use `arm-unknown-linux-gnueabihf-gcc`.
+- ❌ **NEVER** use `armv7-unknown-linux-gnueabihf-gcc`. Its runtime emitted VFPv4
+  `VFMA`/`VFMS` instructions → **SIGILL** on the Cortex-A9. This is proven.
+- Compile flags: `-march=armv7-a -mcpu=cortex-a9 -marm -mfpu=neon-vfpv3 -mfloat-abi=hard`.
+- Keep the `objdump` no-VFPv4 gate in `player/build_mac.sh`
+  (`vfma|vfms|vfnma|vfnms` ⇒ refuse to deploy).
+
+## Architecture
+
+- ARM **decodes at native DVD resolution** (720×576 PAL / 720×480 NTSC) and does
+  YUV→BGR0 (~3.5 ms/frame). It must **NOT** do final display scaling
+  (CPU scale ≈ 104 ms/frame — not viable).
+- **Scaling/output is the FPGA's job** via the MiSTer video framework.
+- Before writing custom framebuffer/scaler RTL, **prefer the existing
+  `MISTER_FB` / ASCAL infrastructure** in `fpga/sys/`.
+
+## Do-not-touch / safety
+
+- Do **not** modify files in `fpga/sys/` (framework; updates overwrite it) unless
+  proven absolutely necessary.
+- Do **not** make destructive changes to known-working player code without
+  preserving it in Git first.
+- Prefer scripts and normal source-file edits over generating source via shell
+  heredocs.
+- FPGA/Quartus compiles: **never** run locally. Do **not** use Docker image
+  `quartus-mister-rosetta`, `raetro/quartus` on this Mac, or any other
+  Rosetta/amd64-on-ARM Quartus. Local Rosetta compiles do not work for us.
+- When an FPGA compile is required, use **GitHub Actions only**:
+  `.github/workflows/build-core.yml` (`raetro/quartus:17.0` on `ubuntu-latest`).
+  `gh workflow run build-core.yml --ref <branch>` after the FPGA source is
+  on that remote branch. Download the `DVD.rbf` artifact. Do not start a
+  second compile while one is running.
+
+See `docs/ARCHITECTURE.md` for full details and measurements.
 
 ---
 > Source: [joedaniels198512-gif/dvd-core](https://github.com/joedaniels198512-gif/dvd-core) — distributed by [TomeVault](https://tomevault.io).
