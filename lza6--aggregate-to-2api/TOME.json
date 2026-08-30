@@ -4,7 +4,7 @@
   "repo": "Aggregate-to-2api",
   "description": "\u5b8c\u7f8e\u5404\u79cdAI\u5e73\u53f0\u76842API\uff0c\u652f\u6301\u670d\u52a1\u5668\u90e8\u7f72\uff0c\u652f\u6301\u9ad8\u5e76\u53d1\u6253\u6b7b\u4e0a\u6e38",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lza6/Aggregate-to-2api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T15:30:21Z"
+  "distributed_at": "2026-08-30T15:31:12Z"
 }
