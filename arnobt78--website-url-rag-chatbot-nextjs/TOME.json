@@ -1,0 +1,44 @@
+{
+  "name": "Website-URL-RAG-Chatbot-NextJS",
+  "owner": "arnobt78",
+  "repo": "Website-URL-RAG-Chatbot-NextJS",
+  "description": "Paste any public website URL, ingest its content into Upstash Vector & Jina, and chat with grounded answers via a multi-provider LLM fallback chain (Gemini, Groq, OpenRouter free models, Hugging Face). Built with Next.js 16, React 19, & TypeScript, with live token streaming & Jina (SPA JS-heavy page ingestion), Redis-backed session history",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arnobt78/Website-URL-RAG-Chatbot-NextJS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T04:31:52Z"
+}
