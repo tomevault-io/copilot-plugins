@@ -7,11 +7,11 @@ A polished project management tool with workspace-wide lists, labels and custom 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [happendev/Kanera](https://github.com/happendev/Kanera).
+Original source: `AGENTS.md` in [happendev/Kanera](https://github.com/happendev/Kanera).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
