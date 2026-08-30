@@ -1,48 +1,57 @@
 ## next-app-i18n-starter
 
-> App Router pages, layouts, and route handlers under [locale]
+> Instructions for AI coding assistants working in this repository.
 
+# Agent guide
 
-# App Router pages
+Instructions for AI coding assistants working in this repository.
 
-## Structure
+## Project
 
-- All user-facing routes: `src/app/[locale]/…`
-- Root metadata routes: `src/app/sitemap.ts`, `src/app/robots.ts` (not locale-scoped)
-- Catch-all `src/app/[locale]/[...rest]/page.tsx` → `notFound()`
+Next.js 16 App Router boilerplate with **next-intl 4**, locale-driven formatting, shadcn/ui, RTL, cookie-based theme SSR, and full SEO.
 
-## Server page template
+- **Package manager:** `bun` (preferred) or `pnpm` — not npm/yarn
+- **Node:** 24.x (see `.nvmrc`, `package.json` engines)
+- **After substantive changes:** `bun run build` (and `bun run lint` when touching TS/TSX)
 
-```tsx
-import { setRequestLocale, getTranslations } from "next-intl/server";
+## Non-negotiables
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "YourNamespace" });
-  return <h1>{t("title")}</h1>;
-}
-```
+1. **Never edit `.env` or commit secrets** — use `.env.example` as the template only
+2. **Navigation:** use `@/i18n/navigation` (`Link`, `useRouter`, `usePathname`, `getPathname`) — not `next/link` or `next/navigation` directly
+3. **Translations:** `en.json` is the type source of truth; add keys to **all** `dictionary/*.json` files
+4. **Locale pages:** call `setRequestLocale(locale)` in Server Components under `src/app/[locale]/`
+5. **URLs for SEO:** build with `getPathname` — English is `/` (`localePrefix: "as-needed"`), not `/en`
+6. **React 19:** no `next/script` or inline `<script>` in client components; JSON-LD in Server Components only
+7. **Minimize diff scope** — match existing patterns; no drive-by refactors
 
-## Layout (`src/app/[locale]/layout.tsx`)
+## Cursor rules
 
-- Validate locale with `hasLocale(routing.locales, locale)` → `notFound()`.
-- Set `<html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>`.
-- `generateStaticParams` must list all `routing.locales`.
+Detailed, file-scoped rules live in [`.cursor/rules/`](.cursor/rules/). Cursor loads them automatically.
 
-## React 19 constraints
+| File | Purpose |
+|------|---------|
+| `project-core.mdc` | Tooling, env, commits, general standards |
+| `i18n.mdc` | Locales, dictionaries, regional formatting |
+| `nextjs-pages.mdc` | App Router pages and layouts |
+| `seo.mdc` | Metadata, sitemap, robots, canonical URLs |
+| `components.mdc` | React components, shadcn, RTL, theme |
 
-- JSON-LD: Server Component only; serialize with `JSON.stringify(data).replace(/</g, "\\u003c")`.
-- No `next/script` or client-side `<script>` for theme — cookie SSR in layout.
+## Deep reference
 
-## Params
+- Human docs: [README.md](README.md)
+- Machine-readable: [public/llms.txt](public/llms.txt)
+- Cursor setup: [.cursor/README.md](.cursor/README.md)
 
-- Next.js 16: `params` and `searchParams` are **Promises** — always `await params`.
+## Common tasks (pointers)
+
+| Task | Where to look |
+|------|----------------|
+| Add language | `src/i18n/locales.ts` (`localeConfig`) — routing, regional, OG, and switcher derive from it |
+| Add page | `src/app/[locale]/…/page.tsx`, dictionary namespace, `@/i18n/navigation` links |
+| Add SEO to page | `generateMetadata`, dictionary meta keys, `sitemap.ts` entry |
+| RTL islands | `OmitRTL` from `@/components/OmmitRlt` |
+| Site constants | `src/lib/site.ts` |
 
 ---
 > Source: [S0vers/next-app-i18n-starter](https://github.com/S0vers/next-app-i18n-starter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
