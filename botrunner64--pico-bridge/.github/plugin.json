@@ -1,0 +1,9 @@
+{
+  "name": "botrunner64--pico-bridge",
+  "displayName": "pico-bridge",
+  "description": "Transfer hand tracking, full-body mocap, and camera video streams between PICO VR and PC",
+  "version": "1.0.0",
+  "author": "BotRunner64",
+  "homepage": "https://github.com/BotRunner64/pico-bridge",
+  "skills": []
+}
