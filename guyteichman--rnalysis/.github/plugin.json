@@ -5,22 +5,5 @@
   "version": "1.0.0",
   "author": "GuyTeichman",
   "homepage": "https://github.com/GuyTeichman/RNAlysis",
-  "skills": [
-    {
-      "name": "RNAlysis",
-      "description": ""
-    },
-    {
-      "name": "RNAlysis",
-      "description": ""
-    },
-    {
-      "name": "RNAlysis",
-      "description": ""
-    },
-    {
-      "name": "RNAlysis",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
