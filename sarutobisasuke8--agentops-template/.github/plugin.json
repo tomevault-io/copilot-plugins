@@ -1,0 +1,9 @@
+{
+  "name": "sarutobisasuke8--agentops-template",
+  "displayName": "agentops-template",
+  "description": "Governed, repo-native AgentOps template for AI-assisted software projects, with cross-agent contracts, permission gates, durable state, and canonical verification.",
+  "version": "1.0.0",
+  "author": "SarutobiSasuke8",
+  "homepage": "https://github.com/SarutobiSasuke8/agentops-template",
+  "skills": []
+}
