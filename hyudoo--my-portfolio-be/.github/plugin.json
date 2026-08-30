@@ -1,0 +1,9 @@
+{
+  "name": "hyudoo--my-portfolio-be",
+  "displayName": "my_portfolio_be",
+  "description": "Backend service for my personal portfolio website, built with NestJS and PostgreSQL.  ",
+  "version": "1.0.0",
+  "author": "hyudoo",
+  "homepage": "https://github.com/hyudoo/my_portfolio_be",
+  "skills": []
+}
