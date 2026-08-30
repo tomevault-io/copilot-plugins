@@ -1,0 +1,9 @@
+{
+  "name": "stellar--stellar-cli",
+  "displayName": "stellar-cli",
+  "description": "stellar-cli",
+  "version": "1.0.0",
+  "author": "stellar",
+  "homepage": "https://github.com/stellar/stellar-cli",
+  "skills": []
+}
