@@ -3,7 +3,7 @@
   "owner": "mono424",
   "repo": "sp00ky",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "sp00ky",
-      "path": "packages/client-solid/skills/sp00ky-solid/SKILL.md",
-      "github_url": "https://github.com/mono424/sp00ky/tree/main/packages/client-solid/skills/sp00ky-solid/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "sp00ky",
-      "path": "packages/query-builder/skills/sp00ky-query-builder/SKILL.md",
-      "github_url": "https://github.com/mono424/sp00ky/tree/main/packages/query-builder/skills/sp00ky-query-builder/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/mono424/sp00ky",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T06:05:50Z"
+  "distributed_at": "2026-08-30T04:44:15Z"
 }
