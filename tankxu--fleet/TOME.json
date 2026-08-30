@@ -4,7 +4,7 @@
   "repo": "fleet",
   "description": "Fleet \u2014 a native macOS terminal workspace with a fleet canvas board. Derived from cmux (GPL-3.0-or-later).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tankxu/fleet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T11:30:21Z"
+  "distributed_at": "2026-08-30T11:31:51Z"
 }
