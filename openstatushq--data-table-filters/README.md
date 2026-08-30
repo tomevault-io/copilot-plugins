@@ -1,23 +1,21 @@
 # AI instruction files for data-table-filters
 
-> Sourced from [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Faceted filters, sorting & infinite scroll for React data tables - shadcn/ui + TanStack Table
+> Sourced from [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters).
+Original source: `AGENTS.md` in [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters) — a repo with 2041+ stars on GitHub.
+From [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters) — a repo with 2206+ stars on GitHub.
 
 ---
 
