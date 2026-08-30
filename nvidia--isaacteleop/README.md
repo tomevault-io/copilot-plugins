@@ -1,8 +1,6 @@
 # IsaacTeleop
 
-> Tome by [NVIDIA](https://github.com/NVIDIA/IsaacTeleop) — distributed by [TomeVault](https://tomevault.io)
-
-The unified framework for sim & real robot teleoperation
+> Tome by [NVIDIA](https://github.com/NVIDIA/IsaacTeleop), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
