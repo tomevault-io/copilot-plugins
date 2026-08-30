@@ -15,10 +15,6 @@ Original source: `AGENTS.md` in [javierbrea/eslint-plugin-boundaries](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [eslint-plugin-boundaries](https://github.com/javierbrea/eslint-plugin-boundaries/tree/main/.github/skills/unit-test-coverage/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/javierbrea/eslint-plugin-boundaries](https://github.com/javierbrea/eslint-plugin-boundaries)
 
 ---
