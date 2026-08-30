@@ -1,66 +1,41 @@
 ## playful-proxy-api-panel
 
-> Go 1.26+ proxy server providing OpenAI/Gemini/Claude/Codex compatible APIs with OAuth and round-robin load balancing.
+> This is a React 19 + TypeScript Vite frontend for the CLI Proxy API Management API. Main source lives in `src/`: routes in `src/router`, pages in `src/pages`, components in `src/components`, API clients in `src/services/api`, state in `src/stores`, hooks in `src/hooks`, styles in `src/styles`, and types in `src/types`. Assets live in `src/assets`, with provider icons under `src/assets/icons`. Localization files are in `src/i18n/locales`; update all supported locales when adding user-facing text. Production output is `dist/index.html`.
 
-# AGENTS.md
+# Repository Guidelines
 
-Go 1.26+ proxy server providing OpenAI/Gemini/Claude/Codex compatible APIs with OAuth and round-robin load balancing.
+## Project Structure & Module Organization
 
-## Repository
-- GitHub: https://github.com/router-for-me/CLIProxyAPI
+This is a React 19 + TypeScript Vite frontend for the CLI Proxy API Management API. Main source lives in `src/`: routes in `src/router`, pages in `src/pages`, components in `src/components`, API clients in `src/services/api`, state in `src/stores`, hooks in `src/hooks`, styles in `src/styles`, and types in `src/types`. Assets live in `src/assets`, with provider icons under `src/assets/icons`. Localization files are in `src/i18n/locales`; update all supported locales when adding user-facing text. Production output is `dist/index.html`.
 
-## Commands
-```bash
-gofmt -w . # Format (required after Go changes)
-go build -o cli-proxy-api ./cmd/server # Build
-go run ./cmd/server # Run dev server
-go test ./... # Run all tests
-go test -v -run TestName ./path/to/pkg # Run single test
-go build -o test-output ./cmd/server && rm test-output # Verify compile (REQUIRED after changes)
-```
-- Common flags: `--config <path>`, `--tui`, `--standalone`, `--local-model`, `--no-browser`, `--oauth-callback-port <port>`
+## Build, Test, and Development Commands
 
-## Config
-- Default config: `config.yaml` (template: `config.example.yaml`)
-- `.env` is auto-loaded from the working directory
-- Auth material defaults under `auths/`
-- Storage backends: file-based default; optional Postgres/git/object store (`PGSTORE_*`, `GITSTORE_*`, `OBJECTSTORE_*`)
+- `bun install --frozen-lockfile`: install dependencies from `bun.lock`.
+- `bun run dev`: start the Vite dev server at `http://localhost:5173`.
+- `bun run build`: run TypeScript compilation and build `dist/`.
+- `bun run preview`: serve the built output locally.
+- `bun run test`: run the Bun test suite.
+- `bun run lint`: run ESLint over TypeScript/TSX files.
+- `bun run verify`: run tests, lint, TypeScript compilation, and the production build.
+- `bun run type-check`: run `tsc --noEmit`.
+- `bun run format`: apply Prettier to `src/**/*.{ts,tsx,css,scss}`.
 
-## Architecture
-- `cmd/server/` — Server entrypoint
-- `internal/api/` — Gin HTTP API (routes, middleware, modules)
-- `internal/api/modules/amp/` — Amp integration (Amp-style routes + reverse proxy)
-- `internal/thinking/` — Main thinking/reasoning pipeline. `ApplyThinking()` (apply.go) parses suffixes (`suffix.go`, suffix overrides body), normalizes config to canonical `ThinkingConfig` (`types.go`), normalizes and validates centrally (`validate.go`/`convert.go`), then applies provider-specific output via `ProviderApplier`. Do not break this "canonical representation → per-provider translation" architecture.
-- `internal/runtime/executor/` — Per-provider runtime executors (incl. Codex WebSocket)
-- `internal/translator/` — Provider protocol translators (and shared `common`)
-- `internal/registry/` — Model registry + remote updater (`StartModelsUpdater`); `--local-model` disables remote updates
-- `internal/store/` — Storage implementations and secret resolution
-- `internal/managementasset/` — Config snapshots and management assets
-- `internal/cache/` — Request signature caching
-- `internal/watcher/` — Config hot-reload and watchers
-- `internal/wsrelay/` — WebSocket relay sessions
-- `internal/usage/` — Usage and token accounting
-- `internal/tui/` — Bubbletea terminal UI (`--tui`, `--standalone`)
-- `sdk/cliproxy/` — Embeddable SDK entry (service/builder/watchers/pipeline)
-- `test/` — Cross-module integration tests
+## Coding Style & Naming Conventions
 
-## Code Conventions
-- Keep changes small and simple (KISS)
-- Comments in English only
-- If editing code that already contains non-English comments, translate them to English (don’t add new non-English comments)
-- For user-visible strings, keep the existing language used in that file/area
-- New Markdown docs should be in English unless the file is explicitly language-specific (e.g. `README_CN.md`)
-- As a rule, do not make standalone changes to `internal/translator/`. You may modify it only as part of broader changes elsewhere.
-- If a task requires changing only `internal/translator/`, run `gh repo view --json viewerPermission -q .viewerPermission` to confirm you have `WRITE`, `MAINTAIN`, or `ADMIN`. If you do, you may proceed; otherwise, file a GitHub issue including the goal, rationale, and the intended implementation code, then stop further work.
-- `internal/runtime/executor/` should contain executors and their unit tests only. Place any helper/supporting files under `internal/runtime/executor/helps/`.
-- Follow `gofmt`; keep imports goimports-style; wrap errors with context where helpful
-- Do not use `log.Fatal`/`log.Fatalf` (terminates the process); prefer returning errors and logging via logrus
-- Shadowed variables: use method suffix (`errStart := server.Start()`)
-- Wrap defer errors: `defer func() { if err := f.Close(); err != nil { log.Errorf(...) } }()`
-- Use logrus structured logging; avoid leaking secrets/tokens in logs
-- Avoid panics in HTTP handlers; prefer logged errors and meaningful HTTP status codes
-- Timeouts are allowed only during credential acquisition; after an upstream connection is established, do not set timeouts for any subsequent network behavior. Intentional exceptions that must remain allowed are the Codex websocket liveness deadlines in `internal/runtime/executor/codex_websockets_executor.go`, the wsrelay session deadlines in `internal/wsrelay/session.go`, the management APICall timeout in `internal/api/handlers/management/api_tools.go`, and the `cmd/fetch_antigravity_models` utility timeouts
+Use 2-space indentation, semicolons, single quotes, ES5 trailing commas, and 100-character line width. Prefer typed React components and avoid new `any` unless it marks a boundary. Use the `@/` alias for `src` imports. Component files use PascalCase, hooks use `useName`, API modules use domain names such as `oauth.ts`, and SCSS Modules sit beside their page or component as `Name.module.scss`.
+
+## Testing Guidelines
+
+Tests use Bun's built-in test runner and are colocated under `tests/` as `*.test.ts`. Run `bun run test` for focused test work and `bun run verify` before handoff. Use `bun run type-check` as a fast standalone TypeScript check. For UI changes, verify the affected route in the browser and include screenshots or notes.
+
+## Commit & Pull Request Guidelines
+
+Git history follows Conventional Commit style, for example `feat: add support for xAI provider`, `fix(auth-files): keep disabled card actions visible`, and `ci: use node 24 for releases`. Keep commits focused and scoped when useful. Pull requests should include a change summary, linked issue when applicable, UI screenshots, backend version or reproduction details for integration work, and verification notes.
+
+## Architecture & Configuration Notes
+
+This UI is not the proxy; it talks to the backend Management API under `/v0/management`. Treat backend contracts as the source of truth. For OAuth/provider changes, inspect `../CLIProxyAPI` before changing route names, provider keys, callback parameters, or auth-file semantics. Store no secrets in the repo; management keys are entered at runtime and persisted only in browser storage.
 
 ---
 > Source: [daishuge/playful-proxy-api-panel](https://github.com/daishuge/playful-proxy-api-panel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
