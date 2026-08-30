@@ -1,42 +1,20 @@
 ## dataportals-registry
 
-> Rules for editing catalog YAML entries in the dataportals-registry
+> Discover catalogs not yet in the registry; configure Google, Censys, Shodan, and LLM clients (Cursor, ChatGPT, Claude).
 
 
-# Catalog entry YAML edits
+# Catalog discovery with search tools and agents
 
-When adding or editing data catalog YAML files in this repository:
+When the user asks to find catalogs that are **not yet in this registry**, or to configure Google / Censys / Shodan / ChatGPT / Cursor for that work:
 
-## File location and naming
-
-- **Filename** must equal the catalog `id`: lowercase, no special characters (e.g. `catalogdatagov.yaml` → `id: catalogdatagov`).
-- **Path**: `data/entities/COUNTRY_CODE/type/` for verified entries, or `data/scheduled/` for unverified. Use `Federal/` or subregion code (e.g. `US-CA/`) under country as appropriate. Type folders: `opendata/`, `geo/`, `scientific/`, `microdata/`, `indicators/`, `ml/`, `search/`, `api/`, `marketplace/`, `other/`.
-
-## UID and new entries
-
-- **Do not** set or edit `uid` manually. After adding new YAML files, run:
-  ```bash
-  python scripts/builder.py assign
-  ```
-- Prefer creating new entries via:
-  ```bash
-  python scripts/builder.py add-single --url "..." --software ckan --catalog-type "Open data portal" ...
-  ```
-  when applicable; otherwise create the YAML under the correct path and then run `assign`.
-
-## After editing
-
-- Run schema validation:
-  ```bash
-  python scripts/builder.py validate-yaml
-  ```
-
-## Reference
-
-- **Schema**: [data/schemes/catalog.json](data/schemes/catalog.json)
-- **Required fields**: `id`, `uid`, `name`, `link`, `catalog_type`, `access_mode`, `status`, `software`, `owner`, `coverage`
-- **Conventions**: [CONTRIBUTING.md](CONTRIBUTING.md), [openspec/project.md](openspec/project.md)
+1. Duplicate-check **exports** (`data/datasets/datasets.duckdb` or `full.parquet`), not `data/entities/**/*.yaml`.
+2. Follow [docs/agents/discover.md](docs/agents/discover.md).
+3. Use query recipes in [docs/discovery-search-tools.md](docs/discovery-search-tools.md) and the platform guides (`docs/discovery-opendata.md`, `discovery-geoportals.md`, `discovery-scientific.md`, `discovery-scientific-domain.md`, `discovery-metadata.md`, `discovery-indicators.md`, `discovery-other.md`).
+4. Client setup (Cursor MCP, ChatGPT Custom GPT, Censys OAuth, API keys): [docs/discovery-agent-tools.md](docs/discovery-agent-tools.md).
+5. Scope to a country, city, TLD, or `software.id`. Do not write scanners. Stop on `401`/`403`.
+6. Add verified finds with `python scripts/builder.py add-single URL --scheduled`, then `assign` and `validate-yaml`.
+7. Pick the next hunt from [docs/agents/improve.md](docs/agents/improve.md) (software-first lists and country shape holes, not more US ArcGIS).
 
 ---
 > Source: [commondataio/dataportals-registry](https://github.com/commondataio/dataportals-registry) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
