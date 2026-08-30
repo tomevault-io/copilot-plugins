@@ -1,0 +1,9 @@
+{
+  "name": "yechielby--antigravity-chat-rtl-extension",
+  "displayName": "antigravity-chat-rtl-extension",
+  "description": "Antigravity extension that adds RTL (Right-to-Left) support for Hebrew and Arabic to the Antigravity IDE chat.",
+  "version": "1.0.0",
+  "author": "yechielby",
+  "homepage": "https://github.com/yechielby/antigravity-chat-rtl-extension",
+  "skills": []
+}
