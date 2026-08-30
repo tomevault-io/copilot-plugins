@@ -1,7 +1,7 @@
 {
   "name": "nvidia--nvcf",
   "displayName": "nvcf",
-  "description": "NVIDIA Cloud Functions",
+  "description": "nvcf",
   "version": "1.0.0",
   "author": "NVIDIA",
   "homepage": "https://github.com/NVIDIA/nvcf",
