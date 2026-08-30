@@ -1,0 +1,9 @@
+{
+  "name": "atgreen--takesy",
+  "displayName": "takesy",
+  "description": "A screen recorder for modern Linux desktops (Wayland & X11), via xdg-desktop-portal + PipeWire.",
+  "version": "1.0.0",
+  "author": "atgreen",
+  "homepage": "https://github.com/atgreen/takesy",
+  "skills": []
+}
