@@ -1,0 +1,9 @@
+{
+  "name": "knx-ai--knx-ets-mcp",
+  "displayName": "knx-ets-mcp",
+  "description": "MCP Server for KNX ETS 5/6 via ETS Addin",
+  "version": "1.0.0",
+  "author": "knx-ai",
+  "homepage": "https://github.com/knx-ai/knx-ets-mcp",
+  "skills": []
+}
