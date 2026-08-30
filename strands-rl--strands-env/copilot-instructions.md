@@ -1,24 +1,26 @@
 ## strands-env
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for coding agents working in this repository. `CLAUDE.md` is a symlink to this file.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for coding agents working in this repository. `CLAUDE.md` is a symlink to this file.
 
 ## Project Overview
 
-Strands-env is an RL environment abstraction for Strands agents — step, observe, reward. It provides a base `Environment` class that wraps a Strands `Agent` with token-level observation tracking (TITO), reward computation, and termination handling. Supports SGLang, Bedrock, OpenAI, and Kimi (Moonshot AI via LiteLLM) model backends.
+Strands-env is a framework for building **agent environments** with Strands Agents. An *agent environment* turns a Strands `Agent` into an RL environment whose unit of interaction is a full agent loop (prompt → tool calls → response), not a single model call — with token-level observation tracking (TITO), reward computation, and termination handling. Supports SGLang, Bedrock, Bedrock Mantle (GPT via the OpenAI Responses API), and OpenAI model backends.
 
 ## Commands
 
 ### Setup
 ```bash
-pip install -e ".[dev]"
+uv sync                    # installs the dev group by default
+uv sync --extra harbor     # plus an optional extra
 ```
 
 ### Linting
 ```bash
+pre-commit run --all-files   # what CI's lint job runs; the individual tools below are a subset
 ruff check src/ tests/ examples/
 ruff format --check src/ tests/ examples/
 mypy src/strands_env
@@ -30,12 +32,12 @@ mypy src/strands_env
 pytest tests/unit/ -v
 
 # Single test
-pytest tests/unit/core/test_environment.py::TestStep::test_successful_step -v
+pytest tests/unit/core/test_environment.py::TestRollout::test_successful_rollout -v
 
 # Unit tests with coverage
 pytest tests/unit/ -v --cov=src/strands_env --cov-report=html
 
-# Integration tests (requires running SGLang server; model ID auto-detected via /get_model_info)
+# Integration tests (requires running SGLang server; model ID auto-detected via /model_info)
 # Tests skip automatically if server is unreachable (/health check)
 pytest tests/integration/ -v --sglang-base-url=http://localhost:30000
 # Or via env var: SGLANG_BASE_URL=http://localhost:30000 pytest tests/integration/
@@ -58,97 +60,201 @@ The package lives in `src/strands_env/` with these modules:
 
 ### `core/`
 
-**types.py** — All data types. `Action` carries a user message + `TaskContext` (ground truth, conversation history, arbitrary metadata via `extra="allow"`). `Observation` holds messages, metrics, and optional `TokenObservation` for TITO training. `TerminationReason` maps agent exceptions to enum values via `from_error()` which walks exception cause chains. `StepResult` bundles observation + reward + termination reason.
+Holds the environment base, data types, model factories, and shared reward/tool primitives.
 
-**models.py** — `ModelFactory = Callable[[], Model]` type and four factory functions (`sglang_model_factory`, `bedrock_model_factory`, `openai_model_factory`, `kimi_model_factory`). Each returns a zero-arg lambda that creates a fresh Model instance per `step()` call for concurrent isolation. Bedrock, OpenAI, and Kimi remap `max_new_tokens` → `max_tokens` with a shallow dict copy to avoid mutating defaults. The Kimi factory targets Moonshot AI via LiteLLM (requires `MOONSHOT_API_KEY`) and uses a custom subclass that preserves `reasoning_content` for multi-turn conversations.
+**types.py** — All data types. A `Task` is the flat, per-sample input to a rollout: `id`, `message`, `ground_truth`, `conversation_history`, `trace_attributes` (per-sample OTel span attributes, forwarded to the Agent; `extra="allow"` for ad-hoc transit); each typed environment ships a `Task` subclass with declared fields (`HarborTask`, `Tau2BenchTask`, ...). `TaskT` (`TypeVar` bound to `Task`, default `Task`) parameterizes `Environment`/`RewardFunction`/`Evaluator`. `RolloutResult` is the flattened output of one `rollout()`: `messages`, an optional `rollout` (token-level trajectory) for TITO training, `metrics`, an optional `reward_result` (`RewardResult`), `termination_reason`, and a `final_response` property. `RewardFunction` is the abstract base (async `compute(task, result) -> RewardResult`); `RewardResult` carries `reward` + `info`. `TerminationReason` maps agent exceptions to enum values via `from_error()` which walks exception cause chains: typed exceptions match first, then `from_keywords()` matches provider-specific failures (`TIMEOUT`, `CONNECTION_ERROR`, `AUTH_ERROR`, `THROTTLED`) by substring against the exception class name plus the AWS error code — boto surfaces most Bedrock failures as one uninformative `ClientError`, so the code carries the identity. Each reason's substrings live on its `keywords` property, and declaration order is match priority.
 
-**environment.py** — Base `Environment` class. `EnvironmentConfig` TypedDict defines the serializable config shape (`system_prompt`, `max_tool_iters`, `max_tool_calls`, `max_parallel_tool_calls`, `verbose`). `__init__` takes `model_factory`, `reward_fn`, and `**config: Unpack[EnvironmentConfig]`. Subclass configs inherit from `EnvironmentConfig` to add env-specific keys. `step(action)` creates a fresh model via factory, attaches a `TokenManager`, builds an `Agent` with tools/hooks (always includes `ToolLimiter`), runs `invoke_async`, then collects metrics and optional reward. Subclasses override `get_tools()` and `get_hooks()` to customize. Messages are sliced so only new messages from the current step appear in the observation.
+**models.py** — `ModelFactory = Callable[[], Model]` type and four factory functions (`sglang_model_factory`, `bedrock_model_factory`, `bedrock_mantle_model_factory`, `openai_model_factory`). Each returns a zero-arg lambda that creates a fresh Model instance per `rollout()` call for concurrent isolation. Bedrock and OpenAI remap `max_new_tokens` → `max_tokens` with a shallow dict copy to avoid mutating defaults; Bedrock Mantle remaps it to `max_output_tokens`. `bedrock_mantle_model_factory` builds an `OpenAIResponsesModel` for GPT models served via the Bedrock Mantle OpenAI Responses API: it passes `bedrock_mantle_config={"region": ...}` so the SDK derives the regional base URL (`openai.gpt-5.*` → `/openai/v1`, else `/v1`) and mints a fresh SigV4 token per request via `aws_bedrock_token_generator`, forwards a `reasoning` config, and leaves server-side conversation state at the SDK default (`stateful=False`, like the other stateless backends) so the full transcript is sent each turn and `agent.messages` stays intact for `Environment` observation capture (with `stateful=True` the SDK clears `agent.messages` for server-managed conversations and discards the trajectory). Requires `strands-agents[openai]>=1.46.0` (a main dependency, so no extra to install). Also home to the `ModelConfig` dataclass and `build_model_factory(config)` (a `match/case` dispatch over `sglang | bedrock | bedrock-mantle`), used by the eval CLI. (`openai_model_factory` exists but is not wired into `build_model_factory`.)
 
-### `cli/`
+**environment.py** — Base `Environment` class. `EnvironmentConfig` TypedDict defines the serializable config shape (`system_prompt`, `max_tool_iters`, `max_tool_calls`, `max_parallel_tool_calls`, `max_messages`, `trace_attributes`, `agent_name`, `verbose`). `Environment(Generic[TaskT])`; `__init__` takes `model_factory`, `reward_fn`, and `**config: Unpack[EnvironmentConfig]` — run-level knobs only, the sample arrives via `rollout(task)`. `rollout(task)` is a template method: `reset(task)` (episode init from the typed sample) → `_rollout(task)` (the agent loop; overridable) → `_compute_reward` → `cleanup()` in a `finally` (must tolerate partial init). Subclasses override `reset`/`cleanup`/`get_tools`/`get_hooks`. `task_cls` is a `ClassVar` auto-derived in `__init_subclass__` from the generic parametrization (`class HarborEnv(Environment[HarborTask])` → `task_cls = HarborTask`) — the runtime face of `TaskT`, used by Ray actors to revive typed tasks from the wire. Also exports `AsyncEnvFactory`, the ZERO-ARG async env-factory type (capability config lives in the closure, symmetric with `ModelFactory`).
 
-**__init__.py** — CLI entry point with `strands-env` command group. Registers subcommand groups.
+**llm_judge_reward.py** — `LLMJudgeReward` abstract base for LLM-as-judge rewards, generic over `JudgmentFormat` (a `TypeVar` bound to `BaseModel`) and `TaskT` (judgment first — a defaulted TypeVar cannot precede a non-defaulted one). Subclasses parameterize via `LLMJudgeReward[MyJudgment, MyTask]` to get typed `get_reward()` signatures. Set class attribute `judgment_format` to a Pydantic model for structured output or leave `None` for raw text. Subclasses implement `get_judge_prompt()` and `get_reward()`. Includes error handling with `default_reward` fallback. (Used by `mcp_atlas`'s per-claim coverage reward.)
 
-**eval.py** — Evaluation CLI commands: `strands-env eval list` shows registered/unavailable benchmarks, `strands-env eval run` executes benchmark evaluation. Env hooks are specified as dotted paths (`--env examples.eval.simple_math.calculator_env`). Environment config is passed as `--env-config` (inline JSON or path to JSON file) via custom `JsonType` click parameter. Supports distributed evaluation via `--n-actors-per-node` which creates an `EnvironmentActorPool` backed by Ray. `create_distributed_env_factory()` bridges CLI's `ModelConfig` to the eval hook contract for use inside Ray actors.
+**mcp_tool.py** — `MCPToolAdapter`, an `AgentTool` subclass that adapts an MCP tool definition to the Strands agent interface. Handles tool-spec building; subclasses implement `call_tool()` for the transport-specific call and result parsing. Shared base for the `mcp_atlas` (`MCPAtlasTool`, HTTP) and `agent_world_model` (`AgentWorldModelTool`, `ClientSession`) tools.
 
-**models.py** — `SamplingParams` and `ModelConfig` dataclasses. `ModelConfig` includes `max_connections` for SGLang client pooling. `build_model_factory(config)` creates SGLang, Bedrock, or Kimi model factories with `match/case` dispatch.
+**distributed.py** — Generic Ray actor pool for distributing `Environment.rollout()` across processes (formerly `utils/ray.py`). `EnvironmentActor` takes `(env_hook_path, env_hook_config)` — loads a callable via dotted path and calls it with the config dict to produce an `AsyncEnvFactory`. Per rollout it builds the env first, then revives the typed sample with `env.task_cls.model_validate_json(task_json)` (generics are erased at runtime; base-`Task` deserialization would drop typed-task properties). `EnvironmentActorPool` distributes actors across Ray nodes with `NodeAffinitySchedulingStrategy`. The actor interface is fully generic; domain-specific adapters (CLI eval, SLiME training) provide the appropriate hook path and config.
 
 ### `eval/`
 
-**evaluator.py** — `EvalSample` bundles step result with an `aborted` flag for checkpoint resume. `Evaluator` class orchestrates concurrent rollouts with JSONL checkpointing and pass@k metrics. Takes an `env_factory` (`AsyncEnvFactory`) for local evaluation or an `env_actor_pool` (`EnvironmentActorPool`) for distributed evaluation via Ray. Uses tqdm with `logging_redirect_tqdm` for clean progress output. Subclasses implement `load_dataset()` for different benchmarks and optionally override `validate_sample()` to mark failed samples as aborted (excluded from metrics, retried on resume).
+**cli.py** — Evaluation CLI (entry point `python -m strands_env.eval`, wired in `__main__.py`). A single `click` command: `--list` shows registered/unavailable benchmarks; `--benchmark <name>` (or `--evaluator <path>`) runs an evaluation. Env hooks are dotted paths (`--env examples.eval.simple_math.calculator_env`); env config is passed as `--env-config` (inline JSON or path to a JSON file) via a custom `JsonType`. Model backend selected with `--backend` (`sglang` | `bedrock` | `bedrock-mantle`) plus sampling flags (`--temperature`, `--max-tokens`, `--top-p`, `--top-k`, `--tool-parser`, and `--reasoning-effort` for Bedrock Mantle); `build_model_factory` turns these into a `ModelFactory`. Distributed eval via `--n-actors-per-node` creates an `EnvironmentActorPool` (from `core/distributed.py`) backed by Ray.
+
+**__main__.py** — Module entry so `python -m strands_env.eval` invokes the CLI; prepends the cwd to `sys.path` so user-provided hook modules resolve.
+
+**evaluator.py** — `EvalSample[TaskT]` bundles the task, its `RolloutResult`, and an `aborted` flag for checkpoint resume. `Evaluator(Generic[TaskT])` carries a benchmark identity card as ClassVars (`benchmark_name` — injected from the registry key when unset, `hf_dataset_path`, `hf_dataset_config`, `git_url`, `git_ref`; `""` = not applicable) and orchestrates concurrent rollouts with pass@k metrics, delegating result output to a `reporter` (`EvalReporter`, defaults to `LocalReporter(output_path)` — see `reporter.py`). Takes an `env_factory` (`AsyncEnvFactory`) for local evaluation or an `env_actor_pool` (`EnvironmentActorPool`) for distributed evaluation via Ray. Uses tqdm with `logging_redirect_tqdm` for clean progress output. Subclasses implement `load_dataset()` for different benchmarks and optionally override `validate_sample()` to mark failed samples as aborted (excluded from metrics, retried on resume).
+
+**reporter.py** — `EvalReporter` (ABC) is the pluggable result-sink lifecycle the `Evaluator` drives: `log_sample` (per-sample, fast, no remote calls) → `flush` (periodic checkpoint) → `log_metrics`/`log_metadata` (run-level) → `publish` (async; remote/heavy I/O — S3, MLflow, etc.). `LocalReporter` is the default: streams samples to `results.jsonl` via an open file handle (`log_sample` appends, `flush` syncs), writes `metrics.json`/`metadata.json` as flat JSON, and reconciles the file to exactly the kept samples via `rewrite()` at resume time so a retried (previously aborted) sample never leaves a stale duplicate row on disk. `CompositeReporter` fans out to multiple reporters with error isolation (one reporter raising doesn't stop the others).
 
 **registry.py** — Benchmark registry with `@register_eval(name)` decorator. Auto-discovers benchmark modules from `benchmarks/` subdirectory on first access. `get_benchmark(name)`, `list_benchmarks()`, and `list_unavailable_benchmarks()` for discovery. Modules with missing dependencies are tracked as unavailable.
 
-**metrics.py** — `compute_pass_at_k` implements the unbiased pass@k estimator. `MetricFn` type alias for pluggable metrics.
+**metrics.py** — `compute_pass_at_k` implements the unbiased pass@k estimator. `MetricFunction` type alias for pluggable metrics.
 
-**benchmarks/** — Benchmark evaluator modules. Each module uses `@register_eval` decorator. Auto-discovered on first registry access; missing dependencies cause module to be skipped with warning.
+**benchmarks/** — Benchmark evaluator modules. Each module uses `@register_eval` decorator. Auto-discovered on first registry access; missing dependencies cause module to be skipped with warning. Registered families: math (`aime-2024/2025/2026`, `hmmt-feb-2025/nov-2025/feb-2026`), QA/research (`gpqa-*`, `hle-verified-gold[-text]`, `simpleqa-verified`, `frames`, `sealqa-seal-0/hard`, `browsecomp`), instruction following (`ifeval`), MCP (`mcp-atlas`), and agentic-coding/terminal (`swebench-verified`, `terminal-bench-1/2/2.1`).
 
 ### `utils/`
 
 **loader.py** — Generic module/function/hook loading utilities (no CLI dependency). `load_module(name)` imports by dotted path. `load_class(name)` and `load_function(name)` import a class or callable by dotted path. `load_env_factory_hook(hook_path)` and `load_evaluator_hook(hook_path)` are convenience wrappers that append the expected attribute name (`.create_env_factory`, `.EvaluatorClass`) and delegate to the generic loaders. Used by both CLI and Ray actors.
 
-**ray.py** — Generic Ray actor pool for distributing `Environment.step()` across processes. `EnvironmentActor` takes `(env_hook_path, env_hook_config)` — loads a callable via dotted path and calls it with the config dict to produce an `AsyncEnvFactory`. `EnvironmentActorPool` distributes actors across Ray nodes with `NodeAffinitySchedulingStrategy`. The actor interface is fully generic; domain-specific adapters (CLI eval, SLiME training) provide the appropriate hook path and config.
+**aws.py** — AWS boto3 session and client utilities. `resolve_region_name(...)` resolves the region from explicit arg → `AWS_REGION` → `AWS_DEFAULT_REGION` → profile → `us-east-1`. `get_session(region, profile_name, role_arn)` creates a **fresh** session each call (sessions are not thread-safe). `get_client(service_name, ...)` (cached via `@cache_by`) returns a cached, thread-safe boto3 client (each client gets its own dedicated session). If `role_arn` provided, uses `RefreshableCredentials` for programmatic role assumption with auto-refresh.
 
-**sglang.py** — Sync SGLang server utilities. `check_server_health(base_url)` for early validation. `get_model_id(base_url)` to query the served model. Client/tokenizer caching has moved to `strands_sglang.utils`.
+**decorators.py** — `@requires_env(*env_vars)` validates environment variables at call time (async functions return an error string on missing vars; sync functions raise `OSError`). `@with_timeout(seconds)` enforces a timeout via `ThreadPoolExecutor`. `@cache_by(*key_args)` caches a function's result keyed by selected named arguments.
 
-**aws.py** — AWS boto3 session and client utilities. `get_session(region, profile_name, role_arn)` creates a **fresh** session each call (sessions are not thread-safe). `get_client(service_name, ...)` with `@cache` returns a cached, thread-safe boto3 client (each client gets its own dedicated session). If `role_arn` provided, uses `RefreshableCredentials` for programmatic role assumption with auto-refresh.
-
-### `tools/`
-
-**code_interpreter.py** — `CodeInterpreterToolkit` wraps AWS Bedrock AgentCore Code Interpreter. Provides `execute_code` (Python) and `execute_command` (shell) tools. Sessions are lazily created and can be cleaned up via `cleanup()`.
-
-**web_search.py** — `WebSearchToolkit` with Serper and Google Custom Search providers, shared aiohttp session, and `concurrency: Semaphore | int` for API rate limiting. Domain blocking via `apply_blocked_domains` static method. Credentials validated lazily via `@requires_env` decorator at call time.
-
-**web_scraper.py** — `WebScraperToolkit` fetches pages via the Jina Reader API (`https://r.jina.ai/{url}`) and optionally extracts structured `rationale`/`evidence`/`summary` via an LLM summarizer (OpenSeeker-style prompt + Pydantic structured output through `Agent.structured_output_async`). The `scrape(url, goal)` `@tool` is gated by `@requires_env("JINA_API_KEY")` and supports single URL or `list[str]` (parallel via `asyncio.gather`, joined by `\n---\n`). `fetch_html` retries up to 8× with 0.5s delay on exceptions or empty bodies. `concurrency: Semaphore | int` for rate limiting; `token_budget` (default 20000, bump to ~95000 for OpenSeeker parity) truncates via tiktoken cl100k encoding. Ported from `OpenSeeker <https://github.com/rui-ye/OpenSeeker>`_, with structured output replacing manual JSON parsing and fixed `Rationale`/field spelling.
-
-### `rewards/`
-
-**llm_judge_reward.py** — `LLMJudgeReward` abstract base for LLM-as-judge rewards, generic over `JudgmentFormat` (a `TypeVar` bound to `BaseModel`). Subclasses parameterize via `LLMJudgeReward[MyJudgment]` to get typed `get_reward()` signatures. Set class attribute `judgment_format` to a Pydantic model for structured output or leave `None` for raw text. Subclasses implement `get_judge_prompt()` and `get_reward()`. Includes error handling with `default_reward` fallback.
-
-**math_verify_reward.py** — `MathVerifyReward` gives reward 1.0 if the model's `\boxed{}` answer is mathematically equivalent to ground truth. Uses `math_verify` library for SymPy-based symbolic equivalence (fractions, sets, simplification). Parses only the tail of the response to avoid long chain-of-thought.
+**slime_logger.py** — `RolloutLogger` for `slime` training, with a pluggable backend. Aggregates per-rollout env metrics into slime's `rollout_extra_metrics` and publishes a sample of decoded rollouts to the configured `backend` (`"wandb"` → metrics to W&B + samples to a Weave dataset; `"mlflow"` → metrics and JSON sample artifacts to MLflow). Backend libraries are imported lazily. Pass its bound `log_rollouts` as slime's `--custom-rollout-log-function-path` callback.
 
 ### `environments/`
 
-**calculator/** — `CalculatorEnv` provides a simple calculator tool for math problems. Useful for testing and as a reference implementation.
+Each environment is a package: `env.py` holds the `Environment` subclass, plus domain-named helpers as needed (`server.py`, `quotas.py`, etc.). **Layout convention for tools and rewards**: one of each → a singular module (`tool.py`, `reward.py`); several → a plural subpackage (`tools/`, `rewards/`) whose members keep domain names (`tools/search.py`, not `tools/tool1.py`). Pay the rename on the 1→N transition rather than pre-creating an empty package — this matches the repo's flatten-by-default preference.
 
-**code_sandbox/** — `CodeSandboxEnv` uses AWS Bedrock AgentCore Code Interpreter for sandboxed code execution. `CodeSandboxConfig` extends `EnvironmentConfig` with `mode: Literal["code", "terminal", "code_and_terminal"]`.
+**math/** — `MathEnv` is chat-only: `get_tools()` returns an empty list, so the model reasons in text and boxes its answer. Defaults its reward to `MathVerifyReward` (`reward.py`), which gives reward 1.0 if the model's `\boxed{}` answer is mathematically equivalent to ground truth, using the `math_verify` library for SymPy-based symbolic equivalence (fractions, sets, simplification). Parses only the tail of the response to avoid long chain-of-thought. `MathVerifyReward` is reused by the aime/hmmt/simple_math eval hooks and the retool training script, none of which want a tool in the loop. Useful for testing, as a reference implementation, and as the no-tool baseline.
 
-**mcp/** — `MCPEnvironment` backed by a single MCP server. Manages `MCPClient` lifecycle via `reset()` (starts client) and `cleanup()` (stops client). Supports optional pre-constructed client or subclass-managed initialization.
+**agentcore_code/** — `AgentCoreCodeEnv` uses AWS Bedrock AgentCore Code Interpreter for sandboxed code execution. `AgentCoreCodeConfig` extends `EnvironmentConfig` with `mode: Literal["code", "terminal", "code_and_terminal"]`. The tool (`tool.py`) is `CodeInterpreterToolkit`, which provides `execute_code` (Python) and `execute_command` (shell) tools; sessions are lazily created and cleaned up via `cleanup()`. `quotas.py` holds AgentCore service-quota helpers.
 
-**web_search/** — `WebSearchEnv` with pluggable search providers. `WebSearchConfig` extends `EnvironmentConfig` with search/scrape settings (`search_provider`, `search_timeout`, `blocked_domains`, `scrape_enabled`, `scrape_timeout`, `scrape_token_budget`). Non-serializable params (`search_concurrency`, `scrape_concurrency`, `summarizer_model_factory`) are named args.
+**web_search/** — `WebSearchEnv` with pluggable search providers. Its two tools live in `tools/` (`tools/search.py` → `WebSearchToolkit`, `tools/scrape.py` → `WebScraperToolkit`) per the plural-subpackage convention. `WebSearchToolkit` exposes Serper and Google Custom Search providers as separate `@tool` methods over a shared aiohttp session, with `apply_blocked_domains` for domain filtering and lazy credential validation via `@requires_env`. `WebScraperToolkit` fetches pages via the Jina Reader API (`https://r.jina.ai/{url}`, gated by `@requires_env("JINA_API_KEY")`) and optionally extracts a structured `WebPageSummary` (rationale/evidence/summary) via an LLM summarizer using `Agent.structured_output_async`; `token_budget` truncates via tiktoken cl100k encoding; ported from OpenSeeker. `WebSearchConfig` extends `EnvironmentConfig` with search/scrape settings (`search_provider`, `search_timeout`, `blocked_domains`, `scrape_enabled`, `scrape_timeout`, `scrape_token_budget`). Non-serializable params (`search_concurrency`, `scrape_concurrency`, `summarizer_model_factory`) are named args.
 
-**terminal_bench/** — `TerminalBenchEnv` using Harbor's `DockerEnvironment` for task execution. `TerminalBenchConfig` extends `EnvironmentConfig` with `task_id`, `task_dir`, `trial_dir`, `harbor_env_config`, `timeout`. Provides `execute_command` tool for shell commands in Docker. `TerminalBenchReward` runs verification tests in the container for binary (0/1) reward.
+**harbor/** — `HarborEnv` runs any Harbor-format task (a directory with `task.toml`, `environment/Dockerfile`, `tests/test.sh`) in a local Docker container or self-hosted e2b sandbox. `HarborConfig` extends `EnvironmentConfig` with `backend` (`"docker"` | `"e2b"`), `exec_timeout`, and `prebaked_e2b_config`; the per-sample payload (`task_id`, `task_dir`, `trial_dir`, `task_env_config`, `verifier_timeout`, `system_prompt`) rides `HarborTask` (`from_task_dir()` is the canonical bundle→task mapping; `task_paths`/`trial_paths` are plain properties). Provides a single `execute_command` tool. `HarborReward` (`reward.py`) delegates to harbor's own `Verifier` (reward.json first, then reward.txt; raw passthrough, no binarization) — note docker declares `capabilities.mounted=True` and never downloads, so the env passes an explicit verifier bind mount at construction (harbor >= 0.13 dropped the compose-template auto-mount). `e2b.py` holds `PrebakedE2BEnvironment`, an `E2BEnvironment` subclass that boots a pre-baked template (`template_key` looked up in `templates.json`/`E2B_TEMPLATES_PATH`, or an explicit `template_id` pin) instead of Harbor's auto-build route. Both the `terminal-bench-*` and `swebench-verified` eval benchmarks run on this single env — they differ only in dataset and system prompt (the SWE-bench evaluator stamps its prompt onto every `HarborTask.system_prompt`).
 
-### Other `utils/`
+**tau2_bench/** — `Tau2BenchEnv`, a thin wrapper over the external `tau2` package for tau2-bench tasks (domains `airline`/`retail`/`telecom`). Multi-turn user interaction is driven by `Tau2BenchUserSimulator` (`simulator.py`), an after-invocation hook owning the user-side agent (persona prompt, user tools, dialogue memory) that produces the next user message via `event.resume`. `max_steps` mirrors tau2's step semantics (total message count across both agents), enforced as one budget: a `LoopLimiter` on the user-sim agent is re-armed each turn with what the assistant conversation has not consumed. Matching tau2 dual mode, only the user can end the dialogue (`###STOP###`/`###TRANSFER###`/`###OUT-OF-SCOPE###`). Takes separate `agent_model_factory` and `user_model_factory` (plus optional `judge_model_factory`) as named args; `Tau2BenchConfig` adds optional `max_steps`; the per-sample payload rides `Tau2BenchTask` (`domain`, plus the serialized tau2 task as `config` — parsed and materialized lazily via `tau2_task`/`tau2_env` cached properties, so the episode and the reward share the live world); user-sim guidelines are derived inside the simulator (tools variant iff the user has tools), mirroring tau2's own UserSimulator. `reset()` builds the per-episode tau2 env and exposes its (agent and user) tools as `Tau2BenchTool` (`tool.py`, an `AgentTool` subclass) instances. `reward.py` (`Tau2BenchReward`) computes the final reward as the product of sub-rewards selected by the task's `reward_basis`; its `Tau2BenchNLAssertionReward` sub-reward (an `LLMJudgeReward[NLJudgment]`) is byte-aligned with tau2's NL-assertion judge prompt/schema. `Tau2BenchReward` first gates on a clean stop — only `user_stop` is scored, a premature end such as `max_steps` scores 0 (matching tau2's `evaluate_simulation`). All tau2 imports are funnelled through a single private `_tau2.py` shim (PEP 562 lazy `__getattr__` for classes + helper functions for the dynamic per-domain modules): `tau2` freezes `TAU2_DATA_DIR` at import time, so the package stays import-pure and nothing should `import tau2` directly elsewhere (a unit test enforces this). Depends on the external `tau2` package.
 
-**decorators.py** — `@requires_env(*env_vars)` decorator that validates environment variables at call time. Works with both sync and async functions: async functions return an error string on missing vars; sync functions raise `OSError`. `@with_timeout(seconds)` enforces a timeout on function execution using `ThreadPoolExecutor`.
+**mcp_atlas/** — `MCPAtlasEnv`, the MCP-Atlas benchmark env backed by a Docker container (default `http://localhost:1984`) exposing an MCP-tool REST API. A shared `httpx.AsyncClient` is passed at construction (caller owns its lifecycle); `reset()` fetches tools from the container and applies per-task filtering (caching `/list-tools` across episodes); `cleanup()` clears the tool list. `MCPAtlasConfig` adds `tool_timeout`; the per-sample payload (`enabled_tools` strict filter, `gtfa_claims`) rides `MCPAtlasTask`. The tool (`tool.py` → `MCPAtlasTool`) is an `MCPToolAdapter` that POSTs to `/call-tool`. `reward.py` is a per-claim LLM-as-judge (`LLMJudgeReward` subclass) following MCP-Atlas coverage scoring (fulfilled/partial/not → 1.0/0.5/0.0, averaged; pass threshold 0.75).
+
+**agent_world_model/** — `AgentWorldModelEnv` backed by a per-task FastAPI + SQLite server subprocess (`server.py` generates and launches a self-contained script). The agent talks to the server over MCP via `AgentWorldModelTool` (`tool.py`, an `MCPToolAdapter` over a `ClientSession` that polls the server process to fail fast on exit). `AgentWorldModelConfig` adds `envs_path` and optional `tool_call_timeout`; the per-sample payload (`scenario`, `task_idx`, `verify_code`, `initial_db_path`) rides `AgentWorldModelTask`. `reset(task)` clones the task's DB snapshot into fresh `mkdtemp` scratch (pass@k isolation by construction); `work_db_path` is a property over that scratch. `reward.py` (`AgentWorldModelReward`, built in, holds the env ref) runs the task's `verify_task_completion` via `exec()` against the working DB for a binary reward. Depends on the external `awm` package.
 
 ### Key Design Decisions
 
-- **Factory pattern over raw Model**: Always use our `ModelFactory` functions (`sglang_model_factory`, `bedrock_model_factory`, etc.) instead of constructing Strands `Model` classes directly. The factories handle per-backend concerns that raw constructors don't: `max_new_tokens` → `max_tokens` remapping, shared boto3 client reuse across instances, SGLang client/tokenizer wiring, and consistent sampling param handling. `ModelFactory` returns lambdas (not Model instances) so each `step()` gets a fresh model with clean token tracking state.
-- **TITO token tracking**: `TokenManager` on SGLang models captures exact token IDs and logprobs during generation. `TokenObservation.from_token_manager()` extracts prompt/rollout split. Non-SGLang models get an empty `TokenManager` (returns `None` from `from_token_manager`).
-- **`list()` copies**: Tools, hooks, and messages are copied via `list()` before passing to Agent to prevent cross-step mutation.
-- **ToolLimiter**: Always prepended to hooks list. Supports `max_tool_iters` and `max_tool_calls`. Raises `MaxToolIterationsReachedError` or `MaxToolCallsReachedError` which `TerminationReason.from_error()` maps to `MAX_TOOL_ITERATIONS_REACHED` or `MAX_TOOL_CALLS_REACHED`.
-- **TypedDict configs**: Environment configs use `TypedDict` with `Unpack` for `**kwargs` typing. Base `EnvironmentConfig` defines common serializable fields; subclass configs (e.g., `CodeSandboxConfig`, `WebSearchConfig`, `TerminalBenchConfig`) inherit and add env-specific keys. Non-serializable dependencies (`model_factory`, `reward_fn`, semaphores, etc.) stay as named params. The `self.config` dict stores the full config for subclass access and serialization. **Design rule**: if a parameter is JSON-serializable (strings, ints, bools, lists), it goes in the TypedDict; if it's not (callables, semaphores, clients), it's a named `__init__` param. This enables passing env config as JSON via CLI (`--env-config`) or across process boundaries (Ray actors).
+- **Factory pattern over raw Model**: Always use our `ModelFactory` functions (`sglang_model_factory`, `bedrock_model_factory`, etc.) instead of constructing Strands `Model` classes directly. The factories handle per-backend concerns that raw constructors don't: `max_new_tokens` → `max_tokens` remapping, shared boto3 client reuse across instances, SGLang client/tokenizer wiring, and consistent sampling param handling. `ModelFactory` returns lambdas (not Model instances) so each `rollout()` gets a fresh model with clean token tracking state.
+- **TITO token tracking**: SGLang models accumulate a `Rollout` (token IDs, loss mask, logprobs, segment info) during generation, read via `agent.model.rollout` in `rollout()`. Non-SGLang models yield an empty `Rollout` (falsy via `__len__`), so `RolloutResult.rollout` carries token data only on the SGLang backend.
+- **`list()` copies**: Tools, hooks, and messages are copied via `list()` before passing to Agent to prevent cross-rollout mutation.
+- **LoopLimiter**: Always prepended to hooks list. Supports `max_tool_iters`, `max_tool_calls`, `max_parallel_tool_calls`, and `max_messages`. Raises `MaxToolIterationsReachedError`, `MaxToolCallsReachedError`, or `MaxMessagesReachedError` which `TerminationReason.from_error()` maps to `MAX_TOOL_ITERATIONS_REACHED`, `MAX_TOOL_CALLS_REACHED`, or `MAX_MESSAGES_REACHED`.
+- **TypedDict configs**: Environment configs use `TypedDict` with `Unpack` for `**kwargs` typing. Base `EnvironmentConfig` defines common serializable fields; subclass configs (e.g., `AgentCoreCodeConfig`, `WebSearchConfig`, `HarborConfig`, `MCPAtlasConfig`, `AgentWorldModelConfig`) inherit and add env-specific keys. Non-serializable dependencies (`model_factory`, `reward_fn`, semaphores, etc.) stay as named params. The `self.config` dict stores the full config for subclass access and serialization. **Design rule**: run-level values go in the TypedDict; per-sample values are declared fields on the env's `Task` subclass (never both); episode scratch (temp dirs, working DBs, ports) is derived by the env in `reset()`. Non-serializable dependencies (callables, semaphores, clients) are named `__init__` params. This enables passing env config as JSON via CLI (`--env-config`) or across process boundaries (Ray actors).
 - **Dotted path hooks**: Environment and evaluator hooks are loaded by dotted module path (e.g., `examples.eval.simple_math.calculator_env`), not file paths. The `utils/loader.py` module provides generic loading utilities shared by CLI and Ray actors.
+- **MCP tool adapter**: MCP-backed environments share `core/mcp_tool.py`'s `MCPToolAdapter` (an `AgentTool` subclass) rather than the Strands `MCPClient`. The base handles tool-spec building; each env subclasses `call_tool()` for its transport (`mcp_atlas` → HTTP to a container; `agent_world_model` → an MCP `ClientSession` to a subprocess).
 
 ## Code Style
 
-- Ruff for linting and formatting (line-length 120, rules: B, D, E, F, G, I, LOG, N, UP, W)
-- Pydocstyle with Google convention (enforced in `src/` only)
+- Ruff for linting and formatting (line-length 120; see `[tool.ruff.lint]` for the rule set)
+- Pydocstyle with Google convention, formatting and content only (`D2`/`D4`, enforced in `src/`)
 - Mypy with near-strict settings (see `pyproject.toml` for full config)
 - Use lazy `%` formatting for logging (not f-strings)
-- Use single backticks `` `xx` `` in docstrings (not Sphinx-style double backticks)
-- `__init__` docstrings should be `"""Initialize a `ClassName` instance."""`
+- Single backticks around identifiers and endpoints — `` `input_ids` ``, not Sphinx-style double backticks. Applies to docstrings, comments, and Markdown.
 - Conventional commits (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)
-- Python 3.10+ required
+- Python 3.12+ required (CI tests 3.12 and 3.13)
 - asyncio_mode = "auto" for pytest-asyncio
 - Async-first: all Environment methods that interact with Agent are async
 
+### Files
+
+No licence or copyright headers — `LICENSE` at the repo root is the whole story.
+
+No module or package docstrings. A file starts at its first import or definition;
+`D100` and `D104` are unselected for that reason. The path already says what
+`harbor/task.py` holds.
+
+### Docstring Style
+
+Document what the signature can't say. A docstring that restates the identifier is
+worse than none, so `D1` (must exist) is not selected — no docstring is a valid
+choice, and `def token_ids(self) -> list[int]` needs nothing. `D2`/`D4` still apply
+to the ones that are there.
+
+That licence is for the plain cases only. Everything below is a place where the
+signature genuinely doesn't carry the fact, so it stays documented:
+
+- **Class**: one-line summary; facts the signature can't show (lifecycle, resource ownership) go in `Notes:`.
+- **Config TypedDicts**: first line "Serializable configuration for `XxxEnv`."; each field gets an inline comment with its default (`# seconds per MCP tool call (default 60)`) — the default otherwise hides in a distant `.get()`.
+- **`Args:` is all-or-nothing.** `D417` fails a partial section, so the question is never "does this parameter need a line" but "do this function's parameters need explaining at all". Default no — the name and the annotation carry it. Write the section when a parameter's meaning isn't in its type: resolution order, ownership, what `None` falls back to, units, what happens when two arguments disagree. One line per parameter that only restates the annotation is the signal the whole section should go.
+- **`Notes:` is a footnote, the body is the explanation.** The test: delete the sentence. If the function no longer makes sense, it was body text (why this method exists, which of two paths to take, what an empty return means). If all that's lost is a warning, it belongs under `Notes:` (thread-safety, a teardown contract, an upstream quirk, a deliberate divergence from a reference implementation). One `Notes:` holding three unrelated facts means none of them got classified — split them. Never put a function-level constraint in `Args:`; a parameter line explains that parameter.
+- **`Returns:`/`Yields:` earn their place against the annotation, not the reader's curiosity.** `-> tuple[list[ToolResultContent], Literal["success", "error"]]` needs no "a tuple of (content, status)". A `-> str` that is really a JSON envelope does: `EnvironmentActor.rollout` documents "JSON string, reconstruct via `RolloutResult.model_validate_json()`" because the annotation cannot say that. Rule of thumb: the poorer the type, the more the section is worth.
+- **`Raises:` only for exceptions a caller is expected to catch**, not every one that can escape. **`Example:`** only where usage isn't guessable from the signature — a base class whose contract spans several overridden methods is the case that qualifies. Nothing else: no `Attributes:`, no `Warning:`, no `Todo:`.
+- **`__init__`**: NO docstring when parameters are self-evident — its presence is the signal that something needed saying.
+- **Methods**: one imperative line saying what the signature can't; overrides state what this implementation does differently.
+- **Task classes**: the class line says what one sample IS ("One Harbor-format task bundle on disk, plus where this trial writes its outputs."). `Field(description=...)` per field, carrying semantics, not restating types. Tasks may own data-derived views of their fields (path wrappers, world materialization) but never scoring behavior — that lives on `RewardFunction`.
+- **Env classes**: domain-first summaries ("Web-search environment with ...", "Code sandbox environment using ..."), matching the family pattern.
+- **`@tool` methods**: their docstrings are agent-facing tool specs — exempt from human-prose edits.
+- **Mechanics**: single backticks, no Sphinx roles, no design-session jargon ("operator-authored" → plain reader terms); comments state constraints, not narration. When editing docstrings, fix the disease and keep the healthy tissue — don't rewrite working prose for taste.
+
+### Comments
+
+One sentence. Longer only when the reasoning genuinely doesn't compress.
+
+Comment the *why*, on the line it explains. Design rationale that needs paragraphs
+belongs in the commit message, attached to the change rather than to the code forever.
+
+### Private helpers
+
+Extract a helper because the logic has a *name*, not because it repeats. Repetition is
+usually better removed with a parameter or a loop; a helper earns its place by naming a
+concept. Eight to fifteen lines is the size at which naming something starts to pay.
+
+- **Under four lines: look for a reason to keep it.** The indirection usually costs more
+  than it saves. It survives when the body carries a rule a caller would otherwise repeat
+  — `_get_session` is three lines because "reopen if the session closed" belongs in one
+  place, not at five call sites.
+- **Called once: the name has to say something concrete.** Single-use helpers are normal,
+  so call count is not the test — nameability is. If the best name available is `_add` or
+  `_process`, there is no concept to extract.
+- **Private share is a smell, not a limit.** A high share is fine when each name is a
+  domain concept: `Tau2BenchReward` is 4/6 private because tau2 defines four sub-rewards
+  (`_db_reward`, `_action_reward`, ...) and the class exists to combine them. It is a
+  problem when the names are stages of one procedure that was sliced up.
+
+When a helper does survive, define it before its callers so reading top to bottom never
+requires jumping ahead.
+
+### Module-level private functions
+
+**Default is zero per file** — currently three in `src/`, and each has an argument for
+why it belongs to no class. Adding one means making that argument. A module-level
+`_helper` has no owner, which is why these accumulate: anyone can add one and nothing
+says what it pairs with.
+
+Where they usually belong instead:
+
+- Used by one class → make it a method on that class.
+- Used once inside one function → inline it, or nest it in that function.
+- A genuinely general pure function used from several places → it is probably public, or
+  it belongs in `utils/`.
+
+Module-level private *constants* (`_EXTRACTION_CONFIG = (...)`) are exempt — constants
+belong at module scope.
+
+## Tests
+
+Group into a class named for the unit under test (`TestRolloutResult`,
+`TestTerminationReason`), with the methods naming only the scenario — don't repeat the
+class's subject in both. Grouped method names read short, three or four words.
+
+Reach for a class when there are three or more scenarios; below that a module-level
+function carries the context on its own.
+
+Docstrings on tests are optional and most are better off without one — the name is the
+documentation. Write one when the *reason* the case exists isn't obvious from the name
+(a regression whose trigger needs naming, a fidelity claim against upstream behaviour).
+If a single assertion needs justification, a one-line comment above it beats a docstring.
+
+## Class Attribute Conventions
+
+Three forms, chosen by where the value's storage lives and whether the name binds a single value:
+
+- **Bare class-body annotation** (`tau2_env: Tau2Environment`) — instance attribute born later
+  (usually in `reset(task)`), PEP 526's "instance variable without default". Non-Optional for mypy;
+  accessing before birth raises AttributeError loudly. Never `ClassVar`.
+- **`NAME: ClassVar[T] = value` (UPPER_SNAKE)** — true constant: one value program-wide, readers may
+  inline it mentally; `ClassVar` forbids instance shadowing (a fidelity hazard for benchmark
+  material like prompts and stop patterns). `DEFAULT_*` uppercase = the single canonical fallback
+  value. On pydantic models/dataclasses `ClassVar` is mandatory (else it becomes a field).
+- **`name: T = value` (lowercase)** — subclass-overridable knob (`benchmark_name`, `domain`,
+  `default_system_prompt_path`): the value is polymorphic across subclasses, so it is not a
+  constant to the reader. Declare (with annotation) once where the name is introduced — usually the
+  base class; subclasses override with bare assignments, no re-annotation (the declaration is
+  inherited and mypy checks assignments against it). Add `ClassVar` when per-instance variation has
+  its own channel (e.g. `system_prompt` config vs `default_system_prompt_path`).
+
+Enum members are the exception to everything above: bare UPPER assignments, never annotated.
+
 ## Releases
 
-- Do NOT push tags (`git push --tags`) - the user will create GitHub Releases manually to trigger PyPI CI/CD
-- When preparing a release: update version in `pyproject.toml`, commit, push code only
-- User creates the release on GitHub web UI which triggers the publish workflow
+- Do NOT push tags (`git push --tags`) — the user creates the GitHub Release manually, which triggers `publish.yml`
+- There is no version to bump: `hatch-vcs` derives it from the git tag the release creates
+- Get the number right the first time. The `tags-are-immutable` ruleset blocks moving or deleting a tag, and PyPI refuses a second upload of the same filename
 
 ## Maintenance
 
@@ -156,4 +262,4 @@ When adding new modules, changing commands, or altering key design patterns, upd
 
 ---
 > Source: [strands-rl/strands-env](https://github.com/strands-rl/strands-env) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
