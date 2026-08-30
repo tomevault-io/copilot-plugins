@@ -1,0 +1,9 @@
+{
+  "name": "dmulder--kinderforge",
+  "displayName": "KinderForge",
+  "description": "A self-hosted adaptive learning engine that guides students through structured curriculum",
+  "version": "1.0.0",
+  "author": "dmulder",
+  "homepage": "https://github.com/dmulder/KinderForge",
+  "skills": []
+}
