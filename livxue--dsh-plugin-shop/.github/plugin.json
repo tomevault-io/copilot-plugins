@@ -1,0 +1,9 @@
+{
+  "name": "livxue--dsh-plugin-shop",
+  "displayName": "dsh-plugin-shop",
+  "description": "The plugin market for DeepSeek Harness: harvests dsh plugins from npm and publishes an auditable catalog.",
+  "version": "1.0.0",
+  "author": "LivXue",
+  "homepage": "https://github.com/LivXue/dsh-plugin-shop",
+  "skills": []
+}
