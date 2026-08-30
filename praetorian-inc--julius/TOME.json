@@ -2,9 +2,9 @@
   "name": "julius",
   "owner": "praetorian-inc",
   "repo": "julius",
-  "description": "Simple LLM service identification - translate IP:Port to Ollama, vLLM, LiteLLM, or 60+ other AI services in seconds",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/praetorian-inc/julius",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:53:08Z"
+  "distributed_at": "2026-08-30T04:47:04Z"
 }
