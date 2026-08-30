@@ -1,0 +1,9 @@
+{
+  "name": "tan-ex--apex-agent-blueprint",
+  "displayName": "apex-agent-blueprint",
+  "description": "APEX starter foundation featuring custom Copilot agents, an Azure Pricing MCP server, and an orchestrated multi-step workflow. Automatically synchronized with the main repository.",
+  "version": "1.0.0",
+  "author": "tan-ex",
+  "homepage": "https://github.com/tan-ex/apex-agent-blueprint",
+  "skills": []
+}
