@@ -4,7 +4,7 @@
   "repo": "remove-your-data",
   "description": "Agent-first skill: remove your data from brokers without paying. Paste this URL into a coding agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/k7cfo/remove-your-data",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T06:54:32Z"
+  "distributed_at": "2026-08-30T07:16:45Z"
 }
