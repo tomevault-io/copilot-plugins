@@ -1,0 +1,9 @@
+{
+  "name": "grafana--faro-web-sdk",
+  "displayName": "faro-web-sdk",
+  "description": "faro-web-sdk",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/faro-web-sdk",
+  "skills": []
+}
