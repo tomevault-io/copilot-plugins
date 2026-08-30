@@ -1,0 +1,9 @@
+{
+  "name": "jiabaobei--memory-bridge",
+  "displayName": "memory-bridge",
+  "description": "\u8bb0\u5fc6\u6865 MemoryBridge \u2014 \u8de8\u8bbe\u5907\u3001\u8de8\u5e73\u53f0\u7684 AI \u5171\u4eab\u8bb0\u5fc6\u5c42 | Cross-device and cross-platform shared memory for AI (CDSMP implementation)",
+  "version": "1.0.0",
+  "author": "jiabaobei",
+  "homepage": "https://github.com/jiabaobei/memory-bridge",
+  "skills": []
+}
