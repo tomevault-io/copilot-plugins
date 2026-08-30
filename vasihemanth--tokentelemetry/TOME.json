@@ -4,7 +4,7 @@
   "repo": "tokentelemetry",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,15 @@
       "path": ".claude/skills/bug-audit/SKILL.md",
       "github_url": "https://github.com/VasiHemanth/tokentelemetry/tree/main/.claude/skills/bug-audit/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "tokentelemetry",
+      "path": ".claude/skills/issue-brief/SKILL.md",
+      "github_url": "https://github.com/VasiHemanth/tokentelemetry/tree/main/.claude/skills/issue-brief/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/VasiHemanth/tokentelemetry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T18:37:16Z"
+  "distributed_at": "2026-08-30T04:30:20Z"
 }
