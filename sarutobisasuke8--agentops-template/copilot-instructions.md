@@ -1,30 +1,37 @@
-## vibe-coding-core
+## agentops-template
 
-> Core vibe coding agent contract for Cursor.
+> Canonical source: `AGENTS.md`
 
-
-# Vibe Coding Core Rule
+# GitHub Copilot Instructions
 
 Canonical source: `AGENTS.md`
 
-Follow `AGENTS.md`. This rule holds Cursor-specific guidance only; the canonical principles live in `AGENTS.md`.
+Follow `AGENTS.md`. This file holds Copilot-specific guidance only; the canonical principles live in `AGENTS.md`.
 
 ## Alignment Markers
 
-- **Think Before Coding** — inspect context, surface assumptions, ask when ambiguity changes implementation.
-- **Simplicity First** — prefer the smallest verifiable solution; avoid speculative abstractions and dependencies.
-- **Surgical Changes** — keep edits scoped, preserve existing style, avoid drive-by refactors.
-- **Goal-Driven Execution** — define success criteria and verify changed behavior.
-- **Vibe Coding Quality Bar** — protect the product feeling, responsive UI, core workflows, and polish.
+- **Think Before Coding** — surface assumptions in comments or PR notes when ambiguity matters.
+- **Simplicity First** — avoid speculative abstractions, configuration, and features.
+- **Surgical Changes** — touch only the code needed for the requested behavior.
+- **Goal-Driven Execution** — suggest tests or checks alongside behavior changes.
+- **Vibe Coding Quality Bar** — keep UI suggestions polished, accessible, responsive, and aligned with `docs/PROJECT_BRIEF.md`.
 
-## Cursor Behavior
+## Copilot Behavior
 
-- Inline edits should stay small (target under ~50 lines per accepted edit) unless the user asked for a larger rewrite.
-- Ground edits in the current file and nearby project conventions.
-- Preserve user-authored comments and docs.
-- For UI changes, account for loading, empty, error, hover/focus, and responsive states where relevant.
-- Mention unrelated issues separately instead of silently editing them.
-- For multi-file, architecture, debugging, or handoff-heavy work, append a session log in `Session Logs/` using `Templates/SESSION_LOG_TEMPLATE.md`.
+- Prefer existing code style, file organization, and naming.
+- Keep suggestions small and relevant to the current file or task.
+- Avoid broad rewrites unless explicitly requested.
+- Do not introduce new dependencies without a clear reason.
+- Preserve comments and user-authored text unless the task requires editing them.
+- Add comments only for non-obvious logic.
+
+## Tests and Verification
+
+- Add or update tests when changing behavior.
+- Keep tests focused on the changed behavior.
+- Prefer concrete acceptance checks over vague "works" language.
+- Do not remove tests unless they are replaced or explicitly obsolete.
+- For PRs that change major behavior or architecture, link or request a session log in `Session Logs/`.
 
 ---
 > Source: [SarutobiSasuke8/agentops-template](https://github.com/SarutobiSasuke8/agentops-template) — distributed by [TomeVault](https://tomevault.io).
