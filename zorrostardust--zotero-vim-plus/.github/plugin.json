@@ -1,0 +1,9 @@
+{
+  "name": "zorrostardust--zotero-vim-plus",
+  "displayName": "zotero-vim-plus",
+  "description": "Vim-like keybindings for the Zotero PDF reader. Navigate, scroll, anannotate and note with keyboard shortcuts.",
+  "version": "1.0.0",
+  "author": "ZorroStardust",
+  "homepage": "https://github.com/ZorroStardust/zotero-vim-plus",
+  "skills": []
+}
