@@ -1,0 +1,9 @@
+{
+  "name": "bunyaan-tech--payload-lfrs",
+  "displayName": "Payload-LFRs",
+  "description": "A comprehensive plugin for Payload CMS 3.x that adds Likes, Favourites, Ratings, and Reviews (LFRs) capabilities to your Payload CMS collections.",
+  "version": "1.0.0",
+  "author": "bunyaan-tech",
+  "homepage": "https://github.com/bunyaan-tech/Payload-LFRs",
+  "skills": []
+}
