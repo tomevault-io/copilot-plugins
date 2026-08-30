@@ -1,0 +1,9 @@
+{
+  "name": "ethersphere--swarm-quickstart-skills",
+  "displayName": "swarm-quickstart-skills",
+  "description": "Hands-on onboarding guides for developers building on Swarm \u2014 step-by-step skills for Claude Code covering node setup, uploads, website hosting, feeds, dApps, and more",
+  "version": "1.0.0",
+  "author": "ethersphere",
+  "homepage": "https://github.com/ethersphere/swarm-quickstart-skills",
+  "skills": []
+}
