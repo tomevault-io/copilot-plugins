@@ -7,11 +7,11 @@ SparseAttn for DiT video-gen with entropy-guided radius
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jurky123/EntropySparse](https://github.com/jurky123/EntropySparse).
+Original source: `CLAUDE.md` in [jurky123/EntropySparse](https://github.com/jurky123/EntropySparse).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
