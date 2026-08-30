@@ -1,51 +1,86 @@
 ## gosoline
 
-> - Bootstraps gosoline applications via `application.Run`.
+> - Shared OpenTelemetry core used by `pkg/tracing`, `pkg/metric`, and `pkg/log`.
 
-# Application Package Agent Guide
+# OTEL Package Agent Guide
 
 ## Scope
-- Bootstraps gosoline applications via `application.Run`.
-- Wires modules, runners, and metadata server exposure.
-- Bridges configuration (`cfg`) and lifecycle management (`kernel`).
+- Shared OpenTelemetry core used by `pkg/tracing`, `pkg/metric`, and `pkg/log`.
+- Builds the OTEL **resource** from the application identity (so all signals correlate).
+- Builds OTLP **exporters** (gRPC/HTTP) for traces, metrics, and logs, with TLS/mTLS support.
+- Driven entirely by the native gosoline `cfg` system under the `otel` root key.
 
 ## Key files
-- `app.go` - core application struct, `Default()` and `New()` factory functions.
-- `options.go` - functional options for adding modules, health checks, and shared components.
-- `runners.go` - `Run()` entrypoint and helpers for wiring background runners/modules.
-- `metadata_server.go` - HTTP server exposing build info and module metadata.
+- `settings.go` — `Settings`, `ResourceSettings`, `ExporterSettings` (incl. `Address()` host/port vs endpoint), `TLSSettings`, `RetrySettings`.
+- `resource.go` — `BuildResource` / `ProvideResource` (identity → resource attributes).
+- `exporter.go` — `BuildTraceExporter`, `BuildMetricExporter`, `BuildLogExporter` + TLS/mTLS config builder.
 
-## Common tasks
-- Add or adjust default modules: extend `appOptions` in `options.go` and ensure new dependencies are registered before `kernel.Run`.
-- Customize metadata output: update `metadata_server.go` to expose additional metadata from `appctx.Metadata`.
-- Provide new module factories: expose them via `WithModuleFactory` and document required config keys.
+## Configuration
+A single `otel` block is shared by all three signals. Per-signal toggles live in their own packages
+(`tracing.otel`, `metric.writer_settings.otel`, `log.handlers.<name>`).
 
-## Testing
-- Run `go test ./pkg/application` before pushing changes.
-- Use `examples/application` to manually validate startup/shutdown flows.
-
-## Required config keys
 ```yaml
-app:
-  env: dev                    # Environment name (required)
-  name: myapp                 # Application name (required)
-  tags:                       # Tags for resource naming
-    project: myproject        # Project identifier
-    family: myfamily          # Family grouping
-    group: mygroup            # Group within family
+otel:
+  resource:
+    service_name_pattern: "{app.name}"            # -> service.name
+    service_namespace_pattern: "{app.namespace}"  # -> service.namespace
+    delimiter: "-"
+    attributes:                                   # extra resource attributes (values may use placeholders)
+      deployment.environment: "{app.env}"
+      organization: "acme"
+  exporter:
+    protocol: grpc        # grpc | http
+    host: "localhost"     # override via env from pod metadata (status.hostIP)
+    port: 4317
+    endpoint: ""          # optional full override; wins over host:port
+    url_path: ""          # http only; shared fallback for all signals
+    traces_url_path: ""   # http only; per-signal override for traces (e.g. /otel/v1/traces)
+    metrics_url_path: ""  # http only; per-signal override for metrics (e.g. /otel/v1/metrics)
+    logs_url_path: ""     # http only; per-signal override for logs (e.g. /otel/v1/logs)
+    insecure: true        # set false to enable TLS/mTLS
+    compression: gzip
+    timeout: 10s
+    headers: {}           # static headers (auth, tenant, ...)
+    tls:                  # used when insecure=false
+      ca_file: ""
+      cert_file: ""       # client cert (mTLS)
+      key_file: ""        # client key (mTLS)
+      server_name: ""
+      insecure_skip_verify: false
+      min_version: "1.3"  # minimum TLS version (1.0, 1.1, 1.2, 1.3)
+    retry:
+      enabled: true
+      initial_interval: 5s
+      max_interval: 30s
+      max_elapsed_time: 300s
 ```
 
-## Related packages
-- `pkg/kernel` - module lifecycle, stages, middleware
-- `pkg/cfg` - configuration loading, AppId resolution
-- `pkg/log` - logger injection and channel management
-- `pkg/appctx` - cross-module state container
+### Host/port injection (Kubernetes)
+The host is split from the port so only the host needs to be injected from pod metadata:
 
-## Tips
-- Keep module registration deterministic; avoid side effects in package `init`.
-- Prefer `appctx` for cross-module shared state instead of singletons.
-- Update root `AGENTS.md` when introducing new application-wide options that agents must know about.
+```yaml
+env:
+  - name: NODE_IP
+    valueFrom: { fieldRef: { fieldPath: status.hostIP } }
+  - name: OTEL_EXPORTER_HOST   # -> otel.exporter.host
+    value: "$(NODE_IP)"
+```
+
+`Address()` composes the endpoint with `net.JoinHostPort` (correct IPv6 bracketing) unless
+`endpoint` is set explicitly.
+
+## Design notes
+- **Resource is identical across signals** — identity (service name/namespace, environment, extra
+  attributes) lives in resource attributes, never in metric or span names. This is what enables
+  trace ↔ metric ↔ log correlation by resource attributes.
+- `pkg/otel` intentionally does **not** import `appctx` to avoid an import cycle
+  (`log → otel → appctx → conc → exec → log`). Each signal provider builds the resource once at
+  startup; the attribute values are identical.
+
+## Common tasks
+- Add a new exporter knob: extend `ExporterSettings` and thread it through the three `Build*Exporter` functions.
+- Add a resource attribute: prefer config via `otel.resource.attributes`; only add a semconv attribute in `BuildResource` if it is universal.
 
 ---
 > Source: [justtrackio/gosoline](https://github.com/justtrackio/gosoline) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
