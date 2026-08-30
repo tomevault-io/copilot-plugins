@@ -1,0 +1,9 @@
+{
+  "name": "talmetis-labs--aizen",
+  "displayName": "aizen",
+  "description": "Aizen is an AI coding agent that lives on your PC or VPS. Control it from your phone while it autonomously fixes code, runs tests, and reports the results back to you.",
+  "version": "1.0.0",
+  "author": "talmetis-labs",
+  "homepage": "https://github.com/talmetis-labs/aizen",
+  "skills": []
+}
