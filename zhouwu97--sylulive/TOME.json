@@ -1,0 +1,44 @@
+{
+  "name": "SYLUlive",
+  "owner": "zhouwu97",
+  "repo": "SYLUlive",
+  "description": "\u652f\u6301\u53d1\u5e16\u5206\u4eab\u3001\u3001\u4e8c\u624b\u96c6\u5e02\u3001\u79c1\u4fe1\u804a\u5929\uff0c \u542b\u7ba1\u7406\u5458\u9080\u8bf7\u5236\u3001\u516c\u4f17\u6cd5\u5ead\u81ea\u6cbb\u4f53\u7cfb\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhouwu97/SYLUlive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T01:11:19Z"
+}
