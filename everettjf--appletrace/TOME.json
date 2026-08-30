@@ -4,7 +4,7 @@
   "repo": "AppleTrace",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/everettjf/AppleTrace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T18:18:29Z"
+  "distributed_at": "2026-08-30T07:01:50Z"
 }
