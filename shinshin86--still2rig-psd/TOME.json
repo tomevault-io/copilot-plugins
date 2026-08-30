@@ -1,0 +1,44 @@
+{
+  "name": "still2rig-psd",
+  "owner": "shinshin86",
+  "repo": "still2rig-psd",
+  "description": "Turn one static anime character image into a structured, QA-checked PSD with Codex, a user-approved Google Colab GPU session, and a built-in motion preview.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shinshin86/still2rig-psd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T02:38:42Z"
+}
