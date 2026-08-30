@@ -4,7 +4,7 @@
   "repo": "aizen",
   "description": "Aizen is an AI coding agent that lives on your PC or VPS. Control it from your phone while it autonomously fixes code, runs tests, and reports the results back to you.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/talmetis-labs/aizen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T23:33:24Z"
+  "distributed_at": "2026-08-30T23:34:41Z"
 }
