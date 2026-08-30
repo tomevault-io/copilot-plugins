@@ -1,0 +1,9 @@
+{
+  "name": "reviewtoolkits--cext-review-toolkit",
+  "displayName": "cext-review-toolkit",
+  "description": "A Claude Code plugin for reviewing CPython C extensions \u2014 finding API misuse, memory safety bugs, compatibility issues, and correctness problems.",
+  "version": "1.0.0",
+  "author": "ReviewToolkits",
+  "homepage": "https://github.com/ReviewToolkits/cext-review-toolkit",
+  "skills": []
+}
