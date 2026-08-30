@@ -1,0 +1,9 @@
+{
+  "name": "humpalumps--cadle",
+  "displayName": "Cadle",
+  "description": "A Destiny-grade FPS-RPG that runs in a browser tab: ten walkable regions, 65 quests, 25 creatures, and every sound synthesised in code. three.js, no install, no account.",
+  "version": "1.0.0",
+  "author": "Humpalumps",
+  "homepage": "https://github.com/Humpalumps/Cadle",
+  "skills": []
+}
