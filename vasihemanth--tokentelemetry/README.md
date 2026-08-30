@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [VasiHemanth/tokentelemetry](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [tokentelemetry](https://github.com/VasiHemanth/tokentelemetry/tree/main/.claude/skills/bug-audit/SKILL.md)
-- [tokentelemetry](https://github.com/VasiHemanth/tokentelemetry/tree/main/.claude/skills/issue-brief/SKILL.md)
-
 From [VasiHemanth/tokentelemetry](https://github.com/VasiHemanth/tokentelemetry) — a repo with 335+ stars on GitHub.
 
 ---
