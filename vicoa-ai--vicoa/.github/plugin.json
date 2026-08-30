@@ -1,0 +1,9 @@
+{
+  "name": "vicoa-ai--vicoa",
+  "displayName": "vicoa",
+  "description": "Vicoa is the ADE for running a team of coding agents from any device. Desktop, mobile, VPS, open-source, self-hostable.",
+  "version": "1.0.0",
+  "author": "vicoa-ai",
+  "homepage": "https://github.com/vicoa-ai/vicoa",
+  "skills": []
+}
