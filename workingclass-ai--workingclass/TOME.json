@@ -4,7 +4,7 @@
   "repo": "workingclass",
   "description": "\u7ad9\u5728\u52b3\u52a8\u8005\u4e00\u8fb9\u7684 AI \u5de5\u5177\u96c6 / AI tools on the side of workers. Multilingual agent skill (Claude Code \u00b7 Codex \u00b7 Cursor) covering workplace rhetoric, performance reviews,   PIPs, salary negotiation, layoffs, and 8-jurisdiction labor law. Frameworks, not legal advice.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/workingclass-ai/workingclass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:41:52Z"
+  "distributed_at": "2026-08-30T00:57:54Z"
 }
