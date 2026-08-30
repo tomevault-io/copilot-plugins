@@ -1,0 +1,44 @@
+{
+  "name": "preseed-lab",
+  "owner": "david-diazd",
+  "repo": "preseed-lab",
+  "description": "AI-powered toolkit to help founders prepare and improve their Pre-Seed fundraising using specialized agents that analyze pitch decks, financials, and strategy.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/david-diazd/preseed-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T00:58:33Z"
+}
