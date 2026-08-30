@@ -1,0 +1,9 @@
+{
+  "name": "sap--leanix-self-built-software-agent",
+  "displayName": "leanix-self-built-software-agent",
+  "description": "This is an automated software discovery system that uses AI agents to analyze GitHub repositories and identify self-built software running in production environments. Core Purpose The project aims to ",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/leanix-self-built-software-agent",
+  "skills": []
+}
