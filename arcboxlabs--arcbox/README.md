@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [arcboxlabs/arcbox](https://github.com/arcboxlab
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [arcboxlabs/arcbox](https://github.com/arcboxlabs/arcbox) — a repo with 252+ stars on GitHub.
+From [arcboxlabs/arcbox](https://github.com/arcboxlabs/arcbox) — a repo with 500+ stars on GitHub.
 
 ---
 
