@@ -4,7 +4,7 @@
   "repo": "duet",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/volkan/duet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:55:48Z"
+  "distributed_at": "2026-08-30T01:01:57Z"
 }
