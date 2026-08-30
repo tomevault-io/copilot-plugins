@@ -1,0 +1,9 @@
+{
+  "name": "mixaverros88--wiremate-wiremock-ui",
+  "displayName": "WireMate-Wiremock-Ui",
+  "description": "Web UI for WireMock - design stubs visually, group them into projects, persist to PostgreSQL, browse live stubs and logs, and publish in one click.",
+  "version": "1.0.0",
+  "author": "mixaverros88",
+  "homepage": "https://github.com/mixaverros88/WireMate-Wiremock-Ui",
+  "skills": []
+}
