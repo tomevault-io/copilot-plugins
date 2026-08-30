@@ -1,0 +1,9 @@
+{
+  "name": "xpozpublic--xpoz-ts-sdk",
+  "displayName": "xpoz-ts-sdk",
+  "description": "TypeScript SDK for Xpoz \u2014 typed access to Twitter/X, Instagram, Reddit & TikTok data for social listening, research, and AI agents. npm: @xpoz/xpoz",
+  "version": "1.0.0",
+  "author": "XPOZpublic",
+  "homepage": "https://github.com/XPOZpublic/xpoz-ts-sdk",
+  "skills": []
+}
