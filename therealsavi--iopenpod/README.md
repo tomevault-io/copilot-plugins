@@ -1,6 +1,6 @@
 # iOpenPod
 
-> Source: [TheRealSavi/iOpenPod](https://github.com/TheRealSavi/iOpenPod) — distributed by [TomeVault](https://tomevault.io)
+> Source: [TheRealSavi/iOpenPod](https://github.com/TheRealSavi/iOpenPod). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `AGENTS.md` in [TheRealSavi/iOpenPod](https://github.com/TheRea
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [TheRealSavi/iOpenPod](https://github.com/TheRealSavi/iOpenPod) — a repo with 209+ stars on GitHub.
+From [TheRealSavi/iOpenPod](https://github.com/TheRealSavi/iOpenPod) — a repo with 336+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
