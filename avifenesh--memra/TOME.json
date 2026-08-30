@@ -4,7 +4,7 @@
   "repo": "memra",
   "description": "Rust + CUDA inference engine for NVIDIA RTX PRO 6000 Blackwell and RTX 5090. Serves safetensors and GGUF over an OpenAI-compatible API, with per-device tuned defaults and speculative decode gated byte-identical to plain decode. Hosted instance: inference.tiyuvta.ai",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avifenesh/memra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T23:30:21Z"
+  "distributed_at": "2026-08-30T23:31:03Z"
 }
