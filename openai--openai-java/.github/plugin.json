@@ -1,0 +1,9 @@
+{
+  "name": "openai--openai-java",
+  "displayName": "openai-java",
+  "description": "openai-java",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-java",
+  "skills": []
+}
