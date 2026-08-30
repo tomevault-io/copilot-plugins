@@ -3,7 +3,7 @@
   "owner": "javierbrea",
   "repo": "eslint-plugin-boundaries",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "eslint-plugin-boundaries",
-      "path": ".github/skills/unit-test-coverage/SKILL.md",
-      "github_url": "https://github.com/javierbrea/eslint-plugin-boundaries/tree/main/.github/skills/unit-test-coverage/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/javierbrea/eslint-plugin-boundaries",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T04:01:48Z"
+  "distributed_at": "2026-08-30T04:40:54Z"
 }
