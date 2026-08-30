@@ -4,7 +4,7 @@
   "repo": "mrrc",
   "description": "Experimental port of pymarc to Rust using only coding agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dchud/mrrc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T18:32:17Z"
+  "distributed_at": "2026-08-30T18:35:16Z"
 }
