@@ -1,0 +1,9 @@
+{
+  "name": "colonelpanicx--stratusscan-cli-azure",
+  "displayName": "stratusscan-cli-azure",
+  "description": "Azure resource inventory and export tool for infrastructure audits and FedRAMP evidence collection",
+  "version": "1.0.0",
+  "author": "ColonelPanicX",
+  "homepage": "https://github.com/ColonelPanicX/stratusscan-cli-azure",
+  "skills": []
+}
