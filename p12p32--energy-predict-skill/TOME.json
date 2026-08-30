@@ -1,0 +1,44 @@
+{
+  "name": "energy-predict-skill",
+  "owner": "p12p32",
+  "repo": "energy-predict-skill",
+  "description": "\u7535\u529b\u51fa\u529b/\u8d1f\u8377/\u7535\u4ef7\u9884\u6d4b Skill\u3002 \u652f\u6301 CSV \u5bfc\u5165\u3001DataFrame \u76f4\u4f20\u3001Doris \u6570\u636e\u5e93\u4e09\u79cd\u6570\u636e\u6e90\u3002 \u542b\u5206\u4f4d\u6570\u9884\u6d4b\u3001\u8d8b\u52bf\u96c6\u6210\u3001\u8bef\u5dee\u4fee\u6b63\u3001\u81ea\u8fdb\u5316\u4f18\u5316\u5f15\u64ce\u3002 \u6a21\u578b\u81ea\u52a8\u9a8c\u8bc1\u3001\u81ea\u52a8\u6539\u8fdb\u3001\u81ea\u52a8\u90e8\u7f72\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/p12p32/energy-predict-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T01:13:41Z"
+}
