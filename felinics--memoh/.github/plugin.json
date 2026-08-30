@@ -1,0 +1,9 @@
+{
+  "name": "felinics--memoh",
+  "displayName": "Memoh",
+  "description": "\u2728 The open-source multi-agent platform. Every agent gets its own computer, desktop, network, and long-term memory.  You can bring your own key, or host your coding agent like Claude Code, Codex and so",
+  "version": "1.0.0",
+  "author": "felinics",
+  "homepage": "https://github.com/felinics/Memoh",
+  "skills": []
+}
