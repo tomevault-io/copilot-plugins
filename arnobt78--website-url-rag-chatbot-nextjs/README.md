@@ -7,11 +7,11 @@ Paste any public website URL, ingest its content into Upstash Vector & Jina, and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [arnobt78/Website-URL-RAG-Chatbot-NextJS](https://github.com/arnobt78/Website-URL-RAG-Chatbot-NextJS).
+Original source: `AGENTS.md` in [arnobt78/Website-URL-RAG-Chatbot-NextJS](https://github.com/arnobt78/Website-URL-RAG-Chatbot-NextJS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
