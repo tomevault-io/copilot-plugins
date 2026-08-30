@@ -55,10 +55,21 @@ uv run pytest --cov=lifx --cov-report=html
 # Verbose output
 uv run --frozen pytest -v
 
-# Run with emulator integration tests (requires lifx-emulator on PATH)
-# Tests marked with @pytest.mark.emulator will be skipped if emulator is not available
+# Run with emulator integration tests (lifx-emulator-core is a required dev dependency)
+# Use --disable-emulator to skip the normal embedded-emulator suite explicitly
 uv run pytest
 ```
+
+Pytest retries each test once, with no delay, only when it raises the exact
+`LifxTimeoutError`, `LifxConnectionError`, or `LifxNetworkError` type. Assertion
+failures and all other exceptions fail immediately. The suite-wide 60-second
+timeout covers two complete default 16-second request attempts; emulator tests
+receive a 120-second timeout. The targeted IPv6 emulator lookup retains two
+retries with a one-second delay on Windows because its socket and scheduler
+window can outlast one immediate retry. That targeted override also admits the
+assertion-shaped no-response result. It is applied during collection only on
+Windows; elsewhere the test keeps the global one immediate network retry and
+ordinary assertion failures still fail immediately.
 
 ### Code Quality
 
@@ -136,7 +147,7 @@ gh workflow run docs.yml
 2. **Network Layer** (`src/lifx/network/`)
 
    - `transport.py`: UDP transport using asyncio
-   - `discovery.py`: Device discovery via broadcast with `DiscoveredDevice` dataclass
+   - `discovery.py`: Device discovery via IPv4 broadcast or targeted IPv4/IPv6 datagrams with `DiscoveredDevice` dataclass
    - `connection.py`: Device connection with retry logic and lazy opening
    - `message.py`: Message building and parsing with `MessageBuilder`
    - `mdns/`: mDNS/DNS-SD discovery module (zero-dependency, stdlib only)
@@ -176,7 +187,7 @@ gh workflow run docs.yml
      fall back to `discover()`
    - `find_by_serial()`: Find specific device by serial number
    - `find_by_label()`: Async generator yielding devices matching label (exact or substring)
-   - `find_by_ip()`: Find device by IP address using targeted broadcast
+   - `find_by_ip()`: Find a device by IPv4 or IPv6 literal using a targeted UDP discovery request; link-local IPv6 requires a zone ID
    - `DeviceGroup`: Batch operations (set_power, set_color, etc.)
    - `LocationGrouping` / `GroupGrouping`: Organizational structures for location/group-based grouping
 
@@ -332,7 +343,8 @@ uv sync  # Installs lifx-emulator-core automatically
 
 **Running Integration Tests**:
 - Tests marked with `@pytest.mark.emulator` use the embedded emulator
-- If emulator is not available, these tests are automatically skipped
+- The emulator is a required development dependency; pytest collection fails
+  if it is unavailable
 - **Works on all supported Python versions (3.10+)**
 
 **External Emulator Management**:
@@ -356,9 +368,10 @@ This is useful when:
 
 The IPv6 end-to-end tests run against a second emulator bound to `::1` and skip when the
 host cannot bind IPv6 loopback. Set `LIFX_REQUIRE_IPV6=1` to turn that skip into a failure
-naming the cause. CI sets it on exactly one matrix cell, ubuntu with Python 3.10, so the
-IPv6 tests can never skip on every job at once and still report green. The variable guards
-that probe alone and has no effect on `emulator_available`.
+naming the cause. CI requires IPv6 on Ubuntu with Python 3.10 for the full IPv6 suite and
+also runs the `targeted_ipv6_windows` test on Windows with Python 3.10. The Windows path
+requires `LIFX_WINDOWS_IPV6_DISCOVERY=1`; that opt-in applies only to its dedicated fixture
+and does not enable the rest of the emulator suite on Windows.
 
 **Key Test Directories:**
 
@@ -454,4 +467,4 @@ Run `uv run python -m lifx.protocol.generator` to regenerate Python code.
 
 ---
 > Source: [Djelibeybi/lifx-async](https://github.com/Djelibeybi/lifx-async) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
