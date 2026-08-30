@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [dineug/erd-editor](https://github.com/dineug/er
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dineug/erd-editor](https://github.com/dineug/erd-editor) — a repo with 1702+ stars on GitHub.
+From [dineug/erd-editor](https://github.com/dineug/erd-editor) — a repo with 1705+ stars on GitHub.
 
 ---
 
