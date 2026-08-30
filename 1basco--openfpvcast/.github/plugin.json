@@ -1,0 +1,9 @@
+{
+  "name": "1basco--openfpvcast",
+  "displayName": "openfpvcast",
+  "description": "An open-source Android app that casts the video from DJI FPV goggles (N3) to your phone over USB, lets you record the feed (with optional phone-mic audio), change camera settings, and re-broadcast the",
+  "version": "1.0.0",
+  "author": "1Basco",
+  "homepage": "https://github.com/1Basco/openfpvcast",
+  "skills": []
+}
