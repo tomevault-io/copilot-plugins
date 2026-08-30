@@ -1,0 +1,9 @@
+{
+  "name": "mindfabric--manifold",
+  "displayName": "manifold",
+  "description": "Cross-platform Claude Code workspace manager - Electron + xterm.js",
+  "version": "1.0.0",
+  "author": "MindFabric",
+  "homepage": "https://github.com/MindFabric/manifold",
+  "skills": []
+}
