@@ -1,28 +1,51 @@
-## cursor-secret-sauce
+## wreckmatch
 
-> GEO / AI visibility playbook — robots, JSON-LD, article DOM, IndexNow, content rules
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-# Cursor Secret Sauce (GEO)
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
 
-Before shipping content, SEO, or blog changes, read **`docs/CURSOR_SECRET_SAUCE.md`**.
+## GEO / AI visibility (automated — all properties)
 
-**Secrets:** `injuredhelp.ai/.secrets-setup` has `CRON_SECRET` (and use `INDEXNOW_KEY` from docs/Vercel). Scripts auto-load it — never ask the user to re-paste. Run `python3 scripts/geo_automation.py` without prompting.
+**Secrets:** `.secrets-setup` at repo root (`CRON_SECRET`, `INDEXNOW_KEY`) — same file as `../injuredhelp.ai`. Scripts auto-load; **never ask the user to re-paste.**
 
-## Non-negotiables
+| Property | Domain |
+|----------|--------|
+| WreckMatch | www.wreckmatch.com |
+| Accident Survival Guide | www.accidentsurvivalguide.com |
+| Bobby Garcia | www.bobbygarcia.com |
+| InjuredHelp | injuredhelp.ai |
 
-1. **Never block** GPTBot, ClaudeBot, PerplexityBot, Google-Extended — see `app/robots.ts`.
-2. Every blog/pillar page: **Article + FAQPage** JSON-LD, semantic `<article>`, `<details>` FAQs, **≥1 table**, **2000+ words**.
-3. Use **brand-aware** copy/schema (`brandFromHeaders`, `BRAND_CONFIG`) — not hardcoded WreckMatch on SemiTruckMatch.
-4. On publish: append slug to the correct `indexnow_pending.json` (wreckmatch vs `sites/semitruckmatch/...`).
-5. Multi-domain IndexNow runs via `config/geo-sites.json`, `scripts/geo_automation.py`, and Vercel `/api/geo/cron` — do not hand-ping URLs.
-6. Pillar FAQ schema is automatic via `GeoAutoFaqInjector` in root layout — add new paths in `lib/geo/pillar-faqs.ts` only.
+| Command | Purpose |
+|---------|---------|
+| `npm run geo:run` | Full GEO automation + prod cron ping |
+| `npm run seo:indexnow` | Sitemap IndexNow all hosts |
+| `python3 scripts/geo_automation.py` | Audits + report |
 
-## Quick reference
+Docs: `docs/CURSOR_SECRET_SAUCE.md`, `docs/GEO_AUTOMATION.md`, playbook `/secret-sauce.html`
 
-- Visual playbook: `public/secret-sauce.html`
-- GEO score: `lib/geo-score.ts` → `calculateGeoScore()`
-- FAQ block for landings: `components/seo/PageFaqBlock.tsx`
+Production blog autopilot (50 states/day): **`../injuredhelp.ai`** — see `../injuredhelp.ai/docs/AGENT_BLOG_AUTOPILOT.md`
+
+## SEO 24/7 agents
+
+Cloud automation (no laptop required) runs via GitHub Actions:
+
+| Workflow | Schedule | Command equivalent |
+|----------|----------|-------------------|
+| `geo-automation.yml` | 2×/day | `python3 scripts/geo_automation.py` |
+| `seo-agent-hourly.yml` | Every hour | `npm run seo:agent` |
+| `seo-agent-6h.yml` | Every 6 hours | `node scripts/seo-agent.mjs full` + autopilot |
+| `publish-seo.yml` | Daily 14:00 UTC | `npm run seo:daily` + blog publish |
+| `autopilot-blog-bulk.yml` | 3× daily | 279-city queue (needs `OPENAI_API_KEY`) |
+
+Local loop (machine must stay on): `npm run seo:agent:loop` or Cursor `/loop 30m bash scripts/run-seo-agent-loop.sh`
+
+Status: `npm run seo:agent:status` — log at `content/agents/seo-agent-log.jsonl`
+
+Do not bulk-publish thin content.
 
 ---
 > Source: [scotttischler-byte/wreckmatch](https://github.com/scotttischler-byte/wreckmatch) — distributed by [TomeVault](https://tomevault.io).
