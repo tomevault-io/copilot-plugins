@@ -1,0 +1,9 @@
+{
+  "name": "sqcows--forgejo-mcp",
+  "displayName": "forgejo-mcp",
+  "description": "A Model Context Protocol (MCP) server for Forgejo and Gitea instances. Provides 103 tools across repos, issues, PRs, orgs, users, and admin APIs. Works with Claude, Cursor, and any MCP-compatible clie",
+  "version": "1.0.0",
+  "author": "Sqcows",
+  "homepage": "https://github.com/Sqcows/forgejo-mcp",
+  "skills": []
+}
