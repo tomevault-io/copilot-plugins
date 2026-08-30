@@ -7,11 +7,11 @@ Android home launcher for in-car displays, built with Jetpack Compose and Materi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [seijikohara/femto-car-launcher](https://github.com/seijikohara/femto-car-launcher).
+Original source: `CLAUDE.md` in [seijikohara/femto-car-launcher](https://github.com/seijikohara/femto-car-launcher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
