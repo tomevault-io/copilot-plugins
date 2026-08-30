@@ -1,0 +1,9 @@
+{
+  "name": "tehubersheezy--servicenow-cli",
+  "displayName": "servicenow-cli",
+  "description": "Fast ServiceNow CLI with stable JSON output. Single Rust binary \u2014 agent-friendly, scriptable, cross-platform.",
+  "version": "1.0.0",
+  "author": "tehubersheezy",
+  "homepage": "https://github.com/tehubersheezy/servicenow-cli",
+  "skills": []
+}
