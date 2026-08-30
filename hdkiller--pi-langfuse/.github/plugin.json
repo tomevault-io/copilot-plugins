@@ -1,0 +1,9 @@
+{
+  "name": "hdkiller--pi-langfuse",
+  "displayName": "pi-langfuse",
+  "description": "Langfuse observability extension for Pi coding agent with richer prompt, turn, tool, and generation tracing",
+  "version": "1.0.0",
+  "author": "hdkiller",
+  "homepage": "https://github.com/hdkiller/pi-langfuse",
+  "skills": []
+}
