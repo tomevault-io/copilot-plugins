@@ -4,7 +4,7 @@
   "repo": "VibePet",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caichuanwang/VibePet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T06:56:54Z"
+  "distributed_at": "2026-08-30T07:19:25Z"
 }
