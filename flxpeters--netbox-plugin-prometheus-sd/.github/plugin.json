@@ -1,0 +1,9 @@
+{
+  "name": "flxpeters--netbox-plugin-prometheus-sd",
+  "displayName": "netbox-plugin-prometheus-sd",
+  "description": "netbox-plugin-prometheus-sd",
+  "version": "1.0.0",
+  "author": "FlxPeters",
+  "homepage": "https://github.com/FlxPeters/netbox-plugin-prometheus-sd",
+  "skills": []
+}
