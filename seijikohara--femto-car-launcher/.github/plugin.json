@@ -1,0 +1,9 @@
+{
+  "name": "seijikohara--femto-car-launcher",
+  "displayName": "femto-car-launcher",
+  "description": "Android home launcher for in-car displays, built with Jetpack Compose and Material 3 for Android 13 and later.",
+  "version": "1.0.0",
+  "author": "seijikohara",
+  "homepage": "https://github.com/seijikohara/femto-car-launcher",
+  "skills": []
+}
