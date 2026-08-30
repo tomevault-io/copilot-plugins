@@ -1,0 +1,9 @@
+{
+  "name": "daveremy--function-health-mcp",
+  "displayName": "function-health-mcp",
+  "description": "MCP server and CLI for Function Health lab results \u2014 query biomarkers, track changes, get recommendations",
+  "version": "1.0.0",
+  "author": "daveremy",
+  "homepage": "https://github.com/daveremy/function-health-mcp",
+  "skills": []
+}
