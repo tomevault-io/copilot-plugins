@@ -1,0 +1,9 @@
+{
+  "name": "svgop--ix-rust",
+  "displayName": "ix-rust",
+  "description": "iEx (`intelligent expressions`) is a Rust-first search framework designed to evolve beyond linear regex workflows.",
+  "version": "1.0.0",
+  "author": "svgop",
+  "homepage": "https://github.com/svgop/ix-rust",
+  "skills": []
+}
