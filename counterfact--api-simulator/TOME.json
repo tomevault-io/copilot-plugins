@@ -1,0 +1,111 @@
+{
+  "name": "api-simulator",
+  "owner": "counterfact",
+  "repo": "api-simulator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-simulator",
+      "path": "skills/route/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/skills/route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": "skills/context/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/skills/context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": "skills/scenario/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/skills/scenario/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": "skills/counterfact/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/skills/counterfact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": "skills/counterfact-repl/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/skills/counterfact-repl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": "skills/build-simulation/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/skills/build-simulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": ".github/skills/counterfact-maintenance/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/.github/skills/counterfact-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": ".github/skills/counterfact-cli-runtime/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/.github/skills/counterfact-cli-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": ".github/skills/counterfact-repo-basics/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/.github/skills/counterfact-repo-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": ".github/skills/counterfact-generator-internals/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/.github/skills/counterfact-generator-internals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "api-simulator",
+      "path": ".github/skills/counterfact-runtime-architecture/SKILL.md",
+      "github_url": "https://github.com/counterfact/api-simulator/tree/main/.github/skills/counterfact-runtime-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/counterfact/api-simulator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T06:35:26Z"
+}
