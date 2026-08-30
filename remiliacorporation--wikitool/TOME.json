@@ -4,7 +4,7 @@
   "repo": "wikitool",
   "description": "A CLI toolkit for MediaWiki article editing, research and maintenance, focused on AI-assisted workflows",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/remiliacorporation/wikitool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T18:30:21Z"
+  "distributed_at": "2026-08-30T18:31:04Z"
 }
