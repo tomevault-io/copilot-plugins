@@ -2,7 +2,7 @@
   "name": "nvcf",
   "owner": "NVIDIA",
   "repo": "nvcf",
-  "description": "NVIDIA Cloud Functions",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/nvcf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:25:25Z"
+  "distributed_at": "2026-08-30T05:10:37Z"
 }
