@@ -4,7 +4,7 @@
   "repo": "go-ddd",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sklinkert/go-ddd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T00:59:31Z"
+  "distributed_at": "2026-08-30T04:51:12Z"
 }
