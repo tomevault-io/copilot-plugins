@@ -1,0 +1,44 @@
+{
+  "name": "zotero-vim-plus",
+  "owner": "ZorroStardust",
+  "repo": "zotero-vim-plus",
+  "description": "Vim-like keybindings for the Zotero PDF reader. Navigate, scroll, anannotate and note with keyboard shortcuts.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZorroStardust/zotero-vim-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T12:36:37Z"
+}
