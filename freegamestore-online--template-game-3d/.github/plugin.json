@@ -1,0 +1,9 @@
+{
+  "name": "freegamestore-online--template-game-3d",
+  "displayName": "template-game-3d",
+  "description": "Template: 3D game with Three.js (racing, FPS, flight sim)",
+  "version": "1.0.0",
+  "author": "freegamestore-online",
+  "homepage": "https://github.com/freegamestore-online/template-game-3d",
+  "skills": []
+}
