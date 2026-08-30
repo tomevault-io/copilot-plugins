@@ -4,7 +4,7 @@
   "repo": "preseed-lab",
   "description": "AI-powered toolkit to help founders prepare and improve their Pre-Seed fundraising using specialized agents that analyze pitch decks, financials, and strategy.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/david-diazd/preseed-lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:58:33Z"
+  "distributed_at": "2026-08-30T01:04:20Z"
 }
