@@ -1,0 +1,44 @@
+{
+  "name": "servicenow-cli",
+  "owner": "tehubersheezy",
+  "repo": "servicenow-cli",
+  "description": "Fast ServiceNow CLI with stable JSON output. Single Rust binary \u2014 agent-friendly, scriptable, cross-platform.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tehubersheezy/servicenow-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T08:36:12Z"
+}
