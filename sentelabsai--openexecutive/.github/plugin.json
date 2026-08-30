@@ -1,0 +1,9 @@
+{
+  "name": "sentelabsai--openexecutive",
+  "displayName": "OpenExecutive",
+  "description": "AI-powered virtual executive team \u2014 a single coherent executive persona backed by 8 specialist Claude agents (FastAPI + Next.js).",
+  "version": "1.0.0",
+  "author": "SenteLabsAI",
+  "homepage": "https://github.com/SenteLabsAI/OpenExecutive",
+  "skills": []
+}
