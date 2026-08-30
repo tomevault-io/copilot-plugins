@@ -1,0 +1,9 @@
+{
+  "name": "jurky123--entropysparse",
+  "displayName": "EntropySparse",
+  "description": "SparseAttn for DiT video-gen with entropy-guided radius",
+  "version": "1.0.0",
+  "author": "jurky123",
+  "homepage": "https://github.com/jurky123/EntropySparse",
+  "skills": []
+}
