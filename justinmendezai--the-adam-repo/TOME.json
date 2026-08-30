@@ -4,7 +4,7 @@
   "repo": "The-Adam-Repo",
   "description": "Bolt this onto your coding agent and build software",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Justinmendezai/The-Adam-Repo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T20:30:22Z"
+  "distributed_at": "2026-08-30T20:31:05Z"
 }
