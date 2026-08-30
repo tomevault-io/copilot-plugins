@@ -4,7 +4,7 @@
   "repo": "jacob-kieser-portfolio",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JacbK/jacob-kieser-portfolio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T22:33:06Z"
+  "distributed_at": "2026-08-30T22:34:57Z"
 }
