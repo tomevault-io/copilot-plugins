@@ -1,0 +1,9 @@
+{
+  "name": "sjarmak--codeprobe",
+  "displayName": "codeprobe",
+  "description": "Turn a repository's merged pull requests into coding-agent evaluations, then measure the whole agent setup (model, tools, retrieval, cost, harness) against them. Python CLI, on PyPI.",
+  "version": "1.0.0",
+  "author": "sjarmak",
+  "homepage": "https://github.com/sjarmak/codeprobe",
+  "skills": []
+}
