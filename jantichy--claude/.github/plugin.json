@@ -5,18 +5,5 @@
   "version": "1.0.0",
   "author": "jantichy",
   "homepage": "https://github.com/jantichy/claude",
-  "skills": [
-    {
-      "name": "claude",
-      "description": ""
-    },
-    {
-      "name": "claude",
-      "description": ""
-    },
-    {
-      "name": "claude",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
