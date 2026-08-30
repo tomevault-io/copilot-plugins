@@ -1,0 +1,9 @@
+{
+  "name": "barkz--glean-code-cli",
+  "displayName": "glean-code-cli",
+  "description": "Glean Code CLI implementation. A local, terminal-first client for the Glean Client REST API. Inspired by Claude Code. Built in Python with zero runtime dependencies.",
+  "version": "1.0.0",
+  "author": "barkz",
+  "homepage": "https://github.com/barkz/glean-code-cli",
+  "skills": []
+}
