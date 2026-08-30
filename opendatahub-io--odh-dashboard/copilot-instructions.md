@@ -1,158 +1,458 @@
 ## odh-dashboard
 
-> This document provides guidance for AI agents working on the Open Data Hub (ODH) Dashboard monorepo.
+> This document provides guidance for AI agents and developers working on mod-arch-starter projects.
 
-# AGENTS.md - ODH Dashboard
+# AGENTS.md - Modular Architecture Starter
 
-This document provides guidance for AI agents working on the Open Data Hub (ODH) Dashboard monorepo.
+This document provides guidance for AI agents and developers working on mod-arch-starter projects.
+This is a **starter template** for building modular architecture applications with a React frontend
+and Go backend-for-frontend (BFF).
 
-## Repository Overview
+## Mandatory Development Flow
 
-ODH Dashboard is a **monorepo** containing the main dashboard application and multiple feature packages. It provides the web UI for Red Hat OpenShift AI (RHOAI) and Open Data Hub.
+**CRITICAL: Never skip or reorder these stages. A PR that implements UI before the API contract will
+be rejected.**
 
-## Repository Structure
+### 1. Contract First
+
+Describe every capability in `bff/openapi/src/` (see [`data-registry.yaml`](bff/openapi/src/data-registry.yaml)
+for this module's own contract). All request/response objects must be documented before coding.
+
+### 2. BFF Stub Second
+
+Add handlers and mock-returning services in `bff/internal/api` and `bff/internal/mocks` that satisfy
+the new contract. Wire them in `bff/cmd/main.go` and expose feature flags/env vars as needed.
+
+### 3. Frontend Third
+
+Build UI routes inside `frontend/src/app` only after the stub endpoints respond with realistic
+shapes. Consume generated types instead of duplicating schemas.
+
+### 4. Production BFF Last
+
+Replace mocks with Kubernetes-aware logic (repositories, clients, RBAC) before shipping. Verify the
+BFF against a real cluster or the manifests in `manifests/`.
+
+---
+
+## Project Structure
 
 ```text
-odh-dashboard/
-├── frontend/                    # Main dashboard frontend application
-│   └── src/
-│       └── __mocks__/          # Shared mock data (@odh-dashboard/internal/__mocks__)
-├── backend/                     # Main dashboard backend (Node.js/Express)
-│   └── src/
-├── dashboard-operator/          # Dashboard Module Controller (Go, controller-runtime)
-│   ├── api/v1alpha1/           # CRD types (Dashboard kind)
-│   ├── cmd/manager/            # Controller entry point
-│   ├── internal/controller/    # Reconciler, actions, support utilities
-│   └── config/                 # Generated CRD, RBAC, manager manifests
-├── distributions/               # Independently-deployable dashboard variants
-│   ├── base/                    # Shared app shell library (not deployed on its own)
-│   ├── core-bff/                # Full Go BFF + React frontend (has BFF)
-│   └── rhaii/                   # RHAII-specific distribution (frontend-only)
-├── packages/                    # Feature packages
-│   ├── cypress/                # Cypress test framework and shared tests
-│   ├── gen-ai/                 # Gen AI / LLM features (has BFF)
-│   ├── maas/                   # Mod Arch starter (has BFF)
-│   ├── model-registry/         # Model Registry UI (has BFF)
-│   ├── model-serving/          # Model Serving UI
-│   └── ...                     # Other packages
-├── .github/                    # GitHub workflows and templates
-├── .tekton/                    # Tekton CI/CD pipelines
-└── docs/                       # Documentation
+mod-arch-starter/
+├── bff/                         # Go Backend-for-Frontend
+│   ├── cmd/
+│   │   └── main.go              # Application entrypoint and wiring
+│   ├── openapi/
+│   │   └── src/
+│   │       ├── data-registry.yaml      # BFF's own OpenAPI spec (contract-first)
+│   │       └── data-registry-api.yaml  # Vendored upstream Data Registry API contract
+│   ├── internal/
+│   │   ├── api/                 # HTTP handlers
+│   │   ├── config/              # Configuration management
+│   │   ├── constants/           # Shared constants
+│   │   ├── helpers/             # Utility functions (k8s helpers)
+│   │   ├── integrations/        # External service integrations
+│   │   ├── mocks/               # Mock data and stub implementations
+│   │   ├── models/              # DTOs and data models
+│   │   └── repositories/        # Data access layer
+│   ├── static/                  # Static assets served by BFF
+│   ├── Makefile                 # Build and run commands
+│   ├── go.mod                   # Go module definition
+│   └── README.md                # BFF documentation
+├── frontend/                    # React Frontend
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── App.tsx          # Root application component
+│   │   │   ├── AppRoutes.tsx    # Route definitions
+│   │   │   ├── api/             # API client wrappers
+│   │   │   ├── context/         # React context providers
+│   │   │   ├── hooks/           # Custom React hooks
+│   │   │   ├── pages/           # Page components
+│   │   │   ├── standalone/      # Standalone mode components
+│   │   │   └── utilities/       # Frontend utilities
+│   │   ├── __mocks__/           # Jest mocks
+│   │   ├── __tests__/           # Test files
+│   │   └── images/              # Image assets
+│   ├── config/
+│   │   ├── webpack.common.js    # Shared webpack config
+│   │   ├── webpack.dev.js       # Development webpack config
+│   │   ├── webpack.prod.js      # Production webpack config
+│   │   └── moduleFederation.js  # Module Federation config
+│   ├── docs/                    # Frontend documentation
+│   ├── package.json             # NPM dependencies and scripts
+│   └── README.md                # Frontend documentation
+├── manifests/                   # Kubernetes manifests
+│   ├── base/                    # Base Kustomize resources
+│   └── overlays/                # Environment-specific overlays
+├── docs/                        # Project documentation
+│   ├── install.md               # Installation guide
+│   ├── local-deployment-guide.md
+│   ├── local-deployment-guide-ui.md
+│   └── kubeflow-development-guide.md
+├── scripts/                     # Utility scripts
+├── Dockerfile                   # Container image build
+├── Makefile                     # Root-level make commands
+└── README.md                    # Project overview
 ```
+
+---
 
 ## Development Requirements
 
+### Frontend
+
 - **Node.js**: >= 22.0.0
-- **npm**: >= 10.0.0
-- **Go**: >= 1.26 (for packages with BFF), >= 1.25 (for dashboard-operator)
+- **npm**: >= 10.8.2
 
-## Key Technologies
+### BFF
 
-| Technology    | Purpose                                    |
-| ------------- | ------------------------------------------ |
-| React 18      | Frontend framework                         |
-| TypeScript    | Type safety                                |
-| PatternFly v6 | Primary UI component library (RHOAI/ODH)   |
-| Material UI   | Secondary UI library (Kubeflow mode)       |
-| Webpack       | Build tooling with Module Federation       |
-| Cypress       | E2E and component testing                  |
-| Jest          | Unit testing                               |
-| Turbo         | Monorepo task runner                       |
+- **Go**: >= 1.24.3
 
-## Common Commands
+---
+
+## Quick Start Commands
+
+### Development Environment
 
 ```bash
-# Install dependencies
-npm install
+# Install frontend dependencies
+make dev-install-dependencies
 
-# Start development server (main dashboard)
-npm run dev
+# Start both BFF and frontend in development mode (mocked)
+make dev-start
 
-# Build all packages
-npm run build
-
-# Run tests
-npm run test
-
-# Lint all packages
-npm run lint
-npm run lint:fix
-
-# Type checking
-npm run type-check
+# Or start them separately:
+make dev-bff         # BFF on port 4000 with mocks
+make dev-frontend    # Frontend dev server
 ```
 
-## Documentation
+### Deployment Modes
 
-**[BOOKMARKS.md](BOOKMARKS.md)** indexes key documentation for frontend areas, the backend, and packages. Review relevant docs for the area you are working on before starting a task.
+```bash
+# Standalone mode (default for local development)
+make dev-start
 
-**[Multi-Agent Workflows](docs/multi-agent-workflows.md)** covers running parallel agent sessions locally (git worktrees, Agent Teams, terminal layout) and remotely (Ambient platform).
+# Kubeflow mode (connects to real cluster)
+make dev-start-kubeflow
 
-## Package-Specific Guidelines
+# Federated mode (micro-frontend with PatternFly theme)
+make dev-start-federated
+```
 
-Some packages have their own AGENTS.md with package-specific guidance. Check the package directory for its own AGENTS.md file.
+### Building
 
-## Specialized Agent Rules
+```bash
+# Build everything
+make build
 
-Before performing certain tasks, read and follow the corresponding specialized rules.
+# Build frontend only
+make frontend-build
 
-Rules live in `.claude/rules/`. Read the relevant rule file before starting the task.
+# Build BFF only
+make bff-build
 
-| Rule                        | File                          | Trigger                                                                        |
-| --------------------------- | ----------------------------- | ------------------------------------------------------------------------------ |
-| **Architecture**            | `architecture.md`             | When making structural changes, adding packages, modifying package boundaries, or working on distributions |
-| **BFF Go**                  | `bff-go.md`                   | When working on Go BFF code in `packages/*/bff/` or `distributions/core-bff/bff/` |
-| **Contract Tests**          | `contract-tests.md`           | When working on contract tests or BFF API validation                           |
-| **Conventions**             | `conventions.md`              | When writing or reviewing TypeScript, React, or backend code                   |
-| **CSS & PatternFly**        | `css-patternfly.md`           | When writing or modifying styles, SCSS, or PatternFly components               |
-| **Distributions**           | `distributions.md`            | When working on code in `distributions/`                                       |
-| **Cypress E2E Tests**       | `cypress-e2e.md`              | When creating or modifying E2E tests, Robot Framework migrations               |
-| **Cypress Mock Tests**      | `cypress-mock.md`             | When creating or modifying mock/component tests                                |
-| **Jira Creation**           | `jira-creation.md`            | When asked to create Jira issues, tickets, bugs, stories, tasks, or epics      |
-| **Modular Architecture**    | `modular-architecture.md`     | When working on the plugin/extension system or package integration              |
-| **Module Federation**       | `module-federation.md`        | When configuring Module Federation, webpack remotes, or shared dependencies    |
-| **Module Onboarding**       | `module-onboarding.md`        | When creating a new package/module in the monorepo                             |
-| **Operator Controller**     | `operator-controller.md`      | When working on Go operator/controller-runtime code in `dashboard-operator/`   |
-| **Pull Requests**           | `pull-requests.md`            | When creating a pull request — must follow `.github/pull_request_template.md`  |
-| **React**                   | `react.md`                    | When writing React components, hooks, or pages                                 |
-| **Security**                | `security.md`                 | When working on auth, secrets, input validation, or K8s API interactions        |
-| **Testing Standards**       | `testing-standards.md`        | When working across multiple test types or choosing a testing strategy          |
-| **Third-Party Theming**     | `third-party-theming.md`      | When theming external libraries (Perses, MLflow, etc.) or mapping PF tokens into non-PF component systems |
-| **Prototype Fork Ops**      | `prototype-fork-ops.md`       | When running `/prototype-spec` or `/prototype-tickets` — shared fork clone, upstream detection, and Jira error handling |
-| **Unit Tests**              | `unit-tests.md`               | When creating or modifying Jest unit tests for utilities, hooks, or components |
+# Docker builds
+make docker-build              # Kubeflow mode
+make docker-build-standalone   # Standalone mode
+make docker-build-federated    # Federated mode
+```
 
-## Agent Skills
+### Testing
 
-Skills provide multi-step workflows. They live in `.claude/skills/`. Read the relevant skill file before starting the task.
+```bash
+# Frontend tests (lint + type-check + unit + cypress)
+cd frontend && npm run test
 
-| Skill                              | Directory                              | Use when                                                                       |
-| ---------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------ |
-| **Dev Workflow**                   | `skills/dev-workflow/`                 | Implementing a feature, fix, or refactor — runs lint, type-check, tests, and optional browser verification |
-| **Docs Create**                    | `skills/docs-create/`                  | Creating a new documentation file from a description                           |
-| **Docs Create Package**            | `skills/docs-create-package/`          | Scaffolding a package doc and registering it in BOOKMARKS.md                   |
-| **Docs Update**                    | `skills/docs-update/`                  | Updating existing docs after code changes                                      |
-| **Upstream Sync Status**           | `skills/upstream-sync-status/`         | Checking whether a package's upstream copy is up to date (pass package name or be prompted) |
-| **Upstream Sync**                  | `skills/upstream-sync/`                | Syncing upstream changes for a package and opening a PR (pass package name or be prompted)  |
-| **Upstream Sync Local**            | `skills/upstream-sync-local/`          | Syncing upstream changes from a local repository clone (pass package name, local repo path, and branch) |
-| **Style Review**                   | `skills/style-review/`                 | Reviewing code for PF priority-order compliance, wrapper component usage, and class naming conventions per `css-patternfly.md` |
-| **RBAC Review**                    | `skills/rbac-review/`                  | Reviewing code for proper RBAC enforcement — catches missing SSAR gates, assumed access from `isAdmin`, and pages that break for limited-access users |
-| **Jira Triage**                   | `skills/jira-triage/`                  | Fetching Jira issues by filter criteria, running full triage on New issues (orchestrates all analysis skills), defining triage operations, and bulk-applying them |
-| **Jira Validate Priority/Severity** | `skills/jira-validate-priority-severity/` | Analyzing bugs for missing or incorrect severity and priority fields         |
-| **Jira Validate Description**     | `skills/jira-validate-description/`    | Validating issue descriptions for completeness per type, requesting missing information from reporters |
-| **Jira Evaluate Blockers**        | `skills/jira-evaluate-blockers/`       | Applying needs-\* labels and blocking state during triage, or evaluating whether existing blockers have been resolved |
-| **Jira Validate Issue Type**      | `skills/jira-validate-issue-type/`     | Validating or correcting issue types (Bug, Story, Task) and labeling feature requests |
-| **Jira Validate Area Label**      | `skills/jira-validate-area-label/`     | Validating or assigning `dashboard-area-*` labels based on multi-signal content analysis |
-| **Jira Assign Scrum Team**        | `skills/jira-assign-scrum-team/`       | Assigning a scrum team label based on area-to-scrum mapping during triage |
-| **Jira Eval Review**               | `skills/jira-eval-review/`             | Evaluating PR code changes against Jira acceptance criteria for per-criterion verdicts |
-| **Module Onboarding**              | `skills/module-onboarding/`            | Scaffolding a new federated module under `packages/` — handles installer, port allocation, host registration, and build verification (pass module name as argument) |
-| **Konflux Onboarding**             | `skills/konflux-onboarding/`           | Onboarding a component to Konflux CI/CD — Dockerfiles, Tekton pipelines, DevOps coordination, RHOAI downstream setup |
-| **Prototype Spec**                 | `skills/prototype-spec/`               | Extracting PF component details from a UX prototype fork, scoped to a Jira ticket or epic |
-| **Prototype Tickets**              | `skills/prototype-tickets/`            | Drafting Jira tickets from a UX prototype fork — splits by feature area, generates ACs from prototype scenarios |
-| **CI Flake Classifier**            | `skills/ci-flake-classifier/`          | Classifying PR CI failures as flaky or genuine — cross-PR recurrence, rerun detection, symptom matching (also used by preflight) |
-| **Coverage Boost**                 | `skills/coverage-boost/`               | Parsing coverage reports to find uncovered lines, then generating targeted unit tests to boost coverage for a package or file |
+# BFF tests
+cd bff && make lint && make test
 
-**Important**: Always read the relevant rule or skill file before starting the task to ensure you follow the project's conventions and patterns.
+# Cypress E2E tests only
+cd frontend && npm run test:cypress-ci
+
+# Run specific Cypress test
+cd frontend && npm run test:cypress-ci -- --spec "**/testfile.cy.ts"
+```
+
+---
+
+## API Contract Rules (`bff/openapi/`)
+
+The BFF's own contract lives at [`bff/openapi/src/data-registry.yaml`](bff/openapi/src/data-registry.yaml)
+(the older `api/openapi/mod-arch.yaml`-derived contract has been retired). The vendored upstream
+Data Registry API contract that the proxy routes forward to lives alongside it at
+[`bff/openapi/src/data-registry-api.yaml`](bff/openapi/src/data-registry-api.yaml).
+
+- One OpenAPI document per module capability
+- Reference shared schemas to avoid drift — proxy route schemas in `data-registry.yaml` are
+  cross-file `$ref`s into `data-registry-api.yaml` rather than duplicated, since the BFF relays
+  those responses verbatim
+- **Exception to the dashboard's error envelope**: proxy route success and error bodies are passed
+  through byte-for-byte from the upstream Iceberg REST Catalog, not wrapped in the dashboard's
+  `BffErrorEnvelope`. Only the BFF-native routes (`/healthcheck`, `/api/v1/user`,
+  `/api/v1/namespaces`) use the standard envelope
+- Add examples for every schema and response so mock servers can generate useful data
+- After updating the spec, regenerate clients/types for both Go and TypeScript if your workflow
+  requires them
+- **Reviewers must see a diff in the OpenAPI file alongside code changes**
+
+### Current Endpoints
+
+| Method | Path                 | Description                          |
+| ------ | -------------------- | ------------------------------------ |
+| GET    | `/healthcheck`       | Liveness probe                       |
+| GET    | `/api/v1/user`       | Returns authenticated user info      |
+| GET    | `/api/v1/namespaces` | List namespaces (dev/mock mode only) |
+| \*     | `/api/v1/*` (catchall) | Data Registry API proxy — see [bff/README.md](bff/README.md#data-registry-api-proxy) and [`bff/openapi/src/data-registry.yaml`](bff/openapi/src/data-registry.yaml) |
+
+---
+
+## BFF Rules (`bff/`)
+
+### Code Organization
+
+| Directory                | Purpose                                  |
+| ------------------------ | ---------------------------------------- |
+| `cmd/`                   | Application wiring and entrypoint        |
+| `internal/api/`          | HTTP handlers                            |
+| `internal/models/`       | DTOs and data transfer objects           |
+| `internal/repositories/` | Kubernetes/external service integrations |
+| `internal/mocks/`        | Stub data for development                |
+| `internal/helpers/`      | Utility functions (k8s.go helpers)       |
+
+### Development Guidelines
+
+- Keep stub implementations close to production ones: identical signatures, logged TODOs, and mock
+  data that matches the OpenAPI examples
+- Every new handler must include:
+  - Request validation
+  - Structured logging
+  - Unit tests (`internal/api/*_test.go`)
+- Use Makefile targets instead of custom scripts:
+  - `make run` - Run the BFF
+  - `make lint` - Run linter
+  - `make test` - Run tests
+  - `make build` - Build binary
+- When the feature is ready for production, connect to Kubernetes through the helpers under
+  `internal/helpers/k8s.go`
+- Gate risky behavior behind flags/env vars defined in `cmd/main.go`
+
+### BFF Configuration Flags
+
+| Flag                    | Env Var                | Description                              | Default       |
+| ----------------------- | ---------------------- | ---------------------------------------- | ------------- |
+| `-port`                 | `PORT`                 | Listen port                              | 4000          |
+| `-deployment-mode`      | `DEPLOYMENT_MODE`      | `standalone`, `kubeflow`, or `federated` | standalone    |
+| `-dev-mode`             | `DEV_MODE`             | Enables relaxed behaviors                | false         |
+| `-mock-k8s-client`      | `MOCK_K8S_CLIENT`      | Use in-memory stub for k8s               | false         |
+| `-static-assets-dir`    | `STATIC_ASSETS_DIR`    | Directory to serve frontend assets       | ./static      |
+| `-log-level`            | `LOG_LEVEL`            | ERROR, WARN, INFO, DEBUG                 | INFO          |
+| `-allowed-origins`      | `ALLOWED_ORIGINS`      | Comma-separated CORS origins             | ""            |
+| `-auth-method`          | `AUTH_METHOD`          | `internal` (mock) or `user_token`        | internal      |
+| `-auth-header`          | `AUTH_HEADER`          | Header to read bearer token from         | Authorization |
+| `-auth-prefix`          | `AUTH_PREFIX`          | Expected value prefix                    | Bearer        |
+| `-insecure-skip-verify` | `INSECURE_SKIP_VERIFY` | Skip upstream TLS verify (dev only)      | false         |
+| `-data-registry-api-url` | `DATA_REGISTRY_API_URL` | Upstream Data Registry API base URL (overrides ConfigMap lookup) | "" |
+| `-data-registry-configmap-name` | `DATA_REGISTRY_CONFIGMAP_NAME` | ConfigMap (pod's namespace) holding the API URL | data-registry-config |
+| `-data-registry-configmap-key` | `DATA_REGISTRY_CONFIGMAP_KEY` | Key within that ConfigMap holding the URL | apiURL |
+
+---
+
+## Frontend Rules (`frontend/`)
+
+### Technology Stack
+
+- React 18 + TypeScript
+- PatternFly v6 (primary UI framework)
+- Material UI v7 (Kubeflow flavor only)
+- Webpack with Module Federation
+- **mod-arch-core** - Always included (core functionality, hooks, context providers)
+- **mod-arch-shared** - Kubeflow flavor only (shared UI components)
+- **mod-arch-kubeflow** - Kubeflow flavor only (MUI theming, Kubeflow-specific utilities)
+
+> **Note**: When using the `default` flavor (PatternFly-only), `mod-arch-shared` and
+> `mod-arch-kubeflow` are **not installed**. Only `mod-arch-core` is included.
+
+### Development Guidelines
+
+- **PatternFly components only** unless Kubeflow flavor explicitly requires Material UI
+- **Namespace awareness is mandatory**: Use `useNamespaceSelector` / `useNamespaces` hooks instead
+  of inventing new global state
+- All remote calls flow through API clients generated from the OpenAPI spec or thin wrappers in
+  `src/api/`. **Do not fetch directly from hard-coded URLs**
+- Follow routing conventions in `src/app/AppRoutes.tsx`
+- Use layout primitives from mod-arch-shared (`ApplicationsPage`, `DashboardEmptyTableView`, etc.) -
+  **Kubeflow flavor only**
+- Keep state in React Query hooks or existing context providers from `mod-arch-core`
+
+### Before Submitting
+
+- Run lint: `npm run test:lint`
+- Run tests: `npm run test`
+- Ensure Module Federation metadata stays correct in `config/moduleFederation.js`
+
+### Frontend Scripts
+
+```bash
+npm run start:dev        # Development server
+npm run build            # Production build
+npm run build:prod       # Explicit production build
+npm run test             # Full test suite
+npm run test:lint        # Lint only
+npm run test:type-check  # TypeScript check only
+npm run test:unit        # Jest unit tests only
+npm run cypress:open:mock  # Open Cypress GUI
+npm run cypress:run:mock   # Run Cypress headless
+```
+
+### Environment Variables (Frontend)
+
+| Variable            | Description                              | Default              |
+| ------------------- | ---------------------------------------- | -------------------- |
+| `DEPLOYMENT_MODE`   | `standalone`, `kubeflow`, or `federated` | standalone           |
+| `STYLE_THEME`       | `mui-theme` or `patternfly-theme`        | mui-theme            |
+| `LOGO`              | Light theme logo filename                | logo-light-theme.svg |
+| `LOGO_DARK`         | Dark theme logo filename                 | logo-dark-theme.svg  |
+| `FAVICON`           | Favicon filename                         | favicon.ico          |
+| `PRODUCT_NAME`      | Product name in UI                       | "Mod Arch"           |
+| `KUBEFLOW_USERNAME` | Default username (mock mode)             | user@example.com     |
+
+---
+
+## Deployment Modes
+
+| Mode           | Theme      | Use Case                               |
+| -------------- | ---------- | -------------------------------------- |
+| **standalone** | MUI        | Local development, isolated deployment |
+| **kubeflow**   | MUI        | Integration with Kubeflow dashboard    |
+| **federated**  | PatternFly | Micro-frontend in ODH/RHOAI dashboard  |
+
+### Mode-Specific Behavior
+
+#### Standalone Mode
+
+- UI served by BFF
+- BFF handles authentication via `kubeflow-user` header
+- Exposes `/namespace` endpoint for namespace selection
+- Use for local development and testing
+
+#### Kubeflow Mode
+
+- UI served by Kubeflow Ingress
+- BFF served by Kubeflow API Gateway
+- Namespace selection from Kubeflow central dashboard
+- Uses Material UI theme
+
+#### Federated Mode
+
+- UI as remote micro-frontend (Module Federation)
+- PatternFly theme for RHOAI dashboard compatibility
+- Loaded at runtime by host dashboard
+- OAuth authentication flow
+
+---
+
+## Docker Image Configuration
+
+### Environment Variables for Container Builds
+
+| Variable            | Description            | Default                                        |
+| ------------------- | ---------------------- | ---------------------------------------------- |
+| `CONTAINER_TOOL`    | Container build tool   | docker                                         |
+| `IMG_UI`            | Kubeflow mode image    | ghcr.io/kubeflow/mod-arch/ui:latest            |
+| `IMG_UI_STANDALONE` | Standalone mode image  | ghcr.io/kubeflow/mod-arch/ui-standalone:latest |
+| `IMG_UI_FEDERATED`  | Federated mode image   | ghcr.io/kubeflow/mod-arch/ui-federated:latest  |
+| `PLATFORM`          | Docker buildx platform | linux/amd64                                    |
+
+---
+
+## Testing Guidelines
+
+### Frontend Testing
+
+- **Unit Tests**: Jest + React Testing Library
+- **E2E Tests**: Cypress with mocked network requests
+
+```bash
+# Run all tests
+npm run test
+
+# Unit tests only
+npm run test:unit
+
+# Cypress E2E (builds frontend, starts server, runs tests)
+npm run test:cypress-ci
+
+# Cypress GUI for debugging
+npm run cypress:open:mock
+```
+
+### BFF Testing
+
+- Go standard testing with `envtest` for Kubernetes
+- golangci-lint for linting
+
+```bash
+cd bff
+make lint   # Run linter
+make test   # Run tests
+```
+
+---
+
+## Project-Wide Expectations
+
+1. Use **Go 1.24+** for the BFF and **Node 22+** for the frontend
+2. Keep tooling in sync with `package.json` and `go.mod`
+3. Stick to **PatternFly components** and utilities; Material UI appears only when Kubeflow flavor
+   explicitly requires it
+4. Run tests before pushing:
+   - Frontend: `npm run test` in `frontend/`
+   - BFF: `make lint && make test` in `bff/`
+5. Keep docs updated (`docs/*.md`, `frontend/docs/*.md`) when you change workflows, env vars, or
+   deployment steps
+
+---
+
+## Installation via CLI
+
+Bootstrap a fresh copy without cloning the repo:
+
+```bash
+npx mod-arch-installer my-module --flavor kubeflow
+```
+
+### CLI Options
+
+| Flag                           | Description                              | Default  |
+| ------------------------------ | ---------------------------------------- | -------- |
+| `--flavor <kubeflow\|default>` | Kubeflow (MUI) or PatternFly-only flavor | kubeflow |
+| `--skip-install`               | Skip `npm install` in frontend           | false    |
+| `--no-git`                     | Skip git initialization                  | false    |
+
+### Flavor Differences
+
+| Aspect            | Kubeflow Flavor   | Default Flavor           |
+| ----------------- | ----------------- | ------------------------ |
+| Theme             | Material UI       | PatternFly only          |
+| mod-arch-core     | Included          | Included                 |
+| mod-arch-shared   | Included          | **Not included**         |
+| mod-arch-kubeflow | Included          | **Not included**         |
+| ThemeProvider     | MUI ThemeProvider | None (PatternFly native) |
+
+---
+
+## Additional Resources
+
+- [Installation Guide](docs/install.md)
+- [Local Deployment Guide](docs/local-deployment-guide.md)
+- [Kubeflow Development Guide](docs/kubeflow-development-guide.md)
+- [Frontend Dev Setup](frontend/docs/dev-setup.md)
+- [Frontend Testing](frontend/docs/testing.md)
+- [BFF Documentation](bff/README.md)
+- [OpenAPI Spec](bff/openapi/src/data-registry.yaml) — the BFF's own contract
+- [Vendored Data Registry API Contract](bff/openapi/src/data-registry-api.yaml) — the upstream
+  contract the proxy routes forward to
 
 ---
 > Source: [opendatahub-io/odh-dashboard](https://github.com/opendatahub-io/odh-dashboard) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
