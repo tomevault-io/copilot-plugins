@@ -1,7 +1,8 @@
-## graft
+## aggregate-to-2api
 
 > This repo is indexed in `graft/`: small linked markdown nodes that explain each
 
+<!-- graft:start -->
 ## Graft — repo context graph
 
 This repo is indexed in `graft/`: small linked markdown nodes that explain each
@@ -41,6 +42,7 @@ re-read whole files.
 
 After big code changes, refresh the graph with `graft build` (deterministic,
 no API key, $0).
+<!-- graft:end -->
 
 ---
 > Source: [lza6/Aggregate-to-2api](https://github.com/lza6/Aggregate-to-2api) — distributed by [TomeVault](https://tomevault.io).
