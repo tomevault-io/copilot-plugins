@@ -1,0 +1,9 @@
+{
+  "name": "opentensor--subtensor",
+  "displayName": "subtensor",
+  "description": "subtensor",
+  "version": "1.0.0",
+  "author": "opentensor",
+  "homepage": "https://github.com/opentensor/subtensor",
+  "skills": []
+}
