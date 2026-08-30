@@ -1,16 +1,16 @@
-## k7-infrastructure
+## k7-tests
 
-> K7 Infrastructure layer EF Core and DI conventions
+> K7 testing conventions (NUnit, FluentAssertions, NSubstitute)
 
 
-# Infrastructure Layer
+# Testing
 
-- EF config: `IEntityTypeConfiguration<T>` in `Database/Context/Data/Configurations/`
-- Never configure entities directly in `OnModelCreating`
-- DI: `DependencyInjection.cs` with `Add*Services()`; lambda-based resolution
-- **Never** call `BuildServiceProvider()` during registration
-- Domain events dispatched by `DispatchDomainEventsInterceptor` - no manual dispatch
-- Migrations per provider: Postgres or Sqlite project + `-- --Database:Provider <Provider>`
+Stack: NUnit, FluentAssertions, NSubstitute. AAA structure.
+
+Naming: `{ClassUnderTest}Tests`, `{Method}_Should{Expected}_When{Condition}`.
+
+Functional: `CustomWebApplicationFactory`. Integration: Testcontainers + Respawn.
+Critical Blazor components: bUnit in `tests/Clients.ComponentTests` (components live under `Clients/Shared/UI/Components/`).
 
 ---
 > Source: [kaybi-gh/K7](https://github.com/kaybi-gh/K7) — distributed by [TomeVault](https://tomevault.io).
