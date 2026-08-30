@@ -1,0 +1,9 @@
+{
+  "name": "agentclientprotocol--claude-agent-acp",
+  "displayName": "claude-agent-acp",
+  "description": "claude-agent-acp",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/claude-agent-acp",
+  "skills": []
+}
