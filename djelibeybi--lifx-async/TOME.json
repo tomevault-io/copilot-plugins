@@ -3,7 +3,7 @@
   "owner": "Djelibeybi",
   "repo": "lifx-async",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "path": ".claude/skills/spike-findings-lifx-async/SKILL.md",
+      "github_url": "https://github.com/Djelibeybi/lifx-async/tree/main/.claude/skills/spike-findings-lifx-async/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/spike-findings-lifx-async/SKILL.md",
+      "github_url": "https://github.com/Djelibeybi/lifx-async/tree/main/.agents/skills/spike-findings-lifx-async/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Djelibeybi/lifx-async",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T06:31:47Z"
+  "distributed_at": "2026-08-30T06:30:18Z"
 }
