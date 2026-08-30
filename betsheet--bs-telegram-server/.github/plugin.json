@@ -1,0 +1,9 @@
+{
+  "name": "betsheet--bs-telegram-server",
+  "displayName": "bs-telegram-server",
+  "description": "bs-telegram-server",
+  "version": "1.0.0",
+  "author": "betsheet",
+  "homepage": "https://github.com/betsheet/bs-telegram-server",
+  "skills": []
+}
