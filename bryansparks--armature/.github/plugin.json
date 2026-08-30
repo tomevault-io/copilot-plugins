@@ -1,0 +1,9 @@
+{
+  "name": "bryansparks--armature",
+  "displayName": "armature",
+  "description": "A lightweight, declarative agent harness \u2014 define multi-agent workflows as YAML, run them from Python or the CLI, and they get measurably better every run.",
+  "version": "1.0.0",
+  "author": "bryansparks",
+  "homepage": "https://github.com/bryansparks/armature",
+  "skills": []
+}
