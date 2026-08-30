@@ -1,0 +1,9 @@
+{
+  "name": "ketle-man--comfyui-workflow-studio",
+  "displayName": "ComfyUI-Workflow-Studio",
+  "description": "Workflow management and generation UI plugin for ComfyUI",
+  "version": "1.0.0",
+  "author": "ketle-man",
+  "homepage": "https://github.com/ketle-man/ComfyUI-Workflow-Studio",
+  "skills": []
+}
