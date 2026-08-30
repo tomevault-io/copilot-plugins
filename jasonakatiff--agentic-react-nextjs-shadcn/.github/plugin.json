@@ -1,0 +1,9 @@
+{
+  "name": "jasonakatiff--agentic-react-nextjs-shadcn",
+  "displayName": "agentic-react-nextjs-shadcn",
+  "description": "GitHub template for agent-testable SaaS apps. Next.js 16 + shadcn/ui + Neon Postgres + agent-browser e2e testing via accessibility tree.",
+  "version": "1.0.0",
+  "author": "jasonakatiff",
+  "homepage": "https://github.com/jasonakatiff/agentic-react-nextjs-shadcn",
+  "skills": []
+}
