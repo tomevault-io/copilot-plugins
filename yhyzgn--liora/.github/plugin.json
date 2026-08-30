@@ -1,0 +1,9 @@
+{
+  "name": "yhyzgn--liora",
+  "displayName": "liora",
+  "description": "Pure Rust + GPUI native enterprise UI component library for desktop apps \u2014 Element Plus-inspired components, charts, docs, tray integration, and installer packaging.",
+  "version": "1.0.0",
+  "author": "yhyzgn",
+  "homepage": "https://github.com/yhyzgn/liora",
+  "skills": []
+}
