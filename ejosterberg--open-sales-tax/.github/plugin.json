@@ -1,0 +1,9 @@
+{
+  "name": "ejosterberg--open-sales-tax",
+  "displayName": "open-sales-tax",
+  "description": "Open-source US sales tax calculation API. Free, self-hostable, contributor-driven. https://opensalestax.org",
+  "version": "1.0.0",
+  "author": "ejosterberg",
+  "homepage": "https://github.com/ejosterberg/open-sales-tax",
+  "skills": []
+}
