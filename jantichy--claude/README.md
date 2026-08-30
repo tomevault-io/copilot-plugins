@@ -15,12 +15,6 @@ Original source: `CLAUDE.md` in [jantichy/claude](https://github.com/jantichy/cl
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
-
-- [claude](https://github.com/jantichy/claude/tree/main/skills/autocommit/SKILL.md)
-- [claude](https://github.com/jantichy/claude/tree/main/skills/autoprompt/SKILL.md)
-- [claude](https://github.com/jantichy/claude/tree/main/skills/consistency/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/jantichy/claude](https://github.com/jantichy/claude)
 
 ---
