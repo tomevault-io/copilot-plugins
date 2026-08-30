@@ -1,0 +1,9 @@
+{
+  "name": "substructureai--subs",
+  "displayName": "subs",
+  "description": "subs is an agent harness for the cloud. It runs an unprivileged agent loop and uses MCP servers for executing tools. Use it locally, remotely and with your team. You can customize everything.",
+  "version": "1.0.0",
+  "author": "substructureai",
+  "homepage": "https://github.com/substructureai/subs",
+  "skills": []
+}
