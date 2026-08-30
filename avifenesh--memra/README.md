@@ -7,11 +7,11 @@ Rust + CUDA inference engine for NVIDIA RTX PRO 6000 Blackwell and RTX 5090. Ser
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [avifenesh/memra](https://github.com/avifenesh/memra).
+Original source: `CLAUDE.md` in [avifenesh/memra](https://github.com/avifenesh/memra).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
