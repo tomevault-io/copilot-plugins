@@ -7,13 +7,13 @@ Self-hosted media server for a small circle of family and friends.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kaybi-gh/K7](https://github.com/kaybi-gh/K7).
+Original source: `.cursor/rules/*.mdc` in [kaybi-gh/K7](https://github.com/kaybi-gh/K7).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
