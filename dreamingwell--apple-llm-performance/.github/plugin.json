@@ -1,0 +1,9 @@
+{
+  "name": "dreamingwell--apple-llm-performance",
+  "displayName": "apple-llm-performance",
+  "description": "Which open-weight LLMs actually run well on which Apple silicon, and through which engine. Updated daily.",
+  "version": "1.0.0",
+  "author": "dreamingwell",
+  "homepage": "https://github.com/dreamingwell/apple-llm-performance",
+  "skills": []
+}
