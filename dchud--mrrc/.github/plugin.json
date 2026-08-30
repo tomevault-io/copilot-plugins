@@ -1,0 +1,9 @@
+{
+  "name": "dchud--mrrc",
+  "displayName": "mrrc",
+  "description": "Experimental port of pymarc to Rust using only coding agents",
+  "version": "1.0.0",
+  "author": "dchud",
+  "homepage": "https://github.com/dchud/mrrc",
+  "skills": []
+}
