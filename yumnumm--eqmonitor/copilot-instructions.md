@@ -1,16 +1,27 @@
 ## eqmonitor
 
-> PR / Issue の作成先を YumNumm org に限定する
+> EEW の深さ 150km と予想最大震度は独立に扱う
 
 
-# GitHub / Pull Request・Issue（厳守）
+# EEW の深さと予想最大震度
 
-- **PR と Issue を作成してよいのは YumNumm org のリポジトリのみ。upstream へは絶対に作成しない。**
-- `gh pr create` / `gh issue create` では `--repo YumNumm/<repo>` を**必ず明示する**。省略禁止。
-- 特に `third_party/flutter_scene` は `bdero/flutter_scene` の fork の submodule であり、この配下では `gh` が既定の送信先を **upstream** にする。`--repo` を省略すると upstream へ PR が飛ぶ。
-- EQMonitor 本体のメインブランチは `develop`。PR のベースブランチは `develop` を指定する。
-- Claude Code では `.claude/settings.json` の PreToolUse フックが `--repo YumNumm/` を含まない `gh pr create` / `gh issue create` を deny する。**このフックは Claude Code でしか動かない**ため、他のエージェント（Codex 等）では本ルールを自分で守ること。
+深さ 150km より深いことと、予想最大震度の有無は同値ではない。
+
+- 150km より深くても最大震度が発表される報がある → 深さで震度表示を消さない
+- 150km 以下でも未発表の報がある（PLUM 法など） → 未発表だけで「深発のため」と書かない
+
+深発注意文は、最大震度が未発表 **かつ** 深さ 150km より深い（`depth > 150`） **かつ** PLUM / レベル法 / 1点検知など別理由ではないときに限る。
+文言は JMA の表記に合わせ「震源の深さが150kmより深いため、予想震度は発表されていません」で統一する（`eew_card.dart` / `EewDisplay.deepHypocenterIntensityNotice`）。
+
+アプリ側の距離減衰推定を `depth >= 150` でスキップすることや、`EewAliveTelegram` の生存判定は、JMA 発表震度の表示とは別判断にする。
+
+## 予想最大震度が未発表のときの震度表示
+
+未発表（`null`）でも震度コンポーネントを消さない。消すとレイアウトが崩れ、「震度 0 の発表」と「未発表」の区別が付かなくなる。
+灰色背景に `-` を置いたプレースホルダを同じ寸法で描く。
+- iOS: `IntensityBadgeAppearance.unavailable`
+- Flutter: `JmaIntensity.unknown` の `mainText` は `-`（文章中の「不明」は `label`）
 
 ---
 > Source: [YumNumm/EQMonitor](https://github.com/YumNumm/EQMonitor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
