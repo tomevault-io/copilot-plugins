@@ -1,0 +1,44 @@
+{
+  "name": "forgejo-mcp",
+  "owner": "Sqcows",
+  "repo": "forgejo-mcp",
+  "description": "A Model Context Protocol (MCP) server for Forgejo and Gitea instances. Provides 103 tools across repos, issues, PRs, orgs, users, and admin APIs. Works with Claude, Cursor, and any MCP-compatible client. Supports stdio and HTTP transports. Built with Claude Code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Sqcows/forgejo-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T16:33:56Z"
+}
