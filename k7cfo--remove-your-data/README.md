@@ -7,11 +7,11 @@ Agent-first skill: remove your data from brokers without paying. Paste this URL 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [k7cfo/remove-your-data](https://github.com/k7cfo/remove-your-data).
+Original source: `AGENTS.md` in [k7cfo/remove-your-data](https://github.com/k7cfo/remove-your-data).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
