@@ -1,0 +1,9 @@
+{
+  "name": "thealpha93--veclite",
+  "displayName": "VecLite",
+  "description": "Client-side vector search that scales. Rust/WASM powered, works where pure JS breaks down.",
+  "version": "1.0.0",
+  "author": "thealpha93",
+  "homepage": "https://github.com/thealpha93/VecLite",
+  "skills": []
+}
