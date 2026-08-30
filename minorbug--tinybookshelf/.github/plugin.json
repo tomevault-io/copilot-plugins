@@ -1,0 +1,9 @@
+{
+  "name": "minorbug--tinybookshelf",
+  "displayName": "tinybookshelf",
+  "description": "Lightweight Qt5 audiobookshelf client for low-end Linux hardware",
+  "version": "1.0.0",
+  "author": "minorbug",
+  "homepage": "https://github.com/minorbug/tinybookshelf",
+  "skills": []
+}
