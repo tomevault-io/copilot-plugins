@@ -1,0 +1,9 @@
+{
+  "name": "mstan--sonicthehedgehogrecomp",
+  "displayName": "SonicTheHedgehogRecomp",
+  "description": "Sonic the Hedgehog recompiled for the Sega Genesis using segagenesisrecomp \u00b7 Part of the R.A.I.D. community",
+  "version": "1.0.0",
+  "author": "mstan",
+  "homepage": "https://github.com/mstan/SonicTheHedgehogRecomp",
+  "skills": []
+}
