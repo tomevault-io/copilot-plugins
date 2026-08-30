@@ -1,0 +1,9 @@
+{
+  "name": "denni281--omnibot",
+  "displayName": "omnibot",
+  "description": "Local CLI browser automation system that connects agents to a real browser through the omnibot companion extension.",
+  "version": "1.0.0",
+  "author": "denni281",
+  "homepage": "https://github.com/denni281/omnibot",
+  "skills": []
+}
