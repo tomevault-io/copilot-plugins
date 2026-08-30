@@ -4,7 +4,7 @@
   "repo": "agentops-template",
   "description": "Governed, repo-native AgentOps template for AI-assisted software projects, with cross-agent contracts, permission gates, durable state, and canonical verification.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SarutobiSasuke8/agentops-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:37:58Z"
+  "distributed_at": "2026-08-30T00:39:12Z"
 }
