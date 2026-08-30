@@ -4,7 +4,7 @@
   "repo": "next-app-i18n-starter",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/S0vers/next-app-i18n-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-24T17:33:46Z"
+  "distributed_at": "2026-08-30T04:32:35Z"
 }
