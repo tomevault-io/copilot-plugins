@@ -1,0 +1,9 @@
+{
+  "name": "starknet-io--starknet-devnet",
+  "displayName": "starknet-devnet",
+  "description": "starknet-devnet",
+  "version": "1.0.0",
+  "author": "starknet-io",
+  "homepage": "https://github.com/starknet-io/starknet-devnet",
+  "skills": []
+}
