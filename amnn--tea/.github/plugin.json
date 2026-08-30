@@ -1,0 +1,9 @@
+{
+  "name": "amnn--tea",
+  "displayName": "tea",
+  "description": "A macOS menu bar utility for toggling `caffeinate`.",
+  "version": "1.0.0",
+  "author": "amnn",
+  "homepage": "https://github.com/amnn/tea",
+  "skills": []
+}
