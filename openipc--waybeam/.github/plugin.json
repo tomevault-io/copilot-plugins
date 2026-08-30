@@ -1,0 +1,9 @@
+{
+  "name": "openipc--waybeam",
+  "displayName": "waybeam",
+  "description": "Waybeam \u2014 standalone H.265 encoder, RTP streamer and camera-side daemon for FPV camera SoCs",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/waybeam",
+  "skills": []
+}
