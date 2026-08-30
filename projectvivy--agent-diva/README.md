@@ -1,23 +1,21 @@
 # AI instruction files for agent-diva
 
-> Sourced from [ProjectViVy/agent-diva](https://github.com/ProjectViVy/agent-diva) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Next Generation AI Agent(AKA:nanobot-rs-pro)
+> Sourced from [ProjectViVy/agent-diva](https://github.com/ProjectViVy/agent-diva), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ProjectViVy/agent-diva](https://github.com/ProjectViVy/agent-diva).
+Original source: `AGENTS.md` in [ProjectViVy/agent-diva](https://github.com/ProjectViVy/agent-diva).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ProjectViVy/agent-diva](https://github.com/ProjectViVy/agent-diva)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ProjectViVy/agent-diva](https://github.com/ProjectViVy/agent-diva)
 
 ---
 
