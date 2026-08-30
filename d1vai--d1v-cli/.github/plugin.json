@@ -1,0 +1,9 @@
+{
+  "name": "d1vai--d1v-cli",
+  "displayName": "d1v-cli",
+  "description": "Experimental CLI for d1v.ai",
+  "version": "1.0.0",
+  "author": "d1vai",
+  "homepage": "https://github.com/d1vai/d1v-cli",
+  "skills": []
+}
