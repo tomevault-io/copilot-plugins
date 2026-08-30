@@ -7,11 +7,11 @@ Agent 驱动的 PPT 工作流：内容可控、风格一致、品牌准确，交
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JoeSangAI/PPT-GOD](https://github.com/JoeSangAI/PPT-GOD).
+Original source: `AGENTS.md` in [JoeSangAI/PPT-GOD](https://github.com/JoeSangAI/PPT-GOD).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
