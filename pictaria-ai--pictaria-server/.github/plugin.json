@@ -1,0 +1,9 @@
+{
+  "name": "pictaria-ai--pictaria-server",
+  "displayName": "pictaria-server",
+  "description": "Self-hosted companion server for Pictaria Frame, powered by your Immich library.",
+  "version": "1.0.0",
+  "author": "pictaria-ai",
+  "homepage": "https://github.com/pictaria-ai/pictaria-server",
+  "skills": []
+}
