@@ -1,0 +1,9 @@
+{
+  "name": "pathosdev--actor-ts",
+  "displayName": "actor-ts",
+  "description": "An actor-model framework for TypeScript \u2014 runs on Bun, Node.js and Deno",
+  "version": "1.0.0",
+  "author": "pathosDev",
+  "homepage": "https://github.com/pathosDev/actor-ts",
+  "skills": []
+}
