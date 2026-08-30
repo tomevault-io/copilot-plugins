@@ -1,0 +1,9 @@
+{
+  "name": "k7cfo--remove-your-data",
+  "displayName": "remove-your-data",
+  "description": "Agent-first skill: remove your data from brokers without paying. Paste this URL into a coding agent.",
+  "version": "1.0.0",
+  "author": "k7cfo",
+  "homepage": "https://github.com/k7cfo/remove-your-data",
+  "skills": []
+}
