@@ -1,0 +1,135 @@
+{
+  "name": "tubecli",
+  "owner": "tubecreate",
+  "repo": "tubecli",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/browser/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/cloud_api/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/cloud_api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/file_manager/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/file_manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/multi_agents/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/multi_agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/auth_manager/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/auth_manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/ollama_manager/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/ollama_manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/browser_scripts/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/browser_scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/calendar_manager/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/calendar_manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/douyin_downloader/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/douyin_downloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/universal_tracker/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/universal_tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/codex/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/video_studio/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/video_studio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/website_manager/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/website_manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/video_editor/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/video_editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tubecli",
+      "path": "tubecli/extensions/video_downloader/SKILL.md",
+      "github_url": "https://github.com/tubecreate/tubecli/tree/main/tubecli/extensions/video_downloader/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tubecreate/tubecli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T06:36:22Z"
+}
