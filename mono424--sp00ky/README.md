@@ -1,6 +1,6 @@
 # sp00ky
 
-> Source: [mono424/sp00ky](https://github.com/mono424/sp00ky) — distributed by [TomeVault](https://tomevault.io)
+> Source: [mono424/sp00ky](https://github.com/mono424/sp00ky). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,12 +15,7 @@ Original source: `AGENTS.md` in [mono424/sp00ky](https://github.com/mono424/sp00
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [sp00ky](https://github.com/mono424/sp00ky/tree/main/packages/client-solid/skills/sp00ky-solid/SKILL.md)
-- [sp00ky](https://github.com/mono424/sp00ky/tree/main/packages/query-builder/skills/sp00ky-query-builder/SKILL.md)
-
-From [mono424/sp00ky](https://github.com/mono424/sp00ky) — a repo with 0+ stars on GitHub.
+From [mono424/sp00ky](https://github.com/mono424/sp00ky) — a repo with 37+ stars on GitHub.
 
 ---
 
