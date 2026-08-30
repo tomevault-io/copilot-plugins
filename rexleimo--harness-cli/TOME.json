@@ -1,0 +1,189 @@
+{
+  "name": "harness-cli",
+  "owner": "rexleimo",
+  "repo": "harness-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/debug-hub/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/debug-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/find-skills/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/model-router/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/model-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/search-first/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/security-scan/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/skill-opt-lite/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/skill-opt-lite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/cap-commit-push/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/cap-commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/frontend-design/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/aios-codemap-ops/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/aios-codemap-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/skill-constraints/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/skill-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/awesome-design-md/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/awesome-design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/verification-loop/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/contextdb-autopilot/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/contextdb-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/harness-init-runner/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/harness-init-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/aios-project-system/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/aios-project-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/aios-offload-recall/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/aios-offload-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/aios-workflow-router/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/aios-workflow-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/pre-edit-safety-gate/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/pre-edit-safety-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/versioning-by-impact/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/versioning-by-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/.system/skill-creator/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/.system/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/.system/skill-installer/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/.system/skill-installer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/aios-interception-runtime/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/aios-interception-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/aios-long-running-harness/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/aios-long-running-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-cli",
+      "path": "skill-sources/seo-geo-page-optimization/SKILL.md",
+      "github_url": "https://github.com/rexleimo/harness-cli/tree/main/skill-sources/seo-geo-page-optimization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rexleimo/harness-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T06:37:37Z"
+}
