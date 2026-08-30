@@ -1,8 +1,6 @@
 # playful-proxy-api-panel
 
-> Source: [daishuge/playful-proxy-api-panel](https://github.com/daishuge/playful-proxy-api-panel) — distributed by [TomeVault](https://tomevault.io)
-
-CLIProxyAPI-compatible fork with restored usage statistics and open-source bundled management panel frontend.
+> Source: [daishuge/playful-proxy-api-panel](https://github.com/daishuge/playful-proxy-api-panel). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [daishuge/playful-proxy-api-panel](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [daishuge/playful-proxy-api-panel](https://github.com/daishuge/playful-proxy-api-panel) — a repo with 11+ stars on GitHub.
+From [daishuge/playful-proxy-api-panel](https://github.com/daishuge/playful-proxy-api-panel) — a repo with 1+ stars on GitHub.
 
 ---
 
