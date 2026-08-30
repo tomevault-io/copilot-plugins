@@ -1,0 +1,9 @@
+{
+  "name": "beniedev--moonbite",
+  "displayName": "moonbite",
+  "description": "Memory, working state, heartbeat, and bounded autonomy for long-running AI agents.",
+  "version": "1.0.0",
+  "author": "beniedev",
+  "homepage": "https://github.com/beniedev/moonbite",
+  "skills": []
+}
