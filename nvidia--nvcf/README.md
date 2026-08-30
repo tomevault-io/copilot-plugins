@@ -1,8 +1,6 @@
 # nvcf
 
-> Tome by [NVIDIA](https://github.com/NVIDIA/nvcf) — distributed by [TomeVault](https://tomevault.io)
-
-NVIDIA Cloud Functions
+> Tome by [NVIDIA](https://github.com/NVIDIA/nvcf), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [NVIDIA/nvcf](https://github.com/NVIDIA/nvcf).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [NVIDIA/nvcf](https://github.com/NVIDIA/nvcf) — a repo with 59+ stars on GitHub.
+From [NVIDIA/nvcf](https://github.com/NVIDIA/nvcf) — a repo with 202+ stars on GitHub.
 
 ---
 
