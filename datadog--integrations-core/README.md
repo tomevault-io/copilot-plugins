@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [DataDog/integrations-core](https://github.com/D
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [DataDog/integrations-core](https://github.com/DataDog/integrations-core) — a repo with 1129+ stars on GitHub.
+From [DataDog/integrations-core](https://github.com/DataDog/integrations-core) — a repo with 1134+ stars on GitHub.
 
 ---
 
