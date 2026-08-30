@@ -1,25 +1,26 @@
 ## seed-design
 
-> `create-component` 스킬이 구현 전에 참조하는 **canonical reference 집합**이다. 컴포넌트별 예시 모음이 아니라, 여러 레이어에서 재사용되는 원칙과 판단 기준을 모아 둔 체크리스트 역할을 한다.
+> `docs/examples/lynx`의 ReactLynx entry를 찾고 Rspeedy로 빌드해 `public/__lynx__`에 게시합니다. WebLynx 미리보기와 native Lynx 실행 파일은 하나의 manifest로 관리합니다.
 
-# skills/create-component/references
+# Lynx 예제 도구
 
 ## 디렉토리 개요
 
-`create-component` 스킬이 구현 전에 참조하는 **canonical reference 집합**이다. 컴포넌트별 예시 모음이 아니라, 여러 레이어에서 재사용되는 원칙과 판단 기준을 모아 둔 체크리스트 역할을 한다.
+`docs/examples/lynx`의 ReactLynx entry를 찾고 Rspeedy로 빌드해 `public/__lynx__`에 게시합니다. WebLynx 미리보기와 native Lynx 실행 파일은 하나의 manifest로 관리합니다.
 
 ## 파일 작성 컨벤션
 
-- 문서는 역할별로 분리한다. 아키텍처 결정, API 설계, React 패턴, recipe 패턴처럼 질문 축이 다르면 파일도 분리한다.
-- 파일명은 `kebab-case`를 사용하고, 특정 컴포넌트 이름을 제목이나 파일명에 직접 박아 넣는 대신 범용 원칙 중심으로 작성한다.
-- 같은 규칙을 여러 reference 파일에 중복 작성하지 않고, 가장 직접적인 문서 한 곳에만 적고 다른 문서에서는 참조만 남긴다.
+- 실행 진입점은 `build.ts`, `watch.ts`, `prepare-workspace.ts`에만 둡니다.
+- 재사용 로직은 역할에 따라 `discovery.ts`, `manifest.ts`, `workspace.ts`처럼 나누고 테스트를 같은 이름으로 배치합니다.
+- 경로와 schema 버전, 도구 버전은 `constants.ts`에서만 선언합니다.
 
 ## 코드 작성 컨벤션
 
-- 이 폴더의 문서는 구현 명령서가 아니라 **판단 기준**을 제공해야 한다. "언제 이 패턴을 쓰는가"와 "어떤 trade-off가 있는가"를 우선 설명한다.
-- component-specific one-off 예시는 최소화하고, 넣더라도 범용 규칙을 설명하는 짧은 예시로 제한한다.
-- 새 규칙을 추가할 때는 rootage, recipe, react, snippet, docs 중 어느 레이어 판단에 영향을 주는지 드러나게 작성한다.
+- production과 development 빌드는 `buildLynxExamples`를 공유합니다.
+- 파일 시스템 함수는 테스트에서 임시 디렉터리를 전달할 수 있도록 기본 경로를 인자로 노출합니다.
+- 오류에는 문제가 발생한 논리 ID나 실제 경로를 포함합니다.
+- manifest는 bundle 검증과 복사가 끝난 뒤 rename으로 교체합니다.
 
 ---
 > Source: [daangn/seed-design](https://github.com/daangn/seed-design) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
