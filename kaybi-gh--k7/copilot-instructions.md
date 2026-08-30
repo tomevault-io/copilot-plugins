@@ -1,15 +1,16 @@
-## k7-domain
+## k7-infrastructure
 
-> K7 Domain layer conventions
+> K7 Infrastructure layer EF Core and DI conventions
 
 
-# Domain Layer
+# Infrastructure Layer
 
-Zero dependencies on other projects. Entities inherit `BaseEntity`. Events inherit `BaseEvent`, raised via `AddDomainEvent()`.
-
-Structure: `Common/`, `Constants/`, `Entities/`, `Enums/`, `Events/`, `Exceptions/`, `Interfaces/`, `Models/`, `Settings/`, ...
-
-Service contracts live in Domain; Infrastructure implements them. `IApplicationDbContext` lives in Application (`Common/Interfaces/`).
+- EF config: `IEntityTypeConfiguration<T>` in `Database/Context/Data/Configurations/`
+- Never configure entities directly in `OnModelCreating`
+- DI: `DependencyInjection.cs` with `Add*Services()`; lambda-based resolution
+- **Never** call `BuildServiceProvider()` during registration
+- Domain events dispatched by `DispatchDomainEventsInterceptor` - no manual dispatch
+- Migrations per provider: Postgres or Sqlite project + `-- --Database:Provider <Provider>`
 
 ---
 > Source: [kaybi-gh/K7](https://github.com/kaybi-gh/K7) — distributed by [TomeVault](https://tomevault.io).
