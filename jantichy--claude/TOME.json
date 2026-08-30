@@ -3,7 +3,7 @@
   "owner": "jantichy",
   "repo": "claude",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,27 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "claude",
-      "path": "skills/autocommit/SKILL.md",
-      "github_url": "https://github.com/jantichy/claude/tree/main/skills/autocommit/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude",
-      "path": "skills/autoprompt/SKILL.md",
-      "github_url": "https://github.com/jantichy/claude/tree/main/skills/autoprompt/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude",
-      "path": "skills/consistency/SKILL.md",
-      "github_url": "https://github.com/jantichy/claude/tree/main/skills/consistency/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/jantichy/claude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T06:30:48Z"
+  "distributed_at": "2026-08-30T06:50:53Z"
 }
