@@ -1,0 +1,9 @@
+{
+  "name": "eslint--jsnext",
+  "displayName": "jsnext",
+  "description": "ESLint's next generation JavaScript/TypeScript tooling",
+  "version": "1.0.0",
+  "author": "eslint",
+  "homepage": "https://github.com/eslint/jsnext",
+  "skills": []
+}
