@@ -1,0 +1,9 @@
+{
+  "name": "pixelml--club-170hx",
+  "displayName": "club-170hx",
+  "description": "Community-tested recipes, diagnostics, and benchmarks for CMP 170HX AI workloads",
+  "version": "1.0.0",
+  "author": "PixelML",
+  "homepage": "https://github.com/PixelML/club-170hx",
+  "skills": []
+}
