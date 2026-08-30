@@ -3,7 +3,7 @@
   "owner": "daangn",
   "repo": "seed-design",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,93 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "check-docs-consistency",
-      "path": ".agents/skills/check-docs-consistency",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/check-docs-consistency",
-      "description": ""
-    },
-    {
-      "name": "create-component",
-      "path": ".agents/skills/create-component",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/create-component",
-      "description": ""
-    },
-    {
-      "name": "deprecation",
-      "path": ".agents/skills/deprecation",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/deprecation",
-      "description": ""
-    },
-    {
-      "name": "dev-figma-v3-migration-plugin",
-      "path": ".agents/skills/dev-figma-v3-migration-plugin",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/dev-figma-v3-migration-plugin",
-      "description": ""
-    },
-    {
-      "name": "dev-react-headless",
-      "path": ".agents/skills/dev-react-headless",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/dev-react-headless",
-      "description": ""
-    },
-    {
-      "name": "write-component-guideline",
-      "path": ".agents/skills/write-component-guideline",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/write-component-guideline",
-      "description": ""
-    },
-    {
-      "name": "write-react-component-docs",
-      "path": ".agents/skills/write-react-component-docs",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/.agents/skills/write-react-component-docs",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/changeset/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/changeset/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/seed-design/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/seed-design/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/deprecation/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/deprecation/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/create-component/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/create-component/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/snapshot-release/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/snapshot-release/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/dev-figma-v3-migration-plugin/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/dev-figma-v3-migration-plugin/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "seed-design",
-      "path": "skills/migrate-component-docs-from-figma/SKILL.md",
-      "github_url": "https://github.com/daangn/seed-design/tree/main/skills/migrate-component-docs-from-figma/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/daangn/seed-design",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T02:32:50Z"
+  "distributed_at": "2026-08-30T05:02:20Z"
 }
