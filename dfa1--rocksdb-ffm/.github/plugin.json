@@ -1,0 +1,9 @@
+{
+  "name": "dfa1--rocksdb-ffm",
+  "displayName": "rocksdb-ffm",
+  "description": "proposal for rocksdb bindings for modern Java using FFM instead of JNI",
+  "version": "1.0.0",
+  "author": "dfa1",
+  "homepage": "https://github.com/dfa1/rocksdb-ffm",
+  "skills": []
+}
