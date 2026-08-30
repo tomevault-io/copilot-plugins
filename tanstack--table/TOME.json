@@ -1,0 +1,1059 @@
+{
+  "name": "table",
+  "owner": "TanStack",
+  "repo": "table",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-compose-with-tanstack-devtools",
+      "path": "packages/vue-table-devtools/skills/vue/compose-with-tanstack-devtools",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table-devtools/skills/vue/compose-with-tanstack-devtools",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-form",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-form",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-form",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-pacer",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-pacer",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-pacer",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-query",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-query",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-store",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-store",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-store",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-virtual",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-virtual",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-virtual",
+      "description": ""
+    },
+    {
+      "name": "vue-getting-started",
+      "path": "packages/vue-table/skills/vue/getting-started",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/getting-started",
+      "description": ""
+    },
+    {
+      "name": "vue-client-to-server",
+      "path": "packages/vue-table/skills/vue/client-to-server",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/client-to-server",
+      "description": ""
+    },
+    {
+      "name": "vue-migrate-v8-to-v9",
+      "path": "packages/vue-table/skills/vue/migrate-v8-to-v9",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/migrate-v8-to-v9",
+      "description": ""
+    },
+    {
+      "name": "vue-production-readiness",
+      "path": "packages/vue-table/skills/vue/production-readiness",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/production-readiness",
+      "description": ""
+    },
+    {
+      "name": "vue-table-state",
+      "path": "packages/vue-table/skills/vue/table-state",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/table-state",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/setup/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/sorting/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/sorting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/grouping/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/grouping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/filtering/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/filtering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/pagination/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/pagination/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/row-pinning/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/row-pinning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/row-selection/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/row-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/row-expanding/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/row-expanding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-layout/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/lit/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/lit/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/state-management/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/state-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-definitions/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-definitions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/lit/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/lit/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/client-to-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/client-to-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/lit/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/lit/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/production-readiness/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/client-to-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/client-to-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/client-to-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/client-to-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/lit/lit-table-controller/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/lit/lit-table-controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/client-to-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/client-to-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/client-to-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/client-to-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/client-to-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/client-to-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/production-readiness/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/production-readiness/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/customizing-feature-behavior/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/customizing-feature-behavior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-form/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/production-readiness/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/production-readiness/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-pacer/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-pacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-store/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/production-readiness/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/vue/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/vue/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/lit/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/lit/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/compose-with-tanstack-form/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/compose-with-tanstack-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/compose-with-tanstack-form/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/compose-with-tanstack-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/compose-with-tanstack-store/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/compose-with-tanstack-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/compose-with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/compose-with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/compose-with-tanstack-store/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/compose-with-tanstack-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/compose-with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/compose-with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/compose-with-tanstack-pacer/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/compose-with-tanstack-pacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/compose-with-tanstack-pacer/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/compose-with-tanstack-pacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-devtools/skills/compose-with-tanstack-devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-devtools/skills/compose-with-tanstack-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/compose-with-tanstack-form/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/compose-with-tanstack-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/compose-with-tanstack-form/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/compose-with-tanstack-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/solid/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/solid/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/compose-with-tanstack-pacer/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/compose-with-tanstack-pacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/compose-with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/compose-with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/compose-with-tanstack-store/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/compose-with-tanstack-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/compose-with-tanstack-pacer/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/compose-with-tanstack-pacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/compose-with-tanstack-store/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/compose-with-tanstack-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/compose-with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/compose-with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/compose-with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/compose-with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/compose-with-tanstack-store/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/compose-with-tanstack-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/react/react-subscribe-compiler-compat/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/react/react-subscribe-compiler-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/preact/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/preact/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/svelte/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/svelte/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/angular-rendering-directives/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/angular-rendering-directives/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/angular/compose-with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/angular/compose-with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table-devtools/skills/vue/compose-with-tanstack-devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table-devtools/skills/vue/compose-with-tanstack-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table-devtools/skills/solid/compose-with-tanstack-devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table-devtools/skills/solid/compose-with-tanstack-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table-devtools/skills/react/compose-with-tanstack-devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table-devtools/skills/react/compose-with-tanstack-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table-devtools/skills/preact/compose-with-tanstack-devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table-devtools/skills/preact/compose-with-tanstack-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/core/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/expanding/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/expanding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/typescript/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/ember-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/ember-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-devtools/skills/devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-devtools/skills/devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/alpine-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/alpine-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/api-not-found/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/api-not-found/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-sizing/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-sizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/table-features/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/table-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-pinning/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-pinning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-ordering/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-ordering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-resizing/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-resizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-faceting/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-faceting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/custom-features/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/custom-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/client-vs-server/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/client-vs-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/ember-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/ember-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table-devtools/skills/devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table-devtools/skills/devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-filtering/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-filtering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/global-filtering/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/global-filtering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/alpine-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/alpine-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/column-visibility/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/column-visibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/ember-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/ember-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table-devtools/skills/devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table-devtools/skills/devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table-devtools/skills/devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table-devtools/skills/devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/migrate-v8-to-v9/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/migrate-v8-to-v9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/alpine-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/alpine-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table-devtools/skills/devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table-devtools/skills/devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/lit-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/lit-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/vue-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/vue-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table-devtools/skills/devtools/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table-devtools/skills/devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/match-sorter-utils/skills/fuzzy-ranking/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/match-sorter-utils/skills/fuzzy-ranking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/solid-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/solid-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/react-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/react-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/with-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/with-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/svelte-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/svelte-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/preact-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/preact-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/angular-table/skills/with-tanstack-virtual/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/angular-table/skills/with-tanstack-virtual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/aggregation/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/aggregation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/cell-spanning/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/cell-spanning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/octane-table/skills/table-state/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/octane-table/skills/table-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/table-core/skills/cell-selection/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/table-core/skills/cell-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/octane-table/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/octane-table/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "path": "packages/octane-table/skills/create-table-hook/SKILL.md",
+      "github_url": "https://github.com/TanStack/table/tree/main/packages/octane-table/skills/create-table-hook/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TanStack/table",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T06:31:12Z"
+}
