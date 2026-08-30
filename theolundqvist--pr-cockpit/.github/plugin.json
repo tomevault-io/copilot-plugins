@@ -1,0 +1,9 @@
+{
+  "name": "theolundqvist--pr-cockpit",
+  "displayName": "pr-cockpit",
+  "description": "GitHub pull request review at local speed \u2014 a keyboard-first macOS cockpit that keeps PRs, diffs, threads, and checks in a local webhook-refreshed cache for humans and coding agents",
+  "version": "1.0.0",
+  "author": "theolundqvist",
+  "homepage": "https://github.com/theolundqvist/pr-cockpit",
+  "skills": []
+}
