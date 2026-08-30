@@ -1,0 +1,51 @@
+{
+  "name": "reyn",
+  "owner": "tya5",
+  "repo": "reyn",
+  "description": "AI agent workflow OS . Constrained, validated, replayable execution. Predictability over autonomy.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "word-stats-demo",
+      "path": "src/reyn/stdlib/skills/word_stats_demo",
+      "github_url": "https://github.com/tya5/reyn/tree/main/src/reyn/stdlib/skills/word_stats_demo",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tya5/reyn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T00:30:18Z"
+}
