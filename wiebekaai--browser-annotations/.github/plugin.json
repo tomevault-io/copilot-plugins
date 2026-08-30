@@ -1,0 +1,9 @@
+{
+  "name": "wiebekaai--browser-annotations",
+  "displayName": "browser-annotations",
+  "description": "A Chrome DevTools extension to send feedback to your coding agent",
+  "version": "1.0.0",
+  "author": "wiebekaai",
+  "homepage": "https://github.com/wiebekaai/browser-annotations",
+  "skills": []
+}
