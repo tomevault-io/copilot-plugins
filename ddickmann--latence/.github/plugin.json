@@ -1,0 +1,9 @@
+{
+  "name": "ddickmann--latence",
+  "displayName": "latence",
+  "description": "Turn messy enterprise documents into structured, embedded, provenance-carrying RAG corpus (including PII redaction) and an evidence-linked knowledge graph. All as plain Parquet files you own.",
+  "version": "1.0.0",
+  "author": "ddickmann",
+  "homepage": "https://github.com/ddickmann/latence",
+  "skills": []
+}
