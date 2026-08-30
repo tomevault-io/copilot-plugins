@@ -4,7 +4,7 @@
   "repo": "Kanera",
   "description": "A polished project management tool with workspace-wide lists, labels and custom fields, automations, assigned work, realtime collaboration, REST API and MCP support.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/happendev/Kanera",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T06:53:12Z"
+  "distributed_at": "2026-08-30T07:15:30Z"
 }
