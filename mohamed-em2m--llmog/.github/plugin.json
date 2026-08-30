@@ -1,0 +1,9 @@
+{
+  "name": "mohamed-em2m--llmog",
+  "displayName": "llmog",
+  "description": "framework for using llms on object grounding",
+  "version": "1.0.0",
+  "author": "mohamed-em2m",
+  "homepage": "https://github.com/mohamed-em2m/llmog",
+  "skills": []
+}
