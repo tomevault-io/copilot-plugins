@@ -1,18 +1,53 @@
 ## text-to-cae
 
-> 1. Read `README.zh-CN.md` and the relevant file under `docs/` before changing a solver workflow.
+> Quick reference for AI coding agents working in this repository. Full developer
 
-# FEP Agent Hub Agent Instructions
+# AGENTS.md
 
-1. Read `README.zh-CN.md` and the relevant file under `docs/` before changing a solver workflow.
-2. Resolve executables from `OPEN_CAE_CONFIG`, environment variables, or `configs/open-cae.local.toml`. Treat public example paths as placeholders.
-3. Keep generated models, meshes, logs, solver outputs, images, and evidence under the configured `workspace/` project directory.
-4. Do not expose arbitrary shell, arbitrary Python, `eval`, or arbitrary executable tools.
-5. Never claim solver success from file presence alone. Check process exit, logs, expected artifacts, finite fields, and case-specific physics gates.
-6. A capability that is intentionally unsupported must return `BLOCKED` with a recommended next action; never fabricate an artifact.
-7. Public files must not contain author-machine paths, commercial manuals, private models, license data, or large generated results.
-8. Before release, run `pytest`, `scripts/protocol_smoke.py`, the native heat smoke, and `scripts/mcp_full_validation.py`.
+Quick reference for AI coding agents working in this repository. Full developer
+guide lives at `doc/source/getting_started/develop_pylumerical_mcp.rst`.
+
+## Always run pre-commit before declaring work done
+
+This repo has quality gates that **must** pass: `ruff check`, `ruff format`,
+`mypy`, `bandit`, license headers, etc. Pytest alone is not enough — `ruff
+format` and `mypy` routinely catch issues the test suite cannot.
+
+After **any** code change (source or tests), run:
+
+```bash
+pre-commit run --all-files
+```
+
+If a hook reformats files (ruff-format) or reports errors (mypy), fix them and
+re-run until every hook reports `Passed`. Only then run the test suite:
+
+```bash
+pytest -m "not integration"   # fast unit tests, no Lumerical install needed
+pytest -m integration         # only if Lumerical + license are available
+```
+
+## Project layout (essentials)
+
+- `src/ansys/lumerical/mcp/` — server, tools, persistent-session subclass
+- `src/ansys/lumerical/mcp/_subprocess_helpers.py` — code seeded into the
+  `python -u -i` subprocess; never import it in the parent process (would
+  trigger `matplotlib.use("Agg")` and the `ansys.lumerical.core` probe in the
+  wrong place). Tests are the documented exception.
+- `tests/` — unit tests use mocks; integration tests are marked
+  `@pytest.mark.integration` and require a real Lumerical install.
+
+## Conventions to preserve
+
+- Tools return **JSON strings** built via `envelope_success`/`envelope_failure`
+  in `session_helpers.py`. Do not invent ad-hoc shapes.
+
+## Commit / PR etiquette
+
+- Never commit unless the user explicitly asks.
+- Never modify `.git/config` or use `--no-verify`.
+- Use Conventional Commit prefixes (`fix:`, `feat:`, `chore:`, `docs:`...).
 
 ---
 > Source: [Cai-aa/text-to-cae](https://github.com/Cai-aa/text-to-cae) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
