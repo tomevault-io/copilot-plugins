@@ -1,0 +1,9 @@
+{
+  "name": "chioio--agents-md-harness",
+  "displayName": "agents-md-harness",
+  "description": "\ud83e\ude84 Turning AGENTS.md into an agent-usable harness",
+  "version": "1.0.0",
+  "author": "chioio",
+  "homepage": "https://github.com/chioio/agents-md-harness",
+  "skills": []
+}
