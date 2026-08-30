@@ -1,7 +1,7 @@
 {
   "name": "daishuge--playful-proxy-api-panel",
   "displayName": "playful-proxy-api-panel",
-  "description": "CLIProxyAPI-compatible fork with restored usage statistics and open-source bundled management panel frontend.",
+  "description": "playful-proxy-api-panel",
   "version": "1.0.0",
   "author": "daishuge",
   "homepage": "https://github.com/daishuge/playful-proxy-api-panel",
