@@ -1,0 +1,9 @@
+{
+  "name": "useagenthq--useagent",
+  "displayName": "useagent",
+  "description": "Hand off the work. Get back the result. The open-source AI coworker for your team: agents with their own cloud computer, your tools and context, handing back finished work - websites, decks, spreadshe",
+  "version": "1.0.0",
+  "author": "useagenthq",
+  "homepage": "https://github.com/useagenthq/useagent",
+  "skills": []
+}
