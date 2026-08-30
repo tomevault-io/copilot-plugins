@@ -1,24 +1,31 @@
-## k7-blazor-ui
+## k7-core
 
-> K7 Blazor UI component and styling conventions
+> K7 project architecture, code style, CQRS, and git conventions
 
 
-# Blazor UI
+# K7 Core
 
-Triad: `.razor` + `.razor.cs` (partial class) + optional `.razor.css`.
+Self-hosted media server. .NET 10, C# 14, Clean Architecture: Domain -> Application -> Infrastructure -> Web.
 
-- Pages -> `Clients/Shared/UI/Pages/`
-- Layouts -> `Clients/Shared/UI/Layout/`
-- Components -> `Clients/Shared/UI/Components/` (or `Dialogs/`, `Players/`)
-- Services -> `Clients/Shared/Services/`; MAUI-only -> `Clients/MAUI/`
+## Code Style
 
-Use K7 component library - no third-party UI in pages. Theme via CSS variables (`ThemeService`), never hardcoded colors. Scoped CSS preferred, no inline styles.
+- `var` everywhere, file-scoped namespaces, `_camelCase` private fields
+- Element order: fields -> constructors -> delegates -> events -> properties -> methods
+- Forward `CancellationToken` as last param (`= default` on public methods)
+- Structured logging: `_logger.LogX("msg {P}", p)` - never `$""`
+- Plain ASCII punctuation only in code/comments/docs
+- Prefer `is null` / `field` keyword (C# 14)
 
-New or changed shared components: also update **DesignSystem** (`src/Clients/DesignSystem`) - demo section, `demoed` set, sidebar link, mocks if needed. See `docs/dev/developing.md#designsystem`.
+## CQRS
 
-**Mandatory localization**: every user-facing string via `IStringLocalizer` + `.resx` - no hardcoded text.
+`Features/{Feature}/Commands|Queries/{Name}/{Name}.cs` - request + handler same file.
+Validators: `{Name}CommandValidator.cs`. Events: `EventHandlers/`.
+Throw typed exceptions (no `Result<T>`). DTO mapping via extension methods in `Application/Common/Mappings/`.
 
-**French accents in `.resx`**: default locale files (`*.resx`, not `*.en.resx`) are French. Write user-facing strings with proper diacritics (`é`, `è`, `ê`, `à`, `ù`, `ç`, etc.). ASCII-only rule applies to C# code and comments, not to French UI strings. Always add keys to both `MyComponent.resx` (fr) and `MyComponent.en.resx` (en). Resource keys stay ASCII (`name="Federation"`, never accented).
+## Git
+
+Conventional Commits: `type(scope): description`, lowercase, no trailing period.
+Subject line only - no commit body or multi-line description.
 
 ---
 > Source: [kaybi-gh/K7](https://github.com/kaybi-gh/K7) — distributed by [TomeVault](https://tomevault.io).
