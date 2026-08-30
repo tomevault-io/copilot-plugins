@@ -1,0 +1,686 @@
+{
+  "name": "tanstack--table",
+  "displayName": "table",
+  "description": "table",
+  "version": "1.0.0",
+  "author": "TanStack",
+  "homepage": "https://github.com/TanStack/table",
+  "skills": [
+    {
+      "name": "vue-compose-with-tanstack-devtools",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-form",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-pacer",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-store",
+      "description": ""
+    },
+    {
+      "name": "vue-compose-with-tanstack-virtual",
+      "description": ""
+    },
+    {
+      "name": "vue-getting-started",
+      "description": ""
+    },
+    {
+      "name": "vue-client-to-server",
+      "description": ""
+    },
+    {
+      "name": "vue-migrate-v8-to-v9",
+      "description": ""
+    },
+    {
+      "name": "vue-production-readiness",
+      "description": ""
+    },
+    {
+      "name": "vue-table-state",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    },
+    {
+      "name": "table",
+      "description": ""
+    }
+  ]
+}
