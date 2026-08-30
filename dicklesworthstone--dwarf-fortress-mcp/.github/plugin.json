@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--dwarf-fortress-mcp",
+  "displayName": "dwarf_fortress_mcp",
+  "description": "A semantic, transactional, replayable MCP control plane that lets autonomous AI agents operate Dwarf Fortress as a long-lived civilization. Safe-Rust phase-0B scaffold: MVCC world state, witnessed sem",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/dwarf_fortress_mcp",
+  "skills": []
+}
