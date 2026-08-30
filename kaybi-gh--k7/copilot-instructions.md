@@ -1,31 +1,17 @@
-## k7-core
+## k7-design
 
-> K7 project architecture, code style, CQRS, and git conventions
+> K7 design system and UI anti-patterns
 
 
-# K7 Core
+# K7 Design
 
-Self-hosted media server. .NET 10, C# 14, Clean Architecture: Domain -> Application -> Infrastructure -> Web.
+Dark-first media UI. Artwork is the visual focus; chrome stays quiet. Copper accent and fonts via CSS tokens only (Epilogue / Manrope).
 
-## Code Style
+- WCAG AA; 44px touch targets on mobile
+- Adapt per context (desktop, mobile, couch) - do not just shrink desktop layouts
+- No neon/cyan-purple, glassmorphism, gradient text, nested cards, generic fonts (Inter/Roboto), bounce easing, pure black/white
 
-- `var` everywhere, file-scoped namespaces, `_camelCase` private fields
-- Element order: fields -> constructors -> delegates -> events -> properties -> methods
-- Forward `CancellationToken` as last param (`= default` on public methods)
-- Structured logging: `_logger.LogX("msg {P}", p)` - never `$""`
-- Plain ASCII punctuation only in code/comments/docs
-- Prefer `is null` / `field` keyword (C# 14)
-
-## CQRS
-
-`Features/{Feature}/Commands|Queries/{Name}/{Name}.cs` - request + handler same file.
-Validators: `{Name}CommandValidator.cs`. Events: `EventHandlers/`.
-Throw typed exceptions (no `Result<T>`). DTO mapping via extension methods in `Application/Common/Mappings/`.
-
-## Git
-
-Conventional Commits: `type(scope): description`, lowercase, no trailing period.
-Subject line only - no commit body or multi-line description.
+Full notes: `docs/dev/design.md`.
 
 ---
 > Source: [kaybi-gh/K7](https://github.com/kaybi-gh/K7) — distributed by [TomeVault](https://tomevault.io).
