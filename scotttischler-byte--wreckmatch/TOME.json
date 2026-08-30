@@ -4,7 +4,7 @@
   "repo": "wreckmatch",
   "description": "WreckMatch MVA Lead Intake Site",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scotttischler-byte/wreckmatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:47:40Z"
+  "distributed_at": "2026-08-30T01:26:21Z"
 }
