@@ -5,50 +5,5 @@
   "version": "1.0.0",
   "author": "marigold-ui",
   "homepage": "https://github.com/marigold-ui/marigold",
-  "skills": [
-    {
-      "name": "component-docs-writer",
-      "description": ""
-    },
-    {
-      "name": "review-pr",
-      "description": ""
-    },
-    {
-      "name": "testing-codequality-check",
-      "description": ""
-    },
-    {
-      "name": "typescript-codequality-check",
-      "description": ""
-    },
-    {
-      "name": "vercel-composition-patterns",
-      "description": ""
-    },
-    {
-      "name": "vercel-react-best-practices",
-      "description": ""
-    },
-    {
-      "name": "marigold",
-      "description": ""
-    },
-    {
-      "name": "marigold",
-      "description": ""
-    },
-    {
-      "name": "marigold",
-      "description": ""
-    },
-    {
-      "name": "marigold",
-      "description": ""
-    },
-    {
-      "name": "marigold",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
