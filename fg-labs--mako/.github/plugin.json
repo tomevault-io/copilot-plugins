@@ -1,0 +1,9 @@
+{
+  "name": "fg-labs--mako",
+  "displayName": "mako",
+  "description": "Fast SAM/BAM sorter.",
+  "version": "1.0.0",
+  "author": "fg-labs",
+  "homepage": "https://github.com/fg-labs/mako",
+  "skills": []
+}
