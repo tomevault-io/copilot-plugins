@@ -1,0 +1,9 @@
+{
+  "name": "altqx--akarisub",
+  "displayName": "akarisub",
+  "description": "A fork of Thaunknown's Jassub Lagacy version with hyper optimization and many more QOL features. This fork also added support for WebGPU, WebGL2.",
+  "version": "1.0.0",
+  "author": "altqx",
+  "homepage": "https://github.com/altqx/akarisub",
+  "skills": []
+}
