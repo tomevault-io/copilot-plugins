@@ -1,10 +1,10 @@
 ## sumologic-otel-collector
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI agents when working with code in this repository.
 
 ## What This Project Is
 
@@ -100,7 +100,7 @@ Sumo Logic-specific components, each an independent Go module:
 
 Required tools:
 
-- **Go 1.25.0**
+- **Go 1.25.0**: Refer current version from any `pkg/*/go.mod` (`go` directive) — currently `1.25.0`
 - **ocb 0.151.0**: `make -C otelcolbuilder install-ocb`
 - **yq**: `brew install yq`
 - **staticcheck**: `make install-staticcheck`
@@ -120,4 +120,4 @@ PRs not needing a changelog entry should have the `skip-changelog` GitHub label.
 
 ---
 > Source: [SumoLogic/sumologic-otel-collector](https://github.com/SumoLogic/sumologic-otel-collector) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
