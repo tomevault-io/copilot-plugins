@@ -1,0 +1,9 @@
+{
+  "name": "vritser--dsh-emacs",
+  "displayName": "dsh-emacs",
+  "description": "An Emacs client for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "vritser",
+  "homepage": "https://github.com/vritser/dsh-emacs",
+  "skills": []
+}
