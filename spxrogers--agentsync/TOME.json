@@ -4,7 +4,7 @@
   "repo": "agentsync",
   "description": "Sync AI coding-agent configs (Claude Code, OpenCode, Codex, and more) from one canonical, committable source.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spxrogers/agentsync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T00:53:09Z"
+  "distributed_at": "2026-08-30T01:00:42Z"
 }
