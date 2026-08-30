@@ -1,0 +1,9 @@
+{
+  "name": "dergraf--canister",
+  "displayName": "canister",
+  "description": "A lightweight sandbox for running untrusted code safely on Linux",
+  "version": "1.0.0",
+  "author": "dergraf",
+  "homepage": "https://github.com/dergraf/canister",
+  "skills": []
+}
