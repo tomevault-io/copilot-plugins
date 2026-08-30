@@ -3,7 +3,7 @@
   "owner": "opendatahub-io",
   "repo": "odh-dashboard",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,141 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/preflight/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/preflight/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/rbac-review/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/rbac-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/docs-update/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/docs-update/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/docs-create/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/docs-create/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/dev-workflow/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/dev-workflow/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/style-review/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/style-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/upstream-sync/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/upstream-sync/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-eval-review/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-eval-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/coderabbit-review/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/coderabbit-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/coderabbit-autofix/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/coderabbit-autofix/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/docs-create-package/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/docs-create-package/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/upstream-sync-status/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/upstream-sync-status/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-evaluate-blockers/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-evaluate-blockers/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-assign-scrum-team/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-assign-scrum-team/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/coderabbit-code-review/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/coderabbit-code-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-validate-area-label/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-validate-area-label/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-validate-issue-type/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-validate-issue-type/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-validate-description/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-validate-description/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": "packages/gen-ai/.claude/skills/flake-check/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/packages/gen-ai/.claude/skills/flake-check/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": "packages/gen-ai/.claude/skills/use-odh-main/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/packages/gen-ai/.claude/skills/use-odh-main/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": ".claude/skills/jira-validate-priority-severity/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/.claude/skills/jira-validate-priority-severity/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "odh-dashboard",
-      "path": "packages/gen-ai/.claude/skills/cluster-deploy-genai/SKILL.md",
-      "github_url": "https://github.com/opendatahub-io/odh-dashboard/tree/main/packages/gen-ai/.claude/skills/cluster-deploy-genai/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/opendatahub-io/odh-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T20:08:05Z"
+  "distributed_at": "2026-08-30T04:37:15Z"
 }
