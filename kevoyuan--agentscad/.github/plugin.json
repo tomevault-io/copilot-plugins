@@ -1,0 +1,9 @@
+{
+  "name": "kevoyuan--agentscad",
+  "displayName": "AgentSCAD",
+  "description": "AI-native CAD agent converting natural-language requests into validated OpenSCAD artifacts with automated geometry repair and manufacturing validation.",
+  "version": "1.0.0",
+  "author": "Kevoyuan",
+  "homepage": "https://github.com/Kevoyuan/AgentSCAD",
+  "skills": []
+}
