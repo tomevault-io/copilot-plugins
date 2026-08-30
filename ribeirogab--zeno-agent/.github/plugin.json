@@ -1,0 +1,9 @@
+{
+  "name": "ribeirogab--zeno-agent",
+  "displayName": "zeno-agent",
+  "description": "Self-hosted personal agent.",
+  "version": "1.0.0",
+  "author": "ribeirogab",
+  "homepage": "https://github.com/ribeirogab/zeno-agent",
+  "skills": []
+}
