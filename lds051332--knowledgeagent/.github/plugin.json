@@ -1,0 +1,9 @@
+{
+  "name": "lds051332--knowledgeagent",
+  "displayName": "KnowledgeAgent",
+  "description": "Lightweight, self-hosted Agentic RAG. Import Markdown, PDF, and DOCX; ",
+  "version": "1.0.0",
+  "author": "lds051332",
+  "homepage": "https://github.com/lds051332/KnowledgeAgent",
+  "skills": []
+}
