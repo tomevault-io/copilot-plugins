@@ -1,0 +1,44 @@
+{
+  "name": "openfpvcast",
+  "owner": "1Basco",
+  "repo": "openfpvcast",
+  "description": "An open-source Android app that casts the video from DJI FPV goggles (N3) to your phone over USB, lets you record the feed (with optional phone-mic audio), change camera settings, and re-broadcast the live view over WebRTC so anyone on the same WiFi can watch in a browser.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1Basco/openfpvcast",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T19:33:41Z"
+}
