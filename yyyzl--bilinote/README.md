@@ -7,11 +7,11 @@ B站 AI 笔记助手 · 视频转录 + AI 总结
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yyyzl/bilinote](https://github.com/yyyzl/bilinote).
+Original source: `AGENTS.md` in [yyyzl/bilinote](https://github.com/yyyzl/bilinote).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
