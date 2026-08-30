@@ -7,13 +7,13 @@ A screen recorder for modern Linux desktops (Wayland & X11), via xdg-desktop-por
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [atgreen/takesy](https://github.com/atgreen/takesy).
+Original source: `CLAUDE.md` in [atgreen/takesy](https://github.com/atgreen/takesy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
