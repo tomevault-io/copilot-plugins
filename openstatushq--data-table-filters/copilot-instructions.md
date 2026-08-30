@@ -1,118 +1,123 @@
 ## data-table-filters
 
-> **data-table-filters** — a React data table system with faceted filters, sorting, infinite scroll, and virtualization. Delivered as shadcn registry blocks installable via `npx shadcn@latest add`.
+> Two audiences. Pick the section that matches what you're doing.
 
-# CLAUDE.md
+# AGENTS.md
 
-## Project overview
+Two audiences. Pick the section that matches what you're doing.
 
-**data-table-filters** — a React data table system with faceted filters, sorting, infinite scroll, and virtualization. Delivered as shadcn registry blocks installable via `npx shadcn@latest add`.
+---
 
-### Monorepo structure (pnpm + turborepo)
+## A. Using data-table-filters in someone's project
 
-- `apps/web` — Next.js app (docs site + demo). Uses App Router.
-- `packages/registry` — the shadcn registry source (components, utilities, Drizzle helpers)
-- `packages/tsconfig` — shared TS configs
+**What this is:** a set of shadcn registry blocks — React components, a schema
+system, and server-side query helpers — that you copy into the user's repo with
+the shadcn CLI. It is not an npm dependency. There is nothing to wrap and nothing
+to eject from; after install, the code belongs to the user.
 
-### Key commands
+**Stack:** React 19+, TanStack Table v8, Tailwind CSS v4, shadcn/ui. Next.js App
+Router is first-class; the blocks work in any React app.
 
-```bash
-pnpm dev              # start all workspaces
-pnpm build            # turbo build (includes registry:build)
-pnpm lint             # turbo lint (eslint across workspaces)
-pnpm turbo typecheck  # tsc --noEmit across workspaces
-pnpm test             # turbo test (vitest across workspaces)
-pnpm format           # prettier --write .
-pnpm registry:build   # build shadcn registry artifacts
-```
+**Load the full instructions before wiring anything up:**
 
-### Database
+| Resource                                                | What it gives you                                       |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| <https://data-table.openstatus.dev/api/mcp>             | These docs as an MCP server — see below                 |
+| <https://data-table.openstatus.dev/llms.txt>            | Index: blocks, install recipes, docs links              |
+| <https://data-table.openstatus.dev/llms-full.txt>       | Every documentation page in one file                    |
+| <https://data-table.openstatus.dev/r/index.md>          | Block catalog with install commands and dependencies    |
+| <https://data-table.openstatus.dev/docs/quick-start.md> | Any docs page as raw markdown — append `.md` to the URL |
 
-- Drizzle ORM with Postgres (Supabase)
-- DB-dependent tests run in CI only (Postgres service container in GitHub Actions)
-- Tests use `describe.skipIf(!hasDatabase)` — they skip gracefully without `DATABASE_URL`
-- Migrations: `pnpm --filter web db:drizzle:migrate`
-- Seed test data: `pnpm --filter web db:drizzle:seed-test`
-
-## Coding standards
-
-### Before every commit, run local checks
-
-The pre-commit hook (`.claude/hooks/pre-commit-checks.sh`) runs automatically before `git commit`. It enforces:
-
-1. `pnpm prettier --check .` — format check (fix with `pnpm format` if needed)
-2. `pnpm turbo lint` — eslint
-3. `pnpm turbo typecheck` — tsc --noEmit
-4. `DATABASE_URL= pnpm turbo test` — vitest (non-DB tests only)
-
-If any step fails, fix it before committing. Do not use `--no-verify` or skip hooks.
-
-### After pushing, verify CI
-
-DB-dependent tests (Drizzle integration tests) only run in GitHub Actions CI where Postgres is available. After pushing a branch or opening a PR, check CI status with `gh run list` or `gh pr checks`. If DB tests fail in CI, fix locally and push again.
-
-### Testing policy
-
-- **Testing is very important.** Every utility function, helper, and non-trivial logic must have tests.
-- When creating or modifying utility functions, always write or update corresponding tests.
-- When fixing a bug, add a regression test that covers the fix.
-- Use vitest. Tests live alongside source files or in `__tests__/` directories.
-- Registry tests (Drizzle helpers): `packages/registry/src/lib/drizzle/__tests__/`
-- Web tests: `apps/web/src/` (colocated)
-
-### Code style
-
-- TypeScript strict mode. No `any` unless absolutely necessary (and document why).
-- Use server components by default in Next.js — only add `"use client"` when needed.
-- Follow existing patterns in the codebase. Read surrounding code before making changes.
-- No unnecessary abstractions — keep it simple.
-- Prettier handles formatting (import sorting via `@ianvs/prettier-plugin-sort-imports`, Tailwind class sorting via `prettier-plugin-tailwindcss`).
-
-## Git workflow
-
-### Branching
-
-Always create feature/fix branches from `main`:
+**If you can use MCP,** add the docs server and ask it instead of fetching
+pages. Streamable HTTP, no auth, four read-only tools: `get_install_plan` (goal
+→ the exact shadcn command, wiring notes, and what to read next), `search_docs`,
+`get_doc`, `list_blocks`.
 
 ```bash
-git checkout main && git pull origin main
-git checkout -b <type>/<short-description>
+claude mcp add --transport http data-table-filters https://data-table.openstatus.dev/api/mcp
 ```
 
-Branch naming: `feat/`, `fix/`, `refactor/`, `chore/`, `docs/` — matching the commit type.
+**Claude Code users:** install the skill instead of reading the docs each time.
 
-### Conventional commits
-
-Use [Conventional Commits](https://www.conventionalcommits.org/). Match the existing style in this repo:
-
-```
-feat: add column pinning support
-fix: slider filter range validation
-refactor: extract shared filter logic
-chore: update dependencies
-docs: add drizzle integration guide
-test: add facet computation edge cases
+```bash
+/plugin marketplace add openstatushq/data-table-filters
+/plugin install data-table-filters@openstatus
 ```
 
-- Keep the subject line short (<70 chars), lowercase, no period
-- Use the body for details when needed
-- Scope is optional: `fix(registry): ...` or `feat(web): ...`
+Or, for any agent that supports the `skills` CLI:
 
-### CI verification
+```bash
+npx skills add https://github.com/openstatushq/data-table-filters --skill data-table-filters
+```
 
-After pushing, verify CI passes: `gh run list --branch <branch>` or `gh pr checks`.
-To trigger CI manually on any branch: `gh workflow run ci.yml --ref <branch>`.
+### Install recipes
 
-## Workflow expectations
+Pick the goal, run the command, then wire it up per the docs.
 
-- **Ask clarifying questions** before starting ambiguous tasks. Don't guess intent.
-- **Read code before modifying it.** Understand the existing patterns.
-- **Always branch from `main`** for new work. Never commit directly to `main`.
-- **Run CI checks before committing.** No exceptions.
-- **Test your changes.** If you write logic, write tests. If you change logic, update tests.
-- **Check if registry needs rebuilding** after modifying anything in `packages/registry/src/`.
-- **Verify CI after pushing.** DB integration tests only run in GitHub Actions.
+**Large table — rows live in SQL and must be filtered server-side (100k+ rows):**
+
+```bash
+npx shadcn@latest add \
+  https://data-table.openstatus.dev/r/data-table.json \
+  https://data-table.openstatus.dev/r/data-table-schema.json \
+  https://data-table.openstatus.dev/r/data-table-cell.json \
+  https://data-table.openstatus.dev/r/data-table-sheet.json \
+  https://data-table.openstatus.dev/r/data-table-drizzle.json \
+  https://data-table.openstatus.dev/r/data-table-query.json \
+  https://data-table.openstatus.dev/r/data-table-nuqs.json
+```
+
+Define the table once with `createTableSchema`, hand it to `createDrizzleHandler`
+in a route handler and to `createDataTableQueryOptions` on the client. Filtering,
+faceted counts, sorting, and cursor pagination run in SQL; rows are virtualized.
+Table size is bounded by the database, not the browser.
+
+**Client-side table — a few thousand rows already in memory:**
+
+```bash
+npx shadcn@latest add \
+  https://data-table.openstatus.dev/r/data-table.json \
+  https://data-table.openstatus.dev/r/data-table-cell.json \
+  https://data-table.openstatus.dev/r/data-table-sheet.json
+```
+
+Use `useMemoryAdapter`. No API route, no schema block.
+
+**Unknown data shape:** install `data-table` + `data-table-schema`, then render
+`<DataTableAuto data={json} />` — columns, filters, and sheet fields are inferred
+from the data.
+
+### Things that bite
+
+- `DataTableInfinite` already renders `DataTableProvider`, `ControlsProvider`, and
+  `DataTableStoreSync`. The only wrapper you add is `DataTableStoreProvider`.
+- nuqs needs **both** `<NuqsAdapter>` in the root layout and a `<Suspense>`
+  boundary around the table. Missing either fails silently or crashes.
+- Use `field.string()`, not `field.string().default("")` — the latter produces
+  phantom filters.
+- The registry targets Tailwind v4. On v3, class syntax differs and things break
+  quietly.
+- A `SheetField.type` of `"readonly"` means no filter dropdown; match the filter
+  type instead, or generate fields with `generateSheetFields()`.
+
+---
+
+## B. Contributing to this repository
+
+Read [CLAUDE.md](./CLAUDE.md) first — it is the authority on structure, testing,
+and git workflow. The non-negotiables:
+
+- pnpm + turborepo monorepo: `apps/web` (docs site + demos), `packages/registry`
+  (registry source), `packages/tsconfig`.
+- Branch from `main` (`feat/`, `fix/`, `refactor/`, `chore/`, `docs/`), and use
+  conventional commits.
+- Before committing: `pnpm prettier --check .`, `pnpm turbo lint`,
+  `pnpm turbo typecheck`, `DATABASE_URL= pnpm turbo test`. Never `--no-verify`.
+- Changes under `packages/registry/src/` need `pnpm registry:build`.
+- Every utility and non-trivial branch gets a test; every bug fix gets a
+  regression test.
+- DB-dependent tests only run in CI. After pushing, check `gh pr checks`.
 
 ---
 > Source: [openstatusHQ/data-table-filters](https://github.com/openstatusHQ/data-table-filters) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
