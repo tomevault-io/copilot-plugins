@@ -1,0 +1,9 @@
+{
+  "name": "happendev--kanera",
+  "displayName": "Kanera",
+  "description": "A polished project management tool with workspace-wide lists, labels and custom fields, automations, assigned work, realtime collaboration, REST API and MCP support.",
+  "version": "1.0.0",
+  "author": "happendev",
+  "homepage": "https://github.com/happendev/Kanera",
+  "skills": []
+}
