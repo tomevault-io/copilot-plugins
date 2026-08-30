@@ -1,0 +1,9 @@
+{
+  "name": "tankxu--fleet",
+  "displayName": "fleet",
+  "description": "Fleet \u2014 a native macOS terminal workspace with a fleet canvas board. Derived from cmux (GPL-3.0-or-later).",
+  "version": "1.0.0",
+  "author": "tankxu",
+  "homepage": "https://github.com/tankxu/fleet",
+  "skills": []
+}
