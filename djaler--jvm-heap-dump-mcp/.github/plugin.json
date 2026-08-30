@@ -1,0 +1,9 @@
+{
+  "name": "djaler--jvm-heap-dump-mcp",
+  "displayName": "jvm-heap-dump-mcp",
+  "description": "MCP server for JVM heap dump (.hprof) analysis powered by Eclipse MAT",
+  "version": "1.0.0",
+  "author": "Djaler",
+  "homepage": "https://github.com/Djaler/jvm-heap-dump-mcp",
+  "skills": []
+}
