@@ -1,17 +1,15 @@
 # genai-prices
 
-> Tome by [pydantic](https://github.com/pydantic/genai-prices) — distributed by [TomeVault](https://tomevault.io)
-
-Calculate prices for calling LLM inference APIs.
+> Tome by [pydantic](https://github.com/pydantic/genai-prices), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pydantic/genai-prices](https://github.com/pydantic/genai-prices).
+Original source: `AGENTS.md` in [pydantic/genai-prices](https://github.com/pydantic/genai-prices).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
