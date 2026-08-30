@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--mlclaw",
+  "displayName": "mlclaw",
+  "description": "ML Claw: deploy OpenClaw agents on Hugging Face",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/mlclaw",
+  "skills": []
+}
