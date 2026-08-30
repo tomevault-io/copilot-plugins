@@ -1,0 +1,9 @@
+{
+  "name": "os-tack--ostk-cache",
+  "displayName": "ostk-cache",
+  "description": "Context-aware caching proxy for Anthropic and OpenAI \u2014 maximizes prompt-cache hit rates by anchoring long-lived context into stable boundaries. Drop-in for Claude Code, Codex, Cursor, and custom harne",
+  "version": "1.0.0",
+  "author": "os-tack",
+  "homepage": "https://github.com/os-tack/ostk-cache",
+  "skills": []
+}
