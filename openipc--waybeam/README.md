@@ -7,11 +7,11 @@ Waybeam — standalone H.265 encoder, RTP streamer and camera-side daemon for FP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [OpenIPC/waybeam](https://github.com/OpenIPC/waybeam).
+Original source: `CLAUDE.md` in [OpenIPC/waybeam](https://github.com/OpenIPC/waybeam).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
