@@ -1,0 +1,9 @@
+{
+  "name": "edgar-durand--codeagent-mobile-clients",
+  "displayName": "codeagent-mobile-clients",
+  "description": "Public source for CodeAgent Mobile clients: codeam-cli (npm), VS Code / Cursor / Windsurf extension, and JetBrains plugin. Control AI coding agents (Claude Code, Copilot,   Cursor) from your phone. ",
+  "version": "1.0.0",
+  "author": "edgar-durand",
+  "homepage": "https://github.com/edgar-durand/codeagent-mobile-clients",
+  "skills": []
+}
