@@ -1,0 +1,9 @@
+{
+  "name": "valkey-io--valkey-search",
+  "displayName": "valkey-search",
+  "description": "valkey-search",
+  "version": "1.0.0",
+  "author": "valkey-io",
+  "homepage": "https://github.com/valkey-io/valkey-search",
+  "skills": []
+}
