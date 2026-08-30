@@ -1,44 +1,26 @@
 ## claude
 
-> Tento soubor obsahuje **závazná pravidla**, kterými se řiď při každém úkolu. Dodržuj ho vždy, stejně jako pravidla psaná přímo v tomto souboru.
+> Moje osobní konfigurace Claude Code — pravidla, skilly, hooky a status line, sdílená pro inspiraci.
 
-# Globální konfigurace Claude Code
+# Konfigurace Claude Code
 
-## Závazná pravidla
+Moje osobní konfigurace Claude Code — pravidla, skilly, hooky a status line, sdílená pro inspiraci.
 
-Tento soubor obsahuje **závazná pravidla**, kterými se řiď při každém úkolu. Dodržuj ho vždy, stejně jako pravidla psaná přímo v tomto souboru.
+- **Slug:** `claude`
+- **Repozitář:** https://github.com/jantichy/claude
 
-- `@~/.claude/RULES.md` – obecná pravidla práce: komunikace s uživatelem, organizace souborů a obsahu, práce se změnami
+Blok metadat je tady, a ne v kořenovém `CLAUDE.md`, jak velí `~/Dev/context/structure/structure.md`. Ten je uživatelský a rozbaluje se do každé session v každém projektu — metadata tohohle repozitáře tam nepatří, mátla by v cizím projektu.
 
-Když identifikuješ obecné pravidlo platné napříč projekty, u kterého nevadí, že bude veřejně vidět na githubu, navrhni jeho extrakci do `~/.claude/`.
+## Instrukce pro tenhle repozitář
 
-## Doménové znalosti
-
-Aplikují se podmíněně – jen když pracuju v dané doméně. Nejsou to pravidla pro každý úkol, ale soubory znalostí pro konkrétní typy práce.
-
-- `~/Dev/claude/WEB.md` – checklist pro každé webové rozhraní (použitelnost, přístupnost, typografie, formuláře, výkon, GDPR, ...) – načti si ho vždy, když pracuješ na webovém rozhraní
-- `~/Dev/claude/CODING.md` – standardy psaní kódu, bezpečnosti a verzování (naming, git, bezpečnost, TypeScript, SQL, frontend) – načti si ho vždy, když píšeš nebo upravuješ kód
-
-Když identifikuješ znovupoužitelný doménový standard nebo checklist, který se může hodit ve více projektech, ale měl by zůstat soukromý, protože je citlivý nebo patří do osobního know-how, navrhni jeho extrakci do `~/Dev/claude/`.
-
-------
+Projektové instrukce pro práci **v tomhle repozitáři**. Načítají se jen tady, na rozdíl od `~/.claude/CLAUDE.md`, který je uživatelský a jde do každé session v každém projektu.
 
 ## Automatické akce
 
 ### Autocommit
 
-Stav autocommitu pro projekt poznáš podle přítomnosti nadpisu `### Autocommit` v projektovém `CLAUDE.md`. Kdykoli je v projektu zapnutý autocommit, commituj po každé zásadní ucelené změně (ne po každém dílčím kroku, ale po každém logickém celku). Pokud má repo nastavený nějaký git remote, po commitu hned pushuj.
-
-### Autoprompt
-
-Stav autopromptu pro projekt poznáš podle přítomnosti nadpisu `### Autoprompt` v projektovém `CLAUDE.md`. Kdykoli je v projektu zapnutý autoprompt, každý můj prompt se automaticky uloží do `PROMPTS.md` v rootu projektu (přes `UserPromptSubmit` hook).
-
-------
-
-## Platí jen pro repozitář `~/.claude`
-
-- Každý skill má v `README.md` svou sekci. Když nějaký přidáš nebo zásadně změníš jeho chování, aktualizuj ji rovnou jako součást té změny – stejný styl a tón jako ostatní sekce (osobní, věcné, s konkrétním přínosem). Nečekej na vyžádání.
+Autocommit je zapnutý.
 
 ---
 > Source: [jantichy/claude](https://github.com/jantichy/claude) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
