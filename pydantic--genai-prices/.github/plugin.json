@@ -1,7 +1,7 @@
 {
   "name": "pydantic--genai-prices",
   "displayName": "genai-prices",
-  "description": "Calculate prices for calling LLM inference APIs.",
+  "description": "genai-prices",
   "version": "1.0.0",
   "author": "pydantic",
   "homepage": "https://github.com/pydantic/genai-prices",
