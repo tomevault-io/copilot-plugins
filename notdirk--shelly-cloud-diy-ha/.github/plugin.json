@@ -1,0 +1,9 @@
+{
+  "name": "notdirk--shelly-cloud-diy-ha",
+  "displayName": "shelly-cloud-diy-ha",
+  "description": "Home Assistant custom integration for the Shelly Cloud via the self-service Cloud Control API (auth_key). Sees shared devices and BLE-gateway sensors. Private fork of engesin/shelly-integrator-ha.",
+  "version": "1.0.0",
+  "author": "notDIRK",
+  "homepage": "https://github.com/notDIRK/shelly-cloud-diy-ha",
+  "skills": []
+}
