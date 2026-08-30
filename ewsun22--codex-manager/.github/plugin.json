@@ -1,0 +1,9 @@
+{
+  "name": "ewsun22--codex-manager",
+  "displayName": "codex-manager",
+  "description": "Local-first desktop control center for OpenAI Codex \u2014 sessions, models, tokens, accounts, providers, and AGENTS.md.",
+  "version": "1.0.0",
+  "author": "ewsun22",
+  "homepage": "https://github.com/ewsun22/codex-manager",
+  "skills": []
+}
