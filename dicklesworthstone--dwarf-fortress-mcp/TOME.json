@@ -1,0 +1,44 @@
+{
+  "name": "dwarf_fortress_mcp",
+  "owner": "Dicklesworthstone",
+  "repo": "dwarf_fortress_mcp",
+  "description": "A semantic, transactional, replayable MCP control plane that lets autonomous AI agents operate Dwarf Fortress as a long-lived civilization. Safe-Rust phase-0B scaffold: MVCC world state, witnessed semantic plans, evidence-backed effects, deterministic replay.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dicklesworthstone/dwarf_fortress_mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T15:32:52Z"
+}
