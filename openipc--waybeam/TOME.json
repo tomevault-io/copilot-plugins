@@ -4,7 +4,7 @@
   "repo": "waybeam",
   "description": "Waybeam \u2014 standalone H.265 encoder, RTP streamer and camera-side daemon for FPV camera SoCs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenIPC/waybeam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T14:31:51Z"
+  "distributed_at": "2026-08-30T14:32:33Z"
 }
