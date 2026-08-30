@@ -4,7 +4,7 @@
   "repo": "rex-cli",
   "description": "Local-first AI agent bootstrap: Playwright Browser MCP + ContextDB for Codex CLI, Claude     Code, Gemini CLI, and OpenCode.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rexleimo/rex-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T06:39:03Z"
+  "distributed_at": "2026-08-30T06:39:45Z"
 }
