@@ -3,8 +3,8 @@
   "owner": "GuyTeichman",
   "repo": "RNAlysis",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "RNAlysis",
-      "path": ".claude/skills/release/SKILL.md",
-      "github_url": "https://github.com/GuyTeichman/RNAlysis/tree/main/.claude/skills/release/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "RNAlysis",
-      "path": ".claude/skills/gui-screenshots/SKILL.md",
-      "github_url": "https://github.com/GuyTeichman/RNAlysis/tree/main/.claude/skills/gui-screenshots/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "RNAlysis",
-      "path": ".claude/skills/safe-optimization/SKILL.md",
-      "github_url": "https://github.com/GuyTeichman/RNAlysis/tree/main/.claude/skills/safe-optimization/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "RNAlysis",
-      "path": ".claude/skills/external-api-change/SKILL.md",
-      "github_url": "https://github.com/GuyTeichman/RNAlysis/tree/main/.claude/skills/external-api-change/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/GuyTeichman/RNAlysis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T14:37:42Z"
+  "distributed_at": "2026-08-30T05:07:30Z"
 }
