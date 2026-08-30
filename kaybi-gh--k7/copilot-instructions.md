@@ -1,17 +1,15 @@
-## k7-design
+## k7-domain
 
-> K7 design system and UI anti-patterns
+> K7 Domain layer conventions
 
 
-# K7 Design
+# Domain Layer
 
-Dark-first media UI. Artwork is the visual focus; chrome stays quiet. Copper accent and fonts via CSS tokens only (Epilogue / Manrope).
+Zero dependencies on other projects. Entities inherit `BaseEntity`. Events inherit `BaseEvent`, raised via `AddDomainEvent()`.
 
-- WCAG AA; 44px touch targets on mobile
-- Adapt per context (desktop, mobile, couch) - do not just shrink desktop layouts
-- No neon/cyan-purple, glassmorphism, gradient text, nested cards, generic fonts (Inter/Roboto), bounce easing, pure black/white
+Structure: `Common/`, `Constants/`, `Entities/`, `Enums/`, `Events/`, `Exceptions/`, `Interfaces/`, `Models/`, `Settings/`, ...
 
-Full notes: `docs/dev/design.md`.
+Service contracts live in Domain; Infrastructure implements them. `IApplicationDbContext` lives in Application (`Common/Interfaces/`).
 
 ---
 > Source: [kaybi-gh/K7](https://github.com/kaybi-gh/K7) — distributed by [TomeVault](https://tomevault.io).
