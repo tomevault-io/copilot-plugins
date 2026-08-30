@@ -4,7 +4,7 @@
   "repo": "AgentSCAD",
   "description": "AI-native CAD agent converting natural-language requests into validated OpenSCAD artifacts with automated geometry repair and manufacturing validation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kevoyuan/AgentSCAD",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T08:35:01Z"
+  "distributed_at": "2026-08-30T08:35:44Z"
 }
