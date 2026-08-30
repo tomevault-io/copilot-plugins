@@ -1,0 +1,44 @@
+{
+  "name": "gpt-image-2-app",
+  "owner": "AmaTsumeAkira",
+  "repo": "gpt-image-2-app",
+  "description": "\u57fa\u4e8e OpenAI gpt-image-2 \u7684 AI \u56fe\u7247\u751f\u6210\u5e94\u7528\uff0c\u652f\u6301\u6587\u751f\u56fe/\u56fe\u751f\u56fe/\u591a\u56fe\u5408\u6210\uff0cAPIMart \u548c DM-Fox \u53cc\u4f9b\u5e94\u5546\uff0cWeb + Android \u53cc\u7aef\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AmaTsumeAkira/gpt-image-2-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-30T01:01:12Z"
+}
