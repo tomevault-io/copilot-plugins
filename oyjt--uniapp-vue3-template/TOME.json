@@ -4,7 +4,7 @@
   "repo": "uniapp-vue3-template",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -191,5 +191,5 @@
   ],
   "source_url": "https://github.com/oyjt/uniapp-vue3-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T23:33:57Z"
+  "distributed_at": "2026-08-31T04:12:33Z"
 }
