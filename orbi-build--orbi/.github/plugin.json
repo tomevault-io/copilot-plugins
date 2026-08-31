@@ -1,0 +1,9 @@
+{
+  "name": "orbi-build--orbi",
+  "displayName": "orbi",
+  "description": "Orbi \u2014 the factory that builds and operates AI software factories. GitHub Issues in, reviewed PRs out.",
+  "version": "1.0.0",
+  "author": "orbi-build",
+  "homepage": "https://github.com/orbi-build/orbi",
+  "skills": []
+}
