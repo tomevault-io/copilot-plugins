@@ -1,0 +1,9 @@
+{
+  "name": "cwu766485-ctrl--lumenrv32",
+  "displayName": "LumenRV32",
+  "description": "A lightweight RV32I RISC-V processor core implemented in Verilog for architecture and RTL design practice.",
+  "version": "1.0.0",
+  "author": "cwu766485-ctrl",
+  "homepage": "https://github.com/cwu766485-ctrl/LumenRV32",
+  "skills": []
+}
