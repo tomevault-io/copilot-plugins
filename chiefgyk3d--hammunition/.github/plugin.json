@@ -1,0 +1,9 @@
+{
+  "name": "chiefgyk3d--hammunition",
+  "displayName": "Hammunition",
+  "description": "Hammunition turns an existing Debian-family install into an amateur radio, SDR, and RF experimentation workstation. Primary target: Parrot OS. Also targeting Debian, Ubuntu, Kali, Linux Mint and Raspb",
+  "version": "1.0.0",
+  "author": "ChiefGyk3D",
+  "homepage": "https://github.com/ChiefGyk3D/Hammunition",
+  "skills": []
+}
