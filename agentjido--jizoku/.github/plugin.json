@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jizoku",
+  "displayName": "jizoku",
+  "description": "Durable workflow runtime for Elixir and Jido",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jizoku",
+  "skills": []
+}
