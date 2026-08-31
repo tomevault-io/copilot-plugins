@@ -1,0 +1,9 @@
+{
+  "name": "jaes1237712--wiki-portfolio",
+  "displayName": "wiki-portfolio",
+  "description": "\u7dad\u57fa\u767e\u79d1\u9023\u7d50\u7db2\u7d61\u7684\u4e92\u52d5\u5f0f\u5206\u6790:Infomap \u793e\u7fa4\u5075\u6e2c\u3001pgvector \u8a9e\u610f\u641c\u5c0b\u3001\u700f\u89bd\u91cf\u7570\u5e38\u5075\u6e2c\u3002Python pipeline \u2192 Neon \u2192 Cloudflare Workers \u2192 React + Sigma.js",
+  "version": "1.0.0",
+  "author": "jaes1237712",
+  "homepage": "https://github.com/jaes1237712/wiki-portfolio",
+  "skills": []
+}
