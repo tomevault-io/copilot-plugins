@@ -7,11 +7,11 @@ On-Premises Model/Dataset Cache
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [realtyz/mini-hf](https://github.com/realtyz/mini-hf).
+Original source: `CLAUDE.md` in [realtyz/mini-hf](https://github.com/realtyz/mini-hf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
