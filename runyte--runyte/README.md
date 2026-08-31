@@ -7,11 +7,11 @@ Runyte is an editor-first, agent-ready terminal workspace for software developme
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [runyte/runyte](https://github.com/runyte/runyte).
+Original source: `AGENTS.md` in [runyte/runyte](https://github.com/runyte/runyte).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
