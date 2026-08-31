@@ -4,7 +4,7 @@
   "repo": "enferno",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/level09/enferno",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T05:44:23Z"
+  "distributed_at": "2026-08-31T04:54:01Z"
 }
