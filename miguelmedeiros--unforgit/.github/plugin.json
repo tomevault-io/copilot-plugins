@@ -1,0 +1,9 @@
+{
+  "name": "miguelmedeiros--unforgit",
+  "displayName": "unforgit",
+  "description": "Git-backed memory for AI agents: durable, searchable knowledge that syncs with your repos.",
+  "version": "1.0.0",
+  "author": "MiguelMedeiros",
+  "homepage": "https://github.com/MiguelMedeiros/unforgit",
+  "skills": []
+}
