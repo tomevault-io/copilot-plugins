@@ -1,0 +1,9 @@
+{
+  "name": "bruce-forte--omarchy-mcp-server",
+  "displayName": "omarchy-mcp-server",
+  "description": "This Omarchy plugin exposes Omarchy functions through an MCP server",
+  "version": "1.0.0",
+  "author": "bruce-forte",
+  "homepage": "https://github.com/bruce-forte/omarchy-mcp-server",
+  "skills": []
+}
