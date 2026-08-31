@@ -4,7 +4,7 @@
   "repo": "timothy",
   "description": "Self-hosted personal AI assistant: chat, cost tracking, tasks, automations, and agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timothy-agent/timothy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T23:39:34Z"
+  "distributed_at": "2026-08-31T23:47:15Z"
 }
