@@ -1,0 +1,9 @@
+{
+  "name": "rafidahmed870--queue-jobs-worker",
+  "displayName": "queue-jobs-worker",
+  "description": "Reliable job queue and background worker system for Node.js with retries, concurrency, scheduling, and failure recovery.",
+  "version": "1.0.0",
+  "author": "rafidahmed870",
+  "homepage": "https://github.com/rafidahmed870/queue-jobs-worker",
+  "skills": []
+}
