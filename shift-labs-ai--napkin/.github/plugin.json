@@ -1,0 +1,9 @@
+{
+  "name": "shift-labs-ai--napkin",
+  "displayName": "napkin",
+  "description": "\ud83e\uddfb Knowledge system for agents. Local-first, file-based, progressively disclosed.",
+  "version": "1.0.0",
+  "author": "shift-labs-ai",
+  "homepage": "https://github.com/shift-labs-ai/napkin",
+  "skills": []
+}
