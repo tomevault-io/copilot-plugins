@@ -1,49 +1,333 @@
-## sigil-conventions
+## sigil-design-system
 
-> > Also read `sigil-design-system.mdc` for the full enforced design rules (color, typography, spacing, motion, etc.).
+> > Imported from Kevin's wiki and the Dedalus design language. These rules are non-negotiable when writing or reviewing Sigil code.
 
-# Sigil UI Development Conventions
+# Sigil Design System — Enforced Rules
 
-> Also read `sigil-design-system.mdc` for the full enforced design rules (color, typography, spacing, motion, etc.).
+> Imported from Kevin's wiki and the Dedalus design language. These rules are non-negotiable when writing or reviewing Sigil code.
+>
+> **Full references:** [style/design.md](../../style/design.md) (motion guide) | [style/ux-principles.md](../../style/ux-principles.md) (product UX) | [style/style.md](../../style/style.md) (engineering philosophy) | [skills/sigil-polish/](../../skills/sigil-polish/SKILL.md) (interface polish skill with typography, surfaces, animations, performance deep-dives)
+>
+> **Anti-slop enforcement:** Also read [taste-enforcement.mdc](./taste-enforcement.mdc) for banned AI visual patterns, variance dials, content quality rules, performance guardrails, and output completeness requirements. The [taste-skills-index.mdc](./taste-skills-index.mdc) catalogs the 12 user-level taste skills (taste-core, taste-soft, taste-minimalist, taste-brutalist, etc.) that auto-trigger based on task description.
+>
+> **Companion rule files (imported from wiki):**
+> - [css-ui-enforcement.mdc](./css-ui-enforcement.mdc) — Tailwind + `cn()` first, `globals.css` only, scrollbars, hit areas, no `style`+`className` soup
+> - [react-conventions.mdc](./react-conventions.mdc) — Hooks, linting (Ultracite/oxlint), architecture-policy ESLint rules, Vercel 69 rules, RSC safety
+> - [typescript-conventions.mdc](./typescript-conventions.mdc) — Types, error handling (`Result<T,E>`, Zod), console labels, tsgo, oxfmt
+> - [design-animation-rules.mdc](./design-animation-rules.mdc) — Animation frequency framework, easing flowchart, springs, clip-path, gestures, accessibility, Sonner principles
+> - [frontier-stack.mdc](./frontier-stack.mdc) — Default animation/3D/rendering stack, decision matrix, json-render for generative UI
+> - [dashboard-design.mdc](./dashboard-design.mdc) — Dashboard design system (14px base, stat cards, charts, sidebar, empty states, 6-rule cheatsheet)
+> - [interface-micro-polish.mdc](./interface-micro-polish.mdc) — Dark 1px card shadow, image outlines, icon animation, staggered enters, softer exits
 
-## Token Variable Prefix
-All CSS variables use the `--s-` prefix: `var(--s-primary)`, `var(--s-surface)`, etc.
+## Custom Preset Rule (MANDATORY — Enforced Before All Other Rules)
 
-## Component Rules
-- Every component is a "use client" component if it uses hooks or interactivity
-- Every component accepts a `className` prop for Tailwind overrides
-- Use `cn()` from utils for class merging (clsx + tailwind-merge)
-- All colors reference CSS variables, never hardcoded hex
-- All spacing uses the token scale (4, 8, 12, 16, 24, 32, 48, 64, 80, 96)
-- Components use `var(--s-*)` tokens, not Tailwind color classes directly
-- All interactive components must be keyboard-accessible
-- All components include JSDoc comments
-- Shadows use `shadow-[var(--s-shadow-*)]`, never Tailwind `shadow-sm` etc.
-- Motion uses `duration-[var(--s-duration-*)]`, never hardcoded `duration-150`
-- Borders use `border-[style:var(--s-border-style,solid)]` for preset-driven styles
+**Every custom preset MUST populate ALL 33 token categories and ALL ~519 fields.**
 
-## File Structure
-- Layout primitives: `packages/components/src/layout/`
-- Core UI: `packages/components/src/ui/`
-- Navigation: `packages/components/src/navigation/`
-- Overlays: `packages/components/src/overlays/`
-- Shapes: `packages/components/src/shapes/`
-- 3D components: `packages/components/src/3d/`
-- Diagrams: `packages/components/src/diagrams/`
-- Marketing: `packages/components/src/marketing/`
-- Patterns: `packages/components/src/patterns/`
-- Animation: `packages/components/src/animation/`
+- The canonical template is `packages/presets/src/_template.ts`.
+- When creating a custom preset: copy `_template.ts` or spread it as a base. Change values, never delete fields.
+- No partial presets. If a field exists in `_template.ts`, it must exist in your preset.
+- The 33 required categories: `colors`, `typography`, `spacing`, `layout`, `sigil`, `radius`, `shadows`, `motion`, `borders`, `buttons`, `cards`, `headings`, `navigation`, `backgrounds`, `code`, `inputs`, `cursor`, `scrollbar`, `alignment`, `sections`, `dividers`, `gridVisuals`, `focus`, `overlays`, `dataViz`, `media`, `controls`, `componentSurfaces`, `hero`, `cta`, `footer`, `banner`, `pageRhythm`.
+- Read `skills/sigil-preset/SKILL.md` before creating any preset.
 
-## Naming
-- Component files: PascalCase (Button.tsx, Card3D.tsx)
-- Utility files: camelCase (utils.ts, animate.ts)
-- Export components as named exports, not default
-- Sigil layout primitives use clean names (Stack, Grid, Section)
-- The page-level frame is `SigilPageGrid` (5-column: margin | gutter | content | gutter | margin)
+## Color Rules
 
-## Presets
-Each preset provides a complete SigilTokens object. Presets live in `packages/presets/src/`.
-46 presets total: 44 named + `default` + `_template`. Seven categories: structural, minimal, dark, colorful, editorial, industrial, edgeless.
+- OKLCH for all authored palettes. Use `oklch(L C H)` — L=lightness (0-1), C=chroma (0-0.37), H=hue (0-360).
+- At most 3 active colors plus neutrals per preset.
+- Rich Black (oklch ~0.08) for dark mode page backgrounds, never pure #000000.
+- Five text hierarchy levels: `--s-text`, `--s-text-secondary`, `--s-text-muted`, `--s-text-subtle`, `--s-text-disabled`. Always use the right level.
+- Four border levels: `--s-border`, `--s-border-muted`, `--s-border-strong`, `--s-border-interactive`.
+- BANNED: Hardcoded hex colors in components. All colors must reference `var(--s-*)` tokens.
+- BANNED: Gradients with no material logic. Every gradient must have a reason (glow, light, depth, brand).
+
+## Contrast Rules (WCAG AA)
+
+All presets MUST pass WCAG 2.0 AA contrast requirements. Run `pnpm audit:contrast` before shipping any preset change.
+
+| Pair | Minimum Ratio | WCAG Category |
+|------|:---:|---|
+| Normal text on background/surface | 4.5:1 | AA normal text |
+| Large text (>= 18pt) on background | 3:1 | AA large text |
+| UI components (borders, icons, form controls) on background | 3:1 | AA UI components |
+| Button text (`primary-contrast`) on `primary` | 4.5:1 | AA normal text |
+| Status colors (success/warning/error/info) on background | 3:1 | AA UI components |
+
+Rules:
+- `text-muted` on `background` must have >= 4.5:1 contrast ratio in BOTH light and dark modes.
+- `text-subtle` is decorative/large text — >= 3:1 minimum.
+- `border` and `border-strong` on `background` must have >= 3:1 for visibility.
+- When `primary` is light (L > 0.55 in OKLCH), `primary-contrast` MUST be black (`oklch(0 0 0)` or `#000000`).
+- When `primary` is dark (L <= 0.55), `primary-contrast` MUST be white (`oklch(1 0 0)` or `#ffffff`).
+- Never assume white text on colored backgrounds — always check the contrast ratio.
+- The audit script checks 30 color pairs per preset across both modes (930 checks total).
+
+## Typography Rules
+
+- Font triad: display face for headlines only, body face for everything else, mono for code/labels/data.
+- Do not let all three compete equally in a single view.
+- `text-wrap: balance` on all short headings and marketing copy.
+- `-webkit-font-smoothing: antialiased` is set globally — never override to `auto`.
+- `font-variant-numeric: tabular-nums` for all changing/comparative numeric UI (counters, KPIs, prices, dates, timers).
+- Avoid Inter/Roboto when creating a new visual language — use the self-hosted PP Pangram collection.
+
+## Spacing Rules
+
+- 4px granularity for component internals (padding, gaps within a component).
+- 8px granularity for layout rhythm (section spacing, card grids, page margins).
+- Canonical ladder: 4, 8, 12, 16, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80, 96.
+- BANNED: Arbitrary spacing like `37px`, `13px`, `7px`. Every value must be on the scale or derived from a token.
+
+## Structural Band Heights — No Border-Compensation Math In Components (MANDATORY)
+
+When a component renders a horizontal band that aligns to the grid (navbar inner row, banner, divider), its height must INCLUDE the structural border. The pixel math for that compensation lives in the **preset**, never in the component.
+
+**The tokens (defined in `sigil` group, emitted as `--s-*`):**
+
+| Token | Value (default preset, `grid-cell = 50px`) | Formula | Use for |
+|---|---|---|---|
+| `--s-band-height` | `50px` | `grid-cell` | Single-bordered bands (navbar inner row, release banner). |
+| `--s-divider-thickness-sm` | `25px` | `grid-cell / 2` | `<Divider size="xs"\|"sm">` w/ `showBorders` |
+| `--s-divider-thickness-md` | `50px` | `grid-cell` | `<Divider size="md">` w/ `showBorders` |
+| `--s-divider-thickness-lg` | `100px` | `grid-cell × 2` | `<Divider size="lg">` w/ `showBorders` |
+| `--s-divider-thickness-xl` | `150px` | `grid-cell × 3` | `<Divider size="xl">` w/ `showBorders` |
+
+**Why the formulas match:**
+
+All horizontal structural bands, including dividers, advance the layout by exact
+multiples of `grid-cell`. Borders are included inside the band via
+`box-sizing: border-box`, which avoids cumulative `+1px` drift between adjacent
+sections and dividers.
+
+**Do not** add `+1px` to divider thickness. The divider's outer box must advance
+by exact full-cell multiples; the 1px borders live inside that box.
+
+**Rail / gutter pattern convention (enforced in `getSigilPatternStyles`):**
+
+The page rail's repeating horizontal-line patterns place the 1px line at the **END of each tile** (the bottom). The flavors:
+
+- `horizontal` — 1 line per `cell` (`linear-gradient(to top, COLOR 1px, transparent 1px)` with `background-size: 100% cell`).
+- `horizontal-thin` — **3 lines per `cell`** (instrument ruling, dedalus reticle).
+- `horizontal-fine` — **5 lines per `cell`** (denser ruler ticks).
+- `horizontal-wide` — 1 line per `3 × cell`.
+- The horizontal axis of `grid` follows the same `to top, COLOR 1px, transparent 1px` convention.
+
+For multi-line variants (`horizontal-thin` / `horizontal-fine`), the engine emits a single `repeating-linear-gradient` whose final stop lands exactly on the cell boundary, so even fractional inner stops (e.g. `50/3` for cell=50) render at consistent positions and the bottom-most line always coincides with the next cell line. Without this, browser per-tile subpixel rounding accumulates ~2px of drift per ~13k px scrolled.
+
+With the line at the bottom of every cell:
+
+- For tile N at `[N × cell, (N+1) × cell)`, the rail line occupies `[(N+1)·cell − 1, (N+1)·cell)`.
+- A `box-sizing: border-box` band of `height = cell` and `border-bottom: 1px` placed at the top of tile N has its bottom border at `[N·cell + cell − 1, N·cell + cell)` — which is exactly the rail line position. ✓
+
+If the rail line were at the top of each tile (`to bottom`), there would be a fundamental 1px gap: the band's bottom border would land 1px BEFORE the next rail line, leaving a visible misalignment. Always use `to top` (or `to left` for vertical gutters) for these patterns. Any new pattern with a 1px line repeated every cell must follow this convention.
+
+**Hero / section padding:**
+
+When a section's bottom should land on a rail grid line, calibrate the section's `padding-y` token in the preset, not in the component. The default landing-page hero uses `--s-hero-padding-y` (set in `default.ts` `hero.padding-y`) so it can be tuned independently of `--s-section-padding-y`.
+
+**Rules:**
+
+- Components consume these vars directly: `height: var(--s-band-height)`. Use the matching CSS token, not raw `var(--s-grid-cell)` plus inline math.
+- BANNED inside components: `calc(var(--s-grid-cell) + 1px)`, `calc(var(--s-grid-cell) - 1px)`, `thickness + 2`, or any `+ 1px` / `- 1px` height fudge. If you find yourself writing one, you're patching what the preset should provide.
+- If a band needs a different visual height (e.g. half-cell + single border), add a new `sigil.<name>-height` token in `packages/tokens/src/types.ts` + `tokens.ts`, ship it in `packages/presets/src/default.ts`, and consume `var(--s-<name>-height)`.
+- Box-sizing on these bands is always `border-box`, so the token value IS the outer box height.
+- The page hero / sections do NOT get pixel shaves like `calc(var(--s-section-padding-y) - 1.5px)` to "fix" rail alignment. If a section appears off-grid, the band, divider, or section padding TOKEN is wrong — fix the token, not the page-level styling.
+
+## Radius Rules
+
+- Concentric rule: outer radius = inner radius + padding. When nesting rounded elements, the outer must be larger by exactly the padding amount.
+- Choose one radius family per preset and stay consistent: brutalist (0-4px), structural (4-8px), editorial (6-12px), premium (12-20px), playful (20-28px).
+- BANNED: `rounded-lg`, `rounded-xl` Tailwind classes. Use `rounded-[var(--s-radius-md)]` etc.
+
+## Depth Strategy
+
+- Primary structural cue: borders. Grid lines, cross marks, and rail marks make the layout visible.
+- Secondary: layered shadows for elevation. Use the `--s-shadow-*` scale.
+- Low-opacity edge outlines on images/media: `outline: 1px solid rgb(0 0 0 / 0.1); outline-offset: -1px`.
+- BANNED: Fake 3D from stacking drop shadows. BANNED: Glassmorphism on white for no reason.
+
+## Shadow Rules
+
+- All shadows must use token variables: `shadow-[var(--s-shadow-sm)]`, never Tailwind `shadow-sm`.
+- Prefer subtle layered shadows over hard borders when the goal is depth.
+- Shadow formula for elevated surfaces:
+  ```
+  0 0 0 1px rgb(0 0 0 / 0.06),
+  0 1px 2px -1px rgb(0 0 0 / 0.06),
+  0 2px 4px 0 rgb(0 0 0 / 0.04)
+  ```
+
+## Border Rules
+
+- All border styles must use `border-[style:var(--s-border-style,solid)]` — never hardcode `solid`.
+- All border widths must use token variables: `var(--s-border-thin)`, `var(--s-border-medium)`, `var(--s-border-thick)`.
+- Border style is preset-driven: solid, dashed, dotted, double, or none. Components must read the token.
+
+## Motion Rules
+
+- Every animation must have a purpose: feedback, spatial consistency, explanation, or delight.
+- If an animation has no purpose, delete it.
+- UI animations: under 300ms. Interactive elements: 150-200ms. Larger transitions: 250-300ms.
+- High-frequency interactions (command palettes, keyboard nav): ZERO animation.
+- Litmus test: will the user see this animation >10 times per session? If yes, make it instant.
+- All durations must use token variables: `duration-[var(--s-duration-fast,150ms)]`, never `duration-150`.
+
+### Seven Motion Rules
+
+1. Scale buttons on press: `scale(0.97)` on `:active`. Instant on press, optional short transition on release.
+2. Never animate from `scale(0)`. Use `scale(0.93)` minimum.
+3. Skip delay on subsequent tooltips — once any tooltip is open, adjacent ones open instantly.
+4. Use ease-out for entering/exiting. Built-in CSS easings are too subtle; use custom cubic-bezier.
+5. Set `transform-origin` to the trigger's position, not center. Center is wrong for anchored elements.
+6. Shorten duration before tweaking easing.
+7. Use `blur(2px)` to mask crossfade imperfections.
+
+### Enter/Exit Asymmetry
+
+- Enters are chunked and staggered (60-100ms between sections).
+- Exits have reduced travel distance compared to enters.
+- Exits are faster than enters.
+
+## Component Token Consumption
+
+Every component MUST read from token CSS variables. Hardcoded values are banned:
+
+| Property | Must Use | Banned |
+|----------|----------|--------|
+| Colors | `var(--s-*)` | `#hex`, `rgb()`, Tailwind color classes |
+| Shadows | `shadow-[var(--s-shadow-*)]` | `shadow-sm`, `shadow-md` |
+| Duration | `duration-[var(--s-duration-*)]` | `duration-150`, `duration-200` |
+| Border style | `border-[style:var(--s-border-style,solid)]` | `border` (implies solid) |
+| Radius | `rounded-[var(--s-radius-*)]` | `rounded-lg`, `rounded-xl` |
+| Height (inputs) | `h-[var(--s-input-height,*)]` | `h-10`, `h-12` |
+| Navbar height | `h-[var(--s-navbar-height,*)]` | `h-16`, `h-14` |
+| Sidebar width | `w-[var(--s-sidebar-width,*)]` | `w-[280px]` |
+
+## Token Architecture (Three Layers)
+
+1. **Primitive**: `color.gray.950`, `space.4`, `radius.12`, `font.display`, `shadow.xl`, `ease.fluid`.
+2. **Semantic**: `color.surface.page`, `color.text.primary`, `motion.duration.fast`.
+3. **Component**: Only when truly needed: `button.primary.bg`, `card.hero.radius`.
+
+Tokenize: colors, spacing, radii, typography, shadow, blur, border widths, z-index, motion durations, easings. Anything repeatedly hardcoded is a system failure.
+
+## Aesthetic Direction
+
+The Sigil aesthetic: structural visibility inspired by engineering instruments. Grid lines, margin rails, cross marks at intersections make the underlying layout visible as a design element.
+
+### Style Variables (lock before designing any preset)
+
+- Contrast level: low / medium / high
+- Depth level: flat / layered / scene-led
+- Type voice: engineered / editorial / luxurious / brutal
+- Surface finish: paper / glass / metal / grain / plastic / shader
+- Motion appetite: restrained / assertive / theatrical
+- Density: open / balanced / packed
+
+### Composition Rules
+
+- Hero must have one primary focal object.
+- Supporting objects frame the focal point or reinforce scale.
+- Repeat a visual angle consistently.
+- If using glow, pair it with darkness and empty space.
+- Let logos, proof bars, and stats inherit the same spacing logic as the hero.
+- A strong motif must repeat with variation, not appear once and disappear.
+- Most premium pages are built on restraint, not abundance.
+
+### Things Banned by Default
+
+- Random gradients with no material logic
+- Generic centered hero + dashboard + blur blobs
+- 3 equal cards in a row for feature sections (use bento, zig-zag, or asymmetric grid)
+- Too many font families (max: the triad)
+- Pill buttons everywhere with no hierarchy
+- Glassmorphism on white for no reason
+- Fake 3D from stacking drop shadows
+- Inter / Roboto / Open Sans as primary typeface for a new visual language
+- Pure `#000000` for backgrounds or text
+- AI copywriting clichés: "Elevate", "Seamless", "Unleash", "Next-Gen", "Delve"
+- Generic placeholder content: "John Doe", "Acme Corp", lorem ipsum, `99.99%`
+- `h-screen` for full-height sections (use `min-h-[100dvh]`)
+- Emojis in code, markup, headings, or alt text
+
+> See [taste-enforcement.mdc](./taste-enforcement.mdc) for the complete banned-patterns list with variance dials, creative arsenal, and performance guardrails.
+
+## Accessibility Rules
+
+- `prefers-reduced-motion`: keep opacity/color transitions, remove movement/transform animations.
+- Gate hover effects behind `@media (hover: hover) and (pointer: fine)`.
+- 44px minimum hit area on touch targets (use Tailwind `before:` pseudo for expansion — see `css-ui-enforcement.mdc`).
+- WCAG AA contrast on all text/UI pairs (see Contrast Rules above).
+- All interactive components must be keyboard-accessible.
+- Focus rings use `--s-focus-*` tokens, never browser defaults.
+
+## Gesture Rules
+
+- Momentum-based dismissal: calculate velocity (`distance / time`). If > 0.11, dismiss.
+- Damping at boundaries: the more they drag past the edge, the less it moves.
+- Pointer capture once dragging starts (`setPointerCapture`).
+- Multi-touch protection: ignore additional touch points after initial drag.
+- Friction instead of hard stops.
+- See `design-animation-rules.mdc` for full gesture and spring animation guidance.
+
+## React Rules
+
+- Hooks at top level only — never inside conditions, loops, or callbacks.
+- Exhaustive dependency arrays — never suppress `react-hooks/exhaustive-deps`.
+- `forwardRef` on every component that wraps a DOM element.
+- Accept `className` prop on every component for Tailwind overrides.
+- Use `cn()` from utils for class merging (clsx + tailwind-merge).
+- Named exports, never default exports for components.
+- Self-closing components: `<Foo />` not `<Foo></Foo>`.
+
+## TypeScript Rules
+
+- `type` over `interface` unless declaration merging is needed.
+- `unknown` over `any`. If `any` is unavoidable, add justification comment.
+- Use `satisfies` to validate shapes without widening.
+- Import types with `import type`.
+- Derive types from values with `as const`.
+- Early returns over deeply nested conditionals.
+- No ternaries for control flow — only for value selection.
+
+## Pre-Ship Checklist
+
+Before shipping any component or page:
+
+### Token & System
+- [ ] Colors use tokens, not hardcoded hex
+- [ ] Spacing is on the 4/8px grid
+- [ ] Nested radii are concentric
+- [ ] Shadows use `var(--s-shadow-*)`, not Tailwind classes
+- [ ] Durations use `var(--s-duration-*)`, not hardcoded ms
+- [ ] Border styles use `var(--s-border-style)` token
+- [ ] Component reads from preset tokens, not hardcoded values
+
+### Typography & Content
+- [ ] Headings use balanced wrapping (`text-wrap: balance`)
+- [ ] Numbers that update are tabular (`tabular-nums`)
+- [ ] No AI copywriting clichés in visible text
+- [ ] No generic names, fake round numbers, or lorem ipsum
+- [ ] No emojis in code, markup, or content
+
+### Visual Quality
+- [ ] Icons are optically aligned
+- [ ] Images have subtle edges when needed
+- [ ] No banned layout patterns (centered hero + blur, 3-card equal rows)
+- [ ] Mobile collapse guaranteed for asymmetric layouts
+
+### Motion & Performance
+- [ ] Interactive animations can be interrupted
+- [ ] Enters are staggered, exits are softer
+- [ ] No animation without a purpose
+- [ ] High-frequency interactions have zero animation
+- [ ] Spring physics for interactive elements (no linear easing)
+- [ ] Perpetual animations isolated in `React.memo` leaf components
+- [ ] No `h-screen` — only `min-h-[100dvh]`
+
+### States
+- [ ] Loading state with skeletal loaders
+- [ ] Empty state with guidance
+- [ ] Error state with inline reporting
+- [ ] Active/pressed tactile feedback (`scale-[0.98]` or `-translate-y-[1px]`)
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
