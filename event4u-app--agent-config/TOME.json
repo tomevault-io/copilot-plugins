@@ -1,0 +1,183 @@
+{
+  "name": "agent-config",
+  "owner": "event4u-app",
+  "repo": "agent-config",
+  "description": "Every claim machine-checked, including \"zero runtime daemon\" \u2014 governed skills, rules and replayable state. One contract, every host agent.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docker",
+      "path": ".agent-src/skills/docker",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/.agent-src/skills/docker",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": ".agent-src/skills/terraform",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/.agent-src/skills/terraform",
+      "description": ""
+    },
+    {
+      "name": "copilot-config",
+      "path": ".agent-src/skills/copilot-config",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/.agent-src/skills/copilot-config",
+      "description": ""
+    },
+    {
+      "name": "compress-memory",
+      "path": ".agent-src/skills/compress-memory",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/.agent-src/skills/compress-memory",
+      "description": ""
+    },
+    {
+      "name": "project-analysis-node-express",
+      "path": ".agent-src/skills/project-analysis-node-express",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/.agent-src/skills/project-analysis-node-express",
+      "description": ""
+    },
+    {
+      "name": "project-analysis-node-express",
+      "path": "src/skills/project-analysis-node-express",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/project-analysis-node-express",
+      "description": ""
+    },
+    {
+      "name": "docker",
+      "path": "dist/agent-src/skills/docker",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/docker",
+      "description": ""
+    },
+    {
+      "name": "docker",
+      "path": "src/skills/docker",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/docker",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": "dist/agent-src/skills/terraform",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/terraform",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": "src/skills/terraform",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/terraform",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "path": "src/skills/receiving-code-review",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "src/skills/git-workflow",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "copilot-config",
+      "path": "dist/agent-src/skills/copilot-config",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/copilot-config",
+      "description": ""
+    },
+    {
+      "name": "copilot-agents-optimization",
+      "path": "src/skills/copilot-agents-optimization",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/copilot-agents-optimization",
+      "description": ""
+    },
+    {
+      "name": "copilot-config",
+      "path": "src/skills/copilot-config",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/copilot-config",
+      "description": ""
+    },
+    {
+      "name": "condense-memory",
+      "path": "src/skills/condense-memory",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/condense-memory",
+      "description": ""
+    },
+    {
+      "name": "condense-memory",
+      "path": "dist/agent-src/skills/condense-memory",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/condense-memory",
+      "description": ""
+    },
+    {
+      "name": "react-shadcn-ui",
+      "path": "dist/agent-src/skills/react-shadcn-ui",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/react-shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "react-shadcn-ui",
+      "path": "src/skills/react-shadcn-ui",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/react-shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "dist/agent-src/skills/code-review",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "src/skills/code-review",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "agent-docs-writing",
+      "path": "dist/agent-src/skills/agent-docs-writing",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/dist/agent-src/skills/agent-docs-writing",
+      "description": ""
+    },
+    {
+      "name": "agent-docs-writing",
+      "path": "src/skills/agent-docs-writing",
+      "github_url": "https://github.com/event4u-app/agent-config/tree/main/src/skills/agent-docs-writing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/event4u-app/agent-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T04:30:18Z"
+}
