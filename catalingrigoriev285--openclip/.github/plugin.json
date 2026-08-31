@@ -1,0 +1,9 @@
+{
+  "name": "catalingrigoriev285--openclip",
+  "displayName": "openclip",
+  "description": "A small, self-contained screen recorder written in Rust with an egui GUI.",
+  "version": "1.0.0",
+  "author": "catalingrigoriev285",
+  "homepage": "https://github.com/catalingrigoriev285/openclip",
+  "skills": []
+}
