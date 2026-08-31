@@ -1,0 +1,9 @@
+{
+  "name": "stephancill--pfwc",
+  "displayName": "pfwc",
+  "description": "Protocol for Wallet Connection specification and txlink Wagmi connector proof of concept",
+  "version": "1.0.0",
+  "author": "stephancill",
+  "homepage": "https://github.com/stephancill/pfwc",
+  "skills": []
+}
