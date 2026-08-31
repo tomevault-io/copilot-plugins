@@ -4,7 +4,7 @@
   "repo": "stim",
   "description": "Isolated React Native / Expo dev environments per project or worktree \u2014 each project gets its own Metro and simulator.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appandflow/stim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T02:32:59Z"
+  "distributed_at": "2026-08-31T02:33:40Z"
 }
