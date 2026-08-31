@@ -4,7 +4,7 @@
   "repo": "runyte",
   "description": "Runyte is an editor-first, agent-ready terminal workspace for software development. It combines modal text editing, file management, terminal multiplexing, a Git interface with worktree support, and persistent sessions with detachable clients.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runyte/runyte",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T06:32:16Z"
+  "distributed_at": "2026-08-31T06:38:49Z"
 }
