@@ -1,0 +1,44 @@
+{
+  "name": "batuda",
+  "owner": "guillempuche",
+  "repo": "batuda",
+  "description": "Open-source CRM with a built-in research agent. Find people, email them, follow up, remember the trail. Your providers, your budget. MCP-ready, MIT.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/guillempuche/batuda",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T04:36:19Z"
+}
