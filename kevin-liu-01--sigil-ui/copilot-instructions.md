@@ -1,167 +1,133 @@
-## dashboard-design
+## design-animation-rules
 
-> > Imported from Kevin's wiki (`wiki/design/dashboard-design-system.md`).
+> > Imported from Kevin's wiki (`wiki/style/design-and-animation.md`). Source: Emil Kowalski's design engineering philosophy.
 
-# Dashboard Design System
+# Design & Animation Rules
 
-> Imported from Kevin's wiki (`wiki/design/dashboard-design-system.md`).
-> Codified from 12 production admin dashboards. Apply when building dashboard, admin, or data-dense UIs.
+> Imported from Kevin's wiki (`wiki/style/design-and-animation.md`). Source: Emil Kowalski's design engineering philosophy.
+> Cross-reference: `sigil-design-system.mdc` (Seven Motion Rules, Enter/Exit Asymmetry), `frontier-stack.mdc` (tool selection).
 
-## Base Typography
+## Core Philosophy
 
-| Role | Size | Weight | Notes |
-|------|------|--------|-------|
-| Page title | 24px | semibold (600) | Only place semibold appears reliably |
-| Card title | 14px | medium (500) | Paired with 16px icon |
-| Hero stat | 28-36px | semibold (600) | The number the card exists to communicate |
-| Body / cell | 14px | regular (400) | The base — everything defaults here |
-| Secondary label | 13px | regular (400) | Muted color, never smaller than 12px |
-| Badge / tag | 12px | medium (500) | Pill-shaped container |
+Taste is trained, not innate. Reverse engineer animations. Inspect interactions. Unseen details compound — a thousand barely audible voices all singing in tune. Beauty is leverage.
 
-**14px is the dashboard base.** Not 16px (too editorial), not 13px (too dense). Body text at 14px uses `-0.2px` letter-spacing.
+## Animation Frequency Framework
 
-**Weight discipline:** Three weights maximum: regular (400), medium (500), semibold (600). Bold (700) is almost never used. Every number uses `tabular-nums`.
+| Frequency | Decision |
+|-----------|----------|
+| 100+ times/day (keyboard shortcuts, command palette) | No animation. Ever. |
+| Tens of times/day (hover effects, list navigation) | Remove or drastically reduce |
+| Occasional (modals, drawers, toasts) | Standard animation |
+| Rare/first-time (onboarding, celebrations) | Can add delight |
 
-## Layout Architecture
+Never animate keyboard-initiated actions.
 
-| Element | Value |
-|---------|-------|
-| Sidebar width | 240px (collapsed: 64px icon-only) |
-| Top bar height | 56px |
-| Content padding | 24px (outer), 16px (between cards) |
-| Card gap | 16px uniform |
-| Card padding | 20-24px |
-| Card radius | 8px |
-| Content max-width | Fluid fill (sidebar constrains) |
-
-Stat cards at top: 4-col → 2-col → 1-col responsive. Below: 2 or 3-col grid. 16px gap everywhere.
-
-## Stat Card Anatomy
+## Easing Decision Flowchart
 
 ```
-┌─────────────────────────────────┐
-│ [icon]  Label            [▲]    │
-│                                 │
-│ $125,430                        │
-│ +12.5% compared to last month   │
-└─────────────────────────────────┘
+Entering or exiting viewport? → ease-out
+Moving/morphing on screen? → ease-in-out
+Hover/color change? → ease
+Constant motion (marquee, progress)? → linear
+Default → ease-out
 ```
 
-| Part | Spec |
-|------|------|
-| Icon | 16px, muted color, top-left |
-| Label | 14px medium, muted text |
-| Value | 28-36px semibold, primary text |
-| Delta | 13px regular, green (#10b981) positive / red (#ef4444) negative |
-| Context | 13px regular, muted |
-
-**Delta:** Always show direction: `+12.5%` or `-3.1%` with trend icon. Green and red only — no orange, no yellow.
-
-**Values:** Comma separators. `$` prefix, 2 decimals under $1K, none above. `K`/`M` suffixes above 10K/1M.
-
-## Chart Styling
-
-| Property | Value |
-|----------|-------|
-| Bar corner radius | 4px top, 0 bottom |
-| Line stroke | 2px |
-| Area fill opacity | 0.1-0.15 |
-| Grid lines | Horizontal only, 1px, muted |
-| Axis labels | 12px regular, muted |
-| Tooltip | Card-style, 8px radius, subtle shadow |
-
-One primary color per chart. Never more than 5 colors. Dark mode grid lines: `rgba(255, 255, 255, 0.06)`.
-
-## Sidebar Navigation
-
-| Element | Spec |
-|---------|------|
-| Group heading | 11-12px, uppercase, medium, muted, 12px left padding |
-| Nav item | 14px regular, 36px height, 12px left padding, 8px icon gap |
-| Active item | Medium weight, primary text, subtle bg fill (8px radius) |
-| Icon | 16px, 1.5px stroke, muted (active: primary) |
-| Badge | Right-aligned, red dot or pill |
-| Bottom section | Avatar (32px), name (14px medium), email (12px muted) |
-
-Collapse to 64px icon-only rail. Tooltip on hover. Active indicator = vertical bar or dot.
-
-## Top Bar
-
-```
-[Toggle]  [Search ⌘K]                    [CTA]  [🔔]  [🌙]  [⚙]  [Avatar]
-```
-
-Height 56px. Search ~400px wide with ⌘K hint. Primary CTA always top-right. 1px bottom border.
-
-## Empty States
-
-Every view that can be empty needs an empty state. "No data" is not an empty state.
-
-| Part | Spec |
-|------|------|
-| Illustration | 120-160px, muted/grayscale, centered |
-| Heading | 16px medium, primary text |
-| Description | 14px regular, muted, 1-2 lines max |
-| CTA | Primary button, clear action verb |
-
-Empty states are onboarding moments — they tell users what belongs here and how to fill it.
-
-## Tables
-
-| Part | Spec |
-|------|------|
-| Header | 13px medium, muted, uppercase optional, bottom border |
-| Body row | 14px regular, 48-52px height, bottom border |
-| Status badge | Pill, 12px medium, colored bg at 10% opacity |
-| Actions | Icon buttons (16px), right-aligned |
-| Hover | Subtle background tint |
-
-## Dark Mode Card Shadows (The 1px Rule)
+Use custom curves — built-in CSS easings lack punch:
 
 ```css
-box-shadow:
-  inset 0 1px 0 0 rgba(255, 255, 255, 0.02),
-  0 0px 0 0 rgba(0, 0, 0, 0.25);
+--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+--ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 ```
 
-Inner = top edge catch-light. Drop = grounding. Apply to every card in dark mode.
+Never use `ease-in` for UI animations. It starts slow, making the interface feel sluggish.
 
-## Motion
+## Duration Guidelines
 
-Dashboards are mostly static. Animation reserved for:
-- Sidebar collapse/expand: 200ms ease-out
-- Chart entrance: 300ms staggered
-- Tooltip appearance: 100ms opacity + translateY(4px)
-- Page transitions: 150ms fade
-- Dropdown menus: 150ms scale(0.95) → scale(1)
+| Element Type | Duration |
+|-------------|----------|
+| Button press feedback | 100-160ms |
+| Tooltips, small popovers | 125-200ms |
+| Dropdowns, selects | 150-250ms |
+| Modals, drawers | 200-500ms |
+| Marketing/explanatory | Can be longer |
 
-No animation on stat card number changes. No skeleton for instant-load content.
+- UI animations stay under 300ms
+- Larger elements animate slower than smaller ones
+- Exit animations ~20% faster than entrance
+- Match duration to distance
 
-## SaaS Dashboard Cheatsheet (6 Rules)
+## Spring Animations
 
-| Rule | Spec | Why |
-|------|------|-----|
-| Typography | 14px body, `-0.2px` letter-spacing | Readable without feeling editorial |
-| Sidebar | 240px, always | Enough for labels, not enough to waste space |
-| Table rows | 48px minimum | Eyes need vertical breathing room |
-| Primary action | Top right, never buried | Muscle memory from every SaaS app |
-| Empty states | Illustration + CTA | "No data" is a dead end |
-| Status colors | Green = done, amber = pending, red = action needed | Three states, three colors, zero ambiguity |
+Springs feel more natural — they simulate real physics with no fixed duration.
 
-## Pre-Ship Checklist
+When to use: drag interactions with momentum, elements that feel "alive", gestures that can be interrupted, decorative mouse-tracking.
 
-- [ ] Base font is 14px, not 16px
-- [ ] Body text uses `-0.2px` letter-spacing
-- [ ] At most 3 font weights (regular, medium, semibold)
-- [ ] All numbers use `tabular-nums`
-- [ ] Icons are 16px with 1.5px stroke
-- [ ] Stat cards have icon + label + hero value + delta + context
-- [ ] Card gap is 16px uniform, padding 20-24px, radius 8px
-- [ ] Table rows are 48-52px height
-- [ ] Primary action is top right
-- [ ] Empty states have illustration + CTA
-- [ ] No animations on instant-load content
-- [ ] Dark mode cards use the 1px inner shadow + drop shadow
+Apple's approach (recommended): `{ type: "spring", duration: 0.5, bounce: 0.2 }`. Keep bounce subtle (0.1-0.3). Avoid bounce in most UI contexts. Springs maintain velocity when interrupted — CSS animations restart from zero.
+
+## clip-path Techniques
+
+`clip-path: inset(top right bottom left)` — one of the most powerful animation tools. Use for: hold-to-delete overlays, tab color transitions (duplicate + clip), image reveals on scroll, comparison sliders.
+
+## Gesture Rules
+
+- Momentum-based dismissal: calculate velocity (`distance / time`). If > 0.11, dismiss.
+- Damping at boundaries: the more they drag past the edge, the less it moves.
+- Pointer capture once dragging starts (`setPointerCapture`).
+- Multi-touch protection: ignore additional touch points after initial drag.
+- Friction instead of hard stops.
+
+## Performance
+
+- Only animate `transform` and `opacity` (GPU-composited).
+- Motion `x`/`y`/`scale` are NOT hardware-accelerated. Use `transform: "translateX(100px)"` for GPU.
+- CSS animations run off main thread. Use CSS for predetermined, JS for dynamic.
+- Don't animate CSS variables on parents — recalculates all children.
+- WAAPI (`element.animate()`) gives JS control with CSS performance.
+
+## Accessibility
+
+- `prefers-reduced-motion`: keep opacity/color, remove movement.
+- Gate hover behind `@media (hover: hover) and (pointer: fine)`.
+- 44px minimum hit area on touch targets.
+
+## Component Rules
+
+1. **Scale buttons on press**: `transform: scale(0.97)` on `:active`, 160ms ease-out.
+2. **Never animate from scale(0)**: Start from `scale(0.95)`, not `scale(0)`.
+3. **Origin-aware popovers**: `transform-origin` to trigger location. Exception: modals stay centered.
+4. **Skip tooltip delay on subsequent hovers**: `[data-instant] { transition-duration: 0ms; }`.
+5. **CSS transitions over keyframes**: Transitions are interruptible; keyframes restart from zero.
+6. **Blur to mask crossfades**: `filter: blur(2px)` during transition. Under 20px.
+7. **Asymmetric enter/exit**: Enter chunked and staggered (60-100ms). Exits have reduced travel.
+8. **Stagger animations**: 30-80ms between items. Never block interaction during stagger.
+9. **Use `@starting-style`** for entry animations (replaces `useEffect` + `setMounted(true)`).
+
+## Review Checklist
+
+| Issue | Fix |
+|-------|-----|
+| `transition: all` | Specify exact properties |
+| `scale(0)` entry | `scale(0.95)` with `opacity: 0` |
+| `ease-in` on UI element | `ease-out` or custom curve |
+| `transform-origin: center` on popover | Trigger location (modals exempt) |
+| Animation on keyboard action | Remove entirely |
+| Duration > 300ms on UI element | 150-250ms |
+| Hover without media query | `@media (hover: hover) and (pointer: fine)` |
+| Keyframes on rapid triggers | CSS transitions |
+| Motion `x`/`y` under load | `transform: "translateX()"` |
+| Same enter/exit speed | Exit ~20% faster |
+| Everything appears at once | Stagger 30-80ms |
+
+## The Sonner Principles
+
+From building Sonner (13M+ weekly npm downloads):
+
+1. No hooks, no context, no setup. Insert once, call from anywhere.
+2. Good defaults > options. Ship beautiful out of the box.
+3. Handle edge cases invisibly. Pause timers on hidden tabs. Fill gaps between stacked toasts.
+4. Match motion to mood. Playful = bouncier. Dashboard = crisp and fast.
+5. Review animations the next day with fresh eyes.
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
