@@ -2,22 +2,20 @@
 
 > Tome by [husamql3](https://github.com/husamql3/db-studio), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-The modern pgAdmin alternative that works with every database.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [husamql3/db-studio](https://github.com/husamql3/db-studio).
+Original source: `AGENTS.md` in [husamql3/db-studio](https://github.com/husamql3/db-studio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [husamql3/db-studio](https://github.com/husamql3/db-studio) — a repo with 257+ stars on GitHub.
+From [husamql3/db-studio](https://github.com/husamql3/db-studio) — a repo with 260+ stars on GitHub.
 
 ---
 
