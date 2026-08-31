@@ -4,7 +4,7 @@
   "repo": "daedalus",
   "description": "One file. It runs. Package any app into a single self-extracting executable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Encapsul/daedalus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T06:34:41Z"
+  "distributed_at": "2026-08-31T06:39:24Z"
 }
