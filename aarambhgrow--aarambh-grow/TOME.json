@@ -1,0 +1,44 @@
+{
+  "name": "aarambh-grow",
+  "owner": "aarambhgrow",
+  "repo": "aarambh-grow",
+  "description": "From business registration and compliance to digital marketing, financial consulting, certifications, and growth strategies, AarambhGrow provides end to end business solutions that help startups, MSMEs, and enterprises achieve long term success.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aarambhgrow/aarambh-grow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T03:06:03Z"
+}
