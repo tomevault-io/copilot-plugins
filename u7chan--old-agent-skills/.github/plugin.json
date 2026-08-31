@@ -1,0 +1,9 @@
+{
+  "name": "u7chan--old-agent-skills",
+  "displayName": "old-agent-skills",
+  "description": "A historical record of how a personal agent skills collection evolved, grew complex, and migrated to global-agent-skills.",
+  "version": "1.0.0",
+  "author": "u7chan",
+  "homepage": "https://github.com/u7chan/old-agent-skills",
+  "skills": []
+}
