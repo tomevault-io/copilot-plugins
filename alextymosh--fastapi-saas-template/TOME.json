@@ -1,0 +1,44 @@
+{
+  "name": "fastapi-saas-template",
+  "owner": "AlexTymosh",
+  "repo": "fastapi-saas-template",
+  "description": "Production-oriented FastAPI backend template based on a modular monolith architecture, designed for small to medium SaaS applications, including marketplace and two-sided platforms. The system is designed with GDPR requirements in mind.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AlexTymosh/fastapi-saas-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T04:37:40Z"
+}
