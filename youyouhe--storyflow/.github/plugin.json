@@ -1,0 +1,9 @@
+{
+  "name": "youyouhe--storyflow",
+  "displayName": "StoryFlow",
+  "description": "StoryFlow \u662f\u4e00\u6b3e\u878d\u5408 AI \u667a\u80fd\u7684\u73b0\u4ee3\u5316\u5267\u672c\u7f16\u8f91\u5668\u3002\u4e13\u4e3a\u7535\u5f71\u3001\u5fae\u77ed\u5267\u53ca\u7f51\u6587\u521b\u4f5c\u8005\u6253\u9020\uff0c\u901a\u8fc7\u6d41\u5f0f\u6392\u7248\u4e0e AI \u8f85\u52a9\uff0c\u8ba9\u5199\u4f5c\u5982\u884c\u4e91\u6d41\u6c34\u822c\u987a\u7545\u3002",
+  "version": "1.0.0",
+  "author": "youyouhe",
+  "homepage": "https://github.com/youyouhe/StoryFlow",
+  "skills": []
+}
