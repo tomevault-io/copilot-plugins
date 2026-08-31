@@ -4,7 +4,7 @@
   "repo": "omnia-vault",
   "description": "Omnia Vault - the all-in-one project brain: an Obsidian LLM wiki, Graphify code graphs, a living plan that triages new videos against itself, and a Claude Code \u21c4 Codex relay. Everything your project knows, in one clonable vault.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gavishap/omnia-vault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T07:32:37Z"
+  "distributed_at": "2026-08-31T07:33:28Z"
 }
