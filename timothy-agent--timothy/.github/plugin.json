@@ -1,0 +1,9 @@
+{
+  "name": "timothy-agent--timothy",
+  "displayName": "timothy",
+  "description": "Self-hosted personal AI assistant: chat, cost tracking, tasks, automations, and agents.",
+  "version": "1.0.0",
+  "author": "timothy-agent",
+  "homepage": "https://github.com/timothy-agent/timothy",
+  "skills": []
+}
