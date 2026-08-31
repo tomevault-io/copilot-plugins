@@ -1,0 +1,9 @@
+{
+  "name": "maxritter--open-claude-design",
+  "displayName": "open-claude-design",
+  "description": "Bring Claude Design to Claude Code, Codex, OpenCode, and 20+ coding agents. Cross-platform CLI with automatic Agent Skills, codebase-grounded UI design, design-system sync, visual review, Impeccable i",
+  "version": "1.0.0",
+  "author": "maxritter",
+  "homepage": "https://github.com/maxritter/open-claude-design",
+  "skills": []
+}
