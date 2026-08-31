@@ -1,0 +1,9 @@
+{
+  "name": "folknor--pine-tools",
+  "displayName": "pine-tools",
+  "description": "Unofficial Pine Script v6 tools, including a language service, LSP, MCP, Visual Studio Code extension, CLI linter tool, and more.",
+  "version": "1.0.0",
+  "author": "folknor",
+  "homepage": "https://github.com/folknor/pine-tools",
+  "skills": []
+}
