@@ -1,0 +1,9 @@
+{
+  "name": "ganapativs--microcharts",
+  "displayName": "microcharts",
+  "description": "Word-sized charts for React, made for LLMs and humans \u2014 106 chart types, zero runtime dependencies, accessible by default, RSC-safe.",
+  "version": "1.0.0",
+  "author": "ganapativs",
+  "homepage": "https://github.com/ganapativs/microcharts",
+  "skills": []
+}
