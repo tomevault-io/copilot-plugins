@@ -1,0 +1,9 @@
+{
+  "name": "tt-a1i--skillroster",
+  "displayName": "skillroster",
+  "description": "Turn scattered, duplicated AI-agent Skills into per-Agent Rosters\u2014with evidence, receipts, and exact undo.",
+  "version": "1.0.0",
+  "author": "tt-a1i",
+  "homepage": "https://github.com/tt-a1i/skillroster",
+  "skills": []
+}
