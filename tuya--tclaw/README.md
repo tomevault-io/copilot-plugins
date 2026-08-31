@@ -7,11 +7,11 @@ Edge-Hardware (SoC/MCU) oriented Claw🦞
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tuya/TClaw](https://github.com/tuya/TClaw).
+Original source: `CLAUDE.md` in [tuya/TClaw](https://github.com/tuya/TClaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
