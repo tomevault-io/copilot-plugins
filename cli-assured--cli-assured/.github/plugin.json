@@ -1,0 +1,9 @@
+{
+  "name": "cli-assured--cli-assured",
+  "displayName": "cli-assured",
+  "description": "Java DSL for testing command line applications",
+  "version": "1.0.0",
+  "author": "cli-assured",
+  "homepage": "https://github.com/cli-assured/cli-assured",
+  "skills": []
+}
