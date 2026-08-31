@@ -1,0 +1,9 @@
+{
+  "name": "tylerilunga--procore-mcp-server",
+  "displayName": "procore-mcp-server",
+  "description": "MCP server exposing the full Procore REST API for Claude Desktop and Claude Code",
+  "version": "1.0.0",
+  "author": "TylerIlunga",
+  "homepage": "https://github.com/TylerIlunga/procore-mcp-server",
+  "skills": []
+}
