@@ -1,0 +1,9 @@
+{
+  "name": "dojocodinglabs--hacienda-cr",
+  "displayName": "hacienda-cr",
+  "description": "TypeScript SDK, CLI & MCP Server for Costa Rica electronic invoicing (Hacienda API)",
+  "version": "1.0.0",
+  "author": "DojoCodingLabs",
+  "homepage": "https://github.com/DojoCodingLabs/hacienda-cr",
+  "skills": []
+}
