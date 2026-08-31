@@ -1,98 +1,167 @@
-## css-ui-enforcement
+## dashboard-design
 
-> > Hard UI conventions imported from Kevin's wiki (`wiki/style/css-ui-enforcement.md`).
+> > Imported from Kevin's wiki (`wiki/design/dashboard-design-system.md`).
 
-# CSS UI Enforcement
+# Dashboard Design System
 
-> Hard UI conventions imported from Kevin's wiki (`wiki/style/css-ui-enforcement.md`).
-> Default surface: **Tailwind utilities + `cn()`** only. Raw CSS is a last resort.
-> Cross-reference: `sigil-design-system.mdc` (token consumption), `taste-enforcement.mdc` (anti-slop).
+> Imported from Kevin's wiki (`wiki/design/dashboard-design-system.md`).
+> Codified from 12 production admin dashboards. Apply when building dashboard, admin, or data-dense UIs.
 
-## ENFORCE: Tailwind + `cn()` first; `globals.css` only for "nowhere else" rules
+## Base Typography
 
-**Ship UI as:**
-- `className={cn(...)}` everywhere: layout, spacing, color, typography, states, responsive, dark mode.
-- `cn()` = `clsx` + `tailwind-merge` (from `~/lib/utils`).
+| Role | Size | Weight | Notes |
+|------|------|--------|-------|
+| Page title | 24px | semibold (600) | Only place semibold appears reliably |
+| Card title | 14px | medium (500) | Paired with 16px icon |
+| Hero stat | 28-36px | semibold (600) | The number the card exists to communicate |
+| Body / cell | 14px | regular (400) | The base — everything defaults here |
+| Secondary label | 13px | regular (400) | Muted color, never smaller than 12px |
+| Badge / tag | 12px | medium (500) | Pill-shaped container |
 
-**Avoid:**
-- Co-located `.css` / `.module.css` for ordinary component styling — if it can be a utility, it must be.
-- `<style>` tags, ad-hoc `.scss`, and one-off stylesheets per feature.
+**14px is the dashboard base.** Not 16px (too editorial), not 13px (too dense). Body text at 14px uses `-0.2px` letter-spacing.
 
-**`globals.css` (or equivalent) — allowed only for what Tailwind cannot own cleanly:**
-- `@layer base` resets
-- `@font-face`
-- Document-wide scrollbar defaults
-- `@property` registrations
-- Global `@keyframes`
-- `:root` / `html` / `body` theme plumbing
-- Third-party overrides that must target foreign selectors
+**Weight discipline:** Three weights maximum: regular (400), medium (500), semibold (600). Bold (700) is almost never used. Every number uses `tabular-nums`.
 
-If a rule *could* be a utility on the element, do not put it in globals.
+## Layout Architecture
 
-## ENFORCE: No `style` + `className` soup (React)
+| Element | Value |
+|---------|-------|
+| Sidebar width | 240px (collapsed: 64px icon-only) |
+| Top bar height | 56px |
+| Content padding | 24px (outer), 16px (between cards) |
+| Card gap | 16px uniform |
+| Card padding | 20-24px |
+| Card radius | 8px |
+| Content max-width | Fluid fill (sidebar constrains) |
 
-Do not mix Tailwind on `className` with ad-hoc `style={{ ... }}` on the same node.
+Stat cards at top: 4-col → 2-col → 1-col responsive. Below: 2 or 3-col grid. 16px gap everywhere.
 
-**Do instead:**
-- Static visuals → Tailwind on `className` via `cn()`.
-- Dynamic but design-shaped → CSS variables on `:root` / theme layer or inline `--token` plus Tailwind arbitrary values.
+## Stat Card Anatomy
 
-**Exceptions:**
-- Runtime-only values (drag position, live chart layout, embed constraints).
-- No "couldn't find the class" exception.
+```
+┌─────────────────────────────────┐
+│ [icon]  Label            [▲]    │
+│                                 │
+│ $125,430                        │
+│ +12.5% compared to last month   │
+└─────────────────────────────────┘
+```
 
-## ENFORCE: Scrollbars (thin + neutral)
+| Part | Spec |
+|------|------|
+| Icon | 16px, muted color, top-left |
+| Label | 14px medium, muted text |
+| Value | 28-36px semibold, primary text |
+| Delta | 13px regular, green (#10b981) positive / red (#ef4444) negative |
+| Context | 13px regular, muted |
 
-Prefer Tailwind scrollbar plugin if the project has one. Otherwise define **once** in `globals.css`:
+**Delta:** Always show direction: `+12.5%` or `-3.1%` with trend icon. Green and red only — no orange, no yellow.
+
+**Values:** Comma separators. `$` prefix, 2 decimals under $1K, none above. `K`/`M` suffixes above 10K/1M.
+
+## Chart Styling
+
+| Property | Value |
+|----------|-------|
+| Bar corner radius | 4px top, 0 bottom |
+| Line stroke | 2px |
+| Area fill opacity | 0.1-0.15 |
+| Grid lines | Horizontal only, 1px, muted |
+| Axis labels | 12px regular, muted |
+| Tooltip | Card-style, 8px radius, subtle shadow |
+
+One primary color per chart. Never more than 5 colors. Dark mode grid lines: `rgba(255, 255, 255, 0.06)`.
+
+## Sidebar Navigation
+
+| Element | Spec |
+|---------|------|
+| Group heading | 11-12px, uppercase, medium, muted, 12px left padding |
+| Nav item | 14px regular, 36px height, 12px left padding, 8px icon gap |
+| Active item | Medium weight, primary text, subtle bg fill (8px radius) |
+| Icon | 16px, 1.5px stroke, muted (active: primary) |
+| Badge | Right-aligned, red dot or pill |
+| Bottom section | Avatar (32px), name (14px medium), email (12px muted) |
+
+Collapse to 64px icon-only rail. Tooltip on hover. Active indicator = vertical bar or dot.
+
+## Top Bar
+
+```
+[Toggle]  [Search ⌘K]                    [CTA]  [🔔]  [🌙]  [⚙]  [Avatar]
+```
+
+Height 56px. Search ~400px wide with ⌘K hint. Primary CTA always top-right. 1px bottom border.
+
+## Empty States
+
+Every view that can be empty needs an empty state. "No data" is not an empty state.
+
+| Part | Spec |
+|------|------|
+| Illustration | 120-160px, muted/grayscale, centered |
+| Heading | 16px medium, primary text |
+| Description | 14px regular, muted, 1-2 lines max |
+| CTA | Primary button, clear action verb |
+
+Empty states are onboarding moments — they tell users what belongs here and how to fill it.
+
+## Tables
+
+| Part | Spec |
+|------|------|
+| Header | 13px medium, muted, uppercase optional, bottom border |
+| Body row | 14px regular, 48-52px height, bottom border |
+| Status badge | Pill, 12px medium, colored bg at 10% opacity |
+| Actions | Icon buttons (16px), right-aligned |
+| Hover | Subtle background tint |
+
+## Dark Mode Card Shadows (The 1px Rule)
 
 ```css
-* {
-  scrollbar-width: thin;
-  scrollbar-color: gray transparent;
-}
+box-shadow:
+  inset 0 1px 0 0 rgba(255, 255, 255, 0.02),
+  0 0px 0 0 rgba(0, 0, 0, 0.25);
 ```
 
-Add `::-webkit-scrollbar` rules in the same global block. Never per-component.
+Inner = top edge catch-light. Drop = grounding. Apply to every card in dark mode.
 
-## ENFORCE: Hit area expansion (Tailwind-first)
+## Motion
 
-Prefer Tailwind pseudo utilities on the interactive node:
+Dashboards are mostly static. Animation reserved for:
+- Sidebar collapse/expand: 200ms ease-out
+- Chart entrance: 300ms staggered
+- Tooltip appearance: 100ms opacity + translateY(4px)
+- Page transitions: 150ms fade
+- Dropdown menus: 150ms scale(0.95) → scale(1)
 
-```tsx
-className={cn(
-  "relative before:absolute before:inset-x-0 before:-inset-y-2.5 before:content-['']",
-  className,
-)}
-```
+No animation on stat card number changes. No skeleton for instant-load content.
 
-If the same expansion repeats 20+ times, add a utility in `@theme`, not a CSS module. Pair with 44px minimum guidance.
+## SaaS Dashboard Cheatsheet (6 Rules)
 
-## Pattern: `@property` for animatable gradients
+| Rule | Spec | Why |
+|------|------|-----|
+| Typography | 14px body, `-0.2px` letter-spacing | Readable without feeling editorial |
+| Sidebar | 240px, always | Enough for labels, not enough to waste space |
+| Table rows | 48px minimum | Eyes need vertical breathing room |
+| Primary action | Top right, never buried | Muscle memory from every SaaS app |
+| Empty states | Illustration + CTA | "No data" is a dead end |
+| Status colors | Green = done, amber = pending, red = action needed | Three states, three colors, zero ambiguity |
 
-Register in globals, consume via utilities + arbitrary values on the component:
+## Pre-Ship Checklist
 
-```css
-/* globals.css */
-@property --angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-```
-
-Keep markup `cn()`-first.
-
-## Pattern: Fluid type
-
-Prefer Tailwind `text-*` + responsive/font-size tokens. If `clamp()` is needed, add it **once** under `@layer base` in globals, not per file.
-
-## Pattern: Scroll-driven timelines
-
-Centralize `@keyframes` / timeline plumbing in globals; visible components still use `cn()` for layout.
-
-## Agent context cost
-
-Evaluate `lean-ctx` at repo bootstrap for reducing Cursor/Claude Code token load. Wire before prompt-layer tuning.
+- [ ] Base font is 14px, not 16px
+- [ ] Body text uses `-0.2px` letter-spacing
+- [ ] At most 3 font weights (regular, medium, semibold)
+- [ ] All numbers use `tabular-nums`
+- [ ] Icons are 16px with 1.5px stroke
+- [ ] Stat cards have icon + label + hero value + delta + context
+- [ ] Card gap is 16px uniform, padding 20-24px, radius 8px
+- [ ] Table rows are 48-52px height
+- [ ] Primary action is top right
+- [ ] Empty states have illustration + CTA
+- [ ] No animations on instant-load content
+- [ ] Dark mode cards use the 1px inner shadow + drop shadow
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
