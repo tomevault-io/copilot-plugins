@@ -1,0 +1,9 @@
+{
+  "name": "clovercatlab--nanotrans",
+  "displayName": "NanoTrans",
+  "description": "\u6781\u81f4\u8f7b\u91cf\u5316\u8f93\u5165\u7ffb\u8bd1\u52a9\u624b  --Built with Rust",
+  "version": "1.0.0",
+  "author": "CloverCatLab",
+  "homepage": "https://github.com/CloverCatLab/NanoTrans",
+  "skills": []
+}
