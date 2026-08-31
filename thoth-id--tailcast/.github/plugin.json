@@ -1,0 +1,9 @@
+{
+  "name": "thoth-id--tailcast",
+  "displayName": "tailcast",
+  "description": "Peer-to-peer browser screen sharing. No SFU, no TURN, no account, no dependencies.",
+  "version": "1.0.0",
+  "author": "thoth-id",
+  "homepage": "https://github.com/thoth-id/tailcast",
+  "skills": []
+}
