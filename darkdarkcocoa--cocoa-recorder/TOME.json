@@ -4,7 +4,7 @@
   "repo": "cocoa-recorder",
   "description": "A cute pixel-art system audio recorder for Windows \u2014 WAV/MP3, live waveform, cassette library.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/darkdarkcocoa/cocoa-recorder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T02:35:19Z"
+  "distributed_at": "2026-08-31T02:38:36Z"
 }
