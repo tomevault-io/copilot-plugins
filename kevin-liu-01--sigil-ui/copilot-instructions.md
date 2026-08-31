@@ -1,68 +1,105 @@
-## frontier-stack
+## interface-micro-polish
 
-> > Imported from Kevin's wiki (`wiki/design/frontier-stack-2026.md`).
+> > Imported from Kevin's wiki (`wiki/design/interface-micro-polish.md`).
 
-# Frontier Stack 2026
+# Interface Micro-Polish
 
-> Imported from Kevin's wiki (`wiki/design/frontier-stack-2026.md`).
-> Default animation/3D/rendering stack and decision matrix.
+> Imported from Kevin's wiki (`wiki/design/interface-micro-polish.md`).
+> Great interfaces improve because lots of tiny choices stop being wrong at the same time.
 
-## Default Stack
+## Text Wrapping
 
-| Layer | Tool | Why |
-|-------|------|-----|
-| Tokens & styling | Tailwind CSS v4 `@theme`, runtime CSS variables, OKLCH tokens | CSS-first, theme values become runtime vars usable in CSS/JS/Motion/shaders/canvas |
-| Component motion | Motion (Framer Motion) | Component entrances, layout movement, hover/press, gestures, shared layout transitions |
-| Scroll storytelling | GSAP + ScrollTrigger, Lenis when needed | Pinned sections, scrubbed scenes, multi-step narratives, mixed DOM/canvas |
-| 3D scenes | React Three Fiber + drei | Hero objects, immersive scenes, camera-driven storytelling, particle fields |
-| Shader-first | OGL, custom GLSL/WGSL | When the material/distortion itself is the idea, less abstraction than R3F |
-| App transitions | React `startTransition`, `useTransition`, `useEffectEvent`, experimental `<ViewTransition>` | Non-blocking UI updates, route/state transitions |
-| Generative UI | json-render (`@json-render/core` + `@json-render/shadcn` + `@json-render/directives`) | AI generates JSON specs constrained to component catalog. Cross-platform. |
+- `text-wrap: balance` for short headings, badges, marketing copy. Reduces orphaned words.
+- `text-wrap: pretty` for longer prose only when browser cost is acceptable.
+- Manual line breaks for hero headlines when composition matters most.
 
-## Decision Matrix
+## Concentric Border Radius
 
-| Project Type | Stack |
-|-------------|-------|
-| Marketing site with narrative | Tailwind v4 + Motion (UI) + GSAP + ScrollTrigger (story) + Lenis if sync matters |
-| Premium SaaS landing | Tailwind v4 + Motion (UI, stagger, hover) + GSAP only if real narrative sequencing |
-| Docs site | Tailwind v4 + Fumadocs or similar + Motion sparingly. No Lenis, no scroll theatrics |
-| 3D hero / spatial product | Tailwind v4 + Motion (shell) + R3F + drei (scene) + GSAP only for shell-scene orchestration |
-| Shader-heavy microsite | Tailwind v4 or minimal CSS var system + OGL or custom shaders + GSAP/Motion around edges |
-| Product app transitions | Motion for layout + React `startTransition` / `useTransition` + experimental `<ViewTransition>` |
-| AI-generated dashboards/UIs | json-render catalog + `@json-render/shadcn` + `@json-render/directives` |
+Nested surfaces must be mathematically related: **outer radius = inner radius + padding**.
 
-## Animation Tool Hierarchy
+Example: outer 20px, padding 8px, inner 12px. Define radius pairs as tokens when nesting happens often. Check: cards with headers, inset panels, grouped buttons, avatars in frames.
 
-| Rank | Tool | Use for |
-|------|------|---------|
-| 1st (scroll) | GSAP + ScrollTrigger | Scroll animations, parallax, pinning, scrubbing |
-| 1st (component) | Motion (Framer Motion) | Component entrances, layout, gestures, hover/press |
-| 2nd | React Spring | Spring physics, natural-feeling motion |
-| 3rd | Lottie | After Effects JSON animations, icons |
-| 1st (3D) | React Three Fiber + drei | Declarative 3D in React |
-| 2nd (3D) | Three.js | Outside React or no abstraction needed |
-| Last | CSS keyframes | Trivial hover/focus only |
+## Crispy Text Rendering
 
-## Anti-Defaults
+Apply `antialiased` globally at the layout level (`<body className="font-sans antialiased">`). Do not use as a bandage for wrong font weight.
 
-Do NOT default to:
-- Raw CSS keyframe systems for large interactive products
-- Plain CSS for sophisticated shared layout animation
-- Scroll-jacking without narrative reason
-- R3F for flat DOM cards in cosplay
-- Lenis on dense docs or dashboards
+## Tabular Numbers
 
-## Generative UI Hierarchy
+Any changing or comparative numeric UI: `font-variant-numeric: tabular-nums` (Tailwind: `tabular-nums`). Apply to counters, timers, KPIs, dashboard metrics, prices, dates that update. Prevents twitching when digits change.
 
-1. **json-render** (`@json-render/core` + `@json-render/shadcn` + `@json-render/directives`) — catalog-constrained
-2. **AI SDK** structured output — when json-render not installed
-3. **Raw JSX generation** — never
+## Optical Alignment
 
-## Dependency Rules
+Pure geometry often looks wrong. Adjust icon padding slightly when needed. Fix the SVG itself when possible instead of stacking utility margins. Treat visual center as a perception problem, not box-model.
 
-- Never mix GSAP/Three.js with Motion in the same component tree.
-- Motion for UI/bento; GSAP/Three.js for isolated scroll sequences or canvas backgrounds.
-- Check `package.json` before importing any third-party library — if missing, output the install command first.
+## Shadows Instead of Borders
+
+When you want depth, subtle layered shadows beat hard borders:
+
+```css
+box-shadow:
+  0 0 0 1px rgb(0 0 0 / 0.06),
+  0 1px 2px -1px rgb(0 0 0 / 0.06),
+  0 2px 4px 0 rgb(0 0 0 / 0.04);
+```
+
+Transition `box-shadow` only on small components. Brutalist designs may still prefer borders.
+
+## Dark UI Card Shadows (The 1px Rule)
+
+The difference between good dark UI and great dark UI:
+
+```css
+box-shadow:
+  inset 0 1px 0 0 rgba(255, 255, 255, 0.02),  /* top edge catch-light */
+  0 0px 0 0 rgba(0, 0, 0, 0.25);               /* grounding shadow */
+```
+
+- **Inner shadow:** white at 2% opacity, Y offset 1px, inset. Simulates light hitting the top edge. Invisible at a glance, but the card reads as physical.
+- **Drop shadow:** black at 25% opacity, Y offset 0px. Grounds the card symmetrically.
+
+Apply to every card, panel, and elevated surface in dark mode. Safe to keep in both themes (invisible on light backgrounds).
+
+## Image and Media Outlines
+
+Low-opacity edge so media sits confidently:
+
+```css
+outline: 1px solid rgb(0 0 0 / 0.1);
+outline-offset: -1px;
+```
+
+Invert for dark mode. Apply to screenshots, product images, video frames, avatars on noisy backgrounds.
+
+## Contextual Icon Animation
+
+When icons swap based on state (copy/check, mute/unmute, open/close), animate with opacity, scale, and slight blur. Keep amplitude small. Responsive, not theatrical.
+
+## Interruptible Animations
+
+- **Transitions** for interactive state changes (dropdowns, popovers, drawers, toggles, hover) — they retarget cleanly.
+- **Keyframes** for staged one-shot sequences and decorative choreography.
+
+If a user reverses direction midway and the old animation keeps playing, it feels broken.
+
+## Staggered Enters
+
+Split large groups into semantic chunks. Stagger title, description, buttons. 60-100ms between sections. Tighter stagger for words than containers. Keep blur small and short-lived.
+
+## Softer Exits
+
+Exits have reduced travel distance compared to enters. Keep directional hint but soften it. Enter may use `calc(-100% - 4px)`; exit may use `-12px`. Asymmetry makes the interface feel calmer.
+
+## Quick Checklist
+
+- [ ] Headings use balanced wrapping
+- [ ] Numbers that update are tabular
+- [ ] Nested radii are concentric
+- [ ] Icons are optically aligned
+- [ ] Images have subtle edges when needed
+- [ ] Interactive animations can be interrupted
+- [ ] Enters are chunked and staggered
+- [ ] Exits are softer than enters
+- [ ] Dark mode cards have 1px inner shadow (white 2%) + drop shadow (black 25%)
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
