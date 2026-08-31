@@ -1,0 +1,124 @@
+## collegedata-fyi
+
+> Open-source archive of U.S. college Common Data Set (CDS) documents.
+
+# collegedata.fyi
+
+Open-source archive of U.S. college Common Data Set (CDS) documents.
+
+- **Live site:** https://collegedata.fyi (Next.js on Vercel)
+- **API:** https://api.collegedata.fyi (PostgREST on Supabase)
+- **Architecture:** `docs/ARCHITECTURE.md` (eleven pipelines: schema, corpus, discovery, mirror, extraction, scorecard, institution directory + coverage, IPEDS federal baseline, change intelligence, consumer API, frontend)
+- **Frontend PRD:** `docs/prd/002-frontend.md`
+- **Design system:** `web/DESIGN_SYSTEM.md` (canonical tokens in `web/src/app/tokens.css`; live reference at `/design-system/`). **Read before writing any UI.** Public copy: `web/VOICE.md`.
+
+## Project layout
+
+- `web/` — Next.js 16 frontend (TypeScript, Tailwind, @supabase/supabase-js)
+- `supabase/` — Postgres migrations, Edge Functions (Deno/TS), shared modules
+- `tools/` — Python extraction pipeline, schema builder, corpus tools
+- `schemas/` — Canonical CDS schema JSON (1,105 fields)
+- `data/` — Versioned content datasets: `data/discovery/` (PRD 026 guided-discovery
+  card library, ontology, deck, scenarios — CC BY-SA 4.0 with a contribution gate,
+  see its README) and `data/watchlists/` (change-intelligence school watchlists)
+- `docs/` — Architecture, PRDs, ADRs, research, backlog
+- `scratch/` — Throwaway operational outputs (gitignored). Default
+  destination for any one-off run artifact: audit/drain JSON dumps,
+  CSV worklists, screenshots, ZIP handoffs, debug exports. Scripts
+  that emit these should write to `scratch/<tool-name>/` rather than
+  into `tools/` or the repo root, so working trees stay clean and
+  nothing important hides among the dumps.
+
+## Data quality loop
+
+When doing whack-a-mole CDS data improvements, treat each fix as a signal about the
+whole corpus, not a one-off.
+
+- For canary-style extraction issues, search the corpus for other documents with the
+  same failure shape and redrain the similar files after the parser/cleaner fix.
+- For finding/discovery issues, find and archive the most recent two CDS years when
+  available, then add a durable finder or archiver hint so the next year's document
+  can be found automatically.
+- For school identity changes, run `python tools/finder/identity_guard.py` before
+  writing generated data, then run `python tools/finder/school_redirect_guard.py`
+  to verify the checked-in web redirect manifest. Treat `retired_aliases` as
+  durable redirects: preserve them across refreshes and never promote a retired
+  slug to another institution.
+- Close the loop across current state, prior-year baseline, future discovery, and
+  similar files before calling the issue handled.
+
+## Migrations
+
+Migrations are applied to production **only from `main`**, never from a
+feature branch. Out-of-band applies (running a migration against prod
+from an unmerged branch) leave production ahead of `main` and break
+fresh `supabase db reset` for everyone else — don't do this.
+
+**The agent applies migrations after a PR merges, not the user.** Once
+a migration PR is merged, the agent's standard sequence is:
+
+```
+cd /Users/santhonys/Projects/Owen/colleges/collegedata-fyi
+git switch main && git pull --ff-only
+supabase db push --linked
+```
+
+(`supabase` CLI is at `/opt/homebrew/bin/supabase`; the project is
+already linked. Credentials live in `~/Projects/Owen/colleges/collegedata-fyi/.env`
+as `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`.)
+
+The user shouldn't need to drive `supabase db push` manually — that's
+the operational step that follows every migration PR merge. The
+"migrations only from main" rule is still load-bearing: the apply
+must happen from a fresh `main` checkout, never from a feature
+branch, never from a Conductor worktree pinned to a not-yet-merged
+branch.
+
+CI runs a `Migration filename hygiene` check on every PR (timestamp
+prefix uniqueness + sort order). Full replay against a clean DB is a
+manual pre-merge step (`supabase db reset` locally), not CI — several
+migrations contain verification DO blocks that assume production data,
+which would always fail in a clean CI database. The actual drift
+between prod and `main` isn't detectable from CI without prod
+credentials anyway; it's a policy safeguard.
+
+## IPEDS federal baseline operations
+
+PRD 021 adds official NCES/IPEDS baseline facts. CDS remains the
+school-authored source; IPEDS facts are federal baseline/context and must keep
+source table, source variable, release type, release date, imputation status,
+and definition-alignment notes visible.
+
+- Loader/runbook: `tools/ipeds/README.md`
+- Release probe workflow: `.github/workflows/ipeds-release-probe.yml`
+- Core public serving view: `school_facts_unified`
+- Public school-page component: `web/src/components/FederalBaselineTable.tsx`
+
+The release probe is monthly and intentionally no-ops until 10 months after the
+latest loaded provisional Access release date. When it opens an issue, run the
+suggested download/load dry run first, review the report, apply any needed
+migrations from fresh `main`, and only then run `load_release.py --apply`.
+
+## Skill routing
+
+When the user's request matches an available skill, ALWAYS invoke it using the Skill
+tool as your FIRST action. Do NOT answer directly, do NOT use other tools first.
+The skill has specialized workflows that produce better results than ad-hoc answers.
+
+Key routing rules:
+- Product ideas, "is this worth building", brainstorming → invoke office-hours
+- Bugs, errors, "why is this broken", 500 errors → invoke investigate
+- Ship, deploy, push, create PR → invoke ship
+- QA, test the site, find bugs → invoke qa
+- Code review, check my diff → invoke review
+- Update docs after shipping → invoke document-release
+- Weekly retro → invoke retro
+- Design system, brand → invoke design-consultation
+- Visual audit, design polish → invoke design-review
+- Architecture review → invoke plan-eng-review
+- Save progress, checkpoint, resume → invoke checkpoint
+- Code quality, health check → invoke health
+
+---
+> Source: [bolewood/collegedata-fyi](https://github.com/bolewood/collegedata-fyi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
