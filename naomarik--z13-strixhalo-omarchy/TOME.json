@@ -1,0 +1,44 @@
+{
+  "name": "Z13-StrixHalo-Omarchy",
+  "owner": "Naomarik",
+  "repo": "Z13-StrixHalo-Omarchy",
+  "description": "Config, fixes, and tuning for the ASUS ROG Flow Z13 (2025) running Omarchy on Arch Linux",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Naomarik/Z13-StrixHalo-Omarchy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T10:34:42Z"
+}
