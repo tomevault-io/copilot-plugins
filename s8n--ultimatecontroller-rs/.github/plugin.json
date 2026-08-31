@@ -1,0 +1,9 @@
+{
+  "name": "s8n--ultimatecontroller-rs",
+  "displayName": "ultimatecontroller-rs",
+  "description": "reverse engineering of 8bitdo ultimate controller and rust reimplementation for linux",
+  "version": "1.0.0",
+  "author": "s8n",
+  "homepage": "https://github.com/s8n/ultimatecontroller-rs",
+  "skills": []
+}
