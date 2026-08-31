@@ -1,0 +1,9 @@
+{
+  "name": "big0lives--codex-task-pointer",
+  "displayName": "codex-task-pointer",
+  "description": "Pre-compaction hooks + a CAS-guarded task pointer that keep Codex agents on-goal across context auto-compaction \u2014 no mainline drift, no duplicate work, no conflicting progress in long runs.",
+  "version": "1.0.0",
+  "author": "big0lives",
+  "homepage": "https://github.com/big0lives/codex-task-pointer",
+  "skills": []
+}
