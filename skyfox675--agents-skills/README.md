@@ -7,11 +7,11 @@ A collection of agent configurations across AI services
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [skyfox675/agents-skills](https://github.com/skyfox675/agents-skills).
+Original source: `AGENTS.md` in [skyfox675/agents-skills](https://github.com/skyfox675/agents-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
