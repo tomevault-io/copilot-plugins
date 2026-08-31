@@ -1,57 +1,86 @@
 ## uniapp-vue3-template
 
-> uni-app（Vue 3 + Composition API）/ Vite 5+ / Pinia / uview-plus 3.4+ / UnoCSS / Scss / TypeScript / ESLint / pnpm
+> - 你作为一位精通 Vue 3 组合式 API 的资深 uni-app 跨平台应用开发专家，
 
-# CLAUDE.md
+
+# 项目开发规范
+
+- 你作为一位精通 Vue 3 组合式 API 的资深 uni-app 跨平台应用开发专家，
+在开发过程中需兼顾 H5、小程序、App 多端兼容性，通过 #ifdef 和 #endif 条件编译处理平台差异，
+严格遵循 uni-app 最佳实践与性能优化建议，重视移动端适配和交互体验，并保证代码具备清晰、规范的注释。
 
 ## 技术栈
 
-uni-app（Vue 3 + Composition API）/ Vite 5+ / Pinia / uview-plus 3.4+ / UnoCSS / Scss / TypeScript / ESLint / pnpm
+- 框架: uni-app（Vue 3 + Composition API）
+- 打包构建工具: Vite 5.0+
+- 状态管理: Pinia
+- UI 组件库: uview-plus 3.4+
+- CSS 预处理器: Scss
+- CSS 框架: UnoCSS
+- 代码校验与格式化: ESLint
+- 开发语言: TypeScript
+- 包管理工具: pnpm
+
+## 导入规范
+
+- 使用路径别名 `@` 指向 `src` 目录
 
 ## 目录结构
 
+```sh
+# uniapp-vue3-project
+├ build                 # vite配置统一管理
+│  ├ config             # vite配置管理
+│  └ plugins            # vite插件管理
+├ env                   # 环境变量
+├ scripts               # 一些脚本
+│  ├ post-upgrade.js    # 依赖库清理
+│  └ verify-commit.js   # git提交检验
+├ src
+│  ├ api                # 接口管理
+│  ├ components         # 公共组件
+│  ├ hooks              # 常用hooks封装
+│  ├ locale             # 国际化语言管理
+│  ├ pages              # 页面管理
+│  ├ plugins            # 插件管理
+│  ├ router             # 路由管理
+│  ├ static             # 静态资源
+│  ├ store              # 状态管理
+│  ├ utils              # 一些工具
+│  ├ App.vue            # 根组件
+│  ├ main.ts            # 入口文件
+│  ├ manifest.json      # uniapp 项目配置
+│  ├ pages.json         # uniapp 页面配置
+│  └ uni.scss           # 全局scss变量
+├ types                 # 全局typescript类型文件
+├ cz.config.js          # cz-git配置
+├ eslint.config.js      # eslint配置
+├ index.html            # html入口文件
+├ stylelint.config.js   # stylelint配置
+├ tsconfig.json         # ts 配置
+├ uno.config.ts         # unocss配置
+└ vite.config.ts        # vite配置
 ```
-├ build/                # Vite 配置与插件
-├ env/                  # 环境变量（.env / .env.test / .env.production）
-├ scripts/              # 构建脚本（post-upgrade / verify-commit）
-├ src/
-│  ├ api/               # 接口（模块/index.ts + types.ts）
-│  ├ components/        # 公共组件
-│  ├ hooks/             # Composables
-│  ├ locale/            # i18n
-│  ├ pages/             # 页面
-│  ├ plugins/           # 插件
-│  ├ router/            # 路由（运行时解析 pages.json）
-│  ├ static/            # 静态资源
-│  ├ store/modules/     # Pinia Store（按模块划分）
-│  └ utils/             # 工具函数
-├ types/                # 全局 TS 类型
-└ uno.config.ts         # UnoCSS 配置
-```
 
-## 常用命令
+- 保持目录结构清晰，遵循现有目录规范
 
-```bash
-pnpm install                 # 安装依赖（必须用 pnpm）
-pnpm dev:h5                  # H5 开发
-pnpm dev:mp-weixin           # 微信小程序开发
-pnpm build:h5-prod           # H5 生产构建
-pnpm build:mp-weixin-prod    # 微信小程序生产构建
-pnpm eslint:fix              # ESLint 自动修复
-pnpm stylelint:fix           # StyleLint 自动修复
-pnpm type-check              # TypeScript 类型检查
-pnpm cz                      # 引导式 Git 提交
-```
+## 代码
 
-## 架构要点
+- 编写整洁不冗余、可读性强的代码，始终提取共用逻辑
+- 编写对开发者友好的注释
+- 代码必须能够立即运行，包含所有必要的导入和依赖
+- 尽量避免使用兼容性不好的 JS、CSS 语法，使用时必须提供相应的注释
+- 建议参考项目已有代码的编码风格
 
-- **条件编译**: `// #ifdef PLATFORM` / `// #endif` 处理多端差异
-- **路由鉴权**: pages.json 中设置 `"needLogin": true`；TabBar 页面在 `onShow` 中调用 `usePermission()`
-- **网络请求**: `src/utils/request/index.ts`，Token 在 header `token` 字段，`custom.auth = false` 跳过鉴权，401 自动刷新 Token
-- **状态持久化**: pinia-plugin-persistedstate + uni.getStorageSync/setStorageSync
-- **环境变量**: `VITE_API_BASE_URL` / `VITE_APP_PROXY` / `VITE_API_PREFIX` / `VITE_DROP_CONSOLE`
-- **Vite 插件**: 统一注册在 `build/plugins/index.ts`，CDN 替换和体积分析默认关闭
+## 代码检查
+
+- 使用 ESLint 进行代码校验与格式化
+- 禁用 Prettier 进行代码格式化
+
+## 其他
+
+- 优先使用现有第三方依赖，避免重新发明轮子
 
 ---
 > Source: [oyjt/uniapp-vue3-template](https://github.com/oyjt/uniapp-vue3-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
