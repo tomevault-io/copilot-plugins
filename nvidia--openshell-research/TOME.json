@@ -4,7 +4,7 @@
   "repo": "OpenShell-Research",
   "description": "\ud83e\uddea OpenShell's Research Journal",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/OpenShell-Research",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T23:42:24Z"
+  "distributed_at": "2026-08-31T23:48:17Z"
 }
