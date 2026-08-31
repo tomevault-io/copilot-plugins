@@ -1,0 +1,9 @@
+{
+  "name": "semianalysisai--clustermax",
+  "displayName": "ClusterMAX",
+  "description": "tooling to support clustermax.ai, the industry standard rating system for neoclouds",
+  "version": "1.0.0",
+  "author": "SemiAnalysisAI",
+  "homepage": "https://github.com/SemiAnalysisAI/ClusterMAX",
+  "skills": []
+}
