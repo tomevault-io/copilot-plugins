@@ -1,0 +1,9 @@
+{
+  "name": "nickname21kmr--gameops-investigator",
+  "displayName": "gameops-investigator",
+  "description": "Evidence-first game operations incident investigation agent with read-only MCP tools and reproducible evaluations.",
+  "version": "1.0.0",
+  "author": "nickname21kmr",
+  "homepage": "https://github.com/nickname21kmr/gameops-investigator",
+  "skills": []
+}
