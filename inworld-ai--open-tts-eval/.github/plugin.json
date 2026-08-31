@@ -1,0 +1,9 @@
+{
+  "name": "inworld-ai--open-tts-eval",
+  "displayName": "open-tts-eval",
+  "description": "Open, reproducible TTS/STT evaluation toolkit: WER/CER via Whisper ASR, NISQAv2, audio health, and prosody metrics with offline black-and-white reports.",
+  "version": "1.0.0",
+  "author": "inworld-ai",
+  "homepage": "https://github.com/inworld-ai/open-tts-eval",
+  "skills": []
+}
