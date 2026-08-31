@@ -1,0 +1,9 @@
+{
+  "name": "scottblydotcom--hermia",
+  "displayName": "hermia",
+  "description": "Vendor-agnostic security evals for LLM inference stacks. Detects behavioral divergence across models, backends, and hardware.",
+  "version": "1.0.0",
+  "author": "scottblydotcom",
+  "homepage": "https://github.com/scottblydotcom/hermia",
+  "skills": []
+}
