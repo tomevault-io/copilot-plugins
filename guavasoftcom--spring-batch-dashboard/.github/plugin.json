@@ -1,0 +1,9 @@
+{
+  "name": "guavasoftcom--spring-batch-dashboard",
+  "displayName": "spring-batch-dashboard",
+  "description": "React/Spring Boot Application for displaying Spring Batch Jobs",
+  "version": "1.0.0",
+  "author": "guavasoftcom",
+  "homepage": "https://github.com/guavasoftcom/spring-batch-dashboard",
+  "skills": []
+}
