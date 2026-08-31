@@ -1,0 +1,9 @@
+{
+  "name": "alextymosh--fastapi-saas-template",
+  "displayName": "fastapi-saas-template",
+  "description": "Production-oriented FastAPI backend template based on a modular monolith architecture, designed for small to medium SaaS applications, including marketplace and two-sided platforms. The system is desi",
+  "version": "1.0.0",
+  "author": "AlexTymosh",
+  "homepage": "https://github.com/AlexTymosh/fastapi-saas-template",
+  "skills": []
+}
