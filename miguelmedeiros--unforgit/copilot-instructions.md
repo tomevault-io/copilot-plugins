@@ -1,17 +1,45 @@
-## docker-rebuild
+## unforgit-memory
 
-> Auto rebuild Docker containers after code changes
+> Auto-manage repository memory with Unforgit via MCP tools
 
 
-# Docker Rebuild After Changes
+# Unforgit Memory Integration
 
-After making any code changes to the project, always rebuild and restart the Docker containers so the changes are reflected immediately:
+You have access to `unforgit_recall` and `unforgit_add` MCP tools for persistent repository memory across sessions.
 
-```bash
-docker compose down && docker compose up -d --build
-```
+## 1. Recall at the Start
 
-Run this from the project root (`/Users/miguelmedeiros/code/unforgit`).
+At the **beginning of every conversation**, use the `unforgit_recall` tool with a query based on the user's first message to retrieve relevant context from past sessions.
+
+Use recalled memories to avoid repeating past mistakes, follow known conventions, and apply previous decisions.
+
+## 2. Save During the Conversation
+
+Save memories **as soon as something noteworthy happens** — don't wait until the end.
+
+Trigger a save with the `unforgit_add` tool immediately after:
+- A bug is found and fixed
+- An architectural or design decision is made
+- A non-obvious gotcha or workaround is discovered
+- A new convention or pattern is established
+- A deployment/setup procedure is figured out
+
+### Memory types
+
+| Type | When | Example |
+|------|------|---------|
+| `semantic` | Decisions, conventions, architecture facts | "We use UTC timestamps everywhere" |
+| `procedural` | Workflows, how-tos, playbooks | "To deploy: run make release, then kubectl apply" |
+| `episodic` | Bugs found, gotchas, observations | "Found race condition in queue worker" |
+
+### Rules
+
+- Keep text concise but self-contained — a future reader should understand it without extra context
+- Use meaningful tags for discoverability (e.g. `["auth", "bug"]`, `["deploy", "playbook"]`)
+- Prefer `semantic` for stable facts, `procedural` for how-tos, `episodic` for transient observations
+- Do NOT save trivial changes, obvious things, or info already in the codebase docs
+- Quality over quantity — only save what's genuinely useful for future sessions
+- **Always write memory text in English**, regardless of the language the user is speaking
 
 ---
 > Source: [MiguelMedeiros/unforgit](https://github.com/MiguelMedeiros/unforgit) — distributed by [TomeVault](https://tomevault.io).
