@@ -1,83 +1,49 @@
-## react-conventions
+## sigil-conventions
 
-> > Imported from Kevin's wiki (`wiki/style/react.md`).
+> > Also read `sigil-design-system.mdc` for the full enforced design rules (color, typography, spacing, motion, etc.).
 
-# React Conventions
+# Sigil UI Development Conventions
 
-> Imported from Kevin's wiki (`wiki/style/react.md`).
-> Cross-reference: `sigil-conventions.mdc` (component rules), `sigil-design-system.mdc` (token consumption), `css-ui-enforcement.mdc` (styling stack).
+> Also read `sigil-design-system.mdc` for the full enforced design rules (color, typography, spacing, motion, etc.).
 
-## Styling
+## Token Variable Prefix
+All CSS variables use the `--s-` prefix: `var(--s-primary)`, `var(--s-surface)`, etc.
 
-All UI via `className={cn(...)}` and Tailwind utilities. No CSS modules or co-located `.css` for normal components. Raw CSS belongs almost only in `globals.css`. Do not combine `style={{ ... }}` with Tailwind on the same node. See `css-ui-enforcement.mdc`.
+## Component Rules
+- Every component is a "use client" component if it uses hooks or interactivity
+- Every component accepts a `className` prop for Tailwind overrides
+- Use `cn()` from utils for class merging (clsx + tailwind-merge)
+- All colors reference CSS variables, never hardcoded hex
+- All spacing uses the token scale (4, 8, 12, 16, 24, 32, 48, 64, 80, 96)
+- Components use `var(--s-*)` tokens, not Tailwind color classes directly
+- All interactive components must be keyboard-accessible
+- All components include JSDoc comments
+- Shadows use `shadow-[var(--s-shadow-*)]`, never Tailwind `shadow-sm` etc.
+- Motion uses `duration-[var(--s-duration-*)]`, never hardcoded `duration-150`
+- Borders use `border-[style:var(--s-border-style,solid)]` for preset-driven styles
 
-## Rules of Hooks
+## File Structure
+- Layout primitives: `packages/components/src/layout/`
+- Core UI: `packages/components/src/ui/`
+- Navigation: `packages/components/src/navigation/`
+- Overlays: `packages/components/src/overlays/`
+- Shapes: `packages/components/src/shapes/`
+- 3D components: `packages/components/src/3d/`
+- Diagrams: `packages/components/src/diagrams/`
+- Marketing: `packages/components/src/marketing/`
+- Patterns: `packages/components/src/patterns/`
+- Animation: `packages/components/src/animation/`
 
-Hooks are identified by position in an array. Call order must be identical on every render.
+## Naming
+- Component files: PascalCase (Button.tsx, Card3D.tsx)
+- Utility files: camelCase (utils.ts, animate.ts)
+- Export components as named exports, not default
+- Sigil layout primitives use clean names (Stack, Grid, Section)
+- The page-level frame is `SigilPageGrid` (5-column: margin | gutter | content | gutter | margin)
 
-- Hooks at the top level of a component or custom hook only.
-- Before any conditional logic.
-- No hooks inside conditions, loops, event handlers, callbacks passed to `useMemo`/`useReducer`/`useEffect`, or after early returns.
-- Most common violation: early return before hooks. Move hooks above the conditional.
-
-## Custom Hooks
-
-Name the hook after what it returns, not what it does internally. `useOrgData` > `useFetchAndCacheOrgDataWithLoading`.
-
-## Exhaustive Dependencies
-
-`useEffect`, `useMemo`, `useCallback` dependency arrays must include every referenced value. Missing dependencies cause stale closures. If adding a dependency causes an infinite loop, restructure (extract to ref, memoize the dependency, move to event handler) — do not suppress the warning.
-
-## setState in Effects
-
-The React compiler flags synchronous `setState` inside effect bodies. Canonical alternative: `useSyncExternalStore`. Migrate incrementally.
-
-## Linting Rules (Ultracite/oxlint)
-
-| Rule | Severity | Notes |
-|------|----------|-------|
-| `react-hooks/rules-of-hooks` | error | Non-negotiable, never disable |
-| `react-hooks/exhaustive-deps` | warn | Fix stale closures, do not suppress |
-| `react/self-closing-comp` | error | `<Foo />` not `<Foo></Foo>` |
-| `react/jsx-curly-brace-presence` | error | No `{"text"}` when `text` suffices |
-
-## Architecture-Policy Rules
-
-Custom ESLint rules for repo-specific patterns that oxlint cannot express:
-
-| Rule | What it catches |
-|------|-----------------|
-| `no-derived-state-in-effect` | `useEffect` computing derived state — use `useMemo` or inline render logic |
-| `no-fetch-in-effect` | `fetch()`/`axios.*()` inside `useEffect` — use TanStack Query or server-side |
-| `no-query-client-in-component` | `new QueryClient()` in component body — creates a new client per render |
-| `no-void-query-fn` | `queryFn` returning void — calling `setState` instead of returning data |
-| `no-unstable-query-result-deps` | Destructured query results in dep arrays — new refs every render |
-| `query-key-deps` | `queryKey` missing variables used by `queryFn` — stale cache hits |
-
-## Vercel React Best Practices (69 Rules Reference)
-
-Prioritized performance rules from Vercel. Auto-loads via `vercel-react-best-practices` skill.
-
-| Priority | Category | Impact | Key Rules |
-|----------|----------|--------|-----------|
-| 1 | Eliminating Waterfalls | CRITICAL | `Promise.all()` for independent ops, defer await into branches, Suspense boundaries |
-| 2 | Bundle Size | CRITICAL | Direct imports (avoid barrel files), `next/dynamic` for heavy components, defer analytics |
-| 3 | Server-Side | HIGH | `React.cache()` dedup, LRU cross-request cache, minimize data to client, `after()` for non-blocking |
-| 4 | Client Data Fetching | MEDIUM-HIGH | SWR for dedup, deduplicate event listeners, passive scroll listeners |
-| 5 | Re-render | MEDIUM | Extract expensive work into memoized components, derive state during render, functional setState, `startTransition` |
-| 6 | Rendering | MEDIUM | `content-visibility` for long lists, hoist static JSX, Activity component for show/hide |
-| 7 | JS Performance | LOW-MEDIUM | Map for repeated lookups, combine filter/map, Set for O(1) lookups |
-| 8 | Advanced | LOW | Store event handlers in refs, initialize once per app load |
-
-## RSC Safety
-
-- Default to Server Components. Global state only in Client Components.
-- Interactive UI (Motion, magnetic hover, perpetual animations) → isolated `"use client"` leaf components.
-- Server Components render static layouts only.
-
-## React Hygiene
-
-Run `npx react-doctor@latest` after major agent-authored UI refactors or before release branches. Complements Ultracite/oxlint with React-specific diagnostics.
+## Presets
+Each preset provides a complete SigilTokens object. Presets live in `packages/presets/src/`.
+46 presets total: 44 named + `default` + `_template`. Seven categories: structural, minimal, dark, colorful, editorial, industrial, edgeless.
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
