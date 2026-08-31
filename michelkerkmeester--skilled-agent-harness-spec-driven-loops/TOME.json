@@ -4,7 +4,7 @@
   "repo": "skilled-agent-harness_spec-driven-loops",
   "description": "AI-assisted coding setup that helps you spend less time re-explaining context, and more time shipping with better output. Includes a custom spec kit, memory, agent and skill framework.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MichelKerkmeester/skilled-agent-harness_spec-driven-loops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T18:30:26Z"
+  "distributed_at": "2026-08-31T18:31:14Z"
 }
