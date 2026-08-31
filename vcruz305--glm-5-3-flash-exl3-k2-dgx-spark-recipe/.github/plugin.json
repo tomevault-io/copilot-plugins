@@ -1,0 +1,9 @@
+{
+  "name": "vcruz305--glm-5-3-flash-exl3-k2-dgx-spark-recipe",
+  "displayName": "GLM-5.3-Flash-EXL3-K2-DGX-Spark-recipe",
+  "description": "vLLM recipe: GLM-5.3-Flash EXL3 K2 on one DGX Spark GB10. Native MTP k=2. Measured tok/s.",
+  "version": "1.0.0",
+  "author": "vcruz305",
+  "homepage": "https://github.com/vcruz305/GLM-5.3-Flash-EXL3-K2-DGX-Spark-recipe",
+  "skills": []
+}
