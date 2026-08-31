@@ -1,0 +1,9 @@
+{
+  "name": "beniedev--glass-kanban-overlay",
+  "displayName": "glass-kanban-overlay",
+  "description": "Transparent Windows desktop widgets for selected Obsidian Kanban Markdown columns.",
+  "version": "1.0.0",
+  "author": "beniedev",
+  "homepage": "https://github.com/beniedev/glass-kanban-overlay",
+  "skills": []
+}
