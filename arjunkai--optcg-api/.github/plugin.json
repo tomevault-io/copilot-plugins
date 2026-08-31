@@ -1,0 +1,9 @@
+{
+  "name": "arjunkai--optcg-api",
+  "displayName": "optcg-api",
+  "description": "Cloudflare Workers API powering opbindr.com. Public card image proxy and OpenAPI docs; data endpoints gated to opbindr.com origins (request a key for non-commercial dev use). One Piece TCG today, Pok\u00e9",
+  "version": "1.0.0",
+  "author": "arjunkai",
+  "homepage": "https://github.com/arjunkai/optcg-api",
+  "skills": []
+}
