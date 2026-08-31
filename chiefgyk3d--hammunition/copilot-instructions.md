@@ -1,0 +1,624 @@
+## hammunition
+
+> > Pick your RF arsenal.
+
+# Hammunition — Claude Code Context
+
+> Pick your RF arsenal.
+
+## What this project is
+
+Hammunition turns an existing Debian-family install into an amateur radio, SDR,
+and RF experimentation workstation. Primary target: **Parrot OS**. Secondary:
+Debian, Ubuntu, Kali, Raspberry Pi OS.
+
+Binary: `hammunition`. Python package: `hammunition`.
+
+## Document authority
+
+`docs/DECISIONS.md` is authoritative. Where this file or `docs/DESIGN.md`
+disagrees with it, DECISIONS wins and the disagreeing file is a bug.
+
+- `docs/SCOPE.md` — the five-source union and 1.0 staging (**D-017**)
+- `docs/PARITY-POLICY.md` — per-unit disposition and M5 exit criteria
+- `docs/QUESTIONS.md` — decisions awaiting the maintainer, with recommendations
+- `docs/reference/cli.md` — the CLI: verbs, flags, exit codes, what it refuses
+- `docs/reference/source-build-gaps.md` — what the source backend cannot yet
+  build, each gap named by the unit whose build proved it
+- `docs/reference/capability-matrix.md` — every manifest against every target,
+  resolution merged with a measured `apt-cache policy` sweep
+- `docs/reference/parity-coverage.md` — every dispositioned unit against the
+  catalog: what is covered, what is outstanding, and why each gap is open
+- `docs/reference/` — the measurements everything rests on: `ahrl-inventory.md`,
+  `blend-inventory.md`, `dispositions.md`, `overlaps.md`, `profile-sizing.md`,
+  `licence-verification.md`, `hardware-gaps.md`, `udev-inventory.md`,
+  `usb-ambiguity.md`, `lora-inventory.md`, `device-naming.md`
+
+## What this project is NOT
+
+Do not propose or build any of these. They have been considered and rejected:
+
+- A Linux distribution, custom ISO, or derivative
+- A custom kernel
+- A mirror of upstream Debian packages
+- Forks of upstream ham/SDR software
+- Anything that replaces or reconfigures the user's OS wholesale
+
+We **augment** an existing system. Upstream packages are used wherever they exist.
+
+## Inventory sources
+
+Two projects seed the catalog. Both are inventory sources; neither is a base we
+build on. See **D-001** and **D-011** for the provenance rules, and credit both
+in the README.
+
+### Andy's Ham Radio Linux (AHRL)
+
+AHRL by Andy Stewart (KB1OIQ) is the direct inspiration and the closest existing
+thing to what we are building. Study it before designing anything. Treat it with
+respect — it has served the ham community for well over a decade and its package
+curation represents years of accumulated judgment we would be foolish to discard.
+
+**What AHRL is (as of v27, May 2026):** no longer a distribution. It is an
+installation script layered onto Debian Live, Raspberry Pi OS, or a supported
+Ubuntu flavor. Supported and tested targets are Ubuntu/Xubuntu/Kubuntu 26.04,
+Linux Mint 22.3, Debian Live 13.4, LMDE 7, and Raspberry Pi OS 6.2. Distributed
+as versioned tarballs on SourceForge.
+
+**What we take from it:**
+
+- The package curation itself. Andy's selection of ham software — what is worth
+  installing, what actually works, what is abandonware — is the single most
+  valuable artifact in this space. Use the AHRL package inventory as the
+  reference when seeding `catalog/packages/`.
+- The layered-onto-existing-OS model. AHRL arrived at this after years as a
+  distribution. That migration is strong evidence the augmentation approach is
+  correct, and it is why building a distro is on our rejected list.
+- Hard-won operational knowledge, e.g. Andy's guidance to prefer X11 over Wayland
+  where ham applications misbehave. Capture that kind of thing in manifests and
+  docs rather than rediscovering it in the field.
+
+**What we do differently, and why the project exists:**
+
+| AHRL | Hammunition |
+|---|---|
+| Tarballs on SourceForge | Git, tagged releases, signed |
+| Single maintainer, bus factor of one | Multiple maintainers from day one, documented governance |
+| Contribution by emailing the maintainer | Pull requests, issues, public review |
+| Install logic and package list intertwined in shell | Declarative catalog separated from engine |
+| Bash installation script | Python engine, idempotent, dry-run, transaction log |
+| No automated cross-distro testing | CI containers per target distro |
+| Ham radio only | Ham radio plus SDR, SIGINT, and RF security on a security-tooling base |
+
+### 73Linux (KM4ACK)
+
+73Linux, by Jason Oleham (KM4ACK), grew out of Build-a-Pi. Same shape as AHRL and
+as us: an installer layered onto an existing Debian-family OS, not a distribution.
+Actively maintained, 47 unique units across `app/stable/pi/` and
+`app/stable/x86_64/`.
+
+**What we take:** the inventory delta. 73Linux covers Winlink, packet, and EMCOMM
+— PAT, PATMENU3, BPQ, AX.25, ARDOP, ARDOPGUI, VARA, GARIM, VARIM — a domain AHRL
+does not touch at all. The packet core lands in 1.0 (**D-008**). Its community
+side-loading model also informs our three-tier catalog (**D-009**).
+
+**What we do not take:** any code. There is no LICENSE or COPYING in the
+repository and no header on `73.sh`, so default copyright applies. A `.bapp` is
+also executable bash with a metadata header — five easy fields declarative, every
+hard field trapped inside an imperative `INSTALL()` body. That is the architecture
+we exist to replace. See **D-001**.
+
+**Positioning.** We are not competing with AHRL or 73Linux and must not present
+ourselves as a replacement for either in README, docs, or commit messages. We cover a domain it does
+not — RF security and SIGINT alongside amateur radio — and we solve a governance
+problem rather than a software problem. Credit AHRL prominently in the README.
+
+## Architecture invariants
+
+Two separable halves. Do not blur them.
+
+1. **The catalog** (`catalog/`) — YAML manifests describing software: what it is,
+   what it's for, how to install it per-distro, which profiles include it.
+   Pure data. No executable logic. Must remain usable by an engine that isn't ours.
+2. **The engine** (`src/hammunition/`) — Python CLI that reads manifests and
+   performs installation, configuration, and hardware setup.
+
+The catalog is the durable asset; the engine is replaceable. Any change that puts
+install logic into the catalog, or hardcodes package names into the engine, is wrong.
+
+## Decisions already made
+
+Do not re-litigate these without being asked:
+
+| Decision | Choice | Why |
+|---|---|---|
+| Language | Python 3.11+ | Contributor accessibility is the point of the project |
+| Package ops | `apt` via subprocess | Simpler than python3-apt, uniform across targets |
+| Manifests | YAML | Human-editable by non-programmers |
+| Distro detection | `/etc/os-release` | Standard, no heuristics |
+| Undo semantics | Transaction log + `uninstall` | True rollback is not achievable; do not promise it |
+| Config management | Own engine, Ansible as export target | Keep the catalog engine-agnostic |
+| Privilege | Drop to user where possible; sudo only for apt/udev | Runs alongside offensive tooling |
+| Naming | One name: Hammunition | "Renegade RF" is held in reserve, not used in docs or code |
+| Architecture selector | `arch` structural from M1 | 9 AHRL units are arch-conditional; retrofitting is what broke `gspiceui` (**D-002**) |
+| Profiles | Flat tags with overlap, no nesting | AHRL categories overlap but never nest; 73Linux is a flat checklist (**D-003**) |
+| Catalog tiers | core / community / local | Side-loading is 73Linux's best idea and answers our founding objection to AHRL (**D-009**) |
+| Update tracking | `update` block on every manifest | AHRL has no update story — install once, rot forever (**D-010**) |
+| Backend selection | Measured, never conventional | We listed cargo/flatpak from habit and missed CPAN from data (**D-014**) |
+| 73Linux | Inventory source, never a base | No license file; `.bapp` is bash with a header (**D-001**) |
+| 1.0 scope | The five-source union | Staged by coverage-per-effort (**D-017**) |
+| External claims | Tested before published | The HamClock retraction (**D-018**) |
+| Blend tasks | A category, not an install default | 155 of 160 entries are `Recommends` (**D-019**) |
+| Profile resolution | Consults detected hardware | 12 per-device Soapy modules; a user needs one (**D-020**) |
+| Consent gates | Disclose capability, never adjudicate law | `--yes` cannot satisfy one (**D-021**) |
+| Displacing a distro choice | Coexist, disclose, never remove silently | The AHRL `librtlsdr` pattern (**D-022**) |
+| Device tooling | Install the means of talking to a device, never gate it on what the device can do | Otherwise every flasher is a gating argument (**D-026**) |
+| Licence | GPL-3.0-or-later engine, CC0-1.0 catalog | Split on the architectural boundary (**D-023**) |
+| Untagged upstreams | Pin the commit a **distribution** already packages; our own only when nothing does | Their packaging is the review signal upstream stopped providing (**D-024**) |
+| Evidence | Re-verify a claim when it becomes decisive, not only when gathered | Four bugs, one shape (**D-025**) |
+| Hardware claims | `status` and `maintainer_verified` are separate fields | `usrp` is supported from Debian's rule and has never been run here (**D-027**) |
+| Unlicensed upstreams | Weigh community adoption and what we actually do — carry, state the position, never mirror | Most small-utility authors are not lawyers; a missing LICENSE is usually oversight (**D-033**) |
+| Cellular tooling | Staged, not filtered. Receive in 1.0, transmit post-1.0, both consent-gated | The line is transmit, not topic (**D-034**) |
+| Station config | A missing value defers one file, never the transaction. Nothing is invented | 19 packages refused over one unknown callsign (**D-035**) |
+| udev symlinks | An identifier naming a chip may not name a `/dev` node | `/dev/badge` on a CP2102 claims the rig cable (**D-028**) |
+| Desktop menus | Curated submenus, generated per DE from `categories` | GNOME folders ≠ Xfce `.menu` ≠ COSMIC; one unmeasured mechanism each (**D-036**) |
+| Upstream liveness | The default branch's head commit, never GitHub's `updated_at`/`pushed_at` | `updated_at` moves when somebody *stars* a repo; it reported two dead projects as active (**D-032**) |
+
+Full reasoning and evidence in `docs/DECISIONS.md`, which is authoritative.
+
+## Security requirements
+
+Non-negotiable. This runs on machines that also hold security tooling.
+
+- Never pipe remote content into a shell
+- Verify checksums/signatures for any non-apt source; refuse to install if absent
+- Third-party apt repos must be declared in the manifest and shown to the user
+  before being added, with the signing key pinned
+- Print every system modification before making it (`--dry-run` must be complete
+  and accurate, not approximate)
+- RF-security tooling lives in its own profile requiring explicit opt-in
+- No credentials, keys, or tokens in the repo or in generated configs
+
+## Documentation is a first-class deliverable
+
+Documentation is not written after the code. A feature is not done until it is
+documented. This is a hard rule, not an aspiration.
+
+**The standard:** a licensed ham with moderate Linux experience should be able to
+go from a fresh Parrot install to a working digital-modes station without asking
+anyone a question or reading a forum thread. If a step requires knowledge that is
+not in our docs, that is a documentation bug and gets an issue.
+
+**Required for every package manifest** — the docs generator reads these fields,
+so an undocumented package cannot ship:
+- What the software does, in plain language, for someone who has not used it
+- Why an operator would want it, and what it is an alternative to
+- What it depends on being configured first (rig control, audio routing, GPS)
+- Known problems and workarounds, including desktop/display-server issues
+- Upstream project URL and where to get real support for the software itself
+
+**Required for every profile:** what it installs and why those things belong
+together, disk footprint, what it deliberately excludes, and what an operator
+still has to configure by hand afterward.
+
+**Required for every system modification:** what changes, why it is necessary,
+how to inspect it afterward, and how to reverse it. Groups added, udev rules
+written, config files touched, repositories enabled. Nothing happens to a user's
+machine that is not written down.
+
+**Top-level docs (not part of the user-facing site):** `DECISIONS.md`
+(authoritative decision record), `PARITY-POLICY.md` (per-unit disposition and M5
+exit criteria), `DESIGN.md` (reasoning), `why-hammunition.md` (public rationale).
+
+**Structure under `docs/` ("Hacker's Ham Shack").** ✅ marks what exists:
+- `getting-started/` — install, first profile, first contact
+- `profiles/` — one page per profile, generated from manifests plus prose
+- `packages/` ✅ — generated reference, one entry per manifest.
+  `scripts/gen_package_reference.py`; `tests/test_docs_generated.py` asserts
+  regeneration is a no-op
+- `hardware/` — per-device setup: SDRs, rigs, CAT interfaces, GPS, LoRa
+- `guides/` — task-oriented: digital modes, APRS, satellite, packet, SDR
+- `troubleshooting/` — symptom-first, not component-first
+- `rf-security/` — separate section, legal and ethical framing required
+- `contributing/` — how to add a manifest ✅, how to add a backend, review
+  process; `docs/contributing/hardware.md` ✅ is the live ask
+- `reference/` ✅ — CLI, capability matrix, transaction log format and the
+  measured inventories. The **schema** reference is the gap here: the authority
+  is `src/hammunition/manifest/schema.py`, whose fields and validators are
+  documented in place
+
+**Generate what can be generated.** The package reference and capability matrix
+come from manifests, so they cannot drift from reality. Hand-written prose is for
+things a schema cannot express. Any doc that duplicates manifest data by hand is
+a defect.
+
+**Docs are tested.** CI fails on broken internal links, manifests missing
+required doc fields, CLI examples that no longer match actual output, and
+capability-matrix claims not backed by a passing container test.
+
+## CI and tests are not optional
+
+**Every project here gets working CI and a real test suite, and their absence is
+a defect to fix rather than a state to work around.** A maintainer preference,
+recorded once and applying from here on — it does not need asking about again.
+
+This repository already largely does this: eight CI jobs, `mypy --strict` as a
+gate, container-based target tests, and a docs link checker. What follows is
+the reasoning behind the rule, learned the hard way in the sibling project
+[hammunition-hill](https://github.com/ChiefGyk3D/hammunition-hill), so that it
+survives contact with the next repository rather than living in one person's
+head.
+
+- **Put checks in the test suite; let CI run the test suite.** A CI-only script
+  rots, because nobody can run it locally and nobody notices when it stops
+  meaning anything.
+- **A check must be falsifiable.** Break the thing it watches on purpose and
+  confirm it goes red with a message naming the fix, before trusting it. One
+  check in the sibling project was silently passing on the exact input it
+  existed to catch — a comment-stripping regex ate the `//` in `https://`.
+- **Test the matrix, not your machine.** An ElementTree truthiness bug there
+  passed on the dev venv's Python 3.11 and failed on 3.12+. It was a real bug,
+  not a warning to silence.
+- **A check nobody trusts is worse than none.** Two were deliberately left out
+  for that reason: a formatter that would reflow 36 hand-formatted files for no
+  defect caught, and whole-environment dependency auditing that would report
+  advisories against the runner's own pip.
+- **Prove properties, not just behaviour.** That project's test suite blocks
+  every socket to anywhere but loopback, so it cannot quietly depend on the real
+  internet; and it asserts the feature counts in its README against the code,
+  because the README claimed twelve panels for months after there were nineteen.
+- **Run it and look at it.** Three separate visual bugs there passed every test
+  and were found by rendering the page.
+- **Measure before claiming.** An importer's first version needed ~620 MB of RAM
+  at real scale, more than a Pi Zero has, while its docstring claimed the
+  opposite.
+- **Never pin an action from memory; resolve it.** Every pin in that project's
+  first workflow was a real commit and two major versions stale, and one failed
+  outright against the runner's newer CLI. `git ls-remote --tags` is the check.
+  Worth a look here too: this repository's `actions/checkout@v4` is three majors
+  behind current.
+
+## Conventions
+
+- Idempotent: every operation safe to re-run
+- Fail loudly, never silently degrade
+- Structured logging to `~/.local/state/hammunition/`
+- Type hints throughout; `mypy --strict` clean
+- Tests run in containers per target distro, never against the dev machine.
+  `containers/targets.yaml` declares them; `scripts/run-targets.sh` runs them
+  locally with **rootless Podman** and **fails loudly** if the runtime is
+  unusable rather than skipping. Never join the `docker` group to work around
+  it — group membership is root-equivalent host access, which is the trade this
+  project declined (Q-001).
+- An account with no `/etc/subuid` ranges can set
+  `HAMMUNITION_DEGRADED_PODMAN=1`, which applies the two workarounds
+  (`APT_SANDBOX_USER=root`, `ignore_chown_errors`) and **prints a warning that
+  isolation is weakened**. Opt-in, never a silent default; CI needs neither. The
+  real fix is one root command, printed by the script.
+- `mypy --strict` is wired into CI as a gate (`.github/workflows/ci.yml`).
+  CI pins Python 3.11+; a dev machine may be older, and CI is the authority.
+- `scripts/check_doc_links.py` validates markdown links **and backticked repo
+  paths** — this project's prose cites files by backtick, so a markdown-only
+  checker would validate almost nothing.
+- Generated docs are generated: `scripts/gen_blend_inventory.py` rebuilds the
+  Blend inventory from upstream task files. Never hand-edit a generated file.
+- **Two files under `catalog/` are generated too**, and being generated does not
+  breach the "pure data, no executable logic" invariant — a generated YAML file
+  is data exactly as a typed one is. `catalog/hardware/ambiguous-ids.yaml` comes
+  from `gen_usb_ambiguity.py`; `catalog/hardware/classes/programmer.yaml` comes
+  from `gen_programmer_class.py`, because five packages name **180 distinct
+  identifiers** between them and transcribing 180 evidence strings by hand is a
+  long opportunity to make the mistakes this project keeps writing checks for.
+  Run `gen_usb_ambiguity.py` first: the class reads its output. A test asserts
+  regeneration is a no-op.
+- **Upstream project metadata is mined the same way.** Meshtastic and MeshCore
+  publish a PlatformIO board file per product naming its USB identifiers;
+  `scripts/lora-sweep.sh` reads them. 107 boards, 26 identifiers, the top one
+  covering 49 — which is how the `meshtastic` entry was closed without any
+  hardware, and had to be, since the maintainer's nodes were lost to flooding.
+- **Distribution udev rules are a primary source and are mined, not guessed.**
+  `scripts/run-udev-sweep.sh` reads every package in the archive that ships one
+  — no curated shortlist, because a curated shortlist is how `rtl-sdr` came to
+  carry 3 identifiers where Debian carries 42. A sweep produces *candidates*:
+  generic bridge identifiers like `0403:6001` and `0483:df11` appear in rules
+  for devices they do not identify, and carrying those over-matches as silently
+  as omission under-matches. See `docs/reference/udev-inventory.md`.
+- **A citation of a distribution's udev rule is checked against that rule.**
+  `scripts/check_rule_citations.py` verifies every identifier in
+  `catalog/hardware/` against the archive sweep — the file it cites really
+  contains the pair, a "disabled by Debian" claim really is a commented-out rule
+  *with a stated reason*, and `basis: distribution_disabled` is true of the
+  archive. Written because reading a sweep row and not opening the file produced
+  a wrong claim in D-028 one commit after D-031 was recorded.
+- **Verify the effect, not the exit status** (**D-031**). A tool reporting
+  success is not evidence it did anything: `sed` exits 0 on an anchor that
+  matched nothing, `dpkg-deb -x` writes files and *then* exits non-zero, and a
+  `.gitignore` match makes a written file simply absent with no error anywhere.
+  Check the artefact. `scripts/check_commit_claims.py` enforces the commit-message
+  half — enable it with `git config core.hooksPath .githooks`; CI runs it over
+  every commit in a pull request either way.
+- Small, logically scoped commits
+- **Git workflow (WIP phase, 2026-08-25):** commit and **push directly to `main`**
+  after each completed item. Once there is a solid working version, switch to
+  feature branches and PRs. We are a long way from that; until then, main is the
+  working branch and pushing is expected rather than gated.
+- **Every `.gitignore` pattern is anchored to the repo root unless it has a
+  recorded reason not to be.** `scripts/audit_gitignore.py` enforces both halves:
+  nothing in the source tree may be ignored, and an unanchored pattern must be
+  listed by name with why it must match at any depth. Three silent exclusions
+  came from the same mistake — a trailing slash reads as anchored and anchors
+  nothing. CI runs it.
+- `/reference/` and `/vendor/` are gitignored, **anchored to the repo root**:
+  third-party tarballs and extracted upstream trees are studied locally, never
+  committed. Keep provenance clean. The anchoring matters — the unanchored form
+  also matches `docs/reference/`, a required documentation section, and silently
+  excluded it. A test asserts `docs/reference/` stays tracked.
+
+## Capability matrix
+
+Not every profile works everywhere. Manifests declare per-distro support and the
+engine reports honest gaps rather than faking coverage. Never add a shim to make
+an unsupported combination appear to work.
+
+`docs/reference/capability-matrix.md` is generated and is the record.
+**Resolution alone overstates coverage**, which is why it merges two things.
+Most manifests carry one *unconditional* apt block deliberately — apt reports
+the truth at plan time, where a `when:` selector would freeze one evening's
+measurement and be wrong the day a distribution picks the package up — so
+`scripts/capability_matrix.py`, which answers "does a manifest resolve to a
+block", says `apt` for every target including the four where `sdrangel` does
+not exist. `scripts/gen_capability_matrix.py` merges that resolution with a
+measured `apt-cache policy` sweep and distinguishes `apt` from `apt ✗`.
+
+It remains the **weaker** of the two checks: policy proves the archive offers a
+package, not that it installs. `install-verification.md` is the stronger one and
+covers a subset. Build rows are weaker still — they say a build is *declared*,
+not that it succeeds; the manifests whose builds have actually been run say so
+in their own install notes.
+
+## Repo layout
+
+```
+catalog/
+  packages/        # one YAML per piece of software          ✅ 225
+  profiles/        # named bundles referencing packages      ✅ 15
+  hardware/
+    classes/       # device families with shared Linux needs ✅ 5
+    devices/       # one YAML per device                     ✅ 23
+src/hammunition/
+  cli/             # argparse entry points; install/list/status/show ✅
+  manifest/        # schema, loader, validation              ✅
+    hardware.py    # device catalog schema (D-020)           ✅
+  consent/         # affirmative consent gates (D-021)       ✅
+  state/           # transaction log, uninstall              ✅ apt removal, VM-verified
+  plan.py          # pre-flight resolution (D-016)           ✅
+  execute.py       # plan -> commands -> runner              ✅
+  backends/        # apt ✅ source ✅ git ✅ binary ✅ venv ✅; pipx/CPAN measured zeros
+  fetch.py         # verified download, mandatory sha256          ✅
+  paths.py         # owner-aware XDG dirs (log, cache, build)     ✅
+  distro/          # /etc/os-release detection               ✅
+  hardware/        # USB/serial detection, udev generation   ✅ written; not hardware-verified
+docs/              # "Hacker's Ham Shack" — guides and labs (section title, not a brand)
+  contributing/    # how to contribute; hardware.md is the live ask   ✅
+  reference/cli.md # the CLI reference                       ✅
+tests/
+```
+
+Ticks mark what exists. **M1's walking skeleton runs** — detect, resolve, print,
+install, log — and **M3 has begun**: the verified fetcher and the
+source-from-tarball and source-from-git backends are written, so `source` and
+`git` manifests now plan and build end to end. What it cannot do it still refuses by name: three backends
+(binary, venv, pipx), third-party apt repos, templated config files and
+udev generation are measured, named and absent. Do not let this read as a
+working installer: **57 of AHRL's 95 units cannot be satisfied by apt**, and
+while source-from-tarball is the largest single slice of that 57 (35 units), the
+rest of the 60% is still the hard part (**D-004**).
+
+## Closed questions
+
+Both former open questions are settled. Do not reopen without new evidence.
+
+- **Profile nesting** — closed by **D-003**. Profiles are flat tags with overlap;
+  they do not nest or depend on each other. AHRL's categories overlap heavily
+  (14 programs appear in two or three) but never nest; 73Linux uses a flat
+  checklist. These are tags, not a tree. `categories` is a list.
+- **ARM as a day-one target** — closed by **D-002**. Yes. `arch` is a structural
+  selector in the schema from M1, not a retrofit. Nine AHRL units are
+  arch-conditional and 73Linux ships arch-partitioned trees. The cost of
+  retrofitting is visible in AHRL's `install_gspiceui`, which hardcodes an
+  `aarch64-linux-gnu` path on every architecture.
+
+**Still open and now blocking:** station-local configuration (callsign, grid
+square, rig device paths). The 1.0 packet core forces it — AX.25's install writes
+`wl2k ${MYCALL} 1200 255 7 Winlink` into `/etc/ax25/axports`, and
+`catalog/packages/linbpq.yaml` is the first manifest in the repository to carry a
+`config_files` block, templating `NODECALL`, `NODEALIAS` and `LOCATOR`. It is no
+longer a design question in the abstract; a shipped manifest depends on it. See
+`DESIGN.md` §15.3 and the D-004 amendment.
+
+**Open questions awaiting the maintainer** are in `docs/QUESTIONS.md`.
+**Q-001 through Q-014 are all resolved.** Q-006, Q-007 and Q-008 closed on
+2026-08-29: HamClock carries both clients defaulting to `openhamclock` with
+`ohb.works` as the backend; SuperSDR is carried under **D-033**; cellular
+tooling is staged under **D-034**.
+
+There are no open questions blocking work. The next decisions that will need
+you are the ones this round's work raises, not ones already on the list.
+
+## Roadmap — 1.0 is the five-source union
+
+Parity is **not** "reproduce AHRL." Per `docs/PARITY-POLICY.md`, the goal is that
+a user who uninstalls AHRL and installs Hammunition is **strictly better off**:
+everything that worked still works, some things work that didn't, some are better
+than what they replace, and the dead weight is gone *with an explanation*.
+Reproducing AHRL faithfully — broken and obsolete entries included — would be a
+worse product than AHRL.
+
+Every unit gets exactly one disposition: **CARRY, SUPERSEDE, REVIVE, RETIRE, or
+ADD**. No unit is left unclassified. Never inherit a `broken` verdict without
+testing it ourselves.
+
+**1.0 = Debian Blend + AHRL parity + 73Linux packet core + Skywave listening
+delta + DragonOS Tier 1** (**D-017**; `docs/SCOPE.md` governs). Staged by
+coverage-per-effort, not by source:
+
+1. **Debian Blend** — 152 packages, team-governed, signed, machine-readable.
+   Cheapest coverage and best provenance. **11 of AHRL's 35 source builds are
+   already packaged here**, so Blend-first shrinks the source-backend problem
+   rather than merely deferring it. See `docs/reference/blend-inventory.md`.
+2. **AHRL parity** — per `PARITY-POLICY.md`, with honest status.
+3. **73Linux packet core** — PAT, AX.25, BPQ, ARDOP, QtTermTCP, QtSoundModem,
+   Pi-APRS, and Direwolf *with configuration* (**D-008**).
+4. **Skywave listening delta** — remote SDR clients, utility decoders. Cheap, and
+   an on-ramp for users who own no hardware yet.
+5. **DragonOS Tier 1** — apt or upstream `.deb` only. This is the 1.0 SIGINT
+   profile.
+
+**DragonOS is tiered and the tiers are not one job.** Tier 2 (maintained upstream
+binaries) is post-1.0. **Tier 3 — GNU Radio out-of-tree modules — must not be
+attempted before the source backend and pin database are solid.** Each module
+records the GNU Radio version it was built against; where nothing maintained
+exists, document the gap rather than carry a fork we cannot sustain.
+
+VARA and HAMRS are post-1.0. Novel capability (RF security, mesh) layers on top,
+never substitutes.
+
+**M1 — walking skeleton. ✅ It runs.** `hammunition install <profile> --dry-run`
+resolves the whole transaction and prints every command; without `--dry-run` it
+installs. Remaining M1 gap is the starter profile's name and contents, which
+`docs/reference/profile-sizing.md` still has awaiting the maintainer.
+- Manifest schema + validator ✅
+- apt backend ✅ — with real resolution: `depends` goes through
+  `apt-cache policy`, which is what D-016's four suspected-stale AHRL
+  dependency lines needed and never got. Source and git backends followed
+  in M3; see below
+- `/etc/os-release` detection ✅ — shared with `scripts/capability_matrix.py`
+  rather than duplicated, so `--check` verifies the parser the engine uses
+- the starter profile is the last M1 item and is **awaiting the maintainer**:
+  named `ham-core` when M1 was written, `docs/reference/profile-sizing.md`
+  proposes **`station`** instead and a four-way split. The catalog it would
+  draw on is no longer the constraint — 222 manifests exist where M1 planned
+  about twenty
+- `install`, `list`, `status`, `show`, `--dry-run` ✅
+- Container test harness for Parrot and Debian ✅
+
+**M2 — inventory and coverage. ✅ All five sources are now measured.** Every
+inventory is generated from upstream data and regenerable; none is hand-typed.
+
+| Source | Document | Headline |
+|---|---|---|
+| AHRL | `docs/reference/ahrl-inventory.md` | 95 executing units; **57 not apt-installable** |
+| Debian Blend | `docs/reference/blend-inventory.md` | 12 tasks, 152 packages; **8 not installable on Debian 13** (**D-019**) |
+| 73Linux | `docs/reference/dispositions.md` | 28 delta units; 13 survive |
+| Skywave | `docs/reference/skywave-inventory.md` | 60 apps; **9 delta**, all absent from Debian stable *and* unstable |
+| DragonOS | `docs/reference/dragonos-tier1-inventory.md` | 99 README units; **24 Tier 1**, probed in all four targets |
+
+Dispositions are complete for **all five sources**
+(`docs/reference/dispositions.md`): 150 units, none unclassified — AHRL,
+73Linux, the Skywave delta (9: 7 ADD, 1 SUPERSEDE, 1 NEEDS-DECISION), and
+DragonOS Tier 1 (8 new ADD, 16 CARRY by cross-reference). Sizing and naming
+are in `docs/reference/profile-sizing.md`.
+
+**M3 — backend completeness.** Backends are justified by measurement, never by
+convention (**D-014**). Every backend names the unit requiring it.
+
+Measured from the inventory: **57 of 95 AHRL units cannot be satisfied by apt** —
+35 source builds from bundled tarballs, 9 prebuilt binaries and data archives,
+4 Python venv/pipx, 2 Python-run-in-place, 3 infrastructure, 2 launcher-only,
+1 network git clone, 1 remote script piped into bash. An apt-only tool covers
+40% of the parity target, and the missing 60% is precisely what users cannot
+install themselves — the reason this project exists (**D-004**).
+
+Required for 1.0: apt ✅, source-from-tarball ✅, source-from-git ✅,
+binary ✅ (`.deb`, tarball, zip, single executable — **AppImage refused by
+name**, post-1.0 per SCOPE.md), Python venv ✅ (hash-pinned, 2026-08-30), and
+launcher generation ✅ (engine written same day; the 14 units migrate as
+their other gaps close, and **D-036**'s per-DE submenu layer is still to
+measure). **pipx and
+CPAN left the list on 2026-08-30** — re-measured at zero users after chirp
+went apt and aa-analyzer's supersede; see the D-014 amendment.
+
+The binary backend was written for the largest single group of blocked units.
+Two of them turned out not to need it: **QtTermTCP and QtSoundModem tag source
+on GitHub**, so they are ordinary pinned qmake builds, and only 73Linux's habit
+of fetching unversioned executables from a directory called `Beta` made them
+look like binary units. What remains for it is Pi-APRS, GARIM, ARDOPGUI,
+AntScope2, GridTracker2 and `sdrangel` on the five targets that do not package
+it. **A
+`.deb` goes through `apt-get install ./file.deb`, never `dpkg -i`** — apt
+resolves the dependencies where dpkg installs the package and leaves them
+broken.
+
+**Build systems are measured too.** The source backend implements `cmake` (11),
+`autotools` (10), `make` (7), `qmake` (4) and `qmake6` (1) — counted across the
+catalog's 33 `source` and `git` blocks. `qmake6` is separate from `qmake`
+because Debian 13 with only `qt6-base-dev` has no `/usr/bin/qmake` at all.
+
+`custom` and `patches` remain **measured zeros in the catalog** and are refused
+by name. `patches` is no longer a speculative zero, though: `linrad` needs one
+and cannot be shipped without it, because its Makefile bakes `-Werror` into a
+literal flag string with no variable to override.
+`docs/reference/source-build-gaps.md` names that and five other gaps, each
+against the unit whose build proved it.
+
+Measured zeros — recorded, not deleted, so they are not re-added by convention:
+`cargo` 0, `flatpak` 0, `appimage` 0 in AHRL. AppImage and a configured Wine
+prefix are **post-1.0**, required by HAMRS and VARA respectively. `snap` appears
+11 times and is an **anti-dependency** — every occurrence is removal — so it
+belongs in `system_modifications`, never as a backend.
+
+**M4 — profiles and hardware.** Full profile set. udev rules, group membership,
+firmware. Persistent device symlinks.
+
+**M5 — parity verified.** Every unit either **installs successfully on at least
+one supported distro**, or carries a `broken`/`retired` status **verified by us**
+— never inherited from an AHRL shell comment. Re-attempt `ardop`,
+`radiosonde_auto_rx`, and the compiler-flag-fragile set before accepting any
+verdict, and record what was tested: date, version, distro, actual failure.
+
+**Exit criterion: our install-success fraction must be at least as good as
+AHRL's own.** AHRL ships 95 units with 9 disabled. Shipping 95 manifests with 40
+marked broken is not parity, however complete the coverage looks. Inherited
+verdicts count against us; tested-and-confirmed-dead does not. The M5 report
+shows disposition, evidence, and whether each verdict was tested or inherited.
+
+**Post-1.0 — the extension.** SIGINT and RF-security profiles, Meshtastic/LoRa,
+the Parrot-specific integration. This is where Hammunition stops being "AHRL
+done properly" and becomes its own thing.
+
+**Definition of "more modern and robust":** declarative over imperative,
+git over tarballs, tested over hoped-for, multi-maintainer over solo,
+idempotent over run-once, dry-run over surprise, measured coverage over
+assumed coverage.
+
+## Hardware context
+
+The maintainer's own gear drives priority for the hardware role. **Owned and
+testable** distinguishes what can close an `identification_gap` here from what
+cannot — see `docs/reference/hardware-gaps.md`, which is generated and
+authoritative:
+
+- **Owned:** HackRF Pro, CatSniffer V3, Electronic Cats Minino, Free-WiLi 2,
+  nRF52840, Proxmark3 v3 and v5, Clip-Boy, C5 Wardriver v1.1 (unflashed), EFF Rayhunter, ClockworkPi uConsole with Hacker Gadgets AIO v2,
+  Meshtastic devices (T-Deck, T-Echo, RAK/WisMesh), Yaesu FT-991A, BTECH
+  UV-50PRO, Panasonic Toughbook FZ-55.
+- **Planned, not owned:** PortaPack H4M, Proxmark3 RDV4. Catalogued, never
+  marked maintainer-verified.
+- **Not owned:** LimeSDR, PlutoSDR, KrakenSDR, SDRplay RSP. Carried because
+  other operators have them; their gaps say *not owned* rather than *pending*,
+  because the reason a gap is open is as important as the fact that it is.
+
+**The hardware role is permissions, composite-device mapping, firmware-mode
+identification, and honest documentation of what nothing solves** (**D-029**).
+Persistent udev symlinks are one tactic used where the evidence supports one,
+not the headline — this file previously called them "the highest-value feature",
+and the generated accounting in `docs/reference/device-naming.md` does not
+support that. systemd's `60-serial.rules` already gives every USB-*serial*
+device a stable `/dev/serial/by-id/` path. It gives nothing to the 12 of 21
+catalogued devices that are libusb, nothing to a Proxmark3 that supplies no
+serial for it to compose a path from, nothing to permissions, and no label to
+any of the Free-WiLi 2's four ports. That is the work.
+
+---
+> Source: [ChiefGyk3D/Hammunition](https://github.com/ChiefGyk3D/Hammunition) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
