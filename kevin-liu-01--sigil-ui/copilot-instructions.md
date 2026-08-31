@@ -1,161 +1,70 @@
-## taste-enforcement
+## taste-skills-index
 
-> > Adapted from [tasteskill.dev](https://www.tasteskill.dev/) for Sigil's token-driven architecture.
+> > Auto-applied catalog of the 12 taste skills imported from [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill).
 
-# Taste Enforcement — Anti-Slop Frontend Rules
+# Taste Skills Index — Available Skill Catalog
 
-> Adapted from [tasteskill.dev](https://www.tasteskill.dev/) for Sigil's token-driven architecture.
-> These rules override default LLM biases that produce generic, forgettable frontends.
-> Cross-reference with `sigil-design-system.mdc` for token consumption rules.
->
-> **Available taste skills** (user-level at `~/.cursor/skills/taste-*/SKILL.md`):
-> - `taste-core` — general anti-slop default
-> - `taste-gpt` — GPT/Codex stricter variant
-> - `taste-image-to-code` — image-first then implement
-> - `taste-redesign` — audit existing UI
-> - `taste-soft` — premium calm/expensive
-> - `taste-output` — output completeness
-> - `taste-minimalist` — editorial monochrome
-> - `taste-brutalist` — Swiss/CRT/terminal
-> - `taste-stitch` — Google Stitch DESIGN.md
-> - `taste-imagegen-web` — web reference images
-> - `taste-imagegen-mobile` — mobile screen images
-> - `taste-brandkit` — brand-kit overview images
->
-> See [taste-skills-index.mdc](./taste-skills-index.mdc) for the full selection guide.
+> Auto-applied catalog of the 12 taste skills imported from [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill).
+> These live as user-level Cursor skills at `~/.cursor/skills/taste-*/SKILL.md` and trigger automatically based on the task description.
+> When working in Sigil, the core enforcement rule [taste-enforcement.mdc](./taste-enforcement.mdc) is always active and overrides any conflicting guidance from individual taste skills (specifically: token consumption via `var(--s-*)` is mandatory).
 
-## Variance Baseline
+## Quick-Reference Table
 
-These dials drive all downstream decisions. Adjust per-prompt when the user specifies a different mood.
+| Skill | When to Read | One-Line Purpose |
+|-------|--------------|------------------|
+| `taste-core` | Default for any frontend task | Variance dials (8/6/4), banned patterns, creative arsenal, motion engine |
+| `taste-gpt` | Using GPT/Codex models on layout-heavy tasks | Python RNG layout selection, AIDA structure, GSAP-heavy motion |
+| `taste-image-to-code` | User wants design refs first, then code | Generate reference images, deep-analyze, then implement |
+| `taste-redesign` | Auditing or upgrading existing UI | Diagnostic checklist + targeted upgrade techniques (no rewrites) |
+| `taste-soft` | Premium SaaS, marketing pages, Linear/Vercel-tier | Calm/expensive: double-bezel cards, spring physics, fluid island nav |
+| `taste-output` | User asks for full files / multiple components | Ban placeholder patterns, enforce complete code generation |
+| `taste-minimalist` | Document UI, Notion-style, editorial | Warm monochrome, muted pastels, bento grids, no gradients |
+| `taste-brutalist` | Data dashboards, terminals, technical sites | Swiss typography, CRT terminals, rigid grids, analog degradation |
+| `taste-stitch` | User mentions Google Stitch | Generate DESIGN.md compatible with Stitch's semantic format |
+| `taste-imagegen-web` | User asks for web design reference images | One image per section, premium art direction |
+| `taste-imagegen-mobile` | User asks for mobile app screens / flows | Premium mobile concepts inside phone mockup framing |
+| `taste-brandkit` | User asks for brand-kit / identity mockups | Logo systems, palette, typography, mockups in one board |
 
-| Dial | Default | Range | What It Controls |
-|------|:-------:|-------|-----------------|
-| DESIGN_VARIANCE | 8 | 1-10 | Layout asymmetry, grid complexity, whitespace distribution |
-| MOTION_INTENSITY | 6 | 1-10 | Animation density, spring physics, scroll effects |
-| VISUAL_DENSITY | 4 | 1-10 | Spacing tightness, card usage, data presentation |
+## Skill-Selection Decision Tree
 
-Interpret user requests dynamically: "make it airy" → VISUAL_DENSITY 2; "dashboard" → VISUAL_DENSITY 7-8; "cinematic" → MOTION_INTENSITY 8-9.
-
-## Banned Visual Patterns (Hard Failures)
-
-These patterns are the hallmark of generic AI output. Never produce them.
-
-### Layout
-- **Centered hero + blur blobs** when DESIGN_VARIANCE > 4. Use split-screen, left-aligned, or asymmetric whitespace.
-- **3 equal cards in a row** for feature sections. Use 2-column zig-zag, asymmetric bento, or horizontal scroll.
-- **`h-screen`** for full-height sections. Always use `min-h-[100dvh]`.
-- **Flexbox percentage math** (`w-[calc(33%-1rem)]`). Use CSS Grid.
-- **Complex layouts without mobile fallback.** Levels 4-10 variance MUST collapse to single-column below `md:`.
-
-### Color & Surface
-- **"AI Purple/Blue" aesthetic.** No purple button glows, no neon gradients. Use the active preset's `--s-primary`.
-- **Pure `#000000`** for backgrounds or text. Sigil uses rich black via `var(--s-background)`.
-- **Oversaturated accents.** Desaturate to blend with the preset's neutral scale.
-- **Gradients with no material logic.** Every gradient needs a reason: glow, light source, depth, brand.
-- **Glassmorphism on white** without functional justification.
-- **Neon/outer glows** via default `box-shadow`. Use inner borders or tinted `var(--s-shadow-*)` tokens.
-- **Excessive gradient text** on large headers.
-
-### Typography
-- **Inter, Roboto, Open Sans** as primary typeface for a new visual language. Sigil uses the PP Pangram collection or preset-specific stacks.
-- **Oversized H1s** that scream instead of communicating hierarchy. Control with weight and color via `var(--s-heading-*)` tokens.
-- **Serif fonts on dashboards/software UI.** Serif is for editorial/creative presets only.
-- **Too many font families.** Max: the triad (display + body + mono).
-
-### Content (The "Jane Doe" Effect)
-- **Generic names:** "John Doe", "Jane Smith", "Sarah Chan", "Acme Corp" → invent realistic, contextual names.
-- **Generic avatars:** No SVG egg icons or Lucide user placeholders → use styled initials or specific photo placeholders.
-- **Fake round numbers:** `99.99%`, `50%`, `1234567` → use organic data (`47.2%`, `+1 (312) 847-1928`).
-- **Startup slop names:** "Nexus", "SmartFlow", "SynergyAI" → invent premium, contextual brand names.
-- **AI copywriting clichés:** "Elevate", "Seamless", "Unleash", "Next-Gen", "Game-changer", "Delve" → concrete verbs only.
-- **Lorem ipsum** in any visible UI.
-- **Emojis** in code, markup, headings, or alt text. Use Phosphor or Radix icons.
-
-### External Resources
-- **Unsplash links.** Use `https://picsum.photos/seed/{context}/W/H` or SVG placeholders.
-- **Generic Lucide/Feather/Heroicons.** Use `@phosphor-icons/react` (Bold/Fill weights) or `@radix-ui/react-icons`.
-- **Default shadcn/ui** without customization. All shadcn components MUST be restyled to match the active Sigil preset.
-
-## Required UI States
-
-LLMs default to the happy path. Every interactive component MUST include:
-
-| State | Implementation |
-|-------|---------------|
-| Loading | Skeletal loaders matching layout dimensions — no generic spinners |
-| Empty | Composed empty state explaining how to populate data |
-| Error | Clear inline error reporting with `var(--s-error)` color |
-| Active/Pressed | `-translate-y-[1px]` or `scale-[0.98]` for tactile feedback |
-| Hover | Meaningful state change — not just opacity shift |
-
-## Creative Proactivity
-
-When MOTION_INTENSITY > 5, actively implement:
-
-- **Spring physics** for all interactive elements: `type: "spring", stiffness: 100, damping: 20`. No linear easing.
-- **Staggered reveals** for lists and grids: `staggerChildren` (Motion) or CSS `animation-delay: calc(var(--index) * 80ms)`. Never mount everything at once.
-- **Layout transitions** via Motion `layout` and `layoutId` for smooth reordering and shared element transitions.
-- **Micro-interactions** on standard elements (breathing status dots, typewriter effects, float animations).
-
-When glassmorphism IS justified:
-- Add 1px inner border (`border-white/10`) and subtle inner shadow (`shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]`) for physical edge refraction.
-
-### Magnetic Hover (MOTION_INTENSITY > 5)
-
-Buttons that pull toward the cursor. NEVER use `useState` for this — use Motion's `useMotionValue` and `useTransform` outside the React render cycle. State-driven continuous animations destroy mobile performance.
-
-## Performance Guardrails
-
-- **Hardware acceleration only.** Animate `transform` and `opacity`. Never animate `top`, `left`, `width`, `height`.
-- **Grain/noise filters** go on `fixed inset-0 z-50 pointer-events-none` pseudo-elements, never scrolling containers.
-- **Perpetual animations** (infinite loops, breathing effects) MUST be isolated in their own `"use client"` leaf component wrapped in `React.memo`. Never trigger parent re-renders.
-- **`will-change: transform`** only on actively animating elements, removed after animation completes.
-- **Z-index discipline.** Only for systemic layers (navbar, modal, overlay). No arbitrary `z-50`.
-- **useEffect cleanup.** Every animation effect must return a cleanup function.
-- **Scroll listeners.** Use `IntersectionObserver`, never `window.addEventListener('scroll')`.
-
-## Dependency Verification
-
-Before importing ANY third-party library (`framer-motion`, `gsap`, `three`, etc.):
-1. Check `package.json` — if missing, output the install command first.
-2. Never mix GSAP/Three.js with Motion in the same component tree. Motion for UI/bento; GSAP/Three.js for isolated scroll sequences or canvas backgrounds.
-
-## RSC Safety
-
-- Default to Server Components. Global state only in Client Components.
-- Interactive UI (Sections on Motion, magnetic hover, perpetual animations) MUST be extracted as isolated `"use client"` leaf components.
-- Server Components render static layouts only.
-- Tailwind version lock: check `package.json`. Don't use v4 syntax in v3 projects.
-
-## Output Completeness
-
-Treat every generation as production-critical.
-
-**Banned output patterns (hard failures):**
-- `// ...`, `// rest of code`, `// TODO`, `// implement here`, `// similar to above`
-- "Let me know if you want me to continue", "for brevity", "the rest follows the same pattern"
-- Outputting a skeleton when a full implementation was requested
-- Showing first and last sections while skipping the middle
-
-When approaching token limits, write at full quality to a clean breakpoint, then:
 ```
-[PAUSED — X of Y complete. Send "continue" to resume from: next section]
+Is the user asking for IMAGES (design refs, mockups, brand boards)?
+├── Yes -> taste-imagegen-web | taste-imagegen-mobile | taste-brandkit
+└── No -> Is this an existing-UI audit or fix?
+         ├── Yes -> taste-redesign
+         └── No -> Is a specific aesthetic implied?
+                  ├── "minimal/editorial/Notion-like" -> taste-minimalist
+                  ├── "brutalist/terminal/dashboard data-heavy" -> taste-brutalist
+                  ├── "premium/calm/Linear/Vercel" -> taste-soft
+                  ├── "Google Stitch" -> taste-stitch
+                  └── (default) -> taste-core
 ```
 
-## Pre-Ship Taste Check
+The `taste-output` and `taste-gpt` skills are orthogonal modifiers that apply on top of any of the above when the relevant trigger is present.
 
-Append to the existing `sigil-design-system.mdc` pre-ship checklist:
+## Sigil Override Rules
 
-- [ ] No banned visual patterns from the list above
-- [ ] No generic names, numbers, or placeholder content
-- [ ] No AI copywriting clichés in any visible text
-- [ ] Loading, empty, and error states implemented
-- [ ] Animations use spring physics, not linear easing
-- [ ] Staggered reveals on lists and grids
-- [ ] Interactive animations isolated in `"use client"` leaf components
-- [ ] Mobile collapse guaranteed for high-variance layouts
-- [ ] No `h-screen` — only `min-h-[100dvh]`
-- [ ] Active preset tokens used throughout — no hardcoded values
+When any taste skill conflicts with Sigil conventions, Sigil wins. Specifically:
+
+| Taste Skill Says | Sigil Override |
+|------------------|----------------|
+| Use `#xxxxxx` hex colors | Always use `var(--s-*)` tokens (see `sigil-design-system.mdc`) |
+| Use `shadow-md`, `shadow-lg` | Use `shadow-[var(--s-shadow-*)]` |
+| Use `rounded-lg`, `rounded-xl` | Use `rounded-[var(--s-radius-*)]` |
+| Use `duration-150`, `duration-300` | Use `duration-[var(--s-duration-*)]` |
+| Recommend `Inter`, `Roboto`, `Open Sans` | Use the active preset's `--s-font-*` (PP Pangram by default) |
+| Use `h-screen` | Always `min-h-[100dvh]` or `min-h-dvh` |
+
+The taste skills' visual descriptions and motion guidance still apply — only the implementation tokens change to match Sigil's architecture.
+
+## Cross-References
+
+- `.cursor/rules/taste-enforcement.mdc` — core anti-slop rule (always applied)
+- `.cursor/rules/sigil-design-system.mdc` — Sigil token consumption rules
+- `.cursor/rules/sigil-conventions.mdc` — component conventions
+- `AGENTS.md` -> Skills section -> Taste Skills subsection (full table)
+- Wiki: `wiki/skills/taste-*.md` (12 wiki pages with the same content)
+- Source: [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
