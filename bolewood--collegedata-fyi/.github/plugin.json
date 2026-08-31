@@ -1,0 +1,9 @@
+{
+  "name": "bolewood--collegedata-fyi",
+  "displayName": "collegedata-fyi",
+  "description": "Open Common Data Set API and archive for U.S. colleges \u2014 raw CDS PDFs, structured extracts, IPEDS/College Scorecard joins",
+  "version": "1.0.0",
+  "author": "bolewood",
+  "homepage": "https://github.com/bolewood/collegedata-fyi",
+  "skills": []
+}
