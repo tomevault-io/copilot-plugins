@@ -1,0 +1,9 @@
+{
+  "name": "realtyz--mini-hf",
+  "displayName": "mini-hf",
+  "description": "On-Premises Model/Dataset Cache",
+  "version": "1.0.0",
+  "author": "realtyz",
+  "homepage": "https://github.com/realtyz/mini-hf",
+  "skills": []
+}
