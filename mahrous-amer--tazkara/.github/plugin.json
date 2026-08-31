@@ -1,0 +1,9 @@
+{
+  "name": "mahrous-amer--tazkara",
+  "displayName": "tazkara",
+  "description": "Node.js CLI that checks showtimes for **any movie** on two Cairo cinema chains",
+  "version": "1.0.0",
+  "author": "mahrous-amer",
+  "homepage": "https://github.com/mahrous-amer/tazkara",
+  "skills": []
+}
