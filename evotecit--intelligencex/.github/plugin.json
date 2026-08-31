@@ -1,0 +1,9 @@
+{
+  "name": "evotecit--intelligencex",
+  "displayName": "IntelligenceX",
+  "description": "IntelligenceX is a .NET toolkit for the Codex app-server protocol and a GitHub Actions reviewer. It manages the app-server process, speaks JSON-RPC over JSONL, and ships a CLI/web wizard to onboard re",
+  "version": "1.0.0",
+  "author": "EvotecIT",
+  "homepage": "https://github.com/EvotecIT/IntelligenceX",
+  "skills": []
+}
