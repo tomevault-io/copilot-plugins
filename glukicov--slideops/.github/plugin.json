@@ -1,0 +1,9 @@
+{
+  "name": "glukicov--slideops",
+  "displayName": "slideops",
+  "description": "Turn a repository into a slide deck that tells you when it stops matching the code",
+  "version": "1.0.0",
+  "author": "glukicov",
+  "homepage": "https://github.com/glukicov/slideops",
+  "skills": []
+}
