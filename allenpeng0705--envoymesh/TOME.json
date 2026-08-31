@@ -4,7 +4,7 @@
   "repo": "EnvoyMesh",
   "description": "Decentralized P2P mesh for autonomous AI agents \u2014 self-sovereign identity, peer-to-peer chat, and on-device AI that negotiates tasks on your behalf. No central server.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/allenpeng0705/EnvoyMesh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T01:31:04Z"
+  "distributed_at": "2026-08-31T01:31:55Z"
 }
