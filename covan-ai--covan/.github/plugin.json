@@ -1,0 +1,9 @@
+{
+  "name": "covan-ai--covan",
+  "displayName": "covan",
+  "description": "A shared AI agent for your team. Everyone trains it together; everyone talks to it privately. Self-hostable, AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "covan-ai",
+  "homepage": "https://github.com/covan-ai/covan",
+  "skills": []
+}
