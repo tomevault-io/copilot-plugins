@@ -1,0 +1,9 @@
+{
+  "name": "nauhwardev--ai-ux-upsilon",
+  "displayName": "ai-ux-upsilon",
+  "description": "Open-source, full-stack AI chatbot with streaming chat, long-term memory, authentication, persistent history, attachments, and configurable AI backends.",
+  "version": "1.0.0",
+  "author": "NauhwarDev",
+  "homepage": "https://github.com/NauhwarDev/ai-ux-upsilon",
+  "skills": []
+}
