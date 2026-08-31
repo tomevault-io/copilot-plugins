@@ -1,0 +1,9 @@
+{
+  "name": "runyte--runyte",
+  "displayName": "runyte",
+  "description": "Runyte is an editor-first, agent-ready terminal workspace for software development. It combines modal text editing, file management, terminal multiplexing, a Git interface with worktree support, and p",
+  "version": "1.0.0",
+  "author": "runyte",
+  "homepage": "https://github.com/runyte/runyte",
+  "skills": []
+}
