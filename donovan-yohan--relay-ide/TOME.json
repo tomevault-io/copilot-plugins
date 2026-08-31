@@ -4,7 +4,7 @@
   "repo": "relay-ide",
   "description": "Lightweight remote web chat interface for facilitating multi-harness agent collaboration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/donovan-yohan/relay-ide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T10:30:26Z"
+  "distributed_at": "2026-08-31T10:31:13Z"
 }
