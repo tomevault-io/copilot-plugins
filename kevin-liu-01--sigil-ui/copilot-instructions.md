@@ -1,70 +1,62 @@
-## taste-skills-index
+## typescript-conventions
 
-> > Auto-applied catalog of the 12 taste skills imported from [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill).
+> > Imported from Kevin's wiki (`wiki/style/typescript.md`).
 
-# Taste Skills Index — Available Skill Catalog
+# TypeScript Conventions
 
-> Auto-applied catalog of the 12 taste skills imported from [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill).
-> These live as user-level Cursor skills at `~/.cursor/skills/taste-*/SKILL.md` and trigger automatically based on the task description.
-> When working in Sigil, the core enforcement rule [taste-enforcement.mdc](./taste-enforcement.mdc) is always active and overrides any conflicting guidance from individual taste skills (specifically: token consumption via `var(--s-*)` is mandatory).
+> Imported from Kevin's wiki (`wiki/style/typescript.md`).
+> Cross-reference: `sigil-design-system.mdc` (TypeScript Rules section).
 
-## Quick-Reference Table
+## General Principles
 
-| Skill | When to Read | One-Line Purpose |
-|-------|--------------|------------------|
-| `taste-core` | Default for any frontend task | Variance dials (8/6/4), banned patterns, creative arsenal, motion engine |
-| `taste-gpt` | Using GPT/Codex models on layout-heavy tasks | Python RNG layout selection, AIDA structure, GSAP-heavy motion |
-| `taste-image-to-code` | User wants design refs first, then code | Generate reference images, deep-analyze, then implement |
-| `taste-redesign` | Auditing or upgrading existing UI | Diagnostic checklist + targeted upgrade techniques (no rewrites) |
-| `taste-soft` | Premium SaaS, marketing pages, Linear/Vercel-tier | Calm/expensive: double-bezel cards, spring physics, fluid island nav |
-| `taste-output` | User asks for full files / multiple components | Ban placeholder patterns, enforce complete code generation |
-| `taste-minimalist` | Document UI, Notion-style, editorial | Warm monochrome, muted pastels, bento grids, no gradients |
-| `taste-brutalist` | Data dashboards, terminals, technical sites | Swiss typography, CRT terminals, rigid grids, analog degradation |
-| `taste-stitch` | User mentions Google Stitch | Generate DESIGN.md compatible with Stitch's semantic format |
-| `taste-imagegen-web` | User asks for web design reference images | One image per section, premium art direction |
-| `taste-imagegen-mobile` | User asks for mobile app screens / flows | Premium mobile concepts inside phone mockup framing |
-| `taste-brandkit` | User asks for brand-kit / identity mockups | Logo systems, palette, typography, mockups in one board |
+- Prefer functional style. Classes only when the domain demands it (SDK clients).
+- `const` over `let`; never `var`.
+- `===` over `==`.
+- Template literals over string concatenation.
+- Named exports over default exports.
+- If a function name contains "and", split it.
 
-## Skill-Selection Decision Tree
+## Types
 
+- `type` over `interface` unless declaration merging is needed. Interfaces can accidentally merge across files; `type` aliases are closed.
+- `unknown` over `any`. If `any` is unavoidable, add `// eslint-disable-next-line` with justification.
+- `satisfies` to validate object shapes without widening.
+- `import type` for type-only imports (enforced by `typescript/consistent-type-imports`).
+- Derive types from values with `as const`, not the other way around.
+- Discriminated unions with exhaustive `switch` for domain variants.
+- Branded types (`string & { readonly __brand: "X" }`) for nominal safety.
+
+## Error Handling
+
+- `Result<T, E>` from `@/lib/utils/functional` for domain logic with expected failures.
+- `Zod` for validating external input at API boundaries.
+- `catch (error: unknown)`, narrow with `error instanceof Error`.
+- Early returns over deeply nested conditionals.
+- No ternaries for control flow. Ternaries are for value selection only.
+
+## Console Warnings
+
+Label `console.warn` and `console.error` calls with their origin:
+
+```ts
+console.warn("[FileName::functionName::L42] description");
 ```
-Is the user asking for IMAGES (design refs, mockups, brand boards)?
-├── Yes -> taste-imagegen-web | taste-imagegen-mobile | taste-brandkit
-└── No -> Is this an existing-UI audit or fix?
-         ├── Yes -> taste-redesign
-         └── No -> Is a specific aesthetic implied?
-                  ├── "minimal/editorial/Notion-like" -> taste-minimalist
-                  ├── "brutalist/terminal/dashboard data-heavy" -> taste-brutalist
-                  ├── "premium/calm/Linear/Vercel" -> taste-soft
-                  ├── "Google Stitch" -> taste-stitch
-                  └── (default) -> taste-core
-```
 
-The `taste-output` and `taste-gpt` skills are orthogonal modifiers that apply on top of any of the above when the relevant trigger is present.
+## Linting
 
-## Sigil Override Rules
+Use Ultracite (`bun x ultracite@latest init`) for oxlint configuration. Zero-config presets with framework-specific rules. Custom ESLint rules layer on top for repo-specific architectural policy only (see `react-conventions.mdc`).
 
-When any taste skill conflicts with Sigil conventions, Sigil wins. Specifically:
+## Type Checking
 
-| Taste Skill Says | Sigil Override |
-|------------------|----------------|
-| Use `#xxxxxx` hex colors | Always use `var(--s-*)` tokens (see `sigil-design-system.mdc`) |
-| Use `shadow-md`, `shadow-lg` | Use `shadow-[var(--s-shadow-*)]` |
-| Use `rounded-lg`, `rounded-xl` | Use `rounded-[var(--s-radius-*)]` |
-| Use `duration-150`, `duration-300` | Use `duration-[var(--s-duration-*)]` |
-| Recommend `Inter`, `Roboto`, `Open Sans` | Use the active preset's `--s-font-*` (PP Pangram by default) |
-| Use `h-screen` | Always `min-h-[100dvh]` or `min-h-dvh` |
+Use **tsgo** (TS 7, native Go implementation) for type checking. Do not use `tsc`. ~10x faster, identical type errors. Combined with oxlint, full-repo validation runs in ~250-500ms.
 
-The taste skills' visual descriptions and motion guidance still apply — only the implementation tokens change to match Sigil's architecture.
+## Formatting
 
-## Cross-References
+Formatting is handled exclusively by `oxfmt`. No Prettier configuration. Run `pnpm format` to format, `pnpm format --check` to verify.
 
-- `.cursor/rules/taste-enforcement.mdc` — core anti-slop rule (always applied)
-- `.cursor/rules/sigil-design-system.mdc` — Sigil token consumption rules
-- `.cursor/rules/sigil-conventions.mdc` — component conventions
-- `AGENTS.md` -> Skills section -> Taste Skills subsection (full table)
-- Wiki: `wiki/skills/taste-*.md` (12 wiki pages with the same content)
-- Source: [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
+## Imports
+
+Group: builtins/external first, then internal (`@/`, `~/`), then relative. Alphabetize within groups. Use `import type` for type-only imports.
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
