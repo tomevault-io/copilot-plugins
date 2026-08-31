@@ -1,0 +1,9 @@
+{
+  "name": "anightmonarch--codex-bridge-chatgpt",
+  "displayName": "codex-bridge-chatgpt",
+  "description": "Verified Codex-to-ChatGPT Web reasoning handoffs with local edits, tests, and receipts.",
+  "version": "1.0.0",
+  "author": "anightmonarch",
+  "homepage": "https://github.com/anightmonarch/codex-bridge-chatgpt",
+  "skills": []
+}
