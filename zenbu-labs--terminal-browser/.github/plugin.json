@@ -1,0 +1,9 @@
+{
+  "name": "zenbu-labs--terminal-browser",
+  "displayName": "terminal-browser",
+  "description": "A browser inside your terminal",
+  "version": "1.0.0",
+  "author": "zenbu-labs",
+  "homepage": "https://github.com/zenbu-labs/terminal-browser",
+  "skills": []
+}
