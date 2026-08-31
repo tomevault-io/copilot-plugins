@@ -1,0 +1,9 @@
+{
+  "name": "pyroxin--opinionated-claude-skills",
+  "displayName": "opinionated-claude-skills",
+  "description": "A set of agent skills aimed primarily at Claude Code.",
+  "version": "1.0.0",
+  "author": "Pyroxin",
+  "homepage": "https://github.com/Pyroxin/opinionated-claude-skills",
+  "skills": []
+}
