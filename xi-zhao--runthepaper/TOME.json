@@ -1,7 +1,7 @@
 {
-  "name": "runthepaper",
+  "name": "RunThePaper",
   "owner": "xi-zhao",
-  "repo": "runthepaper",
+  "repo": "RunThePaper",
   "description": "Open research reproduction cases: notes, runnable code, generated data, figures, and honest reproduction boundaries.",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/xi-zhao/runthepaper",
+  "source_url": "https://github.com/xi-zhao/RunThePaper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T16:32:48Z"
+  "distributed_at": "2026-08-31T23:45:44Z"
 }
