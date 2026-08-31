@@ -1,0 +1,9 @@
+{
+  "name": "rohitedathil--dagic",
+  "displayName": "dagic",
+  "description": "A minimal workflow DAG (Directed Acyclic Graph) definition language and an asynchronous execution engine, implemented in Python.",
+  "version": "1.0.0",
+  "author": "RohitEdathil",
+  "homepage": "https://github.com/RohitEdathil/dagic",
+  "skills": []
+}
