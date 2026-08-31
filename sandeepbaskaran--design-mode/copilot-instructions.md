@@ -1,0 +1,365 @@
+## design-mode
+
+> enables in this state.
+
+# CLAUDE.md — Project guide for Design Mode
+
+Project-level instructions for anyone (or any AI assistant) working
+on Design Mode. Personal/per-maintainer workflow preferences live
+outside the repo — this file is purely about the project.
+
+If you're a contributor using Claude Code (or any CLAUDE.md-aware
+tool), these rules are read automatically at session start.
+
+---
+
+## Workspaces
+
+- `packages/extension` — Chrome MV3 side-panel extension (the main
+  surface). TypeScript, Vite, no framework.
+- `packages/mcp-local` — Local MCP companion + WebSocket bridge.
+  Node.js, TypeScript.
+- `packages/mcp-cloud` — Hosted MCP relay (Vercel-deployable).
+- `packages/shared` — Types, message schemas, constants. Re-exported
+  via `@shared/...`.
+- `website/` — Next.js 15 / React 19 / Tailwind 4 / shadcn-ui
+  (new-york) marketing + docs + interactive demo site. Light mode
+  only; the `dark:` variants still present in shadcn primitives
+  are inert (no `.dark` class is ever added to the root).
+
+## Default build commands
+
+- **One build, one `dist/`, one manifest — serves BOTH Chrome and
+  Firefox.** Each browser reads its own manifest keys and ignores the
+  other's; the JS detects the browser at **runtime**
+  (`src/platform/target.ts` → `IS_FIREFOX`, UA + `sidebarAction`
+  sniff). There is no separate Firefox build or `dist-firefox/`.
+- **Build the extension:** `node build.mjs` from `packages/extension/`
+  (NOT from the repo root — `build.mjs` lives inside the package).
+  → `dist/`.
+- **Single merged manifest** (`public/manifest.json`) carries both
+  browsers' keys: Chrome uses `side_panel` + `sidePanel` permission +
+  `background.service_worker`; Firefox uses `sidebar_action` +
+  `background.scripts` + `browser_specific_settings` (Gecko id
+  `sandeepbaskaran98@gmail.com`, `strict_min_version` 121.0, and
+  `data_collection_permissions: { required: ["none"] }` — AMO rejects new
+  submissions without it). The
+  `background` block carries **both** `service_worker` and `scripts`
+  (each browser picks its own). Don't split this into per-target
+  manifests.
+- **API layer:** the extension calls the promise-based `browser.*`
+  namespace everywhere (webextension-polyfill on Chrome, native on
+  Firefox — imported first in each entry via `src/platform/polyfill.ts`).
+  `browser` is typed as `typeof chrome`. A handful of Chrome-only APIs
+  stay on the `chrome` global: `chrome.sidePanel` (behind the
+  `platform/panel.ts` adapter), `chrome.storage.session.setAccessLevel`,
+  `chrome.extension.isAllowedFileSchemeAccess`. Firefox's
+  `sidebarAction` is reached via a cast in `platform/panel.ts`.
+- **Pop-out floating window + Picture-in-Picture are Chrome-only**
+  (Firefox has neither `sidePanel` nor Document PiP) — those controls
+  are gated behind `!IS_FIREFOX` at runtime (present in the shared
+  bundle but dormant on Firefox; the docked sidebar is Firefox's sole
+  surface). Alt+D opens the panel on both: Chrome via the side panel,
+  Firefox via `sidebarAction.open()` called synchronously in the
+  command handler.
+- **`IS_FIREFOX` (`src/platform/target.ts`) is the single flag for any
+  Chrome/Firefox-divergent behaviour** — UI copy, links, or feature
+  gating. Always branch on it; never add ad-hoc `navigator.userAgent`
+  checks elsewhere. Current divergences that use it: pop-out / PiP
+  (hidden on FF), the eyedropper "Pick" button (hidden on FF — no
+  EyeDropper API), the side-panel open adapter (`platform/panel.ts`),
+  the keyboard-shortcut open path (`background/index.ts`), the
+  file-access settings button (`about:addons` vs `chrome://extensions`),
+  and the Contribute panel's "Review" link + share text (AMO vs Chrome
+  Web Store). New browser-specific behaviour goes through this flag.
+- **Build the website:** `npm run build` from `website/`.
+- **Repo-wide gate:** `npm run verify` from repo root — runs
+  `scripts/prepublish-check.mjs` which chains: build extension →
+  bundle integrity → manifest sanity (asserts BOTH Chrome + Firefox
+  keys) → `web-ext lint` (0 errors required; the ~30 warnings —
+  `innerHTML`, Chrome-only `UNSUPPORTED_API`, the ignored `sidePanel`
+  permission, `BACKGROUND_SERVICE_WORKER_IGNORED`, and the advisory
+  `KEY_FIREFOX_UNSUPPORTED_BY_MIN_VER` for `data_collection_permissions`
+  — are expected) →
+  MCP local checks → build local MCP → bundle integrity → build
+  website → export integrity. CI uses the same command.
+- **Two store zips, identical content, distinct names** (both under
+  `packages/extension/`, both gitignored): `design-mode-extension.zip`
+  (Chrome Web Store, `npm run package:extension`) and
+  `design-mode-addon.zip` (Firefox / AMO + local `about:debugging`
+  testing, `npm run package:extension:firefox`).
+  `npm run package:extension:all` builds once and writes both.
+  They're byte-for-byte the same dist — the split is purely so each
+  store gets a recognisably-named file. Replace the existing zips;
+  never produce per-version copies like `design-mode-v1.0.2.zip`.
+  `npm run lint:extension` builds + runs `web-ext lint`.
+- **TypeScript typecheck has a known pre-existing failure** because
+  `packages/shared` lacks `composite: true`. `npm run verify` does
+  NOT run `tsc` on shared, so CI is fine. Don't "fix" this
+  incidentally.
+
+## Code conventions
+
+- **No comments describing WHAT the code does** — well-named
+  identifiers cover that. Only add comments when WHY is non-obvious
+  (hidden constraint, subtle invariant, workaround for a specific
+  bug, behaviour that would surprise a reader).
+- **No multi-paragraph docstrings.** One short line max.
+- Don't reference the current task / fix / callers in code comments
+  ("used by X", "added for the Y flow") — those belong in the PR
+  description and rot fast.
+- No unused / dead code. If something is unused, delete it.
+- No backwards-compat shims (renaming `_var`, re-exporting old
+  types, leaving "// removed" stubs).
+- No error handling for impossible scenarios — trust internal calls
+  and framework guarantees. Validate only at system boundaries
+  (user input, external APIs).
+- Three similar lines is better than a premature abstraction.
+
+## Security & privacy baseline
+
+- **The side panel context is privileged.** It holds `chrome.tabs`,
+  `scripting`, `storage`, and the MCP bearer token. Treat every
+  value flowing into it from a page as untrusted.
+- **Page-derived HTML** → `sanitizeRichTextHtml`
+  (`packages/extension/src/sidepanel/sidepanel.ts`). Don't ever
+  interpolate raw `el.innerHTML` from an inspected page directly
+  into the panel's DOM.
+- **Page-derived values into HTML attributes** → `escapeAttr`
+  (`packages/extension/src/content/helpers.ts`).
+- **Page-derived values into CSS contexts** (inline `style="..."`)
+  → `safeCssColor` (same file as the sanitizer). `escapeAttr`
+  alone is NOT sufficient for CSS contexts.
+- **Never add `eval`, `new Function`, inline event handlers**, or
+  any dynamic-code execution path. MV3's default CSP forbids most
+  of this anyway; the explicit `content_security_policy` block in
+  `manifest.json` is defense in depth.
+- **No new outbound network calls without an opt-in setting AND a
+  note in PRIVACY.md.** Default behaviour is localhost-only.
+- **No new manifest permissions without a justification.** The
+  current set (activeTab, storage, scripting, tabs, sidePanel,
+  host_permissions: <all_urls>) is what's reviewed by the Chrome
+  Web Store; any addition needs store-listing rationale too.
+- **No secrets in repo.** `.env*` are gitignored; treat anything
+  else in the repo as public. The cloud bearer token (`dm_...`) is
+  generated client-side and stored in `chrome.storage.local` — never
+  hardcoded.
+- **Licence**: MIT. Don't add deps with incompatible licences.
+
+## Monorepo patterns
+
+- **Shared constants** live in `packages/shared/src/constants.ts`
+  (re-exported via `@shared/constants`). Things like
+  `DEFAULT_SHORTCUTS`, `APP_VERSION`, animation/transition option
+  arrays. Synchronise embedded constants across packages instead of
+  duplicating.
+- **Synthetic CSS props for non-CSS-native features** — established
+  pattern for things CSS can't represent natively:
+  - `__layout_guides` → `::before` overlay via the layout-guides
+    module (session-only, bypasses change-tracker by design).
+  - `__effect_overlay` → `::after` overlay for Noise / Texture
+    (routes through change-tracker so it lands in Changes tab and
+    persists).
+  - `__stroke_color__N` / `__stroke_weight__N` / `__fill_color__N` /
+    `__guide_*__N` — per-layer virtual props that intercept in
+    `applyStyle()` (sidepanel.ts) and route to per-element stashes.
+
+  When adding a new such feature, follow the existing pattern:
+  intercept in `applyStyle`, store in a `Map<elementId, …>`,
+  dispatch via either change-tracker (persistent) or a separate
+  message (session-only).
+- **Message routing**: side panel → background → content. The
+  background script in `packages/extension/src/background/` is a
+  forwarder; every new `SP_*` message needs a matching forward rule.
+
+## Canonical URLs
+
+- **Marketing site**: `https://designmode.app`. Never
+  `design-mode.dev`, `designmode.dev`, or any hyphenated/`.dev`
+  variant — those are wrong.
+- **Cloud relay**: `https://mcp.designmode.app` (apex). The `www.`
+  subdomain also serves the routes, but apex is canonical since
+  the 307 redirect was killed at the Vercel domain layer. All
+  user-facing copy + config snippets must use the apex form.
+
+## MCP modes + agent presence
+
+- **Three modes**: **Cloud (default)**, **Local**, **Self-hosted**.
+  Fresh installs land on Cloud. Existing users keep whatever
+  `dm-mcp-mode` was stored. UI order in the Settings picker and
+  on the website's `/mcp` page is Cloud · Local · Self-hosted.
+- **Three-state `mcpState`** (`packages/extension/src/sidepanel/sidepanel.ts`):
+  - `offline` — transport (WS / SSE) is down.
+  - `running` — transport up, no agent activity seen recently.
+  - `connected` — transport up AND an `AGENT_PRESENCE` event was
+    received within the last 5 minutes. Send-to-Agent button only
+    enables in this state.
+- **Local presence**: `packages/mcp-local/src/websocket-server.ts`
+  sends a `HELLO` message on every WS connection with
+  `agentConnected: true`. The local server is spawned by the MCP
+  client process, so "WS open" ≡ "agent attached" — no separate
+  presence machine.
+- **Cloud / Self-hosted presence**: `packages/mcp-cloud/lib/presence.ts`
+  `bumpPresence` / `getPresence` over Redis. 5-min TTL key per
+  tenant (`presence:{tenantId}`). Every `/api/mcp` POST bumps the
+  key; 0→1 transitions publish an inbound `AGENT_PRESENCE` event
+  via `publishInbound`. The extension SSE stream
+  (`api/extension/stream.ts`) sends initial presence on connect
+  and polls every 30s for 1→0 (TTL expiry) edges.
+- **Extension side**: `content/change-tracker.ts` owns an
+  `agentConnected` boolean. The content script handles incoming
+  `AGENT_PRESENCE` and `HELLO` messages and broadcasts
+  `AGENT_PRESENCE_UPDATE` via `chrome.runtime.sendMessage`. The
+  side panel listens for that message and re-derives `mcpState`.
+
+## Self-hosted relay
+
+- The `packages/mcp-cloud` code is **Node.js + Redis**, runnable
+  on any host (Vercel, Railway, Fly, your own VM, etc). Don't
+  write user-facing copy that names Vercel as the only target.
+- The in-repo dev workflow (`npm run dev:mcp-cloud` →
+  `npx vercel dev`) and the `lib/kv.ts` comment about
+  `REDIS_URL` being auto-injected by the Vercel Marketplace are
+  internal references — those stay Vercel-flavoured because
+  that's our reference setup, but production users can deploy
+  anywhere.
+
+## Website conventions
+
+- **Background slabs** (`website/src/components/background.tsx`):
+  each page wraps ONLY its hero in `<Background>` (yellow
+  gradient at top) and ONLY its final section in
+  `<Background variant="bottom">`. Never wrap the whole page —
+  the gradient height scales with the wrapped div, so a long page
+  shows yellow far past the hero. The middle of each page renders
+  in a plain `<section>` with no Background wrap.
+- **Product Hunt badge**: lives in two places — the homepage
+  `<Hero />` block (above the h1) and the global `<Footer />`
+  block (above the h2). Single shared atom in
+  `components/blocks/product-hunt.tsx`. PH re-stamps the badge URL
+  with a `t=` tracking param each render — use a plain `<img>`
+  (`<Image>` from next/image would need `api.producthunt.com` in
+  `next.config.ts` `images.remotePatterns` for no benefit).
+- **Hydration warning**: `<html lang="en" suppressHydrationWarning>`
+  in `layout.tsx` is intentional. Night-mode browser extensions
+  (Night Eye, Dark Reader variants) inject attributes like
+  `data-nm-theme="dark"` on the root after SSR, which React would
+  otherwise warn about. `suppressHydrationWarning` scopes to the
+  `<html>` element's attributes only — subtree mismatches still
+  fire.
+- **Single shared lockfile**: only one `package-lock.json` lives
+  in the repo, at the root. `npm workspaces` handles `website/`
+  plus every package from there. If a workspace ever ends up with
+  its own `package-lock.json` (the template bootstrap put one
+  inside `website/` once), delete it before committing — Next.js's
+  build warns about ambiguous workspace root.
+- **Content-driven pages + LLM-SEO infra**: the `/blog`, `/compare`,
+  `/docs`, and `/use-cases` index + `[slug]` routes are generated from
+  `website/src/content/{blog,comparisons,docs,use-cases}.ts` — add an
+  entry there rather than a new page file. The SEO surface is the Next
+  metadata routes `app/{robots,sitemap,manifest}.ts`, static
+  `public/llms.txt` + `public/llms-full.txt`, and per-page structured
+  data via `components/site/json-ld.tsx`. When you add a content route,
+  keep the slug list in `sitemap.ts` in sync. New pages still follow the
+  background-slab rule above.
+
+## Documentation conventions
+
+- **CHANGELOG.md** — release-notes file. Add new releases at the top
+  in reverse-chronological order. Format:
+  `## [x.y.z] — YYYY-MM-DD` with Added / Changed / Fixed / Security
+  / Internal subsections.
+- **RELEASING.md** — the release procedure: version-bump
+  recommendation, files a bump touches, pre-tag checklist, and
+  tagging + release-zip steps. Read before cutting a release.
+- **CHANGES.md** — user-facing reference for the Changes-tab UI (not
+  a changelog). Don't confuse them.
+- **PRIVACY.md** — source of truth for what data leaves the user's
+  machine. Update on any new network call, new `chrome.storage` key,
+  or new external service.
+- **SECURITY.md** — disclosure process and contributor security
+  expectations (no eval / `new Function`, CSP rules, page-trust
+  boundary, etc.).
+- **DESIGN-PANEL.md, FEATURES.md, PARITY.md** — user-facing feature
+  docs. Update when a section moves / splits / renames (e.g. when
+  Motion was split out of Effects in 1.0.2).
+- **README.md** — non-technical install + "What is it" intro at the
+  top, technical content gated behind "For contributors &
+  developers". Don't merge the two audiences back together.
+- **docs/e2e-testcases.md** — manual regression test plan. New
+  features need new Phase rows; new shortcuts need new Phase 0.10
+  rows.
+
+## Contributor surface
+
+- **Issue / PR templates** live in `.github/ISSUE_TEMPLATE/` (YAML
+  issue forms, not legacy markdown). `config.yml` disables blank
+  issues, routes Security to SECURITY.md, and Q&A to /discussions.
+  The bug template requires a **Diagnostics** block — produce it via
+  the side panel's Help → "Copy diagnostics" button.
+- **In-panel Help view** — `?` icon in the header (lucide
+  `helpCircle`, already in `packages/extension/src/content/icons.ts`)
+  opens a full-panel overlay mirroring the Settings pattern: state
+  boolean (`helpOpen`), `renderHelpView()`, action handlers `help` /
+  `back-from-help` / `copy-diagnostics`. Help and Settings are
+  mutually exclusive — opening one closes the other.
+- **Copy diagnostics** payload is environment metadata only
+  (`APP_VERSION`, `navigator.*`, current theme). No PII, no page
+  URL, no extension state. `navigator.clipboard.writeText` — no new
+  permission.
+
+## Label taxonomy
+
+- **Triage state** (issues + PRs): `triage`, `needs-info`,
+  `needs-repro`, `stale`.
+- **Scope / area**: `scope:extension`, `scope:mcp-local`,
+  `scope:mcp-cloud`, `scope:shared`, `scope:website`, `scope:docs`,
+  `scope:build`.
+- **Type** (issues): defaults (`bug`, `enhancement`,
+  `documentation`, `duplicate`, `invalid`, `wontfix`, `question`,
+  `good first issue`, `help wanted`) + `security`, `regression`,
+  `breaking-change`.
+- **PR-only**: `dependencies` (Dependabot auto-applies),
+  `pinned`, `wip`.
+
+No `priority:*` labels — premature for current volume.
+
+## CI / dependency hygiene
+
+- **CI gate** is `npm run verify`. `.github/workflows/ci.yml` runs
+  it on PRs + push to main. If `verify` passes locally, CI passes.
+  Don't duplicate `verify`'s steps in the workflow — keep one
+  source of truth.
+- **CodeQL** runs PR / push / weekly. Non-blocking. Findings live
+  in the Security tab; triage like compiler warnings.
+- **Dependabot** opens weekly grouped patch/minor PRs across every
+  workspace + `github-actions`. Majors stay separate. No auto-merge.
+- **Stale workflow** labels inactive issues after 45 days (closes at
+  52); PRs after 14 days (closes at 30, converts to draft on first
+  stale-mark). Exempts `pinned`, `security`, `help wanted`,
+  `good first issue`, `regression`, `wip`.
+- **Release workflow** fires on `v*.*.*` tag push: builds the
+  extension → zips `design-mode-extension.zip` + `design-mode-addon.zip`
+  (`package:extension:all`, identical content) → creates a GitHub
+  Release with both attached (Chrome Web Store + AMO). The tag push is
+  the maintainer's explicit consent; the workflow only fires after it.
+  Store uploads are manual (see RELEASING.md).
+
+## Release readiness
+
+Releases are gated on the maintainer's explicit consent — never
+auto-trigger a tag or release. The full procedure — version-bump
+recommendation, the files a bump touches, the pre-tag checklist, and
+tagging + release-zip steps — lives in **RELEASING.md**. Read it
+before cutting a release.
+
+## GitHub Discussions
+
+Enabled on the public repo. The "Question or discussion" contact
+link in `.github/ISSUE_TEMPLATE/config.yml` points there. Default
+categories (Announcements / General / Ideas / Polls / Q&A /
+Show & tell) are canonical — don't customise without a reason.
+
+---
+> Source: [SandeepBaskaran/design-mode](https://github.com/SandeepBaskaran/design-mode) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
