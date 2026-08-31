@@ -4,7 +4,7 @@
   "repo": "Sigil-UI",
   "description": "Opinionated design language + token-driven React components. 31 presets, 70+ components, one markdown file. Built to kill the AI-generated aesthetic.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kevin-Liu-01/Sigil-UI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T02:41:25Z"
+  "distributed_at": "2026-08-31T02:42:52Z"
 }
