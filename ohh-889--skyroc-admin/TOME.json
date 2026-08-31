@@ -3,8 +3,8 @@
   "owner": "Ohh-889",
   "repo": "skyroc-admin",
   "description": "react-admin\u57fa\u4e8eAntd\uff0c\u529f\u80fd\u5f3a\u5927\u4e14\u4e30\u5bcc\uff0c\u9875\u9762\u7f8e\u89c2\uff0c\u4ee3\u7801\u4f18\u96c5 ",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "skyroc-admin",
+      "path": ".agents/skills/uniwind/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc-admin/tree/main/.agents/skills/uniwind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc-admin",
+      "path": ".agents/skills/native-component-doc/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc-admin/tree/main/.agents/skills/native-component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc-admin",
+      "path": ".claude/skills/native-component-doc/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc-admin/tree/main/.claude/skills/native-component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc-admin",
+      "path": ".agents/skills/migrate-nativewind-to-uniwind/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc-admin/tree/main/.agents/skills/migrate-nativewind-to-uniwind/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Ohh-889/skyroc-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T16:09:04Z"
+  "distributed_at": "2026-08-31T06:30:23Z"
 }
