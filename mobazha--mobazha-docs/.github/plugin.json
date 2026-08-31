@@ -1,0 +1,9 @@
+{
+  "name": "mobazha--mobazha-docs",
+  "displayName": "mobazha-docs",
+  "description": "Documentation for people and agents using, operating, integrating, or evaluating Mobazha",
+  "version": "1.0.0",
+  "author": "mobazha",
+  "homepage": "https://github.com/mobazha/mobazha-docs",
+  "skills": []
+}
