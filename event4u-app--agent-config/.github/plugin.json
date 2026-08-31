@@ -1,0 +1,102 @@
+{
+  "name": "event4u-app--agent-config",
+  "displayName": "agent-config",
+  "description": "Every claim machine-checked, including \"zero runtime daemon\" \u2014 governed skills, rules and replayable state. One contract, every host agent.",
+  "version": "1.0.0",
+  "author": "event4u-app",
+  "homepage": "https://github.com/event4u-app/agent-config",
+  "skills": [
+    {
+      "name": "docker",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "description": ""
+    },
+    {
+      "name": "copilot-config",
+      "description": ""
+    },
+    {
+      "name": "compress-memory",
+      "description": ""
+    },
+    {
+      "name": "project-analysis-node-express",
+      "description": ""
+    },
+    {
+      "name": "project-analysis-node-express",
+      "description": ""
+    },
+    {
+      "name": "docker",
+      "description": ""
+    },
+    {
+      "name": "docker",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "copilot-config",
+      "description": ""
+    },
+    {
+      "name": "copilot-agents-optimization",
+      "description": ""
+    },
+    {
+      "name": "copilot-config",
+      "description": ""
+    },
+    {
+      "name": "condense-memory",
+      "description": ""
+    },
+    {
+      "name": "condense-memory",
+      "description": ""
+    },
+    {
+      "name": "react-shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "react-shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "agent-docs-writing",
+      "description": ""
+    },
+    {
+      "name": "agent-docs-writing",
+      "description": ""
+    }
+  ]
+}
