@@ -1,0 +1,27 @@
+## apartment
+
+> This repo uses `CLAUDE.md` files as authoritative contributor guides for all AI assistants.
+
+# Repository Guidelines for AI Agents
+
+This repo uses `CLAUDE.md` files as authoritative contributor guides for all AI assistants.
+
+## Reading Order
+
+1. **Read `/CLAUDE.md` (root) first** - project-wide architecture, patterns, design decisions
+2. **Read directory-specific `CLAUDE.md`** - check the directory you're modifying and its parents
+3. **Nested files override root** on conflicts (per AGENTS.md spec)
+
+Nested `CLAUDE.md` files exist in `lib/apartment/`, `lib/apartment/adapters/`, `lib/apartment/elevators/`, `lib/apartment/tasks/`, and `spec/`.
+
+## Key Principle
+
+Check `CLAUDE.md` before copying patterns from existing code - it documents preferred patterns, design rationale, and known pitfalls. Maintainer code-style preferences (e.g. SOLID vs metaprogramming) live in the root **`CLAUDE.md`** under **Code style**, not in this file.
+
+## Adding Documentation
+
+Update the appropriate `CLAUDE.md` rather than this file. This file exists only as a pointer.
+
+---
+> Source: [rails-on-services/apartment](https://github.com/rails-on-services/apartment) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
