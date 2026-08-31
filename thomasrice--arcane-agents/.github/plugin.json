@@ -1,0 +1,9 @@
+{
+  "name": "thomasrice--arcane-agents",
+  "displayName": "arcane-agents",
+  "description": "Local-first visual control room for terminal-backed AI coding agents. Manage Claude Code, OpenCode, or any CLI agent as characters on a 2D map with live terminal streaming.",
+  "version": "1.0.0",
+  "author": "thomasrice",
+  "homepage": "https://github.com/thomasrice/arcane-agents",
+  "skills": []
+}
