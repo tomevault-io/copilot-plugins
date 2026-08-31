@@ -1,0 +1,44 @@
+{
+  "name": "wiki-portfolio",
+  "owner": "jaes1237712",
+  "repo": "wiki-portfolio",
+  "description": "\u7dad\u57fa\u767e\u79d1\u9023\u7d50\u7db2\u7d61\u7684\u4e92\u52d5\u5f0f\u5206\u6790:Infomap \u793e\u7fa4\u5075\u6e2c\u3001pgvector \u8a9e\u610f\u641c\u5c0b\u3001\u700f\u89bd\u91cf\u7570\u5e38\u5075\u6e2c\u3002Python pipeline \u2192 Neon \u2192 Cloudflare Workers \u2192 React + Sigma.js",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jaes1237712/wiki-portfolio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T02:43:52Z"
+}
