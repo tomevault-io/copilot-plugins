@@ -1,0 +1,9 @@
+{
+  "name": "appandflow--stim",
+  "displayName": "stim",
+  "description": "Isolated React Native / Expo dev environments per project or worktree \u2014 each project gets its own Metro and simulator.",
+  "version": "1.0.0",
+  "author": "appandflow",
+  "homepage": "https://github.com/appandflow/stim",
+  "skills": []
+}
