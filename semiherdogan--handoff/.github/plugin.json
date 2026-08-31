@@ -1,0 +1,9 @@
+{
+  "name": "semiherdogan--handoff",
+  "displayName": "handoff",
+  "description": "Structured handoff workflow for AI-assisted development. Plan, preserve context, and continue work across coding sessions.",
+  "version": "1.0.0",
+  "author": "semiherdogan",
+  "homepage": "https://github.com/semiherdogan/handoff",
+  "skills": []
+}
