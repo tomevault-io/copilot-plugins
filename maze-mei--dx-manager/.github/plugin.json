@@ -1,0 +1,9 @@
+{
+  "name": "maze-mei--dx-manager",
+  "displayName": "DX-Manager",
+  "description": "Windows manager for Samsung DeX (dex for pc, \uc0bc\uc131 \ub371\uc2a4) virtual displays and scrcpy app windows over USB or wireless ADB.",
+  "version": "1.0.0",
+  "author": "maze-mei",
+  "homepage": "https://github.com/maze-mei/DX-Manager",
+  "skills": []
+}
