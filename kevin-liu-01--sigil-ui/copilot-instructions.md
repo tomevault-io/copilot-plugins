@@ -1,133 +1,68 @@
-## design-animation-rules
+## frontier-stack
 
-> > Imported from Kevin's wiki (`wiki/style/design-and-animation.md`). Source: Emil Kowalski's design engineering philosophy.
+> > Imported from Kevin's wiki (`wiki/design/frontier-stack-2026.md`).
 
-# Design & Animation Rules
+# Frontier Stack 2026
 
-> Imported from Kevin's wiki (`wiki/style/design-and-animation.md`). Source: Emil Kowalski's design engineering philosophy.
-> Cross-reference: `sigil-design-system.mdc` (Seven Motion Rules, Enter/Exit Asymmetry), `frontier-stack.mdc` (tool selection).
+> Imported from Kevin's wiki (`wiki/design/frontier-stack-2026.md`).
+> Default animation/3D/rendering stack and decision matrix.
 
-## Core Philosophy
+## Default Stack
 
-Taste is trained, not innate. Reverse engineer animations. Inspect interactions. Unseen details compound — a thousand barely audible voices all singing in tune. Beauty is leverage.
+| Layer | Tool | Why |
+|-------|------|-----|
+| Tokens & styling | Tailwind CSS v4 `@theme`, runtime CSS variables, OKLCH tokens | CSS-first, theme values become runtime vars usable in CSS/JS/Motion/shaders/canvas |
+| Component motion | Motion (Framer Motion) | Component entrances, layout movement, hover/press, gestures, shared layout transitions |
+| Scroll storytelling | GSAP + ScrollTrigger, Lenis when needed | Pinned sections, scrubbed scenes, multi-step narratives, mixed DOM/canvas |
+| 3D scenes | React Three Fiber + drei | Hero objects, immersive scenes, camera-driven storytelling, particle fields |
+| Shader-first | OGL, custom GLSL/WGSL | When the material/distortion itself is the idea, less abstraction than R3F |
+| App transitions | React `startTransition`, `useTransition`, `useEffectEvent`, experimental `<ViewTransition>` | Non-blocking UI updates, route/state transitions |
+| Generative UI | json-render (`@json-render/core` + `@json-render/shadcn` + `@json-render/directives`) | AI generates JSON specs constrained to component catalog. Cross-platform. |
 
-## Animation Frequency Framework
+## Decision Matrix
 
-| Frequency | Decision |
-|-----------|----------|
-| 100+ times/day (keyboard shortcuts, command palette) | No animation. Ever. |
-| Tens of times/day (hover effects, list navigation) | Remove or drastically reduce |
-| Occasional (modals, drawers, toasts) | Standard animation |
-| Rare/first-time (onboarding, celebrations) | Can add delight |
+| Project Type | Stack |
+|-------------|-------|
+| Marketing site with narrative | Tailwind v4 + Motion (UI) + GSAP + ScrollTrigger (story) + Lenis if sync matters |
+| Premium SaaS landing | Tailwind v4 + Motion (UI, stagger, hover) + GSAP only if real narrative sequencing |
+| Docs site | Tailwind v4 + Fumadocs or similar + Motion sparingly. No Lenis, no scroll theatrics |
+| 3D hero / spatial product | Tailwind v4 + Motion (shell) + R3F + drei (scene) + GSAP only for shell-scene orchestration |
+| Shader-heavy microsite | Tailwind v4 or minimal CSS var system + OGL or custom shaders + GSAP/Motion around edges |
+| Product app transitions | Motion for layout + React `startTransition` / `useTransition` + experimental `<ViewTransition>` |
+| AI-generated dashboards/UIs | json-render catalog + `@json-render/shadcn` + `@json-render/directives` |
 
-Never animate keyboard-initiated actions.
+## Animation Tool Hierarchy
 
-## Easing Decision Flowchart
+| Rank | Tool | Use for |
+|------|------|---------|
+| 1st (scroll) | GSAP + ScrollTrigger | Scroll animations, parallax, pinning, scrubbing |
+| 1st (component) | Motion (Framer Motion) | Component entrances, layout, gestures, hover/press |
+| 2nd | React Spring | Spring physics, natural-feeling motion |
+| 3rd | Lottie | After Effects JSON animations, icons |
+| 1st (3D) | React Three Fiber + drei | Declarative 3D in React |
+| 2nd (3D) | Three.js | Outside React or no abstraction needed |
+| Last | CSS keyframes | Trivial hover/focus only |
 
-```
-Entering or exiting viewport? → ease-out
-Moving/morphing on screen? → ease-in-out
-Hover/color change? → ease
-Constant motion (marquee, progress)? → linear
-Default → ease-out
-```
+## Anti-Defaults
 
-Use custom curves — built-in CSS easings lack punch:
+Do NOT default to:
+- Raw CSS keyframe systems for large interactive products
+- Plain CSS for sophisticated shared layout animation
+- Scroll-jacking without narrative reason
+- R3F for flat DOM cards in cosplay
+- Lenis on dense docs or dashboards
 
-```css
---ease-out: cubic-bezier(0.23, 1, 0.32, 1);
---ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
---ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
-```
+## Generative UI Hierarchy
 
-Never use `ease-in` for UI animations. It starts slow, making the interface feel sluggish.
+1. **json-render** (`@json-render/core` + `@json-render/shadcn` + `@json-render/directives`) — catalog-constrained
+2. **AI SDK** structured output — when json-render not installed
+3. **Raw JSX generation** — never
 
-## Duration Guidelines
+## Dependency Rules
 
-| Element Type | Duration |
-|-------------|----------|
-| Button press feedback | 100-160ms |
-| Tooltips, small popovers | 125-200ms |
-| Dropdowns, selects | 150-250ms |
-| Modals, drawers | 200-500ms |
-| Marketing/explanatory | Can be longer |
-
-- UI animations stay under 300ms
-- Larger elements animate slower than smaller ones
-- Exit animations ~20% faster than entrance
-- Match duration to distance
-
-## Spring Animations
-
-Springs feel more natural — they simulate real physics with no fixed duration.
-
-When to use: drag interactions with momentum, elements that feel "alive", gestures that can be interrupted, decorative mouse-tracking.
-
-Apple's approach (recommended): `{ type: "spring", duration: 0.5, bounce: 0.2 }`. Keep bounce subtle (0.1-0.3). Avoid bounce in most UI contexts. Springs maintain velocity when interrupted — CSS animations restart from zero.
-
-## clip-path Techniques
-
-`clip-path: inset(top right bottom left)` — one of the most powerful animation tools. Use for: hold-to-delete overlays, tab color transitions (duplicate + clip), image reveals on scroll, comparison sliders.
-
-## Gesture Rules
-
-- Momentum-based dismissal: calculate velocity (`distance / time`). If > 0.11, dismiss.
-- Damping at boundaries: the more they drag past the edge, the less it moves.
-- Pointer capture once dragging starts (`setPointerCapture`).
-- Multi-touch protection: ignore additional touch points after initial drag.
-- Friction instead of hard stops.
-
-## Performance
-
-- Only animate `transform` and `opacity` (GPU-composited).
-- Motion `x`/`y`/`scale` are NOT hardware-accelerated. Use `transform: "translateX(100px)"` for GPU.
-- CSS animations run off main thread. Use CSS for predetermined, JS for dynamic.
-- Don't animate CSS variables on parents — recalculates all children.
-- WAAPI (`element.animate()`) gives JS control with CSS performance.
-
-## Accessibility
-
-- `prefers-reduced-motion`: keep opacity/color, remove movement.
-- Gate hover behind `@media (hover: hover) and (pointer: fine)`.
-- 44px minimum hit area on touch targets.
-
-## Component Rules
-
-1. **Scale buttons on press**: `transform: scale(0.97)` on `:active`, 160ms ease-out.
-2. **Never animate from scale(0)**: Start from `scale(0.95)`, not `scale(0)`.
-3. **Origin-aware popovers**: `transform-origin` to trigger location. Exception: modals stay centered.
-4. **Skip tooltip delay on subsequent hovers**: `[data-instant] { transition-duration: 0ms; }`.
-5. **CSS transitions over keyframes**: Transitions are interruptible; keyframes restart from zero.
-6. **Blur to mask crossfades**: `filter: blur(2px)` during transition. Under 20px.
-7. **Asymmetric enter/exit**: Enter chunked and staggered (60-100ms). Exits have reduced travel.
-8. **Stagger animations**: 30-80ms between items. Never block interaction during stagger.
-9. **Use `@starting-style`** for entry animations (replaces `useEffect` + `setMounted(true)`).
-
-## Review Checklist
-
-| Issue | Fix |
-|-------|-----|
-| `transition: all` | Specify exact properties |
-| `scale(0)` entry | `scale(0.95)` with `opacity: 0` |
-| `ease-in` on UI element | `ease-out` or custom curve |
-| `transform-origin: center` on popover | Trigger location (modals exempt) |
-| Animation on keyboard action | Remove entirely |
-| Duration > 300ms on UI element | 150-250ms |
-| Hover without media query | `@media (hover: hover) and (pointer: fine)` |
-| Keyframes on rapid triggers | CSS transitions |
-| Motion `x`/`y` under load | `transform: "translateX()"` |
-| Same enter/exit speed | Exit ~20% faster |
-| Everything appears at once | Stagger 30-80ms |
-
-## The Sonner Principles
-
-From building Sonner (13M+ weekly npm downloads):
-
-1. No hooks, no context, no setup. Insert once, call from anywhere.
-2. Good defaults > options. Ship beautiful out of the box.
-3. Handle edge cases invisibly. Pause timers on hidden tabs. Fill gaps between stacked toasts.
-4. Match motion to mood. Playful = bouncier. Dashboard = crisp and fast.
-5. Review animations the next day with fresh eyes.
+- Never mix GSAP/Three.js with Motion in the same component tree.
+- Motion for UI/bento; GSAP/Three.js for isolated scroll sequences or canvas backgrounds.
+- Check `package.json` before importing any third-party library — if missing, output the install command first.
 
 ---
 > Source: [Kevin-Liu-01/Sigil-UI](https://github.com/Kevin-Liu-01/Sigil-UI) — distributed by [TomeVault](https://tomevault.io).
