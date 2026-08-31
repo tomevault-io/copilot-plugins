@@ -8,7 +8,7 @@
 
 RunThePaper is the public output library for reproduced papers.
 
-PRAgent/RRAgent is the harness we use to reproduce papers: agent workflows,
+PRAgent is the harness we use to reproduce papers: agent workflows,
 diagnostics, internal reference checks, source-material handling, and production
 automation live there.
 
@@ -22,8 +22,14 @@ ready to share:
 - validation checks and scorecards;
 - honest reproduction boundaries and lessons learned.
 
+PRAgent is the sole authority for case identity, lifecycle state, and public
+file selection. Every public case must be projected by its PRAgent
+`publish_manifest.json`, carry the matching master Git SHA, and expose the
+projected `completion_assessment.json`. Do not hand-edit a public case status or
+add a case directly to this catalog; change the PRAgent master and re-project it.
+
 Do not treat RunThePaper as the harness repository. Do not move internal
-PRAgent/RRAgent runtime code, checkpoints, prompts, private diagnostics, raw
+PRAgent runtime code, checkpoints, prompts, private diagnostics, raw
 paper sources, standalone original figures, digitized source curves, or
 source-derived point sets into this repository.
 
@@ -43,6 +49,23 @@ work for training, they can build their own training packs from the public
 materials.
 
 ## Core Case Rule
+
+A public case is always a reproduction of one identifiable paper. It must have
+at least one verifiable paper identity: an arXiv/preprint record or a formal
+publication with a DOI. Benchmark tasks, synthetic exercises, source-contract
+audits, internal evaluations, and method demonstrations are not public cases by
+themselves; keep them in PRAgent or attach them as supporting evidence inside
+the paper case they validate.
+
+A partial, failed, or compute-blocked attempt may remain public when it is still
+scoped to an identifiable paper and states its boundary honestly. Missing paper
+identity is not a partial-reproduction status; it is a catalog admission
+failure.
+
+The package must also contain a scientific implementation that computes or
+reanalyzes a paper claim. An artifact hash checker, frozen output bundle, note,
+or comparison image alone is evidence about a reproduction, not the
+reproduction implementation itself.
 
 Each public case should make five things easy to inspect:
 
@@ -67,5 +90,5 @@ silently leave publication fields empty, and preserve both titles when the
 published title differs from the preprint.
 
 ---
-> Source: [xi-zhao/runthepaper](https://github.com/xi-zhao/runthepaper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-16 -->
+> Source: [xi-zhao/RunThePaper](https://github.com/xi-zhao/RunThePaper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
