@@ -1,0 +1,9 @@
+{
+  "name": "gizmuf--voice-to-3d-print",
+  "displayName": "voice-to-3d-print",
+  "description": "AI-first parametric CAD and 3D-print preparation from chat, voice, parameters and images.",
+  "version": "1.0.0",
+  "author": "gizmuf",
+  "homepage": "https://github.com/gizmuf/voice-to-3d-print",
+  "skills": []
+}
