@@ -4,7 +4,7 @@
   "repo": "llama-7900xtx-qwen3.8-27b",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QingYis/llama-7900xtx-qwen3.8-27b",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T04:31:41Z"
+  "distributed_at": "2026-08-31T04:37:06Z"
 }
