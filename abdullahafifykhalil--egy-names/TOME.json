@@ -1,0 +1,44 @@
+{
+  "name": "egy-names",
+  "owner": "AbdullahAfifyKhalil",
+  "repo": "egy-names",
+  "description": "Production-grade Egyptian onomastic intelligence: generate, translate, split, vocalize, and analyze names offline. Native SDKs for Python, TypeScript, PHP, .NET, Flutter, Swift, Java, and C++. Companions: faker-egy-names, afify/faker-egy-names. Data: Hugging Face.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AbdullahAfifyKhalil/egy-names",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T06:33:14Z"
+}
