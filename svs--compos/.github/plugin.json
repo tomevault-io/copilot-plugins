@@ -1,0 +1,9 @@
+{
+  "name": "svs--compos",
+  "displayName": "compos",
+  "description": "Emacs rebuilt on the BEAM",
+  "version": "1.0.0",
+  "author": "svs",
+  "homepage": "https://github.com/svs/compos",
+  "skills": []
+}
