@@ -1,0 +1,44 @@
+{
+  "name": "legado",
+  "owner": "syq17496152",
+  "repo": "legado",
+  "description": "Legado 3.0 Book Reader with powerful controls & full functions\u2764\ufe0f\u9605\u8bfb3.0, \u9605\u8bfb\u662f\u4e00\u6b3e\u53ef\u4ee5\u81ea\u5b9a\u4e49\u6765\u6e90\u9605\u8bfb\u7f51\u7edc\u5185\u5bb9\u7684\u5de5\u5177\uff0c\u4e3a\u5e7f\u5927\u7f51\u7edc\u6587\u5b66\u7231\u597d\u8005\u63d0\u4f9b\u4e00\u79cd\u65b9\u4fbf\u3001\u5feb\u6377\u8212\u9002\u7684\u8bd5\u8bfb\u4f53\u9a8c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/syq17496152/legado",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T20:35:50Z"
+}
