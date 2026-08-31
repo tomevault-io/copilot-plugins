@@ -1,0 +1,9 @@
+{
+  "name": "bambam-vid--ffmpeg-server",
+  "displayName": "ffmpeg-server",
+  "description": "Server to execute ffmpeg commands",
+  "version": "1.0.0",
+  "author": "BamBam-Vid",
+  "homepage": "https://github.com/BamBam-Vid/ffmpeg-server",
+  "skills": []
+}
