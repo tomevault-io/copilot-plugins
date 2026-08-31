@@ -1,0 +1,9 @@
+{
+  "name": "rcarmo--wrdp",
+  "displayName": "wrdp",
+  "description": "Experimental xrdp/sesman-like setup for Wayland-backed remote desktops",
+  "version": "1.0.0",
+  "author": "rcarmo",
+  "homepage": "https://github.com/rcarmo/wrdp",
+  "skills": []
+}
