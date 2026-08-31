@@ -1,0 +1,44 @@
+{
+  "name": "Monstrare",
+  "owner": "pjwang2022",
+  "repo": "Monstrare",
+  "description": "Monstrare \u2014 a gate-based workflow layer for AI coding agents. Every non-trivial change is spec'd, planned, verified, and reviewed before it ships \u2014 nothing is called done without evidence.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pjwang2022/Monstrare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-31T23:34:01Z"
+}
