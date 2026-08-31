@@ -1,13 +1,13 @@
-# runthepaper
+# RunThePaper
 
-> Tome by [xi-zhao](https://github.com/xi-zhao/runthepaper) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [xi-zhao](https://github.com/xi-zhao/RunThePaper), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 Open research reproduction cases: notes, runnable code, generated data, figures, and honest reproduction boundaries.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xi-zhao/runthepaper](https://github.com/xi-zhao/runthepaper).
+Original source: `AGENTS.md` in [xi-zhao/RunThePaper](https://github.com/xi-zhao/RunThePaper).
 
 ## Also available for
 
@@ -17,10 +17,14 @@ Original source: `AGENTS.md` in [xi-zhao/runthepaper](https://github.com/xi-zhao
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/xi-zhao/runthepaper](https://github.com/xi-zhao/runthepaper)
+From [xi-zhao/RunThePaper](https://github.com/xi-zhao/RunThePaper) — a repo with 64+ stars on GitHub.
 
 ---
 
-Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+Install this config instantly:
+```
+npx tomevault install xi-zhao/RunThePaper
+```
+Source: [github.com/xi-zhao/RunThePaper](https://github.com/xi-zhao/RunThePaper).
 
-<!-- genome:t-c-q -->
+<!-- genome:t-i-s -->
