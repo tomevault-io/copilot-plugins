@@ -1,0 +1,9 @@
+{
+  "name": "gt-610--csgo-gc-inventory-editor",
+  "displayName": "csgo-gc-inventory-editor",
+  "description": "View and edit your CS:GO GC (https://github.com/GT-610/csgo_gc) data.",
+  "version": "1.0.0",
+  "author": "GT-610",
+  "homepage": "https://github.com/GT-610/csgo-gc-inventory-editor",
+  "skills": []
+}
