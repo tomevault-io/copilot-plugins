@@ -1,0 +1,9 @@
+{
+  "name": "encapsul--daedalus",
+  "displayName": "daedalus",
+  "description": "One file. It runs. Package any app into a single self-extracting executable.",
+  "version": "1.0.0",
+  "author": "Encapsul",
+  "homepage": "https://github.com/Encapsul/daedalus",
+  "skills": []
+}
