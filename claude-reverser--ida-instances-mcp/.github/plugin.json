@@ -1,0 +1,9 @@
+{
+  "name": "claude-reverser--ida-instances-mcp",
+  "displayName": "IDA-instances-MCP",
+  "description": "Custom build of ida-pro-mcp - stability-hardened MCP server for hosting headless IDA Pro instances",
+  "version": "1.0.0",
+  "author": "Claude-Reverser",
+  "homepage": "https://github.com/Claude-Reverser/IDA-instances-MCP",
+  "skills": []
+}
