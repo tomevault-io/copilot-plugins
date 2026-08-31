@@ -1,0 +1,9 @@
+{
+  "name": "gongnyang--reelforge",
+  "displayName": "reelforge",
+  "description": "Agent-native AI video factory: one brief \u2192 narrated, subtitled, scene-editable videos (shorts & long-form). Deterministic HTML rendering, free keyless stack, Korean-first.",
+  "version": "1.0.0",
+  "author": "gongnyang",
+  "homepage": "https://github.com/gongnyang/reelforge",
+  "skills": []
+}
