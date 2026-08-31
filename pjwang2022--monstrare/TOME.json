@@ -4,7 +4,7 @@
   "repo": "Monstrare",
   "description": "Monstrare \u2014 a gate-based workflow layer for AI coding agents. Every non-trivial change is spec'd, planned, verified, and reviewed before it ships \u2014 nothing is called done without evidence.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pjwang2022/Monstrare",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T23:34:01Z"
+  "distributed_at": "2026-08-31T23:39:05Z"
 }
