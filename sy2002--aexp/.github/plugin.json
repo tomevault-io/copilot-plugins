@@ -1,0 +1,9 @@
+{
+  "name": "sy2002--aexp",
+  "displayName": "AExp",
+  "description": "Amiga 500 (OCS, PAL) core for the MEGA65 based on the MiSTer Minimig core",
+  "version": "1.0.0",
+  "author": "sy2002",
+  "homepage": "https://github.com/sy2002/AExp",
+  "skills": []
+}
