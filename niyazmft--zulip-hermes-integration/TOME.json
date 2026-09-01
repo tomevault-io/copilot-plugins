@@ -1,0 +1,44 @@
+{
+  "name": "zulip-hermes-integration",
+  "owner": "niyazmft",
+  "repo": "zulip-hermes-integration",
+  "description": "Self-hosted Zulip plugin that makes an AI agent a full teammate in threaded team chat (streams + DMs) - the Hermes (Nous Research) adapter. Sovereign and self-hosted, no chat-vendor lock-in. Sibling of openclaw-zulip-bridge in a single Zulip agent family for open-source frameworks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/niyazmft/zulip-hermes-integration",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T07:21:42Z"
+}
