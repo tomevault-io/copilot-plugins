@@ -1,0 +1,9 @@
+{
+  "name": "rekey-dev--rekey",
+  "displayName": "rekey",
+  "description": "Self-hostable auth and billing behind one API. A user's login and their plan live in the same place. MIT licensed.",
+  "version": "1.0.0",
+  "author": "rekey-dev",
+  "homepage": "https://github.com/rekey-dev/rekey",
+  "skills": []
+}
