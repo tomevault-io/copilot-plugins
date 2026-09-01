@@ -1,0 +1,44 @@
+{
+  "name": "cognicore-env",
+  "owner": "cognicore-dev",
+  "repo": "cognicore-env",
+  "description": "Memory operating system for AI agents \u2014 persistent memory, BM25 search, atomic decomposition, reflection engine, immune system. Zero API calls. 89% fewer tokens than alternatives. MCP + LangChain + OpenAI SDK.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cognicore-dev/cognicore-env",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T06:33:05Z"
+}
