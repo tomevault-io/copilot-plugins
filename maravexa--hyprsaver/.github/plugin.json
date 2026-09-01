@@ -1,0 +1,9 @@
+{
+  "name": "maravexa--hyprsaver",
+  "displayName": "hyprsaver",
+  "description": "Hyprland Screensaver written in Rust",
+  "version": "1.0.0",
+  "author": "maravexa",
+  "homepage": "https://github.com/maravexa/hyprsaver",
+  "skills": []
+}
