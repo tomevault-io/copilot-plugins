@@ -1,0 +1,9 @@
+{
+  "name": "vaibhavpandeyvpz--mlex",
+  "displayName": "mlex",
+  "description": "MLX from Apple, ported to Rust & Node.js, for super-fast local inference",
+  "version": "1.0.0",
+  "author": "vaibhavpandeyvpz",
+  "homepage": "https://github.com/vaibhavpandeyvpz/mlex",
+  "skills": []
+}
