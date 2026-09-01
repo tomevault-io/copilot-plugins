@@ -1,0 +1,9 @@
+{
+  "name": "aphene--omniflex",
+  "displayName": "omniflex",
+  "description": "Fork of damiandelmas/flex-claudecode adding pluggable modules (Markdown/Obsidian, soma identity)",
+  "version": "1.0.0",
+  "author": "Aphene",
+  "homepage": "https://github.com/Aphene/omniflex",
+  "skills": []
+}
