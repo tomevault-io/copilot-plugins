@@ -1,0 +1,9 @@
+{
+  "name": "alexandermattturner--agent-sanitizer",
+  "displayName": "agent-sanitizer",
+  "description": "Strip common prompt injection surfaces.",
+  "version": "1.0.0",
+  "author": "AlexanderMattTurner",
+  "homepage": "https://github.com/AlexanderMattTurner/agent-sanitizer",
+  "skills": []
+}
