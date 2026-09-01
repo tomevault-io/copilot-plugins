@@ -1,0 +1,9 @@
+{
+  "name": "timkaboya--gcp-speed-test",
+  "displayName": "gcp-speed-test",
+  "description": "Measure network latency from your browser to Google Cloud regions worldwide",
+  "version": "1.0.0",
+  "author": "timkaboya",
+  "homepage": "https://github.com/timkaboya/gcp-speed-test",
+  "skills": []
+}
