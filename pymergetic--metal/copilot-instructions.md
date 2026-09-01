@@ -1,57 +1,66 @@
-## metal-no-pointer-across-await
+## metal-warnings-as-errors
 
-> Never hold a resolved cross-module pointer (RegEntry/ImportRow lookup, wasm export/trampoline address) across an await/step boundary
+> Treat compiler/Rust warnings as hard errors — fix root cause, never hide
 
 
-# Never hold a resolved cross-module pointer across an await
+# Warnings are errors (no hiding)
 
-**Resolve, use, discard -- all inside one step.** A cross-module address --
-`RegEntry::get()`/`ImportRow::entry().get()`'s `*const c_void`, a claimed
-wasm trampoline's `t->code`, anything obtained by looking a module/func
-name up in the registry -- must be fetched and called within the same,
-uninterrupted step. Never stash it in a coroutine's frame state to use
-again after a later `.await`/redispatch.
+**Why:** Green exit codes with a wall of warnings ship rot. The owner treats
+warnings as build failures.
 
-## Why this is a real gap, not caution for its own sake
+## Hard rule
 
-The registry has **no per-entry refcount by design** -- see
-`reg/_impl/_entry.rs`'s `RegEntry` doc comment. That's safe *only* because
-`_kernel::unload` quiesces every async runner first (parks every runner at
-its next dispatch checkpoint, see `async/_impl/quiesce.rs`) before
-withdrawing anything, so there is never a concurrent caller in flight
-while a `RegEntry` goes null or a wasm slot gets freed.
+- A warning in **Metal first-party** or **Metal-patched third_party** is a
+  **hard error**. Do not declare the task done until it is gone.
+- **Do not** paper over with `-Wno-*`, `#pragma`, `#[allow(...)]`, or
+  log filters unless the warning is in **unmodified upstream** that Metal
+  does not own (the `-Wno-*` set on the µPy core in `port/upy.mk` only).
+- Prefer the **correct type/control-flow fix** over silencing.
 
-Quiesce's guarantee is **between steps**, not **within** a task that
-spans more than one. A step that resolves a pointer, then suspends
-(`.await`, `ForgePoll::Pending`) while holding it, has stepped *outside*
-what quiesce protects: a quiesce + unload can run in that gap, the
-resolved address (a stamped trampoline slot, a freed `RegMod`'s entries,
-a wasm instance's export) goes stale, and the task resumes holding a
-dangling pointer with nothing left to catch it -- the "no refcount" design
-depends on this never happening.
+## Required agent habit
 
-## Concrete rule
+1. Scan the full build log for `warning:` / `unused` / `-W` after every
+   build you run (host, upy, browser, firmware, `cargo test`, `dev-up`).
+2. If warnings appear: **stop**, fix root cause, rebuild, prove clean.
+3. Do not say "OK" / mark todos complete while warnings remain in scope.
 
-```rust
-// BAD -- resolves once, awaits, calls later with a possibly-stale ptr
-let ptr = row.entry().map(|e| e.get());
-some_async_op().await;
-if let Some(p) = ptr { unsafe { call(p) } }
+## Polyglot: three layers of "used"
 
-// GOOD -- resolve and call in the same step, nothing carried across .await
-some_async_op().await;
-if let Some(p) = row.entry().map(|e| e.get()) {
-    unsafe { call(p) }
-}
+Do not confuse rustc `dead_code`, a missing face, and runtime callers.
+There is no static matrix to consult — ask the live registry.
+
+| Layer | Question | Soft? |
+|-------|----------|-------|
+| **Missing face** | Does the card show up on this seat — `pm_wasmmod_registry_module_at` / `export_at` after boot? | **No** — a card that never registers is a gap. |
+| **rustc `dead_code`** | Reachable in this compiled TU/crate? | Private rot = error. Public / `#[no_mangle]` / registered via `PM_MOD_EXPORT_RS!` = used. |
+| **Runtime call** | Did someone invoke it via that language? | **Yes** — an unused caller is normal; do not delete faces for it. |
+
+Rules:
+
+- `PM_MOD_EXPORT_C` / `PM_MOD_EXPORT_RS!` makes the compiler see a symbol as
+  used **and** puts it in the registry — that is the same act, not two.
+- Fix a gap by registering the missing face, never by loosening the prove
+  that walks the registry.
+- Host vs freestanding: compile only what the target owns (`cfg` /
+  `PM_WASMMOD_GUEST`); do not `#[allow(dead_code)]` optional faces.
+- Never delete a face to silence rustc; register it or `cfg` the whole
+  export out of that image.
+
+## Examples
+
+```text
+BAD:  -Wno-unused-function on vendor lfs because asserts are no-ops
+GOOD: #define LFS_NO_ASSERT so unused assert helpers are not compiled
+
+BAD:  ignore -Wsign-compare in wireguard base64 loops
+GOOD: use size_t indices / cast byte counts correctly
+
+BAD:  cargo test green while lib emits 17 dead_code warnings you introduced
+GOOD: fix or gate dead code; do not grow #![allow(dead_code)]
+
+BAD:  drop the assert so a seat missing the card still proves green
+GOOD: register the card on that seat; keep the registry walk strict
 ```
-
-Re-resolve on every entry into a step that needs the address; never carry
-one in `pm_metal_async_coro_alloc`'d step-frame state, a struct field kept
-across dispatches, or any other storage that outlives a single step.
-
-See also `metal-no-long-running-ops.mdc` (a step must be short enough to
-reach its next checkpoint quickly) -- this rule is the pointer-safety
-half of the same quiesce/safepoint design; that one is the liveness half.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
