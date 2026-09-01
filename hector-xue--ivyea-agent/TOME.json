@@ -4,7 +4,7 @@
   "repo": "ivyea-agent",
   "description": "\u81ea\u6258\u7ba1\u7684\u4e9a\u9a6c\u900a\u8fd0\u8425 CLI Agent (Ivyea Agent) ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hector-xue/ivyea-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T05:08:20Z"
+  "distributed_at": "2026-09-01T07:11:09Z"
 }
