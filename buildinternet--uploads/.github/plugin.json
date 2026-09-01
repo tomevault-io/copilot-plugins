@@ -1,0 +1,9 @@
+{
+  "name": "buildinternet--uploads",
+  "displayName": "uploads",
+  "description": "Lightweight upload tool for coding agents to add screenshots to pull requests. Cloud and self-host options.",
+  "version": "1.0.0",
+  "author": "buildinternet",
+  "homepage": "https://github.com/buildinternet/uploads",
+  "skills": []
+}
