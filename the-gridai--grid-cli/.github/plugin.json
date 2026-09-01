@@ -1,0 +1,9 @@
+{
+  "name": "the-gridai--grid-cli",
+  "displayName": "grid-cli",
+  "description": "CLI and TypeScript SDK for trading on The Grid exchange",
+  "version": "1.0.0",
+  "author": "the-gridai",
+  "homepage": "https://github.com/the-gridai/grid-cli",
+  "skills": []
+}
