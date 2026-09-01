@@ -1,0 +1,9 @@
+{
+  "name": "rocm--hipobject",
+  "displayName": "hipObject",
+  "description": "A ROCm library for rdma-based object storage with direct-to-vram DMA support",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/hipObject",
+  "skills": []
+}
