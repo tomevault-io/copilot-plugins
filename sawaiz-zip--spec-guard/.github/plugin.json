@@ -1,0 +1,9 @@
+{
+  "name": "sawaiz-zip--spec-guard",
+  "displayName": "spec-guard",
+  "description": "A semantic governance gate for spec files: locks your project's goal and scope, classifies every pull request with an LLM, and holds unapproved direction changes at merge time. Ships as a GitHub Actio",
+  "version": "1.0.0",
+  "author": "Sawaiz-zip",
+  "homepage": "https://github.com/Sawaiz-zip/spec-guard",
+  "skills": []
+}
