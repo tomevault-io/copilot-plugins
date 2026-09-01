@@ -1,0 +1,44 @@
+{
+  "name": "workbuddy-skill-groups",
+  "owner": "darker2016",
+  "repo": "workbuddy-skill-groups",
+  "description": "39 \u4e2a WorkBuddy \u4e13\u5bb6\u56e2\u961f\u534f\u4f5c skill \u5305\uff08\u5f00\u6e90\uff09\u2014 \u6295\u8d44 / \u8425\u9500 / \u5de5\u7a0b / \u8bbe\u8ba1 / \u6cd5\u5f8b / \u8d22\u7a0e / \u6570\u636e / \u9500\u552e / HR / \u793e\u5a92 / \u53d8\u73b0 \u7b49 13 \u4e2a\u4e00\u7ea7\u5206\u7c7b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/darker2016/workbuddy-skill-groups",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T01:42:55Z"
+}
