@@ -1,0 +1,9 @@
+{
+  "name": "couchbase--n1k1-query",
+  "displayName": "n1k1-query",
+  "description": "n1k1-query",
+  "version": "1.0.0",
+  "author": "couchbase",
+  "homepage": "https://github.com/couchbase/n1k1-query",
+  "skills": []
+}
