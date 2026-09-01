@@ -1,0 +1,9 @@
+{
+  "name": "socialsolidaritybank--bss-ai-helper",
+  "displayName": "bss-ai-helper",
+  "description": "BSS AI Helper boilerplate installer for non-developers",
+  "version": "1.0.0",
+  "author": "SocialSolidarityBank",
+  "homepage": "https://github.com/SocialSolidarityBank/bss-ai-helper",
+  "skills": []
+}
