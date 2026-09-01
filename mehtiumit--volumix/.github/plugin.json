@@ -1,0 +1,9 @@
+{
+  "name": "mehtiumit--volumix",
+  "displayName": "Volumix",
+  "description": "Native macOS menu bar app for per-application volume control, mute, and output routing \u2014 no kernel extension, no virtual driver.",
+  "version": "1.0.0",
+  "author": "mehtiumit",
+  "homepage": "https://github.com/mehtiumit/Volumix",
+  "skills": []
+}
