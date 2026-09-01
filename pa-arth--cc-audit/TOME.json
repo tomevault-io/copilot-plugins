@@ -1,0 +1,44 @@
+{
+  "name": "cc-audit",
+  "owner": "pa-arth",
+  "repo": "cc-audit",
+  "description": "Local-first CLI that audits Claude Code transcripts for spend by model, avoidable context-carry waste, always-on config cost, and AI-fluency signals. Runs fully offline by default; opt-in tiers gate any egress.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pa-arth/cc-audit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T03:14:45Z"
+}
