@@ -1,0 +1,9 @@
+{
+  "name": "pa-arth--cc-audit",
+  "displayName": "cc-audit",
+  "description": "Local-first CLI that audits Claude Code transcripts for spend by model, avoidable context-carry waste, always-on config cost, and AI-fluency signals. Runs fully offline by default; opt-in tiers gate a",
+  "version": "1.0.0",
+  "author": "pa-arth",
+  "homepage": "https://github.com/pa-arth/cc-audit",
+  "skills": []
+}
