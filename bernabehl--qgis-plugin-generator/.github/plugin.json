@@ -1,0 +1,9 @@
+{
+  "name": "bernabehl--qgis-plugin-generator",
+  "displayName": "qgis-plugin-generator",
+  "description": "Generador de plugins de QGIS 4: de una descripci\u00f3n en lenguaje natural a un .zip instalable y validado. Skill para Claude Code / Codex.",
+  "version": "1.0.0",
+  "author": "BernabeHL",
+  "homepage": "https://github.com/BernabeHL/qgis-plugin-generator",
+  "skills": []
+}
