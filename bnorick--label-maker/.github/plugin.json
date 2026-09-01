@@ -1,0 +1,9 @@
+{
+  "name": "bnorick--label-maker",
+  "displayName": "label-maker",
+  "description": "Brother QL label maker web UI",
+  "version": "1.0.0",
+  "author": "bnorick",
+  "homepage": "https://github.com/bnorick/label-maker",
+  "skills": []
+}
