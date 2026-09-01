@@ -1,0 +1,9 @@
+{
+  "name": "dreamrec--tdpilot",
+  "displayName": "TDPilot",
+  "description": "TDPilot v2.4.0 \u2014 local-first TouchDesigner AI copilot with 114 MCP tools, truthful concept routing, deterministic visual techniques, transactional execution, live validation, bounded repair, and rollb",
+  "version": "1.0.0",
+  "author": "dreamrec",
+  "homepage": "https://github.com/dreamrec/TDPilot",
+  "skills": []
+}
