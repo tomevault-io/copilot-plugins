@@ -1,0 +1,40 @@
+## limn
+
+> Limn -- keyboard-first, offline-capable mind map progressive web app and Obsidian plugin.
+
+# CLAUDE.md
+
+Limn -- keyboard-first, offline-capable mind map progressive web app and Obsidian plugin.
+
+For project orientation (stack, build/test commands, architecture, entry points), see [ONBOARDING.md](./ONBOARDING.md).
+
+## Development Methodology
+
+Testing is a first-class citizen. We are using red/green development practices. Everywhere possible, we want to have a failing (red) test first, then make it pass (green).
+
+For this project, you are allowed to commit, and are actually REQUIRED to commit your progress after every significant change. Commits should only happen when tests and linting are green.
+
+## Command rules
+
+- Use `bunx` instead of `npx` for running package binaries (this is a Bun project).
+- Save Playwright MCP screenshots to `/tmp`, not the project directory.
+- `just serve` already uses `tee` for output redirection. Do not add shell redirect operators (`2>&1 &`) when invoking it.
+- NEVER use command substitution when committing, Ted will never approve this, always use a heredoc.
+
+## Architecture invariants
+
+- **Editor is the sole source of truth.** All mutations go through Editor methods. DOM renders from Editor state, never writes to it.
+- **Core has zero browser dependencies.** Nothing in `packages/core/` imports React, DOM APIs, or browser globals. Text measurement uses a `TextMeasurer` interface (DI); web provides a DOM-based implementation, tests provide a stub.
+- **Diff-based undo.** Store captures diffs automatically. No Command classes.
+- **Positions are stored.** Layout engine computes initial positions; users can reposition nodes. File format includes x/y coordinates.
+- **A `.limn` file is a ZIP (STORE) containing `data.json` + `assets/`.** Legacy JSON `.limn` files are auto-migrated on next save.
+- **TestEditor for logic tests.** Playwright is only for visual regression and browser-API integration. If it can be tested without a browser, it must be.
+- **Text editing uses positioned textarea.** Not SVG foreignObject (cross-browser issues). Textarea is absolutely positioned over the canvas with zoom-aware transforms.
+- **Multiple roots supported.** A mind map is a forest of trees. Roots can be created and deleted freely. Empty canvas is valid.
+- **Key-to-action routing lives in core.** DOM event listeners live in `web/`, but they delegate to a dispatch function in `core/` that maps keys to Editor actions. TestEditor uses the same dispatch, so keyboard behavior is testable without a browser.
+- **Undo tracks only document data.** Camera position and selection state are excluded from the diff/undo system. The store distinguishes "document state" (nodes, structure, text) from "session state" (camera, selection).
+- **File format changes require Ted's approval.** Any modification to `schema.ts`, serialization behavior, or the file format shape (adding/removing/renaming fields) must be discussed first. Non-breaking additions bump the package minor version. Breaking changes bump the major version and require a migration in `migration.ts`. The golden fixture must be updated to cover any new fields.
+
+---
+> Source: [tednaleid/limn](https://github.com/tednaleid/limn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
