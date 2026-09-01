@@ -1,0 +1,9 @@
+{
+  "name": "ang-ee--angee-django",
+  "displayName": "angee-django",
+  "description": "Developer framework and base addons for building Django + React applications on the Angee platform.",
+  "version": "1.0.0",
+  "author": "ang-ee",
+  "homepage": "https://github.com/ang-ee/angee-django",
+  "skills": []
+}
