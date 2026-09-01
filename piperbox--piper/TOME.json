@@ -4,7 +4,7 @@
   "repo": "piper",
   "description": "Open-source, developer-first PaaS: git push \u2192 live HTTPS URL on hardware you own, including a Raspberry Pi behind CGNAT, via a zero-trust cloud relay.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/piperbox/piper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T01:34:29Z"
+  "distributed_at": "2026-09-01T02:54:40Z"
 }
