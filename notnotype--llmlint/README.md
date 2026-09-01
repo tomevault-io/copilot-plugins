@@ -7,11 +7,11 @@ Lint and polish LLM-generated Chinese text: locate AI writing tells with rules, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [notnotype/llmlint](https://github.com/notnotype/llmlint).
+Original source: `AGENTS.md` in [notnotype/llmlint](https://github.com/notnotype/llmlint).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
