@@ -7,11 +7,11 @@ An Asynchronous Reinforcement Learning Engine for Omni-Modal Post-Training at Sc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [redai-studio/Relax](https://github.com/redai-studio/Relax).
+Original source: `AGENTS.md` in [redai-studio/Relax](https://github.com/redai-studio/Relax).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
