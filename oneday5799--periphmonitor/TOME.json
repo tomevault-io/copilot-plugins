@@ -1,0 +1,44 @@
+{
+  "name": "PeriphMonitor",
+  "owner": "oneday5799",
+  "repo": "PeriphMonitor",
+  "description": "Windows \u7cfb\u7edf\u6258\u76d8\u5916\u8bbe\u76d1\u63a7\u5de5\u5177 \u2014 \u5b9e\u65f6\u68c0\u6d4b\u8bbe\u5907\u72b6\u6001\u3001\u84dd\u7259\u7ba1\u7406\u3001\u97f3\u91cf\u63a7\u5236",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oneday5799/PeriphMonitor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T03:39:47Z"
+}
