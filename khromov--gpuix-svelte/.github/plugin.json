@@ -1,0 +1,9 @@
+{
+  "name": "khromov--gpuix-svelte",
+  "displayName": "gpuix-svelte",
+  "description": "Svelte custom renderer for GPUI (Zed's GPU-accelerated UI framework), via @gpuix/native",
+  "version": "1.0.0",
+  "author": "khromov",
+  "homepage": "https://github.com/khromov/gpuix-svelte",
+  "skills": []
+}
