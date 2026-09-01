@@ -1,0 +1,9 @@
+{
+  "name": "joshuaswarren--mlx-omarchy",
+  "displayName": "mlx-omarchy",
+  "description": "MLX-compatible Vulkan and ANE backends for Apple Silicon running Linux.",
+  "version": "1.0.0",
+  "author": "joshuaswarren",
+  "homepage": "https://github.com/joshuaswarren/mlx-omarchy",
+  "skills": []
+}
