@@ -1,0 +1,9 @@
+{
+  "name": "intent-hq--intent",
+  "displayName": "intent",
+  "description": "Monorepo for the Intent platform \u2014 tracks intentd, cloudlands-fe, and ios as submodules; docs, CI, and release orchestration",
+  "version": "1.0.0",
+  "author": "intent-hq",
+  "homepage": "https://github.com/intent-hq/intent",
+  "skills": []
+}
