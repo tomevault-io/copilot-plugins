@@ -1,0 +1,9 @@
+{
+  "name": "mppsol--probatio",
+  "displayName": "probatio",
+  "description": "A proving ground that stress-tests autonomous agents in on-chain finance before they're trusted with real capital.",
+  "version": "1.0.0",
+  "author": "mppsol",
+  "homepage": "https://github.com/mppsol/probatio",
+  "skills": []
+}
