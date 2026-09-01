@@ -1,0 +1,9 @@
+{
+  "name": "m0rf30--easyeffects-presets",
+  "displayName": "easyeffects-presets",
+  "description": "Curated EasyEffects (PipeWire) audio presets \u2014 EQ, bass, loudness, immersive dynamics, and headphone virtualization (HeSuVi, EFOtech MLV, SOFA HRTF) \u2014 with a one-command installer.",
+  "version": "1.0.0",
+  "author": "M0Rf30",
+  "homepage": "https://github.com/M0Rf30/easyeffects-presets",
+  "skills": []
+}
