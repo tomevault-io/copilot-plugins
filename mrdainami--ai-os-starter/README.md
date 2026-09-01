@@ -7,11 +7,11 @@ The folder you talk to. A starter cockpit to build your own AI OS, built on the 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mrdainami/ai-os-starter](https://github.com/mrdainami/ai-os-starter).
+Original source: `AGENTS.md` in [mrdainami/ai-os-starter](https://github.com/mrdainami/ai-os-starter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
