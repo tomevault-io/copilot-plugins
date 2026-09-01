@@ -1,48 +1,66 @@
-## auto-upload
+## help-ui-esc
 
-> 固件改动完成后自动 pio upload 到设备
+> Help 页 UI 格式、ESC 关闭与页面 tip 约定
 
 
-# 自动 Upload
+# Help 页约定
 
-完成会影响设备运行的代码修改后，**自动**编译并烧录，无需等用户再要求。
+## UI 格式（对齐 Time Help）
 
-## 何时执行
+全屏 Help **不要**用 `beginAppScreen("Help")` / 双栏 keymap·manual。统一用 `app_common` 共享辅助：
 
-- 修改了 `src/`、`include/`、`platformio.ini` 等固件代码
-- 修改了 `data/` 下会打包进 LittleFS 的资源
-
-以下情况**不要** upload：
-
-- 仅回答问题、代码审阅、未改文件
-- 只改了文档、注释、`.cursor/rules/`、设计稿等非固件文件
-
-## 命令
-
-固件：
-
-```bash
-pio run -e m5stack-cardputer -t upload
+```cpp
+int y = drawAppHelpBegin("Clock"); // 黑底 + size-2 "Help" + 浅色副标题，返回内容起始 y
+constexpr int x = APP_HELP_CONTENT_X; // = APP_HELP_EDGE(5)，距边至少 5px
+y = drawAppHelpKey(x, y, 'r', "sync time over WiFi");
+y = drawAppHelpBadge(x, y, "BtnGO", "start / pause"); // 侧键作操作时才写 BtnGO
+y = drawAppHelpText(x, y, "Uses RTC; sync source is NTP.");
+drawHelpHintRight("close");
 ```
 
-仅当改动了 `data/` 时，额外执行：
+- 边距：`APP_HELP_CONTENT_X` / 顶栏 y 均为 `APP_HELP_EDGE`（5px）；右侧 tip 同理
+- 副标题：跟在 `Help` 后，色用 `APP_COLOR_HINT`，与主标题间距 `APP_HELP_SUBTITLE_GAP`（≥10px）
+- 单列；徽章后说明文字色由 helpers 恢复为 `APP_COLOR_HINT`
+- 每个带 Help 的 app 提供 `bool closeXxxHelp()`：未打开返回 false；打开则关闭并重绘主界面，返回 true
 
-```bash
-pio run -e m5stack-cardputer -t uploadfs
+## 多页 Help
+
+内容超过约 7 行（`APP_HELP_MAX_LINES`）须分页：
+
+```cpp
+y = drawAppHelpTextColored(x, y, "Mode", APP_COLOR_LABEL); // 章节标题着色
+y = drawAppHelpLabelText(x, y, "CLIP", APP_COLOR_ERROR, " = too loud"); // 关键词着色
+drawAppHelpFooter(page, page_count); // 底栏箭头+页码 + h close
+// 翻页：方向键 / ;,./ 或 []
+const int delta = getHelpNavDelta(status);
+page = applyHelpPageDelta(page, page_count, delta);
 ```
 
-在项目根目录运行；需要 USB 访问时申请 `all` 权限。
+- 章节标题用 `APP_COLOR_LABEL`；警告/成功等用 `APP_COLOR_WARN` / `OK` / `ERROR`
+- 翻页统一 `getHelpNavDelta`（含方向键与 `[]`）
+- 多页时标题仍为 size-2 `Help` + 副标题，页码在底栏
 
-## 执行顺序
+## ESC 与 BtnGO
 
-1. 先完成代码修改
-2. 再 upload（`data/` 有改动时先 `uploadfs`，再 `upload`）
-3. 向用户简要报告成功或失败原因
+**返回 / 关闭嵌套界面用 ESC**（`wasBtnGoPressed()`；`BTNGO_USE_KEYBOARD=1` 时为键盘 `` ` ``，提示文案用 `btnGoHintLabel()` → `"ESC"`）。
 
-## 失败处理
+**侧边 BtnGO（BtnA）不是返回键**。各 App 可把它用作开始/暂停、开关、关屏等操作；Help / tip / 文档里不要再写「BtnGO = 返回」。
 
-- 设备未连接 / 端口占用：说明错误，不要反复重试
-- 编译失败：先修编译错误，再重新 upload
+**Help 打开时，ESC 等同按 `h` 关闭 Help**，不得直接回主菜单或退出子界面。
+
+- 全局入口：`main.cpp` 的 `tryCloseCurrentAppHelp()`（在 leave app / `showMenu` 之前）
+- Sleep 倒计时：Help 打开时 ESC 只关 Help，不取消休眠
+- HID Keyboard：Help 打开时 `` ` `` / HID `0x35` 关 Help，不发给主机（本 App 仍用侧边 BtnA 退出）
+
+新增 Help 时：实现 Time 风格绘制 + `closeXxxHelp()`，并把它挂进 `tryCloseCurrentAppHelp()`。
+
+## 页面 tip（默认不画）
+
+主界面**不必**每页画底栏 tip / `drawHelpHintRight("help")`。快捷键说明放进 Help 即可；用户按 `h` 查看。
+
+- Help 页仍用 `drawHelpHintRight("close")` / `drawAppHelpFooter`
+- 仅在编辑态、确认态、易误操作等**确实需要**时再画 tip
+- 不要默认堆 `h help`、`BtnGO back` 一类常驻提示
 
 ---
 > Source: [KyleBing/m5stack-cardputer-sparks](https://github.com/KyleBing/m5stack-cardputer-sparks) — distributed by [TomeVault](https://tomevault.io).
