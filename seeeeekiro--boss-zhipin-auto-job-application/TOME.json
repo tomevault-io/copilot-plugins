@@ -1,0 +1,44 @@
+{
+  "name": "Boss-Zhipin-Auto-Job-Application",
+  "owner": "Seeeeekiro",
+  "repo": "Boss-Zhipin-Auto-Job-Application",
+  "description": "\u901a\u8fc7ai\u5206\u6790\u7b80\u5386\uff0c\u81ea\u52a8\u5b8c\u6210\u7b5b\u9009\uff0c\u5b9a\u5411\u6295\u9012\uff0c\u4ee5\u53ca\u601d\u8003\u53d1\u9001\u5185\u5bb9",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Seeeeekiro/Boss-Zhipin-Auto-Job-Application",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T02:37:00Z"
+}
