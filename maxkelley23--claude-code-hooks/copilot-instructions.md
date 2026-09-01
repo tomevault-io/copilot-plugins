@@ -1,40 +1,47 @@
-## matching-engine-algorithms
+## skill-rule-model
 
-> Multi-modal trigger detection for skill activation including keyword and intent pattern matching
+> Defines the core skill rule data model for evaluating and enforcing organizational capabilities
 
 
 
-# matching-engine-algorithms
+# skill-rule-model
 
-The skill activation system implements two parallel matching mechanisms to detect when organizational skills should be triggered:
-
-## Keyword Matching
-- Direct text comparison against predefined skill keywords
-- Keywords are organized by skill priority levels (critical, high, medium, low)
-- Multiple keywords can be associated with a single skill
-
-## Intent Pattern Matching
-- Regex-based pattern recognition for complex activation conditions
-- Supports flexible matching across different prompt formulations
-- Patterns are evaluated hierarchically by skill priority
-
-## Rule Integration Logic
-- Both matching mechanisms are evaluated in parallel for each skill
-- A skill is triggered if either matching condition is satisfied
-- Results are grouped by priority level for final activation decision
-
-## Domain Classification
-- Skills are classified as either:
-  - Domain skills (business functionality)
-  - Guardrail skills (enforcement policies)
-- Classification affects matching precedence and enforcement type
+## Priority Levels
+- Critical: Highest enforcement level for essential organizational skills
+- High: Important capabilities requiring strong adherence
+- Medium: Standard organizational skills
+- Low: Optional or recommended skills
 
 ## Enforcement Types
-- Block: Prevent execution if skill conditions not met
-- Suggest: Recommend skill activation to user
-- Warn: Display warning but allow continuation
+1. Block: Prevents execution without skill compliance
+2. Suggest: Recommends skill activation
+3. Warn: Issues warning for missing skills
 
-File: hooks/skill-activation-prompt.ts
+## Rule Categories
+- Domain Skills: Business-specific capabilities
+- Guardrail Skills: Protective/governance controls
+
+## Hierarchical Structure
+Skills are organized in a multi-level hierarchy:
+1. Priority tier grouping
+2. Enforcement policy classification
+3. Skill type categorization (domain/guardrail)
+
+## Matching System
+Dual validation approach:
+1. Keyword-based skill matching
+2. Intent pattern validation using regex
+
+## Rule Sources
+Multiple rule definition locations with established precedence order for conflict resolution
+
+## Implementation Location
+Primary implementation: hooks/skill-activation-prompt.ts
+
+Business Impact Score: 90/100
+- Core data model for organizational skill management
+- Critical for enforcing business capabilities
+- Defines fundamental skill governance structure
 
 ---
 > Source: [maxkelley23/claude-code-hooks](https://github.com/maxkelley23/claude-code-hooks) — distributed by [TomeVault](https://tomevault.io).
