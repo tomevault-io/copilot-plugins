@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-okf-llm-wiki",
+  "displayName": "sample-okf-llm-wiki",
+  "description": "Data Wiki turns data into portable knowledge bundles following Open Knowledge Format (OKF) and serves them to AI agents over the Model Context Protocol (MCP).",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-okf-llm-wiki",
+  "skills": []
+}
