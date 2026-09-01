@@ -1,0 +1,9 @@
+{
+  "name": "orangeboychen--codebuddy2api",
+  "displayName": "codebuddy2api",
+  "description": "Proxy CodeBuddy with OpenAI-compatible and Anthropic-compatible APIs for Codex, Claude Code, and standard SDK clients.",
+  "version": "1.0.0",
+  "author": "orangeboyChen",
+  "homepage": "https://github.com/orangeboyChen/codebuddy2api",
+  "skills": []
+}
