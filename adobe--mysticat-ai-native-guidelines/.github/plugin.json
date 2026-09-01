@@ -1,0 +1,9 @@
+{
+  "name": "adobe--mysticat-ai-native-guidelines",
+  "displayName": "mysticat-ai-native-guidelines",
+  "description": "Comprehensive guidelines for teams adopting AI-first development practices with Claude Code, Cursor, and Copilot.",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/mysticat-ai-native-guidelines",
+  "skills": []
+}
