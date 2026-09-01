@@ -1,0 +1,9 @@
+{
+  "name": "hiendinhngoc--unknowns",
+  "displayName": "unknowns",
+  "description": "Agent skills (SKILL.md) for discovering your unknowns across the dev lifecycle \u2014 from Thariq Shihipar's 'Know Your Unknowns'",
+  "version": "1.0.0",
+  "author": "hiendinhngoc",
+  "homepage": "https://github.com/hiendinhngoc/unknowns",
+  "skills": []
+}
