@@ -1,123 +1,71 @@
-## metal-c-abi-hub
+## metal-c-dialect
 
-> Lang pool codegen — one impl in, emit other pool faces; cpp under c; toml output-only not default
+> Metal core uses one uniform C type spelling everywhere; EDK2 types/headers are physically confined to boot platform ports
 
 
-# Lang pool (polyglot codegen)
+# Metal C dialect (no UEFI types outside boot/platform/{efi,bios}/**)
 
-Full write-up: [`docs/definitions/module.md`](../../docs/definitions/module.md)
-§ "Lang pool".
+Full rule + rationale: [`docs/SOURCETREE.md`](../../docs/SOURCETREE.md) → "C dialect".
 
-**Shape:**
+**Why this is strict, not a style nit:** the user (project owner) is autistic
+and reading code where the same type has two spellings (`UINT32` vs
+`uint32_t`, `VOID` vs `void`) is a genuine, non-trivial extra cognitive load
+for their pattern matching — even though the types are typedef-identical.
+Treat "one spelling per type, everywhere in shared code" as load-bearing,
+not negotiable, not a nice-to-have. Do not push back on this or suggest
+relaxing it.
 
-```text
-impl (one of: rs | c | cpp | py)
-        --export-->  in-memory catalog
-        --emit---->  other pool faces
+`src/pymergetic/metal/**` (**all of it, zero exceptions**) is **normal C**:
 
-Pool slots:  c  |  rs  |  py  |  toml
-Default emit: c, rs, py  (minus the impl's slot)
-toml: output-only face {base}.toml; not written unless --emit toml
-cpp: same pool slot as c (human may be .cpp; face is still {base}.h)
-```
+- Types: `int32_t` / `uint32_t` / `bool` / `void` / `const` / `char` — from `<stdint.h>` / `<stdbool.h>` etc.
+- Linkage: `static`, not `STATIC`
+- Unused: `(void)x`, not `(VOID)x`
 
-- **Never** regenerate human `__init__.{impl_ext}`.
-- **Never** invent Py↔Rust shortcuts that skip the C runtime border
-  (`__init__.h` when the `c` slot is emitted).
-- One sync run keeps the catalog in memory for every emit.
-- Prefer **Python + almost no libs** (`re`, tiny parsers). No cbindgen/libclang.
-- **Async tooling:** `metal_cli` commands are `async def`; only the CLI
-  entrypoint runs the event loop.
+**Banned anywhere in `src/pymergetic/metal/**` outside platform ports,
+no filename-based exception:**
 
-`metal mod sync` keeps the in-file banner write gate and module-local
-`.gitignore` for every generated face.
+- `#include <Uefi.h>`, `#include <Library/*.h>`, `#include <Protocol/*.h>`, `#include <IndustryStandard/*.h>`
+- `INT32` / `UINT32` / `UINTN` / `VOID` / `STATIC` / `CONST` / `CHAR8` / `BOOLEAN`
+- bare `int` / `unsigned` / `long` / `short` for quantities (use stdint)
 
-**`type=module` only (kernel border).** Sync discovers `.pm/module` with
-`type=module`. `type=package` is for wasm packs under `tests/` (`forge pack`)
-and is **not** face-synced — a kernel-linked `impl=rs` tree mistyped as
-`package` silently gets **no** `__init__.h` / sibling `.h`. Underscore stems
-(`_foo.rs`) are also skipped; public C ABI belongs on `__init__.rs` or a
-non-`_` sibling stem (`ops.rs`, `ready.rs`, …).
+A file does **not** get to include EDK2 headers just because it's named
+`*_port.c`/`*_port.h`. The **only** thing that makes EDK2 OK is physical
+location under `src/.../boot/platform/efi/**` or `.../bios/**`. If Metal
+logic genuinely needs one EDK2 primitive, declare a plain stdint-typed
+prototype in the shared file (no body) and put the implementation in the
+matching platform port body.
 
-**Face completeness check** (after adding `#[no_mangle] extern "C"`):
+**Verify:** `grep -rlE '#include\s*<(Uefi\.h|Library/|Protocol/|IndustryStandard/)' src/pymergetic/metal --include=*.c --include=*.h` must return **nothing** outside `boot/platform/{efi,bios}/**`. Run after touching any file here.
 
-```bash
-# every pm_metal_* no_mangle should appear in some generated/human .h
-```
+Do not add a compat header that `#define UINT32 uint32_t` — convert call sites.
 
-If a new export is missing from `.h`, fix the stem/`type` then
-`./forge-cli mod sync` (use `--force` after forge converter fixes).
+Prefer Metal/libc APIs (`pm_metal_log`, `memset`/`memcpy`/`memcmp`/`strcmp`/`strlen`, `snprintf`)
+over `Print` / `ZeroMem` / `CopyMem` / `AsciiStrCmp` / `AsciiSPrint` in converted files —
+a pure-C `snprintf`/`vsnprintf` already exists in the freestanding libc, so EDK2's
+`AsciiSPrint` (`%a` for strings) is never required; translate the format string to
+plain C (`%s`) at the call site.
 
-## Consume generated faces — never duplicate foreign ABI
+## Layout (compact C)
 
-When module A calls module B and B’s impl language is **not** A’s:
+- **Signature on one line** unless the arg list is long (many args / wraps ~80–100 cols). Then break args, not `rettype` alone on its line.
+- **Empty body:** `static void Foo(void) {}` — never a braced blank block.
+- Short stubs may be one line: `static int32_t NullReady(void) { return 0; }`
 
-| B `impl` | A is C/C++ | A is Rust | A is Python |
-|----------|------------|-----------|-------------|
-| `rs` / `py` | `#include` B’s generated `{base}.h` | generated `{base}.rs` (`#[path]` / re-export) | generated `{base}.pyi` |
-| `c` / `cpp` | `#include` B’s **human** `{base}.h` | generated `{base}.rs` | generated `{base}.pyi` |
+## Stackless + main alloc
 
-**Banned:** hand-rolled `extern "C"` blocks, copy-pasted `#[repr(C)]`
-structs, or private twin headers that restate another module’s border.
-That duplication drifts from `metal mod sync` and wastes reading effort.
+Async steps (`status(self_h)`) must not park durable state on the C/wasm call
+stack across `await`. Allocate from the **Metal host heap**:
 
-Thin safe wrappers in the consumer (`boot::api::…`) are fine — they must
-call through the provider’s face, not redeclare it.
+- Host / guest: `pm_metal_mem_alloc` / `pm_metal_mem_free` (same names; guest
+ cookies are opaque — do not dereference in wasm)
+- Guest step frames: `pm_metal_async_coro_alloc` (host TLSF + step-scoped
+ linear alias for a normal `T*` during the step)
+- Guest buffers passed into async I/O that outlive the step must sit in the
+ coro frame (or another host-durable buffer); natives resolve via
+ `pm_metal_async_guest_buf_durable`
 
-Edit the provider’s human impl, then `metal mod sync`. Do not “fix” a
-generated face by hand (banner write gate).
-
-## Fixed v2 module schema (private files)
-
-Under `.pm/` (see `docs/definitions/module.md`):
-
-| File | Role |
-|------|------|
-| `.pm/module` | JSON metadata (`type`, `name`, `impl`, …) |
-| `.pm/Cargo.toml` | Rust crate when `impl=rs` |
-| `.pm/build.{ext}` | Build hook |
-| `.pm/smoke.{ext}` | Host smoke — `metal mod test` |
-
-Package entry remains `__init__.{ext}` at the module root.
-
-## C ABI symbol names (full module prefix)
-
-Canonical: [`docs/SOURCETREE.md`](../../docs/SOURCETREE.md) (contract naming).
-
-Every `#[no_mangle] extern "C"` / public C export under
-`pymergetic/metal/<module>/…` uses the **full path prefix**, not a
-stem-only short name:
-
-```text
-pm_metal_<module>[_<subdir>…][_<sibling_stem>]_<verb…>
-```
-
-- Include every directory segment after `pymergetic/metal/`.
-- Package entry is always `__init__.{ext}` — **never** put `__init__`
-  in the symbol prefix (`mem/__init__.rs` → `pm_metal_mem_*`).
-- Sibling stems in the same dir keep their name (`mem/arena.rs` →
-  `pm_metal_mem_arena_*`). Nested modules use their dir name
-  (`mem/tlsf/__init__.rs` → `pm_metal_mem_tlsf_*`).
-
-| Source | Prefix | Example |
-|--------|--------|---------|
-| `mem/__init__.rs` | `pm_metal_mem_` | `pm_metal_mem_alloc` |
-| `mem/arena/__init__.rs` | `pm_metal_mem_arena_` | `pm_metal_mem_arena_map` |
-| `mem/tlsf/__init__.rs` | `pm_metal_mem_tlsf_` | `pm_metal_mem_tlsf_malloc` |
-| `util/lz4.h` | `pm_metal_util_lz4_` | `pm_metal_util_lz4_compress` |
-
-**Banned:** `pm_metal_tlsf_*`, `pm_metal_arena_*` (missing `mem_`), or any
-export that drops a path segment so two modules can collide.
-After renaming exports, run `metal mod sync` so faces match.
-
-## External libs stay external
-
-Do **not** rewrite a vendored upstream (e.g. Conte TLSF in
-`external/tlsf`) in Rust “because the module is Rust” — EFI/BIOS already
-compile that C. Wire it (`.pm/build.rs` / port shim / FFI) and put Metal
-prefixes only on the thin border (`pm_metal_mem_tlsf_*` → `tlsf_*`).
-Reimplement only with a concrete reason (measured perf, missing freestanding
-portability, API gap you must own). Default: use the external.
+Wasm linear memory is for statics and short in-step stack only — not a second
+long-lived heap for coro frames.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
