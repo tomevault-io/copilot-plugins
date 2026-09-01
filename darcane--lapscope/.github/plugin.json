@@ -1,0 +1,9 @@
+{
+  "name": "darcane--lapscope",
+  "displayName": "LapScope",
+  "description": "Forza Horizon 6 live telemetry and lap analysis tool. Uses FH6's own UDP port for listening data live.",
+  "version": "1.0.0",
+  "author": "darcane",
+  "homepage": "https://github.com/darcane/LapScope",
+  "skills": []
+}
