@@ -1,0 +1,30 @@
+{
+  "name": "acking-you--pb-mapper",
+  "displayName": "pb-mapper",
+  "description": "pb-mapper",
+  "version": "1.0.0",
+  "author": "acking-you",
+  "homepage": "https://github.com/acking-you/pb-mapper",
+  "skills": [
+    {
+      "name": "pb-mapper-client-cli-deploy",
+      "description": ""
+    },
+    {
+      "name": "pb-mapper-release-pipeline",
+      "description": ""
+    },
+    {
+      "name": "pb-mapper",
+      "description": ""
+    },
+    {
+      "name": "pb-mapper",
+      "description": ""
+    },
+    {
+      "name": "pb-mapper",
+      "description": ""
+    }
+  ]
+}
