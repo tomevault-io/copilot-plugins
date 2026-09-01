@@ -1,0 +1,9 @@
+{
+  "name": "tednaleid--limn",
+  "displayName": "limn",
+  "description": "A keyboard-first, offline-capable mind map progressive web app built with TypeScript, React, and SVG. Also available as an Obsidian plugin.",
+  "version": "1.0.0",
+  "author": "tednaleid",
+  "homepage": "https://github.com/tednaleid/limn",
+  "skills": []
+}
