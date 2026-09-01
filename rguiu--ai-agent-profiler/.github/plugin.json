@@ -1,0 +1,9 @@
+{
+  "name": "rguiu--ai-agent-profiler",
+  "displayName": "ai-agent-profiler",
+  "description": "Local-first, read-only profiler for AI coding agents.",
+  "version": "1.0.0",
+  "author": "rguiu",
+  "homepage": "https://github.com/rguiu/ai-agent-profiler",
+  "skills": []
+}
