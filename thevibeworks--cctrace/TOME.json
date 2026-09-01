@@ -4,7 +4,7 @@
   "repo": "cctrace",
   "description": "See exactly what your coding agent does on the wire. TLS-intercepting tracer for the Claude Code, Codex, Grok and Kimi CLIs: full first-party capture in a live web UI \u2014 reconstructed sessions, session replay, find-in-session, per-turn cost/cache/latency, and a cross-project dashboard of every run.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thevibeworks/cctrace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T03:09:00Z"
+  "distributed_at": "2026-09-01T04:43:02Z"
 }
