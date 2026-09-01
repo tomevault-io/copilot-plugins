@@ -1,0 +1,9 @@
+{
+  "name": "isamert--ellm-el",
+  "displayName": "ellm.el",
+  "description": "Plain text LLM interactions in Emacs",
+  "version": "1.0.0",
+  "author": "isamert",
+  "homepage": "https://github.com/isamert/ellm.el",
+  "skills": []
+}
