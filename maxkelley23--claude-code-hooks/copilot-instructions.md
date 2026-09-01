@@ -1,0 +1,59 @@
+## activation-workflow
+
+> Defines skill activation rules and priority-based workflow for organizational capabilities
+
+
+
+# activation-workflow
+
+The skill activation workflow implements a multi-tiered decision system for determining which organizational skills should be activated based on user prompts.
+
+## Priority Levels
+- Critical: Highest priority skills requiring immediate activation
+- High: Essential business capabilities
+- Medium: Standard operational skills
+- Low: Optional supporting capabilities
+
+## Matching Mechanisms
+1. Keyword Analysis
+   - Direct text matching against prompt content
+   - Organization-specific terminology detection
+
+2. Intent Pattern Recognition
+   - Regex-based intent identification
+   - Context-aware pattern matching
+
+## Enforcement Policies
+- Block: Mandatory skill activation
+- Suggest: Recommended skill usage
+- Warn: Advisory notification
+
+## Skill Categories
+1. Domain Skills
+   - Business-specific capabilities
+   - Organization processes
+
+2. Guardrail Skills
+   - Compliance requirements
+   - Safety protocols
+
+## Activation Process
+1. Rule Source Hierarchy
+   - Multiple rule repositories
+   - Precedence-based evaluation
+
+2. Priority Resolution
+   - Grouping by priority levels
+   - Hierarchical skill activation
+   - Conflict resolution between overlapping skills
+
+3. Output Generation
+   - Skill activation notifications
+   - Enforcement policy alerts
+   - Priority-based recommendations
+
+File: hooks/skill-activation-prompt.ts
+
+---
+> Source: [maxkelley23/claude-code-hooks](https://github.com/maxkelley23/claude-code-hooks) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
