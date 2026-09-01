@@ -1,0 +1,9 @@
+{
+  "name": "ugbot--ai-grind",
+  "displayName": "ai-grind",
+  "description": "An AI toolkit for developers building high-performance code with an LLM in the loop.",
+  "version": "1.0.0",
+  "author": "Ugbot",
+  "homepage": "https://github.com/Ugbot/ai-grind",
+  "skills": []
+}
