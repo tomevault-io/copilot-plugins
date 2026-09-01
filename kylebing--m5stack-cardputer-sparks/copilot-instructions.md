@@ -1,66 +1,49 @@
-## help-ui-esc
+## hint-tip-text-color
 
-> Help 页 UI 格式、ESC 关闭与页面 tip 约定
+> 底栏 tip / 按键说明绘制后必须恢复说明文字颜色
 
 
-# Help 页约定
+# 底栏 Tip 文字颜色
 
-## UI 格式（对齐 Time Help）
+`drawKeyBadge`、`drawTextBadge`、`drawArrowBadge` 等徽章绘制函数会修改 `setTextColor`（通常为黄底黑字 `APP_COLOR_KEY_TEXT`）。
 
-全屏 Help **不要**用 `beginAppScreen("Help")` / 双栏 keymap·manual。统一用 `app_common` 共享辅助：
-
-```cpp
-int y = drawAppHelpBegin("Clock"); // 黑底 + size-2 "Help" + 浅色副标题，返回内容起始 y
-constexpr int x = APP_HELP_CONTENT_X; // = APP_HELP_EDGE(5)，距边至少 5px
-y = drawAppHelpKey(x, y, 'r', "sync time over WiFi");
-y = drawAppHelpBadge(x, y, "BtnGO", "start / pause"); // 侧键作操作时才写 BtnGO
-y = drawAppHelpText(x, y, "Uses RTC; sync source is NTP.");
-drawHelpHintRight("close");
-```
-
-- 边距：`APP_HELP_CONTENT_X` / 顶栏 y 均为 `APP_HELP_EDGE`（5px）；右侧 tip 同理
-- 副标题：跟在 `Help` 后，色用 `APP_COLOR_HINT`，与主标题间距 `APP_HELP_SUBTITLE_GAP`（≥10px）
-- 单列；徽章后说明文字色由 helpers 恢复为 `APP_COLOR_HINT`
-- 每个带 Help 的 app 提供 `bool closeXxxHelp()`：未打开返回 false；打开则关闭并重绘主界面，返回 true
-
-## 多页 Help
-
-内容超过约 7 行（`APP_HELP_MAX_LINES`）须分页：
+在 tip / hint / 按键说明行中，**每次**绘制徽章或箭头徽章之后、打印说明文字之前，必须恢复说明文字颜色：
 
 ```cpp
-y = drawAppHelpTextColored(x, y, "Mode", APP_COLOR_LABEL); // 章节标题着色
-y = drawAppHelpLabelText(x, y, "CLIP", APP_COLOR_ERROR, " = too loud"); // 关键词着色
-drawAppHelpFooter(page, page_count); // 底栏箭头+页码 + h close
-// 翻页：方向键 / ;,./ 或 []
-const int delta = getHelpNavDelta(status);
-page = applyHelpPageDelta(page, page_count, delta);
+cx += drawKeyBadge(cx, hint_y, 'o', 1);
+M5Cardputer.Display.setTextSize(1);
+M5Cardputer.Display.setTextColor(APP_COLOR_HINT, BLACK);  // 必须恢复
+M5Cardputer.Display.setCursor(cx, hint_y);
+M5Cardputer.Display.print("on ");
 ```
 
-- 章节标题用 `APP_COLOR_LABEL`；警告/成功等用 `APP_COLOR_WARN` / `OK` / `ERROR`
-- 翻页统一 `getHelpNavDelta`（含方向键与 `[]`）
-- 多页时标题仍为 size-2 `Help` + 副标题，页码在底栏
+`drawArrowBadge` 后同理：
 
-## ESC 与 BtnGO
+```cpp
+cx += drawArrowBadge(cx, hint_y, 1);
+M5Cardputer.Display.setTextSize(1);
+M5Cardputer.Display.setTextColor(APP_COLOR_HINT, BLACK);  // 必须恢复
+M5Cardputer.Display.setCursor(cx, hint_y);
+M5Cardputer.Display.print("page ");
+```
 
-**返回 / 关闭嵌套界面用 ESC**（`wasBtnGoPressed()`；`BTNGO_USE_KEYBOARD=1` 时为键盘 `` ` ``，提示文案用 `btnGoHintLabel()` → `"ESC"`）。
+## 检查清单
 
-**侧边 BtnGO（BtnA）不是返回键**。各 App 可把它用作开始/暂停、开关、关屏等操作；Help / tip / 文档里不要再写「BtnGO = 返回」。
+编写或修改底栏 tip 时，确认每一处 `drawKeyBadge` / `drawTextBadge` / `drawArrowBadge` 之后的 `print` 前都有 `setTextColor`。
 
-**Help 打开时，ESC 等同按 `h` 关闭 Help**，不得直接回主菜单或退出子界面。
+优先复用已有封装（已正确处理颜色）：
+- `drawKeyHintsRow`
+- `drawKeyHintItemAt`（`app_time_ui.cpp`）
+- `mijiaDrawKeyHintItem`
+- `drawHintText`
 
-- 全局入口：`main.cpp` 的 `tryCloseCurrentAppHelp()`（在 leave app / `showMenu` 之前）
-- Sleep 倒计时：Help 打开时 ESC 只关 Help，不取消休眠
-- HID Keyboard：Help 打开时 `` ` `` / HID `0x35` 关 Help，不发给主机（本 App 仍用侧边 BtnA 退出）
+## 反例
 
-新增 Help 时：实现 Time 风格绘制 + `closeXxxHelp()`，并把它挂进 `tryCloseCurrentAppHelp()`。
-
-## 页面 tip（默认不画）
-
-主界面**不必**每页画底栏 tip / `drawHelpHintRight("help")`。快捷键说明放进 Help 即可；用户按 `h` 查看。
-
-- Help 页仍用 `drawHelpHintRight("close")` / `drawAppHelpFooter`
-- 仅在编辑态、确认态、易误操作等**确实需要**时再画 tip
-- 不要默认堆 `h help`、`BtnGO back` 一类常驻提示
+```cpp
+// ❌ 说明文字会继承徽章的黑色，在黑色背景上不可见
+cx += drawKeyBadge(cx, y, 'h', 1);
+M5Cardputer.Display.print("help");
+```
 
 ---
 > Source: [KyleBing/m5stack-cardputer-sparks](https://github.com/KyleBing/m5stack-cardputer-sparks) — distributed by [TomeVault](https://tomevault.io).
