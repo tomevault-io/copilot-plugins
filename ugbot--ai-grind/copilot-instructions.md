@@ -1,0 +1,23 @@
+## devtools-mcp
+
+> devtools-mcp MCP server usage — profiling, tracker, dashboard
+
+
+# devtools-mcp
+
+Shared HTTP service (recommended): `.\scripts\devtools-service.ps1 start` then MCP at `http://127.0.0.1:8000/mcp`, dashboard at `http://127.0.0.1:8765`.
+
+## Rules
+
+- Never paste raw profiler output into chat. Use `devtools_run` → bounded summary + `run_id` → `devtools_analyze` / `devtools_query`.
+- If MCP tools are unavailable, run `.\scripts\devtools-service.ps1 status` and start the service.
+- Tracker plans: `tracker_project`, `tracker_task`, `tracker_deps` (resolve for what's next). Data persists in `~/.devtools-mcp/tracker.db`.
+- **Always set `description` on tracker tasks** and **`label` + `notes` on profiling runs** — they appear on dashboard cards (`http://127.0.0.1:8765`).
+- Profiling runs persist in `~/.devtools-mcp/runs/` across server restarts.
+- Dashboard: Runs `/`, Search `/search`, Tracker `/tracker`, Tools `/tools`.
+
+Skills: `skills/authored/skills/devtools/devtools-mcp-usage/SKILL.md`, `skills/authored/skills/tracker/`.
+
+---
+> Source: [Ugbot/ai-grind](https://github.com/Ugbot/ai-grind) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
