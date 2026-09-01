@@ -1,0 +1,9 @@
+{
+  "name": "openspawn--openspawn",
+  "displayName": "openspawn",
+  "description": "OpenSpawn \u2014 An open source multi-agent coordination platform",
+  "version": "1.0.0",
+  "author": "openspawn",
+  "homepage": "https://github.com/openspawn/openspawn",
+  "skills": []
+}
