@@ -4,7 +4,7 @@
   "repo": "qgis-plugin-generator",
   "description": "Generador de plugins de QGIS 4: de una descripci\u00f3n en lenguaje natural a un .zip instalable y validado. Skill para Claude Code / Codex.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BernabeHL/qgis-plugin-generator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T10:32:41Z"
+  "distributed_at": "2026-09-01T10:34:59Z"
 }
