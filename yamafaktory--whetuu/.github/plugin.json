@@ -1,0 +1,9 @@
+{
+  "name": "yamafaktory--whetuu",
+  "displayName": "whetuu",
+  "description": "An opinionated, zero-config status line and history picker for fish, bash and zsh, written in Zig",
+  "version": "1.0.0",
+  "author": "yamafaktory",
+  "homepage": "https://github.com/yamafaktory/whetuu",
+  "skills": []
+}
