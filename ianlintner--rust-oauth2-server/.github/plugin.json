@@ -1,0 +1,9 @@
+{
+  "name": "ianlintner--rust-oauth2-server",
+  "displayName": "rust-oauth2-server",
+  "description": "Rust OAuth2 Server with Social Logins with observability. Typesafe and Actor System.",
+  "version": "1.0.0",
+  "author": "ianlintner",
+  "homepage": "https://github.com/ianlintner/rust-oauth2-server",
+  "skills": []
+}
