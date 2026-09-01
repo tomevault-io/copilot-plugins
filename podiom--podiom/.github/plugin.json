@@ -1,0 +1,9 @@
+{
+  "name": "podiom--podiom",
+  "displayName": "Podiom",
+  "description": "Thin orchestration layer for local LLM agents. Durable sessions, profiles, scheduling, and native MCP/tool/skill integration.",
+  "version": "1.0.0",
+  "author": "Podiom",
+  "homepage": "https://github.com/Podiom/Podiom",
+  "skills": []
+}
