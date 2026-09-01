@@ -1,0 +1,9 @@
+{
+  "name": "rixrix--deskop-nano-cortex",
+  "displayName": "deskop-nano-cortex",
+  "description": "Desktop Nano Cortex is an unofficial, cross-platform desktop companion for the Neural DSP Nano Cortex. It exists because the pedal has no public preset/parameter API, and browser tools need WebMIDI/We",
+  "version": "1.0.0",
+  "author": "rixrix",
+  "homepage": "https://github.com/rixrix/deskop-nano-cortex",
+  "skills": []
+}
