@@ -4,7 +4,7 @@
   "repo": "claude-code-hooks",
   "description": "Powerful hooks for Claude Code: safety guardrails, auto-formatting, skill activation, session context, and change tracking",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maxkelley23/claude-code-hooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T20:37:36Z"
+  "distributed_at": "2026-09-01T20:41:00Z"
 }
