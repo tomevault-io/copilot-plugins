@@ -1,0 +1,9 @@
+{
+  "name": "minilv--coding-agent-memory",
+  "displayName": "coding-agent-memory",
+  "description": "Local-first engineering memory for Codex and Claude Code \u2014 auditable Markdown, no vector database.",
+  "version": "1.0.0",
+  "author": "miniLV",
+  "homepage": "https://github.com/miniLV/coding-agent-memory",
+  "skills": []
+}
