@@ -1,0 +1,9 @@
+{
+  "name": "prinova--pi-os",
+  "displayName": "pi-os",
+  "description": "An OS-level AI layer for Windows powered by pi.",
+  "version": "1.0.0",
+  "author": "PriNova",
+  "homepage": "https://github.com/PriNova/pi-os",
+  "skills": []
+}
