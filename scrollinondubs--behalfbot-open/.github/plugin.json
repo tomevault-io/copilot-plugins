@@ -1,0 +1,9 @@
+{
+  "name": "scrollinondubs--behalfbot-open",
+  "displayName": "BehalfBot-open",
+  "description": "Vendor-agnostic port of the behalf.bot / Jax assistant chassis onto the OpenCode harness with open-weight models (Venice / OpenRouter). Proof-of-concept.",
+  "version": "1.0.0",
+  "author": "scrollinondubs",
+  "homepage": "https://github.com/scrollinondubs/BehalfBot-open",
+  "skills": []
+}
