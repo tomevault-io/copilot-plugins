@@ -1,0 +1,521 @@
+## lapscope
+
+> Working knowledge for AI agents (and humans) touching this repo: workflow rules
+
+# AGENTS.md — LapScope
+
+Working knowledge for AI agents (and humans) touching this repo: workflow rules
+and the hard-won behavioral facts that must not be re-derived or regressed.
+
+## Documentation map — read in this order
+
+1. **This file** — dev workflow, FH6 packet facts, the event-detection model,
+   test matrix. The *why* behind the code.
+2. **[ARCHITECTURE.md](ARCHITECTURE.md)** — what lives where: file
+   responsibilities, data flow, DB schema, API surface, WebSocket contract,
+   concurrency rules, simulator flags, and the cross-file invariants that must
+   stay in sync. Consult it before touching anything structural.
+3. **[README.md](README.md)** — user-facing: setup, in-game settings, quick
+   troubleshooting. Kept deliberately basic — deep material goes on the wiki.
+4. **Wiki** (source: [docs/wiki/](docs/wiki/)) — user-facing deep dives:
+   Troubleshooting, Capturing-an-Unrecognized-Event, FH6-Data-Out-Packet,
+   Event-Detection (+ `_Sidebar`/`_Footer`). Mirrored to the GitHub wiki by
+   [.github/workflows/wiki.yml](.github/workflows/wiki.yml) on every merge to
+   `main`; `docs/wiki/` is the **source of truth — never edit the wiki on
+   GitHub**, the next sync overwrites it. Pages link each other wiki-style
+   (`[text](Page-Name)`, no `.md` — resolves only on the published wiki) and
+   link repo files/images by absolute URL
+   (`https://github.com/darcane/LapScope/blob/main/…`,
+   `https://raw.githubusercontent.com/darcane/LapScope/main/…`).
+5. **[GitHub Issues](https://github.com/darcane/LapScope/issues)** — the open
+   backlog: bugs, feature ideas, and in-flight investigations. (The old
+   `TODO.md` is retired; everything it tracked lives in the issue tracker now.)
+
+Keep all five current: a detection change usually touches this file's model
+section **and** the wiki's Event-Detection page; a new endpoint/table belongs
+in ARCHITECTURE.md; a new user-visible feature in the README; a change to
+packet understanding, troubleshooting steps, or the capture workflow updates
+the matching `docs/wiki/` page **in the same PR**; an issue gets closed when
+its work lands, and new bugs/ideas discovered along the way get filed as
+issues — never appended to a file.
+
+## What this is
+
+A single-container FastAPI app that receives Forza Horizon 6 "Data Out" UDP
+telemetry, shows a live dashboard, and records sessions/laps into SQLite for lap
+analysis. Vanilla-JS frontend, no build step. The recorder's decisions are
+covered by a fast headless `pytest` harness (drives the simulator's scenarios
+straight through `SessionTracker`, no game or container — see
+[tests/](tests/)); running the simulator against the live container is still the
+way to verify the frontend and the real UDP path.
+
+```
+FH6 ──UDP 9999──▶ listener.py ─▶ packet.py parse ─┬─▶ hub.py ─▶ /ws/live ─▶ dashboard.js
+                                                  └─▶ laps.py (SessionTracker) ─▶ store.py (SQLite)
+                                                        REST /api (routes.py) ─▶ analysis.js
+```
+
+## Dev workflow (important, non-obvious)
+
+- **After each iteration of changes, create a local git commit.** **Never push
+  to a remote** — the owner handles pushing themselves.
+- **Work item → branch → PR.** Pick an item from the
+  [issue tracker](https://github.com/darcane/LapScope/issues), cut a `feat/…`
+  or `fix/…` branch off `main`, commit there, and land it via a pull request
+  with CI green — not by committing straight to `main`. `main` is the
+  protected, release branch. The owner pushes and opens the PR.
+- **Static files are baked into the image.** Any change under `app/` requires
+  `docker compose build` + restart. There is no bind mount for code.
+- **Only `desktop/ui.py` may import tkinter.** The rest of the launcher
+  (`state.py`, `logs.py`, `server.py`, `paths.py`) has to stay importable on a
+  headless Linux box, because that is where CI runs and it is the only reason
+  any of that logic is testable. Put decisions in those modules and keep
+  `ui.py` to painting and event wiring. `tests/test_desktop_no_tkinter.py`
+  fails if this slips.
+- **The exe is windowed** (`console=False`), so `sys.stdout` and `sys.stderr`
+  are `None` in the frozen build: nothing on the exe's import path may
+  `print()`. Anything the user needs to see goes through `logging` — it reaches
+  both the window's log pane and `DATA_DIR/logs/lapscope.log`. CI never builds
+  the exe; the release workflow's `LS_DESKTOP_SELFTEST` step is what catches
+  this class of break, so run it locally if you touch `run_desktop.py`,
+  `LapScope.spec`, or `desktop/`.
+- The Claude Code preview config (`.claude/launch.json`) runs `docker compose up`
+  and owns the process — stop the preview server AND `docker compose down` before
+  rebuilding, then start the preview again.
+- **Run the tests before opening a PR** — CI runs the same on every PR. From the
+  repo root: `pytest -q` and `ruff check .` (install the tooling once with
+  `pip install -r requirements-dev.txt`). The recorder scenarios in
+  `tests/test_scenarios.py` are the matrix at the bottom of this file, driven
+  headlessly through `SessionTracker` in ~2 s by a fake-socket harness
+  (`tests/harness.py`) — no container, no real-time wait.
+- Verify with the simulator (no game needed), from the repo root:
+  `python tools/simulator.py [--wet] [--dirty] [--race N] [--sprint SECS] [--dirt SECS] [--jumps]`.
+  It runs in real time (60 Hz), so a 180 s scenario takes 3 minutes — run it in the
+  background and watch `docker compose logs -f` for the recorder's decisions.
+- Sessions close ~15 s after packets stop (`RACE_OFF_GRACE`); wait for the
+  "Session N ended/discarded" log line before asserting on the API.
+- DB lives in `./data/telemetry.db` (bind mount, gitignored). Schema changes go in
+  `store.MIGRATIONS` as `ALTER TABLE ... ADD COLUMN` statements — they run on every
+  startup, and **only** "duplicate column" is swallowed (a locked or readonly
+  database must not silently no-op every ALTER). `store.SCHEMA_VERSION` is stamped
+  into `PRAGMA user_version` afterwards; bump it for a change that isn't an
+  idempotent ADD COLUMN, and keep `tests/test_store.py`'s upgrade test honest.
+- Deleting sessions never shrinks the file — freed pages go on the freelist and
+  stay there. `Store.vacuum()` (Settings → Storage → Compact now) is the only
+  thing that returns bytes to the drive; `auto_vacuum` can't help an existing
+  database, which is why it isn't set.
+- SQLite threading rule: the single `Store.db` connection is event-loop-thread
+  only. API handlers run in FastAPI's threadpool and must use `Store.reader()`
+  (short-lived connection; fine for small writes too, thanks to WAL).
+- Every store write commits on its own. Wrap a multi-step write that must not
+  land half-done in `store.transaction()` (it defers those commits and rolls
+  the batch back on any exception). It groups the event-loop connection only:
+  a `reader()` opened inside one sees the *old* data, so don't read back what
+  you just wrote until the block has exited.
+- **The recording path must never raise.** `SessionTracker.flush()` runs from
+  the UDP callback, where an exception is caught and logged with a traceback —
+  per packet. A failing write (disk full, database locked) is therefore
+  swallowed there: logged once on the way in and once on recovery, buffer
+  capped at `FRAME_BUFFER_MAX` dropping oldest first, state exposed as
+  `write_error` / `frames_dropped` on `/api/status` and as a banner on the
+  dashboard. Keep any new per-frame work inside that contract.
+- **The API is reachable from the user's browser, so it has a boundary.**
+  `main.check_host` refuses a `Host` that is neither `localhost`, a `.local`
+  name, an IP literal, nor in `LS_ALLOWED_HOSTS` (DNS rebinding always arrives
+  with a borrowed *name*); `/ws/live` refuses a cross-origin handshake, since
+  WebSockets skip CORS; and anything accepting a raw body must require its
+  content type, or it is a CORS-simple request any page can POST to. A new
+  endpoint that reads a body inherits all three concerns.
+- **A write the user can't see fail is a write that didn't happen.** Every API
+  call on the Analysis page goes through `apiFetch` (common.js): it throws on a
+  network failure or a non-2xx and reports it once, so nothing is left to a
+  bare `fetch` whose `onclick` never awaits it. Use it for new calls; pass
+  `quiet: true` only for something on a timer, where the connection chip
+  speaks instead.
+- **Anything clickable must be focusable.** New controls are
+  `<button type="button">`, not a `<div onclick>` — with `aria-pressed` for a
+  toggle and `role="checkbox"` + `aria-checked` for a multi-select row. A
+  canvas needs `role="img"` and an `aria-label` saying what it shows, and any
+  animation that loops forever needs a line in style.css's
+  `prefers-reduced-motion` block.
+- **Per-event work belongs in a frame.** `resize`, `pointermove` and `wheel`
+  fire far faster than a redraw costs: wrap the handler in `rafThrottle`
+  (common.js), resize uPlot with `setSize()` instead of rebuilding it, and
+  reassign a canvas's `width`/`height` only when the pixel size really changed
+  (each assignment reallocates the backing store — and resets the transform,
+  so a skipped one has to `setTransform` by hand).
+- **A new feature is not a new header button.** The Analysis header grew one
+  per iteration until twelve controls shared a wrapping row and Delete landed
+  wherever the title's length pushed it. Actions go in the ⋯ `menuButton`
+  (common.js) with a `hint` line stating what the action reaches; only
+  something contextual, with a moment to act on, earns a place in the row.
+- **A name is edited where it is shown.** Three menu entries that all start
+  with a naming verb are a choice made in the abstract, so the session title,
+  the car chip's name and the route chip's name are each the button that
+  renames that thing. Facts that describe one object (class, PI, car name,
+  drivetrain) render as one chip, not as badges in one row and muted text in
+  another.
+- **Chrome for an empty list is not neutral — it's the first impression.** A
+  brand-new install opened Analysis onto a search box, five facet dropdowns, a
+  "0 sessions" counter and a sort picker, all filtering nothing, and was asked
+  90 seconds into its first drive whether to merge its run groups. Anything
+  that only makes sense once there is history (the browse bar, the header hint
+  chip, the merge banner) stays out of the way until there is; anything shown
+  at zero has to say what to do next, in words someone who just double-clicked
+  an exe can act on — "or run the simulator" names a script they do not have.
+- **Every outbound call is opt-out-able.** "No cloud, no account, your data
+  stays on your machine" is the pitch, so a new request to anything off this
+  machine waits on `onlineAllowed()` (common.js — the per-browser setting AND
+  `LS_OFFLINE`) and gets a line in the README's "What LapScope contacts". A
+  server-side one refuses with a 403 naming the switch: nothing failed, this
+  install is not allowed.
+
+## FH6 packet facts (hard-won, don't re-derive)
+
+- Fixed **324-byte** little-endian packet per rendered frame; FH5 "Dash" layout
+  plus `CarGroup/SmashableVelDiff/SmashableMass` at offsets 232–243 and one
+  undocumented trailing pad byte. Parser: `app/telemetry/packet.py` (verified by
+  round-trip self-test and against the real game).
+- **Not in the packet** (features must work around these): route/track names,
+  car name strings, weather, game mode (Rivals/race/free-roam), lap-invalidated
+  flag, rival/opponent data. Game mode is *inferred* instead — see
+  `SessionTracker.race_mode` below.
+- **`IsRaceOn` is 1 in free roam too** — it only separates driving from menus.
+  Events vs cruising: races grid you with `RacePosition > 0` from the very first
+  countdown frame; WTA / point-to-point events reset `DistanceTraveled` to 0 at
+  launch; free roam has neither (verified on real captures, 2026-07-02).
+- **`Velocity*` is car-local** like `Acceleration*`: ~`(0, 0, speed)` whatever
+  the world direction — useless for heading. `Yaw` IS world-space: the car moves
+  along `(sin yaw, cos yaw)` in world X/Z (verified against position deltas).
+- **`DistanceTraveled` is NOT meters** on real circuits: it is *normalized route
+  progress*, running 0 → ~5950 over a full route **whatever the route** — not a
+  per-route constant that scales with length. Swept over ~90 recorded sessions
+  on ~56 distinct routes (2026-07-27): every completed one lands in 5949–5959
+  while the true driven length ranges 2.1–6.9 km, so the ratio to real metres
+  swings 0.86×–2.84×. Partial runs land short of ~5950. Perfect for aligning
+  laps within a route; **useless for telling routes apart** (see the route
+  fingerprint below — this is what issue #53 tripped over), and never display
+  it as a length (integrate `Speed` for that). The simulator emits true
+  meters, so this quirk only shows on real-game data.
+- `DrivetrainType`: 0=FWD 1=RWD 2=AWD. `CarClass`: index into D,C,B,A,S1,S2,R,X
+  (R is new in FH6: 901–998 PI; X is 999 only — verified on a real 998 car).
+- Wheel arrays are ordered FL, FR, RL, RR. `TireTemp` is Fahrenheit.
+- **`TireCombinedSlip` does NOT discriminate surface** (swept across all
+  stored captures, 2026-07-12): it tracks driver aggression — hard tarmac
+  laps sustain *more* slip than clean dirt runs. Surface detection uses
+  suspension roughness + jump rate instead.
+- **`NormalizedDrivingLine` saturates at ±127 far off the course**; during
+  events it sits mid-range 73–97 % of frames on every surface (dirt courses
+  have a driving line too). Used as the on-course gate for surface evidence.
+  `NormalizedAIBrakeDifference` is ~0 on most frames — no useful signal.
+  Free-roam behavior of both is **unverified** (free-roam sessions are
+  discarded, so no stored captures to check against).
+- The game binds its own socket on ports **5200–5300** — never use them.
+- Xbox-app (UWP) builds may block loopback; fallbacks documented in README.
+
+## Event-detection model (laps.py is the heart)
+
+The game gives no explicit session/event boundaries; `SessionTracker` infers them.
+All the rules exist because some real behavior broke a naive version:
+
+- Session = `IsRaceOn` stretch, ends after 15 s of race-off or silence.
+- `CurrentRaceTime` warping back to ~0 splits sessions (event restarts,
+  free-roam time-attacks).
+- **Finishes don't increment `LapNumber`.** Five signals: `LastLap` changing
+  while `LapNumber` is static; **the `DistanceTraveled` hard-reset** (the real
+  point-to-point finish, below); the race clock freezing ≥1.5 s while `IsRaceOn`
+  stays 1 (a fallback finish-cinematic signal); **the stream cutting dead at the
+  finish line** (real circuit races, verified: the last packet lands within
+  meters of the line — an open lap that covered ≥97% of the session's typical
+  lap length is completed from the lap clock's last reading plus the remaining
+  meters at the last speed); and the same cutoff on a *gridded point-to-point
+  race* with no laps to compare distance against (gridded, launched from a
+  `DistanceTraveled` reset, `LapNumber` never incremented, real distance
+  covered, cut at speed → timed launch-to-line, flagged `cutoff` 🏁 because a
+  lap-one quit / game-close looks identical). Abandoned events with none of
+  these signatures are discarded.
+- **The real point-to-point finish is a `DistanceTraveled` hard-reset**
+  (verified on a dirt-sprint capture, 2026-07-03: a "2018 Subaru WRX STI ARX"
+  gridded event). The car crosses at speed, `RacePosition` drops to 0, the
+  stream **gaps ~12 s for the results cinematic** (race clock counting through
+  it), then the game hands control back **parked at the line, brake held
+  (~75 %), gear 1, `DistanceTraveled` reset to 0** (this is the "gear 1 / 75 %
+  brake, then gear R" the driver sees). The odometer only ever *accumulates* on
+  circuits (never resets per lap), so a reset to ~0 is an unambiguous finish; it
+  fires whether or not the lap fields are alive — **a dirt sprint runs
+  `CurrentLap` the whole way while `LapNumber`/`LastLap`/`BestLap` stay 0**
+  (so `_lap_fields_dead` is False and the geometric/WTA path never engages) —
+  as long as `LapNumber` never incremented (not a circuit) and it's a real event
+  (gridded, or a WTA geometric launch). Guards against a free-roam fast-travel
+  (which also zeroes the odometer): the run must have covered real distance
+  (`_prev_dist > WTA_MIN_LAP_DIST`) and the car must **stay put** across the
+  reset (`< 250 m` — a fast-travel teleports you away). The run is completed
+  right there and timed **launch-to-line**: `_finish_rt` is the *previous*
+  frame's clock (the cinematic gap advanced the current one), minus `_launch_rt`
+  (the clock when `DistanceTraveled` first grew), so the countdown is excluded —
+  matching the game's own convention (a circuit lap's `LastLap` = launch-to-line,
+  not clock-start-to-line, verified on session 22). Simulate with
+  `python tools/simulator.py --dirt 40`.
+- **Not every point-to-point does the handback — a touge cut Data Out dead at
+  the line instead** (verified 2026-07-04: gridded 1v1, `CurrentLap` counting,
+  crossing at 57 m/s with `RacePosition` 1 and `IsRaceOn` still 1, then the
+  stream just stops — no reset, no freeze, no handback). That's the circuit
+  cut-dead finish on a gridded point-to-point with the lap fields alive, so it
+  reaches session end with an open lap and no `_event_finished`. Recovered by
+  `_ptp_run_time_at_cutoff`: gridded, `_launch_rt` set, `LapNumber` never
+  incremented (circuits recover their final lap via `_final_lap_time_at_cutoff`
+  instead), real distance covered, still at speed → run timed launch-to-line,
+  flagged `cutoff`. Simulate with `python tools/simulator.py --dirt 40 --cut`.
+  **Cross-country shares this exact signature** (verified 2026-07-05, session 55:
+  gridded start P8→P3, `CurrentLap` counting the whole way with `LapNumber` at 0,
+  stream cut dead at the line at 67 m/s) — recovered by the same gridded cut-dead
+  path, timed launch-to-line = 144.747 s, `cutoff`. No separate handling; it was
+  the last unconfirmed point-to-point type, so all known event types are covered.
+- Point-to-point events may never start `CurrentLap`; lap traces and the live
+  delta fall back to race-time-elapsed-since-lap-open.
+- **World Time Attack broadcasts no lap fields at all** (real capture, 2026-07-02:
+  LapNumber/CurrentLap/LastLap/BestLap all 0 for the whole event; the clock counts
+  from event *load*, through a teleport + grid hold with `DistanceTraveled` pinned
+  at 0). Laps are detected geometrically (`_wta_logic`): launch = distance starts
+  growing → anchor + lap re-based there; a lap completes at the closest approach
+  to the anchor after being ≥120 m away, traveling within ~75° of the launch
+  heading, having covered ≥500 dist-units. The run finish is `DistanceTraveled`
+  hard-resetting (~18000 → 0) while the clock keeps counting; the post-finish
+  coast "lap" is deleted. A crossing normally finalizes when the car *exits*
+  the crossing circle; a stream that dies inside it instead has the pending
+  closest approach finalized at session end, flagged `cutoff` (simulate with
+  `--wta 3 --cut`). A single-frame position jump >250 m (fast travel)
+  disarms the geometric detection — you never teleport mid-run, so it's a
+  free-roam giveaway. Remaining caveat: a fresh-boot free-roam session starting
+  at `DistanceTraveled` 0 that loops back over its start point *without*
+  teleporting can still produce a geometric lap — accepted trade-off.
+- `SessionTracker.race_mode` (in the per-frame extras merged into every
+  WebSocket frame, alongside `session_id`/`delta`/`lap_elapsed`): True while a
+  timed event is running — `RacePosition > 0`, live lap fields, or the geometric
+  launch anchor armed; False in free roam and once the event finishes (every
+  finish signal drops it, including the LastLap-change finish). The
+  dashboard gates the lap timer, the RACE MODE / FREE ROAM chip, and the live
+  track map on it. Verified transitions on real captures: race = on from the
+  first grid frame; WTA = off during event-load/grid-hold, on at launch, off at
+  the finish-line distance collapse.
+- `POST /api/sessions/{id}/reprocess` (UI: Reprocess button) replays stored
+  frames through a fresh `SessionTracker` via `_ReplayStore` (laps/routes real,
+  session row untouched, discard suppressed) — recovers laps recorded before a
+  detection fix. Must stay `async def` (writes on the event-loop connection),
+  which also means the replay blocks the loop — it 409s while **any** session
+  is recording, or a long replay would freeze live telemetry mid-race. It
+  deletes the old laps before rebuilding, so the whole replay runs inside one
+  `store.transaction()`: anything that raises rolls the delete back. Without it
+  a crash mid-replay wiped the session's lap times for good — the same frames
+  crash the same way on every retry.
+- **Manual edits are read-time overrides** (analysis page: dismiss a contact
+  marker, re-tag a lap's flags, exclude a lap from bests/counts). They live in
+  the `edits` table keyed by **frame timestamps, never lap ids** — a reprocess
+  deletes and recreates lap rows (SQLite reuses the rowids!), so id-keyed
+  edits would silently attach to the wrong laps; time-keyed ones re-apply to
+  the rebuilt laps by design (they're user intent). Raw frames and the
+  recorder's `laps.flags` are never rewritten; `Store.session_laps` merges the
+  overrides in (`flags` effective, `flags_auto` detected, `excluded`), and
+  `DELETE /api/sessions/{id}/edits` ("Reset edits") is the escape hatch back
+  to pure detection. An edit anchor matches a lap on a **half-open** span
+  (`started_t <= anchor < ended_t`) because consecutive laps share a frame —
+  with both ends inclusive, excluding a trailing open lap also excluded the
+  timed lap before it. Four places implement that rule (`lap_span`, the
+  `_SESSION_SELECT` overlay behind `lap_count`/`best_lap`, `remove_edits`,
+  `dismiss_contact`); change one and you must change all four.
+- `sessions.kept = 1` exempts a session from the startup no-laps cleanup
+  (LS_KEEP_DISCARDED captures and reprocessed sessions set it). That same
+  startup pass (`cleanup_sessions`) also closes what a crash left open —
+  `sessions.ended_at` **and** the last `laps.ended_t` — from the session's last
+  frame. It runs before the tracker exists and must stay there: it would close
+  a live session's open rows.
+- Dirty-lap inference: rewind = lap clock below its high-water mark while
+  distance doesn't grow (per-frame comparison misses gradual scrubs — that bug
+  shipped once); contact = ground-plane |accel| ≥ 45 m/s² **that also looks
+  like an impulse** (below). Stored as `laps.flags` ("rewind,contact").
+- **45 m/s² alone is not contact — the burst must have an impact's *shape*.**
+  That threshold assumed no car corners that hard on tires; downforce cars
+  break the assumption, sustaining 5–7.7 g of pure lateral g through fast
+  corners, so they used to flag *every* lap (session 187, Alfa Group C: 530
+  markers in 39 laps, 13.6/lap, all 39 flagged including the clean best).
+  Magnitude can't separate the two; the rise can. Aero load builds over
+  hundreds of ms, an impact is an impulse — so a non-landing burst counts only
+  when some frame of it either gained `IMPACT_JERK` (30 m/s², ~3 g) over the
+  previous frame, or reached `IMPACT_PEAK` (98 m/s², ~10 g). `impulsive()` in
+  laps.py is the one implementation, imported by `_scan_lap`; dashboard.js
+  mirrors it. Swept over all 70 stored sessions / 1813 bursts (2026-07-26,
+  same dump/hand-classify method as the landing classifier): of the 1334
+  bursts rising slower than 1 g/frame **not one** reached 10 g, and the
+  histogram has an empty valley at 1.5–3 g/frame. Effect is *selective*, not
+  merely stricter — 187: 530→46, 129 (Furai): 338→7, A-641 session 117: 82→0,
+  while cross-country/dirt sessions barely move (55: 7→6, 103: 5→5, 8: 13→9)
+  and the low-downforce control (146, Diablo SV) was 0 before and after.
+  Only jerk is *causal* (one frame of history), which is why it and not burst
+  duration or speed-delta drives the live recorder and dashboard.js.
+  `IMPACT_JERK_DT_MAX` (0.05 s) ignores a jerk read across a stream gap or a
+  rewind splice — the gap manufactures it. Rejected bursts are dropped
+  outright (issue #49).
+  **Jump landings are excused** and are classified *first*, so the impulse
+  gate never sees them (a touchdown slam is an impulse and would pass it):
+  a spike while
+  airborne (all four `NormalizedSuspensionTravel` < 0.15 **and** all four
+  `TireCombinedSlip` < 0.05 for ≥ 0.12 s — in flight wheels hang at full droop
+  with zero tire force) or within 0.35 s of touchdown is a landing, not contact
+  (`AIRBORNE_*` / `LANDING_GRACE_S` in laps.py, mirrored in dashboard.js).
+  Calibrated on real cross-country (session 55: 5 of 12 spikes were landings —
+  touchdown compresses the suspension 1–2 frames *before* the spike, and
+  suspension drifts up to ~0.11 mid-flight, hence the loose thresholds and the
+  grace window; verified to change nothing on circuit sessions 5/6/35).
+  `/laps/{id}/data` tags collision bursts `landing: true/false` the same way —
+  the analysis map draws landings amber, the Contacts stat counts only real
+  ones. **Known remaining limit:** light Rivals wall-scrapes stay below the
+  threshold (false negatives; there is no lap-invalidated packet field to
+  cross-check against) — tracked in
+  [issue #27](https://github.com/darcane/LapScope/issues/27), and now more
+  tractable: with contact qualified by *shape*, `IMPACT_ACCEL` could be
+  lowered to reach light scrapes without re-flooding downforce cars (still
+  needs labeled scrape captures first). A wall hit inside the 0.35 s post-landing grace is also excused
+  (accepted trade-off). Flags reset when a lap re-anchors (the WTA launch, a
+  mid-session lap-timer start): pre-launch junk frames must not dirty lap 1.
+  Test-fixture gotcha: `empty_fields()` zeroes suspension and slip, which
+  reads as *airborne* — hand-built test frames must set grounded values or
+  every contact spike gets excused (Driver in test_tracker.py does).
+- Routes are fingerprinted (start pos within 120 m + length within 5% + the
+  lap's bounding-box dimensions within 15%, floor 50 m); names apply to every
+  session on the route. The **span term carries
+  it**: Horizon courses routinely share a start line and `DistanceTraveled`
+  can't separate them (see above), so start + length alone collapsed different
+  courses onto one row (#53). Spans are stable because they measure ground
+  covered, not the line driven — an excursion or rewind adds distance but
+  barely moves the extents (measured: ≤3.5% across laps of one course, ≥30%
+  between courses off a shared start line). `span_x`/`span_z` NULL = row
+  predates the term; the next matching lap adopts its shape, so reprocessing
+  **both** sessions of an already-merged route is what unpicks it.
+- **The same fingerprint names the route.** `app/track_catalog.json` maps the
+  game's official courses to their names, so a fresh install gets "The Goliath"
+  from the first completed lap instead of "Unnamed route" — the packet carries
+  no track name, but the fingerprint transfers between installs. Generated by
+  `tools/export_track_catalog.py` from a database where they have all been
+  driven and named; **never hand-edit it**, re-run the tool. Precedence: a
+  user's rename > `DATA_DIR/track_catalog.json` > the bundled file. Naming is
+  guarded on the name being empty and `rename_route` clears `catalog_key`, so
+  the catalogue can correct a name it supplied but can never overwrite a human's.
+  A route with NULL spans can't be identified at all — that is the second
+  reason to reprocess an old database, after unpicking merged routes.
+- Sessions with zero completed laps/runs are discarded at close and again at
+  startup (`cleanup_sessions`). Every discard logs a `diag:` signal summary
+  (duration, race-time range, max LapNumber/CurrentLap, finish seen, gridded,
+  launch anchor, last speed, distance); `LS_KEEP_DISCARDED=1` (compose env
+  passthrough; a repo-root `.env` file works too) keeps such sessions instead —
+  that's the capture path for event types the segmentation doesn't recognize
+  yet. Inspect a kept capture with `python tools/inspect_session.py <id>`
+  (`--list` to enumerate): it prints every signal transition the segmentation
+  cares about, straight from `data/telemetry.db`, no container needed.
+- Session ids are handed out by an in-memory monotonic counter
+  (`Store._next_session_id`), never SQLite's rowid: discards delete the max
+  rowid, which plain `INTEGER PRIMARY KEY` would reuse — and the live map
+  resets on session-id *change*, so a reused id left stale points on screen.
+- **Track types are auto-suggested at session close** (issue #28), written
+  with COALESCE so a user tag always wins; the dropdown stays the override.
+  Precedence: (1) another session on the same route carries a tag → inherit
+  it (routes don't change surface; this propagates manual corrections);
+  (2) geometric laps → `wtc` (loop closure to the launch anchor is
+  near-certain WTA); (3) surface: ≥10 % rough suspension frames
+  (travel rate > 2.8/s) at ≥0.7 jumps/min → `dirt`, ≥3.5 jumps/min →
+  `cross`, ≤3 % rough and <0.7 jumps/min → `road`; in-between or thin
+  evidence → no tag. Frames with `|NormalizedDrivingLine| = 127` (far off
+  course) and flights taken off-course contribute **no** surface evidence —
+  off-roading a tarmac event can't fake a dirt tag. Near-zero cornering
+  (drag strips) → no tag. street/touge read as tarmac → suggested `road`
+  (accepted; one manual correction sticks via route inheritance).
+  Thresholds calibrated on the stored real captures (2026-07-12 sweep,
+  dump/hand-label/DB-sweep like the landing classifier): 9/9 labeled
+  sessions matched, 0 hard mismatches. Reprocess back-fills old sessions
+  (`_ReplayStore.end_session` applies auto-tags only). Manually changing a
+  session's type offers to retag the whole route (`PATCH /routes/{id}`
+  `track_type`).
+- The allowed track-type set lives in **three places that must stay in
+  sync**: `TRACK_TYPES` (api/routes.py), `TRACK_META` (common.js), and the
+  `#track-select` options (analysis.html) — plus everything
+  `suggest_track_type` (laps.py) can return must be a member of
+  `TRACK_TYPES` (locked by a test).
+
+When changing `_lap_logic`, walk every branch against: circuit race with finish,
+Rivals (endless laps), free-roam cruise, free-roam time-attack, sprint, dirt
+sprint (CurrentLap counts + distance-reset finish), World
+Time Attack (no lap fields), rewind mid-lap, rewind across the start line,
+server joining mid-lap, event restart.
+
+## Frontend conventions
+
+- Vanilla JS + canvas; uPlot (vendored) only on the analysis page. No frameworks,
+  no bundler — keep it that way, it's the point of the repo.
+- Theme lives in CSS custom props in `style.css`; display font is vendored
+  Rajdhani (OFL) in `app/static/fonts` — the app must work fully offline.
+- Shared UI helpers (badges: class/PI, drivetrain, conditions, track type) live in
+ `common.js` and are used by both pages.
+- The analysis browse bar (`browse.js`) filters, searches and sorts **client-side**
+ over the `/api/sessions` payload — the endpoint takes no query params on purpose.
+ Keep it that way while the list is a few hundred rows; past a few thousand
+ sessions add `?since=` / `?limit=` rather than more facets. Facets persist under
+ their own `ls_browse` key, not in `ls_settings` (that one is display prefs).
+- A merged run group is an **index over sessions**, never a rewrite of them:
+ `session_groups` + `sessions.group_id` only. Ungrouping must always be free,
+ and a member's frames, laps and manual edits must survive every group
+ operation untouched. Membership is validated on write, never on read.
+- `#session-list` is rebuilt only when its content signature changes and its
+ `scrollTop` is restored when it is — the list re-renders on a 15 s poll and after
+ every edit, and a naive `innerHTML = ""` scrolls the user back to the top.
+- Menus, bars and other chrome get `cursor` and `user-select` set explicitly.
+ `cursor: auto` over a block with text in it draws a text caret, so a popover's
+ own padding shows an I-beam between its rows unless the popover says otherwise.
+- Style modal fields by input **type**. A bare `.modal input` rule also hits the
+ checkboxes callers put in `extra` (lap flags, merge list) and stretches them to
+ `width: 100%`, which reads as a centred box with wrapped labels.
+- User display preferences (units, map toggles) live in `settings.js`, stored
+ **`localStorage`-only** under one `ls_settings` key — there is no backend for
+ them and there should not be: the recorder stores raw packets and every
+ conversion (`speedFromMps`, `tempFromF`, `distFromM`, …) is applied at display
+ time, so units never touch stored data. Pages read via `getSettings()` and
+ re-render through `onSettingsChange`. Migrated the pre-Settings `fc_mph` /
+ `fc_mapmode` keys once on load.
+- Server sends `Cache-Control: no-cache` for non-API paths (browsers cached stale
+  JS once); keep that middleware.
+- Canvas gauges are pure functions of passed state (`gauges.js`); DPR-scaled via
+  `initCanvas`.
+- The live track map resets on session-id change and on any single-frame
+  position jump > 250 m (grid snap / event restart — a car can't move that far
+  in 1/60 s; keeping the old points would wreck the bounds). The finished
+  track intentionally stays on screen until the next event starts drawing.
+
+## Testing scenarios that must keep passing
+
+Each row is both a headless assertion in `tests/test_scenarios.py` (run through
+the fake-socket harness — fast, no container) and a manual simulator command for
+full-stack / visual checks. Keep the two in step: a new detection scenario needs
+a row here, a test, and usually a simulator flag.
+
+| Scenario | Command | Expected |
+|---|---|---|
+| Laps + wet + route | `--freeroam 20 --events 2 --wet` | free-roam discarded, 2 sessions, wet-tagged, same route |
+| Dirty laps | `--duration 180 --dirty` | lap 2 `contact`, lap 3 `rewind`, charts deduped |
+| Race finish | `--race 3 --duration 200` | 3 laps all timed (last via finish detection), no phantom open lap |
+| Point-to-point | `--sprint 75` | session kept, single run ≈75 s, route assigned |
+| Real dirt sprint | `--dirt 40` | single run ≈40 s (CurrentLap counts, `DistanceTraveled`-reset finish), route assigned, no phantom coast lap |
+| Touge (cut at line) | `--dirt 40 --cut` | single run ≈40 s flagged `cutoff` (CurrentLap counts, stream cut dead at speed), route assigned |
+| Sprint, stream cut at line | `--sprint 60 --cut` | session kept, single run ≈60 s flagged `cutoff`, route assigned |
+| World Time Attack | `--wta 3` | launch + 3 geometric laps + distance-reset finish, no post-finish phantom lap |
+| WTA, stream cut at the line | `--wta 3 --cut` | 3 geometric laps, last flagged `cutoff` (pending crossing finalized at session end), no phantom lap |
+| Jumps in 3D | `--sprint 75 --jumps` (or any + `--jumps`) | 3D map scale sane, spikes capped, run NOT flagged `contact` (landings excused) |
+| Track type: circuit/sprint | `--race 3` / `--sprint 75` | session auto-tagged `road` (smooth suspension, no jumps) |
+| Track type: dirt | `--dirt 60` | auto-tagged `dirt` (washboard suspension, low jump rate) |
+| Track type: cross | `--dirt 60 --jumps` | auto-tagged `cross` (dirt surface + a crest every few hundred meters) |
+| Track type: WTA | `--wta 3` | auto-tagged `wtc` (geometric laps) |
+| Track type: route inheritance | two events, same route | a tag set on the route's earlier session wins over telemetry for later ones |
+| Landing vs contact | `--duration 180 --dirty --jumps` | lap 2 `contact` (wall hit), all other laps clean despite hard jump landings; `/laps/{id}/data` tags landing bursts `landing: true` (amber on the map) |
+| Aero cornering vs contact | hand-built frames (`test_tracker.py`, `test_api.py`) | a burst that ramps past 45 m/s² and holds is *not* contact (no flag, no marker); a one-frame jump of `IMPACT_JERK` is, even mid-burst on top of aero load (issue #49) |
+| Race-mode gating | `--freeroam 35 --race 3` | chip FREE ROAM then RACE MODE; timer dashed in free roam; live map draws the race only |
+
+---
+> Source: [darcane/LapScope](https://github.com/darcane/LapScope) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
