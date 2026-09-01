@@ -1,0 +1,9 @@
+{
+  "name": "10k-digital--lovable-agent-skills",
+  "displayName": "lovable-agent-skills",
+  "description": "Ever wanted to use Claude Code, Codex and other AI agents to edit projects in Lovable? Wait no further. This repo has a plug-in with Claude Code, Codex, and others, that lets it edit projects on Lovab",
+  "version": "1.0.0",
+  "author": "10K-Digital",
+  "homepage": "https://github.com/10K-Digital/lovable-agent-skills",
+  "skills": []
+}
