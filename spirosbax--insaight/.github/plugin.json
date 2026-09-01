@@ -1,0 +1,9 @@
+{
+  "name": "spirosbax--insaight",
+  "displayName": "insaight",
+  "description": "LinkedIn prospect intelligence inside Claude \u2014 MCP server + 8 skills that research people, companies and comment threads, draft outreach, and learn what gets replies.",
+  "version": "1.0.0",
+  "author": "spirosbax",
+  "homepage": "https://github.com/spirosbax/insaight",
+  "skills": []
+}
