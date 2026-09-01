@@ -1,0 +1,44 @@
+{
+  "name": "sglang-glm53-flash-sm120",
+  "owner": "ormandj",
+  "repo": "sglang-glm53-flash-sm120",
+  "description": "SGLang GLM-5.3-Flash on 2x RTX PRO 6000 Blackwell (SM120, TP2): C4 @ 507k-token KV pool, W4A16+FP8-mix quant, HiCache, native MTP \u2014 reproducible image, producers, bench harness, receipts",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ormandj/sglang-glm53-flash-sm120",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T16:30:24Z"
+}
