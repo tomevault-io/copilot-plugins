@@ -1,0 +1,9 @@
+{
+  "name": "sidneybissoli--ibge-br-mcp",
+  "displayName": "ibge-br-mcp",
+  "description": "MCP Server for IBGE APIs - Brazilian geographic, demographic and statistical data",
+  "version": "1.0.0",
+  "author": "SidneyBissoli",
+  "homepage": "https://github.com/SidneyBissoli/ibge-br-mcp",
+  "skills": []
+}
