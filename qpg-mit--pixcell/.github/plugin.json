@@ -1,0 +1,9 @@
+{
+  "name": "qpg-mit--pixcell",
+  "displayName": "PixCell",
+  "description": " A Neurosymbolic Approach to Photonic Component Creation for Retargetable PDKs and RL",
+  "version": "1.0.0",
+  "author": "QPG-MIT",
+  "homepage": "https://github.com/QPG-MIT/PixCell",
+  "skills": []
+}
