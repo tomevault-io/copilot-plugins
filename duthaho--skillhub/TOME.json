@@ -1,0 +1,44 @@
+{
+  "name": "skillhub",
+  "owner": "duthaho",
+  "repo": "skillhub",
+  "description": "Give Claude Code a memory and make it cite its sources \u2014 keyless skills for research, daily work, and an evidence-gated coding loop.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/duthaho/skillhub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T05:07:36Z"
+}
