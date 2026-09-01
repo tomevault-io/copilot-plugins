@@ -1,0 +1,9 @@
+{
+  "name": "burntcookiedough--eve-windows-dictation",
+  "displayName": "eve-windows-dictation",
+  "description": "Local-first Windows dictation with packaged offline ASR, lifecycle hardening, and privacy-bounded diagnostics.",
+  "version": "1.0.0",
+  "author": "burntcookiedough",
+  "homepage": "https://github.com/burntcookiedough/eve-windows-dictation",
+  "skills": []
+}
