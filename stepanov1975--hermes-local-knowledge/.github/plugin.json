@@ -1,0 +1,9 @@
+{
+  "name": "stepanov1975--hermes-local-knowledge",
+  "displayName": "hermes-local-knowledge",
+  "description": "Hermes Agent plugin for local knowledge search and artifact routing\u2014find the right skill, script, runbook, cron job, MCP server, or document.",
+  "version": "1.0.0",
+  "author": "stepanov1975",
+  "homepage": "https://github.com/stepanov1975/hermes-local-knowledge",
+  "skills": []
+}
