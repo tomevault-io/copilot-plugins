@@ -1,0 +1,9 @@
+{
+  "name": "ozykhan--iina-airplay",
+  "displayName": "iina-airplay",
+  "description": "AirPlay for IINA \u2014 cast the video you're watching to an Apple TV from macOS. No screen mirroring, no re-encode. Remuxes to HLS on your LAN; IINA stays the remote.",
+  "version": "1.0.0",
+  "author": "ozykhan",
+  "homepage": "https://github.com/ozykhan/iina-airplay",
+  "skills": []
+}
