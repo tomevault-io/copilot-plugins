@@ -1,0 +1,9 @@
+{
+  "name": "razr001--audit-mind",
+  "displayName": "audit-mind",
+  "description": "AuditMind \u662f\u4e00\u4e2a\u9762\u5411\u6cd5\u89c4\u5408\u89c4\u4e0e\u5ba1\u8ba1\u573a\u666f\u7684 AI Agent \u7cfb\u7edf\uff0c\u652f\u6301\u6cd5\u89c4\u77e5\u8bc6\u7ba1\u7406\u3001\u53ef\u8ffd\u6eaf\u89c4\u5219\u62bd\u53d6\u3001\u6587\u6863\u5408\u89c4\u5ba1\u8ba1\u3001\u5ba1\u8ba1\u4efb\u52a1\u7ba1\u7406\u548c\u57fa\u4e8e\u539f\u6587\u8bc1\u636e\u7684\u667a\u80fd\u95ee\u7b54",
+  "version": "1.0.0",
+  "author": "razr001",
+  "homepage": "https://github.com/razr001/audit-mind",
+  "skills": []
+}
