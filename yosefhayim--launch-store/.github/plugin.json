@@ -1,0 +1,9 @@
+{
+  "name": "yosefhayim--launch-store",
+  "displayName": "launch-store",
+  "description": "Self-hosted CLI for building, signing, and shipping Expo/React Native apps to TestFlight and Google Play.",
+  "version": "1.0.0",
+  "author": "YosefHayim",
+  "homepage": "https://github.com/YosefHayim/launch-store",
+  "skills": []
+}
