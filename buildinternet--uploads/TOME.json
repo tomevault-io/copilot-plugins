@@ -4,7 +4,7 @@
   "repo": "uploads",
   "description": "Lightweight upload tool for coding agents to add screenshots to pull requests. Cloud and self-host options.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/buildinternet/uploads",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T01:19:15Z"
+  "distributed_at": "2026-09-01T01:38:17Z"
 }
