@@ -1,0 +1,9 @@
+{
+  "name": "jimezsa--deep-assembly-lines",
+  "displayName": "Deep_Assembly_Lines",
+  "description": "\ud83d\udee0\ufe0f 3D-Assembly-Vision: Real-time 3D monitoring for industrial assembly. Powered by YOLOv11, DOPE, VGGT and LSTM for synchronized 6D pose estimation and scene reconstruction.",
+  "version": "1.0.0",
+  "author": "jimezsa",
+  "homepage": "https://github.com/jimezsa/Deep_Assembly_Lines",
+  "skills": []
+}
