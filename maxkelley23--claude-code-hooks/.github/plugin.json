@@ -1,0 +1,9 @@
+{
+  "name": "maxkelley23--claude-code-hooks",
+  "displayName": "claude-code-hooks",
+  "description": "Powerful hooks for Claude Code: safety guardrails, auto-formatting, skill activation, session context, and change tracking",
+  "version": "1.0.0",
+  "author": "maxkelley23",
+  "homepage": "https://github.com/maxkelley23/claude-code-hooks",
+  "skills": []
+}
