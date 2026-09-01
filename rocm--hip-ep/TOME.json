@@ -4,7 +4,7 @@
   "repo": "hip-ep",
   "description": "ROCm Execution Provider for ONNX Runtime on AMD GPUs. Compiles ONNX models through MLIR to LLVM bitcode, JIT-loads them at session creation, and dispatches to hipDNN, MIOpen, hipBLASLt, and custom HIP kernels",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ROCm/hip-ep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T18:32:14Z"
+  "distributed_at": "2026-09-01T18:33:45Z"
 }
