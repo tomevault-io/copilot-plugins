@@ -1,0 +1,9 @@
+{
+  "name": "botaoshen--deswik-claude-project",
+  "displayName": "Deswik_Claude_Project",
+  "description": "Python SDK for reading, editing, and generating Deswik process map files (.ddf) using Claude AI",
+  "version": "1.0.0",
+  "author": "botaoshen",
+  "homepage": "https://github.com/botaoshen/Deswik_Claude_Project",
+  "skills": []
+}
