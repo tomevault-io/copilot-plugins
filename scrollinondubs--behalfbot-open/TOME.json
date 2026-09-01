@@ -1,0 +1,44 @@
+{
+  "name": "BehalfBot-open",
+  "owner": "scrollinondubs",
+  "repo": "BehalfBot-open",
+  "description": "Vendor-agnostic port of the behalf.bot / Jax assistant chassis onto the OpenCode harness with open-weight models (Venice / OpenRouter). Proof-of-concept.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scrollinondubs/BehalfBot-open",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T06:55:47Z"
+}
