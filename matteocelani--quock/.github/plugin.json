@@ -1,0 +1,9 @@
+{
+  "name": "matteocelani--quock",
+  "displayName": "quock",
+  "description": "Native iOS & Android client for Ollama Cloud \u2014 streaming chat, image & file attachments, and web search",
+  "version": "1.0.0",
+  "author": "matteocelani",
+  "homepage": "https://github.com/matteocelani/quock",
+  "skills": []
+}
