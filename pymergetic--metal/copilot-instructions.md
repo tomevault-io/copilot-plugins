@@ -1,53 +1,37 @@
-## metal-freestanding-libc
+## metal-generated-gitignore
 
-> Firmware C must use metal/libc under -nostdinc; never host compiler ISO C headers
+> Codegen outputs live under a single wholesale-gitignored include/ tree, never beside human source
 
 
-# Freestanding metal/libc (no host compiler stddef/stdint/...)
+# Generated files are gitignored (wholesale, under `include/`)
 
-Firmware / shared Metal C is built with `-nostdinc` and
-`-I.../pymergetic/metal/libc`. Angled includes like `<stddef.h>`, `<stdint.h>`,
-`<string.h>`, `<stdio.h>`, `<stdlib.h>`, `<stdarg.h>`, `<stdbool.h>`,
-`<limits.h>`, `<assert.h>` must resolve to **that** tree — never the host
-toolchain's `/usr/lib/clang/.../include` or `/usr/include`.
+Full layout: [`docs/definitions/module.md`](../../docs/definitions/module.md).
 
-**Why:** host `stddef.h` / `stdint.h` disagree with freestanding Metal on
-`size_t` / LLP64 vs LP64 / `NULL`, and clangd without `-nostdinc` silently
-pulls the wrong headers (extra cognitive load + wrong types in the IDE).
+**A module's own directory under `src/` holds only `_impl/` (human
+sources) and `.pm/` (metadata) — never a generated face, never a
+per-module `.gitignore` managed block.** All codegen for every module,
+own-language pool faces and foreign-consumer faces alike, lands under
+`include/pymergetic/metal/<mod>/...`, mirrored from `_impl/` with that
+segment and any leading underscores stripped.
 
-## Required compile / IDE flags
+**Ownership:** generated faces carry an in-file banner
+(`DO NOT HAND-EDIT THIS FILE.`). That line is the write gate — sync
+refuses to overwrite a file that exists without it (this should never
+actually trigger since nothing hand-writes into `include/`).
 
-Every TU under `src/pymergetic/metal/**` must see:
+**Rule:** the entire `include/` tree is generated and gitignored with a
+single root-level line — no per-file or per-module bookkeeping:
 
-```text
--ffreestanding -nostdinc -Isrc/pymergetic/metal/libc -Isrc
+```gitignore
+/include/
 ```
 
-- Build: `./tools/forge build` (bios/efi).
-- clangd: package-root `.clangd` PathMatch for `src` forces freestanding
-  flags + metal/libc.
-- After changing `.clangd` / compile DB: restart clangd.
-
-## Source rules
-
-- Prefer `#include <string.h>` / `<stdio.h>` / … (metal/libc) over local
-  `memcpy` / `strlen` prototypes or private copies.
-- One `.c` per libc header that needs bodies (`string.c`, `stdio.c`, `stdlib.c`);
-  header-only: `stddef`, `stdint`, `stdbool`, `stdarg`, `limits`, `assert`.
-- Do **not** add a second `stddef.h` elsewhere, and do not `#include_next` the
-  compiler header.
-- EDK2 headers stay only under `boot/platform/efi/**` (see metal-c-dialect).
-
-## Verify
-
-```bash
-clang -ffreestanding -nostdinc \
-  -Isrc/pymergetic/metal/libc -Isrc -E \
-  - <<<'#include <stddef.h>' | head -5
-# expect a path under src/pymergetic/metal/libc/stddef.h
-```
-
-If you see a path under `/usr/...` or `lib/clang/...`, flags are wrong.
+- `metal mod clean` wipes generated faces; `metal mod sync` regenerates
+  the whole tree — there is no partial/stale state to reconcile
+  file-by-file.
+- Human `_impl/__init__.{ext}`, `.pm/module`, `.pm/Cargo.toml`, ports
+  stay tracked as normal — none of them ever live under `include/`.
+- Never ignore `.pm/Cargo.toml` or any other human schema file.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
