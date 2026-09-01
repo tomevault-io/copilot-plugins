@@ -1,0 +1,9 @@
+{
+  "name": "coderadius-ai--coderadius",
+  "displayName": "coderadius",
+  "description": "Prevent cross-repo architectural breakage before merge. Architecture knowledge graph from static analysis, blast radius in CI, MCP server for AI agents.",
+  "version": "1.0.0",
+  "author": "coderadius-ai",
+  "homepage": "https://github.com/coderadius-ai/coderadius",
+  "skills": []
+}
