@@ -4,7 +4,7 @@
   "repo": "tinyjuice",
   "description": "A juicy token compression algorithm. Compress upto 95% of tokens without any loss. Free & Opensource",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tinyhumansai/tinyjuice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T01:22:46Z"
+  "distributed_at": "2026-09-01T02:36:30Z"
 }
