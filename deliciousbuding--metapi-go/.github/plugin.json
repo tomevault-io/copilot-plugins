@@ -1,0 +1,9 @@
+{
+  "name": "deliciousbuding--metapi-go",
+  "displayName": "metapi-go",
+  "description": "MetAPI Go rewrite \u2014 meta-layer management and unified proxy for AI API aggregation platforms",
+  "version": "1.0.0",
+  "author": "DeliciousBuding",
+  "homepage": "https://github.com/DeliciousBuding/metapi-go",
+  "skills": []
+}
