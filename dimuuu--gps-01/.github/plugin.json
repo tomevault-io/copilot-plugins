@@ -1,0 +1,9 @@
+{
+  "name": "dimuuu--gps-01",
+  "displayName": "gps-01",
+  "description": "A tiny interactive explainer of how a GPS receiver turns radio timing into a position and a clock correction.",
+  "version": "1.0.0",
+  "author": "dimuuu",
+  "homepage": "https://github.com/dimuuu/gps-01",
+  "skills": []
+}
