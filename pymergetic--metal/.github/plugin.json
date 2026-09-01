@@ -1,0 +1,9 @@
+{
+  "name": "pymergetic--metal",
+  "displayName": "metal",
+  "description": "Experimental blank-metal async runtime: UEFI/BIOS, per-CPU runners, signed wasm/AOT over HTTP, MicroPython, ASGI/SSH. High-speed awaitable APIs \u2014 not a hosted OS.",
+  "version": "1.0.0",
+  "author": "pymergetic",
+  "homepage": "https://github.com/pymergetic/metal",
+  "skills": []
+}
