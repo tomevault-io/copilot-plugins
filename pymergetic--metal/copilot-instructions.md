@@ -1,65 +1,30 @@
-## metal-warnings-as-errors
+## no-incomplete-stubs
 
-> Treat compiler/Rust warnings as hard errors — fix root cause, never hide
+> Never ship incomplete APIs that pretend to work
 
 
-# Warnings are errors (no hiding)
+# No stubs that lie
 
-**Why:** Green exit codes with a wall of warnings ship rot. The owner treats
-warnings as build failures.
+Never expose a public function, method, or symbol that only validates args /
+returns success while the real behavior is "TODO later."
 
-## Hard rule
+- No `stub` that returns `OK` / `0` / empty success
+- No "v1: null-check only" behind a shipped name
+- No comments like "grows here" on a call path callers depend on
 
-- A warning in **Metal first-party** or **Metal-patched third_party** is a
-  **hard error**. Do not declare the task done until it is gone.
-- **Do not** paper over with `-Wno-*`, `#pragma`, `#[allow(...)]`, or
-  log filters unless the warning is in **unmodified upstream** that Metal
-  does not own (the `-Wno-*` set on the µPy core in `port/upy.mk` only).
-- Prefer the **correct type/control-flow fix** over silencing.
+Either implement the real behavior, or do not put the symbol in the public
+header / API yet (keep it private, unexported, or behind an explicit
+unfinished gate that fails closed — never silent success).
 
-## Required agent habit
+This covers build targets too. A board whose `build.mk` re-includes another
+board's image under a different arch name is a stub that lies: the artifact
+boots nowhere it claims to. Ship no board rather than a mislabelled one.
 
-1. Scan the full build log for `warning:` / `unused` / `-W` after every
-   build you run (host, upy, browser, firmware, `cargo test`, `dev-up`).
-2. If warnings appear: **stop**, fix root cause, rebuild, prove clean.
-3. Do not say "OK" / mark todos complete while warnings remain in scope.
-
-## Polyglot: three layers of "used"
-
-Do not confuse rustc `dead_code`, a missing face, and runtime callers.
-There is no static matrix to consult — ask the live registry.
-
-| Layer | Question | Soft? |
-|-------|----------|-------|
-| **Missing face** | Does the card show up on this seat — `pm_wasmmod_registry_module_at` / `export_at` after boot? | **No** — a card that never registers is a gap. |
-| **rustc `dead_code`** | Reachable in this compiled TU/crate? | Private rot = error. Public / `#[no_mangle]` / registered via `PM_MOD_EXPORT_RS!` = used. |
-| **Runtime call** | Did someone invoke it via that language? | **Yes** — an unused caller is normal; do not delete faces for it. |
-
-Rules:
-
-- `PM_MOD_EXPORT_C` / `PM_MOD_EXPORT_RS!` makes the compiler see a symbol as
-  used **and** puts it in the registry — that is the same act, not two.
-- Fix a gap by registering the missing face, never by loosening the prove
-  that walks the registry.
-- Host vs freestanding: compile only what the target owns (`cfg` /
-  `PM_WASMMOD_GUEST`); do not `#[allow(dead_code)]` optional faces.
-- Never delete a face to silence rustc; register it or `cfg` the whole
-  export out of that image.
-
-## Examples
-
-```text
-BAD:  -Wno-unused-function on vendor lfs because asserts are no-ops
-GOOD: #define LFS_NO_ASSERT so unused assert helpers are not compiled
-
-BAD:  ignore -Wsign-compare in wireguard base64 loops
-GOOD: use size_t indices / cast byte counts correctly
-
-BAD:  cargo test green while lib emits 17 dead_code warnings you introduced
-GOOD: fix or gate dead code; do not grow #![allow(dead_code)]
-
-BAD:  drop the assert so a seat missing the card still proves green
-GOOD: register the card on that seat; keep the registry walk strict
+```make
+# BAD — X86_UEFI/build.mk: 32-bit seat that is the 64-bit PE renamed
+include boards/X86_64_UEFI/build.mk
+$(BUILD)/esp/EFI/BOOT/BOOTIA32.EFI: $(BUILD)/esp/EFI/BOOT/BOOTX64.EFI
+	cp -f $< $@
 ```
 
 ---
