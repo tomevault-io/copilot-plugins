@@ -1,0 +1,9 @@
+{
+  "name": "hieuanh87--sentry-selfhosted-mcp",
+  "displayName": "sentry-selfhosted-mcp",
+  "description": "MCP server for self-hosted Sentry: issues, events, releases, users, org stats, and project diagnostics for AI assistants.",
+  "version": "1.0.0",
+  "author": "HieuAnh87",
+  "homepage": "https://github.com/HieuAnh87/sentry-selfhosted-mcp",
+  "skills": []
+}
