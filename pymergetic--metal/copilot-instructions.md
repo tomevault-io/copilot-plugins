@@ -1,53 +1,44 @@
-## metal-clangd-no-abs-paths
+## metal-cleanup-debris
 
-> No absolute paths in IDE/build metadata — except CDB directory (clangd match)
+> Leave no plumbing debris — delete superseded files, dual paths, and scratch artifacts when finishing a change
 
 
-# No absolute paths in IDE / build metadata
+# Cleanup after yourself (no plumber debris)
 
-Never write checkout-absolute or machine-absolute paths into generated or
-checked-in IDE/build metadata **except** `compile_commands.json`
-`"directory"` (see below). That includes:
+**Why:** half-finished plumbing (sidecar files, renamed twins, scrape needles,
+scratch markers) stays in the tree and burns the next read. If you would not
+want a tradesperson to leave their trash, do not leave yours.
 
-- `.clangd` / `.clangd.template` / nested `**/.clangd` (`-I` stays relative)
-- CDB `"file"` and command `-I` / `--sysroot` (package-relative only)
-- emitted path bits in setup/ide scripts that land in those files
+## When finishing any change
 
-**Banned elsewhere:** `/home/...`, `/Users/...`, drive letters, `$PWD`
-expansions, `@@ROOT@@` → absolute, absolute `-I` / `--sysroot` / `"file"`.
-Tool binaries in CDB commands are bare names (`clang`), not `/usr/bin/clang`.
+1. **Delete what you replaced.** Renamed `foo` → `bar`? Remove `foo`. Inlined a
+   const that lived in a sidecar file? Delete the sidecar. Moved logic into an
+   API? Grep for the old call sites / strings and remove them.
+2. **One path per job.** No parallel “old scrape + new mark”, no `_notes.rs`
+   beside `notes.rs`, no `include_bytes!("…/ready_mark")` after the mark lives
+   in a `const`. Prefer one source; if host and firmware cannot share a crate,
+   one canonical const plus a one-line “keep identical” comment beats a junk
+   file used only as a byte ferry.
+3. **No scratch left tracked.** Temp logs, `*.bak`, experiment stems, empty
+   stubs, and “just for this debug session” files must be gone before you stop
+   (or never added under `src/`).
+4. **Grep the old name.** After a rename/inline/API swap, search the old
+   symbol, path, and distinctive string. Zero hits outside intentional history
+   comments.
 
-## CDB `directory` is the one exception
+## Banned leftovers (concrete)
 
-clangd 22 does **not** match entries with `"directory": "."` + a relative
-`"file"` — it falls back to Generic (cwd = source file dir). With
-`-nostdinc`, package-relative `-Isrc/pymergetic/metal/libc` then misses and
-the editor reports `'stddef.h' file not found`.
+- Sidecar data files whose only job was `include_str!` / `include_bytes!` of a
+  short constant (put the bytes in the owning `.rs` / `.c`)
+- Duplicate stems after a move (`_notes.rs` + `notes.rs`)
+- Host scrapers still matching human UX text after a machine mark exists
+- Commented-out old bodies “in case we need them”
 
-| Artifact | Form |
-|----------|------|
-| package-root `.clangd*` | package-relative (`-Isrc/...`, `-Ibuild`, `-I.`) |
-| nested module `.clangd` | relative to the **source file's directory** (Generic cwd), or to that `.clangd` file when using `CompilationDatabase: None` (bios ports) |
-| `compile_commands.json` | `"directory":` **absolute package root** (forge writes canonicalize); `"file"` / `-I` package-relative (`src/...`) |
+## Verify
 
-`scripts/setup.d/deps/ide.sh` (or forge) **must not** `sed` / expand
-`${ROOT}` into `.clangd*` files.
-
-## Verify after any touch
-
-```
-rg -n '/home/|/Users/|[A-Za-z]:\\\\|@@ROOT@@' .clangd .clangd.template \
-  tests/host/.clangd tests/host/.clangd.template \
-  src -g '*.clangd' 2>/dev/null
-```
-
-Must return nothing (skip missing files). CDB `directory` abs is expected:
-
-```
-rg -n '"file":\s*"/|-I/|--sysroot\s*/' compile_commands.json
-```
-
-Must return nothing (`"directory": "/..."` is OK).
+Before claiming done: `git status` / directory listing of touched folders looks
+intentional — only the real API and its callers, not the scaffolding you used
+to get there.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
