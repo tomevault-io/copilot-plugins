@@ -1,0 +1,9 @@
+{
+  "name": "mdmesh-app--mdmesh",
+  "displayName": "MDMesh",
+  "description": "A modern, self-hosted Android MDM \u2014 fleet control, kiosk, app delivery, and signed auto-updates, with a console that doesn't feel like 2012.",
+  "version": "1.0.0",
+  "author": "MDMesh-app",
+  "homepage": "https://github.com/MDMesh-app/MDMesh",
+  "skills": []
+}
