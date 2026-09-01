@@ -1,0 +1,9 @@
+{
+  "name": "tornikegomareli--claude-plugin-codex",
+  "displayName": "claude-plugin-codex",
+  "description": "Use Claude Models from Codex to review or delegate tasks",
+  "version": "1.0.0",
+  "author": "tornikegomareli",
+  "homepage": "https://github.com/tornikegomareli/claude-plugin-codex",
+  "skills": []
+}
