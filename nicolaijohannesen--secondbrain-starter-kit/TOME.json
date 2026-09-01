@@ -1,0 +1,44 @@
+{
+  "name": "SecondBrain-Starter-Kit",
+  "owner": "NicolaiJohannesen",
+  "repo": "SecondBrain-Starter-Kit",
+  "description": "Your AI-maintained second brain, clonable. 24 seed pages, epistemic quality layer, maintenance loops, data-export guides. Fork free; professional setup available.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NicolaiJohannesen/SecondBrain-Starter-Kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T04:32:11Z"
+}
