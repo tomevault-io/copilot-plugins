@@ -4,7 +4,7 @@
   "repo": "filament-topbar-menu",
   "description": "Filament Topbar Menu",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vaslv/filament-topbar-menu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T02:38:56Z"
+  "distributed_at": "2026-09-01T03:31:36Z"
 }
