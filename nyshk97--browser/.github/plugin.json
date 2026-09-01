@@ -1,0 +1,9 @@
+{
+  "name": "nyshk97--browser",
+  "displayName": "browser",
+  "description": "My daily-driver web browser, built as an Arc alternative. Electron + WebContentsView, with Chrome extension support.",
+  "version": "1.0.0",
+  "author": "nyshk97",
+  "homepage": "https://github.com/nyshk97/browser",
+  "skills": []
+}
