@@ -4,7 +4,7 @@
   "repo": "lever-gaokao",
   "description": "Lever-GaoKao: \u57fa\u4e8e\u4eba\u751f\u6760\u6746\u7406\u5ff5\u7684\u9ad8\u8003\u5fd7\u613f\u586b\u62a5\u667a\u80fd\u4f53",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XucroYuri/lever-gaokao",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T03:30:50Z"
+  "distributed_at": "2026-09-01T05:06:25Z"
 }
