@@ -7,14 +7,14 @@ JAX-native simulation engine for hybrid dynamical systems — block-diagram mode
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [machinavitalis/jaxonomy](https://github.com/machinavitalis/jaxonomy).
+Original source: `.cursor/rules/*.mdc` in [machinavitalis/jaxonomy](https://github.com/machinavitalis/jaxonomy).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [machinavitalis/jaxonomy](https://github.com/machinavitalis/jaxonomy) — a repo with 18+ stars on GitHub.
