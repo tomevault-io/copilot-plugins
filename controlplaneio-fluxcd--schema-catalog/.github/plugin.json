@@ -1,0 +1,9 @@
+{
+  "name": "controlplaneio-fluxcd--schema-catalog",
+  "displayName": "schema-catalog",
+  "description": "LLM-optimized Schema Catalog for the Kubernetes Ecosystem",
+  "version": "1.0.0",
+  "author": "controlplaneio-fluxcd",
+  "homepage": "https://github.com/controlplaneio-fluxcd/schema-catalog",
+  "skills": []
+}
