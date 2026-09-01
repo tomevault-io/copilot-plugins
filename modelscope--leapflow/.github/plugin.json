@@ -1,0 +1,9 @@
+{
+  "name": "modelscope--leapflow",
+  "displayName": "leapflow",
+  "description": "LEAP: Learning and Evolving in Active Perception for Real-Time Signal Processing",
+  "version": "1.0.0",
+  "author": "modelscope",
+  "homepage": "https://github.com/modelscope/leapflow",
+  "skills": []
+}
