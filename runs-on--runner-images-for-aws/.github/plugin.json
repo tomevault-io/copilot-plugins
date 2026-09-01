@@ -1,0 +1,9 @@
+{
+  "name": "runs-on--runner-images-for-aws",
+  "displayName": "runner-images-for-aws",
+  "description": "runner-images-for-aws",
+  "version": "1.0.0",
+  "author": "runs-on",
+  "homepage": "https://github.com/runs-on/runner-images-for-aws",
+  "skills": []
+}
