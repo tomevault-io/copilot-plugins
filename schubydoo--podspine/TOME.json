@@ -4,7 +4,7 @@
   "repo": "podspine",
   "description": "Self-hosted server that turns audiobook files into per-chapter podcast RSS feeds any podcast app can play.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/schubydoo/podspine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T01:15:38Z"
+  "distributed_at": "2026-09-01T01:29:34Z"
 }
