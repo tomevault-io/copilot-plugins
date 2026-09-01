@@ -1,0 +1,9 @@
+{
+  "name": "nvdli--nemoclawdli",
+  "displayName": "NemoClawDLI",
+  "description": "Free NVIDIA DLI course: build, coordinate, and secure AI agents with NemoClaw and OpenShell. Browser-based, no GPU required. Available in English, Spanish, and Brazilian Portuguese.",
+  "version": "1.0.0",
+  "author": "NVDLI",
+  "homepage": "https://github.com/NVDLI/NemoClawDLI",
+  "skills": []
+}
