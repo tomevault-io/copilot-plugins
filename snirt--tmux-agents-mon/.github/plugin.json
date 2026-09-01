@@ -1,0 +1,9 @@
+{
+  "name": "snirt--tmux-agents-mon",
+  "displayName": "tmux-agents-mon",
+  "description": "Monitor AI coding agents (Claude Code, Codex, OpenCode, Pi) in your tmux panes \u2014 sidebar + status-line segment",
+  "version": "1.0.0",
+  "author": "snirt",
+  "homepage": "https://github.com/snirt/tmux-agents-mon",
+  "skills": []
+}
