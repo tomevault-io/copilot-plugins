@@ -1,0 +1,9 @@
+{
+  "name": "duthaho--skillhub",
+  "displayName": "skillhub",
+  "description": "Give Claude Code a memory and make it cite its sources \u2014 keyless skills for research, daily work, and an evidence-gated coding loop.",
+  "version": "1.0.0",
+  "author": "duthaho",
+  "homepage": "https://github.com/duthaho/skillhub",
+  "skills": []
+}
