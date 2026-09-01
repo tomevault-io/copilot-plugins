@@ -1,0 +1,9 @@
+{
+  "name": "emrecanozturk--intentflow-ios",
+  "displayName": "intentflow-ios",
+  "description": "Workflow-first, AI-ready iOS architecture with typed effects, manifests, SwiftUI/UIKit examples, and agent-safe code generation.",
+  "version": "1.0.0",
+  "author": "emrecanozturk",
+  "homepage": "https://github.com/emrecanozturk/intentflow-ios",
+  "skills": []
+}
