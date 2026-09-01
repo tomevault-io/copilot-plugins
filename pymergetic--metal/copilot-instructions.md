@@ -1,57 +1,63 @@
-## metal-ide-lint
+## metal-no-inline-public-borders
 
-> Lint always from the IDE/user view; warnings count as errors; build-clean is not enough
+> Cross-module C borders must be real (non-inline) functions — static inline cannot be a link-time ABI symbol, so forge's generated include/ mirror can never carry it faithfully
 
 
-# IDE lint = user interface (always)
+# No `static inline` on public/exported borders
 
-The owner is not connected to the code the way an agent is. **The IDE is
-their interface** — Problems / squiggles are what they see first and trust.
-A change that "builds" but leaves red or yellow underlines is unfinished.
+**Why (the fundamental reason):** you cannot register what has no address.
+Every module's public border is meant to publish into the one registry
+(`RegEntry.fn` — a real `void *` to one real function), which every
+generated cross-module call site resolves through — see
+`registration_rethink_scope`'s "Registry design verdict" and
+[`docs/definitions/module.md`](../../docs/definitions/module.md) "Module
+lifecycle". `static inline` has no guaranteed single link-time address at
+all: the compiler is free to inline it away completely at every call site,
+or emit a separate private copy per translation unit — there is nothing
+stable to put in that `fn` slot. A function meant to be reachable from
+outside its own module has to be a real, addressable symbol for the
+registry to have anything to point at, independent of any codegen/header
+concern.
+
+**Why (the codegen consequence):** `forge mod sync` mirrors every module's
+real, non-`_`-prefixed public surface into
+`include/pymergetic/metal/<mod>/...` for every consumer language
+(C/Rust/Python/toml) — see
+[`docs/definitions/module.md`](../../docs/definitions/module.md) "Lang pool".
+That mirror is built from the catalog: struct/enum/typedef shapes and plain
+function *signatures*. A `static inline` function has no link-time symbol —
+its body only exists per-translation-unit — so a generated header can never
+faithfully reproduce it as a real declaration. Faking one as `extern` is a
+link-time lie (already fixed once in `_export_c.rs`/`_export_rs.rs`); silently
+dropping it instead makes the generated mirror an incomplete substitute for
+the real header, which blocks ever making `include/` the single source of
+truth for cross-module consumption (`src/` would still need to be reachable
+for the inline-only bits).
 
 ## Hard rule
 
-**Linting is always from the IDE / user perspective.**
+Any function meant to be called from **outside its own module** (i.e. it is
+part of the module's public/exported border, reachable by a foreign
+`#include`) must be a real, non-`inline` function: prototype in the header,
+body in a `.c` file, ordinary link-time symbol.
 
-**IDE warnings count as errors.** A yellow squiggle is unfinished work —
-same bar as a red error. Do not leave Unused / IncludeCleaner / sign-compare
-noise in Metal-owned files because "it's only a warning."
+`static inline` is fine only for something genuinely private to a single
+translation unit inside the module's own `_impl`/module-root sources (never
+included by another module).
 
-1. **Ground truth = editor diagnostics** on the files you touched (and
-   neighbors that include them) — use the IDE diagnostics tool
-   (`ReadLints`), not only `clang`/`cargo`/`forge` exit codes. Treat
-   every diagnostic severity the user sees (Error **and** Warning) as
-   must-fix unless `docs/SOURCETREE.md` documents a known false positive.
-2. **"Builds clean" is not "IDE clean."** Freestanding TUs often compile
-   via `build.rs` `-I` while clangd still lacks PathMatch / CDB rows
-   (`errno.h`, `platform_api_vmcore.h`, …). Fix the IDE path
-   (`.clangd.template`, local `.clangd`, forge `compile_commands`) —
-   do not call it done because the firmware linked.
-3. **Do not claim fixed until diagnostics agree** (or you edited clangd /
-   CDB and told them to **restart clangd** / reload so stale ASTs clear).
-4. Prefer fixing the **cause** of the squiggle (missing `-I`, wrong
-   PathMatch, stale `.clangd`, missing CDB TU, unused dead API) over
-   casts/pragmas / `(void)` silencing — unless documented as a known
-   clangd false positive in `docs/SOURCETREE.md`.
-5. **Do not "fix" IDE noise by editing `external/`** — fix Metal-side
-   flags / PathMatch instead. Vendored trees may suppress tidy in
-   `.clangd`; Metal-owned code may not.
-6. **Python guest** — stubs under `typings/`; regenerate after
-   `PM_METAL_PY_BIND` changes so the IDE matches the bind table.
+**Concrete fix pattern:** a header like `boot/platform/uart.h` with
+`static inline` convenience wrappers over an ops-vtable pointer
+(`pm_metal_boot_uart_write`, `floor_iobase`, `floor_compat`, ...) — move the
+body into the matching `.c`, leave a plain prototype in the header. The
+generated `include/` mirror then carries the real symbol like everything
+else; no cross-module consumer ever needs to read `src/` to get the
+convenience it used to get from the inline body.
 
-## After `.clangd` / CDB / include-graph edits
-
-Sync `.clangd` from `.clangd.template` when the template changed. End with:
-**restart clangd** (Command Palette → `clangd: Restart language server`,
-or reload the window).
-
-## Paths in IDE / CDB metadata
-
-See `metal-clangd-no-abs-paths.mdc`. `.clangd*` `-I` and CDB `"file"` /
-command `-I` stay package-relative. CDB `"directory"` is the **absolute
-package root**. CDB at package-root `compile_commands.json` (mirrored
-under `build/`). After template/CDB edits: regenerate if needed, then
-**restart clangd**.
+**Verify:** after touching a module's public header, check the generated
+mirror in `include/pymergetic/metal/<mod>/...h` actually contains every
+symbol a foreign consumer needs — a border function silently missing from
+the mirror (dropped as `inline`) is the signal to convert it, not to keep
+including `src/` for it.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
