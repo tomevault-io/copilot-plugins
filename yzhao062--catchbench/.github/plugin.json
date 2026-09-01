@@ -1,0 +1,9 @@
+{
+  "name": "yzhao062--catchbench",
+  "displayName": "catchbench",
+  "description": "CatchBench: a benchmark for auditing agent failures across the full lifecycle.",
+  "version": "1.0.0",
+  "author": "yzhao062",
+  "homepage": "https://github.com/yzhao062/catchbench",
+  "skills": []
+}
