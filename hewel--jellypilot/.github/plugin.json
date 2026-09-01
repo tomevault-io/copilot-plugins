@@ -1,0 +1,9 @@
+{
+  "name": "hewel--jellypilot",
+  "displayName": "jellypilot",
+  "description": "A high-performance Jellyfin cast receiver that controls an external MPV player.",
+  "version": "1.0.0",
+  "author": "hewel",
+  "homepage": "https://github.com/hewel/jellypilot",
+  "skills": []
+}
