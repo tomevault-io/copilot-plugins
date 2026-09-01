@@ -1,63 +1,46 @@
-## metal-no-inline-public-borders
+## metal-no-long-running-ops
 
-> Cross-module C borders must be real (non-inline) functions — static inline cannot be a link-time ABI symbol, so forge's generated include/ mirror can never carry it faithfully
+> No long-running non-yielding operation anywhere in Metal (not just wasm/async guest code) — the check is cheap, blocking everyone else is not
 
 
-# No `static inline` on public/exported borders
+# No long-running non-yielding operations, anywhere
 
-**Why (the fundamental reason):** you cannot register what has no address.
-Every module's public border is meant to publish into the one registry
-(`RegEntry.fn` — a real `void *` to one real function), which every
-generated cross-module call site resolves through — see
-`registration_rethink_scope`'s "Registry design verdict" and
-[`docs/definitions/module.md`](../../docs/definitions/module.md) "Module
-lifecycle". `static inline` has no guaranteed single link-time address at
-all: the compiler is free to inline it away completely at every call site,
-or emit a separate private copy per translation unit — there is nothing
-stable to put in that `fn` slot. A function meant to be reachable from
-outside its own module has to be a real, addressable symbol for the
-registry to have anything to point at, independent of any codegen/header
-concern.
+**Not guest-specific.** This applies to host code, kernel code, wasm guests,
+async tasks — everywhere in Metal, not a special wasm/async-only rule.
 
-**Why (the codegen consequence):** `forge mod sync` mirrors every module's
-real, non-`_`-prefixed public surface into
-`include/pymergetic/metal/<mod>/...` for every consumer language
-(C/Rust/Python/toml) — see
-[`docs/definitions/module.md`](../../docs/definitions/module.md) "Lang pool".
-That mirror is built from the catalog: struct/enum/typedef shapes and plain
-function *signatures*. A `static inline` function has no link-time symbol —
-its body only exists per-translation-unit — so a generated header can never
-faithfully reproduce it as a real declaration. Faking one as `extern` is a
-link-time lie (already fixed once in `_export_c.rs`/`_export_rs.rs`); silently
-dropping it instead makes the generated mirror an incomplete substitute for
-the real header, which blocks ever making `include/` the single source of
-truth for cross-module consumption (`src/` would still need to be reachable
-for the inline-only bits).
+## The actual test
 
-## Hard rule
+It's an economic comparison, not a blanket "always yield": **schedule/check
+cost vs. the cost of not checking.** Measured on this project's own hardware
+(see `registration_rethink_scope`'s quiesce/safepoint design): a periodic
+liveness/safepoint check (an uncontended atomic flag load + not-taken branch)
+costs **~0.3% overhead even done on every single call**, the pessimistic
+upper bound — done at the coarser granularity it's actually meant for (once
+per task step, not once per call), it's unmeasurable. The cost of *not*
+checking — stalling every other runner's fairness, and stalling any
+load/unload quiesce that depends on every runner reaching a checkpoint
+within bounded time — is unbounded by comparison. That asymmetry means the
+bar for "this is short enough to skip a yield/check point" is very high:
+only genuinely tiny, provably-bounded-time operations get a pass. Anything
+whose duration is unpredictable or non-trivial must be broken into steps
+that yield/check periodically.
 
-Any function meant to be called from **outside its own module** (i.e. it is
-part of the module's public/exported border, reachable by a foreign
-`#include`) must be a real, non-`inline` function: prototype in the header,
-body in a `.c` file, ordinary link-time symbol.
+## Concrete rule
 
-`static inline` is fine only for something genuinely private to a single
-translation unit inside the module's own `_impl`/module-root sources (never
-included by another module).
+Any loop or operation whose duration is not providably tiny and bounded
+must incorporate a periodic yield/check point. When choosing how often to
+check, default to checking **more** often, not less — per the measurement
+above, the check itself is close to free; the failure mode of checking too
+rarely (stalling fairness, stalling a quiesce) is not.
 
-**Concrete fix pattern:** a header like `boot/platform/uart.h` with
-`static inline` convenience wrappers over an ops-vtable pointer
-(`pm_metal_boot_uart_write`, `floor_iobase`, `floor_compat`, ...) — move the
-body into the matching `.c`, leave a plain prototype in the header. The
-generated `include/` mirror then carries the real symbol like everything
-else; no cross-module consumer ever needs to read `src/` to get the
-convenience it used to get from the inline body.
+## Why this is load-bearing for two things, not one
 
-**Verify:** after touching a module's public header, check the generated
-mirror in `include/pymergetic/metal/<mod>/...h` actually contains every
-symbol a foreign consumer needs — a border function silently missing from
-the mirror (dropped as `inline`) is the signal to convert it, not to keep
-including `src/` for it.
+1. **Scheduler fairness** — a step that never yields already breaks
+   cooperative scheduling today, independent of the registry design.
+2. **The registry's quiesce/safepoint mechanism** (load/unload of an
+   unloadable module) depends on every runner reaching a checkpoint within
+   bounded time to ever complete — a violation here doesn't just cost that
+   one task's fairness, it can stall a load/unload indefinitely.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
