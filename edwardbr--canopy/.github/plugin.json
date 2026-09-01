@@ -1,0 +1,9 @@
+{
+  "name": "edwardbr--canopy",
+  "displayName": "Canopy",
+  "description": "An RPC solution that is agnostic on serialization formats, transports and coroutine libraries. With remote RAII object management support.   A major rewrite of https://github.com/edwardbr/rpc",
+  "version": "1.0.0",
+  "author": "edwardbr",
+  "homepage": "https://github.com/edwardbr/Canopy",
+  "skills": []
+}
