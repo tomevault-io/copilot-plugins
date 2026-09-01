@@ -1,0 +1,44 @@
+{
+  "name": "jufe-offer",
+  "owner": "woodfishhhh",
+  "repo": "jufe-offer",
+  "description": "\u6c5f\u8d22\u5b66\u751f\u7684\u5b9e\u4e60\u3001\u7ade\u8d5b\u4e0e\u5b66\u4e60\u8d44\u6e90\u5bfc\u822a\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/woodfishhhh/jufe-offer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T07:06:26Z"
+}
