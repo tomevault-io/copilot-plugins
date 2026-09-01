@@ -1,0 +1,9 @@
+{
+  "name": "mrdainami--ai-os-starter",
+  "displayName": "ai-os-starter",
+  "description": "The folder you talk to. A starter cockpit to build your own AI OS, built on the FRAME method. Run build-os and stack from there.",
+  "version": "1.0.0",
+  "author": "mrdainami",
+  "homepage": "https://github.com/mrdainami/ai-os-starter",
+  "skills": []
+}
