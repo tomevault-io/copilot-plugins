@@ -1,0 +1,9 @@
+{
+  "name": "tinyhumansai--tinyjuice",
+  "displayName": "tinyjuice",
+  "description": "A juicy token compression algorithm. Compress upto 95% of tokens without any loss. Free & Opensource",
+  "version": "1.0.0",
+  "author": "tinyhumansai",
+  "homepage": "https://github.com/tinyhumansai/tinyjuice",
+  "skills": []
+}
