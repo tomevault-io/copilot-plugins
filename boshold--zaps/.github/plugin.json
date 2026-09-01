@@ -1,0 +1,9 @@
+{
+  "name": "boshold--zaps",
+  "displayName": "zaps",
+  "description": "Zero Ass Pain Setup - a tmux dev-environment orchestrator: define services, deps, tasks & layout in one config, with ready detection, crash recovery, and a keyboard-driven TUI.",
+  "version": "1.0.0",
+  "author": "boshold",
+  "homepage": "https://github.com/boshold/zaps",
+  "skills": []
+}
