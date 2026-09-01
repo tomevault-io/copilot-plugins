@@ -1,0 +1,9 @@
+{
+  "name": "agentcathq--agentcat-go-sdk",
+  "displayName": "agentcat-go-sdk",
+  "description": "AgentCat is an analytics platform for MCP server owners \ud83d\udc31",
+  "version": "1.0.0",
+  "author": "agentcathq",
+  "homepage": "https://github.com/agentcathq/agentcat-go-sdk",
+  "skills": []
+}
