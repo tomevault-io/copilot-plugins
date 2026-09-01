@@ -1,0 +1,44 @@
+{
+  "name": "minimax-h3-video-studio",
+  "owner": "siyuan-liu31",
+  "repo": "minimax-h3-video-studio",
+  "description": "Visual AI video studio for MiniMax H3 + ComfyUI. Create text-to-video, image-to-video, reference video, video-to-video, storyboards, resumable generations, and long-form AI videos.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/siyuan-liu31/minimax-h3-video-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T14:32:53Z"
+}
