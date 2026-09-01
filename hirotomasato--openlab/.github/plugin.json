@@ -1,0 +1,9 @@
+{
+  "name": "hirotomasato--openlab",
+  "displayName": "openlab",
+  "description": "Advanced config-based automation engine \u2014 .croot YAML format. 9 block types, TLS bypass, AI prompts. Inspired by OpenBullet & SilverBullet.",
+  "version": "1.0.0",
+  "author": "hirotomasato",
+  "homepage": "https://github.com/hirotomasato/openlab",
+  "skills": []
+}
