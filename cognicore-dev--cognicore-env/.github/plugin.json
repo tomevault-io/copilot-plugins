@@ -1,0 +1,9 @@
+{
+  "name": "cognicore-dev--cognicore-env",
+  "displayName": "cognicore-env",
+  "description": "Memory operating system for AI agents \u2014 persistent memory, BM25 search, atomic decomposition, reflection engine, immune system. Zero API calls. 89% fewer tokens than alternatives. MCP + LangChain + Op",
+  "version": "1.0.0",
+  "author": "cognicore-dev",
+  "homepage": "https://github.com/cognicore-dev/cognicore-env",
+  "skills": []
+}
