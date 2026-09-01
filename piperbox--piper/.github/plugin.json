@@ -1,0 +1,9 @@
+{
+  "name": "piperbox--piper",
+  "displayName": "piper",
+  "description": "Open-source, developer-first PaaS: git push \u2192 live HTTPS URL on hardware you own, including a Raspberry Pi behind CGNAT, via a zero-trust cloud relay.",
+  "version": "1.0.0",
+  "author": "piperbox",
+  "homepage": "https://github.com/piperbox/piper",
+  "skills": []
+}
