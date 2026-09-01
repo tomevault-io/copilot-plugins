@@ -4,7 +4,7 @@
   "repo": "launch-store",
   "description": "Self-hosted CLI for building, signing, and shipping Expo/React Native apps to TestFlight and Google Play.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YosefHayim/launch-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T02:41:40Z"
+  "distributed_at": "2026-09-01T05:06:53Z"
 }
