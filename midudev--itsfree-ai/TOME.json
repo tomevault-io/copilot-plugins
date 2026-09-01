@@ -4,7 +4,7 @@
   "repo": "itsfree.ai",
   "description": "Free tier AI models via API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/itsfree.ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T22:30:24Z"
+  "distributed_at": "2026-09-01T22:31:12Z"
 }
