@@ -4,7 +4,7 @@
   "repo": "saas-factory-agencia",
   "description": "Landing page template con agente IA conversacional, persistencia en Supabase, y dashboard de analytics. Next.js 16 + React 19 + Vercel AI SDK v5 + OpenRouter.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/daniel-carreon/saas-factory-agencia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T13:32:12Z"
+  "distributed_at": "2026-09-01T13:32:48Z"
 }
