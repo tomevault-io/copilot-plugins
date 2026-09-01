@@ -1,0 +1,9 @@
+{
+  "name": "adilfaisal01--llm-multiagent-swarm",
+  "displayName": "llm-multiagent-swarm",
+  "description": "Multi-agent research orchestration using Ollama cloud models \u2014 parallel workers, web search, shared scratchpad, modular tools.",
+  "version": "1.0.0",
+  "author": "adilfaisal01",
+  "homepage": "https://github.com/adilfaisal01/llm-multiagent-swarm",
+  "skills": []
+}
