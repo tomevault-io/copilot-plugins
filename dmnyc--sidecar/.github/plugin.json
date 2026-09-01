@@ -1,0 +1,9 @@
+{
+  "name": "dmnyc--sidecar",
+  "displayName": "sidecar",
+  "description": "A classy Nostr keystore and signer that lives in your browser sidebar \ud83c\udf78",
+  "version": "1.0.0",
+  "author": "dmnyc",
+  "homepage": "https://github.com/dmnyc/sidecar",
+  "skills": []
+}
