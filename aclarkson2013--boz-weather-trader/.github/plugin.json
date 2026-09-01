@@ -1,0 +1,9 @@
+{
+  "name": "aclarkson2013--boz-weather-trader",
+  "displayName": "boz-weather-trader",
+  "description": "Automated weather trading bot for Kalshi prediction markets. Uses NWS/Open-Meteo data + ML models to identify and trade mispriced temperature contracts.",
+  "version": "1.0.0",
+  "author": "aclarkson2013",
+  "homepage": "https://github.com/aclarkson2013/boz-weather-trader",
+  "skills": []
+}
