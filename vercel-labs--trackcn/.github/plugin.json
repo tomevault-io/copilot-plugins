@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--trackcn",
+  "displayName": "trackcn",
+  "description": "Track GitHub files, directories, commits, pull requests, and agent skills like dependencies.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/trackcn",
+  "skills": []
+}
