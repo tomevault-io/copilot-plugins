@@ -1,0 +1,165 @@
+## china-policy-analyze-skill
+
+> **每次对项目的任何修改，都必须同步更新服务器上运行此项目的 Hermes Agent 配置：**
+
+# Agent Rules for China Policy Analyze Skill
+
+## Meta Rule — HIGHEST PRIORITY
+
+**每次对项目的任何修改，都必须同步更新服务器上运行此项目的 Hermes Agent 配置：**
+- SOUL.md（/root/.hermes/SOUL.md）
+- Cron 任务 prompt（hermes cron edit）
+- Gateway 重启（如 SOUL.md 有改动）
+- 本 AGENTS.md（如运维规则有变动）
+- 验证 Hermes 配置生效
+
+**注意：SKILL.md 是给终端用户看的，不属于 Hermes 运维配置，除非技能定义本身变更才需要同步。**
+
+**绝对不能改了项目代码却不更新 Hermes，导致 Agent 执行时用的是过时的指令。**
+
+## Security
+
+- NEVER push to main directly. Always create a branch and PR.
+- NEVER expose API keys in commits, PRs, or logs.
+- NEVER bypass robots.txt, authentication, or rate limits.
+- NEVER install untrusted packages.
+- NEVER start network listeners or open ports.
+- NEVER modify security configuration files without human review.
+- ALWAYS use `gh` CLI for GitHub operations.
+- ALWAYS run eval before merging any PR.
+
+## Policy Content Rules
+
+- ALWAYS cite official sources for every claim.
+- ALWAYS distinguish: fact, interpretation, inference, uncertainty.
+- NEVER output deterministic war date predictions.
+- NEVER output investment buy/sell advice.
+- NEVER encourage illegal, evasive, or regulatory-arbitrage actions.
+- NEVER treat unofficial commentary as official policy.
+- NEVER use "确定性机会" "一定会来" "必然爆发" — use "政策方向较明确" "可能受政策持续影响"
+- Comply with Chinese laws and regulations; never assist illegal activities.
+
+## Output Format Rules
+
+- ALWAYS wrap document titles in 《》 in all output
+- ALWAYS include document number and issue date when available
+- EVERY document reference MUST include its issue date — this is MANDATORY, no exceptions
+- Format example: 《国务院关于推进服务业扩能提质的意见》（国发〔2026〕7号，2026年4月14日）
+- Without doc_number: 《道路机动车辆生产企业及产品》新批次公告（2026年3月28日）
+- If date unknown: write 日期不详 — NEVER omit the date
+- ALWAYS include evidence level (E0–E5) for claims
+- ALWAYS indicate whether answer is from local corpus or live-fetched data
+
+## Code Rules
+
+- Follow existing code style and patterns.
+- Run tests before committing.
+- Record all fetch errors in corpus/metadata/fetch_errors.jsonl.
+- Deduplicate using content hashes before saving.
+
+## Data Collection Rules
+
+- Government websites typically only display text in HTML, NOT downloadable PDF/Word files.
+- ALWAYS extract text content directly from web page HTML, do NOT wait for or expect PDF downloads.
+- Store each document in 3 formats under corpus/:
+  - raw/{doc_id}.html — original HTML (for re-processing if needed)
+  - processed/markdown/{doc_id}.md — cleaned markdown
+  - processed/text/{doc_id}.txt — plain text (same content as md, no markdown syntax)
+- If a page has too little content (<200 chars after extraction), it is likely a listing page, not a document page — follow its links to find the actual content page.
+- Do NOT run BM25 index building — it causes OOM on 3GB RAM servers. Index building is disabled.
+- Use CPI_MAX_DOCS env var to limit documents per run (default 20).
+
+## Document Metadata
+
+Every document must have these fields in corpus/metadata/{doc_id}.json:
+- `title`: cleaned title (no website suffixes like "_中国政府网")
+- `publish_date`: YYYY-MM-DD format
+- `doc_number`: official number (国发〔2026〕7号, etc.) if available
+- `issuing_body`: agency that issued the document (国务院, etc.)
+- `doc_type`: 意见/通知/办法/规划/报告/etc.
+- `organization`: broader organization
+- `authority_level`: S or A
+- `url`: source URL
+- `content_hash`: SHA-256 for dedup
+
+## Real-Time Data Acquisition
+
+- Before answering policy questions, check data freshness in corpus/metadata/
+- If local data is stale or user asks about "latest/recent", fetch live from official sources
+- Can run: `source venv/bin/activate && CPI_MAX_DOCS=5 python scripts/_run_daily_update.py`
+- Or fetch specific URLs with Python HTMLFetcher + HTMLToMarkdown
+- Source URLs listed in config/sources.yaml
+- Always tell user whether data is from corpus or live-fetched
+- Respect rate limits: max 10 pages per session
+
+### Judicial/Police/Credit Data Rules
+
+1. 优先保存来源链接、摘要、类型、标签和统计结果
+2. 不长期保存不必要的可识别个人信息
+3. 不保存身份证号、手机号、住址、家庭关系等个人敏感信息
+4. 对自然人姓名、案号、详细案情等做脱敏或最小化处理
+5. 不对具体自然人做画像、评分或风险预测
+6. 不把单个案件扩展为对整个行业的绝对判断
+7. 只分析风险类型、监管趋势和合规边界
+
+### Confirmed working (32 sources in daily pipeline, tested 2026-05-03)
+
+gov.cn | ndrc | mofcom | miit | moj | court | spp | samr | mee | mfa | stats | nra | csrc | pbc | jhsjk
+
+**pbc.gov.cn 特殊：** 首页可访问(129K chars)，但短路径如 /goutongjiaoliu/ 返回403。必须从首页提取完整栏目路径（如 /goutongjiaoliu/113456/113469/index.html）。
+**部分部委：** 列表页JS渲染无链接时，fetch首页提取文章链接。
+
+### Not working (12 sites — WebFetch可能失败但必须先试)
+
+| 不可用站点 | 错误 | 推荐微信账号（WebFetch全部失败后用） |
+|-----------|------|-------------------------------|
+| customs.gov.cn | 412 | `中国海关发布` |
+| mps.gov.cn | 521 | (无对等公众号) |
+| mohurd.gov.cn | 000连接失败 | `中国建设报` |
+| nfga.gov.cn | 000连接失败 | `中国绿色时报` |
+| most.gov.cn | JS空壳 | `科技部` |
+| mohrss.gov.cn | JS空壳 | `人社部` |
+| scio.gov.cn | 000连接失败 | `国务院新闻办` |
+| flk.npc.gov.cn | 000连接失败 | `全国人大` |
+| cyberpolice.cn | 000连接失败 | (无) |
+| gsxt.gov.cn | 521 | (无) |
+| creditchina.gov.cn | 412 | (无) |
+| ccgp.gov.cn | 403 | (无) |
+
+### 微信搜索规则（强制，无例外）
+
+**微信搜索是补充渠道，不是替代渠道。官网永远优先。**
+
+1. 先完成所有WebFetch尝试 — 包括已知困难的站点也必须试，不要跳过
+2. 全部WebFetch结束后评估信息是否充足
+3. 仅当信息不足时才调用 `cpi wechat-search` 做补充
+
+绝对不能：因某次WebFetch失败就中断去搜微信 / 跳过某官网直接搜微信（无例外）/ WebFetch已拿够内容还搜微信
+
+**搜到微信内容后必须验真：**
+1. 提取微信文章引用的官方来源线索（发文号、机关、链接）
+2. 回查官网验证
+3. 验对了：引用官网
+4. 没验对：标注 ⚠️ 此信息来自微信公众号，非官网原文，不代表一定权威，请自行辨别
+
+### WeChat Public Account Directory (备选渠道)
+
+40 个验证过的权威公众号，存储在 config/wechat_accounts.yaml，7 大类：
+- **central_policy** (7账号): 中国政府网(S), 国务院公报(S), 新华视点(S), 人民日报(S), 求是网(S), 经济日报(A), 光明日报(A)
+- **economy_finance** (6账号): 国家发改委(A), 财政部(A), 中国人民银行(A), 金融时报(A)
+- **industry_regulation** (6账号): 工信微报(A), 科技部(A), 市场监管总局(A), 证监会发布(A), 金融监管总局(A)
+- **trade_foreign** (3账号): 商务部(A), 外交小灵通(A), 中国海关发布(A)
+- **people_livelihood** (8账号): 生态环境部(A), 交通运输部(A), 农业农村部(A), 人社部(A), 住建部(A)
+- **law_justice** (4账号): 司法部(A), 最高人民法院(A), 最高人民检察院(A)
+- **professional** (7账号): 北大法律信息网(B), 威科前行(B), 中伦视界(B)
+
+CLI用法：
+```bash
+/root/china-policy-analyze-skill/venv/bin/cpi wechat-search "关键词" --fetch --json
+/root/china-policy-analyze-skill/venv/bin/cpi wechat-search "关键词" -a "中国人民银行" --fetch --json
+/root/china-policy-analyze-skill/venv/bin/cpi wechat-search "降准" -c economy_finance --fetch --json
+```
+
+---
+> Source: [CSCode2/china-policy-analyze-skill](https://github.com/CSCode2/china-policy-analyze-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
