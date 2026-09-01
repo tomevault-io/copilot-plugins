@@ -1,0 +1,9 @@
+{
+  "name": "theprimeagen--oligarchy",
+  "displayName": "Oligarchy",
+  "description": "Playing around with automation via custom agent harness to run and test Omarchy releases",
+  "version": "1.0.0",
+  "author": "ThePrimeagen",
+  "homepage": "https://github.com/ThePrimeagen/Oligarchy",
+  "skills": []
+}
