@@ -1,0 +1,9 @@
+{
+  "name": "mirafold--mirafold",
+  "displayName": "mirafold",
+  "description": "A browser UI for Claude Code, Codex, and Gemini CLI \u2014 the terminal agent you already use, rendered faithfully, with generative UI on top: readable output, live pinned dashboards, every session at a gl",
+  "version": "1.0.0",
+  "author": "mirafold",
+  "homepage": "https://github.com/mirafold/mirafold",
+  "skills": []
+}
