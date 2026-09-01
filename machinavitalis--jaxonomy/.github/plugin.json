@@ -1,0 +1,9 @@
+{
+  "name": "machinavitalis--jaxonomy",
+  "displayName": "jaxonomy",
+  "description": "JAX-native simulation engine for hybrid dynamical systems \u2014 block-diagram modeling, ODE/DAE solvers, events, acausal physics, and end-to-end autodiff (grad/vmap/jit).",
+  "version": "1.0.0",
+  "author": "machinavitalis",
+  "homepage": "https://github.com/machinavitalis/jaxonomy",
+  "skills": []
+}
