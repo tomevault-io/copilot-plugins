@@ -1,0 +1,44 @@
+{
+  "name": "paulsha-hippo",
+  "owner": "hamanpaul",
+  "repo": "paulsha-hippo",
+  "description": "\u8de8 LLM vendor \u7684\u7d93\u9a57\u7b46\u8a18\u57fa\u5ea7\uff1asession \u84b8\u993e\u3001dream \u6574\u7406\u3001wakeup \u56de\u704c",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hamanpaul/paulsha-hippo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T00:43:31Z"
+}
