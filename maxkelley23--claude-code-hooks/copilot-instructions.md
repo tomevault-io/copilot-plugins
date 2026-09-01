@@ -1,58 +1,61 @@
-## activation-workflow
+## claude-code-hooks
 
-> Defines skill activation rules and priority-based workflow for organizational capabilities
+> - Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
 
 
+# Claude Code Hooks
 
-# activation-workflow
+## Development Guidelines
 
-The skill activation workflow implements a multi-tiered decision system for determining which organizational skills should be activated based on user prompts.
+- Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
+- Never replace code with placeholders like `# ... rest of the processing ...`. Always include complete code.
+- Break problems into smaller steps. Think through each step separately before implementing.
+- Always provide a complete PLAN with REASONING based on evidence from code and logs before making changes.
+- Explain your OBSERVATIONS clearly, then provide REASONING to identify the exact issue. Add console logs when needed to gather more information.
 
-## Priority Levels
-- Critical: Highest priority skills requiring immediate activation
-- High: Essential business capabilities
-- Medium: Standard operational skills
-- Low: Optional supporting capabilities
 
-## Matching Mechanisms
-1. Keyword Analysis
-   - Direct text matching against prompt content
-   - Organization-specific terminology detection
+## Skill Activation System
 
-2. Intent Pattern Recognition
-   - Regex-based intent identification
-   - Context-aware pattern matching
+A hierarchical skill management system that evaluates user prompts to determine required organizational capabilities and enforcement levels.
 
-## Enforcement Policies
-- Block: Mandatory skill activation
-- Suggest: Recommended skill usage
-- Warn: Advisory notification
+Key Components:
 
-## Skill Categories
-1. Domain Skills
-   - Business-specific capabilities
-   - Organization processes
+1. Priority-Based Skill Classification
+- Critical priority skills
+- High priority skills
+- Medium priority skills 
+- Low priority skills
 
-2. Guardrail Skills
-   - Compliance requirements
-   - Safety protocols
+2. Enforcement Policy Framework
+- Blocking enforcement: Prevents actions without required skills
+- Suggestion based: Recommends skill acquisition
+- Warning based: Notifies about missing skills
 
-## Activation Process
-1. Rule Source Hierarchy
-   - Multiple rule repositories
-   - Precedence-based evaluation
+3. Skill Categorization
+- Domain Skills: Core organizational capabilities
+- Guardrail Skills: Protective/compliance requirements
 
-2. Priority Resolution
-   - Grouping by priority levels
-   - Hierarchical skill activation
-   - Conflict resolution between overlapping skills
+4. Rule Evaluation Engine
+- Keyword matching against prompt content
+- Intent pattern recognition using regex
+- Multi-source rule evaluation with precedence ordering
 
-3. Output Generation
-   - Skill activation notifications
-   - Enforcement policy alerts
-   - Priority-based recommendations
+## Business Workflow
 
-File: hooks/skill-activation-prompt.ts
+1. Input Processing
+- Analyzes user prompts for skill requirements
+- Matches against predefined skill patterns
+- Evaluates both explicit keywords and intent patterns
+
+2. Skill Resolution
+- Groups matched skills by priority level
+- Applies business-specific enforcement rules
+- Generates prioritized skill recommendations
+
+3. Enforcement Output
+- Formats skill activation notifications
+- Applies organization-specific messaging
+- Delivers appropriate enforcement actions
 
 ---
 > Source: [maxkelley23/claude-code-hooks](https://github.com/maxkelley23/claude-code-hooks) — distributed by [TomeVault](https://tomevault.io).
