@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ahmed3elshaer/everything-claude-code-mobile](https://github.com/ahmed3elshaer/everything-claude-code-mobile).
+Original source: `AGENTS.md` in [ahmed3elshaer/everything-claude-code-mobile](https://github.com/ahmed3elshaer/everything-claude-code-mobile).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -109,7 +109,7 @@ Original source: `CLAUDE.md` in [ahmed3elshaer/everything-claude-code-mobile](ht
 - [everything-claude-code-mobile](https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/continuous-learning/SKILL.md)
 - [everything-claude-code-mobile](https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/continuous-learning-v2/SKILL.md)
 
-From [ahmed3elshaer/everything-claude-code-mobile](https://github.com/ahmed3elshaer/everything-claude-code-mobile) — a repo with 59+ stars on GitHub.
+From [ahmed3elshaer/everything-claude-code-mobile](https://github.com/ahmed3elshaer/everything-claude-code-mobile) — a repo with 0+ stars on GitHub.
 
 ---
 
