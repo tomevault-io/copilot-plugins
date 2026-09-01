@@ -1,0 +1,9 @@
+{
+  "name": "jslay88--fw-fanctrl-gui",
+  "displayName": "fw-fanctrl-gui",
+  "description": "Graphical fan curve editor and tray controller for fw-fanctrl on Framework laptops",
+  "version": "1.0.0",
+  "author": "jslay88",
+  "homepage": "https://github.com/jslay88/fw-fanctrl-gui",
+  "skills": []
+}
