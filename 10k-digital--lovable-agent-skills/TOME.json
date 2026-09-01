@@ -4,7 +4,7 @@
   "repo": "lovable-agent-skills",
   "description": "Ever wanted to use Claude Code, Codex and other AI agents to edit projects in Lovable? Wait no further. This repo has a plug-in with Claude Code, Codex, and others, that lets it edit projects on Lovable via Github sync and browser automation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/10K-Digital/lovable-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T20:30:25Z"
+  "distributed_at": "2026-09-01T20:31:18Z"
 }
