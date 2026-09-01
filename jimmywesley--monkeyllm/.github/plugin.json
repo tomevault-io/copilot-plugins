@@ -1,0 +1,9 @@
+{
+  "name": "jimmywesley--monkeyllm",
+  "displayName": "MonkeyLLM",
+  "description": "Knowledge engine for AI agents: your documents become a git-versioned markdown knowledge graph the agent navigates over MCP. Curated summaries, typed edges, cited answers, SQL over your spreadsheets, ",
+  "version": "1.0.0",
+  "author": "JimmyWesley",
+  "homepage": "https://github.com/JimmyWesley/MonkeyLLM",
+  "skills": []
+}
