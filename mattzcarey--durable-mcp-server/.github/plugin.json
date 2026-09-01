@@ -1,0 +1,9 @@
+{
+  "name": "mattzcarey--durable-mcp-server",
+  "displayName": "durable-mcp-server",
+  "description": "mcp tasks backed by durable objects",
+  "version": "1.0.0",
+  "author": "mattzcarey",
+  "homepage": "https://github.com/mattzcarey/durable-mcp-server",
+  "skills": []
+}
