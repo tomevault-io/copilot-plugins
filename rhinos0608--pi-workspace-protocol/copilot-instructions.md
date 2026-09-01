@@ -19,7 +19,7 @@
 
 ## Schema Versioning
 
-**`PROTOCOL_SCHEMA_VERSION = 3`** (`src/types.ts:6`). Enforced by exact match in `src/contract.ts` — no version negotiation or range checks. Any version bump is a breaking change; both consumers (Pi-SmartRead *and* Pi-SmartEdit) must update in lockstep. Package semver (`0.3.0`) tracks API surface, not wire format.
+**`PROTOCOL_SCHEMA_VERSION = 3`** (`src/types.ts:6`). Enforced by exact match in `src/contract.ts` — no version negotiation or range checks. Any version bump is a breaking change; both consumers (Pi-SmartRead *and* Pi-SmartEdit) must update in lockstep. Package semver (`0.4.0`) tracks API surface, not wire format. `0.4.0` adds the additive `languageIntelligence` RPC channel (`pi.workspace.language_intelligence.rpc`) with `language_intelligence_capabilities` / `check_post_edit_diagnostics` — `PROTOCOL_SCHEMA_VERSION` stays `3`.
 
 ## Operational Contracts and Invariants
 
@@ -43,8 +43,9 @@ Evidence envelopes attest to `canonicalPath` as the `realpathSync` result. Pi-Sm
 
 ## Residual Risks
 - `PatchDetails` / `LifecycleChecks` / `CheckRecord` types are defined in `src/types.ts` but have **no runtime validators** — consumers must validate these at their own boundary.
-- `RPC_CHANNELS` constant is exported but has no dedicated test — consumers should import it, not hardcode the channel string.
+- `RPC_CHANNELS` constant is exported but has no dedicated test — consumers should import it, not hardcode the channel string. `RPC_CHANNELS.languageIntelligence` and `LANGUAGE_INTELLIGENCE_RPC_METHODS` added in `0.4.0`.
+- Language-intelligence validators live in `src/language-intelligence.ts` and are re-exported from the entry point.
 
 ---
 > Source: [rhinos0608/Pi-Workspace-Protocol](https://github.com/rhinos0608/Pi-Workspace-Protocol) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
