@@ -1,0 +1,9 @@
+{
+  "name": "scottmclesly--scottina",
+  "displayName": "Scottina",
+  "description": "The 10% interface for bench diagnostics. A pocket-sized Pi 5 front panel bridging the gap between headless and full GUIs. Autodetects your daily tools (CAN, I2C, LAN, Signal-K) and strips away 90% of ",
+  "version": "1.0.0",
+  "author": "scottmclesly",
+  "homepage": "https://github.com/scottmclesly/Scottina",
+  "skills": []
+}
