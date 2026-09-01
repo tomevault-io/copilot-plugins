@@ -1,0 +1,9 @@
+{
+  "name": "redai-studio--relax",
+  "displayName": "Relax",
+  "description": "An Asynchronous Reinforcement Learning Engine for Omni-Modal Post-Training at Scale",
+  "version": "1.0.0",
+  "author": "redai-studio",
+  "homepage": "https://github.com/redai-studio/Relax",
+  "skills": []
+}
