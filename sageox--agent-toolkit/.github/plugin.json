@@ -1,0 +1,9 @@
+{
+  "name": "sageox--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "A hosted AI coworker in the channels where your team already talks \u2014 open source, and yours to run.",
+  "version": "1.0.0",
+  "author": "sageox",
+  "homepage": "https://github.com/sageox/agent-toolkit",
+  "skills": []
+}
