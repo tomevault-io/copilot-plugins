@@ -1,0 +1,9 @@
+{
+  "name": "micode-ai--ai-budget-assistant",
+  "displayName": "ai-budget-assistant",
+  "description": "AI-powered personal finance management application with voice input, receipt scanning, and intelligent expense categorization.",
+  "version": "1.0.0",
+  "author": "micode-ai",
+  "homepage": "https://github.com/micode-ai/ai-budget-assistant",
+  "skills": []
+}
