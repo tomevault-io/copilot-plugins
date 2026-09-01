@@ -7,11 +7,11 @@ Self-hosted dashboard that unifies 3D printers (Klipper, Marlin, Bambu Lab, Eleg
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [charlymigenes-ux/nopal](https://github.com/charlymigenes-ux/nopal).
+Original source: `AGENTS.md` in [charlymigenes-ux/nopal](https://github.com/charlymigenes-ux/nopal).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
