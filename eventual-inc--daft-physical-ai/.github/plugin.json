@@ -1,0 +1,9 @@
+{
+  "name": "eventual-inc--daft-physical-ai",
+  "displayName": "daft-physical-ai",
+  "description": "Physical-AI data processing on Daft: hand tracking, reward scoring, and motion trimming",
+  "version": "1.0.0",
+  "author": "Eventual-Inc",
+  "homepage": "https://github.com/Eventual-Inc/daft-physical-ai",
+  "skills": []
+}
