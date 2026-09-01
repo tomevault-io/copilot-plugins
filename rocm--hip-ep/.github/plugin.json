@@ -1,0 +1,9 @@
+{
+  "name": "rocm--hip-ep",
+  "displayName": "hip-ep",
+  "description": "ROCm Execution Provider for ONNX Runtime on AMD GPUs. Compiles ONNX models through MLIR to LLVM bitcode, JIT-loads them at session creation, and dispatches to hipDNN, MIOpen, hipBLASLt, and custom HIP",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/hip-ep",
+  "skills": []
+}
