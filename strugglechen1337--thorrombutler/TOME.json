@@ -4,7 +4,7 @@
   "repo": "ThorROMButler",
   "description": "DE: Erkennt ROM-Archive, sortiert sie in ES-DE/Batocera/Onion-Ordner, patcht (IPS/UPS/BPS) und haelt die Sammlung gesund - immer mit deiner Bestaetigung. EN: Detects ROM archives, sorts them into ES-DE/Batocera/Onion folders, patches (IPS/UPS/BPS) and health-checks your library - always with your confirmation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Strugglechen1337/ThorROMButler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T03:10:30Z"
+  "distributed_at": "2026-09-01T04:44:19Z"
 }
