@@ -1,0 +1,9 @@
+{
+  "name": "anfaia--skillnet",
+  "displayName": "SkillNet",
+  "description": "Turns an organization's internal docs into a living learning system: AI agents generate courses, tutor learners, and adapt content on the fly.",
+  "version": "1.0.0",
+  "author": "ANFAIA",
+  "homepage": "https://github.com/ANFAIA/SkillNet",
+  "skills": []
+}
