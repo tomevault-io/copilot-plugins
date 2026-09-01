@@ -4,7 +4,7 @@
   "repo": "ai-os-starter",
   "description": "The folder you talk to. A starter cockpit to build your own AI OS, built on the FRAME method. Run build-os and stack from there.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrdainami/ai-os-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T03:17:44Z"
+  "distributed_at": "2026-09-01T04:55:52Z"
 }
