@@ -1,0 +1,9 @@
+{
+  "name": "driftjs-org--driftjs",
+  "displayName": "driftjs",
+  "description": "\u200bA register-based reactivity system designed for dependency tracking and automated state synchronization within virtual machine architecture.",
+  "version": "1.0.0",
+  "author": "driftjs-org",
+  "homepage": "https://github.com/driftjs-org/driftjs",
+  "skills": []
+}
