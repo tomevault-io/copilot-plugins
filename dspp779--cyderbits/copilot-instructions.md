@@ -1,14 +1,21 @@
-## cyderbits
+## cyder-wine-engine
 
-> Follow **`AGENTS.md`**.
+> Wine engine work lives in cyder-wine-engine — read its guides first
 
-# Gemini / Antigravity (Cyder app)
 
-Follow **`AGENTS.md`**.
+# Cyder Wine engine (sibling repo)
 
-For Wine engine incremental builds, patches, minOS, or packing, switch to
-[cyder-wine-engine](https://github.com/dspp779/cyder-wine-engine) and read its
-`AGENTS.md` and `docs/incremental-build-and-patches.md`.
+This CyderBits repo is the application layer. The Wine engine that actually
+runs `.exe` files is [cyder-wine-engine](https://github.com/dspp779/cyder-wine-engine)
+(`../cyder-wine-engine` or `/Users/jjc/cyder-wine-engine`).
+
+Before engine / wineserver / ntdll / pack work:
+
+1. Prefer operating in the `cyder-wine-engine` checkout.
+2. Read `cyder-wine-engine/AGENTS.md` and
+   `cyder-wine-engine/docs/incremental-build-and-patches.md`.
+3. Do not ad-hoc rebuild host Mach-O without that repo’s `.env` / minOS 10.15
+   rules.
 
 ---
 > Source: [dspp779/CyderBits](https://github.com/dspp779/CyderBits) — distributed by [TomeVault](https://tomevault.io).
