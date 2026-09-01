@@ -1,0 +1,44 @@
+{
+  "name": "agent-memory-kit",
+  "owner": "awrshift",
+  "repo": "agent-memory-kit",
+  "description": "One memory for every coding agent \u2014 plain markdown in your repo. Injected on Claude Code & Cursor, skills on Codex & Copilot, plugin for OpenCode. Dated, capped, audited: agent memory that doesn't rot. Session handoffs, human-approved promotion into knowledge and rules, plus orchestration and QA layers.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/awrshift/agent-memory-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T08:30:50Z"
+}
