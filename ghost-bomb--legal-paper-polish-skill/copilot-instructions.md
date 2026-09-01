@@ -1,0 +1,15 @@
+## legal-paper-polish-skill
+
+> 当前项目重点是创建和测试 `reader-first-legal-writing` skill。
+
+# Project Guidance
+
+当前项目重点是创建和测试 `reader-first-legal-writing` skill。
+
+这个 skill 不是自动 C 刊化润色器，不默认生成终稿，也不默认整篇重写。处理用户论文片段时，应先切分段落、识别读者疑问，并引导用户用大白话说明每段意图。
+
+项目中的 C 刊 Markdown 论文只用于提炼写作节奏、论证推进和表达机制。不得复制、仿写或迁移其中的具体观点、材料、案例、脚注、文献或具有识别度的原句。
+
+---
+> Source: [Ghost-bomb/legal-paper-polish-skill](https://github.com/Ghost-bomb/legal-paper-polish-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
