@@ -1,0 +1,9 @@
+{
+  "name": "bradrlaw--ai-server",
+  "displayName": "ai-server",
+  "description": "Personal headless AI server \u2014 docs, ADRs, and operational scripts",
+  "version": "1.0.0",
+  "author": "bradrlaw",
+  "homepage": "https://github.com/bradrlaw/ai-server",
+  "skills": []
+}
