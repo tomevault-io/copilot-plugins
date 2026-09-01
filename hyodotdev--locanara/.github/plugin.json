@@ -1,0 +1,9 @@
+{
+  "name": "hyodotdev--locanara",
+  "displayName": "locanara",
+  "description": "On-device AI framework inspired by LangChain, purpose-built for mobile. Build, compose, and extend AI features using platform-native models \u2014 all processing happens locally on the device.",
+  "version": "1.0.0",
+  "author": "hyodotdev",
+  "homepage": "https://github.com/hyodotdev/locanara",
+  "skills": []
+}
