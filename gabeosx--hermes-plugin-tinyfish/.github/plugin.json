@@ -1,0 +1,9 @@
+{
+  "name": "gabeosx--hermes-plugin-tinyfish",
+  "displayName": "hermes-plugin-tinyfish",
+  "description": "TinyFish web_search/web_extract provider plugin for Hermes Agent",
+  "version": "1.0.0",
+  "author": "gabeosx",
+  "homepage": "https://github.com/gabeosx/hermes-plugin-tinyfish",
+  "skills": []
+}
