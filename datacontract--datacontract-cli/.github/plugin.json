@@ -1,0 +1,9 @@
+{
+  "name": "datacontract--datacontract-cli",
+  "displayName": "datacontract-cli",
+  "description": "datacontract-cli",
+  "version": "1.0.0",
+  "author": "datacontract",
+  "homepage": "https://github.com/datacontract/datacontract-cli",
+  "skills": []
+}
