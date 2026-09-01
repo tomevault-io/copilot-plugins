@@ -1,0 +1,422 @@
+## community-agent
+
+> validates only the storage boot slice (agent-base's `config/boot.js`: db+log), so a
+
+# CLAUDE.md — conventions for this repo
+
+Guidance for any Claude Code session working in `swampratnz/community-agent`.
+
+## What this is
+
+A TypeScript/Node service (the "NZ Claude Community" agent) that bridges a
+Discord server and a WhatsApp number to a Claude Agent SDK agent with
+persistent Postgres + pgvector memory and a gated three-tier RBAC model. Start
+with `README.md`, then `docs/ARCHITECTURE.md` and `docs/SECURITY.md`.
+
+**To find your way around the code, read `docs/agents/`** — a committed context
+pack aimed at exactly this situation: `module-map.md` says which module owns
+which behaviour (security spine marked), `recipes.md` says what a given kind of
+change normally touches and which gate catches a missed file. It exists because
+every pipeline worker is a fresh Actions run, i.e. a cold session that would
+otherwise re-derive this repo's layout on every single run. Use it instead of a
+broad exploration sweep — then read the actual code, because the pack is
+orientation and never authority. If it is wrong, fix it in your PR.
+
+## Where the framework lives
+
+The framework is **[`@swampratnz/agent-base`](https://github.com/swampratnz/agent-base)**,
+consumed as a package: the agent kernel and prompt spine, the platform
+adapters, storage, the router spine, the jobs mechanism, RBAC, config, the
+notice-catalogue mechanism, alert/health infra, leaf utils. `src/base/` is GONE
+and must stay gone — `npm run imports:check` fails outright if it reappears,
+because a local copy forks the package silently. A framework-level fix belongs
+upstream and reaches this repo as a version bump.
+
+What is here:
+
+- **`src/module/`** — this deployment's content and wiring: the tool registry
+  and its `ToolDef` domain files, prose, personas, skills, the notice pack,
+  community jobs and digests, the integrations, its schema fragments, and the
+  composition wiring (`routerWiring.ts`, `platforms/factories.ts`,
+  `jobs/registry.ts`, `commands.ts`).
+- **`src/module/agentModule.ts`** — THE manifest. Every extension point this
+  deployment fills, named once, as data. Its `init()` is also boot-fatal on two
+  env vars: `DISPLAY_TIMEZONE=Pacific/Auckland` and `DISPLAY_LOCALE=en-NZ`.
+  agent-base defaults them to `UTC`/`en-GB` — it cannot know a deployment's
+  timezone — so the manifest asserts them rather than let every member-facing
+  event time silently re-render an hour out. It throws from `init()`, so the
+  failure is a plain `Error` with those two names in it, NOT config's zod
+  `Invalid environment configuration` exit. Set both in `.env`.
+- **`src/index.ts`** — the composition root: it hands that manifest to
+  `createAgent`, then wires adapters, the router and the jobs, and owns
+  startup/shutdown ordering. The only file that may compose.
+- **`src/migrate.ts`** — `npm run migrate`: base fragments, then this module's.
+
+**Adding an extension point** means exporting the value from the file that owns
+the content and naming it in the manifest. Do NOT add a module-scope
+`register*()` call, and **never render a `notice()` at module scope** — the
+pack is registered by `createAgent`, AFTER every module has been imported, so
+an import-time render throws before the process can say why. Tests opt into the
+same registrations one slice at a time through `tests/support/register*.ts`.
+
+`createAgent` owns the order and it is not negotiable from a module: plan (a
+pure pass that rejects an incomplete or double-claimed composition with the
+process untouched) → each module's `init()` → singleton registrations →
+additive registrations → readiness probe → migrations → start.
+
+One gap to expect, real today and an upstream fix: the manifest type has no
+`configSchema` field, so a new env var is an agent-base change. Mind which
+type you are reading — the package exports TWO things called `AgentModule`:
+the live one from `createAgent.d.ts`, re-exported as `AgentModuleManifest`
+(what `src/module/agentModule.ts` imports, and the one with no
+`configSchema`), and an older `module-api/module.d.ts` one that has the field
+but is not what `createAgent` takes. (Subpath
+exports were the other one; `@swampratnz/agent-base@0.1.1` ships them, so
+`@swampratnz/agent-base/<module>.js` resolves straight from the package and the
+postinstall shim that used to add them is gone.)
+
+## Build / test / verify
+
+- `npm run typecheck` — must be clean. This now also runs
+  `npm run typecheck:tests` (`tsconfig.tests.json`), because the main tsconfig
+  covers `src/**` only and `tsx` strips types without checking them, so `tests/`
+  went entirely untypechecked — which is how a whole class of test bug survived:
+  an injected-`deps` object that omits a field silently falls through to the
+  REAL repository function, so a "unit" test quietly queries live Postgres, and
+  since `node:test` runs test FILES in parallel those stray reads land on tables
+  other files are counting (a source of the cross-file flakiness that reddens
+  unrelated PRs). `tests/` has a large backlog of pre-existing type errors, so
+  this is an **incremental ratchet**: the config's `include` lists only the test
+  files that are clean today, kept alphabetical one-per-line so concurrent PRs
+  merge cleanly. Bringing another file to zero and adding it is the unit of
+  progress; never delete an entry to turn a red build green. Related: the deps
+  types in `memberDigest.ts`/`usageCostDigest.ts`/`backgroundJobCostAlert.ts`
+  have **no optional fields** on purpose — pass nothing at all (production) or
+  every field (tests); see `docs/STANDARDS.md` for the throwing-stub pattern.
+- `npm test` — Node test runner via tsx; must pass. Security invariants live
+  here (tool gating, confirm flow, secret redaction, WhatsApp wire helpers) —
+  when you touch those areas, extend the tests.
+- `npm run test:security` — runs every `SECURITY:`-prefixed test and enforces
+  `tests/security-floor.json`, a per-file map of how many `SECURITY:` tests
+  each test file declares (exact match, not a floor). When you add (or
+  intentionally remove) a `SECURITY:` test, update that file's entry in the
+  SAME diff — the gate's error message tells you exactly which entry, or run
+  `npm run test:security:fix` to regenerate the manifest to the true counts.
+  That helper only ever RAISES a count; a genuine removal needs `--allow-lower`
+  plus a PR explanation, so it can't silently paper over a deleted security
+  test. Per-file entries exist so concurrent PRs don't all conflict on one
+  shared counter line, which is what the old global `MIN_SECURITY_TESTS`
+  constant caused. The manifest is kept SORTED by file name (the gate enforces
+  it; `test:security:fix` normalises it) so that two PRs adding entries for
+  DIFFERENT new files land in different hunks and merge cleanly instead of
+  colliding at a shared append point — when you add a new file's entry by hand,
+  put it in alphabetical position (or just run the fix command).
+  **The gate is blind to loss in transit.** It protects against deleting cases
+  WITHIN this repo; a test file arriving in ANOTHER repo gets whatever count it
+  shows up with, and that repo's manifest records the smaller number as
+  correct. Moving tests to `agent-base` therefore needs a name-level diff
+  against the source commit, not a count comparison — `gatedNotice.test.ts`
+  crossed over having silently dropped 6 of its 7 cases, and both manifests
+  agreed with each other the whole time.
+- `tests/knowledgeEval.test.ts` + `tests/fixtures/knowledgeEval.json` — a
+  golden-query regression eval for `knowledge_search` retrieval quality
+  (precision@K against a curated, paraphrased query set with distractors).
+  When you add or edit knowledge entries in a way that should be
+  discoverable by a new phrasing, add a matching golden query there —
+  queries must be paraphrases of the target entry, never near-verbatim
+  quotes, or the eval proves nothing.
+- `npm run imports:check` — the COMPOSITION-DIRECTION rules. Three of them:
+  `src/base/` must not exist (the framework is the package; a local copy forks
+  it silently), `src/module/` may never import the composition root, and only
+  the composition root may import `createAgent` — a module contributes a
+  manifest, it never composes one, because the registration ORDER is exactly
+  what `createAgent` exists to own. Enforced twice on purpose: eslint's
+  `no-restricted-imports` on `src/module/**` gives the fast local signal from
+  the specifier text, and `scripts/check-import-direction.mjs` resolves every
+  relative specifier against the file system, so it sees through any depth of
+  `../` and has no config of its own to weaken. Runs in CI's `lint` job; pinned
+  by `tests/importDirection.test.ts`.
+- `npm run context:check` — freshness gate on the agent context pack
+  (`docs/agents/`). Fails if a `src/` subsystem or top-level module has no
+  entry in `docs/agents/module-map.md`, if an entry names a path that no longer
+  exists, or if entries are unsorted, duplicated, or left as stubs. When you
+  add, remove or rename a module, describe it in the SAME diff.
+  `npm run context:fix` does the mechanical part (add/drop/sort) but
+  deliberately CANNOT make the gate green — it inserts a `TODO` stub and the
+  check keeps failing until someone writes the one-line description. A fixer
+  that auto-satisfied this gate would let modules enter the tree undescribed,
+  which is the exact rot it exists to prevent. Runs in CI's `lint` job.
+- `npm run build` — tsc + copies this module's `src/module/storage/schema/`
+  fragments into `dist/`, then smoke-checks that `dist/module/storage/schema/`
+  matches the module manifest (`scripts/check-dist-schema.mjs`). The base
+  fragments ship inside the installed package. It also copies two things tsc
+  never emits, both load-bearing at runtime: `CHANGELOG.md` (the `whats_new`
+  tool reads it) and `src/module/agent/skills/` (no copy, no skills). Adding a
+  non-`.ts` runtime asset means adding a copy step here.
+- DB-touching changes: CI runs the suite against a real
+  `pgvector/pgvector:pg16` service container (see `.github/workflows/ci.yml`),
+  so this is enforced, not just a manual reminder. (The base repository suite
+  itself now lives in agent-base.) Do it locally too for the
+  tight loop: run `npm run migrate` against a local Postgres 16 + pgvector
+  with `DATABASE_URL` set, then `npm test` — DB-touching tests skip cleanly
+  (not fail) when `DATABASE_URL` is unset, so a contributor without local
+  Postgres isn't blocked.
+- Run the FULL gate green before opening/updating a PR — CI runs the identical
+  set, so a red PR only makes rework. The copy-pasteable command block lives in
+  `docs/agents/recipes.md` ("Run the full gate"); it is
+  `typecheck`, `lint`, `format:check`, `migrate`, `test`, `build`,
+  `test:security`, `context:check`, `imports:check`.
+
+## Security posture (do not regress)
+
+This bot processes untrusted public chat. Preserve these invariants:
+
+- Built-in Claude Code tools are disabled per turn (`tools: []`), with two
+  exceptions: admin+ turns additionally get `WebSearch`, and every tier gets
+  `Skill` when `AGENT_SKILLS_ENABLED` is on (off by default; the loadable set
+  is the hand-written `ENABLED_SKILLS` allowlist, never `'all'`). `WebFetch` is
+  disallowed for everyone. See docs/SECURITY.md §1.
+- Roles come from env (super admins) + the `community_users` table — **never**
+  from message content. Tool surface is tier-derived; privileged tools also
+  re-assert the tier.
+- Destructive actions are CONFIRM-gated and executed by the router, not the
+  model. Outbound filtering (secret redaction + code policy) lives in the
+  adapters' send paths.
+- Admin data access is scoped in SQL to conversations the admin is in.
+
+## Multi-loop pipeline
+
+This repo is developed by a supervised multi-session pipeline — see
+`docs/PIPELINE.md` for why each loop exists, and `docs/CICD.md` for the
+mechanical reference (every workflow's trigger/permissions/timeout, the CI gate
+and its check scripts, the mechanisms shared across loops, and what is portable
+to another repo). If you are running as one of those loops, obey the
+ownership rules:
+
+- **Only the build loop** writes code or opens PRs. PR-review comments only;
+  research & adversarial touch issues only. One exception: the **autofix loop**
+  (`pipeline-pr-autofix.yml`) may push fixes to an existing build-worker PR
+  branch when its CI fails — bounded to 2 attempts; same-repo bot PRs with a
+  `Closes #` body only (unrelated bot PRs like Dependabot bumps and PRs
+  already labelled `needs-human` are skipped); and only from CI
+  `run_attempt` ≥ 2 (the ci-retry loop below gets one free machine rerun
+  first, so agents never chase one-off flakes), then it escalates
+  `needs-human`. It never opens or merges PRs. Before assuming a code defect it
+  checks the two mechanical causes that dominate a concurrent queue and
+  self-heals them rather than escalating: a `security-floor.json` per-file
+  count mismatch (regenerated via `npm run test:security:fix`) and a flaky,
+  unrelated test (re-run in isolation, and if it passes there, CI is
+  re-triggered with an empty commit instead of pushing a bogus "fix"). When it
+  genuinely can't fix something, its escalation comment now carries the agent's
+  own final summary (the same diagnosability the build worker got in #251) so a
+  maintainer isn't reverse-engineering it from run logs.
+- The **conflict-resolver loop** (`pipeline-pr-conflict.yml`) may push a
+  `main`-merge to an existing PR branch when that PR is
+  CONFLICTING. It is two-hop: a `discover` job (triggered on every push to
+  `main`, on PR opened/ready-for-review — a PR can be *born* conflicted — and
+  on an **hourly** backstop sweep) finds conflicting same-repo PRs and
+  self-dispatches the `resolve` job via `workflow_dispatch`, because
+  claude-code-action won't run under a `push` event. The dispatch payload
+  carries PR **numbers only**; resolve re-derives the branch from the API and
+  re-verifies the full eligibility contract before checkout: same-repo (never a
+  fork), not `needs-human`/`no-auto-resolve`, still CONFLICTING, and **either** a
+  bot PR with `Closes #` **or** a maintainer PR whose author is in the
+  `MAINTAINER_LOGINS` allowlist. So a hand-crafted dispatch can't aim it at an
+  arbitrary branch, and a superseded duplicate run no-ops instead of
+  mislabelling. It resolves a `security-floor.json` conflict by regenerating the
+  manifest (`npm run test:security:fix`) rather than hand-counting, and its
+  escalation comment carries the agent's final summary so an unresolved conflict
+  says WHICH files couldn't be reconciled instead of the old opaque "incompatible
+  or needs a workflows change". Both resolution paths (the deterministic
+  floor-only fast path and the full agent) **re-run migrate AFTER
+  merging main**, because the merge can bring migrations the pre-merge migrate
+  didn't have — without it the DB-backed `test:security` fails on a stale schema
+  (`column/relation ... does not exist`) and the resolver falsely escalated
+  `needs-human` on a non-issue. Since the config split, migrate's import chain
+  validates only the storage boot slice (agent-base's `config/boot.js`: db+log), so a
+  bare `npm run migrate` works with just `DATABASE_URL` set — it no longer
+  exits(1) demanding `CLAUDE_CODE_OAUTH_TOKEN` (config validation exits(1)
+  rather than throwing). `migrate:ci` remains as a compatibility alias
+  (workflows still call it; its dummy token is now inert). Keeping it a plain
+  `npm run …` means the existing `Bash(npm:*)` grant covers it, not a fragile
+  exact-match command. One attempt
+  per conflict: a
+  failed resolution escalates `needs-human`, and the eligibility filter skips
+  `needs-human` PRs so it never thrashes. Same push guardrails as autofix
+  (read-only `gh`, exact `git push origin HEAD`). It never opens or merges
+  PRs.
+- The **revise loop** (`pipeline-pr-revise.yml`) may push review-response
+  commits to an existing build-worker PR branch when the PR-review worker's
+  verdict is "Changes requested" — the green-CI case autofix (CI-failure
+  keyed) never touches. Two-hop like the conflict resolver: the review
+  workflow's post step self-dispatches it via `workflow_dispatch` (a
+  GITHUB_TOKEN-posted comment can never trigger a workflow), the payload
+  carries the PR number only, and eligibility (same-repo, bot, `Closes #`,
+  no `needs-human`) plus the still-pending verdict are re-verified from the
+  API before checkout. Bounded to 2 attempts per PR via marker comments,
+  then it escalates `needs-human`; a "Needs a human decision" verdict labels
+  `needs-human` directly from the review workflow. Same push guardrails as
+  autofix (exact `git push origin HEAD`; `gh` read-only except
+  `gh pr comment` for explaining a principled refusal). It never opens or
+  merges PRs.
+- The **build-retry loop** (`pipeline-build-retry.yml`) auto-re-runs a build
+  worker run that failed to produce a PR, via `gh run rerun`, bounded by
+  `run_attempt` (≤3 total attempts). The build worker escalates `needs-human`
+  only on its final attempt — clearing BOTH `status:building` and
+  `status:approved`, so the escalated issue fully leaves the automated lanes
+  and the hourly fallback can't re-claim it — so transient/infra failures
+  recover unattended and a human is pinged only for persistent ones — don't
+  re-add manual re-trigger steps for build failures. (A GITHUB_TOKEN label
+  toggle can't re-trigger the build worker, which is why this uses rerun, not
+  a label change.)
+- The **groundskeeper sweep** (`pipeline-groundskeeper.yml`) is the
+  deterministic, no-LLM hourly reconciler for zombie pipeline state: any open
+  `status:building` issue with no open same-repo PR closing it and no
+  activity for 4h+ is escalated `needs-human` (both status labels cleared).
+  It exists because a build job that hits its 180-min timeout reports
+  `cancelled` — invisible to both the failure-keyed retry loop and the
+  final-attempt escalation — and a dead fallback-Routine claim leaves no run
+  at all; either way the issue previously sat `status:building` forever,
+  wedging the fallback lane and starving the approved queue. Like auto-merge
+  it reads issue/PR fields only as jq data and runs no PR-controlled code.
+- The **ci-retry loop** (`ci-retry.yml`) gives a failed CI run one blind
+  machine rerun (`gh run rerun --failed`, `run_attempt` < 2) before any agent
+  engages — transient npm-registry/runner failures recover for zero agent
+  cost. It holds `actions: write` only, touches no code, and hands off to
+  autofix from attempt 2.
+- The **changelog-autofill loop** (`changelog-autofill.yml`, daily) is the one
+  agent OUTSIDE this pipeline that writes to the repo, and the only one besides
+  the build worker that opens a PR — worth knowing here precisely because the
+  ownership rules above are otherwise read as "only the build loop opens PRs".
+  It drafts the `CHANGELOG.md` entries `changelog-coverage.yml` found missing,
+  on the fixed branch `chore/changelog-autofill`, and opens ONE PR for a human.
+  It never touches issues, labels or `src/`, skips when an autofill PR is
+  already open, and its grant is pinned rather than merely instructed: the exact
+  push form `git push origin HEAD`, `gh pr create` pinned to the literal
+  `--base main --head chore/changelog-autofill` prefix, and no
+  `git checkout`/`switch` so HEAD cannot leave that branch. It never merges.
+- The build worker runs the **full CI gate** (typecheck, lint, format:check,
+  migrate, test against a real pgvector Postgres, build, test:security) BEFORE
+  opening a PR, so "green locally" matches CI. Keep it that way when editing
+  either `pipeline-build.yml` or `ci.yml` — they must run the same checks.
+  It also **pushes its branch incrementally** (after the first commit and every
+  commit thereafter — branch pushes trigger no CI and no PR exists yet, so they
+  are free) because the job's GitHub credential can expire mid-build (~1h vs the
+  180-min budget) and an unpushed tree dies with the runner; the PR still opens
+  only at the end, so the verify-step/groundskeeper "no PR = dead build"
+  contract is unchanged. A deterministic post-agent **checkpoint step** pushes
+  any committed-but-unpushed work with the job's GITHUB_TOKEN (agents have
+  finished whole builds without ever pushing — #633), so nothing committed can
+  die with the runner. The surviving pushed branch + commit is published on
+  **every** failed attempt, not only the last, and a re-queued build resumes
+  from that branch instead of rebuilding (issue #667) — the pointer is
+  resolved by a deterministic pre-step (bot comments only, exact template,
+  remote-verified), never by the agent reading comment text. Publishing it
+  only at the final attempt inverted the mechanism: retries need the pointer
+  on exactly the attempts where retrying *continues*, and #701 attempt 1
+  pushed a finished tree that attempt 2 then rebuilt from `main` from
+  scratch.
+  When a failed attempt leaves a pushed branch **ahead of `main` with no PR**
+  — a build that did the work and skipped only `gh pr create` — the verify
+  step opens that PR itself, as a **draft**, and relabels `status:built`
+  rather than spending another attempt re-deriving the same diff. Recovery
+  fires only while the issue is still `status:building` with no `needs-human`
+  (an agent's deliberate step-5 refusal also leaves a branch ahead of `main`,
+  and must stand), and never for a branch that has ever had a PR in any
+  state (a closed-unmerged one means a human already rejected that work). Recovered
+  work is not laundered by this: it never cleared the build agent's own gate,
+  so CI on the PR adjudicates and the automated review still applies, and the
+  PR is authored by `github-actions[bot]` — not the `claude[bot]` identity the
+  auto-merge loop requires — so it can never auto-merge.
+- **All three PR-fixing loops (autofix, conflict-resolver, revise) carry the
+  same deterministic checkpoint** as the build worker, for the same reason.
+  Each already instructs its agent to run every command synchronously and to
+  NEVER end its turn waiting for one, and that instruction is provably not
+  enough: the revise agent ended PR #606 with *"I'll wait for the monitor
+  notification before continuing with the security test suite, build, and
+  push"*, and the conflict resolver ended PR #609 waiting on a Monitor task —
+  both had already COMMITTED work, which died with the runner, and both PRs
+  escalated `needs-human` with nothing to show (#609's "unresolvable" conflict
+  was then a clean merge a human finished in minutes). The checkpoint runs
+  after the agent exits, pushes committed-but-unpushed work with the job's
+  GITHUB_TOKEN, and only ever FAST-FORWARDS the PR branch — a remote that
+  moved parks the work on a `-ckpt-<run_id>` ref instead of rewriting someone
+  else's push. Because that work never cleared the agent's own gate, the
+  recovery comment says so explicitly: CI on the push is the adjudicator and
+  the automated review still has to pass, so a checkpoint can surface work but
+  can never launder it into a merge.
+- The **auto-merge loop** (`pipeline-pr-automerge.yml`) merges fully-vetted
+  build-worker PRs, one at a time, so a backlog of green + approved PRs doesn't
+  stall on a human. It is a **deterministic, no-LLM, no-Max-pool** shell loop
+  (it reads PR titles/bodies/comments only as jq data, never as instructions,
+  and runs no PR-controlled code — so it has none of the fix/resolve loops'
+  injection/code-exec surface). It merges the OLDEST PR that is same-repo,
+  authored by the build worker (`claude[bot]` — the exact identity, not merely
+  any bot), `Closes #`, has all checks green, is `MERGEABLE`, and whose
+  LATEST automated review verdict is an `LGTM` (from `github-actions[bot]`,
+  the review worker's identity) newer than the head commit, and does NOT touch
+  any governance/CI/config path (`.github/`, `scripts/`, `package.json`,
+  typecheck/lint/format config, `CLAUDE.md`, `docs/PIPELINE.md`,
+  `docs/VISION.md`) — those always require a human merge, so the loop can
+  never auto-merge a change to its own guardrails or to what "green" means.
+  `docs/SECURITY.md` is deliberately NOT on that list: every other entry can
+  weaken the check that would catch it (PR-branch CI runs the PR's own
+  workflows), whereas no workflow or check reads that document, so it is
+  descriptive where the rest are causal. It is not inert — line 10 above
+  points every agent at it, so a wrong edit can mislead one — but that pointer
+  is shared with `docs/ARCHITECTURE.md`, `docs/STANDARDS.md` and
+  `docs/agents/*`, none of them governed either, and the rules an agent must
+  obey live in this file's security-posture section, which stays governed. It
+  cost 64% of the list's human presses; `tests/securityDocSections.test.ts`
+  now pins its section list instead, the same trade
+  `tests/toolTierMap.test.ts` makes for the tier map — structural drift only,
+  not content correctness.
+  A governance-path PR that passes every other gate is not skipped silently:
+  it gets a `human-merge-ready` label plus one marker-guarded comment asking
+  a maintainer to merge (pipeline work routinely edits `.github/` or
+  `scripts/` to fix the machinery itself, so this stays a well-trodden path
+  even with `docs/SECURITY.md` off the list).
+  Never one labelled `needs-human`/`no-auto-merge`. Exactly ONE merge per run:
+  afterwards `main` has advanced, so it dispatches the conflict resolver to
+  rebase the rest, and the next PR only re-qualifies once it is green against
+  the new `main`. Branch protection on `main` is the enforceable backstop, as
+  for every other loop (see docs/SECURITY.md). Pin a PR out with
+  `no-auto-merge`.
+- **No loop OPENS or force-pushes over a human's PR, and no loop merges a
+  human PR** — only the deterministic auto-merge loop above merges, and only
+  its own build-worker PRs under the gate described there. A human still
+  merges anything that loop won't touch.
+- WIP caps: ≤5 open `status:draft` (raised from 3 on the Max 20x pool). Builds
+  run **per-issue** (each issue its own
+  `concurrency` group, so distinct issues run in parallel and none evicts
+  another — a single shared group would silently *cancel* queued builds, and
+  cancellations aren't retried). Every run draws on the shared Max pool, so
+  don't release large bursts at once: parallel builds throttle each other, and
+  the mitigation is a generous build `timeout-minutes` (contended builds finish
+  slowly rather than being killed), not a hard cap. A true FIFO lock is the
+  proper fix if bursts keep saturating the pool.
+- Coordinate only through issue labels; when blocked or ambiguous, add
+  `needs-human` and stop rather than guess.
+- Everything traces to an issue number; the build session works in its own git
+  worktree.
+
+## Conventions
+
+- Match existing style; keep comments at the density of surrounding code.
+- Never commit secrets. `.env` is git-ignored, as are the runtime credential
+  directories `/auth/` and `/whatsapp-auth/` — note both patterns are ANCHORED
+  to the repo root in `.gitignore`, so an unanchored `auth/` must never be
+  re-added: it would swallow any source directory of that name.
+- Do not put model identifiers in commits, PR bodies, or code.
+- `CHANGELOG.md` `##` section dates are the **Pacific/Auckland (NZ)** calendar
+  day, not UTC. The build worker runs in a UTC CI shell, so use
+  `TZ='Pacific/Auckland' date +%F` for "today" — a bare `date` is a day behind
+  NZ after ~noon local. Reuse the existing top section if it's already today's
+  NZ date rather than opening a duplicate.
+- Human-facing conventions (style, test expectations, commit/PR rules) are
+  also written up in `docs/STANDARDS.md` — keep the two in sync if either
+  changes.
+
+---
+> Source: [swampratnz/community-agent](https://github.com/swampratnz/community-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
