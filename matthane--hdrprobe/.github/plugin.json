@@ -1,0 +1,9 @@
+{
+  "name": "matthane--hdrprobe",
+  "displayName": "hdrprobe",
+  "description": "Fast HDR, HDR10+, and Dolby Vision metadata inspector.",
+  "version": "1.0.0",
+  "author": "matthane",
+  "homepage": "https://github.com/matthane/hdrprobe",
+  "skills": []
+}
