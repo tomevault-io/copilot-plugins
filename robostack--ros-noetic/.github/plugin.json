@@ -1,0 +1,9 @@
+{
+  "name": "robostack--ros-noetic",
+  "displayName": "ros-noetic",
+  "description": "ros-noetic",
+  "version": "1.0.0",
+  "author": "RoboStack",
+  "homepage": "https://github.com/RoboStack/ros-noetic",
+  "skills": []
+}
