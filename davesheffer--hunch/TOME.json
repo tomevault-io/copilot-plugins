@@ -4,7 +4,7 @@
   "repo": "hunch",
   "description": "Local-first engineering memory for AI coding: a git-native graph of decisions, bugs, and invariants, exposed to Claude Code via MCP.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davesheffer/hunch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T02:33:19Z"
+  "distributed_at": "2026-09-01T04:58:56Z"
 }
