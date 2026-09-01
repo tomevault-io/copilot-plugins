@@ -7,11 +7,11 @@ Local-first conversational video editing agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nanzhi84/Rushes](https://github.com/nanzhi84/Rushes).
+Original source: `AGENTS.md` in [nanzhi84/Rushes](https://github.com/nanzhi84/Rushes).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
