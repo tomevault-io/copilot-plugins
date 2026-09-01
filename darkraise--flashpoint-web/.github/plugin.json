@@ -1,0 +1,9 @@
+{
+  "name": "darkraise--flashpoint-web",
+  "displayName": "flashpoint-web",
+  "description": "Selfhosted flashpoint archive for playing flash and HTML5 game in browser without any additional app",
+  "version": "1.0.0",
+  "author": "darkraise",
+  "homepage": "https://github.com/darkraise/flashpoint-web",
+  "skills": []
+}
