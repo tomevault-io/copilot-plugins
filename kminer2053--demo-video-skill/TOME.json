@@ -4,7 +4,7 @@
   "repo": "demo-video-skill",
   "description": "\ucf54\ub529 \uc5d0\uc774\uc804\ud2b8\uac00 \ub9cc\ub4e4\uc5b4 \uc8fc\ub294 \ub370\ubaa8 \uc601\uc0c1 \u2014 \ubc14\uc774\ube0c\ucf54\ub529 \uacb0\uacfc\ubb3c\uc744 \uc81c\ub300\ub85c \ubf50\ub0b4\uc138\uc694.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kminer2053/demo-video-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T00:42:55Z"
+  "distributed_at": "2026-09-01T01:32:22Z"
 }
