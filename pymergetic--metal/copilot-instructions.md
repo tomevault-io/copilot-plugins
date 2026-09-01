@@ -1,65 +1,53 @@
-## metal-finished-quality
+## metal-freestanding-libc
 
-> Ship finished quality only — no fake, placeholder, or half-done code
+> Firmware C must use metal/libc under -nostdinc; never host compiler ISO C headers
 
 
-# Finished quality only (no fake / unfinished code)
+# Freestanding metal/libc (no host compiler stddef/stdint/...)
 
-**Why this is load-bearing:** unfinished “looks done” code burns tokens,
-steals time, and trains the wrong tree. The owner wants **quality and
-finished code**, not stubs dressed up as features.
+Firmware / shared Metal C is built with `-nostdinc` and
+`-I.../pymergetic/metal/libc`. Angled includes like `<stddef.h>`, `<stdint.h>`,
+`<string.h>`, `<stdio.h>`, `<stdlib.h>`, `<stdarg.h>`, `<stdbool.h>`,
+`<limits.h>`, `<assert.h>` must resolve to **that** tree — never the host
+toolchain's `/usr/lib/clang/.../include` or `/usr/include`.
 
-## Hard rule
+**Why:** host `stddef.h` / `stdint.h` disagree with freestanding Metal on
+`size_t` / LLP64 vs LP64 / `NULL`, and clangd without `-nostdinc` silently
+pulls the wrong headers (extra cognitive load + wrong types in the IDE).
 
-Do **not** land code that pretends to work. If it is not finished, do not
-ship it as if it were.
+## Required compile / IDE flags
 
-**Banned (concrete):**
-
-- Rebranding one primitive as another (`Mutex { lock: Spin }` called a
-  “mutex”)
-- Fake completion: pluggable “park later”, panic-as-API, no-op success,
-  TODO bodies behind a real name
-- Empty generated faces, hollow hubs, or C exports with no real border
-- “Placeholder until X exists” left in the tree as the implementation
-- **Dual paths for one primitive** where only one is wired (or the slow
-  one is “for later”): e.g. boot `cas32` ops table while locks use
-  `core::sync::atomic`, plus a smoke that claims “used by mem locks”
-- Comments / smokes that assert a dependency that `grep` cannot find
-
-**Required instead:**
-
-- Ship only what is **done and honest** for the current tree
-- If the design is not finished, **omit it** — do not leave a fake type
-- Prefer deleting unfinished surface over leaving a stub that compiles
-- When unsure: ask, or stop — do not invent a pretend completion
-- **One mechanism per job.** Prefer the fast direct path (language/core
-  atomics, direct calls). An ops-table / indirection exists only when a
-  real caller needs target-specific bodies — and that caller must use it
-  now, not “someday.”
-
-## Examples
+Every TU under `src/pymergetic/metal/**` must see:
 
 ```text
-BAD:  Mutex wraps Spin; set_wait_ops "later"; panic if hooks missing
-GOOD: Finished SMP futex mutex (own state machine + wait), or omit entirely.
-
-BAD:  lock/__init__.h empty while real API lives only in a sibling face
-GOOD: Package hub carries the real C border, or no face is emitted.
-
-BAD:  /* empty catalog */ headers checked in as “sync output”
-GOOD: No emit when there is no border (no exported fns).
-
-BAD:  boot/platform sync cas32 ops + "used by mem locks" while mem/lock
-      uses core::sync::atomic and never calls the ops
-GOOD: Locks use core atomics only; no boot CAS surface until a real
-      caller needs a target-specific CAS (and then locks use that).
+-ffreestanding -nostdinc -Isrc/pymergetic/metal/libc -Isrc
 ```
 
-## Agent habit
+- Build: `./tools/forge build` (bios/efi).
+- clangd: package-root `.clangd` PathMatch for `src` forces freestanding
+  flags + metal/libc.
+- After changing `.clangd` / compile DB: restart clangd.
 
-Optimize for **correct finished work**, not for looking busy. One real
-primitive beats three fake ones. Do not “fill the gap” with noobshit.
+## Source rules
+
+- Prefer `#include <string.h>` / `<stdio.h>` / … (metal/libc) over local
+  `memcpy` / `strlen` prototypes or private copies.
+- One `.c` per libc header that needs bodies (`string.c`, `stdio.c`, `stdlib.c`);
+  header-only: `stddef`, `stdint`, `stdbool`, `stdarg`, `limits`, `assert`.
+- Do **not** add a second `stddef.h` elsewhere, and do not `#include_next` the
+  compiler header.
+- EDK2 headers stay only under `boot/platform/efi/**` (see metal-c-dialect).
+
+## Verify
+
+```bash
+clang -ffreestanding -nostdinc \
+  -Isrc/pymergetic/metal/libc -Isrc -E \
+  - <<<'#include <stddef.h>' | head -5
+# expect a path under src/pymergetic/metal/libc/stddef.h
+```
+
+If you see a path under `/usr/...` or `lib/clang/...`, flags are wrong.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
