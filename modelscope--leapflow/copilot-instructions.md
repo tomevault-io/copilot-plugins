@@ -1,0 +1,219 @@
+## leapflow
+
+> This document is the LeapFlow engineering collaboration contract. It is not only a style guide: it defines the design, runtime, UX, safety, and verification rules that every implementation change must follow.
+
+# AGENTS.md
+
+This document is the LeapFlow engineering collaboration contract. It is not only a style guide: it defines the design, runtime, UX, safety, and verification rules that every implementation change must follow.
+
+## Design Philosophy
+
+1. **Signal-Driven Intelligence** — All agent intelligence derives from observing real-world signals, not from hardcoded rules. If a behavior cannot be learned from signals, it is not in scope.
+
+2. **Context Pipeline as Core** — Signal → Filter (SNR) → Compress (intent-preserving) → Store (multi-layer) → Retrieve (goal-dependent) → Decide. Every feature and every external signal source, including IM collaboration events, must map to this pipeline before it can drive action.
+
+3. **Progressive Trust** — Never auto-execute on first encounter. Earn autonomy through repeated success: DRAFT → CANDIDATE → VERIFIED → PRODUCTION.
+
+4. **Occam's Razor** — The simplest correct solution wins. Reject complexity that doesn't directly serve user value. Every abstraction must pay for itself.
+
+5. **LLM-Native Design** — Design for LLM reasoning first. Protocols over classes. Declarative over imperative. Context over configuration.
+
+6. **User-Centric Reliability** — User experience is part of correctness. Every change must keep common paths easy, predictable, recoverable, and must not degrade adjacent workflows.
+
+## Code Quality Requirements
+
+- SOLID principles are non-negotiable; implementations must be cohesive, well-factored, and easy to reason about
+- Occam's Razor: maximize elegance and efficiency, reject unnecessary complexity
+- Design for generalization and universality; prefer reusable domain concepts over one-off special cases
+- Easy to extend, avoid hardcoding and hard rules
+- Industrial-grade robustness: every external call has timeout, retry, and fallback
+- Structured error propagation: failures must flow as typed envelopes (`FailureEnvelope`) with source, category, recoverability, and side-effect state — never as ad-hoc dicts, bare strings, or unclassified exceptions
+- User experience is a first-class quality bar: optimize for clarity, ease of use, fast feedback, and graceful recovery
+- All comments and docstrings in English
+- Type annotations on all public APIs
+- No bare except — always specify exception types
+
+## Architecture Principles
+
+- **System Boundary Awareness**: LeapFlow is a multi-entry, multi-module runtime. Changes must account for the affected path across CLI/TUI, leapd, engine, skills/tools, LLM, storage, memory, gateway, hub, and platform adapters.
+- **TUI as the Primary User Entry**: The interactive TUI is the default product surface. Preserve streaming feedback, command queue behavior, approval prompts, status bar accuracy, long-input robustness, history, and session continuity.
+- **Concurrent TUI Instances Are a Supported Scenario (MANDATORY)**: several TUIs in *different workspaces*, sharing one leapd and one profile, is a normal way to use LeapFlow — not an edge case. Each instance must remain fully usable and must see only its own session, conversation, context usage, and turn state. A change to session routing, `status()`, stream metadata, the client lease, or anything the status bar renders is not verified until it has been exercised with two instances in two workspaces at the same time. One instance degrading another is a release blocker, not a limitation to document.
+- **TUI Command Clarity**: Global task-control commands stay short and unambiguous (`/cancel`, `/skip`, `/pause`, `/resume`, `/queue`, `/drop`); teach-mode controls must use the `/teach ...` namespace and should not keep bare compatibility aliases during early iteration.
+- **TUI Prompt Ownership**: Input prompt and placeholder rendering must have a single owner. Avoid duplicate prompt sources; placeholder text stays visually subordinate, offset after the prompt, and disappears as soon as the user types.
+- **leapd Runtime Consistency**: Daemon-backed behavior must preserve lifecycle correctness: start, stop, restart, status, RPC streaming, cancellation, pending approvals, runtime config reload, multi-client state, and version consistency.
+- **Progressive Context Disclosure (PCD)**: Keep one unified execution loop, but never default every turn to full disclosure. Each LLM call must use the smallest sufficient PromptAssemblyPlan for tools, memory, history, reasoning, streaming, and risk; upgrade progressively only when observable signals require it.
+- **Gateway as Signal Boundary**: External IM/platform integrations are not just messaging features; they extend LeapFlow's Observe/Orient boundary into collaboration environments. Inbound platform events must enter as structured signals (`BackendEvent` → normalized domain event/message), pass SNR filtering and privacy/safety gates, then feed memory, decision, and action paths according to their classification.
+- **Transport-Lifecycle Separation**: Short-lived actions (`ExecutionBackend`/`CliBackend`) and long-lived observations (`BackendEventSource`) are separate responsibilities. Do not implement streaming subscribers, webhooks, polling loops, or CLI NDJSON consumers inside one-shot action execution code.
+- **Platform-Neutral Gateway Core**: Gateway core owns protocols, lifecycle, routing, session isolation, approval, audit, and memory integration. Platform adapters own authentication, send semantics, event-source configuration, and schema normalization. Core modules must not import platform SDKs directly. Per-vendor code — including credential validators — lives in a platform sub-package (`adapters/`, `normalizers/`, `action_packs/`, `validators/<platform>.py`), never in a core module; core keeps only the neutral registry and contracts.
+- **Platform vs App Business Boundary**: Platform layers may define stable contracts and governance primitives (`ActionSpec`, `ActionFailure`, `ActionAuthSpec`, `CapabilityHealthLedger`, approval/feasibility gates, audit, and metadata propagation). Third-party app or vendor specifics — SDK/CLI wire formats, scope names, auth commands, console URLs, error JSON shapes, resource naming, and recovery playbooks — must live in that app's action pack, adapter, backend, or normalizer, never in gateway core.
+- **Dependency Inversion**: Core logic depends on Protocol abstractions, never on concrete implementations
+- **Protocol over ABC**: Use `typing.Protocol` with `runtime_checkable` for all extension points
+- **Event-Driven Communication**: Modules interact through typed events on EventBus, not direct imports
+- **Session Engine is the Only Reporting Source (MANDATORY)**: conversation state lives on the per-session engines built by `SessionRegistry`. `ctx.engine` is only the template they are cloned from and **never accumulates turns, context, or history**. Any code reporting runtime state — stream chunk metadata, `status()`, session analysis, dashboards, status bar values — must resolve the engine through the single entry point (`RuntimeLeapService._active_engine()` / `SessionCoordinator.resolve_session_engine()`), never `getattr(ctx, "engine")`. Reading the template silently yields zeros, which is invisible in review and has surfaced repeatedly as an empty LeapBoard and a status bar frozen at `0/<limit>`. When a value is produced *by* a specific engine (e.g. a stream event), pass that engine explicitly instead of re-resolving, so concurrent sessions cannot be cross-reported.
+- **Client-Visible Runtime State Must Be Pushed, Not Inferred**: a daemon-mode TUI is a separate process; it seeds model, context length, and usage at startup and can only learn about later changes from metadata the daemon returns. Any runtime value the status bar renders must travel on ordinary status/stream metadata (and on the mutation payload for command RPCs) — never rely on a one-off change notification, which change-detection can legitimately skip.
+- **Session Identity Belongs to the Client That Created It (MANDATORY)**: a `session_id` is the client's own identity, not shared daemon state. The daemon must never report a session a caller did not name, and a client must never adopt a session id it did not ask for. Concretely: every RPC that returns session-scoped state (`status()`, stream chunk metadata, history, analysis) takes the caller's `session_id` and resolves *that* session; when the caller names none, the reply carries **no** session identity and no per-session figures rather than a substitute. A client accepts a reported session id only when it matches its own or it has none yet (first assignment, or an explicit `--resume`). Violating this is not cosmetic: a second TUI adopted the first's session, sent it with its own workspace, and was rejected on every turn — with advice ("start a fresh session") that could not work, because a fresh client re-adopted the same id on its first status poll.
+- **Cross-Session Fallbacks Must Be Named For What They Do**: a resolver that answers "whichever session was most recently active" ignores workspace and client identity, so it is valid only for genuinely aggregate views (a dashboard summarizing all activity). Such helpers must say so in their name (e.g. `most_recent_any_client()`), and no code path that describes one caller may use them. A friendly name like "the current session" invites exactly the misuse that leaked one client's identity to another.
+- **Workspace Binding Is Part of Session Identity**: a session is bound to the workspace of its first request, and reuse from another workspace is refused. Because correct clients cannot trigger this, a mismatch means either an explicit `--resume` into another workspace (the only legitimate cause, and what the message must name) or a defect — never something to tell the user to work around.
+- **Terminal Output Must Wrap at the Console Layer**: `LeapConsole` owns wrapping (`soft_wrap=False`), because prompt_toolkit's renderer clips at the window edge rather than reflowing. Never enable `soft_wrap` on the shared console or hand it pre-formatted long lines; long answers silently lose their tail. A standalone `Console` for fixed-width art (e.g. the banner) may opt out, but must set an explicit `width`.
+- **Immutable Domain Types**: Use `@dataclass(frozen=True)` or `NamedTuple` for domain objects — but never for an exception type. CPython stores the traceback on the instance and every Python-level re-raise assigns `__traceback__` through `__setattr__` (`contextlib.__exit__`, asyncio, and pytest all do), so a frozen exception raises `FrozenInstanceError` there and *replaces* the real failure with that noise: a driver answering "Unknown tool" was reported for months as "cannot assign to field '__traceback__'".
+- **Config-Driven Behavior**: Thresholds, intervals, feature flags, model budgets, platform capabilities, hub backends, gateway manifests, and paths must be configurable through Settings/env/config layers.
+- **Graceful Degradation**: Every optional component (LLM, Hub) can be absent without crash
+- **Single Source of Truth**: DuckDB for persistence, EventBus for communication, Settings for configuration
+- **Inbound Signal Classification**: Platform events must be classified before they activate the agent. Message/callback events may enter Decide; signal/lifecycle events should be stored or routed without triggering LLM by default; ignored events must be explicit (e.g. self-message, duplicate, blocked scope).
+- **Single Recovery Decision Point**: All agent loop errors (LLM, tool, system, security) enter one `RecoveryCoordinator`. No parallel decision paths, no scattered if/break logic. The pipeline is always: `FailureEnvelope` → `RecoveryDecision` → `StrategyOutcome` feedback.
+- **A Local Defect Is Never a Provider Failure (MANDATORY)**: an `except` around a provider call must wrap *only* that call. Post-response bookkeeping — usage recording, calibration, capability learning — belongs outside it, in a helper that contains its own failures, because telemetry must never fail a turn. Exceptions that mean "LeapFlow has a bug" (`AttributeError`, `TypeError`, `NameError`, `KeyError`, `IndexError`, `ImportError`, `AssertionError`, `NotImplementedError`) are classified by *type* into the non-recoverable `internal_defect` category before the provider taxonomy is consulted. The provider classifier matches on message text, so one mistyped attribute whose name contained "context" was read as a context overflow and driven through three compressions, a provider failover, and a credential rotation before halting — every turn, for every user, with the suite green.
+- **Every Terminal Decision Must Be Actionable**: a halt is the last thing a stopped turn can say, so it always carries an `InteractionRequest` naming the failure and the next step. The raw `reason` is written for the audit log; surfacing it alone produces internal jargon as the user's entire answer ("No applicable recovery strategy found").
+- **Recovery Must Leave Evidence**: every recovery entry point logs the exception with `exc_info`, and the audit sink is constructed with the profile layout's audit path. An in-memory sink and an unlogged branch made a reproducible outage undiagnosable after the fact — the incident had to be reconstructed from token counts in an unrelated log line.
+- **Side-Effect Gating**: Recovery is gated by `SideEffectState` at two levels. Within a tool batch, a failed side-effecting call stops the remaining calls in that batch, decided by the declared `execution_policy` rather than any tool-name list. Within `RecoveryCoordinator`, any state other than `NONE` blocks replaying actions (retry, transform-and-retry, failover) and yields a checkpointed halt carrying an `InteractionRequest`; only user-mediated or checkpoint-based resumption is permitted. `UNKNOWN` blocks like `COMMITTED` and `PARTIAL` do: it is the classifier's fallback and the state assigned to `external_side_effect` (outbound sends, external API calls), so exempting it would leave the highest-risk case ungated.
+- **Uncertain Effects Are Reported, Not Retried Blindly**: a failed call whose effect may already have landed (`external_side_effect`, `mutating_once`) must carry that verdict in its result so the next turn verifies before repeating it. An error is not proof that nothing happened. Idempotent mutations are exempt — re-applying them converges, so flagging them would only stall safe retries.
+- **Budget-Constrained Recovery**: Turn-level deadlines, per-category limits, and a global recovery budget prevent infinite retry loops. Every recovery action has an explicit cost; exhaustion triggers a clean halt or user escalation.
+- **Recovery Strategy as Protocol**: Recovery strategies implement a `RecoveryStrategy` Protocol (`can_apply` + `decide`), registered by priority, composable, and extensible without modifying the coordinator.
+
+## Path Tree, Configuration, and Secrets Rules
+
+- **Path tree is a product contract**: every LeapFlow-managed path must be declared by `PathLayout`, `ProfileLayout`, `CacheLayout`, or a child layout object. Runtime code must consume layout APIs, never assemble managed paths with ad-hoc string joins.
+- **Profile is the runtime boundary**: `profiles/<profile>/` owns profile metadata, config, DBs, memory, skills, gateway state, approval state, audit logs, runtime files, cache roots, and profile-scoped secrets. Cross-profile access requires an explicit layout object.
+- **Workspace is context, not ownership**: workspace-local files are limited to `.leapflow/config.yaml` and `.leapflow/workspace.yaml`; profile data and caches stay under the active profile and are addressed by workspace/session ids.
+- **Config is layered, not scattered**: durable settings live in `config/user.yaml`, `profiles/<profile>/config/*.yaml`, and optional workspace config. `LEAPFLOW_*` values are process overrides only; env files are not a supported configuration source.
+- **`leap config` is the user-facing control plane**: every durable, user-writable setting must be discoverable and mutable through `ConfigService`, `leap config`, and TUI `/config`; do not add one-off setup commands, hidden YAML-only knobs, or new persistent env-first flows.
+- **Config catalog is the discovery contract**: writable config fields must expose key, effective value, type, scopes, hot-reload semantics, category, value hint, and description. `leap config keys` stays compact and script-friendly; `leap config list` and `/config list` are the human-readable catalog; `leap config show <key>` and `/config show <key>` are the single-field detail views.
+- **TUI config parity is mandatory**: `/config` mirrors `leap config`, supports active-session reload when possible, and must remain self-discoverable through slash completion for subcommands, keys, and simple values. Any new config subcommand must update CLI parser, TUI payload/rendering, completion, README, and tests together.
+- **Secrets are refs, never durable plaintext**: long-lived LLM, VLM, aux-provider, Gateway, and Hub credentials must be stored in the vault and referenced as `secret://profile/...` or `secret://global/...`. Config may contain refs, never tokens.
+- **Cache declares scope and sensitivity**: cache paths must route through `CacheLayout`/`CacheManager` with `profile`, `workspace`, or `session` scope. Session visual/video/VLM/signal artifacts are sensitive, non-syncable, and TTL/quota managed by index.
+- **Safety follows path semantics**: daemon sockets, pid/lock files, runtime state, DuckDB files, vault files, approval grants, audit logs, and memory stores must flow through layout descriptors, path sensitivity, risk, approval, and redaction gates.
+- **No legacy aliases**: do not reintroduce global `.env` as persistent config, flat cache roots, profile-root gateway config, inline credential files, `.credential_key`, or `run/` runtime paths.
+
+## Sensitive Capability and Approval Rules
+
+Every capability that changes the world outside the current turn — shell execution, sensitive file read/write, config mutation, outbound sends, platform actions, network egress, desktop control, plugin self-modification — reaches the user through **one** approval chain. Wiring a new one is a fixed sequence, not a design exercise: each rule below is the residue of a defect that shipped with a green suite.
+
+- **One orchestrator is the only entry point (MANDATORY)**: build an `ActionDescriptor` — its `kind`/`effect`/`resource`/`metadata` *is* the contract — and call `ApprovalOrchestrator.evaluate()`, which supplies risk classification, policy, existing grants, and the audit record for free. Never hand-roll a confirmation prompt, a per-tool approval allow-list, or a second gate implementation. Never call the orchestrator's legacy `check(command)`: it is the single-argument shell adapter, and a gate exposing only `check()` must be treated as unusable and denied rather than assumed permissive. `config_set` copied `file_write`'s four-argument gate call and failed on every invocation with `check() takes 2 positional arguments but 4 were given`, so no model-driven config change ever reached approval — invisibly, because the test fakes implemented the same wrong signature.
+- **Register the gate in both installation sites**: gates are process-global and injected twice — in-process through `cli/context.py`, daemon-side through `ApprovalCoordinator.install_gate()`. A new sensitive capability must be wired in both, or it behaves differently depending on whether `leapd` is running. Where a mode legitimately cannot supply a gate (in-process CLI binds no `plugin_approval_gate`), the tool documents it and fails closed instead of proceeding unguarded.
+- **Fail closed on absence and on exception (MANDATORY)**: no gate installed, no per-turn route, or a gate that raises all mean deny, with a message the model can act on — a broken gate must never become an open door. Keep the `except` narrow, and never raise from inside one `except` branch expecting a sibling `except` to catch it; that is how a `TypeError` fallback escaped its handler and surfaced raw instead of failing closed.
+- **Feasibility precedes consent**: an action that cannot succeed must never reach a human. The order is fixed — dedup → payload validation → capability feasibility (`CapabilityHealthLedger`, `blocks_approval`) → resource provenance → approval → execute. Missing scopes, degraded capabilities, and admin-required failures return a deterministic repair instruction and hard-stop the turn, with `security/permission_failures.py` as the single authority both engine and TUI consult. Prompting for consent to a call that will be refused for lack of permission teaches users to click through prompts.
+- **Gate the action that actually executes, at every hop**: classify once and the transport can still go somewhere else. `web_fetch`'s egress gate only saw the first hop while the transports followed redirects themselves, so any server answering `302` could bounce an approved public URL to loopback or a cloud metadata endpoint. Transports are single-hop and report `Location`; the caller re-classifies and re-gates each hop, and reachability asks `is_global` rather than `not is_private` so unenumerated non-routable ranges fail closed.
+- **The decision vocabulary is one enum across the process boundary**: `ApprovalDecision` is the entire vocabulary, so adding or renaming a value means updating the enum, the orchestrator's `_choices` and scope mapping, `ApprovalCoordinator._normalize_decision`, the TUI modal, and the RPC together. The daemon normalizer kept a hardcoded allowed-set that predated `ALLOW_ALL_SESSION`, silently rewrote that choice to `deny`, and never armed the session bypass it was meant to grant — explicit user consent became a refusal with no error logged anywhere.
+- **Scope is the grant's contract, and a bypass is resolved in one predicate**: grants persist only at `SESSION`/`PROFILE` scope via `ApprovalScope`, and `HIGH`/`CRITICAL` risk sets `allow_permanent=False` so "always allow" is never offered for actions that change the agent's own composition or reach internal addresses. A bypass — config `approval_bypass` or a session-level "allow all" — is answered by a single predicate every gate consults, so it cannot mean "approved" at one gate and "still ask" at the next. Hardline blocks sit above all of it and are never bypassable by any grant, scope, or bypass flag.
+- **Prompt and audit text is redacted at the descriptor**: `ApprovalRequest.detail` is both rendered to the user and persisted to the JSONL audit log, so secrets are removed when the descriptor is built, not when it is displayed. URL query, fragment, and userinfo are stripped; config values are excluded entirely and only the key is shown. Approval details were carrying API keys and signed tokens out of query strings straight into the audit log.
+- **Daemon approvals are turn-routed and terminally resolved**: prompts travel on the per-turn `approval_route` ContextVar `(queue, request_id)`, so a prompt never surfaces in a client that did not cause it. Every pending future needs a terminal path — `deny_for_request` when the turn ends, `deny_for_queue` when the stream closes, `prune_stale` on TTL — because an unresolved future blocks its tool call forever. The ContextVar must be set and reset within the *same* `contextvars.Context`; setting it in one per-chunk task and resetting it in another raised "was created in a different Context" and broke streaming for every gated action.
+- **A denial is terminal and reaches the model verbatim**: `ApprovalResult.denial_message` states that the user did not consent and that the outcome must not be retried, rephrased, or pursued through another tool. An adapter wrapping a gate must capture that message and return it to the caller; substituting a generic tool error lets the agent reroute around the human's refusal.
+- **Approval invariants are tested against the real orchestrator**: `tests/test_approval_layer.py` drives the production `ApprovalOrchestrator` — per-scope grant reuse, hardline deny without prompting, `allow_permanent` suppression, decision round-trips through the RPC vocabulary, denial-message pass-through. A hand-written fake is acceptable only as the *human surface*; a fake that reimplements the orchestrator's own interface will keep agreeing with the caller's mistake, which is precisely how a dead gate stayed green.
+
+## Implementation Guidelines
+
+- Define the Protocol first — the contract is the design
+- Implement against the Protocol, never against another implementation
+- Consider affected user journeys before changing shared flows; do not introduce regressions, broken links, or worse experiences in adjacent paths
+- Keep common paths transparent: long-running work must stream progress, surface recoverable errors clearly, and avoid silent stalls.
+- For context assembly, prefer manifest-driven progressive disclosure over shortcuts or intent-handler sprawl: expose compact capability indexes, selected schemas, and targeted memory only when the current plan needs them.
+- For gateway or IM work, define the signal contract first: event source, normalizer/classifier, trigger policy, session routing, memory/audit path, and outbound action path. Default inbound activation to least privilege (`mention_only` or equivalent), filter self-generated messages before LLM invocation, and keep cross-chat or proactive sends behind Progressive Trust and ApprovalGate.
+- Avoid rule-based natural-language fitting by default. Do not add keyword/action-verb/alias enumerations, intent-handler taxonomies, or brittle routing rules when LLM-native capability disclosure, manifests, schemas, protocols, or configuration-driven contracts can solve the problem. If a rule-based method is truly unavoidable for a stable protocol boundary, offline fallback, or safety hard gate, explain the necessity, scope, alternatives, and rollback path to a human and obtain explicit second confirmation before implementation.
+- Specifically within `engine/`: reference resolution, error classification, context disclosure, and focus tracking must not use keyword/substring matching to classify user intent or error type. Reference resolution uses `SessionFocusState` entity registry lookups; error classification uses data-table or registry-pattern matching (never if-elif chains on message text); context disclosure reads tool-declared `x_leapflow` metadata first and treats substring inference as a deprecated fallback that logs a warning.
+- Preserve security and audit paths: dangerous actions, file writes, outbound messages, credentials, and path access must flow through the existing policy, approval, redaction, and audit mechanisms.
+- Preserve gateway safety boundaries: inbound credentials stay in CredentialVault; outbound send/write/execute actions go through ApprovalGate; bot self-messages and duplicate events are filtered before routing; platform-specific metadata must remain in `metadata` escape hatches instead of polluting core message types.
+- Keep App Connector governance thin: platform core should consume normalized contracts and failures, while app-specific auth scopes, CLI/SDK error parsing, vendor recovery steps, and command templates remain in action packs, adapters, or backend-specific helpers. If a new platform requires changing gateway core business rules, first refactor toward a protocol hook or app-side classifier.
+- Maintain backward-compatible migrations for persistent state, configuration, skills, trajectories, sessions, and profile data.
+- Write unit tests before or alongside the implementation
+- Integrate via EventBus events, not direct function calls between modules
+- Every module must be importable standalone without side effects
+- No placeholder stubs — implement fully or do not add the code
+- ANSI output must check `sys.stdout.isatty()` before emitting escape codes
+- For error recovery, route all failures through the `RecoveryCoordinator` — classify into a `FailureEnvelope`, receive a `RecoveryDecision` with an explainable `reason` and `strategy_key`, then feed the outcome back. Never handle errors with ad-hoc if/break in the loop body.
+- Recovery strategies are standalone Protocol implementations with `can_apply()` + `decide()`. Add new strategies by registration, never by modifying the coordinator's decision logic.
+- When automatic recovery exhausts its budget or encounters non-recoverable failures, emit a structured `InteractionRequest` (typed action, severity, suggested actions, timeout behavior, resumption key) — not raw text appended to conversation. A terminal decision that carries one must surface it: render its title, description, and suggested actions for the user, and pass the structured payload to the client so it can prompt and resume by `resumption_key`. Dropping it back to `decision.reason` tells the user a turn stopped without saying what to do.
+
+## Review Requirements
+
+- **Deep review for large changes**: When a change substantially affects architecture, runtime behavior, user flows, persistence, safety, or multiple modules, perform an additional deep review before considering the work complete.
+- **Human confirmation for TUI changes**: Any TUI layout or interaction-logic change requires a second human confirmation before it is considered ready.
+- **Human confirmation for slash-command paths (MANDATORY, no exceptions)**: Any change to what a slash command (`/...`) *does* requires a second human confirmation before it is considered ready — never ship it on a single pass. This covers the whole surface: registry, router, in-process REPL, daemon REPL, `command_execute` (including its RPC signature and parameter plumbing), completion, and rendering.
+  - **Functional changes count even when the command surface is unchanged.** The name, arguments, and help text staying identical does NOT waive confirmation. Altering what the command observes, targets, arms, schedules, sends, opens, or persists — or which session/workspace/profile it resolves against — is a functional change and must be confirmed.
+  - Equally in scope: dispatch and routing, prompts and confirmations, emitted output, browser/dashboard launches, background work the command triggers (watches, schedules, re-entries), and error/recovery messaging.
+  - Passing tests and a clean lint run are NOT a substitute for confirmation. Slash commands are the primary user-facing control plane; correctness of the visible behavior is only established by a human check.
+  - State the pending confirmation explicitly in the handoff, and name the behavior a human should exercise to verify it.
+- **Human confirmation for approval-path changes**: any change to what reaches the approval chain — a newly gated capability, a new `ActionKind`, an `ApprovalDecision`/scope/bypass change, or gate registration — requires exercising the real prompt by hand in *both* in-process and daemon mode before it is considered ready. Gates are process-global and injected twice, so a green suite proves at most that one of the two wirings works; every approval defect recorded in this document passed its tests.
+- **Design goal check**: Verify that the implementation actually achieves the intended design goal and is not just a local patch.
+- **Optimality check**: Evaluate whether the solution is the simplest robust design, avoids unnecessary abstractions, and fits the existing architecture.
+- **Regression impact check**: Inspect affected modules and user journeys for logic bugs, degraded UX, broken compatibility, slower feedback, weaker diagnostics, or worse failure recovery.
+- **SOLID and extensibility check**: Look for responsibility leaks, tight coupling, hardcoded paths/thresholds/rules, magic strings, and choices that reduce generalization or future extension.
+- **Fix what the review finds**: If the review identifies correctness, design, UX, SOLID, hardcoding, or extensibility issues, fix and simplify them directly rather than only reporting them.
+- **Anti-hardcoding audit for engine/**: All regex patterns, keyword lists, and if-elif classification chains in `engine/` must be audited against the rule-avoidance principle (Implementation Guidelines). Permitted only when the pattern falls into one of the three explicit exemptions (stable protocol boundary, offline fallback, safety hard gate). Non-exempt hard rules must be refactored to Protocol/registry/config-driven implementations. When reviewing engine changes, verify that new code does not introduce keyword enumerations, substring routing, or magic-number thresholds without a configuration escape hatch.
+
+## Testing Philosophy
+
+The suite has **two layers with different jobs**, and keeping the boundary sharp is what stops each from doing the other's work badly.
+
+**Mock layer** (`tests/*.py`, marked `unit`/`component`) — broad and fast. It owns pure algorithms, state-machine branches, error-classification tables, rare and malformed inputs, and single-module invariants. Branch combinations can only be enumerated here, and only here is the feedback measured in milliseconds.
+
+**Real layer** (`tests/journeys/`, marked `e2e`) — six coarse journeys driving a real `leapd` subprocess over RPC, with the LLM boundary served by a local cassette proxy. It owns what a mock structurally cannot observe: cross-module wiring, process boundaries, session identity, workspace binding, real persistence, and pushed runtime metadata. Every incident recorded in this document shipped with a green mock suite.
+
+Three rules keep the split honest:
+
+1. **Anything provable with one mock-layer assertion must not enter the real layer.**
+2. **One journey is one test case.** Express variation as ordered phases inside a single session; never parameterize a journey.
+3. **The real layer has a hard case budget** (`tests/regression/test_suite_budget.py`). When it is reached, merge a journey — do not raise the ceiling. The budget is what lets the real layer run on *every* push, and a suite that can be skipped will be skipped.
+
+The two layers are joined by recorded traffic. `tests/_fixtures/cassettes/` holds the deterministic inputs the offline lanes replay (rebuilt with `make seed-cassettes`); `tests/_fixtures/recordings/` holds real provider traffic captured by `make record-traffic`. `make sync-fixtures` distils both into `tests/_fixtures/llm_responses/response_shapes.json`, which the mock layer asserts against — so a provider dropping a field turns the build red instead of passing forever against a body written from memory. Recording never writes to the replay store: a multi-turn agent conversation cannot be replayed from a recording, because each turn's prompt embeds the exact round-by-round history of the turns before it.
+
+Each journey also declares two cost ceilings, both enforced at the proxy and reported by `finish()`. `max_llm_calls` is the convergence guard: a turn that stops converging is cut off instead of running to the engine's iteration cap. `max_llm_tokens` is the cost guard, and it catches what call count cannot — prompt growth raises the bill without adding a single round. Raising a ceiling is not the fix for hitting one.
+
+**Which tests run.** The offline lanes never select: the mock layer runs in full, and the real journeys run in full on every push. Selection would save at most a few seconds, because the always-on tiers set the floor, and a suite that can be skipped will be skipped. The *live* lane is the exception — there a journey costs real tokens, so it selects: each journey declares `SUBJECT_PATHS` (the sources it exercises) and `LIVE_SIGNAL` (whether a real provider adds signal), and `tools/impact.py --live-journeys` picks from those. Declaring them inside the journey keeps that knowledge next to the assertions it describes. `tools/impact.py` can also scope the mock layer (`make test-impact`) for local work on a large change; it is not wired into CI.
+
+- **Unit tests must be hermetic**: no network, no LLM calls
+- **Journeys must not mock anything**: a journey that reaches for `unittest.mock` has become an expensive unit test
+- **Provider bodies are recorded, not written**: use a cassette or a derived fixture; a hand-authored body keeps passing after the provider changes
+- **Faked construction needs real-instance cover**: `object.__new__` plus private-attribute assignment is acceptable only for ordering contracts, and only when the same file also builds the class properly and drives the production path
+- **py_compile all modified files**: syntax errors caught before test run
+- **Import chain verification**: every new module must be importable standalone
+- **Existing tests must not regress**: all tests must pass after every change
+- **User-facing flows must not regress**: preserve or improve usability, feedback clarity, and failure recovery for impacted paths
+- **Verification sequence**: compile → import → mock layer → real journeys
+- **Behavior contracts over snapshots**: assert invariants, not frozen values
+- **Mock at boundaries only**: mock external I/O (network, disk), never internal logic
+- **A test may not fabricate the wiring it claims to cover**: building an object with `object.__new__` and assigning the private attributes the code reads cannot detect a wrong attribute *name* — the test simply agrees with the typo. Calibration tests did exactly that and stayed green while every real turn raised `AttributeError`. Any test whose stated purpose is wiring must construct the real object and drive the production path.
+- **Multi-client behavior needs multi-client tests**: session routing, `status()`, stream metadata, and client-lease changes require two sessions in two workspaces asserting that neither sees the other's identity, usage, or turn state. Single-session tests cannot observe cross-client leakage, which is why a leak shipped with a green suite.
+- **Change-scoped validation**: Run the most specific relevant tests first, then broaden only as needed: CLI/TUI changes require CLI/TUI tests; leapd changes require daemon RPC/lifecycle tests; storage or memory changes require persistence tests; gateway, IM, event-source, or approval changes require connector lifecycle, event normalization, routing, idempotency, self-message filtering, security/approval, and failure-recovery tests; skills, learning, perception, and copilot changes require their lifecycle or pipeline tests.
+- **Recovery strategy isolation**: Each `RecoveryStrategy` must be testable in isolation — verify `can_apply` predicates, `decide` outputs, and side-effect-state gating independently of the coordinator and other strategies.
+- **Budget boundary tests**: Verify that recovery budgets exhaust correctly (per-category, per-turn, deadline), that exhaustion produces a deterministic halt decision, and that cost accounting is exact.
+
+## What to Avoid
+
+- Over-engineering: if you need 3+ files for a simple feature, rethink
+- Premature optimization: measure first, optimize only bottlenecks
+- God objects: no class should exceed 500 lines; approaching this limit requires checking whether policy, state, rendering, protocol, storage, or adapter responsibilities should be split.
+- Magic strings: use constants or enums
+- Blocking the event loop: all IO must be async or `run_in_executor`
+- Hardcoded paths, URLs, thresholds without config escape hatch
+- Chinese comments in source code (English only)
+- Speculative infrastructure: no hooks or extension points without a concrete consumer
+- Mixing long-lived event observation into short-lived action execution; `CliBackend` is for bounded commands, while streaming CLI consumers, webhooks, polling, and WebSocket subscriptions belong behind `BackendEventSource`-style contracts.
+- Activating IM agents on all inbound messages by default, skipping self-message filtering, or allowing cross-chat/proactive sends before Progressive Trust and approval policies explicitly permit them.
+- Putting third-party app business code into platform core: do not add vendor scopes, lark-cli/SDK JSON parsing, auth command construction, console-specific recovery instructions, or resource-specific branching to gateway-wide modules such as action registries, capability ledgers, approval gates, or engine recovery paths.
+- Shortcut-style natural-language fitting and large intent-handler taxonomies; use stable runtime gates plus capability manifests instead. Rule-based keyword/action-verb/alias matching is prohibited by default and requires explicit human second confirmation before implementation when unavoidable.
+- Scattered if/break/continue recovery decisions inside the agent loop body; all error handling enters the `RecoveryCoordinator` as a `FailureEnvelope`
+- Magic retry counts or unbounded retry loops without budget constraints and deadline enforcement
+- Feeding unstructured error text back to the LLM without classification, recoverability assessment, or side-effect awareness
+- Multiple parallel error-handling paths for the same failure domain (LLM errors in one handler, tool errors in another, security errors in a third); use a unified classification and coordination pipeline
+- Widening a provider call's `try` block to cover bookkeeping, or classifying a Python-level defect by matching its message text against provider conditions
+- Answering "the caller's session" with "the most recently active session", or letting a client adopt a session id the daemon happened to report
+- Hand-rolled confirmation prompts, per-tool approval allow-lists, or any second gate beside `ApprovalOrchestrator`; a sensitive capability declares an `ActionDescriptor` and evaluates it
+- Treating a missing, unbound, or raising approval gate as permission to proceed
+- Putting a secret, token, or config value into `ApprovalRequest.detail` — it is rendered to the user *and* persisted to the audit log
+- Extending `ApprovalDecision` without updating the daemon normalizer, TUI modal, and RPC in the same change
+- Bare `except:` clauses — always specify the exception type
+- `# TODO: implement` stubs — implement or don't commit
+
+## Naming Conventions
+
+- **Files**: `snake_case.py` — noun for types (`signal_event.py`), verb for actions (`compress_context.py`)
+- **Classes**: `PascalCase` — Protocols suffixed with purpose (`SignalSource`, `SkillStore`)
+- **Functions/Methods**: `snake_case` — verb-first (`filter_noise`, `retrieve_context`)
+- **Constants**: `UPPER_SNAKE_CASE` — grouped in module-level or dedicated `constants.py`
+- **Private**: single underscore prefix (`_internal_method`) — never double underscore
+- **Modules/Packages**: short, singular nouns (`perception`, `causal`, `memory`)
+- **Events**: past-tense domain verbs (`SignalReceived`, `SkillVerified`, `ContextCompressed`)
+- **Config keys**: `dot.separated.lowercase` in env/settings (`copilot.idle_threshold_ms`)
+
+---
+> Source: [modelscope/leapflow](https://github.com/modelscope/leapflow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
