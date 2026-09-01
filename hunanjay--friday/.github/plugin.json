@@ -1,0 +1,9 @@
+{
+  "name": "hunanjay--friday",
+  "displayName": "friday",
+  "description": "Self-hostable bilingual personal AI workspace with LangGraph multi-agent orchestration, Outlook Mail & Calendar, Qdrant RAG memos, and GitHub analytics.",
+  "version": "1.0.0",
+  "author": "hunanjay",
+  "homepage": "https://github.com/hunanjay/friday",
+  "skills": []
+}
