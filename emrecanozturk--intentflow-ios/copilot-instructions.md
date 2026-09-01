@@ -1,52 +1,30 @@
-## intentflow
+## intentflow-ios
 
-> IntentFlow architecture rules for iOS features
+> This repository uses IntentFlow architecture. Treat `.intentflow.yaml` manifests as source-of-truth contracts for AI-mode features.
 
+# IntentFlow Copilot Instructions
 
-# IntentFlow Rules
+This repository uses IntentFlow architecture. Treat `.intentflow.yaml` manifests as source-of-truth contracts for AI-mode features.
 
-IntentFlow features are workflow-first.
+When generating or editing code:
 
-## Required Feature Files
+- Read `.ai/agent-context.md` and the relevant manifest before touching implementation files.
+- Model product behavior before UI.
+- Add or update `State`, `Intent`, `Event`, `Effect`, `Output`, and `Route` before writing adapters.
+- Keep reducers pure. Do not call network, database, analytics, storage, timers, or UI APIs from reducers.
+- Put async work in `FlowEffectHandler`.
+- Use `EffectID` for long-running, repeatable, or replaceable work.
+- Represent navigation as `Route`.
+- Represent parent communication as `Output`.
+- Keep SwiftUI views and UIKit view controllers as adapters.
+- Put display formatting in `FlowProjection`.
+- Add transition tests for every new workflow branch.
+- For AI mode, update the `.intentflow.yaml` manifest before changing the Swift contract.
+- Do not add hidden callbacks when a typed output or route would express the behavior.
+- Prefer compact context from `swift run intentflow ai-context <manifest> --tool copilot`.
+- Apply `.github/instructions/*.instructions.md` for path-specific Swift and documentation rules.
 
-Prefer this shape for non-trivial features:
-
-- `<Feature>Contract.swift`
-- `<Feature>Flow.swift`
-- `<Feature>Effects.swift`
-- `<Feature>Projection.swift`
-- `<Feature>Tests.swift`
-- `<Feature>.intentflow.yaml` for AI mode
-
-## Reducer Rules
-
-- Reducers must be pure.
-- Reducers may return `Next.state`, `.effect`, `.cancel`, `.output`, and `.route`.
-- Reducers must not create `Task`, call async APIs, access UI, read storage, or perform networking.
-- Add an explicit failure state for async workflows.
-- Add an explicit in-progress state for async workflows.
-
-## Effect Rules
-
-- Effects belong in a `FlowEffectHandler`.
-- Long-running effects must have an `EffectID`.
-- Replaceable effects should use `.cancelInFlight`.
-- `AsyncStream` effects must cancel internal tasks in `onTermination`.
-
-## UI Rules
-
-- SwiftUI views and UIKit view controllers are adapters.
-- UI may render projected state and send intents.
-- UI must not decide product workflow transitions.
-- Navigation is emitted as a `Route` and interpreted by the app shell.
-
-## AI Mode Rules
-
-- Update the manifest before changing contract types.
-- Every new state must appear in the manifest.
-- Every new effect must have a test or acceptance trace.
-- Invariants must not be weakened silently.
-- If a generated change violates an invariant, stop and ask for a design decision.
+Generated code is incomplete unless it includes tests for the transition it introduces.
 
 ---
 > Source: [emrecanozturk/intentflow-ios](https://github.com/emrecanozturk/intentflow-ios) — distributed by [TomeVault](https://tomevault.io).
