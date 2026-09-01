@@ -1,0 +1,9 @@
+{
+  "name": "cscode2--china-policy-analyze-skill",
+  "displayName": "china-policy-analyze-skill",
+  "description": "A dynamic skill and knowledge system for understanding Chinese economic policy, official policy language, local implementation, judicial/enforcement signals, and policy-based opportunity analysis.",
+  "version": "1.0.0",
+  "author": "CSCode2",
+  "homepage": "https://github.com/CSCode2/china-policy-analyze-skill",
+  "skills": []
+}
