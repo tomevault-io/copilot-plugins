@@ -1,0 +1,9 @@
+{
+  "name": "wintsa123--esp32bmsgps",
+  "displayName": "esp32BMSGPS",
+  "description": "esp32\u5b9e\u73b0bms\u4fdd\u62a4\u677f\u94fe\u63a5\u663e\u793a\u548c\u6d4b\u901f\u529f\u80fd\uff0c\u672c\u9879\u76ee\u6807\u662f\u6240\u6709esp32\u90fd\u80fd\u901a\u8fc7start\u811a\u672c\u81ea\u5b9a\u4e49\u7f16\u8bd1\u81ea\u5df1\u9700\u8981\u529f\u80fd\u7684\u8f66\u673a\u3002",
+  "version": "1.0.0",
+  "author": "wintsa123",
+  "homepage": "https://github.com/wintsa123/esp32BMSGPS",
+  "skills": []
+}
