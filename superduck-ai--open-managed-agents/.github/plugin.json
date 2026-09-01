@@ -1,0 +1,9 @@
+{
+  "name": "superduck-ai--open-managed-agents",
+  "displayName": "open-managed-agents",
+  "description": "Open Source version of Claude Managed Agents. Anthropic SDK compatible.  Supports agents, sessions, environments, files, memory stores, skills, deployments, message batches, vaults, and webhooks.",
+  "version": "1.0.0",
+  "author": "superduck-ai",
+  "homepage": "https://github.com/superduck-ai/open-managed-agents",
+  "skills": []
+}
