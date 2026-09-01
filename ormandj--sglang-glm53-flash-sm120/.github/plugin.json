@@ -1,0 +1,9 @@
+{
+  "name": "ormandj--sglang-glm53-flash-sm120",
+  "displayName": "sglang-glm53-flash-sm120",
+  "description": "SGLang GLM-5.3-Flash on 2x RTX PRO 6000 Blackwell (SM120, TP2): C4 @ 507k-token KV pool, W4A16+FP8-mix quant, HiCache, native MTP \u2014 reproducible image, producers, bench harness, receipts",
+  "version": "1.0.0",
+  "author": "ormandj",
+  "homepage": "https://github.com/ormandj/sglang-glm53-flash-sm120",
+  "skills": []
+}
