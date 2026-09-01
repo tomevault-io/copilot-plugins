@@ -1,44 +1,65 @@
-## metal-cleanup-debris
+## metal-finished-quality
 
-> Leave no plumbing debris — delete superseded files, dual paths, and scratch artifacts when finishing a change
+> Ship finished quality only — no fake, placeholder, or half-done code
 
 
-# Cleanup after yourself (no plumber debris)
+# Finished quality only (no fake / unfinished code)
 
-**Why:** half-finished plumbing (sidecar files, renamed twins, scrape needles,
-scratch markers) stays in the tree and burns the next read. If you would not
-want a tradesperson to leave their trash, do not leave yours.
+**Why this is load-bearing:** unfinished “looks done” code burns tokens,
+steals time, and trains the wrong tree. The owner wants **quality and
+finished code**, not stubs dressed up as features.
 
-## When finishing any change
+## Hard rule
 
-1. **Delete what you replaced.** Renamed `foo` → `bar`? Remove `foo`. Inlined a
-   const that lived in a sidecar file? Delete the sidecar. Moved logic into an
-   API? Grep for the old call sites / strings and remove them.
-2. **One path per job.** No parallel “old scrape + new mark”, no `_notes.rs`
-   beside `notes.rs`, no `include_bytes!("…/ready_mark")` after the mark lives
-   in a `const`. Prefer one source; if host and firmware cannot share a crate,
-   one canonical const plus a one-line “keep identical” comment beats a junk
-   file used only as a byte ferry.
-3. **No scratch left tracked.** Temp logs, `*.bak`, experiment stems, empty
-   stubs, and “just for this debug session” files must be gone before you stop
-   (or never added under `src/`).
-4. **Grep the old name.** After a rename/inline/API swap, search the old
-   symbol, path, and distinctive string. Zero hits outside intentional history
-   comments.
+Do **not** land code that pretends to work. If it is not finished, do not
+ship it as if it were.
 
-## Banned leftovers (concrete)
+**Banned (concrete):**
 
-- Sidecar data files whose only job was `include_str!` / `include_bytes!` of a
-  short constant (put the bytes in the owning `.rs` / `.c`)
-- Duplicate stems after a move (`_notes.rs` + `notes.rs`)
-- Host scrapers still matching human UX text after a machine mark exists
-- Commented-out old bodies “in case we need them”
+- Rebranding one primitive as another (`Mutex { lock: Spin }` called a
+  “mutex”)
+- Fake completion: pluggable “park later”, panic-as-API, no-op success,
+  TODO bodies behind a real name
+- Empty generated faces, hollow hubs, or C exports with no real border
+- “Placeholder until X exists” left in the tree as the implementation
+- **Dual paths for one primitive** where only one is wired (or the slow
+  one is “for later”): e.g. boot `cas32` ops table while locks use
+  `core::sync::atomic`, plus a smoke that claims “used by mem locks”
+- Comments / smokes that assert a dependency that `grep` cannot find
 
-## Verify
+**Required instead:**
 
-Before claiming done: `git status` / directory listing of touched folders looks
-intentional — only the real API and its callers, not the scaffolding you used
-to get there.
+- Ship only what is **done and honest** for the current tree
+- If the design is not finished, **omit it** — do not leave a fake type
+- Prefer deleting unfinished surface over leaving a stub that compiles
+- When unsure: ask, or stop — do not invent a pretend completion
+- **One mechanism per job.** Prefer the fast direct path (language/core
+  atomics, direct calls). An ops-table / indirection exists only when a
+  real caller needs target-specific bodies — and that caller must use it
+  now, not “someday.”
+
+## Examples
+
+```text
+BAD:  Mutex wraps Spin; set_wait_ops "later"; panic if hooks missing
+GOOD: Finished SMP futex mutex (own state machine + wait), or omit entirely.
+
+BAD:  lock/__init__.h empty while real API lives only in a sibling face
+GOOD: Package hub carries the real C border, or no face is emitted.
+
+BAD:  /* empty catalog */ headers checked in as “sync output”
+GOOD: No emit when there is no border (no exported fns).
+
+BAD:  boot/platform sync cas32 ops + "used by mem locks" while mem/lock
+      uses core::sync::atomic and never calls the ops
+GOOD: Locks use core atomics only; no boot CAS surface until a real
+      caller needs a target-specific CAS (and then locks use that).
+```
+
+## Agent habit
+
+Optimize for **correct finished work**, not for looking busy. One real
+primitive beats three fake ones. Do not “fill the gap” with noobshit.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
