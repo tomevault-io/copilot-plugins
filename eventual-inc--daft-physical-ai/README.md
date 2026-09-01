@@ -1,0 +1,30 @@
+# AI instruction files for daft-physical-ai
+
+> Sourced from [Eventual-Inc/daft-physical-ai](https://github.com/Eventual-Inc/daft-physical-ai), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+Physical-AI data processing on Daft: hand tracking, reward scoring, and motion trimming
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [Eventual-Inc/daft-physical-ai](https://github.com/Eventual-Inc/daft-physical-ai).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [Eventual-Inc/daft-physical-ai](https://github.com/Eventual-Inc/daft-physical-ai) — a repo with 9+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install Eventual-Inc/daft-physical-ai
+```
+Source: [github.com/Eventual-Inc/daft-physical-ai](https://github.com/Eventual-Inc/daft-physical-ai).
+
+<!-- genome:a-i-s -->
