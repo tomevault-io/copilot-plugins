@@ -1,0 +1,280 @@
+## canopy
+
+> Copyright (c) 2026 Edward Boggis-Rolfe
+
+<!--
+Copyright (c) 2026 Edward Boggis-Rolfe
+All rights reserved.
+-->
+
+# Canopy Development Guide
+
+## Git Policy
+
+**Do not run git commands in this repository unless the user explicitly asks for them.**
+
+- Do not fetch, pull, push, rebase, commit, stash, reset, or inspect git state without authorization.
+- If a task would normally end with git operations, stop after local verification and report what remains.
+
+## Source Of Truth
+
+The source of truth is the live repository state:
+
+- `CMakeLists.txt`
+- `CMakePresets.json`
+- files under `rpc/`, `generator/`, `transports/`, `streaming/`, `tests/`, `types/`, and `telemetry/`
+
+Do not rely on `documents/` for correctness. It may be useful for background, but it is not authoritative.
+
+### Key documents for LLMs
+
+- `documents/external-project-guide.md` — **start here** when creating or working on a project that consumes Canopy via `add_subdirectory`. Contains working CMake boilerplate, IDL syntax, TCP server/client patterns, and a list of known CMake pitfalls.
+- `documents/transports/tcp.md` — TCP transport overview.
+- `documents/architecture/` — zone, service, and lifetime architecture.
+
+### Local lookup tools
+
+- Use `scripts/repo-index.sh` to build the local `.codex-index/` file list and ctags index.
+- Use `scripts/repo-lookup.sh files '<pattern>'` to find filenames.
+- Use `scripts/repo-lookup.sh text '<pattern>'` to search repository text.
+- Use `scripts/repo-lookup.sh defs <symbol>` for indexed symbol lookups after indexing.
+- Use `scripts/repo-lookup.sh target <target>` to find CMake target definitions and references.
+- Use `scripts/repo-lookup.sh compile-db` to find `compile_commands.json` for `clangd`.
+- Prefer these local tools before broader repository scans when the task is simple lookup or navigation.
+
+## Overview
+
+Canopy is a modern C++ RPC library with generated proxy/stub code from IDL files. It supports multiple transport layers, optional coroutine builds, JSON schema metadata, demos, and benchmarks.
+
+## Repository Structure
+
+### Main Directories
+
+- `rpc/` - core RPC library
+  - public headers: `rpc/include/rpc`
+  - implementation: `rpc/src`
+  - generated/public interfaces: `rpc/interfaces`
+- `generator/` - IDL code generator
+- `transports/` - transport implementations
+  - current transport subdirectories include `direct`, `local`, `mock_test`, `streaming`
+- `streaming/` - stream interfaces and concrete stream implementations; TCP, WebSocket, and OpenSSL TLS are dual-mode, while mbedtls/SPSC/attestation/io_uring remain coroutine-only or conditionally built
+- `types/` - additional types, including JSON support
+- `telemetry/` - telemetry/logging support
+- `tests/` - host tests, fixtures, fuzz tests, unit tests, schema tests, serializer tests
+- `subcomponents/` - reusable support components such as `network_config`, `spsc_queue`, and `http_server`
+- `submodules/` - third-party dependencies and parser components, including `idlparser`
+- `demos/` - example programs
+- `benchmarking/` - benchmark targets
+- `cmake/` - CMake modules
+
+### Important Notes
+
+- Build outputs are preset-specific. Do not assume a single `build/` directory.
+- Generated files appear under the active binary directory, typically in `<binaryDir>/generated/`.
+- When being asked question, it does not mean I want you to change source code or action a rebuild, if you think you need to do something and it will take a long time to revert please ask first
+
+## Build System
+
+### Baseline
+
+- CMake minimum version: `3.24`
+- Generator: `Ninja`
+- Default compilers in presets: `clang` / `clang++`
+- Language standard:
+  - C++17 by default
+  - C++20 when `CANOPY_BUILD_COROUTINE=ON`
+
+### Configure Presets
+
+Current top-level configure presets are defined in `CMakePresets.json`. The commonly useful ones are:
+
+- `Debug` -> binary dir `build_debug`
+- `Debug_Agressive`
+- `Debug_ASAN`
+- `Debug-clang-18`
+- `Debug_GCC`
+- `Debug_Coverage`
+- `Debug_Hang_On_Assert`
+- `Debug_Coroutine` -> binary dir `build_debug_coroutine`
+- `Debug_Coroutine_ASAN`
+- `Debug_Coroutine-GCC`
+- `Debug_Coroutines_With_No_Logging`
+- `Debug_Coroutine_With_Full_Logging`
+- `Debug_Coroutine_Coverage`
+- `Debug_Coroutine_Tidy`
+- `Release` -> binary dir `build_release`
+- `Release-clang-18`
+- `Release_Coroutines` -> binary dir `build_release_coroutine`
+- `Release_Coroutine_with_No_logging`
+- `Release_with_coroutines_GCC`
+Use the exact preset names from `CMakePresets.json`. Do not normalize or rename them in instructions.
+
+### Build Behaviour
+
+- `CANOPY_BUILD_TEST` defaults to `ON` in the base preset.
+- `CANOPY_BUILD_DEMOS` defaults to `ON`.
+- `CANOPY_BUILD_BENCHMARKING` defaults to `ON`.
+- `CANOPY_BUILD_COROUTINE` defaults to `OFF`.
+- `streaming/` is added in both blocking and coroutine builds; individual stream implementations gate coroutine-only pieces locally.
+- `CANOPY_BUILD_RUST` defaults to `OFF`.
+- `CANOPY_BUILD_TEST=OFF` also disables integration/fuzz test targets.
+- `tests/json_schema_test` uses Canopy's native `json::v1::object` schema validator.
+
+## Common Commands
+
+### Configure
+
+```bash
+cmake --preset Debug
+cmake --preset Debug_Coroutine
+cmake --preset Release
+```
+
+### Build
+
+```bash
+cmake --build build_debug
+cmake --build build_debug_coroutine
+cmake --build build_release
+```
+
+To build a specific target:
+
+```bash
+cmake --build build_debug --target rpc_test
+cmake --build build_debug --target fuzz_test_main
+cmake --build build_debug_coroutine --target io_uring_stream_test
+```
+
+### IDL Regeneration
+
+After editing IDL, rebuild the relevant target or rebuild the active binary directory.
+
+```bash
+cmake --build build_debug --target generator
+cmake --build build_debug --target <interface_name>_idl
+cmake --build build_debug
+```
+
+Do not assume generated code lands in source directories. Check the active binary directory first.
+
+## Testing
+
+### Primary Test Targets
+
+Current directly named test executables include:
+
+- `rpc_test`
+- `serialiser_test`
+- `fuzz_test_main`
+- `json_schema_metadata_test` when JSON schema test support is enabled
+- `member_ptr_test`
+- `passthrough_test`
+- `zone_address_test`
+- multiple targets under `tests/std_test`
+- `io_uring_stream_test` in coroutine builds
+
+### Running Tests
+
+Examples:
+
+```bash
+./build_debug/output/rpc_test --telemetry-console
+./build_debug/output/fuzz_test_main 3
+./build_debug/output/json_schema_metadata_test
+./build_debug_coroutine/output/io_uring_stream_test
+```
+
+Notes:
+
+- `rpc_test` supports `--telemetry-console`.
+- `fuzz_test_main` is registered with CTest to run multiple iterations.
+- `memory_tests` exists in the tree but is currently not added by `tests/CMakeLists.txt`.
+- VS Code test discovery is configured to match `build*/output/*`.
+
+Prefer running the smallest relevant target first, then broaden if needed.
+
+## Style And Editing Expectations
+
+- Follow `.clang-format`.
+- The repository uses WebKit-derived formatting with:
+  - `IndentWidth: 4`
+  - `BreakBeforeBraces: Allman`
+  - `PointerAlignment: Left`
+  - `SortIncludes: false`
+- Preserve existing comments unless they are wrong or actively misleading.
+- Keep naming and surrounding style consistent with the local file.
+- Baseline code should remain valid in non-coroutine builds unless the change is explicitly coroutine-only.
+
+## Clang-Tidy Cleanup Rules
+
+- Do not mechanically change API semantics just to satisfy clang-tidy.
+- For `cppcoreguidelines-avoid-reference-coroutine-parameters`, preserve references when the referenced object is required and its lifetime is known to outlive the coroutine frame. Common safe cases include:
+  - caller-owned objects passed into coroutines that are immediately awaited with `sync_wait`, `when_all`, or an equivalent join;
+  - per-iteration state declared outside the coroutine call and joined before leaving scope;
+  - generated IDL input/output reference parameters when generated dispatch code passes named input/output locals from the awaiting coroutine frame;
+  - required output parameters such as result, stats, reason strings, or parsed payload objects.
+- For generated IDL calls, the safety comes from coroutine-frame lifetime: if the caller creates named input and output locals, then `CO_AWAIT target->method(input, output)` keeps that caller frame alive while the callee runs. Do not assume references are safe when passing temporaries, when the task is stored/detached, or when returning the task to be awaited after the caller frame may be gone.
+- In those cases, keep the reference and use a tightly scoped `NOLINT`/`NOLINTBEGIN` with a short lifetime explanation.
+- Do not replace a required reference with a raw pointer unless `nullptr` is a valid, documented state and the code checks and handles it.
+- Do not wrap a parameter in `std::shared_ptr` or `rpc::shared_ptr` just to appease clang-tidy. Use shared ownership only when the object is already owned that way or the coroutine genuinely needs to extend lifetime independently of the caller.
+- Passing `std::shared_ptr` by value is appropriate for ownership/lifetime extension, not as a general replacement for references.
+- Required out parameters should remain references. Pointer out parameters are only appropriate for optional outputs, C ABI boundaries, or APIs where null is meaningful and handled.
+- Preserve ABI and C API shapes where pointers are part of the contract, such as module init hooks, callback contexts, raw buffers, and foreign library APIs.
+- Prefer fixing real issues over suppressing checks: initialize members, use safer casts/APIs, add null terminators for C-style arrays when required, and remove dead code after confirming it is unused.
+- For dead code, verify with source and generated/build-tree searches, then ask before deleting unless the user has already approved that specific removal.
+- Keep suppressions narrow and local. Avoid broad file-level disables unless the file is generated or dominated by an unavoidable external pattern.
+
+## Coroutine And Blocking Builds
+
+- Canopy supports both blocking and coroutine builds.
+- `CORO_TASK`, `CO_RETURN`, and `CO_AWAIT` are compatibility macros used across the codebase.
+- Coroutine-specific code paths are guarded by `CANOPY_BUILD_COROUTINE`.
+- If you change shared logic, consider both:
+  - `Debug`
+  - `Debug_Coroutine`
+
+## Pointer And Ownership Rules
+
+- `rpc::shared_ptr` and `std::shared_ptr` are not interchangeable.
+- Do not cast between `rpc::shared_ptr` and `std::shared_ptr`.
+- Do not use raw-pointer conversions to bridge them.
+- Marshalled IDL interfaces use `rpc::shared_ptr` or `rpc::optimistic_ptr`.
+- Core ownership outside the marshalled interface layer is usually `std::shared_ptr`.
+
+## Architecture Notes That Still Matter In Code
+
+- Stub and proxy lifetime management is central to correctness.
+- Hierarchical transports intentionally maintain parent/child lifetime links.
+- `child_service`, passthroughs, and service proxies all participate in transport lifetime management.
+- Changes touching transport shutdown, status propagation, service ownership, or cross-zone references need extra scrutiny.
+
+Verify behaviour in code before restating architectural claims.
+
+## Logging And Telemetry
+
+- Prefer structured logging macros such as `RPC_INFO` and `RPC_WARNING`.
+- Telemetry is enabled in the `Debug` preset and disabled in several reduced-logging presets.
+- `CANOPY_USE_TELEMETRY_RAII_LOGGING` should only be enabled deliberately for investigation because it is expensive.
+
+## Working Practices
+
+- Validate repository facts from code and CMake, not from old prose.
+- When changing build, generator, IDL, transport, or lifetime behaviour, inspect the nearest `CMakeLists.txt` and implementation files first.
+- If code changes affect both coroutine and non-coroutine paths, verify both builds when practical.
+- If a test or target is conditionally compiled, mention that condition explicitly in your handoff.
+- After refactors or other cross-cutting changes, update MemPalace with the relevant design decisions, behavioural changes, verification run, and any remaining caveats.
+
+## Session Completion
+
+When ending a session:
+
+1. Run the relevant local verification for the files you changed.
+2. State clearly what you verified and what you did not verify.
+3. Do not perform git or remote issue-tracker actions unless the user explicitly requested them.
+4. For refactors and cross-cutting changes, confirm MemPalace has been updated.
+5. Note any follow-up work that remains.
+
+---
+> Source: [edwardbr/Canopy](https://github.com/edwardbr/Canopy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
