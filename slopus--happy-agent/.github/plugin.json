@@ -1,0 +1,9 @@
+{
+  "name": "slopus--happy-agent",
+  "displayName": "happy-agent",
+  "description": "Universal Agent Harness from Happy that works with any subscription",
+  "version": "1.0.0",
+  "author": "slopus",
+  "homepage": "https://github.com/slopus/happy-agent",
+  "skills": []
+}
