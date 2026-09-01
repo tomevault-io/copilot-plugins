@@ -1,0 +1,9 @@
+{
+  "name": "niederme--ai-quota",
+  "displayName": "ai-quota",
+  "description": "macOS menubar utility to monitor your AI coding quota \u2014 track OpenAI Codex and Claude Code usage at a glance",
+  "version": "1.0.0",
+  "author": "niederme",
+  "homepage": "https://github.com/niederme/ai-quota",
+  "skills": []
+}
