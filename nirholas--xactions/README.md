@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [nirholas/XActions](https://github.com/nirholas/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nirholas/XActions](https://github.com/nirholas/XActions) — a repo with 494+ stars on GitHub.
+From [nirholas/XActions](https://github.com/nirholas/XActions) — a repo with 496+ stars on GitHub.
 
 ---
 
