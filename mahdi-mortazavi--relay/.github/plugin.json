@@ -1,0 +1,9 @@
+{
+  "name": "mahdi-mortazavi--relay",
+  "displayName": "relay",
+  "description": "\ud83d\udcf1 Share your phone's internet with your PC \u2014 Android \u2192 Windows reverse tethering over an encrypted WireGuard tunnel. No root, no server, no account.",
+  "version": "1.0.0",
+  "author": "Mahdi-mortazavi",
+  "homepage": "https://github.com/Mahdi-mortazavi/relay",
+  "skills": []
+}
