@@ -1,0 +1,192 @@
+## open-managed-agents
+
+> - 在仓库根目录使用 `just restart-server` 重启本地后端服务，地址为 `127.0.0.1:38080`。
+
+# Open Managed Agents
+
+## 本地重启脚本
+
+- 在仓库根目录使用 `just restart-server` 重启本地后端服务，地址为 `127.0.0.1:38080`。
+- `just restart-server` 会调用 `./scripts/restart-server.sh`，杀掉所有监听 `PORT`（默认 `38080`）的进程，等待端口释放，必要时升级为 `kill -9`，然后以前台方式执行 `go run .`；监听地址由 `config/config.yaml` 的 `server.addr` 决定。
+- 仅在 `server.addr` 已改为其他端口时，才使用 `PORT=... just restart-server` 指定需要释放的对应端口。
+- 如果修改了 `web/` 下的前端代码，在使用浏览器或 SuperDuck 验证前，也要从仓库根目录执行 `just restart-web` 重启前端开发服务器。该命令会调用 `./scripts/restart-web.sh`，只停止当前仓库路径启动的 Vite 监听进程；如果目标端口被其他路径的进程占用，则保留该进程并自动选择后续可用端口以前台方式启动前端。
+
+## GitHub PR 提交身份
+
+- 本仓库的 Pull Request 必须通过本机已认证的 `gh` CLI 创建；禁止使用 Codex GitHub Connector 或其 GitHub App 创建 PR。
+- 创建 PR 前必须依次运行 `gh auth status` 和 `gh api user --jq .login`，记录当前登录账号。任意已认证账号均可使用；仅当用户明确指定了账号且当前登录账号不匹配时，才应停止并请求用户处理。
+- 分支、提交和推送仍使用本地 `git`；分支推送成功后，使用 `gh pr create --draft ...` 创建 Draft PR，并通过 `gh pr view --json author,url,isDraft` 确认 PR 作者与创建前记录的登录账号一致且状态为 Draft。
+
+## 提交前质量门禁
+
+- 首次 clone 仓库或发现 hook 尚未安装时运行 `just hooks-install`，为当前 Git 仓库安装受管的 pre-commit hook；同一 clone 下的 worktree 共用该 hook。缺少 `pre-commit` 时，脚本会优先通过 `uv` 安装固定版本。
+- hook 对暂存文件执行通用文件卫生检查，对 Go 文件执行 `gofmt`、对应 package 的 golangci-lint、不可达声明检测、重复代码检测和生产代码复杂度检查，并用项目固定版本的 Prettier 格式化前端文件，同时检查 TypeScript 重复代码、命名与复杂度。
+- 使用 `just hooks-run` 对全部跟踪文件复跑相同检查；不要使用 `SKIP` 绕过失败项，除非用户明确批准并记录原因。
+- 使用 `just large-files` 通过仓库固定版本的 `check-added-large-files --enforce-all` 检查全部受跟踪文件，统一上限为 1 MiB。嵌入式目录快照 `internal/platformapi/directory_servers.json` 必须保存为紧凑 JSON。不要通过改名、忽略路径或提高预算绕过失败；有意引入大二进制文件时，应单独评审 Git LFS 策略。
+
+## 死代码检测
+
+- 修改 Go 代码后运行 `just dead-code`。`.golangci-dead-code.yml` 使用 `unused` 分析器检查生产代码和测试中的不可达包级函数、方法、变量、常量与类型。
+- pre-commit 和 `.github/workflows/dead-code.yml` 使用同一配置；不要通过 `nolint`、全局排除、伪造引用或保留无调用路径的兼容包装来绕过失败。确认不再可达的声明及其专属辅助链应直接删除。
+
+## 重复代码预算
+
+- 修改 Go 或 TypeScript/TSX 生产代码后运行 `just duplicates`。项目固定的 jscpd 以 strict token 模式检测至少 12 行且至少 70 token 的复制代码；Go 与前端分别执行，避免一个应用较低的比例掩盖另一个应用的增长。
+- `.jscpd.json` 将 Go 生产代码重复率限制为 3.75%，`web/.jscpd.json` 将前端生产代码重复率限制为 1.1%。测试、suite 和生成文件不计入生产预算；不要通过扩大 ignore、提高百分比、提高最小行数/token 数或拆成近似副本绕过门禁。
+- pre-commit 和 `.github/workflows/duplicate-code.yml` 使用 `scripts/check-duplicates.sh` 执行相同门禁。预算失败时优先抽取领域辅助函数、共享数据映射或展示组件；只有确实共享同一语义与演进方向的代码才应合并。
+
+## 复杂度预算
+
+- 修改 Go 或 TypeScript/TSX 生产代码后运行 `just complexity`。Go 使用 `cyclop`，单函数最大圈复杂度为 30；测试文件不计入生产代码复杂度指标。
+- 前端使用 ESLint modified cyclomatic complexity，新代码上限为 20。`web/eslint.complexity.config.js` 中列出的历史热点以当前测量上限作为 ratchet，修改这些文件时不得提高预算，并应优先通过拆分纯函数、数据映射或展示组件降低预算。
+- 不要通过 `nolint`、ESLint disable 注释、忽略新增生产文件或提高复杂度阈值来绕过失败。确需调整预算时，必须同时说明无法拆分的边界原因，并更新 `docs/design/development-complexity-guardrails.md`。
+- pre-commit 和 `.github/workflows/complexity.yml` 都调用仓库固定的复杂度配置；本地验收入口为 `just complexity`。
+
+## 命名规范
+
+- Go package 名使用简短的小写单词；导出类型、函数和方法使用 PascalCase，未导出标识符使用 mixedCaps。缩写保持 Go 惯例并在同一标识符中一致，例如 `API`、`HTTP`、`ID`、`URL`、`UUID`；接收器名应简短且在同一类型的方法中一致。
+- TypeScript/React 的类型、接口、类和组件使用 PascalCase；普通变量、函数和参数使用 camelCase；模块级常量可使用 UPPER_CASE；泛型类型参数使用 PascalCase。以 PascalCase 命名的函数参数只用于组件或构造器引用等可调用类型。
+- Anthropic/API、数据库和第三方 payload 的字段名属于外部合同，可在边界 DTO、对象属性和解构中保留 `snake_case`；进入内部变量或业务模型后应映射为上述语言惯例，不要把例外扩散到业务标识符。
+- Go 命名由 `.golangci.yml` 中 `revive/var-naming` 强制；前端命名由 `bun run lint:naming` 强制，并在 pre-commit 与 `.github/workflows/web-naming.yml` 中执行。
+
+## TrimSpace 使用规范
+
+- `strings.TrimSpace` 和 `bytes.TrimSpace` 只允许用在确实可能携带首尾空白的外部输入边界，例如用户提交的请求字段、CLI 参数、环境变量、配置文件值和第三方 payload；这类值应在进入内部模型前修剪一次。
+- 不要对内部生成或已校验的值做防御性修剪：常量、代码拼接的标识符、UUID、enum、数据库行扫描结果，以及上游已经修剪过的值都不需要再 TrimSpace。
+- 同一条数据流上不得层层重复 TrimSpace；修剪责任属于最早接触不可信输入的 HTTP/resource/service 边界，下游代码应假设值已清洁。
+- 不要用 TrimSpace 掩盖 bug：如果内部 ID、路径或协议字段出现意外空白，应在产生它的位置修复，而不是在每个消费点静默吞掉。
+
+## JSON 与 schema 边界
+
+- `json.RawMessage` 只用于数据库 JSON/JSONB、HTTP/第三方 payload、延迟解析和未知字段透传等序列化边界。业务逻辑一旦需要读取其中字段，应在边界附近解析为命名 schema/DTO，再映射为内部领域类型。
+- 不要让 `json.RawMessage`、`map[string]any` 或 `[]any` 作为内部业务模型跨 package 扩散，也不要用它们规避已知字段的 schema 定义。
+- 需要保留未知 JSON 字段时，可以在边界使用 `map[string]json.RawMessage` 作为 envelope，但已知字段仍必须通过命名 schema 解析和校验。
+- DB 层可以返回原始 JSONB 值，但不承担 HTTP/DTO 解析或领域策略；调用方应在 resource/service/policy 边界尽早完成结构化转换。
+
+## Go 日志规范
+
+- 生产代码统一使用标准库 `log/slog` 作为日志 API；不要直接使用标准库 `log`、`fmt.Printf` 式日志、logrus、zap、zerolog 或自建 printf 包装器。面向终端用户的 CLI 输出不属于运行日志，可以继续写入 stdout/stderr。
+- logger 和 handler 统一在可执行程序的组装层通过 `internal/logging` 创建，并在启动早期调用 `slog.SetDefault`。根 logger 通过 `ServerDeps`、资源构造函数或 worker 构造函数显式注入；组装层用 `logger.With("component", "...")` 创建组件 logger，业务方法使用自身持有的 logger。`config.Config` 只承载可序列化的业务/部署数据，不得包含 `*slog.Logger` 或其他运行时依赖。构造边界使用 `logging.LoggerOrDefault` 统一兼容 nil logger，组件内部不得重复读取 `slog.Default()`；生产组装必须显式传入 logger。稳定的 DB、配置和 logger 依赖应由 Handler、Service、Enqueuer 或 Worker 持有，不要在每次业务调用中重复透传；纯解析、转换和 I/O helper 优先返回结果与 error，由拥有方决定是否记录。不要为了 logger 注入把静态 logger 塞入请求 context；只有基于 request ID、trace 等请求域数据派生的 request-scoped logger 才适合随请求传递。业务包不要各自创建 handler，也不要在启动完成后修改全局默认 logger。
+- 日志采用结构化字段：消息使用稳定、简短的事件描述，动态值放入属性；新增属性名使用 `snake_case`。错误统一放在 `error` 字段，资源标识使用 `request_id`、`organization_id`、`workspace_id`、`session_id` 等明确字段，不要用 `fmt.Sprintf` 或格式化占位符拼接日志。
+- 已持有 `context.Context` 的请求、worker 和后台任务路径优先使用 `DebugContext`、`InfoContext`、`WarnContext`、`ErrorContext`，以便 handler 关联请求 ID、trace 和调用域字段。
+- 级别语义保持一致：`Debug` 用于默认关闭的诊断细节，`Info` 用于正常生命周期与重要状态变化，`Warn` 用于可恢复降级、预期拒绝或需要关注的异常输入，`Error` 用于操作未能完成的非预期故障。同一错误只在负责最终处理或补充关键边界信息的层记录一次。
+- 应用运行日志禁止记录原始请求/响应 body、完整 query string、`Authorization`、Cookie、token、API key、secret、OAuth code/state、签名或凭据 payload。确需诊断时只记录白名单元数据、长度、摘要或脱敏且有上限的值。协议明确要求的 telemetry/capture 数据必须通过独立、显式配置的安全存储实现，不得混入 `slog` 运行日志。
+- 业务包不得调用 `Fatal`、`Panic` 或 `os.Exit`；错误应向上传递。可执行程序的 `main` 在 defer 可完成的 `run` 返回后记录一次终止错误并设置退出码。panic recovery 记录 `request_id` 和 stack，但不得包含敏感 payload。
+- 新增公共日志字段或修改日志 handler 时应补充针对结构化 record 的测试；优先检查 level、message 和 attrs，不要依赖 ConsoleHandler 的整行文本格式。
+
+## 前端设计方向
+
+- 前端实现细节位于 `web/AGENTS.md`。
+- 常见控件优先使用官方 shadcn/ui 组件目录，采用原生 shadcn 风格，并采用 `new-york` 风格、Base UI primitives、Tailwind CSS 和语义化 CSS 变量。
+- 在采用原生 shadcn 风格的同时，保持 Open Managed Agent 的产品语义、API 兼容性、路由、鉴权和后端边界不变。
+- 如果 shadcn/ui 已提供组件，不要手写菜单、对话框、选择器、表单字段、表格、开关、标签页、提示框或其他通用控件。
+
+## 前端组件架构
+
+- 前端代码优先遵循单一职责、关注点分离、高内聚、低耦合，以及 feature-sliced 模块化。
+- 路由或页面入口文件应保持精简。它们只负责选择 workspace/route 上下文、挑选正确的功能界面，并维持稳定的公共导入；功能逻辑应放在下层的聚焦模块中。
+- 在给大型前端界面继续加行为前，先按职责拆分：
+  - 领域类型与 schema
+  - API/数据访问与流式处理辅助函数
+  - 功能页面与功能专属 hooks
+  - 展示型组件与共享控件
+  - 格式化、解析、路由与标签辅助函数
+- 优先采用 `quickstart/`、`agents/`、`sessions/`、`resources/` 这类垂直功能切片，而不是兜底式 utility 文件。只有在代码确实复用且与领域无关时才抽共享。
+- 依赖方向要清晰：共享基础模块不能导入功能页面；功能页面可以导入共享基础模块；避免循环依赖。
+- 重构现有前端代码时，先做保持行为不变的机械迁移。除非用户明确要求修改行为，否则不要改变 API 请求、状态流、路由语义、文案、样式或测试预期。
+- 在可能的情况下保留现有导入的公共外观，这样路由模块等调用方不需要承受无关改动。
+- 验证前端重构时，运行窄范围功能测试加上 `bun run build`；如果 lint 失败来自既有逻辑且这次任务只是结构调整，应报告问题，而不是为了让 lint 通过去改写行为。
+
+## HTTP 路由
+
+- 顶层 HTTP 路由、资源挂载和资源级子路由统一使用 `github.com/go-chi/chi/v5`。
+- 添加嵌套资源或共享中间件时，优先使用 chi 的 [Sub Routers](https://go-chi.io/#/pages/routing?id=sub-routers) 和 [Routing Groups](https://go-chi.io/#/pages/routing?id=routing-groups)。
+- 业务 handler 应保持在标准 `net/http` 边界（`http.Handler`、`http.ResponseWriter`、`*http.Request`）上，这样流式下载、JSONL 结果、multipart 上传以及 SDK 兼容性行为都能保持显式。
+- 在 `internal/api/server.go` 中使用 `chi.Mount`/路由组注册新的 API 资源，并用 `/{file_id}` 这类 chi pattern 实现资源子路由，而不是手动拆分路径。
+- 请求 ID 注入、panic recovery、`/v1/*` 鉴权等横切关注点应放在 API 级中间件中。
+- 通过 `internal/httpapi.WriteError` 保持与 Anthropic 兼容的错误结构；新增路由时不要让框架默认错误响应泄漏到 `/v1/*` API。
+
+## 后端设计边界
+
+- 保持单体内的清晰依赖方向，优先遵循现有垂直资源切片，而不是为了套用架构名进行大规模搬迁。
+- `internal/api` 只负责服务组装、全局中间件、鉴权入口选择和资源路由挂载；不要在这里堆业务规则、SQL 或资源级请求处理细节。
+- `internal/{agents,sessions,files,memory,...}` 这类资源包负责对应 API 资源的 handler、请求校验、业务编排和响应映射。
+- `internal/db` 是持久化边界。它不能导入 `internal/api`、`internal/httpapi` 或任何 handler/resource 包；不能构造 HTTP 状态码、HTTP 响应、Anthropic error JSON。
+- API 层可以依赖 DB 层；DB 层不能反向依赖 API 层。共享基础包也不能依赖具体功能 handler 或资源包。
+- API request/response DTO 不要直接变成数据库 schema 的影子。数据库行结构、API 响应结构和内部业务结构可以相互映射，但不要因为方便而把 HTTP 字段泄漏进 DB 层。
+- 业务错误应在 handler/resource 层翻译为应用错误，再由 `internal/httpapi` 的最终 HTTP 边界写入响应；DB 层返回普通 Go error、not found/conflict 这类可识别错误或结果状态。
+- 每个资源包的稳定错误合同必须集中定义在该包根目录的 `errors.go`，包括 sentinel、公开错误文案、`apperr.New` 构造和下层错误映射。handler、service 等其他文件不得直接构造应用错误，只能调用 `errors.go` 中命名清楚的构造或映射函数；仅用于补充私有 cause 上下文的 `fmt.Errorf` 可以保留在调用点。
+- 多租户边界必须显式：所有 workspace/org 级资源查询和写入都要带 `organization_id`、`workspace_id` 或对应 external scope，避免只按 external_id 全局查询导致越权。
+- 鉴权和权限判断属于 API/resource/service 层；DB 层可以做 key lookup/hash 等数据访问，但不要承载“这个用户能否执行某动作”的业务授权决策。
+- 多表写入、状态机推进、幂等写入和 outbox/event 写入应保持事务一致性；不要把半个事务散落在多个 handler 分支里。
+- 新增抽象前先确认它真的减少重复或保护边界。不要为了 DDD 名词新增空泛的 repository/service/domain 目录。
+
+## 领域建模原则
+
+- 采用务实 DDD：使用业务语言命名包、类型、状态和方法，把核心不变量放在写入路径附近；但不强制引入完整 DDD 目录结构、泛型 repository 或贫血 service 层。
+- 对外兼容 Anthropic API 的字段、错误和路由语义属于 API 合同；内部领域命名可以更贴近本项目，但必须在边界层做清晰映射。
+- 新增状态字段或状态机时，要把允许的状态、转换条件、幂等行为和并发冲突处理写在靠近写入路径的位置，并覆盖失败场景测试。
+
+## 设计文档同步
+
+- 修改代码后，如果行为、公开 API、事件契约、状态机、数据模型、权限边界、架构边界、测试/验收路径或重要兼容策略发生变化，必须同步更新 `docs/design/` 下对应设计文档。
+- 如果现有设计文档已经准确描述本次代码变化，应在最终说明中明确“设计文档无需更新”以及判断依据。
+- 不要为了凑文档而写重复内容；优先更新最贴近该功能的后端、前端或跨端设计文档，并保持实现细节、兼容说明和测试计划一致。
+- 编写或更新设计文档时，优先用 Mermaid 辅助说明复杂流程、状态机、组件/服务依赖、时序交互和数据流；图示应服务于理解，不要替代必要的文字说明。
+
+## Go 数据库访问与 Yourbatis 强制规则
+
+- 所有应用运行时 SQL 操作，包括查询、写入、事务和返回行扫描，都必须使用 Yourbatis Mapper；禁止通过 `database/sql`、`pgxpool.Query`、`pgxpool.QueryRow`、`pgxpool.Exec`、`pgx.Tx` 或等价原生接口执行应用 SQL。
+- 数据库创建、迁移、schema 检查和约束清理等启动期维护操作可以直接使用 `database/sql`；该例外不得扩展到业务 CRUD。
+- Yourbatis 通过 `pgx/stdlib` 复用应用现有的唯一 `pgxpool`，不得另建连接池。关闭数据库时释放标准库包装层与底层 pool，不能让两者形成重复连接或彼此独立的容量配置。
+- 查询统一在 Mapper XML 中使用绑定参数，并由生成代码扫描带 `db` tag 的数据库行结构；数据库行、领域模型和 API DTO 语义不一致时应分别定义并在边界转换，不要让数据库 tag 或 nullable/编码细节泄漏到业务模型。
+- PostgreSQL `uuid` 列的查询和写入参数不强制使用 Go `uuid.UUID` 类型；已有调用链使用字符串标识符时，应直接以 `string` 绑定参数，不要仅为了匹配数据库列而在 DB 层重复调用 `uuid.Parse`、`parseDBUUID` 或增加类型包装。外部不可信输入如需校验，应在 HTTP、resource 或 service 边界完成；已经是 `uuid.UUID` 的内部值可以继续直接绑定。
+- PostgreSQL 能从 UUID 列比较和写入位置推断参数类型；普通条件和值绑定直接使用 `organization_uuid = #{organizationUUID}` 或 `workspace_uuid = #{workspaceUUID}`，不要写 `CAST(#{organizationUUID} AS uuid)`。只有参数所在表达式确实无法由 PostgreSQL 推断类型，并有测试证明需要显式类型时，才允许使用 cast。
+- 已有原生事务链不得只迁移其中一段。需要增加或修改应用 SQL 时，必须先将整条事务链迁移为同一个 Yourbatis transaction executor，再实施变更。
+- Mapper 迁移至少覆盖生成 SQL 和参数绑定单测；涉及 nullable、JSON、数组、自定义类型或 PostgreSQL cast 时，还要增加真实 PostgreSQL 测试，验证绑定和扫描，不能只依赖 mock。
+
+## Yourbatis 文件拆分
+
+- 新增或修改 Yourbatis Mapper 前，必须先阅读 `docs/design/be/yourbatis-guidelines.md`；本节规定必须遵守的文件边界，设计文档说明 Mapper、XML、事务、参数安全和测试的具体实现方式。
+- 使用 Yourbatis 的资源按以下职责拆分文件，不要把对上层暴露的 DB API、业务编排、Mapper 声明、XML SQL 和生成代码混放在同一个文件中：
+  - `xxxxs.go`：承载 `DB` 对上层暴露的公共方法、领域参数与结果类型，以及事务、错误映射、分页和其他业务编排；不要在这里声明 Yourbatis Mapper interface 或 `go:generate` 入口。
+  - `xxx_mapper.go`：承载 Yourbatis Mapper interface、Mapper 专属的查询参数与数据库行类型，以及对应的 `//go:generate go tool sqlmapgen ...` 生成入口；不要在这里实现 `DB` 对上层暴露的业务方法。
+  - `xxx.xml`：只承载该 Mapper 的 SQL、动态 SQL、公共 SQL fragment 和结果映射；XML `namespace` 必须与 Mapper interface 名一致，statement `id` 必须与 Mapper 方法名一一对应。
+  - `xxx.sqlmap.gen.go`：由 `sqlmapgen` 生成，禁止手工编辑且不纳入版本控制；修改 Mapper interface 或 XML 后必须重新运行 `go generate ./...` 验证生成结果。
+- 上述文件应放在同一个资源 package 和目录中，并使用一致的 `xxx` 资源前缀，使 Go Mapper、XML 与生成输出可以直接对应；一个生成入口只负责一个 Mapper interface 和一个 XML 文件。
+
+## PostgreSQL Schema 规则
+
+- 不要创建 PostgreSQL 外键约束。
+- 跨表引用统一使用目标资源的 `uuid`，例如 `organization_uuid`、`workspace_uuid`、`created_by_api_key_uuid`；完整性由应用写入、迁移代码、seed 代码和 E2E 测试保证。
+- 每张核心业务表都使用：
+  - `id bigint generated always as identity` 作为数据库内部主键。
+  - `uuid uuid default gen_random_uuid()` 作为稳定的业务标识符。
+  - `external_id text` 作为兼容 Anthropic API 的 ID，例如 `file_...`。
+- `int`/`bigint` 类型的 `id` 只允许承担自增 identity，或确有必要的数据库内部排序；其他场景不得使用，也不得进入鉴权 Principal、业务模型、service 接口、API/事件 payload、锁键、行定位条件或跨表持久化引用。业务层的资源身份、租户范围和父子关联统一使用 UUID。
+- 已有 UUID 引用列时，查询应直接按 UUID 过滤或关联。禁止仅为 identity 与 UUID 互转而增加 JOIN 或子查询；只有校验目标存在、验证租户归属或确实读取目标表字段时才保留 JOIN，并应尽可能减少不必要的 JOIN。
+- 之后所有 DB schema 变更都必须通过 `internal/db/migrations` 中的 goose migration 管理。
+- 每次变更新增一个带编号的 migration 文件，例如 `00002_add_xxx.sql`；不要修改已应用的 migration，也不要把新的 schema 变更追加到 `internal/db/schema.go`。
+- `Migrate()` 在应用完 goose migrations 后，必须删除当前 schema 中发现的所有外键约束。
+- 保留 `tests/files_api_test.go` 中的 no-FK 守卫测试。
+
+## 测试要求
+
+- 测试组织顺序应先写失败场景，再写成功场景。
+- `*.gen.go` 不纳入版本控制；干净 checkout 在直接运行 Go 编译、测试或静态分析前先执行 `./scripts/generate-go.sh`（先清空 `internal/db/**/*.sqlmap.gen.go`，再 `go generate ./internal/db`，避免已删除 Mapper 的残留生成文件参与编译）。仓库标准 `just` 命令会自动完成生成。
+- 修改 `web/` 下的文件后，运行 `just web-format-check`，确保 Prettier 格式门禁通过。
+- 修改 Go 代码后，运行 `just lint`；该命令使用仓库根目录的 `.golangci.yml` 执行与 CI 相同的静态分析和格式检查。
+- 修改 schema 或 handler 后，运行 `just test`（等价于先生成 Go 源码，再运行 `go test ./... -count=1`）。
+- 做真实 E2E 时，先将测试配置的 `server.addr` 设为 `127.0.0.1:18080` 并用 `CONFIG_FILE=/path/to/test-config.yaml go run .` 启动本地服务，再以 `TEST_API_BASE_URL=http://127.0.0.1:18080` 和 `sk-ant-local-default` 运行 SDK 测试。
+- 自定义 SDK E2E 覆盖：
+  - Go：`go test ./tests -run TestGoSDKFilesE2E -count=1 -v`
+  - Python：在官方 Python SDK virtualenv 中运行 `tests/e2e/python/files_e2e.py`。
+- 官方 SDK files resource 测试：
+  - Go SDK：`go test -run 'TestBetaFile' -count=1 -v`
+  - TypeScript SDK：`./node_modules/.bin/jest tests/api-resources/beta/files.test.ts --runInBand`
+  - Python SDK：`.venv/bin/pytest tests/api_resources/beta/test_files.py -q`
+- 结束前停止所有为 E2E 启动的本地服务。
+
+---
+> Source: [superduck-ai/open-managed-agents](https://github.com/superduck-ai/open-managed-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
