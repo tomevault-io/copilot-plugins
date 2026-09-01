@@ -1,47 +1,61 @@
-## skill-rule-model
+## claude-code-hooks
 
-> Defines the core skill rule data model for evaluating and enforcing organizational capabilities
+> - Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
 
 
+# Claude Code Hooks
 
-# skill-rule-model
+## Development Guidelines
 
-## Priority Levels
-- Critical: Highest enforcement level for essential organizational skills
-- High: Important capabilities requiring strong adherence
-- Medium: Standard organizational skills
-- Low: Optional or recommended skills
+- Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
+- Never replace code with placeholders like `# ... rest of the processing ...`. Always include complete code.
+- Break problems into smaller steps. Think through each step separately before implementing.
+- Always provide a complete PLAN with REASONING based on evidence from code and logs before making changes.
+- Explain your OBSERVATIONS clearly, then provide REASONING to identify the exact issue. Add console logs when needed to gather more information.
 
-## Enforcement Types
-1. Block: Prevents execution without skill compliance
-2. Suggest: Recommends skill activation
-3. Warn: Issues warning for missing skills
 
-## Rule Categories
-- Domain Skills: Business-specific capabilities
-- Guardrail Skills: Protective/governance controls
+## Skill Activation System
 
-## Hierarchical Structure
-Skills are organized in a multi-level hierarchy:
-1. Priority tier grouping
-2. Enforcement policy classification
-3. Skill type categorization (domain/guardrail)
+A hierarchical skill management system that evaluates user prompts to determine required organizational capabilities and enforcement levels.
 
-## Matching System
-Dual validation approach:
-1. Keyword-based skill matching
-2. Intent pattern validation using regex
+Key Components:
 
-## Rule Sources
-Multiple rule definition locations with established precedence order for conflict resolution
+1. Priority-Based Skill Classification
+- Critical priority skills
+- High priority skills
+- Medium priority skills 
+- Low priority skills
 
-## Implementation Location
-Primary implementation: hooks/skill-activation-prompt.ts
+2. Enforcement Policy Framework
+- Blocking enforcement: Prevents actions without required skills
+- Suggestion based: Recommends skill acquisition
+- Warning based: Notifies about missing skills
 
-Business Impact Score: 90/100
-- Core data model for organizational skill management
-- Critical for enforcing business capabilities
-- Defines fundamental skill governance structure
+3. Skill Categorization
+- Domain Skills: Core organizational capabilities
+- Guardrail Skills: Protective/compliance requirements
+
+4. Rule Evaluation Engine
+- Keyword matching against prompt content
+- Intent pattern recognition using regex
+- Multi-source rule evaluation with precedence ordering
+
+## Business Workflow
+
+1. Input Processing
+- Analyzes user prompts for skill requirements
+- Matches against predefined skill patterns
+- Evaluates both explicit keywords and intent patterns
+
+2. Skill Resolution
+- Groups matched skills by priority level
+- Applies business-specific enforcement rules
+- Generates prioritized skill recommendations
+
+3. Enforcement Output
+- Formats skill activation notifications
+- Applies organization-specific messaging
+- Delivers appropriate enforcement actions
 
 ---
 > Source: [maxkelley23/claude-code-hooks](https://github.com/maxkelley23/claude-code-hooks) — distributed by [TomeVault](https://tomevault.io).
