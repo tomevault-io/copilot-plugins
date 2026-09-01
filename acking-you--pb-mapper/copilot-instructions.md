@@ -1,0 +1,88 @@
+## pb-mapper
+
+> - One `pb-mapper` binary in `crates/pb-mapper-cli/src/bin/` with five role commands:
+
+# Repository Guidelines
+
+## Architecture Overview
+- One `pb-mapper` binary in `crates/pb-mapper-cli/src/bin/` with five role commands:
+  - `server`: central router (default port 7666)
+  - `register`: registers local TCP/UDP services with the router
+  - `connect`: connects to a registered service and exposes a local port
+  - `status`: queries router IDs and registered keys
+  - `admin`: issues, lists, and revokes credentials; rotates the administrator key
+- Crates, bottom-up: `pb-mapper-core` (credentials, checksum, config, addressing)
+  → `pb-mapper-auth` (credential lifecycle and persistence) → `pb-mapper-protocol`
+  (framing and secure sessions) → `pb-mapper-server` and `pb-mapper-client`, which
+  are peers → `pb-mapper-cli`. `ui/native/pb_mapper_ffi` is the C ABI cdylib.
+
+## Project Structure & Modules
+- `crates/`: the Rust workspace; the root `Cargo.toml` is a virtual manifest
+  - `crates/pb-mapper-cli/src/bin/pb-mapper.rs`: unified CLI entry point
+  - `crates/pb-mapper-{core,auth,protocol,server,client,cli}`
+  - `crates/pb-mapper-testkit/`: test support only; nothing shipped depends on it
+  - `crates/pb-mapper-cli/tests/`: integration tests; no env setup required
+  - `crates/pb-mapper-cli/examples/`: runnable examples
+- `ui/`: Flutter UI; Rust bridge under `ui/native/*`
+- `docker/`, `services/`, `scripts/`: container, systemd, build/release
+
+## Build, Test, and Development Commands
+- Build (release): `make build-pb-mapper`
+- Cross-build (musl): `make build-pb-mapper-x86_64_musl`
+- Run server: `cargo run --bin pb-mapper -- server --port 7666`
+- Register service: `cargo run --bin pb-mapper -- register tcp --key k --addr 127.0.0.1:8080 --server host:7666`
+- Connect client: `cargo run --bin pb-mapper -- connect tcp --key k --addr 127.0.0.1:9090 --server host:7666`
+- Tests: `cargo test` (see Testing for env)
+- Docker (server): `make release-pb-mapper-docker-image`
+- UI (optional): `cd ui && flutter run`
+Notes: CI builds release artifacts on tags `vX.Y.Z` (see `.github/workflows/release.yml`).
+
+## Coding Style & Naming Conventions
+- Edition is set once in `[workspace.package]`; the toolchain is pinned in
+  `rust-toolchain.toml`, which CI installs. Both are deliberately not repeated
+  here — a version in prose goes stale on the next upgrade.
+- Format: `cargo fmt --all` (4 spaces; import grouping per `rustfmt.toml`)
+- Lint: `cargo clippy --all-targets -- -D warnings`
+- Naming: modules/functions `snake_case`, types/traits `PascalCase`, consts `SCREAMING_SNAKE_CASE`
+
+## Testing Guidelines
+- Framework: `tokio` async + integration tests in `crates/pb-mapper-cli/tests/`
+- No test needs environment setup. `pb-mapper-testkit` stands up a complete
+  tunnel (`server` + `register` + `connect`), so any test file can build one
+  rather than a single file owning the harness: `TunnelHarness::start(transport,
+  need_codec)` for the common case, or `Relay` + `TunnelSpec` when a case needs
+  to issue, renew, or revoke a credential first. `test_delay.rs` covers the
+  transport/codec matrix and `temporary_credential_e2e.rs` the credential
+  lifecycle; each case picks its own loopback ports and owns its auth state
+  directory, so cases run concurrently and never collide with a live relay.
+  Prefer binding a socket and keeping it over `reserve_addr`, which has to drop
+  the socket before the real bind and so cannot rule out a race.
+- Sequence components with a readiness probe, not a sleep: poll the relay's
+  `Keys` status for a registration, and round-trip a payload through the tunnel
+  for forwarding. `Tunnel::start` does both before it returns.
+- A framed driver (`run_echo_delay`) needs a byte-transparent echo server; a
+  tagged tunnel (`TunnelSpec::echo_tag`, which is how a namespace-isolation
+  assertion avoids passing on a leak) needs the raw drivers instead.
+- Anything that sets the process credential takes
+  `pb_mapper_core::test_support::PROCESS_CREDENTIAL_TEST_LOCK` first — it is
+  process-global, and that includes indirect writers such as building a
+  `PbMapperState`.
+- Prefer new integration tests that need no external setup
+
+## Commit & Pull Request Guidelines
+- Commits: short, imperative (e.g., "Fix localhost resolution panic", "add network perms", "change to StreamBuilder")
+- Before committing code changes, always run:
+  - `cargo fmt --all`
+  - `cargo clippy --all-targets -- -D warnings`
+  - If `deps/uni-stream` was touched, run the same two commands inside that submodule as well.
+- PRs include: summary, rationale, test steps/coverage, and doc/config updates when behavior changes
+- Link issues; attach screenshots/logs for UI or networking changes
+
+## Security & Configuration Tips
+- Never commit secrets; use `.env` and document required variables
+- Helpful envs: `RUST_LOG=info`, `PB_MAPPER_SERVER=host:7666`, `PB_MAPPER_KEEP_ALIVE=ON`
+- Systemd: install the unified binary at `/usr/local/bin/pb-mapper`; role-specific units live in `services/`
+
+---
+> Source: [acking-you/pb-mapper](https://github.com/acking-you/pb-mapper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
