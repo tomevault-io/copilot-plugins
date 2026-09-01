@@ -1,0 +1,9 @@
+{
+  "name": "techmitten--origami-ai",
+  "displayName": "Origami-AI",
+  "description": "Transforms static PDF documents into professional narrated video presentations using advanced local AI.",
+  "version": "1.0.0",
+  "author": "TechMitten",
+  "homepage": "https://github.com/TechMitten/Origami-AI",
+  "skills": []
+}
