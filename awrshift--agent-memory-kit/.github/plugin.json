@@ -1,0 +1,9 @@
+{
+  "name": "awrshift--agent-memory-kit",
+  "displayName": "agent-memory-kit",
+  "description": "One memory for every coding agent \u2014 plain markdown in your repo. Injected on Claude Code & Cursor, skills on Codex & Copilot, plugin for OpenCode. Dated, capped, audited: agent memory that doesn't rot",
+  "version": "1.0.0",
+  "author": "awrshift",
+  "homepage": "https://github.com/awrshift/agent-memory-kit",
+  "skills": []
+}
