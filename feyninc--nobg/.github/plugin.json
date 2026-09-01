@@ -1,0 +1,9 @@
+{
+  "name": "feyninc--nobg",
+  "displayName": "nobg",
+  "description": "a library for background removal models",
+  "version": "1.0.0",
+  "author": "feyninc",
+  "homepage": "https://github.com/feyninc/nobg",
+  "skills": []
+}
