@@ -1,46 +1,57 @@
-## metal-no-long-running-ops
+## metal-no-pointer-across-await
 
-> No long-running non-yielding operation anywhere in Metal (not just wasm/async guest code) — the check is cheap, blocking everyone else is not
+> Never hold a resolved cross-module pointer (RegEntry/ImportRow lookup, wasm export/trampoline address) across an await/step boundary
 
 
-# No long-running non-yielding operations, anywhere
+# Never hold a resolved cross-module pointer across an await
 
-**Not guest-specific.** This applies to host code, kernel code, wasm guests,
-async tasks — everywhere in Metal, not a special wasm/async-only rule.
+**Resolve, use, discard -- all inside one step.** A cross-module address --
+`RegEntry::get()`/`ImportRow::entry().get()`'s `*const c_void`, a claimed
+wasm trampoline's `t->code`, anything obtained by looking a module/func
+name up in the registry -- must be fetched and called within the same,
+uninterrupted step. Never stash it in a coroutine's frame state to use
+again after a later `.await`/redispatch.
 
-## The actual test
+## Why this is a real gap, not caution for its own sake
 
-It's an economic comparison, not a blanket "always yield": **schedule/check
-cost vs. the cost of not checking.** Measured on this project's own hardware
-(see `registration_rethink_scope`'s quiesce/safepoint design): a periodic
-liveness/safepoint check (an uncontended atomic flag load + not-taken branch)
-costs **~0.3% overhead even done on every single call**, the pessimistic
-upper bound — done at the coarser granularity it's actually meant for (once
-per task step, not once per call), it's unmeasurable. The cost of *not*
-checking — stalling every other runner's fairness, and stalling any
-load/unload quiesce that depends on every runner reaching a checkpoint
-within bounded time — is unbounded by comparison. That asymmetry means the
-bar for "this is short enough to skip a yield/check point" is very high:
-only genuinely tiny, provably-bounded-time operations get a pass. Anything
-whose duration is unpredictable or non-trivial must be broken into steps
-that yield/check periodically.
+The registry has **no per-entry refcount by design** -- see
+`reg/_impl/_entry.rs`'s `RegEntry` doc comment. That's safe *only* because
+`_kernel::unload` quiesces every async runner first (parks every runner at
+its next dispatch checkpoint, see `async/_impl/quiesce.rs`) before
+withdrawing anything, so there is never a concurrent caller in flight
+while a `RegEntry` goes null or a wasm slot gets freed.
+
+Quiesce's guarantee is **between steps**, not **within** a task that
+spans more than one. A step that resolves a pointer, then suspends
+(`.await`, `ForgePoll::Pending`) while holding it, has stepped *outside*
+what quiesce protects: a quiesce + unload can run in that gap, the
+resolved address (a stamped trampoline slot, a freed `RegMod`'s entries,
+a wasm instance's export) goes stale, and the task resumes holding a
+dangling pointer with nothing left to catch it -- the "no refcount" design
+depends on this never happening.
 
 ## Concrete rule
 
-Any loop or operation whose duration is not providably tiny and bounded
-must incorporate a periodic yield/check point. When choosing how often to
-check, default to checking **more** often, not less — per the measurement
-above, the check itself is close to free; the failure mode of checking too
-rarely (stalling fairness, stalling a quiesce) is not.
+```rust
+// BAD -- resolves once, awaits, calls later with a possibly-stale ptr
+let ptr = row.entry().map(|e| e.get());
+some_async_op().await;
+if let Some(p) = ptr { unsafe { call(p) } }
 
-## Why this is load-bearing for two things, not one
+// GOOD -- resolve and call in the same step, nothing carried across .await
+some_async_op().await;
+if let Some(p) = row.entry().map(|e| e.get()) {
+    unsafe { call(p) }
+}
+```
 
-1. **Scheduler fairness** — a step that never yields already breaks
-   cooperative scheduling today, independent of the registry design.
-2. **The registry's quiesce/safepoint mechanism** (load/unload of an
-   unloadable module) depends on every runner reaching a checkpoint within
-   bounded time to ever complete — a violation here doesn't just cost that
-   one task's fairness, it can stall a load/unload indefinitely.
+Re-resolve on every entry into a step that needs the address; never carry
+one in `pm_metal_async_coro_alloc`'d step-frame state, a struct field kept
+across dispatches, or any other storage that outlives a single step.
+
+See also `metal-no-long-running-ops.mdc` (a step must be short enough to
+reach its next checkpoint quickly) -- this rule is the pointer-safety
+half of the same quiesce/safepoint design; that one is the liveness half.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
