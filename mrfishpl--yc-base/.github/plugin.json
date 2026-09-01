@@ -1,0 +1,9 @@
+{
+  "name": "mrfishpl--yc-base",
+  "displayName": "yc-base",
+  "description": "A file-over-app knowledge base of the entire Y Combinator YouTube channel, queryable in Claude Code \u2014 ask startup questions, get answers cited to the exact video + timestamp. 618 talks distilled into ",
+  "version": "1.0.0",
+  "author": "MrFishPL",
+  "homepage": "https://github.com/MrFishPL/yc-base",
+  "skills": []
+}
