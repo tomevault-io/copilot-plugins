@@ -7,11 +7,11 @@ Local-first engineering memory for AI coding: a git-native graph of decisions, b
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [davesheffer/hunch](https://github.com/davesheffer/hunch).
+Original source: `AGENTS.md` in [davesheffer/hunch](https://github.com/davesheffer/hunch).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
