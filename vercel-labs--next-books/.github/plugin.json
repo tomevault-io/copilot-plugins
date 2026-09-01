@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--next-books",
+  "displayName": "next-books",
+  "description": "Browse two million Goodreads books with Next.js 16.3 Instant Navigations.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/next-books",
+  "skills": []
+}
