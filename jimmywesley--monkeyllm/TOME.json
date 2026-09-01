@@ -1,0 +1,44 @@
+{
+  "name": "MonkeyLLM",
+  "owner": "JimmyWesley",
+  "repo": "MonkeyLLM",
+  "description": "Knowledge engine for AI agents: your documents become a git-versioned markdown knowledge graph the agent navigates over MCP. Curated summaries, typed edges, cited answers, SQL over your spreadsheets, no chunking. Same 12B local model: 0/11 on multi-hop questions as top-k RAG, 11/11 as a navigator. Python, Apache-2.0, self-hostable.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JimmyWesley/MonkeyLLM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T05:01:14Z"
+}
