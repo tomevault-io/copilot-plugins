@@ -7,11 +7,11 @@ JusPlayer — high-performance, privacy-focused YouTube Music client for Android
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shubh72010/Greeny-Goblins](https://github.com/shubh72010/Greeny-Goblins).
+Original source: `AGENTS.md` in [shubh72010/Greeny-Goblins](https://github.com/shubh72010/Greeny-Goblins).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
