@@ -1,0 +1,9 @@
+{
+  "name": "chippingway--orchestrator",
+  "displayName": "orchestrator",
+  "description": "Orchestrator for automated GitHub issue monitoring and agentic development across multiple repositories.",
+  "version": "1.0.0",
+  "author": "chippingway",
+  "homepage": "https://github.com/chippingway/orchestrator",
+  "skills": []
+}
