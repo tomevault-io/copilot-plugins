@@ -1,0 +1,9 @@
+{
+  "name": "notnotype--llmlint",
+  "displayName": "llmlint",
+  "description": "Lint and polish LLM-generated Chinese text: locate AI writing tells with rules, fix them with judgment. CLI + Agent Skill.",
+  "version": "1.0.0",
+  "author": "notnotype",
+  "homepage": "https://github.com/notnotype/llmlint",
+  "skills": []
+}
