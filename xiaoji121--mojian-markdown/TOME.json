@@ -1,0 +1,44 @@
+{
+  "name": "mojian-markdown",
+  "owner": "xiaoji121",
+  "repo": "mojian-markdown",
+  "description": "\u58a8\u7b3a Markdown\uff1a\u9762\u5411\u9605\u8bfb\u3001\u5b66\u4e60\u548c\u8bc4\u6ce8\u7684 Markdown \u7f16\u8f91\u5668\uff5cA reading-first Markdown editor with annotations, local cache, and optional local AI bridge",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaoji121/mojian-markdown",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T04:35:57Z"
+}
