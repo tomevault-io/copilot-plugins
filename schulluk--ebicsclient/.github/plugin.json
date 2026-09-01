@@ -1,0 +1,9 @@
+{
+  "name": "schulluk--ebicsclient",
+  "displayName": "ebicsclient",
+  "description": "Pure-Python client for the EBICS 3.0 (H005) banking protocol",
+  "version": "1.0.0",
+  "author": "schulluk",
+  "homepage": "https://github.com/schulluk/ebicsclient",
+  "skills": []
+}
