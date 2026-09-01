@@ -1,0 +1,9 @@
+{
+  "name": "choi138--toki",
+  "displayName": "toki",
+  "description": "macOS menu bar app for tracking token usage, active work time, and costs across AI coding agents.",
+  "version": "1.0.0",
+  "author": "choi138",
+  "homepage": "https://github.com/choi138/toki",
+  "skills": []
+}
