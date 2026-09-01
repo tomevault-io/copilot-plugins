@@ -1,53 +1,123 @@
-## metal-ascii-strings
+## metal-c-abi-hub
 
-> Runtime-printed string literals in Metal must be plain ASCII — the boot console is a fixed 256-glyph codepage, not UTF-8
+> Lang pool codegen — one impl in, emit other pool faces; cpp under c; toml output-only not default
 
 
-# ASCII-only in printed string literals (no UTF-8 decorative chars)
+# Lang pool (polyglot codegen)
 
-**Why:** the boot console (`font_vga8x16.inc.c`, a fixed 256-glyph codepage
-font) is not UTF-8-aware. Any multi-byte UTF-8 sequence embedded in a string
-literal that reaches `pm_metal_shell_out`/`pm_metal_log*`/`pm_metal_ui_set_status`/
-`snprintf`-into-a-status-buffer/any other runtime-printed path renders as
-mojibake (each byte drawn as its own wrong glyph) — this has reappeared
-multiple times (`→`, `—`, `…` in `py_shell.c`, `mod.c`, `banner.c`,
-`boot_init.c`, `boot_shell.c`, `input_shell.c`, `scanout_radeon_rv370.c`) and
-is always a "looks broken to the user, wastes a debugging round-trip"
-regression, not a style nit.
+Full write-up: [`docs/definitions/module.md`](../../docs/definitions/module.md)
+§ "Lang pool".
 
-**Banned inside any string literal that can be printed at runtime** (i.e.
-passed to an output/log/status function, or built via `snprintf` into a
-buffer that is): `→` `—` `–` `…` `‘` `’` `“` `”` `✓` `×` `°` `±`, or any other
-non-ASCII/multi-byte UTF-8 character. Use the plain-ASCII equivalent instead:
+**Shape:**
 
-| Banned | Use instead |
-|--------|-------------|
-| `→` | `->` |
-| `—` / `–` | `-` or `--` |
-| `…` | `...` |
-| `‘’` `“”` | `'` `"` |
+```text
+impl (one of: rs | c | cpp | py)
+        --export-->  in-memory catalog
+        --emit---->  other pool faces
 
-**Comments are exempt** — em-dashes (`—`) are used pervasively in this
-codebase's own comments and are never printed at runtime, so leave existing
-comment style alone. This rule is only about characters inside a string
-literal (`"..."`) that ends up on an output path.
-
-Layout-dependent user-facing glyphs (e.g. German `ß`/`ü`/`ö`/`ä` in
-`keyb.c`'s GR keymap table) are a different, deliberate case — those are
-Latin-15/ISO-8859-15 single-byte values (`(char)0xDF`, not UTF-8), chosen to
-match the VGA font's actual codepage. Don't confuse that pattern with UTF-8
-decorative characters; the keymap case is correct as-is and out of scope
-for this rule.
-
-**Verify after touching any file with printed strings:**
-
-```
-grep -rnP '"([^"\\]|\\.)*[→—–…‘’“”✓×°±]([^"\\]|\\.)*"' src --include=*.c
+Pool slots:  c  |  rs  |  py  |  toml
+Default emit: c, rs, py  (minus the impl's slot)
+toml: output-only face {base}.toml; not written unless --emit toml
+cpp: same pool slot as c (human may be .cpp; face is still {base}.h)
 ```
 
-Must return nothing (a match inside a `/* comment */` that happens to share
-a line with an unrelated quoted string is a false positive — check the
-match is actually inside the quotes before "fixing" it).
+- **Never** regenerate human `__init__.{impl_ext}`.
+- **Never** invent Py↔Rust shortcuts that skip the C runtime border
+  (`__init__.h` when the `c` slot is emitted).
+- One sync run keeps the catalog in memory for every emit.
+- Prefer **Python + almost no libs** (`re`, tiny parsers). No cbindgen/libclang.
+- **Async tooling:** `metal_cli` commands are `async def`; only the CLI
+  entrypoint runs the event loop.
+
+`metal mod sync` keeps the in-file banner write gate and module-local
+`.gitignore` for every generated face.
+
+**`type=module` only (kernel border).** Sync discovers `.pm/module` with
+`type=module`. `type=package` is for wasm packs under `tests/` (`forge pack`)
+and is **not** face-synced — a kernel-linked `impl=rs` tree mistyped as
+`package` silently gets **no** `__init__.h` / sibling `.h`. Underscore stems
+(`_foo.rs`) are also skipped; public C ABI belongs on `__init__.rs` or a
+non-`_` sibling stem (`ops.rs`, `ready.rs`, …).
+
+**Face completeness check** (after adding `#[no_mangle] extern "C"`):
+
+```bash
+# every pm_metal_* no_mangle should appear in some generated/human .h
+```
+
+If a new export is missing from `.h`, fix the stem/`type` then
+`./forge-cli mod sync` (use `--force` after forge converter fixes).
+
+## Consume generated faces — never duplicate foreign ABI
+
+When module A calls module B and B’s impl language is **not** A’s:
+
+| B `impl` | A is C/C++ | A is Rust | A is Python |
+|----------|------------|-----------|-------------|
+| `rs` / `py` | `#include` B’s generated `{base}.h` | generated `{base}.rs` (`#[path]` / re-export) | generated `{base}.pyi` |
+| `c` / `cpp` | `#include` B’s **human** `{base}.h` | generated `{base}.rs` | generated `{base}.pyi` |
+
+**Banned:** hand-rolled `extern "C"` blocks, copy-pasted `#[repr(C)]`
+structs, or private twin headers that restate another module’s border.
+That duplication drifts from `metal mod sync` and wastes reading effort.
+
+Thin safe wrappers in the consumer (`boot::api::…`) are fine — they must
+call through the provider’s face, not redeclare it.
+
+Edit the provider’s human impl, then `metal mod sync`. Do not “fix” a
+generated face by hand (banner write gate).
+
+## Fixed v2 module schema (private files)
+
+Under `.pm/` (see `docs/definitions/module.md`):
+
+| File | Role |
+|------|------|
+| `.pm/module` | JSON metadata (`type`, `name`, `impl`, …) |
+| `.pm/Cargo.toml` | Rust crate when `impl=rs` |
+| `.pm/build.{ext}` | Build hook |
+| `.pm/smoke.{ext}` | Host smoke — `metal mod test` |
+
+Package entry remains `__init__.{ext}` at the module root.
+
+## C ABI symbol names (full module prefix)
+
+Canonical: [`docs/SOURCETREE.md`](../../docs/SOURCETREE.md) (contract naming).
+
+Every `#[no_mangle] extern "C"` / public C export under
+`pymergetic/metal/<module>/…` uses the **full path prefix**, not a
+stem-only short name:
+
+```text
+pm_metal_<module>[_<subdir>…][_<sibling_stem>]_<verb…>
+```
+
+- Include every directory segment after `pymergetic/metal/`.
+- Package entry is always `__init__.{ext}` — **never** put `__init__`
+  in the symbol prefix (`mem/__init__.rs` → `pm_metal_mem_*`).
+- Sibling stems in the same dir keep their name (`mem/arena.rs` →
+  `pm_metal_mem_arena_*`). Nested modules use their dir name
+  (`mem/tlsf/__init__.rs` → `pm_metal_mem_tlsf_*`).
+
+| Source | Prefix | Example |
+|--------|--------|---------|
+| `mem/__init__.rs` | `pm_metal_mem_` | `pm_metal_mem_alloc` |
+| `mem/arena/__init__.rs` | `pm_metal_mem_arena_` | `pm_metal_mem_arena_map` |
+| `mem/tlsf/__init__.rs` | `pm_metal_mem_tlsf_` | `pm_metal_mem_tlsf_malloc` |
+| `util/lz4.h` | `pm_metal_util_lz4_` | `pm_metal_util_lz4_compress` |
+
+**Banned:** `pm_metal_tlsf_*`, `pm_metal_arena_*` (missing `mem_`), or any
+export that drops a path segment so two modules can collide.
+After renaming exports, run `metal mod sync` so faces match.
+
+## External libs stay external
+
+Do **not** rewrite a vendored upstream (e.g. Conte TLSF in
+`external/tlsf`) in Rust “because the module is Rust” — EFI/BIOS already
+compile that C. Wire it (`.pm/build.rs` / port shim / FFI) and put Metal
+prefixes only on the thin border (`pm_metal_mem_tlsf_*` → `tlsf_*`).
+Reimplement only with a concrete reason (measured perf, missing freestanding
+portability, API gap you must own). Default: use the external.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
