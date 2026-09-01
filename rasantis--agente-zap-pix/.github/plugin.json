@@ -1,0 +1,9 @@
+{
+  "name": "rasantis--agente-zap-pix",
+  "displayName": "agente_zap_pix",
+  "description": "WhatsApp AI agent \u2014 RAG over a company knowledge base (Gemini + Supabase/pgvector), voice-note transcription, lead qualification and scheduling. FastAPI, Dockerized",
+  "version": "1.0.0",
+  "author": "Rasantis",
+  "homepage": "https://github.com/Rasantis/agente_zap_pix",
+  "skills": []
+}
