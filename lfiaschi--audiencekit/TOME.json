@@ -4,7 +4,7 @@
   "repo": "audiencekit",
   "description": "Synthetic audience studies grounded in real survey microdata",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lfiaschi/audiencekit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T05:02:43Z"
+  "distributed_at": "2026-09-01T07:08:32Z"
 }
