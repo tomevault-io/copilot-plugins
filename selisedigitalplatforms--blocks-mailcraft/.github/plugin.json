@@ -1,0 +1,9 @@
+{
+  "name": "selisedigitalplatforms--blocks-mailcraft",
+  "displayName": "blocks-mailcraft",
+  "description": "Drag-and-drop email template editor Web Component \u2014 zero dependencies, framework-free, HTML in \u2192 responsive send-ready HTML out. Multilingual, RTL, theming, uploads & AI-ready.",
+  "version": "1.0.0",
+  "author": "SELISEdigitalplatforms",
+  "homepage": "https://github.com/SELISEdigitalplatforms/blocks-mailcraft",
+  "skills": []
+}
