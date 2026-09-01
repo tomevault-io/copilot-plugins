@@ -1,0 +1,9 @@
+{
+  "name": "b-o-a-r-d--board",
+  "displayName": "Board",
+  "description": "Trello alternative using Laravel",
+  "version": "1.0.0",
+  "author": "B-o-a-r-d",
+  "homepage": "https://github.com/B-o-a-r-d/Board",
+  "skills": []
+}
