@@ -4,7 +4,7 @@
   "repo": "nopal",
   "description": "Self-hosted dashboard that unifies 3D printers (Klipper, Marlin, Bambu Lab, Elegoo, FlashForge), GRBL laser/CNC, and a plugin ecosystem in one browser panel.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/charlymigenes-ux/nopal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T01:27:17Z"
+  "distributed_at": "2026-09-01T02:43:39Z"
 }
