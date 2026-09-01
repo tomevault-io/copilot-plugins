@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-surveillance-system",
+  "displayName": "franken_surveillance_system",
+  "description": "Pure-Rust, evidence-native, local-first sensor fabric and semantic control plane for owner-authorized cameras and capture drones",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_surveillance_system",
+  "skills": []
+}
