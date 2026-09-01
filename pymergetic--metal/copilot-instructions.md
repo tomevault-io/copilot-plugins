@@ -1,37 +1,57 @@
-## metal-generated-gitignore
+## metal-ide-lint
 
-> Codegen outputs live under a single wholesale-gitignored include/ tree, never beside human source
+> Lint always from the IDE/user view; warnings count as errors; build-clean is not enough
 
 
-# Generated files are gitignored (wholesale, under `include/`)
+# IDE lint = user interface (always)
 
-Full layout: [`docs/definitions/module.md`](../../docs/definitions/module.md).
+The owner is not connected to the code the way an agent is. **The IDE is
+their interface** — Problems / squiggles are what they see first and trust.
+A change that "builds" but leaves red or yellow underlines is unfinished.
 
-**A module's own directory under `src/` holds only `_impl/` (human
-sources) and `.pm/` (metadata) — never a generated face, never a
-per-module `.gitignore` managed block.** All codegen for every module,
-own-language pool faces and foreign-consumer faces alike, lands under
-`include/pymergetic/metal/<mod>/...`, mirrored from `_impl/` with that
-segment and any leading underscores stripped.
+## Hard rule
 
-**Ownership:** generated faces carry an in-file banner
-(`DO NOT HAND-EDIT THIS FILE.`). That line is the write gate — sync
-refuses to overwrite a file that exists without it (this should never
-actually trigger since nothing hand-writes into `include/`).
+**Linting is always from the IDE / user perspective.**
 
-**Rule:** the entire `include/` tree is generated and gitignored with a
-single root-level line — no per-file or per-module bookkeeping:
+**IDE warnings count as errors.** A yellow squiggle is unfinished work —
+same bar as a red error. Do not leave Unused / IncludeCleaner / sign-compare
+noise in Metal-owned files because "it's only a warning."
 
-```gitignore
-/include/
-```
+1. **Ground truth = editor diagnostics** on the files you touched (and
+   neighbors that include them) — use the IDE diagnostics tool
+   (`ReadLints`), not only `clang`/`cargo`/`forge` exit codes. Treat
+   every diagnostic severity the user sees (Error **and** Warning) as
+   must-fix unless `docs/SOURCETREE.md` documents a known false positive.
+2. **"Builds clean" is not "IDE clean."** Freestanding TUs often compile
+   via `build.rs` `-I` while clangd still lacks PathMatch / CDB rows
+   (`errno.h`, `platform_api_vmcore.h`, …). Fix the IDE path
+   (`.clangd.template`, local `.clangd`, forge `compile_commands`) —
+   do not call it done because the firmware linked.
+3. **Do not claim fixed until diagnostics agree** (or you edited clangd /
+   CDB and told them to **restart clangd** / reload so stale ASTs clear).
+4. Prefer fixing the **cause** of the squiggle (missing `-I`, wrong
+   PathMatch, stale `.clangd`, missing CDB TU, unused dead API) over
+   casts/pragmas / `(void)` silencing — unless documented as a known
+   clangd false positive in `docs/SOURCETREE.md`.
+5. **Do not "fix" IDE noise by editing `external/`** — fix Metal-side
+   flags / PathMatch instead. Vendored trees may suppress tidy in
+   `.clangd`; Metal-owned code may not.
+6. **Python guest** — stubs under `typings/`; regenerate after
+   `PM_METAL_PY_BIND` changes so the IDE matches the bind table.
 
-- `metal mod clean` wipes generated faces; `metal mod sync` regenerates
-  the whole tree — there is no partial/stale state to reconcile
-  file-by-file.
-- Human `_impl/__init__.{ext}`, `.pm/module`, `.pm/Cargo.toml`, ports
-  stay tracked as normal — none of them ever live under `include/`.
-- Never ignore `.pm/Cargo.toml` or any other human schema file.
+## After `.clangd` / CDB / include-graph edits
+
+Sync `.clangd` from `.clangd.template` when the template changed. End with:
+**restart clangd** (Command Palette → `clangd: Restart language server`,
+or reload the window).
+
+## Paths in IDE / CDB metadata
+
+See `metal-clangd-no-abs-paths.mdc`. `.clangd*` `-I` and CDB `"file"` /
+command `-I` stay package-relative. CDB `"directory"` is the **absolute
+package root**. CDB at package-root `compile_commands.json` (mirrored
+under `build/`). After template/CDB edits: regenerate if needed, then
+**restart clangd**.
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
