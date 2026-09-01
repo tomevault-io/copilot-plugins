@@ -1,0 +1,9 @@
+{
+  "name": "cangyeone--seismicx-catalog-skill",
+  "displayName": "seismicx-catalog-skill",
+  "description": "Agent-friendly tools for automated earthquake cataloging from continuous seismic waveforms.",
+  "version": "1.0.0",
+  "author": "cangyeone",
+  "homepage": "https://github.com/cangyeone/seismicx-catalog-skill",
+  "skills": []
+}
