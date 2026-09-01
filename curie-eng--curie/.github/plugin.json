@@ -1,0 +1,9 @@
+{
+  "name": "curie-eng--curie",
+  "displayName": "curie",
+  "description": "Open-source, self-hostable delivery platform for Claude Code style agents. Connect Slack today, with more channels next. Run the same bundle locally and on Kubernetes, and ship it with git push.",
+  "version": "1.0.0",
+  "author": "curie-eng",
+  "homepage": "https://github.com/curie-eng/curie",
+  "skills": []
+}
