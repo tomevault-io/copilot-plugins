@@ -1,0 +1,9 @@
+{
+  "name": "rabbet--googly",
+  "displayName": "googly",
+  "description": "Generate modern, self-contained Elixir clients for any Google API from its discovery document.",
+  "version": "1.0.0",
+  "author": "Rabbet",
+  "homepage": "https://github.com/Rabbet/googly",
+  "skills": []
+}
