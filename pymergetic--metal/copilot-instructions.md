@@ -1,71 +1,53 @@
-## metal-c-dialect
+## metal-clangd-no-abs-paths
 
-> Metal core uses one uniform C type spelling everywhere; EDK2 types/headers are physically confined to boot platform ports
+> No absolute paths in IDE/build metadata — except CDB directory (clangd match)
 
 
-# Metal C dialect (no UEFI types outside boot/platform/{efi,bios}/**)
+# No absolute paths in IDE / build metadata
 
-Full rule + rationale: [`docs/SOURCETREE.md`](../../docs/SOURCETREE.md) → "C dialect".
+Never write checkout-absolute or machine-absolute paths into generated or
+checked-in IDE/build metadata **except** `compile_commands.json`
+`"directory"` (see below). That includes:
 
-**Why this is strict, not a style nit:** the user (project owner) is autistic
-and reading code where the same type has two spellings (`UINT32` vs
-`uint32_t`, `VOID` vs `void`) is a genuine, non-trivial extra cognitive load
-for their pattern matching — even though the types are typedef-identical.
-Treat "one spelling per type, everywhere in shared code" as load-bearing,
-not negotiable, not a nice-to-have. Do not push back on this or suggest
-relaxing it.
+- `.clangd` / `.clangd.template` / nested `**/.clangd` (`-I` stays relative)
+- CDB `"file"` and command `-I` / `--sysroot` (package-relative only)
+- emitted path bits in setup/ide scripts that land in those files
 
-`src/pymergetic/metal/**` (**all of it, zero exceptions**) is **normal C**:
+**Banned elsewhere:** `/home/...`, `/Users/...`, drive letters, `$PWD`
+expansions, `@@ROOT@@` → absolute, absolute `-I` / `--sysroot` / `"file"`.
+Tool binaries in CDB commands are bare names (`clang`), not `/usr/bin/clang`.
 
-- Types: `int32_t` / `uint32_t` / `bool` / `void` / `const` / `char` — from `<stdint.h>` / `<stdbool.h>` etc.
-- Linkage: `static`, not `STATIC`
-- Unused: `(void)x`, not `(VOID)x`
+## CDB `directory` is the one exception
 
-**Banned anywhere in `src/pymergetic/metal/**` outside platform ports,
-no filename-based exception:**
+clangd 22 does **not** match entries with `"directory": "."` + a relative
+`"file"` — it falls back to Generic (cwd = source file dir). With
+`-nostdinc`, package-relative `-Isrc/pymergetic/metal/libc` then misses and
+the editor reports `'stddef.h' file not found`.
 
-- `#include <Uefi.h>`, `#include <Library/*.h>`, `#include <Protocol/*.h>`, `#include <IndustryStandard/*.h>`
-- `INT32` / `UINT32` / `UINTN` / `VOID` / `STATIC` / `CONST` / `CHAR8` / `BOOLEAN`
-- bare `int` / `unsigned` / `long` / `short` for quantities (use stdint)
+| Artifact | Form |
+|----------|------|
+| package-root `.clangd*` | package-relative (`-Isrc/...`, `-Ibuild`, `-I.`) |
+| nested module `.clangd` | relative to the **source file's directory** (Generic cwd), or to that `.clangd` file when using `CompilationDatabase: None` (bios ports) |
+| `compile_commands.json` | `"directory":` **absolute package root** (forge writes canonicalize); `"file"` / `-I` package-relative (`src/...`) |
 
-A file does **not** get to include EDK2 headers just because it's named
-`*_port.c`/`*_port.h`. The **only** thing that makes EDK2 OK is physical
-location under `src/.../boot/platform/efi/**` or `.../bios/**`. If Metal
-logic genuinely needs one EDK2 primitive, declare a plain stdint-typed
-prototype in the shared file (no body) and put the implementation in the
-matching platform port body.
+`scripts/setup.d/deps/ide.sh` (or forge) **must not** `sed` / expand
+`${ROOT}` into `.clangd*` files.
 
-**Verify:** `grep -rlE '#include\s*<(Uefi\.h|Library/|Protocol/|IndustryStandard/)' src/pymergetic/metal --include=*.c --include=*.h` must return **nothing** outside `boot/platform/{efi,bios}/**`. Run after touching any file here.
+## Verify after any touch
 
-Do not add a compat header that `#define UINT32 uint32_t` — convert call sites.
+```
+rg -n '/home/|/Users/|[A-Za-z]:\\\\|@@ROOT@@' .clangd .clangd.template \
+  tests/host/.clangd tests/host/.clangd.template \
+  src -g '*.clangd' 2>/dev/null
+```
 
-Prefer Metal/libc APIs (`pm_metal_log`, `memset`/`memcpy`/`memcmp`/`strcmp`/`strlen`, `snprintf`)
-over `Print` / `ZeroMem` / `CopyMem` / `AsciiStrCmp` / `AsciiSPrint` in converted files —
-a pure-C `snprintf`/`vsnprintf` already exists in the freestanding libc, so EDK2's
-`AsciiSPrint` (`%a` for strings) is never required; translate the format string to
-plain C (`%s`) at the call site.
+Must return nothing (skip missing files). CDB `directory` abs is expected:
 
-## Layout (compact C)
+```
+rg -n '"file":\s*"/|-I/|--sysroot\s*/' compile_commands.json
+```
 
-- **Signature on one line** unless the arg list is long (many args / wraps ~80–100 cols). Then break args, not `rettype` alone on its line.
-- **Empty body:** `static void Foo(void) {}` — never a braced blank block.
-- Short stubs may be one line: `static int32_t NullReady(void) { return 0; }`
-
-## Stackless + main alloc
-
-Async steps (`status(self_h)`) must not park durable state on the C/wasm call
-stack across `await`. Allocate from the **Metal host heap**:
-
-- Host / guest: `pm_metal_mem_alloc` / `pm_metal_mem_free` (same names; guest
- cookies are opaque — do not dereference in wasm)
-- Guest step frames: `pm_metal_async_coro_alloc` (host TLSF + step-scoped
- linear alias for a normal `T*` during the step)
-- Guest buffers passed into async I/O that outlive the step must sit in the
- coro frame (or another host-durable buffer); natives resolve via
- `pm_metal_async_guest_buf_durable`
-
-Wasm linear memory is for statics and short in-step stack only — not a second
-long-lived heap for coro frames.
+Must return nothing (`"directory": "/..."` is OK).
 
 ---
 > Source: [pymergetic/metal](https://github.com/pymergetic/metal) — distributed by [TomeVault](https://tomevault.io).
