@@ -1,0 +1,44 @@
+{
+  "name": "mahjong_scoring",
+  "owner": "shun144",
+  "repo": "mahjong_scoring",
+  "description": "\u9ebb\u96c0\u70b9\u6570\u8a08\u7b97\u7df4\u7fd2\u30a2\u30d7\u30ea",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shun144/mahjong_scoring",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T03:48:57Z"
+}
