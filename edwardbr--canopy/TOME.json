@@ -4,7 +4,7 @@
   "repo": "Canopy",
   "description": "An RPC solution that is agnostic on serialization formats, transports and coroutine libraries. With remote RAII object management support.   A major rewrite of https://github.com/edwardbr/rpc",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/edwardbr/Canopy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T18:35:53Z"
+  "distributed_at": "2026-09-01T18:38:23Z"
 }
