@@ -1,0 +1,9 @@
+{
+  "name": "davesheffer--hunch",
+  "displayName": "hunch",
+  "description": "Local-first engineering memory for AI coding: a git-native graph of decisions, bugs, and invariants, exposed to Claude Code via MCP.",
+  "version": "1.0.0",
+  "author": "davesheffer",
+  "homepage": "https://github.com/davesheffer/hunch",
+  "skills": []
+}
