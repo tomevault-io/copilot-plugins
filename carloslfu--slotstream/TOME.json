@@ -4,7 +4,7 @@
   "repo": "slotstream",
   "description": "Run Qwen3.8-Flash-Next (125B MoE, 104 GB at 4-bit) on Macs with a fraction of that RAM by streaming experts from SSD. MLX + Swift, Ollama-compatible API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/carloslfu/slotstream",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T19:30:25Z"
+  "distributed_at": "2026-09-01T19:31:16Z"
 }
