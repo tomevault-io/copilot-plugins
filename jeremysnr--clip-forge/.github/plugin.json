@@ -1,0 +1,9 @@
+{
+  "name": "jeremysnr--clip-forge",
+  "displayName": "clip-forge",
+  "description": "Open-source Opus Clip alternative. Turn long videos into vertical clips with AI-picked moments, virality scoring, animated captions, auto zoom and speaker-aware reframing. Free desktop app for macOS, ",
+  "version": "1.0.0",
+  "author": "JeremySNR",
+  "homepage": "https://github.com/JeremySNR/clip-forge",
+  "skills": []
+}
