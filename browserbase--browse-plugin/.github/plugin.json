@@ -1,0 +1,9 @@
+{
+  "name": "browserbase--browse-plugin",
+  "displayName": "browse-plugin",
+  "description": "browse-plugin",
+  "version": "1.0.0",
+  "author": "browserbase",
+  "homepage": "https://github.com/browserbase/browse-plugin",
+  "skills": []
+}
