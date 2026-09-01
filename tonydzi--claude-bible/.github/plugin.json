@@ -1,0 +1,9 @@
+{
+  "name": "tonydzi--claude-bible",
+  "displayName": "claude-bible",
+  "description": "Make Claude Code behave consistently across repos, sessions and humans: rules-as-files governance with precedence, declined-decisions journal, objection sparring. Sanitized from a live production syst",
+  "version": "1.0.0",
+  "author": "tonydzi",
+  "homepage": "https://github.com/tonydzi/claude-bible",
+  "skills": []
+}
