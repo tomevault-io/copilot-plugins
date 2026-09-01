@@ -1,0 +1,9 @@
+{
+  "name": "herval--muxterm",
+  "displayName": "muxterm",
+  "description": "an agentic terminal with built-in tmux and context sharing",
+  "version": "1.0.0",
+  "author": "herval",
+  "homepage": "https://github.com/herval/muxterm",
+  "skills": []
+}
