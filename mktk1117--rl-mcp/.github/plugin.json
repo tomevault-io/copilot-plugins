@@ -1,0 +1,9 @@
+{
+  "name": "mktk1117--rl-mcp",
+  "displayName": "rl-mcp",
+  "description": "Wrap rl training env to make it a mcp-server.",
+  "version": "1.0.0",
+  "author": "mktk1117",
+  "homepage": "https://github.com/mktk1117/rl-mcp",
+  "skills": []
+}
