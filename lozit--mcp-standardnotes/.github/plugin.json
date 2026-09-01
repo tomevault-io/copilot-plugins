@@ -1,0 +1,9 @@
+{
+  "name": "lozit--mcp-standardnotes",
+  "displayName": "mcp-standardnotes",
+  "description": "MCP server for Standard Notes with end-to-end encryption (protocol 004). Read/write notes from Claude while keeping E2EE intact.",
+  "version": "1.0.0",
+  "author": "lozit",
+  "homepage": "https://github.com/lozit/mcp-standardnotes",
+  "skills": []
+}
