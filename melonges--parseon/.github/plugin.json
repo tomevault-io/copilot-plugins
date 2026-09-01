@@ -1,0 +1,9 @@
+{
+  "name": "melonges--parseon",
+  "displayName": "parseon",
+  "description": "Yet another EVM indexer built in Rust \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "melonges",
+  "homepage": "https://github.com/melonges/parseon",
+  "skills": []
+}
