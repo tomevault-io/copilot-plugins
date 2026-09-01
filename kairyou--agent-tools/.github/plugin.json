@@ -1,0 +1,9 @@
+{
+  "name": "kairyou--agent-tools",
+  "displayName": "agent-tools",
+  "description": "Reusable Agent Skills, plus integrations (statusline, provider usage, vision) that install into Codex, Claude Code, and opencode.",
+  "version": "1.0.0",
+  "author": "kairyou",
+  "homepage": "https://github.com/kairyou/agent-tools",
+  "skills": []
+}
