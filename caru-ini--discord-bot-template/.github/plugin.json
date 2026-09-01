@@ -1,0 +1,9 @@
+{
+  "name": "caru-ini--discord-bot-template",
+  "displayName": "discord-bot-template",
+  "description": "AI-ready, type-safe Discord Bot template built with Bun + Biome + TypeScript.",
+  "version": "1.0.0",
+  "author": "caru-ini",
+  "homepage": "https://github.com/caru-ini/discord-bot-template",
+  "skills": []
+}
