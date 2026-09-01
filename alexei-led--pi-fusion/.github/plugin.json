@@ -1,0 +1,9 @@
+{
+  "name": "alexei-led--pi-fusion",
+  "displayName": "pi-fusion",
+  "description": "Pi extension for parallel panel review and judge synthesis",
+  "version": "1.0.0",
+  "author": "alexei-led",
+  "homepage": "https://github.com/alexei-led/pi-fusion",
+  "skills": []
+}
