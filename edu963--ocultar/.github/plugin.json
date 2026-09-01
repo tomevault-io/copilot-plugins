@@ -1,0 +1,9 @@
+{
+  "name": "edu963--ocultar",
+  "displayName": "ocultar",
+  "description": "An enterprise-grade Zero-Egress AI Gateway and PII Redaction Engine. Securely sanitizes sensitive data before it reaches upstream LLMs, ensuring compliance with global privacy regulations.",
+  "version": "1.0.0",
+  "author": "Edu963",
+  "homepage": "https://github.com/Edu963/ocultar",
+  "skills": []
+}
