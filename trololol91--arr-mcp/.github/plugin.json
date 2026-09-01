@@ -1,0 +1,9 @@
+{
+  "name": "trololol91--arr-mcp",
+  "displayName": "arr-mcp",
+  "description": "Remote MCP server for Sonarr, Radarr, qBittorrent, and Seerr \u2014 manage your arr stack via Claude.ai on mobile",
+  "version": "1.0.0",
+  "author": "trololol91",
+  "homepage": "https://github.com/trololol91/arr-mcp",
+  "skills": []
+}
