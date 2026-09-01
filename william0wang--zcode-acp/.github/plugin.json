@@ -1,0 +1,9 @@
+{
+  "name": "william0wang--zcode-acp",
+  "displayName": "zcode-acp",
+  "description": "ACP adapter for ZCode \u2014 drive GLM-5.3 from IDEA, VS Code, Zed or any ACP client; pair with zcode-acp-remote for phone/web access",
+  "version": "1.0.0",
+  "author": "william0wang",
+  "homepage": "https://github.com/william0wang/zcode-acp",
+  "skills": []
+}
