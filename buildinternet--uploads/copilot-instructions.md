@@ -1,0 +1,310 @@
+## uploads
+
+> File-hosting backend for **uploads.sh**. Provider-agnostic storage via
+
+# uploads
+
+File-hosting backend for **uploads.sh**. Provider-agnostic storage via
+[files-sdk](https://files-sdk.dev), deployed to Cloudflare Workers with
+Wrangler. The service is public: anyone can sign up, create a workspace, and
+use the CLI, and paid plans are live.
+
+## Layout
+
+The path-by-path inventory lives in the README's
+[What's in this repo](README.md#whats-in-this-repo) table — one copy, so it
+can't drift. `packages/uploads` also ships `uploads mcp`, a stdio MCP server
+mirroring the CLI commands.
+
+Three agent skills are checked in at the repo root so they're installable via
+the `npx skills add` convention (and by `uploads install`):
+`skills/github-screenshots` is the thin workflow skill (when a screenshot or
+recording should go into a PR/issue or be shared as a link — the in-repo
+successor to the external `github-screenshots` skill's bundled R2 scripts),
+`skills/annotate-screenshots` covers callouts and redaction
+(`uploads annotate` / `screenshot --annotate`), and `skills/uploads-cli` is
+the full CLI reference the others defer to. Keep all three in sync when the
+CLI's commands or flags change.
+
+**Screenshots: stage as you go.** If your change is visually observable (web
+UI, email templates, rendered output), capture and stage screenshots at each
+milestone while you work — don't wait for a PR to exist. A bare `uploads put`
+already stages by default on a non-default git branch (issue #403), and a
+bare `uploads screenshot` (no `--pr`/`--issue`/`--branch`) does the same
+(issue #469) — carrying its derived metadata (`path`/`url`/`env`/`viewport`,
+plus `--state`) through to the PR once it opens; reach for `attach --branch`
+when you want its extras (multiple files in one call, or triggering
+promotion/comment sync as a side effect):
+
+```bash
+uploads put ./after.png --meta path=/settings --state after   # before|after|empty|error|loading
+uploads screenshot http://localhost:4321/settings --out after.png --state after
+uploads attach ./after.png --branch --state after              # explicit form, either way
+```
+
+Opening a PR automatically promotes everything staged for the branch into one
+managed comment (via the GitHub App webhook, or the next `uploads attach` /
+`uploads attach --promote` without it). See `skills/github-screenshots` for
+the full workflow.
+
+Keep API and web separate deployables. All storage access goes through
+`createStorage()` in `packages/storage` — never import files-sdk adapters or
+touch the R2 binding directly from route code. Adding a provider = a new case
+in `createStorage` plus its files-sdk peer deps.
+
+## Commands
+
+```bash
+pnpm bootstrap           # one-command local setup (tooling, deps, env, types, D1, default workspace)
+pnpm doctor              # read-only diagnose of the local setup
+pnpm install
+pnpm dev                 # API on :8787 (local R2 + KV + D1 simulation)
+pnpm dev:web             # Astro site
+pnpm typecheck           # wrangler types + tsc across workspaces
+pnpm test                # whole suite in one vitest process (all packages); CI's Test job runs this
+pnpm test:api            # single package (also test:mcp / test:auth / test:web / test:cli;
+                         # uses vitest defaults, not the root config)
+pnpm build:cli           # build @buildinternet/uploads without the --filter incantation
+pnpm run deploy          # all workers; or deploy:api / deploy:web / deploy:mcp
+pnpm workspace:add <name> [--bucket <bucket>] [--binding X] [--local] \
+  [--no-default-limits] [--max-storage …]   # shared/agent limit template by default
+pnpm workspace:limits <name> [--max-storage …] [--max-video-bytes …] \
+  [--allowed-prefixes default|f,screenshots,gh] [--max-key-depth 8] \
+  [--clear-max-storage] [--clear-allowed-prefixes] […]
+pnpm migrate:d1:local    # apply apps/api/migrations to local D1 (migrate:d1 = remote)
+pnpm uploads put <file> --env-file .env   # monorepo only: builds package first
+pnpm uploads put <file> --pr <num>
+```
+
+**CLI examples — installed binary vs monorepo:** product-facing examples
+(PR “how to try it”, skill docs, issue comments, user-facing README snippets)
+use the global binary as someone who already installed the CLI would:
+
+```bash
+uploads put ./shot.png
+uploads put ./after.png --pr 123
+```
+
+Reserve `pnpm uploads …` for **in-repo** development (build-from-source via the
+root script). Do not assume readers have the monorepo checked out.
+
+Use `pnpm run deploy` (not bare `pnpm deploy` — that's pnpm's built-in).
+`deploy:api` applies pending D1 migrations (`migrate:d1`) before
+`wrangler deploy`. On merge to main, `.github/workflows/d1-migrations.yml`
+also applies remote migrations when `apps/api/migrations/**` changes
+(secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`). Production
+worker deploys normally happen via Workers Builds on push to main. For an
+isolated branch environment, `npx wrangler preview` from an app directory —
+playbook in [docs/previews.md](docs/previews.md); the Workers Builds bot's
+"Branch Preview URL" on PRs is a different, legacy mechanism that runs
+against production bindings.
+
+Operator runbook: [docs/ops.md](docs/ops.md). Daily retention cron on the API
+worker; BYO secrets use `WORKSPACE_SECRETS_KEY`, set on both `uploads-api` and
+`uploads-mcp`; bare upload keys get `f/<id>/…`.
+
+### Local Wrangler / agent hygiene
+
+`wrangler … --local` boots miniflare and can **orphan + balloon RAM** (multi‑GB)
+if the parent shell/agent dies mid-command or the process hangs in an error
+path. Prefer:
+
+- **`pnpm doctor` / `pnpm bootstrap`** for “is local `default` registered?” —
+  they check miniflare’s on-disk SQLite first and only fall back to a
+  **time-bounded** wrangler call (`scripts/lib-local.sh`).
+- **`pnpm workspace:add` / `workspace:limits` / `migrate:d1:local`** go through
+  `apps/api/scripts/run-timed.mjs` (local get/put ~30–60s, D1 migrate 60s).
+  Do not reimplement bare `execFileSync(wrangler … --local)`.
+- When you must run wrangler yourself, wrap it in the timed runner:  
+  `node apps/api/scripts/run-timed.mjs 20 -- pnpm --filter @uploads/api exec wrangler kv key get ws:default --binding REGISTRY --local`
+- Never leave bare `wrangler kv|d1 … --local` running in the background. If an
+  agent times out a command, **kill the process group** (`pkill -f 'wrangler.*--local'`
+  only after confirming PIDs), not just the shell wrapper.
+
+See [docs/ops.md](docs/ops.md#local-wrangler-gotchas).
+
+### Releasing `@buildinternet/uploads` (changesets)
+
+User-visible CLI/client/MCP package changes need a `.changeset/*.md` file
+(`pnpm changeset` or hand-written). Two rules prevent damage: only
+`"@buildinternet/uploads": patch|minor|major` goes in the header (a changeset
+naming a private `@uploads/*` package yields an empty version PR and blocks the
+next publish), and never hand-edit that package's `version`. Full process —
+trusted publishing, cutting a release, recovery — is in
+[docs/releasing.md](docs/releasing.md).
+
+Run `pnpm types` (or `pnpm --filter @uploads/{api,mcp,web} types`) after any
+`wrangler.jsonc` change — `Env` is generated into `worker-configuration.d.ts`,
+never hand-written. CI and the pre-commit hook both run `pnpm types` before
+type-aware oxlint for this reason.
+
+## Workspaces (multi-tenant model)
+
+All API routes are workspace-scoped: `/v1/:workspace/files/...`. A workspace
+is a tenant record in the `REGISTRY` KV namespace (`ws:<name>` →
+`WorkspaceRecord`, see `apps/api/src/workspace.ts`) carrying its provider,
+bucket, optional R2 binding name, optional `publicBaseUrl`, optional S3
+credentials, and the SHA-256 hash of its bearer token. Register workspaces
+with `apps/api/scripts/add-workspace.mjs` (`--local` for dev KV). Never treat
+any workspace as special in code — even `default` is just a registered tenant.
+
+By default a workspace is a **`<name>/` prefix in the shared `uploads-default`
+bucket** (binding `UPLOADS_DEFAULT`, public at `https://storage.uploads.sh`):
+the record carries `prefix: "<name>/"` and creating one is a pure KV write.
+The prefix is applied in exactly one place — `createStorage()` in
+`packages/storage` (files-sdk instance prefix) — so route code and clients
+never see it; public URLs are `https://storage.uploads.sh/<name>/<key>`.
+The same keys are also served on `https://embed.uploads.sh/<name>/<key>` with
+freshness-oriented Cache-Control (zone Transform Rule) for GitHub Camo; API/CLI
+return `embedUrl` alongside `url` — prefer embed for PR/issue markdown. See
+[docs/ops.md](docs/ops.md#dual-public-hosts-stable-vs-embed--github-camo).
+Bring-your-own-bucket is the advanced case: register with `--bucket` and the
+record points at a dedicated bucket (own binding or S3 credentials, own
+`publicBaseUrl`, no prefix) — `buildinternet` on `buildinternet-dev` is the
+reference example.
+
+R2 workspaces have **two credential paths on the same bucket**:
+
+1. **Workers binding** (record's `binding` names an `r2_buckets` entry in
+   `wrangler.jsonc`) — reads/writes, no egress, no keys. Same-account buckets.
+2. **Bucket-scoped S3 credentials** (in the workspace record) — presigning,
+   or full HTTP-mode I/O for buckets with no binding (other accounts).
+
+Secrets never go in `wrangler.jsonc` or source: workspace secrets live in KV
+records; any future global secrets go through `wrangler secret put` (prod) or
+`.dev.vars` (local, gitignored).
+
+## Conventions
+
+- `pnpm check` runs `oxlint` then `format:check` (oxfmt + Prettier for
+  `*.astro`). Autofix with `pnpm lint:fix` / `pnpm format`. CI runs the same
+  gate in the **Lint & Format** job (`.github/workflows/ci.yml`), after
+  `pnpm types` so gitignored `worker-configuration.d.ts` files exist for
+  type-aware rules.
+- Three `unicorn` rules are off in `.oxlintrc.json` because their **autofixes**
+  are wrong here, not because their advice is: `prefer-set-has` rewrites an
+  array literal to `new Set(...)` without touching the variable's type
+  annotation, which stops compiling; `no-array-sort` and `no-array-reverse`
+  fire on this codebase's `[...arr].sort(...)` idiom, which already copies, so
+  their `toSorted`/`toReversed` rewrite just adds a second copy. oxlint's
+  `--fix` flags are global, so there is no way to keep a rule's diagnostic
+  while suppressing only its fix. If you re-enable any of them, re-check that
+  `pnpm lint:fix` still leaves a clean tree.
+- `oxc/no-async-endpoint-handlers` is off because it is an Express 4 rule
+  (unhandled rejections from `async` route handlers). This repo is Hono on
+  Workers; Hono awaits handlers and `onError` catches throws. The diagnostic
+  is a false positive on every `app.post(..., async (c) => …)` middleware.
+- A Husky pre-commit hook runs `pnpm types` then `lint-staged` (oxlint + oxfmt
+  on staged files; Prettier for `*.astro` — oxfmt has no Astro parser); it's
+  installed via the `prepare` script on `pnpm install`.
+- TypeScript strict, ESM only, `lib: ["ES2022"]` (no DOM — the Workers types
+  own globals like `crypto.subtle.timingSafeEqual`).
+- Auth is per-workspace bearer tokens, hashed + timing-safe compare, with
+  uniform 401s so workspace names can't be enumerated — see
+  `apps/api/src/workspace.ts`.
+- HTTP errors: throw `AppError` subclasses from `@uploads/errors` and let
+  `respondError` / Hono `onError` serialize the nested envelope
+  `{ error: { code, type, message, details? } }`. Never hand-roll
+  `c.json({ error: "…" })`. Status is derived from `type` via `STATUS_BY_TYPE`.
+- Object keys are validated (`badKey` in `routes/files.ts`); URL parsing
+  normalizes dot segments before handlers run.
+- Upload guardrails live in `apps/api/src/guards.ts`: a byte cap (default 25 MiB)
+  enforced on `Content-Length` and post-buffer, and a content-type allowlist
+  (images + mp4/webm, no SVG) verified by magic-byte sniffing — the stored
+  content type comes from the bytes, never the client header. Defaults are
+  overridable per workspace via `maxUploadBytes` / `allowedContentTypes` on the
+  record. Mutating routes carry the `writeRateLimit` middleware, keyed by
+  workspace against the `WRITE_LIMITER` Rate Limiting binding (`unsafe.bindings`
+  in `wrangler.jsonc`); it no-ops when the binding is absent.
+- Follow Cloudflare Workers best practices: no floating promises, no
+  module-level request state, secrets never in config or source.
+- Wire types (PR #896 pattern): a JSON response's type lives next to its
+  serializer in the producing worker (usually inferred, e.g.
+  `ReturnType<typeof fooResponse>`) and is exported through a `package.json`
+  `exports` entry (`@uploads/api/admin-ui`,
+  `@uploads/auth/oauth-client-serialize`). Consumers `import type` it —
+  never re-declare the shape and cast `res.json() as T`. Shared modules must
+  not reference the ambient `Env` global (each worker's
+  `worker-configuration.d.ts` declares its own; the importer's wins and
+  typecheck breaks) — extract Env-free serializer modules where needed.
+
+## Codex subagents
+
+Use project-scoped custom agents for independently parallel, bounded work:
+
+- `uploads_explorer` for read-only architecture, code-path, and test discovery.
+- `uploads_reviewer` for read-only review of correctness, tenant isolation,
+  upload security, and release risks.
+- `uploads_implementer` for one isolated code change after the scope is clear.
+
+For investigations and reviews, split independent questions between the
+explorer and reviewer, wait for both, then consolidate their evidence before
+changing code. Do not delegate routine small edits. Do not run concurrent
+implementers against the same area; use a single implementer or partition
+non-overlapping files explicitly. The root agent remains responsible for final
+integration, tests, and user-facing decisions.
+
+## Writing docs
+
+House style for `docs/`, `README.md`, and web copy. It borrows the grammar
+rules of ASD-STE100 Simplified Technical English — not the controlled
+dictionary — to keep prose clear and free of AI-slop tics:
+
+- **Active voice.** "A public CDN serves hosted files", not "Hosted files are
+  served from a public CDN."
+- **One idea per sentence.** Break anything past ~25 words. A single sentence
+  chaining four clauses with em-dashes is the first thing to split.
+- **Verbs, not nominalizations.** "When the sweep finalizes the delete", not
+  "on the finalization of the delete."
+- **One term per concept.** Never vary a technical name for elegance; call it
+  the same thing every time (`workspace`, not "tenant" then "account").
+- **Keep the article and the connective.** Don't drop "the"/"a"/"that" to
+  sound terse.
+
+But this is the softened form, not literal STE100 conformance: allow compound
+sentences where the flow reads naturally, keep established idioms
+("hash-free keys", "break-glass"), and keep the confident authorial voice
+("Prefer X over Y"). Full one-instruction-per-sentence strictness is for true
+step-by-step procedures (runbooks, setup walkthroughs), not reference or
+rationale prose. Code blocks, tables, and identifiers stay verbatim.
+
+## Pull requests
+
+The PR shape (five sections) and title convention live in
+[CONTRIBUTING.md](CONTRIBUTING.md#pull-requests). Read it before opening one.
+
+What agents get wrong most often, so it bears repeating here:
+
+- **Write for humans first**, not only for reviewers who already know the code.
+  Lead with the problem and the outcome in plain language. Do not open with file
+  paths, type names, or a flag list, and do not pad the description with a bullet
+  dump of identifiers.
+- **Show the installed CLI** (`uploads …`) in “how to try it” and in any
+  post-merge “once this ships” example, including issue comments. Reserve
+  `pnpm uploads …` for steps that are genuinely monorepo-only. Filter-style
+  `pnpm --filter … test` is fine in a test plan — that section is repo context.
+- **Do not auto-request CodeRabbit** on every PR. Org policy is on-demand only.
+- **Do not merge “version packages” PRs** unless shipping is intentional.
+
+## Environment files
+
+- `.env.example` (repo root) — client vars (`UPLOADS_API_URL`,
+  `UPLOADS_WORKSPACE`, `UPLOADS_TOKEN`), optional real R2 credentials for
+  registering HTTP-mode dev workspaces, and `CLOUDFLARE_ACCOUNT_ID` /
+  `CLOUDFLARE_API_TOKEN` for headless deploys to any account (`pnpm deploy`
+  loads the file via `node --env-file-if-exists`). Copy to `.env`, gitignored.
+- `apps/api/.dev.vars.example` — the worker's local config (Workers
+  convention). Currently empty of secrets; workspace secrets live in KV.
+- `apps/web/.dev.vars.example` — overrides `UPLOADS_AUTH_ORIGIN` /
+  `UPLOADS_API_ORIGIN` to point the signed-in shells (`/account/*`,
+  `/admin/*`) at the local auth/API workers instead of the prod origins baked
+  into `wrangler.jsonc` `vars`; no secrets.
+- Never edit a user's `.env` / `.dev.vars` directly; template files only.
+
+## Roadmap
+
+See [docs/roadmap.md](docs/roadmap.md) for what is planned versus already shipped. Do not treat this file as the source of what exists.
+
+---
+> Source: [buildinternet/uploads](https://github.com/buildinternet/uploads) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-31 -->
