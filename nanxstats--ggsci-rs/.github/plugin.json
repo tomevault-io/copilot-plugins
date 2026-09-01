@@ -1,0 +1,9 @@
+{
+  "name": "nanxstats--ggsci-rs",
+  "displayName": "ggsci-rs",
+  "description": "\ud83e\udd84 Scientific journal and sci-fi themed color palettes for Rust",
+  "version": "1.0.0",
+  "author": "nanxstats",
+  "homepage": "https://github.com/nanxstats/ggsci-rs",
+  "skills": []
+}
