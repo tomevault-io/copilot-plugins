@@ -1,0 +1,9 @@
+{
+  "name": "vvts-alpha--verdict",
+  "displayName": "VERDICT",
+  "description": "The autonomous pentester that proves its findings \u2014 AI-driven, evidence-first, behind-login.",
+  "version": "1.0.0",
+  "author": "vvts-alpha",
+  "homepage": "https://github.com/vvts-alpha/VERDICT",
+  "skills": []
+}
