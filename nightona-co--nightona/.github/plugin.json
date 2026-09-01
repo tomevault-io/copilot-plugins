@@ -1,0 +1,9 @@
+{
+  "name": "nightona-co--nightona",
+  "displayName": "nightona",
+  "description": "Open-source continuation of Daytona \u2014 secure, elastic sandbox infrastructure for AI code execution and agent workflows. Community fork of the last AGPL-3.0 release (v0.190.0).",
+  "version": "1.0.0",
+  "author": "nightona-co",
+  "homepage": "https://github.com/nightona-co/nightona",
+  "skills": []
+}
