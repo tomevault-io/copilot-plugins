@@ -1,0 +1,9 @@
+{
+  "name": "icetomoyo--kodax",
+  "displayName": "KodaX",
+  "description": "A lightweight AI coding agent that actually works. KodaX is modular, zero-config, and supports multiple LLM providers out of the box. Use it as a CLI tool or npm library\u2014with session memory, parallel ",
+  "version": "1.0.0",
+  "author": "icetomoyo",
+  "homepage": "https://github.com/icetomoyo/KodaX",
+  "skills": []
+}
