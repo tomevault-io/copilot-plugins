@@ -1,0 +1,9 @@
+{
+  "name": "caydenchik--doover",
+  "displayName": "doover",
+  "description": "Undo for AI agent shell commands. Snapshots files before Claude Code runs destructive bash (rm -rf, git reset, rsync), so agent mistakes are reversible, even for files git never tracked.",
+  "version": "1.0.0",
+  "author": "CaydenChik",
+  "homepage": "https://github.com/CaydenChik/doover",
+  "skills": []
+}
