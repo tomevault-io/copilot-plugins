@@ -1,0 +1,9 @@
+{
+  "name": "thevibeworks--cctrace",
+  "displayName": "cctrace",
+  "description": "See exactly what your coding agent does on the wire. TLS-intercepting tracer for the Claude Code, Codex, Grok and Kimi CLIs: full first-party capture in a live web UI \u2014 reconstructed sessions, session",
+  "version": "1.0.0",
+  "author": "thevibeworks",
+  "homepage": "https://github.com/thevibeworks/cctrace",
+  "skills": []
+}
