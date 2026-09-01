@@ -1,0 +1,9 @@
+{
+  "name": "charlymigenes-ux--nopal",
+  "displayName": "nopal",
+  "description": "Self-hosted dashboard that unifies 3D printers (Klipper, Marlin, Bambu Lab, Elegoo, FlashForge), GRBL laser/CNC, and a plugin ecosystem in one browser panel.",
+  "version": "1.0.0",
+  "author": "charlymigenes-ux",
+  "homepage": "https://github.com/charlymigenes-ux/nopal",
+  "skills": []
+}
