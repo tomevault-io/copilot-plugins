@@ -1,0 +1,44 @@
+{
+  "name": "sage-agent",
+  "owner": "ZeroMadLife",
+  "repo": "sage-agent",
+  "description": "\u672c\u5730\u4f18\u5148\u7684 Personal AI Learning Companion\uff0c\u628a\u76ee\u6807\u3001\u4e2a\u4eba\u77e5\u8bc6\u3001\u771f\u5b9e\u5b9e\u8df5\u4e0e\u53ef\u9a8c\u8bc1\u8bc1\u636e\u8fde\u63a5\u6210\u4e00\u6761\u53ef\u6062\u590d\u7684 Agent \u6267\u884c\u94fe\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZeroMadLife/sage-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-01T04:34:27Z"
+}
