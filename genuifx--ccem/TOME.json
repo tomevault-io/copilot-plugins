@@ -4,7 +4,7 @@
   "repo": "ccem",
   "description": "All Kind of MODEL IN ONE APP. Workspace for Claude Code & Codex \u2014 multi-model parallel sessions, Telegram remote control,      scheduled cron tasks with push notifications, usage analytics, permission modes. CLI + native macOS  desktop app. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Genuifx/ccem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T03:39:21Z"
+  "distributed_at": "2026-09-02T03:40:22Z"
 }
