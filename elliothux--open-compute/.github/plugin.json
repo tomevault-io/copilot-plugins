@@ -1,0 +1,9 @@
+{
+  "name": "elliothux--open-compute",
+  "displayName": "open-compute",
+  "description": "High-performance Cloudflare Workers\u2013compatible infrastructure in a single binary",
+  "version": "1.0.0",
+  "author": "elliothux",
+  "homepage": "https://github.com/elliothux/open-compute",
+  "skills": []
+}
