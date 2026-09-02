@@ -7,11 +7,11 @@ Fixes annoying macOS bug for macs with notch - now you can menu items under the 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mekedron/HiddenBarIcons](https://github.com/mekedron/HiddenBarIcons).
+Original source: `AGENTS.md` in [mekedron/HiddenBarIcons](https://github.com/mekedron/HiddenBarIcons).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
