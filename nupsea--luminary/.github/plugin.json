@@ -1,0 +1,9 @@
+{
+  "name": "nupsea--luminary",
+  "displayName": "luminary",
+  "description": "A local-first app that turns your documents into a personal knowledge base you can read, search, and actually retain \u2014 with the LLM running on your own machine.",
+  "version": "1.0.0",
+  "author": "nupsea",
+  "homepage": "https://github.com/nupsea/luminary",
+  "skills": []
+}
