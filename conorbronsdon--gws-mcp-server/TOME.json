@@ -1,0 +1,44 @@
+{
+  "name": "gws-mcp-server",
+  "owner": "conorbronsdon",
+  "repo": "gws-mcp-server",
+  "description": "Curated MCP server for Google Workspace: Gmail, Calendar, Drive, Sheets, Docs, and Tasks via the official gws CLI. 39 focused tools instead of 400, side effects declared on every one. The permissions leg of trust infrastructure for agents.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/conorbronsdon/gws-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T08:32:51Z"
+}
