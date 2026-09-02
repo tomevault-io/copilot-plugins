@@ -1,0 +1,9 @@
+{
+  "name": "kcosr--pi-sandbox",
+  "displayName": "pi-sandbox",
+  "description": "Policy-gated Pi distribution with managed execution backends",
+  "version": "1.0.0",
+  "author": "kcosr",
+  "homepage": "https://github.com/kcosr/pi-sandbox",
+  "skills": []
+}
