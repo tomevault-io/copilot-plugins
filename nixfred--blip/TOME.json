@@ -4,7 +4,7 @@
   "repo": "blip",
   "description": "iMessage in the Omarchy bar. Read, send, groups, blue dots \u2014 your Mac is the gateway, Linux is the client.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nixfred/blip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T01:30:23Z"
+  "distributed_at": "2026-09-02T02:31:10Z"
 }
