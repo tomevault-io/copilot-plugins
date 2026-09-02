@@ -4,7 +4,7 @@
   "repo": "sprawling-agents",
   "description": "Local multi-agent harness for running persistent agent teams, long-run, society-simulation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/2youg1/sprawling-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T21:30:22Z"
+  "distributed_at": "2026-09-02T21:31:12Z"
 }
