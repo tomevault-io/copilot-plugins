@@ -1,0 +1,9 @@
+{
+  "name": "nisfeb--talon",
+  "displayName": "talon",
+  "description": "Native chat client for Urbit \u2014 Android, Linux, macOS, Windows.",
+  "version": "1.0.0",
+  "author": "nisfeb",
+  "homepage": "https://github.com/nisfeb/talon",
+  "skills": []
+}
