@@ -1,0 +1,9 @@
+{
+  "name": "slidefirm--nesa-slide",
+  "displayName": "NESA-SLIDE",
+  "description": "Give this GitHub link to Codex or Claude Code to create presentations",
+  "version": "1.0.0",
+  "author": "slidefirm",
+  "homepage": "https://github.com/slidefirm/NESA-SLIDE",
+  "skills": []
+}
