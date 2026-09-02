@@ -1,0 +1,9 @@
+{
+  "name": "ahmadzein--contextvault",
+  "displayName": "ContextVault",
+  "description": "  ContextVault - External context management system for Claude Code CLI. A two-tier documentation system that stores knowledge globally and per-project, loading only what's needed. Features 9 slash co",
+  "version": "1.0.0",
+  "author": "ahmadzein",
+  "homepage": "https://github.com/ahmadzein/ContextVault",
+  "skills": []
+}
