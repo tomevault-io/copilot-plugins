@@ -1,0 +1,44 @@
+{
+  "name": "openomni",
+  "owner": "INONONO66",
+  "repo": "openomni",
+  "description": "A personal AI workforce that runs on one Resident. It handles what it can, delegates the rest to Workers, and a System Governor makes the whole thing smarter over time \u2014 without trusting self-report.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/INONONO66/openomni",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T12:34:39Z"
+}
