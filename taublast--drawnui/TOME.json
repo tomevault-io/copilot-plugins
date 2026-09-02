@@ -3,7 +3,7 @@
   "owner": "taublast",
   "repo": "DrawnUi",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/skmech/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/skmech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/drawnui-game/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-game/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/drawnui-fluent/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-fluent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/drawnui-opentk/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-opentk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/drawnui-blazor/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-blazor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/drawnui-web-app/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-web-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DrawnUi",
+      "path": "docs/skills/drawnui-net-harness/SKILL.md",
+      "github_url": "https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-net-harness/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/taublast/DrawnUi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T15:04:33Z"
+  "distributed_at": "2026-09-02T22:42:28Z"
 }
