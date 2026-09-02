@@ -1,0 +1,44 @@
+{
+  "name": "ARIEC60870",
+  "owner": "masarray",
+  "repo": "ARIEC60870",
+  "description": "ARIEC60870 is a free IEC 60870 protocol tester that explains what the device is really saying. It turns IEC 101/103/104 raw TX/RX traffic into readable frame interpretation, event logs, Smart Findings, and PDF evidence reports for FAT, SAT, commissioning, troubleshooting, homologation, certification attachments, and handover.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/masarray/ARIEC60870",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T02:35:17Z"
+}
