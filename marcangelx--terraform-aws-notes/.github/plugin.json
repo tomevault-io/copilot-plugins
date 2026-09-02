@@ -1,0 +1,9 @@
+{
+  "name": "marcangelx--terraform-aws-notes",
+  "displayName": "terraform-aws-notes",
+  "description": "Full-stack Notes app: Angular 17 signals + Node.js Lambda + DynamoDB, deployed with Terraform",
+  "version": "1.0.0",
+  "author": "marcangelx",
+  "homepage": "https://github.com/marcangelx/terraform-aws-notes",
+  "skills": []
+}
