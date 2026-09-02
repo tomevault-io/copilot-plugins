@@ -1,0 +1,9 @@
+{
+  "name": "einsia--agent-git",
+  "displayName": "agent-git",
+  "description": "Code is cheap, show me the talk: version control for agent sessions",
+  "version": "1.0.0",
+  "author": "Einsia",
+  "homepage": "https://github.com/Einsia/agent-git",
+  "skills": []
+}
