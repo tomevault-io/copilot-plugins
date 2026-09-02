@@ -4,7 +4,7 @@
   "repo": "mob_dev",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GenericJam/mob_dev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T04:39:20Z"
+  "distributed_at": "2026-09-02T04:41:25Z"
 }
