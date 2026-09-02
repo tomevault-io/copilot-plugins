@@ -1,0 +1,44 @@
+{
+  "name": "entropylab",
+  "owner": "OogaBoogaX",
+  "repo": "entropylab",
+  "description": "A fully offline, air-gapped Bitcoin key and wallet calculator. It turns user-supplied entropy, seed phrases, or private keys into BIP39 seeds, xpubs, descriptors, addresses, and recovery data, and can also build watch-only multisig wallets without exposing private keys online.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OogaBoogaX/entropylab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T13:30:38Z"
+}
