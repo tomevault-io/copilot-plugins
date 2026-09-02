@@ -1,0 +1,9 @@
+{
+  "name": "seanlf--claude-rss-news-digest",
+  "displayName": "claude-rss-news-digest",
+  "description": "Automated daily news digest: RSS feeds \u2192 Claude curation \u2192 HTML email via Resend",
+  "version": "1.0.0",
+  "author": "SeanLF",
+  "homepage": "https://github.com/SeanLF/claude-rss-news-digest",
+  "skills": []
+}
