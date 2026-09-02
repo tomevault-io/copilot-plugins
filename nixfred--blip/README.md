@@ -7,11 +7,11 @@ iMessage in the Omarchy bar. Read, send, groups, blue dots — your Mac is the g
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nixfred/blip](https://github.com/nixfred/blip).
+Original source: `CLAUDE.md` in [nixfred/blip](https://github.com/nixfred/blip).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
