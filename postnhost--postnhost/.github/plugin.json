@@ -1,0 +1,9 @@
+{
+  "name": "postnhost--postnhost",
+  "displayName": "postnhost",
+  "description": "Open-source, SEO-ready CMS engine for Rails with structured data, multilingual publishing, version history, and a rich-text editor.",
+  "version": "1.0.0",
+  "author": "postnhost",
+  "homepage": "https://github.com/postnhost/postnhost",
+  "skills": []
+}
