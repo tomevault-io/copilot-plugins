@@ -1,0 +1,9 @@
+{
+  "name": "hebertporto--appstore-forge",
+  "displayName": "appstore-forge",
+  "description": "Turn raw app screenshots into store-ready App Store and Google Play assets. A local Mac app \u2014 no account, no upload, no server.",
+  "version": "1.0.0",
+  "author": "hebertporto",
+  "homepage": "https://github.com/hebertporto/appstore-forge",
+  "skills": []
+}
