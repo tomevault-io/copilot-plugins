@@ -1,0 +1,9 @@
+{
+  "name": "conorbronsdon--gws-mcp-server",
+  "displayName": "gws-mcp-server",
+  "description": "Curated MCP server for Google Workspace: Gmail, Calendar, Drive, Sheets, Docs, and Tasks via the official gws CLI. 39 focused tools instead of 400, side effects declared on every one. The permissions ",
+  "version": "1.0.0",
+  "author": "conorbronsdon",
+  "homepage": "https://github.com/conorbronsdon/gws-mcp-server",
+  "skills": []
+}
