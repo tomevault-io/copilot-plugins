@@ -4,7 +4,7 @@
   "repo": "boardui",
   "description": "React design system for agentic interfaces. Every free BoardUI component as source, with a working AI chat app on your own model key as the homepage.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BoardUI/boardui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T17:31:40Z"
+  "distributed_at": "2026-09-02T17:33:09Z"
 }
