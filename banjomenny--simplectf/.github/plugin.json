@@ -1,0 +1,9 @@
+{
+  "name": "banjomenny--simplectf",
+  "displayName": "simpleCTF",
+  "description": "this is a super simple web ctf run in docker",
+  "version": "1.0.0",
+  "author": "Banjomenny",
+  "homepage": "https://github.com/Banjomenny/simpleCTF",
+  "skills": []
+}
