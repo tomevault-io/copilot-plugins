@@ -1,0 +1,9 @@
+{
+  "name": "fardatalab--mgi",
+  "displayName": "MGI",
+  "description": "An interface for Massive GPU Infrastructures",
+  "version": "1.0.0",
+  "author": "fardatalab",
+  "homepage": "https://github.com/fardatalab/MGI",
+  "skills": []
+}
