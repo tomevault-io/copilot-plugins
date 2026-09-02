@@ -4,7 +4,7 @@
   "repo": "remnic",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -149,5 +149,5 @@
   ],
   "source_url": "https://github.com/joshuaswarren/remnic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T05:10:18Z"
+  "distributed_at": "2026-09-02T05:11:09Z"
 }
