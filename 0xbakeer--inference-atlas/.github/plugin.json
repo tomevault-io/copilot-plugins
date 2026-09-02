@@ -1,0 +1,9 @@
+{
+  "name": "0xbakeer--inference-atlas",
+  "displayName": "inference-atlas",
+  "description": "A community-owned map of LLM inference engine configurations \u2014 benchmarks, evals and coverage gaps, hosted on GitHub Pages. The repo is the database.",
+  "version": "1.0.0",
+  "author": "0xBakeer",
+  "homepage": "https://github.com/0xBakeer/inference-atlas",
+  "skills": []
+}
