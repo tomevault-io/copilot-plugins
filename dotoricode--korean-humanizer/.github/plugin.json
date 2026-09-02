@@ -1,0 +1,9 @@
+{
+  "name": "dotoricode--korean-humanizer",
+  "displayName": "korean-humanizer",
+  "description": "Korean humanizer prompt and skill for removing the usual AI smell from generated writing.",
+  "version": "1.0.0",
+  "author": "dotoricode",
+  "homepage": "https://github.com/dotoricode/korean-humanizer",
+  "skills": []
+}
