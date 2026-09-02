@@ -1,0 +1,9 @@
+{
+  "name": "8ballbb--enterprise-memory",
+  "displayName": "enterprise_memory",
+  "description": "Enterprise Memory (EM) \u2014 information-retrieval abstraction layer between backend storage and AI consumers over REST/MCP. Buildable design specification.",
+  "version": "1.0.0",
+  "author": "8ballbb",
+  "homepage": "https://github.com/8ballbb/enterprise_memory",
+  "skills": []
+}
