@@ -1,0 +1,9 @@
+{
+  "name": "timeatlaslabs--oss",
+  "displayName": "oss",
+  "description": "Open source tooling for Time Atlas app data.",
+  "version": "1.0.0",
+  "author": "timeatlaslabs",
+  "homepage": "https://github.com/timeatlaslabs/oss",
+  "skills": []
+}
