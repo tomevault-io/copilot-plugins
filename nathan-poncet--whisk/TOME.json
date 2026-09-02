@@ -1,0 +1,44 @@
+{
+  "name": "whisk",
+  "owner": "nathan-poncet",
+  "repo": "whisk",
+  "description": "\ud83d\udccb Open-source clipboard manager for macOS \u2014 Paste-style panel, pins, search. Swift/SwiftUI, Clean Architecture.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nathan-poncet/whisk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T12:31:19Z"
+}
