@@ -1,0 +1,9 @@
+{
+  "name": "dltsum--codex-quota-lab",
+  "displayName": "codex-quota-lab",
+  "description": "Private-by-default multi-device Codex quota observability and coordination.",
+  "version": "1.0.0",
+  "author": "dltsum",
+  "homepage": "https://github.com/dltsum/codex-quota-lab",
+  "skills": []
+}
