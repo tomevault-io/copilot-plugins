@@ -1,0 +1,9 @@
+{
+  "name": "knowledgestack--ks-cookbook",
+  "displayName": "ks-cookbook",
+  "description": "Developer acceleration layer for enterprise RAG + agent pipelines. 32 production-style flagships on LangChain, LangGraph, CrewAI, Temporal, OpenAI Agents SDK, pydantic-ai. Permission-aware retrieval, ",
+  "version": "1.0.0",
+  "author": "knowledgestack",
+  "homepage": "https://github.com/knowledgestack/ks-cookbook",
+  "skills": []
+}
