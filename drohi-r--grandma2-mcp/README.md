@@ -7,11 +7,11 @@ MCP server for grandMA2 with 218 tools for console control, programming, orchest
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [drohi-r/grandma2-mcp](https://github.com/drohi-r/grandma2-mcp).
+Original source: `AGENTS.md` in [drohi-r/grandma2-mcp](https://github.com/drohi-r/grandma2-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
