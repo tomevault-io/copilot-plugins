@@ -1,0 +1,9 @@
+{
+  "name": "ammarion--waf-detector",
+  "displayName": "waf-detector",
+  "description": "\ud83d\udee1\ufe0f High-performance WAF & CDN detection tool. Identify protection layers (Cloudflare, Akamai, AWS, Fastly, and more), run effectiveness and enforcement tests with evasion payloads, and generate postur",
+  "version": "1.0.0",
+  "author": "ammarion",
+  "homepage": "https://github.com/ammarion/waf-detector",
+  "skills": []
+}
