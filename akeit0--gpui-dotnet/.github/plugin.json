@@ -1,0 +1,9 @@
+{
+  "name": "akeit0--gpui-dotnet",
+  "displayName": "gpui-dotnet",
+  "description": "An experimental C# UI framework with binding Rust GPUI",
+  "version": "1.0.0",
+  "author": "akeit0",
+  "homepage": "https://github.com/akeit0/gpui-dotnet",
+  "skills": []
+}
