@@ -1,0 +1,9 @@
+{
+  "name": "florinp93--hells-gate-recomp",
+  "displayName": "hells-gate-recomp",
+  "description": "Xbox 360 to PC port of Dante's Inferno using ReXGlue (static recompilation)",
+  "version": "1.0.0",
+  "author": "florinp93",
+  "homepage": "https://github.com/florinp93/hells-gate-recomp",
+  "skills": []
+}
