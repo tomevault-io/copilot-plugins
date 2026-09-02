@@ -4,7 +4,7 @@
   "repo": "jx",
   "description": "JUMP eXplore - agent-composable marimo notebooks over JUMP Cell Painting data",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/broadinstitute/jx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T04:35:04Z"
+  "distributed_at": "2026-09-02T04:38:50Z"
 }
