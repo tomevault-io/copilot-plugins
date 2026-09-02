@@ -1,0 +1,9 @@
+{
+  "name": "gaearon--conway-refinement",
+  "displayName": "conway-refinement",
+  "description": "A proof of Conway's refinement conjecture in Lean",
+  "version": "1.0.0",
+  "author": "gaearon",
+  "homepage": "https://github.com/gaearon/conway-refinement",
+  "skills": []
+}
