@@ -1,33 +1,409 @@
-## table-sort-filter
+## job-search-terminal
 
-> Data tables must match Jobs table sort/filter UX (BatchEvaluateForm)
+> generates tailored resumes, drafts application answers, and tracks applications —
+
+# Job Search Terminal — Agent Instructions
+
+Job Search Terminal is a local-first, dashboard-first job-search command center.
+It discovers jobs from ATS APIs, scores them against a career profile using AI,
+generates tailored resumes, drafts application answers, and tracks applications —
+all running locally on the user's machine with no cloud storage.
+
+## Project Direction
+
+- Claude Code is the primary development and orchestration tool.
+- Codex is an approved project collaborator for implementation, review,
+  documentation, verification, commits, and pushes when the user requests it.
+- `AGENTS.md` is the authoritative agent contract for this repo.
+- Detailed project documentation belongs in `docs/`.
+- Keep `README.md` short and link to docs instead of duplicating detail.
+- After adding or changing functionality, always document it in the same change
+  set before considering the work complete. Update user-facing docs, technical
+  references, and in-app help as applicable.
+
+## The In-App Help Site Is a Required Documentation Target
+
+`docs/` is written for developers. The in-app help site at `/help` — whose copy
+lives in `src/lib/help/content.ts` — is written for job seekers, and it is the
+only support surface shipped with the product. There is no support inbox and no
+forum. Updating `docs/features.md` while leaving `/help` stale ships a lie.
+
+Update `/help` in the same change set when the change touches any of:
+
+- a new page, tab, nav item, or route
+- a renamed button, label, badge, status, table column, or filter
+- a new or changed setup step, credential, or environment variable
+- what leaves the machine, or any privacy or safety boundary
+- a new scan source, import path, or integration
+- what an AI feature does, costs, or refuses to do
+- a new failure mode a user can hit (this goes in the `troubleshooting` guide)
+- anything that makes an existing help sentence false
+
+If none apply, say so explicitly when reporting the work. Silence is not an
+answer.
+
+**Read [docs/help-writing.md](docs/help-writing.md) before writing or auditing
+any help copy.** It is the full contract — the audience definition, where content
+lives, the registry's shape, the voice rules, the trigger list above in longer
+form, the procedure for adding a guide, the audit procedure, and the pre-finish
+checklist. It is written as instructions to whoever is doing the writing, and it
+applies to Codex exactly as it applies to Claude Code.
+
+Both agents use that one file. Claude Code reaches it through a `help-writer`
+skill in `.claude/skills/` that does nothing but point at it; Codex reads it
+directly from this instruction. Anything you would add to either agent's own
+configuration belongs in `docs/help-writing.md` instead, so the two never drift
+apart.
+
+The rules broken most often, if you read nothing else: plain language at roughly
+a grade 6–8 reading level; name controls exactly as the UI labels them; keep
+`steps` (an ordered procedure) distinct from `bullets` (facts); and never pass a
+React component reference out of the registry into a client component — it stores
+serializable icon *names* and passing the component crashes the build.
 
 
-# Table sort and filter parity
+---
 
-The **canonical reference** for interactive data tables is the Jobs desktop table: `BatchEvaluateForm` in `src/components/batch-evaluate-form.tsx` (used from `src/app/jobs/page.tsx`).
+## Versioning — Bump Every Release, Never Reach 1.0
 
-## When this applies
+**Every change set that a user could notice must bump the version and add a
+`CHANGELOG.md` entry.** This is a hard rule, in the same class as the
+documentation requirements above. Pavel should never have to remember to do it,
+or be asked which number to use — decide it from the table and apply it.
 
-Any **data `<table>`** that lists multiple rows users scan or compare (jobs, archived jobs, sources, imports, analytics grids, etc.). Does not apply to one-off layout tables or a single header row with no column-driven sort/filter.
+The version lives in one place, `package.json`, and the app footer reads it from
+there. A change that ships without a bump makes the running app misreport
+itself.
 
-## Match the Jobs pattern
+### Which number to move
 
-1. **Table shell**: Use `dataTableClass` and `dataTableStickyHeadClass` from `@/components/ui/table` the same way as `BatchEvaluateForm` (and `dataTableStickySurfaceClass` when the wrapper matches archived styling).
+| Bump | When | Example |
+|---|---|---|
+| **Minor** — `0.11.0` → `0.12.0` | A new capability a user can see: a page, tab, integration, scan source, AI behaviour, or setting. **Also** any database migration, and any change to what leaves the machine. | Added the Cleanup tab; added the Himalayas lane; added the daily update check |
+| **Patch** — `0.11.0` → `0.11.1` | A fix or refinement to something that already exists: a bug, wording, layout, accessibility, or performance. | Renamed "Search discover" to "Search for companies"; fixed a stale Dashboard date |
+| **Neither** | Documentation, tests, comments, and internal refactors with no user-visible effect. No bump, no changelog entry. | Rewrote a test helper; corrected a stale line in `docs/` |
 
-2. **Column headers**: Sortable/filterable columns use the same header interaction as `ColHeader` in `batch-evaluate-form.tsx`: `button` opens a menu; **accent** when that column is sorted or filtered; **●** when a filter is active; **↑/↓** for current sort direction; **▾** chevron with open-state rotation.
+When one change set contains both a new capability and fixes, it is a **minor**
+bump — the highest applicable bump wins, and the fixes ride along in the same
+entry.
 
-3. **Dropdown menu** (same structure as `FilterDropdown` in that file):
-   - **Sort**: Two actions (ascending / descending). Labels and behavior must match jobs: keep the same copy (“Sort A → Z” / “Sort Z → A”) even when the underlying compare is numeric or date-specific—mirror the column’s sort logic in `BatchEvaluateForm` (e.g. fit score, dates).
-   - **Filter**: Section title `Filter by {label}`; checkbox list of distinct values for that column; **search field** when there are more than seven options; **Select all** for visible options; **Clear filter** when filtered. Filter state: `Partial<Record<ColumnKey, Set<string>>>` with `undefined` meaning no filter.
+### Never bump to 1.0.0
 
-4. **Data pipeline**: Compute displayed rows by applying all column filters, then sort by `{ col, dir }`—same order of operations as jobs.
+The version stays at `0.x` and keeps climbing in the minor position:
+`0.9.0` → `0.10.0` → `0.11.0` → `0.12.0`. `0.10.0` is newer than `0.9.0` — the
+parts are counted separately, not read as a decimal.
 
-5. **DRY**: When adding or changing a table, **reuse or extract** shared primitives (`FilterDropdown`, `ColHeader`, helpers like `getColOptions` / `getColValue`) instead of inventing a second filter/sort pattern. If a new table needs different columns, implement the same UX with that table’s column keys and value getters.
+**Only Pavel decides when 1.0.0 happens**, and it is a deliberate promise of
+stability rather than a feature count. Never propose it as part of ordinary
+work, and never let a bump cross into it.
 
-## Non-sortable columns
+### What a changelog entry looks like
 
-Columns that are **only actions** (e.g. trailing “Actions” with buttons) do not need sort/filter. Every other data column should follow the pattern above unless the product explicitly documents an exception in `AGENTS.md` or `docs/`.
+Add a new section at the **top** of `CHANGELOG.md`, above the previous release:
+
+```markdown
+## 0.12.0 — 2026-09-04 — Short name for the release
+
+**Added**
+
+- What a user can now do that they could not before, in their words.
+
+**Changed**
+
+- What behaves differently, and why it was worth changing.
+
+**Fixed**
+
+- What was broken, described as the user experienced it.
+```
+
+Rules for the entry itself:
+
+- **Title the release.** A short name — "Local models and new scan lanes",
+  "Evaluation you can audit". A number with no name tells nobody anything.
+- **Date it** in `YYYY-MM-DD`, the date the work lands.
+- **Write it for the user, not the commit log.** "Cancelling a run actually
+  stops it" — not "thread the abort signal through the retry loop".
+- **Omit empty groups.** A release with no fixes has no **Fixed** heading.
+- **Say what a change costs** when it costs something: a re-scan, a
+  re-evaluation, a migration that runs on next start.
+
+### The order of operations
+
+1. Make the change.
+2. Update `docs/` and the in-app help (see Documentation Requirements above).
+3. Decide the bump from the table.
+4. Edit `version` in `package.json`.
+5. Add the `CHANGELOG.md` entry at the top.
+6. Report the new version number when you report the work.
+
+## Architecture
+
+- **Framework:** Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Runtime:** local Node.js process — all data stays on the user's machine
+- **Data store:** SQLite via `better-sqlite3` at `data/job-search-terminal.sqlite`
+- **PDF generation:** Playwright-based HTML-to-PDF (requires Chrome)
+- **AI:** provider-mediated calls via `src/lib/ai/` — supports OpenAI, Anthropic, Google Gemini
+- **Job scanning:** Greenhouse / Ashby / Lever ATS APIs configured via `config/portals.example.yml`
+
+## Working Copies — Two Checkouts, One Repo
+
+There are two checkouts of this repository. They are **git worktrees of the same repo**,
+not independent clones.
+
+| Path | Branch | Database | Port | Purpose |
+|---|---|---|---|---|
+| `~/Work/js` | `personal` | real job-search data | 3000 | the instance actually used day to day |
+| `~/Work/js-dev` | `main` | seed / throwaway data | 3100 | where development happens |
+
+**Git forbids checking out the same branch in two worktrees.** `js-dev` holds `main`, so
+`js` cannot also be on `main` — that is why `js` has its own branch, `personal`, tracking
+`origin/main`. Do not try to "fix" this by checking out `main` in `js`: git will refuse.
+Do not leave `js` on a detached HEAD either, which is where it used to sit — `git pull`
+does not work at all in that state, and any uncommitted work is stranded on no branch.
+
+### Updating
+
+- In `~/Work/js-dev`: `git pull`
+- In `~/Work/js`: `git pull --rebase`
+
+`--rebase` is not optional in `js`. `personal` tracks `origin/main`, so a commit made in
+`js` puts the branch ahead of its upstream; rebase replays that work on top of the latest
+`main` instead of failing or manufacturing merge commits.
+
+### Commit before pulling
+
+Every change here must update `docs/` in the same change set, so `docs/features.md` is
+touched by nearly every commit. Pulling into a checkout that holds uncommitted edits to
+that file aborts with `Your local changes to the following files would be overwritten by
+merge`. Commit the work first, then pull. Git aborts safely and never clobbers
+uncommitted changes — but the update simply does not happen until the tree is clean,
+which is the usual reason a checkout is silently found to be several commits behind.
+
+### Never bare-`git stash` in a worktree
+
+The stash stack is shared across every worktree of this repo, and more than one agent
+session may be running at once — a bare `git stash` / `git stash pop` can pop someone
+else's work. Prefer a temporary WIP commit. If a stash is truly unavoidable, use
+`git stash push -u -m "<unique-tag>"`, re-find the entry by its tag, and restore with
+`git stash apply <sha>` rather than `pop`.
+
+### The databases never move
+
+`data/*` is gitignored, so no pull, checkout, rebase, or merge can touch either SQLite
+file. Real data in `js` and seed data in `js-dev` stay where they are. A migration
+introduced by a commit runs only when the app next starts in that checkout — so pulling
+is safe, and the first restart afterwards is the moment schema changes actually land.
+
+## Browser Job Board Scanner
+
+Codex can use the Codex Chrome Extension for signed-in or session-dependent job
+boards. Claude Desktop can use Claude in Chrome. Both runners follow this
+contract exactly.
+
+### Step 1 — Read Search Criteria
+
+Database path: `data/job-search-terminal.sqlite` (or `$JST_DATABASE_PATH`).
+
+```sql
+SELECT target_roles_json, preferred_locations_json, remote_locations_json, remote_preference
+FROM user_profile ORDER BY updated_at DESC LIMIT 1;
+
+SELECT positive_json, negative_json FROM title_filters WHERE id = 'singleton';
+```
+
+- `target_roles_json` → job titles to search
+- `preferred_locations_json` → on-site / hybrid locations. Use these as the board's
+  location / `where` parameter, and to judge hybrid and on-site listings
+- `remote_locations_json` → countries whose remote roles are in scope. Use these to
+  judge region-restricted remote listings (`Germany (Remote)`, `Remote - Europe`).
+  Empty means remote from anywhere is acceptable. Entries may be groups that expand
+  to member countries — `European Union`/`EU` (27 states), `Europe` (also UK,
+  Switzerland, Norway), `EMEA`, `North America`, `South America`, `Latin America`,
+  `Americas`, `APAC`, `Asia`, `Oceania`, `Africa`, `Middle East`, `Nordics`,
+  `Scandinavia`, `Benelux`. A listing open to a wider region than the user's still
+  qualifies
+- `remote_preference` → `"remote-only"` | `"local-or-remote"` | `"all"`
+- `positive_json` / `negative_json` → title keyword filters
+
+If `target_roles_json` is empty, ask the user to set target roles in the app
+under Profile → Preferences before scanning.
+
+### Step 2 — Search the Board
+
+Supported boards:
+
+| Board | `metadata.source` | Start URL |
+| --- | --- | --- |
+| LinkedIn | `linkedin` | `https://www.linkedin.com/jobs/search/` |
+| Wellfound | `wellfound` | `https://wellfound.com/jobs` |
+| Work at a Startup | `workatastartup` | `https://www.workatastartup.com/companies` |
+| Glassdoor | `glassdoor` | `https://www.glassdoor.com/Job/index.htm` |
+| Indeed | `indeed` | `https://www.indeed.com/jobs` |
+| Monster | `monster` | `https://www.monster.com/jobs/search?recency=3&sort=newest` (append `&q=<title>&where=<location>` for each search) |
+
+For each title in `target_roles_json`, search with the title and the first entry
+of `preferred_locations_json`.
+
+**Monster search URL:** Construct the URL directly with the recency filter baked
+in — do **not** rely on the UI filter alone. Use:
+`https://www.monster.com/jobs/search?q=<URL-encoded title>&where=<URL-encoded location>&recency=3&sort=newest`
+This ensures freshness even when Monster's UI filter fails to apply.
+
+Apply visible filters matching preferences:
+- **Date posted:** Past week (all boards). Monster uses the `recency=3` URL param
+  above — no need to also set the UI filter.
+- **Remote:** Remote only when `remote_preference` is `"remote-only"`.
+- **Sort:** Most Recent when available.
+
+Skip any remote listing restricted to a country absent from
+`remote_locations_json`. A listing that names no region ("Remote", "Anywhere"), or
+that says "worldwide"/"global", is never skipped on this basis — the app
+deliberately treats an unstated or global region as unrestricted rather than
+guessing. Never skip a listing merely for having no visible location.
+
+For each visible listing:
+
+0. **Monster only — card-level pre-check:** Before clicking into any Monster job
+   detail, read the "Posted" date on the search result card. If it shows a date
+   older than 3 days (e.g. "Posted 5 days ago", "Posted 2 weeks ago") OR no
+   visible post date at all, **skip that listing without opening it.**
+1. Open the job detail page.
+2. **Monster only — expiry check first:** Before extracting anything, read the
+   page heading. If it says "Sorry, that job has expired" or shows any expiry
+   indicator ("No longer accepting applications", "This position has been filled",
+   "Application closed", no visible Posted date), **skip this listing
+   immediately.** Do not extract any data. Move to the next listing.
+3. **Monster only — early abort:** After opening the first 5 Monster detail pages
+   for a given search query, if 4 or more were expired, **stop scanning further
+   pages for that query.** Monster is serving predominantly stale results. Move to
+   the next title in `target_roles_json` if one exists, and note the abort in
+   your final report.
+4. Extract `company`, `position`, `location`, `jobDescription`, `sourceUrl`,
+   `originalPostingUrl`, and `discoveredAt`.
+5. `originalPostingUrl` — set only when a visible job-specific employer/ATS apply
+   URL exists (Greenhouse, Lever, Ashby, Workday, etc.). Leave empty otherwise.
+   **Monster:** always look for an "Apply on company site" button pointing to a
+   third-party ATS and record that URL — it lets the liveness checker verify the
+   posting without relying on Monster's bot-protected URLs.
+6. Set `url` to `originalPostingUrl` when present; otherwise use `sourceUrl`.
+7. Apply `negative_json` title filters and skip excluded titles.
+
+Scan up to 3 pages or 50 jobs, whichever comes first. Pause 1–2 seconds between
+page loads and detail views. **Stop immediately** on CAPTCHA, bot detection, or
+login prompt — report to the user.
+
+### Step 3 — Build the Output JSON
+
+```json
+{
+  "metadata": {
+    "source": "<source>",
+    "scanTimestamp": "<ISO 8601 UTC>",
+    "scanDurationSeconds": 120,
+    "totalJobsDiscovered": 12,
+    "totalJobsValid": 10,
+    "totalJobsSkipped": 2,
+    "searchCriteria": {
+      "titles": ["<title1>"],
+      "locations": ["<location1>"],
+      "remotePreference": "<value>"
+    },
+    "generatedBy": "Codex Browser Board Scanner v1.0"
+  },
+  "jobs": [
+    {
+      "id": "<uuid v4>",
+      "company": "<company name>",
+      "position": "<job title>",
+      "jobDescription": "<full description text>",
+      "url": "<ATS/employer URL, or platform URL>",
+      "sourceUrl": "<platform job URL>",
+      "originalPostingUrl": "<job-specific ATS/employer URL, or empty string>",
+      "discoveredAt": "<ISO 8601 UTC>",
+      "location": "<location string>",
+      "salaryNotes": "<visible salary/equity text, or empty string>"
+    }
+  ]
+}
+```
+
+Skip any job where `company`, `position`, or `url` is empty.
+
+### Step 4 — Write the File
+
+Directory: `data/job-board-imports/`
+Filename: `<source>-jobs-<timestamp>.json` (timestamp format: `2026-05-07T14-30-45Z`)
+
+Write to a `.tmp` file first, then rename to `.json`:
+
+```
+data/job-board-imports/monster-jobs-2026-05-07T14-30-45Z.json.tmp  →  .json
+```
+
+The file watcher detects the renamed `.json` and auto-imports it.
+
+### Step 5 — Report
+
+```
+Scan complete. Found X jobs matching your criteria.
+Saved to: data/job-board-imports/<source>-jobs-<timestamp>.json
+Job Search Terminal will import them automatically within 30 seconds.
+```
+
+If jobs were skipped for missing data or excluded keywords, mention the count.
+
+### Constraints
+
+- **Never click Apply**, submit forms, log in for the user, or message recruiters.
+- **Maximum 50 jobs per scan.**
+- **Stop on CAPTCHA or bot detection** — report immediately, do not continue.
+- **Do not transmit job data** to any service other than the local JSON file.
+- Use Chrome only when the task needs the user's browser session; use the in-app
+  browser for local Job Search Terminal verification.
+
+## Resume Lanes
+
+Resumes are uploaded through the in-app UI (Profile → Resumes tab). The app
+supports multiple resume lanes — one per career angle or role type (e.g.,
+"Leadership", "IC / Individual Contributor", "Operations"). Do not collapse the
+workflow into a single universal resume. Preserve the multi-lane model.
+
+## UX And Accessibility
+
+- Use the design-system tokens and primitives under `src/styles/` and
+  `src/components/ui/`.
+- Keep the interface compact, calm, professional, and dashboard-first.
+- Avoid decorative gradients, oversized marketing sections, nested cards, and
+  one-color palettes.
+- Meet WCAG 2.2 AA by default: visible focus, semantic structure, sufficient
+  contrast, non-color-only status, labels for controls, reduced motion support.
+
+## Safety
+
+See [`DATA_CONTRACT.md`](DATA_CONTRACT.md) for the authoritative user-layer /
+system-layer boundary. In summary: never directly modify or delete SQLite data,
+uploaded resumes, generated outputs, or files in `data/job-board-imports/`
+except through the established application functions in `src/lib/db/queries.ts`.
+
+- Never submit applications, send emails, or message recruiters for the user
+  without explicit approval.
+- Never expose implementation details like script names or file paths in the
+  product UI unless the user asks for technical details.
+- Preserve user materials and generated outputs. Do not delete resumes,
+  reports, outputs, or tracked data unless explicitly asked.
+
+## Verification
+
+After any change, run:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+For feature work, also verify the actual dashboard flow in the browser.
 
 ---
 > Source: [uxdesignlab/job-search-terminal](https://github.com/uxdesignlab/job-search-terminal) — distributed by [TomeVault](https://tomevault.io).
