@@ -1,0 +1,9 @@
+{
+  "name": "muk2--harness",
+  "displayName": "harness",
+  "description": "Self-hosted per-user agentic harness \u2014 Rust daemon (harnessd) + TUI + iOS app. Read-only mirror; source of truth is a self-hosted Forgejo with homelab CI/CD.",
+  "version": "1.0.0",
+  "author": "muk2",
+  "homepage": "https://github.com/muk2/harness",
+  "skills": []
+}
