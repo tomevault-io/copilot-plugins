@@ -1,0 +1,44 @@
+{
+  "name": "OpenHomepage-V2",
+  "owner": "stlin256",
+  "repo": "OpenHomepage-V2",
+  "description": "\ud83c\udf93 Modern magazine-style academic & developer homepage generator built with Astro 5. Features BibTeX publications, local WYSIWYG editor, i18n, KaTeX, and privacy-first CI/CD.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stlin256/OpenHomepage-V2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T18:30:23Z"
+}
