@@ -1,0 +1,9 @@
+{
+  "name": "aethctl--ryoku-on-nixos",
+  "displayName": "Ryoku-on-NixOS",
+  "description": "Ryoku-on-NixOS",
+  "version": "1.0.0",
+  "author": "aethctl",
+  "homepage": "https://github.com/aethctl/Ryoku-on-NixOS",
+  "skills": []
+}
