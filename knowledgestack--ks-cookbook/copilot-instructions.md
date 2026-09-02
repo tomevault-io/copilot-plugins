@@ -1,121 +1,71 @@
-## flagship-author
+## python-clean-code
 
-> How to author a flagship in ks-cookbook
+> Python clean code for cookbook flagships and recipes
 
 
-# Flagship author rule
+# Clean-code rules for ks-cookbook
 
-Applies when you're adding or editing anything under `flagships/<name>/`.
+Applies to every Python file under `flagships/`, `recipes/`, and `mcp-python/`.
 
-## File layout (enforced)
+## Hard constraints
 
-```
-flagships/<name>/
-├── pyproject.toml            # [project.scripts] entrypoint ks-cookbook-<slug>
-├── README.md                 # title, tags, seed-data block, walkthrough
-├── src/<module>/
-│   ├── __main__.py           # argparse → agent.draft_*()
-│   ├── agent.py              # pydantic-ai Agent + system prompt + MCP wiring
-│   └── schema.py             # pydantic output model with Citation field(s)
-└── sample_inputs/            # at least one concrete example input
-```
+### SRP
+- Each function does one thing. If its name or its docstring needs "and", split it.
+- Each module has one concern. `agent.py` wires the agent; `schema.py` holds the output model; `__main__.py` is CLI-only.
 
-Don't create additional top-level files inside the flagship unless there's a specific reason.
+### Small units
+- Functions ≤ 30 lines.
+- Modules ≤ 200 lines unless there is a clear reason.
+- Recipes ≤ 100 LOC total (docstrings + comments don't count). Larger → promote to `flagships/`.
 
-## README template (required sections, in this order)
+### Naming
+- Intent-revealing. No `data`, `info`, `handler`, `manager` unless domain-meaningful.
+- Boolean predicates: `is_*`, `has_*`, `should_*`.
 
-```markdown
-# <Vertical>: <Flagship Name>
+### DRY & composition
+- No copy-pasted agent wiring across flagships. Use the same `MCPServerStdio` boilerplate; if you find yourself duplicating more than a few lines across files, factor into `_shared/`.
 
-**Tags:** `vertical` `subdomain` `framework`
+### KISS
+- No speculative abstractions. Three similar lines beats a premature helper.
 
-<one-paragraph what-and-why>
+## Forbidden
 
-## Seed data required
+### Magic values
+- No magic UUIDs or strings in code. Folder IDs belong in the Makefile as per-demo env defaults, not hardcoded in `agent.py`.
 
-This demo reads from a folder in your Knowledge Stack tenant. You need to create
-that folder and upload the expected documents **before** running.
+### Deep nesting
+- Guard clauses and early returns. Max nesting depth 3.
 
-**Expected corpus:** <one-line description>
+### "What" comments
+- Only write comments that explain **why** (a hidden constraint, a workaround, a non-obvious tradeoff). Never comments that describe what a line does.
 
-Set-up steps:
-1. Sign up at [app.knowledgestack.ai](https://app.knowledgestack.ai).
-2. Create a folder in the dashboard and copy its folder ID.
-3. Upload the documents described above.
-4. Issue an API key from the dashboard and put it in `.env` as `KS_API_KEY`.
-5. Run: `<CORPUS_FOLDER_ID=<id> make demo-<slug>>`
+### Error codes / sentinel returns
+- Raise an exception or return a typed result. No `return None` to signal "failure" alongside valid `None`.
 
-Full corpus matrix: [`https://github.com/knowledgestack/ks-cookbook/wiki/seed-data`](https://github.com/knowledgestack/ks-cookbook/wiki/seed-data).
+### God functions
+- No function that orchestrates, does I/O, and transforms data. Split into pure helpers + a thin orchestrator.
 
-## Run
-<make command + override examples>
+## Error handling
 
-## Framework
-<pydantic-ai | LangGraph | raw-OpenAI | raw-Anthropic | CrewAI | …>
+- Errors surface as exceptions, typed when possible.
+- Never swallow an exception silently. If retrieval fails, say so in the output — don't emit made-up content.
+- For MCP tool calls, let `MCPServerStdio` errors propagate. The CLI (`__main__.py`) catches and prints a useful message before exiting non-zero.
 
-## Bring your own data
-<short note on pointing the demo at a different folder>
-```
+## Style
 
-## Agent wiring (copy this shape)
+- PEP 8 via `ruff`. Line-length 100. Import order enforced (`ruff check`).
+- Prefer explicit types on public functions (`-> Memo`, `-> list[Hit]`). Private helpers can infer.
+- Use `pathlib.Path`, never `os.path`.
+- Use `pydantic` for every structured output. Never return a raw `dict` from an agent.
 
-```python
-from pydantic_ai import Agent
-from pydantic_ai.mcp import MCPServerStdio
-from .schema import Memo
+## The four prompt invariants
 
-SYSTEM_TEMPLATE = """..."""  # include the four prompt invariants
+These are in every flagship system prompt and must stay there:
 
-async def draft(*, corpus_folder_id: str, model: str, ...) -> Memo:
-    mcp = MCPServerStdio(
-        command=os.environ.get("KS_MCP_COMMAND", "uvx"),
-        args=(os.environ.get("KS_MCP_ARGS", "knowledgestack-mcp") or "").split(),
-        env={"KS_API_KEY": os.environ["KS_API_KEY"],
-             "KS_BASE_URL": os.environ.get("KS_BASE_URL", "")},
-    )
-    agent = Agent(
-        model=f"openai:{model}",
-        mcp_servers=[mcp],
-        system_prompt=SYSTEM_TEMPLATE.replace("__CORPUS_FOLDER_ID__", corpus_folder_id),
-        output_type=Memo,
-    )
-    async with agent.run_mcp_servers():
-        result = await agent.run(user_prompt)
-    return result.output
-```
-
-## Schema shape (every flagship)
-
-- A top-level pydantic model as `output_type`.
-- Every non-trivial claim has a `Citation` field or a `list[Citation]`.
-- `Citation.chunk_id: UUID`, `Citation.quote: str` (max_length ≤ 400).
-- Reviewers reject output models that let the agent emit claims without citations.
-
-## Sample outputs
-
-Outputs land in `flagships/<name>/sample_output.<ext>` (md/docx/xlsx/csv). The Makefile already wires this — don't redirect output elsewhere.
-
-## Makefile entry (required)
-
-```makefile
-demo-<slug>: check-env ## <One-line description>
-	@uv run --package ks-cookbook-<slug> ks-cookbook-<slug> \
-		--corpus-folder $${CORPUS_FOLDER_ID:-<seeded-sample-uuid>} \
-		--out flagships/<name>/sample_output.md
-	@echo "Output written to: $(abspath flagships/<name>/sample_output.md)"
-```
-
-## Checklist before opening a PR
-
-- [ ] `make lint` passes (ruff, 100-char line length).
-- [ ] Runs end-to-end with `make demo-<slug>` against the seeded sample corpus.
-- [ ] README has: title, tags, seed-data block, run command.
-- [ ] `sample_inputs/` has at least one concrete example.
-- [ ] Output is a file artifact at `flagships/<name>/sample_output.<ext>`, not stdout.
-- [ ] System prompt includes the four invariants (see `python_clean_code.mdc`).
-- [ ] Added the package to `[tool.uv.workspace].members` in the root `pyproject.toml`.
-- [ ] Added the flagship to the root README's "Flagships by vertical" catalog with tags.
-- [ ] Added the flagship to the [Seed data wiki page](https://github.com/knowledgestack/ks-cookbook/wiki/seed-data) matrix.
+1. Enumerate with `list_contents(folder_id=__CORPUS_FOLDER_ID__)` first.
+2. Pass UUID `path_part_id` values to `read` — not document names.
+3. Citations (`Citation.chunk_id`, or inline `[chunk:<uuid>]` tags) must be copied verbatim from `read` output. Never synthesize.
+4. If a fact isn't in the retrieved material, say so and lower confidence. Do not fabricate numbers.
 
 ---
 > Source: [knowledgestack/ks-cookbook](https://github.com/knowledgestack/ks-cookbook) — distributed by [TomeVault](https://tomevault.io).
