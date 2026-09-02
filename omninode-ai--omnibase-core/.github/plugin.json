@@ -1,0 +1,9 @@
+{
+  "name": "omninode-ai--omnibase-core",
+  "displayName": "omnibase_core",
+  "description": "ONEX Core Framework - Base classes and essential implementations for the ONEX ecosystem",
+  "version": "1.0.0",
+  "author": "OmniNode-ai",
+  "homepage": "https://github.com/OmniNode-ai/omnibase_core",
+  "skills": []
+}
