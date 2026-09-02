@@ -1,0 +1,44 @@
+{
+  "name": "enterprise_memory",
+  "owner": "8ballbb",
+  "repo": "enterprise_memory",
+  "description": "Enterprise Memory (EM) \u2014 information-retrieval abstraction layer between backend storage and AI consumers over REST/MCP. Buildable design specification.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/8ballbb/enterprise_memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T02:49:21Z"
+}
