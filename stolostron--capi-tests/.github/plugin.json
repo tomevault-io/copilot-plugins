@@ -1,0 +1,9 @@
+{
+  "name": "stolostron--capi-tests",
+  "displayName": "capi-tests",
+  "description": "CAPI E2E testing framework \u2014 currently transitioning from CAPZ E2E to multi-provider CAPI",
+  "version": "1.0.0",
+  "author": "stolostron",
+  "homepage": "https://github.com/stolostron/capi-tests",
+  "skills": []
+}
