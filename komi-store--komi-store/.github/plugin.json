@@ -1,0 +1,9 @@
+{
+  "name": "komi-store--komi-store",
+  "displayName": "komi-store",
+  "description": "\ud83e\ude75 A free, open-source app store for developers' releases on GitHub, Codeberg & Forgejo \u2014 browse, discover, and install apps with one click. Formerly GitHub Store.",
+  "version": "1.0.0",
+  "author": "komi-store",
+  "homepage": "https://github.com/komi-store/komi-store",
+  "skills": []
+}
