@@ -1,0 +1,9 @@
+{
+  "name": "signalk--signalk-ha",
+  "displayName": "signalk-ha",
+  "description": "This Home Assistant integration discovers available marine data from Signal K via REST and subscribes to live updates over WebSocket deltas exposing them as sensors.",
+  "version": "1.0.0",
+  "author": "SignalK",
+  "homepage": "https://github.com/SignalK/signalk-ha",
+  "skills": []
+}
