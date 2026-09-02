@@ -4,7 +4,7 @@
   "repo": "bangumi-sync",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/threeyang3/bangumi-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T22:31:11Z"
+  "distributed_at": "2026-09-02T22:36:16Z"
 }
