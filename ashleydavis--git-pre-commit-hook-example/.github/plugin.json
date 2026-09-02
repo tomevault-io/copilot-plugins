@@ -1,0 +1,9 @@
+{
+  "name": "ashleydavis--git-pre-commit-hook-example",
+  "displayName": "git-pre-commit-hook-example",
+  "description": "An example of using a Git pre-commit hook to prevent broken changes being committed.",
+  "version": "1.0.0",
+  "author": "ashleydavis",
+  "homepage": "https://github.com/ashleydavis/git-pre-commit-hook-example",
+  "skills": []
+}
