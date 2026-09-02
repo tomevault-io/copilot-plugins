@@ -2,9 +2,9 @@
   "name": "remnic",
   "owner": "joshuaswarren",
   "repo": "remnic",
-  "description": "Local-first memory plugin for OpenClaw AI agents. LLM-powered extraction, plain markdown storage, hybrid search via QMD. Gives agents persistent long-term memory across conversations.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,117 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "remnic",
+      "path": "packages/remnic-core/skills/remnic-status/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/remnic-core/skills/remnic-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/remnic-core/skills/remnic-recall/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/remnic-core/skills/remnic-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/remnic-core/skills/remnic-search/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/remnic-core/skills/remnic-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-codex/skills/remnic-status/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-codex/skills/remnic-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-codex/skills/remnic-recall/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-codex/skills/remnic-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-codex/skills/remnic-search/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-codex/skills/remnic-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/remnic-core/skills/remnic-entities/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/remnic-core/skills/remnic-entities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/remnic-core/skills/remnic-remember/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/remnic-core/skills/remnic-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-codex/skills/remnic-entities/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-codex/skills/remnic-entities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-codex/skills/remnic-remember/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-codex/skills/remnic-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-claude-code/skills/remnic-search/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-claude-code/skills/remnic-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-claude-code/skills/remnic-recall/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-claude-code/skills/remnic-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-claude-code/skills/remnic-status/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-claude-code/skills/remnic-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-claude-code/skills/remnic-entities/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-claude-code/skills/remnic-entities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-claude-code/skills/remnic-remember/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-claude-code/skills/remnic-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/remnic-core/skills/remnic-memory-workflow/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/remnic-core/skills/remnic-memory-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-codex/skills/remnic-memory-workflow/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-codex/skills/remnic-memory-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remnic",
+      "path": "packages/plugin-claude-code/skills/remnic-memory-workflow/SKILL.md",
+      "github_url": "https://github.com/joshuaswarren/remnic/tree/main/packages/plugin-claude-code/skills/remnic-memory-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/joshuaswarren/remnic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:14:41Z"
+  "distributed_at": "2026-09-02T05:10:18Z"
 }
