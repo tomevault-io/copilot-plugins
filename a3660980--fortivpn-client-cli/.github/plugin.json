@@ -1,0 +1,9 @@
+{
+  "name": "a3660980--fortivpn-client-cli",
+  "displayName": "fortivpn-client-cli",
+  "description": "\u8b93mac os\u7684FortiClient VPN \u53ef\u4ee5\u76f4\u63a5\u4f7f\u7528cli\u9023\u7dda\u6216\u65b7\u7dda\u65b9\u4fbf\u7d66agent\u4f7f\u7528",
+  "version": "1.0.0",
+  "author": "a3660980",
+  "homepage": "https://github.com/a3660980/fortivpn-client-cli",
+  "skills": []
+}
