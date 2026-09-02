@@ -4,7 +4,7 @@
   "repo": "capi-tests",
   "description": "CAPI E2E testing framework \u2014 currently transitioning from CAPZ E2E to multi-provider CAPI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stolostron/capi-tests",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T03:38:06Z"
+  "distributed_at": "2026-09-02T03:39:54Z"
 }
