@@ -7,11 +7,11 @@ Give this GitHub link to Codex or Claude Code to create presentations
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [slidefirm/NESA-SLIDE](https://github.com/slidefirm/NESA-SLIDE).
+Original source: `AGENTS.md` in [slidefirm/NESA-SLIDE](https://github.com/slidefirm/NESA-SLIDE).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
