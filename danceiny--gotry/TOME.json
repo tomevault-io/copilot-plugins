@@ -1,0 +1,44 @@
+{
+  "name": "gotry",
+  "owner": "Danceiny",
+  "repo": "gotry",
+  "description": "GoTry \u2014 \u4ece\u51fa\u53d1\u5230\u4e0b\u4e00\u6b21\u51fa\u53d1\u7684 AI \u65c5\u884c Agent(dsh \u63d2\u4ef6)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Danceiny/gotry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T17:30:27Z"
+}
