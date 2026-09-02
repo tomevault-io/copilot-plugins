@@ -4,7 +4,7 @@
   "repo": "grandma2-mcp",
   "description": "MCP server for grandMA2 with 218 tools for console control, programming, orchestration, and browser-based operation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drohi-r/grandma2-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T04:36:34Z"
+  "distributed_at": "2026-09-02T04:40:07Z"
 }
