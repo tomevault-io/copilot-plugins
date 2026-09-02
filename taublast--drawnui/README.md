@@ -15,6 +15,16 @@ Original source: `CLAUDE.md` in [taublast/DrawnUi](https://github.com/taublast/D
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (7)
+
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/skmech/SKILL.md)
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-game/SKILL.md)
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-fluent/SKILL.md)
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-opentk/SKILL.md)
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-blazor/SKILL.md)
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-web-app/SKILL.md)
+- [DrawnUi](https://github.com/taublast/DrawnUi/tree/main/docs/skills/drawnui-net-harness/SKILL.md)
+
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/taublast/DrawnUi](https://github.com/taublast/DrawnUi)
 
 ---
