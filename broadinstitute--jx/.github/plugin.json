@@ -1,0 +1,9 @@
+{
+  "name": "broadinstitute--jx",
+  "displayName": "jx",
+  "description": "JUMP eXplore - agent-composable marimo notebooks over JUMP Cell Painting data",
+  "version": "1.0.0",
+  "author": "broadinstitute",
+  "homepage": "https://github.com/broadinstitute/jx",
+  "skills": []
+}
