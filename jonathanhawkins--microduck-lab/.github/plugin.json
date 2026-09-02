@@ -1,0 +1,9 @@
+{
+  "name": "jonathanhawkins--microduck-lab",
+  "displayName": "microduck-lab",
+  "description": "Train RL policies for the Pollen Microduck \ud83e\udd86 on an ordinary Mac, no CUDA GPU,  and watch them learn live in the browser.",
+  "version": "1.0.0",
+  "author": "jonathanhawkins",
+  "homepage": "https://github.com/jonathanhawkins/microduck-lab",
+  "skills": []
+}
