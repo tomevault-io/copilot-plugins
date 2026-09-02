@@ -1,0 +1,9 @@
+{
+  "name": "dailiuyi--threebodysimulation",
+  "displayName": "ThreeBodySimulation",
+  "description": "N \u4f53\u5f15\u529b\u5b9e\u9a8c\u5ba4\uff1aJava 17 + Spring Boot + Vue 3 + WebSocket\u3002RK4\u3001OpenAPI \u5951\u7ea6\u3001HTTPS \u516c\u7f51\u90e8\u7f72\u3002",
+  "version": "1.0.0",
+  "author": "dailiuyi",
+  "homepage": "https://github.com/dailiuyi/ThreeBodySimulation",
+  "skills": []
+}
