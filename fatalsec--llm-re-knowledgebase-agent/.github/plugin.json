@@ -1,0 +1,9 @@
+{
+  "name": "fatalsec--llm-re-knowledgebase-agent",
+  "displayName": "LLM-RE-KnowledgeBase-Agent",
+  "description": "LLM-driven reverse engineering knowledge base custodian \u2014 ingests blogs, pentest findings, and malware write-ups into a structured, anti-hallucination markdown wiki with an interactive knowledge graph",
+  "version": "1.0.0",
+  "author": "fatalSec",
+  "homepage": "https://github.com/fatalSec/LLM-RE-KnowledgeBase-Agent",
+  "skills": []
+}
