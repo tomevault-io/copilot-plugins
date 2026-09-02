@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [a3660980/fortivpn-client-cli](https://github.com/a3660980/fortivpn-client-cli).
+Original source: `CLAUDE.md` in [a3660980/fortivpn-client-cli](https://github.com/a3660980/fortivpn-client-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
