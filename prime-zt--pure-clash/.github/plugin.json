@@ -1,0 +1,9 @@
+{
+  "name": "prime-zt--pure-clash",
+  "displayName": "pure-clash",
+  "description": "A lightweight native Mihomo desktop client built with Rust and Zed GPUI",
+  "version": "1.0.0",
+  "author": "prime-zt",
+  "homepage": "https://github.com/prime-zt/pure-clash",
+  "skills": []
+}
