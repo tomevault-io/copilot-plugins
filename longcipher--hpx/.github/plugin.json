@@ -1,0 +1,9 @@
+{
+  "name": "longcipher--hpx",
+  "displayName": "hpx",
+  "description": "A high-performance HTTP client with tower middleware support",
+  "version": "1.0.0",
+  "author": "longcipher",
+  "homepage": "https://github.com/longcipher/hpx",
+  "skills": []
+}
