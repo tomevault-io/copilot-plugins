@@ -1,0 +1,9 @@
+{
+  "name": "dltsum--agent-deck",
+  "displayName": "agent-deck",
+  "description": "Self-hosted Android remote console and Windows bridge for Codex and Claude Code.",
+  "version": "1.0.0",
+  "author": "dltsum",
+  "homepage": "https://github.com/dltsum/agent-deck",
+  "skills": []
+}
