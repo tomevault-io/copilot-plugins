@@ -1,0 +1,9 @@
+{
+  "name": "natrontech--cainjekt",
+  "displayName": "cainjekt",
+  "description": "Transparent CA certificate injection for Kubernetes containers using containerd NRI (Node Resource Interface).",
+  "version": "1.0.0",
+  "author": "natrontech",
+  "homepage": "https://github.com/natrontech/cainjekt",
+  "skills": []
+}
