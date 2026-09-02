@@ -1,0 +1,9 @@
+{
+  "name": "runmedev--web",
+  "displayName": "web",
+  "description": "Monorepo for Web & React Components",
+  "version": "1.0.0",
+  "author": "runmedev",
+  "homepage": "https://github.com/runmedev/web",
+  "skills": []
+}
