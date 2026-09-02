@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--commerce-agents",
+  "displayName": "commerce-agents",
+  "description": "Reference blueprint for building shopping and merchant agents with Claude. Examples in retail, commerce, telecom, and entertainment included.",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/commerce-agents",
+  "skills": []
+}
