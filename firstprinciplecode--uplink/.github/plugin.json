@@ -1,0 +1,9 @@
+{
+  "name": "firstprinciplecode--uplink",
+  "displayName": "uplink",
+  "description": "Localhost to public URL in seconds. CLI-first tunneling for devs and AI agents. No signup, no browser, no friction.",
+  "version": "1.0.0",
+  "author": "firstprinciplecode",
+  "homepage": "https://github.com/firstprinciplecode/uplink",
+  "skills": []
+}
