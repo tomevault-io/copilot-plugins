@@ -1,0 +1,9 @@
+{
+  "name": "zeruhur--sybyl",
+  "displayName": "sybyl",
+  "description": "Sybyl is an Obsidian plugin for solo tabletop play with provider-backed AI assistance and Lonelog-aware note formatting",
+  "version": "1.0.0",
+  "author": "zeruhur",
+  "homepage": "https://github.com/zeruhur/sybyl",
+  "skills": []
+}
