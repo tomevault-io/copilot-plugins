@@ -1,0 +1,9 @@
+{
+  "name": "socketry--agent-context",
+  "displayName": "agent-context",
+  "description": "A framework for Ruby Gems to expose LLM context.",
+  "version": "1.0.0",
+  "author": "socketry",
+  "homepage": "https://github.com/socketry/agent-context",
+  "skills": []
+}
