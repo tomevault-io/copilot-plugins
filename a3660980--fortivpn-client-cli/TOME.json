@@ -4,7 +4,7 @@
   "repo": "fortivpn-client-cli",
   "description": "\u8b93mac os\u7684FortiClient VPN \u53ef\u4ee5\u76f4\u63a5\u4f7f\u7528cli\u9023\u7dda\u6216\u65b7\u7dda\u65b9\u4fbf\u7d66agent\u4f7f\u7528",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a3660980/fortivpn-client-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T02:30:24Z"
+  "distributed_at": "2026-09-02T02:34:03Z"
 }
