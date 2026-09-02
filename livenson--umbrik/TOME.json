@@ -4,7 +4,7 @@
   "repo": "umbrik",
   "description": "CDOC2 encrypted containers in Rust \u2014 the Estonian .cdoc2 format. CLI, library and Python bindings, with ID-card support via PKCS#11.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/livenson/umbrik",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T18:31:19Z"
+  "distributed_at": "2026-09-02T18:32:17Z"
 }
