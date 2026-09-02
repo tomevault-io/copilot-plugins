@@ -1,0 +1,9 @@
+{
+  "name": "getworkloop--gambit",
+  "displayName": "gambit",
+  "description": "Agent harness framework for building, running, and verifying LLM workflows",
+  "version": "1.0.0",
+  "author": "getworkloop",
+  "homepage": "https://github.com/getworkloop/gambit",
+  "skills": []
+}
