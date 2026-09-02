@@ -1,0 +1,9 @@
+{
+  "name": "oplisty--roboprep",
+  "displayName": "RoboPrep",
+  "description": "Embodied AI interview preparation platform: interviews, knowledge, ML coding judge, company intelligence",
+  "version": "1.0.0",
+  "author": "oplisty",
+  "homepage": "https://github.com/oplisty/RoboPrep",
+  "skills": []
+}
