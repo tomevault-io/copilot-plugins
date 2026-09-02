@@ -1,0 +1,9 @@
+{
+  "name": "goldziher--starmetal",
+  "displayName": "starmetal",
+  "description": "High-performance, self-hosted multi-language package registry and registry proxy",
+  "version": "1.0.0",
+  "author": "Goldziher",
+  "homepage": "https://github.com/Goldziher/starmetal",
+  "skills": []
+}
