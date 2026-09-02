@@ -1,0 +1,9 @@
+{
+  "name": "mekedron--hiddenbaricons",
+  "displayName": "HiddenBarIcons",
+  "description": "Fixes annoying macOS bug for macs with notch - now you can menu items under the notch!",
+  "version": "1.0.0",
+  "author": "mekedron",
+  "homepage": "https://github.com/mekedron/HiddenBarIcons",
+  "skills": []
+}
