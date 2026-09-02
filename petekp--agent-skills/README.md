@@ -7,11 +7,11 @@ Agent skills for UI development, parameter tuning, and design iteration
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [petekp/agent-skills](https://github.com/petekp/agent-skills).
+Original source: `CLAUDE.md` in [petekp/agent-skills](https://github.com/petekp/agent-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
