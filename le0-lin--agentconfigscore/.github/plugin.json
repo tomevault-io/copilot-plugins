@@ -1,0 +1,9 @@
+{
+  "name": "le0-lin--agentconfigscore",
+  "displayName": "AgentConfigScore",
+  "description": "Tamper-resistant regression gate for AI coding-agent instructions\u2014AGENTS.md, CLAUDE.md, Cursor, Copilot, Gemini, and more.",
+  "version": "1.0.0",
+  "author": "LE0-Lin",
+  "homepage": "https://github.com/LE0-Lin/AgentConfigScore",
+  "skills": []
+}
