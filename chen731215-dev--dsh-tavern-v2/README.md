@@ -1,0 +1,26 @@
+# dsh-tavern-v2
+
+> Tome by [chen731215-dev](https://github.com/chen731215-dev/dsh-tavern-v2), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+DeepSeek Harness Tavern Plugin - character card roleplay, worldbook management, preset switching, dark theme, memory summary, relationship graph, PolyForm-Noncommercial-Copyleft-1.0.0
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [chen731215-dev/dsh-tavern-v2](https://github.com/chen731215-dev/dsh-tavern-v2).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/chen731215-dev/dsh-tavern-v2](https://github.com/chen731215-dev/dsh-tavern-v2)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:t-e-p -->
