@@ -4,7 +4,7 @@
   "repo": "wu",
   "description": "Fast, native code editor in Rust that feels like VS Code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/farshed/wu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T09:30:27Z"
+  "distributed_at": "2026-09-02T09:31:23Z"
 }
