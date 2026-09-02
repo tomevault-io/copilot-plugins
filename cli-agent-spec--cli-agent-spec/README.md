@@ -7,11 +7,11 @@ A specification for building CLI tools that work reliably under AI agent orchest
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cli-agent-spec/cli-agent-spec](https://github.com/cli-agent-spec/cli-agent-spec).
+Original source: `AGENTS.md` in [cli-agent-spec/cli-agent-spec](https://github.com/cli-agent-spec/cli-agent-spec).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
