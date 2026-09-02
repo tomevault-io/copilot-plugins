@@ -1,0 +1,9 @@
+{
+  "name": "farshed--wu",
+  "displayName": "wu",
+  "description": "Fast, native code editor in Rust that feels like VS Code.",
+  "version": "1.0.0",
+  "author": "farshed",
+  "homepage": "https://github.com/farshed/wu",
+  "skills": []
+}
