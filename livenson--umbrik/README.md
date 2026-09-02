@@ -7,11 +7,11 @@ CDOC2 encrypted containers in Rust — the Estonian .cdoc2 format. CLI, library 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [livenson/umbrik](https://github.com/livenson/umbrik).
+Original source: `AGENTS.md` in [livenson/umbrik](https://github.com/livenson/umbrik).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
