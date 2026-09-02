@@ -1,0 +1,9 @@
+{
+  "name": "yiqiao-yin--deepspeed-course",
+  "displayName": "deepspeed-course",
+  "description": "Accelerate deep learning with DeepSpeed: distributed training, multi-GPU examples, and practical guides for neural nets and HuggingFace models.",
+  "version": "1.0.0",
+  "author": "yiqiao-yin",
+  "homepage": "https://github.com/yiqiao-yin/deepspeed-course",
+  "skills": []
+}
