@@ -1,0 +1,9 @@
+{
+  "name": "benoitc--erlang-wasm",
+  "displayName": "erlang_wasm",
+  "description": "A WebAssembly runtime implemented in Erlang/OTP",
+  "version": "1.0.0",
+  "author": "benoitc",
+  "homepage": "https://github.com/benoitc/erlang_wasm",
+  "skills": []
+}
