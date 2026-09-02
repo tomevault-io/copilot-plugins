@@ -1,0 +1,9 @@
+{
+  "name": "nixfred--blip",
+  "displayName": "blip",
+  "description": "iMessage in the Omarchy bar. Read, send, groups, blue dots \u2014 your Mac is the gateway, Linux is the client.",
+  "version": "1.0.0",
+  "author": "nixfred",
+  "homepage": "https://github.com/nixfred/blip",
+  "skills": []
+}
