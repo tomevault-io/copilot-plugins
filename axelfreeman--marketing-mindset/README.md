@@ -7,13 +7,13 @@ The marketing OS for AI agents — think like a marketer first, get tactics as t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [axelfreeman/marketing-mindset](https://github.com/axelfreeman/marketing-mindset).
+Original source: `AGENTS.md` in [axelfreeman/marketing-mindset](https://github.com/axelfreeman/marketing-mindset).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
