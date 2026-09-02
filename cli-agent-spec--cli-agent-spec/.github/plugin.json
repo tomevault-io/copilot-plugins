@@ -1,0 +1,9 @@
+{
+  "name": "cli-agent-spec--cli-agent-spec",
+  "displayName": "cli-agent-spec",
+  "description": "A specification for building CLI tools that work reliably under AI agent orchestration",
+  "version": "1.0.0",
+  "author": "cli-agent-spec",
+  "homepage": "https://github.com/cli-agent-spec/cli-agent-spec",
+  "skills": []
+}
