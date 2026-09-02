@@ -7,11 +7,11 @@ JUMP eXplore - agent-composable marimo notebooks over JUMP Cell Painting data
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [broadinstitute/jx](https://github.com/broadinstitute/jx).
+Original source: `AGENTS.md` in [broadinstitute/jx](https://github.com/broadinstitute/jx).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
