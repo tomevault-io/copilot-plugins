@@ -1,0 +1,9 @@
+{
+  "name": "fluxxion82--android-emulator-skill",
+  "displayName": "android-emulator-skill",
+  "description": "Android Skill for Claude Code",
+  "version": "1.0.0",
+  "author": "fluxxion82",
+  "homepage": "https://github.com/fluxxion82/android-emulator-skill",
+  "skills": []
+}
