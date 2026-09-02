@@ -1,0 +1,9 @@
+{
+  "name": "unjs--jup",
+  "displayName": "jup",
+  "description": "\ud83d\udce6 pin and run the right package manager or runtime for every project.",
+  "version": "1.0.0",
+  "author": "unjs",
+  "homepage": "https://github.com/unjs/jup",
+  "skills": []
+}
