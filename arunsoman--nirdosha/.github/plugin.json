@@ -1,0 +1,9 @@
+{
+  "name": "arunsoman--nirdosha",
+  "displayName": "nirdosha",
+  "description": "A systems language designed so an AI agent can safely write and run backend code: proven no GC/races/overflow, GBNF-constrained generation, structured diagnostics, OS-process sandboxing.",
+  "version": "1.0.0",
+  "author": "arunsoman",
+  "homepage": "https://github.com/arunsoman/nirdosha",
+  "skills": []
+}
