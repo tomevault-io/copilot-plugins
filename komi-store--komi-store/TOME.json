@@ -4,7 +4,7 @@
   "repo": "komi-store",
   "description": "\ud83e\ude75 A free, open-source app store for developers' releases on GitHub, Codeberg & Forgejo \u2014 browse, discover, and install apps with one click. Formerly GitHub Store.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/komi-store/komi-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T03:30:22Z"
+  "distributed_at": "2026-09-02T03:31:08Z"
 }
