@@ -1,0 +1,9 @@
+{
+  "name": "lin4527--qzonearchive-windows",
+  "displayName": "QzoneArchive-Windows",
+  "description": "\u7a7a\u95f4\u5f52\u6863 QzoneArchive \u7684 Windows \u9884\u7f16\u8bd1\u53d1\u5e03\u7248\uff08\u4e0a\u6e38 Gaoshu705/QzoneArchive\uff09\uff0c\u63d0\u4f9b\u73b0\u6210 NSIS \u5b89\u88c5\u5305\u4e0e\u514d\u5b89\u88c5\u7eff\u8272\u7248\u3002",
+  "version": "1.0.0",
+  "author": "lin4527",
+  "homepage": "https://github.com/lin4527/QzoneArchive-Windows",
+  "skills": []
+}
