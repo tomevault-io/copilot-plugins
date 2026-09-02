@@ -1,0 +1,9 @@
+{
+  "name": "itriones--ai-quant-framework",
+  "displayName": "AI-Quant-Framework",
+  "description": "Event-driven quantitative trading backtesting framework with native AI integration",
+  "version": "1.0.0",
+  "author": "itriones",
+  "homepage": "https://github.com/itriones/AI-Quant-Framework",
+  "skills": []
+}
