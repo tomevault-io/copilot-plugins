@@ -1,0 +1,9 @@
+{
+  "name": "wowyuarm--dsh-agent-team",
+  "displayName": "dsh-agent-team",
+  "description": "Help humans organize tasks and let agents collaborate: durable Workspaces, Channels, Tasks, and managed Agent members for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "wowyuarm",
+  "homepage": "https://github.com/wowyuarm/dsh-agent-team",
+  "skills": []
+}
