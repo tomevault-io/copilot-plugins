@@ -1,0 +1,9 @@
+{
+  "name": "jli-software--onenotebackupexporter",
+  "displayName": "OneNoteBackupExporter",
+  "description": "Simpel Tool to export OneNotes to onepkg",
+  "version": "1.0.0",
+  "author": "jli-software",
+  "homepage": "https://github.com/jli-software/OneNoteBackupExporter",
+  "skills": []
+}
