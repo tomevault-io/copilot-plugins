@@ -7,11 +7,11 @@ DeepSeek Harness Tavern Plugin - character card roleplay, worldbook management, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chen731215-dev/dsh-tavern-v2](https://github.com/chen731215-dev/dsh-tavern-v2).
+Original source: `AGENTS.md` in [chen731215-dev/dsh-tavern-v2](https://github.com/chen731215-dev/dsh-tavern-v2).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
