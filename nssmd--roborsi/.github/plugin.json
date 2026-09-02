@@ -1,0 +1,9 @@
+{
+  "name": "nssmd--roborsi",
+  "displayName": "RoboRSI",
+  "description": "Robot-agent harness with a CLI and local Web console for LIBERO short evaluation",
+  "version": "1.0.0",
+  "author": "nssmd",
+  "homepage": "https://github.com/nssmd/RoboRSI",
+  "skills": []
+}
