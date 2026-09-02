@@ -1,0 +1,9 @@
+{
+  "name": "chanmeng666--archlang",
+  "displayName": "archlang",
+  "description": "A declarative language that compiles to professional SVG floor plans \u2014 like Typst/LaTeX, but for architecture. Built for AI agents: deterministic output, JSON diagnostics that carry their own fix, and",
+  "version": "1.0.0",
+  "author": "ChanMeng666",
+  "homepage": "https://github.com/ChanMeng666/archlang",
+  "skills": []
+}
