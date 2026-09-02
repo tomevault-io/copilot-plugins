@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--term-ui",
+  "displayName": "term_ui",
+  "description": "A framework for writing terminal user interfaces in Elixir",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/term_ui",
+  "skills": []
+}
