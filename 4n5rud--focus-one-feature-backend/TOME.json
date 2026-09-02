@@ -1,0 +1,44 @@
+{
+  "name": "focus-one-feature-backend",
+  "owner": "4n5rud",
+  "repo": "focus-one-feature-backend",
+  "description": "\uae30\ub2a5 \ub2e8\uc704 \uc2b9\uc778 \uac8c\uc774\ud2b8 \uc6cc\ud06c\ud50c\ub85c\uc6b0 \ud558\ub124\uc2a4 (\ubc31\uc5d4\ub4dc \uc804\uc6a9, core/adapter \uad6c\uc870)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/4n5rud/focus-one-feature-backend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-02T07:31:12Z"
+}
