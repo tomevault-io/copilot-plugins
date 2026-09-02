@@ -1,0 +1,9 @@
+{
+  "name": "m-sanchez--clawdeck",
+  "displayName": "clawdeck",
+  "description": "Watch Claude Code work: a zero-dependency local dashboard for sessions, events, cost, worktrees, and reviews - one loopback server, no build step.",
+  "version": "1.0.0",
+  "author": "m-sanchez",
+  "homepage": "https://github.com/m-sanchez/clawdeck",
+  "skills": []
+}
