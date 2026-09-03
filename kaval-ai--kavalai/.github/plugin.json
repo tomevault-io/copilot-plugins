@@ -1,0 +1,9 @@
+{
+  "name": "kaval-ai--kavalai",
+  "displayName": "kavalai",
+  "description": "Kaval.AI is an opinionated Python library for building well-defined, testable and robust agentic workflows, chatbots and tools.",
+  "version": "1.0.0",
+  "author": "Kaval-AI",
+  "homepage": "https://github.com/Kaval-AI/kavalai",
+  "skills": []
+}
