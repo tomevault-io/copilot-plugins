@@ -7,11 +7,11 @@ Gradients to ChatGPT: An LLM Stack from First Principles
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Mister-Meeseeks/g2c](https://github.com/Mister-Meeseeks/g2c).
+Original source: `CLAUDE.md` in [Mister-Meeseeks/g2c](https://github.com/Mister-Meeseeks/g2c).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
