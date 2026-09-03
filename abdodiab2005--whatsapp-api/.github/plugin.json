@@ -1,0 +1,9 @@
+{
+  "name": "abdodiab2005--whatsapp-api",
+  "displayName": "whatsapp-api",
+  "description": "Free, self-hosted WhatsApp REST API for Node.js, powered by Baileys. Send text, image, video and voice-note messages to WhatsApp Channels and private chats. Live ADMIN/OWNER authorization, idempotent ",
+  "version": "1.0.0",
+  "author": "Abdodiab2005",
+  "homepage": "https://github.com/Abdodiab2005/whatsapp-api",
+  "skills": []
+}
