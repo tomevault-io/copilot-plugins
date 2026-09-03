@@ -1,0 +1,9 @@
+{
+  "name": "lokis-lab--gstack-test",
+  "displayName": "gstack-test",
+  "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+  "version": "1.0.0",
+  "author": "Lokis-Lab",
+  "homepage": "https://github.com/Lokis-Lab/gstack-test",
+  "skills": []
+}
