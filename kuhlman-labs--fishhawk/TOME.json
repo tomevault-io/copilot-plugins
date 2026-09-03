@@ -4,7 +4,7 @@
   "repo": "fishhawk",
   "description": "A governed, auditable workflow engine for an agent-driven software factory.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kuhlman-labs/fishhawk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T14:31:15Z"
+  "distributed_at": "2026-09-03T14:36:17Z"
 }
