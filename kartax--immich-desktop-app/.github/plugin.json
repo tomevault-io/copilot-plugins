@@ -1,0 +1,9 @@
+{
+  "name": "kartax--immich-desktop-app",
+  "displayName": "immich-desktop-app",
+  "description": "Immich Desktop Application for Mac OS",
+  "version": "1.0.0",
+  "author": "Kartax",
+  "homepage": "https://github.com/Kartax/immich-desktop-app",
+  "skills": []
+}
