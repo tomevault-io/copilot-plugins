@@ -7,11 +7,11 @@ Universal Memory Service implementing MCP for AI assistants - supports Claude Co
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [alphaplapplap/mcp-memory-service](https://github.com/alphaplapplap/mcp-memory-service).
+Original source: `AGENTS.md` in [alphaplapplap/mcp-memory-service](https://github.com/alphaplapplap/mcp-memory-service).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
