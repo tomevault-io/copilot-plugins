@@ -4,7 +4,7 @@
   "repo": "SpatialData.js",
   "description": "A library for interfacing with SpatialData stores in TS/JS",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Taylor-CCB-Group/SpatialData.js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T20:32:55Z"
+  "distributed_at": "2026-09-03T20:37:10Z"
 }
