@@ -1,0 +1,9 @@
+{
+  "name": "cambridgetcg--open-press",
+  "displayName": "open-press",
+  "description": "open-press \u2014 the newspaper framework. The lens reads a sentence; the press reads the world. Evidence-tiered, signed editions anyone can generate. Sibling of open-lens/captioneer.",
+  "version": "1.0.0",
+  "author": "cambridgetcg",
+  "homepage": "https://github.com/cambridgetcg/open-press",
+  "skills": []
+}
