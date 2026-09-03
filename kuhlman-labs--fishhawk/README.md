@@ -7,11 +7,11 @@ A governed, auditable workflow engine for an agent-driven software factory.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kuhlman-labs/fishhawk](https://github.com/kuhlman-labs/fishhawk).
+Original source: `AGENTS.md` in [kuhlman-labs/fishhawk](https://github.com/kuhlman-labs/fishhawk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
