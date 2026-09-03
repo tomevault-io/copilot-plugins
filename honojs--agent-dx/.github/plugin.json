@@ -1,0 +1,9 @@
+{
+  "name": "honojs--agent-dx",
+  "displayName": "agent-dx",
+  "description": "Measure and improve the developer experience of coding agents using Hono",
+  "version": "1.0.0",
+  "author": "honojs",
+  "homepage": "https://github.com/honojs/agent-dx",
+  "skills": []
+}
