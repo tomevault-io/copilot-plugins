@@ -1,0 +1,9 @@
+{
+  "name": "maphew--uvs",
+  "displayName": "uvs",
+  "description": "uvs transforms single-file self-contained PEP723-style Python scripts into installable packages using `uv tool install`, making them available as command-line tools.",
+  "version": "1.0.0",
+  "author": "maphew",
+  "homepage": "https://github.com/maphew/uvs",
+  "skills": []
+}
