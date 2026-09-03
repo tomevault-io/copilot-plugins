@@ -1,0 +1,9 @@
+{
+  "name": "lafiya-xyz--lafiya-web",
+  "displayName": "Lafiya-web",
+  "description": "Patient + responder web app (Next.js). Public emergency page, authed profile editor, QR generation.",
+  "version": "1.0.0",
+  "author": "Lafiya-xyz",
+  "homepage": "https://github.com/Lafiya-xyz/Lafiya-web",
+  "skills": []
+}
