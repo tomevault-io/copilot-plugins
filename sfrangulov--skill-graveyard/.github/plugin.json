@@ -1,0 +1,14 @@
+{
+  "name": "sfrangulov--skill-graveyard",
+  "displayName": "skill-graveyard",
+  "description": "Audit which Claude Code skills you actually use \u2014 surface dead installs and hallucinated invocations from your session logs.",
+  "version": "1.0.0",
+  "author": "sfrangulov",
+  "homepage": "https://github.com/sfrangulov/skill-graveyard",
+  "skills": [
+    {
+      "name": "mcp-graveyard",
+      "description": ""
+    }
+  ]
+}
