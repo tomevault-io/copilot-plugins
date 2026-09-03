@@ -1,0 +1,9 @@
+{
+  "name": "motif-labs--motif",
+  "displayName": "motif",
+  "description": "Working memory for AI coding agents, yours and your team's. Sessions from Claude Code, Codex and Cursor become one living graph of decisions, files and the ties between them, queryable by your agents ",
+  "version": "1.0.0",
+  "author": "motif-Labs",
+  "homepage": "https://github.com/motif-Labs/motif",
+  "skills": []
+}
