@@ -1,0 +1,9 @@
+{
+  "name": "lynnswap--webinspectorkit",
+  "displayName": "WebInspectorKit",
+  "description": "Web Inspector for WKWebView on iOS",
+  "version": "1.0.0",
+  "author": "lynnswap",
+  "homepage": "https://github.com/lynnswap/WebInspectorKit",
+  "skills": []
+}
