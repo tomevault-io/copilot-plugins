@@ -1,120 +1,27 @@
-## cursor-rules
+## definition-of-done
 
-> Guidelines for creating and maintaining Cursor rules (.mdc files) to ensure consistency, effectiveness, and adherence to the Single Source of Truth (SSoT) in the docs/ folder.
+> Technical enforcer for the project's Definition of Done (DoD). This rule ensures that the standards defined in the official documentation are followed before any task is completed.
 
 
-# Cursor Rules Management & SSoT Enforcement
+# Definition of Done (DoD) Enforcer
 
-## Single Source of Truth (SSoT)
-The **official documentation** located in the `docs/src/content/docs/` folder is the absolute **Single Source of Truth** for this project. This includes coding standards, architecture, workflows, and the Definition of Done (DoD).
+**Single Source of Truth:** All changes must comply with the Definition of Done (DoD) defined in [Development Standards (standards.mdx)](mdc:docs/src/content/docs/guides/contributing/standards.mdx).
 
-## Mandatory Pre-Work: Documentation Review
+## Required Action
+Before declaring any task as "finished" or "done", you MUST:
 
-**Before starting any task, you MUST:**
+1.  **Read the DoD Section**: Open and review the "Definition of Done" section in `docs/src/content/docs/guides/contributing/standards.mdx`.
+2.  **Verify Every Point**: Go through each requirement (Functional, Quality, Documentation, Compliance) as defined there.
+3.  **Rust formatting (engine/)**: If any file under `engine/` changed, run `cargo fmt --all -- --check` with working directory `engine/` (same command as CI). Fix with `cargo fmt --all` in `engine/` if needed.
+4.  **Documentation Sync Check**: If the Rust API was touched, ensure `npm run build` was executed in the `docs/` directory.
 
-1. **Familiarize yourself with relevant documentation**: Search and read the official documentation in `docs/src/content/docs/` to understand existing patterns, standards, and decisions.
-2. **Check for existing documentation**: Before creating any new documentation file, verify if the topic is already covered in `docs/src/content/docs/`.
-3. **Respect the SSoT**: Never create documentation files outside `docs/src/content/docs/` except for:
-   - `README.md` files (project root, module directories)
-   - `SECURITY.md` (root only - required by GitHub, must link to official docs)
-   - Other GitHub-integrated files (e.g., `CONTRIBUTING.md` in root - must link to official docs)
-
-**If you find yourself about to create documentation outside `docs/src/`, STOP and:**
-- Check if it should be in `docs/src/content/docs/` instead
-- If it must exist outside (e.g., GitHub integration), make it a minimal pointer that links to the official documentation
-
-## Principles for Rule Creation
-To prevent redundancy and maintain consistency, follow these principles when creating or updating `.mdc` files:
-
-1.  **NO REDUNDANCY**: Never duplicate information that is already defined in `docs/src/content/docs/`. 
-2.  **REFER NOT DEFINE**: Cursor rules should act as "technical enforcers" or "pointers" to the documentation. Instead of listing rules, provide links to the relevant `.mdx` files in `docs/src/content/docs/`.
-3.  **CHECK FIRST**: Before creating a new `.mdc` file or any documentation, search the `docs/src/content/docs/` folder to see if the topic is already covered. If it is, the rule should simply enforce those existing standards.
-4.  **REDUCE & CONSOLIDATE**: Prefer fewer, high-quality rules that point to comprehensive documentation over many small, fragmented rules.
-5.  **CROSS-REFERENCE**: Always include a `References` section at the end of a rule pointing to the SSoT in `docs/`.
-
-## SSoT Conflict Resolution
-
-**When TaskMaster/PRD content conflicts with `docs/`, always follow `docs/`:**
-
-- TaskMaster tasks and PRDs may contain **outdated information** (e.g., old licensing details, folder structures)
-- The `docs/src/content/docs/` folder is **always authoritative**
-- If a task description mentions specifics (licenses, paths, patterns) that conflict with docs: **ignore the task description, follow docs**
-
-**Priority order:**
-1. `docs/src/content/docs/` (SSoT - highest authority)
-2. Cursor rules (`.cursor/rules/`) 
-3. TaskMaster/PRD (planning context only, may be stale)
-
----
-
-## Required Rule Structure
-Every `.mdc` file must follow this structure:
-
-```markdown
----
-description: Clear, one-line description of what the rule enforces
-globs: path/to/files/*.ext, other/path/**/*
-alwaysApply: boolean
----
-
-# Title of the Rule
-
-- **Main Points in Bold**
-  - Sub-points with details
-  - Examples and explanations
-```
-
-## Best Practices
-- **File References**: Use `[filename](mdc:path/to/file)` to reference files.
-- **Code Examples**: Use language-specific code blocks showing both ✅ DO and ❌ DON'T examples.
-- **Formatting**: Use bullet points for clarity and keep descriptions concise.
-- **Consistency**: Maintain consistent formatting and tone across all rules.
-
-## Rule Improvement Triggers
-- **New Code Pattern**: If a new technology/pattern is used in 3+ files.
-- **Repeated Feedback**: If code reviews or AI interactions repeatedly mention the same feedback.
-- **Common Bugs**: If a bug pattern could have been prevented by a rule.
-- **SSoT Updates**: Update rules immediately if the corresponding documentation in `docs/` changes.
-
-## Analysis Process
-- Compare new code with existing rules and documentation.
-- Identify patterns that should be standardized.
-- Monitor test patterns and error handling for consistency.
-
-## Content Specific Rules
-- **Starlight MDX Headers**: NEVER include a top-level `# ` header in Starlight MDX files. Starlight automatically renders the `title` from the frontmatter as the main `h1`. Use `## ` for the first section.
-- **Starlight Code Blocks**: ALWAYS use `frame="none"` for bash/terminal code blocks in Starlight MDX to avoid the "weird dots" (macOS-style window controls) in the terminal frame header, unless a specific `title` is required.
-- **Rust Doc Comments**: When writing documentation comments (`///` or `//!`) in Rust files that will be exported to Starlight, ensure terminal blocks use `bash frame="none"` where possible. Note: The `rustdoc-gen.mjs` script attempts to fix this automatically, but maintaining the standard in source is preferred.
-- **Diagrams**: Use **Mermaid** for technical diagrams in MDX files (versionable, AI-friendly). Use **Excalidraw** for high-level architecture overviews. See [Diagram Guidelines](mdc:docs/src/content/docs/guides/contributing/documentation.mdx#diagram-guidelines) for details.
-- **Glossary links**: When editing documentation, link to the [Glossary](mdc:docs/src/content/docs/glossary.mdx) for any term that has an entry (e.g. IPC, gRPC, HITL, UDS, API). Do not redefine terms; use `[Term](/glossary/#first-letter)`. See [Documentation Guide – Link to the Glossary](mdc:docs/src/content/docs/guides/contributing/documentation.mdx).
-- **Punctuation in docs**: Do **not** use em dashes (—) in any documentation. Use a colon for "label then explanation" (e.g. "Option B: Workspace", "**Term**: definition") and commas or parentheses for asides. See [Documentation Guide – Punctuation](mdc:docs/src/content/docs/guides/contributing/documentation.mdx).
-- **Rust code**: When writing or reviewing Rust code in `engine/`, follow [Rust Style and Best Practices](mdc:docs/src/content/docs/guides/contributing/rust-style.mdx): stack preference where maintainable, generics vs `Box<dyn Trait>`, and project formatting (rustfmt, clippy). Do not duplicate the guide here; refer to it.
-
-## Architecture Documentation Workflow
-
-**Separation of Concerns:**
-- **ADRs** (`docs/src/content/docs/architecture/adr/`): Document **decisions** (WHY). Include high-level architecture diagrams as part of the decision context. Do NOT include detailed module implementation details.
-- **Architecture Overview** (`docs/src/content/docs/architecture/index.mdx`): Document **current state** (WHAT). Embed the same Excalidraw diagram used in the latest ADR. Link to ADRs for decision context.
-- **Module Documentation** (`docs/src/content/docs/architecture/modules/`): Document **implementation details** (HOW). Link to Architecture Overview for context, not ADRs.
-
-**Diagram Management:**
-- **Single Source**: Architecture diagrams (`.excalidraw` files) are stored in `docs/public/images/Architecture/` with descriptive names (e.g., `system-architecture.excalidraw`, not ADR-numbered names).
-- **Multiple Embeddings**: The same diagram file can be embedded in multiple places (ADR and Architecture Overview). This is NOT duplication - it's the same source file.
-- **Minor updates**: When architecture changes only slightly (tweaks, labels, layout), update the existing `.excalidraw` file once. All pages embedding it will show the updated version automatically.
-- **Significant changes**: When architecture changes significantly, do **not** overwrite the existing diagram. If you do, past ADRs (e.g. ADR-004) would no longer show the previous version. Instead: (1) create a **new** Excalidraw file (e.g. `system-architecture-v2.excalidraw` or a date-based name), (2) create a **new** Architecture ADR that embeds this new file, and (3) point the Architecture Overview to the new file. Past ADRs keep embedding the old file so they continue to show the architecture as it was at decision time.
-
-**Workflow for Architecture Changes:**
-- **Minor change:** Create new ADR (if needed) → update the existing `.excalidraw` → Architecture Overview stays correct → update module docs if needed.
-- **Significant change:** Create a new `.excalidraw` file (preserve history) → create new Architecture ADR that embeds it → point Architecture Overview to the new diagram → update module docs if needed.
-
-**Key Principle**: ADRs are append-only decision logs. Each ADR should show the architecture **as it was at decision time**; avoid overwriting shared diagrams when the change is significant. Architecture Overview always reflects the current state by embedding the latest diagram.
+## Final Statement Requirement
+In your final response to the user, you MUST explicitly state:
+> "I have verified this task against the official **Definition of Done** in `standards.mdx`. Specifically, I checked: [List 2-3 key points relevant to this specific task, e.g., 'API Sync' or 'CLA Signed']."
 
 ---
 **References:**
-- Definition of Done Enforcer: [definition-of-done.mdc](mdc:.cursor/rules/definition-of-done.mdc)
-- Project Standards: [standards.mdx](mdc:docs/src/content/docs/guides/contributing/standards.mdx)
 - Documentation Strategy: [docs-maintenance.mdc](mdc:.cursor/rules/docs-maintenance.mdc)
-- Documentation Guide: [documentation.mdx](mdc:docs/src/content/docs/guides/contributing/documentation.mdx)
 
 ---
 > Source: [aurintex/pai-os](https://github.com/aurintex/pai-os) — distributed by [TomeVault](https://tomevault.io).
