@@ -1,0 +1,9 @@
+{
+  "name": "gizmodata--dbt-gizmosql",
+  "displayName": "dbt-gizmosql",
+  "description": "A dbt adapter for GizmoSQL - with the DuckDB engine",
+  "version": "1.0.0",
+  "author": "gizmodata",
+  "homepage": "https://github.com/gizmodata/dbt-gizmosql",
+  "skills": []
+}
