@@ -1,0 +1,9 @@
+{
+  "name": "jvogan--yt-agent",
+  "displayName": "yt-agent",
+  "description": "AI Agent Tool For Terminal-first YouTube search, download, catalog, and clip tooling built on yt-dlp.",
+  "version": "1.0.0",
+  "author": "jvogan",
+  "homepage": "https://github.com/jvogan/yt-agent",
+  "skills": []
+}
