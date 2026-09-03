@@ -1,0 +1,44 @@
+{
+  "name": "xiaomi_pc_manager_lite",
+  "owner": "CHHHHHHEN",
+  "repo": "xiaomi_pc_manager_lite",
+  "description": "Xiaomi PC Manager Lite \u662f\u4e00\u4e2a\u4e3a\u5c0f\u7c73\u7b14\u8bb0\u672c\u7535\u8111\u8bbe\u8ba1\u7684\u8f7b\u91cf\u7ea7 Windows \u5de5\u5177\uff0c\u652f\u6301\u7535\u6c60\u517b\u62a4\u5145\u7535\u3001\u6027\u80fd\u6a21\u5f0f\u5207\u6362\u3001\u5168\u5c40\u5feb\u6377\u952e\u3001\u6258\u76d8\u64cd\u4f5c\u53ca\u81ea\u542f\u52a8\u7b49\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CHHHHHHEN/xiaomi_pc_manager_lite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-03T00:30:22Z"
+}
