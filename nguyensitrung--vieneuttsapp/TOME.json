@@ -4,7 +4,7 @@
   "repo": "VieNeuTTSApp",
   "description": "Cross-platform, fully-offline Vietnamese/English text-to-speech desktop workstation powered by VieNeu-TTS v3 Turbo (ONNX/CUDA, Voice Cloning, EPUB Audiobooks, PySide6/QML)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NguyenSiTrung/VieNeuTTSApp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T09:30:23Z"
+  "distributed_at": "2026-09-03T09:31:18Z"
 }
