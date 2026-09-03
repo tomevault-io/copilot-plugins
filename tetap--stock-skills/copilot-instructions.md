@@ -1,16 +1,29 @@
-## skills-docs
+## stock-orchestration
 
-> agent-skills 与命令文档编辑约定
+> A 股 stock-skills 命令路由与报告门禁（必读 AGENTS.md）
 
 
-# Skills 文档
+# Stock Skills 编排
 
-- **源码**在 `agent-skills/`、`agent-commands/`、`agent-slash-skills/`（非 `.cursor/skills` 链接目录）
-- 路由/审核变更：同步 `AGENTS.md`、`stock-main/review-protocol.md`、相关 slash/command
-- 个股报告 **7 节**（§7 审核纪要）；单维命令不写 review-protocol
-- 工具次数：个股 ≥20，板块 ≥12；与 `get_review_protocol` 一致
+完整架构见 [AGENTS.md](AGENTS.md)。
 
-安装到本机：`bash scripts/install.sh --target cursor --scope user`
+## 路由
+
+- **个股全量 / 能不能买** → `/stock 分析` → B 流程，`get_review_protocol(flow=B)`，工具 ≥20，终稿含 **§7 审核纪要**
+- **板块+推荐** → sector-report，flow=C
+- **市场热点** → `/stock-market`，flow=D
+- **单维**（`/stock-fund` 等）→ 只拉该维度，**不走** review-protocol
+
+用户要从单维转全量 → 引导 `/stock 分析`，勿在单维里给完整买卖计划。
+
+## 数据
+
+- 先 `resolve_symbol`；33 工具见 `python scripts/em.py list`
+- `quant_verdict` / Alpha158/360 为研究辅助，看 `oos_status.oos_passed`
+
+## 禁止
+
+必涨必买、投资顾问流派、无工具来源的数字、跳过审核直接交终稿。
 
 ---
 > Source: [tetap/stock-skills](https://github.com/tetap/stock-skills) — distributed by [TomeVault](https://tomevault.io).
