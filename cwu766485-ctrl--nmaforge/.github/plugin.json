@@ -1,0 +1,9 @@
+{
+  "name": "cwu766485-ctrl--nmaforge",
+  "displayName": "NMAForge",
+  "description": "A synthesizable AXI4 near-memory tensor accelerator with a banked scratchpad, queued DMA and INT8/Transformer primitives.",
+  "version": "1.0.0",
+  "author": "cwu766485-ctrl",
+  "homepage": "https://github.com/cwu766485-ctrl/NMAForge",
+  "skills": []
+}
