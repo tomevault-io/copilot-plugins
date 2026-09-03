@@ -1,0 +1,9 @@
+{
+  "name": "lightningboltemoji--aymond",
+  "displayName": "aymond",
+  "description": "A batteries-included client wrapper for DynamoDB (Rust)",
+  "version": "1.0.0",
+  "author": "lightningboltemoji",
+  "homepage": "https://github.com/lightningboltemoji/aymond",
+  "skills": []
+}
