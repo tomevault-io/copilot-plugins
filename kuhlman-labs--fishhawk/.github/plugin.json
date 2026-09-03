@@ -1,0 +1,9 @@
+{
+  "name": "kuhlman-labs--fishhawk",
+  "displayName": "fishhawk",
+  "description": "A governed, auditable workflow engine for an agent-driven software factory.",
+  "version": "1.0.0",
+  "author": "kuhlman-labs",
+  "homepage": "https://github.com/kuhlman-labs/fishhawk",
+  "skills": []
+}
