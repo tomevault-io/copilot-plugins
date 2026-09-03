@@ -1,0 +1,9 @@
+{
+  "name": "algebraicjulia--cellularsheaves-jl",
+  "displayName": "CellularSheaves.jl",
+  "description": "A library for working with cellular sheaves and sheaf Laplacians.",
+  "version": "1.0.0",
+  "author": "AlgebraicJulia",
+  "homepage": "https://github.com/AlgebraicJulia/CellularSheaves.jl",
+  "skills": []
+}
