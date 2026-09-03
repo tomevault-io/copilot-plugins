@@ -1,0 +1,9 @@
+{
+  "name": "larsbrubaker--box3d-rust",
+  "displayName": "box3d-rust",
+  "description": "Pure Rust port of the Box3D 3D physics engine",
+  "version": "1.0.0",
+  "author": "larsbrubaker",
+  "homepage": "https://github.com/larsbrubaker/box3d-rust",
+  "skills": []
+}
