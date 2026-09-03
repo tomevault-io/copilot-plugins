@@ -1,0 +1,9 @@
+{
+  "name": "ayutaz--modern-bert-g2p",
+  "displayName": "modern-bert-g2p",
+  "description": "ModernBERT-Ja pure-NN Japanese G2P research project \u2014 no dict lookup in inference. Phase 0-2 baseline reproduction and 2-arch pilot (seq2seq / char-BERT) results.",
+  "version": "1.0.0",
+  "author": "ayutaz",
+  "homepage": "https://github.com/ayutaz/modern-bert-g2p",
+  "skills": []
+}
