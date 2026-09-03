@@ -1,0 +1,9 @@
+{
+  "name": "whitecircle--halo",
+  "displayName": "halo",
+  "description": "Halo is an open-source framework built by White Circle for training large language and multimodal models",
+  "version": "1.0.0",
+  "author": "whitecircle",
+  "homepage": "https://github.com/whitecircle/halo",
+  "skills": []
+}
