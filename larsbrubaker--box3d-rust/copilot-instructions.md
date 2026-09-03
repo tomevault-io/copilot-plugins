@@ -1,0 +1,28 @@
+## use-grok-4-5
+
+> Always use Grok 4.5 for every agent in this project
+
+
+# Model: Grok 4.5 Only
+
+Always use **Grok 4.5** for every agent in this project. Do not switch to other models.
+
+## Subagents / Task tool
+
+When launching any subagent via the Task tool, always pass:
+
+```
+model: cursor-grok-4.5-high-fast
+```
+
+This applies to all `subagent_type` values (explore, shell, code-reviewer, rust-expert, fix-test-failures, test-writer, generalPurpose, etc.).
+
+## Do not
+
+- Do not use Claude, GPT, Composer, or any other model family
+- Do not omit the `model` parameter on Task/subagent launches
+- Do not accept a different model unless the user explicitly overrides this rule for that one request
+
+---
+> Source: [larsbrubaker/box3d-rust](https://github.com/larsbrubaker/box3d-rust) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-02 -->
