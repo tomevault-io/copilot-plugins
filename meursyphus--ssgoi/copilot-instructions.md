@@ -1,23 +1,17 @@
 ## ssgoi
 
-> Every package under `packages/*` is versioned in lockstep by
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# SSGOI
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Releasing
+# This is NOT the Next.js you know
 
-Every package under `packages/*` is versioned in lockstep by
-`scripts/bump-version.mjs`; `pnpm release` builds and publishes them together.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-**A version bump is not finished until `apps/docs/public/llms.txt` says the new
-version.** Update the `Current version:` line near the top of that file in the
-same change as the bump.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-That file is not a generated artifact — it is the URL the docs quick start
-hands to coding agents as the whole setup guide. A stale version there is the
-version that gets installed, in every project that asks an agent to add SSGOI,
-until someone notices by hand.
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [meursyphus/ssgoi](https://github.com/meursyphus/ssgoi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-03 -->
