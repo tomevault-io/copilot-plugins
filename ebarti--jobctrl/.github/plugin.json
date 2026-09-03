@@ -1,0 +1,9 @@
+{
+  "name": "ebarti--jobctrl",
+  "displayName": "JobCtrl",
+  "description": "Open-source, local-first job search app for private discovery, evidence-backed fit scoring, truthful resume tailoring, durable workflows, and approval-gated applications.",
+  "version": "1.0.0",
+  "author": "ebarti",
+  "homepage": "https://github.com/ebarti/JobCtrl",
+  "skills": []
+}
