@@ -1,0 +1,9 @@
+{
+  "name": "torkbot--code-mode",
+  "displayName": "code-mode",
+  "description": "A runtime-agnostic code-mode library for executing typed agent-authored code against host-provided tools over a bidirectional channel.",
+  "version": "1.0.0",
+  "author": "torkbot",
+  "homepage": "https://github.com/torkbot/code-mode",
+  "skills": []
+}
