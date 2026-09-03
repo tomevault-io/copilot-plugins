@@ -1,0 +1,9 @@
+{
+  "name": "danieleteti--mcp-firebird",
+  "displayName": "mcp-firebird",
+  "description": "A Model Context Protocol server for Firebird 2.5 \u2013 5.0, written in Delphi with the official `fbclient` driver. It lets an AI assistant document schemas, analyze query plans, advise on indexes (which t",
+  "version": "1.0.0",
+  "author": "danieleteti",
+  "homepage": "https://github.com/danieleteti/mcp-firebird",
+  "skills": []
+}
