@@ -7,11 +7,11 @@ Cross-platform, fully-offline Vietnamese/English text-to-speech desktop workstat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NguyenSiTrung/VieNeuTTSApp](https://github.com/NguyenSiTrung/VieNeuTTSApp).
+Original source: `CLAUDE.md` in [NguyenSiTrung/VieNeuTTSApp](https://github.com/NguyenSiTrung/VieNeuTTSApp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
