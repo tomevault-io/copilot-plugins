@@ -1,0 +1,44 @@
+{
+  "name": "whatsapp-api",
+  "owner": "Abdodiab2005",
+  "repo": "whatsapp-api",
+  "description": "Free, self-hosted WhatsApp REST API for Node.js, powered by Baileys. Send text, image, video and voice-note messages to WhatsApp Channels and private chats. Live ADMIN/OWNER authorization, idempotent sends, rate limits, media thumbnails, Docker and systemd deployment. MIT.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Abdodiab2005/whatsapp-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-03T22:41:22Z"
+}
