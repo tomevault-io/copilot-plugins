@@ -1,0 +1,9 @@
+{
+  "name": "plannotator--artifact-server",
+  "displayName": "artifact-server",
+  "description": "The self-hosted, open-source alternative to Claude Code artifacts.",
+  "version": "1.0.0",
+  "author": "plannotator",
+  "homepage": "https://github.com/plannotator/artifact-server",
+  "skills": []
+}
