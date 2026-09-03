@@ -4,7 +4,7 @@
   "repo": "grim-tome",
   "description": "Grimoire's Tome & The Grim Council. A Prompt Spellbook of /skills. The #1 Coding Wizard \ud83e\uddd9\u200d\u2642\ufe0f\ud83d\udcd6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MindGoblinStudios/grim-tome",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T19:30:25Z"
+  "distributed_at": "2026-09-03T19:31:16Z"
 }
