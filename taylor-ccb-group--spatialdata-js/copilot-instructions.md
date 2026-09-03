@@ -1,0 +1,16 @@
+## typescript
+
+> TypeScript style — meaningful types, inference, minimal assertions
+
+
+# TypeScript conventions
+
+- Prefer types that match runtime behavior (e.g. union or `unknown` + narrowers when data shape varies). Avoid branches that can never run under the declared types unless the types are wrong.
+- Prefer inference; add explicit annotations at API boundaries or when inference is too wide (`number[]` vs `[number, number, number]`).
+- Avoid type assertions (`as`); use `satisfies`, `as const`, discriminated unions, and small helpers that return precise types. Reach for assertions only when narrowing is impossible and document why.
+- When schema (e.g. Zod) and runtime disagree, fix the schema or normalize at a single boundary instead of scattering `as any` / redundant checks.
+- Prefer a **strict** schema aligned with specs (e.g. NGFF) over parsing “whatever might show up.” If leniency is needed later, **widen the schema and the single parser in the same change**, and document that pairing in code (see `omeroSchema` + `tryParseOmeroHexColor`).
+
+---
+> Source: [Taylor-CCB-Group/SpatialData.js](https://github.com/Taylor-CCB-Group/SpatialData.js) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-03 -->
