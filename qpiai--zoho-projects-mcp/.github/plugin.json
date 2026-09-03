@@ -1,0 +1,9 @@
+{
+  "name": "qpiai--zoho-projects-mcp",
+  "displayName": "zoho-projects-mcp",
+  "description": "This is an mcp server for Zoho projects",
+  "version": "1.0.0",
+  "author": "qpiai",
+  "homepage": "https://github.com/qpiai/zoho-projects-mcp",
+  "skills": []
+}
