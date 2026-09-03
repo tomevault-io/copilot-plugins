@@ -4,7 +4,7 @@
   "repo": "tarocub",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloveric/tarocub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T05:30:21Z"
+  "distributed_at": "2026-09-03T05:36:43Z"
 }
