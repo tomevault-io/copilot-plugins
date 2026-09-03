@@ -1,0 +1,9 @@
+{
+  "name": "metacore-stack--sandscope",
+  "displayName": "SandScope",
+  "description": "Computer-vision pipeline that turns inspection photographs of failed oilfield sand-control screens into a structured failure record: defect detection and segmentation, rule-based classification, erosi",
+  "version": "1.0.0",
+  "author": "metacore-stack",
+  "homepage": "https://github.com/metacore-stack/SandScope",
+  "skills": []
+}
