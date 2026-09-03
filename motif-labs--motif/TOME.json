@@ -1,0 +1,44 @@
+{
+  "name": "motif",
+  "owner": "motif-Labs",
+  "repo": "motif",
+  "description": "Working memory for AI coding agents, yours and your team's. Sessions from Claude Code, Codex and Cursor become one living graph of decisions, files and the ties between them, queryable by your agents over MCP. Motif flags contradictions for a human to rule on, then an agent opens PRs to keep code true to them. Self-hosted, no cloud.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/motif-Labs/motif",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-03T12:31:16Z"
+}
