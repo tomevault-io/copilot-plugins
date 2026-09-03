@@ -1,0 +1,9 @@
+{
+  "name": "thisisgm--flea",
+  "displayName": "flea",
+  "description": "A fast, keyboard-first file manager for Omarchy: Quickshell front end, Rust backend.",
+  "version": "1.0.0",
+  "author": "thisisgm",
+  "homepage": "https://github.com/thisisgm/flea",
+  "skills": []
+}
