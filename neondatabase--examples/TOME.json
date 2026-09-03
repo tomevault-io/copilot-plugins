@@ -97,9 +97,57 @@
       "path": "neon-getting-started/03-backup-and-restore/.agents/skills/neon-postgres/SKILL.md",
       "github_url": "https://github.com/neondatabase/examples/tree/main/neon-getting-started/03-backup-and-restore/.agents/skills/neon-postgres/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-trpc/.agents/skills/neon/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-graphql/.agents/skills/neon/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-trpc/.agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-trpc/.agents/skills/neon-functions/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-graphql/.agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-graphql/.agents/skills/neon-functions/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-trpc/.agents/skills/neon-postgres-branches/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon-postgres-branches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "with-graphql/.agents/skills/neon-postgres-branches/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon-postgres-branches/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/neondatabase/examples",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T12:53:15Z"
+  "distributed_at": "2026-09-03T05:30:21Z"
 }
