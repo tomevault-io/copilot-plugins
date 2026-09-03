@@ -7,11 +7,11 @@ A project for learning Isaac Lab and Sim examples
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vitorcen/isaaclab-experience](https://github.com/vitorcen/isaaclab-experience).
+Original source: `AGENTS.md` in [vitorcen/isaaclab-experience](https://github.com/vitorcen/isaaclab-experience).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
