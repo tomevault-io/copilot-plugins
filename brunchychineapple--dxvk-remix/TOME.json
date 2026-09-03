@@ -4,7 +4,7 @@
   "repo": "dxvk-remix",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BrunchyChineapple/dxvk-remix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T18:41:57Z"
+  "distributed_at": "2026-09-03T18:43:26Z"
 }
