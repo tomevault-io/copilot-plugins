@@ -4,7 +4,7 @@
   "repo": "daily-paper-reader",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/ziwenhahaha/daily-paper-reader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T04:34:19Z"
+  "distributed_at": "2026-09-03T04:33:05Z"
 }
