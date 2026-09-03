@@ -1,4 +1,4 @@
-## agent
+## muton
 
 > - `just check` - Fast syntax/type checking (prefer over full build)
 
