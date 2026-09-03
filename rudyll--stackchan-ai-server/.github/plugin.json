@@ -1,0 +1,9 @@
+{
+  "name": "rudyll--stackchan-ai-server",
+  "displayName": "stackchan-ai-server",
+  "description": "Self-hosted AI voice server for StackChan ESP32-S3 robots, supporting Home Assistant and standalone Docker with OpenAI Realtime, Gemini Live, and OpenAI-compatible providers.",
+  "version": "1.0.0",
+  "author": "rudyll",
+  "homepage": "https://github.com/rudyll/stackchan-ai-server",
+  "skills": []
+}
