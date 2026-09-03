@@ -4,7 +4,7 @@
   "repo": "obsidian-getnote-importer",
   "description": "\u53cc\u5411\u540c\u6b65Obsidian&\u5f97\u5230\u5927\u8111\uff08aka. \u5f97\u5230\u8111\u673a \ud83e\udde0\ud83d\udcda\uff09",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AndyZhengyan/obsidian-getnote-importer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T02:34:12Z"
+  "distributed_at": "2026-09-03T02:34:55Z"
 }
