@@ -1,0 +1,9 @@
+{
+  "name": "leonardovida--duckdb-ai",
+  "displayName": "duckdb-ai",
+  "description": "Enhance DuckDB with AI functions, supporting all providers as well as local models",
+  "version": "1.0.0",
+  "author": "leonardovida",
+  "homepage": "https://github.com/leonardovida/duckdb-ai",
+  "skills": []
+}
