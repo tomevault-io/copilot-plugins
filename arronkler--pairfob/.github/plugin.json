@@ -1,0 +1,9 @@
+{
+  "name": "arronkler--pairfob",
+  "displayName": "pairfob",
+  "description": "The phone surface for Herdr. Codex, Claude, and Grok keep running on your computer; the phone opens those same live sessions. Pair once. The computer dials out \u2014 no inbound ports, no Tailscale.",
+  "version": "1.0.0",
+  "author": "arronKler",
+  "homepage": "https://github.com/arronKler/pairfob",
+  "skills": []
+}
