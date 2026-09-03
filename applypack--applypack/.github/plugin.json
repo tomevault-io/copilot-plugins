@@ -1,0 +1,9 @@
+{
+  "name": "applypack--applypack",
+  "displayName": "applypack",
+  "description": "Self-hosted AI console for the whole job search: finds the postings, checks they're real, scores your resume without flattering it, drafts the cover letter, tracks the application. 22 sources, 5 swapp",
+  "version": "1.0.0",
+  "author": "applypack",
+  "homepage": "https://github.com/applypack/applypack",
+  "skills": []
+}
