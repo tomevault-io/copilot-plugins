@@ -4,7 +4,7 @@
   "repo": "WINGSV_DeX",
   "description": "VPN \u043a\u043b\u0438\u0435\u043d\u0442 WINGS V \u0434\u043b\u044f Linux/Windows \u0441 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u043e\u0439 Xray \u0438 VK TURN, \u0432\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u043c ByeDPI \u0438 \u0430\u0432\u0442\u043e\u043f\u043e\u0438\u0441\u043a\u043e\u043c \u043f\u0440\u043e\u0444\u0438\u043b\u0435\u0439",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WINGS-N/WINGSV_DeX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T01:01:02Z"
+  "distributed_at": "2026-09-03T01:04:45Z"
 }
