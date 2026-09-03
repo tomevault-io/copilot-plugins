@@ -4,7 +4,7 @@
   "repo": "komari-theme-ink",
   "description": "shadcn \u8bed\u8a00 + \u6df1\u84dd\u9ed1 + \u6781\u7b80\u9ad8\u7ea7 + \u53cc\u4e3b\u9898\uff08\u9ed1/\u767d\uff09 for komari",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jacob-bytes/komari-theme-ink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T09:32:02Z"
+  "distributed_at": "2026-09-03T09:32:54Z"
 }
