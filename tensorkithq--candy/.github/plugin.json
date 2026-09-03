@@ -1,0 +1,9 @@
+{
+  "name": "tensorkithq--candy",
+  "displayName": "candy",
+  "description": "A multi backend DSL to LLM to Code for any language . whatever the hell you want.",
+  "version": "1.0.0",
+  "author": "tensorkithq",
+  "homepage": "https://github.com/tensorkithq/candy",
+  "skills": []
+}
