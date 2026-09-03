@@ -1,0 +1,9 @@
+{
+  "name": "adv-andrew--mcmc-cuda-model",
+  "displayName": "mcmc-cuda-model",
+  "description": "stock analyzer using monte carlo + markov chain, ran by nvidia's cuda",
+  "version": "1.0.0",
+  "author": "adv-andrew",
+  "homepage": "https://github.com/adv-andrew/mcmc-cuda-model",
+  "skills": []
+}
