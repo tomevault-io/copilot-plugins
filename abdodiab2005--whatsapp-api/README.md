@@ -7,11 +7,11 @@ Free, self-hosted WhatsApp REST API for Node.js, powered by Baileys. Send text, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Abdodiab2005/whatsapp-api](https://github.com/Abdodiab2005/whatsapp-api).
+Original source: `AGENTS.md` in [Abdodiab2005/whatsapp-api](https://github.com/Abdodiab2005/whatsapp-api).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
