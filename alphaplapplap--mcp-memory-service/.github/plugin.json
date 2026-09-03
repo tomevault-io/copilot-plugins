@@ -1,0 +1,9 @@
+{
+  "name": "alphaplapplap--mcp-memory-service",
+  "displayName": "mcp-memory-service",
+  "description": "Universal Memory Service implementing MCP for AI assistants - supports Claude Code, Claude Desktop, VS Code with semantic memory, OAuth 2.1 team collaboration, and Natural Memory Triggers v7.1.0",
+  "version": "1.0.0",
+  "author": "alphaplapplap",
+  "homepage": "https://github.com/alphaplapplap/mcp-memory-service",
+  "skills": []
+}
