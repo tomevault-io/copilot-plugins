@@ -1,31 +1,17 @@
-## docs-maintenance
+## github-issues-branches
 
-> Technical enforcer for the documentation hybrid system. Ensures synchronization between Rust code, Protocol Buffer definitions, and the Starlight documentation site.
+> When creating GitHub issues or naming branches, follow the conventions defined in the Contribution Workflow.
 
 
-# Documentation Maintenance Enforcer
+# GitHub Issues and Branch Naming
 
-**Single Source of Truth:** The maintenance procedures for the hybrid documentation system are defined in [Documentation Maintenance (docs-maintenance.mdx)](mdc:docs/src/content/docs/guides/contributing/docs-maintenance.mdx).
-
-## Required Action
-When modifying Rust code in the `engine` crate, Protocol Buffer files, or changing the documentation scripts:
-
-1.  **Reference the Guide**: Review [docs-maintenance.mdx](mdc:docs/src/content/docs/guides/contributing/docs-maintenance.mdx) to understand the hybrid MDX/GitHub Pages approach.
-2.  **Regenerate Local Docs**: After API changes, run:
-    - `npm run gen:rustdoc` (Rust MDX for Starlight)
-    - `npm run gen:proto` (Protocol Buffer MDX)
-3.  **Standard rustdoc HTML**: Generated automatically via GitHub Actions (`.github/workflows/rustdoc.yml`) on push to `main` and deployed to GitHub Pages.
-4.  **Validate Build**: Run `npm run build` in the `docs/` directory to ensure all paths and redirects are correctly generated.
-
-## Prevention of Regressions
-- The `/reference/rustdoc/` routes redirect to `aurintex.github.io/pai-os/rustdoc/` (external GitHub Pages).
-- When modifying `.proto` files, ensure `proto-doc-gen.mjs` can parse them correctly. The script supports both `protoc-gen-doc` (if available) and a built-in parser as fallback.
+- **Before creating a GitHub issue** (via MCP, CLI, or when drafting content for the user): Use **Conventional Commits** format for the issue title. Read the "Conventional Commits (Issue and PR Titles)" and "Create a Branch" sections in the Workflow doc for the exact format, types (`feat`, `fix`, `docs`, etc.), and branch naming (including optional issue number).
+- **Do not duplicate** the convention here; the SSoT is the Workflow doc.
 
 ---
 **References:**
-- Maintenance Guide: [docs-maintenance.mdx](mdc:docs/src/content/docs/guides/contributing/docs-maintenance.mdx)
-- Rustdoc Workflow: [rustdoc.yml](mdc:.github/workflows/rustdoc.yml)
-- Definition of Done: [definition-of-done.mdc](mdc:.cursor/rules/definition-of-done.mdc)
+- [Contribution Workflow – Issue/PR titles and branch naming](mdc:docs/src/content/docs/guides/contributing/workflow.mdx)
+- [AGENTS.md](mdc:AGENTS.md) – Tool Usage Rules → GitHub issues
 
 ---
 > Source: [aurintex/pai-os](https://github.com/aurintex/pai-os) — distributed by [TomeVault](https://tomevault.io).
