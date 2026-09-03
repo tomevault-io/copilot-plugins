@@ -1,0 +1,9 @@
+{
+  "name": "akshaynikhare--firevisioniptvserver",
+  "displayName": "FireVisionIPTVServer",
+  "description": "A Node.js server for managing IPTV channel lists and Android app updates for FireVision IPTV https://github.com/akshaynikhare/FireVisionIPTV.",
+  "version": "1.0.0",
+  "author": "akshaynikhare",
+  "homepage": "https://github.com/akshaynikhare/FireVisionIPTVServer",
+  "skills": []
+}
