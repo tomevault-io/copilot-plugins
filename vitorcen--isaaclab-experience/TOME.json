@@ -4,7 +4,7 @@
   "repo": "isaaclab-experience",
   "description": "A project for learning Isaac Lab and Sim examples",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vitorcen/isaaclab-experience",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T08:32:49Z"
+  "distributed_at": "2026-09-03T08:36:40Z"
 }
