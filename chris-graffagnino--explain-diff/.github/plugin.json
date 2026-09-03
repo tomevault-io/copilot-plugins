@@ -1,0 +1,9 @@
+{
+  "name": "chris-graffagnino--explain-diff",
+  "displayName": "explain-diff",
+  "description": "Skill to explain code changes. Inspired by the skill by @geoffreylitt",
+  "version": "1.0.0",
+  "author": "Chris-Graffagnino",
+  "homepage": "https://github.com/Chris-Graffagnino/explain-diff",
+  "skills": []
+}
