@@ -7,11 +7,11 @@ Você não começa do zero — chega com impulso. Guarda as peças de site que v
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [harebeats/cannonball](https://github.com/harebeats/cannonball).
+Original source: `CLAUDE.md` in [harebeats/cannonball](https://github.com/harebeats/cannonball).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
