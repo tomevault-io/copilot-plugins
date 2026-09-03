@@ -1,0 +1,9 @@
+{
+  "name": "francyjglisboa--agent-skills-platform",
+  "displayName": "agent-skills-platform",
+  "description": "Build tested agent skills and govern their lifecycle through a user-defined marketplace: evidence, discovery, updates, rollback, quarantine, and 17-platform distribution.",
+  "version": "1.0.0",
+  "author": "FrancyJGLisboa",
+  "homepage": "https://github.com/FrancyJGLisboa/agent-skills-platform",
+  "skills": []
+}
