@@ -1,0 +1,9 @@
+{
+  "name": "terrytrent--kubernetes-the-hard-way-epub-builder",
+  "displayName": "kubernetes-the-hard-way-epub-builder",
+  "description": "Build a secure, reader-friendly EPUB from the current Kubernetes The Hard Way default branch",
+  "version": "1.0.0",
+  "author": "terrytrent",
+  "homepage": "https://github.com/terrytrent/kubernetes-the-hard-way-epub-builder",
+  "skills": []
+}
