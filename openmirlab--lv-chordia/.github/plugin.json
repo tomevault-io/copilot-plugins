@@ -1,0 +1,9 @@
+{
+  "name": "openmirlab--lv-chordia",
+  "displayName": "lv-chordia",
+  "description": "A high-quality chord recognition system capable of transcribing complex chord progressions from audio recordings using deep learning.",
+  "version": "1.0.0",
+  "author": "openmirlab",
+  "homepage": "https://github.com/openmirlab/lv-chordia",
+  "skills": []
+}
