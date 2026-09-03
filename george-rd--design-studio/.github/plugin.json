@@ -1,0 +1,9 @@
+{
+  "name": "george-rd--design-studio",
+  "displayName": "design-studio",
+  "description": "4-agent design-evaluate-iterate harness for Claude Code that defeats code-anchoring bias. Produces distinctive, production-grade frontends through separated evaluation and live Chrome MCP interaction.",
+  "version": "1.0.0",
+  "author": "George-RD",
+  "homepage": "https://github.com/George-RD/design-studio",
+  "skills": []
+}
