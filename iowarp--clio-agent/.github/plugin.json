@@ -1,0 +1,9 @@
+{
+  "name": "iowarp--clio-agent",
+  "displayName": "clio-agent",
+  "description": "A science agent supporting any general AI agent in performing data management operations at scale. Builds upon the heritage of the IOWarp platform and proudly represents work done at Gnosis Research C",
+  "version": "1.0.0",
+  "author": "iowarp",
+  "homepage": "https://github.com/iowarp/clio-agent",
+  "skills": []
+}
