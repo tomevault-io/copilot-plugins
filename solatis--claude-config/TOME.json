@@ -3,7 +3,7 @@
   "owner": "solatis",
   "repo": "claude-config",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,129 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "cc-history",
-      "path": "skills/cc-history",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/cc-history",
-      "description": ""
-    },
-    {
-      "name": "codebase-analysis",
-      "path": "skills/codebase-analysis",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/codebase-analysis",
-      "description": ""
-    },
-    {
-      "name": "decision-critic",
-      "path": "skills/decision-critic",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/decision-critic",
-      "description": ""
-    },
-    {
-      "name": "deepthink",
-      "path": "skills/deepthink",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/deepthink",
-      "description": ""
-    },
-    {
-      "name": "doc-sync",
-      "path": "skills/doc-sync",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/doc-sync",
-      "description": ""
-    },
-    {
-      "name": "incoherence",
-      "path": "skills/incoherence",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/incoherence",
-      "description": ""
-    },
-    {
-      "name": "problem-analysis",
-      "path": "skills/problem-analysis",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/problem-analysis",
-      "description": ""
-    },
-    {
-      "name": "prompt-engineer",
-      "path": "skills/prompt-engineer",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/prompt-engineer",
-      "description": ""
-    },
-    {
-      "name": "refactor",
-      "path": "skills/refactor",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/refactor",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/planner/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/planner/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/doc-sync/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/doc-sync/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/refactor/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/refactor/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/deepthink/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/deepthink/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/cc-history/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/cc-history/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/incoherence/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/incoherence/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/arxiv-to-md/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/arxiv-to-md/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/prompt-engineer/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/prompt-engineer/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/decision-critic/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/decision-critic/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/problem-analysis/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/problem-analysis/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "claude-config",
-      "path": "skills/codebase-analysis/SKILL.md",
-      "github_url": "https://github.com/solatis/claude-config/tree/main/skills/codebase-analysis/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/solatis/claude-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T17:34:24Z"
+  "distributed_at": "2026-09-03T10:31:07Z"
 }
