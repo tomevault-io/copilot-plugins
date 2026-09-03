@@ -1,41 +1,31 @@
-## doctstring-python
+## linting
 
-> docstring format to use in python
-
-
-While writing python code, always ensure to add correct formatted docstrings to classes and methods.
-
-An example format of a good docstring is below
+> Linters when success is confirmed
 
 
-"""Example Google style docstrings.
+When the conversation is about to end and task is a success, ask if linters should be run. If yes
+run the following linters and fix the linting issues
 
-This module demonstrates documentation as specified by the `Google Python
-Style Guide`_. Docstrings may extend over multiple lines. Sections are created
-with a section header and a colon followed by a block of indented text.
+```bash
+    black --check --line-length=88 sparse_attention_hub tests scripts
+```
 
-Example:
-    Examples can be given using either the ``Example`` or ``Examples``
-    sections. Sections support any reStructuredText formatting, including
-    literal blocks::
+```bash
+        isort \
+            --profile=black \
+            --line-length=88 \
+            --multi-line=3 \
+            -p sparse_attention_hub \
+            sparse_attention_hub tests scripts
+```
 
-        $ python example_google.py
-
-Section breaks are created by resuming unindented text. Section breaks
-are also implicitly created anytime a new section starts.
-
-Attributes:
-    module_level_variable1 (int): Module level variables may be documented in
-        either the ``Attributes`` section of the module docstring, or in an
-        inline docstring immediately following the variable.
-
-        Either form is acceptable, but the two should not be mixed. Choose
-        one convention to document module level variables and be consistent
-        with it.
-
-Todo:
-    * For module TODOs
-"""
+```bash
+    flake8 \
+        --max-line-length=88 \
+        --extend-ignore=E203,W503,E501 \
+        --exclude=build,dist,.git,__pycache__,.pytest_cache,.venv \
+        sparse_attention_hub tests scripts
+```
 
 ---
 > Source: [skylight-org/skylight-research](https://github.com/skylight-org/skylight-research) — distributed by [TomeVault](https://tomevault.io).
