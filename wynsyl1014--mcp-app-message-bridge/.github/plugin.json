@@ -1,0 +1,9 @@
+{
+  "name": "wynsyl1014--mcp-app-message-bridge",
+  "displayName": "mcp-app-message-bridge",
+  "description": "Reference architecture for bridging external messages into ChatGPT conversations through MCP App UI, with listener, wake, context injection, and reply-routing patterns.",
+  "version": "1.0.0",
+  "author": "wynsyl1014",
+  "homepage": "https://github.com/wynsyl1014/mcp-app-message-bridge",
+  "skills": []
+}
