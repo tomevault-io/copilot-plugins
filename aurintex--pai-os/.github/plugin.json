@@ -1,0 +1,9 @@
+{
+  "name": "aurintex--pai-os",
+  "displayName": "pai-os",
+  "description": "Open-source AI wearable companion. Local-first multimodal perception (VLM & Audio) on Edge NPU. Built with Rust & Flutter.",
+  "version": "1.0.0",
+  "author": "aurintex",
+  "homepage": "https://github.com/aurintex/pai-os",
+  "skills": []
+}
