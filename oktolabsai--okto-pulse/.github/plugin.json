@@ -1,0 +1,9 @@
+{
+  "name": "oktolabsai--okto-pulse",
+  "displayName": "okto-pulse",
+  "description": "Local-first, spec-driven SDLC workbench with governance gates, knowledge graphs, and MCP for AI coding agents.",
+  "version": "1.0.0",
+  "author": "OktoLabsAI",
+  "homepage": "https://github.com/OktoLabsAI/okto-pulse",
+  "skills": []
+}
