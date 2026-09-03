@@ -1,0 +1,9 @@
+{
+  "name": "vcruz305--deepseek-v4-flash-vision-exl3-mixedk-dgx-spark-recipe",
+  "displayName": "DeepSeek-V4-Flash-Vision-EXL3-MixedK-DGX-Spark-recipe",
+  "description": "Serve DeepSeek-V4-Flash-Vision EXL3 MixedK (full 256 experts) on one NVIDIA DGX Spark with vLLM \u2014 recipe, loader patches, and receipts",
+  "version": "1.0.0",
+  "author": "vcruz305",
+  "homepage": "https://github.com/vcruz305/DeepSeek-V4-Flash-Vision-EXL3-MixedK-DGX-Spark-recipe",
+  "skills": []
+}
