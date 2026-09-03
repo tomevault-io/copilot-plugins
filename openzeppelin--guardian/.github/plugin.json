@@ -1,0 +1,9 @@
+{
+  "name": "openzeppelin--guardian",
+  "displayName": "guardian",
+  "description": "Backup, synchronization, and coordination layer for private accounts.",
+  "version": "1.0.0",
+  "author": "OpenZeppelin",
+  "homepage": "https://github.com/OpenZeppelin/guardian",
+  "skills": []
+}
