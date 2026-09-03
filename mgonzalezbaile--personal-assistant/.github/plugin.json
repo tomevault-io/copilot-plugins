@@ -1,0 +1,9 @@
+{
+  "name": "mgonzalezbaile--personal-assistant",
+  "displayName": "personal-assistant",
+  "description": "Foundation for building Claude Code personal assistants \u2014 clone, run setup.sh, you're done.",
+  "version": "1.0.0",
+  "author": "mgonzalezbaile",
+  "homepage": "https://github.com/mgonzalezbaile/personal-assistant",
+  "skills": []
+}
