@@ -1,0 +1,9 @@
+{
+  "name": "wasmerio--anybuild",
+  "displayName": "anybuild",
+  "description": "Anybuild - Build anything, deploy it anywhere",
+  "version": "1.0.0",
+  "author": "wasmerio",
+  "homepage": "https://github.com/wasmerio/anybuild",
+  "skills": []
+}
