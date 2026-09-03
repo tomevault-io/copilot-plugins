@@ -1,0 +1,9 @@
+{
+  "name": "shenqingchuan--kawapress",
+  "displayName": "kawapress",
+  "description": "SSG framework powered by Vue & Vite, a refactor of Vitepress",
+  "version": "1.0.0",
+  "author": "ShenQingchuan",
+  "homepage": "https://github.com/ShenQingchuan/kawapress",
+  "skills": []
+}
