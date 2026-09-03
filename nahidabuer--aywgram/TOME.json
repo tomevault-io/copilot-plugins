@@ -4,7 +4,7 @@
   "repo": "Aywgram",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NahidaBuer/Aywgram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T08:31:14Z"
+  "distributed_at": "2026-09-03T08:34:28Z"
 }
