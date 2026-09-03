@@ -1,17 +1,53 @@
-## github-issues-branches
+## philosophy
 
-> When creating GitHub issues or naming branches, follow the conventions defined in the Contribution Workflow.
+> Enforces the paiOS pragmatic development philosophy. AI assistants MUST internalize these principles and apply them to every task.
 
 
-# GitHub Issues and Branch Naming
+# paiOS Development Philosophy
 
-- **Before creating a GitHub issue** (via MCP, CLI, or when drafting content for the user): Use **Conventional Commits** format for the issue title. Read the "Conventional Commits (Issue and PR Titles)" and "Create a Branch" sections in the Workflow doc for the exact format, types (`feat`, `fix`, `docs`, etc.), and branch naming (including optional issue number).
-- **Do not duplicate** the convention here; the SSoT is the Workflow doc.
+**This rule ensures all AI assistants (Cursor, Antigravity, etc.) follow the paiOS pragmatic mindset.**
+
+## Core Philosophy
+
+You are working on **paiOS** – we value **working software over perfect code**.
+
+### The Pragmatic Mindset
+- **Pareto (80/20)**: Focus on the 20% that delivers 80% of the value.
+- **Low Hanging Fruits**: Start with quick wins. Deliver value early.
+- **Don't Reinvent the Wheel**: Use existing solutions. Only build custom when truly necessary.
+- **Flexibility & Agility**: Stay adaptable. Avoid over-engineering early.
+- **KISS**: Simplest solution wins.
+
+### Quality Through Early Detection
+- **Shift Left**: Find issues early. Prevention > Detection > Correction.
+- **Rule of 10**: A bug in dev costs 1x, in test 10x, in prod 100x. Invest early.
+- **CI is the Safety Net**: Automated checks catch issues before humans review.
+
+### Pragmatic Problem Solving
+- **Usability > Perfection**: Code that works and helps users beats "perfect" code that ships late.
+- **Solve real problems**: Ask "Does this actually help the user?" before every decision.
+- **Don't die in perfection**: Good enough today beats perfect never.
+
+## Applying This Philosophy
+
+When working on any task:
+
+1. **Before starting**: What's the quick win? What's the 80/20?
+2. **During work**: Am I over-engineering? Is there an existing solution?
+3. **Before finishing**: Does this actually solve the user's problem?
+
+## AI Assistant Instructions
+
+**When in doubt, be pragmatic:**
+- Recommend the simpler solution
+- Suggest existing tools/libraries before custom implementations
+- Point out when something might be over-engineered
+- Prioritize shipping working features over theoretical perfection
 
 ---
 **References:**
-- [Contribution Workflow – Issue/PR titles and branch naming](mdc:docs/src/content/docs/guides/contributing/workflow.mdx)
-- [AGENTS.md](mdc:AGENTS.md) – Tool Usage Rules → GitHub issues
+- Development Standards: [standards.mdx](mdc:docs/src/content/docs/guides/contributing/standards.mdx)
+- Contribution Workflow: [workflow.mdx](mdc:docs/src/content/docs/guides/contributing/workflow.mdx)
 
 ---
 > Source: [aurintex/pai-os](https://github.com/aurintex/pai-os) — distributed by [TomeVault](https://tomevault.io).
