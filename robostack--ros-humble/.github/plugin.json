@@ -1,0 +1,9 @@
+{
+  "name": "robostack--ros-humble",
+  "displayName": "ros-humble",
+  "description": "ros-humble",
+  "version": "1.0.0",
+  "author": "RoboStack",
+  "homepage": "https://github.com/RoboStack/ros-humble",
+  "skills": []
+}
