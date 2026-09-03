@@ -1,0 +1,9 @@
+{
+  "name": "stefanmaron--bc-code-atlas",
+  "displayName": "bc-code-atlas",
+  "description": "A queryable window into Microsoft Dynamics 365 Business Central's AL source and docs -- MCP servers for dependency/implementation investigation",
+  "version": "1.0.0",
+  "author": "StefanMaron",
+  "homepage": "https://github.com/StefanMaron/bc-code-atlas",
+  "skills": []
+}
