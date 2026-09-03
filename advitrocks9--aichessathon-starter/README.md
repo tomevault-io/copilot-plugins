@@ -7,11 +7,11 @@ Fork this to build an AI Chessathon agent.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [advitrocks9/aichessathon-starter](https://github.com/advitrocks9/aichessathon-starter).
+Original source: `AGENTS.md` in [advitrocks9/aichessathon-starter](https://github.com/advitrocks9/aichessathon-starter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
