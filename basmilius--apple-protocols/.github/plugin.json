@@ -1,0 +1,9 @@
+{
+  "name": "basmilius--apple-protocols",
+  "displayName": "apple-protocols",
+  "description": "TypeScript implementations of several proprietary Apple network protocols.",
+  "version": "1.0.0",
+  "author": "basmilius",
+  "homepage": "https://github.com/basmilius/apple-protocols",
+  "skills": []
+}
