@@ -1,0 +1,9 @@
+{
+  "name": "video-codec-acid-test-vcat--vcat-d",
+  "displayName": "vcat-d",
+  "description": "VCAT (Video Codec Acid Test) is a video decoder benchmarking tool for Android devices.",
+  "version": "1.0.0",
+  "author": "Video-Codec-Acid-Test-VCAT",
+  "homepage": "https://github.com/Video-Codec-Acid-Test-VCAT/vcat-d",
+  "skills": []
+}
