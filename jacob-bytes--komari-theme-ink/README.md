@@ -7,11 +7,11 @@ shadcn 语言 + 深蓝黑 + 极简高级 + 双主题（黑/白） for komari
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jacob-bytes/komari-theme-ink](https://github.com/jacob-bytes/komari-theme-ink).
+Original source: `CLAUDE.md` in [jacob-bytes/komari-theme-ink](https://github.com/jacob-bytes/komari-theme-ink).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
