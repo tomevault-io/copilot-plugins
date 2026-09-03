@@ -1,0 +1,9 @@
+{
+  "name": "trailofbits--muton",
+  "displayName": "muton",
+  "description": "Mutation testing framework for TON smart contracts",
+  "version": "1.0.0",
+  "author": "trailofbits",
+  "homepage": "https://github.com/trailofbits/muton",
+  "skills": []
+}
