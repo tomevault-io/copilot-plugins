@@ -1,0 +1,9 @@
+{
+  "name": "marcoabate-ck--targate",
+  "displayName": "targate",
+  "description": "AI-assisted pre-install security gate for npm packages \u2014 analyze, decide, and gate a dependency before it runs.",
+  "version": "1.0.0",
+  "author": "marcoabate-ck",
+  "homepage": "https://github.com/marcoabate-ck/targate",
+  "skills": []
+}
