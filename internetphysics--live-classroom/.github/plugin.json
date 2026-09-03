@@ -1,0 +1,9 @@
+{
+  "name": "internetphysics--live-classroom",
+  "displayName": "live-classroom",
+  "description": "A live TV channel that teaches whatever you type \u2014 LLM-planned lessons rendered just-in-time as 1970s-style cartoons by MiniMax H3 Max Turbo, playing on a CRT in a 3D classroom. Bring your own fal key",
+  "version": "1.0.0",
+  "author": "internetphysics",
+  "homepage": "https://github.com/internetphysics/live-classroom",
+  "skills": []
+}
