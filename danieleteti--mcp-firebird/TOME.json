@@ -4,7 +4,7 @@
   "repo": "mcp-firebird",
   "description": "A Model Context Protocol server for Firebird 2.5 \u2013 5.0, written in Delphi with the official `fbclient` driver. It lets an AI assistant document schemas, analyze query plans, advise on indexes (which to add and which to drop), audit schema health, and drive goal-based optimization. Read-only by default.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danieleteti/mcp-firebird",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T00:51:34Z"
+  "distributed_at": "2026-09-03T00:52:19Z"
 }
