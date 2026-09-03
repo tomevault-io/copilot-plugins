@@ -1,0 +1,9 @@
+{
+  "name": "trh-ds--plimsoll",
+  "displayName": "plimsoll",
+  "description": "Scanners report. Plimsoll fixes, re-verifies its own fix, and signs the record. An open-source verification gate for AI-written Terraform.",
+  "version": "1.0.0",
+  "author": "trh-ds",
+  "homepage": "https://github.com/trh-ds/plimsoll",
+  "skills": []
+}
