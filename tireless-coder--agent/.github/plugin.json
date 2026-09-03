@@ -1,0 +1,9 @@
+{
+  "name": "tireless-coder--agent",
+  "displayName": "agent",
+  "description": "Tireless agent connector \u2014 connect your AI coding agent (Claude Code, Codex, Cursor) to your Tireless cloud dev computer",
+  "version": "1.0.0",
+  "author": "Tireless-Coder",
+  "homepage": "https://github.com/Tireless-Coder/agent",
+  "skills": []
+}
