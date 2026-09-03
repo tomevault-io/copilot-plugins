@@ -3,7 +3,7 @@
   "owner": "meursyphus",
   "repo": "ssgoi",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "ssgoi",
-      "path": "apps/docs/.claude/skills/verify/SKILL.md",
-      "github_url": "https://github.com/meursyphus/ssgoi/tree/main/apps/docs/.claude/skills/verify/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "ssgoi",
-      "path": "plugins/ssgoi/skills/mobile-web-app/SKILL.md",
-      "github_url": "https://github.com/meursyphus/ssgoi/tree/main/plugins/ssgoi/skills/mobile-web-app/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/meursyphus/ssgoi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T14:11:04Z"
+  "distributed_at": "2026-09-03T05:34:34Z"
 }
