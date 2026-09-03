@@ -1,0 +1,9 @@
+{
+  "name": "chongrong1234--skills-switchtool",
+  "displayName": "Skills_switchtool",
+  "description": "\u9879\u76ee\u4e2d\u5fc3\u5316\u7684 Agent Skills \u7ba1\u7406\u5de5\u5177:\u4e2d\u592e\u5e93 + \u4e00\u952e\u5207\u6362 + \u5feb\u7167\u56de\u6eda,\u652f\u6301 Claude Code / Kimi Code / Cursor / Codex \u7b49 10 \u5bb6 agent(Electron \u684c\u9762 App / CLI / TUI)",
+  "version": "1.0.0",
+  "author": "Chongrong1234",
+  "homepage": "https://github.com/Chongrong1234/Skills_switchtool",
+  "skills": []
+}
