@@ -7,11 +7,11 @@ Portable Command Center - Mobile app to control OpenCode AI agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SuperJackfruitLabs/agentpod](https://github.com/SuperJackfruitLabs/agentpod).
+Original source: `CLAUDE.md` in [SuperJackfruitLabs/agentpod](https://github.com/SuperJackfruitLabs/agentpod).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
