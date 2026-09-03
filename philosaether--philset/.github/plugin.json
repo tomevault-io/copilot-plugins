@@ -1,0 +1,9 @@
+{
+  "name": "philosaether--philset",
+  "displayName": "philset",
+  "description": "Claude Code skills library for iterative, document-driven development",
+  "version": "1.0.0",
+  "author": "philosaether",
+  "homepage": "https://github.com/philosaether/philset",
+  "skills": []
+}
