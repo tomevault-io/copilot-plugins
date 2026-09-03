@@ -1,0 +1,9 @@
+{
+  "name": "simonlin1212--factreach",
+  "displayName": "FactReach",
+  "description": "\u9762\u5411 AI Agent \u7684\u4e92\u8054\u7f51\u641c\u7d22 Skill\uff1a\u8986\u76d6 23 \u4e2a\u6e20\u9053\uff08\u5168\u7f51\u3001X\u3001\u5c0f\u7ea2\u4e66\u3001\u6296\u97f3\u3001\u5fae\u535a\u3001B\u7ad9\u3001Reddit\u3001YouTube\u3001GitHub\u3001\u5fae\u4fe1\u516c\u4f17\u53f7\u7b49\uff09\uff0c\u96f6\u9274\u6743\u4f18\u5148\u3002Internet search skill for AI agents across 23 channels.",
+  "version": "1.0.0",
+  "author": "simonlin1212",
+  "homepage": "https://github.com/simonlin1212/FactReach",
+  "skills": []
+}
