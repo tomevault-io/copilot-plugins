@@ -4,7 +4,7 @@
   "repo": "JobCtrl",
   "description": "Open-source, local-first job search app for private discovery, evidence-backed fit scoring, truthful resume tailoring, durable workflows, and approval-gated applications.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ebarti/JobCtrl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T01:32:53Z"
+  "distributed_at": "2026-09-03T01:36:41Z"
 }
