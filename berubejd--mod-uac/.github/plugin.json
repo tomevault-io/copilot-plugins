@@ -1,0 +1,9 @@
+{
+  "name": "berubejd--mod-uac",
+  "displayName": "mod-uac",
+  "description": "Allow any playable race to create and play any playable class, with a design that is maintainable, revertible, and free of mystery binaries, and that is reusable by other server operators running stoc",
+  "version": "1.0.0",
+  "author": "berubejd",
+  "homepage": "https://github.com/berubejd/mod-uac",
+  "skills": []
+}
