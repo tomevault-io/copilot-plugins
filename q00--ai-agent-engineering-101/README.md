@@ -7,11 +7,11 @@ AI Agent Engineering 101 — SeoulTech 2026 Fall. Lecture notes and PR-based ass
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Q00/ai-agent-engineering-101](https://github.com/Q00/ai-agent-engineering-101).
+Original source: `AGENTS.md` in [Q00/ai-agent-engineering-101](https://github.com/Q00/ai-agent-engineering-101).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
