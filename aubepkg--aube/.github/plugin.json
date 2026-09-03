@@ -1,0 +1,9 @@
+{
+  "name": "aubepkg--aube",
+  "displayName": "aube",
+  "description": "A fast Node.js package manager",
+  "version": "1.0.0",
+  "author": "aubepkg",
+  "homepage": "https://github.com/aubepkg/aube",
+  "skills": []
+}
