@@ -4,7 +4,7 @@
   "repo": "mod-uac",
   "description": "Allow any playable race to create and play any playable class, with a design that is maintainable, revertible, and free of mystery binaries, and that is reusable by other server operators running stock or lightly-customized AzerothCore installations.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/berubejd/mod-uac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T00:46:10Z"
+  "distributed_at": "2026-09-03T00:48:25Z"
 }
