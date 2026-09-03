@@ -7,11 +7,11 @@ Enhance DuckDB with AI functions, supporting all providers as well as local mode
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leonardovida/duckdb-ai](https://github.com/leonardovida/duckdb-ai).
+Original source: `AGENTS.md` in [leonardovida/duckdb-ai](https://github.com/leonardovida/duckdb-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
