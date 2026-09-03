@@ -1,0 +1,9 @@
+{
+  "name": "nguyensitrung--vieneuttsapp",
+  "displayName": "VieNeuTTSApp",
+  "description": "Cross-platform, fully-offline Vietnamese/English text-to-speech desktop workstation powered by VieNeu-TTS v3 Turbo (ONNX/CUDA, Voice Cloning, EPUB Audiobooks, PySide6/QML)",
+  "version": "1.0.0",
+  "author": "NguyenSiTrung",
+  "homepage": "https://github.com/NguyenSiTrung/VieNeuTTSApp",
+  "skills": []
+}
