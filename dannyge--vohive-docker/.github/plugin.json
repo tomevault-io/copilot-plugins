@@ -1,0 +1,9 @@
+{
+  "name": "dannyge--vohive-docker",
+  "displayName": "vohive-docker",
+  "description": "Docker images and one-click deploy for VoHive \u2014 SMS gateway & management platform for Qualcomm 4G/5G modules (Quectel EC20/EC25/EG25). Multi-arch, env-var config, DJI\u2192Quectel USB identity rewriter, Or",
+  "version": "1.0.0",
+  "author": "dannyge",
+  "homepage": "https://github.com/dannyge/vohive-docker",
+  "skills": []
+}
