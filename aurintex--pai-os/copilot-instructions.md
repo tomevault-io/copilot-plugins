@@ -1,27 +1,31 @@
-## definition-of-done
+## docs-maintenance
 
-> Technical enforcer for the project's Definition of Done (DoD). This rule ensures that the standards defined in the official documentation are followed before any task is completed.
+> Technical enforcer for the documentation hybrid system. Ensures synchronization between Rust code, Protocol Buffer definitions, and the Starlight documentation site.
 
 
-# Definition of Done (DoD) Enforcer
+# Documentation Maintenance Enforcer
 
-**Single Source of Truth:** All changes must comply with the Definition of Done (DoD) defined in [Development Standards (standards.mdx)](mdc:docs/src/content/docs/guides/contributing/standards.mdx).
+**Single Source of Truth:** The maintenance procedures for the hybrid documentation system are defined in [Documentation Maintenance (docs-maintenance.mdx)](mdc:docs/src/content/docs/guides/contributing/docs-maintenance.mdx).
 
 ## Required Action
-Before declaring any task as "finished" or "done", you MUST:
+When modifying Rust code in the `engine` crate, Protocol Buffer files, or changing the documentation scripts:
 
-1.  **Read the DoD Section**: Open and review the "Definition of Done" section in `docs/src/content/docs/guides/contributing/standards.mdx`.
-2.  **Verify Every Point**: Go through each requirement (Functional, Quality, Documentation, Compliance) as defined there.
-3.  **Rust formatting (engine/)**: If any file under `engine/` changed, run `cargo fmt --all -- --check` with working directory `engine/` (same command as CI). Fix with `cargo fmt --all` in `engine/` if needed.
-4.  **Documentation Sync Check**: If the Rust API was touched, ensure `npm run build` was executed in the `docs/` directory.
+1.  **Reference the Guide**: Review [docs-maintenance.mdx](mdc:docs/src/content/docs/guides/contributing/docs-maintenance.mdx) to understand the hybrid MDX/GitHub Pages approach.
+2.  **Regenerate Local Docs**: After API changes, run:
+    - `npm run gen:rustdoc` (Rust MDX for Starlight)
+    - `npm run gen:proto` (Protocol Buffer MDX)
+3.  **Standard rustdoc HTML**: Generated automatically via GitHub Actions (`.github/workflows/rustdoc.yml`) on push to `main` and deployed to GitHub Pages.
+4.  **Validate Build**: Run `npm run build` in the `docs/` directory to ensure all paths and redirects are correctly generated.
 
-## Final Statement Requirement
-In your final response to the user, you MUST explicitly state:
-> "I have verified this task against the official **Definition of Done** in `standards.mdx`. Specifically, I checked: [List 2-3 key points relevant to this specific task, e.g., 'API Sync' or 'CLA Signed']."
+## Prevention of Regressions
+- The `/reference/rustdoc/` routes redirect to `aurintex.github.io/pai-os/rustdoc/` (external GitHub Pages).
+- When modifying `.proto` files, ensure `proto-doc-gen.mjs` can parse them correctly. The script supports both `protoc-gen-doc` (if available) and a built-in parser as fallback.
 
 ---
 **References:**
-- Documentation Strategy: [docs-maintenance.mdc](mdc:.cursor/rules/docs-maintenance.mdc)
+- Maintenance Guide: [docs-maintenance.mdx](mdc:docs/src/content/docs/guides/contributing/docs-maintenance.mdx)
+- Rustdoc Workflow: [rustdoc.yml](mdc:.github/workflows/rustdoc.yml)
+- Definition of Done: [definition-of-done.mdc](mdc:.cursor/rules/definition-of-done.mdc)
 
 ---
 > Source: [aurintex/pai-os](https://github.com/aurintex/pai-os) — distributed by [TomeVault](https://tomevault.io).
