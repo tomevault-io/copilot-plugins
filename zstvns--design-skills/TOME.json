@@ -1,0 +1,44 @@
+{
+  "name": "design-skills",
+  "owner": "zstvns",
+  "repo": "design-skills",
+  "description": "AI agent skills for the designer's craft \u2014 brand audit, strategy, creative direction, logo, and application across web, collateral, and motion.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zstvns/design-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-03T00:50:21Z"
+}
