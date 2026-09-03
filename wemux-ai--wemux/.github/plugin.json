@@ -1,0 +1,9 @@
+{
+  "name": "wemux-ai--wemux",
+  "displayName": "wemux",
+  "description": "Wemux - self-hostable AI agent collaboration platform (Apache-2.0, community edition)",
+  "version": "1.0.0",
+  "author": "wemux-ai",
+  "homepage": "https://github.com/wemux-ai/wemux",
+  "skills": []
+}
