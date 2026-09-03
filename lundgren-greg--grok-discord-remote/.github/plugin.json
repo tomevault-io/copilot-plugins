@@ -1,0 +1,9 @@
+{
+  "name": "lundgren-greg--grok-discord-remote",
+  "displayName": "grok-discord-remote",
+  "description": "Discord DMs as a remote window on Grok Build (Copilot CLI-style attach)",
+  "version": "1.0.0",
+  "author": "lundgren-greg",
+  "homepage": "https://github.com/lundgren-greg/grok-discord-remote",
+  "skills": []
+}
