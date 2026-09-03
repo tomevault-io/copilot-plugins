@@ -1,0 +1,9 @@
+{
+  "name": "vincent-wen789--ai-flavor-forensic",
+  "displayName": "ai-flavor-forensic",
+  "description": "Line-by-line AI-flavor forensics for Chinese and Japanese prose. Precision-first: it declines to flag, and shows you why. Detection only \u2014 no rewriting, no authorship claims.",
+  "version": "1.0.0",
+  "author": "vincent-wen789",
+  "homepage": "https://github.com/vincent-wen789/ai-flavor-forensic",
+  "skills": []
+}
