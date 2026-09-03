@@ -1,0 +1,9 @@
+{
+  "name": "kyledelfin2006--libro-library-system",
+  "displayName": "libro-library-system",
+  "description": "Spring Boot REST API for library management implementing docker & postgreSQL",
+  "version": "1.0.0",
+  "author": "kyledelfin2006",
+  "homepage": "https://github.com/kyledelfin2006/libro-library-system",
+  "skills": []
+}
