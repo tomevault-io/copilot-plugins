@@ -1,0 +1,32 @@
+## eastmoney-python
+
+> eastmoney Python/MCP 实现约定
+
+
+# Python 数据层
+
+## 结构
+
+- 业务逻辑在 `eastmoney/`，MCP 薄封装在 `mcp_server/server.py`
+- CLI 走 `eastmoney.tools.run_tool`；新增工具必须同步 `TOOL_NAMES` 与 MCP（`test_mcp_parity`）
+
+## 惯例
+
+- K 线批量/训练用 `get_kline_resilient`（AkShare 降级）
+- 限流：`EastMoneyClient(min_interval=0.6)`；训练脚本可用更慢间隔
+
+## 测试
+
+```bash
+bash scripts/check.sh
+```
+
+改工具数、review、quant OOS 时跑对应用例；接口改动可选 `LIVE=1 bash scripts/smoke_live.sh`。
+
+## 依赖
+
+优先 `requirements.lock`；改主依赖后 `bash scripts/lock_deps.sh`。
+
+---
+> Source: [tetap/stock-skills](https://github.com/tetap/stock-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-02 -->
