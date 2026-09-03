@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [neondatabase/examples](https://github.com/neond
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (10)
+## Bundled Skills (18)
 
 - [examples](https://github.com/neondatabase/examples/tree/main/bots/discord-bot-http/.agents/skills/neon/SKILL.md)
 - [examples](https://github.com/neondatabase/examples/tree/main/bots/telegram-bot-http/.agents/skills/neon/SKILL.md)
@@ -27,6 +27,14 @@ Original source: `AGENTS.md` in [neondatabase/examples](https://github.com/neond
 - [examples](https://github.com/neondatabase/examples/tree/main/bots/telegram-bot-http/.agents/skills/neon-functions/SKILL.md)
 - [examples](https://github.com/neondatabase/examples/tree/main/bots/whatsapp-bot-http/.agents/skills/neon-functions/SKILL.md)
 - [examples](https://github.com/neondatabase/examples/tree/main/neon-getting-started/03-backup-and-restore/.agents/skills/neon-postgres/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon-postgres/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon-functions/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon-postgres/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon-functions/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-trpc/.agents/skills/neon-postgres-branches/SKILL.md)
+- [examples](https://github.com/neondatabase/examples/tree/main/with-graphql/.agents/skills/neon-postgres-branches/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/neondatabase/examples](https://github.com/neondatabase/examples)
 
