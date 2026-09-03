@@ -1,0 +1,9 @@
+{
+  "name": "icsl-aist--hsr-genesis",
+  "displayName": "hsr-genesis",
+  "description": "Genesis simulation for HSR ",
+  "version": "1.0.0",
+  "author": "icsl-aist",
+  "homepage": "https://github.com/icsl-aist/hsr-genesis",
+  "skills": []
+}
