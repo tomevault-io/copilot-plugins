@@ -4,7 +4,7 @@
   "repo": "SkyMediaPlayer",
   "description": "\u57fa\u4e8e ffmpeg & ffplay \u5b9e\u73b0\u7684\u89c6\u9891\u64ad\u653e\u5668",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhiwei-wu/SkyMediaPlayer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T12:34:23Z"
+  "distributed_at": "2026-09-03T12:41:46Z"
 }
