@@ -1,0 +1,21 @@
+## kawapress
+
+> KawaPress 是一个全新的、以 Vue 为核心的静态站点生成器，目标是在扩展性和开发体验上超越 VitePress。
+
+# KawaPress
+
+KawaPress 是一个全新的、以 Vue 为核心的静态站点生成器，目标是在扩展性和开发体验上超越 VitePress。
+
+## 决策与方案文档
+
+产品与架构方案统一放在 `.agent-work/decisions/`。
+
+KawaPress 0.1 的唯一决策来源是 `.agent-work/decisions/mvp-0.1-product-plan.md`。开始任何 0.1 设计或编码工作之前必须完整阅读，并且不得违背其中的决策。后续确认的 0.1 决策直接合入这份文档。
+
+面向后续版本、尚未纳入 0.1 的产品或架构方案使用独立文档。方案只记录当前有效结论、约束和待确认事项，不记录讨论过程、研究草稿或已被替代的设计。方案正式纳入版本计划后，应合入对应版本的唯一决策文档并删除重复内容。
+
+调研材料放在 `.agent-work/research/`，只用于支撑方案或决策。结论写入 `.agent-work/decisions/` 后立即删除对应调研材料，除非用户明确要求保留。
+
+---
+> Source: [ShenQingchuan/kawapress](https://github.com/ShenQingchuan/kawapress) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-03 -->
