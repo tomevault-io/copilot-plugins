@@ -1,0 +1,9 @@
+{
+  "name": "dotdc--cursor-workshop",
+  "displayName": "cursor-workshop",
+  "description": "Learn Cursor skills through fun quests on a cute bookshop application.",
+  "version": "1.0.0",
+  "author": "dotdc",
+  "homepage": "https://github.com/dotdc/cursor-workshop",
+  "skills": []
+}
