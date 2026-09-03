@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [meursyphus/ssgoi](https://github.com/meursyphus
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [ssgoi](https://github.com/meursyphus/ssgoi/tree/main/apps/docs/.claude/skills/verify/SKILL.md)
-- [ssgoi](https://github.com/meursyphus/ssgoi/tree/main/plugins/ssgoi/skills/mobile-web-app/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/meursyphus/ssgoi](https://github.com/meursyphus/ssgoi)
 
 ---
