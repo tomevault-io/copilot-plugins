@@ -1,0 +1,9 @@
+{
+  "name": "nebulaanish--aftersight",
+  "displayName": "aftersight",
+  "description": "Observability infrastructure for self-improving agents: every run written into the repository as plain files the agent can read",
+  "version": "1.0.0",
+  "author": "nebulaanish",
+  "homepage": "https://github.com/nebulaanish/aftersight",
+  "skills": []
+}
