@@ -4,7 +4,7 @@
   "repo": "uvs",
   "description": "uvs transforms single-file self-contained PEP723-style Python scripts into installable packages using `uv tool install`, making them available as command-line tools.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maphew/uvs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T20:35:45Z"
+  "distributed_at": "2026-09-03T20:36:36Z"
 }
