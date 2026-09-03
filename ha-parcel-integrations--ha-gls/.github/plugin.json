@@ -1,0 +1,9 @@
+{
+  "name": "ha-parcel-integrations--ha-gls",
+  "displayName": "ha-gls",
+  "description": "Track GLS parcels in Home Assistant",
+  "version": "1.0.0",
+  "author": "ha-parcel-integrations",
+  "homepage": "https://github.com/ha-parcel-integrations/ha-gls",
+  "skills": []
+}
