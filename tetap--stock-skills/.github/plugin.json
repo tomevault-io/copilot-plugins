@@ -1,0 +1,9 @@
+{
+  "name": "tetap--stock-skills",
+  "displayName": "stock-skills",
+  "description": "\u4e1c\u65b9\u8d22\u5bcc A \u80a1 Skills\uff1a\u884c\u60c5/K\u7ebf/\u8d22\u62a5/\u8d44\u91d1\u6d41/\u7b79\u7801/\u677f\u5757 + /stock \u5feb\u6377\u6307\u4ee4\uff0c\u652f\u6301 Cursor\u3001Claude Code\u3001Codex CLI",
+  "version": "1.0.0",
+  "author": "tetap",
+  "homepage": "https://github.com/tetap/stock-skills",
+  "skills": []
+}
