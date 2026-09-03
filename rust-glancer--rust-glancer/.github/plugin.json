@@ -1,0 +1,9 @@
+{
+  "name": "rust-glancer--rust-glancer",
+  "displayName": "rust-glancer",
+  "description": "Lightweight Rust LSP optimized for low memory usage",
+  "version": "1.0.0",
+  "author": "rust-glancer",
+  "homepage": "https://github.com/rust-glancer/rust-glancer",
+  "skills": []
+}
