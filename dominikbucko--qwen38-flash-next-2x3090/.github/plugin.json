@@ -1,0 +1,9 @@
+{
+  "name": "dominikbucko--qwen38-flash-next-2x3090",
+  "displayName": "qwen38-flash-next-2x3090",
+  "description": "Run Qwen3.8-Flash-Next at full 256K context on 2x RTX 3090 and 128 GB RAM.",
+  "version": "1.0.0",
+  "author": "DominikBucko",
+  "homepage": "https://github.com/DominikBucko/qwen38-flash-next-2x3090",
+  "skills": []
+}
