@@ -1,0 +1,9 @@
+{
+  "name": "dfface--epub-browser",
+  "displayName": "epub-browser",
+  "description": "Read EPUB and PDF in one polished web library\u2014either as a self-contained static site or as a private, multi-user reading service.",
+  "version": "1.0.0",
+  "author": "dfface",
+  "homepage": "https://github.com/dfface/epub-browser",
+  "skills": []
+}
