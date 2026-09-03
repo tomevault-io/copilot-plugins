@@ -4,7 +4,7 @@
   "repo": "ai-agent-engineering-101",
   "description": "AI Agent Engineering 101 \u2014 SeoulTech 2026 Fall. Lecture notes and PR-based assignment submission.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Q00/ai-agent-engineering-101",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T16:32:31Z"
+  "distributed_at": "2026-09-03T16:34:12Z"
 }
