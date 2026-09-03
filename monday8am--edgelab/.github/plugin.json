@@ -1,0 +1,9 @@
+{
+  "name": "monday8am--edgelab",
+  "displayName": "edgelab",
+  "description": "Edge Agent Lab is an Android testing platform for evaluating small language model (SLM) agents directly on mobile devices.",
+  "version": "1.0.0",
+  "author": "monday8am",
+  "homepage": "https://github.com/monday8am/edgelab",
+  "skills": []
+}
