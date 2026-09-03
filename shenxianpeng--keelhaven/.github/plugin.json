@@ -1,0 +1,9 @@
+{
+  "name": "shenxianpeng--keelhaven",
+  "displayName": "keelhaven",
+  "description": "Privacy-first macOS menu-bar backup app powered by restic",
+  "version": "1.0.0",
+  "author": "shenxianpeng",
+  "homepage": "https://github.com/shenxianpeng/keelhaven",
+  "skills": []
+}
