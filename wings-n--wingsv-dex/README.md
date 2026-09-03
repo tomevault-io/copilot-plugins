@@ -7,11 +7,11 @@ VPN клиент WINGS V для Linux/Windows с поддержкой Xray и VK
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [WINGS-N/WINGSV_DeX](https://github.com/WINGS-N/WINGSV_DeX).
+Original source: `CLAUDE.md` in [WINGS-N/WINGSV_DeX](https://github.com/WINGS-N/WINGSV_DeX).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
