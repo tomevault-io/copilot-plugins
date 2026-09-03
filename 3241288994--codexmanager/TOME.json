@@ -1,0 +1,44 @@
+{
+  "name": "codexmanager",
+  "owner": "3241288994",
+  "repo": "codexmanager",
+  "description": "\u8ba9\u7f51\u9875\u7248 ChatGPT \u6210\u4e3a\u670d\u52a1\u5668\u79d1\u7814\u9879\u76ee\u7684\u667a\u80fd\u5165\u53e3\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/3241288994/codexmanager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-03T18:30:25Z"
+}
