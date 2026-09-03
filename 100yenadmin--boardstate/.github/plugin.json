@@ -1,0 +1,9 @@
+{
+  "name": "100yenadmin--boardstate",
+  "displayName": "boardstate",
+  "description": "Your dashboard is data. Any AI can build it; any human can edit it. A protocol + runtime for agent-composable dashboards \u2014 layout-as-data, one guarded control plane, sandboxed agent-authored widgets, ",
+  "version": "1.0.0",
+  "author": "100yenadmin",
+  "homepage": "https://github.com/100yenadmin/boardstate",
+  "skills": []
+}
