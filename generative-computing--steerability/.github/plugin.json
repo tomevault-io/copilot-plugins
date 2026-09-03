@@ -1,0 +1,9 @@
+{
+  "name": "generative-computing--steerability",
+  "displayName": "steerability",
+  "description": "The Steerability toolkit is an extensible library for general purpose steering of language models.",
+  "version": "1.0.0",
+  "author": "generative-computing",
+  "homepage": "https://github.com/generative-computing/steerability",
+  "skills": []
+}
