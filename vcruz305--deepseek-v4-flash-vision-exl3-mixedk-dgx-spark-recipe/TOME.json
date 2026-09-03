@@ -1,0 +1,44 @@
+{
+  "name": "DeepSeek-V4-Flash-Vision-EXL3-MixedK-DGX-Spark-recipe",
+  "owner": "vcruz305",
+  "repo": "DeepSeek-V4-Flash-Vision-EXL3-MixedK-DGX-Spark-recipe",
+  "description": "Serve DeepSeek-V4-Flash-Vision EXL3 MixedK (full 256 experts) on one NVIDIA DGX Spark with vLLM \u2014 recipe, loader patches, and receipts",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vcruz305/DeepSeek-V4-Flash-Vision-EXL3-MixedK-DGX-Spark-recipe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-03T18:33:44Z"
+}
