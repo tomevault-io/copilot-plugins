@@ -1,0 +1,22 @@
+{
+  "name": "mcclowes--docusaurus-plugin-glossary",
+  "displayName": "docusaurus-plugin-glossary",
+  "description": "A docusaurus plugin for helping users understand key terms.",
+  "version": "1.0.0",
+  "author": "mcclowes",
+  "homepage": "https://github.com/mcclowes/docusaurus-plugin-glossary",
+  "skills": [
+    {
+      "name": "docusaurus-glossary",
+      "description": ""
+    },
+    {
+      "name": "docusaurus-plugin-dev",
+      "description": ""
+    },
+    {
+      "name": "docusaurus-plugins",
+      "description": ""
+    }
+  ]
+}
