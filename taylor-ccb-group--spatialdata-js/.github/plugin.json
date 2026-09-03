@@ -1,0 +1,9 @@
+{
+  "name": "taylor-ccb-group--spatialdata-js",
+  "displayName": "SpatialData.js",
+  "description": "A library for interfacing with SpatialData stores in TS/JS",
+  "version": "1.0.0",
+  "author": "Taylor-CCB-Group",
+  "homepage": "https://github.com/Taylor-CCB-Group/SpatialData.js",
+  "skills": []
+}
