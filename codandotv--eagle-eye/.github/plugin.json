@@ -1,0 +1,9 @@
+{
+  "name": "codandotv--eagle-eye",
+  "displayName": "eagle-eye",
+  "description": "A Dart CLI tool designed to enforce architectural rules in your flutter/dart project.",
+  "version": "1.0.0",
+  "author": "CodandoTV",
+  "homepage": "https://github.com/CodandoTV/eagle-eye",
+  "skills": []
+}
