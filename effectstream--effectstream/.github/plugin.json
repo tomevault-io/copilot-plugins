@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "effectstream",
   "homepage": "https://github.com/effectstream/effectstream",
-  "skills": []
+  "skills": [
+    {
+      "name": "effectstream",
+      "description": ""
+    }
+  ]
 }
