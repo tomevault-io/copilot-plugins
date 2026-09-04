@@ -4,7 +4,7 @@
   "repo": "quantum-astrology",
   "description": "Quantum Astrology is an open-source exploration at the crossroads of ancient wisdom and modern computation. This project reimagines astrology through the lens of quantum thinking, pattern recognition, and algorithmic design\u2014bridging the symbolic language of the stars with the precision of code.  ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meistro57/quantum-astrology",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T00:39:11Z"
+  "distributed_at": "2026-09-04T00:40:41Z"
 }
