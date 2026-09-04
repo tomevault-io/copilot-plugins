@@ -4,7 +4,7 @@
   "repo": "benchy",
   "description": "A benchmarking engine for evaluating AI systems on task-specific performance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/surus-lat/benchy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T00:35:11Z"
+  "distributed_at": "2026-09-04T00:37:21Z"
 }
