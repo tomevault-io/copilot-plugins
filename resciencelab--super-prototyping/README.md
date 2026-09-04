@@ -7,11 +7,11 @@ Copy any app's UI, prototype your own — as plain HTML artboards on a local can
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ReScienceLab/super-prototyping](https://github.com/ReScienceLab/super-prototyping).
+Original source: `CLAUDE.md` in [ReScienceLab/super-prototyping](https://github.com/ReScienceLab/super-prototyping).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
