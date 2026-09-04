@@ -7,11 +7,11 @@ Write one page at a time. Get a real book. A strict B5 canvas for AI-authored bo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hassancs91/paper-engine](https://github.com/hassancs91/paper-engine).
+Original source: `CLAUDE.md` in [hassancs91/paper-engine](https://github.com/hassancs91/paper-engine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
