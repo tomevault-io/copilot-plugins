@@ -1,0 +1,58 @@
+{
+  "name": "fritzprix--libr-agent",
+  "displayName": "libr-agent",
+  "description": "Desktop AI agent with built-in tools. No complex setup, just productivity.",
+  "version": "1.0.0",
+  "author": "fritzprix",
+  "homepage": "https://github.com/fritzprix/libr-agent",
+  "skills": [
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "libragent-quality",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "system-setup",
+      "description": ""
+    },
+    {
+      "name": "system-setup",
+      "description": ""
+    },
+    {
+      "name": "agent-init",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "description": ""
+    }
+  ]
+}
