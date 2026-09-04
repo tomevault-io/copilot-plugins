@@ -7,11 +7,11 @@ The AI analyst that shows its work. Runs Python and R on your own machine, and t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SuperJJ007/papermachine](https://github.com/SuperJJ007/papermachine).
+Original source: `AGENTS.md` in [SuperJJ007/papermachine](https://github.com/SuperJJ007/papermachine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
