@@ -1,0 +1,9 @@
+{
+  "name": "resciencelab--super-prototyping",
+  "displayName": "super-prototyping",
+  "description": "Copy any app's UI, prototype your own \u2014 as plain HTML artboards on a local canvas. No design tool, no build step. Every color and metric traced to a measurement.",
+  "version": "1.0.0",
+  "author": "ReScienceLab",
+  "homepage": "https://github.com/ReScienceLab/super-prototyping",
+  "skills": []
+}
