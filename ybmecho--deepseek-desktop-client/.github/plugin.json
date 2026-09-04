@@ -1,0 +1,9 @@
+{
+  "name": "ybmecho--deepseek-desktop-client",
+  "displayName": "DeepSeek-desktop-client",
+  "description": "The DeepSeek desktop application built with Electron.",
+  "version": "1.0.0",
+  "author": "YBMecho",
+  "homepage": "https://github.com/YBMecho/DeepSeek-desktop-client",
+  "skills": []
+}
