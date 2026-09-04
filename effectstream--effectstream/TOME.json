@@ -3,8 +3,8 @@
   "owner": "effectstream",
   "repo": "effectstream",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "effectstream",
+      "path": ".claude/skills/create-effectstream-app/SKILL.md",
+      "github_url": "https://github.com/effectstream/effectstream/tree/main/.claude/skills/create-effectstream-app/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/effectstream/effectstream",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T05:43:29Z"
+  "distributed_at": "2026-09-04T05:32:15Z"
 }
