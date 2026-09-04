@@ -7,15 +7,15 @@ Thompson-mode systems discipline for AI agents. Think first, build bottom-up, br
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [rajnandan1/ken](https://github.com/rajnandan1/ken).
+Original source: `.windsurf/rules/*.md` in [rajnandan1/ken](https://github.com/rajnandan1/ken).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rajnandan1/ken](https://github.com/rajnandan1/ken)
 
