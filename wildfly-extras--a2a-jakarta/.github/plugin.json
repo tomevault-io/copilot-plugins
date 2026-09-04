@@ -1,0 +1,9 @@
+{
+  "name": "wildfly-extras--a2a-jakarta",
+  "displayName": "a2a-jakarta",
+  "description": "A2A Java SDK for Jakarta Servers",
+  "version": "1.0.0",
+  "author": "wildfly-extras",
+  "homepage": "https://github.com/wildfly-extras/a2a-jakarta",
+  "skills": []
+}
