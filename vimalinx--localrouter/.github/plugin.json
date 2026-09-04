@@ -1,0 +1,9 @@
+{
+  "name": "vimalinx--localrouter",
+  "displayName": "LocalRouter",
+  "description": "Loopback-first universal API gateway for local AI Agents.",
+  "version": "1.0.0",
+  "author": "vimalinx",
+  "homepage": "https://github.com/vimalinx/LocalRouter",
+  "skills": []
+}
