@@ -1,0 +1,9 @@
+{
+  "name": "polymathwizard--bhil-helm-sci-fi-visualizer",
+  "displayName": "BHIL-HELM-Sci-Fi-Visualizer",
+  "description": "Sci-fi dashboard framework for Claude Code. Profile data, match a design language, build a single-file HTML mockup with real bindings, QA it against WCAG AA and an IP checklist, gate it SHIP/HOLD/REWO",
+  "version": "1.0.0",
+  "author": "PolymathWizard",
+  "homepage": "https://github.com/PolymathWizard/BHIL-HELM-Sci-Fi-Visualizer",
+  "skills": []
+}
