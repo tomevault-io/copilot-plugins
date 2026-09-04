@@ -1,0 +1,9 @@
+{
+  "name": "vinniny--qspi-flash-device-controller",
+  "displayName": "QSPI-Flash-Device-Controller",
+  "description": "This project implements a parameterizable QSPI Flash Controller IP Core in Verilog, bridging a host processor to external QSPI flash memory devices (e.g., Macronix MX25L6436F). The modular, synthesis-",
+  "version": "1.0.0",
+  "author": "vinniny",
+  "homepage": "https://github.com/vinniny/QSPI-Flash-Device-Controller",
+  "skills": []
+}
