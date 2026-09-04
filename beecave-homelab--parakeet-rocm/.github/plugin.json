@@ -1,0 +1,9 @@
+{
+  "name": "beecave-homelab--parakeet-rocm",
+  "displayName": "parakeet_rocm",
+  "description": "ROCm-optimized NVIDIA NeMo Parakeet ASR implementation with CLI, formatting, and optional WebUI.",
+  "version": "1.0.0",
+  "author": "beecave-homelab",
+  "homepage": "https://github.com/beecave-homelab/parakeet_rocm",
+  "skills": []
+}
