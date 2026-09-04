@@ -1,0 +1,9 @@
+{
+  "name": "vcruz305--vllm-exl3",
+  "displayName": "vllm-exl3",
+  "description": "Serve EXL3 (ExLlamaV3 trellis) quantized models on vLLM fork runtimes \u2014 any architecture, mixed per-layer bitrates, composable with source-format non-routed weights",
+  "version": "1.0.0",
+  "author": "vcruz305",
+  "homepage": "https://github.com/vcruz305/vllm-exl3",
+  "skills": []
+}
