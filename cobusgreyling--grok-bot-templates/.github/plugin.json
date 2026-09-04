@@ -1,0 +1,9 @@
+{
+  "name": "cobusgreyling--grok-bot-templates",
+  "displayName": "grok-bot-templates",
+  "description": "The engineering kit for Grok Bot templates. Spec, Bot Ready score, teams, skills, routines, and a catalog you can paste into Grok Bot today.",
+  "version": "1.0.0",
+  "author": "cobusgreyling",
+  "homepage": "https://github.com/cobusgreyling/grok-bot-templates",
+  "skills": []
+}
