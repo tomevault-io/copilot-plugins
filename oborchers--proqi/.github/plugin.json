@@ -1,0 +1,9 @@
+{
+  "name": "oborchers--proqi",
+  "displayName": "proqi",
+  "description": "A terminal-native prompt composer for power users running multiple coding agents.",
+  "version": "1.0.0",
+  "author": "oborchers",
+  "homepage": "https://github.com/oborchers/proqi",
+  "skills": []
+}
