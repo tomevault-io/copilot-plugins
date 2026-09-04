@@ -1,0 +1,9 @@
+{
+  "name": "superjj007--papermachine",
+  "displayName": "papermachine",
+  "description": "The AI analyst that shows its work. Runs Python and R on your own machine, and traces every chart back to the code behind it.",
+  "version": "1.0.0",
+  "author": "SuperJJ007",
+  "homepage": "https://github.com/SuperJJ007/papermachine",
+  "skills": []
+}
