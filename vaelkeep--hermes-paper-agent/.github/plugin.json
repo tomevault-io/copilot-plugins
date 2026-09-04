@@ -1,0 +1,9 @@
+{
+  "name": "vaelkeep--hermes-paper-agent",
+  "displayName": "hermes-paper-agent",
+  "description": "A nightly newspaper that writes itself: an agent runs the desks, the figures come from code, and it refuses to publish an edition with marks in it.",
+  "version": "1.0.0",
+  "author": "vaelkeep",
+  "homepage": "https://github.com/vaelkeep/hermes-paper-agent",
+  "skills": []
+}
