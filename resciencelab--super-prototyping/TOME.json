@@ -4,7 +4,7 @@
   "repo": "super-prototyping",
   "description": "Copy any app's UI, prototype your own \u2014 as plain HTML artboards on a local canvas. No design tool, no build step. Every color and metric traced to a measurement.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ReScienceLab/super-prototyping",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T16:30:22Z"
+  "distributed_at": "2026-09-04T16:31:10Z"
 }
