@@ -1,0 +1,9 @@
+{
+  "name": "twingate--kubernetes-operator",
+  "displayName": "kubernetes-operator",
+  "description": "kubernetes-operator",
+  "version": "1.0.0",
+  "author": "Twingate",
+  "homepage": "https://github.com/Twingate/kubernetes-operator",
+  "skills": []
+}
