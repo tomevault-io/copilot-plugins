@@ -1,0 +1,9 @@
+{
+  "name": "wulfic--ai-os",
+  "displayName": "AI-OS",
+  "description": "HRM-sMoE LLM training toolkit.",
+  "version": "1.0.0",
+  "author": "Wulfic",
+  "homepage": "https://github.com/Wulfic/AI-OS",
+  "skills": []
+}
