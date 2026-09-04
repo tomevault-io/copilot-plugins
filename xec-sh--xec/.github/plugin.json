@@ -1,0 +1,9 @@
+{
+  "name": "xec-sh--xec",
+  "displayName": "xec",
+  "description": "A typed execution layer for TypeScript infrastructure.",
+  "version": "1.0.0",
+  "author": "xec-sh",
+  "homepage": "https://github.com/xec-sh/xec",
+  "skills": []
+}
