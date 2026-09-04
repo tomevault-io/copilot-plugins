@@ -1,0 +1,9 @@
+{
+  "name": "sseshachala--conductai",
+  "displayName": "conductai",
+  "description": "AI agent governance for teams. Runtime firewalls tell you what happened; Conduct Guard controls what can happen \u2014 signed policy, verified chain, fail-closed by default. Ships with Router (LLM proxy), ",
+  "version": "1.0.0",
+  "author": "sseshachala",
+  "homepage": "https://github.com/sseshachala/conductai",
+  "skills": []
+}
