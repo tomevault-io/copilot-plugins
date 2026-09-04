@@ -1,0 +1,9 @@
+{
+  "name": "ieguiguren--dictawave",
+  "displayName": "dictawave",
+  "description": "System-wide double-tap voice dictation daemon for Linux with local Whisper STT",
+  "version": "1.0.0",
+  "author": "ieguiguren",
+  "homepage": "https://github.com/ieguiguren/dictawave",
+  "skills": []
+}
