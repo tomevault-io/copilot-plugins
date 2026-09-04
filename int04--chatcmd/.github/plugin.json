@@ -1,0 +1,9 @@
+{
+  "name": "int04--chatcmd",
+  "displayName": "ChatCmd",
+  "description": "A local-first MCP bridge that turns web-based AI (ChatGPT, Grok, Gemini) into a supervised worker on your computer.",
+  "version": "1.0.0",
+  "author": "int04",
+  "homepage": "https://github.com/int04/ChatCmd",
+  "skills": []
+}
