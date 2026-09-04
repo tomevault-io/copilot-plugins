@@ -15,14 +15,6 @@ Original source: `CLAUDE.md` in [acking-you/pb-mapper](https://github.com/acking
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
-
-- [pb-mapper-client-cli-deploy](https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-client-cli-deploy)
-- [pb-mapper-release-pipeline](https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-release-pipeline)
-- [pb-mapper](https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-server-deploy/SKILL.md)
-- [pb-mapper](https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-release-pipeline/SKILL.md)
-- [pb-mapper](https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-client-cli-deploy/SKILL.md)
-
 From [acking-you/pb-mapper](https://github.com/acking-you/pb-mapper) — a repo with 75+ stars on GitHub.
 
 ---
