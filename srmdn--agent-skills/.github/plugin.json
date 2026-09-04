@@ -1,0 +1,9 @@
+{
+  "name": "srmdn--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Reusable skills for coding agents, starting with an evidence-based project handoff skill.",
+  "version": "1.0.0",
+  "author": "srmdn",
+  "homepage": "https://github.com/srmdn/agent-skills",
+  "skills": []
+}
