@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [effectstream/effectstream](https://github.com/e
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [effectstream](https://github.com/effectstream/effectstream/tree/main/.claude/skills/create-effectstream-app/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/effectstream/effectstream](https://github.com/effectstream/effectstream)
 
 ---
