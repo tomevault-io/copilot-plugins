@@ -1,30 +1,9 @@
 {
   "name": "leshchenko1979--fast-mcp-telegram",
   "displayName": "fast-mcp-telegram",
-  "description": "Telegram MCP server with HTTP-MTProto Bridge \u2014 direct API/curl access, multi-user Bearer auth, Docker, MTProto proxy, file attachments, voice transcription, context-optimized",
+  "description": "fast-mcp-telegram",
   "version": "1.0.0",
   "author": "leshchenko1979",
   "homepage": "https://github.com/leshchenko1979/fast-mcp-telegram",
-  "skills": [
-    {
-      "name": "fast-mcp-telegram",
-      "description": ""
-    },
-    {
-      "name": "fast-mcp-telegram",
-      "description": ""
-    },
-    {
-      "name": "fast-mcp-telegram",
-      "description": ""
-    },
-    {
-      "name": "fast-mcp-telegram",
-      "description": ""
-    },
-    {
-      "name": "fast-mcp-telegram",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
