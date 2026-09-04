@@ -1,0 +1,9 @@
+{
+  "name": "ciru-ai--qwen3-8-flash-ciru-strix-iu4",
+  "displayName": "Qwen3.8-Flash-CIRU-STRIX-IU4",
+  "description": "CIRU llama.cpp runtime for Qwen3.8-Flash-CIRU-STRIX-IU4 on AMD Strix Halo",
+  "version": "1.0.0",
+  "author": "ciru-ai",
+  "homepage": "https://github.com/ciru-ai/Qwen3.8-Flash-CIRU-STRIX-IU4",
+  "skills": []
+}
