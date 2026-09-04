@@ -4,7 +4,7 @@
   "repo": "papermachine",
   "description": "The AI analyst that shows its work. Runs Python and R on your own machine, and traces every chart back to the code behind it.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SuperJJ007/papermachine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T11:31:11Z"
+  "distributed_at": "2026-09-04T11:32:00Z"
 }
