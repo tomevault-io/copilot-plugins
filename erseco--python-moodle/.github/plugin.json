@@ -1,0 +1,9 @@
+{
+  "name": "erseco--python-moodle",
+  "displayName": "python-moodle",
+  "description": "Pythonic CLI and library to manage Moodle instances via web sessions",
+  "version": "1.0.0",
+  "author": "erseco",
+  "homepage": "https://github.com/erseco/python-moodle",
+  "skills": []
+}
