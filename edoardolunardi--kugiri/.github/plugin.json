@@ -1,0 +1,9 @@
+{
+  "name": "edoardolunardi--kugiri",
+  "displayName": "kugiri",
+  "description": "Splits text into lines, words and characters exactly where the browser already broke it.",
+  "version": "1.0.0",
+  "author": "edoardolunardi",
+  "homepage": "https://github.com/edoardolunardi/kugiri",
+  "skills": []
+}
