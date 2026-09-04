@@ -1,0 +1,9 @@
+{
+  "name": "locorda--sync-engine",
+  "displayName": "sync-engine",
+  "description": "Offline-first sync engine for Dart/Flutter \u2014 Unhosted / BYOB (Bring Your Own Backend): syncs to Google Drive, Solid Pods, or any file storage. CRDT-based conflict resolution, RDF data model.",
+  "version": "1.0.0",
+  "author": "locorda",
+  "homepage": "https://github.com/locorda/sync-engine",
+  "skills": []
+}
