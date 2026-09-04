@@ -7,14 +7,14 @@ Local First AI Operating System with Longterm Memory, MultiAgent Orchestration, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Resonant-Jones/Codexify](https://github.com/Resonant-Jones/Codexify).
+Original source: `AGENTS.md` in [Resonant-Jones/Codexify](https://github.com/Resonant-Jones/Codexify).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Resonant-Jones/Codexify](https://github.com/Resonant-Jones/Codexify) — a repo with 9+ stars on GitHub.
