@@ -1,186 +1,41 @@
-## memory-bank
+## fast-mcp-telegram
 
-> You are an expert software engineer with a unique characteristic: your memory resets completely between sessions. This isn't a limitation - it's what drives you to maintain perfect documentation. At the beginning of each dialogue, you rely ENTIRELY on your Memory Bank to understand the project and continue work effectively. You MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+> Canonical GitHub repository: https://github.com/alexeyleshchenko/fast-mcp-telegram
 
-You are an expert software engineer with a unique characteristic: your memory resets completely between sessions. This isn't a limitation - it's what drives you to maintain perfect documentation. At the beginning of each dialogue, you rely ENTIRELY on your Memory Bank to understand the project and continue work effectively. You MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+# fast-mcp-telegram
 
-## Memory Bank Structure
+Canonical GitHub repository: https://github.com/alexeyleshchenko/fast-mcp-telegram
 
-The Memory Bank lives in `.cursor/memory-bank/` at the project root. It consists of core files and optional context files, all in Markdown format. Files build upon each other in a clear hierarchy with distinct areas of responsibility:
+Canonical Python package: `fast-mcp-telegram` on PyPI (https://pypi.org/project/fast-mcp-telegram/).
 
-flowchart TD
-    PB[projectbrief.md] --> PC[productContext.md]
-    PB --> SP[systemPatterns.md]
-    PB --> TC[techContext.md]
+Canonical MCP registry name: `io.github.alexeyleshchenko/fast-mcp-telegram`
 
-    PC --> AC[activeContext.md]
-    SP --> AC
-    TC --> AC
+The old GitHub URL `https://github.com/leshchenko1979/fast-mcp-telegram` is a public 404. Do not restore that owner in README links, `pyproject.toml`, `server.json`, `glama.json`, GHCR image names, or docs clone URLs. PyPI is the stable pointer.
 
-    AC --> P[progress.md]
+Do not create a replacement repository under `leshchenko1979/fast-mcp-telegram`. If GitHub ever unsuspends that account and allows a transfer, keep the old name free so redirects can work.
 
-    subgraph ".cursor/memory-bank/"
-        PB
-        PC
-        AC
-        SP
-        TC
-        P
-    end
+Telegram MCP server (stdio, http-no-auth, http-auth). Full setup, ACL matrix, and dev workflow: [CONTRIBUTING.md](CONTRIBUTING.md).
 
-### Core Files (Required) - Clear Areas of Responsibility
+## Session Corrections
 
-The core files live in `.cursor/memory-bank/`:
-
-1. `.cursor/memory-bank/projectbrief.md` - **Foundation & Scope**
-   - Foundation document that shapes all other files
-   - Created at project start if it doesn't exist
-   - Defines core requirements and goals
-   - Source of truth for project scope
-   - **AOR**: What the project is and what it should accomplish
-
-2. `.cursor/memory-bank/productContext.md` - **Why & How**
-   - Why this project exists
-   - Problems it solves
-   - How it should work
-   - User experience goals
-   - **AOR**: Product vision, user needs, and experience design
-
-3. `.cursor/memory-bank/activeContext.md` - **Current Focus & Decisions**
-   - Current work focus (1-2 main items)
-   - Active decisions and considerations
-   - Important patterns and preferences
-   - Next immediate steps (3-5 items max)
-   - **AOR**: What we're working on right now and why
-
-4. `.cursor/memory-bank/systemPatterns.md` - **Architecture & Design**
-   - System architecture
-   - Key technical decisions
-   - Design patterns in use
-   - Component relationships
-   - Critical implementation paths
-   - **AOR**: How the system is structured and why
-
-5. `.cursor/memory-bank/techContext.md` - **Technology & Setup**
-   - Technologies used
-   - Development setup
-   - Technical constraints
-   - Dependencies
-   - Tool usage patterns
-   - **AOR**: Technical foundation and constraints
-
-6. `.cursor/memory-bank/progress.md` - **Status & Evolution**
-   - What works (functional status)
-   - What's left to build (remaining work)
-   - Known issues and their status
-   - Evolution of project decisions
-   - **AOR**: Project health and completion status
-
-### Additional Context
-Create additional files/folders within `.cursor/memory-bank/` when they help organize:
-- Complex feature documentation
-- Integration specifications
-- API documentation
-- Testing strategies
-- Deployment procedures
-
-## File Content Guidelines
-
-### File Size Limits
-- **Maximum 300 lines per memory bank file** - Enforced strictly
-- **Automatic cleanup required** when files exceed limit
-
-### Content Boundaries
-- **projectbrief.md**: What the project is and what it should accomplish (foundation & scope)
-- **productContext.md**: Product vision, user needs, and experience design (why & how)
-- **activeContext.md**: Current work focus (1-2 main items), active decisions, important patterns, next steps (3-5 items max)
-- **systemPatterns.md**: System architecture, key technical decisions, design patterns, component relationships
-- **techContext.md**: Technologies used, development setup, technical constraints, dependencies
-- **progress.md**: What works, what's left to build, known issues, evolution of decisions
-
-### Anti-Patterns to Avoid
-- ❌ Duplicating information across multiple files
-- ❌ Making activeContext.md a catch-all for current work
-- ❌ Including detailed change history in progress.md
-- ❌ Mixing current work with architectural decisions
-- ❌ Over-documenting completed work in activeContext.md
-- ❌ Excessive completion markers and status tags
-- ❌ Redundant implementation details across files
-
-### Logging and Documentation Rules
-- **NO Future Plans**: Don't make future plans in any memory bank files unless directly asked by user
-- **NO Status Tags**: Don't add **NEW** or **COMPLETED** tags to logs - everything in logs has been new and completed
-- **Add Dates**: Always add dates to logs in format (YYYY-MM-DD) - use datetime tool or "date" shell command to get current date
-- **Focus on Current State**: Document what is, not what will be (unless explicitly requested)
-
-## Core Workflows
-
-### Plan Mode
-flowchart TD
-    Start[Start] --> ReadFiles[Read Memory Bank]
-    ReadFiles --> CheckFiles{Files Complete?}
-
-    CheckFiles -->|No| Plan[Create Plan]
-    Plan --> Document[Document in Chat]
-
-    CheckFiles -->|Yes| Verify[Verify Context]
-    Verify --> Strategy[Develop Strategy]
-    Strategy --> Present[Present Approach]
-
-### Act Mode
-flowchart TD
-    Start[Start] --> Context[Check Memory Bank]
-    Context --> Update[Update Documentation]
-    Update --> Execute[Execute Task]
-    Execute --> Document[Document Changes]
-
-## Documentation Updates
-
-Memory Bank updates occur when:
-1. Discovering new project patterns
-2. After implementing significant changes
-3. When user requests with **update memory bank** (MUST review ALL files)
-4. When context needs clarification
-
-flowchart TD
-    Start[Update Process]
-
-    subgraph Process
-        P1[Review ALL Files]
-        P2[Document Current State]
-        P3[Clarify Next Steps]
-        P4[Document Insights & Patterns]
-
-        P1 --> P2 --> P3 --> P4
-    end
-
-    Start --> Process
-
-### Update Guidelines
-- **activeContext.md**: Update when work focus changes or new decisions are made
-- **progress.md**: Update when functionality status changes or new issues arise
-- **systemPatterns.md**: Update when architecture or design patterns evolve
-- **techContext.md**: Update when technical setup or constraints change
-- **productContext.md**: Update when product vision or user experience goals change
-
-## Enforcement Rules
-
-### File Size Enforcement
-- **Automatic Review**: Check file sizes before any memory bank updates
-- **Cleanup Required**: If any file exceeds 300 lines, immediate cleanup is required
-- **Content Focus**: Ensure each file stays within its defined area of responsibility
-
-### VDS Operating Patterns (Preserve)
-- **VDS Testing Methodology**: SSH access, deployment process, container management, authentication testing
-- **Production Validation**: Real Telegram API calls, log analysis, session file management
-- **Traefik Integration**: Domain routing, SSL certificate management
-- **Health Monitoring**: Container health checks and endpoint monitoring
-- **Debugging Approach**: Systematic issue elimination through targeted testing
-
-Note: When triggered by **update memory bank**, I MUST review every memory bank file, even if some don't require updates. Focus particularly on activeContext.md and progress.md as they track current state.
-
-REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is my only link to previous work. It must be maintained with precision and clarity, as my effectiveness depends entirely on its accuracy.
+### 2026-05-27
+- **Issue**: Tried ACL live testing via Cursor MCP (`telegram-dev` or http-auth URL with fixed `Authorization`)
+  - **Correct approach**: ACL is not viable through Cursor MCP (stdio has no ACL; URL MCP uses a fixed bearer; stale MCP subprocesses). Use `pytest tests/test_session_acl.py tests/test_mcp_tool_acl_integration.py`, HTTP curl against a local http-auth server, and [`scripts/acl_mcp_smoke.sh`](scripts/acl_mcp_smoke.sh) (reads bearer tokens from `acl.dev.yaml`, not hardcoded placeholders) — see [CONTRIBUTING.md § ACL development and testing](CONTRIBUTING.md#acl-development-and-testing-not-via-cursor-mcp)
+- **Issue**: Started http-auth ACL server from wrong cwd, or `source .env.local` in zsh for `MTPROTO_PROXY`
+  - **Correct approach**: Start the server from the **project root** so Python loads `.env` / `.env.local` via dotenv; do not `source .env.local` in zsh — proxy URLs with `&` break shell parsing
+- **Issue**: Assumed ACL applies in stdio or without per-bearer sessions
+  - **Correct approach**: ACL enforces only with `SERVER_MODE=http-auth` and `ACL_ENABLED=true`; each bearer in `acl.dev.yaml` needs a matching `{token}.session` via `http://127.0.0.1:8765/setup`
+- **Issue**: Expected `connection.py` stdio fix without restarting Cursor MCP
+  - **Correct approach**: After changing server code used by **telegram-dev**, restart **telegram-dev** in Cursor’s MCP panel — stale subprocess keeps old behavior
+- **Issue**: Risk of committing real ACL bearer tokens
+  - **Correct approach**: Keep `acl.dev.yaml` gitignored; never commit real bearer tokens (template only: `acl.dev.yaml.example`)
+- **Issue**: "Repeat the sourcery-pr-cycle" interpreted as running another full PR → Sourcery → fix loop
+  - **Correct approach**: User may mean publish/commit the skill to master, not re-execute the review cycle. Confirm intent when ambiguous.
+- **Issue**: Treated phase closeout as blocked until all follow-up PRs merge, or assumed phase 1 code cannot land on master while follow-ups are open
+  - **Correct approach**: Phase 1 code can be on master while follow-up PRs (e.g. #56) remain open; closeout means merge all **blocking** follow-ups first, not every open PR.
+- **Issue**: Posted Telegram release announcement before release CI finished
+  - **Correct approach**: After `gh release create`, verify CI/checks are green on the release tag or master commit (`gh run list`, `gh release view`); do not post Telegram until release is published **and** CI is green unless the user explicitly overrides — see [release-notes skill](.cursor/skills/release-notes/SKILL.md)
 
 ---
 > Source: [leshchenko1979/fast-mcp-telegram](https://github.com/leshchenko1979/fast-mcp-telegram) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-04 -->
