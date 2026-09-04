@@ -1,0 +1,9 @@
+{
+  "name": "procload--spellbooks-avatar",
+  "displayName": "spellbooks-avatar",
+  "description": "An avatar generator for Spellbooks",
+  "version": "1.0.0",
+  "author": "procload",
+  "homepage": "https://github.com/procload/spellbooks-avatar",
+  "skills": []
+}
