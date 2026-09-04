@@ -4,7 +4,7 @@
   "repo": "lattice-music",
   "description": "CLI/TUI for music collections: ~20 read-only audit/visualization modes (library trees, integrity checks, cover/metadata audit, stats, playlists), plus seven write-capable companion scripts that *do* mutate (`retag`, `genre_tidy`, `cleaner`, `genre_foldermap`, `rerate`, `replaygain`, `apestrip`).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VirInvictus/lattice-music",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T15:31:09Z"
+  "distributed_at": "2026-09-04T15:32:51Z"
 }
