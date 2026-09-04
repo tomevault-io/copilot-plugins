@@ -1,0 +1,9 @@
+{
+  "name": "has-x--sensitivity",
+  "displayName": "Sensitivity",
+  "description": "Native WinUI 3 and Fluent 2 Windows app with a cross-platform Rust CLI for Xiaomi Mi Assistant Recovery ROM validation, USB flashing, diagnostics, and rescue.",
+  "version": "1.0.0",
+  "author": "Has-X",
+  "homepage": "https://github.com/Has-X/Sensitivity",
+  "skills": []
+}
