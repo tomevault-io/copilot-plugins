@@ -1,0 +1,9 @@
+{
+  "name": "cognitivegears--ha-escpos-thermal-printer",
+  "displayName": "ha-escpos-thermal-printer",
+  "description": "ha-escpos-thermal-printer",
+  "version": "1.0.0",
+  "author": "cognitivegears",
+  "homepage": "https://github.com/cognitivegears/ha-escpos-thermal-printer",
+  "skills": []
+}
