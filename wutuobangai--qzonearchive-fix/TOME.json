@@ -1,0 +1,44 @@
+{
+  "name": "QzoneArchive-fix",
+  "owner": "wutuobangai",
+  "repo": "QzoneArchive-fix",
+  "description": "QzoneArchive\uff08QQ \u7a7a\u95f4\u5f52\u6863\uff09\u4fee\u590d\u7248\uff1a\u767b\u5f55\u8fc7\u671f\u4e0d\u518d\u5f53\u574f\u9875\u8df3\u8fc7 \u00b7 \u65ad\u70b9 24 \u5c0f\u65f6 \u00b7 \u9644 Win/Mac \u5b89\u88c5\u5305\u4e0e\u4f7f\u7528\u6559\u7a0b\u3002\u4e0a\u6e38 Gaoshu705/QzoneArchive \u00b7 GPLv3",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wutuobangai/QzoneArchive-fix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-04T11:33:23Z"
+}
