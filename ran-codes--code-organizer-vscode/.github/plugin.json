@@ -1,0 +1,9 @@
+{
+  "name": "ran-codes--code-organizer-vscode",
+  "displayName": "code-organizer-vscode",
+  "description": "VS Code extension for navigating large files using lightweight comment syntax to create instant table-of-contents navigation. Supports multiple programming languages.",
+  "version": "1.0.0",
+  "author": "ran-codes",
+  "homepage": "https://github.com/ran-codes/code-organizer-vscode",
+  "skills": []
+}
