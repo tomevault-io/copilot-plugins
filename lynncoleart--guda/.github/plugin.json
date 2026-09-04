@@ -1,0 +1,9 @@
+{
+  "name": "lynncoleart--guda",
+  "displayName": "guda",
+  "description": "A High-Performance CPU-Based CUDA-Compatible Linear Algebra Library",
+  "version": "1.0.0",
+  "author": "LynnColeArt",
+  "homepage": "https://github.com/LynnColeArt/guda",
+  "skills": []
+}
