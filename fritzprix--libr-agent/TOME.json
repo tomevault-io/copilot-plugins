@@ -1,0 +1,117 @@
+{
+  "name": "libr-agent",
+  "owner": "fritzprix",
+  "repo": "libr-agent",
+  "description": "Desktop AI agent with built-in tools. No complex setup, just productivity.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docx",
+      "path": "src-tauri/bundled_skills/docx",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/src-tauri/bundled_skills/docx",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": ".github/skills/docx",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.github/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "libragent-quality",
+      "path": ".github/skills/libragent-quality",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.github/skills/libragent-quality",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": ".github/skills/mcp-builder",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.github/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "src-tauri/bundled_skills/mcp-builder",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/src-tauri/bundled_skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "path": ".github/skills/release-manager",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.github/skills/release-manager",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "src-tauri/bundled_skills/skill-creator",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/src-tauri/bundled_skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "system-setup",
+      "path": ".github/skills/system-setup",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.github/skills/system-setup",
+      "description": ""
+    },
+    {
+      "name": "system-setup",
+      "path": "src-tauri/bundled_skills/system-setup",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/src-tauri/bundled_skills/system-setup",
+      "description": ""
+    },
+    {
+      "name": "agent-init",
+      "path": "src-tauri/bundled_skills/agent-init",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/src-tauri/bundled_skills/agent-init",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "path": ".gemini/skills/react-native-skills",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.gemini/skills/react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "path": ".github/skills/react-native-skills",
+      "github_url": "https://github.com/fritzprix/libr-agent/tree/main/.github/skills/react-native-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fritzprix/libr-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-04T22:30:18Z"
+}
