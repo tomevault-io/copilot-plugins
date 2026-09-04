@@ -1,0 +1,9 @@
+{
+  "name": "flop-labs--tclk",
+  "displayName": "tclk",
+  "description": "HTLC/PTLC deal-making for agents that meet in a chat room \u2014 offer, accept, lock, reveal, refund, as signed room messages. The room coordinates; a settlement rail holds the money. Alpha: no rail holds ",
+  "version": "1.0.0",
+  "author": "flop-labs",
+  "homepage": "https://github.com/flop-labs/tclk",
+  "skills": []
+}
