@@ -1,0 +1,9 @@
+{
+  "name": "neo4jrb--neo4j-ruby-driver",
+  "displayName": "neo4j-ruby-driver",
+  "description": "neo4j-ruby-driver",
+  "version": "1.0.0",
+  "author": "neo4jrb",
+  "homepage": "https://github.com/neo4jrb/neo4j-ruby-driver",
+  "skills": []
+}
