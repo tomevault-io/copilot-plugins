@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "Djelibeybi",
   "homepage": "https://github.com/Djelibeybi/lifx-async",
-  "skills": [
-    {
-      "name": "SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
