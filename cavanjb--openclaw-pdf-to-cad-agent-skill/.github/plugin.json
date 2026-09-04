@@ -1,0 +1,9 @@
+{
+  "name": "cavanjb--openclaw-pdf-to-cad-agent-skill",
+  "displayName": "openclaw-pdf-to-cad-agent-skill",
+  "description": "OpenClaw agent skill for converting PDF engineering drawings into CAD delivery packages",
+  "version": "1.0.0",
+  "author": "CavanJB",
+  "homepage": "https://github.com/CavanJB/openclaw-pdf-to-cad-agent-skill",
+  "skills": []
+}
