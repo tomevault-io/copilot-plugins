@@ -1,113 +1,38 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## kicadts
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> This is the `kicadts` typescript library. It's still in early developement and
 
+This is the `kicadts` typescript library. It's still in early developement and
+we're trying to make sure we parse the entire KiCad S-expression specification.
 
-Default to using Bun instead of Node.js.
+You can find the difference specifications in the `references` directory, the
+most extensive one is `references/SEXPR_MAIN.adoc` (use `bun run scripts/download-references.ts` to download if it's not already there)
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+- `references/SCHEMATIC_SEXPR.adoc`
+- `references/PCB_SEXPR.adoc`
+- `references/FOOTPRINT_SEXPR.adoc`
+- `references/SCH_SYM_SEXPR.adoc`
+- `references/SEXPR_MAIN.adoc`
 
-## APIs
+### Tips
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+- Every S-expression token must have a corresponding `SxClass` subclass and be registered via `SxClass.register`; missing registrations cause parse failures.
+- Tokens reused under different parents (for example `type` under `stroke`) require `static parentToken` overrides so the correct class resolves during parsing.
+- When a class accepts unordered child tokens, set `_propertyMap` using `loadProperties` to make getters convenient and keep `getString()` deterministic.
+- Snapshot tests with `bun test` provide quick verification that `getString()` matches the KiCad formatting expectations.
 
-## Testing
+### Major Refactor Notice
 
-Use `bun test` to run tests.
-
-```ts#index.test.ts
-import { test, expect } from "bun:test";
-
-test("hello world", () => {
-  expect(1).toBe(1);
-});
-```
-
-## Frontend
-
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
-
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+- The code in this repo is only partially migrated to the new pattern
+- NEW PATTERN: Constructors never take `PrimitiveSExpr` arguments
+- NEW PATTERN: All classes have a `fromSexprPrimitives` static method that takes a `PrimitiveSExpr` array and returns an instance of the class
+- NEW PATTERN: Classes have ergonomic getters and setters for properties
+- NEW PATTERN: Never has "extras" property, everything becomes an `SxClass`
+- NEW PATTERN: Never have "switch cases" that switch on the token. Always use the `SxClass.parsePrimitiveSexpr` or `SxClass.parsePrimitivesToClassProperties` methods to parse arrays of `PrimitiveSExpr` into instances of the correct class
+- NEW PATTERN: Never track the order of children unless absolutely necessary, use the `_sx*` properties and `getChildren` to return the children in a predefined order
+- NEW PATTERN: Never track unknown children, throw an error/allow an error to be thrown if you encounter a child PrimitiveSExpr that can't be parsed. You can introduce new `_sx*` properties and a new class to prevent the error
+- NEW PATTERN: One class per file
+- NEW PATTERN: Ergonomic constructors for classes
 
 ---
 > Source: [tscircuit/kicadts](https://github.com/tscircuit/kicadts) — distributed by [TomeVault](https://tomevault.io).
