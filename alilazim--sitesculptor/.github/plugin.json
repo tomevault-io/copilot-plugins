@@ -1,0 +1,9 @@
+{
+  "name": "alilazim--sitesculptor",
+  "displayName": "SiteSculptor",
+  "description": "Build SiteSculptor as a Flask app deployed on Render. It will securely extract a public website\u2019s core content, generate three distinct redesigns sequentially, provide sandboxed previews and Blob-base",
+  "version": "1.0.0",
+  "author": "alilazim",
+  "homepage": "https://github.com/alilazim/SiteSculptor",
+  "skills": []
+}
