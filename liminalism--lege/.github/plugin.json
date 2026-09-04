@@ -1,0 +1,9 @@
+{
+  "name": "liminalism--lege",
+  "displayName": "Lege",
+  "description": "a selective binarization and re-encoding program to prepare scanned books for pleasant reading on E-ink readers",
+  "version": "1.0.0",
+  "author": "liminalism",
+  "homepage": "https://github.com/liminalism/Lege",
+  "skills": []
+}
