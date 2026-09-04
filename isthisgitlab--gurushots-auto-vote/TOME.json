@@ -4,7 +4,7 @@
   "repo": "gurushots-auto-vote",
   "description": "Cross-platform Electron app for automated voting on GuruShots photography challenges. Features both GUI, android and CLI interfaces with mock mode for testing. Built with Node.js and modern web technologies.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/isthisgitlab/gurushots-auto-vote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T20:31:57Z"
+  "distributed_at": "2026-09-04T20:32:43Z"
 }
