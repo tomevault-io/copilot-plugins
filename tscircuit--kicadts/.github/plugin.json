@@ -1,0 +1,9 @@
+{
+  "name": "tscircuit--kicadts",
+  "displayName": "kicadts",
+  "description": "Typescript library for generating KiCad file formats",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/kicadts",
+  "skills": []
+}
