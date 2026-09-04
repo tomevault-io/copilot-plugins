@@ -4,7 +4,7 @@
   "repo": "tech-europe-hackathon",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ataniz/tech-europe-hackathon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T10:32:07Z"
+  "distributed_at": "2026-09-04T10:37:23Z"
 }
