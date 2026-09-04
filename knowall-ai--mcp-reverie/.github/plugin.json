@@ -1,0 +1,9 @@
+{
+  "name": "knowall-ai--mcp-reverie",
+  "displayName": "mcp-reverie",
+  "description": "Memory management MCP server for AI agents using Neo4j knowledge graphs",
+  "version": "1.0.0",
+  "author": "knowall-ai",
+  "homepage": "https://github.com/knowall-ai/mcp-reverie",
+  "skills": []
+}
