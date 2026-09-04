@@ -1,0 +1,9 @@
+{
+  "name": "adamf--jetway",
+  "displayName": "jetway",
+  "description": "Open-source airline and GDS reservation messaging gateway: Type B/AIRIMP, UN/EDIFACT PADIS, and a PNR store.",
+  "version": "1.0.0",
+  "author": "adamf",
+  "homepage": "https://github.com/adamf/jetway",
+  "skills": []
+}
