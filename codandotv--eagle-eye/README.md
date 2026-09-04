@@ -7,11 +7,11 @@ A Dart CLI tool designed to enforce architectural rules in your flutter/dart pro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CodandoTV/eagle-eye](https://github.com/CodandoTV/eagle-eye).
+Original source: `AGENTS.md` in [CodandoTV/eagle-eye](https://github.com/CodandoTV/eagle-eye).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
