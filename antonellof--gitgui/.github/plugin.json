@@ -1,0 +1,9 @@
+{
+  "name": "antonellof--gitgui",
+  "displayName": "gitgui",
+  "description": "A Git source-control GUI rendered as pixels inside kitty-graphics terminals. One small Rust binary, no browser engine, works over SSH.  cmux+pi+gitgui = \ud83d\ude0d",
+  "version": "1.0.0",
+  "author": "antonellof",
+  "homepage": "https://github.com/antonellof/gitgui",
+  "skills": []
+}
