@@ -1,0 +1,9 @@
+{
+  "name": "eliorpom-cmd--print-on-my-desk",
+  "displayName": "print-on-my-desk",
+  "description": "A thermal printer on your desk, with a web page in front of it. Send someone a link; what they write comes out on paper.",
+  "version": "1.0.0",
+  "author": "eliorpom-cmd",
+  "homepage": "https://github.com/eliorpom-cmd/print-on-my-desk",
+  "skills": []
+}
