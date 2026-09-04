@@ -1,0 +1,95 @@
+## kick-c64-dead-test
+
+> Commodore 64 hardware diagnostic tool running as Ultimax cartridge ($E000-$FFFF). Tests RAM, VIC-II, CIA and SID systematically without relying on untested components. (No ROM is verified: Ultimax fixes the memory map, so the KERNAL, BASIC and character ROMs are not addressable.) Uses visual feedback to identify specific failed chips (U9-U12, U21-U24).
+
+# CLAUDE.md
+
+## Project Summary
+Commodore 64 hardware diagnostic tool running as Ultimax cartridge ($E000-$FFFF). Tests RAM, VIC-II, CIA and SID systematically without relying on untested components. (No ROM is verified: Ultimax fixes the memory map, so the KERNAL, BASIC and character ROMs are not addressable.) Uses visual feedback to identify specific failed chips (U9-U12, U21-U24).
+
+## Quick Start
+```bash
+make         # Build .prg, .crt, and .bin files
+make run     # Launch the currently built cartridge in VICE (make build-and-run to do both)
+make debug   # Build and run with VICE monitor
+make clean   # Remove all build artifacts
+make help    # Show all available targets
+```
+**Output files:** `bin/main.prg` (program), `bin/dead-test.crt` (cartridge), `bin/dead-test.bin` (EPROM)
+
+## Project Structure
+```
+src/
+├── main.asm           # Entry point, cartridge setup
+├── main_loop.asm      # Test orchestration and iteration control
+├── layout.asm         # Screen layout initialization
+├── macros.asm         # Common test patterns and utilities
+├── *_test.asm         # Individual hardware test modules:
+│   ├── mem_bank_test.asm    # Initial RAM bank verification
+│   ├── zero_page_test.asm   # $00-$FF testing
+│   ├── stack_page_test.asm  # $0100-$01FF testing
+│   ├── low_ram_test.asm     # $0200-$03FF testing (AA/55/PRN patterns)
+│   ├── screen_ram_test.asm  # $0400 display memory
+│   ├── color_ram_test.asm   # $D800 color memory
+│   ├── ram_test.asm          # General RAM testing
+│   ├── font_test.asm         # Custom font load into $0800 (not a ROM test)
+│   ├── sound_test.asm        # SID chip testing
+│   └── filters_test.asm      # SID filter testing
+├── u_failure.asm      # Chip failure identification logic
+├── *_map.asm          # Memory definitions:
+│   ├── mem_map.asm           # Memory layout constants
+│   └── zeropage_map.asm      # Zero page variable allocation
+└── data.asm           # Test patterns and constants
+```
+
+## Critical Constraints
+
+⚠️ **MUST FOLLOW - Violations will cause crashes:**
+- **NEVER use JSR/RTS before stack test completes** - Use only JMP instructions
+- **NEVER modify $00-$11** - Reserved for test state variables
+- **ALWAYS maintain test order** - Critical components first (RAM → Stack → Display → ROM → Sound)
+- **Pattern-based testing** - All tests use 20-byte pattern from `data.asm`
+
+## Test Flow
+
+```
+1. Memory Bank Test    → Black screen ~10 seconds (initial RAM test)
+2. Layout Drawing      → Display initialized only after RAM passes
+3. Zero Page Test      → Tests $00-$FF (critical for variables)
+4. Stack Page Test     → Tests $0100-$01FF (enables JSR/RTS usage)
+5. Low RAM Test        → Tests $0200-$03FF (AA/55/PRN patterns)
+6. Screen RAM Test     → Tests $0400 display memory
+7. Color RAM Test      → Tests $D800 color attributes
+8. General RAM Test    → Extended memory testing
+9. Font Test           → Custom font copied to $0800 (load, not a test)
+10. Sound/Filter Tests → SID chip testing
+```
+Border color cycles on each iteration. Tests run continuously with iteration counter.
+
+## Memory Map
+
+| Address | Usage | Notes |
+|---------|-------|-------|
+| $00-$11 | Test variables | DO NOT MODIFY during tests |
+| $0100-$01FF | Stack | Not available until stack test passes |
+| $0400 | Screen RAM | 1000 bytes display memory |
+| $D800 | Color RAM | 1000 bytes color attributes |
+| $E000-$FFFF | Code | Ultimax cartridge ROM space |
+
+## Build Configuration
+
+Override defaults with: `make VARIABLE=value`
+- `KICKASS_BIN`: KickAssembler path (default: `/Applications/KickAssembler/KickAss.jar`)
+- `JAVA`: Java executable (default: `java`)
+- `X64SC`: VICE emulator binary (default: `x64sc`)
+
+## References
+
+- **Installation & Prerequisites:** See `readme.md`
+- **Detailed Test Algorithms:** See `docs/TECHNICAL_DOCUMENTATION.md`
+- **Makefile Options:** Run `make help`
+- **VICE Documentation:** [https://vice-emu.sourceforge.io/](https://vice-emu.sourceforge.io/)
+
+---
+> Source: [stid/kick-c64-dead-test](https://github.com/stid/kick-c64-dead-test) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-04 -->
