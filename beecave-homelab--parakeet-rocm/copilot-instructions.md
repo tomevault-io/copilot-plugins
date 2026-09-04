@@ -1,64 +1,28 @@
-## coding-style-guide
+## environment-variables
 
-> Enforce PEP8, full-path imports, and Google-style docstrings (including for private functions). All functions must have type hints. Auto-fix formatting, import style, and documentation to keep code clean, typed, and well-documented.
+> Environment variables are loaded once at startup via utils.env_loader.load_project_env (called only in utils.constant), which defines constants. All other modules import these constants from utils.constant rather than reading env vars directly.
 
 
-# Python Coding Standards Enforcement
+# Workplace Rule: environment-variables
 
-You are an AI-agent contributing to a Python project. You must follow the rules outlined below **strictly** when generating, editing, or reviewing any Python code.
+1. Single Loading Point
+   • Environment variables must be parsed exactly once at application start.
+   • The loader function is `load_project_env()` in `<package>/utils/env_loader.py`.
 
-______________________________________________________________________
+2. Central Import Location
+   • `load_project_env()` MUST be invoked only inside `<package>/utils/constant.py`.
+   • No other file should import `env_loader` or call `load_project_env()` directly.
 
-## 📚 Docstrings & Documentation
+3. Constant Exposure
+   • After loading, `<package>/utils/constant.py` exposes project-wide configuration constants (e.g. `DEFAULT_CHUNK_LEN_SEC`, `DEFAULT_BATCH_SIZE`).
+   • All other modules (e.g. `<package>/app.py`, `<package>/transcribe.py`) must import from `<package>.utils.constant` instead of reading `os.environ` or `.env`.
 
-- Use **Google Style docstrings** for **all functions, classes, and methods**, including private/internal ones.
-- Each docstring must include:
-  - **Args**: List all input parameters with their types and concise descriptions.
-  - **Returns**: Describe the return value and its type.
-  - **Raises** (if applicable): Document any exceptions the function may raise.
+4. Adding new variables
+   • Define a sensible default in `<package>/utils/constant.py` (`os.getenv("VAR", "default")`).
+   • Document the variable in `.env.example`.
 
-______________________________________________________________________
-
-## ✍️ Type Hints
-
-- All function arguments and return values **must be annotated** with explicit type hints.
-  - ✅ `def add(x: int, y: int) -> int:`
-  - ❌ `def add(x, y):`
-
-______________________________________________________________________
-
-## 🧼 Code Style
-
-- Adhere to **PEP 8** standards for all formatting, including:
-  - 4-space indentation
-  - Line length ≤ 88 characters
-  - Snake_case for variables/functions, PascalCase for classes
-  - Use `isort` and `black` compatible formatting
-- **Never** use wildcard imports (`from module import *`).
-
-______________________________________________________________________
-
-## 📦 Imports
-
-- Use **absolute (full-path) imports** consistently.
-  - ✅ `from my_project.module.submodule import MyClass`
-  - ❌ `from .submodule import MyClass` or `import submodule`
-- Organize imports in this order with blank lines in between:
-  1. Standard library
-  2. Third-party packages
-  3. Local application imports
-
-______________________________________________________________________
-
-## 🛠️ Error Handling & Auto-Fixing
-
-- If code violates any of these rules, silently **fix it before outputting**.
-
-- This includes adding missing type hints, converting relative imports to absolute, reformatting code, and rewriting docstrings.
-
-______________________________________________________________________
-
-Always return Python files that are **PEP8-compliant, type-safe, properly documented, and consistently structured**.
+5. Enforcement
+   • Pull requests adding direct `os.environ[...]` or `env_loader` imports outside `utils/constant.py` should be rejected.
 
 ---
 > Source: [beecave-homelab/parakeet_rocm](https://github.com/beecave-homelab/parakeet_rocm) — distributed by [TomeVault](https://tomevault.io).
