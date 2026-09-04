@@ -4,7 +4,7 @@
   "repo": "sellf",
   "description": "Self-hosted platform for selling digital products and capturing leads. Stripe payments, Supabase auth, Next.js 15.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jurczykpawel/sellf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T22:33:58Z"
+  "distributed_at": "2026-09-04T22:40:00Z"
 }
