@@ -1,0 +1,110 @@
+## gurushots-auto-vote
+
+> - **MCP Integration**: Always utilize MCP (Model Context Protocol) tools and resources first before implementing custom logic. Check available MCP servers for existing solutions.
+
+# Development Guidelines
+
+## Code Architecture
+
+- **MCP Integration**: Always utilize MCP (Model Context Protocol) tools and resources first before implementing custom logic. Check available MCP servers for existing solutions.
+- **Cross-Platform Consistency**: The application targets three platforms — Electron (GUI), CLI, and Android (Capacitor). All core business logic in `src/js/` must be shared; only the platform shell (entry points, transport, storage adapter) is platform-specific.
+- **Entry points**: Electron `src/js/index.js` · CLI `src/js/cli/cli.js` · Electron preload `src/js/preload.js` · Capacitor bridge `src/js/bridge/capacitor.js`. The same React renderer (`src/js/react/`) runs under both Electron and Capacitor.
+- **API surface swap**: `src/js/apiFactory.js` selects real vs mock implementations at runtime based on `settings.mock`. All callers go through the factory — do not import `src/js/api/*` or `src/js/mock/*` directly from business logic.
+- **IPC** (deep reference: `docs/architecture.md`): `src/js/ipc/manifest.js` is the dependency-free single source of truth for the `window.api` surface; both shells generate from it and CI enforces name-parity (**signatures are NOT checked**). Handlers export `buildHandlers(deps)` + `register(ipcMain)`, are reused by CLI and Capacitor (no parallel impls), and **return `{success,error}` — never throw to the renderer**.
+- **Persistence**: use `createJsonStore()` (`src/js/settings/storage.js`) for platform-aware JSON; don't hand-roll `fs`. Node-side platform detection = `src/js/runtime.js`; renderer-side = `globalThis.Capacitor?.isNativePlatform?.()`.
+
+## Application Domain & Invariants
+
+> Deep reference: **`docs/architecture.md`** (and `docs/scheduling.md` for the timer engines). These are invariants an edit must not violate.
+
+- **Voting pass**: one shared loop `runVotingPass` (`src/js/services/votingOrchestrator.js`) for real+mock — never fork it; inject differences via `deps`. The per-challenge runners are **sequential, never parallelised** (shared challenge-object mutation). Rule precedence in `_runVotingRules` (`src/js/services/VotingLogic.js`) is load-bearing.
+- **Two distinct sentinels — don't merge them**: for `exposureTarget`/`lastHourExposureTarget`, `0`/null = "target == trigger" (rule **stays active**); for `boostTime`/`emergencyFill`/`keyUnlockedBoostTime`, `0` = feature **off**.
+- **Scheduler**: single recursive `setTimeout` chain, no cron; one decision point `computeNextCycleDelayMs`; invariant "never sleep past a boundary"; cancellation is a global flag that propagates by `return`, never `throw`.
+- **API transport**: everything POSTs through `makePostRequest` (`src/js/api/api-client.js`), which returns the body or **`null` — it never throws**. Branch on `null`; keep retry/backoff centralised; custom (Android) adapters must call `finalizeAdapterResponse`.
+- **Semantic lexicon** ranks auto-fill photos only — **never** the vote decision; `SEMANTIC_MATCH_FLOOR` is build-gated by `scripts/validate-lexicon.js`, not hand-tuned.
+- **Safety**: optional-chain every per-challenge API read (an unguarded throw aborts the whole pass); new-entry detection compares ids as **sets, not positions**; mock mode must pass `cleanupStaleMetadata: null` so it never touches the real `metadata.json`.
+- **Security invariants** (details/limits in `docs/architecture.md` §10): keep `contextIsolation` on, `nodeIntegration` off, and the sandboxed-preload / `window.api`-only exposure — regressing any is a severe-vuln class; keep the `isTrustedSender` frame check on every invoke; never log a raw headers/token object (redaction is key-allowlisted, not exhaustive — it misses the `x-token` key).
+
+## File Management
+
+- **Documentation Policy**: Do not create markdown files, README files, or other documentation unless explicitly requested by the user.
+- **Prefer Editing**: Always edit existing files rather than creating new ones when possible.
+
+## Testing Standards
+
+- **Test Organization**: All test files must be placed in the `tests/` directory following proper Jest conventions and structure.
+- **Mock Configuration**: Never use `mock: false` in any Jest or testing commands - use proper mocking strategies instead.
+
+## UI/UX Standards
+
+- **Styling Framework**: GUI application uses Tailwind CSS + DaisyUI for all styling components
+- **Custom CSS Policy**: No custom CSS is allowed except for the predefined Latvian color theme (already defined in the project)
+- **Component Consistency**: Follow DaisyUI component patterns and conventions for consistent user experience
+
+## Renderer / UI
+
+> Scope: `## UI/UX Standards` above governs styling policy (Tailwind/DaisyUI/theme); this section governs component & data-flow conventions. Deep reference: `docs/architecture.md` §8–9.
+
+- **Backend access**: all backend calls go through `window.api.*` via `src/js/react/api/useIpcQuery.js` / `useAsyncIpcAction.js` — **no per-platform branching in components**, and don't call `window.api` raw.
+- **Structure**: no router (mount entry points `mountApp`/`mountLogin`); no toast lib — inline DaisyUI `alert` + `ui/ErrorBoundary`. User-facing error text follows *what happened → why → what next*, translated, never raw status codes at the user.
+- **Primitives & theme**: reuse `src/js/react/components/ui/` primitives; new modals **must** use `ui/Modal.jsx` (owns the a11y focus-trap bar). Theme = DaisyUI `data-theme`, no `dark:` variant. High-frequency ticks via `@preact/signals` (`useTimers`) to avoid re-rendering the challenge list.
+- **i18n mandatory**: user-facing strings via `useTranslation().t()`, added to **both** `src/js/translations/english.js` and `latvian.js`. Internal/log strings stay English.
+
+## Code Quality
+
+- **DRY Principle**: Prioritize code reuse over duplication. Extract common functionality into shared utilities, hooks, or components
+- **Shared Logic**: Create reusable functions and modules that can be utilized across both Electron and CLI implementations
+
+## Configuration Management
+
+- **Settings Architecture**: Settings facade lives at `src/js/settings.js`. Schema (keys + defaults + validation) is in `src/js/settings/schema.js`; persistence transport (fs on Electron/CLI, `@capacitor/preferences` on Android) is in `src/js/settings/storage.js`. Always go through the facade.
+- **Environment Variables**: Do not use environment variables (.env files) for application configuration - use the established settings logic instead
+- **Configuration Consistency**: Ensure settings are accessible and consistent between GUI and CLI interfaces
+
+## Key Commands
+
+> Package manager: **pnpm 11+** (pinned via `packageManager` in `package.json`, bootstrap with `corepack enable`). Use `pnpm <script>` everywhere — the `npm` CLI is not supported.
+
+- **Dev (GUI + watchers)**: `pnpm dev` — runs CSS, React, and Electron watchers concurrently
+- **CLI**: `pnpm cli:start` · `cli:vote` · `cli:status` · `cli:login` · `cli:help`
+- **Build**: `pnpm build:mac` · `build:win` · `build:linux` · `build:android` · `build:cli:all`
+- **CLI build prereq**: needs `strip` (preinstalled on Linux + Xcode CLT) and, on macOS, `codesign` (Xcode CLT). Each CLI target is built on its native-arch runner — mac on `macos-26`, linux x64 on `ubuntu-latest`, linux arm64 on `ubuntu-24.04-arm` (separate `build-cli-arm` job). Local cross-arch builds (e.g. `build:cli:linux-arm` from an x64 host) aren't supported by the script — run on matching hardware or let CI handle it. UPX is intentionally NOT used — macOS AMFI rejects packed Mach-O, and postject's ELF section injection trips UPX's `bad e_phoff` structural check on Linux. Mac CLI binary is ad-hoc signed by the build — no Developer ID / notarization, so browser-downloaded copies still hit Gatekeeper and need `xattr -d com.apple.quarantine`.
+- **Settings (dev)**: `pnpm settings:get` · `settings:set <key> <value>` · `settings:schema` · `settings:reset`
+- **Tests**: `pnpm test` (full suite) · `pnpm test:watch` · `pnpm test:coverage` — Jest has two projects (`node` and `happy-dom`); React tests are `.test.jsx` under `tests/react/`, everything else is `.test.js`
+- **Lint/format/types**: `pnpm lint` · `lint:fix` · `format` (Prettier) · `typecheck` (ttsc, checker-only, type-check **plus** @ttsc/lint in one pass — see **Dependencies & Type Checking**) · `typecheck:fix` (ttsc autofix for the lint rules) · `typecheck:tsc` (mainline-tsc cross-check / rollback)
+- **Code hygiene**: `pnpm knip` (unused files/deps/types — config in `knip.json`; the `exports`/`nsExports` rules are off because they misfire on this codebase's CJS namespace-access pattern) · `pnpm size` (renderer bundle brotli budgets via size-limit, config in `.size-limit.json`; if the **app** bundle trips its budget, first check whether something newly reachable from `App.jsx` pulled in `settings/schema.js` — its CJS `require('zod')` can't be tree-shaken and adds ~60 kB brotlied on its own, which is why bounds live in the dependency-free `settings/limits.js`. The capacitor/headless budgets are far larger because those bundles import the settings facade and legitimately carry zod) · `pnpm size:cli` (coarse SEA binary / `cli-bundled.js` size guard, `scripts/check-cli-size.js`)
+- **README version sync**: `pnpm verify:readme` ensures README version strings match `package.json`. `pnpm update:readme` rewrites them. The release workflow enforces this — drift will fail CI.
+- **Semantic lexicon**: `pnpm fetch:embeddings` (manual, network — downloads the pinned GloVe archive once into gitignored `scripts/.cache/`, then prunes/quantizes it into the committed `scripts/lexicon-embeddings.json`; MUST be re-run after editing `scripts/lexicon-concepts.json`, offline once cached) · `pnpm build:lexicon` (offline, deterministic — intermediate → `src/assets/semantic-vectors.json`; CI diffs the output) · `pnpm verify:lexicon` (statistical gate for `SEMANTIC_MATCH_FLOOR`)
+
+## Dependencies & Type Checking
+
+- **Off-`latest` pins are intentional** (registry-verified 2026-08-09): `prettier` is a true pre-release (`4.0.0-alpha`, published under `next`); `typescript` is a `next`-channel nightly (`7.1.0-dev.*`) pinned in lockstep with the ttsc toolchain — bump it only together with `ttsc`/`@ttsc/*` (see **ttsc toolchain** below); `electron-builder` follows the **`v26` dist-tag**, which carries 26.15.x patches AHEAD of the stale `latest` tag (upstream stopped moving `latest` at 26.15.3). `electron-updater` sits exactly on `latest`. Do **not** "downgrade" any of these to `latest`, and don't merge a bot PR that does. Everything else stays on the exact latest stable.
+- **The `v26`-tag blind spot**: `pnpm outdated`, `npm-check-updates`, and Dependabot all compare against the `latest` dist-tag only — patches (or a future CVE fix) published under `v26` are invisible to the whole update pipeline. Check `npm view electron-builder dist-tags` manually when bumping deps.
+- **Automated updates**: Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm + github-actions; majors (incl. `github/codeql-action`) land as individual PRs. It never downgrades and only offers pre-release bumps for deps already on a pre-release, so the pins above are preserved. The manual `pnpm bump` (npm-check-updates) still works for ad-hoc bumps.
+- **CVE overrides**: `pnpm-workspace.yaml` carries an exact-pinned `overrides:` block for dev-tree-only advisories whose upstream chains hard-pin vulnerable versions (brace-expansion, undici, uuid). Re-check with a full `pnpm audit` after lockfile changes; drop an override once upstream moves past the vulnerable range.
+- **Build-script approval**: pnpm 11 requires opting each native postinstall script into `allowBuilds:` in `pnpm-workspace.yaml`. Keep that list minimal — every entry is an arbitrary-code-execution opportunity.
+- **Type checking** (`pnpm typecheck` → `ttsc --noEmit`): this is a JavaScript project — TypeScript is a **checker only, never a compiler** (`tsconfig.json` sets `noEmit` + `checkJs: false`). Only files with a `// @ts-check` comment are type-checked, so add JSDoc + `// @ts-check` to the shared core incrementally. Seeded so far: `apiFactory.js`, `settings/schema.js`, `services/VotingLogic.js`. CI gates on it. When a `// @ts-check` file imports an un-typed module whose inferred signature is too narrow (e.g. a `= null` default), cast the import to `any` at the boundary until that module is typed too.
+- **ttsc toolchain** (`ttsc` + `@ttsc/lint` + `@ttsc/graph`, exact-pinned in lockstep — samchon/ttsc, typescript-go based): `ttsc` replaces `tsc` in the `typecheck` script and bundles its own typescript-go build matching the pinned `typescript` version; `tsc` stays installed for `typecheck:tsc` (parity cross-check after any ttsc bump; rollback is manual — point the `typecheck` script back at `tsc --noEmit` and reconcile the lint-config/knip/docs state, there is no automatic fallback). The same `ttsc --noEmit` pass runs the **@ttsc/lint** rules from `lint.config.ts` — diagnostic codes in the **TS9000–TS17999 band are lint rules** (each prints its `[rule-name]`), everything else is a compiler type error; error-severity rules fail the gate, warnings don't. **Lint scope ≠ type-check scope**: the `// @ts-check` opt-in gates type-error reporting only, while every `lint.config.ts` rule (including the type-aware `typescript/*` ones, which use the checker's inferred types) runs over the **whole** tsconfig program (`src/js/**/*.js`) — a file is never exempt from the lint gate just because it hasn't opted into type-checking. ESLint + Prettier keep owning `.jsx`, `scripts/`, tests, and all formatting; the `format` block must stay absent so ttsc never fights Prettier. Warning severities are provisional (see the ratchet note in `lint.config.ts`). Supply-chain note: these are devDependencies, so the blocking `pnpm audit --prod` gate does NOT cover them (a non-blocking full audit step in the test workflow surfaces dev-tree CVEs); Dependabot bumps all `ttsc*` packages together (the `ttsc-toolchain` group in `.github/dependabot.yml`) because `@ttsc/graph` peer-depends on the exact `ttsc` version and `@ttsc/lint` has no peer pin — review the release diff on every bump, and re-verify that the default `ttsc-graph` mode still serves MCP over **stdio** (verified at 0.19.3: `StdioServerTransport` in `lib/server/startServer.js`; the HTTP/OAuth packages in its dependency tree belong to the MCP SDK's unused remote transports, and the only listener is the separate `view` subcommand's 127.0.0.1 viewer).
+- **Code graphs (two MCP servers — pick by question)**: `ttsc-graph` (project `.mcp.json`, runs the pinned local `@ttsc/graph` bin) serves **compiler-resolved** edges for the tsconfig program (`src/js/**/*.js`) — exact call/type facts, e.g. reverse-trace callers across `require()` boundaries; query it with exported **symbol names** (`pickEntryAvoidingConflict`), not file basenames (`VotingLogic` won't resolve). The tree-sitter CodeGraph (user-level plugin) covers everything else: `.jsx`, tests, `scripts/`, text-level and whole-repo structural queries. Compiler-exact fact inside the shared core → ttsc-graph; anything else → CodeGraph.
+- **Pre-commit hooks**: `lefthook` (`lefthook.yml`, installed by the `prepare` script) runs `eslint --fix` + `prettier --write` on staged files only, and re-stages what it fixes (`stage_fixed`) so the fix lands in the same commit — note this re-stages whole files, not partial `git add -p` hunks. Full tests stay in CI. An `--ignore-scripts` install skips hook setup; run `pnpm exec lefthook install` manually if so.
+- **CI security gate**: `pnpm audit --prod --audit-level=high` (shipped deps only) runs in the test workflow; CodeQL (`.github/workflows/codeql.yml`) scans on push/PR and weekly.
+- **CI hygiene gates**: the test workflow runs `pnpm size` (renderer bundle budgets) on the main `ubuntu-slim` job and `pnpm knip` (dead code / unused deps) in a separate `knip` job on `ubuntu-latest` — knip's oxc parser allocates a ~2 GiB ArrayBuffer that the slim runner can't satisfy. Each CLI build job runs `pnpm size:cli`.
+
+## Git Operations
+
+- **Push Restrictions**: Never push changes to remote repositories under any circumstances. All git operations must remain local only.
+- **Commit Policy**: Adding commits and performing git read operations (status, log, diff, etc.) are permitted and encouraged for development workflow.
+- **File Reset Prohibition**: Never use `git checkout` to reset or revert files under any circumstances. This includes avoiding commands like `git checkout -- <file>` or `git checkout HEAD <file>`.
+- **Branch Operations**: Local branch operations are allowed, but all changes must remain in the local repository.
+- **Safe Git Commands**: Stick to read-only git commands (status, log, diff, show) and local commit operations only.
+
+## Development Commands
+
+- **Linting & types**: Run `pnpm lint` and `pnpm typecheck` after code changes. JavaScript project — `ttsc` runs as a checker only (types on `// @ts-check`-opted files + @ttsc/lint rules on the whole `src/js/**/*.js` program; see **Dependencies & Type Checking**).
+- **Testing**: Use proper Jest test commands as defined in package.json
+- **Testing Completion**: All tests must pass regardless of code changes (even if they are not related to the code being changed)
+- **Logger**: Use `require('./logger')` (from `src/js/logger.js`). Prefer category-scoped logging: `logger.withCategory('voting').info(msg, data)`. Never use `console.log` — fallback to `console.*` only in bootstrap code where the logger module is genuinely unavailable.
+
+---
+> Source: [isthisgitlab/gurushots-auto-vote](https://github.com/isthisgitlab/gurushots-auto-vote) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-04 -->
