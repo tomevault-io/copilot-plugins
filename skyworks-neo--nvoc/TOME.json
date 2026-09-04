@@ -4,7 +4,7 @@
   "repo": "nvoc",
   "description": "Advanced cross-platform NVIDIA-GPU tweaker designed for true geek overclockers!",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Skyworks-Neo/nvoc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T02:33:55Z"
+  "distributed_at": "2026-09-04T02:35:20Z"
 }
