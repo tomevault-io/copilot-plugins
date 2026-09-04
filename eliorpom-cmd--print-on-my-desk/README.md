@@ -7,11 +7,11 @@ A thermal printer on your desk, with a web page in front of it. Send someone a l
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eliorpom-cmd/print-on-my-desk](https://github.com/eliorpom-cmd/print-on-my-desk).
+Original source: `CLAUDE.md` in [eliorpom-cmd/print-on-my-desk](https://github.com/eliorpom-cmd/print-on-my-desk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
