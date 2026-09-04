@@ -1,0 +1,9 @@
+{
+  "name": "soniccyclone--htmx-litestar-pg-keycloak",
+  "displayName": "htmx-litestar-pg-keycloak",
+  "description": "Template repo to kickstart the way I want to write local python web apps: litestart, HTMX, postgres, keycloak. All containerized so it just runs with user auth from the start with one button press.",
+  "version": "1.0.0",
+  "author": "soniccyclone",
+  "homepage": "https://github.com/soniccyclone/htmx-litestar-pg-keycloak",
+  "skills": []
+}
