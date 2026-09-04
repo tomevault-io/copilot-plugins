@@ -1,0 +1,9 @@
+{
+  "name": "omnilink-tech--omnisim",
+  "displayName": "omnisim",
+  "description": "Open-source robotics simulator for coding agents: HTTP/JSON + MCP control, Newton physics, wgpu rendering, ROS 2, and reproducible benchmarks.",
+  "version": "1.0.0",
+  "author": "omnilink-tech",
+  "homepage": "https://github.com/omnilink-tech/omnisim",
+  "skills": []
+}
