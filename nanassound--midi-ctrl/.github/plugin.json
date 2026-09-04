@@ -1,0 +1,9 @@
+{
+  "name": "nanassound--midi-ctrl",
+  "displayName": "midi_ctrl",
+  "description": "HTTP based MCP server for synthesizer.",
+  "version": "1.0.0",
+  "author": "nanassound",
+  "homepage": "https://github.com/nanassound/midi_ctrl",
+  "skills": []
+}
