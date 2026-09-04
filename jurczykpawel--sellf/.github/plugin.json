@@ -1,0 +1,9 @@
+{
+  "name": "jurczykpawel--sellf",
+  "displayName": "sellf",
+  "description": "Self-hosted platform for selling digital products and capturing leads. Stripe payments, Supabase auth, Next.js 15.",
+  "version": "1.0.0",
+  "author": "jurczykpawel",
+  "homepage": "https://github.com/jurczykpawel/sellf",
+  "skills": []
+}
