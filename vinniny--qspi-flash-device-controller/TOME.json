@@ -1,0 +1,44 @@
+{
+  "name": "QSPI-Flash-Device-Controller",
+  "owner": "vinniny",
+  "repo": "QSPI-Flash-Device-Controller",
+  "description": "This project implements a parameterizable QSPI Flash Controller IP Core in Verilog, bridging a host processor to external QSPI flash memory devices (e.g., Macronix MX25L6436F). The modular, synthesis-ready design supports two mutually exclusive modes: Command Mode for programmable transactions (with optional DMA via AXI master) and Execute-In-Place",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vinniny/QSPI-Flash-Device-Controller",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-04T18:37:02Z"
+}
