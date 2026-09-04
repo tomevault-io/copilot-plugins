@@ -1,0 +1,9 @@
+{
+  "name": "froooze--dexbot2",
+  "displayName": "DEXBot2",
+  "description": "Rewrite and optimize grid trading for market making on BitShares.",
+  "version": "1.0.0",
+  "author": "froooze",
+  "homepage": "https://github.com/froooze/DEXBot2",
+  "skills": []
+}
