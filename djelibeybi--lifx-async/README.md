@@ -15,11 +15,6 @@ Original source: `CLAUDE.md` in [Djelibeybi/lifx-async](https://github.com/Djeli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [SKILL.md](https://github.com/Djelibeybi/lifx-async/tree/main/.claude/skills/spike-findings-lifx-async/SKILL.md)
-- [SKILL.md](https://github.com/Djelibeybi/lifx-async/tree/main/.agents/skills/spike-findings-lifx-async/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Djelibeybi/lifx-async](https://github.com/Djelibeybi/lifx-async)
 
 ---
