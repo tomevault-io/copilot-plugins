@@ -1,0 +1,9 @@
+{
+  "name": "kosoemin--car-rental-mvp",
+  "displayName": "car-rental-mvp",
+  "description": "A full-stack Transport & Taxi Booking Platform built with React (Vite + Tailwind CSS) and PHP REST API. Features realtime polling, Google Maps distance matrix, atomic driver booking acceptance, admin ",
+  "version": "1.0.0",
+  "author": "KoSoeMin",
+  "homepage": "https://github.com/KoSoeMin/car-rental-mvp",
+  "skills": []
+}
