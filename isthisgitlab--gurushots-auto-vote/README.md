@@ -7,11 +7,11 @@ Cross-platform Electron app for automated voting on GuruShots photography challe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [isthisgitlab/gurushots-auto-vote](https://github.com/isthisgitlab/gurushots-auto-vote).
+Original source: `CLAUDE.md` in [isthisgitlab/gurushots-auto-vote](https://github.com/isthisgitlab/gurushots-auto-vote).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
