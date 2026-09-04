@@ -1,0 +1,9 @@
+{
+  "name": "nullpacket--ffxi-lossless",
+  "displayName": "ffxi-lossless",
+  "description": "work around lossless frame generation for ffxi on linux",
+  "version": "1.0.0",
+  "author": "nullpacket",
+  "homepage": "https://github.com/nullpacket/ffxi-lossless",
+  "skills": []
+}
