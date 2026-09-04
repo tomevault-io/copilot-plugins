@@ -4,7 +4,7 @@
   "repo": "pixel",
   "description": "Deterministic retrieval + git engine for LLM agents \u2014 successor to gitpixel + usable-git",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LivioGama/pixel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T00:30:21Z"
+  "distributed_at": "2026-09-04T00:34:39Z"
 }
