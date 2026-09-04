@@ -1,0 +1,9 @@
+{
+  "name": "jaimeparker--rl-garden",
+  "displayName": "rl-garden",
+  "description": " PyTorch-native, GPU-first robot-learning framework \u2014 RL, imitation learning, and diffusion/flow policies, 55+ algorithms, sim-to-real backends.",
+  "version": "1.0.0",
+  "author": "JaimeParker",
+  "homepage": "https://github.com/JaimeParker/rl-garden",
+  "skills": []
+}
