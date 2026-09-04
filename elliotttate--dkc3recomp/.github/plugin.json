@@ -1,0 +1,9 @@
+{
+  "name": "elliotttate--dkc3recomp",
+  "displayName": "DKC3Recomp",
+  "description": "Native recompilation of Donkey Kong Country 3 (SNES), built the DKC2Recomp way on snesrecomp",
+  "version": "1.0.0",
+  "author": "elliotttate",
+  "homepage": "https://github.com/elliotttate/DKC3Recomp",
+  "skills": []
+}
