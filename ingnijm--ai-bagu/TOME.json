@@ -1,0 +1,44 @@
+{
+  "name": "AI-Bagu",
+  "owner": "InGnIJM",
+  "repo": "AI-Bagu",
+  "description": "AI\u516b\u80a1\u62bd\u80cc\u7cfb\u7edf\uff0c\u89e3\u51b3\u516b\u80a1\u80cc\u8bf5\u56f0\u96be",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/InGnIJM/AI-Bagu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-04T06:32:38Z"
+}
