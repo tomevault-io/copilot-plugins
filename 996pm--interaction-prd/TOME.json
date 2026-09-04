@@ -1,0 +1,44 @@
+{
+  "name": "interaction-prd",
+  "owner": "996pm",
+  "repo": "interaction-prd",
+  "description": "\u4ea4\u4e92\u5f0f PRD Skill \u2014 \u628a\u4ea7\u54c1\u60f3\u6cd5\u9010\u6b65\u4ea4\u4ed8\u4e3a\u53ef\u7f16\u8f91\u3001\u53ef\u6f14\u793a\u3001\u53ef\u5bfc\u51fa\u7684\u4ea4\u4e92\u5f0f PRD \u5de5\u4f5c\u533a",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/996pm/interaction-prd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-04T17:31:16Z"
+}
