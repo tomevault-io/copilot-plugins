@@ -4,7 +4,7 @@
   "repo": "transformers",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nludd25/transformers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T02:42:28Z"
+  "distributed_at": "2026-09-04T02:51:41Z"
 }
