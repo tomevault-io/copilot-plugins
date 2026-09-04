@@ -4,7 +4,7 @@
   "repo": "Codexify",
   "description": "Local First AI Operating System with Longterm Memory, MultiAgent Orchestration, Persona Switching and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Resonant-Jones/Codexify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T08:31:13Z"
+  "distributed_at": "2026-09-04T08:32:07Z"
 }
