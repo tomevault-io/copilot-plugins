@@ -7,11 +7,11 @@ ESP32 Bus protocol analyzer with I2C, SPI, UART, and GPIO support.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dkyazzentwatwa/WireTap-32](https://github.com/dkyazzentwatwa/WireTap-32).
+Original source: `CLAUDE.md` in [dkyazzentwatwa/WireTap-32](https://github.com/dkyazzentwatwa/WireTap-32).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
