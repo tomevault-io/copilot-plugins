@@ -1,0 +1,9 @@
+{
+  "name": "liviogama--pixel",
+  "displayName": "pixel",
+  "description": "Deterministic retrieval + git engine for LLM agents \u2014 successor to gitpixel + usable-git",
+  "version": "1.0.0",
+  "author": "LivioGama",
+  "homepage": "https://github.com/LivioGama/pixel",
+  "skills": []
+}
