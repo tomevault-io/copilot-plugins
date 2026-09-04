@@ -3,8 +3,8 @@
   "owner": "leshchenko1979",
   "repo": "fast-mcp-telegram",
   "description": "Telegram MCP server with HTTP-MTProto Bridge \u2014 direct API/curl access, multi-user Bearer auth, Docker, MTProto proxy, file attachments, voice transcription, context-optimized",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,39 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "fast-mcp-telegram",
+      "path": ".cursor/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/leshchenko1979/fast-mcp-telegram/tree/main/.cursor/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fast-mcp-telegram",
+      "path": ".cursor/skills/remove-old-logs/SKILL.md",
+      "github_url": "https://github.com/leshchenko1979/fast-mcp-telegram/tree/main/.cursor/skills/remove-old-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fast-mcp-telegram",
+      "path": ".cursor/skills/sourcery-pr-cycle/SKILL.md",
+      "github_url": "https://github.com/leshchenko1979/fast-mcp-telegram/tree/main/.cursor/skills/sourcery-pr-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fast-mcp-telegram",
+      "path": ".cursor/skills/telegram-patterns/SKILL.md",
+      "github_url": "https://github.com/leshchenko1979/fast-mcp-telegram/tree/main/.cursor/skills/telegram-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fast-mcp-telegram",
+      "path": ".cursor/skills/clean-up-docs-push/SKILL.md",
+      "github_url": "https://github.com/leshchenko1979/fast-mcp-telegram/tree/main/.cursor/skills/clean-up-docs-push/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/leshchenko1979/fast-mcp-telegram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T01:02:19Z"
+  "distributed_at": "2026-09-04T05:31:12Z"
 }
