@@ -1,0 +1,9 @@
+{
+  "name": "amd2g2zz--kunglao-agent",
+  "displayName": "kunglao-agent",
+  "description": "The reverse-engineering expert agent: plans its own analysis path, derives every fact from raw evidence, and converges under mechanical verification gates \u2014 firmware, protocols, web/JS, risk-control, ",
+  "version": "1.0.0",
+  "author": "amd2g2zz",
+  "homepage": "https://github.com/amd2g2zz/kunglao-agent",
+  "skills": []
+}
