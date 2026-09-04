@@ -4,7 +4,7 @@
   "repo": "omnisim",
   "description": "Open-source robotics simulator for coding agents: HTTP/JSON + MCP control, Newton physics, wgpu rendering, ROS 2, and reproducible benchmarks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omnilink-tech/omnisim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T01:30:20Z"
+  "distributed_at": "2026-09-04T01:33:20Z"
 }
