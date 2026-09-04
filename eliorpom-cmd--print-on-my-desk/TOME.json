@@ -4,7 +4,7 @@
   "repo": "print-on-my-desk",
   "description": "A thermal printer on your desk, with a web page in front of it. Send someone a link; what they write comes out on paper.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eliorpom-cmd/print-on-my-desk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T14:30:25Z"
+  "distributed_at": "2026-09-04T14:33:35Z"
 }
