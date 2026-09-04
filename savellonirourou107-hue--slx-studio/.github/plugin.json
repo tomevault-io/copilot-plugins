@@ -1,0 +1,9 @@
+{
+  "name": "savellonirourou107-hue--slx-studio",
+  "displayName": "SLX-Studio",
+  "description": "A lightweight desktop IDE for editing and running MATLAB .m scripts and Simulink .slx models, with visual editing, plots, parameter sweeps, and AI assistance.",
+  "version": "1.0.0",
+  "author": "savellonirourou107-hue",
+  "homepage": "https://github.com/savellonirourou107-hue/SLX-Studio",
+  "skills": []
+}
