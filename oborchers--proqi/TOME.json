@@ -4,7 +4,7 @@
   "repo": "proqi",
   "description": "A terminal-native prompt composer for power users running multiple coding agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oborchers/proqi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T07:30:24Z"
+  "distributed_at": "2026-09-04T07:31:11Z"
 }
