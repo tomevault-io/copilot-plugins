@@ -3,7 +3,7 @@
   "owner": "acking-you",
   "repo": "pb-mapper",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,39 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "pb-mapper-client-cli-deploy",
-      "path": "skills/pb-mapper-client-cli-deploy",
-      "github_url": "https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-client-cli-deploy",
-      "description": ""
-    },
-    {
-      "name": "pb-mapper-release-pipeline",
-      "path": "skills/pb-mapper-release-pipeline",
-      "github_url": "https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-release-pipeline",
-      "description": ""
-    },
-    {
-      "name": "pb-mapper",
-      "path": "skills/pb-mapper-server-deploy/SKILL.md",
-      "github_url": "https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-server-deploy/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pb-mapper",
-      "path": "skills/pb-mapper-release-pipeline/SKILL.md",
-      "github_url": "https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-release-pipeline/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pb-mapper",
-      "path": "skills/pb-mapper-client-cli-deploy/SKILL.md",
-      "github_url": "https://github.com/acking-you/pb-mapper/tree/main/skills/pb-mapper-client-cli-deploy/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/acking-you/pb-mapper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T05:30:18Z"
+  "distributed_at": "2026-09-04T05:36:45Z"
 }
