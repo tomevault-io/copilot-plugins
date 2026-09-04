@@ -1,0 +1,9 @@
+{
+  "name": "devenock--getnestdoc",
+  "displayName": "getnestdoc",
+  "description": "NestJS documentation in your terminal. go doc, for Nest.",
+  "version": "1.0.0",
+  "author": "devenock",
+  "homepage": "https://github.com/devenock/getnestdoc",
+  "skills": []
+}
