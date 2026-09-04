@@ -1,0 +1,9 @@
+{
+  "name": "virinvictus--lattice-music",
+  "displayName": "lattice-music",
+  "description": "CLI/TUI for music collections: ~20 read-only audit/visualization modes (library trees, integrity checks, cover/metadata audit, stats, playlists), plus seven write-capable companion scripts that *do* m",
+  "version": "1.0.0",
+  "author": "VirInvictus",
+  "homepage": "https://github.com/VirInvictus/lattice-music",
+  "skills": []
+}
