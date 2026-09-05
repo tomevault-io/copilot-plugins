@@ -1,0 +1,9 @@
+{
+  "name": "enntity--sparkglm",
+  "displayName": "sparkglm",
+  "description": "GLM-5.3-Flash on two DGX Sparks: opinionated vLLM/EXL3 serving, tinyGLM gates, and reproducible inference research.",
+  "version": "1.0.0",
+  "author": "Enntity",
+  "homepage": "https://github.com/Enntity/sparkglm",
+  "skills": []
+}
