@@ -1,0 +1,9 @@
+{
+  "name": "jizai-inc--palmimo-devkit",
+  "displayName": "palmimo-devkit",
+  "description": "Give AI agents a body. Palmimo DevKit is a six-legged tabletop AI robot you drive with your own Python \u2014 open-source SDK, MCP server, and agent examples by Jizai Inc.",
+  "version": "1.0.0",
+  "author": "Jizai-inc",
+  "homepage": "https://github.com/Jizai-inc/palmimo-devkit",
+  "skills": []
+}
