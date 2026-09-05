@@ -1,0 +1,44 @@
+{
+  "name": "Genome-Leaks",
+  "owner": "DroriErez",
+  "repo": "Genome-Leaks",
+  "description": "Genome-Leaks provides implementations of privacy attacks for auditing generative models trained to produce synthetic genomic data, including membership inference and data reconstruction attacks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DroriErez/Genome-Leaks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-05T02:59:43Z"
+}
