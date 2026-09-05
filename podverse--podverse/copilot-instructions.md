@@ -1,81 +1,41 @@
-## infra-k8s
+## legacy-app-reference
 
-> Kubernetes manifest patterns and conventions for infra/k8s
+> When and how to use the sibling podverse-rn legacy app as inspiration
 
 
-# Kubernetes Manifest Conventions
+# Legacy app reference (`podverse-rn`)
 
-## Linting and Formatting
+## Vocabulary
 
-K8s YAML is formatted with Prettier using **k8s-specific overrides** (see root `.prettierrc.json`):
+- **legacy app** / **podverse-rn** / **v4 mobile** = sibling checkout at `../podverse-rn`
+  (absolute typical path: `/Users/mitcheldowney/repos/pv/podverse-rn`).
+- **Nextgen** = this monorepo (`podverse`), including `apps/mobile`.
 
-- **Double quotes** for string values (`singleQuote: false`)
-- **2-space indentation** (`tabWidth: 2`)
-- **140-character line width** (`printWidth: 140`) - wider than repo default to avoid wrapping long env values and list items
+## When to look
 
-**Do not** add `infra/k8s/` to `.prettierignore`. K8s files are intentionally formatted with these overrides.
+**Only** open, search, or cite `podverse-rn` when the operator **explicitly** asks for legacy /
+podverse-rn / “look at the legacy app” (or equivalent). Do not browse it for ordinary nextgen
+tasks.
 
-**How to format:**
+**Mobile master plan Phase 2 carve-out:** when the operator pastes **legacy app screenshots** to
+drive Phase 2 planning, that counts as an explicit request — reading
+`../podverse-rn/src/screens/<Name>Screen.tsx` to answer a behavior question about those screenshots
+is expected. Follow
+[mobile-legacy-screenshot-planning](/.cursor/skills/mobile-legacy-screenshot-planning/SKILL.md).
+**Never store the screenshots** in the repo (not `docs/`, `.llm/`, or `.artifacts/`) — convert them
+to written notes and plan text.
 
-- Format-on-save in VS Code/Cursor applies k8s overrides automatically
-- Manual: `npm run prettier:write` or `npm run lint:fix` from repo root before commit
+## How to look
 
-## ConfigMap Conventions
+- Prefer the **local sibling** checkout over GitHub remote when the directory exists.
+- Treat legacy as **inspiration and guidance**, not a port checklist or source of truth.
+- Do **not** assume legacy APIs, navigation, storage, or UX are correct for nextgen.
+- Prefer modern Expo / nextgen patterns; call out improvements when reusing ideas or assets.
+- Do not edit or publish from `podverse-rn` unless the operator explicitly asks.
 
-- **Env sources:** Prefer `configMapGenerator` + `base/<component>/source/*.env` (and overlay merge
-  fragments). Sync keys with `infra/config/env-templates/<component>.env.example` and app
-  `.env.example`; use **unquoted** values in `source/*.env` (see **env-file-formatting** skill).
-- **Section headers:** Use comments like `##### App / General #####` in env source files.
-- **No secrets:** Mark sensitive vars with `# in secrets` comment; actual secrets go in SOPS-encrypted files. When several consecutive lines have `# in secrets`, align that comment vertically (same column).
-- **Comments:** Reference source (e.g., `# Mapped from apps/api/.env.example`).
+## Related
 
-## Value types in YAML
-
-- **String fields** (OpenAPI `type: string`): double-quoted scalars are fine; Prettier uses
-  `singleQuote: false` for YAML strings.
-- **Integer / float fields** (OpenAPI `type: integer` or `number`): use **unquoted YAML numbers**.
-  Never write `"123"` where the schema expects a numeric type (e.g. `replicas`, `containerPort`,
-  probe `periodSeconds`, `failureThreshold`).
-- **Container `env[].value`:** typed as **string** in the Kubernetes API — `value: "5432"` is valid
-  for env overrides; do not confuse with numeric schema fields above.
-
-## Base Resource Naming
-
-Many component bases use numbered YAML prefixes for ordering:
-
-- `01-configmap.yaml` - Configuration
-- `02-service.yaml` - Service
-- `03-deployment.yaml` or `03-statefulset.yaml` - Workload
-- Additional resources: `04-`, `05-`, etc.
-
-**`base/db/`** uses `service.yaml` and `statefulset.yaml` only. Combined DB artifacts live under
-`source/` with **four-digit prefixes** (`0000_…`, `0001_…`, …) so files sort in execution order and
-new steps can be added over time. The StatefulSet **mountPath** basenames under
-`/docker-entrypoint-initdb.d/` match those filenames (see `statefulset.yaml` comments).
-
-## Kustomize
-
-Always use `--load-restrictor LoadRestrictionsNone` when building because bases live outside overlay folders:
-
-```bash
-kustomize build --load-restrictor LoadRestrictionsNone infra/k8s/alpha/api/
-```
-
-## Image Versioning
-
-- **Base deployments:** Use image name without tag or with placeholder
-- **Overlays:** Set actual tags in `kustomization.yaml` `images:` section
-
-## Secrets
-
-- Never commit decrypted secrets
-- Use SOPS for encryption
-- Create secrets via scripts in `infra/k8s/scripts/secret-generators/`
-- Reference secrets with `secretRef` in Deployment `envFrom`
-
-## Full Documentation
-
-See `.cursor/skills/k8s/SKILL.md` and `infra/k8s/README.md` for complete patterns and workflows.
+- Vocabulary: [abcmemory-vocabulary](/.cursor/rules/abcmemory-vocabulary.mdc)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
