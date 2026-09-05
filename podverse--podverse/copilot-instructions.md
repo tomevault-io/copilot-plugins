@@ -1,49 +1,83 @@
-## mobile-feature-requires-e2e
+## mobile-ios-simulator
 
-> When a change introduces or modifies user-facing behavior in `apps/mobile/src/**`, include matching
+> Manual vs E2E named iOS/Android device targets — never interactive picker
 
-# Mobile feature PRs require E2E flow + screenshots
 
-When a change introduces or modifies user-facing behavior in `apps/mobile/src/**`, include matching
-mobile E2E coverage in the same PR — same operator habit as web UI screenshot reports.
+# Mobile default simulator / emulator targets
 
-## Required for mobile UI behavior changes
+When giving `npm run mobile:ios`, `npm run mobile:android`, or `expo run:*` copy-paste commands,
+**always pass a named device**. Do **not** use bare `--device` (interactive menu) unless the operator
+explicitly asks to pick.
 
-- Add or update a Maestro flow under `apps/mobile/e2e/<area>.yaml` that covers the changed behavior.
-- Ensure the flow captures screenshots (`takeScreenshot`) for key checkpoints.
-- After `launchApp` + `clearState`, enter Metro via `runFlow: shared/connect-dev-client.yaml` before
-  asserting app screens (Expo Dev Client launcher is not the app UI).
-- Instruct the operator to generate reports (agents do not run E2E during implementation). **End
-  the implementation response** with the most focused command (same habit as web screenshot
-  reports):
-  - `npm run mobile:e2e:test -- <area>` (narrowest flow), plus slot `open` paths
-  - Full prelude only when needed: `mobile:dev`, `mobile:e2e:ios`, `mobile:e2e:android`
-- Point at per-slot HTML (not a single combined screenshot dump):
-  - `.artifacts/mobile-e2e-reports/latest/index.html` (hub)
-  - `.artifacts/mobile-e2e-reports/latest/ios-phone/index.html`
-  - `.artifacts/mobile-e2e-reports/latest/android-phone/index.html`
-  - tablet slots (`ios-tablet`, `android-tablet`) when those devices are in the matrix
+`scripts/mobile/run-expo-macos.sh` defaults to **manual** devices when `--device` is omitted,
+and **always** passes `--no-bundler` (Metro stays in **Mobile Metro** via `npm run mobile:dev` /
+`mobile:dev:e2e`). `npm run mobile:e2e:ios` / `mobile:e2e:android` / `mobile:e2e:test` always
+target **E2E** devices (never manual).
 
-## Debug with reports
+## Device matrix (same app id `com.podverse.app.next`)
 
-When diagnosing a mobile E2E failure, **read the failing slot report** (error text + screenshots)
-before changing code. See **mobile-e2e-screenshots**.
+| Role | iOS | Android |
+| ---- | --- | ------- |
+| Manual (dev) | `"iPhone 17 Pro"` | `Pixel_6_Pro_API_33` |
+| Manual (USB phone) | — | `npm run mobile:android:device` + Metro `npm run mobile:dev:device` (LAN API host; skips `emulator-*`) |
+| Automated (E2E) | `"iPhone 17 Pro E2E"` | `Pixel_6_Pro_API_33_e2e` |
 
-## Not required
+```bash
+# Manual day-to-day — Mobile iOS / Mobile Android
+npm run mobile:ios -- --device "iPhone 17 Pro"
+npm run mobile:android -- --device Pixel_6_Pro_API_33
+# Physical USB phone (not the emulator default):
+npm run mobile:dev:device
+npm run mobile:android:device
 
-- Pure docs updates with no mobile UI/runtime behavior change.
-- Refactors that do not alter user-observable behavior and already have equivalent flow coverage.
+# E2E — each leave-running / install step in its named tab
+# (see HOW-TO-RUN.md + vscode-terminals-commands):
+# Mobile Metro: npm run mobile:dev   (API-backed: mobile:dev:e2e)
+# Mobile E2E API (API-backed only): npm run mobile:e2e:api
+# Mobile iOS / Mobile Android (exit when done):
+npm run mobile:e2e:ios
+npm run mobile:e2e:android
+# Mobile Maestro (exit when done):
+npm run mobile:e2e:test
+open .artifacts/mobile-e2e-reports/latest/ios-phone/index.html
+open .artifacts/mobile-e2e-reports/latest/android-phone/index.html
+```
+
+## Do
+
+- Use **manual** names for agent/operator `mobile:ios` / `mobile:android` examples.
+- Use **E2E** names only via `mobile:e2e:*` / Maestro / CI stub boot.
+- If devices are missing, run `bash scripts/mobile/ensure-devices.sh e2e` (creates E2E twins from
+  manual) or list/create manual devices first:
+
+```bash
+xcrun simctl list devices available
+"$HOME/Library/Android/sdk/emulator/emulator" -list-avds
+```
+
+- Prefer Android phone AVDs as **API 33 + Google APIs + arm64-v8a**. `ensure-devices.sh` tunes
+  ram/CPU/host GPU on ensure/boot (`tune-android` to re-apply without booting). See
+  [APPS-MOBILE.md](/apps/mobile/APPS-MOBILE.md).
+
+- Boot manual iOS before ad-hoc `simctl launch`:
+
+```bash
+xcrun simctl boot "iPhone 17 Pro"
+open -a Simulator
+```
 
 ## Do not
 
-- Do not use Playwright for mobile E2E.
-- Do not use web/management-web `make e2e_*` targets for mobile flows.
+- Do **not** give bare `npm run mobile:ios -- --device` or `mobile:android -- --device` as the
+  default (forces a picker).
+- Do **not** point Maestro E2E at manual devices (`clearState` would wipe manual sessions).
+- Do **not** use **`iPhone 15`**, **`iPhone 15 Pro`**, **`iPhone 15 Plus`**, or **iOS 15** runtime
+  names — not available on contributor machines with Xcode 26.
+- Do **not** suggest tablet AVDs (e.g. `Galaxy_Tab_*`) for day-to-day Android runs.
+- Do **not** recommend x86_64 Android system images on Apple Silicon.
+- Do not assume a simulator/emulator is already booted (`No devices are booted`).
 
-## Related
-
-- [mobile-e2e-screenshots](/.cursor/skills/mobile-e2e-screenshots/SKILL.md)
-- [mobile-master-plan-phasing](/.cursor/skills/mobile-master-plan-phasing/SKILL.md)
-- [HOW-TO-RUN.md](/apps/mobile/e2e/HOW-TO-RUN.md)
+Contributor detail: [APPS-MOBILE.md § Dev client workflow](/apps/mobile/APPS-MOBILE.md).
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
