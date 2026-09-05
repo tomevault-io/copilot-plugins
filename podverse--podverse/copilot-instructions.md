@@ -1,44 +1,43 @@
-## openapi-sync
+## operator-only-git-operations
 
-> Require OpenAPI updates for API surface changes
+> Agents implement code and manifest changes locally. **Git operations are operator-only** — that includes both **`git`** and **`gh`**. Treat every `gh` command that creates, updates, or deletes remote repo state as a git write (same policy as `git push`).
 
+# Operator-only Git and publish operations
 
-# OpenAPI Sync Rule
+Agents implement code and manifest changes locally. **Git operations are operator-only** — that includes both **`git`** and **`gh`**. Treat every `gh` command that creates, updates, or deletes remote repo state as a git write (same policy as `git push`).
 
-When a change affects HTTP API behavior, update the matching OpenAPI spec in the same change:
+## Agents must not run
 
-- `apps/api/openapi.yml`
-- `apps/management-api/openapi.yml`
+**`git` writes** (unless the user explicitly asked for that exact command in that message):
 
-## Changes that require spec updates
+- `git commit`, `git push`, `git tag` / tag push, force push, remote branch delete
+- Merges, rebases, or checkouts that rewrite history for publish
 
-- New/removed/renamed routes or methods
-- Request validation changes (required fields, enums, limits, types)
-- Response shape or status-code changes
-- Authentication or authorization changes (including permission semantics)
+**`gh` writes** (same rule — `gh` is a git operation here):
 
-## Minimum update requirements
+- `gh pr create`, `gh pr merge`, `gh pr close`, `gh pr reopen`, `gh pr edit`
+- `gh release create`, `gh api` calls that mutate refs, issues, or releases
+- Any `gh` subcommand that opens, merges, closes, or updates PRs/branches/tags/releases
 
-- Add or update `operationId` (unique and stable)
-- Keep operation `security` accurate (`security: []` for public endpoints)
-- Ensure requestBody and responses are documented
-- Add or update at least one realistic example for mutating operations
+Also prohibited without explicit user request: admin merges to protected branches (`staging`, `main`, `develop`) and anything that triggers **Publish (staging)** / release workflows.
 
-## Reviewer checks
+**Read-only is fine** when investigating: `git status`, `git diff`, `git log`, `gh pr view`, `gh issue view`, `gh run list`, read-only `gh api`.
 
-- Route-to-spec parity is complete
-- 401 vs 403 semantics are explicit where relevant
-- No stale examples contradict implementation
+## Agents must do instead
 
-## Required PR evidence for route-related changes
+1. Leave changes in the working tree (or commit **only** when the user explicitly requested a commit).
+2. End with a fenced `bash` block of **exact `git` and `gh` commands for the operator** to review, commit, push, open PR, merge, and publish.
+3. State which branch the PR should target (e.g. `staging` for Podverse publish tags) and what to wait for after merge (CI tag, image publish).
 
-- `./scripts/nix/with-env npm run openapi:check` output is included in the PR description
-- Route parity evidence is included for changed endpoints:
-  - changed method+path
-  - matching OpenAPI path+method
-  - matching `operationId`
-- If auth behavior changed, PR includes explicit 401 vs 403 behavior notes
-- If a route-related change does not require spec edits, PR includes explicit justification
+## Why
+
+Protected branches and publish pipelines are operator-controlled. Agent-driven pushes and merges bypass review and can trigger unintended releases.
+
+## Related
+
+- User rule: commit only when explicitly requested
+- **github** skill — read-only `gh` examples; no agent merges
+- **argocd-gitops-push** — operator pushes GitOps repos for cluster sync
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
