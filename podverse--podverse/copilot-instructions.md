@@ -1,17 +1,22 @@
-## plan-creation
+## plan-lifecycle
 
-> Plan creation - breaking large plans into separate files
+> Plan lifecycle management - moving completed plans
 
 
-# Plan Creation
+# Plan Lifecycle
 
-When creating a plan, if it is too large, **do not implement it immediately**. Instead:
+When you finish executing a plan in `active/`, move it to `completed/` automatically (no prompt).
+See **Plan Completion** skill for: single-file move vs. moving the whole set when it's the last plan.
 
-1. Break it into separate files
-2. Save those files in the `.llm/plans/active/` directory (or appropriate subdirectory)
-3. Wait for the user to prompt you to complete them one-by-one
+1. Move the file (or whole set) from `active/` to `completed/` (preserving subdirectory structure)
+2. Update any references in `00-master-plan.md`, a project `00-SUMMARY.md`, or `.llm/LLM.md` if needed
 
-This ensures plans remain manageable and can be executed incrementally.
+Example:
+
+```bash
+mv .llm/plans/active/monorepo-migration/02-packages-outline.md \
+   .llm/plans/completed/monorepo-migration/
+```
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
