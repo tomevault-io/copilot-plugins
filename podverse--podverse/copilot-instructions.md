@@ -1,15 +1,97 @@
-## ui-change-e2e-screenshot-report
+## vscode-terminals-commands
 
-> Instruct the operator to run targeted E2E screenshot reports after web, management-web, or shared UI edits.
+> When giving operator commands, name the matching .vscode/terminals.json tab to run them in.
 
 
-# UI Change E2E Screenshot Report
+# Label commands with VS Code terminal tabs
 
-When you edit files matched by this rule:
+**ALWAYS** tell the operator which terminal to run a command in — no exceptions. Whenever you
+recommend a command (verification, setup, leave-running processes, or a one-off ad-hoc command),
+**name the intended tab from [`.vscode/terminals.json`](/.vscode/terminals.json)** using the exact
+`name` string (e.g. **Mobile Metro**, **Mobile Maestro**, **Mobile CarPlay**). Do not use only
+numbered “Terminal 1 / T4” labels unless you also give the tab name. If no existing tab fits a
+recurring workflow, add a new tab to `.vscode/terminals.json` (match its `name`/`description`
+style) rather than leaving the command unlabeled.
 
-1. Follow **ui-e2e-screenshot-report** to **instruct** the operator (do not run make targets in-session).
-2. End the response with the narrowest `make e2e_test_web_report_spec` or `e2e_test_management_web_report_spec` command in a fenced `bash` block (`SPEC=` covers the change).
-3. Tell the operator where to open `.artifacts/e2e-reports/latest/.../index.html` after they run the command.
+## How to present
+
+- In prose or a short bullet before each fenced `bash` block (or group of related one-shots).
+- Prefer one block per tab when commands belong in different leave-running shells.
+- Never put leave-running Metro/API commands in the same paste block as one-shot Maestro/report
+  opens (see **mobile-e2e-screenshots**).
+
+## Mobile tab map (current `terminals.json`)
+
+| Tab | Typical commands |
+| --- | --- |
+| **Mobile** | One-shots: `build:packages`, `make mobile_e2e_deps` / `mobile_e2e_seed`, `mobile:e2e:api:health`, `open` reports, Expo peer installs (see below) |
+| **Mobile Metro** | Leave running: `npm run mobile:dev` (UI-only) or `npm run mobile:dev:e2e` (API-backed) |
+| **Mobile iOS** / **Mobile Android** | Same terminal group (Android splits from iOS). `npm run mobile:e2e:ios` / `mobile:e2e:android`, or manual `mobile:ios` / `mobile:android` with named devices. |
+| **Mobile CarPlay** / **Mobile Android Auto** | Own **car** group (2-up split, separate from the Mobile iOS/Android device group). **Mobile CarPlay**: `xcrun simctl terminate booted com.podverse.app.next` (force-quit for app-closed proof), `xcrun simctl spawn booted log stream …` (native-cache/carplay), App Group cache `find`/`ls`; enable the CarPlay window via Simulator **I/O ▸ External Displays ▸ CarPlay**. **Mobile Android Auto**: `desktop-head-unit`, `adb forward tcp:5277 tcp:5277`, `adb logcat` for `PodverseMediaLibraryService` (emulator/phone from **Mobile Android** + **Mobile Metro** must be up). |
+| **Mobile E2E API** | Leave running: `npm run mobile:e2e:api` (skip for UI-only). Independent of Metro — no restart solely because Metro restarted if `:4230` is healthy. |
+| **Mobile E2E test-assets** | Leave running: `npm run mobile:e2e:test-assets` (`:2111`, same as web). Required for add-by-RSS play / real media flows. |
+| **Mobile Maestro** | `npm run mobile:e2e:test -- <area>` (focused); `npm run mobile:e2e:test:all` (full suite) |
+
+## CarPlay / device log streaming (avoid the endless firehose)
+
+When streaming simulator/device logs for CarPlay (or any app diagnosis), **never** use a broad
+predicate like `eventMessage CONTAINS[c] "carplay"` — it matches the `carkitd` system daemon's
+rapid session connect/disconnect churn and floods the terminal endlessly (thousands of lines that
+are **not** from our app).
+
+**Two mistakes to avoid, both cause a firehose:**
+
+1. **Bare `CONTAINS` without a process scope** — matches `carkitd`/system daemons.
+2. **`process == "PodverseNext" OR eventMessage CONTAINS …`** — the `OR` defeats the process
+   scope (the `CONTAINS` side still matches other processes), AND even the in-process side keeps
+   the massive CFNetwork / boringssl / Security / CoreFoundation TLS-handshake noise.
+
+**Proper lean style:** scope to our process with `AND`, then keep only our own markers plus the RN
+JS log subsystem — this drops the networking noise entirely:
+
+```bash
+# Mobile CarPlay — lean stream (our markers + RN JS logs only, no network firehose)
+xcrun simctl spawn booted log stream --level default \
+  --predicate 'process == "PodverseNext" AND (eventMessage CONTAINS[c] "carplay" OR eventMessage CONTAINS "native-cache" OR subsystem == "com.facebook.react.log")'
+```
+
+Notes:
+
+- Use `--level default` (not `--level debug`) unless you specifically need debug-level lines;
+  `debug` multiplies the volume.
+- `process == "PodverseNext" AND (…)` is the key: the process scope must be ANDed with the marker
+  group so `carplay`/`native-cache` substrings can never re-admit `carkitd` or other processes.
+- `subsystem == "com.facebook.react.log"` captures `console.*` output from JS (category
+  `javascript`); add other app subsystems the same way rather than widening to bare `CONTAINS`.
+- Add markers with more `OR eventMessage CONTAINS "…"` clauses **inside** the parentheses (e.g.
+  `"PodverseCarPlay"`, `"Fatal"`), never outside the process `AND`.
+
+Prefer a bounded `log show --last <N>s` snapshot over an open-ended `log stream` when you only need
+recent output. If a stream is already flooding, tell the operator to press Ctrl+C and rerun lean.
+The app process name is **`PodverseNext`** (bundle id `com.podverse.app.next`).
+
+## Expo CLI (never bare root `npx expo`)
+
+Expo lives only under `apps/mobile` (SDK 52). **Do not** tell the operator to run `npx expo …`
+from the monorepo root — that downloads a floating global Expo (e.g. 57) and fails with
+“module `expo` is not installed”.
+
+When suggesting Expo install/fix, label **Mobile** and use the local binary:
+
+```bash
+# Mobile
+npm --prefix apps/mobile exec -- expo install <packages>
+# or after editing package.json ranges:
+npm run mobile:install
+```
+
+Full SDK peer pins and troubleshooting: **mobile-expo-monorepo**.
+
+Other common tabs: **Root** (general/git/make), **Docker** (compose/infra), **Dev**
+(`dev:main:all`), **Workers**, **Tools**.
+
+If `terminals.json` is updated, match the file’s current `name` / `description` values — do not
+invent tab names that are not listed there.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
