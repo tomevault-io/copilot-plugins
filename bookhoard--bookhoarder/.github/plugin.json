@@ -1,0 +1,9 @@
+{
+  "name": "bookhoard--bookhoarder",
+  "displayName": "bookhoarder",
+  "description": "Self-hosted EPUB library \u2014 no database, just object storage",
+  "version": "1.0.0",
+  "author": "bookhoard",
+  "homepage": "https://github.com/bookhoard/bookhoarder",
+  "skills": []
+}
