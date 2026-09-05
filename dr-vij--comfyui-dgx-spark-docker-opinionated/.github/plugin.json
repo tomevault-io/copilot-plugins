@@ -1,0 +1,9 @@
+{
+  "name": "dr-vij--comfyui-dgx-spark-docker-opinionated",
+  "displayName": "ComfyUI-DGX-Spark-Docker-opinionated",
+  "description": "This is very very opinionated docker config for Comfy UI I built for my DGX Spark",
+  "version": "1.0.0",
+  "author": "dr-vij",
+  "homepage": "https://github.com/dr-vij/ComfyUI-DGX-Spark-Docker-opinionated",
+  "skills": []
+}
