@@ -7,13 +7,13 @@ Vercel deployment of operation-dashboard-ui-07
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [repr0bated/operation-dashboard-ui-07-vercel](https://github.com/repr0bated/operation-dashboard-ui-07-vercel).
+Original source: `CLAUDE.md` in [repr0bated/operation-dashboard-ui-07-vercel](https://github.com/repr0bated/operation-dashboard-ui-07-vercel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
