@@ -1,0 +1,9 @@
+{
+  "name": "camilochs--exacttex",
+  "displayName": "exacttex",
+  "description": "A gradually-typed superset of LaTeX. Every .tex file is already valid; each annotation you add buys checked references, safe renames, and errors in your own names \u2014 before the PDF exists.",
+  "version": "1.0.0",
+  "author": "camilochs",
+  "homepage": "https://github.com/camilochs/exacttex",
+  "skills": []
+}
