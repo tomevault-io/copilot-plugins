@@ -1,29 +1,22 @@
-## avoid-type-assertions
+## build-order-doc-sync
 
-> Avoid type assertions (as) when a better approach exists; prefer types, narrowing, type guards.
+> Keep build order dependency-safe and docs synced when build orchestration changes.
 
 
-# Avoid Type Assertions
+# Build order and docs sync
 
-It is **critical** to avoid `as` (type assertions) when there is a better way. Assertions bypass the type checker and can hide bugs.
+Use the `build-order` skill (`.cursor/skills/build-order/SKILL.md`) whenever you edit build
+orchestration.
 
-## Prefer
+## Required
 
-- **Better types**: Add or extend DTOs/interfaces so values are correctly typed at the source.
-- **Optional chaining**: Use `obj?.prop` when the type allows optional/unknown shape.
-- **Type guards**: Use `function isFoo(x): x is Foo` to narrow with a single, documented assertion inside the guard.
-- **Narrowing**: Use `in`, `typeof`, and discriminated unions so TypeScript narrows for you.
+- Preserve dependency-safe staged build execution.
+- Keep root `build` aligned with package/app/tool build sequencing.
+- Update `docs/development/tooling/DOCS-DEVELOPMENT-TOOLING-BUILD-ORDER.md` when behavior changes.
 
-## Allowed exceptions
+## Prohibited
 
-- **Import aliases**: `import { foo as bar } from '...'` (not a type assertion).
-- **Const assertions**: `as const` for literal types (e.g. tuple, readonly object).
-- **Rare escape hatches**: When there is genuinely no better option, use one assertion and add a short comment explaining why.
-
-## Examples
-
-- BAD: `(data as { title?: string }).title` in call sites — type the DTO or use a type guard.
-- GOOD: Type the payload (e.g. `AddByRSSResourceData`) and use `data?.title` or a guard that narrows once.
+- Do not reintroduce all-workspace root build execution that can violate workspace dependency order.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
