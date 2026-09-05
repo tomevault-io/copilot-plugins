@@ -1,28 +1,31 @@
-## management-web-prefer-shared-ui
+## management-web-tables
 
-> Management-web — prefer @podverse/ui; aligns with cross-app shared UI rule
+> Management-web list pages should compose shared @podverse/ui table wrappers
 
 
-# Management Web: Prefer Shared UI
+# Management web tables (`@podverse/ui`)
 
-Cross-app policy (web + management-web): **`.cursor/rules/prefer-shared-ui-web-management.mdc`**.
+When adding or refactoring **list / directory / storage** pages under **`apps/management-web`**:
 
-When editing `apps/management-web/src/**/*.tsx`:
+## Prefer shared composites
 
-- Prefer importing generic UI primitives from `@podverse/ui` before adding page-specific wrappers.
-- If a generic pattern is missing, add it to `packages/ui/src/components/**` (or shared hooks under `packages/ui/src/hooks/**`) and export from `packages/ui/src/index.ts`.
-- Avoid creating one-line app-local re-export files for `@podverse/ui` components.
-- Keep app-local components in `apps/management-web/src/components/**` for shell/product-specific behavior only.
-- Before adding a component under `apps/management-web/src/components`, compare with **`apps/web`** for the same UX pattern; if they align, extend **`@podverse/ui`** instead of duplicating (see **`ui-component-promotion`** skill).
+1. Prefer **`ResourceTableWithFilter`** (CRUD rows with view/edit/delete), **`TableWithFilter`** (generic rows), **`FilterTablePageLayout`** (title/error/chrome), and related exports from **`@podverse/ui`** over reimplementing **`Table`** + **`TextInput`** + **`Pagination`** wiring by hand.
+2. Keep **routing, data fetching, permissions, and `next-intl` strings** in the app; pass localized labels and policies into the shared components.
 
-Recent convergence examples (phase 05): database **table browser** pagination uses **`Pagination`** from **`@podverse/ui`** instead of ad hoc prev/next buttons; prefer **`FormDropdown`** over native `<select>` when matching web control patterns. **Field titles** on form controls: see **`management-web-form-eyebrow`** (use **`eyebrow`**, not freestanding **`Label`**).
+## Guidance
 
-Common candidates to share:
+- **`crud-tables-resources`** — CRUD list/detail conventions and row action order (`getRowActions`, delete confirm).
+- **`reusable-components`**, **`shared-ui-i18n`** — no hardcoded English in **`@podverse/ui`**; apps pass strings.
+- **`tables-support-sorting`**, **`table-sort-defaults`**, **`sort-prefs-cookie-by-path`** — sort UX, defaults by column type, and cookie/list-state behavior for shared tables.
 
-- Form controls and action rows (`FormGroup`, `Input`, `Label`, `FormDropdown`, `FormPrimaryActions`)
-- Table and pagination wrappers (`Table`, `Pagination`)
-- Status and state messaging (`StatusBadge`, `LoadingSpinner`, `Alert`)
-- Icon actions and menus (`IconButton`, `DropdownMenu`, shared dropdown keyboard hook)
+## References
+
+- [`packages/ui/PACKAGES-UI.md`](/packages/ui/PACKAGES-UI.md) — **Table family** section.
+- Locked contracts for table APIs live in management-api route modules and `@podverse/ui` table helpers (tables convergence plan set completed).
+- [`.cursor/skills/crud-tables-resources/SKILL.md`](/.cursor/skills/crud-tables-resources/SKILL.md)
+- [`.cursor/skills/tables-support-sorting/SKILL.md`](/.cursor/skills/tables-support-sorting/SKILL.md)
+- [`.cursor/skills/table-sort-defaults/SKILL.md`](/.cursor/skills/table-sort-defaults/SKILL.md)
+- [`.cursor/skills/sort-prefs-cookie-by-path/SKILL.md`](/.cursor/skills/sort-prefs-cookie-by-path/SKILL.md)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
