@@ -1,0 +1,9 @@
+{
+  "name": "freewili--wilibsp",
+  "displayName": "wilibsp",
+  "description": "FreeWili 2 (RP2350B) board support package: one CMake BSP library + hello apps + fw CLI. Display/touch/LEDs/audio/sub-GHz radio/PDM mics/sensors/IR/USB-host MSC - all bench-verified, polled-first, hos",
+  "version": "1.0.0",
+  "author": "freewili",
+  "homepage": "https://github.com/freewili/wilibsp",
+  "skills": []
+}
