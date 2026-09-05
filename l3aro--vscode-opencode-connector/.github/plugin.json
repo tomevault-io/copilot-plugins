@@ -1,0 +1,9 @@
+{
+  "name": "l3aro--vscode-opencode-connector",
+  "displayName": "vscode-opencode-connector",
+  "description": "Integrates the OpenCode TUI directly into your vscode-based IDE workflow.",
+  "version": "1.0.0",
+  "author": "l3aro",
+  "homepage": "https://github.com/l3aro/vscode-opencode-connector",
+  "skills": []
+}
