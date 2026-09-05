@@ -4,7 +4,7 @@
   "repo": "you2betoblog",
   "description": "Turn YouTube videos into reviewable blog articles inside an Obsidian workflow.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgriciDaniel/you2betoblog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T08:32:16Z"
+  "distributed_at": "2026-09-05T08:34:22Z"
 }
