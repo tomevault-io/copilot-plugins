@@ -1,0 +1,30 @@
+{
+  "name": "authenticwalk--mybibletoolbox-code",
+  "displayName": "mybibletoolbox-code",
+  "description": "Claude Code AI agents to build the world's largest commentary on the Bible across 1000 languages.  Feed it to AI systems to get more grounded answers instead of it guessing.",
+  "version": "1.0.0",
+  "author": "authenticwalk",
+  "homepage": "https://github.com/authenticwalk/mybibletoolbox-code",
+  "skills": [
+    {
+      "name": "bible-study-tool-creator",
+      "description": ""
+    },
+    {
+      "name": "improve-tbta",
+      "description": ""
+    },
+    {
+      "name": "progressive-disclosure",
+      "description": ""
+    },
+    {
+      "name": "quote-bible",
+      "description": ""
+    },
+    {
+      "name": "scripture-study",
+      "description": ""
+    }
+  ]
+}
