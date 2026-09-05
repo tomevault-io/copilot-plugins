@@ -1,0 +1,44 @@
+{
+  "name": "hijack-agentic-ai",
+  "owner": "nmeisenzahl",
+  "repo": "hijack-agentic-ai",
+  "description": "Showcasing how to hijack agentic AI using real\u2011world vulnerabilities",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nmeisenzahl/hijack-agentic-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-05T06:35:17Z"
+}
