@@ -1,0 +1,9 @@
+{
+  "name": "raythurman2386--pimarchy",
+  "displayName": "pimarchy",
+  "description": "Pimarchy provisions a barebones Pi OS Lite installation into a fully configured, modern Wayland desktop environment inspired by Omarchy.",
+  "version": "1.0.0",
+  "author": "raythurman2386",
+  "homepage": "https://github.com/raythurman2386/pimarchy",
+  "skills": []
+}
