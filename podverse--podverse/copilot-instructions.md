@@ -1,44 +1,152 @@
-## font-preloads-route-aware
+## github-actions-yaml
 
-> Route-aware Roboto font preload policy — which weights to preload and where.
+> YAML files use **double quotes** for strings (configured via override in `.prettierrc.json`).
 
+# GitHub Actions YAML Best Practices, glob pattern(s) for applicable files: .github/workflows/_.yml, .github/workflows/_.yaml
 
-# Route-aware font preloads
+## Quote Style in YAML Files
 
-## Policy
+YAML files use **double quotes** for strings (configured via override in `.prettierrc.json`).
 
-Only preload Roboto weights that render above the fold. Keep all `@font-face` declarations in `_font-faces.scss`; on-demand weights still load via CSS with `font-display: swap`.
+- JavaScript/TypeScript use single quotes
+- YAML files use double quotes
+- This is enforced consistently by both IDE save and `npm run lint:fix`
 
-| Weight | File | Preload |
-| --- | --- | --- |
-| Regular (400) | `Roboto-Regular.ttf` | Always (`full` and `minimal`) |
-| Light (300) | `Roboto-Light.ttf` | `full` only (headings, form controls) |
-| Bold (700) | `Roboto-Bold.ttf` | `full` only |
-| Italic (400 italic) | `Roboto-Italic.ttf` | Never |
-| Medium (500) | `Roboto-Medium.ttf` | Never |
+## Critical Rules
 
-## `@podverse/ui` — `FontPreloads`
+### 1. Multi-line Shell Scripts with Special Characters
 
-- **`variant="full"`** (default): Regular + Light + Bold.
-- **`variant="minimal"`**: Regular only.
-- Do not add embed pathname detection here; keep the component presentational.
+When a `run:` block contains shell scripts that generate strings with markdown or special characters, use heredocs instead of quoted strings.
 
-## apps/web
+**Problem:**
 
-- Root layout uses **`RouteAwareFontPreloads`**, not raw `<FontPreloads />`.
-- **`full`**: main app routes and `/embed` demo index (`isEmbedPathname` returns false for `/embed`).
-- **`minimal`**: chromeless `/embed/*` iframe routes (`/embed/<resource>`).
-- Embed detection stays in the app via [`isEmbedPathname`](apps/web/src/lib/embed/isEmbedPathname.ts) — same signal as `AppChrome`.
+```yaml
+run: |
+  BODY="## Title
+  **Bold**: value"  # ❌ ** interpreted as YAML alias
+```
 
-## apps/management-web
+**Solution:**
 
-- Root layout keeps `<FontPreloads />` with default `full`. No embed routes; no route-aware wrapper needed.
+```yaml
+run: |
+  BODY=$(cat <<EOF
+  ## Title
+  **Bold**: value
+  EOF
+  )  # ✅ Heredoc prevents YAML parsing issues
+```
 
-## When adding font weights
+### 2. YAML Special Characters to Watch
 
-- Add `@font-face` in `_font-faces.scss` first.
-- Preload only if the weight is used above the fold on full-chrome pages.
-- Do not restore blanket preloads of all weights from the root layout.
+These characters have special meaning in YAML and can cause parsing errors:
+
+- `*` - Alias reference (at start of line or value)
+- `&` - Anchor definition
+- `@` - Reserved for future use
+- `` ` `` - Reserved for future use
+- `{`, `}` - Flow mappings
+- `[`, `]` - Flow sequences
+
+### 3. When to Use Heredocs in GitHub Actions
+
+Use heredocs when:
+
+- Generating markdown with `**bold**`, `*italic*`, or lists
+- Creating multi-line content with variable interpolation
+- Building JSON or YAML within shell scripts
+- Concatenating multiple conditional sections
+
+**Heredoc patterns:**
+
+```bash
+# Basic heredoc
+VAR=$(cat <<EOF
+content here
+EOF
+)
+
+# With conditional content
+VAR=$(cat <<EOF
+Always here
+$([ -n "$VAR" ] && echo "Conditional line")
+EOF
+)
+
+# Nested heredoc
+OUTER=$(cat <<EOF
+Outer content
+$([ condition ] && cat <<INNER
+Nested content
+INNER
+)
+EOF
+)
+```
+
+### 4. Validation
+
+Always validate YAML syntax after editing workflows:
+
+```bash
+# Python validation
+python3 -c "import yaml; yaml.safe_load(open('.github/workflows/file.yml'))"
+
+# Or use npm lint
+npm run lint:fix
+```
+
+## Common Pitfalls
+
+1. **String concatenation in YAML**: Avoid `VAR="${VAR}more"` when content has special chars
+2. **Unquoted values**: Always quote workflow inputs that might contain special characters
+3. **Indentation mixing**: Use spaces consistently (2 or 4), never mix with tabs
+
+## Examples
+
+### Bad: String Concatenation with Special Characters
+
+```yaml
+run: |
+  BODY="## Title
+  **Field**: ${VALUE}"
+  BODY="${BODY}
+  - [ ] Item with *asterisk*"  # ❌ YAML parsing error
+```
+
+### Good: Heredoc with Conditional Logic
+
+```yaml
+run: |
+  BODY=$(cat <<EOF
+  ## Title
+  **Field**: ${VALUE}
+  $([ -n "$OPTIONAL" ] && echo "**Optional**: ${OPTIONAL}")
+  - [ ] Item with *asterisk*
+  EOF
+  )  # ✅ Safe and readable
+```
+
+### Good: Nested Heredocs for Complex Content
+
+```yaml
+run: |
+  MESSAGE=$(cat <<EOF
+  Main content
+  $([ "$CONDITION" = "true" ] && cat <<NESTED
+  ### Conditional Section
+  This only appears when condition is true
+  NESTED
+  )
+  EOF
+  )
+```
+
+## See Also
+
+- GitHub Actions syntax: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+- YAML specification: https://yaml.org/spec/1.2.2/
+- Bash heredoc syntax: https://www.gnu.org/software/bash/manual/html_node/Redirections.html
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
