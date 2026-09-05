@@ -4,7 +4,7 @@
   "repo": "coffer",
   "description": "Native Linux client for passwords and other credentials stored in Apple Passwords (formerly iCloud Keychain)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dahlia/coffer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T00:30:22Z"
+  "distributed_at": "2026-09-05T00:31:05Z"
 }
