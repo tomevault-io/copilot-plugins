@@ -1,113 +1,87 @@
 ## gt
 
-> Open source i18n libraries for React, Next.js, and more. Repo: `generaltranslation/gt`.
+> `@generaltranslation/compiler` — an unplugin-based build plugin for compile-time i18n optimization. Works with webpack, Vite, Rollup, and esbuild.
 
-# General Translation Monorepo
+# GT Compiler Plugin
 
-Open source i18n libraries for React, Next.js, and more. Repo: `generaltranslation/gt`.
+`@generaltranslation/compiler` — an unplugin-based build plugin for compile-time i18n optimization. Works with webpack, Vite, Rollup, and esbuild.
 
-## Monorepo Structure
+## Architecture
 
-- **Package manager:** pnpm (v10.20.0)
-- **Build system:** Turbo (`turbo.json` defines task graph)
-- **Releases:** Changesets (`pnpm changeset` to add, `changeset publish` to release)
-- **Testing:** Vitest across all packages
-- **Linting:** oxlint + oxfmt (enforced via lefthook pre-commit)
-- **License:** FSL-1.1-ALv2
+The compiler uses a **4-pass Babel pipeline** on `.tsx/.jsx/.ts/.js` files:
 
-## Commands
+1. **JSX Insertion Pass** — Auto-wraps translatable JSX in `_T` / `_Var` components (when `enableAutoJsxInjection` is enabled)
+2. **Macro Expansion Pass** — Transforms `t`\`...\``tagged templates and`t("...")` calls
+3. **Collection Pass** — Collects translation data, computes hashes, validates usage
+4. **Injection Pass** — Injects hashes and metadata into the AST
 
-```sh
-pnpm build          # Build all packages (turbo, cached)
-pnpm test           # Test all packages
-pnpm lint           # Lint all packages
-pnpm lint:fix       # Lint + auto-fix
-pnpm format         # Check formatting with oxfmt
-pnpm format:fix     # Format everything with oxfmt
-pnpm changeset      # Create a changeset for a new release
-pnpm version-packages  # Apply changesets to bump versions
-pnpm release        # Publish packages (changeset publish)
+Entry point: `src/index.ts` (creates the unplugin).
+
+## Code Organization
+
+```
+src/
+├── index.ts              # Unplugin entry point
+├── config.ts             # PluginConfig / PluginSettings types
+├── passes/               # Babel visitor passes (one per pipeline stage)
+│   ├── jsxInsertionPass.ts
+│   ├── macroExpansionPass.ts
+│   ├── collectionPass.ts
+│   ├── injectionPass.ts
+│   └── __tests__/
+├── processing/           # Core logic invoked by passes
+│   ├── jsx-insertion/    # JSX auto-insertion logic + rules doc
+│   ├── collection/
+│   └── injection/
+├── state/                # State management classes
+└── utils/                # Stateless helpers
 ```
 
-Per-package commands: `pnpm --filter <pkg> <script>` (e.g., `pnpm --filter gt test`).
+## JSX Insertion Rules
 
-Turbo tasks: `build`, `test`, `lint`, `lint:fix`, `format`, `format:fix`, `transpile`, `build:clean`, `build:release`, `bench`.
+The full 15-rule spec lives in `.claude/rules/jsx-insertion-rules.md` and loads automatically when editing JSX insertion code. The original source copy is at `src/processing/jsx-insertion/JSX_INSERTION_RULES.md`.
 
-## pnpm Worktrees
+Both the compiler plugin and the CLI registration tool must implement these rules identically, or translation hashes will disagree and runtime resolution will fail.
 
-- pnpm's global virtual store is enabled via `enableGlobalVirtualStore: true` in `pnpm-workspace.yaml` so git worktrees share the pnpm store while keeping isolated `node_modules`. Hoisting is disabled with `hoist: false` because pnpm's hoisted dependency workaround relies on `NODE_PATH`, which does not work for ESM.
-- After creating a new worktree, run `pnpm install` inside it.
-- If pnpm prompts to recreate `node_modules` in a non-interactive shell, use `pnpm install --force`. Do not use `CI=true` for this because pnpm disables the global virtual store in CI mode.
-- Treat missing module/type errors after install as real missing direct dependencies. Add the dependency to the package that imports or uses it, not to a sibling package or the workspace root just to make hoisting work.
+Key concepts:
 
-## Key Packages
+- `_T` (`GtInternalTranslateJsx`) wraps the highest ancestor with translatable text
+- `_Var` (`GtInternalVar`) wraps dynamic expressions, only inside `_T` regions
+- User-written `<T>`, `<Var>`, `<Num>`, `<Currency>`, `<DateTime>` are never modified
+- `Branch`, `Plural`, `Derive`, `Static` trigger `_T` at the parent level
+- Nested `_T` inside `Derive` is expected — removed at runtime by `removeInjectedT()`
 
-| Package                                 | Path                         | Description                                                       |
-| --------------------------------------- | ---------------------------- | ----------------------------------------------------------------- |
-| `generaltranslation`                    | `packages/core`              | Pure JS, i18n helpers and API client                              |
-| `gt-i18n`                               | `packages/i18n`              | Pure JS i18n runtime                                              |
-| `gt-react`                              | `packages/react`             | React i18n with `<T>` component, hooks, providers                 |
-| `@generaltranslation/react-core`        | `packages/react-core`        | Pure React i18n primitives (no framework deps)                    |
-| `gt-next`                               | `packages/next`              | Next.js integration (server/client split, SWC plugin, middleware) |
-| `gt-node`                               | `packages/node`              | Node.js backend translation utilities                             |
-| `gt-react-native`                       | `packages/react-native`      | React Native i18n with native module support                      |
-| `gt-tanstack-start`                     | `packages/tanstack-start`    | TanStack Start integration                                        |
-| `gt-sanity`                             | `packages/sanity`            | Sanity CMS plugin                                                 |
-| `@generaltranslation/compiler`          | `packages/compiler`          | Build plugin (webpack, Vite, Rollup, esbuild) via unplugin        |
-| `gt`                                    | `packages/cli`               | Main CLI tool (`npx gt`)                                          |
-| `gtx-cli`                               | `packages/gtx-cli`           | Wrapper CLI for gt (backward compatibility)                       |
-| `locadex`                               | `packages/locadex`           | AI agent for i18n with MCP support                                |
-| `@generaltranslation/mcp`               | `packages/mcp`               | MCP server for AI tool integration                                |
-| `@generaltranslation/react-core-linter` | `packages/react-core-linter` | ESLint plugin for react-core                                      |
-| `@generaltranslation/gt-next-lint`      | `packages/next-lint`         | ESLint plugin for gt-next                                         |
-| `gt-remark`                             | `packages/remark`            | Remark plugin for MDX escaping                                    |
-| `@generaltranslation/python-extractor`  | `packages/python-extractor`  | Python source extraction (tree-sitter)                            |
+## Configuration
 
-## Code Conventions
+Key flags in `PluginConfig` (`src/config.ts`):
 
-- TypeScript everywhere. Strict mode.
-- oxfmt: single quotes, 2-space indent, trailing commas (es5), semicolons, LF line endings.
-- ESLint: `@typescript-eslint` rules, unused vars prefixed with `_`, no explicit `any` (warn).
-- Prefer `const` over `let`. Never `var`.
-- Test files: `*.test.ts` / `*.spec.ts` using Vitest.
-- Build outputs go to `dist/`. Change source files and rebuild instead of editing `dist/` directly.
-- Do not use default exports.
-- Avoid `useEffect` in React code. Prefer derived state, event handlers, refs, or framework data-loading patterns; only use `useEffect` when synchronizing with an external system.
+- `enableAutoJsxInjection` — enables JSX insertion pass
+- `enableMacroTransform` — enables t\`\` macro expansion
+- `compileTimeHash` — enables hash generation
+- `disableBuildChecks` — skips validation checks
+- `autoDerive` — treats interpolated values as `derive()` calls
 
-## Git and PR Conventions
+Can be set via `gt.config.json` under `files.gt.parsingFlags.enableAutoJsxInjection`.
 
-- Commit messages should follow Conventional Commits style (for example, `feat: add locale fallback` or `fix: preserve formatter options`).
-- PR titles should also follow Conventional Commits style.
+## Testing
 
-## Focused References
+```sh
+pnpm --filter @generaltranslation/compiler test
+```
 
-Load only the relevant file for the area being changed:
+Test suites in `src/passes/__tests__/`:
 
-- React, Next.js, React Native, or TanStack Start packages: `.claude/rules/react-packages.md`
-- Core i18n packages: `.claude/rules/core.md`
-- Compiler or build plugin code: `.claude/rules/compiler.md` and `packages/compiler/AGENTS.md`
-- CLI packages: `.claude/rules/cli.md`
-- ESLint plugin packages: `.claude/rules/linter-plugins.md`
-- Tests: `.claude/rules/testing.md`
+- `jsxInsertionPass.test.ts` — core JSX insertion behavior
+- `jsxInsertionE2E.test.ts` — end-to-end pipeline tests
+- `jsxInsertionEdgeCases.test.ts` — edge cases and regressions
 
-## Important Patterns
+## Important Invariants
 
-- **Exports:** Most packages use conditional exports (`package.json` `exports` field) with separate paths for different entry points (e.g., `gt-next` has `/client`, `/server`, `/middleware`, `/config`).
-- **Internal subpaths:** Packages expose `/internal` subpaths for cross-package use. These are not part of the public API.
-- **React i18n-context:** `packages/react/src/i18n-context/` has restricted imports from `gt-i18n` (only `/types`, `/internal`, `/internal/types`). This is enforced by ESLint.
-- **CLI version generation:** `packages/cli/src/generated/version.ts` is ignored and generated from `packages/cli/package.json` by `node scripts/generate-version.js`; do not edit or track it manually.
-- **gt-react / gt-react-native parity:** These two packages are fixed-version siblings (released together via changesets). When a feature is added to one, the equivalent should be added to the other unless it's platform-specific (e.g., DOM-only UI components). Compare their `index.ts`/`index.tsx` exports to verify parity.
-
-## MCP Server
-
-The repo includes its own MCP server (`@generaltranslation/mcp`) that provides documentation and tools for AI assistants. It's configured in `.mcp.json` at the repo root.
-
-## CI/CD
-
-- GitHub Actions with a `claude.yml` workflow for `@claude` mentions in issues/PRs.
-- Turbo caching for builds. `build` depends on `^build` (dependencies build first).
-- Changesets for automated release management.
+- The JSX insertion pass operates on **compiled JSX** (after Vite/SWC transforms `<div>` into `jsx("div", ...)`), not raw JSX syntax.
+- Each `{expression}` maps to exactly one `_Var` — never grouped or combined.
+- The CLI extraction tool must simulate the same insertion to compute matching hashes.
+- Processing functions have a 1-to-1 relationship with their Babel visitor counterparts.
 
 ---
 > Source: [generaltranslation/gt](https://github.com/generaltranslation/gt) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-05 -->
