@@ -1,28 +1,60 @@
-## nix-terminal-wrapper
+## no-membership-expiry-notifications
 
-> Run node/npm and other flake tools via the Nix wrapper so the agent sandbox has the correct environment
+> Membership expiry is told to the user in-app, derived on demand. Never a push, email, or scheduled job.
 
 
-# Nix Terminal Wrapper (Agent Sandbox)
+# Membership expiry is in-app and on demand, never a notification
 
-This repo uses a Nix flake for Node/npm and other tools. There is no global Node on the system path in environments where the agent runs.
+Telling a user their membership is expiring soon (or has expired) must **never** go through the
+notification system, email, or a scheduled job. A scheduled `membership-expiry-reminder` job, an ORM
+scheduler service, a worker handler, and a `membership-expiry` notification category were all built
+once and removed as over-engineering. Do not reintroduce them.
 
-For any terminal command that needs `node`, `npm`, `npx`, or other tools provided by the flake (e.g. make, kubectl), run it via the project wrapper from repo root:
+There is no `membership-expiry` value in `notification_category_options` or
+`NotificationCategoryEnum`, so a notification of that kind cannot be created without first widening
+the enum — treat needing to do so as the signal that you are re-adding the wrong thing.
 
-```bash
-./scripts/nix/with-env <command> [args...]
-```
+## Why
 
-Examples:
+Expiry is a pure function of a timestamp the client already has. Every surface loads the account
+(`/auth/me`) and holds `membership_expires_at`, so the state is derivable on demand with a date
+comparison. Routing it through push means a job table row per account, a scheduler, delivery
+infrastructure, dedupe-on-change logic, and a user-facing preference toggle — all to say something
+the app can work out for free the moment a screen renders.
 
-- `./scripts/nix/with-env npm run build:packages`
-- `./scripts/nix/with-env npm run lint`
-- `./scripts/nix/with-env npm run dev:api`
-- `./scripts/nix/with-env npx some-package`
+## Do
 
-Run from the repository root. The wrapper resolves the flake path so it also works when the shell's cwd is a subdirectory.
+- Derive the state with **`getMembershipExpiryNotice`** from `@podverse/helpers`, which returns
+  `none` / `expiring_soon` / `expired` plus `daysRemaining`, using the shared
+  `MEMBERSHIP_EXPIRY_WARNING_DAYS` window so surfaces cannot drift.
+- Present it **in-app**: web's `MembershipExpirationToast`, mobile's `MembershipExpiredBanner`, the
+  persistent More row, and the at-the-feature `GatedFeatureNotice`.
+- Consult **`shouldSuppressExpiryReminder`** (`@podverse/helpers`) on every surface, so auto-renew
+  suppression stays a one-function change (detail 711).
+- Keep the presentation dismissible where it is intrusive, and remember the dismissal against the
+  expiry it was dismissed for so a later lapse shows it again.
 
-In automated or agent runs (e.g. Cursor's agent), the sandbox may block Nix's cache under `~/.cache/nix`. When invoking this wrapper from the agent, request full permissions (e.g. `all`) so Nix can write to its cache and the command can succeed.
+## Don't
+
+- Don't add a `scheduled_job` row, worker handler, cron, or queue consumer for membership expiry.
+- Don't send a push or email for expiring-soon or expired.
+- Don't re-add a `membership-expiry` notification category, inbox label, deep-link route, or
+  preference toggle.
+- Don't hardcode a warning window; import `MEMBERSHIP_EXPIRY_WARNING_DAYS`.
+
+## Not covered by this rule
+
+**Scheduled jobs in general are fine and still in use** — admin notification campaigns
+(`ADMIN_NOTIFICATION_SEND_JOB_TYPE`) run on the same `scheduled_job` runner. This rule is about
+membership expiry specifically, not about the mechanism.
+
+Billing and renewal *transactions* (`billingRenewalOrchestrator`) are also out of scope: charging a
+card is real server-side work, unlike telling someone a date is approaching.
+
+## Related
+
+- [700-access-tiers-and-membership-gating](/docs/proposals/mobile/_master-plan_/phase-2/details/700-access-tiers-and-membership-gating.md)
+- [711-defer-auto-renew-aware-reminders](/docs/proposals/mobile/_master-plan_/phase-2/details/711-defer-auto-renew-aware-reminders.md)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
