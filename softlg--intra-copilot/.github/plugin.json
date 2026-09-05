@@ -1,0 +1,9 @@
+{
+  "name": "softlg--intra-copilot",
+  "displayName": "intra-copilot",
+  "description": "\u667a\u80fd\u9875\u9762Agent\uff08intra-copilot\uff09\uff1a\u6d4f\u89c8\u5668\u63d2\u4ef6+ \u77e5\u8bc6\u5e93\uff0c\u591a Agent \u53ef\u914d\u7f6e\u5f00\u653e\u7cfb\u7edf\uff08\u95ee\u9898\u8bca\u65ad / \u667a\u80fd\u95ee\u7b54\u7b49\uff09",
+  "version": "1.0.0",
+  "author": "softlg",
+  "homepage": "https://github.com/softlg/intra-copilot",
+  "skills": []
+}
