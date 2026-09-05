@@ -1,25 +1,35 @@
-## eqeqeq-strict-equality
+## extensions-env
 
-> Use strict equality (=== and !==) to satisfy eslint eqeqeq
+> Three-pillar env — Observability, Integrations, Extensions — and config mapping. Extensions env is last on main app containers.
 
 
-# Strict Equality (eqeqeq)
+# Platform env — extensions, integrations, observability
 
-Use **strict equality** only. ESLint rule `eqeqeq` expects `===` and `!==`, not `==` or `!=`.
+Use **extensions-env**, **integrations-web**, and **observability** skills for full detail.
+
+## Three pillars
+
+| Pillar | Config | Subsection order |
+| ------ | ------ | ---------------- |
+| Observability | `config.observability.*` | **First** |
+| Integration | `config.integrations.<vendor>.<product>` | Second |
+| Extension | `config.extensions.*` | **Last** (main app only) |
 
 ## Do
 
-- `x === null`, `x === undefined`, `value === 0`
-- `x !== null`, `x !== undefined`
-- For "value is not null and not undefined": `x !== null && x !== undefined` (or use optional chaining / truthiness where that is the intent)
+- Map extension toggles under `config.extensions.<service>.<property>` (e.g. `config.extensions.prometheus.enabled`).
+- Use **`PROMETHEUS_*`** and **`OTEL_*`** for extensions/observability (no `EXT_*` prefix after plan 02).
+- Mount **`podverse-integrations-config`** on runtime-config sidecars only.
+- Mount **`podverse-extensions-config`** on main app + extension sidecar containers.
+- Validate **Observability** categories before **Extensions** in startup validation.
+- Express: observability HTTP middleware **before** extension metrics middleware.
 
 ## Don't
 
-- `x == null` (use `x === null || x === undefined` or `x !== null && x !== undefined` as appropriate)
-- `x != null` (use `x !== null && x !== undefined`)
-- `a == b` or `a != b` in general
-
-This keeps behavior explicit and satisfies `eslint eqeqeq`.
+- Use `config.extensions.tracing` or extension toggles for always-on trace context.
+- Put Integrations or Extensions env on runtime-config sidecars (Integrations CM + `NEXT_PUBLIC_*` only).
+- Register `/extensions/prometheus/metrics` on Express/Next app processes (sidecar port **9464** only).
+- Flatten integration config (`config.integrations.cloudflareWebAnalytics`).
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
