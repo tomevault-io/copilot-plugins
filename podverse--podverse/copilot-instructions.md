@@ -1,85 +1,101 @@
-## comments-future-forward
+## config-type-safety
 
-> Code comments describe the code as it is now, never what it used to be, what was removed, or which plan asked for it.
+> Config and type safety rules - no defaults, no non-null assertions
 
 
-# Comments are future-forward
+# Config and Type Safety Rules
 
-A comment is for the next person reading this file, who has never seen any earlier version of it.
-Write only what is true of the code **as it stands**. The history of how it got here belongs in the
-commit message and the PR, which is where someone goes when they actually want it.
+## Critical Requirements
 
-## Don't
+### 1. Never Set Default Values in Config Files
 
-- Narrate a removal: "no longer produced", "this used to call X", "the old per-screen strings",
-  "retained so historical rows still render".
-- Explain an absence created by an edit: "No membership-expiry row here", "not offerable as a
-  category", "we removed the scheduler".
-- Date the code against itself: "now", "currently", "as of this change", "going forward".
-- Justify the diff to a reviewer: "changed this because…", "this is the new approach".
+**NEVER** set default values for environment variables in `config/index.ts` files. This includes:
+- Empty strings: `process.env.VAR || ''`
+- Fallback values: `process.env.VAR || 'default'`
+- Nullish coalescing: `process.env.VAR ?? ''`
 
-## Do
+**Why**: Default values hide configuration errors and allow apps to start with invalid state.
 
-- State the constraint or intent positively: what this code guarantees, what a caller must handle,
-  what would break if it changed.
-- When something must **not** be added, put it in a rule under `.cursor/rules/` and let the rule
-  carry it. A rule is enforced on future work; a comment in one file is not.
-- Name a `.cursor/rules/` rule when the reasoning is larger than a sentence. Rules are durable and
-  named, so the reference survives.
+### 2. Use Non-Null Assertions (`!`) in Config Files Only
 
-## Never cite a plan, detail, or step number
+Config files are the **one exception** where `!` assertions are allowed, because:
+- All env vars must pass through startup validation before config is used
+- Validation ensures required values exist before the app starts
+- This keeps config files clean and typed as `string` (not `string | undefined`)
 
-Plans and proposal docs are working material. They get renumbered, archived, and deleted — plan sets
-are removed outright once their work lands. A comment pointing at `detail 711`, `master step 2.11`,
-`P2.4.3`, `Track 9b.6`, or a path under `.llm/plans/` or `docs/proposals/` is a reference that will
-outlive what it points to, leaving the next reader with a number that means nothing.
-
-Write the reasoning agnostically, or leave it out. If the point is worth keeping, it is worth
-stating in the file; if it is only a breadcrumb back to a plan, it is not worth keeping at all.
+**Pattern for config files:**
 
 ```typescript
-// BAD — the number is a dead end once the plan is archived
-// Suppression is deferred until payment functionality exists — see detail 711.
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- env vars validated at startup in lib/startup/validation.ts */
 
-// GOOD — the same constraint, legible on its own
-// Suppression waits on payment functionality. Every reminder surface calls this, so enabling it
-// later is a change here and nowhere else.
+export const config = {
+  nodeEnv: process.env.NODE_ENV!,
+  apiPort: process.env.API_PORT!,
+  database: {
+    host: process.env.DB_HOST!,
+  },
+};
 ```
 
+### 3. Avoid Non-Null Assertions Elsewhere
+
+Outside of config files, **avoid** `!` assertions. Prefer:
+1. Proper null checks or optional chaining
+2. Type guards
+3. Helper functions that throw meaningful errors
+
+## Approved Patterns
+
+### Backend Apps (api, workers, management-api)
+
+1. **Create startup validation** (`lib/startup/validation.ts`):
 ```typescript
-// BAD — a path into working material
-// Detail: docs/proposals/mobile/_master-plan_/phase-2/details/701-anonymous-subscriptions.md
+import { validateRequired } from '@podverse/helpers';
 
-// GOOD — omit it; the doc comment above already states the ownership rules.
+export const validateStartupRequirements = (): void => {
+  const results = [];
+  results.push(validateRequired('DB_HOST', 'App database'));
+  results.push(validateRequired('DB_APP_NAME', 'App database'));
+  results.push(validateRequired('API_PORT', 'API'));
+  // ... validate all required env vars
+  
+  if (results.some(r => !r.isValid && r.isRequired)) {
+    throw new Error('Missing required environment variables');
+  }
+};
 ```
 
-This applies to test names, E2E flow comments, and SQL migration headers as much as to source
-comments. Commit messages and PR descriptions are the right place for "which plan asked for this".
-
-## Examples
-
+2. **Call validation early in app startup** (`index.ts`):
 ```typescript
-// BAD — only meaningful to someone who saw the previous version
-// The reason→copy mapping lives here rather than at call sites, which is the difference between one
-// consistent affordance and the previous per-screen "needs login" strings.
+import { validateStartupRequirements } from './lib/startup/validation';
 
-// GOOD — same point, true on its own
-// The reason→copy mapping lives here rather than at call sites so every gated control explains
-// itself the same way.
+// Validate BEFORE importing config
+validateStartupRequirements();
+
+// Now safe to import and use config
+import { config } from './config';
 ```
 
+3. **Use `!` in config with eslint-disable** (`config/index.ts`):
 ```typescript
-// BAD — documents a hole left by an edit
-// No membership-expiry category: expiry is shown in-app now, never delivered as a notification.
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- env vars validated at startup in lib/startup/validation.ts */
 
-// GOOD — omit it; `no-membership-expiry-notifications` is the durable home for that constraint.
+export const config = {
+  dbHost: process.env.DB_HOST!,
+  apiPort: process.env.API_PORT!,
+};
 ```
 
-## Cleaning up
+### Next.js Apps (web, management-web)
 
-When you touch a file that already has a backward-looking comment, or one citing a plan or step
-number, rewrite or delete it as part of the change. Leaving it is how a file accumulates a changelog
-in its margins and a trail of references to documents nobody can find.
+For Next.js apps, validate at build time via `scripts/validate-env.ts` and prebuild hook.
+
+## Summary
+
+| Location | `!` Allowed | Default Values |
+|----------|-------------|----------------|
+| `config/index.ts` | ✅ Yes (with eslint-disable) | ❌ Never |
+| Other files | ❌ Avoid | Use at point of use if needed |
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
