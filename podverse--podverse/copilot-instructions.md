@@ -1,25 +1,17 @@
-## css-custom-properties-no-var-fallbacks
+## custom-themes-operator-sample-sync
 
-> Do not use CSS var() fallback arguments in SCSS/CSS; rely on canonical theme tokens
+> Keep operator custom-themes sample JSON in sync when theme CSS variables change in _themes.scss
 
 
-# CSS custom properties — no `var()` fallbacks
+# Custom themes operator sample sync
 
-## Do not
+When you add, rename, or remove a **theme-scoped** CSS custom property in [`packages/ui/src/styles/_themes.scss`](/packages/ui/src/styles/_themes.scss) (inside `[data-ui-theme='…']` blocks):
 
-- Use the **second argument** to `var()` as a silent fallback: `var(--token, #hex)`, `var(--token, inherit)`, etc.
-- Use **nested fallbacks** such as `var(--a, var(--b))` to paper over a missing `--a` — the outer form still hides when `--a` is absent.
+1. Update [`docs/operations/branding/custom-themes.operator-sample.json`](/docs/operations/branding/custom-themes.operator-sample.json) so **each** sample theme’s `cssVariables` includes the full key set with explicit values.
+2. Run `npm run test -w @podverse/ui` — `customThemesOperatorSample.test.ts` asserts parity with `_themes.scss`.
+3. If operator-facing steps changed, update [`docs/operations/branding/REMOTE-CUSTOM-THEMES.md`](/docs/operations/branding/REMOTE-CUSTOM-THEMES.md).
 
-Fallbacks mask missing or mistyped custom properties and make theme bugs hard to see in review.
-
-## Do
-
-- Reference tokens that are defined in **`packages/ui/src/styles/`** — especially `_variables-root.scss` (`:root` scale) and `_themes.scss` (theme palettes on `[data-ui-theme]`).
-- If a value is missing, **add or extend a named token** in those files (and mirror SCSS variables in `_variables.scss` when the package uses Sass mirrors), then use `var(--your-token)` with **one** argument.
-
-## Inline styles (React `style`, Storybook decorators)
-
-Apply the same rule: no `var(--x, fallback)` in style object strings.
+Do **not** use E2E fixtures under `tools/test-assets/assets/themes/` for this; those stay minimal for Playwright.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
