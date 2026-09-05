@@ -1,22 +1,93 @@
-## build-order-doc-sync
+## commands-from-monorepo-root
 
-> Keep build order dependency-safe and docs synced when build orchestration changes.
+> Give terminal/npm commands relative to monorepo root
 
 
-# Build order and docs sync
+# Commands From Monorepo Root
 
-Use the `build-order` skill (`.cursor/skills/build-order/SKILL.md`) whenever you edit build
-orchestration.
+**Always give runnable commands relative to the root of the Podverse monorepo.** Do not instruct users to `cd` into `apps/workers`, `apps/api`, or other workspaces first.
 
-## Required
+**Copy button:** Always put runnable commands inside a **fenced code block** (e.g. ` ```bash ` … ` ``` `) so the IDE shows a copy button next to them. Never give only inline commands when the user might want to run them.
 
-- Preserve dependency-safe staged build execution.
-- Keep root `build` aligned with package/app/tool build sequencing.
-- Update `docs/development/tooling/DOCS-DEVELOPMENT-TOOLING-BUILD-ORDER.md` when behavior changes.
+**Verification commands:** When your response includes steps the user should run (e.g. to verify a change, smoke-test, or apply something), always end the response with a fenced code block containing the exact, copy-pasteable command(s). Do not omit this block or describe commands only in prose.
 
-## Prohibited
+## Do
 
-- Do not reintroduce all-workspace root build execution that can violate workspace dependency order.
+- Put every runnable command in a fenced code block so a copy button appears.
+- When you change flake, env, or scripts and the user will want to run something to verify, end with a fenced code block containing the exact command(s) to run.
+- When giving verification or run instructions (smoke test, apply, confirm), always provide a final fenced code block with one command per line so the user can copy-paste.
+- Before suggesting `npm run <script> -w <workspace>`, verify that `<script>` exists in that workspace's `package.json`; root aggregate scripts are not automatically available inside workspaces.
+- Use root `npm run test:unit` for the **full** unit tier (all workspaces with a `test` script, minus API/mobile exclusions). Do **not** scope `test:unit` with `-w`.
+- For **scoped** unit tests from repo root, use the workspace `test` script: `npm run test -w <workspace>` (e.g. `npm run test -w apps/web`, `npm run test -w @podverse/playback-core`).
+- From repo root: `npm run <script> -w apps/workers -- <args>`
+- From repo root: `npm run build:packages` then `npm run build -w apps/workers`
+- From repo root: `node apps/workers/dist/index.js devPiBulkFeedsAddFromFile -startId 1 -endId 10 -q rss-slow` (uses hardcoded path `infra/data/dev/podcast-index-feeds` relative to monorepo root)
+- From repo root: `npm run workers:parse_trending_feeds --` (optionally with `-max N` after `--`; run after `npm run build -w apps/workers`); same as `devParserRSSParseTrendingFeeds`
+
+## Don't
+
+- Don't say: "cd apps/workers" then "npm run dev_pi_bulk_feeds_add_from_file -- ..."
+- Don't give app-specific commands that assume the user is already inside an app directory
+- Don't scope **root-only** orchestration scripts with `-w`. They exist only in root `package.json`.
+
+**Root-only scripts (never use with `-w`):** `test:unit`, `build:packages`, `build:apps`, `build:tools`, `lint`, `test:e2e:api`, `test:e2e:web`, `test`, `test:reports`.
+
+**Known bad examples:**
+
+- `npm run test:unit -w apps/web` — workspaces define `test`, not `test:unit`
+- `npm run test:unit -w @podverse/playback-core` — same failure
+- `npm run build:packages -w packages/helpers` — use root `npm run build:packages` or `npm run build -w packages/helpers`
+
+## Root-only vs workspace scripts
+
+The operator runs commands from **monorepo root**. Two patterns:
+
+| Goal | Command |
+| ---- | ------- |
+| Full unit tier | `npm run test:unit` |
+| One workspace unit tests | `npm run test -w <workspace>` |
+| Several workspaces unit tests | `node scripts/ci/run-workspaces.mjs --script test --workspaces <path> <path>` |
+| Build all packages (ordered) | `npm run build:packages` |
+| Build one package | `npm run build -w packages/<name>` |
+| Lint entire repo | `npm run lint` |
+
+**Mobile (`apps/mobile`):** `-w apps/mobile` **fails** — mobile is a standalone install outside the
+root npm workspaces, so npm answers `No workspaces found`. Reach it with a root composite script
+(`mobile:dev`, `mobile:ios`, `mobile:e2e:test`, `mobile:install`, `type-check:mobile`) or, when no
+composite exists, `npm --prefix apps/mobile run <script>` — mobile unit tests are
+`npm --prefix apps/mobile run test`. Being outside the workspaces is also why root `test:unit` does
+not reach mobile. Mobile device E2E uses Maestro/Detox (not `make e2e_*`). See
+**mobile-expo-monorepo**, **mobile-master-plan-phasing**, and `apps/mobile/APPS-MOBILE.md`.
+
+## Examples
+
+**Workers (devPiBulkFeedsAddFromFile):**
+
+```bash
+npm run dev_pi_bulk_feeds_add_from_file -w apps/workers -- -startId 1 -endId 10 -q rss-slow
+```
+
+**Building a single app:**
+
+```bash
+npm run build -w apps/workers
+```
+
+**Running any workspace script from root:**
+
+```bash
+npm run <script-name> -w <workspace> -- [args]
+```
+
+**Unit tests — full tier vs scoped:**
+
+```bash
+npm run test:unit
+npm run test -w apps/web
+npm run test -w @podverse/playback-core
+```
+
+This keeps instructions copy-pasteable from repo root and avoids confusion about where `.env` and default paths resolve. Using fenced code blocks ensures the UI shows a copy button for each command.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
