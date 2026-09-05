@@ -1,25 +1,28 @@
-## management-web-form-eyebrow
+## management-web-prefer-shared-ui
 
-> Management-web field labels use control eyebrows, not freestanding Label
+> Management-web — prefer @podverse/ui; aligns with cross-app shared UI rule
 
 
-# Management Web: Form Field Labels (Eyebrow)
+# Management Web: Prefer Shared UI
 
-When labeling inputs, selects, and grouped checkbox lists on **`apps/management-web`** pages:
+Cross-app policy (web + management-web): **`.cursor/rules/prefer-shared-ui-web-management.mdc`**.
 
-## Do
+When editing `apps/management-web/src/**/*.tsx`:
 
-- Use **`eyebrow`** on **`TextInput`**, **`FormDropdown`**, and **`CheckboxFieldList`** from **`@podverse/ui`** so the title sits inside the shared field chrome (same pattern as web login and management settings).
-- For lookup rows with **`LookupFieldGrid`**, use **`variant="inlineEyebrow"`** when each column uses in-field eyebrows so the primary action column aligns to the control baseline.
+- Prefer importing generic UI primitives from `@podverse/ui` before adding page-specific wrappers.
+- If a generic pattern is missing, add it to `packages/ui/src/components/**` (or shared hooks under `packages/ui/src/hooks/**`) and export from `packages/ui/src/index.ts`.
+- Avoid creating one-line app-local re-export files for `@podverse/ui` components.
+- Keep app-local components in `apps/management-web/src/components/**` for shell/product-specific behavior only.
+- Before adding a component under `apps/management-web/src/components`, compare with **`apps/web`** for the same UX pattern; if they align, extend **`@podverse/ui`** instead of duplicating (see **`ui-component-promotion`** skill).
 
-## Do not
+Recent convergence examples (phase 05): database **table browser** pagination uses **`Pagination`** from **`@podverse/ui`** instead of ad hoc prev/next buttons; prefer **`FormDropdown`** over native `<select>` when matching web control patterns. **Field titles** on form controls: see **`management-web-form-eyebrow`** (use **`eyebrow`**, not freestanding **`Label`**).
 
-- Do **not** stack **`Label`** (from **`@podverse/ui`**) above **`TextInput`**, **`FormDropdown`**, or **`CheckboxFieldList`** for ordinary field titles — that duplicates the eyebrow pattern and breaks toolbar alignment.
+Common candidates to share:
 
-## Exceptions
-
-- **Section/page titles** (**`SectionHeading`**, **`ManagementPageShell`** **`title`**) and **read-only** **`DescriptionList`** **`dt`/`dd`** rows are not single-field labels.
-- **`Fieldset`** **`legend`** for grouped matrices (e.g. permission grids) is group chrome, not a per-control eyebrow.
+- Form controls and action rows (`FormGroup`, `Input`, `Label`, `FormDropdown`, `FormPrimaryActions`)
+- Table and pagination wrappers (`Table`, `Pagination`)
+- Status and state messaging (`StatusBadge`, `LoadingSpinner`, `Alert`)
+- Icon actions and menus (`IconButton`, `DropdownMenu`, shared dropdown keyboard hook)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
