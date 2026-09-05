@@ -1,0 +1,9 @@
+{
+  "name": "weave-os--router",
+  "displayName": "router",
+  "description": "Model router for agentic systems. Routes every prompt to the right model in <50ms. Cut costs 40-70% with just an endpoint change.",
+  "version": "1.0.0",
+  "author": "weave-os",
+  "homepage": "https://github.com/weave-os/router",
+  "skills": []
+}
