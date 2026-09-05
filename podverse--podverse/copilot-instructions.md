@@ -1,16 +1,28 @@
-## app-local-ui-wrappers
+## app-routes-shared-constants
 
-> Extract app-local thin wrappers when identical @podverse/ui + i18n configuration repeats (2+ callsites in one app).
+> Use APP_ROUTES and path builders from @podverse/helpers for app link paths; do not hardcode /episode, /podcast, etc.
 
 
-# App-local configured UI wrappers
+# Shared app route constants
 
-When the **same** configured usage of `@podverse/ui` (including **`next-intl`** strings for `aria-label`, titles, or messages) appears in **two or more** places **within** `apps/web` or **within** `apps/management-web`, extract a thin client component under that app’s `src/components/**` that wires translations and forwards props.
+Canonical web/mobile deep-link path prefixes live in `@podverse/helpers` as **`APP_ROUTES`** and **`build*Path`** helpers (`packages/helpers/src/lib/appRoutes.ts`).
 
-- Keep wrappers **app-local** until **both** apps need the same wiring; then consider `packages/ui` + separate app wrappers for copy (**`shared-ui-i18n`**).
-- Do **not** use bare `export { X } from '@podverse/ui'` as a substitute — wrappers must bind meaningful app conventions.
+## Do
 
-See **`reusable-components`** skill for the full rubric and examples.
+- Import `APP_ROUTES`, `buildAppRoutePath`, or a specific builder (`buildEpisodePath`, `buildPodcastPath`, …) when constructing `link_path`, push links, share URLs, SEO `pathname`, or navigation hrefs.
+- Use `buildNotificationLinkPath` / `getNotificationLinkPathPrefix` for parser and push notification deep links.
+- In `apps/web`, spread `APP_ROUTES` into `ROUTES` (`apps/web/src/constants/routes.ts`) and add web-only list/settings paths there.
+
+## Do not
+
+- Hardcode strings like `` `/episode/${id}` ``, `` `/membership/renew` ``, or `` `/podcast/livestream/${id}` `` in packages, API, workers, parser, notifications, or mobile share code.
+- Duplicate route prefix tables in multiple modules.
+
+## Exceptions
+
+- **API HTTP paths** (`/channel/subscribed/recent`, `/account/notifications`, …) are REST routes, not web app link paths — they stay as API route strings.
+- **Add-by-RSS** paths under `/add-by-rss/...` are a separate surface; use `ROUTES.ADD_BY_RSS_*` in web until a shared helper exists.
+- **E2E tests** may use literals when asserting browser URLs, but prefer `APP_ROUTES` / builders when the test encodes a product link contract.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
