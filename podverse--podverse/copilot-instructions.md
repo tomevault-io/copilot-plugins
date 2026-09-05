@@ -1,0 +1,56 @@
+## abcmemory-vocabulary
+
+> User vocabulary abcmemory and abcremember for Cursor guidance files
+
+
+# abcmemory / abcremember vocabulary
+
+## abcmemory
+
+**abcmemory** means the committed files Cursor uses for agent guidance in this repo — **only** under `.cursor/` and the repo root files Cursor reads:
+
+- `.cursor/skills/**`
+- `.cursor/rules/**`
+- `.cursor/prompts/**`
+- `.cursor/hooks/**` and `.cursor/hooks.json` (when present)
+- `.cursorrules`
+- `.cursorignore`
+
+## Not abcmemory
+
+**`.llm/`** (plans, history, templates, context) is a **planning workspace**, not agent memory. Do not treat it as a second abcmemory tree.
+
+Also not abcmemory unless you explicitly ask: `docs/`, `.github/`, and ad-hoc paths.
+
+## abcremember
+
+When the user says **abcremember**, **create or update** the best-fit abcmemory file(s) under **`.cursor/`** (or `.cursorrules` / `.cursorignore`): prefer updating existing guidance when the instruction extends the same topic; create a new skill, rule, or prompt only when no suitable file exists. Then follow that guidance in future work. Do **not** write to `.llm/` unless they explicitly say to remember something there.
+
+For placement and workflow details, see `.cursor/skills/abcmemory/SKILL.md`.
+
+## abcchecke2e
+
+When the user says **abcchecke2e**, inspect both staged and unstaged changes, including
+untracked files that are part of the current work. Compare those changes with
+`docs/testing/E2E-VERIFICATION-SCRATCHPAD.md`.
+
+- Update the scratchpad so it lists the focused E2E verification required by the current changes.
+- Remove scratchpad entries that are unrelated to the current staged and unstaged changes.
+- Preserve only commands and report-review paths that are actionable for the current work.
+- Do not treat the scratchpad as permanent feature documentation; it represents the current
+  working-tree verification state.
+
+## legacy app
+
+**legacy app** (also **podverse-rn**, **v4 mobile**) means the React Native app in the sibling
+checkout **`../podverse-rn`** relative to this monorepo root (typically
+`/Users/mitcheldowney/repos/pv/podverse-rn`).
+
+**Nextgen** / **this monorepo** (`podverse`) is the current product codebase, including
+`apps/mobile`.
+
+See **legacy-app-reference** for when and how to open that checkout.
+
+---
+> Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-05 -->
