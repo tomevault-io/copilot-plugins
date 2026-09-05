@@ -1,0 +1,9 @@
+{
+  "name": "pxygit--sunnyregister",
+  "displayName": "SunnyRegister",
+  "description": "SunnyRegister - Go + React + PostgreSQL + Python Worker based GPT account registration and management system.",
+  "version": "1.0.0",
+  "author": "pxygit",
+  "homepage": "https://github.com/pxygit/SunnyRegister",
+  "skills": []
+}
