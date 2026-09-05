@@ -4,7 +4,7 @@
   "repo": "asana-cli",
   "description": "Modern Asana CLI, built with AI agents in mind",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Whoaa512/asana-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T08:33:39Z"
+  "distributed_at": "2026-09-05T08:35:33Z"
 }
