@@ -1,0 +1,24 @@
+## tailboot
+
+> - Assume all users use reusable, ephemeral Tailscale auth keys with a 90-day expiry. When the key expires, users generate a new key and customize a new ISO.
+
+- Assume all users use reusable, ephemeral Tailscale auth keys with a 90-day expiry. When the key expires, users generate a new key and customize a new ISO.
+  - Do not add validation or checks regarding this. Assume this is the user is already giving you the right key
+  - Every boot intentionally creates a new ephemeral Tailscale machine identity. Do not persist or restore Tailscale state between boots.
+- Tailboot is not intended to be a full rescue or recovery drive. It should include only enough functionality to boot and connect to a Tailscale network.
+  - Users are expected to have internet access after connecting. They can install whatever additional packages they need, so the image should not include anything outside what is necessary for booting and connecting.
+  - Stability and low maintenance are paramount.
+    - Debian and Tailscale are large, well-supported upstream projects.
+    - Tailboot should remain a small layer over them instead of becoming an entire product of its own.
+    - Keep Tailboot simple enough to rely on upstream stability rather than requiring active maintenance.
+    - This is why releases run automatically each month without routine manual approval.
+      - But if we need to we should add complexity in order to avoid invalid ISOs being published. Even then, try to keep the fix as simple as possible
+- CI failures caused by broken upstream URLs or breaking Debian or Tailscale changes are acceptable. Failing fast is good; do not add excessive recovery logic.
+- YAGNI: do not add things unless they are needed now.
+- Prefer omission over enforcement. Do not add machinery that removes, disables, or guards against software or behavior that Tailboot does not configure.
+- Automated releases should verify behavior owned by Tailboot. A failed release must not replace the last working release presented to users.
+- The auth key the end users provide, should always be processed client side. Privacy is crucial
+
+---
+> Source: [ShoeBoom/tailboot](https://github.com/ShoeBoom/tailboot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-05 -->
