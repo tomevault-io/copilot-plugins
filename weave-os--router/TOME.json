@@ -4,7 +4,7 @@
   "repo": "router",
   "description": "Model router for agentic systems. Routes every prompt to the right model in <50ms. Cut costs 40-70% with just an endpoint change.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weave-os/router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T01:30:20Z"
+  "distributed_at": "2026-09-05T01:31:03Z"
 }
