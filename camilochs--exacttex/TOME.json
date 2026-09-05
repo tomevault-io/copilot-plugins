@@ -1,0 +1,44 @@
+{
+  "name": "exacttex",
+  "owner": "camilochs",
+  "repo": "exacttex",
+  "description": "A gradually-typed superset of LaTeX. Every .tex file is already valid; each annotation you add buys checked references, safe renames, and errors in your own names \u2014 before the PDF exists.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/camilochs/exacttex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-05T06:30:20Z"
+}
