@@ -1,0 +1,9 @@
+{
+  "name": "ddoyled--breadcam",
+  "displayName": "breadcam",
+  "description": "Capture timelapse from an RTSP stream",
+  "version": "1.0.0",
+  "author": "ddoyled",
+  "homepage": "https://github.com/ddoyled/breadcam",
+  "skills": []
+}
