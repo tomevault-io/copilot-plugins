@@ -1,38 +1,73 @@
-## mobile-list-virtualization
+## mobile-screen-layout
 
-> For files under `apps/mobile/src/**/*.tsx`:
+> Mobile screens share HeaderBar chrome and one page-body gutter
 
-# Mobile list virtualization baseline
 
-For files under `apps/mobile/src/**/*.tsx`:
+# Mobile screen layout consistency
 
-## Baseline
+Tab roots and stack screens share one top chrome and one page-body gutter. Do not invent a
+per-screen inset under the title bar.
 
-- User-data-driven / potentially unbounded lists (for example subscriptions, playlist resources,
-  episode lists, search results, queue rows) must render with `FlatList` or `SectionList`.
-- Do not render those lists with `ScrollView` + `.map()`.
+## Top chrome
 
-## Scroll ownership
+- Use **`HeaderBar`** for the slot under the status bar: safe-area inset and a 44pt row. No
+  divider, hairline, or shadow under the title.
+- Stack titles go through **`ThemedStackHeader`** (already wraps `HeaderBar`).
+- Tab roots use the same title slot (Home, Search, …). Page controls such as Home's media-type
+  pills and Search's field sit in the body under that bar, not inside it.
 
-- The virtualized list owns scroll.
-- Put headings, filters, and header cards into `ListHeaderComponent`/`ListFooterComponent`.
-- Do not nest `FlatList`/`SectionList` inside `ScrollView` (including `MobileScreenContainer`).
+## Page body under the bar
 
-## Grid rules
+The first content below `HeaderBar` uses **`screenBodyInsets(tokens.spacing)`** from
+`apps/mobile/src/theme/screenLayout.ts`:
 
-- Use `useResponsive().columns` for `numColumns` when the screen is grid-capable.
-- Guard `columnWrapperStyle` for `numColumns > 1`.
-- Change list `key` when column count changes (for example `key={`cols-${columns}`}`) so RN can remount safely.
+- **Top:** `spacing.lg` between the title row and the first body control
+- **Horizontal:** `spacing.lg` on both sides of that body
 
-## Exceptions
+`MobileScreenContainer` already applies this. Home's feed list and Search's input / results card
+must use the same helper — not a one-off `padding` / `margin`, and not a second inner `Card`
+padding on top of the page gutter.
 
-- Small/fixed lists (chips, short settings groups, bounded control panels) may stay simple `.map()`.
-- Functional-sketch reorder paths may remain non-virtualized unless requested otherwise.
+Internal gaps (input → results, filter row → row) stay on the screen. Centered empty / loading
+(`VerticalCenter`, `CallToActionSection`, `LoadingSection`) fills leftover height; it does not
+replace the page gutter.
 
-## Reference
+## Fill empty lists do not scroll
 
-- See `apps/mobile/src/screens/home/HomeScreen.tsx` for the canonical pattern.
-- Proposal detail: `docs/proposals/mobile/_master-plan_/phase-2/details/597-list-virtualization-polish.md`.
+When a list's only body is a fill info state (`VerticalCenter` / `LoadingSection` /
+`CallToActionSection` as `ListEmptyComponent`), there is nothing to scroll. Use **`FillList`**
+instead of raw `FlatList` — it locks bounce, over-scroll, pull-to-refresh, and `scrollEnabled`
+whenever `data` is empty and `ListEmptyComponent` is set. Pass `ListEmptyComponent={null}` when
+the empty copy lives in the header and the list should still scroll (filter-no-matches).
+
+## Login-gated fill states
+
+When a screen's body is empty because the feature requires an account, use **`CallToActionSection`**
+(it already wraps `VerticalCenter`) plus a Login action — not a bare `ListEmpty` and not
+`authentication.login_required`. Prefer **`AuthAwareLoadState`** with `showAuthRequired` and a
+feature-specific `authMessageKey` when the screen already uses that wrapper; otherwise wire
+`CallToActionSection` as the `FillList` empty (or the only `MobileScreenContainer` child).
+
+The message must explain **why the feature is worth logging in for** (what they get: synced inbox,
+history across devices, playlists they can share). Generic “Log in to continue.” is for errors and
+inline gates, not a full-screen feature empty. Hide the in-body heading on that fill — the
+`HeaderBar` title is enough.
+
+## Do not
+
+- Use a different page gutter (`md`, `2xl`, raw numbers) for the body under `HeaderBar`.
+- Rebuild the title-bar height or type in a screen-local `StyleSheet`.
+- Add a divider, hairline, or shadow under `HeaderBar`.
+- Put a second in-body display heading on a screen that already has a `HeaderBar` title.
+- Use raw `FlatList` for a screen list that shows a `VerticalCenter` fill empty, then hand-toggle
+  `scrollEnabled` / `bounces` at the screen.
+
+## Related
+
+- Page gutter: `apps/mobile/src/theme/screenLayout.ts`
+- Top chrome: `apps/mobile/src/components/screen/HeaderBar.tsx`
+- Fill lists: `apps/mobile/src/components/primitives/FillList.tsx`
+- Skill: **mobile-reusable-components**
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
