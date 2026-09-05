@@ -1,69 +1,15 @@
-## typescript-express
+## ui-change-e2e-screenshot-report
 
-> Express route handlers should return `Promise<void>` or `void`:
+> Instruct the operator to run targeted E2E screenshot reports after web, management-web, or shared UI edits.
 
-# TypeScript Express Route Handlers
 
-## Route Handler Return Types
+# UI Change E2E Screenshot Report
 
-Express route handlers should return `Promise<void>` or `void`:
+When you edit files matched by this rule:
 
-```typescript
-async handler(req: Request, res: Response): Promise<void> {
-  // ...
-}
-```
-
-## Response Method Patterns
-
-### DO NOT use return with res.json/send/status chain
-
-```typescript
-// ❌ WRONG - TypeScript error (returns Response, not void)
-return res.json(data);
-return res.status(404).json({ error: 'Not found' });
-
-// ✓ CORRECT - Call without return, then return void
-res.json(data);
-
-// ✓ CORRECT - For early exit
-res.status(404).json({ error: 'Not found' });
-return;
-```
-
-## Catch Block Returns
-
-Always include explicit return in catch blocks:
-
-```typescript
-// ❌ WRONG - Missing return (TS7030: Not all code paths return)
-try {
-  res.json(result);
-} catch (error) {
-  handleError(res, error); // No return
-}
-
-// ✓ CORRECT
-try {
-  res.json(result);
-} catch (error) {
-  handleError(res, error);
-  return; // Explicit return required
-}
-```
-
-## Why This Matters
-
-- TypeScript's `noImplicitReturns` requires all code paths to return
-- `res.json()` returns `Response`, not `void`
-- Catch blocks need explicit returns even when response is sent
-
-## Applies To
-
-- `apps/api/src/controllers/**/*.ts`
-- `apps/api/src/routes/**/*.ts`
-- `apps/management-api/src/controllers/**/*.ts`
-- `apps/management-api/src/routes/**/*.ts`
+1. Follow **ui-e2e-screenshot-report** to **instruct** the operator (do not run make targets in-session).
+2. End the response with the narrowest `make e2e_test_web_report_spec` or `e2e_test_management_web_report_spec` command in a fenced `bash` block (`SPEC=` covers the change).
+3. Tell the operator where to open `.artifacts/e2e-reports/latest/.../index.html` after they run the command.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
