@@ -1,0 +1,9 @@
+{
+  "name": "jwmcglynn--tiny-skia-cpp",
+  "displayName": "tiny-skia-cpp",
+  "description": "A fast, minimal CPU-only 2D rendering library for C++20.",
+  "version": "1.0.0",
+  "author": "jwmcglynn",
+  "homepage": "https://github.com/jwmcglynn/tiny-skia-cpp",
+  "skills": []
+}
