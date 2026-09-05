@@ -1,27 +1,22 @@
-## e2e-run-with-make-only
+## e2e-seed-id-text-limits
 
-> Run Podverse E2E via make targets only.
+> E2E seed fixture id_text values must fit nano_id_v2 (9–15 characters). Count length before adding IDs to seed scripts or seedConstants.
 
 
-# E2E Commands Must Use Make
+# E2E seed `id_text` length limits
 
-For Podverse E2E verification commands, always use `make` targets from repo root.
+Postgres **`nano_id_v2`** is **`VARCHAR(15)`** with length **9–15** (see
+`infra/k8s/base/ops/source/database/linear-migrations/app/0000_init_helpers.sql` and
+`packages/orm/src/lib/nanoid.ts`).
 
-## Required
+When adding or renaming deterministic E2E fixture IDs in seed scripts or `seedConstants.ts`:
 
-- Use `make e2e_test_web_report_spec SPEC=...` for web specs.
-- Use `make e2e_test_management_web_report_spec SPEC=...` for management-web specs.
-- Use `make e2e_test_report_scoped WEB_SPEC=... MGMT_SPEC=...` for cross-app scoped runs.
-- `SPEC`, `WEB_SPEC`, and `MGMT_SPEC` may be a single path or comma-delimited list.
+- **Count characters** on every new `id_text` before commit (descriptive names often exceed 15).
+- Keep IDs in the **9–15** range; prefer existing short patterns like `e2ePodResume01` (13).
+- Update **all** sync points together (seed, `seedConstants`, demo links, docs, specs).
+- Run `make e2e_seed_web` (or `make e2e_seed`) to verify inserts succeed.
 
-## Prohibited
-
-- Do not suggest direct Playwright commands (`npx playwright test ...`) for normal verification.
-- Do not suggest `npm run test:e2e -w ...` for normal verification.
-
-## Why
-
-Make targets handle required test setup consistently (dependencies, seed, report output), reducing flaky failures caused by missing setup.
+Full workflow: **e2e-seed-nano-id-limits** skill.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
