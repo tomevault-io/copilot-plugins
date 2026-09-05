@@ -1,91 +1,56 @@
-## mobile-carplay-android-auto
+## mobile-deep-links-and-prod-cutover
 
-> Mobile car surfaces and background audio are native; JS writes a native cache
+> Mobile deep-link scheme/host config policy and the v4 -> v5 production cutover (graceful in-place upgrade) plan.
 
 
-# CarPlay / Android Auto native cache contract
+# Mobile deep links + v5 production cutover
 
-Audio and car browse/play must work when the **JS runtime is suspended or the phone app is closed**.
-That requires native platform services — not JavaScript-owned playback or car menus.
+## Deep-link schemes / host are env-driven (open-source friendly)
 
-## Architecture constraints
+- Custom URL schemes come from `EXPO_PUBLIC_MOBILE_DEEP_LINK_SCHEMES` (comma/space-delimited, no
+  `://`); universal / app link host comes from `EXPO_PUBLIC_MOBILE_WEB_BASE_URL` (full URL).
+- Single source of truth is the **pure** module `apps/mobile/src/config/deepLinkSchemes.ts`
+  (`parseMobileDeepLinkSchemes`, `buildMobileLinkPrefixes`, `DEFAULT_MOBILE_DEEP_LINK_SCHEMES`). It has
+  **no** React Native / Expo imports so both the Node Vitest env and the Expo config loader can use it.
+- Both sides must derive from it and never hardcode a scheme/domain:
+  - Native registration: `app.config.ts` `scheme` array + associated-domains / Android intent-filter host.
+  - JS linking: `MOBILE_LINK_PREFIXES` in `src/navigation/index.tsx` (via `getMobileConfig()`).
+- Default schemes are `['podverse-next', 'podverse']`. Keep `podverse` as a **legacy alias** (safety
+  net) so an eventual in-place upgrade still resolves existing `podverse://` links. Do not add
+  compatibility with the v4 *backend* protocol — schemes are only routing prefixes.
 
-- **Car browse trees are native-only.** iOS: CarPlay `CPTemplate` scene (Swift). Android: Media3
-  `MediaLibraryService` browse tree — **not** a JS/React Native car UI.
-- **Do not** implement car browsing as JS-only navigation or third-party RN car plugins. JS cannot
-  run when the app is killed; car menus must read **native** data.
-- **Do not use `react-native-track-player`** as the Podverse media engine or car architecture. Use
-  first-party **`podverse-media-engine`** (Track 2): single shared **AVPlayer** (iOS) / **ExoPlayer**
-  (Media3) instance for phone UI, lock screen, and car now-playing.
-- Car now-playing and remote commands bind to that **same engine instance** — not a separate player
-  per surface.
+## The scheme does NOT decide "same app" upgrades — identity does
 
-## Native cache (JS writes, native reads)
+Whether stores treat v5 as an in-place update of v4 is determined by **app identity + signing**, not
+the URL scheme:
 
-JS syncs a small cache whenever queue, downloads, or library index changes:
+- iOS: same `bundleIdentifier` + same App Store Connect record + same signing team.
+- Android: same `applicationId` (package) + same Play App Signing key.
 
-| Payload (Track 12)              | Purpose                                      |
-| ------------------------------- | -------------------------------------------- |
-| Queue snapshot                  | Now-playing + upcoming for car skip/advance  |
-| Downloads index                 | Offline items playable from car              |
-| Library browse index            | Podcast/playlist lists for car templates     |
+Today mobile ships isolated as `com.podverse.app.next` (see `APPS-MOBILE.md` "Store identity
+isolation") so it can never in-place-upgrade v4. Renaming the scheme to `podverse` will not change
+this.
 
-Schema and storage are defined in **Track 12** (master plan step **12.1** —
-[380-native-cache-schema](/docs/proposals/mobile/_master-plan_/phase-1/details/380-native-cache-schema.md)).
-JS write-path: steps **10.22**, **12.4**; engine hooks: **2.35**, **114-engine-native-cache-hooks**.
+## v4 -> v5 production cutover checklist (graceful upgrade = Option A)
 
-Native car services read the cache **without starting JS**. Spikes **12.5–12.6** prove read-with-app-closed.
+When cutting over to prod, to make users' v4 apps upgrade in place:
 
-## Platform services
+1. Ship the v5 prod build under the **existing v4 production bundle id / package** (drop `.next`).
+2. Reuse v4 **signing** (iOS dist cert/provisioning; Android Play signing key) and the **same store
+   listing** (new listing = no auto-update).
+3. Provide a **first-launch local data migration** (v5 reads different storage: SQLite schema,
+   `expo-secure-store` keys, queue/downloads/prefs) or explicitly accept a reset.
+4. Plan a **re-auth path** against v5 infra (v4 sessions won't carry over) — friendly "sign in again".
+5. Keep `podverse://` registered and publish prod **AASA** (`apple-app-site-association`) +
+   `.well-known/assetlinks.json` for the prod id; list **both** `com.podverse.app` and
+   `com.podverse.app.next` during the transition so beta and prod builds verify.
+6. Use a **phased / staged rollout** with a rollback plan (this is effectively a full app replacement).
 
-| Platform | Car / background owner                                      |
-| -------- | ----------------------------------------------------------- |
-| iOS      | CarPlay scene + `AVAudioSession` + `MPNowPlayingInfoCenter` |
-| Android  | Media3 `MediaLibraryService` foreground service + session  |
+## Open decisions to confirm with the operator (do not assume)
 
-Android Auto connects to the **service**, not the Activity. CarPlay templates are driven from **Swift**
-reading the cache.
-
-## Android Auto: implemented natively from the cache (12.11–12.15)
-
-The Android Auto browse tree **and** play are implemented in the native media-engine module — never
-in JS / `react-native-track-player`:
-
-- **Service + callers (12.11 / 12.13):** `PodverseMediaLibraryService` (Media3 `MediaLibraryService`)
-  validates allowed callers in `onConnect` (Media3's signature-checked Auto / Automotive / media
-  notification controllers) and serves a stable browsable root **with the app force-stopped**. The
-  `com.google.android.gms.car.application` media-app descriptor ships in the module manifest.
-- **Browse tree (12.12 / 12.14):** `onGetChildren` projects the durable native cache
-  (`PodverseNativeCacheModel` parses `library-browse` + `downloads`) into **Library** + **Downloads**
-  nodes. No SQLite; tolerant parsing → empty tree, never crash.
-- **Play (12.15):** `onAddMediaItems` / `onPlaybackResumption` resolve a mediaId against the cache and
-  play through the **one** shared `PodverseAudioEngine` — offline `file://` first, else remote
-  enclosure. Queue/auto-queue policy stays in `@podverse/playback-core`.
-
-When changing car browse/play, edit the **native** module (`android/.../PodverseMediaLibraryService.kt`,
-`PodverseNativeCacheModel.kt`) — do **not** add a JS/track-player car browser. Prove changes with the
-operator DHU gate:
-[ANDROID-AUTO-DHU-CHECKLIST.md](/apps/mobile/modules/podverse-media-engine/ANDROID-AUTO-DHU-CHECKLIST.md).
-iOS CarPlay (12.7–12.10) is a later slice pending the Apple CarPlay entitlement.
-
-## LLM do / don't
-
-- **Do** design queue/auto-queue/download **repositories** to call native cache projection writes on
-  every mutation (stubs OK until Track 12 storage). SQLite is phone-UI-only — car/watch cannot read
-  Drizzle when JS is dead. See
-  [DOCS-MOBILE-DATA-LAYER-OFFLINE.md §7.1](/docs/proposals/mobile/initial-decisions/DOCS-MOBILE-DATA-LAYER-OFFLINE.md).
-- **Do** keep car native code in `apps/mobile/ios/`, `android/`, `modules/` — parallel worktree OK
-  (see **mobile-worktree-scope**).
-- **Don't** assume the RN app must be foreground for car playback.
-- **Don't** assume CarPlay / Android Auto / watch complications read SQLite.
-- **Don't** duplicate queue policy in native — policy stays in `@podverse/playback-core`; native
-  executes transport and displays cached state.
-
-## Related
-
-- [DOCS-MOBILE-CARPLAY-ANDROID-AUTO.md](/docs/proposals/mobile/initial-decisions/DOCS-MOBILE-CARPLAY-ANDROID-AUTO.md)
-- **mobile-playback** skill — bridge + engine; cache write from queue hooks
-- Master plan **Track 12** — CarPlay / Android Auto implementation
+- The exact **v4 production** bundle id / package name.
+- Option A (in-place upgrade under the v4 id) vs Option B (new listing; manual migration).
+- Whether a first-launch data migration from v4 storage is in scope.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
