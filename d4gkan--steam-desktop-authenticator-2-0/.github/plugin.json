@@ -1,0 +1,9 @@
+{
+  "name": "d4gkan--steam-desktop-authenticator-2-0",
+  "displayName": "Steam-Desktop-Authenticator-2.0",
+  "description": "A desktop based Steam Guard authenticator that generates login codes and manages trade/market confirmations for multiple Steam accounts without requiring a phone.",
+  "version": "1.0.0",
+  "author": "D4gkan",
+  "homepage": "https://github.com/D4gkan/Steam-Desktop-Authenticator-2.0",
+  "skills": []
+}
