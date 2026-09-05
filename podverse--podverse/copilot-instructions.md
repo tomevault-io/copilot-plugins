@@ -1,41 +1,25 @@
-## mobile-tab-stack-isolation
+## navbar-sticky-chrome
 
-> Mobile tab stacks are self-contained — do not jump cross-tab for in-flow detail
+> Keep top NavBar visible during scroll on pages with app chrome.
 
 
-# Mobile tab stack isolation
+# NavBar sticky chrome
 
-Each bottom-tab root owns its **own** native stack. Flows that start in a tab must push (or
-replace) screens **on that tab’s stack**, even when that means registering the same detail screen
-components on more than one stack (duplicative route registration is intentional).
+## Requirement
 
-## Do
+Pages with app chrome must keep `@podverse/ui` **NavBar** visible while the user scrolls. No page with a navbar is an exception (including `/embed` demo index).
 
-- Keep Search → preview/add → channel/episode detail **inside the Search stack**.
-- Keep Home feed → channel/episode detail **inside the Home stack**.
-- Prefer `navigation.replace(...)` when leaving a stale intermediate screen (e.g. Podcast Index
-  “Add podcast” preview after the feed is parsed-ready) so Back does not reopen an invalid state,
-  while still leaving the user on the **same tab’s** detail screen.
-- Preserve stack state when the user switches tabs (returning to Search should restore Search’s
-  hierarchy, not reset to Search root because detail was opened under Home).
+## Implementation (do not regress)
 
-## Don't
+- **NavBar** (`NavBar.module.scss`): `position: sticky; top: 0; z-index: 100` on both management and web appearances.
+- **Single scroll owner (web):** `#mainOuterWrapper` (`MainPageScaffold`) is the only vertical scroll container for chrome pages. `#page-wrapper` and `WindowWrapper` use `overflow: hidden` with a viewport height so the document does not scroll.
+- **Flex chain:** `PageWrapperMain` (in `AppChrome`) wraps route content with `flex: 1; min-height: 0` so nested layouts (e.g. `/embed` `embed-root`) do not break height constraints before `#mainOuterWrapper`.
+- **Embed iframe routes** (`/embed/*` except `/embed` and `/embed/builder`): remain chromeless via `isEmbedPathname` — no navbar there by design.
 
-- Do **not** `parentNavigation.navigate('Home', { screen: 'PodcastDetail', ... })` (or similar
-  cross-tab jumps) merely to reuse Home’s detail routes when the user is mid-flow in Search,
-  Library, RSS, or More.
-- Do **not** clear or reset another tab’s stack as a shortcut for “show this entity.”
+## When changing layout
 
-## Why
-
-Users expect tab bars to remember where they left off in that tab. Cross-tab navigation makes
-Back and tab-return feel broken (e.g. Search add completes on Home detail; returning to Search
-lands on Search root instead of the channel they just opened).
-
-## Related
-
-- Contributor note: [apps/mobile/APPS-MOBILE.md](/apps/mobile/APPS-MOBILE.md) (navigation / search)
-- App entry: [apps/mobile/AGENTS.md](/apps/mobile/AGENTS.md)
+- Do not move scroll from `#mainOuterWrapper` without updating `apps/web/src/utils/scroll.ts` and scroll-restore callers.
+- Do not re-enable `overflow-y: auto` on `#page-wrapper` — that recreates double scrollbars with `#mainOuterWrapper`.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
