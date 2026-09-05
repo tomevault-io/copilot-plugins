@@ -1,0 +1,9 @@
+{
+  "name": "parithosh-varma--puter-pool",
+  "displayName": "puter-pool",
+  "description": "This is Puter Account Pool Manager, a free AI API proxy that pools multiple Puter.com accounts to provide unlimited AI credits. It routes requests across accounts, automatically failovers when daily l",
+  "version": "1.0.0",
+  "author": "Parithosh-Varma",
+  "homepage": "https://github.com/Parithosh-Varma/puter-pool",
+  "skills": []
+}
