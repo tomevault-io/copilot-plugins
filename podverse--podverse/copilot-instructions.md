@@ -1,23 +1,35 @@
-## semicolons-required
+## shared-ui-i18n
 
-> Require semicolons in JS/TS files only; .md and .mdc are exempt
+> Shared UI (@podverse/ui) — no embedded user-facing copy; apps localize via next-intl
 
 
-# Semicolons Required
+# Shared UI and i18n
 
-- Use semicolons at the end of statements in **JavaScript and TypeScript files only** (`.js`, `.jsx`, `.ts`, `.tsx`).
-- **Exempt:** Markdown (`.md`) and Cursor rule (`.mdc`) files are not subject to this rule.
-- When updating existing code, keep semicolons consistent with this rule.
+## Do
 
-```typescript
-// ✅ Good
-const value = 123;
-doWork();
+- Keep `packages/ui` **framework-agnostic**: do not import `next-intl` or read app message
+  catalogs inside `@podverse/ui`.
+- Pass **all** user-visible strings, `aria-label`, `title`, empty states, and loading text
+  from the app via props (or `children` / `ReactNode` already produced by the app).
+- For multi-string controls, prefer a small typed `labels` object or named string props
+  (see `CursorPagination`, `CopyToClipboardButton`).
+- When adding new copy-bearing props, add keys to the correct
+  `packages/i18n-catalog/{shared,consumer,management}/originals/en-US.json` layer and keep other
+  locales in sync via `npm run i18n:all` (see **`i18n-management`** rule).
 
-// ❌ Bad
-const value = 123
-doWork()
-```
+## Do not
+
+- Do not hardcode English — or any single locale — in shared components as **defaults** for
+  text that end users or assistive tech will see. (Internal `throw new Error(...)` for
+  developer misuse is fine.)
+- Do not add “temporary” English defaults in `@podverse/ui` to save app wiring; wire the app
+  instead.
+
+## Review checklist
+
+- Any new string literal in `packages/ui` shown in the UI or read by AT → move to app props.
+- Formatting with ICU variables (`{name}`) stays in app `t(...)` calls, not inside `@podverse/ui`.
+- **Layout primitives** (Callout, CTA shell, Accordion, etc.) follow the same rule: no baked-in copy; apps pass localized strings.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
