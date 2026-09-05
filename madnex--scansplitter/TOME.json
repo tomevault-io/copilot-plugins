@@ -4,7 +4,7 @@
   "repo": "ScanSplitter",
   "description": "Split Scans of multiple photos into separate photos",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Madnex/ScanSplitter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T08:34:50Z"
+  "distributed_at": "2026-09-05T08:36:48Z"
 }
