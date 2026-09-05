@@ -1,73 +1,42 @@
-## mobile-screen-layout
+## mobile-settings-option-density
 
-> Mobile screens share HeaderBar chrome and one page-body gutter
+> Mobile settings option density — chips for 2–3 choices; push list for 4+
 
 
-# Mobile screen layout consistency
+# Mobile settings option density
 
-Tab roots and stack screens share one top chrome and one page-body gutter. Do not invent a
-per-screen inset under the title bar.
+When a **user-configurable setting** presents a fixed list of choices:
 
-## Top chrome
+| Option count | Control                                                                 |
+| ------------ | ----------------------------------------------------------------------- |
+| **2–3**      | Chip / pill buttons (`OptionChipGroup`) — all choices visible           |
+| **4+**       | Settings row → **push** an option-list screen (`OptionListScreen`) — iOS Settings style |
 
-- Use **`HeaderBar`** for the slot under the status bar: safe-area inset and a 44pt row. No
-  divider, hairline, or shadow under the title.
-- Stack titles go through **`ThemedStackHeader`** (already wraps `HeaderBar`).
-- Tab roots use the same title slot (Home, Search, …). Page controls such as Home's media-type
-  pills and Search's field sit in the body under that bar, not inside it.
+## Do
 
-## Page body under the bar
+- Prefer shared components under `apps/mobile/src/components/form/` over per-screen pill grids.
+- Pass already-localized labels; keep i18n in the screen / caller.
+- Keep binary prefs (on/off) as `Switch`, not chips or list pages.
+- For 4+ options, navigate to a dedicated list screen (checkmark on current, Back returns). Do
+  **not** use a bottom-sheet modal with a sliding scrim for primary preference pickers.
+- On the settings root row (`SettingsOptionNavRow`), stack **label → description → current value +
+  chevron** vertically. Do **not** put the current value in a trailing/right column (it squeezes
+  the description).
 
-The first content below `HeaderBar` uses **`screenBodyInsets(tokens.spacing)`** from
-`apps/mobile/src/theme/screenLayout.ts`:
+## Don't
 
-- **Top:** `spacing.lg` between the title row and the first body control
-- **Horizontal:** `spacing.lg` on both sides of that body
-
-`MobileScreenContainer` already applies this. Home's feed list and Search's input / results card
-must use the same helper — not a one-off `padding` / `margin`, and not a second inner `Card`
-padding on top of the page gutter.
-
-Internal gaps (input → results, filter row → row) stay on the screen. Centered empty / loading
-(`VerticalCenter`, `CallToActionSection`, `LoadingSection`) fills leftover height; it does not
-replace the page gutter.
-
-## Fill empty lists do not scroll
-
-When a list's only body is a fill info state (`VerticalCenter` / `LoadingSection` /
-`CallToActionSection` as `ListEmptyComponent`), there is nothing to scroll. Use **`FillList`**
-instead of raw `FlatList` — it locks bounce, over-scroll, pull-to-refresh, and `scrollEnabled`
-whenever `data` is empty and `ListEmptyComponent` is set. Pass `ListEmptyComponent={null}` when
-the empty copy lives in the header and the list should still scroll (filter-no-matches).
-
-## Login-gated fill states
-
-When a screen's body is empty because the feature requires an account, use **`CallToActionSection`**
-(it already wraps `VerticalCenter`) plus a Login action — not a bare `ListEmpty` and not
-`authentication.login_required`. Prefer **`AuthAwareLoadState`** with `showAuthRequired` and a
-feature-specific `authMessageKey` when the screen already uses that wrapper; otherwise wire
-`CallToActionSection` as the `FillList` empty (or the only `MobileScreenContainer` child).
-
-The message must explain **why the feature is worth logging in for** (what they get: synced inbox,
-history across devices, playlists they can share). Generic “Log in to continue.” is for errors and
-inline gates, not a full-screen feature empty. Hide the in-body heading on that fill — the
-`HeaderBar` title is enough.
-
-## Do not
-
-- Use a different page gutter (`md`, `2xl`, raw numbers) for the body under `HeaderBar`.
-- Rebuild the title-bar height or type in a screen-local `StyleSheet`.
-- Add a divider, hairline, or shadow under `HeaderBar`.
-- Put a second in-body display heading on a screen that already has a `HeaderBar` title.
-- Use raw `FlatList` for a screen list that shows a `VerticalCenter` fill empty, then hand-toggle
-  `scrollEnabled` / `bounces` at the screen.
+- Do not use wrapping pill grids for Theme, Language, or other lists that already have 4+ values
+  (or will grow).
+- Do not import web `@podverse/ui` dropdowns on mobile.
+- Do not use iOS-only `ActionSheetIOS` as the cross-platform select.
+- Do not use `OptionSelectSheet` / settings bottom sheets for Theme, Language, or similar prefs
+  (sheets remain for contextual actions like media-row More / add-to-playlist).
+- Do not place the selected value as `ListRow` `trailing` next to a multi-line description.
 
 ## Related
 
-- Page gutter: `apps/mobile/src/theme/screenLayout.ts`
-- Top chrome: `apps/mobile/src/components/screen/HeaderBar.tsx`
-- Fill lists: `apps/mobile/src/components/primitives/FillList.tsx`
 - Skill: **mobile-reusable-components**
+- Rule: **mobile-react-native**
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
