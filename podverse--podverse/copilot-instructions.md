@@ -1,80 +1,86 @@
-## reuse-beyond-components
+## screen-reader-accessibility
 
-> The reuse habit covers hooks and plain functions, not just components — search for an existing implementation before writing one, and collapse a duplicate when you find it
+> Every screen and component must be usable with a screen reader; improve coverage as you touch code
 
 
-# Reuse is not only about components
+# Screen reader support is required
 
-Shared **components** already have skills pushing work toward them (**reusable-components**,
-**mobile-reusable-components**, **ui-component-promotion**). The same instinct has to apply to the
-two kinds of code that are far easier to duplicate without noticing, because neither leaves a
-visible mark on a screen:
+Every screen and component we ship must be usable with **VoiceOver**, **TalkBack**, and desktop
+screen readers. This is a shipping requirement, not a polish pass.
 
-- **Hooks** — data loading, subscriptions to a store, debounced input, mutate-and-refresh cycles.
-- **Plain functions** — parsing, comparison, merging, formatting, bucketing, key derivation.
+**A screen reader user must never get less information than a sighted user.** If sighted users can
+tell a tab is selected, a button is disabled, or a filter is active, assistive technology must be
+able to tell too.
 
-A duplicated component is obvious in review: two things look the same. A duplicated function is
-invisible until the two copies disagree, and by then the disagreement is the bug.
+## Improve as you go
 
-## Search before you write
+When you touch a component, leave it more accessible than you found it. Adding a missing
+`aria-label` or `accessibilityRole` to code you are already editing is **in scope** and does not need
+to be asked about. Do not rewrite unrelated files to chase coverage — fix what you touch.
 
-Before adding a hook or a helper, look for one that already does it. Grep the concept, not the name
-you were about to give it — the existing copy is called something else, which is why it did not turn
-up on its own.
+## `testID` is not accessibility
 
-- A date or duration calculation → `packages/helpers/src/lib/date.ts`, `time.ts`
-- A hook for a load / refresh / mutate cycle → `apps/<app>/src/hooks/**`, `packages/ui/src/hooks/**`
-- Anything already needed by two surfaces → it is probably in `@podverse/helpers` already
+`testID` exists for Maestro and Playwright. It is invisible to assistive technology. A control with
+a `testID` and no accessible name is **unlabeled**. This is the single most common mistake in this
+repo — E2E coverage got applied broadly while labels did not.
 
-## When you find the same logic twice, collapse it
+## Web — `apps/web`, `apps/management-web`, `packages/ui`
 
-Finding an existing near-copy is the point of looking, not an inconvenience. Extract the shared part
-and route both callers through it in the same change. Adding a third copy because collapsing two
-looked like scope creep is how a rule ends up implemented three ways and disagreeing three ways.
+| Requirement            | How                                                                       |
+| ---------------------- | ------------------------------------------------------------------------- |
+| Accessible name        | Visible text, or `aria-label` / `aria-labelledby` when there is none      |
+| Icon-only buttons      | **Always** `aria-label`; the icon itself gets `aria-hidden`               |
+| Images                 | Meaningful `alt`, or `alt=""` when purely decorative                      |
+| State                  | `aria-expanded`, `aria-current`, `aria-pressed`, `aria-checked`, `aria-selected` |
+| Async updates          | `aria-live` for toasts, playback changes, and results that appear later   |
+| Forms                  | Associated `<label>`, plus `aria-invalid` and `aria-describedby` on error |
+| Interactive elements   | Real `<button>` / `<a>`; never a `div` with `onClick`                     |
+| Keyboard               | Everything reachable and operable by keyboard, with a visible focus ring  |
+| Dialogs                | `role="dialog"`, `aria-modal`, an accessible name, and focus moved into it |
 
-Split along the line where the surfaces genuinely differ, and share the rest:
+`@podverse/ui` `IconButton` already throws without a label — follow that contract rather than
+routing around it.
 
-- Share the **arithmetic, parsing, and decision**; leave **presentation and locale wiring** to each
-  surface. Two inboxes can share which unit describes a gap without sharing how they hold an
-  `Intl` formatter.
-- Share the **shape and the key**; leave **storage** to each surface. Web and mobile can agree on
-  what identifies a screen while one writes a cookie and the other writes AsyncStorage.
+## Mobile — `apps/mobile`
 
-## Where it goes
+| Requirement       | How                                                                              |
+| ----------------- | -------------------------------------------------------------------------------- |
+| Accessible name   | `accessibilityLabel` on every touchable whose purpose is not clear from its text |
+| Role              | `accessibilityRole` — `button`, `link`, `header`, `tab`, `switch`, `image`       |
+| State             | `accessibilityState` — `selected`, `disabled`, `checked`, `expanded`, `busy`     |
+| Grouping          | `accessible` on a row so it reads as one item rather than several fragments      |
+| Async updates     | `accessibilityLiveRegion` (Android) / announcements for results and errors       |
+| Hints             | `accessibilityHint` only when the action is non-obvious; do not restate the label |
 
-| The logic is…                             | Put it in                                        |
-| ----------------------------------------- | ------------------------------------------------ |
-| Pure, and useful to more than one surface | `@podverse/helpers` (or the fitting `helpers-*`) |
-| Pure, but genuinely mobile-only           | `apps/mobile/src/lib/**`                         |
-| Stateful React, shared across web apps    | `packages/ui/src/hooks/**`                       |
-| Stateful React, one app                   | `apps/<app>/src/hooks/**`                        |
+Prefer the shared primitives in `apps/mobile/src/components/primitives/` — `Button` and `ListRow`
+already default the label from visible text and set role and state. A raw `Pressable` in a screen is
+usually a missed opportunity to use one of them.
 
-Package placement detail — which `helpers-*` a utility belongs in — is in
-[`.cursor/skills/web/07-reusable-utilities.md`](/.cursor/skills/web/07-reusable-utilities.md); it
-reads as web guidance but the table applies to any caller. Mobile may import `@podverse/helpers`
-freely; it may **not** import `@podverse/ui` or `@podverse/orm`.
+## i18n
 
-## Don't
+All accessible names are user-facing strings and resolve through i18n — never hardcoded. See
+[`i18n-user-facing-strings`](/.cursor/rules/i18n-user-facing-strings.mdc). Choose the catalog layer
+per the usual rules: shared copy in `consumer`, mobile chrome in `mobile`.
 
-- Don't leave a private copy of something that exists in `@podverse/helpers` because importing it
-  felt like a bigger diff. The bigger diff is the one that reconciles them later.
-- Don't extract for its own sake. A helper closing over one module's constants, used once, is that
-  module's plumbing — see **unit-test-design-no-overgranularity** for the same instinct applied to
-  tests, and `.cursorrules` on not building abstractions for one-time operations.
-- Don't add a file that only re-exports a package symbol — see
-  [`avoid-reexport-wrappers`](/.cursor/rules/avoid-reexport-wrappers.mdc).
-- Don't move a helper up a tier without checking the direction of the dependency
-  ([`architecture-tier-dependencies`](/.cursor/rules/architecture-tier-dependencies.mdc)).
-- Don't widen a shared **DTO** without reading
-  [`dto-changes-are-device-data-migrations`](/.cursor/rules/dto-changes-are-device-data-migrations.mdc)
-  — mobile stores those on disk, so the change reaches installed phones.
+## New work has no excuse
+
+Any **new** screen or component must be accessible when it lands. "Add accessibility later" is not an
+acceptable plan step, and a plan that omits it is incomplete. Include screen reader behavior in
+acceptance criteria the same way you include empty and error states.
+
+## Known gaps
+
+Coverage today is uneven — strongest in `packages/ui` primitives and mobile `Button` / `ListRow`,
+weakest in the media player on both web and mobile. There is no accessibility linting or CI gate.
+A full audit is scheduled separately; see
+[`899-defer-accessibility-audit`](/docs/proposals/mobile/_master-plan_/phase-2/details/899-defer-accessibility-audit.md).
+That deferral does **not** excuse new work from this rule.
 
 ## Related
 
-- **reusable-components** / **mobile-reusable-components** — the component half of this habit
-- **ui-component-promotion** — steps for extracting between web apps
-- [`cross-surface-change-impact`](/.cursor/rules/cross-surface-change-impact.mdc) — deciding which
-  surfaces a change touches at all
+- **i18n-user-facing-strings** — accessible names are localized strings
+- **reusable-components** / **mobile-reusable-components** — centralize labeling in shared primitives
+- **cross-surface-change-impact** — a shared component's a11y fix benefits every consumer
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
