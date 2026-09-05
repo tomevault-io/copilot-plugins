@@ -1,40 +1,80 @@
-## prefer-shared-ui-web-management
+## reuse-beyond-components
 
-> Prefer @podverse/ui for shared primitives; web-first style when web and management-web overlap
+> The reuse habit covers hooks and plain functions, not just components — search for an existing implementation before writing one, and collapse a duplicate when you find it
 
 
-# Prefer shared UI (web + management-web)
+# Reuse is not only about components
 
-When adding or changing UI in **web** or **management-web**:
+Shared **components** already have skills pushing work toward them (**reusable-components**,
+**mobile-reusable-components**, **ui-component-promotion**). The same instinct has to apply to the
+two kinds of code that are far easier to duplicate without noticing, because neither leaves a
+visible mark on a screen:
 
-## Order
+- **Hooks** — data loading, subscriptions to a store, debounced input, mutate-and-refresh cycles.
+- **Plain functions** — parsing, comparison, merging, formatting, bucketing, key derivation.
 
-1. **Check `@podverse/ui` first** — reuse an existing export if it fits (buttons, tables, forms, navigation primitives, spinners, etc.).
-2. **If both apps need the same generic behavior** — implement **once** in `packages/ui/src/components/**` (or `packages/ui/src/hooks/**` for shared hooks) and export from `packages/ui/src/index.ts`.
-3. **App-local components** — only for shell, routing, or product-specific behavior; not for duplicating a primitive that belongs in `@podverse/ui`.
+A duplicated component is obvious in review: two things look the same. A duplicated function is
+invisible until the two copies disagree, and by then the disagreement is the bug.
 
-## Style convergence
+## Search before you write
 
-When **web** and **management-web** already have overlapping patterns (e.g. icon actions, menus):
+Before adding a hook or a helper, look for one that already does it. Grep the concept, not the name
+you were about to give it — the existing copy is called something else, which is why it did not turn
+up on its own.
 
-- **Prefer the existing web app’s visual baseline** (colors, borders, spacing, interaction) in the shared implementation unless there is a documented accessibility or product reason not to.
-- **Do not** fork near-duplicate components in each app when one shared primitive can serve both with props (`appearance`, `variant`, etc.).
+- A date or duration calculation → `packages/helpers/src/lib/date.ts`, `time.ts`
+- A hook for a load / refresh / mutate cycle → `apps/<app>/src/hooks/**`, `packages/ui/src/hooks/**`
+- Anything already needed by two surfaces → it is probably in `@podverse/helpers` already
 
-## Before adding anything new
+## When you find the same logic twice, collapse it
 
-- Search `packages/ui` and `apps/web/src/components` for an existing pattern to promote or extend.
-- See also: **`reusable-components`** skill and **management-web-prefer-shared-ui** (management-specific notes).
+Finding an existing near-copy is the point of looking, not an inconvenience. Extract the shared part
+and route both callers through it in the same change. Adding a third copy because collapsing two
+looked like scope creep is how a rule ends up implemented three ways and disagreeing three ways.
 
-## Promotion checklist (touching web or management-web)
+Split along the line where the surfaces genuinely differ, and share the rest:
 
-1. Search **`packages/ui`** for an existing primitive that fits.
-2. If the control is **generic and reusable** → add or extend **`packages/ui`** (do not introduce a parallel app-local copy).
-3. Keep the implementation **in the app** only when it hits the **stay-in-app denylist**: Next-only imports (`next/*`), **`next-intl`** wiring, authenticated data fetch in render, product-only routes, or domain-specific modals.
+- Share the **arithmetic, parsing, and decision**; leave **presentation and locale wiring** to each
+  surface. Two inboxes can share which unit describes a gap without sharing how they hold an
+  `Intl` formatter.
+- Share the **shape and the key**; leave **storage** to each surface. Web and mobile can agree on
+  what identifies a screen while one writes a cookie and the other writes AsyncStorage.
 
-## i18n
+## Where it goes
 
-- Shared primitives must not embed user-facing copy; apps pass localized strings (see
-  **`shared-ui-i18n`** rule).
+| The logic is…                             | Put it in                                        |
+| ----------------------------------------- | ------------------------------------------------ |
+| Pure, and useful to more than one surface | `@podverse/helpers` (or the fitting `helpers-*`) |
+| Pure, but genuinely mobile-only           | `apps/mobile/src/lib/**`                         |
+| Stateful React, shared across web apps    | `packages/ui/src/hooks/**`                       |
+| Stateful React, one app                   | `apps/<app>/src/hooks/**`                        |
+
+Package placement detail — which `helpers-*` a utility belongs in — is in
+[`.cursor/skills/web/07-reusable-utilities.md`](/.cursor/skills/web/07-reusable-utilities.md); it
+reads as web guidance but the table applies to any caller. Mobile may import `@podverse/helpers`
+freely; it may **not** import `@podverse/ui` or `@podverse/orm`.
+
+## Don't
+
+- Don't leave a private copy of something that exists in `@podverse/helpers` because importing it
+  felt like a bigger diff. The bigger diff is the one that reconciles them later.
+- Don't extract for its own sake. A helper closing over one module's constants, used once, is that
+  module's plumbing — see **unit-test-design-no-overgranularity** for the same instinct applied to
+  tests, and `.cursorrules` on not building abstractions for one-time operations.
+- Don't add a file that only re-exports a package symbol — see
+  [`avoid-reexport-wrappers`](/.cursor/rules/avoid-reexport-wrappers.mdc).
+- Don't move a helper up a tier without checking the direction of the dependency
+  ([`architecture-tier-dependencies`](/.cursor/rules/architecture-tier-dependencies.mdc)).
+- Don't widen a shared **DTO** without reading
+  [`dto-changes-are-device-data-migrations`](/.cursor/rules/dto-changes-are-device-data-migrations.mdc)
+  — mobile stores those on disk, so the change reaches installed phones.
+
+## Related
+
+- **reusable-components** / **mobile-reusable-components** — the component half of this habit
+- **ui-component-promotion** — steps for extracting between web apps
+- [`cross-surface-change-impact`](/.cursor/rules/cross-surface-change-impact.mdc) — deciding which
+  surfaces a change touches at all
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
