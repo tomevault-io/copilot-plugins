@@ -1,43 +1,17 @@
-## operator-only-git-operations
+## plan-creation
 
-> Agents implement code and manifest changes locally. **Git operations are operator-only** — that includes both **`git`** and **`gh`**. Treat every `gh` command that creates, updates, or deletes remote repo state as a git write (same policy as `git push`).
+> Plan creation - breaking large plans into separate files
 
-# Operator-only Git and publish operations
 
-Agents implement code and manifest changes locally. **Git operations are operator-only** — that includes both **`git`** and **`gh`**. Treat every `gh` command that creates, updates, or deletes remote repo state as a git write (same policy as `git push`).
+# Plan Creation
 
-## Agents must not run
+When creating a plan, if it is too large, **do not implement it immediately**. Instead:
 
-**`git` writes** (unless the user explicitly asked for that exact command in that message):
+1. Break it into separate files
+2. Save those files in the `.llm/plans/active/` directory (or appropriate subdirectory)
+3. Wait for the user to prompt you to complete them one-by-one
 
-- `git commit`, `git push`, `git tag` / tag push, force push, remote branch delete
-- Merges, rebases, or checkouts that rewrite history for publish
-
-**`gh` writes** (same rule — `gh` is a git operation here):
-
-- `gh pr create`, `gh pr merge`, `gh pr close`, `gh pr reopen`, `gh pr edit`
-- `gh release create`, `gh api` calls that mutate refs, issues, or releases
-- Any `gh` subcommand that opens, merges, closes, or updates PRs/branches/tags/releases
-
-Also prohibited without explicit user request: admin merges to protected branches (`staging`, `main`, `develop`) and anything that triggers **Publish (staging)** / release workflows.
-
-**Read-only is fine** when investigating: `git status`, `git diff`, `git log`, `gh pr view`, `gh issue view`, `gh run list`, read-only `gh api`.
-
-## Agents must do instead
-
-1. Leave changes in the working tree (or commit **only** when the user explicitly requested a commit).
-2. End with a fenced `bash` block of **exact `git` and `gh` commands for the operator** to review, commit, push, open PR, merge, and publish.
-3. State which branch the PR should target (e.g. `staging` for Podverse publish tags) and what to wait for after merge (CI tag, image publish).
-
-## Why
-
-Protected branches and publish pipelines are operator-controlled. Agent-driven pushes and merges bypass review and can trigger unintended releases.
-
-## Related
-
-- User rule: commit only when explicitly requested
-- **github** skill — read-only `gh` examples; no agent merges
-- **argocd-gitops-push** — operator pushes GitOps repos for cluster sync
+This ensures plans remain manageable and can be executed incrementally.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
