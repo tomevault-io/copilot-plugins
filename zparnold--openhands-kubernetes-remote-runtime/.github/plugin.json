@@ -1,0 +1,9 @@
+{
+  "name": "zparnold--openhands-kubernetes-remote-runtime",
+  "displayName": "openhands-kubernetes-remote-runtime",
+  "description": "An OH WebV1 API compatible runtime for spawning Pods for sessions",
+  "version": "1.0.0",
+  "author": "zparnold",
+  "homepage": "https://github.com/zparnold/openhands-kubernetes-remote-runtime",
+  "skills": []
+}
