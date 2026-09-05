@@ -1,0 +1,9 @@
+{
+  "name": "podverse--podverse",
+  "displayName": "podverse",
+  "description": "Podverse monorepo for all infrastructure, modules, applications, and deployments",
+  "version": "1.0.0",
+  "author": "podverse",
+  "homepage": "https://github.com/podverse/podverse",
+  "skills": []
+}
