@@ -1,0 +1,114 @@
+## nei-manim
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is the Project NEI video creation repository containing the Python code used to generate the mathematical animations and visualizations for lecture creation. The project is built on top of the Manim animation library.
+
+## Key Commands
+
+### Running Scenes
+- Always invoke manim as `python -m manim`, not bare `manim` — the bare command only adds the target file's own directory to `sys.path`, so `from manim_imports_ext import *` fails with `ModuleNotFoundError` for any scene file outside the repo root. `python -m manim` adds the working directory instead, so run it from the repo root.
+- `python -m manim <file_name> <scene_name>` - Render a scene to video
+- `python -m manim <file_name> <scene_name> -se <line_number>` - Drop into interactive mode at a specific line (like a debugger)
+- `python -m manim <file_name> <scene_name> -p` - Preview the scene without rendering to file
+
+### Interactive Development
+- `checkpoint_paste()` - In interactive mode, run code from clipboard with state management
+- `checkpoint_paste(skip=True)` - Run code without animation (zero runtime)
+- `checkpoint_paste(record=True)` - Record animations while running code
+
+### Staging Scenes
+- `python stage_scenes.py <module_name>` - Stage rendered scenes in order for a video module
+
+
+### Core Files
+- `manim_imports_ext.py` - Universal import file that imports all Manim components plus custom extensions
+
+
+### Video Project Structure
+Each video project typically contains:
+- Main scene files (e.g., `main.py`, `part1.py`, `part2.py`)
+- `supplements.py` - Additional scenes and helper functions
+- Helper modules for specific mathematical concepts
+
+### Custom Components
+- `custom/characters/` - Pi creature animations and scenes
+- `custom/backdrops.py` - Background elements and visual themes
+- `custom/drawings.py` - Custom drawing utilities
+- `custom/end_screen.py` - Standard end screen components
+
+## Development Workflow
+
+### Scene Development
+1. Create scene classes inheriting from `InteractiveScene` or `Scene`
+2. Use `manimgl` with `-se` flag to develop interactively
+3. Use `checkpoint_paste()` to iterate on animation code
+4. Preview with `-p` flag before final rendering
+
+### File Organization
+- Start with `from manim_imports_ext import *` for all video files
+- Organize scenes chronologically within files
+- Use descriptive class names that match the video content
+- Group related scenes in the same file
+
+### Configuration
+- Camera resolution: 4K (3840x2160) at 30fps
+- Custom fonts and LaTeX configuration in `custom_config.yml`
+- Dropbox integration for asset management and video output
+
+## Code Patterns
+
+### Scene Classes
+- `InteractiveScene` - Base class for most scenes with interactive development support
+
+
+### Animation Patterns
+- Use `self.play()` for animations
+- `self.wait()` for pauses
+- `self.add()` for static elements
+- Color constants: `BLUE`, `YELLOW`, `RED`, etc.
+- Mathematical typesetting with `Tex()` (use this instead of `MathTex()` which is from ManimCommunity)
+- Format LaTeX strings with raw strings: `Tex(R"\pi")`, `Tex(R"\frac{1}{2}")`, etc.
+- Use `lag_ratio` parameter for staggered animations: `FadeIn(objects, lag_ratio=0.1)`
+- Common sequence: `self.play(Write(equation))` followed by `self.wait()`
+
+### Mathematical Objects
+- `NumberPlane` and `ComplexPlane` for coordinate systems
+- `ParametricCurve` for mathematical curves
+- `VGroup` for grouping related objects
+- When creating multiple similar objects (e.g., multiple `NumberLine`s), create them within a `Group` or `VGroup` to avoid code duplication
+- Custom mathematical visualization classes in `once_useful_constructs/`
+
+### Code Organization
+- Place configuration constants at the top of files
+- Use class attributes for scene-specific configuration: `initial_positions = [10.5, 8]`
+- Helper methods use `get_*` naming pattern: `get_spring()`, `get_mass()`
+- Access frame with `frame = self.frame` for camera operations
+
+### Color and Styling
+- Use text-to-color mapping for mathematical expressions: `Tex(formula, t2c={"x": BLUE, "y": RED})`
+- Consistent color schemes: earth=BLUE, sun=YELLOW, mathematical variables get specific colors
+- Set properties with chained methods: `object.set_stroke(color, width).set_fill(color, opacity)`
+
+### Updaters and Animation Control
+- Use updaters for dynamic positioning: `object.add_updater(lambda m: m.move_to(target.get_center()))`
+- Alternative syntax: `object.f_always.move_to(reference.get_center)`
+- Use `LaggedStart(*animations, lag_ratio=0.1)` for sequential overlapping animations
+
+## Python Code Style
+- Do not include indentation spaces on blank lines
+- Keep blank lines completely empty (no whitespace)
+- Prefer existing utility functions over one-off index math. For example, use `color_gradient(colors, n)` to produce a list of interpolated colors rather than calling `interpolate_color` manually inside a loop with `i / (n - 1)` arithmetic.
+- Construct VGroups declaratively when possible. If the full meaning of a group can be expressed in one expression, prefer `VGroup(*[...])` or `VGroup(... for ...)` over a for loop that progressively calls `.add()`. Reserve the progressive style for cases where each iteration has non-trivial side effects.
+- Use existing layout methods (`.arrange()`, `.next_to()`, `.move_to()`) instead of manual in-place coordinate logic. A small amount of redundant movement is preferable to bespoke positioning arithmetic that is harder to read and easier to get wrong.
+
+
+---
+> Source: [SaihGonzalez/NEI-manim](https://github.com/SaihGonzalez/NEI-manim) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-04 -->
