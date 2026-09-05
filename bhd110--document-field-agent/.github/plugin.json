@@ -1,0 +1,9 @@
+{
+  "name": "bhd110--document-field-agent",
+  "displayName": "document-field-agent",
+  "description": "Local document field extraction workbench with MCP/Agent integration",
+  "version": "1.0.0",
+  "author": "BHD110",
+  "homepage": "https://github.com/BHD110/document-field-agent",
+  "skills": []
+}
