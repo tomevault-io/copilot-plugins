@@ -1,0 +1,9 @@
+{
+  "name": "caffeineoddity--markdownpreviewenhanced",
+  "displayName": "MarkdownPreviewEnhanced",
+  "description": "Live Markdown preview in the browser for Sublime Text 4 \u2014 SSE updates, KaTeX, Mermaid, ECharts, and presentation mode.",
+  "version": "1.0.0",
+  "author": "CaffeineOddity",
+  "homepage": "https://github.com/CaffeineOddity/MarkdownPreviewEnhanced",
+  "skills": []
+}
