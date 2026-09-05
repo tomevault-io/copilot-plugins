@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--comfy-python-sdk",
+  "displayName": "comfy-python-sdk",
+  "description": "Python client SDK for ComfyUI (self-hosted) and Comfy Cloud",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/comfy-python-sdk",
+  "skills": []
+}
