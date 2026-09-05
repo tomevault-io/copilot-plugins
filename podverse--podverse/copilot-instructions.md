@@ -1,38 +1,41 @@
-## mobile-tab-layout
+## mobile-tab-stack-isolation
 
-> Mobile bottom tabs are user-ordered, stored on device, and painted without FOUC
+> Mobile tab stacks are self-contained — do not jump cross-tab for in-flow detail
 
 
-# Mobile tab bar layout
+# Mobile tab stack isolation
 
-The bottom tab bar (and tablet left rail) is a stored, device-local order. **More** is always last.
-Hidden content tabs stay registered in the navigator and appear as rows on More.
-
-Factory visible order is **Home, Browse, Search, My Library** (`DEFAULT_VISIBLE_TABS`).
-Notifications overflows to More until the user adds it.
+Each bottom-tab root owns its **own** native stack. Flows that start in a tab must push (or
+replace) screens **on that tab’s stack**, even when that means registering the same detail screen
+components on more than one stack (duplicative route registration is intentional).
 
 ## Do
 
-- Read `tabs.visible` under the splash (`TabLayoutProvider`) before mounting `TabScaffold`.
-- Keep `Tab.Screen` declaration order stable. Render the stored order through `OrderedTabBar`.
-- Persist with `writeVisibleTabs` / `prefs/tabLayout.ts` (AsyncStorage). Do not sync this to the
-  server.
-- Cap visible content tabs at `MAX_VISIBLE_CONTENT_TABS` (4). Adding a fifth replaces the last slot.
-- Send overflow tabs to More (`more-nav-<slug>`).
+- Keep Search → preview/add → channel/episode detail **inside the Search stack**.
+- Keep Home feed → channel/episode detail **inside the Home stack**.
+- Prefer `navigation.replace(...)` when leaving a stale intermediate screen (e.g. Podcast Index
+  “Add podcast” preview after the feed is parsed-ready) so Back does not reopen an invalid state,
+  while still leaving the user on the **same tab’s** detail screen.
+- Preserve stack state when the user switches tabs (returning to Search should restore Search’s
+  hierarchy, not reset to Search root because detail was opened under Home).
 
-## Do not
+## Don't
 
-- Unmount a tab to hide it (breaks `navigate('Notifications')` and deep links).
-- Paint the default bar and then swap after AsyncStorage (FOUC).
-- Reorder by changing `Tab.Screen` children order (remounts stacks).
-- Use the default tab press highlight (ripple / opacity). Visible tabs use `QuietTabBarButton`
-  (`pressOpacity={1}`, transparent ripple). That is an exception to `Button`'s press dim.
+- Do **not** `parentNavigation.navigate('Home', { screen: 'PodcastDetail', ... })` (or similar
+  cross-tab jumps) merely to reuse Home’s detail routes when the user is mid-flow in Search,
+  Library, RSS, or More.
+- Do **not** clear or reset another tab’s stack as a shortcut for “show this entity.”
+
+## Why
+
+Users expect tab bars to remember where they left off in that tab. Cross-tab navigation makes
+Back and tab-return feel broken (e.g. Search add completes on Home detail; returning to Search
+lands on Search root instead of the channel they just opened).
 
 ## Related
 
-- `apps/mobile/src/prefs/tabLayout.ts`
-- `apps/mobile/src/navigation/TabLayoutProvider.tsx`
-- `apps/mobile/src/navigation/OrderedTabBar.tsx`
+- Contributor note: [apps/mobile/APPS-MOBILE.md](/apps/mobile/APPS-MOBILE.md) (navigation / search)
+- App entry: [apps/mobile/AGENTS.md](/apps/mobile/AGENTS.md)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
