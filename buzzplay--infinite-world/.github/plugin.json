@@ -1,0 +1,9 @@
+{
+  "name": "buzzplay--infinite-world",
+  "displayName": "infinite-world",
+  "description": "An open-source system for building persistent worlds with multimodal AI.",
+  "version": "1.0.0",
+  "author": "BuzzPlay",
+  "homepage": "https://github.com/BuzzPlay/infinite-world",
+  "skills": []
+}
