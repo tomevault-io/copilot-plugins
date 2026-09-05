@@ -1,60 +1,28 @@
-## no-membership-expiry-notifications
+## no-runtime-change-schema-phase
 
-> Membership expiry is told to the user in-app, derived on demand. Never a push, email, or scheduled job.
+> When implementing a **schema-only** trust/entitlement foundation:
 
+# No Runtime Changes During Schema-Only Trust Phase
 
-# Membership expiry is in-app and on demand, never a notification
+When implementing a **schema-only** trust/entitlement foundation:
 
-Telling a user their membership is expiring soon (or has expired) must **never** go through the
-notification system, email, or a scheduled job. A scheduled `membership-expiry-reminder` job, an ORM
-scheduler service, a worker handler, and a `membership-expiry` notification category were all built
-once and removed as over-engineering. Do not reintroduce them.
+## Required
 
-There is no `membership-expiry` value in `notification_category_options` or
-`NotificationCategoryEnum`, so a notification of that kind cannot be created without first widening
-the enum — treat needing to do so as the signal that you are re-adding the wrong thing.
+- Add forward-only migrations, constraints, and backfill rows.
+- Add ORM entities/relations and helper constants/types.
+- Update migration bundle wiring and expected migration markers.
 
-## Why
+## Prohibited
 
-Expiry is a pure function of a timestamp the client already has. Every surface loads the account
-(`/auth/me`) and holds `membership_expires_at`, so the state is derivable on demand with a date
-comparison. Routing it through push means a job table row per account, a scheduler, delivery
-infrastructure, dedupe-on-change logic, and a user-facing preference toggle — all to say something
-the app can work out for free the moment a screen renders.
+- Do not add or modify runtime auth/capability gating behavior.
+- Do not add controller/route allow-deny checks.
+- Do not expose new trust/override fields in API responses.
+- Do not alter web UX flows for blocked actions in schema-only phase.
 
-## Do
+## Intent
 
-- Derive the state with **`getMembershipExpiryNotice`** from `@podverse/helpers`, which returns
-  `none` / `expiring_soon` / `expired` plus `daysRemaining`, using the shared
-  `MEMBERSHIP_EXPIRY_WARNING_DAYS` window so surfaces cannot drift.
-- Present it **in-app**: web's `MembershipExpirationToast`, mobile's `MembershipExpiredBanner`, the
-  persistent More row, and the at-the-feature `GatedFeatureNotice`.
-- Consult **`shouldSuppressExpiryReminder`** (`@podverse/helpers`) on every surface, so auto-renew
-  suppression stays a one-function change (detail 711).
-- Keep the presentation dismissible where it is intrusive, and remember the dismissal against the
-  expiry it was dismissed for so a later lapse shows it again.
-
-## Don't
-
-- Don't add a `scheduled_job` row, worker handler, cron, or queue consumer for membership expiry.
-- Don't send a push or email for expiring-soon or expired.
-- Don't re-add a `membership-expiry` notification category, inbox label, deep-link route, or
-  preference toggle.
-- Don't hardcode a warning window; import `MEMBERSHIP_EXPIRY_WARNING_DAYS`.
-
-## Not covered by this rule
-
-**Scheduled jobs in general are fine and still in use** — admin notification campaigns
-(`ADMIN_NOTIFICATION_SEND_JOB_TYPE`) run on the same `scheduled_job` runner. This rule is about
-membership expiry specifically, not about the mechanism.
-
-Billing and renewal *transactions* (`billingRenewalOrchestrator`) are also out of scope: charging a
-card is real server-side work, unlike telling someone a date is approaching.
-
-## Related
-
-- [700-access-tiers-and-membership-gating](/docs/proposals/mobile/_master-plan_/phase-2/details/700-access-tiers-and-membership-gating.md)
-- [711-defer-auto-renew-aware-reminders](/docs/proposals/mobile/_master-plan_/phase-2/details/711-defer-auto-renew-aware-reminders.md)
+Schema-only phases are for data-model groundwork. Runtime behavior must be introduced only in a
+separate rollout phase with dedicated tests.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
