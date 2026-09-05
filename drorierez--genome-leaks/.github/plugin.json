@@ -1,0 +1,9 @@
+{
+  "name": "drorierez--genome-leaks",
+  "displayName": "Genome-Leaks",
+  "description": "Genome-Leaks provides implementations of privacy attacks for auditing generative models trained to produce synthetic genomic data, including membership inference and data reconstruction attacks.",
+  "version": "1.0.0",
+  "author": "DroriErez",
+  "homepage": "https://github.com/DroriErez/Genome-Leaks",
+  "skills": []
+}
