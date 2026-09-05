@@ -1,56 +1,49 @@
-## mobile-deep-links-and-prod-cutover
+## mobile-feature-requires-e2e
 
-> Mobile deep-link scheme/host config policy and the v4 -> v5 production cutover (graceful in-place upgrade) plan.
+> When a change introduces or modifies user-facing behavior in `apps/mobile/src/**`, include matching
 
+# Mobile feature PRs require E2E flow + screenshots
 
-# Mobile deep links + v5 production cutover
+When a change introduces or modifies user-facing behavior in `apps/mobile/src/**`, include matching
+mobile E2E coverage in the same PR — same operator habit as web UI screenshot reports.
 
-## Deep-link schemes / host are env-driven (open-source friendly)
+## Required for mobile UI behavior changes
 
-- Custom URL schemes come from `EXPO_PUBLIC_MOBILE_DEEP_LINK_SCHEMES` (comma/space-delimited, no
-  `://`); universal / app link host comes from `EXPO_PUBLIC_MOBILE_WEB_BASE_URL` (full URL).
-- Single source of truth is the **pure** module `apps/mobile/src/config/deepLinkSchemes.ts`
-  (`parseMobileDeepLinkSchemes`, `buildMobileLinkPrefixes`, `DEFAULT_MOBILE_DEEP_LINK_SCHEMES`). It has
-  **no** React Native / Expo imports so both the Node Vitest env and the Expo config loader can use it.
-- Both sides must derive from it and never hardcode a scheme/domain:
-  - Native registration: `app.config.ts` `scheme` array + associated-domains / Android intent-filter host.
-  - JS linking: `MOBILE_LINK_PREFIXES` in `src/navigation/index.tsx` (via `getMobileConfig()`).
-- Default schemes are `['podverse-next', 'podverse']`. Keep `podverse` as a **legacy alias** (safety
-  net) so an eventual in-place upgrade still resolves existing `podverse://` links. Do not add
-  compatibility with the v4 *backend* protocol — schemes are only routing prefixes.
+- Add or update a Maestro flow under `apps/mobile/e2e/<area>.yaml` that covers the changed behavior.
+- Ensure the flow captures screenshots (`takeScreenshot`) for key checkpoints.
+- After `launchApp` + `clearState`, enter Metro via `runFlow: shared/connect-dev-client.yaml` before
+  asserting app screens (Expo Dev Client launcher is not the app UI).
+- Instruct the operator to generate reports (agents do not run E2E during implementation). **End
+  the implementation response** with the most focused command (same habit as web screenshot
+  reports):
+  - `npm run mobile:e2e:test -- <area>` (narrowest flow), plus slot `open` paths
+  - Full prelude only when needed: `mobile:dev`, `mobile:e2e:ios`, `mobile:e2e:android`
+- Point at per-slot HTML (not a single combined screenshot dump):
+  - `.artifacts/mobile-e2e-reports/latest/index.html` (hub)
+  - `.artifacts/mobile-e2e-reports/latest/ios-phone/index.html`
+  - `.artifacts/mobile-e2e-reports/latest/android-phone/index.html`
+  - tablet slots (`ios-tablet`, `android-tablet`) when those devices are in the matrix
 
-## The scheme does NOT decide "same app" upgrades — identity does
+## Debug with reports
 
-Whether stores treat v5 as an in-place update of v4 is determined by **app identity + signing**, not
-the URL scheme:
+When diagnosing a mobile E2E failure, **read the failing slot report** (error text + screenshots)
+before changing code. See **mobile-e2e-screenshots**.
 
-- iOS: same `bundleIdentifier` + same App Store Connect record + same signing team.
-- Android: same `applicationId` (package) + same Play App Signing key.
+## Not required
 
-Today mobile ships isolated as `com.podverse.app.next` (see `APPS-MOBILE.md` "Store identity
-isolation") so it can never in-place-upgrade v4. Renaming the scheme to `podverse` will not change
-this.
+- Pure docs updates with no mobile UI/runtime behavior change.
+- Refactors that do not alter user-observable behavior and already have equivalent flow coverage.
 
-## v4 -> v5 production cutover checklist (graceful upgrade = Option A)
+## Do not
 
-When cutting over to prod, to make users' v4 apps upgrade in place:
+- Do not use Playwright for mobile E2E.
+- Do not use web/management-web `make e2e_*` targets for mobile flows.
 
-1. Ship the v5 prod build under the **existing v4 production bundle id / package** (drop `.next`).
-2. Reuse v4 **signing** (iOS dist cert/provisioning; Android Play signing key) and the **same store
-   listing** (new listing = no auto-update).
-3. Provide a **first-launch local data migration** (v5 reads different storage: SQLite schema,
-   `expo-secure-store` keys, queue/downloads/prefs) or explicitly accept a reset.
-4. Plan a **re-auth path** against v5 infra (v4 sessions won't carry over) — friendly "sign in again".
-5. Keep `podverse://` registered and publish prod **AASA** (`apple-app-site-association`) +
-   `.well-known/assetlinks.json` for the prod id; list **both** `com.podverse.app` and
-   `com.podverse.app.next` during the transition so beta and prod builds verify.
-6. Use a **phased / staged rollout** with a rollback plan (this is effectively a full app replacement).
+## Related
 
-## Open decisions to confirm with the operator (do not assume)
-
-- The exact **v4 production** bundle id / package name.
-- Option A (in-place upgrade under the v4 id) vs Option B (new listing; manual migration).
-- Whether a first-launch data migration from v4 storage is in scope.
+- [mobile-e2e-screenshots](/.cursor/skills/mobile-e2e-screenshots/SKILL.md)
+- [mobile-master-plan-phasing](/.cursor/skills/mobile-master-plan-phasing/SKILL.md)
+- [HOW-TO-RUN.md](/apps/mobile/e2e/HOW-TO-RUN.md)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
