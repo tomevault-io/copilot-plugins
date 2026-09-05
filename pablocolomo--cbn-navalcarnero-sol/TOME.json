@@ -4,7 +4,7 @@
   "repo": "cbn-navalcarnero-SOL",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PabloColomo/cbn-navalcarnero-SOL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T00:43:25Z"
+  "distributed_at": "2026-09-05T00:52:14Z"
 }
