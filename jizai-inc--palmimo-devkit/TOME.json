@@ -1,0 +1,44 @@
+{
+  "name": "palmimo-devkit",
+  "owner": "Jizai-inc",
+  "repo": "palmimo-devkit",
+  "description": "Give AI agents a body. Palmimo DevKit is a six-legged tabletop AI robot you drive with your own Python \u2014 open-source SDK, MCP server, and agent examples by Jizai Inc.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jizai-inc/palmimo-devkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-05T14:31:38Z"
+}
