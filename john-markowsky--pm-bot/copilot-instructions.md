@@ -1,238 +1,390 @@
-## mcp-cheat-sheet
+## multi-agent-coordination
 
-> Concise reference for all MCP servers: Loki, Postgres, GitHub, Filesystem, and custom indexers
+> Rules for coordinating multiple agents running simultaneously in Cursor 2.0
 
 
-# 🔧 MCP Servers Cheat Sheet
+# 🤖 Multi-Agent Coordination (Cursor 2.0)
 
-**Quick reference for all available MCP tools. Use MCP servers FIRST before shell commands.**
+## Overview
 
----
+Cursor 2.0 supports **up to 8 agents running concurrently**. Each agent operates in its own isolated copy of the codebase using git worktrees or remote machines to prevent file conflicts.
 
-## 🔍 **Loki MCP** - Log Queries (100x faster than docker logs)
+## Multi-Agent Access
 
-### Critical Rules
-- ⚠️ **Time format**: ONLY RFC3339 (`2025-10-29T10:00:00Z`) - NOT "2h ago" or Unix timestamps
-- ⚠️ **Best practice**: Omit `start`/`end` for recent logs, use `limit` parameter instead
-- ⚠️ **Performance**: Use specific service names, avoid wildcards when possible
+To enable multiple agents:
+1. **Open Cursor 2.0** (requires latest version)
+2. **Multi-Agent Sidebar**: New sidebar interface for managing agents and plans
+3. **Activate Agents**: Use the agent management UI to spawn multiple agents
+4. **Assign Tasks**: Each agent can work on different parts of the codebase simultaneously
 
-### Tools
-- `mcp_loki_loki_query(query, start?, end?, limit?)`
-- `mcp_loki_loki_label_names()` - List available labels
-- `mcp_loki_loki_label_values(label)` - Get values for label
+## Agent Role Scoping
 
-### Examples
-```logql
-# Recent errors (RECOMMENDED - no time calc needed)
-{service="ws_engine"} |= "ERROR"  # Use limit=100
+Define agent responsibilities using path patterns to prevent conflicts and ensure efficient parallel execution:
 
-# With time range (if needed)
-{service="ws_engine"} |= "ERROR"  # start="2025-10-29T10:00:00Z"
+### 🎯 Service-Specific Agents
 
-# Multi-service
-{service=~"ws_engine|calendar_service|trade_engine"}
+```yaml
+Frontend_Agent:
+  scope: 
+    - path: "v2/frontend/**"
+    - path: "v2/shared/ui/**"
+  responsibilities:
+    - UI/UX improvements
+    - Frontend testing with Browser Agent
+    - React component development
+    - State management updates
+  tools_priority:
+    - Browser Agent (E2E testing)
+    - mcp_filesystem_* (config files)
+    - mcp_postgres_* (read-only data validation)
 
-# JSON field filter
-{service="api_gateway"} | json | status_code >= 500
+Backend_Service_Agent:
+  scope:
+    - path: "v2/*_service/**"
+    - exclude: "v2/frontend/**"
+    - exclude: "v2/db_service/migrations/**"
+  responsibilities:
+    - Service implementation
+    - API endpoint development
+    - Business logic
+    - Integration testing
+  tools_priority:
+    - mcp_loki_* (service logs)
+    - mcp_postgres_* (data operations)
+    - mcp_repo-indexer_* (code patterns)
+
+Database_Agent:
+  scope:
+    - path: "v2/db_service/migrations/**"
+    - path: "v2/db_service/**"
+  responsibilities:
+    - Migration creation ONLY in v2/db_service/migrations/
+    - Schema changes
+    - Database optimization
+    - Query performance
+  tools_priority:
+    - mcp_postgres_* (schema operations)
+    - mcp_filesystem_* (migration files)
+  critical: "NEVER creates migrations outside v2/db_service/migrations/"
+
+Observability_Agent:
+  scope:
+    - path: "v2/observability_stack/**"
+    - path: "v2/*/grafana/**"
+    - path: "v2/*/prometheus/**"
+  responsibilities:
+    - Grafana dashboards
+    - Prometheus metrics
+    - Alert rules (remember: down -v before up -d!)
+    - Loki queries for RCA
+  tools_priority:
+    - mcp_loki_* (log investigation)
+    - mcp_filesystem_* (config files)
+    - mcp_config-indexer_* (alert configurations)
+
+Documentation_Agent:
+  scope:
+    - path: "v2/docs/**"
+    - path: "*.md"
+    - exclude: "v2/docs/plans/**" # Plans are temporary
+  responsibilities:
+    - Documentation updates (UPDATE existing, don't create new)
+    - RCA documents (ONE per incident)
+    - API documentation
+    - Architecture diagrams
+  tools_priority:
+    - mcp_docs-indexer_* (search existing docs)
+    - mcp_filesystem_* (doc files)
+  critical: "Minimize .md creation - update existing files"
+
+Testing_Agent:
+  scope:
+    - path: "**/tests/**"
+    - path: "**/test_*.py"
+    - path: "**/*.test.ts"
+    - path: "**/*.test.tsx"
+  responsibilities:
+    - TDD test creation
+    - Test refactoring
+    - Coverage improvements
+    - E2E test scenarios
+  tools_priority:
+    - Cursor Browser Agent (frontend E2E)
+    - mcp_terminal_* (pytest execution)
+    - mcp_postgres_* (test data validation)
+
+Infrastructure_Agent:
+  scope:
+    - path: "docker-compose*.yml"
+    - path: ".env*"
+    - path: "v2/**/Dockerfile*"
+    - path: "v2/**/requirements.txt"
+  responsibilities:
+    - Container orchestration
+    - Environment configuration
+    - Dependency management
+    - Build pipeline
+  tools_priority:
+    - mcp_config-indexer_* (Docker analysis)
+    - mcp_terminal_* (container commands)
+    - mcp_filesystem_* (config files)
 ```
 
-### Key Services
-- HA: `ws_engine` (containers: `v2-ws_engine-1`, `v2-ws_engine-2`)
-- Core: `trade_engine`, `signal_engine`, `calendar_service`, `api_gateway`, `db_service`
+## Coordination Patterns
 
-### Environment Identification
+### ✅ Parallel Safe Operations
 
-**Dev vs Prod Architecture**:
-- **Development**: Dev VM (`192.168.0.103`) - `dev.nexus-trade.top`
-- **Production**: Prod VM (`192.168.0.102`) - `prod.nexus-trade.top`
-- **Loki Instances**: Separate instances per environment (same labels currently)
+These can run simultaneously across agents:
 
-**Which Instance to Query?**
-
-**Query DEV logs when**:
-- Working on `dev` branch
-- Testing locally
-- User reports issue on `dev.nexus-trade.top`
-- Debugging development features
-
-**Query PROD logs when**:
-- User reports production issue
-- Issue on `prod.nexus-trade.top`
-- Production monitoring/alerts
-- Post-deployment verification
-
-**Query Patterns**:
-
-```logql
-# Dev environment (default when working locally)
-{service="ws_engine"} |= "ERROR"
-
-# Prod environment (specify in query context)
-# Note: Currently both use same service labels
-# Query prod VM Loki directly or specify in context
-{service="ws_engine"} |= "ERROR"
+```yaml
+Safe_Parallel_Tasks:
+  - Different services (trade_engine + signal_engine)
+  - Frontend + Backend (different file paths)
+  - Documentation + Code (separate directories)
+  - Testing + Development (separate branches/worktrees)
+  - Multiple test files (no shared state)
 ```
 
-**Current Limitation**:
-Both dev and prod use same service labels (`service="ws_engine"`).
-To query specific environment:
-1. Identify from context (domain, branch, user report)
-2. Query appropriate Loki instance
-3. Future: Add `environment` label to differentiate
+### ⚠️ Requires Coordination
 
-**Multi-Environment Queries**:
-```logql
-# Query both (if needed)
-{service="ws_engine"} |= "ERROR"
-# Then filter by timestamp/context to identify environment
+These operations need explicit coordination:
+
+```yaml
+Coordinate_Before_Executing:
+  - Database migrations (only Database_Agent)
+  - Shared utility changes (coordinate via TODO or GitHub Issue)
+  - API contract changes (affects multiple services)
+  - Breaking changes to shared libraries
+  - Environment variable changes (.env files)
+```
+
+### 🔴 Conflict Zones
+
+Prevent multiple agents from touching:
+
+```yaml
+Exclusive_Access_Required:
+  - v2/db_service/migrations/ (Database_Agent ONLY)
+  - docker-compose.v2.yml (Infrastructure_Agent coordination)
+  - Shared library files (v2/shared/** - coordinate first)
+  - Critical config files (.env, secrets)
+```
+
+## Communication Patterns
+
+### Agent-to-Agent Coordination
+
+```yaml
+Coordination_Methods:
+  1. GitHub_Issues:
+     - Create issue for shared work
+     - Agents check issues before starting
+     - Update issue with progress
+  
+  2. TODO_Lists:
+     - Use todo_write tool for multi-agent tasks
+     - Agents can check and update TODO status
+     - Clear task ownership in TODO items
+  
+  3. Path_Exclusion:
+     - Use exclude patterns in agent scopes
+     - Prevents accidental overlap
+  
+  4. Branch_Strategy:
+     - Each agent uses separate git worktree
+     - Cursor 2.0 handles this automatically
+     - Merge coordination via GitHub PRs
+```
+
+### Task Assignment Patterns
+
+```yaml
+Assigning_Tasks_To_Agents:
+  
+  Frontend_Task:
+    prompt: "Improve UI for strategy management [Frontend_Agent scope]"
+    expected_agent: Frontend_Agent
+    files: v2/frontend/**/*.tsx
+  
+  Backend_Task:
+    prompt: "Add new API endpoint for trade history [Backend_Service_Agent scope]"
+    expected_agent: Backend_Service_Agent
+    files: v2/api_gateway/**/*.py
+  
+  Database_Task:
+    prompt: "Create migration for new table [Database_Agent scope]"
+    expected_agent: Database_Agent
+    files: v2/db_service/migrations/00X_*.sql
+  
+  Multi_Agent_Task:
+    prompt: "Implement feature X with frontend and backend [assign to Frontend_Agent + Backend_Service_Agent]"
+    coordination: "Create GitHub Issue, assign both agents, use TODO list for tracking"
+```
+
+## Conflict Prevention
+
+### File Locking Strategy
+
+```yaml
+Prevent_Conflicts:
+  1. Path_Scoping:
+     - Each agent has explicit path patterns
+     - Exclude patterns for known conflict zones
+     - Use alwaysApply: false for service-specific rules
+  
+  2. Git_Worktrees:
+     - Cursor 2.0 automatically uses worktrees
+     - Each agent has isolated copy
+     - Merges handled via standard git workflow
+  
+  3. Explicit_Coordination:
+     - Check GitHub Issues before starting
+     - Use TODO lists for shared tasks
+     - Announce agent scope in task description
+```
+
+### Conflict Resolution
+
+```yaml
+If_Conflict_Detected:
+  1. Check_Agent_Scopes:
+     - Verify path patterns
+     - Confirm agent responsibilities
+  
+  2. Review_GitHub_Issues:
+     - Check for existing work
+     - Coordinate via issue comments
+  
+  3. Merge_Strategy:
+     - Let git handle merges automatically
+     - Use standard conflict resolution
+     - Test after merge (both agents validate)
+```
+
+## Best Practices
+
+### ✅ DO
+
+```yaml
+Best_Practices:
+  - Use specific path scopes in agent prompts
+  - Create GitHub Issues for multi-agent features
+  - Use TODO lists for task tracking
+  - Test independently before merging
+  - Review agent scopes before starting complex tasks
+  - Use exclude patterns for known conflict zones
+```
+
+### ❌ DON'T
+
+```yaml
+Anti_Patterns:
+  - Don't have multiple agents modify same file without coordination
+  - Don't skip path scoping in agent prompts
+  - Don't create migrations outside Database_Agent scope
+  - Don't modify .env without Infrastructure_Agent coordination
+  - Don't work on shared libraries without checking issues
+```
+
+## Example Multi-Agent Workflow
+
+```yaml
+Example_Scenario: "Add new trading strategy feature"
+
+Step_1_Planning:
+  - Create GitHub Issue #123: "Add momentum strategy"
+  - Break down into sub-tasks
+  
+Step_2_Parallel_Execution:
+  - Agent_1 (Database_Agent):
+    prompt: "Create migration for momentum_strategies table [Database_Agent scope: v2/db_service/migrations/]"
+    creates: 004_momentum_strategies.sql
+  
+  - Agent_2 (Backend_Service_Agent):
+    prompt: "Implement momentum signal logic [Backend_Service_Agent scope: v2/signal_engine/]"
+    creates: signal_engine/momentum_strategy.py
+  
+  - Agent_3 (Frontend_Agent):
+    prompt: "Add UI for momentum strategy config [Frontend_Agent scope: v2/frontend/]"
+    creates: frontend/components/MomentumStrategyConfig.tsx
+  
+  - Agent_4 (Testing_Agent):
+    prompt: "Write tests for momentum strategy [Testing_Agent scope: **/tests/**]"
+    creates: tests/test_momentum_strategy.py
+
+Step_3_Coordination:
+  - All agents update GitHub Issue #123 with progress
+  - Agents validate integration points
+  - Create PRs and merge sequentially
+  
+Step_4_Validation:
+  - Use Browser Agent for frontend E2E
+  - Use Loki MCP for service log validation
+  - Use Postgres MCP for data validation
+```
+
+## Custom Commands for Multi-Agent
+
+You can define custom commands in Cursor dashboard that automatically scope agents:
+
+```yaml
+Example_Custom_Commands:
+  
+  "Add Frontend Feature":
+    description: "Improve UI component with frontend agent"
+    scope: "v2/frontend/**"
+    agent_hint: "Frontend_Agent"
+    tools: ["Browser Agent", "mcp_filesystem_*"]
+  
+  "Debug Service":
+    description: "Investigate service issues with observability agent"
+    scope: "v2/observability_stack/**"
+    agent_hint: "Observability_Agent"
+    tools: ["mcp_loki_*", "mcp_postgres_*"]
+  
+  "Create Migration":
+    description: "Add database migration with database agent"
+    scope: "v2/db_service/migrations/**"
+    agent_hint: "Database_Agent"
+    tools: ["mcp_postgres_*", "mcp_filesystem_*"]
+    critical: "Only Database_Agent can create migrations"
+```
+
+## Monitoring Agent Activity
+
+```yaml
+Check_Agent_Status:
+  - Review Cursor 2.0 multi-agent sidebar
+  - Check GitHub Issues for coordination
+  - Review TODO lists for task tracking
+  - Use mcp_loki_* to monitor service logs from changes
+  - Check git worktrees for active branches
 ```
 
 ---
 
-## 🗄️ **Postgres MCP** - Database Queries
+## Quick Reference
 
-### Tool
-- `mcp_postgres_query(sql)` - Read-only SQL queries (BECAUSE ALL MIGRATIONS MADE DIRECTLY THROUGH DB SERVICE VIA ALEMBIC)
+**To spawn multiple agents:**
+- Open Cursor 2.0 multi-agent sidebar
+- Assign tasks with explicit path scopes
+- Use agent role patterns above
 
-### Examples
-```sql
--- Check recent data
-SELECT COUNT(*) FROM candles WHERE created_at > NOW() - INTERVAL '1 hour';
+**To prevent conflicts:**
+- Use path scopes in prompts: `[Agent_Name scope: path/**]`
+- Check GitHub Issues before starting
+- Use exclude patterns for conflict zones
 
--- Validate schema
-SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+**To coordinate:**
+- Create GitHub Issue for shared work
+- Use TODO lists for task tracking
+- Let git worktrees handle isolation
 
--- Performance check
-SELECT schemaname, tablename, pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) 
-FROM pg_tables WHERE schemaname = 'public';
-```
-
-### Connection
-- Database: `nexus_v2`
-- User: `postgres`
-- Port: `5435` (MCP auto-configured)
-
----
-
-## 📁 **Filesystem MCP** - File Operations
-
-### Tools
-- `mcp_filesystem_read_text_file(path, head?, tail?)`
-- `mcp_filesystem_write_file(path, content)`
-- `mcp_filesystem_list_directory(path)`
-- `mcp_filesystem_directory_tree(path)`
-- `mcp_filesystem_search_files(path, pattern, excludePatterns?)`
-- `mcp_filesystem_edit_file(path, edits[], dryRun?)`
-
-### When to Use
-- ✅ Read/write config files (docker-compose, .env, etc.)
-- ✅ Directory exploration
-- ✅ File search and bulk operations
-- ❌ NOT for log queries (use Loki MCP instead)
-
----
-
-## 🐙 **GitHub MCP** - Repository Management
-
-### Tools
-- `mcp_github_list_issues(owner, repo, state?, labels?)`
-- `mcp_github_update_issue(owner, repo, issue_number, title?, body?, state?)`
-- `mcp_github_add_issue_comment(owner, repo, issue_number, body)`
-- `mcp_github_list_pull_requests(owner, repo, state?, base?)`
-- `mcp_github_get_file_contents(owner, repo, path, branch?)`
-- `mcp_github_search_repositories(query, page?, perPage?)`
-
-### Use Cases
-- Create issues from RCA findings
-- Update PR descriptions with implementation details
-- Track technical debt and compliance issues
-- Link code changes to GitHub Issues
-
----
-
-## 🔬 **Repo Indexer MCP** - Code Search & Analysis
-
-### Tools
-- `mcp_repo-indexer_search_codebase(query, file_type?, limit?)` - Semantic code search
-- `mcp_repo-indexer_get_code_complexity_report(file_pattern?)` - Complexity metrics
-- `mcp_repo-indexer_get_dependency_graph(max_depth?)` - Architecture mapping
-- `mcp_repo-indexer_get_performance_metrics()` - Performance analysis
-
-### When to Use
-- Find similar implementations or patterns
-- Understand code complexity before refactoring
-- Map service dependencies
-- Identify technical debt hotspots
-
----
-
-## 📚 **Docs Indexer MCP** - Documentation Search
-
-### Tools
-- `mcp_docs-indexer_search_documentation(query, category?, limit?)` - Search docs
-- `mcp_docs-indexer_get_api_endpoints_catalog()` - List all API endpoints
-- `mcp_docs-indexer_get_cross_references()` - Doc health check
-
-### When to Use
-- Find existing documentation before writing new docs
-- Understand API endpoints and specifications
-- Validate documentation completeness
-
----
-
-## ⚙️ **Config Indexer MCP** - Configuration Analysis
-
-### Tools
-- `mcp_config-indexer_search_configuration(query, config_type?, limit?)` - Search configs
-- `mcp_config-indexer_analyze_config_dependencies(config_path?)` - Dependency analysis
-- `mcp_config-indexer_get_security_configuration()` - Security validation
-- `mcp_config-indexer_get_performance_optimization()` - Optimization recommendations
-
-### Config Types
-- `docker` - docker-compose files
-- `yaml` - YAML configs
-- `json` - JSON configs
-- `env` - Environment files
-
----
-
-## 🎯 Quick Decision Tree
-
-**Need logs?** → Use Loki MCP (NOT docker logs)
-**Need database data?** → Use Postgres MCP (NOT docker exec psql)
-**Need to find code?** → Use Repo Indexer MCP (NOT grep for semantics)
-**Need documentation?** → Use Docs Indexer MCP
-**Need to manage files?** → Use Filesystem MCP (NOT cat/echo/sed)
-**Need GitHub operations?** → Use GitHub MCP (NOT gh CLI)
-**Need config analysis?** → Use Config Indexer MCP
-
----
-
-## ⚡ Performance Tips
-
-1. **Loki**: Omit time params for recent queries, use `limit` instead of time calculations
-2. **Postgres**: Use indexes in WHERE clauses, avoid SELECT *
-3. **Repo Indexer**: Use specific file_type filters to narrow search
-4. **Filesystem**: Use excludePatterns to skip node_modules, .git, etc.
-5. **GitHub**: Use pagination for large result sets
-
----
-
-## 🚫 Common Mistakes
-
-- ❌ Using "2h ago" in Loki queries (use RFC3339 or omit)
-- ❌ Using docker logs instead of Loki MCP (100x slower)
-- ❌ Using grep for semantic code search (use Repo Indexer)
-- ❌ Creating new docs without searching Docs Indexer first
-- ❌ Using shell commands for file operations (use Filesystem MCP)
-
----
-
-## 📖 Detailed Documentation
-
-For complex scenarios, refer to:
-- Loki queries: `v2/docs/loki-rca-queries.md`
-- MCP deployment: `v2/docs/plans/LOKI-MCP-QUICKSTART.md`
+**Remember:**
+- Up to 8 agents can run simultaneously
+- Each agent uses isolated git worktree
+- Path scoping prevents most conflicts
+- Always coordinate database migrations (Database_Agent ONLY)
 
 ---
 > Source: [john-markowsky/PM-Bot](https://github.com/john-markowsky/PM-Bot) — distributed by [TomeVault](https://tomevault.io).
