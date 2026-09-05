@@ -1,56 +1,15 @@
-## i18n-user-facing-strings
+## import-specifiers-tiered
 
-> All user-facing app strings must resolve through i18n (web, management-web, mobile)
+> Tier B Next.js apps and Tier C packages/ui — extensionless relatives; Tier A uses NodeNext .js
 
 
-# User-facing strings must use i18n
+# Tiered import specifiers
 
-Every string a user (or assistive technology) can see or hear in a **user-facing app
-surface** must resolve through the i18n catalog — not a hardcoded single-locale literal in
-component/source files.
+- **Tier A** (`packages/**` except `packages/ui`, Node apps, sidecars, `tools/**`, scripts): relative TS modules use **`.js` specifiers** (NodeNext). ESLint enforces this.
+- **Tier C** (`packages/ui`): **extensionless** relatives (bundler-transpiled shared UI). ESLint NodeNext rule is **off**. Do not add `.js` — breaks resolution to `.tsx` sources.
+- **Tier B** (`apps/web/src`, `apps/management-web/src`): keep **extensionless** relative imports unless you have confirmed **`next build`** succeeds with `.js` specifiers toward `.tsx` sources.
 
-## Surfaces
-
-| Surface | Runtime | Typical API |
-| ------- | ------- | ----------- |
-| `apps/web` | next-intl | `useTranslations()` / `t()` |
-| `apps/management-web` | next-intl | `useTranslations()` / `t()` |
-| `apps/mobile` | i18next + expo-localization | `useTranslation()` / `t()` |
-
-## Do
-
-- Localize labels, titles, placeholders, empty states, loading text, toast/error/success copy,
-  navigation titles/tab labels, `aria-label` / `accessibilityLabel`, and button text via `t()`.
-- Prefer **existing** keys in `packages/i18n-catalog/{shared,consumer}/originals/en-US.json` so
-  web and mobile stay consistent. Add **new shared** strings to `shared` or `consumer`; add
-  **mobile-only** chrome (tabs, permissions, store copy) to `mobile/originals/en-US.json`.
-- Keep `@podverse/ui` string-free: apps pass already-localized strings as props (see
-  **`shared-ui-i18n`**).
-- When adding keys, follow **`i18n-management`** and **`i18n-catalog-layers`** (layers, compile,
-  brand interpolation `{brand_name}` / `{brand_domain}`).
-
-## Do not
-
-- Do not ship hardcoded English (or any one locale) for product UI in app screens or shared UI
-  defaults.
-- Do not put next-intl rich tags (`<link>`, etc.) in keys that mobile must render — plain
-  strings only for RN-shared keys.
-- Do not edit `apps/*/i18n/compiled/` or catalog `compiled/` by hand.
-
-## Exempt
-
-- `__DEV__` / debug-only panels and intentionally temporary `...Placeholder` scaffold text
-  until the real screen ships (then convert).
-- Internal developer errors (`throw new Error('...')` for misuse) and non-UI env/validation
-  messages aimed at operators.
-- API **structural** error messages that stay American English by product policy (see AGENTS /
-  API docs) — not end-user UI copy.
-
-## Review checklist
-
-- New/edited user-visible string in `apps/{web,management-web,mobile}/src` → catalog key + `t()`.
-- Cross-app copy → reuse or extend `shared` / `consumer`, not a duplicate mobile-only key.
-- Mobile-only chrome → `mobile/` overlay; no key-path collision with `consumer` / `shared`.
+Do not mass-refactor Tier B or Tier C imports to match Tier A without a green Turbopack production build. See [docs/development/tooling/DOCS-DEVELOPMENT-TOOLING-IMPORT-SPECIFIERS.md](/docs/development/tooling/DOCS-DEVELOPMENT-TOOLING-IMPORT-SPECIFIERS.md) and [vercel/next.js#82945](https://github.com/vercel/next.js/issues/82945).
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
