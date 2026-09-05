@@ -1,0 +1,9 @@
+{
+  "name": "makeplane--prd-agent",
+  "displayName": "prd-agent",
+  "description": "A PRD agent that writes PRD for your work item",
+  "version": "1.0.0",
+  "author": "makeplane",
+  "homepage": "https://github.com/makeplane/prd-agent",
+  "skills": []
+}
