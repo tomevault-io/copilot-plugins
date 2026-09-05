@@ -1,0 +1,75 @@
+{
+  "name": "mybibletoolbox-code",
+  "owner": "authenticwalk",
+  "repo": "mybibletoolbox-code",
+  "description": "Claude Code AI agents to build the world's largest commentary on the Bible across 1000 languages.  Feed it to AI systems to get more grounded answers instead of it guessing.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bible-study-tool-creator",
+      "path": ".claude/skills/bible-study-tool-creator",
+      "github_url": "https://github.com/authenticwalk/mybibletoolbox-code/tree/main/.claude/skills/bible-study-tool-creator",
+      "description": ""
+    },
+    {
+      "name": "improve-tbta",
+      "path": ".claude/skills/improve-tbta",
+      "github_url": "https://github.com/authenticwalk/mybibletoolbox-code/tree/main/.claude/skills/improve-tbta",
+      "description": ""
+    },
+    {
+      "name": "progressive-disclosure",
+      "path": ".claude/skills/progressive-disclosure",
+      "github_url": "https://github.com/authenticwalk/mybibletoolbox-code/tree/main/.claude/skills/progressive-disclosure",
+      "description": ""
+    },
+    {
+      "name": "quote-bible",
+      "path": ".claude/skills/quote-bible",
+      "github_url": "https://github.com/authenticwalk/mybibletoolbox-code/tree/main/.claude/skills/quote-bible",
+      "description": ""
+    },
+    {
+      "name": "scripture-study",
+      "path": ".claude/skills/scripture-study",
+      "github_url": "https://github.com/authenticwalk/mybibletoolbox-code/tree/main/.claude/skills/scripture-study",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/authenticwalk/mybibletoolbox-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-05T18:30:18Z"
+}
