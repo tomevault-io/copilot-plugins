@@ -1,0 +1,9 @@
+{
+  "name": "luigisaetta--llm-fine-tuning-on-mac",
+  "displayName": "llm-fine-tuning-on-mac",
+  "description": "This repo contains all the code to do the fine tuning with loRA of a small LLM",
+  "version": "1.0.0",
+  "author": "luigisaetta",
+  "homepage": "https://github.com/luigisaetta/llm-fine-tuning-on-mac",
+  "skills": []
+}
