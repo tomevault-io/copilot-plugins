@@ -7,11 +7,11 @@ Model router for agentic systems. Routes every prompt to the right model in <50m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [weave-os/router](https://github.com/weave-os/router).
+Original source: `CLAUDE.md` in [weave-os/router](https://github.com/weave-os/router).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
