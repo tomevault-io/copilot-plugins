@@ -4,7 +4,7 @@
   "repo": "pimarchy",
   "description": "Pimarchy provisions a barebones Pi OS Lite installation into a fully configured, modern Wayland desktop environment inspired by Omarchy.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raythurman2386/pimarchy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T02:32:31Z"
+  "distributed_at": "2026-09-05T02:40:04Z"
 }
