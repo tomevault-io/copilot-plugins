@@ -1,11 +1,61 @@
-## env-expiration-naming
+## env-file-formatting
 
-> Names ending in _EXPIRATION (env + exported constants) use seconds only; no _SECONDS suffix on the symbol.
+> Formatting rules for Node/Docker env files (not K8s source/*.env)
 
 
-# Expiration naming
+# Environment File Formatting
 
-Follow [`env-expiration-naming`](.cursor/skills/env-expiration-naming/SKILL.md): env keys and exported constants that denote expiration durations end with `_EXPIRATION`; values are seconds — do not append `_SECONDS` to those names.
+## Scope
+
+**Double-quote rules below apply to Node and Docker env files only:** app `.env.example` files,
+`infra/config/env-templates/*.env.example`, `infra/config/local/*.env`, and
+`dev/env-overrides/local/*.env.example`. Scripts that write env content (e.g.
+`scripts/local-env/setup.sh`) must follow the same pattern.
+
+**Exception — K8s ConfigMap sources:** `infra/k8s/**/source/*.env` uses **unquoted** values
+(including numbers). See `.cursor/skills/env-file-formatting/SKILL.md` § K8s ConfigMap `source/*.env`.
+
+## Node / Docker formatting rules
+
+1. **Non-empty values** must be surrounded with double quotation marks
+2. **Empty/unset values** should have no value after the `=` sign (no quotes, no empty string)
+
+**Correct:**
+```
+DATABASE_HOST="localhost"
+API_KEY="abc123"
+API_PORT="3000"
+EMPTY_VALUE=
+URL_WITH_SPECIAL_CHARS="http://example.com?foo=bar&baz=qux"
+```
+
+**Incorrect:**
+```
+DATABASE_HOST=localhost
+API_KEY=abc123
+API_PORT=3000
+EMPTY_VALUE=""
+URL_WITH_SPECIAL_CHARS=http://example.com?foo=bar&baz=qux
+```
+
+## K8s `source/*.env` (exception)
+
+Files under `infra/k8s/**/source/*.env` (and GitOps copies) use **unquoted** values:
+`DB_PORT=5432`, `NODE_ENV=production`, `LOG_DIR=`. For comments that name env vars, use **one
+variable per line** in each `#` comment. Do not combine multiple variable names in a single comment
+line (e.g. `VAR1, VAR2: …`). If the same note applies to two keys, use two comment lines and
+duplicate the text.
+
+## Order: non-`NEXT_PUBLIC_*` before `NEXT_PUBLIC_*`
+
+When a file mixes server-side keys with `NEXT_PUBLIC_*`, list **all non-`NEXT_PUBLIC_*` assignments first**, blank line, then all `NEXT_PUBLIC_*`. See `.cursor/skills/env-file-formatting/SKILL.md`.
+
+## Rationale (Node / Docker)
+
+- Quotation marks ensure consistent parsing across different tools (dotenv, dotenvx, shell scripts)
+- Quotation marks prevent issues with special characters (spaces, `&`, `=`, `#`, etc.)
+- Empty values without quotes clearly indicate "not set" vs an intentional empty string
+- Follows the convention established in this monorepo
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
