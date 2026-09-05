@@ -1,0 +1,9 @@
+{
+  "name": "sebbbi--nographicsapi",
+  "displayName": "NoGraphicsAPI",
+  "description": "Minimal graphics API. Built on top of latest Vulkan extensions. As close as possibly to my \"No Graphics API\" blog post and the SIGGRAPH talk.",
+  "version": "1.0.0",
+  "author": "sebbbi",
+  "homepage": "https://github.com/sebbbi/NoGraphicsAPI",
+  "skills": []
+}
