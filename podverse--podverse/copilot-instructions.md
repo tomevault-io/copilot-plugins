@@ -1,22 +1,23 @@
-## llm-cursor-source
+## maestro-adb-port-reservation
 
-> AI guidance source of truth is under .cursor and .cursorrules
+> Reserve localhost ports 5555-5683 for Android emulator ADB endpoints used by Maestro.
 
 
-# LLM / Cursor source of truth
+# Maestro ADB port reservation
 
-Committed **authoring** guidance for this repo lives only in:
+Reserve localhost TCP ports **5555–5683** for Android emulator ADB endpoints.
 
-- `.cursor/skills/**`
-- `.cursor/rules/**`
-- `.cursor/prompts/**`
-- `.cursor/hooks/**` and `.cursor/hooks.json` (when present)
-- `.cursorrules`
-- `.cursorignore`
+Maestro's `dadb` device discovery probes this conventional emulator range, including when a run
+targets iOS. An unrelated host service that accepts a connection in this range can make Maestro
+wait indefinitely for an ADB handshake.
 
-When you change AI guidance, commit and push only those **source** paths.
-
-Contributor policy: [docs/development/llm/DOCS-DEVELOPMENT-LLM.md](docs/development/llm/DOCS-DEVELOPMENT-LLM.md).
+- Do not publish local services on host ports `5555–5683`.
+- Local Artemis uses host port `5684` and container port `5672`.
+- Container-only and Kubernetes service ports may remain `5672`; the reservation applies to host
+  port mappings.
+- Keep the mobile E2E runner's valid-ADB-handshake guard enabled as a diagnostic backstop.
+- Do not attempt to solve this by changing the emulator port range; Maestro's direct-discovery
+  range is not a supported flow-level setting.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
