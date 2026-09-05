@@ -1,55 +1,35 @@
-## abcmemory-vocabulary
+## add-by-rss-data-contracts
 
-> User vocabulary abcmemory and abcremember for Cursor guidance files
+> Keep Add-by-RSS parsed, persisted, and offline playback data contracts explicit across the server, parser mapping, and mobile SQLite
 
 
-# abcmemory / abcremember vocabulary
+# Add-by-RSS data contracts
 
-## abcmemory
+Add-by-RSS uses separate contracts by design. The server database stores followed-feed metadata; the
+parse status carries a server payload; parser-mapping converts it into `AddByRSSMappedFeed`; and
+mobile stores scalar list fields plus the mapped bundle for offline playback. Consistency means every
+conversion is explicit, not that the schemas are identical.
 
-**abcmemory** means the committed files Cursor uses for agent guidance in this repo — **only** under `.cursor/` and the repo root files Cursor reads:
+When changing Add-by-RSS data, trace this complete path:
 
-- `.cursor/skills/**`
-- `.cursor/rules/**`
-- `.cursor/prompts/**`
-- `.cursor/hooks/**` and `.cursor/hooks.json` (when present)
-- `.cursorrules`
-- `.cursorignore`
+1. **Server:** `DTOAccountFollowingAddByRSSChannel`, the ORM entity, and
+   `AddByRSSParseCacheEntry` define followed metadata and parse-status payloads. Parsed feed items are
+   not stored in the server database.
+2. **Parsed bundle:** `AddByRSSMappedFeed` is the canonical mapped result persisted in
+   `add_by_rss_feed.mapped_feed_json`.
+3. **Mobile record:** `MobileAddByRSSFeedRecord`, `AddByRssFeedRow`, `schema.ts`, and
+   `migrations.ts` define scalar offline list fields and their SQLite representation.
+4. **Playback:** `getMappedFeedByUrl`, `safeJsonParse`, and `toAddByRssPlaybackResourceData`
+   reconstruct playback data from the bundle and per-account playback position.
 
-## Not abcmemory
+Check identifiers, URLs, titles, images/enclosures, resource types, date units, nullability, and
+stale-row behavior at every boundary. Update row mapping and upsert paths together. Cover fresh
+parses, followed-list merges with an existing bundle, and missing or malformed offline payloads.
+Use a forward-only SQLite migration for scalar column changes. Do not store Add-by-RSS items in
+`channel_item`; that table is the bounded cache for directory-channel items.
 
-**`.llm/`** (plans, history, templates, context) is a **planning workspace**, not agent memory. Do not treat it as a second abcmemory tree.
-
-Also not abcmemory unless you explicitly ask: `docs/`, `.github/`, and ad-hoc paths.
-
-## abcremember
-
-When the user says **abcremember**, **create or update** the best-fit abcmemory file(s) under **`.cursor/`** (or `.cursorrules` / `.cursorignore`): prefer updating existing guidance when the instruction extends the same topic; create a new skill, rule, or prompt only when no suitable file exists. Then follow that guidance in future work. Do **not** write to `.llm/` unless they explicitly say to remember something there.
-
-For placement and workflow details, see `.cursor/skills/abcmemory/SKILL.md`.
-
-## abcchecke2e
-
-When the user says **abcchecke2e**, inspect both staged and unstaged changes, including
-untracked files that are part of the current work. Compare those changes with
-`docs/testing/E2E-VERIFICATION-SCRATCHPAD.md`.
-
-- Update the scratchpad so it lists the focused E2E verification required by the current changes.
-- Remove scratchpad entries that are unrelated to the current staged and unstaged changes.
-- Preserve only commands and report-review paths that are actionable for the current work.
-- Do not treat the scratchpad as permanent feature documentation; it represents the current
-  working-tree verification state.
-
-## legacy app
-
-**legacy app** (also **podverse-rn**, **v4 mobile**) means the React Native app in the sibling
-checkout **`../podverse-rn`** relative to this monorepo root (typically
-`/Users/mitcheldowney/repos/pv/podverse-rn`).
-
-**Nextgen** / **this monorepo** (`podverse`) is the current product codebase, including
-`apps/mobile`.
-
-See **legacy-app-reference** for when and how to open that checkout.
+Related: [`dto-changes-are-device-data-migrations`](/.cursor/rules/dto-changes-are-device-data-migrations.mdc)
+— persisted DTOs remain device data migrations even when the SQLite shape differs from the server.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
