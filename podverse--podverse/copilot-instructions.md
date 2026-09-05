@@ -1,152 +1,48 @@
-## github-actions-yaml
+## i18n-catalog-layers
 
-> YAML files use **double quotes** for strings (configured via override in `.prettierrc.json`).
+> Layered i18n catalog merge order for packages/i18n-catalog and app i18n paths
 
-# GitHub Actions YAML Best Practices, glob pattern(s) for applicable files: .github/workflows/_.yml, .github/workflows/_.yaml
 
-## Quote Style in YAML Files
+# i18n catalog layers
 
-YAML files use **double quotes** for strings (configured via override in `.prettierrc.json`).
+When editing translation sources or the shared catalog package, follow the **layered merge** model.
 
-- JavaScript/TypeScript use single quotes
-- YAML files use double quotes
-- This is enforced consistently by both IDE save and `npm run lint:fix`
+## Layout
 
-## Critical Rules
-
-### 1. Multi-line Shell Scripts with Special Characters
-
-When a `run:` block contains shell scripts that generate strings with markdown or special characters, use heredocs instead of quoted strings.
-
-**Problem:**
-
-```yaml
-run: |
-  BODY="## Title
-  **Bold**: value"  # ❌ ** interpreted as YAML alias
+```
+packages/i18n-catalog/
+├── shared/{originals,overrides,compiled}/
+├── consumer/{originals,overrides,compiled}/
+├── management/{originals,overrides,compiled}/
+└── mobile/{originals,overrides,compiled}/
 ```
 
-**Solution:**
+## Merge order (compile time)
 
-```yaml
-run: |
-  BODY=$(cat <<EOF
-  ## Title
-  **Bold**: value
-  EOF
-  )  # ✅ Heredoc prevents YAML parsing issues
-```
+| App | Layers (later wins on key conflict) |
+| --- | ----------------------------------- |
+| `apps/web` | `shared` → `consumer` |
+| `apps/mobile` | `shared` → `consumer` → `mobile/` |
+| `apps/management-web` | `shared` → `management/` |
 
-### 2. YAML Special Characters to Watch
+Do **not** duplicate the same key path in multiple layers. CI should reject duplicates.
 
-These characters have special meaning in YAML and can cause parsing errors:
+## Runtime (per platform)
 
-- `*` - Alias reference (at start of line or value)
-- `&` - Anchor definition
-- `@` - Reserved for future use
-- `` ` `` - Reserved for future use
-- `{`, `}` - Flow mappings
-- `[`, `]` - Flow sequences
+- **Web / management-web:** next-intl — load **compiled** merge output, not raw originals alone.
+- **Mobile:** i18next + expo-localization — bundle merged JSON; do not use next-intl.
 
-### 3. When to Use Heredocs in GitHub Actions
+Share **JSON data**, not i18n libraries. `@podverse/ui` stays string-free (**shared-ui-i18n** rule).
 
-Use heredocs when:
+## Rich text
 
-- Generating markdown with `**bold**`, `*italic*`, or lists
-- Creating multi-line content with variable interpolation
-- Building JSON or YAML within shell scripts
-- Concatenating multiple conditional sections
+Keys used on mobile must not require next-intl rich tags (`<link>`, etc.). Use plain strings or app-specific markup on RN.
 
-**Heredoc patterns:**
+## Related
 
-```bash
-# Basic heredoc
-VAR=$(cat <<EOF
-content here
-EOF
-)
-
-# With conditional content
-VAR=$(cat <<EOF
-Always here
-$([ -n "$VAR" ] && echo "Conditional line")
-EOF
-)
-
-# Nested heredoc
-OUTER=$(cat <<EOF
-Outer content
-$([ condition ] && cat <<INNER
-Nested content
-INNER
-)
-EOF
-)
-```
-
-### 4. Validation
-
-Always validate YAML syntax after editing workflows:
-
-```bash
-# Python validation
-python3 -c "import yaml; yaml.safe_load(open('.github/workflows/file.yml'))"
-
-# Or use npm lint
-npm run lint:fix
-```
-
-## Common Pitfalls
-
-1. **String concatenation in YAML**: Avoid `VAR="${VAR}more"` when content has special chars
-2. **Unquoted values**: Always quote workflow inputs that might contain special characters
-3. **Indentation mixing**: Use spaces consistently (2 or 4), never mix with tabs
-
-## Examples
-
-### Bad: String Concatenation with Special Characters
-
-```yaml
-run: |
-  BODY="## Title
-  **Field**: ${VALUE}"
-  BODY="${BODY}
-  - [ ] Item with *asterisk*"  # ❌ YAML parsing error
-```
-
-### Good: Heredoc with Conditional Logic
-
-```yaml
-run: |
-  BODY=$(cat <<EOF
-  ## Title
-  **Field**: ${VALUE}
-  $([ -n "$OPTIONAL" ] && echo "**Optional**: ${OPTIONAL}")
-  - [ ] Item with *asterisk*
-  EOF
-  )  # ✅ Safe and readable
-```
-
-### Good: Nested Heredocs for Complex Content
-
-```yaml
-run: |
-  MESSAGE=$(cat <<EOF
-  Main content
-  $([ "$CONDITION" = "true" ] && cat <<NESTED
-  ### Conditional Section
-  This only appears when condition is true
-  NESTED
-  )
-  EOF
-  )
-```
-
-## See Also
-
-- GitHub Actions syntax: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
-- YAML specification: https://yaml.org/spec/1.2.2/
-- Bash heredoc syntax: https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+- [docs/localization/I18N.md](/docs/localization/I18N.md)
+- Master plan Track 17 (steps 17.0, 17.8–17.12)
+- **i18n-management** rule
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
