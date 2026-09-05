@@ -1,0 +1,9 @@
+{
+  "name": "phuryn--bug-hunt-bench",
+  "displayName": "bug-hunt-bench",
+  "description": "Bug Hunt Bench: 105 real bugs in two production repos, frontier coding models (GPT-6, Claude, Grok, Gemini, DeepSeek...) find and fix them in their own CLI, graded blind. Live leaderboard + every rece",
+  "version": "1.0.0",
+  "author": "phuryn",
+  "homepage": "https://github.com/phuryn/bug-hunt-bench",
+  "skills": []
+}
