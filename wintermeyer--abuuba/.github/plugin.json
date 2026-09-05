@@ -1,0 +1,9 @@
+{
+  "name": "wintermeyer--abuuba",
+  "displayName": "abuuba",
+  "description": "A fast fediverse server in Elixir and Phoenix that speaks Mastodon's protocols. Always at least 12x faster than Mastodon. Drop-in replacement for it.",
+  "version": "1.0.0",
+  "author": "wintermeyer",
+  "homepage": "https://github.com/wintermeyer/abuuba",
+  "skills": []
+}
