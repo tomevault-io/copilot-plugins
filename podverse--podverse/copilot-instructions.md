@@ -1,130 +1,91 @@
-## mobile-anonymous-vs-account-features
+## mobile-carplay-android-auto
 
-> Mobile must work signed out; server-side writes and jobs are the premium boundary
+> Mobile car surfaces and background audio are native; JS writes a native cache
 
 
-# Mobile — signed-out capability and the premium boundary
+# CarPlay / Android Auto native cache contract
 
-The mobile app is **useful without an account**. A signed-out user must be able to subscribe to
-podcasts, keep those subscriptions, and listen offline. Do not design a mobile flow that requires
-sign-in for something the device can do on its own.
+Audio and car browse/play must work when the **JS runtime is suspended or the phone app is closed**.
+That requires native platform services — not JavaScript-owned playback or car menus.
 
-This is a deliberate divergence from `apps/web`, where subscriptions are account-backed.
+## Architecture constraints
 
-## The gate rule
+- **Car browse trees are native-only.** iOS: CarPlay `CPTemplate` scene (Swift). Android: Media3
+  `MediaLibraryService` browse tree — **not** a JS/React Native car UI.
+- **Do not** implement car browsing as JS-only navigation or third-party RN car plugins. JS cannot
+  run when the app is killed; car menus must read **native** data.
+- **Do not use `react-native-track-player`** as the Podverse media engine or car architecture. Use
+  first-party **`podverse-media-engine`** (Track 2): single shared **AVPlayer** (iOS) / **ExoPlayer**
+  (Media3) instance for phone UI, lock screen, and car now-playing.
+- Car now-playing and remote commands bind to that **same engine instance** — not a separate player
+  per surface.
 
-> If a feature requires a **server-side write** or a **server-side job that must run**, it is a
-> **premium** feature. Everything else works signed out.
+## Native cache (JS writes, native reads)
 
-Apply that test before gating anything. "Does this need our server to store or compute something on
-the user's behalf?" is the whole question.
+JS syncs a small cache whenever queue, downloads, or library index changes:
 
-## Three access tiers, not two
+| Payload (Track 12)              | Purpose                                      |
+| ------------------------------- | -------------------------------------------- |
+| Queue snapshot                  | Now-playing + upcoming for car skip/advance  |
+| Downloads index                 | Offline items playable from car              |
+| Library browse index            | Podcast/playlist lists for car templates     |
 
-Never collapse gating into "logged in or not". Every gated feature belongs to exactly one tier, and
-plans and detail docs must say which:
+Schema and storage are defined in **Track 12** (master plan step **12.1** —
+[380-native-cache-schema](/docs/proposals/mobile/_master-plan_/phase-1/details/380-native-cache-schema.md)).
+JS write-path: steps **10.22**, **12.4**; engine hooks: **2.35**, **114-engine-native-cache-hooks**.
 
-| Tier                | Meaning                                                       |
-| ------------------- | ------------------------------------------------------------- |
-| **Anonymous**       | Works with no account at all                                  |
-| **Account**         | Requires sign-in, but no paid membership                      |
-| **Membership**      | Requires sign-in **and** a valid paid membership              |
+Native car services read the cache **without starting JS**. Spikes **12.5–12.6** prove read-with-app-closed.
 
-When adding a gated feature, state its tier explicitly. "Logged-in only" and "logged-in with a valid
-membership" are different requirements and must not be written as if interchangeable.
+## Platform services
 
-## Expired membership is degraded, never frozen
+| Platform | Car / background owner                                      |
+| -------- | ----------------------------------------------------------- |
+| iOS      | CarPlay scene + `AVAudioSession` + `MPNowPlayingInfoCenter` |
+| Android  | Media3 `MediaLibraryService` foreground service + session  |
 
-A user whose membership lapses keeps a working app. Do **not** lock them out of the product.
+Android Auto connects to the **service**, not the Activity. CarPlay templates are driven from **Swift**
+reading the cache.
 
-- Anonymous-tier and account-tier capabilities keep working unchanged.
-- Membership-tier features become unavailable, presented as a renewal prompt rather than a dead or
-  silently missing control.
-- Remind the user at natural moments — when they reach a membership feature, and at a low-frequency
-  ambient point — without nagging on every screen.
-- Do not delete or orphan data the user created while their membership was valid.
+## Android Auto: implemented natively from the cache (12.11–12.15)
 
-Design the lapsed state deliberately per feature: some membership features degrade to read-only,
-others disappear behind an upgrade affordance. Say which in the plan.
+The Android Auto browse tree **and** play are implemented in the native media-engine module — never
+in JS / `react-native-track-player`:
 
-Current lapsed behavior for add-by-RSS: existing feeds stay visible and playable but **stop
-refreshing** until renewal; adding new feeds is blocked behind the renewal prompt.
+- **Service + callers (12.11 / 12.13):** `PodverseMediaLibraryService` (Media3 `MediaLibraryService`)
+  validates allowed callers in `onConnect` (Media3's signature-checked Auto / Automotive / media
+  notification controllers) and serves a stable browsable root **with the app force-stopped**. The
+  `com.google.android.gms.car.application` media-app descriptor ships in the module manifest.
+- **Browse tree (12.12 / 12.14):** `onGetChildren` projects the durable native cache
+  (`PodverseNativeCacheModel` parses `library-browse` + `downloads`) into **Library** + **Downloads**
+  nodes. No SQLite; tolerant parsing → empty tree, never crash.
+- **Play (12.15):** `onAddMediaItems` / `onPlaybackResumption` resolve a mediaId against the cache and
+  play through the **one** shared `PodverseAudioEngine` — offline `file://` first, else remote
+  enclosure. Queue/auto-queue policy stays in `@podverse/playback-core`.
 
-Expiry is surfaced **in-app only**, derived on demand — never push, email, or a scheduled job. See
-[`no-membership-expiry-notifications`](/.cursor/rules/no-membership-expiry-notifications.mdc).
+When changing car browse/play, edit the **native** module (`android/.../PodverseMediaLibraryService.kt`,
+`PodverseNativeCacheModel.kt`) — do **not** add a JS/track-player car browser. Prove changes with the
+operator DHU gate:
+[ANDROID-AUTO-DHU-CHECKLIST.md](/apps/mobile/modules/podverse-media-engine/ANDROID-AUTO-DHU-CHECKLIST.md).
+iOS CarPlay (12.7–12.10) is a later slice pending the Apple CarPlay entitlement.
 
-**Do not tell users enrolled in auto-renew that they are expiring soon.** Payment functionality does
-not exist yet, so that check is deferred — build the surfaces so it drops in without rework.
+## LLM do / don't
 
-## Tier assignments
-
-| Capability                                  | Tier       | Why                                            |
-| ------------------------------------------- | ---------- | ---------------------------------------------- |
-| Subscribe — **local only**, signed out      | Anonymous  | Device-local record; nothing reaches the server |
-| **Unsubscribe** — always                    | Anonymous  | Never blocked, in any tier or membership state  |
-| Local subscription list, filter, sort       | Anonymous  | Reads local storage                            |
-| Download episodes, offline playback         | Anonymous  | Device-local                                   |
-| Local queue and history                     | Anonymous  | Device-local                                   |
-| Per-channel seen state (local)              | Anonymous  | A local last-seen timestamp per channel        |
-| **Subscribe — server-side follow**          | Membership | `POST /account/follow/channel` is gated today  |
-| Cross-device sync of seen state             | Account    | Server write, but not a paid capability        |
-| Cross-device sync of queue and history      | Membership | Paid capability                                |
-| **Add by RSS**                              | Membership | Requires server-side feed parsing              |
-| **Notifications** (inbox and push)          | Membership | Requires server-side storage and push delivery |
-
-### Subscribing has three distinct behaviors
-
-| User state                          | Behavior                                                                |
-| ----------------------------------- | ----------------------------------------------------------------------- |
-| Not signed in (mobile)              | Subscribes **locally only**; nothing syncs                              |
-| Signed in, valid membership         | Subscribes and syncs to the account                                     |
-| Signed in, invalid/expired membership | **Cannot** subscribe; shown a message explaining why                  |
-
-**Unsubscribing is never blocked** — not by tier, not by an expired membership. A user can always
-remove something they no longer want.
-
-**Local subscriptions are pushed to a server account at sign-up only.** Creating an account from the
-device uploads what is already subscribed locally. From then on the **account is the source of
-truth**: a later sign-in does *not* push local subscriptions up, because a phone must not be able to
-silently rewrite an account the user also uses on the web. Signing into a pre-existing account
-therefore replaces the local rows with the account's.
-
-**Signing out discards nothing local.** Subscriptions, add-by-RSS feeds, and the car/watch browse
-index are all retained — this is the same data offline mode depends on. Only the account identity is
-cleared.
-
-Queue, history, and per-channel seen state reconcile on sign-in rather than following the sign-up-only
-rule above, because they are per-device activity rather than a library the account owns. Seen state
-reconciles by taking the **later** timestamp per channel, so it only ever moves forward.
-
-## Do
-
-- Build the local-only path first, then layer account sync on top of it.
-- Present gated features as an upgrade affordance, not a broken control (see
-  **entitlement-gating-rollout**).
-- When a feature has both a local and a server-backed form, ship the local form signed out and use
-  the server form to add cross-device sync (for example, per-channel "seen" state).
-
-## Don't
-
-- Do not require sign-in to browse, subscribe to, download, or play content.
-- Do not assume a repository read has an account behind it.
-- Do not copy web's account-only assumptions into mobile screens.
-
-## Applies retroactively
-
-Plans and steps that are **not yet complete** must be revised to follow this rule. When picking up
-any outstanding mobile plan, check its auth assumptions against the table above before implementing.
-
-## Open per-feature question
-
-The rule says "premium". Whether a given gated feature needs **an account** or **a paid
-membership** is a product decision per feature — ask the operator rather than assuming.
+- **Do** design queue/auto-queue/download **repositories** to call native cache projection writes on
+  every mutation (stubs OK until Track 12 storage). SQLite is phone-UI-only — car/watch cannot read
+  Drizzle when JS is dead. See
+  [DOCS-MOBILE-DATA-LAYER-OFFLINE.md §7.1](/docs/proposals/mobile/initial-decisions/DOCS-MOBILE-DATA-LAYER-OFFLINE.md).
+- **Do** keep car native code in `apps/mobile/ios/`, `android/`, `modules/` — parallel worktree OK
+  (see **mobile-worktree-scope**).
+- **Don't** assume the RN app must be foreground for car playback.
+- **Don't** assume CarPlay / Android Auto / watch complications read SQLite.
+- **Don't** duplicate queue policy in native — policy stays in `@podverse/playback-core`; native
+  executes transport and displays cached state.
 
 ## Related
 
-- **mobile-data-layer** — local-first storage and sync
-- **entitlement-gating-rollout** — how gated features are presented
+- [DOCS-MOBILE-CARPLAY-ANDROID-AUTO.md](/docs/proposals/mobile/initial-decisions/DOCS-MOBILE-CARPLAY-ANDROID-AUTO.md)
+- **mobile-playback** skill — bridge + engine; cache write from queue hooks
+- Master plan **Track 12** — CarPlay / Android Auto implementation
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
