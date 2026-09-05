@@ -1,83 +1,38 @@
-## mobile-ios-simulator
+## mobile-list-virtualization
 
-> Manual vs E2E named iOS/Android device targets — never interactive picker
+> For files under `apps/mobile/src/**/*.tsx`:
 
+# Mobile list virtualization baseline
 
-# Mobile default simulator / emulator targets
+For files under `apps/mobile/src/**/*.tsx`:
 
-When giving `npm run mobile:ios`, `npm run mobile:android`, or `expo run:*` copy-paste commands,
-**always pass a named device**. Do **not** use bare `--device` (interactive menu) unless the operator
-explicitly asks to pick.
+## Baseline
 
-`scripts/mobile/run-expo-macos.sh` defaults to **manual** devices when `--device` is omitted,
-and **always** passes `--no-bundler` (Metro stays in **Mobile Metro** via `npm run mobile:dev` /
-`mobile:dev:e2e`). `npm run mobile:e2e:ios` / `mobile:e2e:android` / `mobile:e2e:test` always
-target **E2E** devices (never manual).
+- User-data-driven / potentially unbounded lists (for example subscriptions, playlist resources,
+  episode lists, search results, queue rows) must render with `FlatList` or `SectionList`.
+- Do not render those lists with `ScrollView` + `.map()`.
 
-## Device matrix (same app id `com.podverse.app.next`)
+## Scroll ownership
 
-| Role | iOS | Android |
-| ---- | --- | ------- |
-| Manual (dev) | `"iPhone 17 Pro"` | `Pixel_6_Pro_API_33` |
-| Manual (USB phone) | — | `npm run mobile:android:device` + Metro `npm run mobile:dev:device` (LAN API host; skips `emulator-*`) |
-| Automated (E2E) | `"iPhone 17 Pro E2E"` | `Pixel_6_Pro_API_33_e2e` |
+- The virtualized list owns scroll.
+- Put headings, filters, and header cards into `ListHeaderComponent`/`ListFooterComponent`.
+- Do not nest `FlatList`/`SectionList` inside `ScrollView` (including `MobileScreenContainer`).
 
-```bash
-# Manual day-to-day — Mobile iOS / Mobile Android
-npm run mobile:ios -- --device "iPhone 17 Pro"
-npm run mobile:android -- --device Pixel_6_Pro_API_33
-# Physical USB phone (not the emulator default):
-npm run mobile:dev:device
-npm run mobile:android:device
+## Grid rules
 
-# E2E — each leave-running / install step in its named tab
-# (see HOW-TO-RUN.md + vscode-terminals-commands):
-# Mobile Metro: npm run mobile:dev   (API-backed: mobile:dev:e2e)
-# Mobile E2E API (API-backed only): npm run mobile:e2e:api
-# Mobile iOS / Mobile Android (exit when done):
-npm run mobile:e2e:ios
-npm run mobile:e2e:android
-# Mobile Maestro (exit when done):
-npm run mobile:e2e:test
-open .artifacts/mobile-e2e-reports/latest/ios-phone/index.html
-open .artifacts/mobile-e2e-reports/latest/android-phone/index.html
-```
+- Use `useResponsive().columns` for `numColumns` when the screen is grid-capable.
+- Guard `columnWrapperStyle` for `numColumns > 1`.
+- Change list `key` when column count changes (for example `key={`cols-${columns}`}`) so RN can remount safely.
 
-## Do
+## Exceptions
 
-- Use **manual** names for agent/operator `mobile:ios` / `mobile:android` examples.
-- Use **E2E** names only via `mobile:e2e:*` / Maestro / CI stub boot.
-- If devices are missing, run `bash scripts/mobile/ensure-devices.sh e2e` (creates E2E twins from
-  manual) or list/create manual devices first:
+- Small/fixed lists (chips, short settings groups, bounded control panels) may stay simple `.map()`.
+- Functional-sketch reorder paths may remain non-virtualized unless requested otherwise.
 
-```bash
-xcrun simctl list devices available
-"$HOME/Library/Android/sdk/emulator/emulator" -list-avds
-```
+## Reference
 
-- Prefer Android phone AVDs as **API 33 + Google APIs + arm64-v8a**. `ensure-devices.sh` tunes
-  ram/CPU/host GPU on ensure/boot (`tune-android` to re-apply without booting). See
-  [APPS-MOBILE.md](/apps/mobile/APPS-MOBILE.md).
-
-- Boot manual iOS before ad-hoc `simctl launch`:
-
-```bash
-xcrun simctl boot "iPhone 17 Pro"
-open -a Simulator
-```
-
-## Do not
-
-- Do **not** give bare `npm run mobile:ios -- --device` or `mobile:android -- --device` as the
-  default (forces a picker).
-- Do **not** point Maestro E2E at manual devices (`clearState` would wipe manual sessions).
-- Do **not** use **`iPhone 15`**, **`iPhone 15 Pro`**, **`iPhone 15 Plus`**, or **iOS 15** runtime
-  names — not available on contributor machines with Xcode 26.
-- Do **not** suggest tablet AVDs (e.g. `Galaxy_Tab_*`) for day-to-day Android runs.
-- Do **not** recommend x86_64 Android system images on Apple Silicon.
-- Do not assume a simulator/emulator is already booted (`No devices are booted`).
-
-Contributor detail: [APPS-MOBILE.md § Dev client workflow](/apps/mobile/APPS-MOBILE.md).
+- See `apps/mobile/src/screens/home/HomeScreen.tsx` for the canonical pattern.
+- Proposal detail: `docs/proposals/mobile/_master-plan_/phase-2/details/597-list-virtualization-polish.md`.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
