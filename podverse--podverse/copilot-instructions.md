@@ -1,35 +1,24 @@
-## shared-ui-i18n
+## startup-validation-env-order
 
-> Shared UI (@podverse/ui) — no embedded user-facing copy; apps localize via next-intl
+> Align startup validation.ts push order with apps/*/.env.example when practical.
 
 
-# Shared UI and i18n
+# Startup validation order vs env files
+
+Use the **startup-validation-env-order** skill
+(`.cursor/skills/startup-validation-env-order/SKILL.md`) for full detail.
 
 ## Do
 
-- Keep `packages/ui` **framework-agnostic**: do not import `next-intl` or read app message
-  catalogs inside `@podverse/ui`.
-- Pass **all** user-visible strings, `aria-label`, `title`, empty states, and loading text
-  from the app via props (or `children` / `ReactNode` already produced by the app).
-- For multi-string controls, prefer a small typed `labels` object or named string props
-  (see `CursorPagination`, `CopyToClipboardButton`).
-- When adding new copy-bearing props, add keys to the correct
-  `packages/i18n-catalog/{shared,consumer,management}/originals/en-US.json` layer and keep other
-  locales in sync via `npm run i18n:all` (see **`i18n-management`** rule).
+- Add new `results.push(...)` entries in the same **section order** as `apps/<app>/.env.example`.
+- Place vars from the **last** env section (e.g. Extensions) at the **end** of
+  `validateAllEnvironmentVariables`, with a comment referencing that section.
+- Update validation when you add or move keys in `.env.example`.
 
-## Do not
+## Don't
 
-- Do not hardcode English — or any single locale — in shared components as **defaults** for
-  text that end users or assistive tech will see. (Internal `throw new Error(...)` for
-  developer misuse is fine.)
-- Do not add “temporary” English defaults in `@podverse/ui` to save app wiring; wire the app
-  instead.
-
-## Review checklist
-
-- Any new string literal in `packages/ui` shown in the UI or read by AT → move to app props.
-- Formatting with ICU variables (`{name}`) stays in app `t(...)` calls, not inside `@podverse/ui`.
-- **Layout primitives** (Callout, CTA shell, Accordion, etc.) follow the same rule: no baked-in copy; apps pass localized strings.
+- Insert extension or late-section env validations into an unrelated block (e.g. API
+  Configuration) just because the validation `category` label differs from the env header.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
