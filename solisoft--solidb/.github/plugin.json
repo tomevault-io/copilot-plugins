@@ -1,0 +1,9 @@
+{
+  "name": "solisoft--solidb",
+  "displayName": "solidb",
+  "description": "SoliDB: Multi-Documents Database with live query and blob supports",
+  "version": "1.0.0",
+  "author": "solisoft",
+  "homepage": "https://github.com/solisoft/solidb",
+  "skills": []
+}
