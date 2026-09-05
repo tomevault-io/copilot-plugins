@@ -1,0 +1,9 @@
+{
+  "name": "kannandreams--tuff",
+  "displayName": "tuff",
+  "description": "Equip your agent. Define, diff, and deploy your own skills, tools, and hooks - portable across any coding agent harness.",
+  "version": "1.0.0",
+  "author": "kannandreams",
+  "homepage": "https://github.com/kannandreams/tuff",
+  "skills": []
+}
