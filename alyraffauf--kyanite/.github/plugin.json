@@ -1,0 +1,9 @@
+{
+  "name": "alyraffauf--kyanite",
+  "displayName": "kyanite",
+  "description": "Immutable Fedora desktop as a Docker image.",
+  "version": "1.0.0",
+  "author": "alyraffauf",
+  "homepage": "https://github.com/alyraffauf/kyanite",
+  "skills": []
+}
