@@ -1,0 +1,9 @@
+{
+  "name": "packstub--filament-flow",
+  "displayName": "filament-flow",
+  "description": "Visual workflow automation for Filament panels: triggers, conditions and actions drawn on a canvas, run by your queue.",
+  "version": "1.0.0",
+  "author": "packstub",
+  "homepage": "https://github.com/packstub/filament-flow",
+  "skills": []
+}
