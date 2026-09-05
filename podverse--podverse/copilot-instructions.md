@@ -1,25 +1,28 @@
-## navbar-sticky-chrome
+## nix-terminal-wrapper
 
-> Keep top NavBar visible during scroll on pages with app chrome.
+> Run node/npm and other flake tools via the Nix wrapper so the agent sandbox has the correct environment
 
 
-# NavBar sticky chrome
+# Nix Terminal Wrapper (Agent Sandbox)
 
-## Requirement
+This repo uses a Nix flake for Node/npm and other tools. There is no global Node on the system path in environments where the agent runs.
 
-Pages with app chrome must keep `@podverse/ui` **NavBar** visible while the user scrolls. No page with a navbar is an exception (including `/embed` demo index).
+For any terminal command that needs `node`, `npm`, `npx`, or other tools provided by the flake (e.g. make, kubectl), run it via the project wrapper from repo root:
 
-## Implementation (do not regress)
+```bash
+./scripts/nix/with-env <command> [args...]
+```
 
-- **NavBar** (`NavBar.module.scss`): `position: sticky; top: 0; z-index: 100` on both management and web appearances.
-- **Single scroll owner (web):** `#mainOuterWrapper` (`MainPageScaffold`) is the only vertical scroll container for chrome pages. `#page-wrapper` and `WindowWrapper` use `overflow: hidden` with a viewport height so the document does not scroll.
-- **Flex chain:** `PageWrapperMain` (in `AppChrome`) wraps route content with `flex: 1; min-height: 0` so nested layouts (e.g. `/embed` `embed-root`) do not break height constraints before `#mainOuterWrapper`.
-- **Embed iframe routes** (`/embed/*` except `/embed` and `/embed/builder`): remain chromeless via `isEmbedPathname` — no navbar there by design.
+Examples:
 
-## When changing layout
+- `./scripts/nix/with-env npm run build:packages`
+- `./scripts/nix/with-env npm run lint`
+- `./scripts/nix/with-env npm run dev:api`
+- `./scripts/nix/with-env npx some-package`
 
-- Do not move scroll from `#mainOuterWrapper` without updating `apps/web/src/utils/scroll.ts` and scroll-restore callers.
-- Do not re-enable `overflow-y: auto` on `#page-wrapper` — that recreates double scrollbars with `#mainOuterWrapper`.
+Run from the repository root. The wrapper resolves the flake path so it also works when the shell's cwd is a subdirectory.
+
+In automated or agent runs (e.g. Cursor's agent), the sandbox may block Nix's cache under `~/.cache/nix`. When invoking this wrapper from the agent, request full permissions (e.g. `all`) so Nix can write to its cache and the command can succeed.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
