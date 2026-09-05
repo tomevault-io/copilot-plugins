@@ -1,38 +1,63 @@
-## copy-pasta-recommend-model
+## cross-surface-change-impact
 
-> Every COPY-PASTA prompt must recommend a Cursor model and reasoning level
+> Work focused on one surface must assess whether web, API, or management need matching changes
 
 
-# COPY-PASTA — Recommended Cursor model & reasoning
+# Cross-surface change impact
 
-When creating or editing a `COPY-PASTA.md` (or `*-COPY-PASTA.md`) file, **every prompt** must tell
-the operator which Cursor model **and reasoning level** to use before pasting.
+A task scoped to one surface is not automatically a change to one surface. Mobile work routinely
+requires matching work in `apps/web`, `apps/api`, `packages/orm`, or the shared i18n catalogs — and
+the reverse is equally true.
 
-## Required
+**Before planning or implementing, ask what else has to change.** Do not discover it during review.
 
-- Include **`Cursor model:`** and **`Reasoning:`** on **each** prompt (or a phase-level table with
-  Model + Reasoning columns).
-- Prefer models: **Auto** (cheapest), **Codex 5.3** (medium), **Opus 5** (premium).
-- When a newer, higher comparable model is available, prefer it over the older model tier for
-  new recommendations, even when the cost is modestly higher. Do not switch to an unrelated
-  specialized model solely because it is newer.
-- Prefer reasoning: **low**, **medium**, **high**, **extra high** (Cursor thinking depth for that
-  model — independent of model choice; e.g. Codex 5.3 + high, Opus 5 + medium).
-- Match tier to risk: mechanical/docs → Auto + low; standard features → Codex 5.3 + medium; schema /
-  workers / cross-package → Codex 5.3 + high; native/engine/assembly → Opus 5 + high (or extra
-  high when concurrency or safety-critical).
+## Triggers — assume other surfaces are affected
 
-Numbered plan files (`01-*.md`, …) in the same plan set should repeat the same **Cursor model** and
-**Reasoning** lines at the top so operators see them when opening the plan directly.
+| Trigger                                   | Who else is affected                                                     |
+| ----------------------------------------- | ------------------------------------------------------------------------ |
+| New or changed **API endpoint**           | Every client of that endpoint, plus OpenAPI                              |
+| New or changed **ORM entity or column**   | API serialization, DTOs in `@podverse/helpers`, every consumer           |
+| Change to a **shared package**            | All dependents — check the dependency graph, not just your app           |
+| **Cross-device state** of any kind        | Every device is a client; if one device can change it, all must read it  |
+| New **vocabulary** in a shared DTO or API | Renaming a shipped field is a breaking change across all surfaces        |
+| Any change to a **persisted DTO**         | Mobile stored it on disk — see `dto-changes-are-device-data-migrations` |
+| New user-facing **string**                | Catalog layer choice: `shared` / `consumer` vs mobile-only `mobile`      |
+| New **entitlement or gate**               | The gate must agree on every surface, or users see contradictory access  |
+| **Feature parity** decisions              | Diverging is fine; diverging *accidentally* is not                       |
 
-## When none of the preferred models fit
+## Cross-device state is the sharpest one
 
-Name the alternative model explicitly and add one sentence explaining why (rare).
+If state syncs to an account, every surface that can **change** it must write it, and every surface
+that **displays** it must read it. Planning that state on one surface only produces stale or wrong
+data on the others. Say explicitly, per surface, whether it reads, writes, both, or neither.
 
-## Reference
+## Check what already exists before proposing it
 
-Full workflow: **parallel-plan-execution** skill § Step 5. Mobile master plan phases:
-**mobile-master-plan-phasing** skill.
+Before planning a mechanism, search for it. Nextgen frequently already has the pattern — an
+account-level last-seen timestamp, a retention column, a purge worker, a shared error parser.
+Reusing the existing pattern is right; proposing to "add" something that ships today is a plan
+defect.
+
+## Deliberate divergence is allowed, silent divergence is not
+
+Mobile may intentionally differ from web (for example, local subscriptions that work signed out
+while web's are account-backed). When that happens, **record it as an intentional divergence** in the
+plan, including what web does instead and why the two do not need to match.
+
+## When unsure, ask
+
+If you cannot tell whether web needs a matching change, **ask the operator** rather than assuming
+mobile-only scope. Name the specific surface and the specific behavior you are unsure about. This
+is a mandatory question trigger, not a judgment call to make quietly.
+
+## Related
+
+- [`dto-changes-are-device-data-migrations`](/.cursor/rules/dto-changes-are-device-data-migrations.mdc)
+  — why a DTO rename outlives the build that made it
+- **mobile-legacy-screenshot-planning** — mandatory question triggers during Phase 2 planning
+- **architecture-tier-dependencies** — which packages may depend on which
+- **swagger-openapi** / **openapi-sync** — API surface changes
+- **i18n** — catalog layer selection for new keys
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
