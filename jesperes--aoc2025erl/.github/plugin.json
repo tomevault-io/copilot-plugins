@@ -1,0 +1,9 @@
+{
+  "name": "jesperes--aoc2025erl",
+  "displayName": "aoc2025erl",
+  "description": "Erlang solutions for AdventOfCode 2025",
+  "version": "1.0.0",
+  "author": "jesperes",
+  "homepage": "https://github.com/jesperes/aoc2025erl",
+  "skills": []
+}
