@@ -1,0 +1,9 @@
+{
+  "name": "jimmyslagle--anti-ai-slop-scriptwriting",
+  "displayName": "anti-ai-slop-scriptwriting",
+  "description": "Write ad scripts that sound spoken, not written. A drop-in Claude Code skill + craft docs that beat default AI slop \u2014 reference-driven adaptation, a human-voice AI-tells audit, and the read-aloud test",
+  "version": "1.0.0",
+  "author": "jimmyslagle",
+  "homepage": "https://github.com/jimmyslagle/anti-ai-slop-scriptwriting",
+  "skills": []
+}
