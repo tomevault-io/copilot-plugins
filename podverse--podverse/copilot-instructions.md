@@ -1,31 +1,128 @@
-## management-web-tables
+## markdown-formatting
 
-> Management-web list pages should compose shared @podverse/ui table wrappers
+> Markdown formatting rules matching Prettier config
 
 
-# Management web tables (`@podverse/ui`)
+# Markdown Formatting
 
-When adding or refactoring **list / directory / storage** pages under **`apps/management-web`**:
+When creating or editing markdown (`.md`) files, follow these formatting rules to match the project's Prettier configuration:
 
-## Prefer shared composites
+## Line Width
 
-1. Prefer **`ResourceTableWithFilter`** (CRUD rows with view/edit/delete), **`TableWithFilter`** (generic rows), **`FilterTablePageLayout`** (title/error/chrome), and related exports from **`@podverse/ui`** over reimplementing **`Table`** + **`TextInput`** + **`Pagination`** wiring by hand.
-2. Keep **routing, data fetching, permissions, and `next-intl` strings** in the app; pass localized labels and policies into the shared components.
+- Maximum line width: **100 characters**
+- Break long lines naturally at sentence boundaries or logical breaks
+- Exception: Code blocks, URLs, and tables can exceed 100 characters
 
-## Guidance
+## Tables
 
-- **`crud-tables-resources`** — CRUD list/detail conventions and row action order (`getRowActions`, delete confirm).
-- **`reusable-components`**, **`shared-ui-i18n`** — no hardcoded English in **`@podverse/ui`**; apps pass strings.
-- **`tables-support-sorting`**, **`table-sort-defaults`**, **`sort-prefs-cookie-by-path`** — sort UX, defaults by column type, and cookie/list-state behavior for shared tables.
+**CRITICAL**: Format tables with aligned columns using padding spaces:
 
-## References
+```markdown
+<!-- CORRECT: Columns aligned with padding -->
+| Label        | Color   | Description                    |
+| ------------ | ------- | ------------------------------ |
+| dependencies | #0366d6 | Dependency updates             |
+| docker       | #384d54 | Docker image and container ... |
 
-- [`packages/ui/PACKAGES-UI.md`](/packages/ui/PACKAGES-UI.md) — **Table family** section.
-- Locked contracts for table APIs live in management-api route modules and `@podverse/ui` table helpers (tables convergence plan set completed).
-- [`.cursor/skills/crud-tables-resources/SKILL.md`](/.cursor/skills/crud-tables-resources/SKILL.md)
-- [`.cursor/skills/tables-support-sorting/SKILL.md`](/.cursor/skills/tables-support-sorting/SKILL.md)
-- [`.cursor/skills/table-sort-defaults/SKILL.md`](/.cursor/skills/table-sort-defaults/SKILL.md)
-- [`.cursor/skills/sort-prefs-cookie-by-path/SKILL.md`](/.cursor/skills/sort-prefs-cookie-by-path/SKILL.md)
+<!-- INCORRECT: Left-aligned without padding -->
+| Label | Color | Description |
+| --- | --- | --- |
+| dependencies | #0366d6 | Dependency updates |
+```
+
+**Rules**:
+- Pad cells with spaces so separators (`|`) align vertically
+- Header separator line (`---`) should match the width of the longest cell in that column
+- Add spaces inside cells for readability: `| content |` not `|content|`
+
+## Lists
+
+- Add blank line before and after lists
+- Use `-` for unordered lists (not `*` or `+`)
+- Indent nested lists with 2 spaces
+- Use `1.` for all ordered list items (Prettier auto-numbers)
+
+```markdown
+<!-- CORRECT -->
+This is a paragraph.
+
+- First item
+- Second item
+  - Nested item
+  - Another nested
+
+Next paragraph.
+
+<!-- INCORRECT: No blank lines -->
+This is a paragraph.
+- First item
+- Second item
+Next paragraph.
+```
+
+## Headings
+
+- Add blank line before and after headings
+- Use ATX style (`#`) not Setext style (underlines)
+- Space after `#`: `# Heading` not `#Heading`
+
+## Code Blocks
+
+- Use triple backticks with language identifier
+- Add blank line before and after code blocks
+- Language identifiers: `bash`, `typescript`, `json`, `yaml`, `markdown`
+
+```markdown
+<!-- CORRECT -->
+Here's an example:
+
+\`\`\`bash
+npm run build
+\`\`\`
+
+The command builds...
+
+<!-- INCORRECT: No blank lines -->
+Here's an example:
+\`\`\`bash
+npm run build
+\`\`\`
+The command builds...
+```
+
+## Links and References
+
+- Use `[text](url)` format
+- **Cross-tree** (different top-level dirs): repo-root path with leading `/`, e.g.
+  `[skill](/.cursor/skills/foo/SKILL.md)`, `[QUICKSTART](/docs/QUICKSTART.md)`
+- **Same subtree** (e.g. both under `docs/`): sibling-relative is fine, e.g.
+  `[overrides](development/LOCAL-ENV-OVERRIDES.md)` from `docs/QUICKSTART.md`
+- **Do not** use deep `../../../` chains or machine paths (`/Users/...`)
+- See **documentation-conventions** skill for full link policy
+
+## Emphasis
+
+- **Bold**: Use `**text**` (not `__text__`)
+- *Italic*: Use `*text*` (not `_text_`)
+- `Code`: Use single backticks for inline code
+
+## Formatting Checklist
+
+Before finalizing any markdown file, mentally verify:
+
+1. ✅ Lines under 100 characters (except code/URLs/tables)
+2. ✅ Tables have aligned columns with padding
+3. ✅ Blank lines around lists, headings, code blocks
+4. ✅ Consistent bullet style (`-`)
+5. ✅ Code blocks have language identifiers
+
+## Why This Matters
+
+These rules ensure:
+- Markdown passes `prettier --check` without changes
+- Consistent formatting across all documentation
+- Better readability in both source and rendered views
+- Clean git diffs (no formatting-only changes)
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
