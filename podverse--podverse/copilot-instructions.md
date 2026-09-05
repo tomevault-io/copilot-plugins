@@ -1,30 +1,29 @@
-## avoid-reexport-wrappers
+## avoid-type-assertions
 
-> Do not add app-local files that only re-export workspace package symbols; import from the canonical package instead.
+> Avoid type assertions (as) when a better approach exists; prefer types, narrowing, type guards.
 
 
-# Avoid re-export wrapper files
+# Avoid Type Assertions
 
-Keep the monorepo lean: **do not** add a file whose only job is to re-export something already exported from a workspace package.
+It is **critical** to avoid `as` (type assertions) when there is a better way. Assertions bypass the type checker and can hide bugs.
 
-## Do not
+## Prefer
 
-```typescript
-// apps/api/src/lib/foo.ts — unnecessary
-export { createThing, type CreateThingResult } from '@podverse/orm';
-```
+- **Better types**: Add or extend DTOs/interfaces so values are correctly typed at the source.
+- **Optional chaining**: Use `obj?.prop` when the type allows optional/unknown shape.
+- **Type guards**: Use `function isFoo(x): x is Foo` to narrow with a single, documented assertion inside the guard.
+- **Narrowing**: Use `in`, `typeof`, and discriminated unions so TypeScript narrows for you.
 
-Import at call sites from the canonical package (`@podverse/orm`, `@podverse/helpers`, etc.) instead.
+## Allowed exceptions
 
-## When a local file is OK
+- **Import aliases**: `import { foo as bar } from '...'` (not a type assertion).
+- **Const assertions**: `as const` for literal types (e.g. tuple, readonly object).
+- **Rare escape hatches**: When there is genuinely no better option, use one assertion and add a short comment explaining why.
 
-- **Real logic or app-specific adaptation** — serialization, auth context, env wiring, HTTP mapping.
-- **Configured UI wrappers** — same `@podverse/ui` + i18n wiring at 2+ callsites in one app (**`app-local-ui-wrappers`**, **`reusable-components`**). Bare `export { X } from '…'` is not a wrapper.
-- **Framework-required barrels** — e.g. `packages/*/src/index.ts` public API surface.
+## Examples
 
-## Review habit
-
-Before adding `apps/<app>/src/lib/<name>.ts`, ask: does this file add behavior, or only shorten an import path? If only re-export, skip the file and import directly.
+- BAD: `(data as { title?: string }).title` in call sites — type the DTO or use a type guard.
+- GOOD: Type the payload (e.g. `AddByRSSResourceData`) and use `data?.title` or a guard that narrows once.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
