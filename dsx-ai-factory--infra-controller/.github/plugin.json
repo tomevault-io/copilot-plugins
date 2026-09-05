@@ -1,0 +1,9 @@
+{
+  "name": "dsx-ai-factory--infra-controller",
+  "displayName": "infra-controller",
+  "description": "NVIDIA Infra Controller - Hardware Lifecycle Management and multitenant networking",
+  "version": "1.0.0",
+  "author": "dsx-ai-factory",
+  "homepage": "https://github.com/dsx-ai-factory/infra-controller",
+  "skills": []
+}
