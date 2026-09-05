@@ -4,7 +4,7 @@
   "repo": "abuuba",
   "description": "A fast fediverse server in Elixir and Phoenix that speaks Mastodon's protocols. Always at least 12x faster than Mastodon. Drop-in replacement for it.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wintermeyer/abuuba",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T02:31:04Z"
+  "distributed_at": "2026-09-05T02:33:07Z"
 }
