@@ -1,63 +1,25 @@
-## cross-surface-change-impact
+## css-custom-properties-no-var-fallbacks
 
-> Work focused on one surface must assess whether web, API, or management need matching changes
+> Do not use CSS var() fallback arguments in SCSS/CSS; rely on canonical theme tokens
 
 
-# Cross-surface change impact
+# CSS custom properties — no `var()` fallbacks
 
-A task scoped to one surface is not automatically a change to one surface. Mobile work routinely
-requires matching work in `apps/web`, `apps/api`, `packages/orm`, or the shared i18n catalogs — and
-the reverse is equally true.
+## Do not
 
-**Before planning or implementing, ask what else has to change.** Do not discover it during review.
+- Use the **second argument** to `var()` as a silent fallback: `var(--token, #hex)`, `var(--token, inherit)`, etc.
+- Use **nested fallbacks** such as `var(--a, var(--b))` to paper over a missing `--a` — the outer form still hides when `--a` is absent.
 
-## Triggers — assume other surfaces are affected
+Fallbacks mask missing or mistyped custom properties and make theme bugs hard to see in review.
 
-| Trigger                                   | Who else is affected                                                     |
-| ----------------------------------------- | ------------------------------------------------------------------------ |
-| New or changed **API endpoint**           | Every client of that endpoint, plus OpenAPI                              |
-| New or changed **ORM entity or column**   | API serialization, DTOs in `@podverse/helpers`, every consumer           |
-| Change to a **shared package**            | All dependents — check the dependency graph, not just your app           |
-| **Cross-device state** of any kind        | Every device is a client; if one device can change it, all must read it  |
-| New **vocabulary** in a shared DTO or API | Renaming a shipped field is a breaking change across all surfaces        |
-| Any change to a **persisted DTO**         | Mobile stored it on disk — see `dto-changes-are-device-data-migrations` |
-| New user-facing **string**                | Catalog layer choice: `shared` / `consumer` vs mobile-only `mobile`      |
-| New **entitlement or gate**               | The gate must agree on every surface, or users see contradictory access  |
-| **Feature parity** decisions              | Diverging is fine; diverging *accidentally* is not                       |
+## Do
 
-## Cross-device state is the sharpest one
+- Reference tokens that are defined in **`packages/ui/src/styles/`** — especially `_variables-root.scss` (`:root` scale) and `_themes.scss` (theme palettes on `[data-ui-theme]`).
+- If a value is missing, **add or extend a named token** in those files (and mirror SCSS variables in `_variables.scss` when the package uses Sass mirrors), then use `var(--your-token)` with **one** argument.
 
-If state syncs to an account, every surface that can **change** it must write it, and every surface
-that **displays** it must read it. Planning that state on one surface only produces stale or wrong
-data on the others. Say explicitly, per surface, whether it reads, writes, both, or neither.
+## Inline styles (React `style`, Storybook decorators)
 
-## Check what already exists before proposing it
-
-Before planning a mechanism, search for it. Nextgen frequently already has the pattern — an
-account-level last-seen timestamp, a retention column, a purge worker, a shared error parser.
-Reusing the existing pattern is right; proposing to "add" something that ships today is a plan
-defect.
-
-## Deliberate divergence is allowed, silent divergence is not
-
-Mobile may intentionally differ from web (for example, local subscriptions that work signed out
-while web's are account-backed). When that happens, **record it as an intentional divergence** in the
-plan, including what web does instead and why the two do not need to match.
-
-## When unsure, ask
-
-If you cannot tell whether web needs a matching change, **ask the operator** rather than assuming
-mobile-only scope. Name the specific surface and the specific behavior you are unsure about. This
-is a mandatory question trigger, not a judgment call to make quietly.
-
-## Related
-
-- [`dto-changes-are-device-data-migrations`](/.cursor/rules/dto-changes-are-device-data-migrations.mdc)
-  — why a DTO rename outlives the build that made it
-- **mobile-legacy-screenshot-planning** — mandatory question triggers during Phase 2 planning
-- **architecture-tier-dependencies** — which packages may depend on which
-- **swagger-openapi** / **openapi-sync** — API surface changes
-- **i18n** — catalog layer selection for new keys
+Apply the same rule: no `var(--x, fallback)` in style object strings.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
