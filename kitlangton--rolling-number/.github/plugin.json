@@ -1,0 +1,9 @@
+{
+  "name": "kitlangton--rolling-number",
+  "displayName": "rolling-number",
+  "description": "Interruptible, locale-aware rolling numbers for the web. TypeScript core and React adapter.",
+  "version": "1.0.0",
+  "author": "kitlangton",
+  "homepage": "https://github.com/kitlangton/rolling-number",
+  "skills": []
+}
