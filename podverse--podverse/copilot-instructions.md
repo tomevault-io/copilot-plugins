@@ -1,45 +1,11 @@
-## end-with-targeted-make-report-verify
+## env-expiration-naming
 
-> End implementation responses with targeted screenshot-report verification commands for the operator (web make targets; mobile npm E2E).
+> Names ending in _EXPIRATION (env + exported constants) use seconds only; no _SECONDS suffix on the symbol.
 
 
-# End With Targeted Report Verify
+# Expiration naming
 
-For implementation responses in this repo:
-
-0. **Do not run tests during agent or plan work.** Never run test, lint, or verification commands as part of implementation. Only instruct the operator in a fenced `bash` block at the end of the response.
-1. **Give the user** one or more runnable verification commands they can copy and run; place them in a fenced `bash` code block at the end of your response.
-2. **UI changes (apps/web, apps/management-web, packages/ui):** Instruct the operator to run the narrowest targeted screenshot report and open the hub at `.artifacts/e2e-reports/latest/index.html` (slot cards open each report in a new tab). See **ui-e2e-screenshot-report** skill.
-3. **Mobile changes (apps/mobile):** Same habit as web — end with the **most focused** Maestro report command(s) and slot report paths. See **mobile-e2e-screenshots**. Example:
-
-```bash
-npm run mobile:e2e:test -- <area>
-open .artifacts/mobile-e2e-reports/latest/failures.json
-open .artifacts/mobile-e2e-reports/latest/ios-phone/index.html
-open .artifacts/mobile-e2e-reports/latest/android-phone/index.html
-```
-
-   (Omit `-- <area>` only when the default `hello-world` smoke is the right scope. Label the verify
-   block as **Mobile Maestro**. Remind that **Mobile Metro** + **Mobile iOS** / **Mobile Android**
-   (and **Mobile E2E API** for API-backed) must already be up — see
-   [HOW-TO-RUN.md](/apps/mobile/e2e/HOW-TO-RUN.md) and **vscode-terminals-commands**. Do **not**
-   paste leave-running `mobile:dev` / `mobile:dev:e2e` / `mobile:e2e:api` into this block.)
-4. **MANDATORY when the change affects E2E:** If you modified UI (web, management-web, or mobile), E2E specs/flows, or any code that E2E covers, you **MUST** end the response with a fenced `bash` block containing the **EXACT** focused command(s) for the affected surface(s).
-5. Prefer screenshot-report targets scoped to the changed feature area.
-6. Use full-suite report mode only when change scope is broad or cross-cutting.
-
-Preferred commands:
-
-- Web: `make e2e_test_web_report_spec SPEC=e2e/<spec>.spec.ts`
-- Management-web: `make e2e_test_management_web_report_spec SPEC=e2e/<spec>.spec.ts`
-- Both web apps: `make e2e_test_report_scoped WEB_SPEC=e2e/<web>.spec.ts MGMT_SPEC=e2e/<mgmt>.spec.ts`
-- Mobile: `npm run mobile:e2e:test -- <area>` (narrowest `apps/mobile/e2e/<area>.yaml`)
-- Full web regression: `make e2e_test_report`
-- API only: `npm run test:e2e:api`
-
-**Final COPY-PASTA prompt:** When completing the last step in a plan set (`COPY-PASTA.md` / `00-EXECUTION-ORDER.md`), assume the operator ran all prompts without running tests until the end. List **all** cumulative verification commands for the whole set (dedupe; order: build/lint → unit → API → E2E web/mobile). Use **one** fenced `bash` block for one-shot commands only; for mobile leave-running Metro/API, name **Mobile Metro** / **Mobile E2E API** in prose (HOW-TO-RUN + **vscode-terminals-commands**) — do not force a single-shell paste of blockers. See **response-ending-make-verify**, **mobile-e2e-screenshots**, and **plan-completion** skills.
-
-Extended reference: **response-ending-make-verify**, **ui-e2e-screenshot-report**, **mobile-e2e-screenshots**, and **plan-completion** skills.
+Follow [`env-expiration-naming`](.cursor/skills/env-expiration-naming/SKILL.md): env keys and exported constants that denote expiration durations end with `_EXPIRATION`; values are seconds — do not append `_SECONDS` to those names.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
