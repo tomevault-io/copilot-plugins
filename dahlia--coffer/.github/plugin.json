@@ -1,0 +1,9 @@
+{
+  "name": "dahlia--coffer",
+  "displayName": "coffer",
+  "description": "Native Linux client for passwords and other credentials stored in Apple Passwords (formerly iCloud Keychain)",
+  "version": "1.0.0",
+  "author": "dahlia",
+  "homepage": "https://github.com/dahlia/coffer",
+  "skills": []
+}
