@@ -1,0 +1,9 @@
+{
+  "name": "service-federation--fed",
+  "displayName": "fed",
+  "description": "Run native apps and Docker dependencies as one local dev stack, with isolated runtime state for each Git worktree.",
+  "version": "1.0.0",
+  "author": "service-federation",
+  "homepage": "https://github.com/service-federation/fed",
+  "skills": []
+}
