@@ -1,50 +1,31 @@
-## test-timeout-budget
+## type-imports-separate-line
 
-> Test timeouts default to 10s; raise only as a documented one-off when necessary.
+> Type imports must use a separate import line; do not mix type and value in one statement.
 
 
-# Test Timeout Budget
+# Type Imports on Separate Line
 
-Default test timeouts must stay at **10 seconds or less**. Longer waits waste operator time and hide real failures.
+Type-only imports must use a **separate** `import type { ... }` statement. Do not declare types inline with value imports.
 
-## Playwright E2E
+## Do
 
-- **Config default:** `apps/web/playwright.config.ts` and `apps/management-web/playwright.config.ts` use `timeout: 10_000`.
-- **Do not** add `test.setTimeout(...)` above 10s in specs unless a specific test genuinely needs it.
-- **Do not** set per-assertion `timeout:` (e.g. `toBeVisible({ timeout: 15_000 })`) above the test budget.
-- When a one-off exception is required, add a short inline comment explaining why (e.g. cold-start seed, known slow CI step).
-
-## Unit / integration (Vitest)
-
-- Prefer fast, deterministic tests. Do not add long `vi.waitFor` / polling loops to paper over flakiness.
-- Fix root causes (missing polyfills, unstable assets, remount churn) instead of raising timeouts.
-
-## When tests fail at 10s
-
-1. **Diagnose** whether the failure is slowness or instability (detached DOM, remount loops, bad fixtures).
-2. **Fix the cause** (polyfill, narrower E2E scope, stable seed asset, unit-test the interaction).
-3. **Raise timeout only** when the step is legitimately slow and stable — document it as a one-off in that test.
-
-## Examples
+- Use a dedicated line for type imports from the same module as value imports:
 
 ```typescript
-// BAD — blanket override hides problems
-test.beforeEach(async () => {
-  test.setTimeout(45_000);
-});
-
-// BAD — assertion timeout exceeds test budget
-await expect(portal).toBeVisible({ timeout: 15_000 });
-
-// GOOD — rely on config default (10s)
-await expect(portal).toBeVisible();
-
-// OK — rare one-off with justification
-test('cold-start integration smoke', async () => {
-  test.setTimeout(20_000); // first-run webpack compile on CI only
-  // ...
-});
+import { DataSource } from 'typeorm';
+import type { DataSourceOptions } from 'typeorm';
 ```
+
+- Use `import type { X } from '...'` when the symbol is only used in type positions.
+
+## Don't
+
+- Do not mix type and value in one import: `import { DataSource, type DataSourceOptions } from 'typeorm'`.
+- Do not use inline `type` in a value import statement.
+
+## Enforcement
+
+ESLint `@typescript-eslint/consistent-type-imports` with `fixStyle: 'separate-type-imports'` enforces this. Import order (groups and styles last) is also enforced by ESLint and fixed by the same `npm run lint:fix` command.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
