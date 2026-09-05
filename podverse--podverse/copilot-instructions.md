@@ -1,41 +1,16 @@
-## legacy-app-reference
+## linear-baseline-0004
 
-> When and how to use the sibling podverse-rn legacy app as inspiration
+> Generated DB bootstrap 0004/0005 and linear ops migrations — do not hand-edit generated bootstrap SQL
 
 
-# Legacy app reference (`podverse-rn`)
+# Linear baseline `0004`/`0005`
 
-## Vocabulary
-
-- **legacy app** / **podverse-rn** / **v4 mobile** = sibling checkout at `../podverse-rn`
-  (absolute typical path: `/Users/mitcheldowney/repos/pv/podverse-rn`).
-- **Nextgen** = this monorepo (`podverse`), including `apps/mobile`.
-
-## When to look
-
-**Only** open, search, or cite `podverse-rn` when the operator **explicitly** asks for legacy /
-podverse-rn / “look at the legacy app” (or equivalent). Do not browse it for ordinary nextgen
-tasks.
-
-**Mobile master plan Phase 2 carve-out:** when the operator pastes **legacy app screenshots** to
-drive Phase 2 planning, that counts as an explicit request — reading
-`../podverse-rn/src/screens/<Name>Screen.tsx` to answer a behavior question about those screenshots
-is expected. Follow
-[mobile-legacy-screenshot-planning](/.cursor/skills/mobile-legacy-screenshot-planning/SKILL.md).
-**Never store the screenshots** in the repo (not `docs/`, `.llm/`, or `.artifacts/`) — convert them
-to written notes and plan text.
-
-## How to look
-
-- Prefer the **local sibling** checkout over GitHub remote when the directory exists.
-- Treat legacy as **inspiration and guidance**, not a port checklist or source of truth.
-- Do **not** assume legacy APIs, navigation, storage, or UX are correct for nextgen.
-- Prefer modern Expo / nextgen patterns; call out improvements when reusing ideas or assets.
-- Do not edit or publish from `podverse-rn` unless the operator explicitly asks.
-
-## Related
-
-- Vocabulary: [abcmemory-vocabulary](/.cursor/rules/abcmemory-vocabulary.mdc)
+- **Do not edit** `infra/k8s/base/db/source/bootstrap/0004_app_linear_baseline.sql.gz` or `0005_management_linear_baseline.sql.gz` by hand. They are produced by `scripts/database/generate-linear-baseline.sh` (or `make db_regen_linear_baseline`) from `infra/k8s/base/ops/source/database/linear-migrations` migrations, after bootstrap `0001` and `0002` shell steps, using synthetic credentials in `scripts/database/db.generate-baseline.env`. **`0003_apply_linear_baselines.sh`** is maintained by hand and loads those archives as the app vs management DB owner at init.
+- After changing a SQL file under `infra/k8s/base/ops/source/database/linear-migrations/`, run `make db_regen_linear_baseline`, commit the updated `0004_` and `0005_` files, and have a maintainer run **`/test` on the PR** so GitHub Actions runs `verify-linear-baseline.sh`. There is no automatic commit of generated bootstrap SQL to `develop`.
+- Individual `NNNN_*.sql` migration files remain the **source of truth**; `0004`/`0005` are generated snapshots for init and CI drift checks and include deterministic `linear_migration_history` seeds aligned with `run-linear-migrations.sh`.
+- **Pre-release squash:** Use `scripts/database/squash-linear-migrations.sh --write` to regenerate consolidated `0001_*_schema.sql` from the old multi-file chain (do not concatenate evolutionary migrations by hand). See docs/operations/database/LINEAR-MIGRATIONS.md.
+- **Do not hand-edit consolidated `0001_*_schema.sql` during normal feature work.** When adding schema changes after squash, create the next additive `NNNN_*.sql` migration file (for example `0003_...sql`) and leave `0001` untouched unless you are explicitly running the squash workflow above.
+- **Authoring:** Write migrations as **greenfield-only** ordered chains (assume prior files applied); avoid `IF EXISTS` / `IF NOT EXISTS` / seed `ON CONFLICT` / `WHERE NOT EXISTS` guards unless a predecessor in the same chain truly leaves ambiguity. See `.cursor/skills/linear-sql-greenfield-only/SKILL.md`.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
