@@ -1,48 +1,86 @@
-## mobile-surface-async-errors
+## mobile-sync-orchestration
 
-> Mobile screens must surface async errors (no swallowed catch / finally-only) so failures are visible and E2E-diagnosable
+> Mobile starts from cache with nothing network-bound blocking first paint; background sync runs one job at a time behind a visible indicator
 
 
-# Surface async errors in mobile UI
+# Mobile — fast startup and orchestrated sync
 
-In React Native screens (`apps/mobile/src/**`), every async submit/handler (login, signup, refresh,
-save, playback actions) must **surface** failures in the UI. A swallowed error looks identical to
-"nothing happened" — the screen stalls with no message — and is very hard to diagnose, especially in
-Maestro E2E where it shows up only as an assertion timeout.
+Startup speed is a product requirement, not a performance nicety. The app must reach an interactive
+screen as fast as is feasible, and **everything else catches up afterwards, visibly**.
 
-## Do
+## Nothing network-bound blocks first paint
 
-- Wrap the awaited call in `try/catch/finally`. Set a visible, user-facing error in `catch`; reset
-  loading state in `finally`.
-- Render the error in a `Text` node with a stable `testID` (e.g. `login-error`) so E2E can assert the
-  failure directly instead of timing out on the success locator.
+The first screen renders from local storage. A network call may **never** sit between app launch and
+an interactive UI — not to resolve auth, not to refresh the account, not to hydrate a list.
 
-```tsx
-setIsLoading(true);
-setError(null);
-try {
-  const result = await doThing();
-  // ...handle known result branches...
-} catch {
-  setError('Could not complete. Please try again.');
-} finally {
-  setIsLoading(false);
-}
-```
+- Render the cached account, the cached subscriptions, and the cached queue immediately.
+- Anything that needs the network is enqueued as a sync job and runs after the app is usable.
+- A slow or absent network changes only how *stale* the first screen is, never how *fast* it appears.
 
-## Don't
+## Background sync is serial, foreground actions are not
 
-- Don't use `try { ... } finally { ... }` with **no `catch`** around an `await` — a thrown
-  network/parse error is swallowed and the UI silently stays put.
-- Don't `catch` and ignore (empty block) without setting user-visible state.
-- Don't rely on the happy-path result object alone; thrown errors (network, cleartext, non-401 HTTP)
-  never reach result-branch handling.
+There are two lanes, and confusing them is the main way this design fails.
 
-## Why
+| Lane            | What                                                                 | Concurrency        |
+| --------------- | -------------------------------------------------------------------- | ------------------ |
+| **Sync queue**  | Background reconciliation: account refresh, subscriptions, items, RSS re-parse, projections | **One at a time**  |
+| **Interactive** | Anything a user is waiting on: tapping Subscribe, opening a screen, playback, search | Immediate, unqueued |
 
-Silent failures caused multi-round E2E debugging on auth flows: Submit was tapped, the request threw,
-and with no `catch` the screen stayed on the login form with no error — indistinguishable from a
-missed tap. See **mobile-e2e-screenshots** (Maestro authoring gotchas).
+Serialize the sync queue so background work cannot saturate the network or the JS thread and make
+the app feel slow. Do **not** put interactive work in the queue — a user who taps Subscribe must not
+wait behind a full library sync. When in doubt: if a human is watching a spinner they triggered, it
+is interactive.
+
+Auth token refresh (`refreshAccessTokenSingleFlight`) stays orthogonal to the queue. It is a
+prerequisite of individual requests in both lanes, not a sync job.
+
+## Subscribed content is read from the device
+
+Every screen that browses, filters, or sorts **subscribed** content reads local storage and nothing
+else, so it behaves the same with no connection. Channels come from `subscriptionsRepository`,
+their episodes from `channelItemsRepository`, and add-by-RSS feeds from `addByRssRepository`.
+
+- A screen that reads subscribed content from the network is a bug, even when the network is up.
+- Network search and directory browse are separate, online-only surfaces and do not read this store.
+- The one-time fallback for a screen with nothing stored yet is acceptable; a fallback that runs
+  whenever the network happens to be available is not, because it hides the offline path breaking.
+- Refreshing a screen the user just opened runs directly rather than through the queue. Queued work
+  is for passes nobody asked for.
+
+## Every queued job is visible
+
+While the queue is non-empty, a sync indicator bar reports **what** is syncing and **how many steps
+remain**, and it disappears when the queue drains. Sync the user cannot see is sync the user
+experiences as an unexplained slowdown.
+
+- The bar sits directly above the mini player, and directly above the tab bar when the mini player
+  is hidden.
+- A new kind of sync work ships with its queue registration and its label in the same change. Adding
+  a background fetch that bypasses the queue leaves a gap in the indicator.
+- User-invoked work that has its own local spinner (pull-to-refresh, OPML import) also reports to the
+  bar. The local control keeps its own feedback; the bar remains the one place that answers "what is
+  the app doing".
+
+## Failures are quiet on screen and durable in the log
+
+A failed job does not turn the bar red. The queue skips it, finishes the run, and the bar
+disappears; the next trigger retries. An offline user is doing nothing wrong and must not be
+scolded.
+
+Failures are instead appended to a **capped sync event log** (500 entries) that the user can reach
+from More, so a support conversation has something concrete in it.
+
+**Recorded messages must embed the machine-readable error code.** The displayed message is
+localized, so the code is the only part a user can usefully quote to support. A log entry with a
+translated sentence and no code is not diagnosable.
+
+## Related
+
+- [702-offline-content-sync](/docs/proposals/mobile/_master-plan_/phase-2/details/702-offline-content-sync.md)
+- [717-fast-startup-and-sync-queue](/docs/proposals/mobile/_master-plan_/phase-2/details/717-fast-startup-and-sync-queue.md)
+- [718-sync-progress-indicator](/docs/proposals/mobile/_master-plan_/phase-2/details/718-sync-progress-indicator.md)
+- [719-sync-event-log](/docs/proposals/mobile/_master-plan_/phase-2/details/719-sync-event-log.md)
+- Skill: **mobile-data-layer** — offline-first storage and native cache projection
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
