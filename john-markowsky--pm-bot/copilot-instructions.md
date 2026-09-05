@@ -1,247 +1,205 @@
-## production-vm-workflow
+## sprint-planning
 
-> Git-based dev→prod workflow and production VM management patterns
+> Atomic task decomposition for complex projects using Dillon Mulroy's methodology
 
 
-# Production VM Workflow
+# 🎯 Sprint Planning Framework
 
-## Core Principle
+**Break complex projects into atomic tasks. Every sprint = demoable software increment.**
 
-**⚠️ CRITICAL: NEVER edit production VM files directly via SSH for configuration changes.**
+## Core Rules
 
-Always use git workflow: edit locally → commit to dev → deploy via `deploy-prod.sh`.
+### Task Atomicity
+- **Single Responsibility**: One clear, focused objective
+- **Commitable Unit**: Complete implementation in one commit
+- **Testable**: Includes validation method (tests/Browser Agent/docs)
+- **Independent**: Can be implemented without blocking other tasks
 
-## Git-Based Workflow (REQUIRED)
+### Sprint Requirements
+- **Demoable Deliverable**: Runnable, testable software increment
+- **Buildable Foundation**: Next sprint can build on current work
+- **Measurable Goal**: Clear success criteria
+- **Realistic Scope**: 2-4 week delivery cycle
 
-### Standard Process
-
-1. **Edit locally** (dev branch)
-   ```bash
-   git checkout dev
-   # Edit files (docker-compose.v2.yml, .env, code, etc.)
-   ```
-
-2. **Test locally**
-   ```bash
-   docker compose -f v2/docker-compose.v2.yml up -d
-   # Test changes
-   ```
-
-3. **Commit to dev**
-   ```bash
-   git add .
-   git commit -m "feat: description of changes"
-   git push origin dev
-   ```
-
-4. **Deploy to prod**
-   ```bash
-   cd /home/jgm/Git/nexus
-   ./scripts/deploy-prod.sh
-   ```
-
-5. **Verify on prod**
-   - Check services: `sshpass -p 'K0smo45!!!' ssh administrator@192.168.0.102 "cd /opt/nexus/v2 && docker compose ps"`
-   - Test functionality on `prod.nexus-trade.top`
-
-### What Goes Through Git Workflow
-
-✅ **Configuration files**: `docker-compose.v2.yml`, `.env`, service configs  
-✅ **Code changes**: All application code  
-✅ **Service updates**: New services, version updates  
-✅ **Infrastructure changes**: Network configs, volumes, etc.  
-✅ **Documentation updates**: README, docs (committed WITH code)
-
-## When SSH is Acceptable (Limited)
-
-### Read-Only Operations ✅
-
-**Always allowed for debugging and monitoring:**
-
-```bash
-# Check logs (use Loki MCP when possible)
-docker logs <service>
-
-# Health checks
-docker compose ps
-docker stats
-
-# Status verification
-docker inspect <container>
-docker exec <container> env
-
-# Read-only file inspection
-cat /opt/nexus/v2/docker-compose.v2.yml
-ls -la /opt/nexus/v2/
+### Validation Standards
+```yaml
+# Every task must specify validation method:
+✅ Database: "psql schema validation"
+✅ Backend: "pytest unit/integration tests"
+✅ Frontend: "Browser Agent E2E (zero console errors)"
+✅ Integration: "Loki log analysis + MCP validation"
+✅ Documentation: "Updated existing docs (no new files)"
 ```
 
-### Emergency Hotfixes ⚠️
+## Integration with Existing Workflow
 
-**ONLY for critical production issues that cannot wait for git workflow**
-
-**Process**:
-1. SSH edit on prod VM (document reason)
-2. **IMMEDIATELY commit to prod branch**:
-   ```bash
-   sshpass -p 'K0smo45!!!' ssh administrator@192.168.0.102
-   cd /opt/nexus/v2
-   # Make emergency fix
-   git add .
-   git commit -m "EMERGENCY: [reason] - [what was fixed]
-
-   Example: EMERGENCY: Production down - removed broken env var causing crash"
-   git push origin prod
-   ```
-3. **Follow up**: Merge fix to dev branch within 24 hours
-4. **Document**: Add to incident log or GitHub issue
-
-### One-Time Data Fixes ⚠️
-
-- Database migrations (via db_service, not direct SQL)
-- Data corrections (must be scripted and committed)
-- Configuration hotfixes (commit immediately after)
-
-## Deployment Script
-
-**File**: `scripts/deploy-prod.sh`
-
-**What it does**:
-- Verifies you're on `dev` branch
-- Checks for clean working tree
-- Merges `dev` → `prod` branch
-- Syncs backups to VM
-- Deploys latest `prod` branch to VM
-- Runs health checks
-
-**Usage**:
-```bash
-cd /home/jgm/Git/nexus
-./scripts/deploy-prod.sh
+### PLAN Mode Enhancement
+```yaml
+# For complex projects (>5 tasks), use sprint breakdown:
+1. Analyze with MCP tools
+2. Create sprint breakdown (/sprint-breakdown command)
+3. Generate atomic task list
+4. Get user approval
+5. Execute via ACT mode
 ```
 
-**Prerequisites**:
-- Must be on `dev` branch
-- Working tree clean (no uncommitted changes)
-- SSH access to VM configured
+### ACT Mode Execution
+```yaml
+# Execute sprints sequentially:
+Sprint 1 → Demo → Sprint 2 → Demo → Sprint 3 → Final Demo
 
-## VM Structure
-
-### Production VM
-- **Host**: `192.168.0.102`
-- **User**: `administrator`
-- **App Directory**: `/opt/nexus/v2` (git repo on `prod` branch)
-- **SSH**: `sshpass -p 'K0smo45!!!' ssh administrator@192.168.0.102`
-- **Domain**: `prod.nexus-trade.top`
-
-### Development Host
-- **Host**: `192.168.0.103` (dev VM)
-- **App Directory**: `/opt/nexus/v2`
-- **Domain**: `dev.nexus-trade.top`
-
-## Rollback Procedures
-
-### Quick Rollback (On VM)
-
-```bash
-sshpass -p 'K0smo45!!!' ssh administrator@192.168.0.102
-cd /opt/nexus/v2
-git log --oneline -5  # Find previous good commit
-git checkout <commit-hash>
-docker compose -f docker-compose.v2.yml -f ../docker-compose.prod.yml up -d --build
+# Never parallel sprints without explicit approval
+# Each sprint must be 100% complete before next
 ```
 
-### Full Rollback (Git-Based)
-
-```bash
-# Local
-git checkout prod
-git reset --hard HEAD~1  # Or specific commit
-git push origin prod --force
-
-# Then redeploy
-./scripts/deploy-prod.sh
+### Multi-Agent Coordination
+```yaml
+# Route tasks to appropriate agents:
+Database_Agent: "v2/db_service/migrations/**" (exclusive)
+Backend_Service_Agent: "v2/*_service/**"
+Frontend_Agent: "v2/frontend/**"
+Documentation_Agent: "v2/docs/**" (update existing only)
+Observability_Agent: "v2/observability_stack/**"
 ```
 
-## Common Mistakes
+## Task Template
 
-### ❌ BAD: Direct SSH Edit
-
-```bash
-sshpass -p 'K0smo45!!!' ssh administrator@192.168.0.102
-vi /opt/nexus/v2/docker-compose.v2.yml  # ❌ DON'T DO THIS
-docker compose up -d  # ❌ Changes not in git
+### Required Format
+```yaml
+**Task Name**
+Scope: [Service/Agent assignment]
+Validation: [Specific validation method]
+Dependencies: [What must complete first]
+Estimated: [Realistic time estimate]
 ```
 
-**Problems**:
-- No version control
-- No audit trail
-- Can't rollback easily
-- Changes lost if VM rebuilt
+### Example Tasks
+```yaml
+**Database Schema Migration**
+Scope: [Database_Agent: v2/db_service/migrations/]
+Validation: psql schema check + test data insertion
+Dependencies: None
+Estimated: 2 hours
 
-### ✅ GOOD: Git Workflow
+**API Endpoint Implementation**
+Scope: [Backend_Service_Agent: v2/api_gateway/]
+Validation: pytest integration tests + API documentation
+Dependencies: Database migration complete
+Estimated: 4 hours
 
-```bash
-# Local edit
-vi v2/docker-compose.v2.yml
-git commit -am "feat: update Grafana config"
-./scripts/deploy-prod.sh
+**React Component Development**
+Scope: [Frontend_Agent: v2/frontend/src/components/]
+Validation: Browser Agent E2E (zero console errors)
+Dependencies: API endpoint available
+Estimated: 6 hours
 ```
 
-**Benefits**:
-- Version controlled
-- Audit trail
-- Easy rollback
-- Changes persist
+## Sprint Planning Process
 
-## Environment Identification
+### 1. Project Analysis
+```yaml
+# Use MCP tools to understand scope:
+mcp_repo-indexer_get_dependency_graph({ max_depth: 3 })
+mcp_docs-indexer_get_api_endpoints_catalog()
+mcp_config-indexer_search_configuration({ query: "service dependencies" })
+```
 
-### From User Context
+### 2. Sprint Decomposition
+```yaml
+# Break into 2-4 week increments:
+Sprint 1: Foundation (data layer, basic APIs)
+Sprint 2: Core Features (business logic, UI)
+Sprint 3: Integration (end-to-end workflows)
+Sprint 4: Polish (performance, error handling)
+```
 
-**Domain-based**:
-- `prod.nexus-trade.top` → **PROD** (192.168.0.102)
-- `dev.nexus-trade.top` → **DEV** (192.168.0.103)
+### 3. Task Granularity
+```yaml
+# Each task should be:
+- 2-8 hours of focused work
+- Clear acceptance criteria
+- Independent of other tasks
+- Demoable when complete
+```
 
-**Branch-based**:
-- `prod` branch → **PROD**
-- `dev` branch → **DEV**
+### 4. Risk Assessment
+```yaml
+# Identify and mitigate:
+- External dependencies (APIs, services)
+- Complex integrations (WebSocket, Kafka)
+- Performance requirements
+- Security considerations
+```
 
-**From Issue Reports**:
-- "Production is down" → Query prod logs
-- "Dev environment error" → Query dev logs
-- Check domain in error message/URL
+## Success Metrics
 
-### Log Querying Context
+### Task Completion
+- ✅ Code committed with passing validation
+- ✅ Tests green (pytest/Browser Agent)
+- ✅ No TODO comments in production code
+- ✅ Documentation updated (existing files only)
 
-**Query DEV logs when**:
-- Working on `dev` branch
-- Testing locally
-- User reports issue on `dev.nexus-trade.top`
-- Debugging development features
+### Sprint Completion
+- ✅ All tasks complete and committed
+- ✅ Demoable software increment
+- ✅ Can be built upon by next sprint
+- ✅ Zero critical bugs or console errors
 
-**Query PROD logs when**:
-- User reports production issue
-- Issue on `prod.nexus-trade.top`
-- Production monitoring/alerts
-- Post-deployment verification
+### Project Completion
+- ✅ All sprints delivered
+- ✅ End-to-end functionality working
+- ✅ Production deployment ready
+- ✅ Performance and security validated
 
-See [MCP Cheat Sheet](mdc:.cursor/rules/mcp-cheat-sheet.mdc) for Loki query patterns.
+## Common Pitfalls
 
-## Best Practices
+### ❌ Too Large Tasks
+```yaml
+WRONG: "Build complete user authentication system"
+RIGHT: "Implement JWT token validation" + "Create login API endpoint" + "Add password hashing"
+```
 
-1. **Always test locally first** before deploying
-2. **Use feature branches** for complex changes
-3. **Keep commits atomic and descriptive**
-4. **Monitor services after deployment**
-5. **Document emergency fixes immediately**
-6. **Regular cleanup of old branches**
-7. **Use Loki MCP for log queries** (not docker logs)
+### ❌ Missing Validation
+```yaml
+WRONG: "Add error handling"
+RIGHT: "Add error handling with comprehensive test coverage"
+```
 
-## References
+### ❌ Non-Demoable Sprints
+```yaml
+WRONG: "Design system architecture"
+RIGHT: "Implement core API with working endpoints"
+```
 
-- [Dev/Prod Workflow](mdc:DEV-PROD-WORKFLOW.md) - Complete workflow documentation
-- [Deployment Script](mdc:scripts/deploy-prod.sh) - Automated deployment
-- [MCP Cheat Sheet](mdc:.cursor/rules/mcp-cheat-sheet.mdc) - Log querying patterns
-- [Core Workflow](mdc:.cursor/rules/core-workflow.mdc) - General development patterns
+### ❌ Parallel Sprint Execution
+```yaml
+WRONG: Working on Sprint 1 and Sprint 2 simultaneously
+RIGHT: Complete Sprint 1 demo before starting Sprint 2
+```
+
+## Integration Points
+
+### Git Workflow
+- **One commit per atomic task** (when validation passes)
+- **Single commit per sprint completion** (when demo ready)
+- **Never commit partial work or failing tests**
+
+### Documentation Standards
+- **Update existing docs** (never create new .md files)
+- **Document during implementation** (not as separate tasks)
+- **Use existing issue tracking** (GitHub Issues > new docs)
+
+### Testing Requirements
+- **TDD for backend**: RED → GREEN → REFACTOR
+- **Browser Agent for frontend**: Iterative until zero console errors
+- **MCP validation**: Logs, database, configuration checks
+- **Integration testing**: End-to-end workflows
+
+---
+
+**Applied To**: Complex projects requiring sprint breakdown
+**Complements**: PLAN/ACT mode, multi-agent coordination, TDD workflow
+**Validation**: MCP servers + Browser Agent required for all frontend tasks
 
 ---
 > Source: [john-markowsky/PM-Bot](https://github.com/john-markowsky/PM-Bot) — distributed by [TomeVault](https://tomevault.io).
