@@ -4,7 +4,7 @@
   "repo": "points-applied-web",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nvarelas777/points-applied-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-05T00:50:05Z"
+  "distributed_at": "2026-09-05T00:56:02Z"
 }
