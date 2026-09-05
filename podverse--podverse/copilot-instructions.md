@@ -1,24 +1,50 @@
-## startup-validation-env-order
+## test-timeout-budget
 
-> Align startup validation.ts push order with apps/*/.env.example when practical.
+> Test timeouts default to 10s; raise only as a documented one-off when necessary.
 
 
-# Startup validation order vs env files
+# Test Timeout Budget
 
-Use the **startup-validation-env-order** skill
-(`.cursor/skills/startup-validation-env-order/SKILL.md`) for full detail.
+Default test timeouts must stay at **10 seconds or less**. Longer waits waste operator time and hide real failures.
 
-## Do
+## Playwright E2E
 
-- Add new `results.push(...)` entries in the same **section order** as `apps/<app>/.env.example`.
-- Place vars from the **last** env section (e.g. Extensions) at the **end** of
-  `validateAllEnvironmentVariables`, with a comment referencing that section.
-- Update validation when you add or move keys in `.env.example`.
+- **Config default:** `apps/web/playwright.config.ts` and `apps/management-web/playwright.config.ts` use `timeout: 10_000`.
+- **Do not** add `test.setTimeout(...)` above 10s in specs unless a specific test genuinely needs it.
+- **Do not** set per-assertion `timeout:` (e.g. `toBeVisible({ timeout: 15_000 })`) above the test budget.
+- When a one-off exception is required, add a short inline comment explaining why (e.g. cold-start seed, known slow CI step).
 
-## Don't
+## Unit / integration (Vitest)
 
-- Insert extension or late-section env validations into an unrelated block (e.g. API
-  Configuration) just because the validation `category` label differs from the env header.
+- Prefer fast, deterministic tests. Do not add long `vi.waitFor` / polling loops to paper over flakiness.
+- Fix root causes (missing polyfills, unstable assets, remount churn) instead of raising timeouts.
+
+## When tests fail at 10s
+
+1. **Diagnose** whether the failure is slowness or instability (detached DOM, remount loops, bad fixtures).
+2. **Fix the cause** (polyfill, narrower E2E scope, stable seed asset, unit-test the interaction).
+3. **Raise timeout only** when the step is legitimately slow and stable — document it as a one-off in that test.
+
+## Examples
+
+```typescript
+// BAD — blanket override hides problems
+test.beforeEach(async () => {
+  test.setTimeout(45_000);
+});
+
+// BAD — assertion timeout exceeds test budget
+await expect(portal).toBeVisible({ timeout: 15_000 });
+
+// GOOD — rely on config default (10s)
+await expect(portal).toBeVisible();
+
+// OK — rare one-off with justification
+test('cold-start integration smoke', async () => {
+  test.setTimeout(20_000); // first-run webpack compile on CI only
+  // ...
+});
+```
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
