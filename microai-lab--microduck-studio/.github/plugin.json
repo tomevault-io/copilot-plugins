@@ -1,0 +1,9 @@
+{
+  "name": "microai-lab--microduck-studio",
+  "displayName": "microduck-studio",
+  "description": "Local web studio for developing, debugging, visualizing, and safely orchestrating Microduck robot and reinforcement learning workflows.",
+  "version": "1.0.0",
+  "author": "microai-lab",
+  "homepage": "https://github.com/microai-lab/microduck-studio",
+  "skills": []
+}
