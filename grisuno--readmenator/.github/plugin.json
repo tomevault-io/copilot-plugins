@@ -1,0 +1,9 @@
+{
+  "name": "grisuno--readmenator",
+  "displayName": "ReadMenator",
+  "description": "ReadMenator Your token-free, offline codebase knowledge graph generator. Pure static analysis. No LLMs, no API costs, no session limits, No tokens. No Claude session burned. The ultimate Graphify alte",
+  "version": "1.0.0",
+  "author": "grisuno",
+  "homepage": "https://github.com/grisuno/ReadMenator",
+  "skills": []
+}
