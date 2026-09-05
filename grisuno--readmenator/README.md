@@ -7,13 +7,13 @@ ReadMenator Your token-free, offline codebase knowledge graph generator. Pure st
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [grisuno/ReadMenator](https://github.com/grisuno/ReadMenator).
+Original source: `CLAUDE.md` in [grisuno/ReadMenator](https://github.com/grisuno/ReadMenator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
