@@ -1,89 +1,116 @@
 ## effectstream
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Multi-chain Effectstream template: EVM (Hardhat/Arbitrum) + Midnight. Syncs ERC-721 events and Midnight contract state into a unified rollup. React frontend with Midnight wallet integration.
 
-# CLAUDE.md
+# CLAUDE.md — evm-midnight-v2
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## What this is
 
-## Project Overview
+Multi-chain Effectstream template: EVM (Hardhat/Arbitrum) + Midnight. Syncs ERC-721 events and Midnight contract state into a unified rollup. React frontend with Midnight wallet integration.
 
-Effectstream (formerly Paima Engine) is a multi-chain blockchain application framework. It's a Bun-based monorepo with 38 publishable packages. Full sync + batcher support: EVM, Midnight, Bitcoin, Cardano, Avail, Celestia, NEAR, Solana. Wallet-connect + signature-verify only (no L1 sync yet): Polkadot, Mina, Algorand.
-
-## Common Commands
+## Commands
 
 ```bash
-# Unit tests
-bun test ./packages
+bun install                          # Install deps
+bun run dev                          # Full stack: PGLite + Hardhat + Midnight + sync + batcher + frontend
+bun run start:mainnet                # Mainnet: Arbitrum One + Midnight mainnet (requires env vars)
+bun run test                         # E2E tests (packages/tests/run-tests.ts)
+bun run build:midnight               # Compile Compact contract (+0.31.0)
+bun run build:evm                    # Compile Solidity + generate TS bindings
+```
 
-# E2E tests (runs all chain suites serially)
-cd e2e && bun run runner.ts
-
-# Run a single test file
-bun test packages/path/to/file.test.ts
-
-# Publish packages (dry-run by default, add --publish for real)
-# Lives in .github/; also runs automatically on a GitHub Release via .github/workflows/release.yaml
-bun run .github/publish-bun.effectstream.ts
-bun run .github/publish-bun.effectstream.ts --publish --allow-uncommitted
-
-# Unpublish/deprecate bad versions (dry-run by default)
-bun run unpublish-bun.effectstream.ts
-
-# Local multi-chain dev environment (orchestrator CLI)
-# --background runs as a daemon and exposes an HTTP API.
-# status, logs, and restart require the daemon to be running (i.e. start with --background first).
-bun packages/build-tools/orchestrator/src/cli.ts start --background
-bun packages/build-tools/orchestrator/src/cli.ts status
-bun packages/build-tools/orchestrator/src/cli.ts logs [name]      # follow daemon logs; omit name to follow all
-bun packages/build-tools/orchestrator/src/cli.ts restart <name>   # restart a single process
-bun packages/build-tools/orchestrator/src/cli.ts stop             # stop everything (frees up ports)
-
-# IMPORTANT: always run `stop` before launching the orchestrator again or
-# starting tests, so ports from the previous run are cleaned up.
-
-# Select e2e suites (see e2e/runner.ts):
-bun run e2e/runner.ts celestia                       # run only celestia
-bun run e2e/runner.ts evm bitcoin                    # run a subset
-DISABLE_EVM=1 DISABLE_AVAIL=1 bun run e2e/runner.ts  # exclude by env var (older form, still works)
-
-# Docs (from docs/site/)
-bun install
-bun run start                # dev server with live reload (syncs READMEs + docusaurus start)
-bun run build                # production build
+Orchestrator commands (from project root):
+```bash
+NODE_ENV=development bunx orchestrator-v2 status --config start.dev.ts
+NODE_ENV=development bunx orchestrator-v2 restart frontend-build frontend-server --config start.dev.ts
+NODE_ENV=development bunx orchestrator-v2 logs sync --config start.dev.ts
 ```
 
 ## Architecture
 
-### Workspace Layout
+Bun monorepo with flat `packages/*` layout. All `@effectstream/*` deps are from npm (or `workspace:*` when inside the monorepo via `link.sh`).
 
-- **`packages/effectstream-sdk/`** — Core SDK split into 10 modules: config, events, crypto, wallets, log, precompile, concise (type-safe schemas), chain-types, coroutine, utils
-- **`packages/node-sdk/`** — Runtime engine: db (PostgreSQL/PgLite), db-emulator (in-memory for tests), events (MQTT broker / event server), runtime, sm (state machine DSL + builtin primitives), sync (per-chain fetchers + sync protocols), node (main entrypoint that re-exports everything)
-- **`packages/chains/`** — Per-chain smart contract interfaces: evm-contracts, evm-hardhat, bitcoin-contracts, cardano-contracts, midnight-contracts, avail-contracts
-- **`packages/binaries/`** — NPM-wrapped blockchain node binaries (midnight-node, bitcoin-core, near-sandbox, etc.)
-- **`packages/batcher/`** — Cross-chain transaction batching: core SDK, adapters, batch-data-builder, Fastify server
-- **`packages/build-tools/`** — orchestrator (multi-chain local env), explorer (deprecated). `tui/` is internal sources only, not a publishable package.
-- **`packages/frontend/`** — React frontend SDK
-- **`e2e/`** — Integration test suites per chain, run serially via `runner.ts`
-- **`templates/`** — 16 starter project templates (minimal, evm-midnight-v2, chess-v2, preorder, etc.). Five legacy templates (dice, rock-paper-scissors, world-map-2d, night-bitcoin, multi-chain-token-transfer) still use `@paimaexample/*` 0.3.x and have not been migrated to `@effectstream/*`.
-- **`docs/site/`** — Docusaurus 3 documentation site (built with Bun). Package READMEs are the source of truth and are auto-synced into `docs/site/docs/home/500-packages/**` by `docs/site/scripts/sync-package-readmes.ts`.
+| Package | Name | Purpose |
+|---------|------|---------|
+| `packages/node/` | `@evm-midnight/node` | Sync node, state machine, orchestrator configs |
+| `packages/database/` | `@evm-midnight/database` | SQL migrations, pgtyped queries |
+| `packages/contracts-evm/` | `@evm-midnight/contracts-evm` | Solidity contracts, Hardhat, Ignition deploy |
+| `packages/contracts-midnight/` | `@evm-midnight/contracts-midnight` | Midnight infra scripts, contract deploy |
+| `packages/contracts-midnight/contract-round-value/` | `@evm-midnight/midnight-contract` | Compact contract source (compiled output in `src/managed/` is gitignored — built by `start.dev.ts` / `build:midnight`) |
+| `packages/batcher/` | `@evm-midnight/batcher` | TX batcher (EVM + Midnight adapters) |
+| `packages/frontend/` | `@evm-midnight/frontend` | React + Vite + Midnight wallet + Fastify server |
+| `packages/tests/` | `@evm-midnight/tests` | E2E test suite |
 
-### Module System
+## Key patterns
 
-Packages use dual exports — `exports.bun` points to `.ts` source for development, `exports.import` for published JS. Internal dependencies use `workspace:*` protocol, which the publish script replaces with concrete versions before publishing and restores after.
+- **Orchestrator-v2**: `start.dev.ts` exports a config object (`satisfies OrchestratorConfig`). The CLI runs it — no programmatic `start()`.
+- **State machine**: `Stm` class in `state-machine.ts` routes ERC-721 Transfer events and Midnight contract calls.
+- **MQTT broker skipped under Bun**: `typeof Bun` guard in runtime. Frontend uses HTTP polling (`/block-heights`) instead of MQTT WebSocket when `VITE_IS_BUN=true`.
+- **Midnight WASM**: `@midnight-ntwrk/onchain-runtime` must be imported before other Midnight imports in `main.*.ts`.
+- **Multi-env configs**: `config.dev.ts` (Hardhat + local Midnight) and `config.mainnet.ts` (Arbitrum One + Midnight mainnet). Mainnet requires `EVM_RPC_URL`, `EVM_START_BLOCK`, `MIDNIGHT_START_BLOCK` env vars.
 
-### Key Patterns
+## Midnight SDK versions
 
-- All packages share a coordinated version (currently 0.100.x), bumped together during publish
-- Only `@effectstream/frontend-sdk` requires a build step before publishing
-- The orchestrator manages local blockchain nodes with a dependency graph (e.g., deploy-contracts depends on hardhat being ready)
-- E2E tests run serially because chain processes share ports
-- Chain support can be toggled via `DISABLE_*` env vars
+All Midnight dependencies must be pinned to exact versions from the compatibility matrix:
+https://github.com/midnightntwrk/midnight-sdk/blob/main/COMPATIBILITY.md
 
-### Docs Site
+Never use `^` or `~` ranges. Current stable set (midnight-node 1.0.0 era, as of 2026-07-29):
+- Compact compiler `+0.31.0`, compact-runtime `0.16.0`, compact-js `2.5.1` (do NOT bump compact-js to 2.5.3+ — it targets ledger-v9)
+- midnight-js-* `4.1.1`, ledger-v8 `8.1.0`, onchain-runtime-v3 `3.0.0`
+- Wallet SDK moved scope to `@midnightntwrk/*` (no hyphen): wallet-sdk-facade `4.1.0`, wallet-sdk-hd `3.0.3`, wallet-sdk-dust-wallet `4.2.0`, wallet-sdk-shielded `3.0.2`, wallet-sdk-unshielded-wallet `3.1.0`, wallet-sdk-address-format `3.1.2`, wallet-sdk-abstractions `2.1.0`
 
-Located in `docs/site/`, uses Docusaurus 3 with Bun. Has a swizzled `src/theme/Mermaid/` component wrapping the default with `BrowserOnly` to fix SSG crashes. Content lives in `docs/site/docs/home/` with numbered directory prefixes for ordering. English-only (no `i18n/` directory).
+The old `@midnight-ntwrk/ledger`, `ledger-v6`, `onchain-runtime-v1`, `zswap`, and `wallet`/`wallet-api` packages are deprecated/removed — zswap types are re-exported from `ledger-v8`.
+
+## Midnight wallet SDK (v3/v4 API)
+
+`WalletFacade.init()` (not `new WalletFacade()`):
+```ts
+const wallet = await WalletFacade.init({
+  configuration,
+  shielded: (cfg) => ShieldedWallet(cfg).startWithSecretKeys(keys),
+  unshielded: (cfg) => UnshieldedWallet(cfg).startWithPublicKey(pubKey),
+  dust: (cfg) => DustWallet(cfg).startWithSecretKey(dustKey, dustParams),
+});
+await wallet.start(shieldedKeys, dustKey);
+```
+
+`findDeployedContract` requires `compiledContract` (not `contract`):
+```ts
+const compiled = CompiledContract.make('contract-round-value', Counter.Contract).pipe(
+  CompiledContract.withWitnesses(witnesses as never),
+  CompiledContract.withCompiledFileAssets('./'),
+);
+await findDeployedContract(providers, { contractAddress, compiledContract: compiled, ... });
+```
+
+`levelPrivateStateProvider` requires `privateStoragePasswordProvider` (16+ chars) and `accountId`:
+```ts
+levelPrivateStateProvider({
+  privateStoragePasswordProvider: async () => "EffectstreamStorage1!",
+  accountId: walletAddress,
+})
+```
+
+## Ports
+
+| Service | Port |
+|---------|------|
+| Sync node API | 9999 |
+| Batcher | 3334 |
+| Frontend | 10599 |
+| PGLite | 5432 |
+| Hardhat EVM | 8545, 8546 |
+| Midnight node | 9944 |
+| Midnight indexer | 8088 |
+| Midnight proof server | 6300 |
+
+## Bun-specific workarounds
+
+- **MQTT broker**: Skipped via `typeof Bun` guard (Bun lacks `ws.createWebSocketStream`). Frontend polls `/block-heights` REST endpoint instead.
+- **`node-fetch` in Vite**: Aliased to `native-fetch-shim.mjs` (prevents `fs.promises` crash from `memfs` polyfill).
+- **`.bun/` cached packages**: Bun resolves nested imports through `.bun/`, not top-level symlinks. Patches to source packages won't take effect — patch the `.bun/` copy.
+- **`MIDNIGHT_STORAGE_PASSWORD`**: Must have 3 of 4 character classes (upper, lower, digit, special). Use `YourPasswordMy1!`.
 
 ---
 > Source: [effectstream/effectstream](https://github.com/effectstream/effectstream) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-05 -->
