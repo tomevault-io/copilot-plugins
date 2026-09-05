@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--lerobot-humanoid-model",
+  "displayName": "lerobot-humanoid-model",
+  "description": "lerobot-humanoid-model",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/lerobot-humanoid-model",
+  "skills": []
+}
