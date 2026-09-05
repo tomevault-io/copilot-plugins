@@ -1,0 +1,9 @@
+{
+  "name": "byteowlz--pi-agent-extensions",
+  "displayName": "pi-agent-extensions",
+  "description": "extensions for pi-agent",
+  "version": "1.0.0",
+  "author": "byteowlz",
+  "homepage": "https://github.com/byteowlz/pi-agent-extensions",
+  "skills": []
+}
