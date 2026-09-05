@@ -1,0 +1,9 @@
+{
+  "name": "byrudra--aileethub",
+  "displayName": "AILeetHub",
+  "description": "Push accepted LeetCode solutions to GitHub automatically, organized by topic, with AI-generated README explanations.",
+  "version": "1.0.0",
+  "author": "byRudra",
+  "homepage": "https://github.com/byRudra/AILeetHub",
+  "skills": []
+}
