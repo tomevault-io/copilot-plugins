@@ -1,31 +1,69 @@
-## type-imports-separate-line
+## typescript-express
 
-> Type imports must use a separate import line; do not mix type and value in one statement.
+> Express route handlers should return `Promise<void>` or `void`:
 
+# TypeScript Express Route Handlers
 
-# Type Imports on Separate Line
+## Route Handler Return Types
 
-Type-only imports must use a **separate** `import type { ... }` statement. Do not declare types inline with value imports.
-
-## Do
-
-- Use a dedicated line for type imports from the same module as value imports:
+Express route handlers should return `Promise<void>` or `void`:
 
 ```typescript
-import { DataSource } from 'typeorm';
-import type { DataSourceOptions } from 'typeorm';
+async handler(req: Request, res: Response): Promise<void> {
+  // ...
+}
 ```
 
-- Use `import type { X } from '...'` when the symbol is only used in type positions.
+## Response Method Patterns
 
-## Don't
+### DO NOT use return with res.json/send/status chain
 
-- Do not mix type and value in one import: `import { DataSource, type DataSourceOptions } from 'typeorm'`.
-- Do not use inline `type` in a value import statement.
+```typescript
+// ❌ WRONG - TypeScript error (returns Response, not void)
+return res.json(data);
+return res.status(404).json({ error: 'Not found' });
 
-## Enforcement
+// ✓ CORRECT - Call without return, then return void
+res.json(data);
 
-ESLint `@typescript-eslint/consistent-type-imports` with `fixStyle: 'separate-type-imports'` enforces this. Import order (groups and styles last) is also enforced by ESLint and fixed by the same `npm run lint:fix` command.
+// ✓ CORRECT - For early exit
+res.status(404).json({ error: 'Not found' });
+return;
+```
+
+## Catch Block Returns
+
+Always include explicit return in catch blocks:
+
+```typescript
+// ❌ WRONG - Missing return (TS7030: Not all code paths return)
+try {
+  res.json(result);
+} catch (error) {
+  handleError(res, error); // No return
+}
+
+// ✓ CORRECT
+try {
+  res.json(result);
+} catch (error) {
+  handleError(res, error);
+  return; // Explicit return required
+}
+```
+
+## Why This Matters
+
+- TypeScript's `noImplicitReturns` requires all code paths to return
+- `res.json()` returns `Response`, not `void`
+- Catch blocks need explicit returns even when response is sent
+
+## Applies To
+
+- `apps/api/src/controllers/**/*.ts`
+- `apps/api/src/routes/**/*.ts`
+- `apps/management-api/src/controllers/**/*.ts`
+- `apps/management-api/src/routes/**/*.ts`
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
