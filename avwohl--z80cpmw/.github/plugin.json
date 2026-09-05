@@ -1,0 +1,9 @@
+{
+  "name": "avwohl--z80cpmw",
+  "displayName": "z80cpmw",
+  "description": "A Z80/CP/M emulator for Windows. It emulates the RomWBW HBIOS interface in native Windows code, shows a VT100 terminal with scrollback, and boots CP/M or ZSDOS from disk images.",
+  "version": "1.0.0",
+  "author": "avwohl",
+  "homepage": "https://github.com/avwohl/z80cpmw",
+  "skills": []
+}
