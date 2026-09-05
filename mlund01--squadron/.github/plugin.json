@@ -1,0 +1,9 @@
+{
+  "name": "mlund01--squadron",
+  "displayName": "squadron",
+  "description": "Declarative multi-agent AI workflows in HCL. Single Go binary. Native MCP. Plugins in Go and Python.",
+  "version": "1.0.0",
+  "author": "mlund01",
+  "homepage": "https://github.com/mlund01/squadron",
+  "skills": []
+}
