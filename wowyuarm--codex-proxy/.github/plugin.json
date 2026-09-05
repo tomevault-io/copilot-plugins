@@ -1,0 +1,9 @@
+{
+  "name": "wowyuarm--codex-proxy",
+  "displayName": "codex-proxy",
+  "description": "Local proxy that exposes ChatGPT Codex models as an OpenAI-compatible API, using your ChatGPT Plus/Pro subscription quota.",
+  "version": "1.0.0",
+  "author": "wowyuarm",
+  "homepage": "https://github.com/wowyuarm/codex-proxy",
+  "skills": []
+}
