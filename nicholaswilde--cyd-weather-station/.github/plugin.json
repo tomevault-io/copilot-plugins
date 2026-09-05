@@ -1,0 +1,9 @@
+{
+  "name": "nicholaswilde--cyd-weather-station",
+  "displayName": "cyd-weather-station",
+  "description": "\u26c5 A beautiful Catppuccin-themed weather station and desk clock for the ESP32 Cheap Yellow Device (CYD) using LVGL v8 and Open-Meteo/OWM. \ud83d\udcdf",
+  "version": "1.0.0",
+  "author": "nicholaswilde",
+  "homepage": "https://github.com/nicholaswilde/cyd-weather-station",
+  "skills": []
+}
