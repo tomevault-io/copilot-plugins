@@ -1,0 +1,44 @@
+{
+  "name": "puter-pool",
+  "owner": "Parithosh-Varma",
+  "repo": "puter-pool",
+  "description": "This is Puter Account Pool Manager, a free AI API proxy that pools multiple Puter.com accounts to provide unlimited AI credits. It routes requests across accounts, automatically failovers when daily limits are hit, and exposes an OpenAI-compatible endpoint (/v1/chat/completions) supporting 400+ models (Claude, Gemini, GPT-4o, DeepSeek, etc.). Inc.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Parithosh-Varma/puter-pool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-05T00:47:00Z"
+}
