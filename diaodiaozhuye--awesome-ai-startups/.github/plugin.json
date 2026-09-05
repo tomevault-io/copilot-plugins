@@ -1,0 +1,9 @@
+{
+  "name": "diaodiaozhuye--awesome-ai-startups",
+  "displayName": "awesome-ai-startups",
+  "description": "An open-source, Git-native data repository tracking AI startups and companies worldwide. Features automated scrapers, structured JSON data, and a Next.js static website.",
+  "version": "1.0.0",
+  "author": "diaodiaozhuye",
+  "homepage": "https://github.com/diaodiaozhuye/awesome-ai-startups",
+  "skills": []
+}
