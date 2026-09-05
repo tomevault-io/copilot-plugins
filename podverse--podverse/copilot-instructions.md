@@ -1,42 +1,48 @@
-## mobile-settings-option-density
+## mobile-surface-async-errors
 
-> Mobile settings option density — chips for 2–3 choices; push list for 4+
+> Mobile screens must surface async errors (no swallowed catch / finally-only) so failures are visible and E2E-diagnosable
 
 
-# Mobile settings option density
+# Surface async errors in mobile UI
 
-When a **user-configurable setting** presents a fixed list of choices:
-
-| Option count | Control                                                                 |
-| ------------ | ----------------------------------------------------------------------- |
-| **2–3**      | Chip / pill buttons (`OptionChipGroup`) — all choices visible           |
-| **4+**       | Settings row → **push** an option-list screen (`OptionListScreen`) — iOS Settings style |
+In React Native screens (`apps/mobile/src/**`), every async submit/handler (login, signup, refresh,
+save, playback actions) must **surface** failures in the UI. A swallowed error looks identical to
+"nothing happened" — the screen stalls with no message — and is very hard to diagnose, especially in
+Maestro E2E where it shows up only as an assertion timeout.
 
 ## Do
 
-- Prefer shared components under `apps/mobile/src/components/form/` over per-screen pill grids.
-- Pass already-localized labels; keep i18n in the screen / caller.
-- Keep binary prefs (on/off) as `Switch`, not chips or list pages.
-- For 4+ options, navigate to a dedicated list screen (checkmark on current, Back returns). Do
-  **not** use a bottom-sheet modal with a sliding scrim for primary preference pickers.
-- On the settings root row (`SettingsOptionNavRow`), stack **label → description → current value +
-  chevron** vertically. Do **not** put the current value in a trailing/right column (it squeezes
-  the description).
+- Wrap the awaited call in `try/catch/finally`. Set a visible, user-facing error in `catch`; reset
+  loading state in `finally`.
+- Render the error in a `Text` node with a stable `testID` (e.g. `login-error`) so E2E can assert the
+  failure directly instead of timing out on the success locator.
+
+```tsx
+setIsLoading(true);
+setError(null);
+try {
+  const result = await doThing();
+  // ...handle known result branches...
+} catch {
+  setError('Could not complete. Please try again.');
+} finally {
+  setIsLoading(false);
+}
+```
 
 ## Don't
 
-- Do not use wrapping pill grids for Theme, Language, or other lists that already have 4+ values
-  (or will grow).
-- Do not import web `@podverse/ui` dropdowns on mobile.
-- Do not use iOS-only `ActionSheetIOS` as the cross-platform select.
-- Do not use `OptionSelectSheet` / settings bottom sheets for Theme, Language, or similar prefs
-  (sheets remain for contextual actions like media-row More / add-to-playlist).
-- Do not place the selected value as `ListRow` `trailing` next to a multi-line description.
+- Don't use `try { ... } finally { ... }` with **no `catch`** around an `await` — a thrown
+  network/parse error is swallowed and the UI silently stays put.
+- Don't `catch` and ignore (empty block) without setting user-visible state.
+- Don't rely on the happy-path result object alone; thrown errors (network, cleartext, non-401 HTTP)
+  never reach result-branch handling.
 
-## Related
+## Why
 
-- Skill: **mobile-reusable-components**
-- Rule: **mobile-react-native**
+Silent failures caused multi-round E2E debugging on auth flows: Submit was tapped, the request threw,
+and with no `catch` the screen stayed on the login form with no error — indistinguishable from a
+missed tap. See **mobile-e2e-screenshots** (Maestro authoring gotchas).
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
