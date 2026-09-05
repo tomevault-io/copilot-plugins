@@ -1,28 +1,14 @@
-## app-routes-shared-constants
+## architecture-tier-dependencies
 
-> Use APP_ROUTES and path builders from @podverse/helpers for app link paths; do not hardcode /episode, /podcast, etc.
+> Package tier dependency order — lower tiers cannot depend on higher
 
 
-# Shared app route constants
+# Architecture tier dependencies
 
-Canonical web/mobile deep-link path prefixes live in `@podverse/helpers` as **`APP_ROUTES`** and **`build*Path`** helpers (`packages/helpers/src/lib/appRoutes.ts`).
+Lower tiers cannot depend on higher tiers in the monorepo package graph.
 
-## Do
-
-- Import `APP_ROUTES`, `buildAppRoutePath`, or a specific builder (`buildEpisodePath`, `buildPodcastPath`, …) when constructing `link_path`, push links, share URLs, SEO `pathname`, or navigation hrefs.
-- Use `buildNotificationLinkPath` / `getNotificationLinkPathPrefix` for parser and push notification deep links.
-- In `apps/web`, spread `APP_ROUTES` into `ROUTES` (`apps/web/src/constants/routes.ts`) and add web-only list/settings paths there.
-
-## Do not
-
-- Hardcode strings like `` `/episode/${id}` ``, `` `/membership/renew` ``, or `` `/podcast/livestream/${id}` `` in packages, API, workers, parser, notifications, or mobile share code.
-- Duplicate route prefix tables in multiple modules.
-
-## Exceptions
-
-- **API HTTP paths** (`/channel/subscribed/recent`, `/account/notifications`, …) are REST routes, not web app link paths — they stay as API route strings.
-- **Add-by-RSS** paths under `/add-by-rss/...` are a separate surface; use `ROUTES.ADD_BY_RSS_*` in web until a shared helper exists.
-- **E2E tests** may use literals when asserting browser URLs, but prefer `APP_ROUTES` / builders when the test encodes a product link contract.
+Full tier table, directory layout, and app descriptions:
+[.llm/context/architecture.md](/.llm/context/architecture.md) (contributor reference).
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
