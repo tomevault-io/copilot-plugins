@@ -1,0 +1,9 @@
+{
+  "name": "bncc-dev--bncc-pacotes",
+  "displayName": "bncc-pacotes",
+  "description": "Pacotes bncc (npm/PyPI) e servidor MCP: o dataset bncc-dados consum\u00edvel em uma linha",
+  "version": "1.0.0",
+  "author": "bncc-dev",
+  "homepage": "https://github.com/bncc-dev/bncc-pacotes",
+  "skills": []
+}
