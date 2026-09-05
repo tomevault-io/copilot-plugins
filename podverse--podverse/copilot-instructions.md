@@ -1,35 +1,102 @@
-## add-by-rss-data-contracts
+## podverse
 
-> Keep Add-by-RSS parsed, persisted, and offline playback data contracts explicit across the server, parser mapping, and mobile SQLite
+> - Node.js 24, TypeScript strict, npm workspaces
 
+# Podverse Monorepo Rules
 
-# Add-by-RSS data contracts
+## Stack
 
-Add-by-RSS uses separate contracts by design. The server database stores followed-feed metadata; the
-parse status carries a server payload; parser-mapping converts it into `AddByRSSMappedFeed`; and
-mobile stores scalar list fields plus the mapped bundle for offline playback. Consistency means every
-conversion is explicit, not that the schemas are identical.
+- Node.js 24, TypeScript strict, npm workspaces
 
-When changing Add-by-RSS data, trace this complete path:
+## Architecture
 
-1. **Server:** `DTOAccountFollowingAddByRSSChannel`, the ORM entity, and
-   `AddByRSSParseCacheEntry` define followed metadata and parse-status payloads. Parsed feed items are
-   not stored in the server database.
-2. **Parsed bundle:** `AddByRSSMappedFeed` is the canonical mapped result persisted in
-   `add_by_rss_feed.mapped_feed_json`.
-3. **Mobile record:** `MobileAddByRSSFeedRecord`, `AddByRssFeedRow`, `schema.ts`, and
-   `migrations.ts` define scalar offline list fields and their SQLite representation.
-4. **Playback:** `getMappedFeedByUrl`, `safeJsonParse`, and `toAddByRssPlaybackResourceData`
-   reconstruct playback data from the bundle and per-account playback position.
+Lower tiers cannot depend on higher (see `.cursor/rules/architecture-tier-dependencies.mdc`; full table in `.llm/context/architecture.md`).
 
-Check identifiers, URLs, titles, images/enclosures, resource types, date units, nullability, and
-stale-row behavior at every boundary. Update row mapping and upsert paths together. Cover fresh
-parses, followed-list merges with an existing bundle, and missing or malformed offline payloads.
-Use a forward-only SQLite migration for scalar column changes. Do not store Add-by-RSS items in
-`channel_item`; that table is the bounded cache for directory-channel items.
+### Mobile (`apps/mobile`)
 
-Related: [`dto-changes-are-device-data-migrations`](/.cursor/rules/dto-changes-are-device-data-migrations.mdc)
-— persisted DTOs remain device data migrations even when the SQLite shape differs from the server.
+- **Tier 5 consumer** (React Native + Expo), alongside web — imports shared packages downward only; **not** on `build:packages` / `build:apps`.
+- **Standalone install** outside the root npm workspace (own `package-lock.json`); see **mobile-expo-monorepo** skill.
+- **iOS / Android device targets:** manual — `"iPhone 17 Pro"` / `Pixel_6_Pro_API_33`; E2E/Make —
+  `"iPhone 17 Pro E2E"` / `Pixel_6_Pro_API_33_e2e`. Never bare `--device` (picker). See
+  [mobile-ios-simulator](/.cursor/rules/mobile-ios-simulator.mdc).
+- **Startup and sync:** nothing network-bound blocks first paint; background sync runs one job at a
+  time behind a visible indicator, and failures are logged rather than shown — see
+  [mobile-sync-orchestration](/.cursor/rules/mobile-sync-orchestration.mdc).
+- App-specific rules: [apps/mobile/AGENTS.md](apps/mobile/AGENTS.md), contributor guide [apps/mobile/APPS-MOBILE.md](apps/mobile/APPS-MOBILE.md).
+- Master plan phasing: **mobile-master-plan-phasing** skill. The master plan is split into phases under [`docs/proposals/mobile/_master-plan_/`](docs/proposals/mobile/_master-plan_/PHASES.md) — **Phase 1 is closed** (agent-led framework build-out); **Phase 2 is active** and **operator-guided** from legacy-app screenshots, see **mobile-legacy-screenshot-planning**. Mobile E2E uses Maestro/Detox — not `make e2e_*`.
+- Commands from repo root: prefer composite scripts (`deps:init`, `deps:init:native`, `mobile:dev`, `mobile:ios` / `mobile:android`, `mobile:e2e:*`) over multi-step install/prebuild recipes — see **mobile-expo-monorepo**. Not `-w apps/mobile`.
+- **Expo CLI:** never bare `npx expo` from repo root (pulls wrong SDK). Use **Mobile** tab + `npm --prefix apps/mobile exec -- expo …` or `npm run mobile:install` (**vscode-terminals-commands**, **mobile-expo-monorepo**).
+
+## Code Quality
+
+- No `any` types
+- **Shared UI:** Prefer `@podverse/ui` for reusable primitives in web and management-web. When both apps overlap, implement once in `packages/ui` and **prefer the web app’s existing visual baseline** when merging styles unless a11y/product docs say otherwise (see `.cursor/rules/prefer-shared-ui-web-management.mdc`, **`reusable-components`**, and **`ui-component-promotion`** when extracting between apps).
+- **Shared logic:** The same habit applies past components. While building a mobile or web feature, look for reuse in **hooks** and **plain functions** too — search for an existing implementation before writing one, and when the logic already exists on the other surface, collapse the two instead of adding a third copy. See **`reuse-beyond-components`**.
+- DTOs from `@podverse/helpers`
+- Follow `tsconfig.base.json`
+- Use ESM formatting: **Tier A** uses `.js` specifiers on relative TS imports (NodeNext); **Tier B** (`apps/web/src`, `apps/management-web/src`) stays extensionless until Turbopack parity — [docs/development/tooling/DOCS-DEVELOPMENT-TOOLING-IMPORT-SPECIFIERS.md](docs/development/tooling/DOCS-DEVELOPMENT-TOOLING-IMPORT-SPECIFIERS.md). Prefer `"type": "module"` where applicable.
+- Prefer `import type` for type-only imports instead of value imports
+- **Strict equality**: Use `===` and `!==` only (no `==` or `!=`). For "not null or undefined" use `x !== null && x !== undefined` (or optional chaining / truthiness where appropriate).
+- **Avoid type assertions (`as`)**: Prefer proper types, optional chaining, type guards, or narrowing so the type system enforces correctness. Use `as` only when there is no better way (e.g. necessary escape hatch); keep such use minimal and documented.
+- **Named exports**: Prefer named `export` in TypeScript modules; avoid `export default` when a named export works. Framework-required defaults (e.g. Next.js `page.tsx`) are the exception. See `.cursor/skills/prefer-named-exports/SKILL.md`.
+- **CSS `var()`:** Do not use fallback arguments in SCSS/CSS (`var(--token, …)`); see `.cursor/rules/css-custom-properties-no-var-fallbacks.mdc`.
+- **Comments are future-forward**: Describe the code as it stands, never what it used to be, what was removed, or which plan/detail/step number asked for it — plans get archived and deleted, leaving a dead reference. Clean these up in files you touch; see `.cursor/rules/comments-future-forward.mdc`.
+
+## Commands / Terminal
+
+- **Commands from repo root**: When giving terminal or npm commands, always give them **relative to the monorepo root**. Use `npm run <script> -w apps/<app> -- [args]` instead of instructing users to `cd apps/workers` (or similar) first. **Root-only scripts** (`test:unit`, `build:packages`, `lint`, …) must not be scoped with `-w`; scoped unit tests use `npm run test -w <workspace>`. See `.cursor/rules/commands-from-monorepo-root.mdc`.
+- **Copy button**: Always put runnable commands in a **fenced code block** (e.g. `bash ... `) so the IDE shows a copy button. Do not give only inline commands when the user may want to run them.
+- **Local env consistency (all apps, including mobile):** Prefer env vars over hardcoded config where practical. For local development, use the shared pipeline (`make local_env_prepare`, `make local_env_link`, `make local_env_setup`) with committed `.env.example` files. When a value is shared across surfaces (for example local API endpoint config), define it once in home overrides and derive/apply it to each app env via `scripts/local-env/setup.sh` (`apply_override`) instead of duplicating the same value across multiple templates.
+
+## Formatting Rules
+
+### Quote Styles
+
+- **JavaScript/TypeScript/JSON/CSS**: Single quotes (`singleQuote: true`)
+- **YAML files**: Double quotes (override in `.prettierrc.json`)
+- Run `npm run lint:fix` or `npm run prettier:write` to auto-fix
+
+---
+
+## LLM WORKFLOW
+
+### Context Gathering
+
+For substantial requests, ask first:
+
+- "What's the goal?"
+- "GitHub issue?"
+
+### Issue Linking
+
+Ask once at start: "Related GitHub issue?"
+
+### Scope Management
+
+Warn if drifting: "This seems outside scope. Continue?"
+
+### Agent/plan work: operator-only git and publish
+
+- **Git operations = `git` + `gh`.** Do not run write/publish commands (`git push`, `gh pr create`, `gh pr merge`, releases, etc.) unless the user explicitly asks for a specific command in that message.
+- Implement locally; give the operator copy-pasteable `git` and `gh` commands in a fenced `bash` block. See **operator-only-git-operations** rule.
+
+### Agent/plan work: do not run tests
+
+- **Do not run** test or verification commands (e.g. `make e2e_test_web`, `npm run test`, `npm run lint`) during agent or plan implementation.
+- **Only instruct the user** to run those commands after your work is done; provide the exact command(s) in a fenced `bash` block. See **response-ending-make-verify** skill (**web** make screenshot reports; **mobile** `npm run mobile:e2e:test -- <area>` + slot HTML — **mobile-e2e-screenshots**).
+- **Final COPY-PASTA prompt:** When you complete the last step in a plan set, assume the operator ran all COPY-PASTA prompts back-to-back without running tests. End the response with **all** cumulative verification commands for the whole set (deduped; see **response-ending-make-verify** and **plan-completion** skills).
+
+### User vocabulary
+
+User vocabulary **abcmemory** / **abcremember**: see `.cursor/rules/abcmemory-vocabulary.mdc` and `.cursor/skills/abcmemory/SKILL.md`.
+
+---
+
+## PLAN MANAGEMENT
+
+**Plans must be under 300 lines.** Plans live in `.llm/plans/active/` (not `.cursor/plans/`).
+
+If over 300: STOP, split into sub-plans, save, then work sequentially.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
