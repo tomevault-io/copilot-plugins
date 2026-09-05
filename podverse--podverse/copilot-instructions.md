@@ -1,31 +1,16 @@
-## app-internal-import-aliases
+## app-local-ui-wrappers
 
-> App-internal TypeScript path aliases must match the full apps/<name>/ directory name
+> Extract app-local thin wrappers when identical @podverse/ui + i18n configuration repeats (2+ callsites in one app).
 
 
-# App internal import aliases
+# App-local configured UI wrappers
 
-Node apps under `apps/` use a **TypeScript path alias** for imports from their own `src/` tree. The alias prefix must match the **full app directory name** under `apps/` — not abbreviations.
+When the **same** configured usage of `@podverse/ui` (including **`next-intl`** strings for `aria-label`, titles, or messages) appears in **two or more** places **within** `apps/web` or **within** `apps/management-web`, extract a thin client component under that app’s `src/components/**` that wires translations and forwards props.
 
-## Do
+- Keep wrappers **app-local** until **both** apps need the same wiring; then consider `packages/ui` + separate app wrappers for copy (**`shared-ui-i18n`**).
+- Do **not** use bare `export { X } from '@podverse/ui'` as a substitute — wrappers must bind meaningful app conventions.
 
-| App directory | Alias prefix | Example |
-| --- | --- | --- |
-| `apps/api/` | `@api/*` | `import { config } from '@api/config/index.js'` |
-| `apps/management-api/` | `@management-api/*` | `import { config } from '@management-api/config/index.js'` |
-| `apps/workers/` | `@workers/*` | `import { config } from '@workers/config/index.js'` |
-
-Configure in each app's `tsconfig.json` `paths` and mirror the prefix root in `vitest.config.ts` for tests. Build uses `tsc-alias` to rewrite aliases to relative paths in `dist/`.
-
-## Don't
-
-- Do not abbreviate directory names (`@mgmt-api`, `@m-api`, etc.).
-- Do not use npm workspace names (`@podverse/management-api/*`) for in-app imports — those are for cross-package deps only.
-
-## Distinction
-
-- **`@podverse/*`** — published/workspace packages under `packages/`
-- **`@<app-dir-name>/*`** — internal imports within one deployable app
+See **`reusable-components`** skill for the full rubric and examples.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
