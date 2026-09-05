@@ -1,7 +1,7 @@
 {
   "name": "generaltranslation--gt",
   "displayName": "gt",
-  "description": "Automated i18n for developers",
+  "description": "gt",
   "version": "1.0.0",
   "author": "generaltranslation",
   "homepage": "https://github.com/generaltranslation/gt",
