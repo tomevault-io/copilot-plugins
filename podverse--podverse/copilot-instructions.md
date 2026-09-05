@@ -1,93 +1,85 @@
-## commands-from-monorepo-root
+## comments-future-forward
 
-> Give terminal/npm commands relative to monorepo root
+> Code comments describe the code as it is now, never what it used to be, what was removed, or which plan asked for it.
 
 
-# Commands From Monorepo Root
+# Comments are future-forward
 
-**Always give runnable commands relative to the root of the Podverse monorepo.** Do not instruct users to `cd` into `apps/workers`, `apps/api`, or other workspaces first.
-
-**Copy button:** Always put runnable commands inside a **fenced code block** (e.g. ` ```bash ` … ` ``` `) so the IDE shows a copy button next to them. Never give only inline commands when the user might want to run them.
-
-**Verification commands:** When your response includes steps the user should run (e.g. to verify a change, smoke-test, or apply something), always end the response with a fenced code block containing the exact, copy-pasteable command(s). Do not omit this block or describe commands only in prose.
-
-## Do
-
-- Put every runnable command in a fenced code block so a copy button appears.
-- When you change flake, env, or scripts and the user will want to run something to verify, end with a fenced code block containing the exact command(s) to run.
-- When giving verification or run instructions (smoke test, apply, confirm), always provide a final fenced code block with one command per line so the user can copy-paste.
-- Before suggesting `npm run <script> -w <workspace>`, verify that `<script>` exists in that workspace's `package.json`; root aggregate scripts are not automatically available inside workspaces.
-- Use root `npm run test:unit` for the **full** unit tier (all workspaces with a `test` script, minus API/mobile exclusions). Do **not** scope `test:unit` with `-w`.
-- For **scoped** unit tests from repo root, use the workspace `test` script: `npm run test -w <workspace>` (e.g. `npm run test -w apps/web`, `npm run test -w @podverse/playback-core`).
-- From repo root: `npm run <script> -w apps/workers -- <args>`
-- From repo root: `npm run build:packages` then `npm run build -w apps/workers`
-- From repo root: `node apps/workers/dist/index.js devPiBulkFeedsAddFromFile -startId 1 -endId 10 -q rss-slow` (uses hardcoded path `infra/data/dev/podcast-index-feeds` relative to monorepo root)
-- From repo root: `npm run workers:parse_trending_feeds --` (optionally with `-max N` after `--`; run after `npm run build -w apps/workers`); same as `devParserRSSParseTrendingFeeds`
+A comment is for the next person reading this file, who has never seen any earlier version of it.
+Write only what is true of the code **as it stands**. The history of how it got here belongs in the
+commit message and the PR, which is where someone goes when they actually want it.
 
 ## Don't
 
-- Don't say: "cd apps/workers" then "npm run dev_pi_bulk_feeds_add_from_file -- ..."
-- Don't give app-specific commands that assume the user is already inside an app directory
-- Don't scope **root-only** orchestration scripts with `-w`. They exist only in root `package.json`.
+- Narrate a removal: "no longer produced", "this used to call X", "the old per-screen strings",
+  "retained so historical rows still render".
+- Explain an absence created by an edit: "No membership-expiry row here", "not offerable as a
+  category", "we removed the scheduler".
+- Date the code against itself: "now", "currently", "as of this change", "going forward".
+- Justify the diff to a reviewer: "changed this because…", "this is the new approach".
 
-**Root-only scripts (never use with `-w`):** `test:unit`, `build:packages`, `build:apps`, `build:tools`, `lint`, `test:e2e:api`, `test:e2e:web`, `test`, `test:reports`.
+## Do
 
-**Known bad examples:**
+- State the constraint or intent positively: what this code guarantees, what a caller must handle,
+  what would break if it changed.
+- When something must **not** be added, put it in a rule under `.cursor/rules/` and let the rule
+  carry it. A rule is enforced on future work; a comment in one file is not.
+- Name a `.cursor/rules/` rule when the reasoning is larger than a sentence. Rules are durable and
+  named, so the reference survives.
 
-- `npm run test:unit -w apps/web` — workspaces define `test`, not `test:unit`
-- `npm run test:unit -w @podverse/playback-core` — same failure
-- `npm run build:packages -w packages/helpers` — use root `npm run build:packages` or `npm run build -w packages/helpers`
+## Never cite a plan, detail, or step number
 
-## Root-only vs workspace scripts
+Plans and proposal docs are working material. They get renumbered, archived, and deleted — plan sets
+are removed outright once their work lands. A comment pointing at `detail 711`, `master step 2.11`,
+`P2.4.3`, `Track 9b.6`, or a path under `.llm/plans/` or `docs/proposals/` is a reference that will
+outlive what it points to, leaving the next reader with a number that means nothing.
 
-The operator runs commands from **monorepo root**. Two patterns:
+Write the reasoning agnostically, or leave it out. If the point is worth keeping, it is worth
+stating in the file; if it is only a breadcrumb back to a plan, it is not worth keeping at all.
 
-| Goal | Command |
-| ---- | ------- |
-| Full unit tier | `npm run test:unit` |
-| One workspace unit tests | `npm run test -w <workspace>` |
-| Several workspaces unit tests | `node scripts/ci/run-workspaces.mjs --script test --workspaces <path> <path>` |
-| Build all packages (ordered) | `npm run build:packages` |
-| Build one package | `npm run build -w packages/<name>` |
-| Lint entire repo | `npm run lint` |
+```typescript
+// BAD — the number is a dead end once the plan is archived
+// Suppression is deferred until payment functionality exists — see detail 711.
 
-**Mobile (`apps/mobile`):** `-w apps/mobile` **fails** — mobile is a standalone install outside the
-root npm workspaces, so npm answers `No workspaces found`. Reach it with a root composite script
-(`mobile:dev`, `mobile:ios`, `mobile:e2e:test`, `mobile:install`, `type-check:mobile`) or, when no
-composite exists, `npm --prefix apps/mobile run <script>` — mobile unit tests are
-`npm --prefix apps/mobile run test`. Being outside the workspaces is also why root `test:unit` does
-not reach mobile. Mobile device E2E uses Maestro/Detox (not `make e2e_*`). See
-**mobile-expo-monorepo**, **mobile-master-plan-phasing**, and `apps/mobile/APPS-MOBILE.md`.
+// GOOD — the same constraint, legible on its own
+// Suppression waits on payment functionality. Every reminder surface calls this, so enabling it
+// later is a change here and nowhere else.
+```
+
+```typescript
+// BAD — a path into working material
+// Detail: docs/proposals/mobile/_master-plan_/phase-2/details/701-anonymous-subscriptions.md
+
+// GOOD — omit it; the doc comment above already states the ownership rules.
+```
+
+This applies to test names, E2E flow comments, and SQL migration headers as much as to source
+comments. Commit messages and PR descriptions are the right place for "which plan asked for this".
 
 ## Examples
 
-**Workers (devPiBulkFeedsAddFromFile):**
+```typescript
+// BAD — only meaningful to someone who saw the previous version
+// The reason→copy mapping lives here rather than at call sites, which is the difference between one
+// consistent affordance and the previous per-screen "needs login" strings.
 
-```bash
-npm run dev_pi_bulk_feeds_add_from_file -w apps/workers -- -startId 1 -endId 10 -q rss-slow
+// GOOD — same point, true on its own
+// The reason→copy mapping lives here rather than at call sites so every gated control explains
+// itself the same way.
 ```
 
-**Building a single app:**
+```typescript
+// BAD — documents a hole left by an edit
+// No membership-expiry category: expiry is shown in-app now, never delivered as a notification.
 
-```bash
-npm run build -w apps/workers
+// GOOD — omit it; `no-membership-expiry-notifications` is the durable home for that constraint.
 ```
 
-**Running any workspace script from root:**
+## Cleaning up
 
-```bash
-npm run <script-name> -w <workspace> -- [args]
-```
-
-**Unit tests — full tier vs scoped:**
-
-```bash
-npm run test:unit
-npm run test -w apps/web
-npm run test -w @podverse/playback-core
-```
-
-This keeps instructions copy-pasteable from repo root and avoids confusion about where `.env` and default paths resolve. Using fenced code blocks ensures the UI shows a copy button for each command.
+When you touch a file that already has a backward-looking comment, or one citing a plan or step
+number, rewrite or delete it as part of the change. Leaving it is how a file accumulates a changelog
+in its margins and a trail of references to documents nobody can find.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
