@@ -1,390 +1,292 @@
-## multi-agent-coordination
+## multi-agent-examples
 
-> Rules for coordinating multiple agents running simultaneously in Cursor 2.0
+> Practical examples for using multiple agents in Cursor 2.0
 
 
-# 🤖 Multi-Agent Coordination (Cursor 2.0)
+# 🤖 Multi-Agent Usage Examples
 
-## Overview
+This file provides practical examples of how to use multiple agents simultaneously in your NEXUS v2 workspace.
 
-Cursor 2.0 supports **up to 8 agents running concurrently**. Each agent operates in its own isolated copy of the codebase using git worktrees or remote machines to prevent file conflicts.
+> **💡 See [Custom Commands Proposal](mdc:../custom-commands-proposal.md) for 10 tailored commands specific to your NEXUS v2 stack**
 
-## Multi-Agent Access
+## Quick Start: How to Use Multiple Agents
 
-To enable multiple agents:
-1. **Open Cursor 2.0** (requires latest version)
-2. **Multi-Agent Sidebar**: New sidebar interface for managing agents and plans
-3. **Activate Agents**: Use the agent management UI to spawn multiple agents
-4. **Assign Tasks**: Each agent can work on different parts of the codebase simultaneously
+### Step 1: Open Multi-Agent Interface
+- In Cursor 2.0, look for the **multi-agent sidebar** (new UI element)
+- This sidebar shows all active agents and their status
+- You can spawn new agents from this interface
 
-## Agent Role Scoping
+### Step 2: Assign Tasks with Scope Hints
 
-Define agent responsibilities using path patterns to prevent conflicts and ensure efficient parallel execution:
+When prompting agents, include scope information to route to the right agent:
 
-### 🎯 Service-Specific Agents
-
-```yaml
-Frontend_Agent:
-  scope: 
-    - path: "v2/frontend/**"
-    - path: "v2/shared/ui/**"
-  responsibilities:
-    - UI/UX improvements
-    - Frontend testing with Browser Agent
-    - React component development
-    - State management updates
-  tools_priority:
-    - Browser Agent (E2E testing)
-    - mcp_filesystem_* (config files)
-    - mcp_postgres_* (read-only data validation)
-
-Backend_Service_Agent:
-  scope:
-    - path: "v2/*_service/**"
-    - exclude: "v2/frontend/**"
-    - exclude: "v2/db_service/migrations/**"
-  responsibilities:
-    - Service implementation
-    - API endpoint development
-    - Business logic
-    - Integration testing
-  tools_priority:
-    - mcp_loki_* (service logs)
-    - mcp_postgres_* (data operations)
-    - mcp_repo-indexer_* (code patterns)
-
-Database_Agent:
-  scope:
-    - path: "v2/db_service/migrations/**"
-    - path: "v2/db_service/**"
-  responsibilities:
-    - Migration creation ONLY in v2/db_service/migrations/
-    - Schema changes
-    - Database optimization
-    - Query performance
-  tools_priority:
-    - mcp_postgres_* (schema operations)
-    - mcp_filesystem_* (migration files)
-  critical: "NEVER creates migrations outside v2/db_service/migrations/"
-
-Observability_Agent:
-  scope:
-    - path: "v2/observability_stack/**"
-    - path: "v2/*/grafana/**"
-    - path: "v2/*/prometheus/**"
-  responsibilities:
-    - Grafana dashboards
-    - Prometheus metrics
-    - Alert rules (remember: down -v before up -d!)
-    - Loki queries for RCA
-  tools_priority:
-    - mcp_loki_* (log investigation)
-    - mcp_filesystem_* (config files)
-    - mcp_config-indexer_* (alert configurations)
-
-Documentation_Agent:
-  scope:
-    - path: "v2/docs/**"
-    - path: "*.md"
-    - exclude: "v2/docs/plans/**" # Plans are temporary
-  responsibilities:
-    - Documentation updates (UPDATE existing, don't create new)
-    - RCA documents (ONE per incident)
-    - API documentation
-    - Architecture diagrams
-  tools_priority:
-    - mcp_docs-indexer_* (search existing docs)
-    - mcp_filesystem_* (doc files)
-  critical: "Minimize .md creation - update existing files"
-
-Testing_Agent:
-  scope:
-    - path: "**/tests/**"
-    - path: "**/test_*.py"
-    - path: "**/*.test.ts"
-    - path: "**/*.test.tsx"
-  responsibilities:
-    - TDD test creation
-    - Test refactoring
-    - Coverage improvements
-    - E2E test scenarios
-  tools_priority:
-    - Cursor Browser Agent (frontend E2E)
-    - mcp_terminal_* (pytest execution)
-    - mcp_postgres_* (test data validation)
-
-Infrastructure_Agent:
-  scope:
-    - path: "docker-compose*.yml"
-    - path: ".env*"
-    - path: "v2/**/Dockerfile*"
-    - path: "v2/**/requirements.txt"
-  responsibilities:
-    - Container orchestration
-    - Environment configuration
-    - Dependency management
-    - Build pipeline
-  tools_priority:
-    - mcp_config-indexer_* (Docker analysis)
-    - mcp_terminal_* (container commands)
-    - mcp_filesystem_* (config files)
+```
+Example 1: Frontend Agent
+"Improve the strategy configuration UI component [Frontend_Agent scope: v2/frontend/src/components/strategies/]"
 ```
 
-## Coordination Patterns
-
-### ✅ Parallel Safe Operations
-
-These can run simultaneously across agents:
-
-```yaml
-Safe_Parallel_Tasks:
-  - Different services (trade_engine + signal_engine)
-  - Frontend + Backend (different file paths)
-  - Documentation + Code (separate directories)
-  - Testing + Development (separate branches/worktrees)
-  - Multiple test files (no shared state)
+```
+Example 2: Backend Agent
+"Add new REST endpoint for position history [Backend_Service_Agent scope: v2/api_gateway/routes/]"
 ```
 
-### ⚠️ Requires Coordination
-
-These operations need explicit coordination:
-
-```yaml
-Coordinate_Before_Executing:
-  - Database migrations (only Database_Agent)
-  - Shared utility changes (coordinate via TODO or GitHub Issue)
-  - API contract changes (affects multiple services)
-  - Breaking changes to shared libraries
-  - Environment variable changes (.env files)
+```
+Example 3: Database Agent
+"Create migration for adding stop_loss column to positions table [Database_Agent scope: v2/db_service/migrations/]"
 ```
 
-### 🔴 Conflict Zones
-
-Prevent multiple agents from touching:
-
-```yaml
-Exclusive_Access_Required:
-  - v2/db_service/migrations/ (Database_Agent ONLY)
-  - docker-compose.v2.yml (Infrastructure_Agent coordination)
-  - Shared library files (v2/shared/** - coordinate first)
-  - Critical config files (.env, secrets)
+```
+Example 4: Testing Agent
+"Write integration tests for trade execution flow [Testing_Agent scope: v2/trade_engine/tests/]"
 ```
 
-## Communication Patterns
+## Real-World Examples
 
-### Agent-to-Agent Coordination
+### Example 1: Parallel Service Development
 
-```yaml
-Coordination_Methods:
-  1. GitHub_Issues:
-     - Create issue for shared work
-     - Agents check issues before starting
-     - Update issue with progress
-  
-  2. TODO_Lists:
-     - Use todo_write tool for multi-agent tasks
-     - Agents can check and update TODO status
-     - Clear task ownership in TODO items
-  
-  3. Path_Exclusion:
-     - Use exclude patterns in agent scopes
-     - Prevents accidental overlap
-  
-  4. Branch_Strategy:
-     - Each agent uses separate git worktree
-     - Cursor 2.0 handles this automatically
-     - Merge coordination via GitHub PRs
+**Scenario**: You want to improve both signal_engine and trade_engine simultaneously.
+
+**Setup**:
+1. Create GitHub Issue #456: "Enhance signal processing and trade execution"
+2. Break into sub-tasks:
+   - Task A: Improve signal processing (signal_engine)
+   - Task B: Optimize trade execution (trade_engine)
+
+**Agent Prompts**:
+
+```
+Agent 1 (Backend_Service_Agent):
+"Implement improved signal filtering algorithm [Backend_Service_Agent scope: v2/signal_engine/]"
 ```
 
-### Task Assignment Patterns
-
-```yaml
-Assigning_Tasks_To_Agents:
-  
-  Frontend_Task:
-    prompt: "Improve UI for strategy management [Frontend_Agent scope]"
-    expected_agent: Frontend_Agent
-    files: v2/frontend/**/*.tsx
-  
-  Backend_Task:
-    prompt: "Add new API endpoint for trade history [Backend_Service_Agent scope]"
-    expected_agent: Backend_Service_Agent
-    files: v2/api_gateway/**/*.py
-  
-  Database_Task:
-    prompt: "Create migration for new table [Database_Agent scope]"
-    expected_agent: Database_Agent
-    files: v2/db_service/migrations/00X_*.sql
-  
-  Multi_Agent_Task:
-    prompt: "Implement feature X with frontend and backend [assign to Frontend_Agent + Backend_Service_Agent]"
-    coordination: "Create GitHub Issue, assign both agents, use TODO list for tracking"
+```
+Agent 2 (Backend_Service_Agent):
+"Optimize trade execution latency [Backend_Service_Agent scope: v2/trade_engine/]"
 ```
 
-## Conflict Prevention
+**Why this works**:
+- Different services = different file paths
+- No file conflicts (git worktrees isolate)
+- Both can run simultaneously
 
-### File Locking Strategy
+### Example 2: Full-Stack Feature Development
 
-```yaml
-Prevent_Conflicts:
-  1. Path_Scoping:
-     - Each agent has explicit path patterns
-     - Exclude patterns for known conflict zones
-     - Use alwaysApply: false for service-specific rules
-  
-  2. Git_Worktrees:
-     - Cursor 2.0 automatically uses worktrees
-     - Each agent has isolated copy
-     - Merges handled via standard git workflow
-  
-  3. Explicit_Coordination:
-     - Check GitHub Issues before starting
-     - Use TODO lists for shared tasks
-     - Announce agent scope in task description
+**Scenario**: Add new "Risk Dashboard" feature requiring frontend, backend, and database work.
+
+**Setup**:
+1. Create GitHub Issue #789: "Risk Dashboard Feature"
+2. Break into coordinated tasks:
+   - Database: Create risk_metrics table
+   - Backend: Add risk calculation API
+   - Frontend: Build dashboard UI
+   - Testing: E2E tests
+
+**Agent Prompts**:
+
+```
+Agent 1 (Database_Agent) - Run FIRST:
+"Create migration for risk_metrics table with columns: strategy_id, var_value, max_drawdown [Database_Agent scope: v2/db_service/migrations/]"
 ```
 
-### Conflict Resolution
-
-```yaml
-If_Conflict_Detected:
-  1. Check_Agent_Scopes:
-     - Verify path patterns
-     - Confirm agent responsibilities
-  
-  2. Review_GitHub_Issues:
-     - Check for existing work
-     - Coordinate via issue comments
-  
-  3. Merge_Strategy:
-     - Let git handle merges automatically
-     - Use standard conflict resolution
-     - Test after merge (both agents validate)
+```
+Agent 2 (Backend_Service_Agent) - Run AFTER Agent 1:
+"Implement risk calculation API endpoint that queries risk_metrics table [Backend_Service_Agent scope: v2/api_gateway/]"
 ```
 
-## Best Practices
+```
+Agent 3 (Frontend_Agent) - Run AFTER Agent 2:
+"Build Risk Dashboard component that displays risk metrics from API [Frontend_Agent scope: v2/frontend/src/pages/]"
+```
+
+```
+Agent 4 (Testing_Agent) - Run AFTER all:
+"Write E2E tests for Risk Dashboard feature [Testing_Agent scope: v2/frontend/tests/]"
+```
+
+**Coordination**:
+- Use GitHub Issue comments to track progress
+- Agents wait for dependencies (database → backend → frontend)
+- Final agent (Testing_Agent) validates integration
+
+### Example 3: Observability Improvements
+
+**Scenario**: Add Grafana dashboards and improve logging across services.
+
+**Setup**:
+1. Observability_Agent handles Grafana/Prometheus
+2. Backend_Service_Agent adds structured logging
+
+**Agent Prompts**:
+
+```
+Agent 1 (Observability_Agent):
+"Create Grafana dashboard for trade execution metrics [Observability_Agent scope: v2/observability_stack/grafana/]"
+```
+
+```
+Agent 2 (Backend_Service_Agent):
+"Add structured logging to trade_engine with correlation IDs [Backend_Service_Agent scope: v2/trade_engine/]"
+```
+
+**Why this works**:
+- Different paths (observability_stack vs service code)
+- No conflicts
+- Both improvements can be merged independently
+
+### Example 4: Bug Fix + Feature Development
+
+**Scenario**: Fix authentication bug while developing new feature.
+
+**Agent Prompts**:
+
+```
+Agent 1 (Backend_Service_Agent) - Bug Fix:
+"Fix JWT token expiration validation bug [Backend_Service_Agent scope: v2/auth_service/]"
+```
+
+```
+Agent 2 (Frontend_Agent) - New Feature:
+"Add strategy performance comparison chart [Frontend_Agent scope: v2/frontend/src/components/]"
+```
+
+**Why this works**:
+- Different services (auth_service vs frontend)
+- Different priorities (bug fix vs feature)
+- Can run simultaneously without conflicts
+
+## Conflict Avoidance Patterns
+
+### ❌ BAD: Conflicting Agents
+
+```
+Agent 1: "Update shared utility function [v2/shared/utils/]"
+Agent 2: "Refactor shared utility function [v2/shared/utils/]" 
+```
+
+**Problem**: Both agents modifying same files → conflicts
+
+### ✅ GOOD: Coordinated Update
+
+```
+Step 1: Create GitHub Issue #999: "Refactor shared utilities"
+Step 2: Assign to single agent OR coordinate via issue comments
+Step 3: One agent makes changes, others wait
+```
+
+### ✅ GOOD: Non-Conflicting Parallel
+
+```
+Agent 1: "Update trade_engine to use shared utils [v2/trade_engine/]"
+Agent 2: "Update signal_engine to use shared utils [v2/signal_engine/]"
+```
+
+**Why**: Different services, same shared dependency → no conflicts
+
+## Using Custom Commands
+
+In Cursor dashboard, you can create custom commands that automatically scope agents:
+
+**Command Definition**:
+```
+Command Name: "Add Frontend Component"
+Description: "Create new React component"
+Scope Pattern: "v2/frontend/src/components/**"
+Agent Hint: Frontend_Agent
+Tool Preferences: Browser Agent, mcp_filesystem_*
+```
+
+**Usage**:
+- Trigger command from Cursor
+- Command automatically routes to Frontend_Agent
+- Path scope is pre-configured
+
+## Monitoring Multi-Agent Work
+
+### Check Active Agents
+- Open multi-agent sidebar in Cursor 2.0
+- See all active agents and their current tasks
+- Monitor progress in real-time
+
+### Validate No Conflicts
+```bash
+# Check git worktrees
+git worktree list
+
+# Check for unmerged branches
+git branch --no-merged
+
+# Review agent changes
+git log --all --oneline --graph
+```
+
+### Use Loki MCP for Validation
+```yaml
+After agents make changes:
+  - Query service logs: mcp_loki_query("{service='trade_engine'} |= 'ERROR'")
+  - Validate no regressions introduced
+  - Check performance metrics
+```
+
+## Best Practices Summary
 
 ### ✅ DO
-
-```yaml
-Best_Practices:
-  - Use specific path scopes in agent prompts
-  - Create GitHub Issues for multi-agent features
-  - Use TODO lists for task tracking
-  - Test independently before merging
-  - Review agent scopes before starting complex tasks
-  - Use exclude patterns for known conflict zones
-```
+- Use explicit path scopes in prompts
+- Create GitHub Issues for coordination
+- Run independent services in parallel
+- Test agent changes independently
+- Use TODO lists for tracking
 
 ### ❌ DON'T
+- Have multiple agents modify same files
+- Skip path scoping
+- Create migrations outside Database_Agent
+- Modify shared libraries without coordination
+- Forget to validate with Browser Agent (frontend)
 
-```yaml
-Anti_Patterns:
-  - Don't have multiple agents modify same file without coordination
-  - Don't skip path scoping in agent prompts
-  - Don't create migrations outside Database_Agent scope
-  - Don't modify .env without Infrastructure_Agent coordination
-  - Don't work on shared libraries without checking issues
-```
+## Troubleshooting
 
-## Example Multi-Agent Workflow
+### Issue: Agents modifying same files
+**Solution**: Check agent scopes, use exclude patterns, coordinate via GitHub Issue
 
-```yaml
-Example_Scenario: "Add new trading strategy feature"
+### Issue: Confusion about which agent to use
+**Solution**: Reference [multi-agent-coordination.mdc](mdc:.cursor/rules/multi-agent-coordination.mdc) for role definitions
 
-Step_1_Planning:
-  - Create GitHub Issue #123: "Add momentum strategy"
-  - Break down into sub-tasks
-  
-Step_2_Parallel_Execution:
-  - Agent_1 (Database_Agent):
-    prompt: "Create migration for momentum_strategies table [Database_Agent scope: v2/db_service/migrations/]"
-    creates: 004_momentum_strategies.sql
-  
-  - Agent_2 (Backend_Service_Agent):
-    prompt: "Implement momentum signal logic [Backend_Service_Agent scope: v2/signal_engine/]"
-    creates: signal_engine/momentum_strategy.py
-  
-  - Agent_3 (Frontend_Agent):
-    prompt: "Add UI for momentum strategy config [Frontend_Agent scope: v2/frontend/]"
-    creates: frontend/components/MomentumStrategyConfig.tsx
-  
-  - Agent_4 (Testing_Agent):
-    prompt: "Write tests for momentum strategy [Testing_Agent scope: **/tests/**]"
-    creates: tests/test_momentum_strategy.py
+### Issue: Conflicts during merge
+**Solution**: Standard git conflict resolution, both agents should validate after merge
 
-Step_3_Coordination:
-  - All agents update GitHub Issue #123 with progress
-  - Agents validate integration points
-  - Create PRs and merge sequentially
-  
-Step_4_Validation:
-  - Use Browser Agent for frontend E2E
-  - Use Loki MCP for service log validation
-  - Use Postgres MCP for data validation
-```
-
-## Custom Commands for Multi-Agent
-
-You can define custom commands in Cursor dashboard that automatically scope agents:
-
-```yaml
-Example_Custom_Commands:
-  
-  "Add Frontend Feature":
-    description: "Improve UI component with frontend agent"
-    scope: "v2/frontend/**"
-    agent_hint: "Frontend_Agent"
-    tools: ["Browser Agent", "mcp_filesystem_*"]
-  
-  "Debug Service":
-    description: "Investigate service issues with observability agent"
-    scope: "v2/observability_stack/**"
-    agent_hint: "Observability_Agent"
-    tools: ["mcp_loki_*", "mcp_postgres_*"]
-  
-  "Create Migration":
-    description: "Add database migration with database agent"
-    scope: "v2/db_service/migrations/**"
-    agent_hint: "Database_Agent"
-    tools: ["mcp_postgres_*", "mcp_filesystem_*"]
-    critical: "Only Database_Agent can create migrations"
-```
-
-## Monitoring Agent Activity
-
-```yaml
-Check_Agent_Status:
-  - Review Cursor 2.0 multi-agent sidebar
-  - Check GitHub Issues for coordination
-  - Review TODO lists for task tracking
-  - Use mcp_loki_* to monitor service logs from changes
-  - Check git worktrees for active branches
-```
+### Issue: Agent not respecting scope
+**Solution**: Make path scope more explicit in prompt, use exclude patterns in rule file
 
 ---
 
-## Quick Reference
+## Quick Reference Commands
 
-**To spawn multiple agents:**
-- Open Cursor 2.0 multi-agent sidebar
-- Assign tasks with explicit path scopes
-- Use agent role patterns above
+**Spawn agent for frontend:**
+```
+"Add new React component [Frontend_Agent scope: v2/frontend/]"
+```
 
-**To prevent conflicts:**
-- Use path scopes in prompts: `[Agent_Name scope: path/**]`
-- Check GitHub Issues before starting
-- Use exclude patterns for conflict zones
+**Spawn agent for backend:**
+```
+"Implement new service endpoint [Backend_Service_Agent scope: v2/{service_name}/]"
+```
 
-**To coordinate:**
-- Create GitHub Issue for shared work
-- Use TODO lists for task tracking
-- Let git worktrees handle isolation
+**Spawn agent for database:**
+```
+"Create migration [Database_Agent scope: v2/db_service/migrations/]"
+```
 
-**Remember:**
-- Up to 8 agents can run simultaneously
-- Each agent uses isolated git worktree
-- Path scoping prevents most conflicts
-- Always coordinate database migrations (Database_Agent ONLY)
+**Spawn agent for testing:**
+```
+"Write tests [Testing_Agent scope: **/tests/**]"
+```
+
+**Spawn agent for observability:**
+```
+"Add Grafana dashboard [Observability_Agent scope: v2/observability_stack/]"
+```
+
+Remember: Include `[Agent_Name scope: path/**]` in your prompts to route tasks correctly!
 
 ---
 > Source: [john-markowsky/PM-Bot](https://github.com/john-markowsky/PM-Bot) — distributed by [TomeVault](https://tomevault.io).
