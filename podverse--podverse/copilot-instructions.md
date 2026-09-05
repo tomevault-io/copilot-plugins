@@ -1,128 +1,130 @@
-## markdown-formatting
+## mobile-anonymous-vs-account-features
 
-> Markdown formatting rules matching Prettier config
+> Mobile must work signed out; server-side writes and jobs are the premium boundary
 
 
-# Markdown Formatting
+# Mobile — signed-out capability and the premium boundary
 
-When creating or editing markdown (`.md`) files, follow these formatting rules to match the project's Prettier configuration:
+The mobile app is **useful without an account**. A signed-out user must be able to subscribe to
+podcasts, keep those subscriptions, and listen offline. Do not design a mobile flow that requires
+sign-in for something the device can do on its own.
 
-## Line Width
+This is a deliberate divergence from `apps/web`, where subscriptions are account-backed.
 
-- Maximum line width: **100 characters**
-- Break long lines naturally at sentence boundaries or logical breaks
-- Exception: Code blocks, URLs, and tables can exceed 100 characters
+## The gate rule
 
-## Tables
+> If a feature requires a **server-side write** or a **server-side job that must run**, it is a
+> **premium** feature. Everything else works signed out.
 
-**CRITICAL**: Format tables with aligned columns using padding spaces:
+Apply that test before gating anything. "Does this need our server to store or compute something on
+the user's behalf?" is the whole question.
 
-```markdown
-<!-- CORRECT: Columns aligned with padding -->
-| Label        | Color   | Description                    |
-| ------------ | ------- | ------------------------------ |
-| dependencies | #0366d6 | Dependency updates             |
-| docker       | #384d54 | Docker image and container ... |
+## Three access tiers, not two
 
-<!-- INCORRECT: Left-aligned without padding -->
-| Label | Color | Description |
-| --- | --- | --- |
-| dependencies | #0366d6 | Dependency updates |
-```
+Never collapse gating into "logged in or not". Every gated feature belongs to exactly one tier, and
+plans and detail docs must say which:
 
-**Rules**:
-- Pad cells with spaces so separators (`|`) align vertically
-- Header separator line (`---`) should match the width of the longest cell in that column
-- Add spaces inside cells for readability: `| content |` not `|content|`
+| Tier                | Meaning                                                       |
+| ------------------- | ------------------------------------------------------------- |
+| **Anonymous**       | Works with no account at all                                  |
+| **Account**         | Requires sign-in, but no paid membership                      |
+| **Membership**      | Requires sign-in **and** a valid paid membership              |
 
-## Lists
+When adding a gated feature, state its tier explicitly. "Logged-in only" and "logged-in with a valid
+membership" are different requirements and must not be written as if interchangeable.
 
-- Add blank line before and after lists
-- Use `-` for unordered lists (not `*` or `+`)
-- Indent nested lists with 2 spaces
-- Use `1.` for all ordered list items (Prettier auto-numbers)
+## Expired membership is degraded, never frozen
 
-```markdown
-<!-- CORRECT -->
-This is a paragraph.
+A user whose membership lapses keeps a working app. Do **not** lock them out of the product.
 
-- First item
-- Second item
-  - Nested item
-  - Another nested
+- Anonymous-tier and account-tier capabilities keep working unchanged.
+- Membership-tier features become unavailable, presented as a renewal prompt rather than a dead or
+  silently missing control.
+- Remind the user at natural moments — when they reach a membership feature, and at a low-frequency
+  ambient point — without nagging on every screen.
+- Do not delete or orphan data the user created while their membership was valid.
 
-Next paragraph.
+Design the lapsed state deliberately per feature: some membership features degrade to read-only,
+others disappear behind an upgrade affordance. Say which in the plan.
 
-<!-- INCORRECT: No blank lines -->
-This is a paragraph.
-- First item
-- Second item
-Next paragraph.
-```
+Current lapsed behavior for add-by-RSS: existing feeds stay visible and playable but **stop
+refreshing** until renewal; adding new feeds is blocked behind the renewal prompt.
 
-## Headings
+Expiry is surfaced **in-app only**, derived on demand — never push, email, or a scheduled job. See
+[`no-membership-expiry-notifications`](/.cursor/rules/no-membership-expiry-notifications.mdc).
 
-- Add blank line before and after headings
-- Use ATX style (`#`) not Setext style (underlines)
-- Space after `#`: `# Heading` not `#Heading`
+**Do not tell users enrolled in auto-renew that they are expiring soon.** Payment functionality does
+not exist yet, so that check is deferred — build the surfaces so it drops in without rework.
 
-## Code Blocks
+## Tier assignments
 
-- Use triple backticks with language identifier
-- Add blank line before and after code blocks
-- Language identifiers: `bash`, `typescript`, `json`, `yaml`, `markdown`
+| Capability                                  | Tier       | Why                                            |
+| ------------------------------------------- | ---------- | ---------------------------------------------- |
+| Subscribe — **local only**, signed out      | Anonymous  | Device-local record; nothing reaches the server |
+| **Unsubscribe** — always                    | Anonymous  | Never blocked, in any tier or membership state  |
+| Local subscription list, filter, sort       | Anonymous  | Reads local storage                            |
+| Download episodes, offline playback         | Anonymous  | Device-local                                   |
+| Local queue and history                     | Anonymous  | Device-local                                   |
+| Per-channel seen state (local)              | Anonymous  | A local last-seen timestamp per channel        |
+| **Subscribe — server-side follow**          | Membership | `POST /account/follow/channel` is gated today  |
+| Cross-device sync of seen state             | Account    | Server write, but not a paid capability        |
+| Cross-device sync of queue and history      | Membership | Paid capability                                |
+| **Add by RSS**                              | Membership | Requires server-side feed parsing              |
+| **Notifications** (inbox and push)          | Membership | Requires server-side storage and push delivery |
 
-```markdown
-<!-- CORRECT -->
-Here's an example:
+### Subscribing has three distinct behaviors
 
-\`\`\`bash
-npm run build
-\`\`\`
+| User state                          | Behavior                                                                |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| Not signed in (mobile)              | Subscribes **locally only**; nothing syncs                              |
+| Signed in, valid membership         | Subscribes and syncs to the account                                     |
+| Signed in, invalid/expired membership | **Cannot** subscribe; shown a message explaining why                  |
 
-The command builds...
+**Unsubscribing is never blocked** — not by tier, not by an expired membership. A user can always
+remove something they no longer want.
 
-<!-- INCORRECT: No blank lines -->
-Here's an example:
-\`\`\`bash
-npm run build
-\`\`\`
-The command builds...
-```
+**Local subscriptions are pushed to a server account at sign-up only.** Creating an account from the
+device uploads what is already subscribed locally. From then on the **account is the source of
+truth**: a later sign-in does *not* push local subscriptions up, because a phone must not be able to
+silently rewrite an account the user also uses on the web. Signing into a pre-existing account
+therefore replaces the local rows with the account's.
 
-## Links and References
+**Signing out discards nothing local.** Subscriptions, add-by-RSS feeds, and the car/watch browse
+index are all retained — this is the same data offline mode depends on. Only the account identity is
+cleared.
 
-- Use `[text](url)` format
-- **Cross-tree** (different top-level dirs): repo-root path with leading `/`, e.g.
-  `[skill](/.cursor/skills/foo/SKILL.md)`, `[QUICKSTART](/docs/QUICKSTART.md)`
-- **Same subtree** (e.g. both under `docs/`): sibling-relative is fine, e.g.
-  `[overrides](development/LOCAL-ENV-OVERRIDES.md)` from `docs/QUICKSTART.md`
-- **Do not** use deep `../../../` chains or machine paths (`/Users/...`)
-- See **documentation-conventions** skill for full link policy
+Queue, history, and per-channel seen state reconcile on sign-in rather than following the sign-up-only
+rule above, because they are per-device activity rather than a library the account owns. Seen state
+reconciles by taking the **later** timestamp per channel, so it only ever moves forward.
 
-## Emphasis
+## Do
 
-- **Bold**: Use `**text**` (not `__text__`)
-- *Italic*: Use `*text*` (not `_text_`)
-- `Code`: Use single backticks for inline code
+- Build the local-only path first, then layer account sync on top of it.
+- Present gated features as an upgrade affordance, not a broken control (see
+  **entitlement-gating-rollout**).
+- When a feature has both a local and a server-backed form, ship the local form signed out and use
+  the server form to add cross-device sync (for example, per-channel "seen" state).
 
-## Formatting Checklist
+## Don't
 
-Before finalizing any markdown file, mentally verify:
+- Do not require sign-in to browse, subscribe to, download, or play content.
+- Do not assume a repository read has an account behind it.
+- Do not copy web's account-only assumptions into mobile screens.
 
-1. ✅ Lines under 100 characters (except code/URLs/tables)
-2. ✅ Tables have aligned columns with padding
-3. ✅ Blank lines around lists, headings, code blocks
-4. ✅ Consistent bullet style (`-`)
-5. ✅ Code blocks have language identifiers
+## Applies retroactively
 
-## Why This Matters
+Plans and steps that are **not yet complete** must be revised to follow this rule. When picking up
+any outstanding mobile plan, check its auth assumptions against the table above before implementing.
 
-These rules ensure:
-- Markdown passes `prettier --check` without changes
-- Consistent formatting across all documentation
-- Better readability in both source and rendered views
-- Clean git diffs (no formatting-only changes)
+## Open per-feature question
+
+The rule says "premium". Whether a given gated feature needs **an account** or **a paid
+membership** is a product decision per feature — ask the operator rather than assuming.
+
+## Related
+
+- **mobile-data-layer** — local-first storage and sync
+- **entitlement-gating-rollout** — how gated features are presented
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
