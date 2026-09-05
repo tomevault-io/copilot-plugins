@@ -1,0 +1,9 @@
+{
+  "name": "reality-opened--openreality",
+  "displayName": "openreality",
+  "description": "Open Reality: phone video to AI-queryable 3D scenes. MCP tools for Claude/Codex/Cursor (npm openreality-mcp), the self-hostable broker, and the VGGT-SLAM library, in one repo. BSD-2-Clause.",
+  "version": "1.0.0",
+  "author": "reality-opened",
+  "homepage": "https://github.com/reality-opened/openreality",
+  "skills": []
+}
