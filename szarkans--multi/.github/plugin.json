@@ -1,0 +1,9 @@
+{
+  "name": "szarkans--multi",
+  "displayName": "multi",
+  "description": "Use [Multi]ple AI agents for code-review, verifying and questions",
+  "version": "1.0.0",
+  "author": "szarkans",
+  "homepage": "https://github.com/szarkans/multi",
+  "skills": []
+}
