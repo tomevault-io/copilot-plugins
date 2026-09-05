@@ -1,0 +1,9 @@
+{
+  "name": "nweii--agent-stuff",
+  "displayName": "agent-stuff",
+  "description": "A subset of my personal AI skills for Claude and Cursor.",
+  "version": "1.0.0",
+  "author": "nweii",
+  "homepage": "https://github.com/nweii/agent-stuff",
+  "skills": []
+}
