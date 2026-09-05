@@ -1,28 +1,44 @@
-## no-runtime-change-schema-phase
+## openapi-sync
 
-> When implementing a **schema-only** trust/entitlement foundation:
+> Require OpenAPI updates for API surface changes
 
-# No Runtime Changes During Schema-Only Trust Phase
 
-When implementing a **schema-only** trust/entitlement foundation:
+# OpenAPI Sync Rule
 
-## Required
+When a change affects HTTP API behavior, update the matching OpenAPI spec in the same change:
 
-- Add forward-only migrations, constraints, and backfill rows.
-- Add ORM entities/relations and helper constants/types.
-- Update migration bundle wiring and expected migration markers.
+- `apps/api/openapi.yml`
+- `apps/management-api/openapi.yml`
 
-## Prohibited
+## Changes that require spec updates
 
-- Do not add or modify runtime auth/capability gating behavior.
-- Do not add controller/route allow-deny checks.
-- Do not expose new trust/override fields in API responses.
-- Do not alter web UX flows for blocked actions in schema-only phase.
+- New/removed/renamed routes or methods
+- Request validation changes (required fields, enums, limits, types)
+- Response shape or status-code changes
+- Authentication or authorization changes (including permission semantics)
 
-## Intent
+## Minimum update requirements
 
-Schema-only phases are for data-model groundwork. Runtime behavior must be introduced only in a
-separate rollout phase with dedicated tests.
+- Add or update `operationId` (unique and stable)
+- Keep operation `security` accurate (`security: []` for public endpoints)
+- Ensure requestBody and responses are documented
+- Add or update at least one realistic example for mutating operations
+
+## Reviewer checks
+
+- Route-to-spec parity is complete
+- 401 vs 403 semantics are explicit where relevant
+- No stale examples contradict implementation
+
+## Required PR evidence for route-related changes
+
+- `./scripts/nix/with-env npm run openapi:check` output is included in the PR description
+- Route parity evidence is included for changed endpoints:
+  - changed method+path
+  - matching OpenAPI path+method
+  - matching `operationId`
+- If auth behavior changed, PR includes explicit 401 vs 403 behavior notes
+- If a route-related change does not require spec edits, PR includes explicit justification
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
