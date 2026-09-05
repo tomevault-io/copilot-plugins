@@ -1,23 +1,25 @@
-## maestro-adb-port-reservation
+## management-web-form-eyebrow
 
-> Reserve localhost ports 5555-5683 for Android emulator ADB endpoints used by Maestro.
+> Management-web field labels use control eyebrows, not freestanding Label
 
 
-# Maestro ADB port reservation
+# Management Web: Form Field Labels (Eyebrow)
 
-Reserve localhost TCP ports **5555–5683** for Android emulator ADB endpoints.
+When labeling inputs, selects, and grouped checkbox lists on **`apps/management-web`** pages:
 
-Maestro's `dadb` device discovery probes this conventional emulator range, including when a run
-targets iOS. An unrelated host service that accepts a connection in this range can make Maestro
-wait indefinitely for an ADB handshake.
+## Do
 
-- Do not publish local services on host ports `5555–5683`.
-- Local Artemis uses host port `5684` and container port `5672`.
-- Container-only and Kubernetes service ports may remain `5672`; the reservation applies to host
-  port mappings.
-- Keep the mobile E2E runner's valid-ADB-handshake guard enabled as a diagnostic backstop.
-- Do not attempt to solve this by changing the emulator port range; Maestro's direct-discovery
-  range is not a supported flow-level setting.
+- Use **`eyebrow`** on **`TextInput`**, **`FormDropdown`**, and **`CheckboxFieldList`** from **`@podverse/ui`** so the title sits inside the shared field chrome (same pattern as web login and management settings).
+- For lookup rows with **`LookupFieldGrid`**, use **`variant="inlineEyebrow"`** when each column uses in-field eyebrows so the primary action column aligns to the control baseline.
+
+## Do not
+
+- Do **not** stack **`Label`** (from **`@podverse/ui`**) above **`TextInput`**, **`FormDropdown`**, or **`CheckboxFieldList`** for ordinary field titles — that duplicates the eyebrow pattern and breaks toolbar alignment.
+
+## Exceptions
+
+- **Section/page titles** (**`SectionHeading`**, **`ManagementPageShell`** **`title`**) and **read-only** **`DescriptionList`** **`dt`/`dd`** rows are not single-field labels.
+- **`Fieldset`** **`legend`** for grouped matrices (e.g. permission grids) is group chrome, not a per-control eyebrow.
 
 ---
 > Source: [podverse/podverse](https://github.com/podverse/podverse) — distributed by [TomeVault](https://tomevault.io).
