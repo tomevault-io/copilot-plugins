@@ -1,0 +1,9 @@
+{
+  "name": "aziruhq--aziru",
+  "displayName": "aziru",
+  "description": "Open-source, self-hostable AI email triage assistant for Gmail. Sorts your inbox into a custom taxonomy; drafts require approval, never auto-sends.",
+  "version": "1.0.0",
+  "author": "aziruhq",
+  "homepage": "https://github.com/aziruhq/aziru",
+  "skills": []
+}
