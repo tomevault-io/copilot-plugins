@@ -1,0 +1,9 @@
+{
+  "name": "striderza--tiny-rf-simulator",
+  "displayName": "Tiny-RF-Simulator",
+  "description": "Modular RF signal chain simulator with real-time spectrum display. Design cascades of amplifiers, filters, mixers, ADCs, and more - probe any node to see the spectrum. Built with Dear ImGui + ImPlot.",
+  "version": "1.0.0",
+  "author": "striderZA",
+  "homepage": "https://github.com/striderZA/Tiny-RF-Simulator",
+  "skills": []
+}
