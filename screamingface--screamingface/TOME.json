@@ -1,0 +1,44 @@
+{
+  "name": "screamingface",
+  "owner": "ScreamingFace",
+  "repo": "screamingface",
+  "description": "ScreamingFace is an open toolkit for composing model fusions: several models answering together, graded against a real research benchmark. Every run reproduces from a single line, on your own keys.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ScreamingFace/screamingface",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T14:13:12Z"
+}
