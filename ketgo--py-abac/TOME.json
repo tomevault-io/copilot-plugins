@@ -4,7 +4,7 @@
   "repo": "py-abac",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ketgo/py-abac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T08:15:27Z"
+  "distributed_at": "2026-09-06T11:38:15Z"
 }
