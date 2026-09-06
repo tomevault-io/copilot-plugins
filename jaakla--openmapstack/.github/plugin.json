@@ -1,0 +1,9 @@
+{
+  "name": "jaakla--openmapstack",
+  "displayName": "openmapstack",
+  "description": "AI-agent skill for reproducible, validated GIS analysis \u2014 from authoritative data discovery to interactive maps, on an open-first geospatial stack (OSM, Overture, STAC, DuckDB, PostGIS, QGIS, MapLibre",
+  "version": "1.0.0",
+  "author": "jaakla",
+  "homepage": "https://github.com/jaakla/openmapstack",
+  "skills": []
+}
