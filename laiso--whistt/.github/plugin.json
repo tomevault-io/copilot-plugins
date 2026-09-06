@@ -1,0 +1,9 @@
+{
+  "name": "laiso--whistt",
+  "displayName": "whistt",
+  "description": "Native push-to-talk voice input for macOS.",
+  "version": "1.0.0",
+  "author": "laiso",
+  "homepage": "https://github.com/laiso/whistt",
+  "skills": []
+}
