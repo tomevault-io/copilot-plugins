@@ -5,13 +5,13 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wwj-git-rgb/spring-ai-code-demo](https://github.com/wwj-git-rgb/spring-ai-code-demo).
+Original source: `.cursor/rules/*.mdc` in [wwj-git-rgb/spring-ai-code-demo](https://github.com/wwj-git-rgb/spring-ai-code-demo).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
