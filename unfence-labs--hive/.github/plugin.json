@@ -1,0 +1,9 @@
+{
+  "name": "unfence-labs--hive",
+  "displayName": "hive",
+  "description": "Orchestrate AI coding agents across isolated git workspaces on your own server - from your desktop, browser, or phone.",
+  "version": "1.0.0",
+  "author": "unfence-labs",
+  "homepage": "https://github.com/unfence-labs/hive",
+  "skills": []
+}
