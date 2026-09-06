@@ -1,0 +1,9 @@
+{
+  "name": "mathewdunne--coderunner",
+  "displayName": "CodeRunner",
+  "description": "A self-hosted, browser-based IDE with AdvantageScope telemetry for learning FRC robot programming.",
+  "version": "1.0.0",
+  "author": "mathewdunne",
+  "homepage": "https://github.com/mathewdunne/CodeRunner",
+  "skills": []
+}
