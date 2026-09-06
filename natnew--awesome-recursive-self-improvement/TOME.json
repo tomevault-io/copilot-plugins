@@ -4,7 +4,7 @@
   "repo": "awesome-recursive-self-improvement",
   "description": "A curated list of recent AI resources on recursive self-improvement, self-evolving agents, test-time adaptation, experience learning, self-refinement, and governed AI improvement loops.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/natnew/awesome-recursive-self-improvement",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T22:49:39Z"
+  "distributed_at": "2026-09-06T22:50:35Z"
 }
