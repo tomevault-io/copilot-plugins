@@ -1,0 +1,9 @@
+{
+  "name": "kashsuks--pinel",
+  "displayName": "Pinel",
+  "description": "Fast and extensible code editor written in rust",
+  "version": "1.0.0",
+  "author": "kashsuks",
+  "homepage": "https://github.com/kashsuks/Pinel",
+  "skills": []
+}
