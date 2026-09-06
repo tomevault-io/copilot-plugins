@@ -1,0 +1,9 @@
+{
+  "name": "timrichardson--opencode-btw",
+  "displayName": "opencode-btw",
+  "description": "OpenCode TUI plugin for /btw side sessions and popup by-the-way workflows",
+  "version": "1.0.0",
+  "author": "timrichardson",
+  "homepage": "https://github.com/timrichardson/opencode-btw",
+  "skills": []
+}
