@@ -1,0 +1,9 @@
+{
+  "name": "vancysavoki--infographic-mcp-app",
+  "displayName": "infographic-mcp-app",
+  "description": "An MCP App server that renders Infographic diagrams with hand-drawn style",
+  "version": "1.0.0",
+  "author": "VancySavoki",
+  "homepage": "https://github.com/VancySavoki/infographic-mcp-app",
+  "skills": []
+}
