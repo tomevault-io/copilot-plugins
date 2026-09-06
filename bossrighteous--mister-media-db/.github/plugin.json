@@ -1,0 +1,9 @@
+{
+  "name": "bossrighteous--mister-media-db",
+  "displayName": "MiSTer-Media-DB",
+  "description": "Python scripts to manage game media and artwork for update_all",
+  "version": "1.0.0",
+  "author": "BossRighteous",
+  "homepage": "https://github.com/BossRighteous/MiSTer-Media-DB",
+  "skills": []
+}
