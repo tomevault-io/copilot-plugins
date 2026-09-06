@@ -1,0 +1,9 @@
+{
+  "name": "codata--croissant-toolkit",
+  "displayName": "croissant-toolkit",
+  "description": "Croissant toolkit for Machine Learning",
+  "version": "1.0.0",
+  "author": "codata",
+  "homepage": "https://github.com/codata/croissant-toolkit",
+  "skills": []
+}
