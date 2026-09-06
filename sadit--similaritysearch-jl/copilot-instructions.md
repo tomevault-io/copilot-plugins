@@ -1,0 +1,298 @@
+## similaritysearch-jl
+
+> Guidance for AI coding agents working in this repository.
+
+# AGENTS.md
+
+Guidance for AI coding agents working in this repository.
+
+## What this is
+
+SimilaritySearch.jl is a Julia library for nearest-neighbor search. Its flagship index
+is `SearchGraph`, an approximate, incrementally-built graph index; it also ships exact
+baselines (`ExhaustiveSearch`, `ParallelExhaustiveSearch`), scalar quantization
+(`ScalarQuant`), random/Hadamard projections and bit sketches (`Projections`), and
+supporting utilities (k-NN result queues, batch parallelism, distance functions).
+
+See `README.md`/`docs/src/index.md` for the research background and citations.
+
+## Build / test / run
+
+```sh
+# from the repo root
+julia --project=. -e 'using Pkg; Pkg.instantiate()'   # first-time setup
+julia -t auto --project=. -e 'using Pkg; Pkg.test()'   # full suite -- required before commit/push
+```
+
+**Always pass `-t auto` (or `-tN`) when testing anything threading-related.** The default
+session is single-threaded (`Threads.nthreads() == 1`), which silently takes every fast
+serial path in `@BATCHES` and never exercises real parallelism, races, or
+scheduler-specific behavior.
+
+Individual test files live in `test/*.jl` and are `include`d from `test/runtests.jl`; to
+run just one, `include` it directly after `using SimilaritySearch` in a REPL/script rather
+than editing `runtests.jl`. `Aqua.jl` ambiguity/quality checks only run under
+`VERSION == v"1.10"` (see the top of `runtests.jl`).
+
+### Fast dev loop vs. the pre-commit/pre-push gate
+
+Measured directly (this repo, 2026-08): a fresh `julia -t auto --project=. -e 'using Pkg;
+Pkg.test()'` costs **~180s**, and **~90% of that is one-time JIT compilation** of
+SearchGraph/InvertedFiles/SearchModels code paths, not test data size -- running the exact
+same suite a *second* time inside the *same already-warm process* (no new process, so
+compilation is already cached) drops to **~20s**. Shrinking `n`/iteration counts only
+shaves a further ~20% off that already-warm 20s (`FAST_TESTS=true`, see below); it does
+**nothing** for a cold process, because compilation swamps it. Concretely:
+
+| invocation | cost |
+|---|---|
+| `julia -e '...; Pkg.test()'` (fresh process each time) | ~180s, `FAST_TESTS` included |
+| same suite, 2nd `include` in an already-running session | ~20s |
+| ...with `FAST_TESTS=true` on top | ~16s |
+
+**The actual lever for a fast dev loop is a persistent process, not smaller data.** Keep one
+Julia session open (e.g. with [`Revise.jl`](https://github.com/timholy/Revise.jl)) and
+re-`include` a test file after each edit instead of spawning `julia -e ...`/`Pkg.test()`
+per iteration:
+
+```julia
+using Revise, SimilaritySearch, Test
+ENV["FAST_TESTS"] = "true"   # optional: shrinks the handful of tests whose cost actually
+                             # scales with dataset size/iteration count (SearchGraph/
+                             # InvertedFile construction, optimize_index! autotuning,
+                             # SpatialAccessTree) -- worthwhile once warm, negligible cold.
+includet("test/testsearchgraph.jl")   # Revise.includet, not include -- tracks edits
+# ...edit source, then just re-run the line above; no new process, no re-compiling the world
+```
+
+`FAST_TESTS` reads once per session (`@isdefined(FAST_TESTS) || (const FAST_TESTS = ...)`
+guard at the top of every test file that uses it) — set the `ENV` var (or export it before
+launching Julia) *before* the first `include`/`Pkg.test()` call in that process; changing
+`ENV["FAST_TESTS"]` mid-session has no effect on an already-`include`d file.
+
+**Before commit/push, run the full gate** — plain `Pkg.test()` (no `FAST_TESTS`, fresh
+process, full data, Aqua enabled on Julia 1.10) — since that's the only way to reliably
+exercise a cold-compile path and the full-size code paths (`Pkg.test()` also always runs in
+its own isolated sandboxed environment, unlike a warm dev session).
+
+### Julia version matrix
+
+CI (`.github/workflows/ci.yml`) only officially tests **Julia 1.12**. The package also
+supports 1.10 and 1.11 (verified by hand repeatedly during development, not by CI) via
+`@static if VERSION >= v"1.11"` gates, mainly in `src/parallel.jl` (native
+`Threads.@threads :greedy` doesn't exist before 1.11). If `juliaup` has other versions
+installed, cross-check with:
+
+```sh
+julia +1.11 -t auto --project=. -e 'using Pkg; Pkg.test()'
+julia +1.12 -t auto --project=. -e 'using SimilaritySearch'   # at least a load smoke-test
+```
+
+## Architecture map (`src/`)
+
+- `SimilaritySearch.jl` — top-level module; defines `AbstractSearchIndex`,
+  `AbstractContext`, the `search`/`searchbatch`/`push_item!`/`append_items!`/`index!`
+  generic-function interface, and `getminbatch` (see Parallelism below).
+- `parallel.jl` — the `@BATCHES` macro (see below). **Read this file's docstrings before
+  touching any parallel loop** — it documents real hygiene pitfalls, not just API.
+  `include`d early in `SimilaritySearch.jl`, right after the module opens.
+- `log.jl` — the two logging channels. A context holds `reporters` (receive `INFORM`/
+  `@inform`, render progress for reading) and `observers` (receive `OBSERVE`, react to a
+  structural `:add!` so something durable happens). `reporters=[]` silences a context
+  completely; observers are untouched by that. Two rules that are easy to break: **never
+  call `OBSERVE` or `INFORM` inside a `@BATCHES` block** (the backends carry no lock, on
+  purpose — every mutating entry point is serial by design), and an observer belongs to one
+  index while a reporter is meant to be shared. See
+  `design-notes/2026-08-24-splitting-the-log-into-reporters-and-observers.md`.
+- `dist/` (`Dist` submodule) — distance functions (`L2`, `SqL2`, `Cosine`, `Angle`,
+  sequences, sets, "hacks" like `DistanceWithIdentifiers`).
+- `db/` — database containers (`MatrixDatabase`, `VectorDatabase`, `SubDatabase`) wrapping
+  the actual point storage.
+- `pqueue/` — k-NN result containers (`KnnSorted`, `KnnHeap`), both `AbstractKnnQueue`
+  subtypes sharing one interface (`push_item!`, `nearest`, `frontier`, `IdDistView`,
+  `reuse!`, `maxlength`). Construct via `knnqueue(KnnSorted, k_or_vec)`, never the raw
+  struct constructor.
+- `exact/` — `ExhaustiveSearch` (sequential) and `ParallelExhaustiveSearch` (parallel,
+  `@BATCHES`-based, lock-free per-batch buffers).
+- `searchgraph/` — `SearchGraph` itself: construction/insertion (`insertions.jl`),
+  rebuild-from-scratch (`rebuild.jl`), beam search (`beamsearch.jl`), neighborhood
+  filters (`neighborhood.jl`), adjacency backends (`../adj/`), per-call state
+  (`context.jl` → `SearchGraphContext`).
+- `intersections/` (`Intersections` submodule) — posting list intersection algorithms
+  (`svs`, `bk`, `bkt`, `umerge`, `imerge`, `xmerge`, etc.).
+- `invertedfiles/` (`InvertedFiles` submodule) — general inverted index representation
+  (`InvertedFile`, with `WeightedInvertedFile` as its weighted-vector constructor, and
+  `InvertedFileContext`).
+- `sq/` (`ScalarQuant` submodule) — per-column (`SQu2`/`SQu4`/`SQu8`) and global
+  (`SQgu4`/`SQgu8`) scalar quantization, each its own nested submodule.
+- `proj/` (`Projections` submodule) — `RandomProjections` (gaussian/QR),
+  `HadamardProjection`, and `bitsketch` (SimHash-style binary sketches).
+- `selection/` (`Selection` submodule) — algorithms that pick a subset standing for the whole
+  dataset, in two dual shapes: fixed-count (`fft`, `dnet`, `randsel`, `multirandsel`, returning
+  a `CenterSelection`) and fixed-radius (`neardup`, returning a `NearDupSelection`). Both name
+  the shared fields the same way (`centers`, `assign`, `assigndist`); `assign` holds a
+  **position into `centers`**, never an identifier into the database.
+- `allknn.jl`, `closestpair.jl`, `hsp.jl`, `rerank.jl`, `opt.jl` — higher-level algorithms built
+  on top of the index interface.
+
+## Conventions worth knowing before writing code
+
+- **Most index/context constructors are positional, not keyword**, despite some
+  docstrings suggesting otherwise: `SearchGraph(dist, db)`,
+  `ParallelExhaustiveSearch(dist, db)`, `ExhaustiveSearch(dist, db)` — **not**
+  `SearchGraph(; dist, db)`. Check the actual method definition before assuming a
+  keyword form exists; a couple of docstrings document keyword forms that were never
+  actually implemented.
+- Build a context with `GenericContext()` / `SearchGraphContext()` directly — there is no
+  working `getcontext(index)` for a general index despite a few docstrings referring to
+  one; don't rely on it existing.
+- Distance functions live under `Dist` (e.g. `SimilaritySearch.Dist.SqL2()`), not at
+  top level.
+- `IdDist(id, dist)` is the fundamental `(identifier, distance)` pair type; `IdView`/
+  `DistView` give zero-copy column-style views over collections of it.
+
+## Parallelism: `@BATCHES` and `getminbatch`
+
+`@BATCHES` (in `src/parallel.jl`) is this package's only parallel-for construct — `Polyester`/
+`@batch` was fully removed from `src/` (don't reintroduce it); `Project.toml` still lists
+`Polyester` as a dependency as of this writing, but nothing in `src/` uses it anymore.
+`@BATCHES` is a single native `Threads.@threads`-based macro on every supported Julia version.
+
+Simple form (equivalent to today's plain per-element loop):
+
+```julia
+@BATCHES minbatch for i in range
+    ...
+end
+```
+
+Full form, all sections but `@LOOP` optional:
+
+```julia
+@BATCHES minbatch begin
+    @BEGIN
+        results = Vector{Float32}(undef, @nbatches)   # runs once, before dispatch
+    @BEGINBATCH
+        acc = 0.0f0                                    # runs once per batch
+    @LOOP for i in range
+        acc += f(i)                                    # runs once per element
+    end
+    @ENDBATCH
+        results[@batchid] = acc                         # runs once per batch, after its elements
+    @END
+        total = sum(results)                            # runs once, after all batches join
+end
+```
+
+Key facts an agent must know before editing anything here:
+
+- **Index scratch buffers by `@batchid`, never by `Threads.threadid()`.** Batch ids are
+  fixed, disjoint ordinals — race-free under *every* scheduler (`:static`/`:default`/
+  `:greedy`). `Threads.threadid()`-indexing is only safe under `:static` (the default) and
+  is a silent data race under the others. No remaining call site in `src/` still does
+  this: `dist/seqs.jl`'s `Levenshtein`/`LCS` were the one case that couldn't use
+  `@batchid` at all (their scratch buffer is needed inside `evaluate(dist, a, b)`, the
+  generic, context-free interface shared by *every* distance function in this package —
+  no `ctx`/`@batchid` reaches it), so instead of thread-indexing they use a `Channel`-based
+  buffer pool (`take!`/`put!`, sized from `ctx.maxbatches` when a context is given via
+  `Levenshtein(ctx; ...)`/`LCS(ctx)`) — safe under *any* concurrency model, not just
+  `@BATCHES`, since it has no dependency on thread identity at all. A smaller pool only
+  costs throughput (a `take!` blocks until a buffer is returned), never correctness — this
+  is the preferred pattern over thread/batch-indexing whenever the caller can't supply a
+  `@batchid` at all (e.g. a context-free interface like `evaluate`).
+- **`GenericContext`/`SearchGraphContext` carry `batchid`/`maxbatches` fields** (see
+  `searchgraph/context.jl`) precisely so `@batchid`-indexing can flow through the existing
+  `search`/`find_neighborhood!` call graph without changing any of those functions'
+  signatures: mint a per-batch context once per batch (in `@BEGINBATCH`, not per element)
+  via `bctx = @set ctx.batchid = @batchid` (`Accessors.@set`; already `using Accessors`),
+  then use `bctx` — never the outer `ctx` — for every call made from inside that batch.
+  `getvstate`/`getbeam` (`context.jl`) read `ctx.batchid` to pick their scratch slot.
+  Both context structs have a *phantom* type parameter (`KnnType`, not derivable from any
+  field), so `@set` requires a `ConstructionBase.constructorof` override for each — already
+  defined right after each struct; don't remove it.
+- **The "tagged-handle" hazard (found live in this codebase — read this before touching
+  any `@BATCHES` body that mints a `bctx`/similar per-batch handle).** Unlike
+  `Threads.threadid()`-aliasing, this bug is unsafe under **every** scheduler, including
+  `:static` — it has nothing to do with task migration. It happens when `@BEGINBATCH`
+  correctly mints a tagged per-batch copy, but a call inside `@LOOP`/`@ENDBATCH` is
+  accidentally passed the original, untagged object instead. Every batch then silently
+  resolves to the *same* hardcoded slot (whatever the untagged object's default `batchid`
+  is, typically `1`) — a live data race between concurrently-running batches on genuinely
+  different threads. It type-checks, compiles, and runs without error, producing
+  plausible-looking but silently corrupted results, so it's easy to miss in a quick test.
+  Exactly this bug was caught and fixed in `searchgraph/rebuild.jl` and
+  `searchgraph/insertions.jl`:
+
+  ```julia
+  # BUGGY: tmp/N are correctly @batchid-sliced, but find_neighborhood! still gets the
+  # outer, untagged `ctx` — its internal getvstate/getbeam calls all resolve to slot 1,
+  # for every batch, concurrently.
+  @BEGINBATCH
+      bctx = @set ctx.batchid = @batchid
+      tmp = knnqueue(bctx, view(qcache, 1:ksearch, 2 * (@batchid) - 1))
+      N = knnqueue(bctx, view(qcache, 1:ksearch, 2 * (@batchid)))
+  @LOOP for objID in 1:n
+      find_neighborhood!(N, g, ctx, database(g, objID), tmp, 1:-1; hints=...)  # ctx, not bctx
+  end
+
+  # FIXED — use the tagged bctx, not the outer ctx
+  @LOOP for objID in 1:n
+      find_neighborhood!(N, g, bctx, database(g, objID), tmp, 1:-1; hints=...)
+  end
+  ```
+
+  **Rule of thumb: once `@BEGINBATCH` mints a `bctx`, grep the rest of that `@BATCHES`
+  body for the original variable's name (`ctx`) — it should not appear inside
+  `@LOOP`/`@ENDBATCH` at all.** This is also why a freshly-built/empty index can mask the
+  bug in a quick test: `find_neighborhood!` only touches `ctx` at all when the target
+  index already has elements (`length(index) > 0`).
+- **`@batchid`/`@nbatches` followed directly by a unary `-` misparses.** `2 * @batchid - 1`
+  parses as `2 * @batchid(-1)` (the bare macro slurps the following `-1` as an argument)
+  and errors. Always parenthesize: `2 * (@batchid) - 1`.
+- **Never splice `Threads.@threads` directly inside a macro's own generated
+  quote/`esc()` tree.** A hygiene interaction between the two macros can silently make the
+  per-iteration binding resolve to a single shared variable instead of a fresh per-task
+  local — a real, intermittent, silent data race was caught this way (see the comment
+  above `_batches_run_static` in `parallel.jl`). Keep `Threads.@threads` confined to
+  plain, hand-written, non-macro functions.
+- `getminbatch(n, nt=Threads.nthreads(); blocks_per_thread=8, maxbatches=n)` is the
+  underlying, always-valid way to compute `minbatch` for `@BATCHES`. `maxbatches` (a plain
+  `Int`, deliberately with **no special/sentinel value** — no `0`-means-off, no
+  `Union{Nothing,Int}` — to stay type-stable *and* simple to reason about) is just a hard
+  ceiling, always in effect; it defaults to `n` because `n` is already the largest a
+  batch count could sensibly be, so that default is a genuine no-op, not a disguised
+  "disabled" flag. Pass anything smaller and it directly reduces the batch count (raising
+  `minbatch` correspondingly) — there is no other case to remember, and every `Int`
+  (including `0` or negative) produces a well-defined result. **Prefer the context-aware
+  overload,
+  `getminbatch(ctx::AbstractContext, n)`** (`searchgraph/context.jl`), whenever a context
+  object is available — it derives `maxbatches` from `ctx.maxbatches` (default
+  `8 * Threads.nthreads()` for both context types), so the cap stays consistent with the
+  capacity of that context's own caches (`vstates`/`beams`, for `SearchGraphContext`)
+  instead of being an independent, easy-to-drift number. `ParallelExhaustiveSearch`'s
+  `search` and `rebuild` used to each carry their own bespoke `maxbatches` keyword; both
+  were dropped in favor of this single, context-level knob — set it via
+  `GenericContext(; maxbatches=...)`/`SearchGraphContext(; maxbatches=...)` instead. Read
+  `getminbatch`'s docstring's "Extreme cases" warning before picking a
+  `maxbatches`/`blocks_per_thread` value — capping too aggressively can leave threads idle.
+- When a scratch buffer's width is tied to `maxbatches`, derive the cap from the buffer's
+  *actual* allocated size (`size(buf, 2) ÷ slots_per_batch`), not from an assumed
+  relationship with some other parameter (e.g. a caller-supplied block size) — a mismatch
+  between an assumed relationship and the real buffer size caused a real out-of-bounds
+  crash during development (`searchgraph/insertions.jl`'s `qcache`, which is why its width
+  is sized directly from `ctx.maxbatches` in `index!`).
+- Some search methods (e.g. `ParallelExhaustiveSearch`'s `search`) are commonly invoked
+  from *within* another `@BATCHES`-parallelized outer loop (`searchbatch!`/`allknn`/
+  `closestpair` all do this generically). Native `:static` throws if nested/concurrent;
+  such inner call sites force `scheduler=:default` explicitly rather than relying on the
+  global default.
+
+## Git / commit conventions
+
+Recent history favors concise, single-focus commits explaining *why* a change was made,
+not a line-by-line what — see `git log --oneline` for the house style. Don't commit or
+push unless explicitly asked to.
+
+---
+> Source: [sadit/SimilaritySearch.jl](https://github.com/sadit/SimilaritySearch.jl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
