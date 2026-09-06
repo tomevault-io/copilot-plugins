@@ -4,7 +4,7 @@
   "repo": "orchestra",
   "description": "ADE/harness where you manage a team of agents the way a CEO manages a company \u2014 agentic mail between workers, a built-in task manager with budgets, git worktree isolation per agent, and cross-model review before every squash merge. Claude Code, Codex, Grok and an OpenRouter harness behind one contract.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DrSeedon/orchestra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T02:34:39Z"
+  "distributed_at": "2026-09-06T02:37:57Z"
 }
