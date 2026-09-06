@@ -1,0 +1,9 @@
+{
+  "name": "voidmatcha--ui-clone-skills",
+  "displayName": "ui-clone-skills",
+  "description": "Motion forensics for the animated web. A Claude Code & Codex plugin that reverse-engineers a live URL into React + Tailwind \u2014 pulling real CSS + animation params from JS bundles (GSAP/Framer Motion/We",
+  "version": "1.0.0",
+  "author": "voidmatcha",
+  "homepage": "https://github.com/voidmatcha/ui-clone-skills",
+  "skills": []
+}
