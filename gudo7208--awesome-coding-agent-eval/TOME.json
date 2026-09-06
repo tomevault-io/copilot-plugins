@@ -1,0 +1,44 @@
+{
+  "name": "awesome-coding-agent-eval",
+  "owner": "gudo7208",
+  "repo": "awesome-coding-agent-eval",
+  "description": "A curated collection of 900+ resources for evaluating AI coding agents \u2014 benchmarks, scoring methods, toolchain, leaderboards & pitfalls. Agent-queryable.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gudo7208/awesome-coding-agent-eval",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T23:10:52Z"
+}
