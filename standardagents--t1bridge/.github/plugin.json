@@ -1,0 +1,9 @@
+{
+  "name": "standardagents--t1bridge",
+  "displayName": "t1bridge",
+  "description": "Linux support for Apple T1 hardware",
+  "version": "1.0.0",
+  "author": "standardagents",
+  "homepage": "https://github.com/standardagents/t1bridge",
+  "skills": []
+}
