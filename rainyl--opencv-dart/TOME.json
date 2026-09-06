@@ -1,0 +1,117 @@
+{
+  "name": "opencv_dart",
+  "owner": "rainyl",
+  "repo": "opencv_dart",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-use-ffigen/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-use-ffigen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-build-cli-app/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-build-cli-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-add-unit-test/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-add-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-setup-ffi-assets/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-setup-ffi-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-collect-coverage/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-collect-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-fix-runtime-errors/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-fix-runtime-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-generate-test-mocks/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-generate-test-mocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-run-static-analysis/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-run-static-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-use-pattern-matching/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-use-pattern-matching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-use-primary-constructors/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-use-primary-constructors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-migrate-to-checks-package/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-migrate-to-checks-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencv_dart",
+      "path": ".agents/skills/dart-resolve-package-conflicts/SKILL.md",
+      "github_url": "https://github.com/rainyl/opencv_dart/tree/main/.agents/skills/dart-resolve-package-conflicts/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rainyl/opencv_dart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:38:34Z"
+}
