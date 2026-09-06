@@ -7,11 +7,11 @@ Provider-agnostic autonomous agent loop for JavaScript. Built on the Vercel AI S
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PaulKinlan/agent-do](https://github.com/PaulKinlan/agent-do).
+Original source: `CLAUDE.md` in [PaulKinlan/agent-do](https://github.com/PaulKinlan/agent-do).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
