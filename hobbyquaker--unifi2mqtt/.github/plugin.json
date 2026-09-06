@@ -1,0 +1,9 @@
+{
+  "name": "hobbyquaker--unifi2mqtt",
+  "displayName": "unifi2mqtt",
+  "description": "unifi2mqtt",
+  "version": "1.0.0",
+  "author": "hobbyquaker",
+  "homepage": "https://github.com/hobbyquaker/unifi2mqtt",
+  "skills": []
+}
