@@ -1,52 +1,30 @@
-## knowledge-hub-content
+## paid-mock-exam
 
-> Knowledge hub compare/numbers/mistakes — 150 per type, CSV quality
+> 有料模試（note）導線の設置・文言・配色ルール
 
 
-# Knowledge Hub Content（比較・数値・誤答）
+# 有料模試（note）導線
 
-**正本:** [docs/knowledge-hub-article-templates.md](../docs/knowledge-hub-article-templates.md)
+**正本:** `docs/paid-mock-exam.md`
 
-## 本番目標（各 CSV 独立）
+## 必須
 
-| 種別 | CSV | 目標 |
-|------|-----|------|
-| 比較・整理表 | `comparisons.csv` | **150〜153 件** |
-| 数値・期限早見表 | `numbers.csv` | **150〜153 件** |
-| よくある誤答 | `mistakes.csv` | **150〜153 件** |
+- `site-config.json` の `paidMockExam.url` があるサイトだけ表示。なければ UI 非表示
+- **05番**（弱点04の次）+ **結果画面**スコア下 CTA。位置・クラス名はテンプレに合わせる
+- バナー色は **`--paid-mock-accent`（#c0392b）**。サイト `theme.accent` は使わない
+- 外部リンク: `target="_blank"` + `rel="noopener noreferrer"`
 
-150 件未満 → `validate_csv.py` **WARN**（本番目標）。件数超過は更新負荷の WARN のみ。
+## 設定
 
-## 新規作成（必須フロー）
+`modeTitle` / `modePurpose` / `priceLabel` / `footnote` 必須。`scoreMeta`・`scoreLead` で結果画面文言をサイト別に。
 
-```bash
-python3 tools/scaffold_knowledge_hub_article.py --type compare|numbers|mistakes \
-  --title "…" --category "…" --append
-# プレースホルダをすべて差し替え
-python3 tools/validate_csv.py
-python3 tools/build_glossary_pages.py
-```
+画像バナー（任意）: `bannerImage` + `bannerAlt` を設定するとモード選択・結果画面で画像 CTA を表示。画像は `images/affiliate/{資格略称}-paid-mock-note-banner.webp`（1024×576）。未設定時は従来のテキストカード／ストリップ。
 
-## 1記事 = 1検索意図
+## 作業フロー
 
-- 「AとBの違い」→ compare
-- 「〇〇 何日 何%」→ numbers
-- 「〇〇 間違えやすい」→ mistakes
-
-用語解説に比較表を詰め込まず、混同語は **compare / mistakes へ切り出す**。
-
-## 行品質（ERROR）
-
-- JSON 列（`compare_rows` / `item_rows` / `pattern_rows`）が有効
-- `related_terms` … **glossary に登録済み 2 件以上**
-- FAQ **4 件**、`exam_points` **2 項目以上**
-- 雛形マーカー（`【記入】` 等）なし
-
-## 禁止
-
-- 用語解説への比較表の丸ごと複製
-- 3種 CSV を手書き HTML で代替
-- 件数目標なしのサンプル行だけで本番公開
+1. 変更は **exam-site-shell テンプレ**の `index.html` から（未反映サイトは sync）
+2. サイト repo に `paidMockExam` 追加 → `site_config.py` → 目視確認 → デプロイ
+3. 回数・価格は note 商品と一致させる（例: メンタル=3回、乙4=2回/35問×2）
 
 ---
 > Source: [takkenshiken2026-sudo/eisei2shu-master](https://github.com/takkenshiken2026-sudo/eisei2shu-master) — distributed by [TomeVault](https://tomevault.io).
