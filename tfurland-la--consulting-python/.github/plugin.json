@@ -1,0 +1,9 @@
+{
+  "name": "tfurland-la--consulting-python",
+  "displayName": "Consulting-python",
+  "description": "A from-zero on-ramp to Python and the Anthropic Claude SDK, built as preparation for the Claude Certified Architect - Foundations (CCAR-F) exam. Works as a responsive study companion alongside Anthrop",
+  "version": "1.0.0",
+  "author": "tfurland-la",
+  "homepage": "https://github.com/tfurland-la/Consulting-python",
+  "skills": []
+}
