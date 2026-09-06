@@ -1,0 +1,9 @@
+{
+  "name": "arcanemachine--pi-read",
+  "displayName": "pi-read",
+  "description": "The Pi coding agent `/read` tool, but with lower (and configurable) default max values (e.g. 2000 lines -> 100 lines).",
+  "version": "1.0.0",
+  "author": "arcanemachine",
+  "homepage": "https://github.com/arcanemachine/pi-read",
+  "skills": []
+}
