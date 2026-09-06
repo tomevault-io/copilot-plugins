@@ -1,0 +1,9 @@
+{
+  "name": "listenai--dsview-cli",
+  "displayName": "dsview-cli",
+  "description": "Cross-platform CLI for DSLogic Plus capture, export, and decode workflows built on DSView.",
+  "version": "1.0.0",
+  "author": "LISTENAI",
+  "homepage": "https://github.com/LISTENAI/dsview-cli",
+  "skills": []
+}
