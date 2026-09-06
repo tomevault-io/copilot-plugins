@@ -4,7 +4,7 @@
   "repo": "neowon",
   "description": "A scope-grade oscilloscope app in Rust + Bevy for the OWON VDS1022",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serjster/neowon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T13:45:34Z"
+  "distributed_at": "2026-09-06T14:02:27Z"
 }
