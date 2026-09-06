@@ -1,142 +1,62 @@
-## 02-repository-structure
+## 03-quality-assurance
 
 > **Last Updated**: January 1, 2026
 
-# Repository Structure & Context
+# Quality Assurance Checklist
 
-**Version**: 1.0  
+**Version**: 1.1  
 **Last Updated**: January 1, 2026
 
 ---
 
-## 🧭 Repository Context
+## ✅ Quality Assurance Checklist
 
-**Architecture Reasoning in Practice** is a personal learning repository documenting hands-on practice in architectural reasoning across senior and staff-level technical roles. It provides:
+**Before ANY content creation or modification**:
 
-- Structured thinking approaches
-- Trade-off analysis frameworks
-- Clear communication of architectural decisions
-- Practice with ambiguous and open-ended scenarios
+### Content Quality (Educational Standards)
 
-**Target Audience**:
+- [ ] **Zero-Copy Policy Verified**: No verbatim text from sources; completely transformed
+- [ ] **Transformative Workflow Applied**: Fresh outline, new examples, original explanations
+- [ ] **25-Minute Segment Compliance**: Content within 150 lines, modular structure
+- [ ] **5 Required Metadata Fields**: learning_level, prerequisites, estimated_time, learning_objectives, related_topics
+- [ ] **Original Examples**: All code, diagrams, datasets, and exercises are original
+- [ ] **ASCII-First Diagrams**: Diagrams redrawn in ASCII, never embedded copyrighted figures
+- [ ] **Learning Objectives**: Clear, specific, and measurable outcomes
+- [ ] **Progressive Scaffolding**: Foundations → Practice → Pitfalls → Next Steps
+- [ ] **Proper Learning Level**: Assigned (Stage 1-9 or Beginner/Intermediate/Advanced)
+- [ ] **Cross-References**: Prerequisites, builds-upon, enables, cross-refs included
+- [ ] **Quality Gate Passed**: All 6 quality gate questions answered affirmatively
 
-- Swamy (personal learning journey)
-- Senior Software Engineers
-- Principal Software Engineers
-- Staff Engineers
-- Software Architects
-- Solution Architects
-- AI Architects
-- Engineering Managers
-- Principal Consultants
+### Technical Quality
 
-**Purpose**: Develops real-world architectural judgment and decision-making capability through structured practice and analysis.
+- [ ] Character encoding verified (UTF-8, no symbols)
+- [ ] **YAML frontmatter validated**: No placeholder patterns (`$101_`, `$102_`, `$103_`), `enables:` key present, proper structure
+- [ ] **File references validated**: All file references point to existing files (run `.\tools\psscripts\Validate-FileReferences.ps1`)
+- [ ] **No broken references**: All YAML and markdown links resolve correctly
+- [ ] **File naming validated**: **CRITICAL** - Check for `00_` prefix - **NEVER ALLOWED** (applies to ALL files including `docs/`)
+  - Run: `Get-ChildItem -Recurse -Filter "*00_*"` to find violations
+  - All numbered files must use `01_`, `02_`, etc. - **NO EXCEPTIONS**
+- [ ] Markdownlint passes: `npx markdownlint-cli2 "file.md"`
+- [ ] Lychee link check passes: `docker run --rm -v "${PWD}:/workspace" lycheeverse/lychee "file.md"`
+- [ ] **Numbering consistent**: Uses `01_`, `02_`, etc. - **NEVER `00_`** (applies to ALL files including `docs/`)
+- [ ] Code fences have language specified
+- [ ] Blank lines proper (MD022/031/032)
+- [ ] 2-space list indentation (MD007)
 
-### 🚨 CRITICAL: Repository Purpose
+### Documentation Updates (CRITICAL)
 
-**This repository (`architecture-reasoning-in-practice`) contains:**
+- [ ] ✅ `copilot-instructions.md` updated if structure changed
+- [ ] ✅ `README.md` updated if structure changed
+- [ ] ✅ Related documentation updated
+- [ ] ✅ Verification script run: `.\Quick-HealthCheck.ps1`
 
-- ✅ **Practice Content**: Architectural reasoning scenarios and exercises
-- ✅ **Resources**: Frameworks, tools, and reference materials (`src/resources/`)
-- ✅ **Templates**: Standard templates for consistent content (`docs/templates/`)
+### File Reference Validation (CRITICAL)
 
-### 📋 Content Type Classifications
-
-**Practice Content** (`src/01_reasoning-foundations/`, `src/02_answer-structuring/`, `src/03_tradeoff-articulation/`, `src/04_role-perspectives/`, `src/05_evaluation-scenarios/`):
-
-- Purpose: Educational learning materials for architectural reasoning
-- Structure: Each thinking mode has topic-specific markdown files
-- File Naming: Descriptive names (e.g., `problem-framing.md`, `top-down-communication.md`)
-
-**Resources** (`src/resources/`):
-
-- Purpose: Frameworks, tools, and reference materials
-- File Naming: Logical names (`frameworks.md`, `reference-materials.md`, `tools.md`)
-
----
-
-## 📁 Repository Structure
-
-> **📋 Single Source of Truth**: The complete and up-to-date repository structure is maintained in [`docs/01_repository-structure.md`](../../docs/01_repository-structure.md). This file should be referenced for the authoritative structure. When the structure changes, update that file first, then update references here.
-
-For the complete repository structure, see: **[docs/01_repository-structure.md](../../docs/01_repository-structure.md)**
-
-### Current Structure Overview (As of December 24, 2025)
-
-**Note**: This is a summary. For the complete structure with all file names and details, refer to [`docs/01_repository-structure.md`](../../docs/01_repository-structure.md).
-
-**Quick Overview**:
-
-- `src/01_reasoning-foundations/` - Problem framing, clarification strategies, assumptions
-- `src/02_answer-structuring/` - Top-down communication, depth control, time-boxed reasoning
-- `src/03_tradeoff-articulation/` - Cost vs scale, simplicity vs flexibility, risk framing
-- `src/04_role-perspectives/` - How different roles think when solving the same problem
-- `src/05_evaluation-scenarios/` - Vague problems, conflicting requirements, legacy modernization
-- `src/resources/` - Frameworks, tools, and reference materials
-- `docs/templates/` - Scenario + pattern-note templates
-- `.github/workflows/` - CI checks (content compliance)
-
-## 📁 Directory Structure Details
-
-### Thinking Mode Directories
-
-**src/01_reasoning-foundations/** - Reasoning foundations
-
-- Problem framing
-- Clarification strategies
-- Assumptions and constraints
-
-**src/02_answer-structuring/** - Answer structuring
-
-- Top-down communication
-- Depth control
-- Time-boxed reasoning
-
-**src/03_tradeoff-articulation/** - Trade-off articulation
-
-- Cost vs scale
-- Simplicity vs flexibility
-- Risk and failure framing
-
-**src/04_role-perspectives/** - Role perspectives
-
-- Staff Engineer perspective
-- Principal Engineer perspective
-- Architect perspective
-- Engineering Manager perspective
-
-**src/05_evaluation-scenarios/** - Evaluation scenarios
-
-- Vague problems
-- Conflicting requirements
-- Legacy modernization
-
-### Supporting Directories
-
-**src/resources/** - Reference materials
-
-- Frameworks
-- Reference materials
-- Tools
-
-## 📞 Support & Escalation
-
-**Questions about reasoning foundations?** → Check `src/01_reasoning-foundations/`
-
-**Need answer structuring guidance?** → Check `src/02_answer-structuring/`
-
-**Looking for trade-off articulation?** → Check `src/03_tradeoff-articulation/`
-
-**Structure outdated?** → Update `docs/01_repository-structure.md` first, then update references in `.github/copilot-instructions.md` and `README.md`
-
----
-
-## For More Information
-
-- **Repository**: Check README.md for repository location
-- **Learning Path**: `README.md`
-- **Content Index**: See domain README files
-- **GitHub Copilot Instructions**: `.github/copilot-instructions.md`
+- [ ] ✅ **All file references validated**: Run `.\tools\psscripts\Validate-FileReferences.ps1`
+- [ ] ✅ **No broken references**: All YAML `prerequisites`, `builds_upon`, `enables` references exist
+- [ ] ✅ **All markdown links work**: Test navigation links in preview
+- [ ] ✅ **Part file references correct**: If files were split, references use exact part file names
+- [ ] ✅ **Updated after splitting**: If you split a file, updated ALL references to that file
 
 ---
 > Source: [SwamysArchitectJourney-2026/architecture-reasoning-in-practice](https://github.com/SwamysArchitectJourney-2026/architecture-reasoning-in-practice) — distributed by [TomeVault](https://tomevault.io).
