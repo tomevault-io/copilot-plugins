@@ -4,7 +4,7 @@
   "repo": "ephemerd",
   "description": "Ephemeral GitHub Actions runners. Single binary, every platform. Containers on Linux, Hyper-V on Windows, VMs on macOS. Secure by default \u2014   every job gets an isolated, disposable environment.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ephpm/ephemerd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T06:44:02Z"
+  "distributed_at": "2026-09-06T06:44:43Z"
 }
