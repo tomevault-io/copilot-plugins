@@ -1,9 +1,22 @@
 {
   "name": "kadirnar--voicehub",
-  "displayName": "voicehub",
-  "description": "VoiceHub: A Unified Inference Interface for TTS Models",
+  "displayName": "VoiceHub",
+  "description": "VoiceHub",
   "version": "1.0.0",
   "author": "kadirnar",
-  "homepage": "https://github.com/kadirnar/voicehub",
-  "skills": []
+  "homepage": "https://github.com/kadirnar/VoiceHub",
+  "skills": [
+    {
+      "name": "VoiceHub",
+      "description": ""
+    },
+    {
+      "name": "VoiceHub",
+      "description": ""
+    },
+    {
+      "name": "VoiceHub",
+      "description": ""
+    }
+  ]
 }
