@@ -1,0 +1,9 @@
+{
+  "name": "trace-the-law--core",
+  "displayName": "core",
+  "description": "Schemas, validation, governance, and agent contracts for source-linked, versioned public-law evidence",
+  "version": "1.0.0",
+  "author": "trace-the-law",
+  "homepage": "https://github.com/trace-the-law/core",
+  "skills": []
+}
