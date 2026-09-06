@@ -1,0 +1,9 @@
+{
+  "name": "drseedon--orchestra",
+  "displayName": "orchestra",
+  "description": "ADE/harness where you manage a team of agents the way a CEO manages a company \u2014 agentic mail between workers, a built-in task manager with budgets, git worktree isolation per agent, and cross-model re",
+  "version": "1.0.0",
+  "author": "DrSeedon",
+  "homepage": "https://github.com/DrSeedon/orchestra",
+  "skills": []
+}
