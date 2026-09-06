@@ -1,0 +1,9 @@
+{
+  "name": "lamngockhuong--tabrest",
+  "displayName": "tabrest",
+  "description": "Chrome extension to automatically unload inactive tabs and free memory",
+  "version": "1.0.0",
+  "author": "lamngockhuong",
+  "homepage": "https://github.com/lamngockhuong/tabrest",
+  "skills": []
+}
