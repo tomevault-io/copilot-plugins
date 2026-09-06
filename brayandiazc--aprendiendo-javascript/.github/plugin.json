@@ -5,34 +5,5 @@
   "version": "1.0.0",
   "author": "brayandiazc",
   "homepage": "https://github.com/brayandiazc/aprendiendo-javaScript",
-  "skills": [
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
