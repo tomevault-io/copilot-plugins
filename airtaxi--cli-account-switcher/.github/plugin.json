@@ -1,0 +1,9 @@
+{
+  "name": "airtaxi--cli-account-switcher",
+  "displayName": "Cli-Account-Switcher",
+  "description": "CLI account switcher for AI services. Currently supports Codex, with Claude Code and GitHub Copilot support planned.",
+  "version": "1.0.0",
+  "author": "airtaxi",
+  "homepage": "https://github.com/airtaxi/Cli-Account-Switcher",
+  "skills": []
+}
