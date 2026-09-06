@@ -1,0 +1,44 @@
+{
+  "name": "infai",
+  "owner": "dipankardas011",
+  "repo": "infai",
+  "description": "TUI for managing llama.cpp model profiles \u2014 browse models, store named configs in SQLite, launch llama-server with live log streaming",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dipankardas011/infai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T02:52:27Z"
+}
