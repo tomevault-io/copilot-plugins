@@ -1,0 +1,9 @@
+{
+  "name": "lyfuci--ai-terminal-manager",
+  "displayName": "ai-terminal-manager",
+  "description": "AI Terminal Manager \u2014 Claude Code + Codex \u7684\u7edf\u4e00\u4f1a\u8bdd\u5386\u53f2\u4e0e tmux \u5e38\u9a7b\u4fa7\u680f",
+  "version": "1.0.0",
+  "author": "lyfuci",
+  "homepage": "https://github.com/lyfuci/ai-terminal-manager",
+  "skills": []
+}
