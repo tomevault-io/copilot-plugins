@@ -4,7 +4,7 @@
   "repo": "gxShell",
   "description": "\u8de8\u5e73\u53f0\u684c\u9762 SSH \u5de5\u4f5c\u53f0 \u2014 \u7ec8\u7aef\u3001\u76d1\u63a7\u3001SFTP\u3001Docker\u3001\u96a7\u9053\u4e0e AI \u52a9\u624b\u4e00\u4f53\u5316",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gxmst/gxShell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T22:46:16Z"
+  "distributed_at": "2026-09-06T22:49:13Z"
 }
