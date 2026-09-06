@@ -1,0 +1,9 @@
+{
+  "name": "serjster--neowon",
+  "displayName": "neowon",
+  "description": "A scope-grade oscilloscope app in Rust + Bevy for the OWON VDS1022",
+  "version": "1.0.0",
+  "author": "serjster",
+  "homepage": "https://github.com/serjster/neowon",
+  "skills": []
+}
