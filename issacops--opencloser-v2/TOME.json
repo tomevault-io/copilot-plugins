@@ -1,0 +1,44 @@
+{
+  "name": "opencloser-v2",
+  "owner": "issacops",
+  "repo": "opencloser-v2",
+  "description": "Open-source AI sales platform. Run your entire AI sales team locally: strategist, lead researcher, voice caller (SDR), coach, and manager \u2014 all on your desktop. AI cold calling, objection handling, post-call debrief, sentiment analysis, Kanban CRM. Built with Tauri + React + Rust + Gemini. No SaaS fees.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/issacops/opencloser-v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T23:05:15Z"
+}
