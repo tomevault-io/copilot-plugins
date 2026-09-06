@@ -1,0 +1,9 @@
+{
+  "name": "jaloveeye--cursor-remote",
+  "displayName": "cursor-remote",
+  "description": "Control Cursor AI from your mobile device. Remote control extension for Cursor IDE via WebSocket - Code anywhere, anytime with Cursor CLI.",
+  "version": "1.0.0",
+  "author": "jaloveeye",
+  "homepage": "https://github.com/jaloveeye/cursor-remote",
+  "skills": []
+}
