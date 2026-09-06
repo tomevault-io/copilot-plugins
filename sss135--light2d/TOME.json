@@ -4,7 +4,7 @@
   "repo": "Light2D",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SSS135/Light2D",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T08:16:40Z"
+  "distributed_at": "2026-09-06T08:18:53Z"
 }
