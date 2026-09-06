@@ -4,7 +4,7 @@
   "repo": "awesome-coding-agent-eval",
   "description": "A curated collection of 900+ resources for evaluating AI coding agents \u2014 benchmarks, scoring methods, toolchain, leaderboards & pitfalls. Agent-queryable.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gudo7208/awesome-coding-agent-eval",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T23:10:52Z"
+  "distributed_at": "2026-09-06T23:26:35Z"
 }
