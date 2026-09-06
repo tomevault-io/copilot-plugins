@@ -4,7 +4,7 @@
   "repo": "semorphe",
   "description": "\u540c\u4e00\u652f\u7a0b\u5f0f\uff0c\u4e09\u7a2e\u770b\u6cd5\u2014\u2014\u7a0b\u5f0f\u78bc\u3001\u6d41\u7a0b\u5716\u3001\u7a4d\u6728\u3002\u6539\u54ea\u4e00\u908a\u90fd\u7b97\u6578\uff0c\u4e26\u4e14\u5373\u6642\u540c\u6b65\uff01",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timcsy/semorphe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T14:04:07Z"
+  "distributed_at": "2026-09-06T14:18:29Z"
 }
