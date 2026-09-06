@@ -4,7 +4,7 @@
   "repo": "dppvalidator",
   "description": "dppvalidator is the \"GDPR compliance engine\" for physical products, enforcing the strict digital syntax required for the EU's Digital Product Passport.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/artiso-ai/dppvalidator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T15:32:56Z"
+  "distributed_at": "2026-09-06T15:33:40Z"
 }
