@@ -1,0 +1,9 @@
+{
+  "name": "neoclide--vimls-go",
+  "displayName": "vimls-go",
+  "description": "Vim script language server written in go",
+  "version": "1.0.0",
+  "author": "neoclide",
+  "homepage": "https://github.com/neoclide/vimls-go",
+  "skills": []
+}
