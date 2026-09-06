@@ -1,0 +1,9 @@
+{
+  "name": "incursa--codex-telegram",
+  "displayName": "codex-telegram",
+  "description": "Telegram bot for controlling a local Codex CLI session from an allowlisted chat.",
+  "version": "1.0.0",
+  "author": "incursa",
+  "homepage": "https://github.com/incursa/codex-telegram",
+  "skills": []
+}
