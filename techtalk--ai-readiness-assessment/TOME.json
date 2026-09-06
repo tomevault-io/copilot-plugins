@@ -4,7 +4,7 @@
   "repo": "ai-readiness-assessment",
   "description": "A self-contained Claude Code & GitHub Copilot plugin that assesses a team's AI readiness against the Agentic Habitat Maturity Model and the Sovereign Engineer framework, producing a gap-anchored maturity report.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/techtalk/ai-readiness-assessment",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T22:37:20Z"
+  "distributed_at": "2026-09-06T22:45:41Z"
 }
