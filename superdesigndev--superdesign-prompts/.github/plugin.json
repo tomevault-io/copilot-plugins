@@ -1,0 +1,9 @@
+{
+  "name": "superdesigndev--superdesign-prompts",
+  "displayName": "superdesign-prompts",
+  "description": "128 usage-ranked, vision-curated UI design prompts (full design specs + live previews) that stop your AI coding agent from shipping generic AI-slop UI. Powered by superdesign.dev",
+  "version": "1.0.0",
+  "author": "superdesigndev",
+  "homepage": "https://github.com/superdesigndev/superdesign-prompts",
+  "skills": []
+}
