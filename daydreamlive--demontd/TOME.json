@@ -1,0 +1,44 @@
+{
+  "name": "demonTD",
+  "owner": "daydreamlive",
+  "repo": "demonTD",
+  "description": "WIP TouchDesigner operator for DEMON \u2014 real-time AI music generation. Drop-in .tox with all DEMON params, audio I/O via CHOPs, and optional Daydream auth.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daydreamlive/demonTD",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T23:03:53Z"
+}
