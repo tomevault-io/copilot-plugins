@@ -4,7 +4,7 @@
   "repo": "air-diagram",
   "description": "diagram to measure air quality in different cities",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/juweek/air-diagram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T00:44:12Z"
+  "distributed_at": "2026-09-06T00:44:54Z"
 }
