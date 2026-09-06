@@ -15,14 +15,6 @@ Original source: `CLAUDE.md` in [cdiggins/plato](https://github.com/cdiggins/pla
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
-
-- [plato](https://github.com/cdiggins/plato/tree/main/.claude/skills/track-idea/SKILL.md)
-- [plato](https://github.com/cdiggins/plato/tree/main/.claude/skills/write-docs/SKILL.md)
-- [plato](https://github.com/cdiggins/plato/tree/main/.claude/skills/track-issue/SKILL.md)
-- [plato](https://github.com/cdiggins/plato/tree/main/.claude/skills/write-readme/SKILL.md)
-- [plato](https://github.com/cdiggins/plato/tree/main/.claude/skills/track-backlog/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cdiggins/plato](https://github.com/cdiggins/plato)
 
 ---
