@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lxsmnsyc/solid-floating-ui](https://github.com/lxsmnsyc/solid-floating-ui).
+Original source: `CLAUDE.md` in [lxsmnsyc/solid-floating-ui](https://github.com/lxsmnsyc/solid-floating-ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
