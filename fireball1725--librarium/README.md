@@ -7,11 +7,11 @@ Self-hosted, privacy-focused tracker for your physical book, manga, and comic co
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FireBall1725/librarium](https://github.com/FireBall1725/librarium).
+Original source: `CLAUDE.md` in [FireBall1725/librarium](https://github.com/FireBall1725/librarium).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
