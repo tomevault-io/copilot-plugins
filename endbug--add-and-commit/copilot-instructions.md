@@ -1,0 +1,30 @@
+## add-and-commit
+
+> Always update tests when behavior changes
+
+
+# Update tests with behavior changes
+
+When changing action behavior, inputs, outputs, validation, or git safety checks, update tests in the same change whenever it makes sense.
+
+## What “makes sense” means
+
+- **Do update tests** for new inputs/outputs, changed control flow, bug fixes with a regression case, and safety checks (gitlinks, arg injection, dry-run non-mutation).
+- **Skip or keep minimal** for pure docs/README, renames with no behavior change, or rebuild-only `lib/` syncs.
+- Prefer extending existing suites over new frameworks.
+
+## Where tests live
+
+- Unit: [`test/util.test.ts`](test/util.test.ts), [`test/io.test.ts`](test/io.test.ts) for pure helpers/parsers.
+- Integration: [`test/integration/`](test/integration/) for shipped `lib/index.js` end-to-end behavior (commit/push/tag/dry_run/etc.).
+- After integration-facing changes: rebuild `lib/` before relying on those tests (`npm run build`).
+
+## Expectations
+
+- New feature or bugfix → at least one test that would fail without the change.
+- Mirror `action.yml` defaults in [`test/integration/helpers.ts`](test/integration/helpers.ts) when adding inputs that `getBooleanInput` / validation require outside the Actions runner.
+- Do not leave “manual verification only” for behavior that the existing harness can cover.
+
+---
+> Source: [EndBug/add-and-commit](https://github.com/EndBug/add-and-commit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
