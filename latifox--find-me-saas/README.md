@@ -7,13 +7,13 @@ Most AI will tell you your startup idea is brilliant. This   one researches it p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Latifox/find-me-saas](https://github.com/Latifox/find-me-saas).
+Original source: `.cursor/rules/*.mdc` in [Latifox/find-me-saas](https://github.com/Latifox/find-me-saas).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
