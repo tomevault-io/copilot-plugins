@@ -1,0 +1,9 @@
+{
+  "name": "kentstephen--crop-data-layer-2021-deckgl-raster",
+  "displayName": "crop-data-layer-2021-deckgl-raster",
+  "description": "Visualizing USDA Cropland Data Layer from Microsoft Planetary Computer in Lonboard (client-side COG rendering via async-geotiff + obstore)",
+  "version": "1.0.0",
+  "author": "kentstephen",
+  "homepage": "https://github.com/kentstephen/crop-data-layer-2021-deckgl-raster",
+  "skills": []
+}
