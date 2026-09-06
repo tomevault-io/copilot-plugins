@@ -1,0 +1,57 @@
+{
+  "name": "pddl-lib",
+  "owner": "hfoffani",
+  "repo": "pddl-lib",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pddl-lib",
+      "path": "skills/pddlpy/SKILL.md",
+      "github_url": "https://github.com/hfoffani/pddl-lib/tree/main/skills/pddlpy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pddl-lib",
+      "path": ".claude/skills/run-pddlpy/SKILL.md",
+      "github_url": "https://github.com/hfoffani/pddl-lib/tree/main/.claude/skills/run-pddlpy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hfoffani/pddl-lib",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T11:33:20Z"
+}
