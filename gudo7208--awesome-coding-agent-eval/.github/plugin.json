@@ -1,0 +1,9 @@
+{
+  "name": "gudo7208--awesome-coding-agent-eval",
+  "displayName": "awesome-coding-agent-eval",
+  "description": "A curated collection of 900+ resources for evaluating AI coding agents \u2014 benchmarks, scoring methods, toolchain, leaderboards & pitfalls. Agent-queryable.",
+  "version": "1.0.0",
+  "author": "gudo7208",
+  "homepage": "https://github.com/gudo7208/awesome-coding-agent-eval",
+  "skills": []
+}
