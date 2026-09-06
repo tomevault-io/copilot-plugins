@@ -1,0 +1,9 @@
+{
+  "name": "bioaf--bioaf",
+  "displayName": "bioAF",
+  "description": "A self-hosted platform for orchestrating bioinformatics pipelines, managing experimental metadata, and running reproducible compute workloads.",
+  "version": "1.0.0",
+  "author": "bioAF",
+  "homepage": "https://github.com/bioAF/bioAF",
+  "skills": []
+}
