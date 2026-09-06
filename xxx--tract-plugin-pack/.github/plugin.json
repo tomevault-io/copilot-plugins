@@ -1,0 +1,9 @@
+{
+  "name": "xxx--tract-plugin-pack",
+  "displayName": "tract-plugin-pack",
+  "description": "Some AI-slopped audio plugins because I like native Linux versions and I hate installers with accounts attached.",
+  "version": "1.0.0",
+  "author": "xxx",
+  "homepage": "https://github.com/xxx/tract-plugin-pack",
+  "skills": []
+}
