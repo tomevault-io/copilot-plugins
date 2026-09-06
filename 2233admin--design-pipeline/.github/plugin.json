@@ -1,0 +1,9 @@
+{
+  "name": "2233admin--design-pipeline",
+  "displayName": "design-pipeline",
+  "description": "\u7ed9 AI Agent \u7684\u524d\u7aef\u8bbe\u8ba1\u7ba1\u7ebf\uff1a\u5148\u5199 DESIGN.md \u4e0e MOTION.md\uff0c\u7ecf job \u5206\u53d1\u3001OpenSpec \u4e0e\u8bc1\u636e\u95e8\u7981\u518d\u5199\u4ee3\u7801\u3002",
+  "version": "1.0.0",
+  "author": "2233admin",
+  "homepage": "https://github.com/2233admin/design-pipeline",
+  "skills": []
+}
