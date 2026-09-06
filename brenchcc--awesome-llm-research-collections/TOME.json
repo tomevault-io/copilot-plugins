@@ -4,7 +4,7 @@
   "repo": "Awesome-LLM-Research-Collections",
   "description": "Record interesting and meaningful papers and repositories seen daily.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BrenchCC/Awesome-LLM-Research-Collections",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T04:42:57Z"
+  "distributed_at": "2026-09-06T04:43:42Z"
 }
