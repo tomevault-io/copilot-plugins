@@ -1,0 +1,9 @@
+{
+  "name": "aetherfin--mobile-app",
+  "displayName": "mobile-app",
+  "description": "Native Android music player for self-hosted Jellyfin & Navidrome servers. Also support Local Media Playback. Lossless playback via libmpv, real-time FFT visualizer, 86-effect DSP rack, synced lyrics, ",
+  "version": "1.0.0",
+  "author": "Aetherfin",
+  "homepage": "https://github.com/Aetherfin/mobile-app",
+  "skills": []
+}
