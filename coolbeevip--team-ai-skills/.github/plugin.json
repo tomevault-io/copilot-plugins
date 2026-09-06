@@ -1,0 +1,9 @@
+{
+  "name": "coolbeevip--team-ai-skills",
+  "displayName": "team-ai-skills",
+  "description": "\u9762\u5411\u4ea7\u54c1\u8d1f\u8d23\u4eba\u3001\u7814\u53d1\u8d1f\u8d23\u4eba\u3001\u5f00\u53d1\u8005\u548c\u9879\u76ee\u7ba1\u7406\u8005\u7684\u56e2\u961f AI \u6280\u80fd\u5e93\uff0c\u8986\u76d6\u4ea7\u54c1\u5b9a\u4e49\u3001\u4ee3\u7801\u5e93\u7406\u89e3\u3001\u4ea4\u4ed8\u6267\u884c\u548c\u6280\u672f\u503a\u6cbb\u7406",
+  "version": "1.0.0",
+  "author": "coolbeevip",
+  "homepage": "https://github.com/coolbeevip/team-ai-skills",
+  "skills": []
+}
