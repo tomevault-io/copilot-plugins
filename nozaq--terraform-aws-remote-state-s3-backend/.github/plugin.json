@@ -1,0 +1,9 @@
+{
+  "name": "nozaq--terraform-aws-remote-state-s3-backend",
+  "displayName": "terraform-aws-remote-state-s3-backend",
+  "description": "terraform-aws-remote-state-s3-backend",
+  "version": "1.0.0",
+  "author": "nozaq",
+  "homepage": "https://github.com/nozaq/terraform-aws-remote-state-s3-backend",
+  "skills": []
+}
