@@ -1,0 +1,9 @@
+{
+  "name": "bdgscotland--libsdl2-amigaos3",
+  "displayName": "libSDL2-amigaos3",
+  "description": "SDL2 for AmigaOS 3.x on 68k \u2014 CyberGraphX/P96 video, AHI audio, Exec Task threading",
+  "version": "1.0.0",
+  "author": "bdgscotland",
+  "homepage": "https://github.com/bdgscotland/libSDL2-amigaos3",
+  "skills": []
+}
