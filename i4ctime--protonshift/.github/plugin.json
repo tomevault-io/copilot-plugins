@@ -1,0 +1,9 @@
+{
+  "name": "i4ctime--protonshift",
+  "displayName": "protonshift",
+  "description": "Native Qt/PySide6 Linux app for Proton, gamescope, MangoHud, and Steam/Heroic/Lutris library management \u2014 no Electron, no browser, no server.",
+  "version": "1.0.0",
+  "author": "I4cTime",
+  "homepage": "https://github.com/I4cTime/protonshift",
+  "skills": []
+}
