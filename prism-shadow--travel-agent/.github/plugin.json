@@ -1,0 +1,9 @@
+{
+  "name": "prism-shadow--travel-agent",
+  "displayName": "travel-agent",
+  "description": "Integration of PenguinHarness and penguin-browser: an agent that drives a real logged-in browser through irreversible tasks, with write-ahead recovery and human handoff.",
+  "version": "1.0.0",
+  "author": "Prism-Shadow",
+  "homepage": "https://github.com/Prism-Shadow/travel-agent",
+  "skills": []
+}
