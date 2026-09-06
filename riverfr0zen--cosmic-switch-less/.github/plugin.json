@@ -1,0 +1,9 @@
+{
+  "name": "riverfr0zen--cosmic-switch-less",
+  "displayName": "cosmic-switch-less",
+  "description": "An alternative app switcher for COSMIC Desktop that only shows windows on the *current* workspace.",
+  "version": "1.0.0",
+  "author": "riverfr0zen",
+  "homepage": "https://github.com/riverfr0zen/cosmic-switch-less",
+  "skills": []
+}
