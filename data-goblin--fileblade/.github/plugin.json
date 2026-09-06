@@ -1,0 +1,9 @@
+{
+  "name": "data-goblin--fileblade",
+  "displayName": "fileblade",
+  "description": "Customizable IDE-like sidebars for managing files and referencing information in Omarchy.",
+  "version": "1.0.0",
+  "author": "data-goblin",
+  "homepage": "https://github.com/data-goblin/fileblade",
+  "skills": []
+}
