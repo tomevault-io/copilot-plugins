@@ -1,0 +1,166 @@
+## tract-plugin-pack
+
+> Guidance for Claude Code working in this repository.
+
+# CLAUDE.md
+
+Guidance for Claude Code working in this repository.
+
+## Project Overview
+
+Tract Plugin Pack — a Cargo workspace of audio effect plugins (VST3, CLAP, standalone) built with [nih-plug](https://github.com/robbert-vdh/nih-plug) in Rust. Every plugin's GUI is CPU-rendered (softbuffer + tiny-skia + fontdue, no GPU) and freely resizable.
+
+### Plugins
+
+- **wavetable-filter** — wavetable frames as FIR kernels. Raw (direct convolution, zero latency) / Phaseless (STFT magnitude-only, no pre-ringing) modes.
+- **miff** — convolution filter whose FIR kernel is hand-drawn with an MSEG editor (sibling of wavetable-filter, but no wavetable file). Raw / Phaseless modes.
+- **gs-meter** — loudness meter + gain utility. dB mode (peak, true peak, RMS, crest) and LUFS mode (EBU R128, LRA). Designed for 100+ instances.
+- **gain-brain** — gain utility with cross-instance group linking (16 groups, Absolute/Relative, Invert). Inspired by BlueCat Gain Suite.
+- **tinylimit** — low-latency wideband peak limiter. Feed-forward + lookahead, dual-stage envelope, soft knee, optional ISP, 7 presets. Inspired by DMG TrackLimit.
+- **satch** — detail-preserving spectral saturator. FFT per-bin magnitude saturation preserves quiet components through clipping.
+- **six-pack** — six-band parallel "distort the difference" multiband saturator. 6 algorithms, per-band M/S routing, linear-phase oversampling, de-emphasis.
+- **pope-scope** — multichannel oscilloscope with beat sync. Shared global store across 16 instances, 3 display modes, hierarchical mipmap ring buffer.
+- **warp-zone** — spectral shifter/stretcher (phase vocoder). Shift, Stretch, Freeze, Feedback, frequency range. 4096-pt FFT, 1024 hop, ~85 ms latency.
+- **imagine** — multiband stereo imager modeled on iZotope Ozone Imager. 4 bands, Ozone-style Width law, per-band Stereoize, Recover Sides, 4 vectorscope modes.
+- **multosis** — 16-row grid sequencer with per-row audio effects driven by MSEGs. 50 effect kinds in the registry (a `None` passthrough plus 49 effects), including a 14-effect Spectral family (`Spectral{Shift,Rotate,Twist,Mirror,Bandpass,Stretch,Scatter,Cascade,Smear,Reverb,Compress,Corrupt,Lofi,Spread}`) sharing `tract_dsp::spectral_engine::SpectralEngine` (audio-thread-safe switchable FFT 512/1024/2048/4096, 50% Hann COLA except `SpectralStretch` which holds its own 75% analyzer for the phase vocoder); `Satch` and `WarpZone` also belong to the Spectral family but run their own fixed-FFT engines (so `EffectKind::family()` reports a 16-member Spectral family).
+- **nap** — EDVN velvet-noise character reverb. Three drawn curves (Decay/Width/Tone) over a shared tail-position axis sculpt the tail's loudness, stereo spread, and tonal colour independently. Dual engine: Zero Latency (sparse O(M) tapped-delay convolution, zero reported latency) and Efficient (UPOLS FFT convolution of the baked IR via `PartitionedConvolver`, ~512-sample latency, lower CPU at large/dense settings). Feature-tier (not held to 100+-instance target).
+- **hd26** — unison-detune chorus + pseudo-stereo widener, inspired by Serum's Hyper/Dimension. Two on-panel sections labelled `H____` and `D________` (deliberately not branded with Serum's terms; host params use `H `/`D ` prefixes). Chorus section: multi-voice modulated fractional-delay (up to 7 voices, Doppler detune, Szabo-style asymmetric spread, transient-detector Retrig, stereo Width). Widener section: 4-tap pseudo-stereo — AM mode (antisymmetric Side injection → mono-safe) and Pitch mode (delay modulation + cross-feed). Zero latency; no FFT.
+
+## Workspace Structure
+
+Each plugin is a crate (`<plugin>/`). Plus: `tiny-skia-widgets/` (shared CPU-rendered widgets), `tract-dsp/` (shared GUI-free DSP primitives), `docs/` (manuals md+PDF), `xtask/` (build tooling), `nih-plug-widgets/` (legacy vizia widgets, workspace-excluded so its old transitive deps stay out of the lock file).
+
+## Build / Test / Lint
+
+Requires **nightly Rust** (enforced by `rust-toolchain.toml`) for portable SIMD (`std::simd::f32x16`).
+
+```bash
+cargo nih-plug bundle <plugin> --release   # VST3 + CLAP bundle
+cargo build --bin <plugin> --release       # standalone
+cargo build --bin <plugin>                 # debug standalone (GUI testing without DAW)
+
+cargo nextest run --workspace              # all tests (parallel runner)
+cargo clippy --workspace -- -D warnings    # lint (CI uses -D warnings)
+cargo fmt --check
+```
+
+For local release/profile/bundle builds, prefix with `cargo xtask native` (auto-detects host CPU → `-C target-cpu=haswell`). Install the test runner via `cargo install cargo-nextest --locked`; config in `.config/nextest.toml`, CI uses the `ci` profile (retries=1). No doctests. Tests are inline `#[cfg(test)]` modules. Fixtures in `wavetable-filter/tests/fixtures/`.
+
+## Benchmarks
+
+Per-plugin Criterion benches live in `<plugin>/benches/`. Workspace-shared render benches are in `bench-suite/benches/render.rs`. Run with `cargo xtask native bench -p <plugin> --bench <name>` so target-cpu auto-tunes. Standard `cargo clippy --workspace -- -D warnings` does not compile bench/test cfg, so latent `#[cfg(test)]` lints (e.g. `field_reassign_with_default` in some test modules) only surface under `--benches`/`--tests`; the CI gate is the no-flag form.
+
+- `bench-suite::render` — shared `draw_rect`, `fill_pixmap_opaque`, `fill_column_opaque`. `cargo xtask bench-compare` runs this twice (target-cpu=x86-64 vs haswell) to quantify SIMD/native gains.
+- `multosis::dsp` — `AudioEngine::process` workload matrix (mixed / silence / idle / many-boundaries / 64-samp / 1024-samp / fm-heavy / delay-heavy). Baseline: 72 µs/512-samp at 48 kHz for the mixed case.
+- `multosis::effects` — one bench per `EffectKind`, registered via a loop over `EffectKind::ALL`. **Adding a new effect kind requires no edits to the bench file** — implement the `Effect` trait, append the variant to `EffectKind::ALL` and `default_params_for_kind`, and the loop registers `effect/process_sample_<Kind>` on the next run.
+- `warp-zone::dsp` (`SpectralShifter`), `pope-scope::dsp` (`RingBuffer` mipmap push), `wavetable-filter::dsp` (frame interp).
+- `tract-dsp::dsp` — per-call/per-block Criterion benches for every shared primitive (boxcar, db, fast_math, fir, hilbert, window, spsc, true_peak by default; the FFT-backed `stft_analysis`/`spectral_clipper`/`spectral_shifter`/`spectral_engine`/`stft` groups are feature-gated). Run the full set with `cargo xtask native bench -p tract-dsp --bench dsp --features stft,spectral-engine`. Pairs `tanh_pade` vs libm `tanh` and `db_to_linear_fast` vs `powf` so the fast-path claims stay evidence-backed.
+- `tract-dsp/examples/tract_dsp_profile.rs` — profiling harness for shared DSP primitives, reporting whole-path real-time factors for a perf/flamegraph workflow (`cargo xtask native run --release -p tract-dsp --example tract_dsp_profile --features stft-analysis`).
+- `multosis::editor::grid_view::tests::bench_editor_draw` — a `#[test]` (not Criterion) that prints per-component editor-draw timings via `eprintln!`. Run with `cargo xtask native nextest run -p multosis -E 'test(bench_editor_draw)' --release --no-capture`.
+
+## Development Practices
+
+- **Prefer TDD** — tests before/alongside implementation, covering normal/edge/error paths.
+- **Never commit unless asked** — hard rule, zero exceptions.
+- **No allocations on the audio thread** — `process()` uses pre-allocated buffers and `try_lock()`; no `Vec::new()`, collection `clone()`, or `String` ops in the hot path.
+- **No unsafe code** — except FFI windowing glue (raw-window-handle impls, `Send` for window handles) where the API requires it.
+- **Don't guess at fixes** — verify with tests, diagnose with logging, dispatch agents to review. No claiming a fix works without evidence.
+- **Use the LSP tool** over grep for code navigation; fall back to grep only when LSP is unavailable.
+
+## Architecture
+
+Common shape per plugin: `lib.rs` (plugin struct, params, `process()`), `editor.rs` (softbuffer + baseview editor), plus DSP modules. Notable per-plugin files:
+
+**wavetable-filter** — `wavetable.rs` (.wav/.wt I/O, frame interpolation); `editor/wavetable_view.rs` (2D + 3D viz, strided strands, cached bg pixmap blitted via raw `copy_from_slice`); `editor/filter_response_view.rs` (response curve + input spectrum shadow). `FilterState::is_silent` skips the SIMD MAC loop when history is all-zero.
+
+**miff** — `kernel.rs` (curve→FIR bake: single-walk `bake_taps`, peak-magnitude normalization, `KernelHandoff` Mutex+try_lock GUI→audio); `convolution.rs` (`RawChannel` SIMD MAC + silence fast-path, `PhaselessChannel` fixed 4096-pt STFT); `editor/response_view.rs`.
+
+**gs-meter** — `meter.rs` (RMS, peak, true peak ITU BS.1770-4, crest, SIMD).
+
+**gain-brain** — `groups.rs` (16-slot static atomics: cumulative_delta, absolute_gain, epoch, generation).
+
+**tinylimit** — `limiter.rs` (gain computer, dual-stage envelope, lookahead backward pass); `true_peak.rs` (ITU polyphase FIR, copied from gs-meter).
+
+**satch** — `spectral.rs` (FFT per-bin magnitude saturation, detail preservation).
+
+**six-pack** — `svf.rs` (TPT SVF mix-form, analytic unity at 0 dB); `saturation.rs` (6 waveshapers); `bands.rs` (per-band SVF pair + M/S routing); `oversampling.rs` (polyphase 4/8/16×); `spectrum.rs`; `editor/{curve_view,band_labels,bottom_strip}.rs`.
+
+**pope-scope** — `ring_buffer.rs` (atomic write_pos, two-pass push + SIMD mipmap, 3-level hierarchy); `store.rs` (16-slot static global, CAS ownership); `snapshot.rs` (free + beat sync, `peak_at_column`); `time_mapping.rs`; `renderer.rs` (direct pixel-write column fills, grids, cursor tooltip); `controls.rs`; `theme.rs` (amber phosphor, `blend_u32`).
+
+**warp-zone** — `spectral.rs` (phase vocoder: STFT, bin remapping, phase accumulation, freeze, frequency range).
+
+**imagine** — `midside.rs` (M/S encode/decode); `crossover.rs` (`CrossoverIir` Linkwitz-Riley + Lipshitz/Vanderkooy comp, `CrossoverFir` double-buffered + crossfade); `hilbert.rs` (FIR 90° rotator, len 65); `decorrelator.rs` (Schroeder/Gerzon 6-stage all-pass); `bands.rs` (Ozone Width, Stereoize Mode I/II, S_removed accumulator); `spectrum.rs` (M+jS FFT trick, coherence); `vectorscope.rs` (SPSC AtomicU32 ring); `polar_rays.rs` (SPSC emit ring); `theme.rs` (Cassiopeia A gold/teal); `editor/{spectrum_view,vectorscope_view,band_strip,global_strip}.rs`.
+
+**nap** — `sequence.rs` (velvet sequence generation: `GenParams`, `generate`, forward-only `curve_value` cursor, energy normalization; `VelvetSequence` pre-allocated parallel arrays); `engine.rs` (`ReverbChannel` — input ring + Q-filter excitation scatter + post-LP + DC blocker; `MAX_RING_SAMPLES`); `coloration.rs` (`Dictionary` of Q=6 one-pole lowpass filters log-spaced dark→bright; `OnePole`); `handoff.rs` (`SequenceHandoff` — `Arc<Mutex<VelvetSequence>>` + generation counter, `try_lock` audio-thread consume; `IrHandoff` — same shape for the baked IR spectra pair, L+R, published by `IrBaker` and consumed by the Efficient engine); `ir.rs` (`IrBaker` — GUI-thread analytic IR bake: per-filter pulse scatter + one-pole cascade + post-LP + DC blocker over the full IR, then UPOLS partition spectra; `IrSpectra` — pre-allocated partition-spectra buffer, `resize_for` grows on sample-rate change; `max_ir_len` — IR length cap rounded up to a whole P-sample partition); `lib.rs` (`NapMode { ZeroLatency, Efficient }` non-automatable Engine param; `DryDelay` P-sample ring for dry-path alignment in Efficient mode; `PartitionedConvolver` left/right instances; `bake_ir` GUI-thread helper); `rng.rs` (SplitMix64 seedable RNG); `editor.rs` (triple-MSEG editor, `pane_rects`/`pane_at` layout, regenerate-on-edit trigger, Engine stepped-selector, drag-deferred IR bake); `editor/tail_view.rs` (`decimate` — max-|coeff|-per-column decimation for bounded render cost, live pulse-field viz).
+
+**hd26** — `delay.rs` (modulated fractional delay line, 4-pt Catmull-Rom interp); `lfo.rs` (phase-in-turns sine `Phasor`); `transient.rs` (fast/slow-envelope onset detector + refractory, drives Retrig); `hyper.rs` (per-channel voice bank, `HyperParams`, `voice_depth` trough clamp); `dimension.rs` (`DimMode` AM/Pitch, `OnePoleHp` wet HPF, antisymmetric mono-safe sum); `editor.rs` (knob panel + lock-free retrig LED/level-bar telemetry).
+
+**tiny-skia-widgets** (shared) — `primitives.rs` (color palette, `draw_rect` opaque fast-path, `fill_pixmap_opaque`, `fill_column_opaque`); `text.rs` (fontdue glyph cache); `controls.rs` (button/slider/stepped-selector); `param_dial.rs` (rotary dial); `editor_base.rs` (EditorState size persistence, SurfaceState); `drag.rs` (DragState hit regions, `mouse_in_window`); `text_edit.rs` (`TextEditState<A>` right-click-to-type machine).
+
+**tract-dsp** (shared, GUI-free DSP) — `true_peak.rs` (ITU-R BS.1770-4 detector, used by gs-meter/tinylimit); `spsc.rs` (lock-free SPSC ring); `db.rs`; `window.rs` (`hann_periodic` D=N / `hann_symmetric` D=N−1); `boxcar.rs` (`RunningSumWindow`, f64 accumulator); `fir.rs` (`FirRing` — double-buffered SIMD MAC, used by miff/wavetable-filter); `hilbert.rs` (`HilbertFir` — Type-IV anti-symmetric linear-phase 90° rotator; `AnalyticSignal` — delay-matched `(real, imag)` pair; used by imagine and multosis FM); `stft.rs` (`StftConvolver` — magnitude-multiply overlap-add; `stft` feature); `stft_analysis.rs` (`StftAnalyzer` — STFT analysis front-end: input ring + periodic-Hann + COLA window + forward FFT; `stft-analysis` feature; used by satch/warp-zone); `spectral_engine.rs` (`SpectralEngine` — per-channel STFT analysis/synthesis with all four FFT sizes (512/1024/2048/4096) pre-allocated; FFT-size switching is audio-thread-safe; effects implement `SpectralTransform` and pass an instance to `process_sample`; `spectral-engine` feature; used by multosis's 14-effect Spectral family); `partitioned_conv.rs` (`PartitionedConvolver` — uniformly-partitioned overlap-save (UPOLS) real convolver; P=512 partition/latency size, N=1024 FFT; owns input/output FIFOs so it accepts arbitrary-length blocks; `set_ir` installs pre-baked partition spectra (audio thread never transforms the IR); `partitioned-conv` feature; used by nap's Efficient engine). Zero external deps by default; the FFT modules are feature-gated. `examples/tract_dsp_profile.rs` is the profiling harness.
+
+## Key Design Decisions
+
+**Rendering / GUI**
+- CPU rendering (softbuffer + tiny-skia + fontdue) instead of vizia/OpenGL — saves ~25 MB GPU driver overhead per instance, enabling 100s of instances per project.
+- All editors freely resizable: scale = `physical_width / WINDOW_WIDTH`; size persisted via `EditorState`; host resize via packed `AtomicU64` (`pending_resize`) consumed next frame.
+- Right-click text entry on continuous dials/sliders (shared `TextEditState<A>`): edit field seeded with unit-stripped value; Enter commits via `string_to_normalized_value`, Escape cancels, click-outside/drag-start auto-commits, right-click-during-drag ignored, key-ups swallowed while editing. Stepped selectors/buttons/toggles are non-editable.
+- Direct-pixel-write fast paths bypass tiny-skia's AA raster pipeline: `fill_column_opaque` (pope-scope waveform), cached-pixmap `copy_from_slice` blit (wavetable-filter 3D bg). `draw_rect` auto-switches to `BlendMode::Source` on opaque colors.
+
+**Metering (gs-meter / tinylimit)**
+- True peak: exact ITU-R BS.1770-4 coefficients (48-tap 4-phase polyphase FIR), double-buffered history. Sample-rate-aware: 4× OS <96 kHz, 2× 96–192 kHz, bypass ≥192 kHz.
+- Stereo RMS = sum-of-power `sqrt(ms_L + ms_R)` (dpMeter5 SUM). Crest = peak_stereo vs rms_stereo (dpMeter5 convention, not `max(crest_L, crest_R)`).
+- RMS momentary uses O(1) running sum (f64, incremental) not O(N) ring scan.
+
+**gain-brain**
+- Cross-instance group linking via in-process static atomics (16 slots, lock-free `fetch_add` cumulative_delta + absolute_gain + epoch + generation).
+- Inversion applied on reads and writes; slot stores writer's coordinate-space value; Invert toggle triggers local rebaseline (not shared-epoch bump); Relative readers track `last_seen_cumulative` for self-echo suppression.
+
+**tinylimit**
+- Feed-forward lookahead with backward-pass GR ramp (DanielRudrich). Flow: gain computer → lookahead backward pass → dual-stage envelope → apply to delayed audio → safety clip. Hard-knee fast path skips log/exp sub-threshold; `exp()` not `powf()`; threshold/ceiling lerped per block.
+
+**warp-zone**
+- Phase vocoder, 4096-pt FFT, 1024 hop (75% overlap, Hann). Bin remapping = linear interp + max-magnitude-wins collision. Phase accum = `expected_target_increment + source_phase_deviation` (deviation NOT scaled by ratio). Identity short-circuit (shift=0, stretch=1) copies bins directly.
+- Freeze stops input-ring writes; STFT keeps re-analyzing; transport-aware (silences output when transport stopped). Feedback feeds clamped (±4.0) wet back into input. Spectral display = lock-free AtomicU32 (128 bins × 256 cols). Frequency range bins outside pass through with original phase.
+
+**pope-scope**
+- Cursor tooltip: vertical line + time/bar label + per-track dB rows. Readings via `peak_at_column` (integer `div_ceil` mirrors `decimate_to_columns`' floor mapping); sparse path interpolates. Vertical mode restricts tooltip/cursor to hovered lane. `DragState::mouse_in_window` (CursorEntered/Left) prevents phantom (0,0) hover.
+- Freeze consistency: `sync_mode`/`timebase_ms`/`sync_unit_bars` cached in `CachedViewParams` each rebuild; while frozen, grid + tooltip read cached params so sync/timebase edits can't desync the frozen waveform.
+- Waveform = direct pixel-write pipeline (`fill_column_opaque`), no tiny-skia Paint/blitter. Half-split envelope smoothing: each column's top/bot is `min(own, (prev+own)/2, (own+next)/2)` — half-span polyline rasterization, smoother + symmetric. ~52% GUI CPU reduction vs the original path renderer.
+
+**six-pack**
+- Distorts the difference, not the signal: each band runs dry through a unity-when-flat SVF, `diff = svf_out − dry` (the EQ boost only); at 0 dB the SVF is analytically unity so diff is exactly zero. Saturation runs on the diff → band-gain knob = per-band drive. SVF exact unity at 0 dB is load-bearing for the whole architecture.
+- M/S routing before saturation: SVF runs on L/R (response routing-independent); diff routed Stereo/Mid/Side; saturate; recombine to L/R additively.
+- TPT SVF mix-form `dry + (peak_gain−1)·k·bandpass` (k=1/Q cancels bandpass peak height → peak magnitude = peak_gain regardless of Q). Shelves use lowpass/highpass branches. All unity at 0 dB.
+- De-emphasis subtracts `Σ diff_i` so wet collapses to `dry + Σ(saturate(diff_i) − diff_i)` — only saturation harmonics audible. At drive→0 and mix≤50% output equals dry exactly.
+
+**imagine**
+- Width law = Ozone-style scale-the-side: `S_gain = (width+100)/100` (0..2), `M_gain = 1` always. The earlier constant-power law removed mid at +100 and gutted volume on mid-dominant music. At +100 with strong stereo, output may exceed 0 dBFS — handled with downstream gain.
+- Stereoize Mode II = real Schroeder/Gerzon decorrelator (6-stage all-pass, mutually-prime delays {41,53,67,79,97,113}, SR-scaled) — xcorr <0.3. The original Hilbert-90 left xcorr ~+0.8.
+- Recover Sides gated per-band by Width sign (only width<0 contributes to S_removed_total); Hilbert FIR rotates the residue, recover_amount mixes into mid. It's a *perceptual* control, not energy-preserving.
+- IIR crossover = Lipshitz/Vanderkooy delay-matched cascade → 4-band sum allpass-equivalent (magnitude-flat ±0.05 dB). FIR crossover = double-buffered taps + sample-wise crossfade on swap, redesign gated on >0.5 Hz change.
+- Hilbert is FIR-only (len 65, ~32 samples latency). An IIR all-pass cascade can't hit 90° at low freq; the FIR is exact and ~0.7 ms is sub-perceptual.
+- Vectorscope ring = per-sample `AtomicU32` (f32 bit-pattern, no unsafe), Acquire/Release on write_pos. A torn (L,R) pair is sub-pixel given per-frame decimation.
+
+**miff**
+- Bipolar tap map `kernel[i] = 2·value − 1` places the MSEG midline (0.5) at a zero tap → values above 0.5 give positive taps, below give negative; flat-0.5 → all-zero kernel. Enables highpass/bandpass/comb FIRs from a [0,1] editor.
+- Peak-magnitude normalization (not L1): bake taps → MAX_KERNEL FFT → divide by peak bin magnitude. Filter never boosts >0 dB, consistent loudness for any shape. L1 would only be correct for lowpass-ish shapes.
+- Flat-0.5 default bakes to all-zero kernel → `Kernel::is_zero` makes Raw + Phaseless short-circuit to dry passthrough. Safe to insert before drawing.
+- Phaseless mode uses a fixed 4096-pt STFT frame (= MAX_KERNEL) regardless of `Length` → constant 2048-sample latency that never jumps.
+- `Length` is non-automatable (`IntParam::non_automatable()`) so the O(N log N) re-bake stays GUI-thread-triggered, off the audio thread.
+- `bake_taps` walks the curve with a forward-only segment cursor, reproducing `mseg::value_at_phase` exactly without its per-tap rescan — O(N + nodes) not O(N·nodes).
+
+**Dependencies**
+- nih-plug points to `xxx/nih-plug` branch `finish-vst3-pr` — fork adds `Editor::set_size()`, `update_track_info()` + `TrackInfo`, `BYPASS_BUFFER_COPY`, nightly SIMD compat, VST3 license fix.
+- baseview pinned to tag `v0.1.1` across every crate (and the nih-plug fork) so the tree resolves a single baseview. v0.1.1 fixes an x11 modifier-mask bug (`KeyButMask::BUTTON1/2/4` mis-wired to ALT/NUM_LOCK/META) that broke the MSEG editor's Alt-held stepped-draw.
+
+## Wavetable File Formats
+
+- `.wav` — standard WAV; frames are contiguous equal-size chunks (256/512/1024/2048 samples).
+- `.wt` — Surge-compatible; frame metadata in header.
+
+Sample: `wavetable-filter/tests/fixtures/phaseless-bass.wt`.
+
+---
+> Source: [xxx/tract-plugin-pack](https://github.com/xxx/tract-plugin-pack) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
