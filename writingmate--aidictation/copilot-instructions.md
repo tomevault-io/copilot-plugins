@@ -1,36 +1,82 @@
 ## aidictation
 
-> - Write labels, alerts, buttons, and other user-visible text from the user's perspective.
+> - do not build dmg and tag unless i ask, commit periodically but don't bump the version
 
-# Agent Instructions
+## Release Process
 
-## User-Facing Copy
+- do not build dmg and tag unless i ask, commit periodically but don't bump the version
+- be very conservative with versions, keep it in 0.0.6 unless explicitly told
+- The Release build needs hardened runtime and shouldn't include the get-task-allow entitlement.
+- when i say release new version it means:
+  1. bump patch version, unless told otherwise
+  2. commit all code
+  3. notarize
+  4. build dmg
+  5. only when dmg is released and working push everything to github, dmg, notarized app, etc
+  6. make sure that the code in github and main are up to date to the latest release
+- notarization email is hello@writingmate.ai, always use dmg, not zip
 
-- Write labels, alerts, buttons, and other user-visible text from the user's perspective.
-- Do not expose implementation names or technical language in user-facing labels.
-- Prefer plain product terms such as "offline mode" and "cloud mode" over engine, model, provider, or framework names.
-- Keep mode-switch explanations focused on what will happen for the user.
+## UI/UX Guidelines
 
-## Transcription and Cleanup Architecture
+- use HIG best practices as much as possible, don't design custom components
 
-- LLM cleanup is core transcription infrastructure. Do not remove it, bypass it, or stop sending it user context as a workaround for model-quality bugs unless the product owner explicitly approves an architecture change.
-- Support both production pipeline shapes:
-  - In a one-stage AI transcription-and-cleanup flow, provide the model with all applicable personal vocabulary, phrases, replacements, expansions, formatting instructions, and contextual rules.
-  - In a two-stage flow, provide recognition with appropriate speech-recognition hints, then provide the cleanup LLM with the complete raw transcript plus all applicable personal vocabulary, phrases, replacements, expansions, formatting instructions, and contextual rules.
-- Personal vocabulary must reach the cleanup LLM even when entries contain no explicit replacements. The cleanup LLM is responsible for using that reference context to correct spelling and recognition mistakes.
-- Delimit transcript content from reference context and instruct the LLM to use reference terms only when supported by the transcript. Never fix hallucinations by removing vocabulary from cleanup, hardcoding customer examples, or programmatically deleting generated words.
-- Preserve the complete transcript through its final token. Prompt changes must remain generic and must not include customer recordings, names, vocabulary terms, or reported failure tokens.
-- Any change to transcription context or cleanup behavior must cover both pipeline shapes and all supported platforms, with regression checks for vocabulary-only entries, explicit replacements, phrase expansions, formatting rules, complete-tail preservation, and unsupported-term non-insertion.
+## Swift Coding Principles
 
-## Audio Processing Recovery
+### Manager Classes (Singleton Services)
 
-- Follow `docs/audio-processing-failure-contract.md` on macOS, iOS and its keyboard extension, Android, and Windows.
-- Persist managed source audio and a stable recording ID before recognition. Every attempt must have one owner, a deadline, cancellation, ordered checkpoints, and a terminal persisted state.
-- A timeout must return the UI to idle even when native work ignores cancellation. Fence late callbacks so an abandoned attempt cannot overwrite, recreate, or delete newer state.
-- Retry transient transport failures only under the shared bounded policy. Do not retry permanent `4xx` responses or fully received malformed responses. Split rejected `413` leaves sequentially without replaying completed chunks.
-- Treat cleanup as optional after complete raw recognition. Cleanup failure or empty output keeps the raw transcript.
-- Delete and Clear must either refuse active work or win durably over it. Never submit audio known to be truncated or unfinalized, and never delete the only recoverable source.
+All Manager classes should follow these patterns:
+
+1. **Documentation**: Add a doc comment describing the class purpose
+   ```swift
+   /// Manages screen capture and OCR text extraction for providing visual context to LLM
+   class ScreenCaptureManager: ObservableObject {
+   ```
+
+2. **MARK Sections**: Organize code with these sections:
+   - `// MARK: - Published Properties`
+   - `// MARK: - Public Callbacks` (if applicable)
+   - `// MARK: - Private Properties`
+   - `// MARK: - Types` (if nested types exist)
+   - `// MARK: - Initialization`
+   - `// MARK: - Public API`
+   - `// MARK: - Private Methods`
+
+3. **Keys Enum**: Use a private enum for UserDefaults keys:
+   ```swift
+   private enum Keys {
+       static let includeScreenContext = "includeScreenContext"
+   }
+   ```
+
+4. **Constants Enum**: Use a private enum for magic numbers/values:
+   ```swift
+   private enum Constants {
+       static let maxRecordings = 100
+       static let doubleTapInterval: TimeInterval = 0.3
+   }
+   ```
+
+5. **Singleton Pattern**: Use static shared instance with private init:
+   ```swift
+   static let shared = ScreenCaptureManager()
+   private init() { ... }
+   ```
+
+6. **Logging**: Use DebugLog with context matching the class name:
+   ```swift
+   DebugLog.info("Message", context: "ScreenCaptureManager")
+   ```
+
+7. **Naming Convention**: Service classes use `*Manager` suffix
+
+### General Principles
+
+- Use `@MainActor` for classes that interact with UI
+- Use `internal import Combine` when Combine is only used internally
+- Add availability checks for newer APIs: `if #available(macOS 14.0, *) { ... }`
+- Prefer direct returns over wrapping in Result types when async/await is used
+- Keep UserDefaults keys consistent even when renaming (for backward compatibility)
 
 ---
 > Source: [writingmate/aidictation](https://github.com/writingmate/aidictation) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
