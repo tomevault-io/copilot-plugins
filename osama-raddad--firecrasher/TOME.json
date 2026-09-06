@@ -1,0 +1,93 @@
+{
+  "name": "FireCrasher",
+  "owner": "osama-raddad",
+  "repo": "FireCrasher",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "FireCrasher",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": ".claude/skills/run-checks/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/.claude/skills/run-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": "docs/skills/report-crashes/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/docs/skills/report-crashes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": "docs/skills/customize-recovery/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/docs/skills/customize-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": "docs/skills/install-firecrasher/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/docs/skills/install-firecrasher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": ".claude/skills/add-library-test/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/.claude/skills/add-library-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": ".claude/skills/update-abi-baseline/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/.claude/skills/update-abi-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FireCrasher",
+      "path": "docs/skills/detect-native-crashes-and-anrs/SKILL.md",
+      "github_url": "https://github.com/osama-raddad/FireCrasher/tree/main/docs/skills/detect-native-crashes-and-anrs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/osama-raddad/FireCrasher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:32:27Z"
+}
