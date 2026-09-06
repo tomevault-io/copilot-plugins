@@ -4,7 +4,7 @@
   "repo": "mark",
   "description": "Mark is Optimism, Super...",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trade/mark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T01:32:53Z"
+  "distributed_at": "2026-09-06T01:33:15Z"
 }
