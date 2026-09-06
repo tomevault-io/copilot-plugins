@@ -4,7 +4,7 @@
   "repo": "xmrig-multi",
   "description": "XMRig Multi \u2014 Cross-platform Monero / Wownero / DERO miner (Android, iOS sideload, Web, Desktop, WearOS, watchOS). 1% time-based developer fee.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ImL1s/xmrig-multi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T06:30:19Z"
+  "distributed_at": "2026-09-06T06:31:00Z"
 }
