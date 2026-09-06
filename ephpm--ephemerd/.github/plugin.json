@@ -1,0 +1,9 @@
+{
+  "name": "ephpm--ephemerd",
+  "displayName": "ephemerd",
+  "description": "Ephemeral GitHub Actions runners. Single binary, every platform. Containers on Linux, Hyper-V on Windows, VMs on macOS. Secure by default \u2014   every job gets an isolated, disposable environment.",
+  "version": "1.0.0",
+  "author": "ephpm",
+  "homepage": "https://github.com/ephpm/ephemerd",
+  "skills": []
+}
