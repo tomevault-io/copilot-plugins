@@ -1,0 +1,9 @@
+{
+  "name": "iml1s--xmrig-multi",
+  "displayName": "xmrig-multi",
+  "description": "XMRig Multi \u2014 Cross-platform Monero / Wownero / DERO miner (Android, iOS sideload, Web, Desktop, WearOS, watchOS). 1% time-based developer fee.",
+  "version": "1.0.0",
+  "author": "ImL1s",
+  "homepage": "https://github.com/ImL1s/xmrig-multi",
+  "skills": []
+}
