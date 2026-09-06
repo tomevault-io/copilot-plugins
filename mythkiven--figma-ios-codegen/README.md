@@ -7,11 +7,11 @@ Figma to iOS UIKit codegen: deterministic data package + Agent skills (Cursor/Cl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mythkiven/figma-ios-codegen](https://github.com/mythkiven/figma-ios-codegen).
+Original source: `CLAUDE.md` in [mythkiven/figma-ios-codegen](https://github.com/mythkiven/figma-ios-codegen).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
