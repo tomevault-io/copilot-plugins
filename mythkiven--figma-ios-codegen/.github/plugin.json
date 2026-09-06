@@ -1,0 +1,9 @@
+{
+  "name": "mythkiven--figma-ios-codegen",
+  "displayName": "figma-ios-codegen",
+  "description": "Figma to iOS UIKit codegen: deterministic data package + Agent skills (Cursor/Claude) for baseline Swift UI.",
+  "version": "1.0.0",
+  "author": "mythkiven",
+  "homepage": "https://github.com/mythkiven/figma-ios-codegen",
+  "skills": []
+}
