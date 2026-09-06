@@ -4,7 +4,7 @@
   "repo": "ai-terminal-manager",
   "description": "AI Terminal Manager \u2014 Claude Code + Codex \u7684\u7edf\u4e00\u4f1a\u8bdd\u5386\u53f2\u4e0e tmux \u5e38\u9a7b\u4fa7\u680f",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lyfuci/ai-terminal-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T15:30:20Z"
+  "distributed_at": "2026-09-06T15:31:03Z"
 }
