@@ -4,7 +4,7 @@
   "repo": "FireCrasher",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/osama-raddad/FireCrasher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T07:32:27Z"
+  "distributed_at": "2026-09-06T09:31:26Z"
 }
