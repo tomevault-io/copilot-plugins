@@ -7,11 +7,11 @@ A curated collection of 900+ resources for evaluating AI coding agents — bench
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gudo7208/awesome-coding-agent-eval](https://github.com/gudo7208/awesome-coding-agent-eval).
+Original source: `CLAUDE.md` in [gudo7208/awesome-coding-agent-eval](https://github.com/gudo7208/awesome-coding-agent-eval).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
