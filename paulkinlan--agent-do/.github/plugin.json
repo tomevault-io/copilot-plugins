@@ -1,0 +1,9 @@
+{
+  "name": "paulkinlan--agent-do",
+  "displayName": "agent-do",
+  "description": "Provider-agnostic autonomous agent loop for JavaScript. Built on the Vercel AI SDK.",
+  "version": "1.0.0",
+  "author": "PaulKinlan",
+  "homepage": "https://github.com/PaulKinlan/agent-do",
+  "skills": []
+}
