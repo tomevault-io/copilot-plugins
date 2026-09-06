@@ -1,0 +1,9 @@
+{
+  "name": "tobi--neohack",
+  "displayName": "neohack",
+  "description": "NetHack as-a-library. Semantic world exploration engine. ",
+  "version": "1.0.0",
+  "author": "tobi",
+  "homepage": "https://github.com/tobi/neohack",
+  "skills": []
+}
