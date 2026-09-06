@@ -1,0 +1,9 @@
+{
+  "name": "sunnyyylin--lsenext",
+  "displayName": "LSENext",
+  "description": "LSENext (Link Shell Extension Next) \u2014 Windows 11 Explorer shell extension. Add symlink/junction/hardlink shortcuts to the context menu.",
+  "version": "1.0.0",
+  "author": "SunnyYYLin",
+  "homepage": "https://github.com/SunnyYYLin/LSENext",
+  "skills": []
+}
