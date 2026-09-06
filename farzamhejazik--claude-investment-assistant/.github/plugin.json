@@ -1,0 +1,9 @@
+{
+  "name": "farzamhejazik--claude-investment-assistant",
+  "displayName": "claude-investment-assistant",
+  "description": "A Claude Code workspace template that automates your investing every morning. Rules over emotion. No fear, no FOMO. Ships with 3 default strategies \u2014 dip-buying, AI value-chain DCA, and mean-reversion",
+  "version": "1.0.0",
+  "author": "FarzamHejaziK",
+  "homepage": "https://github.com/FarzamHejaziK/claude-investment-assistant",
+  "skills": []
+}
