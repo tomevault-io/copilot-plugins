@@ -1,0 +1,14 @@
+{
+  "name": "calabonga--microservice-template",
+  "displayName": "Microservice-Template",
+  "description": "Microservice-Template",
+  "version": "1.0.0",
+  "author": "Calabonga",
+  "homepage": "https://github.com/Calabonga/Microservice-Template",
+  "skills": [
+    {
+      "name": "Microservice-Template",
+      "description": ""
+    }
+  ]
+}
