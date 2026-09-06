@@ -4,7 +4,7 @@
   "repo": "godot-multiplayer-shooter",
   "description": "A simple Godot multiplayer game practice project",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fetasty/godot-multiplayer-shooter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T04:47:57Z"
+  "distributed_at": "2026-09-06T04:48:42Z"
 }
