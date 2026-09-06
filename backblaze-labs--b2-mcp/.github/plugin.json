@@ -1,0 +1,9 @@
+{
+  "name": "backblaze-labs--b2-mcp",
+  "displayName": "b2-mcp",
+  "description": "MCP server for Backblaze B2 Cloud Storage: a focused, safe 40-tool surface (17 native B2 SDK, 19 S3 data-plane, 4 analytics) for any MCP-compatible AI client, currently incubating in Backblaze-Labs",
+  "version": "1.0.0",
+  "author": "backblaze-labs",
+  "homepage": "https://github.com/backblaze-labs/b2-mcp",
+  "skills": []
+}
