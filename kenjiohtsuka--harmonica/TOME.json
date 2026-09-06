@@ -1,0 +1,57 @@
+{
+  "name": "harmonica",
+  "owner": "KenjiOhtsuka",
+  "repo": "harmonica",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "harmonica",
+      "path": ".opencode/skills/plan-review/SKILL.md",
+      "github_url": "https://github.com/KenjiOhtsuka/harmonica/tree/main/.opencode/skills/plan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmonica",
+      "path": ".opencode/skills/harmonica-dev/SKILL.md",
+      "github_url": "https://github.com/KenjiOhtsuka/harmonica/tree/main/.opencode/skills/harmonica-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KenjiOhtsuka/harmonica",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:51:08Z"
+}
