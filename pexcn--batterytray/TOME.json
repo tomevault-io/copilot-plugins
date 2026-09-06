@@ -4,7 +4,7 @@
   "repo": "BatteryTray",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pexcn/BatteryTray",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T20:31:20Z"
+  "distributed_at": "2026-09-06T20:32:02Z"
 }
