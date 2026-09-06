@@ -1,34 +1,44 @@
-## seo-editorial-rollout
+## site-chrome-nav
 
-> SEO記事デザイン・内部リンク・執筆品質の全サイト展開テンプレ（exam-site-shell 正本）
+> Header/footer nav — past exercise vs past index list (site chrome)
 
 
-# SEO 記事 — 全サイト展開テンプレ
+# Site Chrome Nav（ヘッダー vs フッター）
 
-**詳細正本:** `docs/seo-editorial-rollout-template.md`  
-**CSS 正本:** `seo-editorial.css` + `SEO_EDITORIAL_CSS_VER` in `tools/seo_editorial_chrome.py`
+**正本:** [docs/site-chrome.md](../docs/site-chrome.md)
 
-## 確定デザイン
+## 別コンテンツ（混同禁止）
 
-- H1 **24px** / 要点・関連見出し **19px** / H3・FAQ質問 **19px**
-- 要点ボックス = 信頼性パネルと同じ callout（グレー、薄青不可）
-- FAQ = `<details class="term-faq-item" open>`（表・1列リスト不可）
-- 目次アンカー: `--seo-scroll-anchor-gutter` 24–40px + sticky ヘッダー分
-- 関連リンク = **カード型**（左アクセント + → + ホバー薄青）。本文リンク = 青太字下線
+| UI | 行き先 | 役割 |
+|----|--------|------|
+| ヘッダー「過去問」 | `/#past` | SPA **演習** |
+| フッター「過去問一覧」 | `q/index.html` | 静的 **一覧** |
 
-## 確定機能
+## 実装契約（`html_footer.py`）
 
-- `tools/internal_links.py` — ハブ導線、用語自動リンク、過去問、関連用語フォールバック
-- 執筆: 量産テンプレ禁止（`EDITORIAL_BOILERPLATE_PHRASES` = ERROR）
+- `LEARNING_NAV_ITEMS`: `("tnav-past", "過去問", "#past", …)`
+- `LEARNING_NAV_ACTIVE_BY_PAGE`: **`q` を含めない**（`terms` / `practice` / `ichimon` のみ）
+- `_learning_nav_href`: `#` 始まり → **`"/" + dest`**（`/#past`, `/#dash`, `/#review`）
+- `FOOTER_SUPPRESS_CURRENT_WHEN_HEADER`: 上記 3 キーのみ（`q` 禁止）
+- `build_practice_*`: `current="practice"`（`current="q"` 禁止）
 
-## 反映時
+## 変更後の必須手順
 
-**手順正本:** `docs/seo-editorial-rollout-checklist.md`
+```bash
+python3 tools/patch_header_nav.py   # または build_all.py
+python3 tools/validate_site_integration.py
+```
 
-1. Phase 0: テンプレ `verify_seo_editorial_rollout.py` + `build_all`
-2. サイトごと: drift → sync → verify → build_all（または checklist §4.2 SEO 最小ビルド）
-3. 目視 V1–V5 + 台帳記録
-4. commit/push はユーザー明示指示時のみ
+## 禁止
+
+- ヘッダー `tnav-past` → `q/index.html` または `../../q/index.html`
+- `q/index.html` でヘッダー「過去問」に `active` / `aria-current`
+- 生成 HTML への手書き topnav
+- SPA ハッシュの相対パスだけ（試験ガイド深階層で壊れる）
+
+## 目視 1 件
+
+試験ガイド → ヘッダー「過去問」→ **`takken-master.jp/#past`**（一覧 `/q/` にならないこと）
 
 ---
 > Source: [takkenshiken2026-sudo/eisei2shu-master](https://github.com/takkenshiken2026-sudo/eisei2shu-master) — distributed by [TomeVault](https://tomevault.io).
