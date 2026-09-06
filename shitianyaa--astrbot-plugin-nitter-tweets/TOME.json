@@ -1,0 +1,44 @@
+{
+  "name": "astrbot_plugin_nitter_tweets",
+  "owner": "shitianyaa",
+  "repo": "astrbot_plugin_nitter_tweets",
+  "description": "\u81ea\u5efa Nitter \u83b7\u53d6\u516c\u5f00 X/Twitter \u63a8\u6587\uff0c\u535a\u4e3b/\u6807\u7b7e/List \u5206\u7ec4\u5b9a\u65f6\u63a8\u9001\u5230 OneBot/QQ/Telegram/\u98de\u4e66\u3002AstrBot \u63d2\u4ef6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shitianyaa/astrbot_plugin_nitter_tweets",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T23:18:30Z"
+}
