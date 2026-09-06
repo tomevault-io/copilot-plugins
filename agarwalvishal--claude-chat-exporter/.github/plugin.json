@@ -1,0 +1,14 @@
+{
+  "name": "agarwalvishal--claude-chat-exporter",
+  "displayName": "claude-chat-exporter",
+  "description": "claude-chat-exporter",
+  "version": "1.0.0",
+  "author": "agarwalvishal",
+  "homepage": "https://github.com/agarwalvishal/claude-chat-exporter",
+  "skills": [
+    {
+      "name": "claude-chat-exporter",
+      "description": ""
+    }
+  ]
+}
