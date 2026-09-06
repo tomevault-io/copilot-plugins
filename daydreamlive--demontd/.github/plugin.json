@@ -1,0 +1,9 @@
+{
+  "name": "daydreamlive--demontd",
+  "displayName": "demonTD",
+  "description": "WIP TouchDesigner operator for DEMON \u2014 real-time AI music generation. Drop-in .tox with all DEMON params, audio I/O via CHOPs, and optional Daydream auth.",
+  "version": "1.0.0",
+  "author": "daydreamlive",
+  "homepage": "https://github.com/daydreamlive/demonTD",
+  "skills": []
+}
