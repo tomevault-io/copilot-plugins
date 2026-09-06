@@ -1,0 +1,93 @@
+## opencode-btw
+
+> This repository contains the standalone `opencode-bytheway` OpenCode plugin.
+
+# AGENTS.md
+
+## Purpose
+
+This repository contains the standalone `opencode-bytheway` OpenCode plugin.
+
+It provides the `/btw`, `/btw-merge`, `/btw-end`, `/btw-status`, and `/btw-prompt` workflows for temporary side sessions through a TUI-only plugin.
+
+## Important Files
+
+- `tui.ts`: dual-runtime package entrypoint. It lazily selects the V1 or V2 implementation.
+- `v1.tsx`: V1 TUI plugin implementation.
+- `v2.ts`: V2 TUI plugin implementation.
+- `tui.test.tsx`: Bun test coverage for the TUI behavior.
+- `scripts/build.ts`: builds the dual entrypoint and lazy runtime chunks into `dist/`.
+- `dist/tui.js`: built artifact published by the package. Rebuild it after changing either runtime.
+
+## Runtime Invariants
+
+- Keep the runtime plugin id aligned with the published package name: `opencode-bytheway`.
+- Keep the session storage key aligned too: `opencode-bytheway.active`.
+- If either value changes in `protocol.js`, `v1.tsx`, or `v2.ts`, update tests and rebuild `dist/tui.js` in the same change.
+- Avoid changing slash command names unless the user explicitly asks for a behavior change.
+
+## Local Development
+
+Use Bun for local work.
+
+```bash
+bun install --ignore-scripts
+bun run build
+bun run test
+bun run test:integration
+```
+
+Useful extra check before release work:
+
+```bash
+npm pack --dry-run
+```
+
+## Compatibility Target
+
+When working on this plugin, treat `/home/tim/projects/opencode` as a read-only compatibility target.
+
+Do not edit, patch, build, regenerate, or commit anything in the OpenCode repo unless explicitly instructed. All compatibility fixes must be made in this plugin repo.
+
+Integration tests should run against the target OpenCode binary, optionally via `OPENCODE_BTW_OPENCODE_BIN=/absolute/path/to/opencode`.
+
+## Editing Guidance
+
+- Keep host-specific behavior in `v1.tsx` or `v2.ts`; extract only genuinely shared behavior.
+- Do not add compatibility aliases for old plugin ids or state keys unless there is a concrete migration requirement.
+- Preserve the existing command behavior around blocked nested `/btw` sessions and cleanup of temporary sessions.
+- When changing user-visible copy, update tests if they assert the string.
+
+## Verification Expectations
+
+After code changes:
+
+1. Run `bun run build` if `tui.ts`, `v1.tsx`, or `v2.ts` changed.
+2. Run `bun run test` for behavioral changes.
+3. Confirm generated `dist/tui.js` reflects any runtime identifier or command changes.
+
+For releases, ensure `CHANGELOG.md` states the OpenCode version the plugin was built against, and copy the same release details into the `README.md` changelog section so npmjs.com displays them.
+
+## Config Notes
+
+Example OpenCode `tui.json[c]` entry:
+
+```json
+{
+  "plugin": ["opencode-bytheway@latest"]
+}
+```
+
+Example OpenCode V2 `~/.config/opencode/cli.json` entry:
+
+```json
+{
+  "plugins": ["opencode-bytheway@0.8.1"]
+}
+```
+
+If OpenCode still reports the old plugin after a rename or rebuild, the user may need to restart or reload plugins so the new module instance is picked up.
+
+---
+> Source: [timrichardson/opencode-btw](https://github.com/timrichardson/opencode-btw) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
