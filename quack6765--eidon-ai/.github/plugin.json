@@ -1,0 +1,9 @@
+{
+  "name": "quack6765--eidon-ai",
+  "displayName": "Eidon-AI",
+  "description": "Eidon is a powerful BYOK AI assistant for everyday work, bundled into one easy self-hosted Docker image.",
+  "version": "1.0.0",
+  "author": "Quack6765",
+  "homepage": "https://github.com/Quack6765/Eidon-AI",
+  "skills": []
+}
