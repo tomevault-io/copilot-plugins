@@ -1,0 +1,9 @@
+{
+  "name": "luciuschen--chirp",
+  "displayName": "chirp",
+  "description": "A single-buffer Emacs browser for X/Twitter, powered by twitter-cli.",
+  "version": "1.0.0",
+  "author": "LuciusChen",
+  "homepage": "https://github.com/LuciusChen/chirp",
+  "skills": []
+}
