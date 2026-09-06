@@ -1,9 +1,9 @@
-## distribution-analysis
+## idea-scoring
 
-> Skill — distribution-analysis. Evaluates organic reach potential, paid feasibility, platform advantages, and creator economy fit.
+> Skill — idea-scoring. Aggregates all dimension scores into a final 0-100 score with verdict (pursue/test/pivot/drop).
 
 
-See [skills/distribution-analysis/SKILL.md](../../skills/distribution-analysis/SKILL.md) for full instructions and output schema.
+See [skills/idea-scoring/SKILL.md](../../skills/idea-scoring/SKILL.md) for full instructions and output schema.
 
 ---
 > Source: [Latifox/find-me-saas](https://github.com/Latifox/find-me-saas) — distributed by [TomeVault](https://tomevault.io).
