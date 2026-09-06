@@ -1,0 +1,34 @@
+## mort
+
+> 이 저장소의 작업 규약 원본은 **`AGENTS.md`** 하나뿐이다. Claude Code는 보조 도구이며,
+
+# MORT 작업 규약 — 원본은 AGENTS.md
+
+이 저장소의 작업 규약 원본은 **`AGENTS.md`** 하나뿐이다. Claude Code는 보조 도구이며,
+Codex가 쓰는 `AGENTS.md`의 정의를 그대로 따른다.
+
+## 작업 시작 전
+
+**어떤 작업이든 시작하기 전에 `AGENTS.md`를 읽고 그 내용을 그대로 적용한다.**
+이 파일에 규약 본문이 없다고 해서 제약이 없는 것이 아니다.
+
+`AGENTS.md`가 정하는 것:
+- 작업 원칙 6개 (통일 금지 / 싱글톤·DI 공존 / 호환성 구조 동결 / 거대 파일 불가침 /
+  새 기능 추가 위치 / `Resources/localize.csv` 직접 수정 금지)
+- 프로젝트 구조와 빌드 조건
+- 구현 위키(`docs/wiki/`) 유지 절차
+
+## 규약을 바꿔야 할 때
+
+`AGENTS.md`만 수정한다. 이 파일에는 규약 내용을 옮겨 적지 않는다.
+과거에 두 파일에 같은 내용을 중복해 두었다가 `AGENTS.md`에만 추가된 항목
+(로컬라이즈 CSV 규칙, 구현 위키 유지 절차)이 이쪽에 빠진 채 어긋난 적이 있다.
+
+## 이 파일이 담당하는 범위
+
+Claude Code 세션에만 해당하는 사항이 생기면 여기에 적는다.
+프로젝트 규약은 여기에 적지 않는다.
+
+---
+> Source: [kmonkeyhead/MORT](https://github.com/kmonkeyhead/MORT) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
