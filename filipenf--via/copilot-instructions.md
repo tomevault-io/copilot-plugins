@@ -1,0 +1,81 @@
+## via
+
+> This file captures project-specific conventions, gotchas, and workflows that are
+
+# Agent Notes for via
+
+This file captures project-specific conventions, gotchas, and workflows that are
+useful when working on via with AI coding agents. It complements the
+human-facing README.
+
+## Testing
+
+### Run the full local check
+
+```bash
+bash scripts/test-nvim.sh   # headless Neovim Lua tests
+cargo test                  # Rust unit tests
+cargo test --examples       # mock ACP agent example tests
+mise fmt-fix
+```
+
+For manual ACP modal queue UX testing, run `cargo build --example
+mock_acp_agent` first, then build and spawn
+`examples/mock_acp_agent acp` (typed SDK agent; trailing `acp` required for ACP
+classification) — see CONTRIBUTING.md "Manual testing: mock ACP agent".
+
+### Stress-test parallel-sensitive Rust tests
+
+Tests that mutate process-wide state (e.g. `VIA_SESSION` via
+`std::env::set_var`) are racy under parallel `cargo test`. After changing them,
+run with extra threads repeatedly:
+
+```bash
+for i in 1 2 3 4 5; do
+  cargo test 'assign_to_human|run_review' -- --test-threads=16 || break
+done
+```
+
+Use the global `test_support::env_lock()` mutex to serialize env-mutating tests.
+
+### Headless Neovim Lua test gotchas
+
+- Scratch buffers (`nvim_create_buf(false, true)`) automatically clear
+  `vim.bo.modified`. If a test asserts on the modified flag, create a
+  normal-like buffer with `buftype = ""` and a name.
+- Prefer `vim.split(text, "\n", { plain = true })` over `gmatch("[^\n]*")`; the
+  latter yields a trailing empty line and causes round-trip drift.
+- Test fixtures should mirror the real buffer's options. The `:ViaTasks` board
+  uses `filetype = "via-tasks"` / `buftype = "nofile"` / `readonly = true`; task
+  bodies open in unlisted floating buffers (`bufhidden = "wipe"`).
+
+## UI / Buffer Editing Conventions
+
+### Task board vs task body
+
+- **`:ViaTasks` board is read-only.** It lists tasks from `via task list`; use
+  `gR`, `gn`, `gb`, and `gc` for refresh / board / create actions. Do not edit
+  rows in the board buffer — there is no `:w` save path from the board.
+- **Task Markdown opens in a centered float** (`<CR>` on `via:<id>`). That popup
+  is a normal writable buffer backed by the task file on disk; `:w` persists
+  edits via the usual file write path.
+
+## Rust
+
+### Module layout
+
+- Define types (`struct`, `enum`, and their `impl` blocks) at the top of the
+  file: public items first, then `pub(super)` / crate-private, then module-private
+  helpers. Functions and free helpers follow the type definitions.
+
+### Environment variables in tests
+
+- `std::env::set_var` / `remove_var` are process-global and unsafe to call from
+  parallel tests without synchronization.
+- Use `crate::test_support::env_lock()` to serialize env-mutating tests.
+- Treat env mutation in tests as a design smell: prefer passing context
+  explicitly when the code under test allows it.
+
+---
+> Source: [filipenf/via](https://github.com/filipenf/via) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
