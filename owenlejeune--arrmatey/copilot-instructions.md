@@ -1,28 +1,72 @@
 ## arrmatey
 
-> This repository contains an agent skill for building polished SwiftUI apps and WidgetKit widgets.
+> The adversarial eval suite defines the product. Start there. Before
 
-# SwiftUI Design Principles
+# Claude Instructions
 
-This repository contains an agent skill for building polished SwiftUI apps and WidgetKit widgets.
+## Product rule
 
-## Structure
+The adversarial eval suite defines the product. Start there. Before
+implementation, encode behavioral changes in `evals/adversarial-evals.json`
+and leave legacy `evals/evals.json` untouched because it serves old consumers,
+not current product decisions.
 
-- `SKILL.md` — The skill definition with all design principles
-- `metadata.json` — Skill metadata (version, author, abstract)
-- `LICENSE` — MIT license
+## Add or change a pattern
 
-## How the skill works
+1. Add the smallest red case before implementation.
+2. A scanner pattern needs one false-negative row and one `protects`
+   false-positive row.
+3. A collocation-gated word also needs one REC row proving its jargon use still
+   flags.
+4. Prefer a minimal pair in `evals/fixtures/pairs/` for contextual or literal
+   senses; run `python3 evals/check_pairs.py`.
+5. Add a `skill` row only for rewrite, preserve, decline, or routing behavior.
+   Update `evals/build_shared_benchmark.py` metadata and regenerate
+   `evals/shared-benchmark.json`.
+6. Do not weaken assertions, add XFAILs, or remove coverage to make a change
+   pass. Literal uses in construction, mechanics, law, medicine, and code need
+   protection.
+7. A new `evals/check_*.py` must use the import seam in `evals/CHECKS.md`.
 
-The skill is loaded when an agent detects SwiftUI or WidgetKit-related tasks. It provides:
+`check_pattern_coverage.py` requires every scanner pattern to have eval
+coverage and every category to have a protecting FP row. Use
+`python3 evals/kata_add_pattern.py --run` to rehearse the workflow.
 
-1. A base-4/8 spacing grid to prevent arbitrary padding values
-2. A typography hierarchy using weight differentiation (not just size)
-3. System semantic color usage instead of hardcoded opacity values
-4. Native WidgetKit patterns (Gauge, containerBackground)
-5. A pre-ship checklist for verification
+## Check the repository
 
-The skill is purely instructional — no scripts or build steps required.
+Run the single canonical command:
+
+```bash
+python3 evals/check.py
+```
+
+Install the harness if needed:
+
+```bash
+uv tool install git+https://github.com/adewale/skill-eval-harness.git
+```
+
+Use `run_adversarial.py --only PREFIX` or `--case ID` only to diagnose a
+failure; the canonical command already exercises those checks.
+
+If `SKILL.md`, `presets/`, or `references/` changed, also run:
+
+```bash
+python3 evals/check.py --behavioral tune
+```
+
+For co-writer, mimic, or detector-pack model changes, run the canned model
+parity dry-run. Before merge, run the live GPT and Anthropic matrix described in
+`references/pipeline.md`.
+
+## Interpret results
+
+- `tune` shapes the skill.
+- `holdout` is for reporting.
+- `holdback` stays sealed until final confirmation.
+- Per-case deltas matter more than aggregate lift.
+- Keep the single documented XFAIL only while it reflects the intentional
+  scanner tradeoff.
 
 ---
 > Source: [owenlejeune/ArrMatey](https://github.com/owenlejeune/ArrMatey) — distributed by [TomeVault](https://tomevault.io).
