@@ -1,0 +1,9 @@
+{
+  "name": "cpuguy83--containerd-shim-systemd-v1",
+  "displayName": "containerd-shim-systemd-v1",
+  "description": "containerd-shim-systemd-v1",
+  "version": "1.0.0",
+  "author": "cpuguy83",
+  "homepage": "https://github.com/cpuguy83/containerd-shim-systemd-v1",
+  "skills": []
+}
