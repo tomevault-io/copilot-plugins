@@ -1,0 +1,9 @@
+{
+  "name": "pavlos-io--ghost-ship",
+  "displayName": "ghost-ship",
+  "description": "Infrastructure for running AI coding agents in sandboxed containers",
+  "version": "1.0.0",
+  "author": "pavlos-io",
+  "homepage": "https://github.com/pavlos-io/ghost-ship",
+  "skills": []
+}
