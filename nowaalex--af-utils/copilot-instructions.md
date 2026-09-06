@@ -1,0 +1,151 @@
+## af-utils
+
+> pnpm owns dependency installation, workspace linking, lockfile updates, and
+
+# Repository conventions
+
+## Workspace ownership
+
+pnpm owns dependency installation, workspace linking, lockfile updates, and
+publishing. Nx discovers projects from `pnpm-workspace.yaml` and owns task
+scheduling, dependency ordering, and caching. Package manifests and the
+filesystem are the project source of truth; do not duplicate the workspace
+project list in `nx.json`.
+
+Run repository and package tasks through Nx. A target may invoke its underlying
+tool directly, such as `tsc`, `vitest`, `vite`, or `astro`, but it must express
+dependencies on other targets or projects with Nx `dependsOn`. Do not use
+`pnpm --filter` or nested package scripts to build an execution pipeline.
+
+Direct pnpm commands are reserved for dependency installation, the `prepare`
+Git-hook lifecycle, lockfile maintenance, environment bootstrap such as
+Playwright browser installation, and Changesets version/publish boundaries.
+These operations are package-manager responsibilities rather than cacheable
+workspace tasks. Repository validators may query pnpm for workspace metadata,
+but must not use it to schedule target pipelines.
+
+## Commands
+
+Use these commands from the repository root:
+
+| Task                                     | Command                                                       |
+| ---------------------------------------- | ------------------------------------------------------------- |
+| Format the repository                    | `pnpm nx run workspace:format`                                |
+| Check formatting and lint                | `pnpm nx run workspace:check-style`                           |
+| Type-check all projects                  | `pnpm nx run-many -t typecheck`                               |
+| Test all projects                        | `pnpm nx run-many -t test`                                    |
+| Build publishable packages               | `pnpm nx run-many -t build --projects=tag:npm:public`         |
+| Build packages and website               | `pnpm nx run-many -t build --projects=tag:npm:public,website` |
+| Build standalone examples                | `pnpm nx run @af-utils/examples:build`                        |
+| Type-check standalone examples           | `pnpm nx run @af-utils/examples:typecheck`                    |
+| Update generated examples and versions   | `pnpm nx run @af-utils/examples:versions`                     |
+| Validate generated examples and versions | `pnpm nx run @af-utils/examples:versions:check`               |
+| Validate package READMEs                 | `pnpm nx run workspace:packages-readmes-check`                |
+| Validate Nx task ownership               | `pnpm nx run workspace:nx-contracts-check`                    |
+| Update the canonical site origin         | `pnpm nx run workspace:site-origin-sync`                      |
+| Validate canonical site links            | `pnpm nx run workspace:site-origin-check`                     |
+| Validate package tarballs                | `pnpm nx run-many -t publint --projects=tag:npm:public`       |
+| Prepare packages for publication         | `pnpm nx run workspace:packages-ready`                        |
+| Run the pre-push verification graph      | `pnpm nx run workspace:verify:prepush`                        |
+| Run the complete quality graph           | `pnpm nx run workspace:verify:full`                           |
+| Run browser integration tests            | `pnpm nx run @af-utils/examples:e2e`                          |
+| Validate generated website files         | `pnpm nx run workspace:website-generated-check`               |
+| Run stable core benchmarks               | `pnpm nx run @af-utils/virtual-core:bench`                    |
+| Run every benchmark suite                | `pnpm nx run-many -t bench`                                   |
+| Run the bounded mutation suite           | `pnpm nx run @af-utils/virtual-core:test:mutation`            |
+| Check V8 optimization invariants         | `pnpm nx run @af-utils/virtual-core:jit:check`                |
+| Enforce website performance budgets      | `pnpm nx run workspace:lighthouse`                            |
+
+Root `package.json` scripts are convenience aliases for these Nx entry points.
+CI uses the explicit Nx commands so the task graph is visible in logs. Use
+`pnpm nx graph` to inspect relationships and
+`pnpm nx affected -t build test typecheck` for an affected-only local check.
+Repository CI intentionally runs the complete gates.
+
+The pre-push hook runs the cacheable `workspace:verify:prepush` graph. The
+hosted Quality workflow adds minimum-version compatibility, browser integration,
+generated website, link, and Lighthouse checks. Its browser jobs run Chromium,
+Firefox, and WebKit in parallel while the required `quality / Quality` status
+remains the aggregate result.
+
+`site.config.json` owns the production website origin. Published package
+metadata and documentation must contain literal URLs, so the site-origin sync
+target updates those derived copies. Change only the config value, then run the
+sync target; the style gate rejects stale af-utils origins.
+
+## Releases
+
+GitHub accepts updates to `main` only through a pull request whose
+[Quality workflow](.github/workflows/quality.yml) succeeds; the
+[repository ruleset](https://github.com/nowaalex/af-utils/rules/21577769)
+enforces this policy.
+
+Every pull request that changes a publishable package must include an
+appropriate Changeset. The required Quality workflow validates the complete
+workspace before `main` can advance. The release workflow relies on that
+protected result, creates or updates the Version Packages pull request, and
+publishes after that pull request is merged. The publish command runs
+`workspace:packages-ready` on the release runner so the exact package artifacts
+are built and checked before Changesets sends them to npm.
+
+npm publishing uses a Trusted Publisher bound to the `nowaalex/af-utils`
+repository and `release.yml` workflow. New package names require one initial
+authenticated publish before their package-level Trusted Publisher can be
+configured; subsequent releases use GitHub OIDC without a long-lived publish
+token.
+
+A Changeset summary must describe the observable change for every package it
+versions. When packages from different products need different explanations,
+use separate Changesets so each generated package changelog remains
+product-specific.
+
+## Documentation
+
+Every pnpm workspace package must have a `README.md` beside its `package.json`,
+including private infrastructure packages and standalone examples. It must
+explain the package's purpose and link to relevant usage or development
+instructions.
+
+API Extractor owns `packages/**/etc/*.api.md`. Do not edit or externally format
+these byte-for-byte generated reports.
+
+## TypeScript API and naming
+
+- Document every production class method, constructor, getter, setter,
+  interface method signature, and method-like callback field with TSDoc,
+  including private and package-internal members. Use `/** ... */`; ordinary
+  implementation comments are not API documentation.
+- Prefix class members and object properties with `_` when they are internal
+  runtime details that esbuild may mangle. Do not prefix ordinary functions;
+  identifier minification already shortens local names.
+- Use a getter for an argument-free, side-effect-free, inexpensive read of
+  current object state that neither allocates a new object nor transfers
+  ownership. Use a method for actions, parameterized work, snapshots, and
+  resource creation.
+
+## Formatting and linting
+
+Oxfmt formats checked-in JavaScript, TypeScript, JSX, TSX, JSON, CSS, HTML, and
+Markdown. Prettier with the official plugins is the only formatting exception
+for `.astro` and `.svelte` templates. Ignored TypeDoc and bundle-size output is
+validated at generation time instead of being reformatted. Oxlint checks
+JavaScript and TypeScript; `astro check`, `svelte-check`, and Nx type-check
+targets own their semantic checks. The checked-in tool configuration is the
+source of truth for enabled rules.
+
+Warnings fail `workspace:check-style`. If an Oxlint warning is demonstrably
+incorrect or its fix would measurably damage a hot path or benchmark, add the
+narrowest line or block suppression with the concrete reason. Do not disable
+the rule globally; unused suppressions fail the style gate.
+
+## Integration and worktrees
+
+The `@af-utils/examples:e2e` target is the production integration gate for all
+examples in Chromium, Firefox, and WebKit. Paired framework implementations
+must also pass exact pixel-parity checks.
+
+Create repository worktrees only inside the root `./git-worktrees/` directory.
+
+---
+> Source: [nowaalex/af-utils](https://github.com/nowaalex/af-utils) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
