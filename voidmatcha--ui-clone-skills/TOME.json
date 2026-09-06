@@ -1,0 +1,44 @@
+{
+  "name": "ui-clone-skills",
+  "owner": "voidmatcha",
+  "repo": "ui-clone-skills",
+  "description": "Motion forensics for the animated web. A Claude Code & Codex plugin that reverse-engineers a live URL into React + Tailwind \u2014 pulling real CSS + animation params from JS bundles (GSAP/Framer Motion/Webflow IX2) and verifying with AE/SSIM diff, not screenshots.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/voidmatcha/ui-clone-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T13:48:25Z"
+}
