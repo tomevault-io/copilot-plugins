@@ -1,9 +1,9 @@
 {
-  "name": "voicehub",
+  "name": "VoiceHub",
   "owner": "kadirnar",
-  "repo": "voicehub",
-  "description": "VoiceHub: A Unified Inference Interface for TTS Models",
-  "type": "config",
+  "repo": "VoiceHub",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "source_url": "https://github.com/kadirnar/voicehub",
+  "skills": [
+    {
+      "name": "VoiceHub",
+      "path": ".ai/skills/match-transformers-docs/SKILL.md",
+      "github_url": "https://github.com/kadirnar/VoiceHub/tree/main/.ai/skills/match-transformers-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VoiceHub",
+      "path": ".ai/skills/prepare-release-evidence/SKILL.md",
+      "github_url": "https://github.com/kadirnar/VoiceHub/tree/main/.ai/skills/prepare-release-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VoiceHub",
+      "path": ".ai/skills/add-or-validate-speech-model/SKILL.md",
+      "github_url": "https://github.com/kadirnar/VoiceHub/tree/main/.ai/skills/add-or-validate-speech-model/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kadirnar/VoiceHub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T05:36:16Z"
+  "distributed_at": "2026-09-06T09:32:30Z"
 }
