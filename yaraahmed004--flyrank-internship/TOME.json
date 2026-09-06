@@ -4,7 +4,7 @@
   "repo": "flyrank-internship",
   "description": "FlyRank's AI internship repo",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yaraahmed004/flyrank-internship",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T00:42:54Z"
+  "distributed_at": "2026-09-06T00:43:40Z"
 }
