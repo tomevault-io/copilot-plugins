@@ -1,130 +1,63 @@
-## op-patchstudio
+## bug-check
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> rules for bug hunting
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Bug Hunting
 
-## Development Commands
+## Bug Hunt
 
-### Core Development
-- `npm run dev` - Start development server (Vite)
-- `npm run build` - Build for production (TypeScript + Vite)
-- `npm run preview` - Preview production build
+The assistant will perform the below tasks when ask to 'bughunt' || 'bug hunt'
 
-### Testing
-- `npm run test` - Run tests (Vitest)
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:ui` - Run tests with UI interface
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run test:e2e` - Run end-to-end tests (Playwright)
-- `npm run test:e2e:ui` - Run e2e tests with UI
+Analyze the changes made in the current branch compared to the last commit on the main branch.
 
-### Quality & Build Checks
-- `npm run lint` - Run ESLint
-- `npm run pre-commit` - Run tests and build (required before committing)
+DO NOT attempt to fix any code.  Run tests and build and report on errors too.
 
-## Project Architecture
+For each file that has changed, inspect the diffs for items int eh bug checklist
 
-### Application Structure
-OP-PatchStudio is a React + TypeScript Progressive Web App for creating presets for OP-XY synthesizers. The app has two main modes:
+Only include code that has changed from the last commit on main.
 
-1. **Drum Tool** - 24 sample slots for drum presets
-2. **Multisample Tool** - Up to 24 zones for chromatic/melodic presets
+## Detailed Bug Hunt
 
-### Core Technologies
-- **React 19** with TypeScript
-- **Carbon Design System** - IBM's design system for UI components
-- **Vite** - Build tool and dev server
-- **Vitest** - Unit testing
-- **Playwright** - E2E testing
-- **WebAudioAPI** - Audio processing and playback
-- **IndexedDB** - Local storage for presets and session management
+The assistant will perform the below tasks when ask to 'detailedbughunt' || 'detailed bug hunt'
 
-### Key Architecture Patterns
+DO NOT attempt to fix any code.  Run tests and build and report on errors too.
 
-#### State Management
-- **Context + useReducer** pattern in `src/context/AppContext.tsx`
-- Single source of truth for all application state
-- Strongly typed actions and state shapes
-- Automatic cookie persistence for user preferences
+Inspect the code for items in the bug checklist
 
-#### Audio Processing
-- **Centralized AudioContext** via `audioContextManager` singleton
-- **useAudioPlayer** hook for consistent audio playback across components
-- WebAudioAPI for sample processing, format conversion, and effects
-- Support for WAV and AIFF formats with metadata parsing
+Then, generate a concise report listing each issue you find using the following format:
 
-#### Component Organization
+[Short description of the issue]
+[Short explaination of reasoning for highlighting as issue] 
+FileName.ext:L12-42  
+
+Start with the most important functions in the program and work outward.  We can run the report multiple times.
+
+## Report format
+
+Then, generate a concise report listing each issue you find using the following format. Make sure to only return text.
+
 ```
-src/components/
-├── common/        # Shared UI components
-├── drum/          # Drum-specific components  
-├── multisample/   # Multisample-specific components
-└── library/       # Library management components
+fix this bug
+[Short description of the issue]
+[Short explaination of reasoning for highlighting as issue] 
+FileName.ext:L12-42  
 ```
 
-#### Custom Hooks Pattern
-Located in `src/hooks/` - encapsulate complex logic:
-- `useFileUpload.ts` - File drag/drop and processing
-- `usePatchGeneration.ts` - Preset generation logic
-- `useAudioPlayer.ts` - Centralized audio playback
-- `useSessionManagement.ts` - Session persistence
-- `useWebMidi.ts` - MIDI device integration
+Keep the report focused, accurate and under 500 words if possible. Do not repeat the same issue multiple times. Skip cosmetic or stylistic concerns unless they directly introduce a bug.
 
-#### Utility Architecture
-`src/utils/` contains pure functions organized by domain:
-- `audio.ts` - Audio processing utilities
-- `patchGeneration.ts` - OP-XY preset format generation
-- `audioFormats.ts` - WAV/AIFF parsing and metadata extraction
-- `indexedDB.ts` - Browser storage operations
+## Bug checklist
+Logic errors
 
-### Critical Implementation Details
+    Potential bugs
 
-#### OP-XY Preset Compatibility
-- Must follow exact JSON schema in `baseDrumJson.ts` and `baseMultisampleJson.ts`
-- Sample rate conversion (44.1kHz/22kHz/11kHz)
-- Bit depth handling (8-bit to 32-bit float)
-- Proper loop point and metadata handling
+    Insecure or unsafe patterns
 
-#### Audio Processing Pipeline
-1. File upload → metadata extraction
-2. AudioBuffer creation via WebAudioAPI
-3. Optional processing (normalize, zero-crossing, effects)
-4. Format conversion and export
-5. ZIP generation with proper OP-XY folder structure
+    Misuse of APIs or libraries
 
-#### Progressive Web App Features
-- Service worker for offline functionality
-- File system access for drag/drop
-- Audio processing without server dependency
-- Auto-installing PWA with manifest
+    Bad practices or anti-patterns
 
-### Development Guidelines
-
-#### TypeScript Standards
-- Strong typing required - avoid `any` type
-- Interface definitions for all data structures
-- Proper error handling with typed exceptions
-
-#### Code Quality
-- No console.log statements in production code
-- Remove debug logging after fixing issues
-- Follow existing Carbon Design System patterns
-- Maintain consistent audio processing approach using centralized hooks
-
-#### Testing Strategy
-- Unit tests for utilities and hooks
-- Component tests for UI interactions
-- E2E tests for critical user workflows
-- Audio processing tests with mock AudioContext
-
-#### Performance Considerations
-- Large audio file handling via streaming
-- Memory management for AudioBuffers
-- IndexedDB for persistent storage without blocking UI
-- Efficient waveform visualization for large samples
+    Unintended consequences from recent changes
 
 ---
 > Source: [squarewave-studio/op-patchstudio](https://github.com/squarewave-studio/op-patchstudio) — distributed by [TomeVault](https://tomevault.io).
