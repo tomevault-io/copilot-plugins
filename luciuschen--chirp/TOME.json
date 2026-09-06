@@ -4,7 +4,7 @@
   "repo": "chirp",
   "description": "A single-buffer Emacs browser for X/Twitter, powered by twitter-cli.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LuciusChen/chirp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T06:45:13Z"
+  "distributed_at": "2026-09-06T06:45:53Z"
 }
