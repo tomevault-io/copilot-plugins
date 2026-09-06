@@ -1,0 +1,9 @@
+{
+  "name": "youtube-jono--seo-blueprint-audit",
+  "displayName": "seo-blueprint-audit",
+  "description": "Score it, fix it, score it again. A Claude Code command that audits a whole website and works the fix list.",
+  "version": "1.0.0",
+  "author": "youtube-jono",
+  "homepage": "https://github.com/youtube-jono/seo-blueprint-audit",
+  "skills": []
+}
