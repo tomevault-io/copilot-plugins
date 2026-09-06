@@ -1,0 +1,9 @@
+{
+  "name": "60k41p--stagehand",
+  "displayName": "Stagehand",
+  "description": "Flecs Entity Component System as a Godot GDExtension",
+  "version": "1.0.0",
+  "author": "60k41p",
+  "homepage": "https://github.com/60k41p/Stagehand",
+  "skills": []
+}
