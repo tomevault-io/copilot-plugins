@@ -1,0 +1,9 @@
+{
+  "name": "knx-ai--xknx-editor",
+  "displayName": "xknx-editor",
+  "description": "XKNX Editor to program and mange KNX devices",
+  "version": "1.0.0",
+  "author": "knx-ai",
+  "homepage": "https://github.com/knx-ai/xknx-editor",
+  "skills": []
+}
