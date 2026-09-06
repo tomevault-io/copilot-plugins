@@ -1,7 +1,7 @@
 {
-  "name": "immimap",
+  "name": "ImmiMap",
   "owner": "alicelee2735",
-  "repo": "immimap",
+  "repo": "ImmiMap",
   "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/alicelee2735/immimap",
+  "source_url": "https://github.com/alicelee2735/ImmiMap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T07:20:53Z"
+  "distributed_at": "2026-09-06T01:34:30Z"
 }
