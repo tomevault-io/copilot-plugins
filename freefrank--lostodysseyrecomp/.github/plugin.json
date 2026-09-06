@@ -1,0 +1,9 @@
+{
+  "name": "freefrank--lostodysseyrecomp",
+  "displayName": "LostOdysseyRecomp",
+  "description": "Experimental native PC port of Lost Odyssey using static recompilation. No game assets included.",
+  "version": "1.0.0",
+  "author": "freefrank",
+  "homepage": "https://github.com/freefrank/LostOdysseyRecomp",
+  "skills": []
+}
