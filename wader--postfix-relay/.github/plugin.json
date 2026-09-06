@@ -1,0 +1,9 @@
+{
+  "name": "wader--postfix-relay",
+  "displayName": "postfix-relay",
+  "description": "postfix-relay",
+  "version": "1.0.0",
+  "author": "wader",
+  "homepage": "https://github.com/wader/postfix-relay",
+  "skills": []
+}
