@@ -1,0 +1,14 @@
+{
+  "name": "fesily--dontstarveluajit2",
+  "displayName": "DontStarveLuaJIT2",
+  "description": "DontStarveLuaJIT2",
+  "version": "1.0.0",
+  "author": "fesily",
+  "homepage": "https://github.com/fesily/DontStarveLuaJIT2",
+  "skills": [
+    {
+      "name": "DontStarveLuaJIT2",
+      "description": ""
+    }
+  ]
+}
