@@ -1,0 +1,9 @@
+{
+  "name": "shivu516--windows-hello-fix",
+  "displayName": "Windows-Hello-Fix",
+  "description": "Makes Windows Hello Face Unlocks more reliable, and also allows face unlocks in complete darkness",
+  "version": "1.0.0",
+  "author": "Shivu516",
+  "homepage": "https://github.com/Shivu516/Windows-Hello-Fix",
+  "skills": []
+}
