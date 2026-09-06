@@ -4,7 +4,7 @@
   "repo": "any-date-parser",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kensnyder/any-date-parser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T08:11:09Z"
+  "distributed_at": "2026-09-06T08:16:11Z"
 }
