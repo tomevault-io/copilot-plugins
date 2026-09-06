@@ -1,0 +1,44 @@
+{
+  "name": "agentic-dfir",
+  "owner": "Juwon1405",
+  "repo": "agentic-dfir",
+  "description": "Agentic-DFIR \u2014 autonomous digital forensics & incident response agent. Architecture-first, not prompt-first: typed read-only MCP tool surface, SHA-256 audit chain, senior-analyst playbook.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Juwon1405/agentic-dfir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T02:39:49Z"
+}
