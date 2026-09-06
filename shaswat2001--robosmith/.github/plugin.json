@@ -1,0 +1,9 @@
+{
+  "name": "shaswat2001--robosmith",
+  "displayName": "robosmith",
+  "description": "An autonomous pipeline that takes a plain English task description and produces a trained RL policy \u2014 handling environment selection, reward design, training, evaluation, and delivery with zero human ",
+  "version": "1.0.0",
+  "author": "Shaswat2001",
+  "homepage": "https://github.com/Shaswat2001/robosmith",
+  "skills": []
+}
