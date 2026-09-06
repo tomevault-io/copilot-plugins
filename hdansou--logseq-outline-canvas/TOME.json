@@ -4,7 +4,7 @@
   "repo": "logseq-outline-canvas",
   "description": "A Logseq plugin that transforms hierarchical block trees into interactive visual diagrams. One click turns any page or block into a polished diagram \u2014 no data export, no external tools required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hdansou/logseq-outline-canvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T02:45:11Z"
+  "distributed_at": "2026-09-06T02:57:55Z"
 }
