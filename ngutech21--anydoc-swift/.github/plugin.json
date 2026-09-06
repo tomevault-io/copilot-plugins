@@ -1,0 +1,9 @@
+{
+  "name": "ngutech21--anydoc-swift",
+  "displayName": "anydoc-swift",
+  "description": "Swift wrapper for Firecrawl\u2019s anydoc, converting Word, Excel, PowerPoint, PDF, and more to Markdown locally on macOS and Linux",
+  "version": "1.0.0",
+  "author": "ngutech21",
+  "homepage": "https://github.com/ngutech21/anydoc-swift",
+  "skills": []
+}
