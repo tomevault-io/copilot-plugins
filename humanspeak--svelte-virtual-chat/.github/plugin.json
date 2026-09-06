@@ -1,0 +1,9 @@
+{
+  "name": "humanspeak--svelte-virtual-chat",
+  "displayName": "svelte-virtual-chat",
+  "description": "\ud83d\udcac A performant virtual chat component for Svelte applications - efficiently render large scrollable chat interfaces with minimal memory usage",
+  "version": "1.0.0",
+  "author": "humanspeak",
+  "homepage": "https://github.com/humanspeak/svelte-virtual-chat",
+  "skills": []
+}
