@@ -1,0 +1,9 @@
+{
+  "name": "davidmosiah--wellness-nourish",
+  "displayName": "wellness-nourish",
+  "description": "Local-first nutrition MCP for Claude/Cursor: USDA food search, barcode + photo, meal logging",
+  "version": "1.0.0",
+  "author": "davidmosiah",
+  "homepage": "https://github.com/davidmosiah/wellness-nourish",
+  "skills": []
+}
