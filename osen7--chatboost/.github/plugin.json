@@ -1,0 +1,9 @@
+{
+  "name": "osen7--chatboost",
+  "displayName": "ChatBoost",
+  "description": "Optimize rendering performance of long AI chat threads locally in your browser \u2014 without affecting model context or response quality.",
+  "version": "1.0.0",
+  "author": "osen7",
+  "homepage": "https://github.com/osen7/ChatBoost",
+  "skills": []
+}
