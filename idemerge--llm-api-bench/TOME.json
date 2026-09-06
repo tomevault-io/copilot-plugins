@@ -1,0 +1,44 @@
+{
+  "name": "llm-api-bench",
+  "owner": "idemerge",
+  "repo": "llm-api-bench",
+  "description": "Self-hosted LLM API benchmark, monitoring & playground. Compare latency, TTFT, throughput across OpenAI, Anthropic, Gemini & any OpenAI-compatible endpoint. Deploy with one command via Docker. | \u81ea\u6258\u7ba1 LLM API \u6027\u80fd\u6d4b\u8bd5\u3001\u76d1\u63a7\u4e0e\u8c03\u8bd5\u5e73\u53f0\uff0c\u4e00\u952e Docker \u90e8\u7f72\uff0c\u652f\u6301\u591a\u5bb6\u670d\u52a1\u5546\u5bf9\u6bd4\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/idemerge/llm-api-bench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T06:37:25Z"
+}
