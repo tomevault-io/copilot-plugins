@@ -1,0 +1,249 @@
+{
+  "name": "ArrMatey",
+  "owner": "owenlejeune",
+  "repo": "ArrMatey",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/styles/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/styles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/unslop/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/unslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/widgets/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/adaptive/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/adaptive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/app-intents/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/app-intents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/android-cli/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/android-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-pro/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/navigation-3/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/navigation-3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/edge-to-edge/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/edge-to-edge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/appfunctions/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/appfunctions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/testing-setup/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/testing-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-testing-kmp/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-testing-kmp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swift-format-style/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swift-format-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-ui-patterns/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-ui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-liquid-glass/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-liquid-glass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-project-bugfix/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-project-bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-view-refactor/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-view-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-kmp-code-review/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-kmp-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-design-principles/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-design-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-performance-audit/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-performance-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-data-kmp-data-layer/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-data-kmp-data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-kmp-refactor-safety/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-kmp-refactor-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-platform-kmp-bridges/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-platform-kmp-bridges/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-ui-adaptive-resources/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-ui-adaptive-resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-project-modularization/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-project-modularization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/swiftui-pro/skills/swiftui-pro/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/swiftui-pro/skills/swiftui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-project-state-management/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-project-state-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-ui-compose-multiplatform/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-ui-compose-multiplatform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-project-architecture-review/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-project-architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-build-kmp-gradle-governance/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-build-kmp-gradle-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-project-feature-implementation/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-project-feature-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-navigation-compose-multiplatform/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-navigation-compose-multiplatform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArrMatey",
+      "path": ".agents/skills/kotlin-platform-app-links-and-deep-links/SKILL.md",
+      "github_url": "https://github.com/owenlejeune/ArrMatey/tree/main/.agents/skills/kotlin-platform-app-links-and-deep-links/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/owenlejeune/ArrMatey",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T09:33:38Z"
+}
