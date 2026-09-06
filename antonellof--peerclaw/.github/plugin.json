@@ -1,0 +1,9 @@
+{
+  "name": "antonellof--peerclaw",
+  "displayName": "peerclaw",
+  "description": "Decentralized P2P AI agent network. One static binary. BitTorrent meets AI inference: agent peers share compute, resources and call remote tools.",
+  "version": "1.0.0",
+  "author": "antonellof",
+  "homepage": "https://github.com/antonellof/peerclaw",
+  "skills": []
+}
