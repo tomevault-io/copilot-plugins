@@ -4,7 +4,7 @@
   "repo": "DL4S",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/palle-k/DL4S",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T10:08:10Z"
+  "distributed_at": "2026-09-06T12:37:37Z"
 }
