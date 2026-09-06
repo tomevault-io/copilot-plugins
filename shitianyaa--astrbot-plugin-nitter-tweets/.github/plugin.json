@@ -1,0 +1,9 @@
+{
+  "name": "shitianyaa--astrbot-plugin-nitter-tweets",
+  "displayName": "astrbot_plugin_nitter_tweets",
+  "description": "\u81ea\u5efa Nitter \u83b7\u53d6\u516c\u5f00 X/Twitter \u63a8\u6587\uff0c\u535a\u4e3b/\u6807\u7b7e/List \u5206\u7ec4\u5b9a\u65f6\u63a8\u9001\u5230 OneBot/QQ/Telegram/\u98de\u4e66\u3002AstrBot \u63d2\u4ef6\u3002",
+  "version": "1.0.0",
+  "author": "shitianyaa",
+  "homepage": "https://github.com/shitianyaa/astrbot_plugin_nitter_tweets",
+  "skills": []
+}
