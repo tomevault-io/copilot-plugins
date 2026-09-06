@@ -1,0 +1,26 @@
+{
+  "name": "rolandzwaga--krate-audio",
+  "displayName": "krate-audio",
+  "description": "A DSP and VST audio repository",
+  "version": "1.0.0",
+  "author": "rolandzwaga",
+  "homepage": "https://github.com/rolandzwaga/krate-audio",
+  "skills": [
+    {
+      "name": "claude-file",
+      "description": ""
+    },
+    {
+      "name": "dsp-architecture",
+      "description": ""
+    },
+    {
+      "name": "testing-guide",
+      "description": ""
+    },
+    {
+      "name": "vst-guide",
+      "description": ""
+    }
+  ]
+}
