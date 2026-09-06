@@ -1,0 +1,9 @@
+{
+  "name": "walshe--quantum-sage",
+  "displayName": "quantum-sage",
+  "description": "AI-assisted trading signal engine that turns an analyst's discretionary market notes into structured, tradeable signals \u2014 Node.js/TypeScript pipeline built on LangChain/LangGraph, with promptfoo eval ",
+  "version": "1.0.0",
+  "author": "walshe",
+  "homepage": "https://github.com/walshe/quantum-sage",
+  "skills": []
+}
