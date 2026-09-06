@@ -1,0 +1,57 @@
+{
+  "name": "OneTiny",
+  "owner": "TCP404",
+  "repo": "OneTiny",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OneTiny",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/TCP404/OneTiny/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OneTiny",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/TCP404/OneTiny/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TCP404/OneTiny",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:40:46Z"
+}
