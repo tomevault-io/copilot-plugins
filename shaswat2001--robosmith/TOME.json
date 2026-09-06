@@ -4,7 +4,7 @@
   "repo": "robosmith",
   "description": "An autonomous pipeline that takes a plain English task description and produces a trained RL policy \u2014 handling environment selection, reward design, training, evaluation, and delivery with zero human intervention.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shaswat2001/robosmith",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T13:52:15Z"
+  "distributed_at": "2026-09-06T14:09:07Z"
 }
