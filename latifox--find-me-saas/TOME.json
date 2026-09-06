@@ -4,7 +4,7 @@
   "repo": "find-me-saas",
   "description": "Most AI will tell you your startup idea is brilliant. This   one researches it properly and scores it out of 100. The   two ideas I have put through it came back 43 and 28",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Latifox/find-me-saas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T22:31:00Z"
+  "distributed_at": "2026-09-06T22:32:14Z"
 }
