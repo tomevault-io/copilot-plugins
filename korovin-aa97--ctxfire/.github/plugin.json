@@ -1,0 +1,9 @@
+{
+  "name": "korovin-aa97--ctxfire",
+  "displayName": "ctxfire",
+  "description": "Static cost analyzer for multi-agent context graphs: explain what agents load and estimate tokens per fire and per day.",
+  "version": "1.0.0",
+  "author": "korovin-aa97",
+  "homepage": "https://github.com/korovin-aa97/ctxfire",
+  "skills": []
+}
