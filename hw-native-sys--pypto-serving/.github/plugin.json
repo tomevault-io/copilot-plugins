@@ -1,0 +1,9 @@
+{
+  "name": "hw-native-sys--pypto-serving",
+  "displayName": "pypto-serving",
+  "description": "Provide LLM inference service based on PyPTO",
+  "version": "1.0.0",
+  "author": "hw-native-sys",
+  "homepage": "https://github.com/hw-native-sys/pypto-serving",
+  "skills": []
+}
