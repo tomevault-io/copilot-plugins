@@ -1,0 +1,9 @@
+{
+  "name": "malkreide--swiss-public-data-mcp",
+  "displayName": "swiss-public-data-mcp",
+  "description": "MCP servers connecting AI models to Swiss public and open data sources",
+  "version": "1.0.0",
+  "author": "malkreide",
+  "homepage": "https://github.com/malkreide/swiss-public-data-mcp",
+  "skills": []
+}
