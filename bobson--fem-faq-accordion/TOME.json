@@ -4,7 +4,7 @@
   "repo": "FEM-FAQ-accordion",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bobson/FEM-FAQ-accordion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T14:17:47Z"
+  "distributed_at": "2026-09-06T14:29:37Z"
 }
