@@ -1,0 +1,9 @@
+{
+  "name": "aizaloapp--zalo-flow",
+  "displayName": "zalo-flow",
+  "description": "The Open-Source Automation & Omnichannel Webhook Gateway for Personal Zalo",
+  "version": "1.0.0",
+  "author": "aizaloapp",
+  "homepage": "https://github.com/aizaloapp/zalo-flow",
+  "skills": []
+}
