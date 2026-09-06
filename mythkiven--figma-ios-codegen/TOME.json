@@ -4,7 +4,7 @@
   "repo": "figma-ios-codegen",
   "description": "Figma to iOS UIKit codegen: deterministic data package + Agent skills (Cursor/Claude) for baseline Swift UI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mythkiven/figma-ios-codegen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T00:37:45Z"
+  "distributed_at": "2026-09-06T00:40:58Z"
 }
