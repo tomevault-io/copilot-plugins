@@ -1,0 +1,44 @@
+{
+  "name": "mobile-app",
+  "owner": "Aetherfin",
+  "repo": "mobile-app",
+  "description": "Native Android music player for self-hosted Jellyfin & Navidrome servers. Also support Local Media Playback. Lossless playback via libmpv, real-time FFT visualizer, 86-effect DSP rack, synced lyrics, gapless transitions. No telemetry, no ads, no cloud.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Aetherfin/mobile-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T23:17:19Z"
+}
