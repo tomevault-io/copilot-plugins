@@ -1,0 +1,9 @@
+{
+  "name": "flood-lab--hydroturing",
+  "displayName": "HydroTuring",
+  "description": "Does your AI hydrologic model conserve mass, energy and momentum?",
+  "version": "1.0.0",
+  "author": "Flood-Lab",
+  "homepage": "https://github.com/Flood-Lab/HydroTuring",
+  "skills": []
+}
