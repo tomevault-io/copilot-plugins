@@ -4,7 +4,7 @@
   "repo": "tabrest",
   "description": "Chrome extension to automatically unload inactive tabs and free memory",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lamngockhuong/tabrest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T04:35:48Z"
+  "distributed_at": "2026-09-06T04:36:30Z"
 }
