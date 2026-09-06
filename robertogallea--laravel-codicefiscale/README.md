@@ -15,11 +15,6 @@ Original source: `CLAUDE.md` in [robertogallea/laravel-codicefiscale](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [laravel-codicefiscale](https://github.com/robertogallea/laravel-codicefiscale/tree/main/resources/boost/skills/using-laravel-codicefiscale/SKILL.md)
-- [laravel-codicefiscale](https://github.com/robertogallea/laravel-codicefiscale/tree/main/resources/boost/skills/upgrading-laravel-codicefiscale-from-v2/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/robertogallea/laravel-codicefiscale](https://github.com/robertogallea/laravel-codicefiscale)
 
 ---
