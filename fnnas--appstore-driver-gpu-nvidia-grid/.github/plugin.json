@@ -1,0 +1,9 @@
+{
+  "name": "fnnas--appstore-driver-gpu-nvidia-grid",
+  "displayName": "appstore.driver.gpu.nvidia.grid",
+  "description": "nVidia vGPU Guest Driver for fygonas",
+  "version": "1.0.0",
+  "author": "fnnas",
+  "homepage": "https://github.com/fnnas/appstore.driver.gpu.nvidia.grid",
+  "skills": []
+}
