@@ -1,0 +1,9 @@
+{
+  "name": "ditlied--elai-archive",
+  "displayName": "ELAI-archive",
+  "description": "Abandoned, unsupported research archive for a local-first, model-agnostic LLM agent harness exploring orchestration, code retrieval, off-agent verification, deterministic replay, sandboxing, context m",
+  "version": "1.0.0",
+  "author": "DITlieD",
+  "homepage": "https://github.com/DITlieD/ELAI-archive",
+  "skills": []
+}
