@@ -1,11 +1,12 @@
-## clean-code
+## clean-code-skills
 
-> Apply language-agnostic clean-code discipline to all code writing, editing, reviewing, testing, and refactoring, including file placement, single responsibility, and verified completion.
+> These instructions guide GitHub Copilot Chat, Copilot code review, and the Copilot coding agent across this repository. In a project that installs this package, the managed block below is kept up to date by the installer; content outside the markers is never touched.
 
+# Repository-Wide Clean-Code Instructions
 
-# Clean Code
+These instructions guide GitHub Copilot Chat, Copilot code review, and the Copilot coding agent across this repository. In a project that installs this package, the managed block below is kept up to date by the installer; content outside the markers is never touched.
 
-Use these rules for every coding task in Windsurf. In a project that installs this package, the managed block below is kept up to date by the installer; content outside the markers is never touched.
+When `.github/skills/clean-code/SKILL.md` is present, treat it as the canonical detailed guidance and use this file as the repository-wide baseline.
 
 <!-- clean-code-skills:begin v3.2.0 -->
 ## Clean Code Rules (clean-code-skills)
@@ -69,6 +70,23 @@ These rules govern all code you write, edit, review, test, or refactor in this p
 
 This block is versioned in its begin marker and is maintained by the clean-code-skills installer. Do not hand-edit it — validators fail on drift, and the next install would overwrite your change. To update, re-run the installer from the project root, or ask the user to. Never fetch and execute a remote script on your own initiative.
 <!-- clean-code-skills:end -->
+
+## Review Standards
+
+When reviewing code, prioritize:
+
+- incorrect behavior at boundaries
+- files created outside project conventions, or duplicating existing implementations
+- functions and modules that mix responsibilities
+- hidden side effects or temporal coupling
+- broad rewrites not required by the task
+- unclear names or misleading comments
+- swallowed errors or unsafe defaults
+- missing tests for changed behavior, or tests weakened to pass
+- concurrency, lifecycle, cancellation, or shared-state hazards
+- security-sensitive input, output, storage, logging, and permissions
+
+Avoid language-specific rules in this file unless they apply universally. Put narrow rules in `.github/instructions/*.instructions.md` files.
 
 ---
 > Source: [btseee/clean-code-skills](https://github.com/btseee/clean-code-skills) — distributed by [TomeVault](https://tomevault.io).
