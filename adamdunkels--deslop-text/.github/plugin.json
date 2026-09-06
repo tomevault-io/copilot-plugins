@@ -1,0 +1,9 @@
+{
+  "name": "adamdunkels--deslop-text",
+  "displayName": "deslop-text",
+  "description": "Claude skill that removes 30 tell-tale signs of AI-written text",
+  "version": "1.0.0",
+  "author": "adamdunkels",
+  "homepage": "https://github.com/adamdunkels/deslop-text",
+  "skills": []
+}
