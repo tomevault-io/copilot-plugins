@@ -1,0 +1,9 @@
+{
+  "name": "techtalk--ai-readiness-assessment",
+  "displayName": "ai-readiness-assessment",
+  "description": "A self-contained Claude Code & GitHub Copilot plugin that assesses a team's AI readiness against the Agentic Habitat Maturity Model and the Sovereign Engineer framework, producing a gap-anchored matur",
+  "version": "1.0.0",
+  "author": "techtalk",
+  "homepage": "https://github.com/techtalk/ai-readiness-assessment",
+  "skills": []
+}
