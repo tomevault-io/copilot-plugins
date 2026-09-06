@@ -1,0 +1,9 @@
+{
+  "name": "tornikegomareli--pi-remote-ios",
+  "displayName": "pi-remote-ios",
+  "description": "Native iOS companion and Pi extension for controlling an active Pi coding-agent session over a paired WebSocket",
+  "version": "1.0.0",
+  "author": "tornikegomareli",
+  "homepage": "https://github.com/tornikegomareli/pi-remote-ios",
+  "skills": []
+}
