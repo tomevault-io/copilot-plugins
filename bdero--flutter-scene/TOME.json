@@ -1,0 +1,81 @@
+{
+  "name": "flutter_scene",
+  "owner": "bdero",
+  "repo": "flutter_scene",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flutter_scene",
+      "path": "packages/flutter_scene/skills/flutter_scene-kit/SKILL.md",
+      "github_url": "https://github.com/bdero/flutter_scene/tree/main/packages/flutter_scene/skills/flutter_scene-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_scene",
+      "path": "packages/flutter_scene/skills/flutter_scene-looks/SKILL.md",
+      "github_url": "https://github.com/bdero/flutter_scene/tree/main/packages/flutter_scene/skills/flutter_scene-looks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_scene",
+      "path": "packages/flutter_scene/skills/flutter_scene-idioms/SKILL.md",
+      "github_url": "https://github.com/bdero/flutter_scene/tree/main/packages/flutter_scene/skills/flutter_scene-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_scene",
+      "path": "packages/flutter_scene/skills/flutter_scene-procedural/SKILL.md",
+      "github_url": "https://github.com/bdero/flutter_scene/tree/main/packages/flutter_scene/skills/flutter_scene-procedural/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_scene",
+      "path": "packages/flutter_scene/skills/flutter_scene-performance/SKILL.md",
+      "github_url": "https://github.com/bdero/flutter_scene/tree/main/packages/flutter_scene/skills/flutter_scene-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_scene",
+      "path": "packages/flutter_scene/skills/flutter_scene-verification-loop/SKILL.md",
+      "github_url": "https://github.com/bdero/flutter_scene/tree/main/packages/flutter_scene/skills/flutter_scene-verification-loop/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bdero/flutter_scene",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:39:44Z"
+}
