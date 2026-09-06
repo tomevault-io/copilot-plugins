@@ -1,0 +1,9 @@
+{
+  "name": "babul--quay",
+  "displayName": "quay",
+  "description": "A free, privacy-first, native macOS connection manager for SSH & SFTP, built on Ghostty's terminal core (libghostty).",
+  "version": "1.0.0",
+  "author": "babul",
+  "homepage": "https://github.com/babul/quay",
+  "skills": []
+}
