@@ -3,7 +3,7 @@
   "owner": "brayandiazc",
   "repo": "aprendiendo-javaScript",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,51 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/commit/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/commit/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/open-pr/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/open-pr/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/new-adr/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/new-adr/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/new-spec/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/new-spec/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/refactor/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/refactor/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/changelog/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/changelog/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "aprendiendo-javaScript",
-      "path": ".claude/skills/nueva-leccion/SKILL.md",
-      "github_url": "https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/nueva-leccion/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/brayandiazc/aprendiendo-javaScript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T07:30:17Z"
+  "distributed_at": "2026-09-06T08:02:11Z"
 }
