@@ -1,0 +1,9 @@
+{
+  "name": "olaservo--skilljack-evals",
+  "displayName": "skilljack-evals",
+  "description": "CLI for evaluating Agent Skills support using multiple models and agent sdks. Tests how well agents discover, load, and execute Agent Skills \u2014 measuring discoverability, instruction adherence, and out",
+  "version": "1.0.0",
+  "author": "olaservo",
+  "homepage": "https://github.com/olaservo/skilljack-evals",
+  "skills": []
+}
