@@ -1,0 +1,57 @@
+{
+  "name": "MCP-Packet-Tracer",
+  "owner": "Mats2208",
+  "repo": "MCP-Packet-Tracer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MCP-Packet-Tracer",
+      "path": "docs/skill.md",
+      "github_url": "https://github.com/Mats2208/MCP-Packet-Tracer/tree/main/docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "MCP-Packet-Tracer",
+      "path": "skill/SKILL.md",
+      "github_url": "https://github.com/Mats2208/MCP-Packet-Tracer/tree/main/skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Mats2208/MCP-Packet-Tracer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:47:23Z"
+}
