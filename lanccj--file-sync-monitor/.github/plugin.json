@@ -1,0 +1,9 @@
+{
+  "name": "lanccj--file-sync-monitor",
+  "displayName": "file-sync-monitor",
+  "description": "\u8be5\u8f6f\u4ef6\u4e3b\u8981\u4e3a\u642d\u914dima\u77e5\u8bc6\u5e93\u8f6f\u4ef6\u7814\u53d1\u7684\u4e00\u6b3e\u6587\u4ef6\u76d1\u542c\u540c\u6b65\u5de5\u5177\u3002",
+  "version": "1.0.0",
+  "author": "LancCJ",
+  "homepage": "https://github.com/LancCJ/file-sync-monitor",
+  "skills": []
+}
