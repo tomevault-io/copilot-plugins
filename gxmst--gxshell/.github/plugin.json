@@ -1,0 +1,9 @@
+{
+  "name": "gxmst--gxshell",
+  "displayName": "gxShell",
+  "description": "\u8de8\u5e73\u53f0\u684c\u9762 SSH \u5de5\u4f5c\u53f0 \u2014 \u7ec8\u7aef\u3001\u76d1\u63a7\u3001SFTP\u3001Docker\u3001\u96a7\u9053\u4e0e AI \u52a9\u624b\u4e00\u4f53\u5316",
+  "version": "1.0.0",
+  "author": "gxmst",
+  "homepage": "https://github.com/gxmst/gxShell",
+  "skills": []
+}
