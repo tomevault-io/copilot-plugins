@@ -1,0 +1,9 @@
+{
+  "name": "dipankardas011--infai",
+  "displayName": "infai",
+  "description": "TUI for managing llama.cpp model profiles \u2014 browse models, store named configs in SQLite, launch llama-server with live log streaming",
+  "version": "1.0.0",
+  "author": "dipankardas011",
+  "homepage": "https://github.com/dipankardas011/infai",
+  "skills": []
+}
