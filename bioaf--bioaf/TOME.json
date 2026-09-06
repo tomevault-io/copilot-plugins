@@ -4,7 +4,7 @@
   "repo": "bioAF",
   "description": "A self-hosted platform for orchestrating bioinformatics pipelines, managing experimental metadata, and running reproducible compute workloads.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bioAF/bioAF",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T22:52:51Z"
+  "distributed_at": "2026-09-06T23:10:23Z"
 }
