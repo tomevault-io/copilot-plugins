@@ -1,0 +1,9 @@
+{
+  "name": "henryrobbins--flare",
+  "displayName": "flare",
+  "description": "Official implementation of \"FLARE: Verifying MILP Reformulations with LLM-Based Theorem Proving\"",
+  "version": "1.0.0",
+  "author": "henryrobbins",
+  "homepage": "https://github.com/henryrobbins/flare",
+  "skills": []
+}
