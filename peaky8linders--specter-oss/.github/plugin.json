@@ -1,0 +1,9 @@
+{
+  "name": "peaky8linders--specter-oss",
+  "displayName": "specter-oss",
+  "description": "EU AI Act compliance toolkit \u2014 ontology, taxonomy, LLM-as-Judge, grounded Q&A. Python library + Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "Peaky8linders",
+  "homepage": "https://github.com/Peaky8linders/specter-oss",
+  "skills": []
+}
