@@ -1,0 +1,9 @@
+{
+  "name": "madaburns--bv-mcp",
+  "displayName": "bv-mcp",
+  "description": "Open-source DNS & email security scanner. One MCP endpoint, 57 checks, zero install. Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "MadaBurns",
+  "homepage": "https://github.com/MadaBurns/bv-mcp",
+  "skills": []
+}
