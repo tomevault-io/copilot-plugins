@@ -15,16 +15,6 @@ Original source: `CLAUDE.md` in [brayandiazc/aprendiendo-javaScript](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (7)
-
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/commit/SKILL.md)
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/open-pr/SKILL.md)
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/new-adr/SKILL.md)
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/new-spec/SKILL.md)
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/refactor/SKILL.md)
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/changelog/SKILL.md)
-- [aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript/tree/main/.claude/skills/nueva-leccion/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/brayandiazc/aprendiendo-javaScript](https://github.com/brayandiazc/aprendiendo-javaScript)
 
 ---
