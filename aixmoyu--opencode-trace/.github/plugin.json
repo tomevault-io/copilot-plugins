@@ -1,0 +1,9 @@
+{
+  "name": "aixmoyu--opencode-trace",
+  "displayName": "opencode-trace",
+  "description": "OpenCode AI interaction tracer - automatically record, debug, and analyze API conversations with token usage, latency metrics, and a web viewer.",
+  "version": "1.0.0",
+  "author": "aixmoyu",
+  "homepage": "https://github.com/aixmoyu/opencode-trace",
+  "skills": []
+}
