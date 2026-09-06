@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "robertogallea",
   "homepage": "https://github.com/robertogallea/laravel-codicefiscale",
-  "skills": [
-    {
-      "name": "laravel-codicefiscale",
-      "description": ""
-    },
-    {
-      "name": "laravel-codicefiscale",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
