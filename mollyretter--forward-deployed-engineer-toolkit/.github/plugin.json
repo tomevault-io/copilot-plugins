@@ -1,0 +1,9 @@
+{
+  "name": "mollyretter--forward-deployed-engineer-toolkit",
+  "displayName": "forward-deployed-engineer-toolkit",
+  "description": "opinionated tools for shipping AI into real-world domains",
+  "version": "1.0.0",
+  "author": "mollyretter",
+  "homepage": "https://github.com/mollyretter/forward-deployed-engineer-toolkit",
+  "skills": []
+}
