@@ -1,54 +1,52 @@
-## guide-prose-quality
+## knowledge-hub-content
 
-> ガイド記事 prose の具体性・自然さ（抽象表現・メタ確認・FAQ 定型の禁止）
+> Knowledge hub compare/numbers/mistakes — 150 per type, CSV quality
 
 
-# ガイド prose 品質ルール
+# Knowledge Hub Content（比較・数値・誤答）
 
-**正本:** `tools/guide_prose_patterns.py`（検出） / `tools/guide_content_shared.py`（生成）
+**正本:** [docs/knowledge-hub-article-templates.md](../docs/knowledge-hub-article-templates.md)
 
-## 禁止パターン（読者向け本文）
+## 本番目標（各 CSV 独立）
 
-| 種別 | 悪い例 | 対応 |
-|------|--------|------|
-| メタ確認だけ | 「〇〇」の詳細は公式の最新要項で確認してください | 具体手順・箇条書きまで書く |
-| 読了目的の抽象 | 行動チェックリストに沿って… / 確認すべき点と演習・用語解説… | `user_intent_prose()` |
-| FAQ 定型 | 条文や指針の主体（事業者・…）をセットで | `faq_official_verify_answer()` |
-| FAQ 内部記法 | `「質問」→ 答え` / `FAQ3「」→` | 「については、」に言い換え |
-| フォールバック崩れ | `…の要点を。`（読点分割で述語欠落） | `keyword_fallback_default` の「要点は」形式 |
-| 行動項目の空疎 | 混同語を1周 / 分野タグ付き10問（だけ） | `action_items_prose()` |
+| 種別 | CSV | 目標 |
+|------|-----|------|
+| 比較・整理表 | `comparisons.csv` | **150〜153 件** |
+| 数値・期限早見表 | `numbers.csv` | **150〜153 件** |
+| よくある誤答 | `mistakes.csv` | **150〜153 件** |
 
-## 書き切り必須のテーマ
+150 件未満 → `validate_csv.py` **WARN**（本番目標）。件数超過は更新負荷の WARN のみ。
 
-- **持ち物・チェックリスト・当日の流れ・アクセス** → `guide_content_shared` の `exam_day_*` / `exam_venue_access_prose` を使い、`- ` 箇条書きまで書く（括弧だけの列挙禁止）。
-- **会場ガイド**（`*-center` 等）ではアクセス箇条書きに**具体の駅名・住所を書かない**。詳細は `.cursor/rules/exam-venue-guide.mdc`。
-
-## 節の最小文字数（180字）
-
-- `ensure_min` の filler にメタ確認1文だけを使わない。
-- `section_body_min_filler(heading, topic, official)` で「テキスト該当章＋演習＋要項照合」の具体1文を足す。
-
-## 修正パイプライン（全サイト）
+## 新規作成（必須フロー）
 
 ```bash
-# exam-site-shell 正本で lib パッチ後
-python3 tools/patch_guide_prose_templates.py
-bash tools/run_guide_prose_batch.sh
-python3 tools/audit_guide_prose_quality.py --root ~/Projects/eisei2shu-master --strict
+python3 tools/scaffold_knowledge_hub_article.py --type compare|numbers|mistakes \
+  --title "…" --category "…" --append
+# プレースホルダをすべて差し替え
+python3 tools/validate_csv.py
+python3 tools/build_glossary_pages.py
 ```
 
-1. `fix_guide_duplicate_bodies.py --all-published`
-2. `fix_guide_prose_quality.py`
-3. `fix_editorial_auto.py`
-4. `build_article_pages.py`
-5. `audit_guide_prose_quality.py --strict`
+## 1記事 = 1検索意図
 
-## 監査
+- 「AとBの違い」→ compare
+- 「〇〇 何日 何%」→ numbers
+- 「〇〇 間違えやすい」→ mistakes
 
-- CSV: `scan_prose_text()` — `tail_section_ref`, `vague_user_intent`, `broken_fallback` 等
-- HTML: slug メタ・節番号崩れ・field_boiler
+用語解説に比較表を詰め込まず、混同語は **compare / mistakes へ切り出す**。
 
-**PASS 条件:** CSV/HTML とも hits=0。`public_site/` は `.gitignore` のため配信前に `build_all.py` 必須。
+## 行品質（ERROR）
+
+- JSON 列（`compare_rows` / `item_rows` / `pattern_rows`）が有効
+- `related_terms` … **glossary に登録済み 2 件以上**
+- FAQ **4 件**、`exam_points` **2 項目以上**
+- 雛形マーカー（`【記入】` 等）なし
+
+## 禁止
+
+- 用語解説への比較表の丸ごと複製
+- 3種 CSV を手書き HTML で代替
+- 件数目標なしのサンプル行だけで本番公開
 
 ---
 > Source: [takkenshiken2026-sudo/eisei2shu-master](https://github.com/takkenshiken2026-sudo/eisei2shu-master) — distributed by [TomeVault](https://tomevault.io).
