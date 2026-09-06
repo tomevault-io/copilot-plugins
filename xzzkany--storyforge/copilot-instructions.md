@@ -1,0 +1,224 @@
+## storyforge
+
+> > 本文件帮助新一轮 AI 会话快速理解 StoryForge 仓库。
+
+# CLAUDE.md — StoryForge 项目上下文
+
+> 本文件帮助新一轮 AI 会话快速理解 StoryForge 仓库。
+> 上位规范见 `docs/internal/AGENTS.md`、日常执行版见 `docs/internal/AI_ITERATION_GUIDE.md`。
+> 当前阶段事实以 `docs/internal/current-phase.md` 为准；下一步入口见 `docs/internal/TODO.md`。
+
+## 1. 项目定位
+
+StoryForge 是面向**长篇小说生产**的可验证创作流水线：
+每一次生成、检索、评审、修复、批准与回写，都必须留下可追溯证据，而不是只产出一段孤立文本。
+
+设计立场：**先做诊断控制台，再做生成器**。任何生成路径都先有读取证据 → 评审 → 修复 → 批准的闭环，再考虑接真实模型。
+
+## 1.1 当前项目真相（2026-07-11）
+
+- StoryForge 当前处于**Desktop 对话式 Agent 与私测 Alpha 收口阶段**。
+- 产品定位（2026-06-24 拍板）：**作者辅助 IDE**，不是自动长篇生产器；`apps/desktop` 是唯一主产品体验；`apps/web` 已退场（2026-06-21 完成收口），不再作为维护、调试、兼容或契约验证入口。
+- 交互中枢（2026-06-30 拍板）：**对话式 agent**；批量自动整书不再是主线，BookRun 降级为 managed Writing Run 的内部兼容实现与后台工具。
+- 2026-07-01 已合并：单色调明暗双主题 UI 改版（PR #42）；私测 Alpha 单机后端——PyInstaller sidecar exe 独立起服、BYO-key、`llm-provider.json` 写盘换模型即生效、NSIS 安装包内嵌 sidecar（PR #43/#44）；中间交互区收口为对话式 Agent，`chat.explain` 接真·LLM，对话从文件级解绑为项目级（PR #46）。
+- 2026-07-02 已合并：左栏会话历史列表接真后端 + 欢迎页输入框接真发送（PR #48）；Agent loop 三步落地——path-scoped 只读 `fs.list` / `fs.read` / `fs.search`（PR #49）、chat 自由文本走 LLM 工具循环（最多 8 轮、失败回落单轮，PR #50）、前端流程树全事件驱动删预制骨架步骤（PR #51）。
+- Agent loop 边界：工具循环入口是 chat 自由文本；审稿 / 修订 / 新文件起草 / 一致性观察 / 深度一致性已作为循环内工具并入（`file.review` / `file.revise` / `file.create` / `project.consistency` / `project.deep_consistency`，一次对话最多一个 proposed patch，机械观察工具不下结论、语义评审工具只出 advisory 信号），显式按钮路径仍走固定管线；chapter.review / bookrun.* 绑定 DB 实体、BookRun 定位后台工具，不并入循环（已记为决定）；语义 judge 已从 `os.getenv` 迁 `resolved_llm_env`（下沉 `app/common/llm_env.py`，吃 `llm-provider.json` 覆盖链）；真·LLM tool-calling headless 实跑已通过（2026-07-02，deepseek-v4-flash，证据 `.codex/real-llm-agent-loop-*` 五个目录，深度一致性 6 处埋雷全中），真机 GUI 渲染观感未验；写回红线见下条（2026-07-31 已随权限档位改写）。
+- 2026-07-04 已合并（蓝图 W1「live 循环语义收口」，PR #70，schema 冻结下零 ORM 变更）：**F09** live 工具循环每轮开头读 `run.status`，作者点暂停 / 停止即收尾不再烧新一轮 BYO-key（不 append / 不 complete，status 保持控制通道写入的 stopped/paused），起服收尸非终态 run（`reap_non_terminal_agent_runs`，failed + reason=process_restart，**仅 sqlite 单进程 sidecar 收尸**）；**F10** 完成 / 失败事件 payload 富化 + 终态流事件，前端超时改「close socket → 后台轮询事件表重建终态」（不再硬 reject，纯函数 `reconstructAgentResultFromEvents`）；**F11** `intent._detect_intent` 中文关键词表下线，固定管线只认显式 intent + 结构化参数，自由文本一律落 chat.explain 循环；**sidecar 版本握手**（taskkill+respawn）：`/health/ready` 暴露 `app_version`，Tauri 起服比对版本不符即强杀旧孤儿 sidecar 重启。真机 GUI 多轮渲染 / 点停止桌面观感 / 超时转轮询实取回 / 版本握手实机验证均归 E2E-1 真机清单未验。
+- 2026-07-04 已合并（蓝图 W2「sqlite schema 单一事实源」，唯一定时炸弹 F01 拆除）：sidecar 起服由 `bootstrap_sqlite_database` 跑 alembic 收口——已纳管库 `upgrade head`、存量 create_all 库（无 alembic_version）走「SQLite backup API 备份（`*.pre-alembic-<版本>.bak`，保留 3 份）+ `PRAGMA quick_check` 失败即中止 + create_all 补表 + 补 agent_run_events 唯一索引 + `stamp head`」纳管、全新库 create_all + `stamp head`；`alembic/env.py` 支持注入连接 + SQLite `render_as_batch`；alembic 脚本经 `--add-data` 打进冻结 exe（`app/db/migrations.py` 兼顾源码 / `_MEIPASS` 定位）；`create_all` 保留为 SQLite 建表器与收口失败回退。**F01 定时炸弹拆除实证**：已纳管库缺列时起服 `upgrade head` 把列补回（fixture `test_managed_db_applies_pending_migration` 绿）。此后 ORM 列变更走 batch 安全迁移，schema 冻结解除（见 §6 新规矩）。真机「旧版 NSIS 存量库换新 exe 起服 + 会话史完整」归 E2E-1 未验。
+- 2026-07-04 已合并（蓝图 W3 首刀「LLM 单一 chat 通道」，拆 high 级 F16 核心）：chat/completions 出网收敛到唯一模块 `app/common/llm_client.py`（自 book_runs 原样下沉带重试 urllib 客户端 + 双鉴权 + 记账；errors 改由该模块定义 `LLMError`/`LLMConfigError`，`book_runs/errors.py` 别名同一类对象、`except`/`isinstance`/502·422 零改动）；**F16 靶心**——`agent_runs/loop_runtime.py` live 循环改吃 common 通道、不再 import book_runs；**真 bug 修复**——`story_state/semantic.py` grounding 配置从裸 `os.getenv` 改吃 `resolved_llm_env` 覆盖链（此前漏迁，sidecar 下读不到 `llm-provider.json` → grounding 静默失活）；密钥脱敏 `redact_secrets` 落 judge/story_state 失败日志；ruff `TID` banned-api 禁裸 `urllib.request` 另起碎片化 chat 客户端。本刀不动：judge/story_state 仍走 httpx（只统一配置源 + 脱敏，未统一传输）、retrieval embedding/reranker、workflow 第 7 客户端（W5 将删）、usage 记账 + 三客户端一致性矩阵（F16 后续）。真 key headless 复跑归真跑轨未验。
+- 2026-07-04 已合并（蓝图 W4 batch-1「死域冻结隔离」，拆 F04）：新增 `apps/api/app/domains/DOMAINS.md` 三档清单（live/backing/frozen，**新会话第一入口**，§5 指路）；discovery-first 逐域实证后只卸载 4 个零耦合 frozen router（`analytics`/`batch_refinery`/`collaboration`/`commercial`），护栏 `test_api_surface.py::test_frozen_domain_routers_stay_unmounted` 可证伪、回滚=加回一行 `include_router`；契约 paths 109→100（zero added）、e2e 21/21、全量 847 passed。**冻结只卸 router 不删 `models.py`**（9 域是 models-only/service-live，目录必留）；物理删除 + batch-2 留后续。
+- 2026-07-04 已合并（蓝图 W5 core「workflow 分层 prompt 迁入 API」，修 F05 装机死路，schema 冻结下零 ORM 变更）：workflow 的**纯函数**分层 prompt 构建器（7 文件）+ 技能审计投影（`skills/audit.py`）迁入进程内包 `app.domains.book_runs.prompts/`，拆掉两座 importlib 文件路径桥（`workflow_prompt_bridge` / `workflow_skill_audit_bridge`，`git rm`），随 `collect_submodules('app')` 打进冻结 exe。旧桥指相邻 `apps/workflow` 目录、装机 exe 内不存在会在 bookrun.start 才炸；现 `book_generation` 起服链模块级依赖新包、漏打即起服炸。`main.py` 加起服自检 `prompt_layer_bundled`，daily/packaged 两档 sidecar-smoke 断言（**packaged 冻结 exe 实测绿：`分层 prompt 构建器已随 exe 打包(F05 死路已收口)`**）。全量 847 passed（= W4 基线零回归）、ruff 绿、e2e 21/21。**本刀不做**：`apps/workflow` app 物理删除 + 第 7 LLM 客户端删除（W5 高风险步，留后续；prompts 暂在 api/workflow 双存，api 是 live 唯一装机路径）。真机「装机 exe → bookrun.start 真装配」归 E2E-1。
+- 2026-07-04 已合并（蓝图 W7「前端行为测试基建」+ 修 F26/F27）：引入 vitest + happy-dom（frontend 是独立 npm 工程），落三条**可证伪**红线行为测试（①before 漂移拒写 ②快照→写盘→记录时序 + 快照失败阻断写回 ③会话切换中途 run 完成不污染当前会话）；修两条真 bug——**F26** `ChatWindow` 会话切换竞争：`runAuthorAgent` 终态块与 `applyResumedAgentResult` 加会话守卫 `isRunResultForActiveSession`（run 起跑会话≠当前活动会话即不写回，纯 `runId` 守卫不足因切会话不改 runId）；**F27** 写盘非原子（Rust `fs.rs::write_file` 改「同目录临时文件+sync+原子 rename」，拆 `stage_atomic_write` 使原子性不变量可单测证伪）+ 快照失败照写（TS `performGuardedWriteback` 纯核心删吞错 try/catch，快照 reject 即阻断 write/record）。证据：vitest 9 passed、cargo test fs:: 9 passed（含 2 新原子写）、verify-unit 既有 101 passed 零回归、lint 绿。**本刀不做**：既有 19 测试迁入 vitest + 删 verify-unit（双跑一周期后）、ChatWindow 全量 happy-dom 挂载、真机桌面观感（归 E2E-1）。
+- 2026-07-05 至 07-11 已合并：桌面壳子 redesign P0-P4（PR #81-#85）+ Agent 壳子接线契约（PR #80）；**E2E-1 真机首轮门禁 G.1 全 PASS**（2026-07-07，共逮 6 真 bug 均修 PR #87-#96/#109）；查缺补漏审计修复（PR #90-#94）；W6 WS 契约化 slices1-3 + F25 权限四轨（PR #105-#107/#111/#112，slice4 跳过 / slice5 保留 facade 已拍板封档）；canon 防漂移 slice1/2（PR #114/#115，`.storyforge/canon/` 骨架 + 薄不变量闸 + dossier 富 view，确定性无 LLM）；Desktop/API 边界加固（Codex，PR #118，redaction / WS 子协议凭据 / fs.rs 读侧 containment）；W4 batch-2 六域 router 全卸（PR #119/#120）+ 冻结域死码物理清理（PR #121）；workflow 能力迁移 ledger + 三刀 agent 工具（prose_check / collapse_check / entity_budget_check）+ canon_delta 确定性提案工具（PR #122-#125）；LLM 出网传输全收敛 `app/common/llm_client.py`（PR #124/#125，生产 httpx 归零）；前端测试 vitest 单跑、verify-unit 已删（PR #124）。全量门禁（2026-07-11）：API pytest 939、前端 vitest 148、e2e 契约绿、OpenAPI 零漂移。
+- 2026-07-31 已合并（Codex Desktop 式「对项目的权限」）：档位词表收敛为 **read / ask / auto / full**（只读 / 询问 / 自动 / 完全放行），DEFAULT=`ask`，**所有历史档位（risk_confirm / step_confirm / autonomous / full_allow）一律迁到 ask——迁移绝不把任何人升级成免点击落盘**；档位改为**按项目**存本机（`localStorage` 的 `storyforge:agent-permission:<projectPath>`，照 daily-progress 模式；刻意不写进 `.storyforge/`，避免授权随 git 传播），入口收在 Composer 下拉、SettingsView 不再有全局 Agent 分区；**写回红线改写**——后端在任何档位都不写项目文件（这条没变），变的是「作者必须逐次点接受」：`proposed_patch.requires_confirmation` 改由 `PermissionPolicy.decide_stage(profile, "writeback")` 单点派生（read/ask=True，auto/full=False），Desktop 只读这一位、不自己按档位字符串推；自动落盘仍逐次走 `performGuardedWriteback`（写前快照 → 原子写 → 版本记录 + 撤销 toast），漂移拒写、`.storyforge/canon/derived/` 只读、项目边界一律不放宽（`writeAcceptedSuggestion` 补上了此前缺失的派生目录闸）；`full` 档额外免除 BookRun 长任务的二次确认；Ctrl+K / Ctrl+Shift+K 走 `/api/assistant/*` 不经后端 gate，**只被只读档挡住发起**（自动档下仍要 Alt+Enter 手动接受，因为那是作者在光标处主动发起的）；`confirmed` / `user_confirmed` 已加入 `PROTECTED_LOOP_TOOL_ARGUMENT_KEYS`（模型不能自填权限授予）。真机「改档 → 自动落盘 → 撤销 → 重启后档位仍在」未验，归 E2E-1。
+- 自主连载 pivot：2026-07-07 拍板方向（网文中位以上自主连载）+ 完成番茄平台政策与数据面侦察；2026-07-10 收窄（近期作者即 oracle，品味机 deferred）；**2026-07-11 拍板「编辑器优先」**——08-31 盛夏寻章不当锚，先把编辑器做到「安全可日更」（装机前两小刀 → 重建 0.1.2 → AI 装机预验 → 真机第二轮观感波 → 修复锁版），再在编辑器上接续 n=1 连载；愿景 = 写 → 发 → 收集信号 → 喂 → 进化编辑器 → 写出更有风格的作品；n=1 创作资产已存档仓库外 `D:\记事本\`（勿入库）。
+- 真实 LLM 1 章、3 章和 10 章 smoke 已完成脱敏验证，其中 10 章 smoke 已通过人工通读，最终门禁为 `gate: pass_for_real_10ch_final_acceptance`。
+- 一次 30 章真实长程已经跑完并导出 Markdown、EPUB 和审计报告，证据目录为 `.codex/real-llm-30ch-mimo25pro-20260611-192356`；但人工通读结论是**退回重跑**。2026-06-30 Q9 16 章真实跑修复门禁丢章四根因并抢救为完整 16 章、人工通读通过（PR #40/#41）。
+- 因此当前只能宣称“真实长程运行链路可达、制品导出成立”，不能宣称真实 3-5 万字长程质量验收通过，也不能宣称稳定生产级长篇生产闭环。
+
+## 2. 技术栈
+
+- **API（后端事实源）：** FastAPI（Python 3.11+） + SQLAlchemy + Alembic + Pydantic v2，依赖管理走 `uv`。
+- **Desktop IDE（主产品入口）：** Tauri 2 + Vite + React 18 + Monaco Editor + 本地文件系统集成。
+- **Workflow（编排）：** LangGraph，承载长任务、checkpoint、真实模型调用边界。
+- **共享契约：** `packages/shared`（TypeScript 包），其中 `src/contracts/storyforge.openapi.json` 是后端 OpenAPI 快照，必须随后端变化同步刷新。
+- **基础设施：** PostgreSQL（+ pgvector） + Redis + MinIO（对象存储） + Sentry（错误追踪） + Prometheus 指标。
+- **包管理：** pnpm 9.x（workspace），Python 侧 `uv sync`。
+
+## 3. 仓库布局
+
+```
+apps/
+  api/           FastAPI 业务真相源（领域驱动，每个子目录是一个 domain）
+    app/
+      common/    auth、config、logging_config、middleware、pagination、redis_cache、metrics、sentry_config
+      db/        SQLAlchemy session、deps
+      domains/   ~25 个业务域，每个含 router.py / service.py / schemas.py / models.py
+      main.py    FastAPI 应用装配 + 全局中间件
+    alembic/     数据库迁移
+  desktop/      Tauri 桌面 IDE（当前主产品体验）
+packages/
+  shared/        TS 共享契约 + 类型，src/contracts/storyforge.openapi.json 为后端契约快照
+deploy/          Nginx、部署相关配置
+scripts/         dev-start.mjs / generate-openapi.mjs / run-e2e.mjs / verify-local.ps1 / migrate.sh
+tests/           顶层 e2e 契约测试（Node --test 风格）
+docs/            架构与工作台契约文档
+.codex/  验证报告（verification-report.md），所有变更必须留痕
+```
+
+## 4. 常用命令
+
+### 一键开发环境
+
+```bash
+pnpm dev               # 桌面 IDE 主体验（含桌面 Vite、Docker、迁移、API、Tauri 窗口）
+pnpm desktop:dev       # 同上，显式桌面端入口
+pnpm dev:maintenance   # docker compose + alembic + API
+pnpm dev:api           # 只启基础服务 + API
+node scripts/dev-start.mjs --skip-docker --skip-migrate    # 已有服务时快速重启
+```
+
+### 验证门禁（2026-07-03 W0 收敛，依据 `docs/internal/arch-review-blueprint-2026-07-03.md`）
+
+```bash
+pnpm verify            # 提交前必跑：lint + typecheck + 各栈测试各一遍 + sidecar-smoke(daily 档) + OpenAPI 漂移
+pnpm e2e               # 契约门禁（秒级）：OpenAPI drift + tests/e2e 契约断言；不再重跑任何 pytest
+pnpm openapi           # 重新生成 packages/shared/src/contracts/storyforge.openapi.json
+pnpm smoke:sidecar:packaged   # 冻结 exe 冒烟：每波蓝图收口合并前 / 发版前必跑
+```
+
+- pre-push hook（`pnpm hooks:install` 启用）= lint + drift + 活路径快测集（约 3 分钟，修 F12）；绕过用 `git push --no-verify`，但绕过即自担风险。
+- `pnpm test` 仍可单独全量跑测试，但 `pnpm verify` 已覆盖，提交前不必重复。
+- 门禁去重原则：同一批用例只在 verify 跑一遍；e2e 只做契约断言；drift 校验只有 `scripts/check-openapi-drift.mjs` 一份实现。
+
+P0 复位时已通过的关键命令：
+
+```bash
+pnpm.cmd lint
+npm --prefix apps/desktop/frontend run typecheck
+npm --prefix apps/desktop/frontend run test
+pnpm.cmd --filter @storyforge/shared test
+pnpm.cmd test
+cd apps/api && uv run pytest
+cd apps/api && uv run pytest tests/test_phase9_fact_sources.py -q
+cd apps/api && uv run ruff check tests/test_phase9_fact_sources.py
+```
+
+非 Windows 环境：直接跑 `node scripts/verify-local.mjs`、`node scripts/run-e2e.mjs`、`npm --prefix apps/desktop/frontend run test`、`cd apps/api && uv run pytest`。
+
+### 代码风格
+
+```bash
+pnpm.cmd lint          # eslint + prettier --check（Windows 下优先用 pnpm.cmd）
+pnpm lint:fix          # 自动修复
+cd apps/api && uv run ruff check .     # Python 侧 ruff
+```
+
+### 单独跑某个测试
+
+```bash
+cd apps/api && uv run pytest tests/test_artifacts.py -q
+npm --prefix apps/desktop/frontend run test
+```
+
+### prompt 对比实验台（`apps/api/scripts/prompt_lab/`）
+
+改产字 / 评稿 prompt 前先用它量一遍：固定输入 × 变体配置 × 真 LLM 输出 → 并排报告（指标表 + 正文 + diff + 盲评版）。不进门禁、不进冻结 exe，判定靠人工读 `report.md`，工具不下结论。
+
+```bash
+cd apps/api
+uv run python -m scripts.prompt_lab.runner --all --dry-run          # 零成本，先验装配与报告
+$env:STORYFORGE_LLM_CONFIG_FILE = "$env:APPDATA\com.storyforge.ide\llm-provider.json"
+uv run python -m scripts.prompt_lab.runner --all --out .codex/prompt-lab/waveN --seed 42 --jobs 8 --repeat 3   # --seed 即出 blind.md
+uv run python -m scripts.prompt_lab.runner --merge .codex/prompt-lab/waveN --task X --variants Y   # 格子级补跑
+```
+
+- **变体纪律：** baseline 恒等引用真实构建器；变体一律「从 baseline 渲染结果做 section 级删除 / 替换」+ 删前断言目标块恰好出现一次，**不手抄 prompt 文案**（否则双源漂移）。
+- **两条 prompt 链是分开的**，别把一条的结论当另一条的：批量路径 `book_runs/prompts/`（多行 section 形态，BookRun 后台工具）、live 产字路径 `app/common/craft.py::craft_prompt_clause()`（扁平子句形态，chat 循环 / file.revise / file.create / prose.continue 四条）。共用 `CRAFT_GUIDELINES` 文本，其余各存各的。
+- **已裁定（2026-07-31~08-01，五波实验 + 三轮 workflow 评判）：** 删创作准则的好坏对照锚点 → adopt，两条链均已删（`test_craft_guidelines_reach` 钉死不许挂回）；wave4/5 在 live 链的开篇短格与高潮长格上补测，未复现「删例后丢必含事实」，此前的跨链外推转为实测；`half-examples` 不采用；**`task-rewrite` 已于 wave6 在无例基线上重测（完整章格 × 3 重复）：两组必含事实同为 3/3、情节要素与陈词无差异，未见优势，不 adopt**，变体保留在 `registry.py` 供后续更大样本复测。wave1-5 原始输出已于 2026-08-01 清理，结论与逐字核验引文记档在 `.codex/verification-report.md`（搜 `prompt_lab` / `wave`）。
+
+## 5. 架构事实源
+
+- **API 是业务真相源。** 任何流程的判定都在 FastAPI 路由 + service 层完成；前端不允许私自计算业务结论。
+- **Desktop IDE 是主体验。** 新的用户工作流默认落在 `apps/desktop`；Tauri 主进程负责本地文件系统、服务启动和 API 配置注入。
+- **Web 已退场。** 不新增 `apps/web` 代码、脚本、容器或测试；需要前端能力时优先落在 `apps/desktop`。
+- **域分档看 `apps/api/app/domains/DOMAINS.md`（新会话第一入口）。** live 产品面很小；大量域是 web / 多租户 / 自动整书遗产，已 **frozen**（router 卸载或可卸载）。判断某域是否值得读、能否改先查该清单。2026-07-04 W4 已卸载 `analytics` / `batch_refinery` / `collaboration` / `commercial` 四个 frozen router（护栏 `tests/test_api_surface.py`，回滚 = 加回一行 `include_router`）；冻结只卸 router 不删 `models.py`（打碎 `app/models.py` 建表会连累 live）。
+- **`apps/workflow` 已退役（2026-07-26）。** LangGraph 批量整书编排器整包删除；长任务边界、真实模型调用与 ModelRun 记录留在 `apps/api`（出网唯一通道 `app/common/llm_client.py`）。`creative_tool_registry` 已迁进程内 `app/domains/runtime_tools/creative_registry.py`。需要旧实现（`narrative/` 确定性闸、`extract/` 抽取 slice）时从 git 历史取。
+- **OpenAPI 是后端对客户端的硬契约。** 任何路由签名变化都必须 `pnpm openapi` 刷新快照，并解释 diff 来源。
+
+## 6. 协作约定
+
+- **✅ schema 冻结已解除（2026-07-04 W2 落地，PR 见下）；改 schema 的新规矩：** 起服由 sidecar 跑 alembic 收口（存量 create_all 库备份 + quick_check + stamp head 纳管，已纳管库 `upgrade head`，见 `apps/api/app/db/migrations.py`），alembic 是 schema **前向演进**的单一事实源。新增/改列必须写一条 alembic 迁移：SQLite 侧 `op.add_column` / `create_index` / `create_table` 可直用，`alter_column` / `drop_column` / 加约束等 ALTER 操作必须包在 `with op.batch_alter_table(...)` 里，pg 专属 DDL（pgvector 等）用 `dialect.name` 守卫，且**必须提供可用的 downgrade**（本波起要求）。注意历史迁移链无法在 SQLite 上从 base 重放，故建表仍靠 `create_all`——**别删 create_all**，它是 SQLite 建表器与 alembic 收口失败时的回退。原始约束背景见 `docs/internal/arch-review-blueprint-2026-07-03.md` §7（F01）。
+- **语言：** 所有回复、文档、注释、日志、提交信息默认简体中文；代码标识符、包名、API 名称保留英文。
+- **证据链：** 所有变更必须在 `.codex/verification-report.md` 留下验证记录（命令、输出摘要、未联通能力）。
+- **小步推进：** 一次只解决一个明确问题，禁止顺手重构无关代码。
+- **不写多余注释：** 只在 WHY 不明显时加一行；不要描述代码做了什么。
+- **不写无关 README：** 除非用户明确要求。
+- **不创建假数据兜底：** 数据缺失就明确返回错误，不要伪造空对象误导前端。
+- **rate limit：** API 默认 per-API-Key 分层限流（读 120/min、写 60/min、批量 10/min）；调试时不要去关它。
+- **认证：** `X-StoryForge-API-Key`（服务间）或 `Authorization: Bearer <jwt>`（用户）。
+- **数据库迁移：** 用 alembic；新增列要带 server_default 否则会卡线上数据。
+
+## 7. 可观测性
+
+- **结构化日志：** Python 侧用 `structlog`，开发模式彩色终端、生产模式 JSON。
+- **Request ID：** 每个请求注入 UUID，响应头返回 `X-Request-Id`，日志全链路携带。
+- **Sentry：** `SENTRY_DSN` 配置即启用；API、Web、Workflow 三侧统一。
+- **指标：** `/metrics` 端点暴露 Prometheus 格式，含 `judge_calls_total`、`repair_patches_total` 等业务计数器。
+- **健康检查：** `/health/live`（仅进程） + `/health/ready`（DB + Redis + 核心表）。
+
+## 8. 当前能做与不能做
+
+**能做：**
+
+- Desktop IDE：打开本地项目、文件树浏览、Monaco 编辑、版本记录、命令面板、保存快照和 API 配置注入；单色语义 token + 明暗双主题。
+- Desktop 对话式 Agent：项目级对话会话（切文件不丢，消息持久化于 `assistant_sessions`，左栏会话历史列表可切换 / 新建）、`chat.explain` 真·LLM 回话、chat 自由文本 LLM 工具循环（path-scoped 只读 `fs.list` / `fs.read` / `fs.search` + 一致性观察 `project.consistency` + 深度一致性语义评审 `project.deep_consistency`（本地人物 / 设定文件作 Character Bible 喂语义 judge，advisory issue 信号）+ 新文件起草 `file.create`，逐调用证据链，流程树全事件驱动）、真实文件修订、多视角 file.review、稳定 issue id、范围控制、proposed patch（含新文件补丁自动打开目标文件）和按项目权限确认或自动执行的 guarded writeback。注意：工具循环入口是 chat 自由文本，审稿 / 修订 / 起草 / 一致性观察 / 深度一致性已并入循环（一次对话最多一个 proposed patch），chapter.review / bookrun.* 不并入循环（后台定位，已记为决定）；默认 `ask` 档确认链与真·LLM tool-calling headless 实跑已有证据，`auto` / `full` 真机连续写回仍未验。
+- 私测 Alpha 单机后端：sidecar exe 独立起服（sqlite 自建表）、BYO-key、`llm-provider.json` 写盘换模型即生效、NSIS 安装包内嵌 sidecar，均已本机验证。
+- BookRun（后台工具）：deterministic/mock provider 下可跑最小整书闭环，支持 checkpoint、预算暂停、provider 降级、Markdown/EPUB/审计报告导出；不作为主产品控制台。
+- 真实 LLM：1/3/10 章 smoke 有脱敏证据；30 章真实长程有链路和制品导出证据，但质量未通过；Q9 16 章真实跑门禁修复后人工通读通过。
+- Web：`apps/web` 已退场；旧页面只保留在历史文档和 git 历史中。
+- Provider/LLM：通过 Provider Gateway 真实接入与降级，敏感配置必须来自本机私有运行时环境变量。
+
+**不做：**
+
+- 不能宣称真实 3-5 万字长程质量验收通过；30 章真实长程已人工退回重跑。
+- 不能把自动审计、golden gate 或模型自评等同于人工通读通过。
+- 不能宣称稳定生产级长篇生产闭环。
+- 不能宣称真实 Tauri 桌面端到端写回确认链路已经完成（现在入口是 NSIS 安装包双击装机路径，需人工点穿）。
+- 不能宣称「自动档」已在真机验收：后端派生位、前端自动接受与四条守卫都有行为测试（含变异验证），但「作者改档 → agent 直接落盘 → 撤销 → 重启后档位仍在」未在装机版点穿；自动档也尚未在真实写作里连用过，撤销网仍薄（每文件 20 份快照上限、撤销 toast 只在内存里、新建文件无回滚点）。
+- 不能把 Agent 工具循环（含循环内审稿 / 修订 / 新文件起草、一致性观察与深度一致性）的真·LLM headless 实跑证据（单 provider）当作真机桌面端多轮渲染、自动打开新文件与补丁确认验收；chapter.review / bookrun.* 未循环化是已记录的决定而非缺口；`project.consistency` 只产出机械观察信号，不具备语义一致性判定能力；`project.deep_consistency` 的 issue 是 advisory 参考信号（实跑仅验证显性矛盾场景，隐性 / 跨章长程矛盾召回率未验），不得当作质量判定或验收结论。
+- 暂不承诺完整多人协作、生产级对象存储签名下载、多租户认证或全步骤 Studio 编排器。
+
+## 8.1 当前下一步优先级
+
+（2026-07-11 拍板：08-31 盛夏寻章不当锚，编辑器优先；详见 `docs/internal/TODO.md`。）
+
+1. 编辑器做到「安全可日更」（第一段）：S7 装机前两小刀（Rust 写侧 containment、L7 单实例守卫）→ S14 尾巴（壳子 #2 面板 unmount 改 CSS 隐藏）→ S8 重建 0.1.2 NSIS（收进 PR #87-#125 全部修复）→ S9 AI 装机预验（headless 跑绿 WS/SSE）→ S10 真机第二轮堆积观感波（一次捆绑 2-3h：壳子新 UI、WS 子协议、SSE、IME、canon dossier、权限四轨、双开；首轮门禁 G.1 已于 2026-07-07 全 PASS）→ S11 修复波 + 轻量锁版 tag。
+2. 在编辑器上写作品（第二段）：S3 手稿保险（连载目录仓库外 git init + 自动 commit，开写前夕建）→ 接续 n=1 连载（创作资产存档 `D:\记事本\`，canon.json 首刷吃末世系统数字状态）；写作即 dogfood，摩擦日志驱动每周至多一刀 QoL。
+3. 质量轨已换锚（D1，后台）：3-5 万字长程重跑不排期，n=1 稳定后重评；BookRun 维持后台工具；Q1-Q8 一致性能力逐步做成 agent 工具挂进循环（已落 7 个观察 / advisory 工具）。
+
+## 9. 常见陷阱
+
+- **PowerShell 执行策略：** Windows 下 `pnpm.ps1` 可能被阻塞，改用 `pnpm.cmd` 或 `powershell.exe -NoProfile -Command "pnpm.cmd run X"`。
+- **OpenAPI 漂移：** 改了路由没跑 `pnpm openapi` → CI 立刻挂。
+- **API Key：** 默认 `local-dev-key`，生产环境如未配置 `STORYFORGE_API_KEY` 会触发 warn_default_credentials 日志告警。
+- **CORS：** 默认允许桌面 Vite `http://localhost:3007` / `http://127.0.0.1:3007`，自定义前端域名要改 `STORYFORGE_CORS_ORIGINS`。
+- **migration 锁：** docker entrypoint 自动获取 advisory lock，多实例并发部署时不要绕开。
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs live in GitHub Issues for `XZZKANY/StoryForge`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the default five-label vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context repo: read root `CONTEXT.md` plus relevant architecture docs under `docs/architecture/`. See `docs/agents/domain.md`.
+
+---
+> Source: [XZZKANY/StoryForge](https://github.com/XZZKANY/StoryForge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
