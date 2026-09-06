@@ -1,0 +1,9 @@
+{
+  "name": "fortnoxab--ibis-typing",
+  "displayName": "ibis-typing",
+  "description": "A typed framework for writing Ibis dataframe expressions with full IDE support, static analysis, and property-based testing.",
+  "version": "1.0.0",
+  "author": "FortnoxAB",
+  "homepage": "https://github.com/FortnoxAB/ibis-typing",
+  "skills": []
+}
