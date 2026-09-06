@@ -4,7 +4,7 @@
   "repo": "ceo-f500-harness",
   "description": "AI-powered Fortune 500 business operating system for Claude Code \u2014 15 executive agents, governed initiative lifecycle, Decision Authority Matrix, and 17 slash-command workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/10Legs/ceo-f500-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T14:05:34Z"
+  "distributed_at": "2026-09-06T14:22:23Z"
 }
