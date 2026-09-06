@@ -1,0 +1,14 @@
+{
+  "name": "hashgraph-online--hol-guard",
+  "displayName": "hol-guard",
+  "description": "hol-guard",
+  "version": "1.0.0",
+  "author": "hashgraph-online",
+  "homepage": "https://github.com/hashgraph-online/hol-guard",
+  "skills": [
+    {
+      "name": "hol-guard",
+      "description": ""
+    }
+  ]
+}
