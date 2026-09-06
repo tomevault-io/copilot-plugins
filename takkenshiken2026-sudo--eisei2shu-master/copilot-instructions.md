@@ -1,78 +1,54 @@
-## glossary-term-template
+## guide-prose-quality
 
-> Glossary term pages — full article required for every term
+> ガイド記事 prose の具体性・自然さ（抽象表現・メタ確認・FAQ 定型の禁止）
 
 
-# Glossary Term Template
+# ガイド prose 品質ルール
 
-Use when editing `data/glossary_terms.csv`, term generators, or `terms/` pages.
+**正本:** `tools/guide_prose_patterns.py`（検出） / `tools/guide_content_shared.py`（生成）
 
-**Full source of truth:** `docs/glossary-term-template.md`  
-**HTML diagrams (optional):** `docs/term-diagrams.md` — CSV `diagram_id` → `data/term_diagrams/{id}.json`  
-**Editorial quality:** `docs/editorial-quality.md`  
-**SEO shared rules:** `docs/seo-article-guidelines.md`
+## 禁止パターン（読者向け本文）
 
-## Production standard
+| 種別 | 悪い例 | 対応 |
+|------|--------|------|
+| メタ確認だけ | 「〇〇」の詳細は公式の最新要項で確認してください | 具体手順・箇条書きまで書く |
+| 読了目的の抽象 | 行動チェックリストに沿って… / 確認すべき点と演習・用語解説… | `user_intent_prose()` |
+| FAQ 定型 | 条文や指針の主体（事業者・…）をセットで | `faq_official_verify_answer()` |
+| FAQ 内部記法 | `「質問」→ 答え` / `FAQ3「」→` | 「については、」に言い換え |
+| フォールバック崩れ | `…の要点を。`（読点分割で述語欠落） | `keyword_fallback_default` の「要点は」形式 |
+| 行動項目の空疎 | 混同語を1周 / 分野タグ付き10問（だけ） | `action_items_prose()` |
 
-- **Every term** in `glossary_terms.csv` is a **full detail article** (not a one-line definition).
-- Target volume: **300+ terms** (`validate_csv.py` warns below target).
-- New row: `python3 tools/scaffold_glossary_term.py` — see `docs/glossary-term-template.md`.
-- Bulk fill from practice DB: `tools/enrich_o4_glossary_details.py` → then manual review.
-- Quality audit: `tools/audit_glossary_article_quality.py`.
+## 書き切り必須のテーマ
 
-## Required CSV columns (all terms)
+- **持ち物・チェックリスト・当日の流れ・アクセス** → `guide_content_shared` の `exam_day_*` / `exam_venue_access_prose` を使い、`- ` 箇条書きまで書く（括弧だけの列挙禁止）。
+- **会場ガイド**（`*-center` 等）ではアクセス箇条書きに**具体の駅名・住所を書かない**。詳細は `.cursor/rules/exam-venue-guide.mdc`。
 
-Base: `term`, `category`, `tags`, `importance`, `short_def`, `definition`, `explanation`, `related_terms`, `legal_basis`.
+## 節の最小文字数（180字）
 
-Detail (mandatory — `tools/glossary_term_rules.py` / `validate_csv.py` **ERROR** if missing or too short):
+- `ensure_min` の filler にメタ確認1文だけを使わない。
+- `section_body_min_filler(heading, topic, official)` で「テキスト該当章＋演習＋要項照合」の具体1文を足す。
 
-| Column | Minimum |
-|--------|---------|
-| `article_title` | 10 chars |
-| `article_lead` | 30 chars |
-| `term_detail_body` | **180 chars**, **2+ paragraphs** |
-| `exam_points` | **2+ items** (`;` separated, each 8+ chars) |
-| `common_mistakes` | 20 chars |
-| `memory_tip` | 15 chars |
-| `example_question` / `example_answer` | 12 / 3 chars (○× or 5+ char answer) |
-| `faq_1_*` 〜 `faq_4_*` | Q 6+ chars, A **100+ chars** (**4 required**) |
-| `related_terms` | **2+ registered terms** (unregistered → **ERROR**, no link emitted) |
-
-## Writing style (plain Japanese)
-
-- Use **です・ます調** consistently; short sentences (40–60 chars).
-- Explain jargon on first use; say **who / when / what** explicitly.
-- Prefer everyday words over legalese (`及び`→`と`, avoid `当該`/`前述`/`において`).
-- `validate_csv.py` **WARN** on readability anti-patterns in body/FAQ columns.
-
-FAQ roles: (1) definition, (2) common mistake, (3) exam angle, (4) next study step.
-
-`legal_basis`: optional; **WARN** if category is 法令・制度-like and `importance` is A/S but empty.
-
-## Generated page structure
-
-Same SEO skeleton as guide articles: lead → TOC → reliability → action box → numbered body (5–7 visible h2) → FAQ → basic info → official links → related terms → next pages.
-
-Body sections from CSV: summary, exam points, definition (+ peer compare table from `related_terms`), **diagram (optional `diagram_id`)**, legal, choice traps, mistakes, memory tip, example.
-
-## Internal links
-
-- `related_terms`: only names that exist in the same CSV (表記ゆれ → `lookup_key`).
-- Practice/ichimon CSV: add `term:用語名` in `tags` for question → term links.
-- After changes: `python3 tools/build_all.py` must pass all validators.
-
-## Public vs operator content
-
-Never publish: 検索意図, 記事種別, update_policy, original_note, CSV/template how-to text in body columns.
-
-## Build
+## 修正パイプライン（全サイト）
 
 ```bash
-python3 tools/validate_csv.py
-python3 tools/audit_editorial_quality.py
-python3 tools/audit_glossary_article_quality.py
-python3 tools/build_all.py
+# exam-site-shell 正本で lib パッチ後
+python3 tools/patch_guide_prose_templates.py
+bash tools/run_guide_prose_batch.sh
+python3 tools/audit_guide_prose_quality.py --root ~/Projects/eisei2shu-master --strict
 ```
+
+1. `fix_guide_duplicate_bodies.py --all-published`
+2. `fix_guide_prose_quality.py`
+3. `fix_editorial_auto.py`
+4. `build_article_pages.py`
+5. `audit_guide_prose_quality.py --strict`
+
+## 監査
+
+- CSV: `scan_prose_text()` — `tail_section_ref`, `vague_user_intent`, `broken_fallback` 等
+- HTML: slug メタ・節番号崩れ・field_boiler
+
+**PASS 条件:** CSV/HTML とも hits=0。`public_site/` は `.gitignore` のため配信前に `build_all.py` 必須。
 
 ---
 > Source: [takkenshiken2026-sudo/eisei2shu-master](https://github.com/takkenshiken2026-sudo/eisei2shu-master) — distributed by [TomeVault](https://tomevault.io).
