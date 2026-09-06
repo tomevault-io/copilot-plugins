@@ -1,0 +1,9 @@
+{
+  "name": "divo12--prime-rl-mps",
+  "displayName": "prime-rl-mps",
+  "description": "Experimental Apple Silicon MPS runner for Prime-RL",
+  "version": "1.0.0",
+  "author": "divo12",
+  "homepage": "https://github.com/divo12/prime-rl-mps",
+  "skills": []
+}
