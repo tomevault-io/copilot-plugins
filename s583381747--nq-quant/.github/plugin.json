@@ -1,0 +1,9 @@
+{
+  "name": "s583381747--nq-quant",
+  "displayName": "nq-quant",
+  "description": "Quantitative trading system for NQ futures \u2014 ICT chain strategy: liquidity sweep + FVG   limit order (PF=2.36, 0 neg years, hell-audited)",
+  "version": "1.0.0",
+  "author": "s583381747",
+  "homepage": "https://github.com/s583381747/nq-quant",
+  "skills": []
+}
