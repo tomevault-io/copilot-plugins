@@ -1,36 +1,28 @@
-## mark-agents
+## mark-circuits
 
-> MARK agent behavior governance for AGENTS, Cursor, Greptile, CI, and validation docs.
+> MARK Circom circuit soundness, completeness, and validation rules.
 
 
-# MARK Agent Behavior
+# MARK Circuits
 
-Follow root `AGENTS.md` first for agent behavior. Treat `docs/development/BRANCHING.md` as the branch and CI policy source, but verify any command or workflow claim against executable repo state before repeating it.
+Follow root `AGENTS.md` for validation routing. Circuits are security-critical because proof verification must imply knowledge of valid witness data.
 
-## Required Alignment Checks
+## Security Rules
 
-When editing agent, Cursor, Greptile, CI, setup, or validation guidance:
+- No unconstrained `<--` assignments.
+- No unused signals.
+- No `block.timestamp` or chain-time assumptions inside circuits.
+- Preserve public-signal ordering expected by contracts.
+- Nullifier and commitment logic must prevent double-spends and preserve privacy.
 
-- Verify root scripts with `node -e "const p=require('./package.json'); console.log(Object.keys(p.scripts).sort().join('\n'))"`.
-- Verify mise task names in `.mise.toml`; do not assume `mise` is on PATH.
-- Verify contract Makefile targets in `contracts/Makefile`.
-- Verify GitHub workflow triggers and job names in `.github/workflows/`.
-- Verify contract domains with `find contracts/src -maxdepth 2 -type d | sort`.
+## Validation
 
-## Non-Negotiables
+- JS/test harness only: `pnpm circuits:test`
+- `.circom` changes: `pnpm circuits:test` and `mise run circomspect`
+- Soundness: `pnpm --filter @mark/circuits run test:soundness`
+- Completeness: `pnpm --filter @mark/circuits run test:completeness`
 
-- Do not advertise nonexistent commands such as `pnpm contracts:ci-fast`.
-- Do not claim `mise run ci-fast` is identical to GitHub `CI Fast`.
-- Do not expose untracked internal plans from `.cursor/plans` in committed docs or Greptile surfaces.
-- Do not weaken MARK security invariants to make docs simpler.
-- Redact private keys, RPC URLs, tokens, attester keys, deployer keys, and production env values.
-
-## Cursor Surfaces
-
-- Rules: `.cursor/rules/*.mdc`
-- Skills: `.cursor/skills/<name>/SKILL.md`
-
-Keep these files aligned with `AGENTS.md`, `contracts/AGENTS.md`, and `greptile.json`.
+If Circom fails with `/usr/local/bin/circom: line 1: Not: command not found` or `Not Found/usr/local/bin/circom`, treat it as a local toolchain issue first, not proof of a circuit regression.
 
 ---
 > Source: [trade/mark](https://github.com/trade/mark) — distributed by [TomeVault](https://tomevault.io).
