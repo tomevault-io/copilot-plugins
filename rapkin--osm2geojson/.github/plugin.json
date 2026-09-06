@@ -1,0 +1,9 @@
+{
+  "name": "rapkin--osm2geojson",
+  "displayName": "osm2geojson",
+  "description": "osm2geojson",
+  "version": "1.0.0",
+  "author": "rapkin",
+  "homepage": "https://github.com/rapkin/osm2geojson",
+  "skills": []
+}
