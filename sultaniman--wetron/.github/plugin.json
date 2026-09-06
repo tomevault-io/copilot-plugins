@@ -1,0 +1,9 @@
+{
+  "name": "sultaniman--wetron",
+  "displayName": "wetron",
+  "description": "wetron is a browser-based neural network model visualizer. Open a model and explore its computation graph interactively.",
+  "version": "1.0.0",
+  "author": "sultaniman",
+  "homepage": "https://github.com/sultaniman/wetron",
+  "skills": []
+}
