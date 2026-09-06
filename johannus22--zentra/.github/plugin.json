@@ -1,0 +1,9 @@
+{
+  "name": "johannus22--zentra",
+  "displayName": "zentra",
+  "description": "Zentra is an open source CLI agent harness tool designed to assist with SAST and DAST on your application",
+  "version": "1.0.0",
+  "author": "johannus22",
+  "homepage": "https://github.com/johannus22/zentra",
+  "skills": []
+}
