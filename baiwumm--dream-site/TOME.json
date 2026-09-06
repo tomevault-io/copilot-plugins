@@ -1,0 +1,57 @@
+{
+  "name": "dream-site",
+  "owner": "baiwumm",
+  "repo": "dream-site",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dream-site",
+      "path": ".agents/skills/heroui-react/SKILL.md",
+      "github_url": "https://github.com/baiwumm/dream-site/tree/main/.agents/skills/heroui-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dream-site",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/baiwumm/dream-site/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baiwumm/dream-site",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:49:16Z"
+}
