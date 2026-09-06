@@ -1,0 +1,9 @@
+{
+  "name": "valujin--beellama-kvarn",
+  "displayName": "beellama-kvarn",
+  "description": "BeeLlama.cpp fork: KVarN KV-cache correctness fixes and decode optimizations",
+  "version": "1.0.0",
+  "author": "valujin",
+  "homepage": "https://github.com/valujin/beellama-kvarn",
+  "skills": []
+}
