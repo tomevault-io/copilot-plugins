@@ -3,7 +3,7 @@
   "owner": "robertogallea",
   "repo": "laravel-codicefiscale",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "laravel-codicefiscale",
-      "path": "resources/boost/skills/using-laravel-codicefiscale/SKILL.md",
-      "github_url": "https://github.com/robertogallea/laravel-codicefiscale/tree/main/resources/boost/skills/using-laravel-codicefiscale/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "laravel-codicefiscale",
-      "path": "resources/boost/skills/upgrading-laravel-codicefiscale-from-v2/SKILL.md",
-      "github_url": "https://github.com/robertogallea/laravel-codicefiscale/tree/main/resources/boost/skills/upgrading-laravel-codicefiscale-from-v2/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/robertogallea/laravel-codicefiscale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T07:45:30Z"
+  "distributed_at": "2026-09-06T08:06:03Z"
 }
