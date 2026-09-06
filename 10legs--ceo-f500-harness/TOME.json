@@ -1,0 +1,44 @@
+{
+  "name": "ceo-f500-harness",
+  "owner": "10Legs",
+  "repo": "ceo-f500-harness",
+  "description": "AI-powered Fortune 500 business operating system for Claude Code \u2014 15 executive agents, governed initiative lifecycle, Decision Authority Matrix, and 17 slash-command workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/10Legs/ceo-f500-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T14:05:34Z"
+}
