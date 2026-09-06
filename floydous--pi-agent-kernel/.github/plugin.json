@@ -1,0 +1,9 @@
+{
+  "name": "floydous--pi-agent-kernel",
+  "displayName": "pi-agent-kernel",
+  "description": "Pi coding agent extension for focused code retrieval, grounded edits, safety checks, and language-server support.",
+  "version": "1.0.0",
+  "author": "floydous",
+  "homepage": "https://github.com/floydous/pi-agent-kernel",
+  "skills": []
+}
