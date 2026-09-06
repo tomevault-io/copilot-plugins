@@ -1,0 +1,44 @@
+{
+  "name": "bjtu_mis_Android",
+  "owner": "wan300",
+  "repo": "bjtu_mis_Android",
+  "description": "\u9762\u5411\u5317\u4eac\u4ea4\u901a\u5927\u5b66\u5b66\u751f\u7684 MIS Android \u6821\u56ed\u5b66\u4e60\u670d\u52a1 App\uff0c\u805a\u5408\u8bfe\u8868\u3001\u6210\u7ee9\u3001\u8003\u8bd5\u3001\u4f5c\u4e1a\u3001\u8bfe\u7a0b\u8d44\u6e90\u3001\u7a7a\u6559\u5ba4\u3001\u6821\u5386\u3001\u6821\u56ed\u90ae\u7bb1\u4e0e\u667a\u80fd\u4f5c\u4e1a\u52a9\u624b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wan300/bjtu_mis_Android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T02:58:25Z"
+}
