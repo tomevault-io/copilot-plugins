@@ -1,0 +1,9 @@
+{
+  "name": "adborden--k8s-mealie",
+  "displayName": "k8s-mealie",
+  "description": "Kustomization manifests for the mealie.io recipe app",
+  "version": "1.0.0",
+  "author": "adborden",
+  "homepage": "https://github.com/adborden/k8s-mealie",
+  "skills": []
+}
