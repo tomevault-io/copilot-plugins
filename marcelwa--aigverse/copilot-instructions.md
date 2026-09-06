@@ -1,0 +1,268 @@
+## aigverse
+
+> `aigverse` is a hybrid C++/Python library for logic synthesis: it wraps the EPFL Logic Synthesis Libraries
+
+# aigverse
+
+`aigverse` is a hybrid C++/Python library for logic synthesis: it wraps the EPFL Logic Synthesis Libraries
+(mockturtle, kitty, lorina) with [nanobind](https://nanobind.readthedocs.io/) to expose And-Inverter Graph (AIG)
+construction, optimization, equivalence-checking, and I/O to Python.
+
+## Workflow
+
+For any larger piece of work — a GitHub issue, PR review feedback, or a task assigned directly — isolating it in a
+worktree, opening a PR, and cleaning up afterwards, see [WORKFLOW.md](WORKFLOW.md).
+
+## Commands
+
+### Lint & format (Python + C++ + CMake + docs, all via `prek`/pre-commit)
+
+```console
+uvx nox -s lint
+```
+
+Runs the full `prek` hook set (ruff, ty, clang-format, cmake-format, typos, etc.). To run a single hook or file
+directly instead: `uvx prek run --all-files` or `uvx prek run <hook-id> --files <path>`.
+
+### Clang-Tidy (C++ static analysis)
+
+```console
+uvx nox -s cpp-lint              # the C++ files that differ from origin/main — the slice the `🚨 Clang-Tidy` check lints
+uvx nox -s cpp-lint -- HEAD~3    # diff against that revision instead
+uvx nox -s cpp-lint -- --all     # every C++ file in the repo
+```
+
+Runs the same `cpp-linter` invocation `.github/workflows/cpp-linter.yml` runs, prints the findings, and fails on them.
+Not part of `lint`; it needs a CMake configure, so it costs minutes rather than seconds.
+
+### Python tests
+
+```console
+uvx nox -s tests              # all supported Python versions (3.10-3.14), builds the C++ extension first
+uvx nox -s tests-3.12         # a single Python version — much faster iteration
+uvx nox -s tests-3.12 -- test/algorithms/test_simulation.py   # a single file
+uvx nox -s tests-3.12 -- -m algorithms                        # a marker subset (see markers below)
+uvx nox -s minimums           # test against lowest-resolved dependency versions
+```
+
+If the project is already built and installed into an active venv, `pytest test/` (or a specific path) works
+directly without going through nox. Pytest markers: `networks`, `algorithms`, `io`, `generators`, `adapters`, `tts`
+(defined in `pyproject.toml`, mirrors `test/` subdirectory layout).
+
+### C++ bindings
+
+```console
+uvx nox -s stubs              # regenerate .pyi stubs after changing any bindings.cpp — required after C++ binding changes
+```
+
+For a raw CMake build/iteration loop outside of nox:
+
+```console
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release --parallel
+```
+
+### Docs
+
+```console
+uvx nox -s docs                    # build + serve locally (requires graphviz installed)
+uvx nox -s docs -- -b linkcheck    # check links instead of building HTML
+```
+
+### Code review
+
+- `cr --agent <file1> <file2> ...` — run only on large changes, only when a human explicitly asks for it.
+- Fetch review comments from an open PR via the CodeRabbit MCP tool.
+
+## Architecture
+
+**Five parallel binding modules.** The C++-to-Python surface is split into five independent compiled extensions,
+each with matching directories on both sides:
+
+| C++ (`src/aigverse/<module>/`) | Python stub (`python/aigverse/<module>.pyi`) | Tests (`test/<module>/`) |
+| ------------------------------ | -------------------------------------------- | ------------------------ |
+| `networks/`                    | `networks.pyi`                               | `test/networks/`         |
+| `algorithms/`                  | `algorithms.pyi`                             | `test/algorithms/`       |
+| `io/`                          | `io.pyi`                                     | `test/inout/`            |
+| `generators/`                  | `generators.pyi`                             | `test/generators/`       |
+| `utils/`                       | `utils.pyi`                                  | `test/truth_tables/`     |
+
+Each module directory has its own `CMakeLists.txt` calling `add_aigverse_python_binding(...)` (defined in
+`cmake/AddAigversePythonBinding.cmake`) and a `bindings.cpp` that registers the nanobind module. Adding or changing
+a bound function means editing the `.cpp` implementation _and_ its registration in `bindings.cpp`, then running
+`nox -s stubs` to regenerate the corresponding `.pyi` — never hand-edit `.pyi` files, they are fully generated.
+
+**Dependency vendoring.** mockturtle, kitty, and lorina are pulled in via CMake `FetchContent`
+(`cmake/ExternalDependencies.cmake`), pinned to a specific commit (`MOCKTURTLE_REV`) — not git submodules.
+
+**Lazy Python package.** `python/aigverse/__init__.py` lazily imports `networks`/`algorithms`/`io`/`generators`/
+`utils` via `__getattr__` so `import aigverse` doesn't eagerly load every compiled extension. `adapters` (optional
+ML interop, e.g. NetworkX conversion) is a separate pure-Python subpackage gated behind the `[adapters]` install
+extra — don't add hard dependencies there without the extra.
+
+**Versioning.** `python/aigverse/_version.py` is generated by `vcs-versioning` from git tags at build time; don't
+edit it directly.
+
+**Releasing.** Cutting a release means renaming `CHANGELOG.md`'s `[Unreleased]` section and publishing a GitHub
+Release — the tag is the version. The full procedure is in the `Releasing` section of `docs/DevelopmentGuide.md`;
+follow it rather than improvising one.
+
+**Tests.** `test/` mirrors the module structure above and uses layered `conftest.py` fixtures: `test/conftest.py`
+for cross-suite fixtures, plus domain-level `conftest.py` files (`test/networks/`, `test/algorithms/`, etc.). Prefer
+reusing an existing fixture over recreating the same network setup inline; promote a repeated setup pattern to the
+closest shared `conftest.py`.
+
+**Docs** (`docs/`) mirror the module structure too (`aigs.md`, `algorithms.md`, `generators.md`, `truth_tables.md`,
+`machine_learning.md`) and are built with Sphinx + MyST/myst-nb; code blocks in the docs are executed at build time,
+so they double as up-to-date examples.
+
+## Code
+
+Write the smallest diff that solves the problem. The ladder is adapted from
+[ponytail](https://github.com/DietrichGebert/ponytail).
+
+Read the task and the code it touches, trace the real flow end to end, then stop at the first rung that holds:
+
+1. Does this need to exist? A speculative need is no need. Skip it, say so in one line.
+2. Does `aigverse` already have it? Reuse the helper, fixture, or binding pattern a few files over. Re-implementing
+   what already exists is the most common slop.
+3. Does mockturtle, kitty, or lorina do it? Bind theirs rather than writing the algorithm here.
+4. Does the standard library do it? Use it.
+5. Does the build or the binding layer cover it? A CMake option, a nanobind argument annotation, or a
+   `pyproject.toml` setting beats application code.
+6. Can it be one line? Write one line.
+7. Only then: the minimum code that works.
+
+The ladder shortens the solution, never the reading. A small diff in the wrong place is not a lazy win, it is a
+second bug. Fix the root cause, not the symptom: grep every caller of the function you touch and fix the shared
+function once, rather than adding a guard per caller.
+
+- No abstraction nobody asked for — no interface with one implementation, no option for a value that never changes.
+- No scaffolding for a future caller. Deletion over addition. Boring over clever. Fewest files.
+- Two options of the same size? Take the one that is correct at the edges. The goal is less code, not a flimsier
+  algorithm.
+- Ship the small version and question the rest in the same breath: "Did X; Y covers the rest. Say so if you need
+  full X." Don't stall on a question you can default.
+- Mark a deliberate simplification with a known ceiling — an O(n²) scan, a naive heuristic — in one comment naming
+  the ceiling and the upgrade path.
+
+Cutting one of these is a defect, not minimalism:
+
+- Input validation at the Python/C++ boundary, and error handling that prevents a silent wrong answer.
+- Anything the task explicitly asked for. If the user wants the full version after you argue for the small one,
+  build it and stop re-arguing.
+- What the repo mandates: Google-style docstrings, regenerated stubs, `CHANGELOG.md` entry, test layout.
+- The check. Non-trivial logic — a branch, a loop, a parser, a lifetime — leaves behind one runnable test under
+  `test/` that fails if the logic breaks. Match the existing test style and add the case, not a suite. A one-line
+  change needs no test.
+
+Code first, then at most three lines: what you skipped, and when to add it. If the explanation outruns the code,
+delete the explanation — a paragraph defending a simplification is complexity smuggled back in as prose. A report,
+walkthrough, or review the user asked for is not padding; give that in full.
+
+A subagent inherits none of this. Any subagent that plans, writes, or reviews code gets this section in its prompt,
+or the absolute path to this file.
+
+## Code Style
+
+### Python (Ruff + Google-style docstrings)
+
+```python
+# Good - typed, Google-style docstring
+def optimize_network(network: Network, level: int = 1) -> Network:
+    """Optimizes a logic network.
+
+    Args:
+        network: The input logic network to optimize.
+        level: The optimization effort level.
+
+    Returns:
+        The optimized logic network.
+    """
+    return network.apply_optimization(level)
+```
+
+`ruff` runs with `select = ["ALL"]` (see `pyproject.toml` for the specific ignores) and `ty` for type checking.
+
+### C++ (Clang-Format + C++17)
+
+```cpp
+#include <string>
+
+namespace aigverse {
+class LogicManager {
+public:
+    explicit LogicManager(std::string name) : name_(std::move(name)) {}
+private:
+    std::string name_;
+};
+} // namespace aigverse
+```
+
+Use `#pragma once` and prefer STL features. `clang-tidy`/`clang-format` config lives in `.clang-tidy`/`.clang-format`
+at the repo root.
+
+### Comments
+
+Comment the current state of the code, not the path that led to it. A comment earns its place by explaining a
+constraint the code cannot show on its own — an external limitation, a non-obvious ordering, a number's origin.
+It does not earn it by recounting what was tried, what failed, or why an alternative was rejected; that belongs in
+the commit message and the pull request, which are where someone goes looking for history.
+
+```python
+# Good - the constraint, stated once
+# torch has no wheel for every free-threaded platform and no sdist.
+
+# Bad - the investigation
+# torch publishes no wheel for every free-threaded platform -- there is none for
+# 3.13t on aarch64 -- and ships no sdist to fall back on, so requesting the group
+# there fails the whole session. The torch-marked tests guard themselves with
+# `pytest.importorskip`, so they skip cleanly when it is absent.
+```
+
+## Commit & PR Conventions
+
+Prefix every commit subject and PR title with a plain [gitmoji](https://gitmoji.dev) emoji character (e.g. `✨`,
+`🐛`, `📝`) — not the `:shortcode:` text form. See [gitmoji.dev](https://gitmoji.dev) for the full list; a few
+common ones: `✨` new feature, `🐛` bug fix, `📝` docs, `♻️` refactor, `⬆️` dependency bump.
+
+A changelog entry carries the same gitmoji, one sentence of user-visible effect, and closes with the pull request
+reference and every contributing author — `- 📝 Add a visualization page to the documentation ([#419])
+([**@marcelwa**])`. Define the two links at the bottom of `CHANGELOG.md`, in the `PR links` and `Contributor` blocks.
+Within a category the newest entry goes first. Routine Renovate and pre-commit.ci bumps are left out entirely; a
+user-observable dependency change from one of those bots (e.g. a runtime dependency version bump) still gets an entry,
+but without a contributor link, since the bot isn't one.
+
+### PR and issue bodies
+
+One paragraph, three sentences at most: why the change was needed, what it does, and the one thing a reviewer needs
+in order to read the diff. Six lines is the ceiling — the title carries the _what_, the body carries only what the
+title and the diff cannot. Go longer only for a section the PR template mandates, a decision a reviewer cannot infer
+from the diff, or a measurement that makes a claim checkable.
+
+Keep out of a PR body: a restatement of the issue, a file-by-file walk through the diff, a list of tests by name, a
+log of every design decision considered, a closing summary. That detail belongs in the commit messages, attached to
+the code it explains. Length reads as padding, not thoroughness. An issue body takes the same shape — the symptom,
+what you observed, how to reproduce it — and a review comment or a findings report gets a line or two per defect,
+then stops.
+
+Never hard-wrap prose typed into GitHub: one line per paragraph, per list item, and per table row, and let GitHub
+reflow it. The wrap this repo's Markdown files use belongs to files in a tree, not to a web textarea.
+
+## Boundaries
+
+- **Always:** write the smallest diff that solves the problem (see [Code](#code)); run `uvx nox -s lint` and `uvx nox
+-s tests-3.12` before considering a change complete; regenerate stubs (`uvx nox -s stubs`) after touching any
+  `bindings.cpp`; add/update tests under `test/` for behavior changes; update `CHANGELOG.md` for user-facing changes.
+  Only touch `UPGRADING.md` for **breaking** changes — i.e. ones that require users to change their own code to keep
+  working (renamed/removed APIs, changed defaults, moved modules). A user-facing but non-breaking addition (a new
+  function, an added optional parameter) belongs in `CHANGELOG.md` only, not `UPGRADING.md`. Prefix commit messages
+  and PR titles with a plain gitmoji character (see [Commit & PR Conventions](#commit--pr-conventions)).
+- **Ask first:** before adding new dependencies to `pyproject.toml`; before major architectural changes to the C++
+  core; before modifying CI workflows in `.github/workflows/`.
+- **Never:** hand-edit `.pyi` stub files or `python/aigverse/_version.py` (both generated); remove failing tests
+  without explicit instruction; suppress a linter/type-checker warning instead of fixing the underlying issue.
+
+---
+> Source: [marcelwa/aigverse](https://github.com/marcelwa/aigverse) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
