@@ -7,11 +7,11 @@ AI-agent skill for reproducible, validated GIS analysis — from authoritative d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jaakla/openmapstack](https://github.com/jaakla/openmapstack).
+Original source: `AGENTS.md` in [jaakla/openmapstack](https://github.com/jaakla/openmapstack).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
