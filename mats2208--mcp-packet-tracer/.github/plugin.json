@@ -1,0 +1,18 @@
+{
+  "name": "mats2208--mcp-packet-tracer",
+  "displayName": "MCP-Packet-Tracer",
+  "description": "MCP-Packet-Tracer",
+  "version": "1.0.0",
+  "author": "Mats2208",
+  "homepage": "https://github.com/Mats2208/MCP-Packet-Tracer",
+  "skills": [
+    {
+      "name": "MCP-Packet-Tracer",
+      "description": ""
+    },
+    {
+      "name": "MCP-Packet-Tracer",
+      "description": ""
+    }
+  ]
+}
