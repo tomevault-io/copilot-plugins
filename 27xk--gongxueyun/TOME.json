@@ -1,0 +1,44 @@
+{
+  "name": "gongxueyun",
+  "owner": "27xk",
+  "repo": "gongxueyun",
+  "description": "\u4e00\u4e2a\u81ea\u6258\u7ba1\u7684\u5de5\u5b66\u4e91\u81ea\u52a8\u5316\u7ba1\u7406\u5e73\u53f0\uff0c\u652f\u6301\u591a\u7528\u6237\u6258\u7ba1\u3001\u81ea\u52a8\u6253\u5361\u3001\u6309\u7c7b\u578b\u8865\u5361\u3001\u65e5\u62a5 / \u5468\u62a5 / \u6708\u62a5\u8865\u4ea4\u3001AI \u62a5\u544a\u751f\u6210\u548c\u6279\u91cf\u4efb\u52a1\u6267\u884c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/27xk/gongxueyun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T23:34:54Z"
+}
