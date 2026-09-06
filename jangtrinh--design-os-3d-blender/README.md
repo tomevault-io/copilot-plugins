@@ -7,11 +7,11 @@ AI-agent operating system for Blender 5.2: skills, verified bpy knowledge base, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jangtrinh/design-os-3d-blender](https://github.com/jangtrinh/design-os-3d-blender).
+Original source: `CLAUDE.md` in [jangtrinh/design-os-3d-blender](https://github.com/jangtrinh/design-os-3d-blender).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
