@@ -1,0 +1,9 @@
+{
+  "name": "jangtrinh--design-os-3d-blender",
+  "displayName": "design-os-3d-blender",
+  "description": "AI-agent operating system for Blender 5.2: skills, verified bpy knowledge base, AGENT_OK/AGENT_FAIL execution contract, production gate for 3D-printable parts, robot-arm demo",
+  "version": "1.0.0",
+  "author": "jangtrinh",
+  "homepage": "https://github.com/jangtrinh/design-os-3d-blender",
+  "skills": []
+}
