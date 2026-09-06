@@ -7,7 +7,7 @@ Clean Coding and Clean Archictecture skills for Agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [btseee/clean-code-skills](https://github.com/btseee/clean-code-skills).
+Original source: `.windsurf/rules/*.md` in [btseee/clean-code-skills](https://github.com/btseee/clean-code-skills).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [btseee/clean-code-skills](https://github.com/bt
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From [btseee/clean-code-skills](https://github.com/btseee/clean-code-skills) — a repo with 9+ stars on GitHub.
 
