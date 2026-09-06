@@ -1,0 +1,78 @@
+## homelab
+
+> Guidance for agents working in this repository.
+
+# CLAUDE.md
+
+Guidance for agents working in this repository.
+
+## Ground rules
+
+- Never commit or push without explicit approval; Matt drives git.
+- Agent sessions usually run inside the `linuxdev` container on servnerr-4.
+  Deploys to servnerr-4 do not restart it (`restartIfChanged = false`);
+  deploy instead reloads it, which activates the new inner configuration
+  in place and restarts only the inner units that changed. Changes to its
+  container scaffolding (bind mounts, networking, tun) still need a manual
+  restart, which kills the session — flag those before deploying.
+
+## Deploys and upgrades
+
+- `nixos/deploy <host>` deploys from the local checkout; sudo on the machine
+  authenticates by challenging Matt's forwarded FIDO2 keys, pausing for a
+  YubiKey touch only he can perform. Agent-driven deploys stall at that
+  touch (an unexpected blink he will decline); ask Matt to run it. A deploy
+  is exactly one touch; without a key at hand sudo falls through to a
+  password prompt on the terminal.
+- `system.autoUpgrade` applies origin/main to every machine nightly (~04:00).
+  Anything merged to main deploys itself within a day — deploy from the local
+  tree first, then merge, or be ready for the nightly to apply it.
+- Do not trigger `nixos-upgrade.service` right after a push: the GitHub flake
+  tarball is cached (~1h TTL) and can apply a stale main. Deploy from a local
+  checkout instead, or wait out the TTL.
+- On the router, always `deploy routnerr-3 test` first (a reboot reverts
+  it), verify, then `boot` or `switch`. Serial consoles for the router and
+  server are reachable via consrv on the monitor if SSH is lost.
+- To prove a refactor is a no-op, compare
+  `nix eval --raw .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`
+  before and after: identical drv paths mean identical systems.
+
+## Secrets (sops)
+
+- Renaming or removing a secret key must land in the SAME commit as every Nix
+  reference to it, or nightly activation fails (sops-nix aborts on a missing
+  declared key). Recipients are unchanged by edits, so no `updatekeys`.
+- The admin age key lives at `~/.config/sops/age/keys.txt` on the
+  workstation. In the linuxdev container the only decryption key belongs
+  to the `sops-gate` user, reachable solely via `sops-gate <verb>`, which
+  is `sudo -u sops-gate` behind a YubiKey touch on every call; agents
+  cannot read or edit secrets. For sops changes, compose the exact command
+  for Matt to run (`!` in the prompt works): `sops-gate edit <file>` in the
+  container, or plain `sops <file>` on the workstation. The gate forces
+  nano as the editor, so scripted edits without printing plaintext happen
+  on the workstation with sed as the editor:
+  `EDITOR="sed -i s/old:/new:/" sops <file>`.
+- Tool credentials (tofu modules, gh) live in top-level `secrets/<tool>.yaml`,
+  encrypted to the admin and the gate only, keyed by the environment
+  variable the consumer reads. `sops-gate tofu-plan|tofu-apply <module>`
+  and `sops-gate exec-env secrets/<tool>.yaml -- <cmd>` use them; agents
+  compose these for Matt too.
+- Secrets with `neededForUsers` decrypt before users are created; user
+  password hashes must stay in that set.
+
+## Users
+
+- The admin user is `homelab.user` in `nixos/modules/common.nix` (uid 1000,
+  group `users`). Keep uid 1000 in any future rename so file ownership never
+  changes, and never declare two users with the same uid — no assertion
+  catches the ambiguous passwd entries it produces.
+
+## Style
+
+- Prose and comments refer to machines by role — the server, the router, the
+  monitor, the workstation — not by hostname. Hostnames appear only in
+  functional configuration (inventory, flake attrs, probe targets).
+
+---
+> Source: [mdlayher/homelab](https://github.com/mdlayher/homelab) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
