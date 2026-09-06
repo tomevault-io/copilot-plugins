@@ -4,7 +4,7 @@
   "repo": "design-os-3d-blender",
   "description": "AI-agent operating system for Blender 5.2: skills, verified bpy knowledge base, AGENT_OK/AGENT_FAIL execution contract, production gate for 3D-printable parts, robot-arm demo",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jangtrinh/design-os-3d-blender",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T14:21:41Z"
+  "distributed_at": "2026-09-06T14:30:33Z"
 }
