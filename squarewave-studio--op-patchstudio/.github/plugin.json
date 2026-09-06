@@ -1,0 +1,9 @@
+{
+  "name": "squarewave-studio--op-patchstudio",
+  "displayName": "op-patchstudio",
+  "description": "free web tool for creating OP-XY presets (legacy \u2014 new development happens in the OP-PatchStudio desktop app: https://squarewave.studio/op-patchstudio)",
+  "version": "1.0.0",
+  "author": "squarewave-studio",
+  "homepage": "https://github.com/squarewave-studio/op-patchstudio",
+  "skills": []
+}
