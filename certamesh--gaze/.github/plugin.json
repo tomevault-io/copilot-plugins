@@ -1,0 +1,9 @@
+{
+  "name": "certamesh--gaze",
+  "displayName": "gaze",
+  "description": "Reversible PII pseudonymization runtime for agentic LLM workflows.",
+  "version": "1.0.0",
+  "author": "CertaMesh",
+  "homepage": "https://github.com/CertaMesh/gaze",
+  "skills": []
+}
