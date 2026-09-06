@@ -1,0 +1,9 @@
+{
+  "name": "thevibeworks--ccx",
+  "displayName": "ccx",
+  "description": "Session viewer for coding agents \u2014 browse, search, trace, and export Claude Code, Codex, and Grok conversations",
+  "version": "1.0.0",
+  "author": "thevibeworks",
+  "homepage": "https://github.com/thevibeworks/ccx",
+  "skills": []
+}
