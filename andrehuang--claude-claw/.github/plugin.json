@@ -1,0 +1,9 @@
+{
+  "name": "andrehuang--claude-claw",
+  "displayName": "claude-claw",
+  "description": "OpenClaw-inspired enhancements for Claude Code: multi-agent safety, session continuity, task management, and memory architecture",
+  "version": "1.0.0",
+  "author": "andrehuang",
+  "homepage": "https://github.com/andrehuang/claude-claw",
+  "skills": []
+}
