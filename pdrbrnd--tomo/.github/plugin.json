@@ -1,0 +1,9 @@
+{
+  "name": "pdrbrnd--tomo",
+  "displayName": "tomo",
+  "description": "A native macOS library for the books on your shelves and the ones still to come",
+  "version": "1.0.0",
+  "author": "pdrbrnd",
+  "homepage": "https://github.com/pdrbrnd/tomo",
+  "skills": []
+}
