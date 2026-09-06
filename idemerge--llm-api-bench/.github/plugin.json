@@ -1,0 +1,9 @@
+{
+  "name": "idemerge--llm-api-bench",
+  "displayName": "llm-api-bench",
+  "description": "Self-hosted LLM API benchmark, monitoring & playground. Compare latency, TTFT, throughput across OpenAI, Anthropic, Gemini & any OpenAI-compatible endpoint. Deploy with one command via Docker. | \u81ea\u6258\u7ba1 L",
+  "version": "1.0.0",
+  "author": "idemerge",
+  "homepage": "https://github.com/idemerge/llm-api-bench",
+  "skills": []
+}
