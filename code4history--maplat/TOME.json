@@ -4,7 +4,7 @@
   "repo": "Maplat",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/code4history/Maplat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T05:42:14Z"
+  "distributed_at": "2026-09-06T09:44:47Z"
 }
