@@ -1,0 +1,9 @@
+{
+  "name": "oleksandrdubyna88--dew-flow-connect-other-ais",
+  "displayName": "dew_flow_connect_other_ais",
+  "description": "Multi-model review gate for AI coding agents: other vendors' models review the plan before it is built and the diff after, over MCP. Native-AOT server + VS Code extension.",
+  "version": "1.0.0",
+  "author": "oleksandrdubyna88",
+  "homepage": "https://github.com/oleksandrdubyna88/dew_flow_connect_other_ais",
+  "skills": []
+}
