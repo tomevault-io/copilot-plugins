@@ -1,0 +1,59 @@
+## libmdbx-rs
+
+> Working conventions for libmdbx-rs.
+
+# AGENTS.md
+
+Working conventions for libmdbx-rs.
+
+## Build & test
+
+- Full test suite: `cargo test --all-features`
+- ORM tests only: `cargo test --features orm,cbor --test orm`
+- Clippy (must be clean): `cargo clippy --workspace --all-targets --all-features -- -D warnings`
+- Format (note the non-default import granularity): `cargo fmt --all -- --config=imports_granularity=Crate`
+- Rust policy: target latest stable; no MSRV is declared or guaranteed
+  (edition 2024 implies a compiler >= 1.85 regardless).
+
+CI (`.github/workflows/main.yml`) runs the fmt check above plus
+`cargo hack clippy --workspace --feature-powerset --depth 2 -- -D warnings` and
+`cargo hack test --workspace --feature-powerset --depth 2` on Linux, macOS, and
+Windows. Any change must hold under feature-powerset depth 2, not just
+all-features — feature-gated code paths can break in single-feature builds that
+all-features hides.
+
+## Gotchas
+
+- Named tables need slots reserved at open: `DatabaseOptions { max_tables: Some(n), .. }`.
+  The default is 0, and `open_table`/`create_table` on a named table then fails with `DbsFull`.
+- `README.md` is `include_str!`-ed as the crate-level doc (`src/lib.rs`), so its code
+  blocks are doctests: examples that touch disk must be marked `no_run`, and they must
+  compile (and ideally be run once manually) when the API changes.
+- libmdbx cursor-op naming trap: `MDBX_SET_UPPERBOUND` positions at the first key
+  *strictly greater* (it is an exclusive range-end op). For "largest key <= X" use
+  `MDBX_TO_KEY_LESSER_OR_EQUAL` (what `Cursor::set_upperbound` wraps). Verify op
+  semantics against `mdbx-sys/libmdbx/mdbx.h` before wiring new ones.
+
+## Vendored upstream code
+
+`mdbx-sys/libmdbx/` is a vendored upstream libmdbx source subtree. **Never edit
+it.** Fixes belong in the Rust wrapper; genuine upstream bugs should be reported
+and fixed upstream, then re-vendored.
+
+## Version coupling
+
+The root crate pins the FFI crate exactly:
+`ffi = { package = "mdbx-sys", version = "=14.3.1", path = "./mdbx-sys" }`.
+When releasing, bump `mdbx-sys/Cargo.toml` and the pin in the root `Cargo.toml`
+together so they always match (the `=` pin guarantees a mismatch fails to
+resolve rather than silently mixing versions).
+
+## API stability
+
+The crate is pre-1.0: breaking API changes are acceptable when warranted — bump
+the minor version and call them out in `CHANGELOG.md`. Cross-cutting design
+rationale lives in `DESIGN.md`.
+
+---
+> Source: [vorot93/libmdbx-rs](https://github.com/vorot93/libmdbx-rs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
