@@ -1,0 +1,9 @@
+{
+  "name": "muktidaya--wgpui",
+  "displayName": "wgpui",
+  "description": "Pure-Rust hybrid intermediate/retained and gpu-accelerated UI library built on top of WGPU.",
+  "version": "1.0.0",
+  "author": "Muktidaya",
+  "homepage": "https://github.com/Muktidaya/wgpui",
+  "skills": []
+}
