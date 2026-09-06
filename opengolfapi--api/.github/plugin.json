@@ -1,0 +1,9 @@
+{
+  "name": "opengolfapi--api",
+  "displayName": "api",
+  "description": "Open REST API \u2014 32,000+ golf courses worldwide with tees, climate, nearby. No key needed. Community-maintained.",
+  "version": "1.0.0",
+  "author": "opengolfapi",
+  "homepage": "https://github.com/opengolfapi/api",
+  "skills": []
+}
