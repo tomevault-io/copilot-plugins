@@ -1,0 +1,87 @@
+{
+  "name": "UIKitPlus",
+  "owner": "MihaelIsaev",
+  "repo": "UIKitPlus",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/macos-ulist/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/macos-ulist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/state-binding/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/state-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/navigation-flow/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/navigation-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/view-composition/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/view-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/constraint-system/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/constraint-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/gesture-integration/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/gesture-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitPlus",
+      "path": ".agent/skills/uikitplus-visual-ui-diagnostics/SKILL.md",
+      "github_url": "https://github.com/MihaelIsaev/UIKitPlus/tree/main/.agent/skills/uikitplus-visual-ui-diagnostics/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MihaelIsaev/UIKitPlus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T07:35:29Z"
+}
