@@ -1,0 +1,9 @@
+{
+  "name": "operation-grimoire--grimoire",
+  "displayName": "grimoire",
+  "description": "Modern Android novel reader. APK-based extensions, Jetpack Compose UI, on-device + ElevenLabs TTS, library sync, EPUB import.",
+  "version": "1.0.0",
+  "author": "Operation-Grimoire",
+  "homepage": "https://github.com/Operation-Grimoire/grimoire",
+  "skills": []
+}
