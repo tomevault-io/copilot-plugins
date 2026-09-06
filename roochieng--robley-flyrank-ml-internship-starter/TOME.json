@@ -1,0 +1,44 @@
+{
+  "name": "robley-flyrank-ml-internship-starter",
+  "owner": "roochieng",
+  "repo": "robley-flyrank-ml-internship-starter",
+  "description": "For FlyRankAi Internships",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/roochieng/robley-flyrank-ml-internship-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T00:47:52Z"
+}
