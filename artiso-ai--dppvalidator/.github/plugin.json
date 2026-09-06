@@ -1,0 +1,9 @@
+{
+  "name": "artiso-ai--dppvalidator",
+  "displayName": "dppvalidator",
+  "description": "dppvalidator is the \"GDPR compliance engine\" for physical products, enforcing the strict digital syntax required for the EU's Digital Product Passport.",
+  "version": "1.0.0",
+  "author": "artiso-ai",
+  "homepage": "https://github.com/artiso-ai/dppvalidator",
+  "skills": []
+}
