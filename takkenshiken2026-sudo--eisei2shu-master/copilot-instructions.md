@@ -1,26 +1,56 @@
-## content-authoring
+## editorial-quality
 
-> SEO articles, glossary, editorial quality, diagrams, affiliate
+> Expert/pro-writer editorial quality for guide articles and glossary terms
 
 
-# コンテンツ執筆（要約）
+# Editorial Quality (Expert × Pro Writer)
 
-**正本:** `docs/seo-article-guidelines.md`（記事・用語・色・公開境界）
+**Full guide:** `docs/editorial-quality.md`
 
-| 種別 | ドキュメント | スクリプト |
-|------|-------------|------------|
-| 試験ガイド | `guide-article-template.md` | `scaffold_guide_article.py` |
-| 用語 | `glossary-term-template.md` | `scaffold_glossary_term.py` |
-| アフィリエイト | `affiliate/multi-site-affiliate-workflow.md` | `scaffold_affiliate_article.py` |
-| 図解 | `term-diagrams.md` | `term_diagram.py` |
+Apply when writing or reviewing `data/guide_articles.csv`, `data/glossary_terms.csv`, scaffolds, or enrich scripts.
 
-知識ハブ（比較・数値・誤答タブ）は**廃止**。旧 URL は `build_hub_retire_redirects.py` でリダイレクト。
+## Standard
 
-編集後は必ず `python3 tools/build_all.py`。
+Articles must read like **exam specialists + professional writers**: concrete, exam-linked, trustworthy—not template filler.
 
-ガイド記事の抽象表現・メタ確認だけの節・FAQ 定型は `.cursor/rules/guide-prose-quality.mdc` を参照。修復は `fix_guide_prose_quality.py` と `run_guide_prose_batch.sh`。
+## Machine checks
 
-**試験会場ガイド**（`*-center` / `exam-venue-and-region` / `shiken-kaijo`）は `.cursor/rules/exam-venue-guide.mdc` と `docs/exam-venue-guide.md` に従う。住所・駅名・ルートは書かず公式リンクのみ。修復は `fix_exam_venue_guide_articles.py` / `fix_exam_venue_hub_articles.py`。
+| Tool | Role |
+|------|------|
+| `tools/editorial_quality.py` | Shared thresholds, placeholders, readability, generic phrases |
+| `tools/guide_article_rules.py` | Guide: published rows need **180+ char sections**, **100+ char FAQ** |
+| `tools/glossary_term_rules.py` | Terms: **180+ body**, **100+ FAQ×4**, 2+ paragraphs |
+| `tools/audit_editorial_quality.py` | Full audit; `--strict` = WARN fails |
+| `tools/build_all.py` | Runs `audit_editorial_quality.py` (ERROR gate) |
+
+## Writing (always)
+
+- です・ます; short sentences; explain jargon; who/when/what; summarize law, do not paste statutes
+- No `【記入】`, `差し替えてください`, operator/CSV how-to in public columns
+- FAQ answers must differ by role (definition / mistake / exam / next step for terms)
+
+## Guide (`published`)
+
+- `section_*_body`: **≥180 chars** each (with heading)
+- `faq_*_answer`: **≥100 chars**
+- `lead` ≥80, `related_links` 2+ internal slugs, trust columns filled, real official URLs
+
+## Glossary (all rows)
+
+- `term_detail_body`: **≥180 chars**, **≥2 paragraphs** (`\n\n`)
+- `faq_1`–`faq_4` answers: **≥100 chars** each
+- `explanation` ≥80; `related_terms` 2+ registered terms
+- Practice CSV: `term:用語名` in `tags` when linked
+
+## Before publish
+
+```bash
+python3 tools/validate_csv.py
+python3 tools/audit_editorial_quality.py --strict
+python3 tools/build_all.py
+```
+
+Do not lower thresholds to pass thin content—rewrite CSV instead.
 
 ---
 > Source: [takkenshiken2026-sudo/eisei2shu-master](https://github.com/takkenshiken2026-sudo/eisei2shu-master) — distributed by [TomeVault](https://tomevault.io).
