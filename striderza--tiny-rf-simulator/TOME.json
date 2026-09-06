@@ -1,0 +1,44 @@
+{
+  "name": "Tiny-RF-Simulator",
+  "owner": "striderZA",
+  "repo": "Tiny-RF-Simulator",
+  "description": "Modular RF signal chain simulator with real-time spectrum display. Design cascades of amplifiers, filters, mixers, ADCs, and more - probe any node to see the spectrum. Built with Dear ImGui + ImPlot.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/striderZA/Tiny-RF-Simulator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-06T02:36:34Z"
+}
