@@ -4,7 +4,7 @@
   "repo": "agent-governance-vocabulary",
   "description": "Shared canonical names for agent-governance primitives. Maps what each system calls its signals to one reference vocabulary, with per-system crosswalks, so verifiers and tooling compose across ecosystems.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aeoess/agent-governance-vocabulary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T04:49:09Z"
+  "distributed_at": "2026-09-06T04:49:52Z"
 }
