@@ -1,0 +1,9 @@
+{
+  "name": "whats2000--paperhub",
+  "displayName": "PaperHub",
+  "description": "A paper-aware chat client where every cited sentence traces back to its source.",
+  "version": "1.0.0",
+  "author": "whats2000",
+  "homepage": "https://github.com/whats2000/PaperHub",
+  "skills": []
+}
