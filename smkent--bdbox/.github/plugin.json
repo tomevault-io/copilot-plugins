@@ -1,0 +1,9 @@
+{
+  "name": "smkent--bdbox",
+  "displayName": "bdbox",
+  "description": "A workshop for build123d models with live preview and interactive parameters",
+  "version": "1.0.0",
+  "author": "smkent",
+  "homepage": "https://github.com/smkent/bdbox",
+  "skills": []
+}
