@@ -4,7 +4,7 @@
   "repo": "ObsidianArc",
   "description": "A standalone, bring-your-own-key AI chat workspace. No account, no server, no build step.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OnyxAxisOwO/ObsidianArc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T14:20:26Z"
+  "distributed_at": "2026-09-06T14:30:04Z"
 }
