@@ -1,0 +1,9 @@
+{
+  "name": "xiaocrq--faster-oj-nvim",
+  "displayName": "Faster-OJ.nvim",
+  "description": "Faster-OJ.nvim is a powerful Neovim plugin designed for Competitive Programmers. It bridges the gap between local coding, testing, and online submission, providing a seamless \"Code and Submit\" experie",
+  "version": "1.0.0",
+  "author": "XiaoCRQ",
+  "homepage": "https://github.com/XiaoCRQ/Faster-OJ.nvim",
+  "skills": []
+}
