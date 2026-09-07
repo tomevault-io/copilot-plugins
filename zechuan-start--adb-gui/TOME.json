@@ -1,0 +1,44 @@
+{
+  "name": "adb-gui",
+  "owner": "zechuan-start",
+  "repo": "adb-gui",
+  "description": "\u8de8\u5e73\u53f0 Android ADB \u684c\u9762 GUI\uff08Tauri + React\uff09\uff1a\u8bbe\u5907\u7ba1\u7406/\u65e0\u7ebf\u8fde\u63a5\u3001\u622a\u56fe\u3001\u5f55\u5c4f\u3001APK \u5b89\u88c5\u3001\u5e94\u7528\u7ba1\u7406\u3001DeepLink\u3001\u7aef\u53e3\u8f6c\u53d1\u3001Bug \u62a5\u544a\u3001Logcat \u67e5\u770b\u7b49 | Cross-platform Tauri desktop GUI for Android ADB: device management, Wi-Fi connect, screenshots, screen recording, APK install, app manager, deep links, port forwarding, bug reports, and logcat viewer.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zechuan-start/adb-gui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T02:34:52Z"
+}
