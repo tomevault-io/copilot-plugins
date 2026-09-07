@@ -4,7 +4,7 @@
   "repo": "experts",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AesopScott/experts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:17:10Z"
+  "distributed_at": "2026-09-07T01:20:17Z"
 }
