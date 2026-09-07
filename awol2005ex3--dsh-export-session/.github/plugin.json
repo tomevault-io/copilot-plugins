@@ -1,0 +1,9 @@
+{
+  "name": "awol2005ex3--dsh-export-session",
+  "displayName": "dsh-export-session",
+  "description": "DeepSeek Harness\uff08`dsh`\uff09\u63d2\u4ef6\uff1a\u628a**\u5f53\u524d\u4f1a\u8bdd\u7684\u5b8c\u6574\u5185\u5bb9**\u4e00\u952e\u5bfc\u51fa\u4e3a **Markdown\uff08`.md`\uff09/ Word\uff08`.docx`\uff09/ PDF\uff08`.pdf`\uff09**\u3002",
+  "version": "1.0.0",
+  "author": "awol2005ex3",
+  "homepage": "https://github.com/awol2005ex3/dsh-export-session",
+  "skills": []
+}
