@@ -1,54 +1,81 @@
-## 095-calldiff
+## 990-cursor-rule-editing-workaround
 
-> Calldiff: optionally include a call-stack diff in plans, design docs, and PR descriptions when call flow actually changed and a tree would help
+> Defines the workaround process for creating and editing cursor rule files
 
 
-# Call-stack diffs with calldiff
+# Cursor Rule Editing Workaround
 
-Calldiff is optional. Use it only when a call-stack tree would help a reviewer understand a real call-flow change. Do **not** include it in routine chat summaries, status updates, or wrap-ups.
+Defines the process for creating and editing cursor rule files to work around Cursor limitations.
 
-## When to use
+<rules>
+<filters>
+INCLUDE:
+  - type: file_extension
+    pattern: "\\.mdc(-tmp)?$"
+  - type: event
+    pattern: "(file_create|file_modify)"
+</filters>
 
-Include a call-stack diff in a plan, design doc, or PR description when **all** of these are true:
+<rule>
+name: mdc-file-editing-process
+description: Enforces the workaround process for editing cursor rule files
+ENFORCE:
+  - type: process
+    steps:
+      - name: temporary_file_creation
+        description: Create or edit files with temporary extension
+        requirements:
+          - Use .mdc-tmp extension for all new or modified cursor rules
+          - Place temporary files in same location as target .mdc file
+        pattern: "^.*\\.mdc-tmp$"
 
-- The change rewires call flow: new, removed, or moved callees; refactored control flow; extracted or inlined functions
-- The new vs old call tree is not obvious from the code or a short prose description
-- The audience is a reviewer who needs to see how control flow moved
+      - name: existing_file_modification
+        description: Process for modifying existing rules
+        requirements:
+          - Copy existing .mdc file to .mdc-tmp before ANY modifications
+          - Get user approval of the initial copy
+          - Only after approval, make edits in the temporary file
+          - Maintain original file until changes are approved
+        notes: |
+          The initial copy step and its approval are crucial for:
+          - Verifying the starting point is correct
+          - Making the subsequent changes more visible
+          - Preventing accidental loss of content
 
-## When to skip
+      - name: file_finalization
+        description: Process for finalizing rule files
+        requirements:
+          - Review changes in temporary file
+          - Use terminal command (cp or mv) to create final .mdc file - NEVER use internal file editing tools
+          - Remove temporary file after successful creation
+        notes: |
+          Due to a known limitation, internal file editing tools cannot be used to create or modify .mdc files directly.
+          Always use terminal commands like `cp` or `mv` for the final step.
 
-Skip calldiff (do not run it, do not paste a tree, do not mention that you skipped it) when:
+examples:
+  - scenario: "Creating new rule"
+    steps:
+      - "Create: example-rule.mdc-tmp"
+      - "Get approval for initial empty file"
+      - "Edit temporary file"
+      - "Review changes"
+      - "Copy to: example-rule.mdc"
+      - "Remove temporary file"
 
-- The message is a normal chat reply, task wrap-up, or end-of-turn summary
-- The change is UI/copy, styling, config, dependency, translation, tests, or docs
-- The call-flow change is small or obvious (renames, extra args, a single new call)
-- calldiff would produce noise, an empty tree, or no useful signal
+  - scenario: "Modifying existing rule"
+    steps:
+      - "Copy existing.mdc to existing.mdc-tmp"
+      - "Get approval for initial copy"
+      - "Edit temporary file"
+      - "Review changes"
+      - "Copy back to existing.mdc"
+      - "Remove temporary file"
 
-## How to run
-
-Use `npx calldiff@latest`. Defaults compare HEAD vs the working tree.
-
-```bash
-npx calldiff@latest diff --file packages/adapters/src/cursor.ts
-npx calldiff@latest diff main --entry toMessage
-```
-
-Other useful commands:
-
-```bash
-npx calldiff@latest tree --entry toMessage
-npx calldiff@latest reach --entry grepTranscripts --to toMessage
-```
-
-Scope with `--file` / `--entry` and `--maxDepth`. Keep the pasted tree to the entrypoints that changed.
-
-Paste the output in a fenced `diff` block.
-
-## Caveats
-
-- Calldiff is syntactic (tree-sitter). Dynamic calls and trait-object dispatch will not resolve.
-- Grammars download on first use into `~/.cache/calldiff/grammars`.
-- If you chose to run calldiff and it produces nothing useful, fall back to a short hand-written call tree per the [show-me](../../.agents/skills/show-me/SKILL.md) skill, or omit the tree entirely.
+metadata:
+  priority: high
+  version: 1.0
+</rule>
+</rules> 
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
