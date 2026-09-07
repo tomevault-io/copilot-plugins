@@ -4,7 +4,7 @@
   "repo": "OSTVisualizer-Win",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fabianhad/OSTVisualizer-Win",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T06:35:38Z"
+  "distributed_at": "2026-09-07T06:37:16Z"
 }
