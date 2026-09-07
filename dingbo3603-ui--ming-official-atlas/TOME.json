@@ -1,0 +1,44 @@
+{
+  "name": "ming-official-atlas",
+  "owner": "dingbo3603-ui",
+  "repo": "ming-official-atlas",
+  "description": "\u5927\u660e\u804c\u5b98\u56fe\uff1a\u660e\u4ee3\u5b98\u7f72\u3001\u4eba\u7269\u5c65\u5386\u3001\u5e74\u53f7\u68c0\u7d22\u4e0e\u5e9c\u5dde\u53bf\u4ea4\u4e92\u56fe\u8c31",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dingbo3603-ui/ming-official-atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T13:34:40Z"
+}
