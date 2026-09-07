@@ -1,0 +1,9 @@
+{
+  "name": "openensemble--openensemble",
+  "displayName": "openensemble",
+  "description": "Self-hosted multi-user AI assistant with agents, memory, scheduler, ESP32 voice satellites, and a built-in dashboard. Works with Claude, OpenAI, Ollama, LM Studio, and more.",
+  "version": "1.0.0",
+  "author": "openensemble",
+  "homepage": "https://github.com/openensemble/openensemble",
+  "skills": []
+}
