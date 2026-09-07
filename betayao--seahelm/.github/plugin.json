@@ -1,0 +1,9 @@
+{
+  "name": "betayao--seahelm",
+  "displayName": "seahelm",
+  "description": "A native macOS workspace for coding agents \u2014 every git worktree a row on one roster, one agent to a split pane. Built on Ghostty, sessions persist through zmx.",
+  "version": "1.0.0",
+  "author": "BetaYao",
+  "homepage": "https://github.com/BetaYao/seahelm",
+  "skills": []
+}
