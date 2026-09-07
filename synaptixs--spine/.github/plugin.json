@@ -1,0 +1,14 @@
+{
+  "name": "synaptixs--spine",
+  "displayName": "spine",
+  "description": "Spine \u2014 governed, provenance-grounded autonomous software delivery (installs as agent-orchestrator).",
+  "version": "1.0.0",
+  "author": "synaptixs",
+  "homepage": "https://github.com/synaptixs/spine",
+  "skills": [
+    {
+      "name": "understand-codebase",
+      "description": ""
+    }
+  ]
+}
