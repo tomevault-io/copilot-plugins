@@ -7,11 +7,11 @@ Design Taste skill for AI agents — 15 style DNA folders, decision engine, anti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aievolutionpl/agent-design-taste](https://github.com/aievolutionpl/agent-design-taste).
+Original source: `CLAUDE.md` in [aievolutionpl/agent-design-taste](https://github.com/aievolutionpl/agent-design-taste).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
