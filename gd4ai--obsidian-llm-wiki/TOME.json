@@ -4,7 +4,7 @@
   "repo": "obsidian-llm-wiki",
   "description": "Karpathy's LLM Wiki implementation plugin for Obsidian - turns notes and PDFs into a linked, LLM-powered knowledge base with entity pages, concept pages, graph-powered Q&A, and local-first privacy.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GD4AI/obsidian-llm-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T07:30:24Z"
+  "distributed_at": "2026-09-07T07:31:10Z"
 }
