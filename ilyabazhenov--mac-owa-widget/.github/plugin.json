@@ -1,0 +1,9 @@
+{
+  "name": "ilyabazhenov--mac-owa-widget",
+  "displayName": "mac-owa-widget",
+  "description": "A macOS menu bar app for quick access to your upcoming meetings from a Microsoft Exchange / OWA calendar. One click to join Teams, Zoom, Webex, Google Meet, or any other video platform.",
+  "version": "1.0.0",
+  "author": "ilyabazhenov",
+  "homepage": "https://github.com/ilyabazhenov/mac-owa-widget",
+  "skills": []
+}
