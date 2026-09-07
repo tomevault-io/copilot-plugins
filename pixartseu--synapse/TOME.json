@@ -4,7 +4,7 @@
   "repo": "Synapse",
   "description": "Self-improving AI brain for Claude Code & Desktop \u2014 28 MCP tools, 253 skills, collective memory, project tracking, work logs. One server, all your sessions share the same knowledge. Deploy on Coolify in 2 minutes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PIXARTSeu/Synapse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T02:50:42Z"
+  "distributed_at": "2026-09-07T02:57:01Z"
 }
