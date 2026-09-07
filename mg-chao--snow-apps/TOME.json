@@ -4,7 +4,7 @@
   "repo": "snow-apps",
   "description": "Snow Apps repository, providing source code for Snow Shot and Snow Image Viewer.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mg-chao/snow-apps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T17:30:22Z"
+  "distributed_at": "2026-09-07T17:32:37Z"
 }
