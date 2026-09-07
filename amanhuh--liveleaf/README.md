@@ -7,11 +7,11 @@ A production-oriented note-taking application focused on fast search, nested doc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [amanhuh/liveleaf](https://github.com/amanhuh/liveleaf).
+Original source: `CLAUDE.md` in [amanhuh/liveleaf](https://github.com/amanhuh/liveleaf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
