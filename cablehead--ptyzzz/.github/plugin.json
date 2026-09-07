@@ -1,0 +1,9 @@
+{
+  "name": "cablehead--ptyzzz",
+  "displayName": "ptyZZZ",
+  "description": "A terminal as a unix pipe: keystrokes go in as JSONL, and the screen comes out as HTML. You can then pipe that directly to a web page.",
+  "version": "1.0.0",
+  "author": "cablehead",
+  "homepage": "https://github.com/cablehead/ptyZZZ",
+  "skills": []
+}
