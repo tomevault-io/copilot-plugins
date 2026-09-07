@@ -1,0 +1,9 @@
+{
+  "name": "unorouter--unorouter",
+  "displayName": "unorouter",
+  "description": "Storefront for unorouter.com. Next.js 16, React 19, Tailwind v4 frontend for browsing and purchasing AI model access.",
+  "version": "1.0.0",
+  "author": "unorouter",
+  "homepage": "https://github.com/unorouter/unorouter",
+  "skills": []
+}
