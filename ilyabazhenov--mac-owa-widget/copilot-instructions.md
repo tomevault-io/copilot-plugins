@@ -1,37 +1,25 @@
-## timeline-ui
+## verification
 
-> Timeline meeting layout invariants and tests.
+> Required checks before reporting completion.
 
 
-# Timeline UI invariants
+# Verification
 
-The timeline is one of the most sensitive UI areas. Preserve the current layout model unless the user explicitly asks to redesign it.
+Before reporting completion:
 
-Observed project facts:
+- If Swift code, app logic, tests, models, views, services, providers, scripts, or project configuration changed, run `swift build` at minimum.
+- If packaging, entitlements, app bundle launch, Sparkle, `Info.plist`, resources, app icons, or release scripts changed, also run `make run`.
+- If release notes changed, run `make validate-release-notes`.
+- If timeline layout changed, run the focused timeline/layout tests when possible in addition to `swift build`.
+- If OWA request/response mapping changed, run focused OWA tests when possible in addition to `swift build`.
+- If only Cursor rules, docs, comments, or ignore files changed, do not run `swift build` unless there is a specific reason.
+- For `.cursor/rules/**` and `.cursorignore` only changes, no build or runtime command is required.
 
-- `OWAWidget/Views/MeetingListView.swift:8` uses local state to auto-scroll to the current slot.
-- `OWAWidget/Views/MeetingListView.swift:10` through `OWAWidget/Views/MeetingListView.swift:13` define the timeline time column, points-per-minute scale, card gap, and 30-minute slot size.
-- `OWAWidget/Views/MeetingListView.swift:65` through `OWAWidget/Views/MeetingListView.swift:72` deduplicate event cards so each event appears in only its first overlapping slot.
-- `OWAWidget/Views/TimelineMeetingLayout.swift:84` through `OWAWidget/Views/TimelineMeetingLayout.swift:87` use half-open slot overlap checks.
-- `OWAWidget/Views/TimelineMeetingLayout.swift:267` through `OWAWidget/Views/TimelineMeetingLayout.swift:291` use half-open cluster and lane behavior: events whose previous lane end is `<= event.startDate` can share a lane.
-- `OWAWidget/Views/TimelineMeetingBlockView.swift:31` through `OWAWidget/Views/TimelineMeetingBlockView.swift:35` always render the event's own time interval, including compact cards.
+Final response must include:
 
-Rules:
-
-- Use half-open overlap semantics: `lhs.startDate < rhs.endDate && rhs.startDate < lhs.endDate`.
-- Compact timeline cards must still show their own event time interval.
-- Do not remove event-card deduplication across slots unless the visual model changes deliberately.
-- Keep frame math stable: slot height, `pointsPerMinute`, lane width, card center, and overlay coordinates must agree.
-- If changing overlap, slotting, lane assignment, card sizing, or compact rendering, update or add focused tests.
-- For visual changes, verify both normal and compact cards, selected state, cancelled state, organizer badges, join button visibility, and accessibility labels.
-
-Relevant tests to consider:
-
-- `Tests/OWAWidgetTests/TimelineMeetingLayoutTests.swift`
-- `Tests/OWAWidgetTests/TimelineMeetingBlockViewTests.swift`
-- `Tests/OWAWidgetTests/MeetingListViewLayoutTests.swift`
-- `Tests/OWAWidgetTests/PopoverViewLayoutTests.swift`
-- `Tests/OWAWidgetTests/PopoverSizeTests.swift`
+- Changed files.
+- Verification commands that were run.
+- Pass/fail result, including any command that could not be run and why.
 
 ---
 > Source: [ilyabazhenov/mac-owa-widget](https://github.com/ilyabazhenov/mac-owa-widget) — distributed by [TomeVault](https://tomevault.io).
