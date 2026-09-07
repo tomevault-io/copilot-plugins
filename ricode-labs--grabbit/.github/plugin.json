@@ -1,0 +1,9 @@
+{
+  "name": "ricode-labs--grabbit",
+  "displayName": "grabbit",
+  "description": "A cross-platform download manager powered by aria2. Beautiful, easy to use, and powerful.",
+  "version": "1.0.0",
+  "author": "ricode-labs",
+  "homepage": "https://github.com/ricode-labs/grabbit",
+  "skills": []
+}
