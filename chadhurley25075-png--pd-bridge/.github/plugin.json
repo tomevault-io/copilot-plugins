@@ -1,0 +1,9 @@
+{
+  "name": "chadhurley25075-png--pd-bridge",
+  "displayName": "pd-bridge",
+  "description": "Heterogeneous prefill/decode for DeepSeek-V4-Flash: CUDA prefill (DGX Spark, vLLM) -> Metal decode (Mac Studio, oMLX) over plain 10GbE",
+  "version": "1.0.0",
+  "author": "chadhurley25075-png",
+  "homepage": "https://github.com/chadhurley25075-png/pd-bridge",
+  "skills": []
+}
