@@ -1,0 +1,9 @@
+{
+  "name": "a9lim--drowse",
+  "displayName": "drowse",
+  "description": "Activation steering and trait monitoring for HuggingFace transformers",
+  "version": "1.0.0",
+  "author": "a9lim",
+  "homepage": "https://github.com/a9lim/drowse",
+  "skills": []
+}
