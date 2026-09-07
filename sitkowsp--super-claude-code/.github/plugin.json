@@ -1,0 +1,9 @@
+{
+  "name": "sitkowsp--super-claude-code",
+  "displayName": "super-claude-code",
+  "description": "council: Claude Code plugin that delegates disjoint tasks to Codex, Copilot, Antigravity, Grok, Ollama \u2014 Claude plans, reviews, merges",
+  "version": "1.0.0",
+  "author": "sitkowsp",
+  "homepage": "https://github.com/sitkowsp/super-claude-code",
+  "skills": []
+}
