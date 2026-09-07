@@ -1,0 +1,9 @@
+{
+  "name": "supersglzc--harbor-rl",
+  "displayName": "harbor-rl",
+  "description": "Agentic harness for robot RL \u2014 from task prompts to trained policies.",
+  "version": "1.0.0",
+  "author": "supersglzc",
+  "homepage": "https://github.com/supersglzc/harbor-rl",
+  "skills": []
+}
