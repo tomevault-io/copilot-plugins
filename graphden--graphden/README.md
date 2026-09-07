@@ -7,13 +7,13 @@ Software your whole team can see — and your AI can safely change. Programs are
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Graphden/graphden](https://github.com/Graphden/graphden).
+Original source: `.cursor/rules/*.mdc` in [Graphden/graphden](https://github.com/Graphden/graphden).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
