@@ -1,0 +1,9 @@
+{
+  "name": "pt-perkasa-pilar-utama--testate",
+  "displayName": "testate",
+  "description": "Git for your test database. Snapshot it, break it, put it back in seconds. QA, Developers, Devops internal assistance tools.",
+  "version": "1.0.0",
+  "author": "PT-Perkasa-Pilar-Utama",
+  "homepage": "https://github.com/PT-Perkasa-Pilar-Utama/testate",
+  "skills": []
+}
