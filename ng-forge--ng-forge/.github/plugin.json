@@ -1,14 +1,9 @@
 {
   "name": "ng-forge--ng-forge",
   "displayName": "ng-forge",
-  "description": "Type-safe dynamic forms library for Angular 21 signal forms",
+  "description": "ng-forge",
   "version": "1.0.0",
   "author": "ng-forge",
   "homepage": "https://github.com/ng-forge/ng-forge",
-  "skills": [
-    {
-      "name": "mcp-builder",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
