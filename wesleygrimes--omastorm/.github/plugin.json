@@ -1,0 +1,9 @@
+{
+  "name": "wesleygrimes--omastorm",
+  "displayName": "omastorm",
+  "description": "An Omarchy-native NEXRAD radar viewer built with Rust and Quickshell.",
+  "version": "1.0.0",
+  "author": "wesleygrimes",
+  "homepage": "https://github.com/wesleygrimes/omastorm",
+  "skills": []
+}
