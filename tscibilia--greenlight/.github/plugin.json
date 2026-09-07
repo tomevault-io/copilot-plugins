@@ -1,0 +1,9 @@
+{
+  "name": "tscibilia--greenlight",
+  "displayName": "greenlight",
+  "description": "Lightweight web UI for managing the allowlist on UniFi's ad-blocking content filter.",
+  "version": "1.0.0",
+  "author": "tscibilia",
+  "homepage": "https://github.com/tscibilia/greenlight",
+  "skills": []
+}
