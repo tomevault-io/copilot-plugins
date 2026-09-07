@@ -4,7 +4,7 @@
   "repo": "b2-mcp",
   "description": "MCP server for Backblaze B2 Cloud Storage: a focused, safe 40-tool surface (17 native B2 SDK, 19 S3 data-plane, 4 analytics) for any MCP-compatible AI client, currently incubating in Backblaze-Labs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/backblaze-labs/b2-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T23:32:36Z"
+  "distributed_at": "2026-09-07T00:35:54Z"
 }
