@@ -4,7 +4,7 @@
   "repo": "KiwiDesk",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KiwiCanopy/KiwiDesk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:24:28Z"
+  "distributed_at": "2026-09-07T01:25:10Z"
 }
