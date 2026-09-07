@@ -7,13 +7,13 @@ Run the Giant Swarm agent platform locally: muster + Kubernetes MCP (optionally 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [giantswarm/agentlab](https://github.com/giantswarm/agentlab).
+Original source: `.cursor/rules/*.mdc` in [giantswarm/agentlab](https://github.com/giantswarm/agentlab).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
