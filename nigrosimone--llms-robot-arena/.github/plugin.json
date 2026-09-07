@@ -1,0 +1,9 @@
+{
+  "name": "nigrosimone--llms-robot-arena",
+  "displayName": "llms-robot-arena",
+  "description": "An arena where LLMs write robot controllers and their code competes.",
+  "version": "1.0.0",
+  "author": "nigrosimone",
+  "homepage": "https://github.com/nigrosimone/llms-robot-arena",
+  "skills": []
+}
