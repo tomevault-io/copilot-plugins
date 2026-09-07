@@ -1,0 +1,9 @@
+{
+  "name": "kaitejiang--boomearth",
+  "displayName": "BoomEarth",
+  "description": "Local-first Chinese source-to-video production workbench with privacy gates, KaterJ Skills, real-audio captions, QC, and archival delivery.",
+  "version": "1.0.0",
+  "author": "kaiteJiang",
+  "homepage": "https://github.com/kaiteJiang/BoomEarth",
+  "skills": []
+}
