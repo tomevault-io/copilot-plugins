@@ -1,79 +1,83 @@
-## 010-workflow
+## 020-codebase-structure
 
-> Workflow guidelines and task management procedures
-
-
-# Workflow Guidelines
-
-## First Step for Any Task
-
-- Before starting work on any task, always check the `.cursor/rules` directory for relevant guidance
-- Read [AI_POLICY.md](mdc:AI_POLICY.md) — contributions must comply with it
-- These documents contain established workflows, conventions, and requirements for different aspects of the project
-- Following these rule files will ensure consistency and reduce rework
-- If multiple rule files seem relevant, review all of them before proceeding
+> Project structure, commands, and development setup guidelines for transcripts-mcp
 
 
-## Philosophy
+# Codebase Structure and Commands
 
-This codebase will outlive you. Every shortcut becomes someone else's burden. Every hack compounds into technical debt that slows the whole team down.
+## Project Structure
 
-You are not just writing code. You are shaping the future of this project. The patterns you establish will be copied. The corners you cut will be cut again.
+pnpm + Turborepo monorepo. Scope is `@transcripts-mcp/*`. Libraries export TypeScript source (`"exports": { ".": "./src/index.ts" }`).
 
-Fight entropy. Leave the codebase better than you found it.
+### Workspaces
 
+- `apps/mcp` — `@transcripts-mcp/mcp`: stdio MCP server, tool registration, adapter wiring
+- `apps/www` — `@transcripts-mcp/www`: marketing site (Vite + React), Cloudflare Workers static assets
+- `packages/core` — `@transcripts-mcp/core`: types, `defineJsonlAdapter`, jsonl reader, registry, `walkGlob`
+- `packages/contracts` — `@transcripts-mcp/contracts`: serializable MCP tool metadata with no runtime-specific dependencies
+- `packages/adapters` — `@transcripts-mcp/adapters`: Cursor, Claude Code, Codex (`allAdapters`)
+- `packages/search` — `@transcripts-mcp/search`: grep (fff), FTS5, optional semantic search
+- `tools/oxlint-plugins` — `@transcripts-mcp/oxlint-plugins`: custom OxLint rules (`anti-slop`)
+- `tools/typescript-config` — `@transcripts-mcp/typescript-config`: shared tsconfig
+- `distribution/plugin` — `@transcripts-mcp/plugin`: Cursor Plugin manifest, skill, and `mcp.json`
 
+`adapters` and `search` depend on `core`. Search also consumes the runtime-independent tool contract limits. `apps/mcp` depends on adapters, contracts, core, and search and is the only place that creates the registry from `allAdapters`. The website consumes contracts without importing Bun or server code. Search never imports adapters.
 
-## Last Step for Any Task
+### Config
 
-- If you've learned new concepts, workflows, or best practices during task completion, suggest updates to the relevant rules
-- For new workflows that aren't covered by existing rules, suggest creating a new rule file
-- **Create a changeset if your changes are worth mentioning in the changelog:**
-  - Run `pnpm changeset` for new features, bug fixes, or breaking changes
-  - See `090-changesets.mdc` for detailed guidelines on when and how to create changesets
-  - Skip changesets for refactoring, formatting, or internal changes
-- Evaluate whether tests should be added for your changes:
-  - For functional code, new features, API changes, or bug fixes, tests are essential
-  - For content-only changes like frontend changes or documentation updates, tests are typically not required
-  - When in doubt, err on the side of adding tests - they provide long-term stability and prevent regressions
-- Always run appropriate linting and formatting before considering a task complete:
+- `package.json` — root scripts and engines (`bun >= 1.2`, `node >= 26.8.1`, `pnpm@12`)
+- `pnpm-workspace.yaml` — workspaces + catalog
+- `turbo.json` — `dev`, `build`, `check-types`
+- `.oxlintrc.json` — OxLint + anti-slop
+- `.husky/` — git hooks
+- `.changeset/` — versioning
 
-  - Commands must be run from the root of the monorepo
+## Commands
 
-  ```bash
-  pnpm lint:fix
-  pnpm format
-  ```
+Run from the repo root.
 
-- Verify that no regressions are introduced by your changes
-- For plans, design docs, or PR descriptions where call flow actually changed and a tree would help reviewers, optionally include a `npx calldiff@latest diff` — see [095-calldiff.mdc](mdc:.cursor/rules/095-calldiff.mdc). Do not add call-stack diffs to routine chat summaries.
+```bash
+pnpm dev                    # turbo dev (apps/mcp: bun --watch src/index.ts)
+pnpm lint                   # oxlint
+pnpm lint:fix
+pnpm test                   # vitest
+pnpm check-types            # turbo tsc --noEmit
+pnpm format                 # oxfmt
+pnpm format:check
+```
 
-## Available Rules
+Launch the server:
 
-The following rules are available in the `.cursor/rules` directory:
+```bash
+bun apps/mcp/src/index.ts
+pnpm --filter @transcripts-mcp/mcp start
+```
 
-### Core Project Rules
+Deploy the marketing site to Cloudflare:
 
-- **010-workflow.mdc** - Workflow guidelines and task management procedures
-- **020-codebase-structure.mdc** - Project structure, commands, and development setup
-- **030-coding-style.mdc** - Coding standards and style guidelines for all technologies
-- **031-never-use-any.mdc** - TypeScript type safety enforcement
-- **032-import-rules.mdc** - Import rules for cross-package imports
-- **050-testing.mdc** - Vitest and PGlite testing conventions
-- **070-comments-defensive-programming.mdc** - Comments and defensive programming guidelines
-- **080-ai-interaction.mdc** - AI interaction guidelines and communication style rules
-- **090-changesets.mdc** - Changeset management for features and fixes
-- **095-calldiff.mdc** - Optionally include calldiff call-stack diffs in plans/PRs when call flow changed; skip routine chat summaries
+```bash
+pnpm deploy:www
+```
 
-### Special Rules
+`deploy` is a reserved pnpm command, so `pnpm --filter @transcripts-mcp/www deploy` fails. Use the root script, or `pnpm --filter @transcripts-mcp/www run deploy`.
 
-- **999-mdc-format.mdc** - Guide for creating and maintaining MDC rule files
+Filter a package: `pnpm --filter @transcripts-mcp/core check-types`. Add deps with `--filter @transcripts-mcp/<name>`. Shared versions use `catalog:`.
 
-### Agent skills (`.agents/skills`)
+## Runtime
 
-- **git-conventions** ([SKILL.md](../../.agents/skills/git-conventions/SKILL.md)) - Git commit message format, branch naming, and version control practices
+`apps/mcp` is a Bun stdio process. stdout is JSON-RPC; logs go to `console.error`. `packages/search/src/fts.ts` uses `bun:sqlite` and is imported by the app, not by adapters.
 
-When working on specific aspects of the project, consult the relevant rules above to ensure compliance with established patterns and standards.
+Transcript roots: `CURSOR_HOME` (`~/.cursor`), `CLAUDE_HOME` (`~/.claude`), `CODEX_HOME` (`~/.codex`). Index path: `TRANSCRIPTS_MCP_INDEX` (`~/.transcripts-mcp/index.db`).
+
+Adding a harness: one file in `packages/adapters/src/` via `defineJsonlAdapter`, one entry in `allAdapters`, one fixture + spec. Grep, FTS5, and semantic search come for free. `walkGlob` is per-segment `*` only (no `**`).
+
+## Checks before commit
+
+```bash
+pnpm lint
+pnpm check-types
+pnpm test
+```
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
