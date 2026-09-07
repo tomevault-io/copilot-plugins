@@ -1,0 +1,9 @@
+{
+  "name": "decampsrenan--worktree-cleaner",
+  "displayName": "worktree-cleaner",
+  "description": "TUI to find git worktrees in a directory tree and interactively delete orphaned or stale ones.",
+  "version": "1.0.0",
+  "author": "DecampsRenan",
+  "homepage": "https://github.com/DecampsRenan/worktree-cleaner",
+  "skills": []
+}
