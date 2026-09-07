@@ -1,0 +1,901 @@
+## sonority
+
+> Guidance for AI agents (and humans) working on this repo. Read this first; it
+
+# CLAUDE.md — Sonority
+
+Guidance for AI agents (and humans) working on this repo. Read this first; it
+captures hard-won, non-obvious knowledge that is expensive to re-derive.
+
+## What this app is
+
+**Sonority** is a cross-platform (iOS / Android / macOS) Flutter app that
+**unlocks Sonos home-theater / speaker configurations the official Sonos app
+refuses to create**, via Sonos' undocumented **local UPnP/SOAP API** (port 1400).
+It's a cleaner, focused alternative to *SonoSequencr*.
+
+### Product principle (important)
+**Default: do NOT duplicate features the official Sonos app already has** (EQ/bass/
+treble editing, volume, grouping, surround-level editing, night sound, Trueplay
+*measurement*, …). Every feature should be something the Sonos app **won't** let
+users do. (Two things below look like exceptions but aren't duplication: we
+*capture+restore* EQ/surround/volume in profiles — never edit them with sliders —
+and we *toggle* an already-measured Trueplay calibration the app hides for
+unofficial fronts — never measure it. Both are called out again below.) Examples:
+- **Dedicated front L/R speakers** on a soundbar (the bar becomes center). ✅ built
+- **Mismatched / app-blocked stereo pairs**. ✅ built
+- **Zones** — bond 2–16 speakers into one room (full-range L+R, no L/R split),
+  including models the app blocks from zones (Play:1 zones fine on hardware).
+  NB: this is the Sonos *zone* feature, NOT temporary playback grouping (which
+  the app already does and we don't duplicate). ✅ built
+- **Config profiles** — snapshot the current unofficial layout + room names and
+  re-apply it in one tap (rebuild fronts/surrounds after moving speakers away).
+  The validated #1 SonoSequencr request; unique because the Sonos app won't
+  recreate a blocked config. ✅ built
+
+**Deliberate exception (softened principle):** full in-app **surround/sub setup**
+and **room renaming** DO exist in the official app, but we now do them anyway —
+because profiles are only useful if a *complete* HT/stereo setup can be finished
+inside Sonority (otherwise you snapshot a half-config and still bounce to the
+Sonos app). Justified by "finish a setup in one app, then save it." Keep this the
+*only* exception; don't widen it to EQ/volume/grouping/etc.
+
+**Same reasoning extends to profiles capturing EQ/volume (deliberate, narrow):**
+a profile can *snapshot each speaker's current EQ (bass/treble/loudness/night/
+speech/sub/surround level) and optionally volume* and re-apply them — a
+save/restore capability the Sonos app has no equivalent for. This does NOT
+duplicate the app because we only **read the live values at snapshot and write
+them back on apply** — there are **no EQ/volume editing sliders** in Sonority
+(that WOULD duplicate the app). Keep it that way: capture+restore only, never
+standalone editing. (`speaker_settings.dart`, two per-profile toggles — EQ, and
+volume separately since restoring volume is surprising, so it's opt-in.) **Volume
+capture is a wanted feature, not scope creep** — the motivating use case is a
+"night mode" profile: snapshot the whole HT with the volume turned down (and
+whatever EQ tweaks suit late-night listening), then re-apply the normal profile
+in one tap next day. That's a genuine capture+restore capability with no Sonos-app
+equivalent; keep it opt-in and capture-only (never a volume slider). The EQ bundle =
+bass/treble/loudness + every `GetEQ`/`SetEQ` token (the shared `eqTypes` list;
+all Beam-confirmed): NightMode, DialogLevel, SubGain/SubEnable/SubPolarity/
+SubCrossover, SurroundLevel/SurroundEnable/SurroundMode/MusicSurroundLevel,
+AudioDelay (lip sync), AudioDelayLeftRear/RightRear (surround distance),
+HeightChannelLevel. **Gotcha:** the enable tokens are `SubEnable`/
+`SurroundEnable` — WITHOUT the trailing "d" of the SCPD state vars
+(`SubEnabled` faults 402). NOT exposed locally (so not capturable): volume
+limit, spatial music, TV autoplay/disband-on-autoplay, group audio delay, IR.
+
+The app does **no audio processing** — it only issues the bonding/config SOAP
+calls the official app blocks. Audio quality comes from the real speakers.
+
+## Toolchain & commands
+
+Flutter is **not on PATH**; this machine uses **fvm, Flutter 3.44.6**:
+```
+~/fvm/versions/3.44.6/bin/flutter <cmd>
+~/fvm/versions/3.44.6/bin/dart run tool/<x>.dart
+```
+- `flutter analyze` and `flutter test` must stay green before committing.
+- **Android build (AGP 9 / Gradle 9 gotchas, cost real debugging):** on AGP 9
+  `android.newDsl=true` is the default and breaks the old `android { kotlinOptions {} }`
+  block — `build.gradle.kts` uses the new DSL (top-level `kotlin { compilerOptions {} }`,
+  Java 17). The Flutter 3.44 migrator adds `newDsl=false`/`builtInKotlin=false` to
+  `gradle.properties` for compat; our code works under either. **Jetifier must stay
+  OFF** (`android.enableJetifier=false`) — it OOMs on Flutter's jars under AGP 9 and
+  nothing here needs it (all deps are AndroidX). The KGP "built-in Kotlin" warnings
+  are a *future*-Flutter concern, deferred (blocked on plugins still applying KGP:
+  dynamic_color, home_widget, package_info_plus, shared_preferences_android).
+  **R8 is on** for release (`isMinifyEnabled`/`isShrinkResources`); keep rules for
+  reflection/channel paths (Flutter, our components, home_widget) live in
+  `android/app/proguard-rules.pro` — smoke-test a real release build on device when
+  touching them (analyze/test can't catch R8 over-stripping).
+- CocoaPods is **Homebrew's** (`/opt/homebrew/bin/pod`); system-Ruby pod is broken — don't use it. iOS/macOS builds need full **Xcode** (installed).
+- Identifiers: Dart package `sonority`, bundle id / Android namespace
+  `be.casperverswijvelt.sonority`. The **project folder is still `soyes`**
+  (intentional — renaming it breaks git/cwd paths). Git author: gmail identity,
+  no `@basalte.be` (history was scrubbed — keep it that way).
+- Repo: github.com/CasperVerswijvelt/Sonority. CI in
+  `.github/workflows/release.yml` — six per-platform jobs on `v*` tags (android;
+  ios-unsigned; ios-testflight; macos-dmg = Developer-ID notarized; macos-testflight;
+  publish-github) → release-signed APK + unsigned iOS .ipa + notarized macOS .dmg on the
+  GitHub Release, plus iOS/macOS → TestFlight. Release notes from
+  `.github/release-install-notes.md` (do NOT add `generate_release_notes` — it overrides the body).
+- **Signing secrets/keys: `docs/SIGNING.md`** is the map of where every value/file lives
+  (Bitwarden masters, GitHub Actions secrets, gitignored local files, the match certs repo).
+  No secret values are committed. Apple setup details: `docs/PUBLISHING-APPLE.md`.
+- **Version bumps happen ONLY on `main`, after a feature branch is merged** — never
+  bump `version:` in `pubspec.yaml` on a feature branch (avoids merge churn/conflicts
+  on the build number). Bump + tag as a dedicated step on `main` when cutting a release.
+
+## Architecture
+
+A **pure-Dart engine** (no Flutter imports) drives Sonos; the Flutter app and the
+CLI tools both sit on top of it. This split is deliberate — it lets us validate
+the engine headlessly against real hardware via `tool/*.dart`.
+
+```
+lib/
+  core/            theme.dart (M3), tone_generator.dart (chime WAV)
+  data/models/     sonos_models.dart — SonosDevice, ZoneGroupMember, SonosSystem, SonosChannel
+  data/sonos/      THE ENGINE (pure Dart, no Flutter):
+                     ssdp_discovery · device_description · soap_client
+                     zone_topology  · device_properties (bonding + stereo + zone attrs)
+                     channel_map    · front_layout (buildLayoutMap + diffHtLayout — any role)
+                     apply_progress (ApplyStep/ApplyProgress — per-step status;
+                       flat list, `parentId` nests phase sub-steps under entities)
+                     identify_service (chime)
+                     speaker_settings (RenderingControl EQ/volume read+apply for profiles)
+                     key_value_store (KeyValueStore port + in-memory default — durable
+                       zone/pair name snapshots; keeps the engine Flutter-free)
+                     sonos_repository (orchestrates; bondAndVerify write+retry;
+                       removeHtSatellites; freeSpeaker; setRoomName; persists name
+                       snapshots via an injected KeyValueStore — no direct Flutter dep)
+  state/           sonos_controller.dart — AsyncNotifier<SonosSystem?>; applyHomeTheaterLayout,
+                     applyProfile, _applyHtTarget (diff-based), renameRoom; applyProgressProvider
+  features/        discovery / home_theater / front_surrounds (full HT setup) /
+                     group (unified Stereo/Zone/Custom) / profiles / room / widgets
+  app.dart, main.dart — go_router StatefulShellRoute (System|Profiles tabs), ProviderScope
+tool/              spike, roundtrip, full_layout, diff_apply_spike, chirp, dump_chime, zone_probe, lr_audiotest, eq_probe, capture_shots, gen_assets.sh (icon/wordmark/splash pipeline), gen_site (docs/ landing page)
+```
+Note: the engine is fully Flutter-free — `sonos_repository.dart` persists its
+zone/pair name snapshots through an injected `KeyValueStore` port
+(`key_value_store.dart`; the app supplies a `shared_preferences`-backed adapter in
+`state/shared_preferences_store.dart`, tests/CLI get an in-memory default), so no
+`lib/data/sonos/` file imports Flutter. CLI tools still build on the pure recipes
+(`front_layout.dart` / `zone_layout.dart`) rather than the orchestrator.
+
+### Localization (i18n)
+All user-facing strings go through Flutter `gen-l10n`. Source of truth:
+`lib/l10n/app_en.arb` (config `l10n.yaml`, generated `lib/l10n/app_localizations*.dart`,
+`generate: true`). **English is the only bundled locale**; add a language by
+dropping in `app_<lang>.arb` + one `supportedLocales` entry — no code changes.
+Adding a new string = add an ARB key (with `@key` placeholder/plural metadata if
+interpolated) then use it.
+- Widgets: `context.l10n.<key>` (extension in `core/l10n.dart`).
+- Context-less code (state/model helpers, e.g. progress step labels): `appL10n()`
+  (resolves the system locale synchronously).
+- **The engine (`lib/data/sonos/`) must stay Flutter-free**, so it never holds a
+  *translated* string. User-facing engine/state failures throw a coded
+  **`SonorityError(SonorityErrorCode, [arg])`** (identity, not prose). Two
+  renderers: `friendlyError()` (engine, English — for CLI tools + the diagnostics
+  bundle, and the fallback) and `localizedError(AppLocalizations, e)`
+  (`lib/state/localized_error.dart` — the UI wording chokepoint; also maps
+  Timeout/SOAP-fault/`OperationCancelled`/`SpeakerUnreachable`, falls back to
+  `friendlyError`). The raw op log + diagnostics bundle stay English by design.
+- Model-layer English getters (`kindLabel`, `groupKindLabel`, `groupChannelShort`)
+  stay English (CLI/pure); the UI maps the enum to `entityKind*` keys at the call
+  site (`_kindLabel` in the controller, `groupKindL10n` in `entity_cards.dart`).
+
+## Sonos local API — the knowledge that matters
+
+- **Discovery**: SSDP `M-SEARCH` to `239.255.255.250:1900` (ST
+  `urn:schemas-upnp-org:device:ZonePlayer:1`) → each player's
+  `http://<ip>:1400/xml/device_description.xml` (gives `RINCON_…` UUID, model, room).
+- **Topology**: `ZoneGroupTopology.GetZoneGroupState` returns the whole system as
+  a **double-encoded** XML string (unescape `<ZoneGroupState>` innerText, parse again).
+- **All SOAP**: POST to `http://<ip>:1400<controlPath>` with `SOAPACTION` header.
+  See `soap_client.dart`. **Send `Connection: close`** — Sonos players are flaky
+  with HTTP keep-alive: a pooled socket the player already closed makes the next
+  request hang to timeout. Harmless for occasional calls, but rapid-fire bursts
+  (e.g. the LED blink's ~9 calls) intermittently 8s-timeout without it.
+  **Confirmed on hardware:** adding `Connection: close` fixed a flaky LED blink.
+- **`DeviceProperties` service** (`/DeviceProperties/Control`):
+  - `AddHTSatellite` / `RemoveHTSatellite` — bond/unbond satellites & sub.
+    **Staged-bonding rule (confirmed on hardware, Phase 0):** a *single*
+    `AddHTSatellite` with a full map (CC+LF/RF+LR/RR+SW) from a **bare** soundbar
+    does NOT hold — it 8s-times-out, briefly reads back as applied, then Sonos
+    tears the whole bond down after the ~15–30s settle (satellites that don't
+    finish joining are **silently dropped**, reverting to standalone with old
+    names). The reliable primitive is **converge by re-assertion**: write the
+    target map, settle ~16s, re-read the authoritative `HTSatChanMapSet`, and
+    **re-write the SAME map until every channel is present** (a real Beam rebuild
+    needed ~4–6 re-asserts). Bonding is eventually-consistent and BOTH failure
+    modes are transient: the 8s `TimeoutException` AND `UPnPError 800` ("can't add
+    a satellite mid-reshuffle") — the write still partially applies, so treat
+    either as "go verify", never as fatal. This is `SonosRepository.bondAndVerify`
+    (retries=10), used by `SonosController.applyHomeTheaterLayout` / `applyProfile`.
+    **Apply the DIFF, don't strip-and-rebuild.** `AddHTSatellite` 800s only on a
+    map that would *drop* a currently-bonded speaker — **adding** to a live HT is
+    fine (confirmed on hardware, `tool/diff_apply_spike.dart`). So
+    `SonosController._applyHtTarget` diffs current-vs-target
+    (`front_layout.diffHtLayout`): **no-op when unchanged** (zero writes — the
+    common re-apply case), else `RemoveHTSatellite` ONLY the satellites the target
+    **drops entirely** (a genuine *leave* — a removed sub, or a speaker replaced by
+    a different one), then additively `bondAndVerify` the target. This is both
+    faster and *more reliable* than the old strip-to-bare path — adding only the
+    missing satellite(s) converges in ~1 attempt, whereas a full rebuild-from-bare
+    is the flaky case that needs many re-asserts.
+    **A moved satellite is NOT removed first — it reassigns in place.** A speaker
+    that merely changes channel (e.g. a fronts↔surrounds swap) stays in the target
+    map, so it's never *dropped* and `AddHTSatellite` reassigns it — no strip.
+    Hardware A/B/C-tested (`tool/reassign_spike.dart` in git history; the check now
+    lives in `tool/diff_apply_spike.dart` case c): stripping the movers first
+    (remove-both, or remove-one) bought **no** reliability over re-asserting
+    directly — a swap 800s mid-reshuffle and re-asserts several times *either way*
+    (the retries are Sonos-inherent, not ours) — and only guaranteed the alarming
+    "one speaker per side" in-between state. So `diffHtLayout.toRemove` is
+    leaves-only; the bond phase shows one steady "Applying…" note with the
+    per-attempt churn routed to the op log (`ph.log`), not the timeline. **A whole layout is applied in ONE
+    `bondAndVerify`, never staged.** A/B-tested on a real Beam (single vs
+    surrounds-then-fronts, 3 trials each): single-call rebuilt the full 5.1 from
+    bare in a steady **6 re-asserts** every time; **staging was worse** (each
+    phase reshuffles and the second disturbs the first → 7–24 re-asserts, often
+    past the cap). So don't reintroduce staging. **Validated end-to-end on real
+    hardware** via the Android E2E test (`integration_test/profile_e2e_test.dart`,
+    now a no-op apply). **Sub-on-a-stereo-pair is NOT supported** —
+    `AddHTSatellite` on a pair coordinator returns UPnPError 401.
+  - `CreateStereoPair` / `SeparateStereoPair` — stereo pairs.
+  - `AddBondedZones(ChannelMapSet)` — **creates** a Sonos **zone** (the 2025
+    multi-speaker bond: 2–16 individual speakers play as one room, full-range
+    L+R, no L/R split). **Confirmed on hardware** (`tool/zone_probe.dart`):
+    `ChannelMapSet = UUID:LF,RF;UUID:LF,RF;…` (coordinator first, every member
+    full-range — vs a pair's single-sided `LF,LF`/`RF,RF`). Structurally like a
+    pair (coordinator stays visible carrying the map, the rest go Invisible).
+    Sonos does NOT restore member names on separate, so we snapshot + restore
+    them like pairs. **A create write is "go verify" too, not pass/fail** — same
+    rule as `AddHTSatellite`: a timed-out (or 800) `AddBondedZones` very often
+    still applies (hardware-seen: a user's apply reported failure on an 8s
+    timeout, and the pair was formed by the time they retried). `createGroup`
+    therefore swallows any transport failure + 800 and leaves the verdict to the
+    caller's poll-verify (every call site has one); only a non-800 fault
+    rethrows, since 401/402 never converge.
+  - **In-place group RECONFIGURE works like HT (hardware-confirmed,
+    `tool/group_reassert_spike.dart` — self-restoring, 12/12 reassign + 6/6 add
+    trials, all 1 attempt):** re-asserting `AddBondedZones` on a LIVE group's
+    coordinator with a modified `ChannelMapSet` **adds a member and/or reassigns
+    channels (L/R/Both, incl. zone↔pair-shape) in place** — no dissolve, no audio
+    interruption — exactly like `AddHTSatellite` for a home theater. The ONE
+    exception: **removing** a member faults every attempt (`AddBondedZones` 800s
+    on any map that drops a currently-bonded speaker, and `RemoveBondedZones`
+    no-ops), so a removal still needs a full dissolve. So `SonosController.
+    editGroup` is diff-based (mirrors `_applyHtTarget`): in-place re-assert
+    (`SonosRepository.reassertGroup`) when the target keeps every current member
+    and the coordinator is unchanged, else dissolve-then-recreate. Like a live HT
+    re-assert, an in-place group re-assert is **eventually-consistent** — it
+    intermittently 800s mid-reshuffle / 200-OK-partial-applies (the spike needed
+    ≤6 tries) — so `reassertGroup` **re-asserts the same map until the topology
+    verifies**, exactly like `bondAndVerify` (treat 800/timeout as "go verify",
+    rethrow a permanent 401/402); a single write is unreliable. The
+    `reassertGroup` snapshot is migrated to the new member set so an added
+    speaker still restores its name on a future separate.
+  - **Zone REMOVAL is a two-step gotcha (hardware-confirmed, cost real debugging):**
+    1. `RemoveBondedZones` **does not work** on the 2025 zones feature — it
+       returns `200 OK` but silently no-ops (it's the legacy bonded-zone action).
+       The working dissolve is **`SeparateStereoPair`** with the zone's full
+       `ChannelMapSet` (a zone shares the pair's bond mechanism) →
+       `DevicePropertiesClient.separateBondedZones`.
+    2. Even `SeparateStereoPair` no-ops while the zone coordinator is a
+       **non-coordinator member of a larger playback group**. So you must FIRST
+       detach it into its own group via `AVTransport.
+       BecomeCoordinatorOfStandaloneGroup` (`AvTransportClient`), poll until it's
+       standalone, THEN `SeparateStereoPair`. `SonosController.separateZone`
+       orchestrates detach → poll-standalone → separate → poll; `freeSpeaker`
+       does detach + fixed settle + separate for profile-apply conflict freeing.
+  - **Supported-speaker findings (read carefully — the eligibility list is part
+    measured, part assumed):**
+    - Sonos *officially* allows only Era 100/300/100 Pro, One, One SL, Five.
+    - **Measured on hardware:** a **Play:1 zones fine** (One + 2× Play:1) even
+      though Play:1 is NOT on Sonos' official list. So we deliberately do **not**
+      gate creation on the official model list — that would block configs that
+      actually work, against the whole point of the app.
+    - **Assumed, NOT yet hardware-verified:** Amp, Sub, and soundbars are
+      excluded as zone candidates (`SonosSystem.zoneableSpeakers` drops
+      amps/subs/soundbars) per Sonos' stated limits — but we never probed an Amp
+      (none on the test system) or a Sub/soundbar reject, so those exclusions are
+      defensive policy, not a confirmed finding. The real backstop is runtime:
+      `createZone` polls and throws "a speaker may be incompatible" if Sonos
+      silently no-ops the bond. If an Amp/Sub/soundbar ever needs revisiting,
+      probe it with `tool/zone_probe.dart --members …` first.
+  - **`AddBondedZones` accepts almost ANY channel map (API-only finding,
+    `tool/zone_probe.dart --explore`):** a 19-config hardware battery (2–8
+    speakers) was accepted 19/19 and stored verbatim — symmetric, **asymmetric**
+    (2L+1R … 7L+1R), mixed full-range+single-sided, **degenerate** (all-LF), and
+    even **HT-channel tokens on plain speakers** (CC/LR/RR). The local API does
+    essentially no validation on the channel-assignment shape.
+  - **Audio ROUTING confirmed on hardware (`tool/lr_audiotest.dart`, an L/R voice
+    track):** Sonos genuinely HONORS per-speaker assignment — `LF,LF` plays only
+    left, `RF,RF` only right, `LF,RF` both. Verified: stereo pair, **2L+2R (real
+    2-per-side wide stereo)**, asymmetric 2L+1R (unused speakers silent),
+    full-range zone (all both), all-LF degenerate (right channel fully dropped).
+    **Correction to the earlier guess:** discrete rears (`LR`/`RR`) on plain
+    speakers are NOT silent — with a stereo source they play the FULL stereo mix
+    (no discrete rear content to isolate), so CC/LR/RR tokens are pointless to
+    expose. **Feature opportunity (on hold):** every working shape is just a
+    per-speaker **Left / Right / Both** choice, so one "custom stereo zone" flow
+    (assign each of 2–16 speakers to L/R/Both) subsumes stereo pair + N-per-side
+    wide stereo + asymmetric + the full-range `isZone` the app builds today.
+  - **A Sub CAN be bonded into a zone (`UUID:SW`) — contradicts Sonos' docs.**
+    Hardware-confirmed: a Sub freed from its HT and added to a zone map
+    (`A:LF,RF;B:LF,RF;SUB:SW`) is accepted, bonded as `SW`, AND audibly renders
+    (user verified by raising sub level). Sonos' "subs can't be added to a zone"
+    is an app-side restriction only. (So if a custom-zone feature is built, a Sub
+    could optionally be included — but it must be freed from any HT first.)
+  - **Large zones get flaky under playback (hardware observation):** every zone
+    drops out for the first ~30–60s after audio starts (the bond settling under
+    stream load), then stabilises — EXCEPT an 8-speaker zone on this mix of older
+    gear (Play:1s) kept dropping even after settling. Practical ceiling is well
+    below Sonos' claimed 16. A feature should settle before reporting success and
+    probably cap / warn on large mixed-gear zones.
+  - `GetZoneAttributes` / `SetZoneAttributes` — read/set room name (used to restore
+    names after un-pairing / un-zoning). NB: group/pair separate restores member
+    names automatically, but `RemoveHTSatellite` does NOT rename the soundbar or
+    freed satellites — restore those names yourself.
+  - `GetLEDState` / `SetLEDState` (`CurrentLEDState`/`DesiredLEDState` = `On`/`Off`)
+    — the white status light. Used by the **LED-blink identify**
+    (`led_identify.dart`): an outbound-only SOAP call, so unlike the audio chime it
+    works under the macOS sandbox. `blink()` snapshots the state and restores it in
+    a `finally` (self-reverting, like the chime's volume save/restore).
+- **`RenderingControl` service** (`/MediaRenderer/RenderingControl/Control`):
+  - `GetVolume`/`SetVolume`/`GetMute`/`SetMute` (used by the identify chime).
+  - **EQ per-model support is NOT discoverable from the SCPD (hardware-confirmed,
+    Beam vs Play:1):** the `RenderingControl1.xml` `A_ARG_TYPE_EQType` state
+    variable is a **free-form string with no `allowedValueList`**, and the SCPD is
+    **byte-identical** across models — so you cannot ask a speaker which `GetEQ`
+    tokens it supports. Worse, the runtime call doesn't tell you either: a plain
+    **Play:1 / One answers `GetEQ` for the sub/height tokens with harmless
+    defaults** (`SubGain 0`, `SubEnable On`, `SubCrossover 0`, `HeightChannelLevel
+    0`) instead of faulting (it DOES fault on the surround/night/speech tokens, so
+    those self-exclude). Net: neither the SCPD nor a fault distinguishes a real
+    setting from firmware noise on small speakers. So `SonosController.
+    captureSettings` gates the **extended EQ bundle** (everything past bass/treble/
+    loudness — the `eqTypes` list) **by role, not by probing**: read it only when
+    the entity is a home theater, has a bonded sub, or the device `isSoundbar`;
+    every other speaker captures **bass/treble/loudness only** (`speaker_settings.
+    dart` `read(..., extendedEq:)`). Those three ARE universal/meaningful on any
+    speaker. This keeps a zone/pair of plain speakers from storing (and showing,
+    and re-writing on apply) irrelevant sub/height rows.
+  - **Trueplay / room calibration** (`room_calibration.dart`): per-speaker,
+    confirmed via the device SCPD — `GetRoomCalibrationStatus(InstanceID)` →
+    `RoomCalibrationEnabled` + `RoomCalibrationAvailable`; `SetRoomCalibrationStatus
+    (InstanceID, RoomCalibrationEnabled)`. **available = a tuning is stored**
+    (measured once in the **iOS** Sonos app — cloud DSP + Apple-only mic profiles,
+    **cannot** be done from Android); **enabled = applied**. We only read + toggle
+    (non-destructive, instant), which is the part the Sonos app won't expose for
+    the unofficial fronts config. Toggle ALL bonded members so the separately-tuned
+    fronts engage; **Amp-driven fronts can't be Trueplay'd** (native speakers only).
+  - **Gotcha (A/B-tested on hardware):** Sonos **invalidates** Trueplay across the
+    WHOLE bonded set when that set changes. Measured: a freshly-tuned Beam HT
+    (bar `CC`, rears `LR`/`RR`, sub `SW` all `available=1`) → `AddHTSatellite`
+    fronts → **every** member, coordinator included, dropped to `available=0`; an
+    untouched standalone (Eetkamer) kept `available=1` throughout. So the
+    "tune-then-bond" workaround **failed outright on Beam-gen gear** — and it's a
+    catch-22 (the official app refuses to tune the very fronts config you want).
+    Reddit reports of it working are firmware/model-specific. Sonority reads and
+    reports this honestly but cannot restore a tuning Sonos has cleared.
+
+### Terminology (the same thing has three names — don't get lost)
+- **zone group** = Sonos' API/topology term (`ZoneGroupTopology`, `ZoneGroupMember`)
+  — a playback group, NOT our feature. **bond** = any hardware pairing at the
+  `AddHTSatellite`/`AddBondedZones` level (HT, stereo pair, zone). **group** =
+  *our* model/UI name for the `AddBondedZones` speaker bond (`createGroup`,
+  `EntityKind.zone/stereoPair/custom`); the UI label is "speaker groups". So
+  `ZoneGroupMember` (API) ≠ our "group"; `isZone`/`isStereoPair` classify what a
+  bond is, `bondAndVerify` writes any bond.
+
+### Channel maps (`channel_map.dart`)
+`HTSatChanMapSet` format: `UUID:CH[,CH];UUID:CH;…`. Tokens: `LF RF CC LR RR SW`.
+- **Confirmed on a real Sonos Beam**: stock 5.1 = `BEAM:CC;…:LR;…:RR;…:SW` — the
+  soundbar is **`CC` (center)**, NOT `LF,RF`. To add **dedicated fronts**: keep the
+  bar as `CC`, append the two chosen speakers as `LF` / `RF`, preserve existing
+  rears/sub. This produces a real 5.1 with discrete fronts. (`front_layout.dart`.)
+- **Amp/Port as fronts**: a line-out box (Amp, Connect:Amp, Port, Connect) has no
+  drivers of its own and feeds two external front speakers, so it occupies BOTH
+  front channels in one entry — `AMP:LF,RF` — instead of two separate Sonos
+  speakers. Bar still becomes `CC`. (`buildLayoutMap` collapses the two channels
+  by UUID; detected via `SonosDevice.drivesExternalSpeakers` — the same getter
+  excludes these boxes from Trueplay lists and zone candidates, since neither
+  applies to a device with no speakers.) **Audio is per-soundbar and NOT
+  API-discoverable** — confirmed working on a **Playbase + Connect:Amp**, but
+  **silent on an Arc Ultra + Amp (S16)** despite a clean, correct bond (the Atmos
+  bar appears not to route fronts to a satellite). Track confirmed/failing combos
+  in `docs/COMPATIBILITY.md`; a clean bond ≠ audio.
+- Adding fronts to a setup that already has rears yields 4 satellites — that's the
+  natural max; Sonos has no true 7.1 (6 boxes).
+- **Stereo pair** map: `UUID_LEFT:LF,LF;UUID_RIGHT:RF,RF`. Left stays visible; right
+  becomes hidden.
+- **Zone** map: `UUID:LF,RF;UUID:LF,RF;…` — every member full-range, coordinator
+  first (`buildZoneMap` in `zone_layout.dart`). The discriminator vs a stereo
+  pair: pair entries are single-sided (`LF`-only / `RF`-only), zone entries carry
+  both `LF`+`RF`. `ZoneGroupMember.isZone` / `isStereoPair` encode this; `isZone`
+  needs ≥2 full-range entries, and `isStereoPair` was narrowed to exactly two
+  single-sided entries so a zone is never mistaken for a pair.
+
+### Topology representations (parse these, don't guess)
+- **HT satellite**: a `<Satellite>` child of the primary `<ZoneGroupMember>`, with
+  channels living in the primary's `HTSatChanMapSet` attribute.
+- **Stereo pair**: the visible primary `<ZoneGroupMember>` carries a `ChannelMapSet`
+  attribute (`…:LF,LF;…:RF,RF`); the hidden speaker is a **separate**
+  `<ZoneGroupMember Invisible="1">` (its `ZoneName` is absorbed to the pair name).
+  → `SonosSystem.allMembers` excludes `Invisible` members.
+- **Zone**: same shape as a stereo pair but N members and full-range channels —
+  the coordinator stays visible carrying the `ChannelMapSet`
+  (`…:LF,RF;…:LF,RF;…`), the other members are separate `Invisible="1"`
+  `<ZoneGroupMember>`s (names absorbed). `SonosSystem.zones` surfaces them.
+
+## CRITICAL gotchas (these caused real bugs)
+
+1. **~15s topology lag.** After ANY bonding change, `GetZoneGroupState` is slow/
+   inconsistent for ~15s: `<Satellite>` elements briefly vanish, `Invisible` flags
+   and restored names propagate late. **Never trust the first read.**
+   - **Detect state from the authoritative `HTSatChanMapSet` / `ChannelMapSet`
+     attributes**, NOT from the transient `<Satellite>` list (see
+     `ZoneGroupMember.frontSatelliteUuids`, `channelAssignments`, `isStereoPair`).
+   - After a write, **poll until the FULL end-state settles** — not just the first
+     signal. E.g. create-pair polls until paired AND the right speaker is gone from
+     the room list; separate polls until unpaired AND the name has propagated.
+     See `SonosController._pollUntil`.
+   - **The lag also poisons *reads* that get persisted, not just writes** (real
+     user bug, 0.6.0): mid-settle a speaker shows up BOTH in its coordinator's
+     map and as a visible room, so a profile captured in that window stored the
+     same Era 300 as an HT surround *and* as a standalone room — and every apply
+     then bonded it and immediately freed it again, leaving it stuck in Sonos'
+     `ZoneGroup ID="…:orphan"` state (Invisible, still claiming its old channel,
+     control port closed). Guarded by `dropSelfConflictingSingles`
+     (`profile.dart`), applied at capture AND in `Profile.fromJson` so already-
+     saved profiles heal. Anything that snapshots topology needs the same care.
+   - **A freshly-detached speaker refuses TCP :1400 for ~20-30s** (connection
+     refused, not a timeout) — measured across two user bundles, on both a
+     `RemoveHTSatellite`'d satellite and a freed group member. Consequences:
+     never poll/settle-read from the speaker you just unbonded (read from the
+     former coordinator, which stays reachable), and **topology converging is
+     NOT the same signal as that speaker answering again** — the settle wait
+     routinely finishes first. So any call aimed back at a just-unbonded speaker
+     must go through **`retryUnreachable`** (`soap_client.dart`: retries
+     transport errors, rethrows a `SonosSoapException` since a fault means it
+     answered). Current users: the profile room-name restore, `createGroup` /
+     `reassertGroup`'s per-member name snapshot (which is how "remove the
+     surrounds, then pair them" failed its first attempts until it happened to
+     land outside the window), and `_restoreZoneNames` after a dissolve — where
+     it's ALSO per-member best-effort, because throwing there left `editGroup`
+     with a group it had dissolved and never rebuilt. Add a call site here when
+     you write new code that touches a speaker right after unbonding it.
+   - **BONDING closes the port too, not just unbonding** — same ~20-30s, per
+     satellite, and independently for each. The profile settings restore runs
+     right after the bond settles, so it was firing writes into a refused socket
+     and **silently losing the captured values** (`apply` counts failures but
+     they're per-field best-effort): a user's Sub + One SLs lost their restored
+     `SetVolume`/`SetMute` on roughly half his applies — satellites never capture
+     the EQ bundle, so volume/mute is all they had — visible only as "2 settings
+     could not be applied". `SpeakerSettingsClient.apply` now probes with a
+     `GetVolume` through `retryUnreachable` before writing anything. **A probe
+     *fault* means the speaker answered** (`SonosSoapException` → write to it);
+     only a refused/timed-out socket waits, and a probe that never answers skips
+     that speaker's writes rather than burning an 8s timeout on each one.
+2. **Some writes silently no-op.** A SOAP call can return `200 OK` yet do nothing
+   (e.g. `CreateStereoPair` on truly incompatible hardware — though **mismatched is
+   allowed**: One + Play:1 pairs fine; only genuinely incompatible combos are
+   rejected). Always **poll to confirm the change actually happened** and surface a
+   clear error if not.
+3. **Live writes are destructive** to the user's real living-room system. Pattern:
+   snapshot first, gate behind explicit confirm, make it self-reverting, verify by
+   re-reading. The user HAS a real Sonos system on the LAN — validate against it.
+4. **Identify chime** (`identify_service.dart`): spins up an in-app HTTP server
+   serving a generated WAV, then `AVTransport.SetAVTransportURI`+`Play`, with
+   `RenderingControl` volume save/bump/restore. The clip needs lead/trail silence
+   (~1.25s) or Sonos clips the start. Works on **CLI, iOS, Android**;
+   **fails on the sandboxed macOS app** (App Sandbox blocks the inbound LAN
+   connection despite `network.server` + firewall off). **The default identify is
+   now the LED blink** (`led_identify.dart`, outbound-only → works on macOS too,
+   default on all platforms). The chime is a **separate button** shown only on
+   iOS/Android (`_chimeSupported` gates `_onChime`); hidden on macOS.
+
+## CLI tools (validate against hardware before/without the GUI)
+
+Run on the same Wi-Fi as the Sonos system:
+- `tool/spike.dart` — read-only: discover + dump full topology (incl. raw maps).
+- `tool/roundtrip.dart` — live HT fronts; dry-run by default; `--confirm`,
+  `--apply-only`, `--remove-only`.
+- `tool/full_layout.dart` — strip the bar to bare → rebuild a FULL HT map in one
+  `AddHTSatellite` → verify each channel → restore. The Phase 0 spike that proved
+  re-assertion converges a from-bare rebuild; dry-run by default, `--confirm`. ⚠️ wipes Trueplay.
+- `tool/diff_apply_spike.dart` — validates the diff-based apply on hardware:
+  no-op (zero writes), additive-in-place (drop the sub → re-add without strip),
+  and a LR↔RR swap. Self-restoring; dry-run does the no-op check only, `--confirm`
+  runs the writes. ⚠️ wipes Trueplay.
+- `tool/zone_probe.dart` — Sonos speaker-group probe: dump DeviceProperties
+  zone/bond SCPD actions + any existing `ChannelMapSet` members; `--members
+  a,b,c [--confirm]` round-trips a group; `--separate`, `--explore` (config
+  battery). Self-reverting; confirmed the `UUID:LF,RF;…` format on hardware.
+- `tool/group_reassert_spike.dart` — proves whether `AddBondedZones`
+  reconfigures a LIVE group in place: dissolves the existing zones to free 3
+  speakers, then stress-tests reassign (zone↔pair) + add-member + remove-member,
+  reporting attempts/faults per op (`--rounds N`, default 6). Self-restoring
+  (rebuilds the original zones + names in a `finally`); dry-run by default,
+  `--confirm` runs the writes. Confirmed: add/reassign apply in place (1 attempt);
+  remove faults (needs dissolve) — the basis for `editGroup`.
+- `tool/lr_audiotest.dart` — plays an L/R voice track on a group to verify Sonos
+  honours per-speaker channel assignment (play/stop/snapshot/freesat/addht).
+- `tool/chirp.dart <room|uuid|ip>` — play the identify chime on one speaker.
+- `tool/led_probe.dart <room|uuid|ip>` — dump DeviceProperties SCPD LED actions +
+  blink one speaker's status LED (read-only/self-reverting; the macOS-safe identify).
+- `tool/dump_chime.dart <path>` — write the generated WAV to disk.
+- `tool/capture_shots.dart` — no hardware: builds `flutter build web` in demo
+  mode, serves it, and drives headless Chrome (CDP) to screenshot the four
+  canonical marketing screens into `design/shots/`. `--frame` also renders every
+  framed Play/App Store graphic from `design/store.html` in the same run (§2–3 of
+  `docs/MARKETING-ASSETS.md`); `--no-capture` re-frames existing shots, `--no-build`
+  reuses `build/web`.
+- `tool/gen_site.dart` — no hardware: generates the GitHub Pages landing page
+  `docs/index.html` from `tool/site_template.html`, reusing the tagline + version
+  from `pubspec.yaml` + the four `SHOTS` captions from `design/store.html` (no
+  copy-pasted text; screenshots/badges/logo reused in place from `docs/`, relative
+  paths). The `.github/workflows/pages.yml` workflow runs it and deploys on every
+  `v*` tag (checkout with `lfs: true` so the LFS screenshots resolve), so
+  `docs/index.html` is **not committed** (gitignored) — run locally only to
+  preview. One-time: set repo Settings → Pages → Source = "GitHub Actions".
+- `tool/gen_assets.sh` — regenerates ALL app-icon / wordmark / splash / Icon-Composer
+  layer assets from the **single source `design/export.html`** (one `?mode=` each,
+  rendered headless), then runs `flutter_launcher_icons` + `flutter_native_splash`
+  and reverts the splash tool's manifest/web overreach. Run whenever the mark or
+  wordmark changes — never hand-edit the generated PNGs (that caused the wordmark
+  drift). Wordmark = **Futura Medium** (white-on-alpha), used for splash branding +
+  the in-app appbar (`discovery_screen.dart`, srcIn-tinted) + marketing. Android-12
+  splash needs a padded icon (fits the 768px circle) + an **800×320** branding
+  letterbox (the OS renders branding in a fixed 2.5:1 region and stretches anything
+  else). iOS/macOS additionally get a layered **glass-pane `.icon`** authored in
+  Icon Composer (manual; PNG `AppIcon.appiconset` kept as the pre-26 fallback). See
+  `docs/MARKETING-ASSETS.md`.
+- `tool/trueplay_probe.dart` — read-only Trueplay/room-calibration status per
+  speaker (+ SCPD dump); `--enable/--disable <room|uuid>` to toggle (reversible).
+- `tool/eq_probe.dart` — read-only per-speaker EQ/audio settings dump
+  (Bass/Treble/Loudness/GetEQ EQTypes + SCPD ranges); `--test <room|uuid>`
+  round-trips Bass (bump + restore). Run FIRST to confirm action names / EQType
+  tokens / ranges before trusting `speaker_settings.dart`.
+
+## Platform notes
+- iOS: `Info.plist` has `NSLocalNetworkUsageDescription` + `NSBonjourServices`
+  (mandatory on iOS 14+ or all LAN traffic is silently blocked).
+- **iOS device multicast (cost a real TestFlight bug):** physical iPhones
+  silently drop multicast sends (SSDP M-SEARCH) unless the app carries the
+  *restricted* `com.apple.developer.networking.multicast` entitlement.
+  Simulator doesn't enforce it (sim worked, device didn't); the local-network
+  permission prompt covers unicast only. **Now granted:** Apple approved the
+  Multicast Networking Entitlement, so `ios/Runner/Runner.entitlements` carries
+  `com.apple.developer.networking.multicast` (`CODE_SIGN_ENTITLEMENTS` already
+  wired for the app group). Enable the capability on the App ID + regenerate
+  match profiles when cutting the first release that ships it (`docs/SIGNING.md`).
+  Belt-and-suspenders fallback stays regardless: `SsdpDiscovery.discover()`
+  falls back to a unicast TCP :1400 sweep of each interface's /24 (assumed /24 —
+  `dart:io` exposes no netmask; ~600ms, one hit suffices since topology recovers
+  the rest), which also helps multicast-filtering mesh/guest networks.
+- macOS: entitlements include `network.client` + `network.server`; the window is
+  **resizable** (`MainFlutterWindow.swift`: default ~1100×900, min ~380×640,
+  clamped to the screen's visible frame — App Review G4). The UI is **responsive**
+  (see Conventions): a phone-width window shows the bottom nav + single column; a
+  wide window shows a `NavigationRail` + full-width, multi-column content, driven by
+  `kWideLayoutBreakpoint` (the window is width-capped rather than centering content). (macOS "Resume" may restore a previously-saved small
+  window frame on relaunch; the window is resizable, and fresh installs open at
+  the default.)
+- **Orientation is per-platform, not locked in Dart** (the old global
+  `SystemChrome.setPreferredOrientations` portrait lock was removed): iPhone stays
+  portrait (`Info.plist UISupportedInterfaceOrientations`), **iPad allows all
+  orientations + Split View** (`…~ipad` lists all four; no `UIRequiresFullScreen`;
+  `TARGETED_DEVICE_FAMILY = "1,2"`), Android phones stay portrait
+  (`AndroidManifest screenOrientation`), macOS is a fixed-size window. The
+  width-driven responsive layout (`kWideLayoutBreakpoint`) therefore renders on
+  **iPad (landscape and portrait ≥720pt) and wide macOS**; phone-width windows
+  (incl. iPad narrow Split View) fall back to the bottom-nav single column.
+- Emulators/simulators usually can't reach the LAN's SSDP multicast (this Android
+  AVD happens to). Use a **physical device** for real discovery.
+
+### Autonomous Android UI testing (agents: verify UI work yourself)
+Android is the proxy for UI work here: `adb` drives + screenshots the device over
+USB/TCP, so it keeps working when the host Mac screen locks (which kills macOS
+`screencapture`/Screen Recording TCC — why we don't use the macOS window). Android is
+portrait-only too, and a physical Android device on the same Wi-Fi reaches the real
+LAN Sonos system.
+```
+~/fvm/versions/3.44.6/bin/flutter install                 # build+install debug to the device
+adb shell monkey -p be.casperverswijvelt.sonority -c android.intent.category.LAUNCHER 1   # launch
+adb exec-out screencap -p > /tmp/sonority.png             # capture screen (1:1 pixels)
+adb shell input tap <x> <y>                               # tap — coords are screen PIXELS from the PNG
+adb shell input text 'Hello'                              # type (use %s for spaces)
+adb shell input keyevent KEYCODE_ENTER|KEYCODE_BACK|KEYCODE_TAB
+adb shell input swipe <x1> <y1> <x2> <y2> [ms]            # scroll/swipe
+```
+- Read the PNG to see the UI; iterate install → launch → shot → tap → shot. Coords are
+  raw device pixels straight off the PNG (no Retina halving).
+- Multiple devices connected → target one with `adb -s <serial>` (from `adb devices`).
+- Keep the screen awake during a session: `adb shell svc power stayon true`.
+- **Safety:** navigation + screenshots are fine autonomously; anything that fires a
+  live Sonos write (apply/bond/separate/rename) still needs explicit user confirm —
+  it's the user's real living-room system.
+- **Demo mode:** build with `--dart-define=DEMO=true` to feed the UI a fake
+  photogenic system + profiles (`lib/demo/demo_mode.dart`) — no LAN/hardware
+  needed; the marketing-screenshot path (`docs/MARKETING-ASSETS.md` §2). UI work
+  can be verified against it without touching the real system: navigation-only —
+  write/identify taps fail fast (the demo SOAP client throws, so a demo build
+  emits no network I/O; IPs are unrouteable TEST-NET besides).
+- **Web is a screenshot-only demo target, NOT a shipped platform.** A browser
+  can't do SSDP/sockets, so the app only runs meaningfully on web under
+  `DEMO=true`. The engine's `dart:io` bits (`ssdp_discovery.dart`,
+  `identify_service.dart`) are conditional-import barrels with throwing web stubs
+  (`*_io.dart`/`*_web.dart`); `Platform.is*` gates use `kIsWeb`/
+  `defaultTargetPlatform`. Marketing screenshots come from `flutter build web`
+  driven by `tool/capture_shots.dart` (headless-Chrome/CDP; needs
+  `--enable-unsafe-swiftshader` or CanvasKit CPU-mode draws images blank). Keep
+  web that way — don't wire real networking or ship it as an app.
+
+## Feature status
+- ✅ Discovery + topology + Material 3 UI (discovery → home-theater diagram).
+- ✅ Dedicated front surrounds (add with guided flow + Identify; remove), incl. a
+  single line-out box (**Amp / Connect:Amp / Port / Connect**) driving both
+  external fronts (`AMP:LF,RF`; exclusive selection — `drivesExternalSpeakers`).
+  Port/Connect is offered but community-reported not to bond (`COMPATIBILITY.md`).
+- ✅ Identify a speaker by **blinking its status LED** (`led_identify.dart`, default,
+  all platforms incl. macOS) with the audio chime as a mobile-only extra. Offered
+  in the pick-a-speaker flows AND per-speaker in the room detail sheet / group &
+  HT detail pages (`SpeakerIdentifyButton`); chime is gated to standalone speakers via
+  `SonosSystem.isStandalone` (a bonded member blinks only — a chime plays the
+  whole bond).
+- ✅ **Speaker groups** (`features/group/group_flow.dart`, `zone_layout.dart`) —
+  one unified "Group speakers" page (Stereo / Zone / Custom segmented control)
+  over a single `AddBondedZones` path: stereo pair (L/R), full-range zone (2–16),
+  custom per-speaker L/R/Both, each with an optional Sub (`UUID:SW`). Separate via
+  detach → `SeparateStereoPair` on the live map; names restored. Overview shows
+  them in one "Speaker groups" section (`groupKind`-labelled); captured in
+  profiles (`EntityKind.stereoPair/zone/custom`). Not gated to Sonos' official
+  model list (Play:1 + Sub-in-group confirmed on hardware; audio routing verified).
+  **Reconfigurable:** a "Configure" button on the group detail page reopens the
+  same flow seeded from the live group (`GroupFlow(editUuid:)`, nested in-shell
+  route `/group/:uuid/edit`) and applies via the diff-based
+  `SonosController.editGroup` — in-place `AddBondedZones` re-assert for adds +
+  channel changes (no teardown), dissolve-then-recreate only when a member is
+  dropped (hardware-confirmed; see the AddBondedZones notes above). Mirrors the HT
+  "Configure" action.
+- ✅ **Full in-app HT setup** — the guided flow now bonds fronts **+ rear surrounds
+  (LR/RR) + a sub (SW)**, each optional, applied via the **diff-based**
+  `_applyHtTarget` (no-op when unchanged, else add what's missing) + a live
+  per-step progress stepper that shows the active step and exactly where it failed
+  (`front_surrounds_flow.dart`, `apply_progress_view.dart`, `applyHomeTheaterLayout`).
+- ✅ **Config profiles** (`features/profiles/`) — bottom-tab page; a profile is a
+  snapshot of current state trimmed to chosen entities (one HT / pair / unbonded
+  room = one entity), with stored room names. Create-from-snapshot only (no config
+  builder); tiles **edit** + **apply (play)**. Tapping an entity in the detail view
+  opens a **read-only per-entity detail** (`profile_entity_detail_screen.dart`)
+  that mirrors the system-overview entity view — the HT `SpeakerDiagram` / group
+  `MemberChannelCard`s, driven from the stored `mapSet` via a throwaway
+  `ZoneGroupMember` (`EntitySnapshot.toMember`, same trick the shared
+  `EntityCardModel.fromSnapshot` uses) — plus a per-speaker
+  breakdown of the captured settings (`SpeakerSettings.describe()`). Apply does pre-flight resolution
+  (missing/conflicting speakers), frees conflicts, re-bonds via the diff-based
+  `_applyHtTarget` (no-op if unchanged, else add only what's missing), restores
+  names, and reports per-step progress. Sub-on-stereo-pair is out (hardware-rejected).
+  Optionally **captures per-speaker EQ (+ volume, separate toggle)** at create and
+  restores it last on apply (after the bond settles, since bonding resets EQ) —
+  `speaker_settings.dart`, `SonosController.captureSettings` + `_restoreSettings`,
+  `EntitySnapshot.settings` (empty for pre-feature profiles ⇒ zero extra writes).
+  ⚠️ action names/EQType tokens assumed standard-UPnP — **verify with
+  `tool/eq_probe.dart` on hardware** before shipping.
+  The overview marks the profile(s) the system currently runs — highlighted card
+  + a filled "Active" `PillChip` — via the pure `profileIsActive`/`entityIsActive`
+  (`profile_controller.dart`, next to `preflightProfile`): per entity, a
+  `diffHtLayout(...).isNoOp` for an HT, the channel-aware
+  `ZoneGroupMember.matchesGroupLayout` for a group (also what `editGroup` verifies
+  with), `isStandalone` for a single — plus the coordinator's room name. Match is
+  **layout + names only**; captured EQ/volume is SOAP-only, never in cached
+  topology, so "Active" means the config is in place, not that every setting is.
+- ✅ **Room renaming** from the room / HT detail pages (`renameRoom` + `rename_dialog`).
+- ✅ **Diagnostics** (`features/diagnostics/diagnostics_screen.dart`) — a
+  **bottom-nav tab** (`DiagnosticsScreen`, `AppScaffold` page) with a
+  hide-nothing technical topology view (invisible
+  members, IP/MAC/serial/firmware, raw channel maps — reads `system.groups[].members`
+  unfiltered + `devicesByUuid`, and the new `SonosDevice.mac/serial/software/
+  hardwareVersion` parsed in `device_description.dart`). Packages a **structured
+  zip** (`diagnostics_bundle.dart`): README, `parsed_topology.json`,
+  `topology.txt`, fresh `raw_topology.xml` (`ZoneTopologyClient.getRawState`),
+  raw `device_descriptions/*.xml` (`DeviceDescriptionClient.fetchRaw`),
+  `app_state.json` (all app SharedPreferences), `speaker_settings.json`
+  (read-only per-speaker EQ/volume/mute reads, role-gated by `settingsReadPlan` /
+  `SonosSystem.extendedEqUuids`), plus optional `logs.txt` +
+  `network.txt` toggles (both default on). Shares via `share_plus`, a prefilled
+  developer email (`flutter_email_sender`, iOS/Android/macOS), or save-to-disk
+  via a native save dialog on every platform (`file_saver`; macOS needs the
+  `files.user-selected.read-write` sandbox entitlement — self-granted, no Apple
+  request). Collection is
+  **read-only** (re-fetch of GetZoneGroupState + descriptions, no writes). Logs
+  come from an app-wide ring buffer `DiagnosticsLog` (SOAP faults in
+  `soap_client.dart`, discovery method/counts, bond retries mirrored from the
+  per-op log, uncaught errors from `main.dart`) — separate from the per-op
+  `operationLogProvider` that still scopes the progress screen's log view. The
+  `dart:io` bits (OS/network/temp-file) sit behind a `diagnostics_platform.dart`
+  conditional-import barrel so the demo web build still compiles.
+- ✅ Trueplay read + toggle (`room_calibration.dart` + `trueplay_control.dart`) on
+  all speakers/HTs — toggles the iOS-measured calibration the Sonos app won't
+  expose for unofficial fronts. Measurement stays iOS-only (out of scope).
+- ✅ CI release pipeline.
+- Candidate next: channel-level/height trim (overlaps the app — weak). Discovery
+  now recovers topology-only speakers when a description fetch fails (done upstream).
+
+## Recurring workflows
+
+### Feature flow
+1. Implement on a **feature branch** off `main`. Never bump `version:` on the
+   branch (see Toolchain — bumps happen only on `main`).
+2. Add a `CHANGELOG.md` entry under `## [Unreleased]` (create the section if
+   absent), unless the user names another version. Keep it **concise** — one
+   line/sentence unless the change genuinely needs more to explain it. Write
+   each entry as a **single unwrapped line** (no hard newlines mid-entry).
+3. **Keep textual marketing copy in sync** with the feature set — when a feature
+   adds/changes user-facing capability, update the copy per §1 of
+   `docs/MARKETING-ASSETS.md` (`docs/app-store/listing.md`, `pubspec.yaml`
+   `description:`, `design/store.html` captions, `README.md` alt text). This is
+   text only; visual assets are a release-time step (see Release flow).
+4. `flutter analyze` + `flutter test` green.
+5. **Pre-merge review** before opening the PR: spawn a fresh review subagent
+   prompted with the Review guidelines below, plus run `/code-review` and
+   `/ponytail-review`; address the findings.
+6. Integrate the latest `origin/main` into the branch, then open a PR to `main`
+   (gh CLI).
+7. **Any change with a visible result ships screenshots in the PR body** — a new
+   screen, a new control/badge, a layout or theming change. Not optional; a
+   reviewer shouldn't have to build the branch to see what changed.
+   **Capture on the EMULATOR, never the physical device** — a real phone's
+   status bar leaks personal data (notification icons, contact avatars) into a
+   public PR. `emulator -list-avds` → `emulator -avd Sonority_API36
+   -no-snapshot-save -no-audio -no-boot-anim &`, then target it explicitly with
+   `adb -s emulator-5554 …` (the phone is usually also attached). Demo mode
+   covers the app data (`flutter build apk --debug --dart-define=DEMO=true` →
+   `adb -s emulator-5554 install -r build/app/outputs/flutter-apk/app-debug.apk`,
+   launch with `am start -n be.casperverswijvelt.sonority/.MainActivity` —
+   `monkey` can silently foreground the wrong app), so no LAN/hardware is
+   needed and nothing is staged. Then normalise the status bar via SysUI demo
+   mode (fixed 12:00 clock, full battery, no notification icons) so shots are
+   reproducible:
+   ```
+   adb -s emulator-5554 shell settings put global sysui_demo_allowed 1
+   D="adb -s emulator-5554 shell am broadcast -a com.android.systemui.demo -e command"
+   $D enter; $D clock -e hhmm 1200; $D notifications -e visible false
+   $D battery -e level 100 -e plugged false
+   $D network -e wifi show -e level 4 -e mobile hide
+   ```
+   (re-broadcast after a theme switch — it resets). Both themes when the change
+   is colour/contrast-sensitive (`adb -s emulator-5554 shell cmd uimode night
+   yes|no`, restore with `auto`); before/after when the change alters an
+   existing screen; the wide layout too if it touches it. Hosting: GitHub has
+   no upload API, so push the PNGs to the **`pr-shots` branch** (screenshots only — never merged, never in
+   a PR diff, and outside the `docs/screenshots/*.png` LFS rule so raw URLs
+   serve real images) with plumbing that needs no checkout:
+   ```
+   b=$(git hash-object -w --no-filters shot.png)
+   t=$(printf "100644 blob %s\tpr-<N>-<name>.png\n" "$b" | git mktree)   # add a line per shot
+   c=$(git commit-tree "$t" -m "shots: PR #<N>")   # -p $(git rev-parse origin/pr-shots) to append
+   git push origin "$c":"refs/heads/pr-shots"      # quote the colon separately (zsh eats `:r`)
+   ```
+   then embed `<img src="https://raw.githubusercontent.com/CasperVerswijvelt/Sonority/pr-shots/pr-<N>-<name>.png" width="300">`
+   (a markdown table for side-by-side). Verify each URL returns `image/png`;
+   add `?v=2` when replacing a shot under a name already in a PR body (GitHub
+   caches the old one).
+8. The **user merges the PR manually** unless they say otherwise.
+
+### Release flow (on `main`, after merges)
+1. Everything under `[Unreleased]` becomes the new version. Version = semver
+   over what's included (pre-1.0: any feature → minor bump, fixes-only → patch),
+   unless the user specifies a version (existing or new).
+2. Rename `## [Unreleased]` → `## [X.Y.Z] - YYYY-MM-DD`; start a fresh empty
+   `[Unreleased]` above it.
+3. Set pubspec `version: X.Y.Z+<versionCode>` per the formula in
+   `docs/PUBLISHING.md` (the `+N` build counter); commit on `main`.
+4. Tag **`vX.Y.Z-<rebuild>`** (e.g. `v0.5.0-12` = 0.5.0 build 50012) and push.
+   **Never move, delete, or reuse a tag; never delete a GitHub Release** — full
+   history is kept. A re-cut of the same version = rebuild+1 → new tag → new
+   release.
+5. **Check visual marketing assets.** Review the version's features/changes and
+   decide whether the store screenshots or framed graphics (`design/shots/*`,
+   `design/play/*`, `design/appstore/*`, `docs/screenshots/*`) no longer reflect
+   the app. If they do, regenerate them — capture is **demo mode + headless
+   Chrome** (`dart run tool/capture_shots.dart --frame`): no hardware, no LAN,
+   and the live Sonos system is never touched (§2–3 of
+   `docs/MARKETING-ASSETS.md`).
+6. CI publishes the GitHub Release **as pre-release**, with the version's full
+   changelog section (the build suffix is stripped for the notes lookup). The
+   user removes the pre-release mark when it's actually released.
+
+### Review guidelines (the checklist for the review subagent)
+- Correctness and overall code quality; architecture fits the engine/UI split
+  (wire-format details stay in `lib/data/sonos/`).
+- Ponytail principles: simplest thing that works, reuse existing shared
+  helpers/widgets (see Conventions), no speculative abstraction.
+- No dead code.
+- Product principle honored: nothing duplicates the official Sonos app beyond
+  the documented exceptions (see "What this app is").
+- Live-Sonos-write safety patterns respected: snapshot first, explicit confirm,
+  poll-verify (see CRITICAL gotchas).
+- Tests added for new parsing/recipe logic; `flutter analyze` + `flutter test`
+  green.
+- Documentation in sync with the actual featureset (CLAUDE.md feature status,
+  CHANGELOG entry present) — no contradictory or duplicate information.
+
+## Conventions
+- Keep `flutter analyze` clean and unit tests passing; add tests for new parsing/
+  recipe logic (see `test/`).
+- Match the existing engine/UI style; isolate all UPnP wire-format details in
+  `lib/data/sonos/` so firmware quirks are cheap to patch.
+- **Don't duplicate logic where sharing is logical.** If the same widget, action,
+  or helper is being copy-pasted across features/tools, extract it. Established
+  shared pieces to reuse (don't reinvent): `features/widgets/identify_controls.dart`
+  (`IdentifyButtons` + `IdentifyMixin` — speaker blink/chime), `features/widgets/
+  selectable_speaker_card.dart` (`SelectableSpeakerCard` — a checkbox speaker row
+  with an in-card channel selector; `SideSelector` — the Left/Right pair toggle
+  used by the HT fronts/surrounds AND stereo-group flows), `features/widgets/
+  card_grid.dart` (`CardGrid` — the responsive 1→2–3 column card layout),
+  `features/widgets/entity_glyph.dart` (`EntityGlyph` — the one rounded-square icon
+  tile) and `tool/discover_util.dart` (`resolveSpeaker` — CLI room/uuid/IP
+  resolution). Prefer a shared widget/mixin/helper over a second copy; only keep a
+  bespoke variant when forcing it into the shared shape would genuinely hurt readability.
+- **Visual grammar — one form per concept (don't blur them).** The UI deliberately
+  maps each concept to ONE component so a screen isn't a wall of identical cards:
+  **entity** (a thing you open/act on: HT/group/room/profile) = a rounded content
+  card via the single `EntityCard`/`EntityCardModel` (glyph + title + composition
+  **`PillChip`s**, never a `·`-joined subtitle string) or `ProfileCard`;
+  **settings** (toggle/read: Trueplay, capture toggles, saved settings) = the
+  card-less `SettingsSection` (flat divider-led rows), NOT a card; **selection** (a
+  transient multi-select pick) = a `CheckboxListTile` via `BondableSpeakerTile`,
+  the same style in every flow — the speaker pickers wrap each in an outlined
+  `Card` (`BondableSpeakerTile(outlined: true)`), so each candidate reads as its
+  own panel; **spatial layout** = `SpeakerDiagram`; **progress** =
+  `ApplyProgressView`; **tag** = the one
+  `PillChip` (there is no second pill widget). **Color is reserved for profile
+  identity** (the user-chosen swatch); system entity glyphs stay tonal-neutral
+  (`primaryContainer`) so the two axes never compete. When adding UI, reuse the
+  matching form — don't invent a new card variant for an existing concept.
+- **Presentation rule — "tap a thing" is predictable. Sheet = read-only peek;
+  pushed page = anything you can act on.** Every actionable detail opens as a
+  **pushed page** (route in the System shell branch, tab bar visible): a bonded
+  config (home theater `HomeTheaterScreen`, speaker group `GroupDetailScreen`)
+  AND a **single standalone room** (`RoomScreen`, `/room/:uuid` — it has rename /
+  identify / group / add-to-HT / Trueplay actions). **Sheets are reserved for
+  read-only peeks** — currently just the profile-entity detail
+  (`showEntitySheet`), which only displays a stored snapshot. So the split is by
+  *interactivity*, not weight. **Guided flows** differ by origin: the from-scratch
+  **group flow** (`/group`) is a **top-level route** (sibling of the
+  `StatefulShellRoute`, NOT inside a branch) so it renders on the root navigator and
+  covers the tab bar — a from-nothing wizard is commit-or-cancel, like the bonding
+  progress screen. The **HT setup flow** (`/theater/:uuid/fronts`) is instead a
+  **nested in-shell route** (child of `/theater/:uuid` in the System branch) so the
+  rail/tab bar stay visible and Back works — it's a step within an existing home
+  theater's page, not a modal wizard. (go_router **asserts** if you put
+  `parentNavigatorKey: rootNavigatorKey` on a route *inside* a branch — that
+  red-screens at runtime, caught only on-device; a top-level route or a plain nested
+  route are the two valid placements.)
+  Don't route an actionable detail as a sheet again (it reintroduces the
+  page-on-sheet stack when Separate/apply pushes the bonding screen). The
+  **room page** offers shortcuts INTO the flows ("Group with another speaker" →
+  `/group`; "Add to a home theater" → the fronts flow for a chosen soundbar) via
+  pop-then-push, so a room isn't a dead end.
+- **Responsive layout (macOS / wide windows).** One breakpoint,
+  `kWideLayoutBreakpoint` (`core/theme.dart`), two states only — no icon-only
+  middle. Below it: the phone layout (bottom `NavigationBar`, single column) —
+  unchanged, and the System app bar shows the `BrandWordmark` + `VersionBadge`.
+  At/above it: `_HomeShell` swaps the bottom bar for an **always-`extended`
+  `NavigationRail`** in a by-hand `ColoredBox > Column` (the wordmark in a top
+  `Padding`, the rail `Expanded` in the middle, the version pill in a bottom
+  `Padding` — sharing one left inset; `NavigationRail`'s own leading/trailing
+  centre their slots, so they're not used). The System app bar then just reads
+  "System" (discovery flips its title/actions on `MediaQuery.sizeOf(context).width
+  >= kWideLayoutBreakpoint`). **Content is NOT centered/clamped** — `AppScaffold`
+  bodies **fill the full width**; the desktop window is instead width-capped
+  (`MainFlutterWindow.swift` `contentMaxSize`) so cards fill without stretching.
+  Card lists use the shared **`CardGrid`** (`features/widgets/card_grid.dart`) —
+  one column on a phone, 2–3 columns when wide — on the overview, the group/HT
+  detail pages, and the setup-flow pickers. **Profiles** instead use
+  **`ReorderableCardGrid`** (`features/widgets/reorderable_card_grid.dart`): the
+  same responsive column math (shared `gridColumns` helper) but drag-to-reorder at
+  **every** width, gated behind an app-bar reorder-mode toggle (`Icons.low_priority`
+  → `Icons.check`); edge auto-scroll + screen-reader move actions; reorder persists
+  order via `ProfilesController.reorder` (SharedPreferences only, no Sonos write).
+  The three tabs (System / Profiles / **Diagnostics**) share
+  one `_destinations` list so the rail and bar can't drift. The **modal wizards**
+  (group flow + bonding screen) still clamp to `kContentMaxWidth` via `MaxWidthBody`
+  (a full-window form stays readable); tab/detail pages don't.
+- **Names vs. types in the UI.** Once a speaker is bonded into an HT or stereo
+  entity its individual room name stops mattering — Sonos absorbs it into the
+  entity name (a satellite/hidden half just echoes the HT/pair name), so showing
+  it is noise. Inside a bonded entity we therefore show the speaker **type**
+  (`SonosDevice.typeLabel` — "Beam (Gen 2)", "Play:1", "Sub") via
+  `typeForChannel` / the shared `EntityCardModel`. The **name** only matters for the entity as
+  a whole (the HT / pair) and for individual standalone speakers — that's where
+  rename and the room-name labels live.
+- Commit only when asked; end commit messages with the Co-Authored-By trailer.
+
+---
+> Source: [CasperVerswijvelt/Sonority](https://github.com/CasperVerswijvelt/Sonority) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-07 -->
