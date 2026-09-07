@@ -1,0 +1,9 @@
+{
+  "name": "aievolutionpl--agent-design-taste",
+  "displayName": "agent-design-taste",
+  "description": "Design Taste skill for AI agents \u2014 15 style DNA folders, decision engine, anti-slop rules, taste scoring. Teaches agents to analyze product first, then design.",
+  "version": "1.0.0",
+  "author": "aievolutionpl",
+  "homepage": "https://github.com/aievolutionpl/agent-design-taste",
+  "skills": []
+}
