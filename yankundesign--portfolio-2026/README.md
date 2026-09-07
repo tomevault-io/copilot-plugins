@@ -1,0 +1,26 @@
+# AI instruction files for portfolio-2026
+
+> Sourced from [yankundesign/portfolio-2026](https://github.com/yankundesign/portfolio-2026), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+Yankun 2026 portfolio — desk metaphor, editorial plates, Vite + React
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [yankundesign/portfolio-2026](https://github.com/yankundesign/portfolio-2026).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/yankundesign/portfolio-2026](https://github.com/yankundesign/portfolio-2026)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:a-e-p -->
