@@ -7,11 +7,11 @@ Karpathy's LLM Wiki implementation plugin for Obsidian - turns notes and PDFs in
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GD4AI/obsidian-llm-wiki](https://github.com/GD4AI/obsidian-llm-wiki).
+Original source: `CLAUDE.md` in [GD4AI/obsidian-llm-wiki](https://github.com/GD4AI/obsidian-llm-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
