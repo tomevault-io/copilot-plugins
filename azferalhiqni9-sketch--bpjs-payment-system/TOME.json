@@ -4,7 +4,7 @@
   "repo": "bpjs_payment_system",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/azferalhiqni9-sketch/bpjs_payment_system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T14:44:29Z"
+  "distributed_at": "2026-09-07T14:49:56Z"
 }
