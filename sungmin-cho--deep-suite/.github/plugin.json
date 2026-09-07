@@ -1,0 +1,9 @@
+{
+  "name": "sungmin-cho--deep-suite",
+  "displayName": "deep-suite",
+  "description": "Harness layer for Claude Code & Codex: plan-first development, independent review, durable long-running orchestration, and knowledge capture \u2014 ten composable plugins.",
+  "version": "1.0.0",
+  "author": "Sungmin-Cho",
+  "homepage": "https://github.com/Sungmin-Cho/deep-suite",
+  "skills": []
+}
