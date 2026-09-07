@@ -1,0 +1,44 @@
+{
+  "name": "CoC-kb",
+  "owner": "digitalghost",
+  "repo": "CoC-kb",
+  "description": "\u514b\u82cf\u9c81\u7684\u547c\u5524 (Call of Cthulhu) \u77e5\u8bc6\u5e93 - \u89c4\u5219\u3001\u5b9e\u4f53\u3001\u6a21\u7ec4",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/digitalghost/CoC-kb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T02:53:21Z"
+}
