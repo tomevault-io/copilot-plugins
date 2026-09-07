@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--basecamp-local-agent-connector",
+  "displayName": "basecamp-local-agent-connector",
+  "description": "basecamp-local-agent-connector",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/basecamp-local-agent-connector",
+  "skills": []
+}
