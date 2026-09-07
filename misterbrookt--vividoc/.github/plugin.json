@@ -1,0 +1,9 @@
+{
+  "name": "misterbrookt--vividoc",
+  "displayName": "vividoc",
+  "description": "Generate interactive educational documents from any topic \u2014 KaTeX math, custom interactions, single HTML file.",
+  "version": "1.0.0",
+  "author": "MisterBrookT",
+  "homepage": "https://github.com/MisterBrookT/vividoc",
+  "skills": []
+}
