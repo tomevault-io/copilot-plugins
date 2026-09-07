@@ -1,0 +1,9 @@
+{
+  "name": "gatewayhubs--paycan",
+  "displayName": "paycan",
+  "description": "Subscription and credit-based payment integration for AI and SaaS apps in around 10 lines of code!  Demo:\ud83d\udc47",
+  "version": "1.0.0",
+  "author": "gatewayhubs",
+  "homepage": "https://github.com/gatewayhubs/paycan",
+  "skills": []
+}
