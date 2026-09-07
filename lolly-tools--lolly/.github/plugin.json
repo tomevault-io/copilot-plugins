@@ -1,0 +1,9 @@
+{
+  "name": "lolly-tools--lolly",
+  "displayName": "lolly",
+  "description": "Lolly generates production-ready assets - QR codes, charts, graphics, PDFs and more - from simple inputs. Constraint-first, template-driven, works offline.",
+  "version": "1.0.0",
+  "author": "lolly-tools",
+  "homepage": "https://github.com/lolly-tools/lolly",
+  "skills": []
+}
