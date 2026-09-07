@@ -1,202 +1,54 @@
-## 090-changesets
+## 095-calldiff
 
-> Changesets: Guidelines for creating changesets for notable features and fixes
+> Calldiff: optionally include a call-stack diff in plans, design docs, and PR descriptions when call flow actually changed and a tree would help
 
 
-# Changeset Guidelines
+# Call-stack diffs with calldiff
 
-## Overview
+Calldiff is optional. Use it only when a call-stack tree would help a reviewer understand a real call-flow change. Do **not** include it in routine chat summaries, status updates, or wrap-ups.
 
-This project uses `@changesets/cli` to manage versioning and changelogs. When you implement features or fixes that are worth mentioning in the changelog, you MUST create a changeset.
+## When to use
 
-## AI Agent Workflow
+Include a call-stack diff in a plan, design doc, or PR description when **all** of these are true:
 
-As an AI agent, you cannot run the interactive `pnpm changeset` command. Instead, you should automatically create changeset files:
+- The change rewires call flow: new, removed, or moved callees; refactored control flow; extracted or inlined functions
+- The new vs old call tree is not obvious from the code or a short prose description
+- The audience is a reviewer who needs to see how control flow moved
 
-1. **After completing a task**, evaluate if a changeset is needed based on the criteria below
-2. **Create a changeset file** in `.changeset/` directory:
-   - Generate a random kebab-case filename (e.g., `happy-pigs-dance.md`, `brave-lions-jump.md`)
-   - Use the proper YAML frontmatter format with package names and change types
-   - Write a clear, user-facing summary of the change
-3. The changeset file will be committed alongside the code changes
+## When to skip
 
-### Changeset File Format
+Skip calldiff (do not run it, do not paste a tree, do not mention that you skipped it) when:
 
-```markdown
----
-"@transcripts-mcp/package-name": minor
-"@transcripts-mcp/another-package": patch
----
+- The message is a normal chat reply, task wrap-up, or end-of-turn summary
+- The change is UI/copy, styling, config, dependency, translation, tests, or docs
+- The call-flow change is small or obvious (renames, extra args, a single new call)
+- calldiff would produce noise, an empty tree, or no useful signal
 
-Clear, concise description of the change from the user's perspective.
+## How to run
+
+Use `npx calldiff@latest`. Defaults compare HEAD vs the working tree.
+
+```bash
+npx calldiff@latest diff --file packages/adapters/src/cursor.ts
+npx calldiff@latest diff main --entry toMessage
 ```
 
-## When to Create a Changeset
+Other useful commands:
 
-Create a changeset for:
-
-- **New features** - Any new functionality that users will interact with
-- **Bug fixes** - Fixes that resolve user-facing issues or critical bugs
-- **Breaking changes** - Any changes that require user action or break existing functionality
-- **Performance improvements** - Significant optimizations that users will notice
-- **Security fixes** - Any security-related patches
-
-## When NOT to Create a Changeset
-
-Skip changesets for:
-
-- Refactoring that doesn't change functionality
-- Code style changes or formatting
-- Documentation updates
-- Internal tooling changes
-- Development dependencies updates
-- Test updates without functional changes
-
-## Creating a Changeset
-
-When creating a changeset file, you need to specify:
-
-1. **Packages** - Which packages are affected by your changes
-2. **Change type** - One of:
-   - `patch` - Bug fixes and minor changes (0.0.X)
-   - `minor` - New features that are backwards compatible (0.X.0)
-   - `major` - Breaking changes (X.0.0)
-3. **Summary** - A clear description of the change in a user-friendly way
-
-### Writing Good Changeset Summaries
-
-**✅ Good summaries:**
-
-```markdown
-Add dark mode toggle to settings page
-Fix crash when processing large files
-Improve queue processing performance by 50%
+```bash
+npx calldiff@latest tree --entry toMessage
+npx calldiff@latest reach --entry grepTranscripts --to toMessage
 ```
 
-**❌ Bad summaries:**
+Scope with `--file` / `--entry` and `--maxDepth`. Keep the pasted tree to the entrypoints that changed.
 
-```markdown
-Updated code
-Fixed bug
-Refactored component
-```
+Paste the output in a fenced `diff` block.
 
-### Guidelines for Summaries
+## Caveats
 
-- Write from the user's perspective
-- Be specific and concise
-- Start with a verb (Add, Fix, Improve, Remove, etc.)
-- Focus on what changed, not how it was implemented
-- Keep it under 80 characters when possible
-
-## Changeset Files
-
-Changesets are stored in `.changeset/` directory as markdown files. Each file:
-
-- Contains YAML frontmatter with affected packages and change types
-- Contains a markdown description of the change
-- Is committed to git alongside your code changes
-
-Example changeset file:
-
-```markdown
----
-"@transcripts-mcp/core": minor
-"@transcripts-mcp/adapters": patch
----
-
-Add support for a new transcript harness adapter
-```
-
-## Workflow Integration
-
-1. Make your code changes
-2. AI agent automatically creates a changeset file in `.changeset/` directory
-3. Commit both your code changes and the changeset file together
-4. When ready to release, changesets will automatically:
-   - Generate changelog entries
-   - Bump version numbers
-   - Create release notes
-
-## Multiple Changes in One PR
-
-If your PR includes multiple notable changes:
-
-- Create separate changeset files for each distinct feature/fix
-- Each changeset should focus on one specific change
-
-## Monorepo Considerations
-
-This project is a monorepo with multiple packages:
-
-- **Packages**: `core`, `adapters`, `search`, `mcp`
-
-When creating changesets:
-
-- Only include packages that are directly affected by your change
-- Don't include packages that are only affected as transitive dependencies
-- Use correct package names from the monorepo (check `package.json` files)
-
-## Examples
-
-### Example 1: New Feature
-
-File: `.changeset/happy-elephants-smile.md`
-
-```markdown
----
-"@transcripts-mcp/adapters": minor
----
-
-Add Codex session adapter
-```
-
-### Example 2: Bug Fix Affecting Multiple Packages
-
-File: `.changeset/brave-lions-jump.md`
-
-```markdown
----
-"@transcripts-mcp/search": patch
-"@transcripts-mcp/core": patch
----
-
-Fix session id resolution for grep hits
-```
-
-### Example 3: Breaking Change
-
-File: `.changeset/serious-tigers-roar.md`
-
-```markdown
----
-"@transcripts-mcp/core": major
----
-
-Remove deprecated adapter parse helpers
-```
-
-## Filename Generation
-
-Generate random, friendly filenames using the pattern `adjective-animals-verb.md`:
-
-- Use 2-3 random words separated by hyphens
-- Keep it simple and memorable
-- Examples: `happy-dogs-run.md`, `clever-cats-jump.md`, `swift-birds-fly.md`
-
-## Verification
-
-After AI agent creates a changeset:
-
-1. Verify a new file was created in `.changeset/`
-2. Check the frontmatter has correct package names and change types
-3. Ensure the summary is clear and user-facing
-4. The changeset file will be committed with your code changes
-
-## Additional Resources
-
-- [Changesets Documentation](https://github.com/changesets/changesets)
-- Project root `package.json` for changeset configuration
+- Calldiff is syntactic (tree-sitter). Dynamic calls and trait-object dispatch will not resolve.
+- Grammars download on first use into `~/.cache/calldiff/grammars`.
+- If you chose to run calldiff and it produces nothing useful, fall back to a short hand-written call tree per the [show-me](../../.agents/skills/show-me/SKILL.md) skill, or omit the tree entirely.
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
