@@ -1,0 +1,9 @@
+{
+  "name": "rayketcham-lab--gh-tracker",
+  "displayName": "gh-tracker",
+  "description": "Self-hosted GitHub analytics dashboard \u2014 archives traffic, referrers, people, issues, and workflows before the 14-day API expiry",
+  "version": "1.0.0",
+  "author": "rayketcham-lab",
+  "homepage": "https://github.com/rayketcham-lab/gh-tracker",
+  "skills": []
+}
