@@ -1,0 +1,9 @@
+{
+  "name": "koharu-rs--koharu",
+  "displayName": "koharu",
+  "description": "AI-powered manga translator, written in Rust.",
+  "version": "1.0.0",
+  "author": "koharu-rs",
+  "homepage": "https://github.com/koharu-rs/koharu",
+  "skills": []
+}
