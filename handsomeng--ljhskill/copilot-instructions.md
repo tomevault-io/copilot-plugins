@@ -1,0 +1,33 @@
+## ljhskill
+
+> 2026-09-01 01:05:41 +0800：对齐 marketplace 描述与 README 路由，补 validator 契约。
+
+2026-09-01 01:05:41 +0800：对齐 marketplace 描述与 README 路由，补 validator 契约。
+2026-09-01 00:55:18 +0800：完成 v1.0.0 收口、reference 安全加载与独立包冒烟。
+2026-09-01 00:45:27 +0800：修正场景口径、因子归因与联名闸门，补回归契约。
+2026-09-01 00:26:34 +0800：统一内容字段所有权，收紧定位、卖点、下游编排与脚本评审。
+2026-09-01 00:02:18 +0800：统一经营三轴，重构选品、KOC、算账及对齐链路。
+2026-08-31 23:27:45 +0800：v0.9.1 基础治理、更新检查与 Brief 迁移。
+2026-08-13：新增 ljh-kaipin 开品概念推进器，接入主路由与 README，版本升至 0.7.0。
+2026-08-10：同步 ljh-shangxiang 发布文档与主路由措辞，记录商详页策略和商品运营位置。
+2026-08-10：修复 scripts/run_evals.py 裁判 JSON 正则捕获组解析错误。
+2026-08-10 12:50：补充视觉完成后回商详文档与逐屏地图逐项验收。
+2026-08-10：补充商详页最终视觉排除规则和入口 eval。
+2026-08-10 13:28:26 +0800：已将实验性 skill douyin-video-teardown 移出 LJHskill。
+2026-08-10 13:49:15 +0800：为 SkillHub 发布补齐 slug。
+2026-08-10 13:52:26 +0800：为 SkillHub 发布补齐版本号。
+2026-08-10 13:55:48 +0800：新 skill 元数据与 LJH 0.5.0 发布口径对齐。
+2026-08-10 14:01:23 +0800：主入口因接入商详页路由升至 0.5.1。
+2026-08-10 22:36:41 +0800：商详页版本统一到 0.6.0。
+
+2026-09-06：新增第 19 个业务工具 skills/ljh-video-extract（短视频提取与分析）：抖音走
+Apify（easyapi 数据+无水印媒体，本地 whisper 转写），小红书/视频号走 TikHub+轻抖；批量
+提取后 build_report.py 出多维统计报告。接入主入口路由、README、marketplace、evals
+（3 用例），版本升至 v1.1.0，validate 全绿。
+2026-09-06：ljh-video-extract 无 dbs 化：免责文案、User-Agent/openai.yaml 配置、配置路径
+（~/.config/ljhskill/API_Keys.md）、钥匙串服务名（ljh-*）、环境变量（LJH_*）全部改
+ljh 前缀；本机 Claude/Codex 安装目录同步改名。validate 全绿。
+
+---
+> Source: [handsomeng/LJHskill](https://github.com/handsomeng/LJHskill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
