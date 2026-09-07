@@ -1,0 +1,31 @@
+## bracket-engine
+
+> | Working on                               | Read first                |
+
+# Agents
+
+| Working on                               | Read first                |
+| ---------------------------------------- | ------------------------- |
+| A package or app                         | Its own `README.md`       |
+| Running it                               | `docs/getting-started.md` |
+| Workflows, versions, changelog, releases | `CONTRIBUTING.md`         |
+
+`.claude/skills/release` before merging a release PR.
+
+## Rules
+
+- Parse data into a domain type at the I/O boundary where it arrives. Never pass an open
+  record, `unknown`, or a runtime type check downstream as a contract.
+- A module in `apps/tournament-engine` moves to `packages/` only when a second app imports it.
+- Run the gate in `CONTRIBUTING.md` before every push. A red step is fixed in the source.
+  A lint override is scoped to a path and carries its reason in the lint config.
+- Commit subjects are lowercase conventional commits and they are the release notes.
+  Write the subject for the person reading the changelog.
+- No `Co-Authored-By` trailer, ever. The person who pushes is the author.
+- Ported or vendored code keeps its attribution in `LICENSE` and its own header.
+- Third-party skills and vendored rules are never edited in place. Edit upstream or fork it.
+- No docstrings, no narrative comments, no em dashes.
+
+---
+> Source: [nedhmn/bracket-engine](https://github.com/nedhmn/bracket-engine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-07 -->
