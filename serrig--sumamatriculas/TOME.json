@@ -4,7 +4,7 @@
   "repo": "SumaMatriculas",
   "description": "App for kids to practice adding,  created with help of AI agents to learn how all this work together",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serrig/SumaMatriculas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:28:58Z"
+  "distributed_at": "2026-09-07T01:36:36Z"
 }
