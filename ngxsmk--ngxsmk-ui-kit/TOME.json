@@ -4,7 +4,7 @@
   "repo": "ngxsmk-ui-kit",
   "description": "Enterprise grade Angular UI library with 200+ standalone components, Signals, SSR, hydration, zoneless support, accessibility, design tokens, dashboards, templates, and developer tools for Angular 17.3+",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NGXSMK/ngxsmk-ui-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:23:15Z"
+  "distributed_at": "2026-09-07T01:23:57Z"
 }
