@@ -4,7 +4,7 @@
   "repo": "liveleaf",
   "description": "A production-oriented note-taking application focused on fast search, nested documents, and a thoughtful editing experience.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amanhuh/liveleaf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T00:54:58Z"
+  "distributed_at": "2026-09-07T01:04:29Z"
 }
