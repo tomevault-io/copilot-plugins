@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NguyenMinhDuc163/Edtech-Learning-App](https://github.com/NguyenMinhDuc163/Edtech-Learning-App).
+Original source: `CLAUDE.md` in [NguyenMinhDuc163/Edtech-Learning-App](https://github.com/NguyenMinhDuc163/Edtech-Learning-App).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
