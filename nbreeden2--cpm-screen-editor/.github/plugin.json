@@ -1,0 +1,9 @@
+{
+  "name": "nbreeden2--cpm-screen-editor",
+  "displayName": "cpm-screen-editor",
+  "description": "SEDIT - Screen Editor for CP/M 2.2 (Intel 8080 assembly)",
+  "version": "1.0.0",
+  "author": "nbreeden2",
+  "homepage": "https://github.com/nbreeden2/cpm-screen-editor",
+  "skills": []
+}
