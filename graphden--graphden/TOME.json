@@ -1,0 +1,44 @@
+{
+  "name": "graphden",
+  "owner": "Graphden",
+  "repo": "graphden",
+  "description": "Software your whole team can see \u2014 and your AI can safely change. Programs are living, typed graphs in a database \u2014 executed live, branched, diffed. AGPL.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Graphden/graphden",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T21:31:05Z"
+}
