@@ -1,0 +1,9 @@
+{
+  "name": "pixartseu--synapse",
+  "displayName": "Synapse",
+  "description": "Self-improving AI brain for Claude Code & Desktop \u2014 28 MCP tools, 253 skills, collective memory, project tracking, work logs. One server, all your sessions share the same knowledge. Deploy on Coolify ",
+  "version": "1.0.0",
+  "author": "PIXARTSeu",
+  "homepage": "https://github.com/PIXARTSeu/Synapse",
+  "skills": []
+}
