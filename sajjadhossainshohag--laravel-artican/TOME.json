@@ -1,0 +1,44 @@
+{
+  "name": "laravel-artican",
+  "owner": "sajjadhossainshohag",
+  "repo": "laravel-artican",
+  "description": "Static analysis for Laravel that catches AI-introduced coding mistakes before they hit runtime \u2014 broken routes, missing views, schema drift, invalid middleware, and more. Ships with a Laravel Boost skill for AI agent workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sajjadhossainshohag/laravel-artican",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T02:41:58Z"
+}
