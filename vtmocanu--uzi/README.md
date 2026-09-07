@@ -7,11 +7,11 @@ Uzinele Întunecate (uzi): an AI dark factory
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vtmocanu/uzi](https://github.com/vtmocanu/uzi).
+Original source: `CLAUDE.md` in [vtmocanu/uzi](https://github.com/vtmocanu/uzi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
