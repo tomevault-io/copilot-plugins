@@ -4,7 +4,7 @@
   "repo": "NebulaMat",
   "description": "NebulaMat scientific materials research workbench",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tai609/NebulaMat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T12:33:11Z"
+  "distributed_at": "2026-09-07T12:39:12Z"
 }
