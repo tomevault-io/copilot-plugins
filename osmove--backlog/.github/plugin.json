@@ -1,0 +1,9 @@
+{
+  "name": "osmove--backlog",
+  "displayName": "backlog",
+  "description": "Execution engine that turns backlog into scoped, reviewable agent work \u2014 vendor-neutral, multi-target.",
+  "version": "1.0.0",
+  "author": "osmove",
+  "homepage": "https://github.com/osmove/backlog",
+  "skills": []
+}
