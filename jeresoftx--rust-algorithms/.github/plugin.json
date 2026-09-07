@@ -1,0 +1,9 @@
+{
+  "name": "jeresoftx--rust-algorithms",
+  "displayName": "rust-algorithms",
+  "description": "Repositorio de autoestudio de algoritmos y estructuras de datos en Rust, con soluciones probadas, notas de patrones, an\u00e1lisis de complejidad y bit\u00e1cora de errores para preparaci\u00f3n de entrevistas t\u00e9cni",
+  "version": "1.0.0",
+  "author": "jeresoftx",
+  "homepage": "https://github.com/jeresoftx/rust-algorithms",
+  "skills": []
+}
