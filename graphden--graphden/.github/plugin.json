@@ -1,0 +1,9 @@
+{
+  "name": "graphden--graphden",
+  "displayName": "graphden",
+  "description": "Software your whole team can see \u2014 and your AI can safely change. Programs are living, typed graphs in a database \u2014 executed live, branched, diffed. AGPL.",
+  "version": "1.0.0",
+  "author": "Graphden",
+  "homepage": "https://github.com/Graphden/graphden",
+  "skills": []
+}
