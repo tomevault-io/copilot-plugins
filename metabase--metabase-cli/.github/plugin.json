@@ -1,0 +1,9 @@
+{
+  "name": "metabase--metabase-cli",
+  "displayName": "metabase-cli",
+  "description": "`mb` is a command-line client for Metabase",
+  "version": "1.0.0",
+  "author": "metabase",
+  "homepage": "https://github.com/metabase/metabase-cli",
+  "skills": []
+}
