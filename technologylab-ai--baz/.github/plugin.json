@@ -1,0 +1,9 @@
+{
+  "name": "technologylab-ai--baz",
+  "displayName": "baz",
+  "description": "Baz \u2014 Bounded Async Zap. A modern Zig 0.16.0 web framework on bounded/http.",
+  "version": "1.0.0",
+  "author": "technologylab-ai",
+  "homepage": "https://github.com/technologylab-ai/baz",
+  "skills": []
+}
