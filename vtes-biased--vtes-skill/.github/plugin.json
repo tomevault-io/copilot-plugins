@@ -1,0 +1,9 @@
+{
+  "name": "vtes-biased--vtes-skill",
+  "displayName": "vtes-skill",
+  "description": "Self-contained VTES expert skill for AI agents: rules corpus, advanced rulings synthesis, calibrated strategy method",
+  "version": "1.0.0",
+  "author": "vtes-biased",
+  "homepage": "https://github.com/vtes-biased/vtes-skill",
+  "skills": []
+}
