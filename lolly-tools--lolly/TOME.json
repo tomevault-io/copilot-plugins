@@ -4,7 +4,7 @@
   "repo": "lolly",
   "description": "Lolly generates production-ready assets - QR codes, charts, graphics, PDFs and more - from simple inputs. Constraint-first, template-driven, works offline.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lolly-tools/lolly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T02:43:54Z"
+  "distributed_at": "2026-09-07T02:44:39Z"
 }
