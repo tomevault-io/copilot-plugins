@@ -1,0 +1,9 @@
+{
+  "name": "dreadnode--capabilities",
+  "displayName": "capabilities",
+  "description": "Public source of the Dreadnode capabilities in app.dreadnode.io \u2014 agents, tools, skills, MCP   servers, and workers.",
+  "version": "1.0.0",
+  "author": "dreadnode",
+  "homepage": "https://github.com/dreadnode/capabilities",
+  "skills": []
+}
