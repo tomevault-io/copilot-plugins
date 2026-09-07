@@ -1,0 +1,9 @@
+{
+  "name": "pkulik0--gitea-skill",
+  "displayName": "gitea-skill",
+  "description": "Gitea CLI (tea) Skill For Claude/Codex/Opencode",
+  "version": "1.0.0",
+  "author": "pkulik0",
+  "homepage": "https://github.com/pkulik0/gitea-skill",
+  "skills": []
+}
