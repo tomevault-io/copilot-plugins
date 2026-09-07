@@ -1,0 +1,9 @@
+{
+  "name": "taiquan-zhou--runtherepo",
+  "displayName": "RunTheRepo",
+  "description": "An autonomous agent that runs, verifies, and hardens Docker Compose apps from GitHub in isolated sandboxes\u2014with evidence-backed keep-or-rollback decisions.\u9762\u5411 GitHub Docker Compose\u5e94\u7528\u7684\u81ea\u4e3b Agent\uff1a\u5728\u9694\u79bb\u6c99\u7bb1\u4e2d\u8fd0\u884c\u3001",
+  "version": "1.0.0",
+  "author": "Taiquan-Zhou",
+  "homepage": "https://github.com/Taiquan-Zhou/RunTheRepo",
+  "skills": []
+}
