@@ -1,117 +1,167 @@
-## transcripts-mcp
+## 030-coding-style
 
-> This file provides guidance for AI coding agents (Claude Code, Cursor Agent, Copilot Workspace, Windsurf, etc.) operating on this codebase.
+> Coding Style: Guidelines for code formatting, naming conventions, and best practices across TypeScript and React
 
-# Instructions for AI Agents
 
-This file provides guidance for AI coding agents (Claude Code, Cursor Agent, Copilot Workspace, Windsurf, etc.) operating on this codebase.
+# Coding Style Guidelines
 
-## Before You Begin
+## Technology-Specific Guidelines
 
-1. Check the `.cursor/rules` directory for relevant guidance before starting any task.
-2. Read [CONTRIBUTING.md](./CONTRIBUTING.md) and understand the project's conventions.
-3. Read the [AI Policy](./AI_POLICY.md) — contributions must comply with it.
-4. Familiarize yourself with the project structure in [020-codebase-structure.mdc](.cursor/rules/020-codebase-structure.mdc).
+### TypeScript
 
-## Project Context
+- **NEVER use `any` or `unknown` types** - Always provide proper type definitions (see 031-never-use-any.mdc)
+- Parse untrusted input with Zod into closed types instead of `any` or `unknown`
+- Use interfaces for object shapes that will be extended
+- Use type aliases for complex types and unions
+- Use the latest TypeScript features appropriately
+- **Avoid dynamic imports** - use static imports at the top of files for better performance and code clarity
 
-transcripts-mcp is a TypeScript pnpm + Turborepo for a local stdio MCP server that queries agent session transcripts.
+```typescript
+// ✅ Good: Proper type definitions
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+}
 
-Key directories:
+function processUser(user: UserData): void {
+  // Implementation
+}
 
-- `apps/mcp` — stdio MCP server, tool registration, adapter wiring
-- `apps/www` — marketing site (Vite + React), deployed with wrangler
-- `packages/core` — types, adapter contract, jsonl reader, registry
-- `packages/contracts` — serializable MCP tool metadata shared by runtime and docs
-- `packages/adapters` — Cursor, Claude Code, and Codex harness adapters
-- `packages/search` — grep (fff), FTS5, optional semantic search
-- `tools/typescript-config` — shared tsconfig
-- `tools/oxlint-plugins` — custom oxlint rules (`anti-slop`)
-- `distribution/plugin` — Cursor Plugin manifest, skill, and `mcp.json`
+// ✅ Good: Parse untrusted input with Zod into a closed type
+const userDataSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+});
 
-## Rules for AI Agents
+function parseUser(text: string): UserData {
+  return userDataSchema.parse(JSON.parse(text));
+}
 
-### DO
+// ❌ Bad: Using any or unknown
+function parseJson(text: string): unknown {
+  return JSON.parse(text);
+}
 
-- Help the human contributor understand code and debug issues
-- Suggest improvements that follow existing patterns in the codebase
-- Write tests for new and existing functionality
-- Use oxfmt for formatting and oxlint for linting (not ESLint/Prettier/Biome)
-- Follow the existing commit convention: `type(scope): description` (see [.agents/skills/git-conventions/SKILL.md](.agents/skills/git-conventions/SKILL.md)); commit on the current branch unless the user asks to use a feature branch
-- Before pushing, fetch the upstream branch. If it has advanced, rebase unpublished local commits onto it, including when working on `main`, then push normally. Keep history linear; do not create merge commits or bypass branch protection to push. Rewriting already-published history requires explicit user authorization.
-- Respect TypeScript strict mode — never use `any` or `unknown`, use proper types (see 031-never-use-any.mdc)
-- Cross-package imports use the workspace package name (`@transcripts-mcp/*`), never relative paths
-- Tests are `*.spec.ts` under `src/tests/`, never `__tests__` or `*.test.ts`
-- When a plan, design doc, or PR description covers a real call-flow change that a tree would help reviewers understand, optionally include a `npx calldiff@latest diff` (see [095-calldiff.mdc](.cursor/rules/095-calldiff.mdc)). Do not add call-stack diffs to routine chat summaries.
+function processData(data: any): any {
+  return data.someProperty;
+}
 
-### DON'T
-
-- Generate entire pull requests autonomously
-- Open issues based on static analysis without human verification
-- Refactor code without prior discussion with maintainers
-- Add new dependencies without justification
-- Introduce patterns that don't already exist in the codebase without discussion
-- Submit code that the human operator cannot explain or modify
-
-### Code Quality Checklist
-
-Before the human submits your work, ensure:
-
-- [ ] `pnpm lint:fix` and `pnpm format` have been run
-- [ ] `pnpm knip` passes
-- [ ] `pnpm check-types` passes
-- [ ] Changes are tested (manually at minimum, automated tests preferred)
-- [ ] PR description explains _what_ and _why_, not just _how_
-- [ ] AI usage is disclosed per the [AI Policy](./AI_POLICY.md)
-
-## Tech Stack Quick Reference
-
-| Layer            | Technology                              |
-| ---------------- | --------------------------------------- |
-| Runtime          | Bun                                     |
-| Language         | TypeScript                              |
-| MCP server       | `apps/mcp` (stdio)                      |
-| Package Manager  | pnpm (monorepo)                         |
-| Build System     | Turborepo                               |
-| Linter/Formatter | oxlint + oxfmt                          |
-| Tests            | Vitest (`*.spec.ts` under `src/tests/`) |
-| Search           | fff, FTS5, optional semantic            |
-
-## Commands
-
-```bash
-pnpm install
-pnpm dev                    # start apps via turbo
-pnpm check-types
-pnpm lint
-pnpm format
-pnpm knip
-pnpm test
+// ✅ Good: Generic types instead of any or unknown
+function processData<T>(data: T): T {
+  return data;
+}
 ```
 
-## Cursor Cloud specific instructions
+### React Components
 
-The repository pins Node 26.8.1 in `.nvmrc` and pnpm 12.3.3 in `package.json`'s
-`packageManager`. CI uses the Bun minimum from `package.json`'s `engines.bun`, currently 1.4.0.
-Cloud images may expose a different Node version first on `PATH`; install or activate the
-repository pin before running project commands. The `install` step runs
-`pnpm install --frozen-lockfile` after activation.
+- Use functional components with hooks
+- Use named exports for components
+- Keep components small and focused on a single responsibility
+- Use proper prop typing
 
-Cloud Agent tool-call shells are non-interactive and do not source `~/.bashrc`, and the
-exec-daemon prepends its own Node 22 to `PATH`. A bare `node` therefore resolves to Node 22,
-which breaks `pnpm lint` (oxlint loads the `@transcripts-mcp/oxlint-plugins` TypeScript plugin,
-which needs Node 26 type-stripping). Activate the project toolchain before running any pnpm
-command:
+### Backend (Bun/Node + Hono)
 
-```bash
-export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"; nvm install >/dev/null; nvm use >/dev/null
-corepack prepare pnpm@12.3.3 --activate
-export PATH="$(dirname "$(nvm which 26.8.1)"):$HOME/.bun/bin:$PATH"
+- Use middleware for cross-cutting concerns
+- Validate request data with Zod
+- Use proper error handling with structured responses
+- Structure routes logically by resource
+
+## Comments and Documentation
+
+- Write self-documenting code, no need to add extra comments
+- **Avoid obvious comments** that just repeat what the code does
+- Add comments only for complex logic, business rules, or non-obvious decisions
+- Document public APIs and interfaces
+- Use meaningful variable and function names instead of explanatory comments
+
+```typescript
+// ✅ Good: Meaningful names, minimal comments
+async function fetchUsers(
+  page: number,
+  limit: number
+): Promise<PaginatedResponse<User>> {
+  const users = await userRepository.findPaginated(page, limit);
+  return transformToResponse(users);
+}
+
+// ❌ Bad: Obvious comments that repeat the code
+async function fetchUsers(page: number, limit: number) {
+  // Create write stream for direct streaming to file
+  const writeStream = createWriteStream(filePath);
+
+  // Convert Web ReadableStream to Node.js stream
+  const nodeStream = Readable.fromWeb(response.body);
+}
+
+// ✅ Good: Comment explains WHY, not WHAT
+async function processLargeFile(filePath: string) {
+  // Use streaming to avoid loading entire file into memory for files > 100MB
+  if (fileSize > 100 * 1024 * 1024) {
+    return processWithStreaming(filePath);
+  }
+  return processInMemory(filePath);
+}
 ```
 
-With that preamble, `pnpm install`, `pnpm check-types`, `pnpm test`, `pnpm lint`, and
-`bun apps/mcp/src/index.ts` run against the checked Node and pnpm pins. Ensure Bun 1.4.0 is
-installed when the image's bundled Bun differs.
+## Styling
+
+- Use Tailwind CSS for styling
+- Follow component-based styling practices
+- Use utility classes for one-off styling needs
+- Extract common patterns to shared components
+
+## Git Commit Guidelines
+
+For detailed git commit message format, branch naming conventions, and version control practices, see [100-git-conventions.mdc](mdc:.cursor/rules/100-git-conventions.mdc).
+
+**Quick Reference:**
+- Use conventional commits format: `<type>(<scope>): <description>`
+- Branch names: `<type>/<description>` in kebab-case
+- Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`
+
+## Import and Module Guidelines
+
+### Static Imports
+
+- **Always use static imports** at the top of files instead of dynamic imports
+- Import all dependencies at the file beginning for better bundling and performance
+- Use tree-shaking friendly named imports when possible
+
+```typescript
+// ✅ Good: Static imports at top of file
+import { readFile, stat } from "node:fs/promises";
+import { pipeline } from "node:stream/promises";
+import { createReadStream } from "node:fs";
+
+// ❌ Bad: Dynamic imports
+const { pipeline } = await import("node:stream/promises");
+```
+
+### Memory-Efficient Patterns
+
+- **Use streaming APIs** instead of loading large files into memory
+- **Avoid buffer accumulation** for large data processing
+- **Implement proper cleanup** for temporary files and streams
+- **Set appropriate file size limits** based on available memory
+
+```typescript
+// ✅ Good: Streaming approach
+await pipeline(readStream, transformStream, writeStream);
+
+// ❌ Bad: Loading entire file into memory
+const fileData = await readFile(largePath);
+```
+
+## Core Philosophy
+
+- Code is primarily written for humans to read and understand, not just for computers to execute
+- "Explicit is better than implicit. Simple is better than complex. Readability counts."
+- Maintain consistency with existing code style when modifying files
+- Keep code DRY (Don't Repeat Yourself)
+- Prefer verbose variable names and maintainability over concise code
+- **Optimize for memory efficiency** in data processing applications
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
