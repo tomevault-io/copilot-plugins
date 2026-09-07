@@ -1,0 +1,9 @@
+{
+  "name": "mikewild-wcl--aspire-htmx-feature-flagged",
+  "displayName": "aspire-htmx-feature-flagged",
+  "description": "An Aspire application with a simple ASP.NET htmx front end feature flags stored in App Configuration. Demonstrates local App Config, Aspire deployment, and azd pipeline setup.",
+  "version": "1.0.0",
+  "author": "mikewild-wcl",
+  "homepage": "https://github.com/mikewild-wcl/aspire-htmx-feature-flagged",
+  "skills": []
+}
