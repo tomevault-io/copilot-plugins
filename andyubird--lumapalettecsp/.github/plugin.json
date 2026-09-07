@@ -1,0 +1,9 @@
+{
+  "name": "andyubird--lumapalettecsp",
+  "displayName": "LumaPaletteCSP",
+  "description": "A Clip Studio Paint color picker that uses the OKLCH color space, this allows the artist to easily pick colors to blend that has the same perceived lightness. This color picker can obtain/set the prec",
+  "version": "1.0.0",
+  "author": "andyubird",
+  "homepage": "https://github.com/andyubird/LumaPaletteCSP",
+  "skills": []
+}
