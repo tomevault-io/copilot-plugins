@@ -1,0 +1,14 @@
+{
+  "name": "chriguschneider--weather-station-card",
+  "displayName": "weather-station-card",
+  "description": "Home Assistant Lovelace card that charts what your weather station actually measured against what the forecast predicts - one chart, today in the middle. Reads plain sensors (Ecowitt, WeatherFlow, ESP",
+  "version": "1.0.0",
+  "author": "chriguschneider",
+  "homepage": "https://github.com/chriguschneider/weather-station-card",
+  "skills": [
+    {
+      "name": "documentation-guardian",
+      "description": ""
+    }
+  ]
+}
