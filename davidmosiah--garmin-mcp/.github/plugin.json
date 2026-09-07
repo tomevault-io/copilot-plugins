@@ -1,0 +1,9 @@
+{
+  "name": "davidmosiah--garmin-mcp",
+  "displayName": "garmin-mcp",
+  "description": "Local-first MCP server for Garmin Body Battery, HRV, sleep & training data \u2014 Claude/Cursor ready",
+  "version": "1.0.0",
+  "author": "davidmosiah",
+  "homepage": "https://github.com/davidmosiah/garmin-mcp",
+  "skills": []
+}
