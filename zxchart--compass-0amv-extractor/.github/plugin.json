@@ -1,0 +1,9 @@
+{
+  "name": "zxchart--compass-0amv-extractor",
+  "displayName": "compass-0amv-extractor",
+  "description": "Read-only extractor for Compass Z_SK0AMV daily history",
+  "version": "1.0.0",
+  "author": "ZXcharT",
+  "homepage": "https://github.com/ZXcharT/compass-0amv-extractor",
+  "skills": []
+}
