@@ -1,0 +1,44 @@
+{
+  "name": "dev-stack",
+  "owner": "ethanfly",
+  "repo": "dev-stack",
+  "description": "\u4e00\u6b3e\u529f\u80fd\u5f3a\u5927\u7684 Windows PHP \u5f00\u53d1\u73af\u5883\u7ba1\u7406\u5de5\u5177\uff1b\u8f7b\u677e\u7ba1\u7406 PHP\u3001MySQL\u3001Nginx\u3001Redis\u3001Node.js\u3001Python \u7b49\u670d\u52a1\uff0c\u544a\u522b\u7e41\u7410\u7684\u624b\u52a8\u914d\u7f6e",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ethanfly/dev-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T20:34:15Z"
+}
