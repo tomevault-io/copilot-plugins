@@ -1,81 +1,134 @@
-## 990-cursor-rule-editing-workaround
+## 999-mdc-format
 
-> Defines the workaround process for creating and editing cursor rule files
+> Use when user asks to create or update *.mdc files
 
+# MDC File Format Guide
 
-# Cursor Rule Editing Workaround
+MDC (Markdown Configuration) files are used by Cursor to provide context-specific instructions to AI assistants. This guide explains how to create and maintain these files properly.
 
-Defines the process for creating and editing cursor rule files to work around Cursor limitations.
+## File Structure
 
-<rules>
-<filters>
-INCLUDE:
-  - type: file_extension
-    pattern: "\\.mdc(-tmp)?$"
-  - type: event
-    pattern: "(file_create|file_modify)"
-</filters>
+Each MDC file consists of two main parts:
 
-<rule>
-name: mdc-file-editing-process
-description: Enforces the workaround process for editing cursor rule files
-ENFORCE:
-  - type: process
-    steps:
-      - name: temporary_file_creation
-        description: Create or edit files with temporary extension
-        requirements:
-          - Use .mdc-tmp extension for all new or modified cursor rules
-          - Place temporary files in same location as target .mdc file
-        pattern: "^.*\\.mdc-tmp$"
+1. **Frontmatter** - Configuration metadata at the top of the file
+2. **Markdown Content** - The actual instructions in Markdown format
 
-      - name: existing_file_modification
-        description: Process for modifying existing rules
-        requirements:
-          - Copy existing .mdc file to .mdc-tmp before ANY modifications
-          - Get user approval of the initial copy
-          - Only after approval, make edits in the temporary file
-          - Maintain original file until changes are approved
-        notes: |
-          The initial copy step and its approval are crucial for:
-          - Verifying the starting point is correct
-          - Making the subsequent changes more visible
-          - Preventing accidental loss of content
+### Frontmatter
 
-      - name: file_finalization
-        description: Process for finalizing rule files
-        requirements:
-          - Review changes in temporary file
-          - Use terminal command (cp or mv) to create final .mdc file - NEVER use internal file editing tools
-          - Remove temporary file after successful creation
-        notes: |
-          Due to a known limitation, internal file editing tools cannot be used to create or modify .mdc files directly.
-          Always use terminal commands like `cp` or `mv` for the final step.
+The frontmatter must be the first thing in the file and must be enclosed between triple-dash lines (`---`). Configuration should be based on the intended behavior:
 
-examples:
-  - scenario: "Creating new rule"
-    steps:
-      - "Create: example-rule.mdc-tmp"
-      - "Get approval for initial empty file"
-      - "Edit temporary file"
-      - "Review changes"
-      - "Copy to: example-rule.mdc"
-      - "Remove temporary file"
+```
+---
+# Configure your rule based on desired behavior:
 
-  - scenario: "Modifying existing rule"
-    steps:
-      - "Copy existing.mdc to existing.mdc-tmp"
-      - "Get approval for initial copy"
-      - "Edit temporary file"
-      - "Review changes"
-      - "Copy back to existing.mdc"
-      - "Remove temporary file"
+description: Brief description of what the rule does
+globs: **/*.js, **/*.ts  # Optional: Comma-separated list, not an array
+alwaysApply: false       # Set to true for global rules
+---
+```
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
-</rules> 
+> **Important**: Despite the appearance, the frontmatter is not strictly YAML formatted. The `globs` field is a comma-separated list and should NOT include brackets `[]` or quotes `"`.
+
+#### Guidelines for Setting Fields
+
+- **description**: Should be agent-friendly and clearly describe when the rule is relevant. Format as `<topic>: <details>` for best results.
+- **globs**: 
+  - If a rule is only relevant in very specific situations, leave globs empty so it's loaded only when applicable to the user request.
+  - If the only glob would match all files (like `**/*`), leave it empty and set `alwaysApply: true` instead.
+  - Otherwise, be as specific as possible with glob patterns to ensure rules are only applied with relevant files.
+- **alwaysApply**: Use sparingly for truly global guidelines.
+
+#### Glob Pattern Examples
+
+- **/*.js - All JavaScript files
+- src/**/*.jsx - All JSX files in the src directory
+- **/components/**/*.vue - All Vue files in any components directory
+
+### Markdown Content
+
+After the frontmatter, the rest of the file should be valid Markdown:
+
+```markdown
+# Title of Your Rule
+
+## Section 1
+- Guidelines and information
+- Code examples
+
+## Section 2
+More detailed information...
+```
+
+## Special Features
+
+### File References
+
+You can reference other files from within an MDC file using the markdown link syntax:
+
+```
+[rule-name.mdc](mdc:location/of/the/rule.mdc)
+```
+
+When this rule is activated, the referenced file will also be included in the context.
+
+### Code Blocks
+
+Use fenced code blocks for examples:
+
+````markdown
+```javascript
+// Example code
+function example() {
+  return "This is an example";
+}
+```
+````
+
+## Best Practices
+
+1. **Clear Organization**
+   - Use numbered prefixes (e.g., `01-workflow.mdc`) for sorting rules logically
+   - Place task-specific rules in the `tasks/` subdirectory
+   - Use descriptive filenames that indicate the rule's purpose
+
+2. **Frontmatter Specificity**
+   - Be specific with glob patterns to ensure rules are only applied in relevant contexts
+   - Use `alwaysApply: true` for truly global guidelines
+   - Make descriptions clear and concise so AI knows when to apply the rule
+
+3. **Content Structure**
+   - Start with a clear title (H1)
+   - Use hierarchical headings (H2, H3, etc.) to organize content
+   - Include examples where appropriate
+   - Keep instructions clear and actionable
+
+4. **File Size Considerations**
+   - Keep files focused on a single topic or closely related topics
+   - Split very large rule sets into multiple files and link them with references
+   - Aim for under 300 lines per file when possible
+
+## Usage in Cursor
+
+When working with files in Cursor, rules are automatically applied when:
+
+1. The file you're working on matches a rule's glob pattern
+2. A rule has `alwaysApply: true` set in its frontmatter
+3. The agent thinks the rule's description matches the user request
+4. You explicitly reference a rule in a conversation with Cursor's AI
+
+## Creating/Renaming/Removing Rules
+
+   - When a rule file is added/renamed/removed, update also the list under 010-workflow.mdc.
+   - When changs are made to multiple `mdc` files from a single request, review also [999-mdc-format](mdc:(mdc:.cursor/rules/999-mdc-format.mdc)) to consider whether to update it too.
+
+## Updating Rules
+
+When updating existing rules:
+
+1. Maintain the frontmatter format
+2. Keep the same glob patterns unless intentionally changing the rule's scope
+3. Update the description if the purpose of the rule changes
+4. Consider whether changes should propagate to related rules (e.g., CE versions)
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
