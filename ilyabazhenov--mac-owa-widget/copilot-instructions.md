@@ -1,36 +1,37 @@
-## swift6-concurrency
+## timeline-ui
 
-> Swift 6 concurrency and actor-boundary rules for OWAWidget.
+> Timeline meeting layout invariants and tests.
 
 
-# Swift 6 concurrency
+# Timeline UI invariants
 
-Preserve strict Swift 6 concurrency boundaries.
+The timeline is one of the most sensitive UI areas. Preserve the current layout model unless the user explicitly asks to redesign it.
 
 Observed project facts:
 
-- `OWAWidget/Services/CalendarService.swift:27` declares `CalendarService` as `@MainActor`.
-- `OWAWidget/Services/CalendarService.swift:29` through `OWAWidget/Services/CalendarService.swift:33` expose UI-observed `@Published private(set)` state.
-- `OWAWidget/Providers/CalendarProvider.swift:5` declares `CalendarProvider` as an `Actor`.
-- `OWAWidget/Services/CalendarService.swift:35` stores providers as `[any CalendarProvider]`.
-- `OWAWidget/Services/CalendarService.swift:318` through `OWAWidget/Services/CalendarService.swift:325` use `withThrowingTaskGroup` to fetch provider events concurrently.
+- `OWAWidget/Views/MeetingListView.swift:8` uses local state to auto-scroll to the current slot.
+- `OWAWidget/Views/MeetingListView.swift:10` through `OWAWidget/Views/MeetingListView.swift:13` define the timeline time column, points-per-minute scale, card gap, and 30-minute slot size.
+- `OWAWidget/Views/MeetingListView.swift:65` through `OWAWidget/Views/MeetingListView.swift:72` deduplicate event cards so each event appears in only its first overlapping slot.
+- `OWAWidget/Views/TimelineMeetingLayout.swift:84` through `OWAWidget/Views/TimelineMeetingLayout.swift:87` use half-open slot overlap checks.
+- `OWAWidget/Views/TimelineMeetingLayout.swift:267` through `OWAWidget/Views/TimelineMeetingLayout.swift:291` use half-open cluster and lane behavior: events whose previous lane end is `<= event.startDate` can share a lane.
+- `OWAWidget/Views/TimelineMeetingBlockView.swift:31` through `OWAWidget/Views/TimelineMeetingBlockView.swift:35` always render the event's own time interval, including compact cards.
 
 Rules:
 
-- Treat `CalendarService` as the main-actor state owner. Do not mutate its published state from non-main actor contexts.
-- Keep calendar providers actor-isolated. Do not convert providers to classes or structs unless the concurrency design is explicitly reworked.
-- When crossing actor boundaries, make `Sendable` reasoning explicit in the plan.
-- Do not add `@unchecked Sendable`, `nonisolated`, detached tasks, or broad `@MainActor` annotations to silence compiler warnings without a concrete explanation.
-- Prefer dependency-injected protocols for tests over global state or sleeps.
-- When editing async sync, notification, scheduler, or provider code, check for races between manual sync, scheduled sync, provider rebuilds, event cache fallback, and reminder rescheduling.
+- Use half-open overlap semantics: `lhs.startDate < rhs.endDate && rhs.startDate < lhs.endDate`.
+- Compact timeline cards must still show their own event time interval.
+- Do not remove event-card deduplication across slots unless the visual model changes deliberately.
+- Keep frame math stable: slot height, `pointsPerMinute`, lane width, card center, and overlay coordinates must agree.
+- If changing overlap, slotting, lane assignment, card sizing, or compact rendering, update or add focused tests.
+- For visual changes, verify both normal and compact cards, selected state, cancelled state, organizer badges, join button visibility, and accessibility labels.
 
 Relevant tests to consider:
 
-- `Tests/OWAWidgetTests/CalendarServiceOfflineTests.swift`
-- `Tests/OWAWidgetTests/SyncSchedulerTests.swift`
-- `Tests/OWAWidgetTests/SyncRequestGateTests.swift`
-- `Tests/OWAWidgetTests/NotificationServiceAggregationTests.swift`
-- `Tests/OWAWidgetTests/MeetingReminderScheduleTests.swift`
+- `Tests/OWAWidgetTests/TimelineMeetingLayoutTests.swift`
+- `Tests/OWAWidgetTests/TimelineMeetingBlockViewTests.swift`
+- `Tests/OWAWidgetTests/MeetingListViewLayoutTests.swift`
+- `Tests/OWAWidgetTests/PopoverViewLayoutTests.swift`
+- `Tests/OWAWidgetTests/PopoverSizeTests.swift`
 
 ---
 > Source: [ilyabazhenov/mac-owa-widget](https://github.com/ilyabazhenov/mac-owa-widget) — distributed by [TomeVault](https://tomevault.io).
