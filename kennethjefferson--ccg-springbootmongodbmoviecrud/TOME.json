@@ -1,0 +1,44 @@
+{
+  "name": "ccg_SpringBootMongoDBMovieCrud",
+  "owner": "KennethJefferson",
+  "repo": "ccg_SpringBootMongoDBMovieCrud",
+  "description": "Spring Boot REST application with MongoDB integration using MongoRepository for movie management including CRUD operations and NoSQL document storage., project generated from the course: Java Spring Boot - Complete Course Bundle",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KennethJefferson/ccg_SpringBootMongoDBMovieCrud",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T20:38:24Z"
+}
