@@ -1,0 +1,9 @@
+{
+  "name": "pxa-labs--project-ripra",
+  "displayName": "Project-RIPRA",
+  "description": "Algorithms for Wavefront Reconstruction, Turbulence Characterization, and Deformable Mirror Actuator Mapping using Shack-Hartmann WFS time-series data.",
+  "version": "1.0.0",
+  "author": "PxA-Labs",
+  "homepage": "https://github.com/PxA-Labs/Project-RIPRA",
+  "skills": []
+}
