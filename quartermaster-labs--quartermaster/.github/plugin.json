@@ -1,0 +1,9 @@
+{
+  "name": "quartermaster-labs--quartermaster",
+  "displayName": "Quartermaster",
+  "description": "Run any model without tuning a single flag. Text, image and audio on one machine: Quartermaster works out what fits in your VRAM, launches each model with computed flags, and hot-swaps them on demand ",
+  "version": "1.0.0",
+  "author": "Quartermaster-Labs",
+  "homepage": "https://github.com/Quartermaster-Labs/Quartermaster",
+  "skills": []
+}
