@@ -4,7 +4,7 @@
   "repo": "damdam",
   "description": "DamDam - Nigerian traveler connectivity platform",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/block-sig-hash/damdam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:30:15Z"
+  "distributed_at": "2026-09-07T01:37:52Z"
 }
