@@ -1,0 +1,9 @@
+{
+  "name": "rvedam--oberonc",
+  "displayName": "oberonc",
+  "description": "Oberon Compiler on top of LLVM",
+  "version": "1.0.0",
+  "author": "rvedam",
+  "homepage": "https://github.com/rvedam/oberonc",
+  "skills": []
+}
