@@ -4,7 +4,7 @@
   "repo": "nadir",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qiangli/nadir",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:03:46Z"
+  "distributed_at": "2026-09-07T01:12:45Z"
 }
