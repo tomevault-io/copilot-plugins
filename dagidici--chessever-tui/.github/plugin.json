@@ -1,0 +1,9 @@
+{
+  "name": "dagidici--chessever-tui",
+  "displayName": "chessever-tui",
+  "description": "Terminal UI chess \u2014 play Maia in your terminal. Flutter/Dart powered by nocterm.",
+  "version": "1.0.0",
+  "author": "dagidici",
+  "homepage": "https://github.com/dagidici/chessever-tui",
+  "skills": []
+}
