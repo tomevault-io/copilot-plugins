@@ -1,0 +1,9 @@
+{
+  "name": "augustosc-eu--tunarrtube",
+  "displayName": "TunarrTube",
+  "description": "Self-hosted YouTube companion for building and maintaining Tunarr channels",
+  "version": "1.0.0",
+  "author": "augustosc-eu",
+  "homepage": "https://github.com/augustosc-eu/TunarrTube",
+  "skills": []
+}
