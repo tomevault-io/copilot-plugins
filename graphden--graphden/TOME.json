@@ -4,7 +4,7 @@
   "repo": "graphden",
   "description": "Software your whole team can see \u2014 and your AI can safely change. Programs are living, typed graphs in a database \u2014 executed live, branched, diffed. AGPL.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Graphden/graphden",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T21:31:05Z"
+  "distributed_at": "2026-09-07T21:31:58Z"
 }
