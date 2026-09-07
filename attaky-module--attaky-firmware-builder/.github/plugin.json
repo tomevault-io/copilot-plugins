@@ -1,0 +1,9 @@
+{
+  "name": "attaky-module--attaky-firmware-builder",
+  "displayName": "Attaky-Firmware-Builder",
+  "description": "Open-source AI skill chain that turns plain-language ideas or existing firmware into compiled, flashed, and boot-verified builds for Attaky modular handhelds.",
+  "version": "1.0.0",
+  "author": "Attaky-Module",
+  "homepage": "https://github.com/Attaky-Module/Attaky-Firmware-Builder",
+  "skills": []
+}
