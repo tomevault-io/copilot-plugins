@@ -4,7 +4,7 @@
   "repo": "app",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MostroP2P/app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T08:31:12Z"
+  "distributed_at": "2026-09-07T08:33:39Z"
 }
