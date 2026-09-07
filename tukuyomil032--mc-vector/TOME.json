@@ -4,7 +4,7 @@
   "repo": "MC-Vector",
   "description": "A comprehensive Minecraft server management app built with Tauri, featuring a wide range of functions such as server creation, plugin installation, file editing, and automatic backups.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tukuyomil032/MC-Vector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T22:33:48Z"
+  "distributed_at": "2026-09-07T22:34:30Z"
 }
