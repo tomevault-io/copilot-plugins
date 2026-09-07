@@ -1,0 +1,9 @@
+{
+  "name": "zechuan-start--adb-gui",
+  "displayName": "adb-gui",
+  "description": "\u8de8\u5e73\u53f0 Android ADB \u684c\u9762 GUI\uff08Tauri + React\uff09\uff1a\u8bbe\u5907\u7ba1\u7406/\u65e0\u7ebf\u8fde\u63a5\u3001\u622a\u56fe\u3001\u5f55\u5c4f\u3001APK \u5b89\u88c5\u3001\u5e94\u7528\u7ba1\u7406\u3001DeepLink\u3001\u7aef\u53e3\u8f6c\u53d1\u3001Bug \u62a5\u544a\u3001Logcat \u67e5\u770b\u7b49 | Cross-platform Tauri desktop GUI for Android ADB: device management, Wi-Fi connect, screenshots, scr",
+  "version": "1.0.0",
+  "author": "zechuan-start",
+  "homepage": "https://github.com/zechuan-start/adb-gui",
+  "skills": []
+}
