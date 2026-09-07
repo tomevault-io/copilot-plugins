@@ -1,0 +1,9 @@
+{
+  "name": "dustin-hawkins--quick-sound-switcher",
+  "displayName": "quick-sound-switcher",
+  "description": "GNOME Shell extension for switching audio devices from Quick Settings (GNOME 45-50)",
+  "version": "1.0.0",
+  "author": "dustin-hawkins",
+  "homepage": "https://github.com/dustin-hawkins/quick-sound-switcher",
+  "skills": []
+}
