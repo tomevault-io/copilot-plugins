@@ -7,11 +7,11 @@ Terminal UI chess — play Maia in your terminal. Flutter/Dart powered by nocter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dagidici/chessever-tui](https://github.com/dagidici/chessever-tui).
+Original source: `CLAUDE.md` in [dagidici/chessever-tui](https://github.com/dagidici/chessever-tui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
