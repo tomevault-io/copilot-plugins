@@ -1,139 +1,172 @@
-## function-metadata-and-identity
+## packages-and-dependencies
 
-> The single rule for WHERE a function's property lives — in the graph (default), a DB column (only when the graph can't serve it), and NEVER a name/prefix. Apply when adding/using any per-function property, classification, or metadata (visibility, kind, secret, anonymity, org, etc.), or when touching name-based dispatch/classification.
+> Packages & Dependencies (install / publish / registry) model, placement, lifecycle, and safety invariants for the Graphden editor. Apply when touching registry/, app/editor package/workspace/surface UI, or the package-version/package-install schema.
 
 
-# Function metadata & identity — where a property lives
+# Packages & Dependencies — spec
 
-Graphden's premise is **code = graph**, and PHILOSOPHY §3 requires that
-**behavior be visible in graph structure** (no magic, no context-dependent
-semantics). That fixes where a function's properties must live. This rule is the
-single conceptual key every metadata/classification decision follows.
+This rule captures the ONE conceptual model that package install/publish/registry
+must obey, so the feature lands coherently (not as uncoordinated fragments).
+It is grounded in cross-cutting editor principles that ALL editor work shares.
 
-## The rule (graph → field → never a name)
+## 0. Governing principles (cross-cutting — never violate)
 
-1. **Graph by default.** A function's SEMANTIC property is expressed in the
-   graph itself — as **inheritance from a marker/base fn** (`parent-ids`),
-   a **binding on a slot**, or the fn's **type**. It is then visible in
-   structure, inherited, and needs no new DB column. The canonical precedent is
-   **`secret`**: a fn is a secret because it inherits `:secret-leaf`
-   (`parent-ids: [secret-leaf]`) — there is no `secret?` column. Classify by the
-   graph relation (is `secret-leaf` in the parent closure, by **id**), never by
-   name.
-2. **A DB column only when the graph cannot serve it.** Add/keep a base-schema
-   column ONLY for:
-   - **Org-isolation enforced by RLS** — `org_id`. RLS operates on columns; the
-     graph cannot enforce tenant isolation.
-   - **Content-addressed identity / dedup the executor needs at O(1)** —
-     `anonymous-hash` (are these two inline shapes identical?), `name = nil`
-     (a local/unnamed fn). A parent-closure walk cannot answer these cheaply,
-     and they are the fn's OWN identity, not domain metadata.
-   - **VCS / lifecycle plumbing** — `branch-id`, `deleted-at`, `created-at`, the
-     version-plane columns.
-   A column that merely CACHES a structural fact (e.g. a type-kind) is allowed
-   as a denormalized cache, but must be documented as derived-from-structure,
-   never as the source of truth, and never a prefix.
-3. **Never a name or a name-part.** Names are per-namespace LABELS
-   (`docs/adr/ADR-identity-model.md`), not carriers of meaning. No code branches
-   on a literal fn/package name or a name prefix (`_`, `_anon-`, …) to determine
-   a property. Base-fn / seed *identity* may be resolved from its globally-unique
-   name to its **id** ONCE at boot and then used by id (this is the ADR's
-   name-keyed base-fn identity, e.g. resolving `secret-leaf` / `vault-get` → id);
-   that is identity resolution, not per-fn classification.
+- **P1 Placement follows intent.** Three surfaces, three intents:
+  - **Build** = author *your* project (Explorer tree, graph canvas, and the
+    context-bar chips: workspace scope, branch, packages). Anything you do
+    *while building* lives here.
+  - **Organization** = governance / administration of the org.
+  - **Platform** = cross-org administration.
+  An affordance lives where its intent lives. Corollary for packages:
+  *install* is a build act (add a building block) → Build; *publish* is an
+  authoring act on what you built → an action on the thing; *govern* (catalog,
+  who-may-publish, audit) → Organization.
+- **P2 Personal overlay vs shared graph.** Per-user *view* state is per-browser
+  `localStorage` (workspace scope + hidden set, lens, branch selection). Shared
+  truth is the graph/DB. A personal choice must never mutate the shared graph or
+  another user's view. Tenant data must never leak across orgs.
+- **P3 Graph-native, minimal entities.** Reuse what exists: inheritance
+  (`parent-ids` + binding overrides) as "change a bit"; immutable
+  content-addressed `:package-version`; per-branch fn-versioning. Per-function
+  PROPERTIES follow `.cursor/rules/function-metadata-and-identity.mdc`:
+  graph by default (inherit a marker / a binding / a type), a DB column only for
+  identity-dedup / org-RLS / VCS plumbing, NEVER a name or prefix. Add a field
+  or entity ONLY when that rule says the graph can't serve it, and justify it in
+  the diff. (`:package-version.org_id` in §5 is such a justified column: RLS.)
+- **P4 No hardcoding of names or name-parts in code.** Dispatch, identity,
+  classification, and cache keys use ids, or a real field (e.g. `role`), or
+  graph structure — never a literal fn/package name, and never a name PREFIX
+  (`_`, `_anon-`, etc.). This is worse than schema bloat. (Cosmetic display of a
+  naming *convention* is tolerated only where NO behavior/identity depends on
+  it.)
+- **P5 Safe by default.** Privileged acts are capability-gated; tenant data is
+  org-scoped + RLS-isolated; no request-outliving cache is un-org/principal
+  keyed; the user sees what they're getting (effects, contents) before install.
 
-## Verdict per current property (graph / column / fixed)
+## 1. The two version axes (must stay distinct)
 
-| Property | Where it lives | Rationale |
-|---|---|---|
-| `secret` | **Graph** — inherit `:secret-leaf` | Already graph; the model to copy. Classify by id. |
-| package **visibility / public interface** | **Graph** — a marker/export construct (TBD shape), NOT a prefix or column | Semantic; enforceable + structure-visible. Supersedes the earlier "namespace structure (visual)" idea in the packages spec. |
-| anonymity — **composite-TYPE anon** (inline record shape) | **Column** — `name = nil` + `anonymous-hash` set (UNIQUE) | Content-dedup identity, O(1), hot path. Classify by the field. |
-| anonymity — **composed anon fn-def** (inline `{:parent …}` lift) | **Identity in the synthetic `_anon-<hash>` NAME**; `anonymous-hash = NULL` | The name IS the content-addressed use-site identity (the hash embeds shape+host+ns; two use-sites get distinct names — `records-test/anon-use-site-identity-includes-namespace`). ADR name→identity, not a domain property in a prefix. Recognize an anon by `(or anonymous-hash (starts-with? name "_anon-"))` — the name half is IDENTITY. |
-| local/unnamed fn | **Column** — `name = nil` | Identity representation; not a prefix (`_`-authoring syntax lowers to name=nil). |
-| `org_id` | **Column** (+ RLS) | Isolation; cannot be graph. |
-| type-kind (`role`) | **Column as derived-cache** of a structural fact (type-row = no impl + slots/refine) | Kept for classification speed; document as derived, never a prefix. |
-| service / app-route | **Separate rows keyed by fn-id** (kept) | Carry runtime desired-state / a routing table; not fn-intrinsic metadata (see the domain-router decision — a routing table above the graph). |
+- **Package version** = an immutable, content-addressed RELEASE TAG in the
+  registry (`:package-version`, `name@version`, content hash; republishing the
+  same `(name,version)` is rejected).
+- **Internal versioning** = our per-branch fn-version rows + merge. This is the
+  live graph's VCS.
+- **Relationship:** *publish* snapshots the current (branch-resolved) state of a
+  namespace subtree into an immutable bundle. *install* MATERIALIZES that bundle
+  into the graph as ordinary fns (which then live under branch-versioning and
+  propagate on merge) + writes a **pin** `(branch, package-name) → version`.
+  The package version is provenance metadata layered over branch-versioning;
+  the two never conflict. Install is branch-scoped (stage on dev → merge to prod).
 
-## Name/prefix-hardcode audit + remediation status (2026-08-13)
+## 2. Install — a Build act
 
-Audit of the whole tree for "property encoded in a name/prefix." The dangerous
-class (dispatch/identity/cache/classify by name) is otherwise clean + guarded
-(ADR-identity-model + `id_resolution_guard_test`).
+- Entry point: a **Build-surface context-bar chip "packages"** (sibling of the
+  workspace/branch chips; hidden off Build; hidden entirely when the optional
+  `registry` package is absent — probe `window.API`, never a name). It opens a
+  **browser**, NOT an Organization panel.
+- The browser provides: **search**; a **per-package detail** view showing its
+  **versions**, its **public interface** (the package root namespace's fns —
+  see §6), and the **effects it requests**; a **version selector** (install ANY
+  version, including older — rollback is the same symmetric operation);
+  and an **"update available"** affordance when a newer version exists.
+- Installs are **pinned** — never auto-updated. Updating/rolling back is an
+  explicit act that repoints the pin, re-materializes, and rewrites the
+  project's own refs old→new (package-internal refs never mix across versions).
+- Install writes into the current branch (staging); it propagates on merge.
 
-**Correction (verified against the live DB, not theory).** An earlier pass tried
-to replace EVERY `_anon-` name check with an `:anonymous-hash`-field check on the
-premise that the field is the single anonymity marker. That premise is FALSE.
-`select` over `fn` shows two anonymity classes: composite-TYPE anons (name NULL,
-`anonymous_hash` set) AND composed anon fn-defs (`_anon-<hash>` name,
-`anonymous_hash` NULL — the majority). For the composed class the field is null,
-so a field-only check silently stops recognizing them. Those "fixes" were
-therefore REGRESSIONS (sync leftover-scan would flood with synthetic rows; the
-type-picker would leak `_anon-` candidates) and were **reverted**. See the two
-verdict-table anonymity rows: recognize an anon by `(or anonymous-hash
-(starts-with? name "_anon-"))`; the name half is IDENTITY (ADR name→id), not the
-forbidden "domain property in a prefix."
+## 3. Publish — an authoring act on your work
 
-Genuinely landed (name-prefix classifier of a SEMANTIC/domain property, removed):
-- `executor/composition/parsing.clj` `local-fn-name?` (matched `_` to infer a
-  "local" property) — was **dead code** (no refs in src/test/resources) →
-  deleted with its test + the now-unused `clojure.string` require. Committed
-  (`refactor(parsing): drop dead local-fn-name?`). Verified: full unit suite +
-  focused `composition.core-test` (5 tests) + `bb lint-clj` green.
+- Entry point: a **"Publish" action on a namespace** (the project/subtree you
+  built) — NOT a form buried in a shared panel, and NOT on the Organization
+  page. It reuses the namespace = project unit (same unit Workspaces scopes).
+- **Gated by a `publish-packages` capability** (tenancy grant vocabulary). An
+  un-capable member cannot publish. (Install needs no capability beyond auth,
+  unless a deployment chooses to restrict it.)
+- Publish **freezes the transitive dependency versions** into the published
+  bundle (a baked lockfile) → installs are reproducible.
+- Publish targets the org's **private registry by default**; publishing publicly
+  is an explicit, separate opt-in.
 
-Landed but JS (needs a Playwright check before it ships — not unit-covered):
-- `editor/editor-secrets.js` `getSecretLeafFnId` — id-only (primed once from the
-  seed's stable identity); removed the `fn.name === 'secret-leaf'` scan. This is
-  a REAL fix (domain property `secret` classified by name → by id). Verify the
-  Secrets panel still tags secrets before committing.
+## 4. Governance — on the Organization surface
 
-Reverted (were regressions — composed anons carry no `anonymous_hash`):
-- `packages/sync.clj` leftover-scan `_anon-` exclusion — RESTORED (name check is
-  load-bearing; composite-type anons are already excluded by the `(:name row)`
-  guard, composed anons need the `_anon-` check).
-- `dev/integrity.clj` `orphan-anons` — RESTORED to `(or anonymous-hash _anon-name)`.
-- `crud/types_api.clj` `apply-types-candidates` + `editor/editor-fn-picker.js` —
-  RESTORED (server/client exclude `_anon-` candidates by name; that is
-  identity-based exclusion of un-referenceable synthetic fns, permitted).
+- The Organization surface hosts the **read-mostly governance view**: the org's
+  package catalog (what is published), **who may publish** (the capability),
+  and an **install audit** (what is installed where). It is NOT where a user
+  clicks "install".
 
-**Left in place, justified (NOT prefix-property-encoding):**
-- Resolving base-fn/seed *identity* by globally-unique name → id (`secret-leaf`
-  prime, `vault-get` lookup, `types_api` `name-prefix` SEARCH input) — ADR
-  name-keyed base-fn identity / user search, not classification.
-- The `_anon-` name of composed anons — content-addressed use-site IDENTITY (see
-  the verdict table). Recognizing anonymity via it is identity, not classification.
-- `editor/editor-data.js` `displayLabel` strips a leading `_` for DISPLAY only
-  of the `_`-private authoring convention — cosmetic; no behavior/identity
-  depends on it. Eliminating it fully would mean either dropping the `_`
-  readability convention (large) or a `visibility` graph property (the refactor
-  below) — do it as part of that refactor, not as a special-case.
+## 5. Registry isolation (data must not leak) — the one justified new field
 
-## Refactor direction (the work this rule sets up)
+- `:package-version` gains **`:org_id`** (nullable) + Postgres RLS, exactly
+  mirroring the `:fn`/`:ns` org-scoping. This is the single new field the model
+  adds, and it is necessary (isolation cannot be expressed otherwise).
+- Publish → the publisher's org (private) by default; an explicit "public" flag
+  makes a version platform-visible.
+- Browse/install shows **[My org] + [Public]** only. Another org's private
+  package is neither visible nor installable. Install-pins (`:package-install`)
+  are already per-org + per-branch — keep that.
 
-Move fn-metadata toward the graph where the verdict table says "Graph":
-- Design a graph-native **visibility / public-interface** marker (following the
-  `secret-leaf` inheritance precedent) and use it for the packages interface
-  (replaces "namespace structure (visual)"). This ALSO retires the `_`-private
-  convention's last cosmetic prefix use (displayLabel) by giving "private" a
-  real graph representation.
-- Do NOT move `anonymous-hash` / `org_id` / version-plane columns to the graph —
-  the verdict table explains why.
-- **DEFERRED (risky — do NOT bundle into cleanup):** unifying composed-anon
-  anonymity onto the `anonymous_hash` field (so the `_anon-` name is pure label,
-  not the anonymity signal). Blocked on real hazards: `anonymous_hash` carries a
-  UNIQUE constraint (`schema/graph/schema.clj`) mirrored on the version plane
-  (`fn_version`), and populating it for the majority of anon rows plus a prod
-  backfill has a wide blast radius. It buys little — the name already gives these
-  fns O(1) identity — so it is not worth the instability unless a future change
-  independently needs it. If ever done: prove uniqueness across the shape+host
-  hash space and the branch closure first, behind a rollback-tolerant migration.
-- Any NEW per-fn property starts in the graph; a column requires a written
-  justification against this rule.
+## 6. Encapsulation — interface vs internals (a GRAPH property)
 
-## Acceptance
-- No property is determined by a name or name-prefix anywhere in code.
-- Each property's home matches the verdict table; new columns are justified.
-- Classification is by graph relation (id/structure) or a documented
-  derived-cache column — never a name.
+Follow `.cursor/rules/function-metadata-and-identity.mdc` — visibility is a
+SEMANTIC property, so it lives in the GRAPH, exactly like `secret` (a fn is a
+secret by inheriting `:secret-leaf`), NOT in a name prefix (P4) and NOT in a new
+DB column (P3).
+
+- A package's **public interface = the fns the package marks public in the
+  graph** — via a visibility marker (inheritance from a public/interface marker
+  fn, the `secret-leaf` precedent) or an explicit export construct on the
+  package's entry fn. The exact graph shape is a design task in the
+  implementation (see the fn-metadata rule's "refactor direction").
+- Install materializes ALL fns (internals are the implementation — needed to
+  run). The UI presents the graph-marked public fns as the interface; the rest
+  are collapsed/hidden (the same collapse/Workspaces-hide machinery).
+- This graph representation supersedes the earlier "public = root namespace /
+  internals = nested sub-namespace (visual only)" idea. It is structure-visible
+  and can be enforced later; until enforcement exists it is still a graph fact,
+  not a name/prefix or column.
+- It also gives "private" a real representation, retiring the last cosmetic
+  `_`-prefix use (`displayLabel`) — do that as part of this, per the fn-metadata
+  rule.
+
+## 7. Customizing a package without forking; contributing back
+
+- **"Change a bit" → inheritance**: a child fn `parent-ids: [package-fn]` with
+  binding overrides. The package stays pinned/immutable; the override is your
+  own fn, private to your branch/org unless you publish it. This is the primary
+  path.
+- **Fork = escape hatch** (copy-on-write into your namespace, unpins) for
+  editing a package's *internals*.
+- **Contribute upstream**: fork + publish your own variant, OR the author grants
+  you `publish-packages` on that package. A cross-author PR-to-package flow is a
+  NON-GOAL here (see §9).
+
+## 8. Dependency updates propagate only through explicit package releases
+
+- A package's dependency versions are frozen in its published version (§3). So
+  a package's *consumers* never see a dep update spontaneously — only the
+  package *author* does, and they surface it by publishing a new package
+  version. Consumers pick it up via an explicit package update (§2).
+
+## 9. Non-goals (do not build these under this rule)
+
+- Cross-author PR-to-package (propose a diff, author accepts). Future; the
+  branch + diff primitives exist if it is ever scoped.
+- Enforced (non-visual) private members; fully-opaque compiled packages.
+- Cross-device per-user sync of personal state (localStorage stays per-browser,
+  consistent with workspace/lens/branch prefs).
+
+## 10. Acceptance invariants (every slice must hold)
+
+- No name/prefix hardcode introduced (P4); classification via id/field/structure.
+- Install, publish, and governance each sit on their intent surface (P1).
+- Publish is capability-gated; no unauthorized publish path exists.
+- Org A cannot see or install org B's private package (RLS-verified with a
+  two-org test).
+- Installs are pinned; update/rollback is explicit and symmetric; the version
+  selector offers older versions.
+- Installs are reproducible (frozen transitive dep versions).
+- Registry-absent deployments hide all package UI (window.API probe, not a name).
+- Per slice: `bb ci` green, `bb visual` green (baselines updated only for the
+  intended UI), and a Playwright behavioral check of the slice's user flow.
 
 ---
 > Source: [Graphden/graphden](https://github.com/Graphden/graphden) — distributed by [TomeVault](https://tomevault.io).
