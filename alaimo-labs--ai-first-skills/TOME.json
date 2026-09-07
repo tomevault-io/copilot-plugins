@@ -4,7 +4,7 @@
   "repo": "ai-first-skills",
   "description": "Agent Skills for AI-First Product Management and Product Building",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alaimo-labs/ai-first-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T01:25:41Z"
+  "distributed_at": "2026-09-07T01:26:22Z"
 }
