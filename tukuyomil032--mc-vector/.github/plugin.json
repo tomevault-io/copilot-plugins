@@ -1,0 +1,9 @@
+{
+  "name": "tukuyomil032--mc-vector",
+  "displayName": "MC-Vector",
+  "description": "A comprehensive Minecraft server management app built with Tauri, featuring a wide range of functions such as server creation, plugin installation, file editing, and automatic backups.",
+  "version": "1.0.0",
+  "author": "tukuyomil032",
+  "homepage": "https://github.com/tukuyomil032/MC-Vector",
+  "skills": []
+}
