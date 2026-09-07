@@ -4,7 +4,7 @@
   "repo": "lody-ios",
   "description": "Independent iOS client for Lody \u2014 native chat, sessions, and coding-agent collaboration on iPhone",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Innei/lody-ios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T11:31:09Z"
+  "distributed_at": "2026-09-07T11:31:57Z"
 }
