@@ -1,0 +1,9 @@
+{
+  "name": "xxxzhou--avox",
+  "displayName": "avox",
+  "description": "Cross-platform media SDK (C++17): capture / GPU pipeline / player / record. Successor of aoce.",
+  "version": "1.0.0",
+  "author": "xxxzhou",
+  "homepage": "https://github.com/xxxzhou/avox",
+  "skills": []
+}
