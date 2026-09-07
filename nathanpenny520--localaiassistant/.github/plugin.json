@@ -1,0 +1,9 @@
+{
+  "name": "nathanpenny520--localaiassistant",
+  "displayName": "LocalAIAssistant",
+  "description": "Qt 6-based cross-platform AI assistant desktop app with GUI/CLI dual modes and built-in AI girlfriend voice interaction.",
+  "version": "1.0.0",
+  "author": "nathanpenny520",
+  "homepage": "https://github.com/nathanpenny520/LocalAIAssistant",
+  "skills": []
+}
