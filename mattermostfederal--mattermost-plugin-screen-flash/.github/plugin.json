@@ -1,0 +1,9 @@
+{
+  "name": "mattermostfederal--mattermost-plugin-screen-flash",
+  "displayName": "mattermost-plugin-screen-flash",
+  "description": "mattermost-plugin-screen-flash",
+  "version": "1.0.0",
+  "author": "MattermostFederal",
+  "homepage": "https://github.com/MattermostFederal/mattermost-plugin-screen-flash",
+  "skills": []
+}
