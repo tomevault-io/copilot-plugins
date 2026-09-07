@@ -1,0 +1,9 @@
+{
+  "name": "wmastover--isomap",
+  "displayName": "IsoMap",
+  "description": "A searchable, zoomable isometric map of the United Kingdom, from coastline cubes down to city streets and buildings.",
+  "version": "1.0.0",
+  "author": "wmastover",
+  "homepage": "https://github.com/wmastover/IsoMap",
+  "skills": []
+}
