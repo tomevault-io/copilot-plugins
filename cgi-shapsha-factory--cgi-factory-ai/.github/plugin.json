@@ -1,0 +1,9 @@
+{
+  "name": "cgi-shapsha-factory--cgi-factory-ai",
+  "displayName": "CGI-Factory-AI",
+  "description": "Fabrique logicielle spec-driven a forte assistance IA : contrats figes en amont (cadrage, architecte, designer, assembleur), l'humain arbitre, gates deterministes en aval.",
+  "version": "1.0.0",
+  "author": "CGI-Shapsha-Factory",
+  "homepage": "https://github.com/CGI-Shapsha-Factory/CGI-Factory-AI",
+  "skills": []
+}
