@@ -1,0 +1,9 @@
+{
+  "name": "sajjadhossainshohag--laravel-artican",
+  "displayName": "laravel-artican",
+  "description": "Static analysis for Laravel that catches AI-introduced coding mistakes before they hit runtime \u2014 broken routes, missing views, schema drift, invalid middleware, and more. Ships with a Laravel Boost sk",
+  "version": "1.0.0",
+  "author": "sajjadhossainshohag",
+  "homepage": "https://github.com/sajjadhossainshohag/laravel-artican",
+  "skills": []
+}
