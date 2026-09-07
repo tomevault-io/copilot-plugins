@@ -1,0 +1,9 @@
+{
+  "name": "openpetshq--openpets",
+  "displayName": "openpets",
+  "description": "Local first, desktop companion platform with animated pets, plugin SDK and coding-agent integrations.",
+  "version": "1.0.0",
+  "author": "OpenPetsHQ",
+  "homepage": "https://github.com/OpenPetsHQ/openpets",
+  "skills": []
+}
