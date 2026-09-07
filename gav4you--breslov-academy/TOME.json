@@ -4,7 +4,7 @@
   "repo": "breslov-academy",
   "description": "Base44 App: Breslov Academy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gav4you/breslov-academy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T20:36:28Z"
+  "distributed_at": "2026-09-07T20:38:00Z"
 }
