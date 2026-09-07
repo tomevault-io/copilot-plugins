@@ -1,0 +1,9 @@
+{
+  "name": "kennethjefferson--ccg-springbootmongodbmoviecrud",
+  "displayName": "ccg_SpringBootMongoDBMovieCrud",
+  "description": "Spring Boot REST application with MongoDB integration using MongoRepository for movie management including CRUD operations and NoSQL document storage., project generated from the course: Java Spring B",
+  "version": "1.0.0",
+  "author": "KennethJefferson",
+  "homepage": "https://github.com/KennethJefferson/ccg_SpringBootMongoDBMovieCrud",
+  "skills": []
+}
