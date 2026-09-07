@@ -1,0 +1,44 @@
+{
+  "name": "agent-from-scratch",
+  "owner": "liiiiiiiiil",
+  "repo": "agent-from-scratch",
+  "description": "\u4ece\u96f6\u6784\u5efa AI Agent \u7684\u5b9e\u6218\u6559\u7a0b\uff08Python | \u96f6\u4f9d\u8d56\uff09| Learn how AI Agents work by building one from scratch. Covers agent loops, tool calling, memory, permissions & HITL.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liiiiiiiiil/agent-from-scratch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T20:30:21Z"
+}
