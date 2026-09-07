@@ -1,0 +1,44 @@
+{
+  "name": "business-os-new",
+  "owner": "daniel-carreon",
+  "repo": "business-os-new",
+  "description": "Business OS \u2014 un sistema operativo de negocio ag\u00e9ntico, white-label y AI-first. Cl\u00f3nalo, con\u00e9ctale tu Supabase y tu agente, y opera tu negocio habl\u00e1ndole a tu copiloto. Next.js + Supabase + Tauri.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daniel-carreon/business-os-new",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T01:34:24Z"
+}
