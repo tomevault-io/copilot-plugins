@@ -1,8 +1,6 @@
 # ng-forge
 
-> Tome by [ng-forge](https://github.com/ng-forge/ng-forge) — distributed by [TomeVault](https://tomevault.io)
-
-Type-safe dynamic forms library for Angular 21 signal forms
+> Tome by [ng-forge](https://github.com/ng-forge/ng-forge), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,14 +15,10 @@ Original source: `CLAUDE.md` in [ng-forge/ng-forge](https://github.com/ng-forge/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [mcp-builder](https://github.com/ng-forge/ng-forge/tree/main/.claude/skills/mcp-builder)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ng-forge/ng-forge](https://github.com/ng-forge/ng-forge)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ng-forge/ng-forge](https://github.com/ng-forge/ng-forge)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
