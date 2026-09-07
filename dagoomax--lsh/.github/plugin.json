@@ -1,0 +1,9 @@
+{
+  "name": "dagoomax--lsh",
+  "displayName": "lsh",
+  "description": "Loxone Integration server",
+  "version": "1.0.0",
+  "author": "dagoomax",
+  "homepage": "https://github.com/dagoomax/lsh",
+  "skills": []
+}
