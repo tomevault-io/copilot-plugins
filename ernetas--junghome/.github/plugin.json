@@ -1,0 +1,9 @@
+{
+  "name": "ernetas--junghome",
+  "displayName": "junghome",
+  "description": "Jung Home integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "ernetas",
+  "homepage": "https://github.com/ernetas/junghome",
+  "skills": []
+}
