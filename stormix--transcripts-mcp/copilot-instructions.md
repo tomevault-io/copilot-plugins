@@ -1,17 +1,38 @@
-## 031-never-use-any
+## 032-import-rules
 
-> Never use `any`, `unknown`, or TypeScript type casting.
+> Import rules for cross-package and self-import prevention
 
 
-Never use `any`, `unknown`, or TypeScript type casting.
+# Import Rules
 
-This includes:
-- The `any` type
-- The `unknown` type
-- Type assertions using `as` (e.g., `value as SomeType`)
-- Type assertions using angle brackets (e.g., `<SomeType>value`)
+## Cross-Package Imports
 
-Types should be correct and properly inferred or explicitly defined. If you find yourself needing to cast types, refactor the code to use proper type definitions, type guards, or type narrowing instead.
+Do not use relative paths when importing across packages. Always use package imports instead.
+
+- ❌ `import { something } from "../../../packages/core"`
+- ✅ `import { something } from "@transcripts-mcp/core"`
+
+## Self-Imports
+
+Do not import from a package within itself using the package name.
+
+- ❌ `import { name } from "@transcripts-mcp/core"` inside `packages/core/`
+- ✅ Use relative imports within the same package
+
+## Examples
+
+```typescript
+// ✅ Good: Cross-package import using package name
+import { name as core } from "@transcripts-mcp/core";
+import { name as adapters } from "@transcripts-mcp/adapters";
+
+// ✅ Good: Relative import within same package
+import { helper } from "./utils";
+import { types } from "../types";
+
+// ❌ Bad: Relative path across packages
+import { name } from "../../core/src";
+```
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
