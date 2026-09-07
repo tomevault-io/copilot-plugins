@@ -1,0 +1,9 @@
+{
+  "name": "kamil-it--biker",
+  "displayName": "biker",
+  "description": "Bike search service \u2014 Python FastAPI backend",
+  "version": "1.0.0",
+  "author": "Kamil-IT",
+  "homepage": "https://github.com/Kamil-IT/biker",
+  "skills": []
+}
