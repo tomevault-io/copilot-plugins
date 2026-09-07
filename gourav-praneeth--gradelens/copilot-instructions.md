@@ -1,16 +1,15 @@
-## git-after-phases
+## virtual-env
 
-> Commit and push after each shipped phase or feature
+> Always use an isolated project environment, never the system runtime
 
 
-# Git after phases
+# Isolated environments
 
-When a phase or user-requested feature is fully implemented (tests passing, FEATURES.md updated), create a git commit and push to `origin` without waiting to be asked again.
+Never install packages or run app tooling with the machine’s default Python or Node.
 
-- Do not commit `.env`, databases, or `uploads/`
-- Do not force-push `main` unless the user asked to rewrite history
-- Follow the existing commit-message style: 1–2 sentences on why
-- Author and committer must be the user's git identity. Do not put tool names in commit messages. If a `Co-authored-by` trailer is added automatically, rewrite the commit with `git commit-tree` before pushing.
+- **Python:** create `.venv` if missing (`python3 -m venv .venv`) and use `.venv/bin/python` / `.venv/bin/pip`. Never system `pip`.
+- **Node (this repo):** Node 20 per `.nvmrc` / Dockerfile. Use nvm/fnm/volta, Docker `node:20-bookworm-slim`, or a project-local `.node/` (gitignored). Do not use global Node (e.g. Homebrew v25) to change `package-lock.json`.
+- Prefer `npm ci` after lockfile changes. Do not `npm install -g` unless the user asked.
 
 ---
 > Source: [Gourav-praneeth/GradeLens](https://github.com/Gourav-praneeth/GradeLens) — distributed by [TomeVault](https://tomevault.io).
