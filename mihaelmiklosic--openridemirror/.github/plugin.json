@@ -1,0 +1,9 @@
+{
+  "name": "mihaelmiklosic--openridemirror",
+  "displayName": "OpenRideMirror",
+  "description": "A Garmin-powered cycling companion display for ESP32-S3 and reflective LCD.",
+  "version": "1.0.0",
+  "author": "mihaelmiklosic",
+  "homepage": "https://github.com/mihaelmiklosic/OpenRideMirror",
+  "skills": []
+}
