@@ -1,0 +1,9 @@
+{
+  "name": "harsh-2002--orva",
+  "displayName": "Orva",
+  "description": "Self-hosted FaaS for homelabs and on-prem. Run Node.js and Python functions on hardware you own \u2014 nsjail sandboxing, warm pools, built-in KV, cron, background jobs, and distributed tracing.",
+  "version": "1.0.0",
+  "author": "Harsh-2002",
+  "homepage": "https://github.com/Harsh-2002/Orva",
+  "skills": []
+}
