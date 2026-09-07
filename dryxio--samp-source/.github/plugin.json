@@ -1,0 +1,9 @@
+{
+  "name": "dryxio--samp-source",
+  "displayName": "samp-source",
+  "description": "Rebuilding SA-MP 0.3.7 R5 from source, byte for byte. AI-assisted reverse engineering with verifiable binary matches.",
+  "version": "1.0.0",
+  "author": "Dryxio",
+  "homepage": "https://github.com/Dryxio/samp-source",
+  "skills": []
+}
