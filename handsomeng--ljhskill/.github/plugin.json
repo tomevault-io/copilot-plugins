@@ -1,0 +1,9 @@
+{
+  "name": "handsomeng--ljhskill",
+  "displayName": "LJHskill",
+  "description": "LJHskill \u8001\u5bb6\u4f19\u5de5\u5177\u7bb1\uff1a\u5185\u5bb9\u7535\u5546\u6253\u54c1\u7684 18 \u4e2a Claude Code skill\uff0c\u4fd7\u79f0\u8001\u5bb6\u4f19 skill\u3002\u7b2c\u4e00\u53e5\u8bf4\u6e05\u4f60\u5361\u5728\u54ea\uff0c\u7b2c\u4e8c\u53e5\u5b83\u5e26\u4f60\u8dd1\u5bf9\u7684\u5de5\u5177\u3002",
+  "version": "1.0.0",
+  "author": "handsomeng",
+  "homepage": "https://github.com/handsomeng/LJHskill",
+  "skills": []
+}
