@@ -1,0 +1,9 @@
+{
+  "name": "advaitpaliwal--introspect",
+  "displayName": "introspect",
+  "description": "Agent self-improvement runtime for Codex, Claude, and OpenCode",
+  "version": "1.0.0",
+  "author": "advaitpaliwal",
+  "homepage": "https://github.com/advaitpaliwal/introspect",
+  "skills": []
+}
