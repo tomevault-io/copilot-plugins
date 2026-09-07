@@ -1,0 +1,44 @@
+{
+  "name": "ShizukuX",
+  "owner": "qianyumeng0228",
+  "repo": "ShizukuX",
+  "description": "ShizukuX \u662f Shizuku \u7684\u589e\u5f3a\u5206\u652f\uff1a\u8ba9\u666e\u901a\u5e94\u7528\u501f\u52a9 ADB / Root \u7279\u6743\u8fdb\u7a0b\u76f4\u63a5\u8c03\u7528\u7cfb\u7edf\u7ea7 API\uff0c\u5e76\u5185\u7f6e Dhizuku\u3001Extra API\u3001Root \u517c\u5bb9\u6865\u7b49\u9ad8\u7ea7\u80fd\u529b\u3002\u7ee7\u627f\u81ea ShizukuPlus\uff08Apache 2.0\uff09\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qianyumeng0228/ShizukuX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T04:57:37Z"
+}
