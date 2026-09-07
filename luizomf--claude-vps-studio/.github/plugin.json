@@ -1,0 +1,9 @@
+{
+  "name": "luizomf--claude-vps-studio",
+  "displayName": "claude-vps-studio",
+  "description": "Est\u00fadio pessoal de estudo num VPS, orquestrado por sess\u00f5es paralelas do Claude Code.",
+  "version": "1.0.0",
+  "author": "luizomf",
+  "homepage": "https://github.com/luizomf/claude-vps-studio",
+  "skills": []
+}
