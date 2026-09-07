@@ -7,13 +7,13 @@ Snow Apps repository, providing source code for Snow Shot and Snow Image Viewer.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mg-chao/snow-apps](https://github.com/mg-chao/snow-apps).
+Original source: `.cursor/rules/*.mdc` in [mg-chao/snow-apps](https://github.com/mg-chao/snow-apps).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
