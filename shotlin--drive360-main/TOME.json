@@ -4,7 +4,7 @@
   "repo": "Drive360-main",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shotlin/Drive360-main",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T14:33:18Z"
+  "distributed_at": "2026-09-07T14:37:17Z"
 }
