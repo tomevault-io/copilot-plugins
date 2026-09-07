@@ -1,0 +1,44 @@
+{
+  "name": "RunTheRepo",
+  "owner": "Taiquan-Zhou",
+  "repo": "RunTheRepo",
+  "description": "An autonomous agent that runs, verifies, and hardens Docker Compose apps from GitHub in isolated sandboxes\u2014with evidence-backed keep-or-rollback decisions.\u9762\u5411 GitHub Docker Compose\u5e94\u7528\u7684\u81ea\u4e3b Agent\uff1a\u5728\u9694\u79bb\u6c99\u7bb1\u4e2d\u8fd0\u884c\u3001\u9a8c\u8bc1\u4e0e\u52a0\u56fa\uff0c\u5e76\u4ee5\u53ef\u590d\u73b0\u8bc1\u636e\u51b3\u5b9a\u4fdd\u7559\u6216\u56de\u6eda\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Taiquan-Zhou/RunTheRepo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T04:52:02Z"
+}
