@@ -1,0 +1,9 @@
+{
+  "name": "minipuft--claude-prompts-mcp",
+  "displayName": "claude-prompts-mcp",
+  "description": "MCP server for reusable prompt templates, multi-step workflow chains, and quality gates. Compose agentic workflows with an operator syntax; export as native skills to Claude Code, Cursor, OpenCode, an",
+  "version": "1.0.0",
+  "author": "minipuft",
+  "homepage": "https://github.com/minipuft/claude-prompts-mcp",
+  "skills": []
+}
