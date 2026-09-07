@@ -1,0 +1,9 @@
+{
+  "name": "me-shaon--trackway",
+  "displayName": "trackway",
+  "description": "Answers why a line of code exists, using the agent session behind it.",
+  "version": "1.0.0",
+  "author": "me-shaon",
+  "homepage": "https://github.com/me-shaon/trackway",
+  "skills": []
+}
