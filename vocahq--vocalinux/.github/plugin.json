@@ -1,0 +1,9 @@
+{
+  "name": "vocahq--vocalinux",
+  "displayName": "vocalinux",
+  "description": "Free, open-source, 100% offline voice dictation for Linux. Speak and type anywhere via whisper.cpp, Whisper & VOSK engines, GPU-accelerated, works on X11 + Wayland!",
+  "version": "1.0.0",
+  "author": "VocaHQ",
+  "homepage": "https://github.com/VocaHQ/vocalinux",
+  "skills": []
+}
