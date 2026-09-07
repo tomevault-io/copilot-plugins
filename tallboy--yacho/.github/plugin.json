@@ -1,0 +1,9 @@
+{
+  "name": "tallboy--yacho",
+  "displayName": "yacho",
+  "description": "\u91ce\u5e33 \u2014 AI-augmented field notebook. A structured markdown workspace that gives AI assistants persistent context across conversations.",
+  "version": "1.0.0",
+  "author": "tallboy",
+  "homepage": "https://github.com/tallboy/yacho",
+  "skills": []
+}
