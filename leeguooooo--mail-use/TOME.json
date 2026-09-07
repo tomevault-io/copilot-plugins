@@ -1,0 +1,44 @@
+{
+  "name": "mail-use",
+  "owner": "leeguooooo",
+  "repo": "mail-use",
+  "description": "Email for AI agents \u2014 read, search, send and triage Gmail / QQ / 163 / any IMAP from the CLI or MCP. Part of the *-use family.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leeguooooo/mail-use",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T23:31:54Z"
+}
