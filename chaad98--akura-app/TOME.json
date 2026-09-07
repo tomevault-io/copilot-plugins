@@ -4,7 +4,7 @@
   "repo": "akura-app",
   "description": "Frontend",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chaad98/akura-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T14:47:33Z"
+  "distributed_at": "2026-09-07T14:53:51Z"
 }
