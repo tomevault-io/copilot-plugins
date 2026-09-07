@@ -7,11 +7,11 @@ App for kids to practice adding,  created with help of AI agents to learn how al
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [serrig/SumaMatriculas](https://github.com/serrig/SumaMatriculas).
+Original source: `AGENTS.md` in [serrig/SumaMatriculas](https://github.com/serrig/SumaMatriculas).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
