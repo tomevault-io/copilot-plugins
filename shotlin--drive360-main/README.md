@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Shotlin/Drive360-main](https://github.com/Shotlin/Drive360-main).
+Original source: `GEMINI.md` in [Shotlin/Drive360-main](https://github.com/Shotlin/Drive360-main).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [Shotlin/Drive360-main](https://github.com/Shotlin/Drive360-main) — a repo with 0+ stars on GitHub.
