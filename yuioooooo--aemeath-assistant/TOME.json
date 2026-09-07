@@ -4,7 +4,7 @@
   "repo": "Aemeath-Assistant",
   "description": "\u7231\u5f25\u65af\u684c\u9762\u52a9\u624b",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YuioOoOoO/Aemeath-Assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-07T14:32:36Z"
+  "distributed_at": "2026-09-07T14:53:16Z"
 }
