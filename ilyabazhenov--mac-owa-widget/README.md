@@ -7,13 +7,13 @@ A macOS menu bar app for quick access to your upcoming meetings from a Microsoft
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ilyabazhenov/mac-owa-widget](https://github.com/ilyabazhenov/mac-owa-widget).
+Original source: `AGENTS.md` in [ilyabazhenov/mac-owa-widget](https://github.com/ilyabazhenov/mac-owa-widget).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
