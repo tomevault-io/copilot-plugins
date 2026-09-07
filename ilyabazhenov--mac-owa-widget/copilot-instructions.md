@@ -1,28 +1,36 @@
-## release-guardrails
+## swift6-concurrency
 
-> Guardrails for release metadata and Sparkle artifacts.
+> Swift 6 concurrency and actor-boundary rules for OWAWidget.
 
 
-# Release guardrails
+# Swift 6 concurrency
 
-Do not modify release metadata or release artifacts unless the user explicitly asks to prepare or publish a release.
-Reading protected release files for verification or review is allowed.
+Preserve strict Swift 6 concurrency boundaries.
 
-Protected paths and metadata:
+Observed project facts:
 
-- `VERSION`
-- `RELEASE_NOTES.md`
-- `dist/**`
-- Git tags
-- GitHub releases
-- `OWAWidget/Info.plist` key `SUPublicEDKey`
+- `OWAWidget/Services/CalendarService.swift:27` declares `CalendarService` as `@MainActor`.
+- `OWAWidget/Services/CalendarService.swift:29` through `OWAWidget/Services/CalendarService.swift:33` expose UI-observed `@Published private(set)` state.
+- `OWAWidget/Providers/CalendarProvider.swift:5` declares `CalendarProvider` as an `Actor`.
+- `OWAWidget/Services/CalendarService.swift:35` stores providers as `[any CalendarProvider]`.
+- `OWAWidget/Services/CalendarService.swift:318` through `OWAWidget/Services/CalendarService.swift:325` use `withThrowingTaskGroup` to fetch provider events concurrently.
 
-Release workflow rules:
+Rules:
 
-- For "prepare release", update `VERSION` and `RELEASE_NOTES.md`, commit release metadata before packaging, run `make release-package`, and verify that the new `sparkle:version` is strictly greater than the previous published release.
-- For "publish release", complete the full GitHub release flow only after packaging succeeds.
-- Do not manually update `CFBundleShortVersionString` or `CFBundleVersion` in `OWAWidget/Info.plist`; `make bundle` and `make release-package` derive those values from `VERSION` and git commit count.
-- Do not publish unsigned Sparkle release artifacts.
+- Treat `CalendarService` as the main-actor state owner. Do not mutate its published state from non-main actor contexts.
+- Keep calendar providers actor-isolated. Do not convert providers to classes or structs unless the concurrency design is explicitly reworked.
+- When crossing actor boundaries, make `Sendable` reasoning explicit in the plan.
+- Do not add `@unchecked Sendable`, `nonisolated`, detached tasks, or broad `@MainActor` annotations to silence compiler warnings without a concrete explanation.
+- Prefer dependency-injected protocols for tests over global state or sleeps.
+- When editing async sync, notification, scheduler, or provider code, check for races between manual sync, scheduled sync, provider rebuilds, event cache fallback, and reminder rescheduling.
+
+Relevant tests to consider:
+
+- `Tests/OWAWidgetTests/CalendarServiceOfflineTests.swift`
+- `Tests/OWAWidgetTests/SyncSchedulerTests.swift`
+- `Tests/OWAWidgetTests/SyncRequestGateTests.swift`
+- `Tests/OWAWidgetTests/NotificationServiceAggregationTests.swift`
+- `Tests/OWAWidgetTests/MeetingReminderScheduleTests.swift`
 
 ---
 > Source: [ilyabazhenov/mac-owa-widget](https://github.com/ilyabazhenov/mac-owa-widget) — distributed by [TomeVault](https://tomevault.io).
