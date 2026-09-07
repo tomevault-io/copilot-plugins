@@ -1,0 +1,44 @@
+{
+  "name": "eladtubes",
+  "owner": "drormu1",
+  "repo": "eladtubes",
+  "description": "\u05d0\u05ea\u05e8 \u05ea\u05d3\u05de\u05d9\u05ea - \u05d0\u05dc\u05e2\u05d3 \u05e9\u05de\u05d7\u05d9, \u05e2\u05d1\u05d5\u05d3\u05d5\u05ea \u05d1\u05d9\u05d5\u05d1, \u05e2\u05e4\u05e8 \u05d5\u05d0\u05d9\u05e0\u05e1\u05d8\u05dc\u05e6\u05d9\u05d4",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/drormu1/eladtubes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T14:46:02Z"
+}
