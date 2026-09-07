@@ -1,38 +1,33 @@
-## 032-import-rules
+## 050-testing
 
-> Import rules for cross-package and self-import prevention
+> Testing conventions for Vitest specs
 
 
-# Import Rules
+# Testing Guidelines
 
-## Cross-Package Imports
+Use Vitest. Specs live under each package's `src/tests/` tree.
 
-Do not use relative paths when importing across packages. Always use package imports instead.
+## Running tests
 
-- ❌ `import { something } from "../../../packages/core"`
-- ✅ `import { something } from "@transcripts-mcp/core"`
-
-## Self-Imports
-
-Do not import from a package within itself using the package name.
-
-- ❌ `import { name } from "@transcripts-mcp/core"` inside `packages/core/`
-- ✅ Use relative imports within the same package
-
-## Examples
-
-```typescript
-// ✅ Good: Cross-package import using package name
-import { name as core } from "@transcripts-mcp/core";
-import { name as adapters } from "@transcripts-mcp/adapters";
-
-// ✅ Good: Relative import within same package
-import { helper } from "./utils";
-import { types } from "../types";
-
-// ❌ Bad: Relative path across packages
-import { name } from "../../core/src";
+```bash
+pnpm test
+pnpm --filter @transcripts-mcp/core test
+pnpm --filter @transcripts-mcp/adapters test
 ```
+
+## File placement
+
+- Suffix is `.spec.ts`. Never `.test.ts`. Never `__tests__` folders.
+- Put specs in a `src/tests/` tree that mirrors source.
+
+```
+src/cursor.ts
+src/tests/cursor.spec.ts
+```
+
+## Naming
+
+Pattern: "should [specific outcome] when [condition]".
 
 ---
 > Source: [Stormix/transcripts-mcp](https://github.com/Stormix/transcripts-mcp) — distributed by [TomeVault](https://tomevault.io).
