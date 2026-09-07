@@ -1,0 +1,44 @@
+{
+  "name": "DAWN-Science",
+  "owner": "Jiawang1209",
+  "repo": "DAWN-Science",
+  "description": "An open-source, local-first AI workbench where multiple agents collaborate with you on R and Python data science.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jiawang1209/DAWN-Science",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T04:46:47Z"
+}
