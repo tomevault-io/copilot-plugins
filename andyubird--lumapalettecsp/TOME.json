@@ -1,0 +1,44 @@
+{
+  "name": "LumaPaletteCSP",
+  "owner": "andyubird",
+  "repo": "LumaPaletteCSP",
+  "description": "A Clip Studio Paint color picker that uses the OKLCH color space, this allows the artist to easily pick colors to blend that has the same perceived lightness. This color picker can obtain/set the precise brush color by acting as the mobile version of CSP running in Companion Mode.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/andyubird/LumaPaletteCSP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-07T02:51:55Z"
+}
