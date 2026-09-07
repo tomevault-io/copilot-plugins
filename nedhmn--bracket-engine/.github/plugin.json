@@ -1,0 +1,9 @@
+{
+  "name": "nedhmn--bracket-engine",
+  "displayName": "bracket-engine",
+  "description": "Tournament brackets, Swiss pairing and standings in TypeScript",
+  "version": "1.0.0",
+  "author": "nedhmn",
+  "homepage": "https://github.com/nedhmn/bracket-engine",
+  "skills": []
+}
