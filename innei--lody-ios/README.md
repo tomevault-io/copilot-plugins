@@ -7,11 +7,11 @@ Independent iOS client for Lody — native chat, sessions, and coding-agent coll
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Innei/lody-ios](https://github.com/Innei/lody-ios).
+Original source: `AGENTS.md` in [Innei/lody-ios](https://github.com/Innei/lody-ios).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
