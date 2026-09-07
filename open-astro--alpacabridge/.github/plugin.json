@@ -1,0 +1,9 @@
+{
+  "name": "open-astro--alpacabridge",
+  "displayName": "AlpacaBridge",
+  "description": "AlpacaBride is the future of Astronomy controlled devices which is powered by ASCOM Alpaca",
+  "version": "1.0.0",
+  "author": "open-astro",
+  "homepage": "https://github.com/open-astro/AlpacaBridge",
+  "skills": []
+}
