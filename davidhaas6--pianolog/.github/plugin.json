@@ -1,0 +1,9 @@
+{
+  "name": "davidhaas6--pianolog",
+  "displayName": "pianolog",
+  "description": "Passively records piano MIDI events to track practice habits",
+  "version": "1.0.0",
+  "author": "davidhaas6",
+  "homepage": "https://github.com/davidhaas6/pianolog",
+  "skills": []
+}
