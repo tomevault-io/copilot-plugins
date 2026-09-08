@@ -1,0 +1,9 @@
+{
+  "name": "coccofresco--triaevum",
+  "displayName": "TriAevum",
+  "description": "Experimental native PC recompilation runtime for Ocarina of Time 3D. Windows x64, NRI/Vulkan, single-screen UI and ROM-only setup.",
+  "version": "1.0.0",
+  "author": "coccofresco",
+  "homepage": "https://github.com/coccofresco/TriAevum",
+  "skills": []
+}
