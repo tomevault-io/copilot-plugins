@@ -1,0 +1,9 @@
+{
+  "name": "noopolis--spawnfile",
+  "displayName": "spawnfile",
+  "description": "A spec and compiler for autonomous agent runtimes and agentic organizations. Write your agent once, compile for any runtime",
+  "version": "1.0.0",
+  "author": "noopolis",
+  "homepage": "https://github.com/noopolis/spawnfile",
+  "skills": []
+}
