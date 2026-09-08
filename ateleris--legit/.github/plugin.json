@@ -1,0 +1,9 @@
+{
+  "name": "ateleris--legit",
+  "displayName": "LeGit",
+  "description": "Fast, themeable desktop Git GUI built with Tauri 2, Rust, and React. Dockable panels, full commit graph, hunk- and line-level staging, split/inline diffs, stash and submodule support - all running thr",
+  "version": "1.0.0",
+  "author": "ateleris",
+  "homepage": "https://github.com/ateleris/LeGit",
+  "skills": []
+}
