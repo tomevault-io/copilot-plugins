@@ -1,0 +1,9 @@
+{
+  "name": "wisnuwiry--padu",
+  "displayName": "padu",
+  "description": "Native desktop app for orchestrating AI coding agents (Claude Code, Codex, Cursor CLI) \u2014 built in Rust, no Electron, instant launch.",
+  "version": "1.0.0",
+  "author": "wisnuwiry",
+  "homepage": "https://github.com/wisnuwiry/padu",
+  "skills": []
+}
