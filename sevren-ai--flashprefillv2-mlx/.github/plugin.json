@@ -1,0 +1,9 @@
+{
+  "name": "sevren-ai--flashprefillv2-mlx",
+  "displayName": "FlashPrefillv2-MLX",
+  "description": "FlashPrefill V2 block-sparse long-context prefill attention for MLX on Apple silicon.",
+  "version": "1.0.0",
+  "author": "sevren-ai",
+  "homepage": "https://github.com/sevren-ai/FlashPrefillv2-MLX",
+  "skills": []
+}
