@@ -1,0 +1,9 @@
+{
+  "name": "slackapi--deno-slack-sdk",
+  "displayName": "deno-slack-sdk",
+  "description": "deno-slack-sdk",
+  "version": "1.0.0",
+  "author": "slackapi",
+  "homepage": "https://github.com/slackapi/deno-slack-sdk",
+  "skills": []
+}
