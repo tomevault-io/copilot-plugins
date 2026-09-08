@@ -1,0 +1,9 @@
+{
+  "name": "zjuncher--mr-agent",
+  "displayName": "mr-agent",
+  "description": "An open-source multi-agent platform for GitLab MR code review, governance, and CI self-healing.",
+  "version": "1.0.0",
+  "author": "ZJunCher",
+  "homepage": "https://github.com/ZJunCher/mr-agent",
+  "skills": []
+}
