@@ -1,0 +1,9 @@
+{
+  "name": "facebookresearch--gistbench",
+  "displayName": "GISTBench",
+  "description": "GISTBench Dataset and Evaluation Code",
+  "version": "1.0.0",
+  "author": "facebookresearch",
+  "homepage": "https://github.com/facebookresearch/GISTBench",
+  "skills": []
+}
