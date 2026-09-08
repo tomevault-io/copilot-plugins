@@ -1,0 +1,44 @@
+{
+  "name": "medme",
+  "owner": "Chesterguan",
+  "repo": "medme",
+  "description": "MedMe \u533b\u6211 \u00b7 \u672c\u5730\u4f18\u5148\u7684\u4e2a\u4eba\u533b\u7597\u6570\u636e\u4fdd\u9669\u7bb1\uff08\u684c\u9762 + \u624b\u673a\uff09\uff1a\u91c7\u96c6/OCR\u3001\u5065\u5eb7\u6863\u6848\u3001DICOM \u9605\u7247\u3001\u7aef\u5230\u7aef\u52a0\u5bc6\u5206\u4eab\uff0c\u96f6\u670d\u52a1\u5668\u3002Prometheno\uff08\u5584\u6d4e\uff09\u65d7\u4e0b\u4ea7\u54c1\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Chesterguan/medme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T00:44:03Z"
+}
