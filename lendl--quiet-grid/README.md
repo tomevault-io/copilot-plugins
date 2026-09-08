@@ -7,11 +7,11 @@ Privacy-first logic puzzle app for Android. No ads, no account, fully offline.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lendl/quiet-grid](https://github.com/lendl/quiet-grid).
+Original source: `AGENTS.md` in [lendl/quiet-grid](https://github.com/lendl/quiet-grid).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
