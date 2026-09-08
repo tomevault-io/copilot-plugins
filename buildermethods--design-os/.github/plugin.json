@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "buildermethods",
   "homepage": "https://github.com/buildermethods/design-os",
-  "skills": [
-    {
-      "name": "design-os",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
