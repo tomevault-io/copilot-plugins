@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "hukusuke1007",
   "homepage": "https://github.com/hukusuke1007/flutter_app_template",
-  "skills": []
+  "skills": [
+    {
+      "name": "flutter_app_template",
+      "description": ""
+    }
+  ]
 }
