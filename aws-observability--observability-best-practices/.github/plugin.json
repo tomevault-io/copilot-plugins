@@ -1,0 +1,9 @@
+{
+  "name": "aws-observability--observability-best-practices",
+  "displayName": "observability-best-practices",
+  "description": "observability-best-practices",
+  "version": "1.0.0",
+  "author": "aws-observability",
+  "homepage": "https://github.com/aws-observability/observability-best-practices",
+  "skills": []
+}
