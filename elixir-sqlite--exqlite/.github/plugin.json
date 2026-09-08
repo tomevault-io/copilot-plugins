@@ -1,0 +1,9 @@
+{
+  "name": "elixir-sqlite--exqlite",
+  "displayName": "exqlite",
+  "description": "exqlite",
+  "version": "1.0.0",
+  "author": "elixir-sqlite",
+  "homepage": "https://github.com/elixir-sqlite/exqlite",
+  "skills": []
+}
