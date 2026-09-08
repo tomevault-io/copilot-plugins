@@ -3,8 +3,8 @@
   "owner": "feige996",
   "repo": "unibest",
   "description": "\u3010\u8fd9\u662f\u65b0\u4ed3\u5e93\uff0ccodercup\u90a3\u4e2a\u8fdb\u4e0d\u53bb\u4e0d\u7ef4\u62a4\u4e86\u3002\u3011unibest - \u6700\u597d\u7528\u7684 uniapp \u5f00\u53d1\u6846\u67b6\u3002unibest \u662f\u7531 uniapp + Vue3 + Ts + Vite5 + UnoCss + WotUI \u9a71\u52a8\u7684\u8de8\u7aef\u5feb\u901f\u542f\u52a8\u6a21\u677f\uff0c\u4f7f\u7528 VS Code \u5f00\u53d1\uff0c\u5177\u6709\u4ee3\u7801\u63d0\u793a\u3001\u81ea\u52a8\u683c\u5f0f\u5316\u3001\u7edf\u4e00\u914d\u7f6e\u3001\u4ee3\u7801\u7247\u6bb5\u7b49\u529f\u80fd\uff0c\u540c\u65f6\u5185\u7f6e\u4e86\u5927\u91cf\u5e73\u65f6\u5f00\u53d1\u5e38\u7528\u7684\u57fa\u672c\u7ec4\u4ef6\uff0c\u5f00\u7bb1\u5373\u7528\uff0c\u8ba9\u4f60\u7f16\u5199 uniapp \u62e5\u6709 best \u4f53\u9a8c\u3002",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,99 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "uview-pro-vue3",
+      "path": ".agents/skills/uview-pro-vue3/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/skills/uview-pro-vue3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniappx-project-creator",
+      "path": ".agents/bak-skills/uniappx-project-creator/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniappx-project-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/skills/uni-app/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/skills/uni-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-ad/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-ad/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/skills/uniapp-project/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/skills/uniapp-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-uview/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-uview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-cloud/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-plugin/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-ucharts/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-ucharts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniappx-project/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniappx-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniappx-uview-pro/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniappx-uview-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-native-app/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-native-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-mini-guide/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-mini-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-native-plugin/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-native-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unibest",
+      "path": ".agents/bak-skills/uniapp-project-creator/SKILL.md",
+      "github_url": "https://github.com/feige996/unibest/tree/main/.agents/bak-skills/uniapp-project-creator/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/feige996/unibest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T15:49:42Z"
+  "distributed_at": "2026-09-08T21:34:13Z"
 }
