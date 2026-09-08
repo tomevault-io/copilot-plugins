@@ -1,0 +1,9 @@
+{
+  "name": "openaleph--ftm-lakehouse",
+  "displayName": "ftm-lakehouse",
+  "description": "Data standard and archive storage for structured FollowTheMoney data, leaked data, private and public document collections.",
+  "version": "1.0.0",
+  "author": "openaleph",
+  "homepage": "https://github.com/openaleph/ftm-lakehouse",
+  "skills": []
+}
