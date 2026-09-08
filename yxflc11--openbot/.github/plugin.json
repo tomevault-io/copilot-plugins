@@ -1,0 +1,9 @@
+{
+  "name": "yxflc11--openbot",
+  "displayName": "openbot",
+  "description": "Self-hosted, cross-platform control plane for persistent AI employees with local channels, replaceable Worker Hosts, human approval, memory, skills, and portable identities.",
+  "version": "1.0.0",
+  "author": "yxflc11",
+  "homepage": "https://github.com/yxflc11/openbot",
+  "skills": []
+}
