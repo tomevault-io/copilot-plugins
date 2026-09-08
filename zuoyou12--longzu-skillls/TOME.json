@@ -1,0 +1,44 @@
+{
+  "name": "longzu.skillls",
+  "owner": "zuoyou12",
+  "repo": "longzu.skillls",
+  "description": "\u6c5f\u5357 \u00d7 \u70fd\u706b\u620f\u8bf8\u4faf\u6587\u98ce\u84b8\u998f Agent Skills\uff08Claude Code/Codex/Cursor/Trae/Antigravity \u901a\u7528\uff09\uff5c1465\u4e07\u5b57\u8bed\u6599\u5b9e\u8bc1 + \u81ea\u52a8\u98ce\u683c\u5ba1\u8ba1 + \u72ec\u7acb\u76f2\u6d4b 95/100\u00b7A",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zuoyou12/longzu.skillls",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T00:41:50Z"
+}
