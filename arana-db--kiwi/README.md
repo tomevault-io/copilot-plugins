@@ -1,23 +1,21 @@
 # kiwi
 
-> Source: [arana-db/kiwi](https://github.com/arana-db/kiwi) — distributed by [TomeVault](https://tomevault.io)
-
-a high-performance, large-capacity, multi-tenant, data-persistent, strong data consistency based on raft, Redis-compatible elastic KV data storage system based on RocksDB
+> Source: [arana-db/kiwi](https://github.com/arana-db/kiwi). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [arana-db/kiwi](https://github.com/arana-db/kiwi).
+Original source: `AGENTS.md` in [arana-db/kiwi](https://github.com/arana-db/kiwi).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/arana-db/kiwi](https://github.com/arana-db/kiwi)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/arana-db/kiwi](https://github.com/arana-db/kiwi)
 
 ---
 
