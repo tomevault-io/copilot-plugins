@@ -1,0 +1,9 @@
+{
+  "name": "chesterguan--medme",
+  "displayName": "medme",
+  "description": "MedMe \u533b\u6211 \u00b7 \u672c\u5730\u4f18\u5148\u7684\u4e2a\u4eba\u533b\u7597\u6570\u636e\u4fdd\u9669\u7bb1\uff08\u684c\u9762 + \u624b\u673a\uff09\uff1a\u91c7\u96c6/OCR\u3001\u5065\u5eb7\u6863\u6848\u3001DICOM \u9605\u7247\u3001\u7aef\u5230\u7aef\u52a0\u5bc6\u5206\u4eab\uff0c\u96f6\u670d\u52a1\u5668\u3002Prometheno\uff08\u5584\u6d4e\uff09\u65d7\u4e0b\u4ea7\u54c1\u3002",
+  "version": "1.0.0",
+  "author": "Chesterguan",
+  "homepage": "https://github.com/Chesterguan/medme",
+  "skills": []
+}
