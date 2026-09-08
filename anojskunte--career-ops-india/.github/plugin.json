@@ -1,0 +1,9 @@
+{
+  "name": "anojskunte--career-ops-india",
+  "displayName": "career-ops-india",
+  "description": "AI job search for India \u2014 scan 196 companies, evaluate fit, generate tailored CVs. Works with Claude Code + Gemini CLI (free).",
+  "version": "1.0.0",
+  "author": "AnojSKunte",
+  "homepage": "https://github.com/AnojSKunte/career-ops-india",
+  "skills": []
+}
