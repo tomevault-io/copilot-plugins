@@ -4,7 +4,7 @@
   "repo": "voom",
   "description": "Open-source Loom alternative for macOS. Screen recording with webcam, on-device transcription, and self-hosted sharing.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aritropaul/voom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T18:36:05Z"
+  "distributed_at": "2026-09-08T18:38:18Z"
 }
