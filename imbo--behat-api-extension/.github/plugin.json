@@ -1,0 +1,9 @@
+{
+  "name": "imbo--behat-api-extension",
+  "displayName": "behat-api-extension",
+  "description": "behat-api-extension",
+  "version": "1.0.0",
+  "author": "imbo",
+  "homepage": "https://github.com/imbo/behat-api-extension",
+  "skills": []
+}
