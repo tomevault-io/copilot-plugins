@@ -1,0 +1,9 @@
+{
+  "name": "nervosnetwork--ckb-vm",
+  "displayName": "ckb-vm",
+  "description": "ckb-vm",
+  "version": "1.0.0",
+  "author": "nervosnetwork",
+  "homepage": "https://github.com/nervosnetwork/ckb-vm",
+  "skills": []
+}
