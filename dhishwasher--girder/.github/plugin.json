@@ -1,0 +1,9 @@
+{
+  "name": "dhishwasher--girder",
+  "displayName": "Girder",
+  "description": "Gives AI coding agents exactly the code they need instead of whole files. Semantic code graph, impact analysis, and MCP server in one static Rust binary.",
+  "version": "1.0.0",
+  "author": "dhishwasher",
+  "homepage": "https://github.com/dhishwasher/Girder",
+  "skills": []
+}
