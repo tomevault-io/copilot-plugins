@@ -1,0 +1,9 @@
+{
+  "name": "sophomoresty--turnstile-bypass",
+  "displayName": "turnstile-bypass",
+  "description": "Cross-platform Cloudflare Turnstile solver (macOS, Windows, Linux)",
+  "version": "1.0.0",
+  "author": "Sophomoresty",
+  "homepage": "https://github.com/Sophomoresty/turnstile-bypass",
+  "skills": []
+}
