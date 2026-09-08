@@ -7,11 +7,11 @@ Native desktop app for orchestrating AI coding agents (Claude Code, Codex, Curso
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wisnuwiry/padu](https://github.com/wisnuwiry/padu).
+Original source: `AGENTS.md` in [wisnuwiry/padu](https://github.com/wisnuwiry/padu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
