@@ -1,61 +1,62 @@
-## vue-typescript-patterns
+## unibest
 
-> - 使用 Composition API 和 `<script setup>` 语法
+> 基于 uniapp + Vue3 + TypeScript + Vite5 + UnoCSS 的跨平台开发框架,支持 H5、小程序、APP 多平台,无需 HBuilderX,命令行开发。
 
-# Vue3 + TypeScript 开发规范
+# unibest 项目概览
 
-## Vue 组件规范
-- 使用 Composition API 和 `<script setup>` 语法
-- 组件文件使用 PascalCase 命名
-- 页面文件放在 `src/pages/` 目录下
-- 全局组件文件放在 `src/components/` 目录下
-- 局部组件文件放在页面的 `/components/` 目录下
+基于 uniapp + Vue3 + TypeScript + Vite5 + UnoCSS 的跨平台开发框架,支持 H5、小程序、APP 多平台,无需 HBuilderX,命令行开发。
 
-## Vue SFC 组件规范
-- `<script setup lang="ts">` 标签必须是第一个子元素
-- `<template>` 标签必须是第二个子元素
-- `<style scoped>` 标签必须是最后一个子元素（因为推荐使用原子化类名，所以很可能没有）
+## 工程规范(Hermes)
 
-## TypeScript 规范
-- 严格使用 TypeScript，避免使用 `any` 类型
-- 为 API 响应数据定义接口类型
-- 使用 `interface` 定义对象类型，`type` 定义联合类型
-- 导入类型时使用 `import type` 语法
+详细规范唯一事实源在 [hermes/](./hermes/README.md),按场景取用:
 
-## 状态管理
-- 使用 Pinia 进行状态管理
-- Store 文件放在 `src/store/` 目录下
-- 使用 `defineStore` 定义 store
-- 支持持久化存储
+| 场景 | 文档 |
+|------|------|
+| 架构:事实源与生成物、平台接缝、校验边界、目录分层 | [hermes/architecture.md](./hermes/architecture.md) |
+| 代码:命名、SFC 结构、TS、状态、提交、合入门禁 | [hermes/conventions.md](./hermes/conventions.md) |
+| 平台:差异决策树、条件编译速查、本项目差异点表 | [hermes/platforms.md](./hermes/platforms.md) |
+| 请求:分层、错误四分类、401 双 token 策略 | [hermes/api.md](./hermes/api.md) |
+| SOP:新页面/全局组件/分包/tabbar/hooks | [hermes/sop-new-page.md](./hermes/sop-new-page.md) |
+| 性能:分包规则、包体积检查、编码侧规则 | [hermes/performance.md](./hermes/performance.md) |
+| 发布:upload:mp、changesets、uvm、环境切换 | [hermes/release.md](./hermes/release.md) |
 
-## 示例代码结构
-```vue
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import type { UserInfo } from '@/types/user'
+三条铁律(全文见 hermes/README.md):
 
-const userInfo = ref<UserInfo | null>(null)
+1. **生成物不手改**:`src/pages.json`、`src/manifest.json`、`src/types/*.d.ts` 由 `*.config.ts` 生成,手改会被覆盖
+2. **平台差异只用条件编译**:编译期能确定的不留运行时
+3. **UI 优先原子类**:先 UnoCSS,再自定义 CSS
 
-onMounted(() => {
-  // 初始化逻辑
-})
-</script>
+## AI 辅助 Skills
 
-<template>
-  <view class="container">
-    <!-- 模板内容 -->
-  </view>
-</template>
+项目自带 `.agents/skills/`(信任项目后自动加载),按场景选用:
 
-<style lang="scss" scoped>
-.container {
-  // 样式
-}
-</style>
----
-globs: *.vue,*.ts,*.tsx
----
+| Skill | 用途 |
+|-------|------|
+| uni-app | 框架文档参考:条件编译、生命周期、pages/manifest 配置;查官方文档优先用其推荐的 `search-docs-by-Uniapp-official` MCP 工具 |
+| uniapp-project | 官方组件/API 集成细节与跨端兼容性 |
+| uview-pro-vue3 | uView Pro 组件库参考(项目当前未安装该依赖,使用前先安装) |
+
+## 核心配置文件
+
+- [package.json](mdc:package.json) - 依赖和脚本
+- [vite.config.ts](mdc:vite.config.ts) - 构建配置
+- [pages.config.ts](mdc:pages.config.ts) - 路由配置(事实源)
+- [manifest.config.ts](mdc:manifest.config.ts) - 应用清单(事实源)
+- [uno.config.ts](mdc:uno.config.ts) - UnoCSS 配置
+
+## 常用命令
+
+```bash
+pnpm dev          # H5
+pnpm dev:mp       # 微信小程序
+pnpm dev:app      # APP
+pnpm build:mp     # 微信小程序生产构建
+pnpm upload:mp    # 小程序上传(见 hermes/release.md)
+
+# 合入前门禁(三条全过)
+pnpm type-check && pnpm lint && pnpm test:run
+```
 
 ---
 > Source: [feige996/unibest](https://github.com/feige996/unibest) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
