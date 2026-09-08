@@ -1,0 +1,9 @@
+{
+  "name": "viviquan--agnescode",
+  "displayName": "agnescode",
+  "description": "Terminal-native AI coding agent with built-in Agnes AI (free multimodal API)",
+  "version": "1.0.0",
+  "author": "ViviQuan",
+  "homepage": "https://github.com/ViviQuan/agnescode",
+  "skills": []
+}
