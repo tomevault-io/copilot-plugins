@@ -1,0 +1,52 @@
+## mathmodel-skill
+
+> This repository contains the `mathmodel-skill` product. When working inside this repository, act as a maintainer: do not start the ten-stage contest workflow merely because modeling-related files are present.
+
+# Repository instructions
+
+This repository contains the `mathmodel-skill` product. When working inside this repository, act as a maintainer: do not start the ten-stage contest workflow merely because modeling-related files are present.
+
+## Sources of truth
+
+- `SKILL.md` defines runtime behavior and trigger boundaries.
+- `references/stage_00_kickoff.md` through `references/stage_09_review.md` contain stage details and must be loaded lazily at runtime.
+- `competitions/<competition>/` contains competition-specific rules, heuristics, overlays, and paper structures.
+- `templates/shared/decision_log.json` is the canonical persistent-state template.
+- `.codex-plugin/plugin.json`, `agents/openai.yaml`, and `skills/mathmodel-skill/SKILL.md` are packaging metadata or thin discovery shims. Do not duplicate the workflow into them.
+
+## Maintenance rules
+
+- Preserve the trigger boundary: this skill is for CUMCM, MCM/ICM, and Diangong Cup contest work, not generic data analysis or ordinary paper review.
+- Treat official contest rules as time-sensitive. Keep a verification date and primary source in `competitions/<competition>/current_rules.md`; official current-year material always overrides repository guidance.
+- Treat empirical distributions and `winning_patterns.md` as observations or maintainer heuristics, never official thresholds or award predictors.
+- Keep user artifacts relative to the user's working directory (`state/`, `results/`, `figures/`, `paper_workspace/`, `paper_output/`). Resolve repository resources relative to the installed skill root.
+- Keep `SKILL.md` concise and dispatch stage-specific detail into `references/`.
+- Do not add runtime claims about awards, token savings, or elapsed time without a reproducible benchmark.
+- When changing behavior, update the README, tests, plugin version, state schema, and relevant competition docs together.
+- Do not vendor or reintroduce templates, examples, papers, or binary assets without a clear redistribution license. Keep runtime dependencies and external-source boundaries accurate in `THIRD_PARTY_NOTICES.md`.
+- Keep `.codex-plugin/plugin.json` attribution fields (`author`, `homepage`, `repository`, `developerName`, `websiteURL`) consistent with the LICENSE copyright owner. Upstream authors belong in `SOURCES.md`/`THIRD_PARTY_NOTICES.md` as provenance, not as the fork author.
+- The canonical LaTeX assembly tree is `templates/latex/<comp>/main.tex`, which `scripts/render_paper.py` renders. `tools/latex/assets/templates/` and `templates/latex-alt/` are tool mirrors or fallbacks: when you change the main tree, sync the mirrors or note why not.
+- `competitions/<comp>/current_rules.md` must keep a verified-on ISO date (English `Last verified:` or Chinese `最近核对`) plus at least one official source URL; regression tests assert this.
+
+## Verification
+
+Run the checks proportionate to the change. Before a release, run all of them:
+
+```bash
+python -m compileall -q scripts templates/shared/code_starter
+python -m unittest discover -s tests -p 'test_*.py' -v
+python scripts/doctor.py --competition cumcm --skip-tools
+python scripts/doctor.py --competition mcm --skip-tools
+python scripts/doctor.py --competition diangong --skip-tools
+git diff --check
+```
+
+A single command runs the equivalent suite above: `python scripts/verify_all.py` (add `--full` to skip `doctor --skip-tools`).
+
+Maintainers with the Codex skill/plugin creator tooling installed should also run its current `quick_validate.py` and `validate_plugin.py` entrypoints. Do not hard-code a machine-specific installation path into contributor commands.
+
+Runtime evaluation prompts should explicitly invoke `$mathmodel-skill`. Negative-trigger tests should confirm that generic model-selection and non-competition writing requests do not invoke it.
+
+---
+> Source: [rootkiller6788/mathmodel-skill](https://github.com/rootkiller6788/mathmodel-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
