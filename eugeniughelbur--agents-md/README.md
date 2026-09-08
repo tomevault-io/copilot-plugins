@@ -7,11 +7,11 @@ Generate and safely maintain AGENTS.md, the cross-tool standard for AI coding ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eugeniughelbur/agents-md](https://github.com/eugeniughelbur/agents-md).
+Original source: `AGENTS.md` in [eugeniughelbur/agents-md](https://github.com/eugeniughelbur/agents-md).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
