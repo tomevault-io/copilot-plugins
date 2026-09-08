@@ -4,7 +4,7 @@
   "repo": "crystal-ball",
   "description": "Tauri 2 desktop intelligence platform \u2014 Cesium.js 3D globe, 185 live panels, MCP server for Claude Code, and an explainable algorithm intelligence layer (truth scoring, evidence graph, compound risk, forecast calibration) plus shortage / weather / insights engines. 600+ deterministic tests.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bradleybond512/crystal-ball",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T18:40:12Z"
+  "distributed_at": "2026-09-08T18:42:18Z"
 }
