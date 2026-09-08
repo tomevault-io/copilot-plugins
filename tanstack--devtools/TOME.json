@@ -4,7 +4,7 @@
   "repo": "devtools",
   "description": "\ud83e\udd16 Framework-agnostic devtools panel for handling TanStack libraries devtools and your custom devtool plugins",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/TanStack/devtools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T09:34:05Z"
+  "distributed_at": "2026-09-08T19:32:06Z"
 }
