@@ -1,0 +1,9 @@
+{
+  "name": "aaronontheweb--architecture-assessment",
+  "displayName": "architecture-assessment",
+  "description": "Evidence-first architecture assessment and simplification skills, with Roslyn syntax analysis and a SQLite source catalog",
+  "version": "1.0.0",
+  "author": "Aaronontheweb",
+  "homepage": "https://github.com/Aaronontheweb/architecture-assessment",
+  "skills": []
+}
