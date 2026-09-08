@@ -1,15 +1,15 @@
 # WebChat
 
-> Tome by [molvqingtai](https://github.com/molvqingtai/WebChat) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [molvqingtai](https://github.com/molvqingtai/WebChat), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [molvqingtai/WebChat](https://github.com/molvqingtai/WebChat).
+Original source: `AGENTS.md` in [molvqingtai/WebChat](https://github.com/molvqingtai/WebChat).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
