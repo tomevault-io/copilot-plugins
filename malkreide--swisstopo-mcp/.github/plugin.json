@@ -1,0 +1,9 @@
+{
+  "name": "malkreide--swisstopo-mcp",
+  "displayName": "swisstopo-mcp",
+  "description": "MCP server for Swiss federal geodata (Swisstopo APIs) \u2014 13 tools for geocoding, height, STAC, WMTS, \u00d6REB and more",
+  "version": "1.0.0",
+  "author": "malkreide",
+  "homepage": "https://github.com/malkreide/swisstopo-mcp",
+  "skills": []
+}
