@@ -1,0 +1,14 @@
+{
+  "name": "romanlut--hx-espnow-rc",
+  "displayName": "hx_espnow_rc",
+  "description": "hx_espnow_rc",
+  "version": "1.0.0",
+  "author": "RomanLut",
+  "homepage": "https://github.com/RomanLut/hx_espnow_rc",
+  "skills": [
+    {
+      "name": "hx_espnow_rc",
+      "description": ""
+    }
+  ]
+}
