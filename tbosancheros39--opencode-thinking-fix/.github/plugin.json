@@ -1,0 +1,9 @@
+{
+  "name": "tbosancheros39--opencode-thinking-fix",
+  "displayName": "opencode-thinking-fix",
+  "description": "Restores reasoning content dropped from multi-turn OpenCode conversations (DeepSeek, Kimi, GLM, MiMo, MiniMax, OpenCode Go). Plugin + proxy + watchdog.",
+  "version": "1.0.0",
+  "author": "tbosancheros39",
+  "homepage": "https://github.com/tbosancheros39/opencode-thinking-fix",
+  "skills": []
+}
