@@ -1,0 +1,87 @@
+{
+  "name": "motion-start",
+  "owner": "JonathonRP",
+  "repo": "motion-start",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-testing/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-frontend/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-security/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-performance/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-code-quality/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-architecture/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motion-start",
+      "path": ".claude/skills/agentic-jumpstart-dependency-management/SKILL.md",
+      "github_url": "https://github.com/JonathonRP/motion-start/tree/main/.claude/skills/agentic-jumpstart-dependency-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JonathonRP/motion-start",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T21:47:13Z"
+}
