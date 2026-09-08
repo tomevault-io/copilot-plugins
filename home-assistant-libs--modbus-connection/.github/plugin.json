@@ -1,0 +1,9 @@
+{
+  "name": "home-assistant-libs--modbus-connection",
+  "displayName": "modbus-connection",
+  "description": "A small, backend-neutral Modbus connection abstraction (pymodbus + tmodbus).",
+  "version": "1.0.0",
+  "author": "home-assistant-libs",
+  "homepage": "https://github.com/home-assistant-libs/modbus-connection",
+  "skills": []
+}
