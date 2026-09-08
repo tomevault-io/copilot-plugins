@@ -1,0 +1,44 @@
+{
+  "name": "rf-hunter",
+  "owner": "zpol",
+  "repo": "rf-hunter",
+  "description": "RF Hunter is an RF security research tool to enumerate and scan for vulnerabilities around you using a HackRF device + GPS module",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zpol/rf-hunter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T02:33:48Z"
+}
