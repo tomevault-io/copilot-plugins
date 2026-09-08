@@ -1,0 +1,9 @@
+{
+  "name": "civitai--cli",
+  "displayName": "cli",
+  "description": "Browse & download Civitai models, images & articles from the command line - and author, validate & submit Apps",
+  "version": "1.0.0",
+  "author": "civitai",
+  "homepage": "https://github.com/civitai/cli",
+  "skills": []
+}
