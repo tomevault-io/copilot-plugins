@@ -5,46 +5,5 @@
   "version": "1.0.0",
   "author": "FHIR",
   "homepage": "https://github.com/FHIR/fhir-codegen",
-  "skills": [
-    {
-      "name": "dev-review",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
