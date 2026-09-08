@@ -1,12 +1,10 @@
 ## use-wallet
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-**Important**: Keep this document updated when making significant changes to the codebase, such as adding new commands, changing architecture patterns, introducing new directories, or modifying the build/test setup.
+This file provides guidance to AI coding agents when working with code in this repository.
 
 ## Project Overview
 
@@ -15,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Development
+
 ```bash
 pnpm install              # Install dependencies
 pnpm dev                  # Watch mode for all packages
@@ -23,6 +22,7 @@ pnpm build                # Build packages and examples
 ```
 
 ### Testing
+
 ```bash
 pnpm test                                         # Run all tests
 pnpm --filter @txnlab/use-wallet test             # Run core package tests
@@ -30,19 +30,22 @@ pnpm --filter @txnlab/use-wallet test:watch       # Watch mode for core tests
 ```
 
 ### Linting & Type Checking
+
 ```bash
 pnpm lint                 # Lint all packages
 pnpm typecheck            # Type check all packages
-pnpm prettier             # Check formatting
+pnpm format:check         # Check formatting with Prettier
+pnpm publint              # Check package.json and dist output
 ```
 
 ### Running Examples
+
 ```bash
 pnpm example:react        # React example
 pnpm example:vue          # Vue example
 pnpm example:solid        # SolidJS example
 pnpm example:svelte       # Svelte example
-pnpm example:nextjs       # Next.js example
+pnpm example:next         # Next.js example
 pnpm example:nuxt         # Nuxt example
 pnpm example:ts           # Vanilla TypeScript example
 ```
@@ -51,46 +54,90 @@ pnpm example:ts           # Vanilla TypeScript example
 
 ### Package Structure (pnpm monorepo)
 
-- **packages/use-wallet** (`@txnlab/use-wallet`) - Core framework-agnostic library
-- **packages/use-wallet-react** (`@txnlab/use-wallet-react`) - React adapter
-- **packages/use-wallet-vue** (`@txnlab/use-wallet-vue`) - Vue adapter
-- **packages/use-wallet-solid** (`@txnlab/use-wallet-solid`) - SolidJS adapter
-- **packages/use-wallet-svelte** (`@txnlab/use-wallet-svelte`) - Svelte adapter
+All 15 publishable packages use lockstep versioning — every package shares the same version number.
 
-Framework adapters depend on the core package via `workspace:*` and re-export all core exports.
+**Core** (`packages/core`):
+
+- `@txnlab/use-wallet` — Core framework-agnostic library
+
+**Wallet Adapters** (`packages/wallets/<name>`):
+
+- `@txnlab/use-wallet-pera`, `-defly`, `-exodus`, `-walletconnect`, `-kibisis`, `-lute`, `-w3wallet`, `-kmd`, `-mnemonic`, `-web3auth`
+- Each is a separate npm package that bundles its wallet SDK as a regular dependency
+- Depends on `@txnlab/use-wallet` via `workspace:*`
+
+**Framework Adapters** (`packages/frameworks/<name>`):
+
+- `@txnlab/use-wallet-react`, `-vue`, `-solid`, `-svelte`
+- Depends on `@txnlab/use-wallet` via `workspace:*`
+- Re-exports all core types and classes
 
 ### Core Package Architecture
 
 **State Management**: Uses `@tanstack/store` for reactive state. State includes:
+
 - `wallets`: Map of wallet IDs to their connection state (accounts, active account)
 - `activeWallet`: Currently active wallet ID
 - `activeNetwork`: Current network (mainnet, testnet, etc.)
 - `algodClient`: Algorand SDK client instance
 
 **Key Classes**:
+
 - `WalletManager` (`src/manager.ts`): Orchestrates wallet initialization, network configuration, and state persistence. Entry point for configuring the library.
 - `BaseWallet` (`src/wallets/base.ts`): Abstract base class all wallet implementations extend. Defines the wallet interface: `connect()`, `disconnect()`, `resumeSession()`, `signTransactions()`.
 
-**Wallet Implementations** (`src/wallets/`): Each wallet provider (Pera, Defly, Exodus, WalletConnect, KMD, Web3Auth, etc.) has its own implementation extending `BaseWallet`. Wallet SDKs are peer dependencies, allowing users to install only what they need.
+**Wallet Implementations** (`packages/wallets/*`): Each wallet provider has its own adapter package extending `BaseWallet`, with its wallet SDK bundled as a dependency. Users install only the adapter packages they need.
 
-**Secure Key Utilities** (`src/secure-key.ts`): For wallets that handle raw private keys (Web3Auth, Mnemonic), provides `SecureKeyContainer` for safe key handling with automatic memory zeroing. Keys are never persisted and are cleared immediately after use.
+**v5 API**: Wallets are configured using factory functions (e.g., `pera()`, `defly()`) instead of the v4 `WalletId` enum. Wallet capabilities include `supportedNetworks`/`excludedNetworks` for filtering via `availableWallets`.
 
-**State Persistence**: Wallet state is persisted to localStorage under key `@txnlab/use-wallet:v4`.
+**Secure Key Utilities** (`src/secure-key.ts`): For wallets that handle raw private keys (Web3Auth, Mnemonic), provides `SecureKeyContainer` for safe key handling with automatic memory zeroing.
+
+**State Persistence**: Wallet state is persisted to localStorage under key `@txnlab/use-wallet:v5`.
 
 ### Framework Adapter Pattern
 
 Each adapter provides:
+
 1. A context provider component (e.g., `WalletProvider` in React)
 2. Hooks/composables that subscribe to store state and provide reactive wallet data
 3. Re-exports of all core types and classes
 
-Example: React's `useWallet()` hook uses `@tanstack/react-store` to subscribe to state changes and returns reactive wallet data plus signing methods.
+## Releases and Commit Conventions
 
-## Key Types
+This project uses **semantic-release** for automated versioning and publishing. Commits to `main` and `v5` trigger the release workflow.
 
-- `WalletId`: Enum of supported wallet IDs (PERA, DEFLY, EXODUS, WALLETCONNECT, KMD, WEB3AUTH, MAGIC, etc.)
-- `WalletAccount`: `{ name: string, address: string }`
-- `SupportedWallet`: Either a `WalletId` string or a config object `{ id, options?, metadata? }`
+### Commit types that trigger a release
+
+| Type       | Bump  | Example                                     |
+| ---------- | ----- | ------------------------------------------- |
+| `feat`     | minor | `feat(core): add multi-account support`     |
+| `fix`      | patch | `fix(pera): handle session timeout`         |
+| `perf`     | patch | `perf(store): reduce state update overhead` |
+| `refactor` | patch | `refactor(wallets): simplify base class`    |
+
+### Commit types that DO NOT trigger a release
+
+`chore`, `docs`, `style`, `test`, `build`, `ci`
+
+### Important
+
+- **Direct commits** to `main` or `v5` with a release-triggering type (`feat`, `fix`, `perf`, `refactor`) will automatically publish new versions to npm.
+- **Pull requests** into `main` or `v5` are squash-merged (enforced by GitHub ruleset). The squash commit message determines whether a release is triggered.
+- Use `chore`, `docs`, `test`, `ci`, or `build` prefixes for commits that should not trigger a release.
+- The `v5` branch publishes pre-release versions (e.g., `5.0.0-rc.N`) to the `next` npm tag. The `main` branch publishes stable versions to `latest`.
+
+### Release pipeline
+
+1. Push to `main` or `v5` triggers `.github/workflows/release.yml`
+2. semantic-release determines the next version from commit history and git tags
+3. `scripts/update-versions.mjs` updates all 17 package versions (lockstep)
+4. `scripts/publish-packages.mjs` publishes in dependency order: core → wallets → frameworks
+5. `@semantic-release/git` commits the updated package.json files and CHANGELOG.md
+6. Publishing uses OIDC trusted publishing (no npm token needed)
+
+### Workspace references
+
+Internal dependencies use `workspace:*` in package.json files. This is resolved to concrete versions automatically by `pnpm publish` at publish time. Do not manually replace `workspace:*` with version strings — this breaks local development linking.
 
 ## ESLint Configuration
 
@@ -98,4 +145,4 @@ Uses TypeScript ESLint with `@typescript-eslint/no-explicit-any` disabled. Unuse
 
 ---
 > Source: [TxnLab/use-wallet](https://github.com/TxnLab/use-wallet) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
