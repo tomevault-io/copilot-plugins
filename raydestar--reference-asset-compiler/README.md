@@ -7,11 +7,11 @@ Open-source, evidence-gated pipeline from one concept image to a rigged, texture
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [raydeStar/reference-asset-compiler](https://github.com/raydeStar/reference-asset-compiler).
+Original source: `AGENTS.md` in [raydeStar/reference-asset-compiler](https://github.com/raydeStar/reference-asset-compiler).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
