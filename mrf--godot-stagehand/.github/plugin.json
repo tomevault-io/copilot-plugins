@@ -1,0 +1,9 @@
+{
+  "name": "mrf--godot-stagehand",
+  "displayName": "godot-stagehand",
+  "description": "Playwright inspired tool for testing Godot games",
+  "version": "1.0.0",
+  "author": "mrf",
+  "homepage": "https://github.com/mrf/godot-stagehand",
+  "skills": []
+}
