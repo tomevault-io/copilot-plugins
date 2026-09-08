@@ -1,0 +1,9 @@
+{
+  "name": "daltonist92--llm-wiki-vjack",
+  "displayName": "llm-wiki-vJack",
+  "description": "LLM Wiki (Karpathy pattern): compounding, agent-maintained Markdown knowledge base with token-frugal navigation",
+  "version": "1.0.0",
+  "author": "Daltonist92",
+  "homepage": "https://github.com/Daltonist92/llm-wiki-vJack",
+  "skills": []
+}
