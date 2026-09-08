@@ -4,7 +4,7 @@
   "repo": "openadapt-flow",
   "description": "Compiler and governed runtime for demonstrated GUI workflows, with explicit identity, policy, and result checks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenAdaptAI/openadapt-flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T00:32:02Z"
+  "distributed_at": "2026-09-08T00:37:49Z"
 }
