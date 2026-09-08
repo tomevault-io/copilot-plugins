@@ -1,0 +1,9 @@
+{
+  "name": "nqcd--nqcdynamics-jl",
+  "displayName": "NQCDynamics.jl",
+  "description": "NQCDynamics.jl",
+  "version": "1.0.0",
+  "author": "NQCD",
+  "homepage": "https://github.com/NQCD/NQCDynamics.jl",
+  "skills": []
+}
