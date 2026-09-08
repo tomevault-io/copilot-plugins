@@ -1,0 +1,14 @@
+{
+  "name": "potatoqualitee--kbupdate",
+  "displayName": "kbupdate",
+  "description": "kbupdate",
+  "version": "1.0.0",
+  "author": "potatoqualitee",
+  "homepage": "https://github.com/potatoqualitee/kbupdate",
+  "skills": [
+    {
+      "name": "kbupdate",
+      "description": ""
+    }
+  ]
+}
