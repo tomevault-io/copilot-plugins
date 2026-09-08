@@ -1,0 +1,9 @@
+{
+  "name": "fdiblen--rseng-agent-skills",
+  "displayName": "rseng-agent-skills",
+  "description": "Research Software Engineering skills for AI coding agents",
+  "version": "1.0.0",
+  "author": "fdiblen",
+  "homepage": "https://github.com/fdiblen/rseng-agent-skills",
+  "skills": []
+}
