@@ -1,0 +1,9 @@
+{
+  "name": "remotivated--job-hunt-skills",
+  "displayName": "job-hunt-skills",
+  "description": "AI-assisted skills for a practical job search \u2014 resume tailoring, cover letters, company research, interview prep, LinkedIn, and proof assets. Installs as a Claude Code/Cowork plugin.",
+  "version": "1.0.0",
+  "author": "Remotivated",
+  "homepage": "https://github.com/Remotivated/job-hunt-skills",
+  "skills": []
+}
