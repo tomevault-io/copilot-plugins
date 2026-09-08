@@ -1,0 +1,9 @@
+{
+  "name": "jdeffner--paradox-modding-toolkit",
+  "displayName": "paradox-modding-toolkit",
+  "description": "VS Code extension for Crusader Kings III modding: Paradox-script language server (completion, hover, go-to-definition, rename), structural diagnostics, ck3-tiger integration, and localization tooling.",
+  "version": "1.0.0",
+  "author": "JDeffner",
+  "homepage": "https://github.com/JDeffner/paradox-modding-toolkit",
+  "skills": []
+}
