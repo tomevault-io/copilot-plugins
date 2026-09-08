@@ -1,0 +1,9 @@
+{
+  "name": "chrislauinger77--mpris-miniplayer",
+  "displayName": "mpris-miniplayer",
+  "description": "Small GTK/libadwaita mini player for MPRIS-compatible Linux media players",
+  "version": "1.0.0",
+  "author": "ChrisLauinger77",
+  "homepage": "https://github.com/ChrisLauinger77/mpris-miniplayer",
+  "skills": []
+}
