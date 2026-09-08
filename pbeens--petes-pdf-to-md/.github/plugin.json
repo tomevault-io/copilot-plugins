@@ -1,0 +1,9 @@
+{
+  "name": "pbeens--petes-pdf-to-md",
+  "displayName": "Petes-PDF-to-MD",
+  "description": "Pete\u2019s PDF to MD converts PDF documents into clean, structured Markdown files so you can edit, search, and publish their content more easily.",
+  "version": "1.0.0",
+  "author": "pbeens",
+  "homepage": "https://github.com/pbeens/Petes-PDF-to-MD",
+  "skills": []
+}
