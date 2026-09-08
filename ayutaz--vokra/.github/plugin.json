@@ -1,0 +1,9 @@
+{
+  "name": "ayutaz--vokra",
+  "displayName": "vokra",
+  "description": "Speech-first inference runtime in Rust \u2014 TTS / ASR / speech-to-speech / VC / speaker ID / VAD. An ONNX Runtime alternative that loads GGUF & safetensors directly: zero external dependencies, C ABI for",
+  "version": "1.0.0",
+  "author": "ayutaz",
+  "homepage": "https://github.com/ayutaz/vokra",
+  "skills": []
+}
