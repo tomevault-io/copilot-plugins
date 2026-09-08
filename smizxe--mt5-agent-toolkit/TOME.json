@@ -4,7 +4,7 @@
   "repo": "mt5-agent-toolkit",
   "description": "Turn a written trading strategy into a MetaTrader 5 Expert Advisor with an AI coding agent. Headless MQL5 compile, headless Strategy Tester, and the nine silent failures of the MT5 command line.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smizxe/mt5-agent-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T16:31:22Z"
+  "distributed_at": "2026-09-08T16:39:49Z"
 }
