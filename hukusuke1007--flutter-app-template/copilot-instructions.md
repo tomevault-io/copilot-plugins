@@ -1,197 +1,92 @@
 ## flutter-app-template
 
-> RiverpodによるFeature Firstアーキテクチャ
+> - **要件実装（エンハンスメント対応・不具合修正など）**: mobile-mcp でシミュレータテストを行う。間違いが見つかったら修正し、正しく動作するまで再テストを繰り返す。
 
+# AGENTS.md
 
-## 概要
+## 実装後の検証
 
-このドキュメントは、実際のプロジェクト分析に基づく現在のプロジェクト構造とアーキテクチャパターンの概要を説明します。Flutterのベストプラクティスを適用しながら一貫性を維持するために、これらのガイドラインに従ってください。
+変更の規模に応じて検証レベルを分ける。
 
-## アーキテクチャの概要
+- **要件実装（エンハンスメント対応・不具合修正など）**: mobile-mcp でシミュレータテストを行う。間違いが見つかったら修正し、正しく動作するまで再テストを繰り返す。
+- **軽微な変更（UI の調整・文言変更・不要なログの削除など）**: ビルド確認のみ行い、動作確認はユーザーにしてもらうよう促す。
 
-- Riverpod状態管理を使用したFeature-firstアーキテクチャ
-- Hooksベースのウィジェット構成
-- クリーンアーキテクチャに触発された層（エンティティ、リポジトリ、ユースケース）
-- バックエンドサービスにFirebase
-- ローカル永続化にSharedPreferences
-- API通信にRetrofit
-- pedantic_monoとcustom_lintによる静的解析
+## アーキテクチャ知識グラフ
 
-## プロジェクト構造
+モジュール構成・依存関係の知識グラフを memory MCP(server-memory、保存先 `memory.jsonl`)で管理している。
 
+- 実装・調査の前に `search_nodes` や `open_nodes` で関係するモジュールの entities / relations を参照し、既存の構成・依存関係に沿って作業すること(全体像が必要なら `read_graph`)。
+- モジュールの追加・削除や依存関係の変更を行ったら、`create_entities` / `create_relations` / `add_observations` 等でグラフも更新すること。
+
+## コーディングルール
+
+LLMコーディングでよくあるミスを減らすための行動指針。必要に応じてプロジェクト固有の指示と統合してください。
+
+トレードオフ：これらのガイドラインは、スピードよりも慎重さを重視しています。些細な作業については、ご自身の判断で対応してください。
+
+### 1. コーディングの前に考える
+
+**推測しない。分からないことを隠さない。トレードオフを表に出す。**
+
+実装の前に:
+
+- 前提としていることを明示的に述べる。不確かな場合は質問する。
+- 複数の解釈が存在する場合は提示する。黙って一つを選ばない。
+- よりシンプルなアプローチがあるならそう言う。必要であれば反論する。
+- 何かが不明確なら手を止める。何が分からないのかを明確にし、質問する。
+
+### 2. シンプルさを最優先に
+
+**問題を解決する最小限のコード。憶測に基づくものは書かない。**
+
+- 求められたこと以上の機能は作らない。
+- 一度しか使わないコードに抽象化を持ち込まない。
+- 求められていない「柔軟性」や「設定可能性」は作らない。
+- 起こり得ないシナリオのためのエラーハンドリングは書かない。
+- 200 行書いたものが 50 行で書けるなら、書き直す。
+
+自問すること: 「シニアエンジニアが見たら『これは複雑にしすぎ』と言うだろうか?」 答えが Yes ならシンプルにする。
+
+### 3. 外科手術のような変更
+
+**必要な箇所だけに触れる。片付けるのは自分が散らかしたものだけ。**
+
+既存コードを編集するとき:
+
+- 周辺のコード・コメント・フォーマットを勝手に「改善」しない。
+- 壊れていないものをリファクタリングしない。
+- 自分ならそう書かないとしても、既存のスタイルに合わせる。
+- 無関係なデッドコードに気づいたら報告する。勝手に削除しない。
+
+自分の変更によって不要になったもの(オーファン)について:
+
+- 自分の変更によって未使用になった import・変数・関数は削除する。
+- 依頼されていない限り、以前から存在するデッドコードは削除しない。
+
+判定基準: 変更したすべての行が、ユーザーの依頼内容に直接ひも付いていること。
+
+### 4. ゴール駆動の実行
+
+**成功基準を定義する。検証できるまでループする。**
+
+タスクを検証可能なゴールに変換する:
+
+- 「バリデーションを追加して」→「不正な入力に対するテストを書き、それを通す」
+- 「バグを直して」→「バグを再現するテストを書き、それを通す」
+- 「X をリファクタリングして」→「リファクタリング前後でテストが通ることを確認する」
+
+複数ステップのタスクでは、簡潔な計画を示す:
+
+```text
+1. [ステップ] → 検証: [チェック内容]
+2. [ステップ] → 検証: [チェック内容]
+3. [ステップ] → 検証: [チェック内容]
 ```
-lib/
-  ├── features/           // 機能モジュール
-  │   ├── account/       // アカウント関連機能
-  │   ├── authentication/// 認証機能
-  │   ├── github_users/  // GitHubユーザー機能
-  │   ├── home/         // ホーム画面機能
-  │   ├── memo/         // メモ機能
-  │   ├── setting/      // 設定機能
-  │   ├── timeline/     // タイムライン機能
-  │   └── ...          // その他の機能モジュール
-  ├── core/             // コア機能
-  │   ├── entities/     // ドメインエンティティ
-  │   ├── repositories/ // リポジトリインターフェース
-  │   ├── use_cases/    // ビジネスロジック
-  │   ├── exceptions/   // カスタム例外
-  │   ├── extensions/   // 拡張メソッド
-  │   ├── utils/        // ユーティリティ関数
-  │   ├── widgets/      // 共有ウィジェット
-  │   ├── router/       // ナビゲーションルーティング
-  │   ├── res/          // リソース（生成済み）
-  │   └── custom_hooks/ // カスタムFlutterフック
-  ├── app.dart          // アプリ構成
-  └── main.dart         // エントリーポイント
-```
 
-## パッケージ依存関係
+強い成功基準があれば自律的にループできる。弱い基準(「動くようにして」)では絶えず確認が必要になる。
 
-### コア依存関係
-
-- Flutter SDK (>=3.4.0)
-- flutter_localizations
-- cupertino_icons
-
-### 状態管理とUI
-
-- hooks_riverpod
-- riverpod_annotation
-- flutter_hooks
-- go_router（ナビゲーション）
-
-### Firebaseサービス
-
-- firebase_core
-- firebase_analytics
-- cloud_firestore
-- firebase_auth
-- firebase_storage
-- cloud_functions
-- firebase_messaging
-- firebase_crashlytics
-- firebase_remote_config
-
-### データ管理
-
-- shared_preferences
-- retrofit
-- dio
-- freezed_annotation
-- json_annotation
-- equatable
-
-### UIコンポーネントと機能
-
-- pull_to_refresh_flutter3
-- extended_image
-- flutter_svg
-- flutter_slidable
-- adaptive_dialog
-- page_transition
-- flutter_inappwebview
-- url_launcher
-- map_launcher
-- image_picker
-- image_cropper
-- flutter_local_notifications
-
-### 開発依存関係
-
-- pedantic_mono
-- custom_lint
-- riverpod_lint
-- json_serializable
-- build_runner
-- freezed
-- riverpod_generator
-- retrofit_generator
-- flutter_gen_runner
-
-## 状態管理ガイドライン
-
-1. @riverpodアノテーションを使用したRiverpodを使用する
-2. riverpod_generatorに適切なNotifierクラスを決定させる
-3. ローカルストレージにはSharedPreferencesを使用する
-4. Freezedを使用して適切な状態の不変性パターンに従う
-5. 適切なプロバイダースコープを使用する
-
-## 機能の構成
-
-1. 各機能はfeatures/ディレクトリ下の独自のディレクトリに自己完結している必要がある
-2. 機能の構造には以下を含める：
-   - pages/（UI画面）
-   - widgets/（機能固有のウィジェット）
-   - providers/（状態管理）
-   - repositories/（データアクセス）
-   - entities/（機能固有のエンティティ）
-
-## コア層のガイドライン
-
-1. コア機能は適切なcore/サブディレクトリに配置する
-2. 共有ウィジェットはcore/widgets/に配置する
-3. ビジネスロジックはcore/use_cases/に配置する
-4. ドメインエンティティはcore/entities/に配置する
-5. リポジトリインターフェースはcore/repositories/に配置する
-
-## コード生成
-
-1. コード生成にはbuild_runnerを使用する：
-   ```bash
-   flutter pub run build_runner build
-   ```
-2. 以下のためのコードを生成する：
-   - Freezedモデル
-   - Riverpodプロバイダー
-   - Retrofit APIクライアント
-   - JSONシリアライゼーション
-   - FlutterGenリソース
-
-## テストガイドライン
-
-1. テストはtestディレクトリに配置する
-2. ビジネスロジックのユニットテストを作成する
-3. UIコンポーネントのウィジェットテストを実装する
-4. 依存関係のモック化にはmockitoを使用する
-
-## パフォーマンスガイドライン
-
-1. extended_imageで適切な画像キャッシュを実装する
-2. pull_to_refresh_flutter3でリストビューを最適化する
-3. 適切な状態管理パターンに従う
-4. 適切なFirebaseキャッシュ戦略を実装する
-
-## 命名ガイドライン
-
-1. 一貫したケーシングに従う：
-
-   - ディレクトリ名：snake_case
-   - ファイル名：snake_case
-   - クラス名：UpperCamelCase
-   - 変数名：camelCase
-
-2. 機能固有の命名：
-
-   - ページ：NounPage（例：HomePage）
-   - コンポーネント：NounComponent（例：UserCard）
-   - モデル：NounModel（例：UserModel）
-   - プロバイダー：NounProvider（例：UserProvider）
-   - リポジトリ：NounRepository（例：UserRepository）
-
-3. 一般原則：
-   - エンティティには名詞または形容詞を使用する
-   - アクションには動詞を使用する
-   - 命名には複数形を考慮する
-   - 名前は明確で説明的にする
-
-## 静的解析
-
-1. pedantic_monoのlintルールに従う
-2. 追加のチェックにはcustom_lintを使用する
-3. Riverpod固有のルールにはriverpod_lintを使用する
-4. すべての解析警告を修正する
-5. 適切なNull安全パターンを使用する
+これらのガイドラインが機能していると言えるのは、差分における不必要な変更が少なく、複雑化による書き直しが少なく、間違いの後ではなく実装前に明確化のための質問が行われる場合です。
 
 ---
 > Source: [hukusuke1007/flutter_app_template](https://github.com/hukusuke1007/flutter_app_template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
