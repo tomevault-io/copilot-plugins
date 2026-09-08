@@ -15,10 +15,6 @@ Original source: `AGENTS.md` in [buildermethods/design-os](https://github.com/bu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [design-os](https://github.com/buildermethods/design-os/tree/main/.claude/skills/frontend-design/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/buildermethods/design-os](https://github.com/buildermethods/design-os)
 
 ---
