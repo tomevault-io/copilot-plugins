@@ -7,11 +7,11 @@ Ciaobot is an opinionated interface for using Claude Code and/or Codex as a pers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [raffaelefarinaro/ciaobot](https://github.com/raffaelefarinaro/ciaobot).
+Original source: `AGENTS.md` in [raffaelefarinaro/ciaobot](https://github.com/raffaelefarinaro/ciaobot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
