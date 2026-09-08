@@ -7,11 +7,11 @@ A standalone Windows app for running local and web-based Flash content in an emb
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Mzying2001/flashie](https://github.com/Mzying2001/flashie).
+Original source: `AGENTS.md` in [Mzying2001/flashie](https://github.com/Mzying2001/flashie).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
