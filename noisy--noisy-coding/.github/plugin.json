@@ -1,0 +1,9 @@
+{
+  "name": "noisy--noisy-coding",
+  "displayName": "noisy-coding",
+  "description": "Talk to Claude Code instead of typing: a voice daemon + dashboard that records you, transcribes, routes to your agent sessions, and speaks the replies back - with per-voice avatars, push-to-talk hotke",
+  "version": "1.0.0",
+  "author": "noisy",
+  "homepage": "https://github.com/noisy/noisy-coding",
+  "skills": []
+}
