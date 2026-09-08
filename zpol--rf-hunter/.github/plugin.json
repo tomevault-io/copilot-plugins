@@ -1,0 +1,9 @@
+{
+  "name": "zpol--rf-hunter",
+  "displayName": "rf-hunter",
+  "description": "RF Hunter is an RF security research tool to enumerate and scan for vulnerabilities around you using a HackRF device + GPS module",
+  "version": "1.0.0",
+  "author": "zpol",
+  "homepage": "https://github.com/zpol/rf-hunter",
+  "skills": []
+}
