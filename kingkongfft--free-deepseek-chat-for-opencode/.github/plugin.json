@@ -1,0 +1,9 @@
+{
+  "name": "kingkongfft--free-deepseek-chat-for-opencode",
+  "displayName": "Free-Deepseek-chat-for-opencode",
+  "description": "Unofficial OpenAI-compatible API bridge for chat.deepseek.com \u2014 free DeepSeek web chat as a local API server. Fork of sums001/Deepseek-API with tool calling support.",
+  "version": "1.0.0",
+  "author": "kingkongfft",
+  "homepage": "https://github.com/kingkongfft/Free-Deepseek-chat-for-opencode",
+  "skills": []
+}
