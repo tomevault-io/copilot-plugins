@@ -1,0 +1,9 @@
+{
+  "name": "beetlebugorg--tile57",
+  "displayName": "tile57",
+  "description": "\u2693 A high-performance, low-memory S-57/S-101/raster chart engine: vector tiles, S-101 styles, PNG, PDF, and C API.",
+  "version": "1.0.0",
+  "author": "beetlebugorg",
+  "homepage": "https://github.com/beetlebugorg/tile57",
+  "skills": []
+}
