@@ -1,0 +1,9 @@
+{
+  "name": "zxkane--audio-transcriber",
+  "displayName": "audio-transcriber",
+  "description": "Agent skill for multi-speaker meeting & podcast transcription \u2014 FunASR (Paraformer/SenseVoice/Whisper) + MiMo-V2.5-ASR + CAM++ speaker diarization + LLM cleanup. 99 languages, GPU & CPU. Works with Cl",
+  "version": "1.0.0",
+  "author": "zxkane",
+  "homepage": "https://github.com/zxkane/audio-transcriber",
+  "skills": []
+}
