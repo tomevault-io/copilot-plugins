@@ -1,0 +1,9 @@
+{
+  "name": "muench-dev--stylesmuggler-helper-scripts",
+  "displayName": "StyleSmuggler-Helper-Scripts",
+  "description": "Collection of information and scripts around the Magento StyleSmuggler security issue",
+  "version": "1.0.0",
+  "author": "muench-dev",
+  "homepage": "https://github.com/muench-dev/StyleSmuggler-Helper-Scripts",
+  "skills": []
+}
