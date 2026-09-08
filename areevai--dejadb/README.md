@@ -7,11 +7,11 @@ MOVED — DejaDB is now Areev: github.com/AreevAI/areev. Frozen at v1.2.0.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AreevAI/dejadb](https://github.com/AreevAI/dejadb).
+Original source: `AGENTS.md` in [AreevAI/dejadb](https://github.com/AreevAI/dejadb).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
