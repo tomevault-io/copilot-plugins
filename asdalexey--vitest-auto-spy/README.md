@@ -7,14 +7,14 @@ Auto-generate fully-typed test spies from a class — across Vitest, Bun & node:
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [ASDAlexey/vitest-auto-spy](https://github.com/ASDAlexey/vitest-auto-spy).
+Original source: `CLAUDE.md` in [ASDAlexey/vitest-auto-spy](https://github.com/ASDAlexey/vitest-auto-spy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [ASDAlexey/vitest-auto-spy](https://github.com/ASDAlexey/vitest-auto-spy) — a repo with 9+ stars on GitHub.
