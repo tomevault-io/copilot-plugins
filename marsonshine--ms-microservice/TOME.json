@@ -1,0 +1,75 @@
+{
+  "name": "MS.Microservice",
+  "owner": "MarsonShine",
+  "repo": "MS.Microservice",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MS.Microservice",
+      "path": ".github/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/MarsonShine/MS.Microservice/tree/main/.github/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MS.Microservice",
+      "path": ".github/skills/prompt-builder/SKILL.md",
+      "github_url": "https://github.com/MarsonShine/MS.Microservice/tree/main/.github/skills/prompt-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MS.Microservice",
+      "path": ".github/skills/baoyu-translate/SKILL.md",
+      "github_url": "https://github.com/MarsonShine/MS.Microservice/tree/main/.github/skills/baoyu-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MS.Microservice",
+      "path": ".github/skills/baoyu-url-to-markdown/SKILL.md",
+      "github_url": "https://github.com/MarsonShine/MS.Microservice/tree/main/.github/skills/baoyu-url-to-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MS.Microservice",
+      "path": ".github/skills/csharp-dotnet-code-checklist/SKILL.md",
+      "github_url": "https://github.com/MarsonShine/MS.Microservice/tree/main/.github/skills/csharp-dotnet-code-checklist/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MarsonShine/MS.Microservice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T21:33:13Z"
+}
