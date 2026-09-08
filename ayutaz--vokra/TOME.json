@@ -1,0 +1,44 @@
+{
+  "name": "vokra",
+  "owner": "ayutaz",
+  "repo": "vokra",
+  "description": "Speech-first inference runtime in Rust \u2014 TTS / ASR / speech-to-speech / VC / speaker ID / VAD. An ONNX Runtime alternative that loads GGUF & safetensors directly: zero external dependencies, C ABI for Unity & Godot, CPU / Metal / CUDA / Vulkan backends. Apache-2.0, pre-release.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ayutaz/vokra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T00:56:22Z"
+}
