@@ -1,0 +1,14 @@
+{
+  "name": "mrzmyr--pixy-mood-tracker-app",
+  "displayName": "pixy-mood-tracker-app",
+  "description": "pixy-mood-tracker-app",
+  "version": "1.0.0",
+  "author": "mrzmyr",
+  "homepage": "https://github.com/mrzmyr/pixy-mood-tracker-app",
+  "skills": [
+    {
+      "name": "pixy-mood-tracker-app",
+      "description": ""
+    }
+  ]
+}
