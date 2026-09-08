@@ -1,0 +1,44 @@
+{
+  "name": "mt5-agent-toolkit",
+  "owner": "smizxe",
+  "repo": "mt5-agent-toolkit",
+  "description": "Turn a written trading strategy into a MetaTrader 5 Expert Advisor with an AI coding agent. Headless MQL5 compile, headless Strategy Tester, and the nine silent failures of the MT5 command line.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/smizxe/mt5-agent-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T16:31:22Z"
+}
