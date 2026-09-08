@@ -2,9 +2,9 @@
   "name": "Moves.app",
   "owner": "mikker",
   "repo": "Moves.app",
-  "description": "Moves makes it easier than ever to position your windows juuust right",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikker/Moves.app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:59:34Z"
+  "distributed_at": "2026-09-08T19:46:10Z"
 }
