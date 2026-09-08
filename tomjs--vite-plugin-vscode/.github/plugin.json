@@ -1,0 +1,9 @@
+{
+  "name": "tomjs--vite-plugin-vscode",
+  "displayName": "vite-plugin-vscode",
+  "description": "vite-plugin-vscode",
+  "version": "1.0.0",
+  "author": "tomjs",
+  "homepage": "https://github.com/tomjs/vite-plugin-vscode",
+  "skills": []
+}
