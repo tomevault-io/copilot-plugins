@@ -4,7 +4,7 @@
   "repo": "typescript-to-gdscript",
   "description": "Convert TypeScript to GDScript for Godot game engine",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nnn3d/typescript-to-gdscript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T16:43:30Z"
+  "distributed_at": "2026-09-08T16:48:10Z"
 }
