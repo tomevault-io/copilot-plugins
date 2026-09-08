@@ -1,10 +1,10 @@
 ## plv8ify
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding assistants and agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding assistants and agents when working with code in this repository.
 
 ## Project Overview
 
@@ -26,6 +26,7 @@ PLV8ify is a TypeScript/JavaScript bundler that generates PostgreSQL functions u
 - `bun example:hello` - Run basic hello world example
 - `bun example:turf-js` - Run turf.js integration example
 - `bun example:trigger` - Run trigger function example
+- `bun example:role-permissions` - Run role permissions (grant/revoke) example
 
 ## Architecture
 
@@ -62,8 +63,13 @@ PLV8ify is a TypeScript/JavaScript bundler that generates PostgreSQL functions u
   - `@plv8ify_param` - Override parameter types
   - `@plv8ify_return` - Override return type
   - `@plv8ify_volatility` - Set function volatility
+  - `@plv8ify_parallel` - Set function parallel safety
+  - `@plv8ify_security_definer` / `@plv8ify_security` - Set function security execution privileges (SECURITY DEFINER / INVOKER)
+  - `@plv8ify_search_path` - Set function search_path (defaults to '' when specified with no value)
   - `@plv8ify_schema_name` - Deploy to custom schema
   - `@plv8ify_trigger` - Mark as trigger function
+  - `@plv8ify_grant` - Grant execution rights to specific roles
+  - `@plv8ify_revoke` - Revoke execution rights from specific roles
 
 ### Build Process Flow
 
@@ -87,4 +93,4 @@ Tests use Bun's built-in test runner with snapshot testing for SQL generation. T
 
 ---
 > Source: [divyenduz/plv8ify](https://github.com/divyenduz/plv8ify) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
