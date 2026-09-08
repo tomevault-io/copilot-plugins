@@ -1,0 +1,9 @@
+{
+  "name": "carihq--opencad",
+  "displayName": "opencad",
+  "description": "Browser-native, AI-powered, open-source BIM platform",
+  "version": "1.0.0",
+  "author": "CariHQ",
+  "homepage": "https://github.com/CariHQ/opencad",
+  "skills": []
+}
