@@ -1,0 +1,44 @@
+{
+  "name": "Off-Work-Countdown",
+  "owner": "ififi2017",
+  "repo": "Off-Work-Countdown",
+  "description": "Countdown to the end of your workday \u2014 in the browser, or as a menu bar / tray app for macOS, iOS / iPadOS and Windows. Free, no sign-up, offline, 19 languages.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ififi2017/Off-Work-Countdown",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T08:53:37Z"
+}
