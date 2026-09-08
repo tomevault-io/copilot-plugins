@@ -1,0 +1,9 @@
+{
+  "name": "crackruckles--mediadash",
+  "displayName": "MediaDash",
+  "description": "Jellyfin plugin that keeps your library lean and playable: finds duplicates, broken files, oversized encodes and unwanted language tracks, then fixes them safely.",
+  "version": "1.0.0",
+  "author": "crackruckles",
+  "homepage": "https://github.com/crackruckles/MediaDash",
+  "skills": []
+}
