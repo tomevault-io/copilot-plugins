@@ -1,0 +1,9 @@
+{
+  "name": "functy23--miniworldpkgunpacker",
+  "displayName": "MiniWorldPkgUnpacker",
+  "description": "\u8ff7\u4f60\u4e16\u754c (Mini World) .pkg \u8d44\u6e90\u5305\u89e3\u5305\u4e0e\u7eb9\u7406\u8f6c\u6362\u5de5\u5177 \u00b7 Reverse-engineered Rainbow engine .pkg format: unpacker + ASTC/Crunch-ETC2A texture decoders",
+  "version": "1.0.0",
+  "author": "functy23",
+  "homepage": "https://github.com/functy23/MiniWorldPkgUnpacker",
+  "skills": []
+}
