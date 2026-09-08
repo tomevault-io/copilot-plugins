@@ -1,0 +1,9 @@
+{
+  "name": "roboruby--poetry",
+  "displayName": "poetry",
+  "description": "Poetry: the AI-native UI component library for Rails.",
+  "version": "1.0.0",
+  "author": "roboruby",
+  "homepage": "https://github.com/roboruby/poetry",
+  "skills": []
+}
