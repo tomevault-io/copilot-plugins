@@ -1,10 +1,10 @@
 ## setup-nu
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository.
 
 ## Project Overview
 
@@ -45,4 +45,4 @@ Lefthook runs on pre-commit: spell-check (cspell), lint (biome), format (biome).
 
 ---
 > Source: [hustcer/setup-nu](https://github.com/hustcer/setup-nu) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
