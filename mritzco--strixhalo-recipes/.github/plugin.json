@@ -1,0 +1,9 @@
+{
+  "name": "mritzco--strixhalo-recipes",
+  "displayName": "strixhalo-recipes",
+  "description": "Reproducible, evidence-backed llama.cpp serving recipes for Strix Halo class machines \u2014 annotated parameters,  \u258f multi-witness results, agent-first tooling.",
+  "version": "1.0.0",
+  "author": "mritzco",
+  "homepage": "https://github.com/mritzco/strixhalo-recipes",
+  "skills": []
+}
