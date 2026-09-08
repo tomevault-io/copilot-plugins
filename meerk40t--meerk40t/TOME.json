@@ -4,7 +4,7 @@
   "repo": "meerk40t",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meerk40t/meerk40t",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T17:58:58Z"
+  "distributed_at": "2026-09-08T20:51:31Z"
 }
