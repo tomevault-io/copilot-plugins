@@ -1,131 +1,120 @@
 ## youtube-screenshot-extractor
 
-> This document details the implementation of YouTube anti-download measures support added to handle current YouTube restrictions including PO Tokens, rate limiting, and authentication requirements.
+> Pull clean, high-quality still frames from videos — YouTube, 1000+ other sites via yt-dlp, or local files. Downloads (if needed), finds best frames, filters blurry/low-quality ones, crops black bars, saves the rest. Built for gathering training images for LoRAs/checkpoints. GUI + CLI, Python 3.10+, requires Deno (YouTube) and FFmpeg (keyframes).
 
-# YouTube Screenshot Extractor - Implementation Notes
+# AGENTS.md — youtube-screenshot-extractor
 
-## Overview
+Pull clean, high-quality still frames from videos — YouTube, 1000+ other sites via yt-dlp, or local files. Downloads (if needed), finds best frames, filters blurry/low-quality ones, crops black bars, saves the rest. Built for gathering training images for LoRAs/checkpoints. GUI + CLI, Python 3.10+, requires Deno (YouTube) and FFmpeg (keyframes).
 
-This document details the implementation of YouTube anti-download measures support added to handle current YouTube restrictions including PO Tokens, rate limiting, and authentication requirements.
+**Deep reference: Previous CLAUDE.md contained implementation notes about YouTube PO Tokens, rate limiting, and authentication — that content is now archived in the project history**
 
-## Changes Summary
+## Current state
 
-### 1. Core Script (`youtube-screenshot-script.py`)
+_Last verified: 2026-08-24_
 
-#### Modified `download_video()` function:
-- Added `cookies_from_browser` parameter for browser cookie authentication
-- Added `cookies_file` parameter for file-based cookie authentication
-- Added `sleep_requests` parameter for rate limiting protection
-- Added `extractor_args` parameter for advanced yt-dlp configuration
-- Enhanced error handling with specific messages for:
-  - HTTP 403 errors (PO Token/rate limiting)
-  - PO Token-specific errors
-  - Better retry logic with exponential backoff
+- **Status:** working and maintained, no version number and no release tags — `git log` is the only version record. The recent history is a run of audits fixing silently-broken options rather than new features.
+- **Works:** all four extraction methods (interval, every frame, keyframes, scene detection); automatic blur/quality filtering, black-bar cropping and watermark flagging; YouTube authentication via browser cookies plus request-rate throttling; resume for large extractions; parallel worker-pool processing that streams frames instead of loading the whole video; GUI and CLI at parity.
+- **In progress:** nothing — recent history is three audit rounds: dependency/security floors plus the first test suite and CI; a robustness/parity pass (Stop kills the whole process tree, failed downloads clean up their partial files, `--png` honored by keyframes, FFmpeg filter frames piped instead of temp-filed, GUI blur range matched to the CLI); then a correctness pass (scene-frame numbering, GUI keyframes gating, typed-entry validation, CI job timeouts and xvfb GUI coverage).
+- **Known gaps / next steps:** tests cover the pure helpers, `process_frame`, and the GUI's behaviour against a real Tk tree (`tests/`, run with `pytest`; CI runs them under xvfb) — **downloading is still verified only by hand**, since nothing in CI touches the network; **YouTube extraction is inherently fragile** — yt-dlp must be kept current (launcher option 2, or `pip install --upgrade "yt-dlp[default]"`), and the working client selection changes over time; Deno is required for YouTube and FFmpeg for keyframes, so a partial install silently limits which methods work; the rate-limit and client-selection notes in *Conventions & gotchas* are the most perishable content in this file — re-verify them before trusting them.
+- **Deep docs:** none — `README.md` is the user-facing reference. Earlier implementation notes on PO tokens and authentication live only in the git history.
 
-#### New Command-Line Arguments:
-- `--cookies-from-browser BROWSER`: Load cookies from browser (firefox, chrome, edge, safari)
-- `--cookies FILE`: Load cookies from Netscape format file
-- `--sleep-requests SECONDS`: Add delay between requests to avoid rate limiting
-- `--extractor-args ARGS`: Pass additional extractor arguments to yt-dlp
+## Architecture in 60 seconds
 
-### 2. GUI (`youtube-screenshot-gui.py`)
+- **Any source:** YouTube + 1000+ sites via yt-dlp, or local video files
+- **Four extraction methods:** interval (every N seconds), every frame, keyframes only, scene-change detection
+- **Automatic quality control:** sharpness/blur and quality scoring filter out bad frames before saving
+- **Black bar removal:** letterboxing and pillarboxing cropped automatically
+- **Watermark detection:** flags likely-watermarked frames in filename
+- **YouTube authentication:** browser cookie support (`--cookies-from-browser firefox/chrome/edge/safari`) for age-restricted and private videos, plus rate limiting (`--sleep-requests`)
+- **Resume support:** pick large extractions up where they left off
+- **Parallel processing:** streams frames through a worker pool instead of loading whole video into memory
+- **Dual interface:** GUI (`youtube-screenshot-gui.py`) and CLI (`youtube-screenshot-script.py`)
 
-#### New UI Section: "YouTube Authentication (Optional)"
-- Browser cookie selector dropdown (firefox, chrome, edge, safari)
-- Rate limiting spinner control (0-60 seconds)
-- Tooltips explaining each option
+## Layout
 
-#### Modified `_build_command()`:
-- Added logic to include authentication arguments in command generation
+| File | Purpose |
+|------|---------|
+| `youtube-screenshot-script.py` | CLI for frame extraction |
+| `youtube-screenshot-gui.py` | GUI (point-and-click interface) |
+| `START.bat` / `start.sh` | Startup menu: setup, update, launch GUI, help |
+| `requirements.txt` | Python dependencies (yt-dlp, etc.) |
+| `requirements-dev.txt` | Test/lint dependencies (pytest, pyflakes) |
+| `tests/` | `test_extractor.py` (CLI helpers, static GUI/CLI parity scans), `test_gui.py` (real Tk widget tree) |
+| `.github/workflows/ci.yml` | Lint, byte-compile, unit tests, CLI smoke run, dependency audit, shellcheck |
+| `assets/` | Screenshots and documentation images |
 
-### 3. Documentation Updates
+## Build / test / run
 
-#### README.md:
-- Added new features to feature list
-- Updated options table with new arguments
-- Added comprehensive "Understanding YouTube PO Tokens" section
-- Added "YouTube Authentication Guide" section
-- Updated troubleshooting table with new solutions
-- Updated example commands
-
-#### START.bat and start.sh:
-- Added example commands for authentication and rate limiting
-
-## Technical Details
-
-### PO Tokens (Proof of Origin)
-
-YouTube now requires PO Tokens for many video downloads as an anti-bot measure. These tokens:
-- Are generated by attestation providers (BotGuard for web, DroidGuard for Android)
-- Have content binding to user sessions or video IDs
-- Have limited lifespan (possibly as short as 12 hours)
-
-**Solution implemented**: Browser cookie authentication via yt-dlp's `cookiesfrombrowser` option
-
-### Rate Limiting
-
-YouTube enforces rate limits:
-- Guest sessions: ~300 videos/hour (~1000 requests/hour)
-- Authenticated sessions: ~2000 videos/hour (~4000 requests/hour)
-
-**Solution implemented**: Configurable delay between requests via `sleep_requests` option
-
-### Client Selection
-
-The `mweb` client is currently the most reliable for YouTube downloads. Users can specify this via:
 ```bash
---extractor-args "youtube:player_client=mweb"
+# Run the tests (no Deno/FFmpeg needed for the unit tests)
+pip install -r requirements-dev.txt
+python -m pytest tests -v
+
+# Windows quick start
+START.bat
+
+# Or manual setup
+python -m venv venv
+venv\Scripts\activate          # macOS/Linux: source venv/bin/activate
+pip install -r requirements.txt
+
+# Install Deno (required for YouTube)
+winget install DenoLand.Deno   # Windows
+brew install deno              # macOS
+curl -fsSL https://deno.land/install.sh | sh  # Linux
+
+# Install FFmpeg (required for keyframe extraction)
+winget install Gyan.FFmpeg     # Windows
+brew install ffmpeg            # macOS
+sudo apt install ffmpeg        # Linux
+
+# Launch GUI
+python youtube-screenshot-gui.py
+
+# CLI usage examples
+python youtube-screenshot-script.py "https://youtube.com/watch?v=..." --method interval --interval 5
+python youtube-screenshot-script.py "https://youtube.com/watch?v=..." --method keyframes
+python youtube-screenshot-script.py "video.mp4" --method scene --cookies-from-browser firefox
+python youtube-screenshot-script.py --help
 ```
 
-## Security Considerations
+## Conventions & gotchas
 
-1. **Account Safety**: Using a YouTube account with yt-dlp carries a small risk of restrictions
-   - Recommendation: Use a throwaway account
-   - Keep requests under rate limits
-   - Keep yt-dlp updated
+- **Deno required for YouTube** (other sites don't need it). Startup scripts handle installation.
+- **FFmpeg required** for keyframe extraction, gradfun/deband filters, merging separate audio/video streams. Interval/scene/all extraction and deblock filter work without it.
+- **Keep yt-dlp updated** — YouTube changes frequently. Use startup script option 2, or `pip install --upgrade "yt-dlp[default]"`.
+- **YouTube authentication:** browser cookies are the only viable method (OAuth deprecated). Use a throwaway account to avoid restrictions.
+- **Rate limiting:** guest sessions ~300 videos/hour, authenticated ~2000 videos/hour. Use `--sleep-requests 5` to stay under limits.
+- **Client selection:** `mweb` client is currently most reliable for YouTube (`--extractor-args "youtube:player_client=mweb"`).
+- **Parallel processing:** long videos stream through worker pool instead of loading into RAM (prevents OOM).
+- **Quality filters:** blur detection and quality scoring run automatically; frames failing either threshold are skipped, not saved. Only the `_watermarked` suffix is ever added (when --detect-watermarks is used). Thresholds default to 30/50 in **both** the CLI and the GUI — keep them in step.
+- **Frame pipeline order matters:** crop black bars -> score -> threshold -> filter -> save. Scoring before the crop lets letterbox bars drag the score down and makes the filename describe a frame that was never written; scoring after the filters stamps a denoised frame with a worse blur number than it earned.
+- **Output verbosity:** per-frame lines are `--verbose` only. A terminal gets a tqdm bar; piped output (the GUI streams this script's stdout into a Tk widget, where a carriage-return bar is unreadable) gets a periodic one-line summary instead. `_StatusReporter` owns that decision.
+- **GUI progress contract:** the GUI sets `YSE_PROGRESS=1` for the CLI subprocess; `_StatusReporter` then emits one `@@PROGRESS done=N total=M saved=S skipped=K` line per processed frame, which the GUI parses, strips from the log, and renders as a determinate bar. Terminals never emit or see these lines.
+- **Dependency floors are the security surface:** pip will not upgrade an already-installed package that still satisfies a `>=` floor, so a stale floor is what long-lived installs keep running. CI audits both the resolved versions and the floors themselves; raise the floor when bumping, don't just rely on `>=`.
+- **`keyframes` bypasses the frame pipeline** — it shells straight to FFmpeg, so quality/blur thresholds, watermark detection, post-processing filters, `--resume` and parallelism do not apply to it (`--png` and `--thumbnail` are honored). The GUI disables those controls and omits their flags while keyframes is selected (`_sync_pipeline_controls`); keep the two in step when adding a pipeline option. Its saved count diffs a before/after stat of the folder, because FFmpeg renumbers from 1 and a re-used `--output` folder keeps the higher-numbered files of a longer previous run.
+- **Frame counts must have no gaps.** `_ProgressTracker` only advances across a contiguous run of completed indices, so the count `frame_generator` yields numbers the frames it actually produced, never their position in the source. A skipped number strands every later frame in the pending map: totals under-report and `--resume` checkpoints at the gap.
+- **GUI numeric entries are typeable.** Spinbox-backed `DoubleVar`/`IntVar` raise `TclError` on `get()` when the box holds text, and an escaped exception in a button callback has nowhere to print under pythonw — the button just looks dead. Read them through `_read_number`.
+- **CI jobs carry `timeout-minutes`.** GitHub's default is six hours, and a hung `apt-get` step once burned all of it.
 
-2. **Cookie Security**: Browser cookies contain authentication tokens
-   - Cookies are read from browser profiles
-   - No cookies are stored permanently by this tool
-   - Use caution when sharing systems
+## Security
 
-## Dependencies
+This file is **public-safe by default**. Never add local paths, credentials, API keys, personal data, infrastructure details, or subscription info.
 
-No new Python dependencies required. The implementation uses:
-- `yt-dlp>=2026.3.17` (already specified in requirements.txt)
-- Standard yt-dlp options for cookies and rate limiting
+Before pushing: re-read this file and confirm it contains no local paths, credentials, or personal data.
 
-## Testing Recommendations
+**Browser cookies** contain authentication tokens. Cookies are read from browser profiles but not stored permanently by this tool. Use caution on shared systems.
 
-1. **Basic functionality**: Test without authentication (public videos)
-2. **Cookie authentication**: Test with `--cookies-from-browser firefox`
-3. **Rate limiting**: Test with `--sleep-requests 5`
-4. **Error handling**: Test with invalid URLs, private videos
-5. **GUI**: Verify all new UI controls work correctly
+## Maintenance
 
-## Future Considerations
+**Update rule:** When you change the architecture, build/test commands, or conventions, update this AGENTS.md in the same commit. Keep under 200 lines.
 
-1. **PO Token Provider Plugins**: yt-dlp now recommends using PO Token Provider plugins for automatic token generation. This could be integrated in the future.
+**CLAUDE.md:** One-line shim: `@AGENTS.md`.
 
-2. **OAuth Deprecation**: YouTube no longer supports OAuth for yt-dlp. Cookie authentication is now the only viable method for authenticated requests.
+**New-repo rule:** Create AGENTS.md in the first session a new repo is worked on.
 
-3. **Client Rotation**: Future updates may benefit from automatic client rotation if specific clients become unreliable.
-
-## References
-
-- [yt-dlp YouTube Extractor Wiki](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#youtube)
-- [yt-dlp PO Token Guide](https://github.com/yt-dlp/yt-dlp/wiki/PO-Token-Guide)
-- [yt-dlp FAQ - Cookies](https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp)
-
-## Version History
-
-- **Current**: Added authentication support, rate limiting, and PO Token error handling
-- **Previous**: Basic yt-dlp integration with Deno support
-
----
-
-Last updated: April 2026
+**No-overlap rule:** Explanatory prose lives in one file. AGENTS.md = agent-facing summary; README.md = human/usage. Identical commands may be restated verbatim. Explanatory prose must not be duplicated — link instead.
 
 ---
 > Source: [EnragedAntelope/youtube-screenshot-extractor](https://github.com/EnragedAntelope/youtube-screenshot-extractor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
