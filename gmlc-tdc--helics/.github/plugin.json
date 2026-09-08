@@ -1,0 +1,9 @@
+{
+  "name": "gmlc-tdc--helics",
+  "displayName": "HELICS",
+  "description": "HELICS",
+  "version": "1.0.0",
+  "author": "GMLC-TDC",
+  "homepage": "https://github.com/GMLC-TDC/HELICS",
+  "skills": []
+}
