@@ -1,0 +1,9 @@
+{
+  "name": "techno-optimist--erdos-frontier-atlas",
+  "displayName": "erdos-frontier-atlas",
+  "description": "Machine-readable map of the computational frontier around Erd\u0151s prize problems: 95 audited (17 board-ready), walls named, verifier-first P42 board specs. No Erd\u0151s prize is claimable by finite computat",
+  "version": "1.0.0",
+  "author": "techno-optimist",
+  "homepage": "https://github.com/techno-optimist/erdos-frontier-atlas",
+  "skills": []
+}
