@@ -1,0 +1,9 @@
+{
+  "name": "scholzri--rainy75-zmk",
+  "displayName": "rainy75-zmk",
+  "description": "Open ZMK firmware + reverse engineering for the Wobkey Rainy 75 Pro (Telink TLSR9511 / B91, RISC-V)",
+  "version": "1.0.0",
+  "author": "scholzri",
+  "homepage": "https://github.com/scholzri/rainy75-zmk",
+  "skills": []
+}
