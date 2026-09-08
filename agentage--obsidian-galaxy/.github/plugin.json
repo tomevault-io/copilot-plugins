@@ -1,0 +1,9 @@
+{
+  "name": "agentage--obsidian-galaxy",
+  "displayName": "obsidian-galaxy",
+  "description": "Agentage Memory 3D - see your Obsidian vault as a 3D, rotating force-graph. Notes are nodes, links are edges.",
+  "version": "1.0.0",
+  "author": "agentage",
+  "homepage": "https://github.com/agentage/obsidian-galaxy",
+  "skills": []
+}
