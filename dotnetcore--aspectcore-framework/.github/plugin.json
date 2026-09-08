@@ -1,0 +1,14 @@
+{
+  "name": "dotnetcore--aspectcore-framework",
+  "displayName": "AspectCore-Framework",
+  "description": "AspectCore-Framework",
+  "version": "1.0.0",
+  "author": "dotnetcore",
+  "homepage": "https://github.com/dotnetcore/AspectCore-Framework",
+  "skills": [
+    {
+      "name": "AspectCore-Framework",
+      "description": ""
+    }
+  ]
+}
