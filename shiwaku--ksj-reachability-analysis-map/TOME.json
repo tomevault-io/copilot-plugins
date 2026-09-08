@@ -1,0 +1,44 @@
+{
+  "name": "ksj-reachability-analysis-map",
+  "owner": "shiwaku",
+  "repo": "ksj-reachability-analysis-map",
+  "description": "\u56fd\u571f\u6570\u5024\u60c5\u5831 \u9053\u8def\u30c7\u30fc\u30bf\u306b\u57fa\u3065\u304f\u5230\u9054\u570f\u5206\u6790Web\u30de\u30c3\u30d7 ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shiwaku/ksj-reachability-analysis-map",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T22:30:26Z"
+}
