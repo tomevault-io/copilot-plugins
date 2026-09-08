@@ -1,0 +1,14 @@
+{
+  "name": "tjcages--linear",
+  "displayName": "linear",
+  "description": "A proven methodology for building and tracking features, projects, and issues across numerous builds.",
+  "version": "1.0.0",
+  "author": "tjcages",
+  "homepage": "https://github.com/tjcages/linear",
+  "skills": [
+    {
+      "name": "linear-discipline",
+      "description": ""
+    }
+  ]
+}
