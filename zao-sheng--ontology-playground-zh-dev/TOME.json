@@ -1,0 +1,44 @@
+{
+  "name": "Ontology-Playground-zh-dev",
+  "owner": "zao-sheng",
+  "repo": "Ontology-Playground-zh-dev",
+  "description": "Ontology-Playground\u6c49\u5316\u7248\u672c\u53ca\u6838\u5fc3\u529f\u80fd\u4e8c\u6b21\u5f00\u53d1\u5b8c\u5584",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zao-sheng/Ontology-Playground-zh-dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T07:34:21Z"
+}
