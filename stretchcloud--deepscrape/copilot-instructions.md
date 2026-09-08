@@ -1,98 +1,68 @@
 ## deepscrape
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> DeepScrape is a TypeScript/Node.js web scraping service built on Express. It provides API endpoints for single-page scraping, schema-based LLM extraction, batch scraping, URL discovery (`/api/map`), and multi-page crawling with a Redis-backed BullMQ queue. Playwright is the primary scraper with an HTTP fallback, and content can be returned as HTML, Markdown, or text.
 
-# CLAUDE.md
+# DeepScrape Agent Notes
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Overview
+DeepScrape is a TypeScript/Node.js web scraping service built on Express. It provides API endpoints for single-page scraping, schema-based LLM extraction, batch scraping, URL discovery (`/api/map`), and multi-page crawling with a Redis-backed BullMQ queue. Playwright is the primary scraper with an HTTP fallback, and content can be returned as HTML, Markdown, or text.
 
-## Repository Overview
+## Architecture Summary
+Entry point: `src/index.ts` initializes Express, middleware, routes, and the crawl queue worker.
 
-DeepScrape is an AI-powered web scraping framework with REST API that combines browser automation (Playwright) with LLM-powered data extraction. It supports both cloud (OpenAI) and local LLMs (Ollama, vLLM, LocalAI, LiteLLM) for privacy-focused deployments.
+Scrape flow: `/api/scrape` in `src/api/routes/scraper.ts` calls `ScraperManager` in `src/scraper/scraper-manager.ts`.
+Process: Playwright scrape → HTTP fallback if Playwright fails → HTML cleaning → optional Markdown/text transform → optional LLM extraction → cache write.
 
-## Essential Commands
+LLM extraction: `src/transformers/llm-extractor.ts` uses `OpenAIService` from `src/services/openai.service.ts`.
+Config: `OPENAI_API_KEY`, `OPENAI_MODEL` (defaults to `gpt-4o`).
 
-### Development
-- `npm run dev` - Start development server with ts-node
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm test` - Run Jest tests
-- `npm run lint` - Run ESLint on TypeScript files
-- `npm run lint:fix` - Auto-fix linting issues
-- `npx jest src/tests/services/llm-providers.test.ts` - Run specific test file
+Crawl flow: `/api/crawl` in `src/api/controllers/crawler.controller.ts` uses `WebCrawler` from `src/scraper/crawler.ts`.
+Queueing: jobs are managed via `src/services/queue.service.ts` using BullMQ + Redis.
+Streaming discovery: `CrawlKickoffService` in `src/services/crawl-kickoff.service.ts` can run streaming URL discovery via `URLDiscoveryService` and enqueue results as they stream in.
 
-### Docker & LLM Providers
-- `make llm-ollama` - Start Ollama provider (auto-detects macOS for CPU-only mode)
-- `make llm-vllm` - Start vLLM provider
-- `make llm-test` - Test current LLM provider configuration
-- `make docker-up` - Start all services with Docker
-- `make docker-down` - Stop all Docker services
+URL discovery: `/api/map` in `src/api/routes/map.routes.ts` uses `URLDiscoveryService` for sitemaps, robots.txt, common paths, search, and optional browser crawling.
 
-## Architecture
+Batch scraping: `/api/batch/scrape` in `src/api/routes/batch-scrape.routes.ts` uses `BatchScrapeService` in `src/services/batch-scrape.service.ts` with Redis persistence and optional webhooks.
 
-### Layer Structure
-```
-API Layer (Express + Swagger)
-    ↓
-Services Layer (Business Logic)
-    ↓
-Core Components (Scraping, Crawling, Transformation)
-    ↓
-External Dependencies (Playwright, Redis, LLMs)
-```
+## Key Data Stores
+Redis: crawl metadata, job status, batch metadata, and job results.
+File cache: `CacheService` stores scrape results on disk (`CACHE_DIRECTORY`).
+Logs: written under `logs/` via Winston and morgan.
 
-### Key Service Patterns
-
-1. **LLM Service Factory Pattern** (`/src/services/llm-service-factory.ts`):
-   - Creates appropriate LLM service based on `LLM_PROVIDER` env variable
-   - Supports OpenAI, Ollama, vLLM, LocalAI, LiteLLM
-   - Each provider extends base `LLMService` interface
-
-2. **Queue System** (`/src/services/queue.service.ts`, `enhanced-queue.service.ts`):
-   - BullMQ with Redis for job processing
-   - Handles batch scraping operations
-   - Configurable concurrency and retries
-
-3. **Scraper Manager** (`/src/scraper/scraper-manager.ts`):
-   - Orchestrates different scraper types (Playwright, HTTP)
-   - Manages caching, transformations, and LLM extraction
-   - Central entry point for all scraping operations
-
-### API Endpoints Structure
-All endpoints are defined in `/src/api/routes/` and documented in `swagger.yaml`:
-- `/api/scrape` - Single URL scraping
-- `/api/extract-schema` - Schema-based extraction with LLM
-- `/api/summarize` - Content summarization
-- `/api/batch-scrape` - Multiple URL processing
-- `/api/crawl` - Multi-page crawling
-
-### Testing Approach
-- Test files in `/src/tests/` mirror source structure
-- Use Jest with ts-jest for TypeScript support
-- Mock external dependencies (LLMs, Playwright) for unit tests
-- Integration tests available via `make llm-test`
+## Important Files
+Server bootstrap: `src/index.ts`
+Routes: `src/api/routes/*.ts`
+Controllers: `src/api/controllers/*.ts`
+Scraper: `src/scraper/*`
+Transformers: `src/transformers/*`
+Services: `src/services/*`
+Types: `src/types/*`
+Utilities: `src/utils/*`
 
 ## Environment Configuration
+Required for LLM extraction: `OPENAI_API_KEY`
+API security: `API_KEY` (requests use `X-API-Key` header)
+Redis: `REDIS_HOST`, `REDIS_PORT`
+Cache: `CACHE_ENABLED`, `CACHE_TTL`, `CACHE_DIRECTORY`
+Crawler queue: `CRAWLER_CONCURRENCY`, `CRAWLER_MAX_JOBS`, `CRAWLER_LOCK_DURATION`, `CRAWLER_RETRY_ATTEMPTS`
+CORS: `CORS_OPEN_MODE`, `ALLOWED_ORIGINS`, `NODE_ENV`
+Browser: `PLAYWRIGHT_EXECUTABLE_PATH`, `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`, `PUPPETEER_EXECUTABLE_PATH`
 
-Required environment variables:
-- `API_KEY` - API authentication
-- `LLM_PROVIDER` - Provider choice (openai, ollama, vllm, localai, litellm)
-- `OPENAI_API_KEY` - For OpenAI provider
-- `LLM_BASE_URL` - For local LLM providers
-- `LLM_MODEL` - Model selection
-- `REDIS_HOST` - Redis connection
+## Local Dev Commands
+Install deps: `npm install`
+Run dev server: `npm run dev`
+Build: `npm run build`
+Run tests: `npm test`
+Lint: `npm run lint`
+Docker: `docker-compose up -d`
 
-## Important Notes
-
-1. **LLM Provider Integration**: When adding new LLM providers, extend `LocalLLMService` class and update `LLMServiceFactory`
-
-2. **Scraping Strategy**: The system uses Playwright for JavaScript-heavy sites and falls back to HTTP scraping for simple content
-
-3. **Caching**: File-based caching is enabled by default in `/cache` directory with configurable TTL
-
-4. **Docker Deployment**: Multiple compose files handle different LLM providers - see `/docker/llm-providers/`
-
-5. **API Security**: All endpoints require `X-API-Key` header authentication
+## Operational Notes
+The crawler queue is obliterated on startup in `initQueue()`. This wipes pending jobs when the service restarts.
+`/api/crawl` respects robots.txt unless `ignoreRobotsTxt` is set.
+`/api/scrape` uses Playwright by default and falls back to HTTP scraping on Playwright launch errors.
+If `API_KEY` is not set and `NODE_ENV=development`, auth is skipped.
+Avoid committing secrets. Use `.env` or injected environment variables for all credentials.
 
 ---
 > Source: [stretchcloud/deepscrape](https://github.com/stretchcloud/deepscrape) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
