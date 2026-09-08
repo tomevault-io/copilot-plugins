@@ -4,7 +4,7 @@
   "repo": "jarvis-workspace",
   "description": "A local web cockpit that runs several AI coding agents side by side; your keys, your machine.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/celsiusm/jarvis-workspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T12:30:23Z"
+  "distributed_at": "2026-09-08T12:32:48Z"
 }
