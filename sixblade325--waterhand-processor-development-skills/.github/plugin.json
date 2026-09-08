@@ -1,0 +1,9 @@
+{
+  "name": "sixblade325--waterhand-processor-development-skills",
+  "displayName": "WaterHand-Processor-Development-Skills",
+  "description": "Codex skills for Chisel/RISC-V processor development: microarchitecture, RTL verification, Vivado timing analysis, and FPGA optimization.",
+  "version": "1.0.0",
+  "author": "sixblade325",
+  "homepage": "https://github.com/sixblade325/WaterHand-Processor-Development-Skills",
+  "skills": []
+}
