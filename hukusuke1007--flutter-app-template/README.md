@@ -5,15 +5,19 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [hukusuke1007/flutter_app_template](https://github.com/hukusuke1007/flutter_app_template).
+Original source: `AGENTS.md` in [hukusuke1007/flutter_app_template](https://github.com/hukusuke1007/flutter_app_template).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [flutter_app_template](https://github.com/hukusuke1007/flutter_app_template/tree/main/.agents/skills/claude-md-manager/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/hukusuke1007/flutter_app_template](https://github.com/hukusuke1007/flutter_app_template)
 
