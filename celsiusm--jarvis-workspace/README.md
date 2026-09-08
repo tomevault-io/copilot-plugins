@@ -7,11 +7,11 @@ A local web cockpit that runs several AI coding agents side by side; your keys, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [celsiusm/jarvis-workspace](https://github.com/celsiusm/jarvis-workspace).
+Original source: `CLAUDE.md` in [celsiusm/jarvis-workspace](https://github.com/celsiusm/jarvis-workspace).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
