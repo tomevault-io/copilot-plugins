@@ -1,0 +1,44 @@
+{
+  "name": "jellyfin-plugin-language-aware-images",
+  "owner": "superuser404notfound",
+  "repo": "jellyfin-plugin-language-aware-images",
+  "description": "Drop-in TMDB image provider for Jellyfin: library-language posters with clean English fallback (no more textless), and episode images matched by title for shows with alternative orderings (Bluey, Star Trek, Doctor Who Classic).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/superuser404notfound/jellyfin-plugin-language-aware-images",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T22:25:51Z"
+}
