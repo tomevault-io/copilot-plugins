@@ -4,7 +4,7 @@
   "repo": "marp-collab",
   "description": "Realtime collaboration editor for marp presentations",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alex289/marp-collab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T08:46:02Z"
+  "distributed_at": "2026-09-08T08:56:08Z"
 }
