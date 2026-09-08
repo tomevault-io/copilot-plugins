@@ -1,0 +1,9 @@
+{
+  "name": "cyenoch--solid-gpui",
+  "displayName": "solid-gpui",
+  "description": "Build native apps with SolidJS and Rust GPUI.",
+  "version": "1.0.0",
+  "author": "Cyenoch",
+  "homepage": "https://github.com/Cyenoch/solid-gpui",
+  "skills": []
+}
