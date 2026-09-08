@@ -5,5 +5,126 @@
   "version": "1.0.0",
   "author": "wot-ui",
   "homepage": "https://github.com/wot-ui/wot-starter",
-  "skills": []
+  "skills": [
+    {
+      "name": "alova-api-module",
+      "description": ""
+    },
+    {
+      "name": "global-feedback",
+      "description": ""
+    },
+    {
+      "name": "pinia-store-generator",
+      "description": ""
+    },
+    {
+      "name": "starter-cleaner",
+      "description": ""
+    },
+    {
+      "name": "uni-page-generator",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-creator",
+      "description": ""
+    },
+    {
+      "name": "wot-router-usage",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    },
+    {
+      "name": "wot-starter",
+      "description": ""
+    }
+  ]
 }
