@@ -1,0 +1,9 @@
+{
+  "name": "ksefuj--ksefuj",
+  "displayName": "ksefuj",
+  "description": "\ud83e\uddfe Free, open-source KSeF FA(3) invoice validator. XSD + semantic rules, runs in the browser. CLI & npm package included.",
+  "version": "1.0.0",
+  "author": "ksefuj",
+  "homepage": "https://github.com/ksefuj/ksefuj",
+  "skills": []
+}
