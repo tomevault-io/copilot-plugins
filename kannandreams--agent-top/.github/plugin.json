@@ -1,0 +1,9 @@
+{
+  "name": "kannandreams--agent-top",
+  "displayName": "agent-top",
+  "description": "htop for local coding agents.",
+  "version": "1.0.0",
+  "author": "kannandreams",
+  "homepage": "https://github.com/kannandreams/agent-top",
+  "skills": []
+}
