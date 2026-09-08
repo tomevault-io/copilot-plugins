@@ -4,7 +4,7 @@
   "repo": "padu",
   "description": "Native desktop app for orchestrating AI coding agents (Claude Code, Codex, Cursor CLI) \u2014 built in Rust, no Electron, instant launch.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wisnuwiry/padu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T08:52:15Z"
+  "distributed_at": "2026-09-08T08:58:42Z"
 }
