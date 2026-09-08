@@ -1,0 +1,81 @@
+{
+  "name": "libcrafter",
+  "owner": "pellegre",
+  "repo": "libcrafter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "libcrafter",
+      "path": ".agents/skills/prepare-pr/SKILL.md",
+      "github_url": "https://github.com/pellegre/libcrafter/tree/main/.agents/skills/prepare-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libcrafter",
+      "path": ".agents/skills/scratch-work/SKILL.md",
+      "github_url": "https://github.com/pellegre/libcrafter/tree/main/.agents/skills/scratch-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libcrafter",
+      "path": ".agents/skills/create-branch/SKILL.md",
+      "github_url": "https://github.com/pellegre/libcrafter/tree/main/.agents/skills/create-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libcrafter",
+      "path": ".agents/skills/commit-changes/SKILL.md",
+      "github_url": "https://github.com/pellegre/libcrafter/tree/main/.agents/skills/commit-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libcrafter",
+      "path": ".agents/skills/packet-validation/SKILL.md",
+      "github_url": "https://github.com/pellegre/libcrafter/tree/main/.agents/skills/packet-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libcrafter",
+      "path": ".agents/skills/agent-cargo-publish/SKILL.md",
+      "github_url": "https://github.com/pellegre/libcrafter/tree/main/.agents/skills/agent-cargo-publish/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pellegre/libcrafter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T21:39:00Z"
+}
