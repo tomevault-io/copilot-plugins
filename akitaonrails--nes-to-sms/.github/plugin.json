@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--nes-to-sms",
+  "displayName": "nes-to-sms",
+  "description": "Experiments to prove it's possible to direct translate NES roms to SMS roms",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/nes-to-sms",
+  "skills": []
+}
