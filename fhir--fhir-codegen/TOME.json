@@ -3,7 +3,7 @@
   "owner": "FHIR",
   "repo": "fhir-codegen",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,69 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "dev-review",
-      "path": ".github/skills/dev-review",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-review",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-do/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-do/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-plan/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-plan/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-review/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-report/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-report/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-request/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-request/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-issue/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-issue/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-pr-open/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-pr-open/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-complete/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-complete/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "fhir-codegen",
-      "path": ".github/skills/dev-approach/SKILL.md",
-      "github_url": "https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-approach/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/FHIR/fhir-codegen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T19:33:09Z"
+  "distributed_at": "2026-09-08T20:10:21Z"
 }
