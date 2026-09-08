@@ -15,19 +15,6 @@ Original source: `AGENTS.md` in [FHIR/fhir-codegen](https://github.com/FHIR/fhir
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (10)
-
-- [dev-review](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-review)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-do/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-plan/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-review/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-report/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-request/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-issue/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-pr-open/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-complete/SKILL.md)
-- [fhir-codegen](https://github.com/FHIR/fhir-codegen/tree/main/.github/skills/dev-approach/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/FHIR/fhir-codegen](https://github.com/FHIR/fhir-codegen)
 
 ---
