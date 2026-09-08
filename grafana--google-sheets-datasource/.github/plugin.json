@@ -1,0 +1,22 @@
+{
+  "name": "grafana--google-sheets-datasource",
+  "displayName": "google-sheets-datasource",
+  "description": "google-sheets-datasource",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/google-sheets-datasource",
+  "skills": [
+    {
+      "name": "google-sheets-datasource",
+      "description": ""
+    },
+    {
+      "name": "google-sheets-datasource",
+      "description": ""
+    },
+    {
+      "name": "google-sheets-datasource",
+      "description": ""
+    }
+  ]
+}
