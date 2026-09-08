@@ -1,0 +1,9 @@
+{
+  "name": "andrewaltimit--legend-of-legaia-re",
+  "displayName": "legend-of-legaia-re",
+  "description": "Reverse-engineering Legend of Legaia (PSX, 1999): Ghidra-traced format documentation, Rust extractors for every asset on the disc, and a clean-room engine reimplementation targeting wgpu/SDL3 with opt",
+  "version": "1.0.0",
+  "author": "AndrewAltimit",
+  "homepage": "https://github.com/AndrewAltimit/legend-of-legaia-re",
+  "skills": []
+}
