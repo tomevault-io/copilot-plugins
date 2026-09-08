@@ -4,7 +4,7 @@
   "repo": "career-ops-india",
   "description": "AI job search for India \u2014 scan 196 companies, evaluate fit, generate tailored CVs. Works with Claude Code + Gemini CLI (free).",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AnojSKunte/career-ops-india",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T22:18:43Z"
+  "distributed_at": "2026-09-08T22:29:02Z"
 }
