@@ -1,0 +1,9 @@
+{
+  "name": "smizxe--mt5-agent-toolkit",
+  "displayName": "mt5-agent-toolkit",
+  "description": "Turn a written trading strategy into a MetaTrader 5 Expert Advisor with an AI coding agent. Headless MQL5 compile, headless Strategy Tester, and the nine silent failures of the MT5 command line.",
+  "version": "1.0.0",
+  "author": "smizxe",
+  "homepage": "https://github.com/smizxe/mt5-agent-toolkit",
+  "skills": []
+}
