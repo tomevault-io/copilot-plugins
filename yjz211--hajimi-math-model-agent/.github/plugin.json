@@ -1,0 +1,9 @@
+{
+  "name": "yjz211--hajimi-math-model-agent",
+  "displayName": "HaJiMi-Math-Model-Agent",
+  "description": "Local desktop agent for end-to-end mathematical modeling, plotting, LaTeX papers, and submission packages.",
+  "version": "1.0.0",
+  "author": "yjz211",
+  "homepage": "https://github.com/yjz211/HaJiMi-Math-Model-Agent",
+  "skills": []
+}
