@@ -1,0 +1,9 @@
+{
+  "name": "aai-labs--agent-barn",
+  "displayName": "agent-barn",
+  "description": "run a fleet of AI agents on your own Kubernetes",
+  "version": "1.0.0",
+  "author": "aai-labs",
+  "homepage": "https://github.com/aai-labs/agent-barn",
+  "skills": []
+}
