@@ -1,0 +1,9 @@
+{
+  "name": "brianjenney--greenhouse-xray-agent",
+  "displayName": "greenhouse-xray-agent",
+  "description": "Two-agent Greenhouse job search: one writes Google X-ray queries or rejects, you curate them, the other summarises what came back. Next.js + Vercel AI SDK + zod.",
+  "version": "1.0.0",
+  "author": "BrianJenney",
+  "homepage": "https://github.com/BrianJenney/greenhouse-xray-agent",
+  "skills": []
+}
