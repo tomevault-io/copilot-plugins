@@ -1,0 +1,9 @@
+{
+  "name": "celsiusm--jarvis-workspace",
+  "displayName": "jarvis-workspace",
+  "description": "A local web cockpit that runs several AI coding agents side by side; your keys, your machine.",
+  "version": "1.0.0",
+  "author": "celsiusm",
+  "homepage": "https://github.com/celsiusm/jarvis-workspace",
+  "skills": []
+}
