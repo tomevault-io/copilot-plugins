@@ -1,0 +1,9 @@
+{
+  "name": "owentvt--applywise-cs",
+  "displayName": "ApplyWise-CS",
+  "description": "ApplyWise-CS \u662f\u4e00\u6b3e\u57fa\u4e8e\u7528\u6237\u7533\u8bf7\u80cc\u666f\u3001\u516c\u5f00\u5f55\u53d6\u6848\u4f8b\u548c\u9879\u76ee\u5b98\u7f51\u4fe1\u606f\u7684 CS \u7559\u5b66\u667a\u80fd\u9009\u6821 Android App\uff0c\u5e2e\u52a9\u7528\u6237\u5b8c\u6210\u80cc\u666f\u8bc4\u4f30\u3001\u9879\u76ee\u5339\u914d\u3001\u51b2\u7a33\u4fdd\u89c4\u5212\u3001\u76f8\u4f3c\u6848\u4f8b\u67e5\u8be2\u548c AI \u7533\u8bf7\u95ee\u7b54\u3002",
+  "version": "1.0.0",
+  "author": "owenTVT",
+  "homepage": "https://github.com/owenTVT/ApplyWise-CS",
+  "skills": []
+}
