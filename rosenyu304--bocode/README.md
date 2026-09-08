@@ -7,11 +7,11 @@ BOCoDe: Benchmarks for Optimization and Computational Design
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rosenyu304/BOCoDe](https://github.com/rosenyu304/BOCoDe).
+Original source: `AGENTS.md` in [rosenyu304/BOCoDe](https://github.com/rosenyu304/BOCoDe).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
