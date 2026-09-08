@@ -1,0 +1,14 @@
+{
+  "name": "expandframework--reactive-xaf",
+  "displayName": "Reactive.XAF",
+  "description": "Reactive.XAF",
+  "version": "1.0.0",
+  "author": "eXpandFramework",
+  "homepage": "https://github.com/eXpandFramework/Reactive.XAF",
+  "skills": [
+    {
+      "name": "Reactive.XAF",
+      "description": ""
+    }
+  ]
+}
