@@ -1,0 +1,9 @@
+{
+  "name": "fmind--cookiecutter-mlops-package",
+  "displayName": "cookiecutter-mlops-package",
+  "description": "cookiecutter-mlops-package",
+  "version": "1.0.0",
+  "author": "fmind",
+  "homepage": "https://github.com/fmind/cookiecutter-mlops-package",
+  "skills": []
+}
