@@ -2,9 +2,9 @@
   "name": "youtube-screenshot-extractor",
   "owner": "EnragedAntelope",
   "repo": "youtube-screenshot-extractor",
-  "description": "Dataset helper for loras or checkpoints! Extract highest-available-quality screenshots from YouTube and many other sources, auto filter for aesthetics, and more!",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EnragedAntelope/youtube-screenshot-extractor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T11:55:43Z"
+  "distributed_at": "2026-09-08T20:21:12Z"
 }
