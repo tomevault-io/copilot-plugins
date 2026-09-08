@@ -1,0 +1,9 @@
+{
+  "name": "bgauduch--terraform-aws-cli",
+  "displayName": "terraform-aws-cli",
+  "description": "terraform-aws-cli",
+  "version": "1.0.0",
+  "author": "bgauduch",
+  "homepage": "https://github.com/bgauduch/terraform-aws-cli",
+  "skills": []
+}
