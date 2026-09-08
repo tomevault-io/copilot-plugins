@@ -1,0 +1,9 @@
+{
+  "name": "pisces312--streamclip",
+  "displayName": "StreamClip",
+  "description": "Android video processing app - trim, merge, extract audio with FFmpeg",
+  "version": "1.0.0",
+  "author": "pisces312",
+  "homepage": "https://github.com/pisces312/StreamClip",
+  "skills": []
+}
