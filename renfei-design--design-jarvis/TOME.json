@@ -1,0 +1,495 @@
+{
+  "name": "design-jarvis",
+  "owner": "renfei-design",
+  "repo": "design-jarvis",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "design-jarvis",
+      "path": ".skills/memory/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".skills/wireframe/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.skills/wireframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".skills/hifi-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.skills/hifi-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".skills/content-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.skills/content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".skills/competitive-ux/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.skills/competitive-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".skills/design-checklist/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.skills/design-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extras/skills/a11y-audit/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extras/skills/a11y-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extras/skills/canvas-read/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extras/skills/canvas-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extras/skills/online-research/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extras/skills/online-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/memory/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/ux-brief/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/ux-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/bugfiler/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/bugfiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/kb-search/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/kb-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/loop-goal/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/loop-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/canvas-read/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/canvas-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/hifi-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/hifi-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/a11y-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/a11y-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/code-connect/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/code-connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/data-explore/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/data-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/stringweaver/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/stringweaver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/feedbackfinder/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/feedbackfinder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/content-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/product-screen/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/product-screen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/implement-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/implement-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/competitive-intel/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/competitive-intel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/design-jarvis-slides/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/design-jarvis-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/figma-generate-library/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/figma-generate-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/extract-content-strings/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/extract-content-strings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/generate-ux-handoffspec/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/generate-ux-handoffspec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/ux-design-spec-handoff-v1/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/ux-design-spec-handoff-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/skills/generate-ux-handoffspec-v2/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/skills/generate-ux-handoffspec-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/memory/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/ux-brief/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/ux-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/bugfiler/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/bugfiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/kb-search/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/kb-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/loop-goal/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/loop-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/canvas-read/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/canvas-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/hifi-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/hifi-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/a11y-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/a11y-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/code-connect/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/code-connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/data-explore/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/data-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/stringweaver/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/stringweaver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/feedbackfinder/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/feedbackfinder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/content-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/product-screen/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/product-screen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/implement-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/implement-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/competitive-intel/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/competitive-intel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/design-jarvis-slides/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/design-jarvis-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/figma-generate-library/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/figma-generate-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/extract-content-strings/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/extract-content-strings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/generate-ux-handoffspec/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/generate-ux-handoffspec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/ux-design-spec-handoff-v1/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/ux-design-spec-handoff-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": ".github/skills/generate-ux-handoffspec-v2/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/.github/skills/generate-ux-handoffspec-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/memory/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/ux-brief/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/ux-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/bugfiler/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/bugfiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/kb-search/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/kb-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/loop-goal/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/loop-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/canvas-read/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/canvas-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/hifi-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/hifi-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/a11y-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/a11y-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/code-connect/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/code-connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/data-explore/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/data-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/stringweaver/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/stringweaver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/feedbackfinder/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/feedbackfinder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/content-review/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/product-screen/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/product-screen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/implement-design/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/implement-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/competitive-intel/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/competitive-intel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/design-jarvis-slides/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/design-jarvis-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/figma-generate-library/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/figma-generate-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/extract-content-strings/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/extract-content-strings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/generate-ux-handoffspec/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/generate-ux-handoffspec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/ux-design-spec-handoff-v1/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/ux-design-spec-handoff-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-jarvis",
+      "path": "extensions/design-jarvis-pack/assets/workspace/.github/skills/generate-ux-handoffspec-v2/SKILL.md",
+      "github_url": "https://github.com/renfei-design/design-jarvis/tree/main/extensions/design-jarvis-pack/assets/workspace/.github/skills/generate-ux-handoffspec-v2/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/renfei-design/design-jarvis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T21:30:24Z"
+}
