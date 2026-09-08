@@ -1,0 +1,9 @@
+{
+  "name": "haphamdev--workflow",
+  "displayName": "workflow",
+  "description": "Simple framework with a collection of skills for Claude Code/Oh My Pi which support the software development process",
+  "version": "1.0.0",
+  "author": "haphamdev",
+  "homepage": "https://github.com/haphamdev/workflow",
+  "skills": []
+}
