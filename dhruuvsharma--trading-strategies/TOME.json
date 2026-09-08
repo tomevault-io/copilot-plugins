@@ -1,0 +1,44 @@
+{
+  "name": "Trading-Strategies",
+  "owner": "dhruuvsharma",
+  "repo": "Trading-Strategies",
+  "description": "Algorithmic trading research \u2014 multi-platform (MT5/MQL5 + cTrader/C# cAlgo). Order-flow & microstructure strategies: tick-level cumulative delta scalping with sniper confirmation gates, dynamic Median+MAD threshold fades, weighted-composite signal engines (VPIN, OBI, footprint imbalance, absorption, HVP). Session-aware risk management.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dhruuvsharma/Trading-Strategies",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T14:39:01Z"
+}
