@@ -1,0 +1,9 @@
+{
+  "name": "open-rpc--tools",
+  "displayName": "tools",
+  "description": "Monorepo for OpenRPC tooling",
+  "version": "1.0.0",
+  "author": "open-rpc",
+  "homepage": "https://github.com/open-rpc/tools",
+  "skills": []
+}
