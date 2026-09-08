@@ -1,0 +1,9 @@
+{
+  "name": "openadaptai--openadapt-flow",
+  "displayName": "openadapt-flow",
+  "description": "Compiler and governed runtime for demonstrated GUI workflows, with explicit identity, policy, and result checks.",
+  "version": "1.0.0",
+  "author": "OpenAdaptAI",
+  "homepage": "https://github.com/OpenAdaptAI/openadapt-flow",
+  "skills": []
+}
