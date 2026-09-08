@@ -1,0 +1,9 @@
+{
+  "name": "antonioacg--rknpu-rk3588",
+  "displayName": "rknpu-rk3588",
+  "description": "Out-of-tree RKNPU kernel module for RK3588/RK3588S on mainline Linux 6.19+ \u2014 enables vendor RKNN SDK on modern kernels",
+  "version": "1.0.0",
+  "author": "antonioacg",
+  "homepage": "https://github.com/antonioacg/rknpu-rk3588",
+  "skills": []
+}
