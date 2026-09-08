@@ -8,142 +8,238 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Kiwi is a Redis-compatible key-value database built in Rust. It uses RocksDB as the persistent storage backend and integrates OpenRaft for distributed consensus and high availability. The server defaults to `127.0.0.1:7379`.
+Kiwi is a Rust database targeting Redis 8.8.1 compatibility. It persists the complete authoritative data set with RocksDB, replicates with OpenRaft, and separates network I/O and storage into two distinct Tokio runtimes that communicate via async message channels.
 
-## Prerequisites
+The exact Redis compatibility and interface-design baseline is tag `8.8.1`, commit `77b6c308396c9700672390a210143a8496fb4b10`. Current required work runs Cache OFF and focuses on compatibility, authoritative RocksDB recovery, OpenRaft correctness, and system stability. The Embedded Redis Hot Tier remains design-only until the stability gate passes and the user explicitly authorizes a separate implementation task.
 
-- Rust toolchain (stable)
-- `protoc` (protobuf compiler) — installed by CI on all platforms. Install via `brew install protobuf` (macOS) or `apt install protobuf-compiler` (Linux).
+## Common Development Commands
 
-## Build & Development Commands
+Use `make` for day-to-day tasks. Build and test targets delegate to `scripts/dev.sh`, which automatically uses `sccache` when installed.
+
+| Command | Purpose |
+|---------|---------|
+| `make check` | Fast syntax check (`cargo check`); preferred during iterative development. |
+| `make build` | Debug build. |
+| `make release` | Release build. |
+| `make standalone` | Build and run a single-node server on the default port (`127.0.0.1:7379`). |
+| `make cluster` | Start a local multi-node Raft cluster (`make cluster NODES=5`). |
+| `make test` | Run all Rust unit tests. Sets `RUST_TEST_THREADS=1` and raises the fd limit. |
+| `make fmt` / `make fmt-check` | Format code / check formatting (CI). |
+| `make lint` | Run clippy with project lints (`-D warnings -D clippy::unwrap_used`). |
+| `./scripts/dev.sh test --release` | Run tests in release mode. |
+| `./scripts/dev.sh build --debug` | Build with full debug symbols; disables sccache. |
+
+### Running a Single Test
 
 ```bash
-# Build
-cargo build                    # Debug build
-cargo build --release          # Release build
+# Run one test inside a specific crate
+cargo test --package storage test_redis_mset
 
-# Run
-cargo run --bin kiwi           # Run server (debug)
-cargo run --release --bin kiwi # Run server (release)
-
-# Test
-cargo test                     # All unit tests
-cargo test --package storage   # Tests for a specific crate
-cargo test test_redis_mset     # Run a single test by name
-
-# Lint & Format
-make lint                      # clippy with all warnings as errors + unwrap_used denied
-make fmt                       # Format all code
-make fmt-check                 # Check formatting without modifying
+# Run by test name across the workspace
+cargo test test_redis_mset
 ```
 
-The lint command enforces: `cargo clippy --all-features --workspace -- -D warnings -D clippy::unwrap_used`
+### Python Integration Tests
 
-## Lint Rules
+Requires a running server:
 
-- **`clippy::unwrap_used` is denied project-wide.** Use `expect()` with a descriptive message, or propagate errors with `?`/`Result`. Never use `.unwrap()`.
-  - In test code, add `#![allow(clippy::unwrap_used)]` at the top of the test module or `#[allow(clippy::unwrap_used)]` on individual test functions.
-- `clippy::dbg_macro` and `clippy::implicit_clone` are warnings (see `[workspace.lints.clippy]` in root Cargo.toml).
-- All new `.rs` files must include the Apache 2.0 license header (enforced by CI via `skywalking-eyes`). Copy the header from any existing source file.
+```bash
+# Terminal 1
+make standalone
 
-## PR Title Convention
-
-PR titles must follow conventional commits format (enforced by CI):
+# Terminal 2
+make -C tests install-deps
+make -C tests test-python
 ```
-type(scope): description
-```
-Allowed types: `feat`, `fix`, `test`, `refactor`, `chore`, `upgrade`, `bump`, `style`, `docs`, `perf`, `build`, `ci`, `revert`
+
+## Toolchain & Build Notes
+
+- Normal development, CI, and release builds use Rust 1.97.1 stable. The root
+  `rust-toolchain.toml` selects the exact toolchain automatically; verify it with
+  `rustup show active-toolchain` and `rustc --version --verbose`.
+- All Kiwi workspace crates use Rust 2024 Edition.
+- Dated nightly toolchains are reserved for specialized checks such as
+  Sanitizers and do not define the normal development baseline.
+- The first build compiles `librocksdb-sys` from source and can take ~18 minutes. Incremental builds with `sccache` are typically 30 seconds–2 minutes.
+- The project depends on a forked RocksDB crate (`arana-db/rust-rocksdb`) because upstream does not yet expose the `TablePropertiesCollector` FFI functions required by the Raft module. Do not switch to the official `rust-rocksdb` crate.
+- `protoc` (protobuf compiler) is required. Windows builds use the Rust MSVC
+  target and Visual Studio C++ build tools; Linux and macOS builds need the
+  project's native C/C++ build dependencies.
 
 ## Architecture
 
-### Workspace Crates
+### Crate Layout
 
-```
-src/server/    → Entry point (main.rs): CLI args, runtime init, server startup
-src/net/       → Network layer: TCP server, connection handling, cluster routing
-src/cmd/       → Command definitions: Cmd trait, CmdMeta, command table
-src/executor/  → Command executor: tokio async task pool via async_channel
-src/storage/   → Storage layer: multi-instance RocksDB, column families, TTL
-src/engine/    → Engine trait abstraction over RocksDB
-src/resp/      → RESP protocol: parser, encoder, RespData types
-src/raft/      → Raft consensus: OpenRaft integration, state machine, router
-src/conf/      → Configuration: TOML loading, validation, ClusterConfig
-src/client/    → Client context: connection state, argv, reply buffer
-src/common/runtime/ → Runtime management: async channel between net & storage
-src/common/macro/   → Proc macros: #[stack_trace_debug] for error types
-src/kstd/      → Utilities: LockMgr (sharded key-level locking), slice, status
-```
+Workspace members under `src/`:
 
-### Runtime Architecture
-
-Network I/O and storage operations communicate via an **async message channel**. The `RuntimeManager` (in `src/common/runtime/`) manages the lifecycle. The network side uses a `StorageClient` to send requests; the `StorageServer` receives them, executes against RocksDB, and responds via oneshot channels.
+- `server/` — Binary entry point (`kiwi`), `RuntimeManager` setup, and Raft wiring.
+- `net/` — TCP/Unix server, connection handling, pipeline, storage client, and executor integration.
+- `resp/` — RESP protocol parser, encoder, `RespData` types, and command negotiation.
+- `cmd/` — Redis command implementations. Each command implements the `Cmd` trait.
+- `executor/` — Async command executor / task pool.
+- `client/` — Per-connection client state (`argv`, `cmd_name`, `key`, reply buffer, authentication).
+- `storage/` — Multi-instance concrete RocksDB ownership, column families, TTL, key encoding, and log index for Raft.
+- `raft/` — OpenRaft integration, concrete RocksDB log-store ownership, state machine, snapshot archive, and gRPC services.
+- `conf/` — Configuration loading, validation, and sample-config generation.
+- `kstd/` — Utilities, including `LockMgr` for sharded key-level locking.
+- `common/runtime/` — Dual-runtime manager, async message channel between network and storage runtimes, and `StorageServer`.
+- `common/macro/` — Proc macros, including `#[stack_trace_debug]`.
 
 ### Request Flow
 
+```text
+Client → TCP accept [network runtime] → RESP parse → command lookup
+  → connection-local execution or executor_ext admission/dispatch
+  → StorageClient → bounded async message channel
+  → StorageServer [storage runtime] → Cmd.execute() → Storage/RocksDB
+    ← oneshot response ←
+  → RESP encode [network runtime] → write back to client
 ```
-Client → TCP accept (net) → RESP parse (resp) → Command lookup (cmd table)
-  → CmdExecutor async tasks (executor) → Cmd.execute() → Storage ops (storage/engine)
-  → RESP encode response → write back to client
-```
 
-In cluster mode, write commands route through `RequestRouter → RaftNode.propose()` for consensus before applying to the state machine.
+`CmdExecutor` is not the active production request queue on this path. Network
+code performs the initial command admission, while `StorageServer` reconstructs
+the execution context and invokes `Cmd::execute` on the storage runtime.
 
-### Command System
+### Adding a Redis Command
 
-Commands implement the `Cmd` trait (`src/cmd/src/lib.rs`):
-- `meta()` → CmdMeta (name, arity, flags like WRITE/READONLY/RAFT)
-- `clone_box()` → Box<dyn Cmd> (required for cloning trait objects)
-- `do_initial(&self, client)` → validate args, set client key
-- `do_cmd(&self, client, storage)` → business logic
+Commands implement the `Cmd` trait in `src/cmd/src/lib.rs`:
 
-To add a new command:
-1. Create `src/cmd/src/yourcommand.rs` — define a struct with `CmdMeta`, implement `Cmd` using `impl_cmd_meta!()` and `impl_cmd_clone_box!()` macros
-2. Add `pub mod yourcommand;` in `src/cmd/src/lib.rs`
-3. Register it in `src/cmd/src/table.rs` via `register_cmd!(cmd_table, YourCmd)`
+- `meta()` → `CmdMeta` (name, arity, flags such as `WRITE`, `READONLY`, `RAFT`).
+- `do_initial(&self, client)` → validate arguments and set the client key.
+- `do_cmd(&self, client, storage)` → business logic; call `Storage` methods and set the reply.
+
+Steps to add a command:
+
+1. Create `src/cmd/src/<command>.rs`.
+2. Implement `Cmd` using `impl_cmd_meta!()` and `impl_cmd_clone_box!()`.
+3. Add `pub mod <command>;` in `src/cmd/src/lib.rs`.
+4. Register it in `src/cmd/src/table.rs` via `register_cmd!(cmd_table, YourCmd)`.
+5. Add unit tests in the appropriate crate test directory (e.g., `src/storage/tests/`).
 
 ### Storage Model
 
-`Storage` holds multiple `Redis` instances (default 3), each backed by a RocksDB database with 6 column families:
-- `MetaCF`: metadata & strings
-- `HashesDataCF`, `SetsDataCF`, `ListsDataCF`, `ZsetsDataCF`, `ZsetsScoreCF`
+- `Storage` holds multiple `Redis` instances (default 3), distributed by a `SlotIndexer` hash.
+- Each `Redis` instance is a RocksDB database with column families: `MetaCF` (metadata & strings), `HashesDataCF`, `SetsDataCF`, `ListsDataCF`, `ZsetsDataCF`, and `ZsetsScoreCF`.
+- `LockMgr` provides sharded key-level locking.
+- The persisted `etime` in RocksDB metadata is the expiration authority; reads
+  and compaction filters use it to reject stale data. `ExpirationManager` is a
+  non-authoritative in-memory scheduling index, and its current
+  `CompactSpecificKey` path does not yet perform physical cleanup.
 
-A `SlotIndexer` hashes keys to distribute across instances. `LockMgr` provides sharded key-level locking for consistency.
+### Raft Cluster Mode
 
-### Raft Integration
+When `config.raft` is present, `src/server/src/main.rs`:
 
-`src/raft/` bridges Kiwi with OpenRaft via an adaptor pattern:
-- `RaftNode` wraps the OpenRaft instance
-- `KiwiStateMachine` applies committed entries to storage
-- `RequestRouter` routes commands based on cluster mode and consistency level (Eventual, Strong, Linearizable)
-- `RaftStorage` persists Raft logs to RocksDB
+1. Creates a Raft node via `raft::node::create_raft_node`.
+2. Bridges storage-runtime binlogs to Raft `client_write` through an async channel.
+3. Starts gRPC services (core, admin, client, metrics) on `raft_addr`.
+4. Exposes a leader gate so non-leader nodes can reject or redirect writes.
 
-## CI
+## Code Style & Lint
 
-CI runs on Linux, macOS, and Windows:
-1. License header check (skywalking-eyes)
-2. `cargo fmt --check`
-3. `make lint` (clippy)
-4. `make build` + `make test`
-5. Python integration tests (Ubuntu only, requires running server)
+- `clippy::unwrap_used` is denied project-wide. Use `expect("descriptive message")` or propagate errors with `?`/`Result`.
+- In tests, add `#![allow(clippy::unwrap_used)]` at the top of the test module.
+- All Kiwi-authored `.rs` files must include the Apache 2.0 license header (enforced by CI). Copy the header from an existing Kiwi source file. Future Redis-derived source belongs to the separately governed AGPL-3.0-only fork and must not be relabeled as Apache-2.0.
+- PR titles follow Conventional Commits (checked by CI).
+- Run `make fmt && make lint && make test` before opening a PR.
 
-## Testing
+## Behavioral Guidelines
 
-- **Unit tests**: In each crate, run with `cargo test --package <crate>` (e.g. storage, cmd, executor, raft)
-- **Integration tests**: `tests/` directory contains Rust integration tests and Python tests (`tests/python/`)
-- **Python integration tests** require a running Kiwi server and `pip install redis pytest`:
-  ```bash
-  # Terminal 1: start server
-  cargo run --bin kiwi
-  # Terminal 2: run tests
-  pytest tests/python/ -v
-  ```
-- Storage tests use `tempfile::tempdir()` for isolated RocksDB instances — see `src/storage/src/util.rs` for `unique_test_db_path()` and `safe_cleanup_test_db()`
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## Gotchas
+### 1. Think Before Coding
 
-- **RocksDB fork**: The project uses `arana-db/rust-rocksdb` (pinned to a specific rev), not the official `rust-rocksdb` crate. This fork adds TablePropertiesCollector FFI functions. See comment in root `Cargo.toml` near the `rocksdb` dependency.
-- **Binary name is `kiwi`**, not `server` — defined in `src/server/Cargo.toml` as `[[bin]] name = "kiwi"`.
+- State assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them — don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop, name what's confusing, and ask.
+
+### 2. Simplicity First
+
+- Minimum code that solves the problem. Nothing speculative.
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- If you write 200 lines and it could be 50, rewrite it.
+
+### 3. Surgical Changes
+
+- Touch only what you must. Clean up only your own mess.
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If your changes create unused imports/variables/functions, remove them.
+- Don't remove pre-existing dead code unless asked.
+
+The test: every changed line should trace directly to the user's request.
+
+### 4. Goal-Driven Execution
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass."
+- "Fix the bug" → "Write a test that reproduces it, then make it pass."
+- "Refactor X" → "Ensure tests pass before and after."
+
+For multi-step tasks, state a brief plan:
+
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## Project Continuity and Crash Recovery
+
+Before modifying files in every new session:
+
+1. Read this file, `CONTRIBUTING.md`, and `.planning/SDD.md` completely.
+2. Read the current work package, requirements, decisions, Issue, spec, plan, and verification evidence linked by `.planning/SDD.md`.
+3. Read `.codex/recovery/ACTIVE.md` if it exists.
+4. Run `git status --porcelain=v2 --branch --untracked-files=all`.
+5. Compare branch, HEAD, and dirty ownership with the recovery record.
+
+If branch, HEAD, or dirty ownership differs, report the drift and stop before modifying files. Never automatically run checkout, restore, reset, stash, clean, whole-tree formatting, or deletion to make the state match.
+
+`.planning/` is the versioned project truth. `.codex/recovery/` is ignored local runtime state containing the active task, append-only checkpoints, authority boundaries, and Git snapshots. Save checkpoints with `scripts/codex-workstate.ps1` before long-running work, authority changes, verified milestones, blockers, and session handoff.
+
+### Planning and implementation task separation
+
+- A planning-only task may update `AGENTS.md`/`CLAUDE.md`, `.planning/`, design documents, implementation plans, and recovery records. It must not continue, stage, commit, push, or present source implementation as accepted work.
+- An approved design or implementation plan does not authorize implementation. Start implementation in a separate Codex task with its own branch or linked worktree, recovery checkpoint, dirty-path ownership, and Git authority.
+- If implementation was started before a planning boundary was clarified, freeze that worktree exactly as found. Record it as an unaccepted draft; do not clean it, continue it, or use its green tests as project truth from the planning task.
+- A later implementation task may inspect a frozen draft as read-only evidence, but every reused design or code path must be re-audited against the approved plan in the new clean worktree.
+
+### Trusted Redis Oracle provenance
+
+- Oracle build metadata and build logs are audit records, not a trust root. A self-consistent metadata file cannot prove that an arbitrary ignored `src/redis-server` was built from the declared source.
+- The accepted provenance design requires the verifier to create a fresh disposable checkout of exact Redis 8.8.1, independently rebuild it with controlled tools, require the rebuilt binary hash to match the primary build, and run the independently rebuilt binary for `INFO server` evidence.
+- Controller bootstrap and all external tools must come from the declared Linux trust boundary, be identity/hash recorded, and use held file descriptors where executable replacement would otherwise create a TOCTOU window. Ambient `PATH`, `PYTHONPATH`, and `PYTHONHOME` must not select controller code.
+- The verifier must publish no provenance until Redis processes, process groups, runtime directories, independent checkouts, and all fallible cleanup have completed successfully.
+
+Architecture terminology and boundaries:
+
+- Use only **Embedded Redis Hot Tier** or **内嵌 Redis 8.8.1 原生内存热数据层** as the canonical terminology.
+- The hot tier is design-only. Do not add Redis-derived production dependencies, loaders, dynamic-library build paths, runtime integration, or release packaging until the system stability gate passes and the user explicitly approves a separate implementation task.
+- RocksDB is the only complete authoritative storage; the future hot tier is disposable and rebuildable.
+- Cache hits cannot bypass OpenRaft consistency gates.
+- RedisRaft defines the public behavioral profile; OpenRaft remains the implementation.
+- redis-rs is test-only and must not enter production server dependencies.
+
+## Subagent Policy
+
+This project permits and requires the use of subagents when a task contains two or more independent, bounded workstreams that can be executed in parallel. The lead agent should delegate those workstreams without requesting separate approval for each delegation. Tasks that cannot be safely or usefully decomposed do not require a subagent.
+
+Using subagents does not expand the scope of the user's request or authorize additional state-changing actions. The lead agent remains responsible for defining non-overlapping ownership, coordinating the work, independently verifying material conclusions, resolving duplicate or conflicting findings, and producing the final result.
+
+For pull request reviews, all subagents must remain read-only unless the user explicitly requests fixes. They may inspect the diff and source code, trace callers and implementations, assess tests, and run non-modifying static checks or tests. Subagents must not post GitHub comments or independently issue the final severity or merge decision; the lead agent must verify and submit all inline comments and the final conclusion.
+
+Authorization to implement fixes does not authorize commit, push, merge, rebase, closing the pull request, or resolving review threads. Those actions require the authorization specified by the applicable review protocol.
 
 ---
 > Source: [arana-db/kiwi](https://github.com/arana-db/kiwi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
