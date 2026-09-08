@@ -1,0 +1,9 @@
+{
+  "name": "rafagomes--ai-workflow",
+  "displayName": "ai-workflow",
+  "description": "AI-assisted development workflow toolkit for Claude Code, Cursor, and Codex \u2014 skills, agents, and conventions for the full SDLC",
+  "version": "1.0.0",
+  "author": "rafagomes",
+  "homepage": "https://github.com/rafagomes/ai-workflow",
+  "skills": []
+}
