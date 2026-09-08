@@ -1,0 +1,44 @@
+{
+  "name": "vitest-auto-spy",
+  "owner": "ASDAlexey",
+  "repo": "vitest-auto-spy",
+  "description": "Auto-generate fully-typed test spies from a class \u2014 across Vitest, Bun & node:test, with Angular/NestJS/React/Vue/Svelte recipes. A drop-in replacement for jest-auto-spies and jasmine-auto-spies, with a codemod that finishes the move.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ASDAlexey/vitest-auto-spy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T10:32:56Z"
+}
