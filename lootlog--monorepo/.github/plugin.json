@@ -1,0 +1,9 @@
+{
+  "name": "lootlog--monorepo",
+  "displayName": "monorepo",
+  "description": "Repository for Margonem MMORPG game addon.",
+  "version": "1.0.0",
+  "author": "lootlog",
+  "homepage": "https://github.com/lootlog/monorepo",
+  "skills": []
+}
