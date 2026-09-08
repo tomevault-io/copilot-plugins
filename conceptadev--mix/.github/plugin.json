@@ -1,0 +1,14 @@
+{
+  "name": "conceptadev--mix",
+  "displayName": "mix",
+  "description": "mix",
+  "version": "1.0.0",
+  "author": "conceptadev",
+  "homepage": "https://github.com/conceptadev/mix",
+  "skills": [
+    {
+      "name": "mix",
+      "description": ""
+    }
+  ]
+}
