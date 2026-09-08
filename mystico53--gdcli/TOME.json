@@ -4,7 +4,7 @@
   "repo": "gdcli",
   "description": "Agent-friendly CLI for Godot 4",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mystico53/gdcli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T18:38:52Z"
+  "distributed_at": "2026-09-08T18:40:55Z"
 }
