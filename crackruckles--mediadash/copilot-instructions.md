@@ -1,0 +1,61 @@
+## mediadash
+
+> Read PLAN.md first. It is the source of truth for scope, architecture, and build order. Work through §7 (Build order) step by step; do not skip ahead to fixers before scanners are verified.
+
+# MediaDash — Jellyfin Plugin
+
+Read PLAN.md first. It is the source of truth for scope, architecture, and build order. Work through §7 (Build order) step by step; do not skip ahead to fixers before scanners are verified.
+
+## What this is
+
+A Jellyfin plugin (C#, net8.0 class library) that scans libraries for duplicates, unplayable files, oversized encodes, and wrong-language audio/subtitle tracks, then fixes them on a schedule. Full spec in PLAN.md.
+
+**This is a public community release, not a personal tool.** Two consequences:
+
+- **Portability:** no hardcoded paths, drive letters, usernames, or OS/locale assumptions anywhere. Resolve all environment-dependent values through Jellyfin APIs (`IApplicationPaths`, encoding options) or plugin config. Must run on Windows, Linux, macOS, and Docker. Use `Path.Combine`, never string-concatenated separators; assume case-sensitive filesystems.
+- **UI intuitiveness is release-blocking:** plain language, no jargon on primary surfaces, consequences stated on every destructive button, safe defaults, 2–3-question first-run setup. Standards in PLAN.md §6 — treat them as acceptance criteria.
+
+## Reference
+
+- Official plugin template & docs: https://github.com/jellyfin/jellyfin-plugin-template — scaffold from this.
+- Pin `Jellyfin.Controller` / `Jellyfin.Model` NuGet to the 10.11 line; set `<ExcludeAssets>runtime</ExcludeAssets>` on both. Do NOT bump these packages to the 12.0 line — the 10.11 SDK is forward-compatible with a 12.0 host, but the reverse isn't true. `System.Diagnostics.PerformanceCounter` must be a full package reference (no `ExcludeAssets`) so its DLLs ship in the plugin zip; otherwise the plugin fails to load on Windows with `FileNotFoundException`.
+- Cross-version compatibility: one binary targets both Jellyfin **10.11+** and **12.0+**. The manifest declares two `targetAbi` entries per version. Any API that references the `User` entity type must be invoked via reflection (see `Scanners/StaleContentScanner.cs`'s `UserApiBridge`) because the type moved namespaces and `IUserManager.Users` was renamed to `GetUsers()` in 12.0. Adding a static reference to `User` from a new scanner will `MissingMethodException` on the other host line — check both when touching user-data code.
+
+## Build & test
+
+```
+dotnet build Jellyfin.Plugin.MediaDash.sln /property:GenerateFullPaths=true /consoleloggerparameters:NoSummary
+dotnet test
+```
+
+Deploy for local testing: copy `bin/Debug/net9.0/publish/*` to `%LOCALAPPDATA%\jellyfin\plugins\MediaDash_X.Y.Z.0\` and restart the server (see template README §6 for .vscode automation). The plugin now targets `net9.0`, not `net8.0`, since Jellyfin 10.11 moved to .NET 9 and 12.0 to .NET 10 (net9.0 assemblies are forward-compatible with both hosts).
+
+## Hard rules — safety invariants
+
+These must hold in every code path and have unit tests. Do not relax them for convenience:
+
+1. Never modify or delete a file outside the configured library paths.
+2. Never remove a file's last audio track or its video stream.
+3. Never replace an original until the new file passes ffprobe verification (duration within 2s, expected streams present).
+4. All destructive operations respect the per-fix-type disposal setting (recycle bin vs permanent) and the global dry-run toggle. Dry-run defaults ON.
+5. Check free disk space (≥2× source size) before any transcode.
+
+## Conventions
+
+- One class per file; scanners implement `IScanner`, fixers implement `IFixer` (see PLAN.md §2 layout).
+- State lives in SQLite in the plugin data folder; settings live in `PluginConfiguration` XML. Don't mix them.
+- Use Jellyfin's bundled ffmpeg/ffprobe (path from server encoding options) — never assume a system install.
+- UI is a single embedded `configPage.html` using Jellyfin's `emby-*` components; no JS build step, no frameworks.
+- API controllers require elevation (`RequiresElevation` policy).
+- All UI strings centralized for future localization; no English-only assumptions in language defaults (first-run setup asks).
+- Follow the template's `jellyfin.ruleset` / analyzers; treat warnings as errors.
+- License: GPLv3 (required by Jellyfin NuGet linkage).
+- Release via plugin repository: `build.yaml` → zip + `manifest.json`, semantic versioning, `targetAbi` = minimum supported Jellyfin version (see PLAN.md §7 step 9). Cut releases with `tools/release.ps1 -Version X.Y.Z -Changelog "..."` — it builds, zips, uploads to GitHub Releases, then re-downloads the uploaded asset and writes that MD5 into `manifest.json`, so the manifest checksum can't drift from the released zip. Do NOT hand-edit `manifest.json` checksums or hand-upload releases.
+
+## Verification checklist per phase
+
+After each PLAN.md §7 step: build clean, plugin loads without errors in the Jellyfin dashboard, run `tools/make-fixtures.sh` test library through a scan, confirm expected issue counts before moving on. Fixer phases additionally: run in dry-run first, diff expected vs planned actions, then run real and confirm restore from recycle bin works.
+
+---
+> Source: [crackruckles/MediaDash](https://github.com/crackruckles/MediaDash) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
