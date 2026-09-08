@@ -1,0 +1,9 @@
+{
+  "name": "mbbill--silverfir-nano",
+  "displayName": "Silverfir-nano",
+  "description": "A compact, optimizing WebAssembly JIT for on-device AI",
+  "version": "1.0.0",
+  "author": "mbbill",
+  "homepage": "https://github.com/mbbill/Silverfir-nano",
+  "skills": []
+}
