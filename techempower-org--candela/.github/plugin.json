@@ -1,0 +1,9 @@
+{
+  "name": "techempower-org--candela",
+  "displayName": "candela",
+  "description": "Open-source neural-voice audiobook player for Android. Reads any text \u2014 Royal Road, GitHub, RSS, EPUB, Wikipedia & 20+ more sources \u2014 aloud via in-process Piper, Kokoro, KittenTTS & Supertonic voices,",
+  "version": "1.0.0",
+  "author": "techempower-org",
+  "homepage": "https://github.com/techempower-org/candela",
+  "skills": []
+}
