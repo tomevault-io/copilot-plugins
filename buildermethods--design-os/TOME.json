@@ -3,7 +3,7 @@
   "owner": "buildermethods",
   "repo": "design-os",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "design-os",
-      "path": ".claude/skills/frontend-design/SKILL.md",
-      "github_url": "https://github.com/buildermethods/design-os/tree/main/.claude/skills/frontend-design/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/buildermethods/design-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:19:38Z"
+  "distributed_at": "2026-09-08T19:59:48Z"
 }
