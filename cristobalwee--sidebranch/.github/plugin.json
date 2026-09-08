@@ -1,0 +1,9 @@
+{
+  "name": "cristobalwee--sidebranch",
+  "displayName": "sidebranch",
+  "description": "Local visual diffing with git worktrees",
+  "version": "1.0.0",
+  "author": "cristobalwee",
+  "homepage": "https://github.com/cristobalwee/sidebranch",
+  "skills": []
+}
