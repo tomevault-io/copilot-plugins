@@ -1,15 +1,18 @@
 ## devtools
 
-> Use the latest version of Shadcn to install new components, like this command to add a button component:
+> Before analyzing or changing this repository, read and follow
 
-# shadcn instructions
+# Agent Instructions
 
-Use the latest version of Shadcn to install new components, like this command to add a button component:
+Before analyzing or changing this repository, read and follow
+[`CONTRIBUTING.md`](./CONTRIBUTING.md). Its contribution, development, testing,
+pull request, and changeset requirements apply to AI-assisted work as well as
+human-authored work.
 
-```bash
-pnpm dlx shadcn@latest add button
-```
+Keep every change focused on one topic. Understand and verify all generated
+code, run the required checks, and provide a concise pull request description
+that follows the repository template.
 
 ---
 > Source: [TanStack/devtools](https://github.com/TanStack/devtools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
