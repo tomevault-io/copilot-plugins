@@ -1,0 +1,9 @@
+{
+  "name": "mrpt-ros-pkg--mrpt-navigation",
+  "displayName": "mrpt_navigation",
+  "description": "mrpt_navigation",
+  "version": "1.0.0",
+  "author": "mrpt-ros-pkg",
+  "homepage": "https://github.com/mrpt-ros-pkg/mrpt_navigation",
+  "skills": []
+}
