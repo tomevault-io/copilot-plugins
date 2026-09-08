@@ -140,4 +140,4 @@ When asked to investigate: only read, query, report. No edits, commits, or state
 
 ---
 > Source: [barnum-circus/barnum](https://github.com/barnum-circus/barnum) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
