@@ -1,0 +1,9 @@
+{
+  "name": "reportportal--kubernetes",
+  "displayName": "kubernetes",
+  "description": "kubernetes",
+  "version": "1.0.0",
+  "author": "reportportal",
+  "homepage": "https://github.com/reportportal/kubernetes",
+  "skills": []
+}
