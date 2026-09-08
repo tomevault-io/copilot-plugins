@@ -48,4 +48,4 @@ Moves is a macOS menu bar application that helps position windows on the screen 
 
 ---
 > Source: [mikker/Moves.app](https://github.com/mikker/Moves.app) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
