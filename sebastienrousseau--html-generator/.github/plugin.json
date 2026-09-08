@@ -1,0 +1,9 @@
+{
+  "name": "sebastienrousseau--html-generator",
+  "displayName": "html-generator",
+  "description": "A Rust library that turns Markdown into WCAG-compliant, SEO-friendly HTML \u2014 front matter, TOC, JSON-LD, MathML, Mermaid, and minification in one pipeline. Runs natively or as WebAssembly.",
+  "version": "1.0.0",
+  "author": "sebastienrousseau",
+  "homepage": "https://github.com/sebastienrousseau/html-generator",
+  "skills": []
+}
