@@ -4,7 +4,7 @@
   "repo": "MinUI-Zero",
   "description": "MinUI Zero:\u00a0Same simple MinUI. Tuned end to end.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Zero-Labs-CFW/MinUI-Zero",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T04:31:53Z"
+  "distributed_at": "2026-09-08T04:32:37Z"
 }
