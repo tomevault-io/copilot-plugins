@@ -1,36 +1,56 @@
-## ui-guidelines
+## wot-starter
 
-> UI/UX 指南、样式规范和组件使用
+> Wot Starter 是基于 uni-app、Vue 3 和 Wot UI 的跨平台起手项目。优先做最小改动，保持现有页面、路由、组件和构建行为稳定。
 
+# Project Guidelines
 
-# UI 与样式指南
+## Scope
 
-## 🎨 样式系统
-- **引擎**: UnoCSS (原子化 CSS) 是**首选**的样式方案。
-- **配置**: `uno.config.ts`。
-- **预处理**: SCSS 用于复杂的组件样式（极少需要）。
-- **主题**: 通过 `src/theme.json` 和 CSS 变量支持亮色/暗色模式切换。
+Wot Starter 是基于 uni-app、Vue 3 和 Wot UI 的跨平台起手项目。优先做最小改动，保持现有页面、路由、组件和构建行为稳定。
 
-### UnoCSS 约定
-- 使用工具类: `flex`, `items-center`, `text-primary`, `m-4`.
-- 响应式前缀: `sm:`, `md:` (在移动端优先的 uni-app 中较少使用)。
-- 图标: 通过 UnoCSS preset 使用 `i-carbon-{icon-name}`。
+## Architecture
 
-## 🧩 组件库
-- **核心库**: `wot-design-uni` (`wd-` 前缀)。
-- **文档**: [wot-design-uni](https://wot-ui.cn).
-- **自定义组件**: 在 `src/components` 中创建。
+- 页面代码位于 `src/pages` 和 `src/subPages`。
+- 通用组件位于 `src/components`；状态位于 `src/store`；请求封装位于 `src/api`。
+- `pages.config.ts` 与 `@uni-helper/vite-plugin-uni-pages` 负责页面生成；生成文件不要手工维护重复来源。
+- `.agents/skills/` 保存给 Agent 使用的技能说明。
 
-## 📢 全局反馈
-- **Toast/Message**: 请勿直接使用 `uni.showToast`。
-- **标准**: 使用 `GlobalToast`, `GlobalMessage`, `GlobalLoading` 组件。
-- **Skill**: 参考 **`global-feedback`** skill 查看使用示例。
+## Build And Test
 
-## 📱 布局
-- **系统**: `vite-plugin-uni-layouts`。
-- **默认**: `src/layouts/default.vue`。
-- **TabBar**: `src/layouts/tabbar.vue`。
+- 安装依赖：`pnpm install`
+- 代码检查：`pnpm lint`
+- 类型检查：`pnpm type-check`
+- H5 构建：`pnpm build:h5`
+
+## OpenSpec Workflow
+
+涉及新功能、用户可见行为变化、API 或数据契约变化、新页面/路由、公共组件/主题调整、跨端兼容处理或跨模块重构时，必须先使用 OpenSpec 建立变更：
+
+1. 阅读 `openspec/specs/` 中相关规范。
+2. 使用 `.agents/skills/openspec-propose` 创建并评审变更提案。
+3. 使用 `.agents/skills/openspec-apply-change` 实现代码。
+4. 使用 `.agents/skills/openspec-verify-change` 核对规格、任务、实现和测试。
+5. 确认无误后使用 `.agents/skills/openspec-archive-change` 归档。
+
+纯拼写、格式化、明显的单点修复和不改变行为的依赖维护可以不创建变更，但仍需说明验证结果。
+
+OpenSpec 的项目上下文和 artifact 规则位于 `openspec/config.yaml`；工作流以 CLI 返回的路径和状态为准，不手工假设 artifact 位置。
+
+项目已锁定 `@fission-ai/openspec@1.9.0`。运行 `pnpm install` 后可使用 `pnpm exec openspec`；共享 OpenSpec Skills 调用的是裸命令 `openspec`，因此 Codex/Claude Code 环境还需要将同一版本安装到 `PATH`：
+
+```bash
+npm install -g @fission-ai/openspec@1.9.0
+openspec --version
+```
+
+## Conventions
+
+- Vue 组件使用 `<script setup lang="ts">` 和 Composition API，保持严格类型。
+- 网络流程必须考虑加载、成功、空数据、失败和恢复/重试状态。
+- 不得把凭据写入仓库；不得默认使用只在浏览器可用的 API 破坏小程序端。
+- 修改 Wot UI、主题、API 或模板相关代码时，优先读取 `.agents/skills/` 中对应的 `SKILL.md`。
+- 未经明确要求，不要顺手重构无关模块。
 
 ---
 > Source: [wot-ui/wot-starter](https://github.com/wot-ui/wot-starter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
