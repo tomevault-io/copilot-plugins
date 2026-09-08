@@ -1,0 +1,9 @@
+{
+  "name": "dtstack--dt-sql-parser",
+  "displayName": "dt-sql-parser",
+  "description": "dt-sql-parser",
+  "version": "1.0.0",
+  "author": "DTStack",
+  "homepage": "https://github.com/DTStack/dt-sql-parser",
+  "skills": []
+}
