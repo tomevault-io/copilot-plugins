@@ -1,0 +1,9 @@
+{
+  "name": "lfe--rebar3",
+  "displayName": "rebar3",
+  "description": "rebar3",
+  "version": "1.0.0",
+  "author": "lfe",
+  "homepage": "https://github.com/lfe/rebar3",
+  "skills": []
+}
