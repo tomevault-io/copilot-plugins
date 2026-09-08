@@ -1,0 +1,9 @@
+{
+  "name": "imsai-sh--open-claude-design",
+  "displayName": "open-claude-design",
+  "description": "Open-source recreation of Claude Design (claude.ai/design) as a pure web app \u2014 chat-driven multi-file React prototyping with Tweaks \u00b7 Comment \u00b7 Edit \u00b7 Draw, agent in your browser tab, single Cloudflar",
+  "version": "1.0.0",
+  "author": "imsai-sh",
+  "homepage": "https://github.com/imsai-sh/open-claude-design",
+  "skills": []
+}
