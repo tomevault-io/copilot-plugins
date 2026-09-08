@@ -1,0 +1,9 @@
+{
+  "name": "darknecrocities--agentdeck",
+  "displayName": "Agentdeck",
+  "description": "Local-First Remote AI Engineering Control Plane Monitor, prompt, and control AI coding agents running on your Mac from your phone via private Tailscale mesh.",
+  "version": "1.0.0",
+  "author": "darknecrocities",
+  "homepage": "https://github.com/darknecrocities/Agentdeck",
+  "skills": []
+}
