@@ -1,0 +1,9 @@
+{
+  "name": "dhruuvsharma--trading-strategies",
+  "displayName": "Trading-Strategies",
+  "description": "Algorithmic trading research \u2014 multi-platform (MT5/MQL5 + cTrader/C# cAlgo). Order-flow & microstructure strategies: tick-level cumulative delta scalping with sniper confirmation gates, dynamic Median",
+  "version": "1.0.0",
+  "author": "dhruuvsharma",
+  "homepage": "https://github.com/dhruuvsharma/Trading-Strategies",
+  "skills": []
+}
