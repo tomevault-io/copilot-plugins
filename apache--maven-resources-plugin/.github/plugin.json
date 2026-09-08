@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-resources-plugin",
+  "displayName": "maven-resources-plugin",
+  "description": "maven-resources-plugin",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-resources-plugin",
+  "skills": []
+}
