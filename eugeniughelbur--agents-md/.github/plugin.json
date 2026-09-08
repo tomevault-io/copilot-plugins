@@ -1,0 +1,9 @@
+{
+  "name": "eugeniughelbur--agents-md",
+  "displayName": "agents-md",
+  "description": "Generate and safely maintain AGENTS.md, the cross-tool standard for AI coding agents. Non-destructive re-runs, never fabricates, three-tier boundaries.",
+  "version": "1.0.0",
+  "author": "eugeniughelbur",
+  "homepage": "https://github.com/eugeniughelbur/agents-md",
+  "skills": []
+}
