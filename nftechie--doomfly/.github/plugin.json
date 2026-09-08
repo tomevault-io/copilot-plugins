@@ -1,0 +1,9 @@
+{
+  "name": "nftechie--doomfly",
+  "displayName": "doomfly",
+  "description": "Fly-connectome simulation controlling a live Doom arena, with experimental neural plasticity, spectator UI, and scientific validation reports.",
+  "version": "1.0.0",
+  "author": "nftechie",
+  "homepage": "https://github.com/nftechie/doomfly",
+  "skills": []
+}
