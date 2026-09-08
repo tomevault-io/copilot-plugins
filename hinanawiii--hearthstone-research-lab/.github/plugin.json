@@ -1,0 +1,9 @@
+{
+  "name": "hinanawiii--hearthstone-research-lab",
+  "displayName": "hearthstone-research-lab",
+  "description": "LLM-guided game research and specialist self-play in a finite Hearthstone card pool.",
+  "version": "1.0.0",
+  "author": "Hinanawiii",
+  "homepage": "https://github.com/Hinanawiii/hearthstone-research-lab",
+  "skills": []
+}
