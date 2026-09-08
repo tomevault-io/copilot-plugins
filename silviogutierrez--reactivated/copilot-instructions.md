@@ -109,6 +109,108 @@ Uses Nix (`shell.nix`) for dependency management. Key env vars:
 - `REACTIVATED_VITE_PORT` / `REACTIVATED_DJANGO_PORT` — Port coordination
 - Django settings: `REACTIVATED_BUNDLES` (entry points, default `["index"]`), `REACTIVATED_ADAPTERS`, `REACTIVATED_IGNORED_URL_NAMESPACES` (default `["admin"]`)
 
+## Code Style
+
+- Prefer real type annotations over string ("quoted") annotations. Quote only to break a genuine circular import or forward reference — and note that router scopes/views resolve annotations at boot via get_type_hints, so quoted names must still be importable at runtime.
+
+### Tests
+
+Tests speak through their names and assertions — no narrating comments;
+comments only for a trap the assertion cannot convey (e.g. why a behavior
+must NOT happen).
+
+Granular one-behavior tests are the default: each test is a distinct spec
+sentence that would be missed if deleted. They are executable memory for
+stateless agents, they fail simultaneously (one run = the full damage map),
+and deleting one is diff-visible in a way that editing an assert inside a
+combined scenario is not. Combined scenarios only when behaviors are
+meaningless apart. No permutation spam — five tests for five file
+extensions is coverage theater, not spec.
+
+What deserves a test at all: mypy and CI do most of the work. Reserve unit
+tests for regressions that actually happened and contracts the type system
+cannot see (filesystem effects, ordering, deletion).
+
+### Re-exports
+
+Two blessed forms, in order of preference:
+
+1. **Redundant alias** (the default): `from .core import FormField as FormField`,
+   one name per statement — ruff's isort enforces the one-per-statement shape
+   for aliased imports, and the alias marks the re-export as intentional (no
+   `# noqa: F401`, ever).
+2. **Plain import + `__all__`**: a single grouped `from .x import (a, b, c)`
+   plus the names in `__all__`. Allowed when a file needs one positional
+   import statement (e.g. ordering constraints); satisfies both F401 and
+   mypy's `no_implicit_reexport`.
+
+Facade modules (`reactivated.pick`, `reactivated.forms`) contain re-exports
+only — implementation lives in submodules, imports stay at the top of the
+file. Never suppress E402 to keep imports at the bottom; restructure instead.
+
+### The export() rules
+
+- One export path: `export(thing)` from `reactivated.pick`. Picks and type
+  aliases emit types; **enums always emit both the type and the runtime
+  value map** — labels that are secrets don't belong in an exported enum
+  (export a `Literal` of the safe values instead). Module-level primitive
+  values are typed by their annotation (`SNAP_LIST: list[Snap]`);
+  non-primitives and duplicate names are boot errors.
+- Everything app-derived is addressed by server location on the client:
+  `server.journal.day.fast_init(...)` mirrors `server/journal/day.py`.
+  Nothing app-derived is ever exported at the top level of `@reactivated`,
+  and nothing is exported at two paths (one way to say everything).
+- A namespace is a tree-shaking boundary: importing `server.core` pulls all
+  of core's constants. That's fine _because_ exported values are primitives
+  only — keep it that way.
+
+## Authoring RPC return types (for consumers)
+
+Guidance for code that _consumes_ this framework — app `@rpc` handlers. This
+file ships to every consumer as the vendored `upstream/reactivated/CLAUDE.md`,
+so a project's own `CLAUDE.md` can point here instead of restating it.
+
+- **Return the value, not a wrapper.** An `@rpc` should return a bare
+  `Literal[...]`, enum, or `Pick` directly. Do NOT invent a single-field
+  wrapper Pick (`class FooResult(Pick): status: Literal[...]`) just to carry one
+  value. An RPC's return type is addressable on the client at
+  `server.<module>.<rpc>.output`, so a bare return already has a named handle —
+  the wrapper buys nothing and adds a field-read on every call site.
+- **Don't `export()` a direct RPC type.** A `Pick`/`Literal`/`Union` used
+  directly as an RPC input or output auto-exports to `server.<module>.<Name>`;
+  an explicit `export()` of it is redundant and emits a warning. Reserve
+  `export()` for enums (their runtime value map) and for constants/types not in
+  any RPC signature.
+- **Keep genuine multi-field Picks.** Bare returns are for single values; a
+  result with several fields is a real shape — keep it a `Pick`. Don't add
+  `Field(title=...)` to an inline `Literal` unless a client imports that title
+  as a type.
+
+Two exceptions keep the wrapper — no type checker catches either, so they're the
+ones that bite:
+
+- **Audit/logging that distinguishes enum from union arm.** When logging records
+  RPC outputs by telling an enum member apart from a union arm (e.g. a success
+  returns a union arm; a refusal returns the enum), a bare enum return is
+  silently mis-recorded. Keep the wrapper (or a union arm) so the two stay
+  distinguishable.
+- **String-discriminated unions.** When the client narrows a union return with
+  `typeof data === "string"`, the success arm must stay an object; a bare `str`
+  return collapses both arms. Keep it an object.
+
+## Blast Radius: Check Consumers Before Generator Changes
+
+Reactivated is consumed as a vendored subtree by real applications. Any
+change to generated OUTPUT — the server namespace emission, type aliases,
+schema shapes, enum/wire serialization — must be checked against a real
+consumer before shipping, not just against this repo's own tests:
+regenerate a consuming app's client schema and grep for the affected
+spelling. Concrete precedent: swapping a `@form`'d Pick's namespace type
+alias from `typeof` (form schema) to the wire shape passed every check
+here — and would still have broken `PFormHandler<server.x.y.Form>` call
+sites in a consumer, which pass the bare name in type position. Auditing
+only the framework repo is the wrong scope for a shared library.
+
 ---
 > Source: [silviogutierrez/reactivated](https://github.com/silviogutierrez/reactivated) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
