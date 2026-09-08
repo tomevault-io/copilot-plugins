@@ -1,0 +1,9 @@
+{
+  "name": "bharathvbcr--gitpulse",
+  "displayName": "GitPulse",
+  "description": "High-performance native Git desktop client built with Rust (Tauri 2) and Svelte 5",
+  "version": "1.0.0",
+  "author": "bharathvbcr",
+  "homepage": "https://github.com/bharathvbcr/GitPulse",
+  "skills": []
+}
