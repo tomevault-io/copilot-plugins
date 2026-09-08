@@ -1,14 +1,26 @@
 ## rust-template
 
-> When you generate new code or update existing code, run `just full-check` to verify the code is correctly formatted. If
+> AI agents working on this Rust project must follow these guidelines.
 
 # Development Instructions
 
-When you generate new code or update existing code, run `just full-check` to verify the code is correctly formatted. If
-there are any errors, use `just full-write` to fix them. If there are issues still, figure out why and fix them.
+AI agents working on this Rust project must follow these guidelines.
 
-To see all available commands, run `just --list`.
+References:
+
+- **Project overview**: @README.md
+- **Dependencies**: @Cargo.toml
+
+## Validation
+
+After changing Rust code, run these commands in order:
+
+1. `just full-check` — verify formatting and run Clippy with warnings denied.
+2. `just test` — run the test suite.
+
+If the formatting check fails, run `just full-write`, then rerun the validation commands. Run `just --list` to see the
+available recipes.
 
 ---
 > Source: [PaulRBerg/rust-template](https://github.com/PaulRBerg/rust-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
