@@ -1,0 +1,44 @@
+{
+  "name": "gta-3d-ai",
+  "owner": "Dryxio",
+  "repo": "gta-3d-ai",
+  "description": "Find GTA assets. Build with AI and Blender. Early-alpha local search, visual review and Blender CLI previews.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dryxio/gta-3d-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T03:30:21Z"
+}
