@@ -4,7 +4,7 @@
   "repo": "flashie",
   "description": "A standalone Windows app for running local and web-based Flash content in an embedded IE browser without system-wide registration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mzying2001/flashie",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T16:40:22Z"
+  "distributed_at": "2026-09-08T16:47:33Z"
 }
