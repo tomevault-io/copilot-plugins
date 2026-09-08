@@ -7,11 +7,11 @@ Realtime collaboration editor for marp presentations
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [alex289/marp-collab](https://github.com/alex289/marp-collab).
+Original source: `AGENTS.md` in [alex289/marp-collab](https://github.com/alex289/marp-collab).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
