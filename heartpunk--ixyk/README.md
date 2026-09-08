@@ -7,11 +7,11 @@ all ur impls semantics are belong to us
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [heartpunk/ixyk](https://github.com/heartpunk/ixyk).
+Original source: `AGENTS.md` in [heartpunk/ixyk](https://github.com/heartpunk/ixyk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
