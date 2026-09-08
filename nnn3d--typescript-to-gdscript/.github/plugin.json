@@ -1,0 +1,9 @@
+{
+  "name": "nnn3d--typescript-to-gdscript",
+  "displayName": "typescript-to-gdscript",
+  "description": "Convert TypeScript to GDScript for Godot game engine",
+  "version": "1.0.0",
+  "author": "nnn3d",
+  "homepage": "https://github.com/nnn3d/typescript-to-gdscript",
+  "skills": []
+}
