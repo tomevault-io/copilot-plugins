@@ -1,0 +1,44 @@
+{
+  "name": "career-ops-india",
+  "owner": "AnojSKunte",
+  "repo": "career-ops-india",
+  "description": "AI job search for India \u2014 scan 196 companies, evaluate fit, generate tailored CVs. Works with Claude Code + Gemini CLI (free).",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AnojSKunte/career-ops-india",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T22:18:43Z"
+}
