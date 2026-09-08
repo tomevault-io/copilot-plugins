@@ -1,0 +1,9 @@
+{
+  "name": "modecir--fast-cutvid",
+  "displayName": "fast-cutvid",
+  "description": "Fast, native video cutting for macOS, Windows, and Linux. Built in Rust with timeline editing and JSON cut exports for local AI agents.",
+  "version": "1.0.0",
+  "author": "modecir",
+  "homepage": "https://github.com/modecir/fast-cutvid",
+  "skills": []
+}
