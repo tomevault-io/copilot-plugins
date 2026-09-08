@@ -217,4 +217,4 @@ The Design OS application itself uses a "Refined Utility" aesthetic:
 
 ---
 > Source: [buildermethods/design-os](https://github.com/buildermethods/design-os) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
