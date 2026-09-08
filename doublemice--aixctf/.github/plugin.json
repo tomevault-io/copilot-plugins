@@ -1,0 +1,9 @@
+{
+  "name": "doublemice--aixctf",
+  "displayName": "aixctf",
+  "description": "CTF AutoResearch project built around Claude Code, bounded research rounds, and execution/data separation.",
+  "version": "1.0.0",
+  "author": "DoubleMice",
+  "homepage": "https://github.com/DoubleMice/aixctf",
+  "skills": []
+}
