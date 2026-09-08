@@ -1,0 +1,63 @@
+{
+  "name": "google-sheets-datasource",
+  "owner": "grafana",
+  "repo": "google-sheets-datasource",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "google-sheets-datasource",
+      "path": ".codex/skills/build-plugin/SKILL.md",
+      "github_url": "https://github.com/grafana/google-sheets-datasource/tree/main/.codex/skills/build-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-sheets-datasource",
+      "path": ".codex/skills/validate-plugin/SKILL.md",
+      "github_url": "https://github.com/grafana/google-sheets-datasource/tree/main/.codex/skills/validate-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-sheets-datasource",
+      "path": ".claude/skills/validate-plugin/SKILL.md",
+      "github_url": "https://github.com/grafana/google-sheets-datasource/tree/main/.claude/skills/validate-plugin/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/grafana/google-sheets-datasource",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T21:44:46Z"
+}
