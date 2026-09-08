@@ -1,0 +1,51 @@
+{
+  "name": "ui-beats",
+  "owner": "nikhils4",
+  "repo": "ui-beats",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-beats",
+      "path": "skills/ui-beats/SKILL.md",
+      "github_url": "https://github.com/nikhils4/ui-beats/tree/main/skills/ui-beats/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nikhils4/ui-beats",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-08T21:59:58Z"
+}
