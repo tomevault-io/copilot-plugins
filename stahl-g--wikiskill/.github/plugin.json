@@ -1,0 +1,9 @@
+{
+  "name": "stahl-g--wikiskill",
+  "displayName": "wikiskill",
+  "description": "A self-evolving skill framework for evaluable agent tasks, with reproducible multi-domain validation experiments.",
+  "version": "1.0.0",
+  "author": "Stahl-G",
+  "homepage": "https://github.com/Stahl-G/wikiskill",
+  "skills": []
+}
