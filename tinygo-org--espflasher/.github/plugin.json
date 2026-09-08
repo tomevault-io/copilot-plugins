@@ -1,0 +1,9 @@
+{
+  "name": "tinygo-org--espflasher",
+  "displayName": "espflasher",
+  "description": "espflasher",
+  "version": "1.0.0",
+  "author": "tinygo-org",
+  "homepage": "https://github.com/tinygo-org/espflasher",
+  "skills": []
+}
