@@ -1,0 +1,24 @@
+## starkeep-core
+
+> For the system's high-level design — the major parts, how data is classified, and how it moves — see system-design.md
+
+For the system's high-level design — the major parts, how data is classified, and how it moves — see system-design.md
+
+For roles, permissions, and trust boundaries, see data-roles-and-permissions.md
+
+When reviewing code that touches a credential, a signing capability, a role assumption, or any privileged operation, run the reachability pass in starkeep-core/review-reachability-pass.md and include its table in the review. It exists because a 2026-06 review contained every fact needed to find the unauthenticated-cloud-apps exposure and never composed them.
+
+Don't implement things that aren't needed now (or only because they're expected to be potentially needed in the future). For example, database migrations are not needed when in development, because we can just throw away the data - that's typically a production concern. It's counterproductive to try to implement migrations in a context where we aren't thinking about or testing migrations.
+
+Conversely, anything that does get implemented must be fully hooked up to the relevant system so we can actually test how it works. Implementing disconnected modules create an impression that more has been done than we thought and causes gotchas later.
+
+When working with shared or app specific data, refer to the "How data is classified" section of system-design.md.
+
+Always write plans, designs, and other long-form output to a file. Never leave substantial detail only in chat — summarize in chat and link the file.
+
+Use the Typescript LSP proactively as needed.
+Use Kysely when writing new SQL or modifying existing SQL.
+
+---
+> Source: [starkeep-org/starkeep-core](https://github.com/starkeep-org/starkeep-core) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
