@@ -1,0 +1,9 @@
+{
+  "name": "dylanmccavitt--omp-studio",
+  "displayName": "omp-studio",
+  "description": "Sleek desktop cockpit for the Oh My Pi (omp) coding-agent harness: live agent chat, dashboards, sessions, skills, MCP, agents, GitHub.",
+  "version": "1.0.0",
+  "author": "dylanmccavitt",
+  "homepage": "https://github.com/dylanmccavitt/omp-studio",
+  "skills": []
+}
