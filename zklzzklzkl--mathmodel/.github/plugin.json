@@ -1,0 +1,9 @@
+{
+  "name": "zklzzklzkl--mathmodel",
+  "displayName": "MathModel",
+  "description": "\u6570\u5b66\u5efa\u6a21\u7ade\u8d5b\u5168\u6d41\u7a0b\u81ea\u52a8\u5316\u2014\u2014 Skill \u5de5\u4f5c\u6d41\u3001LangGraph Runtime\u3001\u672c\u5730 RAG \u80fd\u529b\u5c42\u3001\u8bc1\u636e\u8ffd\u8e2a\u3001\u6c99\u7bb1\u6267\u884c\u3001\u8bba\u6587\u8bc4\u5ba1\u95e8\u7981 \u4e3a\u6838\u5fc3\u7684\u6570\u5b66\u5efa\u6a21\u7ade\u8d5b\u751f\u4ea7\u7ebf",
+  "version": "1.0.0",
+  "author": "zklzzklzkl",
+  "homepage": "https://github.com/zklzzklzkl/MathModel",
+  "skills": []
+}
