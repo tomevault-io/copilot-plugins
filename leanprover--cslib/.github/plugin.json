@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--cslib",
+  "displayName": "cslib",
+  "description": "cslib",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/cslib",
+  "skills": []
+}
