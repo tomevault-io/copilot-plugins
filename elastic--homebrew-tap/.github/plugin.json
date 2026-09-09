@@ -1,0 +1,9 @@
+{
+  "name": "elastic--homebrew-tap",
+  "displayName": "homebrew-tap",
+  "description": "homebrew-tap",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/homebrew-tap",
+  "skills": []
+}
