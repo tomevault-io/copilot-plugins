@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [react-native-tvos/react-native-tvos](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [react-native-tvos/react-native-tvos](https://github.com/react-native-tvos/react-native-tvos) — a repo with 1388+ stars on GitHub.
+From [react-native-tvos/react-native-tvos](https://github.com/react-native-tvos/react-native-tvos) — a repo with 1405+ stars on GitHub.
 
 ---
 
