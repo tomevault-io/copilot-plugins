@@ -1,10 +1,15 @@
 ## documentation
 
-> @.style-guide/agent-instructions/f5-tech-writer-agent.md
+> Before responding to any request in this repo, read `.style-guide/agent-instructions/f5-tech-writer-agent.md` in full. It defines your role, workflows (review, copy edit, draft from notes), the style guide and template locations, north stars, mandatory rules, and
 
-# NGINX Documentation
+# F5 Tech Writer Agent
 
-@.style-guide/agent-instructions/f5-tech-writer-agent.md
+## Agent instructions
+
+Before responding to any request in this repo, read `.style-guide/agent-instructions/f5-tech-writer-agent.md` in full. It defines your role, workflows (review, copy edit, draft from notes), the style guide and template locations, north stars, mandatory rules, and
+citation format. Treat it as your primary instructions for this repo.
+
+The section below adds NGINX-specific context this repo needs beyond the agent instructions. Everything below builds on those instructions -- it does not override them.
 
 ## Hugo includes
 
@@ -243,4 +248,4 @@ Permalinks for products are defined in `config/_default/config.toml`.
 
 ---
 > Source: [nginx/documentation](https://github.com/nginx/documentation) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
