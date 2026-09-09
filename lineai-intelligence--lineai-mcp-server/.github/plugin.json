@@ -1,0 +1,9 @@
+{
+  "name": "lineai-intelligence--lineai-mcp-server",
+  "displayName": "lineai-mcp-server",
+  "description": "An MCP Server to utilize Lineai's rich software dependency data in your AI programming assistant.",
+  "version": "1.0.0",
+  "author": "lineai-intelligence",
+  "homepage": "https://github.com/lineai-intelligence/lineai-mcp-server",
+  "skills": []
+}
