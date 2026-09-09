@@ -1,0 +1,9 @@
+{
+  "name": "mulesoft--data-weave-cli",
+  "displayName": "data-weave-cli",
+  "description": "data-weave-cli",
+  "version": "1.0.0",
+  "author": "mulesoft",
+  "homepage": "https://github.com/mulesoft/data-weave-cli",
+  "skills": []
+}
