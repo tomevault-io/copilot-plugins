@@ -1,0 +1,14 @@
+{
+  "name": "jamesbowman--cuflow",
+  "displayName": "cuflow",
+  "description": "cuflow",
+  "version": "1.0.0",
+  "author": "jamesbowman",
+  "homepage": "https://github.com/jamesbowman/cuflow",
+  "skills": [
+    {
+      "name": "cuflow",
+      "description": ""
+    }
+  ]
+}
