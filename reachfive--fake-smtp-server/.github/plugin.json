@@ -1,0 +1,9 @@
+{
+  "name": "reachfive--fake-smtp-server",
+  "displayName": "fake-smtp-server",
+  "description": "fake-smtp-server",
+  "version": "1.0.0",
+  "author": "ReachFive",
+  "homepage": "https://github.com/ReachFive/fake-smtp-server",
+  "skills": []
+}
