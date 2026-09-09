@@ -1,0 +1,195 @@
+{
+  "name": "partcad",
+  "owner": "partcad",
+  "repo": "partcad",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/gen/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/init/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/setup/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/render/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/render/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/search/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/export/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/convert/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/convert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/gen-part/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/gen-part/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/describe/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/describe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/gen-sketch/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/gen-sketch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".cursor/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.cursor/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/pc-ci-dependency-bot/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/pc-ci-dependency-bot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/gen-assembly/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/gen-assembly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".cursor/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.cursor/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": "ai-agents/common/skills/add-interfaces/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/ai-agents/common/skills/add-interfaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "partcad",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/partcad/partcad/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/partcad/partcad",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:17:41Z"
+}
