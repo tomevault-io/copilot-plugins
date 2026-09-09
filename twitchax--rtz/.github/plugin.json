@@ -1,0 +1,14 @@
+{
+  "name": "twitchax--rtz",
+  "displayName": "rtz",
+  "description": "rtz",
+  "version": "1.0.0",
+  "author": "twitchax",
+  "homepage": "https://github.com/twitchax/rtz",
+  "skills": [
+    {
+      "name": "rtz",
+      "description": ""
+    }
+  ]
+}
