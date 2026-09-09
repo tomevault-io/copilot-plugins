@@ -1,0 +1,14 @@
+{
+  "name": "moment--moment",
+  "displayName": "moment",
+  "description": "moment",
+  "version": "1.0.0",
+  "author": "moment",
+  "homepage": "https://github.com/moment/moment",
+  "skills": [
+    {
+      "name": "moment",
+      "description": ""
+    }
+  ]
+}
