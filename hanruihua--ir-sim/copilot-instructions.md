@@ -1,10 +1,10 @@
 ## ir-sim
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -19,8 +19,8 @@ uv sync
 # Run all tests
 pytest
 
-# Run tests with coverage
-pytest --cov . --cov-report=html
+# Run tests with coverage report (coverage of irsim/ is on by default via pyproject)
+pytest --cov-report=html
 
 # Run a single test file
 pytest tests/test_kinematics.py
@@ -96,6 +96,7 @@ cd docs && make html
 
 **Map** (`irsim/world/map/`):
 - `obstacle_map.py`: Obstacle map representation
+- `fog_map.py`: Fog-of-map overlay (`FogMap`, subclass of `Map`) revealed by lidar line of sight or robot field of view
 - `grid_map_generator_base.py`: Base grid map generator
 - `image_map_generator.py`: Image-based map generation
 - `perlin_map_generator.py`: Perlin noise procedural map generation
@@ -133,8 +134,8 @@ irsim/                  # Main package
 ├── util/               # Utility functions
 └── config/             # Configuration parameters
 
-tests/                  # Pytest test suite (23 test files)
-usage/                  # Example YAML configs and scripts (23 examples)
+tests/                  # Pytest test suite (13 test files)
+usage/                  # Example YAML configs and scripts (25 examples)
 docs/                   # Sphinx documentation (multilingual: en, zh_CN)
 ```
 
@@ -166,7 +167,7 @@ Type checking uses `ty` with custom rule configurations in `pyproject.toml`.
 
 ## Git Commit Notes
 
-- Please do not mention claude code in the commit messages and PR messages.
+- Please do not mention Codex in the commit messages and PR messages.
 - PR Title Format: `<type>(<scope>): <subject>`
 
     `<scope>` is optional
@@ -204,7 +205,7 @@ Type checking uses `ty` with custom rule configurations in `pyproject.toml`.
     If there are any errors, please fix them before committing.
 
     If there are any warnings, please ignore them.
-    
+
 ## IR-sim documentation notes
 
 - The documentation is built with Sphinx and uses a mix of reStructuredText (`.rst`) and Markdown (`.md`) files.
@@ -229,7 +230,7 @@ When releasing a new version, follow these steps in order:
 1. Update the version number in `pyproject.toml`
 2. Add a new entry to `docs/source/_static/switcher.json` (mark the new version as `(stable)`, remove that label from the previous one)
 3. Summarize the version changes in `changelog.md` (`docs/source/changelog.md` auto-includes it via `{include}`). See the **Changelog Style** section below for entry formatting.
-4. Update `CLAUDE.md`'s *Directory Structure* counts if they changed (test files in `tests/`, example scripts in `usage/`)
+4. Update the *Directory Structure* counts in both `CLAUDE.md` and `AGENTS.md` if they changed (test files in `tests/`, example scripts in `usage/`)
 5. Run `uv lock` to update `uv.lock`
    - If your local `uv` is older than the one that produced the checked-in lockfile, a full regen will downgrade the lockfile `revision` field. In that case, either upgrade `uv` and rerun, or manually patch only the `ir-sim` `version` line in `uv.lock` to avoid touching `revision`.
 6. Run `ruff check` and `ruff format`; commit formatting changes separately (e.g., `style: apply ruff format`) before the version bump commit
@@ -244,9 +245,9 @@ Rules for writing entries in `changelog.md`:
 
 - **Scope**: only include changes merged into `main`. Do not list work still on feature branches. Skip dependency-only PRs (`chore(deps)`, `chore(deps-dev)`).
 - **Section structure**: use `## <version>` as the top heading, then grouped subsections in this order — `Features`, `Performance`, `Fix`, `Refactor`, `Docs`, `Tests`. Include only the categories that apply.
-- **Entry format**: one bullet per PR, written as a complete sentence (or two). Lead with the technical change, then state the *motivation/target* — the "why", not just the "what". For example:
-  - Good: "Add `random_uniform` sampler with pairwise min-distance. Prevents object overlap in random sampling, and world-derived defaults adapt to the world size/offset so users don't restate bounds per scene."
-  - Avoid: "Add `random_uniform` sampler." (what, but no why)
+- **Entry format**: bullets mirror the PR-message style — a bold one-sentence headline, then one to three plain sentences describing the symptom, mechanism, or motivation, ending with the PR link. For example:
+  - "**A global seed survives `make()`.** Creating an environment without a seed used to replace the shared generator with a fresh unseeded one, so `set_seed(0)` followed by `irsim.make()` was not reproducible. It is now. ([#365](https://github.com/hanruihua/ir-sim/pull/365))"
+- **Read the PR body, not just the title**: a feat PR can carry fix/perf items and a refactor PR can list several fixes; each item becomes its own bullet in the section that matches the item (a fix inside a feat PR goes under `Fix`), all linking the same PR. Multi-bug fix PRs stay flat — one bullet per bug, no grouping parent.
 - **PR link**: end every entry with the PR link: `([#NNN](https://github.com/hanruihua/ir-sim/pull/NNN))`.
 - **Contributor credit**: for PRs not authored by `hanruihua`, append the GitHub handle after the PR link: `([#NNN](...)) (@username)`.
 - **Performance metrics**: quote concrete numbers — measured speedups, coordinate/linestring counts, memory reductions, etc. (e.g., "~48% faster lidar step", "~3× fewer linestrings").
@@ -255,4 +256,4 @@ Rules for writing entries in `changelog.md`:
 
 ---
 > Source: [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
