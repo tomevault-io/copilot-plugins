@@ -1,0 +1,9 @@
+{
+  "name": "roberth-souza--wallfliper",
+  "displayName": "wallfliper",
+  "description": "Minimalist, Rofi/yazi-style wallpaper selector for Wayland (wlr-layer-shell)",
+  "version": "1.0.0",
+  "author": "Roberth-Souza",
+  "homepage": "https://github.com/Roberth-Souza/wallfliper",
+  "skills": []
+}
