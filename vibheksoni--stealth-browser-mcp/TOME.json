@@ -1,0 +1,51 @@
+{
+  "name": "stealth-browser-mcp",
+  "owner": "vibheksoni",
+  "repo": "stealth-browser-mcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stealth-browser-mcp",
+      "path": "skills/stealth-browser-mcp/SKILL.md",
+      "github_url": "https://github.com/vibheksoni/stealth-browser-mcp/tree/main/skills/stealth-browser-mcp/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vibheksoni/stealth-browser-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T07:12:55Z"
+}
