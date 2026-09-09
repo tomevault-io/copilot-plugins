@@ -1,15 +1,15 @@
 # wind-comic
 
-> Source: [ChrisChen667788/wind-comic](https://github.com/ChrisChen667788/wind-comic). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [ChrisChen667788/wind-comic](https://github.com/ChrisChen667788/wind-comic). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ChrisChen667788/wind-comic](https://github.com/ChrisChen667788/wind-comic).
+Original source: `AGENTS.md` in [ChrisChen667788/wind-comic](https://github.com/ChrisChen667788/wind-comic).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -26,7 +26,7 @@ Original source: `CLAUDE.md` in [ChrisChen667788/wind-comic](https://github.com/
 - [wind-comic](https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/embedded-captions/SKILL.md)
 - [wind-comic](https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/product-launch-video/SKILL.md)
 
-From [ChrisChen667788/wind-comic](https://github.com/ChrisChen667788/wind-comic) — a repo with 327+ stars on GitHub.
+From [ChrisChen667788/wind-comic](https://github.com/ChrisChen667788/wind-comic) — a repo with 562+ stars on GitHub.
 
 ---
 
