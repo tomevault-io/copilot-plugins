@@ -1,10 +1,6 @@
 ## bark
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Bark is an iOS push notification tool app that allows users to send custom push notifications to their devices via HTTP requests. It leverages Apple Push Notification service (APNs) and supports advanced iOS notification features like grouping, custom icons/sounds, time-sensitive notifications, critical alerts, and end-to-end encryption.
 
 ## Project Overview
 
@@ -139,12 +135,11 @@ Order matters - processors run sequentially in `NotificationService.swift`:
 ## Important Notes
 
 - Always open `Bark.xcworkspace`, never `Bark.xcproject`
-- Minimum iOS deployment target: 13.0
+- Minimum iOS deployment target: 15.0
 - Realm schema migrations are handled in `RealmConfiguration.swift` - increment `schemaVersion` when changing Message model
 - The app supports both iPhone and iPad (with split view controller on iPad)
 - Localization is managed via `Localizable.xcstrings`
 - Custom notification sounds are in `Sounds/` directory
-- The app uses Material Design components for UI
 - Code signing is disabled for Pods (see Podfile post_install)
 
 ## Testing
@@ -153,4 +148,4 @@ Tests are located in `BarkTests/` directory. The CI runs tests on every push to 
 
 ---
 > Source: [Finb/Bark](https://github.com/Finb/Bark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
