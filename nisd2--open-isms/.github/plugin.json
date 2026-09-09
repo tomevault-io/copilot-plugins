@@ -1,0 +1,9 @@
+{
+  "name": "nisd2--open-isms",
+  "displayName": "open-isms",
+  "description": "Free, self-hostable ISMS for the EU NIS 2 Directive. Open-source alternative to compliance SaaS. GDPR, EU AI Act and CRA included. AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "NISD2",
+  "homepage": "https://github.com/NISD2/open-isms",
+  "skills": []
+}
