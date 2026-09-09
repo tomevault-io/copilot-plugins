@@ -1,0 +1,9 @@
+{
+  "name": "minio--minio-py",
+  "displayName": "minio-py",
+  "description": "minio-py",
+  "version": "1.0.0",
+  "author": "minio",
+  "homepage": "https://github.com/minio/minio-py",
+  "skills": []
+}
