@@ -1,115 +1,57 @@
 ## fabric-photo
 
-> You are an autonomous coding agent working on a software project.
+> - 仓库类型：pnpm workspace monorepo，纯前端图片编辑器，无后端依赖
 
-# Ralph Agent Instructions
+# 项目指令
 
-You are an autonomous coding agent working on a software project.
+## 1. 项目概览
 
-## Your Task
+- 仓库类型：pnpm workspace monorepo，纯前端图片编辑器，无后端依赖
+- 三个 workspace 成员：
+  - `packages/core`（`@gmi/fp-core`）— 编辑器内核：ProseMirror 式 state / step / transaction 架构，UI 无关
+  - `packages/react`（`@gmi/fp-react`）— Figma 式 React 组件包（顶栏/工具栏/选项条/画布/属性面板）
+  - `demo`（`fabric-photo-demo`，private）— Vite + React 演示站，GitHub Pages 部署源
 
-1. Read the PRD at `prd.json` (in the same directory as this file)
-2. Read the progress log at `progress.txt` (check Codebase Patterns section first)
-3. Check you're on the correct branch from PRD `branchName`. If not, check it out or create from main.
-4. Pick the **highest priority** user story where `passes: false`
-5. Implement that single user story
-6. Run quality checks (e.g., typecheck, lint, test - use whatever your project requires)
-7. Update CLAUDE.md files if you discover reusable patterns (see below)
-8. If checks pass, commit ALL changes with message: `feat: [Story ID] - [Story Title]`
-9. Update the PRD to set `passes: true` for the completed story
-10. Append your progress to `progress.txt`
+## 2. 关键架构
 
-## Progress Report Format
+- 不可变 `Doc` / `EditorState` 是唯一事实源；一切修改都封装为 `Transaction`（一组 `Step` + selection/mode/viewport 变更 + meta），经 `Editor.dispatch()` 落账
+- dispatch 顺序固定：filterTransaction → apply → appendTransaction → 置 state → history 收账 → renderer 同步 → 事件 → 其余插件 onTransaction
+- `History` 插件提供 undo/redo：step 反转（apply/invert 成对）+ before/after selection 快照；undo/redo 事务以 `addToHistory=false` 跳过收账
+- fabric 6 只是 state 的「渲染投影」：`FabricRenderer` 把 state 同步到画布；每种交互模式一个 controller，拖拽预览直改 fabric 对象、手势结束才提交 Step
+- `packages/react` 零编辑逻辑：组件是 state 的函数，经 hooks 订阅 core，所有操作走 core 的公开 API
+- core 支持无头模式（不传 container/renderer）：state/step/transaction 全可用，单测即跑在此模式
 
-APPEND to progress.txt (never replace, always append):
+## 3. 全局规则
 
-```
-## [Date/Time] - [Story ID]
-- What was implemented
-- Files changed
-- **Learnings for future iterations:**
-  - Patterns discovered (e.g., "this codebase uses X for Y")
-  - Gotchas encountered (e.g., "don't forget to update Z when changing W")
-  - Useful context (e.g., "the evaluation panel is in component X")
----
-```
+- 包管理器统一使用 pnpm（`pnpm@10.33.0`）；Node 22（见 `.nvmrc`）
+- 全部包 TypeScript strict；改动后必须通过 `pnpm typecheck`（即 `pnpm -r typecheck`）
+- fabric 锁定 6.x，且只允许出现在 `packages/core` 内部：core 的公开 API 与 react 包均不得暴露 fabric 类型
+- `packages/react` 只允许 import `@gmi/fp-core` 的公开 API（`packages/core/src/index.ts` 导出面），不得触碰 core 内部路径
+- 测试用 vitest：core 为 node 环境（无头 Editor），react 为 jsdom + `@testing-library/react`
+- 浏览器行为验证使用 kimi-webbridge（真实浏览器，非无头）
 
-The learnings section is critical - it helps future iterations avoid repeating mistakes and understand the codebase better.
+## 4. 开发入口
 
-## Consolidate Patterns
+- 安装依赖：`pnpm install`
+- 本地开发（demo，端口 9876）：`pnpm dev`
+- 构建全部包：`pnpm build`
+- 构建 demo 站点（输出 `dist-demo/`）：`pnpm build:demo`；本地预览：`pnpm preview:demo`
+- 测试：`pnpm test`；类型检查：`pnpm typecheck`
+- core playground：`pnpm --filter @gmi/fp-core dev`（端口 9877）
 
-If you discover a **reusable pattern** that future iterations should know, add it to the `## Codebase Patterns` section at the TOP of progress.txt (create it if it doesn't exist). This section should consolidate the most important learnings:
+## 5. 局部规则导航
 
-```
-## Codebase Patterns
-- Example: Use `sql<number>` template for aggregations
-- Example: Always use `IF NOT EXISTS` for migrations
-- Example: Export types from actions.ts for UI components
-```
+- `packages/core/AGENTS.md` — 内核目录规则（Step/controller 约定、fabric 封装、无头模式）
+- `packages/react/AGENTS.md` — React 包目录规则（零编辑逻辑、公开 API 边界、样式约定）
+- `.Codex/rules/testing.md` — 测试文件规则（编辑 `*.test.ts(x)` 时按需加载）
+- `.Codex/rules/generated-dist.md` — 构建产物规则（始终加载）
+- `.catpaw/rules/` — 以上规则的 CatPaw IDE 镜像，同名文件正文与 `.Codex` 体系保持一致
+- `scripts/ralph/` — 自主编码 agent 工作流，自带 AGENTS.md，独立维护
 
-Only add patterns that are **general and reusable**, not story-specific details.
+## 6. 遗留
 
-## Update CLAUDE.md Files
-
-Before committing, check if any edited files have learnings worth preserving in nearby CLAUDE.md files:
-
-1. **Identify directories with edited files** - Look at which directories you modified
-2. **Check for existing CLAUDE.md** - Look for CLAUDE.md in those directories or parent directories
-3. **Add valuable learnings** - If you discovered something future developers/agents should know:
-   - API patterns or conventions specific to that module
-   - Gotchas or non-obvious requirements
-   - Dependencies between files
-   - Testing approaches for that area
-   - Configuration or environment requirements
-
-**Examples of good CLAUDE.md additions:**
-
-- "When modifying X, also update Y to keep them in sync"
-- "This module uses pattern Z for all API calls"
-- "Tests require the dev server running on PORT 3200"
-- "Field names must match the template exactly"
-
-**Do NOT add:**
-
-- Story-specific implementation details
-- Temporary debugging notes
-- Information already in progress.txt
-
-Only update CLAUDE.md if you have **genuinely reusable knowledge** that would help future work in that directory.
-
-## Quality Requirements
-
-- ALL commits must pass your project's quality checks (typecheck, lint, test)
-- Do NOT commit broken code
-- Keep changes focused and minimal
-- Follow existing code patterns
-
-## Browser Testing (If Available)
-
-For any story that changes UI, verify it works in the browser if you have browser testing tools configured (e.g., via MCP):
-
-1. Navigate to the relevant page
-2. Verify the UI changes work as expected
-3. Take a screenshot if helpful for the progress log
-
-If no browser tools are available, note in your progress report that manual browser verification is needed.
-
-## Stop Condition
-
-After completing a user story, check if ALL stories have `passes: true`.
-
-If ALL stories are complete and passing, reply with:
-<promise>COMPLETE</promise>
-
-If there are still stories with `passes: false`, end your response normally (another iteration will pick up the next story).
-
-## Important
-
-- Work on ONE story per iteration
-- Commit frequently
-- Keep CI green
-- Read the Codebase Patterns section in progress.txt before starting
+- 旧 fabric-photo（单包、fabric 1.7.3、「模块 + 命令」架构）已随 Phase 3 删除，历史见 git
 
 ---
 > Source: [ximing/fabric-photo](https://github.com/ximing/fabric-photo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
