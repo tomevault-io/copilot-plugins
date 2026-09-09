@@ -1,0 +1,14 @@
+{
+  "name": "takehaya--xdperf",
+  "displayName": "xdperf",
+  "description": "xdperf",
+  "version": "1.0.0",
+  "author": "takehaya",
+  "homepage": "https://github.com/takehaya/xdperf",
+  "skills": [
+    {
+      "name": "xdperf",
+      "description": ""
+    }
+  ]
+}
