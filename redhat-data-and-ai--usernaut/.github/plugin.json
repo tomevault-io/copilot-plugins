@@ -1,0 +1,9 @@
+{
+  "name": "redhat-data-and-ai--usernaut",
+  "displayName": "usernaut",
+  "description": "Manage teams and user accounts across the SaaS universe.",
+  "version": "1.0.0",
+  "author": "redhat-data-and-ai",
+  "homepage": "https://github.com/redhat-data-and-ai/usernaut",
+  "skills": []
+}
