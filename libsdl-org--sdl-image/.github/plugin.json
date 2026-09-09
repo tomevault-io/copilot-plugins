@@ -1,0 +1,9 @@
+{
+  "name": "libsdl-org--sdl-image",
+  "displayName": "SDL_image",
+  "description": "SDL_image",
+  "version": "1.0.0",
+  "author": "libsdl-org",
+  "homepage": "https://github.com/libsdl-org/SDL_image",
+  "skills": []
+}
