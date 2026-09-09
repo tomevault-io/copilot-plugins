@@ -1,0 +1,9 @@
+{
+  "name": "opendatahub-io--ogx-distribution",
+  "displayName": "ogx-distribution",
+  "description": "Repository to host the ODH OGX CORE distribution image",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/ogx-distribution",
+  "skills": []
+}
