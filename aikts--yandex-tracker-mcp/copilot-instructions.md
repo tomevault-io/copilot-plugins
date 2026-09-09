@@ -1,10 +1,14 @@
 ## yandex-tracker-mcp
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents (Claude Code, Cursor, etc.) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, Cursor, etc.) when working with code in this repository.
+
+## Rules
+
+Before naming a tool, writing a description, a CHANGELOG entry or a README section, read the rule that covers it - [`rules/README.md`](rules/README.md) indexes them, and each names the test that enforces it. This file covers the rest: architecture, the Tracker API's behaviour, and how to test.
 
 ## Project Overview
 
@@ -23,21 +27,38 @@ uv run mcp-tracker # Run the server
 
 ## Architecture
 
-- **Protocols** (`mcp_tracker/tracker/proto/`): Define API contracts (`IssueProtocol`, `QueuesProtocol`, etc.)
+- **Protocols** (`mcp_tracker/tracker/proto/`): Define API contracts (`QueuesProtocol`, `IssueProtocol`, `GlobalDataProtocol`, `TemplatesProtocol`, `UsersProtocol`, `EntitiesProtocol`, `BoardsProtocol`, `ComponentsProtocol`), each exposed on `AppContext` as `queues` / `issues` / `fields` / `templates` / `users` / `entities` / `boards` / `components`
 - **Client** (`mcp_tracker/tracker/custom/client.py`): Implements protocols, handles HTTP requests
 - **Caching** (`mcp_tracker/tracker/caching/client.py`): Wraps protocols with Redis caching
 - **MCP Server** (`mcp_tracker/mcp/server.py`): Server creation and configuration
 - **MCP Tools** (`mcp_tracker/mcp/tools/`): Tool definitions organized by category
   - `_access.py`: Access control helpers (`check_issue_access`, `check_queue_access`)
-  - `queue.py`: Queue tools (5 read-only tools)
-  - `field.py`: Global field/metadata tools (6 read-only tools)
-  - `issue_read.py`: Issue read tools (9 read-only tools)
-  - `issue_write.py`: Issue write tools (4 tools, conditional on `tracker_read_only`)
-  - `user.py`: User tools (4 read-only tools)
+  - `queue.py` / `queue_write.py`: Queue read-only / write tools
+  - `field.py`: Global field and metadata tools (read-only)
+  - `template.py`: Issue and comment template tools (read-only)
+  - `board.py`: Board and sprint tools (read-only)
+  - `component.py` / `component_write.py`: Queue component read-only / write tools (`queue_get_components` itself lives with the queue tools)
+  - `issue_read.py` / `issue_write.py`: Issue read-only / write tools
+  - `user.py`: User tools (read-only)
   - `__init__.py`: Exports `register_all_tools()` which orchestrates tool registration
+  - `*_write.py` modules are only registered when `settings.tracker_read_only=False`
+  - project/portfolio/goal modules are only registered when `settings.tracker_entities_enabled=True`
 - **Settings** (`mcp_tracker/settings.py`): Pydantic settings from environment variables
 - All protocol methods accept optional `auth: YandexAuth | None` parameter for OAuth support.
 - All Pydantic models for Yandex Tracker entities inherit from `BaseTrackerEntity`.
+
+### Talking to the Tracker API
+
+- **Reference fields** (`type`, `priority`, `parent`, `sprint`, `followers`, `components`, `project`) use the shared models in `mcp_tracker/tracker/proto/types/inputs.py` (`Issue*Ref`), serialized by `_ref_body()` in the client. How Tracker resolves a bare value is per field, so check before widening a parameter: `type` / `priority` accept an id or a key and resolve a numeric string as an id (verified against the API), `followers` accept a uid or a login the same way, and a 422 from these means the referenced entity does not exist. `components` are the exception - a bare string there is a *name*, which makes a numeric-looking name ambiguous (this is what `components: ["694"]` answered 422 for), hence `IssueComponentRef` requiring exactly one of `id` / `name`. Create and update must accept and send the same value the same way - the API takes a bare key or id on both, so a parameter widened on one has to be widened on the other, or an agent that created an issue with a scalar hits a schema error when it updates the same way.
+- **Every request goes through `self._request()`** - or `self._read()`, which is `_request` plus reading the body and is what a method wanting nothing but the body uses. Nothing calls `self._session` directly: the funnel is what builds the auth headers, translates a `TimeoutError` into `TrackerAPITimeout` (`str(TimeoutError())` is the empty string, so an untranslated timeout reaches an agent as a message with nothing in it) and puts every response through `_raise_for_status`, so Tracker's own `errorMessages` / `errors` end up in the raised `TrackerAPIError` instead of a bare "Unprocessable Entity". The funnel exists because these were sixty copies of the same lines and the copies drifted; a method added beside it rather than through it starts that again.
+- **Errors**: statuses with an actionable meaning are passed to the funnel as `not_found=` / `conflict=`, ready to raise: 404 → `IssueNotFound` on issue-scoped paths, `QueueNotFound` on queue-scoped ones (`v3/queues/{queue}/...`), `BoardNotFound` on board-scoped ones, `ComponentNotFound` on `v3/components/{id}` and the similar error on other paths; `conflict=` covers 409 *and* 412 - a stale `version` answers 409 on an issue update (`IssueVersionConflict`) but 412 on a component update (`ComponentVersionConflict`), and both are the same precondition failure. A dedicated error applies to *every* method scoped to that entity, not just to newly added ones. `allow_statuses=` is the way out for a status that is an answer rather than a failure - `user_get` reads a 404 as `None`; an allowed status skips `not_found` / `conflict` / `_raise_for_status` alike and reaches the caller as an ordinary response.
+- **Field names on the wire**: a model may use a snake_case Python name, but it must accept *and emit* Tracker's own name - set `serialization_alias` next to every `validation_alias` (`story_points` reads and writes `storyPoints`). Responses are what callers feed back into `fields`, so the two spellings have to match; `tests/tracker/proto/test_model_aliases.py` fails if a new field forgets this.
+- **`fields` maps**: `issue_create` / `issue_update` take the free-form map as an explicit `fields` parameter, never as `**kwargs` - a key naming a dedicated parameter used to raise `TypeError: got multiple values`. The client merges it into the body last, so an entry overrides the dedicated parameter and an explicit `null` clears the field (a dedicated parameter left as `None` is simply not sent).
+- **Reference inputs**: every `Issue*Ref` validates that it carries something to resolve (`IssueComponentRef` wants exactly one of `id` / `name`, the others at least one of `id` / `key`); Tracker answers an empty object with an unhelpful 400/422, and when both `id` and `key` are set it resolves by `id`.
+- **Issue `version`**: it is bumped by every change, including queue triggers and automation that fire right after creation, so the version returned by `issue_create` is routinely stale. Tools that accept `version` must say so and point at `issue_get` for a fresh read.
+- **Issue checklists** (`v3/issues/{id}/checklistItems`) behave unlike the entity ones: `POST` takes exactly one item per request, so `issue_add_checklist_items` loops over the batch (a failure past the first item raises `ChecklistBatchPartiallyAdded`, which reports how many landed - nothing is rolled back), and `PATCH .../{itemId}` takes a JSON **object** of just the fields being changed. Both halves of that contradict the documentation, and both were verified against the live API on 2026-08-27: the docs show an array body (`[{...}]`, which answers 400) and call `text` required (it is not - a `PATCH` with only `checked` or only `assignee` answers 200 and leaves the existing text intact). Do not "fix" either back to what the docs say. An empty body is also a 200 no-op, so an update with nothing to change is refused locally with `ChecklistItemEmptyUpdate`. `assignee` and `deadline` are cleared by an empty object (`{}`), which is what `clear_assignee` / `clear_deadline` send - verified on the live API on 2026-08-31, along with the three spellings that do not work: `null` answers 200 and silently keeps the value, `""` and `0` answer 422. Setting and clearing the same field in one call is refused with `FieldClearConflict` rather than letting one of the two win silently. A 404 from the item-scoped paths (`PATCH`/`DELETE .../checklistItems/{itemId}`) means an unknown issue *or* an unknown item, so it raises `ChecklistItemNotFound(..., ambiguous=True)`, whose message names both - `IssueNotFound` there would assert the one cause Tracker does not distinguish, and the same bad id would report differently depending on whether `text` was passed. `issue_add_checklist_items` with an empty batch returns `issue_get_checklist` rather than `[]` - the method's contract is "the checklist after adding", which an empty list misstates for an issue that already has items. Every one of these endpoints answers with the whole issue object, from which only `checklistItems` is parsed (the key is absent once the checklist is empty). There is no per-item reconcile step here - that quirk belongs to the entities' bulk `PATCH`, see `_reconcile_checklist_update`.
+- **Queue components** (verified against the live API on 2026-09-06): only `GET v3/components` (organization-wide, paginated, ignores a `queue=` filter), `POST v3/components` and `PATCH v3/components/{id}` are documented. The server uses the undocumented queue-scoped `GET v3/queues/{queue}/components` (the full objects of one queue, no pagination headers) and `GET v3/components/{id}` / `DELETE v3/components/{id}` instead - the org-wide listing pages through every component the organization has (1002 of them here - 21 requests to find a queue's 13). `expand=components` on `GET v3/queues/{queue}` returns references only (`id` as a string, `display`), no `version`, `lead` or `assignAuto`. `PATCH` **requires** `version` as a query parameter: without it the API answers **428**, and a stale one answers **412** (not 409) - the *Errors* bullet above says how `conflict=` covers both. An empty `PATCH` body answers 200 and changes nothing (the version does not move), so `component_update` refuses it locally with `ComponentEmptyUpdate`; re-sending the value a field already has answers 200 without bumping `version` either. `lead` is sent as a login or a uid (a login like `"i.ivanov"`, a uid as a number or as a string, and `{"id": "<uid>"}` all answer 200 with the same user object; an unknown login answers 422) and comes back as a user object. **`lead: {}` clears the lead** (200, no `lead` in the response, version bumped), which is what `clear_lead` sends; the two spellings that do not work are the checklist ones again: `null` answers 200 and silently keeps the current lead, `""` answers 422. `lead` and `clear_lead` together are refused locally with `FieldClearConflict`. `description: ""` clears the description (`null` changes nothing); `name: ""` answers 422. `DELETE` answers 204 with no body and takes no `version`; deleting again, or reading afterwards, answers 404. `description` and `lead` are absent from a response when unset. Component reads are **not cached** (`component_get`, `queues_get_components` delegate without `@cached`): the `component_update` / `component_delete` tools read through the protocol to get the `version` the API demands (428 without one) and to learn the queue, and there is no omit-version escape as there is for issues, so a cached read would feed the `PATCH` a stale version for the rest of the TTL. The `component_update` / `component_delete` tools take a bare id, so under `TRACKER_LIMIT_QUEUES` / `TRACKER_READ_ONLY_QUEUES` they read the component once to learn its queue (`queue_checks_needed` in `_access.py` says when); `component_update` also reads it when the caller gave no `version`. One GET at most, then the write. A component in a queue outside `TRACKER_LIMIT_QUEUES` is reported as `ComponentNotFound` by `check_component_access` - the caller knows it by id alone, and a queue the allow-list hides must not be named back at them.
+- **Templates are not applied on write** (decided 2026-08-17, not yet implemented): `POST /v3/issues` has no `templateId` parameter, so `issue_create` cannot take one without expanding the template client-side. Callers read `issue_template_get` and fill the arguments themselves. Adding a `template_id` parameter later means merging `fieldTemplates` under the explicit arguments (which win) and mapping its reference values onto the `Issue*Ref` models - the template returns them as objects like `{"id": "1", "key": "bug"}`, and `components` in particular need the id-or-name form (see the reference-fields note above). `checklistItems` / `metricItems` cannot be sent at creation at all and would need a follow-up request.
 
 ## Testing
 
@@ -98,29 +119,49 @@ For paginated methods, use `side_effect` for sequential returns: `mock.method.si
 
 ### Implementation Checklist
 
-1. **Protocol**: Add method signature to `mcp_tracker/tracker/proto/*.py`
-2. **Client**: Implement in `mcp_tracker/tracker/custom/client.py`
+1. **Protocol**: Add method signature to the matching `mcp_tracker/tracker/proto/*.py` (a new protocol also needs a `*ProtocolWrap` base, a `CacheCollection` slot, an `AppContext` field and wiring in `make_tracker_lifespan`)
+2. **Client**: Implement in `mcp_tracker/tracker/custom/client.py`, through `self._request()` / `self._read()` - see *Talking to the Tracker API* above (this holds for read-only methods too)
 3. **Caching**: Add wrapper in `mcp_tracker/tracker/caching/client.py`
-4. **Tool**: Add function to appropriate module in `mcp_tracker/mcp/tools/`:
-   - Queue tools → `queue.py`
+4. **Tool**: Add function to appropriate module in `mcp_tracker/mcp/tools/` - named and described per [`rules/tool-naming.md`](rules/tool-naming.md) and [`rules/tool-descriptions.md`](rules/tool-descriptions.md):
+   - Queue read-only tools → `queue.py`
+   - Queue write tools → `queue_write.py`
    - Global field/metadata tools → `field.py`
+   - Issue/comment template tools → `template.py`
+   - Board/sprint tools → `board.py`
+   - Component read-only tools → `component.py`; write tools → `component_write.py`
    - Issue read-only tools → `issue_read.py`
    - Issue write tools → `issue_write.py`
    - User tools → `user.py`
+   - Project read-only tools → `project.py`; write tools → `project_write.py`
+   - Portfolio read-only tools → `portfolio.py`; write tools → `portfolio_write.py`
+   - Goal read-only tools → `goal.py`; write tools → `goal_write.py`
 5. **Tests**: Add to appropriate `tests/mcp/tools/test_*_tools.py`
-6. **Docs**: Update `README.md`, `README_ru.md`, and `manifest.json`
+6. **Docs**: Update `README.md`, `README_ru.md`, `manifest.json` and `CHANGELOG.md` - see [`rules/docs.md`](rules/docs.md) and [`rules/changelog.md`](rules/changelog.md)
 
 ### Tool Categories
 
-| Category | Module | Read-Only | Description |
-|----------|--------|-----------|-------------|
-| Queue | `queue.py` | Yes | Queue listing, tags, versions, fields, metadata |
-| Field | `field.py` | Yes | Global fields, statuses, types, priorities, resolutions |
-| Issue Read | `issue_read.py` | Yes | Get, find, count issues; comments, links, worklogs, etc. |
-| Issue Write | `issue_write.py` | No | Create, update, transition, close issues |
-| User | `user.py` | Yes | List, search, get users |
+| Category        | Module               | Read-Only |
+|-----------------|----------------------|-----------|
+| Queue           | `queue.py`           | Yes       |
+| Queue Write     | `queue_write.py`     | No        |
+| Field           | `field.py`           | Yes       |
+| Template        | `template.py`        | Yes       |
+| Board           | `board.py`           | Yes       |
+| Component       | `component.py`       | Yes       |
+| Component Write | `component_write.py` | No        |
+| Issue Read      | `issue_read.py`      | Yes       |
+| Issue Write     | `issue_write.py`     | No        |
+| User            | `user.py`            | Yes       |
+| Project         | `project.py`         | Yes       |
+| Project Write   | `project_write.py`   | No        |
+| Portfolio       | `portfolio.py`       | Yes       |
+| Portfolio Write | `portfolio_write.py` | No        |
+| Goal            | `goal.py`            | Yes       |
+| Goal Write      | `goal_write.py`      | No        |
 
-**Write tools** in `issue_write.py` are only registered when `settings.tracker_read_only=False`.
+**Write tools** (`*_write.py`) are only registered when `settings.tracker_read_only=False`.
+
+**Entity tools** (project/portfolio/goal, read and write alike) are only registered when `settings.tracker_entities_enabled=True`.
 
 ### Test Requirements for New Tools
 
@@ -132,6 +173,7 @@ For paginated methods, use `side_effect` for sequential returns: `mock.method.si
   - Read-only tools → `READ_ONLY_TOOL_NAMES`
   - Write tools → `WRITE_TOOL_NAMES`
 - For write tools, add test with `client_session_read_only` to verify not registered
+- The name, the description budget, the README coverage and the version sync are checked by `tests/mcp/server/test_tool_conventions.py`, `tests/mcp/server/test_readme_coverage.py` and `tests/test_release_metadata.py` - a new tool passes them without an exception being added
 
 ## Configuration
 
@@ -145,11 +187,13 @@ Organization (one required):
 - `TRACKER_ORG_ID`: For on-premise
 
 Optional:
-- `TRACKER_LIMIT_QUEUES`: Restrict access to specific queues
-- `TRACKER_READ_ONLY`: When `true`, disables write tools (issue_create, issue_update, issue_close, issue_execute_transition)
+- `TRACKER_LIMIT_QUEUES`: Restrict access to specific queues (allow-list, reads and writes).
+- `TRACKER_READ_ONLY`: When `true`, disables all write tools (the `*_write.py` modules)
+- `TRACKER_READ_ONLY_QUEUES`: Per-queue read-only allow-list. Write tools stay registered, but mutating calls targeting a listed queue are rejected via `check_*_access(..., write=True)` in `_access.py`; reads still work.
+- `TRACKER_ENTITIES_ENABLED`: When `true`, registers the project/portfolio/goal tools (`project*.py`, `portfolio*.py`, `goal*.py`). Default `false`: they add a large tool manifest and are not covered by the queue restrictions above, since an entity isn't mappable to a single queue.
 - `TOOLS_CACHE_ENABLED`: Enable Redis caching
 - `OAUTH_ENABLED`: Enable OAuth provider mode
 
 ---
 > Source: [aikts/yandex-tracker-mcp](https://github.com/aikts/yandex-tracker-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
