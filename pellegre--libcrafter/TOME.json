@@ -4,7 +4,7 @@
   "repo": "libcrafter",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/pellegre/libcrafter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T21:39:00Z"
+  "distributed_at": "2026-09-09T15:33:41Z"
 }
