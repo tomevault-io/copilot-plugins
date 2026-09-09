@@ -1,0 +1,9 @@
+{
+  "name": "podman-container-tools--podman",
+  "displayName": "podman",
+  "description": "podman",
+  "version": "1.0.0",
+  "author": "podman-container-tools",
+  "homepage": "https://github.com/podman-container-tools/podman",
+  "skills": []
+}
