@@ -1,0 +1,81 @@
+{
+  "name": "lux",
+  "owner": "lux-db",
+  "repo": "lux",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lux",
+      "path": ".workbenches/core/skills/surface-parity/SKILL.md",
+      "github_url": "https://github.com/lux-db/lux/tree/main/.workbenches/core/skills/surface-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lux",
+      "path": ".workbenches/auth/skills/auth-flow-security/SKILL.md",
+      "github_url": "https://github.com/lux-db/lux/tree/main/.workbenches/auth/skills/auth-flow-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lux",
+      "path": ".workbenches/migrations/skills/ledger-repair/SKILL.md",
+      "github_url": "https://github.com/lux-db/lux/tree/main/.workbenches/migrations/skills/ledger-repair/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lux",
+      "path": ".workbenches/push/skills/push-delivery-safety/SKILL.md",
+      "github_url": "https://github.com/lux-db/lux/tree/main/.workbenches/push/skills/push-delivery-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lux",
+      "path": ".workbenches/durability/skills/recovery-testing/SKILL.md",
+      "github_url": "https://github.com/lux-db/lux/tree/main/.workbenches/durability/skills/recovery-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lux",
+      "path": ".workbenches/realtime/skills/live-subscription-testing/SKILL.md",
+      "github_url": "https://github.com/lux-db/lux/tree/main/.workbenches/realtime/skills/live-subscription-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lux-db/lux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:34:20Z"
+}
