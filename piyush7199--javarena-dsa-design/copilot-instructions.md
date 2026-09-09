@@ -1,0 +1,906 @@
+## javarena-dsa-design
+
+> This is a comprehensive Java-based repository for Data Structures & Algorithms (DSA) and system design patterns, organized for interview preparation targeting FAANG companies.
+
+# Javarena DSA & Design - Cursor Rules
+
+## Project Overview
+This is a comprehensive Java-based repository for Data Structures & Algorithms (DSA) and system design patterns, organized for interview preparation targeting FAANG companies.
+
+---
+
+## Code Style & Conventions
+
+### Java Naming Conventions
+- **Classes**: PascalCase (e.g., `BinarySearch`, `DynamicProgramming`)
+- **Methods**: camelCase (e.g., `findMedian`, `longestSubstring`)
+- **Variables**: camelCase (e.g., `maxLength`, `leftPointer`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_SIZE`, `DEFAULT_CAPACITY`)
+- **Packages**: lowercase (e.g., `com.javarena.dsa.algorithms`)
+
+### File Organization
+- One public class per file
+- File name must match the public class name
+- Group related problem solutions in the same package
+- Keep utility/helper classes in separate files if reusable
+
+---
+
+## Documentation Standards ⭐ STANDARDIZED FORMAT
+
+### Class-Level Documentation (ENFORCED ACROSS 238 FILES)
+
+Every class MUST have JavaDoc with EXACTLY these 3 sections:
+
+```java
+/**
+ * [Problem Name]
+ *
+ * <p><b>Problem Statement:</b><br>
+ * [Clear, concise description of what needs to be solved]
+ *
+ * <p><b>Intuition & Approach:</b><br>
+ * [Core insights and strategy]
+ * - Key observations
+ * - Why this approach works
+ * - Algorithm steps
+ * - Alternative approaches (if applicable)
+ *
+ * <p><b>Time Complexity:</b> O(...) - [Explanation]
+ * <br><b>Space Complexity:</b> O(...) - [Explanation]
+ */
+```
+
+**CRITICAL:** Do NOT include:
+- ❌ Problem links (belong in READMEs)
+- ❌ Examples (belong in READMEs)
+- ❌ Company names (belong in company/*.md files)
+- ❌ Difficulty tags (belong in READMEs)
+- ❌ Topic tags (belong in READMEs)
+- ❌ Edge case sections
+- ❌ @see references
+
+### Method-Level Documentation
+Each public method should have:
+- Brief description of what it does
+- @param tags for all parameters
+- @return tag for return value
+- Time and space complexity as inline comments
+
+### Inline Comments
+- Explain complex logic or non-obvious optimizations
+- Add comments for algorithm steps
+- Use TODO/FIXME/NOTE where appropriate
+
+---
+
+## Directory Structure
+
+### Algorithms (`src/main/java/com/javarena/dsa/algorithms/`)
+```
+algorithms/
+├── binarySearch/              # Binary search problems
+├── bitManupulation/           # Bit manipulation techniques
+├── dynamicProgramming/        # DP problems and approaches
+├── graph/                     # Graph algorithm documentation
+├── greedy/                    # Greedy algorithm implementations
+├── miscellaneous/             # Other algorithm problems
+├── recursionAndBacktracking/  # Recursion & backtracking
+├── searching/                 # Searching algorithms
+├── sorting/                   # Sorting algorithms
+├── string/                    # String algorithms (KMP, etc.)
+└── twoPointerAndSlidingWindow/ # Two-pointer & sliding window
+```
+
+### Data Structures (`src/main/java/com/javarena/dsa/datastructures/`)
+```
+datastructures/
+├── arrays/                    # Array problems
+├── binaryTree/                # Binary tree implementations
+├── fenwickTree/               # Fenwick tree (BIT)
+├── graph/                     # Graph implementations
+├── hashMapAndSet/             # HashMap & HashSet problems
+├── linkedList/                # Linked list problems
+├── segmentTree/               # Segment tree
+├── stackAndQueue/             # Stack & queue problems
+├── string/                    # String data structure problems
+└── trie/                      # Trie implementations
+```
+
+### Company-Wise Problems (`src/main/java/com/javarena/dsa/companies/`)
+- Each company has a dedicated markdown file
+- Format: `CompanyName.md`
+- Track problems by company for targeted preparation
+
+---
+
+## Adding New Problems
+
+### Step 1: Choose the Right Directory
+- Identify the primary technique/data structure used
+- Place in the most specific applicable directory
+- If multiple techniques apply, choose the primary one
+
+### Step 2: Create the File (Use STANDARD FORMAT)
+```java
+package com.javarena.dsa.algorithms.category;
+
+/**
+ * Problem Name
+ *
+ * <p><b>Problem Statement:</b><br>
+ * [Clear description of what needs to be solved]
+ *
+ * <p><b>Intuition & Approach:</b><br>
+ * [Core insight and strategy]
+ * - Key observations
+ * - Why this approach works
+ * - Algorithm steps
+ *
+ * <p><b>Time Complexity:</b> O(...) - [Explanation]
+ * <br><b>Space Complexity:</b> O(...) - [Explanation]
+ */
+public class ProblemName {
+    /**
+     * Main solution method.
+     *
+     * @param param1 description
+     * @return result description
+     */
+    public ReturnType solutionMethod(ParamType param1) {
+        // Implementation
+        return result;
+    }
+}
+```
+
+### Step 3: Update Documentation
+- Add problem to the appropriate README.md
+- Include: problem number, name, link, solution file, difficulty
+- Update company markdown file if applicable
+- Follow the existing table format
+
+### Step 4: Add Tests (Optional but Recommended)
+- Create corresponding test file in `src/test/java/`
+- Include edge cases and common test scenarios
+- Use meaningful test method names
+
+---
+
+## README Guidelines
+
+Each algorithm/data structure directory should have a README.md with:
+
+1. **Introduction**: Brief overview of the technique
+2. **Intuition**: Why and how it works
+3. **Use Cases**: Real-world applications
+4. **Complexity Analysis**: Time and space complexity
+5. **Algorithm Pseudocode**: Step-by-step algorithm
+6. **Problems Table**: Organized list of problems with links
+
+### README Template
+```markdown
+# 📘 [Topic Name]
+
+## Introduction
+Brief description of the technique/data structure
+
+## Intuition
+- Key insight 1
+- Key insight 2
+- Why it works
+
+## Use Cases
+- Real-world application 1
+- Real-world application 2
+
+## Complexity Analysis
+- Time Complexity: O(...)
+- Space Complexity: O(...)
+
+## Algorithm
+\`\`\`
+pseudocode here
+\`\`\`
+
+## 🧪 Problems
+
+| # | Problem | Solution | Difficulty |
+|---|---------|----------|------------|
+| 1 | [Problem Name](link) | [File](./File.java) | Easy |
+```
+
+---
+
+## Git Workflow
+
+### Commit Messages
+Follow conventional commits format:
+```
+type(scope): subject
+
+[optional body]
+[optional footer]
+```
+
+Types:
+- `feat`: New feature/problem solution
+- `fix`: Bug fix
+- `docs`: Documentation updates
+- `refactor`: Code restructuring
+- `test`: Adding tests
+- `chore`: Maintenance tasks
+
+Examples:
+- `feat(dp): add coin change problem solution`
+- `docs(sorting): update README with complexity analysis`
+- `refactor(algorithms): reorganize directory structure`
+
+### Branch Naming
+- `feature/problem-name`
+- `fix/issue-description`
+- `docs/documentation-update`
+- `refactor/restructure-category`
+
+---
+
+## Code Quality
+
+### Best Practices
+- Write clean, readable code
+- Avoid unnecessary complexity
+- Use meaningful variable names
+- Extract complex logic into helper methods
+- Follow DRY (Don't Repeat Yourself)
+- Optimize for readability first, then performance
+
+### Code Review Checklist
+- [ ] Code follows naming conventions
+- [ ] All public methods have JavaDoc
+- [ ] Complex logic has inline comments
+- [ ] Time and space complexity documented
+- [ ] No unused imports or variables
+- [ ] README updated if applicable
+- [ ] Solution is optimal or explanation provided
+- [ ] Edge cases considered
+
+### Performance Guidelines
+- Always mention the time complexity
+- If multiple solutions exist, include both optimal and brute force
+- Explain trade-offs between approaches
+- Consider space-time trade-offs
+
+---
+
+## Testing
+
+### What to Test
+- Edge cases (empty arrays, null inputs, etc.)
+- Boundary conditions (min/max values)
+- Common scenarios
+- Large input sizes (if relevant)
+
+### Test Naming
+```java
+@Test
+public void testMethodName_scenario_expectedBehavior() {
+    // Test implementation
+}
+```
+
+Example:
+```java
+@Test
+public void testBinarySearch_elementExists_returnsCorrectIndex() {
+    // Test
+}
+```
+
+---
+
+## Problem Difficulty Guidelines
+
+### Easy
+- Single technique application
+- Straightforward logic
+- No complex edge cases
+- Time limit: 15-20 minutes
+
+### Medium
+- Multiple technique combinations
+- Requires optimization thinking
+- Some edge cases to handle
+- Time limit: 30-45 minutes
+
+### Hard
+- Advanced techniques required
+- Multiple approaches to consider
+- Complex edge case handling
+- Optimization crucial
+- Time limit: 45-60 minutes
+
+---
+
+## Resources Management
+
+### External Links
+- Always use HTTPS
+- Prefer official problem links (LeetCode, GFG)
+- Include problem number if applicable
+- Verify links are not broken
+
+### Assets
+- Minimize external dependencies
+- Keep images/diagrams in a dedicated assets folder
+- Use relative paths in markdown
+
+---
+
+## Special Considerations
+
+### For Algorithms
+- Multiple approaches when applicable (brute force → optimal)
+- Explain why the optimal solution works
+- Include complexity analysis for each approach
+- Mention when to use each approach
+
+### For Data Structures
+- Include both implementation and usage examples
+- Explain time complexity of operations
+- Compare with similar data structures
+- Real-world use cases
+
+### For Design Patterns
+- Include UML diagrams if applicable
+- Provide concrete examples
+- Explain when to use the pattern
+- Mention trade-offs
+
+---
+
+## Maintenance
+
+### Regular Updates
+- Keep problem links valid
+- Update complexity analysis if improved solutions found
+- Add new problems as they become popular
+- Refactor code for better readability
+- Update documentation to reflect code changes
+
+### Version Control
+- Review changes before committing
+- Write descriptive commit messages
+- Create pull requests for major changes
+- Tag releases for major milestones
+
+---
+
+## Questions & Support
+
+### When Stuck
+1. Review the problem statement carefully
+2. Check existing similar problems in the repo
+3. Refer to the README for technique explanation
+4. Look at the intuition section for insights
+5. Open an issue for clarification
+
+### Contributing
+- Follow all guidelines above
+- Create a branch for your changes
+- Write clear commit messages
+- Update documentation
+- Submit a pull request with description
+
+---
+
+## Additional Notes
+
+- This is a learning repository - prioritize clarity over cleverness
+- Document your thought process in comments
+- If multiple solutions exist, include them with explanations
+- Keep code interview-ready (concise but readable)
+- Update company-wise lists when solving company-specific problems
+- Maintain consistency with existing code style
+
+---
+
+## Tools & IDE Setup
+
+### Recommended IDE
+- IntelliJ IDEA (Community or Ultimate)
+- VSCode with Java Extension Pack
+- Eclipse
+
+### Plugins
+- Checkstyle (for code style)
+- SonarLint (for code quality)
+- GitLens (for Git integration)
+
+### Maven Commands
+```bash
+# Compile the project
+mvn clean compile
+
+# Run tests
+mvn test
+
+# Run a specific class
+mvn exec:java -Dexec.mainClass="com.javarena.dsa.utils.ClassName"
+
+# Generate documentation
+mvn javadoc:javadoc
+```
+
+---
+
+## 📐 Standard Code Format (ENFORCED)
+
+### Problem Solution Template
+
+Every problem solution file MUST follow this EXACT structure:
+
+#### Class-Level Documentation (Mandatory)
+
+```java
+/**
+ * [Problem Name]
+ *
+ * <p><b>Problem Statement:</b><br>
+ * [Clear, concise problem description - what needs to be solved]
+ *
+ * <p><b>Intuition & Approach:</b><br>
+ * [Core insight and strategy]
+ * - Key observations
+ * - Why this approach works
+ * - Algorithm steps or strategy
+ * - Alternative approaches if applicable
+ *
+ * <p><b>Time Complexity:</b> O(...) - [Brief explanation]
+ * <br><b>Space Complexity:</b> O(...) - [Brief explanation]
+ */
+```
+
+#### ✅ MUST INCLUDE:
+1. **Problem Statement** - Clear description of what to solve
+2. **Intuition & Approach** - How and why the solution works
+3. **Time Complexity** - Big-O with brief explanation
+4. **Space Complexity** - Big-O with brief explanation
+
+#### ❌ MUST NOT INCLUDE:
+1. **Problem Links** - No LeetCode/GFG URLs (links go in READMEs only)
+2. **Examples** - No input/output examples (examples in READMEs only)
+3. **Company Names** - No company tags (company info in separate company/*.md files)
+4. **Difficulty Tags** - No Easy/Medium/Hard (difficulty in READMEs only)
+5. **Topic Tags** - No topic lists (topics in READMEs only)
+6. **Edge Cases Section** - Handle in code comments, not separate section
+7. **@see References** - No cross-references in solution files
+
+#### Method Documentation (Mandatory)
+
+```java
+/**
+ * [One-line description of what method does]
+ *
+ * @param param1 [parameter description]
+ * @param param2 [parameter description]
+ * @return [return value description]
+ */
+public ReturnType methodName(ParamType param1, ParamType param2) {
+    // Step 1: [Comment explaining this section]
+    
+    // Step 2: [Comment explaining next section]
+    
+    return result;
+}
+```
+
+#### Helper Methods (Mandatory Documentation)
+
+```java
+/**
+ * Helper method - [description of what it does]
+ *
+ * @param param [parameter description]
+ * @return [return value description]
+ */
+private ReturnType helperMethod(ParamType param) {
+    // Implementation
+}
+```
+
+---
+
+### README Standard Format
+
+Each algorithm directory MUST have a README.md with these sections:
+
+1. **Introduction** - 2-3 sentence overview
+2. **Intuition** - Why the technique works, when to use
+3. **Common Patterns** - Recognizable problem patterns
+4. **Complexity Analysis** - Table format
+5. **Algorithm Template** - Pseudocode
+6. **Practice Problems** - Categorized by difficulty (Easy/Medium/Hard)
+7. **Real-World Applications** - Practical use cases
+8. **Comparison with Similar Techniques** - When to choose what
+9. **Learning Path** - Prerequisites and recommended sequence
+10. **Additional Resources** - Videos, articles, related topics
+11. **Checklist for Mastery** - Self-assessment items
+
+#### Problems Table Format
+
+```markdown
+| # | Problem | Solution | Difficulty | Topics | Companies |
+|---|---------|----------|------------|--------|-----------|
+| 1 | [Name](link) | [File.java](./File.java) | Easy | Tag1, Tag2 | Company1 |
+```
+
+---
+
+### Mandatory Requirements for All Code
+
+✅ **Every solution file MUST have:**
+
+1. **Class-level JavaDoc** with exactly 3 sections:
+   - **Problem Statement**: Clear description of what to solve
+   - **Intuition & Approach**: How the solution works, key insights, algorithm steps
+   - **Time & Space Complexity**: Big-O notation with explanations
+
+2. **Method documentation** for ALL public methods:
+   - One-line description
+   - @param for each parameter
+   - @return for return value
+   - Additional notes if method is complex
+
+3. **Inline comments**:
+   - One comment per logical block/step
+   - Explain WHY, not just WHAT
+   - No obvious comments (e.g., "increment i")
+
+4. **Helper methods**:
+   - Always documented with JavaDoc
+   - Purpose clearly stated
+   - Complexity mentioned if different from main method
+
+5. **Alternative approaches** (if applicable):
+   - If a significantly different approach exists, include it
+   - Document trade-offs
+   - Mention when to use each approach
+
+---
+
+### Forbidden in Code
+
+❌ **NEVER commit code with:**
+
+1. Missing or incomplete class-level JavaDoc
+2. Undocumented public methods
+3. **Problem links in solution files** (links belong in READMEs only)
+4. **Examples in solution files** (examples belong in READMEs only)
+5. **Company names in solution files** (company info in company/*.md files)
+6. **Difficulty tags in solution files** (difficulty in READMEs only)
+7. Missing complexity analysis
+8. No intuition section
+9. Magic numbers without explanation
+10. Unused imports or variables
+11. main() method (unless utility class)
+12. TODO/FIXME comments in committed code
+13. System.out.println for debugging
+14. Commented-out code blocks
+15. IDE warnings
+
+---
+
+### File Naming Convention
+
+- **Class Name:** PascalCase describing the problem
+  - Good: `TwoSum.java`, `BinarySearchRotatedArray.java`
+  - Bad: `Problem1.java`, `solution.java`, `test.java`
+
+- **File Name:** Must match class name exactly
+  - Class: `MaxSubarray` → File: `MaxSubarray.java`
+
+---
+
+### Code Organization
+
+```java
+package com.javarena.dsa.category.subcategory;
+
+// Imports (only what's needed, organized)
+import java.util.*;
+
+/**
+ * Complete class-level JavaDoc here
+ */
+public class ProblemName {
+    
+    // Constants (if any)
+    private static final int MAX_VALUE = 1000;
+    
+    // Main solution method
+    public ReturnType mainMethod() {
+        // Implementation
+    }
+    
+    // Helper methods
+    private ReturnType helper1() {
+        // Implementation
+    }
+    
+    private ReturnType helper2() {
+        // Implementation
+    }
+    
+    // Alternative approaches (if any)
+    /**
+     * Alternative approach: [Name]
+     * [Brief description and trade-offs]
+     */
+    public ReturnType alternativeMethod() {
+        // Implementation
+    }
+}
+```
+
+---
+
+### Quality Metrics
+
+#### Minimum Documentation Requirements
+
+| Element | Minimum Requirement |
+|---------|-------------------|
+| Class JavaDoc | 3 sections (Problem Statement, Intuition & Approach, Complexity) |
+| Problem Statement | Clear, concise description |
+| Intuition & Approach | Core insights, key observations, algorithm steps |
+| Complexity Analysis | Both time and space with explanations |
+| Method JavaDoc | All public methods |
+| Inline Comments | One per logical block |
+| Helper Method Docs | All private methods |
+
+---
+
+### Pre-Commit Checklist
+
+Before committing any solution, verify ALL of these:
+
+**DOCUMENTATION:**
+- [ ] Class JavaDoc has exactly 3 sections: Problem Statement, Intuition & Approach, Complexity
+- [ ] Problem statement is clear and concise
+- [ ] Intuition explains WHY the approach works
+- [ ] Approach explains HOW the algorithm works (key steps)
+- [ ] Time complexity documented with explanation
+- [ ] Space complexity documented with explanation
+- [ ] All public methods have JavaDoc
+- [ ] All helper methods documented
+- [ ] @param tags for all parameters
+- [ ] @return tags for return values
+- [ ] Inline comments for complex logic
+
+**COMPLIANCE CHECKS:**
+- [ ] ❌ NO problem links in solution files (put in READMEs)
+- [ ] ❌ NO examples in solution files (put in READMEs)
+- [ ] ❌ NO company names in solution files (use company/*.md files)
+- [ ] ❌ NO difficulty tags in solution files (put in READMEs)
+- [ ] ❌ NO topic tags in solution files (put in READMEs)
+- [ ] ❌ NO edge case sections (handle in code comments)
+- [ ] ❌ NO @see references in solution files
+
+**CODE QUALITY:**
+- [ ] Code follows naming conventions
+- [ ] No unused imports
+- [ ] No unused variables
+- [ ] No magic numbers (or explained with constants)
+- [ ] No System.out.println debugging statements
+- [ ] No commented-out code
+- [ ] No TODO/FIXME comments in committed code
+- [ ] Package declaration matches directory structure
+- [ ] File compiles without errors
+- [ ] No IDE warnings
+- [ ] Alternative approaches included (if applicable)
+- [ ] Trade-offs explained (if multiple approaches)
+
+**README UPDATES:**
+- [ ] README updated with problem entry (with link, difficulty, topics)
+
+---
+
+### Common Patterns to Follow
+
+#### Pattern 1: Problem with Multiple Approaches
+
+```java
+/**
+ * [Problem documentation with ALL sections]
+ */
+public class Problem {
+    
+    /**
+     * Optimal approach using [technique]
+     * @return result
+     */
+    public int optimal(int[] arr) {
+        // Optimal implementation
+    }
+    
+    /**
+     * Brute force approach for comparison
+     * 
+     * <p><b>Time:</b> O(n²) vs O(n) in optimal
+     * <br><b>Space:</b> O(1)
+     * <br><b>Trade-off:</b> Easier to understand but slower
+     * 
+     * @return result
+     */
+    public int bruteForce(int[] arr) {
+        // Brute force implementation
+    }
+}
+```
+
+#### Pattern 2: Problem with Helper Class/Structure
+
+```java
+/**
+ * [Main problem documentation]
+ */
+public class Problem {
+    
+    /**
+     * Helper class to store [purpose]
+     */
+    private static class Helper {
+        int field1;
+        int field2;
+        
+        Helper(int f1, int f2) {
+            this.field1 = f1;
+            this.field2 = f2;
+        }
+    }
+    
+    // Main implementation using Helper
+}
+```
+
+---
+
+### README Quality Standards
+
+Every algorithm directory README must score 100% on this checklist:
+
+- [ ] Has clear introduction (2-3 sentences)
+- [ ] Explains intuition (why it works)
+- [ ] Lists when to use vs when not to use
+- [ ] Contains common patterns section
+- [ ] Has complexity analysis table
+- [ ] Includes algorithm pseudocode
+- [ ] Problems categorized by difficulty
+- [ ] All problems have: link, solution, difficulty, topics, companies
+- [ ] Real-world applications mentioned (minimum 2)
+- [ ] Comparison table with alternatives
+- [ ] Learning path with prerequisites
+- [ ] Additional resources (videos, articles)
+- [ ] Mastery checklist provided
+- [ ] Last updated date included
+- [ ] Total problem count displayed
+
+---
+
+### Examples of Good vs Bad
+
+#### ❌ Bad - Insufficient Documentation
+
+```java
+public class TwoSum {
+    // Find two numbers that add up to target
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{};
+    }
+}
+```
+
+#### ✅ Good - STANDARD COMPLIANT Format
+
+```java
+package com.javarena.dsa.datastructures.arrays;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Two Sum
+ *
+ * <p><b>Problem Statement:</b><br>
+ * Given array of integers nums and integer target, return indices of two numbers
+ * that add up to target. Each input has exactly one solution, cannot use same element twice.
+ *
+ * <p><b>Intuition & Approach:</b><br>
+ * Hash map for O(n) single-pass solution:
+ * - Store numbers and their indices in hash map as we iterate
+ * - For each number, calculate complement = target - current
+ * - If complement exists in map, we found the pair
+ * - Otherwise, add current number to map and continue
+ * 
+ * Key insight: Avoid O(n²) nested loops by using O(1) hash map lookups.
+ * Trade-off: Use O(n) extra space for O(n) time improvement.
+ * 
+ * Alternative: Two-pointer on sorted array (modifies input, returns values not indices).
+ *
+ * <p><b>Time Complexity:</b> O(N) - Single pass, hash map operations O(1)
+ * <br><b>Space Complexity:</b> O(N) - Store up to n elements in hash map
+ */
+public class TwoSum {
+    
+    /**
+     * Finds two indices that sum to target using hash map.
+     *
+     * @param nums array of integers to search
+     * @param target the target sum to find
+     * @return array containing two indices [i, j] where nums[i] + nums[j] == target
+     */
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> numToIndex = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            
+            if (numToIndex.containsKey(complement)) {
+                return new int[]{numToIndex.get(complement), i};
+            }
+            
+            numToIndex.put(nums[i], i);
+        }
+        
+        return new int[]{};
+    }
+    
+    /**
+     * Brute force approach - for learning and comparison.
+     * 
+     * <p><b>Time:</b> O(N²) - Nested loops
+     * <br><b>Space:</b> O(1) - No extra space
+     * <br><b>Trade-off:</b> Simple but slower
+     *
+     * @param nums array of integers
+     * @param target target sum
+     * @return indices of two numbers
+     */
+    public int[] twoSumBruteForce(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{};
+    }
+}
+```
+
+---
+
+## 📝 Documentation Examples
+
+See `STANDARD_TEMPLATE.md` for complete examples of:
+- Full class template
+- README template
+- All documentation sections
+- Multiple approaches example
+
+---
+
+**Remember**: This repository is meant to help you and others prepare for technical interviews. Prioritize understanding over memorization, and always document your learning process!
+
+---
+> Source: [piyush7199/javarena-dsa-design](https://github.com/piyush7199/javarena-dsa-design) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
