@@ -2,84 +2,102 @@
 
 > Generates a Svelte Playground link with the provided code.
 
-# Agent Instructions
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+Your context window will be automatically compacted as it approaches its limit, allowing you to continue working indefinitely from where you left off. Therefore, do not stop tasks early due to token budget concerns. As you approach your token budget limit, save your current progress and state to memory before the context window refreshes. Always be as persistent and autonomous as possible and complete tasks fully, even if the end of your budget is approaching. Never artificially stop any task early regardless of the context remaining.
+
+Only delegate to subagents when the task clearly benefits from a separate agent with a new context window.
+
+<use_parallel_tool_calls>
+If you intend to call multiple tools and there are no dependencies between the tool calls, make all of the independent tool calls in parallel. Prioritize calling tools simultaneously whenever the actions can be done in parallel rather than sequentially. For example, when reading 3 files, run 3 tool calls in parallel to read all 3 files into context at the same time. Maximize use of parallel tool calls where possible to increase speed and efficiency. However, if some tool calls depend on previous calls to inform dependent values like the parameters, do NOT call these tools in parallel and instead call them sequentially. Never use placeholders or guess missing parameters in tool calls.
+</use_parallel_tool_calls>
+
+ALWAYS read and understand relevant files before proposing code edits. Do not speculate about code you have not inspected. If the user references a specific file/path, you MUST open and inspect it before explaining or proposing fixes. Be rigorous and persistent in searching code for key facts. Thoroughly review the style, conventions, and abstractions of the codebase before implementing new features or abstractions.
+
+<investigate_before_answering>
+Never speculate about code you have not opened. If the user references a specific file, you MUST read the file before answering. Make sure to investigate and read relevant files BEFORE answering questions about the codebase. Never make any claims about code before investigating unless you are certain of the correct answer - give grounded and hallucination-free answers.
+</investigate_before_answering>
+
+Please write a high-quality, general-purpose solution using the standard tools available. Do not create helper scripts or workarounds to accomplish the task more efficiently. Implement a solution that works correctly for all valid inputs, not just the test cases. Do not hard-code values or create solutions that only work for specific test inputs. Instead, implement the actual logic that solves the problem generally.
+
+Focus on understanding the problem requirements and implementing the correct algorithm. Tests are there to verify correctness, not to define the solution. Provide a principled implementation that follows best practices and software design principles.
+
+If the task is unreasonable or infeasible, or if any of the tests are incorrect, please inform me rather than working around them. The solution should be robust, maintainable, and extendable.
 
 ## Project Overview
-- Motion Start: Svelte 5 port of framer-motion. Animations, gestures, layout projection, TypeScript-first.
-- Tech: SvelteKit + Svelte 5 runes, TypeScript, TailwindCSS, Biome, Cypress E2E.
-- Key paths: `src/lib/motion-start` (core), `src/routes` (examples), `cypress/` (tests), `docs/` (project docs), `history/` (investigations/plans).
-- See `.github/copilot-instructions.md` for quick-start commands and conventions.
 
-## Non-Negotiable Rules
-- Prefer Svelte 5 runes for new code; legacy components may temporarily use `runes={false}` during migration.
-- Fix TypeScript and `svelte-check` issues incrementally; avoid `any` unless absolutely necessary.
-- Default to ASCII for edits. Only add non-ASCII if already present and necessary.
-- Keep planning docs in history/; avoid cluttering repo root.
+**motion-start** is a Svelte 5 animation library inspired by framer-motion (React). It provides motion components (`Motion.div`, `Motion.button`, etc.), AnimatePresence for exit animations, layout animations, and gesture handling. Currently in alpha and actively being migrated to Svelte 5 with runes.
 
-## TDD Workflow (for new tasks/features/bugs)
-- Red: Write failing tests first (Cypress E2E under `cypress/e2e/`, or targeted tests), no implementation yet.
-- Green: Implement the smallest change necessary to pass.
-- Refactor: Improve code with tests staying green.
-- Prefer incremental, test-backed commits; avoid large untested edits.
+## Commands
 
-Common test commands:
 ```bash
-# Svelte type checks
-npx sv check
+# Development
+bun dev                     # Start dev server on localhost:5000
 
-# Run a specific Cypress spec (with `bun run dev` already running)
-bun run cypress:run:serial -- --spec cypress/integration/animate-presence-remove.ts
+# Build
+bun run build              # Build the library (svelte-package + publint)
+bun run package            # Sync and package the library
 
-# Run all Cypress specs in two local shards with videos
-bun run cypress:run
+# Testing
+bun test                   # Run Vitest unit tests
+bun test <pattern>         # Run specific tests matching pattern
+bun run test:ui            # Open Vitest UI
+bun run cypress            # Open Cypress GUI
+bun run cypress:run        # Run all Cypress specs in 2 local shards with videos
+bun run cypress:run:serial -- --spec "cypress/integration/<name>.ts"  # With bun run dev already running
+
+# Type checking and linting
+npx sv check               # Svelte type checking (run before commits)
+bun run lint               # Biome linting
+npx @biomejs/biome format --write .  # Format code
 ```
 
-## TDD Agents (Red → Green → Refactor)
+## Architecture
 
-To standardize TDD, the repo includes three agents under `.github/agents/`:
+### Core Library (`src/lib/motion-start/`)
 
-- `tdd-red.agent.md` – Writes failing tests first (no implementation edits)
-- `tdd-green.agent.md` – Implements the minimum code to pass those tests
-- `tdd-refactor.agent.md` – Refactors with all tests green, no behavior changes
+The library mirrors framer-motion's architecture adapted for Svelte 5:
 
-**Recommended flow for new tasks/features/bugs:**
-1. Start with Red agent to author failing tests aligning with the requirement.
-2. Handoff to Green agent to implement the minimal solution and get tests passing.
-3. Handoff to Refactor agent for cleanup while keeping tests green.
-4. Land the plane: run `npx sv check`, `bun run cypress:run`, format, commit, and provide a concise session summary.
+- **motion/**: Core `Motion.svelte` component and `createRendererMotionComponent` factory. Components are created via proxies (`motion.div`, `m.div`).
+- **render/**: VisualElement system - the abstraction layer between components and DOM/SVG rendering. `VisualElement.svelte.ts` manages animations outside React's render cycle.
+- **components/**: Higher-order components:
+  - `AnimatePresence/` - Manages exit animations for unmounting children
+  - `LayoutGroup/` - Groups layout animations
+  - `Reorder/` - Drag-to-reorder functionality
+  - `LazyMotion/` - Code-splitting for features
+- **context/**: Svelte 5 context system using `$state` for reactivity. Key contexts: `PresenceContext`, `MotionConfigContext`, `LayoutGroupContext`.
+- **animation/**: Animation engine including generators (spring), WAAPI integration, and animation controls.
+- **gestures/**: Pan, tap, hover, focus, and drag handlers.
+- **projection/**: Layout projection system for FLIP animations.
+- **value/**: MotionValue system for reactive animation values.
 
-## Landing the Plane (Complete Sessions)
-When asked to "land the plane", you MUST run all tests and finalize work:
-1. Run all quality gates:
-   - `npx sv check`
-   - `bun run cypress:run` (or `bun run cypress:run:serial -- --spec ...` with the playground running for scoped changes)
-2. Ensure formatting/linting are clean: `npx @biomejs/biome format --write .`
-3. Ensure working tree is tidy (no untracked files).
-4. Provide a concise summary: what changed, test results, and any follow-ups.
+### Key Patterns
 
-## Day-to-Day Development
-- Code style: run Biome formatter when changing TS/JS/Svelte (`npx @biomejs/biome format --write .` if needed).
-- Types: prefer precise types; avoid `any`; fix svelte-check issues incrementally.
-- Components: prefer runes patterns (`<svelte:options runes={true} />`, $state/$derived/$effect) for new work.
-- If unsure about a change, ask questions early and prefer smaller, test-backed commits.
+**Component API**: Uses Svelte 5's component API with runes (`$state`, `$derived`, `$effect`):
+```svelte
+<Motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+  Content
+</Motion.div>
+```
 
-## Documentation & References
-- `.github/copilot-instructions.md` – runtime commands, project structure.
-- `docs/ARCHITECTURE.md` – architectural overview.
-- `docs/PROJECT_STRUCTURE.md` – directory layout.
-- `docs/RUNES_MIGRATION.md` – Svelte 5 migration notes.
-- `docs/TESTING.md` – testing strategy.
-- `history/` – investigation and planning documents.
+**Context System**: Uses Svelte built in createContext, but wraps getContext with a useContext for handing initial/default value.
 
-## Important Files
-- docs/ARCHITECTURE.md - Project architecture
-- docs/PROJECT_STRUCTURE.md - Project structure
-- docs/TESTING.md - Project testing
-- README.md - Main documentation
+**Feature Loading**: Features (animations, gestures, layout) are loaded via `loadFeatures()` for tree-shaking support.
 
-## Available MCP Tools
+### Demo Routes (`src/routes/`)
 
-You have access to the Svelte MCP server with comprehensive Svelte 5 and SvelteKit documentation.
+Example pages demonstrating features: `animate-presence-basics`, `layout-basics`, `reorder-basics`, `gestures-basics`, etc. These are also used by Cypress E2E tests.
+
+## Technical Investigations
+
+Active investigations and documentation are in `.claude/docs/`:
+- `presence-layout-investigation.md` - PresenceChild context reactivity issue (exit + layout animations conflict)
+
+You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:
+
+## Available MCP Tools:
 
 ### 1. list-sections
 
@@ -103,4 +121,4 @@ After completing the code, ask the user if they want a playground link. Only cal
 
 ---
 > Source: [JonathonRP/motion-start](https://github.com/JonathonRP/motion-start) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
