@@ -1,0 +1,14 @@
+{
+  "name": "unknownplatypus--djangofmt",
+  "displayName": "djangofmt",
+  "description": "djangofmt",
+  "version": "1.0.0",
+  "author": "UnknownPlatypus",
+  "homepage": "https://github.com/UnknownPlatypus/djangofmt",
+  "skills": [
+    {
+      "name": "djangofmt",
+      "description": ""
+    }
+  ]
+}
