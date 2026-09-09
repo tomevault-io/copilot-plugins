@@ -36,4 +36,4 @@ Everything else — model architecture, file-naming conventions, XML standards, 
 
 ---
 > Source: [MyoHub/myo_sim](https://github.com/MyoHub/myo_sim) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
