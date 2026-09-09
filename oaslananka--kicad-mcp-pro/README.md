@@ -15,7 +15,27 @@ Original source: `AGENTS.md` in [oaslananka/kicad-mcp-pro](https://github.com/oa
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [oaslananka/kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro) — a repo with 50+ stars on GitHub.
+## Bundled Skills (17)
+
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/drc-check/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/pcb-design/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/schematic-review/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/visual-excellence/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/fabrication-output/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/drc-check/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/kicad-design-review/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/pcb-design/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/skills/wired-subcircuit-design/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/schematic-review/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/visual-excellence/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/fabrication-output/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/kicad-design-review/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.opencode/skills/wired-subcircuit-design/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/integrations/cursor/skills/kicad-pcb-review/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/integrations/claude-code/kicad-pcb-review-skill/SKILL.md)
+- [kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro/tree/main/.github/skills/code-review/SKILL.md)
+
+From [oaslananka/kicad-mcp-pro](https://github.com/oaslananka/kicad-mcp-pro) — a repo with 77+ stars on GitHub.
 
 ---
 
