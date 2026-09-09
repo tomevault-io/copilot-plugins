@@ -1,0 +1,9 @@
+{
+  "name": "pgjdbc--pgjdbc",
+  "displayName": "pgjdbc",
+  "description": "pgjdbc",
+  "version": "1.0.0",
+  "author": "pgjdbc",
+  "homepage": "https://github.com/pgjdbc/pgjdbc",
+  "skills": []
+}
