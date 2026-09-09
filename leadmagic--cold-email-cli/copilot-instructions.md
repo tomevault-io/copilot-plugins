@@ -1,66 +1,294 @@
-## project-overview
+## testing-and-quality
 
-> This is a **professional TypeScript CLI** with modular architecture supporting multiple email marketing platforms.
+> - **Jest**: TypeScript testing with [jest.config.js](mdc:jest.config.js)
 
-# SmartLead CLI - Project Overview
+# Testing & Quality Assurance
 
-## 🏗️ Architecture
+## 🧪 Testing Infrastructure
 
-This is a **professional TypeScript CLI** with modular architecture supporting multiple email marketing platforms.
+### Test Framework
+- **Jest**: TypeScript testing with [jest.config.js](mdc:jest.config.js)
+- **Coverage**: 90%+ target with HTML and LCOV reports
+- **Setup**: [tests/setup.ts](mdc:tests/setup.ts) for test environment configuration
+- **Structure**: Mirror source structure in tests/ directory
 
-### 📁 Core Structure
-- **[src/core/index.ts](mdc:src/core/index.ts)** - Main CLI entry point with module selector
-- **[src/core/module-selector.ts](mdc:src/core/module-selector.ts)** - Interactive module switching system
-- **[src/core/utils/config.ts](mdc:src/core/utils/config.ts)** - Configuration management (API keys, modules)
-- **[src/core/utils/theme.ts](mdc:src/core/utils/theme.ts)** - Theme system with brand colors
+### Test Configuration
+The [jest.config.js](mdc:jest.config.js) provides:
+- TypeScript support via `ts-jest`
+- Module path mapping for clean imports
+- Coverage reporting with multiple formats
+- Test environment setup and teardown
 
-### 🧩 Module System
-- **[src/modules/smartlead/](mdc:src/modules/smartlead/)** - SmartLead module (80+ commands, available)
-- **[src/modules/instantly/index.ts](mdc:src/modules/instantly/index.ts)** - Instantly module (placeholder, coming Q2 2024)
-- **[src/types/global.ts](mdc:src/types/global.ts)** - Global TypeScript interfaces and types
-- **[src/modules/smartlead/types.ts](mdc:src/modules/smartlead/types.ts)** - SmartLead-specific types
+## 📁 Test Structure
 
-### 🧪 Testing & Quality
-- **[tests/](mdc:tests/)** - Jest test suites with 90%+ coverage
-- **[jest.config.js](mdc:jest.config.js)** - Jest configuration with TypeScript support
-- **[tests/setup.ts](mdc:tests/setup.ts)** - Test environment setup and utilities
+### Directory Organization
+```
+tests/
+├── setup.ts                     # Test environment setup
+├── core/                        # Core functionality tests
+│   └── utils/
+│       └── config.test.ts       # ConfigManager tests
+├── modules/                     # Module-specific tests
+│   ├── smartlead/              # SmartLead module tests
+│   └── instantly/              # Instantly module tests
+└── integration/                 # Integration tests
+```
 
-### 📦 Build & Distribution
-- **[tsconfig.json](mdc:tsconfig.json)** - TypeScript configuration with strict rules
-- **[scripts/build.sh](mdc:scripts/build.sh)** - Automated build script
-- **[scripts/install.sh](mdc:scripts/install.sh)** - Professional installer with validation
-- **[package.json](mdc:package.json)** - npm configuration with comprehensive scripts
+### Example Test Structure
+See [tests/core/utils/config.test.ts](mdc:tests/core/utils/config.test.ts) for comprehensive test examples:
+```typescript
+import { ConfigManager } from '../../../src/core/utils/config';
 
-### 📚 Documentation
-- **[docs/README.md](mdc:docs/README.md)** - Comprehensive project documentation
-- **[docs/CONTRIBUTING.md](mdc:docs/CONTRIBUTING.md)** - Development guidelines
-- **[docs/ROADMAP.md](mdc:docs/ROADMAP.md)** - Feature roadmap and project direction
-- **[docs/CHANGELOG.md](mdc:docs/CHANGELOG.md)** - Version history and changes
+describe('ConfigManager', () => {
+  let configManager: ConfigManager;
 
-## 🎯 Key Concepts
+  beforeEach(() => {
+    configManager = ConfigManager.getInstance();
+  });
 
-### Module System
-Each module implements the `CLIModule` interface and provides:
-- Platform-specific commands and functionality
-- Branded themes and user experience
-- Independent configuration and API management
+  afterEach(() => {
+    // Cleanup test files
+  });
 
-### Theme System
-Supports multiple branded themes:
-- **SmartLead**: Professional blue gradient (#2563eb → #0ea5e9 → #06b6d4)
-- **Instantly**: Purple gradient (#7c3aed → #a855f7 → #ec4899)
+  describe('loadConfig', () => {
+    it('should return empty object when no config file exists', () => {
+      const config = configManager.loadConfig();
+      expect(config).toEqual({});
+    });
+  });
+});
+```
 
-### Configuration
-- Global config: `~/.smartlead-cli/config.json`
-- Module-specific: `~/.smartlead-cli/{module}.json`
-- Environment variables: `SMARTLEAD_API_KEY`, `SMARTLEAD_BASE_URL`
+## 🔧 Testing Commands
 
-## 🚀 Getting Started
+### Running Tests
+```bash
+npm test                 # Run all tests once
+npm run test:watch       # Watch mode for development
+npm run test:coverage    # Generate coverage reports
+```
 
-1. **Development**: `npm run dev` - TypeScript watch mode
-2. **Build**: `npm run build` - Compile to JavaScript
-3. **Test**: `npm test` - Run Jest test suite
-4. **Install**: `npm run install-global` - Install globally
+### Test Development
+```bash
+npm run dev              # Development mode with auto-recompilation
+npm run type-check       # TypeScript validation
+npm run lint             # Code quality checks
+```
+
+## ✅ Code Quality Standards
+
+### ESLint Configuration
+Configured in [package.json](mdc:package.json) with strict TypeScript rules:
+```json
+{
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+      "eslint:recommended",
+      "@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": "error"
+    }
+  }
+}
+```
+
+### Prettier Configuration
+Code formatting rules in [package.json](mdc:package.json):
+```json
+{
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 2
+  }
+}
+```
+
+### Quality Commands
+```bash
+npm run lint             # ESLint checking
+npm run lint:fix         # Auto-fix ESLint issues
+npm run format           # Prettier formatting
+npm run type-check       # TypeScript validation
+```
+
+## 🧪 Writing Tests
+
+### Unit Test Guidelines
+1. **Test Single Responsibility**: Each test should test one specific behavior
+2. **Use Descriptive Names**: Test names should clearly describe what they test
+3. **Setup/Teardown**: Use beforeEach/afterEach for test isolation
+4. **Mock External Dependencies**: Mock API calls, file system, etc.
+
+### Test Categories
+
+#### 1. Unit Tests
+Test individual functions and classes:
+```typescript
+describe('ThemeManager', () => {
+  it('should apply correct colors for SmartLead theme', () => {
+    const theme = new ThemeManager('smartlead');
+    expect(theme.primary('text')).toContain('#2563eb');
+  });
+});
+```
+
+#### 2. Integration Tests
+Test module interactions:
+```typescript
+describe('Module Integration', () => {
+  it('should load and initialize modules correctly', async () => {
+    const selector = new ModuleSelector();
+    const module = await selector.loadModule('smartlead');
+    expect(module).toBeDefined();
+    expect(module.name).toBe('smartlead');
+  });
+});
+```
+
+#### 3. CLI Tests
+Test command-line interface:
+```typescript
+describe('CLI Commands', () => {
+  it('should show version correctly', async () => {
+    const output = await execCLI(['--version']);
+    expect(output).toMatch(/\d+\.\d+\.\d+/);
+  });
+});
+```
+
+### Test Utilities
+
+#### Environment Setup
+The [tests/setup.ts](mdc:tests/setup.ts) handles:
+- Test environment variables
+- Test configuration directory setup
+- Console method mocking
+- Global test timeout configuration
+
+#### Mock Data
+Create reusable mock data for tests:
+```typescript
+export const mockCampaign = {
+  id: 123,
+  name: 'Test Campaign',
+  status: 'ACTIVE',
+  created_at: '2024-01-01T00:00:00Z'
+};
+
+export const mockConfig = {
+  apiKey: 'test-api-key',
+  activeModule: 'smartlead' as ModuleName
+};
+```
+
+## 📊 Coverage Requirements
+
+### Coverage Targets
+- **Functions**: 90%+ coverage
+- **Lines**: 90%+ coverage  
+- **Branches**: 85%+ coverage
+- **Statements**: 90%+ coverage
+
+### Coverage Reports
+```bash
+npm run test:coverage    # Generate coverage reports
+open coverage/index.html # View HTML coverage report
+```
+
+### Coverage Configuration
+Coverage thresholds in [jest.config.js](mdc:jest.config.js):
+```javascript
+coverageThreshold: {
+  global: {
+    branches: 85,
+    functions: 90,
+    lines: 90,
+    statements: 90
+  }
+}
+```
+
+## 🚨 Testing Best Practices
+
+### 1. Test File Organization
+- **Mirror Structure**: Tests should mirror the source structure
+- **Descriptive Names**: Use `.test.ts` suffix for test files
+- **Group Related Tests**: Use describe blocks for logical grouping
+
+### 2. Test Data Management
+- **Isolated Data**: Each test should use its own data
+- **Cleanup**: Always clean up test files and state
+- **Deterministic**: Tests should be predictable and repeatable
+
+### 3. Error Testing
+- **Happy Path**: Test normal operation
+- **Error Cases**: Test error conditions and edge cases
+- **Validation**: Test input validation and error messages
+
+### 4. Async Testing
+- **Proper Async**: Use async/await for asynchronous operations
+- **Timeout Handling**: Set appropriate timeouts for async tests
+- **Promise Resolution**: Ensure promises are properly resolved/rejected
+
+## 🔄 Continuous Integration
+
+### Pre-commit Checks
+Before committing code, ensure:
+```bash
+npm run type-check       # TypeScript validation
+npm run lint             # ESLint compliance
+npm run format           # Code formatting
+npm test                 # All tests pass
+npm run build            # Successful compilation
+```
+
+### CI/CD Pipeline
+Recommended GitHub Actions workflow:
+```yaml
+name: Test Suite
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm run type-check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+```
+
+## 🎯 Quality Metrics
+
+### Code Quality Indicators
+- ✅ Zero TypeScript compilation errors
+- ✅ Zero ESLint warnings/errors
+- ✅ 90%+ test coverage
+- ✅ All tests passing
+- ✅ Successful build
+
+### Performance Metrics
+- ✅ Fast test execution (< 30 seconds)
+- ✅ Quick development feedback (< 5 seconds)
+- ✅ Efficient build process (< 60 seconds)
+- ✅ Small bundle size
+
+### Maintainability Metrics
+- ✅ High test coverage
+- ✅ Clear test structure
+- ✅ Comprehensive documentation
+- ✅ Consistent code style
 
 ---
 > Source: [LeadMagic/cold-email-cli](https://github.com/LeadMagic/cold-email-cli) — distributed by [TomeVault](https://tomevault.io).
