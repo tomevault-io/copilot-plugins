@@ -1,0 +1,9 @@
+{
+  "name": "bruin-data--python-sdk",
+  "displayName": "python-sdk",
+  "description": "Bruin Python SDK \u2014 eliminate boilerplate in Bruin Python assets",
+  "version": "1.0.0",
+  "author": "bruin-data",
+  "homepage": "https://github.com/bruin-data/python-sdk",
+  "skills": []
+}
