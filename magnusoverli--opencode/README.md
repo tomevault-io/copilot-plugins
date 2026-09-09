@@ -15,7 +15,20 @@ Original source: `AGENTS.md` in [magnusoverli/opencode](https://github.com/magnu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [magnusoverli/opencode](https://github.com/magnusoverli/opencode) — a repo with 221+ stars on GitHub.
+## Bundled Skills (10)
+
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-development/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-dashboard-ui/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-configuration/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-zigbee-esphome/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-troubleshooting/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-development/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-dashboard-ui/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-configuration/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-zigbee-esphome/SKILL.md)
+- [opencode](https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-troubleshooting/SKILL.md)
+
+From [magnusoverli/opencode](https://github.com/magnusoverli/opencode) — a repo with 385+ stars on GitHub.
 
 ---
 
