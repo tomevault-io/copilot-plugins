@@ -1,0 +1,9 @@
+{
+  "name": "apache--datasketches-rust",
+  "displayName": "datasketches-rust",
+  "description": "datasketches-rust",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/datasketches-rust",
+  "skills": []
+}
