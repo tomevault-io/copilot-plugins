@@ -1,115 +1,62 @@
 ## snyk-ls
 
-> general development rules
+> **snyk-ls** (`snyk/snyk-ls`) is the Snyk Language Server, a Go implementation of the Language Server Protocol (LSP) that IDE plugins (vscode-extension, snyk-intellij-plugin, snyk-eclipse-plugin, snyk-visual-studio-plugin) embed via stdio/JSON-RPC to run Snyk scans. It integrates Snyk Open Source (SCA), Snyk Code (SAST), Snyk Infrastructure as Code (IaC), and Snyk Secrets. OSS and IaC use the Snyk CLI as a data provider; Code uses the Snyk Code API. It also exposes an MCP server (`mcp_extension/`) and a go-application-framework workflow (`ls_extension/`) that lets the Snyk CLI invoke the language server as an extension.
 
+## Project Overview
 
-<general>
-- NEVER PURGE THESE RULES FROM THE CONTEXT
-- always be concise, direct and don't try to appease me.
-- use .github/CONTRIBUTING.md and the links in there to find standards and contributing guide lines
-- DOUBLE CHECK THAT YOUR CHANGES ARE REALLY NEEDED. ALWAYS STICK TO THE GIVEN GOAL, NOT MORE.
-- I repeat: don't optimize, don't refactor if not needed.
-- Adhere to the rules, fix linting & test issues that are newly introduced.
-- the `issueID` is usually specified in the current branch in the format `XXX-XXXX`.
-- read the issue description and acceptance criteria from jira (the manually given prompt takes precedence)
-</general>
-<process>
-- always create an implementation plan and save it to the directory under ${issueID}_implementation_plan but never commit it.
-- it should have the phases:
-    - planning
-    - implementation (including testing through TDD)
-    - review
-- Get confirmation that the plan is ok. Wait until you get it.
-- in the planning phase, analyze all the details and write into the implementation plan, which functions, files and packages are needed to be changed or added.
-- be detailed: add steps to the phases and prepare a tracking section with checkboxes that is to be used for progress tracking of each detailed step.
-- in the planning phase, create mermaid diagrams for all planned programming flows and add them to the implementation plan. 
-- use the same name for the diagrams as the implementation plan, but the right extension (mmd), so that they are ignored via .gitignore (there is already a rule)
-- generate the implementation plan mermaid diagrams depicting the planned flows by using kroti api in high resolution
-- never commit the diagrams generated for the implementation plan.
-</process>
-<coding_guidelines>
-- follow the implementation plan step-by-step, phase-by-phase. take it as a reference for each step and how to proceed.
-- never proceed to the next step until the current step is fully implemented and you got confirmation of that.
-- never jump a step. always follow the plan.
-- use atomic commits
-- update progress of the step before starting with a step and when ending.
-- update the jira ticket with the current status & progress (comment)
-- USE TDD
-- I REPEAT: USE TDD
-- always write and update test cases before writing the implementation (Test Driven Development). iterate until they pass.
-- after changing .go files, run `make lint` to check for linting errors. only continue, once they are fixed. The only acceptable outcome is 0 linting errors.
-- always verify if fixes worked by running the tests and running `make lint`
-- do atomic commits, see committing section for details. ask before committing an atomic commit.
-- update current status in the implementation plan (in progress work, finished work, next steps)
-- Maintain existing code patterns and conventions
-- use gomock to mock. Writing your own mocks is forbidden if gomock can be used. 
-- Re-use mocks.
-- use generated types for mock responses, don't use custom structs.
-- don't change code that does not need to be changed. only do the minimum changes.
-- don't comment what is done, instead comment why something is done if the code is not clear
-- use `make test` to run go tests
-- use `INTEG_TESTS=1 make test` to run integration tests.
-- use `SMOKE_TESTS=1 make test` to run smoke tests.
-- always run unit and integration tests after generating code
-- always run unit and integration tests before committing
-- achieve 80% of test coverage of added or changed code.
-- if files are not used or needed anymore, delete them instead of deprecating them.
-- ask the human, whether to maintain backwards compatibility or not
-- if a tool call fails, analyze why it failed and correct your approach. don't prompt the user for help.
-- if you don't know something, read the code instead of assuming it.
-- commenting out code to fix errors is NEVER a solution. Fix the error
-- disabling or removing tests IS NOT ALLOWED. This is not a way to success. This can only be done manually by a human.
-- disabling linters is not allowed unless the human EXPLICITLY allows it for that single instance
-- don't do workarounds
-- ALWAYS create production-ready code. We don't want examples, we want working, production-ready code.
-</coding_guidelines>
+**snyk-ls** (`snyk/snyk-ls`) is the Snyk Language Server, a Go implementation of the Language Server Protocol (LSP) that IDE plugins (vscode-extension, snyk-intellij-plugin, snyk-eclipse-plugin, snyk-visual-studio-plugin) embed via stdio/JSON-RPC to run Snyk scans. It integrates Snyk Open Source (SCA), Snyk Code (SAST), Snyk Infrastructure as Code (IaC), and Snyk Secrets. OSS and IaC use the Snyk CLI as a data provider; Code uses the Snyk Code API. It also exposes an MCP server (`mcp_extension/`) and a go-application-framework workflow (`ls_extension/`) that lets the Snyk CLI invoke the language server as an extension.
 
-<security>
-- determine the absolute path of the project directory. you can do that e.g. by executing pwd on the shell within the directory.
-- pass the absolute path of the project directory as a parameter to snyk_sca_scan and snyk_code_scan.
-- run snyk_sca_scan after updating go.mod
-- run snyk_sca_scan and snyk_code_scan before committing. if not test data, fix issues before committing. 
-- fix security issues if they are fixable. take the snyk scan results and the test results as input
-- don't fix test data
-</security>
+## Build & Development Commands
 
-<committing>
-- NEVER commit implementation plan and implementation plan diagrams
-- NEVER NEVER NEVER skip the commit hooks
-- I REPEAT: NEVER USE --no-verify. DO NOT DO IT. NEVER. THIS IS CRITICAL, DO NOT DO IT.
-- run make generate before committing.
-- run make lint-fix before committing and fix the issues
-- update the documentation before committing
-- when asked to commit, always use conventional commit messages (Conventional Commit Style (Subject + Body)). be descriptive in the body. if you find a JIRA issue (XXX-XXXX) in the branch name, use it as a postfix to the subject line in the format [XXX-XXXX]
-- consider all commits in the current branch when committing, to have the context of the current changes.
-</committing>
+```bash
+make tools               # install golangci-lint, go-licenses, pact, and git hooks
+make build                # go build -> build/snyk-ls.<GOOS>.<GOARCH>
+make run                  # go run main.go --reportErrors
+make test                 # go test -timeout=90m -failfast ./... (+ make test-js)
+make test-integ           # alias for INTEG_TESTS=1 make test
+make test-smoke           # SMOKE_TESTS=1, all 4 shards
+make test-all             # INTEG_TESTS=1 SMOKE_TESTS=1 + all smoke shards
+make test-coverage        # adds -cover -coverprofile=build/coverage.out
+make test-live PKG=./application/server/ ARGS="-race"   # stream failures as they happen
+make lint                 # golangci-lint run ./...
+make lint-fix             # go fmt + golangci-lint run --fix
+make generate             # go generate ./... (regenerates gomock mocks)
+make verify-generate      # fails if `make generate` produces a diff
+```
 
-<pushing>
-- never push without asking
-- never force push
-- when asked to push, always use 'git push --set-upstream origin $(git_current_branch)' with git_current_branch being the current branch we are on
-- regularly fetch main branch and offer to merge it into git_current_branch
-- after pushing offer to create a PR on github if no pr already exists. analyze the changes by comparing the current branch ($(git_current_branch)) with origin/main, and craft a PR description and title.
-- use the github template in .github/PULL_REQUEST_TEMPLATE.md
-</pushing>
+Tests use `testify` with a table-driven style (`tests := []struct{...}`). `INTEG_TESTS=1`/`SMOKE_TESTS=1` (plus `SMOKE_SHARD_1..4`) gate integration/smoke stages inside `make test`.
 
-<PR_creation>
-- use github mcp, if not found, use `gh` command line util for pr creation.
-- always create draft prs
-- update the github pr description with the current status `gh` command line util
-- use the diff between the current branch and main to generate the description and title
-- respect the pr template
-- get the pr review comments from snyk-pr-review-bot, analyse them and propose fixes for them. check before each commit.
-</PR_creation>
+## Architecture
 
-<documenting>
- - always keep the documentation up-to-date in (./docs)
-- don't create summary mds unless asked
-- create mermaid syntax for all programming flows and add it to the documentation in ./docs
-- use `make generate-diagrams` to generate diagrams
-- document the tested scenarios for all testing stages (unit, integration, e2e) in ./docs
-</documenting>
+- `main.go` is the entry point: it parses flags, initializes the go-application-framework engine/config, and calls `server.Start(engine, ts)`.
+- `application/` handles process wiring: `application/server` (LSP/JSON-RPC handlers), `application/di` (dependency injection), `application/config`, `application/codeaction`, `application/watcher`, `application/entrypoint`.
+- `domain/` holds core business logic: `domain/ide` (workspace, hover, codelens, treeview, initialize, all LSP-facing) and `domain/snyk` (scanner, persistence, remediation, delta, for scan orchestration).
+- `infrastructure/` contains product/backend integrations: `code`, `oss`, `iac`, `secrets`, `cli` (Snyk CLI executor), `authentication`, `learn`, `analytics`, `snyk_api`, `featureflag`, `filesystem`, `sentry`.
+- `internal/` holds shared utilities: `types` (core interfaces/mocks), `product` (product enum), `uri`, `progress`, `notification`, `logging`, `mcp`, `storage`, `vcs`, `fflags`, `testsupport`/`testutil`.
+- `ast/` does lightweight source parsing (e.g. `ast/maven/parser.go`) used for range/dependency resolution.
+- `ls_extension/` is a go-application-framework workflow letting the Snyk CLI invoke the LS as an extension (`WORKFLOWID_LS`).
+- `mcp_extension/` is an MCP server extension exposing Snyk scanning to MCP clients.
+
+## Conventions
+
+- Package-per-concern layout; mocks live in dedicated `mock_*`/`fake_*` files or `mock_<pkg>` subpackages (e.g. `infrastructure/cli/mock_cli/`), generated via `//go:generate ... mockgen` (gomock).
+- Table-driven tests with `testify` (`assert`/`require`) are the dominant style.
+- `.golangci.yaml` enforces `gofumpt`+`goimports` (local prefix `github.com/snyk/snyk-ls`), `gocyclo` (max 15), `revive`, and a custom `forbidigo` rule requiring config writes go through helpers in `internal/types/config_writers.go` rather than raw resolver key sets.
+- Every `.go` file starts with an Apache-2.0 `© <year> Snyk Limited` license header.
+- Integration-only code is gated behind the `integration` build tag, matching `INTEG_TESTS`.
+
+## Development Workflow
+
+- Read the Jira issue description/acceptance criteria before starting non-trivial work; update the ticket with a progress comment as you go.
+- Never commit an implementation plan or its diagrams to the repo.
+- Use gomock for mocking (never hand-written mocks) and reuse existing mocks.
+- Run `make lint-fix` and `make generate` (regenerates mocks), then `make test`, before committing; check coverage on changed code (`make test-coverage`, target 80%+).
+- Run Snyk SCA/Code scans (`snyk_sca_scan`, `snyk_code_scan`) against the project's absolute path before committing and after `go.mod` changes; fix real findings, don't touch test fixtures.
+- Never use `--no-verify` or otherwise skip commit hooks. Use atomic, conventional-commit-style commits; if a Jira ID (`XXX-XXXX`) appears in the branch name, append it to the subject.
+- Never push without asking first, and never force-push. Regularly fetch `main` and offer to merge it into the working branch.
+- After pushing, offer to open a draft PR using `.github/pull_request_template.md` (or update the existing PR description) with a title/description generated from the diff against `main`.
+- Keep `./docs` up to date; document tested scenarios and add Mermaid diagrams for new flows.
 
 ---
 > Source: [snyk/snyk-ls](https://github.com/snyk/snyk-ls) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
