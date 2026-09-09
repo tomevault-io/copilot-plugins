@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "atgreen",
   "homepage": "https://github.com/atgreen/icl",
-  "skills": []
+  "skills": [
+    {
+      "name": "icl",
+      "description": ""
+    },
+    {
+      "name": "icl",
+      "description": ""
+    }
+  ]
 }
