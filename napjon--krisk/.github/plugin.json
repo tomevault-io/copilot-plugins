@@ -1,0 +1,14 @@
+{
+  "name": "napjon--krisk",
+  "displayName": "krisk",
+  "description": "krisk",
+  "version": "1.0.0",
+  "author": "napjon",
+  "homepage": "https://github.com/napjon/krisk",
+  "skills": [
+    {
+      "name": "krisk",
+      "description": ""
+    }
+  ]
+}
