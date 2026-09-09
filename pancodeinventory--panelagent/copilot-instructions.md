@@ -1,357 +1,53 @@
 ## panelagent
 
-> The `ToolLoopAgent` class in AI SDK v6 provides a framework for building agentic applications that can use tools iteratively to accomplish complex tasks.
+> 流式细胞多色 panel 设计工具。LLM + 确定性算法混合架构，共享 SQLite 内核，提供 CLI + Skills、MCP、WebUI 三种入口。
 
-# AI SDK v6 Agents Reference
+# AGENTS.md — PanelAgent
 
-## Overview
+流式细胞多色 panel 设计工具。LLM + 确定性算法混合架构，共享 SQLite 内核，提供 CLI + Skills、MCP、WebUI 三种入口。
 
-The `ToolLoopAgent` class in AI SDK v6 provides a framework for building agentic applications that can use tools iteratively to accomplish complex tasks.
+## 必读（按顺序）
 
-## Installation
+1. `docs/panelagent-core.md` — 内核包公开 API、schema、CLI/MCP 用法（权威文档）
+2. 对应任务书 `docs/refactor/` — 本次任务范围与验收要求
+
+项目约束直接维护在本文件和内核文档中，不再依赖项目专用 skill。
+
+## 快速事实
+
+- **架构**：`panelagent/`（SQLite 内核包：CLI `pa` + MCP server + Python API）← FastAPI backend← Next.js 前端
+- **实验工作台**：`/exp-design` → Next 服务端 `/api/workbench/*` → stdio MCP → SQLite；可选模型负责工具编排。其他页面经 FastAPI 读写同一 SQLite 库，接入配置见 `docs/web-workbench.md`。
+- **DB**：SQLite WAL，路径 `--db` > `PANELAGENT_DB` > `~/.local/share/panelagent/panelagent.db`；一个 DB = 一个实验室（多抗体库 + 多仪器）
+- **切面分离**：backend 可 import panelagent 内核模块，禁止 import panelagent.cli/mcp；反向亦然
+- **验证基线**：`PYTHONPATH=. python3 -m pytest tests/ -q`（在项目虚拟环境运行；当前 314 passed）+ `ruff check`
+- **git 政策**：不主动 commit，等用户点头
+
+## 当前状态（2026-09-07）
+
+- v0.1–v0.1.4 内核已提交：`panelagent/` + `tests/core/`
+- v0.2.0：CLI/MCP 契约对齐、用户 Skill、发行构建、Web/后端 SQLite 整合及 CLI 安装包指南已实现。
+- Phase 2 任务书：`docs/refactor/phase2-backend.md`；迁移说明 `docs/sqlite-migration.md`。
+- 历史任务书：`docs/refactor/`
+
+## 常用命令
 
 ```bash
-bun add ai @ai-sdk/anthropic zod
+make test-backend          # pytest
+make lint-backend          # ruff
+make typecheck-frontend    # tsc
+make generate-client && make check-drift   # OpenAPI 客户端同步检查
+pa init --config-dir config --inventory-dir antibody_vault
+pa panel generate --library Mouse --markers CD3,CD4,CD8 --json
 ```
 
-## Model Selection
+## 注意
 
-Agents work with both direct providers and gateway:
-
-```typescript
-// Direct provider
-import { anthropic } from "@ai-sdk/anthropic";
-model: anthropic("claude-sonnet-4-5");
-
-// Gateway (recommended for production)
-import { gateway } from "ai";
-model: gateway("anthropic/claude-sonnet-4-5");
-```
-
-## Basic Agent Setup
-
-```typescript
-import { ToolLoopAgent, tool, stepCountIs, gateway } from "ai";
-import { z } from "zod";
-
-const myAgent = new ToolLoopAgent({
-  model: gateway("anthropic/claude-sonnet-4-5"),
-  instructions: "You are a helpful assistant.",
-  tools: {
-    getData: tool({
-      description: "Fetch data from API",
-      inputSchema: z.object({
-        query: z.string(),
-      }),
-      execute: async ({ query }) => {
-        return { result: "data for " + query };
-      },
-    }),
-  },
-  stopWhen: stepCountIs(20),
-});
-```
-
-## Configuration Options
-
-| Parameter      | Type                              | Description                                                                      |
-| -------------- | --------------------------------- | -------------------------------------------------------------------------------- |
-| `model`        | `LanguageModel`                   | The AI model (e.g., `gateway('anthropic/claude-sonnet-4-5')` or direct provider) |
-| `instructions` | `string`                          | System prompt defining agent behavior                                            |
-| `tools`        | `Record<string, Tool>`            | Available tools the agent can call                                               |
-| `stopWhen`     | `StopCondition`                   | When to terminate the agent loop                                                 |
-| `toolChoice`   | `ToolChoice`                      | Controls tool usage: `'auto'`, `'required'`, `'none'`                            |
-| `output`       | `Output<T>`                       | Optional structured output schema                                                |
-| `prepareStep`  | `(step: StepInfo) => StepConfig`  | Dynamic per-step configuration                                                   |
-| `prepareCall`  | `(call: CallInfo) => CallOptions` | Runtime options injection (e.g., for RAG)                                        |
-
-## Stop Conditions
-
-### Built-in Conditions
-
-```typescript
-import { stepCountIs, hasToolCall } from "ai";
-
-// Stop after N steps
-stopWhen: stepCountIs(20);
-
-// Stop when specific tool is called
-stopWhen: hasToolCall("finalAnswer");
-```
-
-### Custom Conditions
-
-```typescript
-const customStopCondition = ({ stepCount, totalTokens, cost, toolCalls }) => {
-  // Stop if cost exceeds limit
-  if (cost > 0.1) return true;
-
-  // Stop if token limit exceeded
-  if (totalTokens > 10000) return true;
-
-  // Stop if specific condition met
-  return toolCalls.some((tc) => tc.name === "complete");
-};
-
-const agent = new ToolLoopAgent({
-  // ...
-  stopWhen: customStopCondition,
-});
-```
-
-## Execution Modes
-
-### Non-Streaming
-
-```typescript
-const { text, toolCalls, usage } = await myAgent.generate({
-  prompt: "Find and analyze user data",
-});
-
-console.log(text);
-console.log(
-  "Tools called:",
-  toolCalls.map((tc) => tc.name)
-);
-console.log("Tokens used:", usage.totalTokens);
-```
-
-### Streaming
-
-```typescript
-const stream = myAgent.stream({ prompt: "Find and analyze user data" });
-
-for await (const chunk of stream) {
-  if (chunk.type === "text-delta") {
-    process.stdout.write(chunk.text);
-  } else if (chunk.type === "tool-call") {
-    console.log("Calling tool:", chunk.name);
-  } else if (chunk.type === "tool-result") {
-    console.log("Tool result:", chunk.result);
-  }
-}
-```
-
-## API Route Integration
-
-```typescript
-// app/api/agent/route.ts
-import { createAgentUIStreamResponse } from "ai";
-import { myAgent } from "@/agents/my-agent";
-
-export async function POST(request: Request) {
-  const { messages } = await request.json();
-
-  return createAgentUIStreamResponse({
-    agent: myAgent,
-    uiMessages: messages,
-  });
-}
-```
-
-## Dynamic Tool Control with prepareStep
-
-Control which tools are available at each step:
-
-```typescript
-const phaseAgent = new ToolLoopAgent({
-  model: anthropic("claude-sonnet-4-5"),
-  instructions: "You are a research assistant.",
-  tools: {
-    search: searchTool,
-    analyze: analyzeTool,
-    summarize: summarizeTool,
-  },
-  prepareStep: ({ stepCount }) => {
-    // Phase 1: Only search
-    if (stepCount < 3) {
-      return { toolChoice: { type: "tool", toolName: "search" } };
-    }
-    // Phase 2: Analyze results
-    if (stepCount < 6) {
-      return { toolChoice: { type: "tool", toolName: "analyze" } };
-    }
-    // Phase 3: Summarize
-    return { toolChoice: { type: "tool", toolName: "summarize" } };
-  },
-  stopWhen: stepCountIs(10),
-});
-```
-
-## RAG Integration with prepareCall
-
-Inject context dynamically before each model call:
-
-```typescript
-const ragAgent = new ToolLoopAgent({
-  model: anthropic("claude-sonnet-4-5"),
-  instructions: "Answer questions using the provided context.",
-  tools: {
-    /* ... */
-  },
-  prepareCall: async ({ prompt }) => {
-    // Fetch relevant documents
-    const relevantDocs = await vectorSearch(prompt);
-
-    return {
-      messages: [
-        {
-          role: "system",
-          content: `Context:\n${relevantDocs.join("\n\n")}`,
-        },
-      ],
-    };
-  },
-});
-```
-
-## Structured Output
-
-```typescript
-const structuredAgent = new ToolLoopAgent({
-  model: anthropic("claude-sonnet-4-5"),
-  instructions: "Analyze data and provide structured insights.",
-  tools: {
-    /* ... */
-  },
-  output: Output.object({
-    schema: z.object({
-      summary: z.string(),
-      keyPoints: z.array(z.string()),
-      confidence: z.number().min(0).max(1),
-    }),
-  }),
-});
-
-const { output } = await structuredAgent.generate({
-  prompt: "Analyze market trends",
-});
-
-console.log(output.summary);
-console.log(output.keyPoints);
-console.log(output.confidence);
-```
-
-## Client-Side Type Safety
-
-```typescript
-import type { InferAgentUIMessage } from "ai";
-
-// Get typed messages from agent
-type MyAgentMessage = InferAgentUIMessage<typeof myAgent>;
-
-// Use in React component
-function Chat() {
-  const [messages, setMessages] = useState<MyAgentMessage[]>([]);
-  // ...
-}
-```
-
-## Multi-Agent Patterns
-
-### Sequential Agents
-
-```typescript
-async function sequentialAgents(input: string) {
-  // Agent 1: Research
-  const { text: research } = await researchAgent.generate({
-    prompt: `Research: ${input}`,
-  });
-
-  // Agent 2: Analyze
-  const { text: analysis } = await analysisAgent.generate({
-    prompt: `Analyze this research: ${research}`,
-  });
-
-  // Agent 3: Report
-  const { output } = await reportAgent.generate({
-    prompt: `Generate report from: ${analysis}`,
-  });
-
-  return output;
-}
-```
-
-### Orchestrator Pattern
-
-```typescript
-const orchestratorAgent = new ToolLoopAgent({
-  model: anthropic("claude-sonnet-4-5"),
-  instructions: "Coordinate specialized agents to complete tasks.",
-  tools: {
-    delegateToResearch: tool({
-      description: "Delegate to research agent",
-      inputSchema: z.object({ query: z.string() }),
-      execute: async ({ query }) => {
-        const result = await researchAgent.generate({ prompt: query });
-        return result.text;
-      },
-    }),
-    delegateToAnalysis: tool({
-      description: "Delegate to analysis agent",
-      inputSchema: z.object({ data: z.string() }),
-      execute: async ({ data }) => {
-        const result = await analysisAgent.generate({ prompt: data });
-        return result.text;
-      },
-    }),
-  },
-});
-```
-
-## Best Practices
-
-1. **Set appropriate stop conditions** - Prevent runaway agents with `stepCountIs()` or cost limits
-2. **Use specific tool descriptions** - Help the model choose the right tool
-3. **Handle errors gracefully** - Implement `onError` callbacks
-4. **Monitor token usage** - Track costs with the `usage` return value
-5. **Test incrementally** - Start with simple tools and add complexity
-6. **Use structured output** - When you need predictable response formats
-
-## Common Pitfalls
-
-### Missing tool() wrapper
-
-```typescript
-// ❌ WRONG
-tools: {
-  myTool: {
-    description: 'My tool',
-    inputSchema: z.object({...}),
-  }
-}
-
-// ✅ CORRECT
-tools: {
-  myTool: tool({
-    description: 'My tool',
-    inputSchema: z.object({...}),
-    execute: async (args) => {...},
-  }),
-}
-```
-
-### Infinite loops
-
-```typescript
-// ❌ WRONG - No stop condition
-const agent = new ToolLoopAgent({
-  model: anthropic("claude-sonnet-4-5"),
-  tools: {
-    /* ... */
-  },
-});
-
-// ✅ CORRECT - With stop condition
-const agent = new ToolLoopAgent({
-  model: anthropic("claude-sonnet-4-5"),
-  tools: {
-    /* ... */
-  },
-  stopWhen: stepCountIs(20),
-});
-```
+- frontend 用 Next.js 16（较新），写代码前查 `frontend/node_modules/next/dist/docs/`
+- 抗体 target / fluorochrome 可以为 NULL，搜索和计算必须正确处理。
+- 亮度只采用有来源的数据；缺失时保持未知，不猜测补值。
+- `config/` 是静态数据编辑源；修改后同步 `panelagent/data/seed/`，运行时使用 SQLite。
+- MCP 使用声明支持的官方 SDK 版本；工具只读或纯计算，协议输出独占 stdout。
 
 ---
 > Source: [PanCodeInventory/PanelAgent](https://github.com/PanCodeInventory/PanelAgent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
