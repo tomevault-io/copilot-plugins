@@ -25,4 +25,4 @@ Prefer exhaustive enum matches, even when a new variant causes a breaking API ch
 
 ---
 > Source: [slatedb/slatedb](https://github.com/slatedb/slatedb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
