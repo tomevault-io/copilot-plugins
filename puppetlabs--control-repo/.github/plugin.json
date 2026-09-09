@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--control-repo",
+  "displayName": "control-repo",
+  "description": "control-repo",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/control-repo",
+  "skills": []
+}
