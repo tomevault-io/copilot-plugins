@@ -1,0 +1,9 @@
+{
+  "name": "authpass--biometric-storage",
+  "displayName": "biometric_storage",
+  "description": "biometric_storage",
+  "version": "1.0.0",
+  "author": "authpass",
+  "homepage": "https://github.com/authpass/biometric_storage",
+  "skills": []
+}
