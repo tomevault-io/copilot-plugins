@@ -1,0 +1,165 @@
+{
+  "name": "UCAgent",
+  "owner": "XS-MLVP",
+  "repo": "UCAgent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "UCAgent",
+      "path": "ucagent/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/scripts/ucagent-client/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/scripts/ucagent-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/sva-opt/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/sva-opt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/cex-gen/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/cex-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/sva-gen/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/sva-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/func-spec/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/func-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/sva-audit/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/sva-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/bug-report/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/bug-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/static-bug-analysis/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/static-bug-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/functions-and-checks/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/functions-and-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/static-bug-validation/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/static-bug-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/create-test-case-templates/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/create-test-case-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/test-case-implementation-in-batch/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/test-case-implementation-in-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/lib/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/plan/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/summary/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/env-config/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/env-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/formal/basic-info/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/formal/basic-info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/mock-components/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/mock-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UCAgent",
+      "path": "ucagent/lang/zh/skills/unitytest/dynamic-bug-recording/SKILL.md",
+      "github_url": "https://github.com/XS-MLVP/UCAgent/tree/main/ucagent/lang/zh/skills/unitytest/dynamic-bug-recording/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/XS-MLVP/UCAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:32:58Z"
+}
