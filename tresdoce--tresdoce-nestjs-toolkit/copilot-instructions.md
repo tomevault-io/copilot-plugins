@@ -415,4 +415,4 @@ Check individual `packages/<name>/package.json` for authoritative versions. The 
 
 ---
 > Source: [tresdoce/tresdoce-nestjs-toolkit](https://github.com/tresdoce/tresdoce-nestjs-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
