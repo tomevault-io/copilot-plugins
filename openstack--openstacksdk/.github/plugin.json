@@ -1,0 +1,9 @@
+{
+  "name": "openstack--openstacksdk",
+  "displayName": "openstacksdk",
+  "description": "openstacksdk",
+  "version": "1.0.0",
+  "author": "openstack",
+  "homepage": "https://github.com/openstack/openstacksdk",
+  "skills": []
+}
