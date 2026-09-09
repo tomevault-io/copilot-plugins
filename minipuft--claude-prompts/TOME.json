@@ -2,9 +2,9 @@
   "name": "claude-prompts",
   "owner": "minipuft",
   "repo": "claude-prompts",
-  "description": "MCP prompt template server: hot-reload, thinking frameworks, quality gates",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/minipuft/claude-prompts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T16:01:19Z"
+  "distributed_at": "2026-09-09T14:13:25Z"
 }
