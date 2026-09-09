@@ -2,7 +2,7 @@
 
 > This file provides context for AI assistants working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
 This file provides context for AI assistants working in this repository.
 
@@ -10,7 +10,7 @@ This file provides context for AI assistants working in this repository.
 
 `rdrr` is a TypeScript library and CLI that converts any URL into clean markdown. 10x fewer tokens for AI agents.
 
-Supports: webpages, YouTube transcripts, GitHub issues/PRs/files, PDFs, llms.txt.
+Supports: webpages, YouTube transcripts, GitHub issues/PRs/discussions/files, Stack Overflow, npm packages, X/Twitter, llms.txt.
 
 - npm: `rdrr`
 - Homepage: https://rdrr.app
@@ -22,7 +22,7 @@ Supports: webpages, YouTube transcripts, GitHub issues/PRs/files, PDFs, llms.txt
 | `src/index.ts`          | Library entry -- barrel exports                             |
 | `src/cli.ts`            | CLI entry (commander)                                       |
 | `src/rdrr.ts`           | Orchestrator: `parse(url)` detects type, routes to provider |
-| `src/detect.ts`         | URL classification (YouTube, GitHub, PDF, webpage)          |
+| `src/detect.ts`         | URL classification (YouTube, GitHub, npm, X, webpage)          |
 | `src/types.ts`          | Public types                                                |
 | `src/shared.ts`         | Shared utilities                                            |
 | `src/extract/`          | Domain: HTML content extraction engine                      |
@@ -30,7 +30,7 @@ Supports: webpages, YouTube transcripts, GitHub issues/PRs/files, PDFs, llms.txt
 | `src/extract/elements/` | Element processors (code, math, images, footnotes)          |
 | `src/extract/filters/`  | Content filtering (hidden, scoring, patterns)               |
 | `src/extract/utils/`    | DOM helpers                                                 |
-| `src/provider/`         | Domain: Content providers (web, youtube, github, pdf)       |
+| `src/provider/`         | Domain: Content providers (web, youtube, github, stackoverflow, npm, x)       |
 
 ## Common commands
 
@@ -126,4 +126,4 @@ Run /simplify before presenting code to the user.
 
 ---
 > Source: [fkonovalov/rdrr](https://github.com/fkonovalov/rdrr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
