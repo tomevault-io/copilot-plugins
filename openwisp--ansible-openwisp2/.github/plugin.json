@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--ansible-openwisp2",
+  "displayName": "ansible-openwisp2",
+  "description": "ansible-openwisp2",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/ansible-openwisp2",
+  "skills": []
+}
