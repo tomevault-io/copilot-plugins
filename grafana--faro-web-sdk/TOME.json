@@ -3,8 +3,8 @@
   "owner": "grafana",
   "repo": "faro-web-sdk",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "faro-web-sdk",
+      "path": "ai/grafana-cloud/faro-setup/skills/faro-web/SKILL.md",
+      "github_url": "https://github.com/grafana/faro-web-sdk/tree/main/ai/grafana-cloud/faro-setup/skills/faro-web/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/grafana/faro-web-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-30T04:45:36Z"
+  "distributed_at": "2026-09-09T15:32:37Z"
 }
