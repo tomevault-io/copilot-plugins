@@ -4,7 +4,7 @@
   "repo": "blueking-dbm",
   "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,219 @@
       "path": "dbm-ui/frontend/.cursor/skills/github/SKILL.md",
       "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/github/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/tapd-todo/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/tapd-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/tapd-todo/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/tapd-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/dbm-release-plan/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/dbm-release-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/agent-flow-config/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/agent-flow-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.codebuddy/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.codebuddy/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-to-code",
+      "path": "dbm-ui/frontend/.agents/skills/design-to-code",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/design-to-code",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "dbm-ui/frontend/.agents/skills/code-review",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/github/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/tapd-todo/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/tapd-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/weekly-report/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/weekly-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/design-to-code/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/design-to-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/dbm-release-plan/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/dbm-release-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/create-component/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/codebase-insights/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/codebase-insights/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/agent-flow-config/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/agent-flow-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/dbm-frontend-design/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/dbm-frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/create-project-designer/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/create-project-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "path": "dbm-ui/frontend/.agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/TencentBlueKing/blueking-dbm/tree/main/dbm-ui/frontend/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/TencentBlueKing/blueking-dbm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T01:35:16Z"
+  "distributed_at": "2026-09-09T09:30:28Z"
 }
