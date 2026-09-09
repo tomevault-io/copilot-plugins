@@ -1,0 +1,51 @@
+{
+  "name": "agentic-second-brain-guide",
+  "owner": "bbuch82",
+  "repo": "agentic-second-brain-guide",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-second-brain-guide",
+      "path": "starter/vault/skills/quick-capture/SKILL.md",
+      "github_url": "https://github.com/bbuch82/agentic-second-brain-guide/tree/main/starter/vault/skills/quick-capture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bbuch82/agentic-second-brain-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T22:54:20Z"
+}
