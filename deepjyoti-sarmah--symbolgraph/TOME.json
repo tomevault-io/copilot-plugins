@@ -1,0 +1,44 @@
+{
+  "name": "symbolgraph",
+  "owner": "Deepjyoti-Sarmah",
+  "repo": "symbolgraph",
+  "description": "Local-first code intelligence for AI agents \u2014 tree-sitter symbol graphs and hybrid (FTS5 + vector + graph) retrieval via CLI and MCP server.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Deepjyoti-Sarmah/symbolgraph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T04:29:44Z"
+}
