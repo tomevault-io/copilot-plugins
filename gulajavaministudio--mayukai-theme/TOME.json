@@ -1,0 +1,129 @@
+{
+  "name": "Mayukai-Theme",
+  "owner": "GulajavaMinistudio",
+  "repo": "Mayukai-Theme",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/omni-dev/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/omni-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/ui-designer/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/ui-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/fable-protocol/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/fable-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/memory-manager/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/memory-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/planner-architect/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/planner-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/product-manager-prd/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/product-manager-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/expert-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/expert-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/clarification-analyst/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/clarification-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/brainstorming-explorer/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/brainstorming-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/specification-architect/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/specification-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/bug-remediation-architect/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/bug-remediation-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/artifact-consistency-checker/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/artifact-consistency-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mayukai-Theme",
+      "path": ".agents/skills/diataxis-documentation-architect/SKILL.md",
+      "github_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme/tree/main/.agents/skills/diataxis-documentation-architect/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GulajavaMinistudio/Mayukai-Theme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:09:35Z"
+}
