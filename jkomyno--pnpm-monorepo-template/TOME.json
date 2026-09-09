@@ -4,7 +4,7 @@
   "repo": "pnpm-monorepo-template",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/jkomyno/pnpm-monorepo-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T01:43:39Z"
+  "distributed_at": "2026-09-09T20:07:37Z"
 }
