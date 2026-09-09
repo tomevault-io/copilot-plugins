@@ -1,6 +1,8 @@
 # AI instruction files for mcp-cbs-cijfers-open-data
 
-> Sourced from [dstotijn/mcp-cbs-cijfers-open-data](https://github.com/dstotijn/mcp-cbs-cijfers-open-data) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [dstotijn/mcp-cbs-cijfers-open-data](https://github.com/dstotijn/mcp-cbs-cijfers-open-data), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+MCP server for working with CBS Cijfers Open Data
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [dstotijn/mcp-cbs-cijfers-open-data](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dstotijn/mcp-cbs-cijfers-open-data](https://github.com/dstotijn/mcp-cbs-cijfers-open-data) — a repo with 0+ stars on GitHub.
+From [dstotijn/mcp-cbs-cijfers-open-data](https://github.com/dstotijn/mcp-cbs-cijfers-open-data) — a repo with 8+ stars on GitHub.
 
 ---
 
