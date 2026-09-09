@@ -160,4 +160,4 @@ Changesets-driven, OIDC publish (no npm token in CI). `baseBranch` is `master`.
 
 ---
 > Source: [mblode/burger](https://github.com/mblode/burger) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
