@@ -1,0 +1,9 @@
+{
+  "name": "aryan-20-04--mdrap",
+  "displayName": "mdrap",
+  "description": "Institutional-grade market data infrastructure: converts noisy, multi-venue exchange feeds into a validated, sub-microsecond canonical stream with cryptographic auditability and zero silent drops.",
+  "version": "1.0.0",
+  "author": "Aryan-20-04",
+  "homepage": "https://github.com/Aryan-20-04/mdrap",
+  "skills": []
+}
