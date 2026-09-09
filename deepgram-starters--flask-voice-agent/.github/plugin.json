@@ -1,0 +1,9 @@
+{
+  "name": "deepgram-starters--flask-voice-agent",
+  "displayName": "flask-voice-agent",
+  "description": "Flask WebSocket proxy for Deepgram's Voice Agent API",
+  "version": "1.0.0",
+  "author": "deepgram-starters",
+  "homepage": "https://github.com/deepgram-starters/flask-voice-agent",
+  "skills": []
+}
