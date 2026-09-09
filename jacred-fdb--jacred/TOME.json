@@ -1,0 +1,75 @@
+{
+  "name": "jacred",
+  "owner": "jacred-fdb",
+  "repo": "jacred",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jacred",
+      "path": ".cursor/skills/apple-design/SKILL.md",
+      "github_url": "https://github.com/jacred-fdb/jacred/tree/main/.cursor/skills/apple-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jacred",
+      "path": ".agents/skills/mintlify/SKILL.md",
+      "github_url": "https://github.com/jacred-fdb/jacred/tree/main/.agents/skills/mintlify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jacred",
+      "path": ".agents/skills/mintlify-api/SKILL.md",
+      "github_url": "https://github.com/jacred-fdb/jacred/tree/main/.agents/skills/mintlify-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jacred",
+      "path": ".agents/skills/mintlify-docs/SKILL.md",
+      "github_url": "https://github.com/jacred-fdb/jacred/tree/main/.agents/skills/mintlify-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jacred",
+      "path": ".cursor/skills/jacred-tracker-parser/SKILL.md",
+      "github_url": "https://github.com/jacred-fdb/jacred/tree/main/.cursor/skills/jacred-tracker-parser/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jacred-fdb/jacred",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:39:32Z"
+}
