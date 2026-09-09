@@ -1,0 +1,9 @@
+{
+  "name": "dokku-mcp--dokku-mcp",
+  "displayName": "dokku-mcp",
+  "description": "Dokku modular mcp server in go - fx & mcp-go",
+  "version": "1.0.0",
+  "author": "dokku-MCP",
+  "homepage": "https://github.com/dokku-MCP/dokku-mcp",
+  "skills": []
+}
