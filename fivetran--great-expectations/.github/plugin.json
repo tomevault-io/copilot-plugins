@@ -1,0 +1,22 @@
+{
+  "name": "fivetran--great-expectations",
+  "displayName": "great_expectations",
+  "description": "great_expectations",
+  "version": "1.0.0",
+  "author": "fivetran",
+  "homepage": "https://github.com/fivetran/great_expectations",
+  "skills": [
+    {
+      "name": "gx-configure-data-source",
+      "description": ""
+    },
+    {
+      "name": "great_expectations",
+      "description": ""
+    },
+    {
+      "name": "great_expectations",
+      "description": ""
+    }
+  ]
+}
