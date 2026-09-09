@@ -1,0 +1,9 @@
+{
+  "name": "burrunan--gradle-cache-action",
+  "displayName": "gradle-cache-action",
+  "description": "gradle-cache-action",
+  "version": "1.0.0",
+  "author": "burrunan",
+  "homepage": "https://github.com/burrunan/gradle-cache-action",
+  "skills": []
+}
