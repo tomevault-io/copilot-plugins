@@ -1,0 +1,87 @@
+{
+  "name": "CalcpadCE",
+  "owner": "imartincei",
+  "repo": "CalcpadCE",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "calcpad-web-frontend-developer",
+      "path": ".claude/skills/calcpad-web-frontend-developer",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-web-frontend-developer",
+      "description": ""
+    },
+    {
+      "name": "CalcpadCE",
+      "path": ".claude/skills/calcpad-generator/SKILL.md",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CalcpadCE",
+      "path": ".claude/skills/calcpad-api-developer/SKILL.md",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-api-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CalcpadCE",
+      "path": ".claude/skills/calcpad-core-developer/SKILL.md",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-core-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CalcpadCE",
+      "path": ".claude/skills/calcpad-highlighter-developer/SKILL.md",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-highlighter-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CalcpadCE",
+      "path": ".claude/skills/calcpad-web-backend-developer/SKILL.md",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-web-backend-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CalcpadCE",
+      "path": ".claude/skills/calcpad-web-frontend-developer/SKILL.md",
+      "github_url": "https://github.com/imartincei/CalcpadCE/tree/main/.claude/skills/calcpad-web-frontend-developer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/imartincei/CalcpadCE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T20:06:24Z"
+}
