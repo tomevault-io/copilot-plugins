@@ -1,0 +1,57 @@
+{
+  "name": "nebula",
+  "owner": "berylliumsec",
+  "repo": "nebula",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nebula",
+      "path": ".agents/skills/release-nebula-apt/SKILL.md",
+      "github_url": "https://github.com/berylliumsec/nebula/tree/main/.agents/skills/release-nebula-apt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nebula",
+      "path": ".agents/skills/nebula-product-quality/SKILL.md",
+      "github_url": "https://github.com/berylliumsec/nebula/tree/main/.agents/skills/nebula-product-quality/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/berylliumsec/nebula",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:58:07Z"
+}
