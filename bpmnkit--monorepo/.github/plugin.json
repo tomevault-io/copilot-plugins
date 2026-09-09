@@ -1,0 +1,9 @@
+{
+  "name": "bpmnkit--monorepo",
+  "displayName": "monorepo",
+  "description": "The complete TypeScript toolkit for Camunda 8 process automation",
+  "version": "1.0.0",
+  "author": "bpmnkit",
+  "homepage": "https://github.com/bpmnkit/monorepo",
+  "skills": []
+}
