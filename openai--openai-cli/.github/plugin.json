@@ -1,0 +1,9 @@
+{
+  "name": "openai--openai-cli",
+  "displayName": "openai-cli",
+  "description": "openai-cli",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-cli",
+  "skills": []
+}
