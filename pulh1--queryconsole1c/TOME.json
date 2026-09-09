@@ -1,0 +1,87 @@
+{
+  "name": "QueryConsole1C",
+  "owner": "pulh1",
+  "repo": "QueryConsole1C",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-1c-review/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-1c-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-edt-metadata/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-edt-metadata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-bsl-development/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-bsl-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-code-exploration/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-code-exploration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-query-development/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-query-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-parser-benchmarking/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-parser-benchmarking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QueryConsole1C",
+      "path": ".codex/skills/queryconsole-parsergen-development/SKILL.md",
+      "github_url": "https://github.com/pulh1/QueryConsole1C/tree/main/.codex/skills/queryconsole-parsergen-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pulh1/QueryConsole1C",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:31:06Z"
+}
