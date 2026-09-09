@@ -1,0 +1,9 @@
+{
+  "name": "eventhorizon-cli--bufferqueue",
+  "displayName": "BufferQueue",
+  "description": "BufferQueue",
+  "version": "1.0.0",
+  "author": "eventhorizon-cli",
+  "homepage": "https://github.com/eventhorizon-cli/BufferQueue",
+  "skills": []
+}
