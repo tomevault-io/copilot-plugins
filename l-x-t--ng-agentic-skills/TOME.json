@@ -4,7 +4,7 @@
   "repo": "ng-agentic-skills",
   "description": "Agent skills for Angular development \u2013 the companion repo for the Agentic Engineering blog post series",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/L-X-T/ng-agentic-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T15:41:53Z"
+  "distributed_at": "2026-09-09T15:42:38Z"
 }
