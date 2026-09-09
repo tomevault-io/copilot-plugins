@@ -1,0 +1,14 @@
+{
+  "name": "kralizek--awslambdasharptemplate",
+  "displayName": "AWSLambdaSharpTemplate",
+  "description": "AWSLambdaSharpTemplate",
+  "version": "1.0.0",
+  "author": "Kralizek",
+  "homepage": "https://github.com/Kralizek/AWSLambdaSharpTemplate",
+  "skills": [
+    {
+      "name": "AWSLambdaSharpTemplate",
+      "description": ""
+    }
+  ]
+}
