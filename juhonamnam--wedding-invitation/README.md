@@ -1,21 +1,21 @@
 # wedding-invitation
 
-> Tome by [juhonamnam](https://github.com/juhonamnam/wedding-invitation) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [juhonamnam](https://github.com/juhonamnam/wedding-invitation), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation).
+Original source: `AGENTS.md` in [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation) — a repo with 55+ stars on GitHub.
+From [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation) — a repo with 68+ stars on GitHub.
 
 ---
 
