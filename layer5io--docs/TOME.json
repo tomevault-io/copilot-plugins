@@ -3,8 +3,8 @@
   "owner": "layer5io",
   "repo": "docs",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "docs",
+      "path": ".agents/skills/lavish/SKILL.md",
+      "github_url": "https://github.com/layer5io/docs/tree/main/.agents/skills/lavish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/gh-axi/SKILL.md",
+      "github_url": "https://github.com/layer5io/docs/tree/main/.agents/skills/gh-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/quota-axi/SKILL.md",
+      "github_url": "https://github.com/layer5io/docs/tree/main/.agents/skills/quota-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/chrome-devtools-axi/SKILL.md",
+      "github_url": "https://github.com/layer5io/docs/tree/main/.agents/skills/chrome-devtools-axi/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/layer5io/docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T13:09:01Z"
+  "distributed_at": "2026-09-09T00:54:09Z"
 }
