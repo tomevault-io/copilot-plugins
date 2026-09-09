@@ -1,0 +1,9 @@
+{
+  "name": "saihhold-zhao--polox-ai",
+  "displayName": "polox_ai",
+  "description": "An open-source, agent-native platform for multimodal AI generation, built on DeepSeek Harness. Every interaction lives in agent conversations and an infinite canvas, unifying creation, generation, and",
+  "version": "1.0.0",
+  "author": "saihhold-zhao",
+  "homepage": "https://github.com/saihhold-zhao/polox_ai",
+  "skills": []
+}
