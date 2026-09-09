@@ -1,0 +1,9 @@
+{
+  "name": "openstack--cyborg",
+  "displayName": "cyborg",
+  "description": "cyborg",
+  "version": "1.0.0",
+  "author": "openstack",
+  "homepage": "https://github.com/openstack/cyborg",
+  "skills": []
+}
