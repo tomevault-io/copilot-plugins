@@ -4,7 +4,7 @@
   "repo": "snyk-ls",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/snyk/snyk-ls",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T15:46:53Z"
+  "distributed_at": "2026-09-09T03:37:20Z"
 }
