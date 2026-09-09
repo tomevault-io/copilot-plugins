@@ -1,0 +1,9 @@
+{
+  "name": "zephyrproject-rtos--zephyr",
+  "displayName": "zephyr",
+  "description": "zephyr",
+  "version": "1.0.0",
+  "author": "zephyrproject-rtos",
+  "homepage": "https://github.com/zephyrproject-rtos/zephyr",
+  "skills": []
+}
