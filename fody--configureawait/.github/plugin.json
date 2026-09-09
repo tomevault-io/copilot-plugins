@@ -1,0 +1,9 @@
+{
+  "name": "fody--configureawait",
+  "displayName": "ConfigureAwait",
+  "description": "ConfigureAwait",
+  "version": "1.0.0",
+  "author": "Fody",
+  "homepage": "https://github.com/Fody/ConfigureAwait",
+  "skills": []
+}
