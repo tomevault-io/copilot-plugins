@@ -1,0 +1,22 @@
+{
+  "name": "cyberchitta--llm-context-py",
+  "displayName": "llm-context.py",
+  "description": "llm-context.py",
+  "version": "1.0.0",
+  "author": "cyberchitta",
+  "homepage": "https://github.com/cyberchitta/llm-context.py",
+  "skills": [
+    {
+      "name": "llm-context-rule-creator",
+      "description": ""
+    },
+    {
+      "name": "llm-context.py",
+      "description": ""
+    },
+    {
+      "name": "llm-context.py",
+      "description": ""
+    }
+  ]
+}
