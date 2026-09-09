@@ -1,0 +1,9 @@
+{
+  "name": "sumologic--sumologic-kubernetes-collection",
+  "displayName": "sumologic-kubernetes-collection",
+  "description": "sumologic-kubernetes-collection",
+  "version": "1.0.0",
+  "author": "SumoLogic",
+  "homepage": "https://github.com/SumoLogic/sumologic-kubernetes-collection",
+  "skills": []
+}
