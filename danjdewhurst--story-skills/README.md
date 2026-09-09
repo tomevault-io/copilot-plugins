@@ -1,15 +1,15 @@
 # story-skills
 
-> Source: [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills).
+Original source: `CLAUDE.md` in [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -30,7 +30,7 @@ Original source: `AGENTS.md` in [danjdewhurst/story-skills](https://github.com/d
 - [story-skills](https://github.com/danjdewhurst/story-skills/tree/main/skills/revision-continuity/SKILL.md)
 - [story-skills](https://github.com/danjdewhurst/story-skills/tree/main/skills/character-management/SKILL.md)
 
-From [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills) — a repo with 119+ stars on GitHub.
+From [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills) — a repo with 211+ stars on GitHub.
 
 ---
 
