@@ -1,0 +1,18 @@
+{
+  "name": "vasallo94--obsidian-mcp-server",
+  "displayName": "obsidian-mcp-server",
+  "description": "Vault-native MCP server for Obsidian: let Codex, Claude Code, Hermes, and other agents read, search, and safely manage your notes.",
+  "version": "1.0.0",
+  "author": "Vasallo94",
+  "homepage": "https://github.com/Vasallo94/obsidian-mcp-server",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation-updater",
+      "description": ""
+    }
+  ]
+}
