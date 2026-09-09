@@ -1,0 +1,14 @@
+{
+  "name": "anxforever--stylekit",
+  "displayName": "stylekit",
+  "description": "\u7cbe\u9009\u4f18\u8d28 Web \u8bbe\u8ba1\u98ce\u683c\uff0c\u63d0\u4f9b\u6587\u6863\u3001\u7ec4\u4ef6\u6a21\u677f\u3001\u4ee3\u7801\u7247\u6bb5\uff0c \u4ee5\u53ca\u53ef\u76f4\u63a5\u5bfc\u51fa\u7684 AI Rules\u3002",
+  "version": "1.0.0",
+  "author": "AnxForever",
+  "homepage": "https://github.com/AnxForever/stylekit",
+  "skills": [
+    {
+      "name": "stylekit",
+      "description": ""
+    }
+  ]
+}
