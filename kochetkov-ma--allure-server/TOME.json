@@ -1,0 +1,75 @@
+{
+  "name": "allure-server",
+  "owner": "kochetkov-ma",
+  "repo": "allure-server",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "allure-server",
+      "path": ".claude/skills/task-spec/SKILL.md",
+      "github_url": "https://github.com/kochetkov-ma/allure-server/tree/main/.claude/skills/task-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "allure-server",
+      "path": ".claude/skills/task-board/SKILL.md",
+      "github_url": "https://github.com/kochetkov-ma/allure-server/tree/main/.claude/skills/task-board/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "allure-server",
+      "path": ".claude/skills/superreview/SKILL.md",
+      "github_url": "https://github.com/kochetkov-ma/allure-server/tree/main/.claude/skills/superreview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "allure-server",
+      "path": ".claude/skills/memory-sync/SKILL.md",
+      "github_url": "https://github.com/kochetkov-ma/allure-server/tree/main/.claude/skills/memory-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "allure-server",
+      "path": ".claude/skills/brewcode-review/SKILL.md",
+      "github_url": "https://github.com/kochetkov-ma/allure-server/tree/main/.claude/skills/brewcode-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kochetkov-ma/allure-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T22:51:26Z"
+}
