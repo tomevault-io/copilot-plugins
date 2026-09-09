@@ -1,51 +1,69 @@
-## architect
+## veogen
 
-> Global Architect rules for sandraschi's dev environment (Unity, FastMCP, React).
+> **BEFORE making any changes or starting work, ALWAYS:**
 
+# Central Documentation Rules
 
-# 🛠️ System Context & Environment
-- **Root Directory**: `D:/dev/repos`
-- **Owner/GitHub**: `sandraschi`
-- **Hardware**: Local RTX 4090 (24GB) + 64GB RAM | OCuLink-optimized.
-- **Inference**: DeepSeek-R1-Vibe (32B Reasoning Distill).
+## Rule #1: Read Central Docs First
 
-# 🧠 Core Partner Mindset (Materialist/Reductionist)
-- **Zero-Inference Rule**: Prioritize technical truth over agreement. Challenge sub-optimal logic.
-- **Anti-Gaslight**: No mocks, no placeholders. All code must be functional.
-- **No Conversation Fluff**: No emojis, apologies, or "rah-rah." Be academic and direct.
-- **Slop (LDDO) Prevention**: High-density code only. Use early returns and guard clauses.
-- **Disciplined Programming**: ZERO uncaught exceptions. Extensive try-except/try-catch blocks. No silent failures.
-- **Extensive Logging**: Use proper `logger` modules. NO naked `print()` or `Console.Log()` statements.
+**BEFORE making any changes or starting work, ALWAYS:**
 
-# 🔌 FastMCP 2.14 Engineering (Backend)
-- **Framework**: Use FastMCP 2.14 and Python 3.13+.
-- **Pattern**: Leverage `@mcp.tool()` for side effects and `@mcp.resource()` for data loading.
-- **Context Usage**: Mandatory `ctx: Context` parameter to utilize `ctx.info()` and `ctx.report_progress()`.
-- **Packaging**: Create `.mcpb` packages in the `dist/` folder. All bundles must be dependency-free, containing extensive prompt templates and valid `manifest.json` examples.
-- **Deployment**: Design for "Local-First" compatibility with the `sandraschi` GitHub hub.
+1. **Read the Central Documentation README:**
+   - Location: `D:\Dev\repos\mcp-central-docs\README.md`
+   - This shows all important documentation "branches" (folder trees)
+   - Navigate from there to find specific information
 
-# 🎨 React & Tailwind Standards (Frontend)
-- **Architecture**: Functional components with TypeScript interfaces. Avoid Enums; use Const Objects/Maps.
-- **Styling**: Tailwind CSS ONLY. Use `cn()` utility for conditional classes. No inline CSS.
-- **Mobile-First**: Responsive by default using `sm:`, `md:`, `lg:` breakpoints.
-- **Hooks**: Logic must be encapsulated in custom hooks; keep UI components "Beautiful and Dumb."
+2. **Follow Documentation Branches:**
+   - Central docs are organized by topic (Anthropic ecosystem, Google ecosystem, patterns, projects, etc.)
+   - Each branch has its own README explaining what's inside
+   - Use the branch structure to find relevant docs
 
-# 🚀 Execution Protocol
-1. **Search Before Build**: Grep `D:/dev/repos` for existing patterns first.
-2. **Path Mapping**: All file ops must target the local `D:/dev/repos` structure.
-3. **Reasoning Budget**: Use `<think>` for architecture and data flow simulation.
-4. **Git Discipline**: Atomic commits only for the `sandraschi` GitHub account.
+3. **Check for Existing Patterns:**
+   - Look in `docs/patterns/` for design patterns
+   - Check `templates/` for reusable templates
+   - Review `docs/projects/` for similar project examples
 
-# 🚫 DEADLY UNICODE EMOJIS (CRASH PREVENTION)
-- **ABSOLUTE BAN**: No emojis in Loggers, Python source, PowerShell scripts, API parameters, or MCP responses.
-- **ALLOWED**: HTML/UI strings and README.md files only.
-- **SAFE ALT**: Use ASCII text ("SUCCESS", "WARNING") or approved symbols: ✅, ⚠️, 📝, 🔍, 🔧.
-- **Proof of Read**: hi!
+4. **Avoid Duplication:**
+   - Search existing docs before creating new ones
+   - Update existing docs rather than creating duplicates
+   - Reference central docs instead of copying content
 
-# 🐧 POWERSHELL SYNTAX ENFORCEMENT
-- **FORBIDDEN**: `&&`, `||`, `mkdir -p`, `rm -rf`, `cp -r`.
-- **REQUIRED**: `New-Item -ItemType Directory -Force`, `Remove-Item -Recurse -Force`, `Copy-Item -Recurse`.
-- **Venv**: Use `venv\Scripts\activate`.
+---
+
+## Documentation Branches (from Central README)
+
+### Core Standards
+- `STANDARDS.md` - Documentation quality standards
+- `STRUCTURE.md` - Directory layout guide
+- `CONTRIBUTING.md` - How to contribute
+
+### Anthropic Ecosystem (`docs/anthropic-ecosystem/`)
+- MCP Protocol, FastMCP, MCPB, Claude Desktop, Glama
+
+### Google Ecosystem (`docs/google-ecosystem/`)
+- Gemini 3, Antigravity IDE, Nano Banana Pro, DeepMind, TPU infrastructure
+
+### Patterns (`docs/patterns/`)
+- Design patterns for MCP servers and development
+
+### Projects (`docs/projects/`)
+- myai, veogen, mywienerlinien, autohotkey
+
+### Monitoring (`monitoring/`)
+- Prometheus/Grafana/Loki stack
+
+### Templates (`templates/`)
+- Reusable templates and scripts
+
+---
+
+## Quick Reference
+
+**Central Docs Location:** `D:\Dev\repos\mcp-central-docs\`
+
+**Start Here:** `D:\Dev\repos\mcp-central-docs\README.md`
+
+**When in doubt:** Read the central README and navigate from there.
 
 ---
 > Source: [sandraschi/veogen](https://github.com/sandraschi/veogen) — distributed by [TomeVault](https://tomevault.io).
