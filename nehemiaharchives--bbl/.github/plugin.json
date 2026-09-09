@@ -1,0 +1,14 @@
+{
+  "name": "nehemiaharchives--bbl",
+  "displayName": "bbl",
+  "description": "bbl",
+  "version": "1.0.0",
+  "author": "nehemiaharchives",
+  "homepage": "https://github.com/nehemiaharchives/bbl",
+  "skills": [
+    {
+      "name": "bbl",
+      "description": ""
+    }
+  ]
+}
