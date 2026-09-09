@@ -2,7 +2,7 @@
 
 > MCP server for the *arr media management suite (Sonarr, Radarr, Lidarr, Prowlarr).
 
-# CLAUDE.md - mcp-arr
+# AGENTS.md - mcp-arr
 
 MCP server for the *arr media management suite (Sonarr, Radarr, Lidarr, Prowlarr).
 
@@ -115,6 +115,10 @@ All *arr services follow similar REST patterns:
 - DELETE `/api/v3/{resource}/{id}` - Delete
 - POST `/api/v3/command` - Trigger actions (search, refresh, etc.)
 
+## Pre-Publish
+
+Run `/publish-mcp` before any `npm publish` — mandatory pipeline that handles tests, secret scan, sanitize, docs check, version bump, tag, push, and publish in strict order. Do not run `npm publish` directly.
+
 ---
 > Source: [aplaceforallmystuff/mcp-arr](https://github.com/aplaceforallmystuff/mcp-arr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
