@@ -7,13 +7,13 @@ upload to nzb
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [kipsilabs/postie](https://github.com/kipsilabs/postie).
+Original source: `CLAUDE.md` in [kipsilabs/postie](https://github.com/kipsilabs/postie).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
