@@ -2,9 +2,9 @@
   "name": "alchemy",
   "owner": "alchemy-run",
   "repo": "alchemy",
-  "description": "Infrastructure as TypeScript",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alchemy-run/alchemy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T01:08:09Z"
+  "distributed_at": "2026-09-09T07:22:09Z"
 }
