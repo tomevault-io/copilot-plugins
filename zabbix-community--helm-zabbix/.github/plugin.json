@@ -1,0 +1,14 @@
+{
+  "name": "zabbix-community--helm-zabbix",
+  "displayName": "helm-zabbix",
+  "description": "helm-zabbix",
+  "version": "1.0.0",
+  "author": "zabbix-community",
+  "homepage": "https://github.com/zabbix-community/helm-zabbix",
+  "skills": [
+    {
+      "name": "helm-zabbix",
+      "description": ""
+    }
+  ]
+}
