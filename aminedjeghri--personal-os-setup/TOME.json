@@ -1,0 +1,93 @@
+{
+  "name": "personal-os-setup",
+  "owner": "AmineDjeghri",
+  "repo": "personal-os-setup",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/vm-lab/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/vm-lab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/docs-site/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/docs-site/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/repo-gotchas/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/repo-gotchas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/ship-feature/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/ship-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/add-system-action/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/add-system-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": ".claude/skills/fork-and-customize/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/.claude/skills/fork-and-customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "personal-os-setup",
+      "path": "docs/home-server/music/youtube_ai_download/skill/yt-dlp-music-downloads/SKILL.md",
+      "github_url": "https://github.com/AmineDjeghri/personal-os-setup/tree/main/docs/home-server/music/youtube_ai_download/skill/yt-dlp-music-downloads/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AmineDjeghri/personal-os-setup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T22:39:11Z"
+}
