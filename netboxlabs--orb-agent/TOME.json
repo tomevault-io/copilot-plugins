@@ -2,9 +2,9 @@
   "name": "orb-agent",
   "owner": "netboxlabs",
   "repo": "orb-agent",
-  "description": "Orb network observability agent, part of the NetBox ecosystem and developed by NetBox Labs",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/netboxlabs/orb-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T23:33:31Z"
+  "distributed_at": "2026-09-09T12:01:25Z"
 }
