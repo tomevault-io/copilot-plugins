@@ -43,4 +43,4 @@ The solution pins package versions per project; there is no central `Directory.P
 
 ---
 > Source: [Nice3point/RevitTemplates](https://github.com/Nice3point/RevitTemplates) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
