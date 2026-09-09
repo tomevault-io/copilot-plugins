@@ -1,0 +1,9 @@
+{
+  "name": "promptwhisper--ballpoint-breach",
+  "displayName": "ballpoint-breach",
+  "description": "A procedural hand-drawn arena FPS built with Three.js.",
+  "version": "1.0.0",
+  "author": "promptwhisper",
+  "homepage": "https://github.com/promptwhisper/ballpoint-breach",
+  "skills": []
+}
