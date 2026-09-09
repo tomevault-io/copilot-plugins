@@ -1,0 +1,183 @@
+{
+  "name": "beancount-io",
+  "owner": "bex-co",
+  "repo": "beancount-io",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/pm/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/ship/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/mermaid/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "mobile/.agents/skills/mermaid/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/mobile/.agents/skills/mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/loop-worker/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/loop-worker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-ask/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/pm-brainstorm/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/pm-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-init/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-close/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-close/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-import/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-options/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-options/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-migrate/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-dup-unifier/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-dup-unifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-reconcile/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-reconcile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-logic-bugfixer/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-logic-bugfixer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-logic-simplifier/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-logic-simplifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-flaky-test-fixer/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-flaky-test-fixer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-dead-code-removal/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-dead-code-removal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/beancount-importer-author/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/beancount-importer-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-abstraction-police/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-abstraction-police/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-useless-test-pruner/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-useless-test-pruner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-abstraction-improver/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-abstraction-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beancount-io",
+      "path": "skills/.claude/skills/routine-shipped-feature-inliner/SKILL.md",
+      "github_url": "https://github.com/bex-co/beancount-io/tree/main/skills/.claude/skills/routine-shipped-feature-inliner/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bex-co/beancount-io",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:29:30Z"
+}
