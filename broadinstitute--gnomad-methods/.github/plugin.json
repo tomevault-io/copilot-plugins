@@ -1,0 +1,9 @@
+{
+  "name": "broadinstitute--gnomad-methods",
+  "displayName": "gnomad_methods",
+  "description": "gnomad_methods",
+  "version": "1.0.0",
+  "author": "broadinstitute",
+  "homepage": "https://github.com/broadinstitute/gnomad_methods",
+  "skills": []
+}
