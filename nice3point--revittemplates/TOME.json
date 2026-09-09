@@ -4,7 +4,7 @@
   "repo": "RevitTemplates",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/Nice3point/RevitTemplates",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T22:09:41Z"
+  "distributed_at": "2026-09-09T17:47:19Z"
 }
