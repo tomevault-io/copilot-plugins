@@ -1,0 +1,14 @@
+{
+  "name": "meilisearch--meilisearch-js",
+  "displayName": "meilisearch-js",
+  "description": "meilisearch-js",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/meilisearch-js",
+  "skills": [
+    {
+      "name": "meilisearch-js",
+      "description": ""
+    }
+  ]
+}
