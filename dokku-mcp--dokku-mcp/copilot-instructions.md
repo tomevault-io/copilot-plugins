@@ -1,238 +1,137 @@
-## golang-standards
+## mcp-development
 
-> - **Prefer clarity over cleverness** - code should be readable and maintainable
+> - **URI pattern**: Use consistent scheme like `dokku://resource-type/identifier`
 
-# Go Development Standards
+# MCP Server Development
 
-## Code Style and Conventions
+## Resource Implementation
 
-### Effective Go Principles
-- **Prefer clarity over cleverness** - code should be readable and maintainable
-- **Use Go conventions consistently** - follow community standards
-- **Embrace Go's simplicity** - don't over-engineer solutions
-- **Write self-documenting code** - good names reduce need for comments
+### Resource Structure
+- **URI pattern**: Use consistent scheme like `dokku://resource-type/identifier`
+- **Name and description**: Provide clear, human-readable information
+- **MIME type**: Use appropriate content types (`application/json`, `text/plain`)
+- **Metadata**: Include relevant context for LLM understanding
 
-### Naming Conventions (Official Go Style)
-- Use **camelCase** for local variables: `appName`, `clientTimeout`
-- Use **PascalCase** for exported functions and types: `NewApplication`, `ApplicationState`
-- Use **UPPER_CASE** for constants with package prefix: `APPLICATION_STATE_RUNNING`
-- Package names should be **short and descriptive**: `application`, `dokku`, `mcp`
-
+### Resource Handler Pattern
 ```go
-// GOOD: Clear, concise, contextual names
-type UserService struct{}
-func (s *UserService) GetActiveUsers() []User {}
-
-// Constants: Use descriptive names
-const (
-    DefaultTimeout = 30 * time.Second
-    MaxRetries     = 3
-)
-
-// Avoid: Unnecessary prefixes/suffixes
-type UserStruct struct{} // Don't add "Struct"
-func GetUserData() {}    // "Data" is redundant
-```
-
-### Error Handling - Go Best Practices
-```go
-// 1. Return errors as last value
-func ProcessApplication(name string) (*Application, error) {
-    if name == "" {
-        return nil, fmt.Errorf("application name cannot be empty")
-    }
-    // ... business logic ...
-    return app, nil
+type ResourceHandler struct {
+    repository domain.Repository
+    cache      Cache
 }
 
-// 2. Handle errors immediately
-app, err := ProcessApplication("my-app")
-if err != nil {
-    return fmt.Errorf("failed to process application: %w", err)
-}
-
-// 3. Use custom error types for business logic
-type ValidationError struct {
-    Field   string
-    Message string
-}
-
-func (e ValidationError) Error() string {
-    return fmt.Sprintf("validation error on %s: %s", e.Field, e.Message)
-}
-```
-
-### Strong Typing
-- **No `interface{}` without valid reason** - create specific types instead
-- **Use typed enums with constants** for state management
-- **Create business domain types** instead of primitive strings/ints
-- **No unsafe type assertions** - always check with comma ok idiom
-
-```go
-// GOOD: Domain-specific type
-type ApplicationState string
-
-const (
-    ApplicationStateRunning ApplicationState = "running"
-    ApplicationStateStopped ApplicationState = "stopped"
-)
-
-// BAD: Using primitive string
-func SetAppState(state string) error // Don't do this
-```
-
-### Concurrency Patterns (From Go Documentation)
-```go
-// Pattern 1: Worker pools with context
-func (s *DeploymentService) ProcessBatch(ctx context.Context, apps []Application) error {
-    const numWorkers = 5
-    jobs := make(chan Application, len(apps))
-    results := make(chan error, len(apps))
-    
-    // Start workers
-    for i := 0; i < numWorkers; i++ {
-        go func() {
-            for app := range jobs {
-                select {
-                case <-ctx.Done():
-                    results <- ctx.Err()
-                    return
-                case results <- s.deployApp(ctx, app):
-                }
-            }
-        }()
+func (h *ResourceHandler) HandleApplications(ctx context.Context) ([]*mcp.Resource, error) {
+    // 1. Get data from domain layer
+    apps, err := h.repository.GetAll(ctx)
+    if err != nil {
+        return nil, fmt.Errorf("failed to retrieve applications: %w", err)
     }
     
-    // Send jobs
-    for _, app := range apps {
-        jobs <- app
-    }
-    close(jobs)
-    
-    // Collect results
-    for i := 0; i < len(apps); i++ {
-        if err := <-results; err != nil {
-            return fmt.Errorf("batch processing failed: %w", err)
+    // 2. Transform to MCP resources
+    resources := make([]*mcp.Resource, len(apps))
+    for i, app := range apps {
+        resources[i] = &mcp.Resource{
+            URI:         fmt.Sprintf("dokku://app/%s", app.Name()),
+            Name:        app.Name(),
+            Description: fmt.Sprintf("Dokku Application: %s", app.Name()),
+            MimeType:    "application/json",
         }
     }
     
-    return nil
+    return resources, nil
 }
+```
 
-// Pattern 2: Timeout and cancellation
-func (c *DokkuClient) ExecuteWithTimeout(cmd string, timeout time.Duration) error {
-    ctx, cancel := context.WithTimeout(context.Background(), timeout)
-    defer cancel()
-    
-    done := make(chan error, 1)
-    go func() {
-        done <- c.execute(cmd)
-    }()
-    
-    select {
-    case err := <-done:
-        return err
-    case <-ctx.Done():
-        return fmt.Errorf("command timed out after %v: %w", timeout, ctx.Err())
+## Tool Implementation
+
+### Tool Definition
+```go
+func (t *DeployTool) Definition() *mcp.ToolDefinition {
+    return &mcp.ToolDefinition{
+        Name:        "deploy_application",
+        Description: "Deploy a Dokku application from Git repository",
+        InputSchema: map[string]interface{}{
+            "type": "object",
+            "properties": map[string]interface{}{
+                "app_name": map[string]interface{}{
+                    "type":        "string",
+                    "description": "Name of the application to deploy",
+                },
+                "git_ref": map[string]interface{}{
+                    "type":        "string",
+                    "description": "Git reference to deploy (optional)",
+                    "default":     "main",
+                },
+            },
+            "required": []string{"app_name"},
+        },
     }
 }
 ```
 
-### Interface Design (Go Philosophy)
+### Tool Execution Pattern
 ```go
-// Prefer small interfaces
-type Deployer interface {
-    Deploy(ctx context.Context, app Application) error
-}
-
-type Scaler interface {
-    Scale(ctx context.Context, app string, instances int) error
-}
-
-// Composition over large interfaces
-type ApplicationManager interface {
-    Deployer
-    Scaler
-}
-```
-
-### Function Design
-- **Keep functions focused** - single responsibility principle
-- **Limit cognitive complexity** to under 25 per function
-- **Input parameters before output parameters**
-- **Use descriptive names** that clearly indicate function purpose
-
-### Memory Management Best Practices
-```go
-// Preallocate slices when size is known
-func processApplications(apps []Application) []ProcessedApp {
-    // GOOD: Preallocate with known capacity
-    processed := make([]ProcessedApp, 0, len(apps))
-    
-    for _, app := range apps {
-        processed = append(processed, processApp(app))
+func (t *DeployTool) Execute(ctx context.Context, params map[string]interface{}) (*mcp.ToolResult, error) {
+    // 1. Validate and extract parameters
+    appName, ok := params["app_name"].(string)
+    if !ok || appName == "" {
+        return nil, errors.New("app_name parameter is required")
     }
     
-    return processed
-}
-
-// Buffer reuse to reduce allocations
-type LogProcessor struct {
-    buffer bytes.Buffer
-}
-
-func (lp *LogProcessor) FormatLog(entry LogEntry) string {
-    lp.buffer.Reset() // Reuse buffer
-    lp.buffer.WriteString(entry.Timestamp.Format(time.RFC3339))
-    lp.buffer.WriteString(" [")
-    lp.buffer.WriteString(entry.Level)
-    lp.buffer.WriteString("] ")
-    lp.buffer.WriteString(entry.Message)
-    return lp.buffer.String()
-}
-```
-
-## Examples
-
-### Good Error Handling
-```go
-func (s *ApplicationService) Deploy(ctx context.Context, name string) error {
-    if name == "" {
-        return fmt.Errorf("application name cannot be empty")
-    }
-    
-    app, err := s.repo.GetByName(ctx, name)
+    // 2. Execute business logic through domain layer
+    deployment, err := t.deployService.Deploy(ctx, appName, domain.DeployOptions{
+        GitRef: getStringParam(params, "git_ref"),
+    })
     if err != nil {
-        return fmt.Errorf("failed to get application %s: %w", name, err)
+        return &mcp.ToolResult{
+            Content: []map[string]interface{}{
+                {
+                    "type": "text",
+                    "text": fmt.Sprintf("Deployment failed: %v", err),
+                },
+            },
+            IsError: true,
+        }, nil
     }
     
-    return nil
+    // 3. Return structured result
+    return &mcp.ToolResult{
+        Content: []map[string]interface{}{
+            {
+                "type": "text",
+                "text": fmt.Sprintf("✅ Deployment successful: %s", deployment.ID),
+            },
+        },
+    }, nil
 }
 ```
 
-### Context Usage Pattern
-```go
-// Official Go pattern for timeouts
-func (s *ApplicationService) DeployWithTimeout(appName string, timeout time.Duration) error {
-    ctx, cancel := context.WithTimeout(context.Background(), timeout)
-    defer cancel()
-    
-    // Channel for result
-    result := make(chan error, 1)
-    
-    go func() {
-        result <- s.performDeploy(ctx, appName)
-    }()
-    
-    select {
-    case err := <-result:
-        return err
-    case <-ctx.Done():
-        return fmt.Errorf("deployment of %s timed out after %v: %w", 
-                         appName, timeout, ctx.Err())
-    }
-}
-```
+## Security Guidelines
+
+### Input Validation
+- **Validate all parameters** before processing
+- **Sanitize command arguments** for Dokku execution
+- **Check permissions** for requested operations
+- **Rate limit** tool executions
+
+### Error Handling
+- **Never expose internal errors** to MCP clients
+- **Log detailed errors** for debugging
+- **Return user-friendly messages** in tool results
+- **Use structured error responses**
+
+## Best Practices
+
+### Performance
+- **Cache resource data** with appropriate TTL
+- **Use context for timeouts** on long operations
+- **Implement pagination** for large datasets
+- **Batch operations** when possible
+
+### Monitoring
+- **Log all tool executions** with client context
+- **Track resource access patterns**
+- **Monitor response times** and error rates
+- **Include request IDs** for tracing
 
 ---
 > Source: [dokku-MCP/dokku-mcp](https://github.com/dokku-MCP/dokku-mcp) — distributed by [TomeVault](https://tomevault.io).
