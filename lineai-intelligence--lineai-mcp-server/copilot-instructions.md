@@ -1,13 +1,20 @@
-## environment-variables
+## error-handling
 
-> Key environment variables for the Lineai MCP Server
+> Error handling patterns for the Lineai MCP Server
 
-- `LINEAI_SERVER_HOST`: Lineai server URL
-- `LINEAI_USERNAME`: Username for authentication
-- `LINEAI_PASSWORD`: Password for authentication
-- `LINEAI_WORKSPACE_NAME`: Workspace name
-- `LINEAI_DEBUG_MODE`: Enable debug logging
-- `LINEAI_TEST_MODE`: Used by test framework
+# Use the following pattern for error handling in tool implementations
+
+```python
+try:
+    # Operations that might fail
+except Exception as e:
+    sys.stderr.write(f"Error: {str(e)}\n")
+    return [types.TextContent(type="text", text=f"# Error\n\n{str(e)}")]
+```
+
+- Always catch and report exceptions
+- Write errors to stderr
+- Return formatted error messages to the client
 
 ---
 > Source: [lineai-intelligence/lineai-mcp-server](https://github.com/lineai-intelligence/lineai-mcp-server) — distributed by [TomeVault](https://tomevault.io).
