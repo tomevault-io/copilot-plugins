@@ -5,15 +5,20 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ximing/fabric-photo](https://github.com/ximing/fabric-photo).
+Original source: `AGENTS.md` in [ximing/fabric-photo](https://github.com/ximing/fabric-photo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [fabric-photo](https://github.com/ximing/fabric-photo/tree/main/.agents/skills/km-progressive-project/SKILL.md)
+- [fabric-photo](https://github.com/ximing/fabric-photo/tree/main/.claude/skills/km-progressive-project/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ximing/fabric-photo](https://github.com/ximing/fabric-photo)
 
