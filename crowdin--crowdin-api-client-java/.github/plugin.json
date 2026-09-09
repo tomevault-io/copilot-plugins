@@ -1,0 +1,9 @@
+{
+  "name": "crowdin--crowdin-api-client-java",
+  "displayName": "crowdin-api-client-java",
+  "description": "crowdin-api-client-java",
+  "version": "1.0.0",
+  "author": "crowdin",
+  "homepage": "https://github.com/crowdin/crowdin-api-client-java",
+  "skills": []
+}
