@@ -1,21 +1,21 @@
 # AI instruction files for ir-sim
 
-> Sourced from [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim).
+Original source: `AGENTS.md` in [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim) — a repo with 1097+ stars on GitHub.
+From [hanruihua/ir-sim](https://github.com/hanruihua/ir-sim) — a repo with 1130+ stars on GitHub.
 
 ---
 
