@@ -1,0 +1,9 @@
+{
+  "name": "saeedkolivand--crosskit",
+  "displayName": "crosskit",
+  "description": "Framework-agnostic UI components. One behavior core, one stylesheet, adapters for React, Vue, Svelte and Angular.",
+  "version": "1.0.0",
+  "author": "saeedkolivand",
+  "homepage": "https://github.com/saeedkolivand/crosskit",
+  "skills": []
+}
