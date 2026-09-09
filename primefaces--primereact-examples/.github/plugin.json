@@ -1,0 +1,14 @@
+{
+  "name": "primefaces--primereact-examples",
+  "displayName": "primereact-examples",
+  "description": "primereact-examples",
+  "version": "1.0.0",
+  "author": "primefaces",
+  "homepage": "https://github.com/primefaces/primereact-examples",
+  "skills": [
+    {
+      "name": "primereact-examples",
+      "description": ""
+    }
+  ]
+}
