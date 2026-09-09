@@ -1,0 +1,14 @@
+{
+  "name": "gradle--gradle",
+  "displayName": "gradle",
+  "description": "gradle",
+  "version": "1.0.0",
+  "author": "gradle",
+  "homepage": "https://github.com/gradle/gradle",
+  "skills": [
+    {
+      "name": "gradle",
+      "description": ""
+    }
+  ]
+}
