@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "citywill",
   "homepage": "https://github.com/citywill/pocket-stack",
-  "skills": []
+  "skills": [
+    {
+      "name": "pocket-stack",
+      "description": ""
+    },
+    {
+      "name": "pocket-stack",
+      "description": ""
+    }
+  ]
 }
