@@ -3,8 +3,8 @@
   "owner": "ximing",
   "repo": "fabric-photo",
   "description": "",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "fabric-photo",
+      "path": ".agents/skills/km-progressive-project/SKILL.md",
+      "github_url": "https://github.com/ximing/fabric-photo/tree/main/.agents/skills/km-progressive-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-photo",
+      "path": ".claude/skills/km-progressive-project/SKILL.md",
+      "github_url": "https://github.com/ximing/fabric-photo/tree/main/.claude/skills/km-progressive-project/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ximing/fabric-photo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T05:02:29Z"
+  "distributed_at": "2026-09-09T06:35:30Z"
 }
