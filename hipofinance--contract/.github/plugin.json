@@ -1,0 +1,14 @@
+{
+  "name": "hipofinance--contract",
+  "displayName": "contract",
+  "description": "contract",
+  "version": "1.0.0",
+  "author": "HipoFinance",
+  "homepage": "https://github.com/HipoFinance/contract",
+  "skills": [
+    {
+      "name": "contract",
+      "description": ""
+    }
+  ]
+}
