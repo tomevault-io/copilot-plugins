@@ -22,21 +22,37 @@
 ```
 rasenganjs/
   packages/
-    rasengan/              # Core framework (routing, SSR, SSG, CLI, Vite plugin, server)
-    create-rasengan/       # CLI scaffolding tool (`npx create-rasengan`)
-    rasengan-shuriken/     # Template cloning CLI (`npx shuriken`)
-    rasengan-kurama/       # Lightweight Zustand-like state management
-    rasengan-mdx/          # MDX plugin & components for Rasengan
-    rasengan-serve/        # Production Express server for built apps
-    rasengan-vercel/       # Vercel deployment adapter
-    rasengan-i18n/         # Internationalization library
-    rasengan-image/        # Optimized Image component (lazy, blur/wave placeholder)
-    rasengan-theme/        # Light/dark/system theme management
-    rasengan-kage-demo/    # Interactive feature tour / onboarding library
-  docs/                    # The rasengan.dev documentation site (itself a Rasengan app)
-  playground/              # Example/test projects
-  examples/                # shadcn example
+    framework/
+      rasengan/            # Core framework (routing, SSR, SSG, CLI, Vite plugin, server)
+      rasengan-server/     # Backend server framework (controllers, DI, middleware)
+      rasengan-mdx/        # MDX plugin & components for Rasengan
+    platform/
+      rasengan-runtime/    # WinterCG-compatible runtime abstraction
+      rasengan-runtime-node/   # Node.js adapter
+      rasengan-runtime-bun/    # Bun adapter
+      rasengan-runtime-workerd/ # Cloudflare Workers adapter
+    ecosystem/
+      rasengan-kurama/     # Lightweight Zustand-like state management
+      rasengan-image/      # Optimized Image component (lazy, blur/wave placeholder)
+      rasengan-theme/      # Light/dark/system theme management
+      rasengan-i18n/       # Internationalization library
+      rasengan-io/         # Real-time communication (Socket.IO)
+      rasengan-kage-demo/  # Interactive feature tour / onboarding library
+      rasengan-validation/ # Schema validation (Zod adapter)
+    cli/
+      create-rasengan/     # CLI scaffolding tool (`npx create-rasengan`)
+      rasengan-shuriken/   # Template cloning CLI (`npx shuriken`)
+    deploy/
+      rasengan-serve/      # Production Express server for built apps
+      rasengan-vercel/     # Vercel deployment adapter
+      rasengan-netlify/    # Netlify deployment adapter
+  apps/
+    docs/                  # The rasengan.dev documentation site (itself a Rasengan app)
+    playground/            # Example/test projects
+    examples/              # shadcn example
   scripts/                 # Build, pack, release, CI scripts
+  e2e/                     # Playwright end-to-end tests
+  bench/                   # Benchmarks
 ```
 
 ---
@@ -472,6 +488,10 @@ static/          # Pre-rendered HTML files (if prerendering)
 .vercel/output/  # Vercel deployment output (if Vercel adapter)
 ```
 
+### Writing style: no em-dash in generated interface text
+
+When generating text that will be displayed in any interface (docs-v2 MDX content, UI copy/labels, README content, generated markdown, etc.), never use the "—" (em-dash) character. Use a comma, period, colon, or parentheses instead, whichever reads most naturally. This applies to newly written content and to edits of existing content that already contains one.
+
 ---
 
 ## 8. Scripts (`/scripts/`)
@@ -522,7 +542,7 @@ pnpm run build  # Builds all packages
 To test changes in a playground:
 
 ```bash
-cd playground/rasengan-v1-test
+cd apps/playground/rasengan-v1-test
 pnpm run dev   # Links workspace packages automatically
 ```
 
@@ -530,4 +550,4 @@ Package linking handled by pnpm workspace — no need for `npm link`.
 
 ---
 > Source: [rasengan-dev/rasenganjs](https://github.com/rasengan-dev/rasenganjs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
