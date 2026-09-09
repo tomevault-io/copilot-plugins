@@ -1,0 +1,110 @@
+{
+  "name": "prisma--orm",
+  "displayName": "orm",
+  "description": "orm",
+  "version": "1.0.0",
+  "author": "prisma",
+  "homepage": "https://github.com/prisma/orm",
+  "skills": [
+    {
+      "name": "publish-npm-version",
+      "description": ""
+    },
+    {
+      "name": "record-upgrade-instructions",
+      "description": ""
+    },
+    {
+      "name": "draft-release-notes",
+      "description": ""
+    },
+    {
+      "name": "prisma-8",
+      "description": ""
+    },
+    {
+      "name": "contrib-pr",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "record-gotchas",
+      "description": ""
+    },
+    {
+      "name": "no-bare-casts",
+      "description": ""
+    },
+    {
+      "name": "triage-contributor-pr",
+      "description": ""
+    },
+    {
+      "name": "multiline-commit-messages",
+      "description": ""
+    },
+    {
+      "name": "write-architecture-docs",
+      "description": ""
+    },
+    {
+      "name": "record-upgrade-instructions",
+      "description": ""
+    },
+    {
+      "name": "draft-release-notes",
+      "description": ""
+    },
+    {
+      "name": "contrib-pr",
+      "description": ""
+    },
+    {
+      "name": "record-gotchas",
+      "description": ""
+    },
+    {
+      "name": "write-architecture-docs",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "description": ""
+    }
+  ]
+}
