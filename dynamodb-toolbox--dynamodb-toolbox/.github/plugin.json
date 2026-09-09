@@ -1,0 +1,22 @@
+{
+  "name": "dynamodb-toolbox--dynamodb-toolbox",
+  "displayName": "dynamodb-toolbox",
+  "description": "dynamodb-toolbox",
+  "version": "1.0.0",
+  "author": "dynamodb-toolbox",
+  "homepage": "https://github.com/dynamodb-toolbox/dynamodb-toolbox",
+  "skills": [
+    {
+      "name": "dynamodb-toolbox",
+      "description": ""
+    },
+    {
+      "name": "dynamodb-toolbox",
+      "description": ""
+    },
+    {
+      "name": "dynamodb-toolbox",
+      "description": ""
+    }
+  ]
+}
