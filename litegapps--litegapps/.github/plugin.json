@@ -1,0 +1,14 @@
+{
+  "name": "litegapps--litegapps",
+  "displayName": "litegapps",
+  "description": "litegapps",
+  "version": "1.0.0",
+  "author": "litegapps",
+  "homepage": "https://github.com/litegapps/litegapps",
+  "skills": [
+    {
+      "name": "litegapps",
+      "description": ""
+    }
+  ]
+}
