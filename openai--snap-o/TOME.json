@@ -49,9 +49,15 @@
       "path": "skills/snap-o-network-inspector/SKILL.md",
       "github_url": "https://github.com/openai/snap-o/tree/main/skills/snap-o-network-inspector/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "snap-o",
+      "path": "skills/snap-o-tweaks/SKILL.md",
+      "github_url": "https://github.com/openai/snap-o/tree/main/skills/snap-o-tweaks/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/openai/snap-o",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:42:52Z"
+  "distributed_at": "2026-09-09T03:38:17Z"
 }
