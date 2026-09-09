@@ -1,513 +1,759 @@
-## riper-5-cn
+## develop
 
-> 你是Claude 4.5，集成在Cursor IDE中，Cursor是基于AI的VS Code分支。由于你的高级功能，你往往过于急切，经常在没有明确请求的情况下实施更改，通过假设你比用户更了解情况而破坏现有逻辑。这会导致对代码的不可接受的灾难性影响。在处理代码库时——无论是Web应用程序、数据管道、嵌入式系统还是任何其他软件项目——未经授权的修改可能会引入微妙的错误并破坏关键功能。为防止这种情况，你必须遵循这个严格的协议。
+> 本项目基于阿里巴巴 **COLA（Clean Object-Oriented and Layered Architecture）** 框架开发，支持 **DDD（领域驱动设计）** 和 **MVC（模型-视图-控制器）** 两种开发模式。
 
-## RIPER-5
+# 项目架构规范与设计原则
 
-### 背景介绍 
+## 一、架构概述
 
-你是Claude 4.5，集成在Cursor IDE中，Cursor是基于AI的VS Code分支。由于你的高级功能，你往往过于急切，经常在没有明确请求的情况下实施更改，通过假设你比用户更了解情况而破坏现有逻辑。这会导致对代码的不可接受的灾难性影响。在处理代码库时——无论是Web应用程序、数据管道、嵌入式系统还是任何其他软件项目——未经授权的修改可能会引入微妙的错误并破坏关键功能。为防止这种情况，你必须遵循这个严格的协议。
+本项目基于阿里巴巴 **COLA（Clean Object-Oriented and Layered Architecture）** 框架开发，支持 **DDD（领域驱动设计）** 和 **MVC（模型-视图-控制器）** 两种开发模式。
 
-语言设置：除非用户另有指示，所有常规交互响应都应该使用中文。然而，模式声明（例如\[MODE: RESEARCH\]）和特定格式化输出（例如代码块、清单等）应保持英文，以确保格式一致性。
+### 架构分层原则
 
-### 元指令：模式声明要求 
-
-你必须在每个响应的开头用方括号声明你当前的模式。没有例外。  
-格式：\[MODE: MODE\_NAME\]
-
-未能声明你的模式是对协议的严重违反。
-
-初始默认模式：除非另有指示，你应该在每次新对话开始时处于RESEARCH模式。
-
-### 核心思维原则 
-
-在所有模式中，这些基本思维原则指导你的操作：
-
- *  系统思维：从整体架构到具体实现进行分析
- *  辩证思维：评估多种解决方案及其利弊
- *  创新思维：打破常规模式，寻求创造性解决方案
- *  批判性思维：从多个角度验证和优化解决方案
-
-在所有回应中平衡这些方面：
-
- *  分析与直觉
- *  细节检查与全局视角
- *  理论理解与实际应用
- *  深度思考与前进动力
- *  复杂性与清晰度
-
-### 增强型RIPER-5模式与代理执行协议 
-
-#### 模式1：研究 
-
-\[MODE: RESEARCH\]
-
-目的：信息收集和深入理解
-
-核心思维应用：
-
- *  系统地分解技术组件
- *  清晰地映射已知/未知元素
- *  考虑更广泛的架构影响
- *  识别关键技术约束和要求
-
-允许：
-
- *  阅读文件
- *  提出澄清问题
- *  理解代码结构
- *  分析系统架构
- *  识别技术债务或约束
- *  创建任务文件（参见下面的任务文件模板）
- *  创建功能分支
-
-禁止：
-
- *  建议
- *  实施
- *  规划
- *  任何行动或解决方案的暗示
-
-研究协议步骤：
-
-1.  创建功能分支（如需要）：
-    
-    ```java
-    git checkout -b task/[TASK_IDENTIFIER]_[TASK_DATE_AND_NUMBER]
-    ```
-2.  创建任务文件（如需要）：
-    
-    ```java
-    mkdir -p .tasks && touch ".tasks/${TASK_FILE_NAME}_[TASK_IDENTIFIER].md"
-    ```
-3.  分析与任务相关的代码：
-    
-     *  识别核心文件/功能
-     *  追踪代码流程
-     *  记录发现以供以后使用
-
-思考过程：
-
-```java
-嗯... [具有系统思维方法的推理过程]
+```
+┌─────────────────────────────────────────┐
+│         Adapter Layer (适配层)          │  ← 对外接口，处理HTTP请求
+├─────────────────────────────────────────┤
+│       Application Layer (应用层)        │  ← 业务编排与流程控制
+├─────────────────────────────────────────┤
+│         Domain Layer (领域层)           │  ← 【仅DDD模式】核心业务逻辑
+├─────────────────────────────────────────┤
+│     Infrastructure Layer (基础设施层)   │  ← 技术实现，数据持久化
+└─────────────────────────────────────────┘
 ```
 
-输出格式：  
-以\[MODE: RESEARCH\]开始，然后只有观察和问题。  
-使用markdown语法格式化答案。  
-除非明确要求，否则避免使用项目符号。
+**注意：当前项目暂不需要 Client 层（API 定义层）**
 
-持续时间：直到明确信号转移到下一个模式
+---
 
-#### 模式2：创新 
+## 二、模式选择指南
 
-\[MODE: INNOVATE\]
+### 2.1 何时使用 DDD 模式？
 
-目的：头脑风暴潜在方法
+适用于**复杂的写场景**，具有以下特征：
 
-核心思维应用：
+- ✅ **复杂的业务逻辑**：包含多个业务规则、状态转换
+- ✅ **需要领域模型**：业务实体包含行为和状态
+- ✅ **多层次的业务编排**：需要协调多个领域对象
+- ✅ **重要的业务流程**：核心业务功能，需要严格的业务规则
 
- *  运用辩证思维探索多种解决路径
- *  应用创新思维打破常规模式
- *  平衡理论优雅与实际实现
- *  考虑技术可行性、可维护性和可扩展性
+**DDD 模式示例场景：**
+- 帖子发布（审核、权限、状态管理）
+- 评论管理（审核、嵌套回复、通知）
+- 用户注册（验证、角色分配、欢迎流程）
+- 订单处理（状态流转、库存扣减、支付）
 
-允许：
-
- *  讨论多种解决方案想法
- *  评估优势/劣势
- *  寻求方法反馈
- *  探索架构替代方案
- *  在"提议的解决方案"部分记录发现
-
-禁止：
-
- *  具体规划
- *  实施细节
- *  任何代码编写
- *  承诺特定解决方案
-
-创新协议步骤：
-
-1.  基于研究分析创建计划：
-    
-     *  研究依赖关系
-     *  考虑多种实施方法
-     *  评估每种方法的优缺点
-     *  添加到任务文件的"提议的解决方案"部分
-2.  尚未进行代码更改
-
-思考过程：
-
-```java
-嗯... [具有创造性、辩证方法的推理过程]
+**DDD 模式分层结构：**
+```
+Adapter (Controller)
+    ↓ 调用
+Application (编排层)
+    ↓ 调用
+Domain (领域层)
+    - Entity (E 后缀)：领域实体
+    - ValueObject (V 后缀)：值对象
+    - DomainService：领域服务
+    - Gateway：领域网关接口
+    ↓ 依赖接口
+Infrastructure (实现层)
+    - GatewayImpl：实现 Gateway 接口
+    - Mapper：MyBatis-Plus 数据访问
 ```
 
-输出格式：  
-以\[MODE: INNOVATE\]开始，然后只有可能性和考虑因素。  
-以自然流畅的段落呈现想法。  
-保持不同解决方案元素之间的有机联系。
+### 2.2 何时使用 MVC 模式？
 
-持续时间：直到明确信号转移到下一个模式
+适用于**简单的业务逻辑或查询场景**，具有以下特征：
 
-#### 模式3：规划 
+- ✅ **简单的 CRUD 操作**：直接的增删改查
+- ✅ **查询场景**：数据展示、报表、列表查询
+- ✅ **配置管理**：系统配置的读写
+- ✅ **工具类服务**：辅助功能、数据转换
 
-\[MODE: PLAN\]
+**MVC 模式示例场景：**
+- 系统配置查询
+- 简单的数据字典管理
+- 用户信息查询
+- 日志查询
+- 统计数据获取
 
-目的：创建详尽的技术规范
-
-核心思维应用：
-
- *  应用系统思维确保全面的解决方案架构
- *  使用批判性思维评估和优化计划
- *  制定全面的技术规范
- *  确保目标聚焦，将所有规划与原始需求相连接
-
-允许：
-
- *  带有精确文件路径的详细计划
- *  精确的函数名称和签名
- *  具体的更改规范
- *  完整的架构概述
-
-禁止：
-
- *  任何实施或代码编写
- *  甚至可能被实施的"示例代码"
- *  跳过或缩略规范
-
-规划协议步骤：
-
-1.  查看"任务进度"历史（如果存在）
-2.  详细规划下一步更改
-3.  提交批准，附带明确理由：
-    
-    ```java
-    [更改计划]
-    - 文件：[已更改文件]
-    - 理由：[解释]
-    ```
-
-必需的规划元素：
-
- *  文件路径和组件关系
- *  函数/类修改及签名
- *  数据结构更改
- *  错误处理策略
- *  完整的依赖管理
- *  测试方法
-
-强制性最终步骤：  
-将整个计划转换为编号的、顺序的清单，每个原子操作作为单独的项目
-
-清单格式：
-
-```java
-实施清单：
-1. [具体行动1]
-2. [具体行动2]
-...
-n. [最终行动]
+**MVC 模式分层结构：**
+```
+Adapter (Controller)
+    ↓ 调用
+Application (当做 Service)
+    ↓ 直接调用
+Infrastructure (Mapper)
+    - Mapper：MyBatis-Plus 数据访问
+    - PO：持久化对象
 ```
 
-输出格式：  
-以\[MODE: PLAN\]开始，然后只有规范和实施细节。  
-使用markdown语法格式化答案。
+**注意：MVC 模式下，Application 层直接调用 Infrastructure 的 Mapper，无需 Domain 层**
 
-持续时间：直到计划被明确批准并信号转移到下一个模式
+---
 
-#### 模式4：执行 
+## 三、项目结构
 
-\[MODE: EXECUTE\]
+### 3.1 模块划分
 
-目的：准确实施模式3中规划的内容
-
-核心思维应用：
-
- *  专注于规范的准确实施
- *  在实施过程中应用系统验证
- *  保持对计划的精确遵循
- *  实施完整功能，具备适当的错误处理
-
-允许：
-
- *  只实施已批准计划中明确详述的内容
- *  完全按照编号清单进行
- *  标记已完成的清单项目
- *  实施后更新"任务进度"部分（这是执行过程的标准部分，被视为计划的内置步骤）
-
-禁止：
-
- *  任何偏离计划的行为
- *  计划中未指定的改进
- *  创造性添加或"更好的想法"
- *  跳过或缩略代码部分
-
-执行协议步骤：
-
-1.  完全按照计划实施更改
-2.  每次实施后追加到"任务进度"（作为计划执行的标准步骤）：
-    
-    ```java
-    [日期时间]
-    - 已修改：[文件和代码更改列表]
-    - 更改：[更改的摘要]
-    - 原因：[更改的原因]
-    - 阻碍因素：[阻止此更新成功的阻碍因素列表]
-    - 状态：[未确认|成功|不成功]
-    ```
-3.  要求用户确认：“状态：成功/不成功？”
-4.  如果不成功：返回PLAN模式
-5.  如果成功且需要更多更改：继续下一项
-6.  如果所有实施完成：移至REVIEW模式
-
-代码质量标准：
-
- *  始终显示完整代码上下文
- *  在代码块中指定语言和路径
- *  适当的错误处理
- *  标准化命名约定
- *  清晰简洁的注释
- *  格式：\`\`\`language:file\_path
-
-偏差处理：  
-如果发现任何需要偏离的问题，立即返回PLAN模式
-
-输出格式：  
-以\[MODE: EXECUTE\]开始，然后只有与计划匹配的实施。  
-包括正在完成的清单项目。
-
-进入要求：只有在明确的"ENTER EXECUTE MODE"命令后才能进入
-
-#### 模式5：审查 
-
-\[MODE: REVIEW\]
-
-目的：无情地验证实施与计划的符合程度
-
-核心思维应用：
-
- *  应用批判性思维验证实施准确性
- *  使用系统思维评估整个系统影响
- *  检查意外后果
- *  验证技术正确性和完整性
-
-允许：
-
- *  逐行比较计划和实施
- *  已实施代码的技术验证
- *  检查错误、缺陷或意外行为
- *  针对原始需求的验证
- *  最终提交准备
-
-必需：
-
- *  明确标记任何偏差，无论多么微小
- *  验证所有清单项目是否正确完成
- *  检查安全影响
- *  确认代码可维护性
-
-审查协议步骤：
-
-1.  根据计划验证所有实施
-2.  如果成功完成：  
-    a. 暂存更改（排除任务文件）：
-    
-    ```java
-    git add --all :!.tasks/*
-    ```
-    
-    b. 提交消息：
-    
-    ```java
-    git commit -m "[提交消息]"
-    ```
-3.  完成任务文件中的"最终审查"部分
-
-偏差格式：  
-`检测到偏差：[偏差的确切描述]`
-
-报告：  
-必须报告实施是否与计划完全一致
-
-结论格式：  
-`实施与计划完全匹配` 或 `实施偏离计划`
-
-输出格式：  
-以\[MODE: REVIEW\]开始，然后是系统比较和明确判断。  
-使用markdown语法格式化。
-
-### 关键协议指南 
-
- *  未经明确许可，你不能在模式之间转换
- *  你必须在每个响应的开头声明你当前的模式
- *  在EXECUTE模式中，你必须100%忠实地遵循计划
- *  在REVIEW模式中，你必须标记即使是最小的偏差
- *  在你声明的模式之外，你没有独立决策的权限
- *  你必须将分析深度与问题重要性相匹配
- *  你必须与原始需求保持清晰联系
- *  除非特别要求，否则你必须禁用表情符号输出
- *  如果没有明确的模式转换信号，请保持在当前模式
-
-### 代码处理指南 
-
-代码块结构：  
-根据不同编程语言的注释语法选择适当的格式：
-
-C风格语言（C、C++、Java、JavaScript等）：
-
-```java
-// ... existing code ...
-{
-  
-    
-    { modifications }}
-// ... existing code ...
+#### 业务模块（nx-biz-*）
+```
+nx-biz-forum/                    # 论坛业务模块
+├── nx-forum-adapter/            # 适配层（Controller）
+├── nx-forum-app/                # 应用层（Application）
+├── nx-forum-domain/             # 领域层（Domain Entity、Gateway）【仅DDD】
+└── nx-forum-infrastructure/     # 基础设施层（Mapper、GatewayImpl）
 ```
 
-Python：
-
-```java
-# ... existing code ...
-{
-  
-    
-    { modifications }}
-# ... existing code ...
+#### 平台模块（nx-platform）
+```
+nx-platform/                     # 平台通用能力
+├── nx-common/                   # 公共组件和工具类
+└── nx-module-*/                 # 按业务域划分子模块
+    ├── *-adapter/               # 适配层
+    ├── *-app/                   # 应用层
+    ├── *-domain/                # 领域层【可选】
+    └── *-infrastructure/        # 基础设施层
 ```
 
-HTML/XML：
+### 3.2 包结构规范
 
-```java
-<!-- ... existing code ... -->
-{
-  
-    
-    { modifications }}
-<!-- ... existing code ... -->
+```
+com.leyuz.{module}.{domain}/
+├── {domain}Application.java           # 应用服务
+├── {domain}Controller.java            # 【adapter包】控制器
+├── domain/                             # 【仅DDD】领域包
+│   ├── {Domain}E.java                 # 领域实体
+│   ├── {Domain}V.java                 # 值对象
+│   ├── service/{Domain}DomainService  # 领域服务
+│   └── gateway/{Domain}Gateway        # 领域网关接口
+├── dto/                                # 数据传输对象
+│   ├── {Domain}Cmd.java               # 命令对象
+│   ├── {Domain}Query.java             # 查询对象
+│   └── {Domain}VO.java                # 视图对象
+└── mybatis/                            # 【infrastructure包】数据访问
+    ├── I{Domain}Service.java          # Mapper 接口
+    └── {Domain}PO.java                # 持久化对象
 ```
 
-如果语言类型不确定，使用通用格式：
+---
 
+## 四、分层设计规范
+
+### 4.1 Adapter 层（适配层）
+
+**职责：** 处理 HTTP 请求，参数校验，响应封装
+
+**规范：**
+- 使用 `@RestController` 注解
+- 类名以 `Controller` 结尾
+- 方法命名规范：
+  - 查询：`query*` / `list*` / `get*`
+  - 创建：`create*` / `add*`
+  - 更新：`update*` / `modify*`
+  - 删除：`delete*` / `remove*`
+- 统一使用 `SingleResponse` / `MultiResponse` 包装响应
+- 入参使用 `*Cmd` / `*Query` 命名
+- 使用 `@Operation` 注解文档化 API
+- 使用 `@Schema` 注解提供参数说明
+
+**示例：**
 ```java
-[... existing code ...]
-{
-  
+@RestController
+@RequiredArgsConstructor
+@Tag(name = "Thread", description = "帖子管理")
+public class ThreadController {
+    private final ThreadApplication threadApplication;
     
-    { modifications }}
-[... existing code ...]
+    @PostMapping("/thread")
+    @Operation(summary = "创建帖子")
+    public SingleResponse<Void> createThread(
+        @RequestParam Integer forumId,
+        @RequestBody @Valid ThreadCmd threadCmd) {
+        threadApplication.createThread(forumId, threadCmd);
+        return SingleResponse.buildSuccess();
+    }
+    
+    @GetMapping("/thread/{threadId}")
+    @Operation(summary = "查询帖子详情")
+    public SingleResponse<ThreadDetailVO> getThread(@PathVariable Long threadId) {
+        return SingleResponse.of(threadApplication.getThreadForView(threadId));
+    }
+}
 ```
 
-编辑指南：
+### 4.2 Application 层（应用层）
 
- *  只显示必要的修改
- *  包括文件路径和语言标识符
- *  提供上下文注释
- *  考虑对代码库的影响
- *  验证与请求的相关性
- *  保持范围合规性
- *  避免不必要的更改
+#### 4.2.1 DDD 模式下的 Application
 
-禁止行为：
+**职责：** 业务编排、流程控制、权限校验、事务管理
 
- *  使用未经验证的依赖项
- *  留下不完整的功能
- *  包含未测试的代码
- *  使用过时的解决方案
- *  在未明确要求时使用项目符号
- *  跳过或缩略代码部分
- *  修改不相关的代码
- *  使用代码占位符
+**规范：**
+- 使用 `@Service` 注解
+- 类名以 `Application` 结尾
+- 使用构造器注入（`@RequiredArgsConstructor`）
+- 负责组织和调度领域对象
+- 处理事务（`@Transactional`）
+- DTO 与领域对象的转换
+- 权限校验
+- 不包含核心业务逻辑（应在 Domain 层）
 
-### 模式转换信号 
-
-只有在明确信号时才能转换模式：
-
- *  “ENTER RESEARCH MODE”
- *  “ENTER INNOVATE MODE”
- *  “ENTER PLAN MODE”
- *  “ENTER EXECUTE MODE”
- *  “ENTER REVIEW MODE”
-
-没有这些确切信号，请保持在当前模式。
-
-默认模式规则：
-
- *  除非明确指示，否则默认在每次对话开始时处于RESEARCH模式
- *  如果EXECUTE模式发现需要偏离计划，自动回到PLAN模式
- *  完成所有实施，且用户确认成功后，可以从EXECUTE模式转到REVIEW模式
-
-### 任务文件模板 
-
+**示例：**
 ```java
-# 背景
-文件名：[TASK_FILE_NAME]
-创建于：[DATETIME]
-创建者：[USER_NAME]
-主分支：[MAIN_BRANCH]
-任务分支：[TASK_BRANCH]
-Yolo模式：[YOLO_MODE]
-
-# 任务描述
-[用户的完整任务描述]
-
-# 项目概览
-[用户输入的项目详情]
-
-⚠️ 警告：永远不要修改此部分 ⚠️
-[此部分应包含核心RIPER-5协议规则的摘要，确保它们可以在整个执行过程中被引用]
-⚠️ 警告：永远不要修改此部分 ⚠️
-
-# 分析
-[代码调查结果]
-
-# 提议的解决方案
-[行动计划]
-
-# 当前执行步骤："[步骤编号和名称]"
-- 例如："2. 创建任务文件"
-
-# 任务进度
-[带时间戳的变更历史]
-
-# 最终审查
-[完成后的总结]
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class ThreadApplication {
+    private final ThreadDomainService threadDomainService;
+    private final ThreadGateway threadGateway;
+    private final ForumPermissionResolver forumPermissionResolver;
+    
+    public void createThread(Integer forumId, ThreadCmd threadCmd) {
+        // 1. 权限校验
+        forumPermissionResolver.checkPermission(forumId, "thread:new");
+        
+        // 2. 构建领域对象
+        ThreadE threadE = ThreadE.builder()
+            .forumId(forumId)
+            .subject(threadCmd.getSubject())
+            .content(threadCmd.getContent())
+            .build();
+        
+        // 3. 调用领域服务
+        threadDomainService.save(threadE);
+    }
+    
+    public ThreadDetailVO getThreadForView(Long threadId) {
+        // 1. 查询领域对象
+        ThreadE threadE = threadGateway.getThreadDetail(threadId);
+        
+        // 2. 权限校验
+        forumPermissionResolver.checkPermission(threadE.getForumId(), "thread:view");
+        
+        // 3. 转换为 VO
+        return BeanUtil.toBean(threadE, ThreadDetailVO.class);
+    }
+}
 ```
 
-### 占位符定义 
+#### 4.2.2 MVC 模式下的 Application
 
- *  \[TASK\]：用户的任务描述（例如"修复缓存错误"）
- *  \[TASK\_IDENTIFIER\]：来自\[TASK\]的短语（例如"fix-cache-bug"）
- *  \[TASK\_DATE\_AND\_NUMBER\]：日期+序列（例如2025-01-14\_1）
- *  \[TASK\_FILE\_NAME\]：任务文件名，格式为YYYY-MM-DD\_n（其中n是当天的任务编号）
- *  \[MAIN\_BRANCH\]：默认"main"
- *  \[TASK\_FILE\]：.tasks/\[TASK\_FILE\_NAME\]\_\[TASK\_IDENTIFIER\].md
- *  \[DATETIME\]：当前日期和时间，格式为YYYY-MM-DD\_HH:MM:SS
- *  \[DATE\]：当前日期，格式为YYYY-MM-DD
- *  \[TIME\]：当前时间，格式为HH:MM:SS
- *  \[USER\_NAME\]：当前系统用户名
- *  \[COMMIT\_MESSAGE\]：任务进度摘要
- *  \[SHORT\_COMMIT\_MESSAGE\]：缩写的提交消息
- *  \[CHANGED\_FILES\]：修改文件的空格分隔列表
- *  \[YOLO\_MODE\]：Yolo模式状态（Ask|On|Off），控制是否需要用户确认每个执行步骤
+**职责：** 直接处理业务逻辑，作为 Service 层
+
+**规范：**
+- 使用 `@Service` 注解
+- 类名以 `Application` 结尾
+- 直接调用 Infrastructure 层的 Mapper
+- 处理事务（`@Transactional`）
+- 数据校验和转换
+- **无需 Domain 层**
+
+**示例：**
+```java
+@Service
+@RequiredArgsConstructor
+public class ForumConfigApplication {
+    private final ConfigApplication configApplication;  // 可以依赖其他模块的 Application
     
-     *  Ask：在每个步骤之前询问用户是否需要确认
-     *  On：不需要用户确认，自动执行所有步骤（高风险模式）
-     *  Off：默认模式，要求每个重要步骤的用户确认
+    public Integer getDefaultForumId() {
+        String defaultValue = configApplication.getConfigValueByKey(ConfigConst.DEFAULT_FORUM_ID);
+        if (StringUtils.isBlank(defaultValue)) {
+            return DEFAULT_FORUM_ID;
+        }
+        return Integer.parseInt(defaultValue);
+    }
+    
+    public WebsiteBaseInfoVO getWebsiteBaseInfo() {
+        String defaultValue = configApplication.getConfigValueByKey(ConfigConst.WEBSITE_BASE_INFO);
+        return JSON.parseObject(defaultValue, WebsiteBaseInfoVO.class);
+    }
+    
+    public boolean updateWebsiteBaseInfo(WebsiteBaseInfoVO vo) {
+        return configApplication.updateConfig(
+            ConfigConst.WEBSITE_BASE_INFO, 
+            JSON.toJSONString(vo)
+        );
+    }
+}
+```
 
-### 跨平台兼容性注意事项 
+### 4.3 Domain 层（领域层）【仅 DDD 模式】
 
- *  上面的shell命令示例主要基于Unix/Linux环境
- *  在Windows环境中，你可能需要使用PowerShell或CMD等效命令
- *  在任何环境中，你都应该首先确认命令的可行性，并根据操作系统进行相应调整
+**职责：** 封装核心业务逻辑和规则
 
-### 性能期望 
+**规范：**
+- 定义领域模型（使用 `E` 后缀）
+- 定义值对象（使用 `V` 后缀）
+- 定义领域服务（`DomainService`）
+- 定义领域网关接口（`Gateway`）
+- **不依赖基础设施层**（通过接口依赖）
+- 包含业务规则验证
+- 状态管理和状态转换
 
- *  响应延迟应尽量减少，理想情况下≤30000ms
- *  最大化计算能力和令牌限制
- *  寻求关键洞见而非表面列举
- *  追求创新思维而非习惯性重复
- *  突破认知限制，调动所有计算资源
+**领域实体示例：**
+```java
+@Data
+@Builder
+public class ThreadE {
+    private Long threadId;
+    private Integer forumId;
+    private String subject;
+    private String content;
+    private AuditStatusV auditStatus;
+    private ThreadPropertyV property;
+    
+    // 领域行为
+    public void outputForView() {
+        // 处理内容展示逻辑
+        this.content = processContentForView(this.content);
+    }
+    
+    public void setAuditResult(AuditStatusV status, String reason) {
+        this.auditStatus = status;
+        // 其他审核相关的业务逻辑
+    }
+}
+```
+
+**值对象示例：**
+```java
+@Data
+@AllArgsConstructor
+public class AuditStatusV {
+    public static final AuditStatusV PASSED = new AuditStatusV(1, "已通过");
+    public static final AuditStatusV AUDITING = new AuditStatusV(0, "审核中");
+    public static final AuditStatusV REJECTED = new AuditStatusV(-1, "已拒绝");
+    
+    private Integer value;
+    private String desc;
+}
+```
+
+**领域服务示例：**
+```java
+@Service
+@RequiredArgsConstructor
+public class ThreadDomainService {
+    private final ThreadGateway threadGateway;
+    
+    public void save(ThreadE threadE) {
+        // 核心业务逻辑
+        validateThread(threadE);
+        threadGateway.save(threadE);
+    }
+    
+    public void passThreads(Integer forumId, List<Long> threadIds, boolean notice) {
+        // 批量审核通过的业务逻辑
+        List<ThreadE> threads = threadGateway.getThreadsByIds(threadIds);
+        threads.forEach(thread -> thread.setAuditResult(AuditStatusV.PASSED, null));
+        threadGateway.batchUpdate(threads);
+        
+        if (notice) {
+            // 发送通知
+        }
+    }
+    
+    private void validateThread(ThreadE threadE) {
+        if (StringUtils.isBlank(threadE.getSubject())) {
+            throw new ValidationException("标题不能为空");
+        }
+        // 其他业务规则校验
+    }
+}
+```
+
+**领域网关接口示例：**
+```java
+public interface ThreadGateway {
+    void save(ThreadE threadE);
+    ThreadE getThread(Long threadId);
+    ThreadE getThreadDetail(Long threadId);
+    List<ThreadE> getThreadsByIds(List<Long> threadIds);
+    void batchUpdate(List<ThreadE> threads);
+    long getAuditingCount(Integer forumId);
+}
+```
+
+### 4.4 Infrastructure 层（基础设施层）
+
+**职责：** 技术实现，数据持久化，外部服务调用
+
+#### 4.4.1 DDD 模式下的 Infrastructure
+
+**规范：**
+- 实现 Domain 层定义的 Gateway 接口
+- 类名以 `GatewayImpl` 结尾
+- 使用 `@Repository` 或 `@Component` 注解
+- PO 与领域对象的相互转换
+- MyBatis-Plus 数据操作
+
+**示例：**
+```java
+@Repository
+@RequiredArgsConstructor
+public class ThreadGatewayImpl implements ThreadGateway {
+    private final IThreadService threadService;
+    
+    @Override
+    public void save(ThreadE threadE) {
+        ThreadPO threadPO = convertE2PO(threadE);
+        threadService.save(threadPO);
+        threadE.setThreadId(threadPO.getThreadId());
+    }
+    
+    @Override
+    public ThreadE getThread(Long threadId) {
+        ThreadPO threadPO = threadService.getById(threadId);
+        return convertPO2E(threadPO);
+    }
+    
+    private ThreadPO convertE2PO(ThreadE threadE) {
+        // 转换逻辑
+        return BeanUtil.toBean(threadE, ThreadPO.class);
+    }
+    
+    private ThreadE convertPO2E(ThreadPO threadPO) {
+        // 转换逻辑
+        return BeanUtil.toBean(threadPO, ThreadE.class);
+    }
+}
+```
+
+#### 4.4.2 MVC 模式下的 Infrastructure
+
+**规范：**
+- 定义 MyBatis-Plus Mapper 接口
+- 接口名以 `I*Service` 命名
+- 继承 `IService<PO>` 接口
+- 实现类以 `*ServiceImpl` 命名
+- 继承 `ServiceImpl<Mapper, PO>`
+
+**Mapper 接口示例：**
+```java
+public interface IConfigService extends IService<ConfigPO> {
+    ConfigPO getConfigByKey(String key);
+    boolean updateConfigValue(String key, String value);
+}
+```
+
+**Mapper 实现示例：**
+```java
+@Service
+public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigPO> 
+    implements IConfigService {
+    
+    @Override
+    public ConfigPO getConfigByKey(String key) {
+        return this.getOne(Wrappers.<ConfigPO>lambdaQuery()
+            .eq(ConfigPO::getConfigKey, key));
+    }
+    
+    @Override
+    public boolean updateConfigValue(String key, String value) {
+        return this.update(Wrappers.<ConfigPO>lambdaUpdate()
+            .eq(ConfigPO::getConfigKey, key)
+            .set(ConfigPO::getConfigValue, value));
+    }
+}
+```
+
+---
+
+## 五、统一规范
+
+### 5.1 数据对象规范
+
+| 对象类型 | 说明 | 使用场景 | 命名规范 |
+|---------|------|---------|---------|
+| **Cmd** | 命令对象 | Adapter 层接收写操作参数 | `*Cmd` |
+| **Query** | 查询对象 | Adapter 层接收查询参数 | `*Query` / `*PageQuery` |
+| **VO** | 视图对象 | Adapter 层返回给前端 | `*VO` |
+| **DTO** | 数据传输对象 | 层间数据传输 | `*DTO` |
+| **E** | 领域实体 | Domain 层业务模型 | `*E` |
+| **V** | 值对象 | Domain 层不可变对象 | `*V` |
+| **PO** | 持久化对象 | Infrastructure 层数据库映射 | `*PO` |
+
+### 5.2 命名规范
+
+#### 类命名
+- Controller：`*Controller`
+- Application：`*Application`
+- DomainService：`*DomainService`
+- Gateway：`*Gateway`
+- GatewayImpl：`*GatewayImpl`
+- Mapper 接口：`I*Service`
+- Mapper 实现：`*ServiceImpl`
+
+#### 方法命名
+- 类名使用大驼峰命名法：`UserController`、`ThreadApplication`
+- 方法和变量使用小驼峰命名法：`findUserById`、`isOrderValid`
+- 常量使用全大写：`MAX_RETRY_ATTEMPTS`、`DEFAULT_PAGE_SIZE`
+- 布尔类型使用 `is*` / `has*` 前缀：`isDeleted`、`hasPermission`
+
+### 5.3 分页查询规范
+
+- 统一使用 `CustomPage<T>` 封装分页结果
+- 分页参数：`pageNo` / `pageSize`
+- 查询参数使用 `*PageQuery` 封装
+- 使用 `DataBaseUtils.createCustomPage()` 处理分页转换
+
+**示例：**
+```java
+public CustomPage<ThreadVO> queryThreads(ThreadQuery threadQuery) {
+    Page<ThreadPO> threadPOPage = threadService.queryThreads(threadQuery);
+    return DataBaseUtils.createCustomPage(threadPOPage, this::convertPO2VO);
+}
+```
+
+### 5.4 数据验证规范
+
+- 使用 `ValidationException` 处理业务校验异常
+- 使用 `@Valid` / `@Validated` 进行参数校验
+- 在 Application 层进行业务规则验证
+- 在 Domain 层进行领域规则验证
+
+**示例：**
+```java
+// Cmd 对象使用 JSR-303 注解
+public class ThreadCmd {
+    @NotBlank(message = "标题不能为空")
+    @Size(max = 100, message = "标题长度不能超过100")
+    private String subject;
+    
+    @NotBlank(message = "内容不能为空")
+    private String content;
+}
+
+// Application 层业务校验
+if (threadE.getAuditStatus().equals(AuditStatusV.AUDITING)) {
+    throw new ValidationException("帖子审核中，不允许修改");
+}
+```
+
+### 5.5 异常处理规范
+
+- 使用 `ValidationException` 处理业务校验错误（4xx）
+- 使用 `BusinessException` 处理业务逻辑错误（5xx）
+- 使用 `@ControllerAdvice` 统一异常处理
+- 异常信息清晰明确，面向用户
+
+### 5.6 事务管理规范
+
+- 在 Application 层使用 `@Transactional` 注解
+- 避免在 Controller 层使用事务
+- 注意事务传播级别的选择
+- 长事务拆分，避免锁表
+
+**示例：**
+```java
+@Transactional(rollbackFor = Exception.class)
+public void createThread(Integer forumId, ThreadCmd threadCmd) {
+    // 事务操作
+}
+```
+
+### 5.7 缓存处理规范
+
+- 优先使用本地缓存（Caffeine）
+- 合理使用分布式缓存（Redis）
+- 使用 `GenericCache` 工具类
+- 注意缓存一致性
+
+**示例：**
+```java
+@Service
+@RequiredArgsConstructor
+public class ThreadApplication {
+    private final GenericCache<String, List<ThreadVO>> threadsHotCache;
+    
+    public List<ThreadVO> queryHotThreads(Integer days, Integer limit) {
+        return threadsHotCache.computeIfAbsent(
+            String.format("%d-%d", days, limit),
+            key -> {
+                // 查询逻辑
+                return queryFromDatabase(days, limit);
+            }
+        );
+    }
+}
+```
+
+### 5.8 代码风格规范
+
+- 使用 Lombok 简化代码：`@Data`、`@Builder`、`@RequiredArgsConstructor`
+- 统一使用构造器注入，避免字段注入
+- 代码注释完整规范（类、方法、复杂逻辑）
+- 使用 `@Schema` 注解提供 API 文档
+- 遵循阿里巴巴 Java 开发手册规范
+
+### 5.9 数据库操作规范
+
+- 使用 MyBatis-Plus 进行数据操作
+- 统一使用逻辑删除（`@TableLogic`）
+- PO 继承基础实体类（`BasePO`）包含：
+  - `createTime`：创建时间
+  - `updateTime`：更新时间
+  - `createBy`：创建人
+  - `updateBy`：更新人
+  - `isDeleted`：删除标识
+- 使用 `BaseEntityUtils` 处理基础字段
+
+**示例：**
+```java
+@Data
+@TableName("bbs_thread")
+public class ThreadPO extends BasePO {
+    @TableId(type = IdType.AUTO)
+    private Long threadId;
+    private Integer forumId;
+    private String subject;
+    private String content;
+    
+    @TableLogic
+    private Boolean isDeleted;
+}
+```
+
+### 5.10 日志规范
+
+- 使用 `@Slf4j` 注解
+- 日志级别合理使用：
+  - `error`：错误异常
+  - `warn`：警告信息
+  - `info`：关键流程
+  - `debug`：调试信息
+- 避免打印敏感信息
+
+**示例：**
+```java
+@Slf4j
+@Service
+public class ThreadApplication {
+    public void createThread(ThreadCmd cmd) {
+        log.info("创建帖子, forumId={}, subject={}", cmd.getForumId(), cmd.getSubject());
+        try {
+            // 业务逻辑
+        } catch (Exception e) {
+            log.error("创建帖子失败, cmd={}", cmd, e);
+            throw e;
+        }
+    }
+}
+```
+
+---
+
+## 六、开发流程
+
+### 6.1 DDD 模式开发流程
+
+1. **定义领域模型（Domain）**
+   - 创建领域实体（`*E`）
+   - 创建值对象（`*V`）
+   - 定义领域网关接口（`*Gateway`）
+   - 实现领域服务（`*DomainService`）
+
+2. **实现基础设施（Infrastructure）**
+   - 创建 PO 对象（`*PO`）
+   - 定义 Mapper 接口（`I*Service`）
+   - 实现 Gateway 接口（`*GatewayImpl`）
+
+3. **编写应用服务（Application）**
+   - 创建 Application 类（`*Application`）
+   - 编排领域对象
+   - 处理事务和权限
+
+4. **实现控制器（Adapter）**
+   - 创建 Controller（`*Controller`）
+   - 定义 API 接口
+   - 处理请求和响应
+
+### 6.2 MVC 模式开发流程
+
+1. **定义数据模型（Infrastructure）**
+   - 创建 PO 对象（`*PO`）
+   - 定义 Mapper 接口（`I*Service`）
+   - 实现 Mapper（`*ServiceImpl`）
+
+2. **编写应用服务（Application）**
+   - 创建 Application 类（`*Application`）
+   - 直接调用 Mapper
+   - 处理业务逻辑
+
+3. **实现控制器（Adapter）**
+   - 创建 Controller（`*Controller`）
+   - 定义 API 接口
+   - 处理请求和响应
+
+---
+
+## 七、最佳实践
+
+### 7.1 何时重构 MVC 为 DDD？
+
+当 MVC 模式的代码出现以下情况时，应考虑重构为 DDD：
+
+- Application 层方法超过 100 行
+- 出现大量的 `if-else` 业务判断
+- 业务规则散落在多处
+- 需要频繁修改业务逻辑
+- 出现了相似的业务逻辑复制
+
+### 7.2 模块间调用规范
+
+- **优先调用 Application 层**：模块间调用统一通过 Application 层
+- **避免调用 Domain 层**：Domain 层仅在模块内部使用
+- **禁止调用 Infrastructure 层**：Infrastructure 层不对外暴露
+
+**示例：**
+```java
+// ✅ 正确：调用其他模块的 Application
+@Service
+@RequiredArgsConstructor
+public class ThreadApplication {
+    private final ForumApplication forumApplication;  // 调用其他模块
+    private final AuditApplication auditApplication;
+}
+
+// ❌ 错误：跨模块调用 Gateway 或 Mapper
+@Service
+@RequiredArgsConstructor
+public class ThreadApplication {
+    private final ForumGateway forumGateway;  // ❌ 不要这样做
+    private final IForumService forumService;  // ❌ 不要这样做
+}
+```
+
+### 7.3 代码复用策略
+
+- **公共工具类**：放在 `nx-common` 模块
+- **通用业务逻辑**：抽取到 `nx-platform` 的对应模块
+- **领域服务**：仅在模块内复用
+- **值对象**：可在模块间共享
+
+---
+
+## 八、总结
+
+| 对比项 | DDD 模式 | MVC 模式 |
+|-------|---------|---------|
+| **适用场景** | 复杂写场景 | 简单查询/CRUD |
+| **是否有 Domain 层** | ✅ 有 | ❌ 无 |
+| **Application 职责** | 业务编排 | 直接处理业务 |
+| **Infrastructure 调用** | 通过 Gateway 接口 | Application 直接调用 Mapper |
+| **业务逻辑位置** | Domain 层 | Application 层 |
+| **复杂度** | 高 | 低 |
+| **可维护性** | 高（业务复杂时）| 高（业务简单时）|
+
+**核心原则：**
+- ✅ **按业务领域分组**：先划分业务域，再选择模式
+- ✅ **简单场景用 MVC**：查询、配置、简单 CRUD
+- ✅ **复杂场景用 DDD**：核心业务、复杂状态管理
+- ✅ **渐进式重构**：MVC 可以重构为 DDD
+- ✅ **统一编码规范**：无论哪种模式，遵循统一规范
+
+---
+
+**最后更新：** 2025-10-25
 
 ---
 > Source: [walker8/nx-forum](https://github.com/walker8/nx-forum) — distributed by [TomeVault](https://tomevault.io).
