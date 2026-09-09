@@ -1,0 +1,14 @@
+{
+  "name": "fate-grand-automata--fga",
+  "displayName": "FGA",
+  "description": "FGA",
+  "version": "1.0.0",
+  "author": "Fate-Grand-Automata",
+  "homepage": "https://github.com/Fate-Grand-Automata/FGA",
+  "skills": [
+    {
+      "name": "FGA",
+      "description": ""
+    }
+  ]
+}
