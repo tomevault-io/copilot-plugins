@@ -1,0 +1,9 @@
+{
+  "name": "jcustenborder--kafka-connect-transform-common",
+  "displayName": "kafka-connect-transform-common",
+  "description": "kafka-connect-transform-common",
+  "version": "1.0.0",
+  "author": "jcustenborder",
+  "homepage": "https://github.com/jcustenborder/kafka-connect-transform-common",
+  "skills": []
+}
