@@ -3,8 +3,8 @@
   "owner": "jannikmi",
   "repo": "timezonefinder",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,57 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "timezonefinder",
+      "path": ".agents/skills/cut-release/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.agents/skills/cut-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".claude/skills/cut-release/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.claude/skills/cut-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".agents/skills/merge-round/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.agents/skills/merge-round/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".claude/skills/merge-round/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.claude/skills/merge-round/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".agents/skills/discovery-pass/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.agents/skills/discovery-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".claude/skills/discovery-pass/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.claude/skills/discovery-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".agents/skills/improvement-pass/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.agents/skills/improvement-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "timezonefinder",
+      "path": ".claude/skills/improvement-pass/SKILL.md",
+      "github_url": "https://github.com/jannikmi/timezonefinder/tree/main/.claude/skills/improvement-pass/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/jannikmi/timezonefinder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T10:40:14Z"
+  "distributed_at": "2026-09-09T20:02:17Z"
 }
