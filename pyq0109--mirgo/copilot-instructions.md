@@ -1,0 +1,197 @@
+## mirgo
+
+> 用 Go 语言重新实现热血传奇（MIR2）客户端和服务端。
+
+# AGENTS.md
+
+## 项目
+
+用 Go 语言重新实现热血传奇（MIR2）客户端和服务端。
+Module: `github.com/pyq0109/mirgo`
+
+## 架构
+
+```
+cmd/
+├── client/          # 游戏客户端（OpenGL 3.3 + GLFW）
+├── server/          # 游戏服务端（TCP，单端口统一监听）
+├── serverconfig/    # 配置转换工具（Delphi → JSONC）
+├── mapviewer/       # 地图查看器（OpenGL + ImGui）
+└── wilviewer/       # WIL资源查看器（OpenGL + ImGui）
+internal/
+├── protocol/        # 共享协议层（6Bit编解码、消息常量、数据结构）
+├── engine/          # 共享渲染引擎（窗口、GL状态、相机、文字、场景、资源管理）
+├── netserver/       # TCP 服务端库
+├── storage/         # SQLite 数据存储层
+├── mapformat/       # .map 文件解析器
+├── wil/             # .wil/.wix 图像加载器（懒加载）
+└── log/             # 分级日志
+asset/               # 已 gitignore — 游戏资源
+serverconfig/        # 已 gitignore — 转换后的配置文件
+```
+
+## CodeGraph 代码索引
+
+本项目已建 CodeGraph 知识图谱索引（`.codegraph/`）：覆盖全部 Go 源码（cmd/、internal/）与 Delphi 参考源码（asset/delphi/）；vendor/、serverconfig/、文档不在索引内。文件监视器自动同步，写入后约 1s 延迟。详细用法与工具速查见 `doc/codegraph_opencode.md`。
+
+**任何代理查找代码、理解结构、评估改动影响、获取编辑前上下文时，优先用 CodeGraph，替代 grep + 逐文件读取。**
+
+### build/plan 主代理与 general 子代理（有 codegraph MCP 工具）
+
+核心工具 `codegraph_explore`（工具列表里显示为 `codegraph_codegraph_explore`）：
+
+- "X 怎么工作 / X 在哪 / 架构如何"、编辑前取上下文 → 传自然语言问题或一组符号/文件名；一次调用返回相关符号的带行号源码（按文件分组）+ 调用路径 + 影响范围
+- 返回的源码视为已 Read：不要重新打开这些文件，可直接照此 Edit
+- 流程类问题（"X 如何走到 Y"）把两端符号写进同一次查询
+- 信任索引结果（来自完整 AST 解析），不要用 grep 复核
+- Read/Grep 只用于索引不覆盖的内容（serverconfig JSONC、文档、二进制资源）或确认个别细节
+- 响应开头出现 "⚠️ Some files referenced below were edited since the last index sync…" 时，对列出的文件改用 Read；出现 "⚠️ CodeGraph auto-sync is DISABLED…" 时先运行 `codegraph sync`
+
+### explore/scout 子代理（无 MCP 工具）
+
+用 bash 调 `codegraph` CLI（只读）：
+
+- `codegraph explore "问题或符号名"` — 主命令，等价 codegraph_explore
+- `codegraph query <符号>` — 按名找位置；`codegraph callers|callees <符号>` — 调用方/被调用方
+- `codegraph impact <符号>` — 改动波及；`codegraph node <符号>` — 单符号源码+调用线索
+
+### 派发子代理时
+
+子代理不会继承本 AGENTS.md。主代理派发涉及代码的任务时，prompt 中必须附上：
+"查找/理解代码优先用 CodeGraph：general 子代理用 codegraph_explore MCP 工具；explore/scout 子代理用 bash 运行 codegraph explore \"...\"。返回的源码视为已读，不要重复打开文件。"
+
+## 约束
+
+- `go.sum` 已提交入库 — 添加依赖后运行 `go mod tidy` 并连同 go.sum 一起提交
+- 无 CI、linter；测试用 `go test ./...`
+- `asset/` 目录禁止提交（含二进制和大文件）
+- 服务端单端口（默认7000）统一处理登录/选角/游戏消息
+- 客户端不使用 ImGui（自建渲染），查看器工具使用 ImGui
+- WIL 懒加载：`Load()` 只读索引，`GetImage(idx)` 按需解码（全局字节预算 LRU 淘汰，默认 128MB，`wil.SetCacheLimit` 可调），像素拷入 GPU 后调 `ReleasePixels()` 归还，`Close()` 关闭句柄并清空缓存
+- 服务端 `Send()` 不编码 body，调用方自行 `protocol.EncodeString()`/`EncodeBuffer()`
+- 特化怪物/物体特效走数据化：在 `cmd/client/moneffect.go` 的 `monEffectTable`（raceImg→特效规格）加表项，不逐类硬编码 Delphi AxeMon/HerbActor 类；服务端配套消息路由在 playobject.go（RM_FLYAXE/RM_LIGHTING/RM_DIGUP/RM_DIGDOWN/RM_ALIVE）
+- 动物系怪物（race 51/52/53/84，Animal=true）死亡不散落物品：掉落物刷怪时 roll 进 `CorpseItems` 尸体背包，靠 CM_BUTCH 挖肉出货；尸体可见性与骨架化由 SearchViewRange/newVisibleEntryMsg 统一处理
+
+## 资源目录（已 gitignore — 需手动准备）
+
+| 目录 | 来源 | 用途 |
+|------|------|------|
+| `asset/client/` | 热血传奇十周年硬盘版 | 客户端美术资源（WIL/地图） |
+| `asset/server/` | `github.com/cjlaaa/Mir2-GeeM2` | 服务端配置 |
+| `asset/delphi/` | `github.com/lzxsz/MIR2` (commit `98711da`) | 原始 Delphi 源码（主要参考） |
+
+## 服务端文件结构
+
+```
+cmd/server/
+├── main.go           # 入口、消息路由、登录流程、tick循环
+├── config.go         # server.jsonc 配置加载
+├── baseobject.go     # 基础对象、RM_*常量、SendRefMsg、WalkTo
+├── playobject.go     # 玩家：移动/战斗/视野/地图切换/消息分发
+├── monsterobject.go  # 怪物：AI(搜索/追击/攻击/游荡)
+├── monsterai.go      # 怪物AI行为(35种:AIMelee=0..AISoccerBall=34)
+├── monsterdb.go      # 怪物数据库加载(monster_db.jsonc)
+├── trainernpc.go     # 训练师沙袋(Race 55)
+├── mining.go         # 挖矿(鹤嘴锄重击/=#DIG)
+├── npcobject.go      # NPC：固定位置、外观
+├── mongen.go         # 刷怪系统(在线人数加速)、地面物品消失
+├── drops.go          # 怪物掉落逻辑
+├── droptable.go      # 掉落表加载(MonItems/*.jsonc)
+├── butchsystem.go    # 屠宰/挖肉(动物尸体背包/皮量/肉质/骨架化, CM_BUTCH)
+├── envir.go          # 地图环境、碰撞、门、对象管理
+├── mapevent.go       # 地图事件(火墙持续伤害/SM_SHOWEVENT广播)
+├── mapmanager.go     # 地图加载、传送路由
+├── usrengine.go      # 用户引擎、tick处理
+├── session.go        # 会话管理
+├── doors.go          # 门自动关闭
+├── itemdb.go         # 物品数据库加载(std_items.jsonc)
+├── itemsystem.go     # 背包/穿脱/RecalcAbilitys/使用物品
+├── magicdb.go        # 魔法数据库加载(magic_db.jsonc)
+├── magicsystem.go    # 施法/三职业技能/伤害
+├── npcscript.go      # NPC脚本引擎([@label]解析)
+├── npcscript_ext.go  # NPC脚本扩展命令注册表(表驱动)
+├── chatsystem.go     # 聊天广播/组队
+├── wordfilter.go     # 聊天敏感词过滤(WordFilter.txt)
+├── blocklist.go      # IP/账号黑名单(BlockIPList/DenyAccountList)
+├── pksystem.go       # PK点数/红名/衰减
+├── tradesystem.go    # 面对面交易
+├── guildsystem.go    # 行会创建/聊天
+├── castle.go         # 城堡战(预约战/联盟/税收/攻城) + 城门/城墙可视化actor(SyncDoorVisual/SyncWallVisual)
+├── castlenpc.go      # 城堡NPC命令
+├── merchantsystem.go # NPC商店买/卖/修理/价格查询
+├── attackmode.go     # 攻击模式(全体/组队/和平等)
+├── safezone.go       # 安全区配置(start_points.jsonc)
+├── statuseffect.go   # 状态效果(毒/隐身/石化等12种)
+├── storagesystem.go  # 仓库存取(50格)
+└── gmcommands.go     # GM命令(@make/@level/@move/@mob/@status等)
+```
+
+## 客户端文件结构
+
+```
+cmd/client/
+├── main.go           # 入口、NetHandler、全部SM消息分发
+├── gamestate.go      # 全局状态(MySelf/背包/装备/魔法/UI状态)
+├── sceneplay.go      # 游戏场景：3层地图+Y-sort角色+UI+输入
+├── actorbase.go      # Actor：消息队列/动画/Shift插值/多层渲染
+├── actormanager.go   # Actor管理：注册/Y排序/Feature解析
+├── actor.go          # 动画模板(HA 14动作/MA 39模板)/CalcFrame
+├── moneffect.go      # 特化怪物/物体特效数据表(raceImg→死亡/攻击特效/投射物/施法/物体行为)
+├── worder.go         # 武器前后层规则
+├── minimap.go        # 小地图(mmap.wil 预渲染底图直绘+角色标记, 无FBO)
+├── lighting.go       # 光照/迷雾(6级光罩+光源)
+├── magiceffect.go    # 魔法特效管理(爆炸/飞行/地面)
+├── eventman.go       # 地图事件渲染(SM_SHOWEVENT/火墙)
+├── scenelogin.go     # 登录/注册场景(含选服对话框模式 modeServerSelect)
+├── sceneselectchr.go # 选角/创角/删角场景
+└── scenenotice.go    # 公告场景
+```
+
+## Delphi 源码参考
+
+| 文件 | 内容 |
+|------|------|
+| `Common/Grobal2.pas` | 消息定义、数据结构（2739行） |
+| `Common/EDcode.pas` | 6Bit 编解码算法 |
+| `Client/Actor.pas` | 角色基类、动画模板、渲染（3944行） |
+| `Client/AxeMon.pas` | 特化怪物渲染类(34类:死亡/攻击特效/投射物,2846行) |
+| `Client/HerbActor.pas` | 物体渲染类(10类:食人花/触龙神/城门/城墙/龙身等,822行) |
+| `Client/PlayScn.pas` | 地图渲染、光照、对象管理（2366行） |
+| `Client/ClMain.pas` | 主窗体、网络消息处理、本地预测 |
+| `M2Server/ObjBase.pas` | 游戏对象基类（26821行） |
+| `M2Server/ObjNpc.pas` | NPC脚本引擎（11556行） |
+| `M2Server/Magic.pas` | 魔法系统（1560行） |
+| `M2Server/Guild.pas` | 行会系统（1319行） |
+
+## 核心协议
+
+- 编码：6Bit（每3字节→4字符，偏移0x3C），OLDMODE（无XOR）
+- 帧格式：客户端 `#<code><payload>!`，服务端 `#<payload>!`
+- 控制消息：`#+GOOD!`（确认）、`#+FAIL!`（回滚）— 不经6Bit编码
+- RunLogin：`**loginID/charName/cert/version/code`
+
+## 编译运行
+
+```bash
+# 客户端（Linux 需 -tags x11 跳过 Wayland 编译；Windows 加上也无害）
+go build -tags x11 -o client.exe ./cmd/client
+./client.exe -data asset/client/Data -maps asset/client/Map -server localhost:7000
+
+# 服务端（不依赖 GLFW，无需 tag）
+go build -o server.exe ./cmd/server
+./server.exe -config serverconfig -maps asset/server/Map
+
+# 查看器工具（同客户端，Linux 需 -tags x11）
+go build -tags x11 -o mapviewer.exe ./cmd/mapviewer
+go build -tags x11 -o wilviewer.exe ./cmd/wilviewer
+
+# 配置转换
+go run ./cmd/serverconfig -v
+
+# 测试
+go test ./... -count=1
+```
+
+---
+> Source: [pyq0109/mirgo](https://github.com/pyq0109/mirgo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
