@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "logue",
   "homepage": "https://github.com/logue/vite-vuetify-ts-starter",
-  "skills": []
+  "skills": [
+    {
+      "name": "vite-vuetify-ts-starter",
+      "description": ""
+    },
+    {
+      "name": "vite-vuetify-ts-starter",
+      "description": ""
+    },
+    {
+      "name": "vite-vuetify-ts-starter",
+      "description": ""
+    },
+    {
+      "name": "vite-vuetify-ts-starter",
+      "description": ""
+    }
+  ]
 }
