@@ -1,0 +1,14 @@
+{
+  "name": "future-architect--arch-guidelines",
+  "displayName": "arch-guidelines",
+  "description": "arch-guidelines",
+  "version": "1.0.0",
+  "author": "future-architect",
+  "homepage": "https://github.com/future-architect/arch-guidelines",
+  "skills": [
+    {
+      "name": "arch-guidelines",
+      "description": ""
+    }
+  ]
+}
