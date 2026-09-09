@@ -1,0 +1,14 @@
+{
+  "name": "ut-adl--autoware-mini",
+  "displayName": "autoware_mini",
+  "description": "autoware_mini",
+  "version": "1.0.0",
+  "author": "UT-ADL",
+  "homepage": "https://github.com/UT-ADL/autoware_mini",
+  "skills": [
+    {
+      "name": "autoware_mini",
+      "description": ""
+    }
+  ]
+}
