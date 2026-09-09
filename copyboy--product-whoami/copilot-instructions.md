@@ -1,228 +1,288 @@
-## state
+## task-management
 
-> CursorRIPER Framework - State Management
+> CursorRIPER Framework - Task Management
 
-date_created: "2025-04-05"
+date_created: "2025-06-05"
 last_updated: "2025-06-05"
-framework_component: "state"
-priority: "critical"
-scope: "always_load"
+framework_component: "task-management"
+priority: "high"
+scope: "development_maintenance"
 ---
 <!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
-# CursorRIPER Framework - State Management
-# Version 1.0.3
+# CursorRIPER Framework - Task Management
+# Version 1.0.0
 
 ## AI PROCESSING INSTRUCTIONS
-This file defines the current state of the project within the CursorRIPER Framework. As an AI assistant, you MUST:
-- Always load this file after core.mdc but before other components
-- Never modify state values without proper authorization via commands
-- Validate state transitions against allowed paths
-- Update this file when state changes occur
-- Keep all state values consistent with each other
+This component manages enterprise-level task iteration and planning within the CursorRIPER Framework. As an AI assistant, you MUST:
+- Only load this component when PROJECT_PHASE is "DEVELOPMENT" or "MAINTENANCE"
+- Follow strict task creation and management protocols
+- Maintain task documentation and progress tracking
+- Never modify active tasks without proper authorization
+- Integrate task management with the RIPER workflow
 
-## CURRENT PROJECT STATE
+## TASK MANAGEMENT OVERVIEW
 
-PROJECT_PHASE: "DEVELOPMENT"
-# Possible values: "UNINITIATED", "INITIALIZING", "DEVELOPMENT", "MAINTENANCE"
+The Task Management system provides structured iteration tracking for enterprise development projects. It integrates seamlessly with the RIPER workflow to ensure proper planning, execution, and documentation of all development tasks.
 
-RIPER_CURRENT_MODE: "RESEARCH"
-# Possible values: "NONE", "RESEARCH", "INNOVATE", "PLAN", "EXECUTE", "REVIEW"
+## TASK DIRECTORY STRUCTURE
 
-START_PHASE_STATUS: "COMPLETED"
-# Possible values: "NOT_STARTED", "IN_PROGRESS", "COMPLETED", "ARCHIVED"
-
-START_PHASE_STEP: 7
-# Possible values: 0-7 (0=Not started, 1=Requirements, 2=Technology, 3=Architecture, 4=Scaffolding, 5=Environment, 6=Task Management, 7=Memory Bank)
-
-TASK_MANAGEMENT_ENABLED: true
-# Whether task iteration management is enabled for this project
-
-CURRENT_TASK_ID: ""
-# Current active task identifier (format: YYYY-MM-DD_X_task-name)
-
-LAST_UPDATE: "2025-06-06T18:24:09+08:00"
-# ISO 8601 formatted timestamp of last state update
-
-INITIALIZATION_DATE: "2025-06-06T18:24:09+08:00"
-# When START phase was completed, empty if not completed
-
-FRAMEWORK_VERSION: "1.0.3"
-# Current version of the framework
-
-## STATE TRANSITION RULES
-
-```mermaid
-stateDiagram-v2
-    [*] --> UNINITIATED
-    
-    UNINITIATED --> INITIALIZING: /start
-    INITIALIZING --> DEVELOPMENT: START phase complete
-    DEVELOPMENT --> MAINTENANCE: User request
-    MAINTENANCE --> DEVELOPMENT: User request
-    
-    state INITIALIZING {
-        [*] --> NOT_STARTED
-        NOT_STARTED --> IN_PROGRESS: Begin START
-        IN_PROGRESS --> COMPLETED: All steps finished
-        COMPLETED --> ARCHIVED: Enter DEVELOPMENT
-    }
-    
-    state "DEVELOPMENT/MAINTENANCE" as DM {
-        [*] --> RESEARCH
-        RESEARCH --> INNOVATE: /innovate
-        INNOVATE --> PLAN: /plan
-        PLAN --> EXECUTE: /execute
-        EXECUTE --> REVIEW: /review
-        REVIEW --> RESEARCH: /research
-        
-        state PLAN {
-            [*] --> TaskPlanning
-            TaskPlanning --> TaskCreation: Create task
-            TaskCreation --> TaskExecution: Begin task
-        }
-        
-        state EXECUTE {
-            [*] --> TaskExecution
-            TaskExecution --> TaskCompletion: Complete task
-            TaskCompletion --> TaskArchival: Archive task
-        }
-    }
+```
+.tasks/
+├── active/                    # Currently active tasks
+│   └── YYYY-MM-DD_X_task-name/
+│       ├── task.md           # Task definition and requirements
+│       ├── plan.md           # Detailed implementation plan
+│       ├── progress.md       # Implementation progress tracking
+│       └── notes.md          # Development notes and decisions
+├── completed/                 # Completed tasks
+│   └── YYYY-MM-DD_X_task-name/
+├── archived/                  # Archived tasks
+│   └── YYYY-MM-DD_X_task-name/
+└── templates/                 # Task templates
+    ├── feature.md
+    ├── bugfix.md
+    ├── enhancement.md
+    └── maintenance.md
 ```
 
-### Phase Transitions
-- UNINITIATED → INITIALIZING
-  - Trigger: "/start" or "BEGIN START PHASE"
-  - Requirements: None
-  
-- INITIALIZING → DEVELOPMENT
-  - Trigger: Automatic upon START phase completion
-  - Requirements: START_PHASE_STATUS = "COMPLETED"
-  
-- DEVELOPMENT → MAINTENANCE
-  - Trigger: Manual transition by user
-  - Requirements: Explicit user request
-  
-- MAINTENANCE → DEVELOPMENT
-  - Trigger: Manual transition by user
-  - Requirements: Explicit user request
+## TASK NAMING CONVENTION
 
-### Mode Transitions
-- Any mode → RESEARCH
-  - Trigger: "/research" or "ENTER RESEARCH MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → INNOVATE
-  - Trigger: "/innovate" or "ENTER INNOVATE MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → PLAN
-  - Trigger: "/plan" or "ENTER PLAN MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → EXECUTE
-  - Trigger: "/execute" or "ENTER EXECUTE MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → REVIEW
-  - Trigger: "/review" or "ENTER REVIEW MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
+Tasks follow the format: `YYYY-MM-DD_X_task-name`
+- YYYY-MM-DD: Creation date
+- X: Sequential number for tasks created on the same date (1, 2, 3, etc.)
+- task-name: Descriptive name using kebab-case
 
-### START Phase Status Transitions
-- NOT_STARTED → IN_PROGRESS
-  - Trigger: "/start" or "BEGIN START PHASE"
-  - Requirements: PROJECT_PHASE = "UNINITIATED"
-  
-- IN_PROGRESS → COMPLETED
-  - Trigger: Completion of all START phase steps
-  - Requirements: START_PHASE_STEP = 7
-  
-- COMPLETED → ARCHIVED
-  - Trigger: Automatic after transition to DEVELOPMENT
-  - Requirements: PROJECT_PHASE = "DEVELOPMENT"
+Examples:
+- `2025-06-05_1_fix-jenkins-setting-validation`
+- `2025-06-05_2_add-kubernetes-operator-support`
+- `2025-06-06_1_enhance-devops-pipeline`
 
-## TASK MANAGEMENT STATE
+## TASK LIFECYCLE WORKFLOW
 
-ACTIVE_TASKS: []
-# List of currently active task IDs
+```mermaid
+flowchart TD
+    A[Task Request] --> B{Task Type?}
+    B -->|Feature| C[Create Feature Task]
+    B -->|Bug Fix| D[Create Bug Fix Task]
+    B -->|Enhancement| E[Create Enhancement Task]
+    B -->|Maintenance| F[Create Maintenance Task]
+    
+    C --> G[PLAN Mode]
+    D --> G
+    E --> G
+    F --> G
+    
+    G --> H[Create Task Directory]
+    H --> I[Generate Task Files]
+    I --> J[EXECUTE Mode]
+    J --> K[Implementation]
+    K --> L[Progress Tracking]
+    L --> M{Task Complete?}
+    M -->|No| K
+    M -->|Yes| N[REVIEW Mode]
+    N --> O[Validation]
+    O --> P{Review Pass?}
+    P -->|No| K
+    P -->|Yes| Q[Move to Completed]
+    Q --> R[Update State]
+    R --> S[Archive Task]
+```
 
-COMPLETED_TASKS: ["2025-06-05_1_framework-review-and-validation", "2025-06-06_2_cloudflare-pages-deployment"]
-# List of completed task IDs
+## TASK COMMANDS
 
-ARCHIVED_TASKS: []
-# List of archived task IDs
+### Task Creation Commands
+- `/task create <type> <name>` - Create new task
+- `/task list` - List all tasks
+- `/task active` - Show active tasks
+- `/task switch <task-id>` - Switch to specific task
+- `/task complete` - Mark current task as complete
+- `/task pause` - Pause current task
+- `/task resume <task-id>` - Resume paused task
 
-TASK_COUNTER: 2
-# Counter for task numbering within the same date
+### Task Types
+- `feature` - New feature development
+- `bugfix` - Bug fix and troubleshooting
+- `enhancement` - Improvement to existing functionality
+- `maintenance` - Code maintenance and refactoring
 
-## TASK LIFECYCLE STATES
-- PLANNED: Task is created and planned
-- ACTIVE: Task is currently being worked on
-- PAUSED: Task is temporarily paused
-- COMPLETED: Task implementation is finished
-- REVIEWED: Task has been reviewed and validated
-- ARCHIVED: Task is completed and archived
+## TASK TEMPLATE STRUCTURES
 
-## STATE UPDATE PROCEDURES
+### Feature Task Template
+```markdown
+# Feature Task: [Task Name]
 
-### Update Project Phase
-1. Validate transition is allowed
-2. Create backup of current state
-3. Update PROJECT_PHASE value
-4. Update LAST_UPDATE timestamp
-5. Perform any phase-specific initialization
+## Task Information
+- **Task ID**: [YYYY-MM-DD_X_task-name]
+- **Type**: Feature
+- **Priority**: [High/Medium/Low]
+- **Estimated Time**: [X hours/days]
+- **Assignee**: [Name/AI Assistant]
+- **Created**: [Date]
+- **Status**: [PLANNED/ACTIVE/PAUSED/COMPLETED/REVIEWED/ARCHIVED]
 
-### Update RIPER Mode
-1. Validate transition is allowed
-2. Update RIPER_CURRENT_MODE value
-3. Update LAST_UPDATE timestamp
-4. Update activeContext.md to reflect mode change
+## Requirements
+- [ ] Functional requirement 1
+- [ ] Functional requirement 2
+- [ ] Non-functional requirement 1
 
-### Update START Phase Status
-1. Validate transition is allowed
-2. Update START_PHASE_STATUS value
-3. Update LAST_UPDATE timestamp
-4. If transitioning to COMPLETED, set INITIALIZATION_DATE
+## Acceptance Criteria
+- [ ] Criteria 1
+- [ ] Criteria 2
+- [ ] Criteria 3
 
-### Update START Phase Step
-1. Validate step increment is logical
-2. Update START_PHASE_STEP value
-3. Update LAST_UPDATE timestamp
-4. If reaching step 7, trigger completion process
+## Dependencies
+- [ ] Dependency 1
+- [ ] Dependency 2
 
-## AUTOMATIC STATE DETECTION
+## Technical Considerations
+- Architecture impact
+- Security considerations
+- Performance implications
+- Testing requirements
 
-When determining current project state:
-1. Check for existence of memory bank files
-2. If complete memory bank exists but STATE_PHASE is "UNINITIATED":
-   - Set PROJECT_PHASE to "DEVELOPMENT"
-   - Set START_PHASE_STATUS to "COMPLETED"
-   - Set START_PHASE_STEP to 7
-   - Set INITIALIZATION_DATE based on file timestamps
-3. If partial memory bank exists:
-   - Set PROJECT_PHASE to "INITIALIZING"
-   - Set START_PHASE_STATUS to "IN_PROGRESS"
-   - Determine START_PHASE_STEP based on existing files
+## Implementation Notes
+[Space for implementation details and decisions]
+```
 
-## RE-INITIALIZATION PROTECTION
+### Bug Fix Task Template
+```markdown
+# Bug Fix Task: [Task Name]
 
-If "/start" or "BEGIN START PHASE" is detected when PROJECT_PHASE is not "UNINITIATED":
-1. Warn user about re-initialization risks
-2. Require explicit confirmation: "CONFIRM RE-INITIALIZATION"
-3. If confirmed:
-   - Create backup of current memory bank
-   - Reset state to PROJECT_PHASE = "INITIALIZING"
-   - Reset START_PHASE_STATUS to "IN_PROGRESS"
-   - Reset START_PHASE_STEP to 1
+## Task Information
+- **Task ID**: [YYYY-MM-DD_X_task-name]
+- **Type**: Bug Fix
+- **Priority**: [Critical/High/Medium/Low]
+- **Severity**: [Critical/Major/Minor]
+- **Assignee**: [Name/AI Assistant]
+- **Created**: [Date]
+- **Status**: [PLANNED/ACTIVE/PAUSED/COMPLETED/REVIEWED/ARCHIVED]
+
+## Bug Description
+[Detailed description of the bug]
+
+## Steps to Reproduce
+1. Step 1
+2. Step 2
+3. Step 3
+
+## Expected Behavior
+[What should happen]
+
+## Actual Behavior
+[What actually happens]
+
+## Root Cause Analysis
+[Analysis of the root cause]
+
+## Fix Strategy
+[Approach to fix the bug]
+
+## Test Plan
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Regression tests
+
+## Verification Steps
+- [ ] Verification step 1
+- [ ] Verification step 2
+```
+
+## TASK INTEGRATION WITH RIPER WORKFLOW
+
+### RESEARCH Mode + Task Management
+- Analyze existing tasks and their relationships
+- Research similar implementations
+- Gather requirements and constraints
+- Document findings in task notes
+
+### INNOVATE Mode + Task Management
+- Brainstorm implementation approaches
+- Explore alternative solutions
+- Consider architectural implications
+- Update task plan with innovative approaches
+
+### PLAN Mode + Task Management
+- Create detailed implementation plan
+- Define task breakdown structure
+- Estimate effort and timeline
+- Document technical specifications
+
+### EXECUTE Mode + Task Management
+- Implement according to plan
+- Track progress in real-time
+- Update progress.md regularly
+- Handle unexpected issues and decisions
+
+### REVIEW Mode + Task Management
+- Validate implementation against requirements
+- Perform code review and testing
+- Document lessons learned
+- Prepare for task completion
+
+## TASK STATE MANAGEMENT
+
+### Active Task Operations
+```javascript
+// Current active task tracking
+CURRENT_TASK: {
+  id: "2025-06-05_1_fix-jenkins-setting-validation",
+  type: "bugfix",
+  status: "ACTIVE",
+  created: "2025-06-05T10:41:07+08:00",
+  lastUpdated: "2025-06-05T10:41:07+08:00",
+  estimatedHours: 4,
+  actualHours: 0,
+  priority: "HIGH"
+}
+```
+
+### Task Metrics
+- Total tasks created
+- Tasks completed per day/week/month
+- Average completion time
+- Task type distribution
+- Success rate and rework frequency
+
+## ENTERPRISE INTEGRATION FEATURES
+
+### Multi-Developer Support
+- Task assignment and ownership
+- Collaboration notes and handoffs
+- Conflict resolution procedures
+- Knowledge sharing mechanisms
+
+### Project Management Integration
+- Sprint planning support
+- Milestone tracking
+- Dependency management
+- Resource allocation
+
+### Quality Assurance
+- Code review integration
+- Testing requirements
+- Documentation standards
+- Compliance checks
+
+## AUTOMATION FEATURES
+
+### Auto-Archive
+- Automatically move completed tasks to archived folder after 30 days
+- Maintain task references and links
+- Preserve task history and metrics
+
+### Template Management
+- Dynamic template selection based on task type
+- Custom template creation and modification
+- Template versioning and updates
+
+### Progress Tracking
+- Automatic progress calculation based on checklist completion
+- Time tracking and estimation accuracy
+- Bottleneck identification and reporting
 
 ---
 
-*This file automatically tracks the current state of the project. It should never be edited manually.*
-
-   - Reset START_PHASE_STEP to 1
-
----
-
-*This file automatically tracks the current state of the project. It should never be edited manually.*
+*This component extends the CursorRIPER Framework with enterprise-grade task management capabilities.*
 
 ---
 > Source: [copyboy/product_whoami](https://github.com/copyboy/product_whoami) — distributed by [TomeVault](https://tomevault.io).
