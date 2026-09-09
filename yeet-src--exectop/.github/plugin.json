@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--exectop",
+  "displayName": "exectop",
+  "description": "Scoped process-launch monitor for Linux: every program one app starts, folded, with the unusual on top",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/exectop",
+  "skills": []
+}
