@@ -1,23 +1,21 @@
 # nispa-vibevoice-studio
 
-> Tome by [nispa](https://github.com/nispa/nispa-vibevoice-studio) — distributed by [TomeVault](https://tomevault.io)
-
-is a powerful, locally-hosted Text-to-Speech (TTS) application designed to provide high-quality voice synthesis. It leverages the Microsoft VibeVoice model as its core engine, seamlessly integrating a fast Python FastAPI backend and a modern React/TypeScript frontend.
+> Tome by [nispa](https://github.com/nispa/nispa-vibevoice-studio), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nispa/nispa-vibevoice-studio](https://github.com/nispa/nispa-vibevoice-studio).
+Original source: `AGENTS.md` in [nispa/nispa-vibevoice-studio](https://github.com/nispa/nispa-vibevoice-studio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nispa/nispa-vibevoice-studio](https://github.com/nispa/nispa-vibevoice-studio) — a repo with 51+ stars on GitHub.
+From [nispa/nispa-vibevoice-studio](https://github.com/nispa/nispa-vibevoice-studio) — a repo with 52+ stars on GitHub.
 
 ---
 
