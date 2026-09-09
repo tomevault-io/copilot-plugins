@@ -1,0 +1,14 @@
+{
+  "name": "firebase--firebaseui-ios",
+  "displayName": "FirebaseUI-iOS",
+  "description": "FirebaseUI-iOS",
+  "version": "1.0.0",
+  "author": "firebase",
+  "homepage": "https://github.com/firebase/FirebaseUI-iOS",
+  "skills": [
+    {
+      "name": "FirebaseUI-iOS",
+      "description": ""
+    }
+  ]
+}
