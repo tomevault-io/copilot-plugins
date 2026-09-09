@@ -2,9 +2,9 @@
   "name": "vespasian",
   "owner": "praetorian-inc",
   "repo": "vespasian",
-  "description": "API discovery tool that maps attack surfaces from captured traffic and generates specs for REST, GraphQL, SOAP, and WebSocket APIs",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/praetorian-inc/vespasian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T23:05:32Z"
+  "distributed_at": "2026-09-09T23:37:16Z"
 }
