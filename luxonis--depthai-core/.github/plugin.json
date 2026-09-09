@@ -1,0 +1,14 @@
+{
+  "name": "luxonis--depthai-core",
+  "displayName": "depthai-core",
+  "description": "depthai-core",
+  "version": "1.0.0",
+  "author": "luxonis",
+  "homepage": "https://github.com/luxonis/depthai-core",
+  "skills": [
+    {
+      "name": "depthai-core",
+      "description": ""
+    }
+  ]
+}
