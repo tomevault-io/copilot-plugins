@@ -2,9 +2,9 @@
   "name": "gpu_ext",
   "owner": "eunomia-bpf",
   "repo": "gpu_ext",
-  "description": "eBPF for GPU UVM offloading and scheduling in Linux kernel",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eunomia-bpf/gpu_ext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T21:16:26Z"
+  "distributed_at": "2026-09-09T12:07:52Z"
 }
