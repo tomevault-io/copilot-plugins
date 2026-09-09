@@ -1,10 +1,10 @@
 ## story-skills
 
-> These instructions apply to the entire `story-skills` repository.
+> These instructions apply to the entire `story-skills` repository. `CLAUDE.md` is a symlink to this file so Claude Code reads the same instructions. Edit this file and leave the symlink in place.
 
 # Agent Instructions
 
-These instructions apply to the entire `story-skills` repository.
+These instructions apply to the entire `story-skills` repository. `CLAUDE.md` is a symlink to this file so Claude Code reads the same instructions. Edit this file and leave the symlink in place.
 
 ## Project Overview
 
@@ -18,7 +18,12 @@ Primary paths:
 - `skills/story-maintenance/scripts/story.js` - Node-compatible bundled fallback CLI for copied skill installs
 - `test/` - Bun tests
 - `examples/` - sample Story Skills projects
+- `scripts/` - CI check scripts and the release script
+- `docs/` - user-facing guides, including the schema v2 reference
+- `schemas/story.schema.json` - JSON schema for story project frontmatter
+- `templates/github/` - GitHub Actions workflows users copy into a story repository for checks and scheduled chapter drafting
 - `.codex-plugin/`, `.claude-plugin/`, `.agents/` - plugin and marketplace metadata
+- `plugins/story-skills` - symlink to the repo root. Codex marketplace entries must point at a child plugin directory, so keep it a symlink rather than a copy.
 
 ## Development Commands
 
@@ -31,9 +36,11 @@ bun run build:fallback
 bun run check:fallback
 bun run test
 bun run test:coverage
+bun run test:examples
+bun run check:metadata
 ```
 
-Use `bun run test` for normal verification. Use `bun run build:fallback` after changing CLI behavior in `src/`, then use `bun run check:fallback` to confirm the generated fallback is current. Use `bun run test:coverage` when changes affect CLI behavior, parsing, project scanning, validation, fallback generation, or release readiness.
+CI runs `check:metadata`, `test`, `test:coverage`, `test:examples`, and the fallback under Node in that order. Use `bun run test` for normal verification. Use `bun run build:fallback` after changing CLI behavior in `src/`, then use `bun run check:fallback` to confirm the generated fallback is current. Use `bun run test:coverage` when changes affect CLI behavior, parsing, project scanning, validation, fallback generation, or release readiness.
 
 ## Implementation Rules
 
@@ -65,7 +72,7 @@ For published changes, keep version metadata aligned across:
 - `.codex-plugin/plugin.json`
 - `.claude-plugin/plugin.json`
 
-Marketplace entries should remain unversioned unless the existing release process changes.
+Do not bump these by hand. `bun run release <patch|minor|major|X.Y.Z>` bumps all three, runs the CI checks, commits `chore: release X.Y.Z`, tags `vX.Y.Z`, pushes `main` and the tag, and creates the GitHub release. `--dry-run` runs the checks and stops before any change. Marketplace entries should remain unversioned unless the existing release process changes.
 
 ## Generated And Local Artifacts
 
@@ -80,7 +87,7 @@ Do not commit:
 
 Before finishing code or skill changes, check:
 
-- The relevant tests pass.
+- The CI checks pass locally: `bun run check:metadata`, `bun run test`, `bun run test:coverage`, `bun run test:examples`.
 - CLI help and skill docs still agree on command names and options.
 - The bundled maintenance fallback is current: `bun run check:fallback`.
 - The bundled maintenance fallback still runs with Node: `node skills/story-maintenance/scripts/story.js --help`.
@@ -88,4 +95,4 @@ Before finishing code or skill changes, check:
 
 ---
 > Source: [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
