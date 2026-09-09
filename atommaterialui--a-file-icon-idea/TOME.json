@@ -1,0 +1,51 @@
+{
+  "name": "a-file-icon-idea",
+  "owner": "AtomMaterialUI",
+  "repo": "a-file-icon-idea",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "a-file-icon-idea",
+      "path": ".github/skills/port-upstream-icon/SKILL.md",
+      "github_url": "https://github.com/AtomMaterialUI/a-file-icon-idea/tree/main/.github/skills/port-upstream-icon/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AtomMaterialUI/a-file-icon-idea",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T07:06:30Z"
+}
