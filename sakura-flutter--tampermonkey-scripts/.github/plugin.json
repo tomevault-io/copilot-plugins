@@ -1,0 +1,14 @@
+{
+  "name": "sakura-flutter--tampermonkey-scripts",
+  "displayName": "tampermonkey-scripts",
+  "description": "tampermonkey-scripts",
+  "version": "1.0.0",
+  "author": "sakura-flutter",
+  "homepage": "https://github.com/sakura-flutter/tampermonkey-scripts",
+  "skills": [
+    {
+      "name": "tampermonkey-scripts",
+      "description": ""
+    }
+  ]
+}
