@@ -15,10 +15,11 @@ Original source: `AGENTS.md` in [openai/snap-o](https://github.com/openai/snap-o
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
+## Bundled Skills (3)
 
 - [snap-o-network-inspector](https://github.com/openai/snap-o/tree/main/skills/snap-o-network-inspector)
 - [snap-o](https://github.com/openai/snap-o/tree/main/skills/snap-o-network-inspector/SKILL.md)
+- [snap-o](https://github.com/openai/snap-o/tree/main/skills/snap-o-tweaks/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/openai/snap-o](https://github.com/openai/snap-o)
 
