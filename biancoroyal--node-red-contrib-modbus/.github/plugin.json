@@ -1,0 +1,9 @@
+{
+  "name": "biancoroyal--node-red-contrib-modbus",
+  "displayName": "node-red-contrib-modbus",
+  "description": "node-red-contrib-modbus",
+  "version": "1.0.0",
+  "author": "BiancoRoyal",
+  "homepage": "https://github.com/BiancoRoyal/node-red-contrib-modbus",
+  "skills": []
+}
