@@ -24,6 +24,7 @@ bun run lint         # Lint all packages
 bun run format       # Check formatting
 bun run typecheck    # Type-check all packages
 bun run visual-test  # Visual regression tests (macOS only, compares SVG vs Swift rendering)
+bun run animation-test # Temporal regression tests (macOS only, compares exact RGBA frames)
 ```
 
 ## Requirements
@@ -32,4 +33,4 @@ bun run visual-test  # Visual regression tests (macOS only, compares SVG vs Swif
 
 ---
 > Source: [bring-shrubbery/SVG-to-SwiftUI](https://github.com/bring-shrubbery/SVG-to-SwiftUI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
