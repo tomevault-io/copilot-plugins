@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [TuringLang/Turing.jl](https://github.com/TuringLang/Turing.jl).
+Original source: `AGENTS.md` in [TuringLang/Turing.jl](https://github.com/TuringLang/Turing.jl).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [TuringLang/Turing.jl](https://github.com/TuringLang/Turing.jl) — a repo with 2244+ stars on GitHub.
+From [TuringLang/Turing.jl](https://github.com/TuringLang/Turing.jl) — a repo with 2254+ stars on GitHub.
 
 ---
 
