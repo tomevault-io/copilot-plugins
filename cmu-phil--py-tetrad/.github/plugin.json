@@ -1,0 +1,14 @@
+{
+  "name": "cmu-phil--py-tetrad",
+  "displayName": "py-tetrad",
+  "description": "py-tetrad",
+  "version": "1.0.0",
+  "author": "cmu-phil",
+  "homepage": "https://github.com/cmu-phil/py-tetrad",
+  "skills": [
+    {
+      "name": "py-tetrad",
+      "description": ""
+    }
+  ]
+}
