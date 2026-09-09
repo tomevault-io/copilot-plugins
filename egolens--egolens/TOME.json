@@ -4,7 +4,7 @@
   "repo": "egolens",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/egolens/egolens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T07:18:40Z"
+  "distributed_at": "2026-09-09T16:34:45Z"
 }
