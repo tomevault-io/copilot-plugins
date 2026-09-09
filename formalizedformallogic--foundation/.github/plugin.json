@@ -1,0 +1,14 @@
+{
+  "name": "formalizedformallogic--foundation",
+  "displayName": "Foundation",
+  "description": "Foundation",
+  "version": "1.0.0",
+  "author": "FormalizedFormalLogic",
+  "homepage": "https://github.com/FormalizedFormalLogic/Foundation",
+  "skills": [
+    {
+      "name": "Foundation",
+      "description": ""
+    }
+  ]
+}
