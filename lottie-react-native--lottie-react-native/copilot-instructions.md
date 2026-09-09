@@ -99,4 +99,4 @@ and `gh stack sync --prune` after PRs merge. Never `gh pr merge` a stacked PR.
 
 ---
 > Source: [lottie-react-native/lottie-react-native](https://github.com/lottie-react-native/lottie-react-native) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
