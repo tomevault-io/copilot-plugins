@@ -1,0 +1,14 @@
+{
+  "name": "jmcgrath207--k8s-ephemeral-storage-metrics",
+  "displayName": "k8s-ephemeral-storage-metrics",
+  "description": "k8s-ephemeral-storage-metrics",
+  "version": "1.0.0",
+  "author": "jmcgrath207",
+  "homepage": "https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics",
+  "skills": [
+    {
+      "name": "k8s-ephemeral-storage-metrics",
+      "description": ""
+    }
+  ]
+}
