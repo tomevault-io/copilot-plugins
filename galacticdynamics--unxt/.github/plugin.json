@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "GalacticDynamics",
   "homepage": "https://github.com/GalacticDynamics/unxt",
-  "skills": []
+  "skills": [
+    {
+      "name": "unxt",
+      "description": ""
+    },
+    {
+      "name": "unxt",
+      "description": ""
+    }
+  ]
 }
