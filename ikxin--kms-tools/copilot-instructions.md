@@ -1,0 +1,36 @@
+## kms-tools
+
+> 本文件面向在本仓库中工作的 AI 编程代理，请先阅读本文件，再根据用户的最新请求和仓库现状开展工作
+
+# AGENTS.md
+
+本文件面向在本仓库中工作的 AI 编程代理，请先阅读本文件，再根据用户的最新请求和仓库现状开展工作
+
+## 注意事项
+
+- 积极使用当前环境的 MCP 来增强 Agent 能力并且减少大模型幻觉
+- 代码变更完成之后不要主动执行 dev、build、lint、test 等指令，只需要执行 fmt 将代码格式化即可
+- 所有代码和文件修改都保留在 Git 工作区，永远不要动暂存区里面的代码和文件
+
+## 依赖管理
+
+- 项目不使用 `devDependencies`，所有依赖包统一放在 `dependencies` 字段中
+- 安装依赖时使用 `pnpm add` 命令，而不是 `pnpm add -D`
+
+## 语言约束
+
+无论用户使用何种语言提问或表达，必须且只能使用简体中文（Simplified Chinese）进行思考、分析、输出以及调用工具，不要包含任何其他语言的解释。
+
+## 样式约束
+
+编写样式和布局的时候使用 Tailwind CSS 而不是原生 CSS，尽可能不写任何 CSS 语言，修改样式时需要注意适配移动端响应式布局
+
+## 图标约束
+
+- 项目已集成 `@nuxt/icon` 模块，只能使用该模块提供的图标
+- 除了现有自定义 SVG 图标外，UI 图标仅限使用 `@iconify-json/lucide` 和 `@iconify-json/flag`
+- 禁止引入其他图标库或图标包
+
+---
+> Source: [ikxin/kms-tools](https://github.com/ikxin/kms-tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
