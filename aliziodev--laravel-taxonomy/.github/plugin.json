@@ -1,0 +1,14 @@
+{
+  "name": "aliziodev--laravel-taxonomy",
+  "displayName": "laravel-taxonomy",
+  "description": "laravel-taxonomy",
+  "version": "1.0.0",
+  "author": "aliziodev",
+  "homepage": "https://github.com/aliziodev/laravel-taxonomy",
+  "skills": [
+    {
+      "name": "laravel-taxonomy",
+      "description": ""
+    }
+  ]
+}
