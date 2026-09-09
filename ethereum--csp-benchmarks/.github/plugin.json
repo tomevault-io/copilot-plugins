@@ -1,0 +1,9 @@
+{
+  "name": "ethereum--csp-benchmarks",
+  "displayName": "csp-benchmarks",
+  "description": "Client-side proving benchmarks",
+  "version": "1.0.0",
+  "author": "ethereum",
+  "homepage": "https://github.com/ethereum/csp-benchmarks",
+  "skills": []
+}
