@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "ximing",
   "homepage": "https://github.com/ximing/fabric-photo",
-  "skills": []
+  "skills": [
+    {
+      "name": "fabric-photo",
+      "description": ""
+    },
+    {
+      "name": "fabric-photo",
+      "description": ""
+    }
+  ]
 }
