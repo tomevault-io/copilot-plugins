@@ -1,11 +1,13 @@
-## debugging
+## environment-variables
 
-> Debugging guidance for the Lineai MCP Server
+> Key environment variables for the Lineai MCP Server
 
-- Enable Debug Mode by setting `LINEAI_DEBUG_MODE=true`
-- Use debugpy capabilities for remote debugging
-- Check logs in the logs directory for detailed information
-- Use proper logging levels for different types of information
+- `LINEAI_SERVER_HOST`: Lineai server URL
+- `LINEAI_USERNAME`: Username for authentication
+- `LINEAI_PASSWORD`: Password for authentication
+- `LINEAI_WORKSPACE_NAME`: Workspace name
+- `LINEAI_DEBUG_MODE`: Enable debug logging
+- `LINEAI_TEST_MODE`: Used by test framework
 
 ---
 > Source: [lineai-intelligence/lineai-mcp-server](https://github.com/lineai-intelligence/lineai-mcp-server) — distributed by [TomeVault](https://tomevault.io).
