@@ -1,0 +1,213 @@
+{
+  "name": "specx",
+  "owner": "maksimzayats",
+  "repo": "specx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "specx-project-structure",
+      "path": ".agents/skills/specx-project-structure",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-project-structure",
+      "description": ""
+    },
+    {
+      "name": "specx-add-delivery-controller",
+      "path": ".agents/skills/specx-add-delivery-controller",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-add-delivery-controller",
+      "description": ""
+    },
+    {
+      "name": "specx-tests",
+      "path": ".agents/skills/specx-tests",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-tests",
+      "description": ""
+    },
+    {
+      "name": "specx-diwire-composition",
+      "path": ".agents/skills/specx-diwire-composition",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-diwire-composition",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-tests/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-settings/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-foundation/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-foundation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-tests/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-project-tooling/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-project-tooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-add-core-service/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-add-core-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-settings/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-add-core-use-case/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-add-core-use-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-project-structure/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-project-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-foundation/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-foundation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-diwire-composition/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-diwire-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-sqlalchemy-migrations/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-sqlalchemy-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-component-architecture/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-component-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-project-tooling/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-project-tooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-add-delivery-controller/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-add-delivery-controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-add-core-service/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-add-core-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-add-core-use-case/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-add-core-use-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-project-structure/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-project-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": "skills/specx-add-infrastructure-adapter/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/skills/specx-add-infrastructure-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-diwire-composition/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-diwire-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-sqlalchemy-migrations/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-sqlalchemy-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-component-architecture/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-component-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-add-delivery-controller/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-add-delivery-controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specx",
+      "path": ".agents/skills/specx-add-infrastructure-adapter/SKILL.md",
+      "github_url": "https://github.com/maksimzayats/specx/tree/main/.agents/skills/specx-add-infrastructure-adapter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maksimzayats/specx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:02:08Z"
+}
