@@ -1,0 +1,14 @@
+{
+  "name": "cartesiancs--nugget-app",
+  "displayName": "nugget-app",
+  "description": "nugget-app",
+  "version": "1.0.0",
+  "author": "cartesiancs",
+  "homepage": "https://github.com/cartesiancs/nugget-app",
+  "skills": [
+    {
+      "name": "nugget-app",
+      "description": ""
+    }
+  ]
+}
