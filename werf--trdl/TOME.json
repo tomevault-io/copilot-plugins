@@ -3,8 +3,8 @@
   "owner": "werf",
   "repo": "trdl",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "trdl",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/werf/trdl/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "path": ".agents/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/werf/trdl/tree/main/.agents/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "path": ".agents/skills/session-retro/SKILL.md",
+      "github_url": "https://github.com/werf/trdl/tree/main/.agents/skills/session-retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "path": ".agents/skills/test-the-tests/SKILL.md",
+      "github_url": "https://github.com/werf/trdl/tree/main/.agents/skills/test-the-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "path": ".agents/skills/git-conventions/SKILL.md",
+      "github_url": "https://github.com/werf/trdl/tree/main/.agents/skills/git-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "path": ".agents/skills/agent-code-review/SKILL.md",
+      "github_url": "https://github.com/werf/trdl/tree/main/.agents/skills/agent-code-review/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/werf/trdl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T00:44:53Z"
+  "distributed_at": "2026-09-09T19:49:43Z"
 }
