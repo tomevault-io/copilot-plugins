@@ -1,0 +1,183 @@
+{
+  "name": "zui",
+  "owner": "easysoft",
+  "repo": "zui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zui",
+      "path": "skills/zui/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills/zui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills/zui-build/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills/zui-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-dev/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-doc/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-lib/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-i18n/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-lib/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-dev/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-doc/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-helper/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-commit/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-i18n/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-wrap-lib/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-wrap-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-optimize/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-review/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-commit/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-helper/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-component/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": "skills-exts/zuix-standards/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/skills-exts/zuix-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-wrap-lib/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-wrap-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-optimize/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-component/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zui",
+      "path": ".agents/skills/zui-standards/SKILL.md",
+      "github_url": "https://github.com/easysoft/zui/tree/main/.agents/skills/zui-standards/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/easysoft/zui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:20:24Z"
+}
