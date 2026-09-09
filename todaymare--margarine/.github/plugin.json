@@ -1,0 +1,14 @@
+{
+  "name": "todaymare--margarine",
+  "displayName": "margarine",
+  "description": "margarine",
+  "version": "1.0.0",
+  "author": "todaymare",
+  "homepage": "https://github.com/todaymare/margarine",
+  "skills": [
+    {
+      "name": "margarine",
+      "description": ""
+    }
+  ]
+}
