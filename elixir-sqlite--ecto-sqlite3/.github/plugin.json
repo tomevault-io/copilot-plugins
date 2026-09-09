@@ -1,0 +1,9 @@
+{
+  "name": "elixir-sqlite--ecto-sqlite3",
+  "displayName": "ecto_sqlite3",
+  "description": "ecto_sqlite3",
+  "version": "1.0.0",
+  "author": "elixir-sqlite",
+  "homepage": "https://github.com/elixir-sqlite/ecto_sqlite3",
+  "skills": []
+}
