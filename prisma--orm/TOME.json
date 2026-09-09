@@ -1,0 +1,195 @@
+{
+  "name": "orm",
+  "owner": "prisma",
+  "repo": "orm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "publish-npm-version",
+      "path": "skills-contrib/publish-npm-version/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/publish-npm-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "record-upgrade-instructions",
+      "path": "skills-contrib/record-upgrade-instructions/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/record-upgrade-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "draft-release-notes",
+      "path": "skills-contrib/draft-release-notes/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/draft-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prisma-8",
+      "path": "skills/prisma-8/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills/prisma-8/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "contrib-pr",
+      "path": "skills-contrib/contrib-pr/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/contrib-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": "skills-contrib/create-pr/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "record-gotchas",
+      "path": "skills-contrib/record-gotcha/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/record-gotcha/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "no-bare-casts",
+      "path": "skills-contrib/no-bare-casts/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/no-bare-casts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "triage-contributor-pr",
+      "path": "skills-contrib/triage-contributor-pr/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/triage-contributor-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multiline-commit-messages",
+      "path": "skills-contrib/multiline-commit-messages/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/multiline-commit-messages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "write-architecture-docs",
+      "path": "skills-contrib/write-architecture-docs/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/write-architecture-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "record-upgrade-instructions",
+      "path": "skills-contrib/record-upgrade-instructions",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/record-upgrade-instructions",
+      "description": ""
+    },
+    {
+      "name": "draft-release-notes",
+      "path": "skills-contrib/draft-release-notes",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/draft-release-notes",
+      "description": ""
+    },
+    {
+      "name": "contrib-pr",
+      "path": "skills-contrib/contrib-pr",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/contrib-pr",
+      "description": ""
+    },
+    {
+      "name": "record-gotchas",
+      "path": "skills-contrib/record-gotcha",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/record-gotcha",
+      "description": ""
+    },
+    {
+      "name": "write-architecture-docs",
+      "path": "skills-contrib/write-architecture-docs",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/write-architecture-docs",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/adr-review/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/adr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/bumping-biome/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/bumping-biome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/psl-ast-layers/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/psl-ast-layers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/review-fetch-phase/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/review-fetch-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/ast-visitor-pattern/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/ast-visitor-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/review-triage-phase/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/review-triage-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/review-implement-phase/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/review-implement-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/github-review-iteration/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/github-review-iteration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orm",
+      "path": "skills-contrib/markdown-no-artificial-line-wraps/SKILL.md",
+      "github_url": "https://github.com/prisma/orm/tree/main/skills-contrib/markdown-no-artificial-line-wraps/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/prisma/orm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:00:43Z"
+}
