@@ -1,0 +1,9 @@
+{
+  "name": "kyl191--ansible-role-openvpn",
+  "displayName": "ansible-role-openvpn",
+  "description": "ansible-role-openvpn",
+  "version": "1.0.0",
+  "author": "kyl191",
+  "homepage": "https://github.com/kyl191/ansible-role-openvpn",
+  "skills": []
+}
