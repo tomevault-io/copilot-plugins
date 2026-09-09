@@ -1,0 +1,9 @@
+{
+  "name": "codellm-devkit--codeanalyzer-python",
+  "displayName": "codeanalyzer-python",
+  "description": "Python Static Analysis Backend for CLDK",
+  "version": "1.0.0",
+  "author": "codellm-devkit",
+  "homepage": "https://github.com/codellm-devkit/codeanalyzer-python",
+  "skills": []
+}
