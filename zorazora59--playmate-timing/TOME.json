@@ -1,0 +1,44 @@
+{
+  "name": "Playmate-Timing",
+  "owner": "ZoraZora59",
+  "repo": "Playmate-Timing",
+  "description": "\u4e00\u4e2asaas\u5e73\u53f0\uff0c\u4e3a\u6e38\u620f\u966a\u73a9\u7b49\u8ba1\u65f6\u6536\u8d39\u7684\u4e1a\u52a1\u63d0\u4f9b\u652f\u6301",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZoraZora59/Playmate-Timing",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T07:50:20Z"
+}
