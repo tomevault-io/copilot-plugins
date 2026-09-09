@@ -1,0 +1,14 @@
+{
+  "name": "cyberagentgameentertainment--airsticker",
+  "displayName": "AirSticker",
+  "description": "AirSticker",
+  "version": "1.0.0",
+  "author": "CyberAgentGameEntertainment",
+  "homepage": "https://github.com/CyberAgentGameEntertainment/AirSticker",
+  "skills": [
+    {
+      "name": "AirSticker",
+      "description": ""
+    }
+  ]
+}
