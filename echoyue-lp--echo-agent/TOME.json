@@ -1,0 +1,117 @@
+{
+  "name": "echo-agent",
+  "owner": "EchoYue-lp",
+  "repo": "echo-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "echo-agent",
+      "path": "examples/demo_skills/code_review/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/examples/demo_skills/code_review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "examples/demo_skills/data_analyst/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/examples/demo_skills/data_analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "examples/demo_skills/project-stats/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/examples/demo_skills/project-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "examples/demo_skills/python-linter/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/examples/demo_skills/python-linter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "examples/demo_skills/web_researcher/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/examples/demo_skills/web_researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "examples/demo_skills/redbook-image-generator-1.0.0/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/examples/demo_skills/redbook-image-generator-1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "echo-agent-learning/examples/demo_skills/code-review/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/echo-agent-learning/examples/demo_skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "echo-agent-learning/examples/demo_skills/data-analyst/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/echo-agent-learning/examples/demo_skills/data-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "echo-agent-learning/examples/demo_skills/project-stats/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/echo-agent-learning/examples/demo_skills/project-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "echo-agent-learning/examples/demo_skills/python-linter/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/echo-agent-learning/examples/demo_skills/python-linter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "echo-agent-learning/examples/demo_skills/web-researcher/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/echo-agent-learning/examples/demo_skills/web-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "echo-agent",
+      "path": "echo-agent-learning/examples/demo_skills/xiaohongshu-image-generator/SKILL.md",
+      "github_url": "https://github.com/EchoYue-lp/echo-agent/tree/main/echo-agent-learning/examples/demo_skills/xiaohongshu-image-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EchoYue-lp/echo-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:48:14Z"
+}
