@@ -1,0 +1,9 @@
+{
+  "name": "laradock--php-fpm",
+  "displayName": "php-fpm",
+  "description": "php-fpm",
+  "version": "1.0.0",
+  "author": "laradock",
+  "homepage": "https://github.com/laradock/php-fpm",
+  "skills": []
+}
