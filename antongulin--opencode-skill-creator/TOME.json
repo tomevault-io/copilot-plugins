@@ -1,0 +1,51 @@
+{
+  "name": "opencode-skill-creator",
+  "owner": "antongulin",
+  "repo": "opencode-skill-creator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opencode-skill-creator",
+      "path": "examples/docker-compose-helper/SKILL.md",
+      "github_url": "https://github.com/antongulin/opencode-skill-creator/tree/main/examples/docker-compose-helper/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/antongulin/opencode-skill-creator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:45:43Z"
+}
