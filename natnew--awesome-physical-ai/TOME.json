@@ -3,8 +3,8 @@
   "owner": "natnew",
   "repo": "awesome-physical-ai",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "awesome-physical-ai",
+      "path": "skills/changelog/SKILL.md",
+      "github_url": "https://github.com/natnew/awesome-physical-ai/tree/main/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-physical-ai",
+      "path": "skills/feature-spec/SKILL.md",
+      "github_url": "https://github.com/natnew/awesome-physical-ai/tree/main/skills/feature-spec/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/natnew/awesome-physical-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T19:55:28Z"
+  "distributed_at": "2026-09-09T15:36:58Z"
 }
