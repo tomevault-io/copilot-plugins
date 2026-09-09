@@ -1,14 +1,14 @@
 ## django-base-site
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents when working with code in this repository.
 
 ## Project Overview
 
-Django Base Site is an opinionated Django starter template with a production-ready foundation. The stack is Django 5 + django-ninja + django-allauth (headless mode, with MFA + WebAuthn passkeys) on the backend, and a Vue 3 SPA with Tailwind v4 on the frontend. Multi-tenant scaffolding (organizations, teams, invites), a notifications system (in-app + email, per-user category prefs, generic-target cleanup, retention purge), and an opt-in Stripe billing app (Checkout + Customer Portal, settings-declared plans + features, per-seat pricing, trials, coupons) are built in. Celery + Redis for background tasks, MinIO for S3-compatible local media storage, gunicorn in production.
+Django Base Site is an opinionated Django starter template with a production-ready foundation. The stack is Django 6 + django-ninja + django-allauth (headless mode, with MFA + WebAuthn passkeys) on the backend, and a Vue 3 SPA with Tailwind v4 on the frontend. Multi-tenant scaffolding (organizations, teams, invites), a notifications system (in-app + email, per-user category prefs, generic-target cleanup, retention purge), and an opt-in Stripe billing app (Checkout + Customer Portal, settings-declared plans + features, per-seat pricing, trials, coupons) are built in. Celery + Redis for background tasks, MinIO for S3-compatible local media storage, gunicorn in production.
 
 ## Architecture
 
@@ -149,10 +149,10 @@ Key variables:
 
 ## Key Dependencies
 
-- **Backend**: Django 5, django-allauth[mfa] (with fido2 for WebAuthn), django-ninja, django-hijack, Pillow, Celery, Redis, PostgreSQL 17, gunicorn, WhiteNoise, django-storages + boto3, django-ses, django-alive, django-maintenance-mode.
+- **Backend**: Django 6, django-allauth[mfa] (with fido2 for WebAuthn), django-ninja, django-hijack, Pillow, Celery, Redis, PostgreSQL 17, gunicorn, WhiteNoise, django-storages + boto3, django-ses, django-alive, django-maintenance-mode.
 - **Frontend**: Vue 3, Vue Router 5, Tailwind v4, Vite 8, bun, @heroicons/vue, vue-advanced-cropper, reka-ui (modal/toast primitives).
 - **Development**: Docker, pytest, pytest-playwright, pyotp, Ruff, Ty, Oxlint, Oxfmt, djLint, model-bakery.
 
 ---
 > Source: [epicserve/django-base-site](https://github.com/epicserve/django-base-site) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
