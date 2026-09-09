@@ -1,0 +1,14 @@
+{
+  "name": "clima--rrtmgp-jl",
+  "displayName": "RRTMGP.jl",
+  "description": "RRTMGP.jl",
+  "version": "1.0.0",
+  "author": "CliMA",
+  "homepage": "https://github.com/CliMA/RRTMGP.jl",
+  "skills": [
+    {
+      "name": "RRTMGP.jl",
+      "description": ""
+    }
+  ]
+}
