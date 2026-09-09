@@ -1,0 +1,621 @@
+{
+  "name": "basilic",
+  "owner": "blockmatic",
+  "repo": "basilic",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/viem-v2/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/viem-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/nuqs-v2/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/nuqs-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-api/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/next-v16/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/next-v16/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/wagmi-v3/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/wagmi-v3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/vitest-v4/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/vitest-v4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/ahooks-v3/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/ahooks-v3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/shadcn-v3/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/shadcn-v3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/solana-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/solana-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/fastify-v5/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/fastify-v5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/motion-v13/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/motion-v13/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/react-email/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/react-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-analyst/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-quality/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-product/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-product/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/ai-sdk-ui-v7/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/ai-sdk-ui-v7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-security/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-workflow/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-journeys/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-journeys/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/typescript-v6/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/typescript-v6/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/openapi-ts-v0/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/openapi-ts-v0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/yolo/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/yolo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/playwright-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/playwright-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-ai-expert/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-ai-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/drizzle-orm-v0/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/drizzle-orm-v0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/ai-sdk-core-v7/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/ai-sdk-core-v7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/retro/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/build/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-operations/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/vercel-react-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/vercel-react-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/deslop/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/deslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/use-v0/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/use-v0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/expo-use-dom-v55/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/expo-use-dom-v55/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/use-tdd/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/use-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/roadmap/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/roadmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/council/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/council/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-architecture/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/tanstack-query-v5/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/tanstack-query-v5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/overview/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/fix-push/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/fix-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/lint-fix/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/lint-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/git-push/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/git-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/diagrams/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/expo-upgrading-v55/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/expo-upgrading-v55/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/frontend-design-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/frontend-design-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/visualize/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/visualize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/exec-push/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/exec-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/f/f-info-architect/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/f/f-info-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/expo-deployment-v55/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/expo-deployment-v55/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/nodejs-keccak256-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/nodejs-keccak256-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/expo-dev-client-v55/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/expo-dev-client-v55/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/lint-suite/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/lint-suite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/coderabbit/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/coderabbit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/git-commit/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/use-shadcn/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/use-shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/file-organization-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/file-organization-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/review-plan/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/review-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/debug-issue/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/debug-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/code-review/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/docker-logs/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/docker-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/nextjs-form/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/nextjs-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/plan-feature/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/plan-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/use-frontend/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/use-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/clarify-task/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/clarify-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/refactor-code/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/refactor-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/debug-browser/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/debug-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/git-create-pr/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/git-create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/expo-tailwind-setup-v55/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/expo-tailwind-setup-v55/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/composition-patterns-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/composition-patterns-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/emilkowal-animations-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/emilkowal-animations-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/expo-cicd-workflows-v55/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/expo-cicd-workflows-v55/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/security-audit/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/fix-git-issues/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/fix-git-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/release-review/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/release-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/write-api-test/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/write-api-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/web-design-guidelines-v1/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/web-design-guidelines-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/security-review/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/git-pr-comments/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/git-pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/fix-vercel-build/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/fix-vercel-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/write-unit-tests/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/write-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/tailwind-design-system-v4/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/tailwind-design-system-v4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/generate-api-docs/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/generate-api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/info-architecture/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/info-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/plan-architecture/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/plan-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/add-documentation/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/add-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/fix-github-actions/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/fix-github-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/fix-compile-errors/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/fix-compile-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/add-error-handling/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/add-error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/audit-accessibility/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/audit-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/optimize-performance/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/optimize-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/run-all-tests-and-fix/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/run-all-tests-and-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/onboard-new-developer/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/onboard-new-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/generate-pr-description/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/generate-pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basilic",
+      "path": ".agents/skills/workflow/light-review-existing-diffs/SKILL.md",
+      "github_url": "https://github.com/blockmatic/basilic/tree/main/.agents/skills/workflow/light-review-existing-diffs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/blockmatic/basilic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:30:25Z"
+}
