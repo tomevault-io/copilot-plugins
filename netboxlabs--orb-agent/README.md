@@ -1,17 +1,15 @@
 # orb-agent
 
-> Tome by [netboxlabs](https://github.com/netboxlabs/orb-agent) — distributed by [TomeVault](https://tomevault.io)
-
-Orb network observability agent, part of the NetBox ecosystem and developed by NetBox Labs
+> Tome by [netboxlabs](https://github.com/netboxlabs/orb-agent), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [netboxlabs/orb-agent](https://github.com/netboxlabs/orb-agent).
+Original source: `AGENTS.md` in [netboxlabs/orb-agent](https://github.com/netboxlabs/orb-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
