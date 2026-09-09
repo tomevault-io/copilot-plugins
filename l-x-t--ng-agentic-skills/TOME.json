@@ -1,0 +1,44 @@
+{
+  "name": "ng-agentic-skills",
+  "owner": "L-X-T",
+  "repo": "ng-agentic-skills",
+  "description": "Agent skills for Angular development \u2013 the companion repo for the Agentic Engineering blog post series",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/L-X-T/ng-agentic-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T15:41:53Z"
+}
