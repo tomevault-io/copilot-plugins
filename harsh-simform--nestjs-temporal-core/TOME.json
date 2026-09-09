@@ -4,7 +4,7 @@
   "repo": "nestjs-temporal-core",
   "description": "NestJS integration for Temporal.io with Worker and Client support",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/harsh-simform/nestjs-temporal-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T00:42:42Z"
+  "distributed_at": "2026-09-09T19:32:25Z"
 }
