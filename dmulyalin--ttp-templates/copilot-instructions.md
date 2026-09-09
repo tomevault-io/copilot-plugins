@@ -123,6 +123,19 @@ Return shape:
 
 ---
 
+## References
+
+Use these project documents before adding or changing templates:
+
+| Document | Purpose |
+|---|---|
+| `docs/contribute.md` | Contribution flow, template layout, utility function structure, mock data, tests and Pydantic model guidance |
+| `docs/development/getter_parsers.md` | Developer guide for creating getter parsers, platform implementations, fixtures, and support matrix updates |
+| `docs/getters_support_matrix.md` | Getter platform support status |
+| `docs/writing_docs.md` | How to regenerate documentation |
+
+---
+
 ## Development environment
 
 The project uses [Poetry](https://python-poetry.org/) for dependency and
@@ -133,12 +146,14 @@ build management.
 poetry install
 
 # run the full test suite
-cd test
-poetry run pytest -vv
+poetry run inv test
 
 # run a specific test file
-cd test
-poetry run pytest test_ttp_templates_methods.py -vv
+poetry run inv test --extra test_ttp_templates_methods.py
+
+# run tests in supported Python Docker containers
+poetry run inv docker-build
+poetry run inv test-docker-all
 
 # build docs locally
 poetry run mkdocs serve
@@ -149,12 +164,14 @@ poetry run mkdocs serve
 | Tool | Purpose |
 |---|---|
 | `pytest` | Test runner |
+| `invoke` | Development task runner |
 | `cerberus` | Schema validation in N2G tests |
 | `deepdiff` | Deep equality assertions |
 | `yangson` | YANG schema validation for yang template tests |
 | `netmiko` | Integration tests against real/mock devices |
-| `black` | Code formatting |
 | `flake8` / `pylint` | Linting |
+| `ruff` | Fast Python lint and format checks |
+| `vulture` | Dead code detection |
 | `bandit` | Security scanning |
 
 ---
@@ -174,4 +191,4 @@ logging.basicConfig(level=logging.DEBUG)
 
 ---
 > Source: [dmulyalin/ttp_templates](https://github.com/dmulyalin/ttp_templates) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
