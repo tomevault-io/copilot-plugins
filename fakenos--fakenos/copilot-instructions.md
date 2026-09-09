@@ -1,70 +1,296 @@
 ## fakenos
 
-> This sections is intended to briefly explain all the tools used inside the project. Those tools are mainly there to ensure that the code is correctly written and tested.
+> This file gives Claude Code the key context needed to work productively in this repository.
 
-# Conventions
-This sections is intended to briefly explain all the tools used inside the project. Those tools are mainly there to ensure that the code is correctly written and tested.
+# CLAUDE.md
 
-## General: Poetry
-Poetry is a tool for managing Python dependencies and packaging projects. It simplifies the process of managing dependencies by providing a consistent and declarative way to specify them in a `pyproject.toml` file. Poetry also handles virtual environment creation, package building, and publishing. It's often preferred by developers for its ease of use and integration with other tools in the Python ecosystem.
+This file gives Claude Code the key context needed to work productively in this repository.
 
-All the configurations for the project can be found ion the `pyproject.toml`. Here are some basic commands:
+## Project Overview
 
-- `poetry install`: use it to install all the dependencies.
-- `poetry update`: use it to update the dependencies.
-- `poetry shell`: it enters the shell created using poetry install.
+FakeNOS is a Python package for simulating network operating system CLI interactions. It starts fake SSH-accessible network devices and returns predefined or dynamically generated command output, making it useful for testing network automation without real routers, switches, or NOS VMs.
 
-## Tests: Pytest
-Pytest is a testing framework for Python that makes it easy to write simple and scalable tests. It allows you to write test cases as regular Python functions, using assertions to verify expected outcomes. Pytest provides powerful features such as fixtures for setting up test environments, parameterized testing, and plugins for extending functionality. It's widely used in the Python community due to its simplicity, flexibility, and extensive ecosystem of plugins.
+The project intentionally sits between unit-test mocks and full integration labs. It exercises connection establishment, SSH login, prompts, shells, and command responses, but it does not emulate network control, data, or management planes. Do not model it as a protocol emulator for BGP, LLDP, forwarding, routing, or vendor OS internals.
 
-To run the tests do the following:
+The public entry point is `FakeNOS`, exported from `fakenos/__init__.py` and implemented in `fakenos/core/fakenos.py`. The package also provides a `fakenos` test decorator and a `fakenos` CLI command via `fakenos.plugins.utils.cli:run_cli`.
+
+Package metadata is in `pyproject.toml`:
+
+- Package name: `fakenos`
+- Current version: `1.1.0`
+- Python support: `>=3.11,<3.15`
+- Build backend: `uv_build`
+- Core dependencies: `paramiko`, `pyyaml`, `pydantic`, `jinja2`, and `detect`
+- Dev dependencies include `pytest`, `pytest-timeout`, `pytest-repeat`, `ruff`, `bandit`, `coverage`, `invoke`, `netmiko`, docs tooling, and YAML tooling
+
+## Repository Layout
+
+- `fakenos/core/`: core framework classes and validation.
+  - `fakenos.py`: `FakeNOS`, default inventory, lifecycle methods, plugin registration, test decorator.
+  - `host.py`: host object that wires together server, shell, and NOS plugins.
+  - `nos.py`: base NOS plugin loader for YAML and Python plugin files.
+  - `servers.py`: base TCP server abstraction.
+  - `pydantic_models.py`: inventory, host, server, shell, and NOS validation models.
+- `fakenos/plugins/`: built-in plugin systems.
+  - `servers/ssh_server_paramiko.py`: Paramiko-backed SSH server plugin.
+  - `shell/cmd_shell.py`: command shell implementation.
+  - `nos/platforms_yaml/`: YAML platform definitions.
+  - `nos/platforms_py/`: Python-backed dynamic platform definitions and templates.
+- `tests/`: pytest suite split into `core` and `plugins`.
+- `tests/assets/`: test inventories, test NOS modules, YAML fixtures, and SSH test keys.
+- `docs/`: Zensical/MkDocs documentation source.
+- `tasks.py`: Invoke tasks for linting, tests, docs, Docker image build, and Netmiko checks.
+- `docker/`: Dockerfile and compose file for container-based FakeNOS testing.
+
+## Development Setup
+
+CI uses `uv`, so prefer it when available:
+
 ```bash
-pytest
+uv sync --all-groups
 ```
 
-## Security check: Bandit
-Bandit is a security tool for Python code that detects common security issues and vulnerabilities. It analyzes Python code statically to identify potential security threats such as insecure use of modules, unsafe function calls, and potential security risks. Bandit provides a set of plugins that check for various security issues and can be easily integrated into development workflows, helping developers identify and fix security issues early in the development process. It's a valuable tool for improving the security posture of Python applications and libraries.
+Then run commands through `uv run`, for example:
 
-To run the bandit tool do the following:
 ```bash
-bandit -c pyproject.toml -r .
+uv run pytest
 ```
 
-## Basic formatting: Black
-Black is a Python code formatter that automatically formats your Python code according to a strict set of formatting rules. It ensures consistent code style across a project by automatically applying formatting such as indentation, line length, and spacing. Black follows the principle of "code formatting without configuration," meaning it applies its formatting rules uniformly without requiring any manual configuration or adjustment. It's often used to enforce a consistent code style in Python projects and to save developers time by automating the code formatting process.
+This repository also contains a legacy `poetry.lock`, but the current CI, documentation, and build backend use `uv`.
 
-To run the black tool do the following:
+## Running Tests
+
+Run the whole pytest suite:
+
 ```bash
-black .
+uv run pytest
 ```
 
-## Code complexity and compliance: Flake8
-Flake8 is a popular Python tool that combines multiple Python linting and style checking tools into a single package. It runs several checks on Python code for potential errors, code style violations, and adherence to PEP 8 style guidelines. Flake8 integrates tools like PyFlakes, pycodestyle (formerly known as pep8), and McCabe complexity checker, allowing developers to catch errors and enforce coding standards in their Python codebase. It's commonly used as a part of the development workflow to maintain code quality and readability.
+If dependencies are already installed in the active environment, this also works:
 
-To run flake8 do the following:
 ```bash
-flake8 .
+python -m pytest
 ```
 
-## Code linting: Pylint
-Pylint is a Python code linting tool that analyzes source code to detect programming errors, code style issues, and coding conventions. Pylint checks Python code for potential issues such as syntax errors, unused variables, unconventional variable names, and other violations of coding guidelines. It's a valuable tool for improving code quality, identifying coding issues, and maintaining consistency in coding standards.
+Run a specific test file:
 
-To run the pylint tool do the following:
 ```bash
-pylint fakenos
+uv run pytest tests/core/test_fakenos.py
 ```
 
+Run a specific test:
 
-## Code coverage: coverage
-Coverage is a tool used in software development to measure the extent to which the source code of a program is executed during testing. It helps developers understand how thoroughly their tests exercise the codebase by providing metrics on code coverage, typically expressed as a percentage. Coverage tools track which lines or branches of code are executed during tests and generate reports highlighting areas that are covered and those that are not. This information enables developers to identify untested code paths and improve the effectiveness of their testing efforts.
-
-To run coverage in conjuntion with pytest do the following:
 ```bash
-coverage run -m pytest
+uv run pytest tests/core/test_netmiko.py::TestNetmiko::test_testing_module
 ```
 
-It will generate a report which can look in `coverage report -m` or `coverage html`.
+Run with coverage:
+
+```bash
+uv run coverage run -m pytest
+uv run coverage report -m
+uv run coverage html
+```
+
+Pytest configuration is in `pyproject.toml`; it sets `testpaths = ["tests"]` and `addopts = "-vv"`.
+
+## Full Local Checks
+
+The CI gates are Ruff, Bandit, and pytest. Run them locally with Invoke:
+
+```bash
+uv run invoke ruff --local
+uv run invoke bandit --local
+uv run invoke pytest --local
+```
+
+Or run the combined task:
+
+```bash
+uv run invoke tests --local
+```
+
+Important: Invoke tasks default to Docker execution unless `--local` is passed or `INVOKE_LOCAL=True` is set. On PowerShell:
+
+```powershell
+$env:INVOKE_LOCAL = "True"
+uv run invoke tests
+```
+
+Without local mode, `invoke tests` expects the project Docker image to exist. Build it with:
+
+```bash
+uv run invoke build
+```
+
+The combined `tests` task currently runs Ruff, Bandit, and pytest. The YAML lint task exists but is commented out in `tasks.py` and disabled in CI.
+
+## Invoke Tasks Reference
+
+`tasks.py` defines project automation with Invoke. Run tasks as:
+
+```bash
+uv run invoke <task-name>
+```
+
+Most command-running tasks accept `--local`. Without `--local`, they run inside the Docker image named from `pyproject.toml` and tagged as `<version>-py<PYTHON_VER>`. Defaults are:
+
+- `PYTHON_VER=3.14`
+- `IMAGE_NAME=fakenos`
+- `IMAGE_VER=1.1.0-py3.14`
+- `INVOKE_LOCAL=False`
+
+Environment variables can override these values.
+
+Available tasks:
+
+- `build`: builds the root `Dockerfile` image using `PYTHON_VER` as a build argument. Options: `--cache/--no-cache`, `--force-rm`, and `--hide`.
+- `clean`: force-removes the project Docker image for the current `IMAGE_NAME:IMAGE_VER`.
+- `rebuild`: runs `clean`, then rebuilds the Docker image without cache.
+- `pytest`: runs `pytest`.
+- `ruff`: runs `ruff check .`, then `ruff format --check`.
+- `yamllint`: runs `yamllint .`. This exists, but it is not part of the combined `tests` task right now.
+- `bandit`: runs `bandit -c pyproject.toml --recursive ./`.
+- `cli`: opens an interactive Bash shell inside the project Docker image with the repo mounted at `/local`.
+- `tests`: runs the standard local quality gate: `ruff`, `bandit`, then `pytest`. It prints a success message after all pass.
+- `docs`: serves docs with `zensical serve --dev-addr=0.0.0.0:8001`; in Docker mode it maps host port `8001` to container port `8001`.
+- `gen-docs-platform-commands`: generates missing per-platform docs from YAML definitions in `fakenos/plugins/nos/platforms_yaml`.
+- `netmiko-check`: starts one FakeNOS host for a supplied Netmiko `device_type`, connects with Netmiko to `localhost:6000`, waits briefly, stops FakeNOS, and prints success plus elapsed time. Example:
+
+```bash
+uv run invoke netmiko-check --device-type cisco_ios
+```
+
+## Test Notes And Gotchas
+
+- Several tests start local TCP/SSH servers and use free or fixed localhost ports. Avoid running multiple full test suites in parallel on the same machine.
+- Netmiko compatibility tests start FakeNOS instances and connect through SSH. These depend on `netmiko`, `paramiko`, and the platform definitions matching Netmiko expectations.
+- Docker tests use `docker/docker-compose.yaml` and are skipped when Docker is unavailable. Locally, if Docker is running, those tests may build/start containers.
+- Thread cleanup is important. `FakeNOS.stop()` delegates to each host; each server closes and joins only the listener, connection workers, and helper threads it owns. Always stop networks in tests, preferably with `with FakeNOS(...)`.
+- Default hosts are `router_cisco_ios` on port `6000`, `router_huawei_smartax` on port `6001`, and `router_arista_eos` on port `6002`, using username/password `user`/`user`.
+
+## Linting And Formatting
+
+Primary lint configuration is in `pyproject.toml` under Ruff:
+
+```bash
+uv run ruff check .
+uv run ruff format --check
+```
+
+The Invoke task runs those same checks:
+
+```bash
+uv run invoke ruff --local
+```
+
+Bandit security checks:
+
+```bash
+uv run bandit -c pyproject.toml --recursive ./
+```
+
+Pre-commit runs Ruff linting and formatting, ty, Bandit, and basic repository hygiene hooks. Run it with `uv run pre-commit run --all-files`.
+
+## Platform Plugin Guidance
+
+Supported platforms are listed in `fakenos/core/nos.py` as `available_platforms`. Tests compare this list with `docs/platforms/index.md` and assert both are alphabetically ordered.
+
+Platform definitions are loaded lazily from:
+
+- `fakenos/plugins/nos/platforms_yaml/*.yaml`
+- `fakenos/plugins/nos/platforms_py/*.py`
+
+If a platform has both YAML and Python definitions, both files are loaded, with Python adding dynamic behavior. Python platform modules should follow the pattern in `fakenos/plugins/nos/platforms_py/cisco_ios.py` and use `BaseDevice` when device state, configuration, or Jinja templates are needed.
+
+When adding or changing a platform:
+
+- Keep `available_platforms` sorted.
+- Keep `docs/platforms/index.md` sorted and status-marked.
+- Add or update tests when Netmiko behavior, prompts, command aliases, or dynamic output changes.
+- Watch prompt transitions carefully: command `prompt` filters and `new_prompt` changes are central to shell behavior.
+
+## Inventory Guidance
+
+Inventories may be Python dictionaries or YAML files. They require a top-level `hosts` section and may include a top-level `default` section. Host values override defaults.
+
+Common host fields:
+
+- `username`
+- `password`
+- `port`
+- `platform`
+- `replicas`
+- `server`
+- `shell`
+- `nos`
+- `configuration_file`
+
+If `replicas` is used, `port` must be a two-item list/range whose size matches the replica count. Without `replicas`, `port` must be an integer.
+
+## Documentation
+
+Docs source is under `docs/`. The documentation is part of the expected contribution surface: when behavior, platform support, CLI usage, inventory options, or plugin workflows change, update docs alongside code and tests.
+
+CI builds documentation with:
+
+```bash
+uv run zensical build --clean
+```
+
+The Invoke docs task serves docs locally:
+
+```bash
+uv run invoke docs --local
+```
+
+When adding or moving documentation, update `zensical.toml` and keep Markdown links relative to the page containing them.
+
+Project overview docs define the mental model:
+
+- FakeNOS is for lightweight network automation testing and development.
+- The core flow is client input to server, server to shell, shell to NOS plugin, then command output back to the client.
+- The plugin systems are NOS plugins, server plugins, and shell plugins.
+- Dynamic output exists for Python-backed platforms, but many command outputs are intentionally predefined and exact-command based.
+
+## Contribution And Conduct
+
+The project follows the Contributor Covenant Code of Conduct in `CODE_OF_CONDUCT.md`. Contributions and reviews should be respectful, inclusive, and constructive. Assume maintainers and contributors are working from limited volunteer time; keep changes focused, explain intent clearly, and make review easy.
+
+Expected contribution shape from the development docs:
+
+- Define a clear goal for the change.
+- Include code and tests whenever possible.
+- Document user-facing behavior or development workflow changes.
+- Run the project checks before submitting: `invoke tests` or, preferably in the current `uv` workflow, `uv run invoke tests --local`.
+
+The Code of Conduct specifically calls for empathy, respectful disagreement, graceful acceptance of feedback, responsibility for mistakes, and focus on what benefits the broader community. It rejects harassment, personal attacks, publication of private information, and other unprofessional conduct. Report Code of Conduct issues to the maintainer address listed in `CODE_OF_CONDUCT.md`.
+
+## CI And Workflow Notes
+
+GitHub Actions live in `.github/workflows/`:
+
+- `main.yml`: runs Ruff, Bandit, and pytest. Pytest is run across Python 3.11, 3.12, 3.13, and 3.14 on Linux, macOS, and Windows.
+- `docs.yml`: builds and deploys docs.
+
+When changing workflows, the docs recommend testing locally with `act`:
+
+```bash
+act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest
+```
+
+The development docs also mention a command hot-reload mode for platform command development:
+
+```bash
+fakenos --reload-commands
+```
+
+This sets `FAKENOS_RELOAD_COMMANDS` and reloads changed files under `fakenos/plugins/nos/`. Reloading is additive: new and modified commands appear, but deleted commands require a server restart to disappear.
+
+## Current Local Verification Note
+
+The repository uses its local `.venv` through `uv run`. Avoid relying on packages from a global Python environment when running checks.
 
 ---
 > Source: [fakenos/fakenos](https://github.com/fakenos/fakenos) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
