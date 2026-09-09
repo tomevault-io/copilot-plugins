@@ -1,0 +1,26 @@
+{
+  "name": "harsh-simform--nestjs-temporal-core",
+  "displayName": "nestjs-temporal-core",
+  "description": "NestJS integration for Temporal.io with Worker and Client support",
+  "version": "1.0.0",
+  "author": "harsh-simform",
+  "homepage": "https://github.com/harsh-simform/nestjs-temporal-core",
+  "skills": [
+    {
+      "name": "nestjs-temporal-core",
+      "description": ""
+    },
+    {
+      "name": "nestjs-temporal-core",
+      "description": ""
+    },
+    {
+      "name": "nestjs-temporal-core",
+      "description": ""
+    },
+    {
+      "name": "nestjs-temporal-core",
+      "description": ""
+    }
+  ]
+}
