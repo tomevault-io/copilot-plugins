@@ -1,0 +1,44 @@
+{
+  "name": "javarena-dsa-design",
+  "owner": "piyush7199",
+  "repo": "javarena-dsa-design",
+  "description": "\ud83d\ude80 Java-based repository to master DSA, Low-Level Design, and High-Level Design for coding interviews \u2014 with topic-wise and company-wise tracking, real-world design patterns, and system architecture blueprints.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/piyush7199/javarena-dsa-design",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:45:31Z"
+}
