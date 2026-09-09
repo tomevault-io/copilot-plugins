@@ -1,0 +1,93 @@
+## logshare
+
+> - PHP 8.4+, Hyperf 3.2, Swoole 6.2 resident/coroutine server; `bin/hyperf.php` is the CLI entrypoint and `core.php` bootstraps configuration.
+
+# LogShare — Agent Guide
+
+## Stack and entrypoints
+
+- PHP 8.4+, Hyperf 3.2, Swoole 6.2 resident/coroutine server; `bin/hyperf.php` is the CLI entrypoint and `core.php` bootstraps configuration.
+- PSR-4 maps `App\` to `app/`; controllers use Hyperf annotation routes. `App\Controller\AbstractController` provides request parsing and response helpers.
+- HTTP listens on `0.0.0.0:9501`; both deprecated `/1/` and current `/v1/` API routes are supported (a `/{version:v?1}` route prefix matches both). The `/rag` MCP endpoint is served by the same process and accepts loopback requests only unless `ai.mcp.rag.authToken` is configured.
+- Storage is selected by `storage.storageId`: MariaDB (`s`) or filesystem (`f`). Redis is an optional cache/rate-limit dependency.
+- `OpenLiteWaf/` and `OpenLiteStats/` are independent GitHub repos mounted as git submodules — they have their own READMEs, tests, and release lifecycle.
+
+## Setup and verification
+
+```bash
+git submodule update --init --recursive   # OpenLiteWaf / OpenLiteStats 以 submodule 引入，clone 或 pull 部署后必须执行
+composer install
+cp Config.inc.example.php Config.inc.php
+composer test
+composer test:architecture
+PHPSTAN_TURBO=0 composer stan  # Termux; omit the prefix on CI/Ubuntu
+php bin/hyperf.php list
+php bin/hyperf.php rag:build
+php bin/hyperf.php start
+```
+
+- Tests use Pest and bootstrap through `tests/bootstrap.php`; that bootstrap creates `Config.inc.php` when absent and supplies a Redis mock when ext-redis is unavailable. Run one file with `vendor/bin/pest tests/Unit/FilterTest.php` or filter by name with `vendor/bin/pest --filter=...`; architecture tests are the `architecture` Pest group (`composer test:architecture`).
+- Integration tests need MariaDB and Redis. CI initializes MariaDB with `docker/mariadb-init.sql`; local Docker services are started with `docker compose -f docker/compose.yaml up -d`. CI (`.github/workflows/ci.yaml`) also smoke-tests the booted server on `9501` (`/v1/limits`, `POST /v1/log`, `/rag` MCP JSON-RPC) and builds the Docker image.
+- Lua regression tests (Termux): `php OpenLiteWaf/tests/openlitewaf_regex_test.php`, `lua5.1 OpenLiteWaf/tests/openlitewaf_logic_test.lua`, `lua5.1 OpenLiteStats/tests/openlitestats_logic_test.lua`, `luac5.1 -p OpenLiteWaf/lua/*.lua OpenLiteStats/lua/*.lua`. The two Lua test suites stub ngx and use real file IO under `/data/data/com.termux/files/usr/tmp/` for persistence cases.
+- PHPStan analyzes `app/` at level 5. The two existing `ignoreErrors` entries in `phpstan.neon` are intentional (Codex type hierarchy in `app/Log.php`, Hyperf Response `getConnection()` in `app/Sse/SseWriter.php`), and `app/Client/SpinYarnClient.php` is excluded because it depends on the spinyarn PHP extension that is absent in the CI static-analysis environment; do not add suppressions or exclusions casually.
+- There is no configured formatter. Before finishing code changes, run the relevant Pest tests, `composer test:architecture`, and `PHPSTAN_TURBO=0 composer stan` on Termux.
+
+## Configuration and operational constraints
+
+- Copy `Config.inc.example.php` to the gitignored `Config.inc.php`; never commit it or expose its API keys. Database and Redis connection settings can be overridden with `DB_*` and `REDIS_*`; AI settings in `.env` include `AI_ENABLED`, `AI_API_KEYS`, `AI_BASE_URL`, `AI_MODEL`, and JSON `AI_RAG_PROVIDERS`.
+- Do not change `id.characters` or the ID length: existing log IDs depend on them. IDs are seven characters, with `s`/`f` identifying the storage backend.
+- Upload limits are enforced before storage: 10 MB / 50,000 lines, plus at most 200 files and 12 MB total. ZIP uploads must remain protected against traversal and excessive expansion.
+- SpinYarn is optional and only parses mappings already present under `mappings/`; it has no automatic download. The extension and mapping files are primarily handled by the Docker build/bind mount. `spinyarn_init()` gained a 5th `redis_url` parameter in SpinYarn v1.1.0 (the Dockerfile pin since 1.7.5); v1.0.0 accepted only 4 parameters — `SpinYarnClient::supportsRedisArg()` detects the loaded signature via reflection and adapts, because blindly passing 5 args to v1.0.0 throws ArgumentCountError and the fail-open path then disables deobfuscation for the whole process (2026-09 production incident). Since v1.1.0 the local LRU cache is gone (Redis-backed only; without a `redis_url` mappings are parsed on demand). Restart the server after swapping the extension .so.
+- RAG knowledge base: machine-fetched docs live under `rag/knowledge/`; refresh Forge/NeoForge docs with `scripts/download_modloader_docs.sh` and PaperMC/Purpur/Geyser etc. with `scripts/download_server_docs.sh` (both auto-clean after fetch). When adding a new machine-fetched directory, register it in the `UPSTREAM_DIRS` whitelist in `scripts/clean_knowledge_docs.php` or its meta files will not be pruned; hand-maintained directories are exempt. New knowledge directories must ALSO be registered in `RagSearch::TOPIC_DESCRIPTIONS` (qualitative descriptions only — no drifting counts), otherwise the topic map shown to the model has no description for that directory; enforced by the bidirectional `topic descriptions cover all knowledge directories` unit test. Enabling semantic RAG requires re-running `php bin/hyperf.php rag:build` (builds into a temp SQLite DB, then atomically replaces `rag/index.db`; failures keep the old index).
+- Swoole is a resident process: process-level caches and extension handles survive requests. Restart the server after changing parsing/deobfuscation behavior or other process-level state.
+- The Docker MariaDB init script runs only for a new database volume. MariaDB runs Event Scheduler and `mariadb-events` applies the generated `cleanup_expired_logs` SQL; `scripts/sync_mariadb_events.php` reads `Config.inc.php` as the sole TTL source, including on existing volumes. MariaDB healthcheck verifies the event exists and is enabled. Production Compose reads secrets from the gitignored `.env`; `MARIADB_PASSWORD`, `MARIADB_ROOT_PASSWORD`, and `REDIS_PASSWORD` must be supplied consistently to Hyperf, MariaDB, Redis, and MariaDB Event services. Non-secret application settings remain in `Config.inc.php`. AI is disabled by default and configuration validation requires `AI_ENABLED=true`, `AI_API_KEYS`, `AI_BASE_URL`, and `AI_MODEL`; semantic RAG additionally requires valid JSON `AI_RAG_PROVIDERS` entries with embedding configuration; vector recall is primary and lexical results supplement it.
+- Application-layer rate limiting is intentionally disabled; public traffic must be rate-limited by Nginx/CDN/WAF before it reaches Hyperf. Do not re-enable trust of `X-Real-IP` in application code without an explicit trusted-proxy design.
+- AI analysis micro-queue (`ai.queue`, default off): when enabled, ALL `/v1/ai/*` analyses run in the `ai-queue-consumer` custom process (registered via the `#[Process]` annotation on `App\Process\AiQueueConsumer`, gated by `isEnable()`; Hyperf 3.x `processes.php` expects process instances, not 2.x array configs) and the HTTP handler only relays the job's Redis Stream frames. `maxConcurrent` consumer coroutines bound upstream quota; `maxQueue` is the XLEN cap — full returns 429 + `Retry-After` before SSE begins; `waitTimeout` bounds the relay wait and `0`/negative means no timeout (wait until done/error or client disconnect, in which case `jobTtl` alone is the job lifetime via `AnalysisQueue::jobLifetime()`); a client disconnect does not cancel the job (result still cached); `failOpen` (default true) falls back to inline execution when Redis is unavailable. Jobs carry the log content in a short-TTL gzip payload key (never in the Stream itself) and are deduped per cache key via `ai:job:active:*`; crashed consumers are recovered by XAUTOCLAIM (`claimIdleMs`) with a per-job running lock preventing double execution. Emission goes through `App\Sse\AnalysisEmitter` (`SseEmitter` = inline, `StreamEmitter` = queue; both produce byte-identical SSE frames) — the active emitter lives in Hyperf context, never a plain static. Enabling the queue requires ext-redis + `cache.redis` and a server restart; PHP changes to the consumer require rebuilding the hyperf image.
+- Docker build versions are pinned in `docker/hyperf.Dockerfile`; the standard Compose deployment exposes Nginx on ports 80/443, its config is `docker/nginx/default.conf`, TLS certificates are mounted read-only from the gitignored `docker/certs/` directory, and ACME HTTP-01 challenges use `docker/acme/`.
+- Edge WAF: `OpenLiteWaf/` is a standalone OpenResty-Lua project (submodule) running inside the nginx container (image `openresty/openresty:1.27.1.2-alpine`, not stock nginx).
+  - Entry points are `access_by_lua_file` / `log_by_lua_file` / `content_by_lua_file` in `docker/nginx/default.conf`; http-level lua directives live in the mounted `OpenLiteWaf/nginx/nginx.conf` (`lua_shared_dict openlitewaf` + `openlitestats`, `lua_package_path`, `init_by_lua_block`, `init_worker_by_lua_block`).
+  - Public stats page: `/security` (HTML), `/security/stats` (JSON summary) and `/security/logs` (JSON, attack logs paginated 50/page, ring buffer of 500). Public log entries mask IPs and blank `token=` params; "banned IP count" is an approximation via ring slots (shared dict cannot enumerate keys).
+  - Signatures match raw request_uri, fully decoded request_uri (incl. query), uri, User-Agent, and request body (POST/PUT/PATCH; requests with Content-Length >2MB are skipped, chunked bodies are always scanned; first 64KB only; log-content endpoints `/v1/log` and `/1/log` are exempt in `body_exempt_prefixes` to avoid false positives on user log text). Categories: sqli/xss/traversal/rce/probe.
+  - Signature matching requires `ngx.re.compile` (a lua-resty-core/FFI API, NOT native); the module loads `resty.core.re` itself and falls back to plain string matching over `ngx.re.find` when unavailable. The CC threshold must stay below the nginx `limit_req` rate (30r/s), or requests get 503-dropped by limit_req before OpenLiteWaf can ban.
+  - Data persists via a 60s snapshot written by worker 0 to the read-write mounts `/data/openlitewaf` (host `OpenLiteWaf/data/`, gitignored) and restored in `init_by_lua`; if the dir is unwritable it degrades to in-memory mode. deny() sets `ngx.ctx.olw_blocked` which OpenLiteStats uses to exclude blocked requests.
+  - Rules and CC thresholds are in `OpenLiteWaf/lua/openlitewaf.lua`; changes take effect only after the nginx Lua VM re-reads them — `git pull` alone does NOT apply, and in the current deployment `docker exec logshare-nginx nginx -s reload` is UNRELIABLE (the container's nginx pid file points at a stale master PID, so the HUP never reaches the running master; verified 2026-08-30). Use `docker restart logshare-nginx` instead — snapshot persistence means counters/bans/logs now survive restarts (≤60s data loss window).
+  - `OpenLiteWaf/tests/openlitewaf_regex_test.php` and `OpenLiteWaf/tests/openlitewaf_logic_test.lua` are the regression tests for rules and logic.
+- Site analytics: `OpenLiteStats/` is a second standalone submodule (https://github.com/NingZeStudio/OpenLiteStats) in the same nginx container.
+  - It records PASSED requests in the log phase (`log_by_lua_file .../lstats/log.lua`; bytes_sent is only available there): requests, outbound bytes, unique IPs (64K bitmap + linear counting, daily reset), hourly buckets, plus top endpoints/referers (host only)/UAs and a 20-entry recent list aggregated at view time from a 1000-entry ring buffer; IPs are masked, URI has no query.
+  - Pages: `/stats` (HTML) and `/stats/data` (JSON); `/security` and `/stats` prefixes are excluded from recording.
+  - Persistence mirrors the WAF: 60s snapshot from worker 0 to the `OpenLiteStats/data/` mount (`/data/openlitestats`), restored in `init_by_lua`. Its `lua_shared_dict openlitestats 32m` lives in `OpenLiteWaf/nginx/nginx.conf`.
+  - Regression test: `lua5.1 OpenLiteStats/tests/openlitestats_logic_test.lua`.
+
+## Implementation rules that are easy to miss
+
+- Controllers must use injected PSR-7 requests, `ContentParser`, storage abstractions, and `AbstractController` helpers; do not read `$_SERVER`, `$_GET`, or `$_POST`, and do not issue raw SQL from controllers. Architecture tests enforce this.
+- Throw `App\ApiError` for expected API failures; `ApiExceptionHandler` renders the API error response.
+- Apply configured pre-filters before storage. Deletion tokens are stored hashed; plaintext tokens are returned only by the upload response.
+- Use `App\Syslog::error()` for diagnostics, not raw `error_log()`.
+- SSE output must go through `App\Sse\AnalysisEmitter` (`SseEmitter` inline / `StreamEmitter` queued), which writes via `App\Sse\SseWriter`; request-scoped stream state (including the active emitter) belongs in Hyperf context rather than a plain static.
+- AI tool calls remain model-controlled; do not force a RAG call in `LogAgent` when the model returns no tools. AI routes are 404 when `ai.enabled` is false.
+- If an API route or response changes, update `API.md`, `openapi.yaml`, and `postman_collection.json` together.
+
+## Release and submodule workflow
+
+- Version constant lives in `app/Version.php` (`App\Version::VERSION`); keep `README.md` and `openapi.yaml` version fields aligned when bumping.
+- Release flow: add a `## x.y.z — date` entry at the top of `CHANGELOG.md`, align `app/Version.php` / `README.md` / `openapi.yaml`, then commit with a message starting with `[Build]` — `.github/workflows/release.yaml` triggers on that prefix, takes the tag (`v` + version) and release notes from the first CHANGELOG entry. `workflow_dispatch` also publishes.
+- Submodule commit order matters: `OpenLiteWaf/` and `OpenLiteStats/` are separate GitHub repos (NingZeStudio org). Commit and push the change inside the submodule repo FIRST, then update the submodule pointer in this repo as a separate commit (`chore: 更新 OpenLiteWaf submodule 指针（…）` is the established style).
+- PHP code is baked into the Docker image (only `Config.inc.php`, `.env`, `mappings/` are mounted): server-side PHP changes require rebuilding the `hyperf` image, not just a container restart. Compose commands need `--env-file .env` (required `${MARIADB_PASSWORD:?}` interpolation).
+
+## 与用户的协作约定（不可省略）
+
+- 使用简体中文与用户交流与推理；术语可保留英文，但表述须以中文为准。
+- 开发环境是 Termux（Android）：系统 `/tmp` 只读，临时文件一律使用 `/data/data/com.termux/files/usr/tmp/` 或项目根 `tmp/`；遇兼容性问题先用 WebSearch 检索，仍无法确定时向用户确认，不得直接执行未经验证的操作。
+- 编写后端或前后端交互代码时，对 SQL 注入、XSS、CSRF、路径遍历、敏感信息泄露保持警惕；发现潜在风险须明确告知用户并征询处理意见，不得擅自忽略或掩盖。
+- 严禁破坏用户全局环境；任何可能影响系统稳定性、数据完整性或安全性的危险操作，必须事先征得用户明确授权。
+- 不懂就问、不妄加揣测：与文档或用户意图有出入时先确认再动手。
+- 本文档是项目上下文的唯一约定来源：修改内容与之不符时，同步更新本文档。
+- 文档与文案要求书面化的开发者文档风格（平铺直叙、不该省的字眼不要省），禁止营销腔与卖点罗列。
+- `/security` 拦截页的卡片组件设计（橙色 #ea580c、三角形 SVG、"我们认为您的请求是恶意的"）是用户亲自提供的设计，改动前先征询。
+- 生产环境是 api.logshare.cn（服务器上直接改过 `docker/nginx/default.conf` 的域名与证书路径，仓库内仍是 api.test.logshare.cn，该差异是否合入待用户决定，不要擅自"修正"）；仓库即线上，用户会直接在服务器上改文件，改动时注意同步。
+- `LOCAL_DEV_NOTES.md` 是仅存本地的会话恢复笔记（被 `.git/info/exclude` 排除，永不提交），包含线上 SSH 环境、fish shell、容器名等运维细节，可参考但不可提交。
+
+---
+> Source: [NingZeStudio/LogShare](https://github.com/NingZeStudio/LogShare) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
