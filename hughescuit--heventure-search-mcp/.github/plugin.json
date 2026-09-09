@@ -1,0 +1,9 @@
+{
+  "name": "hughescuit--heventure-search-mcp",
+  "displayName": "heventure-search-mcp",
+  "description": "Free, API-key-free MCP web search server \u2014 DuckDuckGo, Bing, Google + optional SerpAPI/Tavily. Works with Claude Desktop, Cursor, and any MCP client.",
+  "version": "1.0.0",
+  "author": "HughesCuit",
+  "homepage": "https://github.com/HughesCuit/heventure-search-mcp",
+  "skills": []
+}
