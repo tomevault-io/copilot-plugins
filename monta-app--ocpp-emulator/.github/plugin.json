@@ -1,0 +1,14 @@
+{
+  "name": "monta-app--ocpp-emulator",
+  "displayName": "ocpp-emulator",
+  "description": "ocpp-emulator",
+  "version": "1.0.0",
+  "author": "monta-app",
+  "homepage": "https://github.com/monta-app/ocpp-emulator",
+  "skills": [
+    {
+      "name": "ocpp-emulator",
+      "description": ""
+    }
+  ]
+}
