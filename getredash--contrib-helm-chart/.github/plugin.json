@@ -1,0 +1,9 @@
+{
+  "name": "getredash--contrib-helm-chart",
+  "displayName": "contrib-helm-chart",
+  "description": "contrib-helm-chart",
+  "version": "1.0.0",
+  "author": "getredash",
+  "homepage": "https://github.com/getredash/contrib-helm-chart",
+  "skills": []
+}
