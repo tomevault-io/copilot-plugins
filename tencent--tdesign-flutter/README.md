@@ -15,10 +15,12 @@ Original source: `AGENTS.md` in [Tencent/tdesign-flutter](https://github.com/Ten
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
+## Bundled Skills (4)
 
 - [tdesign-flutter](https://github.com/Tencent/tdesign-flutter/tree/main/.harness/cursor/skills/issue-fix-entry/SKILL.md)
 - [tdesign-flutter](https://github.com/Tencent/tdesign-flutter/tree/main/.harness/cursor/skills/issue-fix-workflow/SKILL.md)
+- [tdesign-flutter](https://github.com/Tencent/tdesign-flutter/tree/main/.agents/skills/tdesign-flutter-general/SKILL.md)
+- [tdesign-flutter](https://github.com/Tencent/tdesign-flutter/tree/main/.agents/skills/tdesign-component-align-review/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Tencent/tdesign-flutter](https://github.com/Tencent/tdesign-flutter)
 
