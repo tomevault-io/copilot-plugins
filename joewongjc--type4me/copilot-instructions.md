@@ -8,8 +8,69 @@
 
 macOS menu bar voice input tool with dual-engine local ASR, multi-provider cloud ASR, and LLM post-processing.
 Local ASR: SenseVoice via native sherpa-onnx (streaming) + Qwen3-ASR (final calibration, Python WebSocket service managed by `SenseVoiceServerManager`).
-Cloud ASR: 8 providers implemented (Volcano, OpenAI, Deepgram, AssemblyAI, ElevenLabs, Soniox, Bailian, Baidu).
-Swift Package Manager project, no Xcode project file. Optional `sherpa-onnx.xcframework` for punctuation restoration.
+Cloud ASR: 15 providers implemented (Volcano, StepFun streaming, StepFun batch, MiMo batch, OpenAI, Deepgram, Cartesia, AssemblyAI, ElevenLabs, Gemini, Grok, Soniox, Bailian, Baidu, Meta Muse), plus Apple Speech.
+Swift Package Manager project, no Xcode project file. Optional `sherpa-onnx.xcframework` enables local SenseVoice, Silero VAD, and punctuation restoration.
+
+## Branch Naming and Lifecycle
+
+Use one short-lived branch for one independently reviewable change. Branches must
+use lowercase ASCII kebab-case and follow this form:
+
+```
+<type>/<issue-number-optional>-<concise-description>
+```
+
+Examples:
+
+```
+feat/241-cartesia-streaming-asr
+fix/247-agent-context-cleanup
+docs/intelli-sense-pangu-terminology
+perf/reduce-startup-latency
+refactor/session-output-pipeline
+test/recognition-session-recovery
+chore/update-swift-format
+release/2.1.1
+hotfix/251-crash-on-launch
+```
+
+### Allowed types
+
+| Type | Use for |
+| --- | --- |
+| `feat` | A user-visible capability or substantial new behavior. |
+| `fix` | A defect fix. Prefix the issue number when one exists. |
+| `docs` | Documentation-only changes. |
+| `perf` | A measurable performance improvement without a primary behavior change. |
+| `refactor` | Internal restructuring with no intended behavior change. |
+| `test` | Test-only additions or repairs. |
+| `chore` | Tooling, repository maintenance, or non-product housekeeping. |
+| `release` | Release preparation and versioning. |
+| `hotfix` | An urgent production fix. |
+
+### Rules
+
+- Do not use agent, tool, model, or personal prefixes such as `agent/`,
+  `codex/`, `builder/`, or a username. These are execution details, not work
+  categories.
+- Do not create a branch named only after a PR number, and do not combine
+  unrelated changes on one branch.
+- Keep descriptions specific but compact: prefer `fix/247-agent-context-cleanup`
+  over `fix/247-fix-the-problem-reported-in-the-agent-context-issue`.
+- Use the same branch name locally and on its published review branch.
+  `origin/main` is updated only with explicit user authorization.
+- Before merging or opening a PR, rebase or otherwise bring the branch up to
+  date with the current `origin/main` as appropriate for the requested
+  workflow. Use `--force-with-lease`, never a blind force push, after a
+  published branch is rebased.
+- After the change is confirmed in `main`, delete its local and published
+  remote branches unless there is an explicitly stated reason to retain them.
+  Never delete an integration branch without explicit authorization.
+- `main` is the integration branch. Work directly on it, or push directly to
+  `origin/main`, only when the user explicitly asks for a direct change.
+
+Existing long-lived feature branches are exceptions until they are merged or
+explicitly retired; do not rename them merely to satisfy this convention.
 
 ## Build & Run
 
@@ -17,23 +78,49 @@ Swift Package Manager project, no Xcode project file. Optional `sherpa-onnx.xcfr
 # Qwen3-ASR server setup (optional, Apple Silicon only)
 cd qwen3-asr-server && python3.12 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && cd ..
 
-# Optional: punctuation restoration module (~5 min, requires cmake)
+# Optional: local SenseVoice, Silero VAD, and punctuation module (~5 min, requires cmake)
 bash scripts/build-sherpa.sh
 
 swift build -c release
 ```
 
-The built binary is at `.build/release/Type4Me`. To package it as a `.app` bundle, see `scripts/deploy.sh`.
+The built binary is at `.build/release/Type4Me`.
+
+- “本地部署”“装一下”“给我体验”等请求默认授权按正式应用流程打包，备份后替换 `/Applications/Type4Me.app`。保留 `com.type4me.app`、登录钥匙串中的 Developer ID Application 签名（Team `T98LK79X2K`）及 designated requirement，完成构建、签名与安装完整性检查后交给用户体验。仅在用户明确要求 Dev 版时使用独立 Dev app。
+- 本地 UI 迭代的测试和实际体验默认交给用户。除非用户明确要求，不自行运行测试套件、操作界面测试、切换设置或启动录音；仅完成必要的编译、签名、备份和安装完整性检查。用户提供的截图和体验反馈是下一轮调整依据。
+- Use `$type4me-deploy` and the current production packaging flow; default to `pure` + universal. Explicit Dev-only requests use `scripts/dev-run.sh`.
+- Local deployment does not authorize GitHub publication or the archived `official` subscription variant.
 
 ## Build Variants
 
-Three product variants built from the same codebase via conditional compilation flags:
+Two supported product variants are built from the same codebase via conditional compilation flags. The compact CppJieba experiment is an independent optional capability:
 
 | Variant | `HAS_SHERPA_ONNX` | `HAS_CLOUD_SUBSCRIPTION` | Arch | Description |
 |---------|---|---|---|---|
 | **pure** | no | no | universal | Open-source cloud edition (BYOK API keys) |
-| **official** | no | yes | universal | Official member edition (subscription + cloud proxy) |
+| **official** | no | yes | universal | Archived subscription edition; the build script intentionally rejects it. |
 | **local** | yes | no | arm64 | Open-source local edition (bundled SenseVoice + Qwen3-ASR) |
+
+`ENABLE_CPPJIEBA=1` keeps `CppJiebaBridge/marker` visible while running `build-dmg.sh`, which adds the C++ bridge and compact dictionary resources. It defaults to `0`, so normal release packages do not pay the binary/resource cost until the experiment is explicitly enabled. A compiled build also has the local `tf_cppJiebaExperimentEnabled` runtime switch; disabling it falls back to `NLTokenizer` without rebuilding.
+
+### Subscription paused (2026-04)
+
+We are not developing the subscription feature for the foreseeable future. The
+`Type4Me/CloudSubscription/marker` file has been renamed to
+`marker.archived-no-subscription`, so `swift build`, `deploy.sh`, and
+`build-dmg.sh VARIANT=pure|local` all default to the no-subscription path.
+`build-dmg.sh VARIANT=official` now fails fast with re-enable instructions.
+
+The `Type4Me/CloudSubscription/` source directory is preserved as-is for
+future reactivation. To re-enable:
+
+```bash
+mv Type4Me/CloudSubscription/marker.archived-no-subscription \
+   Type4Me/CloudSubscription/marker
+swift package clean
+```
+
+Public GitHub Releases ship only `pure` (universal) and `local` (arm64).
 
 ### How it works
 
@@ -48,16 +135,19 @@ Three product variants built from the same codebase via conditional compilation 
 # Open-source cloud edition (no subscription, no local ASR)
 VARIANT=pure bash scripts/build-dmg.sh
 
-# Official member edition (with subscription system)
-VARIANT=official bash scripts/build-dmg.sh
+# Same edition with the compact CppJieba experiment enabled
+ENABLE_CPPJIEBA=1 VARIANT=pure bash scripts/build-dmg.sh
 
 # Open-source local edition (bundled models, Apple Silicon only)
 VARIANT=local bash scripts/build-dmg.sh
+
+# Official member edition — archived, see "Subscription paused" above.
+# VARIANT=official bash scripts/build-dmg.sh
 ```
 
 ### Subscription code location
 
-All subscription/cloud-proxy code lives in `Type4Me/CloudSubscription/` (13 files). Main code uses `#if HAS_CLOUD_SUBSCRIPTION` guards at ~11 touch points. When the marker is absent, the directory is excluded from compilation entirely.
+All subscription/cloud-proxy code lives in `Type4Me/CloudSubscription/`. Main code uses `#if HAS_CLOUD_SUBSCRIPTION` guards; when the marker is absent, the directory is excluded from compilation entirely.
 
 **Important**: SPM caches manifest evaluation in `~/Library/Caches/org.swift.swiftpm`. When switching variants manually (not via build-dmg.sh), clear this cache: `rm -rf .build ~/Library/Caches/org.swift.swiftpm`
 
@@ -65,10 +155,10 @@ All subscription/cloud-proxy code lives in `Type4Me/CloudSubscription/` (13 file
 
 Multi-provider ASR support via `ASRProvider` enum + `ASRProviderConfig` protocol + `ASRProviderRegistry`.
 
-- `ASRProvider` enum: 15 cases + conditional `cloud` case (sherpa/openai/azure/google/aws/deepgram/assemblyai/elevenlabs/volcano/aliyun/bailian/tencent/baidu/iflytek/custom, plus `cloud` when `HAS_CLOUD_SUBSCRIPTION`)
-- Each provider has its own Config type (e.g., `SherpaASRConfig`, `VolcanoASRConfig`) defining `credentialFields` for dynamic UI rendering
+- `ASRProvider` enum: 24 standard cases (`sherpa`, `apple`, international and China cloud providers, and `custom`), plus conditional `cloud` when `HAS_CLOUD_SUBSCRIPTION` is enabled.
+- Each provider has its own Config type (e.g., `SherpaASRConfig`, `VolcanoASRConfig`, `MetaMuseASRConfig`) defining `credentialFields` for dynamic UI rendering
 - `ASRProviderRegistry`: maps provider to config type + client factory; `capabilities` indicates availability and streaming support
-- **Fully implemented**: sherpa (local, batch), volcano (streaming), deepgram (streaming), assemblyai (streaming), elevenlabs (streaming), soniox (streaming), bailian (streaming), baidu (streaming), openai (batch)
+- **Fully implemented**: Apple Speech (streaming); Volcano, StepFun, Deepgram, Cartesia, AssemblyAI, ElevenLabs, Gemini, Grok, Soniox, Bailian, Baidu, and Meta Muse (streaming); StepFun, MiMo, and OpenAI (batch); and Sherpa/SenseVoice when `HAS_SHERPA_ONNX` is enabled.
 - **Config only (no client)**: azure, google, aws, aliyun, tencent, iflytek, custom
 
 ### Adding a New Provider
@@ -85,17 +175,18 @@ Multi-provider ASR support via `ASRProvider` enum + `ASRProviderConfig` protocol
 - `SenseVoiceServerManager`: manages the Qwen3-ASR Python server process, auto-detects Apple Silicon vs Intel, assigns dynamic ports, saves PIDs for graceful shutdown
 
 ### Recognition Pipeline
-1. `SenseVoiceWSClient` connects to local Python servers via WebSocket
-2. Three modes: SenseVoice streaming only, Qwen3-only (final result), or hybrid (SenseVoice streaming + Qwen3 final calibration)
-3. Qwen3 incremental speculative transcription with debounce for progressive results
-4. `SherpaPunctuationProcessor` (optional) — CT-Transformer post-processing adds punctuation (requires `sherpa-onnx.xcframework`)
+1. `SenseVoiceASRClient` runs native sherpa-onnx recognition with Silero VAD for streaming partial results.
+2. `SenseVoiceWSClient` connects to the local Qwen3-ASR Python service for speculative and final calibration.
+3. Three modes: SenseVoice streaming only, Qwen3-only (final result), or hybrid (SenseVoice streaming + Qwen3 final calibration)
+4. Qwen3 incremental speculative transcription with debounce for progressive results
+5. `SherpaPunctuationProcessor` optionally performs CT-Transformer punctuation restoration when Sherpa is available.
 
 ### Models
 - One streaming model in `ModelManager.StreamingModel`: `senseVoiceSmall` (~228MB, zh/en/yue/ja/ko)
-- Auxiliary models: `offlineParaformer` (~700MB), `punctuation` CT-Transformer (~72MB)
-- Models downloaded from GitHub releases (tar.bz2), stored at `~/Library/Application Support/Type4Me/models/`
+- Auxiliary models: `offlineParaformer` (~700MB), `punctuation` CT-Transformer (~72MB), and `sileroVad` (~2MB)
+- Models are stored at `~/Library/Application Support/Type4Me/models/`; most are downloaded as tar.bz2 archives, while Silero VAD is a single ONNX file.
 
-### SherpaOnnx Integration (optional, for punctuation only)
+### SherpaOnnx Integration (optional local ASR, VAD, and punctuation)
 - `SherpaOnnxBridge.swift` — Swift wrapper over C API (no Obj-C bridging header needed)
 - `sherpa-onnx.xcframework` — built locally via `scripts/build-sherpa.sh`, not checked into git
 - `Package.swift` uses runtime detection: `hasSherpaFramework` flag conditionally defines `HAS_SHERPA_ONNX` and links SherpaOnnxLib
@@ -135,6 +226,7 @@ API keys and other secure values are stored in Keychain, not in this file.
 | Permission | Purpose |
 |---|---|
 | Microphone | Audio capture |
+| Speech Recognition | Apple Speech recognition engine |
 | Accessibility | Global hotkey listening + text injection into other apps |
 
 ## Key Files
@@ -145,26 +237,39 @@ API keys and other secure values are stored in Keychain, not in this file.
 | `Type4Me/ASR/ASRProviderRegistry.swift` | Registry: provider → config + client factory + capabilities |
 | `Type4Me/ASR/Providers/*.swift` | Per-vendor Config implementations |
 | `Type4Me/ASR/SpeechRecognizer.swift` | SpeechRecognizer protocol + LLMConfig + event types |
-| `Type4Me/ASR/SenseVoiceWSClient.swift` | Local ASR client (WebSocket to Python servers, dual-engine) |
+| `Type4Me/ASR/SenseVoiceASRClient.swift` | Native Sherpa/Silero streaming local ASR |
+| `Type4Me/ASR/SenseVoiceWSClient.swift` | Qwen3-ASR speculative and final-calibration client |
 | `Type4Me/ASR/VolcASRClient.swift` | Cloud streaming ASR (Volcano, WebSocket) |
 | `Type4Me/ASR/DeepgramASRClient.swift` | Cloud streaming ASR (Deepgram, WebSocket) |
 | `Type4Me/ASR/ElevenLabsASRClient.swift` | Cloud streaming ASR (ElevenLabs Scribe v2, WebSocket) |
+| `Type4Me/ASR/StepFunASRClient.swift` | Cloud streaming ASR (StepFun, WebSocket) |
+| `Type4Me/Protocol/StepFunASRProtocol.swift` | StepFun realtime wire format and response parsing |
+| `Type4Me/ASR/GeminiASRClient.swift` | Cloud streaming ASR (Gemini Live API, model selectable) |
+| `Type4Me/Protocol/GeminiTranscribeProtocol.swift` | Gemini Live wire format: setup/audio messages, response parsing |
+| `Type4Me/ASR/GeminiConnectionGate.swift` | Gemini connection gate, close tracker, WebSocket delegate |
 | `Type4Me/ASR/OpenAIASRClient.swift` | Cloud batch ASR (OpenAI, REST) |
+| `Type4Me/ASR/MiMoASRClient.swift` | Cloud batch ASR (Xiaomi MiMo, REST/SSE) |
 | `Type4Me/ASR/SherpaPunctuationProcessor.swift` | Optional punctuation restoration (SherpaOnnx) |
 | `Type4Me/Bridge/SherpaOnnxBridge.swift` | SherpaOnnx C API Swift bridge (conditional) |
 | `Type4Me/Services/SenseVoiceServerManager.swift` | Local Qwen3-ASR Python server lifecycle |
 | `Type4Me/Session/RecognitionSession.swift` | Core state machine: record → ASR → inject |
 | `Type4Me/Audio/AudioCaptureEngine.swift` | Audio capture, `getRecordedAudio()` returns full recording |
 | `Type4Me/UI/AppState.swift` | `ProcessingMode` definition, built-in mode list |
+| `Type4Me/Services/ModeStorage.swift` | Persistent processing-mode configuration and migration |
+| `Type4Me/Services/TextOutputFormatter.swift` | Shared final-output formatting, including punctuation policies |
 | `Type4Me/Services/ModelManager.swift` | SenseVoice model download, validation, selection |
 | `Type4Me/Services/KeychainService.swift` | Credential read/write (provider groups + migration) |
 | `Type4Me/Services/HotwordStorage.swift` | ASR hotword storage (UserDefaults) |
-| `Type4Me/LLM/LLMProvider.swift` | 13 LLM providers (incl. local Qwen offline) |
+| `Type4Me/Database/HistoryStore.swift` | Persistent transcription and processing history |
+| `Type4MeIntelliSenseCore/` | Intelli Sense context, guard, and preference-learning core |
+| `Type4MeReviseCore/` | Voice Revise tracking, slot targeting, and replacement core |
+| `Type4Me/LLM/LLMProvider.swift` | 14 LLM providers, including Codex CLI and local Ollama |
 | `Type4Me/LLM/LLMProviderRegistry.swift` | LLM provider → config + client factory |
 | `Type4Me/Session/SoundFeedback.swift` | Start/stop/error sounds, multiple sound styles |
 | `qwen3-asr-server/server.py` | Qwen3-ASR calibration engine (MLX/Metal, Apple Silicon) |
+| `scripts/dev-run.sh` | Signed Dev App build, install, and launch |
 | `scripts/deploy.sh` | Build + deploy + launch |
-| `scripts/build-sherpa.sh` | Build sherpa-onnx.xcframework (optional, for punctuation) |
+| `scripts/build-sherpa.sh` | Build sherpa-onnx.xcframework for optional local ASR features |
 
 ## Development Lessons & Patterns
 
@@ -185,7 +290,7 @@ API keys and other secure values are stored in Keychain, not in this file.
 - Store URLSession reference in a dict for proper cancellation
 
 ### Large File Downloads
-- GitHub public forks cannot use Git LFS — keep large binaries out of repo
+- Keep large binaries out of the repository; build the optional Sherpa framework locally with `scripts/build-sherpa.sh`
 - For downloads >100MB, connection drops are common (error -1005)
 - `NSURLSessionDownloadTaskResumeData` in error's userInfo enables resume
 - Also check `NSUnderlyingErrorKey` for nested resume data
@@ -196,12 +301,19 @@ API keys and other secure values are stored in Keychain, not in this file.
 - Test/action buttons should be spatially separated from destructive actions
 - Download progress UI must use `@Published` properties on `@MainActor` for SwiftUI updates
 
-### Git Workflow for Fork Contributions
-- `sherpa-onnx.xcframework` (156MB) cannot be pushed to GitHub public forks (no LFS)
-- Solution: `.gitignore` the framework, provide `scripts/build-sherpa.sh` for local builds
-- When merging upstream: `git fetch upstream && git rebase upstream/main`
-- Resolve conflicts by combining both sides (e.g., keep upstream's Deepgram + our Sherpa)
-- Force push after rebase: `git push origin main --force --tags`
+### Localization & Language Adaptation (Mandatory)
+- Chinese and English are first-class product languages. Any user-facing copy in a new or changed screen, menu, popover, dialog, floating bar, indicator, or accessibility label must have Chinese and English equivalents.
+- Switching `tf_language` must update every currently visible user-facing surface without an app relaunch. Persistent surfaces such as `MenuBarExtra`, floating/non-activating panels, overlays, and existing settings windows must observe the setting (for example, with `@AppStorage`) rather than capture a launch-time string.
+- Persist semantic values, stable IDs, and user-entered text—not a single-language UI string as the only source of truth. Render Type4Me-provided labels at display time for the selected language.
+- System-provided `ProcessingMode` names must be rendered through `localizedDisplayName` (or an explicitly equivalent language-aware API), never through the persisted raw `name`. A custom mode name or a user-renamed system mode must remain verbatim and must not be auto-translated.
+- Add or update automated coverage for language-sensitive behavior, including switching between Chinese and English for changed persistent UI paths. Review both languages before declaring a UI change complete.
+
+### Git Workflow
+- `sherpa-onnx.xcframework` is not committed; `.gitignore` it and build it locally with `scripts/build-sherpa.sh`.
+- Before opening or updating a PR, run `git fetch origin && git rebase origin/main` when the requested workflow calls for a rebase.
+- Resolve conflicts by preserving the intended behavior from both sides and re-run the relevant tests.
+- After rebasing a published work branch, update that branch with `--force-with-lease`; never use a blind force push.
+- Never force-push an integration branch. Direct updates to `origin/main` require explicit user authorization.
 
 ### Package.swift Conditional Dependencies
 ```swift
@@ -213,11 +325,11 @@ let hasSherpaFramework = FileManager.default.fileExists(
 This allows the project to build even without the framework (graceful degradation).
 
 ### Sound Feedback
-- `StartSoundStyle` enum: off, chime (synthesized), waterDrop1, waterDrop2
+- `StartSoundStyle` enum: off, chime, keyboard, waterDrop1, waterDrop2
 - Bundled WAV files in `Type4Me/Resources/Sounds/`, copied to app bundle by deploy.sh
-- Use `AVAudioPlayer` for bundled sounds (cached), `afplay` via Process for synthesized tones
+- Use cached `AVAudioPlayer` instances for playback
 - Sound selection persisted via UserDefaults key `tf_startSound`
 
 ---
 > Source: [joewongjc/type4me](https://github.com/joewongjc/type4me) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
