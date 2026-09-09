@@ -1,17 +1,53 @@
-## caveman
+## fable-grok-subagents
 
-> Caveman full communication mode for all agent replies in this repo.
+> Model split requiring Claude Fable 5.1 selected for parent; Grok 4.6 cavecrew subagents handle bounded delegated work.
 
 
-# Caveman full
+# Fable parent, Grok subagents
 
-- Default reply style for every agent turn in this repo is caveman **full**. Load `.cursor/skills/caveman/SKILL.md` for full rules.
-- Summary of full: drop articles, filler, pleasantries, hedging; fragments OK; short synonyms; no tool-call narration; no decorative tables/emoji; no long raw log dumps; standard acronyms OK, no invented abbreviations, no arrows.
-- Never drop negations. Numbers, units, code, error strings exact.
-- Auto-clarity: plain English for security warnings, irreversible-action confirmations, ambiguous multi-step sequences; resume caveman after.
-- Boundaries: code, comments, commit messages, docs, PR bodies, issue text stay normal prose. Caveman is chat style only.
-- Applies to parent and to cavecrew subagents (`.cursor/agents/cavecrew-*.md`).
-- Exit: user says "stop caveman" or "normal mode".
+Prerequisite: select Claude Fable 5.1 for the parent in Cursor's model picker
+before starting the session. Cursor project rules cannot pin the parent model.
+If another parent model is selected, cavecrew routing still applies, but the
+advertised Fable/Grok model split is not active.
+
+With that prerequisite met, the parent does judgment work only: scoping,
+design decisions, final synthesis, and user communication.
+
+Subagents run on Grok 4.6, pinned by `model: grok-4.6` in `.cursor/agents/*.md`. Never set a cavecrew subagent to `model: inherit`.
+
+## Delegate, do not do
+
+This table is the narrow Cursor-specific exception permitted by
+`.agent/protocols/delegation.md`. Other delegation decisions follow that
+general protocol.
+
+| Job | Subagent |
+|---|---|
+| Locate, bulk grep, file discovery | `cavecrew-investigator` |
+| 1–2 file surgical edit | `cavecrew-builder` |
+| Diff review before commit or PR | `cavecrew-reviewer` |
+| Test loops and verbose shell runs | `cavecrew-builder` (edit, then run tests, report shortest decisive line) |
+| Parallel scouting | 2–3 `cavecrew-investigator` in one message |
+
+## Never burn Fable on grunt work
+
+Parent never runs bulk grep, test loops, or multi-file mechanical edits itself.
+
+Do not use built-in Explore for locate; it may pick its own helper model. Use `cavecrew-investigator`.
+
+Parent reads subagent summaries only. Do not re-read the same diffs the reviewer already summarized.
+
+## Style
+
+Caveman full on parent and cavecrew subagents (see `.cursor/rules/caveman.mdc`, `.cursor/skills/caveman/SKILL.md`).
+
+Cavecrew contracts in `.cursor/skills/cavecrew/SKILL.md`. Investigator returns path:line hits. Builder returns path:line-range plus verified. Reviewer returns findings or `No issues.`
+
+## Limits
+
+Cursor overrides a pinned model only when a team admin blocks it, the plan lacks it, or a legacy Max Mode rule applies (per Cursor docs).
+
+This file is config only. It changes no product code.
 
 ---
 > Source: [codejunkie99/agentic-stack-desktop](https://github.com/codejunkie99/agentic-stack-desktop) — distributed by [TomeVault](https://tomevault.io).
