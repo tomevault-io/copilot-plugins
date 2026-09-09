@@ -2,9 +2,9 @@
   "name": "rdrr",
   "owner": "fkonovalov",
   "repo": "rdrr",
-  "description": "Convert any URL to clean markdown for AI agents.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fkonovalov/rdrr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T00:07:20Z"
+  "distributed_at": "2026-09-09T20:51:09Z"
 }
