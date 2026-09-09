@@ -4,7 +4,7 @@
   "repo": "nuxt-i18n-micro",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/s00d/nuxt-i18n-micro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T06:10:24Z"
+  "distributed_at": "2026-09-09T11:58:10Z"
 }
