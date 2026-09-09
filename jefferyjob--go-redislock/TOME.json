@@ -4,7 +4,7 @@
   "repo": "go-redislock",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jefferyjob/go-redislock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T02:59:32Z"
+  "distributed_at": "2026-09-09T21:06:59Z"
 }
