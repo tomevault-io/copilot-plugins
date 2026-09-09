@@ -1,448 +1,339 @@
-## security-validation
+## testing-patterns
 
-> Security Best Practices and Validation - review after major feature added
+> - **One test file per source file**: `application.go` → `application_test.go`
 
-# Security Validation - Go Security Best Practices
+# Testing Patterns
+## Test Structure and Organization
 
-## Input Validation
+### File Organization
+- **One test file per source file**: `application.go` → `application_test.go`
+- **Test packages**: Use `_test` suffix for black-box testing when needed
+- **Test helpers**: Create in `testutil` package for reusable test code
+- **Integration tests**: Use build tags `//go:build integration`
 
-### Parameter Validation Pattern
+### Test Function Naming
 ```go
-func (s *ApplicationService) Deploy(ctx context.Context, name string, options DeployOptions) error {
-    // 1. Basic validation
-    if name == "" {
-        return fmt.Errorf("application name cannot be empty")
-    }
-    
-    // 2. Format validation
-    if len(name) > 63 {
-        return fmt.Errorf("application name cannot exceed 63 characters")
-    }
-    
-    // 3. Character validation
-    if !isValidAppName(name) {
-        return fmt.Errorf("application name contains invalid characters")
-    }
-    
-    // 4. Business rule validation
-    exists, err := s.repo.Exists(ctx, name)
-    if err != nil {
-        return fmt.Errorf("failed to check application existence: %w", err)
-    }
-    if !exists {
-        return fmt.Errorf("application %s does not exist", name)
-    }
-    
-    return nil
-}
+func TestApplication_Deploy_Success(t *testing.T) // Method_Scenario_ExpectedResult
+func TestNewApplication_EmptyName_ReturnsError(t *testing.T)
+func TestApplicationRepository_GetByName_NotFound_ReturnsError(t *testing.T)
+```
 
-// Helper for validation
-func isValidAppName(name string) bool {
-    // DNS-compatible naming: alphanumeric and hyphens only
-    matched, _ := regexp.MatchString(`^[a-z0-9](mdc:[a-z0-9\-]*[a-z0-9])?$`, name)
-    return matched
+## Go Testing Best Practices
+
+### Table-Driven Tests (Official Pattern)
+```go
+func TestApplicationName_Validation(t *testing.T) {
+    tests := []struct {
+        name        string
+        input       string
+        want        bool
+        wantErrMsg  string
+    }{
+        {
+            name:  "valid simple name",
+            input: "my-app",
+            want:  true,
+        },
+        {
+            name:       "invalid empty name",
+            input:      "",
+            want:       false,
+            wantErrMsg: "name cannot be empty",
+        },
+        {
+            name:       "invalid characters",
+            input:      "app$invalid",
+            want:       false,
+            wantErrMsg: "invalid characters",
+        },
+    }
+    
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got, err := ValidateApplicationName(tt.input)
+            
+            if tt.want {
+                if err != nil {
+                    t.Errorf("expected success, got error: %v", err)
+                }
+                if !got {
+                    t.Errorf("expected true, got false")
+                }
+            } else {
+                if err == nil {
+                    t.Errorf("expected error, got success")
+                }
+                if tt.wantErrMsg != "" && !strings.Contains(err.Error(), tt.wantErrMsg) {
+                    t.Errorf("expected error message %q, got %q", tt.wantErrMsg, err.Error())
+                }
+            }
+        })
+    }
 }
 ```
 
-### Struct Validation with Tags
+### Fuzzing (New Go Feature)
 ```go
-type DeployOptions struct {
-    GitRef     string `validate:"omitempty,min=1,max=100"`
-    BuildPack  string `validate:"omitempty,oneof=nodejs python go ruby"`
-    Force      bool   `validate:""`
-    Timeout    int    `validate:"min=1,max=3600"` // 1 second to 1 hour
-}
-
-func validateStruct(s interface{}) error {
-    validate := validator.New()
-    return validate.Struct(s)
+func FuzzApplicationNameValidation(f *testing.F) {
+    // Seed corpus with known values
+    f.Add("valid-app")
+    f.Add("app123")
+    f.Add("")
+    f.Add("invalid$name")
+    
+    f.Fuzz(func(t *testing.T, name string) {
+        // Should never panic
+        defer func() {
+            if r := recover(); r != nil {
+                t.Errorf("validation panicked with input %q: %v", name, r)
+            }
+        }()
+        
+        isValid, err := ValidateApplicationName(name)
+        
+        // Invariant properties
+        if name == "" {
+            if isValid {
+                t.Errorf("empty name should not be valid")
+            }
+            if err == nil {
+                t.Errorf("empty name should return an error")
+            }
+        }
+        
+        // If valid, should be reproducible
+        if isValid {
+            isValid2, err2 := ValidateApplicationName(name)
+            if !isValid2 || err2 != nil {
+                t.Errorf("validation inconsistent for %q", name)
+            }
+        }
+    })
 }
 ```
 
-## SQL Injection Prevention (Following Go Security Guide)
-
-### Secure Database Operations
+### Benchmarking (Performance Testing)
 ```go
-// NEVER: Query construction by concatenation
-func getUser(db *sql.DB, userID string) error {
-    query := "SELECT * FROM users WHERE id = '" + userID + "'" // DANGEROUS!
-    return nil
-}
-
-// GOOD: Using prepared statements
-func getUser(db *sql.DB, userID string) (*User, error) {
-    query := "SELECT id, name, email FROM users WHERE id = ?"
+func BenchmarkApplicationDeploy(b *testing.B) {
+    service := setupDeploymentService()
+    app := createTestApplication("benchmark-app")
     
-    var user User
-    err := db.QueryRow(query, userID).Scan(&user.ID, &user.Name, &user.Email)
-    if err != nil {
-        return nil, fmt.Errorf("failed to get user: %w", err)
-    }
+    b.ResetTimer()
+    b.ReportAllocs() // Report memory allocations
     
-    return &user, nil
-}
-
-// Even better: Using reusable prepared statements
-type UserRepository struct {
-    db       *sql.DB
-    getUserStmt *sql.Stmt
-}
-
-func NewUserRepository(db *sql.DB) (*UserRepository, error) {
-    getUserStmt, err := db.Prepare("SELECT id, name, email FROM users WHERE id = ?")
-    if err != nil {
-        return nil, fmt.Errorf("failed to prepare query: %w", err)
-    }
-    
-    return &UserRepository{
-        db:          db,
-        getUserStmt: getUserStmt,
-    }, nil
-}
-```
-
-### Transaction Security
-```go
-func (r *UserRepository) UpdateUserSecurely(ctx context.Context, userID string, updates UserUpdate) error {
-    tx, err := r.db.BeginTx(ctx, nil)
-    if err != nil {
-        return fmt.Errorf("failed to start transaction: %w", err)
-    }
-    defer tx.Rollback() // Automatic rollback on error
-    
-    // Use prepared statements in transaction
-    _, err = tx.ExecContext(ctx, 
-        "UPDATE users SET name = ?, email = ? WHERE id = ?",
-        updates.Name, updates.Email, userID)
-    if err != nil {
-        return fmt.Errorf("failed to update user: %w", err)
-    }
-    
-    if err = tx.Commit(); err != nil {
-        return fmt.Errorf("failed to commit transaction: %w", err)
-    }
-    
-    return nil
-}
-```
-
-## Command Injection Prevention
-
-### Dokku Command Safety
-```go
-// WhitelistedCommands defines allowed Dokku operations
-var WhitelistedCommands = map[string]bool{
-    "apps:list":        true,
-    "apps:info":        true,
-    "apps:create":      true,
-    "config:get":       true,
-    "config:set":       true,
-    "domains:add":      true,
-    "domains:list":     true,
-    "ps:scale":         true,
-}
-
-func (c *DokkuClient) ExecuteCommand(ctx context.Context, command string, args []string) ([]byte, error) {
-    // 1. Verify command is allowed
-    if !WhitelistedCommands[command] {
-        return nil, fmt.Errorf("command not allowed: %s", command)
-    }
-    
-    // 2. Validate each argument
-    for i, arg := range args {
-        if err := validateCommandArgument(arg); err != nil {
-            return nil, fmt.Errorf("invalid argument %d: %w", i, err)
+    for i := 0; i < b.N; i++ {
+        if err := service.Deploy(context.Background(), app); err != nil {
+            b.Fatalf("deployment failed: %v", err)
         }
     }
-    
-    // 3. Build command securely
-    cmd := exec.CommandContext(ctx, "/usr/bin/dokku", append([]string{command}, args...)...)
-    
-    // 4. Configure secure environment
-    cmd.Env = []string{
-        "PATH=/usr/bin:/bin",
-        "USER=dokku",
-    }
-    
-    output, err := cmd.Output()
-    if err != nil {
-        return nil, fmt.Errorf("command execution failed %s: %w", command, err)
-    }
-    
-    return output, nil
 }
 
-func validateCommandArgument(arg string) error {
-    // Prohibit dangerous characters
-    dangerous := []string{";", "|", "&", "$", "`", "(", ")", "{", "}", "[", "]", "<", ">", "\n", "\r"}
-    for _, char := range dangerous {
-        if strings.Contains(arg, char) {
-            return fmt.Errorf("dangerous character detected: %s", char)
+func BenchmarkApplicationDeploy_Parallel(b *testing.B) {
+    service := setupDeploymentService()
+    
+    b.RunParallel(func(pb *testing.PB) {
+        for pb.Next() {
+            app := createTestApplication(fmt.Sprintf("app-%d", rand.Int()))
+            if err := service.Deploy(context.Background(), app); err != nil {
+                b.Fatalf("parallel deployment failed: %v", err)
+            }
         }
-    }
-    
-    // Limit length
-    if len(arg) > 255 {
-        return fmt.Errorf("argument too long (max 255 characters)")
-    }
-    
-    return nil
+    })
 }
 ```
 
-## Rate Limiting and DoS Protection
-
-### Rate Limiter Implementation
+### Mocking with Interfaces
 ```go
-type RateLimiter struct {
-    clients map[string]*clientState
-    mutex   sync.RWMutex
-    config  RateLimitConfig
-}
+//go:generate mockgen -source=repository.go -destination=mocks/repository_mock.go
 
-type clientState struct {
-    requests    int
-    lastRequest time.Time
-    blocked     bool
-}
-
-type RateLimitConfig struct {
-    RequestsPerMinute int
-    BurstSize         int
-    BlockDuration     time.Duration
-}
-
-func (rl *RateLimiter) Allow(clientID string) bool {
-    rl.mutex.Lock()
-    defer rl.mutex.Unlock()
+func TestApplicationHandler_Deploy(t *testing.T) {
+    ctrl := gomock.NewController(t)
+    defer ctrl.Finish()
     
-    now := time.Now()
-    client, exists := rl.clients[clientID]
+    mockRepo := mocks.NewMockApplicationRepository(ctrl)
+    mockDeployService := mocks.NewMockDeploymentService(ctrl)
     
-    if !exists {
-        rl.clients[clientID] = &clientState{
-            requests:    1,
-            lastRequest: now,
-        }
-        return true
+    handler := &ApplicationHandler{
+        appRepo:       mockRepo,
+        deployService: mockDeployService,
     }
     
-    // Reset counter if minute has passed
-    if now.Sub(client.lastRequest) > time.Minute {
-        client.requests = 1
-        client.lastRequest = now
-        client.blocked = false
-        return true
-    }
+    // Setup expectations
+    mockRepo.EXPECT().
+        GetByName(gomock.Any(), "test-app").
+        Return(&Application{name: "test-app"}, nil)
     
-    // Check if blocked
-    if client.blocked && now.Sub(client.lastRequest) < rl.config.BlockDuration {
-        return false
-    }
+    mockDeployService.EXPECT().
+        Deploy(gomock.Any(), "test-app", gomock.Any()).
+        Return(&Deployment{ID: "deploy-123"}, nil)
     
-    // Check rate limit
-    if client.requests >= rl.config.RequestsPerMinute {
-        client.blocked = true
-        return false
-    }
+    // Execute test
+    result, err := handler.Deploy(context.Background(), "test-app")
     
-    client.requests++
-    client.lastRequest = now
-    return true
+    // Assertions
+    assert.NoError(t, err)
+    assert.Equal(t, "deploy-123", result.ID)
 }
 ```
 
-### Context and Timeout Management
+### Integration Tests
 ```go
-// Official Go pattern for timeouts
-func (s *ApplicationService) DeployWithTimeout(appName string, timeout time.Duration) error {
-    ctx, cancel := context.WithTimeout(context.Background(), timeout)
+//go:build integration
+
+func TestDokkuClient_Integration(t *testing.T) {
+    if testing.Short() {
+        t.Skip("skipping integration test in short mode")
+    }
+    
+    client := NewDokkuClient("/usr/bin/dokku")
+    
+    // Test with real Dokku installation
+    apps, err := client.ListApplications(context.Background())
+    
+    assert.NoError(t, err)
+    assert.NotNil(t, apps)
+}
+```
+
+## Test Utilities and Helpers
+
+### Test Fixtures
+```go
+// testutil/fixtures.go
+func CreateTestApplication(name string) *Application {
+    app, _ := NewApplication(name)
+    return app
+}
+
+func CreateTestApplicationWithConfig(name string, config *ApplicationConfig) *Application {
+    app := CreateTestApplication(name)
+    app.UpdateConfig(config)
+    return app
+}
+```
+
+### Context and Timeouts
+```go
+func TestWithTimeout(t *testing.T) {
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
     defer cancel()
     
-    // Channel for result
-    result := make(chan error, 1)
+    // Test operations with timeout context
+    result, err := service.LongRunningOperation(ctx)
     
-    go func() {
-        result <- s.performDeploy(ctx, appName)
-    }()
-    
-    select {
-    case err := <-result:
-        return err
-    case <-ctx.Done():
-        return fmt.Errorf("deployment of %s timed out after %v: %w", 
-                         appName, timeout, ctx.Err())
-    }
+    assert.NoError(t, err)
+    assert.NotNil(t, result)
 }
 ```
 
-## Audit Logging
-
-### Audit Log Pattern
+### Test Database Setup
 ```go
-type AuditLogger struct {
-    logger   *slog.Logger
-    enabled  bool
-    filename string
-}
-
-type AuditEvent struct {
-    Timestamp    time.Time `json:"timestamp"`
-    ClientID     string    `json:"client_id"`
-    Operation    string    `json:"operation"`
-    Resource     string    `json:"resource"`
-    Parameters   string    `json:"parameters,omitempty"`
-    Success      bool      `json:"success"`
-    ErrorMessage string    `json:"error_message,omitempty"`
-    Duration     int64     `json:"duration_ms"`
-}
-
-func (al *AuditLogger) LogOperation(event AuditEvent) {
-    if !al.enabled {
-        return
-    }
-    
-    al.logger.WithFields(logrus.Fields{
-        "audit":         true,
-        "client_id":     event.ClientID,
-        "operation":     event.Operation,
-        "resource":      event.Resource,
-        "success":       event.Success,
-        "duration_ms":   event.Duration,
-        "error_message": event.ErrorMessage,
-    }).Info("Audit log entry")
-}
-```
-
-## Secure Configuration
-
-### Configuration Security
-```go
-type SecurityConfig struct {
-    AllowedCommands   []string      `yaml:"allowed_commands"`
-    RateLimit         RateLimitConfig `yaml:"rate_limit"`
-    AuditLogging      bool          `yaml:"audit_logging"`
-    MaxRequestSize    int64         `yaml:"max_request_size"`
-    RequestTimeout    time.Duration `yaml:"request_timeout"`
-    RequireAuth       bool          `yaml:"require_auth"`
-    TLSConfig         *TLSConfig    `yaml:"tls,omitempty"`
-}
-
-func validateSecurityConfig(config *SecurityConfig) error {
-    if len(config.AllowedCommands) == 0 {
-        return fmt.Errorf("allowed_commands cannot be empty")
-    }
-    
-    if config.MaxRequestSize <= 0 || config.MaxRequestSize > 10*1024*1024 { // 10MB max
-        return fmt.Errorf("max_request_size must be between 1 and 10MB")
-    }
-    
-    if config.RequestTimeout < time.Second || config.RequestTimeout > time.Hour {
-        return fmt.Errorf("request_timeout must be between 1s and 1h")
-    }
-    
-    return nil
-}
-```
-
-## Cryptographic Security
-
-### Secure Random Generation
-```go
-import (
-    "crypto/rand"
-    "encoding/base64"
-)
-
-func generateSecureToken(length int) (string, error) {
-    bytes := make([]byte, length)
-    if _, err := rand.Read(bytes); err != nil {
-        return "", fmt.Errorf("failed to generate secure token: %w", err)
-    }
-    return base64.URLEncoding.EncodeToString(bytes), nil
-}
-
-func generateAPIKey() (string, error) {
-    return generateSecureToken(32) // 256 bits
-}
-```
-
-### Password Hashing
-```go
-import "golang.org/x/crypto/bcrypt"
-
-func hashPassword(password string) (string, error) {
-    // Use high cost for security
-    hashedBytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+func setupTestDatabase(t *testing.T) *sql.DB {
+    db, err := sql.Open("sqlite3", ":memory:")
     if err != nil {
-        return "", fmt.Errorf("failed to hash password: %w", err)
-    }
-    return string(hashedBytes), nil
-}
-
-func verifyPassword(password, hashedPassword string) error {
-    err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
-    if err != nil {
-        return fmt.Errorf("invalid password: %w", err)
-    }
-    return nil
-}
-```
-
-## Error Handling Security
-
-### Safe Error Messages
-```go
-func (h *ApplicationHandler) Deploy(ctx context.Context, params map[string]interface{}) (*mcp.ToolResult, error) {
-    // Internal detailed error
-    err := h.service.Deploy(ctx, appName, options)
-    if err != nil {
-        // Log detailed error for debugging
-        h.logger.WithError(err).WithFields(logrus.Fields{
-            "app_name": appName,
-            "client":   getClientID(ctx),
-        }).Error("Deployment failed")
-        
-        // Return safe error to client
-        return &mcp.ToolResult{
-            Content: []map[string]interface{}{
-                {
-                    "type": "text",
-                    "text": "Deployment failed. Please check your application configuration.",
-                },
-            },
-            IsError: true,
-        }, nil
+        t.Fatalf("failed to open test database: %v", err)
     }
     
-    return &mcp.ToolResult{
-        Content: []map[string]interface{}{
-            {
-                "type": "text",
-                "text": "✅ Deployment completed successfully",
-            },
-        },
-    }, nil
-}
-```
-
-### Input Sanitization for Logs
-```go
-func sanitizeForLogging(input string) string {
-    // Remove control characters that could corrupt logs
-    sanitized := strings.Map(func(r rune) rune {
-        if r < 32 || r == 127 { // Control characters
-            return -1 // Remove
+    // Automatic cleanup
+    t.Cleanup(func() {
+        if err := db.Close(); err != nil {
+            t.Errorf("failed to close test database: %v", err)
         }
-        return r
-    }, input)
+    })
     
-    // Limit length to prevent log spam
-    if len(sanitized) > 100 {
-        sanitized = sanitized[:100] + "..."
+    return db
+}
+```
+
+## Coverage and Quality
+
+### Coverage Requirements
+- **Minimum 75% coverage** for all packages
+- **90% coverage** for critical business logic
+- **Focus on edge cases** and error conditions
+- **Test public interfaces** thoroughly
+
+### Test Categories
+- **Unit tests**: Test individual functions/methods in isolation
+- **Integration tests**: Test component interactions
+- **End-to-end tests**: Test complete workflows
+- **Performance tests**: Benchmark critical operations
+
+### Assertions Best Practices
+```go
+// GOOD: Specific assertions
+assert.Equal(t, expected, actual)
+assert.Contains(t, err.Error(), "expected error message")
+
+// BAD: Generic assertions
+assert.True(t, len(result) > 0)
+assert.NotNil(t, err)
+```
+
+### Testing Error Conditions
+```go
+func TestApplicationService_Deploy_ErrorHandling(t *testing.T) {
+    tests := []struct {
+        name          string
+        setupMock     func(*mocks.MockRepository)
+        input         string
+        expectedError string
+    }{
+        {
+            name: "application retrieval failure",
+            setupMock: func(m *mocks.MockRepository) {
+                m.EXPECT().GetByName(gomock.Any(), "test-app").
+                    Return(nil, errors.New("database error"))
+            },
+            input:         "test-app",
+            expectedError: "database error",
+        },
     }
     
-    return sanitized
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            ctrl := gomock.NewController(t)
+            defer ctrl.Finish()
+            
+            mockRepo := mocks.NewMockRepository(ctrl)
+            tt.setupMock(mockRepo)
+            
+            service := &ApplicationService{repo: mockRepo}
+            
+            err := service.Deploy(context.Background(), tt.input)
+            
+            assert.Error(t, err)
+            assert.Contains(t, err.Error(), tt.expectedError)
+        })
+    }
+}
+```
+
+## Test Data Management
+
+### Isolated Test Data
+- **Each test should be independent** - no shared state
+- **Clean up after tests** if creating external resources
+- **Use random/unique identifiers** to avoid conflicts
+- **Reset mocks** between test cases
+
+### Helper for Test Isolation
+```go
+func TestMain(m *testing.M) {
+    // Global test configuration
+    log.SetOutput(io.Discard) // Suppress logs during tests
+    
+    // Run tests
+    code := m.Run()
+    
+    // Global cleanup
+    cleanup()
+    
+    os.Exit(code)
+}
+
+func cleanup() {
+    // Cleanup global resources
 }
 ```
 
