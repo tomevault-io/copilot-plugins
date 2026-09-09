@@ -1,0 +1,99 @@
+{
+  "name": "AL",
+  "owner": "microsoft",
+  "repo": "AL",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AL",
+      "path": ".github/skills/run-al-tests/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/run-al-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/verify-al-e2e/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/verify-al-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/compile-al-app/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/compile-al-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/publish-al-app/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/publish-al-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/run-al-mcp-tool/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/run-al-mcp-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/create-al-project/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/create-al-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/download-al-symbols/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/download-al-symbols/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/run-al-code-analysis/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/run-al-code-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AL",
+      "path": ".github/skills/verify-prerelease-altool/SKILL.md",
+      "github_url": "https://github.com/microsoft/AL/tree/main/.github/skills/verify-prerelease-altool/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/AL",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:34:35Z"
+}
