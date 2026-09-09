@@ -1,0 +1,9 @@
+{
+  "name": "libsdl-org--sdl-shader-tools",
+  "displayName": "SDL_shader_tools",
+  "description": "SDL_shader_tools",
+  "version": "1.0.0",
+  "author": "libsdl-org",
+  "homepage": "https://github.com/libsdl-org/SDL_shader_tools",
+  "skills": []
+}
