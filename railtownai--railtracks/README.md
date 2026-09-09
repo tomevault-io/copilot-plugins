@@ -2,6 +2,8 @@
 
 > Tome by [RailtownAI](https://github.com/RailtownAI/railtracks), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
+An agentic framework that helps developers build resilient agentic systems
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -14,6 +16,10 @@ Original source: `AGENTS.md` in [RailtownAI/railtracks](https://github.com/Railt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [railtracks](https://github.com/RailtownAI/railtracks/tree/main/.claude/skills/code-style/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/RailtownAI/railtracks](https://github.com/RailtownAI/railtracks)
 
