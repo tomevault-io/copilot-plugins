@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "terryyin",
   "homepage": "https://github.com/terryyin/translate-python",
-  "skills": []
+  "skills": [
+    {
+      "name": "translate-python",
+      "description": ""
+    }
+  ]
 }
