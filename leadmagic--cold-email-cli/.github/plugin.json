@@ -1,0 +1,9 @@
+{
+  "name": "leadmagic--cold-email-cli",
+  "displayName": "cold-email-cli",
+  "description": "Archived TypeScript and Bun CLI for email campaign platform integrations. Historical source and documentation; no active maintenance.",
+  "version": "1.0.0",
+  "author": "LeadMagic",
+  "homepage": "https://github.com/LeadMagic/cold-email-cli",
+  "skills": []
+}
