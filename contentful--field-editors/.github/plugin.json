@@ -1,0 +1,9 @@
+{
+  "name": "contentful--field-editors",
+  "displayName": "field-editors",
+  "description": "field-editors",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/field-editors",
+  "skills": []
+}
