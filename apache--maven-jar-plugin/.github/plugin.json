@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-jar-plugin",
+  "displayName": "maven-jar-plugin",
+  "description": "maven-jar-plugin",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-jar-plugin",
+  "skills": []
+}
