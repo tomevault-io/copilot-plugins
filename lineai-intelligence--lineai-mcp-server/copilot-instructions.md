@@ -1,12 +1,11 @@
-## technologies
+## testing-approach
 
-> Key technologies used in the Lineai MCP Server project
+> Testing approach for the Lineai MCP Server
 
-- Python 3.13+ with extensive use of async/await
-- Model Context Protocol SDK (`mcp[cli]`)
-- HTTPX for API requests
-- Environment variables via dotenv for configuration
-- Lineai HTTP API under `/api/` (formerly `/codelogic/server/`); graph routes under `/api/ai-retrieval/graph/` for `lineai-graph-*` tools
+- Use unit tests for functions without external dependencies
+- Use integration tests for tests against a real Lineai server
+- Set the `LINEAI_TEST_MODE` environment variable for test runs
+- Test both success cases and error handling patterns
 
 ---
 > Source: [lineai-intelligence/lineai-mcp-server](https://github.com/lineai-intelligence/lineai-mcp-server) — distributed by [TomeVault](https://tomevault.io).
