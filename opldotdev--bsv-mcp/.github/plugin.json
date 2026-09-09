@@ -1,0 +1,9 @@
+{
+  "name": "opldotdev--bsv-mcp",
+  "displayName": "bsv-mcp",
+  "description": "An MCP Server for Bitcoin SV",
+  "version": "1.0.0",
+  "author": "opldotdev",
+  "homepage": "https://github.com/opldotdev/bsv-mcp",
+  "skills": []
+}
