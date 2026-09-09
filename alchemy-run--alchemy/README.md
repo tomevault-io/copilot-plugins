@@ -1,17 +1,15 @@
 # AI instruction files for alchemy
 
-> Sourced from [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Infrastructure as TypeScript
+> Sourced from [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy).
+Original source: `AGENTS.md` in [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
