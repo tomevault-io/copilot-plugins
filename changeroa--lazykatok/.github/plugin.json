@@ -1,0 +1,9 @@
+{
+  "name": "changeroa--lazykatok",
+  "displayName": "lazykatok",
+  "description": "Private terminal KakaoTalk client with real-time watch and strict reply TUI",
+  "version": "1.0.0",
+  "author": "changeroa",
+  "homepage": "https://github.com/changeroa/lazykatok",
+  "skills": []
+}
