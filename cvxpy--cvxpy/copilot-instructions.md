@@ -163,4 +163,4 @@ Always use the PR template in `.github/` when opening PRs. Fill out all sections
 
 ---
 > Source: [cvxpy/cvxpy](https://github.com/cvxpy/cvxpy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
