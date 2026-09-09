@@ -1,0 +1,14 @@
+{
+  "name": "vtjeng--mipverify-jl",
+  "displayName": "MIPVerify.jl",
+  "description": "MIPVerify.jl",
+  "version": "1.0.0",
+  "author": "vtjeng",
+  "homepage": "https://github.com/vtjeng/MIPVerify.jl",
+  "skills": [
+    {
+      "name": "MIPVerify.jl",
+      "description": ""
+    }
+  ]
+}
