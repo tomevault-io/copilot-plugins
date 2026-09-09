@@ -1,0 +1,147 @@
+{
+  "name": "argent",
+  "owner": "software-mansion",
+  "repo": "argent",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-create-flow/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-create-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-test-ui-flow/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-test-ui-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-metro-debugger/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-metro-debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-device-interact/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-device-interact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-native-profiler/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-native-profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-screenshot-diff/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-screenshot-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-ios-simulator-setup/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-ios-simulator-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-react-native-profiler/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-react-native-profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-android-emulator-setup/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-android-emulator-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-react-native-app-workflow/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-react-native-app-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-react-native-optimization/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-react-native-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-lens/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-lens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-screen-recording/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-screen-recording/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-settings-permissions/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-settings-permissions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-qa-flows/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-qa-flows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-ios-device-setup/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-ios-device-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "argent",
+      "path": "packages/skills/skills/argent-ios-device-interact/SKILL.md",
+      "github_url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-ios-device-interact/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/software-mansion/argent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T19:35:23Z"
+}
