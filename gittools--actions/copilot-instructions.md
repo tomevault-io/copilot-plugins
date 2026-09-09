@@ -1,66 +1,81 @@
 ## actions
 
-> - `src/tools/` contains tool-specific logic for GitVersion and GitReleaseManager.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- `src/tools/` contains tool-specific logic for GitVersion and GitReleaseManager.
-- `src/agents/` contains platform adapters for `local`, `github`, and `azure`.
-- `src/__tests__/` mirrors the source layout.
-- `dist/` holds generated build output.
-- `gitversion/*` and `gitreleasemanager/*` contain published action entrypoints with `action.yml` and generated `main.mjs`.
-- `docs/` and `docs/examples/` contain usage docs and examples.
+## What this is
 
-## Build, Test, and Development Commands
+A single TypeScript codebase that produces **both** GitHub Actions and Azure Pipelines tasks which install and run the .NET CLI tools [GitVersion](https://github.com/GitTools/GitVersion) and [GitReleaseManager](https://github.com/GitTools/GitReleaseManager). Node >= 24 is required. Development is expected on Linux/macOS (use WSL on Windows).
 
-Use Node.js 24 or later.
+## Commands
 
 ```bash
-npm install
-npm run build
-npm run test
-npm run lint:check
-npm run typecheck
-npm run format:check
-npm run mdlint:check
+npm run build          # build everything (tools bundle + all three agent bundles) via vite/rolldown -> dist/tools
+npm run build:tools    # cli + per-tool runner libs
+npm run build:agents   # local + azure + github agent bundles
+
+npm run test           # run all tests (tools + agents) with vitest
+npm run test:tools     # only src/__tests__/tools
+npm run test:agents    # only src/__tests__/agents
+npx vitest --run src/__tests__/tools/gitversion/runner.spec.ts --config src/__tests__/vitest.config.ts   # single test file
+
+npm run lint:check     # eslint src   (lint:fix to autofix)
+npm run typecheck      # tsc --noEmit
+npm run format:check   # prettier      (format:fix to autofix)
+npm run mdlint:check   # markdownlint docs dist
+
+# Run a built tool locally (after build), e.g.:
+npm run run:local:gitversion -- --command execute
 ```
 
-- Use `npm run build:tools` or `npm run build:agents` for smaller rebuilds.
-- Use `npm run build:agent:local`, `npm run build:agent:azure`, or `npm run build:agent:github` for one target.
-- Use `npm run test:tools` or `npm run test:agents` to limit test scope.
-- Run a single spec with `npx vitest --run src/__tests__/tools/gitversion/runner.spec.ts --config src/__tests__/vitest.config.ts`.
-- Exercise a built tool locally with `npm run run:local:gitversion -- --command execute`.
+Note: the README references `npm run build:local` etc., but the actual scripts are `build:agent:local` / `build:agent:azure` / `build:agent:github`.
 
-## Coding Style & Naming Conventions
+### Committed build output — important
 
-- TypeScript is the primary language; keep new code under `src/**/*.ts`.
-- Follow `.editorconfig`: 4 spaces for code, 2 spaces for Markdown/YAML/JSON, LF endings, trailing newline.
-- Prettier enforces single quotes, no semicolons, 160-column width, and no tabs.
-- Keep platform folders lowercase and name tests `*.spec.ts`.
-- Match action folder names to the command, for example `gitversion/setup`.
+The husky **pre-commit hook runs `npm run build` and `git add **/*.mjs*`**, then lint-staged. The bundled `.mjs` output is checked into the repo (repo-root action dirs and `dist/`) because that is what the published GitHub Action / Azure extension actually executes. When you change `src/`, the built artifacts change too — don't hand-edit the generated `.mjs`.
 
-## Testing Guidelines
+## Architecture
 
-- Vitest runs with globals enabled and writes JUnit output to `junit-report.xml`.
-- Add or update tests in `src/__tests__/agents/**` or `src/__tests__/tools/**` to mirror the changed code.
-- Name test files `*.spec.ts`.
-- For behavior changes, cover both the platform agent path and tool logic when applicable.
+The code is organized along two orthogonal axes: **tools** (`gitversion`, `gitreleasemanager`) × **agents** / CI platforms (`local`, `azure`, `github`). A tool is platform-agnostic; an agent abstracts one CI platform.
 
-## Commit & Pull Request Guidelines
+### Entry point and dynamic dispatch (`src/tools/cli.ts` → `src/tools/lib.ts`)
 
-- Prefer short, imperative commit subjects with prefixes like `fix:` or `build:`.
-- Keep commits focused on one change.
-- Before committing, Husky runs `npm run build`, stages `**/*.mjs*`, and then runs `lint-staged`.
-- Do not hand-edit generated bundles.
-- Pull requests should describe the user-visible change, link the related issue, note generated `dist/` or action entrypoint updates, and list the checks run.
+`cli.ts` parses `--agent`, `--tool`, `--command` and calls `run()`. `getToolRunner()` **dynamically imports the built bundles by convention**:
 
-## Release & Packaging Notes
+- the agent from `./{agent}/agent.mjs` (exports `BuildAgent`)
+- the tool runner from `./libs/{tool}.mjs` (exports `Runner`)
 
-- Rebuild before opening a PR when a change affects shipped actions or Azure task output.
-- Generated `.mjs` files in `dist/` and the repo-root action folders are part of the release output and must stay in sync with `src/`.
-- Use `npm run publish:prepare` only when preparing Azure marketplace artifacts.
+This module layout is produced by the vite configs, so build output paths and these import strings must stay in sync.
+
+### Three core abstractions
+
+1. **`IBuildAgent` / `BuildAgentBase`** (`src/agents/common/build-agent.ts`) — the CI-platform abstraction: reading typed inputs (`getInput<T>`, `getBooleanInput<T>`), setting outputs/variables, `exec`, tool caching, path/dir helpers. Each platform subclass (`src/agents/{local,azure,github}/build-agent.ts`) maps these onto that platform's env vars (e.g. GitHub uses `GITHUB_WORKSPACE`, `RUNNER_TEMP`, `RUNNER_TOOL_CACHE` and issues workflow commands).
+
+2. **`DotnetTool`** (`src/tools/common/dotnet-tool.ts`) — installs a .NET global tool from NuGet: resolves the version spec (queries the NuGet search API for non-explicit specs, validates against `versionRange`), checks/populates the tool cache, locates the executable (including architecture-specific subdirs), and executes it with `--roll-forward Major`. Uses `ArgumentsBuilder` (`arguments-builder.ts`) to build CLI args.
+
+3. **`RunnerBase` / `IRunner`** (`src/tools/common/runner.ts`) — per-tool command dispatch. Each tool's `runner.ts` (`src/tools/{tool}/runner.ts`) switches on the command (e.g. gitversion: `setup` / `execute` / `command`) and wraps each in `safeExecute`, which disables telemetry, runs the action, logs output, and calls `setSucceeded`/`setFailed` on the agent.
+
+Per-tool inputs are read through a **`SettingsProvider`** (`settings.ts`) using the agent's typed `getInput<T>`; `models.ts` holds the tool's types.
+
+### Tool file layout (`src/tools/{gitversion,gitreleasemanager}/`)
+
+Each tool has: `runner.ts` (command dispatch, extends `RunnerBase`), `tool.ts` (extends `DotnetTool`, defines package name / version range / execution), `settings.ts` (`SettingsProvider`), `models.ts`, `index.ts`.
+
+### Distribution targets
+
+- **GitHub Actions**: entry points live in **repo-root directories** (`gitversion/`, `gitreleasemanager/`, `git/`), one subdir per command, each with `action.yml` + built `main.mjs`. The root `action.yml` points at `gitversion/setup/main.js`.
+- **Azure Pipelines**: built into `dist/azure/`, one subdir per command with `task.json`, plus `manifest.config.cjs` / `tasks.json`. Packaged/published with `tfx` (`publish:azure:*` scripts); `publish:prepare` runs `dist/azure/updateTasks.mjs`.
+
+### Path aliases (`tsconfig.json`)
+
+`@lib`, `@agents/common`, `@agents/{azure,local,github}`, `@tools/common`, `@tools/{gitversion,gitreleasemanager}`. Use these instead of deep relative imports.
+
+## Tests
+
+Vitest, globals enabled, config at `src/__tests__/vitest.config.ts` (targets node24, emits `junit-report.xml`). Tests mirror `src/` structure under `src/__tests__/{tools,agents}/`; shared helpers in `src/__tests__/tools/common/utils.ts`.
 
 ---
 > Source: [GitTools/actions](https://github.com/GitTools/actions) — distributed by [TomeVault](https://tomevault.io).
