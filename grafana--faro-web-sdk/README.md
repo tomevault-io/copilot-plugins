@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [grafana/faro-web-sdk](https://github.com/grafan
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [faro-web-sdk](https://github.com/grafana/faro-web-sdk/tree/main/ai/grafana-cloud/faro-setup/skills/faro-web/SKILL.md)
-
 From [grafana/faro-web-sdk](https://github.com/grafana/faro-web-sdk) — a repo with 1129+ stars on GitHub.
 
 ---
