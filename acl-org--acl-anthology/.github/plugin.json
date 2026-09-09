@@ -1,0 +1,14 @@
+{
+  "name": "acl-org--acl-anthology",
+  "displayName": "acl-anthology",
+  "description": "acl-anthology",
+  "version": "1.0.0",
+  "author": "acl-org",
+  "homepage": "https://github.com/acl-org/acl-anthology",
+  "skills": [
+    {
+      "name": "acl-anthology",
+      "description": ""
+    }
+  ]
+}
