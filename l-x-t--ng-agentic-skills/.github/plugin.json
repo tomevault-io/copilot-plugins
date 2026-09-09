@@ -1,0 +1,9 @@
+{
+  "name": "l-x-t--ng-agentic-skills",
+  "displayName": "ng-agentic-skills",
+  "description": "Agent skills for Angular development \u2013 the companion repo for the Agentic Engineering blog post series",
+  "version": "1.0.0",
+  "author": "L-X-T",
+  "homepage": "https://github.com/L-X-T/ng-agentic-skills",
+  "skills": []
+}
