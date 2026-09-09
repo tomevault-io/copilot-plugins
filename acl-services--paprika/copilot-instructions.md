@@ -1,0 +1,107 @@
+## paprika
+
+> This repo pins its Node version in `.nvmrc`. Use that version before any install/build/test command below:
+
+# Paprika monorepo — setup & test instructions
+
+## Node version
+
+This repo pins its Node version in `.nvmrc`. Use that version before any install/build/test command below:
+
+```bash
+nvm use
+```
+
+## Initial setup (build internal packages)
+
+Internal `@paprika/*` packages (e.g. `@paprika/l10n`) are symlinked via yarn workspaces but ship no `lib/` output until built. Without this step, tests fail with `Cannot find module '@paprika/l10n'` (or any other `@paprika/*` package).
+
+```bash
+nvm use
+yarn install
+yarn build:packages
+```
+
+Notes:
+
+- `yarn build:packages` runs `pretranspile` for the packages that need generated sources (`@paprika/icon`, `@paprika/l10n` translation files, `@paprika/tokens`) and then transpiles `src/` → `lib/` for every package. Installing alone does **not** build anything.
+- `yarn build:repo` is the full release build: `cleanup` + `build:packages` + type definitions + generated READMEs. Use it when the `.d.ts` files or package READMEs matter, `build:packages` otherwise.
+- Re-run the build after pulling changes that touch translations or any package's public build output.
+
+## Running tests
+
+```bash
+nvm use
+node_modules/.bin/jest packages/<PackageName>/tests/spec
+```
+
+Example:
+
+```bash
+node_modules/.bin/jest packages/Filter/tests/spec
+```
+
+`yarn test` / `npx jest` may fail to resolve the `jest` binary or the `@testing-library/jest-dom/extend-expect` setup file depending on shell state — prefer the direct `node_modules/.bin/jest` invocation above.
+
+## Testing hooks
+
+This repo's `@testing-library/react` version (10.x) does **not** include `renderHook`. Use `@testing-library/react-hooks` instead:
+
+```js
+import { renderHook, act } from "@testing-library/react-hooks";
+```
+
+## Creating a pull request
+
+### PR description template
+
+Use the existing PRs (e.g. #1344) as a style reference. Required sections:
+
+```
+### Purpose 🚀
+### Notes ✏️
+### Updates 📦
+### Storybook 📕
+### References 🔗
+```
+
+### Storybook URL placeholder
+
+The `storybook-link` CI job runs `scripts/storybookLink.js` on every PR open/update. It looks for a Storybook URL or placeholder in the PR body and replaces it with the real branch URL. **Always include this placeholder in the Storybook section**, even for CI-only or docs PRs:
+
+```
+http://storybooks.highbond-s3.com/paprika/your-branch-name
+```
+
+If this placeholder (or an existing Storybook URL) is missing, the job fails with:
+
+```
+No Storybook URL or placeholder found in PR description
+```
+
+### Commit message format
+
+This repo enforces [Conventional Commits](https://www.conventionalcommits.org/) via a commit-msg hook. Put the project ticket in the scope and start the subject with a lowercase word:
+
+```
+type(RCP-XXXXX): lowercase short description
+```
+
+Supported types: `feat`, `fix`, `style`, `test`, `docs`, `build`, `chore`, `ci`, `perf`, `refactor`, `revert`
+
+Examples:
+
+```
+chore(RCP-44747): migrate eslint to oxlint
+fix(RCP-42687): remove immer dependency and fix related bugs
+```
+
+The default `commitlint` subject-case rule rejects a subject beginning with `RCP-XXXXX`, so do not put the ticket after the colon. Commits without a valid type and scope will be rejected by the commit-msg hook.
+
+### Local composite actions and checkout
+
+`.github/actions/setup-paprika` is a local composite action. GitHub Actions must have the repo checked out **before** calling any local action — the runner cannot resolve `uses: ./.github/actions/...` without the files present. Always add an explicit `actions/checkout` step in the job **before** `uses: ./.github/actions/setup-paprika`.
+
+---
+> Source: [acl-services/paprika](https://github.com/acl-services/paprika) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
