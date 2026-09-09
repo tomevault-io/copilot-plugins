@@ -1,0 +1,9 @@
+{
+  "name": "jonassaa--platypusgit",
+  "displayName": "platypusgit",
+  "description": "A fast, keyboard-driven git desktop app for developers. Free and open source, no account, no telemetry. macOS, Windows, Linux. Tauri 2 + React.",
+  "version": "1.0.0",
+  "author": "jonassaa",
+  "homepage": "https://github.com/jonassaa/platypusgit",
+  "skills": []
+}
