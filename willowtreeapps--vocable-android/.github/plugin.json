@@ -1,0 +1,14 @@
+{
+  "name": "willowtreeapps--vocable-android",
+  "displayName": "vocable-android",
+  "description": "vocable-android",
+  "version": "1.0.0",
+  "author": "willowtreeapps",
+  "homepage": "https://github.com/willowtreeapps/vocable-android",
+  "skills": [
+    {
+      "name": "vocable-android",
+      "description": ""
+    }
+  ]
+}
