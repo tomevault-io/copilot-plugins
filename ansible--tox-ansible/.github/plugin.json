@@ -1,0 +1,18 @@
+{
+  "name": "ansible--tox-ansible",
+  "displayName": "tox-ansible",
+  "description": "tox-ansible",
+  "version": "1.0.0",
+  "author": "ansible",
+  "homepage": "https://github.com/ansible/tox-ansible",
+  "skills": [
+    {
+      "name": "tox-ansible",
+      "description": ""
+    },
+    {
+      "name": "tox-ansible",
+      "description": ""
+    }
+  ]
+}
