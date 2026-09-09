@@ -41,12 +41,12 @@
 
 ## 5. 局部规则导航
 
-- `packages/core/AGENTS.md` — 内核目录规则（Step/controller 约定、fabric 封装、无头模式）
-- `packages/react/AGENTS.md` — React 包目录规则（零编辑逻辑、公开 API 边界、样式约定）
-- `.Codex/rules/testing.md` — 测试文件规则（编辑 `*.test.ts(x)` 时按需加载）
-- `.Codex/rules/generated-dist.md` — 构建产物规则（始终加载）
-- `.catpaw/rules/` — 以上规则的 CatPaw IDE 镜像，同名文件正文与 `.Codex` 体系保持一致
-- `scripts/ralph/` — 自主编码 agent 工作流，自带 AGENTS.md，独立维护
+- `packages/core/CLAUDE.md` — 内核目录规则（Step/controller 约定、fabric 封装、无头模式）
+- `packages/react/CLAUDE.md` — React 包目录规则（零编辑逻辑、公开 API 边界、样式约定）
+- `.claude/rules/testing.md` — 测试文件规则（编辑 `*.test.ts(x)` 时按需加载）
+- `.claude/rules/generated-dist.md` — 构建产物规则（始终加载）
+- `.catpaw/rules/` — 以上规则的 CatPaw IDE 镜像，同名文件正文与 `.claude` 体系保持一致
+- `scripts/ralph/` — 自主编码 agent 工作流，自带 CLAUDE.md，独立维护
 
 ## 6. 遗留
 
