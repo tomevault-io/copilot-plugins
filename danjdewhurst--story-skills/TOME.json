@@ -4,7 +4,7 @@
   "repo": "story-skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -113,5 +113,5 @@
   ],
   "source_url": "https://github.com/danjdewhurst/story-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:34:48Z"
+  "distributed_at": "2026-09-09T22:30:18Z"
 }
