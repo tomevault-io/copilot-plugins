@@ -1,0 +1,44 @@
+{
+  "name": "Career-Atelier-AI-Context-Pack",
+  "owner": "tkv00",
+  "repo": "Career-Atelier-AI-Context-Pack",
+  "description": "Career Atelier \u2014 \uac1c\uc778 \ud074\ub77c\uc6b0\ub4dc \uae30\ubc18 \uad6c\uc9c1 \ube44\uc11c (Next.js + Supabase + \ub85c\uceec AI \ub7ec\ub108)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tkv00/Career-Atelier-AI-Context-Pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:53:05Z"
+}
