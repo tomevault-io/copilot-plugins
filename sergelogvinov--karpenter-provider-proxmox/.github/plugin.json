@@ -1,0 +1,9 @@
+{
+  "name": "sergelogvinov--karpenter-provider-proxmox",
+  "displayName": "karpenter-provider-proxmox",
+  "description": "karpenter-provider-proxmox",
+  "version": "1.0.0",
+  "author": "sergelogvinov",
+  "homepage": "https://github.com/sergelogvinov/karpenter-provider-proxmox",
+  "skills": []
+}
