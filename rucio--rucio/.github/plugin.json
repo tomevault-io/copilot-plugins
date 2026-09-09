@@ -1,0 +1,9 @@
+{
+  "name": "rucio--rucio",
+  "displayName": "rucio",
+  "description": "rucio",
+  "version": "1.0.0",
+  "author": "rucio",
+  "homepage": "https://github.com/rucio/rucio",
+  "skills": []
+}
