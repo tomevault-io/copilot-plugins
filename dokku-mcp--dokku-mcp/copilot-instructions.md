@@ -1,137 +1,146 @@
-## mcp-development
+## project-workflow
 
-> - **URI pattern**: Use consistent scheme like `dokku://resource-type/identifier`
+> Provides LLM clients with secure, structured access to Dokku applications, services, and infrastructure management.
 
-# MCP Server Development
+# Dokku MCP Server - Development Workflow
 
-## Resource Implementation
+## Project Overview
 
-### Resource Structure
-- **URI pattern**: Use consistent scheme like `dokku://resource-type/identifier`
-- **Name and description**: Provide clear, human-readable information
-- **MIME type**: Use appropriate content types (`application/json`, `text/plain`)
-- **Metadata**: Include relevant context for LLM understanding
+**Model Context Protocol (MCP) server** for **Dokku** written in Go.
+Provides LLM clients with secure, structured access to Dokku applications, services, and infrastructure management.
 
-### Resource Handler Pattern
+## Key Principles
+
+### Architecture
+- **Domain-Driven Design** with clear layer separation
+- **Strong typing** throughout - no `interface{}` without justification
+- **Dependency injection** for testability and flexibility
+- **Error handling** with context and proper logging
+
+### Development Flow
+1. **Start with tests** - Write failing tests first (TDD)
+2. **Implement minimal code** to make tests pass
+3. **Refactor** for clarity and performance
+4. **Document** complex logic with comments
+5. **Review** before committing
+
+### Quality Standards
+- **75% test coverage** minimum
+- **Cognitive complexity** under 25 per function
+- **All errors handled** explicitly
+- **Security validation** on all inputs
+
+## Common Development Tasks
+
+### Adding New Features
+1. **Define domain entity** in `internal/domain/`
+2. **Create repository interface** for data access
+3. **Implement infrastructure** layer
+4. **Add application handlers** for MCP
+5. **Write comprehensive tests**
+
+### File Organization
+```
+internal/
+├── domain/              # Business logic and entities
+├── application/         # Use case orchestration
+├── infrastructure/      # External system integration
+cmd/
+├── server/             # Main server entry point
+docs/
+├── architecture.md     # System design
+├── playbooks/         # Development guides
+```
+
+## Make Commands
+
+### Development
+- `make build` - Build the server
+- `make test` - Run all tests
+- `make test-coverage` - Tests with coverage report
+- `make lint` - Code linting and formatting
+- `make fmt` - Format code
+
+### Quality
+- `make test-integration` - Integration tests
+- `make cyclo` - Check complexity
+- `make security-test` - Security analysis
+
+### Debugging
+- `make debug` - Run in debug mode
+- `make profile` - Performance profiling
+
+## Configuration
+
+### Environment Variables
+All config can be set with `DOKKU_MCP_` prefix:
+- `DOKKU_MCP_HOST` - Server host
+- `DOKKU_MCP_PORT` - Server port
+- `DOKKU_MCP_LOG_LEVEL` - Logging level
+- `DOKKU_MCP_DOKKU_PATH` - Path to Dokku binary
+
+### Security Configuration
+- Define **allowed commands** in `security.allowed_commands`
+- Configure **rate limiting** in `security.rate_limit`
+- Enable **audit logging** with `security.audit.enabled`
+
+## Documentation References
+
+When working on this project, refer to:
+- **Architecture**: @docs/architecture.md
+- **Development Playbook**: @docs/playbooks/development.md
+- **Dokku Analysis**: @docs/dokku-analysis.md
+- **Project Summary**: @docs/project-summary.md
+
+## Error Handling Guidelines
+
+### Domain Errors
 ```go
-type ResourceHandler struct {
-    repository domain.Repository
-    cache      Cache
+type ApplicationError struct {
+    Code    string
+    Message string
+    Details map[string]interface{}
 }
 
-func (h *ResourceHandler) HandleApplications(ctx context.Context) ([]*mcp.Resource, error) {
-    // 1. Get data from domain layer
-    apps, err := h.repository.GetAll(ctx)
-    if err != nil {
-        return nil, fmt.Errorf("failed to retrieve applications: %w", err)
-    }
-    
-    // 2. Transform to MCP resources
-    resources := make([]*mcp.Resource, len(apps))
-    for i, app := range apps {
-        resources[i] = &mcp.Resource{
-            URI:         fmt.Sprintf("dokku://app/%s", app.Name()),
-            Name:        app.Name(),
-            Description: fmt.Sprintf("Dokku Application: %s", app.Name()),
-            MimeType:    "application/json",
-        }
-    }
-    
-    return resources, nil
+func (e *ApplicationError) Error() string {
+    return fmt.Sprintf("[%s] %s", e.Code, e.Message)
 }
 ```
 
-## Tool Implementation
-
-### Tool Definition
-```go
-func (t *DeployTool) Definition() *mcp.ToolDefinition {
-    return &mcp.ToolDefinition{
-        Name:        "deploy_application",
-        Description: "Deploy a Dokku application from Git repository",
-        InputSchema: map[string]interface{}{
-            "type": "object",
-            "properties": map[string]interface{}{
-                "app_name": map[string]interface{}{
-                    "type":        "string",
-                    "description": "Name of the application to deploy",
-                },
-                "git_ref": map[string]interface{}{
-                    "type":        "string",
-                    "description": "Git reference to deploy (optional)",
-                    "default":     "main",
-                },
-            },
-            "required": []string{"app_name"},
-        },
-    }
-}
-```
-
-### Tool Execution Pattern
-```go
-func (t *DeployTool) Execute(ctx context.Context, params map[string]interface{}) (*mcp.ToolResult, error) {
-    // 1. Validate and extract parameters
-    appName, ok := params["app_name"].(string)
-    if !ok || appName == "" {
-        return nil, errors.New("app_name parameter is required")
-    }
-    
-    // 2. Execute business logic through domain layer
-    deployment, err := t.deployService.Deploy(ctx, appName, domain.DeployOptions{
-        GitRef: getStringParam(params, "git_ref"),
-    })
-    if err != nil {
-        return &mcp.ToolResult{
-            Content: []map[string]interface{}{
-                {
-                    "type": "text",
-                    "text": fmt.Sprintf("Deployment failed: %v", err),
-                },
-            },
-            IsError: true,
-        }, nil
-    }
-    
-    // 3. Return structured result
-    return &mcp.ToolResult{
-        Content: []map[string]interface{}{
-            {
-                "type": "text",
-                "text": fmt.Sprintf("✅ Deployment successful: %s", deployment.ID),
-            },
-        },
-    }, nil
-}
-```
-
-## Security Guidelines
-
-### Input Validation
-- **Validate all parameters** before processing
-- **Sanitize command arguments** for Dokku execution
-- **Check permissions** for requested operations
-- **Rate limit** tool executions
-
-### Error Handling
-- **Never expose internal errors** to MCP clients
+### MCP Tool Errors
 - **Log detailed errors** for debugging
-- **Return user-friendly messages** in tool results
-- **Use structured error responses**
+- **Return safe messages** to clients
+- **Use structured responses** with error flags
+- **Include helpful guidance** when possible
+
+## Security Checklist
+
+Before committing code:
+- [ ] All inputs validated and sanitized
+- [ ] Dokku commands whitelisted
+- [ ] Error messages don't expose internals
+- [ ] Rate limiting implemented where needed
+- [ ] Audit logging for sensitive operations
 
 ## Best Practices
 
-### Performance
-- **Cache resource data** with appropriate TTL
-- **Use context for timeouts** on long operations
-- **Implement pagination** for large datasets
-- **Batch operations** when possible
+### Code Style
+- Use **descriptive variable names**
+- Keep **functions focused** and small
+- **Document complex logic** with comments
+- Follow **Go naming conventions**
 
-### Monitoring
-- **Log all tool executions** with client context
-- **Track resource access patterns**
-- **Monitor response times** and error rates
-- **Include request IDs** for tracing
+### Testing
+- Write **table-driven tests** for multiple scenarios
+- Use **mocks** for external dependencies
+- Test **error conditions** thoroughly
+- Maintain **high coverage** of critical paths
+
+### Performance
+- **Cache frequently accessed data** with TTL
+- Use **context for timeouts** on operations
+- **Implement pagination** for large datasets
+- **Profile performance** of critical operations
 
 ---
 > Source: [dokku-MCP/dokku-mcp](https://github.com/dokku-MCP/dokku-mcp) — distributed by [TomeVault](https://tomevault.io).
