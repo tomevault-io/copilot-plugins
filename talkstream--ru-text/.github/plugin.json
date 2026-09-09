@@ -1,0 +1,22 @@
+{
+  "name": "talkstream--ru-text",
+  "displayName": "ru-text",
+  "description": "ru-text",
+  "version": "1.0.0",
+  "author": "talkstream",
+  "homepage": "https://github.com/talkstream/ru-text",
+  "skills": [
+    {
+      "name": "ru-text",
+      "description": ""
+    },
+    {
+      "name": "ru-text",
+      "description": ""
+    },
+    {
+      "name": "ru-text",
+      "description": ""
+    }
+  ]
+}
