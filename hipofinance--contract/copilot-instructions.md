@@ -1,0 +1,68 @@
+## contract
+
+> Hipo is a decentralized liquid staking protocol on the TON blockchain. Users deposit GRAM
+
+# Hipo Contracts
+
+Hipo is a decentralized liquid staking protocol on the TON blockchain. Users deposit GRAM
+(the network coin, recently rebranded from TON) and receive hGRAM jettons (formerly hTON);
+the pooled coins are lent to validators ("borrowers") each validation round, and rewards
+accrue to the hGRAM exchange rate.
+
+> Terminology: GRAM = the coin, hGRAM = the jetton. The network itself is still called the
+> TON blockchain. Use GRAM/hGRAM everywhere; only `contracts/imports/stdlib.fc` (vendored)
+> and historical documents keep the old TON/hTON names.
+
+Read [docs/architecture.md](docs/architecture.md) before changing any contract — it explains
+the contracts, the validation-round state machine, and the protocol invariants that changes
+must preserve. Flow-by-flow message diagrams live in `graphs/` (build with
+`make build_graphviz && make graphs`). Message schemas for integrators are in
+`docs/integration.md` and `contracts/schema.tlb`.
+
+## Commands
+
+- Install: `npm install`
+- Build contracts: `npx blueprint build` (FunC → `build/`)
+- Test all: `npm test` (Jest + @ton/sandbox; the suite is large and slow). Prefer this over
+  `npx jest` or `npx blueprint test`: it runs `pretest`, which type-checks first. Those two skip
+  npm scripts entirely, so a type error sails past them — jest and eslint both pass on code that
+  `tsc` rejects, which is how one reached a deploy script.
+- Test one file: `npx jest tests/Wallet.spec.ts` (no type-check; run `npm run typecheck` as well)
+- Type-check: `npm run typecheck` — `tsc --noEmit`, about 2s
+- Lint: `npm run lint`
+- Everything, before a deploy: `npm run check` (type-check, then lint, then tests)
+- Mainnet scripts: `npx blueprint run <script>` — requires `blueprint.config.ts`, which is
+  gitignored (it holds an API key); create your own from `@ton/blueprint`'s `Config` type.
+
+## Layout
+
+- `contracts/` — FunC sources: `treasury.fc` (core), `parent.fc` + `wallet.fc` (jetton),
+  `loan.fc` (per-round, masterchain), `collection.fc` + `bill.fc` (per-round SBTs),
+  `librarian.fc` (library-cell deployment), `imports/` (op-codes, fees, helpers)
+- `wrappers/` — TypeScript wrappers and compile configs for each contract
+- `tests/` — Jest specs; `helper.ts` has shared fixtures, `MaxGas`/`MinGas` pin gas bounds
+- `scripts/` — governance and operations scripts for the deployed mainnet contracts
+- `graphs/` — Graphviz sources for every message flow
+
+## Working on changes
+
+The contracts are deployed on mainnet (addresses in README.md) and hold user funds. Changes
+must consider upgrade compatibility of stored data (see `scripts/upgrade_treasury.md`) and
+gas costs (`MaxGas.spec.ts` / `MinGas.spec.ts` must stay green).
+
+For any new feature or behavior change, run the `/spec` skill first: it interviews the
+requester, records a short spec in `docs/specs/`, and only then moves to implementation.
+
+## Agents and orchestration
+
+Two project subagents live in `.claude/agents/`: `deep-reasoner` (architecture, debugging,
+algorithm design) and `fast-worker` (boilerplate, tests, formatting, well-specified edits).
+Delegate work to them via the Agent tool when a task matches; keep orchestration and final
+review in the main session. For larger multi-step tasks the user opts into, the saved
+`orchestrate` workflow (`.claude/workflows/orchestrate.js`) plans with deep-reasoner, routes
+each step to the right agent, and verifies the result — run it with
+`Workflow({name: "orchestrate", args: "<task>"})`.
+
+---
+> Source: [HipoFinance/contract](https://github.com/HipoFinance/contract) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
