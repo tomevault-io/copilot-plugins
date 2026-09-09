@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [umutxyp/Discord-Vanity-URL-Sniper](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [Discord-Vanity-URL-Sniper](https://github.com/umutxyp/Discord-Vanity-URL-Sniper/tree/main/.claude/skills/seo-audit/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/umutxyp/Discord-Vanity-URL-Sniper](https://github.com/umutxyp/Discord-Vanity-URL-Sniper)
 
 ---
