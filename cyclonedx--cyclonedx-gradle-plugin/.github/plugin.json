@@ -1,0 +1,34 @@
+{
+  "name": "cyclonedx--cyclonedx-gradle-plugin",
+  "displayName": "cyclonedx-gradle-plugin",
+  "description": "cyclonedx-gradle-plugin",
+  "version": "1.0.0",
+  "author": "CycloneDX",
+  "homepage": "https://github.com/CycloneDX/cyclonedx-gradle-plugin",
+  "skills": [
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "description": ""
+    }
+  ]
+}
