@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [lusofonia/extenso.js](https://github.com/lusofonia/extenso.js).
+Original source: `AGENTS.md` in [lusofonia/extenso.js](https://github.com/lusofonia/extenso.js).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lusofonia/extenso.js](https://github.com/lusofonia/extenso.js) — a repo with 285+ stars on GitHub.
+From [lusofonia/extenso.js](https://github.com/lusofonia/extenso.js) — a repo with 286+ stars on GitHub.
 
 ---
 
