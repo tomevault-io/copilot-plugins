@@ -1,0 +1,14 @@
+{
+  "name": "contextgeneric--cgp",
+  "displayName": "cgp",
+  "description": "cgp",
+  "version": "1.0.0",
+  "author": "contextgeneric",
+  "homepage": "https://github.com/contextgeneric/cgp",
+  "skills": [
+    {
+      "name": "cgp",
+      "description": ""
+    }
+  ]
+}
