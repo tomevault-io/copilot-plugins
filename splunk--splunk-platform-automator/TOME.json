@@ -1,0 +1,57 @@
+{
+  "name": "splunk-platform-automator",
+  "owner": "splunk",
+  "repo": "splunk-platform-automator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "splunk-platform-automator",
+      "path": "skills/spa/spa-create-config/SKILL.md",
+      "github_url": "https://github.com/splunk/splunk-platform-automator/tree/main/skills/spa/spa-create-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "splunk-platform-automator",
+      "path": "skills/spa/spa-add-test-scenario/SKILL.md",
+      "github_url": "https://github.com/splunk/splunk-platform-automator/tree/main/skills/spa/spa-add-test-scenario/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/splunk/splunk-platform-automator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T04:01:58Z"
+}
