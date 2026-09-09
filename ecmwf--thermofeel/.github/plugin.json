@@ -1,0 +1,9 @@
+{
+  "name": "ecmwf--thermofeel",
+  "displayName": "thermofeel",
+  "description": "thermofeel",
+  "version": "1.0.0",
+  "author": "ecmwf",
+  "homepage": "https://github.com/ecmwf/thermofeel",
+  "skills": []
+}
