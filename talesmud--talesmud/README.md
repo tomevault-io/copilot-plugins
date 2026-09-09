@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [TalesMUD/talesmud](https://github.com/TalesMUD/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [TalesMUD/talesmud](https://github.com/TalesMUD/talesmud) — a repo with 61+ stars on GitHub.
+From [TalesMUD/talesmud](https://github.com/TalesMUD/talesmud) — a repo with 65+ stars on GitHub.
 
 ---
 
