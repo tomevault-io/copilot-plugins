@@ -4,7 +4,7 @@
   "repo": "flutter_calendar_carousel",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/hyochan/flutter_calendar_carousel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T21:35:36Z"
+  "distributed_at": "2026-09-09T17:33:45Z"
 }
