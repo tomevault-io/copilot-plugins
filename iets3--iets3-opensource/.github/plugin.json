@@ -1,0 +1,14 @@
+{
+  "name": "iets3--iets3-opensource",
+  "displayName": "iets3.opensource",
+  "description": "iets3.opensource",
+  "version": "1.0.0",
+  "author": "IETS3",
+  "homepage": "https://github.com/IETS3/iets3.opensource",
+  "skills": [
+    {
+      "name": "iets3.opensource",
+      "description": ""
+    }
+  ]
+}
