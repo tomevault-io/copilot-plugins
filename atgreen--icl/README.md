@@ -1,21 +1,26 @@
 # icl
 
-> Source: [atgreen/icl](https://github.com/atgreen/icl) — distributed by [TomeVault](https://tomevault.io)
+> Source: [atgreen/icl](https://github.com/atgreen/icl). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 Interactive Common Lisp: an enhanced REPL
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atgreen/icl](https://github.com/atgreen/icl).
+Original source: `CLAUDE.md` in [atgreen/icl](https://github.com/atgreen/icl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [icl](https://github.com/atgreen/icl/tree/main/.claude/skills/make-release/SKILL.md)
+- [icl](https://github.com/atgreen/icl/tree/main/.agents/skills/beads/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/atgreen/icl](https://github.com/atgreen/icl)
 
