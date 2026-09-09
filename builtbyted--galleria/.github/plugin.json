@@ -1,0 +1,9 @@
+{
+  "name": "builtbyted--galleria",
+  "displayName": "Galleria",
+  "description": "Galleria is a modern, self-hosted photography portfolio platform built with React, TypeScript, and Express. Features include image optimization, album management, analytics, Google OAuth authenticatio",
+  "version": "1.0.0",
+  "author": "BuiltByTed",
+  "homepage": "https://github.com/BuiltByTed/Galleria",
+  "skills": []
+}
