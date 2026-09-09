@@ -1,0 +1,9 @@
+{
+  "name": "machinegpt--agent",
+  "displayName": "agent",
+  "description": "agent",
+  "version": "1.0.0",
+  "author": "machinegpt",
+  "homepage": "https://github.com/machinegpt/agent",
+  "skills": []
+}
