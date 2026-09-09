@@ -1,0 +1,50 @@
+{
+  "name": "tonylofgren--aurora-smart-home",
+  "displayName": "aurora-smart-home",
+  "description": "aurora-smart-home",
+  "version": "1.0.0",
+  "author": "tonylofgren",
+  "homepage": "https://github.com/tonylofgren/aurora-smart-home",
+  "skills": [
+    {
+      "name": "esphome",
+      "description": ""
+    },
+    {
+      "name": "ha-integration-dev",
+      "description": ""
+    },
+    {
+      "name": "home-assistant",
+      "description": ""
+    },
+    {
+      "name": "node-red",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "description": ""
+    }
+  ]
+}
