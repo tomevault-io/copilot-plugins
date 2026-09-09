@@ -215,4 +215,4 @@ sources and rebuild rather than hand-editing them.
 
 ---
 > Source: [mikeckennedy/python-switch](https://github.com/mikeckennedy/python-switch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
