@@ -1,24 +1,24 @@
 # AI instruction files for twitter-php
 
-> Sourced from [dg/twitter-php](https://github.com/dg/twitter-php) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [dg/twitter-php](https://github.com/dg/twitter-php), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dg/twitter-php](https://github.com/dg/twitter-php).
+Original source: `AGENTS.md` in [dg/twitter-php](https://github.com/dg/twitter-php).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dg/twitter-php](https://github.com/dg/twitter-php) — a repo with 535+ stars on GitHub.
+From [dg/twitter-php](https://github.com/dg/twitter-php) — a repo with 536+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
