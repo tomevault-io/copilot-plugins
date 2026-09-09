@@ -1,0 +1,99 @@
+{
+  "name": "isetbio",
+  "owner": "isetbio",
+  "repo": "isetbio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "isetbio",
+      "path": ".github/skills/matlab-testing/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/matlab-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/sdr-mosaic-data/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/sdr-mosaic-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/isetcam-pipeline/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/isetcam-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/matlab-evaluation/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/matlab-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/matlab-environment/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/matlab-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/retinal-mosaic-data/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/retinal-mosaic-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/sceneeye-maintenance/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/sceneeye-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/matlab-script-review/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/matlab-script-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "isetbio",
+      "path": ".github/skills/tutorial-example-authoring/SKILL.md",
+      "github_url": "https://github.com/isetbio/isetbio/tree/main/.github/skills/tutorial-example-authoring/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/isetbio/isetbio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:41:09Z"
+}
