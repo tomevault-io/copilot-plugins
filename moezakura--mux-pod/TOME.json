@@ -2,9 +2,9 @@
   "name": "mux-pod",
   "owner": "moezakura",
   "repo": "mux-pod",
-  "description": "A mobile-first tmux client over SSH. Control your terminal sessions from your phone.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moezakura/mux-pod",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T14:38:05Z"
+  "distributed_at": "2026-09-09T15:06:43Z"
 }
