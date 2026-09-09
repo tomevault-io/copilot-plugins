@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [openshift/cluster-network-operator](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [openshift/cluster-network-operator](https://github.com/openshift/cluster-network-operator) — a repo with 110+ stars on GitHub.
+From [openshift/cluster-network-operator](https://github.com/openshift/cluster-network-operator) — a repo with 112+ stars on GitHub.
 
 ---
 
