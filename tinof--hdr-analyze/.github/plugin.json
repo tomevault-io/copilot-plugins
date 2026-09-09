@@ -1,0 +1,9 @@
+{
+  "name": "tinof--hdr-analyze",
+  "displayName": "hdr-analyze",
+  "description": "Convert any HDR10, HLG, or HDR10+ video to dynamic metadata",
+  "version": "1.0.0",
+  "author": "tinof",
+  "homepage": "https://github.com/tinof/hdr-analyze",
+  "skills": []
+}
