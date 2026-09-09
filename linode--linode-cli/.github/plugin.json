@@ -1,0 +1,9 @@
+{
+  "name": "linode--linode-cli",
+  "displayName": "linode-cli",
+  "description": "linode-cli",
+  "version": "1.0.0",
+  "author": "linode",
+  "homepage": "https://github.com/linode/linode-cli",
+  "skills": []
+}
