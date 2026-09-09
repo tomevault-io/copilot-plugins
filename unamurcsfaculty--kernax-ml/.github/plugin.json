@@ -1,0 +1,9 @@
+{
+  "name": "unamurcsfaculty--kernax-ml",
+  "displayName": "kernax-ml",
+  "description": "Kernax: a Python package providing efficient mathematical kernel implementations for probabilistic machine learning models, built with the JAX framework.",
+  "version": "1.0.0",
+  "author": "UNamurCSFaculty",
+  "homepage": "https://github.com/UNamurCSFaculty/kernax-ml",
+  "skills": []
+}
