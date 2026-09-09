@@ -1,0 +1,81 @@
+{
+  "name": "yontrack",
+  "owner": "yontrack",
+  "repo": "yontrack",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "yontrack",
+      "path": ".claude/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/yontrack/yontrack/tree/main/.claude/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yontrack",
+      "path": ".claude/skills/add-widget/SKILL.md",
+      "github_url": "https://github.com/yontrack/yontrack/tree/main/.claude/skills/add-widget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yontrack",
+      "path": ".claude/skills/new-extension/SKILL.md",
+      "github_url": "https://github.com/yontrack/yontrack/tree/main/.claude/skills/new-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yontrack",
+      "path": ".claude/skills/add-json-schema/SKILL.md",
+      "github_url": "https://github.com/yontrack/yontrack/tree/main/.claude/skills/add-json-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yontrack",
+      "path": ".claude/skills/add-property-type/SKILL.md",
+      "github_url": "https://github.com/yontrack/yontrack/tree/main/.claude/skills/add-property-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yontrack",
+      "path": ".claude/skills/migrate-use-graphql-client/SKILL.md",
+      "github_url": "https://github.com/yontrack/yontrack/tree/main/.claude/skills/migrate-use-graphql-client/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yontrack/yontrack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T19:53:04Z"
+}
