@@ -1,0 +1,14 @@
+{
+  "name": "supabase--postgres",
+  "displayName": "postgres",
+  "description": "postgres",
+  "version": "1.0.0",
+  "author": "supabase",
+  "homepage": "https://github.com/supabase/postgres",
+  "skills": [
+    {
+      "name": "postgres",
+      "description": ""
+    }
+  ]
+}
