@@ -1,0 +1,9 @@
+{
+  "name": "skrollme--homebridge-eveatmo",
+  "displayName": "homebridge-eveatmo",
+  "description": "homebridge-eveatmo",
+  "version": "1.0.0",
+  "author": "skrollme",
+  "homepage": "https://github.com/skrollme/homebridge-eveatmo",
+  "skills": []
+}
