@@ -1,8 +1,10 @@
 ## autoclaw
 
-> **AutoClaw** is a hyper-lightweight AI agent designed for **massive scale automation** in **headless/containerized environments**.
+> Guidance for AI coding agents (and humans) working in this repository.
 
-# Project: AutoClaw
+# AGENTS.md
+
+Guidance for AI coding agents (and humans) working in this repository.
 
 ## Project Overview
 **AutoClaw** is a hyper-lightweight AI agent designed for **massive scale automation** in **headless/containerized environments**.
@@ -15,25 +17,36 @@ It serves as the ideal "runtime" for executing LLM-driven tasks within Docker co
 - **Massive Scalability**: Low resource footprint enables high-concurrency swarms.
 - **Headless & Non-Interactive**: Zero GUI dependencies; optimized for CI/CD and Clusters.
 
+Guard these properties when making changes: no new heavy dependencies, no interactive requirements on the headless path, and no features that assume a human is watching.
+
 ## Technology Stack
 - **Runtime**: Node.js
 - **Language**: TypeScript
 - **Framework**: Commander.js
 - **UI**: Inquirer (interactivity), Chalk (styling), Ora (spinners)
-- **AI**: OpenAI SDK
+- **AI**: OpenAI SDK (any OpenAI-compatible endpoint)
 
 ## Directory Structure
 - `src/`: Source code
-  - `index.ts`: CLI entry point and main loop.
-  - `agent.ts`: Agent class handling LLM interaction and tool loop.
-  - `tools.ts`: Implementation of tools (Shell execution, File I/O).
+  - `index.ts`: CLI entry point, config resolution and main loop.
+  - `agent.ts`: Agent class handling LLM streaming, the tool loop, retries and step caps.
+  - `providers.ts`: Provider presets (OpenAI-compatible endpoints as pure data).
+  - `shell.ts`: Shell resolution (Git Bash/PowerShell/cmd/sh), spawn-based execution with process-tree kill and UTF-8/GBK decoding.
+  - `sandbox.ts`: Sandbox policy (read-only / workspace-write / danger-full-access) with bwrap / sandbox-exec backends; Windows fail-closed.
+  - `batch.ts`: Batch execution over JSONL task manifests (manifest parsing + per-task orchestration).
+  - `skills.ts`: Skill system — SKILL.md parsing (zero-dependency YAML subset), scope discovery (builtin/user/project), system-prompt manifest, install/remove/pack.
+  - `zip.ts`: Minimal dependency-free ZIP reader/writer (deflate + CRC32, deterministic output, zip-slip protection) for skill packages.
+  - `truncate.ts`, `retry.ts`: Tool-output truncation and API retry helpers.
+  - `tools/`: Tool modules (Shell, files, time, search, browser, screenshot, email, notify, image, render, prompt optimizer, background processes), each exporting a `ToolModule` registered in `tools/index.ts`.
+  - `../skills/`: Built-in skill packages shipped with the npm package via the `files` field; user skills live in `~/.autoclaw/skills/`, project skills in `.autoclaw/skills/`. Three built-ins, layered: `code2media` is the universal HTML→image/SVG/PDF/animation engine; `poster-maker` and `invoice-maker` are independently optimized scenario skills (platform size specs, document layout conventions, quality checklists). Naming: the general engine is input→output named; scenario skills are named by the scenario (what the user gets), never by implementation.
+  - `*.test.ts`: Vitest unit tests, run with `npm test`.
 - `dist/`: Compiled JavaScript files.
 
 ## Getting Started
 
 ### Prerequisites
 - Node.js installed.
-- OpenAI API Key (or compatible provider like DeepSeek, LocalLLM).
+- OpenAI API Key (or a compatible provider like DeepSeek, Kimi, Qwen, GLM).
 
 ### Installation (Development)
 1.  Install dependencies:
@@ -43,6 +56,10 @@ It serves as the ideal "runtime" for executing LLM-driven tasks within Docker co
 2.  Build the project:
     ```bash
     npm run build
+    ```
+3.  Run tests:
+    ```bash
+    npm test
     ```
 
 ### Installation (User)
@@ -59,8 +76,8 @@ npm update -g autoclaw
 AutoClaw uses a hierarchical configuration system.
 
 **Priority Order:**
-1.  **CLI Arguments**: (`-m`)
-2.  **Environment Variables**: (`.env`, System Vars)
+1.  **CLI Arguments**: (`-m`, `-P`)
+2.  **Environment Variables**: (`OPENAI_API_KEY`, `AUTOCLOW_*`, system vars)
 3.  **Project Config**: (`./.autoclaw/setting.json`)
 4.  **Global Config**: (`~/.autoclaw/setting.json`)
 
@@ -80,12 +97,12 @@ Or use the CLI command if installed globally:
 autoclaw
 ```
 
-## Features
-- **Natural Language Command Execution**: "List all markdown files in this folder."
-- **File Management**: "Create a new file called test.txt with 'Hello World'."
-- **Safety**: All shell commands require user confirmation before execution.
-- **Context Aware**: Automatically detects OS and environment.
+## Conventions for Changes
+- Before committing, run `npm test` and `npm run build`; both must pass.
+- New tools should follow the `ToolModule` pattern in `src/tools/interface.ts` and be registered in `src/tools/index.ts`, with unit tests and mocked external services.
+- Keep external services mocked in tests; the suite must never require network access or API keys.
+- Documentation (README.md / README.zh-CN.md) must state what the code actually does — keep claims in sync with behavior, and mirror changes in both languages.
 
 ---
 > Source: [tsingliuwin/autoclaw](https://github.com/tsingliuwin/autoclaw) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
