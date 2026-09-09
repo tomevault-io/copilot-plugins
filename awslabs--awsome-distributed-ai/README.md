@@ -1,6 +1,6 @@
 # awsome-distributed-ai
 
-> Source: [awslabs/awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [awslabs/awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [awslabs/awsome-distributed-ai](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (6)
+## Bundled Skills (18)
 
 - [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/bash-testing/SKILL.md)
 - [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/build-slurm-image/SKILL.md)
@@ -23,6 +23,18 @@ Original source: `AGENTS.md` in [awslabs/awsome-distributed-ai](https://github.c
 - [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-slurm-cluster/SKILL.md)
 - [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deployment-preflight/SKILL.md)
 - [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-infrastructure/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-incident-rca/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-incident-triage/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-devops-agent-solution/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/bash-testing/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/build-slurm-image/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-incident-rca/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/validate-deployment/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-slurm-cluster/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deployment-preflight/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-infrastructure/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-incident-triage/SKILL.md)
+- [awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-devops-agent-solution/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/awslabs/awsome-distributed-ai](https://github.com/awslabs/awsome-distributed-ai)
 
