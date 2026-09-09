@@ -1,0 +1,9 @@
+{
+  "name": "contentful--contentful-cli",
+  "displayName": "contentful-cli",
+  "description": "contentful-cli",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/contentful-cli",
+  "skills": []
+}
