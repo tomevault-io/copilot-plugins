@@ -1,1103 +1,513 @@
 ## alchemy
 
-> Alchemy is a Typescript-native Infrastructure-as-Code repository.
+> This document describes the process for going from zero to full Alchemy coverage for a single AWS service:
 
-# Alchemy
+# AWS Service Bring-Up Process
 
-Alchemy is a Typescript-native Infrastructure-as-Code repository.
-Your job is to implement "Resource" providers for various cloud services by following a set of strict conventions and patterns.
+This document describes the process for going from zero to full Alchemy coverage for a single AWS service:
 
-Your job is to build and maintain resource providers following the following convention and structure:
+- all canonical resources
+- all bindings
+- all event sources
+- all ergonomic helpers
+- deterministic audit and test coverage checks
 
-## Provider Layout
+Use this process whenever adding a brand new AWS service or finishing an incomplete one.
 
-```
-alchemy/
-  src/
-    {provider}/
-      README.md
-      {resource}.ts
-  test/
-    {provider}/
-      {resource}.test.ts
-alchemy-web/
-  guides/
-    {provider}.md # guide on how to get started with the {provider}
-  docs/
-    providers/
-      {provider}/
-        index.md # overview of usage and link to all the resources for the provider
-        {resource}.md # example-oriented reference docs for the resource
-examples/
-  {provider}-{qualifier?}/ # only add a qualifier if there are more than one example for this {provider}, e.g. {cloudflare}-{vitejs}
-    package.json
-    tsconfig.json
-    alchemy.run.ts
-    README.md #
-    src/
-      # source code
-```
+## Goal
 
-## Convention
+For a given AWS service, the end state should include:
 
-> Each Resource has one .ts file, one test suite and one documentation page
+1. Every canonical Alchemy resource for that service.
+2. Every important AWS API operation represented either as:
+   - a binding,
+   - a resource lifecycle provider,
+   - an event source surface,
+   - or an intentional helper abstraction.
+3. Runtime-specific event-source implementations where applicable.
+4. End-to-end tests covering the implemented binding and event-source surface.
+5. Deterministic audit checks that report what is still missing.
 
-## README
+## Source Of Truth
 
-Please provide a comprehensive document of all the Resources for this provider with relevant links to documentation. This is effectively the design and internal documentation.
+Start from the distilled spec in:
 
-## Resource File
+- `submodules/distilled/packages/aws/src/services/<service>.ts`
 
-> [!NOTE]
-> Follow rules and conventions laid out in the [cursorrules](./.cursorrules).
+Never start from ad-hoc memory of the AWS service. The distilled spec is the source of truth for operations.
+
+## Core Concepts
+
+Every distilled operation must be classified into one of these buckets:
+
+### 1. Binding
+
+Use a binding when the operation is a runtime capability.
+
+Examples:
+
+- `GetItem(table)`
+- `PutItem(table)`
+- `ListTables()`
+- `DescribeTable(table)`
+
+Bindings are:
+
+- one file per operation
+- the combined `Binding.Service` form (`interface X extends Binding.Service<X, "id", Shape>` + `const X = Binding.Service<X>("id")`); the deploy-time IAM registration is inlined into the impl layer under `if (!globalThis.__ALCHEMY_RUNTIME__)`, resolving the host via `yield* Binding.host`
+- usually named `alchemy/src/AWS/<Service>/<Operation>.ts` (callable + types) with the impl layer in `<Operation>Http.ts` (AWS runtime impls call the distilled HTTP API authenticated by the Lambda's IAM role; `Http`, not `Binding` — `Binding` is a Cloudflare native-worker concept)
+
+### 2. Resource
+
+Use a resource when the operation set implies lifecycle ownership of infrastructure.
+
+Examples:
+
+- `createTable` / `updateTable` / `deleteTable` -> `Table`
+- `createBucket` / `deleteBucket` -> `Bucket`
+
+Resources are:
+
+- canonical Alchemy infrastructure entities
+- implemented as `Resource` contract + provider in a single file
+
+### 3. Event Source
+
+Use an event source when the service can push records/events into a runtime.
+
+This always has two layers:
+
+1. Service-level abstraction in `alchemy/src/AWS/<Service>/...`
+2. Runtime-specific implementation in places like:
+   - `alchemy/src/AWS/Lambda/...`
+   - `alchemy/src/Process/...`
+
+Examples:
+
+- `consumeBucketEvents(bucket, handler)`
+- `consumeQueueMessages(queue, handler)`
+- `consumeTableChanges(table, handler)` for DynamoDB-style change streams
+
+### 4. Helper
+
+Use a helper when multiple raw operations should collapse into a more ergonomic surface.
+
+Examples:
+
+- `consumeBucketEvents(bucket, handler)`
+- `consumeQueueMessages(queue, handler)`
+- batch or transaction wrappers
+
+Helpers should not hide missing low-level primitives. Implement the primitives first.
+
+## Resource Arity
+
+Classify each binding by resource arity:
+
+- `0`: service/account scoped
+  - example: `ListTables`
+- `1`: one resource
+  - example: `GetItem(table)`
+- `2+`: multiple resources
+  - example: `RestoreTableToPointInTime(fromTable, toTable)`
+  - example: copy, batch, or transaction style operations
+
+This classification helps decide:
+
+- binding shape
+- helper shape
+- policy shape
+- whether the operation belongs on a resource or service surface
+
+Arity should be modeled in terms of canonical resources whenever possible.
+
+- good: a `2`-arity binding accepts `<From extends Table, To extends Table>`
+- bad: a `2`-resource operation accepts one `Table` plus a raw `string` target name
+- only fall back to raw identifiers when there is no real canonical resource to bind against
+- when there's a missing canonical resource, that might suggest we need to add one
+
+### Case Study: `ExecuteTransaction`
+
+Use `ExecuteTransaction` as the reference pattern for bindings that touch `1..*` canonical resources.
+
+The ambiguity we want to avoid is:
+
+- bad: `ExecuteTransaction()` with IAM `Resource: ["*"]`
+- bad: `ExecuteTransaction(tableNames: string[])`
+- bad: a SID like `AWS.DynamoDB.ExecuteTransaction(2 table(s))` that hides which resources were bound
+
+The required pattern is:
+
+- good: `ExecuteTransaction(tableA, tableB, ...)`
+- good: the binding type requires at least one table
+- good: the policy enumerates exactly those table ARNs
+- good: the SID is deterministic and names the participating resources
+
+Runbook for any `1..*` resource-bound binding:
+
+1. Model the binding arguments as a non-empty tuple of canonical resources.
+2. Call `.bind(resourceA, resourceB, ...)`, never `.bind()` with hidden resource discovery.
+3. Before constructing the SID, sort the resources by `LogicalId` so equivalent calls produce the same binding identity.
+4. Pass the sorted resource array into the `host.bind` template so the SID renders each resource name explicitly, for example `AWS.DynamoDB.ExecuteTransaction(TableA, TableB)`.
+5. Build IAM `Resource` from those same sorted resources, for example `sortedTables.map((table) => table.tableArn)`.
+6. Only use `Resource: ["*"]` if the operation is truly service-scoped or AWS IAM does not support resource-level scoping for that API.
+
+Reference shape:
 
 ```ts
-// ./alchemy/src/{provider}/{resource}.ts
-import { Context } from "../context.ts";
+type ExecuteTransactionTables = [Table, ...Table[]];
 
-export interface {Resource}Props {
-    // input props
-}
-
-export interface {Resource} extends Resource<"{provider}::{resource}"> {
-    // output props
-}
-
-/**
- * {overview}
- *
- * @example
- * ## {Example Title}
- *
- * {concise description}
- *
- * {example snippet}
- *
- * @example
- * // .. repeated for all examples
- */
-export const {Resource} = Resource(
-  "{provider}::{resource}",
-  async function (this: Context<>, id: string, props: {Resource}Props): Promise<{Resource}> {
-    // Create, Update, Delete lifecycle
-  }
+const sortedTables = [...tables].sort((a, b) =>
+  a.LogicalId.localeCompare(b.LogicalId),
 );
-```
 
-> [!CAUTION]
-> When designing input props, there is the common case of having a property that references another entity in the {provider} domain by Id, e.g. tableId, bucketArn, etc.
->
-> In these cases, you should instead opt to represent this as `{resource}: string | {Resource}`, e.g. `table: string | Table`. This "lifts" the Resource into the Alchemy abstraction without sacrificing support for referencing external entities by name.
-
-## Test Suite
-
-> [!NOTE]
-> Follow rules and conventions laid out in the [cursorrules](./.cursorrules).
-
-```ts
-// ./alchemy/test/{provider}/{resource}.test.ts
-import { destroy } from "../src/destroy.ts"
-import { BRANCH_PREFIX } from "../util.ts";
-
-import "../../src/test/vitest.ts";
-
-const test = alchemy.test(import.meta, {
-  prefix: BRANCH_PREFIX,
-});
-
-describe("{Provider}", () => {
-  test("{test case}", async (scope) => {
-    const resourceId = `${BRANCH_PREFIX}-{id}` // an ID that is: 1) deterministic (non-random), 2) unique across all tests and all test suites
-    let resource: {Resource}
-    try {
-      // create
-      resource = await {Resource}("{id}", {
-        // {props}
-      })
-
-      expect(resource).toMatchObject({
-        // {assertions}
-      })
-
-      // update
-      resource = await {Resource}("{id}", {
-        // {update props}
-      })
-
-      expect(resource).toMatchObject({
-        // {updated assertions}
-      })
-    } finally {
-      await destroy(scope);
-      await assert{ResourceDoesNotExist}(resource)
-    }
-  })
-});
-
-async function assert{Resource}DoesNotExist(api: {Provider}Client, resource: {Resource}) {
-    // {call api to check it does not exist, throw test error if it does}
-}
-```
-
-## Provider Overview Docs (index.md)
-
-Each provider folder should have an `index.md` that indexes and summarizes the provider and links to each resource.
-
-```md
-# {Provider}
-
-{overview of the provider}
-
-{official links out to the provider website}
-
-## Resources
-
-- [{Resource}1](./{resource}1.md) - {brief description}
-- [{Resource}2](./{resource}2.md) - {brief description}
-- ..
-- [{Resource}N](./{resource}n.md) - {brief description}
-
-## Example Usage
-
-\`\`\`ts
-// {comprehensive end-to-end usage}
-\`\`\`
-```
-
-## Example Project
-
-An example project is effectively a whole NPM package that demonstrates
-
-```
-examples/
-  {provider}-{qualifier?}/
-    package.json
-    tsconfig.json # extends ../../tsconfig.base.json
-    alchemy.run.ts
-    README.md
-    src/
-      # code
-tsconfig.json # is updated to reference examples/{provider}-{qualifier?}
-```
-
-## Guide
-
-Each Provider has a getting started guide in ./alchemy-web/docs/guides/{provider}.md.
-
-```md
----
-order: { number to decide the position in the tree view }
-title: { Provider }
-description: { concise description of the tutorial }
----
-
-# Getting Started {Provider}
-
-{1 sentence overview of what this tutorial will set the user up with}
-
-## Install
-
-{any installation pre-requisites}
-
-::: code-group
-
-\`\`\`sh [bun]
-bun ..
-\`\`\`
-
-\`\`\`sh [npm]
-npm ...
-\`\`\`
-
-\`\`\`sh [pnpm]
-pnpm ..
-\`\`\`
-
-\`\`\`sh [yarn]
-yarn ..
-\`\`\`
-
-:::
-
-## Credentials
-
-{how to get credentials and store in .env}
-
-## Create a {Provider} application
-
-{code group with commands to run to init a new project}
-
-## Create `alchemy.run.ts`
-
-{one or more subsequent code snippets with explanations for using alchemy to provision this provider}
-
-## Deploy
-
-Run `alchemy.run.ts` script to deploy:
-
-::: code-group
-
-\`\`\`sh [bun]
-bun ./alchemy.run
-\`\`\`
-
-\`\`\`sh [npm]
-npx tsx ./alchemy.run
-\`\`\`
-
-\`\`\`sh [pnpm]
-pnpm tsx ./alchemy.run
-\`\`\`
-
-\`\`\`sh [yarn]
-yarn tsx ./alchemy.run
-\`\`\`
-
-:::
-
-It should log out the ... {whatever information is relevant for interacting with the app deployed to this provider}
-\`\`\`sh
-{expected output}
-\`\`\`
-
-## Tear Down
-
-That's it! You can now tear down the app (if you want to):
-
-::: code-group
-
-\`\`\`sh [bun]
-bun ./alchemy.run --destroy
-\`\`\`
-
-\`\`\`sh [npm]
-npx tsx ./alchemy.run --destroy
-\`\`\`
-
-\`\`\`sh [pnpm]
-pnpm tsx ./alchemy.run --destroy
-\`\`\`
-
-\`\`\`sh [yarn]
-yarn tsx ./alchemy.run --destroy
-\`\`\`
-
-:::
-```
-
-> [!NOTE]
-> You should review all of the existing Cloudflare guides like [cloudflare-vitejs.md](./alchemy-web/docs/guides/cloudflare-vitejs.md) and follow the writing style and flow.
-
-> [!TIP]
-> If the Resource is mostly headless infrastructure like a database or some other service, you should use Cloudflare Workers as the runtime to "round off" the example package e.g. for a Neon Provider, we would connect it into a Cloudflare Worker via Hyperdrive and provide a URL (via Worker) to hit that page. Ideally you'd also put ViteJS in front and hit that endpoint.
-
-# Coding Best Practices
-
-> [!IMPORTANT]
-> These guidelines have been refined based on code review feedback and production experience. Following them will prevent common issues and improve code quality.
-
-## Resource Implementation
-
-### Resource Implementation Pattern
-
-Resources are implemented using the pseudo-class pattern with proper lifecycle management:
-
-```ts
-export const MyResource = Resource(
-  "provider::MyResource",
-  async function (
-    this: Context<MyResource>,
-    id: string,
-    props: MyResourceProps,
-  ): Promise<MyResource> {
-    const resourceId = props.resourceId || this.output?.resourceId;
-    const adopt = props.adopt || this.scope.adopt;
-    const name = props.name ?? this.output?.name ?? this.scope.createPhysicalName(id);
-
-    if (this.scope.local) {
-      // Local development mode - return mock data
-      return {
-        id,
-        name,
-        resourceId: resourceId || "",
-        property: props.property,
-        secret: Secret.wrap(props.secret || ""),
-        type: "my-resource",
-      };
-    }
-
-    const api = await createProviderApi(props);
-
-    if (this.phase === "delete") {
-      if (!resourceId) {
-        logger.warn(`No resourceId found for ${id}, skipping delete`);
-        return this.destroy();
-      }
-
-      try {
-        const deleteResponse = await api.delete(`/resources/${resourceId}`);
-        if (!deleteResponse.ok && deleteResponse.status !== 404) {
-          await handleApiError(deleteResponse, "delete", "resource", id);
-        }
-      } catch (error) {
-        logger.error(`Error deleting resource ${id}:`, error);
-        throw error;
-      }
-      return this.destroy();
-    }
-
-    // Prepare request body with unwrapped secrets
-    const requestBody = {
-      name,
-      property: props.property,
-      secret: Secret.unwrap(props.secret),
-    };
-
-    let result: ApiResponse;
-    if (resourceId) {
-      // Update existing resource
-      result = await extractApiResult<ApiResponse>(
-        `update resource "${resourceId}"`,
-        api.put(`/resources/${resourceId}`, requestBody),
-      );
-    } else {
-      try {
-        // Create new resource
-        result = await extractApiResult<ApiResponse>(
-          `create resource "${name}"`,
-          api.post("/resources", requestBody),
-        );
-      } catch (error) {
-        if (error instanceof ApiError && error.code === "ALREADY_EXISTS") {
-          if (!adopt) {
-            throw new Error(
-              `Resource "${name}" already exists. Use adopt: true to adopt it.`,
-              { cause: error },
-            );
-          }
-          const existing = await findResourceByName(api, name);
-          if (!existing) {
-            throw new Error(
-              `Resource "${name}" failed to create due to name conflict and could not be found for adoption.`,
-              { cause: error },
-            );
-          }
-          result = await extractApiResult<ApiResponse>(
-            `adopt resource "${name}"`,
-            api.put(`/resources/${existing.id}`, requestBody),
-          );
-        } else {
-          throw error;
-        }
-      }
-    }
-
-    // Construct the output object from API response and props
-    return {
-      id,
-      name: result.name,
-      resourceId: result.id,
-      property: result.property,
-      secret: Secret.wrap(props.secret),
-      type: "my-resource",
-    };
-  },
-);
-```
-
-### Advanced Resource Patterns
-
-#### Input Normalization with Wrapper Functions
-
-When resources accept **multiple flexible input types** (e.g., `string | Secret`, `string | Resource`), use a public wrapper function to normalize inputs before passing to the internal Resource.
-
-**Note**: This pattern is only needed when your Props interface has properties with union types that require normalization. If all props accept single types, skip this pattern and use the Resource directly.
-
-```ts
-//! Public interface - accepts flexible types
-export function MyResource(id: string, props: MyResourceProps): Promise<MyResource> {
-  return _MyResource(id, {
-    ...props,
-    secret: typeof props.secret === "string" 
-      ? secret(props.secret) 
-      : props.secret,
-    database: typeof props.database === "string"
-      ? props.database
-      : props.database
+yield *
+  host.bind`Allow(${host}, AWS.DynamoDB.ExecuteTransaction(${sortedTables}))`({
+    policyStatements: [
+      {
+        Effect: "Allow",
+        Action: [
+          "dynamodb:PartiQLSelect",
+          "dynamodb:PartiQLInsert",
+          "dynamodb:PartiQLUpdate",
+          "dynamodb:PartiQLDelete",
+        ],
+        Resource: sortedTables.map((table) => table.tableArn),
+      },
+    ],
   });
-}
-
-//! Internal implementation - guaranteed normalized types
-const _MyResource = Resource(
-  "provider::MyResource",
-  async function (
-    this: Context<MyResource>,
-    id: string,
-    props: Omit<MyResourceProps, "secret"> & { secret: Secret }
-  ): Promise<MyResource> {
-    // Implementation with guaranteed types
-  }
-);
 ```
 
-This pattern enables:
-- Flexible API for users (accepts string or Resource/Secret)
-- Type-safe implementation (guaranteed normalized types)
-- Clear separation of concerns
+## Full Bring-Up Loop
 
-#### Type Guard Functions (Required)
+Follow this loop until audit is clean or only intentionally deferred items remain.
 
-Every resource MUST export a type guard function using `ResourceKind`:
+### Step 1: Run Audit
 
-```ts
-import { ResourceKind } from "../resource.ts";
+Run:
 
-export function isMyResource(resource: any): resource is MyResource {
-  return resource?.[ResourceKind] === "provider::MyResource";
-}
+```bash
+pnpm audit:service dynamodb
 ```
 
-Use in conditional logic:
-```ts
-function processBinding(binding: any) {
-  if (isMyResource(binding)) {
-    // TypeScript now knows this is MyResource
-    console.log(binding.id);
-  }
-}
-```
+The audit should report:
 
-#### Output Type Pattern with Omit
+- implemented bindings
+- missing bindings
+- resource lifecycle ops
+- event source ops
+- helper candidates
+- registration gaps
+- missing binding tests
 
-Prefer `Omit` over `extends` for output types to cleanly separate input and computed properties:
+### Step 2: Build The Service Model
 
-```ts
-// ✅ PREFERRED: Clear separation of input vs output
-export type MyResource = Omit<MyResourceProps, "delete" | "secret"> & {
-  /**
-   * The ID assigned by the provider
-   */
-  id: string;
+Before coding, explicitly answer:
 
-  /**
-   * Secret value (guaranteed wrapped)
-   */
-  secret: Secret;
+1. What are the canonical resources?
+2. What bindings belong to each resource?
+3. What service-scoped bindings exist?
+4. What event-source surfaces exist?
+5. What helpers should exist?
+6. Which items are intentionally deferred?
 
-  /**
-   * Resource type identifier
-   */
-  type: "my-resource";
+For DynamoDB, for example:
 
-  /**
-   * Creation timestamp
-   */
-  createdAt: number;
-};
+- canonical resource: `Table`
+- folded table-owned surface: local/global secondary indexes live on `Table`, not a standalone `SecondaryIndex` resource
+- bindings: item/table/admin operations
+- event source: Kinesis streaming destination / change stream surface
+- helper: `consumeTableChanges(table, props?, handler)`
 
-// ❌ AVOID: Mixing input and output concerns
-export interface MyResource extends MyResourceProps {
-  id: string;
-  // Input props are now part of the output type
-}
-```
+### Step 3: Implement Missing Bindings
 
-#### Physical Name Generation with Scope
+Implement the smallest coherent slice first.
 
-Use the scope to generate deterministic physical names with defaults:
+Good order:
 
-```ts
-const name = props.name 
-  ?? this.output?.name  // Preserve on update
-  ?? this.scope.createPhysicalName(id);  // Default: {app}-{stage}-{id}
-```
+1. read/admin bindings
+2. write/update bindings
+3. transaction/batch bindings
+4. restore or special-case bindings
 
-#### Resource Replacement for Immutable Properties
+Binding conventions:
 
-When an immutable property changes, signal replacement via `this.replace()`:
+- one file per operation
+- no auto-marshalling
+- user passes raw AWS SDK/distilled types
+- the binding should mostly inject resource identifiers like `TableName`
+- policies should be explicit and minimal
+- if an operation is `2+`-arity, the binding should capture all participating resources so the policy can stay least-privilege
+- never use `Resource: ["*"]` for a resource-bound binding if it can be avoided by passing canonical resources to `.bind(...)`
+- if an operation touches `1..*` canonical resources, model the binding to accept those resources explicitly so the policy can enumerate only those ARNs
+- `Resource: ["*"]` is only acceptable when the operation is truly service-scoped or AWS does not support narrower resource-level IAM for that API
+- do not add IAM `Sid` fields in binding policy statements unless there is a demonstrated AWS requirement for one
 
-```ts
-if (this.phase === "update" && this.output.name !== name) {
-  return this.replace(); // Deletes old, creates new
-}
-```
+Example:
 
-#### Conditional Deletion Pattern
+- good: `GetItemRequest extends Omit<GetItemInput, "TableName">`
+- bad: replacing AWS input types with custom marshalled `Record<string, any>`
 
-Support opt-out deletion with a `delete?: boolean` property.
+### Step 4: Register Everything
 
-**Note**: This pattern is typically used for **data resources only** (databases, storage buckets, key-value stores, etc.). Compute resources (workers, functions, containers) should always be deleted when removed from Alchemy without an opt-out option.
+After each binding/resource implementation, update:
 
-```ts
-export interface MyResourceProps {
-  /**
-   * Whether to delete the resource when removed from Alchemy
-   * @default true
-   */
-  delete?: boolean;
-}
+1. `alchemy/src/AWS/<Service>/index.ts`
+2. `alchemy/src/AWS/Providers.ts`
 
-if (this.phase === "delete") {
-  if (props.delete !== false && this.output?.id) {
-    try {
-      await api.delete(`/resources/${this.output.id}`);
-    } catch (error) {
-      if (error.status !== 404) throw error; // OK if already deleted
-    }
-  }
-  return this.destroy();
-}
-```
+If registration is missing, audit should flag it.
 
-#### Internal API Types Convention
+### Step 5: Add Binding Tests Immediately
 
-Mark **exported** types and functions that are not part of the user-facing API
-with JSDoc `@internal` — for example, helpers exported only so siblings inside
-the same provider can `import` them. Do not add `@internal` to file-private
-declarations: TypeScript's `export` keyword already conveys their visibility,
-so the tag is redundant noise.
+Every implemented binding should have a corresponding `describe("<BindingName>")` block in:
+
+- `alchemy/test/AWS/<Service>/Bindings.test.ts`
+
+Examples:
 
 ```ts
-/**
- * Serialise the resource's wire shape. Exported only so sibling resources
- * in this provider can call it.
- * @internal
- */
-export function serializeResource(resource: Resource): Record<string, unknown> {
-  // ...
-}
-
-// File-private — no `@internal` needed.
-interface ResourceApiResponse {
-  id: string;
-  name: string;
-  created_at: number;
-}
-```
-
-#### Retry Patterns with Exponential Backoff
-
-Use exponential backoff for transient errors:
-
-```ts
-import { withExponentialBackoff } from "../util/retry.ts";
-
-const result = await withExponentialBackoff(
-  async () => {
-    return await extractProviderResult<ApiResponse>(
-      `create resource "${name}"`,
-      api.post("/resources", requestBody)
-    );
-  },
-  (error) => {
-    // Retry condition: specific transient errors
-    return error.code === 1002 || error instanceof TimeoutError;
-  },
-  30,    // maximum attempts
-  100,   // initial delay in ms
-);
-```
-
-### Type Definition Patterns
-
-Alchemy resources follow a specific type definition pattern that ensures type safety and consistency. The key principle is that **the output interface name MUST match the exported resource name** to create a pseudo-class construct:
-
-#### Flat Properties vs Nested Objects
-
-Prefer flat properties over nested configuration objects for better developer experience and type safety:
-
-```ts
-// ✅ PREFERRED: Flat properties
-export interface MyResourceProps {
-  name?: string;
-  region: string;
-  secret?: string | Secret;
-  timeout?: number;
-}
-
-// ❌ AVOID: Nested configuration objects
-export interface MyResourceProps {
-  name?: string;
-  config: {
-    region: string;
-    secret?: string | Secret;
-    timeout?: number;
-  };
-}
-```
-
-Flat properties provide:
-- Better IDE autocomplete and type checking
-- Cleaner resource creation syntax
-- Easier validation and error handling
-- More intuitive API design
-
-```ts
-// ✅ CORRECT: Interface name matches exported resource name
-export type MyResource = {
-  // ... properties
-}
-export const MyResource = Resource(/* ... */);
-
-// ❌ INCORRECT: Interface name doesn't match
-export interface MyResourceOutput extends Resource<"provider::MyResource"> {
-  // ... properties
-}
-export const MyResource = Resource(/* ... */);
-```
-
-#### Props Interface Definition
-
-Define Props interface for input parameters:
-
-```ts
-export interface MyResourceProps {
-  /**
-   * Name of the resource
-   * @default ${app}-${stage}-${id}
-   */
-  name?: string;
-
-  /**
-   * Property description
-   */
-  property: string;
-
-  /**
-   * Secret value for authentication
-   * Use alchemy.secret() to securely store this value
-   */
-  secret?: string | Secret;
-
-  /**
-   * Whether to adopt an existing resource
-   * @default false
-   */
-  adopt?: boolean;
-
-  /**
-   * Internal resource ID for lifecycle management
-   */
-  resourceId?: string;
-}
-
-// Define output type using Omit pattern
-// The Omit pattern removes input-only properties and adds computed/transformed properties
-export type MyResource = Omit<MyResourceProps, "adopt"> & {
-  /**
-   * The ID of the resource
-   */
-  id: string;
-
-  /**
-   * Name of the resource (required in output)
-   */
-  name: string;
-
-  /**
-   * The provider-generated ID
-   */
-  resourceId: string;
-
-  /**
-   * Secret value (always wrapped in Secret for output)
-   */
-  secret: Secret;
-
-  /**
-   * Resource type identifier for binding
-   * @internal
-   */
-  type: "my-resource";
-};
-```
-
-### Runtime Bindings
-
-When adding a new resource type that can be used as a binding:
-
-1. **Always update `bound.ts`**: Add the mapping from your resource type to its runtime binding interface
-2. **Follow official API specs**: Use the exact interface specified in the provider's documentation
-3. **Don't spread proxy objects**: Proxies can't be spread - explicitly implement each method/property
-
-```ts
-// ❌ DON'T: Spread proxy objects
-return {
-  ...this.runtime,
-  someProperty: value,
-};
-
-// ✅ DO: Use bind function and explicitly implement methods
-const binding = await bind(resource);
-return {
-  ...resource,
-  get: binding.get,
-  someProperty: value,
-};
-```
-
-### Secret Handling
-
-Always use `alchemy.secret()` for sensitive values and properly handle them in the resource lifecycle:
-
-#### Secret Creation Patterns
-
-```ts
-// ✅ PREFERRED: alchemy.secret.env.X (better error messages)
-const secret = alchemy.secret.env.API_KEY;
-
-// ✅ ACCEPTABLE: alchemy.secret(process.env.X) (more familiar to LLMs)
-const secret = alchemy.secret(process.env.API_KEY);
-
-// ❌ AVOID: Plain environment variables without encryption
-const secret = process.env.API_KEY;
-```
-
-#### Resource Implementation
-
-```ts
-// Input props can accept string | Secret
-export interface MyResourceProps {
-  password: string | Secret;
-}
-
-// Output always wraps secrets
-export type MyResource = {
-  password: Secret;
-};
-
-// In implementation, unwrap for API calls, wrap for output
-const requestBody = {
-  password: Secret.unwrap(props.password),
-};
-
-return {
-  password: Secret.wrap(props.password),
-};
-```
-
-### Adoption Pattern
-
-Resources should support adoption of existing resources when conflicts occur:
-
-```ts
-// Check for adoption scenarios
-if (error instanceof ApiError && error.code === "ALREADY_EXISTS") {
-  if (!adopt) {
-    throw new Error(
-      `Resource "${name}" already exists. Use adopt: true to adopt it.`,
-      { cause: error },
-    );
-  }
-
-  // Find and adopt existing resource
-  const existing = await findResourceByName(api, name);
-  if (!existing) {
-    throw new Error(
-      `Resource "${name}" failed to create due to name conflict and could not be found for adoption.`,
-      { cause: error },
-    );
-  }
-
-  // Update existing resource with new configuration
-  result = await extractApiResult<ApiResponse>(
-    `adopt resource "${name}"`,
-    api.put(`/resources/${existing.id}`, requestBody),
-  );
-}
-```
-
-### Update Validation
-
-Validate immutable properties during resource updates:
-
-```ts
-// Check for changes to immutable properties
-if (currentResource.name !== props.name) {
-  throw new Error(
-    `Cannot change resource name from '${currentResource.name}' to '${props.name}'. Name is immutable after creation.`
-  );
-}
-```
-
-### Context and Phase Handling
-
-Alchemy resources use a Context object that provides access to the current lifecycle phase and resource state:
-
-```ts
-export const MyResource = Resource(
-  "provider::MyResource",
-  async function (
-    this: Context<MyResource>, // Context provides type-safe access to current state
-    id: string,
-    props: MyResourceProps,
-  ): Promise<MyResource> {
-    // Access current phase: "create", "update", or "delete"
-    if (this.phase === "delete") {
-      // Handle deletion logic
-      return this.destroy();
-    }
-
-    // Access current resource state
-    const currentState = this.output;
-
-    // Access scope information
-    const isLocal = this.scope.local;
-    const adopt = props.adopt ?? this.scope.adopt;
-
-    // Create physical names using scope
-    const name = props.name ?? this.scope.createPhysicalName(id);
-
-    // Handle different phases
-    if (this.phase === "update" && currentState) {
-      // Update existing resource
-      // Validate immutable properties
-      if (currentState.name !== props.name) {
-        throw new Error("Cannot change immutable property 'name'");
-      }
-    }
-
-    // Phase-specific logic
-    switch (this.phase) {
-      case "create":
-        // Handle creation
-        break;
-      case "update":
-        // Handle updates
-        break;
-      case "delete":
-        // Handle deletion
-        return this.destroy();
-    }
-  },
-);
-```
-
-### Local Development Support
-
-Resources should support local development mode by checking `this.scope.local`:
-
-```ts
-if (this.scope.local) {
-  // Return mock data for local development
-  return {
-    id,
-    name: props.name || id,
-    // ... other mock properties
-    type: "my-resource",
-  };
-}
-```
-
-## Testing Guidelines
-
-### Import Strategy
-
-- **Use static imports**: Avoid dynamic imports in test files for better IDE support and error detection
-
-```ts
-// ❌ DON'T: Dynamic imports
-const { DispatchNamespace } = await import(
-  "../../src/cloudflare/dispatch-namespace.ts"
-);
-
-// ✅ DO: Static imports
-import { DispatchNamespace } from "../../src/cloudflare/dispatch-namespace.ts";
-```
-
-### Test Structure
-
-- **Comprehensive end-to-end tests**: Test the full workflow, not just individual components
-- **Use testing utilities**: Prefer `fetchAndExpectOK` for durability testing
-
-```ts
-test("end-to-end workflow", async (scope) => {
-  // 1. Create the infrastructure resource
-  const namespace = await DispatchNamespace("test-namespace", { name: "test" });
-
-  // 2. Create a worker that uses the resource
-  const worker = await Worker("test-worker", {
-    dispatchNamespace: namespace,
-    script: "export default { fetch() { return new Response('Hello'); } }",
-  });
-
-  // 3. Create a dispatcher that binds to the resource
-  const dispatcher = await Worker("dispatcher", {
-    bindings: { NAMESPACE: namespace },
-    script:
-      "export default { async fetch(req, env) { return env.NAMESPACE.get('test-worker').fetch(req); } }",
-  });
-
-  // 4. Test end-to-end functionality
-  await fetchAndExpectOK(`https://dispatcher.${accountId}.workers.dev`);
+describe("GetItem", () => {
+  test("gets an existing item", ...);
+  test("returns undefined for missing item", ...);
 });
 ```
 
-### Type Management
-
-- **Don't export internal types**: Only export types that are part of the public API
-- **Follow provider specifications**: Use exact types from official documentation
-
-## Code Organization
-
-### File Structure
-
-- **One concern per file**: Each resource should handle its complete lifecycle in one file
-- **Consistent naming**: Use the exact resource name from the provider's API
-
-### Dependencies
-
-- **Minimize cross-resource dependencies**: Resources should be as independent as possible
-- **Clear separation of concerns**: Keep API calls, validation, and business logic separate
-
-## Performance Best Practices
-
-### Asynchronous I/O
-
-- **Never use synchronous I/O**: Always use async/await for file operations, network requests, and any I/O operations
-- **Blocking the event loop is cancer**: Synchronous operations block the entire event loop and harm application performance
-
 ```ts
-// ❌ DON'T: Synchronous I/O
-const data = fs.readFileSync('file.txt');
-
-// ✅ DO: Asynchronous I/O
-const data = await fs.promises.readFile('file.txt');
-```
-
-for mapping over arrays, use `Promise.all` instead of a `for` loop:
-
-```ts
-// ❌ DON'T: for loop
-for (const item of items) {
-  await fs.existsSync(item);
-}
-
-import { exists } from "../utils/exists.ts";
-// ✅ DO: Promise.all
-await Promise.all(items.map(
-  async (item) => await exists(item)
-));
-```
-
-## Alchemy.run Patterns
-
-### Application Scoping
-
-Alchemy.run provides application-level scoping with automatic CLI argument parsing:
-
-```ts
-// Basic usage with automatic CLI argument parsing
-const app = await alchemy("my-app");
-// Now supports: --destroy, --read, --quiet, --stage my-stage
-
-// With explicit options (overrides CLI args)
-const app = await alchemy("my-app", {
-  stage: "prod",
-  password: process.env.SECRET_PASSPHRASE // Required for secrets
+describe("PutItem", () => {
+  test("puts an item into the table", ...);
 });
-
-// Create resources within the scope
-const resource = await MyResource("my-resource", {
-  name: "my-resource",
-  apiKey: alchemy.secret.env.API_KEY
-});
-
-await app.finalize(); // Always call finalize()
 ```
 
-### Secret Management
+Deterministic rule:
 
-Alchemy provides secure secret handling with encryption:
+- if a binding exists, audit should warn if the matching `describe("<BindingName>")` block is missing
+
+### Step 6: Use A Real Lambda Fixture
+
+Use a real Lambda fixture in:
+
+- `alchemy/test/AWS/<Service>/handler.ts`
+
+Pattern:
+
+1. create resource(s)
+2. bind operations
+3. expose HTTP endpoints for each tested operation
+4. use those endpoints from the E2E test
+
+This keeps tests end-to-end while still giving fine-grained per-binding coverage.
+
+Layer provisioning rule:
+
+- when a Lambda fixture provides both composite layers and foundational binding layers, do not put them all in one flat `Layer.mergeAll(...)`
+- composite layers include event sources, sinks, and higher-level helpers that themselves depend on lower-level bindings
+- foundational layers include the binding/capability implementations such as `GetItemLive`, `PutObjectLive`, `PublishLive`, `PublishBatchLive`, and similar
+- use `Effect.provide(Layer.provideMerge(...))` so the foundational layer group is provided to the composite layer group
+- otherwise `Layer.mergeAll(...)` only unions outputs and requirements, and sibling layers do not satisfy each other's requirements
+
+Required shape:
 
 ```ts
-// Create encrypted secrets
-const secret = alchemy.secret.env.API_KEY;
-
-// Use in resource props
-const resource = await MyResource("api", {
-  apiKey: secret,
-  database: alchemy.secret.env.DB_PASSWORD
-});
-
-// Secrets are automatically encrypted in state files
+Effect.provide(
+  Layer.provideMerge(
+    Layer
+      .mergeAll
+      // composite services: event sources, sinks, helpers
+      (),
+    Layer
+      .mergeAll
+      // foundational bindings/capabilities they depend on
+      (),
+  ),
+);
 ```
 
-### Resource Lifecycle
+Example failure mode:
 
-Resources follow a consistent lifecycle pattern:
+- `TopicSinkLive` depends on `PublishBatch`
+- if `TopicSinkLive` and `PublishBatchLive` are only siblings in the same `Layer.mergeAll(...)`, the final Lambda effect still requires `PublishBatch`
+- grouping them with `Layer.provideMerge(...)` removes that leaked requirement
 
-```ts
-// 1. Resource creation/update
-const resource = await MyResource("id", props);
+### Step 7: Make Setup Observable
 
-// 2. Access resource properties
-console.log(resource.name);
-console.log(resource.url);
+Fixture setup must log clearly:
 
-// 3. Resources are automatically tracked in scope
-// 4. Cleanup happens automatically when scope is destroyed
-```
+- destroying previous resources
+- deploying fixture
+- function URL
+- readiness probe URL
+- readiness retries
+- readiness success
 
-### Concurrency and Batching
+If setup is confusing, add logs before adding retries.
 
-Alchemy.run handles resource concurrency efficiently:
+### Step 8: Keep Readiness Failure Fast
 
-```ts
-// Resources can be created concurrently
-const [worker, bucket, database] = await Promise.all([
-  Worker("api", { entrypoint: "./src/worker.ts" }),
-  R2Bucket("storage", { name: "my-bucket" }),
-  D1Database("db", { name: "my-db" })
-]);
+Do not wait minutes for a function to become ready.
 
-// Batch operations are optimized automatically
-// Keep batches under 50 resources for optimal performance
-```
+Current convention:
 
-### Error Handling and Retries
+- if the function is not ready in about 20 seconds, fail the setup
 
-Alchemy implements robust error handling:
+Use a short retry budget and log each failed readiness attempt.
 
-```ts
-// Automatic retry with exponential backoff on failures
-// Not on client-side timeouts (reduces compute costs)
-const resource = await MyResource("id", props);
+### Step 9: Implement Missing Resource Surface
 
-// Error handling is built into the resource lifecycle
-// Resources handle their own cleanup on failure
-```
+Once bindings are in good shape, fill missing resource-level gaps:
 
-# Test Workflow
+- missing resource providers
+- placeholder resources
+- resource update/delete gaps
+- missing nested infrastructure surfaces such as indexes or replicas
 
-Before committing changes to Git and pushing Pull Requests, make sure to run the following commands to ensure the code is working:
+Important:
 
-```sh
-bun format
-```
-If that fails, consider running (but be careful):
+- audit may only recognize canonical resources implied directly by lifecycle operations
+- you must still inspect the service for real resource-shaped gaps not fully inferred by the script
 
+Example:
 
-Then run tests:
+- a placeholder like `SecondaryIndex.ts` still counts as incomplete coverage until it is either removed or folded into the canonical resource model
 
-```sh
-bun run test
-```
+### Step 10: Implement Event Sources
 
-> [!TIP] > `bun run test` will diff with `main` and only run the tests that have changed since main. You must be on a branch for this to work.
+For stream/notification services:
 
-It is usually better to be targeted with the tests you run instead. That way you can iterate quickly:
+1. define a service-level abstraction
+2. add runtime-specific implementation(s)
+3. add helper surface
+4. add tests
 
-```sh
-bun vitest ./alchemy/test/.. -t "..."
-```
+When the event source needs an intermediate canonical resource, the binding should
+create that resource automatically instead of forcing user code to instantiate it.
+SNS is the reference case:
 
-# Pull Request
+- the public binding is `notifications(topic, handler)`
+- the Lambda runtime policy creates the `Subscription` resource automatically
+- any service-to-Lambda invoke permission stays in the runtime policy layer that
+  wires the event source, not in user code
+- the canonical resource still exists and can be used directly when needed; the
+  helper just creates it on behalf of the user
 
-When submitting a Pull Request with a change, always include a code snippet that shows how the new feature/fix is used. It is not enough to just describe it with text and bullet points.
+For DynamoDB-style changes this likely means:
 
-```
+1. table-side stream/destination surface
+2. Lambda runtime integration
+3. `consumeTableChanges(table, props?, handler)` helper
+4. E2E coverage
+
+### Step 11: Implement Helpers
+
+After low-level primitives exist, add ergonomic helpers for:
+
+- stream subscriptions
+- batch operations
+- transactions
+
+Helpers should feel native to Alchemy and match established service patterns.
+
+### Case Study: DynamoDB Streams
+
+DynamoDB Streams is the reference pattern for mutable event-source configuration that belongs to a canonical resource but still needs binding-based composition.
+
+Required shape:
+
+- the canonical resource remains `Table`
+- `Table` keeps stream state in its attributes, but does not accept `streamSpecification` as a plain input prop
+- stream enablement is requested through the table binding contract
+- the public helper is `consumeTableChanges(table, props?, handler)`
+- the service-level abstraction lives in `alchemy/src/AWS/DynamoDB/Stream.ts`
+- the Lambda runtime implementation lives in `alchemy/src/AWS/Lambda/TableEventSource.ts`
+
+Why this pattern exists:
+
+- stream enablement mutates the table itself
+- the consumer is another resource, usually a Lambda Function
+- prop-driven stream configuration makes circular composition awkward
+- bindings let the consumer request the mutation while `Table` stays the canonical owner of stream state
+
+Implementation rules:
+
+1. The helper attaches stream requirements to `Table` through bindings.
+2. The `Table` provider derives the effective stream configuration from bindings during `create` and `update`.
+3. Zero stream bindings means the table stream should be disabled.
+4. Multiple bindings may coexist only when they request the same `StreamViewType`.
+5. Conflicting `StreamViewType` requests must fail deterministically before AWS calls are made.
+6. Runtime-specific layers handle IAM, host wiring, and event-source mapping resources; they do not move stream ownership out of `Table`.
+
+Lambda-first slice:
+
+- implement `consumeTableChanges(table, props?, handler)` first for Lambda
+- the Lambda layer binds the table stream requirement, grants stream-read IAM, and creates `AWS.Lambda.EventSourceMapping`
+- Process or other runtimes can be added later without changing `Table` back to a prop-driven stream model
+
+### Step 12: Re-Run Tests And Audit
+
+After every meaningful slice:
+
+1. run the service-specific E2E tests
+2. rerun `pnpm audit:service <service>`
+3. use the updated output to choose the next slice
+
+Repeat until:
+
+- no important missing bindings remain
+- resource surface is complete
+- event-source surface is complete
+- tests are in place
+
+## Deterministic Checks We Want
+
+The audit should help enforce:
+
+1. Missing bindings from distilled operations.
+2. Missing registration in `index.ts`.
+3. Missing registration in `Providers.ts`.
+4. Missing `describe("<BindingName>")` blocks in `Bindings.test.ts`.
+5. Avoidable `Resource: ["*"]` usage in non-zero-arity bindings.
+
+Over time it should also grow to flag:
+
+6. placeholder resources with no provider
+7. missing event-source surface for detected stream operations
+8. missing helper surface for known event-source patterns
+
+## AWS-Specific Conventions Learned
+
+### No Auto-Marshalling
+
+Bindings do not auto-marshall request/response payloads for DynamoDB-style operations.
+
+User responsibility:
+
+- pass raw AWS/distilled input types
+- marshal/unmarshal attribute values themselves
+
+### `Output.interpolate`
+
+Only use `Output.interpolate` when actually composing a string.
+
+Examples:
+
+- good: `table.tableArn`
+- good: `Output.interpolate\`${table.tableArn}/index/\*\``
+- bad: `Output.interpolate\`${table.tableArn}\``
+
+### `Effect.orDie`
+
+For Lambda test fixtures, apply `Effect.orDie` once at the outer request handler layer, not repeatedly per route.
+
+### Binding Test Structure
+
+Use one `describe("<BindingName>")` block per binding.
+
+Inside that block:
+
+- happy path
+- relevant unhappy paths
+
+Do not lump all bindings into one large undifferentiated test block.
 
 ---
 > Source: [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
