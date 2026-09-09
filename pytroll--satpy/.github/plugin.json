@@ -1,0 +1,9 @@
+{
+  "name": "pytroll--satpy",
+  "displayName": "satpy",
+  "description": "satpy",
+  "version": "1.0.0",
+  "author": "pytroll",
+  "homepage": "https://github.com/pytroll/satpy",
+  "skills": []
+}
