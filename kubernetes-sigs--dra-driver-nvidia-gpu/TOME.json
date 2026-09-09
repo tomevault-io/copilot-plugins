@@ -1,0 +1,99 @@
+{
+  "name": "dra-driver-nvidia-gpu",
+  "owner": "kubernetes-sigs",
+  "repo": "dra-driver-nvidia-gpu",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-project-orientation/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-project-orientation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-build-test-codegen-ci/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-build-test-codegen-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-gpu-allocation-workflows/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-gpu-allocation-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-proposal-and-design-review/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-proposal-and-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-helm-demo-sample-workloads/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-helm-demo-sample-workloads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-api-crd-feature-gate-change/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-api-crd-feature-gate-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-compute-domain-imex-workflows/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-compute-domain-imex-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-release-support-docs-readiness/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-release-support-docs-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dra-driver-nvidia-gpu",
+      "path": ".agents/skills/dra-operations-troubleshooting-observability/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu/tree/main/.agents/skills/dra-operations-troubleshooting-observability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kubernetes-sigs/dra-driver-nvidia-gpu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:22:01Z"
+}
