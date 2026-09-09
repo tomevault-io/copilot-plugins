@@ -4,7 +4,7 @@
   "repo": "Open-WebUI-Functions",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/owndev/Open-WebUI-Functions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T18:42:32Z"
+  "distributed_at": "2026-09-09T19:03:41Z"
 }
