@@ -1,123 +1,116 @@
 ## tt-metal
 
-> Guide for fixing a model_traced sweep module so its traced output exactly matches the model trace config_hash. Use after running validation (validate-sweep-trace.mdc) reveals mismatches.
+> This file is for agents **writing** changes to tt-metal (GitHub Copilot cloud
 
+# AGENTS.md — instructions for coding agents authoring changes
 
-# Fixing a Sweep Module for Exact Model Trace Match
+This file is for agents **writing** changes to tt-metal (GitHub Copilot cloud
+agent and equivalents).
 
-## Core Principle
+Related instruction files:
 
-`config_hash` is `sha256(json.dumps({"operation", "arguments", "hardware", "mesh"}))` (see `generic_ops_tracer.py` lines 448–507). The `arguments` dict includes every kwarg passed to the op AND per-tensor `tensor_placement`. The sweep must call the op with **exactly the same kwargs** as the model — no extra, no missing, no altered values.
+| File | Audience | Purpose |
+| --- | --- | --- |
+| `AGENTS.md` (this file) | cloud agent | how to author and **verify** a change |
+| `.github/copilot-instructions.md` | code review | cross-cutting review criteria |
+| `.github/instructions/*.instructions.md` | code review | path-scoped review criteria (all carry `excludeAgent: "cloud-agent"`) |
 
-## Workflow
+The review files describe how to critique a PR. They are not a specification
+for your own work.
 
-1. Run validation per `validate-sweep-trace.mdc` to get the mismatch report.
-2. For each DIFF field, identify which category below applies.
-3. Apply the fix in the sweep module's `run()` function.
-4. Re-run the sweep, re-validate. Repeat until 100% exact match.
+## Your environment
 
-## Common Mismatch Categories
+You run on an internal runner. The tt-metal toolchain is **not** installed on
+that host — it lives in the CI build image, and you reach it through a wrapper
+script. Do not try to install compilers or dependencies; do not run
+`install_dependencies.sh`.
 
-### 1. Extra kwargs (sweep passes a kwarg the model didn't)
+What the host does have: `docker`, a checkout with submodules already
+initialised, and a shared remote ccache.
 
-**Symptom**: Sweep trace has `"memory_config": null` or `"subdevice_id": ...` but model trace has no such key.
+## Match the check to the change
 
-**Fix**: Only include optional kwargs in the op call when they are non-None. Build `op_kwargs` incrementally:
+| You changed | What to run |
+| --- | --- |
+| C++, headers, kernels — `.cpp` / `.hpp` under `tt_metal/`, `ttnn/`, `tt_stl/`, `tt-train/` | **Build.** See below. |
+| nanobind bindings (the C++ behind the Python API) | **Build** — this is C++. |
+| CMake — `CMakeLists.txt`, `sources.cmake`, `cmake/`, `build_metal.sh` | **Build**, or at minimum `--configure-only` if you only need to prove configure still works. |
+| Python only | No build. Formatting is enforced by `pre-commit` (black, isort, autoflake). |
+| YAML, workflows | No build. `pre-commit` runs yamllint and check-yaml. |
+| Docs, markdown, CODEOWNERS | No build. |
 
-```python
-op_kwargs = {"dim": dim, "num_links": num_links}  # always-present args
-if output_memory_config is not None:
-    op_kwargs["memory_config"] = output_memory_config
-if subdevice_id is not None:
-    op_kwargs["subdevice_id"] = worker_sub_device_id
-# ... same for chunks_per_sync, num_workers_per_link, use_broadcast, etc.
-result = ttnn.some_op(input_tensor, **op_kwargs)
+`.pre-commit-config.yaml` defines the formatting and lint hooks the repo enforces
+(including `clang-format` and `gersemi` for CMake). Run them if available; do not
+treat their absence in your environment as a reason to skip the table above.
+
+**If you are unsure whether your change affects the build, build it.**
+
+## Building
+
+If you changed C++ or CMake, compile before opening the PR.
+
+From the repository root:
+
+```bash
+.github/scripts/copilot-build.sh
 ```
 
-### 2. Missing kwargs (model passed a kwarg the sweep doesn't)
+That runs `build_metal.sh --enable-ccache` inside the CI build image against
+your working tree, and prints a ccache summary when it finishes. Any arguments
+you pass go straight through to `build_metal.sh`:
 
-**Symptom**: Model trace has `"mesh_device": {...}` but sweep trace does not.
+| Command | When |
+| --- | --- |
+| `.github/scripts/copilot-build.sh` | default — the usual case |
+| `… --configure-only` | prove CMake still configures, without compiling (~6 min) |
+| `… --build-metal-tests` | you changed something under `tt_metal/` with tests |
+| `… --build-ttnn-tests` | likewise for `ttnn/` |
+| `… --build-programming-examples` | you touched `tt_metal/programming_examples/` |
+| `… --build-tt-train` | you touched `tt-train/` |
+| `… -b Debug` | you need assertions to reproduce something |
 
-**Fix**: Add the kwarg to the op call. For `mesh_device`, pass `mesh_device=device` (the MeshDevice object). For other kwargs, thread them through from the `run()` signature (they arrive from `MasterConfigLoader`).
+`--enable-ccache` is always applied for you. Build the narrowest thing that
+actually exercises your change; do not reach for `--build-all`.
 
-### 3. Argument value normalization (sweep alters a value)
+If the wrapper warns that Garage credentials are missing, you are building
+against a cold cache and it will most likely not finish. Say so in the PR
+rather than burning the session on it.
 
-**Symptom**: Model has `"dim": -1`, sweep has `"dim": 3`.
+## What to do about a build
 
-**Fix**: Preserve the original value for the op call. If you need the resolved value internally (e.g., for tensor shaping), use a separate variable:
+- **Builds clean** — say so explicitly in the PR description, including the
+  exact command you ran.
+- **Fails to build** — fix it and rebuild. Do not open the PR and let CI find
+  a compile error you could have caught.
+- **Did not need a build** (see the table above) — say which check you ran
+  instead, e.g. that it is a docs-only change.
+- **Genuinely cannot build** (cold cache, docker unavailable, environment
+  problem) — open the PR anyway, and state in the description that the change
+  is **unverified**, and why.
 
-```python
-effective_dim = dim if dim >= 0 else len(input_shape) + dim  # internal only
-# ... use effective_dim for shape math ...
-result = ttnn.some_op(input_tensor, dim=dim)  # pass original dim to op
-```
+Do not claim you ran anything you did not run.
 
-### 4. tensor_placement mismatch (sweep distributes tensors differently)
+## Things you cannot verify here
 
-**Symptom**: Model has `tensor_placement.placement = "['PlacementShard(2)', 'PlacementShard(1)']"`, sweep has `"['PlacementReplicate', 'PlacementShard(1)']"`.
+The runner has no Tenstorrent accelerator attached, so anything requiring real
+silicon — device tests, performance measurements, hardware-dependent
+behaviour — cannot be checked in your environment. Compilation and host-side
+unit tests are in scope; on-device results are not.
 
-**Fix**: Parse the model's actual placement and use it for `ShardTensor2dMesh`. The input tensor (per-device shape from the trace) is the post-shard shape. Build a global tensor that, when sharded with the model's placement, yields the correct per-device shape:
+If a change's correctness depends on device behaviour, say so.
 
-```python
-import re
+Never state a performance improvement without measurements.
 
-def _parse_shard_dims_from_placement(tensor_placement):
-    if not tensor_placement:
-        return None
-    placement = tensor_placement.get("placement", "")
-    if isinstance(placement, list):
-        placement = " ".join(str(p) for p in placement)
-    dims = []
-    for m in re.finditer(r"PlacementShard\((-?\d+)\)|PlacementReplicate", placement):
-        dims.append(int(m.group(1)) if m.group(1) is not None else None)
-    return tuple(dims) if len(dims) == 2 else None
+## Scope discipline
 
-shard_dims = _parse_shard_dims_from_placement(input_a_tensor_placement)
-
-# Build global shape: per-device shape scaled by devices on each sharded axis
-global_shape = list(per_device_shape)
-for axis_idx, sd in enumerate(shard_dims):
-    if sd is not None:
-        esd = sd if sd >= 0 else len(per_device_shape) + sd
-        global_shape[esd] *= mesh_shape[axis_idx]
-
-torch_global = torch.rand(global_shape).bfloat16()
-tt_input = ttnn.from_torch(
-    torch_global, ...,
-    mesh_mapper=ShardTensor2dMesh(device, dims=shard_dims, mesh_shape=mesh_shape),
-)
-```
-
-For ops that gather/reduce along a dim (e.g., all_gather), the golden reference for device 0 is the global tensor sliced on non-gathered axes:
-
-```python
-ref_slices = [slice(None)] * len(global_shape)
-for axis_idx, sd in enumerate(shard_dims):
-    if sd is not None and axis_idx != cluster_axis:
-        esd = sd if sd >= 0 else len(per_device_shape) + sd
-        ref_slices[esd] = slice(0, per_device_shape[esd])
-torch_reference = torch_global[tuple(ref_slices)]
-```
-
-For non-gathering ops (add, reshape, etc.) where every device runs independently, the golden reference is simply the per-device input — use `mesh_tensor_to_torch` to read device 0's output and compare with the torch reference computed from device 0's input slice.
-
-### 5. run() signature missing model-traced params
-
-**Symptom**: `MasterConfigLoader` provides kwargs like `use_broadcast`, `subdevice_id`, etc. but they hit `**kwargs` and are silently ignored.
-
-**Fix**: Add explicit parameters to `run()` for every kwarg the model trace may include. Check the model trace JSON's `arguments` keys for the op. Any key that isn't a positional tensor arg (`arg0`, `arg1`, ...) should be a named parameter or handled via `**kwargs`.
-
-## Reference: all_gather_async_model_traced.py
-
-The canonical example of a fully fixed sweep module is `all_gather_async_model_traced.py`. Key patterns applied there:
-
-- `effective_dim` for internal math, original `dim` passed to op
-- `_parse_shard_dims_from_placement()` to derive 2D shard dims from model trace
-- Global tensor built for ALL sharded axes, golden reference sliced for device 0
-- `op_kwargs` built incrementally: only non-None optional kwargs included
-- `mesh_device=device` passed explicitly for model-traced runs
-- `barrier_semaphore`, `persistent_output_buffer`, `subdevice_id`, `chunks_per_sync`, `num_workers_per_link`, `num_buffers_per_channel`, `use_broadcast` all conditional
+- Change the minimum needed to solve the stated issue.
+- New source files go in the relevant `sources.cmake`, not into
+  `CMakeLists.txt` build structure.
+- Adding an external dependency (`find_package`, `CPMAddPackage`,
+  `FetchContent_Declare`, a new `third_party/` submodule) requires infra team
+  review. If the issue seems to need one, stop and say so in the PR rather than
+  adding it.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tenstorrent) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [tenstorrent/tt-metal](https://github.com/tenstorrent/tt-metal) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
