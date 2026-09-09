@@ -3,8 +3,8 @@
   "owner": "tenstorrent",
   "repo": "tt-metal",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,177 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tt-metal",
+      "path": ".cursor/commands/skills/bash-safety/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/.cursor/commands/skills/bash-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": ".cursor/commands/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/.cursor/commands/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/run-test/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/run-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/arch-lookup/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/arch-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/port-kernel/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/port-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/debug-kernel/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/debug-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/race-audit-all/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/race-audit-all/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/noc-sync-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/noc-sync-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/mmio-race-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/mmio-race-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/mailbox-sync-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/mailbox-sync-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/reconfig-stall-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/reconfig-stall-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/cfg-word-overlap-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/cfg-word-overlap-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/dataflow-cb-sync-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/dataflow-cb-sync-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/srcreg-bank-sync-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/srcreg-bank-sync-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/semaphore-handshake-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/semaphore-handshake-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/instruction-latency-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/instruction-latency-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/perf-optimization-audit/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/perf-optimization-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/perturb/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/perturb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/tensor-shape/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/tensor-shape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.cursor/skills/quasar-perf-test/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.cursor/skills/quasar-perf-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/quasar-perf-test/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/quasar-perf-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": ".github/skills/agentic-workflows/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/.github/skills/agentic-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.cursor/skills/perf-report/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.cursor/skills/perf-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/perf-report/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/perf-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/llk-wave-debug/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/llk-wave-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.cursor/skills/perf-parameter-impact/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.cursor/skills/perf-parameter-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/perf-parameter-impact/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/perf-parameter-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-metal",
+      "path": "tt_metal/tt-llk/.claude/skills/perf-regression-check/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-metal/tree/main/tt_metal/tt-llk/.claude/skills/perf-regression-check/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tenstorrent/tt-metal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T13:49:08Z"
+  "distributed_at": "2026-09-09T00:36:34Z"
 }
