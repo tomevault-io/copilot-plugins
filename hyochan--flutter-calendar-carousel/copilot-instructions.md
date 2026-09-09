@@ -95,4 +95,4 @@ versions through `dependency_overrides` merely to report everything as latest.
 
 ---
 > Source: [hyochan/flutter_calendar_carousel](https://github.com/hyochan/flutter_calendar_carousel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
