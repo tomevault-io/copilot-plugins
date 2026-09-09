@@ -49,9 +49,21 @@
       "path": ".harness/cursor/skills/issue-fix-workflow/SKILL.md",
       "github_url": "https://github.com/Tencent/tdesign-flutter/tree/main/.harness/cursor/skills/issue-fix-workflow/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "tdesign-flutter",
+      "path": ".agents/skills/tdesign-flutter-general/SKILL.md",
+      "github_url": "https://github.com/Tencent/tdesign-flutter/tree/main/.agents/skills/tdesign-flutter-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tdesign-flutter",
+      "path": ".agents/skills/tdesign-component-align-review/SKILL.md",
+      "github_url": "https://github.com/Tencent/tdesign-flutter/tree/main/.agents/skills/tdesign-component-align-review/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/Tencent/tdesign-flutter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:48:40Z"
+  "distributed_at": "2026-09-09T00:50:12Z"
 }
