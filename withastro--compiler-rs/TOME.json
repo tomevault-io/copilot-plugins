@@ -1,0 +1,63 @@
+{
+  "name": "compiler-rs",
+  "owner": "withastro",
+  "repo": "compiler-rs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compiler-rs",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/withastro/compiler-rs/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compiler-rs",
+      "path": ".agents/skills/pr-writer/SKILL.md",
+      "github_url": "https://github.com/withastro/compiler-rs/tree/main/.agents/skills/pr-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compiler-rs",
+      "path": ".agents/skills/writing-comments/SKILL.md",
+      "github_url": "https://github.com/withastro/compiler-rs/tree/main/.agents/skills/writing-comments/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/withastro/compiler-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:25:38Z"
+}
