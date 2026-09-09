@@ -28,4 +28,4 @@ templates, release/escript/run helpers, and the LFE formatter work under
 
 ---
 > Source: [lfe/rebar3](https://github.com/lfe/rebar3) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
