@@ -1,0 +1,99 @@
+{
+  "name": "td-flutter-getx-template",
+  "owner": "Joker-x-dev",
+  "repo": "td-flutter-getx-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-ui/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-nav/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-nav/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-data/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-setup/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-theme/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-audit/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-native/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-feature/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "td-flutter-getx-template",
+      "path": ".agents/skills/fkit-preview/SKILL.md",
+      "github_url": "https://github.com/Joker-x-dev/td-flutter-getx-template/tree/main/.agents/skills/fkit-preview/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Joker-x-dev/td-flutter-getx-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:10:55Z"
+}
