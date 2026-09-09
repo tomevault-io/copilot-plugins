@@ -3,7 +3,7 @@
   "owner": "magnusoverli",
   "repo": "opencode",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,69 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "opencode",
+      "path": "ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-development/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-dashboard-ui/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-dashboard-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-configuration/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-zigbee-esphome/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-zigbee-esphome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode/rootfs/opt/ha-mcp-server/skills/home-assistant-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-development/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-dashboard-ui/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-dashboard-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-configuration/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-zigbee-esphome/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-zigbee-esphome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/magnusoverli/opencode/tree/main/ha_opencode_beta/rootfs/opt/ha-mcp-server/skills/home-assistant-troubleshooting/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/magnusoverli/opencode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:49:00Z"
+  "distributed_at": "2026-09-09T00:58:25Z"
 }
