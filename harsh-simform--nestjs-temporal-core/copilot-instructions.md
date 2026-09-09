@@ -77,12 +77,12 @@ Rules:
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
 - This rule holds for the entire session, not just the first message — and it applies to any subagent spawned for code exploration in this repo. When delegating exploration via the Agent tool, tell the subagent explicitly to run `graphify query`/`explain`/`path` before grepping or reading raw files.
-- `.Codex/settings.json` runs `graphify update .` automatically via a PostToolUse hook after every Edit/Write to a `.ts` file made through Codex tools (incremental, ~1-2s) — the graph should already be current. Only run it manually after edits made outside Codex (a plain editor, a merge, a generated file).
+- `.claude/settings.json` runs `graphify update .` automatically via a PostToolUse hook after every Edit/Write to a `.ts` file made through Claude Code tools (incremental, ~1-2s) — the graph should already be current. Only run it manually after edits made outside Claude Code (a plain editor, a merge, a generated file).
 
-## Codex-mem
+## claude-mem
 
-This project's memory (`~/.Codex-mem`) is global, not project-scoped, and injects relevant context passively at session start and per prompt. For non-trivial tasks (multi-file changes, bug investigations, "did we solve this before" questions, or anything where past decisions matter), explicitly search it before drafting a solution rather than relying only on passive injection — use the `mcp__plugin_claude-mem_mcp-search__search` (or `smart_search`) tool. Skip this for trivial, single-file, no-context-needed edits — it's not worth the round trip.
+This project's memory (`~/.claude-mem`) is global, not project-scoped, and injects relevant context passively at session start and per prompt. For non-trivial tasks (multi-file changes, bug investigations, "did we solve this before" questions, or anything where past decisions matter), explicitly search it before drafting a solution rather than relying only on passive injection — use the `mcp__plugin_claude-mem_mcp-search__search` (or `smart_search`) tool. Skip this for trivial, single-file, no-context-needed edits — it's not worth the round trip.
 
 ---
 > Source: [harsh-simform/nestjs-temporal-core](https://github.com/harsh-simform/nestjs-temporal-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
