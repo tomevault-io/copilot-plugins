@@ -4,7 +4,7 @@
   "repo": "voxbento",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -341,5 +341,5 @@
   ],
   "source_url": "https://github.com/fossasia/voxbento",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T01:14:25Z"
+  "distributed_at": "2026-09-09T19:47:22Z"
 }
