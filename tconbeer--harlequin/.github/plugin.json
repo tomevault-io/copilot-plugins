@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "tconbeer",
   "homepage": "https://github.com/tconbeer/harlequin",
-  "skills": []
+  "skills": [
+    {
+      "name": "harlequin",
+      "description": ""
+    }
+  ]
 }
