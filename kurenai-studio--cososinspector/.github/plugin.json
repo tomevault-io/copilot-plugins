@@ -1,0 +1,9 @@
+{
+  "name": "kurenai-studio--cososinspector",
+  "displayName": "CososInspector",
+  "description": "Runtime inspection, scene snapshots, and asset extraction for Cocos and PixiJS.",
+  "version": "1.0.0",
+  "author": "kurenai-studio",
+  "homepage": "https://github.com/kurenai-studio/CososInspector",
+  "skills": []
+}
