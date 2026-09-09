@@ -1,0 +1,9 @@
+{
+  "name": "apache--cloudstack-kubernetes-provider",
+  "displayName": "cloudstack-kubernetes-provider",
+  "description": "cloudstack-kubernetes-provider",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cloudstack-kubernetes-provider",
+  "skills": []
+}
