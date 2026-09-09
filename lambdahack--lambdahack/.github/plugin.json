@@ -1,0 +1,14 @@
+{
+  "name": "lambdahack--lambdahack",
+  "displayName": "LambdaHack",
+  "description": "LambdaHack",
+  "version": "1.0.0",
+  "author": "LambdaHack",
+  "homepage": "https://github.com/LambdaHack/LambdaHack",
+  "skills": [
+    {
+      "name": "LambdaHack",
+      "description": ""
+    }
+  ]
+}
