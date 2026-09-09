@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mishka-group/mishka_chelekom](https://github.com/mishka-group/mishka_chelekom).
+Original source: `CLAUDE.md` in [mishka-group/mishka_chelekom](https://github.com/mishka-group/mishka_chelekom).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
