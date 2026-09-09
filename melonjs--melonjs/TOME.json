@@ -1,0 +1,183 @@
+{
+  "name": "melonJS",
+  "owner": "melonjs",
+  "repo": "melonJS",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-3d/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-3d/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-audio/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-input/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-events/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-events/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-plugins/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-physics/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-tilemaps/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-tilemaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-lighting/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-lighting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-3d-assets/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-3d-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-deployment/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-performance/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-renderables/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-renderables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-ui-and-text/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-ui-and-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-20-migration/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-20-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-loading-assets/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-loading-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-getting-started/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-scenes-and-state/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-scenes-and-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-renderer-backends/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-renderer-backends/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-camera-and-drawing/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-camera-and-drawing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-effects-and-shaders/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-effects-and-shaders/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-particles-and-trails/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-particles-and-trails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "melonJS",
+      "path": "packages/melonjs/skills/melonjs-sprites-and-animation/SKILL.md",
+      "github_url": "https://github.com/melonjs/melonJS/tree/main/packages/melonjs/skills/melonjs-sprites-and-animation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/melonjs/melonJS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:35:50Z"
+}
