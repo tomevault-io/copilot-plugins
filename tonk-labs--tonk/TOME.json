@@ -1,0 +1,81 @@
+{
+  "name": "tonk",
+  "owner": "tonk-labs",
+  "repo": "tonk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tonk",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/tonk-labs/tonk/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tonk",
+      "path": ".claude/skills/bench-iterate/SKILL.md",
+      "github_url": "https://github.com/tonk-labs/tonk/tree/main/.claude/skills/bench-iterate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tonk",
+      "path": ".claude/skills/tonk-bug/SKILL.md",
+      "github_url": "https://github.com/tonk-labs/tonk/tree/main/.claude/skills/tonk-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tonk",
+      "path": ".claude/skills/schema-first/SKILL.md",
+      "github_url": "https://github.com/tonk-labs/tonk/tree/main/.claude/skills/schema-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tonk",
+      "path": ".claude/skills/control-schema/SKILL.md",
+      "github_url": "https://github.com/tonk-labs/tonk/tree/main/.claude/skills/control-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tonk",
+      "path": ".claude/skills/commands-not-routes/SKILL.md",
+      "github_url": "https://github.com/tonk-labs/tonk/tree/main/.claude/skills/commands-not-routes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tonk-labs/tonk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T11:30:27Z"
+}
