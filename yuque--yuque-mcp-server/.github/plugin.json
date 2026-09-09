@@ -1,7 +1,7 @@
 {
   "name": "yuque--yuque-mcp-server",
   "displayName": "yuque-mcp-server",
-  "description": "Yuque MCP Server - Model Context Protocol server for Yuque API",
+  "description": "yuque-mcp-server",
   "version": "1.0.0",
   "author": "yuque",
   "homepage": "https://github.com/yuque/yuque-mcp-server",
