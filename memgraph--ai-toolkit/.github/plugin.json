@@ -1,0 +1,22 @@
+{
+  "name": "memgraph--ai-toolkit",
+  "displayName": "ai-toolkit",
+  "description": "ai-toolkit",
+  "version": "1.0.0",
+  "author": "memgraph",
+  "homepage": "https://github.com/memgraph/ai-toolkit",
+  "skills": [
+    {
+      "name": "ai-toolkit",
+      "description": ""
+    },
+    {
+      "name": "ai-toolkit",
+      "description": ""
+    },
+    {
+      "name": "ai-toolkit",
+      "description": ""
+    }
+  ]
+}
