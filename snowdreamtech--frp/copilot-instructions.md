@@ -32,10 +32,11 @@ the actual rules live in `.agent/rules/` as the Single Source of Truth.
 
 > **Failure to follow the rules inside `.agent/rules/` and the Lazy-Loading protocol is completely unacceptable.**
 
-## Slash Commands / Workflows
-
-All AI slash commands and standard operating procedures (SOPs) are located in `.agent/workflows/`. If the user invokes a command like `/speckit.plan`, execute the corresponding markdown file in that directory.
+<!-- SPECKIT START -->
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+<!-- SPECKIT END -->
 
 ---
 > Source: [snowdreamtech/frp](https://github.com/snowdreamtech/frp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
