@@ -1,125 +1,84 @@
 ## nodamoney
 
-> This document summarizes the practical conventions and patterns used in this repository so new contributors can quickly align with the code and tests. It complements (does not replace):
+> Guidance for AI coding agents working in the NodaMoney repository. Agent-neutral: `CLAUDE.md` imports this file.
 
-# Project Guidelines
+# AGENTS.md
 
-This document summarizes the practical conventions and patterns used in this repository so new contributors can quickly align with the code and tests. It complements (does not replace):
-- CONTRIBUTING.md (coding guidelines, contribution workflow)
-- Tests README (tests/NodaMoney.Tests/README.md) for unit/integration testing style and examples
+Guidance for AI coding agents working in the NodaMoney repository. Agent-neutral: `CLAUDE.md` imports this file.
 
+## Commands
 
-## 1. Coding conventions
+```powershell
+dotnet build NodaMoney.slnx -c Release
+dotnet test                                  # all test projects, all TFMs
+dotnet test -f net10.0                       # one target framework
+dotnet test tests/NodaMoney.Tests/NodaMoney.Tests.csproj -f net10.0
+dotnet test -f net10.0 --filter "FullyQualifiedName~AddAndSubtractMoney"        # one class
+dotnet test -f net10.0 --filter "FullyQualifiedName~AddAndSubtractMoney.AddOperator_ReturnSumMoney"
+dotnet pack -c Release -o ./artifacts/
+```
 
-Authoritative references we follow (see CONTRIBUTING.md):
-- Microsoft .NET Framework Design Guidelines
-- C# Coding Guidelines (csharpcodingguidelines.com)
-- Roslyn Analyzers and code quality rules are enabled in the build for both src projects
+Non-obvious build facts:
 
-Repository‑specific notes:
-- Language and compiler settings
-  - LangVersion: preview (src/NodaMoney) and latest (src/NodaMoney.DependencyInjection)
-  - Nullable reference types: enabled in src projects; tests may opt out for older TFMs
-  - Implicit usings: enabled
-  - EnforceCodeStyleInBuild: enabled across src projects (warnings become actionable)
-- General C# style
-  - Use file‑scoped namespaces and modern C# features where available
-  - Prefer immutability for domain types (Money, Currency, CurrencyInfo, ExchangeRate)
-  - Use readonly/const where appropriate, and expression‑bodied members for simple logic
-  - Prefer guard clauses for argument validation; throw ArgumentNullException/ArgumentException accordingly
-  - Favor pure functions and side‑effect‑free operators in core domain types
-  - Avoid allocation in hot paths; use spans and value types where applicable
-- API design
-  - Public API aims to be small, clear, and consistent with .NET design guidelines
-  - Use exceptions defined in this library (e.g., InvalidCurrencyException, MoneyContextMismatchException) to express domain errors
-  - Keep binary/unary operators of Money/FastMoney consistent with .NET numeric types semantics
-- Analyzers and quality gates
-  - Roslynator.Analyzers is referenced in src projects; respect analyzer suggestions or suppress with justification
-  - Code quality rules from Microsoft analyzers are active; fix or justify warnings before PRs
-- Internals for testing
-  - InternalsVisibleTo is configured for “.Tests” and “Benchmark” to allow thorough testing without expanding public API
+- **Lock files are committed.** `src/*` set `RestorePackagesWithLockFile` and CI runs in locked mode. After adding or bumping a package, regenerate with `dotnet restore --force-evaluate` and commit the `packages.lock.json` changes, otherwise CI restore fails.
+- **`net48` needs Windows.** Test projects target `net10.0;net9.0;net8.0;net6.0;net48`. A bare `dotnet test` on Linux fails on the `net48` leg. CI runs on ubuntu and tests net6.0, net8.0, net9.0, net10.0 only. The `net6.0` and `net48` legs exist to exercise the `netstandard2.1` and `netstandard2.0` code paths.
+- **Versioning is MinVer**, driven by git tags. No version in the csproj.
+- `EnforceCodeStyleInBuild` is on with Roslynator plus the Microsoft quality analyzers. The build must be warning-free before a PR.
+- `global.json` pins nothing beyond `rollForward: latestMajor`, no prerelease SDKs.
 
+## Architecture
 
-## 2. Code organization and package structure
+Two packages: `src/NodaMoney` (core) and `src/NodaMoney.DependencyInjection` (Microsoft.Extensions integration). Both target `net10.0;net9.0;net8.0;netstandard2.0;netstandard2.1`, AOT-compatible on the .NET 8/9/10 legs. `netstandard` legs pull in `System.Text.Json` and use `#if NET5_0_OR_GREATER` / `DotNetCompatibility.cs` shims, so any new code touching spans, frozen collections or `decimal.GetBits(Span<int>)` needs a fallback.
 
-Solution layout is conventional and multi‑package:
-- src/NodaMoney (core library)
-  - Domain and primitives: Money (split across partial files), FastMoney, Currency, CurrencyInfo, ExchangeRate, MinorUnit, Price, Transaction
-  - Context: src/NodaMoney/Context/* contains MoneyContext and rounding strategies (IRoundingStrategy, StandardRounding, NoRounding, CashDenominationRounding), options, and context indexing
-  - Serialization: src/NodaMoney/Serialization/* provides Json and Type converters for Money and Currency (System.Text.Json and type converters)
-  - Exchange: src/NodaMoney/Exchange/* provides ExchangeRate related types
-  - Exceptions: InvalidCurrencyException, MoneyContextMismatchException
-  - Organization pattern:
-    - Partial classes for Money operators and interfaces: Money.BinaryOperators.cs, Money.UnaryOperators.cs, Money.Comparable.cs, Money.Convertible.cs, Money.Formattable.cs, Money.Parsable.cs, etc.
-    - Extension helpers: MoneyExtensions.Split and FiveMostUsedCurrencies convenience helpers
-- src/NodaMoney.DependencyInjection (optional package)
-  - MoneyContextExtensions: DI / Options integration for Microsoft.Extensions.*
-  - Supports configuration binding via IConfiguration, named/unnamed contexts, and AddOptions
-- tests/*
-  - NodaMoney.Tests: unit and integration‑style tests exercising core library (multiple TFMs)
-  - NodaMoney.DependencyInjection.Tests: tests for DI registration and configuration binding
-  - Benchmark project (tests/Benchmark) contains performance experiments and reports (not part of CI tests)
-- docs/*
-  - docs/README.md: user‑facing documentation and usage examples
+### The bit-packing contract (read this before touching Money, Currency or MoneyContext)
 
-Namespaces mirror folders:
-- NodaMoney for core types (Money, Currency, etc.)
-- NodaMoney.Context for MoneyContext and rounding strategies
-- NodaMoney.Serialization for converters
-- NodaMoney.Exchange for exchange‑related types
-- NodaMoney.DependencyInjection for DI extensions
+`Money` is the same size as a `decimal` because it stores the decimal's own three 32-bit mantissa words plus a hand-built flags word (`src/NodaMoney/Money.cs:17`):
 
-Target frameworks (TFMs):
-- Core library: net10.0; net9.0; net8.0; netstandard2.0; netstandard2.1 (AOT‑compatible on .NET 8/9/10)
-- DI package: net10.0; net9.0; net8.0; netstandard2.0; netstandard2.1 (AOT‑compatible on .NET 8/9/10)
+| Bits  | Content                                      |
+|-------|----------------------------------------------|
+| 0-15  | Currency (`Currency.EncodedValue`)           |
+| 16-23 | Decimal scale                                |
+| 24-30 | MoneyContext index                           |
+| 31    | Decimal sign                                 |
 
-Packaging notes:
-- SourceLink and symbol packages are enabled
-- Readme and icon attached to NuGet packages
+Consequences that ripple through the codebase:
 
+- `Currency` packs its ISO 4217 code into 15 bits, 5 bits per letter as A-Z mapped to 1-26, with bit 15 flagging "minor unit is 2" so the common case avoids a registry lookup (`src/NodaMoney/Currency.cs:11`). `XXX` encodes as 0.
+- Only 7 bits are left for the context, so **at most 128 `MoneyContext` instances can ever exist in a process** (`src/NodaMoney/Context/MoneyContextIndex.cs`). Contexts are deduplicated on registration and indices are never reclaimed. Do not create contexts per-operation.
+- Indices 0-4 are reserved and must line up with the `MidpointRounding` enum values (`MoneyContext`'s static constructor asserts this).
 
-## 3. Unit and integration testing approaches
+`MoneyContext` is a process-wide static registry (`src/NodaMoney/Context/MoneyContext.cs`) holding active contexts by index and by name, with an `AsyncLocal` thread context layered over a default. `MoneyContext.CurrentContext` is what a `Money` constructor picks up when no context is passed. It carries the rounding strategy, max scale, precision and default currency.
 
-See tests/NodaMoney.Tests/README.md for detailed testing guidance, examples, and rationale. Key points summarized below:
+Rounding is applied at construction and after every arithmetic operation, through `IRoundingStrategy` (`StandardRounding`, `NoRounding`, `CashDenominationRounding` in `src/NodaMoney/Context/`). The hot paths switch on the concrete strategy type before falling back to the interface call, deliberately, to avoid the virtual dispatch.
 
-Frameworks and libraries:
-- xUnit as the test framework
-- FluentAssertions for expressive assertions (with analyzers)
-- NSubstitute and AutoBogus may be used where needed (AutoBogus via AutoBogus.NSubstitute binding)
-- coverlet.collector for code coverage in test runs
-- Xunit.SkippableFact to allow conditional skips when needed
-- Serialization tests use Newtonsoft.Json, System.Text.Json; RavenDB tests use RavenDB.TestDriver for embedded/integration‑style scenarios
+`CurrencyRegistry` (`src/NodaMoney/CurrencyRegistry.cs`) is the static ISO 4217 store behind `CurrencyInfo`, using frozen dictionaries on modern TFMs and a `ReaderWriterLockSlim` plus mutable dictionaries on the netstandard legs. Custom currencies go in through `TryAdd`/`TryRemove`.
 
-Target frameworks for tests:
-- NodaMoney.Tests: net10.0; net9.0; net8.0; net6.0; net48 (to validate both modern runtime and netstandard compatibility)
-- NodaMoney.DependencyInjection.Tests: net9.0; net8.0; net6.0; net48
+`FastMoney` is the alternative representation: a single `long` of minor units at a fixed scale of 4 (`src/NodaMoney/FastMoney.cs:22`). It rejects any context with `MaxScale > 4` or `Precision > 19`, and short-circuits rounding entirely when the context is banker's rounding at scale 4.
 
-Structure and style:
-- Behavior‑driven naming with Given/When/Then conventions
-  - Classes express the "Given" (context) and may include method under test and key preconditions
-  - Methods express the "When/Then", typically as When[Preconditions]_Should[ExpectedBehavior]
-- Arrange‑Act‑Assert pattern within tests to keep structure clear
-- Test organization mirrors product namespaces when helpful (e.g., MoneyBinaryOperatorsSpec, MoneyParsableSpec, Serialization/* specs)
-- We test behavior and public surface rather than implementation details; private methods are not tested directly
+### File layout conventions
 
-Integration‑style tests:
-- Serialization: round‑trip and compatibility checks across serializers (System.Text.Json, Newtonsoft.Json), including converters in NodaMoney.Serialization
-- Persistence‑adjacent: RavenDB tests via RavenDB.TestDriver run against an embedded driver for deterministic CI‑friendly execution
-- DI: coverage for AddMoneyContext overloads with configuration binding and named contexts in the DependencyInjection package
+`Money` and `FastMoney` are split across partial files by concern: `.Constructors`, `.BinaryOperators`, `.UnaryOperators`, `.Comparable`, `.Convertible`, `.Formattable`, `.Parsable`, `.NumericInterfaces`, `.Serializable`. Add an operator or interface implementation to the matching partial rather than to the main file. Namespaces mirror folders: `NodaMoney`, `NodaMoney.Context`, `NodaMoney.Serialization`, `NodaMoney.Exchange`.
 
-Running tests:
-- Use the standard .NET test runner; multi‑TFM projects select proper test SDK versions by target
-- Coverage is collected automatically via coverlet.collector when supported by the runner
+`features/proposals/` and `features/cldr/` hold design documents for work not yet built. Treat them as intent, not as a description of current behavior.
 
-Contribution expectations for tests:
-- Add or extend tests alongside code changes to keep coverage and verify behavior
-- Prefer clear Given/When/Then naming and AAA structure; use FluentAssertions for readable expectations
-- Use NSubstitute for doubles only where necessary; prefer testing with real collaborators if practical to reduce brittleness
+## Conventions
 
+External style guides this project follows: the Microsoft .NET Framework Design Guidelines and csharpcodingguidelines.com. See `CONTRIBUTING.md` for the contribution workflow.
 
----
-If anything in this document appears out of date, please update this file and, where applicable, the referenced CONTRIBUTING.md and tests README to keep everything aligned.
+Code style:
+
+- File-scoped namespaces, nullable reference types enabled, implicit usings enabled, `LangVersion` latest across all projects.
+- Immutable domain types (`Money`, `FastMoney`, `Currency`, `CurrencyInfo`, `ExchangeRate`). `readonly`/`const` where they apply, expression-bodied members for simple logic.
+- Guard clauses for argument validation, throwing `ArgumentNullException`/`ArgumentException`. Domain errors use the library's own exceptions (`InvalidCurrencyException`, `MoneyContextMismatchException`).
+- Pure, side-effect-free operators. Operator semantics stay consistent with the .NET numeric types.
+- No allocation in hot paths: spans and value types.
+- Roslynator plus the Microsoft quality analyzers run in the build with `EnforceCodeStyleInBuild`. Fix analyzer findings or suppress with a justification.
+- The public API stays small and consistent. Internals are testable through `InternalsVisibleTo` for `*.Tests` and `Benchmark` rather than by widening the public surface.
+
+Tests: xUnit with FluentAssertions, NSubstitute and AutoBogus where doubles or fake data are needed, coverage via coverlet.collector. Named Given/When/Then, with the context in the class name and `When[Precondition]_Should[Behavior]` in the method name. Assert public behavior, not internals. Related specs are grouped in a folder per subject, for example `tests/NodaMoney.Tests/MoneyBinaryOperatorsSpec/`. Full detail in `tests/NodaMoney.Tests/README.md`.
+
+Benchmarks live in `tests/Benchmark` and are not part of CI test runs.
 
 ---
 > Source: [RemyDuijkeren/NodaMoney](https://github.com/RemyDuijkeren/NodaMoney) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
