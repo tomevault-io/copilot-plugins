@@ -1,0 +1,213 @@
+{
+  "name": "SunnyBeach",
+  "owner": "anjiemo",
+  "repo": "SunnyBeach",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".agents/skills/trellis-spec-bootstarp/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.agents/skills/trellis-spec-bootstarp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".claude/skills/trellis-spec-bootstarp/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.claude/skills/trellis-spec-bootstarp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".cursor/skills/trellis-spec-bootstarp/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.cursor/skills/trellis-spec-bootstarp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SunnyBeach",
+      "path": ".github/skills/trellis-spec-bootstarp/SKILL.md",
+      "github_url": "https://github.com/anjiemo/SunnyBeach/tree/main/.github/skills/trellis-spec-bootstarp/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anjiemo/SunnyBeach",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:26:44Z"
+}
