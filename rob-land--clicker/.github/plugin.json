@@ -1,0 +1,9 @@
+{
+  "name": "rob-land--clicker",
+  "displayName": "clicker",
+  "description": "TV remote for mobile Linux \u2014 Roku, Android TV and Apple TV over GTK4/libadwaita",
+  "version": "1.0.0",
+  "author": "rob-land",
+  "homepage": "https://github.com/rob-land/clicker",
+  "skills": []
+}
