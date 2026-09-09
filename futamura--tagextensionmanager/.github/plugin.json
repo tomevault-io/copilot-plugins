@@ -1,0 +1,9 @@
+{
+  "name": "futamura--tagextensionmanager",
+  "displayName": "TagExtensionManager",
+  "description": "A Chrome extension to manage other extensions",
+  "version": "1.0.0",
+  "author": "futamura",
+  "homepage": "https://github.com/futamura/TagExtensionManager",
+  "skills": []
+}
