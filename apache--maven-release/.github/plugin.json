@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-release",
+  "displayName": "maven-release",
+  "description": "maven-release",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-release",
+  "skills": []
+}
