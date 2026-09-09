@@ -1,0 +1,81 @@
+{
+  "name": "cyclonedx-gradle-plugin",
+  "owner": "CycloneDX",
+  "repo": "cyclonedx-gradle-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "path": ".agents/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin/tree/main/.agents/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "path": ".claude/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin/tree/main/.claude/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin/tree/main/.agents/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "path": ".claude/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin/tree/main/.claude/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cyclonedx-gradle-plugin",
+      "path": ".claude/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin/tree/main/.claude/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CycloneDX/cyclonedx-gradle-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:55:51Z"
+}
