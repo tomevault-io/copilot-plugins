@@ -3,8 +3,8 @@
   "owner": "umutxyp",
   "repo": "Discord-Vanity-URL-Sniper",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Discord-Vanity-URL-Sniper",
+      "path": ".claude/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/umutxyp/Discord-Vanity-URL-Sniper/tree/main/.claude/skills/seo-audit/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/umutxyp/Discord-Vanity-URL-Sniper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T20:54:44Z"
+  "distributed_at": "2026-09-09T15:35:50Z"
 }
