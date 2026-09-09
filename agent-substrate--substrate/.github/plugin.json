@@ -5,5 +5,26 @@
   "version": "1.0.0",
   "author": "agent-substrate",
   "homepage": "https://github.com/agent-substrate/substrate",
-  "skills": []
+  "skills": [
+    {
+      "name": "substrate",
+      "description": ""
+    },
+    {
+      "name": "substrate",
+      "description": ""
+    },
+    {
+      "name": "substrate",
+      "description": ""
+    },
+    {
+      "name": "substrate",
+      "description": ""
+    },
+    {
+      "name": "substrate",
+      "description": ""
+    }
+  ]
 }
