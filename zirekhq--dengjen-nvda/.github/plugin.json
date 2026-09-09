@@ -1,0 +1,9 @@
+{
+  "name": "zirekhq--dengjen-nvda",
+  "displayName": "dengjen-nvda",
+  "description": "Dengjen Neural Voices \u2014 fast, local neural text-to-speech voices for NVDA. Maintenance continuation of mush42/sonata-nvda.",
+  "version": "1.0.0",
+  "author": "ZirekHQ",
+  "homepage": "https://github.com/ZirekHQ/dengjen-nvda",
+  "skills": []
+}
