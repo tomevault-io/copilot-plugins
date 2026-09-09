@@ -1,326 +1,82 @@
 ## docs
 
-> **IMPORTANT**: When using GitHub Copilot, always select the most powerful AI model available (e.g., GPT-5.1 Codex, Gemini 3 Pro Claude 4.5, or the latest advanced model) to ensure the most comprehensive, most human-understandable documentation with examples, tips, notes, analogies and so on.
-
-# Coding Agent Instructions for Layer5 Docs
-
-## AI Model Selection
-
-**IMPORTANT**: When using GitHub Copilot, always select the most powerful AI model available (e.g., GPT-5.1 Codex, Gemini 3 Pro Claude 4.5, or the latest advanced model) to ensure the most comprehensive, most human-understandable documentation with examples, tips, notes, analogies and so on.
-
-## Project Overview
-
-The Layer5 Docs website is a Hugo-based documentation site that serves as the primary documentation resource for Layer5 products, hosted at https://github.com/layer5io/docs and live at https://docs.layer5.io. It provides comprehensive documentation for Layer5 Cloud, Kanvas, and related products, offering tutorials, guides, and reference materials for users and contributors in the cloud native ecosystem.
-
-## Technology Stack
-
-- **Framework**: Hugo (extended version with SCSS support)
-- **Theme**: Docsy (Google's documentation theme)
-- **Language**: Go templates, HTML, CSS/SCSS, JavaScript
-- **Content**: Markdown with Hugo shortcodes
-- **Package Manager**: npm
-- **Node Version**: See `.nvmrc`
-- **Build System**: Hugo CLI, Make
-
-## Core Principles
-
-### 1. Minimal, Surgical Changes
-- Make the **smallest possible changes** to accomplish the goal
-- Never delete or modify working code unless absolutely necessary
-- Focus on precise, targeted modifications rather than wholesale rewrites
-- Preserve existing patterns and conventions unless explicitly changing them
-
-### 2. Code Quality Standards
-- Follow the existing code style and patterns in the repository
-- Ensure proper indentation and formatting in templates and content
-- Write clean, readable, self-documenting code with minimal comments unless necessary for complex logic
-- Maintain accessibility standards (WCAG 2.1)
-
-### 3. Testing and Validation
-- Always validate changes work before considering them complete
-- Build the site and verify rendered content: `make build` or `hugo`
-- Run the site locally: `make site` or `hugo server -D -F`
-- Test changes incrementally and iteratively
-
-## Project Structure
-
-```
-docs/
-├── .github/                 # GitHub configuration and workflows
-├── assets/                  # Site assets (CSS, JS, images)
-├── charts/                  # Chart files
-├── content/
-│   └── en/                 # English content
-│       ├── cloud/          # Layer5 Cloud documentation
-│       ├── kanvas/         # Kanvas documentation
-│       ├── contributing/   # Contribution guidelines
-│       └── videos/         # Video content
-├── data/                   # Hugo data files
-├── layouts/                # Hugo templates and layouts
-│   ├── _default/           # Default layouts
-│   ├── partials/           # Partial templates
-│   └── shortcodes/         # Custom shortcodes
-├── static/                 # Static assets
-├── hugo.toml               # Hugo configuration
-├── package.json            # npm dependencies
-├── Makefile                # Build automation
-└── CONTRIBUTING.md         # Contribution guidelines
-```
-
-## Development Workflow
-
-1. Don't fork this repo.
-1. Create a branch and pull request in this repo.
-1. Don't mark your pull request as draft.
-
-### Setup
-```bash
-# Install dependencies (required for fresh clone)
-make setup
-# or
-npm install
-```
-
-### Development
-```bash
-# Start development server with drafts and future content
-make site
-# or
-hugo server -D -F
-```
-
-### Building
-```bash
-# Build for production
-make build
-# or
-hugo
-
-# Clean and rebuild
-make clean
-```
-
-### Docker Development
-```bash
-# Run with Docker (requires Docker Desktop 4.24+ or Docker Compose 2.22+)
-make docker
-```
-
-## Content Guidelines
-
-### Tone and Style
-- Use a **professional yet approachable** tone
-- Content should be clear, concise, and welcoming to both technical and non-technical audiences
-- Align with Layer5's mission of empowering engineers to "expect more from their infrastructure"
-- Use American English spelling and grammar
-
-### Markdown Content
-- All documentation content is written in Markdown
-- Place content files in appropriate directories under `content/en/`
-- Include proper frontmatter with metadata:
-
-```yaml
----
-title: "Page Title"
-description: "Short description for SEO (150-160 chars)"
-weight: 10  # Optional: controls ordering in navigation
----
-```
-
-### Hugo Shortcodes
-Use the project's custom shortcodes for enhanced content:
-
-```markdown
-{{< alert type="success" title="Note" >}} Your Note {{< /alert >}}
-```
-
-Alert types:
-- `type="danger"`: Critical alerts (security-related or breaking changes)
-- `type="info"`: General informational content
-- `type="warning"`: Important warnings that need attention
-- `type="note"`: Neutral notes and tips
-- `type="success"`: Positive outcomes or confirmations
-
-### Image Guidelines
-- Use the following syntax: `![alt text](/path/to/image.svg)` or `<img src="" alt="" />`
-- Always provide complete image paths for subpages
-- Add `data-modal="false"` to prevent images from opening in a modal
-- Always include descriptive alt text for accessibility and SEO
-
-### Content Restrictions
-- **No external images**: Use local assets only
-- **No placeholder text**: Provide complete, production-ready content
-- **No sensitive data**: Never include API keys, credentials, or personal information
-- **Use proper capitalization**: "Meshery" not "meshery", "Kanvas" not "canvas", "Layer5" not "layer5"
-
-## Template Guidelines
-
-### Hugo Templates
-- Follow Go template syntax conventions
-- Use partials for reusable template components
-- Maintain consistent indentation in templates
-- Use Hugo's built-in functions when possible
-
-### Styling
-- SCSS files are located in `assets/`
-- Follow existing CSS class naming conventions
-- Ensure responsive design is maintained
-- Use theme variables when possible
-
-## Accessibility
-
-**Required Standards**: WCAG 2.1 Level AA
-
-- **Images**: Always include descriptive `alt` text
-- **Interactive elements**: Ensure keyboard navigation support
-- **ARIA labels**: Use when semantic HTML is insufficient
-- **Color contrast**: Maintain at least 4.5:1 ratio for text
-- **Semantic HTML**: Use appropriate HTML5 elements
-
-## Git Workflow
-
-### Commit Messages
-Follow Conventional Commits format:
-
-```
-<type>(<scope>): <subject>
-```
-
-**Types**:
-- `feat`: New feature or content
-- `fix`: Bug fix or correction
-- `docs`: Documentation changes
-- `style`: Formatting changes (no logic change)
-- `refactor`: Code refactoring
-- `chore`: Build process, tooling, dependencies
-
-**Examples**:
-```
-feat(cloud): add workspace documentation
-fix(kanvas): correct broken link in navigation
-docs(contributing): update setup instructions
-```
-
-### Pull Requests
-- Submit all changes as PRs to the `master` branch
-- Reference related issues in PR description
-- Ensure CI checks pass before requesting review
-- Sign-off commits with `git commit -s`
-
-### Branch Naming
-Use descriptive, kebab-case names:
-- `feat/add-cloud-security-docs`
-- `fix/navigation-broken-link`
-- `docs/update-contributing-guide`
-
-## Troubleshooting
-
-### Build Errors
-- Check `hugo.toml` for configuration issues
-- Clear cache: `hugo --cleanDestinationDir`
-- Reinstall dependencies: `rm -rf node_modules && npm install`
-- Verify Hugo extended version is installed
-
-### Content Issues
-- Validate Markdown syntax and frontmatter
-- Check for unclosed shortcodes
-- Verify file paths are correct and case-sensitive
-
-### Development Server Issues
-- Ensure Go is installed (required): `go version`
-- Check Node.js version matches `.nvmrc`
-- Verify Hugo extended version is installed
-
-## Security Best Practices
-
-- Never commit secrets, API keys, or credentials
-- Use environment variables for sensitive configuration
-- Keep dependencies up to date
-- Follow CSP headers and security configurations
-
-## Community and Resources
-
-### Documentation
-- Layer5 Community Handbook: https://layer5.io/community/handbook
-- Layer5 Documentation: https://docs.layer5.io
-- Hugo Documentation: https://gohugo.io/documentation/
-
-### Getting Help
-- Layer5 Slack: https://slack.layer5.io
-- Discussion Forum: https://discuss.layer5.io
-- GitHub Issues: https://github.com/layer5io/docs/issues
-
-### Code of Conduct
-All contributions must adhere to the [Layer5 Code of Conduct](CODE_OF_CONDUCT.md).
-
-## Summary Checklist for Contributions
-
-Before submitting a PR, verify:
-
-### Content Quality
-- [ ] Content is clear, accurate, and complete
-- [ ] Proper frontmatter is included
-- [ ] Images have descriptive alt text
-- [ ] Links are valid and accessible
-- [ ] Capitalization is correct (Meshery, Kanvas, Layer5)
-- [ ] American English spelling and grammar
-
-### Technical Quality
-- [ ] Build completes successfully (`make build`)
-- [ ] Site renders correctly locally (`make site`)
-- [ ] Changes are minimal and surgical
-- [ ] No placeholder content or sensitive data
-- [ ] Responsive design is maintained
-
-### Accessibility
-- [ ] All images have alt text
-- [ ] Proper heading hierarchy
-- [ ] Keyboard navigation works
-- [ ] Color contrast meets WCAG standards
-
-### Git
-- [ ] Commit messages follow Conventional Commits
-- [ ] Commits are signed off (`git commit -s`)
-- [ ] PR references related issues
-
-## Example Documentation Page
-
-```markdown
----
-title: "Getting Started with Layer5 Cloud"
-description: "Learn how to set up your Layer5 Cloud account and start managing your cloud native infrastructure with ease."
-weight: 1
----
-
-# Getting Started with Layer5 Cloud
-
-This guide walks you through setting up your Layer5 Cloud account and exploring key features.
-
-## Prerequisites
-
-Before you begin, ensure you have:
-- A GitHub or Google account for authentication
-- Basic familiarity with cloud native concepts
-
-## Creating Your Account
-
-1. Visit [Layer5 Cloud](https://cloud.layer5.io)
-2. Click **Sign Up** and choose your authentication method
-3. Complete your profile setup
-
-{{< alert type="info" title="Tip" >}}
-You can link multiple authentication providers to a single account.
-{{< /alert >}}
-
-## Next Steps
-
-- [Explore Workspaces](/cloud/spaces/workspaces/)
-- [Learn about Organizations](/cloud/identity/organizations/)
-- [Set up API Tokens](/cloud/security/tokens/)
-```
-
-This document serves as the primary reference for GitHub Copilot when assisting with contributions to the Layer5 Documentation site. Always prioritize minimal changes, maintain existing patterns, and ensure quality through building and testing.
+> This file is the project's committed home for project-intrinsic agent knowledge: build, test, release, architecture, and sharp-edge notes that should travel with the code.
+
+# Project agent memory
+
+This file is the project's committed home for project-intrinsic agent knowledge: build, test, release, architecture, and sharp-edge notes that should travel with the code.
+
+- Add durable project-specific notes here as they are discovered through real work.
+
+## Building the site locally
+
+`hugo` alone fails with `binary with name "postcss" not found in PATH`. Run `npm install`
+once, then build with the local binaries on PATH:
+
+    npm install
+    PATH="$PWD/node_modules/.bin:$PATH" hugo -d <outdir>
+
+`npm run build` (see `package.json` scripts) does the same via the pinned Hugo.
+
+## Keeping old URLs alive
+
+When a page moves or an external system links to a URL this site no longer serves, add the
+dead path to the page's `aliases:` front matter rather than leaving a 404 - Hugo emits a
+redirect stub for each one. `content/en/kanvas/operator/_index.md` and
+`content/en/kanvas/operator/views/index.md` are the working examples. Verify after a build
+by checking the generated `<outdir>/<dead-path>/index.html` for the `url=` refresh target.
+
+Heading anchors are linked from outside this repo too, so renaming a heading silently breaks
+those links. The Layer5 Cloud UI hardcodes some of them: `MAIL_DOCS_URL` in
+meshery-cloud's `ui/components/identity/org-management/org-smtp-tab.tsx` points every
+"Learn more" link on the Email tab at
+`/cloud/guides/organizations/org-management/#configuring-your-own-mail-server`. Grep
+meshery-cloud's `ui/` for `docs.layer5.io` before renaming a heading on a cloud guide. Goldmark heading attributes are enabled: keep the old anchor by writing
+`### New Wording {#old-anchor-slug}`. To prove no anchor was lost, build master and your branch
+to separate directories and diff the `id=` attributes of every `<h1>`-`<h6>` across both trees;
+`content/en/cloud/academy/creating-content/building-certifications/index.md` is a worked example.
+
+## Appending to a page bundle
+
+Several `index.md` files end without a trailing newline, and some end inside a raw HTML
+block. Appending a Markdown heading directly after a closing `</div>` leaves it unparsed and
+rendered as literal `## text`. Always leave a blank line between raw HTML and following
+Markdown, and check the built HTML for the heading's `id=` anchor.
+
+A literal backslash inside inline HTML is a related trap: Goldmark reads the `\<` in
+`<button>\</button>` as an escaped `<` and the tag never closes. Write the key as `&#92;`
+(`content/en/kanvas/reference/keyboard-shortcuts.md` is the worked example) and confirm the
+built HTML, not the source, before committing.
+
+## Documenting Layer5 Cloud behavior
+
+The cloud guides describe a product that lives in `meshery-cloud`, so every product claim is
+verified against `origin/master` there, never against a summary. The screen strings are in
+`ui/components/identity/org-management/`; the behavior behind them is in `server/handlers/`.
+
+That repo's own `docs/reference/` and `docs/runbooks/` are the best starting point but are not
+the arbiter - they have described behavior the handlers do not implement. Confirm a capability
+has a producer in the Go or TSX before writing it up: a contract enum member or a runbook
+sentence is not proof the feature ships.
+
+`meshery-cloud` is a PRIVATE repository, so never link one of its pull requests, issues or
+files from a content page - the link 404s for every reader of docs.layer5.io. Cite the released
+version instead (`v1.0.253`), which an operator can check against their own deployment, and keep
+the pull-request reference in the commit message and the docs pull request, where the audience
+can open it.
+
+Behavior can also disagree with `data/openapi.yml`. The server is the arbiter for what a
+response looks like: that file declares `401` as `text/plain` on every route, while any handler
+behind `AuthorizationMiddlewareForAdmin` answers `echo.NewHTTPError`, which echo serializes as
+JSON. Document what the handler sends and flag the specification.
+
+## Maintaining this file
+
+Keep this file for knowledge useful to almost every future agent session in this project.
+Do not repeat what the codebase already shows; point to the authoritative file or command instead.
+Prefer rewriting or pruning existing entries over appending new ones.
+When updating this file, preserve this bar for all agents and keep entries concise.
 
 ---
 > Source: [layer5io/docs](https://github.com/layer5io/docs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
