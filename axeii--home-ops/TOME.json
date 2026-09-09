@@ -4,7 +4,7 @@
   "repo": "home-ops",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,39 @@
       "path": ".opencode/skills/gitbutler/SKILL.md",
       "github_url": "https://github.com/axeII/home-ops/tree/main/.opencode/skills/gitbutler/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".opencode/skills/sops-secrets/SKILL.md",
+      "github_url": "https://github.com/axeII/home-ops/tree/main/.opencode/skills/sops-secrets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".opencode/skills/flux-validate/SKILL.md",
+      "github_url": "https://github.com/axeII/home-ops/tree/main/.opencode/skills/flux-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".claude/skills/gitbutler/SKILL.md",
+      "github_url": "https://github.com/axeII/home-ops/tree/main/.claude/skills/gitbutler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".claude/skills/sops-secrets/SKILL.md",
+      "github_url": "https://github.com/axeII/home-ops/tree/main/.claude/skills/sops-secrets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".claude/skills/flux-validate/SKILL.md",
+      "github_url": "https://github.com/axeII/home-ops/tree/main/.claude/skills/flux-validate/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/axeII/home-ops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T12:34:38Z"
+  "distributed_at": "2026-09-09T19:39:24Z"
 }
