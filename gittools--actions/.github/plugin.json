@@ -1,0 +1,14 @@
+{
+  "name": "gittools--actions",
+  "displayName": "actions",
+  "description": "actions",
+  "version": "1.0.0",
+  "author": "GitTools",
+  "homepage": "https://github.com/GitTools/actions",
+  "skills": [
+    {
+      "name": "actions",
+      "description": ""
+    }
+  ]
+}
