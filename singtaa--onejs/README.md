@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Singtaa/OneJS](https://github.com/Singtaa/OneJS).
+Original source: `CLAUDE.md` in [Singtaa/OneJS](https://github.com/Singtaa/OneJS).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [Singtaa/OneJS](https://github.com/Singtaa/OneJS
 
 - [OneJS](https://github.com/Singtaa/OneJS/tree/main/AI/Skills/onejs-setup-and-overview/SKILL.md)
 
-From [Singtaa/OneJS](https://github.com/Singtaa/OneJS) — a repo with 349+ stars on GitHub.
+From [Singtaa/OneJS](https://github.com/Singtaa/OneJS) — a repo with 350+ stars on GitHub.
 
 ---
 
