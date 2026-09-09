@@ -4,7 +4,7 @@
   "repo": "docs",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/layer5io/docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T00:54:09Z"
+  "distributed_at": "2026-09-09T19:40:35Z"
 }
