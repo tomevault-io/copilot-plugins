@@ -1,10 +1,10 @@
 ## twitter-php
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> It is my fervent wish that this file guide every AI coding agent working with code in this repository.
 
-# CLAUDE.md
+# To My Agents!
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+It is my fervent wish that this file guide every AI coding agent working with code in this repository.
 
 ## Overview
 
@@ -32,4 +32,4 @@ Tests in `tests/Client/` using Nette Tester (`.phpt` files). Unit tests run alwa
 
 ---
 > Source: [dg/twitter-php](https://github.com/dg/twitter-php) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
