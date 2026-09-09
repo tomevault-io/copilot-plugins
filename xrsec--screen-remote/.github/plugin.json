@@ -1,0 +1,14 @@
+{
+  "name": "xrsec--screen-remote",
+  "displayName": "Screen-Remote",
+  "description": "Screen-Remote",
+  "version": "1.0.0",
+  "author": "XRSec",
+  "homepage": "https://github.com/XRSec/Screen-Remote",
+  "skills": [
+    {
+      "name": "Screen-Remote",
+      "description": ""
+    }
+  ]
+}
