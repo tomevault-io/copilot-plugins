@@ -1,0 +1,51 @@
+{
+  "name": "xiaozhi-mcphub",
+  "owner": "huangjunsen0406",
+  "repo": "xiaozhi-mcphub",
+  "description": "MCP bridge system optimized for Xiaozhi AI integration",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xiaozhi-mcphub",
+      "path": ".claude/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/huangjunsen0406/xiaozhi-mcphub/tree/main/.claude/skills/release-notes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huangjunsen0406/xiaozhi-mcphub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:40:40Z"
+}
