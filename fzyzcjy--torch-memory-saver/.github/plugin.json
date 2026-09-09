@@ -1,0 +1,14 @@
+{
+  "name": "fzyzcjy--torch-memory-saver",
+  "displayName": "torch_memory_saver",
+  "description": "torch_memory_saver",
+  "version": "1.0.0",
+  "author": "fzyzcjy",
+  "homepage": "https://github.com/fzyzcjy/torch_memory_saver",
+  "skills": [
+    {
+      "name": "torch_memory_saver",
+      "description": ""
+    }
+  ]
+}
