@@ -1,0 +1,18 @@
+{
+  "name": "ruby-docx--docx",
+  "displayName": "docx",
+  "description": "docx",
+  "version": "1.0.0",
+  "author": "ruby-docx",
+  "homepage": "https://github.com/ruby-docx/docx",
+  "skills": [
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    }
+  ]
+}
