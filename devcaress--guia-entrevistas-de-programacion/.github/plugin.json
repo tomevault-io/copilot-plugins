@@ -1,0 +1,18 @@
+{
+  "name": "devcaress--guia-entrevistas-de-programacion",
+  "displayName": "guia-entrevistas-de-programacion",
+  "description": "guia-entrevistas-de-programacion",
+  "version": "1.0.0",
+  "author": "DevCaress",
+  "homepage": "https://github.com/DevCaress/guia-entrevistas-de-programacion",
+  "skills": [
+    {
+      "name": "create-commit",
+      "description": ""
+    },
+    {
+      "name": "guia-entrevistas-de-programacion",
+      "description": ""
+    }
+  ]
+}
