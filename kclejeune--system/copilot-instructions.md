@@ -2,7 +2,7 @@
 
 > Personal multi-host Nix/NixOS/nix-darwin/home-manager config built on the
 
-# Repository guide for Claude
+# Repository guide for Codex
 
 Personal multi-host Nix/NixOS/nix-darwin/home-manager config built on the
 **dendritic pattern** (flake-parts + `vic/import-tree`). Read this file
@@ -219,12 +219,18 @@ across multiple systems via `lib.map` + `lib.mergeAttrsList`.
   nix build .#darwinConfigurations."kclejeune@aarch64-darwin".config.system.build.toplevel
   nix build .#homeConfigurations."kclejeune@x86_64-linux".activationPackage
   ```
-- Activate (run on the target host):
+- Activate (run on the target host) — always via `nh`, never the raw
+  `nixos-rebuild` / `darwin-rebuild` / `home-manager` commands:
   ```bash
-  sudo nixos-rebuild switch --flake .#phil
-  darwin-rebuild switch --flake .#kclejeune@aarch64-darwin
-  home-manager switch --flake .#kclejeune@x86_64-linux
+  nh os switch .#phil
+  nh darwin switch '.#kclejeune@aarch64-darwin'
+  nh home switch '.#kclejeune@x86_64-linux'
   ```
+  There is no `--hostname` flag — the target is the installable's attrpath.
+  `NH_FLAKE` is already exported to `~/.nixpkgs`, so a bare `nh os switch`
+  resolves against this repo from anywhere.
+  `nh` is also what reads `/etc/specialisation` to pick the right activation
+  script — see the specialisation-tagging note above.
 - Eval-only drvPath diff (useful for refactors — run before and after to
   prove a change is semantically transparent):
   ```bash
@@ -265,6 +271,11 @@ bare attr name: `nix build .#fnox`. To bump one to a new release:
 
 ## Gotchas
 
+- **haven / forge / vault / atlas / gateway pull-deploy themselves.** comin
+  polls master every 60s and switches, so anything activated out of a dirty
+  worktree with `nh os switch` or `deploy` is reverted on the next poll. Push
+  to `testing-<hostname>` to try a config without it becoming the boot
+  default. See `modules/nixos/comin.nix`.
 - **`flake.nix` uncommitted changes** are not picked up until `git add`ed —
   nix flakes only see the git index. If you see `flake ... does not provide
 attribute ...` after creating new files, run `git add` and retry.
@@ -309,4 +320,4 @@ restart <unit>`, or log out / reboot for a clean slate.
 
 ---
 > Source: [kclejeune/system](https://github.com/kclejeune/system) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
