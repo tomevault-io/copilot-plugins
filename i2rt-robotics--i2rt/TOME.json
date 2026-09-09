@@ -4,7 +4,7 @@
   "repo": "i2rt",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/i2rt-robotics/i2rt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T03:54:45Z"
+  "distributed_at": "2026-09-09T22:46:10Z"
 }
