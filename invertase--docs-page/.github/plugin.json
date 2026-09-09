@@ -1,0 +1,14 @@
+{
+  "name": "invertase--docs-page",
+  "displayName": "docs.page",
+  "description": "docs.page",
+  "version": "1.0.0",
+  "author": "invertase",
+  "homepage": "https://github.com/invertase/docs.page",
+  "skills": [
+    {
+      "name": "docs.page",
+      "description": ""
+    }
+  ]
+}
