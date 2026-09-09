@@ -1,14 +1,14 @@
 ## matecloud
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-MateCloud is a **DDD microservice scaffold** built with Spring Boot 4.0.5 + Spring Cloud 2025.1.1 + Spring Cloud Alibaba + Dubbo 3.3.6. Java 21, MyBatis Plus, Sa-Token auth, Redisson, MapStruct.
+MateCloud is a **DDD microservice scaffold** built with Spring Boot 4.0.7 + Spring Cloud 2025.1.2 + Spring Cloud Alibaba + Dubbo 3.3.6. Java 21, MyBatis Plus, Sa-Token auth, Redisson, MapStruct.
 
 Philosophy: **minimal common, each module does one thing well, starter = plug-and-play capability.**
 
@@ -51,6 +51,17 @@ pnpm dev                      # Vite dev server → http://localhost:3000
 
 Frontend is a **pnpm workspace monorepo**: `apps/admin` (Vue 3 + Vite + Element Plus + TypeScript) with shared packages in `packages/{core,hooks,ui,utils}`. Vite proxies `/api` to `http://127.0.0.1:9010` (gateway).
 
+### Docker / Compose
+
+> **IMPORTANT — only `docker-compose` (v1, hyphenated) is supported in this environment. NEVER use `docker compose` (v2, space).** All compose commands must use the `docker-compose ...` binary, run from the repo root.
+
+```bash
+docker-compose build mate-system mate-ui   # rebuild changed images
+docker-compose up -d mate-system mate-ui   # recreate (Flyway auto-runs new migrations on mate-system boot)
+docker-compose logs -f mate-system         # watch logs
+# Upgrade flow: git pull → docker-compose build <svc> → docker-compose up -d <svc>. Never `down -v` (wipes volumes).
+```
+
 ### Makefile shortcuts
 
 ```bash
@@ -59,7 +70,7 @@ make build-module MODULE=mate-auth
 make test                     # unit tests
 make verify                   # integration tests
 make infra-up / infra-down    # infrastructure only
-make up / down                # full stack (docker compose)
+make up / down                # full stack (docker-compose, v1 hyphenated binary)
 ```
 
 ### CLI tool (mate-cli)
@@ -69,7 +80,7 @@ java -jar mate-cli/target/mate-cli.jar new module mate-order --port 9060
 java -jar mate-cli/target/mate-cli.jar service list
 java -jar mate-cli/target/mate-cli.jar db describe mate_system --service mate-system
 java -jar mate-cli/target/mate-cli.jar gen code --table mate_order --module mate-order --service mate-system
-java -jar mate-cli/target/mate-cli.jar --mcp        # MCP server for Codex
+java -jar mate-cli/target/mate-cli.jar --mcp        # MCP server for Claude Code
 ```
 
 ## Architecture
@@ -147,6 +158,7 @@ Business 6 (add as needed): `mate-mq-starter` (RabbitMQ + domain events), `mate-
 - **No Swagger** — use Smart-Doc for API docs
 - **MapStruct** for all conversions, **Lombok** for boilerplate
 - **Domain layer is framework-free**
+- **No inline fully-qualified names** — reference every type by its simple name via an `import`; never write inline FQNs like `org.springframework.beans.factory.ObjectProvider<vip.mate.xxx.spi.XxxPort>` in method signatures or bodies (a recurring smell in `*AutoConfiguration` classes). Exceptions (keep FQN): (1) deliberate string-literal conditionals such as `@ConditionalOnClass(name = "...")` / `@ConditionalOnBean(type = "...")` that gate on an optional-classpath class; (2) genuine same-simple-name collisions where two types can't both be imported (e.g. a class implementing two interfaces both named `PrincipalResolver` from different packages) — FQN one of them.
 
 ## Adding a New Business Module
 
