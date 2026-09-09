@@ -1,0 +1,14 @@
+{
+  "name": "firebase--firebaseui-android",
+  "displayName": "FirebaseUI-Android",
+  "description": "FirebaseUI-Android",
+  "version": "1.0.0",
+  "author": "firebase",
+  "homepage": "https://github.com/firebase/FirebaseUI-Android",
+  "skills": [
+    {
+      "name": "FirebaseUI-Android",
+      "description": ""
+    }
+  ]
+}
