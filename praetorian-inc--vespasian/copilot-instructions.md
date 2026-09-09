@@ -1,131 +1,103 @@
 ## vespasian
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Canonical agent instruction file for this repository; every coding agent that
 
-# CLAUDE.md
+# vespasian
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Canonical agent instruction file for this repository; every coding agent that
+works here loads it. `CLAUDE.md` is a one-line pointer to this file and
+`.gemini/settings.json` lists it as a context file. Edit this file, never the
+pointers.
 
-## Overview
+Vespasian captures HTTP traffic (headless crawl or Burp/HAR/mitmproxy import),
+classifies API type, probes endpoints, and emits OpenAPI 3.0, GraphQL SDL, WSDL,
+or `.proto`. gRPC is opt-in (`--api-type grpc`); it is never auto-detected.
 
-Vespasian is an API discovery and specification generation tool for security assessments. It captures HTTP traffic through headless browser crawling or imports it from existing sources (Burp Suite XML, HAR, mitmproxy), classifies requests by API type (REST, GraphQL, SOAP/WSDL), probes discovered endpoints, and generates specifications in the native format for each type: OpenAPI 3.0, GraphQL SDL, or WSDL.
+The tree documents itself; this file carries only what it does not.
+
+- `docs/agents/architecture.md` — pipeline, packages, capture format
+- `docs/agents/cli.md` — `scan` / `crawl` / `import` / `generate` flags
+- `docs/agents/testing.md` — live targets, nested module, spec validators
+- `docs/agents/ci.md` — workflow jobs and gates
+- `README.md`, `docs/crawler.md`, `docs/grpc.md`, `test/README.md`
 
 ## Build and Test Commands
 
 ```bash
-# Build
-make build                    # Build binary to bin/vespasian
-
-# Run all tests with race detection
-make test                     # Equivalent to: go test -race ./...
-
-# Run tests for a specific package
+make build              # binary under bin/
+make test               # go test -race ./... AND test/proto-validate
+make test-integration   # go test -race -tags=integration ./... (needs Chrome)
+make lint               # golangci-lint here AND in test/proto-validate
+make lint-comments      # unreachability claims on files changed vs origin/main
+make fmt
+make gosec              # go run gosec at the version security.yml pins
+make check              # fmt vet lint lint-comments gosec test check-docs
+make check-docs
+make coverage
+make coverage-gate      # fails below 85%
+make deps
+make clean
+make live-test-clean    # teardown recorded live-test PIDs
 go test ./pkg/classify/...
-
-# Run a single test
-go test -run TestFunctionName ./pkg/package/...
-
-# Lint
-make lint                     # Runs golangci-lint (gocritic, misspell, revive)
-
-# Format
-make fmt                      # Runs gofmt -s -w .
-
-# All checks (format, vet, lint, test)
-make check
-
-# Coverage
-make coverage                 # Generates coverage.out and prints per-function coverage
-
-# Dependencies
-make deps                     # go mod download && go mod tidy
-
-# Clean
-make clean                    # Remove bin/, dist/, coverage.out
 ```
 
-## Architecture
+`make test` is two invocations, not one. `test/proto-validate` is a nested
+module (`test/proto-validate/go.mod`); a root `./...` pattern stops at the
+module boundary, and there is deliberately no workspace file (gitignored) so
+the helper stays out of the shipped module's require list. `make test`,
+`make vet`, `make lint`, and `make deps` each enter it with `cd`. Adding
+another nested module means wiring every consumer those two greps name:
+`grep -rn 'cd test/proto-validate' Makefile` and
+`grep -rln 'working-directory: test/proto-validate' .github/workflows/`.
 
-### Two-Stage Pipeline
+`make test-integration` needs a real Chrome. Without one, rod tests skip
+unless `VESPASIAN_REQUIRE_CHROME=1` (CI sets this; a skip then becomes a
+failure). Headless crawl pins a local Chrome; if none is found it errors
+unless `VESPASIAN_ALLOW_BROWSER_DOWNLOAD=true`.
 
-Vespasian separates traffic capture from specification generation:
-
-1. **Capture**: Crawl a target with a headless browser or import traffic from Burp/HAR/mitmproxy → produces `capture.json` (array of `ObservedRequest`)
-2. **Generate**: Classify requests → probe endpoints → generate specification (OpenAPI 3.0, GraphQL SDL, or WSDL)
-
-The `scan` command combines both stages. The `crawl`/`import` and `generate` commands run them independently.
-
-### Core Flow
-
-The CLI (`cmd/vespasian`) uses Kong for argument parsing. Each command (crawl, import, generate, scan) has a `Run()` method. The scan pipeline:
-
-1. Crawl target URL → `[]crawl.ObservedRequest`
-2. Auto-detect API type (or use explicit `--api-type`)
-3. Classify requests via `classify.RunClassifiers()` with confidence threshold
-4. Deduplicate classified endpoints
-5. Probe endpoints via `probe.RunStrategies()` (OPTIONS, schema, WSDL fetch, GraphQL introspection)
-6. Generate spec via `generate.Get(apiType).Generate()`
-
-### Key Packages
-
-- **cmd/vespasian**: CLI entry point, command definitions, signal handling, browser lifecycle management
-- **pkg/crawl**: Headless browser crawling via Katana, capture file I/O (`ObservedRequest` JSON format), browser manager with Chrome lifecycle
-- **pkg/classify**: Request classification engine with confidence-based heuristics; classifiers for REST, GraphQL, and WSDL; deduplication
-- **pkg/probe**: Active endpoint probing strategies (OPTIONS discovery, JSON schema inference, WSDL document fetching, GraphQL introspection with 3-tier WAF bypass); SSRF protection with DNS rebinding mitigation
-- **pkg/generate**: Spec generation interface and registry; delegates to sub-packages by API type
-- **pkg/generate/rest**: OpenAPI 3.0 generation, path normalization (UUID detection, context-aware parameter naming), JSON schema inference
-- **pkg/generate/graphql**: GraphQL SDL generation from introspection results or traffic-based inference
-- **pkg/generate/wsdl**: WSDL generation from SOAP traffic, WSDL document parsing, type inference from SOAP envelopes
-- **pkg/importer**: Traffic importers for Burp Suite XML, HAR 1.2, and mitmproxy dumps; format registry with size limits (500MB)
-
-### Key Patterns
-
-- **Registry pattern**: Both `pkg/importer` and `pkg/generate` use a registry map to look up implementations by name (`Get()` function)
-- **Strategy pattern**: `pkg/probe` defines `ProbeStrategy` interface; each probe type (Options, Schema, WSDL, GraphQL) is a separate implementation
-- **Classifier interface**: `pkg/classify` defines `APIClassifier` interface; each API type has its own classifier with heuristic rules and confidence scores
-
-### Capture Format
-
-The intermediate `capture.json` file is a JSON array of `crawl.ObservedRequest` structs. Each entry contains method, URL, headers, body, and response data. This format is shared between crawl output, importer output, and generator input.
-
-## CLI Commands
-
-| Command   | Purpose |
-|-----------|---------|
-| `scan`    | Full pipeline: crawl + classify + probe + generate |
-| `crawl`   | Capture traffic via headless browser → capture.json |
-| `import`  | Convert Burp XML / HAR / mitmproxy → capture.json |
-| `generate` | Produce spec from capture.json (REST→OpenAPI, GraphQL→SDL, WSDL→WSDL) |
-| `version` | Show version information |
-
-## Test Infrastructure
-
-The `test/` directory contains live test targets:
-
-- **test/rest-api/**: Go HTTP server exposing REST endpoints for end-to-end testing
-- **test/soap-service/**: Go HTTP server exposing SOAP/WSDL endpoints
-- **test/graphql-server/**: Node.js GraphQL server with Apollo
-
-See `test/README.md` for how to run the suite, including the `TEST_HOST` override for devcontainer setups.
+Spec validators: `(cd test/spec-validators && npm ci --ignore-scripts)` once,
+then `test/validate.sh`. `test/validate_test.sh` locks reject behaviour.
 
 ## Code Conventions
 
-- Go file naming: lowercase with underscores (e.g., `rest_classifier.go`, not `restClassifier.go`)
-- Test files match source files (`foo.go` → `foo_test.go`)
-- Formatting enforced by `gofmt -s` (run `make fmt`)
-- Linting via `golangci-lint` with gocritic, misspell, revive (run `make lint`)
-- Package-level documentation lives in `doc.go` files
+### Comments that claim a state is impossible must cite a test
+
+If a comment guarantees something cannot happen, is unreachable, or can never
+occur, it must name the test that would fail if it did. `make lint-comments`
+enforces this on files changed against origin/main; `make lint-comments-all`
+sweeps the whole tree advisorily. It is part of `make check`.
+
+This is not a rule against long comments. Soften the claim or write the test;
+do not delete the explanation. Read the code, not the comment — where a trace
+and a comment disagree, the trace is the finding.
+
+### Comments do not cite review-round ids
+
+`TEST-003`, `SEC-BE-014`, `QUAL-007`, and the short `N-2`/`C4`/`D1` forms
+resolve to nothing outside the round that produced them. Name the reason.
+Linear and GitHub references stay. Clear on touch, not as a repo-wide sweep.
+
+- Go files: lowercase_with_underscores (`rest_classifier.go`). Tests match
+  (`foo.go` → `foo_test.go`). `gofmt -s` via `make fmt`. Package docs in
+  `doc.go`.
+- Gosec suppressions are `#nosec <RULE> -- <reason>`, never `//nolint:gosec`.
+  `make lint` honors `//nolint`; `.github/workflows/security.yml` honors only
+  `#nosec`.
+- `generate grpc` is not offline: descriptors are `json:"-"` so reflection
+  re-runs live (`--probe`, default on). There is no standalone `probe`
+  command.
+- Capture `query_params` is `map[string][]string`. Files from LAB-2110 and
+  earlier (`map[string]string`) are incompatible — recapture. Pre-LAB-4992
+  `crawl`/`scan` captures stay readable but miss `static:js-concat`; recapture.
+  `import` captures are unaffected.
+- `--interact` is headless-only, off by default, and can submit forms.
 
 ## Development Workflow
 
-- After implementing a feature or fix, run `make check` to ensure all tests and the linter pass.
-- After modifying a Go source file, update its package's `doc.go` if the change affects the package's public API or purpose.
-- After adding or changing features, review `README.md` and `CLAUDE.md` for accuracy and update them if needed.
-
-## CI
-
-GitHub Actions runs on push to main and PRs: build, test (with 80% coverage threshold), lint (golangci-lint v2), and format check.
+- After a feature or fix, `make check`.
+- If a public API or package purpose changes, update that package's `doc.go`.
+- Keep `README.md` and this file accurate; `CLAUDE.md` is only the pointer.
 
 ---
 > Source: [praetorian-inc/vespasian](https://github.com/praetorian-inc/vespasian) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
