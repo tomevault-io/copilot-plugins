@@ -73,9 +73,81 @@
       "path": "1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-infrastructure/SKILL.md",
       "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/7.sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-infrastructure/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-incident-rca/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-incident-rca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-incident-triage/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-incident-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-devops-agent-solution/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/1.architectures/5.sagemaker-hyperpod/tools/devops-agent/skills/hyperpod-devops-agent-solution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/bash-testing/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/bash-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/build-slurm-image/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/build-slurm-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-incident-rca/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-incident-rca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/validate-deployment/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/validate-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-slurm-cluster/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-slurm-cluster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deployment-preflight/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deployment-preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-infrastructure/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-eks/slinky-slurm/.opencode/skills/deploy-infrastructure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-incident-triage/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-incident-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awsome-distributed-ai",
+      "path": "architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-devops-agent-solution/SKILL.md",
+      "github_url": "https://github.com/awslabs/awsome-distributed-ai/tree/main/architectures/sagemaker-hyperpod-slurm/tools/devops-agent/skills/hyperpod-devops-agent-solution/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/awslabs/awsome-distributed-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T00:40:31Z"
+  "distributed_at": "2026-09-09T00:45:59Z"
 }
