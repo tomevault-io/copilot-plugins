@@ -136,4 +136,4 @@ Data are ISTAT-derived and redistributed under CC-BY; keep the attribution secti
 
 ---
 > Source: [guglielmo/geojson-italy](https://github.com/guglielmo/geojson-italy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
