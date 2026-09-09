@@ -1,0 +1,81 @@
+{
+  "name": "userscript-supports",
+  "owner": "cyfung1031",
+  "repo": "userscript-supports",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "userscript-supports",
+      "path": "agent-skills/pick-invariant/SKILL.md",
+      "github_url": "https://github.com/cyfung1031/userscript-supports/tree/main/agent-skills/pick-invariant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "userscript-supports",
+      "path": "agent-skills/source-preserving-css/SKILL.md",
+      "github_url": "https://github.com/cyfung1031/userscript-supports/tree/main/agent-skills/source-preserving-css/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "userscript-supports",
+      "path": "agent-skills/subagent-coordination/SKILL.md",
+      "github_url": "https://github.com/cyfung1031/userscript-supports/tree/main/agent-skills/subagent-coordination/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "userscript-supports",
+      "path": "agent-skills/github-pr-publish-safe/SKILL.md",
+      "github_url": "https://github.com/cyfung1031/userscript-supports/tree/main/agent-skills/github-pr-publish-safe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "userscript-supports",
+      "path": "agent-skills/review-userscript-change/SKILL.md",
+      "github_url": "https://github.com/cyfung1031/userscript-supports/tree/main/agent-skills/review-userscript-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "userscript-supports",
+      "path": "prompt-for-update-482487-greasyfork-dark/SKILL.md",
+      "github_url": "https://github.com/cyfung1031/userscript-supports/tree/main/prompt-for-update-482487-greasyfork-dark/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cyfung1031/userscript-supports",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:38:46Z"
+}
