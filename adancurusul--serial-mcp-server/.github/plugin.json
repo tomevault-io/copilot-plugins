@@ -1,0 +1,14 @@
+{
+  "name": "adancurusul--serial-mcp-server",
+  "displayName": "serial-mcp-server",
+  "description": "serial-mcp-server",
+  "version": "1.0.0",
+  "author": "Adancurusul",
+  "homepage": "https://github.com/Adancurusul/serial-mcp-server",
+  "skills": [
+    {
+      "name": "serial-mcp-server",
+      "description": ""
+    }
+  ]
+}
