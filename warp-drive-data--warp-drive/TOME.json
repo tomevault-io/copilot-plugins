@@ -1,0 +1,63 @@
+{
+  "name": "warp-drive",
+  "owner": "warp-drive-data",
+  "repo": "warp-drive",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "warp-drive",
+      "path": ".claude/skills/ast-grep/SKILL.md",
+      "github_url": "https://github.com/warp-drive-data/warp-drive/tree/main/.claude/skills/ast-grep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "warp-drive",
+      "path": ".claude/skills/ast-grep-codemods/SKILL.md",
+      "github_url": "https://github.com/warp-drive-data/warp-drive/tree/main/.claude/skills/ast-grep-codemods/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "warp-drive",
+      "path": ".claude/skills/mock-cache-checkin/SKILL.md",
+      "github_url": "https://github.com/warp-drive-data/warp-drive/tree/main/.claude/skills/mock-cache-checkin/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/warp-drive-data/warp-drive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:59:37Z"
+}
