@@ -1,0 +1,9 @@
+{
+  "name": "ggufloader--gguf-loader",
+  "displayName": "gguf-loader",
+  "description": "gguf-loader",
+  "version": "1.0.0",
+  "author": "GGUFloader",
+  "homepage": "https://github.com/GGUFloader/gguf-loader",
+  "skills": []
+}
