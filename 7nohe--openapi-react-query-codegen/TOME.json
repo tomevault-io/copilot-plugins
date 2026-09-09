@@ -4,7 +4,7 @@
   "repo": "openapi-react-query-codegen",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/7nohe/openapi-react-query-codegen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T20:23:48Z"
+  "distributed_at": "2026-09-09T16:35:31Z"
 }
