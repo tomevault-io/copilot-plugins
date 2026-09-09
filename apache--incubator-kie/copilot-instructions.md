@@ -21,85 +21,41 @@
   under the License.
   -->
 
-# Conventions
+# Working in this repository
 
-## Code style
+When verifying changes in this repository, take advantage of the `make dev`
+script to perform partial builds:
 
-- Configure your IDE with the shared formatter and import order files from
-  [`kogito-build/kogito-ide-config/src/main/resources/`](../kogito-build/kogito-ide-config/src/main/resources/):
-  - **Eclipse**: import `eclipse-format.xml` under *Preferences > Java > Code
-    Style > Formatter*, and `eclipse.importorder` under *Organize Imports*.
-  - **IntelliJ IDEA**: install the *Eclipse Code Formatter* plugin, point it at
-    `eclipse-format.xml`, enable *Optimize Imports*, and use
-    `eclipse.importorder`.
-  - **VS Code**: install the *Checkstyle for Java* extension and set
-    `eclipse-format.xml` as the Checkstyle configuration file.
-- No `@author` tags in Javadoc — Git history tracks authorship.
-- Prefer readability over conciseness: self-explanatory method names,
-  meaningful variable names, small classes with a single clear responsibility,
-  and methods that don't depend on hidden state established by their callers.
+```bash
+make dev
+```
 
-## Licensing
+It works out which modules your changes touch, rebuilds any upstream modules that
+are missing or out of date, and builds the rest.
 
-- Every source file carries the ASF license header. This is enforced in CI
-  (`ci_check_license_headers` workflow). To format headers automatically:
+| Command | Use it when |
+| --- | --- |
+| `make dev` | You changed code and want to check it still builds |
+| `make dev scope` | You want to see what would be built, without building |
+| `make dev config` | You want to see the current settings |
+| `make dev mvn -- <mvn args>` | You need a specific Maven command, e.g. to run tests |
 
-  ```bash
-  mvn com.mycila:license-maven-plugin:format
-  ```
+Never commit `.kie-dev/` — it is local state, and gitignored.
 
-- Dependency licensing rules (Apache-2.0-compatible only, available on Maven
-  Central, no fat/shaded jars, sources public, …) are spelled out in
-  [CONTRIBUTING.md](../CONTRIBUTING.md#requirements-for-dependencies).
+## Everything else
 
-## Service discovery (SPI)
+**[docs/README.md](./docs/README.md)** is the index: how this repository is
+structured, how to build it, its conventions, and what CI checks on a pull
+request.
 
-Two discovery mechanisms are used across the codebase:
+The two that come up most often are [docs/DEV.md](./docs/DEV.md), which covers
+how `make dev` decides what to build and every setting it takes, and
+[docs/BUILDING.md](./docs/BUILDING.md) for full builds.
 
-- **Standard Java SPI** (`src/main/resources/META-INF/services/`) — used by
-  Efesto plugins (`KieCompilerService`, `KieRuntimeService`) and the PMML
-  engine.
-- **KIE service discovery** (`META-INF/kie.conf`) — the traditional Drools
-  mechanism; e.g. `drools-mvel` registers its implementations there, and
-  missing implementations are reported centrally by
-  `org.drools.core.base.CoreComponentsBuilder`.
-
-## Code generation
-
-Code generation is used by several engines (Drools executable model, Kogito
-codegen, PMML). Shared principles:
-
-- **Generate the code you would write by hand** if there were no codegen step —
-  and before opening a PR, read the generated code and check that it does.
-- Generation is JavaParser-based and template-driven; prefer manipulating the
-  AST over plain string replacement. Template files use the `.tmpl` extension
-  (PMML) or live under `src/main/resources/class-templates/` named
-  `<Something><Runtime>Template.java` with `$…$` placeholders (Kogito).
-- Prefer framework-specific templates plus shared plain classes over
-  framework-agnostic templates patched by annotators. A template with no
-  placeholders should be promoted to a plain shared class.
-- In generated DI code, favor constructor injection; REST endpoints are the
-  exception (field injection, no inheritance).
-
-## Testing
-
-- Integration test classes are named `*IT.java` (failsafe); everything else is
-  a unit test (surefire). See [BUILDING.md](./BUILDING.md) for the flags and
-  Quarkus-specific annotations.
-- Include tests with every PR — existing unit tests are treated as the
-  compatibility contract when refactoring.
-- After significant refactoring of an engine, run the corresponding benchmarks
-  in [incubator-kie-benchmarks](https://github.com/apache/incubator-kie-benchmarks)
-  to catch performance regressions.
-
-## Documentation
-
-- Architecture and design diagrams are authored as PlantUML `.puml` files.
-- Reference documentation for end users belongs to the
-  [Apache KIE website](https://kie.apache.org/docs/documentation/), not this
-  repository. Documentation about how *this repository* works belongs in
-  [docs/](./README.md).
+If you change the scripts behind `make dev` or the CI scripts, run their tests
+first — see [script/dev/README.md](./script/dev/README.md) and
+[script/ci/README.md](./script/ci/README.md).
 
 ---
 > Source: [apache/incubator-kie](https://github.com/apache/incubator-kie) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
