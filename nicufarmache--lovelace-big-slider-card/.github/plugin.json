@@ -1,0 +1,14 @@
+{
+  "name": "nicufarmache--lovelace-big-slider-card",
+  "displayName": "lovelace-big-slider-card",
+  "description": "lovelace-big-slider-card",
+  "version": "1.0.0",
+  "author": "nicufarmache",
+  "homepage": "https://github.com/nicufarmache/lovelace-big-slider-card",
+  "skills": [
+    {
+      "name": "lovelace-big-slider-card",
+      "description": ""
+    }
+  ]
+}
