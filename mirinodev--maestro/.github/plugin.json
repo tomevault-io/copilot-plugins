@@ -1,0 +1,9 @@
+{
+  "name": "mirinodev--maestro",
+  "displayName": "maestro",
+  "description": "A CLI tool that conducts Git worktrees like an orchestra and accelerates parallel development with Claude Code.",
+  "version": "1.0.0",
+  "author": "mirinodev",
+  "homepage": "https://github.com/mirinodev/maestro",
+  "skills": []
+}
