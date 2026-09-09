@@ -253,4 +253,4 @@ Before submitting code:
 
 ---
 > Source: [zentinelproxy/zentinel](https://github.com/zentinelproxy/zentinel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
