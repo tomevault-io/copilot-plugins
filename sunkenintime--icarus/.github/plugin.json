@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "SunkenInTime",
   "homepage": "https://github.com/SunkenInTime/icarus",
-  "skills": []
+  "skills": [
+    {
+      "name": "icarus",
+      "description": ""
+    },
+    {
+      "name": "icarus",
+      "description": ""
+    }
+  ]
 }
