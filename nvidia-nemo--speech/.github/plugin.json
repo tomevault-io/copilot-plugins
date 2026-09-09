@@ -1,0 +1,30 @@
+{
+  "name": "nvidia-nemo--speech",
+  "displayName": "Speech",
+  "description": "Speech",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Speech",
+  "skills": [
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "description": ""
+    }
+  ]
+}
