@@ -4,7 +4,7 @@
   "repo": "linatabara3",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/theHocineSaad/linatabara3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T21:51:52Z"
+  "distributed_at": "2026-09-09T17:42:16Z"
 }
