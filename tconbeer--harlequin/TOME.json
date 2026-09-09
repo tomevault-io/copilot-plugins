@@ -3,8 +3,8 @@
   "owner": "tconbeer",
   "repo": "harlequin",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "harlequin",
+      "path": "src/harlequin/hsql/skill/SKILL.md",
+      "github_url": "https://github.com/tconbeer/harlequin/tree/main/src/harlequin/hsql/skill/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tconbeer/harlequin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T13:56:28Z"
+  "distributed_at": "2026-09-09T19:45:29Z"
 }
