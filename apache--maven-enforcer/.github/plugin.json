@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-enforcer",
+  "displayName": "maven-enforcer",
+  "description": "maven-enforcer",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-enforcer",
+  "skills": []
+}
