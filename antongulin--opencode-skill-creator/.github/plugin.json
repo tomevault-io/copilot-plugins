@@ -1,0 +1,14 @@
+{
+  "name": "antongulin--opencode-skill-creator",
+  "displayName": "opencode-skill-creator",
+  "description": "opencode-skill-creator",
+  "version": "1.0.0",
+  "author": "antongulin",
+  "homepage": "https://github.com/antongulin/opencode-skill-creator",
+  "skills": [
+    {
+      "name": "opencode-skill-creator",
+      "description": ""
+    }
+  ]
+}
