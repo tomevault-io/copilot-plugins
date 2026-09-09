@@ -2,7 +2,7 @@
   "name": "mcp-cbs-cijfers-open-data",
   "owner": "dstotijn",
   "repo": "mcp-cbs-cijfers-open-data",
-  "description": "",
+  "description": "MCP server for working with CBS Cijfers Open Data",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dstotijn/mcp-cbs-cijfers-open-data",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:49:56Z"
+  "distributed_at": "2026-09-09T23:18:32Z"
 }
