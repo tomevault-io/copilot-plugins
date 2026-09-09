@@ -1,0 +1,14 @@
+{
+  "name": "bangumi--bangumi-ios",
+  "displayName": "Bangumi-iOS",
+  "description": "Bangumi-iOS",
+  "version": "1.0.0",
+  "author": "bangumi",
+  "homepage": "https://github.com/bangumi/Bangumi-iOS",
+  "skills": [
+    {
+      "name": "Bangumi-iOS",
+      "description": ""
+    }
+  ]
+}
