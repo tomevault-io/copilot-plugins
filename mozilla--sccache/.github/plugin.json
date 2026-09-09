@@ -1,0 +1,9 @@
+{
+  "name": "mozilla--sccache",
+  "displayName": "sccache",
+  "description": "sccache",
+  "version": "1.0.0",
+  "author": "mozilla",
+  "homepage": "https://github.com/mozilla/sccache",
+  "skills": []
+}
