@@ -1,0 +1,111 @@
+{
+  "name": "chat-js",
+  "owner": "FranciscoMoretti",
+  "repo": "chat-js",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/review-docs/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/review-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/trpc-patterns/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/trpc-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/worktree-ports/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/worktree-ports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/dev-auth-bypass/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/dev-auth-bypass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/strategic-testing/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/strategic-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/generate-code-snippet/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/generate-code-snippet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/lazy-prefetch-pattern/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/lazy-prefetch-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/create-vercel-ai-issue/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/create-vercel-ai-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/next-dev-loop/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-dev-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/next-cache-components-adoption/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-cache-components-adoption/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/next-partial-prefetching-adoption/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-partial-prefetching-adoption/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/FranciscoMoretti/chat-js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:30:26Z"
+}
