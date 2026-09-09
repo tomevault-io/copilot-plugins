@@ -1,0 +1,14 @@
+{
+  "name": "newrelic--newrelic-ruby-agent",
+  "displayName": "newrelic-ruby-agent",
+  "description": "newrelic-ruby-agent",
+  "version": "1.0.0",
+  "author": "newrelic",
+  "homepage": "https://github.com/newrelic/newrelic-ruby-agent",
+  "skills": [
+    {
+      "name": "newrelic-ruby-agent",
+      "description": ""
+    }
+  ]
+}
