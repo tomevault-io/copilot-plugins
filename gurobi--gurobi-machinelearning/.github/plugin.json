@@ -1,0 +1,9 @@
+{
+  "name": "gurobi--gurobi-machinelearning",
+  "displayName": "gurobi-machinelearning",
+  "description": "gurobi-machinelearning",
+  "version": "1.0.0",
+  "author": "Gurobi",
+  "homepage": "https://github.com/Gurobi/gurobi-machinelearning",
+  "skills": []
+}
