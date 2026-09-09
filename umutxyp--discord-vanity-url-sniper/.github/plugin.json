@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "umutxyp",
   "homepage": "https://github.com/umutxyp/Discord-Vanity-URL-Sniper",
-  "skills": []
+  "skills": [
+    {
+      "name": "Discord-Vanity-URL-Sniper",
+      "description": ""
+    }
+  ]
 }
