@@ -1,0 +1,18 @@
+{
+  "name": "jkomyno--pnpm-monorepo-template",
+  "displayName": "pnpm-monorepo-template",
+  "description": "pnpm-monorepo-template",
+  "version": "1.0.0",
+  "author": "jkomyno",
+  "homepage": "https://github.com/jkomyno/pnpm-monorepo-template",
+  "skills": [
+    {
+      "name": "pnpm-monorepo-template",
+      "description": ""
+    },
+    {
+      "name": "pnpm-monorepo-template",
+      "description": ""
+    }
+  ]
+}
