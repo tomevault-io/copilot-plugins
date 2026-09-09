@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hebohang/HEngine](https://github.com/hebohang/HEngine).
+Original source: `CLAUDE.md` in [hebohang/HEngine](https://github.com/hebohang/HEngine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -33,7 +33,7 @@ Original source: `AGENTS.md` in [hebohang/HEngine](https://github.com/hebohang/H
 - [HEngine](https://github.com/hebohang/HEngine/tree/main/.agents/skills/he-resource-reflection-serialization/SKILL.md)
 - [HEngine](https://github.com/hebohang/HEngine/tree/main/.claude/skills/he-resource-reflection-serialization/SKILL.md)
 
-From [hebohang/HEngine](https://github.com/hebohang/HEngine) — a repo with 155+ stars on GitHub.
+From [hebohang/HEngine](https://github.com/hebohang/HEngine) — a repo with 166+ stars on GitHub.
 
 ---
 
