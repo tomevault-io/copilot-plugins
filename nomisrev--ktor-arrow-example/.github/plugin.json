@@ -1,0 +1,14 @@
+{
+  "name": "nomisrev--ktor-arrow-example",
+  "displayName": "ktor-arrow-example",
+  "description": "ktor-arrow-example",
+  "version": "1.0.0",
+  "author": "nomisRev",
+  "homepage": "https://github.com/nomisRev/ktor-arrow-example",
+  "skills": [
+    {
+      "name": "ktor-arrow-example",
+      "description": ""
+    }
+  ]
+}
