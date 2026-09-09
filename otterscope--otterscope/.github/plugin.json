@@ -1,0 +1,9 @@
+{
+  "name": "otterscope--otterscope",
+  "displayName": "otterscope",
+  "description": "Lightweight, self-hosted observability and evals for AI agents. One binary, one SQLite file \u2014 no ClickHouse, no seat fees.",
+  "version": "1.0.0",
+  "author": "otterscope",
+  "homepage": "https://github.com/otterscope/otterscope",
+  "skills": []
+}
