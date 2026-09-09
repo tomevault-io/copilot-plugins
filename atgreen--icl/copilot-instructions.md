@@ -1,95 +1,85 @@
 ## icl
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides instructions and context for AI coding agents working on this project.
 
-# CLAUDE.md
+# Project Instructions for AI Agents
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides instructions and context for AI coding agents working on this project.
 
-## Build Commands
+<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:1105d646 -->
+## Beads Issue Tracker
+
+This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
+
+### Quick Reference
 
 ```bash
-# Install dependencies (requires ocicl package manager)
-ocicl install
-
-# Build the icl executable
-make
-
-# Clean build artifacts
-make clean
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --claim  # Claim work
+bd close <id>         # Complete work
 ```
 
-The build requires SBCL, [ocicl](https://github.com/ocicl/ocicl), and libfixposix-devel.
+### Rules
 
-## Running
+- Use `bd` for ALL task tracking — do NOT use TodoWrite, TaskCreate, or markdown TODO lists
+- Run `bd prime` for detailed command reference and session close protocol
+- Use `bd remember` for persistent knowledge — do NOT use MEMORY.md files
+
+**Architecture in one line:** issues live in a local Dolt DB; sync uses `refs/dolt/data` on your git remote; `.beads/issues.jsonl` is a passive export. See https://github.com/gastownhall/beads/blob/main/docs/core-concepts/sync-concepts.md for details and anti-patterns.
+
+## Agent Context Profiles
+
+The managed Beads block is task-tracking guidance, not permission to override repository, user, or orchestrator instructions.
+
+- **Conservative (default)**: Use `bd` for task tracking. Do not run git commits, git pushes, or Dolt remote sync unless explicitly asked. At handoff, report changed files, validation, and suggested next commands.
+- **Minimal**: Keep tool instruction files as pointers to `bd prime`; use the same conservative git policy unless active instructions say otherwise.
+- **Team-maintainer**: Only when the repository explicitly opts in, agents may close beads, run quality gates, commit, and push as part of session close. A current "do not commit" or "do not push" instruction still wins.
+
+## Session Completion
+
+This protocol applies when ending a Beads implementation workflow. It is subordinate to explicit user, repository, and orchestrator instructions.
+
+1. **File issues for remaining work** - Create beads for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **Handle git/sync by active profile**:
+   ```bash
+   # Conservative/minimal/default: report status and proposed commands; wait for approval.
+   git status
+
+   # Team-maintainer opt-in only, unless current instructions forbid it:
+   git pull --rebase
+   git push
+   git status
+   ```
+5. **Hand off** - Summarize changes, validation, issue status, and any blocked sync/commit/push step
+
+**Critical rules:**
+- Explicit user or orchestrator instructions override this Beads block.
+- Do not commit or push without clear authority from the active profile or the current user request.
+- If a required sync or push is blocked, stop and report the exact command and error.
+<!-- END BEADS INTEGRATION -->
+
+
+## Build & Test
+
+_Add your build and test commands here_
 
 ```bash
-# Start ICL with auto-detected Lisp backend
-./icl
-
-# Specify a backend
-./icl --lisp sbcl
-./icl --lisp ccl
-
-# Evaluate and exit
-./icl -e '(+ 1 2 3)'
-
-# Connect to existing Slynk server
-./icl --connect localhost:4005
+# Example:
+# npm install
+# npm test
 ```
 
 ## Architecture Overview
 
-ICL is a frontend REPL that communicates with a backend Lisp process via the Slynk protocol (from SLY). This client-server architecture allows it to work with multiple Lisp implementations.
+_Add a brief overview of your project architecture_
 
-### Key Components
+## Conventions & Patterns
 
-- **src/main.lisp** - Entry point, CLI parsing (uses clingon)
-- **src/repl.lisp** - Main REPL loop, coordinates input/output/eval
-- **src/slynk-client.lisp** - Wraps the slynk-client library for backend communication
-- **src/backend.lisp** - Backend process management, Lisp implementation detection
-- **src/editor.lisp** - Multi-line input editor with readline-style editing
-- **src/buffer.lisp** - Input buffer management for the editor
-- **src/paredit.lisp** - Structural editing (auto-close parens, sexp navigation)
-- **src/completion.lisp** - Tab completion for symbols and packages
-- **src/highlight.lisp** - Syntax highlighting with terminal colors
-- **src/inspector.lisp** - TUI object inspector
-- **src/mcp-server.lisp** - HTTP server for AI CLI integration (read-only tools)
-- **src/browser.lisp** - Web-based IDE interface (Hunchentoot + WebSockets)
-- **src/commands/** - Extensible comma-prefixed command system
-
-### Command System
-
-Commands are defined using `define-command` in `src/commands/core.lisp`:
-
-```lisp
-(define-command (help h ?) ()
-  "Show available commands."
-  ...)
-```
-
-Commands can have aliases (like `h` and `?` above) and receive parsed arguments as strings.
-
-### Terminal Abstraction
-
-Platform-specific terminal handling:
-- `src/terminal-posix.lisp` - POSIX termios-based raw mode
-- `src/terminal-windows.lisp` - Windows console API
-
-### Dependencies
-
-Third-party code is vendored in:
-- `3rd-party/slynk-client/` - Modified slynk-client for backend communication
-- `ocicl/` - Dependencies managed by ocicl (including Slynk from SLY)
-
-## Release Process
-
-See `docs/RELEASING.md`. Key files to update:
-- `icl.asd` - `:version` field
-- Create `docs/release-notes/RELEASE-NOTES-X.Y.Z.md`
-
-Tag with `vX.Y.Z` to trigger GitHub Actions build.
+_Add your project-specific conventions here_
 
 ---
 > Source: [atgreen/icl](https://github.com/atgreen/icl) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
