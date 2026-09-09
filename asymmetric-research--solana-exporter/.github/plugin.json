@@ -1,0 +1,18 @@
+{
+  "name": "asymmetric-research--solana-exporter",
+  "displayName": "solana-exporter",
+  "description": "solana-exporter",
+  "version": "1.0.0",
+  "author": "asymmetric-research",
+  "homepage": "https://github.com/asymmetric-research/solana-exporter",
+  "skills": [
+    {
+      "name": "solana-exporter",
+      "description": ""
+    },
+    {
+      "name": "solana-exporter",
+      "description": ""
+    }
+  ]
+}
