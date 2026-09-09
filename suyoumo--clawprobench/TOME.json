@@ -1,0 +1,267 @@
+{
+  "name": "ClawProBench",
+  "owner": "suyoumo",
+  "repo": "ClawProBench",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/linear/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/linear/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/github/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/coding/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/commit/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/portfolio/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/portfolio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/ceo-setup/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/ceo-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/qa-review/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/qa-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/plan-mode/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/plan-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/local-test/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/local-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/llm-council/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/llm-council/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/new-project/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/new-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/trader-setup/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/trader-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/idea-parking/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/idea-parking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/project-setup/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/developer-setup/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/developer-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/security-review/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/github-workflow/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/github-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/routine-advisor/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/routine-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/commitment-setup/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/commitment-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/review-checklist/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/review-readiness/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/review-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/decision-capture/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/decision-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "nanoclaw/container/skills/welcome/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/nanoclaw/container/skills/welcome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/tech-debt-tracker/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/tech-debt-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/commitment-triage/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/commitment-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/commitment-digest/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/commitment-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/parallel-pr-review/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/parallel-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/delegation-tracker/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/delegation-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "nanoclaw/container/skills/vercel-cli/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/nanoclaw/container/skills/vercel-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/content-creator-setup/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/content-creator-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "ironclaw/skills/product-prioritization/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/ironclaw/skills/product-prioritization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "nanoclaw/container/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/nanoclaw/container/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "nanoclaw/container/skills/self-customize/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/nanoclaw/container/skills/self-customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "nanoclaw/container/skills/onecli-gateway/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/nanoclaw/container/skills/onecli-gateway/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawProBench",
+      "path": "nanoclaw/container/skills/frontend-engineer/SKILL.md",
+      "github_url": "https://github.com/suyoumo/ClawProBench/tree/main/nanoclaw/container/skills/frontend-engineer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/suyoumo/ClawProBench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:37:30Z"
+}
