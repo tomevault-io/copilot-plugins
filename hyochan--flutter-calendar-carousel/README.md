@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hyochan/flutter_calendar_carousel](https://github.com/hyochan/flutter_calendar_carousel).
+Original source: `CLAUDE.md` in [hyochan/flutter_calendar_carousel](https://github.com/hyochan/flutter_calendar_carousel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
