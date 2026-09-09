@@ -15,6 +15,10 @@ Original source: `AGENTS.md` in [slatedb/slatedb](https://github.com/slatedb/sla
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [slatedb](https://github.com/slatedb/slatedb/tree/main/.agents/skills/simple-english/SKILL.md)
+
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/slatedb/slatedb](https://github.com/slatedb/slatedb)
 
 ---
