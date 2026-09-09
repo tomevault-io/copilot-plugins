@@ -2,9 +2,9 @@
   "name": "ngXpress",
   "owner": "angularcafe",
   "repo": "ngXpress",
-  "description": "Build production-ready Angular apps with ngXpress \u2014 a full-stack starter kit powered by Angular 20 +  SSR, Express 5, Prisma, Tailwind CSS, and Better Auth for seamless authentication.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/angularcafe/ngXpress",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:41:17Z"
+  "distributed_at": "2026-09-09T16:47:01Z"
 }
