@@ -1,60 +1,211 @@
 ## pocket-stack
 
-> - 采用 pocketbase 实现后端认证和接口服务。
+> AI 友好的全栈模块化开发框架。基于 **React + shadcn/ui + PocketBase**，支持 Vibe Coding。
 
-# 全栈开发框架
+# PocketStack 项目 Agent 协作规则
 
-## 后端开发规则
+AI 友好的全栈模块化开发框架。基于 **React + shadcn/ui + PocketBase**，支持 Vibe Coding。
 
-- 采用 pocketbase 实现后端认证和接口服务。
-- 请使用mcp操作 pocketbase
+> 每次完成任务，都要创建任务日志。文件路径是 `docs/logs/YYYYMMDD-中文任务名.md`
 
-## 开发规则
+---
 
-公共组件：
-- 页面路由在 `src/App.tsx` 文件中注册。
-- 公共组件存放在 `src/components/` 目录下
-- 侧边栏菜单在 `src/components/layout/Sidebar.tsx` 文件中注册。
-- 页面存放在 `src/pages/` 目录下，文件命名遵循大驼峰。
-- 通用UI组件存放在 `src/components/ui` 目录下
-- 前端页面示例位于 `src/pages/examples` 目录下
-- 后端调用库文件位于 `src/lib/pocketbase.ts`
+## 1. 项目概览
 
-如果开发`{module}`模块，则遵循以下规则：
-- 页面：模块页面存放在 `src/pages/{module}` 目录下，文件命名遵循大驼峰。
-- 组件：模块组件存放在 `src/pages/{module}/components/` 目录下
-- 菜单：菜单设置位于`src/pages/{module}/menu.ts`文件
-- 路由：路由设置位于`src/pages/{module}/routes.ts`文件，页面的访问路径为 `/{module}/{page}`
-- 后端：后端模型collection命名以模块名为前缀，例如 `{module}_subPageName`。
+- **定位**：非专业人员可用的 Vibe Coding 全栈开发平台
+- **后端**：PocketBase（单二进制，集成鉴权 + 数据库 + 实时订阅）
+- **前端**：React 19 + Vite 7 + TypeScript + Tailwind CSS v4
+- **UI**：shadcn/ui（Maia 风格）+ Heroicons，支持 Blue / Green / Red / Gray 主题
+- **文档站**：`docs/`，VitePress 构建
 
-## 前端风格
+---
 
-页面示例：请参考 `src/pages/examples/` 中的示例文件，保持页面一致性。
+## 2. 技术栈
 
-风格规则：
-- 组件库： `shadcn/ui`，请使用mcp操作添加组件
-- 风格： `maia` 
-- 圆角： `rounded-2xl`
+| 类别       | 选型                                                      |
+| ---------- | --------------------------------------------------------- |
+| 构建工具   | Vite 7、`pnpm` workspaces                                 |
+| 框架       | React 19、React Router 7、TypeScript 5.9                  |
+| UI         | shadcn/ui、Radix UI、Tailwind CSS v4、@heroicons/react   |
+| 数据/后端  | PocketBase SDK 0.26（直接 HTTP 调用）                     |
+| 表单       | react-hook-form                                           |
+| 图表/地图  | Recharts、React Leaflet、React Day Picker                 |
+| 拖拽/MD    | @hello-pangea/dnd、react-markdown + remark-gfm            |
+| 工具       | date-fns、sonner（toast）、tailwind-merge、clsx           |
+| 文档       | VitePress 2                                               |
+| Lint       | ESLint 9、typescript-eslint                               |
 
-## 图标
+---
 
-图标库： `heroicons`
+## 3. 关键目录结构
 
-图标使用方法：
+```
+├── .pocketbase/              # PocketBase 数据库目录
+├── docs/                     # 项目文档（VitePress 站点）
+│   ├── .vitepress/           # 站点配置
+│   ├── assets/               # 文档图片
+│   ├── modules/              # 各业务模块说明
+│   └── logs/                 # 任务日志（YYYYMMDD-中文任务名.md）
+├── scripts/                  # 构建/部署脚本
+├── src/                      # pocketstack 项目源代码
+│   ├── assets/               # 静态资源
+│   ├── components/           # 公共组件与 layout
+│   │   ├── ui/               # shadcn/ui 组件（不要手写 UI）
+│   │   ├── layout/           # Header / Sidebar / MainLayout
+│   │   ├── auth-provider.tsx # 鉴权 Provider
+│   │   └── protected-route.tsx
+│   ├── lib/                  # 工具与 PocketBase 实例
+│   │   └── pocketbase.ts     # 全局 PocketBase 客户端
+│   ├── modules/              # 业务模块（自动注册路由、菜单、设置）
+│   │   ├── examples/         # 示例模块（curd、AiChat、BlogDetail…）
+│   │   ├── menu/             # 系统：菜单管理
+│   │   ├── modules/          # 系统：模块管理
+│   │   ├── settings/         # 系统：设置
+│   │   └── user/             # 系统：用户管理
+│   ├── pages/                # 顶层页面（Login、Profile、NotFound…）
+│   ├── App.tsx               # 路由根 + 自动导入 modules/*/routes.tsx
+│   └── main.tsx
+└── components.json           # shadcn 配置
+```
 
-```typescript
-import { BeakerIcon } from '@heroicons/react/24/outline'
+---
 
-function MyComponent() {
-  return (
-    <div>
-      <BeakerIcon className="size-6 text-primary" />
-      <p>...</p>
-    </div>
-  )
-}
+## 4. 模块（Module）开发约定
+
+每个业务模块放在 `src/modules/<module>/`，经典目录结构如下：
+
+```
+src/modules/{module}/
+├── migrations/            # PocketBase collection schema
+├── components/            # 模块专用组件
+├── Index.tsx              # 主页面入口
+├── routes.tsx             # 路由配置（自动注册）
+├── menu.ts                # 菜单配置（自动注册）
+├── settings.tsx           # 模块设置描述（可选，默认导出 ModuleSettings，自动注册系统设置 Tab）
+├── package.json           # 模块元数据
+├── types.ts               # 类型定义
+└── README.md              # 模块说明文档
+```
+
+**新增模块后路由、菜单和设置 Tab 会自动注册**，无需手动改主入口。
+
+- **目录命名**：kebab-case（`finance`、`notebooklm`）
+- **页面文件**：大驼峰 PascalCase
+- **页面路径**：`/{module}/{page}`，例如 `/finance/records`
+- **后端 collection 命名**：`{module}_subPageName`，例如 `finance_records`
+- **每个模块的 migrations/**：放置 PocketBase collection 的 JSON schema
+- **模块设置**：模块提供 `settings.tsx` 即在系统设置页注册一个 Tab，字段 key 自动加 `{module}_` 前缀存储；声明方式参考 `src/modules/examples/settings.tsx`
+
+---
+
+## 5. Skills
+
+`pocketstack`：PocketStack 全栈开发框架。初始化项目、创建模块、CRUD 页面、路由/菜单/权限、PocketBase collection、shadcn 组件、编译与浏览器测试。
+
+skill 的 references 下有：
+- `initialization.md`（初始化项目开发环境）
+- `module.md`（模块结构）
+- `frontend.md`（前端风格）
+- `routing.md`（路由与菜单）
+- `backend.md`（PocketBase 后端）
+- `testing.md`（编译与浏览器测试）
+- `example.md`（完整开发示例）
+
+---
+
+## 6. 示例模块功能列表
+
+示例模块（`src/modules/examples/`）包含以下页面，供开发时参考：
+
+### 管理后台页面（需登录，嵌套 MainLayout）
+
+| 页面 | 文件位置 | 说明 |
+|------|---------|------|
+| 仪表盘 | `src/modules/examples/Dashboard.tsx` | 数据可视化仪表盘，含统计卡片、趋势图表、饼图 |
+| 空页面 | `src/modules/examples/Blank.tsx` | 空白起始页面参考 |
+| 表格 | `src/modules/examples/Table.tsx` | 通用表格组件示例 |
+| CURD 示例 | `src/modules/examples/curd/Index.tsx` | 完整 CRUD 操作（表格列表 + 抽屉表单 + 抽屉详情 + 删除确认） |
+| 卡片 | `src/modules/examples/Card.tsx` | 卡片布局展示 |
+| 表单 | `src/modules/examples/Form.tsx` | 表单组件使用示例 |
+| AI 对话 | `src/modules/examples/AiChat.tsx` | AI 聊天对话界面 |
+| 加载中 | `src/modules/examples/Loading.tsx` | 加载状态示例 |
+| Markdown 编辑器 | `src/modules/examples/MarkdownEditor.tsx` | Markdown 编辑与实时预览 |
+| Markdown 渲染 | `src/modules/examples/MarkdownPreview.tsx` | Markdown 内容渲染展示 |
+| Iframe 示例 | `src/modules/examples/IframePage.tsx` | 内嵌 iframe 页面 |
+
+### 独立页面
+
+| 页面 | 文件位置 | 说明 |
+|------|---------|------|
+| 落地页 | `src/modules/examples/LandingPage.tsx` | 公开落地页，无需登录（游客可访问） |
+| 博客详情 | `src/modules/examples/BlogDetail.tsx` | 博客文章详情页（需登录） |
+
+### CURD 示例数据模型
+
+- Collection：`examples_posts`（迁移文件：`curd/migrations/examples_posts.json`）
+
+---
+
+## 7. 关键约定（必须遵守）
+
+- **UI 组件**：使用 `shadcn/ui`，通过 `shadcn-ui MCP` 添加，禁止手写新组件
+- **图标**：统一 `@heroicons/react/24/outline`
+- **颜色**：必须用 CSS 变量 `bg-primary` / `text-primary` 等，**禁止硬编码颜色**
+- **国际化**：纯中文（项目面向国内用户）
+- **代码风格**：函数组件 + Hooks；不要新增 class 组件
+- **PocketBase**：统一从 `src/lib/pocketbase.ts` 导入客户端
+- **表单**：使用 `react-hook-form`
+- **类型**：TypeScript 严格模式，禁用 `any`（除非必要需注释）
+- **日志**：完成任何任务都要在 `docs/logs/` 创建日志文件
+
+---
+
+## 7. 常用命令
+
+```bash
+pnpm install                  # 安装依赖
+pnpm dev                      # 启动本地，包括运行前端开发环境和pocketbase的启动
+pnpm build                    # 类型检查 + 生产构建
+pnpm lint                     # ESLint
+pnpm docs:dev                 # 启动 VitePress 文档
+pnpm docs:build               # 构建文档站点
+```
+
+---
+
+## 8. 测试与发布
+
+- **编译测试**：`pnpm build`，必须通过类型检查
+- **浏览器测试**：`Chrome DevTools MCP` 打开页面 → 截图 → 检查 console 是否有 error → 验证主要交互
+- **更新文档**：新增模块 / 修改约定需同步更新 `docs/modules/<module>.md`
+
+---
+
+## 9. 任务日志格式
+
+文件命名：`docs/logs/YYYYMMDD-中文任务名.md`
+
+模板：
+
+```markdown
+# <任务标题>
+
+## 背景
+为什么做这件事
+
+## 修改文件
+- 路径 1
+- 路径 2
+
+## 修改内容
+### <模块 / 文件>
+- 改动点 1
+- 改动点 2
+
+## 测试
+- 编译 / 浏览器验证结果
 ```
 
 ---
 > Source: [citywill/pocket-stack](https://github.com/citywill/pocket-stack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
