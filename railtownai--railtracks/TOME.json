@@ -2,8 +2,8 @@
   "name": "railtracks",
   "owner": "RailtownAI",
   "repo": "railtracks",
-  "description": "",
-  "type": "config",
+  "description": "An agentic framework that helps developers build resilient agentic systems",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "railtracks",
+      "path": ".claude/skills/code-style/SKILL.md",
+      "github_url": "https://github.com/RailtownAI/railtracks/tree/main/.claude/skills/code-style/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/RailtownAI/railtracks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T18:01:52Z"
+  "distributed_at": "2026-09-09T00:41:39Z"
 }
