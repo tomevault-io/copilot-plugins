@@ -4,7 +4,7 @@
   "repo": "rasenganjs",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -199,9 +199,159 @@
       "path": "docs/.agents/skills/vercel-react-best-practices/SKILL.md",
       "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/docs/.agents/skills/vercel-react-best-practices/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": ".agents/skills/rasengan-server/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/.agents/skills/rasengan-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-pages/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-config/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-routing/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-styling/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-pages/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-config/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-ecosystem/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-routing/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-styling/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-optimizing/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-optimizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-deployment/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-ecosystem/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-data-fetching/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-data-fetching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-optimizing/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-optimizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/rasengan-project-setup/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-deployment/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "packages/framework/futon/.claude/skills/run-futon/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/packages/framework/futon/.claude/skills/run-futon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-data-fetching/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-data-fetching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/rasengan-project-setup/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "apps/docs-v2/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rasenganjs",
+      "path": "packages/framework/rasengan-server/.claude/skills/run-rasengan-server/SKILL.md",
+      "github_url": "https://github.com/rasengan-dev/rasenganjs/tree/main/packages/framework/rasengan-server/.claude/skills/run-rasengan-server/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/rasengan-dev/rasenganjs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:09:40Z"
+  "distributed_at": "2026-09-09T19:36:39Z"
 }
