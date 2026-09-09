@@ -1,0 +1,14 @@
+{
+  "name": "celestiaorg--cips",
+  "displayName": "CIPs",
+  "description": "CIPs",
+  "version": "1.0.0",
+  "author": "celestiaorg",
+  "homepage": "https://github.com/celestiaorg/CIPs",
+  "skills": [
+    {
+      "name": "CIPs",
+      "description": ""
+    }
+  ]
+}
