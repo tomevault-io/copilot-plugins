@@ -1,0 +1,14 @@
+{
+  "name": "nicobailon--pi-subagents",
+  "displayName": "pi-subagents",
+  "description": "pi-subagents",
+  "version": "1.0.0",
+  "author": "nicobailon",
+  "homepage": "https://github.com/nicobailon/pi-subagents",
+  "skills": [
+    {
+      "name": "pi-subagents",
+      "description": ""
+    }
+  ]
+}
