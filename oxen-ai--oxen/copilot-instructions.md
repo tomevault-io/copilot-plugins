@@ -18,4 +18,4 @@ Load-bearing invariants:
 
 ---
 > Source: [Oxen-AI/Oxen](https://github.com/Oxen-AI/Oxen) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
