@@ -1,0 +1,82 @@
+{
+  "name": "dotnet--sdk",
+  "displayName": "sdk",
+  "description": "sdk",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/sdk",
+  "skills": [
+    {
+      "name": "generate-release-notes",
+      "description": ""
+    },
+    {
+      "name": "validate-static-web-asset-change",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "description": ""
+    }
+  ]
+}
