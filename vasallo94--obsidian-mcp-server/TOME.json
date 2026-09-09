@@ -1,0 +1,57 @@
+{
+  "name": "obsidian-mcp-server",
+  "owner": "Vasallo94",
+  "repo": "obsidian-mcp-server",
+  "description": "Vault-native MCP server for Obsidian: let Codex, Claude Code, Hermes, and other agents read, search, and safely manage your notes.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-workflow",
+      "path": ".agents/skills/git-workflow",
+      "github_url": "https://github.com/Vasallo94/obsidian-mcp-server/tree/main/.agents/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation-updater",
+      "path": ".agents/skills/docs-updater",
+      "github_url": "https://github.com/Vasallo94/obsidian-mcp-server/tree/main/.agents/skills/docs-updater",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Vasallo94/obsidian-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T07:16:16Z"
+}
