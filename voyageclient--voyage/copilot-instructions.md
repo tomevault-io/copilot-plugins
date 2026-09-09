@@ -1,0 +1,126 @@
+## voyage
+
+> This is a fork that targets Ice Cream Sandwich (API 14). Any new feature or code you add MUST run on API 14 — either natively or with an explicit fallback. Never introduce an unconditional dependency on an API that didn't exist at 14 without guarding it.
+
+# Platform support (Ice Cream Sandwich / API 14)
+
+This is a fork that targets Ice Cream Sandwich (API 14). Any new feature or code you add MUST run on API 14 — either natively or with an explicit fallback. Never introduce an unconditional dependency on an API that didn't exist at 14 without guarding it.
+
+- Before using a platform API, check its `@RequiresApi` / added-in level. If it's above 14, gate it with `Build.VERSION.SDK_INT` and provide a working path for API 14. A feature that silently no-ops on 14 is not acceptable unless that degradation is deliberate and documented in the code comment.
+- Prefer AndroidX/compat wrappers (e.g. `ContextCompat`, `ViewCompat`, `HtmlCompat`) and desugared `java.time`/NIO over raw framework calls, since those already backport behavior to 14.
+- Where it costs little, write code so it also works below 14 (down to the lowest the dependency allows) — choose the broadest-compatible API rather than the newest convenient one.
+- Don't bump `minSdk`, and don't pull in a library whose own `minSdk` exceeds 14. AndroidX raised its floor 14→19 in Oct 2023 (and 19→21 in 2024), so any new AndroidX artifact must stay on its last minSdk-14 release; the `resolutionStrategy.force` block in the root `build.gradle` pins the stack accordingly.
+- When a feature genuinely can't work on 14, the higher-API branch must be isolated behind a version check and the 14 branch must still leave the app usable.
+
+# Vector drawables
+
+`<vector>` is API 21+. Below that only AppCompat can inflate one, and it never gets the chance if the framework resolves the resource first — the platform throws `XmlPullParserException: invalid drawable tag vector`, which surfaces as `InflateException: Error inflating class ImageView` and kills the screen. `vectorDrawables.useSupportLibrary = true` and `setCompatVectorFromResourcesEnabled(true)` do NOT cover these cases.
+
+So, whenever the drawable you are referencing is a `<vector>` (check the file — most `ic_*` in `res/drawable/` are):
+
+- In layouts, never `android:src`, `android:background`, `android:foreground` or `android:drawableStart`/`End`/`Left`/`Right`/`Top`/`Bottom`. Use `app:srcCompat` (on `ImageView`/`ImageButton`) and `app:drawableStartCompat` and friends (on `TextView` and subclasses), and add `xmlns:app="http://schemas.android.com/apk/res-auto"` if the file lacks it. There is no compat attribute for a background — use a PNG or set it from code with `AppCompatResources.getDrawable()`.
+- The same ban applies in styles and themes: a `<style>` that sets `android:background` to a vector crashes identically.
+- Never nest a vector inside a framework-inflated container drawable — a `<selector>`, `<layer-list>`, `<inset>` or `<ripple>` whose `android:drawable` item points at one. AppCompat's delegate only handles a `<vector>` at the XML root.
+- In code, `setImageResource()` / `setBackgroundResource()` / `setCompoundDrawablesWithIntrinsicBounds(int, …)` all go straight to the framework. Use `AppCompatResources.getDrawable(context, R.drawable.x)` and pass the `Drawable`, or `ImageViewCompat`.
+- Menu XML `android:icon` is fine — AppCompat's menu inflater already resolves icons through `AppCompatResources`.
+
+The same trap exists in code for any framework method added after API 14 — `View.setBackground` (16), `ImageView.getAdjustViewBounds` (16), `AbsSeekBar.getThumb` (16), the `AssetFileDescriptor`/`Cursor` `Closeable` implementations (19/16). R8 outlines these into `$$ExternalSyntheticApiModelOutline` calls that throw `NoSuchMethodError` on ICS. `im.vector.app.core.extensions.ApiCompatExtensions` holds the shims (`backgroundCompat`, `adjustViewBoundsCompat`, `thumbCompat`, `useCompat`, …) — add to it rather than writing a one-off guard, and note that `background = …` inside an `apply { }` block is the same call with the receiver hidden.
+
+`./gradlew :vector-app:lintRelease` finds all of these; read the `NewApi` entries for `.kt`/`.java` files in `vector-app/build/reports/lint-results-release.xml`. Resource `NewApi` hits are mostly noise (unknown XML attributes are ignored at runtime), and lint misses nothing that desugaring covers, so triage code hits first.
+
+Audit before committing a layout change:
+
+    grep -rn 'android:\(src\|background\|foreground\|drawable\(Start\|End\|Left\|Right\|Top\|Bottom\)\)="@drawable/' --include=*.xml */src/*/res/layout*/
+
+and check whether each hit's drawable file starts with `<vector`.
+
+# Strings
+
+New strings always go into `library/ui-strings/src/main/res/values/donottranslate.xml` with `translatable="false"`. Do not add them to `strings.xml` — that file is the source for translation pipelines and stale entries cause AAPT warnings ("removing resource X without required default value") across every locale.
+
+# Copyright headers
+
+Every file this fork creates gets exactly this header, verbatim, as the first thing in the file:
+
+```
+/*
+ * Copyright 2026 Voyage Client
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ * Please see LICENSE files in the repository root for full details.
+ */
+```
+
+- The holder is "Voyage Client" — never "New Vector Ltd.", "The Matrix.org Foundation C.I.C.", or anything else.
+- AGPL-3.0-only, on its own. Never `OR LicenseRef-Element-Commercial`; the Element commercial license does not apply to our code.
+- Never Apache-2.0, even for new files under `matrix-sdk-android/` where the surrounding upstream files use it. Don't copy a neighboring file's header when creating a file — write this one.
+- Only for files we created. Files that came from upstream Element, from another project (SchildiChat, AOSP, Markwon/jsoup, openpgp-api, …), or that are mostly upstream code moved or split into a new path keep their original header untouched. Editing an upstream file does not relicense it.
+
+# Comments
+
+Default to no comment when writing code. Only write one when the WHY is non-obvious (hidden constraint, upstream-bug workaround, surprising behavior). Don't narrate what the code does or restate the diff in code comments. Identifiers and types already say what; comments are only for what they can't. No multi-paragraph kdoc on internal helpers. Note that this does not apply to dialogue, please do describe what changes you are making.
+
+# Home / room-list layouts
+
+There are TWO room-list layouts, gated by `SETTINGS_LABS_NEW_APP_LAYOUT_KEY` (`isNewAppLayoutEnabled()`):
+
+- Legacy (flag off): `HomeDetailFragment` → `RoomListFragment` → `RoomListViewModel` + `RoomListSectionBuilder` (sectioned list, e.g. People/DMs, Rooms, Favourites).
+- New (flag on): `NewHomeDetailFragment` → `HomeRoomListFragment` → `HomeRoomListViewModel` (single filtered list).
+
+Any change to room-list behavior (display, sorting, refresh, item rendering) MUST be implemented for BOTH paths, or it will silently do nothing on whichever layout the user runs. Don't assume one layout.
+
+# Versioning
+
+The app version lives in TWO places that must both be bumped in sync:
+
+- `vector-app/build.gradle` — `ext.versionPatch` (with `versionMajor`/`versionMinor` above it). Max 2 digits per field. Even patch values are regular releases, odd are hotfixes.
+- `matrix-sdk-android/build.gradle` — the `SDK_VERSION` buildConfigField string (e.g. `"1.6.62"`).
+
+# Building
+
+Two install variants:
+- `./gradlew :vector-app:installDebug` — fast, unshrunk, debuggable build (package `im.voyage.app.debug`). Runs on KitKat+ and modern devices; prefer it for normal iteration. It does NOT run on ICS (API 14/15): the unshrunk class set overflows Dalvik's 8MB LinearAlloc there.
+- `./gradlew :vector-app:install` (alias for `installRelease`) — the R8-shrunk RELEASE build (package `im.voyage.app`, debug-signed). R8/optimize cuts the class/method count enough to fit ICS's LinearAlloc, so use this for the ICS device. After a layout edit, run with `--no-build-cache` after `rm -rf vector-app/build vector/build` (stale databinding otherwise).
+
+(The old `gplay`/`fdroid` product flavors were removed — the fork is F-Droid-only — so there is no `installFdroidDebug` task; the source set merged into `src/main`.)
+
+To quickly check that code compiles without building/installing the whole app (no device needed), use ./gradlew :vector:compileDebugKotlin.
+
+# Debugging on device
+
+The installed fdroid-debug package is `im.voyage.app.debug` (NOT `im.vector.app.debug`). Use that for `am start`, `pidof`, logcat filters, etc.
+
+To launch the app programmatically, always use the explicit entry activity:
+
+    adb shell am start -n im.voyage.app.debug/im.vector.application.features.Alias
+
+(release build: `im.voyage.app/im.vector.application.features.Alias`). Do NOT launch via `monkey -c android.intent.category.LAUNCHER` — debug builds contain a second launcher activity (LeakCanary's `LeakLauncherActivity`), and monkey may open that instead of the app.
+
+The app takes ~45 seconds to start. When launching it (e.g. to read logs after an install), always wait at least 45s before checking for output.
+
+NEVER take device screenshots (no `adb screencap`, no `adb exec-out screencap`, no driving the UI to capture a screen) unless the user explicitly asks for one in that message. To verify behaviour, prefer reading logcat; let the user drive the UI and trigger flows themselves.
+
+While debugging, if you are unsure of what could be causing a particular problem, do not make blind guesses unless there is a high likelihood you are correct. You should feel free to make guesses on the first or second attempt, but if you still have not resolved the issue then you should add as much logging as possible to every part of the program to find out the exact cause for something. This is primarily necessary when debugging UI-related problems, and may not be as useful in other contexts.
+
+NEVER remove temporary debug-related logging until either the problem has been resolved, and/or you were asked to review the changes.
+
+# Reviewing changes
+
+When asked to review, review the entire diff since the last git commit — not just the most recent edit. Go through all of it and check for: dead or unreachable code, stale/unnecessary/narrating comments, bugs and logic errors, and anything that would break on the minimum supported API (currently Ice Cream Sandwich / API 14) — verify it genuinely runs there, not just that it compiles. If the diff touches a layout, style or drawable, run the vector-drawable audit above — resources compile fine and blow up at inflation time on device. Don't only report problems: if you spot improvements worth making to the changed code, make them.
+
+Also during review, compact overly verbose comments down to the minimal non-obvious WHY. And delete comments that only make sense relative to uncommitted history — i.e. notes explaining a fix for a problem we introduced earlier in this same uncommitted batch, or contrasting against "how this used to be handled" when that prior state was never committed. To an outside observer reading the committed code fresh, such comments are meaningless; the code should read as if it was always written this way.
+
+# Changelog
+
+The full per-commit changelog lives only in the commit message: a concise imperative subject line followed by a body describing the changes. Every body item MUST start with `- ` — NEVER write a paragraph that does not begin with `- `. Put a blank line between each `- ` entry. Do not write per-commit changelog fragments to any file (no `changelog.d/`).
+
+`CHANGES.md` is a separate, curated highlights list — NOT a per-commit log. When you land a change worth surfacing to users, add it there too:
+
+- Include new **features**, user-facing **improvements**, notable **feature removals**, and **significant bugfixes** (crashes, freezes, data loss, can't-log-in / can't-send). Do NOT list routine bugfixes, and do NOT list a fix for a regression we introduced ourselves (fixing our own not-yet-released breakage is not a changelog-worthy bugfix).
+- Group related entries by area and place your new entry next to similar ones; within that, lead with the most impactful. User-facing entries come first (under `## Features & improvements`, with `### Removals` / `### Branding` subsections), then technical/under-the-hood changes (`## Under the hood`), then `## Significant bugfixes`.
+- Do not mention specific app version numbers or upstream-sync versions.
+- One `- ` bullet per entry with a short bold lead-in followed by a colon, e.g. `- **Message pinning**: …`. Never an em dash, there or anywhere else in the file.
+
+---
+> Source: [VoyageClient/Voyage](https://github.com/VoyageClient/Voyage) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
