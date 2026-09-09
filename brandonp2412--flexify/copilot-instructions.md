@@ -1,6 +1,15 @@
 ## flexify
 
-> - ALWAYS read the Drift documentation at https://drift.simonbinder.eu/docs/ before modifying schemas or queries.
+> - Before considering any work complete, run all of the following and ensure they pass:
+
+# Required Flutter Completion Checks
+
+- Before considering any work complete, run all of the following and ensure they pass:
+  1. `dart format .`
+  2. `flutter analyze`
+  3. `flutter test`
+- If the repository pins Flutter in a local `flutter/` SDK or submodule, use the pinned equivalents: `flutter/bin/dart format .`, `flutter/bin/flutter analyze`, and `flutter/bin/flutter test`.
+- Do not report work as completed while any of these checks are failing. Fix failures caused by the work; if a required check cannot be run, explicitly report why.
 
 # Drift Database Rules
 - ALWAYS read the Drift documentation at https://drift.simonbinder.eu/docs/ before modifying schemas or queries.
@@ -14,22 +23,14 @@
 - Before implementing features for a package, use the browser tool to read the latest README and API docs on `https://pub.dev/packages/[PACKAGE_NAME]`.
 - Note: Your Flutter MCP is for the SDK; use the browser for community packages like Drift, Riverpod, etc.
 
-# Quality Standards (Definition of Done)
-- Before completing any task, you MUST ensure these commands pass:
-  1. `dart format lib test`
-  2. `flutter analyze`
-  3. `flutter test`
-
 # Git & Version Control
-- **Completion Protocol**: When a task is successful and all quality checks (tests/analyze) pass, you MUST commit the work.
+- **Completion Protocol**: When a task is successful, you MUST commit the work.
 - **Commit Format**: Use the [Conventional Commits](https://www.conventionalcommits.org/) standard (e.g., `feat:`, `fix:`, `chore:`).
 - **Commit Message**: Write a concise title (50-72 chars) and a bulleted list in the body if the changes are complex.
 - **The "Give Up" Rule**: If the task fails, or you are unable to resolve the errors after reasonable attempts:
   - DO NOT stage or commit any changes.
   - Leave the files as-is in the working directory for the user to review.
   - Inform the user exactly where you got stuck and why you are stopping.
-- **Pre-Commit Check**: Never commit code that breaks `flutter analyze` or `flutter test` unless explicitly told the task is a "work in progress."
-
 # Documentation & Commenting Standards
 - **Minimalist Comments**: Avoid comments that describe what the code is doing. If the code is unclear, refactor the code to be self-documenting using descriptive variable and function names.
 - **The "External Knowledge" Exception**: Comments are REQUIRED when implementing logic derived from external formulas, non-obvious business rules, or academic papers (e.g., explaining the Brzycki formula in Flexify's 1RM calculations). 
@@ -39,4 +40,4 @@
 
 ---
 > Source: [brandonp2412/Flexify](https://github.com/brandonp2412/Flexify) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
