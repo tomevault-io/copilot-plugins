@@ -1,0 +1,9 @@
+{
+  "name": "pluralisresearch--stoa",
+  "displayName": "stoa",
+  "description": "RL post-training with your Apple-silicon Macs as the rollout fleet: Mac workers generate experience, GPUs learn, synced over Cloudflare R2",
+  "version": "1.0.0",
+  "author": "PluralisResearch",
+  "homepage": "https://github.com/PluralisResearch/stoa",
+  "skills": []
+}
