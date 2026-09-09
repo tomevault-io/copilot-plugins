@@ -2,9 +2,9 @@
 
 > > 当前阶段: 见 MEMORY/FACTS.MD
 
-# CLAUDE.md — JhiFengMultiChat（极峰多聊）
+# AGENTS.md — JhiFengMultiChat（极峰多聊）
 
-> 最后更新: 2026-07-31
+> 最后更新: 2026-08-16
 > 当前阶段: 见 MEMORY/FACTS.MD
 > 记忆系统: MEMORY/（MEMORY.md + DECISIONS.MD/TODOS.MD/FACTS.MD/DEV_LOGS.MD）
 
@@ -34,12 +34,10 @@
 | HTTP | `java.net.http.HttpClient`（JDK 内置） |
 | 加密 | `javax.crypto.Cipher`（AES/CBC/PKCS5Padding） |
 | 异步 | `ExecutorService` → `Platform.runLater` → `executeScript` |
+| 事件 | 自建 EventBus（`core` 包，观察者模式，数据更新↔UI刷新解耦） |
 | 图标 | MCP 服务器 `mcp-universal-icons` + `icons-mcp`（`.mcp.json`） |
 | JNA | 5.14.0 (`jna` + `jna-platform`)，用于 Windows API 调用 |
 | 测试 | JUnit 5.10.2 + Mockito 5.10.0 |
-
----
-
 
 ---
 
@@ -85,6 +83,8 @@ gradle build --no-daemon                   # 完整构建
 - SSL 握手 — 打包版 handshake_failure
 - LoggerUtils.java — 待移植
 - Handle 操作 — JNA 仿照 pywinhandle.py 重写约 300-500 行
+- 登录状态 UI 接入 — 数据已自动维护落库（EventBus 流A），界面未展示
+- 其余账号操作的事件驱动迁移 — 删除/批量/头像/快捷键等按 EventBus 流B 增量迁移
 
 ---
 
@@ -104,7 +104,7 @@ gradle build --no-daemon                   # 完整构建
 
 - **背景**: 账号列表头像不显示，需将 Java 版本调整至与旧版 Python 一致的行为，同时适配用户可设置的自定义数据目录
 - **新增**: `AvatarUtils.java` — 核心逻辑封装，获取顺序：本地文件 `{userDir}/{sw}/{acc}/{acc}.jpg` → URL 下载（以 `/0` 结尾）→ SVG 文字头像回退
-- **路径使用**: `ConfigManager.getInstance().getUserataPath()` 支持用户设置的数据目录
+- **路径使用**: `ConfigManager.getInstance().getUserDataPath()` 支持用户设置的数据目录
 - **JsBridge** 中 `getAccountGroupData()` 改单行调用 `AvatarUtils.getAvatarDataUrl()`
 - **CSS 调整**: `.manage-account-avatar` `border-radius` 从 `50%` → `6px`（圆角矩形）
 - **SVG 文字头像**: 深灰背景 `#555` + 白色首字母，圆角矩形 `rx=6`
@@ -131,6 +131,62 @@ gradle build --no-daemon                   # 完整构建
 - **Launcher.java**: `jfmultichat.logdir` 设为 main 首行语句（任何 Logger 前）
 - **设置页新增"日志"子项**: 打开日志目录 + 预留"上传日志"按钮；日志目录固定 `AppPaths.getLogsDir()`（`%APPDATA%\JhiFengMultiChat\{ver}\{Dev?}UserFiles\logs`，按 Dev/Prod 模式自动切换，不随用户配置）
 
+### 账号展示名显示（2026-08-01，commit `c2561a4`）
+
+- 账号列表"昵称"列头改为空白（讨论中用"展示名"列代表），`data-sort` 改 `display_name`
+- `JsBridge.getSwDetailData` 每账号注入 `display_name` = `AccInfoFuncCore.getAccOriginDisplayName`（remark → nickname → alias → 账号 ID）
+- `main.js`：展示名列/头像首字符/排序均改用展示名（前端兜底 `nickname`/`id`）
+
+### SwAccData 账号自动填充（2026-08-01，commit `c2561a4`）
+
+- `AccInfoFuncCore.syncSwAccAccounts(sw, accountIds)` — 遍历磁盘扫描账号列表，SwAccData 缺失节点自动补空
+- `JsBridge.getSwExistedAccounts` 取得列表后调用（进入平台页即触发）
+
+### EventBus 事件机制（2026-08-01）
+
+- **新增 `core` 包**: `EventBus` 单例（subscribe/publish）+ `event/PlatformEnteredEvent`、`event/AccountDataChangedEvent`
+- **流A 平台进入自动维护**: `selectPlatformInternal` 顶部 → `notifyPlatformEntered(swId)` → `PlatformEnteredEvent` → 后台执行登录态维护（`AccInfoFuncCore.resolvePidAccountMap` → `associateCoexistAccounts` → `updateAccLoginData`，拆分自原 god-method `getSwAccountsLoginStatus`，原方法保留为门面）
+- **流B 数据更新定向刷新**: `saveAccount` 更新 SwAccData 后发布 `AccountDataChangedEvent` → UI 订阅者 `pushAccountDataChanged` → `JFC.bridge._onAccChanged` → `main.js onAccountChanged` 仅更新对应行/格（隐藏/禁用→徽章、展示名、头像），不再整表重渲染；`toggle-hidden` 已迁移为事件驱动
+- **装配**: `PlatformEventBootstrap.install(bridge)`（MainApp.start 调用）
+- **NPE 修复**: `updateAccLoginData` 的 `Map.of(PID, pid, ...)` 因 pid 为 null 抛 NPE → 改 `HashMap`（`updateAccount` 对 null 移除键）；relay 读回 `pidMutexNode.get(pid)` 判空
+
+### 账号列表列定制与交互升级（2026-08-16）
+
+- **7 列结构**: 勾选框（行悬浮才短暂显示，`opacity:0`+`pointer-events:none`）/头像/展示名（右端悬浮操作按钮：隐藏选中态+删除，禁用小标签）/快捷键（点击激活输入框，keydown 捕获组合键，存 SwAccData.hotkey）/ID/平台内ID（`alias`）/昵称（`nickname`）；移除原"状态"/"操作"两列
+- **列头右键菜单**（Windows 资源管理器风格）: 勾选显示列（勾选框/头像/展示名/快捷键 4 列必选锁定；ID 默认显示；alias/nickname 默认隐藏）+ "所有列自适应大小"/"该列自适应大小"（临时 span 测量文本宽度）
+- **列间竖线拖拽**: `table-layout: fixed` + colgroup，每个可见列 th 右侧注入 `.col-resizer`（7px 热区 + ::after 竖线），拖拽调宽最小 30px，最后可见列不加
+- **行右键菜单**: 隐藏/显示、删除（与悬浮按钮同走 `handleAccountAction`）
+- **排序标识**: 去掉 " ↕" 字符，当前排序列 th 加 `.sorted`（主题色+加粗）
+- **持久化**: 列显示/宽度存 `LocalGlobalConfig.json.account_columns = {visible, width}`（`getGlobalConfig`/`saveGlobalConfig`）
+- **onAccountChanged 扩展**: 新增 `hotkey`/`alias`/`nickname` 字段定向更新；状态变化走 `updateRowQuickActions`（按钮选中态/禁用标签，原 stateBadgeHtml 删除）
+- **事件委托防重复绑定**: thead/tbody 的 contextmenu、tbody click（快捷键激活）绑在 `bindManageEvents`（一次性），不在每次 render 的 `bindAccountEvents` 里重复 addEventListener
+
+### 四表架构与可复用组件（2026-08-16 第二轮）
+
+- **可复用组件 `JFC.AccountTable`**（`js/components/account-table.js`）: 列定义驱动渲染（任意列组合），含标题行/批量操作/列头右键菜单/列宽拖拽/自适应/行右键菜单/快捷键列编辑/流B 定向刷新；构造参数 `{id, title, container, columns, enableHotkey, defaultSortField, getSwId}`；列配置按表独立持久化 `account_columns.<tableId>`
+- **四个表**: 原生程序（勾选框/名称/路径/状态，空）/原生账号（7 列，`getSwExistedAccounts(swId,'origin')`）/共存账号（7 列，空）/无效账号（勾选框/展示名/ID/无效原因，空）
+- **标题行**: 常显，标题左端 + "已选 N 项"/批量按钮右侧（未选中隐藏）
+- **固定列**: 勾选框/头像 `fixed: true`（不可拖拽/自适应），其间与右侧竖线移除；头像圆角矩形 6px
+- **快捷键录入修复**: `document mousedown` 提交替代 blur 同步提交（消除 DOM 竞态假死）；**Java Scene 级 EventFilter 兜底**（`JsBridge.notifyHotkeyCapture` → `JFC.bridge._onHotkeyCapture`，WebView 收不到的带修饰组合键由 Java 捕获；OS 级全局热键占用仍无法拦截）
+- **NPE 修复**: `AccInfoFuncCore.getSwAllAccountsExisted` 传 `AccOpsProvider.toSwProvider()`（原 null 导致流A 共存分支 NPE）
+- **列宽自适应**: 下限 = 列名宽 + 余量（展示名列 = 4 字符 + 按钮占位），无上限；表格宽度恒 = 可见列宽总和（列宽独立、超宽横向滚动）；固定列（勾选框/头像）绝对固定
+
+### 账号列表交互打磨与滚动条体系（2026-08-16 晚间）
+
+- **滚动条体系（核心难点）**: JavaFX WebView 原生滚动条不可靠——overlay 风格（鼠标悬停才显示）、纵向需手动触发才出现、带上下箭头、不随深浅主题 → 统一改用**自定义 overlay 滚动条**（DOM 元素 `attachCustomScrollbar`）：
+  - 不占位不撑高（absolute 定位）、5px 胶囊圆角、无箭头、深浅色适配（`--divider-solid` 同源半透明灰）
+  - 显示条件 = **内容溢出** + 鼠标在内容区或滚动条上；移出 600ms 隐藏；在滚动条上不隐藏；滚动/拖拽时显示
+  - **挂在滚动容器父级**（absolute 子元素是滚动内容的一部分，挂容器内会被内容带着滚走）；rAF 逐帧检测位置（JavaFX scroll 事件不可靠）+ 拖拽即时刷新
+  - 三处统一：表内横向 / 账号区域纵向 / 设置区域纵向
+- **高度链锁定（关键）**: 内容撑宽/撑高导致无滚动条、列宽联动、设置区域被拉宽——根因是 flex/grid 交叉轴 `min-width:auto` 与主轴 `min-height:auto`。最终方案：`#page-main .manage-layout` 用 **flex column** + `.manage-detail-area` `flex:1; min-height:0; min-width:0; overflow:hidden` + 表容器链 `min-width:0`；走过弯路：grid `1fr` 被 `#page-main` 高特异性规则覆盖、block 布局破坏纵向
+- **设置区域滚动条根因**: `animatePanelHeight` 动画期间 `content.style.maxHeight='none'`（让面板能撑高）但动画后未恢复 → content 高度=内容高永不溢出。修复：动画结束（setTimeout 400ms 兜底，JavaFX transitionend 不可靠）恢复 `content.maxHeight = targetHeight`
+- **列宽**: 表格宽度 = 可见列宽总和（px，绝不填充容器，否则 fixed layout 按比例拉伸列）；固定列 `_loadColumnPrefs` 强制 defWidth（不读持久化）；"该列自适应"只改本列
+- **整行悬浮高亮**: JS 高亮层 `.acc-row-highlight`（mousemove 委托匹配任意 tr，含空表空行）；**移除 `tr:hover` 背景**避免与高亮层叠加导致列区域/剩余区域颜色不一致
+- **分割线**: 设置/账号区域分界线 + 窗帘把手统一用 `--divider-solid`（背景+半透明混合的**不透明等效色**，深 `#2c2c2c`/浅 `#d4d4d4`），避免半透明叠加区两次变深
+- **细节**: 空表行高 ≤ 数据行（删旧 `.manage-empty-row td` padding 覆盖）、"暂无数据"居左（不同表合并列宽不同，居中位置不一致）；头像列不显示列名、展示名列改名"名称"；右键菜单扩展覆盖滚动容器空白区域（无"该列自适应"项）
+- **NPE 修复**: `AccOpsProvider.toSwProvider().updateSwAccData` 误取 map value（空串）→ 改取 key（共存分支写错账号）；`SwAccountOps.ensureCoexistAccFormatted` 的 `Map.of("linked_acc", null)`（Map.of 禁 null）→ HashMap
+- **规则文件**: 项目 `CLAUDE.md` → `AGENTS.md`（DSH/CC 通用约定，DSH 默认候选 `["AGENTS.md","CLAUDE.md"]`）；全局规则在 `~/.dsh/AGENTS.md`（DSH 全局仅认 AGENTS.md，不读 `~/.claude/CLAUDE.md`）
+
 ---
 
 ## 十、关键技术参考
@@ -149,6 +205,30 @@ gradle build --no-daemon                   # 完整构建
 
 ### 六级路径探测策略
 内存映射正则 > 注册表 > 猜测 > 进程 > 其他SW > DLL遍历。由 `SwPathDetective.detectAll()` 并发执行，支持超时保护。`swcore` 包内部详细说明。
+
+### 账号展示名（自 2026-08-01）
+`AccInfoFuncCore.getAccOriginDisplayName(sw, acc)` — remark → nickname → alias → 账号 ID。`JsBridge.getSwDetailData` 每账号注入 `display_name`，前端展示名列/头像首字符/排序均用之。
+
+### EventBus 事件机制（自 2026-08-01）— 新增数据操作逻辑的标准路径
+
+**核心**: 数据更新与 UI 刷新解耦。账号/平台数据更新操作写库后发布事件，UI 订阅者自动定向刷新对应 UI 块，**不再整表重渲染**。
+
+**新增一条「账号字段更新」操作的标准步骤**:
+1. **Java 写库后发布事件**: 更新方法中 `ConfigManager.getInstance().updateAccount(...)` 之后加 `EventBus.getInstance().publish(new AccountDataChangedEvent(swId, accountId, changedMap))`（changedMap = 本次更新的字段 map）
+2. **前端定向更新**: 在 `main.js` 的 `onAccountChanged(payload)` 中按 `payload.changed` 字段处理对应单元格——`hidden`/`disabled` → `updateRowStateBadge`、`display_name` → `.manage-nickname-cell`、`avatar_url` → `updateAccountAvatarCell`；未知字段忽略（幂等）
+3. **无需改装配**: `PlatformEventBootstrap` 已注册流B订阅，自动推送
+
+**新增一条独立数据需求（如登录态 UI、HWND 等）**:
+1. 在 `core/event/` 包定义新事件（record）
+2. 发布点发布；`PlatformEventBootstrap.install` 中 `EventBus.getInstance().subscribe(事件类, 处理器)` 注册
+3. 耗时处理放 `JsBridge.runInBackground()`（共享 THREAD_POOL），UI 推送用 `pushToJs`（内部 Platform.runLater）
+
+**关键实现**:
+- `com.jfmultichat.core.EventBus` — 单例，`ConcurrentHashMap<Class, CopyOnWriteArrayList<Consumer>>`，单个订阅者异常不拖垮其它；publish 在调用方线程同步分发
+- 事件: `PlatformEnteredEvent(swId)` / `AccountDataChangedEvent(swId, accountId, changed)`
+- Java→JS 主动推送: `JsBridge.pushAccountDataChanged` → `JFC.bridge._onAccChanged(json)`（**双编码**，见教训 #45）→ `JFC.pages.main.onAccountChanged`
+- JS→Java 触发: `JFC.bridge.notifyPlatformEntered(swId)` → `JsBridge.notifyPlatformEntered` → 发布 `PlatformEnteredEvent`
+- 登录态维护管线（流A）: `AccInfoFuncCore.resolvePidAccountMap` → `associateCoexistAccounts` → `updateAccLoginData`（原 `getSwAccountsLoginStatus` god-method 拆分）
 
 ---
 
@@ -203,7 +283,8 @@ gradle build --no-daemon                   # 完整构建
 47. **logdir 属性需在首次 `LoggerFactory.getLogger()` 前设置** → Launcher 将 `System.setProperty("jfmultichat.logdir", AppPaths.getLogsDir().toString())` 放在 main 首行；`AppPaths`/`AppEnv`/`AppVersion` 均无 Logger，可在 pre-init 安全读取路径
 48. **后台会话 worktree 隔离可关闭** → `.claude/settings.json` 设 `"worktree": {"bgIsolation": "none"}` 后后台会话可直接编辑主目录文件（需用户授权；该文件被 gitignore，仅本地）
 49. **日志目录固定根配置位置** → 设置页打开/显示日志目录用 `AppPaths.getLogsDir()`（`%APPDATA%\JhiFengMultiChat\{ver}\{Dev?}UserFiles\logs`），不随用户自定义数据目录；与 logback 实际写入位置一致
+50. **`Map.of` 不允许 null 键/值** → 写账号数据回写时 `Map.of(PID, pid, ...)` 因未运行账号 pid 为 null 直接 NPE（`ImmutableCollections$MapN` 构造器 `Objects.requireNonNull`）。必须用 `HashMap`；`ConfigManager.updateAccount` 对 null 值会移除该键（未运行账号不存 pid，语义正确）。同理对 `JsonNode.get(key)` 结果先判空再 `.asBoolean`
 
 ---
 > Source: [wfql1024/MultiWeChatManager](https://github.com/wfql1024/MultiWeChatManager) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
