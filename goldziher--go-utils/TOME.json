@@ -1,0 +1,93 @@
+{
+  "name": "go-utils",
+  "owner": "Goldziher",
+  "repo": "go-utils",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-utils",
+      "path": ".ai-rulez/skills/development-workflow/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.ai-rulez/skills/development-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".ai-rulez/skills/project-architecture/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.ai-rulez/skills/project-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".ai-rulez/skills/usage-patterns-and-examples/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.ai-rulez/skills/usage-patterns-and-examples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".claude/skills/iterate/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.claude/skills/iterate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".claude/skills/parallelize/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.claude/skills/parallelize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".claude/skills/development-workflow/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.claude/skills/development-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".claude/skills/project-architecture/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.claude/skills/project-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-utils",
+      "path": ".claude/skills/usage-patterns-and-examples/SKILL.md",
+      "github_url": "https://github.com/Goldziher/go-utils/tree/main/.claude/skills/usage-patterns-and-examples/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Goldziher/go-utils",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:43:44Z"
+}
