@@ -3,8 +3,8 @@
   "owner": "Nice3point",
   "repo": "RevitToolkit",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "RevitToolkit",
+      "path": ".agents/skills/revit-toolkit-internals/SKILL.md",
+      "github_url": "https://github.com/Nice3point/RevitToolkit/tree/main/.agents/skills/revit-toolkit-internals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RevitToolkit",
+      "path": ".agents/skills/revit-toolkit-analyzers/SKILL.md",
+      "github_url": "https://github.com/Nice3point/RevitToolkit/tree/main/.agents/skills/revit-toolkit-analyzers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RevitToolkit",
+      "path": ".agents/skills/revit-toolkit-backward-compat/SKILL.md",
+      "github_url": "https://github.com/Nice3point/RevitToolkit/tree/main/.agents/skills/revit-toolkit-backward-compat/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Nice3point/RevitToolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T11:14:47Z"
+  "distributed_at": "2026-09-09T01:19:19Z"
 }
