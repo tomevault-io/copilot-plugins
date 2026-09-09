@@ -1,0 +1,9 @@
+{
+  "name": "vercidium-audio--vaudio-unreal",
+  "displayName": "vaudio-unreal",
+  "description": "Unreal Engine plugin for Vercidium Audio",
+  "version": "1.0.0",
+  "author": "vercidium-audio",
+  "homepage": "https://github.com/vercidium-audio/vaudio-unreal",
+  "skills": []
+}
