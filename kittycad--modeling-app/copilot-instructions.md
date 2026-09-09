@@ -1,24 +1,19 @@
 ## modeling-app
 
-> Files under `public/kcl-samples` are user-facing, current KCL examples. Write
+> This file applies to all work in this repository. More-specific `AGENTS.md` files supplement it with guidance for their directories.
 
-# Modeling-app agent notes
+# AGENTS.md (Repository)
 
-## Current KCL samples
+## Scope
 
-Files under `public/kcl-samples` are user-facing, current KCL examples. Write
-constraint-based sketch blocks with `sketch(on = ...) { ... }`, build closed
-profiles with `region(...)`, and use `faceOf(...)` for sketching on solid faces.
+This file applies to all work in this repository. More-specific `AGENTS.md` files supplement it with guidance for their directories.
 
-Do not use deprecated profile-pipe sketch APIs in current samples, including
-`startSketchOn`, `startProfile`, `xLine`, `yLine`, `angledLine`,
-`tangentialArc`, or `close()`. Do not pass a sketch or surface as a positional
-argument to `circle`, `rectangle`, or `polygon`; define those segments inside
-a sketch block. Compatibility examples belong under `public/kcl-samples-legacy`.
+## Pull requests
 
-Format and lint every changed KCL file with Zoo CLI. Execute and visually
-compare affected samples before claiming that their geometry is preserved.
+- Keep PR descriptions focused on information useful to reviewers: what changed, why, risks, and any non-obvious behavior or testing context. Do not add boilerplate validation sections listing routine tests, lints, or formatters; CI already reports those. Mention validation only when it adds specific, reviewer-relevant information.
+- Open agent-created PRs as drafts and leave them in draft until the human who requested the work has self-reviewed them and marked them ready. At minimum, CI should be passing before the PR leaves draft.
+- Do not modify CI configuration merely to make a feature or fix PR pass. Fix the implementation or tests instead. If the CI configuration itself is wrong, raise a separate issue and address it in a separate PR.
 
 ---
 > Source: [KittyCAD/modeling-app](https://github.com/KittyCAD/modeling-app) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
