@@ -1,0 +1,44 @@
+{
+  "name": "midori-companion-avatar",
+  "owner": "tosya301",
+  "repo": "midori-companion-avatar",
+  "description": "\u660e\u524d\u5976\u7eff\u7684\u975e\u5b98\u65b9\u3001\u975e\u5546\u4e1a\u7c89\u4e1d\u9879\u76ee\uff1a\u672c\u5730\u7f51\u9875 AI Companion Avatar\uff0c\u652f\u6301\u97f3\u9891\u53e3\u578b\u3001\u52a8\u6001\u7acb\u7ed8\u3001\u6f02\u6d6e\u56fe\u6807\u3001\u6b4c\u8bcd\u89c6\u89c9\u4e0e\u901a\u7528 Agent \u63a5\u5165",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tosya301/midori-companion-avatar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:50:56Z"
+}
