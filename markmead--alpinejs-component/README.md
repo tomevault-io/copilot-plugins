@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [markmead/alpinejs-component](https://github.com/markmead/alpinejs-component).
+Original source: `CLAUDE.md` in [markmead/alpinejs-component](https://github.com/markmead/alpinejs-component).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [markmead/alpinejs-component](https://github.com/markmead/alpinejs-component) — a repo with 372+ stars on GitHub.
+From [markmead/alpinejs-component](https://github.com/markmead/alpinejs-component) — a repo with 373+ stars on GitHub.
 
 ---
 
