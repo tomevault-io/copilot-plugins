@@ -1,0 +1,9 @@
+{
+  "name": "deepjyoti-sarmah--symbolgraph",
+  "displayName": "symbolgraph",
+  "description": "Local-first code intelligence for AI agents \u2014 tree-sitter symbol graphs and hybrid (FTS5 + vector + graph) retrieval via CLI and MCP server.",
+  "version": "1.0.0",
+  "author": "Deepjyoti-Sarmah",
+  "homepage": "https://github.com/Deepjyoti-Sarmah/symbolgraph",
+  "skills": []
+}
