@@ -1,0 +1,57 @@
+{
+  "name": "NRI",
+  "owner": "NVIDIA-RTX",
+  "repo": "NRI",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "NRI",
+      "path": ".agents/skills/nri-review/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-RTX/NRI/tree/main/.agents/skills/nri-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NRI",
+      "path": ".agents/skills/nri-coding-standard/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-RTX/NRI/tree/main/.agents/skills/nri-coding-standard/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-RTX/NRI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:59:09Z"
+}
