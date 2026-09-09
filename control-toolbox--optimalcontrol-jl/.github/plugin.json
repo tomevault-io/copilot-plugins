@@ -1,0 +1,9 @@
+{
+  "name": "control-toolbox--optimalcontrol-jl",
+  "displayName": "OptimalControl.jl",
+  "description": "OptimalControl.jl",
+  "version": "1.0.0",
+  "author": "control-toolbox",
+  "homepage": "https://github.com/control-toolbox/OptimalControl.jl",
+  "skills": []
+}
