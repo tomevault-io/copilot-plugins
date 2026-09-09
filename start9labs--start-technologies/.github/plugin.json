@@ -1,0 +1,14 @@
+{
+  "name": "start9labs--start-technologies",
+  "displayName": "start-technologies",
+  "description": "start-technologies",
+  "version": "1.0.0",
+  "author": "Start9Labs",
+  "homepage": "https://github.com/Start9Labs/start-technologies",
+  "skills": [
+    {
+      "name": "start-technologies",
+      "description": ""
+    }
+  ]
+}
