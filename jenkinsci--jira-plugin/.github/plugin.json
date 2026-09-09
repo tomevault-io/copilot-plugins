@@ -1,0 +1,9 @@
+{
+  "name": "jenkinsci--jira-plugin",
+  "displayName": "jira-plugin",
+  "description": "jira-plugin",
+  "version": "1.0.0",
+  "author": "jenkinsci",
+  "homepage": "https://github.com/jenkinsci/jira-plugin",
+  "skills": []
+}
