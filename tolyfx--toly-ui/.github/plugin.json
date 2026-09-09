@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "TolyFx",
   "homepage": "https://github.com/TolyFx/toly_ui",
-  "skills": []
+  "skills": [
+    {
+      "name": "toly_ui",
+      "description": ""
+    }
+  ]
 }
