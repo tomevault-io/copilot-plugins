@@ -1,0 +1,18 @@
+{
+  "name": "nvidia-rtx--nri",
+  "displayName": "NRI",
+  "description": "NRI",
+  "version": "1.0.0",
+  "author": "NVIDIA-RTX",
+  "homepage": "https://github.com/NVIDIA-RTX/NRI",
+  "skills": [
+    {
+      "name": "NRI",
+      "description": ""
+    },
+    {
+      "name": "NRI",
+      "description": ""
+    }
+  ]
+}
