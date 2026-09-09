@@ -1,0 +1,14 @@
+{
+  "name": "getartisanflow--alpineflow",
+  "displayName": "alpineflow",
+  "description": "alpineflow",
+  "version": "1.0.0",
+  "author": "getartisanflow",
+  "homepage": "https://github.com/getartisanflow/alpineflow",
+  "skills": [
+    {
+      "name": "alpineflow",
+      "description": ""
+    }
+  ]
+}
