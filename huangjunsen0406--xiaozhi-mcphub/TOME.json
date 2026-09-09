@@ -4,7 +4,7 @@
   "repo": "xiaozhi-mcphub",
   "description": "MCP bridge system optimized for Xiaozhi AI integration",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/huangjunsen0406/xiaozhi-mcphub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T00:40:40Z"
+  "distributed_at": "2026-09-09T19:30:20Z"
 }
