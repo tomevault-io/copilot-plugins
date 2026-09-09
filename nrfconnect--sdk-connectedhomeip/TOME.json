@@ -1,0 +1,105 @@
+{
+  "name": "sdk-connectedhomeip",
+  "owner": "nrfconnect",
+  "repo": "sdk-connectedhomeip",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/chip-tool-testing/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/chip-tool-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/python-test-runner/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/python-test-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/zap-matter-analysis/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/zap-matter-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/python-test-reviewer/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/python-test-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/all-devices-app-new-device/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/all-devices-app-new-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/matter-specification-access/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/matter-specification-access/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/github-pr-description-writer/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/github-pr-description-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/code-driven-cluster-migration/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/code-driven-cluster-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/code-driven-cluster-development/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/code-driven-cluster-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-connectedhomeip",
+      "path": ".agents/skills/code-driven-cluster-tdd-implementation/SKILL.md",
+      "github_url": "https://github.com/nrfconnect/sdk-connectedhomeip/tree/main/.agents/skills/code-driven-cluster-tdd-implementation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nrfconnect/sdk-connectedhomeip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:51:13Z"
+}
