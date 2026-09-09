@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "grafana",
   "homepage": "https://github.com/grafana/faro-web-sdk",
-  "skills": []
+  "skills": [
+    {
+      "name": "faro-web-sdk",
+      "description": ""
+    }
+  ]
 }
