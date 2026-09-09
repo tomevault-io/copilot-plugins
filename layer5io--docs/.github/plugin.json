@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "layer5io",
   "homepage": "https://github.com/layer5io/docs",
-  "skills": []
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
 }
