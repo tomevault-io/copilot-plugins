@@ -1,0 +1,9 @@
+{
+  "name": "lirantal--lockfile-lint",
+  "displayName": "lockfile-lint",
+  "description": "lockfile-lint",
+  "version": "1.0.0",
+  "author": "lirantal",
+  "homepage": "https://github.com/lirantal/lockfile-lint",
+  "skills": []
+}
