@@ -1,0 +1,18 @@
+{
+  "name": "umplify--xunit-dependency-injection",
+  "displayName": "xunit-dependency-injection",
+  "description": "xunit-dependency-injection",
+  "version": "1.0.0",
+  "author": "Umplify",
+  "homepage": "https://github.com/Umplify/xunit-dependency-injection",
+  "skills": [
+    {
+      "name": "xunit-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "xunit-dependency-injection",
+      "description": ""
+    }
+  ]
+}
