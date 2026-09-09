@@ -4,7 +4,7 @@
   "repo": "go-utils",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/Goldziher/go-utils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T00:43:44Z"
+  "distributed_at": "2026-09-09T19:33:22Z"
 }
