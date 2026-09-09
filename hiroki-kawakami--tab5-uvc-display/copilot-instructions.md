@@ -1,0 +1,498 @@
+## tab5-uvc-display
+
+> ESP32-P4 (M5Stack Tab5) project that pulls 1280×720 MJPEG from a USB UVC camera,
+
+# Tab5-UVC-Display — Claude notes
+
+ESP32-P4 (M5Stack Tab5) project that pulls 1280×720 MJPEG from a USB UVC camera,
+hardware-decodes it, and displays it rotated 90° on a 720×1280 MIPI-DSI panel.
+
+## Build / flash / monitor
+
+The dev environment lives in a Nix flake; **always use `nix develop`** instead
+of sourcing `export.sh` directly:
+
+```sh
+nix develop --command idf.py -C esp32p4 build
+nix develop --command idf.py -C esp32p4 flash monitor   # needs a TTY
+```
+
+When `idf.py monitor` can't attach (no TTY in non-interactive shell), drive
+the serial directly with PySerial:
+
+```sh
+nix develop --command python3 -u -c "
+import subprocess, serial, time, sys
+subprocess.run(['python', '-m', 'esptool', '--chip', 'esp32p4', '-p',
+    '/dev/cu.usbmodem114201', '-b', '460800', '--before=default_reset',
+    '--after=hard_reset', 'write_flash', '--flash_mode', 'dio',
+    '--flash_freq', '80m', '--flash_size', '16MB',
+    '0x10000', 'esp32p4/build/tab5-uvc-display.bin'])
+ser = serial.Serial('/dev/cu.usbmodem114201', 115200, timeout=0.2)
+end = time.time() + 15
+while time.time() < end:
+    data = ser.read(4096)
+    if data: sys.stdout.write(data.decode('utf-8', errors='replace')); sys.stdout.flush()
+"
+```
+
+Note: the second `/dev/cu.usbmodem*` enumerator is the JTAG/console port we
+flash on; the first one is busy if the user already has a monitor open.
+**ESP32-P4 only prints logs once after reset** — capture during the boot
+sequence, don't expect output later.
+
+ESP-IDF v5.4.3 lives at `/nix/store/1jf3iqwyp77i8y54cgn6qxbrwl3wx5mz-esp-idf-v5.4.3/`.
+
+## Layout
+
+- `app/` — `PreviewScreen` (UVC frame → pipeline → display), `uvc_display.cpp`.
+- `components/{lvgl++,screen_manager}/` — shared UI helpers.
+- `idf-components/main/` — IDF entry (`main.cpp`), `platform_port_*` adapters
+  for JPEG/PPA, USB host wrappers. **No explicit `REQUIRES`** — the absence
+  is intentional so that the implicit "all-components-available" mode stays
+  on; adding `REQUIRES`/`PRIV_REQUIRES` here breaks transitive header lookup
+  (e.g. `bsp_tab5.h`, `esp_timer.h`).
+- `idf-components/m5tab5-bsp/` — vendored BSP for the panel + touch +
+  audio. `inc/audio_eq.h` + `src/audio_eq.c` is the cascaded-biquad EQ /
+  software fader / mono-mix DSP block that sits inside
+  `bsp_tab5_audio_write` (see the audio section below).
+- `idf-components/jpeg_decode_enhanced/` — reusable strip-pipelined JPEG
+  decode (+ optional PPA) component, all C. Full documentation (usage,
+  config reference, tuning, 2D-DMA internals) lives in its `README.md`.
+  Two layers:
+  - `jpeg_decode_enhanced.h` — Layer 1: strip decoder
+    (`jpeg_enh_strip_decoder_*`) + whole-frame convenience decode
+    (`jpeg_enh_decoder_process`). PPA-free; full-range YUV→RGB capable.
+  - `jpeg_ppa_pipeline.h` — Layer 2: `jpeg_ppa_pipeline_*`, drives Layer 1
+    strips through PPA SRM with a per-frame transform (rotation / scale /
+    mirror / crop / output offset).
+  Bypasses IDF's `jpeg_decoder_process()` by reaching into ESP-IDF private
+  headers; do **not** override `esp_driver_jpeg` (the user explicitly rejected
+  that approach). The component's CMakeLists adds private include paths via
+  `target_include_directories(... PRIVATE $ENV{IDF_PATH}/components/esp_driver_jpeg{,/private})`,
+  and `jpeg_decode_enhanced.c` has an `ESP_IDF_VERSION` guard (validated on
+  v5.4.x only) because it touches `jpeg_private.h` struct layout.
+
+`esp32p4/CMakeLists.txt` wires both `components/` and `idf-components/` via
+`EXTRA_COMPONENT_DIRS`. The `main` component's CMake also globs `app/` and
+`components/*/` into the main source list.
+
+## jpeg_decode_enhanced — design summary
+
+Why it exists: JPEG-codec alone can do 60fps@1280×720; with the stock
+`jpeg_decoder_process` → PSRAM → PPA SRM → PSRAM-FB chain, PSRAM bandwidth
+caps throughput at ~20fps. Decoding into a ring of **internal SRAM** strip
+buffers and feeding each strip through PPA SRM in parallel removes the
+PSRAM-read leg and brings the system back to camera-saturating 30fps.
+(`strip_alloc_caps = MALLOC_CAP_SPIRAM` keeps the ring in PSRAM instead —
+slower, but useful when the goal is just a small intermediate buffer; the
+component handles the cache purge at alloc time and CPU consumers must call
+`jpeg_enh_strip_decoder_sync_strip_for_cpu` before reading a strip.)
+
+Frame geometry is re-derived from the JPEG header every frame: any size up
+to `max_pic_w/max_pic_h` decodes without reconfiguration, `strip_h_hint` is
+rounded to the frame's MCU height, the final strip may be shorter, and
+non-MCU-aligned image heights are decoded padded then cropped by the PPA
+stage (strip events carry `rows` = valid vs `padded_rows`). The only hard
+constraint left is hardware: strip boundaries sit on MCU-row boundaries
+because the 2D-DMA RX reorder works in JPEG-sampling-sized macro blocks and
+one MCU row cannot span two descriptors.
+
+`yuv_full_range` (Layer 1 cfg / pipeline cfg) switches the decode CSC from
+IDF's stock limited-range matrix to the JFIF full-range one (BT601 and BT709
+tables both provided). Default **false** = IDF-compatible limited range;
+the Tab5 app sets **true** — forgetting it washes out blacks.
+
+Pipeline shape:
+
+```
+JPEG codec ──TX from PSRAM JPEG stream──┐
+                                        ▼
+                              2D-DMA RX with N linked descriptors
+                                        │
+                                        ▼
+                       SRAM ring of K strip buffers (1 MCU row * pic_w)
+                                        │
+                                        ▼  on_desc_done(ISR) → queue
+                                  PPA worker task
+                                        │  ppa_do_scale_rotate_mirror (blocking)
+                                        ▼
+                            PSRAM frame buffer (rotated)
+```
+
+Key implementation decisions that were learned the hard way:
+
+1. **Owner-bit backpressure does NOT work for JPEG-RX.** Setting `owner=CPU`
+   on a descriptor with `in_check_owner_chn=1` raises `RX_DSCR_ERROR` and
+   ends the transaction; it does not pause. (See `dma2d_struct.h`,
+   `in_dscr_err_chn_int_raw` doc: "including owner error".)
+2. **End-of-chain (`next=NULL`) raises `IN_DSCR_EMPTY` and ends the
+   transaction** — also not a pause mechanism.
+3. The only viable backpressure is **dynamic chain extension via
+   `dma2d_append()`**: pre-link only `ring_count` descriptors with the last
+   one's `.next=NULL`, and splice in descriptor `i + ring_count` only after
+   PPA finishes strip `i`. `release_strip()` does the splice + cache-msync
+   + `dma2d_append`. The DMA never sees a CPU-owned descriptor and never
+   reaches the chain end as long as `PPA-strip-time < (ring_count - 1) ×
+   JPEG-strip-time`.
+4. **`suc_eof=0` on every descriptor**. The JPEG↔DMA bridge fires `SUC_EOF`
+   off the JPEG hardware's frame-done signal, not off the descriptor's eof
+   bit. Setting `suc_eof=1` somewhere in the chain causes a spurious EOF and
+   triggers the `dma2d_ll_rx_is_fsm_idle` assert in the dma2d ISR.
+5. The `on_recv_eof` callback must **post `JPEG_DMA2D_RX_EOF` into the
+   engine's `evt_queue`** to unblock our wait loop (mirroring IDF's
+   `jpeg_rx_eof`); just releasing the semaphore wasn't enough and led to
+   `decode timeout` errors.
+6. `on_desc_done` does **not** populate `event_data->rx_eof_desc_addr` (only
+   `on_recv_eof` does). Track strip index with a counter, not by inspecting
+   the descriptor address from the event.
+7. **Do not register `on_desc_empty`.** Registering it newly enables the
+   DESC_EMPTY interrupt, which the dma2d ISR handles by freeing the pooled
+   channels (plus an FSM-idle assert) — and whether the raw bit also raises
+   at a *normal* frame end is unverified, so enabling it risks breaking
+   every frame. A mid-frame ring underrun is instead diagnosed at decode
+   timeout from the signature `isr_next_strip == chain_tail + 1` (DMA
+   consumed every linked descriptor and stalled at the unspliced one).
+8. `release_strip()` splices/appends under a spinlock gated by
+   `frame_active`; the gate closes before `dma2d_force_end` on error paths
+   so a late release can't poke a freed (possibly reassigned) DMA channel.
+   On clean frames the gate is provably irrelevant: EOF implies every
+   mid-frame splice already happened, and post-EOF releases are no-ops
+   (`strip_idx + ring_count >= strip_count`).
+
+## Tuning (preview_screen.cpp)
+
+```cpp
+constexpr int STRIP_H = 16;       // strip_h_hint; rounded to mcu_y per frame
+constexpr int RING_COUNT = 5;     // SRAM ring depth
+```
+
+Constraints to satisfy:
+
+- `STRIP_H` is a hint: the pipeline rounds it down to the frame's `mcu_y`
+  (8 for the YUV422 this camera emits, 16 for YUV420). Keeping it a
+  multiple of 16 also guarantees the per-strip scale placement check passes
+  for any scale factor (16 × any 1/16-quantized scale is an integer).
+- `RING_COUNT * STRIP_H * pic_w * bytes_per_pixel < ~300 KiB` of available
+  `MALLOC_CAP_INTERNAL`. After IDF + USB + LVGL + FreeRTOS overhead, the
+  largest free SRAM region is the 384 KiB pool at `0x4FF40000` (boot log
+  `heap_init: At 4FF40000 len 00060000 (384 KiB): RAM`).
+- `RING_COUNT - 1 ≥ PPA-strip-time / JPEG-strip-time`. With STRIP_H=16,
+  ring=5 has worked in practice for both RGB565 and RGB888 intermediates at
+  30fps.
+- **Smaller STRIP_H is not free.** Halving STRIP_H doubles the per-frame
+  PPA `ppa_do_scale_rotate_mirror` call count; the per-call validation +
+  cache-msync overhead drops total throughput (observed 30fps → 24fps
+  going from STRIP_H=16 to STRIP_H=8 with RGB888).
+
+## Output-FB strip placement
+
+`s_strip_out_rect` (jpeg_ppa_pipeline.c) maps each strip's crop-relative,
+scaled row band `[A, B)` into the output through rotate → mirror → offset.
+Pre-mirror placement (empirically matches PPA hardware; strip 0 = image
+top):
+
+| rotation | rect (x, y, w, h) |
+|---|---|
+| 0   | (0, A, scaled_w, B−A)            |
+| 90  | (A, 0, B−A, scaled_w)            |
+| 180 | (0, scaled_h−B, scaled_w, B−A)   |
+| 270 | (scaled_h−B, 0, B−A, scaled_w)   |
+
+If output looks mirrored, swap the 90/270 formulas. `mirror_x/_y` flip the
+rect across the scaled-rotated extent (PPA mirrors the pixels inside each
+block; the placement flip completes the global mirror) — **assumed
+output-space mirror semantics, not yet verified on hardware** since the Tab5
+app doesn't use mirror.
+
+Because every strip is an independent PPA block, each interior strip
+boundary must scale to a whole output row; `s_on_frame_start` validates
+`(boundary_rel × scale_y_sixteenths) % 16 == 0` per frame and rejects the
+transform otherwise.
+
+## Camera (UVC) notes
+
+- Camera advertises `1280x720@30fps`. Asking for 60fps fails with
+  `Could not find frame format 1280x720@60.0FPS`.
+- The JPEG stream from this camera is **YUV422** (`mcu_y=8`), NOT YUV420.
+  YUV420 SRM input (which could halve intermediate strip size) is therefore
+  not directly usable — JPEG hardware can't transcode 422→420. Use RGB565
+  or RGB888 intermediate instead.
+
+## Audio (ES8388 speaker + UAC RX)
+
+Tab5 has an ES8388 codec driving the on-board speaker. The
+`idf-components/m5tab5-bsp/devices/es8388/` wrapper sets up
+`I2S0 std mode TX` (mclk=30, bclk=27, ws=29, dout=26, din=28, 48kHz/16bit
+stereo by default) plus `esp_codec_dev` in DAC mode. The speaker amp gate
+(`PI4IOE1.SPK_EN`, bit 1) is driven by the speaker-mode policy described
+below — **not** raised at pi4io init time. After init the codec is pinned
+at max output (`es8388_set_volume(es8388, 100)`); user-facing volume is
+delivered by the software fader in `audio_eq` instead of the codec's
+volume register. Only the TX path is wired up — RX TDM (mic capture) can
+be added later if needed.
+
+Public API surface (`bsp_tab5.h`):
+- `bsp_tab5_audio_{open,close,reconfig,write,set_volume,set_mute,get_volume}`
+- `bsp_tab5_audio_eq_{set_enabled,is_enabled,set_biquads,handle}` — runtime EQ control
+- `bsp_tab5_audio_{set,get}_speaker_mode` + `bsp_tab5_audio_headphone_inserted`
+- `bsp_tab5_audio_set_headphone_callback(cb, user)` — fired on HP plug/unplug
+- `bsp_tab5_audio_{set,get}_mono_mix` — stereo→mono downmix for L-only speaker
+
+UAC audio output flow:
+
+```
+USB UVC camera ── (uac_host_device driver) ──┐
+                                              ▼
+                          RX_DONE event (UAC driver task, prio 5)
+                                              │
+                                       uac_host_device_read
+                                              │
+                                              ▼
+                            32 KiB SPSC StreamBuffer (PSRAM)
+                                              │  (xStreamBufferSend, timeout=0)
+                                              ▼
+                            uac_play consumer task (core 1, prio 10)
+                                              │  4 KiB chunks → drift-correcting
+                                              │  Catmull–Rom cubic resampler
+                                              ▼
+                              bsp_tab5_audio_write
+                                              │
+                                              ▼
+                            audio_eq (biquads → gain fade → mono mix)
+                                              │
+                                              ▼
+                                    es8388_write → esp_codec_dev_write
+                                              │
+                                              ▼
+                            I2S TX DMA → ES8388 DAC → SPK_EN amp / HP jack
+```
+
+Key implementation decisions:
+
+1. **Decouple RX_DONE from the codec write via a StreamBuffer + dedicated
+   consumer task.** If `esp_codec_dev_write` blocks on I2S DMA inside the
+   RX_DONE callback, the UAC driver task can't service the next RX_DONE
+   and the UAC ring buffer overruns — audible as periodic dropouts. Splitting
+   the two means I2S blocking only stalls the consumer, never the UAC
+   driver task.
+2. **Non-blocking push, drop on overflow.** `xStreamBufferSend` uses
+   `timeout=0`; if the buffer is full we drop the tail of the current chunk.
+   Back-pressuring into UAC's internal ring would lose samples *anyway* and
+   accumulate drift, so a brief audible glitch is preferable.
+3. **Consumer pinned to core 1, priority 10.** UVC frame callbacks +
+   JPEG/PPA renderer are on core 0; keeping audio on core 1 avoids
+   contention with the 30fps render loop. Priority 10 > UAC driver (5) so
+   the buffer drains promptly once data lands, but < renderer (16) so we
+   never starve video.
+4. **Catmull–Rom cubic Hermite resampler in the consumer with
+   stream-buffer-fill feedback (drift correction).** Each iteration reads
+   the StreamBuffer bytes still queued *after* the receive, computes
+   `step = 1 + Kp·(fill_ratio − 0.5)` clamped to [0.99, 1.01], and
+   resamples the chunk by `step` before handing it to the codec. The
+   buffer fill is the only drift signal we have between the USB SOF and
+   I2S MCLK clock domains (DMA-side "remaining" is mathematically the
+   same signal, since `esp_codec_dev_write` blocks and keeps the DMA
+   queue full by construction). Continuous fractional resampling avoids
+   discrete sample insert/drop; the worst-case audible effect is a ±1%
+   pitch shift that only exists transiently while the loop pulls fill
+   back toward target. Catmull–Rom uses a sliding 4-sample window
+   (3 history samples per channel kept across chunk boundaries via
+   `hist_l[3]`/`hist_r[3]`) and Horner-evaluates a cubic that's exact at
+   `t=0` and `t=1`; coefficients depend only on the window so we compute
+   them once per input frame and reuse for all outputs that fall inside.
+   Output must be saturated — cubic Hermite can overshoot the input
+   range, unlike linear.
+5. **Frame alignment is the consumer's job.** `xStreamBufferReceive` is
+   byte-oriented and may return non-multiples of `FRAME_BYTES=4`. The
+   consumer carries up to 3 leftover bytes between iterations so the
+   resampler always sees whole stereo-16 frames. The byte stream is
+   treated as 48 kHz stereo 16-bit regardless of how UAC labelled it
+   (the MS2109 quirk — see below — funnels through the same path).
+
+UAC device detection is driven by the `uac_host` driver callback in
+`usb_host::UAC::driverEventCb`; the first `RX_CONNECTED` interface latches
+its `(addr, iface_num)` and gives a semaphore. `openRx()` blocks on that
+semaphore with a timeout, then allocates the PSRAM RX buffer + stream
+buffer + consumer task before calling `uac_host_device_open`.
+
+### MS2109 quirk (HDMI→USB capture, VID=0x534D PID=0x2109)
+
+The device **descriptor-advertises 96 kHz mono 16-bit but actually streams
+48 kHz stereo 16-bit on the wire** — same byte rate, mis-labelled format.
+`PreviewScreen::onEnter` calls `uac_host_device_start(96000, 1, 16)`
+(matching the lie in the descriptor) while leaving ES8388 open at
+48000/2/16 (matching the real wire format). The bytes line up and stereo
+plays correctly. **Do NOT** "fix" this by reconfiguring ES8388 to
+96k/mono — that would honour the false descriptor and break playback.
+Preserve the asymmetric configuration for any device matching that VID/PID.
+
+### Clock-domain drift
+
+USB SOF (UAC supply rate) and ES8388 I2S MCLK are independent clock
+domains — typically a few hundred ppm apart, which would otherwise show
+up on multi-minute streams as the StreamBuffer slowly filling
+(→ tail-drop glitches) or emptying (→ DMA underrun, silent because of
+`auto_clear_after_cb=true`).
+
+The consumer task corrects for this with a software resampler driven by
+the buffer-fill signal — see decision #4 above for the loop math. The
+resampler bounds the correction to ±1% (`STEP_MIN=0.99`, `STEP_MAX=1.01`)
+which is far above any realistic clock drift but well below audibility,
+so steady-state behaviour is "buffer parks near half-full, pitch shift
+is imperceptibly small". The `xStreamBufferSend` drop-on-overflow path in
+`handleRxDone` is now strictly a backstop — if it ever fires in steady
+state, either Kp is too small to track the drift or the loop is being
+starved.
+
+### Audio DSP block (`audio_eq` component)
+
+`idf-components/m5tab5-bsp/{inc/audio_eq.h,src/audio_eq.c}` — a small DSP
+block plumbed into `bsp_tab5_audio_write`. Three concerns share a single
+per-buffer pass:
+
+1. **Cascaded biquads.** RBJ "Audio EQ Cookbook" designers (`peaking`,
+   `low_shelf`, `high_shelf`, `lowpass`, `highpass`) emit
+   `audio_eq_biquad_t` structs that get copied into the chain via
+   `audio_eq_set_biquads`. Direct-form II transposed, normalised to
+   `a0=1`, up to `max_stages` (default 8). State is per-channel.
+2. **Software gain with per-frame fade.** `audio_eq_set_gain(target,
+   fade_ms)` updates the cursor; the per-frame loop interpolates
+   `current_gain` toward `target_gain` over `fade_ms`. Volume control
+   was moved off the ES8388 hardware volume register (which clicks on
+   every step) onto this fader — the codec is pinned at `vol=100`
+   forever after init.
+3. **Stereo→mono downmix.** When enabled, the output of each frame is
+   replaced by `(L+R)/2` on both channels. Tab5 only wires L into the
+   speaker amp, so this is the only way R-side content reaches the
+   speaker.
+
+Pipeline order inside the loop: per-channel biquads → per-channel gain →
+optional mono mix → saturate to int16. Gain comes **after** biquads so
+changing it doesn't disturb the filter memory (= no transient on
+volume slides). Mono mix is the last step so per-channel EQ still runs
+on the original stereo image before being collapsed.
+
+**Lock-snapshot pattern in `audio_eq_process`.** The mutex is taken only
+to snapshot `{biquad coefficients, channels, gain cursor, fade params,
+mono_mix flag}`, then the per-sample loop runs lock-free. State writeback
+(advanced `current_gain` / `fade_remaining`) happens under another short
+critical section that *only* writes back if `target_gain` hasn't been
+touched meanwhile, so a concurrent `set_gain` from UI doesn't get
+clobbered. Earlier the mutex was held across the whole ~1–2 ms loop and
+rapid slider drags caused observable stalls on the LVGL/UVC paths on the
+same core.
+
+`audio_eq_set_biquads` resets filter state (the new coefficients have no
+meaningful history), so swapping presets on HP plug doesn't produce a
+zip click — the gain stage continues smoothly.
+
+### Speaker amp gate + headphone detect
+
+Tab5's speaker amp is gated by `PI4IOE1` pin 1 (`SPK_EN`), and the
+3.5 mm jack's detect switch is on `PI4IOE1` pin 7 (`HP_DET`). HP_DET is
+pulled up externally, the jack's NC switch shorts the line to GND when
+no plug is inserted, so **`HP_DET=1` means headphones inserted**.
+
+`bsp_speaker_mode_t` selects the policy applied to SPK_EN:
+
+- `BSP_SPEAKER_MODE_ON` (= 0; default for zero-init configs)
+- `BSP_SPEAKER_MODE_AUTO` — amp on only while HP is *not* inserted
+- `BSP_SPEAKER_MODE_OFF`
+
+A dedicated task `bsp_spk` (prio 1, stack 2 KiB) owns SPK_EN. The task
+**is only spawned when needed** — i.e. when mode = AUTO or when an app
+registered a HP callback. For OFF/ON modes with no callback, SPK_EN is
+set once in `bsp_tab5_init` and we're done; no task overhead.
+
+`bsp_tab5_audio_set_headphone_callback(cb, user)` registers a single
+callback fired on every HP state change (~200 ms granularity from the
+AUTO poll). The callback runs from the `bsp_spk` task — UI/LVGL work
+must be bounced via `lv_async_call`. Registration captures the current
+HP state into `s_hp_last`, so the callback never fires a "stale"
+notification at registration time.
+
+**Anti-pop init order** (this matters — the user notices each ms of
+remaining click):
+
+1. `pi4io_init` with SPK_EN initial value = **false** (amp stays off)
+2. (display, touch, codec configuration — amp off the whole time)
+3. `es8388_init` — codec configured, muted
+4. `audio_eq_init` → `audio_eq_set_gain(0, 0)` (silent gain)
+5. `es8388_set_volume(100)` — codec unmuted, but SPK_EN is still LOW so
+   the unmute click never reaches the speaker
+6. `vTaskDelay(50 ms)` — DAC analog stage settles
+7. `apply_speaker_pin(s_speaker_mode)` — SPK_EN finally goes high with
+   a silent, stable input
+
+Steps 1–5 cleanly eliminate the codec-unmute pop. The amp's own
+power-on transient at step 7 is the only remaining click source
+(HW-level event, can't be suppressed entirely in software).
+
+### Per-output audio policy (`preview_screen`)
+
+Three things differ between speaker output and headphone output, all
+switched together by the HP callback registered in `PreviewScreen::build`:
+
+| | Speaker (`hp_connected_=false`) | Headphone (`hp_connected_=true`) |
+|---|---|---|
+| Volume | NVS key `"vol"` | NVS key `"hp_vol"` |
+| EQ preset | `speaker_eq_stages()` | `headphone_eq_stages()` |
+| Mono mix | ON, `(L+R)/2` | OFF (stereo) |
+| Slider label | "Volume (Speaker)" | "Volume (Headphones)" |
+
+`apply_active_volume`, `apply_active_eq`, `apply_active_mono_mix` are
+the three "push current mode → BSP" helpers; the HP callback dispatches
+all three through `lv_async_call`. The two EQ-stage arrays are
+function-local `static const` arrays (the cookbook designers run once on
+first call and the coefficients are cached for the lifetime of the
+process).
+
+Volume → gain curve: `gain_db = (vol-100) × 0.4` → −40 dB at vol=1,
+0 dB at vol=100. `vol=0` is a hard zero (true silence). All transitions
+fade over 100 ms (`BSP_VOLUME_FADE_MS`). `bsp_tab5_audio_set_volume`
+short-circuits when the value hasn't changed so LVGL slider event
+duplicates don't churn the fader.
+
+Current speaker preset is **bass-only** (HPF 80 Hz + low-shelf +7 dB
+@300 Hz + peaking +3 dB @150 Hz, mid/high left flat). The small 1 W /
+8 Ω driver responded badly to mid/high EQ in all the variations we
+tried — perceptually worse than no EQ — so we stopped fighting it. The
+150 Hz peaking sits on top of the shelf to put extra punch near the
+driver's Fs where it actually radiates efficiently; the shelf alone
+wastes energy on the 50–100 Hz range the cone can't reproduce. The
+HP preset is a leftover V-shape from earlier experiments and is the
+right next thing to tune separately.
+
+## Things to check before changing the pipeline
+
+- `conv_std` (pipeline cfg) chooses BT601 vs BT709 for the YUV→RGB CSC done
+  inside the JPEG decode 2D-DMA path; `yuv_full_range` switches the matrix
+  to JFIF full range (the Tab5 app needs `true`).
+- `strip_color_mode` is the **intermediate strip format**, not the JPEG
+  input format. It controls both the JPEG codec output format
+  (`s_jpeg_out_for_strip_cm`) and the PPA SRM input color mode. RGB565
+  saves SRAM at the cost of color depth; RGB888 preserves precision.
+- Strip buffers are sized with bit-depth math (`bits / 8` on the *total*),
+  so YUV420 (12bpp → 1.5 B/px) sizes correctly; do not switch back to
+  truncated `bytes_per_pixel` arithmetic.
+- Transform parameters (rotation/scale/mirror/crop/out offset) are
+  per-frame — only sizes, formats and ring memory are fixed at
+  `jpeg_ppa_pipeline_new` time.
+
+## Risk / unfinished
+
+- Ring underrun (PPA falling more than `RING_COUNT-1` strips behind) ends
+  the DMA transaction and surfaces as `ESP_ERR_TIMEOUT` ~200 ms later with
+  a "strip ring underrun" log (diagnosed from chain bookkeeping at timeout;
+  the DESC_EMPTY interrupt is deliberately left disabled — see design
+  summary #7). Detection is post-hoc, not preventive.
+- `mirror_x/_y` placement math assumes PPA mirrors in output space; not yet
+  verified on hardware (unused by the Tab5 app).
+- The whole-frame `jpeg_enh_decoder_process` path and PSRAM strip rings
+  (`strip_alloc_caps = MALLOC_CAP_SPIRAM`) are implemented per the design
+  but have no in-tree user yet, so they're untested on hardware.
+
+---
+> Source: [Hiroki-Kawakami/Tab5-UVC-Display](https://github.com/Hiroki-Kawakami/Tab5-UVC-Display) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
