@@ -1,0 +1,9 @@
+{
+  "name": "libsdl-org--sdl-ttf",
+  "displayName": "SDL_ttf",
+  "description": "SDL_ttf",
+  "version": "1.0.0",
+  "author": "libsdl-org",
+  "homepage": "https://github.com/libsdl-org/SDL_ttf",
+  "skills": []
+}
