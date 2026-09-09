@@ -2,9 +2,9 @@
   "name": "nispa-vibevoice-studio",
   "owner": "nispa",
   "repo": "nispa-vibevoice-studio",
-  "description": "is a powerful, locally-hosted Text-to-Speech (TTS) application designed to provide high-quality voice synthesis. It leverages the Microsoft VibeVoice model as its core engine, seamlessly integrating a fast Python FastAPI backend and a modern React/TypeScript frontend.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nispa/nispa-vibevoice-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:43:11Z"
+  "distributed_at": "2026-09-09T23:38:47Z"
 }
