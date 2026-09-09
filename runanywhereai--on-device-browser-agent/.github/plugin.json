@@ -1,0 +1,9 @@
+{
+  "name": "runanywhereai--on-device-browser-agent",
+  "displayName": "on-device-browser-agent",
+  "description": "on-device-browser-agent",
+  "version": "1.0.0",
+  "author": "RunanywhereAI",
+  "homepage": "https://github.com/RunanywhereAI/on-device-browser-agent",
+  "skills": []
+}
