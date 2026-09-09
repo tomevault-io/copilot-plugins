@@ -81,4 +81,4 @@ Always check `src/const.ts` before hardcoding any wedding-related information. N
 
 ---
 > Source: [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
