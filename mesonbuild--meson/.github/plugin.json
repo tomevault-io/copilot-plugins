@@ -1,0 +1,9 @@
+{
+  "name": "mesonbuild--meson",
+  "displayName": "meson",
+  "description": "meson",
+  "version": "1.0.0",
+  "author": "mesonbuild",
+  "homepage": "https://github.com/mesonbuild/meson",
+  "skills": []
+}
