@@ -1,0 +1,9 @@
+{
+  "name": "ossf--best-practices-badge",
+  "displayName": "best-practices-badge",
+  "description": "best-practices-badge",
+  "version": "1.0.0",
+  "author": "ossf",
+  "homepage": "https://github.com/ossf/best-practices-badge",
+  "skills": []
+}
