@@ -4,7 +4,7 @@
   "repo": "openEQUELLA",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/openequella/openEQUELLA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T02:09:49Z"
+  "distributed_at": "2026-09-09T20:13:19Z"
 }
