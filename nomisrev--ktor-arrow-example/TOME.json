@@ -1,0 +1,51 @@
+{
+  "name": "ktor-arrow-example",
+  "owner": "nomisRev",
+  "repo": "ktor-arrow-example",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ktor-arrow-example",
+      "path": ".agents/skills/ktor/SKILL.md",
+      "github_url": "https://github.com/nomisRev/ktor-arrow-example/tree/main/.agents/skills/ktor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nomisRev/ktor-arrow-example",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:49:46Z"
+}
