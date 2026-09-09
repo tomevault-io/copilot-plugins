@@ -4,7 +4,7 @@
   "repo": "areg-sdk",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aregtech/areg-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T17:02:02Z"
+  "distributed_at": "2026-09-09T11:52:00Z"
 }
