@@ -1,0 +1,9 @@
+{
+  "name": "jordisantamaria--aws-solutions-architect-lab",
+  "displayName": "aws-solutions-architect-lab",
+  "description": "AWS Solutions Architect Associate (SAA-C03) study guide. Theory docs, 10 progressive Terraform labs, cheat sheets, decision   trees, and 60 practice questions.",
+  "version": "1.0.0",
+  "author": "jordisantamaria",
+  "homepage": "https://github.com/jordisantamaria/aws-solutions-architect-lab",
+  "skills": []
+}
