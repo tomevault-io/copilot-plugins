@@ -1,0 +1,9 @@
+{
+  "name": "ghosttypes--ff-5mp-api-py",
+  "displayName": "ff-5mp-api-py",
+  "description": "A comprehensive Python library for controlling FlashForge 3D printers",
+  "version": "1.0.0",
+  "author": "GhostTypes",
+  "homepage": "https://github.com/GhostTypes/ff-5mp-api-py",
+  "skills": []
+}
