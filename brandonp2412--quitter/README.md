@@ -1,23 +1,21 @@
 # Quitter
 
-> Source: [brandonp2412/Quitter](https://github.com/brandonp2412/Quitter) — distributed by [TomeVault](https://tomevault.io)
-
-Give up on addictions and become a Quitter 😎
+> Source: [brandonp2412/Quitter](https://github.com/brandonp2412/Quitter). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [brandonp2412/Quitter](https://github.com/brandonp2412/Quitter).
+Original source: `AGENTS.md` in [brandonp2412/Quitter](https://github.com/brandonp2412/Quitter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [brandonp2412/Quitter](https://github.com/brandonp2412/Quitter) — a repo with 146+ stars on GitHub.
+From [brandonp2412/Quitter](https://github.com/brandonp2412/Quitter) — a repo with 178+ stars on GitHub.
 
 ---
 
