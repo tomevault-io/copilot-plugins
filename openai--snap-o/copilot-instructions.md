@@ -1,18 +1,43 @@
 ## snap-o
 
-> This is the code repository for the Snap-O macOS app and optional Android libraries to help provide data to Snap-O.
+> Snap-O is a public, open-source Android inspection tool.
 
-This is the code repository for the Snap-O macOS app and optional Android libraries to help provide data to Snap-O.
+Snap-O is a public, open-source Android inspection tool.
 
-**Directory Structure**
-* `snapo-app-mac/` - The macOS app, written in SwiftUI, which displays captured content from the Android device.
-* `snapo-link-android/` - The collection of Android libraries that can be added to an Android app to provide network request information to be inspected.
+## Repository Layout
 
-## Security Model Notes
-- Snap-O Network Inspector transport on Android uses an app-local abstract Unix domain socket and relies on Android app sandbox + SELinux process isolation.
-- Treat cross-app access to that socket as a non-issue under this project's validated assumptions.
-- Do not file a security finding based only on plaintext local transport metadata unless Android platform security assumptions change or a reproducible bypass is shown.
+- `snapo-app-mac/`: macOS app and shared Swift device client.
+- `snapo-network-inspector-web/`: React UI embedded in the macOS app.
+- `snapo-link-android/`: Android libraries and sample apps.
+- `contracts/`: shared protocol definitions and fixtures.
+- `docs/`: Markdown sources for GitHub Pages. See `docs/README.md` for the build and authoring conventions.
+- `scripts/snapo` and `tests/snapo_cli/`: standalone Python command-line client and tests.
+
+## Working Across Components
+
+- Read the component's `AGENTS.md` before changing it.
+- Keep macOS ADB and device transport in `SnapODeviceClient`. Keep UI code in the app and React inspector.
+- The Python CLI implements its own transport; it does not use the Swift client.
+- When changing shared behavior, check the Android libraries, macOS client, React inspector, and Python CLI. Use `contracts/` and its fixtures to keep them compatible.
+
+## Public Repository
+
+Use synthetic data in tests and examples. Never publish credentials, captured private traffic, confidential implementation details, or private issue-tracker links, identifiers, or content. Review the full diff, commit message, and PR text for sensitive information before publishing.
+
+## Release readiness
+
+Follow [release/README.md](release/README.md) when changing protocols, published APIs, version metadata, or packaging. Update `release/` checks and tests when protocol definitions or source paths change.
+
+## Writing
+
+Use plain technical English in all prose, including READMEs, docs, code comments, UI text, commit messages, and PR descriptions. Prefer common words, active voice, and sentences of about 15 words, with one main idea each. Keep necessary technical terms, explain unfamiliar jargon for the intended reader, and preserve exact meaning. Remove repetition, but do not make the prose choppy or omit useful detail.
+
+Code comments should explain non-obvious reasons or constraints, not repeat what the code does. Before finishing, reread new or changed prose for clarity and accuracy.
+
+## Pull Request Descriptions
+
+Lead with a short paragraph explaining the problem, its impact, and why the PR is needed. Put it before `## Summary`, without a `## Why` heading. Follow the summary with `## Validation`, listing the checks performed and any remaining limitations. Keep the description concise and specific.
 
 ---
 > Source: [openai/snap-o](https://github.com/openai/snap-o) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
