@@ -4,7 +4,7 @@
   "repo": "CircuitBreaker",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -85,9 +85,21 @@
       "path": ".claude/skills/circuit-breaker-persona/SKILL.md",
       "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/circuit-breaker-persona/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/cb-build-test/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/cb-build-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/cb-realtime-api/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/cb-realtime-api/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/BlkLeg/CircuitBreaker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T07:35:54Z"
+  "distributed_at": "2026-09-09T22:32:12Z"
 }
