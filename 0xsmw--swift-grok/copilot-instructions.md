@@ -1,0 +1,56 @@
+## build
+
+> Build agent
+
+# Swift Grok Client Development Guidelines
+
+Always use swift-tools-version:6.0
+
+## Build & Testing Commands
+```
+swift build                    # Build the package
+swift run grok                 # Run grok
+```
+
+## Project Structure
+- `/Sources/GrokClient/` - Core client library implementation
+  - `GrokClient.swift` - Main API client and models
+  - `GrokCookieHelper.swift` - Authentication helper utilities
+- `/Sources/GrokCLI/` - Command-line interface application
+
+## Core Components
+- `GrokClient` - Main client class for API interaction
+- `GrokError` - Error handling enum
+- Response models (MessageResponse, ConversationResponse, etc.)
+- Authentication utilities in GrokCookieHelper
+
+## API Features
+- Create and continue conversations
+- Send messages with various options (reasoning, deep search, etc.)
+- List past conversations and retrieve conversation history
+- Support for different personality types
+- Web search results and X posts handling
+- Streaming response handling
+
+## Authentication
+- Cookie-based authentication
+- Helper methods for loading cookies from different sources:
+  - JSON files
+  - Swift dictionary literals
+  - Auto-detected GrokCookies class
+
+## Code Style Guidelines
+- **Naming**: Use camelCase for variables/functions, PascalCase for types
+- **Formatting**: 4-space indentation, line limit 100 characters
+- **Documentation**: Use /// for public APIs with parameter descriptions
+- **Error Handling**: Use custom `GrokError` enum with descriptive cases
+- **Typing**: Always use explicit types for properties, prefer `let` over `var`
+- **Architecture**: Use async/await for asynchronous operations
+- **Imports**: Group imports at the top, Foundation first then others alphabetically
+- **MARK comments**: Use for logical sections (// MARK: - Section Name)
+- **Codable**: Use nested types when appropriate for JSON parsing
+- **Debugging**: Use `isDebug` flag for conditional debug output
+
+---
+> Source: [0xSMW/swift-grok](https://github.com/0xSMW/swift-grok) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
