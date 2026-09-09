@@ -1,0 +1,9 @@
+{
+  "name": "rdmtc--node-red-contrib-ccu",
+  "displayName": "node-red-contrib-ccu",
+  "description": "node-red-contrib-ccu",
+  "version": "1.0.0",
+  "author": "rdmtc",
+  "homepage": "https://github.com/rdmtc/node-red-contrib-ccu",
+  "skills": []
+}
