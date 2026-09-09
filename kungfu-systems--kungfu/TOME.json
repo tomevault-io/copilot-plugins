@@ -4,7 +4,7 @@
   "repo": "kungfu",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/kungfu-systems/kungfu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T01:24:29Z"
+  "distributed_at": "2026-09-09T19:52:06Z"
 }
