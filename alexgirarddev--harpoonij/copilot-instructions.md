@@ -189,4 +189,4 @@ When updating this file, preserve this bar for all agents and keep entries conci
 
 ---
 > Source: [AlexGirardDev/HarpoonIJ](https://github.com/AlexGirardDev/HarpoonIJ) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
