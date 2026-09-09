@@ -1,20 +1,17 @@
 ## mattermost-mobile
 
-> **Read [GUIDELINES.md](./GUIDELINES.md) before editing any flow.** It is the single authoring spec (header contract, selectors, gotchas, CI, checklist).
+> Follow [CLAUDE.md](./CLAUDE.md) for architecture, coding conventions, and how to test this React Native app.
 
-# Maestro — Agent entrypoint
+# AGENTS.md
 
-**Read [GUIDELINES.md](./GUIDELINES.md) before editing any flow.** It is the single authoring spec (header contract, selectors, gotchas, CI, checklist).
+Follow [CLAUDE.md](./CLAUDE.md) for architecture, coding conventions, and how to test this React Native app.
 
-Quick rules:
+## Cursor Cloud Agents
 
-- Use `id:` testIDs only — never `point:` except system overlays with no accessibility node.
-- Every flow needs the header block in GUIDELINES §2; run `cd detox/maestro && npm run validate-headers`.
-- Start authenticated flows with `runFlow: ../../subflows/auth/login.yml`.
-- Setup and CI: [README.md](./README.md).
+Checked-in Cloud Agent config lives under [`.cursor/`](.cursor/). The VM is Linux and is meant for **PR babysitting** (lint, TypeScript, Jest, GitHub checks), not for iOS/Android simulators or native builds.
 
-Do not duplicate rules here — update GUIDELINES.md instead.
+Cloud-only instructions are in [`.cursor/cursor.md`](.cursor/cursor.md) (copied to `.cursor/AGENTS.md` at boot). Human overview: [`.cursor/README.md`](.cursor/README.md).
 
 ---
 > Source: [mattermost/mattermost-mobile](https://github.com/mattermost/mattermost-mobile) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
