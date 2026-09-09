@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--gpu-operator",
+  "displayName": "gpu-operator",
+  "description": "gpu-operator",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/gpu-operator",
+  "skills": []
+}
