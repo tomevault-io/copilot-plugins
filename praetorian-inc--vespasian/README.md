@@ -1,17 +1,15 @@
 # vespasian
 
-> Source: [praetorian-inc/vespasian](https://github.com/praetorian-inc/vespasian) — distributed by [TomeVault](https://tomevault.io)
-
-API discovery tool that maps attack surfaces from captured traffic and generates specs for REST, GraphQL, SOAP, and WebSocket APIs
+> Source: [praetorian-inc/vespasian](https://github.com/praetorian-inc/vespasian). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [praetorian-inc/vespasian](https://github.com/praetorian-inc/vespasian).
+Original source: `AGENTS.md` in [praetorian-inc/vespasian](https://github.com/praetorian-inc/vespasian).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
