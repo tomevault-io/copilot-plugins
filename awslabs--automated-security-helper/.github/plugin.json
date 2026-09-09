@@ -1,0 +1,30 @@
+{
+  "name": "awslabs--automated-security-helper",
+  "displayName": "automated-security-helper",
+  "description": "automated-security-helper",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/automated-security-helper",
+  "skills": [
+    {
+      "name": "ash-mcp",
+      "description": ""
+    },
+    {
+      "name": "ash-mcp",
+      "description": ""
+    },
+    {
+      "name": "automated-security-helper",
+      "description": ""
+    },
+    {
+      "name": "automated-security-helper",
+      "description": ""
+    },
+    {
+      "name": "automated-security-helper",
+      "description": ""
+    }
+  ]
+}
