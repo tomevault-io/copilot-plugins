@@ -5,5 +5,30 @@
   "version": "1.0.0",
   "author": "werf",
   "homepage": "https://github.com/werf/trdl",
-  "skills": []
+  "skills": [
+    {
+      "name": "trdl",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "description": ""
+    },
+    {
+      "name": "trdl",
+      "description": ""
+    }
+  ]
 }
