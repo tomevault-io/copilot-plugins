@@ -1,112 +1,112 @@
 ## archforge
 
-> - Do NOT append `Co-Authored-By` lines to commit messages.
+> ./gradlew build                    # Full build (compile + spotless + test)
 
-# AGENTS.md
+# CLAUDE.md
 
-## Git Commit Rules
+## Build Commands
 
-- Do NOT append `Co-Authored-By` lines to commit messages.
-
-## Workflow: Plan Before Execute
-
-For every new requirement:
-
-1. **Write a plan first** — save to `../codeplans/ArchForge/<date>-<topic>.md`
-2. **Wait for user review** — do NOT start implementation until approved
-3. **Track progress** — update plan file status after each step (pending / in_progress / done)
-4. **Verify each step** — run `./gradlew build` after each change
-5. **Verify before push** — run `./gradlew :archforge-server-admin:bootRun` to confirm startup
-6. **Push codeplans repo** after completion
-
-## Agent Loop Files
-
-- Do NOT create or keep `.agent-loop/` inside this repository.
-- Place all agent-loop related files in `../codeplans/ArchForge/.agent-loop/`.
-
-## Static Analysis Layer (auto-enforced)
-
-Three layers run automatically — you never invoke them separately:
-
-- **Error Prone** (2.50.0) hooks into javac: every `compileJava` /
-  `compileTestJava` is analyzed for bug patterns. ERROR-severity findings
-  fail the compile. See the wiring in the root `build.gradle.kts`
-  (`net.ltgt.errorprone` 5.1.1); severity downgrades live there and must
-  carry a reason.
-- **Checkstyle** (10.26.1) gates style on the semantic side (import
-  hygiene, naming, control-flow traps — formatting stays with Spotless).
-  `checkstyleMain`/`checkstyleTest` run **before `test`** and as part of
-  `check`/`build`. Config: `config/checkstyle/checkstyle.xml`,
-  suppressions: `config/checkstyle/checkstyle-suppressions.xml`
-  (tests keep snake_case method names by convention).
-- **Spotless** rewrites formatting via `spotlessApply`; `spotlessCheck`
-  fails the build on unformatted code.
-
-## Per-Edit Verification Protocol (MANDATORY for AI agents)
-
-Every code edit must be verified BEFORE moving on — "configured" is not
-"working", and a compile alone is not a pass:
-
-1. **After editing main code in module M** (e.g. M = archforge-server-admin):
-   `./gradlew :M:compileJava :M:checkstyleMain`
-   (compileJava includes Error Prone; checkstyleMain is the style gate)
-2. **After editing tests in module M**:
-   `./gradlew :M:compileTestJava :M:checkstyleTest`
-3. **After behavioral changes**: run the affected tests —
-   `./gradlew :M:test --tests '*FooTest*'` (checkstyle gates test automatically).
-4. **Before claiming the task complete**:
-   `./gradlew spotlessApply compileJava compileTestJava checkstyleMain checkstyleTest`
-   then the targeted tests. For the full gate including all tests:
-   `./gradlew build`.
-5. **Never batch unverified edits** — fix loop violations immediately while
-   the context is small; do not park them for a "final pass".
-
-Known sandbox caveat: `build`/`test` require Docker (Testcontainers). In
-Docker-less environments the protocol above (compile + checkstyle + unit
-tests without @Tag("slow")/@Tag("contract")) is the verification floor.
-
-## Verification Checklist
-
-Before claiming work is complete:
-
-- [ ] `./gradlew build` passes (includes spotless + checkstyle + all tests)
-- [ ] `./gradlew :archforge-server-admin:bootRun` starts without errors
-- [ ] No new Error Prone warnings introduced beyond the pre-existing baseline
-- [ ] Plan file updated with final status
-
-## Project Context
-
-This repository is part of the **ArchForge multi-repository project** (three
-independent Git repositories, cloned side by side, no submodules). For the
-machine-readable project map, read `repos.yaml` first.
-
-```
-archforge/
-├── ArchForge/          # backend + contracts (this repo)
-│   ├── spec/           # openapi.yaml, enums.yaml, schemas/
-│   ├── docs/specs/     # API / naming / error-code / security standards
-│   ├── docs/architecture.md
-│   └── skills/         # agent skills + backend standard
-├── ArchForgeWeb/       # C-end web client (Next.js)  — consumes server-web :8081
-└── ArchForgeAdmin/     # admin client (vue-pure-admin) — consumes server-admin :8080
+```bash
+./gradlew build                    # Full build (compile + spotless + test)
+./gradlew :archforge-server-admin:bootRun     # Start Spring Boot (dev profile)
+./gradlew spotlessApply            # Auto-fix code formatting
+./gradlew spotlessCheck            # Check formatting only
+./gradlew test                     # Run all tests
+./gradlew :archforge-server-admin:test       # Run specific module tests
+./gradlew clean build              # Clean + full build
 ```
 
-- **This repo owns the contract**: `spec/openapi.yaml` (OpenAPI 3.1) and
-  `spec/enums.yaml`. `spec/schemas/` holds JSON Schema 2020-12 definitions.
-  The old `ArchForgeSpec` repository is retired — its contents live here now.
-- Canonical backend standard: `skills/archforge-project-standard/standard.md`
-  (pointer: `docs/specs/backend-standard.md`).
-- Cross-repository behavior: read `repos.yaml`, then `docs/architecture.md`
-  before changing anything that affects the Web / Admin clients or the contract.
-- Do not modify another repository unless explicitly required.
-- This repo exposes two applications: `server-admin` (port 8080) and
-  `server-web` (port 8081).
-- **Do not invent deleted APIs**: `/system/menu` and `/system/role` no longer
-  exist (see `repos.yaml` → `contract.deleted_paths`).
-- **Contract sync rule**: whenever the backend API changes (paths, parameters,
-  request/response schemas, auth), update `spec/openapi.yaml` in the same
-  change. CI diffs the live export against it and blocks breaking changes.
+- Requires **Java 25** — `JAVA_HOME` must point to JDK 25 (e.g. Azul Zulu)
+- Dev mode requires **Docker** — start the dependencies first with
+  `docker compose -f docker/docker-compose.infra.yml up -d` (PostgreSQL + Redis).
+  The app never starts containers itself; it just connects to `localhost`.
+- Integration tests need Docker too, but manage their own containers via Testcontainers (see Testing).
+
+## Architecture
+
+Multi-module Spring Boot 4 project with DDD + Clean Architecture:
+
+```
+ArchForge/
+├── archforge-common/archforge-common-base   # Base utilities, enums, encryption, Jackson
+├── archforge-common/archforge-common-error  # ErrorCode, exceptions, error manager
+├── archforge-common/archforge-common-jpa    # JPA base entities, converters, query helpers
+├── archforge-domain/archforge-admin-user    # User/Role/Menu/Dept domain
+├── archforge-domain/archforge-blog          # Blog bounded context
+├── archforge-domain/archforge-meta-table    # Metadata table / codegen
+├── archforge-infrastructure                 # Auth (sa-token), file, tracing
+├── archforge-server-admin                   # Admin API :8080
+├── archforge-server-web                     # C-end API :8081
+├── archforge-cli                            # Developer CLI (picocli)
+├── archforge-example/archforge-example-task # Example bounded context
+├── archforge-starters/                      # cache / lock / redisson / trace
+└── archforge-dependencies                   # Centralized BOM (java-platform)
+```
+
+### Key Patterns
+
+- **DDD rich domain model**: entities have business methods + state machines (e.g. `Task.complete()`, `OrderStatus.canTransitionTo()`)
+- **Type-safe queries**: Hibernate Static Metamodel (`Entity_` classes) + `SafeExpr`/`AliasExpr` for compile-time field validation; `QueryHelp` + JPA Specifications for dynamic filtering
+- **ScopedValue context**: `ScopedValueContext` replaces ThreadLocal for request context propagation (JDK 25)
+- **Structured Concurrency**: `StructuredTaskScope` for parallel operations (e.g. ServerMonitorService)
+- **Pattern Matching**: switch expressions with type patterns throughout error handling and JSON utils
+- **MapStruct**: `@Mapper` interfaces for Entity→DTO conversion (under `server-admin/.../mapper/`)
+- **Multi-datasource**: `dynamic-datasource-spring-boot4-starter` with master/slave + `GroupDataSourceProxy` for JPA
+- **Auth**: sa-token 1.45.0 via `StpAdminUtil` (admin) and `StpWebUtil` (web); `@SaCheckLogin` / `@SaCheckPermission`
+- **File storage**: `FileStorageService` interface with Local and S3 implementations
+- **Problem Details**: RFC 9457 `ProblemDetail` for error responses
+- **Observation API**: Micrometer `Observation` in `RequestLogFilter` for metrics/tracing
+- **Stream Gatherers**: `CollectionUtils.partition()` via `Gatherers.windowFixed()`
+
+## Code Style
+
+- **Spotless + Google Java Style** (AOSP 4-space indent) — enforced on build
+- **Lombok**: use `@Data`, `@Getter`, `@Setter`, `@Builder`, `@RequiredArgsConstructor`, `@Slf4j`
+- **DO NOT use `var`** — always specify explicit types
+- **DO NOT import `cn.hutool:hutool-all`** — use JDK, Apache Commons, Guava, or Spring
+- **DO NOT use field injection** — use constructor injection via `@RequiredArgsConstructor`
+- **JSpecify `@NullMarked`** on packages, `@Nullable` on nullable parameters/returns
+- Follow [Alibaba Java Coding Guidelines](https://github.com/alibaba/Alibaba-Java-Coding-Guidelines)
+
+## Configuration
+
+- Config prefix: `arch-forge` — mapped to `ArchForgeProperties` bean
+- Profiles: `dev` (default), `test`, `staging`, `prod`
+  - `application.yaml`: base config
+  - `application-dev.yaml`: local Docker PostgreSQL/Redis/RustFS, script-initialized SQL
+  - `application-test.yaml`: Testcontainers + Flyway + seed data
+  - `application-staging.yaml`: external services, Flyway
+  - `application-prod.yaml`: production hardened, Flyway
+- Logging: Log4j2 via `log4j2-spring.xml` with `<SpringProfile>` sections
+- Database: PostgreSQL via Flyway migrations (`archforge-server-admin/src/main/resources/db/migration/`) and `archforge-domain/archforge-admin-user/src/main/resources/sql/` seed data
+
+## JDK 25 Features
+
+- `--enable-preview` enabled globally (build.gradle.kts + processAot + processTestAot + bootRun)
+- `ScopedValue<RequestContext>` in `ScopedValueContext` (replaces ThreadLocal)
+- `StructuredTaskScope.open()` + `fork()` + `join()` for parallel tasks
+- `Gatherers.windowFixed()` for stream partitioning
+- Pattern matching `switch` with type patterns and `null` cases
+- `--enable-native-access=ALL-UNNAMED` for Netty compatibility
+
+## Testing
+
+- **Spock 2.4** (Groovy 5.x) for BDD tests — `src/test/groovy/`
+- **JUnit 6** (Jupiter) for unit tests — `src/test/java/`
+- **RestClient integration tests** — `RestClientIntegrationTest.java` (15 API tests)
+- **Testcontainers** — `AbstractIntegrationTest` (`src/test`) starts PostgreSQL 17 + Redis 7 once per JVM;
+  integration tests extend it. RustFS (S3) is **opt-in** via `-Darch-forge.embedded.s3=true`
+- Object storage falls back to local files (`arch-forge.file-storage.type=local`), so no S3 container is needed
+- Test data: Flyway migrations + `TestDataInitializer` SQL seed data (`src/test`)
+
+## Dependencies
+
+All versions centrally managed in `archforge-dependencies/build.gradle.kts`:
+- Spring Boot 4.1.0, Gradle 9.5.1, PostgreSQL 42.7.11
+- OpenTelemetry 1.62.0, Flyway 12.4.0, sa-token 1.45.0
+- JSpecify 1.0.0, MapStruct 1.6.3, Lombok 1.18.46
+- Testcontainers 2.0.5, Spock 2.4, JUnit 6.0.3
 
 ---
 > Source: [sofn/ArchForge](https://github.com/sofn/ArchForge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
