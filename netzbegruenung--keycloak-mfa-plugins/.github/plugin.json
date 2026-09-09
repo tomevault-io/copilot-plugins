@@ -1,0 +1,9 @@
+{
+  "name": "netzbegruenung--keycloak-mfa-plugins",
+  "displayName": "keycloak-mfa-plugins",
+  "description": "keycloak-mfa-plugins",
+  "version": "1.0.0",
+  "author": "netzbegruenung",
+  "homepage": "https://github.com/netzbegruenung/keycloak-mfa-plugins",
+  "skills": []
+}
