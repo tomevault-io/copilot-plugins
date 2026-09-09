@@ -1,0 +1,9 @@
+{
+  "name": "argoproj--argo-helm",
+  "displayName": "argo-helm",
+  "description": "argo-helm",
+  "version": "1.0.0",
+  "author": "argoproj",
+  "homepage": "https://github.com/argoproj/argo-helm",
+  "skills": []
+}
