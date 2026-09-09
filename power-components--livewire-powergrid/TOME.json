@@ -1,0 +1,63 @@
+{
+  "name": "livewire-powergrid",
+  "owner": "Power-Components",
+  "repo": "livewire-powergrid",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "livewire-powergrid",
+      "path": "resources/boost/skills/powergrid-theme/SKILL.md",
+      "github_url": "https://github.com/Power-Components/livewire-powergrid/tree/main/resources/boost/skills/powergrid-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livewire-powergrid",
+      "path": "resources/boost/skills/upgrade-theme-v6-to-v7/SKILL.md",
+      "github_url": "https://github.com/Power-Components/livewire-powergrid/tree/main/resources/boost/skills/upgrade-theme-v6-to-v7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livewire-powergrid",
+      "path": "resources/boost/skills/create-powergrid-plugin/SKILL.md",
+      "github_url": "https://github.com/Power-Components/livewire-powergrid/tree/main/resources/boost/skills/create-powergrid-plugin/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Power-Components/livewire-powergrid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T22:37:03Z"
+}
