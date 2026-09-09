@@ -1,47 +1,84 @@
 ## circuitbreaker
 
-> These are some guidelines when using the SonarQube MCP server.
+> Self-hosted homelab visualization platform: interactive topology across hardware,
 
+# Circuit Breaker
 
-These are some guidelines when using the SonarQube MCP server.
+Self-hosted homelab visualization platform: interactive topology across hardware,
+services, networks, and clusters. Users are homelabbers and self-hosters who value
+simple, local, visual, zero-lock-in tooling.
 
-# Important Tool Guidelines
+**Current version: see `VERSION` (0.4.0 at time of writing).**
+Repo: https://github.com/BlkLeg/circuitbreaker · Image: `ghcr.io/blkleg/circuitbreaker`
 
-## Basic usage
-- **IMPORTANT**: After you finish generating or modifying any code files at the very end of the task, you MUST call the `analyze_file_list` tool (if it exists) to analyze the files you created or modified.
-- **IMPORTANT**: When starting a new task, you MUST disable automatic analysis with the `toggle_automatic_analysis` tool if it exists.
-- **IMPORTANT**: When you are done generating code at the very end of the task, you MUST re-enable automatic analysis with the `toggle_automatic_analysis` tool if it exists.
+## Layout
 
-## Project Keys
-- When a user mentions a project key, use `search_my_sonarqube_projects` first to find the exact project key
-- Don't guess project keys - always look them up
+```
+apps/backend/src/app/   FastAPI + SQLAlchemy + Pydantic, Python 3.12
+apps/frontend/src/      React + Vite + Tailwind, JavaScript/JSX (not TypeScript)
+apps/agent/             Go agent
+docker/                 mono image entrypoint, supervisord, nginx
+tests/                  integration/, unit/, build/ (repo-policy suites)
+specs/                  release control, owner map
+```
 
-## Code Language Detection
-- When analyzing code snippets, try to detect the programming language from the code syntax
-- If unclear, ask the user or make an educated guess based on syntax
+Stack: PostgreSQL, Redis (cache + WS pub/sub), NATS (internal bus), nginx.
 
-## Branch and Pull Request Context
-- Many operations support branch-specific analysis
-- If user mentions working on a feature branch, include the branch parameter
+## Product principles
 
-## Code Issues and Violations
-- After fixing issues, do not attempt to verify them using `search_sonar_issues_in_projects`, as the server will not yet reflect the updates
+**Freeform first.** Any `name`/`model`/`vendor` the user types must save. Catalogs
+and autocomplete exist to speed input up, never to block it.
 
-# Common Troubleshooting
+**Simple first.** The core path is: add a device, draw lines. Telemetry, scans, and
+integrations are opt-in on top of that.
 
-## Authentication Issues
-- SonarQube requires USER tokens (not project tokens)
-- When the error `SonarQube answered with Not authorized` occurs, verify the token type
+**Backward compatible.** Self-hosters upgrade on their own schedule, and a
+half-updated deployment must still work. Migrations use `ADD COLUMN IF NOT EXISTS`;
+add fields alongside old ones rather than renaming or dropping.
 
-## Project Not Found
-- Use `search_my_sonarqube_projects` to find available projects
-- Verify project key spelling and format
+**Air-gap is first-class.** `CB_AIRGAP=true` must block outbound calls. No feature
+may assume internet access.
 
-## Code Analysis Issues
-- Ensure programming language is correctly specified
-- Remind users that snippet analysis doesn't replace full project scans
-- Provide full file content for better analysis results
+**No placeholders.** Ship complete code — no `TODO`, bare `pass`, or
+`NotImplementedError` left behind. If something is genuinely unclear, ask.
+
+## Conventions
+
+- **Python**: snake_case, full type annotations (mypy runs with
+  `disallow_untyped_defs`), docstrings on classes and public functions. Services hold
+  logic; routes stay thin. Sessions via `Depends(get_db)`.
+- **Frontend**: `.jsx` components (PascalCase), `.js` hooks (`useCamelCase`) and API
+  modules. All HTTP goes through the axios client in `src/api/client.jsx` — no inline
+  `fetch`. Always render loading and error states.
+- **API**: snake_case JSON, errors as `{"detail": "..."}`, correct HTTP codes.
+- **Commits**: `feat:` / `fix:` / `chore:` / `docs:`.
+
+## Before pushing
+
+```bash
+make lint      # ruff + mypy + eslint
+make verify    # the pre-push gate (~3m20s)
+```
+
+Never lower the coverage gate to make a build green.
+
+## Skills
+
+Four skills carry the detail — consult them rather than reconstructing conventions:
+
+- **cb-code-quality** — gates, naming, constants, error handling, tests
+- **cb-security-hardening** — auth, headers, container hardening, vault rotation
+- **cb-realtime-api** — NATS subjects, WebSocket/SSE streams, frontend↔backend contract
+- **cb-build-test** — dev env, test DB, packaging, secrets and air-gap
+
+## Two things that look like bugs but aren't
+
+- The mono container **starts as root on purpose** so the entrypoint can fix volume
+  ownership; supervisord then drops app processes to `breaker:1000`. Don't add a
+  top-level `USER`.
+- The mono runtime base is **Debian slim**, not Alpine. Only the frontend builder
+  stage is Alpine.
 
 ---
 > Source: [BlkLeg/CircuitBreaker](https://github.com/BlkLeg/CircuitBreaker) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
