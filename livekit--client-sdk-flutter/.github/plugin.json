@@ -1,0 +1,9 @@
+{
+  "name": "livekit--client-sdk-flutter",
+  "displayName": "client-sdk-flutter",
+  "description": "client-sdk-flutter",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/client-sdk-flutter",
+  "skills": []
+}
