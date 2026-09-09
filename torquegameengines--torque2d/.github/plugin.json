@@ -1,0 +1,14 @@
+{
+  "name": "torquegameengines--torque2d",
+  "displayName": "Torque2D",
+  "description": "Torque2D",
+  "version": "1.0.0",
+  "author": "TorqueGameEngines",
+  "homepage": "https://github.com/TorqueGameEngines/Torque2D",
+  "skills": [
+    {
+      "name": "Torque2D",
+      "description": ""
+    }
+  ]
+}
