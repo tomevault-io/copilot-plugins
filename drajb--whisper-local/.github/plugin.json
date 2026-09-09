@@ -1,0 +1,9 @@
+{
+  "name": "drajb--whisper-local",
+  "displayName": "whisper-local",
+  "description": "Free, open-source, 100% offline AI dictation for Windows & macOS. Wispr Flow / Dragon alternative. Push-to-talk hotkey, voice commands, transforms, sub-second latency. Powered by Whisper. No cloud, no",
+  "version": "1.0.0",
+  "author": "drajb",
+  "homepage": "https://github.com/drajb/whisper-local",
+  "skills": []
+}
