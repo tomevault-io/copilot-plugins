@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--zerotrustassessment",
+  "displayName": "zerotrustassessment",
+  "description": "zerotrustassessment",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/zerotrustassessment",
+  "skills": [
+    {
+      "name": "zerotrustassessment",
+      "description": ""
+    }
+  ]
+}
