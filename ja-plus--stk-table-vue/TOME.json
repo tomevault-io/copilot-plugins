@@ -1,0 +1,159 @@
+{
+  "name": "stk-table-vue",
+  "owner": "ja-plus",
+  "repo": "stk-table-vue",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/stk-table/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/stk-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/stk-table-vue",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/stk-table-vue",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/stk-table-vue/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/stk-table-vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".qoder/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.qoder/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stk-table-vue",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/ja-plus/stk-table-vue/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ja-plus/stk-table-vue",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:49:52Z"
+}
