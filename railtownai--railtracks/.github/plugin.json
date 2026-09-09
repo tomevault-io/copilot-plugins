@@ -1,9 +1,14 @@
 {
   "name": "railtownai--railtracks",
   "displayName": "railtracks",
-  "description": "railtracks",
+  "description": "An agentic framework that helps developers build resilient agentic systems",
   "version": "1.0.0",
   "author": "RailtownAI",
   "homepage": "https://github.com/RailtownAI/railtracks",
-  "skills": []
+  "skills": [
+    {
+      "name": "railtracks",
+      "description": ""
+    }
+  ]
 }
