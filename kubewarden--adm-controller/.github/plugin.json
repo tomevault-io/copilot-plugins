@@ -1,0 +1,9 @@
+{
+  "name": "kubewarden--adm-controller",
+  "displayName": "adm-controller",
+  "description": "adm-controller",
+  "version": "1.0.0",
+  "author": "kubewarden",
+  "homepage": "https://github.com/kubewarden/adm-controller",
+  "skills": []
+}
