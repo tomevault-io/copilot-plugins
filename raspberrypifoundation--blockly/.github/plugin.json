@@ -1,0 +1,9 @@
+{
+  "name": "raspberrypifoundation--blockly",
+  "displayName": "blockly",
+  "description": "blockly",
+  "version": "1.0.0",
+  "author": "RaspberryPiFoundation",
+  "homepage": "https://github.com/RaspberryPiFoundation/blockly",
+  "skills": []
+}
