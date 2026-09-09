@@ -1,0 +1,63 @@
+{
+  "name": "great_expectations",
+  "owner": "fivetran",
+  "repo": "great_expectations",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gx-configure-data-source",
+      "path": "great_expectations/.agents/skills/gx-configure-data-source/SKILL.md",
+      "github_url": "https://github.com/fivetran/great_expectations/tree/main/great_expectations/.agents/skills/gx-configure-data-source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "great_expectations",
+      "path": "great_expectations/.agents/skills/gx-configure-checkpoint/SKILL.md",
+      "github_url": "https://github.com/fivetran/great_expectations/tree/main/great_expectations/.agents/skills/gx-configure-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "great_expectations",
+      "path": "great_expectations/.agents/skills/gx-configure-expectations/SKILL.md",
+      "github_url": "https://github.com/fivetran/great_expectations/tree/main/great_expectations/.agents/skills/gx-configure-expectations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fivetran/great_expectations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:16:38Z"
+}
