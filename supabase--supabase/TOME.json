@@ -1,0 +1,297 @@
+{
+  "name": "supabase",
+  "owner": "supabase",
+  "repo": "supabase",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vitest",
+      "path": ".agents/skills/vitest",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/vitest",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "path": ".claude/skills/vercel-composition-patterns",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "studio-best-practices",
+      "path": ".claude/skills/studio-best-practices",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-best-practices",
+      "description": ""
+    },
+    {
+      "name": "studio-queries",
+      "path": ".claude/skills/studio-queries",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-queries",
+      "description": ""
+    },
+    {
+      "name": "use-static-effect-event",
+      "path": ".claude/skills/use-static-effect-event",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/use-static-effect-event",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/vitest/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/vitest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-testing/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-queries/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/safe-sql-execution/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/safe-sql-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-ui-patterns/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-ui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/dev-toolbar-review/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/dev-toolbar-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/telemetry-standards/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/telemetry-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-mock-api-tests/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-mock-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-best-practices/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/studio-error-handling/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/studio-error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/clickhouse-logs-queries/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/clickhouse-logs-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/docs-content/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/docs-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/react-hook-form/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.claude/skills/react-hook-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/pm-the-docs/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/pm-the-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/ask-the-docs/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/ask-the-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/write-the-docs/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/write-the-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/review-the-docs/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/review-the-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": "apps/studio/.claude/skills/explorer/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/apps/studio/.claude/skills/explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/test-the-docs/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/test-the-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/edit-the-docs/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/edit-the-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-testing/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-queries/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/react-hook-form/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/react-hook-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-shortcuts/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-shortcuts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/safe-sql-execution/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/safe-sql-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-ui-patterns/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-ui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/dev-toolbar-review/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/dev-toolbar-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/telemetry-standards/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/telemetry-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-mock-api-tests/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-mock-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/studio-error-handling/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/studio-error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/clickhouse-logs-queries/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/clickhouse-logs-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/supabase/supabase/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/supabase/supabase",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:38:05Z"
+}
