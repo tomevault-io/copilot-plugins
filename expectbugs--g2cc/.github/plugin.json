@@ -1,0 +1,9 @@
+{
+  "name": "expectbugs--g2cc",
+  "displayName": "G2CC",
+  "description": "A custom windowed OS for Even Realities G2 smart glasses \u2014 direct-BLE Android client, PC-side compositor, Claude Code sessions, a music app, and real NES Final Fantasy on the lenses",
+  "version": "1.0.0",
+  "author": "expectbugs",
+  "homepage": "https://github.com/expectbugs/G2CC",
+  "skills": []
+}
