@@ -1,0 +1,141 @@
+{
+  "name": "multi-coding-agent",
+  "owner": "lyxhnu",
+  "repo": "multi-coding-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/long-name/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/long-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "multi-coding-agent",
+      "path": "packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md",
+      "github_url": "https://github.com/lyxhnu/multi-coding-agent/tree/main/packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lyxhnu/multi-coding-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:36:09Z"
+}
