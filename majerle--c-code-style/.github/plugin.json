@@ -1,0 +1,14 @@
+{
+  "name": "majerle--c-code-style",
+  "displayName": "c-code-style",
+  "description": "c-code-style",
+  "version": "1.0.0",
+  "author": "MaJerle",
+  "homepage": "https://github.com/MaJerle/c-code-style",
+  "skills": [
+    {
+      "name": "c-code-style",
+      "description": ""
+    }
+  ]
+}
