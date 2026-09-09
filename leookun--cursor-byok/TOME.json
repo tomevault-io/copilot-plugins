@@ -1,0 +1,123 @@
+{
+  "name": "cursor-byok",
+  "owner": "leookun",
+  "repo": "cursor-byok",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/coding-guidance/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/coding-guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/cursor-debug-log/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/cursor-debug-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/i18n-requirements/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/i18n-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/cursor-app-formatted/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/cursor-app-formatted/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/prefix-cache-stability/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/prefix-cache-stability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/cursor-client-e2e-debugging/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/cursor-client-e2e-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "path": ".agents/skills/frontend/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/i18n/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/floating-ui/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/floating-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/database-schema/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/database-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/model-selection/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/model-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-byok",
+      "path": ".agents/skills/cursor-prefix-stability/SKILL.md",
+      "github_url": "https://github.com/leookun/cursor-byok/tree/main/.agents/skills/cursor-prefix-stability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/leookun/cursor-byok",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:42:27Z"
+}
