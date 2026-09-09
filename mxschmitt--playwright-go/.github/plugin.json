@@ -1,0 +1,18 @@
+{
+  "name": "mxschmitt--playwright-go",
+  "displayName": "playwright-go",
+  "description": "playwright-go",
+  "version": "1.0.0",
+  "author": "mxschmitt",
+  "homepage": "https://github.com/mxschmitt/playwright-go",
+  "skills": [
+    {
+      "name": "release-playwright",
+      "description": ""
+    },
+    {
+      "name": "playwright-go",
+      "description": ""
+    }
+  ]
+}
