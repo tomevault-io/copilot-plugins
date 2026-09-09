@@ -1,73 +1,166 @@
 ## railtracks
 
-> The news around AI terms can be pretty overwhelming and sound more like a buzzword than something useful. Before we dive
+> Railtracks (`rt`) is a Python framework for building agentic systems: agents, tools, and multi-step flows
 
-# What is an Agent?
+## Repository Overview
 
-The news around AI terms can be pretty overwhelming and sound more like a buzzword than something useful. Before we dive
-deep into how you can build agents in **Railtracks**, let's first understand what an agent is.
+Railtracks (`rt`) is a Python framework for building agentic systems: agents, tools, and multi-step flows
+defined entirely in standard Python (no YAML/DSLs). This is a `uv` workspace monorepo:
 
-An agent is a self-contained unit that can perform a specific task or set of tasks autonomously. It has the ability to
-make decisions, take actions, and act within its environment to achieve its goals.
-
-The key abilities of the agent include:
-
-* **Autonomy**: Agents can operate independently within the boundaries you define
-* **Adaptability**: Agents can adjust their behavior based on the environment and the tasks at hand
-* **Goal-Oriented**: Agents are designed to achieve specific objectives or complete tasks
-* **Interaction**: Agents can communicate with other agents or systems to gather information or perform actions
-* **Stateful**: Agents maintain context and history and use it to inform their decisions
-
-# LLMs as Agents
-
-Reinforcement Learning and other AI techniques have trained specific agents to operate in their environments
-for a while now, but LLMs have changed the game and made it much easier to use their generalized intelligence to
-accomplish complex tasks and goals. This ability makes them uniquely suited to operate as the **brain** for your agentic
-system.
-
-```mermaid
-graph TB
-    User[User]
-    Agent[Agent]
-    Tools[Tools]
-    Env[Environment]
-    
-    User -->|Query| Agent
-    Agent -->|Response| User
-    Agent -->|Select & invoke| Tools
-    Tools -->|Results| Agent
-    Tools -->|Actions| Env
-    Env -->|State updates| Tools
-    
-    classDef userClass fill:#60A5FA,fill-opacity:0.3
-    classDef agentClass fill:#FBBF24,fill-opacity:0.3
-    classDef toolClass fill:#FECACA,fill-opacity:0.3
-    classDef envClass fill:#34D399,fill-opacity:0.3
-    
-    class User userClass;
-    class Agent agentClass;
-    class Tools toolClass;
-    class Env envClass;
+```
+Root
+├── packages/railtracks/          # The actual "railtracks" PyPI package
+│   ├── pyproject.toml            # Package dependencies (add new deps here, in optional-dependencies for extras)
+│   ├── src/railtracks/           # Source (module is railtracks, package dir uses underscore)
+│   └── tests/                    # unit_tests/, integration_tests/, end_to_end/, llm_live_tests/
+├── pyproject.toml                # Root workspace: dev-tooling deps only (docs/test/lint groups), NOT package deps
+├── docs/                         # mkdocs documentation source
+├── examples/                     # Example scripts
+└── scripts/                      # CI helper scripts (dependency sorting, license checks, docs validation)
 ```
 
-# Real World Applications
+## Accessing docs
 
-Agents are already being used in real world applications such as:
+Full documentation lives at https://docs.railtracks.org/ (works even if this file is read standalone,
+without the repo). Locally, the source is under `docs/documentation/` and `docs/observability/`; preview
+with `mkdocs serve` (see Common Commands below). Doc URLs mirror the source path, e.g.
+`docs/documentation/invocation/flows.md` -> `https://docs.railtracks.org/documentation/invocation/flows/`.
 
-1. Vibe Coding Tools ([Cursor](https://cursor.so/), [Windsurf](https://windsurf.com/), etc.)
-2. NPC Interactions in Games ([AI Village](https://arxiv.org/pdf/2304.03442))
-3. Technical Documentation Writing ([ParagraphAI](https://www.paragraphai.com/product))
-4. Deep Research Tools ([GPT Deep Research](https://openai.com/index/introducing-deep-research/))
+## Setup
 
-## Related Topics
+```bash
+uv sync --group dev
+uv pip install -e "packages/railtracks[all]"   # or a specific extra, e.g. [visual], [retrieval]
+```
 
-* [Tools](tools.md)
+## Common Commands
 
-## Build Your Own
+```bash
+# Lint / format (must pass before commit, CI enforces this)
+ruff check --fix
+ruff format
 
-We have build **Railtracks** with developers in mind; with just a simple prompt and a bit of Python, you’re
-already well on your way to building your first agent. Get started [Building with Railtracks](../walkthroughs/byfa.md)
+# Unit tests only (fast, ~10s)
+pytest packages/railtracks/tests/unit_tests/ -v --timeout=30
+
+# Unit + integration tests (excludes llm_live_tests and end_to_end/retrieval, per root pyproject.toml addopts)
+pytest -s -v packages/railtracks/tests/unit_tests/ packages/railtracks/tests/integration_tests/
+
+# Single test file / test
+pytest packages/railtracks/tests/unit_tests/nodes/test_x.py -v
+pytest packages/railtracks/tests/unit_tests/nodes/test_x.py::test_name -v
+
+# Dependency sort check (CI enforced)
+python scripts/check_dependencies_sorted.py
+
+# Docs
+mkdocs serve            # local preview at localhost:8000
+mkdocs build --strict --verbose
+```
+
+CI (`.github/workflows/pr_tests.yaml`) runs `ruff-lint` and `check-licenses` in parallel, plus a `changes`
+job that path-filters which areas were touched. `unit_tests` (includes the integration tests and an inline
+dependency-sort check), `retrieval_tests`, `documentation_validation` (`mkdocs build --strict`), and a
+standalone `pyproject_dependency_order` job all wait on those three and only run when `changes` says their
+area is affected. Run the lint/format/test commands above locally before pushing.
+
+Note: `llm_live_tests` and `end_to_end/retrieval` require real API keys/network and are excluded from the
+default pytest run via root `pyproject.toml` `addopts`; other `end_to_end` tests run by default.
+`RAILTRACKS_TEST_MODE` is auto-enabled during tests (via `conftest.py`) to disable session persistence to
+disk; opt into persistence testing with `RAILTRACKS_ALLOW_PERSISTENCE=1` and the `allow_persistence`
+fixture.
+
+## Architecture
+
+### Core building blocks
+
+For usage patterns (how to define tools/agents/flows, structured output, agent-as-tool, MCP tools), see
+`packages/railtracks/src/railtracks/cli/skills/agent-builder.md` (the same content bundled for package
+users via `railtracks add claude:agent-builder`) or the docs linked below; don't re-teach usage here. Just
+where each concept lives internally, plus a doc link for the how-to:
+
+- **Tool** (`rt.function_node`): `built_nodes/function/node.py`.
+  [Function Tools](https://docs.railtracks.org/documentation/agent_design/tools/function_tools/).
+- **Agent** (`rt.agent_node`): `built_nodes/llm/node.py`; always a single dynamically built node, no
+  separate class per `tool_nodes`/`output_schema` combination. Passing both raises `NodeCreationError`.
+  [Agent Design](https://docs.railtracks.org/documentation/agent_design/overview/).
+- **Flow**: `orchestration/flow.py`.
+  [Flows](https://docs.railtracks.org/documentation/invocation/flows/).
+- **`rt.call(...)`**: `interaction/_call.py`, alongside `call_batch`/`astream`/`broadcast`/`couple`.
+  [Call](https://docs.railtracks.org/documentation/invocation/call/).
+- **Agent-as-tool**: `rt.ToolManifest(...)` in `nodes/manifest.py`.
+  [Agents as Tools](https://docs.railtracks.org/documentation/agent_design/tools/agents_as_tools/).
+- **Middleware**: `middleware/chain.py` (see "Things to avoid" below for the `middleware=`/
+  `model_middleware=` gotcha). The LLM-call hooks were renamed `before_llm`/`after_llm` ->
+  `pre_llm`/`post_llm` and `after_node` -> `post_node`; old names still work as deprecated shims.
+  [Middleware](https://docs.railtracks.org/documentation/agent_design/middleware/overview/).
+- **Human-in-the-loop verifier**: split into `rt.prebuilt.middleware.pre_verifier`/`post_verifier`
+  (`prebuilt/middleware/pre_verifier.py`/`post_verifier.py`); `Verdict`/`VerifierRejectedError` still in
+  `middleware/verdict.py`. There's no top-level `rt.verifier` anymore.
+  [Human in the Loop](https://docs.railtracks.org/observability/human_in_the_loop/hil/).
+
+### Package layout under `src/railtracks/`
+- `nodes/`: base `Node` class, `ToolManifest`, tool-callable protocol.
+- `built_nodes/`: node factories, `llm/` (`agent_node`, node builder, model-call middleware) and
+  `function/` (`function_node`, `RTFunction`).
+- `orchestration/`: `Flow`, `FlowConnection`.
+- `execution/`: coordinator/execution-strategy/task running the request graph.
+- `interaction/`: `rt.call`, `call_batch`, `astream`, `broadcast`, `couple` (in-node calls to other
+  nodes/agents).
+- `middleware/`: generic node-level `Middleware`/`wrap_node`/`post_node` (`after_node` deprecated shim),
+  plus `Verdict`/`VerifierRejectedError`. The human-in-the-loop gate itself now lives in `prebuilt/`.
+- `pubsub/`: internal message bus (request creation/success/failure events).
+- `state/`: execution state/forest tracking, session info.
+- `context/`: `rt.context` get/put/update/delete (run-scoped context vars).
+- `llm/`: model abstractions (`ModelBase`, provider clients: `AnthropicLLM`, `OpenAILLM`, `GeminiLLM`,
+  `OpenAICompatibleProvider`, etc.), messages, tool schemas.
+- `rt_mcp/`: MCP client/server integration (`connect_mcp`, `create_mcp_server`).
+- `exceptions/`: the `RTError` hierarchy (`NodeCreationError`, `NodeInvocationError`, `LLMError`,
+  `GlobalTimeOutError`, `ContextError`, `FatalError`, `VisualExtraRequiredError`).
+- `guardrails/`: `input_guard`/`output_guard`, guardrail decisions/traces.
+- `evaluations/`: `evaluate`, `JudgeEvaluator`, `ToolUseEvaluator`, metrics.
+- `observability/`: framework-agnostic event pipeline (`Observer`, writers, `publish_event`).
+- `observability_bridge/`: bridges runtime `InternalContext` scope into `observability` events.
+- `events/`: internal event definitions/registry/emit plumbing (distinct from `observability`).
+- `query/`: `connect`/`EventQuery` for querying recorded session/event data (DuckDB-backed).
+- `retrieval/`: RAG subsystem, `RetrievalRuntime`, loaders, chunking, embedding, `Store`/`VectorStore`
+  (install via `railtracks[retrieval]`).
+- `human_in_the_loop/`: `HIL`, `HILMessage`, optional local chat UI.
+- `prebuilt/`: ready-made agents/middleware/guardrails/tools, including `pre_verifier.py`/
+  `post_verifier.py` (see above), `lock.py` (`Lock`), and `max_calls.py` (`MaxCalls`).
+- `prompts/`: prompt template helpers.
+- `validation/`: node-creation/invocation-time checks (duplicate tool names/params, etc.).
+- `utils/`: config, logging, serialization, profiling, context-injection helpers.
+- `cli/`: `railtracks` CLI (`init`/`viz`/`add`) plus bundled skill docs distributed to end users via
+  `railtracks add claude:<skill>`, unrelated to this repo's own `.claude/skills/`. `viz_api/` is the
+  DuckDB-backed query/route layer behind the `viz` command.
+- `integrations/`: currently an empty placeholder package, no functionality yet.
+- `scope_manager.py`: `ScopeManager` protocol for node/middleware scope tracking.
+- `paths.py`: `resolve_railtracks_home()`, resolves the `.railtracks` data directory (env var, then
+  walk-up-from-cwd, then a warned fallback).
+- `_session.py`: `Session`/`session()` decorator.
+
+### Things to avoid when writing or modifying agent code
+- Don't create a `Flow` *and* a manual top-level `await rt.call(...)` for the same agent; pick one entry
+  point.
+- Don't add tools an agent doesn't need.
+- Don't confuse `middleware=` (whole-node) with `model_middleware=` (per model-call), and don't assume
+  middleware order is irrelevant: the first entry in the list is outermost.
+
+## Code conventions
+
+See `.claude/skills/code-style/SKILL.md` for this repo's code-style conventions. It's a
+project-scoped Claude Code skill: Claude auto-invokes it based on its description whenever it's writing or
+editing code here, which is a model-driven nudge from the skill matching, not a hard-enforced hook, so
+still sanity-check the diff against it yourself.
+
+## Notes on dependency structure
+- Root `pyproject.toml` = dev tooling only (`docs`/`test`/`lint` groups via `uv`). Never add runtime
+  package dependencies here.
+- `packages/railtracks/pyproject.toml` = actual package dependencies. New optional integrations go under
+  `[project.optional-dependencies]` there, and must stay alphabetically sorted (enforced by
+  `scripts/check_dependencies_sorted.py`).
 
 ---
 > Source: [RailtownAI/railtracks](https://github.com/RailtownAI/railtracks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
