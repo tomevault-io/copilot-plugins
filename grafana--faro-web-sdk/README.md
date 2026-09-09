@@ -5,17 +5,21 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [grafana/faro-web-sdk](https://github.com/grafana/faro-web-sdk).
+Original source: `CLAUDE.md` in [grafana/faro-web-sdk](https://github.com/grafana/faro-web-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [grafana/faro-web-sdk](https://github.com/grafana/faro-web-sdk) — a repo with 1127+ stars on GitHub.
+## Bundled Skills (1)
+
+- [faro-web-sdk](https://github.com/grafana/faro-web-sdk/tree/main/ai/grafana-cloud/faro-setup/skills/faro-web/SKILL.md)
+
+From [grafana/faro-web-sdk](https://github.com/grafana/faro-web-sdk) — a repo with 1129+ stars on GitHub.
 
 ---
 
