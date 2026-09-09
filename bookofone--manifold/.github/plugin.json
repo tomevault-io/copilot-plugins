@@ -1,0 +1,9 @@
+{
+  "name": "bookofone--manifold",
+  "displayName": "manifold",
+  "description": "Cross-platform Claude Code workspace manager - Electron + xterm.js",
+  "version": "1.0.0",
+  "author": "bookofone",
+  "homepage": "https://github.com/bookofone/manifold",
+  "skills": []
+}
