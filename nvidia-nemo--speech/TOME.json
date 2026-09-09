@@ -1,0 +1,75 @@
+{
+  "name": "Speech",
+  "owner": "NVIDIA-NeMo",
+  "repo": "Speech",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "verify",
+      "path": ".claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "path": ".claude/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "path": ".claude/skills/debug-training-logs/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/debug-training-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "path": ".claude/skills/nemo-speech-asr-finetune/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Speech",
+      "path": ".claude/skills/migrate-to-resumable-dataloader/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/migrate-to-resumable-dataloader/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-NeMo/Speech",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T01:08:26Z"
+}
