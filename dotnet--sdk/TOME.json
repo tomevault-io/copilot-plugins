@@ -1,0 +1,153 @@
+{
+  "name": "sdk",
+  "owner": "dotnet",
+  "repo": "sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "generate-release-notes",
+      "path": ".claude/skills/generate-release-notes",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/generate-release-notes",
+      "description": ""
+    },
+    {
+      "name": "validate-static-web-asset-change",
+      "path": ".claude/skills/validate-static-web-asset-change",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/validate-static-web-asset-change",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".claude/skills/swa-pack-format/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/swa-pack-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".claude/skills/swa-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/swa-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".claude/skills/generate-release-notes/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/generate-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".claude/skills/swa-baseline-regeneration/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/swa-baseline-regeneration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".claude/skills/author-swa-integration-test/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/author-swa-integration-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".claude/skills/validate-static-web-asset-change/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.claude/skills/validate-static-web-asset-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/incremental-test/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/incremental-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/migrate-xunit-to-mstest/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/migrate-xunit-to-mstest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/add-cli-command/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/add-cli-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/dotnet-aot-compat/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/dotnet-aot-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/add-dotnet-aot-command/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/add-dotnet-aot-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/targeted-test/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/targeted-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/add-net-analyzer/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/add-net-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk",
+      "path": ".github/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/dotnet/sdk/tree/main/.github/skills/update-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T00:33:50Z"
+}
