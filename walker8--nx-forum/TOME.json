@@ -1,0 +1,44 @@
+{
+  "name": "nx-forum",
+  "owner": "walker8",
+  "repo": "nx-forum",
+  "description": "NX Forum \u662f\u4e00\u4e2a\u57fa\u4e8e Spring Boot + Nuxt \u6784\u5efa\u7684\u73b0\u4ee3\u5316\u5f00\u6e90\u8bba\u575b\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/walker8/nx-forum",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T23:12:49Z"
+}
