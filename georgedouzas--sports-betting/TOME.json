@@ -1,0 +1,105 @@
+{
+  "name": "sports-betting",
+  "owner": "georgedouzas",
+  "repo": "sports-betting",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-converge/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-converge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sports-betting",
+      "path": ".claude/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/georgedouzas/sports-betting/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/georgedouzas/sports-betting",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T09:32:47Z"
+}
