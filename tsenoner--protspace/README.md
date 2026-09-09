@@ -1,26 +1,24 @@
 # protspace
 
-> Source: [tsenoner/protspace](https://github.com/tsenoner/protspace) — distributed by [TomeVault](https://tomevault.io)
-
-ProtSpace is program that helps in visualizing and investigating our protein embedding space.
+> Source: [tsenoner/protspace](https://github.com/tsenoner/protspace). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tsenoner/protspace](https://github.com/tsenoner/protspace).
+Original source: `AGENTS.md` in [tsenoner/protspace](https://github.com/tsenoner/protspace).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [tsenoner/protspace](https://github.com/tsenoner/protspace) — a repo with 50+ stars on GitHub.
+From [tsenoner/protspace](https://github.com/tsenoner/protspace) — a repo with 16+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
