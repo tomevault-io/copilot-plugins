@@ -1,41 +1,17 @@
 ## langgraphjs
 
-> - Build: `pnpm build`
+> When Corridor's `analyzePlan` tool is available, create a plan and use the tool to analyze it before generating or modifying code. Apply the resulting security guidance before writing code.
 
-# LangGraphJS Development Guide
+# Repository instructions
 
-## Build & Test Commands
-- Build: `pnpm build`
-- Lint: `pnpm lint` (fix with `pnpm lint:fix`) — uses oxlint
-- Format: `pnpm format` (check with `pnpm format:check`) — uses oxfmt
-- Test: `pnpm test` (single test: `pnpm test:single /path/to/yourtest.test.ts`)
-- Integration tests: `pnpm test:int` (start deps: `pnpm test:int:deps`, stop: `pnpm test:int:deps:down`)
+<corridor>
 
-## Code Style Guidelines
-- **TypeScript**: Target ES2021, NodeNext modules, strict typing enabled
-- **Formatting**: 2-space indentation, 80 char width, double quotes, semicolons required
-- **Naming**: camelCase (variables/functions), CamelCase (classes), UPPER_CASE (constants)
-- **Files**: lowercase .ts, tests use .test.ts or .int.test.ts for integration
-- **Error Handling**: Custom error classes that extend BaseLangGraphError
-- **Imports**: ES modules with file extensions, order: external deps → internal modules → types
-- **Project Structure**: Monorepo with pnpm workspaces, libs/ for packages, examples/ for demos
-- **New Features**: Match patterns of existing code, ensure proper testing, discuss major abstractions in issues
+## Corridor security analysis
 
-## Library Architecture
+When Corridor's `analyzePlan` tool is available, create a plan and use the tool to analyze it before generating or modifying code. Apply the resulting security guidance before writing code.
 
-### System Layers
-- **Channels Layer**: Base communication & state management (BaseChannel, LastValue, Topic)
-- **Checkpointer Layer**: Persistence and state serialization across backends
-- **Pregel Layer**: Message passing execution engine with superstep-based computation
-- **Graph Layer**: High-level APIs for workflow definition (Graph, StateGraph)
-
-### Key Dependencies
-- Channels provide state management primitives used by Pregel nodes
-- Checkpointer enables persistence, serialization, and time-travel debugging
-- Pregel implements the execution engine using channels for communication
-- Graph builds on Pregel adding workflow semantics and node/edge definitions
-- StateGraph extends Graph with shared state management capabilities
+</corridor>
 
 ---
 > Source: [langchain-ai/langgraphjs](https://github.com/langchain-ai/langgraphjs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
