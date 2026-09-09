@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [unpoly/unpoly](https://github.com/unpoly/unpoly
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [unpoly](https://github.com/unpoly/unpoly/tree/main/.agents/skills/unpoly-fix-docs/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/unpoly/unpoly](https://github.com/unpoly/unpoly)
 
 ---
