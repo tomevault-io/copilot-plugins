@@ -89,4 +89,4 @@ LLMコーディングでよくあるミスを減らすための行動指針。�
 
 ---
 > Source: [hukusuke1007/flutter_app_template](https://github.com/hukusuke1007/flutter_app_template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
