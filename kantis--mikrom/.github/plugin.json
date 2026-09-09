@@ -1,0 +1,9 @@
+{
+  "name": "kantis--mikrom",
+  "displayName": "mikrom",
+  "description": "MicroORM for Kotlin Multiplatform",
+  "version": "1.0.0",
+  "author": "Kantis",
+  "homepage": "https://github.com/Kantis/mikrom",
+  "skills": []
+}
