@@ -21,6 +21,10 @@
     {
       "name": "agent-manager",
       "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "description": ""
     }
   ]
 }
