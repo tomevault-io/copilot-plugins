@@ -1,107 +1,149 @@
-## go-idiomatic-code
+## go-mcp
 
-> Idiomatic Go Code Rules
+> Go MCP (Model Context Protocol) Development Rules
 
 ## Description
-This rule ensures that all Go code follows idiomatic Go practices, adhering to the official Go style guide and common best practices in the Go community.
+This rule provides guidelines for working with the Model Context Protocol (MCP) in Go applications using the `go-mcp` library. MCP is a protocol for AI assistants to interact with external tools and services.
 
 ## Rule
-When writing Go code:
+When working with MCP in Go:
 
-### Naming Conventions
-1. Use `camelCase` for variable and function names (not `snake_case`)
-2. Use `PascalCase` for exported names (public functions, types, variables, constants)
-3. Use `camelCase` for unexported names (private functions, types, variables, constants)
-4. Use acronyms in all caps (e.g., `HTTP`, `URL`, `ID`) when they appear at the beginning of a name, otherwise all lowercase
-5. Keep names short and descriptive; the larger the scope, the more descriptive the name should be
+### MCP Server Setup
+1. Use `mcp.NewServer()` with appropriate configuration options to create a new MCP server
+2. Configure transports based on requirements (stdio, HTTP/JSON-RPC, SSE)
+3. Always handle graceful shutdown of the server
+4. Use context for cancellation and timeouts
+5. Register all tools before starting the server
 
-### Code Organization
-1. Group related declarations (imports, constants, types, variables, functions)
-2. Order imports in groups: standard library, third-party packages, local packages
-3. Use blank lines to separate logical sections of code
-4. Keep functions small and focused on a single responsibility
-5. Place methods on receiver types in a logical order, with the most important methods first
+### Tool Implementation
+1. Define tool parameters as Go structs with JSON tags
+2. Add descriptive comments to struct fields for parameter documentation
+3. Use `mcp.CreateTool()` to create new tools with proper definitions
+4. Focus on business logic in tool handlers (validation is automatic)
+5. Return appropriate `mcp.CallToolResult` objects with clear content
+
+### Content Types
+1. Use appropriate content types (`mcp.TextContent`, `mcp.JSONContent`, etc.)
+2. Structure complex responses using multiple content objects
+3. Set the `IsError` flag when returning error results
+4. Use helper functions for common response patterns
+
+### Context Handling
+1. Pass context through to all tool handlers
+2. Respect context cancellation in long-running operations
+3. Use context timeouts for external API calls
+4. Add appropriate values to context when needed
 
 ### Error Handling
-1. Always check errors and handle them appropriately
-2. Use the `errors` package for simple errors and `fmt.Errorf` with `%w` for wrapping errors
-3. Return errors rather than using panic (except for truly unrecoverable situations)
-4. Use meaningful error messages that help diagnose the problem
-
-### Comments and Documentation
-1. Write comments as complete sentences with proper punctuation
-2. Use godoc-style comments for exported functions, types, and variables
-3. Focus on explaining "why" rather than "what" in comments
-4. Document non-obvious behavior and edge cases
-
-### Code Style
-1. Use gofmt/goimports to format code
-2. Avoid unnecessary else blocks after return statements
-3. Prefer early returns to reduce nesting
-4. Use named return values only when they improve readability
-5. Limit line length to 100-120 characters
-6. Use blank interfaces (`interface{}` or `any`) sparingly
-
-### Concurrency
-1. Use goroutines and channels appropriately
-2. Always ensure goroutines can exit properly (avoid leaks)
-3. Use context for cancellation and timeouts
-4. Use sync primitives (Mutex, RWMutex, WaitGroup) correctly
-5. Be careful with shared memory; prefer message passing when appropriate
+1. Return error results rather than panicking
+2. Provide clear, user-friendly error messages
+3. Include relevant details in error messages
+4. Use helper functions for creating error responses
 
 ### Testing
-1. Write table-driven tests when testing multiple cases
-2. Use meaningful test names that describe what is being tested
-3. Structure tests as "Arrange-Act-Assert"
-4. Use subtests for organizing related test cases
-5. Avoid global state in tests
+1. Write unit tests for tool handlers
+2. Mock external dependencies in tests
+3. Test both success and error cases
+4. Use table-driven tests for multiple scenarios
 
 ## Implementation
 - The Cursor IDE will enforce this rule by:
-  - Providing suggestions for idiomatic Go code
-  - Highlighting non-idiomatic patterns
+  - Providing suggestions for MCP implementation
+  - Highlighting potential issues in MCP code
   - Offering refactoring options to improve code quality
 
 ## Benefits
-- Consistent, readable code across the project
-- Easier maintenance and collaboration
-- Better performance and fewer bugs
-- Code that follows community standards and best practices
+- Consistent, reliable MCP implementations
+- Better error handling and user experience
+- Easier maintenance and extension of MCP tools
+- Code that follows best practices for the MCP protocol
 
 ## Examples
 
-### ✅ Correct:
+### ✅ Correct Tool Implementation:
 
 ```go
-// UserService provides user management functionality.
-type UserService struct {
-	repo Repository
-	log  Logger
-}
-
-// FindByID returns a user by their ID or an error if not found.
-func (s *UserService) FindByID(ctx context.Context, id string) (*User, error) {
-	user, err := s.repo.GetUser(ctx, id)
-	if err != nil {
-		return nil, fmt.Errorf("finding user %s: %w", id, err)
+func createSearchTool() mcp.Tool {
+	type SearchParams struct {
+		// The query string to search for
+		Query string `json:"query"`
+		// Maximum number of results to return
+		Limit int `json:"limit,omitempty"`
 	}
-	return user, nil
+
+	return mcp.CreateTool(mcp.ToolDef[SearchParams]{
+		Name:        "search",
+		Description: "Search for information in the database",
+		HandleFunc: func(ctx context.Context, params SearchParams) *mcp.CallToolResult {
+			// Business logic validation (not schema validation which is automatic)
+			if params.Query == "" {
+				return &mcp.CallToolResult{
+					Content: []mcp.Content{
+						mcp.TextContent{
+							Text: "Search query cannot be empty",
+						},
+					},
+					IsError: true,
+				}
+			}
+
+			limit := 10
+			if params.Limit > 0 {
+				limit = params.Limit
+			}
+
+			results, err := searchDatabase(ctx, params.Query, limit)
+			if err != nil {
+				return &mcp.CallToolResult{
+					Content: []mcp.Content{
+						mcp.TextContent{
+							Text: fmt.Sprintf("Search failed: %v", err),
+						},
+					},
+					IsError: true,
+				}
+			}
+
+			return &mcp.CallToolResult{
+				Content: []mcp.Content{
+					mcp.JSONContent{
+						JSON: results,
+					},
+				},
+			}
+		},
+	})
 }
 ```
 
-### ❌ Incorrect:
+### ❌ Incorrect Tool Implementation:
 
 ```go
-// bad naming, poor error handling, inconsistent formatting
-type user_service struct {
-	Repo Repository
-	Log Logger
-}
+func createBadSearchTool() mcp.Tool {
+	// Missing parameter documentation
+	type Params struct {
+		Query string `json:"q"`
+		Limit int    `json:"l"`
+	}
 
-func (s *user_service) find_by_id(ctx context.Context, id string) (*User, error) {
-	user, err := s.Repo.GetUser(ctx, id)
-	if err != nil { return nil, err }
-	return user, nil
+	return mcp.CreateTool(mcp.ToolDef[Params]{
+		Name: "search",
+		// Missing or inadequate description
+		HandleFunc: func(ctx context.Context, params Params) *mcp.CallToolResult {
+			// No business logic validation
+			// No error handling
+			results := searchDatabase(params.Query, params.Limit)
+			
+			// Incorrect content structure
+			return &mcp.CallToolResult{
+				Content: []mcp.Content{
+					mcp.TextContent{
+						Text: fmt.Sprintf("%v", results),
+					},
+				},
+			}
+		},
+	})
 }
 ``` 
 
