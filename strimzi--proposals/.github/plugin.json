@@ -1,0 +1,9 @@
+{
+  "name": "strimzi--proposals",
+  "displayName": "proposals",
+  "description": "proposals",
+  "version": "1.0.0",
+  "author": "strimzi",
+  "homepage": "https://github.com/strimzi/proposals",
+  "skills": []
+}
