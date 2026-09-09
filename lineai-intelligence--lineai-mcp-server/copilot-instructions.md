@@ -1,11 +1,12 @@
-## about-codebase
+## best-practices
 
-> General information about the Lineai MCP Server codebase and its purpose
+> Best practices for working with the Lineai MCP Server codebase
 
-- This repository contains a Model Context Protocol (MCP) server that integrates with Lineai's knowledge graph APIs
-- It enables AI programming assistants to access dependency data from Lineai to analyze code and database impacts
-- Tools: `lineai-method-impact`, `lineai-database-impact`, and `lineai-graph-*` (capabilities, search, impact, path-explain, validate-change-scope, owners)
-- The core package is in `src/lineai_mcp_server/` with `server.py`, `handlers/` (package), and `utils.py`
+- Use semantic search before grep for broader context
+- Maintain proper error handling and logging
+- Keep code changes atomic and focused
+- Prefer graph tools (`lineai-graph-*`) for discovery when available; fall back to method/database impact tools
+- Return results as clear markdown for AI assistants
 
 ---
 > Source: [lineai-intelligence/lineai-mcp-server](https://github.com/lineai-intelligence/lineai-mcp-server) — distributed by [TomeVault](https://tomevault.io).
