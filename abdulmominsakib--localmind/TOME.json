@@ -1,0 +1,123 @@
+{
+  "name": "localmind",
+  "owner": "abdulmominsakib",
+  "repo": "localmind",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "localmind",
+      "path": ".agents/skills/hugeicons-usage/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/hugeicons-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/hugeicons-icons/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/hugeicons-icons/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-add-widget-test/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-add-widget-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-fix-layout-issues/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-fix-layout-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-setup-localization/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-setup-localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-add-widget-preview/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-add-widget-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-add-integration-test/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-add-integration-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-build-responsive-layout/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-build-responsive-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-setup-declarative-routing/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-setup-declarative-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-feature-based-architecture/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-feature-based-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-implement-json-serialization/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-implement-json-serialization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/flutter-apply-architecture-best-practices/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/flutter-apply-architecture-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localmind",
+      "path": ".agents/skills/cue-animations/SKILL.md",
+      "github_url": "https://github.com/abdulmominsakib/localmind/tree/main/.agents/skills/cue-animations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/abdulmominsakib/localmind",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:40:09Z"
+}
