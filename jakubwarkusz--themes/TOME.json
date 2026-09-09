@@ -1,0 +1,123 @@
+{
+  "name": "themes",
+  "owner": "jakubwarkusz",
+  "repo": "themes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "themes",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/next-dev-loop/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/next-dev-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/vercel-optimize/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/vercel-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/nextjs-app-architecture/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/nextjs-app-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/playwright-best-practices/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/playwright-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/typescript-advanced-types/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/typescript-advanced-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/next-cache-components/upstream/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/next-cache-components/upstream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/next-cache-components-optimizer/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/next-cache-components-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "themes",
+      "path": ".agents/skills/next-partial-prefetching-adoption/SKILL.md",
+      "github_url": "https://github.com/jakubwarkusz/themes/tree/main/.agents/skills/next-partial-prefetching-adoption/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jakubwarkusz/themes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:51:23Z"
+}
