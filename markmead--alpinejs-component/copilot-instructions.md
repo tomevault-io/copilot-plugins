@@ -159,4 +159,4 @@ one means changing the fixture, its spec, and the docs together.
 
 ---
 > Source: [markmead/alpinejs-component](https://github.com/markmead/alpinejs-component) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
