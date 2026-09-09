@@ -1,0 +1,213 @@
+{
+  "name": "jsonx",
+  "owner": "repetere",
+  "repo": "jsonx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jsonx",
+      "path": "skills/codex/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/codex/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/claude/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/claude/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/opencode/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/opencode/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/codex/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/codex/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/claude/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/claude/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/opencode/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/opencode/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/codex/jsonx-demo-builder/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/codex/jsonx-demo-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/codex/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/codex/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/claude/jsonx-demo-builder/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/claude/jsonx-demo-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/codex/jsonx-safety-review/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/codex/jsonx-safety-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/claude/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/claude/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/claude/jsonx-safety-review/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/claude/jsonx-safety-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/opencode/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/opencode/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/codex/jsonx-demo-builder/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/codex/jsonx-demo-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/codex/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/codex/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/claude/jsonx-demo-builder/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/claude/jsonx-demo-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/codex/jsonx-safety-review/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/codex/jsonx-safety-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/codex/jsonx-component-registry/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/codex/jsonx-component-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/claude/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/claude/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/claude/jsonx-safety-review/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/claude/jsonx-safety-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "skills/claude/jsonx-component-registry/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/skills/claude/jsonx-component-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "plugins/jsonx-codex-plugin/skills/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/plugins/jsonx-codex-plugin/skills/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/opencode/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/opencode/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "plugins/claude-jsonx-plugin/skills/jsonx/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/plugins/claude-jsonx-plugin/skills/jsonx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/codex/jsonx-component-registry/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/codex/jsonx-component-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "docs/skills/claude/jsonx-component-registry/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/docs/skills/claude/jsonx-component-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "plugins/jsonx-generative-ui-plugin/skills/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/plugins/jsonx-generative-ui-plugin/skills/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jsonx",
+      "path": "plugins/claude-jsonx-generative-ui-plugin/skills/jsonx-generative-ui/SKILL.md",
+      "github_url": "https://github.com/repetere/jsonx/tree/main/plugins/claude-jsonx-generative-ui-plugin/skills/jsonx-generative-ui/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/repetere/jsonx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:44:45Z"
+}
