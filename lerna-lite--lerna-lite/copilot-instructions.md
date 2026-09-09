@@ -1,83 +1,149 @@
 ## lerna-lite
 
-> This repository is a monorepo for **Lerna-Lite**, a lightweight fork of the Lerna project. The preferred package manager is **pnpm** and the repo uses strict TypeScript, a workspace layout, and command-specific packages.
+> This file contains repository guidance for automated coding agents working in this project.
 
-# GitHub Copilot Instructions for Lerna-Lite
+# Agent Instructions
 
-This repository is a monorepo for **Lerna-Lite**, a lightweight fork of the Lerna project. The preferred package manager is **pnpm** and the repo uses strict TypeScript, a workspace layout, and command-specific packages.
+This file contains repository guidance for automated coding agents working in this project.
 
-## General guidance
+## Project Overview
 
-- Treat this repo as a monorepo with packages under `/packages/`, E2E tests under `/e2e/`, helper code under `/helpers/`, and fixtures under `/__fixtures__/`.
-- Use modern Node.js module semantics and strict TypeScript conventions.
-- Keep changes small, focused, and consistent with the existing repository conventions.
-- If you are editing code, prefer tests and ensure the change is covered by unit or integration tests where appropriate.
-- Use Conventional Commits for commit messages when applicable, especially if the change touches published commands.
+This repository is **Lerna-Lite**, a fork of Lerna for managing JavaScript monorepos with multiple packages. Commands are published as separate optional packages.
 
-## Tooling and commands
+## Package Manager
 
-- Install dependencies with `pnpm install`.
-- Lint with `pnpm lint`.
-- Format code with `pnpm format`.
-- Build the repository with `pnpm build`.
-- Run type-aware linting with `pnpm lint-type`.
-- Run tests with `pnpm test`.
-- E2E tests may use Verdaccio and are under `/e2e/`.
+Use `pnpm` for dependency and workspace management. Install dependencies with `pnpm install`.
 
-## Safety rules
+For local setup, prefer `corepack enable` or the project setup script:
 
-- Never run versioning or publishing commands unless explicitly instructed, and in those cases only use `--dry-run` unless the user says otherwise.
-- Do not publish or tag releases on your own.
-- If a suggested change includes `version` or `publish`, ask for clarification and avoid executing it.
+```bash
+sh ./scripts/setup.sh
+```
 
-## Shell command policy
+## Required Checks
 
-- Prefer using `rtk` when running shell commands in this workspace to reduce output size and improve token efficiency.
-- Example:
-  - `rtk git status`
-  - `rtk pnpm install`
-  - `rtk pnpm test`
+Prefer the smallest relevant verification loop while iterating. Before finalizing non-trivial code changes, run the checks that match the surface area you touched.
 
-## Repository-specific notes
+For broad or core code changes, the main local verification commands are:
 
-- `packages/cli/src/cli-commands/` contains CLI command definitions.
-- Command implementations are provided in separate packages such as `packages/changed/`, `packages/diff/`, `packages/publish/`, etc.
-- Shared utilities live in `packages/core/` and other internal packages.
-- Tests use `vitest` and follow the `.spec.ts` convention.
-- E2E tests are supported by helpers in `/helpers/` and fixtures in `/__fixtures__/`.
+```bash
+pnpm lint
+pnpm format:check
+pnpm build
+pnpm lint-type
+pnpm test
+```
 
-## What to do when modifying code
+Use `pnpm format` (instead of `pnpm format:check`) to auto-fix formatting issues.
 
-- Run formatting and linting after edits.
-- Add or update tests for behavior changes.
-- Avoid breaking the existing workspace structure or package build graph.
-- Keep commits and PR descriptions concise and aligned with Conventional Commits when possible.
+For command behavior and end-to-end CLI changes, also run:
 
-## When in doubt
+```bash
+pnpm test:e2e
+```
+
+E2E tests may use Verdaccio (a local npm registry) and live under `/e2e/`.
+
+For docs-only or narrowly scoped test-only changes, use judgment and run only the relevant checks.
+
+When working on a specific Lerna command, prefer the debugger configurations in `.vscode/launch.json` when available. Many commands support `--dry-run` and should be exercised that way first.
+
+## Project Structure
+
+- `packages/`: Published packages and shared internal packages
+- `helpers/`: Test helpers, mocks, and fixtures
+- `e2e/`: End-to-end test suites by command
+- `e2e-utils/`: Utilities for end-to-end testing
+- `__fixtures__/`: Reusable test scenarios and sample monorepos
+
+## Code Conventions
+
+- TypeScript is strict and targets modern Node.js environments.
+- Test files use the `.spec.ts` suffix.
+- CLI definitions live in `packages/cli/src/cli-commands/`.
+- Command descriptions are maintained in `packages/cli/schemas/lerna-schema.json`.
+- Most commands support `--dry-run` or `dryRun`.
+- The workspace packages currently include `changed`, `cli`, `core`, `diff`, `exec`, `init`, `list`, `listable`, `npmlog`, `profiler`, `publish`, `run`, `version`, and `watch`.
+
+When creating or modifying Lerna commands:
+
+1. Implement command logic in the corresponding package under `packages/`.
+2. Keep CLI wiring in `packages/cli/src/cli-commands/`.
+3. Update shared schema or supporting utilities when the command surface changes.
+4. Prefer existing shared utilities from `packages/core/` and related internal packages.
+
+## Testing Conventions
+
+- Use Vitest for unit tests.
+- Use e2e suites for realistic command execution scenarios.
+- Reuse fixtures when possible instead of creating ad hoc test setups.
+- Prefer targeted Vitest runs while iterating, then broaden verification before finalizing. Always run **specific test files** with filters rather than the entire suite:
+  - Single file: `rtk vitest run packages/core/src/__tests__/foo.spec.ts`
+  - With a test-name filter: `rtk vitest run packages/watch/__tests__/watch-command.spec.ts -t "no-bail"`
+  - Add `-- --run` to run in CI mode (no watch)
+- Use `pnpm exec vitest run --config ./e2e/vitest.config.ts <path>` for focused e2e runs when needed.
+
+## Build and Release
+
+- Build with TypeScript project references.
+- Use Conventional Commits for commit messages and PR titles.
+- Never run versioning or publishing commands unless `--dry-run` is set.
+- Do not merge, publish, or tag releases unless explicitly instructed by a maintainer.
+- Treat `new-version`, `new-publish`, `roll-new-release`, `major-release`, `lerna version`, and `lerna publish` as release actions.
+
+## Commit and PR Conventions
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) for commit messages and pull request titles.
+
+- When a change affects a single command, use its name as the scope, for example `fix(version): relax GitHub comment throttling`.
+- When multiple commands are affected, omit the scope if that reads more naturally.
+- For test-only changes, prefer `test` or `chore` instead of `fix` or `feat`.
+
+When drafting a pull request, follow `.github/PULL_REQUEST_TEMPLATE.md`, including its conventional-commit title requirement and applicable sections and checklist items.
+
+## Tooling
+
+- Node.js engines: `^22.17.0 || >=24.0.0`
+- CI currently runs on Node `22`, `24`, and `26` on Ubuntu
+- pnpm: `11.x` (`packageManager` is `pnpm@11.17.0`)
+- TypeScript: project references with `tsc --build`
+- Vitest: unit and e2e testing
+- OXC tools: `oxlint` and `oxfmt`
+
+## Safety Rules
+
+- Never run versioning or publishing commands unless `--dry-run` is set.
+- If a command is destructive or irreversible, require explicit maintainer intent first.
+- If unsure whether a release-related action is safe, stop and ask for human confirmation.
+
+## Lerna Configuration
+
+The repository includes a `lerna.json` configuration that defines command behavior, conventional commits, GitHub releases integration, and ignored files for change detection.
+
+Note: this repository uses `version.changelogIncludeCommitsClientLogin` to format changelog commit entries with remote client login information. That feature relies on the GitHub GraphQL API and may not work behind some proxies.
+
+## When in Doubt
 
 - Ask for clarification before making large architectural changes.
 - Prefer small, conservative changes over broad rewrites.
-- Respect existing project rules and the `CLAUDE.md` guidance.
+- After edits, run relevant formatting/linting and add or update tests for behavior changes.
+- Avoid breaking the existing workspace structure or package build graph.
 
 <!-- rtk-instructions v2 -->
-# RTK — Token-Optimized CLI
 
-**rtk** is a CLI proxy that filters and compresses command outputs, saving 60-90% tokens.
+## RTK — Token-Optimized CLI
 
-## Rule
-
-Always prefix shell commands with `rtk`:
+**rtk** is a CLI proxy that filters and compresses command outputs, saving 60-90% tokens. Always prefix shell commands with `rtk`:
 
 ```bash
 # Instead of:              Use:
 git status                 rtk git status
 git log -10                rtk git log -10
-cargo test                 rtk cargo test
-docker ps                  rtk docker ps
-kubectl get pods           rtk kubectl pods
+pnpm test                  rtk pnpm test
+pnpm vitest run <file>      rtk vitest run <file>
 ```
 
-## Meta commands (use directly)
+Meta commands (use directly, no prefix needed):
 
 ```bash
 rtk gain              # Token savings dashboard
@@ -85,8 +151,9 @@ rtk gain --history    # Per-command savings history
 rtk discover          # Find missed rtk opportunities
 rtk proxy <cmd>       # Run raw (no filtering) but track usage
 ```
+
 <!-- /rtk-instructions -->
 
 ---
 > Source: [lerna-lite/lerna-lite](https://github.com/lerna-lite/lerna-lite) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
