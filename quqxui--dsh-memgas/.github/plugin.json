@@ -1,0 +1,9 @@
+{
+  "name": "quqxui--dsh-memgas",
+  "displayName": "dsh-memgas",
+  "description": "DeepSeek Harness \u957f\u671f\u8bb0\u5fc6\u63d2\u4ef6\uff1a\u56db\u901a\u9053\u68c0\u7d22\u878d\u5408 + \u8bb0\u5fc6\u6f14\u5316\u95ed\u73af\uff0c\u8bb0\u5fc6\u6784\u5efa\u4e0e\u68c0\u7d22\u65b9\u6cd5\u6765\u81ea ICLR 2026 \u8bba\u6587 MemGAS\u3002Long-term memory plugin for DeepSeek Harness (dsh).",
+  "version": "1.0.0",
+  "author": "quqxui",
+  "homepage": "https://github.com/quqxui/dsh-memgas",
+  "skills": []
+}
