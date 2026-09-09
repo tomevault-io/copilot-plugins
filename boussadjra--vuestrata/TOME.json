@@ -1,0 +1,237 @@
+{
+  "name": "vuestrata",
+  "owner": "boussadjra",
+  "repo": "vuestrata",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vuestrata",
+      "path": ".agents/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.agents/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-adapt/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-audit/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-polish/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-bolder/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-harden/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-onboard/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-delight/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-animate/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-clarify/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-distill/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-quieter/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-extract/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-critique/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-colorize/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-optimize/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-normalize/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-frontend-design/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/i-teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/i-teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/vuestrata-docs-parity/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/vuestrata-docs-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/vuestrata-spec-workflow/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/vuestrata-spec-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/vuestrata-quality-gates/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/vuestrata-quality-gates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/vuestrata-module-organization/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/vuestrata-module-organization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vuestrata",
+      "path": ".github/skills/vuestrata-auth-contract-checks/SKILL.md",
+      "github_url": "https://github.com/boussadjra/vuestrata/tree/main/.github/skills/vuestrata-auth-contract-checks/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/boussadjra/vuestrata",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:42:25Z"
+}
