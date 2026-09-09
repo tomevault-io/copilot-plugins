@@ -1,0 +1,30 @@
+{
+  "name": "i2rt-robotics--i2rt",
+  "displayName": "i2rt",
+  "description": "i2rt",
+  "version": "1.0.0",
+  "author": "i2rt-robotics",
+  "homepage": "https://github.com/i2rt-robotics/i2rt",
+  "skills": [
+    {
+      "name": "i2rt",
+      "description": ""
+    },
+    {
+      "name": "i2rt",
+      "description": ""
+    },
+    {
+      "name": "i2rt",
+      "description": ""
+    },
+    {
+      "name": "i2rt",
+      "description": ""
+    },
+    {
+      "name": "i2rt",
+      "description": ""
+    }
+  ]
+}
