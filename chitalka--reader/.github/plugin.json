@@ -1,0 +1,14 @@
+{
+  "name": "chitalka--reader",
+  "displayName": "reader",
+  "description": "reader",
+  "version": "1.0.0",
+  "author": "chitalka",
+  "homepage": "https://github.com/chitalka/reader",
+  "skills": [
+    {
+      "name": "reader",
+      "description": ""
+    }
+  ]
+}
