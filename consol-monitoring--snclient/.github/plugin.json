@@ -1,0 +1,9 @@
+{
+  "name": "consol-monitoring--snclient",
+  "displayName": "snclient",
+  "description": "snclient",
+  "version": "1.0.0",
+  "author": "ConSol-Monitoring",
+  "homepage": "https://github.com/ConSol-Monitoring/snclient",
+  "skills": []
+}
