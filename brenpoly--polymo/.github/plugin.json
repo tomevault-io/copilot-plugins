@@ -1,0 +1,9 @@
+{
+  "name": "brenpoly--polymo",
+  "displayName": "polymo",
+  "description": "A physical digital pet you keep alive \u2014 ESP32-S3 firmware and an Android app that does all the thinking on-device.",
+  "version": "1.0.0",
+  "author": "brenpoly",
+  "homepage": "https://github.com/brenpoly/polymo",
+  "skills": []
+}
