@@ -1,48 +1,39 @@
 ## dds
 
-> This project uses GitHub as its primary version control and collaboration platform. All code contributions, fixes, and features must go through a pull request (PR) workflow.
+> These instructions have been created to help Cursor but are expected to be generally helpful.
 
+# Intended audience
 
-# GitHub Workflow Rules
+These instructions have been created to help Cursor but are expected to be generally helpful.
 
-## Overview
-This project uses GitHub as its primary version control and collaboration platform. All code contributions, fixes, and features must go through a pull request (PR) workflow.
+# General
 
-## Branching Strategy
-- **Default branch:** `main`
-- Always create a new branch for changes.  
-  Format:  
-  - `feature/<short-description>` for new features  
-  - `fix/<short-description>` for bug fixes  
-  - `chore/<short-description>` for maintenance
-  - `refactor/<short-description>` for refactoring
-- Branch names must be lowercase and use hyphens instead of spaces.
+Follow .github/instructions/cpp.instructions.md
 
-## Pull Request Rules
-1. **Always** open a PR for changes — no direct commits to `main`.
-2. Include:
-   - A clear title describing the change
-   - A concise but informative description
-3. Assign at least **one reviewer** from the core team.
-4. All PRs must pass:
-   - CI build
-   - All unit and integration tests
-   - Any lint/format checks
-5. Small PRs are preferred — keep each focused on one logical change.
+# Naming
 
-## Tooling
-Use `git` for local version control, and the GitHub CLI (`gh`) for GitHub operations:
-   - Create branches
-   - Commit and push changes
-   - Open pull requests
-   - Check PR status
+Follow .github/instructions/cpp.instructions.md
 
-## Automation
-- CI runs automatically for all PRs.
-- Approved PRs can be merged by maintainers.
+Exceptions:
+- Match existing external or legacy APIs (for example, public C API names and types that already use a different style).
+- Do not rename unrelated legacy identifiers in the same change unless the task requires it.
 
-```
+# Test-driven development
+
+For every code change, follow strict TDD:
+
+1. Write or update automated tests that initially fail and describe the desired behavior and edge cases.
+2. Write the minimal production code needed to make the new tests pass. Do not add untested functionality.
+3. After tests are green, refactor tests and implementation for clarity and to remove duplication.
+4. Run the relevant tests after each refactor and keep them green.
+5. Repeat this red-green-refactor cycle in small steps.
+
+Structure tests with Arrange-Act-Assert and use descriptive names that capture intent, including negative and boundary cases.
+
+Never write production code first and wrap tests around it afterward. Tests must be written first and must fail before implementation.
+
+Tests are not necessary for changes to documentation, unless the change is coupled to a code or configuration change.
 
 ---
 > Source: [dds-bridge/dds](https://github.com/dds-bridge/dds) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
