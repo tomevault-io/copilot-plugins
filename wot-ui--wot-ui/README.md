@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wot-ui/wot-ui](https://github.com/wot-ui/wot-ui).
+Original source: `CLAUDE.md` in [wot-ui/wot-ui](https://github.com/wot-ui/wot-ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -29,7 +29,7 @@ Original source: `AGENTS.md` in [wot-ui/wot-ui](https://github.com/wot-ui/wot-ui
 - [wot-ui](https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/wot-ui-component-baseline/SKILL.md)
 - [wot-ui](https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/check-doc-component-consistency/SKILL.md)
 
-From [wot-ui/wot-ui](https://github.com/wot-ui/wot-ui) — a repo with 241+ stars on GitHub.
+From [wot-ui/wot-ui](https://github.com/wot-ui/wot-ui) — a repo with 354+ stars on GitHub.
 
 ---
 
