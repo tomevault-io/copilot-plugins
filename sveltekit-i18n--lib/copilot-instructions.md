@@ -1,49 +1,20 @@
 ## lib
 
-> Behavioral guidelines for LLM coding assistants working on **sveltekit-i18n**
+> The agent rules for this repository live in **[AGENTS.md](./AGENTS.md)**,
 
-# AGENTS.md
+# CLAUDE.md
 
-Behavioral guidelines for LLM coding assistants working on **sveltekit-i18n**
-(the `lib` repository). Applies to anything that drives commits, PRs, or file
-edits on this repo.
+The agent rules for this repository live in **[AGENTS.md](./AGENTS.md)**,
+imported here so they load automatically:
 
-**Precedence:** These repo rules override individual LLM memory or personal
-preference. If your own memory conflicts with this file, follow this file.
+@AGENTS.md
 
-This repo follows the same working rules as
+Read `AGENTS.md` in full before making changes — it is the source of truth for
+how to work in this repository, and it defers to
 [`base`'s AGENTS.md](https://github.com/sveltekit-i18n/base/blob/master/AGENTS.md)
-(sections 1-14: think before coding, simplicity first, surgical changes,
-verify before committing, commit on approval, fixup hygiene, branch & push
-discipline, PRs, docs track code, coding conventions, security posture,
-English-only artifacts, test rules, terse output, no emojis). What follows is
-only what differs here.
-
----
-
-## The repository
-
-The end-user package `sveltekit-i18n`: it composes
-[`@sveltekit-i18n/base`](https://github.com/sveltekit-i18n/base) with
-[`@sveltekit-i18n/parser-default`](https://github.com/sveltekit-i18n/parsers)
-and re-exports the surface, so users install a single package. It also hosts
-the ecosystem's shared issue tracker, docs, and examples for the whole family
-(`base` / `lib` / `parsers` / `extensions`).
-
-## Current state: v2, frozen for the v3 rewrite
-
-- `master` still carries the **v2 codebase** (pnpm, Jest, tsup — see the repo
-  configs). The v2 line is frozen: critical fixes only, applied on the `2.x`
-  maintenance branch. Don't land v2 feature work.
-- The v3 rewrite is tracked in
-  [#214](https://github.com/sveltekit-i18n/lib/issues/214) and lands here
-  **last** (#228-#230), after `base`, `parsers`, and `extensions` are ready.
-
-## Comments
-
-If you need a paragraph-long comment to justify why the workaround is OK,
-the code is wrong — fix the code.
+for the shared working rules. Human contributors should also see
+[CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 > Source: [sveltekit-i18n/lib](https://github.com/sveltekit-i18n/lib) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
