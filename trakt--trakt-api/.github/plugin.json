@@ -1,0 +1,9 @@
+{
+  "name": "trakt--trakt-api",
+  "displayName": "trakt-api",
+  "description": "trakt-api",
+  "version": "1.0.0",
+  "author": "trakt",
+  "homepage": "https://github.com/trakt/trakt-api",
+  "skills": []
+}
