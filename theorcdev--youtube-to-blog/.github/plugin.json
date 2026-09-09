@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "TheOrcDev",
   "homepage": "https://github.com/TheOrcDev/youtube-to-blog",
-  "skills": []
+  "skills": [
+    {
+      "name": "youtube-to-blog",
+      "description": ""
+    },
+    {
+      "name": "youtube-to-blog",
+      "description": ""
+    }
+  ]
 }
