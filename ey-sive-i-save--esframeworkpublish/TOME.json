@@ -1,0 +1,501 @@
+{
+  "name": "ESFrameWorkPublish",
+  "owner": "Ey-Sive-I-Save",
+  "repo": "ESFrameWorkPublish",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ESFrameWorkPublish",
+      "path": "ES/Automation/Candidates/AgentAuthoring/aibrain_bootstrap_20260820/candidate/.agents/skills/es-feishu-cli/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/ES/Automation/Candidates/AgentAuthoring/aibrain_bootstrap_20260820/candidate/.agents/skills/es-feishu-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": "ES/Automation/Candidates/AgentAuthoring/aibrain_bootstrap_20260820/candidate/.agents/skills/es-skill-quality-loop/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/ES/Automation/Candidates/AgentAuthoring/aibrain_bootstrap_20260820/candidate/.agents/skills/es-skill-quality-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": "ES/Automation/Candidates/AgentAuthoring/aibrain_bootstrap_20260820/candidate/.agents/skills/es-knowledge-maintenance/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/ES/Automation/Candidates/AgentAuthoring/aibrain_bootstrap_20260820/candidate/.agents/skills/es-knowledge-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": "ES/Automation/Candidates/AgentAuthoring/aiwarnings-migration-20260816/candidate/.agents/skills/es-aiwarnings-migration/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/ES/Automation/Candidates/AgentAuthoring/aiwarnings-migration-20260816/candidate/.agents/skills/es-aiwarnings-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-feishu-cli/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-feishu-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-utf8-guard/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-utf8-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-tag-config/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-tag-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ai-abc-core/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ai-abc-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-input-action/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-input-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-start-estest/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-start-estest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-skill-creator/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-unity-compile/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-unity-compile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-editor-tooling/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-editor-tooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-worktree-audit/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-worktree-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-use-ai-command/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-use-ai-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-weapon-abc-part/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-weapon-abc-part/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-skill-validator/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-skill-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-resource-reader/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-resource-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-skill-governance/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-skill-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-module-lifecycle/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-module-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-entity-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-entity-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-knowledge-creator/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-knowledge-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-resource-pipeline/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-resource-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-fix-compile-error/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-fix-compile-error/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-command-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-command-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-adversarial-review/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-adversarial-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-release-acceptance/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-release-acceptance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-task-read-snapshot/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-task-read-snapshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-static-deep-replay/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-static-deep-replay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-migration-planning/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-migration-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-prompt-engineering/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-prompt-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-resource-collection/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-resource-collection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ui-prefab-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ui-prefab-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-knowledge-validator/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-knowledge-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-aiwarning-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-aiwarning-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ui-intent-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ui-intent-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-api-contract-review/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-api-contract-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-task-context-runtime/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-task-context-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-gamecore-integration/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-gamecore-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-security-input-audit/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-security-input-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-change-risk-register/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-change-risk-register/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-repository-discovery/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-repository-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-open-source-migration/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-open-source-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ai-space-organization/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ai-space-organization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ai-knowledge-curation/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ai-knowledge-curation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-skill-session-refresh/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-skill-session-refresh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ai-collaboration-menu/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ai-collaboration-menu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-performance-budgeting/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-performance-budgeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-publish-aitest-prompt/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-publish-aitest-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-stable-graph-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-stable-graph-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-observability-evidence/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-observability-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-release-notes-evidence/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-release-notes-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-test-fixture-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-test-fixture-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-resource-publish-audit/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-resource-publish-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-aibrain-route-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-aibrain-route-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-codex-session-bootstrap/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-codex-session-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-generate-agent-artifacts/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-generate-agent-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-entity-prefab-validation/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-entity-prefab-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-game-core-loop-validation/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-game-core-loop-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-first-principles-analysis/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-first-principles-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-ai-interaction-governance/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-ai-interaction-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-dependency-boundary-audit/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-dependency-boundary-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-gamecore-config-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-gamecore-config-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-agent-mechanism-replication/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-agent-mechanism-replication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-automation-worker-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-automation-worker-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-aicommand-contract-authoring/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-aicommand-contract-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-editor-availability-validator/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-editor-availability-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-game-logic-system-development/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-game-logic-system-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-generation-round-02-focus/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-generation-round-02-focus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-game-logic-content-development/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-game-logic-content-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-generation-round-01-intake/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-generation-round-01-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-ui-generation-orchestration/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-ui-generation-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-generation-round-03-task-context/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-generation-round-03-task-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-generation-round-04-knowledge-route/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-generation-round-04-knowledge-route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-generation-round-06-deep-design-html/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-generation-round-06-deep-design-html/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ESFrameWorkPublish",
+      "path": ".agents/skills/es-web-generation-round-05-capability-design/SKILL.md",
+      "github_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish/tree/main/.agents/skills/es-web-generation-round-05-capability-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Ey-Sive-I-Save/ESFrameWorkPublish",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T06:48:12Z"
+}
