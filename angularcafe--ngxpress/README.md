@@ -1,23 +1,21 @@
 # ngXpress
 
-> Tome by [angularcafe](https://github.com/angularcafe/ngXpress) — distributed by [TomeVault](https://tomevault.io)
-
-Build production-ready Angular apps with ngXpress — a full-stack starter kit powered by Angular 20 +  SSR, Express 5, Prisma, Tailwind CSS, and Better Auth for seamless authentication.
+> Tome by [angularcafe](https://github.com/angularcafe/ngXpress), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [angularcafe/ngXpress](https://github.com/angularcafe/ngXpress).
+Original source: `AGENTS.md` in [angularcafe/ngXpress](https://github.com/angularcafe/ngXpress).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/angularcafe/ngXpress](https://github.com/angularcafe/ngXpress)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/angularcafe/ngXpress](https://github.com/angularcafe/ngXpress)
 
 ---
 
