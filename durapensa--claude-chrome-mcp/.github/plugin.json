@@ -1,0 +1,9 @@
+{
+  "name": "durapensa--claude-chrome-mcp",
+  "displayName": "claude-chrome-mcp",
+  "description": "Developer tool suite enabling Claude Desktop, Claude Code, and other MCP hosts like Cursor, to interact with claude.ai in Chrome browsers.",
+  "version": "1.0.0",
+  "author": "durapensa",
+  "homepage": "https://github.com/durapensa/claude-chrome-mcp",
+  "skills": []
+}
