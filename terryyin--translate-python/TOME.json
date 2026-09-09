@@ -3,8 +3,8 @@
   "owner": "terryyin",
   "repo": "translate-python",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "translate-python",
+      "path": ".cursor/skills/post-change-refactor/SKILL.md",
+      "github_url": "https://github.com/terryyin/translate-python/tree/main/.cursor/skills/post-change-refactor/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/terryyin/translate-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T01:01:05Z"
+  "distributed_at": "2026-09-09T01:06:05Z"
 }
