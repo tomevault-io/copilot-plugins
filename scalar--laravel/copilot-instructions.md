@@ -52,4 +52,4 @@ The request flow is small and worth understanding end-to-end:
 
 ---
 > Source: [scalar/laravel](https://github.com/scalar/laravel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
