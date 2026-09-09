@@ -2,14 +2,14 @@
 
 > DelphiMVCFramework - RESTful framework for Delphi (Object Pascal). REST services, JSON-RPC APIs, web apps. MVC architecture, ORM (MVCActiveRecord), auth (JWT, Basic), middleware, WebSocket, serialization.
 
-# CLAUDE.md
+# AGENTS.md
 
 ## Overview
 
 DelphiMVCFramework - RESTful framework for Delphi (Object Pascal). REST services, JSON-RPC APIs, web apps. MVC architecture, ORM (MVCActiveRecord), auth (JWT, Basic), middleware, WebSocket, serialization.
 
 **Language**: Object Pascal / Delphi
-**Version**: `sources/dmvcframeworkbuildconsts.inc` (DMVCFRAMEWORK_VERSION) — currently `3.5.0-silicon-rc4`
+**Version**: `sources/dmvcframeworkbuildconsts.inc` (DMVCFRAMEWORK_VERSION) — currently `3.5.0-silicon-rc6`
 **License**: Apache License 2.0
 
 ## Build Commands
@@ -230,4 +230,4 @@ cd C:\DEV\dmvcframework\ideexpert\tests && build_and_run.bat
 
 ---
 > Source: [danieleteti/delphimvcframework](https://github.com/danieleteti/delphimvcframework) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
