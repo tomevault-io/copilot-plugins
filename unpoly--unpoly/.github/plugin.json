@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "unpoly",
   "homepage": "https://github.com/unpoly/unpoly",
-  "skills": []
+  "skills": [
+    {
+      "name": "unpoly",
+      "description": ""
+    }
+  ]
 }
