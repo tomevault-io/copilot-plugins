@@ -1,0 +1,9 @@
+{
+  "name": "codejunkie99--agentic-stack-desktop",
+  "displayName": "agentic-stack-desktop",
+  "description": "Native macOS workspace with one local knowledge graph across Claude Code, Codex, OpenCode, and Cursor.",
+  "version": "1.0.0",
+  "author": "codejunkie99",
+  "homepage": "https://github.com/codejunkie99/agentic-stack-desktop",
+  "skills": []
+}
