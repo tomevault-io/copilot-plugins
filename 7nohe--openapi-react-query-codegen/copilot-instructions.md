@@ -1,51 +1,81 @@
 ## openapi-react-query-codegen
 
-> - Source code lives in `src/` (CLI entry `cli.mts`, generator pipeline `generate.mts`, codegen helpers like `createSource.mts`, `createImports.mts`, `createExports.mts`, `service.mts`, formatting in `format.mts`).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- Source code lives in `src/` (CLI entry `cli.mts`, generator pipeline `generate.mts`, codegen helpers like `createSource.mts`, `createImports.mts`, `createExports.mts`, `service.mts`, formatting in `format.mts`).
-- Tests reside in `tests/` (Vitest).
-- Example apps under `examples/` (React/Next.js/TanStack Router) consume the generated client.
-- Docs site in `docs/` (Astro). Build artifacts output to `dist/`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- Install: `pnpm install`
-- Build generator: `pnpm build` (cleans `dist/`, runs `tsc`).
-- Lint/format check: `pnpm lint` (Biome). Auto-fix: `pnpm lint:fix`.
-- Tests: `pnpm test` (Vitest with coverage). Snapshots: `pnpm snapshot`.
-- Preview generation into examples: `pnpm preview:react`, `pnpm preview:nextjs`, `pnpm preview:tanstack-router`.
+## Project Overview
 
-## Coding Style & Naming Conventions
-- Language: TypeScript (strict, ESNext, NodeNext). Keep code in modules (`.mts`), output compiled to `dist/`.
-- Formatting/linting via Biome: 2-space indent, double quotes, trailing commas, organized imports. Run formatters before committing.
-- Generated outputs include a header comment with package version; preserve this when modifying generation.
-- Prefer descriptive function names and explicit types; avoid implicit `any`.
+OpenAPI React Query Codegen generates React Query (TanStack Query) hooks from OpenAPI specifications. It uses `@hey-api/openapi-ts` to generate TypeScript clients and then creates additional query/mutation hooks on top.
 
-## Testing Guidelines
-- Framework: Vitest. Coverage enabled by default.
-- Place tests in `tests/`; mirror generator behavior with snapshot tests where helpful.
-- After generator changes, run tests and consider regenerating example outputs to manually diff.
+## Commands
 
-## Commit & Pull Request Guidelines
-- Commits: clear, descriptive messages (e.g., `fix: align imports for generated queries`, `chore: update ts-morph config`). Avoid bundling unrelated changes.
-- Pull requests: include summary of changes, affected areas (e.g., codegen output, docs, examples), and test commands run. Link issues when applicable. Add before/after notes or sample generated snippets if behavior changes.
+```bash
+# Build
+npm run build
 
-## Architecture: IR Boundary (Backend Portability)
-- The generation pipeline is split by an intermediate representation (IR): `OperationInfo` and `GenerationContext` in `src/types.mts`.
-- hey-api-specific knowledge must stay confined to the parsing side: the `createClient` invocation in `src/generate.mts` and the `sdk.gen`/`types.gen` parsing in `src/service.mts` / `src/createSource.mts`.
-- Generation-side modules (`src/tsmorph/build*.mts`, `generateFiles.mts`) should consume only the IR. Do not add new hey-api-specific parsing or imports there; extend the IR instead.
-- This boundary is what keeps the generator portable to a different SDK backend without rewriting the generation layer. Treat leaks across it as review findings.
+# Run tests with coverage
+npm test
 
-## hey-api Version Policy
-- `@hey-api/openapi-ts` is pinned to an exact version and patched via `pnpm.patchedDependencies` when needed (see `patches/`).
-- Upgrades: bump the pin, run the full snapshot suite, regenerate an example app and type-check it, then release as a minor version. Breaking changes in hey-api are absorbed here — they must not leak into the generated API surface outside a major version.
+# Run a single test file
+npx vitest tests/generate.test.ts
 
-## Agent-Specific Notes
-- Use AST-aware paths (ts-morph/TypeScript factory) when editing generators to keep output structurally valid.
-- Respect ignore patterns in `biome.json` and avoid checking in `dist/` or example-generated artifacts unless explicitly intended.
+# Update snapshots
+npm run snapshot
+
+# Lint
+npm run lint
+npm run lint:fix
+
+# Preview generated output in example apps
+npm run preview:react
+npm run preview:nextjs
+npm run preview:tanstack-router
+```
+
+## Architecture
+
+### Code Generation Pipeline
+
+1. **CLI Entry** (`src/cli.mts`): Parses command-line options using Commander
+2. **Generate** (`src/generate.mts`): Orchestrates the generation process:
+   - Calls `@hey-api/openapi-ts` to generate base TypeScript client in `openapi/requests/`
+   - Calls `createSource()` to generate React Query hooks in `openapi/queries/`
+3. **Service Parsing** (`src/service.mts`): Uses ts-morph to parse the generated `services.gen.ts` file and extract function descriptions (method name, HTTP method, JSDoc, etc.)
+4. **Export Creation** (`src/createExports.mts`): Routes methods to appropriate generators based on HTTP method:
+   - GET methods → `createUseQuery()` (queries, suspense queries, infinite queries)
+   - POST/PUT/PATCH/DELETE → `createUseMutation()`
+5. **Hook Generators**:
+   - `src/createUseQuery.mts`: Generates `useQuery`, `useSuspenseQuery`, and `useInfiniteQuery` hooks
+   - `src/createUseMutation.mts`: Generates `useMutation` hooks
+   - `src/createPrefetchOrEnsure.mts`: Generates `prefetchQuery` and `ensureQueryData` functions
+6. **Print** (`src/print.mts`): Writes generated TypeScript to files
+
+### Generated Output Structure
+
+The tool generates files in `openapi/queries/`:
+- `common.ts`: Shared types, query keys, and key functions
+- `queries.ts`: `useQuery` and `useMutation` hooks
+- `suspense.ts`: `useSuspenseQuery` hooks
+- `infiniteQueries.ts`: `useInfiniteQuery` hooks
+- `prefetch.ts`: `prefetchQuery` functions
+- `ensureQueryData.ts`: `ensureQueryData` functions
+- `index.ts`: Re-exports
+
+### Key Dependencies
+
+- **ts-morph**: AST manipulation for reading the generated service file
+- **typescript**: AST creation for generating new TypeScript code
+- **@hey-api/openapi-ts**: Base OpenAPI to TypeScript client generator
+
+## Testing
+
+Tests use Vitest with snapshot testing. Test files in `tests/` correspond to source modules. The `tests/utils.ts` file provides a shared `project` fixture using `examples/petstore.yaml`.
+
+Coverage thresholds: 95% lines/functions/statements, 90% branches.
 
 ---
 > Source: [7nohe/openapi-react-query-codegen](https://github.com/7nohe/openapi-react-query-codegen) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
