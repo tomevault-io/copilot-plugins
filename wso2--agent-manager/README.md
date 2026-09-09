@@ -5,24 +5,25 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wso2/agent-manager](https://github.com/wso2/agent-manager).
+Original source: `CLAUDE.md` in [wso2/agent-manager](https://github.com/wso2/agent-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (4)
+## Bundled Skills (5)
 
 - [agent-manager](https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-evaluator/SKILL.md)
 - [agent-manager](https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-api-resource/SKILL.md)
 - [agent-manager](https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-service-unit-test/SKILL.md)
 - [agent-manager](https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-console-api-feature/SKILL.md)
+- [agent-manager](https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-audit-event/SKILL.md)
 
-From [wso2/agent-manager](https://github.com/wso2/agent-manager) — a repo with 68+ stars on GitHub.
+From [wso2/agent-manager](https://github.com/wso2/agent-manager) — a repo with 75+ stars on GitHub.
 
 ---
 
