@@ -280,4 +280,4 @@ CC_PRECOMPILER_CURRENT_TARGET=x86_64-linux-musl mix compile
 
 ---
 > Source: [elixir-sqlite/exqlite](https://github.com/elixir-sqlite/exqlite) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
