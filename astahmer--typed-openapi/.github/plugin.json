@@ -1,0 +1,14 @@
+{
+  "name": "astahmer--typed-openapi",
+  "displayName": "typed-openapi",
+  "description": "typed-openapi",
+  "version": "1.0.0",
+  "author": "astahmer",
+  "homepage": "https://github.com/astahmer/typed-openapi",
+  "skills": [
+    {
+      "name": "typed-openapi",
+      "description": ""
+    }
+  ]
+}
