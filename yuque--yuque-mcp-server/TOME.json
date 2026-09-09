@@ -2,9 +2,9 @@
   "name": "yuque-mcp-server",
   "owner": "yuque",
   "repo": "yuque-mcp-server",
-  "description": "Yuque MCP Server - Model Context Protocol server for Yuque API",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yuque/yuque-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:37:40Z"
+  "distributed_at": "2026-09-09T07:32:45Z"
 }
