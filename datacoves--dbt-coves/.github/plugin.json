@@ -1,0 +1,9 @@
+{
+  "name": "datacoves--dbt-coves",
+  "displayName": "dbt-coves",
+  "description": "dbt-coves",
+  "version": "1.0.0",
+  "author": "datacoves",
+  "homepage": "https://github.com/datacoves/dbt-coves",
+  "skills": []
+}
