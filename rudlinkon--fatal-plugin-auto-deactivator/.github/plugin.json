@@ -1,0 +1,9 @@
+{
+  "name": "rudlinkon--fatal-plugin-auto-deactivator",
+  "displayName": "fatal-plugin-auto-deactivator",
+  "description": "Automatically deactivates plugins that cause fatal errors to prevent site crashes.",
+  "version": "1.0.0",
+  "author": "rudlinkon",
+  "homepage": "https://github.com/rudlinkon/fatal-plugin-auto-deactivator",
+  "skills": []
+}
