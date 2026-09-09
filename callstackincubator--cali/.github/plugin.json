@@ -1,0 +1,14 @@
+{
+  "name": "callstackincubator--cali",
+  "displayName": "cali",
+  "description": "cali",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/cali",
+  "skills": [
+    {
+      "name": "cali",
+      "description": ""
+    }
+  ]
+}
