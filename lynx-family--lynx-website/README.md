@@ -1,6 +1,6 @@
 # lynx-website
 
-> Source: [lynx-family/lynx-website](https://github.com/lynx-family/lynx-website). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [lynx-family/lynx-website](https://github.com/lynx-family/lynx-website). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
