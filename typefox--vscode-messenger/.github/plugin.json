@@ -1,0 +1,14 @@
+{
+  "name": "typefox--vscode-messenger",
+  "displayName": "vscode-messenger",
+  "description": "vscode-messenger",
+  "version": "1.0.0",
+  "author": "TypeFox",
+  "homepage": "https://github.com/TypeFox/vscode-messenger",
+  "skills": [
+    {
+      "name": "vscode-messenger",
+      "description": ""
+    }
+  ]
+}
