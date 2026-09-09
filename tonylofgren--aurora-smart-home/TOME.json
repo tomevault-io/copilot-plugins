@@ -1,0 +1,105 @@
+{
+  "name": "aurora-smart-home",
+  "owner": "tonylofgren",
+  "repo": "aurora-smart-home",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "esphome",
+      "path": "esphome",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/esphome",
+      "description": ""
+    },
+    {
+      "name": "ha-integration-dev",
+      "path": "ha-integration-dev",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/ha-integration-dev",
+      "description": ""
+    },
+    {
+      "name": "home-assistant",
+      "path": "home-assistant",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/home-assistant",
+      "description": ""
+    },
+    {
+      "name": "node-red",
+      "path": "node-red",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/node-red",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "path": "aurora/SKILL.md",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/aurora/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "path": "node-red/SKILL.md",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/node-red/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "path": "api-catalog/SKILL.md",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/api-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "path": "home-assistant/SKILL.md",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/home-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "path": "ha-integration-dev/SKILL.md",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/ha-integration-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aurora-smart-home",
+      "path": "ha-dashboard-design/SKILL.md",
+      "github_url": "https://github.com/tonylofgren/aurora-smart-home/tree/main/ha-dashboard-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tonylofgren/aurora-smart-home",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T03:31:11Z"
+}
