@@ -15,11 +15,6 @@ Original source: `CLAUDE.md` in [natnew/awesome-physical-ai](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [awesome-physical-ai](https://github.com/natnew/awesome-physical-ai/tree/main/skills/changelog/SKILL.md)
-- [awesome-physical-ai](https://github.com/natnew/awesome-physical-ai/tree/main/skills/feature-spec/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/natnew/awesome-physical-ai](https://github.com/natnew/awesome-physical-ai)
 
 ---
