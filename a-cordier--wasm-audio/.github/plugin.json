@@ -1,0 +1,14 @@
+{
+  "name": "a-cordier--wasm-audio",
+  "displayName": "wasm-audio",
+  "description": "wasm-audio",
+  "version": "1.0.0",
+  "author": "a-cordier",
+  "homepage": "https://github.com/a-cordier/wasm-audio",
+  "skills": [
+    {
+      "name": "wasm-audio",
+      "description": ""
+    }
+  ]
+}
