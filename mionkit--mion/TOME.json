@@ -1,0 +1,123 @@
+{
+  "name": "mion",
+  "owner": "MionKit",
+  "repo": "mion",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mion",
+      "path": ".claude/skills/enrich/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/enrich/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/task-reset/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/task-reset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/create-todo/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/create-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/fuzzy-testing/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/fuzzy-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/implement-todo/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/implement-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/website-browser/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/website-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/release-to-prod/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/release-to-prod/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/delegate-finding/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/delegate-finding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/ts-runtypes-setup/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/ts-runtypes-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": ".claude/skills/drizzle-slim-schemas/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/.claude/skills/drizzle-slim-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": "packages/run-types/skills/rt-enrich-types/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/packages/run-types/skills/rt-enrich-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": "packages/run-types/skills/runtypes-mock-data/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/packages/run-types/skills/runtypes-mock-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mion",
+      "path": "packages/run-types/skills/runtypes-friendly-type/SKILL.md",
+      "github_url": "https://github.com/MionKit/mion/tree/main/packages/run-types/skills/runtypes-friendly-type/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MionKit/mion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T19:57:22Z"
+}
