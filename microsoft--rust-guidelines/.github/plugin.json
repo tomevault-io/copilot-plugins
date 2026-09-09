@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--rust-guidelines",
+  "displayName": "rust-guidelines",
+  "description": "rust-guidelines",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/rust-guidelines",
+  "skills": []
+}
