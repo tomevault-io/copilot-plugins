@@ -1,0 +1,44 @@
+{
+  "name": "cold-email-cli",
+  "owner": "LeadMagic",
+  "repo": "cold-email-cli",
+  "description": "Archived TypeScript and Bun CLI for email campaign platform integrations. Historical source and documentation; no active maintenance.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LeadMagic/cold-email-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T10:04:33Z"
+}
