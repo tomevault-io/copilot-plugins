@@ -135,4 +135,4 @@ See [`docs/architecture docs/subsystems/`](docs/architecture%20docs/subsystems/)
 
 ---
 > Source: [prisma/orm](https://github.com/prisma/orm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
