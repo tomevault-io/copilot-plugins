@@ -1,0 +1,44 @@
+{
+  "name": "Galleria",
+  "owner": "BuiltByTed",
+  "repo": "Galleria",
+  "description": "Galleria is a modern, self-hosted photography portfolio platform built with React, TypeScript, and Express. Features include image optimization, album management, analytics, Google OAuth authentication, AI title generation (optional), MFA/Passkey support, and a beautiful responsive UI.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BuiltByTed/Galleria",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-09T16:21:09Z"
+}
