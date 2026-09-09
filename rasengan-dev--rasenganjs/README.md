@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rasengan-dev/rasenganjs](https://github.com/rasengan-dev/rasenganjs).
+Original source: `CLAUDE.md` in [rasengan-dev/rasenganjs](https://github.com/rasengan-dev/rasenganjs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (27)
+## Bundled Skills (52)
 
 - [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/.agents/skills/stop-slop/SKILL.md)
 - [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/.agents/skills/documentation/SKILL.md)
@@ -44,6 +44,31 @@ Original source: `AGENTS.md` in [rasengan-dev/rasenganjs](https://github.com/ras
 - [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/docs/.agents/skills/rasengan-data-fetching/SKILL.md)
 - [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/docs/.agents/skills/rasengan-project-setup/SKILL.md)
 - [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/docs/.agents/skills/vercel-react-best-practices/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/.agents/skills/rasengan-server/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/ui-ux-pro-max/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-pages/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-config/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/ui-ux-pro-max/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-routing/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-styling/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-pages/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-config/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-ecosystem/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-routing/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-styling/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-optimizing/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-deployment/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-ecosystem/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-data-fetching/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-optimizing/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/rasengan-project-setup/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-deployment/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/packages/framework/futon/.claude/skills/run-futon/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-data-fetching/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/rasengan-project-setup/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs/.agents/skills/vercel-react-best-practices/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/apps/docs-v2/.agents/skills/vercel-react-best-practices/SKILL.md)
+- [rasenganjs](https://github.com/rasengan-dev/rasenganjs/tree/main/packages/framework/rasengan-server/.claude/skills/run-rasengan-server/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/rasengan-dev/rasenganjs](https://github.com/rasengan-dev/rasenganjs)
 
