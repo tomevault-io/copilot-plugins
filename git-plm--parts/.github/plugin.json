@@ -1,0 +1,14 @@
+{
+  "name": "git-plm--parts",
+  "displayName": "parts",
+  "description": "parts",
+  "version": "1.0.0",
+  "author": "git-plm",
+  "homepage": "https://github.com/git-plm/parts",
+  "skills": [
+    {
+      "name": "parts",
+      "description": ""
+    }
+  ]
+}
