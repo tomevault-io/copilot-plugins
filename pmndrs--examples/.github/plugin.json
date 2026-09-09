@@ -1,0 +1,14 @@
+{
+  "name": "pmndrs--examples",
+  "displayName": "examples",
+  "description": "examples",
+  "version": "1.0.0",
+  "author": "pmndrs",
+  "homepage": "https://github.com/pmndrs/examples",
+  "skills": [
+    {
+      "name": "examples",
+      "description": ""
+    }
+  ]
+}
