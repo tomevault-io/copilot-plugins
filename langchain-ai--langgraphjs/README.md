@@ -1,6 +1,6 @@
 # langgraphjs
 
-> Source: [langchain-ai/langgraphjs](https://github.com/langchain-ai/langgraphjs). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [langchain-ai/langgraphjs](https://github.com/langchain-ai/langgraphjs). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [langchain-ai/langgraphjs](https://github.com/la
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [langchain-ai/langgraphjs](https://github.com/langchain-ai/langgraphjs) — a repo with 3127+ stars on GitHub.
+From [langchain-ai/langgraphjs](https://github.com/langchain-ai/langgraphjs) — a repo with 3261+ stars on GitHub.
 
 ---
 
