@@ -3,8 +3,8 @@
   "owner": "tsingliuwin",
   "repo": "autoclaw",
   "description": "AutoClaw is a hyper-lightweight AI agent designed to live inside Docker containers. Unlike heavy, GUI-dependent agents, AutoClaw is built for headless, massive-scale concurrency.",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "autoclaw",
+      "path": "skills/code2media/SKILL.md",
+      "github_url": "https://github.com/tsingliuwin/autoclaw/tree/main/skills/code2media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autoclaw",
+      "path": "skills/poster-maker/SKILL.md",
+      "github_url": "https://github.com/tsingliuwin/autoclaw/tree/main/skills/poster-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autoclaw",
+      "path": "skills/invoice-maker/SKILL.md",
+      "github_url": "https://github.com/tsingliuwin/autoclaw/tree/main/skills/invoice-maker/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tsingliuwin/autoclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T10:43:33Z"
+  "distributed_at": "2026-09-09T03:32:27Z"
 }
