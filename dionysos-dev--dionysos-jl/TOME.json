@@ -4,7 +4,7 @@
   "repo": "Dionysos.jl",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dionysos-dev/Dionysos.jl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T03:42:34Z"
+  "distributed_at": "2026-09-10T12:57:36Z"
 }
