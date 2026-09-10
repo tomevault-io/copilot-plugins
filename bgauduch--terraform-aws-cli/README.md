@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bgauduch/terraform-aws-cli](https://github.com/bgauduch/terraform-aws-cli).
+Original source: `` in [bgauduch/terraform-aws-cli](https://github.com/bgauduch/terraform-aws-cli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
