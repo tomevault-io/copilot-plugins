@@ -1,0 +1,14 @@
+{
+  "name": "stackguardian--tirith",
+  "displayName": "tirith",
+  "description": "tirith",
+  "version": "1.0.0",
+  "author": "StackGuardian",
+  "homepage": "https://github.com/StackGuardian/tirith",
+  "skills": [
+    {
+      "name": "tirith",
+      "description": ""
+    }
+  ]
+}
