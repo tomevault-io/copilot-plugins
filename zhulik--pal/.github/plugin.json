@@ -1,7 +1,7 @@
 {
   "name": "zhulik--pal",
   "displayName": "pal",
-  "description": "An (opinionated) dependency injection framework for Go.",
+  "description": "pal",
   "version": "1.0.0",
   "author": "zhulik",
   "homepage": "https://github.com/zhulik/pal",
