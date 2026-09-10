@@ -1,0 +1,9 @@
+{
+  "name": "owasp--www-project-secure-headers",
+  "displayName": "www-project-secure-headers",
+  "description": "www-project-secure-headers",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/www-project-secure-headers",
+  "skills": []
+}
