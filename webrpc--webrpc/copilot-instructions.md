@@ -1,139 +1,53 @@
 ## webrpc
 
-> webrpc schema and RIDL syntax
+> webrpc is a schema-driven codegen tool: an API schema in RIDL (or JSON) generates
 
+# webrpc — agent guide
 
-# webrpc schema and RIDL syntax skill for LLMs
+webrpc is a schema-driven codegen tool: an API schema in RIDL (or JSON) generates
+strongly-typed servers and clients (Go, TypeScript, JavaScript, Kotlin, Dart, OpenAPI)
+that speak HTTP + JSON.
 
-## When to use this skill
-Use this skill when the user needs to work with RIDL files.
+This file is for agents contributing to **this repo** (the schema parser and codegen
+CLI). For helping a user *write RIDL schemas*, see `SKILL.md` instead.
 
-The RIDL file defines schema for HTTP client/server communications (browser-to-server or service-to-service).
-The `webrpc-gen` codegen generates a REST-like API with JSON messages, a subset of REST API conventions, which:
-- is not RESTful
-- always uses POST method
-- uses JSON body only (no path params or query params)
+## Layout
 
-## Do and don't
-- Prefer editing `.ridl` files; do not manually edit generated `*.gen.*` files.
-- Keep syntax strict: identifiers are case‑sensitive; spacing is mostly flexible.
-- Use `ridlfmt` after edits when possible.
-- Prefer succinct method signatures for request/response structs.
-- Avoid mixing succinct and multi‑arg method signatures.
-- Don't use circular imports.
+- `cmd/webrpc-gen/` — codegen CLI; `cmd/webrpc-test/` — interoperability test tool
+- `schema/` — schema model and parsers; `schema/ridl/` is the RIDL parser
+- `gen/` — template-driven generator core (code generators are Go templates)
+- `_examples/`, `tests/` — runnable examples and interop schema; generated output is checked in
+- Codegen templates live in **`gen/<target>` folders** (`gen/golang`, `gen/typescript`, ...)
+  and are embedded into the `webrpc-gen` binary via `go:embed`. Template bugs are fixed here.
 
-## Schema header (required)
-```
-webrpc = v1
-name = <schema-name>
-version = <schema-version>
-basepath = <api-base-path>
-```
+## Commands
 
-## Imports
-```
-import "path/to/file.ridl"
-import "path/to/file.ridl" (TypeA, ServiceB)
-```
-Imports are merged into the current schema and can be limited to named members.
+- `make build` — build `./bin/webrpc-gen`
+- `make test` — full suite (Go tests + interoperability suite)
+- `make generate` — regenerate all examples and tests using latest templates
+- `make diff` — fail if the working tree has changes (CI runs this after generate)
+- `make update-ridl-test-golden-examples` — refresh RIDL parser golden JSON files
 
-## Comments
-- `#` starts a line comment.
-- Adjacent comment lines attach to the next definition as doc comments.
+## Rules
 
-## Types
-Core types:
-`byte`, `bool`, `any`, `null`, `string`, `timestamp`,
-`uint8/16/32/64`, `int8/16/32/64`, `float32/64`.
+- Never hand-edit generated files (`*.gen.*`, generated output under `_examples/` and
+  `tests/`). Change the schema or the `gen/<target>` templates, then `make generate`.
+- After changing parser or schema code: `make generate && make diff` to confirm generated
+  output is deterministic and intentional.
+- Golden files under `schema/ridl/_example/` are updated only via
+  `make update-ridl-test-golden-examples` — never by hand.
+- `make generate` deliberately strips version strings from generated files to avoid
+  churn; don't "fix" that.
+- The `message` keyword is deprecated (renamed to `struct` in v0.9.0) — keep the parser
+  error message intact.
+- RIDL files are formatted with [ridlfmt](https://github.com/webrpc/ridlfmt).
 
-List:
-`[]Type`, `[][]Type`
+## Testing a parser/codegen change end-to-end
 
-Map:
-`map<key,value>`
-
-Struct (message):
-```
-struct User
-  - id: uint64
-  - name?: string  # optional field
-```
-Fields are required unless marked optional (`?`).
-
-Enum:
-```
-enum SortOrder: uint32
-  - DESC = 0
-  - ASC  = 1
-```
-If no explicit value is provided, enum values default by index.
-
-## Services and methods
-```
-service Example
-  - Ping()
-  - GetUser(userId: uint64) => (user: User)
-```
-
-Succinct form (single struct arg/return only, preferred):
-```
-service Example
-  - Ping(PingRequest) => (PingResponse)
-  - GetUser(GetUserRequest) => (GetUserResponse)
-```
-Do not mix succinct form with multi‑arg form in a single method.
-
-## Errors
-```
-error 100 RateLimited "too many requests" HTTP 429
-error 200 UserNotFound "user not found"
-```
-Default HTTP status is 400 when omitted.
-
-## Annotations
-Methods can be annotated:
-```
-@deprecated:"use NewMethod instead"
-@stampede:3s
-```
-
-## Field metadata
-Fields can include metadata lines:
-```
-  - id: string
-    + go.field.name = ID
-    + go.field.type = uint64
-    + go.tag.json = id,string
-    + go.tag.db = id,omitempty
-  - createdAt: timestamp
-    + go.tag.db = created_at,omitempty
-  - updatedAt: timestamp
-    + go.tag.db = updated_at,omitempty
-  - deletedAt?: timestamp
-    + go.tag.db = deleted_at,omitempty
-  - featureIndex: int
-    + json = - # internal server-only field (omitted in clients)
-```
-
-## Good references in this repo
-- `_examples/golang-basics/example.ridl` (small, clear schema)
-- `schema/README.md` (type system)
-- `schema/ridl/README.md` (errors and RIDL notes)
-
-## webrpc-gen codegen targets (upstream Go template repositories)
-- https://github.com/webrpc/gen-golang
-- https://github.com/webrpc/gen-typescript
-- https://github.com/webrpc/gen-javascript
-- https://github.com/webrpc/gen-kotlin
-- https://github.com/webrpc/gen-dart
-- https://github.com/webrpc/gen-openapi
-
-## Common mistakes
-- Missing `webrpc = v1`.
-- Using deprecated `message` keyword instead of `struct`.
-- Mixing succinct and multi‑arg method signatures.
-- Forgetting optional `?` on nullable fields.
+1. `make build`
+2. `./bin/webrpc-gen -schema=_examples/golang-basics/example.ridl -target=golang -pkg=main -server -client -out=/tmp/out.gen.go`
+3. `make test`
 
 ---
 > Source: [webrpc/webrpc](https://github.com/webrpc/webrpc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
