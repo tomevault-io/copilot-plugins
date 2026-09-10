@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--anthropic-sdk-ruby",
+  "displayName": "anthropic-sdk-ruby",
+  "description": "anthropic-sdk-ruby",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/anthropic-sdk-ruby",
+  "skills": []
+}
