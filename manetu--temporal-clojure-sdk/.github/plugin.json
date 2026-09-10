@@ -1,0 +1,9 @@
+{
+  "name": "manetu--temporal-clojure-sdk",
+  "displayName": "temporal-clojure-sdk",
+  "description": "temporal-clojure-sdk",
+  "version": "1.0.0",
+  "author": "manetu",
+  "homepage": "https://github.com/manetu/temporal-clojure-sdk",
+  "skills": []
+}
