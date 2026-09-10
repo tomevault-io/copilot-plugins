@@ -1,82 +1,105 @@
 ## nah
 
-> nah hook claude install
+> - For pipeline, feature ownership, or verification, start with
 
-# Claude Code
+# Agent instructions
 
-## Install
+## Contributor search conventions
 
-```sh
-nah hook claude install
-```
+- For pipeline, feature ownership, or verification, start with
+  [docs/architecture.md](docs/architecture.md).
+- `bash_*` names in `crates/nah-actions/src/lib.rs` are crate-root aliases
+  for modules under `crates/nah-actions/src/bash/features/`; search the
+  unprefixed name there (for example, `bash_git` → `git.rs`).
+- Private effinterp integration lives in `crates/nah-effinterp/` and is
+  marked `UNDOCUMENTED-EFFINTERP`. `.cargo/config.toml` replaces the private
+  dependency with `vendor/effinterp-stubs/` for feature-off builds; the stubs
+  contain no engine implementation. The `effinterp` job in
+  `.github/workflows/ci.yml` owns checkout and source replacement for private
+  feature checks. Keep these features out of public product documentation.
+- Effinterp annotations are produced in `crates/nah-effinterp/src/annotate.rs`;
+  `crates/nah-proto/src/action_v2.rs` owns their types and
+  `crates/nah-proto/src/stream.rs` owns stream validation. Follow
+  `crates/nah-cli/src/pipeline.rs` for runtime composition.
 
-To deny explicit evaluation failures and bounded analysis refusals, install
-with `--fail-closed`. Ordinary unknown or opaque calls still delegate.
-`--fail-open` restores the default; flagless reinstall preserves a recognized
-mode. The guarantee requires the loaded nah process to return a response;
-missing hooks/binaries, runtime timeout, process termination, bypass, and
-broken output pipes remain outside it.
+Edit this guidance in `.mdmanager/sections/agents.md`, then run
+`mdmanager project apply agents`. `.mdmanager/project.toml` owns the
+composition; `AGENTS.md` is generated and `CLAUDE.md` links to it.
 
-Restart Claude Code and inspect the active PreToolUse hook with `/hooks`.
-Remove only nah's entry with:
+## Build and test layout
 
-```sh
-nah hook claude uninstall
-```
+Integration tests are one binary per crate: `crates/<crate>/tests/suite/main.rs`
+declares each sibling file as a module. Add new integration tests there, not
+as top-level `tests/*.rs` files, and run one module with
+`cargo test -p <crate> --test suite <module>::`.
 
-The installer preserves unrelated `~/.claude/settings.json` content and is
-idempotent. It uses Claude Code's native executable-and-arguments form, with no
-copied script, shell quoting, or Python dependency.
+Build output stays under one profile. Never set `CARGO_PROFILE_*` or
+`CARGO_INCREMENTAL` environment variables and do not pass `--release`: every
+distinct profile value makes Cargo link a second full copy of every test
+binary under `target/`, and each sddr worktree carries its own `target/`.
 
-## Behavior
+## Built-in guard design
 
-Known Bash, read, write, edit, search, and related tool calls enter the shared
-nah pipeline. A definite violation is returned as a block with nah-branded
-feedback. Everything else returns no decision and continues through Claude
-Code's normal permission flow. nah never returns Claude's explicit `allow`, so
-it never skips a permission prompt.
+Build guards around a concrete loss or exposure that Nah can establish from
+modeled evidence. State what the guard catches, which legitimate workflows it
+interrupts, and what context Nah cannot determine.
 
-## Boundaries
+### Factory defaults
 
-`PreToolUse` runs before Claude's permission layer. Current Claude Code
-documentation does not say that `bypassPermissions`
-(`--dangerously-skip-permissions`, often called YOLO mode) disables hooks. It
-skips normal permission prompts, so delegated calls can execute immediately.
-Explicit `ask` rules, selected connector and MCP interactions, and root/home
-removal circuit breakers can still prompt. Treat the hook as a guardrail, not
-as a sandbox guarantee.
+Ship on when a human handoff is justified by proven broad loss of working
+state, destruction of recovery paths, raw credential exposure, or bypassing
+checks that prevent substantial loss.
 
-`--safe-mode` disables all customizations, including hooks. `--bare` skips
-automatic hook discovery. Neither mode loads nah's user hook.
+Ship off when the same operation is routine legitimate work and its danger
+depends on context Nah cannot establish. Whole-stack teardown, for example,
+may be ordinary cleanup of a disposable environment.
 
-Claude continues a tool call when a command hook exits with anything other
-than the blocking exit code 2, including ordinary errors and timeouts.
-Under the default mode, evaluation failure delegates and returns a fixed
-`systemMessage`; malformed
-outer input returns no decision. Other matching hooks run in parallel,
-including hooks bundled by enabled plugins, and one hook cannot prevent another
-from starting. Users can set `disableAllHooks`; administrators can set
-`allowManagedHooksOnly`, which excludes this user hook unless nah is installed
-as managed configuration.
+Judge the interruption when the guard matches. Users who never invoke the
+affected operation are not a reason to ship it off. Conversely, severity alone
+does not justify default-on: examine realistic legitimate uses and recovery.
 
-Hook coverage and loading remain runtime-owned. Inspect `/hooks` after
-installation and configuration changes. Remote Claude Code environments need
-their own installation. Trusted hooks or tools that perform work directly
-without the intercepted call remain outside nah.
+### Granularity
 
-While active, this adapter blocks visible lifecycle commands, mutations to its
-shared user `settings.json`, and visible child launches using `--safe-mode` or
-`--bare`. Permission modes such as `--dangerously-skip-permissions` do not
-disable hooks and are not self-protection findings. The agent is told not to
-retry protected changes; an operator can use `nah nap` from another terminal.
+One guard should represent a protection a user can meaningfully choose.
 
-This integration is best effort: runtime APIs and hook behavior can change.
-After upgrades, verify the latest official upstream documentation linked below,
-inspect the loaded hook, and test it before relying on nah. See Claude Code's
-[hooks reference](https://code.claude.com/docs/en/hooks),
-[permission modes](https://code.claude.com/docs/en/permissions), and
-[settings reference](https://code.claude.com/docs/en/settings).
+Extend an existing guard when the new behavior protects against the same
+kind of loss. Split only when a concrete workflow needs independent controls
+or different defaults. Separate commands, providers, or internal effect codes
+do not by themselves justify separate guards.
+
+Prefer the fewest controls that preserve useful choices. Keep applicable
+protections independent: matching one guard must not suppress another.
+
+### Review
+
+Before adding or widening a guard, explain:
+
+- The consequential mistake it prevents.
+- A realistic legitimate workflow it could interrupt.
+- Why its scope and factory default fit those cases.
+- Why an existing guard can or cannot own the behavior.
+
+Keep the full guard inventory in the README accurate. Keep contributor
+reasoning here; command behavior and options belong in help and product docs.
+
+## Documentation scope
+
+Keep documentation changes proportional. Edit the README or homepage only when
+a change makes them inaccurate, and then make the smallest factual correction.
+Do not expand surrounding copy or refresh demos and recordings unless requested.
+
+## Keep the changelog curated
+
+`CHANGELOG.md` is the public news feed on nahguard.ai, not a development log.
+Add an entry only when an existing user might change how they use or upgrade
+Nah, or a prospective user would care that the capability exists.
+
+- Keep one concise `Unreleased` bullet per user outcome, with a bold label and
+  plain technical summary. Fold related follow-up work into that bullet.
+- Omit docs and copy edits, site polish, internal work, tests, and minor edge
+  case or message fixes.
+- Keep newest releases first and never rewrite shipped entries.
 
 ---
 > Source: [manuelschipper/nah](https://github.com/manuelschipper/nah) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
