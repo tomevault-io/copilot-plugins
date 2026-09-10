@@ -4,7 +4,7 @@
   "repo": "FastEndpoints",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FastEndpoints/FastEndpoints",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T05:38:17Z"
+  "distributed_at": "2026-09-10T12:55:14Z"
 }
