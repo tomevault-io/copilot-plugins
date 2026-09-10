@@ -1,12 +1,9 @@
 ## x-sam
 
-> Behavioral guidelines to reduce common LLM coding mistakes.
+> Agent behavior guidelines
 
-# Agent Instructions
 
-Behavioral guidelines to reduce common LLM coding mistakes.
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+Follow these project agent guidelines for all coding work. They bias toward caution over speed; use judgment for trivial tasks.
 
 ## 1. Think Before Coding
 
@@ -100,4 +97,4 @@ Before finishing:
 
 ---
 > Source: [wanghao9610/X-SAM](https://github.com/wanghao9610/X-SAM) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
