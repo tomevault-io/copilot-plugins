@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrk-its/homeassistant-blitzortung](https://github.com/mrk-its/homeassistant-blitzortung).
+Original source: `CLAUDE.md` in [mrk-its/homeassistant-blitzortung](https://github.com/mrk-its/homeassistant-blitzortung).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
