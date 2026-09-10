@@ -1,0 +1,9 @@
+{
+  "name": "apache--casbin-gateway",
+  "displayName": "casbin-gateway",
+  "description": "casbin-gateway",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/casbin-gateway",
+  "skills": []
+}
