@@ -1,0 +1,9 @@
+{
+  "name": "openshift--ovn-kubernetes",
+  "displayName": "ovn-kubernetes",
+  "description": "ovn-kubernetes",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/ovn-kubernetes",
+  "skills": []
+}
