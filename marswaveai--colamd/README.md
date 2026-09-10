@@ -1,23 +1,22 @@
 # ColaMD
 
-> Tome by [marswaveai](https://github.com/marswaveai/ColaMD) — distributed by [TomeVault](https://tomevault.io)
-
-The Agent Native Markdown Editor.
+> Tome by [marswaveai](https://github.com/marswaveai/ColaMD), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [marswaveai/ColaMD](https://github.com/marswaveai/ColaMD).
+Original source: `` in [marswaveai/ColaMD](https://github.com/marswaveai/ColaMD).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/marswaveai/ColaMD](https://github.com/marswaveai/ColaMD)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/marswaveai/ColaMD](https://github.com/marswaveai/ColaMD)
 
 ---
 
