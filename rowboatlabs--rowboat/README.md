@@ -1,17 +1,15 @@
 # rowboat
 
-> Source: [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) — distributed by [TomeVault](https://tomevault.io)
-
-Open-source AI coworker, with memory
+> Source: [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat).
+Original source: `AGENTS.md` in [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
