@@ -1,0 +1,9 @@
+{
+  "name": "tsuyoshi-otake--otak-proxy",
+  "displayName": "otak-proxy",
+  "description": "Switch proxy settings for VSCode, Git, and GitHub CLI with one click. Enhance your workflow with a simple, efficient tool.",
+  "version": "1.0.0",
+  "author": "tsuyoshi-otake",
+  "homepage": "https://github.com/tsuyoshi-otake/otak-proxy",
+  "skills": []
+}
