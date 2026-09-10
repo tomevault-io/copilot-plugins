@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [corazawaf/coraza](https://github.com/corazawaf/coraza).
+Original source: `CLAUDE.md` in [corazawaf/coraza](https://github.com/corazawaf/coraza).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [corazawaf/coraza](https://github.com/corazawaf/coraza) — a repo with 3794+ stars on GitHub.
+From [corazawaf/coraza](https://github.com/corazawaf/coraza) — a repo with 3799+ stars on GitHub.
 
 ---
 
