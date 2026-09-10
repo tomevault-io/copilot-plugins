@@ -4,7 +4,7 @@
   "repo": "1time.io",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shingrus/1time.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T00:45:25Z"
+  "distributed_at": "2026-09-10T13:22:10Z"
 }
