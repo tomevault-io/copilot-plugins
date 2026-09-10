@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [manuelschipper/nah](https://github.com/manuelschipper/nah).
+Original source: `AGENTS.md` in [manuelschipper/nah](https://github.com/manuelschipper/nah).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [manuelschipper/nah](https://github.com/manuelschipper/nah) — a repo with 462+ stars on GitHub.
+From [manuelschipper/nah](https://github.com/manuelschipper/nah) — a repo with 481+ stars on GitHub.
 
 ---
 
