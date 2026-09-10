@@ -1,0 +1,9 @@
+{
+  "name": "apache--calcite-avatica",
+  "displayName": "calcite-avatica",
+  "description": "calcite-avatica",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/calcite-avatica",
+  "skills": []
+}
