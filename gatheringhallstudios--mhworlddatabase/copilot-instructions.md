@@ -144,4 +144,4 @@ blocks it. Cosmetic translation gaps do not — the localization doc lists the k
 
 ---
 > Source: [gatheringhallstudios/MHWorldDatabase](https://github.com/gatheringhallstudios/MHWorldDatabase) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
