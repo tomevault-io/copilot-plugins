@@ -1,23 +1,21 @@
 # treewalker.nvim
 
-> Tome by [aaronik](https://github.com/aaronik/treewalker.nvim) — distributed by [TomeVault](https://tomevault.io)
-
-A neovim plugin for moving around your code in a syntax tree aware manner
+> Tome by [aaronik](https://github.com/aaronik/treewalker.nvim), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [aaronik/treewalker.nvim](https://github.com/aaronik/treewalker.nvim).
+Original source: `AGENTS.md` in [aaronik/treewalker.nvim](https://github.com/aaronik/treewalker.nvim).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aaronik/treewalker.nvim](https://github.com/aaronik/treewalker.nvim) — a repo with 606+ stars on GitHub.
+From [aaronik/treewalker.nvim](https://github.com/aaronik/treewalker.nvim) — a repo with 614+ stars on GitHub.
 
 ---
 
