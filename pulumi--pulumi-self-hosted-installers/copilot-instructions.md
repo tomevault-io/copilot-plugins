@@ -1,66 +1,69 @@
 ## pulumi-self-hosted-installers
 
-> All-in-one Docker Compose deployment of the Self-Hosted Pulumi Service for
+> Reusable Kubernetes TypeScript components consumed by the platform installers
 
-# Quickstart Docker Compose
+# Shared Kubernetes Components
 
-All-in-one Docker Compose deployment of the Self-Hosted Pulumi Service for
-local evaluation and CI testing. Also contains Go integration tests that run
-against a live Pulumi Service instance.
+Reusable Kubernetes TypeScript components consumed by the platform installers
+(EKS stage 90 and others). See the root `AGENTS.md` for repository-wide
+conventions — changes here affect multiple platforms, so flag them to reviewers.
 
-## Important: tests require a running service
+## Code Review Guidance
 
-The integration tests in `tests/` connect to `http://localhost:8080`. They are
-**not standalone unit tests** — they require the Pulumi Service to be running
-before execution. Do not run them in isolation.
+Be constructive and focus on component reusability and production reliability
+across all platforms.
 
-## Running the service locally
+### Pulumi Infrastructure-as-Code best practices
 
-Required environment variable:
+- Proper resource naming conventions and tagging
+- Component interface design and reusability
+- Configuration management and input validation
+- Provider version consistency and updates
 
-- `PULUMI_LICENSE_KEY` — without this, the service will not start
+### Component-specific considerations
 
-```bash
-PULUMI_LICENSE_KEY=<key> ./scripts/run-ee.sh -f ./all-in-one/docker-compose.yml
-```
+- **api.ts**: Pulumi API service deployment, container configuration, service discovery
+- **console.ts**: Pulumi Console UI deployment, frontend service configuration
+- **cert-manager.ts**: Certificate management automation, ACME configuration, TLS setup
+- **openSearch.ts**: Search service deployment, indexing configuration, cluster management
+- Component interface consistency across different cloud platforms
+- Kubernetes resource definitions and manifest generation
+- Service mesh and networking configurations
+- Resource dependencies and initialization order
 
-The script waits for both the API (`localhost:8080/api/status` → 200) and
-Console (`localhost:3000/index.html`) before returning.
+### Cross-platform compatibility
 
-## Running integration tests
+- Ensure components work across EKS, ECS, AKS, and GKE platforms
+- Validate Kubernetes API version compatibility
+- Check for platform-specific customizations and configuration options
+- Ensure consistent behavior across different cloud providers
+- Validate ingress controller and load balancer configurations
 
-After the service is running:
+### Security and production readiness
 
-- Standard: `go test ./...` from `quickstart-docker-compose/tests/`
-- With Minio object storage: `go test -tags=minio ./...` from the same directory
+- Secret management and encryption at rest
+- Network security (service mesh, ingress/egress rules)
+- Certificate management and TLS configuration
+- RBAC and service account permissions
+- Container security and image scanning considerations
+- Pod security policies and admission controllers
 
-Minio tests require additional environment variables; see
-`.github/workflows/test-with-minio.yml` for the full list.
+### Code quality
 
-## Test structure
+- TypeScript idioms and error handling
+- Component lifecycle management and cleanup
+- Documentation updates and interface specifications
+- Test coverage for component functionality
+- Reusable component design patterns
 
-| File | What it tests |
-| --- | --- |
-| `tests/integration_test.go` | User signup, login, stack operations via Automation API |
-| `tests/orgs_test.go` | Organization management |
-| `tests/policy_pack_test.go` | Policy pack upload and enforcement |
-| `tests/test-pulumi-app/` | Pulumi program deployed by integration tests |
-| `tests/test-policy-pack/` | Policy pack used by integration tests |
+### Component design patterns
 
-## Escalate immediately if
-
-- `PULUMI_LICENSE_KEY` is not available — integration tests cannot run
-- The Minio CI workflow fails on env var mapping — check `test-with-minio.yml`
-
-## Change triggers
-
-| Changed | Action |
-| --- | --- |
-| `docker-compose.yml` | Restart the service and verify health endpoints respond |
-| `tests/*.go` | `go test ./...` (with running service) |
-| `tests/test-pulumi-app/` | `go test ./...` integration tests use this app |
-| `scripts/run-ee.sh` | Manual test: run the script and confirm service starts |
+- Validate component interfaces are backwards compatible
+- Check for breaking changes that affect platform deployments
+- Ensure proper abstraction and encapsulation
+- Validate configuration parameter consistency
+- Component versioning and dependency management
 
 ---
 > Source: [pulumi/pulumi-self-hosted-installers](https://github.com/pulumi/pulumi-self-hosted-installers) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
