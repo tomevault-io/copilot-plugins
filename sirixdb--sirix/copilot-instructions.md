@@ -1,32 +1,25 @@
 ## sirix
 
-> - **Always use explicit imports** - no star imports (`import foo.*`), no inline fully-qualified class names. Every type must be imported at the top of the file.
+> Preserve projection root and descendant-column path semantics
 
-## Code Style
 
-- **Always use explicit imports** - no star imports (`import foo.*`), no inline fully-qualified class names. Every type must be imported at the top of the file.
-- Produce production-ready code, use best practices, create tests where appropriate, check input parameters to functions/methods, use common software engineering patterns where appropriate
+# Projection path semantics
 
-## Performance Requirements
+- Treat the projection root as the record-set boundary. Declared columns may be descendants at arbitrary, differing depths and on different branches below that root.
+- Root-shape validation must compare matches of the declared root expression only. Never reject a column merely because its PCR is below the root PCR or deeper than another column.
+- Reject only overlapping root matches where one matched record-set root is an ancestor of another matched root, such as a descendant pattern that selects self-nested record arrays.
+- Keep diagnostics explicit: self-nested matches of the root pattern are unsupported; nested descendant columns remain supported.
 
-- Make sure the resulting code is correct and as we're a DBS we need **extreme performant code**
-- Write **HFT (High-Frequency Trading) style high-performance code**:
-  - Minimize object allocations in hot paths - reuse objects where possible
-  - Prefer primitive types over boxed types (int over Integer, long over Long)
-  - Avoid autoboxing/unboxing in performance-critical code
-  - Use efficient data structures (primitive collections like fastutil, eclipse-collections, or RoaringBitmaps where appropriate)
-  - Minimize garbage collection pressure
-  - Use `final` for fields and variables where possible
-  - Avoid unnecessary synchronization - prefer lock-free data structures when thread-safety is needed
-  - Consider cache locality - keep related data together
-  - Avoid virtual method calls in tight loops where possible
-  - Pre-size collections when the size is known
-  - Use StringBuilder for string concatenation in loops
+Valid example:
 
-## Git/PR Guidelines
+```text
+root:    /root/bla/blubb
+column:  /root/bla/blubb/b/a/c
+column:  /root/bla/blubb/c/d
+```
 
-- Do not mention Claude in commits or PRs - no Co-Authored-By lines or references to Claude/AI
+When changing root validation or extraction, add a real load-time integration test for this shape. Assert one projected row, both presence bits, and the exact values from both differently nested columns.
 
 ---
 > Source: [sirixdb/sirix](https://github.com/sirixdb/sirix) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
