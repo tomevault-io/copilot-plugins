@@ -1,18 +1,29 @@
 ## claude-code-hermit
 
-> A Strava-backed training layer whose contracts are activity identity, bounded collection, and delivery-linked feedback.
+> Domain skills use the Home Assistant MCP server for live operations and `bin/ha-agent-lab` for bulk analysis, YAML, and structural operations. The TypeScript CLI and hooks share `src/policy.ts`.
 
-# Fitness Hermit
+# Home Assistant Hermit
 
-A Strava-backed training layer whose contracts are activity identity, bounded collection, and delivery-linked feedback.
+Domain skills use the Home Assistant MCP server for live operations and `bin/ha-agent-lab` for bulk analysis, YAML, and structural operations. The TypeScript CLI and hooks share `src/policy.ts`.
 
-- Keep the MCP server key `strava` and the `mcp__strava__*` namespace aligned with `settings.json` and skill references. Workflows check connectivity first. Preserve the denied write-class tools (`star-segment`, `connect-strava`, `disconnect-strava`).
-- `agents/strava-data-cruncher.md` owns the bulk-collection contract, including its API-call cap. Reuse athlete-provided HR zones and explicit stream keys; do not hardcode zones or copy external rate-limit numbers into instructions.
-- `fitness-brief` writes `state/strava-pending-rpe.json` only after confirmed channel delivery. Push fallback or log-only output must not bind an activity to a reply. Capture rechecks allowed users, enforces the 24-hour window, and consumes the pending record once. `state/activity-notes.json` is durable and keyed by Strava activity ID.
-- Routine files under `state-templates/compiled/` are prompt files, not invokable skills. Keep hatch's registered `prompt_file` paths synchronized with their filenames.
-- `docs/knowledge-schema.md` owns artifact locations, retention, and the RPE record shapes. Preserve the distinction between ephemeral pulls, durable coaching outputs, and machine state. Persona and delivery identity come from the consumer's config.
+## Safety boundaries
 
-Read [the knowledge schema](docs/knowledge-schema.md) when changing activity sync, feedback, or routine outputs.
+- Preserve `ha_safety_mode`: absent means strict. Sensitive actuation and structural mutations are blocked under strict; ask mode requires operator confirmation. Unresolvable or malformed targeting stays blocked in both modes. Blocked work becomes a proposal.
+- Keep the MCP server name `homeassistant`; `hooks/hooks.json` matches the entire `mcp__homeassistant__.*` namespace and the gate explicitly allows read-only tools. Internal gate errors must fail closed.
+- `Hass*` intent tools have a deliberate opt-in: `ha_assist_control_enabled` delegates opaque target resolution to HA's expose-to-Assist boundary. Preserve the exact carve-out in `hooks/mcp-safety-gate.ts` rather than treating every unresolved call as equivalent.
+- `gateServiceCall` is per entity/service; `gateStructuralMutation` governs structural writes. Do not replace either with the other. Non-sensitive maintenance calls remain usable.
+- `update.*` has its own gate: `ha_update_auto_apply` plus per-call confirmation, without bypassing sensitive-entity checks. The higher-level Core/OS/Supervisor approval rule lives in `skills/ha-apply-update/SKILL.md`.
+- Use `bin/ha-agent-lab boot status` to check credential state. Never dump HA tokens, URLs, or a real device inventory into repository fixtures or diagnostics. User-facing locale comes from `OPERATOR.md`'s HA section.
+
+Read [SAFETY.md](SAFETY.md) before changing these gates. `src/cli.ts` and `bin/ha-agent-lab --help` own the command surface; [the CLI reference](docs/cli-reference.md) gives usage examples. Preserve raw-text response handling through `postText()`/`getText()` in `src/ha-api.ts` and the push/read-back/reload distinction in `src/apply.ts`.
+
+## Verification
+
+The plugin suite needs full Git history and Python with `python-dotenv` and `PyYAML` for test fixtures, although shipped code is TypeScript. Set `GATE_PARITY_PYTHON` when that interpreter is outside PATH. The setup is recorded in the repository's `.github/workflows/test-ha.yml`.
+
+Changes to `src/policy.ts` or `hooks/mcp-safety-gate.ts` must preserve the corpus/golden behavior in `tests/gate-corpus.test.ts` and the fail-closed properties in `tests/gate-fuzz.test.ts`. Keep YAML parity and apply-result verification intact; a successful tool call alone is not proof that the intended automation was installed.
+
+When using `tmpPath()` from `tests/helpers.ts`, register `afterAll(cleanupTmp)`. Cleanup after each test can delete fixtures still used by concurrent tests. Keep independent corpus and fuzz subprocess work asynchronous.
 
 ---
 > Source: [gtapps/claude-code-hermit](https://github.com/gtapps/claude-code-hermit) — distributed by [TomeVault](https://tomevault.io).
