@@ -1,0 +1,9 @@
+{
+  "name": "contentful--rich-text",
+  "displayName": "rich-text",
+  "description": "rich-text",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/rich-text",
+  "skills": []
+}
