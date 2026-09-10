@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [oliver-zehentleitner/unicorn-binance-suite](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [oliver-zehentleitner/unicorn-binance-suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite) — a repo with 60+ stars on GitHub.
+From [oliver-zehentleitner/unicorn-binance-suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite) — a repo with 58+ stars on GitHub.
 
 ---
 
