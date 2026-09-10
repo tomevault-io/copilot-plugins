@@ -1,0 +1,9 @@
+{
+  "name": "django-commons--django-tailwind-cli",
+  "displayName": "django-tailwind-cli",
+  "description": "django-tailwind-cli",
+  "version": "1.0.0",
+  "author": "django-commons",
+  "homepage": "https://github.com/django-commons/django-tailwind-cli",
+  "skills": []
+}
