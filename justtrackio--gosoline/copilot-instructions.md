@@ -1,86 +1,87 @@
 ## gosoline
 
-> - Shared OpenTelemetry core used by `pkg/tracing`, `pkg/metric`, and `pkg/log`.
+> - Collects metric data through the metric channel and flushes it via the metric daemon.
 
-# OTEL Package Agent Guide
+# Metric Package Agent Guide
 
 ## Scope
-- Shared OpenTelemetry core used by `pkg/tracing`, `pkg/metric`, and `pkg/log`.
-- Builds the OTEL **resource** from the application identity (so all signals correlate).
-- Builds OTLP **exporters** (gRPC/HTTP) for traces, metrics, and logs, with TLS/mTLS support.
-- Driven entirely by the native gosoline `cfg` system under the `otel` root key.
+- Collects metric data through the metric channel and flushes it via the metric daemon.
+- Owns the metric emission contract: metric name formatting, dimension keys, unit representation.
+- Hosts the writers exporting that contract: `cloudwatch`, `prometheus`, `otel` in-tree, plus the
+  `elasticsearch` writer type whose factory is registered from outside this package.
 
 ## Key files
-- `settings.go` — `Settings`, `ResourceSettings`, `ExporterSettings` (incl. `Address()` host/port vs endpoint), `TLSSettings`, `RetrySettings`.
-- `resource.go` — `BuildResource` / `ProvideResource` (identity → resource attributes).
-- `exporter.go` — `BuildTraceExporter`, `BuildMetricExporter`, `BuildLogExporter` + TLS/mTLS config builder.
+- `daemon.go` - `NewDaemonModule` factory, `RegisterWriterFactory`, aggregation and flush loop.
+- `channel.go` - buffered channel every `Write`/`WriteOne` call feeds into.
+- `writer_*.go` - backend writers selected through `metric.writers`.
+- `settings.go` - `Settings` struct read from the `metric` config key.
+- `schema_version.go` - metric schema version constant, format validation, metadata registration.
 
-## Configuration
-A single `otel` block is shared by all three signals. Per-signal toggles live in their own packages
-(`tracing.otel`, `metric.writer_settings.otel`, `log.handlers.<name>`).
+## Metric schema version
+The metric schema version identifies the metric emission contract a gosoline build implements, so
+tooling (dashboard generators, alert provisioning, metric pipelines) can branch on it without
+inspecting the gosoline version.
 
-```yaml
-otel:
-  resource:
-    service_name_pattern: "{app.name}"            # -> service.name
-    service_namespace_pattern: "{app.namespace}"  # -> service.namespace
-    delimiter: "-"
-    attributes:                                   # extra resource attributes (values may use placeholders)
-      deployment.environment: "{app.env}"
-      organization: "acme"
-  exporter:
-    protocol: grpc        # grpc | http
-    host: "localhost"     # override via env from pod metadata (status.hostIP)
-    port: 4317
-    endpoint: ""          # optional full override; wins over host:port
-    url_path: ""          # http only; shared fallback for all signals
-    traces_url_path: ""   # http only; per-signal override for traces (e.g. /otel/v1/traces)
-    metrics_url_path: ""  # http only; per-signal override for metrics (e.g. /otel/v1/metrics)
-    logs_url_path: ""     # http only; per-signal override for logs (e.g. /otel/v1/logs)
-    insecure: true        # set false to enable TLS/mTLS
-    compression: gzip
-    timeout: 10s
-    headers: {}           # static headers (auth, tenant, ...)
-    tls:                  # used when insecure=false
-      ca_file: ""
-      cert_file: ""       # client cert (mTLS)
-      key_file: ""        # client key (mTLS)
-      server_name: ""
-      insecure_skip_verify: false
-      min_version: "1.3"  # minimum TLS version (1.0, 1.1, 1.2, 1.3)
-    retry:
-      enabled: true
-      initial_interval: 5s
-      max_interval: 30s
-      max_elapsed_time: 300s
-```
+- Current value: `v1.0`, defined by the exported constant `metric.SchemaVersion` in
+  `schema_version.go`. That constant is the single source of truth - no other package may define
+  the literal value.
+- Metadata key: `metric.schema_version` (`metric.MetadataKeySchemaVersion`). The value is written
+  into the `appctx.Metadata` carrier and therefore served by the metadata server's root route.
+- Format: `v<MAJOR>.<MINOR>`, both components decimal integers of 1 to 9 digits without leading
+  zeros unless the component is exactly `0`. `metric.IsValidSchemaVersion` enforces it.
 
-### Host/port injection (Kubernetes)
-The host is split from the port so only the host needs to be injected from pod metadata:
+### Increment rules
+- **MAJOR**: a metric name, dimension key, or unit representation is removed or renamed. Increment
+  MAJOR by 1 and reset MINOR to 0 - this also applies when the same change adds something.
+- **MINOR**: the change is purely additive (new metric name, dimension key, or unit
+  representation, nothing removed or renamed). Increment MINOR by 1, leave MAJOR unchanged.
+- **unchanged**: every metric name, dimension key, and unit representation stays as it is. Leave
+  the version untouched, including for refactorings and performance work.
 
-```yaml
-env:
-  - name: NODE_IP
-    valueFrom: { fieldRef: { fieldPath: status.hostIP } }
-  - name: OTEL_EXPORTER_HOST   # -> otel.exporter.host
-    value: "$(NODE_IP)"
-```
+### Release process
+1. Bump `metric.SchemaVersion` in `schema_version.go` in the same commit as the contract change,
+   following the increment rules above.
+2. Update the current value in this file so the documented value never drifts from the constant.
+3. Describe the contract change and the new version in `RELEASE_NOTES.md`.
 
-`Address()` composes the endpoint with `net.JoinHostPort` (correct IPv6 bracketing) unless
-`endpoint` is set explicitly.
-
-## Design notes
-- **Resource is identical across signals** — identity (service name/namespace, environment, extra
-  attributes) lives in resource attributes, never in metric or span names. This is what enables
-  trace ↔ metric ↔ log correlation by resource attributes.
-- `pkg/otel` intentionally does **not** import `appctx` to avoid an import cycle
-  (`log → otel → appctx → conc → exec → log`). Each signal provider builds the resource once at
-  startup; the attribute values are identical.
+### Publication requirements
+The version is published only by an **enabled metric daemon**: the application must wire
+`application.WithMetrics` and be configured with `metric.enabled: true`. `NewDaemonModule`
+registers the version right after the enabled check, during kernel build, so the entry is present
+before the metadata server serves its first response. With `metric.enabled: false`, or without
+`application.WithMetrics`, the metadata document contains no `metric` member at all - the absence
+is the intended signal that the application emits no metrics.
 
 ## Common tasks
-- Add a new exporter knob: extend `ExporterSettings` and thread it through the three `Build*Exporter` functions.
-- Add a resource attribute: prefer config via `otel.resource.attributes`; only add a semconv attribute in `BuildResource` if it is universal.
+- Add a writer: implement `Writer` and register it through `RegisterWriterFactory`, then document
+  its settings key below `metric.writer_settings`.
+- Change the emitted contract: adjust the emitting code **and** apply the increment rules above.
+- Adjust default metrics: see `defaults.go` and the per-package `metric.Datum` producers.
+
+## Testing
+- `go test ./pkg/metric/...` before pushing changes.
+
+## Required config keys
+```yaml
+metric:
+  enabled: true               # Enables the metric daemon; required for schema version publication
+  interval: 60s               # Flush interval
+  writers:                    # Backends; any subset of the supported writers
+    - cloudwatch
+```
+
+## Related packages
+- `pkg/appctx` - metadata carrier the schema version is registered in
+- `pkg/application` - `WithMetrics` wiring and the metadata server exposing the version
+- `pkg/kernel` - module lifecycle; the daemon factory runs during kernel build
+- `pkg/otel` - shared OTLP exporter configuration used by the `otel` writer
+
+## Tips
+- Never derive the reported schema version from configuration - report the constant verbatim.
+- Registration performs exactly one attempt and returns a wrapped error; `NewDaemonModule` returns
+  that error unchanged, so the kernel build aborts instead of shipping an incomplete metadata
+  document.
 
 ---
 > Source: [justtrackio/gosoline](https://github.com/justtrackio/gosoline) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
