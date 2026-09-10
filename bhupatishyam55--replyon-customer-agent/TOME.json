@@ -1,0 +1,44 @@
+{
+  "name": "Replyon_customer_agent",
+  "owner": "Bhupatishyam55",
+  "repo": "Replyon_customer_agent",
+  "description": "Replyon \u2014 AI customer support agent that auto-replies to emails and tickets (text, voice, image) with zero human intervention. Reduces support workload using Claude, RAG, and smart escalation.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Bhupatishyam55/Replyon_customer_agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T23:31:18Z"
+}
