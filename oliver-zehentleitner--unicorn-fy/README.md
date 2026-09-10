@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [oliver-zehentleitner/unicorn-fy](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [oliver-zehentleitner/unicorn-fy](https://github.com/oliver-zehentleitner/unicorn-fy) — a repo with 57+ stars on GitHub.
+From [oliver-zehentleitner/unicorn-fy](https://github.com/oliver-zehentleitner/unicorn-fy) — a repo with 58+ stars on GitHub.
 
 ---
 
