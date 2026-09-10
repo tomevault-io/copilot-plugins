@@ -1,0 +1,9 @@
+{
+  "name": "aws--amazon-chime-sdk-ios",
+  "displayName": "amazon-chime-sdk-ios",
+  "description": "amazon-chime-sdk-ios",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/amazon-chime-sdk-ios",
+  "skills": []
+}
