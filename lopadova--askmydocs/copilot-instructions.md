@@ -1,0 +1,760 @@
+## askmydocs
+
+> validates (`{ documents.*.project_key + content }`, not
+
+# Copilot instructions — AskMyDocs
+
+Mirror of `CLAUDE.md` (root) with the same rules. Whichever assistant edits
+this repo, the rules are identical. Skills with detailed examples live under
+`.claude/skills/`.
+
+---
+
+## 1. Project at a glance
+
+AskMyDocs is an **enterprise RAG + canonical knowledge compilation** system
+on **Laravel 13 + PostgreSQL + pgvector**. Markdown in, grounded answers
+with citations out — over a **typed knowledge base** with a lightweight
+graph, anti-repetition memory, and a human-gated promotion pipeline.
+Optional chat history, feedback/few-shot, hybrid (semantic + FTS) search,
+MCP server (10 tools), and a GitHub-Action-based cross-repo ingestion
+pipeline. A full React SPA admin shell rides alongside at `/app/*`:
+dashboard, users + roles + RBAC, canonical KB explorer with inline
+editor and graph viewer, five-tab log viewer, whitelisted Artisan
+maintenance runner, and a daily AI insights panel. Every admin page is
+Spatie-role-gated and every mutation is audit-trailed
+(`kb_canonical_audit` for canonical changes, `admin_command_audit` for
+commands).
+
+- PHP `^8.3`, Laravel `^13.0`, Sanctum `^4.2`.
+- `symfony/yaml ^7.4|^8.0` for canonical YAML frontmatter parsing.
+  Section-aware markdown chunking is custom (line-based fence-aware
+  FSM in `MarkdownChunker`) — no external markdown parser library.
+- `laravel/mcp ^0.7` as a suggest (required only when exposing the
+  `enterprise-kb` MCP server).
+- PostgreSQL ≥ 15 + `pgvector`. FTS GIN index migration ships pgsql-only.
+- All providers run on the `laravel/ai` SDK (since v8.16/W2, ADR 0015 —
+  reverses the earlier "No AI SDK" rule, so FinOps meters every provider
+  natively). Anthropic + Gemini fully SDK; OpenAI + OpenRouter HYBRID —
+  no-tools chat + embeddings via the SDK, the MCP with-tools turn on raw
+  `Illuminate\Support\Facades\Http` `/chat/completions` (the SDK can't host
+  AskMyDocs's external-MCP tool loop). Regolo via the
+  `padosoft/laravel-ai-regolo` SDK adapter. `laravel/ai` pinned `^0.6.8`.
+- Tests: PHPUnit 12 + Orchestra Testbench 11 (SQLite) + Vitest for JS.
+
+---
+
+## 2. Core flows
+
+**Chat** — `KbChatController` → `KbSearchService::searchWithContext()`
+(pgvector + optional FTS + `Reranker` fusion `0.55·vec + 0.25·kw + 0.05·head`
+shipped defaults, via `kb.reranking.*` + canonical boost + status penalty) → `GraphExpander` (1-hop walk of
+`kb_edges` from canonical seeds, config-gated) → `RejectedApproachInjector`
+(cosine-correlates query vs `rejected-approach` canonical docs) →
+`SearchResult{ primary, expanded, rejected, meta }` → prompt from
+`resources/views/prompts/kb_rag.blade.php` (typed blocks: `⚠ REJECTED
+APPROACHES` + `📎 RELATED CONTEXT` + primary `## Context`) →
+`AiManager::chat()` → `ChatLogManager::log()` (try/catch, never
+propagates). Graph expansion + rejected injection no-op when no canonical
+docs exist (zero regression for non-canonical consumers).
+
+**Ingest** — two entrypoints converge on one execution path:
+
+- `php artisan kb:ingest-folder` walks the KB disk, dispatches one job per
+  file.
+- `POST /api/kb/ingest` (Sanctum, ≤ 100 docs/call) writes to the KB disk,
+  dispatches one job per doc.
+- Both → `IngestDocumentJob` (`$tries = 3`, backoff `[10,30,60]`) →
+  `DocumentIngestor::ingestMarkdown()` (SHA-256 upsert on
+  `(project_key, source_path, version_hash)` — idempotent by construction).
+
+**Canonical branch** — when the markdown has a valid YAML frontmatter,
+`DocumentIngestor` populates the 8 canonical columns (`doc_id`, `slug`,
+`canonical_type`, `canonical_status`, `is_canonical`, `retrieval_priority`,
+`source_of_truth`, `frontmatter_json` with `_derived` slugs). Prior
+canonical identifiers are vacated before the new version is inserted to
+avoid violating the per-project composite uniques. After commit,
+`CanonicalIndexerJob` populates `kb_nodes` + `kb_edges` from the
+frontmatter `_derived` slug lists and every chunk's `metadata.wikilinks`.
+Invalid frontmatter degrades gracefully to non-canonical (R4).
+
+**Promotion pipeline** (ADR 0003, human-gated):
+- `POST /api/kb/promotion/suggest` → LLM extracts candidates. Writes nothing.
+- `POST /api/kb/promotion/candidates` → validates a draft. Writes nothing.
+- `POST /api/kb/promotion/promote` → writes markdown + dispatches ingest.
+  Returns 202.
+
+Operator CLI equivalent: `kb:promote {path} --project=…`. Claude skills
+stop at `suggest` / `candidates`. Only humans (git commit → GH action →
+ingest) and operators (`kb:promote`) commit canonical storage.
+
+**Delete** — `kb:delete` / `DELETE /api/kb/documents` /
+`kb:ingest-folder --prune-orphans` / scheduled `kb:prune-deleted` all fan in
+to `DocumentDeleter`. Default is soft delete (`KB_SOFT_DELETE_ENABLED=true`,
+retention `KB_SOFT_DELETE_RETENTION_DAYS=30`). Hard delete **cascades the
+graph**: `kb_nodes` owned by the doc are removed (`source_doc_id` match,
+fallback `node_uid = slug`); the composite FK on `kb_edges` cascades both
+directions. Every hard delete writes a `kb_canonical_audit` row.
+
+**Scheduler** (`bootstrap/app.php`):
+
+| Time  | Command                    |
+| ----- | -------------------------- |
+| 03:10 | `kb:prune-embedding-cache` |
+| 03:20 | `chat-log:prune`           |
+| 03:30 | `kb:prune-deleted`         |
+| 03:40 | `kb:rebuild-graph`         |
+
+All with `onOneServer()->withoutOverlapping()`. `--days=N` flag overrides the
+env retention for ad-hoc runs; `0` disables. `kb:rebuild-graph` is a no-op
+when no canonical docs exist.
+
+---
+
+## 3. Key components
+
+| Area | Path |
+|---|---|
+| AI abstraction | `app/Ai/AiManager.php`, `app/Ai/Providers/*.php` (OpenAI, Anthropic, Gemini, OpenRouter, Regolo) |
+| DTOs | `app/Ai/AiResponse.php`, `app/Ai/EmbeddingsResponse.php` |
+| RAG retrieval | `app/Services/Kb/KbSearchService.php`, `Reranker.php` |
+| Graph-aware retrieval | `app/Services/Kb/Retrieval/GraphExpander.php`, `RejectedApproachInjector.php`, `CosineCalculator.php`, `SearchResult.php` |
+| Ingestion | `app/Services/Kb/DocumentIngestor.php`, `MarkdownChunker.php`, `EmbeddingCacheService.php` |
+| Canonical parsing | `app/Services/Kb/Canonical/CanonicalParser.php`, `WikilinkExtractor.php`, `CanonicalParsedDocument.php`, `ValidationResult.php` |
+| Promotion pipeline | `app/Services/Kb/Canonical/CanonicalWriter.php`, `PromotionSuggestService.php`, `app/Http/Controllers/Api/KbPromotionController.php` |
+| Canonical enums + audit | `app/Support/Canonical/{CanonicalType,CanonicalStatus,EdgeType}.php`, `app/Models/{KbNode,KbEdge,KbCanonicalAudit}.php` |
+| Canonical indexer | `app/Jobs/CanonicalIndexerJob.php` |
+| Deletion | `app/Services/Kb/DocumentDeleter.php` |
+| Queued pipeline | `app/Jobs/IngestDocumentJob.php` |
+| Shared helpers | `app/Support/KbPath.php` |
+| Controllers | `app/Http/Controllers/Api/*.php` |
+| Artisan | `app/Console/Commands/*.php` |
+| Chat logging | `app/Services/ChatLog/*` |
+| MCP | `app/Mcp/Servers/KnowledgeBaseServer.php`, `app/Mcp/Tools/*` (10 tools: 5 retrieval + 5 canonical/promote) |
+| Admin RBAC + auth | `app/Http/Controllers/Api/Admin/*.php`, `app/Services/Admin/*.php`, `app/Http/Requests/Admin/*.php`, `app/Http/Resources/Admin/*.php` |
+| System administration | `app/Support/PlatformAccess.php`, `app/Services/Admin/{SystemAdminAccessService,SystemAdminTenantService,SystemAdminSuperAdminService,TenantProvisioningService}.php`, `app/Http/Controllers/Api/SystemAdmin/{TenantControlController,SuperAdminController}.php`; `system-admin` owns only global `platform.admin`, while every operational tenant route requires a real membership. Global role grant/revoke is audited CLI-only (`system-admin:grant|revoke --yes`); `/api/system-admin/*` is capability-gated and tenant-header-exempt; no MCP write surface by ADR 0023/0024. |
+| Admin metrics + health | `app/Services/Admin/AdminMetricsService.php`, `HealthCheckService.php`, `app/Http/Controllers/Api/Admin/DashboardMetricsController.php` |
+| Admin KB surface | `app/Services/Admin/KbTreeService.php`, `app/Http/Controllers/Api/Admin/KbTreeController.php`, `KbDocumentController.php`, `app/Services/Admin/Pdf/PdfRenderer*.php` |
+| Admin log viewer | `app/Services/Admin/LogTailService.php`, `app/Http/Controllers/Api/Admin/LogViewerController.php` |
+| Admin command runner | `app/Services/Admin/CommandRunnerService.php`, `app/Http/Controllers/Api/Admin/MaintenanceCommandController.php`, `app/Models/AdminCommandAudit.php`, `AdminCommandNonce.php`, `config/admin.php` |
+| AI insights | `app/Services/Admin/AiInsightsService.php`, `app/Http/Controllers/Api/Admin/AdminInsightsController.php`, `app/Console/Commands/InsightsComputeCommand.php`, `app/Models/AdminInsightsSnapshot.php` |
+| SPA entrypoint | `app/Http/Controllers/SpaController.php`, `resources/views/app.blade.php`, `frontend/src/main.tsx`, `frontend/src/routes/index.tsx` |
+| GitHub Action | `.github/actions/ingest-to-askmydocs/action.yml` (v2 — canonical-folder aware) |
+| Claude skill templates | `.claude/skills/kb-canonical/*` (CONSUMER-SIDE), `.claude/skills/canonical-awareness/` (R10, in-repo) |
+| ADRs | `docs/adr/0001..0003.md` |
+
+---
+
+## 4. Schemas to know
+
+- **`knowledge_documents`** — `project_key`, `source_type`, `title`,
+  `source_path`, `mime_type`, `language`, `access_scope`, `status`,
+  `document_hash`, `version_hash` (both SHA-256), `metadata` JSON,
+  `source_updated_at`, `indexed_at`, `deleted_at` (SoftDeletes).
+  **Canonical columns**: `doc_id`, `slug`, `canonical_type`,
+  `canonical_status`, `is_canonical` (default false),
+  `retrieval_priority` (0-100, default 50), `source_of_truth` (default
+  true), `frontmatter_json` (parsed YAML + `_derived` pre-validated
+  slug lists). UNIQUE `(project_key, source_path, version_hash)` +
+  composite uniques `(project_key, doc_id)` and `(project_key, slug)` —
+  canonical identifiers are tenant-scoped.
+- **`knowledge_chunks`** — `knowledge_document_id` FK ON DELETE CASCADE,
+  `project_key`, `chunk_order`, `chunk_hash` (SHA-256), `heading_path`,
+  `chunk_text`, `metadata` JSON (includes `wikilinks` array for canonical
+  chunks), `embedding vector(N)`. UNIQUE `(knowledge_document_id,
+  chunk_hash)`. GIN index on `to_tsvector(<lang>, chunk_text)` (pgsql
+  only).
+- **`kb_nodes`** — canonical graph node. `node_uid`, `node_type` (9 values),
+  `label`, `project_key`, `source_doc_id`, `payload_json` (includes
+  `dangling: true` for not-yet-canonicalized targets). UNIQUE
+  `(project_key, node_uid)`.
+- **`kb_edges`** — typed relation between nodes. `edge_uid`,
+  `from_node_uid`, `to_node_uid`, `edge_type` (10 values), `project_key`,
+  `source_doc_id`, `weight` (decimal 8,4), `provenance` (wikilink |
+  frontmatter_* | inferred). UNIQUE `(project_key, edge_uid)`. **Composite
+  FKs** project-scoped: `(project_key, from/to_node_uid)` →
+  `kb_nodes.(project_key, node_uid)` with ON DELETE CASCADE (intra-project
+  referential integrity). Cross-**tenant** isolation is the application-layer
+  R30 `forTenant()` scope, not this FK (`project_key` is shared across tenants).
+- **`kb_canonical_audit`** — immutable forensic trail. `project_key`,
+  `doc_id?`, `slug?`, `event_type` (promoted | updated | deprecated |
+  superseded | rejected_injection_used | graph_rebuild), `actor`,
+  `before_json`, `after_json`, `metadata_json`, `created_at`. No
+  `updated_at`; no FK to `knowledge_documents` so rows survive hard deletes.
+- **`embedding_cache`** — `text_hash` (SHA-256), `provider`, `model`,
+  `embedding vector(N)`, `last_used_at` (LRU prune). UNIQUE
+  `(text_hash, provider, model)`. Intentionally NOT tenant-scoped — same
+  text+provider+model across projects reuses the embedding.
+- **`chat_logs`** — structured analytics; never the app log.
+- **`conversations` / `messages`** — user-scoped history; `messages.metadata`
+  stores citations + provider/model telemetry; `messages.rating` feeds
+  `FewShotService`.
+
+---
+
+## 5. Non-obvious decisions — do not unwind without asking
+
+- **All providers on the `laravel/ai` SDK** (v8.16/W2, ADR 0015). Anthropic +
+  Gemini fully SDK; OpenAI + OpenRouter HYBRID (SDK for no-tools chat +
+  embeddings, raw `Http::` `/chat/completions` for the MCP with-tools turn —
+  the SDK can't host AskMyDocs's external-MCP loop). Regolo via the
+  `padosoft/laravel-ai-regolo` SDK adapter. The `AiCallMeter` bridge now meters
+  only the residual with-tools turn. Don't move that turn onto the SDK without
+  a dedicated `Tool`-adapter ADR.
+- **Chat and embeddings providers are independent** (`AI_PROVIDER` vs
+  `AI_EMBEDDINGS_PROVIDER`). Anthropic has no embeddings endpoint.
+  OpenRouter exposes one (OpenAI-compatible `/v1/embeddings`); default
+  routed model is `openai/text-embedding-3-small` (1536 dims — matches
+  the schema, no migration needed). Auto-fallback order when chat
+  provider can't embed: openai → openrouter → regolo → gemini (1536-dim
+  defaults first; regolo+gemini require pgvector resize, R14).
+- **Embedding dimensions are part of the contract.** Changing the embeddings
+  model requires migrating the `vector(N)` column, flushing
+  `embedding_cache`, and re-indexing.
+- **Soft delete is default.** Read paths inherit the Eloquent global scope;
+  write/admin paths opt in via `withTrashed()` / `onlyTrashed()`.
+- **Idempotency is guaranteed by the unique tuple** — never bypass the hash
+  with `firstOrCreate`.
+- **Logging never breaks the user request.** Wrap every chat-log driver in
+  try/catch; errors go to the app log, not the client.
+- **Two ingestion entrypoints, one execution path.** Never add a third path
+  that skips `IngestDocumentJob` or `DocumentIngestor::ingestMarkdown()`.
+- **Canonical markdown is source-of-truth; DB is a projection.** The
+  canonical `kb/` folders in consumer repos are authoritative; `kb_nodes` +
+  `kb_edges` are rebuildable from Git via `kb:rebuild-graph` + re-ingest.
+  Never design features that require DB-only state unreconstructible from
+  markdown. Only `kb_canonical_audit` is an exception (immutable forensic
+  trail).
+- **Promotion is always human-gated.** Claude skills and
+  `suggest` / `candidates` produce drafts; only humans (via git → GH
+  action) and operators (`kb:promote`) commit canonical storage (ADR 0003).
+- **Rejected-approach injection is by design.** The prompt surfaces
+  rejected options under `⚠` so the LLM stops re-proposing them. Disable
+  via `KB_REJECTED_INJECTION_ENABLED=false` only when prompt-token budget
+  is critical.
+- **Graph expansion + rejected injection degrade to no-op** when a tenant
+  has zero canonical docs. Code MUST NOT assume either feature is
+  populated.
+- **Canonical slug + doc_id are tenant-scoped.** Two projects can share
+  `dec-cache-v2`. Composite FKs on `kb_edges` make cross-tenant edges
+  impossible. Never assume global uniqueness in new code.
+
+---
+
+## 6. Review rules (R1–R22) — read this before reviewing or coding
+
+These are distilled from actual Copilot comments on PRs #4, #5, #6 and the
+canonical compilation series PRs #9–#14. The skills in
+`.claude/skills/<name>/SKILL.md` carry worked examples.
+
+### R1 — Use `App\Support\KbPath::normalize()` for every KB source path
+Never re-implement path trimming. `KbPath::normalize()` collapses `//`,
+converts `\\`, rejects `.` / `..` (traversal guard), throws on empty input.
+Ingest and delete **must** produce identical paths.
+
+### R2 — Soft-delete awareness
+Default scope (hide trashed) is correct for readers. Any branch that must
+act on already-trashed rows — e.g. `--force` hard delete, retention purge,
+diagnostics — has to `withTrashed()` / `onlyTrashed()`. The read path
+(search, MCP, chat) stays default-scoped.
+
+### R3 — Memory-safe bulk ops
+`chunkById(100)` / `cursor()` instead of `->get()` + `foreach` for any sweep
+that can exceed a few hundred rows. Push filters into SQL. When the filter
+list itself is large, split it with `array_chunk($list, 1000)` and apply one
+`whereNotIn()` per chunk so each generated `IN` list stays ≤ 1000 values.
+The aim is bounded per-clause lists for portability and readable plans, not
+bounded total bindings.
+
+### R4 — Never ignore a return value on a side-effecting call
+`Storage::put/delete/copy`, `mkdir`, `file_put_contents`, `copy`, `rename`,
+HTTP responses — check or wrap. `202 Accepted` after a failed `put()` is the
+cardinal sin (PR #5).
+
+### R5 — `action.yml` hygiene
+- Serialise file bodies with `jq --rawfile content "$file"`, never `--arg`
+  (ARG_MAX + newline stripping).
+- Keep the full-sync `find` and the diff `git diff` extension sets in
+  lock-step (`.md` + `.markdown`).
+- Ingest set: `--diff-filter=AMR`. Delete set: handle both `D` and the `R…`
+  old path. A rename must produce one ingest and one delete.
+
+### R6 — Docs/config coupling
+When you introduce or rename an env var, update `.env.example`,
+`config/*.php`, **and** the README quick-start snippet in the same PR.
+Copilot flagged `KB_DISK_DRIVER=s3` drift on PR #4 — the kind of debt that
+ages badly.
+
+### R7 — No `@`-silenced errors, no `0777`
+`@mkdir($dir, 0777, true)` is out. Use `0755` and propagate errors.
+
+### R8 — Honour `KB_PATH_PREFIX`
+`kb:ingest-folder`'s `{path}` argument is resolved **relative to**
+`KB_PATH_PREFIX` because the queued job re-applies the prefix on read. New
+CLIs/APIs that walk the disk must honour the prefix or explicitly reject
+absolute paths. Whichever you pick, document it in the help text and README.
+
+### R9 — Docs must match code
+Column names, env vars, config keys, command flags, and routes quoted in
+this file (or in `CLAUDE.md`, `README.md`, any `SKILL.md`) must be copied
+from the real source — the migration, the config, the routes file, the
+`php artisan <cmd> --help` output. Stale docs are worse than missing docs:
+they survive grep and propagate into queries and tests. Copilot caught
+`chunk_index` vs `chunk_order` drift on PR #7 — verify before quoting.
+
+### R10 — Canonical awareness
+Every query, scope, retrieval step, promotion path, and delete path that
+touches `knowledge_documents` or `kb_nodes` / `kb_edges` / `kb_canonical_audit`
+MUST handle BOTH states (canonical / non-canonical) deliberately.
+
+Checklist:
+1. Use dedicated Eloquent scopes (`canonical()`, `accepted()`, `byType()`,
+   `bySlug()`) instead of raw WHERE on canonical columns.
+2. `scopeAccepted()` implies `canonical()` — don't re-derive status filters.
+3. Tenant-scoped composite FKs on `kb_edges` — cross-tenant edges are
+   impossible; FK errors are bugs, not noise.
+4. Slug + doc_id are unique PER PROJECT, not globally. Two projects can
+   share `dec-cache-v2`.
+5. Hard delete cascades via `DocumentDeleter::forceDelete()`; soft delete
+   leaves the graph intact.
+6. Canonical re-ingest must vacate prior identifiers first (handled by
+   `DocumentIngestor::vacateCanonicalIdentifiersOnPreviousVersions()`).
+7. `Reranker` applies canonical boost + status penalty; new retrieval
+   services honour these knobs or add an ADR.
+8. Graph expansion + rejected injection are config-gated.
+9. Every canonical mutation writes to `kb_canonical_audit`.
+10. Never hard-code global slug uniqueness.
+
+Distilled from the canonical compilation series (PRs #9–#14). See
+`.claude/skills/canonical-awareness/`.
+
+### R11 — Frontend testid / ARIA / observable state contract
+Every React component under `frontend/src/` exposes stable
+`data-testid` values on actionable elements, proper ARIA (`role`,
+`aria-label`, `aria-live`), and observable async states
+(`data-state="idle|loading|ready|error|empty"`, `aria-busy`).
+Validation errors render next to their input with
+`data-testid="<field>-error"`. API failures surface in the DOM —
+no swallowed `useMutation` failures. See
+`.claude/skills/frontend-testid-conventions/`.
+
+### R12 — User-visible UI changes ship Playwright E2E coverage
+From PR5 onward, every PR touching `frontend/src/` or a route that
+renders into the SPA must include `frontend/e2e/<feature>.spec.ts`
+with at least one happy path and one failure path. Selectors use
+`getByTestId` or `getByRole` + accessible name. Waits use
+`data-state` / `toHaveAttribute`, never `waitForTimeout`. See
+`.claude/skills/playwright-e2e/`.
+
+### R13 — E2E scenarios exercise real data; stub only external services
+Playwright boots `php artisan serve` with `APP_ENV=testing` via
+`playwright.config.ts` webServer block. Tests hit the real DB
+(SQLite, reset+seeded via `/testing/reset` + `/testing/seed`).
+`page.route(...)` is reserved for external-service boundaries
+only — AI providers (OpenRouter, OpenAI, Anthropic, Gemini,
+Regolo), email senders, payment rails, remote object storage,
+OCR APIs. Intercepting `/api/admin/*`, `/api/kb/*`,
+`/api/auth/*`, `/sanctum/csrf-cookie`, `/conversations`, or any
+internal route turns E2E into a unit test in E2E clothing. The
+only exception is explicit failure injection on an internal
+route, which must carry an `R13: failure injection` marker
+comment so the intent is auditable.
+`scripts/verify-e2e-real-data.sh` is wired into the CI workflow
+and fails the build on any unmarked internal interception. See
+`.claude/skills/playwright-e2e/` and
+`.claude/skills/playwright-e2e-templates/`.
+
+### R14 — Surface failures loudly; never 200 with empty/null/NaN
+Empty/null/NaN on 200 is the same bug as silent `put() → false`.
+Every endpoint that cannot deliver a valid body maps failure to the
+correct status (404 missing, 500 unreadable, 503 downstream outage).
+No `""` PDF, no `null` JSON from a caught 500, no `-Infinity` from
+`Math.max(...[])`, no chosen-by-message-prefix status code. See
+`.claude/skills/surface-failures-loudly/`.
+
+### R15 — Frontend a11y checklist
+Every interactive element is programmatically labelled
+(`<label htmlFor>` / `aria-label`), keyboard-reachable (no
+`display:none` on real inputs — use visually-hidden pattern), with
+role/state on the focusable element (not the wrapper). Tooltips
+respond to focus/blur, not only mouseenter. See
+`.claude/skills/frontend-a11y-checklist/`.
+
+### R16 — Tests actually exercise the behaviour they claim
+A test named "enables Save after edit" must simulate an edit AND
+assert Save becomes enabled. An ordering test must use
+strictly-monotonic fixtures so reversing the endpoint would fail.
+Tests that mutate global state (env, DI, `window.location`, `Date.now`)
+restore it in `afterEach`. See
+`.claude/skills/test-actually-tests-what-it-claims/`.
+
+### R17 — React effects sync imperative / cached state
+When an effect owns an imperative cache (CodeMirror `EditorView`,
+canvas, ref-of-server-state), every branch that re-reads from the
+source must ALSO sync the cache. Optimistic updates stay until
+refetch completes. `NaN` is guarded before equality checks.
+`.map()` multi-element rows wrap in keyed `<Fragment key>` — NOT
+`<>` with key on an inner child. See
+`.claude/skills/react-effect-sync-cached-state/`.
+
+### R18 — Derive options from the DB, not from a literal subset
+UI filters, project lists, file-extension handling all derive from
+the real domain (API endpoint / distinct query / ingest-accepted
+extensions), never from a hard-coded sample. See
+`.claude/skills/derive-from-db-not-literal/`.
+
+### R19 — Input escaping is complete
+Escape every meta-char for every operator: LIKE (`%`, `_`, `\\`),
+fnmatch (always pass `FNM_PATHNAME` on paths), regex (escape `.`
+when the pattern is a literal host — or use `grep -Fq`), CSV env
+vars (`array_filter(array_map('trim', explode(',', $raw)))`). See
+`.claude/skills/input-escape-complete/`.
+
+### R20 — Route contracts match the FE payload shape
+FE `?token=X` ↔ BE `GET /reset-password` (query), not
+`/reset-password/{token}`. E2E specs post the shape the controller
+validates (`{ documents.*.project_key + content }`, not
+`{ project, markdown }`). TanStack parent routes render `<Outlet />`
+or nested children never mount. Artisan wrappers distinguish
+positional from option by signature. See
+`.claude/skills/route-contracts-match-fe-shape/`.
+
+### R21 — Security invariants are atomic or absent
+Lock-read-update-commit live inside the SAME transaction. Single-use
+tokens / nonces / rate counters mutate state INSIDE the lock, never
+after. Columns that encode "consumed" / "revoked" have DB-level
+`UNIQUE` or `PARTIAL UNIQUE` backing where the business rule demands
+it. One occurrence mints a rule because the blast radius is
+RCE-class. See `.claude/skills/security-invariants-atomic-or-absent/`.
+
+### R22 — CI failure investigation: artefact-first, then code
+When `gh pr checks` shows Playwright (or any E2E job) red, NEVER guess
+fixes from the test name alone. Always pull the failure context first:
+
+1. **Failed-job log** — `gh run view --job <id> --log-failed` for the
+   `✘` lines and the failing spec:line.
+2. **Playwright HTML report** — `tests.yml` uploads `playwright-report/`
+   on failure (retention 7d). Download via the GitHub UI or
+   `gh run download <run-id> --pattern 'playwright-report-shard-*'`
+   (the job is sharded, so each shard uploads its own artefact named
+   `playwright-report-shard-<n>`; the failed-job log names the shard). Each
+   `data/<hash>.md` carries the locator, timeout, page snapshot URL,
+   and screenshot path. Read these BEFORE diffing code.
+3. **Laravel log tail** — the workflow's "Dump Laravel log on failure"
+   step prints the last 200 lines of `storage/logs/laravel.log` inline.
+   A 500 from `/api/admin/...` surfaces as a Playwright "element not
+   visible" while the real stack trace lives in the laravel log.
+4. **Diagnostic throws** — when a non-2xx response masks itself as a
+   timeout, add a temporary `waitForResponse` + throw so the next CI
+   run prints the real status code + JSON body in the failed-job log.
+   Leave them in until green.
+
+A wrong commit costs one CI cycle (4–8 min) AND a misleading next
+baseline; artefact reading costs 5 min. PR #33 caught the DemoSeeder
+frontmatter regression (slug missing + invalid `type: policy`) this way.
+See `.claude/skills/ci-failure-investigation/`.
+
+### R30 — Cross-tenant isolation on every tenant-aware query
+Every Eloquent query against a tenant-aware table MUST be scoped to the
+active tenant via `forTenant($ctx->current())` (provided by the
+`BelongsToTenant` trait) or an explicit `where('tenant_id', ...)`. Two
+customers can share the same `project_key` — tenant boundary is the only
+safe scope. Tenant-aware tables (authoritative: `TenantIdMandatoryTest::TENANT_AWARE_MODELS`):
+`knowledge_documents`, `knowledge_chunks`, `chat_logs`, `conversations`, `messages`,
+`kb_nodes`, `kb_edges`, `kb_canonical_audit`, `project_memberships`, `kb_tags`,
+`knowledge_document_tags`, `knowledge_document_acl`, `admin_command_audit`,
+`admin_command_nonces`, `admin_insights_snapshots`, `chat_filter_presets`.
+`embedding_cache` is cross-tenant by design (global `UNIQUE(text_hash, provider, model)`).
+See `.claude/skills/cross-tenant-isolation/`.
+
+### R31 — `tenant_id` mandatory on every tenant-aware Model + migration
+Every Eloquent model under `app/Models/` representing a tenant-scoped domain
+entity MUST `use BelongsToTenant;` and list `'tenant_id'` in `$fillable`
+(or `$guarded = ['id']`). Every new migration creating a tenant-aware table
+MUST add `string('tenant_id', 50)->default('default')->index()` and start
+composite uniques with `tenant_id`. Architecture test
+`tests/Architecture/TenantIdMandatoryTest.php` gates new entries.
+See `.claude/skills/tenant-id-mandatory/`.
+
+### R36 — Copilot review + CI green loop is MANDATORY after EVERY push
+After every commit-push-PR cycle: request Copilot review with
+`--reviewer copilot-pull-request-reviewer` on PR creation; wait for CI
+green; wait for Copilot review comments; fix any must-fix findings; repeat.
+Merge only when BOTH `reviewDecision = APPROVED` (or zero outstanding
+must-fix) AND all CI checks `COMPLETED + SUCCESS`. Green CI alone is not
+enough. Applies to all repos under `lopadova/*` and `padosoft/*`.
+
+**Review-provider fallback (2026-06-14): Copilot first, Codex on
+out-of-budget.** When Copilot is out of budget for a prolonged period
+(HTTP 402 on the copilot-cli critic AND no cloud review fires after
+requesting), auto-switch to the **ChatGPT Codex connector**: post a PR
+comment `@codex review` (`gh pr comment <N> --body "@codex review"`) — the
+`chatgpt-codex-connector[bot]` then reviews like Copilot; re-comment
+`@codex review` after each fix. Run the same loop until 0 must-fix. An
+independent code-reviewer SUBAGENT stays as the always-on local pre-merge
+gate when both cloud bots are unavailable. See `CLAUDE.md` R36 +
+`.claude/skills/copilot-pr-review-loop/`.
+
+### R37 — Branching: `feature/vX.Y` integration branches → `main` once per release
+For AskMyDocs: `main` = stable production. Each major release works in its
+own `feature/vX.Y` branch. Sub-task branches target `feature/vX.Y`, not
+`main`. Merge to `main` happens ONCE per major release when all sub-branches
+are merged, all tests + CI are green, and RC acceptance gates pass — then
+`feature/vX.Y → main → tag vX.Y.0`. For new standalone `padosoft/*` repos,
+PRs target `main` directly. See `.claude/skills/branching-strategy-feature-vx/`.
+
+### R38 — Heavy work belongs in CLI workflow steps, not behind `php artisan serve`
+PHP's built-in dev server has a single-threaded accept loop; any
+multi-second blocking task (e.g. `migrate:fresh`, large seeders) stalls the
+loop and causes ECONNREFUSED on subsequent requests. Move one-time heavy
+work to a dedicated CLI step BEFORE Playwright starts. Reserve `/testing/reset`
+and `/testing/seed` for per-test lightweight seeding (not full migrations).
+See `.claude/skills/ci-failure-investigation/` (R22/R38 worked example:
+PR #85 vs PR #83 anti-pattern).
+
+### R39 — Tag `vX.Y.0-rcN` at the end of every Wn milestone
+After each Wn closure on `feature/vX.Y` (all sub-task PRs merged + CI green
++ closure status doc shipped): (1) open a docs PR refreshing `README.md`
+`### Key Features` and `## Changelog`; (2) capture the closure-commit SHA
+before the docs PR merges; (3) tag at that exact SHA with
+`gh release create vX.Y.0-rcN --target "$CLOSURE_SHA" --prerelease`.
+Increment N once per Wn. Final `vX.Y.0` GA fires only when the last Wn
+closes and `feature/vX.Y` merges into `main` (R37).
+See `.claude/skills/rc-tag-per-week-milestone/`.
+
+### R40 — Local critic loop (copilot-cli) BEFORE every push (v8.0+)
+
+Standing convention from **2026-05-18**. Every push from this point
+forward MUST run a local copilot-cli pre-flight review BEFORE the
+push leaves the laptop. The R36 cloud loop stays mandatory but
+should converge in 1-2 rounds instead of 5-15.
+
+Mandatory workflow per sub-PR:
+1. Local tests green (`vendor/bin/phpunit` + targeted suites).
+2. Settle the working tree (stop editing, save buffers, run
+   tests once more so phpunit confirms the WIP compiles +
+   behaves). Working tree may stay uncommitted — copilot-cli
+   reads via `git diff HEAD` plus direct file reads — but MUST
+   NOT be mid-edit.
+3. `copilot --autopilot --yolo --add-dir "$(pwd)" -p "/review ..."`
+   on the settled diff — `/review` is the built-in slash command
+   (`copilot help commands` lists it) and is invocable as the
+   first line of `-p`. Pass the actual diff and PR metadata via
+   files so the agent reviews real hunks, not a re-derivation
+   from `git log`:
+   ```bash
+   git diff "origin/${BASE_BRANCH}...HEAD" >/tmp/pr-diff.patch
+   gh pr view --json title,body >/tmp/pr-meta.json
+   ```
+   Then point the prompt at those files plus
+   `.github/instructions/r-rules.instructions.md` (path-scoped
+   R-rule subset, auto-loaded by Copilot CLI). End the prompt
+   with a directive asking for `SUMMARY: <N> must-fix, <M> nit`
+   on the last line so the wrapper can parse it.
+4. Fix every must-fix + should-fix locally; re-run tests.
+5. Re-run copilot-cli; loop until `0 must-fix, 0 should-fix`.
+
+Canonical wrapper: `scripts/local-critic-loop.sh [base-branch]`
+encodes the full pattern (diff capture, meta capture, prompt
+assembly, `/review` invocation, SUMMARY parsing). Exits non-zero
+when `N > 0` so the wrapper is usable as a `pre-push` git hook.
+6. Only then push; first push opens the PR with
+   `--reviewer copilot-pull-request-reviewer` per R36; subsequent
+   pushes re-request the review.
+7. R36 cloud loop runs on the already-clean diff; expect 0-1 round
+   of GitHub Copilot findings, rarely 2.
+
+Anti-patterns:
+- ❌ Push first, then run copilot-cli on the cloud-mirrored branch
+  (defeats the wall-time saving).
+- ❌ Skip copilot-cli because the diff is small.
+- ❌ Accept copilot-cli findings without fix and push regardless.
+- ❌ Run copilot-cli mid-edit on an in-flux working tree (half-
+  typed methods, broken syntax, unsaved buffers) — settle first,
+  then review.
+
+Scope: every PR on `lopadova/AskMyDocs` from 2026-05-18 onward and
+every PR on `padosoft/*` (current + future). Applies to docs-only
+PRs and CI-fix PRs too.
+
+See full rule in `CLAUDE.md` R40 (load-bearing canonical version).
+
+### R44 — Every capability is tri-surface: PHP + HTTP API + MCP, over ONE core
+
+Iron rule, standing from **2026-06-13**. Every feature/capability we
+introduce — and every later modification of an existing one — MUST be
+exposed AND consumable across **all three** surfaces, built as thin
+layers over **ONE shared core service** (never three parallel
+implementations):
+
+1. **PHP** — an Artisan command and/or service/facade callable from app code.
+2. **HTTP API** — a RESTful endpoint, auth + RBAC-gated, with an R32
+   authorization-matrix row.
+3. **MCP** — a `Laravel\Mcp\Server\Tool` registered on
+   `KnowledgeBaseServer::$tools` (+ bump the registration-count test).
+
+A capability that lands on only one or two surfaces is a **gap, not a
+smaller feature** — close it in the same PR or file the follow-up. When
+you MODIFY a capability (new field, option, contract change), propagate
+to all three surfaces + their tests in the same PR so they never drift.
+Each surface is tested at its layer (service PHPUnit + HTTP feature test
++ MCP registration/contract test); UI surfaces add Vitest + Playwright.
+Intrinsically single-surface capabilities (e.g. a scheduler-only sweep
+with no caller-facing read) state WHY in the PR — a documented choice,
+never an omission. See full rule in `CLAUDE.md` R44.
+
+### R45 — Doc-site parity: every feature/release/README change ships its Mintlify deep-doc
+
+The public docs live under **`/docs-site/`** (Mintlify, groups-based, deployed to
+`padosoft.mintlify.app`), separate from the internal `/docs/`. A PR that adds or
+changes a capability — or edits `README.md` feature tables / changelog / roadmap —
+MUST also add/update the corresponding **deep standalone page** under
+`/docs-site/` and register it in `docs.json`. The doc-site is authored at
+senior-architect / academic depth (motivation → theory → design with a Mermaid
+diagram → data model → ADR-style rationale linking `/docs/adr/*` → worked example
+→ gotchas), NOT a condensed README paste. `docs.json` must be valid JSON with a
+file for every nav entry. A README bump with no doc-site page is an incomplete PR.
+See full rule in `CLAUDE.md` R45 + `.claude/skills/mintlify-doc-authoring/`.
+
+### R46 — Deferred-E2E fast loop: run Playwright LAST, never inside the Copilot rounds
+
+Standing from 2026-06-22 (Lorenzo). Playwright E2E (~18-20 min) is the most
+expensive gate, and Copilot reviews the diff — not E2E results — so E2E never
+runs inside the test/CI/Copilot rounds. Per-PR order:
+
+1. Implement.
+2. Local unit gate FAST only: PHPUnit + Vitest (`npm test` + `npm run
+   test:legacy`). No Playwright. Fix until green.
+3. Local copilot-cli loop (R40) until `0 must-fix` — between rounds re-run only
+   php+vite.
+4. Local Playwright (`npm run e2e`). Fix until green. No Copilot for spec-only
+   fixes — but re-run the local copilot-cli loop (R40) if an E2E fix touches
+   non-trivial app code.
+5. Open PR. CI runs unit-only; the `playwright` job is gated OFF (no `run-e2e`
+   label). Fix until php+vite CI green.
+6. Cloud Copilot loop (R36) until `0 outstanding must-fix` — CI still php+vite
+   only.
+7. Final gate: `gh pr edit <N> --add-label run-e2e` → the `labeled` event
+   re-fires CI and the gated Playwright job runs. Fix until green. No Copilot
+   for E2E-only fixes.
+8. Merge when BOTH: 0 Copilot must-fix AND all CI green (incl. the labelled
+   E2E run).
+
+**md-only exception:** a diff touching only `.md` files engages **no** Copilot
+(skip local copilot-cli AND cloud Copilot). `.mdx` doc-site pages are NOT
+covered — they ship with feature code (R45) and follow the normal flow.
+
+CI: `tests.yml` gates `playwright` behind
+`(push to main) || contains(labels, 'run-e2e')`, with `pull_request` types
+including `labeled`. See full rule in `CLAUDE.md` R46 +
+`.claude/skills/copilot-pr-review-loop/`.
+
+---
+
+## Security rule catalogue — Lorenzo security experience
+
+Canonical rules: `.claude/rules/rule-security-*.md`. Auto-loaded review mirrors:
+`.github/instructions/security-*.instructions.md`. For AI/RAG/MCP/provider/widget
+or model-rendering changes, enforce `SEC-LLM-001` and `SEC-AI-ACT-001` using the
+`secure-ai-surface` skill.
+
+Review the effective population, including SDK, direct HTTP, stream, fallback,
+queue, MCP and widget paths. Provider/model policy, PII, budget, audit, immutable
+initiating identity, idempotency and safe rendering must cover every path. Prompts
+and tenant/admin settings are not security boundaries; unknown policy fails closed.
+
+Mapping and infrastructure residuals:
+`docs/security/LORENZO_SECURITY_EXPERIENCE.md`. Rule/skill/mirror changes must
+pass `npm run security:rules`.
+
+---
+
+## 7. Testing & CI
+
+- `vendor/bin/phpunit` — SQLite in-memory, migrations under
+  `tests/database/migrations/` (swap `vector(N)` for JSON text).
+- `npm test` — Vitest against `resources/js/*.mjs`.
+- CI: `.github/workflows/tests.yml` on push to `main` and on PRs.
+- `Storage::fake('kb')` is the standard pattern for exercising ingestion.
+- `AiManager` is deliberately non-`final` so Mockery can swap it in tests.
+- Any PR touching retrieval/ingestion/deletion must add a **feature** test
+  (not just a unit test).
+
+---
+
+## 8. Style / scope
+
+- Prefer editing existing files. The repo already centralises path
+  normalisation (`KbPath`), deletion (`DocumentDeleter`), ingestion
+  (`DocumentIngestor`) — plug into those instead of cloning logic.
+- Don't ship dead compatibility shims or "just in case" abstractions.
+- Keep the README, `.env.example`, and `config/*.php` in sync.
+- Commits go on the designated feature branch; never force-push `main`.
+
+---
+
+## 9. Copilot review checklist
+
+Before approving a PR, quickly verify:
+
+- [ ] R1: every new `source_path` / `path` consumer calls
+      `KbPath::normalize()` (grep for `trim(` / `str_replace('\\'` / inline
+      `preg_replace('#/+#'`).
+- [ ] R2: every query on `KnowledgeDocument` that handles `--force` or
+      retention uses `withTrashed()` / `onlyTrashed()`.
+- [ ] R3: every new sweep uses `chunkById()` / `cursor()` and pushes filters
+      into SQL.
+- [ ] R4: every `Storage::put/delete`, `mkdir`, `file_put_contents` has its
+      return value checked or is inside a method that throws on failure.
+- [ ] R5: `action.yml` edits keep `jq --rawfile`, lock-step extensions,
+      `AMR` / `D+R` filters.
+- [ ] R6: env-var additions touch `.env.example` + `config/*.php` + README
+      in the same diff.
+- [ ] R7: no `@`-silenced calls, no `0777`.
+- [ ] R8: any disk walker is explicit about `KB_PATH_PREFIX` handling.
+- [ ] R9: every column / env / flag / route quoted in the diff exists in
+      the migration / config / routes / `--help` output it claims to mirror.
+- [ ] R10: every query on the KB graph uses the canonical scopes
+      (`canonical()` / `accepted()` / `raw()` / `byType()` / `bySlug()`),
+      no bare `where('project_key', …)` for retrieval grounding.
+- [ ] R11: every new FE actionable element has `data-testid` + ARIA +
+      `data-state` on the async container.
+- [ ] R12: every UI-touching PR ships ≥ 1 happy + ≥ 1 failure Playwright
+      spec.
+- [ ] R13: `bash scripts/verify-e2e-real-data.sh` exits 0.
+- [ ] R14: no endpoint returns 200 on error; no `""` / `null` / NaN
+      leaks through a successful body.
+- [ ] R15: every new input has a label; no `display:none` on real inputs;
+      role/state on the focusable element.
+- [ ] R16: every test's body matches its name (ordering tests use
+      strictly-monotonic fixtures; failure tests actually fire failure).
+- [ ] R17: React effects that re-read server state sync any imperative
+      cache in the same branch; `.map()` of multi-element rows wraps in
+      `<Fragment key>`.
+- [ ] R18: UI dropdowns derive from the DB / API, not a hard-coded
+      subset; file-extension handling covers `.md` AND `.markdown`.
+- [ ] R19: LIKE escapes `%` + `_` + `\\`; fnmatch passes `FNM_PATHNAME`;
+      regex literals escape `.`; CSV env vars go through trim + filter.
+- [ ] R20: FE call-site shape matches BE validator shape; TanStack
+      parent routes render `<Outlet />`; Artisan wrappers respect
+      positional vs option signatures.
+- [ ] R21: `lockForUpdate()` + `update()` live in the SAME
+      `DB::transaction`; single-use resources have DB-level unique
+      backing; concurrency-sensitive services have a concurrent test.
+- [ ] R30: every query on a tenant-aware table uses `forTenant()` or
+      explicit `where('tenant_id', ...)`.
+- [ ] R31: every new tenant-scoped Model uses `BelongsToTenant` and lists
+      `tenant_id` in `$fillable`; new migration adds `tenant_id` column.
+- [ ] R36: PR was opened with `--reviewer copilot-pull-request-reviewer`;
+      merge blocked until CI green AND Copilot review resolved.
+- [ ] R37: sub-task PRs target `feature/vX.Y`, not `main`; `main` merge
+      happens once per major release only.
+- [ ] R38: one-time heavy CLI work (migrate:fresh, large seeders) runs in
+      a dedicated workflow step, not behind `php artisan serve`.
+- [ ] R39: Wn closure tagged `vX.Y.0-rcN` at the exact closure-commit SHA
+      with a refreshed README + CHANGELOG entry.
+- [ ] Tests: feature test added when the RAG hot path changed.
+
+---
+> Source: [lopadova/AskMyDocs](https://github.com/lopadova/AskMyDocs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
