@@ -4,7 +4,7 @@
   "repo": "fullsend",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fullsend-ai/fullsend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T13:27:08Z"
+  "distributed_at": "2026-09-10T21:00:38Z"
 }
