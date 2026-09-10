@@ -1,6 +1,6 @@
 # quiver
 
-> Tome by [phillip-motion](https://github.com/phillip-motion/quiver) — distributed by [TomeVault](https://tomevault.io/claim/phillip-motion)
+> Tome by [phillip-motion](https://github.com/phillip-motion/quiver), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [phillip-motion/quiver](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/phillip-motion)
+From [phillip-motion/quiver](https://github.com/phillip-motion/quiver) — a repo with 103+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install phillip-motion/quiver
 ```
-Or browse all formats at [https://tomevault.io/claim/phillip-motion](https://tomevault.io/claim/phillip-motion).
+Source: [github.com/phillip-motion/quiver](https://github.com/phillip-motion/quiver).
 
 <!-- genome:t-i-s -->
