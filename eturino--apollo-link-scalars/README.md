@@ -1,6 +1,6 @@
 # apollo-link-scalars
 
-> Source: [eturino/apollo-link-scalars](https://github.com/eturino/apollo-link-scalars) — distributed by [TomeVault](https://tomevault.io)
+> Source: [eturino/apollo-link-scalars](https://github.com/eturino/apollo-link-scalars). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
