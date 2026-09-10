@@ -1,8 +1,6 @@
 # monorepo
 
-> Source: [replyke/monorepo](https://github.com/replyke/monorepo) — distributed by [TomeVault](https://tomevault.io)
-
-Replyke: An Open-Source Framework for Social Features. Build social apps faster with powerful API and SDKs for JavaScript, React, and React Native.
+> Source: [replyke/monorepo](https://github.com/replyke/monorepo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
