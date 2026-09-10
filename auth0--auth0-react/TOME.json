@@ -4,7 +4,7 @@
   "repo": "auth0-react",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/auth0/auth0-react",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T01:33:05Z"
+  "distributed_at": "2026-09-10T12:56:54Z"
 }
