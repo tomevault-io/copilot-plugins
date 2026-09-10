@@ -1,49 +1,49 @@
 ## quiver
 
-> **ALWAYS work in the `/src/` directory for development!**
+> **ALWAYS work in the `/dev/src/` directory for development!**
 
 # Quiver Project Rules 🏹
 
 ## Critical: Development Location
 
-**ALWAYS work in the `/src/` directory for development!**
+**ALWAYS work in the `/dev/src/` directory for development!**
 
-- Source files: `/src/Quiver-Dev.js` and `/src/functions/*.js`
-- Generated file: `/Quiver.js` (AUTO-GENERATED - DO NOT EDIT)
-- Assets source: `/src/quiver_assets/`
-- Assets output: `/quiver_assets/` (AUTO-GENERATED)
+- Source files: `/dev/src/Quiver-Dev.js` and `/dev/src/functions/*.js`
+- Generated file: `/dev/Quiver.js` (AUTO-GENERATED - DO NOT EDIT)
+- Assets source: `/dev/src/assets/`
 
 ## File Edit Guidelines
 
 ### ✅ DO EDIT:
-- `/src/Quiver-Dev.js` - Main entry point for development
-- `/src/functions/*.js` - All modular function files
-- `/src/quiver_assets/*` - UI assets (icons, images)
-- `/build.js` - Build script
-- `/README.md` - Documentation
+- `/dev/src/Quiver-Dev.js` - Main entry point for development
+- `/dev/src/functions/*.js` - All modular function files
+- `/dev/src/assets/*` - UI assets (icons, images)
+- `/dev/build.js` - Build script
+- `/dev/README.md` - Documentation
 
 ### ❌ NEVER EDIT:
-- `/Quiver.js` - Auto-generated from build script
-- `/quiver_assets/*` - Copied from /src/quiver_assets/
+- `/dev/Quiver.js` - Auto-generated from build script
 
 ## Project Structure
 
 This is a modular Cavalry script:
 - Development uses `api.load()` to load separate modules
-- Production uses a bundled single-file version
+- Production uses a bundled single-file version (`dev/Quiver.js`)
 - Build script combines all modules into `Quiver.js`
+- The `.jsc` file at root is the encrypted Cavalry wrapper
 
 ## Build Commands
 
 ```bash
+cd dev
 npm run build          # Standard build (readable)
 npm run build:minify   # Minified build (production)
 ```
 
 ## When Making Changes
 
-1. Edit files in `/src/`
-2. Test by loading `/src/Quiver-Dev.js` in Cavalry
+1. Edit files in `/dev/src/`
+2. Test by loading `/dev/src/Quiver-Dev.js` in Cavalry
 3. Run `npm run build` to generate production version
 4. The dev version shows "Quiver-Dev [version]" in window title
 5. The production version shows just "Quiver" in window title
@@ -58,8 +58,8 @@ npm run build:minify   # Minified build (production)
 
 ## Adding New Features
 
-1. Create new file: `src/functions/quiver_myFeature.js`
-2. Add to `src/Quiver-Dev.js`: `api.load(ui.scriptLocation+"/functions/quiver_myFeature.js");`
+1. Create new file: `dev/src/functions/quiver_myFeature.js`
+2. Add to `dev/src/Quiver-Dev.js`: `api.load(ui.scriptLocation+"/functions/quiver_myFeature.js");`
 3. Build runs automatically pick up new modules
 4. Run `npm run build` to bundle into production
 
@@ -72,5 +72,5 @@ npm run build:minify   # Minified build (production)
 - Version number in `currentVersion` constant
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/phillip-motion) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [phillip-motion/quiver](https://github.com/phillip-motion/quiver) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
