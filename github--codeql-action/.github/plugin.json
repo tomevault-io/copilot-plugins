@@ -1,0 +1,9 @@
+{
+  "name": "github--codeql-action",
+  "displayName": "codeql-action",
+  "description": "codeql-action",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/codeql-action",
+  "skills": []
+}
