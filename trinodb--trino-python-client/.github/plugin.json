@@ -1,0 +1,9 @@
+{
+  "name": "trinodb--trino-python-client",
+  "displayName": "trino-python-client",
+  "description": "trino-python-client",
+  "version": "1.0.0",
+  "author": "trinodb",
+  "homepage": "https://github.com/trinodb/trino-python-client",
+  "skills": []
+}
