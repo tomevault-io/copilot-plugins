@@ -1,147 +1,107 @@
 ## vite-plugin-mock-dev-server
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> `vite-plugin-mock-dev-server` — a Vite plugin providing an API mock dev server: it intercepts HTTP/WS requests that match user-configured proxy prefixes, matches them against mock files, and responds with mock data. Features include mock-file hot reload, validators, scenes, error simulation, cookies, SSE, WebSocket mocks, request record/replay, CORS, and a build-time generator that emits a standalone mock server.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Repository Guidelines
 
 ## Project Overview
 
-`vite-plugin-mock-dev-server` is a Vite plugin for mocking API endpoints during development. It intercepts HTTP requests matching configured proxy patterns and returns mocked responses defined in `.mock.ts` files. The repo is a pnpm monorepo with three packages: the plugin itself, an example app, and VitePress docs.
+`vite-plugin-mock-dev-server` — a Vite plugin providing an API mock dev server: it intercepts HTTP/WS requests that match user-configured proxy prefixes, matches them against mock files, and responds with mock data. Features include mock-file hot reload, validators, scenes, error simulation, cookies, SSE, WebSocket mocks, request record/replay, CORS, and a build-time generator that emits a standalone mock server.
 
-## Commands
+Monorepo (pnpm workspaces): the plugin package `vite-plugin-mock-dev-server/` (only published artifact), an `example/` Vite app, and `docs/` (VitePress). All package manifests, `pnpm-workspace.yaml`, and configs live at the repo root.
+
+## Architecture & Data Flow
+
+Request pipeline: **configure → compile → match → respond**
+
+1. **Configure**: `mockDevServerPlugin(options)` (`vite-plugin-mock-dev-server/src/core/plugin.ts`) returns `[serverPlugin, buildPlugin?]`. `config()` strips `wsPrefix` entries from `server.proxy`, wires request-body recovery, sets up the recorder; `configResolved` merges user options with `server.proxy` keys via `resolvePluginOptions` (`core/options.ts`).
+2. **Compile**: `configureServer` → `initMockMiddlewares` (`core/init.ts`) → `Compiler` (`compiler/compiler.ts`), an `EventEmitter` that globs `include` patterns (default `**/*.mock.{js,ts,cjs,mjs,json,json5}` under `dir` default `mock/`), bundles each mock file (`compile.ts` picks **rolldown if installed, else esbuild**; Vite `define`/alias injection; `vite-plugin-mock-dev-server` imports renamed to the `/helper` subpath), loads via temp-file dynamic `import()`, then normalizes exports through `processRawData` (stamps `__filepath__`) and `processMockData` (groups by pathname, embeds URL query into validators, sorts by validator weight). Chokidar watches mock files + their deps; updates emit `mock:update-end` → optional Vite full-reload and WS mock restart.
+3. **Match**: `createMockMiddleware` (`mockHttp/middleware.ts`) per request: `urlParse` → proxy-prefix gate (`doesProxyContextMatchUrl`) → `matchingWeight` sorts candidate URL rules (static < dynamic < wildcard priority; `priority.global`/`priority.special` overrides) → body parse (`co-body`/formidable, raw body cached for proxy recovery) → `findMockData` (`mockHttp/matcher.ts`): method filter (default `['GET','POST']`), scene match (`activeScene` option or `X-Mock-Scene` header), `isPathMatch`, then validator (function or object-subset). First hit wins. Miss → replay from recordings, else record + `next()`.
+4. **Respond**: CORS (matched requests only) → attach request extras (`query`, `params`, `body`, `getCookie`, …) → optional error simulation (`error.probability`) → status/headers/cookies → body: value, sync/async `body` fn, or `response(req, res, next)` middleware; `delay` number or `[min, max]`. Failures → `logger.error` + 500.
+5. **WebSocket**: `mockWebsocket/server.ts` listens `upgrade`; per-URL `WebSocketServer({ noServer: true })`; mock `setup(wss, { onCleanup })`; HMR restarts affected sockets.
+6. **Record/Replay**: `recorder/` hooks `proxyRes` on non-ws proxies; recordings stored as pretty-printed JSON (`kebabCase(pathname).json`), replayed as synthetic mock items with decompression (gzip/br/zstd).
+7. **Build**: `buildPlugin.buildEnd` → `build/generate.ts` emits `mockServer/` (standalone connect server + bundled mock data + package.json).
+
+## Key Directories
+
+| Path                                             | Purpose                                                                                                                                 |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `vite-plugin-mock-dev-server/src/`               | Plugin source (ESM, `.js` import suffixes, per-dir `index.ts` barrels)                                                                  |
+| `vite-plugin-mock-dev-server/src/core/`          | Plugin lifecycle: `plugin.ts`, `options.ts`, `init.ts`, `define.ts` (Vite define fork), `logger.ts`                                     |
+| `vite-plugin-mock-dev-server/src/compiler/`      | Mock-file bundling/loading/watch: `compiler.ts`, `esbuild.ts`, `rolldown.ts`, `compile.ts`, `processData.ts`                            |
+| `vite-plugin-mock-dev-server/src/mockHttp/`      | HTTP request pipeline: `middleware.ts`, `request.ts`, `response.ts`, `matcher.ts`, `matchingWeight.ts`, `cors.ts`, `requestRecovery.ts` |
+| `vite-plugin-mock-dev-server/src/mockWebsocket/` | WS mock server (`server.ts`)                                                                                                            |
+| `vite-plugin-mock-dev-server/src/helpers/`       | Public helpers: `defineMock.ts`, `defineMockData.ts`, `createSSEStream.ts`                                                              |
+| `vite-plugin-mock-dev-server/src/recorder/`      | Record/replay: `Recorder.ts`, `replay.ts`, `storage.ts`, `decompress.ts`, `helper.ts`                                                   |
+| `vite-plugin-mock-dev-server/src/build/`         | Standalone server generation (`generate.ts`, `serverEntryCode.ts`, `mockEntryCode.ts`)                                                  |
+| `vite-plugin-mock-dev-server/src/types/`         | Public types: `options.ts`, `httpConfig.ts`, `wsConfig.ts`, `record.ts`, `cookies.ts`, `http.ts`                                        |
+| `vite-plugin-mock-dev-server/src/utils/`         | Shared: `urlParse.ts`, `isPathMatch.ts`, `isObjectSubset.ts`, `createMatcher.ts`, `matchScene.ts`, `matchingWeight` helpers             |
+| `vite-plugin-mock-dev-server/__tests__/`         | Vitest specs (`*.spec.ts`)                                                                                                              |
+| `example/`                                       | Demo Vite app exercising every feature; `mock/` holds 27+ `*.mock.ts` files                                                             |
+| `docs/`                                          | VitePress site (root = English, `zh/` = Chinese)                                                                                        |
+| `.github/workflows/`                             | CI: `lint.yaml`, `test.yaml`, `release.yaml`                                                                                            |
+
+## Development Commands
 
 ```bash
-# Build the plugin (tsdown)
-pnpm build
-
-# Run tests (vitest)
-pnpm test
-
-# Run tests in watch mode
-pnpm test -- --watch
-
-# Run a single test file
-pnpm test -- src/__tests__/validator.spec.ts
-
-# Lint (ESLint via @pengzhanbo/eslint-config)
-pnpm lint
-
-# Run example dev server
-pnpm dev
-
-# Build example
-pnpm example:build
-
-# Documentation
-pnpm docs:dev
-pnpm docs:build
-pnpm docs:preview
+pnpm i                 # install (pnpm ^11.20, node ^20.19+)
+pnpm dev               # run example app (vite dev)
+pnpm build             # build plugin: pnpm -F vite-plugin-mock-dev-server build (tsdown)
+pnpm test              # vitest (watch mode)
+pnpm vitest run        # single CI-style run
+pnpm run lint          # oxlint . --type-check --type-aware
+pnpm format            # oxfmt .  (repo-wide formatting)
+pnpm docs:dev          # VitePress dev server
+pnpm docs:build        # VitePress build
+pnpm example:build     # vite build the example
+pnpm release           # maintainer-only: bumpp + conventional-changelog + tag/push
 ```
 
-## Architecture
+## Code Conventions & Common Patterns
 
-### Plugin System
+- **ESM only** (`"type": "module"`). Relative imports in TS source use explicit `.js` suffixes: `import { createMockMiddleware } from '../mockHttp/middleware.js'`. Never import without the extension.
+- **Barrel files**: every `src/` subdirectory has an `index.ts` re-exporting its public symbols; `src/index.ts` is the public entry (plugin + helpers + 6 public types).
+- **Naming**: camelCase files/functions (`loadFromCode.ts`, `createSSEStream`); PascalCase for class files (`Recorder.ts`, `Compiler`). Prefix-free, descriptive names.
+- **Public API docs**: JSDoc on all exported symbols, bilingual English + Chinese (`/** ... */`); oxlint enforces `@type` tag preference. File-level spec comments are also bilingual.
+- **Types**: `strict`, `noUnusedLocals`, `isolatedDeclarations: true` (every exported symbol needs an explicit type annotation). Public option types in `src/types/`; `MockHttpItem`/`MockWebsocketItem` extend `MockBaseItem`.
+- **Mock item shape**: `{ url (path-to-regexp), method, status, statusText, headers, cookies, delay, body | body(request) | response(req,res,next), validator, error, scene }`. Mock files default-export an array (or object) of items; `defineMock()` is an identity helper for type inference, `createDefineMock(transformer)` builds a customized one. **Never change the exported mock shape without updating `processRawData`/`processMockData` and `example/mock/`.**
+- **Async**: `async/await` throughout; Connect middleware is `async (req, res, next)` and must catch its own errors (→ `logger.error` + 500). Body functions may return `Promise<ResponseBody>`.
+- **Error handling**: explicit try/catch with contextual `logger.error` messages; validator failures logged and treated as non-matches (`attempt()` in `matcher.ts`); catch variables typed `any` (`useUnknownInCatchVariables: false`).
+- **Matching**: URLs use `path-to-regexp`; include/exclude use picomatch (`createMatcher`); rule ordering via `matchingWeight` (static < dynamic < wildcard, then `priority` config) — keep `matchingWeight.spec.ts` in sync when touching it.
+- **Logging**: `createLogger(prefix, level)` (ansis-colored), `debug` from `obug` (`DEBUG=vite:mock`) for internal tracing.
+- **State**: no global mutable state; options resolved once into `ResolvedMockServerPluginOptions`; compiler caches (moduleCache/moduleDeps) live on the `Compiler` instance; per-request state passed explicitly.
+- **Formatting/lint**: oxlint (type-aware) + oxfmt via `@pengzhanbo/oxc-config` — no ESLint/Prettier. Don't hand-format or manually organize imports; run `pnpm format` / `pnpm run lint`. VSCode: `oxc.oxc-vscode` extension with format-on-save.
 
-`mockDevServerPlugin()` in `src/core/plugin.ts` returns up to two Vite plugins:
+## Important Files
 
-- **serverPlugin** (`enforce: 'pre'`, `apply: 'serve'`) — intercepts dev server requests and WebSocket upgrades. Also handles `configurePreviewServer` for `vite preview` mode.
-- **buildPlugin** (`enforce: 'post'`, `apply: 'build'`) — generates standalone mock server. Only included when `options.build` is truthy.
+- `vite-plugin-mock-dev-server/src/index.ts` — public entry (also `./helper`, `./server`, `./types` subpath exports)
+- `vite-plugin-mock-dev-server/src/core/plugin.ts` — plugin definition; `core/options.ts` — option resolution/defaults
+- `vite-plugin-mock-dev-server/src/mockHttp/middleware.ts` — the request pipeline (most-read file)
+- `vite-plugin-mock-dev-server/src/compiler/compiler.ts` — mock-file loading/watch lifecycle
+- `vite-plugin-mock-dev-server/src/mockWebsocket/server.ts` — WS handling + HMR restart
+- `vite-plugin-mock-dev-server/src/helpers/defineMock.ts`, `defineMockData.ts`, `createSSEStream.ts` — public helper APIs
+- `vite-plugin-mock-dev-server/tsdown.config.ts` — build (4 entries, ESM, dts, strips output comments)
+- `vitest.config.ts`, `oxlint.config.ts`, `oxfmt.config.ts`, `tsconfig.json`, `pnpm-workspace.yaml` — tooling
+- `example/vite.config.ts`, `example/mock/` — canonical plugin usage + mock-file examples
+- `CONTRIBUTING.md`, `.github/commit-convention.md` — contribution/commit rules
 
-### Request Flow
+## Runtime/Tooling Preferences
 
-1. `serverPlugin.configureServer()` calls `initMockMiddlewares()`
-2. `initMockMiddlewares()` creates a `Compiler` instance, wires up `mockWebSocket()`, and returns the mock middleware
-3. `Compiler.run()` globs and compiles all mock files, then watches for changes
-4. On each request, `createMockMiddleware()`: filters by proxy prefix → ranks matching URL patterns by priority → finds the first matching `MockHttpItem` → parses body/cookies → evaluates validator → runs response or error simulation → sends response
+- **Runtime**: Node `^20.19.0 || ^22.11.0 || ^24.11.0 || >=26` (root devEngines; plugin engines `^20.19.0 || >=22`), ESM only. CI runs Node 24.
+- **Package manager**: pnpm `^11.20.0`. All deps come from `pnpm-workspace.yaml` catalogs — reference them as `catalog:dev` / `catalog:prod`, never hardcode versions in package.json.
+- **Lint/format**: oxlint + oxfmt (from `@pengzhanbo/oxc-config`); lint is type-aware (`--type-check --type-aware`). `.editorconfig`: 2-space indent, LF, UTF-8, final newline.
+- **Tooling constraints**: no Jest/Mocha/ESLint/Prettier; do not add them. tsdown is the only build tool; vitest the only test runner.
+- **CI**: lint and test workflows run on push/PR to `main`; release is tag-triggered (`v*`), maintainer-only, publishes with provenance.
+- **Docs**: VitePress 2; root locale is English, `docs/zh/` Chinese; content mirrored in both.
 
-### Mock Data Structure
+## Testing & QA
 
-After compilation, mock data is stored as `Record<string, MockOptions>` where each key is a URL pattern (e.g., `/api/users/:id`). `MockOptions` is `(MockHttpItem | MockWebsocketItem)[]` — an array of mock definitions for that URL pattern.
-
-`MockHttpItem` has a `ws: false` discriminator, `MockWebsocketItem` has `ws: true`. Matcher (`src/mockHttp/matcher.ts`) filters by method, scene, and optional validator before selecting the first match.
-
-### Path Matching Priority
-
-`matchingWeight.ts` implements a priority algorithm using `path-to-regexp` token analysis. Static rules (no parameters) have highest priority. Dynamic rules are ranked by parameter count and position. Users can customize priority via the `priority` option (global ordering and special-case overrides).
-
-### Scene System
-
-Mock items can have a `scene` field. Only mocks whose scene intersects with `options.activeScene` (or have no scene) are considered. The `X-Mock-Scene` request header can override active scenes per-request.
-
-### Validator System
-
-Multiple mocks can share the same URL pattern. Each can have a `validator` — either a function receiving the parsed request, or an object for subset matching against query/body/params/headers. This allows different responses for the same URL based on request parameters.
-
-### Recorder / Replay
-
-The `Recorder` class hooks into Vite's `server.proxy` configuration, capturing `proxyRes` events to record real backend responses to disk (JSON files in `.recordings/`). When replay is enabled and no mock matches, the middleware tries to replay a recorded response. This is useful for capturing real API traffic for offline development.
-
-### WebSocket Mock
-
-`mockWebSocket()` in `src/mockWebsocket/server.ts` listens for `upgrade` events on the HTTP server. Each unique URL pattern + pathname gets its own `WebSocketServer` instance. On HMR, the WSS is restarted: cleanup functions run, listeners are removed, and `setup()` re-executes. On `server.close()`, all WSS instances are cleaned up.
-
-### Cookie Handling
-
-The `cookies` npm package (pillarjs/cookies) is used for cookie parsing/setting. `MockRequest` exposes `getCookie()` and `MockResponse` exposes `setCookie()`. Configurable via `cookiesOptions` (keys for signed cookies, secure flag).
-
-### Build Output (tsdown)
-
-Configured in `tsdown.config.ts` with 4 entry points, ESM format, minification, and declaration generation:
-
-| Entry    | Source                 | Export path                          |
-| -------- | ---------------------- | ------------------------------------ |
-| `index`  | `src/index.ts`         | `vite-plugin-mock-dev-server`        |
-| `helper` | `src/helpers/index.ts` | `vite-plugin-mock-dev-server/helper` |
-| `server` | `src/server.ts`        | `vite-plugin-mock-dev-server/server` |
-| `types`  | `src/types/index.ts`   | `vite-plugin-mock-dev-server/types`  |
-
-### Key Dependencies
-
-- **`cookies`** (pillarjs/cookies) — cookie get/set with signed cookie support
-- **`ws`** — WebSocket server implementation
-- **`path-to-regexp`** — URL pattern parsing and matching (e.g., `/api/:id`)
-- **`formidable`** — multipart/form-data parsing (file uploads)
-- **`co-body`** — JSON/URL-encoded/text body parsing
-- **`chokidar`** — file watching for HMR
-- **`tinyglobby`** — fast glob matching for discovering mock files
-- **`mime-types`** — MIME type lookup for response content-type
-
-### Vite Version Compatibility
-
-The plugin's compiler auto-selects `esbuild` or `rolldown` based on Vite version. Both are optional peer dependencies, but at least one is required. `zstd-codec` is an optional peer dependency for compression support.
-
-## Testing
-
-Tests use vitest, configured in `vitest.config.ts` to include `vite-plugin-mock-dev-server/__tests__/**/*.spec.ts`. There are no test setup files or `__mocks__` directories — each test creates mock objects manually (see `mockMiddleware.spec.ts` for patterns: `createMockCompiler()`, `createMockRequest()`, `createMockResponse()`).
-
-## Project Structure
-
-```txt
-vite-plugin-mock-server/
-├── pnpm-workspace.yaml      # Monorepo (packages: docs, example, plugin)
-├── vitest.config.ts
-├── eslint.config.js         # @pengzhanbo/eslint-config, erasableOnly TS
-├── tsconfig.json
-├── vite-plugin-mock-dev-server/
-│   ├── src/
-│   │   ├── index.ts         # Plugin entry + public re-exports
-│   │   ├── core/            # plugin.ts, options.ts (resolution), init.ts
-│   │   ├── compiler/        # Compiler (load, compile, watch), processData
-│   │   ├── mockHttp/        # Middleware, matcher, matchingWeight, request/response
-│   │   ├── mockWebsocket/   # WSS creation, HMR restart, cleanup
-│   │   ├── helpers/         # defineMock, defineMockData, createSSEStream
-│   │   ├── recorder/        # Request recording (proxy hooks) and replay
-│   │   ├── build/           # Standalone mock server code generation
-│   │   ├── utils/           # URL parsing, path matching, scene matching, etc.
-│   │   └── types/           # TS types for config, HTTP, WS, cookies, record
-│   ├── __tests__/           # *.spec.ts files (no setup/mocks dirs)
-│   └── tsdown.config.ts     # 4-entry build config
-├── example/                  # Example Vite app
-└── docs/                     # VitePress documentation
-```
+- **Framework**: Vitest 4 (root `vitest.config.ts` sets only `include: ['vite-plugin-mock-dev-server/__tests__/**/*.spec.ts']`). Node environment, no setup files, no snapshots, no coverage thresholds.
+- **Run**: `pnpm test` (watch) or `pnpm vitest run`; CI runs `pnpm vitest run`.
+- **Conventions**: specs colocated in `vite-plugin-mock-dev-server/__tests__/` as `<module>.spec.ts`, importing source via `../src/<module>.js`. Pure unit tests — mock files are inline typed object literals, and the middleware spec drives `createMockMiddleware` with hand-rolled fake `req`/`res` (event-emitter request, recording response) plus a fake compiler (`{ mockData, on: vi.fn(), emit: vi.fn() }`); no real Vite server is booted.
+- **Per-feature specs**: `mockMiddleware.spec.ts` (pipeline), `matchingWeight.spec.ts` + `integration.spec.ts` (rule ordering), `compiler.spec.ts` (data processing), `request*.spec.ts` (params/validation/logging), `sse.spec.ts`, `cors.spec.ts`, `helper.spec.ts`, `response.spec.ts`, `options.spec.ts`, `utils.spec.ts`, `findMockData.spec.ts`.
+- **Expectations**: changes to matching/validation/response logic must carry/update specs (e.g. `matchingWeight.spec.ts` is a fixed 22-rule corpus). `defineMockData` is currently untested — new tests welcome. Manual end-to-end verification goes through the example app (`pnpm dev`, then exercise `example/src/main.ts` flows) or a built mock server (`build: true`).
 
 ---
 > Source: [pengzhanbo/vite-plugin-mock-dev-server](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
