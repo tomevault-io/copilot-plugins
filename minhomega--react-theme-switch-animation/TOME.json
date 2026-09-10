@@ -2,9 +2,9 @@
   "name": "react-theme-switch-animation",
   "owner": "MinhOmega",
   "repo": "react-theme-switch-animation",
-  "description": "React Theme Switch with smooth animation supports dark and light modes on NextJS, ReactJS, and more ...",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MinhOmega/react-theme-switch-animation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T21:48:27Z"
+  "distributed_at": "2026-09-10T15:35:19Z"
 }
