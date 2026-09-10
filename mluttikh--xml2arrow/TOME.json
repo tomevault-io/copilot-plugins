@@ -4,7 +4,7 @@
   "repo": "xml2arrow",
   "description": "Efficiently convert XML data to Apache Arrow format for high-performance data processing",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mluttikh/xml2arrow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T05:29:05Z"
+  "distributed_at": "2026-09-10T23:23:26Z"
 }
