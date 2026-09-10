@@ -1,79 +1,78 @@
 ## mggraph-intune-samples
 
-> Guidance for AI coding agents and human contributors working in this repository.
+> Conventions for the PowerShell samples in this repository. New and modified scripts
 
-# AGENTS.md
+# Coding conventions
 
-Guidance for AI coding agents and human contributors working in this repository.
+Conventions for the PowerShell samples in this repository. New and modified scripts
+should follow these so the samples stay consistent and easy to learn from.
 
-## What this repo is
+## File header
 
-`mggraph-intune-samples` is a collection of **sample PowerShell scripts** that show
-how to use the **Microsoft Graph PowerShell SDK** to manage **Microsoft Intune**
-(device configuration, compliance, app protection, enrollment, managed devices,
-reporting, and more). It is a **non-production, learning/reference** repository: the
-scripts are meant to be read, adapted, and run by IT pros against their own tenants.
-It produces no build artifact and is not a dependency of other software.
+Every `.ps1` file must begin with the standard copyright header:
 
-## Repository layout
+```powershell
+<#
+.COPYRIGHT
+Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+See LICENSE in the project root for license information.
+#>
+```
 
-Each top-level folder groups samples by Intune workload, for example:
+## Module imports
 
-| Folder | Area |
-|---|---|
-| `AndroidEnterprise/`, `AOSPEnrollmentProfileManagement/` | Android enrollment |
-| `AppleEnrollment/` | Apple ADE / APNs |
-| `AppConfigurationPolicy/`, `AppProtectionPolicy/` | App configuration & protection (MAM) |
-| `CompliancePolicy/`, `DeviceConfiguration/`, `SettingsCatalog/` | Policy management |
-| `LOB_Application/` | Line-of-business app upload (Win32 / MSIX / iOS / macOS) |
-| `ManagedDevices/` | Device queries and actions |
-| `ReportExportJobs/` | Intune report export jobs |
-| `Permission_Analyzer/` | Graph permission analysis |
-| `docs/` | Contributor conventions and testing patterns |
-| `scripts/` | Repository tooling (e.g., `verify.ps1`) |
+- Import the **specific** `Microsoft.Graph*` submodule(s) a script needs rather than
+  the entire SDK, e.g.:
 
-Most folders contain their own `README`/`readme.md` describing the samples.
+  ```powershell
+  Import-Module Microsoft.Graph.DeviceManagement
+  ```
 
-## Conventions
+- Use the `Microsoft.Graph.Beta.*` modules only when a sample depends on beta APIs.
+- If a script requires a module, you may also declare it with `#requires -module ...`.
 
-See [docs/conventions.md](docs/conventions.md) for the full coding conventions. Key
-points:
+## Authentication
 
-- Every `.ps1` file starts with the standard `.COPYRIGHT` header block.
-- Scripts import the specific `Microsoft.Graph*` submodule(s) they need and use the
-  documented authentication/region pattern.
-- Prefer clarity over cleverness — these are teaching samples.
+- Authenticate with `Connect-MgGraph` using the **least-privilege** scopes needed by
+  the sample.
+- Keep the existing "region Authentication" comment block that links to the SDK
+  installation and authentication guidance.
+- **Never** hard-code tenant IDs, client secrets, certificates, or other credentials.
 
-## Safety rules (important)
+## Naming
+
+- Script names follow the style of the folder they live in (e.g.,
+  `DeviceConfiguration_Export.ps1`, `Get-AndroidDeviceOwnerProfiles.ps1`).
+- Prefer approved PowerShell verbs (`Get`, `Set`, `New`, `Remove`, `Export`, ...) for
+  functions.
+
+## Style
+
+- Favour readability over cleverness — these are teaching samples.
+- Comment the intent of each major step.
+- Handle errors where it aids the learner (e.g., `-ErrorAction Stop` with a helpful
+  message), but don't over-engineer.
+
+## Safety
 
 > [!IMPORTANT]
-> Scripts in this repo **create, modify, or delete Intune configuration** and can
-> affect real devices and users. When authoring or testing:
->
-> - **Only run against a non-production ("test") tenant.**
-> - Never hard-code secrets, tenant IDs, or credentials; never commit exported tenant
->   data (see [.gitignore](.gitignore)).
-> - Keep destructive samples (`*_Remove.ps1`, `*_Wipe.ps1`, `*_Delete.ps1`) clearly
->   scoped and documented.
+> These scripts create, modify, or delete Intune configuration and can affect real
+> devices and users.
 
-## Verify your changes
+- Design and test samples against a **non-production ("test") tenant** only.
+- Never commit exported tenant data or secrets (see [.gitignore](../.gitignore)).
+- Clearly document destructive samples (`*_Remove.ps1`, `*_Wipe.ps1`, `*_Delete.ps1`).
 
-Run the verification loop before committing or opening a PR:
+## Verifying
+
+Run the repository verification script before committing:
 
 ```powershell
 ./scripts/verify.ps1
 ```
 
-This runs `PSScriptAnalyzer` across all scripts and checks that every `.ps1` file has
-the required copyright header.
-
-## Pull requests
-
-- Keep PRs small and focused — ideally one sample or fix per PR.
-- Fill in [the PR template](.github/pull_request_template.md).
-- Ensure `./scripts/verify.ps1` passes and new scripts include the copyright header.
-- See [CONTRIBUTING.md](CONTRIBUTING.md) for the CLA and full process.
+It runs `PSScriptAnalyzer` and checks that every `.ps1` file has the copyright header.
 
 ---
 > Source: [microsoft/mggraph-intune-samples](https://github.com/microsoft/mggraph-intune-samples) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
