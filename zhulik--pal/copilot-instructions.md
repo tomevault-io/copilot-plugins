@@ -1,25 +1,16 @@
-## tests
+## pal
 
-> Tests must always be defined in `_test` package and only test package's public API.
+> Persist pal CLI architectural decisions into project rules
 
-# Tests
+# Document pal CLI decisions
 
-Tests must always be defined in `_test` package and only test package's public API.
+When the user makes an **architectural decision about the pal CLI** (`cmd/pal`) in a conversation — layout, frameworks, interactive vs non-interactive patterns, step/flag registries, Action/runner boundaries, exit-code conventions, naming, or similar — **update** [`.cursor/rules/pal-cli.mdc`](.cursor/rules/pal-cli.mdc) in the same turn (or before finishing the task).
 
-When testing functions, each function must have a separate Test function, for instance:
-Function `Foo` has test `TestFoo(t *testing.T)`. Each test case is defined inside it in a separate subtest with `t.Run()`.
-
-When testing structs, every method of the struct must have a separate Test function, for instance:
-Struct `Foo` has a method `Bar`, tests for this method should be defined in `TestFoo_Bar(t *testing.T)`.
-Each test case is defined inside it in a separate subtest with `t.Run()`.
-
-Read-only resources which can be reused across multiple tests, should be defined as global variables.
-Resources which can be reused across multiple tests files, must be defined in common_test.go
-
-For asserts and mocks `github.com/stretchr/testify` should be used.
-
-Make sure all code paths are tested.
+- Write the decision as a concise, actionable convention (same style as existing CLI rules).
+- Do not leave CLI architecture only in chat history.
+- Do not edit the plan files for this; the CLI rule file is the source of truth for agents.
+- If the decision revises an older rule, replace or amend the outdated text — keep the file coherent.
 
 ---
 > Source: [zhulik/pal](https://github.com/zhulik/pal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
