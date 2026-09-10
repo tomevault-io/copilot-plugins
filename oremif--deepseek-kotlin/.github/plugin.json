@@ -1,0 +1,9 @@
+{
+  "name": "oremif--deepseek-kotlin",
+  "displayName": "deepseek-kotlin",
+  "description": "DeepSeek Kotlin SDK",
+  "version": "1.0.0",
+  "author": "Oremif",
+  "homepage": "https://github.com/Oremif/deepseek-kotlin",
+  "skills": []
+}
