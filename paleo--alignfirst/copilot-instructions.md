@@ -1,33 +1,34 @@
 ## alignfirst
 
-> Here is your [playbook](~/.agents/skills/openclaw-coder-playbook/SKILL.md).
+> Never use your question tool. Always write questions in plain text.
 
-# Operating Instructions
+# User Preferences
 
-Here is your [playbook](~/.agents/skills/openclaw-coder-playbook/SKILL.md).
+Never use your question tool. Always write questions in plain text.
 
-On every user message, your **first action** is **to read the playbook**, then follow it — not memory, not investigation, not a reply: the playbook first.
+## Git hosts
 
-When a channel or DM message names a project or a ticket and you are not already in a thread, your first user-facing action is to open a thread using the **playbook** (Discord: `message` `action: "thread-create"`; Slack: your first reply auto-threads).
+Use the authenticated CLI of each host in {{GIT_HOSTS}}: `gh` for GitHub, `glab` for GitLab. Check `--help` before using an unfamiliar flag.
 
-Don't investigate the **code** yourself. Understanding how the code works — reading or grepping source, tracing logic to answer "why does X?" / "should we Y?" — is alcode's job. Delegate codebase questions, investigations, and changes through the **playbook**.
+## Context7
 
-Repo and workflow **metadata** is fair game directly: `git` (status, log, branch, diff, fetch), `gh` (PR/issue state), `ls`, the workspace tooling, `DEVELOPMENT.md`, `.plans/`. A status request on a ticket ("where does ABC-123 stand?") is ticket work — handle it through the **playbook**: combine that metadata with the ticket's spec/summary history (via alcode `read`), never by reading the source.
+Use the `ctx7` CLI for current documentation whenever a task involves a library, framework, SDK, API, CLI tool, or cloud service, including well-known ones. This covers API syntax, configuration, version migration, library-specific debugging, setup instructions, and CLI usage. Use it even when you think you know the answer; prefer it to web search for library documentation.
 
-For every other question, discussion, or request from the user, always follow the **playbook**. The playbook is your guide for everything.
+Do not use it for refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
 
-## Language
+1. Resolve the library: `ctx7 library <name> "<question>"`, with the official library name and punctuation ("Next.js", not "nextjs").
+2. Pick the best match (ID format `/org/project`): exact name, description relevance, snippet count, source reputation, benchmark score. Try another name or wording when the results look wrong.
+3. Fetch the documentation: `ctx7 docs <library-id> "<question>"`, one `docs` call per topic.
+4. Answer from the fetched documentation.
 
-Internal reasoning, messages to alcode, code, branches, commits, MR/PR titles — **English**. Replies to the user — **the user's language**.
+Call `library` first unless a `/org/project` ID was supplied. Keep queries specific and single-topic. Run at most three commands per question. Never include credentials in a query. For a version, use `/org/project/version` from the `library` output.
 
-## Heartbeats
+Authentication is preset through `CONTEXT7_API_KEY`. On a quota or authentication error, note it in your output and continue without Context7; the administrator handles the key.
 
-On a heartbeat or wake turn, when nothing needs the user's attention, your whole final answer is exactly `NO_REPLY`. Never answer `HEARTBEAT_OK` — it posts as literal text in the chat.
+## AlignFirst
 
-## Tickets are labels, not lookup targets
-
-When a user mentions a ticket ID (`ABC-123`, `12`, …), it's a label for branch names, thread names, and the AlignFirst workflow — not an invitation to look up its content. Don't run `gh issue list`, don't search the web, don't call any Linear/Jira API, don't ask the user for a token. The user will tell you in chat what they want. Do not infer a project from a ticket prefix — prefixes (`ABC-`, `TEC-`, …) are project-independent.
+`alignfirst guide <protocol>` prints an AlignFirst protocol to follow: `spec`, `plan`, `aad` (AAD), `description`, `review`, or `merge`.
 
 ---
 > Source: [paleo/alignfirst](https://github.com/paleo/alignfirst) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
