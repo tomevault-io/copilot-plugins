@@ -1,0 +1,9 @@
+{
+  "name": "iddv--mcp-example",
+  "displayName": "mcp-example",
+  "description": "A reference implementation of the Model Context Protocol (MCP) enabling seamless tool calling between LLMs and applications. Features client/server architecture with HTTP APIs, local CLI execution, an",
+  "version": "1.0.0",
+  "author": "iddv",
+  "homepage": "https://github.com/iddv/mcp-example",
+  "skills": []
+}
