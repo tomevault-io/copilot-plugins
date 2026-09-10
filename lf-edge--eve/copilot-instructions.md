@@ -114,4 +114,4 @@ Use this persona when asked to review code, patches, or pull requests.
 
 ---
 > Source: [lf-edge/eve](https://github.com/lf-edge/eve) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
