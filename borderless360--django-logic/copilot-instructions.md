@@ -1,126 +1,86 @@
 ## django-logic
 
-> How to write django-logic Processes & background transitions correctly (for AI and humans)
+> Simplified English for names, comments, and exceptions. Do not copy the repo's old private dialect.
 
 
-# Using django-logic correctly
+# Simplified English
 
-django-logic models business logic as declarative **Process** classes:
-transitions (state-machine edges) carry `conditions`, `permissions`,
-`side_effects`, `callbacks`, and (on failure) `failure_side_effects` /
-`failure_callbacks`. Background work uses `BackgroundTransition` /
-`BackgroundAction` (durable, queue-routed, retried).
+Write as you would to a colleague, in ASD-STE100 style.
 
-These rules are distilled from a full production-style validation on Heroku
-(RabbitMQ + PostgreSQL + multiple workers + induced crashes). Follow them.
+- One idea per sentence. Aim for 20 words or fewer. Never write more than 25.
+- Active voice, present tense: "the worker writes the row", not "the row is written".
+- One word for one meaning. Do not use two words for the same thing in one file.
+- Use a verb, not a noun built from a verb: "when it fails", not "on failure of".
+- No metaphors and no jokes.
+- Prefer deleting to rewriting. A comment that only narrates the next line goes.
 
-## Mental model
+Many existing comments use a private dialect. Do not copy them. Rewrite the dialect in the lines you touch.
 
-- **`side_effects`** = the essential work. They run inside the transition; if
-  one raises, the transition fails. For background transitions they are
-  **retried from scratch**, so they **MUST be idempotent**.
-- **`callbacks` / `failure_callbacks`** = best-effort follow-ups. Exceptions
-  are logged and **swallowed**. Never put critical work here — it may be lost
-  on a worker crash.
-- **`conditions`** = `fn(instance, **kwargs) -> bool` guards. **`permissions`**
-  = `fn(instance, user, **kwargs) -> bool`.
-- A `BackgroundTransition` runs in two phases: phase 1 (sync, in the caller)
-  validates + atomically writes `in_progress_state` and a `TransitionMessage`
-  row + dispatches; phase 2 (worker) runs the side-effects and writes the
-  target/`failed_state`. The `TransitionMessage` row is the durable source of
-  truth; the periodic safety-net tasks recover crashes/lost messages.
+## Allowed words
 
-## The golden rules
+transition, background transition, `TransitionMessage`, source state, retry window, stranded (nothing is retrying it), enqueue (the web process saves the `TransitionMessage` row and sends it to the queue), execute (the worker runs the side-effects and writes the final state), uncompleted, in progress.
 
-1. **Side-effects MUST be idempotent.** They re-run from scratch on every
-   retry. Use get-or-create, upserts, "already done?" guards. Put critical
-   work in side-effects, never in callbacks.
-2. **Every `BackgroundTransition`/`BackgroundAction` declares `queue=`.**
-   No default. Route by SLA: e.g. `…critical` (user-facing), `…slow`
-   (exports/reports), `…fast` (small/quick). Give each queue its own worker.
-3. **NEVER call a nested `other.process.xxx()` inside a `side_effect` and rely
-   on its exception.** That is the anti-pattern that cascades failures across
-   state machines. Instead:
-   - **Fan out**: start each child's *own* `BackgroundTransition` (phase 1
-     only) and return. A child failure is then contained in the child's own
-     `failed_state`.
-   - **Coordinate via callbacks**: the child reports completion in a
-     best-effort callback that runs an **idempotent, guarded** completion
-     check on the parent.
-   - **Aggregate errors by reading child rows**, never by catching exceptions.
-   - Give the parent an explicit partial-failure state (e.g. `action_required`).
-4. **`in_progress_state` must be unique within a Process** (enforced at import).
-5. **`failed_state`** on every background transition so failures are contained
-   and terminal, not propagated.
-6. **Test in sync mode** — `DJANGO_LOGIC['BACKGROUND_EXECUTION']='sync'` or
-   `with django_logic.background.sync_execution():`. Phase 2 runs inline, no
-   broker; exceptions propagate so you can `assertRaises`. Use
-   `django_logic.background.retry_pending()` to simulate the periodic starter.
+## Banned words, and what to write instead
 
-## Deployment requirements (don't skip — durability silently breaks otherwise)
+| Do not write | Write |
+| --- | --- |
+| `phase 1`, `phase one`, `phase-1` | enqueue |
+| `phase 2`, `Phase2`, `phase-2` | execute |
+| `liveness` | "whether the row is still being retried", "retry status", or "still running" |
+| `retry horizon` | retry window |
+| `re-drive`, `redrive` | re-dispatch, or "send it to the queue again" |
+| `in-flight marker` | the uncompleted row |
+| `speculative-insert (wait)` | "the insert waits for a concurrent insert on the same unique index to finish" |
+| `owning process` | "the process that declares the transition" |
+| `finishing flight` | "an attempt that is still running" |
+| `TM`, `TM-scoped` | `TransitionMessage`, "the row", "scoped to the row" |
+| `tm`, `msg`, `inst`, `bg` | `transition_message`, `message`, `instance`, `background` |
 
-- A **real broker** (Redis/RabbitMQ). With none, `apply_async` succeeds into an
-  in-memory transport nobody drains.
-- Celery: `task_acks_late=True` **and** `task_reject_on_worker_lost=True` — the
-  pair that re-delivers a killed worker's task. Run a **single beat** scheduling
-  the four `django_logic.*` safety-net tasks (`retry_stale_transitions`,
-  `detect_stuck_transitions`, `watchdog_stale_attempts`,
-  `cleanup_completed_transitions`) on `STARTER_QUEUE`. Without beat, nothing
-  recovers.
-- A worker must consume **every** queue you route to (plus `STARTER_QUEUE`).
-- **Behind pgbouncer transaction pooling** (common on Heroku/GV): set
-  `DATABASES['default']['OPTIONS']['prepare_threshold'] = None` (psycopg3
-  prepared statements break in transaction mode), `DISABLE_SERVER_SIDE_CURSORS
-  = True`, and do **not** require SSL on the app→pgbouncer hop. The
-  `select_for_update(nowait)` + partial-unique concurrency guard then holds.
+Also banned: a ticket, PR or check id in a comment or an exception (`#195`, `W002`, "the 0.13.1 review"). Delete the citation and keep the fact. `CHANGELOG.md` owns that history.
 
-## Minimal example
+Never refer to a design-document section (`§2.7`, "D2 (c)", "contract 7", "pass 4"). State the rule itself in one clause.
+
+## Keep these names as they are
+
+They look like dialect, but code depends on them:
+
+- the settings key literal `'PHASE2_STATE_GUARD'`, and every name in `_REMOVED_SETTINGS` and `_KNOWN_SETTINGS`;
+- Django API attributes: `.msg`, `.hint`, `.id` on `CheckMessage`;
+- state names, model names, field names, queue names, migration files, and any string an assertion compares against;
+- public API names: `BackgroundTransition`, `TransitionMessage`, `in_progress_state`, `in_flight()`, `retry_pending`, `failure_callbacks`.
+
+## Names
 
 ```python
-# process.py
-from django_logic import Process, Transition
-from django_logic.background import BackgroundTransition
+# BAD
+tm = self._phase_one_atomic(state, kwargs, queue_name)
 
-class OrderProcess(Process):
-    transitions = [
-        Transition('submit', sources=['draft'], target='submitted'),
-        BackgroundTransition(
-            action_name='fulfill',
-            sources=['submitted'], target='fulfilled',
-            in_progress_state='fulfilling',
-            failed_state='fulfillment_failed',   # contain failure here
-            queue='django_logic.critical',
-            side_effects=[reserve_stock, call_courier],  # idempotent!
-            callbacks=[notify_customer],                 # best-effort
-        ),
-    ]
+# GOOD
+transition_message = self._enqueue_atomic(state, kwargs, queue_name)
 ```
 
-**Bind in exactly one place — the app's `AppConfig.ready()`** — never at module
-import time in `models.py`/`process.py` (that forces a
-`model → process → actions → model` circular import; issue #100). `ready()`
-runs after all models are loaded, so the cycle never forms and actions can
-import the model at the top level.
+Use full words. Type names (`State`, `TransitionMessage`) and Python conventions (`self`, `kwargs`, `exc`) are fine.
+
+## Comments and exceptions
+
+A comment says the non-obvious *why* in one or two sentences.
 
 ```python
-# apps.py
-from django.apps import AppConfig
-from django_logic import ProcessManager
+# BAD
+# Same liveness classification as the sync gate (#195).
 
-class OrdersConfig(AppConfig):
-    name = 'orders'
-
-    def ready(self):
-        from .models import Order
-        from .process import OrderProcess
-        ProcessManager.bind_model_process(Order, OrderProcess, state_field='status')
-
-# drive it from a view/task/method: order.process.fulfill(user=request.user)
+# GOOD
+# Nothing is retrying this row, so "try again shortly" would be wrong forever.
 ```
 
-For the parent/child (order → many fulfillments) pattern and full error
-handling, see the project's `NESTED_PROCESS_ERROR_HANDLING` recipe.
+Exception text and log text are for the operator on call at 3am. Say what happened and what to do. No internal jargon.
+
+## Writing to people — no riddles
+
+A summary, a pull-request description, a review reply, or a chat message must stand on its own. The reader did not watch the work happen. Say the thing, not a name for the thing. Do not coin labels for plans or findings — no letters, no code names, no wave or phase numbers. If a name is unavoidable, define it in the same message, every time it appears. Before you send, ask: does every word work for someone who did not watch the work?
+
+If you would not say it out loud, rewrite it.
 
 ---
 > Source: [Borderless360/django-logic](https://github.com/Borderless360/django-logic) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
