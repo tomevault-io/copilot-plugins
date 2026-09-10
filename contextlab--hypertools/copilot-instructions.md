@@ -1,104 +1,24 @@
 ## hypertools
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> <!-- skillnote:begin -->
 
-# CLAUDE.md
+<!-- skillnote:begin -->
+## Notes (skill-compounder)
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
-
-HyperTools is a Python library for visualizing and manipulating high-dimensional data. It provides a unified interface for dimensionality reduction, data alignment, clustering, and visualization, built on top of matplotlib, scikit-learn, and seaborn.
-
-## Key Commands
-
-### Testing
-- `pytest` - Run all tests from the hypertools/ directory
-- `pytest tests/test_<module>.py` - Run tests for a specific module
-- `pytest tests/test_<module>.py::test_<function>` - Run a specific test function
-
-### Development Setup
-- `pip install -e .` - Install in development mode
-- `pip install -r requirements.txt` - Install dependencies
-- `pip install -r docs/doc_requirements.txt` - Install documentation dependencies
-
-### Documentation
-- `cd docs && make html` - Build HTML documentation
-- `cd docs && make clean` - Clean documentation build files
-
-## Code Architecture
-
-### Core Components
-
-**DataGeometry Class** (`hypertools/datageometry.py`)
-- Central data container that holds raw data, transformed data, and transformation parameters
-- Stores matplotlib figure/axes handles and animation objects
-- Contains normalization, reduction, and alignment model parameters
-
-**Main API Functions** (`hypertools/__init__.py`)
-- `plot()` - Primary visualization function
-- `analyze()` - Data analysis and dimensionality reduction
-- `reduce()` - Dimensionality reduction utilities
-- `align()` - Data alignment across datasets
-- `normalize()` - Data normalization
-- `describe()` - Data description and summary
-- `cluster()` - Clustering functionality
-- `load()` - Data loading utilities
-
-**Tools Module** (`hypertools/tools/`)
-- `align.py` - Hyperalignment and Procrustes alignment
-- `reduce.py` - Dimensionality reduction (PCA, t-SNE, UMAP, etc.)
-- `normalize.py` - Data normalization methods
-- `cluster.py` - K-means and other clustering algorithms
-- `format_data.py` - Data preprocessing and formatting
-- `text2mat.py` - Text-to-matrix conversion
-- `df2mat.py` - DataFrame-to-matrix conversion
-- `load.py` - Data loading from various sources
-- `missing_inds.py` - Missing data handling
-- `procrustes.py` - Procrustes analysis
-
-**Plot Module** (`hypertools/plot/`)
-- `plot.py` - Main plotting interface and logic
-- `backend.py` - matplotlib backend configuration
-- `draw.py` - Low-level drawing functions
-
-**External Dependencies** (`hypertools/_externals/`)
-- `ppca.py` - Probabilistic Principal Component Analysis
-- `srm.py` - Shared Response Model
-
-### Data Flow
-
-1. **Input Processing**: Data is formatted and validated through `format_data()`
-2. **Normalization**: Optional data normalization via `normalize()`
-3. **Alignment**: Optional cross-dataset alignment via `align()`
-4. **Dimensionality Reduction**: Data is reduced via `reduce()`
-5. **Clustering**: Optional clustering via `cluster()`
-6. **Visualization**: Final plotting through `plot()`
-
-### Key Design Patterns
-
-- **Modular Architecture**: Each major operation (align, reduce, normalize, etc.) is in its own module
-- **Unified Interface**: All functions accept similar input formats (lists of arrays, DataFrames, etc.)
-- **Flexible Data Types**: Supports numpy arrays, pandas DataFrames, text data, and mixed inputs
-- **Matplotlib Integration**: Deep integration with matplotlib for customizable visualizations
-- **Animation Support**: Built-in support for animated visualizations
-
-## Development Notes
-
-- The package follows a functional programming style with separate modules for each operation
-- All major functions are designed to work with multiple input formats
-- The DataGeometry class serves as the central data container and state manager
-- Tests are located in `tests/` directory and follow pytest conventions
-- Documentation is built with Sphinx and uses example galleries
-- The codebase maintains compatibility with Python 3.9+
-
-## Testing Strategy
-
-- Unit tests for individual tools and functions
-- Integration tests for end-to-end workflows
-- Example-based testing through documentation
-- Visual regression testing for plot outputs
+- **2026-09-03** Executing a docs/tutorials launch notebook locally runs its Colab '%pip install ... git+...@dev-1.0' cell, which overwrites the venv's editable hypertools with the stale REMOTE branch mid-run (seen 2026-09-03 as '48 dimensions ... static plots support at most 2'). scripts/execute_tutorial.py now tags 'pip install' cells skip-execution in memory; after any other notebook run, check 'pip show hypertools' says Editable, and 'pip install -e .[dev]' if not. <!-- id:n4007036607x464 -->
+- **2026-09-03** Regenerating a docs/tutorials notebook from its example script (Plan 4 pattern, used 5x on 2026-09-03): generate cells from the script's section markers with a scratchpad script (install cell carried over byte-identical), never leave a HyperAnimation as a cell's last expression (its repr embeds an 89 KB video), execute with scripts/execute_tutorial.py (skips pip-install cells, disables HF progress bars), save the GIF at <=15 fps / ~300 frames (a 900-frame GIF is 13 MB), record the measured visible-output set in tests/test_examples_are_native.py, re-measure the budget once, commit script+notebook+GIF+gate together. Gallery pages for show=False examples need the HyperAnimation scraper in docs/conf.py. <!-- id:n2702453330x716 -->
+- **2026-09-03** When a push will trigger hosted CI, commit the session-note/memory update BEFORE the push (seen twice on 2026-09-03: note committed right after each push, so every CI cycle had to be re-run or cancelled on the note-only head; PR #283). <!-- id:n2368342412x243 -->
+- **2026-09-03** Bluesky launch thread (notes/bluesky-launch, gitignored): re-verify atproto lexicon limits with curl before posting (video cap moved 100->300 MB between July and Sept 2026), count post graphemes with the regex module's \X (not len), render clips from the examples' construct_artifact() via the scratchpad render script, and expect tutorial 'Full code' links to 404 until RTD builds master. <!-- id:n1333699239x397 -->
+- **2026-09-03** Yahoo v8 chart 'range=max&interval=1d' silently returns 3-MONTH bars (AAPL: 169 rows since 1984); pass explicit period1/period2 epoch bounds to get daily. SEC XBRL needs a User-Agent with a contact (the project's pyproject email); 'companyconcept' can be EMPTY for a filer (ABT, KO) whose 'companyfacts' has the concept (measured 2026-09-03). <!-- id:n1509545511x350 -->
+- **2026-09-03** Tutorial notebooks are GENERATED (scripts/generate_tutorial_notebook.py) then executed (scripts/execute_tutorial.py); after changing SPECS (dpi, prose) ALWAYS regenerate before re-executing -- on 2026-09-04 a dpi revert was made in the generator only, and two 10-minute re-executions wrote the stale dpi. Video size is CRF-bound now (was a fixed 1800 kbit/s), so dpi does not trade size. <!-- id:n1221150995x395 -->
+- **2026-09-04** After a library behaviour change (new error text, a warning removed, a new return type), grep docs/tutorials/*.ipynb for prose or stored outputs demonstrating the OLD behaviour and re-execute those notebooks (2026-09-04: io.ipynb taught hyp.load(df) as a TypeError after load gained passthrough; align/reduce stored the glyph warning; lsl_streaming stored the liblsl ERR line). <!-- id:n2056000368x385 -->
+- **2026-09-05** When the finding IS that a file/match is absent, chain ls/grep with '|| true' (or test -e) so the expected exit 1 is not logged as a tool failure <!-- id:n3078545694x153 lesson:c1376737082x187-e1648091495x17 -->
+- **2026-09-05** Guard sed -n "$((n-12)),..." on a possibly-empty $n: an empty grep result makes sed see '-12' as an option; use grep -B/-A context instead <!-- id:n708886190x146 lesson:c662557965x199-e2303256208x40 -->
+- **2026-09-05** A 'clean' docs build (sphinx -W -E -a) does NOT remove sphinx-gallery's generated docs/auto_examples/ (gitignored): after deleting or renaming an example, rm -rf docs/auto_examples first or -W fails on 'document isn't included in any toctree' for the stale pages (2026-09-05, after the gallery consolidation). <!-- id:n391712600x317 -->
+- **2026-09-05** Subagent dispatch prompts must state the no-mocks rule verbatim ('no mock objects, no monkeypatching library functions as spies; prove behaviour with real observables'): on 2026-09-05 an agent verified 'never touches the network' by monkeypatching requests.get and seaborn_dataset; replaced with mtime/.part/uncached-URL-raises observables. <!-- id:n4091109334x348 -->
+- **2026-09-05** Never assert absolute font-metric numbers (probe heights, figure inches, pixel rows) in tests: CI's matplotlib (3.11.1) hints text differently from the local 3.10.8 -- 2026-09-05 two new tests failed on every CI job while green locally; assert against the library's own probe on the same axes, or relative tolerances. <!-- id:n1698690037x325 -->
+<!-- skillnote:end -->
 
 ---
 > Source: [ContextLab/hypertools](https://github.com/ContextLab/hypertools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
