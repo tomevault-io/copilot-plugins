@@ -1,6 +1,6 @@
 # AI instruction files for wireguard-fpga
 
-> Sourced from [chili-chips-ba/wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [chili-chips-ba/wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [chili-chips-ba/wireguard-fpga](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/chili-chips-ba/wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/chili-chips-ba/wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga)
 
 ---
 
