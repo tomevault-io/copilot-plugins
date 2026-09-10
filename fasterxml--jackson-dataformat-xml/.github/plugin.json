@@ -1,0 +1,9 @@
+{
+  "name": "fasterxml--jackson-dataformat-xml",
+  "displayName": "jackson-dataformat-xml",
+  "description": "jackson-dataformat-xml",
+  "version": "1.0.0",
+  "author": "FasterXML",
+  "homepage": "https://github.com/FasterXML/jackson-dataformat-xml",
+  "skills": []
+}
