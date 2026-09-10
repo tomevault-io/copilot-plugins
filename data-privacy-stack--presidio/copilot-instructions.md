@@ -1,177 +1,112 @@
 ## presidio
 
-> Presidio is a Python-based data protection and de-identification SDK with
+> Rules for the layer that translates YAML configuration into Presidio instances:
 
-# Presidio Development & Review Instructions
 
-Presidio is a Python-based data protection and de-identification SDK with
-multiple components for detecting and anonymizing PII (Personally Identifiable
-Information) in text and images.
+# YAML configuration & pydantic validation layer
 
-Domain-specific rules live in path-scoped instruction files and apply on top of
-this file when a change touches the matching paths:
+Rules for the layer that translates YAML configuration into Presidio instances:
+the pydantic models in `presidio_analyzer/input_validation/`
+(`yaml_recognizer_models.py`, `schemas.py`), the loaders in
+`recognizer_registry/`, and the shipped configs in `conf/`.
 
-- `.github/instructions/recognizers.instructions.md` — adding or modifying PII
-  recognizers.
-- `.github/instructions/yaml-config.instructions.md` — the pydantic layer that
-  translates YAML configuration into Presidio instances.
+This layer is a public contract. YAML files written by users years ago must keep
+parsing, and every field a user can write must actually reach the object it
+configures. When reviewing, lead with:
 
-## Core Philosophy
+1. A YAML-reachable field that silently goes nowhere (schema/constructor drift).
+2. A change that makes existing YAML files stop parsing or change meaning.
+3. A validation failure surfacing as a distant `TypeError` instead of a parse-time
+   error with an actionable message.
 
-**Data privacy is paramount.** This is a PII detection and anonymization system
-used in sensitive contexts; security and correctness are non-negotiable.
+## Schema/constructor sync
 
-- **Accuracy first**: false negatives (missed PII) and false positives
-  (incorrect detections) both damage trust.
-- **Security by default**: never log PII values, use non-reversible
-  anonymization, validate all inputs.
-- **Presidio is a library**: changes to shared code alter results for users who
-  wrote no new code. Backward compatibility is the prime directive.
-- **Stateless design**: modules that process records are stateless for
-  scalability — avoid adding state.
-- **Cross-component awareness**: Presidio is a multi-component system; changes
-  ripple across boundaries.
-- **Documentation integrity**: code and docs must stay synchronized — outdated
-  docs are dangerous.
+Every constructor parameter that should be settable from YAML needs a matching
+pydantic field. In every contribution, check that constructor parameters and
+schema fields have not drifted apart — a mismatch means a value a user writes
+in YAML never reaches the object, or reaches it unvalidated. As of today the
+consequence is silent: `PredefinedRecognizerConfig` ignores unknown YAML keys,
+so a constructor kwarg without a schema field is dropped without any error and
+the recognizer falls back to its defaults (the failure
+`LangExtractRecognizerConfig` exists to prevent; see its docstring). Even if
+that `extra` behavior changes, the no-mismatch rule stands.
 
-## Backward Compatibility
+- A recognizer whose constructor takes model-specific kwargs needs a dedicated
+  config model registered in `CONFIG_MODEL_MAP` (keyed by `class_name` or
+  `name`), following `HuggingFaceRecognizerConfig` / `GLiNERRecognizerConfig` /
+  `LangExtractRecognizerConfig`.
+- When a PR adds a constructor parameter to a recognizer that already has a
+  config model, require the matching field in that model — otherwise YAML users
+  cannot set it and get no error telling them so.
 
-Before changing anything outside a brand-new file, the PR description must
-state what existing behavior changes. These count as behavior changes even
-without a signature change:
+## `extra` must be a deliberate choice
 
-- Default values on shared base classes (`None` to `[]` changes truthiness for
-  every subclass).
-- Properties on abstract interfaces — custom implementations inherit the new
-  default and may break.
-- Anything altering which entities are returned, or their scores, for text that
-  previously worked.
+- `extra="forbid"` for closed configs (`TextChunkerConfig`,
+  `RecognizerRegistryConfig`): typos fail fast at parse time with a clear
+  message.
+- `extra="allow"` for pass-through configs whose kwargs flow to a constructor
+  (HuggingFace, GLiNER, LangExtract).
+- Flag a new model that leaves pydantic's default (`extra="ignore"`) without
+  justification — silent ignoring is almost never the intended behavior.
 
-Prefer additive changes: new parameters get defaults preserving current
-behavior; public APIs are never broken without a deprecation path.
+## `exclude_none` discipline on kwargs models
 
-**Surface new scoring inputs in explainability.** Anything that changes how a
-score is derived (context, negative context, thresholds) must be reflected in
-`AnalysisExplanation`, or users cannot tell why a result scored as it did.
+Models whose dump is passed to a constructor override `model_dump` with
+`exclude_none=True`, so a field omitted in YAML preserves the constructor
+default instead of overriding it with an explicit `None`. Any new pass-through
+config model must do the same; flag one that doesn't — it silently clobbers
+constructor defaults, which is this layer's sneakiest backward-compatibility
+trap.
 
-**Prefer warnings over exceptions when the caller cannot fix the condition.**
-Raising on a configuration a user did not write turns a degraded result into a
-hard failure. Where a lookup falls back to a default, add a debug log so the
-fallback is discoverable.
+## Fail early, with actionable messages
 
-**Prefer a property on the base class over a maintained list of class names.**
-Lists drift as classes are added, and users installing from PyPI cannot extend
-them.
+Validation belongs at parse time, in the pydantic model, phrased so the user
+knows how to fix their YAML — not as a distant `TypeError` during registry
+construction. House style to hold new code to:
 
-## Cross-Component Changes
+- Class existence checked at parse time
+  (`validate_predefined_recognizer_exists` → "Predefined recognizer 'X' not
+  found"), and custom/predefined name conflicts rejected with the fix spelled
+  out ("Either use type: 'predefined' or choose a different name").
+- Mutually exclusive fields enforced in a `model_validator` naming both fields
+  ("Cannot specify both 'supported_language' and 'supported_languages'"), with
+  an example of the correct form where the fix isn't obvious (see the global
+  context validator).
+- Parameters checked against the selected mode (`TextChunkerConfig` rejects
+  `max_tokens` on a character chunker by name, listing the allowed fields).
+- Prefer warnings over exceptions when the caller cannot fix the condition;
+  raising on a config the user didn't write turns a degraded result into a hard
+  failure.
 
-Data flows one way: Analyzer → Anonymizer → Output. Downstream components
-(CLI, structured, image-redactor) consume analyzer/anonymizer, never the
-reverse.
+## Backward compatibility of the schema
 
-- Shared data models (`RecognizerResult`, `OperatorConfig`) are contracts —
-  changes require coordinated updates across all consumers, in the same
-  changeset.
-- Reuse by importing from shared modules, not by copying code across
-  components. If multiple components need a feature, extract it to a common
-  location.
-- Respect boundaries: a component imports another's public interface, never its
-  internals (e.g. the anonymizer must not import
-  `presidio_analyzer.predefined_recognizers`).
-- Registry and provider patterns exist to decouple components — bypassing them
-  creates hidden dependencies.
-- Test the complete integration path (unit, integration, and e2e), not just
-  isolated components.
+Existing user YAML must keep working. Each of these is a breaking change and
+must be called out explicitly in the PR description:
 
-## Security & Privacy
+- A new **required** field, a renamed field, or a removed field.
+- A tightened validator that rejects previously-accepted YAML.
+- A changed default (including a changed `enabled`, score, or language default).
+- Dropping support for the legacy singular forms. `supported_language` /
+  `supported_languages` and `supported_entity` / `supported_entities` both stay
+  supported, with mutual exclusivity enforced — do not remove the legacy form.
+- Removing accepted input shapes: bare-string recognizer entries and dict
+  entries with inferred `type` (`patterns`/`deny_list` ⇒ custom) are all valid
+  today and must remain so.
 
-Always flag:
+## Required tests for changes in this layer
 
-- **PII leakage in logs, errors, or debug output** — log entity types and
-  positions, never `entity.text`.
-- **Reversible or weak anonymization** — deterministic hashing is reversible
-  via rainbow tables; use random/unpredictable replacement values that don't
-  preserve PII characteristics.
-- Regex injection: user-provided patterns must be validated before compilation.
-- Hardcoded secrets or credentials; unsafe deserialization (pickle, untrusted
-  models); command injection; path traversal; missing input validation on API
-  endpoints (including unbounded input sizes).
-
-## Performance
-
-- Avoid catastrophic regex backtracking (`(a+)+b` is O(2^n) on `aaaa...b`);
-  test patterns against long adversarial strings.
-- Cache compiled regexes; don't recompile per call.
-- Batch NLP processing (`nlp.pipe`) instead of per-text calls; load models
-  once and reuse.
-- Flag O(n²) where O(n) exists, blocking I/O on API paths, and loading entire
-  datasets into memory.
-
-## Testing Standards
-
-- Test names describe behavior:
-  `test_when_invalid_checksum_then_no_match`, not `test_case2`.
-- Assert exact expected values, not ranges — a range assertion passes even when
-  the logic producing the value breaks.
-- Cover true positives, true negatives, edge cases, and values embedded in
-  surrounding text; validate exact boundaries, not just types.
-- Fix random seeds for non-deterministic NLP/ML tests.
-- Test behavior, not implementation details.
-
-## Documentation
-
-When adding features, update all that apply: `docs/supported_entities.md` (new
-entity types), `docs/api-docs/api-docs.yml` (API changes), `README.md` (major
-features), docstrings (all public classes/methods, reST format — `:param:`,
-`:return:`, `:raises:`), and `docs/samples/` (complex features).
-
-Do not update `CHANGELOG.md` in a PR: current-release entries are generated
-from merged PRs before each version bump, and per-PR edits create merge
-conflicts.
-
-Terminology: use "threshold", not "cutoff"; use ISO 639-1 language codes in
-docs and configuration examples.
-
-## Code Review Guidelines
-
-- Only comment with HIGH CONFIDENCE (>80%) that an issue exists; be concise and
-  actionable — cite the line and propose the concrete fix.
-- Check for existing patterns and helpers in the codebase before suggesting new
-  approaches.
-- Severity: 🔴 security/PII leakage and correctness → 🟡 performance,
-  cross-component breaks, missing tests → 💡 code quality.
-
-**Do not flag** (automated tools own these): formatting, line length, import
-order (Ruff); type-hint style (`List[str]` vs `list[str]`); style preferences
-or speculative abstractions that don't fix bugs or improve accuracy.
-
-## Repository Context
-
-- **Python** `>=3.10,<3.15` — code must run on every version in range.
-- **uv** for dependency management (not pip/Poetry); each package commits a
-  `uv.lock`. Whenever a package's `pyproject.toml` dependencies change,
-  regenerate and commit that package's `uv.lock` in the same change
-  (`cd <package> && uv lock`) — CI installs with `uv sync --locked` and fails
-  on drift.
-- **Ruff** for linting and formatting; **spaCy** as the default NLP engine
-  (swappable via provider pattern); **Docker** images on
-  `ghcr.io/data-privacy-stack`.
-
-```bash
-# Setup and test (per package)
-cd presidio-analyzer
-uv sync --locked --all-extras --group dev
-uv run python -m spacy download en_core_web_lg  # analyzer/CLI only
-uv run pytest -xvv
-uv run ruff check . && uv run ruff format .
-
-# E2E
-docker compose up --build -d && cd e2e-tests && pytest -v
-```
-
-Reference docs: `CONTRIBUTING.md`, `docs/development.md`,
-`docs/analyzer/adding_recognizers.md`, `docs/analyzer/developing_recognizers.md`,
-`docs/anonymizer/adding_operators.md`.
+- **Round-trip through the provider**: load a config through
+  `RecognizerRegistryProvider` and assert on the constructed registry — not
+  only on the validated pydantic model. Model-level tests miss dump/loader
+  drift.
+- The shipped `conf/default_recognizers.yaml` must validate against the models;
+  a change to either side needs `test_recognizer_registry_provider.py` /
+  `test_yaml_recognizer_models.py` updated in the same PR.
+- New validators need both directions tested: valid YAML passes, invalid YAML
+  fails **with the expected message** (assert on the message — it is part of
+  the user experience).
+- A new schema field needs a test proving the value actually reaches the
+  constructed object, not just that validation accepts it.
 
 ---
 > Source: [data-privacy-stack/presidio](https://github.com/data-privacy-stack/presidio) — distributed by [TomeVault](https://tomevault.io).
