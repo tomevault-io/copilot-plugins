@@ -1,0 +1,30 @@
+{
+  "name": "amd-agi--tracelens",
+  "displayName": "TraceLens",
+  "description": "TraceLens",
+  "version": "1.0.0",
+  "author": "AMD-AGI",
+  "homepage": "https://github.com/AMD-AGI/TraceLens",
+  "skills": [
+    {
+      "name": "TraceLens",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "description": ""
+    }
+  ]
+}
