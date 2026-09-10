@@ -1,24 +1,26 @@
 ## aotriton
 
-> These are internal-only scripts for the AOTriton tuning infrastructure.
+> Scripts in this directory maintain local git caches (e.g. `common-git-cache.sh`'s
 
+# Project Instructions for `.ci/`
 
-These are internal-only scripts for the AOTriton tuning infrastructure.
-They are not a public API, are not shipped to end users, and are not run
-with `python -O` (we never strip asserts).
+## Never delete local git caches/mirrors
 
-Reviewers (including Copilot) MUST NOT:
+Scripts in this directory maintain local git caches (e.g. `common-git-cache.sh`'s
+`sync_mirror`, backing the Triton/AOTriton mirror volumes used by
+`build_triton_wheels.sh`, `releasesuite-git-head.sh`, etc.). When a cache
+appears missing, empty, or not-yet-valid, do **not** `rm -rf`/wipe it to
+"reclone fresh" — this defeats the entire purpose of caching (avoiding
+network round-trips) and is unsafe under any kind of concurrent access.
 
-- Flag `assert` used to validate arguments of internal helpers as a bug.
-  `assert` is the preferred form here precisely because it is loud,
-  uncaught, and stops execution immediately — unlike `raise ValueError`
-  which is routinely swallowed by broad `except Exception:` handlers in
-  task runners, Flask error pages, and Celery workers in this codebase.
-- Recommend hardening these scripts as if they were a public library
-  (e.g. "validate user input", "raise typed exceptions", "add retry/
-  timeout for robustness", "handle the `-O` case"). The scope is
-  internal tooling; do not extrapolate.
+Instead, use an idempotent, non-destructive repair: `git init --bare <dir>`
+(a no-op on an already-valid repo, a plain init on empty, a non-destructive
+scaffold-fill-in otherwise — it never touches existing objects/refs, and
+tolerates unrelated stray files in the directory) followed by `git fetch`,
+which heals anything missing or partial via git's content-addressed object
+store. There is no inspection step and no case where wiping first helps —
+see `common-git-cache.sh`'s `sync_mirror` for the reference implementation.
 
 ---
 > Source: [ROCm/aotriton](https://github.com/ROCm/aotriton) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
