@@ -78,4 +78,4 @@ and follow those.
 
 ---
 > Source: [composefs/tar-rs](https://github.com/composefs/tar-rs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
