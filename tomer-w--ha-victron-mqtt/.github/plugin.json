@@ -1,0 +1,9 @@
+{
+  "name": "tomer-w--ha-victron-mqtt",
+  "displayName": "ha-victron-mqtt",
+  "description": "ha-victron-mqtt",
+  "version": "1.0.0",
+  "author": "tomer-w",
+  "homepage": "https://github.com/tomer-w/ha-victron-mqtt",
+  "skills": []
+}
