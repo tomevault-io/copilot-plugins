@@ -1,144 +1,53 @@
 ## pytorch-optimizer
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Read `CLAUDE.md` for the repository's detailed architecture, development commands,
 
-# CLAUDE.md
+# Agent Instructions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Read `CLAUDE.md` for the repository's detailed architecture, development commands,
+and contribution guidance. The instructions below add the current project-specific
+conventions and take precedence where they are more specific.
 
-## Build and Development Commands
+## Development workflow
 
-```bash
-# Install dependencies (using poetry)
-poetry install
+- Use `uv` for dependency resolution and execution. Prefer `uv run just <recipe>` so tests use the versions in `uv.lock`.
+- The repository `justfile` is cross-platform and works on Windows, macOS, and Linux/WSL.
+- Run the relevant checks after changes:
+  - `uv run just format`
+  - `uv run just check`
+  - `uv run just test`
+- New or changed implementation code should have 100% test coverage. Check it with `uv run coverage report -m`.
 
-# Run tests with coverage
-make test
-# Or directly:
-python -m pytest -p no:pastebin -p no:nose -p no:doctest --disable-warnings -sv -vv --cov=pytorch_optimizer --cov-report=xml ./tests
+## Code style
 
-# Run a single test file
-python -m pytest tests/test_optimizers.py -sv -vv
+- Follow nearby repository code and tests before introducing new patterns.
+- Use a maximum line length of 119 characters and single-quoted strings.
+- Use the repository's existing typing style. Do not add `from __future__ import annotations` or `TYPE_CHECKING` imports unless the surrounding code requires them.
+- Optimizers inherit from `BaseOptimizer`, implement `init_group()` and `step()`, and reuse its validation and update helpers where applicable.
+- Keep implementations focused; remove redundant compatibility layers, comments, and abstractions.
 
-# Run a specific test
-python -m pytest tests/test_optimizers.py::test_name -sv -vv
+## Adding an optimizer
 
-# Format code
-make format
+- Add the implementation under `pytorch_optimizer/optimizer/`.
+- Export it from the optimizer package and register it in `OPTIMIZER_LIST` so it is available through `OPTIMIZERS` and `load_optimizer()`.
+- Add a training recipe to `tests/constants.py`; the parametrized tests in `tests/test_optimizers.py` will exercise it.
+- Add focused tests for optimizer-specific behavior, state handling, validation, wrappers, and edge cases as needed.
+- Update the relevant documentation and a versioned file under `docs/changelogs/`.
+- Never edit the root `CHANGELOG.md`; it is maintained automatically.
 
-# Lint code
-make lint
+## Commits and pull requests
 
-# Full check (lint + type checking)
-make check
-
-# Update documentation
-make update-docs
-# Or: python scripts/update_docs.py
-
-# Serve documentation locally
-make docs
-```
-
-## Code Style
-
-- Line length: **119** characters
-- Use **single quotes** for strings (not double quotes)
-- Formatter: **black** with `-S -l 119` flags
-- Linter: **ruff**
-- Docstring style: **Google style**, not reST or NumPy style
-- Do **not** add meaningless or redundant comments or docstrings
-
-## Architecture Overview
-
-### Package Structure
-
-- `pytorch_optimizer/` - Main package
-  - `base/` - Base classes and types
-    - `optimizer.py` - `BaseOptimizer` class that all optimizers inherit from
-    - `type.py` - Type definitions (Parameters, Closure, Loss, etc.)
-    - `exception.py` - Custom exceptions
-    - `scheduler.py` - Base scheduler class
-  - `optimizer/` - All optimizer implementations (130+ optimizers)
-    - Each optimizer is in its own file (e.g., `adamp.py`, `lion.py`, `adopt.py`)
-    - `utils.py` - Shared utilities for optimizers
-    - `gradient_centralization.py` - GC implementation
-    - `agc.py` - Adaptive Gradient Clipping
-    - `lookahead.py` - Lookahead wrapper
-    - `experimental/` - Experimental optimizers
-  - `lr_scheduler/` - Learning rate schedulers
-  - `loss/` - Loss function implementations
-
-### Key Base Class: `BaseOptimizer`
-
-All optimizers inherit from `BaseOptimizer` (in `base/optimizer.py`), which provides:
-- Static methods for common operations: `apply_weight_decay`, `debias`, `get_rectify_step_size`, `apply_cautious`
-- Validation methods: `validate_range`, `validate_betas`, `validate_learning_rate`
-- AMSBound, AdaNorm, and other variant implementations
-
-When implementing a new optimizer:
-1. Inherit from `BaseOptimizer`
-2. Implement `init_group(self, group: ParamGroup, **kwargs) -> None` for state initialization
-3. Implement `step(self, closure: Closure = None) -> Loss`
-
-### Adding New Optimizers, Loss Functions, or LR Schedulers
-
-Reference existing implementations for patterns:
-- Optimizers: `pytorch_optimizer/optimizer/`
-- Loss functions: `pytorch_optimizer/loss/`
-- LR schedulers: `pytorch_optimizer/lr_scheduler/`
-
-**Checklist:**
-
-1. Create a new file in the appropriate directory
-2. For optimizers: inherit from `BaseOptimizer`, implement `init_group()` and `step()`
-3. Utilize existing `BaseOptimizer` methods instead of reimplementing:
-   - `apply_weight_decay()`, `apply_ams_bound()`, `apply_adam_debias()`
-   - `debias()`, `debias_beta()`, `get_rectify_step_size()`
-   - `apply_cautious()`, `get_adanorm_gradient()`
-   - `validate_learning_rate()`, `validate_betas()`, `validate_range()`
-4. Register in the corresponding `__init__.py` files
-5. Run `make format` and `make check` to ensure strict style compliance
-6. Add tests with **100% coverage** requirement
-7. For new optimizers: add a minimal training recipe to `tests/constants.py` (see `OPTIMIZERS` list)
-8. Add a short description to the latest changelog in `docs/changelogs/`
-9. Update `README.md`:
-   - Update the count of optimizers/loss functions/schedulers
-   - Add entry to the appropriate markdown table with format:
-     `| Name | Paper full title | [github](link) | [paper](arxiv_link) | [cite](citation_link) |`
-
-### Public APIs
-
-Load optimizers dynamically:
-```python
-from pytorch_optimizer import load_optimizer, get_supported_optimizers
-optimizer = load_optimizer('adamp')(model.parameters())
-```
-
-Create optimizer with common options:
-```python
-from pytorch_optimizer import create_optimizer
-optimizer = create_optimizer(model, 'adamp', lr=1e-3, use_gc=True, use_lookahead=True)
-```
-
-## Testing
-
-Tests are in `tests/` directory:
-- `test_optimizers.py` - Main optimizer tests
-- `test_optimizer_parameters.py` - Parameter validation tests
-- `test_optimizer_variants.py` - Variant tests (Cautious, AdamD, etc.)
-- `test_loss_functions.py` - Loss function tests
-- `test_lr_schedulers.py` - Scheduler tests
-
-The `conftest.py` provides a `environment` fixture with sample data for training tests.
-
-## External Optimizer Support
-
-The package wraps optimizers from external libraries:
-- `bitsandbytes` - 8-bit optimizers (`load_bnb_optimizer`)
-- `q-galore-torch` - Q-GaLore optimizers (`load_q_galore_optimizer`)
-- `torchao` - TorchAO optimizers (`load_ao_optimizer`)
+- Use conventional commit prefixes without square brackets. Prefixes describe the kind of
+  change, not just the files touched:
+  - `feature: ...` — add user-visible functionality, such as the historical `feature: implement Magma optimizer` commit.
+  - `fix: ...` — correct a bug or compatibility issue, such as `fix: prevent NaN in AdamP rsqrt`.
+  - `docs: ...` — change documentation, such as `docs: update documentation`.
+  - `style: ...` — make formatting or lint-only changes, such as `style: fix F401`.
+  - `build(ci): ...` — change CI or release automation, such as `build(ci): fix release title`.
+  - `build(deps): ...` — update dependencies or lockfiles, such as `build(deps): packages`.
+- Feature PR titles follow the repository convention, such as `[Feature] Implement `Magma` optimizer`.
+- Keep commits focused, verify the branch and working tree before pushing, and use `--force-with-lease` only when rewriting a pushed branch is necessary.
 
 ---
 > Source: [kozistr/pytorch_optimizer](https://github.com/kozistr/pytorch_optimizer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
