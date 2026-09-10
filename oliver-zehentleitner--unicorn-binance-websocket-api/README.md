@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [oliver-zehentleitner/unicorn-binance-websocket-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [oliver-zehentleitner/unicorn-binance-websocket-api](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) — a repo with 736+ stars on GitHub.
+From [oliver-zehentleitner/unicorn-binance-websocket-api](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) — a repo with 735+ stars on GitHub.
 
 ---
 
