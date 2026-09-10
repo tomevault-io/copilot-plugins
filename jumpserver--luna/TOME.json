@@ -4,7 +4,7 @@
   "repo": "luna",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jumpserver/luna",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T16:14:34Z"
+  "distributed_at": "2026-09-10T10:36:16Z"
 }
