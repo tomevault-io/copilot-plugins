@@ -1,58 +1,30 @@
 ## orca
 
-> Two invariants govern the daemon's canonical socket path. Read this before changing anything that
+> Tests and agent-driven app launches share the developer's machine. They may use it; they must never
 
-# AGENTS.md — Terminal Daemon
+# Keep Automated Runs Out of the Foreground
 
-## Endpoint Ownership: Who May Touch the Socket Path
+Tests and agent-driven app launches share the developer's machine. They may use it; they must never
+take the foreground — no window raised over the editor, no focus stolen, no Dock tile churn.
 
-Two invariants govern the daemon's canonical socket path. Read this before changing anything that
-links, renames, unlinks or stats it — or that treats its existence as evidence a daemon is running.
+`src/main/window/foreground-activation-policy.ts` enforces this in the main process. It is on
+whenever `ORCA_E2E_HEADLESS=1`, `ORCA_E2E_HEADFUL=1`, or `ORCA_BACKGROUND_LAUNCH=1`:
 
-> **Only a daemon publishing itself onto the canonical endpoint may mutate that directory entry,
-> and only by replacing an entry it has itself just proven dead.**
->
-> **No actor removes a name it did not create.**
+- headless / explicit background → the window never reaches the screen (Playwright drives it via CDP)
+- headful without explicit background → `showInactive()`, no `app.focus({ steal: true })`, no
+  `moveTop()`/always-on-top reinforcement
+- macOS headless / explicit background → `accessory` activation policy, so no Dock tile and no menu-bar takeover
 
-**Why it exists.** `net.Server.close()` unlinks the pathname it bound with no ownership check, so a
-departing daemon deleted whichever socket then sat at the canonical path — including a live
-replacement's. The replacement stayed alive hosting PTYs no client could reach, which reads to the
-user as terminals that accept keystrokes and never run them. Seven review rounds against the older
-"launcher reclaims a dead process's name" shape produced twenty-three defects, all the same
-interleaving: a third party observing liveness at T and acting on the directory entry at T+1.
+Rules when adding tests or scripts:
 
-**The protocol** (`daemon-endpoint-ownership.ts`): bind a private `.p<hex>` name → try an exclusive
-`link` → on `EEXIST` prove the incumbent dead by connecting → re-check the entry hasn't changed
-hands → probe once more → `rename` in one syscall → verify we kept it.
-
-## Traps That Already Cost Us
-
-- **Never collapse "can't tell" into "dead."** Only `connected` means occupied; only
-  `refused`/`missing` prove death. A timeout or `EPERM` proves nothing and must decline — treating
-  it as death deletes an endpoint still serving every terminal on the host.
-- **`link` first, never an unconditional `rename`.** `rename` replaces whatever it finds, so it
-  would let a starting daemon destroy a healthy one. `link` fails loudly and forces the liveness
-  question.
-- **`rename`, never `unlink`-then-`link`.** The latter leaves the name absent between two calls;
-  measured across a live handover it gapped on essentially every observation, where `rename` gapped
-  on none in ~14,500 probes.
-- **Do not identify an entry by `birthtimeMs`.** Node documents it as sometimes holding the ctime,
-  filesystems without a birth time report the epoch, and its granularity is often coarser than the
-  events it must separate. Three attempts to patch around this produced three more defects; inode
-  recycling is now settled by asking whether anything is _serving_.
-- **Do not add a sweeper.** Deciding whether someone else's leftover is safe to delete is the
-  question this design retired; the last one produced five defects, including deleting a live
-  listener's only pathname. Every actor removes its own scratch name on each non-crash path.
-- **Scratch namespaces must stay out of released builds' patterns.** Shipped versions sweep
-  `^\.b[0-9a-f]{10}$` on age alone with no liveness check, which is why the bind name is `.p`.
-  Deleting our sweeper does not un-ship theirs.
-- **Never remove the endpoint on shutdown.** A departing daemon leaves a dead entry; the next
-  publisher replaces it in one rename.
-
-**Residual risk.** The final probe and the `rename` are two syscalls, and POSIX has no
-rename-if-target-is-inode-X. The harm is separately unreachable: a daemon never creates a session
-on an endpoint it no longer holds (`daemon-server.ts`), and it drains rather than serving on.
+- Launch through `tests/e2e/helpers/orca-app.ts` (or `orca-restart.ts`) — they already set the env.
+- A raw `electron.launch()` outside those helpers must pass `ORCA_BACKGROUND_LAUNCH: '1'`.
+- Do not reveal windows in explicit background or headless runs. Only an explicitly headful run
+  may call `showInactive()`; never call `show()` or `bringToFront()` in automated background checks.
+- Tag a spec `@headful` only when it needs real pixels; it still runs in the background.
+- Native-focus tests belong on an isolated display or CI. Do not set `ORCA_E2E_FOREGROUND=1`
+  on the user’s desktop; it cannot override explicit background mode.
 
 ---
 > Source: [stablyai/orca](https://github.com/stablyai/orca) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
