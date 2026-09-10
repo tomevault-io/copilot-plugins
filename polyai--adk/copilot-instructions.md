@@ -1,160 +1,140 @@
 ## adk
 
-> ADK (`polyai-adk`) is a Python CLI tool for managing PolyAI Agent Studio projects locally. It provides a Git-like workflow (`pull`, `push`, `status`, `diff`, `branch`, etc.) to sync voice agent configurations (functions, flows, entities, topics, agent settings) between the local filesystem and the Agent Studio Platform. Resources are stored as YAML and Python files.
+> Every page in this directory documents one high level ADK resource. Follow this shape exactly so pages stay interchangeable and can be regenerated or extended without re-deriving the format each time.
 
-# Agent Development Kit (ADK) — Claude Code Configuration
+# Resource reference page structure
 
-## Project Overview
+Every page in this directory documents one high level ADK resource. Follow this shape exactly so pages stay interchangeable and can be regenerated or extended without re-deriving the format each time.
 
-ADK (`polyai-adk`) is a Python CLI tool for managing PolyAI Agent Studio projects locally. It provides a Git-like workflow (`pull`, `push`, `status`, `diff`, `branch`, etc.) to sync voice agent configurations (functions, flows, entities, topics, agent settings) between the local filesystem and the Agent Studio Platform. Resources are stored as YAML and Python files.
+## Page skeleton
 
-## Tech Stack
-
-- **Language**: Python 3.14+
-- **Package manager**: `uv` (with `uv.lock`)
-- **Build system**: setuptools via `pyproject.toml`
-- **Linter/formatter**: ruff 0.14.2
-- **Testing**: pytest with unittest.TestCase classes
-- **Pre-commit**: ruff-check + ruff-format hooks
-
-## Development Setup
-
-Always activate the virtual environment before running Python, pytest, ruff, or the CLI:
-
-```bash
-source .venv/bin/activate
 ```
+---
+title: <Resource name>
+description: One sentence — what the resource does and where it lives.
+---
 
-Install in editable mode (with dev dependencies):
+# <Resource name>
 
-```bash
-uv pip install -e ".[dev]"
-```
+<p class="lead">
+One or two sentences: what this resource is for, in plain terms.
+</p>
 
-## Key Commands
+<Optional !!! note/warning if the resource has a platform quirk worth knowing
+before you touch it — e.g. platform-provisioned files, uppercased filenames.>
 
-| Task | Command |
+## Location
+
+<Where it lives on disk — a file path or a `text` tree. State whether the
+file/directory is optional. If the resource isn't file-based (e.g. Variables,
+which are set in code, not a file), rename this section to fit — "How
+variables work" — but keep it as the second section on the page.>
+
+~~~text
+config/entities.yaml
+~~~
+
+## What a/an <resource> contains|controls|is for
+
+<The overview. Use grid cards when there are several sub-parts to introduce
+(e.g. agent settings has persona/rules); use plain prose when there's
+only one shape.>
+
+### Fields
+
+| Field | Description |
 |---|---|
-| Run tests | `uv run pytest src/poly/tests/ -v` |
-| Lint | `ruff check .` |
-| Lint + fix | `ruff check . --fix` |
-| Format | `ruff format .` |
-| Format check | `ruff format --check .` |
-| Install | `uv pip install -e ".[dev]"` |
-| CLI help | `poly --help` |
+| `field_name` | ... |
 
-## Project Structure
+Add a `Required` column only when some fields are optional and that matters:
 
+| Field | Required | Description |
+|---|---|---|
+
+### Example
+
+~~~yaml
+field_name: value
+~~~
+
+## Validation
+
+<Every constraint `poly validate`/`poly push` actually enforces, as a bullet
+list — required fields, allowed values, cross-field rules, uniqueness
+constraints. One rule is still a `## Validation` section, not an inline note
+next to the field.>
+
+## Best practices
+
+- <short, imperative bullets>
+
+## Related pages
+
+<div class="grid cards" markdown>
+
+-   **Sibling resource**
+
+    ---
+
+    One sentence on how it relates.
+    [Open sibling resource](./sibling.md)
+
+</div>
 ```
-src/poly/                  # Main package
-├── cli.py                 # CLI entrypoint (argparse)
-├── project.py             # Core AgentStudioProject logic
-├── console.py             # Rich-based output/display
-├── constants.py           # Permissions, file name constants
-├── utils.py
-├── resources/             # Resource type implementations
-│   ├── resource.py        # Base Resource/YamlResource classes
-│   ├── resource_utils.py  # ruamel.yaml helpers
-│   ├── flows.py, function.py, entities.py, topic.py
-│   ├── agent_settings.py, handoff.py, sms.py
-│   └── experimental_config.py, variant_attributes.py
-├── handlers/              # API communication
-│   ├── interface.py       # AgentStudioInterface (high-level)
-│   ├── platform_api.py    # SyncClientHandler (low-level)
-│   └── protobuf/          # Generated — DO NOT EDIT
-├── types/                 # Generated — DO NOT EDIT
-└── tests/
-    ├── project_test.py, resources_test.py, utils_test.py
-    ├── testing_utils.py
-    └── test_projects/     # Fixture projects for tests
-```
 
-## Code Style Rules
+Include every section from the skeleton that applies; skip `Validation` or `Best practices` if there's genuinely nothing to say — don't pad them out.
 
-- **Line length**: 100 characters
-- **Type hints**: Required on all function parameters and return types
-- **Docstrings**: Required on all classes and public methods
-- **Imports**: Use absolute imports from the `poly` package
-- **Naming**: PEP 8 conventions
-- **Logging**: Use `logging.getLogger(__name__)`, never `print()`
-- **Errors**: Use `ValueError` for validation (auto-formatted with file paths), `PlatformAPIError` for API failures
-- **YAML**: Use `ruamel.yaml` via `resource_utils` — preserve comments and ordering
+## The overview section's heading
 
-## Generated Files — Do Not Edit
+Right after `## Location` comes one overview section, and its wording depends on the resource's nature — match what's already established per resource, don't reinvent it:
 
-- `src/poly/handlers/protobuf/` — generated protobuf files. Never edit directly.
-- `src/poly/types/` — generated type definitions. Never edit directly.
+- **"What a/an `<resource>` contains"** — data-shaped resources (a topic, an entity, a test case, an SMS template, a handoff, a translation)
+- **"What `<resource>` controls"** — settings that shape behavior (chat settings, safety filters, response control, speech recognition, voice settings)
+- **"What `<resource>` are/is for"** — process or capability resources (flows, functions)
 
-Exclude both directories from linting and review.
+Pick the one that reads naturally; the point is consistency of *shape*, not the literal words.
 
-## Git Conventions
+## Reference syntax
 
-- Use **conventional commits**: `feat:`, `fix:`, `refactor:`, `test:`, `chore:`, `docs:`
-- PR template is at `.github/PULL_REQUEST_TEMPLATE.md` — always fill it in
+If a field accepts `{{prefix:name}}`-style references to other resources, always link each prefix to the resource page it resolves to — never leave `{{attr:...}}` or `{{vrbl:...}}` as a bare code span with no link.
 
-## Adding a New Resource Type
+For a field that supports several prefixes (`rules.txt`, topic `actions` — the free-text fields that accept the full reference vocabulary), use a table:
 
-1. Create resource class in `src/poly/resources/` inheriting `YamlResource` or `Resource`
-2. Register in `RESOURCE_NAME_TO_CLASS` in `project.py`
-3. Add `_read_<type>_from_projection` in `SyncClientHandler` + call from `_load_resources()`
-4. Add tests in `src/poly/tests/resources_test.py`
-
-## Testing Conventions
-
-- Test files go in `src/poly/tests/`
-- Use `unittest.TestCase` classes
-- Test files mirror source structure (e.g., `resources_test.py` for resources)
-- Use `test_projects/` fixtures for integration-style tests
-- All tests must pass before opening a PR
-
-## CI Pipeline
-
-On every PR and push to `main`, CI runs:
-1. `ruff check .` (lint)
-2. `ruff format --check .` (format check)
-3. `uv run pytest src/poly/tests/ -v` (tests)
-
-## Subagents
-
-Project subagents are defined in `.claude/agents/`. Delegate to them instead of doing their work inline.
-
-| Agent | When to use |
+| Syntax | Meaning |
 |---|---|
-| `ci-check` | Before pushing or opening a PR — validates lint, format, and tests pass |
-| `pr-reviewer` | Before pushing a PR — self-review against the project checklist to catch issues early |
-| `resource-scaffolder` | When adding a new resource type — scaffolds all required files and registrations |
-| `test-writer` | After writing or changing code — writes readable tests and ensures coverage doesn't drop |
+| `{{fn:function_name}}` | [Global function](./functions.md) |
 
-### Workflow
+For a field that supports only one or two, a table is overkill — link inline in the field's own description instead: "Supports [`{{attr:...}}`](./variants.md) and [`{{vrbl:...}}`](./variables.md) references." Don't add a table just to hold one or two rows.
 
-- After implementing a feature or fix, delegate to **test-writer** to add tests
-- Before pushing a PR, always delegate to **pr-reviewer** to self-review against the project checklist
-- Before pushing, delegate to **ci-check** to validate lint, format, and tests pass
-- When adding a new resource type, delegate to **resource-scaffolder** instead of doing it manually
+A prefix that refers to the resource *on the page you're writing* (e.g. `{{ho:handoff_name}}` on `handoffs.md`) doesn't need a link — it's self-referential.
 
-### Design Tokens
+## Admonitions
 
-### Font Sizes
-| Token | px | Usage |
-|-------|----|-------|
-| `header.extraLarge` | 40px | H1 page titles |
-| `header.large` | 24px | H2 section titles |
-| `header.medium` | 18px | H3 card titles |
-| `header.regular` | 16px | H4 sub-headings |
-| `header.small` | 12px | H5 labels, eyebrows |
-| `body.regular` | 14px | Default body copy |
-| `body.small` | 12px | Helper text, captions |
+- `!!! note` — platform-managed quirks: resources that are provisioned automatically, can only be updated (not created) via the ADK, or otherwise behave differently from a normal file.
+- `!!! warning` — data-loss or surprising-overwrite behavior (filenames get uppercased, a field gets reassigned on push).
+- `!!! info` — an edge case worth flagging that doesn't rise to a warning (e.g. non-standard values that silently pass validation).
+- `!!! tip` — a best-practice nudge that's more useful inline than buried in the `Best practices` list.
 
-### Font Weights
-| Token | Value |
-|-------|-------|
-| `light` | 200 |
-| `normal` | 300 |
-| `regular` | 400 |
-| `medium` | 500 |
-| `semibold` | 600 |
-| `bold` | 700 |
+Every admonition gets a quoted title — `!!! warning "Filenames are uppercased"` — never a bare `!!! warning` with nothing after it.
+
+## Cross-links
+
+Link to sibling resource pages with relative paths (`./functions.md`), to CLI pages with `../cli/<command>.md`, and to platform docs with the full external URL plus `{ target="_blank" rel="noopener" }`.
+
+Links to a `development/` concept page are different — never inline. Collect them in `## Related pages` at the bottom instead, alongside the sibling-resource cards.
+
+`## Related pages` uses the grid-cards format (see skeleton) — this is the established pattern across the directory. Reserve a plain bullet list only for a page with two or three links and no room-for-cards content to write (e.g. a non-runtime resource page).
+
+## Non-runtime resources
+
+`tests.md` and `context.md` document resources that sync like any other file but never affect what the agent does on a call. Say that explicitly, early — right after the lead paragraph — so it isn't assumed to be a runtime resource by default.
+
+## Don't document the sync process per resource
+
+Permission-gated visibility — a user without read access to a resource in Agent Studio won't see it locally — is a property of the sync process itself, not something specific to any one resource. It applies (or will apply) across the whole `resources/` directory, not just the page you're writing.
+
+Don't add a per-page note about it. That belongs at a high level in [resource architecture](../../development/resource-architecture.md) and gets a brief mention on the [resources overview](../resources.md) — not repeated on every page it could theoretically affect.
 
 ---
 > Source: [polyai/adk](https://github.com/polyai/adk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
