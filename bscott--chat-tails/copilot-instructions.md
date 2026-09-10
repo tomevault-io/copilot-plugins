@@ -13,7 +13,7 @@ Terminal chat server in Go with optional Tailscale networking. Users connect via
 | Task | Command |
 |------|---------|
 | Build | `make build` |
-| Run | `make run` or `./chat-server` |
+| Run | `make run` or `./chat-tails` |
 | Test | `make test` |
 | Single test | `go test -v -run TestName ./internal/chat/` |
 
@@ -59,4 +59,4 @@ go test -v -run TestClient ./internal/chat/
 
 ---
 > Source: [bscott/chat-tails](https://github.com/bscott/chat-tails) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
