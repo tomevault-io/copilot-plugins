@@ -1,0 +1,9 @@
+{
+  "name": "auth0--auth0-oidc-client-net",
+  "displayName": "auth0-oidc-client-net",
+  "description": "auth0-oidc-client-net",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/auth0-oidc-client-net",
+  "skills": []
+}
