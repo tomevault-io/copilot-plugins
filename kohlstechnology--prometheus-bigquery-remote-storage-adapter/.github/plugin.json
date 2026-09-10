@@ -1,0 +1,9 @@
+{
+  "name": "kohlstechnology--prometheus-bigquery-remote-storage-adapter",
+  "displayName": "prometheus_bigquery_remote_storage_adapter",
+  "description": "prometheus_bigquery_remote_storage_adapter",
+  "version": "1.0.0",
+  "author": "KohlsTechnology",
+  "homepage": "https://github.com/KohlsTechnology/prometheus_bigquery_remote_storage_adapter",
+  "skills": []
+}
