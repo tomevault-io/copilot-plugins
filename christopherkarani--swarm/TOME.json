@@ -2,9 +2,9 @@
   "name": "Swarm",
   "owner": "christopherkarani",
   "repo": "Swarm",
-  "description": "\ud83d\udc26\u200d\ud83d\udd25 A Swifty Agent Orchestration Framework  Purpose built for on-device Models",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/christopherkarani/Swarm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T13:40:38Z"
+  "distributed_at": "2026-09-10T07:17:45Z"
 }
