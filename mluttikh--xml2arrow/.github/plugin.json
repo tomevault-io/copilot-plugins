@@ -1,0 +1,9 @@
+{
+  "name": "mluttikh--xml2arrow",
+  "displayName": "xml2arrow",
+  "description": "Efficiently convert XML data to Apache Arrow format for high-performance data processing",
+  "version": "1.0.0",
+  "author": "mluttikh",
+  "homepage": "https://github.com/mluttikh/xml2arrow",
+  "skills": []
+}
