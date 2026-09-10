@@ -1,0 +1,9 @@
+{
+  "name": "stryker-mutator--stryker4s",
+  "displayName": "stryker4s",
+  "description": "stryker4s",
+  "version": "1.0.0",
+  "author": "stryker-mutator",
+  "homepage": "https://github.com/stryker-mutator/stryker4s",
+  "skills": []
+}
