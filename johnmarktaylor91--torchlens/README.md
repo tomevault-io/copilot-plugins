@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [johnmarktaylor91/torchlens](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [johnmarktaylor91/torchlens](https://github.com/johnmarktaylor91/torchlens) — a repo with 649+ stars on GitHub.
+From [johnmarktaylor91/torchlens](https://github.com/johnmarktaylor91/torchlens) — a repo with 658+ stars on GitHub.
 
 ---
 
