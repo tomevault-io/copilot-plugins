@@ -1,0 +1,9 @@
+{
+  "name": "lpotthast--axum-keycloak-auth",
+  "displayName": "axum-keycloak-auth",
+  "description": "axum-keycloak-auth",
+  "version": "1.0.0",
+  "author": "lpotthast",
+  "homepage": "https://github.com/lpotthast/axum-keycloak-auth",
+  "skills": []
+}
