@@ -1,0 +1,9 @@
+{
+  "name": "kmodules--client-go",
+  "displayName": "client-go",
+  "description": "client-go",
+  "version": "1.0.0",
+  "author": "kmodules",
+  "homepage": "https://github.com/kmodules/client-go",
+  "skills": []
+}
