@@ -1,0 +1,30 @@
+# AI instruction files for xml2arrow
+
+> Sourced from [mluttikh/xml2arrow](https://github.com/mluttikh/xml2arrow), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+Efficiently convert XML data to Apache Arrow format for high-performance data processing
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [mluttikh/xml2arrow](https://github.com/mluttikh/xml2arrow).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/mluttikh/xml2arrow](https://github.com/mluttikh/xml2arrow)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install mluttikh/xml2arrow
+```
+Source: [github.com/mluttikh/xml2arrow](https://github.com/mluttikh/xml2arrow).
+
+<!-- genome:a-i-q -->
