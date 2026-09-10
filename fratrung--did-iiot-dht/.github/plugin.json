@@ -1,0 +1,9 @@
+{
+  "name": "fratrung--did-iiot-dht",
+  "displayName": "did-iiot-dht",
+  "description": "Repository in Python used for building a Self-Sovereign Identity (SSI) system that utilizes did:iiot for identity management, a modified DHT as a Verifiable Data Registry to store DID Documents and Ve",
+  "version": "1.0.0",
+  "author": "fratrung",
+  "homepage": "https://github.com/fratrung/did-iiot-dht",
+  "skills": []
+}
