@@ -311,4 +311,4 @@ destroys in-progress builds for everyone.
 
 ---
 > Source: [PHPantom-dev/phpantom_lsp](https://github.com/PHPantom-dev/phpantom_lsp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
