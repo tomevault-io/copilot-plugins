@@ -4,7 +4,7 @@
   "repo": "birdnet",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/birdnet-team/birdnet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T13:37:17Z"
+  "distributed_at": "2026-09-10T07:31:38Z"
 }
