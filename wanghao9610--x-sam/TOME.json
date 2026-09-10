@@ -4,7 +4,7 @@
   "repo": "X-SAM",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wanghao9610/X-SAM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T00:10:16Z"
+  "distributed_at": "2026-09-10T09:36:48Z"
 }
