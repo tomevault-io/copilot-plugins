@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cauyxy/BazaarPlusPlus](https://github.com/cauyxy/BazaarPlusPlus).
+Original source: `CLAUDE.md` in [cauyxy/BazaarPlusPlus](https://github.com/cauyxy/BazaarPlusPlus).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
