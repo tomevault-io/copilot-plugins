@@ -35,4 +35,4 @@ trust assumptions, and non-boundaries.
 
 ---
 > Source: [apache/iceberg-go](https://github.com/apache/iceberg-go) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
