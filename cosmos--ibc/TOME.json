@@ -4,7 +4,7 @@
   "repo": "ibc",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cosmos/ibc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T19:13:33Z"
+  "distributed_at": "2026-09-10T19:25:07Z"
 }
