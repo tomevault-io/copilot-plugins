@@ -17,10 +17,10 @@ dotnet publish -c Release
 # Output: bin\Release\net48\publish\
 
 # Run (requires administrator privileges — UAC prompt auto-triggered if not elevated)
-./bin/Release/net48/publish/WindowsDefenderPerformanceTool.exe
+./bin/Release/net48/publish/DefenderPerformanceTool.exe
 ```
 
-There are no automated tests; verification is manual by running the app and observing ETW events during a Windows Defender scan.
+There are no automated tests; verification is manual by running the app and observing ETW events during a Defender scan.
 
 ## Architecture
 
@@ -42,4 +42,4 @@ A WPF application with three components wired together in `Program.cs`:
 
 ---
 > Source: [ulex/windows_defender_performance_tool](https://github.com/ulex/windows_defender_performance_tool) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
