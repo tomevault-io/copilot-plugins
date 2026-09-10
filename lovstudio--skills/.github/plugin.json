@@ -1,7 +1,7 @@
 {
   "name": "lovstudio--skills",
   "displayName": "skills",
-  "description": "Agent skills for AI coding assistants \u2014 Markdown to PDF/DOCX with 14 themes, CJK support",
+  "description": "skills",
   "version": "1.0.0",
   "author": "lovstudio",
   "homepage": "https://github.com/lovstudio/skills",
