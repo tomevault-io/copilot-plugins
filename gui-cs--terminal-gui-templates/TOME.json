@@ -4,7 +4,7 @@
   "repo": "Terminal.Gui.templates",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gui-cs/Terminal.Gui.templates",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T06:59:13Z"
+  "distributed_at": "2026-09-10T21:11:48Z"
 }
