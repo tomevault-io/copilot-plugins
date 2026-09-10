@@ -1,0 +1,9 @@
+{
+  "name": "wagslane--go-rabbitmq",
+  "displayName": "go-rabbitmq",
+  "description": "go-rabbitmq",
+  "version": "1.0.0",
+  "author": "wagslane",
+  "homepage": "https://github.com/wagslane/go-rabbitmq",
+  "skills": []
+}
