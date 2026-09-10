@@ -1,61 +1,52 @@
 ## dino
 
-> Git commit conventions — trailer and message style
+> Production SSH safety — observe by default, never change remote state without explicit confirmation
 
 
-# Git Commit Conventions
+# Production SSH Diagnostics
 
-## Trailer
+Treat any remote host (SSH, docker exec on prod, kubectl, cloud consoles) as a live production system. Use it to inspect, debug, and read logs. Prefer observation over intervention.
 
-Every commit MUST include a `Made-with: Cursor` trailer via the `--trailer` flag:
+## Confirm before any change
 
-```bash
-git commit --trailer "Made-with: Cursor" -m "fix null check in group handler"
-```
+Do not modify production without the user clearly authorizing **that exact action**. If a change seems necessary, explain why and wait.
 
-With HEREDOC:
+Never without confirmation:
 
-```bash
-git commit --trailer "Made-with: Cursor" -m "$(cat <<'EOF'
-fix null check in group handler
-EOF
-)"
-```
+- restart, recreate, stop, or start a service
+- `docker compose up` / `restart` / `down` (or equivalent systemd/k8s/rollout commands)
+- edit, copy, delete, or replace files on the remote host
+- change remote config
+- run upgrade, deploy, migration, or schema-changing steps
+- any other command that changes production state
 
-## Commit Message Style
+Make the fewest possible production changes, and only when they are absolutely necessary.
 
-- **One line, under 72 characters.** No body unless the user explicitly asks for one.
-- **Lowercase**, no trailing period.
-- Start with a verb: `fix`, `add`, `remove`, `update`, `refactor`, `rename`, `move`, `extract`.
-- Focus on **why/what changed**, not how.
+## Allowed without extra confirmation
 
-### Examples
+- checking process/container/service status
+- reading logs
+- inspecting configuration (read-only)
+- verifying file presence
+- gathering diagnostic information (`ps`, `df`, `ss`/`netstat`, `docker ps`, `docker logs`, `kubectl get`/`describe`/`logs`, SQL `SELECT`, Redis `INFO`/`GET`/`LLEN`, etc.)
 
-```text
-fix race condition in broadcast consumer
-add pagination to group message history
-remove deprecated v1 auth endpoint
-update redis cache TTL for user sessions
-refactor message handler into smaller functions
-```
+If a command might still mutate state (e.g. `docker logs -f` is fine; `docker compose logs` is fine; `docker restart` is not), treat it as a change and ask first.
 
-### Anti-patterns
+## Examples
 
 ```text
-# ❌ Too vague
-fix bug
-update code
-misc changes
+# ✅ OK — inspect
+ssh prod "docker ps"
+ssh prod "journalctl -u dinoms -n 200 --no-pager"
+ssh prod "grep -n DINO_REDIS_HOST /opt/dinoms/.env"
 
-# ❌ Too verbose
-fix the bug where the group handler crashes when a null user id is passed in the request body
-
-# ❌ Wrong style
-Fixed a bug.
-FEAT: Add new feature
-[DINO-123] implemented thing
+# ❌ NOT OK without explicit approval
+ssh prod "docker compose restart"
+ssh prod "systemctl restart dinoms"
+scp local.env prod:/opt/dinoms/.env
+ssh prod "alembic upgrade head"
 ```
 
 ---
 > Source: [thenetcircle/dino](https://github.com/thenetcircle/dino) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
