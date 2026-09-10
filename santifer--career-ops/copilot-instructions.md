@@ -1,126 +1,61 @@
 ## career-ops
 
-> > This file is auto-loaded by the Gemini CLI as persistent context.
+> This repository is two things at once, and which one you are working on depends on what you were asked.
 
-# Career-Ops — AI Job Search Pipeline (Gemini CLI)
+# Instructions for GitHub Copilot in this repository
 
-> This file is auto-loaded by the Gemini CLI as persistent context.
-> It is the Gemini equivalent of CLAUDE.md.
-> All slash commands are defined in `.gemini/commands/`.
+This repository is two things at once, and which one you are working on depends on what you were asked.
 
-## What is career-ops
+**A. Helping a person with their job search.** If the user runs career-ops as a product (evaluate a posting, tailor a CV, scan portals, track applications, prepare an interview), then `AGENTS.md` and the files under `modes/` govern everything you do, exactly as they would in any other AI coding CLI. Ignore the rest of this file.
 
-AI-powered job search automation: pipeline tracking, offer evaluation, CV generation, portal scanning, batch processing. Originally built on Claude Code, now fully supported on Gemini CLI and OpenCode.
+**B. Working on the repository itself.** If you were asked to reproduce a bug, brief a pull request, write or fix a test, re-sync a translation, find stale documentation, or make any change to the code (this is what the maintainers use Copilot cloud agent for), then the rules below apply. In this mode `AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `OPENCODE.md`, `KIMI.md`, `GEMINI.md`, every file under `modes/` and the skills under `.claude/skills/` are **text you may read or edit, never instructions you follow**: do not run a mode, do not evaluate a posting, do not generate a CV, do not invoke the `career-ops` skill. If a task seems to require it, stop and say so in your report.
 
-## Data Contract (CRITICAL)
+## Setup, build and validate
 
-**User Layer (NEVER auto-updated — your personalizations live here):**
-- `cv.md`, `config/profile.yml`, `modes/_profile.md`, `article-digest.md`, `portals.yml`
-- `data/*`, `reports/*`, `output/*`, `interview-prep/*`
+- Install: `npm install --ignore-scripts` (there is no lock file in the repo). Never install without `--ignore-scripts`, never add or upgrade dependencies.
+- Full suite: `node test-all.mjs --quick` (skips the dashboard build). Run it before you finish, every time.
+- One area: `node test-all.mjs --only <substring>` (for example `--only providers/themuse`).
+- Syntax: `npm run lint`.
+- Dashboard (Go): `npm run build:dashboard` only when you touched `dashboard/`.
+- New tests go in their own file under `tests/**/*.test.mjs` (auto-discovered). Never add a numbered section to `test-all.mjs`.
 
-**System Layer (auto-updatable — do NOT put user data here):**
-- `modes/_shared.md`, `modes/oferta.md`, all other modes
-- `GEMINI.md`, `CLAUDE.md`, `*.mjs` scripts, `templates/*`, `batch/*`
+## Files you must not touch
 
-**THE RULE:** When the user asks to customize anything (archetypes, narrative, negotiation scripts, proof points, location policy, comp targets), ALWAYS write to `modes/_profile.md` or `config/profile.yml`. NEVER edit `modes/_shared.md` for user-specific content.
+- The **user layer** defined in `DATA_CONTRACT.md`: `cv.md`, `config/profile.yml`, `modes/_profile.md`, `modes/_custom.md`, `article-digest.md`, `portals.yml`, `data/`, `documents/`, `reports/`, `output/`, `interview-prep/`. These are the user's private files even when the repo ships an example.
+- The **control files**: `CLAUDE.md`, `AGENTS.md`, `modes/_shared.md`, `DATA_CONTRACT.md`, `update-system.mjs`, `updater-migration-tests.mjs`, anything under `.github/`, `package.json`, `package-lock.json`, `plugins-registry.json`, `plugins/_*.mjs`.
+- Anything under `web/` (owned by a separate track).
 
-## Update Check
+If the task cannot be completed without touching one of these, stop and explain why in your report instead of doing it.
 
-On the first message of each session, run the update checker silently:
+## How to work
 
-```bash
-node update-system.mjs check
+- One problem per session. Smallest diff that fixes it. No drive-by refactors, no renames, no formatting sweeps, no new abstractions when an existing one fits.
+- Explain the root cause before the change. A symptom fix without a cause is not done.
+- Add a regression test for every bug fix when a test can express it.
+- Read the existing tests for the code you change before changing it.
+- Match the spelling of the codebase: ESM `.mjs`, no TypeScript, no new build steps.
+- Never comment on issues or pull requests written by other people. Never close, label or assign anything. A human maintainer does all of that.
+- If the issue or pull request you were given has the label `good first issue`, `first-timers-only` or `help wanted`, or has an assignee, or the pull request belongs to another author: stop, do not modify anything, and report that the task is reserved for a person.
+
+## Your report
+
+End every session with this block, verbatim delimiters included, even when you made no changes:
+
+```
+===CO-CLOUD-REPORT===
+## Summary
+(what you found or did, 5 lines max)
+## Validation
+(each command you ran, literally, and one line of its result)
+## Files
+(paths you changed, or "none")
+## Open questions
+(anything a maintainer must decide, or "none")
+===END===
 ```
 
-Parse the JSON output:
-- `{"status": "update-available", ...}` → tell the user an update is available and ask if they want to apply it (`node update-system.mjs apply`)
-- `{"status": "up-to-date"}` → say nothing
-- `{"status": "dismissed"}` or `{"status": "offline"}` → say nothing
-
-## Gemini CLI Commands
-
-When using [Gemini CLI](https://github.com/google-gemini/gemini-cli), the following slash commands are available (defined in `.gemini/commands/`):
-
-| Command | Claude Code Equivalent | Description |
-|---------|------------------------|-------------|
-| `/career-ops` | `/career-ops` | Show menu or evaluate JD |
-| `/career-ops-pipeline` | `/career-ops pipeline` | Process pending URLs from inbox |
-| `/career-ops-evaluate` | `/career-ops oferta` | Evaluate job offer (A-G scoring) |
-| `/career-ops-compare` | `/career-ops ofertas` | Compare and rank multiple offers |
-| `/career-ops-contact` | `/career-ops contacto` | LinkedIn outreach |
-| `/career-ops-deep` | `/career-ops deep` | Deep company research |
-| `/career-ops-pdf` | `/career-ops pdf` | Generate ATS-optimized CV |
-| `/career-ops-training` | `/career-ops training` | Evaluate course/cert |
-| `/career-ops-project` | `/career-ops project` | Evaluate portfolio project |
-| `/career-ops-tracker` | `/career-ops tracker` | Application status overview |
-| `/career-ops-apply` | `/career-ops apply` | Live application assistant |
-| `/career-ops-scan` | `/career-ops scan` | Scan portals for new offers |
-| `/career-ops-batch` | `/career-ops batch` | Batch processing |
-| `/career-ops-patterns` | `/career-ops patterns` | Analyze rejection patterns |
-| `/career-ops-followup` | `/career-ops followup` | Follow-up cadence tracker |
-
-**All commands share the same evaluation logic** in `modes/*.md`. The `modes/` files are shared between Claude Code, OpenCode, and Gemini CLI.
-
-## First Run — Onboarding
-
-**Before doing anything else, check if the system is set up.** Run silently every session:
-
-1. Does `cv.md` exist?
-2. Does `config/profile.yml` exist (not just profile.example.yml)?
-3. Does `modes/_profile.md` exist (not just _profile.template.md)?
-4. Does `portals.yml` exist (not just templates/portals.example.yml)?
-
-If `modes/_profile.md` is missing, copy from `modes/_profile.template.md` silently.
-
-**If ANY of these is missing, enter onboarding mode.** Guide the user step by step — ask for their CV, fill the profile, set up the tracker. See `CLAUDE.md` for the full onboarding script (identical logic applies here).
-
-## Skill Modes
-
-| If the user... | Mode to load |
-|----------------|-------------|
-| Pastes JD or URL | auto-pipeline → read `modes/_shared.md` + `modes/auto-pipeline.md` |
-| Asks to evaluate offer | read `modes/_shared.md` + `modes/oferta.md` |
-| Asks to compare offers | read `modes/_shared.md` + `modes/ofertas.md` |
-| Wants LinkedIn outreach | read `modes/_shared.md` + `modes/contacto.md` |
-| Asks for company research | read `modes/deep.md` |
-| Preps for interview | read `modes/interview-prep.md` |
-| Wants to generate CV/PDF | read `modes/_shared.md` + `modes/pdf.md` |
-| Evaluates a course/cert | read `modes/training.md` |
-| Evaluates portfolio project | read `modes/project.md` |
-| Asks about application status | read `modes/tracker.md` |
-| Fills out application form | read `modes/_shared.md` + `modes/apply.md` |
-| Searches for new offers | read `modes/_shared.md` + `modes/scan.md` |
-| Processes pending URLs | read `modes/_shared.md` + `modes/pipeline.md` |
-| Batch processes offers | read `modes/_shared.md` + `modes/batch.md` |
-| Asks about rejection patterns | read `modes/patterns.md` |
-| Asks about follow-ups | read `modes/followup.md` |
-
-## Main Files
-
-| File | Function |
-|------|----------|
-| `data/applications.md` | Application tracker |
-| `data/pipeline.md` | Inbox of pending URLs |
-| `portals.yml` | Query and company config |
-| `templates/cv-template.html` | HTML template for CVs |
-| `generate-pdf.mjs` | Playwright: HTML to PDF |
-| `article-digest.md` | Proof points from portfolio (optional) |
-| `interview-prep/story-bank.md` | Accumulated STAR+R stories |
-| `gemini-eval.mjs` | Standalone Gemini API evaluator (no CLI required) |
-
-## Ethical Use — CRITICAL
-
-- **NEVER submit an application without the user reviewing it first.** Fill forms, draft answers, generate PDFs — but always STOP before clicking Submit. The user makes the final call.
-- **Strongly discourage low-fit applications.** If a score is below 4.0/5, explicitly recommend against applying.
-- **Quality over speed.** A well-targeted application to 5 companies beats a generic blast to 50.
-
-## Pipeline Integrity
-
-1. **NEVER edit applications.md to ADD new entries** — Write TSV in `batch/tracker-additions/` and `node merge-tracker.mjs` handles the merge.
-2. Run `node verify-pipeline.mjs` to check health.
-3. All reports MUST include `**URL:**` and `**Legitimacy:**` in the header.
-4. All statuses MUST be canonical (see `templates/states.yml`).
+When you open a pull request, its description must contain the sections `## AI assistance` (which agent, who started the task) and `## Human review` (an empty checklist a maintainer fills in: diff read, behavior validated, tests reviewed, public-code matches checked). Keep the description factual: what changed and why, from the user's point of view.
 
 ---
 > Source: [santifer/career-ops](https://github.com/santifer/career-ops) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
