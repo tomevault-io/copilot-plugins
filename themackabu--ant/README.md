@@ -1,23 +1,21 @@
 # AI instruction files for ant
 
-> Sourced from [theMackabu/ant](https://github.com/theMackabu/ant) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-javascript for 🐜's, a tiny runtime with big ambitions
+> Sourced from [theMackabu/ant](https://github.com/theMackabu/ant), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [theMackabu/ant](https://github.com/theMackabu/ant).
+Original source: `CLAUDE.md` in [theMackabu/ant](https://github.com/theMackabu/ant).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [theMackabu/ant](https://github.com/theMackabu/ant) — a repo with 229+ stars on GitHub.
+From [theMackabu/ant](https://github.com/theMackabu/ant) — a repo with 1261+ stars on GitHub.
 
 ---
 
