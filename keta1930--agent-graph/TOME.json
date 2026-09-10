@@ -2,9 +2,9 @@
   "name": "agent-graph",
   "owner": "keta1930",
   "repo": "agent-graph",
-  "description": "Agent Graph is a Multi-Agent System built on the principles of Context Engineering",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keta1930/agent-graph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:36:33Z"
+  "distributed_at": "2026-09-10T05:53:22Z"
 }
