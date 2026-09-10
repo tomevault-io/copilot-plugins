@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Dotneteer/kliveide](https://github.com/Dotnetee
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Dotneteer/kliveide](https://github.com/Dotneteer/kliveide) — a repo with 127+ stars on GitHub.
+From [Dotneteer/kliveide](https://github.com/Dotneteer/kliveide) — a repo with 129+ stars on GitHub.
 
 ---
 
