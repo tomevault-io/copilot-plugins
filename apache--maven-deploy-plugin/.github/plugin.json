@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-deploy-plugin",
+  "displayName": "maven-deploy-plugin",
+  "description": "maven-deploy-plugin",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-deploy-plugin",
+  "skills": []
+}
