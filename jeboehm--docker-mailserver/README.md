@@ -1,6 +1,6 @@
 # docker-mailserver
 
-> Source: [jeboehm/docker-mailserver](https://github.com/jeboehm/docker-mailserver). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [jeboehm/docker-mailserver](https://github.com/jeboehm/docker-mailserver). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
