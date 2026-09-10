@@ -4,7 +4,7 @@
   "repo": "octomap-python",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wkentaro/octomap-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T10:31:09Z"
+  "distributed_at": "2026-09-10T01:47:16Z"
 }
