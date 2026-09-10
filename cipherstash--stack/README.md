@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cipherstash/stack](https://github.com/cipherstash/stack).
+Original source: `AGENTS.md` in [cipherstash/stack](https://github.com/cipherstash/stack).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cipherstash/stack](https://github.com/cipherstash/stack) — a repo with 148+ stars on GitHub.
+From [cipherstash/stack](https://github.com/cipherstash/stack) — a repo with 156+ stars on GitHub.
 
 ---
 
