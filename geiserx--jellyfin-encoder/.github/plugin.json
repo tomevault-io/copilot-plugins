@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--jellyfin-encoder",
+  "displayName": "jellyfin-encoder",
+  "description": "Automatic 720p HEVC/AV1 transcoding service for Jellyfin with NVIDIA and Intel hardware acceleration",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/jellyfin-encoder",
+  "skills": []
+}
