@@ -1,0 +1,9 @@
+{
+  "name": "bhupatishyam55--replyon-customer-agent",
+  "displayName": "Replyon_customer_agent",
+  "description": "Replyon \u2014 AI customer support agent that auto-replies to emails and tickets (text, voice, image) with zero human intervention. Reduces support workload using Claude, RAG, and smart escalation.",
+  "version": "1.0.0",
+  "author": "Bhupatishyam55",
+  "homepage": "https://github.com/Bhupatishyam55/Replyon_customer_agent",
+  "skills": []
+}
