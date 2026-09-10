@@ -52,4 +52,4 @@ Dev server may already run on :3000. Check first. Leave it up.
 
 ---
 > Source: [graphql/graphql.github.io](https://github.com/graphql/graphql.github.io) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
