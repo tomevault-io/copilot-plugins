@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wkentaro/gdown](https://github.com/wkentaro/gdown).
+Original source: `CLAUDE.md` in [wkentaro/gdown](https://github.com/wkentaro/gdown).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [wkentaro/gdown](https://github.com/wkentaro/gdown) — a repo with 5424+ stars on GitHub.
+From [wkentaro/gdown](https://github.com/wkentaro/gdown) — a repo with 5425+ stars on GitHub.
 
 ---
 
