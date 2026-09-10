@@ -4,7 +4,7 @@
   "repo": "godot-jvm",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/utopia-rise/godot-jvm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T13:17:10Z"
+  "distributed_at": "2026-09-10T17:17:02Z"
 }
