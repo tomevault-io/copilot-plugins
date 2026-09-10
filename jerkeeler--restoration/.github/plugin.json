@@ -1,0 +1,9 @@
+{
+  "name": "jerkeeler--restoration",
+  "displayName": "restoration",
+  "description": "Age of Mythology: Retold replay parser, restoring inscrutiable binary to human readable formats.",
+  "version": "1.0.0",
+  "author": "jerkeeler",
+  "homepage": "https://github.com/jerkeeler/restoration",
+  "skills": []
+}
