@@ -1,0 +1,9 @@
+{
+  "name": "tryghost--express-hbs",
+  "displayName": "express-hbs",
+  "description": "express-hbs",
+  "version": "1.0.0",
+  "author": "TryGhost",
+  "homepage": "https://github.com/TryGhost/express-hbs",
+  "skills": []
+}
