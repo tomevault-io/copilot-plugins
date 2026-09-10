@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [stablyai/orca](https://github.com/stablyai/orca
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [stablyai/orca](https://github.com/stablyai/orca) — a repo with 46318+ stars on GitHub.
+From [stablyai/orca](https://github.com/stablyai/orca) — a repo with 64512+ stars on GitHub.
 
 ---
 
