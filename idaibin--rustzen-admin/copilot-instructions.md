@@ -1,25 +1,36 @@
 ## rustzen-admin
 
-> - `docs/guides/permission.md`
+> - `docs/guides/backend.md`
 
-# Crate Rules
+# Admin Backend Rules
 
 ## Read
 
+- `docs/guides/backend.md`
 - `docs/guides/permission.md`
 - `docs/guides/ai-coding-rules.md`
 
 ## Boundaries
 
-- Capability naming constants and shared boundary language helpers.
-- No backend-specific persistence or transport responsibilities.
+- Admin business features live in `apps/admin/src/features/`.
+- Shared auth and permission code stays in `crates/auth/`.
+- Admin migrations live in `apps/admin/migrations/`.
 
 ## Rules
 
-- Keep capability naming close to business intent.
-- Do not add desktop-only or cross-layer capabilities in first phase.
-- Keep constants and naming helpers small and discoverable.
+- New features use `mod.rs`, `handler.rs`, `service.rs`, `repo.rs`, and `types.rs`.
+- Handlers only handle requests and responses; do not write SQL there.
+- Services handle orchestration, validation, and transactions.
+- Repos only handle persistence and must not cross feature boundaries.
+- Documented read-only aggregation exceptions, currently `features/dashboard/`,
+  may omit `repo.rs`; see `docs/guides/backend.md`.
+- Use `Require(...)` as the default permission check.
+- Do not add compatibility fallbacks or extra abstraction layers.
+
+## Command Source
+
+- Use root `justfile` as the command source of truth.
 
 ---
 > Source: [idaibin/rustzen-admin](https://github.com/idaibin/rustzen-admin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
