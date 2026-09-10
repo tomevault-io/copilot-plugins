@@ -1,6 +1,6 @@
 ## binance-connector-go
 
-> client "github.com/binance/binance-connector-go/clients/alpha"
+> client "github.com/binance/binance-connector-go/clients/stocks/src"
 
 # Agent Configuration
 
@@ -12,22 +12,22 @@ import (
 	"log"
 	"time"
 
-	client "github.com/binance/binance-connector-go/clients/alpha"
-	"github.com/binance/binance-connector-go/clients/alpha/src/websocketstreams/models"
+	client "github.com/binance/binance-connector-go/clients/stocks/src"
+	"github.com/binance/binance-connector-go/clients/stocks/src/websocketstreams/models"
 	"github.com/binance/binance-connector-go/common/v2/common"
 )
 
 func main() {
-	AggregateTradeStream()
+	PriceStream()
 }
 
-func AggregateTradeStream() {
+func PriceStream() {
 	configuration := common.NewConfigurationWebsocketStreams(
-		common.WithWsStreamsBasePath(common.AlphaWebsocketStreamsProdUrl),
+		common.WithWsStreamsBasePath(common.StocksWebsocketStreamsProdUrl),
 		common.WithWsStreamsAgent("your-proxy-url"),
 	)
 
-	wsClient := client.NewBinanceAlphaClient(
+	wsClient := client.NewBinanceStocksClient(
 		client.WithWebsocketStreams(configuration),
 	)
 
@@ -36,12 +36,12 @@ func AggregateTradeStream() {
 		log.Fatalf("Error connecting to WebSocket: %v", err)
 	}
 
-	handler, err := wsClient.WebsocketStreams.DefaultAPI.AggregateTradeStream().Symbol("alpha_116usdt").Execute()
+	handler, err := wsClient.WebsocketStreams.MarketStreamsAPI.PriceStream().Execute()
 	if err != nil {
 		log.Fatalf("Error subscribing to stream: %v", err)
 	}
 
-	handler.On("message", func(message models.AggregateTradeStreamResponse) {
+	handler.On("message", func(message models.PriceStreamResponse) {
 		b, _ := json.MarshalIndent(message, "", "  ")
 		log.Printf("Received message: %s\n", string(b))
 	})
@@ -62,4 +62,4 @@ func AggregateTradeStream() {
 
 ---
 > Source: [binance/binance-connector-go](https://github.com/binance/binance-connector-go) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
