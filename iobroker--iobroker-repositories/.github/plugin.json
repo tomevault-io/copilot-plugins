@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-repositories",
+  "displayName": "ioBroker.repositories",
+  "description": "ioBroker.repositories",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.repositories",
+  "skills": []
+}
