@@ -1,0 +1,9 @@
+{
+  "name": "ukgovernmentbeis--inspect-proxmox-sandbox",
+  "displayName": "inspect_proxmox_sandbox",
+  "description": "A Proxmox sandbox environment for use with inspect_ai",
+  "version": "1.0.0",
+  "author": "UKGovernmentBEIS",
+  "homepage": "https://github.com/UKGovernmentBEIS/inspect_proxmox_sandbox",
+  "skills": []
+}
