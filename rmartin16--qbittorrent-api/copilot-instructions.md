@@ -1,0 +1,195 @@
+## qbittorrent-api
+
+> This suite tests a client for qBittorrent's Web API. Most of it runs against a
+
+# Working on this test suite
+
+This suite tests a client for qBittorrent's Web API. Most of it runs against a
+real qBittorrent, which shapes nearly every rule below. Read this before adding
+or changing tests.
+
+## You need a running qBittorrent
+
+Start the same container CI uses:
+
+```bash
+docker run --rm -d --name qbt-tox-testing --publish 8080:8080 \
+  --volume "$PWD/tests/_resources:/tmp/_resources" \
+  ghcr.io/rmartin16/qbittorrent-nox:master-debug
+```
+
+Then run the suite:
+
+```bash
+python -m pytest                      # everything
+python -m pytest tests/test_torrents.py -k webseed   # a slice
+tox -e py                             # starts and stops the container for you
+```
+
+This is not optional, even for tests that never make a request: `setup_environ()`
+in `tests/utils.py` contacts qBittorrent while `conftest.py` is being imported,
+so *collection* fails without it.
+
+**Never run two pytest sessions against one qBittorrent.** The session fixture
+rewrites application preferences and adds torrents; two sessions will corrupt
+each other's state and produce failures that look like real bugs.
+
+## Two kinds of test
+
+**Offline** — `tests/test_api_surface.py`, derived from `tests/catalog.py`. These
+inspect the library itself and never talk to qBittorrent. They carry the
+`offline` marker, are generated from all 130 endpoints in the catalog, and
+finish in well under a second.
+
+**Live** — everything else. These make real requests and assert on what
+qBittorrent actually did.
+
+Put a new test in the offline layer if it asserts something true regardless of
+which qBittorrent is running: which names an endpoint is reachable under, what
+version range it declares, what type it returns. Put it in the live layer if it
+asserts that a request *changed something*.
+
+## If you add or change an endpoint, regenerate the snapshot
+
+```bash
+python -m tests.catalog > tests/api_surface.json
+```
+
+`tests/api_surface.json` is a checked-in snapshot of the API surface, and
+`test_catalog_matches_snapshot` fails until it is regenerated. This is
+intentional, not an obstacle: the catalog is derived from the source, so it
+cannot by itself notice a `version_introduced` constant being changed by
+mistake — the expectation would move along with the change. The snapshot is the
+second copy that makes such an edit visible in review. Regenerate it
+deliberately and check the diff is what you meant.
+
+## Do not mock qBittorrent in live tests
+
+The point of the live layer is that qBittorrent really behaves this way.
+Replacing requests with `unittest.mock` deletes the only thing those tests
+verify. If a live test is hard to write, fix the fixture, do not mock it.
+
+Pinning versions *is* allowed in the offline layer, where the subject is the
+library's own logic:
+
+```python
+monkeypatch.setattr(client, "app_web_api_version", MagicMock(return_value="0.0.1"))
+```
+
+## qBittorrent applies changes asynchronously
+
+A request that returns 200 has not necessarily taken effect yet, so a bare
+assert immediately after a mutation is a flake waiting to happen. Wrap it in
+`eventually()` from `tests/utils.py`, which retries the block until it passes or
+the timeout expires (10 seconds by default):
+
+```python
+for attempt in eventually():
+    with attempt:
+        assert torrent.info.category == "test_category"
+```
+
+The assertions stay in the test module, so pytest rewrites them and a failure
+reports the values that did not match. Only `AssertionError`, `AttributeError`
+and `LookupError` are retried, and the final attempt re-raises whatever it gets,
+so retrying can delay a genuine failure but never hide one.
+
+Worse, qBittorrent sometimes drops a request entirely — webseed changes run in
+worker threads that swallow every exception, and some setters return early when
+qBittorrent's own cached state already looks correct. For those, pass `resend=`,
+a callable that re-sends the request between attempts:
+
+```python
+def add_webseeds():
+    client.func(add_webseeds_func)(torrent_hash=new_torrent.hash, urls=webseeds)
+
+
+add_webseeds()
+for attempt in eventually(
+    timeout=WEBSEED_TIMEOUT, resend=add_webseeds, resend_every=WEBSEED_RESEND_EVERY
+):
+    with attempt:
+        assert [w.url for w in new_torrent.webseeds] == webseeds
+```
+
+Only use `resend=` for requests that are safe to send more than once. Raise
+`resend_every` for work handled on a thread pool, where re-sending on every
+attempt only queues more onto a pool that is already behind.
+
+## Tests share one qBittorrent, so clean up
+
+Anything a test creates — torrents, categories, tags, RSS feeds — outlives it
+and will confuse whatever runs next. Use the existing fixtures rather than
+hand-rolling setup:
+
+- `client` — session-scoped, authenticated
+- `orig_torrent` — a torrent present for the whole session; re-synced per test
+- `new_torrent` — added for one test, removed afterwards
+- `new_torrent_standalone()` — same, as a context manager, when you need options
+
+Clean up in a `finally` block so a mid-test failure still tidies up.
+
+This is enforced. An autouse fixture compares qBittorrent's torrents,
+categories, tags, RSS items and preferences either side of every test, and fails
+one that leaves anything behind or changes a preference without putting it back:
+
+```
+AssertionError: test left state behind in qBittorrent: {'tags': ['extra-tag']}
+```
+
+Restore preferences you change by reading the original first, rather than
+assuming a default. If altering qBittorrent is the whole point of a test — as it
+is for rotating the Web UI API key — mark it `no_sandbox` instead.
+
+Be aware that one leak can hide another: if an earlier test already left a tag
+behind, a later test leaking the same tag shows no difference across itself.
+Fixing leaks tends to reveal more of them, so re-run after each fix.
+
+## Version gating
+
+Endpoints exist only in some Web API versions. Skip accordingly:
+
+```python
+@pytest.mark.skipif_before_api_version("2.11.3")
+@pytest.mark.skipif_after_api_version("2.11.3")
+```
+
+CI runs the suite against qBittorrent versions back to v4.1.0, so a test without
+the right marker will fail there even though it passes locally against master.
+
+**Do not write a `*_not_implemented` test for a new endpoint.** The offline layer
+already asserts, for every gated endpoint, that it raises `NotImplementedError`
+below the version it was introduced in — through the client method *and* its
+interface spelling — and that it stops raising at that version. Writing one by
+hand adds a live request that proves something already proven.
+
+That holds for all three ways an endpoint can be reached: the client method, the
+namespace interface, and the torrent objects `torrents_info()` returns. The only
+`*_not_implemented` tests left are in `test_request.py`, and they cover the gate
+mechanism itself rather than any particular endpoint.
+
+## Gotchas that have cost real time
+
+- **camelCase spellings are the same function object.** `torrents_addWebSeeds`
+  *is* `torrents_add_webseeds`, assigned, not reimplemented. 94 of the 130
+  endpoints have at least one alias, 226 alias bindings in all across the
+  client, the namespace interfaces and the torrent methods. Do not add live
+  tests per spelling; the offline layer asserts the identity for every endpoint
+  already.
+- **`torrents_rename_folder` gates on the application version**, not the Web API
+  version, because v4.3.2 and v4.3.3 both report Web API v2.7. Pin both versions
+  when writing generic tests over endpoints.
+- **`--doctest-modules` is enabled**, so every module under `tests/` is imported
+  and its docstrings are executed as doctests. Do not write a docstring example
+  that looks like a doctest unless you mean it.
+- **Some tests fail against master dev builds.** Before assuming you broke
+  something, stash your change and confirm whether the failure is already there.
+  The RSS fixture in particular fetches a feed over the network and errors when
+  that fetch or the refresh is slow.
+- **The Release Tests workflow sets `continue-on-error`**, so a run's overall
+  conclusion can be "success" while test jobs failed. Check the job
+  conclusions, not the run's.
+
+---
+> Source: [rmartin16/qbittorrent-api](https://github.com/rmartin16/qbittorrent-api) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
