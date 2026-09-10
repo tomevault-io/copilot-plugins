@@ -1,23 +1,22 @@
 # holdem
 
-> Source: [iamzubin/holdem](https://github.com/iamzubin/holdem) — distributed by [TomeVault](https://tomevault.io)
-
-Holdem is a lightweight, open-source tool for effortlessly dragging and organizing files on your desktop. Inspired by Dropover and built with Tauri, Holdem lets you collect and drop files in a temporary holding area — no clutter, no hassle.
+> Source: [iamzubin/holdem](https://github.com/iamzubin/holdem). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iamzubin/holdem](https://github.com/iamzubin/holdem).
+Original source: `` in [iamzubin/holdem](https://github.com/iamzubin/holdem).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/iamzubin/holdem](https://github.com/iamzubin/holdem)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/iamzubin/holdem](https://github.com/iamzubin/holdem)
 
 ---
 
