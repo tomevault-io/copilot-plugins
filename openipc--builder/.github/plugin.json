@@ -1,0 +1,9 @@
+{
+  "name": "openipc--builder",
+  "displayName": "builder",
+  "description": "builder",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/builder",
+  "skills": []
+}
