@@ -1,0 +1,9 @@
+{
+  "name": "telus-agcg--ffi-gdal",
+  "displayName": "ffi-gdal",
+  "description": "ffi-gdal",
+  "version": "1.0.0",
+  "author": "telus-agcg",
+  "homepage": "https://github.com/telus-agcg/ffi-gdal",
+  "skills": []
+}
