@@ -1,0 +1,9 @@
+{
+  "name": "oligot--go-mod-upgrade",
+  "displayName": "go-mod-upgrade",
+  "description": "go-mod-upgrade",
+  "version": "1.0.0",
+  "author": "oligot",
+  "homepage": "https://github.com/oligot/go-mod-upgrade",
+  "skills": []
+}
