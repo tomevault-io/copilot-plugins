@@ -1,0 +1,63 @@
+{
+  "name": "hiero-mirror-node",
+  "owner": "hiero-ledger",
+  "repo": "hiero-mirror-node",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hiero-mirror-node",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/hiero-ledger/hiero-mirror-node/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hiero-mirror-node",
+      "path": ".claude/skills/modernize-java/SKILL.md",
+      "github_url": "https://github.com/hiero-ledger/hiero-mirror-node/tree/main/.claude/skills/modernize-java/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hiero-mirror-node",
+      "path": ".claude/skills/rest-api-conversion/SKILL.md",
+      "github_url": "https://github.com/hiero-ledger/hiero-mirror-node/tree/main/.claude/skills/rest-api-conversion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hiero-ledger/hiero-mirror-node",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T00:30:17Z"
+}
