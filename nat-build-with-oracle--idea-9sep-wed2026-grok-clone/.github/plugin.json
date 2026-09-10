@@ -1,0 +1,9 @@
+{
+  "name": "nat-build-with-oracle--idea-9sep-wed2026-grok-clone",
+  "displayName": "idea-9sep-wed2026-grok-clone",
+  "description": "Experimental native macOS AI-teammate workspace built with SwiftUI, AppKit and Core Data. MIT licensed; provider UI integration in progress.",
+  "version": "1.0.0",
+  "author": "nat-build-with-oracle",
+  "homepage": "https://github.com/nat-build-with-oracle/idea-9sep-wed2026-grok-clone",
+  "skills": []
+}
