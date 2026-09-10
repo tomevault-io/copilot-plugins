@@ -1,0 +1,9 @@
+{
+  "name": "ata-core--ata-validator",
+  "displayName": "ata-validator",
+  "description": "ata-validator",
+  "version": "1.0.0",
+  "author": "ata-core",
+  "homepage": "https://github.com/ata-core/ata-validator",
+  "skills": []
+}
