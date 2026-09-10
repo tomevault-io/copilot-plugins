@@ -1,131 +1,95 @@
 ## fullsend
 
-> Manage agent registrations in fullsend config. Add, list, update, and remove agents, or migrate legacy `customized/` overrides to config-driven agents.
+> [Claude Code](https://claude.com/claude-code) is fullsend's default runtime. Every role is supported,
 
+# Claude Code
 
-# fullsend agent
-
-Manage agent registrations in fullsend config. Add, list, update, and remove agents, or migrate legacy `customized/` overrides to config-driven agents.
-
-`agent add`, `agent update`, and `agent migrate-customizations` (non-dry-run) fetch remote content and resolve GitHub URLs. Authentication is via `gh` CLI or `GH_TOKEN` environment variable.
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `fullsend agent add <url-or-path>` | Register an agent in config |
-| `fullsend agent list` | List registered agents |
-| `fullsend agent update <name> [sha]` | Update a URL agent to a new commit SHA |
-| `fullsend agent remove <name>` | Remove an agent from config |
-| `fullsend agent migrate-customizations` | Migrate `customized/` overrides to config-driven agents |
-
-## `agent add`
-
-Register an agent in config by URL or local path. URL sources are automatically pinned to a specific commit SHA and annotated with a `#sha256=...` integrity hash. The URL prefix is added to `allowed_remote_resources` if not already present.
+[Claude Code](https://claude.com/claude-code) is fullsend's default runtime. Every role is supported,
+and nothing needs configuring to use it — this page is the operational detail once you are on it.
 
 ```bash
-fullsend agent add https://github.com/my-org/agents/blob/main/harness/lint.yaml --fullsend-dir .fullsend
-fullsend agent add harness/custom-review.yaml --name my-review --fullsend-dir .fullsend
+fullsend run triage --model opus --effort high
 ```
 
-### Flags
+Choosing between runtimes is in [Agent runtimes](../runtimes.md). Selection, precedence and the
+config keys live there too.
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--fullsend-dir` | | Path to the `.fullsend` configuration directory (required) |
-| `--name` | derived from filename | Explicit agent name |
+## Models
 
-GitHub blob URLs are resolved to pinned `raw.githubusercontent.com` URLs. Non-GitHub URLs must already contain a commit SHA in the path. Local paths must be relative, must not contain path traversal (`..`), and the file must exist. If an agent with the same name already exists, the command fails.
+Pass an alias or a model id; Claude Code resolves aliases natively.
 
-## `agent list`
+| Alias | Resolves to |
+|---|---|
+| `opus`, `sonnet`, `haiku`, `fable` | the current Anthropic model of that tier, as the pinned Claude Code version defines it |
 
-List all agents registered in config, showing each agent's name and source.
+All inference goes to Anthropic models on Vertex AI, on the fleet's WIF credentials. Vertex enables
+models **per project**, so the tier's current model is not always one your project can serve; a run
+that asks for a model the project cannot serve fails at the first model call. When a specific
+generation matters, name the id.
 
-```bash
-fullsend agent list --fullsend-dir .fullsend
-```
+**Per-repo alias overrides.** Point an alias at a different model for this repo with
+`models.aliases` in `.fullsend/config.yaml` (`sonnet: claude-sonnet-5`); the run then passes that id
+to `--model` and `--fallback-model`. Syntax, rules and what the plan block shows are on the
+[pi page](pi.md#per-repo-alias-overrides) — it is the same block. It covers the run's own model only:
+sub-agent `model:` frontmatter is resolved by Claude Code itself, so a sub-agent that needs a
+specific generation names the id.
 
-### Flags
+**Fallback chains.** `FULLSEND_FALLBACK_MODELS=a,b` becomes `--fallback-model a,b`, tried in order
+when the primary model is overloaded or retired. This is Claude Code only — pi reports it as
+unsupported and ignores it.
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--fullsend-dir` | | Path to the `.fullsend` configuration directory (required) |
+## At a glance
 
-Read-only. Displays a table with `NAME` and `SOURCE` columns. For URL agents, the `#sha256=...` integrity hash suffix is stripped from the displayed source for readability. Disabled agents (`enabled: false`) are included in the listing.
+| | |
+|---|---|
+| Roles | All, including `review` and `retro` — they need sub-agents |
+| Credentials | WIF `external_account` + a refreshed OIDC token; `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_BASE_URL` and `ANTHROPIC_VERTEX_BASE_URL` are unset so a stray key cannot redirect traffic |
+| Unattended | `--dangerously-skip-permissions`; hooks wired from the harness, never from agent-writable files |
+| Artifacts | `output.jsonl`, transcripts, `metrics.json` with `runtime: claude`, and `claude-debug.log` with `--debug` |
+| Effort | `--effort low..max` |
 
-Example output:
-```
-NAME     SOURCE
-triage   https://raw.githubusercontent.com/fullsend-ai/agents/abc123/harness/triage.yaml
-my-lint  harness/my-lint.yaml
-```
+## Behaviour differences worth knowing
 
-## `agent update`
+These are the places Claude Code differs from pi — useful when comparing a run across runtimes.
 
-Update a URL-based agent to a new commit SHA and recompute the `#sha256=...` integrity hash. If no SHA is provided, the default branch HEAD is resolved automatically.
+- **The agent definition *replaces* the system prompt.** `--agent` makes the agent `.md` body the
+  system prompt outright. pi appends it to its own default instead, so an agent that relies on
+  Claude Code's exact framing can read differently there.
+- **Native sub-agents** via the `Agent` tool.
+- **A `CLAUDE.md` bridge is injected** when the repo has `AGENTS.md` but no `CLAUDE.md`, because
+  Claude Code auto-loads only the former. pi reads `AGENTS.md` natively and needs no bridge.
+- **`tools:` is enforced unreliably** (≥ 2.1.119); pi enforces its `--tools` allowlist strictly. In
+  both cases the sandbox, not the tool list, is the boundary
+  ([ADR 0027](../ADRs/0027-allowed-and-disallowed-tools-for-agents.md)).
+- **Failed tool calls cannot be rewritten.** Claude Code fires `PostToolUse` only on success; a
+  failed call goes to `PostToolUseFailure`, which accepts no output rewrite. Secrets or control
+  characters in a failed command's output are detected and logged, and the agent is warned, but they
+  reach the transcript unmasked. pi sanitizes those too.
+- **The repo's own `.claude/settings.json` still auto-loads** from the working directory. fullsend's
+  hook wiring is passed explicitly with `--settings` so it loads regardless, but repo-supplied hooks
+  are a separate exposure to be aware of.
 
-```bash
-fullsend agent update triage --fullsend-dir .fullsend
-fullsend agent update triage a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2 --fullsend-dir .fullsend
-```
+## Troubleshooting
 
-### Flags
+**The model is not what you asked for.** Check `metrics.json`: `requested_model` is what was handed
+to the runtime after overrides and `override_source` says where it came from — ending in
+`remapped by <config path> models.aliases` when a per-repo alias override applied — so a silent
+override is visible after the fact.
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--fullsend-dir` | | Path to the `.fullsend` configuration directory (required) |
+**A tool call was blocked.** The security hooks log to `/sandbox/workspace/.security/findings.jsonl`
+inside the sandbox. A blocked tool reports its reason in the transcript; an allowlist mismatch names
+the offending tool and the expected vocabulary.
 
-Only URL agents can be updated — local path agents have nothing to pin. Non-GitHub URL agents require an explicit SHA argument. The integrity hash is recomputed by fetching the content at the new SHA.
-
-## `agent remove`
-
-Remove an agent from config. If the removed agent was the last one using a given `allowed_remote_resources` prefix, that prefix is also cleaned up.
-
-```bash
-fullsend agent remove triage --fullsend-dir .fullsend
-```
-
-### Flags
-
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--fullsend-dir` | | Path to the `.fullsend` configuration directory (required) |
-
-## `agent migrate-customizations`
-
-Scan the `customized/` directory and migrate each override to a config-driven agent. Changes are committed to a branch and delivered via pull request. Use `--dry-run` to preview changes without creating a PR.
-
-```bash
-fullsend agent migrate-customizations --fullsend-dir .fullsend --dry-run
-fullsend agent migrate-customizations --fullsend-dir .fullsend --repo owner/repo
-```
-
-### Flags
-
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--fullsend-dir` | | Path to the `.fullsend` configuration directory (required) |
-| `--repo` | | Target repository (`owner/repo`) for the migration PR (required unless `--dry-run`) |
-| `--dry-run` | `false` | Show what would change without creating a PR |
-
-### Override classification
-
-The tool classifies each override and takes the appropriate action:
-
-| Override type | Detection | Action |
-|---------------|-----------|--------|
-| Dead | Agent already registered in config | Delete `customized/` files |
-| Custom | Not in upstream scaffold | Move files to regular directories, register local path in config |
-| Modified | Standard scaffold agent, not yet in config | Generate a `base:` composition harness with the minimal diff, register in config |
-
-For modified agents, the migration produces a thin `base:` harness containing only the fields that differ from upstream.
+**Output looks truncated or condensed.** The PostToolUse chain condenses verification-command output
+only on positive evidence of success, and attaches a note saying it did. Anything carrying a failure
+marker passes through untouched.
 
 ## See also
 
-- [Bring Your Own Agent](../guides/user/bring-your-own-agent.md) — building custom agents and configuring existing ones
-- [Default, derived, and custom agents](../agents/topics/default-vs-custom.md) — terminology and classification
-- [Customizing with skills](../guides/user/customizing-with-skills.md) — extending agents with skills
+- [Agent runtimes](../runtimes.md) — choosing and selecting a runtime
+- [Pi](pi.md) — the second runtime, for Grok and Gemini
+- [Running agents locally](../guides/user/running-agents-locally.md) — local runs
 
 ---
 > Source: [fullsend-ai/fullsend](https://github.com/fullsend-ai/fullsend) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
