@@ -1,23 +1,21 @@
 # react-theme-switch-animation
 
-> Source: [MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation) — distributed by [TomeVault](https://tomevault.io)
-
-React Theme Switch with smooth animation supports dark and light modes on NextJS, ReactJS, and more ...
+> Source: [MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation).
+Original source: `AGENTS.md` in [MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/MinhOmega/react-theme-switch-animation](https://github.com/MinhOmega/react-theme-switch-animation)
 
 ---
 
