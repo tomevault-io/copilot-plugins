@@ -1,0 +1,14 @@
+{
+  "name": "abagames--agentic-gamedev-skills",
+  "displayName": "agentic-gamedev-skills",
+  "description": "Agent skills extracted from game-development work and related agentic-workflow research",
+  "version": "1.0.0",
+  "author": "abagames",
+  "homepage": "https://github.com/abagames/agentic-gamedev-skills",
+  "skills": [
+    {
+      "name": "migrating-agents-md-to-control-flow",
+      "description": ""
+    }
+  ]
+}
