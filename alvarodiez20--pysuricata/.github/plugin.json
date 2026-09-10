@@ -1,0 +1,9 @@
+{
+  "name": "alvarodiez20--pysuricata",
+  "displayName": "pysuricata",
+  "description": "Single-pass exploratory data analysis on streaming algorithms. Bounded memory at any dataset size, pandas and Polars, self-contained HTML reports.",
+  "version": "1.0.0",
+  "author": "alvarodiez20",
+  "homepage": "https://github.com/alvarodiez20/pysuricata",
+  "skills": []
+}
