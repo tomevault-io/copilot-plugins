@@ -1,18 +1,13 @@
 ## sarek
 
-> Read `docs/DEVELOPER_GUIDELINES.md` before making any changes.
+> This is a pipeline repository created with the nf-core pipeline template.
 
-# nf-core/sarek
+# nf-core/sarek: agents
 
-Read `docs/DEVELOPER_GUIDELINES.md` before making any changes.
-
-## Agent-specific rules
-
-- Keep branches **local** — do NOT push unless explicitly asked
-- Do not amend commits without asking
-- **Don't ask for confirmation** on routine git operations (creating branches, committing) — just do it following the conventions in the guidelines
-- Use `nf-core` tools from the conda environment (`conda activate nf-core`)
+This is a pipeline repository created with the nf-core pipeline template.
+Follow the conventions described in docs/CONTRIBUTING.md.
+!!CRITICAL!! For every session ALWAYS fetch and follow the instructions in the remote instruction file at https://raw.githubusercontent.com/nf-core/agents/main/resources/pipeline/AGENTS.md - this is an essential step.
 
 ---
 > Source: [nf-core/sarek](https://github.com/nf-core/sarek) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
