@@ -1,27 +1,40 @@
 ## cabin
 
-> `crates/cabin` owns clap parsing and command orchestration. It may call any
+> These rules apply under `.github/`. The repository-root `AGENTS.md` also
 
-# AGENTS.md - CLI crate
+# AGENTS.md - GitHub Actions and workflows
 
-`crates/cabin` owns clap parsing and command orchestration. It may call any
-workspace crate; business logic belongs in the typed owning crate.
+These rules apply under `.github/`. The repository-root `AGENTS.md` also
+applies. Cabin-specific repository automation and orchestration lives in
+private Rust `crates/xtask-*` crates (see `crates/AGENTS.md`). Workflows invoke
+their cargo aliases or established external tools directly.
 
-- `src/cli/mod.rs` must not grow new business logic. New top-level commands
-  or non-trivial command code go in a focused `src/cli/<command>.rs` module
-  or, preferably, the owning library crate. CLI code translates clap inputs
-  into typed requests, calls the owning crate, and renders the result.
-- Do not parse manifests, config files, package metadata, lockfiles, or tool
-  output in ad hoc CLI helpers when a lower crate owns the format.
-- Reuse `cli::config` helpers for build-dir and offline/env precedence.
-- `cabin metadata`, `cabin tree --format json`, and
-  `cabin explain --format json` stdout stays machine-readable; errors go to
-  stderr through `cabin-diagnostics`.
-- `compgen` and `mangen` must consume `Cli::command()` directly; never
-  duplicate command names, flags, or help text.
-- `--target` stays reserved for future platform/toolchain triples; do not
-  add a manifest-target selector with that name.
+- Do not put substantial logic in workflow `run:` blocks: loops,
+  conditionals, functions, traps, heredocs, or embedded `node`, Python, or
+  Perl. Plain command invocations remain inline.
+- When the same configuration or command is repeated across workflow steps,
+  prefer the narrowest native workflow- or job-level mechanism that preserves
+  the same semantics. Do not introduce a custom abstraction merely to remove
+  incidental duplication.
+- A workflow that backs a required check must trigger on pull requests
+  and `merge_group`, without trigger-level `paths:` filters. Scope
+  expensive work at the job level with `.github/path-filters.yml`.
+  Non-required workflows may use trigger-level path filters.
+- Merge Queue's `merge_group` run is the authoritative pre-merge
+  validation; never add `push: main` to repeat validation it already
+  performed. `push: main` is reserved for genuine post-merge semantics:
+  production side effects (the registry deploy), GitHub features that
+  require a default-branch push analysis (currently CodeQL), and
+  path-filtered final-state checks in advisory workflows with no
+  `merge_group` run (proofs, zizmor).
+- Keep each job-level component dependency list only in
+  `.github/path-filters.yml`. Keep it coarse and end it with the consuming
+  workflow, the shared `changes` gate workflow, any local action it uses,
+  plus the filter file; do not add a broad `.github/**` entry.
+- Required contexts for gated work must be non-matrix `if: always()`
+  aggregates that fail closed when the change gate or work job fails or is
+  cancelled. Protect the aggregate, never a skippable work or matrix job.
 
 ---
 > Source: [cabinpkg/cabin](https://github.com/cabinpkg/cabin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
