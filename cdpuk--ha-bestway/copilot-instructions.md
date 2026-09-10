@@ -1,0 +1,114 @@
+## ha-bestway
+
+> This file provides guidance to LLMs when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to LLMs when working with code in this repository.
+
+## What this is
+
+A Home Assistant custom component (HACS) that integrates with Bestway cloud APIs to control devices like Lay-Z-Spa hot tubs and Flowclear pool filters. It supports two distinct hardware generations with different backends.
+
+## Python version
+
+We only support Home Assistant versions based on Python 3.14+. Always run python via `uv run` to land in the correct environment.
+
+## Commands
+
+Install dependencies:
+
+```bash
+uv sync
+```
+
+Run all tests:
+
+```bash
+uv run pytest -qq --timeout=10 --durations=10 -n auto --cov custom_components.bestway -o console_output_style=count -p no:sugar tests
+```
+
+Run a single test file:
+
+```bash
+uv run pytest tests/test_aws_iot_api.py
+```
+
+Type check:
+
+```bash
+uv run mypy custom_components/ tests/
+```
+
+Lint and auto-fix with ruff (version is pinned in `.pre-commit-config.yaml`, not `pyproject.toml`, so always run it via `pre-commit` rather than a separately-installed `ruff` binary):
+
+```bash
+uv run pre-commit run ruff-check --all-files
+uv run pre-commit run ruff-format --all-files
+```
+
+`ruff-check` runs with `--fix` (see `.pre-commit-config.yaml`), so it rewrites files in place where it can; rule ignores live in `pyproject.toml` under `[tool.ruff.lint]`.
+
+Set up pre-commit hooks (required before contributing):
+
+```bash
+uv run pre-commit install
+```
+
+Run pre-commit manually:
+
+```bash
+uv run pre-commit run --all-files
+```
+
+## Architecture
+
+### Multiple backends, one coordinator
+
+The integration supports three completely separate cloud backends, selected at config flow time:
+
+- **Gizwits** (`BACKEND_GIZWITS`) — V1 devices (up to ~2024). Uses `custom_components/bestway/bestway/` subpackage. Auth via username/password. WebSocket via `GizwitsWebSocket`.
+- **AWS IoT** (`BACKEND_AWS_IOT`) — V2 devices (2025+). Uses `custom_components/bestway/aws_iot/` subpackage. Auth via QR code scan (visitor ID). WebSocket via `AwsIotWebSocket`. Note: "UltraFit" is a pump name Bestway uses on both V1 and V2 hardware, so it does not imply this backend — see `docs/supported-devices.md`.
+- **SmartSpa** (`BACKEND_SMARTSPA`) — post-July-2026 Bestway Connect app. Uses `custom_components/bestway/smartspa/` subpackage. Auth via account/password. No WebSocket.
+
+`__init__.py` branches on `entry.data["backend"]` to call `_async_setup_gizwits`, `_async_setup_aws_iot` or `_async_setup_smartspa`. Every path creates a `BestwayUpdateCoordinator`, which accepts any `BackendApi` (`backend.py`) — the structural `Protocol` all three API classes satisfy, so entities are backend-agnostic. Add a fourth backend by implementing that `Protocol`, not by widening a union.
+
+On the read side, all three converge on `translation.py`: `status_from_attrs()` turns merged wire attrs into a typed `DeviceStatus`. AWS IoT and SmartSpa serve the same V02 device shadow over different transports, so both first pass it through `v01_attrs_from_shadow()` in that same module, which maps the shadow vocabulary onto the Gizwits V01 one — that's why a single parser covers every backend.
+
+`BackendApi` exposes device-agnostic semantic setters (`set_power`, `set_filter`, `set_heat`, `set_locked`, `set_jets`, `set_target_temperature`, `set_bubbles`, `set_pool_timer`) plus `refresh_bindings`/`fetch_data`/`handle_partial_update`. Each backend owns its own wire encoding internally; entities and platform code never see per-device vocabulary (Gizwits' `HydrojetHeat`/`HydrojetFilter`/bubbles ints and the rest are confined to `custom_components/bestway/bestway/`).
+
+### Update flow
+
+The coordinator polls every 30 seconds by default. When a WebSocket connects successfully, polling drops to 5 minutes (`set_websocket_active()`). WebSocket updates call `handle_websocket_update()`, which delegates to the backend's `handle_partial_update()` (merges the partial delta into its raw state cache and translates it into a fresh `DeviceStatus`) and pushes the result via `async_set_updated_data()`.
+
+### State cache pattern
+
+Each API class maintains `_raw_state: dict[str, RawSnapshot]` (raw/normalized wire attrs, not the typed status entities read). After sending a control command (e.g. `set_power`), the API immediately updates this cache with the new value and a fresh timestamp, then translates it (`status_from_attrs()` in `bestway/translation.py`) into the `DeviceStatus` entities read. On the next poll, if the API response timestamp is older than the cached one, the poll result is discarded. This works around the Gizwits API's latency in reflecting POSTed changes.
+
+### Entity structure
+
+All entities extend `BestwayEntity` (in `entity.py`), which extends `CoordinatorEntity`. It exposes:
+
+- `self.status` → `DeviceStatus | None` (typed snapshot of the device's current state — see `model.py`)
+- `self.bestway_device` → `BestwayDevice | None` (device metadata)
+- `available` returns `True` as long as coordinator has data and the device is known — the `is_online` flag from the API is explicitly ignored as unreliable.
+
+Platform files (`switch.py`, `climate.py`, `sensor.py`, etc.) each define entities and an `async_setup_entry` that iterates `coordinator.api.devices` to create per-device entities.
+
+Which entities a device gets is decided by `features.py`, not by per-platform device-type checks. `features_for(device, options)` derives a `DeviceFeatures` from the device's `device_type` (plus the bubbles UI option) and returns a table of booleans/enums that each platform's `async_setup_entry` reads. Adding support for a new model, or changing what an existing model exposes, means adding or editing one row in `features.py`'s `_FEATURES_BY_TYPE` table — not touching every platform file. Characterisation tests in `tests/test_entity_setup.py` pin the exact set of entity `unique_id`s produced per device type; update them deliberately when a table change is intended to add/remove/rename an entity.
+
+### Linting
+
+Pre-commit runs: `ruff` (lint + format), `mypy`, `codespell`, `yamllint`, `prettier`, `actionlint`. Ruff replaces black/flake8/isort. mypy is strict for `custom_components/` but relaxed for `tests/`.
+
+### Comments
+
+Don't write comments that just restate what an IDE derives on demand — lists of a type's implementers or subclasses, a function's callers, "used by X/Y/Z", "see also <module>". They rot silently when code moves. Comment the _why_ and any non-obvious contract, not the _where-used_.
+
+Don't narrate a refactor in the comment — "no longer needs to", "used to live here", "now lives in", "legacy X becomes Y", "mirrors the pre-refactor branch in...". Describe the code as it is, not as a diff against what it replaced; the git history already has that. Once the change lands, that framing is dead weight for anyone reading the file cold, and it's the first thing to go stale the next time the code moves again.
+
+The same applies to porting a reverse-engineered client from a reference implementation: don't leave "EXACT copy of X", "matches the reference", or a pointer to a script/repo nobody else here has - that framing is meaningless once the port is done and the source is gone. Record what was _learned_ about the remote API instead (a required field, a quirky read-back value, a signature order that looks wrong but isn't) - that's the knowledge worth keeping, not where it came from.
+
+---
+> Source: [cdpuk/ha-bestway](https://github.com/cdpuk/ha-bestway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
