@@ -1,0 +1,75 @@
+{
+  "name": "TraceLens",
+  "owner": "AMD-AGI",
+  "repo": "TraceLens",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TraceLens",
+      "path": "agent_evals/Analysis/skills/quality-llm-eval/SKILL.md",
+      "github_url": "https://github.com/AMD-AGI/TraceLens/tree/main/agent_evals/Analysis/skills/quality-llm-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "path": "agent_evals/Analysis/skills/workflow-llm-eval/SKILL.md",
+      "github_url": "https://github.com/AMD-AGI/TraceLens/tree/main/agent_evals/Analysis/skills/workflow-llm-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "path": "agent_evals/Analysis/skills/eval-post-processing/SKILL.md",
+      "github_url": "https://github.com/AMD-AGI/TraceLens/tree/main/agent_evals/Analysis/skills/eval-post-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "path": "TraceLens/Agent/Analysis/skills/analysis-orchestrator/SKILL.md",
+      "github_url": "https://github.com/AMD-AGI/TraceLens/tree/main/TraceLens/Agent/Analysis/skills/analysis-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraceLens",
+      "path": "TraceLens/Agent/Profiling/skills/magpie-benchmark-profiling/SKILL.md",
+      "github_url": "https://github.com/AMD-AGI/TraceLens/tree/main/TraceLens/Agent/Profiling/skills/magpie-benchmark-profiling/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AMD-AGI/TraceLens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T06:32:17Z"
+}
