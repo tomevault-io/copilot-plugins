@@ -1,249 +1,101 @@
 ## skills
 
-> > Requires `@uipath/uipath-typescript` **≥ 1.4.1**. Scopes: `Insights Insights.RealTimeData`.
+> *Exact signatures, fields, and defaults: [`agent()`](api.md#agent-function).*
 
-# Agents & Agent Memory (Insights RTM) Reference
+# Agent
 
-> Requires `@uipath/uipath-typescript` **≥ 1.4.1**. Scopes: `Insights Insights.RealTimeData`.
+*Exact signatures, fields, and defaults: [`agent()`](api.md#agent-function).*
 
-Two services, **two different calling conventions** — do not mix them up:
+Start a coded or low-code agent and wait for its output. The resource may be
+published in Orchestrator or registered as a sibling project in this solution.
 
-| Service | Subpath | Convention |
-|---------|---------|------------|
-| `Agents` | `@uipath/uipath-typescript/agents` | **Positional `Date` args**: `getAll(startTime, endTime, options?)` |
-| `AgentMemory` | `@uipath/uipath-typescript/agent-memory` | **Options object**: `getTimeline({ startTime?, endTime?, ... })` — dates inside the object |
+Signature: `agent({ key, name, folderPath?, location?, projectId?, inputs, returns?, flavour? })`
 
-## Agents Service
-
-```typescript
-import { Agents, AgentListSortColumn } from '@uipath/uipath-typescript/agents';
-const agents = new Agents(sdk)
+```ts
+.step('count', 
+  agent({ 
+    key: 'BAADF00D-BAAD-F00D-BAAD-F00DBAADF00D',
+    name: 'CountLetters',
+    folderPath: 'Shared',
+    inputs: { inputString: input('inputString') },
+    returns: { count: 'integer' },
+    flavour: 'coded'
+  }))
 ```
 
-### getAll(startTime: Date, endTime: Date, options?: AgentListOptions)
+See [Orchestrator Processes](or-processes.md) and use the `Agent` process type to locate an agent process and determine its contract.
 
-The agent list with consumption + health metadata aggregated over the window. Returns `NonPaginatedResponse<AgentListItem>` (or `PaginatedResponse` with pagination options). **Rows are on `.items`.**
+## General
 
-`AgentListOptions`: `folderKeys?: string[]`, `agentNames?: string[]`, `projectKeys?: string[]`, `agentId?: string`, `processVersion?: string`, `orderBy?: { column: AgentListSortColumn, desc?: boolean }` + pagination (`pageSize`, `cursor`, `jumpToPage`).
+- *flavour* can be either "coded" or "lowcode". It does not affect the runtime contract, only presentation. There is no equivalent field returned from `uip or processes get`.
 
-`AgentListSortColumn`: `AgentName`, `ParentProcess`, `LastRun`, `HealthScore`, `LastIncident`, `FolderName`, `QuantityAGU`, `QuantityPLTU`, `FolderPath`.
+`.onError(...)` is supported on agent steps.
 
-`AgentListItem` fields: `agentId`, `agentName`, `parentProcess`, `folderKey`, `folderName`, `folderPath`, `lastRun`, `processKey`, `processVersion`, `healthScore` (0–100), `lastIncidentType`, `unitsQuantity`, `unitsName`, `quantityAGU`, `quantityPLTU`. Nullable: `parentProcess`, `folderKey/Name/Path`, `processKey`, `processVersion`, `lastIncidentType`, `unitsName` (may be `null` or `""`).
+## Task-created in-solution coded agent
 
-**Example response** (`.items` — field names exact, values illustrative):
+When the request says to create a coded agent inside the same solution, do not
+search for a published release and do not substitute an inline low-code agent.
+The shortest complete path is:
 
-```json
-{
-  "items": [
-    {
-      "agentId": "ag-0001", "agentName": "InvoiceTriageAgent",
-      "parentProcess": "InvoiceFlow", "folderKey": "f-1001", "folderName": "Finance",
-      "folderPath": "Finance", "lastRun": "2026-06-10T18:22:00Z",
-      "processKey": "p-0088", "processVersion": "1.2.0",
-      "healthScore": 92, "lastIncidentType": null,
-      "unitsQuantity": 340, "unitsName": "AGU", "quantityAGU": 340, "quantityPLTU": 0
-    },
-    {
-      "agentId": "ag-0002", "agentName": "ContractReviewAgent",
-      "parentProcess": null, "folderKey": "f-1001", "folderName": "Finance",
-      "folderPath": "Finance", "lastRun": "2026-06-10T16:05:00Z",
-      "processKey": null, "processVersion": null,
-      "healthScore": 58, "lastIncidentType": "Error",
-      "unitsQuantity": 1210, "unitsName": "AGU", "quantityAGU": 1210, "quantityPLTU": 12
-    }
-  ],
-  "count": 2
-}
+1. Scaffold the solution and Flow project.
+2. Scaffold and implement the coded agent as a sibling directory. Run one local
+   input through it; an evaluation suite is optional unless the request asks for
+   one.
+3. Register the sibling with `uip solution projects add`.
+4. Read the generated resource file, then author the Flow with `agent({
+   location: 'in-solution', ... })`.
+5. Compile directly into the nested Flow project, validate, refresh resources,
+   and debug the Flow.
+
+```bash
+uip solution init <SolutionName> --output json
+( cd <SolutionName> && uip maestro flow init <FlowName> --output json )
+
+mkdir <SolutionName>/<AgentProject>
+( cd <SolutionName>/<AgentProject> && \
+  uv venv --python 3.13 && . .venv/bin/activate && \
+  uv pip install <framework-package> && \
+  uip codedagent setup --force --output json && \
+  uip codedagent new <AgentName> )
+# Implement the generated project, then from that directory:
+#   . .venv/bin/activate && uv sync && uip codedagent init
+#   uip codedagent run <entry-point> '<one representative JSON input>'
+
+( cd <SolutionName> && \
+  uip solution projects add <AgentProject> <SolutionName>.uipx --output json )
 ```
 
-> **Semantics:** `getAll` returns per-agent totals (`quantityAGU`, `healthScore`, `lastIncidentType`) — good for KPIs and ranked tables. For *time-series* (error / latency / consumption trends) use the dedicated timeline methods below — all added in SDK 1.4.1. There is still **no invocation-count timeline** and **no per-percentile method other than `getLatencyTimeline`**.
+Read both identifiers from
+`<SolutionName>/resources/solution_folder/process/agent/<AgentProject>.json`:
 
-### getErrors(startTime: Date, endTime: Date, options?: AgentGetErrorsOptions)
+- `resource.key` → `key`
+- `resource.projectKey` → `projectId`
 
-Agent error classes (incidents) observed in the window, ranked. Returns `NonPaginatedResponse<AgentError>` (or `PaginatedResponse` with pagination options). **Rows are on `.items`.**
-
-`AgentGetErrorsOptions`: filters (`folderKeys`, `agentNames`, `projectKeys`, `agentId`, `processVersion`) + `orderBy?: { column: AgentErrorSortColumn, desc?: boolean }` + pagination. `AgentErrorSortColumn`: `ExecutionCount`, `ErrorTitle`, `Type`, … (import from `@uipath/uipath-typescript/agents`).
-
-`AgentError` fields: `type`, `description`, `agentId`, `agentName`, `jobKey`, `parentProcess`, `firstSeen`, `folderKey`, `folderName`, `folderPath`, `count`, `firstSeenJob`, `lastSeenJob`.
-
-```json
-{ "items": [
-  { "type": "ToolError", "description": "Tool 'search' timed out", "agentId": "ag-0002", "agentName": "ContractReviewAgent", "count": 14, "firstSeen": "2026-06-02T09:11:00Z", "folderName": "Finance" }
-], "count": 1 }
+```ts
+.step('analyze', agent({
+  key: localResourceKey,
+  name: '<AgentProject>',
+  location: 'in-solution',
+  projectId: localProjectKey,
+  inputs: { sentence: input('sentence') },
+  returns: { result: 'integer' },
+  flavour: 'coded',
+}))
 ```
 
-### getErrorsTimeline(startTime: Date, endTime: Date, options?)
+An in-solution agent intentionally has no `folderPath`. Its generated binding
+uses the bare local resource key, and its definition carries the sibling
+project id. The SDK checker rejects a missing project id or a published agent
+with a missing folder, so the two resource forms cannot silently collapse into
+one another.
 
-Time-series of error counts grouped by agent. Returns a **bare array** `[{ name, value, date }]` — `name` is the agent name, `value` the error count, `date` the bucket. Options: filters + `limit?` (top-N agents, default 10).
+## Evidence boundary
 
-```json
-[ { "name": "ContractReviewAgent", "value": 6, "date": "2026-06-02" },
-  { "name": "InvoiceTriageAgent", "value": 1, "date": "2026-06-02" } ]
-```
-
-### getConsumptionTimeline(startTime: Date, endTime: Date, options?)
-
-Time-series of AGU consumption. Returns a **bare array** `[{ timeSlice, aguConsumption }]` — native chart shape. Options: filters.
-
-```json
-[ { "timeSlice": "2026-06-01T00:00:00Z", "aguConsumption": 120 },
-  { "timeSlice": "2026-06-02T00:00:00Z", "aguConsumption": 340 } ]
-```
-
-### getLatencyTimeline(startTime: Date, endTime: Date, options?)
-
-Time-series of agent latency per percentile. Returns a **bare array** `[{ name, value, date }]` — `name` is the percentile (`"P50"` / `"P95"`), `value` is **milliseconds**, `date` the bucket. Options: filters.
-
-```json
-[ { "name": "P50", "value": 820, "date": "2026-06-02" },
-  { "name": "P95", "value": 2400, "date": "2026-06-02" } ]
-```
-
-> **Convention:** all four timeline methods take **positional `Date` args** (`start, end`) like `getAll` — NOT an options object. Filters go in the optional third arg. Contrast with `AgentMemory` (options object) and `AgentTraces` (options object). For trace-level error/latency/consumption, see `sdk/traces.md`.
-
-### Insights aggregates (SDK ≥ 1.5.0)
-
-Purpose-built aggregate endpoints — all **positional `Date` args** `(startTime, endTime, options?)`, same as `getAll`. Prefer these over hand-rolling aggregates from `getAll`.
-
-| Method | Returns | Use for |
-|---|---|---|
-| `getTopErrorCount(start, end, { limit?, folderKeys? })` | `{ totalErrors, data: [{ name, count, agentId, … }] }` | Agents ranked by error count (`agents-by-errors`) |
-| `getTopConsumption(start, end, { limit?, healthy?, agentTypes? })` | `{ totalConsumed, totalAGUConsumed, …, agents: [{ agentName, consumedQuantity, consumedAGUQuantity, consumedPLTUQuantity }] }` | Agents ranked by consumption (`agent-consumption`) |
-| `getIncidentDistribution(start, end, { folderKeys? })` | `{ errorCount, escalationCount, policyCount }` | Incident breakdown donut (`agent-incident-distribution`) |
-| `getSummary(start, end, { lookbackPeriodAnalysis?, executionType?, … })` | `{ currentPeriodSummary: { totalJobs, successfulJobs, successRate, averageDurationSeconds, agents:[…] }, lookbackPeriodSummary? }` | Success-rate / job-volume KPIs with vs-previous delta (`agent-success-rate`) |
-| `getUnitConsumptionSummary(start, end, { lookbackPeriodAnalysis?, … })` | `{ currentPeriodSummary: { totalAgentUnitConsumption: { completeJobs, incompleteJobs }, totalPlatformUnitConsumption: {…} }, lookbackPeriodSummary? }` | Aggregate AGU/PLTU KPI with delta (`agent-unit-consumption-summary`) |
-
-> **Delta from one call.** `getSummary` / `getUnitConsumptionSummary` with `{ lookbackPeriodAnalysis: true }` return the prior equal-length window as `lookbackPeriodSummary` — feed it straight into a kpi-card's `previous`. No second call, no `priorWindow()`.
-> **`executionType`** (`AgentExecutionType.Runtime` / `.Debug`) and **`agentTypes`** (`AgentType.Autonomous | .Conversational | .Coded`) are enums exported from `@uipath/uipath-typescript/agents`.
-
-### fnBody patterns
-
-```typescript
-// Count of active agents (kpi-card)
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const result = await new Agents(sdk).getAll(THIRTY_DAYS_AGO, NOW)
-return [{ count: result?.items?.length ?? 0 }]
-```
-
-```typescript
-// Agents ranked by AGU consumption (ranked-table)
-const { Agents, AgentListSortColumn } = await import('@uipath/uipath-typescript/agents')
-const result = await new Agents(sdk).getAll(THIRTY_DAYS_AGO, NOW, {
-  orderBy: { column: AgentListSortColumn.QuantityAGU, desc: true },
-})
-return (result?.items ?? []).map(agent => ({ ...agent }))
-```
-
-```typescript
-// Agent errors over time — total across agents (area-chart: xKey date, yKey value)
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const points = await new Agents(sdk).getErrorsTimeline(THIRTY_DAYS_AGO, NOW)
-const byDate: Record<string, number> = {}
-for (const point of points) byDate[point.date] = (byDate[point.date] ?? 0) + point.value
-return Object.entries(byDate).sort().map(([date, value]) => ({ date, value }))
-```
-
-```typescript
-// Agent latency P50/P95 over time — pivot long→wide (multi-line-chart: xKey date, series P50/P95)
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const points = await new Agents(sdk).getLatencyTimeline(THIRTY_DAYS_AGO, NOW)
-const byDate: Record<string, Record<string, unknown>> = {}
-for (const point of points) {
-  byDate[point.date] = byDate[point.date] ?? { date: point.date }
-  byDate[point.date][point.name] = point.value
-}
-return Object.values(byDate).sort((a, b) => String(a.date).localeCompare(String(b.date)))
-```
-
-```typescript
-// AGU consumption over time (area-chart: xKey timeSlice, yKey aguConsumption)
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const series = await new Agents(sdk).getConsumptionTimeline(THIRTY_DAYS_AGO, NOW)
-return series.map(point => ({ ...point }))
-```
-
-```typescript
-// Top agent errors ranked by occurrence (ranked-table)
-const { Agents, AgentErrorSortColumn } = await import('@uipath/uipath-typescript/agents')
-const result = await new Agents(sdk).getErrors(THIRTY_DAYS_AGO, NOW, {
-  orderBy: { column: AgentErrorSortColumn.ExecutionCount, desc: true },
-})
-return (result?.items ?? []).map(agent => ({ ...agent }))
-```
-
-```typescript
-// Agents ranked by error count (ranked-table) — ≥ 1.5.0
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const result = await new Agents(sdk).getTopErrorCount(THIRTY_DAYS_AGO, NOW, { limit: 10 })
-return result.data.map(agent => ({ name: agent.name, value: agent.count }))
-```
-
-```typescript
-// Agents ranked by consumption (ranked-table) — ≥ 1.5.0
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-return (await new Agents(sdk).getTopConsumption(THIRTY_DAYS_AGO, NOW, { limit: 10 })).agents.map(agent => ({ ...agent }))
-```
-
-```typescript
-// Incident distribution (donut) — ≥ 1.5.0: flat response → chart rows
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const distribution = await new Agents(sdk).getIncidentDistribution(THIRTY_DAYS_AGO, NOW)
-return [
-  { name: 'Errors', value: distribution.errorCount },
-  { name: 'Escalations', value: distribution.escalationCount },
-  { name: 'Policy', value: distribution.policyCount },
-]
-```
-
-```typescript
-// Success-rate KPI with vs-previous delta (kpi-card) — ≥ 1.5.0
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const summary = await new Agents(sdk).getSummary(THIRTY_DAYS_AGO, NOW, { lookbackPeriodAnalysis: true })
-return [{ value: summary.currentPeriodSummary.successRate, previous: summary.lookbackPeriodSummary?.successRate }]
-```
-
-```typescript
-// Total Agent Units consumed, with delta (kpi-card) — ≥ 1.5.0
-const { Agents } = await import('@uipath/uipath-typescript/agents')
-const summary = await new Agents(sdk).getUnitConsumptionSummary(THIRTY_DAYS_AGO, NOW, { lookbackPeriodAnalysis: true })
-const current = summary.currentPeriodSummary.totalAgentUnitConsumption
-const prior = summary.lookbackPeriodSummary?.totalAgentUnitConsumption
-return [{ value: current.completeJobs + current.incompleteJobs, previous: prior ? prior.completeJobs + prior.incompleteJobs : undefined }]
-```
-
-## AgentMemory Service
-
-```typescript
-import { AgentMemory, AgentMemoryExecutionType } from '@uipath/uipath-typescript/agent-memory';
-const memory = new AgentMemory(sdk)
-```
-
-All three methods take ONE optional options object — `{ startTime?: Date, endTime?: Date, agentId?, agentVersion?, folderKeys?, executionType? }` (`AgentMemoryExecutionType.Debug | Runtime`; omit for both). Window defaults to the **last 24 hours**. All three return a **bare array** — no `.items` / `.data` unwrapping needed.
-
-| Method | Returns (bare array of) | Use for |
-|--------|------------------------|---------|
-| `getTimeline(options?)` | `{ timeSlice, inMemoryCount, notInMemoryCount, totalCount, enabledMemoryCount, disabledMemoryCount }` | Memory state over time (line/area chart) |
-| `getCallsTimeline(options?)` | `{ timeSlice, memoryCallsCount }` | Memory access volume over time |
-| `getTopSpaces(options?)` | `{ memorySpaceId, memorySpaceName, memoryCount, enabledMemoryCount, disabledMemoryCount }` | Top memory spaces (ranked; `limit?` option, default 5) |
-
-**Example response** — `getTimeline()` (values from SDK test fixtures):
-
-```json
-[
-  { "timeSlice": "2026-06-10T00:00:00Z", "inMemoryCount": 3, "notInMemoryCount": 1, "totalCount": 4, "enabledMemoryCount": 2, "disabledMemoryCount": 2 },
-  { "timeSlice": "2026-06-10T01:00:00Z", "inMemoryCount": 5, "notInMemoryCount": 0, "totalCount": 5, "enabledMemoryCount": 5, "disabledMemoryCount": 0 }
-]
-```
-
-### fnBody pattern
-
-```typescript
-// Memory calls over the last 7 days (area-chart: xKey timeSlice, yKey memoryCallsCount)
-const { AgentMemory } = await import('@uipath/uipath-typescript/agent-memory')
-const series = await new AgentMemory(sdk).getCallsTimeline({ startTime: SEVEN_DAYS_AGO, endTime: NOW })
-return series.map(point => ({ ...point }))
-```
+A green live run proves that a real job received inputs and returned the
+declared shape. It does not prove the model's answer is correct. Preserve the
+job identity, input/output witnesses, and a scenario-specific semantic
+assertion; offline seeds should also rule out a hard-coded answer.
 
 ---
 > Source: [UiPath/skills](https://github.com/UiPath/skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
