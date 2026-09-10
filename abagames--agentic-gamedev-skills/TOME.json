@@ -1,0 +1,51 @@
+{
+  "name": "agentic-gamedev-skills",
+  "owner": "abagames",
+  "repo": "agentic-gamedev-skills",
+  "description": "Agent skills extracted from game-development work and related agentic-workflow research",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "migrating-agents-md-to-control-flow",
+      "path": ".agents/skills/migrating-agents-md-to-control-flow",
+      "github_url": "https://github.com/abagames/agentic-gamedev-skills/tree/main/.agents/skills/migrating-agents-md-to-control-flow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/abagames/agentic-gamedev-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T08:34:15Z"
+}
