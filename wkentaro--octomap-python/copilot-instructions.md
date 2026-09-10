@@ -18,4 +18,4 @@ Single-context layout: one `CONTEXT.md` + `docs/adr/` at the repo root. See `doc
 
 ---
 > Source: [wkentaro/octomap-python](https://github.com/wkentaro/octomap-python) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
