@@ -1,118 +1,117 @@
 ## percona-backup-mongodb
 
-> Context for working inside `x/` (the experimental next-major-version prototype). The root `CLAUDE.md` covers the legacy `pbm/` codebase; this file is just for `x/`.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# CLAUDE.md — pbm-x
+# Agent Guide for opentelemetry-go
 
-Context for working inside `x/` (the experimental next-major-version prototype). The root `CLAUDE.md` covers the legacy `pbm/` codebase; this file is just for `x/`.
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-**Hard rule:** `x/` is a separate Go module. Do not import from `github.com/percona/percona-backup-mongodb/...` (the legacy module) or vice versa. Reuse ideas, not code.
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
----
+## Core expectations
 
-## Vision
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-<!-- One paragraph: what pbm-x is trying to become and why a clean rewrite. Fill in. -->
+## Default workflow
 
-_TBD_
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-## Scope of the current prototype
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-<!-- What's in scope right now, what's deferred. Update as the prototype grows. -->
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-- In scope: _TBD_
-- Out of scope (for now): _TBD_
-- Out of scope (forever / explicit non-goals): _TBD_
+## Verification
 
-## Design principles
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-<!-- The "how" rules — what should pbm-x be opinionated about? Examples to replace:
-     - Prefer X over Y because …
-     - Cancellation is always context-driven; no goroutine leaks
-     - Storage backends are pure interfaces with no MongoDB knowledge
-     - Single binary, subcommand-based — no separate agent/CLI split (or: keep the split, because …)
--->
+## Documentation and changelog
 
-_TBD_
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-## Architecture sketch
+## Repository habits
 
-Same overall shape as legacy PBM — an agent runs alongside each `mongod` — but agents now come in **two roles**:
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-- **ctrl agent** — owns PBM's control-collection state (the leader-election / command-queue / status that legacy PBM kept inside MongoDB control collections). In pbm-x this state lives in an **etcd** database that the ctrl agent runs/manages.
-- **worker agent** — does **not** run etcd. Its core responsibility is executing the actual work: backup and restore.
+## Personas
 
-```
-        +-------------------+        control-collection state
-        |    ctrl agent     |  runs  (etcd)
-        +-------------------+           ^
-                                        | etcd client API
-                                        | (local or remote)
-        +-------------------+           |
-        |   worker agent    |  --etcd client--+   also does backup / restore
-        +-------------------+
-```
+### Feature Agent
 
-**Coordination:** worker agents connect to the ctrl agent's **etcd as clients** to read/write control state — they speak the etcd client API directly, not a separate protocol. A worker may be co-located with the ctrl agent or remote, so etcd's client endpoint must be externally reachable (we bind `0.0.0.0`). The peer API is for etcd↔etcd traffic between ctrl agents.
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-Open: how many ctrl agents run (single vs. quorum) and etcd deployment topology — see Open questions.
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-### Code layout
+### Refactoring Agent
 
-A single `pbmx` binary covers both the CLI and the agent (selected at runtime by `--ctrl-agent` / `--worker-agent`). Two layers, with a one-way dependency:
+Use this persona when improving structure without intentionally changing behavior.
 
-```
-cmd/pbmx/   →   pbm/
-  CLI only        all runtime logic
-```
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-- **`cmd/pbmx/`** — CLI wiring *only*: cobra command definitions, flags, env-var bindings, and config-file loading. It parses input and dispatches; it holds no operational logic. The root command's `RunE` reads the role flag and calls into `pbm/`.
-- **`pbm/`** (`github.com/percona/percona-backup-mongodb/x/pbm`) — all other logic. Today: `RunCtrlAgent` + embedded-etcd startup/graceful-shutdown (`etcd.go`). Worker-agent, backup/restore, and coordination logic land here too.
+### Test Agent
 
-Rule: dependency flows one way, `cmd/pbmx/` → `pbm/`. `pbm/` must not import `cmd/pbmx/`. Anything beyond CLI parsing/dispatch belongs in `pbm/`.
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
 
-## What's intentionally different from legacy PBM
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
 
-<!-- The deltas that matter for code review. -->
+### Performance Agent
 
-- **Coordination / state store:** legacy PBM keeps control-collection state (locks, command queue, status) inside MongoDB itself. pbm-x moves that state into an **etcd** database, owned by the **ctrl agent**.
-- **Agent roles split in two:** legacy PBM runs one uniform agent per node. pbm-x splits responsibilities into **ctrl agents** (manage control state in etcd) and **worker agents** (run backup/restore, no etcd).
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
 
-## Open questions / decisions to make
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
 
-<!-- Park unresolved design questions here so I can see them when suggesting code.
-     When a question is settled, move the answer into "Design principles" or
-     "Architecture sketch" and delete it from this list. -->
+### Review Agent
 
-- **etcd is currently plaintext + unauthenticated.** The client and peer APIs are served over `http` with no auth, and the client API is bound on `0.0.0.0` (remote workers legitimately need it — see Coordination). This cannot be closed by binding localhost; it's an **auth/TLS** task to tackle later (etcd RBAC and/or client/peer TLS), not a bind-address one.
-- How many ctrl agents run — single node vs. a 3/5-member quorum — and the etcd deployment topology that follows from it.
+Use this persona when asked to review code, patches, or pull requests.
 
-## Glossary
-
-<!-- Only terms that don't mean what they mean in legacy PBM, or that are new. -->
-
-- **ctrl agent** — agent role that owns and manages PBM's control-collection state, backed by an etcd database it runs.
-- **worker agent** — agent role that performs backup and restore. Does not run etcd.
-- **control-collection state** — in legacy PBM this lived in MongoDB collections; in pbm-x it lives in etcd (managed by the ctrl agent).
-
-## Working preferences for this prototype
-- when generating golang code follow following guidelines:
-    - https://google.github.io/styleguide/go/
-    - https://google.github.io/styleguide/go/guide
-    - https://google.github.io/styleguide/go/decisions
-    - https://google.github.io/styleguide/go/best-practices
-- additionally you can expand with uber's style guide:
-    - https://github.com/uber-go/guide/blob/master/style.md
-- git
-    - never create git commits or pr requests automatically.
-- never modify anything out of x directory. If it's necessary ask for confirmation.
-<!-- How you want me to behave specifically in x/. These override defaults.
-     Examples to replace:
-     - "Prototype phase: prefer concrete implementations over interfaces until a second use case appears."
-     - "Don't add tests for code I'm still iterating on; ask before writing test files."
-     - "When in doubt, ask before adding a new top-level package."
--->
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
