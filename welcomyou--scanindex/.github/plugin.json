@@ -1,0 +1,9 @@
+{
+  "name": "welcomyou--scanindex",
+  "displayName": "scanindex",
+  "description": "OCR with chrome screen_ai, KIE with lightGBM, LayoutLMv3",
+  "version": "1.0.0",
+  "author": "welcomyou",
+  "homepage": "https://github.com/welcomyou/scanindex",
+  "skills": []
+}
