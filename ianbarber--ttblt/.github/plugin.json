@@ -1,0 +1,9 @@
+{
+  "name": "ianbarber--ttblt",
+  "displayName": "ttblt",
+  "description": "A simplified implementation of Byte Latent Transformers as a TorchTune recipe.",
+  "version": "1.0.0",
+  "author": "ianbarber",
+  "homepage": "https://github.com/ianbarber/ttblt",
+  "skills": []
+}
