@@ -1,0 +1,9 @@
+{
+  "name": "rust-mcp-stack--rust-mcp-sdk",
+  "displayName": "rust-mcp-sdk",
+  "description": "rust-mcp-sdk",
+  "version": "1.0.0",
+  "author": "rust-mcp-stack",
+  "homepage": "https://github.com/rust-mcp-stack/rust-mcp-sdk",
+  "skills": []
+}
