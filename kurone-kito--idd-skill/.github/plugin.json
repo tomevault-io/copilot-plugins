@@ -1,0 +1,9 @@
+{
+  "name": "kurone-kito--idd-skill",
+  "displayName": "idd-skill",
+  "description": "\ud83e\udd16 An automated setup kit for implementing loop engineering based on issue-driven development in your repository; since 2026.5",
+  "version": "1.0.0",
+  "author": "kurone-kito",
+  "homepage": "https://github.com/kurone-kito/idd-skill",
+  "skills": []
+}
