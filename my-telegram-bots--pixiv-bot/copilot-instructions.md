@@ -1,222 +1,230 @@
 ## pixiv-bot
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This repository contains a Node.js Telegram bot that retrieves Pixiv illustrations,
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Repository Guide
 
 ## Project Overview
 
-A Telegram bot that bridges Pixiv and Telegram, allowing users to fetch and share Pixiv illustrations (including ugoira animations) through Telegram. The bot uses MongoDB for caching, supports inline queries, Telegraph integration, and includes automatic ranking features.
+This repository contains a Node.js Telegram bot that retrieves Pixiv illustrations,
+manga, novels, rankings, authors, and ugoira animations and delivers them through
+Telegram messages, inline queries, media groups, files, and Telegraph pages.
 
-## Commands
+The project is an ES module package. Use the import aliases declared in
+`package.json` (`#handlers/*`, `#handlers/pixiv/*`, `#handlers/telegram/*`,
+`#handlers/utils/*`, `#config`, and `#db`) instead of introducing deep relative
+imports.
 
-### Installation & Setup
+## Architecture and Data Flow
+
+- `app.js` is the main process. It loads and validates configuration, creates the
+  Grammy bot, registers middleware and handlers, initializes PostgreSQL, checks
+  and applies migrations, checks media tools, starts ranking updates and file
+  cleanup, and handles graceful shutdown.
+- `bot.js` constructs the Grammy bot and configures API throttling and automatic
+  retries.
+- `handlers/pixiv/` owns Pixiv requests, normalization, illustration caching and
+  orchestration, URL generation, author and ranking retrieval, and ugoira
+  conversion.
+- `handlers/telegram/` owns input parsing, user settings, localization, formatting,
+  keyboards, media groups, document and photo sending, and Telegraph publishing.
+- `handlers/telegram/tg-sender.js` owns the state-oriented send workflow. Keep
+  `app.js` limited to update routing and sender construction; do not move the
+  workflow back into the bootstrap file.
+- `handlers/telegram/settings-lifecycle.js` owns effective-setting resolution and
+  authorized configuration commands. Pure precedence, flag, normalization, and
+  sanitization rules live in `settings-resolver.js`; the `/s` grammar and flag
+  registry live in `settings-command-parser.js`; Pixiv input parsing remains
+  separate in `input-parser.js`.
+- `handlers/telegram/input-parser.js` owns staged Pixiv/Phixiv URL and standalone
+  ID extraction. Keep supported routes in its declarative matcher table rather
+  than growing global replacement chains.
+- `handlers/telegram/link-lifecycle.js` owns `/link` creation, management, and
+  linked-message dispatch. Its PostgreSQL operations live in
+  `chat-link-store.js`; do not return link state to generic settings updates.
+- `handlers/common.js` contains shared download, concurrency, cache, logging, and
+  memory-monitoring utilities.
+- `db.js` is the PostgreSQL access layer. It exposes direct illustration APIs and
+  MongoDB-shaped collection adapters still used by existing application code.
+- `sql/schema.sql` is the complete schema for new installations.
+  `sql/patches/` contains ordered incremental migrations.
+
+The normal illustration path is: Telegram input -> Pixiv ID extraction -> cache or
+PostgreSQL lookup -> Pixiv request -> normalization and URL construction ->
+PostgreSQL update -> Telegram or Telegraph output.
+
+## Setup and Commands
+
+Use pnpm and a modern Node.js version that supports ES modules and package import
+maps. The README documents Node.js greater than 15, but prefer a currently
+supported Node.js release.
+
 ```bash
-# Install dependencies
-pnpm i
-
-# Copy and edit configuration
+pnpm install
 cp config_sample.js config.js
-# Edit config.js with your credentials
-
-# First-time database initialization (creates indexes and directories)
 node initial.js
-
-# Run the bot (with PM2 in production)
-pm2 start --name pixiv_bot app.js
-# OR run directly for development
-node app.js
-```
-
-### Run Scripts
-```bash
-# Run both bot and web server (default, 4GB memory)
-pnpm all
-
-# Run bot only (no web server)
 pnpm bot
-
-# Run web server only
-pnpm web
+pnpm test
 ```
 
-### Database Migrations
-When upgrading between versions, run migration scripts:
-```bash
-# Check update.js for available migrations
-node update <migration_name>
+- `node initial.js` creates the local media working directories.
+- `pnpm bot` runs `app.js` with `WEBLESS=1` and is the reliable bot-only entry
+  point.
+- `pnpm all` runs `node app.js` and may attempt to load the currently missing
+  `web.js` when web support is enabled.
+- `pnpm web` currently targets a missing `web.js`; do not report it as working
+  without restoring and validating that entry point.
+- Production documentation uses PM2, but no PM2 ecosystem file, container file,
+  CI workflow, or systemd unit is tracked in this repository.
 
-# Example migrations:
-node update update_db_2021_june
-node update move_ugoira_folder_and_index_2022_nov
-node update set_imgs_without_i_cf_2023_may
-```
+Ugoira conversion requires `ffmpeg`, `mp4fpsmod`, and `unzip`. Startup checks for
+these programs unless `DEPENDIONLESS=1` or development mode is enabled. Do not use
+dependency-bypass modes as production validation.
 
-## System Dependencies
+## Configuration and Secrets
 
-Required external tools (must be installed):
-- **ffmpeg**: Video/image processing for ugoira conversion
-- **mp4fpsmod**: Frame timing for MP4 files
-- **MongoDB**: Data persistence (can be disabled with `DBLESS=1` env var)
-- **Node.js**: Version 15+
+Create the ignored `config.js` from `config_sample.js`. Never commit or print real
+PostgreSQL credentials, Pixiv cookies or CSRF values, Telegram bot tokens,
+Telegraph tokens, salts, or private API endpoints.
 
-## Architecture
+Configuration may also be overridden by environment variables in
+`handlers/utils/config-validator.js`. Relevant runtime flags include:
 
-### Modular Layer Architecture
+- `DBLESS=1`: use dummy database collections; this is not a production mode.
+- `AUTO_APPLY_PATCHES=0`: refuse startup when automatic patches are pending.
+- `WEBLESS=1`: do not start the optional web entry point.
+- `TELEGRAM_API_SERVER`: use a custom Telegram Bot API root.
+- `DEPENDIONLESS=1`: skip external media-tool checks.
+- `dev=1`: enable development logging and skip dependency checks.
 
-The codebase follows a 4-layer architecture pattern (refactored in recent commits):
+Verify configuration behavior from the current source before changing it. The
+repository is in an incomplete PostgreSQL migration state:
 
-1. **API Layer** (`handlers/pixiv/api.js`): Raw Pixiv API calls
-2. **Normalizer Layer** (`handlers/pixiv/normalizer.js`): Data transformation between Pixiv API format and internal format
-3. **Service Layer** (`handlers/pixiv/illust-service.js`): Orchestration with cache, queue, and database management
-4. **Handler Layer** (`handlers/telegram/*.js`): Telegram bot command handlers
+- Runtime database initialization uses PostgreSQL, while validation still
+  requires legacy MongoDB configuration.
+- `config_sample.js` has no `web` object, although `app.js` reads
+  `config.web.enabled` after startup.
+- `config.js` is intentionally untracked. Application startup still requires
+  it, while `db.js` receives the validated runtime configuration at database
+  initialization so direct database tests do not need private credentials.
 
-### Key Components
+Do not hide these mismatches with new fallbacks. Fix the owning contract and
+remove superseded behavior when working in this area.
 
-**Entry Point**: `app.js`
-- Loads configuration and validates system dependencies
-- Creates bot instance with throttling and auto-retry middleware
-- Sets up context properties (language, user_id, chat_id, text)
-- Registers all bot command handlers and middleware
-- Initializes file cleaner for temporary files
+## PostgreSQL and Migration Rules
 
-**Bot Factory**: `bot.js`
-- Creates grammy Bot instance with throttling and auto-retry
-- Configures custom Telegram API server if needed
+- Treat PostgreSQL as the canonical runtime data store.
+- Keep `sql/schema.sql`, test schemas, fixtures, migration patches, and runtime
+  queries consistent.
+- Name patches `patch-NNN-description.sql`. Include `-manually` in the filename
+  for destructive operations, breaking schema changes, large data rewrites, or
+  work requiring downtime or operator review.
+- Make patches transactional and idempotent where PostgreSQL permits it. The
+  startup runner owns the transaction for automatic patches, so their SQL files
+  must not contain `BEGIN`, `COMMIT`, or `ROLLBACK`; manual patches own their
+  explicit operator-reviewed transaction. Add English comments explaining the
+  reason and operational impact.
+- Test migrations against a representative development database and take a
+  verified backup before production application.
+- Normal patches are applied at startup by `db-migration-check.js` unless
+  `AUTO_APPLY_PATCHES=0`. Any pending filename containing `manually` blocks
+  startup until an operator applies it.
+- Review the size and lock impact of every automatic patch. The existing random
+  value patch performs a whole-table update and is not evidence that other large
+  updates are safe to auto-apply.
+- `mongodb2pg.js` is a one-time migration tool. Its force mode can drop and
+  recreate PostgreSQL tables; never run it against an unverified target or while
+  the bot is writing data.
+- `mongodb-update.js`, MongoDB configuration, and MongoDB-shaped adapters are
+  migration residue. Do not extend them or add dual-read or dual-write paths
+  without a concrete external compatibility requirement. A migration or refactor
+  is complete only when the obsolete path, fixtures, tests, dependencies, and
+  documentation are removed together.
 
-**Database**: `db.js`
-- MongoDB wrapper with collections: `illust`, `chat_setting`, `novel`, `ranking`, `author`, `telegraph`
-- Supports DBLESS mode (dummy collections that return null/success)
-- `update_setting()`: Handles complex user settings with prototype pollution protection
+## Media and Local Storage
 
-**Configuration**: `config.js` (copy from `config_sample.js`)
-- `mongodb`: Database connection settings
-- `pixiv`: Cookie, user-agent, proxy, CSRF token, ugoira URL settings
-- `tg`: Bot token, Telegraph token, master_id for error reporting, refetch API
+Media work is performed under the ignored `tmp/` tree:
 
-**Pixiv Module** (`handlers/pixiv/`):
-- `illust-service.js`: Central orchestrator with queue management and 404 caching
-  - `getQuick()`: Fast mode for inline queries (skips file probing)
-  - `get()`: Full mode with file probing for accurate dimensions
-- `illust.js`: Legacy illust fetching (being replaced by service layer)
-- `tools.js`: Ugoira conversion utilities, URL transformations, file operations
-  - `ugoira_to_mp4()`: Downloads ugoira zip and converts to MP4 using ffmpeg
-  - `thumb_to_all()`: Converts thumbnail URLs to regular/original URLs
-- `url-builder.js`: Fast URL generation (skips HEAD requests) and URL probing
-- `ranking.js`: Fetches daily/weekly/monthly rankings from Pixiv
-- `ranking-scheduler.js`: Automatic ranking updates with cron-like scheduling
-- `user.js`: Author/user illustration fetching
+- `tmp/file/`, `tmp/ugoira/`, and `tmp/timecode/` are temporary working data and
+  are periodically age-cleaned by the running application.
+- `tmp/mp4_0/` is an intermediate conversion location.
+- `tmp/mp4/` stores converted ugoira MP4 files and is deliberately preserved.
+- Palette and GIF outputs may also persist.
 
-**Telegram Module** (`handlers/telegram/`):
-- `pre_handle.js`: URL/ID extraction from messages (supports multiple formats)
-- `handle_illust.js`: Main illustration handling logic
-- `mediagroup.js`: Media group (album) creation and management
-- `telegraph.js`: Telegraph page generation for illustrations
-- `format.js`: Message formatting with user-customizable templates (v1/v2 format system)
-- `i18n.js`: Language support (en, ja, zh-hans, zh-hant)
-- `keyboard.js`: Inline keyboard generation
+Do not treat all of `tmp/` as disposable during maintenance. Preserve cached MP4
+outputs unless the requested operation explicitly includes their removal. Avoid
+adding generated files, package stores, database dumps, or alternate build roots
+inside the repository. Any new cleanup behavior needs bounded ownership and tests
+that distinguish temporary inputs from retained outputs.
 
-**Utilities** (`handlers/utils/`):
-- `config-validator.js`: Validates configuration and checks system dependencies on startup
-- `file-cleaner.js`: Automatic cleanup of temporary files (temp files only, preserves MP4s)
+## Localization and User-Facing Behavior
 
-**Common** (`handlers/common.js`):
-- Shared utilities: `asyncForEach`, `sleep`, `exec`, `download_file`
-- `honsole`: Custom console wrapper for logging
-- `MemoryMonitor`: Tracks memory usage and sends alerts to master
+User-visible strings are defined in:
 
-### Path Aliases (ES Modules Imports)
+- `lang/en.js`
+- `lang/ja.js`
+- `lang/zh-hans.js`
+- `lang/zh-hant.js`
 
-Defined in `package.json` imports field:
-- `#handlers/*` → `./handlers/*.js`
-- `#handlers/utils/*` → `./handlers/utils/*.js`
-- `#handlers/pixiv/*` → `./handlers/pixiv/*.js`
-- `#handlers/telegram/*` → `./handlers/telegram/*.js`
-- `#config` → `./config.js`
-- `#db` → `./db.js`
+Keep all four language files synchronized when adding, removing, or changing a
+message key. English is the fallback language. Check formatting and Markdown
+escaping in the actual Telegram path, including private chats, groups, channels,
+callbacks, inline queries, media groups, and error recovery where affected.
 
-Always use these aliases when importing, never relative paths like `../../db.js`.
+Do not replace specific Pixiv, Telegram, conversion, or database failures with a
+generic message when a safe reason can be shown. User-facing failures should say
+what failed, why, and what the user can do next. Avoid duplicate sends while a
+request is pending and keep retry or recovery actions next to the failure.
 
-### Data Flow: Pixiv → Telegram
+## Testing and Validation
 
-1. User sends Pixiv URL/ID to bot
-2. `pre_handle.js` extracts IDs from message
-3. `illust-service.js` orchestrates:
-   - Check 404 cache → Check database → Queue Pixiv API call → Fetch from API
-   - Normalize data → Build URLs → Save to database → Return
-4. `handle_illust.js` processes illust data
-5. `mediagroup.js` or Telegraph generates output
-6. Bot sends media/message to user
+`pnpm test` runs AVA. The current test suite primarily validates PostgreSQL CRUD
+and reconstruction through `pg-mem`; it does not prove bot startup, migrations,
+Pixiv or Telegram API behavior, ugoira conversion, scheduling, localization, or
+deployment.
 
-### Ugoira Processing
+For every change:
 
-Ugoira (Pixiv animations) are converted to MP4:
-1. Download ugoira ZIP file from Pixiv
-2. Extract frames to `./tmp/ugoira/`
-3. Generate timecode file for variable frame rates
-4. Use ffmpeg to merge frames with timecodes
-5. Use mp4fpsmod to fix frame timing
-6. Cache result in `./tmp/mp4/` with directory sharding by ID prefix
-7. Serve to Telegram via upload or URL (depending on `ugoira_remote` config)
+1. Run the narrowest relevant tests, then `pnpm test` when the local ignored
+   configuration needed by the test process is available.
+2. If the suite cannot start because `config.js` is absent, report that as a
+   blocked check. Do not create or commit fake credentials merely to obtain a
+   green result.
+3. Validate `sql/schema.sql`, patch application, and a real PostgreSQL boundary
+   for database or migration changes; `pg-mem` alone is insufficient.
+4. Exercise the real Telegram update type and Pixiv content type affected by
+   handler changes. Include ugoira, multi-page media, inline mode, channels, or
+   Telegraph only when those paths are in scope.
+5. For media changes, validate the actual external command, output file, Telegram
+   upload or URL path, cleanup behavior, and failure handling.
+6. For scheduler, deployment, or startup changes, verify process lifecycle,
+   shutdown, database closure, observable logs, and the deployed runtime
+   separately from unit tests.
 
-### File Storage
+Never describe a skipped, dependency-blocked, credential-blocked, mocked, or
+locally undeployed check as a pass.
 
-- `./tmp/file/`: Downloaded images (temporary, auto-cleaned)
-- `./tmp/ugoira/`: Extracted ugoira frames (temporary, auto-cleaned)
-- `./tmp/timecode/`: Frame timing files (temporary, auto-cleaned)
-- `./tmp/mp4/`: Converted MP4 files (permanent, organized by ID prefix)
-  - Example: illust 87466156 → `./tmp/mp4/0874/87466156.mp4`
+## Code Organization and Change Discipline
 
-### Settings & Format System
-
-Users can customize output format using v1 (legacy) or v2 (current) format strings:
-- Message format: Caption text with variables like `{title}`, `{author}`, `{tags}`
-- Mediagroup format: Album captions
-- Inline format: Inline query results
-
-Settings stored per chat/user in `chat_setting` collection with prototype pollution protection.
-
-## Important Patterns
-
-### Queue Management
-The bot implements request queuing to avoid Pixiv rate limiting (429 errors). IllustService manages a Map-based queue with timestamp tracking and retry logic.
-
-### Security
-- Prototype pollution prevention in `update_setting()` and `sanitizeObject()`
-- Blocks dangerous property names: `__proto__`, `constructor`, `prototype`
-
-### Error Handling
-- Failed API requests are reported to master_id via Telegram
-- 404 responses are cached for 10 minutes to reduce API calls
-- Refetch API fallback for failed image uploads
-
-### Memory Management
-- MemoryMonitor tracks heap usage and sends alerts at thresholds
-- FileCleaner periodically removes old temporary files
-- TTLCache with automatic expiration for 404s and other transient data
-
-### Bot Middleware Pattern
-app.js uses middleware pattern:
-1. Context initialization (language, user_id, chat_id)
-2. Command parsing (removes @botname from commands)
-3. Route to specific handlers (start, help, illust, ranking, etc.)
-
-## Configuration Notes
-
-- `config.pixiv.cookie`: Required for authenticated requests (author subscriptions, rankings)
-- `config.pixiv.pximgproxy`: Proxy URL for i.pximg.net (required in regions where Pixiv images are blocked)
-- `config.tg.access_token`: Telegraph API token for creating telegra.ph pages
-- `config.tg.refetch_api`: Fallback API endpoint when direct image sending fails
-
-## Environment Variables
-
-- `DBLESS=1`: Run without MongoDB (in-memory only, not recommended for production)
-- `WEBLESS=1`: Run bot only, skip web server
-- `TELEGRAM_API_SERVER`: Custom Telegram API server URL
-- `dev=1`: Enable development logging (honsole.dev messages)
+- Preserve unrelated staged, unstaged, and untracked user work.
+- Do not trust stale migration summaries over current source, schema, package
+  scripts, and runtime behavior. The README still contains MongoDB-era setup and
+  claims the wrapper layer was removed even though adapters remain.
+- Avoid expanding monoliths. `db.js` already exceeds 1,000 lines, and `app.js`
+  was reduced by extracting the sender workflow; continue extracting coherent
+  startup, routing, persistence, or compatibility responsibilities instead of
+  adding large new sections. No file may exceed 2,000 lines.
+- Use parameterized SQL and preserve the field allowlists and prototype-pollution
+  protections at user-setting boundaries.
+- Keep retries, rate limits, request queues, Telegram auto-retry, and graceful
+  shutdown semantics intact unless the task explicitly changes them.
+- Do not introduce silent compatibility tails. When replacing a path, remove the
+  old branch, resolver, fallback, fixture, test, dependency, and documentation in
+  the same change unless a named external dependency requires a time-bounded
+  compatibility boundary.
+- Update documentation when commands, configuration, schema, deployment, or
+  observable bot behavior changes.
 
 ---
 > Source: [my-telegram-bots/Pixiv_bot](https://github.com/my-telegram-bots/Pixiv_bot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
