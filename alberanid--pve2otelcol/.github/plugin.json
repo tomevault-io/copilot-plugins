@@ -1,0 +1,9 @@
+{
+  "name": "alberanid--pve2otelcol",
+  "displayName": "pve2otelcol",
+  "description": "collect logs from a Proxmox node and its LXC containers and send them to a OpenTelemetry collector like Grafana Alloy / Loki",
+  "version": "1.0.0",
+  "author": "alberanid",
+  "homepage": "https://github.com/alberanid/pve2otelcol",
+  "skills": []
+}
