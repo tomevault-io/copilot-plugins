@@ -1,0 +1,14 @@
+{
+  "name": "lopadova--askmydocs",
+  "displayName": "AskMyDocs",
+  "description": "AI Hub & Intelligent Agentic Platform for the Enterprise - self-hostable AI hub for enterprise knowledge.",
+  "version": "1.0.0",
+  "author": "lopadova",
+  "homepage": "https://github.com/lopadova/AskMyDocs",
+  "skills": [
+    {
+      "name": "docs-match-code",
+      "description": ""
+    }
+  ]
+}
