@@ -1,0 +1,9 @@
+{
+  "name": "imhotep--hass-unifi-access",
+  "displayName": "hass-unifi-access",
+  "description": "hass-unifi-access",
+  "version": "1.0.0",
+  "author": "imhotep",
+  "homepage": "https://github.com/imhotep/hass-unifi-access",
+  "skills": []
+}
