@@ -1,0 +1,9 @@
+{
+  "name": "podman-container-tools--skopeo",
+  "displayName": "skopeo",
+  "description": "skopeo",
+  "version": "1.0.0",
+  "author": "podman-container-tools",
+  "homepage": "https://github.com/podman-container-tools/skopeo",
+  "skills": []
+}
