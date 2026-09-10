@@ -1,0 +1,9 @@
+{
+  "name": "go-gorm--gen",
+  "displayName": "gen",
+  "description": "gen",
+  "version": "1.0.0",
+  "author": "go-gorm",
+  "homepage": "https://github.com/go-gorm/gen",
+  "skills": []
+}
