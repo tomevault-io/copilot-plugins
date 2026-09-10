@@ -1,46 +1,58 @@
 ## pintora
 
-> Pintora is a TypeScript text-to-diagram library for browser and Node. The repo is a monorepo managed with pnpm workspaces and Turbo.
+> **Role:** All diagram implementations. Each diagram type is the parser + artist + config + index four-file convention.
 
-# Pintora — Agent Map
+# @pintora/diagrams — Agent Notes
 
-Pintora is a TypeScript text-to-diagram library for browser and Node. The repo is a monorepo managed with pnpm workspaces and Turbo.
+**Role:** All diagram implementations. Each diagram type is the parser + artist + config + index four-file convention.
 
-## Where to look
+## Entry points
 
-| Task | Go to |
-|------|-------|
-| Edit code inside a package | `packages/<pkg>/AGENTS.md` |
-| Add a new diagram type (parser + artist + config) | [`.ai/skills/add-new-diagram/SKILL.md`](.ai/skills/add-new-diagram/SKILL.md) |
-| Cross-package architecture, data flow, terminology | [`.ai/docs/README.md`](.ai/docs/README.md) |
-| Why a past decision was made | [`.ai/docs/adr/README.md`](.ai/docs/adr/README.md) |
-| User-facing documentation | `website/docs/` |
+- `src/index.ts` — registers every diagram with `@pintora/core`.
+- Per-diagram entry: `src/<type>/index.ts`.
 
-## Repo quick-facts
+## Internal layout
 
-- 8 packages: `pintora-core` (registry + theme + config), `pintora-diagrams` (diagram implementations), `pintora-renderer`, `pintora-standalone`, `pintora-cli`, `pintora-target-wintercg`, `development-kit`, `test-shared`.
-- Internal dependencies use pnpm workspace protocol.
-- Diagram types: sequence, er, component, activity, mindmap, gantt, dot, class, usecase.
+| Path | Responsibility |
+|------|----------------|
+| `src/sequence/` | Sequence diagram |
+| `src/er/` | Entity-relationship diagram |
+| `src/component/` | Component diagram |
+| `src/activity/` | Activity diagram |
+| `src/mindmap/` | Mind map |
+| `src/gantt/` | Gantt diagram |
+| `src/dot/` | DOT diagram |
+| `src/class/` | Class diagram |
+| `src/usecase/` | Use-case diagram |
+| `src/util/` | Cross-diagram helpers (layout, text, shape). |
+| `src/__tests__/` | Integration snapshot tests. |
 
-## Commands
+## Conventions (the diagram triple)
 
-```bash
-pnpm install
-pnpm compile        # build all packages
-pnpm test           # Jest test suite
-pnpm watch          # turbo watch mode
-pnpm demo:dev       # local demo site
-pnpm website:dev    # local docs site
-pnpm ai:link        # symlink .ai/skills into tool dirs
-pnpm ai:lint        # validate .ai/ and AGENTS.md links
-```
+- `parser.ts` — nearley artifact compiled from `parser.ne`. Rebuild via `pnpm --filter @pintora/diagrams gen-parser` after grammar edits.
+- `artist.ts` — translate parser AST into a Mark tree; layout happens here.
+- `config.ts` — default config and `configKey`.
+- `index.ts` — calls `pintora.registerDiagram(name, { parser, artist, configKey })`.
 
-## Hard rules
+See [`.ai/docs/patterns/diagram-three-piece.md`](../../.ai/docs/patterns/diagram-three-piece.md) for the full pattern.
 
-- Before editing inside a package, read its `AGENTS.md`. Do not infer conventions from one example file.
-- When adding a diagram, follow the `add-new-diagram` skill end-to-end; skipping steps misses registration, snapshots, or standalone wiring.
-- Snapshot diffs require human review. Never run Jest with `--updateSnapshot` blindly.
-- pnpm only. Do not introduce npm or yarn lockfiles.
+## Depends on
+
+- `@pintora/core` — registry, theme, config.
+- D3 (layout), jsdom (test environment).
+
+## Tested how
+
+- jsdom environment (D3 requires DOM).
+- Snapshot tests in `src/__tests__/<type>.spec.ts`.
+- Snapshot diffs always require human review.
+
+## Gotchas
+
+- Adding a diagram has many steps; follow [`.ai/skills/add-new-diagram/SKILL.md`](../../.ai/skills/add-new-diagram/SKILL.md).
+- After grammar edits, rebuild before running tests or the parser is stale.
+- Use relative coordinates in Marks; do not hard-code pixels.
+- Read colors from `getConfig().themeConfig`; do not hard-code.
 
 ---
 > Source: [hikerpig/pintora](https://github.com/hikerpig/pintora) — distributed by [TomeVault](https://tomevault.io).
