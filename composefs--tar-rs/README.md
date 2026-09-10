@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [composefs/tar-rs](https://github.com/composefs/tar-rs).
+Original source: `.cursor/rules/*.mdc` in [composefs/tar-rs](https://github.com/composefs/tar-rs).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [composefs/tar-rs](https://github.com/composefs/tar-rs) — a repo with 736+ stars on GitHub.
+From [composefs/tar-rs](https://github.com/composefs/tar-rs) — a repo with 737+ stars on GitHub.
 
 ---
 
