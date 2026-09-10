@@ -4,7 +4,7 @@
   "repo": "bootstrap_package",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/benjaminkott/bootstrap_package",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T11:39:49Z"
+  "distributed_at": "2026-09-10T03:27:38Z"
 }
