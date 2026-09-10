@@ -1,15 +1,13 @@
 ## learn-nodejs
 
-> - Build: `npm run build` (`tsc`)
+> - Use TypeScript 5.7+ with strict typing and ESM imports.
 
-# Claude Code Guidelines - learn-nodejs
+# GitHub Copilot Instructions - learn-nodejs
 
-- Build: `npm run build` (`tsc`)
-- Test: `npm test` (`vitest run`)
-- Dev: `npm run dev` (`tsx watch src/server.ts`)
-- TypeScript target: ES2022 with NodeNext module resolution.
-- Node.js version target: 20.x or 22.x LTS.
-- Always write pure ESM with explicit `.js` import extensions for local files.
+- Use TypeScript 5.7+ with strict typing and ESM imports.
+- Express 5 controllers should use standard Request and Response signatures.
+- Prefer `node:` prefix for built-in modules (`node:stream`, `node:worker_threads`, `node:util`, `node:path`, `node:url`).
+- Ensure all asynchronous calls are properly awaited or chained with catch handlers.
 
 ---
 > Source: [manthanank/learn-nodejs](https://github.com/manthanank/learn-nodejs) — distributed by [TomeVault](https://tomevault.io).
