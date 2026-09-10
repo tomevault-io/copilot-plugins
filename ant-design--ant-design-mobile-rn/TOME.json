@@ -4,7 +4,7 @@
   "repo": "ant-design-mobile-rn",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ant-design/ant-design-mobile-rn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T10:38:44Z"
+  "distributed_at": "2026-09-10T02:46:43Z"
 }
