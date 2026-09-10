@@ -1,0 +1,9 @@
+{
+  "name": "agdestein--incompressiblenavierstokes-jl",
+  "displayName": "IncompressibleNavierStokes.jl",
+  "description": "IncompressibleNavierStokes.jl",
+  "version": "1.0.0",
+  "author": "agdestein",
+  "homepage": "https://github.com/agdestein/IncompressibleNavierStokes.jl",
+  "skills": []
+}
