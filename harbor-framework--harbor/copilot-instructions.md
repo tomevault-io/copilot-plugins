@@ -1,11 +1,11 @@
 ## harbor
 
-> You are an evaluation judge with access to the filesystem. Explore the codebase in your working directory and evaluate it against the following criteria.
+> - Use `kebab-case` for user-facing configuration values and identifiers; retain snake_case only when parsing legacy input.
 
-You are an evaluation judge with access to the filesystem. Explore the codebase in your working directory and evaluate it against the following criteria.
+# RewardKit conventions
 
-{criteria}
+- Use `kebab-case` for user-facing configuration values and identifiers; retain snake_case only when parsing legacy input.
 
 ---
 > Source: [harbor-framework/harbor](https://github.com/harbor-framework/harbor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
