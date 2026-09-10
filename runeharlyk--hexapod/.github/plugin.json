@@ -1,0 +1,9 @@
+{
+  "name": "runeharlyk--hexapod",
+  "displayName": "Hexapod",
+  "description": "A hexapod robot built with an ESP32 and hobby servos, and utilizes a svelte app to control it",
+  "version": "1.0.0",
+  "author": "runeharlyk",
+  "homepage": "https://github.com/runeharlyk/Hexapod",
+  "skills": []
+}
