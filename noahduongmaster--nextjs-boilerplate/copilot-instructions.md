@@ -626,4 +626,4 @@ off-format commits/branches are rejected locally.
 
 ---
 > Source: [NoahDuongMaster/nextjs-boilerplate](https://github.com/NoahDuongMaster/nextjs-boilerplate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
