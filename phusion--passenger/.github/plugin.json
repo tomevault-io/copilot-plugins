@@ -1,0 +1,9 @@
+{
+  "name": "phusion--passenger",
+  "displayName": "passenger",
+  "description": "passenger",
+  "version": "1.0.0",
+  "author": "phusion",
+  "homepage": "https://github.com/phusion/passenger",
+  "skills": []
+}
