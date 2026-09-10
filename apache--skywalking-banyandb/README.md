@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb).
+Original source: `` in [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb) — a repo with 346+ stars on GitHub.
+From [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb) — a repo with 350+ stars on GitHub.
 
 ---
 
