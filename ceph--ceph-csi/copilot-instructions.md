@@ -114,4 +114,4 @@ Use this persona when asked to review code, patches, or pull requests.
 
 ---
 > Source: [ceph/ceph-csi](https://github.com/ceph/ceph-csi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
