@@ -1,0 +1,9 @@
+{
+  "name": "pascalorg--pascal-strike",
+  "displayName": "pascal-strike",
+  "description": "3v3 paintball in houses built with Pascal (three.js WebGPU + Playroom)",
+  "version": "1.0.0",
+  "author": "pascalorg",
+  "homepage": "https://github.com/pascalorg/pascal-strike",
+  "skills": []
+}
