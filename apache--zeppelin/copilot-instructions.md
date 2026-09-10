@@ -21,186 +21,42 @@ limitations under the License.
 
 # AGENTS.md
 
-> Scoped guidance for work under `docs/`. This file complements the
-> repository-root `AGENTS.md`.
+Unit test conventions for the React remote, covering only what differs from the package.
 
-## Scope And Ownership
+[`zeppelin-web-angular/AGENTS.md`](../../AGENTS.md) is the baseline and applies here unchanged: spec beside source, what to test and what not to, determinism, naming, coverage measured but not gated, and the lint rules that catch specs which cannot fail. Read it first. This file records the three places where this package is not the same.
 
-- `docs/` is the source for Apache Zeppelin's versioned product documentation.
-- The main `zeppelin.apache.org` website is maintained in
-  `apache/zeppelin-site`; its homepage does not need to use the same generator
-  as these versioned docs.
-- Markdown, layouts, includes, and assets in this directory are built here.
-  The generated site is written to `docs/_site/`.
-- `docs/_site/` is generated and gitignored. Never edit or commit it.
+## Running
 
-## Build Model
+| Command | Purpose |
+| --- | --- |
+| `npm test` | Run once |
+| `npm run test:watch` | Re-run on change |
+| `npm test -- --coverage` | With a coverage report |
 
-The current build is:
+**`npm test` never runs in pull-request CI.** The build does, through `build:react` at the Maven `generate-resources` phase. The lint does too, through `lint:react`, but only inside the `run-playwright-e2e-tests` job, because `npm lint` is bound to the `test` phase and `frontend.yml` builds this module with `-DskipTests`. `npm audit` has its own job. The test suite is invoked from the npm-audit remediation workflow, not from the normal PR path, and connecting it is [ZEPPELIN-6566](https://issues.apache.org/jira/browse/ZEPPELIN-6566). Until that lands, run it locally before opening a PR. Nothing else will. The lint rules do run, so a spec that cannot fail is still caught.
 
-```text
-docs sources + docs/_config.yml
-  -> Jekyll from docs/Gemfile.lock
-  -> docs/_site/
-  -> zeppelin-site/docs/<version>/ during a separate publication step
-```
+Specs are `Foo.spec.tsx` beside `Foo.tsx`, picked up by this package's own `vitest.config.mts`. `@testing-library/react` is available.
 
-- `Gemfile` declares Jekyll and its documentation build dependencies.
-- `Gemfile.lock` pins the actual Ruby dependency versions. The Docker commands
-  use `bundle exec` so the pinned Jekyll version is used.
-- `_config.yml` supplies `ZEPPELIN_VERSION` and `JB.BASE_PATH`.
-- `_includes/JB/setup` applies `JB.BASE_PATH` only for a safe build. Therefore
-  a publication build must include `--safe`.
-- `Rakefile` contains legacy Jekyll-Bootstrap helpers. It is not the primary
-  build entry point; use the Docker commands below.
-- The Maven build does not generate this site.
-- Docker is the supported build environment. Do not install or run Ruby,
-  Bundler, or Jekyll directly on the host.
+Coverage works the same way as the baseline describes, including the caveat: the denominator is only the files the specs load, so the percentage is not whole-tree coverage.
 
-## Preview And Build
+## What is worth testing here
 
-Preview with Docker:
+The code that decides what to render. `SingleResultRenderer` picks a renderer from `DatasetType`; picking wrong leaves the user with a blank result. `HTMLRenderer` assigns `innerHTML` on a ref and then replaces `<script>` nodes by hand so that they execute, which React's own `dangerouslySetInnerHTML` would not do. That is worth pinning for both behaviour and safety.
 
-```bash
-cd docs
-docker run --rm -it \
-  --user "$(id -u):$(id -g)" \
-  -e HOME=/usr/local/bundle \
-  -e BUNDLE_FROZEN=true \
-  -v "$PWD:/docs" \
-  -w /docs \
-  -p '4000:4000' \
-  ruby:4.0.6 \
-  bash -lc "bundle install && bundle exec jekyll serve --watch --host 0.0.0.0"
-```
+Assert on what a user can see (a role, a label, a value) rather than on the DOM tree. Snapshot dumps of rendered markup record that markup changed, which it will, since these surfaces are being migrated.
 
-Open `http://localhost:4000`. The preview intentionally runs without
-`--safe`, so links are rooted at `/` instead of the production version path.
-The container uses the current user's UID and GID so generated files remain
-owned by that user on the host. The Ruby image's writable gem directory is
-also used as the container home for that user.
+## Do not pin behaviour that is already wrong
 
-Build the publication artifact with Docker:
+The baseline says to write the spec while Angular is still the source of truth. On this side there is an exception worth naming.
 
-```bash
-cd docs
-docker run --rm \
-  --user "$(id -u):$(id -g)" \
-  -e HOME=/usr/local/bundle \
-  -e BUNDLE_FROZEN=true \
-  -v "$PWD:/docs" \
-  -w /docs \
-  ruby:4.0.6 \
-  bash -lc "bundle install && bundle exec jekyll build --safe"
-```
+`TableVisualization` keeps its display mode in `useState` and has no save callback, so a setting the user changes is never persisted. Angular stores the same choice in `GraphConfig`. Writing a spec that asserts the current behaviour would turn that defect into the expected result.
 
-The output must be under `_site/`, and generated links and assets must use the
-`JB.BASE_PATH` configured in `_config.yml`.
+**That surface is something to fix, not something to pin.** Test it once the state is lifted to the host. When in doubt: a spec records what the code *should* do. If the current behaviour is known to be wrong, fix it first or leave it alone.
 
-When `Gemfile` changes, update `Gemfile.lock` inside Docker:
+## Adding a Test
 
-```bash
-cd docs
-docker run --rm \
-  --user "$(id -u):$(id -g)" \
-  -e HOME=/usr/local/bundle \
-  -v "$PWD:/docs" \
-  -w /docs \
-  ruby:4.0.6 \
-  bundle lock --update
-```
-
-Run the publication build after updating the lockfile.
-
-## Authoring Conventions
-
-- Preserve the ASF license header in every new source file.
-- Follow the front matter used by nearby pages:
-
-  ```yaml
-  ---
-  layout: page
-  title: "Page title"
-  description: "Short description"
-  group: section/subsection
-  ---
-  ```
-
-- Include `{% include JB/setup %}` before page content when following the
-  existing page layout.
-- Prefix internal site links and assets with `{{BASE_PATH}}` when an absolute
-  site path is needed. Production docs are hosted below `/docs/<version>/`,
-  not at the domain root.
-- Update `_includes/themes/zeppelin/_navigation.html` when a page must appear
-  in the global documentation navigation.
-- Keep filenames, headings, and link targets stable unless the task explicitly
-  includes redirects or link migration.
-- Check the corresponding source code or configuration template when
-  documenting runtime behavior. Do not infer current behavior from an older
-  documentation page.
-
-## Version Handling
-
-- `ZEPPELIN_VERSION` and `JB.BASE_PATH` in `_config.yml` must identify the same
-  version.
-- `dev/change_zeppelin_version.sh` updates both values as part of a repository
-  version change. Do not change them for an ordinary documentation edit.
-- Before producing release docs, verify that `JB.BASE_PATH` is exactly
-  `/docs/<release-version>`.
-
-## Publication Boundary
-
-- Building this directory does not publish the website.
-- The generated `_site/` tree is copied into
-  `apache/zeppelin-site/docs/<version>/` by separate release/site work.
-- The `zeppelin-site` repository owns the homepage, ASF staging/publishing,
-  and the mapping or redirect for `/docs/latest/`.
-- Do not modify `zeppelin-site`, historical documentation snapshots, or
-  publication branches unless the user explicitly includes that work.
-
-## ASF Website Policy
-
-- Follow the ASF project website policy at
-  `https://privacy.apache.org/policies/website-policy.html` and the Infra CSP
-  guidance at `https://infra.apache.org/csp.html`.
-- Do not add Google Analytics or any other third-party analytics, tracker,
-  tracking pixel, advertising tag, or external monitoring script.
-- Do not load JavaScript, CSS, fonts, images, or other assets from non-ASF
-  domains. Host an asset in this repository when its license permits, or use a
-  normal external link instead of embedding it.
-- Third-party embeds require the consent and DPA handling described by the ASF
-  policy. Prefer a direct link unless the task explicitly includes an approved
-  consent flow.
-- The production layout uses the ASF-hosted Matomo instance provisioned for
-  Apache Zeppelin as site ID `69`. Do not replace it with another analytics
-  service or change its endpoint without Privacy team approval.
-
-## Verification
-
-For every documentation change:
-
-1. Run the Docker publication build above from `docs/`.
-2. Confirm `_site/index.html` and the generated file for each changed page
-   exist.
-3. Check generated navigation, links, images, and code blocks for the affected
-   pages.
-4. Confirm generated URLs use the configured `/docs/<version>/` prefix.
-5. Check the generated site for external trackers and embedded resources:
-
-   ```bash
-   docker run --rm \
-     -v "$PWD:/docs:ro" \
-     -w /docs \
-     ruby:4.0.6 \
-     ruby check_external_resources.rb _site
-   ```
-
-6. Run `git status --short` and keep `_site/` and incidental dependency changes
-   out of the commit.
-
-For navigation, layout, CSS, or JavaScript changes, also run the preview server
-and inspect the affected pages at desktop and narrow viewport widths.
+`src/utils/` is the easiest start; `textUtils.spec.ts` is a worked example. Everything else follows the baseline.
 
 ---
 > Source: [apache/zeppelin](https://github.com/apache/zeppelin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
