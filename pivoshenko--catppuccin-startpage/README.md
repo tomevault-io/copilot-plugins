@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pivoshenko/catppuccin-startpage](https://github.com/pivoshenko/catppuccin-startpage).
+Original source: `CLAUDE.md` in [pivoshenko/catppuccin-startpage](https://github.com/pivoshenko/catppuccin-startpage).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
