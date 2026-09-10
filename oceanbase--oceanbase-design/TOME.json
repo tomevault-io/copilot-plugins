@@ -1,0 +1,75 @@
+{
+  "name": "oceanbase-design",
+  "owner": "oceanbase",
+  "repo": "oceanbase-design",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oceanbase-design",
+      "path": "skills/oceanbase-design-usage/SKILL.md",
+      "github_url": "https://github.com/oceanbase/oceanbase-design/tree/main/skills/oceanbase-design-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oceanbase-design",
+      "path": ".cursor/skills/github-pr-submit/SKILL.md",
+      "github_url": "https://github.com/oceanbase/oceanbase-design/tree/main/.cursor/skills/github-pr-submit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oceanbase-design",
+      "path": "skills/oceanbase-design/SKILL.md",
+      "github_url": "https://github.com/oceanbase/oceanbase-design/tree/main/skills/oceanbase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oceanbase-design",
+      "path": ".cursor/skills/sync-yuque-doc/SKILL.md",
+      "github_url": "https://github.com/oceanbase/oceanbase-design/tree/main/.cursor/skills/sync-yuque-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oceanbase-design",
+      "path": ".cursor/skills/figma-code-connect/SKILL.md",
+      "github_url": "https://github.com/oceanbase/oceanbase-design/tree/main/.cursor/skills/figma-code-connect/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oceanbase/oceanbase-design",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T06:33:32Z"
+}
