@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--symreader-converter",
+  "displayName": "symreader-converter",
+  "description": "symreader-converter",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/symreader-converter",
+  "skills": []
+}
