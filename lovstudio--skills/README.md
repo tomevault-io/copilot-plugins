@@ -1,23 +1,21 @@
 # AI instruction files for skills
 
-> Sourced from [lovstudio/skills](https://github.com/lovstudio/skills) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Agent skills for AI coding assistants — Markdown to PDF/DOCX with 14 themes, CJK support
+> Sourced from [lovstudio/skills](https://github.com/lovstudio/skills), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lovstudio/skills](https://github.com/lovstudio/skills).
+Original source: `AGENTS.md` in [lovstudio/skills](https://github.com/lovstudio/skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lovstudio/skills](https://github.com/lovstudio/skills)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/lovstudio/skills](https://github.com/lovstudio/skills)
 
 ---
 
