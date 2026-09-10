@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--command-line-api",
+  "displayName": "command-line-api",
+  "description": "command-line-api",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/command-line-api",
+  "skills": []
+}
