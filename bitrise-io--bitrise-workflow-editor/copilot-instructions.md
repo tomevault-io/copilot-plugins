@@ -1,152 +1,294 @@
 ## bitrise-workflow-editor
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> How to write code here. Mechanism lives in [flows.md](flows.md), rationale in
 
-# CLAUDE.md
+# Conventions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+How to write code here. Mechanism lives in [flows.md](flows.md), rationale in
+[decisions.md](decisions.md), vocabulary in [domain.md](domain.md).
 
-@./node_modules/@bitrise/bitkit-v2/AGENTS.md
+## What you are writing with
 
-## Project Overview
+| | |
+|---|---|
+| Framework | React 18 + TypeScript (strict), built with Vite |
+| UI | `@bitrise/bitkit-v2` (Chakra v3) for all new work. `@bitrise/bitkit` (Chakra v2) is legacy; migrate v1 components to v2 in any file you touch |
+| State | Zustand, `BitriseYmlStore` |
+| Data fetching | TanStack React Query |
+| Routing | wouter, lazy-loaded pages |
+| YAML editing | Monaco + monaco-yaml + `@bitrise/languageserver` |
+| Graphs | XYFlow + dagre |
+| Drag and drop | dnd-kit |
+| Path alias | `@/` maps to `source/javascripts/` |
 
-Bitrise Workflow Editor — a React + Go application for editing CI/CD workflow configurations (bitrise.yml). Runs as a Bitrise CLI plugin (default) or as a website integrated with the Bitrise monolith. Transitioning from AngularJS to React.
-
-## Common Commands
-
-```bash
-npm start                # Dev server + local Go API on port 4000
-npm run start:website    # Dev server in website mode (requires monolith running on :3000)
-npm run build            # Vite production build
-npm run lint             # ESLint (cached)
-npm run lint:fix         # ESLint autofix
-npm test                 # Jest unit tests
-npm test -- --testPathPattern="path/to/file"  # Run single test file
-npm run test:smoke       # Playwright E2E tests
-npm run storybook        # Storybook on port 6006
-```
-
-**Go API server:**
-```bash
-go vet ./...             # Vet Go code
-go test ./...            # Go tests
-```
-
-**Setup:** `bitrise run setup` (installs Node + Go deps)
-
-## Architecture
-
-### Frontend (`source/javascripts/`)
-
-- **Framework:** React 18 + TypeScript (strict mode), built with Vite
-- **UI:** `@bitrise/bitkit-v2` (new, Chakra UI v3) for new components; `@bitrise/bitkit` (legacy, Chakra UI v2) still present but being replaced — use v2 for all new work, and migrate v1 components to v2 in any file you touch
-- **State:** Zustand — `BitriseYmlStore` is the central store holding the YAML document
-- **Data fetching:** TanStack React Query
-- **Routing:** wouter (lazy-loaded pages)
-- **YAML editing:** Monaco Editor + monaco-yaml + custom `@bitrise/languageserver`
-- **Graph visualization:** XYFlow + dagre (pipeline/workflow graphs)
-- **Drag & drop:** dnd-kit
-- **Path alias:** `@/` → `source/javascripts/`
-
-### Key directories
+## Where things live
 
 ```
 source/javascripts/
-  core/
-    api/           # API clients (BitriseYmlApi, StepApi, EnvVarsApi, etc.)
-    stores/        # Zustand stores (BitriseYmlStore is the main one)
-    models/        # TypeScript types for BitriseYml, Step, Workflow, etc.
-    services/      # Domain logic (StepService, PipelineService, etc.)
-  hooks/           # React hooks (useCiConfig, useSecrets, useFeatureFlag, etc.)
-  components/      # Shared + unified-editor components
-  pages/           # WorkflowsPage, PipelinesPage, TriggersPage, etc.
+  core/            no React (lint-enforced), no DOM (convention)
+    models/        internal types
+    api/           HTTP clients: DTO in, model out. Reach them through a hook
+    services/      business logic over models. All structured YAML mutation
+    stores/        Zustand stores, mainly BitriseYmlStore
+    utils/         YmlUtils and friends
+  hooks/           store selectors and React Query wrappers
+  components/      shared and unified-editor
+  pages/           thin composition
 
-apiserver/         # Go HTTP server (Gorilla Mux), serves API + embedded static assets
-cmd/               # Go CLI (Cobra)
-spec/              # Test files (Jest unit + Playwright E2E)
+apiserver/         Go HTTP server (Gorilla Mux), API plus embedded assets
+cmd/               Go CLI (Cobra)
+spec/              Jest unit and Playwright E2E
 ```
 
-### Patterns
+### Adding a field users can edit
 
-- **`core/` is framework-agnostic** — no React or DOM dependencies. Pure TypeScript only
-  - **`models/`** — internal application types used throughout the app
-  - **`api/`** — API client functions that work with DTOs and map them to internal models. Consumed by services and hooks, never called directly from components
-  - **`services/`** — business logic operating on models. Must have thorough unit tests covering happy paths, edge cases, error conditions, and different YAML formats where applicable
-  - **`stores/`** — Zustand stores (mainly `BitriseYmlStore`). Coordinate state across the app
-- **YAML preservation:** Service functions that modify YAML must not make unnecessary changes or reorder existing fields — only touch what's needed
-- **Component architecture:** hooks manage API calls and local state; components focus on rendering
-- **Two modes:** `MODE=CLI` (plugin, default) and `MODE=WEBSITE` — runtime behavior branches via `PageProps`/`RuntimeUtils` and environment checks
+The order matters, because each layer depends on the one before it.
 
-### Service Conventions
+1. **`core/models/BitriseYml.ts`** — add the key to the matching model, for example
+   `WorkflowModel`. The rest of the stack is typed off these.
+2. **`core/services`** — a setter through `updateBitriseYmlDocument`, plus a validator if the
+   value can be wrong.
+3. **`hooks/`** — a selector hook if the UI needs to read it back.
+4. **The component**, in `components/` or a page.
+5. **A `*.spec.ts` beside the service**, using the round-trip idiom under [Testing](#testing).
 
-- All services are **pure functions** exported via `export default { ... }`, not classes
-- **Mutation pattern:** services mutate YAML via `updateBitriseYmlDocument(({doc}) => { ...; return doc })` — the store clones the document before calling, so services mutate `doc` directly
-- **Validation pattern:** `getXOrThrowError(id, doc)` before any mutation to ensure the target exists
-- **Validate functions** return `string | boolean` — `true` on success, error message string on failure
-- Services **never import React** — they live in `core/` which is framework-agnostic
-- **Dependency direction:** `WorkflowService` and `StepService` are foundational (no service deps); others build on top (`PipelineService` → `WorkflowService` + `StepService`, etc.)
-- **Cross-service operations:** Some user actions (e.g., deleting a workflow) touch multiple services (removal + trigger cleanup + env var cleanup). There's no explicit orchestrator — the store or calling code coordinates these calls. Be aware of cascading effects when modifying service functions
+The gate that is not in this repo: the Go server validates the saved config with the `bitrise`
+CLI, so a key the CLI does not know fails at save even though every layer above compiled. Check
+the key exists in the CLI's schema before building UI on it. The call is
+`apiserver/utility/utility.go`, which hands the config to `CreateBitriseConfigFromCLIParams` under
+`ValidationTypeFull`. That is the `bitrise` library pinned in `go.mod`, compiled into the server —
+not whatever CLI the user has installed, which `bitrise-plugin.yml` only floors at a minimum
+version. So the schema you are checking against moves when someone bumps that dependency.
 
-### Hook Conventions
+For a modular config the server validates the **merged** YAML, not each file. A module that is
+invalid standing alone is fine, and the thing that has to parse and validate is the merge.
 
-- **Store selectors** are thin hooks wrapping `useBitriseYmlStore` with `useShallow` (e.g., `useWorkflows`, `useContainers`)
-- **Data fetching hooks** use TanStack React Query (`useQuery`/`useMutation`) with proper `staleTime`/`gcTime`
-- Hooks should be **thin wrappers** — delegate business logic to services rather than implementing it inline
+### Where does this go?
 
-### Page Conventions
+| You are writing | It goes in |
+|---|---|
+| Logic that changes the YAML structure | `core/services` |
+| A name or value validator | `core/services`, returning `string \| boolean` |
+| An HTTP call | `core/api`, wrapped by a hook |
+| Reading YAML state into a component | a selector hook over `yml` |
+| Fetching remote data | a React Query hook |
+| Which dialog is open | the page store, or `useDisclosure` on simple pages |
+| A mode difference | `core/api` or the component. Never a service |
+| Anything touching `yaml` AST nodes | nowhere directly. Use `YmlUtils` |
 
-- **Complex pages** (Workflows, Pipelines, StepBundles) use a page-specific Zustand store for dialog/selection state + a `Drawers.tsx` component for dialog rendering
-- **Simple pages** use local hooks (`useDisclosure`, `useState`) — no page store needed
-- Pages are **thin wrappers** (~30-60 LOC) composing canvas panels, config panels, and drawers
+## Layer rules
 
-### Runtime & Tooling
+**`core/` is framework-agnostic.** No React, no DOM, so services test in plain Jest with no
+renderer. Lint enforces only the React half, by banning the `react` and `react-dom` imports.
+Nothing stops you reaching for `document` or `window`, and `CommonUtils`, `WindowUtils` and
+`PageProps` already do. Anything that needs React goes in `hooks/`, anything that needs the DOM
+goes in `components/`.
 
-- **MSW mocks:** API mocks for tests/stories use `.mswMocks.ts` files
-- **Feature flags:** LaunchDarkly with local overrides in `ld.local.json`; access via `useFeatureFlag()` hook
-- **YAML validation:** Done server-side (Go); invalid YAML state tracked separately in store
+**Dependency direction.** Most services import no other service at all. The exceptions are few
+enough to list: `WorkflowService` reaches for `EntityIndexService`, `ContainerService` and
+`PipelineService` for two each, and `BitriseYmlService`, `EnvVarService`, `StackAndMachineService`
+and `ToolsService` for one. `StepService` imports none. Check the imports before assuming a layer.
 
-### Unified-Editor (`components/unified-editor/`)
+`MODE` is set by the npm script, not by config: `npm start` exports `MODE=CLI`,
+`npm run start:website` exports `MODE=WEBSITE`, and Vite passes it through `envPrefix` into
+`window.env`, which is why it does not exist under Jest.
 
-- Largest component subsystem (119 files) — handles workflow/step/pipeline configuration UI
-- Uses **React context** for passing entity IDs and step data to nested components
-- Uses **`WorkflowCardContext`** for passing action callbacks (step actions, workflow actions, selection) to deeply nested card components
-- **`FloatingDrawer`** is the standard drawer wrapper — opened via page store's `openDialog`/`closeDialog`
-- Step editing flow: click → page store opens dialog → Drawer mounts → context provider fetches data → tabs render config
+**Branch on runtime mode at the edges only.** `MODE=CLI` is the plugin default, `MODE=WEBSITE` is
+the monolith iframe. Branch in `core/api` for endpoint paths and request shapes, in components for
+feature visibility, in `core/analytics`. Nothing enforces this: wanting `isWebsiteMode()` inside a
+service means the branch belongs somewhere else, but no lint rule will tell you. The one standing
+exception is `BitriseYmlStore.warnInDev`, which asks `RuntimeUtils` whether it is in production to
+decide whether to warn, not to change behaviour. Mode is
+sometimes a capability difference rather than a URL swap: `SecretApi.getSecretValue` returns
+`undefined` in CLI mode because no local endpoint exists.
 
-## File Naming Conventions
+## Services
 
-- Components: `PascalCase.tsx`
-- Stores: `*.store.ts`
-- Context providers: `*.context.tsx`
-- Constants: `*.const.ts`
-- Tests: `*.spec.ts` / `*.spec.tsx`
-- Stories: `*.stories.tsx`
-- MSW mocks: `*.mswMocks.ts`
+Pure functions exported through one `export default { … }`, never classes. Pure in the sense
+that matters here: no React, no DOM, no instance state, so a service runs under plain Jest with
+no renderer. A mutator still reaches the store through `updateBitriseYmlDocument`, which is the
+one global effect a service is allowed.
 
-## Lint Rules to Know
+```ts
+function renameWorkflow(id: string, newName: string) {
+  updateBitriseYmlDocument(({ doc }) => {
+    getWorkflowOrThrowError(id, doc);          // validate before you touch anything
+    YmlUtils.updateKeyByPath(doc, ['workflows', id], newName);
+    return doc;                                 // the store already cloned it
+  });
+}
+```
 
-- `import/no-cycle: "error"` — no circular imports
-- Import `useShallow` from `@/core/hooks/useShallow`, not from `zustand/shallow`
-- `TEST_BITRISE_YML` global is restricted to spec/story/mock files only
-- ESLint flat config in `eslint.config.mjs` using `@bitrise/eslint-plugin`
+- **Validate first.** `getXOrThrowError(id, doc)` so a stale id fails at the top instead of
+  writing half a change.
+- **Validators return `string | boolean`.** The message on failure, not `false`, so they drop
+  straight into react-hook-form.
+- **Write entry points.** `updateBitriseYmlDocument(mutator)` for structured edits and
+  `updateBitriseYmlDocumentByString(text)` to replace the whole document, both aimed at the active
+  document; `updateFileDocument` and `updateFileDocumentByString` take a `nodeId` and write to a
+  named file in modular mode. The services-only rule is lint-enforced in `.tsx` and nowhere else,
+  so a `.ts` hook or util calling the mutator is on you.
+- **`keep` arguments are load-bearing.** `YmlUtils.deleteByPath` and friends take an ancestor that
+  must survive being emptied. Omit it and removing the last workflow from a pipeline takes the
+  pipeline's `workflows` key with it.
+- **Never round-trip through JSON.** `toJSON` is for reading. Never hand-build YAML strings.
+- **No orchestrator exists.** Deleting a workflow means removal, trigger cleanup and env var
+  cleanup, sequenced by the store or the calling component. Check for cascades before changing a
+  mutating service.
+- Services need real tests: happy paths, edge cases, error conditions, and different YAML shapes
+  for the same semantic input.
+
+## Hooks
+
+Thin. Business logic belongs in a service.
+
+**Which store hook.** This is correctness, not tuning.
+
+| Your selector returns | Use |
+|---|---|
+| A fresh object or array | `useBitriseYmlStore` |
+| A primitive or existing reference (`s.tree`, `s.hasChanges`) | raw `useStore(bitriseYmlStore, …)`, cheaper |
+
+Raw `useStore` with a fresh value hangs the page on mount rather than merely re-rendering. Lint
+catches the common shapes; a value built inside a block body is still on you. Fix a slow selector
+by selecting less, never by adding `useMemo`.
+
+**React Query.** Always set `staleTime` and `gcTime` explicitly, chosen from what the data *is*
+rather than how often it changes. The distribution is deliberately bimodal: immutable or
+store-owned gets `Infinity`, sensitive gets `0` for both. `staleTime` is per-observer, so two
+hooks sharing a `queryKey` and not a policy will fight. Sharing a key obliges you to share the
+policy.
+
+## Pages and dialogs
+
+A page gets its own Zustand store when its dialogs can open **each other** and share selection
+context. Not because it has dialogs, and not because it fetches. Containers has both and needs no
+store. Workflows, Pipelines and StepBundles have `*.store.ts` plus `Drawers.tsx`; the rest use
+`useDisclosure`.
+
+Wiring a drawer takes four props, and each omission fails differently:
+
+```tsx
+{isDialogMounted(TYPE) && (
+  <SomeDrawer isOpen={isDialogOpen(TYPE)} onClose={closeDialog} onCloseComplete={unmountDialog} />
+)}
+```
+
+No `isDialogMounted` guard and its queries, context and form state stay alive while idle. No
+`isOpen` and it never opens at all — the prop is required, so you get a type error first. No
+`onClose` and its own close button and ESC do nothing. No `onCloseComplete` and it never unmounts,
+killing dialog-to-dialog navigation silently.
+
+`openDialog` is a handler factory: pass `openDialog({type})` in JSX, call `openDialog({type})()`
+imperatively. Forget the `()` and nothing happens; add it in JSX and the dialog opens during
+render.
+
+There is no global dialog registry. Each page declares its own enum in its `*.store.ts`, so the
+set of dialogs is per page by construction. `pages/WorkflowsPage/` is the copy-me example: the
+enum and the three-slot machinery in `WorkflowsPage.store.ts`, the wiring in
+`components/Drawers/`, the canvas beside it.
+
+## Components
+
+Hooks manage API calls and local state. Components render.
+
+In `components/unified-editor/`, React context carries entity ids and step data down, and
+`WorkflowCardContext` carries the action callbacks. **Capability is expressed by absence**: to
+make a subtree read-only, withhold the callbacks at the context boundary rather than passing a
+permission flag. The accessor hooks throw outside their provider on purpose.
+
+`FloatingDrawer` is the standard drawer wrapper, opened through the page store.
+
+## Naming
+
+| Pattern | Is |
+|---|---|
+| `PascalCase.tsx` | a component |
+| `*Service.ts` | domain logic, in `core/services` |
+| `*Api.ts` | an API client, in `core/api` |
+| `*.store.ts` | a page-scoped Zustand store |
+| `*.context.tsx` | a context provider, except `WorkflowCardContext.tsx` and `SortableWorkflowsContext.tsx` |
+| `*.const.ts` | constants |
+| `*.spec.ts(x)` | a colocated Jest test |
+| `*.stories.tsx` | a colocated Storybook story |
+| `*.mswMocks.ts` | MSW handlers for tests and stories |
+
+## Lint
+
+Flat config in `eslint.config.mjs`, using `@bitrise/eslint-plugin`. Four boundaries are enforced
+rather than merely asserted:
+
+```
+core/ may not import react or react-dom,       .tsx may not call updateBitriseYmlDocument,
+including subpaths                             by that name or an alias
+useShallow comes from @/hooks/useShallow       raw useStore may not build a fresh value
+```
+
+Two of those take two rule ids each — a `no-restricted-imports` entry plus a `no-restricted-syntax`
+selector — so count boundaries, not `rules:` keys. `no-restricted-syntax` alone matches the callee's
+local name, which an aliased import evades; the selectors also cannot see a fresh value built inside
+a block body.
+
+`TEST_BITRISE_YML` is lint-restricted to spec, story, `.storybook/` and mock files, but it is only
+*defined* in Storybook, by a Vite `define` in `.storybook/main.ts`. It is declared as a global in
+`typings/globals.d.ts`, so using it in a spec type-checks, passes lint, and throws
+`ReferenceError: TEST_BITRISE_YML is not defined` when the test runs. **No circular-import rule is
+enabled** — `import/no-cycle` is absent from every config, so direction is a convention you
+uphold rather than a check that catches you.
 
 ## Testing
 
-- **Jest:** Uses `@swc/jest` for transforms. Global `yaml` is available in tests (from `spec/setup-jest.ts`). CSS/SVG mocked via identity-obj-proxy.
-- **Playwright:** Config in `playwright.config.ts`. Supports Chromium, Firefox, WebKit.
-- **Storybook:** MSW addon for API mocking. Stories colocated with components.
+**Testing a service that mutates YAML.** Drive the vanilla store directly, then compare the
+serialised document. No renderer and no `act()`, because a service test never goes through React:
 
-## Important Notes
+```ts
+updateBitriseYmlDocumentByString(yaml`
+  workflows:
+    wf1: {}
+`);
+WorkflowService.renameWorkflow('wf1', 'wf2');
+expect(getYmlString()).toEqual(yaml`
+  workflows:
+    wf2: {}
+`);
+```
 
-- Dev server available at `localhost:4000/{version}` (version from package.json)
-- Go static assets are embedded via go.rice (rice-box)
-- **Version bumps** (`package.json` + `version/version.go`): Vite hot-reloads `package.json` and starts serving at the new `/{version}/` (or `/{urlPrefix}/{version}/`) path, but the Go `go run main.go` process keeps its already-compiled binary with the old `version.VERSION` constant. The two then disagree on the route prefix and requests 404. After pulling/rebasing across a version-bump commit, restart the `workflow-editor` service (don't rely on Vite's hot-reload) so Go recompiles against the new constant.
-- Husky pre-commit hooks run lint-staged
-- The app runs inside an **iframe** on the Bitrise website — routing uses hash-based location (`useHashLocation`) and communicates with the parent window via `WindowUtils`
-- `BitriseYmlStore` always **clones the YAML document before mutations** — this is critical for `YmlUtils` caching to work correctly (WeakMap keyed by document identity)
-- `YmlUtils` is a comprehensive YAML manipulation library (~30 functions) wrapping the `yaml` library — use it for all YAML node operations instead of manipulating nodes directly
-- Error handling in services uses **throw** for sync errors; toasts via `createBitkitToast` from `@bitrise/bitkit-v2` for user-facing notifications in components (legacy: `useToast` from `@bitrise/bitkit`)
+That round trip is the point. Comparing emitted YAML rather than a parsed object is what catches
+a mutation that quietly reformats or reorders. `act()` only enters the picture when you render a
+hook, and that is where the false-pass trap below lives.
+
+- **Jest** transforms with `@swc/jest`. The global `yaml` comes from `spec/setup-jest.ts`.
+  identity-obj-proxy mocks CSS and SVG.
+- **`testEnvironment` is `node`.** A test that renders a hook or a component needs an
+  `@jest-environment jsdom` docblock at the top of the file, or it has no `window`.
+- **Zustand stores reset themselves between tests.** `moduleDirectories` points at
+  `spec/__mocks__`, so `spec/__mocks__/zustand.ts` shadows the real package for every spec and its
+  `afterEach` calls `setState(initialState, true)` — replace, not merge. There is no `jest.mock`
+  to find, which is why this is invisible until you read `jest.config.cjs`.
+- **Nothing type-checks.** No `tsc` script, and CI's build step is `vite build`, which strips
+  types rather than checking them. Run `npx tsc --noEmit` yourself after a typed refactor.
+- **`window.env` does not exist under Jest**, so `RuntimeUtils.isProduction()` throws in unit
+  tests. `BitriseYmlStore.warnInDev` wraps it in try/catch for exactly that reason. Don't call
+  `RuntimeUtils` from anything a service test reaches without handling it.
+- **Calling a store setter outside `act()` does not flush**, and a test written that way reports a
+  confident false pass. `act()` works at all only because `spec/set-node-env.ts` forces
+  `NODE_ENV=test`; CI exports `production`, under which React loads its production build and
+  `act()` throws.
+- **Playwright** config is in `playwright.config.ts`, running Chromium, Firefox and WebKit.
+- **Storybook** uses the MSW addon. Stories sit next to their components.
+
+## Local dev
+
+The CLI-mode Go server has a **built-in termination timer** so a forgotten plugin process does
+not outlive its session. The frontend POSTs `/api/connection` on window load to stop it and DELETEs
+on unload to restart it, so a local server that dies on its own usually means no browser tab is
+holding it open. See `main.tsx`.
+
+## Feature flags and mocks
+
+LaunchDarkly, with local overrides in `ld.local.json`, read through `useFeatureFlag()`. API mocks
+for tests and stories live in `.mswMocks.ts` files.
 
 ---
 > Source: [bitrise-io/bitrise-workflow-editor](https://github.com/bitrise-io/bitrise-workflow-editor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
