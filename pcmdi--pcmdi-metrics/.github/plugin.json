@@ -1,0 +1,9 @@
+{
+  "name": "pcmdi--pcmdi-metrics",
+  "displayName": "pcmdi_metrics",
+  "description": "pcmdi_metrics",
+  "version": "1.0.0",
+  "author": "PCMDI",
+  "homepage": "https://github.com/PCMDI/pcmdi_metrics",
+  "skills": []
+}
