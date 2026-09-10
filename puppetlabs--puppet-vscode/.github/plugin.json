@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--puppet-vscode",
+  "displayName": "puppet-vscode",
+  "description": "puppet-vscode",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/puppet-vscode",
+  "skills": []
+}
