@@ -1,6 +1,6 @@
 # python3-anticaptcha
 
-> Source: [AndreiDrang/python3-anticaptcha](https://github.com/AndreiDrang/python3-anticaptcha). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [AndreiDrang/python3-anticaptcha](https://github.com/AndreiDrang/python3-anticaptcha). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [AndreiDrang/python3-anticaptcha](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [AndreiDrang/python3-anticaptcha](https://github.com/AndreiDrang/python3-anticaptcha) — a repo with 164+ stars on GitHub.
+From [AndreiDrang/python3-anticaptcha](https://github.com/AndreiDrang/python3-anticaptcha) — a repo with 163+ stars on GitHub.
 
 ---
 
