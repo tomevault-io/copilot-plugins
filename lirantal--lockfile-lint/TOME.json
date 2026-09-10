@@ -4,7 +4,7 @@
   "repo": "lockfile-lint",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lirantal/lockfile-lint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T05:12:01Z"
+  "distributed_at": "2026-09-10T11:31:36Z"
 }
