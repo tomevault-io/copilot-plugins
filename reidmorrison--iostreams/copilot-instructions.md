@@ -1,0 +1,71 @@
+## iostreams
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+IOStreams is a Ruby gem for streaming I/O that makes file formats, compression, encryption, and storage mechanisms (local file, S3, SFTP, HTTP) transparent to the application. Files of any size are processed one block at a time without loading them into memory.
+
+## Commands
+
+```bash
+bundle install            # Install dependencies
+bundle exec rake          # Run the full test suite (default rake task)
+bundle exec ruby test/path_test.rb                 # Run a single test file
+bundle exec ruby test/path_test.rb -n /partial_name/   # Run tests matching a name
+bundle exec rubocop       # Lint
+bundle exec rake console  # IRB with the gem loaded
+```
+
+Test notes:
+- Tests use Minitest with the spec DSL (`describe`/`it`) inside `Minitest::Test` subclasses. Each test file does `require_relative "test_helper"` (or `"../test_helper"` under `test/paths/`).
+- `test/test_helper.rb` generates PGP test keys on first run, so a working `gpg` binary is required.
+- S3 and SFTP path tests skip unless env vars are set (`S3_BUCKET_NAME`; `SFTP_HOSTNAME`, `SFTP_USERNAME`, `SFTP_PASSWORD`).
+- CI runs `bundle exec rake` on Ruby 3.1-3.4 and JRuby. The gem itself has zero runtime dependencies; format-specific gems (rubyzip, aws-sdk-s3, nokogiri, etc.) are dev-only and loaded lazily.
+
+## Architecture
+
+The public entry points are `IOStreams.path(...)` (returns a `Path` subclass based on URI scheme) and `IOStreams.stream(io)` (wraps an existing IO). Both return an `IOStreams::Stream` which is configured via chained `#stream`/`#option` calls and consumed via `#reader`, `#writer`, `#each`, `#read`, `#write`, `#copy_from`, etc.
+
+**Public API boundary:** The `IOStreams` module itself is the only public entry point. Everyone starts from `IOStreams.path`/`IOStreams.stream`/`IOStreams.join`, and the instance methods on the `Stream`/`Path` they return are then public. Everything else (`Path` subclasses, the `Reader`/`Writer` classes, and the format/storage submodules) is internal: nothing else should be instantiated or called directly, including method signatures like `Zip::Writer.stream`. This keeps the user-facing API tiny and lets the internals be refactored freely without breaking callers. When changing code, preserve the `IOStreams.*` module methods and the `Stream`/`Path` instance methods; treat the rest as private and changeable.
+
+**Backward compatibility is mandatory for the public interface.** This library must never break backward compatibility in its public interface; everything else can be refactored freely as needed. The `IOStreams` module is the public interface, but whatever it returns or otherwise makes accessible is also part of that public interface. For example, `IOStreams.path` returns `Path` objects, so those are public. `Builder` is itself hidden, but its arguments and formatting options are exposed through the public API (e.g. via `#stream`/`#option` and file-name format detection), so they must remain backward compatible too. Evolve these by adding or extending new values, never by removing or changing the meaning of existing features that end users of the API may depend on.
+
+Core pipeline (lib/io_streams/):
+- `stream.rb` - `Stream` wraps an IO and delegates stream-pipeline construction to its `Builder`.
+- `path.rb` - `Path < Stream`, abstract base for storage locations; concrete implementations in `paths/` (`File`, `S3`, `SFTP`, `HTTP`, plus `Matcher` for glob matching).
+- `builder.rb` - `Builder` parses file-name extensions (e.g. `.csv.gz.enc`) into an ordered pipeline of reader/writer streams, merging in user-supplied `#stream`/`#option` settings. `#option` adjusts an auto-detected stream; `#stream` replaces auto-detection entirely (`:none` disables it). The two are mutually exclusive on one instance.
+- `reader.rb` / `writer.rb` - base classes. Every format stream is a `Reader` (implements `#read`) or `Writer` (implements `#write`) opened via `.open`/`.stream`/`.file` class methods that yield the wrapped stream to a block. The base classes provide automatic fallback: a format that only works on files (e.g. zip, xlsx) gets the input copied to a temp file first.
+
+Format streams live in subdirectories, each with a `Reader` and/or `Writer`: `bzip2/`, `gzip/`, `zip/`, `pgp/`, `symmetric_encryption/`, `encode/` (character encoding/cleansing), `xlsx/` (reader only), plus the structured-data layers `line/`, `row/` (arrays via `Tabular`), and `record/` (hashes via `Tabular`). `tabular.rb` handles CSV/PSV/JSON/fixed-width parsing and rendering.
+
+Registries at the bottom of `lib/io_streams/io_streams.rb` map file extensions to reader/writer classes and URI schemes to path classes; new formats are added with `IOStreams.register_extension` / `IOStreams.register_scheme`.
+
+Reading uses a pull model (each stream reads from the previous one on demand); writing uses a push model. See CONTRIBUTING.md for the design philosophy.
+
+`lib/iostreams.rb` defines all autoloads; everything is lazy-loaded so optional dependencies are only required when the corresponding format is used.
+
+`IOStreams::Pgp` shells out to the `gpg` executable rather than using a library.
+
+## Documentation
+
+User-facing documentation is a Jekyll site under [docs/](docs/), published to iostreams.reidmorrison.com. The markdown pages are what matter when reading or updating documentation.
+
+**The look and feel is not in this repo.** `docs/_config.yml` sets `remote_theme: reidmorrison/rm-docs-theme@v1`, and the layout, stylesheet, sidebar and syntax highlighting all come from there. This repo holds only its content: the markdown pages and `docs/images`. **Do not add a `docs/_layouts`, `docs/stylesheets` or `docs/javascripts` directory** — they were deleted deliberately, because six gem repos each carried a near-identical copy of the same theme and the copies had drifted. A styling change belongs in `rm-docs-theme`, where it reaches every doc site at once. `v1` is a moving major tag, so theme fixes arrive on the next build; breaking changes go to `v2` and are opted into by editing the pin. `jekyll-remote-theme` must stay in `plugins`: GitHub Pages enables it on its own, but a local build does not, and without it every page silently renders with no layout. Preview against a local theme checkout with `~/src/rm-docs-theme/bin/preview ~/src/iostreams/docs`.
+
+**A page's title lives in its front matter**, not in a `#` heading at the top of the markdown; the theme renders it as the page's `h1`. `title` is the browser title and the default heading, `heading` overrides the h1 where the two should differ, and `description` is the page's meta description. `index.md` sets `heading` only, so the home page keeps the tuned SEO `<title>` from `_config.yml`. Adding or renaming a page means editing the `nav` block in `docs/_config.yml` and `docs/llms.txt`.
+
+The site also serves two files for AI assistants: [docs/llms.txt](docs/llms.txt), a hand-maintained index of the docs pages, and `docs/llms-full.txt`, all pages concatenated, regenerated with `bundle exec rake llms_full`. **After editing any `docs/*.md` page, re-run `bundle exec rake llms_full`** and commit the result; never edit `llms-full.txt` by hand. That task reads the page heading out of the front matter, so a page that sets neither `heading` nor `title` falls back to its link text in `llms.txt`.
+
+## Conventions
+
+- RuboCop is configured in `.rubocop.yml`: trailing-dot method chains, table-aligned hashes, max line length 128, target Ruby 3.2 syntax (`required_ruby_version >= 3.2` in the gemspec).
+- The pre-v1.6 deprecated API has been removed (as of v2.0.0). Do not reintroduce it.
+
+---
+> Source: [reidmorrison/iostreams](https://github.com/reidmorrison/iostreams) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
