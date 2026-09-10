@@ -1,0 +1,9 @@
+{
+  "name": "apache--pekko-samples",
+  "displayName": "pekko-samples",
+  "description": "pekko-samples",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/pekko-samples",
+  "skills": []
+}
