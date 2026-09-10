@@ -1,459 +1,130 @@
 ## cups-web
 
-> CUPS Web 是一个功能完善的网页版打印机管理工具，允许通过浏览器远程控制打印机，支持多用户管理、打印记录追踪等功能。
+> > 本文档是 [AGENTS.md](../AGENTS.md) 的补充，收录常见开发任务的步骤模板、调试方法与代码风格约定。
 
-# CUPS Web 项目指引
+# 开发约定与常见任务
 
-## 项目概述
-
-CUPS Web 是一个功能完善的网页版打印机管理工具，允许通过浏览器远程控制打印机，支持多用户管理、打印记录追踪等功能。
-
-**项目类型**: Web 应用程序  
-**主要功能**: 远程打印、用户管理、打印记录追踪  
-**技术栈**: Go + Vue.js 前后端分离架构
-
-## 技术栈详情
-
-### 后端技术栈
-- **语言**: Go 1.24.0
-- **Web框架**: Gorilla Mux
-- **数据库**: SQLite (modernc.org/sqlite)
-- **PDF处理**: gofpdf, rsc.io/pdf
-- **打印机协议**: OpenPrinting/goipp (IPP协议)
-- **会话管理**: Gorilla SecureCookie
-- **加密**: golang.org/x/crypto
-
-### 前端技术栈
-- **框架**: Vue.js 3.5.26
-- **构建工具**: Vite 7.3.0
-- **样式框架**: Tailwind CSS 4.1.18 + Nuxt UI
-- **PDF处理**: jsPDF 3.0.4
-- **包管理器**: Bun (推荐) / npm
-
-## 项目结构
-
-```
-cups-web/
-├── cmd/server/                 # 后端主程序
-│   ├── assets/fonts/          # 字体资源
-│   ├── admin_handlers.go      # 管理员接口
-│   ├── auth_handlers.go       # 认证接口
-│   ├── convert_handler.go     # 文件转换接口
-│   ├── print_handlers.go      # 打印接口
-│   └── main.go                # 程序入口
-├── frontend/                  # 前端项目
-│   ├── src/
-│   │   ├── views/             # 页面组件
-│   │   │   ├── LoginView.vue  # 登录页面
-│   │   │   ├── PrintView.vue  # 打印页面
-│   │   │   └── AdminView.vue  # 管理页面
-│   │   ├── App.vue            # 根组件
-│   │   └── main.js            # 入口文件
-│   ├── package.json           # 前端依赖
-│   └── vite.config.js         # Vite配置
-├── internal/                  # 内部模块
-│   ├── auth/                  # 认证模块
-│   ├── ipp/                   # IPP协议客户端
-│   ├── middleware/            # 中间件
-│   └── store/                 # 数据存储
-├── cups/                      # CUPS相关配置
-├── screenshots/               # 界面截图
-└── test/                      # 测试文件
-```
-
-## 核心模块说明
-
-### 后端模块
-
-1. **认证模块** (`internal/auth/`)
-   - 会话管理
-   - 用户认证
-
-2. **存储模块** (`internal/store/`)
-   - `users.go` - 用户管理
-   - `prints.go` - 打印记录
-   - `settings.go` - 系统设置
-
-3. **IPP客户端** (`internal/ipp/`)
-   - 打印机通信协议实现
-
-### 前端模块
-
-1. **登录页面** (`LoginView.vue`)
-   - 用户认证界面
-
-2. **打印页面** (`PrintView.vue`)
-   - 文件上传和打印控制
-
-3. **管理页面** (`AdminView.vue`)
-   - 用户管理和系统设置
-
-## 构建和部署
-
-### 开发环境构建
-```bash
-# 构建前端 (需要Bun)
-cd frontend && bun install && bun run build
-
-# 构建后端
-go build -o bin/cups-web ./cmd/server
-
-# 或使用Makefile
-make all
-```
-
-### Docker部署
-```bash
-# 构建镜像
-docker build -t cups-web:latest -f Dockerfile .
-
-# 使用docker-compose
-docker-compose up -d
-```
-
-## 环境变量配置
-
-| 变量名 | 默认值 | 说明 |
-|--------|--------|------|
-| `LISTEN_ADDR` | `:8080` | 服务监听地址 |
-| `DB_PATH` | `data/cups-web.db` | 数据库文件路径 |
-| `UPLOAD_DIR` | `uploads` | 文件上传目录 |
-
-## 数据库结构
-
-项目使用 SQLite 数据库，主要表结构：
-- `users` - 用户信息表
-- `prints` - 打印记录表
-- `settings` - 系统设置表
-
-## API接口规范
-
-### 认证接口
-- `POST /api/login` - 用户登录
-- `POST /api/logout` - 用户登出
-
-### 打印接口
-- `GET /api/printers` - 获取打印机列表
-- `POST /api/print` - 提交打印任务
-- `GET /api/prints` - 获取打印记录
-
-### 管理接口
-- `GET /api/users` - 获取用户列表
-- `POST /api/users` - 创建用户
-
-## 代码规范
-
-### Go代码规范
-- 使用标准Go命名约定
-- 错误处理使用多返回值模式
-- 接口定义清晰，模块化设计
-
-### Vue.js代码规范
-- 使用Composition API
-- 组件采用单文件组件(SFC)格式
-- 样式使用Tailwind CSS类名
-
-## 文件处理流程
-
-1. **文件上传**: 用户上传文件到服务器
-2. **格式转换**: 将Office文档、图片等转换为PDF
-3. **PDF处理**: 使用LibreOffice进行格式转换
-4. **打印提交**: 通过IPP协议发送到打印机
-5. **记录保存**: 保存打印记录
-
-## 安全考虑
-
-1. **会话安全**: 使用SecureCookie进行会话管理
-2. **文件安全**: 上传文件类型检查和路径安全
-3. **权限控制**: 基于角色的访问控制(RBAC)
-4. **CSRF防护**: 内置CSRF中间件保护
-
-## 扩展性设计
-
-### 后端扩展
-- 模块化设计，易于添加新功能
-- 接口清晰，便于集成新打印机协议
-- 数据库抽象层支持多种存储后端
-
-### 前端扩展
-- 组件化架构，易于添加新页面
-- 响应式设计，支持多设备访问
-- 国际化支持准备
+> 本文档是 [AGENTS.md](../AGENTS.md) 的补充，收录常见开发任务的步骤模板、调试方法与代码风格约定。
 
 ## 常见开发任务
 
-### 添加新API接口
-1. 在`cmd/server/`下创建对应的handler文件
-2. 在`main.go`中注册路由
-3. 更新前端Vue组件调用新接口
+### 新增 API 接口
 
-### 修改数据库结构
-1. 更新`internal/store/`中的对应模型
-2. 执行数据库迁移
-3. 更新相关业务逻辑
-
-### 添加新前端页面
-1. 在`frontend/src/views/`创建Vue组件
-2. 在`App.vue`中注册路由
-3. 更新导航菜单
-
-## 调试和测试
-
-### 后端调试
-- 使用标准Go调试工具
-- 日志输出到控制台
-- 数据库文件可本地查看
-
-### 前端调试
-- 使用Vite开发服务器
-- 支持热重载开发
-- 浏览器开发者工具
-
-## 性能优化建议
-
-1. **前端优化**: 代码分割、懒加载
-2. **后端优化**: 连接池、缓存策略
-3. **数据库优化**: 索引优化、查询优化
-
----
-
-## 🔧 开发环境搭建
-
-### 本地开发
-
-```bash
-# 1. 克隆项目
-git clone <repo-url>
-cd cups-web
-
-# 2. 构建前端
-cd frontend
-bun install
-bun run dev  # 开发模式
-bun run build  # 生产构建
-
-# 3. 构建后端
-cd ..
-go mod download
-go build -o bin/cups-web ./cmd/server
-
-# 4. 运行服务
-./bin/cups-web
-```
-
-### 使用 Makefile
-
-```bash
-# 查看可用命令
-make help
-
-# 构建所有
-make all
-
-# 仅构建后端
-make build
-
-# 仅构建前端
-make frontend
-
-# 清理构建
-make clean
-```
-
-## 📁 完整项目结构
-
-```
-cups-web/
-├── cmd/server/                 # 后端主程序
-│   ├── assets/fonts/          # 字体资源
-│   ├── admin_handlers.go      # 管理员接口处理器
-│   ├── auth_handlers.go       # 认证接口处理器
-│   ├── bootstrap.go           # 应用初始化
-│   ├── convert_handler.go     # 文件转换接口
-│   ├── convert_utils.go       # 转换工具函数
-│   ├── estimate_handler.go    # 页数估算接口
-│   ├── file_utils.go          # 文件处理工具
-│   ├── fonts.go               # 字体管理
-│   ├── main.go                # 程序入口
-│   ├── maintenance.go         # 维护模式处理
-│   ├── pdf_utils.go           # PDF 处理工具
-│   ├── print_handlers.go      # 打印接口处理器
-│   ├── print_records_handlers.go  # 打印记录接口
-│   ├── printer_info_handler.go    # 打印机信息接口
-│   └── user_handlers.go       # 用户管理接口
-├── frontend/                  # 前端项目
-│   ├── src/
-│   │   ├── views/             # 页面组件
-│   │   │   ├── LoginView.vue  # 登录页面
-│   │   │   ├── PrintView.vue  # 打印页面
-│   │   │   └── AdminView.vue  # 管理页面
-│   │   ├── App.vue            # 根组件
-│   │   ├── main.js            # 入口文件
-│   │   └── index.css          # 全局样式
-│   ├── package.json           # 前端依赖
-│   └── vite.config.js         # Vite 配置
-├── internal/                  # 内部模块
-│   ├── auth/                  # 认证模块
-│   ├── ipp/                   # IPP 协议客户端
-│   ├── middleware/            # 中间件
-│   └── store/                 # 数据存储
-│       ├── prints.go          # 打印记录存储
-│       ├── settings.go        # 系统设置存储
-│       └── users.go           # 用户存储
-├── cups/                      # CUPS 相关配置
-├── screenshots/               # 界面截图
-├── test/                      # 测试文件
-├── bin/                       # 编译输出
-├── data/                      # 数据库文件
-├── uploads/                   # 上传文件
-├── .aone_copilot/             # AI 助手计划
-├── .github/                   # GitHub 配置
-├── docker-compose.yml         # Docker Compose 配置
-├── Dockerfile                 # Docker 镜像构建
-├── go.mod                     # Go 模块定义
-├── go.sum                     # Go 依赖锁定
-├── LICENSE                    # 许可证
-├── Makefile                   # 构建脚本
-├── README.md                  # 用户文档
-└── AGENTS.md                  # 开发者文档
-```
-
-## 🎯 关键开发任务指南
-
-### 添加新的 API 端点
-
-1. **创建 Handler**
-   - 在 `cmd/server/` 下创建对应的 handler 文件（如 `xxx_handler.go`）
-   - 实现处理函数，遵循现有代码模式
-   - 添加适当的错误处理和日志记录
-
-2. **注册路由**
-   - 在 `main.go` 中找到路由注册部分
-   - 添加新的路由映射
-   - 应用适当的中间件（如认证、CSRF）
-
-3. **更新前端**
-   - 在对应的 Vue 组件中添加 API 调用
-   - 更新状态管理和 UI 展示
+1. 在 `cmd/server/` 下新建 `xxx_handler.go`，导出 handler 函数
+2. 在 `main.go` 对应的 subrouter（`api` / `protected` / `admin`）中注册路由
+3. 前端在 `frontend/src/utils/api.js` 中新增调用方法，并在视图中使用
+4. 若是写接口，确认前端 `fetch` 会带上 `X-CSRF-Token` 头
 
 ### 修改数据库结构
 
-1. **更新模型定义**
-   - 在 `internal/store/` 中找到对应的模型文件
-   - 添加新字段或新表
-   - 更新相关的 CRUD 操作
+1. 在 `internal/store/` 中修改或新增模型
+2. 在 `store.go::migrate()` 中：
+   - 新表：追加 `CREATE TABLE IF NOT EXISTS ...`
+   - 旧表加字段：用 `addColumnIfMissing(ctx, db, "<table>", "<column_def>")`
+3. 更新对应的 CRUD 函数
+4. 本地用 `sqlite3 data/cups-web.db` 验证迁移在新库与老库上都能跑通
 
-2. **执行迁移**
-   - 编写数据库迁移脚本
-   - 确保向后兼容
-   - 测试迁移过程
+### 新增前端页面
 
-3. **更新业务逻辑**
-   - 更新所有使用到该模型的代码
-   - 确保数据一致性
+1. 在 `frontend/src/views/` 新建 `.vue`，使用 Composition API
+2. 在 `frontend/src/router/index.js` 添加路由；若需鉴权用 `meta: { requiresAuth: true }`，管理员页加 `requiresAdmin: true`
+3. 在 `App.vue` 顶栏中按需加入导航入口（当前实现对 `admin` 角色显示「打印 / 驱动 / 管理」三个入口，桌面端是分段切换、移动端进汉堡菜单）
 
-### 添加新的前端页面
+### 新增支持的文件类型
 
-1. **创建 Vue 组件**
-   - 在 `frontend/src/views/` 下创建新的 `.vue` 文件
-   - 使用 Composition API 组织逻辑
-   - 应用 Tailwind CSS + DaisyUI 样式
+1. 在 `file_utils.go::detectFileKind` 加入新的 `fileKind`
+2. 实现转换函数（放 `convert_utils.go` 或 `pdf_utils.go`）
+3. 在 `print_handlers.go` 的 `switch kind` 中处理新类型
+4. 同步更新 `estimateHandler` / `convertHandler` 中的分支（`convertHandler` 需覆盖单文件 `file` 与多文件 `files` 两种入口）
 
-2. **注册路由**
-   - 在 `App.vue` 中添加路由配置
-   - 设置适当的权限控制
+### 新增支持的打印机驱动
 
-3. **更新导航**
-   - 在导航菜单中添加新页面的入口
-   - 根据用户角色显示/隐藏菜单项
+细节与踩坑理由见 [driver-management.md](driver-management.md)，步骤如下：
 
-## 🧪 测试指南
+1. **写安装脚本**：`scripts/driver/install-<name>.sh`。文件名里的 `<name>` 就是驱动的 canonical name，`Dockerfile` 的 `COPY scripts/driver/install-*.sh /opt/cups-drivers/scripts/` 会自动带上，无需改 Dockerfile。
+2. **遵守退出码约定**：`0` = 成功；**`3` = 当前架构不支持**（绝不能用 `exit 0` 糊过去，否则会写出 manifest、Web UI 假显示"已安装"）；其他非零 = 真失败。架构判断一律用 `dpkg --print-architecture`（**不要用 `dpkg-architecture`**，runtime 镜像没有 `dpkg-dev`）。
+3. **遵守单一 EXIT trap 约定**（只有需要现场编译 / 装编译依赖时才涉及）：整个脚本**只允许一个** `trap _cleanup EXIT`，临时目录清理和 `apt-get purge -y --auto-remove ${BUILD_DEPS}` 都写进 `_cleanup()` 的分支里；用 `CUPS_AIO` 环境变量（`driver-install` 会 `export CUPS_AIO=1`，Go 侧 `runDriverCommand` 也在 `cmd.Env` 里加了）区分"运行时容器内安装"与"构建期安装"。**AIO 模式下不要 `rm -rf /var/lib/apt/lists/*`**，否则装下一个驱动就没有 apt 索引了。
+4. **选对持久化通道**：
+   - **deb 来源的驱动**（厂商 `.deb`、或 `apt-get install`）走**包级通道**：在下载成功之后、`dpkg -i` 之前加一行把 `.deb` 原件交接给 `driver-install` 归档 ——
+     ```bash
+     # 故意 `|| true`：归档失败不影响安装成败判定，也不改变退出码语义（0/3/其他）；
+     # 变量未设置时（构建期或手工执行）行为与以前完全一致。绝不新增 trap。
+     if [ -n "${DRIVER_PKG_DIR:-}" ]; then
+         cp -a "${DEB_PATH}" "${DRIVER_PKG_DIR}/" 2>/dev/null || true
+     fi
+     ```
+     `apt-get install` 来源的不用手动交接（apt 钩子 `capture-debs` 会自动抓，含全部传递依赖），但**要避免让 apt 去满足 `cups` 元包依赖** —— 用 `dpkg -i --force-depends` 而不是 `apt-get -f install`，否则会装上 Debian 的 `cups-core-drivers` 覆盖源码编译的 CUPS 组件。
+   - **非 deb 来源**（源码编译、手工 cp、unzip）走**文件级通道**：产物必须落在白名单目录内（`/usr/lib/cups`、`/usr/share/cups`、`/usr/share/ppd`、`/usr/share/foomatic`、`/lib/firmware`、`/usr/lib/firmware`、`/usr/lib/<multiarch>`）。⚠️ 用 autoconf 时注意 `--libdir` 默认是**裸 `/usr/lib`**（不在白名单内），共享库要显式装到 multiarch 目录。
+   - 文件级列表与包级归档**同时**为空时 `driver-install` 才判失败。
+5. **注册到 `driver_registry.go::driversRegistry`**：填 `Name`（= 脚本名里的 `<name>`）、`DisplayName`、`Description`、`Arch`（`{"all"}` 或 Debian 架构名列表，决定前端「安装」按钮是否可点）、`NeedCompile`（是否现场编译，前端据此提示耗时）、`MatchPatterns`（`(?i)` 正则，供 `/drivers/detect` 按型号推荐；纯通用驱动可留空）。
+6. **下载源**：第三方驱动一律走本仓库自维护的 GitHub Releases 镜像（tag 固定为 `cups-driver`），不要直连厂商 CDN（Epson/Sharp 的官方下载站有 UA/TLS 指纹风控，CI 里 403 概率高）。失败要 fail-fast（非零退出），不要静默成功。
+7. **验证**：容器内 `driver-list` 看是否出现在可用列表（会显示 `Restore: package/files/hybrid`）、`driver-install <name>` 跑通、`cat /opt/cups-drivers/data/<name>/manifest.txt` 检查清单里**没有**系统文件（尤其没有 CUPS 自己的 backend/filter）、`driver-remove <name>` 后系统仍然完好（`lpstat -r` 正常、`/usr/lib/cups/backend/*` 还在）。
+8. **恢复验证必须销毁重建容器**：
+   ```bash
+   docker rm -f <ct> && docker run -d --name <ct> -v "$PWD/.drivers:/opt/cups-drivers/data" <image>
+   ```
+   🚫 **不能用 `docker restart`** —— 它保留容器可写层，驱动文件本来就还在，测不出任何东西，会假通过。重建后逐项确认关键产物（filter、共享库、PPD、厂商数据目录）都回来了，`ldd` 无 `not found`。
+
+## 调试与测试
 
 ### 后端测试
 
 ```bash
-# 运行所有测试
-go test ./...
-
-# 运行特定包的测试
-go test ./cmd/server/...
-
-# 带覆盖率报告
-go test -cover ./...
+go test ./...                # 全部测试
+go test -cover ./...         # 带覆盖率
+go vet ./...                 # 静态检查
 ```
 
-### 前端测试
+> 当前仓库主要以手工测试 + 日志为主，`test/` 目录下存放临时测试用例，不参与 CI。新增核心模块时建议补 `_test.go`。
+
+### 前端验证
 
 ```bash
 cd frontend
-
-# 运行测试
-bun run test
-
-# 构建检查
-bun run build
+bun run build                # 构建检查（类型与语法）
+bun run dev                  # 本地调试
 ```
 
-## 📊 监控和日志
-
-### 日志查看
+### 数据库查看
 
 ```bash
-# Docker 环境
-docker-compose logs -f web
-docker-compose logs -f cups
-
-# 本地开发
-# 日志输出到控制台
-```
-
-### 数据库检查
-
-```bash
-# 查看 SQLite 数据库
 sqlite3 data/cups-web.db
-
-# 查看表结构
 .tables
-
-# 查询数据
 SELECT * FROM users;
-SELECT * FROM prints LIMIT 10;
+SELECT id, filename, status, is_duplex, is_color, created_at FROM print_jobs ORDER BY id DESC LIMIT 20;
+SELECT * FROM settings;
 ```
 
-## 🔐 安全检查清单
+## 代码风格
 
-- [ ] 所有敏感配置使用环境变量
-- [ ] Session 密钥足够随机和复杂
-- [ ] 文件上传进行类型和大小限制
-- [ ] SQL 查询使用参数化防止注入
-- [ ] CSRF 保护已启用
-- [ ] 密码使用 bcrypt 加密
-- [ ] 生产环境启用 HTTPS
+### Go 风格
 
-## 📚 相关资源
+- 遵循标准 Go 命名约定与 `gofmt`
+- Handler 内部通过 `appStore.WithTx(ctx, readOnly, func(tx) error { ... })` 做事务边界
+- 错误响应统一使用 `writeJSONError(w, status, msg)`，成功使用 `writeJSON(w, v)`
+- 文件路径：存储到 DB 的是 `filepath.ToSlash` 后的相对路径，使用时再用 `filepath.FromSlash` + `filepath.Join(uploadDir, ...)` 还原
 
-- [CUPS 官方文档](https://www.cups.org/)
-- [Go 语言文档](https://golang.org/doc/)
-- [Vue.js 文档](https://vuejs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [DaisyUI](https://daisyui.com/)
+### Vue 风格
 
----
+- 单文件组件（SFC）+ `<script setup>` Composition API
+- UI 组件优先用 `@nuxt/ui`（全局前缀 `U`，见 `vite.config.js`）
+- 样式使用 Tailwind utility class，深色/浅色主题跟随 Nuxt UI 的 `bg-default` / `text-muted` 等语义类
+- Session 信息通过 `router/index.js` 中的 `cachedSession` 缓存，避免每次路由切换都打 `/api/session`
 
-**最后更新**: 2026-03-18  
-**维护者**: 涵曦 (im.hanxi@gmail.com)  
-**文档版本**: v1.1
+### Git 提交
 
-## 📚 文档说明
+- Commit message 使用中文，格式 `feat:` / `fix:` / `refactor:` 等前缀 + 简要描述
+- **禁止**在 commit message 中添加 `Co-Authored-By` 或任何 AI 署名行
 
-本文档 (`AGENTS.md`) 主要面向开发者，提供详细的技术架构、开发指南和内部实现细节。用户文档请参阅 `README.md`。
+## 相关资源
 
-### 文档分工
-
-- **README.md**: 用户快速开始指南、功能介绍、部署说明
-- **AGENTS.md**: 开发者技术文档、架构说明、API 规范、开发流程
+- [CUPS 官方文档](https://www.cups.org/documentation.html)
+- [IPP 规范](https://www.pwg.org/ipp/)
+- [Nuxt UI v4](https://ui.nuxt.com/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [Vue 3 文档](https://vuejs.org/)
+- [ofdrw](https://github.com/ofdrw/ofdrw)
 
 ---
 > Source: [hanxi/cups-web](https://github.com/hanxi/cups-web) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
