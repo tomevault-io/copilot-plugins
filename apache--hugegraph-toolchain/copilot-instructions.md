@@ -1,149 +1,29 @@
 ## hugegraph-toolchain
 
-> This file provides guidance to AI coding assistants (Claude Code, Cursor, GitHub Copilot, etc.) when working with code in this repository.
+> The `1.8/master` path is the source of truth. The backend detects authentication mode from HugeGraph Server and uses one connection resolver. The resolver chooses either a direct server URL or an address discovered from PD; callers must not reimplement `usePD` or infer connection state from page-local flags. In PD mode the server address returned by discovery is authoritative, so a manual server URL is not required.
 
-# AGENTS.md
+# Hubble contributor guide
 
-This file provides guidance to AI coding assistants (Claude Code, Cursor, GitHub Copilot, etc.) when working with code in this repository.
+## Authentication and connection boundary
 
-## Project Overview
+The `1.8/master` path is the source of truth. The backend detects authentication mode from HugeGraph Server and uses one connection resolver. The resolver chooses either a direct server URL or an address discovered from PD; callers must not reimplement `usePD` or infer connection state from page-local flags. In PD mode the server address returned by discovery is authoritative, so a manual server URL is not required.
 
-Apache HugeGraph Toolchain - a multi-module Maven project providing utilities for the HugeGraph graph database. It relies on the Java Client to power loaders, CLI tools, and the modernized Hubble platform.
+Use the unauthenticated HugeGraph client for anonymous mode. Do not manufacture an empty token or an administrator session. Anonymous mode has no account context and account/permission routes are hidden or rejected at the capability boundary.
 
-## Build Commands
+## Compatibility policy
 
-### Full Build
-```bash
-mvn clean install -DskipTests -Dmaven.javadoc.skip=true -ntp
-```
+Compatibility is intentionally one-way:
 
-### Module-Specific Builds
+- `1.8/master`: modern GraphSpace/auth contracts and the complete UI.
+- `1.7`: thin fallback for the legacy response shape; keep the core workflow usable without adding version branches to controllers or React pages.
+- `1.5` standalone: core graph/schema/data operations only. GraphSpace management is unsupported and should degrade with an explicit capability response. Do not add a PD variant for 1.5.
 
-**Java Client:**
-```bash
-mvn -e compile -pl hugegraph-client -Dmaven.javadoc.skip=true -ntp
-```
+Version checks belong in the client compatibility adapter and connection resolver. New code should consume capabilities, not compare literal versions. When an old image cannot satisfy a capability, mark the test as `needs input` or `skipped` with the exact image tag and reason.
 
-**Loader (requires client):**
-```bash
-mvn install -pl hugegraph-client,hugegraph-loader -am -DskipTests -ntp
-```
+## Verification
 
-**Hubble (requires client + loader):**
-```bash
-mvn install -pl hugegraph-client,hugegraph-loader -am -DskipTests -ntp
-cd hugegraph-hubble && mvn package -DskipTests -ntp
-```
-
-**Tools:**
-```bash
-mvn install -pl hugegraph-client,hugegraph-tools -am -DskipTests -ntp
-```
-
-**Spark Connector:**
-```bash
-mvn install -pl hugegraph-client,hugegraph-spark-connector -am -DskipTests -ntp
-```
-
-**Go Client:**
-```bash
-cd hugegraph-client-go && make all
-```
-
-## Testing
-
-### Client Tests
-```bash
-cd hugegraph-client
-mvn test -Dtest=UnitTestSuite      # Unit tests (no server required)
-mvn test -Dtest=ApiTestSuite       # API tests (requires HugeGraph server)
-mvn test -Dtest=FuncTestSuite      # Functional tests (requires HugeGraph server)
-```
-
-### Loader Tests (profiles)
-```bash
-cd hugegraph-loader
-mvn test -P unit     # Unit tests
-mvn test -P file     # File source tests
-mvn test -P hdfs     # HDFS tests (requires Hadoop)
-mvn test -P jdbc     # JDBC tests (requires MySQL)
-mvn test -P kafka    # Kafka tests
-```
-
-### Hubble Tests
-```bash
-mvn test -P unit-test -pl hugegraph-hubble/hubble-be -ntp
-```
-
-### Tools Tests
-```bash
-mvn test -Dtest=FuncTestSuite -pl hugegraph-tools -ntp
-```
-
-## Code Style
-
-Checkstyle enforced via `tools/checkstyle.xml`:
-- Max line length: 100 characters
-- 4-space indentation (no tabs)
-- No star imports
-- No `System.out.println`
-
-Run checkstyle:
-```bash
-mvn checkstyle:check
-```
-
-## Architecture
-
-### Module Dependencies
-```
-hugegraph-loader, hugegraph-tools, hugegraph-hubble, hugegraph-spark-connector
-                            ↓
-                    hugegraph-client
-                            ↓
-                hugegraph-common (external)
-```
-
-### Key Patterns
-
-**hugegraph-client** - Manager/Facade pattern:
-- `HugeClient` is the entry point providing access to specialized managers
-- `SchemaManager`, `GraphManager`, `GremlinManager`, `TraverserManager`, etc.
-- Builder pattern for fluent schema creation
-
-**hugegraph-loader** - Pipeline with Factory pattern:
-- `InputSource` interface with implementations: `FileSource`, `HDFSSource`, `JDBCSource`, `KafkaSource`, `GraphSource`
-- `InputReader.create()` factory method creates appropriate reader for source type
-
-**hugegraph-hubble** - Spring Boot MVC:
-- Backend: `controller/` → `service/` → `mapper/` layers
-- Frontend: React + TypeScript + MobX + Ant Design
-- H2 database for metadata storage
-
-**hugegraph-tools** - Command pattern:
-- Manager classes for operations: `BackupManager`, `RestoreManager`, `GraphsManager`
-
-### Key Directories
-
-| Module | Main Code | Package |
-|--------|-----------|---------|
-| client | `hugegraph-client/src/main/java` | `org.apache.hugegraph` |
-| loader | `hugegraph-loader/src/main/java` | `org.apache.hugegraph.loader` |
-| hubble-be | `hugegraph-hubble/hubble-be/src/main/java` | `org.apache.hugegraph` |
-| hubble-fe | `hugegraph-hubble/hubble-fe/src` | React/TypeScript |
-| tools | `hugegraph-tools/src/main/java` | `org.apache.hugegraph` |
-| spark | `hugegraph-spark-connector/src/main/scala` | `org.apache.hugegraph.spark` |
-
-## Docker
-
-```bash
-# Loader
-cd hugegraph-loader && docker build -t hugegraph/hugegraph-loader:latest .
-
-# Hubble
-cd hugegraph-hubble && docker build -t hugegraph/hugegraph-hubble:latest .
-```
+For UI changes, use Chrome to exercise login/non-auth mode, connection switching, and account/GraphSpace visibility. Static inspection and unit tests are not a substitute for this interaction check. Keep screenshots collected from the running UI in the documentation assets referenced by `README.md`.
 
 ---
 > Source: [apache/hugegraph-toolchain](https://github.com/apache/hugegraph-toolchain) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
