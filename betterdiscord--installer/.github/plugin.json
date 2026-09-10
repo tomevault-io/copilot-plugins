@@ -1,0 +1,9 @@
+{
+  "name": "betterdiscord--installer",
+  "displayName": "Installer",
+  "description": "Installer",
+  "version": "1.0.0",
+  "author": "BetterDiscord",
+  "homepage": "https://github.com/BetterDiscord/Installer",
+  "skills": []
+}
