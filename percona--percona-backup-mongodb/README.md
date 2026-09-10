@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb).
+Original source: `AGENTS.md` in [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb) — a repo with 333+ stars on GitHub.
+From [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb) — a repo with 335+ stars on GitHub.
 
 ---
 
