@@ -5,15 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [snowdreamtech/frp](https://github.com/snowdreamtech/frp).
+Original source: `.cursor/rules/*.mdc` in [snowdreamtech/frp](https://github.com/snowdreamtech/frp).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [snowdreamtech/frp](https://github.com/snowdreamtech/frp) — a repo with 908+ stars on GitHub.
 
