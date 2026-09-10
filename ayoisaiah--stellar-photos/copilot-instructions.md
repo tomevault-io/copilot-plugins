@@ -1,0 +1,33 @@
+## stellar-photos
+
+> - Order files by reading flow: imports → public types → internal types → module constants & state → functions & helpers → single exports block at the bottom.
+
+## Module Organization & Spacing
+
+- Order files by reading flow: imports → public types → internal types → module constants & state → functions & helpers → single exports block at the bottom.
+- Use a single `export { ... }` block at the bottom of the file instead of prefixing functions or constants with inline `export`.
+- Separate top-level declarations and distinct constant groups with exactly one blank line.
+- Use paragraph-style spacing inside functions: separate guard clauses, data preparation, DOM/state updates, and cleanup with a single blank line.
+- Never use consecutive blank lines, and avoid blank lines immediately after `{` or before `}`.
+- Declare variables as close to their first point of use as possible.
+
+## Control Flow
+
+- Put a space before the opening brace of every block, such as `if (...) {`, `try {`, `catch (...) {`, and `else {`.
+- Always use braces for every branch in an `if`/`else` chain.
+- A single-statement `if` may omit braces only when it has no `else`, such as a guard clause that returns or throws.
+
+## Git Hooks
+
+Pre-commit runs `biome check --write` on staged `.ts` files, `tsc --noEmit`, and the full test suite.
+
+Never bypass hooks with `--no-verify` or `SKIP_SIMPLE_GIT_HOOKS=1`.
+
+## Issue and PR Guidelines
+
+- Never create an issue.
+- Never create a PR.
+
+---
+> Source: [ayoisaiah/stellar-photos](https://github.com/ayoisaiah/stellar-photos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
