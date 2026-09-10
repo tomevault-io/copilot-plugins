@@ -1,0 +1,22 @@
+{
+  "name": "hiero-ledger--hiero-mirror-node",
+  "displayName": "hiero-mirror-node",
+  "description": "hiero-mirror-node",
+  "version": "1.0.0",
+  "author": "hiero-ledger",
+  "homepage": "https://github.com/hiero-ledger/hiero-mirror-node",
+  "skills": [
+    {
+      "name": "hiero-mirror-node",
+      "description": ""
+    },
+    {
+      "name": "hiero-mirror-node",
+      "description": ""
+    },
+    {
+      "name": "hiero-mirror-node",
+      "description": ""
+    }
+  ]
+}
