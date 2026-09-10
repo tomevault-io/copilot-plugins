@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--sig-storage-local-static-provisioner",
+  "displayName": "sig-storage-local-static-provisioner",
+  "description": "sig-storage-local-static-provisioner",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner",
+  "skills": []
+}
