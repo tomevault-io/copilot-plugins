@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [mapbox/mapbox-agent-skills](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mapbox/mapbox-agent-skills](https://github.com/mapbox/mapbox-agent-skills) — a repo with 69+ stars on GitHub.
+From [mapbox/mapbox-agent-skills](https://github.com/mapbox/mapbox-agent-skills) — a repo with 75+ stars on GitHub.
 
 ---
 
