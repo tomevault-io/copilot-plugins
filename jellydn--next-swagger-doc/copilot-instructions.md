@@ -1,73 +1,73 @@
 ## next-swagger-doc
 
-> Instructions for AI coding agents working on `next-swagger-doc`.
+> - **Indentation**: 2 spaces, LF line endings
 
-# AGENTS.md
+# CONVENTIONS — next-swagger-doc
 
-Instructions for AI coding agents working on `next-swagger-doc`.
+## Code Style (enforced by Biome — `biome.json`)
 
-## Project
+- **Indentation**: 2 spaces, LF line endings
+- **Quotes**: single quotes; double quotes for JSX
+- **Semicolons**: always
+- **Trailing commas**: es5 (objects/arrays, not function params)
+- **Line width**: 80
+- **Imports**: auto-organized (`organizeImports` enabled); type-only imports preferred (`useImportType`, `useExportType`)
+- **Arrow functions** preferred over function expressions (`useArrowFunction`); block statements required (`useBlockStatements`)
 
-Generate an OpenAPI (Swagger) spec from Next.js API routes. JSDoc `@swagger` blocks are parsed by `swagger-jsdoc`. App Router `route.ts` files can also get basic operations from folder paths and exported HTTP handlers when `autoDoc` is enabled.
+## Lint Rules (curated, `recommended: false`)
 
-- Runtime: Node.js >= 18 (Next.js 16 example apps need Node.js >= 20.9)
-- Package manager: pnpm 10.34.5 (Corepack)
-- Language: TypeScript (strict, ESM)
+Biome is configured with explicit rule sets rather than the recommended preset:
 
-## Setup
+- **complexity**: no useless catch/constructor/ternary/type-constraint; `useOptionalChain`, `useRegexLiterals`, `useLiteralKeys`
+- **correctness**: no unused variables, no undeclared variables, `useIsNan`, no unsafe optional chaining
+- **security**: `noGlobalEval`
+- **style**: `noVar`, `useConst`, `useNamingConvention` (warn), `useAsConstAssertion`, `useExponentiationOperator`, restricted globals (`event`, `atob`, `btoa`)
+- **suspicious**: `noDebugger`, `noDoubleEquals`, `noPrototypeBuiltins`, `noRedeclare`, `useValidTypeof`, etc.
+- `dist/` and `.eslintrc.cjs`/`vite.config.ts` are ignored; `.d.ts` files relax `noUnusedVariables`
 
-```sh
-corepack enable
-corepack pnpm@10.34.5 install --frozen-lockfile
-```
+## TypeScript Conventions
 
-`.agents/setup` runs the same install. No extra services need to be started.
+- **Strict mode** (`strict: true`) plus `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noUnusedLocals`, `noUnusedParameters`
+- `moduleResolution: node`, `esModuleInterop`, `skipLibCheck`, `forceConsistentCasingInFileNames`
+- `importHelpers: true` (tslib)
+- Type-only imports via `import type { … }` (e.g. `import type { NextApiRequest, NextApiResponse } from 'next'`)
+- `as const` for literal tuples (`HTTP_METHODS`)
+- No default exports in library code; named exports only
 
-## Commands
+## Naming
 
-| Task | Command |
-| --- | --- |
-| Install | `pnpm install` |
-| Test | `pnpm test` |
-| Coverage | `pnpm coverage` |
-| Lint | `pnpm lint` |
-| Format check | `pnpm format` |
-| Build | `pnpm build` |
+- Functions: `camelCase`, action-first (`createSwaggerSpec`, `extractApiInfo`, `getRouteFiles`)
+- Types: `PascalCase` (`SwaggerOptions`, `ApiInfo`, `AutoDocOptions`)
+- Constants: `UPPER_SNAKE_CASE` (`HTTP_METHODS`, `defaultOptions`)
+- Private helpers are module-local (not exported)
 
-Use Vitest for tests. Prefer real fixtures under `test/fixtures` over mocks.
+## Patterns
 
-## Layout
+- **Default parameters** for options (`apiFolder = 'pages/api'`, `autoDoc = false`)
+- **Destructuring** options in function signatures, spreading the rest into swagger-jsdoc options
+- **Functional style**: `flatMap`, `filter`, `map`, `Object.fromEntries`; `Set`/`Map` for dedup (`apiInfos` map, `methods` set)
+- **JSDoc comments** on public API functions (`createSwaggerSpec`, `withSwagger`) describing params and returns
+- **No TODO/FIXME/HACK comments** anywhere in the codebase (verified via search)
 
-- `src/swagger.ts` — `createSwaggerSpec` and `withSwagger`
-- `src/auto-doc.ts` — App Router path/method extraction
-- `src/cli.ts` — `next-swagger-doc-cli`
-- `src/index.ts` — public exports
-- `test/` — Vitest tests and snapshots
-- `examples/` — Next.js 13/14/15/16 demo apps (separate lockfiles)
+## Error Handling
 
-Do not edit `dist/`; pkgroll writes it from `src/`.
+- `withSwagger` wraps spec creation in try/catch: success → `res.status(200).send(spec)`; failure → `res.status(400).json({ error })` with a fallback message `'Failed to create Swagger spec'`
+- Error message extraction uses `error instanceof Error ? error.message : fallback`
+- No custom error classes; logging is limited to a `console.warn` in `route-parser.ts` when a route file fails to parse
 
-## Style
+## Module & File Conventions
 
-- Biome formats and lints `src` (2-space indent, 80-column line width)
-- Keep TypeScript strict; avoid `any`
-- Document new options on `SwaggerOptions` and in `README.md`
-- Conventional commits: `feat`, `fix`, `chore`, `docs`, `test`
+- ESM (`"type": "module"`), Node built-ins imported explicitly (`node:fs`, `node:path`)
+- Single responsibility per file (swagger = API, auto-doc = scanner, route-parser = parser, cli = CLI)
+- `src/index.ts` is a pure barrel re-export
 
-## API notes
+## Commit / Release Conventions
 
-- `apiFolder` defaults to `pages/api`. App Router apps typically pass `app/api`.
-- `autoDoc: true` fills in operations from `route` files. Manual `@swagger` JSDoc wins on conflict.
-- Do not glob `.next` while Next.js is compiling (`NEXT_PHASE` production build/export). That walk can fail Vercel builds with a missing `export-detail.json`. Scan compiled output only when the source folder is missing, or set `scanBuildOutput: true`.
-- For `output: 'standalone'`, generate a spec at build time (`specFile` / CLI `outputFile`) or rely on `autoDoc` so compiled routes still document. `autoDoc` falls back on automatically when the source API folder is missing unless it is set to `false`.
-- `UNSAFE_componentWillReceiveProps` warnings for `ExamplesSelect` / `ParameterRow` come from `swagger-ui-react`, not this library. Keep examples on `next/dynamic` with `ssr: false`, or point users at Scalar / Stoplight Elements.
-
-## Examples
-
-Example apps depend on published `next-swagger-doc`. Library changes are verified with `pnpm test` in the repo root, not by rewriting example lockfiles unless the task is specifically about an example.
-
-Keep the versioned folders on their Next.js lines (`next13-simple`, `next14-app`, `next15-app`, `next16-app`). Do not bump 13/14/15 examples to 16.
+- Conventional-ish commit messages (`feat:`, `chore:`, `fix:`)
+- Changelog via Changie fragments in `.changes/unreleased/`
+- Renovate auto-merges non-major dependency updates
+- Pre-commit hooks: Prettier (html/css/markdown) + Biome check
 
 ---
 > Source: [jellydn/next-swagger-doc](https://github.com/jellydn/next-swagger-doc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
