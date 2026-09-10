@@ -1,84 +1,56 @@
 ## atlas-design
 
-> applyTo: "plugins/stylelint-config-atlas/\*\*"
+> The adaptive grid deliberately starts with a small, explicit equal-width layout API. Preserve
 
-# Stylelint Config Atlas - Copilot Instructions
 
-applyTo: "plugins/stylelint-config-atlas/\*\*"
+# Adaptive grid extension guidance
 
-This is the `@microsoft/stylelint-config-atlas` package, a shareable Stylelint configuration for Atlas CSS.
+The adaptive grid deliberately starts with a small, explicit equal-width layout API. Preserve
+these decisions when extending the component.
 
-## Package Overview
+## Public invariants
 
-- **Name**: `@microsoft/stylelint-config-atlas`
-- **Type**: Stylelint shareable config (private package)
-- **Purpose**: Enforce consistent SCSS/CSS coding standards
+- Keep the required `.adaptive-grid` wrapper, direct `.adaptive-grid-content`, and direct
+  `.adaptive-grid-item` structure. A container cannot query itself, so do not collapse the
+  wrapper and content elements.
+- Keep `adaptive-grid` as a named `inline-size` container so nested instances query themselves
+  rather than unrelated ancestors.
+- Every explicit track must use `minmax(0, 1fr)`, including the one-column default. Keep
+  `min-inline-size: 0` on direct `.adaptive-grid-item` children.
+- `.adaptive-grid-columns-2` means one column below its component threshold and two equal columns
+  at or above it. The word `columns` is intentional: it makes the number an unambiguous count and
+  aligns with the `grid-template-columns-*` atomics.
+- Container size queries evaluate the container's content box. Account for borders and padding in
+  examples, tests, and threshold descriptions.
 
-## Project Structure
+## Extension model
 
-```
-plugins/stylelint-config-atlas/
-├── index.js      # Main configuration export
-├── package.json
-└── README.md
-```
+- Keep this component explicit. Do not add `auto-fit`, `auto-fill`, intrinsic track sizing, or
+  content-derived column counts to `.adaptive-grid`.
+- A future `.adaptive-grid-columns-N` must be a standalone "up to N columns" modifier. It should
+  progress through intermediate equal-width counts as the container grows and must not require
+  consumers to combine cumulative count modifiers.
+- Add column counts only for demonstrated product needs. Do not pre-generate an open-ended count
+  range or a count-by-threshold class matrix.
+- Use component-prefixed `!default` Sass variables for default thresholds. Do not redefine the
+  existing generic container-query tokens.
+- CSS custom properties cannot supply size-query thresholds. Do not expose a raw track-template
+  custom property or weaken the zero-minimum track invariant as a workaround.
+- Literal threshold variants require design review. Use
+  `.adaptive-grid-columns-N-min-width-PX` for approved pixel thresholds. Keep variants in the
+  component's configurable Sass map, mutually exclusive with other column modifiers, and avoid
+  ambiguous names such as `.adaptive-grid-2`, `.adaptive-grid-2-800`, or
+  `.adaptive-grid-columns-800`.
+- Do not overload numeric column modifiers with weighted or asymmetric layouts. Such layouts need
+  separately named presets and a concrete use case.
 
-## Key Rules Enforced
+Keep speculative extension guidance here rather than in consumer documentation. Consumer docs
+should describe only shipped classes and supported Sass configuration.
 
-### Property Ordering
-
-Properties must follow a specific order:
-
-1. Display and positioning
-2. Flexbox/Grid
-3. Box model (width, height, margin, padding)
-4. Visual (border, background)
-5. Typography
-6. Miscellaneous
-
-### Logical Properties
-
-- Prefer logical properties (e.g., `margin-inline` over `margin-left/right`)
-- Exceptions: `width`, `height`, `min-*`, `max-*`
-
-### Units
-
-- Font sizes must use `rem` or `em` (no `px`)
-
-### Selectors
-
-- No ID selectors (`selector-max-id: 0`)
-- No qualifying type selectors
-- Maximum specificity: `0,4,1`
-- Maximum 4 compound selectors
-- Maximum 3 levels of nesting
-
-### Vendor Prefixes
-
-- No vendor prefixes (handled by build tools)
-
-### SCSS Specific
-
-- Use `@extend` only with placeholders
-- Variable names: `^_?[a-z]+[\\w-]*$`
-- Always include file extension in `@use`/`@import`
-
-## Dependencies
-
-- `stylelint` - Core linter
-- `stylelint-scss` - SCSS-specific rules
-- `stylelint-order` - Property ordering
-- `stylelint-use-logical` - Logical property enforcement
-- `stylelint-config-standard` / `stylelint-config-recommended-scss` - Base configs
-
-## When Making Changes
-
-1. Changes affect all Atlas CSS linting
-2. Test changes against the CSS package: `npm run lint` in css folder
-3. Document any new rules or rule changes
-4. Consider backward compatibility
-5. Update atlas-css if rules require code changes
+When adding public adaptive-grid classes, update the Sass export, documentation, generated class
+metadata coverage, accessibility page registration, and changeset using existing repository
+patterns. Validate CSS lint/build and the static site build.
 
 ---
 > Source: [microsoft/atlas-design](https://github.com/microsoft/atlas-design) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
