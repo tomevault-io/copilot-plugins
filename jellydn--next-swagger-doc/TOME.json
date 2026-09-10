@@ -4,7 +4,7 @@
   "repo": "next-swagger-doc",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jellydn/next-swagger-doc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T02:35:33Z"
+  "distributed_at": "2026-09-10T11:19:21Z"
 }
