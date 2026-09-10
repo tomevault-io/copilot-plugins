@@ -1,0 +1,44 @@
+{
+  "name": "amneziawg-ui",
+  "owner": "mycelium-mesh",
+  "repo": "amneziawg-ui",
+  "description": "\u0413\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0439 WEB \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441 + AmneziaWG 3.1 \u043d\u0430 VPS \u0432 Docker \u043e\u0434\u043d\u043e\u0439 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0439. \u0411\u0435\u0437 \u043c\u0443\u0441\u043e\u0440\u0430 \u0438 \u043b\u0438\u0448\u043d\u0438\u0445 \u0437\u0430\u0432\u0438\u0441\u0438\u043c\u043e\u0441\u0442\u0435\u0439",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mycelium-mesh/amneziawg-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T22:44:51Z"
+}
