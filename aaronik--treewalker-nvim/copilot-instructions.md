@@ -1,10 +1,10 @@
 ## treewalker-nvim
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to agents when working with code in this repository.
 
 ## Project Overview
 
@@ -94,10 +94,11 @@ Consider yourself a senior engineer who specializes in writing clean code, which
     Only run these checks - don't do no-utils or pass
 
 - Never remove existing comments
+- Never add language-specific behavior outside `lua/treewalker/classify.lua`; generic movement must use AST structure rather than node-type or language checks
 - Only comment on strange pieces of code, be minimal
 - Add types for all code
     - Avoid using `table`, prefer being explicit, ex ---@return { foo: string, bar?: integer }
 
 ---
 > Source: [aaronik/treewalker.nvim](https://github.com/aaronik/treewalker.nvim) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
