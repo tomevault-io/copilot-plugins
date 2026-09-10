@@ -60,4 +60,4 @@ Detection strategies vary: most check inheritance/traits (`ModelClassifier` → 
 
 ---
 > Source: [stefanzweifel/laravel-stats](https://github.com/stefanzweifel/laravel-stats) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
