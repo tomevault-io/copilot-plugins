@@ -4,7 +4,7 @@
   "repo": "MongoDB.Entities",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dj-nitehawk/MongoDB.Entities",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T04:58:09Z"
+  "distributed_at": "2026-09-10T11:22:45Z"
 }
