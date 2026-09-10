@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [GitoxideLabs/gitoxide](https://github.com/Gitox
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [GitoxideLabs/gitoxide](https://github.com/GitoxideLabs/gitoxide) — a repo with 11718+ stars on GitHub.
+From [GitoxideLabs/gitoxide](https://github.com/GitoxideLabs/gitoxide) — a repo with 11931+ stars on GitHub.
 
 ---
 
