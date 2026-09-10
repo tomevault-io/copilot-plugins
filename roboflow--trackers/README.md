@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [roboflow/trackers](https://github.com/roboflow/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [roboflow/trackers](https://github.com/roboflow/trackers) — a repo with 3756+ stars on GitHub.
+From [roboflow/trackers](https://github.com/roboflow/trackers) — a repo with 3757+ stars on GitHub.
 
 ---
 
