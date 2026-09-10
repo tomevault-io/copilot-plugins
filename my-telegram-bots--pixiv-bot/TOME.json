@@ -4,7 +4,7 @@
   "repo": "Pixiv_bot",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/my-telegram-bots/Pixiv_bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T14:58:29Z"
+  "distributed_at": "2026-09-10T02:47:25Z"
 }
