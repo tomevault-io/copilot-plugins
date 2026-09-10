@@ -2,9 +2,9 @@
   "name": "ant",
   "owner": "theMackabu",
   "repo": "ant",
-  "description": "javascript for \ud83d\udc1c's, a tiny runtime with big ambitions",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theMackabu/ant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T00:23:06Z"
+  "distributed_at": "2026-09-10T21:22:49Z"
 }
