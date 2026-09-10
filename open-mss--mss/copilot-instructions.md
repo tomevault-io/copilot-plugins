@@ -1,31 +1,29 @@
 ## mss
 
-> Purpose: import/export of flight tracks in foreign formats (csv, kml, gpx,
+> Purpose: the `mssautoplot` CLI: renders top/side view plots from a JSON config
 
-# mslib.plugins — flight-track I/O plugins
+# mslib.autoplot — headless batch plotting
 
-Purpose: import/export of flight tracks in foreign formats (csv, kml, gpx,
-text, flitestar). The reference implementations for user-supplied plugins.
+Purpose: the `mssautoplot` CLI: renders top/side view plots from a JSON config
+without showing the GUI, by driving the msui plotting stack headlessly.
 Global map: ../../ARCHITECTURE.md
 
 ## Layout
 
-- `io/csv.py`, `io/text.py`, `io/flitestar.py` — read/write via
-  `mslib.msui.flighttrack.Waypoint` (grandfathered import)
-- `io/kml.py`, `io/gpx.py` — read-only importers
+- `__init__.py` — the whole CLI (click-based `main`, `load_from_ftml`,
+  TopView/SideView plotting drivers)
 
-## Contract
+## May import
 
-Each importer exposes `load_from_<fmt>(filename)` returning
-`(name, [Waypoint])`; each exporter `save_to_<fmt>(filename, name, waypoints)`.
-Users register them in the settings JSON under `import_plugins` /
-`export_plugins` as `[extension, module, function(, pickertype)]` — keep
-signatures stable, third-party configs reference them.
+`mslib.utils` and `mslib.msui` (this package exists precisely so that the
+GUI dependency does not sit inside the base layer mslib.utils).
+Never `mslib.mscolab` or `mslib.mswms` (enforced in setup.cfg).
 
 ## Verify
 
-`pixi run -e dev test-plugins` (pure I/O round-trips, seconds).
+`pixi run -e dev env QT_QPA_PLATFORM=offscreen pytest tests/_test_utils/test_mssautoplot.py -q`
+and `mssautoplot --help` inside the dev env.
 
 ---
 > Source: [Open-MSS/MSS](https://github.com/Open-MSS/MSS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
