@@ -1,0 +1,9 @@
+{
+  "name": "mirairoad--appeditions",
+  "displayName": "appeditions",
+  "description": "Turn raw app screenshots into store-ready App Store and Google Play assets, and keep tracking of the version you are in, in every language you ship in. A local Go desktop app \u2014 no account, no upload, ",
+  "version": "1.0.0",
+  "author": "mirairoad",
+  "homepage": "https://github.com/mirairoad/appeditions",
+  "skills": []
+}
