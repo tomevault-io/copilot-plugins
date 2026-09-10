@@ -1,0 +1,9 @@
+{
+  "name": "crowdin--crowdin-api-client-ruby",
+  "displayName": "crowdin-api-client-ruby",
+  "description": "crowdin-api-client-ruby",
+  "version": "1.0.0",
+  "author": "crowdin",
+  "homepage": "https://github.com/crowdin/crowdin-api-client-ruby",
+  "skills": []
+}
