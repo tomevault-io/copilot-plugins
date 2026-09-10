@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--mcp-clickhouse",
+  "displayName": "mcp-clickhouse",
+  "description": "mcp-clickhouse",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/mcp-clickhouse",
+  "skills": []
+}
