@@ -1,0 +1,9 @@
+{
+  "name": "moov-io--iso8583-connection",
+  "displayName": "iso8583-connection",
+  "description": "iso8583-connection",
+  "version": "1.0.0",
+  "author": "moov-io",
+  "homepage": "https://github.com/moov-io/iso8583-connection",
+  "skills": []
+}
