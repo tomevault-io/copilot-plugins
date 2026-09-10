@@ -4,7 +4,7 @@
   "repo": "NGOWorld",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ngoworldcommunity/NGOWorld",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T12:53:00Z"
+  "distributed_at": "2026-09-10T03:18:40Z"
 }
