@@ -1,186 +1,117 @@
 ## cluster-network-addons-operator
 
-> This file provides guidance when working with code in this repository.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-This file provides guidance when working with code in this repository.
+# Agent Guide for opentelemetry-go
 
-## Repository Overview
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-Cluster Network Addons Operator (CNAO) is a Kubernetes operator that deploys and manages networking add-on components on Kubernetes and OpenShift clusters. This repository contains:
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-- The CNAO operator code
-- Manifest generation for managed network components
-- E2E test suites
-- Dev/test environment setup (kubevirtci)
-- Installation manifests for Operator Lifecycle Manager (OLM)
+## Core expectations
 
-### How It Works
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-CNAO follows the standard Kubernetes operator pattern using controller-runtime. The operator watches a single cluster-scoped `NetworkAddonsConfig` CR and reconciles the desired state by rendering and applying manifests for each enabled network component.
+## Default workflow
 
-### Core Components
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-- **cmd/manager/** - Operator entry point; sets up the controller-runtime manager, scheme, metrics server, and health probes
-- **pkg/controller/networkaddonsconfig/** - Main controller loop (`networkaddonsconfig_controller.go`) and pod controller for status tracking
-- **pkg/network/** - Per-component logic; each file (e.g., `multus.go`, `kubemacpool.go`, `ovs.go`) knows how to render manifests for one component
-- **pkg/components/** - Manifest templates and default image references for all managed components
-- **pkg/apply/** - Manifest application and three-way merge logic for safe upgrades
-- **pkg/apis/networkaddonsoperator/** - CRD type definitions (shared types used by both `v1` and `v1alpha1` API versions)
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-### Managed Components
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-Each component has deployment manifests under `data/` and rendering logic under `pkg/network/`:
+## Verification
 
-| Component | Description |
-|-----------|-------------|
-| Multus | Multi-network CNI meta-plugin |
-| Multus Dynamic Networks | Hot-plug/hot-unplug of pod interfaces |
-| Linux Bridge | Linux bridge CNI plugin |
-| OVS | Open vSwitch CNI plugin |
-| KubeMacPool | MAC address pool manager |
-| Macvtap | Macvtap CNI plugin |
-| KubeSecondaryDNS | Secondary DNS for VM interfaces |
-| KubevirtIpamController | IPAM controller for secondary networks |
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-### Key Directories
+## Documentation and changelog
 
-```
-cmd/manager/          Entry point for the operator binary
-pkg/apis/             CRD types (NetworkAddonsConfig v1 and v1alpha1)
-pkg/controller/       Reconciliation controllers
-pkg/network/          Per-component manifest rendering
-pkg/components/       Default images, manifest templates
-pkg/apply/            Manifest application and merge logic
-pkg/monitoring/       Prometheus metrics and alerts
-data/                 Raw YAML templates for each managed component
-test/e2e/             E2E test suites (lifecycle, workflow, monitoring, compliance)
-hack/                 Build, release, and component-bump scripts
-tools/                Build helpers (bumper, manifest-templator, metrics docs)
-cluster/              Local dev cluster management (kubevirtci)
-manifests/            Release manifests for OLM
-templates/            ClusterServiceVersion templates for OLM (Operator Lifecycle Manager) deployment
-automation/           CI script wrappers
-```
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-## Development Commands
+## Repository habits
 
-### Build
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-```bash
-make manager               # Build the operator binary
-make manifest-templator    # Build the manifest templator tool
-make docker-build          # Build operator and registry container images
-```
+## Personas
 
-### Code Quality
+### Feature Agent
 
-```bash
-make check                 # Full validation: whitespace, vet, goimports, gen-k8s, lint, unit tests
-make fmt                   # Auto-format (whitespace + goimports)
-make lint                  # Run golangci-lint
-make vet                   # Run go vet
-```
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-### Testing
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-```bash
-make test/unit             # Run unit tests
-make test/e2e/lifecycle    # E2E: operator deployment and upgrades
-make test/e2e/workflow     # E2E: component deployment workflows
-make test/e2e/monitoring   # E2E: Prometheus metrics and alerts
-make test/e2e/compliance   # E2E: TLS compliance
-```
+### Refactoring Agent
 
-### Code Generation
+Use this persona when improving structure without intentionally changing behavior.
 
-```bash
-make gen-k8s               # Generate deepcopy methods from CRD types
-make gen-k8s-check         # Verify generated code is up to date
-make gen-manifests         # Generate operator deployment manifests
-```
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-### Local Development Cluster
+### Test Agent
 
-```bash
-make cluster-up            # Start local kubevirtci cluster with cert-manager
-make cluster-down          # Tear down local cluster
-make cluster-sync          # Push operator image and install on cluster
-make cluster-clean         # Remove operator from cluster
-```
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
 
-### Dependencies
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
 
-```bash
-make vendor                # Tidy and vendor Go modules (enforces max Go version)
-```
+### Performance Agent
 
-### Component Bumps
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
 
-```bash
-make bump-<component>      # Bump a single component (e.g., bump-multus, bump-ovs)
-make bump-all              # Bump all components
-make bump-kubevirtci       # Update kubevirtci version
-```
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
 
-## Build Toolchain
+### Review Agent
 
-- **Go version**: 1.25 (max allowed; auto-installed to `build/_output/bin/go/` via `hack/install-go.sh`)
-- **Build flags**: `GOFLAGS=-mod=vendor GO111MODULE=on CGO_ENABLED=0`
-- **Multi-arch**: Builds for `linux/amd64`, `linux/arm64`, `linux/s390x`
-- **Container runtime**: Auto-detects podman or docker (`OCI_BIN`)
+Use this persona when asked to review code, patches, or pull requests.
 
-## Testing
-
-### Unit Tests
-
-- Located alongside source files in `pkg/`
-- Framework: Ginkgo v2 with Gomega assertions
-- Run with `make test/unit`
-
-### E2E Tests
-
-- Located in `test/e2e/` with four suites: lifecycle, workflow, monitoring, compliance
-- Require a running cluster (local via kubevirtci or external via `KUBECONFIG`)
-- Default timeout: 3 hours (`E2E_TEST_TIMEOUT`)
-- Test infrastructure helpers in `test/libframework/`, `test/operations/`, `test/check/`
-
-### Test Naming
-
-Use Ginkgo-style descriptive names: `When <condition>... it should <behavior>...`
-
-## CRD: NetworkAddonsConfig
-
-- **API Group**: `networkaddonsoperator.network.kubevirt.io`
-- **Versions**: `v1` (current), `v1alpha1` (legacy)
-- **Scope**: Cluster-scoped (single instance per cluster)
-- **Spec fields**: Each managed component has an optional field to enable/configure it
-- **Type definitions**: `pkg/apis/networkaddonsoperator/shared/networkaddonsconfig_types.go`
-
-After modifying types, run `make gen-k8s` to regenerate deepcopy methods.
-
-## Key Conventions
-
-- Dependencies are vendored; run `make vendor` after changing `go.mod`
-- Do not modify `vendor/` directly
-- Run `make check` before submitting PRs
-- Component default images are defined in `pkg/components/components.go`
-- Component version pins are tracked in `components.yaml` at the repo root
-- Deployment manifest templates live in `data/<component>/` as raw YAML
-- The operator renders final manifests at runtime by patching images and configuration into these templates
-
-## Environment Variables
-
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `KUBECONFIG` | Path to kubeconfig | - |
-| `KUBEVIRT_PROVIDER` | Cluster provider for local dev | - |
-| `IMAGE_REGISTRY` | Container image registry | `quay.io/kubevirt` |
-| `IMAGE_TAG` | Container image tag | `latest` |
-| `OCI_BIN` | Container runtime (`podman`/`docker`) | auto-detected |
-| `E2E_TEST_TIMEOUT` | E2E test timeout | `3h` |
-| `CNAO_LOG_LEVEL` | Operator log level (-1=debug, 2=error) | - |
-| `VERSION` | Build version | `99.0.0` |
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [kubevirt/cluster-network-addons-operator](https://github.com/kubevirt/cluster-network-addons-operator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
