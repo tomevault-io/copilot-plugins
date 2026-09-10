@@ -1,0 +1,14 @@
+{
+  "name": "oehf--ipf",
+  "displayName": "ipf",
+  "description": "ipf",
+  "version": "1.0.0",
+  "author": "oehf",
+  "homepage": "https://github.com/oehf/ipf",
+  "skills": [
+    {
+      "name": "ipf",
+      "description": ""
+    }
+  ]
+}
