@@ -1,23 +1,21 @@
 # pius
 
-> Source: [praetorian-inc/pius](https://github.com/praetorian-inc/pius) — distributed by [TomeVault](https://tomevault.io)
-
-Organizational asset discovery tool with 20+ plugins covering certificate transparency, passive DNS, and all 5 Regional Internet Registries.
+> Source: [praetorian-inc/pius](https://github.com/praetorian-inc/pius). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [praetorian-inc/pius](https://github.com/praetorian-inc/pius).
+Original source: `AGENTS.md` in [praetorian-inc/pius](https://github.com/praetorian-inc/pius).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [praetorian-inc/pius](https://github.com/praetorian-inc/pius) — a repo with 60+ stars on GitHub.
+From [praetorian-inc/pius](https://github.com/praetorian-inc/pius) — a repo with 89+ stars on GitHub.
 
 ---
 
