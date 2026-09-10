@@ -1,0 +1,9 @@
+{
+  "name": "adoptopenjdk--mjprof",
+  "displayName": "mjprof",
+  "description": "mjprof",
+  "version": "1.0.0",
+  "author": "AdoptOpenJDK",
+  "homepage": "https://github.com/AdoptOpenJDK/mjprof",
+  "skills": []
+}
