@@ -1,26 +1,26 @@
 ## claudian
 
-> - `CollabAuthoritySessionFactory` is stateless. It constructs one membership-generation session composed of authority-neutral control, event, and Git-network ports, then transfers disposal ownership to `CollabProjectWorkSession`.
+> - This scope owns the dedicated authenticated LAN Project-authority-transfer binding and client. Its version is independent from Project-control v9, Git v1, and physical Host-transfer v6.
 
-# Remote Collab authority
+# LAN authority-transfer binding
 
 ## Ownership
 
-- `CollabAuthoritySessionFactory` is stateless. It constructs one membership-generation session composed of authority-neutral control, event, and Git-network ports, then transfers disposal ownership to `CollabProjectWorkSession`.
-- `CollabProjectWorkSessionRegistry` remains the sole retained per-Project lifecycle registry. A work session owns at most one authority session, event connection, refresh queue, and mutation queue and closes them before its membership generation changes.
-- `LanAuthorityAdapter` wraps the existing LAN clients and lifecycle extensions without changing LAN v9 binding, credentials, CA pinning, discovery, Host, or transfer semantics.
-- `CloudAuthorityAdapter` owns Cloud binding-v1 capability negotiation, package-owned route construction and codecs, development-principal presentation, snapshot/event transport, safe error mapping, and Git endpoint construction. It never implements server Project policy or translates Cloud lifecycle into LAN lifecycle.
+- This scope owns the dedicated authenticated LAN Project-authority-transfer binding and client. Its version is independent from Project-control v9, Git v1, and physical Host-transfer v6.
+- Package-owned DTO meaning is adapted at this boundary. Method, path, LAN envelope, version, request source, bearer extraction, authentication, active-versus-terminal admission, dispatch, success status, and parameter matching remain local. Do not create a second shared operation/codec registry or change existing LAN control routes for import convenience.
+- Source-active routes authorize Member proposal, exact Host acceptance, source status, quiescence/capture coordination, and pre-cutover cancellation. Target-only-staged routes expose only exact target acceptance, provisional authority proof, bounded checkpoint receipt/stage status, and source-fence observation; they deny ordinary Project control, Git, Host start, claim redemption, and discovery advertisement. After exact source relinquishment, `LanHostCoordinator` atomically promotes that same staged target registration to target-active with the next authority generation. Target-active routes authorize an authenticated unbound imported Member to redeem only its exact Cloud-to-LAN transfer claim, atomically install its already persisted client-generated credential hash, and receive the replayable target-signed receipt; this is not Join or membership creation. Terminal-only source routes authorize exact transfer status, redirect, retrieval of only the authenticated former Member's retained claim, and forwarding of that Member's target-signed redemption receipt.
 
-## Dependency and safety
+## Listener lifecycle
 
-- Publication, projection, review, reconciliation, feature, UI, and Agent-facing services depend on the neutral ports and never construct LAN or Cloud transports directly.
-- Cloud Projects expose only negotiated capabilities. Host transfer, membership administration, Manager responsibility, Leave, Retire, and LAN diagnostics remain LAN-only and must not fall back to a stale LAN session.
-- Canonicalize self-host URLs once and compare exact normalized values. Git environments may carry multiple headers and an optional CA path. Credential-bearing headers are sensitive by default and their values plus private paths never enter process arguments, logs, errors, or persisted diagnostics. A non-credential routing header must be explicitly marked non-sensitive so its domain identifier may independently appear in a Git ref argument; the header itself still enters Git only through the isolated environment.
+- The real Vault-scoped HTTPS listener and all four registration states remain owned by `LanHostCoordinator`. Authority transfer requests source-active, target-only-staged, atomic target-active promotion, or terminal-source registration through that owner; it does not open a hidden listener, reuse the physical Host-transfer provisional router, or retain a parallel router.
+- Target-active and terminal-source claim routes are authenticated, content-minimal, restart-recoverable, and bounded to the transfer's 30-day expiry. Target expiry scrubs the imported raw claim batch and transfer-private target state before terminal cleanup; source expiry removes only the exact responder and source-held claims through their owning transfer record. Terminal routing cannot start a Host, admit ordinary Project traffic, mint replacement claims, change membership/role, or serve another Member's claim.
+- Target-only-staged, target-active, and terminal-source routes pin the listener endpoint until removal or expiry because their signed or previously distributed URL has no update operation. Every production installation of one of these states supplies its durable expected endpoint; listener reconstruction binds that exact address and port or fails closed without trying a fallback. A proposal-only source-active route may follow the existing transactional listener rebind because the active LAN membership is updated before the old listener closes. Host acceptance adds the durable expected endpoint to that same registration, making it pinned until proven cancellation or terminal transition.
+- Listener replacement, preferred-address change, shutdown, and process restart must preserve the exact registration state. A target-only-staged registration recovers inert until exact Cloud relinquishment proof permits promotion, and a terminal source can never return to source-active. Reinstalling the same terminal-source or target-active transfer in the same state is idempotent and retains the already registered service; a different transfer or state remains a conflict. The coordinator closes route resources and sockets in its existing order.
 
 ## Verification
 
-- Adapter contract tests keep owned application modules real, prove LAN behavior is preserved, prove unknown Cloud capabilities are ignored while unknown binding/wire/schema values fail closed, and prove replacing a membership generation disposes the old session exactly once.
+- Binding tests cover independent version negotiation, target-only ordinary-control/Git/Host-start denial, exact source-active/target-active/terminal-source authorization, promotion only after exact source-fence proof, wrong-Member and cross-Project denial without identity leakage, replayable claim and receipt delivery, listener replacement, restart, expiry, and shutdown cleanup.
 
 ---
 > Source: [YishenTu/claudian](https://github.com/YishenTu/claudian) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
