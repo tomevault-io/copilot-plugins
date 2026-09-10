@@ -2,7 +2,7 @@
 
 > Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-# CLAUDE.md
+# CURSOR.md
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
@@ -62,6 +62,10 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
+## Project-Specific Instructions
+
+Follow `AGENTS.md` for all repository-specific instructions. This file defines general behavioral guidelines, while `AGENTS.md` defines project conventions and requirements.
+
 ---
 > Source: [fossasia/WPFAevent](https://github.com/fossasia/WPFAevent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
