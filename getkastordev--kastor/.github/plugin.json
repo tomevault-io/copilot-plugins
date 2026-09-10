@@ -1,0 +1,9 @@
+{
+  "name": "getkastordev--kastor",
+  "displayName": "kastor",
+  "description": "Terraform-style source-of-truth layer for AI agents: HCL specs, LangGraph codegen, and plan/apply/state for hosted agents.",
+  "version": "1.0.0",
+  "author": "getkastordev",
+  "homepage": "https://github.com/getkastordev/kastor",
+  "skills": []
+}
