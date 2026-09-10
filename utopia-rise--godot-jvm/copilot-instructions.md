@@ -1,217 +1,383 @@
 ## godot-jvm
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file is the authoritative guide for working on
 
-# CLAUDE.md
+# Godot IntelliJ Plugin Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file is the authoritative guide for working on
+`kt/plugins/godot-intellij-plugin`.
 
-## What This Project Is
+The plugin provides Godot JVM code insight for Kotlin, Java, and Scala. Keep
+the implementation small: inspections dispatch PSI elements, analyzers own
+the rules, and tests exercise the same source fixtures through IntelliJ's
+real highlighting pipeline.
 
-**Godot-JVM** is a Godot engine module that enables Kotlin (and Java/Scala) as scripting languages. It is a hybrid C++/JVM project: the C++ side integrates with Godot's module system, and the Kotlin/Gradle side provides the runtime libraries and tooling for user projects.
+## Inspection Architecture
 
-Current binding version: `0.17.1` targeting Godot `4.7.2`.
+Inspection entry points live in:
 
-## Engineering Principles
+- `src/main/kotlin/godot/intellij/plugin/inspection/JavaInspection.kt`
+- `src/main/kotlin/godot/intellij/plugin/inspection/KotlinInspection.kt`
+- `src/main/kotlin/godot/intellij/plugin/inspection/ScalaInspection.kt`
+- `src/main/kotlin/godot/intellij/plugin/inspection/CoreTypeCopyModificationInspection.kt`
 
-- **Avoid needless helpers** — Keep trivial single-use code inline. Extract a helper only when it has multiple call sites or its body is substantial enough to make the caller clearer.
-- **KISS** — Prefer the simplest design that clearly solves the current problem.
-- **YAGNI** — Do not add behavior or abstractions for requirements that do not exist yet.
-- **DRY** — Keep each piece of knowledge and behavior in one authoritative place.
+Shared JVM rules live under `analysis/jvm/`. Kotlin PSI and K2-specific rules
+live under `analysis/kotlin/`. Registration-mode decisions belong in
+`registration/RegistrationPolicy.kt`.
 
-## Prerequisites
+Keep inspection classes as dispatchers. Do not copy rule logic into the
+language entry points when a shared analyzer can express it cleanly.
 
-- **JDK 17+** required for building IDE/Gradle plugins (JDK 11+ for runtime-only builds)
-- Use **Adoptium/Eclipse Temurin** JDK — Microsoft JDK causes IDE plugin build failures (known issue [microsoft/openjdk#339](https://github.com/microsoft/openjdk/issues/339)). If you must use Microsoft JDK, manually create the `Packages` folder inside `JAVA_HOME`.
-- `JAVA_HOME` must be set
-- Standard Godot build deps: SCons, Python, C++ compiler
+## New Script Action
 
-## Build Commands
+`action/NewGodotScriptAction` adds `New | Godot Script` to the project view.
+It is only visible for directories inside a Godot project.
 
-The project has two independent build systems that must both be built.
+`NewGodotScriptDialog` collects the class name, language, Godot base class,
+and lifecycle overrides. The base class chooser is an inheritance chooser
+rooted at `KtObject`, and only the lifecycle functions declared by the chosen
+base class can be selected.
 
-### C++ Module (SCons)
+`GodotScriptGenerator` builds the source. Annotations follow
+`RegistrationMode`: none in Automatic, `@Script` in Inferred, and `@Script`
+plus `@Register` on every override in Explicit. Its output is covered by
+`GodotScriptGeneratorTest` for Kotlin, Java, and Scala.
 
-This module lives as a submodule at `modules/kotlin_jvm/` inside the Godot source tree. All SCons commands run from the **Godot source root**.
+## Run Configuration
 
-```bash
-scons platform=linuxbsd target=editor             # Linux editor
-scons platform=windows target=editor              # Windows editor
-scons platform=linuxbsd target=template_release   # export template
-scons p=linuxbsd -j$(nproc) debug_symbols=yes dev_build=yes  # debug build (multi-core)
+`run/GodotRunConfigurationType` registers the `Godot` configuration type. Its
+factory is applicable only when the project contains a `project.godot`, which
+`Project.godotRoot` resolves through `GodotProjectScopeService`.
+
+`GodotRunConfiguration.buildCommandLine` is the part worth protecting. It
+passes the chosen JDK with `--jvm-path`, which the binding resolves before the
+embedded JRE and the environment. It also exports `JAVA_HOME` for the tools
+Godot starts itself, such as Gradle, but never touches `PATH` and never falls
+back to either: Godot-JVM builds without that argument are not supported.
+`GodotRunConfigurationTest` covers the editor, game, and JDK cases.
+
+The JDK picker is the platform `SdkComboBox`, so the project SDK, registered
+JDKs, and JDKs detected on the machine are all offered without extra code.
+
+## IDE Compatibility
+
+`pluginVerification.ides` in `build.gradle.kts` lists the oldest supported IDE
+plus the versions the Marketplace verifies against. Keep it in sync with the
+Marketplace, and run it before publishing:
+
+```powershell
+.\gradlew.bat :godot-intellij-plugin:verifyPlugin
 ```
 
-### Kotlin/Gradle
+Verifying only the IDEs the plugin is built against hides breakage: Kotlin
+plugin internals such as `KtUltraLightClass` disappear in newer builds. Prefer
+public, long lived APIs (`KtLightClass`), and own small helpers rather than
+calling deprecated Kotlin PSI methods.
 
-```bash
-cd kt/
-./gradlew build                  # build all subprojects
-./gradlew build -Prelease        # production/release build
-./gradlew publishToMavenLocal    # publish artifacts locally for branch testing
-./gradlew publishArtifactsToMavenLocal  # publish all local-consumption artifacts to mavenLocal
+## Marketplace Metadata
+
+Both descriptions the Marketplace shows are generated at build time by
+`patchPluginXml`; never edit `plugin.xml` for them.
+
+- description: the `<!-- Plugin description -->` block in `README.md`.
+  Keep it current when a user-visible feature is added.
+- what's new: `CHANGELOG.md`. `publishPlugin` depends on `patchChangelog`,
+  which turns `[Unreleased]` into a versioned section, so `changeNotes`
+  reads the released version first and falls back to `[Unreleased]`.
+
+Add every user-visible change to `[Unreleased]` under a Keep a Changelog
+group. It is published, not just internal documentation.
+
+## Registration Highlighting
+
+Registration highlighting is separate from inspections. It gives declaration
+lines a subtle background:
+
+- orange: the declaration is not structurally registerable
+- blue: the declaration is a registration candidate
+- green: the current mode selects the declaration for registration
+
+Only Godot script classes and their members are highlighted. Unrelated classes
+must remain untouched. The shared eligibility rules live under `highlighting/`;
+the Scala annotator only adapts Scala property PSI to those rules.
+
+`RegistrationHighlightingTest` covers the same Kotlin/Java/Scala by
+Explicit/Inferred/Automatic 3x3 matrix as regular registration inspections.
+
+## Registration Modes
+
+Every regular registration inspection must be tested in all three modes.
+
+### Explicit
+
+Only direct registration annotations count:
+
+- class: `@Script`
+- property: `@Visible`
+- signal: `@Emit`
+- function: `@Register` or `@Notification`
+
+Meta-annotations are not expanded. Godot lifecycle overrides such as
+`_ready` must be registered explicitly.
+
+### Inferred
+
+Registration meta-annotations are expanded. Examples:
+
+- `@Tool` carries `@Script`
+- `@Export` and property hints carry property registration metadata
+- `@Rpc` carries function registration metadata
+
+Godot lifecycle overrides are inferred. Logical signals in registered
+classes are inferred, while an effective `@Emit` still identifies a signal
+inside a class that is missing registration.
+
+### Automatic
+
+Compatible declarations are selected without registration annotations:
+
+- Godot subclasses are registered
+- compatible properties and methods are registered
+- logical signals are registered
+- properties are exported by default
+
+Annotations can still configure behavior. For example, RPC configuration and
+property hints remain meaningful.
+
+## Required 3x3 Test Matrix
+
+The regular inspection suite is a 3x3 matrix:
+
+| Language | Explicit | Inferred | Automatic |
+|----------|---------:|---------:|----------:|
+| Kotlin   | required | required |  required |
+| Java     | required | required |  required |
+| Scala    | required | required |  required |
+
+These are nine independent test methods backed by nine source files in the
+IDE-check harness. The three mode files for a language intentionally contain
+the same declaration cases, with mode-specific package, class, and registered
+names so the files do not interfere when opened together.
+
+Test classes:
+
+- `src/test/kotlin/godot/intellij/plugin/inspection/KotlinInspectionTest.kt`
+- `src/test/kotlin/godot/intellij/plugin/inspection/JavaInspectionTest.kt`
+- `src/test/kotlin/godot/intellij/plugin/inspection/ScalaInspectionTest.kt`
+
+Each class must contain:
+
+- `testExplicitFixture`
+- `testInferredFixture`
+- `testAutomaticFixture`
+
+## Harness Fixtures
+
+The source fixtures are part of the standalone IDE-check harness. Each
+language has `Explicit`, `Inferred`, and `Automatic` variants:
+
+- `../../../harness/intellij-check/src/main/kotlin/godot/inspection/IdeKotlinInspection<Mode>.kt`
+- `../../../harness/intellij-check/src/main/java/godot/inspection/IdeJavaInspection<Mode>.java`
+- `../../../harness/intellij-check/src/main/scala/godot/inspection/IdeScalaInspection<Mode>.scala`
+
+The fixtures serve two purposes:
+
+1. automated `CodeInsightTestFixture` highlighting tests
+2. readable examples that can be opened in the sandbox IDE
+
+Keep equivalent declaration cases aligned across the three files for a
+language. Inline comments describe the original Explicit baseline; the test
+method for each file is authoritative for its mode-specific diagnostics.
+
+### Checks shared by Kotlin, Java, and Scala
+
+The regular fixtures cover:
+
+- tool classes that are not explicitly registered
+- registered members inside an unregistered class
+    - properties
+    - signals
+    - functions
+- registered classes that do not inherit a Godot type
+- duplicate registered class names, reported on both declarations
+- generic registered classes
+- generic registered functions
+- Godot lifecycle overrides missing explicit registration
+- registered functions exceeding the 16-parameter limit
+
+### Additional Kotlin checks
+
+The Kotlin fixture also covers Kotlin-specific PSI and K2 rules:
+
+- overridden registered abstract functions
+- nullable registered primitive/core properties
+- `lateinit` Godot core properties
+- unsupported registered property types
+- `VariantArray<Enum>`
+- `@Export` without direct `@Visible` in Explicit mode
+- property hints without registration in Explicit mode
+- wrong property types for every supported hint family
+- bitfields with more than 32 enum entries
+- mutable signals
+- `@Emit` on a non-signal value
+- ignored RPC transfer channels
+- unregistered signal connection targets
+- unregistered callable targets
+- RPC targets that are unregistered
+- RPC targets without `@Rpc`
+- RPC targets using `RpcMode.DISABLED`
+
+## Separate Core-Type Copy Suite
+
+Core-type copy mutation is not part of the 3x3 registration matrix. It is a
+separate Kotlin-only inspection with its existing fixture:
+
+- fixture:
+  `../../../harness/intellij-check/src/main/kotlin/godot/inspection/CopyModificationCheckTestClass.kt`
+- test:
+  `KotlinInspectionTest.testCoreTypeCopyFixture`
+
+Do not mix these cases into the nine registration tests. This inspection
+checks mutation through copies returned by `@CoreTypeLocalCopy` getters and
+has different semantics from annotation registration.
+
+The expected fixture currently reports ten errors.
+
+## How the Test Fixture Works
+
+`CodeInsightFixtureTestBase.kt` extends IntelliJ's `BasePlatformTestCase`,
+which provides `CodeInsightTestFixture`.
+
+For every test it:
+
+1. creates an in-memory `project.godot`, making the fixture a Godot project
+2. registers the running JDK as the test module SDK
+3. attaches Kotlin stdlib and the Godot annotation, common, core, API, and
+   extension jars
+4. copies a harness source file into the light test project
+5. writes the selected `RegistrationMode` to `RegistrationSettings`
+6. enables the requested inspection
+7. runs `myFixture.doHighlighting()`
+8. fails immediately if the fixture has compiler errors
+9. keeps only highlights produced by the inspection under test
+10. compares the exact severity, message, and occurrence count
+
+This is deliberately an integration-style inspection test. It validates PSI
+resolution, K2 analysis, Java/Scala light elements, inspection registration,
+and emitted highlighting without launching an IDE sandbox manually.
+
+### Test dependencies
+
+`build.gradle.kts` supplies:
+
+- IntelliJ Platform test framework
+- IntelliJ Java plugin test framework
+- bundled Kotlin plugin
+- Scala plugin
+- `godot-api-library`
+- `godot-extension-library`
+- JUnit 4
+
+The Gradle test task passes the harness root through
+`godot.intellij.fixture.root` and enables K2.
+
+## Expected Result Conventions
+
+Use `assertProblems` with:
+
+- `error(message, count)`
+- `weakWarning(message, count)`
+
+Messages must come from `GodotPluginBundle`; do not repeat user-facing
+strings in tests.
+
+The assertion is intentionally order-independent, but it is strict about:
+
+- inspection severity
+- full rendered message
+- number of occurrences
+- unexpected extra problems
+- missing expected problems
+
+Do not weaken the assertion to make a failing inspection pass. First
+determine whether the fixture expectation, registration policy, or analyzer
+is wrong.
+
+## Updating or Adding an Inspection Check
+
+When changing a regular registration check:
+
+1. add or update the source case in every language the check supports
+2. update the Explicit, Inferred, and Automatic expectations for each
+   affected language
+3. keep unsupported language-specific checks out of the other fixtures
+4. run the complete plugin test task
+5. use the sandbox only for visual confirmation when necessary
+
+Before accepting a mode result, compare it with the registration processor
+under `kt/godot-registration/godot-class-graph-symbol-processor`. The IDE
+policy must describe what the actual registration pipeline will select.
+
+If the test reveals different behavior for equivalent Java, Kotlin, and
+Scala declarations, investigate the PSI representation before adding a
+language-specific exception. Scala properties may appear through generated
+accessor methods; Kotlin declarations may resolve compiled annotations
+through constructors or light elements.
+
+## Commands
+
+Run commands from the `kt` directory.
+
+Complete plugin test suite:
+
+```powershell
+.\gradlew.bat :godot-intellij-plugin:test
 ```
 
-Full local publish (for testing unreleased branch changes in a user project):
-```bash
-cd kt/
-./gradlew publishArtifactsToMavenLocal
-# Version will appear in ~/.m2/repository/com/utopia-rise/godot-gradle-plugin/
+One language:
+
+```powershell
+.\gradlew.bat :godot-intellij-plugin:test --tests "*KotlinInspectionTest"
+.\gradlew.bat :godot-intellij-plugin:test --tests "*JavaInspectionTest"
+.\gradlew.bat :godot-intellij-plugin:test --tests "*ScalaInspectionTest"
 ```
 
-### Template Generation (Python)
+One mode:
 
-Run after modifying any `.template` or `.godot_template` files under `kt/plugins/godot-intellij-plugin/src/main/resources/template/`:
-
-```bash
-python generate_templates.py
+```powershell
+.\gradlew.bat :godot-intellij-plugin:test --tests "*testExplicitFixture"
+.\gradlew.bat :godot-intellij-plugin:test --tests "*testInferredFixture"
+.\gradlew.bat :godot-intellij-plugin:test --tests "*testAutomaticFixture"
 ```
 
-This converts templates into base64-encoded C++ headers at `src/editor/project/templates.h` (split into 8KB chunks to avoid C++ header size limits), then rebuild the C++ module.
+Compile the plugin:
 
-## Testing
-
-```bash
-# Kotlin unit tests
-cd kt/ && ./gradlew test
-
-# Integration tests (GUT-based, requires a built editor binary)
-cd harness/tests/
-jlink --add-modules java.base,java.logging --output jvm/jre-amd64-linux  # create JRE first
-./gradlew runGutTests
+```powershell
+.\gradlew.bat :godot-intellij-plugin:compileKotlin
 ```
 
-The `harness/tests/` directory is a full Godot project. It requires a built editor binary and `godot-bootstrap.jar` copied to the Godot root `bin/` folder before running.
+Run the sandbox IDE:
 
-### Testing Changes from a Feature Branch
-
-1. Publish locally (see above)
-2. Configure the user project's Gradle repositories to use `mavenLocal()` and use the exact snapshot version you published (e.g. `0.17.1-4.7.2-d68f299-SNAPSHOT`)
-3. Run with the dev build: `./bin/godot.linuxbsd.editor.dev.x86_64.jvm` (or platform equivalent)
-
-Full workflow: `docs/src/doc/contribution/test-change-from-branch.md`
-
-### Debugging JVM Code
-
-```bash
-# Start Godot with debug port
-godot --jvm-debug-port=5005
-# Then attach a remote debugger in IntelliJ IDEA to localhost:5005
+```powershell
+.\gradlew.bat :godot-intellij-plugin:runIde
 ```
 
-Debugging the registrar generator (bytecode processing):
-```bash
-cd kt/
-./gradlew kspKotlin -Dkotlin.daemon.jvm.options="-Xdebug,-Xrunjdwp:transport=dt_socket\,address=8765\,server=y\,suspend=y"
-# Halts compilation until remote debugger attaches at port 8765
-# Note: incremental builds are disabled in debug mode — first compile will be slow
-```
+## Sandbox Rule
 
-## Architecture
+When asked to open or launch the sandbox, reset its project/editor state
+first unless the user explicitly asks for a non-clean launch. Automated
+inspection tests do not require a sandbox reset.
 
-### C++ Layer (`src/`)
+## Design Rules
 
-- **`src/gd_kotlin.h/cpp`** — `GDKotlin` singleton; owns the module state machine (`uninitialized → project_discovered → jvm_started → project_loaded → ...`). Many operations gate on correct state — check here first when debugging startup issues.
-- **`register_types.cpp`** — Module entry point; registers `JvmScript` types, script languages, resource loaders/savers with Godot.
-- **`src/lifecycle/`** — JVM startup (`jvm_manager`), class loader management, project settings parsing.
-- **`src/jvm_wrapper/`** — JNI bridges, type conversion, per-thread shared buffer communication.
-- **`src/script/`** — Script types: `JvmScript` (abstract base), `KotlinScript`, `JavaScriptLanguage`, `GdjScript`, `ScalaScript`.
-- **`src/language/`** — `ScriptLanguage` implementations (`KotlinLanguage`, `JavaLanguage`, etc.) registered as Godot editor language options.
-- **`src/binding/`** — Binding manager; maps Godot objects to JVM instances, synchronizes lifecycle.
-- **`src/editor/`** — Editor plugin, Gradle task dialog, project generation from templates.
-- **`src/resource_format/`** — `JvmResourceFormatLoader`/`Saver` for JAR files.
-
-### Kotlin/JVM Layer (`kt/`)
-
-- **`godot-library/godot-api-library/`** — Auto-generated Godot API bindings. **Never edit manually.** Regenerate with `kt/api-generator` after `api.json` changes.
-- **`godot-library/godot-core-library/`** — Core types, signal infrastructure, base classes for user code.
-- **`godot-library/godot-bootstrap-library/`** — JVM bootstrapper; initializes and hot-reloads user classes in the editor.
-- **`godot-registration/`** — Umbrella module (the directory is itself the Gradle module, like `godot-library`); shadow-merges the three sub-modules below into the single publishable `godot-registration` fat jar consumed by the gradle plugin and as a standalone tool.
-- **`godot-registration/godot-class-graph-symbol-processor/`** — Front-end: bytecode processor using ClassGraph (replaced KSP/Mpapt; language-agnostic, supports Kotlin/Java/Scala equally). Reads compiled bytecode and produces model instances. No validation.
-- **`godot-registration/godot-registration-model/`** — The validated IR shared between processor and generator. Owns the registration model and its sanity checks; an instance existing means it is valid.
-- **`godot-registration/godot-registrar-generator/`** — Back-end: consumes models from the processor and generates registration glue code. No validation.
-- **`api-generator/`** — Reads Godot's `api.json`, generates all Kotlin bindings in `godot-api-library/`. Run in CI when Godot API changes.
-- **`plugins/godot-gradle-plugin/`** — Applied to all user Godot-Kotlin projects; orchestrates compile → symbol processing → registrar generation → JAR packaging.
-- **`plugins/godot-intellij-plugin/`** — IntelliJ IDEA integration (code insight, run configs, templates).
-- **`common/`**, **`tools-common/`** — Shared utilities across subprojects.
-
-### Data Flow (User Code → Runtime)
-
-```
-User writes @Script Kotlin code
-  → Kotlin compiler + ClassGraph bytecode processor
-  → registrar-generator produces registration glue
-  → godot-gradle-plugin packages godot-bootstrap.jar + main.jar
-  → JvmResourceFormatLoader loads JARs in editor
-  → C++ jvm_manager starts embedded JVM
-  → Bootstrap initializes user classes via JNI reflection
-  → GDKotlin binding manager maps Kotlin objects ↔ Godot nodes
-```
-
-### JAR Artifacts
-
-| JAR | Contents | Purpose |
-|-----|----------|---------|
-| `godot-bootstrap.jar` | godot-library + startup code | Editor use; reloads user code after rebuilds |
-| `main.jar` | user code + dependencies (shadow) | Bundled in exports, executed at runtime |
-| `usercode` (native image) | GraalVM AOT compilation | Replaces both JARs; no runtime reloading |
-
-### Memory Management
-
-Each Godot object can have two JVM instances:
-- **Wrapper** — wraps the C++ pointer, allows JVM to call C++ methods
-- **Script Instance** — user's Kotlin subclass; stored as a strong JNI reference on the C++ side
-
-`MemoryManager` singleton synchronizes lifecycle between Godot and JVM via Godot's instance binding callbacks.
-
-**`RefCounted` objects (critical):** When the reference counter reaches 1 (JVM is the only user), the wrapper converts its reference to a **weak reference** to prevent cyclic memory leaks. The C++ side holds a strong JNI reference to the script instance, preventing GC while the native object is alive.
-
-**`Object` (non-ref-counted):** Simpler — manually freed; binding lifecycle follows the Godot object directly.
-
-Full details: `docs/src/doc/contribution/knowledge-base/memory-management.md`
-
-### JNI Shared Buffer (Performance)
-
-To reduce JNI overhead for frequent calls, a **per-thread 8KB buffer** is used for C++/JVM parameter exchange:
-- First 4 bytes: variable count
-- Each variable: 4-byte type ordinal + type-specific bytes
-- Type ordinals 0–27 cover all Godot variant types (primitives at fixed size, strings up to 512 bytes inline, larger strings via JNI queue)
-
-Details: `docs/src/doc/contribution/knowledge-base/shared-buffer.md`
-
-### JVM Modes
-
-Configured in Godot project settings:
-- **Embedded JVM** — `jlink`-created JRE bundled with the project (recommended for distribution)
-- **Dynamic JVM** — discovered via `JAVA_HOME` at runtime
-
-## Key Gotchas
-
-- **Kotlin version** — The compiler plugin requires a specific Kotlin version. Mismatches cause build failures. Override via gradle plugin config; see `docs/src/doc/user-guide/advanced/gradle-plugin-configuration.md`.
-- **Godot API auto-generation** — `kt/godot-library/godot-api-library/` is fully generated. Any manual edits will be overwritten.
-- **Template generation** — Editing `.template` files without running `generate_templates.py` and rebuilding C++ will have no effect.
-- **Adding a new script language** — Requires: `JvmScript` C++ subclass + `ScriptLanguage` subclass + registration in `register_types.cpp` + entry in `JvmResourceFormatLoader`/`Saver`.
-
-### GDScript global scope sync commit
-
-When checking whether the `GD` singleton needs to be synchronized with GDScript global functions, compare Godot's `@GlobalScope` changes against this baseline:
-
-- Godot `4.7.1-stable`: `a13da4feb8d8aefc283c3763d33a2f170a18d541`
-
-## CI/CD
-
-Workflows in `.github/workflows/`. The canonical Godot version and JDK version (17) are defined in `trigger_on_push_master.yml`. Build matrix: Android, iOS, Linux, macOS, Windows × editor/template_release targets.
-
-## Documentation
-
-- Contribution setup: `docs/src/doc/contribution/setup.md`
-- Guidelines: `docs/src/doc/contribution/guidelines.md`
-- Memory management deep dive: `docs/src/doc/contribution/knowledge-base/memory-management.md`
-- Registrar generation: `docs/src/doc/contribution/knowledge-base/registrar-generation.md`
-- JNI shared buffer: `docs/src/doc/contribution/knowledge-base/shared-buffer.md`
-- Testing branch changes: `docs/src/doc/contribution/test-change-from-branch.md`
-- Building with C# (Mono): `docs/src/doc/contribution/build-with-csharp-support.md`
-
-Serve docs locally: `cd docs/ && ./run.sh`
+- Follow KISS and YAGNI.
+- Keep the 3x3 matrix complete.
+- Keep the core-type copy suite separate.
+- Keep one source fixture per language and registration mode.
+- Keep inspection entry points small.
+- Put shared behavior in analyzers or `RegistrationPolicy`.
+- Prefer a failing precise test over a permissive test.
+- Do not use manual sandbox checking as a substitute for fixture tests.
 
 ---
 > Source: [utopia-rise/godot-jvm](https://github.com/utopia-rise/godot-jvm) — distributed by [TomeVault](https://tomevault.io).
