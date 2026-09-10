@@ -4,7 +4,7 @@
   "repo": "orleans",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dotnet/orleans",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T18:30:35Z"
+  "distributed_at": "2026-09-10T14:36:50Z"
 }
