@@ -1,173 +1,134 @@
 ## neodx
 
-> Yarn 4 / Vite+ monorepo of everyday frontend DX instruments: SVG sprite pipeline, Figma integration,
+> Decision-ready improvement programs for neodx. A plan here is the source of truth for what a
 
-# neodx
+# neodx plans
 
-Yarn 4 / Vite+ monorepo of everyday frontend DX instruments: SVG sprite pipeline, Figma integration,
-isomorphic logger, and a virtual file system, plus shared foundations and build tooling.
+Decision-ready improvement programs for neodx. A plan here is the source of truth for what a
+multi-step effort intends, what is locked, and where it stopped.
 
-This file is the routing index: it keeps repo-wide constraints visible and points to the narrowest
-source that owns the current decision.
+The full S0–S7 program ledger lived in the Nubis checkout while the polygon was open; it closed
+2026-08-22 (Vite+ and TS references **deferred**). Remaining cross-repo state lives in the Nubis
+plans index (`/Users/host/WebstormProjects/nubis/.agents/plans/AGENTS.md`) and named GitHub issues.
+This folder holds neodx-local status, evidence pointers, and future neodx-originated plans.
 
-## Session rules
+Session rules live in [`../../AGENTS.md`](../../AGENTS.md): standing branch `work`,
+`yarn changeset add` for changelogs, **publish freeze until a consolidated-release command**
+after the #180 land, session-close gate, slug-first names, and **tighten what you touch**.
 
-These bind every session until the owner changes them.
+## How to use
 
-**One branch.** Do the work on the standing branch `work` (cut over 2026-08-24 from `main` after
-`strip-source-bridges` landed). Do not open PRs, merge to `main`, or add extra branches unless the
-owner asks. `main` is landed history. Release automation on `main` is not everyday workflow.
+- Create a plan when work spans more than a single change and needs locked decisions across sessions.
+- One file per program, named `YYYY-MM-DD-<slug>.md`.
+- Keep the **decision table** and **progress ledger** inside the plan.
+- Close a plan (delete, or keep with a reason) only when slices are verified and debt is recorded.
 
-**Changelogs, not publishes.** When a caller-visible change needs a changelog, add a Changeset with
-the CLI and stop there:
+## Program status (revalidated 2026-08-25)
 
-```shell
-yarn changeset add
-```
+Canonical `origin/main` is **`cf60915`** (Version Packages [#185](https://github.com/secundant/neodx/pull/185)).
+`strip-source-bridges` ([#180](https://github.com/secundant/neodx/issues/180)) is **closed**: npm
+**1.1.1**, packuments have no `development` / `./src` bridges. Further publishes wait for a
+**consolidated-release** command. Oxlint `typeCheck` and later leftovers stay on `work`; they were
+not part of this npm land. Re-read `git rev-parse --short origin/main` before citing SHAs.
 
-Docs: [Changesets CLI](https://changesets.dev/guide/cli). This repo pins `@changesets/cli` **2.27.1**,
-so `add` takes `--empty` and `--open`. It does not take the v3 `--patch` / `--minor` / `-m` flags.
+All nine publishable packages are on npm **1.1.1** with OIDC provenance:
 
-**Publish freeze.** `strip-source-bridges` ([#180](https://github.com/secundant/neodx/issues/180)) is
-on npm **1.1.1** and closed. Do not publish again until the owner names a **consolidated release**.
-Queue later leftovers as Changesets on `work`. Do not run `yarn changeset version`,
-`yarn changeset publish`, merge a **Version Packages** PR, recreate a closed Version Packages PR, or
-re-run Release to push npm. The freeze exists so later work can share one release.
+- **1.0.0** honesty freeze (run [31811688371](https://github.com/secundant/neodx/actions/runs/31811688371));
+- **1.0.1–1.0.3** packaging fixes — workspace-protocol rewrite in published manifests
+  (PRs [#173](https://github.com/secundant/neodx/pull/173)/[#175](https://github.com/secundant/neodx/pull/175)/[#177](https://github.com/secundant/neodx/pull/177));
+- **1.1.0** paired-dts pack contract (PR [#172](https://github.com/secundant/neodx/pull/172), merged `50c6b50`):
+  paired `.d.mts`/`.d.cts`, types-first `exports`, required `attw` CI gate after pack —
+  [#164](https://github.com/secundant/neodx/issues/164) closed. Registry-verified:
+  `attw --from-npm --profile node16 @neodx/std@1.1.1` is green.
 
-**Session close.** End every session with the [session-close gate](#session-close-gate). Name any
-skipped check and why. Local green is not optional at close, even when CI is otherwise opt-in.
+The S0–S7 program is closed.
 
-**Task names.** In issues, ledgers, and chat, lead with a readable slug, then the GitHub number:
-`oxlint-typecheck` ([#179](https://github.com/secundant/neodx/issues/179)), not `R2-f`. Closed
-program rows may keep old stream codes as history. Live work must not.
+| Stream                   | Final status                                                                                                      | Evidence                                                                                                                                                                               |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S0 Honesty + graph       | Done                                                                                                              | PR #160 history                                                                                                                                                                        |
+| S1 Dep chunks C1–C3      | Done                                                                                                              | `renovate` still open                                                                                                                                                                  |
+| S2 Vite+ migrate (WP-V2) | Done                                                                                                              | [Vite+ report](../reports/vite-plus-migration.md), [Oxlint delta](../reports/oxlint-eslint-kit-delta.md)                                                                               |
+| S3 Solidify              | `PASS_WITH_DEBT` — verify-exports, publint, attw, SECURITY, OIDC provenance shipped; #162/#163 + C8 open          | [#162](https://github.com/secundant/neodx/issues/162)/[#163](https://github.com/secundant/neodx/issues/163)                                                                            |
+| S4 AI meta               | AGENTS/CONTRIBUTING/workflows remain; imported skills **withdrawn**                                               | [workflows/index.md](../workflows/index.md)                                                                                                                                            |
+| S5 TS project references | Honesty end-state + typeAware; `typeCheck` stays off until `oxlint-typecheck`                                     | [before](../reports/ts-project-references-before.md) · [research](../reports/ts-project-references-research.md) · [implementation](../reports/ts-project-references-implementation.md) |
+| S6 Workflows             | Bootstrapped                                                                                                      | [workflows index](../workflows/index.md)                                                                                                                                               |
+| S7 Docs / tests / 1.0    | **Published 1.0 → 1.1** — honesty freeze, packaging fixes, paired-dts pack contract                               | npm tags `@neodx/<pkg>@1.0.0`…`1.1.0`; OIDC provenance; #164 closed                                                                                                                    |
+| S5-R2-a                  | **Done** — base `paths`/`baseUrl` deleted; pack exports-native; `vite-tsconfig-paths` removed                     | [implementation](../reports/ts-project-references-implementation.md) § S5-R2-a                                                                                                         |
+| S5-R2-b                  | **LANDED_WITH_DEBT**: `typeAware` on; `typeCheck` off (→ `oxlint-typecheck`); #161 closed                         | [implementation](../reports/ts-project-references-implementation.md) § S5-R2-b                                                                                                         |
+| S5-R2-c                  | **Landed** (`594a2f4`) — dependency-cruiser gate, paths-free reconfig                                             | [s5-r2-ci-gates.md](../reports/s5-r2-ci-gates.md)                                                                                                                                      |
+| S5-R2-e/d                | **Done** — merged `50c6b50` (PR [#172](https://github.com/secundant/neodx/pull/172)), released 1.1.0, #164 closed | PR [#172](https://github.com/secundant/neodx/pull/172); changeset `paired-dts-pack-contract`                                                                                           |
 
-**Tighten what you touch.** Config, tools, and comments have gone vague in places (stale program
-codes, duplicated tsconfig, dishonest overrides, dead paths, names that no longer match meaning).
-Every session, after the assigned slice is green, make a bounded pass over files and tools this
-session already opened: clarify ownership, delete dead config, collapse duplicates, and make names
-match meaning. Do not start a repo-wide cleanup. Do not mix this pass with pack-contract or publish
-work. Record leftover debt with a slug, not a silent skip. This rule outlives any one leftover.
+### Published releases
 
-## Package layers
+| Version     | Contract                                                           | Residual                                                                                                                                                                            |
+| ----------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.0.0       | Honesty freeze                                                     | #165–#169 product residuals                                                                                                                                                         |
+| 1.0.1–1.0.3 | Workspace-protocol rewrite in published manifests (#173/#175/#177) | —                                                                                                                                                                                   |
+| 1.1.0       | Paired `.d.mts`/`.d.cts` pack contract; `attw` CI gate             | [#164](https://github.com/secundant/neodx/issues/164) closed                                                                                                                        |
+| 1.1.1       | Strip published `development` / all-src subpaths (`7d0104a`)       | [#180](https://github.com/secundant/neodx/issues/180) **closed**; Version Packages [#185](https://github.com/secundant/neodx/pull/185); publish freeze until a consolidated release |
 
-| Layer               | Packages                                                                                                                                                                                                                                                  | Role                                     |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| Product (flagships) | `@neodx/svg`, `@neodx/figma`, `@neodx/log`, `@neodx/vfs`                                                                                                                                                                                                  | Caller-facing; ship docs + examples      |
-| Foundation          | `@neodx/std`, `@neodx/colors`, `@neodx/fs`, `@neodx/glob`, `@neodx/pkg-misc`                                                                                                                                                                              | Shared helpers consumed by products      |
-| Tooling             | `@neodx/autobuild` (private, `retire-autobuild` [#162](https://github.com/secundant/neodx/issues/162)), `@neodx/codegen` (private, `retire-codegen` [#163](https://github.com/secundant/neodx/issues/163)), `@neodx/scripts`, `@neodx/internal` (private) | Scaffold / quarantine / shared internals |
-| Surfaces            | `apps/docs`, `apps/examples/**`, `apps/e2e/svg`                                                                                                                                                                                                           | VitePress docs, demos, visual e2e        |
+### Remaining work
 
-- Dependencies flow foundation → product. Never import a product from a foundation.
-- `@neodx/internal` is **build-time inline only**: a `devDependency` on `svg`/`vfs`/`figma`, never a
-  published runtime `dependencies` entry, never a runtime import in `dist`. Enforced by
-  `libs/svg/src/__tests__/internal-inline.test.ts`.
-- The dependency graph must stay honest: run `yarn constraints` before claiming a change is done
-  (`yarn constraints --fix` applies safe corrections).
+Live leftovers use a slug first, then the GitHub number. Closed S0–S7 rows above keep old stream
+codes as history.
 
-## Command vocabulary (current)
+| Slug                   | Issue                                                 | Status                                                                                                                                                                 |
+| ---------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `strip-source-bridges` | [#180](https://github.com/secundant/neodx/issues/180) | **Closed 2026-08-25.** npm **1.1.1**. Packument `exports` have no `development` condition and no `./src` targets. Publish freeze until a consolidated-release command. |
+| `nubis-catalog-smoke`  | —                                                     | Catalog consumption of **1.1.1** is the Nubis #180 closeout (drop `omitPublishedDevelopmentExports`). Vite+ and TS refs stay deferred.                                 |
+| `renovate`             | (no issue; no `renovate.json`)                        | Open hygiene leftover                                                                                                                                                  |
+| `oxlint-typecheck`     | [#179](https://github.com/secundant/neodx/issues/179) | Open: freeze the test tsconfig matrix, then turn Oxlint `typeCheck` on                                                                                                 |
+| `retire-autobuild`     | [#162](https://github.com/secundant/neodx/issues/162) | Open, dated 2026-08-22                                                                                                                                                 |
+| `retire-codegen`       | [#163](https://github.com/secundant/neodx/issues/163) | Open, dated 2026-08-22                                                                                                                                                 |
+| `polygon-close`        | —                                                     | **Done 2026-08-22**: Vite+ and TS refs deferred; Nubis ledger closed                                                                                                   |
 
-Critical path is **Vite+** (`vp`). Yarn remains the package manager (`packageManager: yarn@4.3.1`;
-`vp install` delegates to it).
+Published 1.1.1 used the same on-disk publish rewrite as the `workspace:^` packument fix
+(`npm` does not apply `publishConfig.exports`). Workspace manifests still keep `development` → `./src`
+for `tsc -b`. Do not force-push. Nubis defers Vite+ and TS project references; catalog pins are
+consumption, not toolchain adoption. `oxlint-typecheck` and later leftovers stay on `work`.
 
-| Concern               | Command                                                                        | Notes                                                                                                                                                                                  |
-| --------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Install               | `vp install` or `yarn`                                                         | Yarn 4.3.1; Node **26** default (`.node-version` / `n`; engines `>=26`)                                                                                                                |
-| Check (fmt + lint)    | `vp check`                                                                     | Root `vite.config.ts`; Oxlint `typeAware` on; `typeCheck` stays off until `oxlint-typecheck` ([#179](https://github.com/secundant/neodx/issues/179))                                   |
-| Typecheck             | `yarn typecheck` or `cd libs/<pkg> && yarn typecheck`                          | Unified lib solution `tsc -b`; `tsconfig.base.json` is options-only (no `baseUrl`/`paths`); build configs + pack leaves use `customConditions:["development"]` + `development` exports |
-| Typecheck (package)   | `tsc -b tsconfig.build.json`                                                   | Throwaway `dist-types/`; published dts still from `vp pack`                                                                                                                            |
-| Refs drift            | `yarn check-references`                                                        | deps ↔ `references` (soft-skips internal↔vfs cycle)                                                                                                                                    |
-| Lint / format alone   | `vp lint` / `vp fmt`                                                           | Oxlint + Oxfmt                                                                                                                                                                         |
-| Test                  | `cd libs/<pkg> && vp test`                                                     | Prefer package cwd; CI uses `vp run --filter "./libs/*" test`                                                                                                                          |
-| Pack one lib          | `vp run @neodx/<pkg>#pack`                                                     | Emits CJS/ESM/dts per pack config; avoid `vp run -t …#pack` (self-cycle on vp 0.2.7)                                                                                                   |
-| Pack publishable libs | `yarn pack:libs`                                                               | Alias for filtered `vp run … pack`                                                                                                                                                     |
-| Export / publint      | `yarn verify-exports` / `yarn publint`                                         | After pack (CI runs both)                                                                                                                                                              |
-| ATTW                  | `yarn attw`                                                                    | After pack (#164): `attw --pack --profile node16` per publishable lib; node10 ignored (exports-map subpaths cannot resolve there)                                                      |
-| Packed manifest       | `yarn verify-packed-manifest`                                                  | After pack; `npm pack` tarball must not contain `workspace:` (`yarn pack` already rewrites and is not this gate)                                                                       |
-| Publish manifest      | `yarn verify-publish-manifest`                                                 | apply-all on-disk `package.json` (registry packument shape); required because npm install does not read the tarball deps                                                               |
-| Dependency structure  | `yarn depcruise`                                                               | CI gate; Node **26** default (cruiser also accepts 22/24; not 25); baseline ignores known vfs cycles                                                                                   |
-| Graph honesty         | `yarn constraints`                                                             | `--fix` applies safe fixes                                                                                                                                                             |
-| E2E                   | pack svg → `cd apps/e2e/svg && vp build` → `yarn workspace @neodx/e2e-svg e2e` | Playwright; required CI job                                                                                                                                                            |
+### Closed parallel session
 
-`vp run` uses workspace filters / `-r` / `-t` and fingerprint cache, not Nx-style
-git-affected selection. That difference is accepted.
+| Lane             | Tip       | Verdict                                            |
+| ---------------- | --------- | -------------------------------------------------- |
+| **A** std 1.0    | `523574a` | `CONFIRMED`                                        |
+| **C** depcruise  | `594a2f4` | `CONFIRMED_WITH_DEBT` (#164; known cycles)         |
+| **R** revalidate | —         | overall `CONFIRMED_WITH_DEBT` → tip later advanced |
 
-**Kept for product tests, not repo lint/format:** `eslint` and `prettier` packages for
-`@neodx/vfs` `plugins/eslint` and `plugins/prettier`.
+Board: [sessions/parallel-s7-r2c/STATUS.md](../sessions/parallel-s7-r2c/STATUS.md).
+Later fs 1.0 ran in parallel with the typeAware lane: [sessions/fs-1.0-handoff.md](../sessions/fs-1.0-handoff.md).
 
-## Verification
+### Residual debt (named issues)
 
-Mid-session, prefer `vp check`, package `yarn typecheck`, and package-cwd `vp test` on touched work;
-pack when you changed a publishable public surface or pack config. For `@neodx/internal` or its
-consumers, confirm the inline contract test passes after pack. Prefer the smallest change that
-solves the task.
+| Slug                   | Issue                                                 | Topic                                                        |
+| ---------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
+| `retire-autobuild`     | [#162](https://github.com/secundant/neodx/issues/162) | Delete `@neodx/autobuild` tree (dated 2026-08-22)            |
+| `retire-codegen`       | [#163](https://github.com/secundant/neodx/issues/163) | Absorb or delete `@neodx/codegen` Tree (dated 2026-08-22)    |
+| `oxlint-typecheck`     | [#179](https://github.com/secundant/neodx/issues/179) | Freeze test tsconfig matrix, then turn Oxlint `typeCheck` on |
+| `strip-source-bridges` | [#180](https://github.com/secundant/neodx/issues/180) | Source-bridge exports: implemented unpublished (`7d0104a`)   |
+| `colors-options`       | [#165](https://github.com/secundant/neodx/issues/165) | `@neodx/colors` residual options                             |
+| `fs-debt`              | [#166](https://github.com/secundant/neodx/issues/166) | `@neodx/fs` post-1.0 debt                                    |
+| `pkg-misc`             | [#167](https://github.com/secundant/neodx/issues/167) | prettierignore cache + semver tests                          |
+| `log-serializers`      | [#168](https://github.com/secundant/neodx/issues/168) | serializers / target levels                                  |
+| `figma-predicates`     | [#169](https://github.com/secundant/neodx/issues/169) | figma deep Zod predicates                                    |
 
-**CI/CD stays opt-in during the session:** do not push, watch, or wait on GitHub Actions unless the
-task is CI itself, the owner asks, or a concrete failure needs a remote run. Cloudflare Pages and
-Snyk are non-gating.
+#161 (typeAware) and #164 (ATTW gate + paired dts) are **CLOSED**. #180 stays open until the
+patch is on npm.
 
-### Session-close gate
+## Historical spike evidence (WP-V1)
 
-Every session ends with this full local set (the `check` job in
-[`.github/workflows/ci.yaml`](./.github/workflows/ci.yaml), plus `e2e-svg` when the session touched
-svg, pack, CI, or Playwright):
+WP-V1 pack-only spike is **superseded** by the Vite+ after-report. Keep for baselines only:
 
-```shell
-vp check
-yarn check-references
-yarn depcruise
-yarn typecheck
-yarn pack:libs
-yarn verify-exports
-yarn publint
-yarn attw
-yarn verify-packed-manifest
-yarn verify-publish-manifest
-vp run --filter "./libs/*" --filter "!@neodx/autobuild" --filter "!@neodx/internal" test
-cd libs/svg && vp test src/__tests__/internal-inline.test.ts
-```
+- [archive/spike-vite-plus-baseline.md](../reports/archive/spike-vite-plus-baseline.md)
+- [archive/spike-vite-plus-report.md](../reports/archive/spike-vite-plus-report.md)
 
-When e2e is in scope: pack (`yarn pack:libs`), `cd apps/e2e/svg && vp build`, then
-`yarn workspace @neodx/e2e-svg e2e`. Skip only with an explicit reason in the session report.
+Do not treat archived spike gate text as live guidance.
 
-## Public API rules
+## Convention
 
-- The **only source of truth** for a package's current Public API is `libs/<pkg>/src`, essentially
-  its `index` entry. Tests and stubs are not API.
-- Multi-entry exports are first-class; keep `package.json` `exports` in sync with pack entries.
-- No silent API breaks in patches. Use a Changeset (`yarn changeset add`) with migration notes for
-  any caller-visible change. Policy: [`SEMVER.md`](./SEMVER.md).
-
-## Issues and GitHub
-
-- Use [`gh`](https://github.com/cli/cli) for issues and, when the owner asks, PRs: `gh issue create`,
-  `gh issue edit`, `gh pr create`, `gh pr checks`, `gh run watch`. Do not invent issue numbers.
-- Title live issues with a readable slug first (`oxlint-typecheck: …`), not a program code (`R2-f`).
-- Do not open or merge PRs as everyday workflow. The standing branch is `work`.
-- Quarantine a flaky test or known failure with a named issue rather than a silent skip.
-
-## Operating mode
-
-- Explore repository facts before asking. Ask only about unresolved intent, ownership, risk
-  tolerance, or tradeoffs that materially change the plan.
-- Keep changes surgical; preserve unrelated work in the worktree.
-- Verify before done with the [session-close gate](#session-close-gate). Name any skipped check
-  with a reason. Do not burn time on CI wait loops during the session
-  (see [Verification](#verification)).
-- Treat comments as design surface: remove comments that only restate mechanics; keep concise
-  comments for non-obvious logic, flow boundaries, and API intent.
-- Do not commit or push unless asked.
-
-## Context loading
-
-Load guidance on trigger, not by default. When a task references a path or link, load that file if
-relevant. Treat loaded content as instructions for its scope.
-
-- Experiment reports (Vite+, Oxlint delta, TS refs): `.agents/reports/README.md`
-- Program status / plans index: `.agents/plans/AGENTS.md`
-- Parallel session boards: `.agents/sessions/`
-- Workflow protocols: `.agents/workflows/index.md`
-- Release / npm publish auth (OIDC, token 2FA, retry): `MAINTENANCE.md`
+Plans link to [../workflows/index.md](../workflows/index.md) for _how_ work proceeds.
+Parallel sessions use [../sessions/](../sessions/) for live STATUS boards.
 
 ---
 > Source: [secundant/neodx](https://github.com/secundant/neodx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
