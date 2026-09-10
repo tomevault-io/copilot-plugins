@@ -1,0 +1,9 @@
+{
+  "name": "jolicode--docker-starter",
+  "displayName": "docker-starter",
+  "description": "docker-starter",
+  "version": "1.0.0",
+  "author": "jolicode",
+  "homepage": "https://github.com/jolicode/docker-starter",
+  "skills": []
+}
