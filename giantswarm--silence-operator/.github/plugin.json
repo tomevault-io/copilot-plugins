@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--silence-operator",
+  "displayName": "silence-operator",
+  "description": "silence-operator",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/silence-operator",
+  "skills": []
+}
