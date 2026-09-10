@@ -4,7 +4,7 @@
   "repo": "SDL_shadercross",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/libsdl-org/SDL_shadercross",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T00:46:59Z"
+  "distributed_at": "2026-09-10T14:40:16Z"
 }
