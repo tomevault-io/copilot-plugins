@@ -229,4 +229,4 @@ digit (0–9) and rolls over instead of going to 10**:
 
 ---
 > Source: [LuisEnMarroquin/json-as-xlsx](https://github.com/LuisEnMarroquin/json-as-xlsx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
