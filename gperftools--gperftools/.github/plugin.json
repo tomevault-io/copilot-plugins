@@ -1,0 +1,9 @@
+{
+  "name": "gperftools--gperftools",
+  "displayName": "gperftools",
+  "description": "gperftools",
+  "version": "1.0.0",
+  "author": "gperftools",
+  "homepage": "https://github.com/gperftools/gperftools",
+  "skills": []
+}
