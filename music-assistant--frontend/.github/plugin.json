@@ -1,0 +1,14 @@
+{
+  "name": "music-assistant--frontend",
+  "displayName": "frontend",
+  "description": "frontend",
+  "version": "1.0.0",
+  "author": "music-assistant",
+  "homepage": "https://github.com/music-assistant/frontend",
+  "skills": [
+    {
+      "name": "frontend",
+      "description": ""
+    }
+  ]
+}
