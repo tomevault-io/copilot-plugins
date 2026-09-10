@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [openshift/cluster-ingress-operator](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [openshift/cluster-ingress-operator](https://github.com/openshift/cluster-ingress-operator) — a repo with 85+ stars on GitHub.
+From [openshift/cluster-ingress-operator](https://github.com/openshift/cluster-ingress-operator) — a repo with 87+ stars on GitHub.
 
 ---
 
