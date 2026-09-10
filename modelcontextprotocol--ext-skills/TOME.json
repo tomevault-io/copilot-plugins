@@ -4,7 +4,7 @@
   "repo": "ext-skills",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modelcontextprotocol/ext-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T03:47:51Z"
+  "distributed_at": "2026-09-10T15:16:16Z"
 }
