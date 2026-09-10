@@ -1,54 +1,27 @@
 ## gem5
 
-> generates HTML there only when the `SLICC_HTML` Kconfig option is enabled.
+> Use the repository guidance in `../AGENTS.md` as the source of truth. Important
 
-# Ruby Agent Notes
+# Copilot Instructions
 
-Ruby combines hand-written C++/Python, SCons glue, and protocol inputs written
-in SLICC, a domain-specific language for describing cache-coherence state
-machines. Generated protocol output belongs under `build/`; do not edit it
-directly.
+Use the repository guidance in `../AGENTS.md` as the source of truth. Important
+defaults for generated changes:
 
-## SLICC And Generated Files
-
-Built-in protocol source files live under `src/mem/ruby/protocol`; build logic
-can add other protocol directories. If generated C++ or HTML looks wrong,
-change the SLICC input or generator path, then rebuild. Keep SCons emitters
-side-effect free: emitters should discover targets, while actions should write
-generated files.
-
-## Ruby And Classic
-
-gem5 has two main cache-hierarchy families. Classic caches model a relatively
-direct cache/memory object graph in C++ and are usually configured by composing
-cache, bus, and memory objects. Ruby models cache-coherence protocols as
-message-passing controller state machines connected through Ruby networks.
-
-Built-in Ruby protocols are written in SLICC under `src/mem/ruby/protocol`;
-additional protocol directories can be supplied by the build. SLICC generates
-controller C++ code and protocol types under the selected build directory. It
-generates HTML there only when the `SLICC_HTML` Kconfig option is enabled.
-Protocol behavior should be changed in the SLICC state machines or the Ruby
-support code they call, not in generated files.
-
-When working on coherence behavior, identify whether the bug belongs to the
-Ruby protocol, the generated controller, the network, the Sequencer, or the
-memory-system interface. For Classic behavior, start with the concrete cache or
-interconnect object instead. Do not assume a Classic fix applies to Ruby or
-that a Ruby protocol fix applies to every protocol.
-
-## Review Notes
-
-For protocol path or case changes, verify generated paths and source directory
-case exactly.
-
-## Validation
-
-Build a configuration that enables the affected Ruby protocol so SLICC runs
-and its generated C++ compiles. Then run a focused Ruby test for the changed
-state-machine path; successful generation alone does not validate coherence
-transitions or message ordering.
+- Target contributor work at `develop`; `stable` is release-only except for
+  maintainer-directed hotfixes.
+- Use GitHub issues or GitHub Discussions where issue context is needed.
+- Keep gem5 commit subjects tagged with `MAINTAINERS.yaml` components and wrap
+  body text to 72 columns.
+- Do not edit generated files under `build/`.
+- Avoid changing `gem5/ext/` for dependency or policy work unless explicitly
+  directed.
+- For tests, distinguish C++ GTests, Python PyUnit tests, and TestLib
+  quick/long/very-long suites.
+- For CI/debugging, inspect concrete job logs and SCons config logs before
+  assigning root cause.
+- `clang-format-check` does not need to pass for a valid merge, but if it fails
+  the error should be relayed to the PR comment section.
 
 ---
 > Source: [gem5/gem5](https://github.com/gem5/gem5) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
