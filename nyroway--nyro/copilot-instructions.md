@@ -1,101 +1,389 @@
 ## nyro
 
-> <!-- Generated: 2026-05-21 | Updated: 2026-05-21 -->
+> <!-- This file governs go/ and all of its subdirectories. -->
 
-<!-- Generated: 2026-05-21 | Updated: 2026-05-21 -->
+<!-- This file governs go/ and all of its subdirectories. -->
+<!-- The repository-root AGENTS.md still applies. These Go-specific rules take precedence on conflict. -->
 
-# Nyro AI Gateway
+# Nyro Go
 
-## Purpose
-Nyro is a Rust workspace for a local AI protocol gateway with a Tauri desktop app, standalone server, and React WebUI. It translates OpenAI / Anthropic / Gemini-compatible client traffic to configured model providers while keeping administration and configuration local.
+## Purpose and current state
 
-## Key Files
+`go/` is the Go implementation of Nyro AI Gateway. It includes the data plane,
+standalone server, control plane, WebUI, configuration management, storage,
+quota, telemetry, and administrative tooling.
 
-| File | Description |
-|------|-------------|
-| `Cargo.toml` | Rust workspace definition for `nyro-core`, `nyro-tools`, `src-tauri`, and `src-server`. |
-| `Cargo.lock` | Locked Rust dependency graph. |
-| `README.md` / `README_CN.md` | User-facing project documentation in English and Chinese. |
-| `Makefile` | Common development and release commands. |
-| `docs/design/architecture.md` | Architecture overview and module layout. |
-| `webui/package.json` | React/Vite WebUI dependencies and scripts. |
+The workload-neutral generation Host and the trusted LLM vertical slice are
+implemented. Current requests use immutable configuration Snapshots, atomic
+typed runtime generations, leases, explicit Protocol and Provider catalogs,
+the fixed LLM pipeline, and generation-owned runtime resources.
 
-## Subdirectories
+Other module migrations are not complete. MCP, cross-domain Integration
+composition, and Image, Audio, and Video workload runtimes are future designs
+only. Do not claim their packages or capabilities exist. Preserve current
+behavior while migrating other vertical slices incrementally.
 
-| Directory | Purpose |
-|-----------|---------|
-| `crates/nyro-core/` | Core Rust library: gateway, proxy, protocol conversion, provider adapters, storage, admin service. |
-| `crates/nyro-tools/` | Rust CLI/tooling crate. |
-| `src-server/` | Standalone server binary exposing proxy/admin HTTP surfaces. |
-| `src-tauri/` | Tauri desktop application shell and IPC integration. |
-| `webui/` | React + TypeScript management console. |
-| `docs/` | Design, server, standalone, and testing documentation. |
-| `tests/` | Python/E2E test assets and shared fixtures. |
-| `scripts/` | Install and release automation. |
+## Architecture principle
 
-## For AI Agents
+> Varying capabilities are explicitly composed behind narrow typed contracts;
+> resource owners have explicit lifecycles; workload-neutral invariants stay in
+> the kernel; workload invariants stay in trusted runtimes.
 
-### Working In This Repository
-- Keep changes focused and reversible; do not mix unrelated cleanup into feature or refactor work.
-- Prefer existing patterns and utilities before adding abstractions or dependencies.
-- Do not edit generated build output such as `webui/dist/` unless the task explicitly requires it.
-- Preserve separate English and Chinese user-facing docs when updating public documentation.
+This is static Go composition, not a dynamic plugin system. Do not use
+`buildmode=plugin`, `.so` loading, or a third-party plugin ABI without a
+separately approved design demonstrating a concrete requirement.
 
-### Multilingual Defaults
-- For any multilingual/i18n-capable value, the default must be English, in both frontend and backend code.
-- This applies to UI labels, fallback strings, seed/default configuration, generated examples, API defaults, and documentation-derived constants.
-- Add localized alternatives explicitly, but keep the canonical fallback/default value in English unless a caller/user setting selects another language.
+The implemented architecture is documented in
+`docs/design/architecture.md`. Keep implementation and that document aligned.
 
-### Testing Requirements
-- Rust core changes: run the narrowest relevant `cargo test -p <crate> ...`, then `cargo check -p <crate>` or `cargo clippy -p <crate> --all-targets` when behavior or public APIs change.
-- WebUI changes: run the relevant package script from `webui/` such as `npm run lint` or `npm run build` when TypeScript/UI behavior changes.
-- Documentation-only changes should still be checked for path/name accuracy.
+## Kernel responsibilities
 
-### Common Patterns
-- `nyro-core` should remain transport-agnostic; desktop IPC and server HTTP layers call into core APIs rather than embedding core business logic.
-- Admin service code should be split by functional responsibility and tested through public APIs where possible; keep private state-machine tests internal instead of exposing private APIs just for tests.
-- Protocol/provider logic should keep protocol conversion boundaries explicit and avoid coupling provider adapters to UI/server transport concerns.
+`internal/kernel` owns only workload-neutral invariants:
 
-## Dependencies
+- component identity and dependency-graph validation;
+- deterministic dependency ordering;
+- lifecycle startup, rollback, retirement, and shutdown;
+- typed Candidate and Host contracts plus atomic runtime-generation activation;
+- leases that keep retiring generations alive until release; and
+- readiness and runtime-generation status.
 
-### Internal
-- `src-tauri/` and `src-server/` depend on `crates/nyro-core/`.
-- `webui/` talks to the desktop IPC/server admin surfaces and should not duplicate core business rules.
-- Documentation in `docs/` should reflect current crate and module boundaries.
+Kernel production code must use only the Go standard library. It must not
+depend on:
 
-### External
-- Rust workspace uses Tokio, Axum, Reqwest, SQLx, Serde, Tauri, and tracing-related crates.
-- WebUI uses React, Vite, TypeScript, Radix UI primitives, TanStack Query, and Zustand.
+- LLM or another workload type;
+- request, response, stream, routing, retry, failover, or error semantics;
+- protocols, providers, configuration parsing, or configuration transport;
+- security, quota, telemetry, storage, Admin, WebUI, or HTTP transport; or
+- global service locators, string-keyed dependency maps, or module discovery.
 
-<!-- MANUAL: Any manually added notes below this line are preserved on regeneration -->
+## Trusted LLM runtime
 
-### Database Changes
+`internal/llm/runtime` owns all LLM-domain invariants: Canonical LLM IR
+execution, mandatory phase order, routing authority, attempt isolation,
+normalized errors, extension ownership, retry and failover, streaming commit,
+health decisions, and trusted terminal delivery.
 
-When modifying the database schema — including changes to `INIT_SQL`, `POSTGRES_INIT_SQL`, `MYSQL_INIT_SQL` constants or the `migrate()` function in any storage backend — you **must** also:
+The phase order is fixed:
 
-1. Update `docs/database/schema.md` to reflect the new table/column definitions.
-2. Regenerate `deploy/schema/postgres.sql` and `deploy/schema/mysql.sql` to match the final post-migration state:
-   ```bash
-   nyro-tools dump-schema --backend postgres > deploy/schema/postgres.sql
-   nyro-tools dump-schema --backend mysql    > deploy/schema/mysql.sql
-   ```
-   These files are the authoritative reference schema for DBAs. They represent the **final state** after all migrations have run (with final table names: `models`, `model_backends`, `api_key_models`).
+```text
+Observe -> Resolve -> Authenticate -> Authorize -> Admit
+        -> optional PreDispatch -> Dispatch -> optional PostResponse
+        -> trusted terminal delivery -> reverse Finalizers
+```
 
-> The SQL files in `deploy/schema/` are derived reference artifacts — do not manually edit them except to update the header comment. Always regenerate from the migration source of truth.
+Optional phases may participate only at `PreDispatch` or `PostResponse`. They
+must not change mandatory order, invoke the next phase, control terminal
+delivery, bypass authorization or admission, or suppress reverse finalization.
+Stream observers observe canonical deltas without controlling stream flow.
 
-### Release Process
+## Explicit composition and catalogs
 
-Local release work (cutting a `release/vX.Y.Z` branch off `master` through pushing it):
+Concrete Protocol Codecs and Provider Drivers are enumerated by
+`internal/bootstrap`. Bootstrap constructs immutable typed catalogs, resolves
+configuration, builds inactive Snapshot-bound runtime candidates and resources,
+and submits their lifecycle graphs to the Kernel Host.
 
-1. Branch: `git checkout master && git pull && git checkout -b release/vX.Y.Z`.
-2. Bump the version in **3 places** (keep identical): `Cargo.toml` `[workspace.package].version`, `src-tauri/tauri.conf.json` `version`, `webui/package.json` `version`. Refresh `Cargo.lock` via `cargo update -w` (never edit it by hand).
-3. Changelog: summarize all commits since the last tag (`git log $(git describe --tags --abbrev=0)..HEAD --no-merges --oneline`) into a new version entry, and write it to **both** `CHANGELOG.md` (English, canonical) and `CHANGELOG_CN.md` (Chinese).
-4. Verify with `make check` and `make test`, then commit (`chore: release vX.Y.Z`) and push the branch.
+Importing a module package must not register, start, or activate it. Do not use:
 
-PR merge (`release/vX.Y.Z` → `master`) and tagging `vX.Y.Z` are done remotely on GitHub; pushing the tag triggers the release workflows.
+- package `init()` for module registration or dependency wiring;
+- blank imports whose purpose is Nyro module registration;
+- mutable global registries populated as an import side effect;
+- hidden discovery based on initialization order; or
+- configuration I/O, goroutine startup, or resource acquisition from `init()`.
 
-> See `docs/release.md` for the full local release runbook (source of truth).
+The reviewed blank import of `github.com/glebarez/go-sqlite` in
+`internal/platform/database/sqlite` is a `database/sql` driver integration,
+not module registration.
+
+Tests must explicitly assemble the catalogs and dependencies they require.
+Configuration may select only implementations present in an explicitly built
+catalog; it must not cause otherwise unreferenced code to execute.
+
+When adding a varying capability, define the smallest stable typed contract at
+its consumer or in an established contract package. Do not introduce a service
+locator, global container, general plugin framework, or speculative extension
+point.
+
+## LLM protocol and provider boundaries
+
+The implemented request path is:
+
+```text
+Client Wire
+    -> generic HTTP Server
+    -> LLM HTTP Ingress
+    -> Canonical LLM IR
+    -> trusted Runtime Pipeline and Router
+    -> Provider Driver extension
+    -> Egress Codec
+    -> Provider Driver preparation
+    -> generation-owned Provider HTTP Transport
+    -> Upstream
+```
+
+Responses and streams travel in reverse through their corresponding
+boundaries.
+
+### Ingress Codec
+
+An Ingress Codec parses a northbound request, performs protocol-structural
+validation, maps common semantics into the Canonical LLM IR, and encodes
+canonical responses, errors, and stream deltas for its client protocol. It must
+not select providers, add provider credentials, or decide retry/failover.
+
+### Canonical LLM IR
+
+A common IR field must have stable cross-protocol semantics and be used by more
+than one implementation or trusted runtime concern. Provider- or
+protocol-specific information belongs in an explicitly owned namespace with
+defined type, lifecycle, processing positions, filtering, and fallback rules.
+Do not use unconstrained `map[string]any` values as public cross-layer
+contracts.
+
+### Provider Driver and Egress Codec
+
+A Provider Driver owns provider endpoints, credentials, headers, signing,
+vendor extensions, raw response classification, and Provider-specific health
+or retry classification. An Egress Codec owns a reusable upstream base wire
+schema. The Transport performs only a prepared request.
+
+The request order for every attempt is:
+
+1. Clone the attempt request and set the selected target model.
+2. Run `Driver.ExtendRequest` on Provider-owned canonical extensions.
+3. Encode through the Egress Codec.
+4. Run `Driver.Prepare` for endpoint, headers, authentication, and signing.
+5. Call the Provider Transport.
+
+The response/error order is:
+
+1. Driver raw classification.
+2. Egress response or error decoding.
+3. `Driver.ExtendResponse` or `Driver.ExtendError`.
+4. Runtime retry, failover, delivery, error, and health decisions.
+
+Never describe request extensions as occurring after wire encoding. Drivers
+must not bypass client authentication, authorization, admission, routing,
+retry budgets, the stream state machine, cancellation, or resource release.
+
+### Streaming and error compatibility
+
+A stream becomes committed only when the first complete client-visible wire
+frame has been successfully written and flushed. Zero-frame deltas, codec
+buffers, usage, and other precommit state are attempt-local and must be reset
+before retry/failover. No retry or failover is legal after commitment.
+
+Opaque success or error passthrough is allowed only when ingress and egress use
+the same Endpoint and both negotiate the capability. It preserves only status,
+`Content-Type`, and body. Arbitrary Provider headers and raw extensions must
+not cross protocols. Cross-Endpoint errors are canonicalized by the Runtime and
+encoded by the Ingress Codec.
+
+## Configuration and activation
+
+Every persistently operator-controlled data-plane behavior that must remain
+consistent in standalone and managed modes must have one canonical,
+serializable configuration model expressible by `config.yaml`.
+
+- YAML, Admin storage, and ConfigSync are sources or transports for the same
+  semantics; they must not define incompatible models.
+- Defaults, validation, and precedence must be explicit and consistent.
+- Configuration is declarative data, not functions, connections, clients,
+  contexts, handles, or other runtime objects.
+- Secrets may be references; plaintext secrets are not required in YAML.
+
+Process bootstrap parameters, database DSNs, listen addresses, TLS material,
+external secret references, request contexts, active resources, caches, health,
+and statistics may remain outside `config.yaml` when they are environment or
+runtime state rather than persistent data-plane behavior.
+
+Configuration activation must separate:
+
+1. parsing and defaults;
+2. structural and semantic validation;
+3. immutable Snapshot construction;
+4. deterministic fingerprint comparison;
+5. dependency resolution and inactive resource construction;
+6. Kernel lifecycle startup; and
+7. atomic generation publication.
+
+Equal fingerprints are a no-op. Construction or startup failure must close the
+candidate and retain the last known-good generation. A request lease pins its
+entire Snapshot, Runtime, and generation resources. Standalone initial failure
+fails startup. ConfigSync remains live and not ready before its first successful
+activation, and rejects bad hot candidates without replacing the last known
+good generation.
+
+## Dependency direction
+
+Follow the concrete boundaries enforced by `tests/layering`:
+
+- `internal/kernel` is stdlib-only.
+- `internal/llm` model types are stdlib-only and do not import Runtime.
+- `internal/llm/protocol` depends only on the Canonical LLM IR.
+- `internal/llm/provider` depends only on the Canonical LLM IR and Protocol
+  contracts.
+- `internal/llm/routing` is transport- and storage-independent.
+- `internal/llm/pipeline` depends on typed LLM, Protocol, and Security
+  contracts, not concrete implementations.
+- `internal/llm/runtime` orchestrates Snapshot, Pipeline, Protocol, Provider,
+  Routing, Quota, and authentication contracts without importing Bootstrap.
+- `internal/llm/ingress/http` adapts the Runtime to HTTP and does not own
+  Runtime policy.
+- `internal/transport/httpserver` remains generic process infrastructure.
+- `internal/bootstrap` may assemble concrete implementations; domain packages
+  must not import it.
+- Storage implementations own persistence, not domain business rules.
+
+When adding or moving packages, update the classifications and boundary tests
+in `tests/layering`.
+
+## Simplicity
+
+Choose the smallest design that satisfies current requirements and system
+invariants. Prefer:
+
+- the Go standard library and existing dependencies;
+- small typed interfaces and explicit constructors;
+- immutable configuration and catalogs;
+- clear ownership and predictable control flow;
+- pure conversion functions with bidirectional and stream tests; and
+- incremental, behavior-preserving changes.
+
+Do not add abstraction layers, frameworks, dependencies, configuration,
+background services, compatibility layers, or extension points solely for
+hypothetical requirements. Do not introduce a broad interface merely to hide
+an equally broad implementation, or a complex abstraction to remove small
+duplication.
+
+## Lifecycle and reliability
+
+Components that own goroutines, connections, files, streams, timers,
+subscriptions, caches, configuration watchers, or telemetry exporters require
+an explicit lifecycle.
+
+Lifecycle management must:
+
+- be owned by the resource owner;
+- accept and propagate `context.Context`;
+- begin cleanup even when the close context is already canceled and return
+  promptly when it is done;
+- support idempotent shutdown;
+- close resources created before initialization failure;
+- start in dependency order and close in reverse order; and
+- never create an unowned or unstoppable goroutine.
+
+Errors must identify the failing stage, capability, and object without leaking
+secrets, credentials, or sensitive request content. Never silently ignore
+configuration errors, capability mismatches, data loss, or unsafe degradation.
+
+## Coding and documentation rules
+
+- Keep changes focused and reversible; avoid unrelated cleanup.
+- Reuse established patterns before adding abstractions or dependencies.
+- Inject dependencies through constructors or explicit parameters.
+- Avoid mutable package-level state.
+- Do not expose private internal APIs solely for tests.
+- Test business logic through public behavior; package-private state machines
+  may have internal tests.
+- Update every implementation, caller, test, and relevant document when a
+  public contract changes.
+- Keep English as the canonical default for multilingual or i18n-capable
+  values, following the repository-root rule.
+- Put concise package comments in an ordinary `.go` source file. Put longer
+  architecture explanations under `go/docs/`. Hand-written `doc.go` files are
+  forbidden.
+
+## Generated files
+
+Do not edit generated artifacts directly, including:
+
+- `internal/storage/query/*.gen.go`;
+- generated Protobuf `.pb.go` files;
+- `webui/dist/`; and
+- files marked generated or `DO NOT EDIT`.
+
+After changing GORM models or query definitions, run:
+
+```bash
+make go-gen-storage
+```
+
+For Protobuf changes, edit sources under `proto/` and use the repository's
+generation workflow.
+
+## Database changes
+
+The Go schema sources of truth are the GORM models under
+`internal/storage/model`, the model set returned by `model.All()`, and explicit
+Go storage migration logic.
+
+Database schema changes must:
+
+1. update models and registration;
+2. update required migration or compatibility logic;
+3. regenerate `internal/storage/query`;
+4. update `docs/schema/database.md` and relevant configuration/migration docs;
+5. verify affected storage backends and migration paths.
+
+The repository-root `deploy/schema/postgres.sql` and
+`deploy/schema/mysql.sql` are Rust reference artifacts. Go database changes
+must not modify them. Do not assume startup automatically migrates the
+database; migration depends on the selected mode and explicit configuration.
+
+## Testing and verification
+
+Run the narrowest relevant test first, then expand in proportion to impact.
+Unless specified otherwise, run Go commands from `go/` and Make targets from
+the repository root.
+
+At minimum, Go code changes require:
+
+```bash
+gofmt -w <changed Go files>
+go test <affected packages> -count=1
+```
+
+For public behavior, cross-package interfaces, or Runtime orchestration, also
+run:
+
+```bash
+go test ./... -count=1
+go vet ./...
+go build ./...
+```
+
+For Canonical IR, protocol, streaming, or Provider Codec changes, run:
+
+```bash
+go test -race ./tests/conversion/... -count=1
+```
+
+For package moves, dependency changes, or architecture-boundary changes, run:
+
+```bash
+go test ./tests/layering -count=1
+```
+
+For WebUI changes, run from `webui/`:
+
+```bash
+pnpm test
+pnpm lint
+pnpm build
+```
+
+Before committing, always run `git diff --check`. Never claim a command passed
+unless it was run; report environmental skips explicitly.
+
+## Documentation consistency
+
+Update relevant files under `docs/` when architecture, boundaries,
+configuration, schemas, or public behavior change. Documentation must describe
+implemented behavior. Label MCP, Integration, media workloads, and other
+unfinished migration work as future-only; never present them as current
+packages or capabilities.
 
 ---
 > Source: [nyroway/nyro](https://github.com/nyroway/nyro) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
