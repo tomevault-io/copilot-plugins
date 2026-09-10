@@ -1,36 +1,27 @@
 ## super-bot
 
-> - Build: `go build -race`
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Go-PKGZ/LGR Development Guidelines
+# CLAUDE.md
 
-## Build & Test Commands
-- Build: `go build -race`
-- Test all: `go test -timeout=60s -race -covermode=atomic -coverprofile=profile.cov`
-- Test single file: `go test -run TestName`
-- Benchmark: `go test -bench=. -run=Bench`
-- Lint: `golangci-lint run`
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Code Style Guidelines
-- Go 1.21 compatibility required
-- Maximum line length: 140 characters
-- No package names with underscores
-- Use early returns (enforced by prealloc linter)
-- Test files use testify for assertions: `require` for fatal assertions, `assert` for non-fatal ones
-- Indent with tabs, not spaces
+Repository guidance — layout, commands, architecture, and conventions — is
+maintained in [`AGENTS.md`](AGENTS.md) so it stays shared across AI tools. It is
+imported below; edit `AGENTS.md`, not this file, for that content.
 
-## Error Handling
-- FATAL logs to stderr and calls os.Exit(1)
-- ERROR logs to both stdout and stderr
-- PANIC logs stack trace and runtime info to stderr
-- Stack traces for ERROR level can be enabled with StackTraceOnError option
+@AGENTS.md
 
-## Project Conventions
-- Public API follows interface-based design (`lgr.L` interface)
-- Avoid global loggers, prefer dependency injection
-- Functional options pattern for logger configuration
-- Secret logging sanitization with `lgr.Secret` option
+## Claude-specific
+
+- Repo-local **skills** under `.claude/skills/` auto-trigger from their
+  descriptions — no need to invoke them manually (the set is listed in
+  `AGENTS.md`).
+- **Slash commands** under `.claude/commands/` (e.g. `/check-ci`) are available
+  in-session.
+- Architectural **specs** under `.claude/specs/` are read on demand; open the
+  relevant one before changing that subsystem.
 
 ---
 > Source: [radio-t/super-bot](https://github.com/radio-t/super-bot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
