@@ -1,15 +1,15 @@
 # Game-Of-Life-Implementations
 
-> Source: [KieranP/Game-Of-Life-Implementations](https://github.com/KieranP/Game-Of-Life-Implementations) — distributed by [TomeVault](https://tomevault.io)
+> Source: [KieranP/Game-Of-Life-Implementations](https://github.com/KieranP/Game-Of-Life-Implementations). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KieranP/Game-Of-Life-Implementations](https://github.com/KieranP/Game-Of-Life-Implementations).
+Original source: `CLAUDE.md` in [KieranP/Game-Of-Life-Implementations](https://github.com/KieranP/Game-Of-Life-Implementations).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
