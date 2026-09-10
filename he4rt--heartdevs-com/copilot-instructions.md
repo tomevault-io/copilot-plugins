@@ -36,4 +36,4 @@ que já exibe esse lembrete ao final).
 
 ---
 > Source: [he4rt/heartdevs.com](https://github.com/he4rt/heartdevs.com) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
