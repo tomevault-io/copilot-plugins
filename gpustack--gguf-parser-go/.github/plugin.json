@@ -1,0 +1,9 @@
+{
+  "name": "gpustack--gguf-parser-go",
+  "displayName": "gguf-parser-go",
+  "description": "gguf-parser-go",
+  "version": "1.0.0",
+  "author": "gpustack",
+  "homepage": "https://github.com/gpustack/gguf-parser-go",
+  "skills": []
+}
