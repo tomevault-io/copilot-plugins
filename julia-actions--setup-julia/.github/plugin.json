@@ -1,0 +1,9 @@
+{
+  "name": "julia-actions--setup-julia",
+  "displayName": "setup-julia",
+  "description": "setup-julia",
+  "version": "1.0.0",
+  "author": "julia-actions",
+  "homepage": "https://github.com/julia-actions/setup-julia",
+  "skills": []
+}
