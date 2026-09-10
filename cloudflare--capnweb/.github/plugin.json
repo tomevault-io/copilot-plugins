@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--capnweb",
+  "displayName": "capnweb",
+  "description": "capnweb",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/capnweb",
+  "skills": []
+}
