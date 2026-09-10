@@ -1,31 +1,45 @@
 ## python3-anticaptcha
 
-> Shared utilities: base classes, enums, HTTP instruments, serialization.
+> Applies to: `okf/`. Inherits repo-wide guidance from `../AGENTS.md`.
 
-# Core Module
+# AGENTS.md
 
-## OVERVIEW
-Shared utilities: base classes, enums, HTTP instruments, serialization.
+## Scope and inheritance
 
-## WHERE TO LOOK
-| Component | File |
-|-----------|------|
-| Base classes | base.py - CaptchaParams, CaptchaResponse |
-| Enums | enum.py - CaptchaTypeEnm, ProxyTypeEnm, ResponseStatusEnm, SaveFormatsEnm |
-| HTTP sync | captcha_instrument.py - SynchronousInstrument |
-| HTTP async | captcha_instrument.py - AsyncInstrument |
-| Serialization | serializer.py - msgspec.Struct configs |
+Applies to: `okf/`. Inherits repo-wide guidance from `../AGENTS.md`.
+This file defines only local rules for the knowledge bundle.
 
-## CONVENTIONS
-- All params classes inherit CaptchaParams
-- All response classes inherit CaptchaResponse
-- msgspec.Struct for fast serialization
-- HTTP instruments handle session lifecycle
+## What lives here
 
-## ANTI-PATTERNS
-- `verify=False` in sio_captcha_instrument.py:32 - INTENTIONAL, don't "fix"
-- Don't add new enums without updating parent package
+```text
+okf/
+├── index.md            # bundle entry point + navigation
+├── core-components/    # CaptchaParams, config, utils, context managers
+├── api-contract/       # enums, constants, serializer structs
+├── http-transport/     # sync/async instruments, shared base
+└── captcha-types/      # one concept page per captcha type (+ index.md)
+```
+
+## Local boundaries and invariants
+
+- The bundle declares **OKF v0.1** (`okf_version` frontmatter in `okf/index.md`).
+  Concept pages are kebab-case, one concept per file; filenames are stable identities
+  for retrieval — rename or merge only deliberately, never in passing.
+- Every section directory has its own `index.md`. When adding, moving, or removing a
+  page, update both that section `index.md` and the links in `okf/index.md`.
+- Concept pages describe behavior for retrieval; they are not user-facing docs. Link to
+  `README.md` usage examples instead of copying them.
+- `captcha-types/` intentionally includes types with **no handler module** (e.g.
+  `hcaptcha.md`, which exists only in `CaptchaTypeEnm`). A missing implementation is
+  documentation, not a bug to fix here.
+- When code behavior changes, update the matching concept page in the same change
+  (e.g. `core/serializer.py` ↔ `api-contract/serializer.md`).
+
+## Nearby docs
+
+- `ARCHITECTURE.md` — canonical system map; this bundle mirrors it concept-by-concept.
+- `okf/index.md` — bundle navigation entry point.
 
 ---
 > Source: [AndreiDrang/python3-anticaptcha](https://github.com/AndreiDrang/python3-anticaptcha) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
