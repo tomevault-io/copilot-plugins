@@ -1,25 +1,22 @@
 ## seyfert
 
-> Read the repository-root and `src/AGENTS.md` guides first. This guide owns
+> Read the repository-root and `src/AGENTS.md` guides first. This guide owns the
 
-# Structures subsystem
+# Cache subsystem
 
-Read the repository-root and `src/AGENTS.md` guides first. This guide owns
-public runtime structures, transformed fields, methods, type guards, mixins,
-and declaration merging. For cross-cutting work, follow the root routing table
-for every affected path and verification step.
+Read the repository-root and `src/AGENTS.md` guides first. This guide owns the
+cache facade, adapters, resources, intent checks, bulk operations, and packet-
+driven updates. For cross-cutting work, follow the root routing table for every
+affected path and verification step.
 
-- Structure fields originate in transformed Discord payloads. If a structure
-  method or type guard changes, verify both the runtime predicate/method and the
-  exported narrowed type.
-- Declaration merging used by structures and mixins is deliberate. Preserve
-  the mixins, align runtime fields with merged public interfaces, and do not
-  simplify the contract based only on the apparent class declaration.
-- A merged public interface may intentionally omit properties that still exist
-  on the runtime instance. Shape contextual availability through interfaces,
-  overloads, and narrowed types; do not delete runtime properties solely to
-  make the unrestricted structure type omit them.
-- Apply the wire-name and transformation boundary owned by `src/AGENTS.md`.
+- Cache behavior spans `src/cache/index.ts`, an adapter, a resource, gateway
+  hooks, and sometimes a shorter/structure.
+- Respect disabled-cache behavior, intent requirements, sync/async adapter
+  typing, worker adapters, and bulk-operation contracts.
+- Cache resources own hashing, relationships, intents, and sync/async adapter
+  behavior. Other subsystems must not access adapter storage directly.
+- The event/cache transformation and mutation boundary is owned by the events
+  guide; read it before changing packet-driven behavior.
 
 ---
 > Source: [tiramisulabs/seyfert](https://github.com/tiramisulabs/seyfert) — distributed by [TomeVault](https://tomevault.io).
