@@ -1,45 +1,53 @@
 ## openapi-to-cli
 
-> Implementation order for openapi-to-cli (one unit at a time)
+> `ocli` is a TypeScript CLI that turns OpenAPI/Swagger specs into runtime commands. No code generation: every invocation loads a cached spec and builds the command tree on the fly. Profiles live in `.ocli/profiles.ini`, cached specs under `.ocli/specs/`. Tests are the specification of behavior; `README.md` is the public contract.
 
+# openapi-to-cli (ocli) - agent brief
 
-# Implementation order (one unit at a time)
+`ocli` is a TypeScript CLI that turns OpenAPI/Swagger specs into runtime commands. No code generation: every invocation loads a cached spec and builds the command tree on the fly. Profiles live in `.ocli/profiles.ini`, cached specs under `.ocli/specs/`. Tests are the specification of behavior; `README.md` is the public contract.
 
-Applies when adding or extending modules under `src/`.
+This file is the canonical top-level brief for every coding agent (Codex, Claude Code, Cursor, others). `CLAUDE.md` is a symlink to it. Detailed rules live in `.cursor/rules/*.mdc` and their mirrors in `.claude/rules/*.md`; Codex receives the Cursor side through the hook bridge in `.codex/` (see the last section).
 
-## Layer order (lower first)
+## Commands
 
-The architecture in @architecture.mdc defines four layers. New behavior should be added at the lowest layer it can live in, then composed upward:
+```bash
+npm ci                                   # install
+npm test                                 # full Jest suite
+npx jest tests/<module>.test.ts -t "<title>"   # one test
+npm run build                            # tsc, must be clean
+bash tests/fixtures/download.sh          # large real-spec fixtures (GitHub, Box); their suites skip when absent
+```
 
-1. **Layer 0 - pure** (`bm25.ts`, type-only files): no I/O, no Node built-ins beyond `Buffer`/`URL`/etc.
-2. **Layer 1 - I/O wrappers** (`config.ts`, `profile-store.ts`, `openapi-loader.ts`): touch `fs`, network, or env.
-3. **Layer 2 - transform** (`openapi-to-commands.ts`, `command-search.ts`): combine Layer 0 + Layer 1 outputs into the CLI command model.
-4. **Layer 3 - entry** (`cli.ts`): wire everything together for yargs and axios.
+## Workflow that must not be skipped
 
-Forbidden: Layer N importing from Layer M when M > N. If a Layer 1 module suddenly needs a Layer 2 type, that is a sign the type belongs lower.
+1. **Failing test first.** A bug gets a reproduction test, a feature gets a behavior test, in `tests/<module>.test.ts`. Run it alone and confirm it fails for the right reason before touching `src/`.
+2. **Minimal change at the lowest layer.** Pure (`bm25.ts`, `command-args.ts`) -> I/O wrappers (`config.ts`, `profile-store.ts`, `openapi-loader.ts`) -> transform (`openapi-to-commands.ts`, `command-search.ts`) -> entry (`cli.ts`, the only module that talks to yargs, axios, process). Lower layers never import upper ones.
+3. **Green everywhere.** `npm test` passes in full and `npm run build` is clean before the work is called done.
+4. **README for anything a user can observe.** Flags, command names, profile fields, `.ocli/` layout, search behavior, supported spec features, authentication and header handling (which requests carry credentials, and to which hosts), spec loading and caching, `--help` text, error messages, exit codes. A change counts even when it adds no flag. `examples/skill-ocli-api.md` and `skills/ocli-api/SKILL.md` stay aligned with the documented agent workflow.
+5. **Rules Sync.** Any change to a rule file is mirrored between `.claude/rules/` and `.cursor/rules/` in the same commit, and the index in `.codex/rules.md` plus the rule list below are refreshed when a rule is added, renamed, or removed.
 
-## Steps for a new module or class
+## Conventions that are easy to miss
 
-1. Decide the layer using @architecture.mdc.
-2. Write a failing test in `tests/<module>.test.ts` that describes the smallest useful behavior (see @testing.mdc and @workflow.mdc).
-3. Add the minimum implementation in `src/<module>.ts`. Follow @code-style.mdc for types, naming, and constructor-injected I/O.
-4. Make the test pass.
-5. Run `npm test` to confirm no regressions, then `npm run build` to confirm `tsc` is clean.
-6. Only **then** integrate the new module into the layer above (typically `cli.ts`), guarded by its own test.
+- Inject I/O through constructor options (`fs`, `httpClient`, `stdout`); tests pass fakes. Never `jest.mock` the real `fs` or `axios` modules.
+- `strict: true`; explicit types on exported APIs; `unknown` over `any` at module boundaries.
+- English identifiers, comments, and docs. Straight double quotes in code, plain hyphens rather than em-dashes in prose. Comments only where the why is non-obvious.
+- Errors are `Error` subclasses with informative messages; only `cli.ts` translates them for the user.
+- `tests/fixtures/github-openapi.json` and `box-openapi.yaml` are real specs and contracts; never hand-edit them. New fixtures are minimal and named after the feature they cover.
 
-## Forbidden
+## Rule files
 
-- Implementing two unrelated modules in one step before either has tests.
-- Wiring a new module into `cli.ts` before its own tests pass.
-- Adding optional fields to `Profile`, `CliCommand`, or `CliCommandOption` without a test that exercises the new field.
-- Editing real-spec fixtures (`github-api.*`, `box-api-yaml.*`) to "make tests pass" - those represent contracts.
+| Topic | Cursor (source for Codex) | Claude Code | Scope |
+|-------|---------------------------|-------------|-------|
+| Workflow | `.cursor/rules/workflow.mdc` | `.claude/rules/workflow.md` | always |
+| Code style | `.cursor/rules/code-style.mdc` | `.claude/rules/code-style.md` | `**/*.ts` |
+| Architecture | `.cursor/rules/architecture.mdc` | `.claude/rules/architecture.md` | `src/**/*.ts` |
+| Testing | `.cursor/rules/testing.mdc` | `.claude/rules/testing.md` | `tests/**/*.ts` |
+| Implementation order | `.cursor/rules/implementation-order.mdc` | `.claude/rules/implementation-order.md` | `src/**/*.ts`, optional |
 
-## Allowed
+## Codex
 
-- Stub or fake dependencies (mock `HttpClient`, in-memory `fs`) while a lower layer is incomplete, provided the stub matches the documented contract.
-- Refactor a passing module to a cleaner shape after the test suite stays green.
-- Extending an existing Layer 2 module with a new transformation, as long as it is covered by a new test and does not import upward.
+Codex loads this file once per session and has no glob-based rule attachment of its own. The bridge in `.codex/hooks.json` and `.codex/hooks/attach_rules.py` fills the gap: it injects every `alwaysApply: true` rule from `.cursor/rules/` at `SessionStart` and the glob-matched rules before each `apply_patch`, `Edit`, or `Write`. Run `/hooks` in Codex once per clone to trust the bridge, and again after any edit to the two hook files. The human-readable index is `.codex/rules.md`.
 
 ---
 > Source: [EvilFreelancer/openapi-to-cli](https://github.com/EvilFreelancer/openapi-to-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
