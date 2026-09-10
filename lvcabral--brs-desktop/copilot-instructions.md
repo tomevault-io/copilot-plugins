@@ -1,260 +1,386 @@
 ## brs-desktop
 
-> This is an Electron-based desktop application that simulates Roku devices for BrightScript development. It wraps the `brs-engine` library (imported as `brs-engine` npm package) and provides a complete Roku device simulator with networking services.
+> handles `dev.zip`/`dev.bpk` upload and screenshots via `busboy`.
 
-# BrightScript Simulator Desktop - AI Coding Instructions
+# CLAUDE.md
 
-## Project Overview
-This is an Electron-based desktop application that simulates Roku devices for BrightScript development. It wraps the `brs-engine` library (imported as `brs-engine` npm package) and provides a complete Roku device simulator with networking services.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project
+
+`brs-desktop` is an Electron desktop wrapper around the **`brs-engine`** npm package (the BrightScript
+simulation engine) plus **`brs-scenegraph`** (SceneGraph XML extension, alpha). Its job is to turn the
+engine into a full Roku *device* simulator: network services (ECP/SSDP, web installer, telnet debugger),
+device settings/persistence, menus, and an integrated Monaco-based code editor + console.
+
+Language/runtime issues (BrightScript semantics, `roXXX` components) belong to `brs-engine`, not this repo.
+
+## Commands
+
+```bash
+npm install            # postinstall runs electron-builder install-app-deps
+npm run start          # dev mode: webpack watch (build/start.js) + spawns electron on first successful build
+npm run build          # webpack dev build into app/
+npm run release        # webpack production build into app/ (what CI runs)
+npm run dist           # production build + electron-builder installers for the current platform -> dist/<version>/
+npm run clean          # wipe app/
+npm test               # vitest run — unit + service integration tests
+npm run test:watch     # vitest watch mode
+npm run test:coverage  # v8 coverage into coverage/
+npm run lint           # eslint (flat config in eslint.config.mjs)
+npm run lint:fix       # eslint --fix
+npm run prettier       # prettier --check
+npm run prettier:write # prettier --write
+```
+
+**Always run `npm run lint` and `npm run prettier` before committing**, and fix what they report —
+CI runs both, and a formatting-only diff on a later PR re-attributes untouched code to that PR's new
+code in SonarCloud (see below). `npm run lint:fix` and `npm run prettier:write` handle most of it.
+
+Other `dist-*` scripts target Windows / Linux (appimage, deb, arm). Installers must be built on their
+native OS.
+
+CLI args can be appended to `npm run start` (e.g. `npm run start -- --devtools --console -m hd`); see
+`docs/how-to-use.md` for the full list (`-o/-f/-m/-e/-r/-w/-p/-c/-d`).
+
+## Tests
+
+Tests run on **Vitest** (`test/**/*.spec.js`, config in `vitest.config.mjs`). Two layers:
+
+- `test/unit/**` mirrors the `src/` tree and covers pure logic.
+- `test/integration/**` boots the real ECP, web installer, telnet and debug servers in-process on
+  **ephemeral ports** against a fake window, and drives them over real sockets.
+
+There is **no E2E/Playwright layer**. Window behaviour, menus and anything visual still have to be
+verified by running the app — `npm test` passing does not mean the UI works.
+
+**Electron is never loaded.** `vitest.config.mjs` aliases `electron`, `@electron/remote`,
+`@lvcabral/electron-preferences`, `@lvcabral/node-ssdp`, `network`, `electron-prompt` and
+`electron-about-window` to stubs in `test/mocks/`. Mocking SSDP is what keeps UDP multicast out of CI.
+`test/setup/global.js` polyfills `process.getSystemVersion()`, points `app.getPath("userData")` at a
+temp dir, and installs a fresh `globalThis.sharedObject` before each test.
+
+Two traps worth knowing:
+
+- Several modules register `ipcMain` handlers **at module-evaluation time** and can never re-register.
+  Do not call `ipcMain.removeAllListeners()` in a shared hook — it silently disables the code under
+  test. Drive those handlers with `ipcMain.emit(channel, {}, payload)`.
+- Routes that read bundled assets via `path.join(__dirname, …)` resolve to `src/` under vite-node
+  rather than the webpack bundle's `app/`, so they fail in tests only. Those cases are marked.
+
+When adding an IPC channel, a `gen*Xml` builder, or a debug command, add the matching test — the
+whitelist-parity, XML and command-shell specs are the guardrails for those three contracts.
+
+### Static analysis (SonarCloud)
+
+Every PR is gated on SonarCloud's **new code** Quality Gate: A ratings for security, reliability and
+maintainability, and hotspots 100% reviewed. The project key is `lvcabral_brs-emu-app`, which does not
+match the repo name. Query findings with `resolved=false`, or already-closed issues come back too and
+the list looks far worse than it is:
+
+```bash
+gh pr checks <PR>
+curl -s "https://sonarcloud.io/api/issues/search?componentKeys=lvcabral_brs-emu-app&pullRequest=<PR>&resolved=false&ps=100"
+```
+
+**Moving code re-attributes it to new code**, so an extraction can pull an existing finding onto your
+PR without you having written anything new. Check what a finding points at before assuming you caused it.
+
+Rules this codebase trips most often, worth writing to up front:
+
+| Rule | What it wants |
+| --- | --- |
+| S4790 | No weak hashes (MD5, SHA-1). Where a wire protocol mandates one, route every call through a single helper carrying the justification, so there is one documented exemption instead of many. |
+| S5443 | No fixed path under a shared temp directory. Use `fs.mkdtempSync(path.join(os.tmpdir(), …))` — unique and owner-only. |
+| S1313 | No hardcoded IP addresses. In fixtures and docs use the RFC 5737 ranges (`192.0.2.0/24`); loopback and subnet masks are fine. |
+| S2699 | Every test needs at least one explicit `expect()`. A helper that throws on timeout does not count — assert the outcome after awaiting it. Empty `it.skip` bodies are flagged too; a comment explaining the gap says more. |
+| S4123 | `@returns` on an `async` function must be `Promise<T>`. Type inference reads JSDoc and trusts it over the `async` keyword, so a wrong annotation makes correct `await` code look like a bug. |
+| S3776 | Keep cognitive complexity under 25. A lookup table beats a long `switch` or `else if` chain. |
+| S8786 | No super-linear regex on externally supplied input. Measure before rewriting: emulated atomic groups remove backtracking inside a pattern but not the cost of a global scan retrying every start position. |
+| S1128 | Remove the imports a refactor leaves behind. |
+| S6594, S6353 | `RegExp.test()` or `.exec()` over `String.match()`; `\d` over `[0-9]`. |
+| S7755, S7771 | `.at(-1)` and negative `splice` indices over `length - n`. |
+| S7781, S7780, S7757 | `replaceAll` over `replace(/…/g)`; `String.raw` over escaped backslashes; class fields over constructor assignment of constants. |
+
+When a finding is deliberately left open, record why in a comment at the code rather than only in the
+PR description — the next person to meet it will be reading the file, not the pull request.
+
+### `npm audit`
+
+Both `npm audit` and `npm audit --omit=dev` report **0** — nothing vulnerable ships, dev or prod.
+The `overrides` block in `package.json` is what keeps it that way; verify empirically (clean
+`package-lock-only` install with an override stripped, then `npm audit`) before touching it rather
+than assuming from the package name alone:
+
+- `dompurify: ^3.4.12` is load-bearing — `monaco-editor@0.56.0` pins `dompurify@3.4.8`, which trips two
+  DOMPurify advisories (1 moderate, 1 low). Removing it reintroduces both.
+- `@electron/asar: ^4.2.1`, `@electron/universal: ^3.0.6`, `filelist: ^2.0.2` mirror what
+  `electron-builder@27-alpha` uses upstream and require Node >=22.12 — forward-compat, not a current
+  audit fix. `electron-builder@26.15.3` (currently pinned) naturally resolves older versions of these
+  three with no audit findings either way; keep them for the eventual `27` upgrade, or drop them,
+  without affecting the audit result today.
+- Never override `brace-expansion` to 5.x or `minimatch` to 10.x **globally** — their CJS entries
+  export objects, while `minimatch@3/5` and `glob@7` call them as functions. That breaks the build at
+  runtime even though it resolves the audit. A version-scoped override (`"minimatch@10.2.5": {...}`)
+  avoids that trap, but goes stale fast: minimatch@10's own `package.json` has required
+  `brace-expansion ^5.x` natively since at least 10.2.6, so npm already keeps the minimatch@10 and
+  minimatch@3/glob@7 subtrees on the correct, non-vulnerable `brace-expansion` line without any
+  override — a removed scoped override on 2026-08-19 confirmed this (see history for
+  `fix(deps): resolve npm audit findings without breaking minimatch@3 chain`, 2026-08-09).
+- `npm audit fix --force` wants to *downgrade* dependencies. Don't run it.
+
+Re-verify after bumping `electron-builder`, `monaco-editor`, `vitest`, or `@vitest/coverage-v8` —
+any of them can shift what a transitive dep naturally resolves to and make an override redundant or
+newly necessary.
+
+Releases: bump `package.json` version, update `CHANGELOG.md`, then `git tag -a vX.Y.Z && git push --follow-tags`.
+The GitHub Actions workflow builds a draft release. Local notarized builds need the `.env` Apple
+credentials and uncommenting `require('dotenv').config()` in `build/notarize.mac.js` (see `docs/release.md`).
 
 ## Architecture
 
-### Electron Process Structure
+### Process split
 
-#### Main Process (`src/main.js`)
-- **Application Lifecycle**: Electron app initialization, window creation, global state management
-- **Device Information**: Creates unified `deviceInfo` object with Roku device specs, network config, localization
-- **Server Orchestration**: Initializes and manages ECP, Installer, and Telnet servers
-- **Menu System**: Platform-specific menu creation and IPC event routing
-- **Settings Integration**: Loads/applies user preferences from JSON storage
-- **Command Line Processing**: Handles startup arguments (devtools, console, files, etc.)
-- **Global Shared State**: `globalThis.sharedObject` for cross-process data sharing
+Everything under `src/` is bundled by webpack into `app/` — three entry points, two webpack configs:
 
-#### Main Process Helper Modules (`src/helpers/`)
-- **`settings.js`**: ElectronPreferences integration, device configuration, UI themes
-- **`window.js`**: Window management (create, focus, aspect ratio, screenshot, fullscreen)
-- **`files.js`**: File loading (ZIP/BPK packages, BRS source), recent files management
-- **`console.js`**: Telnet server integration, debug message routing
-- **`dialog.js`**: Native file dialogs (open packages, save screenshots)
-- **`about.js`**: About window with version information
-- **`util.js`**: Network utilities (local IPs, gateway detection)
-- **`roku.js`**: Peer Roku device communication via ECP
+| Entry | Config target | Output |
+| --- | --- | --- |
+| `src/main.js` | `electron-renderer` base, node externals | `app/main.js` (Electron main process) |
+| `src/app/app.js` | same | `app/app.js` + `app/index.html` (simulator window) |
+| `src/app/editor.js` | `web`, externals overridden so everything bundles | `app/editor.js` + `app/editor.html` |
 
-#### Main Process Menu System (`src/menu/`)
-- **`menuService.js`**: Central menu management, recent files, context menus
-- **`*MenuTemplate.js`**: Platform-specific menu definitions (File, Edit, Device, View, Help)
-- **`macOSMenuTemplate.js`**: macOS-specific application menu structure
+`src/app/preload.js` is *copied*, not bundled (CommonJS `require` only, no ESM/import). Engine libs
+(`brs.api.js`, `brs.worker.js`, `brs-sg.js`) are copied from `node_modules/brs-engine|brs-scenegraph`
+into `app/lib/` by CopyWebpackPlugin — bumping those packages changes what ships without touching `src/`.
 
-#### Renderer Process (`src/app/app.js`)
-- **BRS Engine Interface**: Global `brs` object initialization and event subscription
-- **Device Simulation UI**: Display management, stats overlay, theme handling
-- **App Lifecycle Events**: Handles loaded/started/closed/error events from engine
-- **Input Management**: Keyboard/gamepad mapping, custom key bindings
-- **IPC Communication**: Main ↔ Renderer messaging via preload bridge
-- **Debug Integration**: Micro debugger support, console redirection
+### Main process (`src/main.js` + `src/helpers/` + `src/menu/` + `src/server/`)
 
-#### Renderer Process Modules (`src/app/`)
-- **`preload.js`**: Secure contextBridge API for main ↔ renderer communication
-- **`statusbar.js`**: Bottom status bar (file info, services, resolution, audio)
-- **`editor.js`**: CodeMirror-based BrightScript code editor window
-- **`brightscript.js`**: CodeMirror syntax highlighting for BrightScript language
-- **`codemirror.js`**: CodeMirror configuration and theme management
+- Builds the canonical `deviceInfo` object (model, locale, display mode, network info, appList…) and
+  parks it on `globalThis.sharedObject` alongside `theme` and `backgroundColor`. Renderer reads it via
+  `@electron/remote`'s `getGlobal("sharedObject")` in preload. This is the shared-state backbone —
+  changes to device config generally mean: update `sharedObject`, persist via settings, *and* push an
+  IPC event to the renderer.
+- Registers COOP/COEP/CORP response headers so the engine can use `SharedArrayBuffer` in its worker.
+  Since Electron 43, `file://` documents no longer get `crossOriginIsolated` even with those headers
+  set ([electron/electron#50789](https://github.com/electron/electron/pull/50789)), so the app windows
+  load from a privileged `app://` scheme instead (`src/helpers/protocol.js`; `registerAppScheme()`
+  before `ready`, `enableAppProtocol(__dirname, path.join(app.getPath("userData"), ICONS_DIR))`
+  after). The handler serves `app/` plus, via the `/userdata/` prefix, only the `icons/`
+  subdirectory of `userData` — deliberately not all of `userData`, since `brs-settings.json` there
+  stores the installer/peerRoku passwords in plaintext. `toastify-js` is copied into
+  `app/lib`/`app/css` rather than referenced via `../node_modules/...` for the same reason (nothing
+  outside those two roots is reachable). **The handler must stay synchronous** (`fs.readFileSync`):
+  an async handler resolves a synchronous `XMLHttpRequest` (`open(..., false)`, which `brs-engine`'s
+  `RoURLTransfer` uses) with `status === 200` but an empty body — `fetch()` is unaffected. That same
+  scheme change is why the Home app's per-app icons need a companion fix in the separate
+  `brs-home-sg` project's `components/ContentTask.brs`: it only routed `file:`-scheme icon URLs
+  through `roUrlTransfer`→`tmp:` caching (`PosterGrid`'s `HDPosterUrl` only loads `pkg:`/`http(s):`
+  natively), so it now allowlists the natively-loadable schemes instead of blocklisting `file:`.
+  Icon filenames (`helpers/hash.js`'s `iconFileName()`) are `<zip path hash>.png`, saved by
+  `helpers/files.js`'s `"saveIcon"` handler; `helpers/files.js`'s `migrateIconCache()` runs once on
+  every startup to move any icon a pre-2.5.0 install cached at the `userData` root (rather than
+  `icons/`) into the new location, and is a cheap no-op once nothing is left to move. The origin
+  change orphans `localStorage` the same way — Chromium keeps every origin's `localStorage` in one
+  shared LevelDB database, so the data isn't gone, just unreachable under the new origin.
+  `helpers/files.js`'s `migrateLocalStorage()` handles this the expensive way `migrateIconCache()`
+  doesn't need to: it opens a hidden `BrowserWindow` at the old `file://index.html` URL (which
+  shares one `file://` origin with `editor.html`, confirmed empirically — loading either one
+  exposes the same entries), reads `Object.entries(localStorage)` out of it, and replays whatever
+  isn't already present into the real window's `localStorage`, gated by a `LOCAL_STORAGE_MIGRATED_MARKER`
+  file in `userData` so it doesn't pay for a hidden window on every future launch.
+- `src/helpers/cors.js`'s `enableCorsHeaders()` (registered on `session.defaultSession` from
+  `main.js`) injects permissive CORS headers on every response — `file://` got that behavior for
+  free (Electron's universal file-URL access), `app://` doesn't, and real channels routinely fetch
+  cross-origin CDN content with no CORS headers of their own. Any `Access-Control-Allow-*` header
+  the origin server already sent must be cleared first — a duplicate `Access-Control-Allow-Origin`
+  is itself a CORS violation. A request whose credentials mode is `"include"` (`RoURLTransfer` sets
+  `xhr.withCredentials` when a channel calls `roUrlTransfer.EnableCookies()`) makes the Fetch spec
+  reject the naive wildcard values: `Access-Control-Allow-Origin: "*"` is forbidden outright for a
+  credentialed response, and `Access-Control-Allow-Headers: "*"` stops meaning "anything" and is
+  read as the literal header name `"*"`. Both are handled the same way — reflect the real request's
+  `Origin` and `Access-Control-Request-Headers` back verbatim instead of hardcoding a wildcard,
+  which is valid for credentialed and non-credentialed requests alike and exactly as permissive.
+  `onHeadersReceived`'s details carry no request headers, so an `onBeforeSendHeaders` listener
+  captures `Origin`/`Access-Control-Request-Headers` per request id for `onHeadersReceived` to read
+  back, and `onCompleted`/`onErrorOccurred` (each fires exactly once per id) clean the map up.
+- **The main simulator window is always `BrowserWindow.fromId(1)`.** Roughly 35 call sites rely on this;
+  it is created first in `createWindow()`. The editor window is opened as a child via
+  `setWindowOpenHandler` intercepting `editor.html`, not via a separate `createWindow` call.
+- Window geometry persists to `window-state-<name>.json` in `app.getPath("userData")`.
 
-### Core Components
+### Renderer (`src/app/app.js`)
 
-#### BRS Engine Integration
-- **Global `brs` Object**: Exposes `initialize()`, `subscribe()`, `deviceData`, `getVersion()`, `getSerialNumber()`
-- **Event System**: Engine publishes events (loaded, started, closed, error, debug, redraw, control)
-- **Device Data Sync**: `brs.deviceData` properties sync with main process settings
-- **Custom Key Mapping**: Supports Roku remote buttons + game controller inputs
-- **Performance Stats**: Optional overlay showing FPS, memory, draw calls
+Owns the global `brs` object from `brs.api.js`: `brs.initialize(deviceInfo, options)`,
+`brs.subscribe("desktop", handler)`, `brs.deviceData.*`, `brs.execute/terminate/debug/sendKeyPress/...`.
+Engine events (loaded/started/closed/error/debug/redraw/control) are translated into UI updates,
+status bar changes (`statusbar.js`), console output, and IPC back to main.
 
-#### Network Services (All run in main process)
-- **ECP Server** (`src/server/ecp.js`, port 8060): 
-  - REST API: `/query/device-info`, `/query/apps`, `/keypress/*`, `/launch/*`
-  - ECP-2 WebSocket API for mobile app compatibility
-  - SSDP discovery service for device detection
-  - Observer pattern for event distribution
-- **Web Installer** (`src/server/installer.js`, default port 80):
-  - HTTP digest authentication (username: rokudev)
-  - File upload interface for ZIP/BPK deployment
-  - Screenshot capture and download
-  - Channel deletion and management
-- **Telnet Server** (`src/server/telnet.js`, port 8085):
-  - Remote console access for debugging
-  - Command execution and output streaming
-  - Micro debugger integration
-  - Multi-client support with observer pattern
+### IPC contract (`src/app/preload.js`)
 
-#### Settings Architecture
-- **Storage**: JSON file in `app.getPath("userData")/brs-settings.json`
-- **UI**: `@lvcabral/electron-preferences` with custom CSS themes
-- **Structure**: Nested sections (simulator, services, device, display, remote, audio, localization, captions)
-- **Dot Notation Access**: `settings.value("device.deviceModel")` for nested properties
-- **Live Updates**: Settings changes trigger IPC events to update running simulation
+`contextBridge` exposes `window.api` with **explicit channel whitelists** — `api.send()` has one list,
+`api.receive()` another. Adding an IPC channel requires editing the corresponding whitelist in
+`preload.js` *and* adding the `ipcMain.on(...)` handler (main side) or `webContents.send(...)` call.
+Silently dropped messages with a `console.warn` about an "invalid channel" mean the whitelist wasn't updated.
 
-### Build System
-- **Webpack**: Multi-config build in `build/webpack.app.config.js` 
-  - Main entry: Creates `app/main.js` from `src/main.js`
-  - App entry: Creates `app/app.js` from `src/app/app.js` 
-  - Editor entry: Creates `app/editor.js` from `src/app/editor.js`
-- **Development**: `npm run start` runs `build/start.js` with webpack watch + electron spawn
-- **Release**: `npm run dist` builds production bundles + electron-builder packages
+`preload.js` also intercepts keyboard events in the **capture phase** (Cmd/Ctrl+V paste, the Home key
+mapped to "close app") specifically to beat `brs-engine`'s bubbling-phase handlers. That ordering is
+intentional — see `matchesKey`/`convertSettingsKey`, which mirror the key-name conversion in `settings.js`.
 
-## Key Patterns
+### Network services (`src/server/`, all in the main process)
 
-### Main Process Helper Module Details
+Each service is a module with an observer registration function (`subscribeECP`, `subscribeInstaller`,
+`subscribeTelnet`, `subscribeDebugServer`, `subscribeRemoteScreen`); `src/helpers/events.js` is the single
+subscriber that wires service events back into settings/status/file-loading.
 
-#### Settings System (`src/helpers/settings.js`)
-- **ElectronPreferences Integration**: Modal settings window with form validation
-- **Device Configuration**: 15+ device models, display modes (480p/720p/1080p), localization
-- **Service Management**: Enable/disable ECP, Installer, Telnet servers with port configuration
-- **Theme System**: Purple/Light/Dark/System themes with CSS variable management
-- **Remote Control Mapping**: Custom keyboard shortcuts for Roku remote buttons
-- **Caption Styling**: Font, color, opacity, background for closed captioning
-- **Peer Roku Integration**: Deploy apps to real Roku devices for comparison testing
+- `ecp.js` — ECP REST API + ECP-2 WebSockets + SSDP discovery (port 8060). This is what makes the VS Code
+  BrightScript extension detect the simulator as a real Roku.
+- `installer.js` — Roku web installer clone with MD5 digest auth (default `rokudev`/`rokudev`), port 80;
+  handles `dev.zip`/`dev.bpk` upload and screenshots via `busboy`.
+- `telnet.js` — plain console feed, port 8085.
+- `debug.js` — MicroDebugger command shell (port 8080), implements the Roku debug command set
+  (`bt`, `var`, `chanperf`, `sgnodes`, `press`, `type`, …).
+- `remotescreen.js` — WebRTC video feed of the display plus the viewer page (port 8090). Has no Roku
+  counterpart. **Unauthenticated, so it is the one service defaulting to disabled** (`services.screen`
+  is `[]`); `services.remoteAccess` is its only gate. See "Remote Screen" below.
 
-#### Window Management (`src/helpers/window.js`)
-- **Multi-Window Support**: Main simulator, code editor, settings, about windows
-- **State Persistence**: JSON storage of window bounds, position, fullscreen state
-- **Aspect Ratio Control**: Automatic sizing based on display mode (4:3 vs 16:9)
-- **Platform Differences**: Custom title bar on Windows, dock integration on macOS
-- **Screenshot API**: Capture simulation display, copy to clipboard or save to file
-- **DevTools Integration**: Detached Chrome DevTools for debugging renderer process
+Default ports live in `src/constants.js`, not scattered literals. Each service takes the port as an
+optional trailing parameter defaulting to that constant — `enableECP(win, port)`,
+`enableTelnet(win, port)`, `enableDebugServer(win, prefs, port)`, `enableRemoteScreen(win, port)`, and
+`setPort()` for the installer (whose default, 80, is privileged). Integration tests rely on this to bind
+ephemeral ports; don't reintroduce a hard-coded `listen(CONSTANT)`.
 
-#### File Operations (`src/helpers/files.js`)
-- **Package Loading**: ZIP/BPK extraction, manifest parsing, icon extraction
-- **Source Code Handling**: BRS file loading, temporary package creation for code execution
-- **Recent Files Management**: JSON persistence, menu integration, channel ID mapping
-- **External App Launch**: ECP integration for launching apps on peer Roku devices
-- **File Validation**: Extension checking, manifest validation, error handling
+`updateServerStatus(service, menuItem, enabled, port)` derives the settings key from
+`service.toLowerCase()`, so a service's display name must be a single lowercase-able word matching its
+key — that is why Remote Screen is registered as `"Screen"` against `services.screen`, not
+`"RemoteScreen"`.
 
-#### Network Utilities (`src/helpers/util.js`)
-- **Local IP Detection**: Multi-interface network discovery for ECP services  
-- **Gateway Detection**: Router IP identification for network info display
-- **URL Validation**: Protocol checking for external app loading
-- **MAC Address Generation**: Unique device identification for SSDP
+The Electron-free halves live alongside: `src/server/debugHelp.js` (help text), `src/server/debugKeys.js`
+(the `press` character map) and `src/helpers/digest.js` (both the server and client sides of digest auth).
 
-### IPC Communication
-```javascript
-// Main → Renderer
-window.webContents.send("eventName", data);
+### Remote Screen
 
-// Renderer → Main (via preload contextBridge)
-api.send("eventName", data);
+Split across three processes because of one hard constraint: a TCP listener only exists in main,
+`RTCPeerConnection`/`captureStream()` only in the renderer. So `src/server/remotescreen.js` owns the
+sockets, `src/app/webrtc.js` owns the peer connections, and signaling is relayed over IPC between them.
+**The renderer is the offerer** — it owns the track, so it knows when there is media to negotiate about.
 
-// Main process handlers
-ipcMain.on("eventName", (event, data) => { /* handler */ });
-```
+Non-obvious pieces, all of them load-bearing:
 
-### Renderer Process Module Details
+- **Offers are only ever sent on join**, so anything that loses a `rtcViewerJoined` strands a viewer on
+  a socket that never streams. Two channels close those gaps: `rtcReady` (renderer → main, sent last in
+  `initRemoteScreen()`, makes main re-announce every open session) and `rtcSessionFailed` (renderer →
+  main, closes the socket of a peer that failed so the page reconnects instead of holding a slot).
+- **`src/app/mirror.js` is event-driven, not sampled — this requires brs-engine ≥ 2.4.0**, whose
+  `setFrameNotify`/`getDisplayBuffer` shipped in that release; `package.json` pins `^2.5.0`. The guard in
+  `initRemoteScreen()` turns a stale engine into one clear console error rather than a silently frozen
+  stream. The engine
+  repaints only when the running app draws, so a settled SceneGraph app posts *zero* frames while a busy
+  one posts at 60fps. Polling was therefore both late on the first and wasteful on the second: a static
+  menu app took seconds to update remotely. `brs.setFrameNotify(true)` (set while a viewer is connected,
+  `false` otherwise, so an unwatched simulator pays nothing) makes the engine emit `frame` from
+  `drawBufferImage()`, *after* the repaint, so the buffer always holds a complete frame.
+- **Going black is a separate `cleared` event, and it must not be served from the buffer.**
+  `clearDisplay()` deliberately never touches `bufferCanvas`, so after an app exits the buffer still
+  holds that app's final image. A mirror that treated `cleared` as just another frame would copy it and
+  leave the viewer on a screenshot of an app that had already quit; `onEngineCleared()` blanks the
+  mirror instead. This asymmetry is why the engine emits two events rather than one.
+- **The mirror copies `brs.getDisplayBuffer()`, not `#display`.** The visible canvas is sized to the
+  window (CSS size × dpr) and `redrawDisplay()` lets it be *smaller* than the frame, so copying it
+  streams a blurry upscale; it can also carry overscan guidelines. The buffer is always at the display
+  mode's native resolution. A canvas of our own is still needed — `OffscreenCanvas` has no
+  `captureStream()` — and keeping it sized from the display mode is what stops window resizes from
+  renegotiating the track. 480p is 720×540 (4:3), not 16:9.
+- **The track is captured at `captureStream(0)` and pushed with `requestFrame()`.** Letting the browser
+  sample on its own clock would re-add a frame interval of latency to every update. The cost is that
+  nothing reaches the encoder unless we push, so `startMirror()` pushes immediately (a viewer joining an
+  idle app would otherwise sit on the overlay forever) and a 1s keepalive pushes while the app is static.
+- **Cross-origin requests are refused on `/rtc-session` and `/paste`.** The local-only toggle filters by
+  address, which is not enough: WebSockets are exempt from CORS and a body-only POST is a safelisted
+  simple request, so a page on any site the user visits can reach loopback and be handed the live screen
+  or type into the running app. A missing `Origin` is deliberately allowed — browsers always send it on
+  these routes, non-browser clients legitimately omit it.
+- **`/embed` is a page, because WebRTC has no stream URL.** The media is SRTP over UDP negotiated by
+  the `/rtc-session` WebSocket, so there is nothing a `<video src>` could point at; embedding means an
+  `<iframe>` around a chrome-less page. `signaling.js` holds the one copy of the protocol and is loaded
+  *before* `remote.js`/`embed.js`, which call `window.brsSignaling` on load. The copy button's URL uses
+  `deviceInfo.localIps[0]` from `/config` rather than `location.origin`, because the viewer is usually
+  opened from the status bar where the origin is `localhost` — useless to whatever machine it is pasted
+  into. `getLanHost()` returns `null` under local-only, since a LAN link would then point at a
+  connection the service itself refuses. The status bar keeps opening `localhost`, which is correct: it
+  is on this machine anyway.
+- **The viewer page wears the web installer's skin, and `remote.css` is an override layer, not a theme.**
+  `/css/styles.min.css` is served from `src/app/css/`, the same file port 80 uses, so the two pages read
+  as one application; it has no `@font-face` or `url()` references, which is what makes it safe to hand
+  to a phone with nothing else. It must be linked *first*: the skin styles bare `button` globally, so
+  `remote.css` loaded before it would lose. That is also why `.btn` sets geometry only and takes colour
+  from `.roku-button`. The copy-URL button's primary path is `document.execCommand("copy")`, not
+  `navigator.clipboard` — the latter needs a secure context, and `http://<lan-ip>:8090` is exactly the
+  case the button exists for.
+- **The Utilities tab's link to the stream is rendered per request.** `installer.js` reads
+  `utilities.html` and substitutes `<!--REMOTE_SCREEN_BUTTON-->`, because the button has to reflect
+  whether the service is running *now* and the port it actually bound (which differs from the constant
+  when port 0 was used). The URL is built from the request's `Host` header rather than localhost, so a
+  phone browsing the installer is sent back to the simulator — and since that header is client-supplied
+  and lands inside an `href`, `safeHostname()` validates it against an allow-list and returns `null` to
+  suppress the link rather than trying to escape it.
+- The service lifts `backgroundThrottling` only while someone is watching; a minimized window otherwise
+  stops painting and the stream freezes on a stale frame.
 
-#### Main App Logic (`src/app/app.js`)
-- **Engine Event Handling**: Processes loaded/started/closed/error/debug events from BRS engine
-- **Theme Management**: CSS custom property updates, title bar color synchronization
-- **Display Control**: Canvas management, fullscreen transitions, aspect ratio handling
-- **Input Processing**: Keyboard shortcuts, gamepad mapping, custom key combinations
-- **Debug Integration**: Micro debugger state management, console message routing
-- **Toast Notifications**: User feedback for operations, errors, and state changes
+### Settings (`src/helpers/settings.js`, ~2.4k lines)
 
-#### Status Bar (`src/app/statusbar.js`)
-- **Service Status Display**: Real-time indicators for ECP, Telnet, Web Installer services
-- **File Information**: Currently loaded app name, version, resolution display
-- **Error/Warning Counters**: Console message categorization and count display
-- **Audio Status**: Volume level, mute state, audio language indicators
-- **Network Info**: Local IP, device model, locale information
-- **Clickable Links**: Direct access to ECP endpoints, web installer, console
+Uses `@lvcabral/electron-preferences`; stored as JSON in `app.getPath("userData")`. Sections:
+`simulator`, `editor`, `services`, `device`, `remote`, `display`, `audio`, `localization`, `captions`,
+`peerRoku`, `deepLinking`, `externalVolume`, `customization`. Accessed with dot notation
+(`settings.value("device.deviceModel")`). Most settings need three things kept in sync: the preferences
+schema, `globalThis.sharedObject.deviceInfo`, and an IPC push to the renderer — the `set*`/`get*`
+exports at the bottom of the file are the established pattern for that.
 
-#### Code Editor (`src/app/editor.js`)
-- **CodeMirror Integration**: BrightScript syntax highlighting, auto-completion
-- **Terminal Emulation**: Integrated console for BRS engine output and commands
-- **File Operations**: Save/load BRS source files, package creation for execution
-- **Theme Support**: Editor themes synchronized with main application theme
-- **Debug Features**: Breakpoint support, variable inspection, step debugging
+### Editor window
 
-#### BrightScript Language Mode (`src/app/brightscript.js`)
-- **Syntax Highlighting**: Keywords, functions, operators, comments, strings
-- **Language Features**: Code folding, bracket matching, auto-indentation
-- **Error Detection**: Syntax error highlighting, keyword validation
-- **Function Recognition**: Method detection, parameter highlighting
-- **Custom Extensions**: Roku-specific language features and built-in functions
+Monaco-based (`src/app/monaco.js` + `src/app/editor.js`), with BrightScript Monarch grammar,
+completions, and formatting in `src/app/brightscript.js`. Monaco is bundled by
+`monaco-editor-webpack-plugin` with a deliberately trimmed feature list — enabling a Monaco feature
+means editing that plugin config in `build/webpack.app.config.js`.
 
-#### Preload Bridge (`src/app/preload.js`)
-- **Secure API Exposure**: contextBridge for main ↔ renderer communication
-- **Preference Management**: Settings window integration, real-time updates
-- **Console Integration**: Buffer access, telnet message routing
-- **File System Access**: Secure file operations via main process
-- **External Link Handling**: Browser integration for documentation, URLs
-- **Keyboard Shortcuts**: Global hotkey registration (screenshot, fullscreen)
+The console panel's syntax coloring is BrightScript-aware, not the `@lvcabral/terminal` package's
+generic Unix-console default: `src/app/consoleColors.js` exports `getBrsConsolePatterns(theme,
+COLOR_THEMES)`, a set of `{regex, color, type, priority}` rules passed to the terminal as
+`customPatterns`/`useDefaultPatterns: false`. `updateTerminal()` in `editor.js` HTML-escapes each
+line (`<`/`>` → entities, every space → `&nbsp;`) *before* the patterns run, so every pattern in
+`consoleColors.js` matches those literal entity strings, not raw `<`/`>`/space — and must stay
+narrowly scoped (no unbounded greedy/lazy quantifiers adjacent to each other), since the terminal
+resolves overlapping matches by start index first and priority only as a tie-breaker, so a wide
+pattern starting earlier always wins over a more specific one nested inside it regardless of
+priority. `updateTerminal()` calls `terminal.outputHTML()`, not `terminal.output()` — the latter's
+"colors disabled" path re-escapes its input as untrusted text, which double-escapes the entities
+already produced above. The `editor.options` checkbox is `disableConsoleColors` (disable-by-presence,
+not enable-by-presence) specifically so coloring defaults to on without needing a settings migration
+— `@lvcabral/electron-preferences` shallow-merges each settings group's persisted value over its
+default, so an enable-flag default could never turn itself on for an existing installation.
 
-### BRS Engine Integration
-```javascript
-// Initialize simulation engine
-brs.initialize(deviceInfo, options);
+## Conventions
 
-// Subscribe to engine events  
-brs.subscribe("desktop", (event, data) => { /* handler */ });
+- All `src/` files start with the standard copyright header block; match it in new files.
+- ESM (`import`/`export`) everywhere under `src/`, except `preload.js` and `preloadKeys.js`
+  (CommonJS, copied unbundled — `preloadKeys.js` holds the IPC channel whitelists and the key
+  conversion that mirrors `src/helpers/keyCodes.js`) and `build/*.js` (CommonJS).
+- 4-space indent in `src/` (see `.vscode/settings.json`), 2-space in `build/`. Both are enforced by
+  Prettier (config block in `package.json`, ported from `brs-engine`: `tabWidth` 4, `printWidth` 120,
+  `trailingComma` es5, with a `build/**/*.js` override at `tabWidth` 2) — don't hand-format.
+- `eslint.config.mjs` is flat config and ports the JS-applicable half of `brs-engine`'s `.eslintrc.js`
+  (the `@typescript-eslint` rules have no meaning here). `eslint-config-prettier` is last in the array
+  so Prettier alone owns formatting; keep it there. Renderer globals injected by preload (`api`,
+  `__setTheme`) and `electron` as an `import/core-modules` entry are declared there rather than
+  suppressed at each call site. A rule that must be disabled gets an `eslint-disable-next-line` with
+  the reason at the code, as in `src/helpers/hash.js`.
+- LF line endings everywhere, enforced by `* text=auto eol=lf` in `.gitattributes`.
+- Node builtins are imported with the `node:` prefix.
 
-// Access device state
-brs.deviceData.property = value;
-```
+## Other AI/agent docs in this repo
 
-### Server Observer Pattern
-Each server (`ecp.js`, `installer.js`, `telnet.js`) uses observer pattern:
-```javascript
-export function subscribeECP(observerId, callback) { /* subscribe */ }
-function notifyAll(eventName, eventData) { /* notify observers */ }
-```
-
-### Settings Management
-Settings use nested object structure with dot notation:
-```javascript
-settings.value("services.ecp")  // ["enabled"] array
-settings.value("device.deviceModel")  // "4200X" string
-settings.value("simulator.options")  // ["statusBar", "debugOnCrash"] array
-```
-
-## Development Workflows
-
-### Local Development
-```bash
-npm install          # Install dependencies
-npm run start            # Development mode with hot reload
-npm run build            # Build without packaging  
-npm run clean            # Clear build artifacts
-```
-
-### Cross-Platform Distribution
-```bash
-npm run dist             # Current platform
-npm run dist-win         # Windows x64/x86
-npm run dist-linux64     # Linux x64 AppImage
-npm run dist-deb64       # Linux x64 Debian
-```
-
-### File Loading Patterns
-- **ZIP/BPK packages**: Handled by `loadFile()` in `src/helpers/files.js`
-- **Source code**: CodeMirror editor integration via `src/app/editor.js`
-- **Recent files**: JSON persistence in user data directory
-
-## Important File Paths
-- **User Data**: `app.getPath("userData")` for settings/cache
-- **Build Output**: `app/` directory (webpack output)
-- **Engine Assets**: Copied from `node_modules/brs-engine/assets/**`
-- **Recent Files**: `recent-files.json` in user data directory
-
-## Platform Considerations
-- **macOS**: Uses dock integration, different menu structure, notarization requirements
-- **Windows**: Custom title bar with `custom-electron-titlebar`
-- **Linux**: AppImage and Debian package formats
-
-## Testing & Quality
-- **CI/CD**: GitHub Actions in `.github/workflows/build.yml`
-- **Code Signing**: macOS notarization via Apple Developer credentials
-- **Multi-arch**: Universal macOS builds, x64/x86 Windows, ARM Linux support
-
-## External Dependencies
-- **Core Engine**: `brs-engine` provides BrightScript simulation
-- **Network**: `restana` for HTTP servers, `ws` for WebSockets, `node-ssdp` for discovery
-- **UI**: `electron-preferences` for settings, `codemirror` for code editing
-- **Build**: `webpack` + `electron-builder` for packaging
-
-## Debugging
-- DevTools: Main window supports Chrome DevTools (`--devtools` flag)
-- Console: Telnet server provides remote console access
-- Network: ECP endpoints return XML responses for external tools
-- Logging: Console messages routed through main process to telnet clients
+`GEMINI.md` and `.github/copilot-instructions.md` describe the same architecture in more prose and are
+kept in sync with the source. Prefer the source when they disagree.
 
 ---
 > Source: [lvcabral/brs-desktop](https://github.com/lvcabral/brs-desktop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
