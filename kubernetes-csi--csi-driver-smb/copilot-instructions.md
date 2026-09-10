@@ -1,81 +1,117 @@
 ## csi-driver-smb
 
-> This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# Agent Guidelines for go-toml
+# Agent Guide for opentelemetry-go
 
-This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-## Project Overview
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-go-toml is a TOML library for Go. The goal is to provide an easy-to-use and efficient TOML implementation that gets the job done without getting in the way.
+## Core expectations
 
-## Code Change Rules
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-### Backward Compatibility
+## Default workflow
 
-- **No backward-incompatible changes** unless explicitly discussed and approved
-- Avoid breaking people's programs unless absolutely necessary
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-### Testing Requirements
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-- **All bug fixes must include regression tests**
-- **All new code must be tested**
-- Run tests before submitting: `go test -race ./...`
-- Test coverage must not decrease. Check with:
-  ```bash
-  go test -covermode=atomic -coverprofile=coverage.out
-  go tool cover -func=coverage.out
-  ```
-- All lines of code touched by changes should be covered by tests
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-### Performance Requirements
+## Verification
 
-- go-toml aims to stay efficient; avoid performance regressions
-- Run benchmarks to verify: `go test ./... -bench=. -count=10`
-- Compare results using [benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat)
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-### Documentation
+## Documentation and changelog
 
-- New features or feature extensions must include documentation
-- Documentation lives in [README.md](./README.md) and throughout source code
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-### Code Style
+## Repository habits
 
-- Follow existing code format and structure
-- Code must pass `go fmt`
-- Code must pass linting with the same golangci-lint version as CI (see version in `.github/workflows/lint.yml`):
-  ```bash
-  # Install specific version (check lint.yml for current version)
-  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin <version>
-  # Run linter
-  golangci-lint run ./...
-  ```
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-### Commit Messages
+## Personas
 
-- Commit messages must explain **why** the change is needed
-- Keep messages clear and informative even if details are in the PR description
+### Feature Agent
 
-### Capabilities
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-go-toml tracks system-level capabilities using [capslock](https://github.com/google/capslock). The baseline is in `capability_baseline.txt` and CI enforces that it does not grow.
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-- **Do not introduce new capabilities.** PRs that increase the capability set (e.g., adding network access, subprocess execution, syscalls) are unlikely to be accepted.
-- If a change causes the capabilities check to fail, do not update the baseline to make it pass. Instead, rethink the approach to avoid requiring new capabilities.
-- To check locally: `./caps.sh check` (requires `capslock` installed via `go install github.com/google/capslock/cmd/capslock@latest`)
+### Refactoring Agent
 
-## Pull Request Checklist
+Use this persona when improving structure without intentionally changing behavior.
 
-Before submitting:
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-1. Tests pass (`go test -race ./...`)
-2. No backward-incompatible changes (unless discussed)
-3. Relevant documentation added/updated
-4. No performance regression (verify with benchmarks)
-5. Capabilities are not increasing (`./caps.sh check`)
-6. Title is clear and understandable for changelog
+### Test Agent
+
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
+
+### Performance Agent
+
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+
+### Review Agent
+
+Use this persona when asked to review code, patches, or pull requests.
+
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [kubernetes-csi/csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
