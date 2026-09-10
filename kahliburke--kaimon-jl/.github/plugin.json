@@ -1,7 +1,7 @@
 {
   "name": "kahliburke--kaimon-jl",
   "displayName": "Kaimon.jl",
-  "description": "MCP server giving AI agents full access to Julia's runtime via a live Gate \u2014 code execution, introspection, debugging, testing, and semantic search",
+  "description": "Kaimon.jl",
   "version": "1.0.0",
   "author": "kahliburke",
   "homepage": "https://github.com/kahliburke/Kaimon.jl",
