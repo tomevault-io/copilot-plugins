@@ -97,7 +97,7 @@ dotnet test .\Tests\LibmpvIptvClient.Tests.csproj
 
 ## 禁止事项
 
-- **每次修改完代码，编译成功后，必须主动提交 git**
+- **每次修改完代码，编译成功后，必须主动提交 git，并且进行推送**
 - **提交 git 每次都是到 main 分支**
 - **commit 使用英文**
 
@@ -182,4 +182,4 @@ feat: add scheduled recording with front/back modes
 
 ---
 > Source: [CGG888/SrcBox](https://github.com/CGG888/SrcBox) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
