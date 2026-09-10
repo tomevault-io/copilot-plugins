@@ -4,7 +4,7 @@
   "repo": "notion-sdk-js",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/makenotion/notion-sdk-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T17:01:59Z"
+  "distributed_at": "2026-09-10T03:02:37Z"
 }
