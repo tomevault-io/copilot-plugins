@@ -1,6 +1,6 @@
 # nyro
 
-> Source: [nyroway/nyro](https://github.com/nyroway/nyro). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [nyroway/nyro](https://github.com/nyroway/nyro). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [nyroway/nyro](https://github.com/nyroway/nyro).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nyroway/nyro](https://github.com/nyroway/nyro) — a repo with 182+ stars on GitHub.
+From [nyroway/nyro](https://github.com/nyroway/nyro) — a repo with 193+ stars on GitHub.
 
 ---
 
