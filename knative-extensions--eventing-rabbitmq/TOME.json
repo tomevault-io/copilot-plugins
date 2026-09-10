@@ -4,7 +4,7 @@
   "repo": "eventing-rabbitmq",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/knative-extensions/eventing-rabbitmq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T15:04:43Z"
+  "distributed_at": "2026-09-10T22:12:30Z"
 }
