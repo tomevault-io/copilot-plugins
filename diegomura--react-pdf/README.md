@@ -1,21 +1,21 @@
 # react-pdf
 
-> Tome by [diegomura](https://github.com/diegomura/react-pdf) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [diegomura](https://github.com/diegomura/react-pdf), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [diegomura/react-pdf](https://github.com/diegomura/react-pdf).
+Original source: `AGENTS.md` in [diegomura/react-pdf](https://github.com/diegomura/react-pdf).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [diegomura/react-pdf](https://github.com/diegomura/react-pdf) — a repo with 16664+ stars on GitHub.
+From [diegomura/react-pdf](https://github.com/diegomura/react-pdf) — a repo with 16772+ stars on GitHub.
 
 ---
 
