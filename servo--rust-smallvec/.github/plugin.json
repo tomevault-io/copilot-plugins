@@ -1,0 +1,9 @@
+{
+  "name": "servo--rust-smallvec",
+  "displayName": "rust-smallvec",
+  "description": "rust-smallvec",
+  "version": "1.0.0",
+  "author": "servo",
+  "homepage": "https://github.com/servo/rust-smallvec",
+  "skills": []
+}
