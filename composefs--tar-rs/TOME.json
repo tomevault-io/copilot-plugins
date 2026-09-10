@@ -4,7 +4,7 @@
   "repo": "tar-rs",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/composefs/tar-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T04:53:17Z"
+  "distributed_at": "2026-09-10T18:42:14Z"
 }
