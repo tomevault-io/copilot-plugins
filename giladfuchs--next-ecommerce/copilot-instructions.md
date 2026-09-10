@@ -1,87 +1,58 @@
 ## next-ecommerce
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Work only in the main project rooted at this directory.
 
-# CLAUDE.md
+# Repository guidance
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Scope
 
-## Commands
+- Work only in the main project rooted at this directory.
+- Treat `other/` as out of scope. Do not search, read, compare, copy from, modify, or run code from it unless the user explicitly asks.
+- Exclude `node_modules/`, `.next/`, `out/`, `build/`, `public/media/`, and `seed/data/images/` from routine searches and inspections.
+- Preserve existing uncommitted work. Do not revert or reformat unrelated files.
 
-```bash
-pnpm dev              # Start dev server (port 3344, Turbo)
-pnpm build            # Production build
-pnpm start            # Run production server
-pnpm lint             # ESLint check
-pnpm lint:fix         # Fix lint issues
-pnpm format           # Prettier formatting
-pnpm generate:types   # Regenerate Payload TypeScript types → src/lib/core/types/payload-types.ts
-```
+## Project overview
 
-## Stack
+- This is a pnpm monorepository-style application package using Next.js 16 App Router, React 19, Payload CMS 3, PostgreSQL, TypeScript, and Tailwind CSS 4.
+- Use Node 24 and pnpm 10 or newer, as declared in `package.json`.
+- `src/app/(app)/` contains the public storefront. `src/app/(payload)/` contains Payload Admin and API routes.
+- Payload collection and global schemas live in `src/lib/collections/`; the central config is `src/payload.config.ts`.
+- CMS block schemas live in `src/lib/blocks/`; their frontend renderers live in `src/components/blocks/`.
+- The data-access implementation is selected in `src/lib/core/dal/index.ts`. Keep the public behavior of `queries.ts` and `api.ts` aligned when changing DAL methods.
+- Seed fixtures are in `seed/data/mock-data-<locale>.json`; seed orchestration is in `seed/index.ts`.
 
-- **Next.js 16** (App Router) + **React 19**
-- **Payload CMS 3** — headless CMS, REST API, admin UI at `/admin`
-- **PostgreSQL** via `@payloadcms/db-postgres`
-- **Vercel Blob** for media storage (prefix: `payload_ecommerce`)
-- **Tailwind CSS 4** + **Radix UI** primitives + **class-variance-authority**
-- **next-intl** for i18n
-- **Playwright** for E2E tests
-- **pnpm** as package manager (Node >= 22)
+## Working conventions
 
-## Architecture
+- Use TypeScript and the existing `@/*`, `@/payload-types`, and `@payload-config` aliases.
+- Keep React components as Server Components by default. Add `"use client"` only when browser state, effects, event handlers, or client-only APIs require it.
+- Reuse existing UI, link, rich-text, media, metadata, and layout helpers before creating a new abstraction.
+- For CMS pages, update the Payload block schema, generated types, renderer, and seed fixture together when the requested behavior affects all of them.
+- Payload relationships and uploads may be either an ID or a populated object. Handle both shapes or resolve the relation at the DAL boundary.
+- Preserve draft/live-preview and cache-tag behavior when changing queries or routes.
+- Keep user-facing strings compatible with the configured locale and RTL layout.
+- Do not add or upgrade dependencies unless the task requires it; explain the reason when doing so.
 
-### Route Groups
+## Generated files
 
-- `src/app/(app)/` — public eCommerce frontend (homepage, `/products/[slug]`, `/category/[slug]`, `/checkout`, `/preview`)
-- `src/app/(payload)/` — Payload admin panel and REST API routes
+- Do not manually edit `src/lib/core/types/payload-types.ts`. After Payload schema changes, run `pnpm generate:types`.
+- Do not manually edit `src/app/(payload)/admin/importMap.js`. After adding or moving Admin components, run `pnpm generate:importmap`.
+- Generated files may already be dirty. Regenerate only when relevant to the requested change.
 
-### Key Directories
+## Commands and validation
 
-- `src/lib/collections/` — Payload CMS collection definitions (Products, Category, Media, Users, Orders)
-- `src/lib/core/` — queries, types, shared utilities
-- `src/lib/providers/` — React context providers (cart state, etc.)
-- `src/lib/intl/` — i18n configuration
-- `src/components/` — React components organized by domain (Cart, checkout, product, layout, shared, ui)
+- Do not start `pnpm dev` unless the user explicitly asks; a development server may already be running on port 3355.
+- Do not automatically run checks after making changes. Let the user verify the work unless they explicitly ask Codex to run validation.
+- This applies to ESLint, TypeScript checks, Prettier, tests, builds, browser checks, and similar verification commands.
+- When the user asks for validation, use the narrowest relevant command: `pnpm typecheck`, `pnpm lint`, `pnpm exec prettier --check <changed-files>`, or `pnpm build`.
+- Avoid `pnpm check` during focused work because it runs repository-wide auto-fixes and formatting.
+- There is currently no automated test script.
 
-### Data Fetching
+## Data safety
 
-All data fetching uses Next.js `unstable_cache` with tags for ISR invalidation. Query functions live in `src/lib/core/` and are named `queryProductBySlug`, `queryAllProducts`, `queryCategoryBySlug`, `querySiteSettings`, `querySitemapData`. Cache is revalidated via Payload collection hooks on save/delete.
-
-### Payload Configuration (`src/payload.Global.ts`)
-
-- Collections: Users, Category, Media (+ Orders, Products, Variants, Transactions from eCommerce plugin overrides)
-- Globals: SiteSettings (home page content, branding)
-- Plugins: `@payloadcms/plugin-ecommerce`, `@payloadcms/plugin-seo`, `@payloadcms/storage-vercel-blob`, custom `fixCartCurrencyUSD`
-- TypeScript types auto-generated to `src/lib/core/types/payload-types.ts` — run `pnpm generate:types` after schema changes
-- Rich text: Lexical editor
-
-### Path Aliases (tsconfig)
-
-- `@/*` → `./src/*`
-- `@payload-config` → `./src/payload.Global.ts`
-
-### Environment Variables
-
-- `DATABASE_URL` — PostgreSQL connection string
-- `NEXT_PUBLIC_BASE_URL` — Frontend base URL
-- `PAYLOAD_SECRET` — Payload CMS secret
-- `BLOB_TOKEN` — Vercel Blob auth
-- `PREVIEW_SECRET` — Draft mode preview token
-- `EMAIL_*` — Brevo SMTP credentials
-- `CALLMEBOT_API_KEY` / `WHATSAPP_NUMBER` — WhatsApp order notifications
-
-### Styling Conventions
-
-- Dark mode via `[data-theme="dark"]` selector (not `dark:` class)
-- CSS variable-based colors and radius
-- Dynamic Tailwind classes from rich text are safelisted in `tailwind.config.mjs`
-- Shared utility: `cn()` from `clsx` + `tailwind-merge`
-
-### Orders & Notifications
-
-Order collection hooks send confirmation email (Brevo SMTP) and WhatsApp message (Callmebot) on creation.
+- `pnpm seed` calls a fresh database migration before seeding, and `pnpm reset` also recreates the database. Never run either command without explicit user approval.
+- Never delete uploaded media or change production-like external services unless the user explicitly requests it and the exact target has been verified.
+- Do not expose values from `.env` or other secrets in logs, patches, or responses.
 
 ---
 > Source: [giladfuchs/next-ecommerce](https://github.com/giladfuchs/next-ecommerce) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
