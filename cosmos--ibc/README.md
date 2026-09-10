@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [cosmos/ibc](https://github.com/cosmos/ibc).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cosmos/ibc](https://github.com/cosmos/ibc) — a repo with 1017+ stars on GitHub.
+From [cosmos/ibc](https://github.com/cosmos/ibc) — a repo with 1019+ stars on GitHub.
 
 ---
 
