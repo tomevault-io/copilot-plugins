@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--dotnet-assembly-alias",
+  "displayName": "dotnet-assembly-alias",
+  "description": "dotnet-assembly-alias",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/dotnet-assembly-alias",
+  "skills": []
+}
