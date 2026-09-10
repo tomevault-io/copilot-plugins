@@ -1,171 +1,360 @@
 ## protspace
 
-> Canonical instructions for **all** AI coding agents (Codex, Claude Code, Cursor, Copilot, etc.)
+> Python package for dimensionality reduction of protein language model (pLM) embeddings, with annotation retrieval and data export for interactive visualization at [protspace.app](https://protspace.app).
 
-# Agent Instructions — protspace
+# protspace — Python CLI Package
 
-Canonical instructions for **all** AI coding agents (Codex, Claude Code, Cursor, Copilot, etc.)
-working in this repository; tool-specific files (e.g. `.claude/CLAUDE.md`) import it.
+Python package for dimensionality reduction of protein language model (pLM) embeddings, with annotation retrieval and data export for interactive visualization at [protspace.app](https://protspace.app).
 
-## Spec-driven development with OpenSpec (default workflow)
+- **Python:** >=3.12
+- **License:** MIT
+- **PyPI:** `pip install protspace`
+- **GitHub:** https://github.com/tsenoner/protspace
 
-Plan non-trivial work as an [OpenSpec](https://openspec.dev/) spec **before** writing
-implementation code. Proposals, design, spec deltas, and task lists live in
-`openspec/changes/<change-name>/`; do **not** save plans, specs, or design docs under `docs/`,
-scratch files, or other ad-hoc locations.
+## Running Commands
 
-- **Use the workflow commands** — or the equivalent OpenSpec skill, or the `openspec` CLI, when
-  slash commands are unavailable:
-  - `/opsx:propose <idea>` — create a change and its artifacts (proposal, design, specs, tasks)
-  - `/opsx:apply` — implement the change's tasks
-  - `/opsx:archive` — merge spec deltas into `openspec/specs/` and archive the change; run it as
-    the **last commit on the branch, before the merge** — see below
-  - `/opsx:explore` — investigate/clarify before committing to a change
-- **`openspec/specs/` is the source of truth** for current behavior; read the relevant specs first.
-- **Trivial changes** (typo, one-line fix, formatting, dependency bump) do not need a full
-  proposal — use judgment.
-
-### Archive before the merge, not after
-
-Run `/opsx:archive` on the branch, commit the result, and let CI go green on that commit.
-Deferred to "after the merge" it does not happen — the PR is closed and the branch is gone —
-leaving `openspec/specs/` describing behavior the code no longer has, which the next change
-reads as current.
-
-Before archiving, tick off `tasks.md` including anything the review added, and reread
-`proposal.md` / `design.md` against the final diff: rationale written before a review is often
-stale by the end of it, and archiving freezes it.
-
-One-time CLI setup is in [CONTRIBUTING.md](CONTRIBUTING.md#openspec-one-time-per-machine).
-
-## Before committing
-
-Always run `pnpm precommit` before any git commit. It is
-`lint-staged && quality && docs:annotations:check && docs:build`:
-
-- ESLint `--fix` and Prettier `--write`, on staged files only (lint-staged)
-- TypeScript typecheck, Knip, and Knip dependency validation (`pnpm quality`)
-- `docs:annotations:check` — the generated annotation reference must match its source
-- `docs:build`, a full VitePress build (a dead internal link fails it)
-
-**It runs no tests at all.** Run `pnpm test` yourself; `pnpm test:e2e` (below) and
-`pnpm test:contract` are separate again. It is also JS-only — Python workspace members
-have their own CI workflows (see below).
-
-lint-staged only inspects **staged** files, so unstaged work passes `pnpm precommit` and
-still fails CI's `format:check` — also run `pnpm format:check` when anything is unstaged.
-
-### A user-visible change is not done until the docs and the notebooks say so
-
-Move these in the same PR — `pnpm precommit` covers none, and all three have shipped stale:
-
-- **The published docs** (`docs/guide/`), for anything reaching a CLI flag, an option default,
-  or the bundle format. `docs/guide/annotations.md` is generated, so edit its source instead.
-- **The Colab notebooks** (`apps/protspace/notebooks/`), for anything a notebook restates — a
-  model list, an install command, a flag. Prettier and ruff's CI paths both skip them, so
-  nothing tells you when they drift; import from the package rather than retype, as the prep
-  notebook does with `EMBEDDER_MODELS`.
-- **`apps/protspace/CLAUDE.md`**, for a new command, test file, or dependency.
-
-Pin a fact that has to live in two places with a test, not a comment asking the next reader to
-keep them in step — see `apps/protspace/tests/test_docs_extras_sync.py`.
-
-## End-to-end tests (Playwright)
-
-`e2e.yml` alone drives the real app in a browser; the unit suites run in jsdom, which has no
-WebGL. Canvas-dependent wiring — EAT provenance connectors, isolation, dataset swap — is
-exercised nowhere else.
-
-It runs nightly on `main`, and on PRs touching the web app, `packages/`, or the root files
-those resolve through — `e2e.yml` owns the exact list.
-
-Dispatch it by hand when your change could reach the app by a route that list misses — a
-transitive dependency, a shared config, a generated asset — because a wrong `paths:` filter
-does not fail, it silently never runs. Not whenever the filter simply didn't match: a PR with
-no TS/JS and no root-file changes cannot reach the app, and the run costs ~10 min to confirm
-nothing.
+**Always use `uv run` to execute Python commands in this project.** Do not use bare `python` or `python3`.
 
 ```bash
-gh workflow run e2e.yml --ref <branch>   # in CI, any branch
-pnpm test:e2e                            # locally
+# Install with dev deps (once per clone)
+uv sync --group dev
+
+# Git hooks come from husky, installed by `pnpm install` AT THE REPO ROOT — a
+# Python-only setup leaves you with no pre-commit gate. Never set core.hooksPath
+# by hand; husky owns it.
+pnpm install
+
+# Run tests (skip slow) — testpaths covers both protspace + protlabel
+uv run pytest -m "not slow"
+
+# Run all tests
+uv run pytest
+
+# Lint
+uv run ruff check src/ packages/ tests/
+
+# Run CLI
+uv run protspace prepare -i data/sizes/phosphatase.h5:prot_t5 -m pca2 -o output --no-scores
+
+# Run all 6 DR methods on sample data
+uv run protspace prepare -i data/sizes/phosphatase.h5:prot_t5 -m "pca2,tsne2,umap2,pacmap2,mds2,localmap2" -o output --no-scores -v
+
+# Compare UMAP with different parameters in a single run
+uv run protspace prepare -i data/sizes/phosphatase.h5:prot_t5 -m "umap2:n_neighbors=15" -m "umap2:n_neighbors=50" -m pca2 -o output --no-scores
 ```
 
-**Never dismiss a red run as flaky on the strength of local passes.** The regression behind
-this rule failed 6/6 in CI and 0/17 locally. Compare against the nightly's history on `main`
-(`gh run list --workflow=e2e.yml --event=schedule`), not your machine.
+## CLI Commands
 
-## Python workspace members (uv)
+Single entry point: `protspace = protspace.cli.app:app`
 
-The Python packages are uv workspace members (root `[tool.uv.workspace]`) sharing one root
-`uv.lock`. A new **top-level** member needs three things it does not get for free:
+| Command | Purpose |
+|---------|---------|
+| `protspace prepare` | Full pipeline: embed → reduce → annotate → bundle |
+| `protspace embed` | FASTA → HDF5 embeddings (Biocentral API or local GPU/CPU via `--backend local`). Exits non-zero on an incomplete embedding; capability-limited sequences (`--max-length`, GPU OOM) are skipped and named instead |
+| `protspace project` | HDF5 → dimensionality reduction |
+| `protspace annotate` | Fetch protein annotations |
+| `protspace bundle` | Combine projections + annotations → .parquetbundle |
+| `protspace stats` | Compute projection quality statistics (annotation-based cluster-validity + faithfulness) |
+| `protspace serve` | Launch Dash web frontend |
+| `protspace style` | Add annotation colors/styles |
+| `protspace transfer` | Fill missing annotations from nearest reference embeddings (EAT) |
 
-- **Its own workflow** in `.github/workflows/` (GitHub runs workflows only from the repo root),
-  path-filtered on the member's directory **and** `uv.lock` — a dependency bump reaches it
-  through the root lock alone. Copy `prep-ci.yml`.
-- **Its own `[tool.ruff]`** with `target-version` matching its `requires-python`. Ruff resolves
-  the nearest _ancestor_ config, so a member without one silently inherits another member's rules
-  and target version — or ruff's defaults if no ancestor has one.
-- **Test/lint-only deps in `[dependency-groups]`**, not `[project.optional-dependencies]`. Groups
-  sync by default; extras do not, and a `dev` extra is installable by consumers.
+### protspace prepare Usage
 
-A member nested inside another — currently only `apps/protspace/packages/protlabel` — needs
-neither of the first two: `protspace-ci.yml` lints and tests it via `packages/`, and it inherits
-`apps/protspace`'s ruff config, correct only while their `requires-python` floors agree.
+```bash
+protspace prepare -i <input> -m <methods> -o <output> [options]
 
-## Commit style
+# From HDF5: protspace prepare -i embeddings.h5 -m pca2,umap2 -o output
+# From FASTA: protspace prepare -i sequences.fasta -e prot_t5 -m pca2 -o output
+# Local GPU/CPU embedding (offline, needs protspace[local]): protspace prepare -i seq.fasta -e prot_t5 --backend local -m pca2 -o output
+# Multi-model: protspace prepare -i seq.fasta -e prot_t5,esm2_3b -m pca2 -o output
+# All 12 pLMs: protspace prepare -i seq.fasta -e prot_t5,prost_t5,esm2_8m,esm2_35m,esm2_150m,esm2_650m,esm2_3b,ankh_base,ankh_large,ankh3_large,esmc_300m,esmc_600m -m pca2 -o output
+# Combine datasets (same name → union): protspace prepare -i species_a.h5:prot_t5 -i species_b.h5:prot_t5 -m umap2 -o output
+# Multi-embedding (different names → intersection): protspace prepare -i esm2.h5 -i prott5.h5 -m pca2 -o output
+# With similarity: protspace prepare -i emb.h5 -f seq.fasta -s -m pca2,mds2 -o output
+# Name override: protspace prepare -i emb.h5:custom_name -m pca2 -o output
+# Parameter sweep: protspace prepare -i emb.h5 -m "umap2:n_neighbors=15" -m "umap2:n_neighbors=50" -m pca2 -o output
+# Inline params: protspace prepare -i emb.h5 -m "pca2,umap2:n_neighbors=50;min_dist=0.3" -o output
+# Quality stats (opt-in): protspace prepare -i emb.h5 -m pca2,umap2 --stats -o output
+# Quality stats scoped to specific annotations: protspace prepare -i emb.h5 -m pca2 --stats --stats-annotation major_group,ec_number -o output
+```
 
-Angular-style `type(scope): description`, subject under 72 characters; types are `feat`,
-`fix`, `refactor`, `docs`, `test`, `chore`. No hook or CI job lints commit messages — the
-type you write is what semantic-release parses for `apps/protspace/` releases (see below).
+### protspace stats Usage
 
-## Referring to issues from before the monorepo merge
+Compute per-projection quality statistics for an existing project directory (also available inline via `prepare --stats`). Validity is **annotation-based**: silhouette/DBI/CH are scored on a user-selected annotation's own category labels (not auto-clustering), computed once for the source embedding and again for each projection — `statistics.parquet` (bundle 5th part) gains an `annotation` column and `space_kind ∈ {embedding, projection}`. `--stats-annotation auto|name1,name2` (default `auto`) picks which annotation column(s) to score (all "suitable" low-cardinality categoricals, or an explicit list); requires `-a/--annotations`. Auto-clustering (KMeans elbow/silhouette) produces the per-protein `cluster_elbow_*` / `cluster_silhouette_*` membership columns (each value a bare `cluster N` label) + auto legend styles. Each labelling is scored on its own categories through `AnnotationValidityStatistic` (`label_kind=kmeans_elbow|kmeans_silhouette`, filed under the membership column's name), so a cluster column carries the same validity rows as any annotation — optimistic by construction, which the frontend caveats. Its **ARI**/**NMI** agreement against each scored annotation is recorded separately (`stat_family=cluster_agreement`). Faithfulness (local kNN + global metrics, tagged `scope`) → each projection's `info_json.quality`. `--cluster-selection elbow|silhouette|both` picks the K-selection method(s).
 
-Bare `#N` resolves against **this** repo, which inherited the frontend's numbering. The
-standalone Python repo's issues did not come with it — they live at
-`tsenoner/protspace-legacy#N` and must be written out in full. A bare `#57` here silently
-lands on an unrelated frontend PR: it returns HTTP 200, so nothing flags it.
+```bash
+# Standalone (embeddings needed for faithfulness + the once-per-embedding annotation-validity pass)
+protspace stats -i emb.h5 -p project_dir -o statistics.parquet
+# Enrich annotations in place, score annotation-based validity, + emit cluster legend styles for `bundle --settings`
+protspace stats -i emb.h5 -p project_dir -o statistics.parquet -a annotations.parquet --settings-out styles.json
+# Score only specific annotations instead of every suitable categorical (default: auto)
+protspace stats -i emb.h5 -p project_dir -o statistics.parquet -a annotations.parquet --stats-annotation major_group,ec_number
+# Elbow + silhouette-optimal clusterings side by side
+protspace stats -i emb.h5 -p project_dir -o statistics.parquet -a annotations.parquet --cluster-selection both
+# Fold a stats parquet + settings into a bundle
+protspace bundle -p project_dir -a annotations.parquet -s statistics.parquet --settings styles.json -o out.parquetbundle
+```
 
-Three were transferred rather than stranded and are bare numbers here: legacy `#31` → `#324`,
-`#59` → `#320`, `#64` → `#318`.
+### Supported Embedders (via Biocentral API)
 
-In a doc citing several, qualify once on a definitional line (`**Issues:**`, `**Refs:**`) and
-keep the body bare, rather than expanding every mention — full qualification turns headings
-into `### 2.3 tsenoner/protspace-legacy#57: ...`. Code comments and docstrings always qualify
-in full, since no definitional line travels with them.
+| Shortcut | Model | Dim | License |
+|----------|-------|-----|---------|
+| `prot_t5` | Rostlab/prot_t5_xl_uniref50 | 1024 | MIT |
+| `prost_t5` | Rostlab/ProstT5 | 1024 | MIT |
+| `esm2_8m` | facebook/esm2_t6_8M_UR50D | 320 | MIT |
+| `esm2_35m` | facebook/esm2_t12_35M_UR50D | 480 | MIT |
+| `esm2_150m` | facebook/esm2_t30_150M_UR50D | 640 | MIT |
+| `esm2_650m` | facebook/esm2_t33_650M_UR50D | 1280 | MIT |
+| `esm2_3b` | facebook/esm2_t36_3B_UR50D | 2560 | MIT |
+| `ankh_base` | ElnaggarLab/ankh-base | 768 | CC-BY-NC-SA-4.0 |
+| `ankh_large` | ElnaggarLab/ankh-large | 1536 | CC-BY-NC-SA-4.0 |
+| `ankh3_large` | ElnaggarLab/ankh3-large | 1536 | CC-BY-NC-SA-4.0 |
+| `esmc_300m` | Synthyra/ESMplusplus_small | 960 | MIT |
+| `esmc_600m` | Synthyra/ESMplusplus_large | 1152 | MIT |
 
-## Never squash-merge a PR that touches `apps/protspace/`
+Only the Ankh models (`ankh_base`, `ankh_large`, `ankh3_large`) are non-commercial. ESM-C was relicensed under MIT on 2026-05-27, retroactively covering the Dec-2024 checkpoints, when it moved to the Chan Zuckerberg Biohub, and Synthyra's derivatives passed that grant through on 2026-06-02 — `esmc_600m` is no longer Cambrian Non-Commercial, so do not re-add that warning.
 
-**Mixing frontend and backend in one PR is fine** — it is one of the reasons the repos were
-merged; the release tooling works _per commit_. `protspace-release.yml`, the repo's only
-semantic-release and the version authority for the **PyPI package alone**, is
-`paths:`-filtered to `apps/protspace/**` plus its own workflow file, so a PR touching neither
-cannot release — web-only work triggers `deploy.yml` (a Pages deploy, not a version bump).
-Within it, `commit_parser = "conventional-monorepo"` with `path_filters = ["."]`
-(`apps/protspace/pyproject.toml`) counts **only commits that touch `apps/protspace/`**, so a
-`feat(core):` commit touching only `packages/` cannot inflate the Python version or changelog.
+ESM-C still goes through Synthyra's HuggingFace-compatible reimplementation of EvolutionaryScale's ESM-C (near-identical embeddings, MSE ~7.74e-10) for a purely technical reason, not a licensing one: `transformers` has no `esmc` model type (the port, huggingface/transformers#46419, is still open) and the `biohub/ESMC-*` repos ship no remote code, so loading the official weights would require the `esm` SDK, which pins `transformers<4.48.2` and Python `<3.13`. Revisit if #46419 merges; dims already match exactly (960 / 1152).
 
-**Squash-merging destroys that scoping.** The one squashed commit touches _all_ the PR's
-paths, so it passes the path filter if _anything_ in the PR touched `apps/protspace/`, and its
-single message is parsed as a whole — GitHub's default squash body
-(`squash_merge_commit_message: COMMIT_MESSAGES`) lists every branch commit subject, so a
-frontend `feat:` bumps the Python package. Observed 2026-07-24: PR #387, titled
-`refactor(protspace): …`, carried `fix(ci): relock uv.lock` in its squash body and cut v4.9.1.
-Use a merge commit or rebase merge — both keep each commit's own paths and own type.
+The user-facing copy of this licensing note lives in `docs/guide/python-cli.md` and the `prepare`/`embed` CLI help; keep the three in step.
 
-**This is now enforced:** the repo has `allow_squash_merge: false`, so no PR shows a squash
-button — repo-wide, including frontend-only PRs, because the setting cannot be scoped to a
-path. Do not re-enable it to "unblock" a PR: the button being absent is the fix, and this
-section is the reason it was turned off.
+Model shortcuts are defined in `MODEL_SHORT_KEYS` (CommonEmbedder models) and `EXTRA_SHORT_KEYS` (additional HuggingFace models) in `src/protspace/data/embedding/biocentral.py`. Display names are in `src/protspace/data/loaders/embedding_set.py`.
 
-Commit types still matter, per commit:
+## Package Structure
 
-- Want no release from a backend-touching commit? Give it a non-releasing type (`ci` /
-  `chore` / `refactor` / `test` / `docs`). A real `fix:` or `feat:` under `apps/protspace/`
-  earns a release; that is correct.
-- Use `feat:` only for changes visible to **package users**. Dev-only work — tooling, CI,
-  test harnesses, internal refactors — takes `chore:` / `ci:` / `test:` / `refactor:`, so it
-  cannot trigger an unwanted minor bump.
+```
+src/protspace/
+├── cli/
+│   ├── app.py                  # Typer app root, shared utilities, setup_logging()
+│   ├── common_options.py       # Shared Typer options
+│   ├── prepare.py              # Full pipeline command
+│   ├── embed.py                # FASTA → HDF5 embedding
+│   ├── project.py              # HDF5 → DR projections
+│   ├── annotate.py             # Annotation fetching
+│   ├── bundle.py               # Combine into .parquetbundle
+│   ├── stats.py                # Projection quality statistics command
+│   ├── serve.py                # Dash web frontend
+│   ├── transfer.py             # Embedding Annotation Transfer (EAT) command
+│   └── style.py                # Annotation styling
+├── data/
+│   ├── loaders/
+│   │   ├── embedding_set.py    # EmbeddingSet dataclass
+│   │   ├── h5.py               # HDF5 loading with model_name resolution
+│   │   ├── fasta.py            # FASTA → Biocentral → HDF5
+│   │   ├── query.py            # UniProt query → FASTA download
+│   │   └── similarity.py       # FASTA → MMseqs2 → similarity matrix
+│   ├── annotations/
+│   │   ├── configuration.py    # Annotation category definitions
+│   │   ├── encoding.py         # Bundle format v2 wire contract (percent-encoding)
+│   │   ├── manager.py          # ProteinAnnotationManager orchestrator
+│   │   ├── merging.py          # Merge UniProt + InterPro annotations
+│   │   ├── scores.py           # Annotation score computation
+│   │   ├── retrievers/         # UniProt, InterPro, taxonomy fetchers
+│   │   └── transformers/       # Post-processing (field normalization, etc.)
+│   ├── io/
+│   │   ├── bundle.py           # .parquetbundle read/write
+│   │   ├── fasta.py            # FASTA detection + parsing (is_fasta_file, parse_fasta)
+│   │   ├── formatters.py       # ProteinAnnotations → DataFrame/Arrow
+│   │   ├── predictions.py      # Per-cell prediction overlay columns
+│   │   ├── settings_converter.py # Settings table conversion
+│   │   └── writers.py          # Annotation output writers
+│   ├── embedding/
+│   │   ├── store.py            # Shared HDF5 layer + completeness contract (owned by neither backend)
+│   │   ├── biocentral.py       # Biocentral API client, model shortcut mappings
+│   │   └── local.py            # Local GPU/CPU backend (HF transformers, [local] extra)
+│   ├── parsers/
+│   │   └── uniprot_parser.py   # UniProt XML/TSV parsing
+│   └── processors/
+│       ├── base_processor.py   # BaseProcessor — DR + output creation core
+│       └── pipeline.py         # ReductionPipeline — unified orchestrator
+├── stats/                      # Projection quality statistics (opt-in, --stats)
+│   ├── __init__.py             # Lazy STATISTICS registry + compute_statistics entry
+│   ├── base.py                 # StatContext / StatRow / AnnotationColumn / StatsReport
+│   ├── driver.py               # Per-projection contexts + once-per-embedding pass, embedding id-join, run stats
+│   ├── carriage.py             # Route rows to bundle parts (metadata / annotations / legend)
+│   ├── annotation_select.py    # Pick "suitable" annotations (auto/list) + build id→category labels
+│   ├── _sampling.py            # id-canonical deterministic subsampling (id_seed + sorted_subsample)
+│   ├── cluster/kmeans_elbow.py # KMeans + distance-to-chord elbow (subsampled at scale)
+│   └── metrics/
+│       ├── validity.py             # Auto-cluster (KMeans) + ARI/NMI agreement vs annotations
+│       ├── annotation_validity.py  # silhouette / Davies-Bouldin / Calinski-Harabasz per annotation
+│       └── faithfulness.py         # kNN-overlap / trustworthiness / continuity
+├── utils/
+│   ├── __init__.py             # Lazy exports: REDUCERS dict, reducer constants
+│   ├── constants.py            # DimensionReductionConfig, method name constants
+│   ├── reducers.py             # All DR method implementations
+│   ├── add_annotation_style.py # Annotation color/style utilities
+│   └── arrow_reader.py         # Parquet/Arrow reading helpers
+├── analysis/                   # Query/reference classification
+├── core/                       # Core data models
+├── ui/                         # Dash UI components
+├── visualization/              # Plotly visualization builders
+├── app.py                      # Dash app factory
+└── main.py                     # Main entry point (launches Dash)
+```
+
+### uv workspace: `protlabel` (EAT engine)
+
+This repo is a **uv workspace**. `protlabel` (PyPI, numpy-only) is the Embedding
+Annotation Transfer engine — a separate distribution in `packages/protlabel/`, **not**
+part of `protspace`. It imports nothing from `protspace` (enforced by
+`test_protlabel_boundary.py`); `protspace` depends on it as a workspace member and the two
+release in lock-step. Modules: `backends.py` (brute-force kNN), `reliability.py`
+(distance→confidence), `transfer.py` (`eat()`), `lookup.py` (`.npz` sidecar). The only
+protspace-side glue is `cli/transfer.py` and `data/io/predictions.py`. Build the whole
+workspace with `uv build --all-packages`.
+
+## Dimensionality Reduction
+
+Six methods supported, all in `src/protspace/utils/reducers.py`:
+
+| Method | Class | Library | Key Parameters |
+|--------|-------|---------|---------------|
+| PCA | `PCAReducer` | scikit-learn | `n_components` |
+| t-SNE | `TSNEReducer` | scikit-learn | `n_components`, `perplexity`, `learning_rate`, `metric` |
+| UMAP | `UMAPReducer` | umap-learn | `n_components`, `n_neighbors`, `min_dist`, `metric` |
+| PaCMAP | `PaCMAPReducer` | pacmap | `n_components`, `n_neighbors`, `mn_ratio`, `fp_ratio` |
+| MDS | `MDSReducer` | scikit-learn | `n_components`, `n_init`, `max_iter`, `eps` |
+| LocalMAP | `LocalMAPReducer` | pacmap | `n_components`, `n_neighbors`, `mn_ratio`, `fp_ratio` |
+
+### Key Implementation Details
+
+- **Float16 upcast:** HDF5 embeddings (often float16 from pLMs) are upcast to float32 in `data/loaders/h5.py:load_h5()` to prevent matrix overflow. A safety-net upcast also exists in `base_processor.py`.
+- **HDF5 loading:** `load_h5()` in `data/loaders/h5.py` handles both flat and grouped HDF5 layouts, validates embedding dimensions are consistent, and rejects per-residue embeddings with a clear error message.
+- **Multi-input merging:** `merge_same_name_sets()` in `data/loaders/embedding_set.py` unions proteins when multiple `-i` inputs share the same embedding name (e.g., two species with ProtT5). Inputs with different names are intersected for multi-embedding comparison. Duplicate proteins with identical embeddings are deduplicated; conflicting embeddings raise an error.
+- **UniProt ID validation:** `uniprot_retriever.py` pre-filters identifiers with a UniProt accession regex — non-matching IDs (e.g., `NCBI|...`, `sp|P12345|NAME`) are skipped with a summary warning. Identifiers must be bare accessions (e.g., `P12345`, `A0A2P1BSS8`). Inactive entries are resolved via `fetch_one()` (returns merged target or inactive reason + UniParc ID). Deleted entries recover their sequence from UniParc.
+- **EC name resolution:** `uniprot_transforms.py` appends enzyme names to EC numbers using the ExPASy ENZYME database (`enzyme.dat` for fully specified ECs, `enzclass.txt` for partial ECs like `3.4.-.-`). Both files are downloaded and cached together in `~/.cache/protspace/enzyme/` with a 7-day TTL.
+- **Warning suppression:** `base_processor.py` suppresses harmless sklearn RuntimeWarnings (randomized SVD overflow) and umap/pacmap UserWarnings during `fit_transform`.
+- **Config validation:** `DimensionReductionConfig` (frozen dataclass in `utils/constants.py`) validates all parameters on init.
+- **Reducer registry:** `REDUCERS` dict in `utils/__init__.py` maps method names to reducer classes (lazy-loaded).
+- **Logging:** `setup_logging()` in `cli/app.py` uses a tqdm-aware handler to avoid garbling progress bars. Third-party loggers (`urllib3`, `requests`) are capped at WARNING even with `-vv`.
+
+### Data Pipeline Flow
+
+```
+HDF5 file (float16 embeddings)
+  → h5.load_h5()                         # upcast to float32, validate dims, handle groups
+  → merge_same_name_sets()               # union same-name inputs, keep others for intersection
+  → AnnotationManager.process()          # fetch UniProt/InterPro/taxonomy
+    → UniProtRetriever                   # batch fetch + resolve inactive entries via UniParc
+    → InterProRetriever                  # MD5-based batch API + name resolution
+  → BaseProcessor.process_reduction()    # DR via reducer classes
+  → BaseProcessor.create_output()        # Arrow tables
+  → BaseProcessor.save_output()          # .parquetbundle or separate parquet files
+```
+
+## Output Format
+
+`.parquetbundle` = concatenated Apache Parquet tables separated by `---PARQUET_DELIMITER---`:
+1. `protein_annotations` — identifier + annotation columns (incl. per-protein `cluster_elbow_*` / `cluster_silhouette_*` membership, a bare `cluster N` label, when `--stats`)
+2. `projections_metadata` — projection names, dimensions, parameters (faithfulness rides in `info_json.quality` when `--stats`)
+3. `projections_data` — reduced coordinates per protein per projection
+4. `settings` (optional) — annotation styles, pinned values, display config
+5. `statistics` (optional) — tidy table of annotation-based validity (silhouette/DBI/CH per annotation, `space_kind ∈ {embedding, projection}`, `annotation` column) + auto-cluster ARI/NMI agreement (`stat_family=cluster_agreement`) (`protspace stats` / `prepare --stats`)
+
+Positional layout is `core(3) + settings? + statistics?`. When statistics are present but settings are absent, the settings slot is written as **zero bytes** so statistics stay at position five (readers branch on emptiness, not part count). Both bundled and separate-file (`--no-bundled`) output persist `settings.parquet` and `statistics.parquet` when present.
+
+## Testing
+
+```bash
+uv run pytest -m "not slow"                  # Fast tests (recommended during development)
+uv run pytest                                # All tests (protspace + protlabel)
+uv run pytest tests/test_reducers.py -v      # Specific test file
+uv run pytest --cov=src/protspace --cov=packages/protlabel/src/protlabel  # With coverage
+```
+
+### Test Files
+
+Scoped to `tests/`; `protlabel` has its own suite under `packages/protlabel/tests/`.
+Counts are deliberately omitted — nothing validates them, so they only ever drift.
+For a live count run `uv run pytest tests/ --collect-only -q`.
+
+| File | What it covers |
+|------|---------------|
+| `test_annotation_manager.py` | Annotation fetch, merge, cache, configuration, evidence parsing |
+| `test_transformer.py` | Annotation transformers (field normalization, EC names) |
+| `test_reducers.py` | All 6 DR methods: shapes, finite output, float16, config validation |
+| `test_interpro_annotation_retriever.py` | InterPro API mocking, parsing |
+| `test_settings_converter.py` | Settings table ↔ visualization state conversion |
+| `test_uniprot_annotation_retriever.py` | UniProt API mocking, inactive entry resolution |
+| `test_pipeline_utils.py` | ReductionPipeline, EmbeddingSet, method parsing, multi-input merging, inline param overrides |
+| `test_stats.py` | Projection statistics: elbow, annotation-based validity (silhouette/DBI/CH per annotation), auto-cluster ARI/NMI agreement, auto-cluster self-validity (filed under the membership column, gated on it, and equal to driving `AnnotationValidityStatistic` directly so an out-of-band re-score cannot drift), faithfulness (dual continuity + global metrics), cluster-selection (elbow/silhouette/both), subsample determinism/order-invariance, silhouette consistency, `_align` no-id guard, silhouette→elbow fallback |
+| `test_stats_cli.py` | `protspace stats` CLI + `prepare` stats wiring, `--stats-annotation` (auto/list) wiring, `--settings-out` guard, `--cluster-selection` validation |
+| `test_stats_carriage.py` | Routing rows to bundle parts (metadata quality, annotation columns, cluster legend) |
+| `test_stats_bundle.py` | Optional 5th (statistics) bundle part round-trip |
+| `test_annotation_select.py` | Annotation selection: suitability filter (cardinality/numeric/id-like exclusion), `auto` vs explicit-list label building (explicit names bypass the heuristic), missing-value dropping |
+| `test_annotation_validity.py` | `AnnotationValidityStatistic`: silhouette/DBI/CH scored per annotation on `ctx.coords`, embedding vs. projection `space_kind`, missing-value exclusion, single-category no-op, id-canonical subsample determinism |
+| `test_biocentral_embedder.py` | Biocentral API client, embedding flow, completeness gate (reads the .h5, not a counter), `/`-in-header rejection |
+| `test_embed_completeness.py` | Shared embed contract (`data/embedding/store.py`): `expected = requested - skipped`, skip-vs-fail, skip reporting, resume-covered runs, FASTA coverage direction + identifier normalisation |
+| `test_backend_switch.py` | Embedding backend switch: `resolve_default_backend` (Colab+GPU→local), `embed_fasta` local/biocentral dispatch (short key vs resolved name), `protspace embed --backend` CLI wiring + enum validation + non-positive batch_size rejection |
+| `test_local_embedder.py` | Local embedding backend: checkpoint resolution (12 short keys, Synthyra ESM-C), the notebook-gating sets pinned to the registry each constrains (`COLAB_OVERSIZED`→`LOCAL_CHECKPOINTS`, `BIOCENTRAL_INVALID`→`ALL_SHORT_KEYS`), per-family preprocessing/residue pooling, `/`-in-header guard, LocalEmbedConfig validation, over-length + OOM skips reported not failed, non-skip shortfall fails, esm2_8m end-to-end + resume (slow) |
+| `test_fasta.py` | FASTA parsing, edge cases, CSV annotation loading |
+| `test_biocentral_retriever.py` | Biocentral prediction retriever (TMbed parsing, per-sequence) |
+| `test_taxonomy_annotation_retriever.py` | Taxonomy via UniProt Taxonomy API (mocked + integration) |
+| `test_config_validation.py` | DimensionReductionConfig parameter validation |
+| `test_style_warnings.py` | `protspace style` warnings: numeric-column detection (tsenoner/protspace-legacy#67) + `selectedPaletteId` validation (categorical vs gradient palette, per column type) + pinned palette-catalog contract |
+| `test_h5_parse_identifier.py` | HDF5 key parsing, identifier extraction |
+| `test_base_data_processor.py` | BaseProcessor: reduction, output creation, save (incl. settings in unbundled output) |
+| `test_ted_retriever.py` | TED domain retriever (mocked AlphaFold API, CATH names) |
+| `test_pfam_clan.py` | Pfam CLAN transformer (mapping, dedup, edge cases) |
+| `test_formatters.py` | ProteinAnnotations → DataFrame formatting |
+| `test_output_combinations.py` | Output format flag combinations |
+| `test_bundle_settings.py` | Parquetbundle settings read/write |
+| `test_annotation_encoding.py` | Percent-encoding round-trip, reserved-char-only encoding, schema-metadata stamping through parquet |
+| `test_transfer_cli.py` | Transfer orchestration core and CLI registration |
+| `test_predictions_overlay.py` | Building the per-cell prediction overlay columns |
+| `test_display_decode.py` | Display-side decoding of encoded values, multi-hit rendering, gated-off passthrough |
+| `test_toxprot_demo.py` | Signal-peptide bound parsing, mature-FASTA stripping, bundle post-processing (column filter/reorder) |
+| `test_bundle_overlay.py` | Round-trip replacement of the annotations part of a bundle |
+| `test_classification.py` | Query/reference rules: id-prefix and case-insensitive `where` substring, query-over-reference precedence, empty-match and missing-column errors |
+| `test_bundle_version.py` | `format_version=2` stamped into the annotations parquet |
+| `test_uniprot_parser_encoding.py` | UniProtEntry free-text emit points percent-encode reserved chars |
+| `test_cath_names.py` | CATH names file parsing |
+| `test_cli_no_frontend.py` | CLI imports without the optional `frontend` extra (plotly, dash) |
+| `test_cli_no_similarity.py` | `-s/--similarity` without the optional `similarity` extra: up-front CLI guard (before any load/embed), loader `ImportError` backstop, `EMBEDDER_MODELS` pinned to the embedder registry |
+| `test_docs_extras_sync.py` | `README.md` (PyPI) and `docs/guide/python-cli.md` (protspace.app) hold the same extras section; the guide's embedder shortcut list matches `EMBEDDER_MODELS` |
+| `test_notebooks.py` | Colab notebooks: cell magics only on line 1, every code cell compiles after IPython transformation, cell ids present for `nbformat >= 4.5`, `except ImportError` fallback sets equal the package constants they stand in for — read structurally off the guarded import, so a fallback that is missing, emptied or written in an unrecognised shape fails instead of matching nothing |
+| `test_encoding_e2e.py` | Backend end-to-end round-trip proof for v2 annotation encoding |
+| `test_scores_ted.py` | `--no-scores` strips TED domains |
+
+**Markers:** `@pytest.mark.slow` (database downloads), `@pytest.mark.integration` (external APIs)
+
+## Notebooks
+
+Located in `notebooks/`:
+
+| Notebook | Purpose |
+|----------|---------|
+| `ProtSpace_Preparation.ipynb` | Google Colab — upload embeddings, configure DR methods, generate .parquetbundle |
+| `ClickThrough_GenerateEmbeddings.ipynb` | Google Colab — generate embeddings from FASTA using ESM models |
+| `ProtSpace_Transfer.ipynb` | Google Colab — Embedding Annotation Transfer (EAT): fill missing annotations from nearest reference proteins |
+
+## Dependencies
+
+**Core:** h5py, scikit-learn, umap-learn, pacmap, numpy, pandas, pyarrow, tqdm, requests, biocentral-api, typer, rich, protlabel (workspace member)
+
+**Frontend (optional):** dash, plotly, dash-bootstrap-components, dash-molstar
+
+**Similarity (optional, `[similarity]` extra):** pymmseqs, only reached via `-s/--similarity`. Install with `pip install "protspace[similarity]"`.
+
+The two reasons it was moved out of core are **fixed upstream as of pymmseqs 1.2.0** (2026-08-11): every release through 1.1.0 shipped cp310-only wheels, so on this package's `requires-python = ">=3.12"` it always compiled from sdist, and its `ipython<9` pin upgraded Colab's pinned ipython. 1.2.0 ships `py3-none-*` wheels for macOS/manylinux/musllinux and depends only on numpy/pandas/pyyaml — all already core. **The floor is `>=1.2.0` so that is guaranteed, not incidental.** It stays an extra anyway: it is reachable through one flag, and a smaller base install is worth keeping on its own. Revisit only if `-s` stops being niche.
+
+**Local embedding (optional, `[local]` extra):** torch, transformers, sentencepiece, protobuf, einops, enabling on-device embedding via `protspace.data.embedding.local` (issue #320; alternative to the Biocentral API). Install with `pip install "protspace[local]"`.
+
+**Local↔Biocentral parity (verified 2026-07-16):** local embeddings match the Biocentral API at **cosine ≥ 0.9999** for ProtT5, ProstT5, ESM2, Ankh, and Ankh3 (25-seq Pla2g2 cross-check; small rel-L2 is half-vs-full precision drift). **Exception — ESM-C:** local ESM-C (Synthyra ESM++) is bit-identical to native EvolutionaryScale ESM-C but **orthogonal to Biocentral's ESM-C** (cosine ~0.02). Root cause is on Biocentral's side: its engine (`biotrainer`) has no dedicated ESM-C embedder and its generic loader substring-matches `"esm"` in `ESMplusplus`, loading the ESM-C checkpoint as a vanilla ESM-2 model (wrong architecture/tokenizer) — so it never runs the real ESM-C. Do **not** mix local and Biocentral `esmc_*` embeddings in one dataset until Biocentral is fixed.
+
+**Dev:** pytest, pytest-cov, ruff
+
+## Conventions
+
+- **Logging:** Configure once via `setup_logging()` in `cli/app.py`. Library modules use `logger = logging.getLogger(__name__)` only — no `logging.basicConfig()`.
+- **Imports:** src-layout (`src/protspace/`; `protlabel` at `packages/protlabel/src/`). Tests import from `protspace.*` / `src.protspace.*` and `protlabel.*`.
+- **Linting:** ruff with py312 target, 88 char line length. Run `ruff check src/ packages/ tests/`.
+- **Versioning:** python-semantic-release via `pyproject.toml`, lock-step across `protspace` + `protlabel`. Versions in `pyproject.toml`, `packages/protlabel/pyproject.toml`, and `src/protspace/__init__.py`.
+- **Build:** hatchling backend; uv workspace (`uv build --all-packages`).
+- **Git workflow:** Always create a feature branch and open a PR — never push directly to `main`.
 
 ---
 > Source: [tsenoner/protspace](https://github.com/tsenoner/protspace) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
