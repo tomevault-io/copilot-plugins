@@ -1,0 +1,9 @@
+{
+  "name": "dbunit--dbunit-extension",
+  "displayName": "dbunit-extension",
+  "description": "Library for automated tests with databases: prepare, verify, restore tables",
+  "version": "1.0.0",
+  "author": "dbunit",
+  "homepage": "https://github.com/dbunit/dbunit-extension",
+  "skills": []
+}
