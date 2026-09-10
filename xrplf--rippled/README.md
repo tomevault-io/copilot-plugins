@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [XRPLF/rippled](https://github.com/XRPLF/rippled
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [XRPLF/rippled](https://github.com/XRPLF/rippled) — a repo with 5189+ stars on GitHub.
+From [XRPLF/rippled](https://github.com/XRPLF/rippled) — a repo with 5188+ stars on GitHub.
 
 ---
 
