@@ -118,4 +118,4 @@ Headless Linux VM. iOS targets are out of scope. In-scope: `:app`, `:desktopApp`
 
 ---
 > Source: [rosuH/EasyWatermark](https://github.com/rosuH/EasyWatermark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
