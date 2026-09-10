@@ -1,14 +1,17 @@
-## docs-system
+## flutter
 
-> When to update docs, ADRs
+> Dart & Flutter conventions for enjoy_player
 
 
-# Documentation system
+# Flutter project rules
 
-- **ADRs** (`docs/decisions/`): record any *architecture* or *product-scope* decision that is costly to reverse. Never rewrite merged ADRs — supersede with `ADR-XXXX`.
-- **Feature specs** (`docs/features/`): update in the same PR when behavior of that feature changes.
-- **AGENTS.md**: update when global agent rules change (tooling, forbidden patterns, verification commands).
-- Link new docs from `docs/README.md` when adding a top-level guide.
+- Use **Riverpod** (`ConsumerWidget` / `ConsumerStatefulWidget`) — avoid `StatefulWidget` + inherited mutable singletons.
+- **Never** call `print`; use `package:logging` via `core/logging/log.dart`.
+- **Never** construct `package:media_kit` `Player()` outside `PlayerController`.
+- Prefer **`package:enjoy_player/...` imports** in presentation layers.
+- Run **`dart run build_runner build`** after editing `@DriftDatabase`, `@DriftAccessor`, or `@Riverpod` annotated APIs, then **commit** the regenerated `*.g.dart` / `*.freezed.dart` files.
+- Before pushing Dart changes, run **`bash .github/scripts/validate_ci_gates.sh`** (or `--fix`) so **Dart format** and **Codegen drift** CI cannot fail.
+- Match user-visible strings with **`flutter gen-l10n`** ARBs under `lib/l10n/`.
 
 ---
 > Source: [baizhiheizi/enjoy_player](https://github.com/baizhiheizi/enjoy_player) — distributed by [TomeVault](https://tomevault.io).
