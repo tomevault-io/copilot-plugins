@@ -1,0 +1,9 @@
+{
+  "name": "owncloud--davclient-js",
+  "displayName": "davclient.js",
+  "description": "davclient.js",
+  "version": "1.0.0",
+  "author": "owncloud",
+  "homepage": "https://github.com/owncloud/davclient.js",
+  "skills": []
+}
