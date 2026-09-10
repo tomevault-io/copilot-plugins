@@ -1,0 +1,9 @@
+{
+  "name": "fszta--dbt-column-lineage",
+  "displayName": "dbt-column-lineage",
+  "description": "dbt-column-lineage",
+  "version": "1.0.0",
+  "author": "Fszta",
+  "homepage": "https://github.com/Fszta/dbt-column-lineage",
+  "skills": []
+}
