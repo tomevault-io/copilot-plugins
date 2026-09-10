@@ -1,117 +1,83 @@
 ## eventing-kafka-broker
 
-> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agent Guide for opentelemetry-go
+# CLAUDE.md
 
-This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
-Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
+## Project Overview
 
-## Core expectations
+This is a Go library implementing SCRAM (Salted Challenge Response Authentication Mechanism) per RFC-5802 and RFC-7677. It provides both client and server implementations supporting SHA-1, SHA-256, and SHA-512 hash functions.
 
-- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
-- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
-- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
-- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
-- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
-- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
-- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
-- Keep dependencies minimal and justified.
-- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
-- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
-- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
+## Development Commands
 
-## Default workflow
+**Run tests:**
+```bash
+go test ./...
+```
 
-For new features and behavior changes, use this order unless the task explicitly says otherwise:
+**Run tests with race detection (CI configuration):**
+```bash
+go test -race ./...
+```
 
-1. Read the relevant package, its tests, and any package docs or `README.md`.
-2. Add or update a failing unit test that captures the required behavior or regression.
-3. Implement the smallest change that makes the test pass.
-4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
-5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
-6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
-7. Run `make precommit` each time before considering the work complete.
+**Build (module-only, no binaries):**
+```bash
+go build ./...
+```
 
-For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
+**Run single test:**
+```bash
+go test -run TestName ./...
+```
 
-## Verification
+## Architecture
 
-- Use `make` as the canonical repository verification command. The default target is `precommit`.
-- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
-- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
-- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
+### Core Components
 
-## Documentation and changelog
+**Hash factory pattern:** The `HashGeneratorFcn` type (scram.go:23) is the entry point for creating clients and servers. Package-level variables `SHA1`, `SHA256`, `SHA512` provide pre-configured hash functions. All client/server creation flows through these hash generators.
 
-- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
-- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
-- Prefer examples over long code snippets in GoDoc when practical.
-- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
-- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
+**Client (`client.go`):** Holds authentication configuration for a username/password/authzID tuple. Maintains a cache of derived keys (PBKDF2 results) indexed by `KeyFactors` (salt + iteration count). Thread-safe via RWMutex. Creates `ClientConversation` instances for individual auth attempts.
 
-## Repository habits
+**Server (`server.go`):** Holds credential lookup callback and nonce generator. Creates `ServerConversation` instances for individual auth attempts.
 
-- Prefer focused diffs. Avoid drive-by cleanup.
-- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
-- Generated files are checked in. If your change affects generation, keep generated output up to date.
-- Prefer fast local search tools such as `rg` when exploring the repository.
-- When changing behavior, make the invariants explicit in tests.
+**Conversations:** State machines implementing the SCRAM protocol exchange:
+- `ClientConversation` (client_conv.go): States are `clientStarting` → `clientFirst` → `clientFinal` → `clientDone`
+- `ServerConversation` (server_conv.go): States are `serverFirst` → `serverFinal` → `serverDone`
 
-## Personas
+Both use a `Step(string) (string, error)` method to advance through protocol stages.
 
-### Feature Agent
+**Message parsing (`parse.go`):** Parses SCRAM protocol messages into structs. Separate parsers for client-first, server-first, client-final, and server-final messages.
 
-Use this persona for new behavior, new API surface, or spec-driven feature work.
+**Shared utilities (`common.go`):**
+- `NonceGeneratorFcn`: Default uses base64-encoded 24 bytes from crypto/rand
+- `derivedKeys`: Struct caching ClientKey, StoredKey, ServerKey
+- `KeyFactors`: Salt + iteration count, used as cache key
+- `StoredCredentials`: What servers must store for each user
+- `CredentialLookup`: Callback type servers use to retrieve stored credentials
 
-- Start with a failing unit test.
-- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
-- Implement the smallest viable change.
-- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
-- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
+### Key Design Patterns
 
-### Refactoring Agent
+**Dependency injection:** Server requires a `CredentialLookup` callback, making storage mechanism pluggable.
 
-Use this persona when improving structure without intentionally changing behavior.
+**Caching:** Client caches expensive PBKDF2 results in a map keyed by `KeyFactors`. This optimizes reconnection scenarios where salt/iteration count remain constant.
 
-- Treat behavior preservation as the default contract.
-- Add or tighten tests before moving code if current behavior is not already pinned down.
-- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
-- If a refactor touches a hot path, benchmark before and after.
-- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
+**Factory methods:** Hash generators provide `.NewClient()` and `.NewServer()` methods that handle SASLprep normalization. Alternative `.NewClientUnprepped()` exists for custom normalization.
 
-### Test Agent
+**Configuration via chaining:** Both Client and Server support `.WithNonceGenerator()` for custom nonce generation (primarily for testing).
 
-Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+### Security Considerations
 
-- Reproduce the bug or missing behavior with the smallest failing test you can.
-- Prefer testing public behavior and externally visible invariants.
-- Add targeted regression tests before changing production code.
-- Only change production code when it is required to make the tested behavior correct or testable.
-- Keep tests deterministic, readable, and aligned with package patterns.
+- Default minimum PBKDF2 iterations: 4096 (client.go:45)
+- All string comparisons use `hmac.Equal()` for constant-time comparison
+- SASLprep normalization applied by default via xdg-go/stringprep dependency
+- Nonce generation uses crypto/rand
 
-### Performance Agent
+## Testing
 
-Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
-
-- Benchmark first to establish a baseline.
-- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
-- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
-- Add or update benchmarks when performance-sensitive coverage is missing.
-- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
-
-### Review Agent
-
-Use this persona when asked to review code, patches, or pull requests.
-
-- Lead with findings, not summaries.
-- Order findings by severity and include precise file and line references when available.
-- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
-- Call out when a diff is broader than necessary.
-- If you find no issues, say that explicitly and note any residual risks or verification gaps.
+Tests include conversation state machine tests (client_conv_test.go, server_conv_test.go), integration tests, and examples (doc_test.go). Test data in testdata_test.go.
 
 ---
 > Source: [knative-extensions/eventing-kafka-broker](https://github.com/knative-extensions/eventing-kafka-broker) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
