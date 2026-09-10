@@ -1,0 +1,9 @@
+{
+  "name": "bigcommerce--checkout-js",
+  "displayName": "checkout-js",
+  "description": "checkout-js",
+  "version": "1.0.0",
+  "author": "bigcommerce",
+  "homepage": "https://github.com/bigcommerce/checkout-js",
+  "skills": []
+}
