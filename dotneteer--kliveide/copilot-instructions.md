@@ -1,41 +1,17 @@
 ## kliveide
 
-> Guidance for AI assistants working in this workspace.
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# AGENTS.md
+<!-- BEGIN:nextjs-agent-rules -->
 
-Guidance for AI assistants working in this workspace.
+# This is NOT the Next.js you know
 
-## Project Context
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-- This is `klive-ide`, an Electron shell application with React renderers.
-- Renderer code lives mainly under `src/renderer`.
-- Future and archived implementation plans live in `.plans/`.
-- Human- and AI-readable implementation pattern docs live in `.docs/`; read the relevant docs before changing established patterns.
-- Additional AI-oriented notes live in `.ai/`; read them before related work.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-## Working Rules
-
-- Preserve user changes in the dirty worktree. Do not revert unrelated files.
-- Prefer focused, reviewable changes with tests around touched behavior.
-- Use direct imports to the file that owns a component. Avoid compatibility wrapper files that only re-export moved components.
-- For layout primitives, import from `@renderer/controls/layout/<ComponentFile>`.
-- Keep legacy folders only for components that still genuinely live there.
-- Run focused tests first, then `npm run build:check`; run `npm run lint:renderer` when touching renderer React code.
-- After moving or deleting component files, scan both alias and relative imports, then run `npx electron-vite build --config build/electron.vite.config.ts` to catch Vite import-analysis errors.
-
-## Current Useful Commands
-
-- Type-check: `npm run build:check`
-- Renderer hook lint baseline: `npm run lint:renderer`
-- Focused jsdom tests: `npm test -- --project jsdom <test files>`
-
-## Notes For React Refactors
-
-- Fix conditional hook calls before tuning dependency arrays.
-- Prefer extracting hooks/components over broad rewrites.
-- When moving files, update consumers to the new direct path and delete the old file if it only re-exported the moved symbol.
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [Dotneteer/kliveide](https://github.com/Dotneteer/kliveide) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
