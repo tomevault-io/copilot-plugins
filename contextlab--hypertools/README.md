@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [ContextLab/hypertools](https://github.com/Conte
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ContextLab/hypertools](https://github.com/ContextLab/hypertools) — a repo with 1886+ stars on GitHub.
+From [ContextLab/hypertools](https://github.com/ContextLab/hypertools) — a repo with 1887+ stars on GitHub.
 
 ---
 
