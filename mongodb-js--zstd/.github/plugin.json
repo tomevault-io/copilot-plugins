@@ -1,0 +1,9 @@
+{
+  "name": "mongodb-js--zstd",
+  "displayName": "zstd",
+  "description": "zstd",
+  "version": "1.0.0",
+  "author": "mongodb-js",
+  "homepage": "https://github.com/mongodb-js/zstd",
+  "skills": []
+}
