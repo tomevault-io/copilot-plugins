@@ -1,7 +1,7 @@
 {
   "name": "matter-js--matterjs-server",
   "displayName": "matterjs-server",
-  "description": "Matter server based on Matter.js",
+  "description": "matterjs-server",
   "version": "1.0.0",
   "author": "matter-js",
   "homepage": "https://github.com/matter-js/matterjs-server",
