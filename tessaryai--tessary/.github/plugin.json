@@ -1,0 +1,9 @@
+{
+  "name": "tessaryai--tessary",
+  "displayName": "tessary",
+  "description": "Open-source agent reliability platform for discovering, investigating, and fixing production agent failures",
+  "version": "1.0.0",
+  "author": "tessaryai",
+  "homepage": "https://github.com/tessaryai/tessary",
+  "skills": []
+}
