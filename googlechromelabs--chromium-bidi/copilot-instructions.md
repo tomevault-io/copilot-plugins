@@ -18,14 +18,16 @@ This file provides context for the Gemini AI code assistant.
 
 ## Common Commands
 
+All commands below are intended to be run from `third_party/chromium-bidi` directory unless specified otherwise.
+
 ### Fix
 
 To restore the project to a known good state, run the following commands in order:
 
-1. **Build:** `npm run build`
-2. **Unit Tests:** `npm run unit`
-3. **Format:** `npm run format`
-4. **Verify BidiMapper Import:** `node out/Default/gen/src/bidiMapper/BidiMapper.js`. If this
+1. **Build:** `autoninja -C ../../out/Default third_party/chromium-bidi:default third_party/chromium-bidi:webdriver_bidi_unittests third_party/chromium-bidi:webdriver_bidi_e2e_tests`
+2. **Unit Tests:** `../../out/Default/bin/run_webdriver_bidi_unittests`
+3. **Format:** `./tools/node.py node_modules/prettier/bin/prettier.cjs --cache --write . && ./tools/node.py node_modules/eslint/bin/eslint.js --cache --fix . && ruff check --fix . && ruff format . && find src tests docs examples -type f | xargs keep-sorted --mode=fix`
+4. **Verify BidiMapper Import:** `./tools/node.py ../../out/Default/gen/third_party/chromium-bidi/src/bidiMapper/BidiMapper.js`. If this
    fails with `ERR_MODULE_NOT_FOUND`, it's likely due to a missing `.js` extension in
    an import statement in one of the TypeScript source files.
 
@@ -34,9 +36,9 @@ To restore the project to a known good state, run the following commands in orde
 - Unit test source files are located in the `src` directory and have a `.test.ts`
   extension.
 - They are co-located with the code they are testing.
-- Run unit tests with `npm run unit`. This command first compiles the TypeScript code
-  (including tests) into JavaScript in the `out/Default/gen/src/` directory and then runs the tests
-  using the Node.js native test runner.
+- Run unit tests with `../../out/Default/bin/run_webdriver_bidi_unittests`. This command runs the tests
+  in `../../out/Default/gen/third_party/chromium-bidi/src/` using the Node.js native test runner.
+- Filter specific unit tests: `../../out/Default/bin/run_webdriver_bidi_unittests -- --test-name-pattern="<test_name>"`.
 - When adding new tests, create a new `*.test.ts` file in the `src` directory next to
   the file you are testing. The build process will automatically pick it up.
 - **Important**: Do not delete the test files you create. They are a part of the
@@ -48,7 +50,7 @@ To restore the project to a known good state, run the following commands in orde
 
 To run a specific E2E test, use the following command:
 
-`npm run e2e -- -k <test_name>`
+`../../out/Default/bin/run_webdriver_bidi_e2e_tests -- -k <test_name>`
 
 ### Fixing E2E Tests
 
@@ -62,41 +64,33 @@ directory for errors.
 
 Note: E2E tests are slow, so run only the necessary tests.
 
-### Checking out a Pull Request
+### WPT Tests
 
-To checkout a pull request:
+To run a specific WPT test, use the following command:
 
-```bash
-git fetch origin pull/<PR_NUMBER>/head:<BRANCH_NAME>
-git checkout <BRANCH_NAME>
-```
+`../../third_party/blink/tools/run_wpt_tests.py -t Default --no-manifest-update external/wpt/webdriver/tests/bidi/<path_to_test>`
 
-After each checkout, run `npm run clean`.
+Note: WPT tests are very slow, so run only when needed and only the necessary tests.
 
 ### Fixing the build after a new command is added
 
-When asked to fix a PR, get it's title. If it's title is something like
-`build(spec): update WebDriverBiDi types`, it means a new command was added to the
-WebDriver BiDi CDDL. Run the following steps to fix it:
+When a new command is added to the WebDriver BiDi CDDL (for instance after running `tools/update-bidi-types.sh`), run the following steps to fix the build:
 
-1.  **Check out the Pull Request.** The PR is usually created by
-    `browser-automation-bot`, and the branch name is usually `update-bidi-types`.
-2.  **Run `npm run clean && npm run format:eslint`**. This will fail with a
+1.  **Run `autoninja -C ../../out/Default third_party/chromium-bidi:default`**. This will fail with a
     `Switch is not exhaustive` error.
-3.  **Implement the parser for the new command's params:**
+2.  **Implement the parser for the new command's params:**
     1.  Add the new `parse...` method to the `BidiCommandParameterParser` interface
         in `src/bidiMapper/BidiParser.ts`.
     2.  Implement the new `parse...` method in `src/bidiMapper/BidiNoOpParser.ts`.
     3.  Implement the new `parse...` method in `src/bidiTab/BidiParser.ts`.
     4.  Add the new `parse...` function to the corresponding namespace in
         `src/protocol-parser/protocol-parser.ts`.
-4.  **Add the new command to `src/bidiMapper/CommandProcessor.ts`**. Add a new `case`
+3.  **Add the new command to `src/bidiMapper/CommandProcessor.ts`**. Add a new `case`
     for the new command in the `switch` statement. First parse the command parameters
     and then throw an exception.
-5.  **Run `npm run build` and `npm run format`** to verify the fix.
-6.  **Do not commit the changes.**
-7.  **Do not run e2e tests for this kind of fixes.**
+4.  **Run `autoninja -C ../../out/Default third_party/chromium-bidi:default` and format code** (`./tools/node.py node_modules/prettier/bin/prettier.cjs --cache --write . && find src tests -type f | xargs keep-sorted --mode=fix`) to verify the fix.
+5.  **Do not run e2e tests for this kind of fixes.**
 
 ---
 > Source: [GoogleChromeLabs/chromium-bidi](https://github.com/GoogleChromeLabs/chromium-bidi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
