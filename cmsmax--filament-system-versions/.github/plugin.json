@@ -1,0 +1,9 @@
+{
+  "name": "cmsmax--filament-system-versions",
+  "displayName": "filament-system-versions",
+  "description": "This package offers a set of widgets to showcase the current system versions, including composer dependencies.",
+  "version": "1.0.0",
+  "author": "CMSMax",
+  "homepage": "https://github.com/CMSMax/filament-system-versions",
+  "skills": []
+}
