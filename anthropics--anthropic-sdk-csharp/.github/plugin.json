@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--anthropic-sdk-csharp",
+  "displayName": "anthropic-sdk-csharp",
+  "description": "anthropic-sdk-csharp",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/anthropic-sdk-csharp",
+  "skills": []
+}
