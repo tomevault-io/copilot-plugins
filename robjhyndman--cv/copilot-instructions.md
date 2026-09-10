@@ -1,94 +1,55 @@
 ## cv
 
-> - **Build all CV versions**: `make` or `make targets`
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Copilot Instructions for CV Repository
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Build Commands
 
-- **Build all CV versions**: `make` or `make targets`
-  - Runs `targets::tar_make()` to execute the targets pipeline
-  - Generates all CV variants (full, 1-page, 2-page, 3-page)
-- **Clean build artifacts**: `make clean`
-  - Runs `targets::tar_destroy()` to remove all targets
+- **Build all CV versions**: `make` (runs `targets::tar_make()`)
+- **Clean build artifacts**: `make clean` (runs `targets::tar_destroy(destroy = "objects")`, which forces a full rebuild without deleting `_targets/meta/meta` or `_targets/.gitignore`)
+- **Restore R dependencies**: `Rscript -e "renv::restore()"` if packages are missing
 
-The build system uses the `targets` package to manage dependencies and ensure reproducible builds.
+## Architecture
 
-## Architecture Overview
+This repo generates multiple CV PDF variants from a single data pipeline using the `targets` package for dependency management.
 
-This repository generates multiple CV variants from a single data pipeline:
+### Targets Pipeline (`_targets.R`)
 
-### Targets Pipeline (_targets.R)
+1. **Data collection** (always runs fresh via `tar_cue(mode = "always")`):
+   - Google Scholar citations via `gcite` package
+   - Publication/report bibliographies from `.bib` files (`rjhpubs.bib`, `rjhreports.bib`)
+   - R package metadata from CRAN/GitHub (`github_r_repos.txt`)
+   - Grant income from `Grant_income.csv`
 
-The build process follows this dependency graph:
+2. **Document rendering** via `tar_quarto()`:
+   - `RobHyndmanCV.qmd` — full CV
+   - `RobHyndman_1page.qmd`, `RobHyndman_2page.qmd`, `RobHyndman_3page.qmd` — shortened variants
 
-1. **Data Collection** (always runs fresh):
-   - Fetches Google Scholar citations via `gcite` package
-   - Reads publication/report bibliographies from `.bib` files
-   - Retrieves R package metadata from CRAN/GitHub
-   - Loads grant income from CSV
+All `.qmd` files use the custom `cv-pdf` Quarto format (defined in `_extensions/cv/`) and load targets data with `targets::tar_load()`.
 
-2. **Data Processing**:
-   - Functions in `R/` directory transform raw data
-   - `R/gcite.R`: Google Scholar citation fetching
-   - `R/packages.R`: R package metadata and bibliography generation
-   - `R/pretty.R`: Formatting helpers for CV content
-   - `R/add_bib_section.R`: Bibliography section utilities
+### R Helper Functions (`R/`)
 
-3. **Document Rendering**:
-   - `tar_quarto()` renders each `.qmd` file to PDF
-   - Each CV variant loads the same targets data but formats differently
-   - Main file: `RobHyndmanCV.qmd` (full CV)
-   - Variants: `RobHyndman_1page.qmd`, `RobHyndman_2page.qmd`, `RobHyndman_3page.qmd`
+- `gcite.R` — fetches Google Scholar citation stats and per-paper citation counts
+- `packages.R` — fetches R package metadata from CRAN/GitHub, generates `Rpackages.bib`
+- `add_bib_section.R` — renders `refsection` LaTeX blocks from `BibEntry` lists; optionally annotates with citation counts via fuzzy title matching
+- `pretty.R` — `baretable()` for LaTeX tables, `dollars()` for currency formatting
 
-### Document Structure
+### Bibliography Files
 
-All `.qmd` files follow a similar pattern:
-- YAML header defines metadata and formatting (custom `cv-pdf` format)
-- Setup chunk loads targets data with `targets::tar_load()`
-- Content sections use loaded data (publications, packages, grants, citations)
-- Bibliography sections use `RefManageR` to filter and format citations
+- `rjhpubs.bib` — manually maintained publications
+- `rjhreports.bib` — manually maintained reports
+- `Rpackages.bib` — **auto-generated**, do not edit directly
+- `temp.bib` — created during render, deleted at start of each render
 
-The custom Quarto extension (`_extensions/`) provides the `cv-pdf` format with specialized LaTeX styling.
+### Key Conventions
 
-## Key Conventions
-
-### Targets Workflow
-
-- **Never manually edit generated files**: `Rpackages.bib` is auto-generated from CRAN/GitHub metadata
-- **Data refresh**: The `date` target uses `cue = tar_cue(mode = "always")` to force daily updates
-- **Fallback behavior**: If package metadata fetch fails, the pipeline uses the last successful version with a warning
-- **Dependency tracking**: Changing any `.bib` file or `github_r_repos.txt` triggers rebuilds automatically
-
-### Bibliography Management
-
-- Publications: `rjhpubs.bib` (manually maintained)
-- Reports: `rjhreports.bib` (manually maintained)  
-- R Packages: `Rpackages.bib` (auto-generated, do not edit directly)
-- Temporary bib files (`temp.bib`) are deleted on each render
-
-### R Package Handling
-
-Author name normalization in `R/packages.R`:
-- "Rob Hyndman" → "Rob J Hyndman"
-- Special handling for names like "Ben Taieb" → "{Ben~Taieb}" (prevents BibTeX splitting)
-- Organizational authors wrapped in braces: `{R Core Team}`, `{Commonwealth of Australia AEC}`
-- Comments, emails, and contribution annotations are stripped from DESCRIPTION author fields
-
-### Custom Quarto Format
-
-The `cv-pdf` format (defined in `_extensions/`) provides:
-- Specialized LaTeX styling for academic CVs
-- Custom spacing and geometry settings
-- Header color customization via `\definecolor{headcolor}{HTML}{000088}`
-
-## Environment
-
-- **R environment**: Managed by `renv` (see `renv.lock`)
-  - Activate with `renv::restore()` if dependencies are missing
-- **Project structure**: Standard R project (`CV.Rproj`)
-- **Configuration**: `.Renviron` and `.Rprofile` for local settings
+- Author name normalization in `R/packages.R`: "Rob Hyndman" → "Rob J Hyndman"; names like "Ben Taieb" → `{Ben~Taieb}` to prevent BibTeX splitting; organizational authors wrapped in braces.
+- Header color in `.qmd` files is set via `\definecolor{headcolor}{HTML}{000088}` in `header-includes`.
+- Changing any `.bib` file or `github_r_repos.txt` automatically triggers rebuilds.
 
 ---
 > Source: [robjhyndman/CV](https://github.com/robjhyndman/CV) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
