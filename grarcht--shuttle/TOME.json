@@ -4,7 +4,7 @@
   "repo": "Shuttle",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/grarcht/Shuttle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T04:46:25Z"
+  "distributed_at": "2026-09-10T13:25:56Z"
 }
