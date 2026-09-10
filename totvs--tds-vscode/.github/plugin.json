@@ -1,0 +1,14 @@
+{
+  "name": "totvs--tds-vscode",
+  "displayName": "tds-vscode",
+  "description": "tds-vscode",
+  "version": "1.0.0",
+  "author": "totvs",
+  "homepage": "https://github.com/totvs/tds-vscode",
+  "skills": [
+    {
+      "name": "tds-vscode",
+      "description": ""
+    }
+  ]
+}
