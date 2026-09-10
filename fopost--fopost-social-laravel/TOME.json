@@ -4,7 +4,7 @@
   "repo": "fopost-social-laravel",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fopost/fopost-social-laravel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T05:04:48Z"
+  "distributed_at": "2026-09-10T13:08:09Z"
 }
