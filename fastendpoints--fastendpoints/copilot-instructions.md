@@ -1,52 +1,64 @@
 ## fastendpoints
 
-> This repository uses `.okf/` as compact operational memory for AI agents.
+> Coding, naming, and design conventions used across FastEndpoints packages.
 
-# Agent instructions
 
-## OKF knowledge set
+# Conventions
 
-This repository uses `.okf/` as compact operational memory for AI agents.
+## Naming
+- Public API namespace: mostly flat `FastEndpoints` (file-scoped / namespace-per-file patterns common).
+- Endpoint types often named `Endpoint` inside a feature namespace (see harness), not `FooEndpoint`.
+- Private fields: camelCase with `_` prefix (editorconfig / ReSharper rules).
+- Parameters: camelCase; private constants: PascalCase.
+- Packages: `FastEndpoints.<Area>` NuGet IDs matching project folders.
 
-OKF v0.1: non-reserved `.md` files need YAML frontmatter with non-empty `type`, `title`, and `description`; `index.md` is a directory listing; only bundle-root `index.md` may have frontmatter (`okf_version`).
+## Style
+- C# latest language version; **nullable enable**; implicit usings.
+- Indent 4 spaces; LF; UTF-8 (`.editorconfig`).
+- Prefer existing partial-class splits for large types (`Endpoint.*.cs`).
+- XML docs generated for packages (`GenerateDocumentationFile`); suppress noise via project `NoWarn`.
+- Accessibility modifiers: editorconfig prefers not requiring explicit modifiers in some cases; follow neighboring code.
+- `CS8618` suppressed for `*Request.cs`, `*Response.cs`, `*Model*.cs`, `*Endpoint.cs` patterns.
 
-Normative OKF use/update gates live in this file. `.okf/index.md` and `.okf/maintenance.md` are reminders and conformance detail; the okf-setup skill is setup/maintain procedure.
+## Errors and validation
+- Request validation: FluentValidation via `Validator<TRequest>` / endpoint `Validator` configuration.
+- Validation failures flow through endpoint pipeline; error response shape controlled by `Config.Errors` (including ProblemDetails helpers).
+- Prefer framework hooks (`OnBeforeValidate`, send helpers) over ad-hoc MVC filters.
 
-### Before work
+## APIs and data
+- REPR: Request DTO + Endpoint + optional Response DTO; configure routes/verbs/auth in `Configure()`.
+- Pre/post processors: `IPreProcessor<TRequest>`, `IPostProcessor<TRequest,TResponse>`.
+- Mappers: `IMapper` / request-response mappers; **stateless** (singleton lifetime expectation).
+- Commands/events: implement `ICommand` / `IEvent` (+ handlers); job queue builds on commands.
+- HTTP idempotency: `services.AddIdempotency()` + endpoint `Idempotency()` (output-cache policy). Distinct from job-queue `IdempotencyKeyFor`.
+- Feature flags: implement `IFeatureFlag`, call `FeatureFlag<T>()` in `Configure()`.
+- Optional attributes: `DontRegister`, `DontInject`, `HideFromDocs`, `RegisterService`, etc. in Attributes package.
 
-Match OKF depth to blast radius:
+## Config and DI
+- Global options: `UseFastEndpoints(c => { c.Serializer…; c.Endpoints…; })` → `FastEndpoints.Config` (`Cfg` alias).
+- Endpoint ctor DI supported; property injection possible with attributes/options.
+- Manual resolve façade: `Endpoint`/`Group`/`Mapper` inherit `ServiceResolverClient`; `Validator`/`BinderContext`/`HttpContext` extensions forward via `ServiceResolverClient.Forward` (do not re-copy the eight Resolve methods).
+- Service registration generator can emit registration from attributes when generator is referenced.
+- Central package versions only in `Directory.Packages.props`; do not hardcode versions in csproj except intentional `VersionOverride` / constrained ranges already present.
+- `FastEndpoints.AspVersioning`: on .NET 10, `AddVersioning(...)` takes an optional trailing `Action<VersionedOpenApiOptions>` so consumers can configure the versioned OpenAPI documents from `Asp.Versioning.OpenApi` (that package is net10.0-only, hence the `#if NET10_0_OR_GREATER` guard and conditional package ref in `Src/AspVersioning/`).
 
-- Local/small change: `.okf/index.md` + conventions/gotchas (and the matching task file if the surface is already documented).
-- Cross-cutting, public API, persistence, auth, contracts, or new surface: core set first (overview, architecture, code-map, conventions), then task-specific files (testing/workflows/dependencies/gotchas and any expanded files present: monorepo-packages/generated-code).
+## Testing conventions
+- Integration: `AppFixture<TProgram>` / collection fixtures from `FastEndpoints.Testing`.
+- Prefer typed HTTP helpers (`POSTAsync<TEndpoint, TRequest, TResponse>`) over raw URLs when endpoint types exist.
+- Prefer `IEventReceiver<T>` / `ICommandReceiver<T>` to spy publish/execute; they are not a stand-in for test handlers or handler-completion asserts (see [testing.md](testing.md)).
+- Mark flaky/heavy tests with `[Trait("ExcludeInCiCd", "Yes")]` to match CI filter.
 
-OKF guides; it does not replace checking source, tests, or manifests for exact behavior.
+## YAGNI
+- Keep changes minimal and consistent with surrounding package boundaries.
+- Do not reintroduce NSwag/Swagger paths as default when OpenApi is the active harness path unless task is legacy package work.
 
-### During work
-
-Preserve conventions, boundaries, and workflows from OKF. On conflict with source/tests/generated artifacts/manifests: prefer verified current behavior, update OKF, mention the correction.
-
-### Before finishing
-
-Sync `.okf/` when the change hits the update triggers in `.okf/maintenance.md`. Default trigger inventory: architecture/boundaries; public APIs/routes/schemas/events/contracts; persistence/migrations; deps/runtime; build/run/test/lint/format/generate/deploy; testing strategy; security/auth; config/env/ports/ops; conventions/layout; gotchas.
-
-If no update needed, state why (pure comment/typo/formatting: `OKF unaffected (non-behavioral edit)`). Task is incomplete until OKF is synced or explicitly unaffected.
-
-For **user-visible** library changes (public APIs, config, behavior, breaking changes, new features), also:
-
-- update public docs in sibling `../FE-Docs/src/content/docs/` (see `.okf/workflows.md`). Do not copy full doc pages into OKF.
-- add or update an entry in `Src/Library/changelog.md` (format in `.okf/workflows.md`). Skip tests-only, OKF, comments, CI, formatting, and internal refactors with no consumer effect.
-
-### General
-
-Subject to project conventions in OKF/`conventions.md` (and architecture when present) and this file:
-
-- Focused, minimal changes; prefer existing patterns.
-- Do not use em or en dashes as prose punctuation. Use commas, parentheses, or separate sentences instead. Hyphens remain valid in compound words, bullets, code, commands, CLI flags, identifiers, paths, versions, ranges, quotations, and exact terms.
-- Do not hand-edit generated artifacts listed in code-map/gotchas; regenerate via project commands instead. If a path is not listed but is clearly generated output, leave it alone and regenerate.
-- If behavior changes, run the smallest relevant command from workflows/testing. If not run, state the blocker.
-- Prefer project references and central package versions (`Directory.Packages.props`); do not invent reverse package dependencies.
-- Keep Agents addons independently versioned when touching `Src/Agents/`.
+## Sources
+- `.editorconfig`
+- `Src/Library/Endpoint/`
+- `Src/Library/Config/Config.cs`
+- `Src/Testing/`
+- `TestHarness/Web/[Features]/`
 
 ---
 > Source: [FastEndpoints/FastEndpoints](https://github.com/FastEndpoints/FastEndpoints) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
