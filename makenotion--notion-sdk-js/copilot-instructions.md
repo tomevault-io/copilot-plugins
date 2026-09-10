@@ -1,160 +1,57 @@
 ## notion-sdk-js
 
-> This is the official Notion SDK for JavaScript, a client library for interacting with the Notion API. The SDK provides a simple and type-safe interface to all Notion API endpoints.
+> This is the `@notionhq/client` SDK. It supports Node.js 18 and later and uses TypeScript 5.9.2. This file is the shared reference for coding agents.
 
-# Notion SDK for JavaScript - Copilot Instructions
+# Repo guidance
 
-## Repository Overview
+This is the `@notionhq/client` SDK. It supports Node.js 18 and later and uses TypeScript 5.9.2. This file is the shared reference for coding agents.
 
-This is the official Notion SDK for JavaScript, a client library for interacting with the Notion API. The SDK provides a simple and type-safe interface to all Notion API endpoints.
+## Source files
 
-**Repository Details:**
-- **Type**: Node.js TypeScript SDK
-- **Package**: `@notionhq/client`
-- **Target Runtime**: Node.js ≥ 18
-- **TypeScript**: ≥ 5.9
-- **Build System**: TypeScript compiler (tsc)
-- **Test Framework**: Jest with ts-jest
-- **Code Style**: Prettier (no semicolons, ES5 trailing commas, LF line endings)
-- **Linting**: ESLint with TypeScript rules + cspell for spell checking
+`src/index.ts` defines the package exports. `src/Client.ts` handles requests, retries, authentication, and endpoint groups. `src/helpers.ts` contains pagination helpers and type guards. Error types are in `src/errors.ts`; webhook helpers are in `src/webhooks.ts`.
 
-## Important Files and Warnings
+These files are generated. Change their upstream source, not the output:
 
-### ⚠️ Generated Files - DO NOT EDIT
+- `src/api-endpoints.ts`
+- `src/api-endpoints/`
+- `src/api-endpoint-methods.ts`
+- `build/`
 
-- `src/api-endpoints.ts` - This is an auto-generated file (see header comment). Never suggest changes to this file.
-- All files in `build/` directory - These are compiled outputs
+The endpoint schema and generator are in Notion's internal repo. Only Notion employees can run `notion public-api update-sdk-js` there. Outside contributors should ask a maintainer for generated-code changes. The SDK build creates `build/`.
 
-### Key Source Files
+## Code rules
 
-- `src/Client.ts` - Main client implementation
-- `src/index.ts` - Public API exports
-- `src/errors.ts` - Error types and handling
-- `src/helpers.ts` - Utility functions for pagination
-- `src/type-utils.ts` - TypeScript type guards and utilities
-- `src/logging.ts` - Logging implementation
+Use strict TypeScript and typed imports. The build emits CommonJS. Do not use `any` or unchecked casts to silence errors; use `unknown` and narrow the type instead.
 
-## Build and Validation
+Use braces for all JavaScript and TypeScript control flow, including one-line branches. ESLint enforces this for handwritten files. Follow Prettier for spacing and omit semicolons. Comments should explain why code exists, not repeat what it does.
 
-### Prerequisites
+Keep changes focused. Add tests for changed behavior and preserve unrelated local edits. Do not add dependencies when the existing compiler or standard library covers the need.
 
-Always run these commands from the repository root:
+Use short sentences, plain words, and sentence case headings in docs. Keep each document in one mode: tutorial, how-to guide, reference, or explanation.
 
-```bash
-# Install dependencies first
-npm install
-```
+## Checks
 
-### Build Process
+Run commands from the repo root. [Contributing](CONTRIBUTING.md) covers the workflow.
 
-```bash
-# Clean and build the project
-npm run build
-# This runs: rm -rf ./build && tsc
-```
+| Command                                                  | Check                                                                               |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `npm ci`                                                 | Install the locked dependencies; also builds the SDK.                               |
+| `npm run build`                                          | Clean `build/`, type-check source and tests, and emit declarations.                 |
+| `npm run lint`                                           | Check formatting, ESLint rules, and spelling.                                       |
+| `npm test`                                               | Run all Jest tests.                                                                 |
+| `npx jest test/compatibility.test.ts --runInBand`        | Run only the compatibility tests.                                                   |
+| `npm run check:compatibility -- <baseline>/src/index.ts` | Compare package exports and types with a separate checkout. Requires a build first. |
 
-### Validation Pipeline
+CI runs build, lint, and tests on Node.js 18, 19, 20, and 22. Pull requests also run the compatibility check on Node.js 22 against the base commit.
 
-The following checks must pass before any code changes:
+## Compatibility rules
 
-1. **Linting** (required for CI):
-   ```bash
-   npm run lint
-   # Runs: prettier --check . && eslint . --ext .ts && cspell '**/*'
-   ```
+The check compares TypeScript declarations reachable from `src/index.ts`, the package entry point. It checks exports, class method inputs, constructor access, and property presence, including optional fields in nested results. Private implementation changes are ignored. Protected members are checked as part of subclass access.
 
-2. **Tests** (required for CI):
-   ```bash
-   npm test
-   # Runs: jest ./test
-   ```
+An unchanged version or a patch release must pass. A higher minor or major version skips the check to allow a planned contract change. Do not bump the version just to bypass a failed check; the release change needs review.
 
-3. **Type Checking Examples** (CI also validates):
-   ```bash
-   npm run examples:install  # Install dependencies for all examples
-   npm run examples:typecheck  # Type-check all examples
-   ```
-
-### CI/CD Pipeline
-
-GitHub Actions runs on push/PR to main branch:
-- Tests on Node.js versions: 18.x, 19.x, 20.x, 22.x
-- Linting on all versions
-- Example type checking on Node.js 20.x
-
-## Development Guidelines
-
-### Code Style Requirements
-
-- **NO semicolons** (enforced by Prettier)
-- **NO redundant code comments** - Only add comments for motivation/reasoning
-- **Comment length**: Max 80 characters, use multiline comments for longer text
-- **Import style**: CommonJS (`require`/`module.exports`)
-- **Avoid TypeScript escape hatches**: No `as any`, prefer type guards from `type-utils.ts`
-
-### Making Changes
-
-1. **Always build before testing**:
-   ```bash
-   npm run build && npm test
-   ```
-
-2. **For API endpoint changes**: Remember that `src/api-endpoints.ts` is generated. Changes to API endpoints must be made upstream.
-
-3. **For new functionality**:
-   - Add corresponding tests in `test/`
-   - Export new types/functions from `src/index.ts`
-   - Add type guards to `src/type-utils.ts` if working with API responses
-
-4. **Error handling**: Use the error types from `src/errors.ts` and follow the existing patterns
-
-### Publishing Prerequisites
-
-Before publishing (handled by maintainers):
-```bash
-# Must be logged into npm
-npm whoami  # Should not fail
-npm run prepublishOnly  # Runs all checks
-```
-
-## Project Structure
-
-```
-notion-sdk-js/
-├── src/                    # TypeScript source files
-│   ├── Client.ts          # Main client class
-│   ├── api-endpoints.ts   # ⚠️ GENERATED - DO NOT EDIT
-│   ├── errors.ts          # Error types
-│   ├── helpers.ts         # Pagination utilities
-│   ├── index.ts           # Public exports
-│   └── type-utils.ts      # Type guards
-├── test/                   # Jest test files
-├── examples/               # Usage examples (each with own package.json)
-├── build/                  # Compiled output (git-ignored)
-└── scripts/               # Build scripts
-```
-
-## Common Issues and Solutions
-
-1. **TypeScript version warning**: The project uses TypeScript 5.9.2 which may show warnings with ts-jest. This is expected and tests still pass.
-
-2. **Build failures**: Always run `npm run clean` before `npm run build` if you encounter issues.
-
-3. **Import errors**: This SDK uses CommonJS. Use `require()` not ES6 imports internally.
-
-4. **Type errors**: Check `src/type-utils.ts` for existing type guards before creating new ones.
-
-## Key Concepts
-
-- **Pagination**: Use `iteratePaginatedAPI` or `collectPaginatedAPI` helpers from `src/helpers.ts`
-- **Type Guards**: Use `isFullPage`, `isFullBlock`, etc. from the public API
-- **Error Codes**: Compare against `APIErrorCode` and `ClientErrorCode` enums
-- **Logging**: Configurable via `LogLevel` enum in client options
-
-## Final Note
-
-Trust these instructions for common tasks. Only search the codebase if the information here is incomplete or incorrect. The patterns and practices documented here are consistently applied throughout the codebase.
+This is a conservative guard, not proof that every TypeScript use stays compatible. It does not check runtime behavior or deep imports outside the package entry point. Keep regression tests for the consumer code affected by a change.
 
 ---
 > Source: [makenotion/notion-sdk-js](https://github.com/makenotion/notion-sdk-js) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
