@@ -1,0 +1,9 @@
+{
+  "name": "google--makerspace-auth",
+  "displayName": "makerspace-auth",
+  "description": "makerspace-auth",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/makerspace-auth",
+  "skills": []
+}
