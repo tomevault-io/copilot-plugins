@@ -100,4 +100,4 @@ Before finishing:
 
 ---
 > Source: [wanghao9610/X-SAM](https://github.com/wanghao9610/X-SAM) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
