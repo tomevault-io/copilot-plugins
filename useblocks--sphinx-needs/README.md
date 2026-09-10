@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs).
+Original source: `CLAUDE.md` in [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs) — a repo with 292+ stars on GitHub.
+From [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs) — a repo with 301+ stars on GitHub.
 
 ---
 
