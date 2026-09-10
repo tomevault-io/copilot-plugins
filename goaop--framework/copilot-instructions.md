@@ -1,72 +1,28 @@
 ## framework
 
-> 1. AspectKernel::init() — singleton, registers stream filter, builds transformers, calls configureAop()
+> - CachedAspectLoader — AspectLoaderInterface decorator over AspectLoader; reads/writes the compiled cache
 
-# src/Instrument — AOP interception pipeline
+# src/Core/Cache — compiled advisor cache (Go\Core\Cache, all @internal)
 
-## Init flow
-1. AspectKernel::init() — singleton, registers stream filter, builds transformers, calls configureAop()
-2. SourceTransformingLoader::register() — PHP stream filter (php://filter/read=go.source.transforming.loader/resource=... protocol)
-3. AopComposerLoader::init() — hooks Composer autoloader → redirects through stream filter
-4. CachingTransformer — outer; cache miss → inner chain → write cache
+## Classes
+- CachedAspectLoader — AspectLoaderInterface decorator over AspectLoader; reads/writes the compiled cache
+- AdvisorCacheCompiler — renders loaded items into includable plain-PHP cache file content (VERSION const)
+- AdvisorCachePrinter — pretty-printer (extends Proxy\Generator\GeneratedCodePrinter; multiline arrays/news)
+- CacheFileWriter — mkdir-recursive, ATOMIC same-dir tmp+rename writes (one universal path, no LOCK_EX: the unique tmp name makes locking redundant, and the same code runs on stream wrapper paths - tests use goaop/virtual-file-system), strips exec bits, opcache_invalidate; also used by Instrument\ClassLoading\CachePathManager for woven classes
+- NotCompilableException — see src/Aop/AGENTS.md (Compilable section)
 
-## Transformer chain (order matters)
-Applied per loaded file. Each returns TransformerResultEnum: RESULT_TRANSFORMED|RESULT_ABSTAIN|RESULT_ABORTED.
+## Format & naming
+- File returns `['version' => AdvisorCacheCompiler::VERSION, 'advisors' => [...]]`; the graph is nested static constructor expressions (Compilable, see src/Aop/AGENTS.md); byte-deterministic output (DebugWeavingCommand double-warmup must stay diff-free)
+- Naming: aspect source path with appDir prefix replaced by cacheDir and `.php` → `.cache.php` ({appDir}/src/Aspect/X.php → {cacheDir}/src/Aspect/X.cache.php); aspect not under appDir or without a file → direct load, never cached
+- Advisor keys emitted as `Fqcn::class . '->member'` concat — runtime ids byte-identical to the direct loader
+- compile() signature is variadic: `compile(string $aspectClassName, Pointcut|Advisor ...$items)` — string advisor ids survive argument unpacking as names; integer-like ids degrade to positional keys renumbered from zero
+- `use` block: single unambiguous short names imported, collisions stay FQ inline, global (single-part) names never imported (namespace-less file)
 
-1. ConstructorExecutionTransformer — new expressions (works only if INTERCEPT_INITIALIZATIONS enabled)
-2. FilterInjectorTransformer — include/require (works only if INTERCEPT_INCLUDES enabled)
-3. WeavingTransformer — main; AdviceMatcher + CachedAspectLoader → proxy generators
-4. MagicConstantTransformer — `__FILE__`/`__DIR__` → original paths
-
-## Trait-based proxy engine (4.0)
-WeavingTransformer converts original class to trait + proxy class. Two generated files for class Ns\Foo:
-
-### Woven file (replaces original in php stream filtering)
-```php
-trait Foo__AopProxied { /* original methods verbatim */ }
-include_once AOP_CACHE_DIR . '/Foo.php';
-```
-
-### Proxy file (loaded by include_once)
-```php
-class Foo extends OriginalParent implements OriginalInterfaces, \Go\Aop\Proxy
-{
-    use \Ns\Foo__AopProxied {
-        \Ns\Foo__AopProxied::interceptedMethod as private __aop__interceptedMethod;
-    }
-    public function interceptedMethod(ArgType $arg): ReturnType {
-        /** @var \Go\Aop\Intercept\DynamicMethodInvocation<self, ReturnType> $__joinPoint */
-        static $__joinPoint = \Go\Aop\Framework\InterceptorInjector::forMethod(
-            self::class, 'interceptedMethod', [...], $this->__aop__interceptedMethod(...)
-        );
-        return $__joinPoint->__invoke($this, [$arg]);
-    }
-}
-```
-
-### Key invariants
-- Proxy re-inherits parent+interfaces via reflection (not from woven source)
-- self:: in trait body → proxy class (no rewrite needed)
-- Private methods interceptable (impossible with old extend-based engine)
-- FCC 4th arg to InterceptorInjector:
-  - `$this->__aop__m(...)` — own dynamic methods
-  - `self::__aop__m(...)` — own static methods
-  - `parent::m(...)` — inherited methods (no trait alias)
-  - `\fn(...)` — function proxies
-
-## Line preservation: Woven trait line numbers (XDebug)
-Woven trait MUST preserve original source line numbers for XDebug breakpoints.
-- Class→trait: convertClassToTrait() replaces `class` keyword, strips modifiers/extends/implements. All other tokens (incl. blank lines) kept in place.
-- Enum→trait: convertEnumToTrait() replaces removed tokens (cases, backed type, implements) with equal number of newlines to keep methods at original line positions.
-- Proxy file (ClassProxyGenerator/EnumProxyGenerator): thin dispatch wrapper — line numbers don't matter.
-
-## PHP compat: #[\Override] on intercepted methods (8.3+)
-When intercepted method has #[\Override], PHP copies attribute to trait alias — fatal error (alias doesn't override anything).
-WeavingTransformer::convertClassToTrait() strips #[\Override] from trait for every intercepted method. Attribute preserved on proxy's override method (proxy extends same parent).
-
-## Aspects themselves
-Classes implementing \Go\Aop\Aspect: unconditionally skipped by WeavingTransformer. Aspects cannot weave themselves.
+## Error handling — throw, never warn (maintainer rule: no catch + trigger_error)
+- loadFromCache: bare include (scope-isolated static closure); a corrupt/not-includable file THROWS (ParseError etc.) — writes are atomic, so corruption means external interference; clean version/shape mismatch → silent [] → rebuild (normal) / direct-loader fallback (prebuilt) — the expected upgrade path
+- saveToCache: NotCompilableException PROPAGATES (no file written, never a half file) — such an aspect cannot run with the advisor cache enabled
+- PREBUILT_CACHE: existing file trusted without freshness checks; wrong version/shape → direct loader, NEVER writes (read-only FS safe); a corrupt file still throws
 
 ---
 > Source: [goaop/framework](https://github.com/goaop/framework) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
