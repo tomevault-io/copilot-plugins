@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-electron",
+  "displayName": "sentry-electron",
+  "description": "sentry-electron",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-electron",
+  "skills": []
+}
