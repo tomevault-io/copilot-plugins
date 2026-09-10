@@ -1,0 +1,9 @@
+{
+  "name": "nhatminh06--commercecore",
+  "displayName": "commercecore",
+  "description": "Correctness-first e-commerce backend with PostgreSQL concurrency, idempotent payments, Kafka outbox, gRPC provider boundaries, and Testcontainers CI.",
+  "version": "1.0.0",
+  "author": "nhatminh06",
+  "homepage": "https://github.com/nhatminh06/commercecore",
+  "skills": []
+}
