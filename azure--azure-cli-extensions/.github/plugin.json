@@ -1,0 +1,9 @@
+{
+  "name": "azure--azure-cli-extensions",
+  "displayName": "azure-cli-extensions",
+  "description": "azure-cli-extensions",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-cli-extensions",
+  "skills": []
+}
