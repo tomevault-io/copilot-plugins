@@ -1,76 +1,62 @@
 ## btdb
 
-> These guidelines summarize how to navigate, build, and contribute to this repository.
+> - Write documentation, architectural notes, source code, identifiers, and other project artifacts in English.
 
-# Repository Guidelines
+# BTDB.Replication Working Agreement
 
-These guidelines summarize how to navigate, build, and contribute to this repository.
-
-## Project Structure & Module Organization
-
-- `BTDB/` is the core library (KeyValueDB, ObjectDB, IL helpers, etc.).
-- `BTDB.SourceGenerator/` contains the incremental source generator for IOC container support.
-- `BTDBTest/` and `BTDB.SourceGenerator.Test/` hold xUnit test suites.
-- `Doc/` contains feature documentation and design notes (e.g., relations).
-- `SimpleTester/`, `BTDB.SourceGenerator.Sample/`, `Sample3rdPartyLib/`, and `ODbDump/` are samples/tools.
-- `DBBenchmark/` is for benchmarks; `Releaser/` is for release automation.
-- `artifacts/` is the standard build output location.
-
-## Build, Test, and Development Commands
-
-- `dotnet build BTDB.sln` builds the full solution.
-- `dotnet test BTDB.sln` runs all tests.
-- `dotnet test BTDB.SourceGenerator.Test/BTDB.SourceGenerator.Tests.csproj` runs the SourceGenerator test suite only.
-- `dotnet test BTDBTest/BTDBTest.csproj` runs the main test suite only.
-- `dotnet run --project SimpleTester/SimpleTester.csproj` runs the local tester app.
-
-## Environment Requirements
-
-- Always run `dotnet` commands with network access enabled so package restore and analyzer feeds can complete; request sandbox escalation before invoking `dotnet build`/`dotnet test` if the default environment denies network access.
-- `nuget.config` restores from NuGet plus the `terrafx` feed, so offline restore/build/test runs are incomplete.
-- Example: `dotnet test BTDB.SourceGenerator.Test/BTDB.SourceGenerator.Tests.csproj` must be run with the `sandbox_permissions` flag set to `require_escalated` so NuGet restore can reach the feed.
-
-## Coding Style & Naming Conventions
-
-- Indentation: 4 spaces; line endings: LF; always trim trailing whitespace.
-- C# style follows `.editorconfig`: prefer `var` when the type is apparent, and use file-scoped namespaces.
-- Do not use `#region`/`#endregion` in new or edited code.
-- When calling methods with `params ReadOnlySpan<string>`, pass string arguments directly instead of array/collection expressions.
-- Suppress `CS8620` at file scope when using `params ReadOnlySpan<string>` with direct string arguments.
-- Prefer `resultType is null` over `string.IsNullOrWhiteSpace(resultType)` when checking nullable type strings.
-- Naming: PascalCase for public types/members and type parameters (e.g., `TItem`).
-- Main library and test projects target .NET 10; `BTDB.SourceGenerator/` targets `netstandard2.0` as a Roslyn component.
-
-## Testing Guidelines
-
-- Tests use xUnit; look for `*Test.cs`/`*Tests.cs` under `BTDBTest/` and `BTDB.SourceGenerator.Test/`.
-- `BTDB.SourceGenerator.Test/` uses Verify snapshot files (`*.verified.cs`, `*.verified.txt`); add or update the matching baselines when generated output or diagnostics intentionally change.
-- New SourceGenerator tests should go through `GeneratorTestsBase.VerifySourceGenerator(...)`, which verifies compilation succeeds and that incremental outputs are cached on rerun.
-- `BTDBTest/` uses Assent approval files (`*.approved.txt`) for text baselines.
-- Prioritize SourceGenerator work: ensure `BTDB.SourceGenerator.Test/BTDB.SourceGenerator.Tests.csproj` passes before other suites.
-- Add tests for behavior changes and bug fixes; favor focused `Fact` tests and parameterized `Theory` tests.
-- Run `dotnet test BTDB.sln` before opening a PR that changes core behavior.
-- Run relevant test suites automatically after changes; do not ask for confirmation before running them.
-
-## Before Finishing a Code Change
-
-- Check whether the change is a bug fix, new feature, behavior change, performance improvement, or public/internal API
-  change. If yes, update `CHANGELOG.md` in the same turn before reporting the work complete.
-- Mention the changelog update in the final response, or explicitly state why no changelog entry was needed.
-- Run the relevant build/test command after the final file edits, including documentation and changelog edits.
-
-## Commit & Pull Request Guidelines
-
-- Commit messages are concise, imperative, sentence case (e.g., "Enhance validation for ...").
-- Keep commits scoped to one logical change when possible.
-- PRs should include: a brief description, test commands run, and linked issues/notes on breaking changes.
-
-## Documentation Updates
-
-- Update `CHANGELOG.md` for every bug fix or new feature.
-- Update relevant docs in `Doc/` when changing public behavior or APIs, or when it otherwise makes sense.
-- Keep README changes high-level; place deep dives in `Doc/`.
+- Write documentation, architectural notes, source code, identifiers, and other project artifacts in English.
+- The user may communicate in Czech or Czenglish; respond naturally, but keep the project content in English.
+- The library is currently in the architecture-brainstorming phase. Do not add an implementation unless the user explicitly asks for one.
+- Use `Architecture.md` as the shared living document for protocol brainstorming, alternatives, open questions, and
+  decisions.
+- Keep the provider-neutral storage contract, `denoland/celld` interface research, and provider-specific Azure/S3
+  behavior in `ObjectStorages.md`; link to it from `Architecture.md` instead of duplicating that research.
+- Treat version one as Azure-first, including native Blob leases and a semantic conditional atomic tail append. Keep
+  Azure Block Blob staging/commit mechanics inside `ObjectStorages.md`, not the failover protocol, and keep Amazon S3
+  as later provider research unless the user revisits that priority.
+- Put every nondeterministic or external boundary behind an explicit injected abstraction. The complete protocol must
+  support multiple isolated nodes in one process through deterministic in-memory and fault-injecting adapters; HTTP,
+  Kestrel, Azure SDK types, sockets, wall-clock time, randomness, and process-global state must not leak into the core.
+- Use a leader-centered topology with no peer-to-peer membership mesh. Followers communicate only with the selected
+  leader through the injected peer transport; loss of that session may trigger Azure lease/CAS contention but never
+  grants authority by itself.
+- Support rolling application upgrades through a monotonic application generation and an immutable database catalog
+  selected by the leader record. A prepared newer-generation follower has handoff priority. Databases added by that
+  generation run provisionally and locally until the selected target seeds their canonical genesis; other followers of
+  that generation must discard their provisional copies and reopen from that exact leader-selected seed. A database
+  removed by the selected catalog is frozen durably, and an older follower that still hosts it may continue only in a
+  disposable local `.temptrl` generation. Once a newer catalog is selected, older generations can follow compatible
+  databases but can never lead the cluster again.
+- Never gate follower application commits on leader progress or external I/O. Followers synchronously append an
+  unrestricted speculative suffix to local cache, retain a pinned leader-confirmed root, advance confirmation with no
+  BTree work for exact transaction matches, and restore/replay/re-execute the suffix from that root on the first mismatch.
+- Keep canonical TRL free of replication-specific transaction kinds. Every canonical BTDB transaction is the ordinary
+  result of consuming one application event. Leak detection asks an injected parent-system port to publish a bounded
+  exact-key removal event; no replica erases anything until that event returns through the normal ordered application
+  stream, where the ordinary application handler applies it idempotently. Never add `LeakRemoval` or another maintenance
+  command to BTDB TRL for replication.
+- Run full compaction only on the leader. Distribute sealed PVL artifacts and bounded physical pointer-rewrite operations
+  out of band over the existing leader-to-follower session, never through TRL and never as canonical transaction sequence.
+  Missing an out-of-band compaction operation leaves a follower on its valid older physical layout and requires no BTDB
+  replay skip support. Never distribute local-file deletion: each node alone knows which files remain pinned by its open
+  read-only transactions, retained roots, and local recovery cut, and reclaims only its own proven-unused cache files.
+  A follower compactor stops before PVL creation or pointer replacement. Any KVI needed solely for safe follower-local
+  cleanup is non-canonical cache metadata. Transfer a canonical KVI to a follower only as the initial bootstrap artifact
+  when that database is opened or rebuilt; never push later leader-created KVIs to an already running follower. Only the
+  current leader may delete files from object storage, and only after they are permanently unreachable from every
+  retained recovery root so a delayed old-term delete remains harmless.
+- Treat transaction-aligned durability as a hard invariant. A database-state CAS may select only a cursor immediately
+  after a complete BTDB transaction; if one transaction spans multiple TRL files, prepare and verify every segment and
+  publish them together through one immutable boundary descriptor and one state CAS.
+- Treat every local file as a disposable, untrusted cache. Arbitrary missing, truncated, stale, or mixed-generation local
+  content must cause full validation and rebuild or fail-closed unavailability, never inferred canonical state.
+- Graceful leader shutdown must not stop application transaction execution. At the next safe transaction boundary,
+  irreversibly switch later writes to disposable local `.temptrl` scratch files so every newly written value remains
+  readable. Never hard-flush, upload, checkpoint, replay, or promote that generation as canonical. Delete it on clean exit
+  and unconditionally delete leftovers before constructing the canonical file collection on restart; cleanup failure
+  keeps the node unavailable. Permit only the Azure lease authority operations needed to preserve or transfer
+  fencing. Cancel compaction cooperatively at its next bounded safe point; never wait for the whole compaction to finish.
 
 ---
 > Source: [Bobris/BTDB](https://github.com/Bobris/BTDB) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
