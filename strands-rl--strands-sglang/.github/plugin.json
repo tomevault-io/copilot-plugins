@@ -1,7 +1,7 @@
 {
   "name": "strands-rl--strands-sglang",
   "displayName": "strands-sglang",
-  "description": "SGLang model provider for Strands Agents for on-policy agentic RL training.",
+  "description": "strands-sglang",
   "version": "1.0.0",
   "author": "strands-rl",
   "homepage": "https://github.com/strands-rl/strands-sglang",
