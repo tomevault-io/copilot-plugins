@@ -4,7 +4,7 @@
   "repo": "skills-for-architects",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AlpacaLabsLLC/skills-for-architects",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T18:58:02Z"
+  "distributed_at": "2026-09-10T21:55:27Z"
 }
