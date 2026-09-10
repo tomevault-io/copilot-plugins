@@ -1,0 +1,51 @@
+{
+  "name": "oyo",
+  "owner": "ahkohd",
+  "repo": "oyo",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oyo",
+      "path": "crates/oyo/docs/SKILL.md",
+      "github_url": "https://github.com/ahkohd/oyo/tree/main/crates/oyo/docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ahkohd/oyo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-10T06:37:40Z"
+}
