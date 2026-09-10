@@ -1,93 +1,74 @@
 ## buefy
 
-> Monorepo: `packages/buefy` (library) · `packages/docs` (Vite docs site). Stack: Vue 3, TypeScript, Bulma CSS.
+> Each component lives in its own folder under `src/components/`:
 
-# Copilot Instructions
+# packages/buefy
 
-Monorepo: `packages/buefy` (library) · `packages/docs` (Vite docs site). Stack: Vue 3, TypeScript, Bulma CSS.
+## Component structure
 
-## Core Principles
-
-- Preserve public API behavior unless a breaking change is explicitly requested.
-- Make the smallest viable change; follow existing patterns before introducing new ones.
-- Keep SSR/browser/mobile compatibility checks explicit when touching platform-specific code.
-
-## Build → Lint → Test (Required Order)
-
-Run from `packages/buefy/` before any commit or review:
-
-1. `npm run build` — full build (JS, SCSS, types); tests depend on compiled output
-2. `npm run lint:fix && npm run lint`
-3. `npm run unit` — or `npm run unit -- src/components/<name>/` for a focused run
-
-If full execution is blocked, report which steps were skipped and why.
-
-## Component Conventions
-
-- `defineComponent()` + Options API (not Composition API).
-- Shared behavior via mixins in `src/utils/` (`CheckRadioMixin`, `FormElementMixin`, etc.).
-- Exports use `B` prefix: `export { Button as BButton }`.
-- SCSS lives in `src/scss/components/_componentname.scss` — not colocated.
-- Each component folder: `Component.vue`, `Component.spec.ts`, `__snapshots__/`, `index.ts`.
-
-## Test Requirements
-
-- Update or create tests for every component change.
-- Bug fixes require a regression test that fails before the fix and passes after.
-- Use `shallowMount`; include snapshot tests for rendered HTML.
-
-## Docs Updates (`packages/docs`)
-
-Update docs for any user-visible change: props, events, slots, defaults, CSS variables, behavior, or install/config changes. If no update is needed, state why explicitly.
-
-Per-component docs structure:
-- `src/pages/components/<component>/<Component>.vue` — docs page
-- `src/pages/components/<component>/examples/` — runnable snippets
-- `src/pages/components/<component>/api/<component>.ts` — API table
-- `src/pages/components/<component>/variables/<component>.ts` — CSS vars table
-
-When adding/renaming/removing a docs page, update all three navigation sources together:
-1. `src/router/index.ts`
-2. `src/data/routes.json` (title, breadcrumbs, `githubPath`, flags)
-3. `src/data/menu.json`
-
-## Typing and Safety
-
-- Avoid new `any` types without justification.
-- `@ts-expect-error` requires a short inline reason; link to an issue when possible.
-- Keep `eslint-disable` scoped as narrowly as possible.
-
-## Comments
-
-Explain *why*, not *what*. Use `TODO(#issue)` / `FIXME(#issue)` for incomplete work. Remove stale comments.
-
-## Change Hygiene
-
-- Touch only files relevant to the task; do not reformat unrelated code.
-
-## Commit Messages
-
-[Conventional Commits](https://www.conventionalcommits.org/) — subject line ≤ 50 chars, imperative mood, no trailing period.
+Each component lives in its own folder under `src/components/`:
 
 ```
-<type>(<scope>): <subject>
-
-<body — what and why, not how>
-
-<footer — Fixes #N or Related to #N>
+src/components/button/
+├── Button.vue           # Main component (Options API + defineComponent)
+├── Button.spec.ts       # Unit tests — colocated with component
+├── __snapshots__/
+└── index.ts             # Plugin registration + named exports
 ```
 
-Types: `fix` `feat` `docs` `style` `refactor` `perf` `test` `build` `ci` `chore`
+Related variants (e.g., `CheckboxButton.vue`) share the same folder as their primary component.
 
-Examples:
-- `fix(checkbox): generate checkmark SVG with concrete colors`
-- `feat(dialog): add promise-based API for async workflows`
+SCSS is **not** colocated — it lives in `src/scss/components/_componentname.scss`.
 
-## References
+## Component implementation conventions
 
-- Bulma CSS: https://bulma.io/documentation/
-- Conventional Commits: https://www.conventionalcommits.org/
+- Use `defineComponent()` with Options API (not Composition API).
+- Import shared behavior from mixins in `src/utils/` (e.g., `CheckRadioMixin`, `FormElementMixin`).
+- Export with the `B` prefix: `export { Button as BButton }`.
+
+Plugin registration pattern (`index.ts`):
+
+```typescript
+import type { App } from "vue";
+import Button from "./Button.vue";
+import { registerComponent } from "../../utils/plugins";
+
+const Plugin = {
+    install(Vue: App) {
+        registerComponent(Vue, Button);
+    },
+};
+
+export default Plugin;
+export { Button as BButton };
+```
+
+## Shared utilities (`src/utils/`)
+
+| File | Purpose |
+|------|---------|
+| `CheckRadioMixin.ts` | Shared checkbox/radio behavior |
+| `FormElementMixin.ts` | Shared form input behavior |
+| `MessageMixin.ts` / `NoticeMixin.ts` | Alert/notification base |
+| `TabbedMixin.ts` / `TabbedChildMixin.ts` | Tab container behavior |
+| `ProviderParentMixin.ts` / `InjectedChildMixin.ts` | Parent-child injection |
+| `config.ts` | Global Buefy configuration |
+| `helpers.ts`, `color.ts`, `icons.ts` | Utilities |
+| `ssr.ts` | SSR guards |
+
+## SCSS conventions
+
+- Files: `src/scss/components/_componentname.scss` (lowercase, underscore prefix)
+- Use Bulma CSS variables: `cv.getVar('primary')`, `cv.getVar('primary-invert')`
+- Three CSS output variants are built: full (with Bulma reset), standalone, no-reset
+
+## Testing conventions
+
+- Use `shallowMount` for component isolation.
+- Include snapshot tests for rendered HTML.
+- For bug fixes, add a regression test that fails before the fix and passes after.
+- Mixin tests are colocated alongside the mixin file in `src/utils/`.
 
 ---
 > Source: [buefy/buefy](https://github.com/buefy/buefy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
