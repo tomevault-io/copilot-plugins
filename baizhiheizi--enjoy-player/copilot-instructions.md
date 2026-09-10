@@ -1,17 +1,15 @@
-## flutter
+## layout
 
-> Dart & Flutter conventions for enjoy_player
+> Adaptive page layout — EnjoyPageKind, gutters, form/hub widths
 
 
-# Flutter project rules
+# Page layout rules
 
-- Use **Riverpod** (`ConsumerWidget` / `ConsumerStatefulWidget`) — avoid `StatefulWidget` + inherited mutable singletons.
-- **Never** call `print`; use `package:logging` via `core/logging/log.dart`.
-- **Never** construct `package:media_kit` `Player()` outside `PlayerController`.
-- Prefer **`package:enjoy_player/...` imports** in presentation layers.
-- Run **`dart run build_runner build`** after editing `@DriftDatabase`, `@DriftAccessor`, or `@Riverpod` annotated APIs, then **commit** the regenerated `*.g.dart` / `*.freezed.dart` files.
-- Before pushing Dart changes, run **`bash .github/scripts/validate_ci_gates.sh`** (or `--fix`) so **Dart format** and **Codegen drift** CI cannot fail.
-- Match user-visible strings with **`flutter gen-l10n`** ARBs under `lib/l10n/`.
+- New screens must pick an `EnjoyPageKind` (`browse` | `hub` | `form` | `auth` | `playerChrome`) and use `EnjoyPage` / `EnjoyPageMetrics` / `pageGutterOf`.
+- Do **not** invent per-screen max widths (e.g. `contentMaxWidth + 96`) or stretch form fields / Save buttons to the full desktop pane.
+- Widths: browse = full + `pageGutter`; hub = `hubMaxWidth` (840); form = `formMaxWidth` (680); auth = `modalMaxWidth` (400).
+- Push routes: `EnjoySubpageAppBar` via `EnjoyPage(showBack: true)`. Primary tabs: `EditorialHeader` with gutter-aligned width matching the body.
+- See [ADR-0055](docs/decisions/0055-adaptive-page-layout-system.md) and [docs/features/app-ui.md](docs/features/app-ui.md#page-layout).
 
 ---
 > Source: [baizhiheizi/enjoy_player](https://github.com/baizhiheizi/enjoy_player) — distributed by [TomeVault](https://tomevault.io).
