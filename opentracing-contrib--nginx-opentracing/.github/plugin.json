@@ -1,0 +1,9 @@
+{
+  "name": "opentracing-contrib--nginx-opentracing",
+  "displayName": "nginx-opentracing",
+  "description": "nginx-opentracing",
+  "version": "1.0.0",
+  "author": "opentracing-contrib",
+  "homepage": "https://github.com/opentracing-contrib/nginx-opentracing",
+  "skills": []
+}
