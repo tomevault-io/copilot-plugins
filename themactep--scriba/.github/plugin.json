@@ -1,0 +1,9 @@
+{
+  "name": "themactep--scriba",
+  "displayName": "scriba",
+  "description": "Linux CLI app for CH341A and EZP flash chip programmers. A part of Thingino family.",
+  "version": "1.0.0",
+  "author": "themactep",
+  "homepage": "https://github.com/themactep/scriba",
+  "skills": []
+}
