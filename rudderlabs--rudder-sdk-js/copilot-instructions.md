@@ -1,33 +1,115 @@
 ## rudder-sdk-js
 
-> > Coding conventions and naming schemes — things a linter can't catch.
+> RudderStack Git standards including commit conventions, PR standards, and branch naming patterns
 
-# Conventions
+# RudderStack Git Standards
 
-> Coding conventions and naming schemes — things a linter can't catch.
-> Append-only. Agent-authored sections may optionally carry an HTML-comment tag
-> (e.g., `<!-- pr:<id> -->`) identifying the writer/PR/run; human-authored
-> sections are conventionally left untouched by automated runs.
+**Critical**: Follow RudderStack git conventions across all repositories
 
-## Repository Conventions (RUD-2781)
-<!-- linear:RUD-2781 -->
+## Commit Standards
+- **Conventional Commits**: Use conventional commit format
+- **Clear Messages**: Descriptive commit messages with context
+- **Atomic Commits**: One logical change per commit
+- **Issue References**: Link commits to issues where applicable
 
-- Package-level boundaries are encoded via Nx tags (`type:*`, `scope:*`) and enforced centrally; new modules should preserve this tag taxonomy to keep dependency constraints meaningful (`nx.json:58`, `packages/analytics-js/project.json:7`).
-- Modern SDK naming prefers explicit manager/service suffixes (`ConfigManager`, `PluginsManager`, `UserSessionManager`) and `default*` singleton exports for shared instances (`packages/analytics-js/src/components/configManager/ConfigManager.ts::ConfigManager`, `packages/analytics-js/src/services/PluginEngine/PluginEngine.ts::defaultPluginEngine`).
-- Public API surfaces preserve Segment-style overloads at facade level, while core methods consume normalized payload objects (`packages/analytics-js/src/app/RudderAnalytics.ts::RudderAnalytics.track`, `packages/analytics-js/src/components/core/Analytics.ts::Analytics.track`).
-- The repo intentionally keeps both modern TypeScript-heavy code (`analytics-js`) and legacy JavaScript (`analytics-v1.1`); avoid “normalizing” one line to the other unless a task explicitly spans both (`packages/analytics-js/src/index.ts:1`, `packages/analytics-v1.1/src/core/analytics.js:1`).
-- Commit scopes are treated as repository API: scopes should be Nx project names or approved custom scopes (`release`, `monorepo`, `examples`, `deps`) (`commitlint.config.js:1`).
-- File layout convention is package-local (`src`, `__tests__`, `__fixtures__`, `rollup.config.mjs`), and top-level scripts prefer `nx run-many` / `nx affected` wrappers instead of ad hoc per-package loops (`package.json:8`).
+### **Commit Message Length Limits**
+**CRITICAL**: Conventional commits have strict length limits that must be respected:
 
-## RUD-2781 — Automation Guidance Location
-<!-- linear:RUD-2781 -->
+- **Subject Line**: Maximum 50 characters (including type and scope)
+- **Format**: `type(scope): description` - **SCOPE IS MANDATORY**
+- **Body**: Use body for additional details if needed, not the subject line
+- **Examples**:
+  - ✅ `feat(@rudderstack/analytics-js): add plugin` (43 chars)
+  - ✅ `fix(@rudderstack/analytics-js-cookies): fix bug` (47 chars)
+  - ✅ `docs(monorepo): update patterns` (32 chars)
+  - ✅ `chore(deps): update rollup` (26 chars)
+  - ❌ `feat: add consent plugin` (missing scope)
+  - ❌ `feat(@rudderstack/analytics-js): add consent management plugin` (too long - 65 chars)
 
-- Repository automation guidance is anchored in `CLAUDE.md`; no `AGENTS.md` file exists in this repo, so agent workflows should default to `CLAUDE.md` as the canonical instructions source.
+### **Scope Determination**
+**Nx-Based Scope Selection**: Use Nx project names and custom scopes as defined in `commitlint.config.js`:
 
-## INT-7067 — OpenAI Ads Registration Constants
+#### **Nx Project Scopes** (automatically detected):
+- `@rudderstack/analytics-js` - Main JavaScript SDK
+- `@rudderstack/analytics-js-service-worker` - Service worker SDK
+- `@rudderstack/analytics-js-plugins` - SDK plugins
+- `@rudderstack/analytics-js-integrations` - Device mode integrations
+- `@rudderstack/analytics-js-common` - Shared utilities and types
+- `@rudderstack/analytics-js-cookies` - Cookie utilities
+- `@rudderstack/analytics-js-loading-scripts` - Loading scripts
+- `@rudderstack/analytics-js-sanity-suite` - Testing suite
+- `rudder-sdk-js` - Legacy JavaScript SDK
 
-- OpenAI Ads device-mode registration uses package-local constants plus a literal `OPENAI_ADS` key in `packages/analytics-js-integrations/src/integrations/index.js`; also keep `OPENAI_ADS_NAME` and `OPENAI_ADS_DISPLAY_NAME` available from `packages/analytics-js-integrations/src/constants/Destinations.ts` because the package constants parity test imports every integration and compares those exports.
+#### **Custom Scopes** (from commitlint config):
+- `release` - Release-related changes
+- `monorepo` - Monorepo-wide changes
+- `examples` - Example code changes
+- `deps` - Dependency updates
+
+#### **Scope Selection Strategy**:
+- **Single Package**: Use full Nx project name (e.g., `@rudderstack/analytics-js`)
+- **Multiple Packages**: Use most significant package affected
+- **Cross-Cutting**: Use custom scopes (`monorepo`, `deps`, `release`)
+- **Root Changes**: Use `rudder-sdk-js` or `monorepo`
+
+#### **Working with Long Nx Project Names**:
+Given the 50-character limit, be extremely concise with descriptions:
+- **Use Short Verbs**: `add`, `fix`, `update`, `remove` instead of longer alternatives
+- **Omit Articles**: Skip "a", "an", "the" in descriptions
+- **Use Abbreviations**: `config` instead of `configuration`, `auth` instead of `authentication`
+- **Leverage Commit Body**: Put detailed explanations in the commit body, not the subject
+
+**Examples**:
+- `feat(@rudderstack/analytics-js): add plugin` (43 chars)
+- `fix(@rudderstack/analytics-js-cookies): fix bug` (47 chars)
+- `docs(monorepo): update patterns` (32 chars)
+- `chore(deps): update rollup` (26 chars)
+- `ci(monorepo): update deployment workflow` (40 chars)
+- `docs(@rudderstack/analytics-js-sanity-suite): update test guide` (63 chars - too long, use commit body instead)
+
+### **Atomic Commit Strategy**
+**CRITICAL**: Always break down work into logical, atomic commits:
+
+#### **Commit Organization Principles**
+1. **One Logical Change Per Commit**: Each commit should represent a single, complete change
+2. **Sequential Logic**: Commits should build upon each other in logical order
+3. **Independent Commits**: Each commit should be functional on its own
+4. **Clear Progression**: Commit sequence should tell the story of the work
+
+#### **Common Atomic Patterns**
+- **Setup → Implementation → Integration → Documentation**
+- **Core Logic → Tests → Documentation**
+- **Infrastructure → Feature → Polish**
+- **Fix → Test → Documentation**
+
+#### **Multi-Package Changes**
+When changes span multiple packages, organize commits by:
+1. **Shared/Common Changes First**: Update shared utilities or types
+2. **Core Package Changes**: Main implementation changes
+3. **Dependent Package Updates**: Updates that depend on core changes
+4. **Integration/Build Changes**: Build system, CI/CD updates
+5. **Documentation**: Update docs reflecting all changes
+
+### **Commit Message Best Practices**
+- **MANDATORY SCOPE**: Every commit MUST include a scope - no exceptions
+- **Be Concise**: Focus on WHAT changed, not implementation details
+- **Use Imperative**: "add feature" not "added feature"
+- **Omit Periods**: Don't end subject line with period
+- **Use Body**: For complex changes, use commit body for details
+
+## PR Standards
+- **Descriptive Titles**: Clear, actionable PR titles
+- **Complete Description**: Use PR template fully
+- **Testing Evidence**: Include test results/screenshots
+- **Breaking Changes**: Clearly document any breaking changes
+
+## Branch Conventions
+- **Naming**: `feature/SDK-1234-description`, `fix/SDK-1234-description`
+- **Base Branches**: Follow established branching strategy
+- **Clean History**: Squash/rebase as needed before merge
+
+**Detailed Workflow**: [.memorybank/04_git_workflow_cicd.md](mdc:.memorybank/04_git_workflow_cicd.md)
 
 ---
 > Source: [rudderlabs/rudder-sdk-js](https://github.com/rudderlabs/rudder-sdk-js) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
