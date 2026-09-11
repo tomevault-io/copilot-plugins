@@ -1,0 +1,9 @@
+{
+  "name": "dumpling-dragon--memory-hub",
+  "displayName": "memory-hub",
+  "description": "Local-first cross-agent work memory search for Windows",
+  "version": "1.0.0",
+  "author": "Dumpling-Dragon",
+  "homepage": "https://github.com/Dumpling-Dragon/memory-hub",
+  "skills": []
+}
