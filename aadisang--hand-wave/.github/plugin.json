@@ -1,0 +1,9 @@
+{
+  "name": "aadisang--hand-wave",
+  "displayName": "hand-wave",
+  "description": "Turning sign language (fingerspelling) into speech w/ smart glasses and a neural net",
+  "version": "1.0.0",
+  "author": "aadisang",
+  "homepage": "https://github.com/aadisang/hand-wave",
+  "skills": []
+}
