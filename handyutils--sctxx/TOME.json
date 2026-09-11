@@ -4,7 +4,7 @@
   "repo": "sctxx",
   "description": "sctxx \u2014 coding agent Session Context Extractor. standalone, agent-agnostic CLI (plus a thin Agent Skill wrapper) that reads a coding-agent session transcript from disk \u2014 Claude Code, Codex CLI, or Pi \u2014 and produces a compact, verified, provenance-linked handoff artifact that any other coding agent can load to continue the work. LLM-anchored fold.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/handyutils/sctxx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T15:31:21Z"
+  "distributed_at": "2026-09-11T15:33:03Z"
 }
