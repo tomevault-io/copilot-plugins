@@ -1,0 +1,9 @@
+{
+  "name": "originoneai--agent-work-runtime",
+  "displayName": "agent-work-runtime",
+  "description": "Persistent work state and minimal context for long-running AI agents.",
+  "version": "1.0.0",
+  "author": "originoneai",
+  "homepage": "https://github.com/originoneai/agent-work-runtime",
+  "skills": []
+}
