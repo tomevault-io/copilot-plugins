@@ -1,0 +1,9 @@
+{
+  "name": "parcel-pm--parcel",
+  "displayName": "parcel",
+  "description": "Simple password manager with no third-party dependencies.",
+  "version": "1.0.0",
+  "author": "parcel-pm",
+  "homepage": "https://github.com/parcel-pm/parcel",
+  "skills": []
+}
