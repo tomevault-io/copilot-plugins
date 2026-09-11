@@ -1,0 +1,9 @@
+{
+  "name": "tetherto--wdk-wallet-btc",
+  "displayName": "wdk-wallet-btc",
+  "description": "WDK module to manage BIP-84 (SegWit) wallets for the Bitcoin blockchain.",
+  "version": "1.0.0",
+  "author": "tetherto",
+  "homepage": "https://github.com/tetherto/wdk-wallet-btc",
+  "skills": []
+}
