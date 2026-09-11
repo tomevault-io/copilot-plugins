@@ -1,0 +1,9 @@
+{
+  "name": "git-on-my-level--self-improving-agent-ecosystem",
+  "displayName": "self-improving-agent-ecosystem",
+  "description": "Reference architecture, contracts, skills, and fixtures for safe evaluator-driven self-improving ecosystems.",
+  "version": "1.0.0",
+  "author": "Git-on-my-level",
+  "homepage": "https://github.com/Git-on-my-level/self-improving-agent-ecosystem",
+  "skills": []
+}
