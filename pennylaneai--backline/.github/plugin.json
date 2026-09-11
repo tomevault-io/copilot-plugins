@@ -1,0 +1,9 @@
+{
+  "name": "pennylaneai--backline",
+  "displayName": "backline",
+  "description": "Backline is an open platform for compilation and low-latency execution by Xanadu and AMD that dynamically connects quantum workloads to the right classical engine.",
+  "version": "1.0.0",
+  "author": "PennyLaneAI",
+  "homepage": "https://github.com/PennyLaneAI/backline",
+  "skills": []
+}
