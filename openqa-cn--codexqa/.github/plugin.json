@@ -1,0 +1,9 @@
+{
+  "name": "openqa-cn--codexqa",
+  "displayName": "codexqa",
+  "description": "OpenQA Agent Skills for Cursor, Claude Code, and Codex: find business-logic bugs AI PRs miss, review code, analyze PRDs, generate manual test cases, construct testdata. Local-first.",
+  "version": "1.0.0",
+  "author": "openqa-cn",
+  "homepage": "https://github.com/openqa-cn/codexqa",
+  "skills": []
+}
