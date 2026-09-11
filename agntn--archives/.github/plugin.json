@@ -1,0 +1,9 @@
+{
+  "name": "agntn--archives",
+  "displayName": "archives",
+  "description": "Unified TypeScript interface for multiple web archive platforms.",
+  "version": "1.0.0",
+  "author": "agntn",
+  "homepage": "https://github.com/agntn/archives",
+  "skills": []
+}
