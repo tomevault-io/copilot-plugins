@@ -1,0 +1,9 @@
+{
+  "name": "kubevirt--kubevirtci",
+  "displayName": "kubevirtci",
+  "description": "kubevirtci",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/kubevirtci",
+  "skills": []
+}
