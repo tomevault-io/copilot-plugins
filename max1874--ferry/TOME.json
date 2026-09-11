@@ -4,7 +4,7 @@
   "repo": "ferry",
   "description": "Self-hosted, chat-shaped clipboard and file ferry for devices on one trusted LAN: a single Go server with an embedded web app, plus native iOS and Android clients.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/max1874/ferry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T17:31:11Z"
+  "distributed_at": "2026-09-11T17:32:08Z"
 }
