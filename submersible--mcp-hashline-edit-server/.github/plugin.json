@@ -1,0 +1,9 @@
+{
+  "name": "submersible--mcp-hashline-edit-server",
+  "displayName": "mcp-hashline-edit-server",
+  "description": "MCP server providing hashline-based file editing \u2014 line-addressed edits with content hashes for integrity verification.",
+  "version": "1.0.0",
+  "author": "Submersible",
+  "homepage": "https://github.com/Submersible/mcp-hashline-edit-server",
+  "skills": []
+}
