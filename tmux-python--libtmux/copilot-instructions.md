@@ -1,144 +1,169 @@
 ## libtmux
 
-> - uv - Python package management and virtual environments
+> Scope: `src/libtmux/**`. Root policy in the
 
-# libtmux Python Project Rules
+# AGENTS.md
 
-<project_stack>
-- uv - Python package management and virtual environments
-- ruff - Fast Python linter and formatter
-- py.test - Testing framework
-  - pytest-watcher - Continuous test runner
-- mypy - Static type checking
-- doctest - Testing code examples in documentation
-</project_stack>
+Scope: `src/libtmux/**`. Root policy in the
+[root `AGENTS.md`](../../AGENTS.md) still applies; this file adds the
+facts specific to this package.
 
-<coding_style>
-- Use a consistent coding style throughout the project
-- Format code with ruff before committing
-- Run linting and type checking before finalizing changes
-- Verify tests pass after each significant change
-</coding_style>
+## Architecture notes
 
-<python_docstrings>
-- Use reStructuredText format for all docstrings in src/**/*.py files
-- Keep the main description on the first line after the opening `"""`
-- Use NumPy docstyle for parameter and return value documentation
-- Format docstrings as follows:
-  ```python
-  """Short description of the function or class.
+- Every tmux command goes through the `cmd()` method on `Server`,
+  `Session`, `Window`, and `Pane`; it returns a `CommandResult` with
+  `stdout` and `stderr`. Reach for it when there is no dedicated
+  method.
+- tmux's format-string system (`#{session_id}`, `#{window_name}`, …)
+  is libtmux's query mechanism; format constants live in `formats.py`.
+- An object can go stale when tmux state changes externally (another
+  client kills a window, a session gets renamed). Call `.refresh()` to
+  reconcile it, or use the `neo` query interface, which always queries
+  fresh.
 
-  Detailed description using reStructuredText format.
+## List-returning accessors: empty by default on tmux errors
 
-  Parameters
-  ----------
-  param1 : type
-      Description of param1
-  param2 : type
-      Description of param2
+`Server.sessions`, `Server.clients`, and `Server.attached_sessions`
+return an empty `QueryList` when tmux's underlying list command fails
+for any reason — no running daemon, a missing socket, a permission
+error, a subprocess crash. This is a deliberate API contract:
+list-shaped accessors are lenient by default. Callers that need to
+distinguish "no rows" from "tmux unreachable" use the explicit
+`Server.is_alive()` or `Server.raise_if_dead()` primitives.
 
-  Returns
-  -------
-  type
-      Description of return value
-  """
-  ```
-</python_docstrings>
+When adding a new list-returning accessor, follow this convention. If a
+future feature genuinely benefits from loud-failure semantics, expose
+it as a scoped opt-in (e.g. a `Server.raise_server_errors()` context
+manager) rather than changing the default contract of an existing
+accessor or hard-coding raise-on-tmux-error into a new one.
+Empty-on-tmux-error stays the default; raise is opt-in.
 
-<python_doctests>
-- Use narrative descriptions for test sections rather than inline comments
-- Format doctests as follows:
-  ```python
-  """
-  Examples
-  --------
-  Create an instance:
+## Logging
 
-  >>> obj = ExampleClass()
-  
-  Verify a property:
-  
-  >>> obj.property
-  'expected value'
-  """
-  ```
-- Add blank lines between test sections for improved readability
-- Keep doctests simple and focused on demonstrating usage
-- Move complex examples to dedicated test files at tests/examples/<path_to_module>/test_<example>.py
-- Utilize pytest fixtures via doctest_namespace for complex scenarios
-</python_doctests>
+These rules guide future logging changes; existing code may not yet
+conform.
 
-<testing_practices>
-- Run tests with `uv run py.test` before committing changes
-- Use pytest-watcher for continuous testing: `uv run ptw . --now --doctest-modules`
-- Fix any test failures before proceeding with additional changes
-</testing_practices>
+### Logger setup
 
-<git_workflow>
-- Make atomic commits with conventional commit messages
-- Start with an initial commit of functional changes
-- Follow with separate commits for formatting, linting, and type checking fixes
-</git_workflow>
+- Use `logging.getLogger(__name__)` in every module.
+- Add `NullHandler` in library `__init__.py` files.
+- Never configure handlers, levels, or formatters in library code —
+  that's the application's job.
 
-<git_commit_standards>
-- Use the following commit message format:
-  ```
-  Component/File(commit-type[Subcomponent/method]): Concise description
+### Structured context via `extra`
 
-  why: Explanation of necessity or impact.
-  what:
-  - Specific technical changes made
-  - Focused on a single topic
+Pass structured data on every log call where useful for filtering,
+searching, or test assertions.
 
-  refs: #issue-number, breaking changes, or relevant links
-  ```
+**Core keys** (stable, scalar, safe at any log level):
 
-- Common commit types:
-  - **feat**: New features or enhancements
-  - **fix**: Bug fixes
-  - **refactor**: Code restructuring without functional change
-  - **docs**: Documentation updates
-  - **chore**: Maintenance (dependencies, tooling, config)
-  - **test**: Test-related updates
-  - **style**: Code style and formatting
+| Key | Type | Context |
+|-----|------|---------|
+| `tmux_cmd` | `str` | tmux command line |
+| `tmux_subcommand` | `str` | tmux subcommand (e.g. `new-session`) |
+| `tmux_target` | `str` | tmux target specifier (e.g. `mysession:1.2`) |
+| `tmux_exit_code` | `int` | tmux process exit code |
+| `tmux_session` | `str` | session name |
+| `tmux_window` | `str` | window name or index |
+| `tmux_pane` | `str` | pane identifier |
+| `tmux_option_key` | `str` | tmux option name |
 
-- Prefix Python package changes with:
-  - `py(deps):` for standard packages
-  - `py(deps[dev]):` for development packages
-  - `py(deps[extra]):` for extras/sub-packages
+**Heavy/optional keys** (DEBUG only, potentially large):
 
-- General guidelines:
-  - Subject line: Maximum 50 characters
-  - Body lines: Maximum 72 characters
-  - Use imperative mood (e.g., "Add", "Fix", not "Added", "Fixed")
-  - Limit to one topic per commit
-  - Separate subject from body with a blank line
-  - Mark breaking changes clearly: `BREAKING:`
-</git_commit_standards>
+| Key | Type | Context |
+|-----|------|---------|
+| `tmux_stdout` | `list[str]` | tmux stdout lines (truncate or cap; `%(tmux_stdout)s` produces repr) |
+| `tmux_stderr` | `list[str]` | tmux stderr lines (same caveats) |
+| `tmux_stdout_len` | `int` | number of stdout lines |
+| `tmux_stderr_len` | `int` | number of stderr lines |
 
-<pytest_testing_guidelines>
-- Use fixtures from conftest.py instead of monkeypatch and MagicMock when available
-- For instance, if using libtmux, use provided fixtures: server, session, window, and pane
-- Document in test docstrings why standard fixtures weren't used for exceptional cases
-- Use tmp_path (pathlib.Path) fixture over Python's tempfile
-- Use monkeypatch fixture over unittest.mock
-</pytest_testing_guidelines>
+Treat established keys as compatibility-sensitive — downstream users
+may build dashboards and alerts on them. Change deliberately.
 
-<import_guidelines>
-- Prefer namespace imports over importing specific symbols
-- Import modules and access attributes through the namespace:
-  - Use `import enum` and access `enum.Enum` instead of `from enum import Enum`
-  - This applies to standard library modules like pathlib, os, and similar cases
-- For typing, use `import typing as t` and access via the namespace:
-  - Access typing elements as `t.NamedTuple`, `t.TypedDict`, etc.
-  - Note primitive types like unions can be done via `|` pipes
-  - Primitive types like list and dict can be done via `list` and `dict` directly
-- Benefits of namespace imports:
-  - Improves code readability by making the source of symbols clear
-  - Reduces potential naming conflicts
-  - Makes import statements more maintainable
-</import_guidelines>
+### Key naming rules
+
+- `snake_case`, not dotted; `tmux_` prefix.
+- Prefer stable scalars; avoid ad-hoc objects.
+- Heavy keys (`tmux_stdout`, `tmux_stderr`) are DEBUG-only; consider
+  companion `tmux_stdout_len` fields or hard truncation (e.g.
+  `stdout[:100]`).
+
+### Lazy formatting
+
+`logger.debug("msg %s", val)` not f-strings. Two rationales:
+
+- Deferred string interpolation: skipped entirely when level is
+  filtered.
+- Aggregator message template grouping: `"Running %s"` is one signature
+  grouped ×10,000; f-strings make each line unique.
+
+When computing `val` itself is expensive, guard with
+`if logger.isEnabledFor(logging.DEBUG)`.
+
+### `stacklevel` for wrappers
+
+Increment for each wrapper layer so `%(filename)s:%(lineno)d` and OTel
+`code.filepath` point to the real caller. Verify whenever call depth
+changes.
+
+### `LoggerAdapter` for persistent context
+
+For objects with stable identity (Session, Window, Pane), use
+`LoggerAdapter` to avoid repeating the same `extra` on every call. Lead
+with the portable pattern (override `process()` to merge);
+`merge_extra=True` simplifies this on Python 3.13+.
+
+### Log levels
+
+| Level | Use for | Examples |
+|-------|---------|----------|
+| `DEBUG` | Internal mechanics, tmux I/O | tmux command + stdout, format queries |
+| `INFO` | Object lifecycle, user-visible operations | Session created, window added |
+| `WARNING` | Recoverable issues, deprecation | Deprecated method, missing optional program |
+| `ERROR` | Failures that stop an operation | tmux command failed, invalid target |
+
+### Message style
+
+- Lowercase, past tense for events: `"session created"`, `"tmux
+  command failed"`.
+- No trailing punctuation.
+- Keep messages short; put details in `extra`, not the message string.
+
+### Exception logging
+
+- Use `logger.exception()` only inside `except` blocks when you are
+  **not** re-raising.
+- Use `logger.error(..., exc_info=True)` when you need the traceback
+  outside an `except` block.
+- Avoid `logger.exception()` followed by `raise` — this duplicates the
+  traceback. Either add context via `extra` that would otherwise be
+  lost, or let the exception propagate.
+
+### Testing logs
+
+Assert on `caplog.records` attributes, not string matching on
+`caplog.text`:
+
+- Scope capture: `caplog.at_level(logging.DEBUG,
+  logger="libtmux.common")`.
+- Filter records rather than index by position: `[r for r in
+  caplog.records if hasattr(r, "tmux_cmd")]`.
+- Assert on schema: `record.tmux_exit_code == 0` not `"exit code 0" in
+  caplog.text`.
+- `caplog.record_tuples` cannot access extra fields — always use
+  `caplog.records`.
+
+### Avoid
+
+- f-strings/`.format()` in log calls.
+- Unguarded logging in hot loops (guard with `isEnabledFor()`).
+- Catch-log-reraise without adding new context.
+- `print()` for diagnostics.
+- Logging secret env var values (log key names only).
+- Non-scalar ad-hoc objects in `extra`.
+- Requiring custom `extra` fields in format strings without safe
+  defaults (missing keys raise `KeyError`).
 
 ---
 > Source: [tmux-python/libtmux](https://github.com/tmux-python/libtmux) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
