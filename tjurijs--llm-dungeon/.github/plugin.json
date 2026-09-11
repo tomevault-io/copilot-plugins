@@ -1,0 +1,9 @@
+{
+  "name": "tjurijs--llm-dungeon",
+  "displayName": "llm-dungeon",
+  "description": "LLM powered text adventure",
+  "version": "1.0.0",
+  "author": "TJurijs",
+  "homepage": "https://github.com/TJurijs/llm-dungeon",
+  "skills": []
+}
