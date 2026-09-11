@@ -4,7 +4,7 @@
   "repo": "dimina-kit",
   "description": "Dimina \u5c0f\u7a0b\u5e8f\u5f00\u53d1\u5de5\u5177\u96c6\uff1a\u684c\u9762 DevTools\u3001\u7f16\u8bd1\u3001H5 \u9884\u89c8\u4e0e\u53ef\u5d4c\u5165 Electron \u8fd0\u884c\u65f6",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EchoTechFE/dimina-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T01:08:27Z"
+  "distributed_at": "2026-09-11T10:30:36Z"
 }
