@@ -1,0 +1,9 @@
+{
+  "name": "unilabsim--unisim",
+  "displayName": "unisim",
+  "description": "Unified physics backend contracts and adapters for UniLab and engine benchmarks",
+  "version": "1.0.0",
+  "author": "unilabsim",
+  "homepage": "https://github.com/unilabsim/unisim",
+  "skills": []
+}
