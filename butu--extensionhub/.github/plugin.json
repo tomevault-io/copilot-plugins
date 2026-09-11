@@ -1,0 +1,9 @@
+{
+  "name": "butu--extensionhub",
+  "displayName": "extensionhub",
+  "description": "An index and a webapp for discovering GNOME Shell Extensions from extensions.gnome.org and github.",
+  "version": "1.0.0",
+  "author": "butu",
+  "homepage": "https://github.com/butu/extensionhub",
+  "skills": []
+}
