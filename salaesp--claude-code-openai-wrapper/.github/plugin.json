@@ -1,0 +1,9 @@
+{
+  "name": "salaesp--claude-code-openai-wrapper",
+  "displayName": "claude-code-openai-wrapper",
+  "description": "FastAPI bridge exposing a Claude Pro/Max subscription as an OpenAI   chat-completions endpoint: passthrough tool calls, structured outputs,   SSE streaming, token usage, single-turn LLM mode, and a Ma",
+  "version": "1.0.0",
+  "author": "salaesp",
+  "homepage": "https://github.com/salaesp/claude-code-openai-wrapper",
+  "skills": []
+}
