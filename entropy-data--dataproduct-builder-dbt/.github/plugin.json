@@ -1,0 +1,9 @@
+{
+  "name": "entropy-data--dataproduct-builder-dbt",
+  "displayName": "dataproduct-builder-dbt",
+  "description": "Build data products with dbt and integrate them with Entropy Data \u2014 coding-agent plugin (Claude Code, Codex, Copilot CLI)",
+  "version": "1.0.0",
+  "author": "entropy-data",
+  "homepage": "https://github.com/entropy-data/dataproduct-builder-dbt",
+  "skills": []
+}
