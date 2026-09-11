@@ -1,0 +1,9 @@
+{
+  "name": "intelligible--elbi",
+  "displayName": "elbi",
+  "description": "Write a Python function. Elbi serves it to AI agents over the Model Context Protocol as a versioned, cached, verified tool.",
+  "version": "1.0.0",
+  "author": "Intelligible",
+  "homepage": "https://github.com/Intelligible/elbi",
+  "skills": []
+}
