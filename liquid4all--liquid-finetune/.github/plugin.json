@@ -1,0 +1,9 @@
+{
+  "name": "liquid4all--liquid-finetune",
+  "displayName": "liquid-finetune",
+  "description": "A full model customization repo for Liquid Foundation Models",
+  "version": "1.0.0",
+  "author": "Liquid4All",
+  "homepage": "https://github.com/Liquid4All/liquid-finetune",
+  "skills": []
+}
