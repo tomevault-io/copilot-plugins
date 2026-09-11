@@ -1,0 +1,9 @@
+{
+  "name": "cloudbase--openvixdisklib",
+  "displayName": "OpenVixDiskLib",
+  "description": "OpenVixDiskLib",
+  "version": "1.0.0",
+  "author": "cloudbase",
+  "homepage": "https://github.com/cloudbase/OpenVixDiskLib",
+  "skills": []
+}
