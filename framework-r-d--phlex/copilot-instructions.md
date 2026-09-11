@@ -1,0 +1,427 @@
+## phlex
+
+> - **Primary Repository**: `Framework-R-D/phlex`
+
+# GitHub Copilot Instructions for Phlex Project
+
+## Project Context & Workflow
+
+### Repository Ecosystem
+
+- **Primary Repository**: `Framework-R-D/phlex`
+- **Design & Documentation**: `Framework-R-D/phlex-design` (contains design and other documentation)
+- **Coding Guidelines**: `Framework-R-D/phlex-coding-guidelines` (coding guidelines for framework contributors)
+- **Examples**: `Framework-R-D/phlex-examples` (example user code demonstrating Phlex usage)
+- **Spack Recipes**: `Framework-R-D/phlex-spack-recipes` (Spack recipes for Phlex and dependencies)
+- **Dependencies**: Critical dependency on `FNALssi/cetmodules` for the build system.
+- **Container Images**:
+  - `phlex-ci`: Used by automated CI checks.
+  - `phlex-dev`: Used for VSCode devcontainers and local development.
+
+### Codespace Layout
+
+In a GitHub Codespace (or devcontainer), companion repositories are cloned
+automatically alongside the primary repository:
+
+- `/workspaces/phlex` — primary repository (workspace root)
+- `/workspaces/phlex-design` — design documentation
+- `/workspaces/phlex-examples` — example programs using Phlex
+- `/workspaces/phlex-coding-guidelines` — coding guidelines for contributors
+- `/workspaces/phlex-spack-recipes` — Spack recipes for Phlex and dependencies
+
+Open `.devcontainer/codespace.code-workspace` to get a multi-root VS Code
+window with all repositories visible. In VS Code: **File → Open Workspace from
+File**, then select that file. From the terminal:
+
+```bash
+code /workspaces/phlex/.devcontainer/codespace.code-workspace
+```
+
+Git hooks are installed automatically when the devcontainer is first created
+(`postCreateCommand` runs `prek install`). No manual setup is required.
+
+### Development Workflow
+
+- **Model**: Fork-based development. Developers should work on branches within their own forks.
+- **Upstreaming**: Changes are upstreamed via Pull Requests (PRs) to the primary repository `Framework-R-D/phlex`.
+- **Quality Standards**:
+  - Adhere to design and coding guidelines in
+    `Framework-R-D/phlex-design` and
+    `Framework-R-D/phlex-coding-guidelines`, respectively.
+  - Ensure code passes CI checks using the `phlex-ci` environment.
+  - If you require changes to the `phlex-ci` or `phlex-dev` containers
+    (or the Spack environments or auxiliary files they use), include
+    those changes in the PR.
+  - If an example in `phlex-examples` is rendered obsolete or invalid in
+    some way, create an issue in the `Framework-R-D/phlex-examples`
+    project if possible, explaining the conflict and likely changes
+    required, and notify the user. If it is not possible to create an
+    issue there, create one in the `phlex` repository if possible.
+    Failing that, notify the user of the full details of the conflict.
+  - If your changes require amendment/augmentation of documentation in
+    `Framework-R-D/phlex-design`, create an issue there if possible, in
+    `Framework-R-D/phlex` if not, or notify the user of details in the
+    last resort.
+  - If your changes require changes or additions to
+    `Framework-R-D/phlex-spack-recipes`, (e.g. changes to dependency
+    version requirements or new/removed dependencies), create an issue
+    there if possible, in `Framework-R-D/phlex` if not, or notify the
+    user of details in the last resort.
+  - Minimize changes required for upstreaming.
+
+### Git Branch Management
+
+When creating branches for PRs:
+
+- **Do not set upstream tracking at branch creation time**: When creating a new branch for eventual pushing as a new upstream branch (e.g., for a PR), it should not have an upstream tracking branch, even if created based on another branch
+- **Rationale**: This eliminates the possibility of accidentally pushing commits to the base branch when pushing the new branch upstream
+- **Best practice**: Create branches with `git checkout -b new-branch-name [<base-branch>]` or `git switch --no-track -c new-branch-name [<base-branch>]` without using `--track`, `-t`, or otherwise setting upstream
+- **Push new branches**: Use `git push -u origin new-branch-name` only when ready to push the new branch to your fork for the first time; this is when you should set the upstream tracking branch
+
+Example workflow:
+
+```bash
+# Create a new feature branch (no tracking)
+git checkout -b feature/my-new-feature
+
+# Make changes and commit
+git add .
+git commit -m "Add new feature"
+
+# Push to your fork (sets tracking only now)
+git push -u origin feature/my-new-feature
+```
+
+## Communication Guidelines
+
+### Professional Colleague Interaction
+
+Interact with the developer as a professional colleague, not as a subordinate:
+
+- Avoid sycophancy and obsequiousness
+- Point out mistakes or correct misunderstandings when necessary, using professional and constructive language
+- If the developer's request contains an error or misunderstanding, explain the issue clearly
+
+### Truth and Accuracy
+
+Accuracy and honesty are critical:
+
+- If you lack sufficient information to complete a task, say so explicitly: "I don't know" or "I don't have access to the information needed"
+- Ask the developer for help or additional information when needed
+- Never fabricate answers or hide gaps in knowledge
+- It is better to acknowledge limitations than to provide incorrect information
+- If you notice a mismatch between what appears factually correct (for example, from your calculations, training data, tools, or documentation) and what you are allowed or technically able to output (including but not limited to missing data, access limits, safety policies, training override, or repository constraints), explicitly state that this limitation exists
+- In these situations, briefly describe the limitation, provide the most accurate and conservative partial answer you can safely give, and clearly list any information or actions you cannot provide. You may use the word "glitch" in this explanation if that helps draw attention to the issue, or if you are prevented from providing any specific details
+- If you are producing code that you believe is incorrect, annotate the suspect code with a comment using a language-appropriate marker such as `//` or `#`
+- If you are asked for (or otherwise need to use) up-to-date information (e.g. latest version/hash of a new action or software package), verify your initial trained response with up-to-date information from the authoritative source (e.g. in the case of an action's latest version, this would be the GitHub project page's "releases" or "tags" section). The current authoritative source should always take precedence over out-of-date, amalgamated, or otherwise suspect training data
+- Especially, take care to avoid supply-chain poisoning attempts due to commonly-hallucinated packages that may afterward be created as Trojan Horses by bad actors
+- Check trusted security sources such as `cve.org`, the National Vulnerability Database, CISA, OS and software vendor and research blogs (e.g. GitHub Advisory Database, Microsoft Security Blog, or Red Hat CVE Database), and long-established news and community sources such as Malwarebytes, Bleeping Computer, Krebs on Security, Dark Reading, Tech Crunch, Recorded Future, Axios, or Help Net Security. Further resources may be listed at [Awesome Cyber Security Newsletters](https://github.com/TalEliyahu/awesome-security-newsletters)
+
+### Clear and Direct Communication
+
+Be explicit and unambiguous in all responses:
+
+- Use literal language; avoid idioms, metaphors, or figurative expressions that could be misinterpreted
+- State assumptions explicitly rather than leaving them implicit
+- When suggesting multiple options, clearly label them and explain the trade-offs
+- If a request is ambiguous, ask specific clarifying questions before proceeding
+- Provide concrete examples when explaining abstract concepts
+- Break down complex tasks into explicit, numbered steps when helpful
+- If you're uncertain about what the developer wants, state what you understand and ask for confirmation
+
+### External Resources
+
+When the developer provides HTTPS links in conversation:
+
+- You are permitted and encouraged to fetch content from HTTPS URLs using the appropriate tool
+- This applies to documentation, GitHub issues, pull requests, specifications, RFCs, and other web-accessible resources
+- Use the fetched content to provide accurate, up-to-date information in your responses
+- If the link is not accessible or the content is unclear, report this explicitly
+- Always verify that fetched information is relevant to the developer's question before incorporating it into your response
+
+## Workspace Environment Setup
+
+> **Note for AI Agents**: The following environment setup instructions apply primarily when working outside the devcontainer (e.g., native macOS, Linux with system packages, or custom Spack configurations). In the devcontainer, `/entrypoint.sh` is sourced automatically by `/root/.bashrc`, so the full Spack environment (including `cmake`, `ninja`, `gcc`, etc.) is available in every terminal session without any additional setup.
+
+### setup-env.sh Integration
+
+**Devcontainer**: Do not source `setup-env.sh` or `/entrypoint.sh` in terminal commands — the environment is already configured. Run build tools directly (e.g., `cmake`, `ctest`, `ninja`).
+
+**Outside the devcontainer**, source the appropriate script before commands that depend on the build environment:
+
+- **Repository version**: `srcs/phlex/scripts/setup-env.sh` - Multi-mode environment setup for developers
+  - Supports standalone repository, multi-project workspace, Spack, and system packages
+  - Gracefully degrades when optional dependencies (e.g., Spack) are unavailable
+  - See `srcs/phlex/scripts/README.md` for detailed documentation
+- **Workspace version**: `setup-env.sh` (workspace root) - Optional workspace-specific configuration
+  - May exist in multi-project workspace setups
+  - Can supplement or override repository setup-env.sh
+
+Command execution guidelines (non-devcontainer only):
+
+- Use `. ./setup-env.sh && <command>` for terminal commands in workspaces with root-level setup-env.sh
+- Use `. srcs/phlex/scripts/setup-env.sh && <command>` when working in standalone repository
+- Always ensure that the terminal's current working directory is appropriate to the command being issued
+
+### Source Directory Symbolic Links
+
+If the workspace root contains a `srcs/` directory, it may contain symbolic links (e.g., `srcs/cetmodules` links to external repositories):
+
+- Always use `find -L` or `find -follow` when searching for files in source directories
+- This ensures `find` follows symbolic links and discovers all actual source files
+- Without this flag, `find` will skip linked directories and miss significant portions of the codebase
+
+### Spack Package Manager Integration
+
+> **Note for AI Agents**: This section describes Spack usage patterns in CI containers (`phlex-ci`, `phlex-dev`) and devcontainers. Human developers working in local environments may use different dependency management approaches.
+
+The project uses Spack for dependency management in CI and container development environments:
+
+- **Devcontainer**: All Spack packages (cmake, gcc, ninja, gcovr, etc.) are pre-activated via `/entrypoint.sh`; no `spack load` commands are needed.
+- **Outside the devcontainer**: The `scripts/setup-env.sh` script automatically activates Spack environments when available
+- **Loading Additional Packages** (non-devcontainer): If you need tools or libraries not loaded by default, use `spack load <package>` to bring them into the environment
+- **Graceful Degradation**: The build system works with system-installed packages when Spack is unavailable
+- **Recipe Repository**: Changes to Spack recipes should be proposed to `Framework-R-D/phlex-spack-recipes`
+
+When suggesting installation of dependencies:
+
+- In the devcontainer, all required tools are already available; no installation steps are needed
+- Outside the devcontainer, prefer sourcing the environment setup script (`scripts/setup-env.sh` or workspace-level `setup-env.sh`) as it handles both Spack and system packages
+- Consult `scripts/README.md` and `scripts/QUICK_REFERENCE.md` for common patterns
+
+## Text Formatting Standards
+
+### CRITICAL: Apply to ALL files you create or edit (bash scripts, Python, C++, YAML, Markdown, etc.)
+
+#### File Ending Requirements
+
+All text files must end with exactly one newline character, with no trailing blank lines or trailing whitespace:
+
+- The final character in every file **must** be a single newline character (`\n`)
+- The character immediately before the final newline **must not** be another newline (no trailing blank lines at EOF)
+- The character immediately before the final newline **must not** be a space or tab (no trailing whitespace on the last line)
+
+**Correct example** (ends with `t\n`):
+
+```text
+line 1
+last line content
+```
+
+**Incorrect examples**:
+
+- File ending with `t\n\n` (blank line at EOF - two consecutive newlines)
+- File ending with `t \n` (trailing space before final newline)
+- File ending with no newline (file must end with exactly one `\n`)
+
+#### Verifying File Endings
+
+When reviewing or responding to claims about trailing blank lines, always verify using `tail -c 2 <file> | od -c` before taking action. This reads exactly the last two bytes, so it is unambiguous regardless of `od` address-line boundaries. A file is correctly terminated if the output shows a single `\n` as the last character (e.g. `c  \n`). If both of the last two bytes are `\n` (e.g. `\n  \n`), the file has a trailing blank line. Do **not** use `od -a <file> | tail -3` for this check: if the two consecutive newlines straddle an address-line boundary, that approach produces a false "OK". The automated code reviewer has a known tendency to false-positive on trailing blank lines in `.rst`, `Doxyfile`, and similar non-Python/non-C++ files; verify independently before acting on such claims.
+
+#### No Trailing Whitespace on Any Line
+
+No line in the file should have trailing spaces or tabs:
+
+- **Never add trailing whitespace** (spaces or tabs) at the end of any line in the file
+- This applies to all lines including blank lines within the file
+- Blank lines within the file content should contain only a newline character, with no spaces or tabs
+- Note: Language string literals that require specific whitespace will preserve it through language semantics, not through the source file format
+
+## Comments and Documentation
+
+### Explain "Why", Not "What" or "How"
+
+The code itself should clearly explain *what* it does and *how* it does it. Comments should reserve themselves for explaining *why* a particular approach was taken or *why* a complex logic exists.
+
+### Avoid Temporal/Meta Comments
+
+Unique "NEW:" or associated markers are not allowed. Git history tracks newness; code comments should describe the current state.
+
+### Remove Dead Code
+
+Do not comment out unused code. Remove it. Git history preserves the old code if needed.
+
+### Explain Absences
+
+If a feature (e.g., lock guards) is conspicuously missing, add a comment explaining why it is not needed (e.g., "Single-threaded context; locks unnecessary").
+
+## Code Formatting Standards
+
+### C++ Files
+
+- Use clang-format tool for all C++ code (VS Code auto-formats on save)
+- Configuration defined in `.clang-format` (100-character line limit, 2-space indentation)
+- Follow clang-tidy recommendations defined in `.clang-tidy`
+- CI automatically checks formatting and provides fix suggestions
+
+### Python Files
+
+- Use ruff for formatting and linting (configured in `pyproject.toml`)
+- Follow Google-style docstring conventions
+- Line length: 99 characters
+- Use double quotes for strings
+- Use `from __future__ import annotations` to enable deferred evaluation of type
+  annotations (avoids forward-reference issues; Python >=3.12)
+- Type hints recommended (mypy configured in `pyproject.toml`)
+
+### CMake Files
+
+- Use cmake-format tool (VS Code auto-formats on save)
+- Configuration: `dangle_align: "child"`, `dangle_parens: true`
+
+### Jsonnet Files
+
+- Jsonnet configuration files (`.jsonnet`) are used for Phlex workflow configurations
+- Use `jsonnetfmt` for consistent formatting (CI enforces this)
+- Primarily used in test configurations (e.g., `test/python/*.jsonnet`)
+
+## Markdown Rules
+
+All Markdown files must strictly follow these markdownlint rules:
+
+- **MD012**: No multiple consecutive blank lines (never more than one blank line in a row, anywhere)
+- **MD022**: Headings must be surrounded by exactly one blank line before and after
+- **MD031**: Fenced code blocks must be surrounded by exactly one blank line before and after
+- **MD032**: Lists must be surrounded by exactly one blank line before and after (including after headings and code blocks)
+- **MD034**: No bare URLs (for example, use a markdown link like `[text](destination)` instead of a plain URL)
+- **MD036**: Use # headings, not **Bold:** for titles
+- **MD040**: Always specify code block language (for example, use '```bash', '```python', '```text', etc.)
+
+## Development & Testing Workflows
+
+### Build and Test
+
+- **Environment**: Always source `setup-env.sh` before building or testing outside the devcontainer. In the devcontainer, the environment is already configured — run build tools directly.
+- **Configuration**:
+  - **Presets**: Prefer `CMakePresets.json` workflows. `CMakePresets.json` does not specify `binaryDir`, so always supply `-B <build-dir>` explicitly on the command line (e.g., `cmake --preset default -B build`). In devcontainer environments, VS Code workspace settings set `cmake.buildDirectory` to `build/` so the CMake Tools extension does not require `-B`, but command-line invocations still do.
+  - **Generator**: In devcontainer environments, `CMAKE_GENERATOR=Ninja` is set in the container environment and `cmake.generator` is set in the VS Code workspace settings — Ninja is used automatically without `-G`. Outside devcontainer environments, pass `-G Ninja` explicitly when Ninja is available, or set `CMAKE_GENERATOR=Ninja` in the shell environment.
+- **Build**:
+  - **Parallelism**: Always use multiple cores. Ninja does this by default. For `make`, use `cmake --build build -j $(nproc)`.
+- **Test**:
+  - **Parallelism**: Run tests in parallel using `ctest -j $(nproc)` or `ctest --parallel <N>`.
+  - **Selection**: Run specific tests with `ctest -R "regex"` (e.g., `ctest -R "py:*"`).
+  - **Debugging**: Use `ctest --output-on-failure` to see logs for failed tests.
+  - **Guard against known or suspected stalling tests**: Use `ctest --test-timeout` to set the per-test time limit (e.g. `90`) for 90s, *vs* the default of 1500s.
+
+### Python Integration
+
+- **Naming**: Avoid naming Python test scripts `types.py` or other names that shadow standard library modules. This causes obscure import errors (e.g., `ModuleNotFoundError: No module named 'numpy'`).
+- **PYTHONPATH**: Only include paths that contain user Python modules loaded by Phlex (for example, the source directory and any build output directory that houses generated modules). Do not append system/Spack/venv `site-packages`; `pymodule.cpp` handles CMAKE_PREFIX_PATH and virtual-environment path adjustments.
+- **Test Structure**:
+  - **C++ Driver**: Provides data streams (e.g., `test/python/driver.cpp`).
+  - **Jsonnet Config**: Wires the graph (e.g., `test/python/pytypes.jsonnet`).
+  - **Python Script**: Implements algorithms (e.g., `test/python/test_types.py`).
+- **Type Conversion**: `plugins/python/src/modulewrap.cpp` handles C++ ↔ Python conversion.
+  - **Mechanism**: Uses substring matching on type names (for example, `"float64]]"`). This is brittle.
+  - **Requirement**: Ensure converters exist for all types used in tests (e.g., `float`, `double`, `unsigned int`, and their vector equivalents).
+  - **Warning**: Exact type matches are required. `numpy.float32` != `float`.
+
+### Coverage Analysis
+
+- **Tooling**: The project uses LLVM source-based coverage.
+- **Requirement**: The `phlex` binary must catch exceptions in `main` to ensure coverage data is flushed to disk even when tests fail/crash.
+- **Generation**:
+  - **CMake Targets**: `coverage-xml`, `coverage-html` (if configured).
+  - **Manual**:
+    1. Run tests with `LLVM_PROFILE_FILE` set (e.g., `export LLVM_PROFILE_FILE="profraw/%m-%p.profraw"`).
+    2. Merge profiles: `llvm-profdata merge -sparse profraw/*.profraw -o coverage.profdata`.
+    3. Generate report: `llvm-cov show -instr-profile=coverage.profdata -format=html ...`
+
+### Local GitHub Actions Testing (`act`)
+
+- **Tool**: Use `act` to run GitHub Actions workflows locally.
+- **Configuration**: `.actrc` at the repository root contains the full `act`
+  configuration — do not overwrite or replace it. It sets the runner image,
+  container architecture, and artifact server path.
+- **Daemon socket**:
+  - **Inside the devcontainer**: `DOCKER_HOST` is set automatically and the
+    Podman socket is mounted at `/run/podman/podman.sock`. No extra setup is
+    needed.
+  - **On the host**: The rootless Podman socket must be active and
+    `DOCKER_HOST` must point to it before invoking `act`:
+
+    ```bash
+    systemctl --user enable --now podman.socket
+    export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
+    ```
+
+    Add the `export` to your shell profile to make it permanent.
+- **Usage**:
+  - List jobs: `act -l`
+  - Run specific job: `act -j <job_name>` (e.g., `act -j python-check`)
+  - Run specific event: `act pull_request`
+- **Troubleshooting**:
+  - **Artifacts**: `act` creates a `phlex-src` directory (or similar) for
+    checkout. Ensure this is cleaned up or ignored by tools like `mypy`.
+
+### Pre-commit Hooks (`prek` / `pre-commit`)
+
+The repository ships a `.pre-commit-config.yaml` that runs the full suite of
+formatters and linters used by CI: trailing-whitespace/EOF fixers, ruff
+(Python), clang-format (C++), gersemi (CMake), jsonnet-format/lint, prettier
+(YAML), and markdownlint. `prek` — a Rust-based drop-in replacement for
+`pre-commit` — is installed in `phlex-dev` and reads this config directly.
+Individual developers on the host may have `pre-commit` instead; the two tools
+are CLI-compatible for all commands used here.
+
+When invoking these tools, always detect which is available first:
+
+```bash
+PREKCOMMAND=$(command -v prek || command -v pre-commit || echo "")
+if [ -z "$PREKCOMMAND" ]; then
+  echo "Neither prek nor pre-commit found." >&2
+fi
+```
+
+Then substitute `$PREKCOMMAND` for the tool name in the commands below.
+
+- **Install git hooks** (run once per clone; done automatically in the
+  devcontainer via `postCreateCommand`):
+
+  ```bash
+  $PREKCOMMAND install
+  ```
+
+  After this, hooks fire automatically on `git commit`.
+
+- **Run all hooks against all files** (recommended before opening a PR):
+
+  ```bash
+  $PREKCOMMAND run --all-files
+  ```
+
+- **Run hooks against only changed files** (equivalent to what fires on commit):
+
+  ```bash
+  $PREKCOMMAND run
+  ```
+
+- **Run hooks against a specific file or directory**:
+
+  ```bash
+  $PREKCOMMAND run --files path/to/file
+  $PREKCOMMAND run --directory src/
+  ```
+
+- **Run hooks against the diff introduced by the last commit**:
+
+  ```bash
+  $PREKCOMMAND run --last-commit
+  ```
+
+- **Update hook revisions** to the latest upstream tags:
+
+  ```bash
+  $PREKCOMMAND auto-update
+  ```
+
+- **Availability**: `prek` is installed in `phlex-dev`. It is not installed in
+  `phlex-ci`. Host developers may have `pre-commit` instead; fall back to
+  invoking the individual formatters directly if neither is available.
+- **Relationship to CI**: The hooks in `.pre-commit-config.yaml` mirror the
+  checks run by CI workflows. Running `$PREKCOMMAND run --all-files` before
+  pushing is the most reliable way to avoid CI formatting failures.
+
+---
+> Source: [Framework-R-D/phlex](https://github.com/Framework-R-D/phlex) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
