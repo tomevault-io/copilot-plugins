@@ -1,0 +1,9 @@
+{
+  "name": "pymodel--niblet-skill-mcp",
+  "displayName": "niblet-skill-mcp",
+  "description": "MCP server and design skill that grounds coding-agent UI work in real product screens. Two tools, npx-installable.",
+  "version": "1.0.0",
+  "author": "PyModel",
+  "homepage": "https://github.com/PyModel/niblet-skill-mcp",
+  "skills": []
+}
