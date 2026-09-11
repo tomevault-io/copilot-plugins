@@ -1,0 +1,9 @@
+{
+  "name": "jamf--terraform-provider-jamfplatform",
+  "displayName": "terraform-provider-jamfplatform",
+  "description": "Terraform Provider for the Jamf Platform",
+  "version": "1.0.0",
+  "author": "jamf",
+  "homepage": "https://github.com/jamf/terraform-provider-jamfplatform",
+  "skills": []
+}
