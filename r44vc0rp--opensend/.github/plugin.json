@@ -1,0 +1,9 @@
+{
+  "name": "r44vc0rp--opensend",
+  "displayName": "opensend",
+  "description": "self-hosted transactional & marketing email layer on top of aws ses",
+  "version": "1.0.0",
+  "author": "R44VC0RP",
+  "homepage": "https://github.com/R44VC0RP/opensend",
+  "skills": []
+}
