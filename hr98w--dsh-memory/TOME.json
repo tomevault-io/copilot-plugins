@@ -1,0 +1,44 @@
+{
+  "name": "dsh-memory",
+  "owner": "hr98w",
+  "repo": "dsh-memory",
+  "description": "\u878d\u5408 Claude Code \u7684 Auto Memory \u4e0e Codex \u7684 Session \u8bb0\u5fc6\u6574\u7406\uff0c\u4e3a DeepSeek Harness \u63d0\u4f9b\u7b80\u5355\u3001\u900f\u660e\u3001\u4e0a\u4e0b\u6587\u53cb\u597d\u7684\u957f\u671f\u8bb0\u5fc6\u3002Claude Code-inspired Auto Memory meets Codex-inspired Session consolidation, bringing simple, transparent, and context-efficient long-term memory to DeepSeek Harness.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hr98w/dsh-memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T11:58:53Z"
+}
