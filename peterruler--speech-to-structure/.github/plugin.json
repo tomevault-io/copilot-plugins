@@ -1,0 +1,9 @@
+{
+  "name": "peterruler--speech-to-structure",
+  "displayName": "speech-to-structure",
+  "description": "local text to structure using gpt-oss-20 and whisper in swissgerman",
+  "version": "1.0.0",
+  "author": "peterruler",
+  "homepage": "https://github.com/peterruler/speech-to-structure",
+  "skills": []
+}
