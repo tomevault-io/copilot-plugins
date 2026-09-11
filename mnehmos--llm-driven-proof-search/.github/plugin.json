@@ -1,0 +1,9 @@
+{
+  "name": "mnehmos--llm-driven-proof-search",
+  "displayName": "llm-driven-proof-search",
+  "description": "An evidence-preserving operating environment for AI-assisted mathematical research, formalization, decomposition, certificate generation, Lean verification, and publication export.",
+  "version": "1.0.0",
+  "author": "Mnehmos",
+  "homepage": "https://github.com/Mnehmos/llm-driven-proof-search",
+  "skills": []
+}
