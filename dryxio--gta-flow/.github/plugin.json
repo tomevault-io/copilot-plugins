@@ -1,0 +1,9 @@
+{
+  "name": "dryxio--gta-flow",
+  "displayName": "gta-flow",
+  "description": "Create and edit GTA San Andreas traffic routes with AI and Blender. Early alpha.",
+  "version": "1.0.0",
+  "author": "Dryxio",
+  "homepage": "https://github.com/Dryxio/gta-flow",
+  "skills": []
+}
