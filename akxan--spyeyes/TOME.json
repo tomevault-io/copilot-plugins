@@ -1,0 +1,44 @@
+{
+  "name": "SpyEyes",
+  "owner": "Akxan",
+  "repo": "SpyEyes",
+  "description": "\ud83d\udc41 SpyEyes \u2014 All-in-One OSINT Toolkit \u00b7 10 commands \u00b7 3164 platforms \u00b7 Subdomain (7 dim) + Email (6 free sources, 3-4\u00d7 faster) + Diff + Batch \u00b7 8 Editorial reports \u00b7 \u4e2d\u82f1\u53cc\u8bed \u00b7 488 tests \u00b7 v1.6.12 \u00b7 LINUX DO \u793e\u533a\u8ba4\u53ef",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Akxan/SpyEyes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T18:42:27Z"
+}
