@@ -4,7 +4,7 @@
   "repo": "speech-to-structure",
   "description": "local text to structure using gpt-oss-20 and whisper in swissgerman",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peterruler/speech-to-structure",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T22:33:10Z"
+  "distributed_at": "2026-09-11T22:37:30Z"
 }
