@@ -4,7 +4,7 @@
   "repo": "liveavatar-gpt-live-demos",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heygen-com/liveavatar-gpt-live-demos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T00:58:40Z"
+  "distributed_at": "2026-09-11T10:21:56Z"
 }
