@@ -7,11 +7,11 @@ Turn art of rally into a sim: revives the game's missing DirectInput force feedb
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [d-b-c-e/art-of-sim-rally](https://github.com/d-b-c-e/art-of-sim-rally).
+Original source: `AGENTS.md` in [d-b-c-e/art-of-sim-rally](https://github.com/d-b-c-e/art-of-sim-rally).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
