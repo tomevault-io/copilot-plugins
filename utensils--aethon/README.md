@@ -7,11 +7,11 @@ Pi with a face — agent-driven desktop shell with A2UI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [utensils/aethon](https://github.com/utensils/aethon).
+Original source: `AGENTS.md` in [utensils/aethon](https://github.com/utensils/aethon).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
