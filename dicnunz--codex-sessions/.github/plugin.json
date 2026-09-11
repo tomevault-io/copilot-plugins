@@ -1,0 +1,9 @@
+{
+  "name": "dicnunz--codex-sessions",
+  "displayName": "codex-sessions",
+  "description": "Coordinate local Codex sessions on macOS with project discovery, cooperative locks, and an optional Telegram bridge.",
+  "version": "1.0.0",
+  "author": "dicnunz",
+  "homepage": "https://github.com/dicnunz/codex-sessions",
+  "skills": []
+}
