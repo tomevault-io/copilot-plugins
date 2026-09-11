@@ -1,0 +1,9 @@
+{
+  "name": "glassflow--tares",
+  "displayName": "tares",
+  "description": "The open-source platform for always-on AI agents. Connect anything that emits events; Tares puts every event on one timeline per thing, wakes an agent the moment it matters, and keeps the answer for t",
+  "version": "1.0.0",
+  "author": "glassflow",
+  "homepage": "https://github.com/glassflow/tares",
+  "skills": []
+}
