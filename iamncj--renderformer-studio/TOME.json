@@ -4,7 +4,7 @@
   "repo": "RenderFormer-Studio",
   "description": "Official data, training, and inference code for RenderFormer (SIGGRAPH2025) and RenderFormer-V2 (ECCV2026)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iamNCJ/RenderFormer-Studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T00:35:42Z"
+  "distributed_at": "2026-09-11T09:51:14Z"
 }
