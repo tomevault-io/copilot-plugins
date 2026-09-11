@@ -1,0 +1,9 @@
+{
+  "name": "akxan--google-seo-mcp",
+  "displayName": "google-seo-mcp",
+  "description": "SEO & GEO MCP server for Claude, Codex, Cursor and any MCP client: Google Search Console, Google Analytics 4, PageSpeed Insights, Core Web Vitals, structured data, llms.txt, AI crawler checks, WordPre",
+  "version": "1.0.0",
+  "author": "Akxan",
+  "homepage": "https://github.com/Akxan/google-seo-mcp",
+  "skills": []
+}
