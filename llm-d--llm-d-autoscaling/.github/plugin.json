@@ -1,0 +1,9 @@
+{
+  "name": "llm-d--llm-d-autoscaling",
+  "displayName": "llm-d-autoscaling",
+  "description": "Variant optimization autoscaler for distributed inference workloads",
+  "version": "1.0.0",
+  "author": "llm-d",
+  "homepage": "https://github.com/llm-d/llm-d-autoscaling",
+  "skills": []
+}
