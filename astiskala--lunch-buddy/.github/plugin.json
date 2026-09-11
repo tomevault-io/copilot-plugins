@@ -1,0 +1,9 @@
+{
+  "name": "astiskala--lunch-buddy",
+  "displayName": "lunch-buddy",
+  "description": "Lunch Buddy is a progressive web app (PWA) that visualises your Lunch Money budgets to help you keep category budgets on track as you progress through the month.",
+  "version": "1.0.0",
+  "author": "astiskala",
+  "homepage": "https://github.com/astiskala/lunch-buddy",
+  "skills": []
+}
