@@ -1,0 +1,9 @@
+{
+  "name": "bestie-org--bestie",
+  "displayName": "BEStie",
+  "description": "Bosch ebike Live Data Interface (LDI) bridge. nRF5 FTMS firmware for real-time power, speed and cadence on smart watches and cycling computers",
+  "version": "1.0.0",
+  "author": "bestie-org",
+  "homepage": "https://github.com/bestie-org/BEStie",
+  "skills": []
+}
