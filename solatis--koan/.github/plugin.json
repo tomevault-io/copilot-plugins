@@ -1,0 +1,9 @@
+{
+  "name": "solatis--koan",
+  "displayName": "koan",
+  "description": "Spec-based workflows for coding agents (claude code, codex, etc)",
+  "version": "1.0.0",
+  "author": "solatis",
+  "homepage": "https://github.com/solatis/koan",
+  "skills": []
+}
