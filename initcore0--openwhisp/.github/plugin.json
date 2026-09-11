@@ -1,0 +1,9 @@
+{
+  "name": "initcore0--openwhisp",
+  "displayName": "openwhisp",
+  "description": "Local-first dictation for macOS - hold-to-talk, on-device transcription via nvidia parakeet, optional private LLM cleanup. Menu-bar app.",
+  "version": "1.0.0",
+  "author": "initcore0",
+  "homepage": "https://github.com/initcore0/openwhisp",
+  "skills": []
+}
