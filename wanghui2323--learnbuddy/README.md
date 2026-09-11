@@ -7,11 +7,11 @@ LearnBuddy 学习伙伴：可私有部署的个性化 AI 学习系统，支持 C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wanghui2323/learnbuddy](https://github.com/wanghui2323/learnbuddy).
+Original source: `AGENTS.md` in [wanghui2323/learnbuddy](https://github.com/wanghui2323/learnbuddy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
