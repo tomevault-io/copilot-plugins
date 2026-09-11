@@ -1,0 +1,9 @@
+{
+  "name": "ricardobeat--milktea",
+  "displayName": "milktea",
+  "description": "A native TUI library in C3, inspired by Bubbletea",
+  "version": "1.0.0",
+  "author": "ricardobeat",
+  "homepage": "https://github.com/ricardobeat/milktea",
+  "skills": []
+}
