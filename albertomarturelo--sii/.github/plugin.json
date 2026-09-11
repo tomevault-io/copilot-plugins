@@ -1,0 +1,9 @@
+{
+  "name": "albertomarturelo--sii",
+  "displayName": "sii",
+  "description": "TypeScript core + CLI + MCP server to automate routine interactions with Chile's tax authority (SII), for Claude Code and Claude Desktop. Unofficial.",
+  "version": "1.0.0",
+  "author": "albertomarturelo",
+  "homepage": "https://github.com/albertomarturelo/sii",
+  "skills": []
+}
