@@ -4,7 +4,7 @@
   "repo": "MagitekRoutine",
   "description": "All in one combat routine for Rebornbuddy",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MagitekRB/MagitekRoutine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T00:33:59Z"
+  "distributed_at": "2026-09-11T08:27:05Z"
 }
