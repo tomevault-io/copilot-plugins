@@ -1,0 +1,9 @@
+{
+  "name": "zhuochenglu--wanniernlqg",
+  "displayName": "WannierNLQG",
+  "description": "WannierNLQG is a Julia package for nonlinear responses and quantum-geometric quantities from Wannier tight-binding models.",
+  "version": "1.0.0",
+  "author": "ZhuochengLu",
+  "homepage": "https://github.com/ZhuochengLu/WannierNLQG",
+  "skills": []
+}
