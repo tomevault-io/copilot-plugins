@@ -1,0 +1,44 @@
+{
+  "name": "StarTap-Image-Shrinking-Tool",
+  "owner": "cscb603",
+  "repo": "StarTap-Image-Shrinking-Tool",
+  "description": "StarTap Image Shrinking Tool \u2014 a Rust+Tauri image compressor that shrinks photos 50-80% while resisting WeChat/Xiaohongshu recompression (mozjpeg, 4:4:4 chroma, CAS). Dual-mode GUI + Agent-First CLI. \u661fTAP \u56fe\u7247\u9ad8\u901f\u538b\u7f29\uff1a\u4e13\u6cbb\u5fae\u4fe1/\u670b\u53cb\u5708\u4e8c\u6b21\u538b\u7f29\uff0c\u4f53\u79ef\u5c0f\u53c8\u6e05\u6670\uff0cGUI+AI \u53cc\u6a21\u5f0f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cscb603/StarTap-Image-Shrinking-Tool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T08:09:40Z"
+}
