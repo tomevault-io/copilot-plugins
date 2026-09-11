@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [mongodb/kingfisher](https://github.com/mongodb/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mongodb/kingfisher](https://github.com/mongodb/kingfisher) — a repo with 1175+ stars on GitHub.
+From [mongodb/kingfisher](https://github.com/mongodb/kingfisher) — a repo with 1225+ stars on GitHub.
 
 ---
 
