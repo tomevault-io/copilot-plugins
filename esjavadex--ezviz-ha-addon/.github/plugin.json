@@ -1,0 +1,9 @@
+{
+  "name": "esjavadex--ezviz-ha-addon",
+  "displayName": "ezviz-ha-addon",
+  "description": "Reversed Engineering Cloud Ezviz conection Home Assistant addon. Tested on HP2",
+  "version": "1.0.0",
+  "author": "ESJavadex",
+  "homepage": "https://github.com/ESJavadex/ezviz-ha-addon",
+  "skills": []
+}
