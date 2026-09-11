@@ -1,0 +1,44 @@
+{
+  "name": "Night-Reader",
+  "owner": "bennytsai1234",
+  "repo": "Night-Reader",
+  "description": "\u6975\u7c21 Flutter \u5c0f\u8aaa\u95b1\u8b80\u5668\uff0c\u652f\u63f4\u66f8\u6e90\u7ba1\u7406\u3001EPUB/TXT\u3001TTS \u6717\u8b80\u3001\u96e2\u7dda\u5feb\u53d6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bennytsai1234/Night-Reader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T03:48:25Z"
+}
