@@ -1,7 +1,7 @@
 {
   "name": "hatpdots--torchref",
   "displayName": "TorchRef",
-  "description": "TorchRef",
+  "description": "A PyTorch-based crystallographic refinement library",
   "version": "1.0.0",
   "author": "HatPdotS",
   "homepage": "https://github.com/HatPdotS/TorchRef",
