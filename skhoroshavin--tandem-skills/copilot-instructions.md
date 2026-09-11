@@ -1,0 +1,34 @@
+## tandem-skills
+
+> Prompt/skill distribution repo: `src/` is the source of truth, `packages/` is build output. Both are committed; keep them in sync via the renderer.
+
+# AGENTS.md
+
+Prompt/skill distribution repo: `src/` is the source of truth, `packages/` is build output. Both are committed; keep them in sync via the renderer.
+
+## Layout
+
+- `src/prompt.md`, `src/skills/`, `src/README.md` - templates, placeholders: `{{prompt_prefix}}`, `{{worker_cmd}}`, `{{install}}`
+- `src/<harness>/` - per-harness values for the placeholders above; a missing or empty file renders as an empty string (and a missing or empty `install.md` means the package ships no README)
+- `src/runtime/` - shared runtime helpers (used by extensions/hooks), rendered like `src/skills/` into every package's `runtime/` dir
+- root `README.md` is rendered from `src/README.md` with all install snippets, each `packages/<harness>-tandem/README.md` with only its own
+- `packages/<harness>-tandem/` - rendered output (`prompt.md`, `skills/`, `README.md`, `LICENSE` copied from the root) plus hand-maintained files
+
+## Rules
+
+- Never hand-edit rendered files (root `README.md`; `prompt.md`, `skills/`, `runtime/`, `README.md`, `LICENSE` under `packages/`); edit `src/` or the root `LICENSE`, then render.
+- Markdown documents are not hard-wrapped: one paragraph or list item per line, however long; scripts and code blocks keep their own formatting.
+
+## Commands
+
+```bash
+node src/render.mjs          # render src/ -> packages/ and root README.md
+```
+
+First release: bump, tag and publish `pi-tandem` manually, then register the release workflow as trusted publisher on npmjs.com; later releases use the workflow.
+
+Rendering requires Node >= 20.12 (`readdirSync` recursive, `Dirent.parentPath`).
+
+---
+> Source: [skhoroshavin/tandem-skills](https://github.com/skhoroshavin/tandem-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
