@@ -4,7 +4,7 @@
   "repo": "flatbread",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FlatbreadLabs/flatbread",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-31T06:33:52Z"
+  "distributed_at": "2026-09-11T06:35:42Z"
 }
