@@ -1,0 +1,9 @@
+{
+  "name": "payperq--privatewhisper",
+  "displayName": "privatewhisper",
+  "description": "Private Whisper by PPQ.AI \u2014 open-source desktop dictation app with AI clean-up (macOS, Windows, Linux)",
+  "version": "1.0.0",
+  "author": "PayPerQ",
+  "homepage": "https://github.com/PayPerQ/privatewhisper",
+  "skills": []
+}
