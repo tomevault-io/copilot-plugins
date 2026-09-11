@@ -4,7 +4,7 @@
   "repo": "deepchat",
   "description": "DeepChat - An AI Version of WeChat Built on DeepSeek Harness",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theajack/deepchat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T05:49:25Z"
+  "distributed_at": "2026-09-11T10:54:55Z"
 }
