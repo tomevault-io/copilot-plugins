@@ -4,7 +4,7 @@
   "repo": "vibe",
   "description": "A comprehensive, professionally organized collection of specialized AI chat modes for software engineering, architecture, security analysis, and development workflows.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anubhavg-icpl/vibe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T07:33:18Z"
+  "distributed_at": "2026-09-11T07:34:43Z"
 }
