@@ -1,0 +1,9 @@
+{
+  "name": "apinizer--testnizer",
+  "displayName": "testnizer",
+  "description": "Free, fully offline cross-platform desktop API client \u2014 HTTP, SOAP, gRPC, WebSocket, GraphQL, SSE, MCP. Your data never leaves your machine. MIT source.",
+  "version": "1.0.0",
+  "author": "apinizer",
+  "homepage": "https://github.com/apinizer/testnizer",
+  "skills": []
+}
