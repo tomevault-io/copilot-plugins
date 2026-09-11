@@ -1,0 +1,9 @@
+{
+  "name": "sarrazola--dictamelo",
+  "displayName": "dictamelo",
+  "description": "MIT-licensed voice dictation for macOS and Windows with local Whisper, Parakeet and Canary models, plus optional cloud transcription | Rust + Tauri",
+  "version": "1.0.0",
+  "author": "sarrazola",
+  "homepage": "https://github.com/sarrazola/dictamelo",
+  "skills": []
+}
