@@ -1,0 +1,44 @@
+{
+  "name": "ACE-Step",
+  "owner": "Moro-w",
+  "repo": "ACE-Step",
+  "description": "ACE-Step 1.5 \u672c\u5730\u90e8\u7f72\u6574\u7406\uff5cmacOS / Apple Silicon / MLX",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Moro-w/ACE-Step",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T10:08:07Z"
+}
