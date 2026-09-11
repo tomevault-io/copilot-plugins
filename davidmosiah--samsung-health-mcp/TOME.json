@@ -1,0 +1,44 @@
+{
+  "name": "samsung-health-mcp",
+  "owner": "davidmosiah",
+  "repo": "samsung-health-mcp",
+  "description": "Unofficial local-first MCP server for Samsung Health personal-data CSV/ZIP exports.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/davidmosiah/samsung-health-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T09:32:02Z"
+}
