@@ -7,11 +7,11 @@ Lightweight macOS menu-bar app that keeps your Mac awake while Claude Code is ac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Kirill-Chistov/VibeMenu](https://github.com/Kirill-Chistov/VibeMenu).
+Original source: `AGENTS.md` in [Kirill-Chistov/VibeMenu](https://github.com/Kirill-Chistov/VibeMenu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
