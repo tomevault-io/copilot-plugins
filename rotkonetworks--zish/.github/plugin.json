@@ -1,0 +1,9 @@
+{
+  "name": "rotkonetworks--zish",
+  "displayName": "zish",
+  "description": "opinionated shell in zig",
+  "version": "1.0.0",
+  "author": "rotkonetworks",
+  "homepage": "https://github.com/rotkonetworks/zish",
+  "skills": []
+}
