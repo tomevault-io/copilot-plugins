@@ -1,81 +1,72 @@
 ## results
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-# CLAUDE.md
+# Agent Guidelines for go-toml
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Project Overview
 
-pgx is a PostgreSQL driver and toolkit for Go (`github.com/jackc/pgx/v5`). It provides both a native PostgreSQL interface and a `database/sql` compatible driver. Requires Go 1.25+ and supports PostgreSQL 14+ and CockroachDB.
+go-toml is a TOML library for Go. The goal is to provide an easy-to-use and efficient TOML implementation that gets the job done without getting in the way.
 
-## Build & Test Commands
+## Code Change Rules
 
-```bash
-# Run all tests (requires PGX_TEST_DATABASE to be set)
-go test ./...
+### Backward Compatibility
 
-# Run a specific test
-go test -run TestFunctionName ./...
+- **No backward-incompatible changes** unless explicitly discussed and approved
+- Avoid breaking people's programs unless absolutely necessary
 
-# Run tests for a specific package
-go test ./pgconn/...
+### Testing Requirements
 
-# Run tests with race detector
-go test -race ./...
+- **All bug fixes must include regression tests**
+- **All new code must be tested**
+- Run tests before submitting: `go test -race ./...`
+- Test coverage must not decrease. Check with:
+  ```bash
+  go test -covermode=atomic -coverprofile=coverage.out
+  go tool cover -func=coverage.out
+  ```
+- All lines of code touched by changes should be covered by tests
 
-# DevContainer: run tests against specific PostgreSQL versions
-./test.sh pg18                      # Default: PostgreSQL 18
-./test.sh pg16 -run TestConnect     # Specific test against PG16
-./test.sh crdb                      # CockroachDB
-./test.sh all                       # All targets (pg14-18 + crdb)
+### Performance Requirements
 
-# Format (always run after making changes)
-goimports -w .
+- go-toml aims to stay efficient; avoid performance regressions
+- Run benchmarks to verify: `go test ./... -bench=. -count=10`
+- Compare results using [benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat)
 
-# Lint
-golangci-lint run ./...
-```
+### Documentation
 
-## Test Database Setup
+- New features or feature extensions must include documentation
+- Documentation lives in [README.md](./README.md) and throughout source code
 
-Tests require `PGX_TEST_DATABASE` environment variable. In the devcontainer, `test.sh` handles this. For local development:
+### Code Style
 
-```bash
-export PGX_TEST_DATABASE="host=localhost user=postgres password=postgres dbname=pgx_test"
-```
+- Follow existing code format and structure
+- Code must pass `go fmt`
+- Code must pass linting with the same golangci-lint version as CI (see version in `.github/workflows/lint.yml`):
+  ```bash
+  # Install specific version (check lint.yml for current version)
+  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin <version>
+  # Run linter
+  golangci-lint run ./...
+  ```
 
-The test database needs extensions: `hstore`, `ltree`, and a `uint64` domain. See `testsetup/postgresql_setup.sql` for full setup. Many tests are skipped unless additional `PGX_TEST_*` env vars are set (for TLS, SCRAM, MD5, unix socket, PgBouncer testing).
+### Commit Messages
 
-## Architecture
+- Commit messages must explain **why** the change is needed
+- Keep messages clear and informative even if details are in the PR description
 
-The codebase is a layered architecture, bottom-up:
+## Pull Request Checklist
 
-- **pgproto3/** — PostgreSQL wire protocol v3 encoder/decoder. Defines `FrontendMessage` and `BackendMessage` types for every protocol message.
-- **pgconn/** — Low-level connection layer (roughly libpq-equivalent). Handles authentication, TLS, query execution, COPY protocol, and notifications. `PgConn` is the core type.
-- **pgx** (root package) — High-level query interface built on `pgconn`. Provides `Conn`, `Rows`, `Tx`, `Batch`, `CopyFrom`, and generic helpers like `CollectRows`/`ForEachRow`. Includes automatic statement caching (LRU).
-- **pgtype/** — Type system mapping between Go and PostgreSQL types (70+ types). Key interfaces: `Codec`, `Type`, `TypeMap`. Custom types (enums, composites, domains) are registered through `TypeMap`.
-- **pgxpool/** — Concurrency-safe connection pool built on `puddle/v2`. `Pool` is the main type; wraps `pgx.Conn`.
-- **stdlib/** — `database/sql` compatibility adapter.
+Before submitting:
 
-Supporting packages:
-- **internal/stmtcache/** — Prepared statement cache with LRU eviction
-- **internal/sanitize/** — SQL query sanitization
-- **tracelog/** — Logging adapter that implements tracer interfaces
-- **multitracer/** — Composes multiple tracers into one
-- **pgxtest/** — Test helpers for running tests across connection types
-
-## Key Design Conventions
-
-- **Semantic versioning** — strictly followed. Do not break the public API (no removing or renaming exported types, functions, methods, or fields; no changing function signatures).
-- **Minimal dependencies** — adding new dependencies is strongly discouraged (see CONTRIBUTING.md).
-- **Context-based** — all blocking operations take `context.Context`.
-- **Tracer interfaces** — observability via `QueryTracer`, `BatchTracer`, `CopyFromTracer`, `PrepareTracer` on `ConnConfig.Tracer`.
-- **Formatting** — always run `goimports -w .` after making changes to ensure code is properly formatted. CI checks formatting via `gofmt -l -s -w . && git diff --exit-code`. `gofumpt` with extra rules is also enforced via `golangci-lint`.
-- **Linters** — `govet`, `ineffassign`, and `unconvert` only (configured in `.golangci.yml`).
-- **CI matrix** — tests run against Go 1.25/1.26 × PostgreSQL 14-18 + CockroachDB, on Linux and Windows. Race detector enabled on Linux only.
+1. Tests pass (`go test -race ./...`)
+2. No backward-incompatible changes (unless discussed)
+3. Relevant documentation added/updated
+4. No performance regression (verify with benchmarks)
+5. Title is clear and understandable for changelog
 
 ---
 > Source: [tektoncd/results](https://github.com/tektoncd/results) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
