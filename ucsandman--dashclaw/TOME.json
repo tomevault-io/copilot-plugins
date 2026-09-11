@@ -2,9 +2,9 @@
   "name": "DashClaw",
   "owner": "ucsandman",
   "repo": "DashClaw",
-  "description": "\ud83d\udee1\ufe0fDecision infrastructure for AI agents. Intercept actions, enforce guard policies, require approvals, and produce audit-ready decision trails.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,213 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-ship/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/dashclaw-governance/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/dashclaw-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-governance/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".hermes/skills/dashclaw-governance/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.hermes/skills/dashclaw-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": "public/downloads/dashclaw-governance/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/public/downloads/dashclaw-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/troubleshoot/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/troubleshoot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": "plugins/dashclaw/skills/dashclaw-governance/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/plugins/dashclaw/skills/dashclaw-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/setup-dashclaw/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/setup-dashclaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/build-dashclaw/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/build-dashclaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/create-policies/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/create-policies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/instrument-agent/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/instrument-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/manage-approvals/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/manage-approvals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/register-on-dashclaw/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/register-on-dashclaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-agent/compliance-drift-evals/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-agent/compliance-drift-evals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/repro/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/repro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/dashclaw-weekly/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/dashclaw-weekly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".agents/skills/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.agents/skills/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DashClaw",
+      "path": ".claude/skills/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/ucsandman/DashClaw/tree/main/.claude/skills/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ucsandman/DashClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T10:05:26Z"
+  "distributed_at": "2026-09-11T12:58:51Z"
 }
