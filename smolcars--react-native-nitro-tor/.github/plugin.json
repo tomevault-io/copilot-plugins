@@ -1,0 +1,9 @@
+{
+  "name": "smolcars--react-native-nitro-tor",
+  "displayName": "react-native-nitro-tor",
+  "description": "A Tor Daemon and Onion Routing Client for React Native using pure C++ TurboModules (Craby).",
+  "version": "1.0.0",
+  "author": "smolcars",
+  "homepage": "https://github.com/smolcars/react-native-nitro-tor",
+  "skills": []
+}
