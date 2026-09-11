@@ -1,0 +1,9 @@
+{
+  "name": "cscb603--startap-image-shrinking-tool",
+  "displayName": "StarTap-Image-Shrinking-Tool",
+  "description": "StarTap Image Shrinking Tool \u2014 a Rust+Tauri image compressor that shrinks photos 50-80% while resisting WeChat/Xiaohongshu recompression (mozjpeg, 4:4:4 chroma, CAS). Dual-mode GUI + Agent-First CLI. ",
+  "version": "1.0.0",
+  "author": "cscb603",
+  "homepage": "https://github.com/cscb603/StarTap-Image-Shrinking-Tool",
+  "skills": []
+}
