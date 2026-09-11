@@ -1,0 +1,9 @@
+{
+  "name": "kirill-chistov--vibemenu",
+  "displayName": "VibeMenu",
+  "description": "Lightweight macOS menu-bar app that keeps your Mac awake while Claude Code is active.",
+  "version": "1.0.0",
+  "author": "Kirill-Chistov",
+  "homepage": "https://github.com/Kirill-Chistov/VibeMenu",
+  "skills": []
+}
