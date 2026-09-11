@@ -1,0 +1,9 @@
+{
+  "name": "feelime--feelime",
+  "displayName": "feelime",
+  "description": "\u79bb\u7ebf\u4f18\u5148\u7684 Android \u8f93\u5165\u6cd5\uff1a\u5168\u62fc/\u53cc\u62fc\u3001\u79bb\u7ebf\u8bed\u97f3\u3001\u5e38\u7528\u8bed\u4e0e\u526a\u8d34\u677f\uff0c\u6570\u636e\u4e0d\u51fa\u8bbe\u5907 | Offline-first Android IME (librime \u00b7 sherpa-onnx)",
+  "version": "1.0.0",
+  "author": "feelime",
+  "homepage": "https://github.com/feelime/feelime",
+  "skills": []
+}
