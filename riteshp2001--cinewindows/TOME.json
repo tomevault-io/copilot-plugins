@@ -1,0 +1,44 @@
+{
+  "name": "CineWindows",
+  "owner": "Riteshp2001",
+  "repo": "CineWindows",
+  "description": "A modern Qt 6 desktop media player built with QML, C++20, and libmpv, with hardware-accelerated playback and cross-platform packaging.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Riteshp2001/CineWindows",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T10:16:17Z"
+}
