@@ -7,11 +7,11 @@ Elegant kotlin-logging extensions for zero-boilerplate logger generation in Kotl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [doljae/kotlin-logging-extensions](https://github.com/doljae/kotlin-logging-extensions).
+Original source: `AGENTS.md` in [doljae/kotlin-logging-extensions](https://github.com/doljae/kotlin-logging-extensions).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
