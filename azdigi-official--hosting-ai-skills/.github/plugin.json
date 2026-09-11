@@ -1,0 +1,9 @@
+{
+  "name": "azdigi-official--hosting-ai-skills",
+  "displayName": "hosting_ai_skills",
+  "description": "Skill AI thao t\u00e1c g\u00f3i hosting cPanel (Claude Code plugin + Codex). C\u00e0i: /plugin marketplace add azdigi-official/hosting_ai_skills",
+  "version": "1.0.0",
+  "author": "azdigi-official",
+  "homepage": "https://github.com/azdigi-official/hosting_ai_skills",
+  "skills": []
+}
