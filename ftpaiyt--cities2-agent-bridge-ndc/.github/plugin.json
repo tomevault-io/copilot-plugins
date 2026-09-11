@@ -1,0 +1,9 @@
+{
+  "name": "ftpaiyt--cities2-agent-bridge-ndc",
+  "displayName": "cities2-agent-bridge-ndc",
+  "description": "An experimental local agent bridge for Cities: Skylines II.",
+  "version": "1.0.0",
+  "author": "FTPAiYT",
+  "homepage": "https://github.com/FTPAiYT/cities2-agent-bridge-ndc",
+  "skills": []
+}
