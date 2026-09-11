@@ -1,0 +1,9 @@
+{
+  "name": "lightnesscaster--chess-llm-benchmark",
+  "displayName": "Chess-LLM-Benchmark",
+  "description": "Chess-LLM-Benchmark",
+  "version": "1.0.0",
+  "author": "lightnesscaster",
+  "homepage": "https://github.com/lightnesscaster/Chess-LLM-Benchmark",
+  "skills": []
+}
