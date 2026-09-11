@@ -1,0 +1,9 @@
+{
+  "name": "frame-check--frame-check",
+  "displayName": "frame-check",
+  "description": "A static checker for dataframes!",
+  "version": "1.0.0",
+  "author": "frame-check",
+  "homepage": "https://github.com/frame-check/frame-check",
+  "skills": []
+}
