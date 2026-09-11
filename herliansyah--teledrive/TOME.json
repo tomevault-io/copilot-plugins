@@ -1,0 +1,44 @@
+{
+  "name": "teledrive",
+  "owner": "herliansyah",
+  "repo": "teledrive",
+  "description": "\u26a1 High-capacity personal cloud storage powered by Telegram MTProto. Single static binary with Google Drive-like Web Dashboard, resumable chunked uploads, HTTP 206 video streaming, and strict ToS Safe Mode.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/herliansyah/teledrive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T10:24:15Z"
+}
