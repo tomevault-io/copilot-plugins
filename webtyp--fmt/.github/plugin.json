@@ -1,0 +1,9 @@
+{
+  "name": "webtyp--fmt",
+  "displayName": "fmt",
+  "description": "Lightweight Go library that provides comprehensive string manipulation, type conversion, formatting, and error handling with a fluid API, specifically designed for small devices and web applications u",
+  "version": "1.0.0",
+  "author": "webtyp",
+  "homepage": "https://github.com/webtyp/fmt",
+  "skills": []
+}
