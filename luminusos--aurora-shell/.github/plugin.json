@@ -1,0 +1,9 @@
+{
+  "name": "luminusos--aurora-shell",
+  "displayName": "aurora-shell",
+  "description": "Bringing the everyday features missing from vanilla GNOME",
+  "version": "1.0.0",
+  "author": "luminusOS",
+  "homepage": "https://github.com/luminusOS/aurora-shell",
+  "skills": []
+}
