@@ -1,8 +1,6 @@
 # AI instruction files for skills
 
-> Sourced from [dotnet/skills](https://github.com/dotnet/skills) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Repository for skills to assist AI coding agents with .NET and C#
+> Sourced from [dotnet/skills](https://github.com/dotnet/skills), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [dotnet/skills](https://github.com/dotnet/skills
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dotnet/skills](https://github.com/dotnet/skills) — a repo with 1320+ stars on GitHub.
+From [dotnet/skills](https://github.com/dotnet/skills) — a repo with 5388+ stars on GitHub.
 
 ---
 
