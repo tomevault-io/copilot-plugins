@@ -1,0 +1,9 @@
+{
+  "name": "zju-pl--pyflow",
+  "displayName": "pyflow",
+  "description": "A static analysis framework for Python",
+  "version": "1.0.0",
+  "author": "ZJU-PL",
+  "homepage": "https://github.com/ZJU-PL/pyflow",
+  "skills": []
+}
