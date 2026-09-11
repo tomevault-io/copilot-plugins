@@ -1,0 +1,9 @@
+{
+  "name": "m2dumpling--pawbot",
+  "displayName": "pawbot",
+  "description": "A self-hosted AI agent with WebUI, CLI, MCP tools, multi-provider support, and Record & Replay for deterministic debugging.",
+  "version": "1.0.0",
+  "author": "m2dumpling",
+  "homepage": "https://github.com/m2dumpling/pawbot",
+  "skills": []
+}
