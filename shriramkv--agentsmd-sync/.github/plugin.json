@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--agentsmd-sync",
+  "displayName": "agentsmd-sync",
+  "description": "agentsmd-sync propagates a canonical AGENTS.md into the tool files assistants read (CLAUDE.md, Copilot, Cursor, Windsurf, Cline, Gemini) via managed-block markers that keep hand-written content. A che",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/agentsmd-sync",
+  "skills": []
+}
