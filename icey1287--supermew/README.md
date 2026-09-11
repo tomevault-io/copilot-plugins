@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [icey1287/SuperMew](https://github.com/icey1287/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [icey1287/SuperMew](https://github.com/icey1287/SuperMew) — a repo with 852+ stars on GitHub.
+From [icey1287/SuperMew](https://github.com/icey1287/SuperMew) — a repo with 853+ stars on GitHub.
 
 ---
 
