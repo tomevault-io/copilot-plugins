@@ -1,0 +1,9 @@
+{
+  "name": "oscartrevio--passlet",
+  "displayName": "passlet",
+  "description": "A unified API for creating Apple Wallet and Google Wallet passes.",
+  "version": "1.0.0",
+  "author": "oscartrevio",
+  "homepage": "https://github.com/oscartrevio/passlet",
+  "skills": []
+}
