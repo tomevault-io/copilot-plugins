@@ -4,7 +4,7 @@
   "repo": "Career-Atelier-AI-Context-Pack",
   "description": "Career Atelier \u2014 \uac1c\uc778 \ud074\ub77c\uc6b0\ub4dc \uae30\ubc18 \uad6c\uc9c1 \ube44\uc11c (Next.js + Supabase + \ub85c\uceec AI \ub7ec\ub108)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tkv00/Career-Atelier-AI-Context-Pack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T09:53:05Z"
+  "distributed_at": "2026-09-11T06:06:44Z"
 }
