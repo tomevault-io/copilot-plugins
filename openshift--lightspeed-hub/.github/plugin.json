@@ -1,0 +1,9 @@
+{
+  "name": "openshift--lightspeed-hub",
+  "displayName": "lightspeed-hub",
+  "description": "Hub service for multicluster OpenShift Lightspeed.",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/lightspeed-hub",
+  "skills": []
+}
