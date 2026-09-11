@@ -1,0 +1,9 @@
+{
+  "name": "davidmosiah--samsung-health-mcp",
+  "displayName": "samsung-health-mcp",
+  "description": "Unofficial local-first MCP server for Samsung Health personal-data CSV/ZIP exports.",
+  "version": "1.0.0",
+  "author": "davidmosiah",
+  "homepage": "https://github.com/davidmosiah/samsung-health-mcp",
+  "skills": []
+}
