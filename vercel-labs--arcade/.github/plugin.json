@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--arcade",
+  "displayName": "arcade",
+  "description": "3D ASCII games rendered in the terminal. Watch agents duke it out or take them on yourself, powered by Vercel's AI Gateway.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/arcade",
+  "skills": []
+}
