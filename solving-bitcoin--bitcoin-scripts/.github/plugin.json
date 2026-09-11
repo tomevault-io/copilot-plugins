@@ -1,0 +1,9 @@
+{
+  "name": "solving-bitcoin--bitcoin-scripts",
+  "displayName": "bitcoin-scripts",
+  "description": "A library of cryptographic primitives implemented in Bitcoin Script",
+  "version": "1.0.0",
+  "author": "solving-bitcoin",
+  "homepage": "https://github.com/solving-bitcoin/bitcoin-scripts",
+  "skills": []
+}
