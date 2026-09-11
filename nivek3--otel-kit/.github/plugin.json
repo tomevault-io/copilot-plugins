@@ -1,0 +1,9 @@
+{
+  "name": "nivek3--otel-kit",
+  "displayName": "otel-kit",
+  "description": "OpenTelemetry tracing and logging for Rust and Axum.",
+  "version": "1.0.0",
+  "author": "nivek3",
+  "homepage": "https://github.com/nivek3/otel-kit",
+  "skills": []
+}
