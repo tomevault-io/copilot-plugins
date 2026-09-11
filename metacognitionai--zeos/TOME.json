@@ -4,7 +4,7 @@
   "repo": "zeos",
   "description": "ZEOS: a transformer operating system \u2014 priority-preemptive scheduling, protected mode, and deterministic replay for LLM jobs",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/metacognitionai/zeos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T16:32:55Z"
+  "distributed_at": "2026-09-11T16:37:02Z"
 }
