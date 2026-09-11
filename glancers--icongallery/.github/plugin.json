@@ -1,0 +1,9 @@
+{
+  "name": "glancers--icongallery",
+  "displayName": "IconGallery",
+  "description": "ICON\u56fe\u6807\u9009\u578b\u5de5\u4f5c\u53f0\uff0c\u805a\u5408\u6570\u5341\u5bb6\u4f18\u8d28\u5f00\u6e90\u56fe\u6807\u5e93\uff0c\u652f\u6301\u5b89\u88c5\u4e3a Skill\uff0c\u652f\u6301 AI Agent\u4e00\u952e\u4f7f\u7528",
+  "version": "1.0.0",
+  "author": "glancers",
+  "homepage": "https://github.com/glancers/IconGallery",
+  "skills": []
+}
