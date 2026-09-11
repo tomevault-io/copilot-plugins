@@ -4,7 +4,7 @@
   "repo": "nautilus-compass",
   "description": "Reliability layer for multi-agent setups \u2014 keep agents coordinating without an orchestrator. Cross-dialog contracts + drift detection + black-box memory (no LLM extraction).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chunxiaoxx/nautilus-compass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T03:33:23Z"
+  "distributed_at": "2026-09-11T10:47:12Z"
 }
