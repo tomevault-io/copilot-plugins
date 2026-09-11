@@ -1,0 +1,9 @@
+{
+  "name": "formal-applied-math--formal-mathfin",
+  "displayName": "formal-mathfin",
+  "description": "Formally verified mathematical finance in Lean 4. Black\u2013Scholes/Greeks/PDE, It\u00f4 calculus, FTAP/Girsanov, CRR\u2192BS convergence, Merton jump-diffusion.",
+  "version": "1.0.0",
+  "author": "formal-applied-math",
+  "homepage": "https://github.com/formal-applied-math/formal-mathfin",
+  "skills": []
+}
