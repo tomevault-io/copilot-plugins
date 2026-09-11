@@ -1,0 +1,44 @@
+{
+  "name": "CSUSTPlanet",
+  "owner": "zHElEARN",
+  "repo": "CSUSTPlanet",
+  "description": "\u4e91\u5cad\u661f\u7403\u662f\u4e3a\u957f\u6c99\u7406\u5de5\u5927\u5b66\u7684\u5927\u5b66\u751f\u6253\u9020\u7684\u6821\u56ed\u670d\u52a1\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zHElEARN/CSUSTPlanet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T04:30:36Z"
+}
