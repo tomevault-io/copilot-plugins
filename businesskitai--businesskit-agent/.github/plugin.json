@@ -1,0 +1,9 @@
+{
+  "name": "businesskitai--businesskit-agent",
+  "displayName": "businesskit-agent",
+  "description": "Agent-first Business OS for solo founders. One Database,\u00a020+ Tools. Claude runs them all.",
+  "version": "1.0.0",
+  "author": "businesskitai",
+  "homepage": "https://github.com/businesskitai/businesskit-agent",
+  "skills": []
+}
