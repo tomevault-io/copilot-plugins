@@ -1,0 +1,9 @@
+{
+  "name": "mehdic--codex-proxy",
+  "displayName": "codex-proxy",
+  "description": "OpenAI-compatible local proxy for Codex app-server / Codex CLI with Codex-owned auth",
+  "version": "1.0.0",
+  "author": "mehdic",
+  "homepage": "https://github.com/mehdic/codex-proxy",
+  "skills": []
+}
