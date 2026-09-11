@@ -4,7 +4,7 @@
   "repo": "VibeMenu",
   "description": "Lightweight macOS menu-bar app that keeps your Mac awake while Claude Code is active.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kirill-Chistov/VibeMenu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T00:44:35Z"
+  "distributed_at": "2026-09-11T09:56:08Z"
 }
