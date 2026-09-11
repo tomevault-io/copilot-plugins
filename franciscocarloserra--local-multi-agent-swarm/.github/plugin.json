@@ -1,0 +1,9 @@
+{
+  "name": "franciscocarloserra--local-multi-agent-swarm",
+  "displayName": "local-multi-agent-swarm",
+  "description": "Watch a swarm of LLM agents run on your own machine, explore different swarm topologies, and nudge or redirect any agent in real time.",
+  "version": "1.0.0",
+  "author": "franciscocarloserra",
+  "homepage": "https://github.com/franciscocarloserra/local-multi-agent-swarm",
+  "skills": []
+}
