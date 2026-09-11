@@ -1,0 +1,9 @@
+{
+  "name": "arikchakma--gpu-time",
+  "displayName": "gpu-time",
+  "description": "A small neural model for parsing date & time",
+  "version": "1.0.0",
+  "author": "arikchakma",
+  "homepage": "https://github.com/arikchakma/gpu-time",
+  "skills": []
+}
