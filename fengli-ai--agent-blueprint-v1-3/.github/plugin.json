@@ -1,0 +1,9 @@
+{
+  "name": "fengli-ai--agent-blueprint-v1-3",
+  "displayName": "agent-blueprint-v1.3",
+  "description": "\u4ece PRD \u5230\u53ef\u843d\u5730 Agent \u4ea7\u54c1\u7684\u67b6\u6784\u65b9\u6cd5\u3001Harness \u7ec4\u4ef6\u53c2\u8003\u5b9e\u73b0\u4e0e\u9879\u76ee\u811a\u624b\u67b6",
+  "version": "1.0.0",
+  "author": "FengLi-AI",
+  "homepage": "https://github.com/FengLi-AI/agent-blueprint-v1.3",
+  "skills": []
+}
