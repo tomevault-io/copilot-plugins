@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--personal-ai-router",
+  "displayName": "Personal-AI-Router",
+  "description": "Router that virtually distributes inference across connected devices in the home.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/Personal-AI-Router",
+  "skills": []
+}
