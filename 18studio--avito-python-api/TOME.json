@@ -4,7 +4,7 @@
   "repo": "avito_python_api",
   "description": "Avito SDK \u0434\u043b\u044f python",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/18studio/avito_python_api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T23:14:28Z"
+  "distributed_at": "2026-09-11T08:35:14Z"
 }
