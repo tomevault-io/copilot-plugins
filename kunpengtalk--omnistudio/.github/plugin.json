@@ -1,0 +1,9 @@
+{
+  "name": "kunpengtalk--omnistudio",
+  "displayName": "OmniStudio",
+  "description": "OmniStudio \u662f\u4e00\u4e2a\u672c\u5730\u5927\u6a21\u578b\u4e00\u4f53\u5316\u684c\u9762\u5de5\u4f5c\u53f0\uff08Electrobun + React\uff09\uff0c\u96c6\u6a21\u578b\u5e02\u96c6\u4e0b\u8f7d\u3001llama.cpp/vLLM/SGLang \u4e09\u5f15\u64ce\u63a8\u7406\u7ba1\u7406\uff0c\u4ee5\u53ca\u5bf9\u8bdd\u3001\u8bed\u97f3\u3001\u56fe\u7247\u3001OCR \u56db\u5927\u5e94\u7528\u4e8e\u4e00\u4f53\uff0c\u5168\u7a0b\u672c\u5730\u4f18\u5148\u3002",
+  "version": "1.0.0",
+  "author": "kunpengtalk",
+  "homepage": "https://github.com/kunpengtalk/OmniStudio",
+  "skills": []
+}
