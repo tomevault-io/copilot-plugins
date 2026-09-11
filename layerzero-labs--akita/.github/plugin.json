@@ -1,0 +1,9 @@
+{
+  "name": "layerzero-labs--akita",
+  "displayName": "akita",
+  "description": "A high-performance, lattice-based polynomial commitment scheme with transparent setup and post-quantum security.",
+  "version": "1.0.0",
+  "author": "LayerZero-Labs",
+  "homepage": "https://github.com/LayerZero-Labs/akita",
+  "skills": []
+}
