@@ -7,14 +7,14 @@ Mathematical-Modeling-Skills —— 数学建模竞赛与科研实证分析的 A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [xiaofan-0625/Mathematical-Modeling-Skills](https://github.com/xiaofan-0625/Mathematical-Modeling-Skills).
+Original source: `CLAUDE.md` in [xiaofan-0625/Mathematical-Modeling-Skills](https://github.com/xiaofan-0625/Mathematical-Modeling-Skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [xiaofan-0625/Mathematical-Modeling-Skills](https://github.com/xiaofan-0625/Mathematical-Modeling-Skills) — a repo with 8+ stars on GitHub.
