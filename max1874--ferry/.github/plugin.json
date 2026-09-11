@@ -1,0 +1,9 @@
+{
+  "name": "max1874--ferry",
+  "displayName": "ferry",
+  "description": "Self-hosted, chat-shaped clipboard and file ferry for devices on one trusted LAN: a single Go server with an embedded web app, plus native iOS and Android clients.",
+  "version": "1.0.0",
+  "author": "max1874",
+  "homepage": "https://github.com/max1874/ferry",
+  "skills": []
+}
