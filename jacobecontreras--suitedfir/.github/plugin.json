@@ -1,0 +1,9 @@
+{
+  "name": "jacobecontreras--suitedfir",
+  "displayName": "suiteDFIR",
+  "description": "A private, local digital forensics platform for mobile backup, extraction, and analysis, built on iLEAPP, ALEAPP, Android Debug Bridge (ADB), and libimobiledevice.",
+  "version": "1.0.0",
+  "author": "jacobecontreras",
+  "homepage": "https://github.com/jacobecontreras/suiteDFIR",
+  "skills": []
+}
