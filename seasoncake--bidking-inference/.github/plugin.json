@@ -1,0 +1,9 @@
+{
+  "name": "seasoncake--bidking-inference",
+  "displayName": "bidking-inference",
+  "description": "Discrete inference, calibration, sensitivity, and reviewed early BidKing reference code.",
+  "version": "1.0.0",
+  "author": "SeasonCake",
+  "homepage": "https://github.com/SeasonCake/bidking-inference",
+  "skills": []
+}
