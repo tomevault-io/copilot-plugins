@@ -1,0 +1,9 @@
+{
+  "name": "vakovalskii--transfer-channel-rss",
+  "displayName": "transfer-channel-rss",
+  "description": "Telegram channel mirror \u2192 GitHub Pages (PWA) + SourceCraft Sites + crosspost VK/Dzen/OK/Email",
+  "version": "1.0.0",
+  "author": "vakovalskii",
+  "homepage": "https://github.com/vakovalskii/transfer-channel-rss",
+  "skills": []
+}
