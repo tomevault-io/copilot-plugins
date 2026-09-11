@@ -1,0 +1,9 @@
+{
+  "name": "nandaida--standalone-llamacpp-webui",
+  "displayName": "standalone_llamacpp_webui",
+  "description": "Standalone WebUI modified from llama.cpp for AI Chat with Android support - works with DeepInfra and OpenAI-compatible APIs",
+  "version": "1.0.0",
+  "author": "NandaIda",
+  "homepage": "https://github.com/NandaIda/standalone_llamacpp_webui",
+  "skills": []
+}
