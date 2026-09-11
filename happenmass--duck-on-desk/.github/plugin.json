@@ -1,0 +1,9 @@
+{
+  "name": "happenmass--duck-on-desk",
+  "displayName": "duck-on-desk",
+  "description": "A physics-driven 3D Microduck on your desktop that reacts to Claude Code, Codex, Pi and opencode",
+  "version": "1.0.0",
+  "author": "Happenmass",
+  "homepage": "https://github.com/Happenmass/duck-on-desk",
+  "skills": []
+}
