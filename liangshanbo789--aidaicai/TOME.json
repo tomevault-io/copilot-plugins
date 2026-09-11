@@ -1,0 +1,44 @@
+{
+  "name": "aidaicai",
+  "owner": "liangshanbo789",
+  "repo": "aidaicai",
+  "description": "\ud83d\udd25 \u4f01\u4e1a\u7ea7 OpenAI / ChatGPT Plus\u3001Pro (5x/20x)\u3001Team \u5b98\u65b9\u5408\u89c4\u4ee3\u91c7\u5e73\u53f0\u3002\u652f\u6301\u4f01\u4e1a\u94f6\u884c\u516c\u5bf9\u516c\u8f6c\u8d26\u3001\u5f00\u5177 6% \u589e\u503c\u7a0e\u4e13\u7528\u53d1\u7968\u3001\u7b7e\u7f72\u52a0\u76d6\u516c\u7ae0 SLA \u515c\u5e95\u534f\u8bae\u3002\u5546\u52a1\u5fae\u4fe1\uff1ayqtp01",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liangshanbo789/aidaicai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T17:34:37Z"
+}
