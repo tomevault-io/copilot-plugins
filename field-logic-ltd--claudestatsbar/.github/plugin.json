@@ -1,0 +1,9 @@
+{
+  "name": "field-logic-ltd--claudestatsbar",
+  "displayName": "ClaudeStatsBar",
+  "description": "A Claude Code status line showing how big your session has got and what the next turn costs before you type",
+  "version": "1.0.0",
+  "author": "Field-Logic-Ltd",
+  "homepage": "https://github.com/Field-Logic-Ltd/ClaudeStatsBar",
+  "skills": []
+}
