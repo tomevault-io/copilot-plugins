@@ -1,0 +1,9 @@
+{
+  "name": "shockwave199129--teensy-fpv-flight-controller",
+  "displayName": "Teensy-fpv-flight-controller",
+  "description": "Open-source FPV drone flight controller for Teensy 4.1. Advanced sensor fusion, adaptive filtering, modular flight modes, DMA ESC control, safety systems, and a cross-platform desktop app. Supports un",
+  "version": "1.0.0",
+  "author": "shockwave199129",
+  "homepage": "https://github.com/shockwave199129/Teensy-fpv-flight-controller",
+  "skills": []
+}
