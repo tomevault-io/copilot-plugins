@@ -1,0 +1,9 @@
+{
+  "name": "huawei-bayerlab--marigold-v2",
+  "displayName": "marigold-v2",
+  "description": "Marigold V2: Revisiting Diffusion Transformers for Monocular Depth Estimation",
+  "version": "1.0.0",
+  "author": "huawei-bayerlab",
+  "homepage": "https://github.com/huawei-bayerlab/marigold-v2",
+  "skills": []
+}
