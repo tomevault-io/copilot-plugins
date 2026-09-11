@@ -1,0 +1,44 @@
+{
+  "name": "ai-jubensha-fusion",
+  "owner": "w93139",
+  "repo": "ai-jubensha-fusion",
+  "description": "\u4eba\u751f\u6d77\u6d77\uff1a\u5355\u771f\u4eba\u4e0eAI\u89d2\u8272\u5171\u540c\u53c2\u4e0e\u7684\u5728\u7ebf\u5267\u672c\u6740\u6e38\u620f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/w93139/ai-jubensha-fusion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T22:30:21Z"
+}
