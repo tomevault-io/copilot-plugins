@@ -1,0 +1,9 @@
+{
+  "name": "uw-ssec--llmoxie",
+  "displayName": "llmoxie",
+  "description": "An open-source AI control plane developed under NSF NAIRR award #240292 by UW SSEC under Schmidt Sciences Virtual Institutes for Scientific Software program.",
+  "version": "1.0.0",
+  "author": "uw-ssec",
+  "homepage": "https://github.com/uw-ssec/llmoxie",
+  "skills": []
+}
