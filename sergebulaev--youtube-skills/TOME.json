@@ -4,7 +4,7 @@
   "repo": "youtube-skills",
   "description": "YouTube and YouTube Shorts marketing skills for Claude Code and Codex: high-CTR titles, SEO descriptions, retention hooks, thumbnails, and a content plan. Publish via Publora. MIT. Content engineering by Creative Content Crafts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergebulaev/youtube-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T23:19:51Z"
+  "distributed_at": "2026-09-11T08:44:00Z"
 }
