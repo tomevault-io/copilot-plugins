@@ -1,0 +1,9 @@
+{
+  "name": "stanford-developers--steer-opencell-design",
+  "displayName": "steer-opencell-design",
+  "description": "Hierarchical Python API for virtual battery cell design \u2014 cylindrical, prismatic, pouch, and solid-state form factors with built-in mass, cost, and electrochemical analysis.",
+  "version": "1.0.0",
+  "author": "stanford-developers",
+  "homepage": "https://github.com/stanford-developers/steer-opencell-design",
+  "skills": []
+}
