@@ -7,14 +7,14 @@ collect logs from a Proxmox node and its LXC containers and send them to a OpenT
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [alberanid/pve2otelcol](https://github.com/alberanid/pve2otelcol).
+Original source: `CLAUDE.md` in [alberanid/pve2otelcol](https://github.com/alberanid/pve2otelcol).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [alberanid/pve2otelcol](https://github.com/alberanid/pve2otelcol) — a repo with 9+ stars on GitHub.
