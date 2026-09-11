@@ -1,0 +1,9 @@
+{
+  "name": "vladimiraldushin--hermes-max-platform",
+  "displayName": "hermes-max-platform",
+  "description": "Hermes Agent platform plugin for Max messenger gateway",
+  "version": "1.0.0",
+  "author": "vladimiraldushin",
+  "homepage": "https://github.com/vladimiraldushin/hermes-max-platform",
+  "skills": []
+}
