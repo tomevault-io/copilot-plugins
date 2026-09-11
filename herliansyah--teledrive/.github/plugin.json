@@ -1,0 +1,9 @@
+{
+  "name": "herliansyah--teledrive",
+  "displayName": "teledrive",
+  "description": "\u26a1 High-capacity personal cloud storage powered by Telegram MTProto. Single static binary with Google Drive-like Web Dashboard, resumable chunked uploads, HTTP 206 video streaming, and strict ToS Safe ",
+  "version": "1.0.0",
+  "author": "herliansyah",
+  "homepage": "https://github.com/herliansyah/teledrive",
+  "skills": []
+}
