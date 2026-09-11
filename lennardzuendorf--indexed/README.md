@@ -7,11 +7,11 @@ Let your Agents search against code, issue trackers, docs and other context via 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LennardZuendorf/indexed](https://github.com/LennardZuendorf/indexed).
+Original source: `CLAUDE.md` in [LennardZuendorf/indexed](https://github.com/LennardZuendorf/indexed).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
