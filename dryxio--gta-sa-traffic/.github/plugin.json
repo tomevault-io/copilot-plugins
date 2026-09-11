@@ -1,0 +1,9 @@
+{
+  "name": "dryxio--gta-sa-traffic",
+  "displayName": "gta-sa-traffic",
+  "description": "Let AI create and edit traffic routes for GTA San Andreas in Blender. Early alpha.",
+  "version": "1.0.0",
+  "author": "Dryxio",
+  "homepage": "https://github.com/Dryxio/gta-sa-traffic",
+  "skills": []
+}
