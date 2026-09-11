@@ -1,6 +1,6 @@
 # webracket
 
-> Tome by [soegaard](https://github.com/soegaard/webracket) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [soegaard](https://github.com/soegaard/webracket), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [soegaard/webracket](https://github.com/soegaard
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [soegaard/webracket](https://github.com/soegaard/webracket) — a repo with 124+ stars on GitHub.
+From [soegaard/webracket](https://github.com/soegaard/webracket) — a repo with 126+ stars on GitHub.
 
 ---
 
