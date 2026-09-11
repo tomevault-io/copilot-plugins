@@ -1,0 +1,9 @@
+{
+  "name": "ldos-project--asterinas",
+  "displayName": "asterinas",
+  "description": "Asterinas is a secure, fast, and general-purpose OS kernel, written in Rust and providing Linux-compatible ABI.",
+  "version": "1.0.0",
+  "author": "ldos-project",
+  "homepage": "https://github.com/ldos-project/asterinas",
+  "skills": []
+}
