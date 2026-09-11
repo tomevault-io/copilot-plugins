@@ -1,15 +1,28 @@
 ## ads-mcp
 
-> 1. Open **Settings → Connectors → Add custom**.
+> Brand workspace context loading for Adspirer performance marketing. Ensures the agent reads brand context and memory on every session, and bootstraps new workspaces automatically.
 
-# Claude Connector (Ads MCP)
 
-1. Open **Settings → Connectors → Add custom**.
-2. Name: **Ads MCP**.
-3. URL: `https://mcp.adspirer.com/`.
-4. Complete OAuth 2.1 sign-in (Adspirer).
-5. Use tools as normal; progress will display when Claude supplies a progress token.
+## Brand Workspace Context
+
+When working on advertising, campaign, or marketing tasks in this project:
+
+1. **Check for BRAND.md** in the project root. If it exists, read it before answering any advertising question. It contains brand voice, audiences, KPI targets, budget guardrails, and platform status.
+
+2. **Check for memory** at `.cursor/memory/performance-marketing-agent/MEMORY.md`. If it exists, read it for past decisions, learnings, and user preferences.
+
+3. **If BRAND.md does not exist**, this is a new brand workspace. Use the `adspirer-setup` skill to bootstrap it — scan local docs, pull live data from Adspirer MCP, and generate BRAND.md.
+
+4. **Brand docs** in the project folder (`.md`, `.txt`, `.csv`, `.yaml`, `.json`, `.pdf`) contain brand guidelines, media plans, and strategy notes. Read relevant files when writing ad copy, creating campaigns, or making recommendations.
+
+5. **Always use live data** from the Adspirer MCP server alongside brand context. Never answer performance questions from memory alone — pull fresh data.
+
+6. **Update BRAND.md** when significant changes happen (new platforms connected, new brand docs added, major strategy shifts). Update MEMORY.md after every campaign action with what was done and why.
+
+7. **Strategy directives are binding context.** If `STRATEGY.md` exists, all campaign creation, keyword management, and ad copy tasks MUST read it first. AVOID directives deprioritize matching keywords. CONSTRAINT directives are binding rules. After strategy work, propose new directives for user confirmation and persist confirmed ones to STRATEGY.md.
+
+8. **Known platform constraints must be surfaced proactively.** For Google Ads workflows, remind users that conversion action primary/secondary configuration is manual in Google Ads UI (not currently configurable via Adspirer MCP tools).
 
 ---
 > Source: [amekala/ads-mcp](https://github.com/amekala/ads-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
