@@ -1,34 +1,33 @@
 ## kokoro-engine
 
-> Kokoro Engine is a Tauri v2 app with a React/TypeScript frontend and Rust backend. Frontend code lives in `src/`: `main.tsx` and `App.tsx` are entry points, `src/components/ui` holds primitives, `src/features` holds feature modules, `src/lib` holds bridge/services/tests, `src/ui` holds product UI/locales, and `src/windows` holds extra Tauri windows. Backend code lives in `src-tauri/src`: IPC is in `commands`, with domain modules such as `llm`, `tts`, `stt`, `vision`, `mods`, `mcp`, and `ai`. Assets are in `public`, `pictures`, and `src/assets`; sample mods are in `mods`; docs are in `docs`.
+> Last verified: 2026-08-31
 
-# Repository Guidelines
+# AstrBot Kokoro Adapter
 
-## Project Structure & Module Organization
-Kokoro Engine is a Tauri v2 app with a React/TypeScript frontend and Rust backend. Frontend code lives in `src/`: `main.tsx` and `App.tsx` are entry points, `src/components/ui` holds primitives, `src/features` holds feature modules, `src/lib` holds bridge/services/tests, `src/ui` holds product UI/locales, and `src/windows` holds extra Tauri windows. Backend code lives in `src-tauri/src`: IPC is in `commands`, with domain modules such as `llm`, `tts`, `stt`, `vision`, `mods`, `mcp`, and `ai`. Assets are in `public`, `pictures`, and `src/assets`; sample mods are in `mods`; docs are in `docs`.
+Last verified: 2026-08-31
 
-## Build, Test, and Development Commands
-- `npm install`: install JavaScript dependencies.
-- `npm run tauri dev`: run the full desktop app with Vite.
-- `npm run dev`: run the Vite frontend only.
-- `npm run build`: typecheck with `tsc` and build frontend assets.
-- `npm run tauri build`: build a distributable Tauri app.
-- `npm test`: run Vitest unit tests.
-- `cargo test --manifest-path src-tauri/Cargo.toml`: run Rust tests.
-- `cargo clippy --manifest-path src-tauri/Cargo.toml --lib -- -D warnings`: check Rust warnings before review.
+## Purpose
 
-## Coding Style & Naming Conventions
-Use strict TypeScript, React function components, and `@/*` imports when they improve clarity. Match existing two-space TypeScript indentation and Rust `rustfmt` defaults. Name React components and TSX files with `PascalCase`, hooks as `useSomething`, utility files in local style such as `audio-player.ts`, and Rust modules/files with `snake_case`. Keep user-facing strings in `src/ui/locales/*.json`.
+Bridge supported AstrBot messages to Kokoro's character-aware webhook without collecting remote telemetry or exposing provider secrets.
 
-## Testing Guidelines
-Vitest tests live beside frontend code as `*.test.ts` or `*.test.tsx`. Rust tests are inline `#[cfg(test)]` modules or files such as `src-tauri/src/vision/tests/*.rs`. Add focused tests for changed behavior, especially IPC bridges, providers, memory, chat, audio, and vision. Run the targeted suite for your area plus broader checks when risk is shared, for example `npm test` and `cargo test --manifest-path src-tauri/Cargo.toml llm`.
+## Contracts
 
-## Commit & Pull Request Guidelines
-Recent history uses short imperative subjects, sometimes with prefixes such as `docs:` or `chore(app):`. Follow that style: `Fix stale vision context` or `docs: update setup notes`. PRs should describe behavioral impact, list test commands run, link related issues, and include screenshots or GIFs for visible UI changes. Call out config, model, or network requirements.
+- **Exposes**: AstrBot `Star` all-message listener, configurable webhook endpoint/token/character/session strategy, and text/image/audio reply components.
+- **Guarantees**: Bearer auth is forwarded, private/group conversations remain character-scoped, AstrBot audio conversion is sent as WAV, image MIME is inferred from available path/URL/data, and malformed responses become actionable errors.
+- **Expects**: AstrBot >=4.5 documented APIs, a running Kokoro webhook, and explicit media toggles.
 
-## Security & Configuration Tips
-Do not commit secrets, local databases, model files, generated `dist`, or `target*` directories. Keep provider tokens in local config or environment variables. Review changes to permissions, file access, command execution, and remote provider calls carefully.
+## Dependencies
+
+- **Uses**: `AstrBotConfig`, `AstrMessageEvent`, `Plain`, `Image`, `Record`, `ALL`, and local HTTP client.
+- **Used by**: AstrBot runtime and setup/release documentation.
+- **Boundary**: no secret logging; marketplace/channel publication and real smoke tests are manual external operations.
+
+## Invariants
+
+- Character selection follows request override → configured webhook default → active character.
+- Session strategy determines private/group identity mapping and never mixes character histories.
+- External repository, marketplace, screenshot, and channel evidence stays Pending until actually performed.
 
 ---
 > Source: [chyinan/Kokoro-Engine](https://github.com/chyinan/Kokoro-Engine) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
