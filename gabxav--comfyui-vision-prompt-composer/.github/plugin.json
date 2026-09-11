@@ -1,0 +1,9 @@
+{
+  "name": "gabxav--comfyui-vision-prompt-composer",
+  "displayName": "ComfyUI-Vision-Prompt-Composer",
+  "description": "ComfyUI custom node that composes prompts from multiple image references. Tested with Qwen3.8 27B through native CLIPLoader.",
+  "version": "1.0.0",
+  "author": "gabxav",
+  "homepage": "https://github.com/gabxav/ComfyUI-Vision-Prompt-Composer",
+  "skills": []
+}
