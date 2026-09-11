@@ -1,0 +1,9 @@
+{
+  "name": "upm-nthc--ph-core",
+  "displayName": "ph-core",
+  "description": "PH Core FHIR Implementation Guide",
+  "version": "1.0.0",
+  "author": "UPM-NTHC",
+  "homepage": "https://github.com/UPM-NTHC/ph-core",
+  "skills": []
+}
