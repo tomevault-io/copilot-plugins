@@ -1,0 +1,9 @@
+{
+  "name": "barbieri--local-openfinance",
+  "displayName": "local-openfinance",
+  "description": "Sync Brazilian Open Finance data from Banco MCP into local SQLite, annotate expenses, and produce LLM reports with a localhost web UI.",
+  "version": "1.0.0",
+  "author": "barbieri",
+  "homepage": "https://github.com/barbieri/local-openfinance",
+  "skills": []
+}
