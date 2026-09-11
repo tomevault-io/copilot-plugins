@@ -1,24 +1,17 @@
 ## wordclock
 
-> When creating or updating a pull request, write for reviewer throughput and future history.
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# Agent Instructions
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Pull Request Authoring
+# This is NOT the Next.js you know
 
-When creating or updating a pull request, write for reviewer throughput and future history.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-- Keep the pull request focused on one purpose. If the work has unrelated parts, split it or call out the boundary clearly.
-- Use a specific title that says what changed.
-- Target the repository's current default branch for pull requests unless the task calls for another base. Verify the default branch from the hosting service or repository settings instead of relying only on local remote metadata, which may be stale.
-- Structure the description with `Summary`, `Why`, `Review Notes`, `Validation`, and `Risk` when the change is non-trivial.
-- Explain both what changed and why it was needed. Include important tradeoffs that are not obvious from the diff.
-- Give reviewers a map when multiple areas changed: where to start, what files matter most, and what deserves extra scrutiny.
-- Make validation reproducible. Cite the project's stable interface for checks, such as package scripts, task runners, documented workflows, or CI job names. If validation was manual, describe the user-visible behavior that was checked.
-- Keep pull request text portable. Avoid environment details that do not help a reviewer understand or reproduce the change, such as absolute local paths, personal accounts, hostnames, ephemeral ports, or shell-specific setup. Use repo-relative paths and stable project commands instead.
-- Link related issues, pull requests, design notes, or follow-up work when available.
-- Do not add screenshots unless visual appearance is part of the review.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [simonheys/wordclock](https://github.com/simonheys/wordclock) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
