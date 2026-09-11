@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--blob-csi-driver",
+  "displayName": "blob-csi-driver",
+  "description": "blob-csi-driver",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/blob-csi-driver",
+  "skills": []
+}
