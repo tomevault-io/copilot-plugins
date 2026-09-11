@@ -1,0 +1,9 @@
+{
+  "name": "pola-rs--polars-bigquery-client",
+  "displayName": "polars-bigquery-client",
+  "description": "polars-bigquery-client",
+  "version": "1.0.0",
+  "author": "pola-rs",
+  "homepage": "https://github.com/pola-rs/polars-bigquery-client",
+  "skills": []
+}
