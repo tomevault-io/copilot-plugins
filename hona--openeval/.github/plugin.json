@@ -1,0 +1,9 @@
+{
+  "name": "hona--openeval",
+  "displayName": "openeval",
+  "description": "Typed prompt-and-judge SDK, CLI, and evidence viewer for agent evaluations",
+  "version": "1.0.0",
+  "author": "Hona",
+  "homepage": "https://github.com/Hona/openeval",
+  "skills": []
+}
