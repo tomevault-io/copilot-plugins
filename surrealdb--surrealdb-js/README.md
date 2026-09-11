@@ -1,6 +1,6 @@
 # surrealdb.js
 
-> Source: [surrealdb/surrealdb.js](https://github.com/surrealdb/surrealdb.js). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [surrealdb/surrealdb.js](https://github.com/surrealdb/surrealdb.js). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
