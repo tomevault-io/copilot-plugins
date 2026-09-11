@@ -1,0 +1,9 @@
+{
+  "name": "firefightlabs--firefight",
+  "displayName": "firefight",
+  "description": "Agent ready incident management built for Slack",
+  "version": "1.0.0",
+  "author": "FireFightLabs",
+  "homepage": "https://github.com/FireFightLabs/firefight",
+  "skills": []
+}
