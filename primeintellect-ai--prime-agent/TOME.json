@@ -1,0 +1,75 @@
+{
+  "name": "prime-agent",
+  "owner": "PrimeIntellect-ai",
+  "repo": "prime-agent",
+  "description": "A self-improving RLM agent for coding workflows and long-running autonomous tasks.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-skill",
+      "path": "packages/coding-agent/test/fixtures/skills/python-skill",
+      "github_url": "https://github.com/PrimeIntellect-ai/prime-agent/tree/main/packages/coding-agent/test/fixtures/skills/python-skill",
+      "description": ""
+    },
+    {
+      "name": "python-package-missing",
+      "path": "packages/coding-agent/test/fixtures/skills/python-package-missing",
+      "github_url": "https://github.com/PrimeIntellect-ai/prime-agent/tree/main/packages/coding-agent/test/fixtures/skills/python-package-missing",
+      "description": ""
+    },
+    {
+      "name": "prime-intellect",
+      "path": "packages/coding-agent/skills/prime-intellect/SKILL.md",
+      "github_url": "https://github.com/PrimeIntellect-ai/prime-agent/tree/main/packages/coding-agent/skills/prime-intellect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "packages/coding-agent/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/PrimeIntellect-ai/prime-agent/tree/main/packages/coding-agent/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "path": "packages/coding-agent/skills/notion/SKILL.md",
+      "github_url": "https://github.com/PrimeIntellect-ai/prime-agent/tree/main/packages/coding-agent/skills/notion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PrimeIntellect-ai/prime-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T05:30:22Z"
+}
