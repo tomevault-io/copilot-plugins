@@ -1,0 +1,9 @@
+{
+  "name": "dryxio--gta-scout",
+  "displayName": "gta-scout",
+  "description": "Create GTA-style 3D models and scenes with your AI and Blender, using models and textures from your game. Early alpha.",
+  "version": "1.0.0",
+  "author": "Dryxio",
+  "homepage": "https://github.com/Dryxio/gta-scout",
+  "skills": []
+}
