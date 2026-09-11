@@ -1,0 +1,9 @@
+{
+  "name": "jamesjfoong--pi-ollama",
+  "displayName": "pi-ollama",
+  "description": "Auto-discover and register Ollama models in pi and omp. No manual models.json editing.",
+  "version": "1.0.0",
+  "author": "jamesjfoong",
+  "homepage": "https://github.com/jamesjfoong/pi-ollama",
+  "skills": []
+}
