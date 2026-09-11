@@ -4,7 +4,7 @@
   "repo": "Employee-Attendance",
   "description": "Modern Employee Attendance Management System built with Next.js. Features real-time tracking, admin dashboard, and seamless leave management.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Konete326/Employee-Attendance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T01:19:59Z"
+  "distributed_at": "2026-09-11T10:35:40Z"
 }
