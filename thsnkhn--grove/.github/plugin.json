@@ -1,0 +1,9 @@
+{
+  "name": "thsnkhn--grove",
+  "displayName": "grove",
+  "description": "Native Mac tools for AI assistants. A Swift MCP server for Apple apps, starting with Reminders and Calendar.",
+  "version": "1.0.0",
+  "author": "thsnkhn",
+  "homepage": "https://github.com/thsnkhn/grove",
+  "skills": []
+}
