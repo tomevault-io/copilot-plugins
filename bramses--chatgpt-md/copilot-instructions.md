@@ -13,7 +13,7 @@ This folder contains repository automation, primarily GitHub Actions workflows.
 ## Rules for agents
 
 - Do not weaken CI to make failures pass.
-- Keep CI aligned with documented local validation commands in `AGENTS.md`, root `CLAUDE.md`, and `docs/development.md`.
+- Keep CI aligned with documented local validation commands in `AGENTS.md` and `docs/development.md`.
 - Prefer npm commands:
 
 ```bash
@@ -32,4 +32,4 @@ For workflow edits, inspect syntax and run equivalent local commands where pract
 
 ---
 > Source: [bramses/chatgpt-md](https://github.com/bramses/chatgpt-md) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
