@@ -1,0 +1,9 @@
+{
+  "name": "nifinet--astra-signal-outbound",
+  "displayName": "astra-signal-outbound",
+  "description": "Find companies with a reason to talk this week. GPT-6 Astra researches recent signals, Python verifies the evidence and ranks accounts, you review the drafts in Codex.",
+  "version": "1.0.0",
+  "author": "nifinet",
+  "homepage": "https://github.com/nifinet/astra-signal-outbound",
+  "skills": []
+}
