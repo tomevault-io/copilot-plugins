@@ -1,0 +1,9 @@
+{
+  "name": "cloudfluent--terragraph",
+  "displayName": "terragraph",
+  "description": "A graph-based orchestrator for Terraform and OpenTofu.",
+  "version": "1.0.0",
+  "author": "cloudfluent",
+  "homepage": "https://github.com/cloudfluent/terragraph",
+  "skills": []
+}
