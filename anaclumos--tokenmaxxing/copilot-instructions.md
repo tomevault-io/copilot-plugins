@@ -1,0 +1,134 @@
+## tokenmaxxing
+
+> Repo-specific rules only. The owner's global rules load alongside this file in every session, so nothing here repeats them; where this file is silent, the global rule applies. Long-form detail lives in `DESIGN.md`, `docs/content/docs/`, and `.memory/`. The source carries no comments (owner ruling 2026-08-30), so rationale that could regress goes to `.memory/`, not the code site. Link to it, do not inline it.
+
+# Agent rules
+
+Repo-specific rules only. The owner's global rules load alongside this file in every session, so nothing here repeats them; where this file is silent, the global rule applies. Long-form detail lives in `DESIGN.md`, `docs/content/docs/`, and `.memory/`. The source carries no comments (owner ruling 2026-08-30), so rationale that could regress goes to `.memory/`, not the code site. Link to it, do not inline it.
+
+## The project
+
+tokenmaxxing pools the owner's own Claude Code and Codex logins, swaps to a fresher account as one nears its 5-hour or weekly limit, and keeps sessions continuable across swaps. Design: `DESIGN.md`. User docs: `docs/content/docs/`.
+
+No external installed user base, so this is pre-production code: delete old-state compatibility rather than carry it forward.
+
+## Safeguards and machine gotchas
+
+- The owner's Mac runs tokenmaxxing straight from this working tree, so a bad git operation breaks the live install.
+- This machine runs live supervisors, hooks, the periodic check, and the owner's real claude sessions. Stop processes by PID, and never kill a running session or supervisor to free a resource without asking.
+- The owner's hosts are managed environments: never run `init`, `add`, `auth`, `uninstall`, or anything that writes settings.json, launchd/systemd units, shell rc, or the global package on a live host (owner, 2026-08-30). Ship code; activation is the owner's step.
+- This working tree is a shared checkout (the owner and other agents work in it live). Stage commits by explicit path, never `git add -A`/`-u` (hook correction, 2026-08-30).
+- Never print credential material: keychain blobs, `.credentials.json`, `auth.json`, OAuth access or refresh tokens. Report account labels and status only. A ky error carries its request, Authorization header included.
+- Ask before any run that meters real quota or opens a session window (`status --ping`, live-pool runs). Free `/usage` reads are fine.
+- This repo is PUBLIC. The no-Slack-info and no-device-info rule covers PR bodies, commit messages, review replies, release notes, and docs, not just `.memory`.
+- Pool account labels are personal data, the same as emails and organization names: the owner names seats after people. Never paste `status`, `ls`, `doctor`, or log output that carries labels, emails, or org names into a PR body, commit, review reply, doc, memory, or subagent prompt. Mask or count them ("six team seats", "15 accounts") the way emails are masked (owner correction 2026-09-06).
+- `rm` is aliased to `rm -i` on the owner's Mac. In a non-TTY shell the prompt gets EOF, nothing is deleted, and it still exits 0, so `rm f && echo ok` lies. Deletion is the owner's call except for artifacts this session created; when you must, pass `-f` and verify the path is gone.
+- macOS has no `/bin/true`. Use `/usr/bin/true` in tests.
+- Env overrides parse through zod at the read site rather than a central `env.ts`, because the CLI's knobs are all optional. Unset parses to undefined and the feature degrades there.
+- State files that exist but fail to parse THROW. A truncated `accounts.json` read as an empty pool once let `init` overwrite it.
+- A configured-but-missing path (`claudeBin`, `codexBin`, credential locations) fails fast. Never fall through to a PATH scan: seeding `/bin/true` as claudeBin made the scan resolve the real installed wrapper and wedge an E2E for 15 minutes, the same shape that fed the runaway-recursion incident.
+- The Mac runs the working tree, the Linux boxes run an npm global that nothing auto-updates, so version skew is chronic. For any works-on-Mac-not-Linux report, compare the box's installed version against the repo before anything else.
+- Core deps are zod, es-toolkit, ky, and `@modelcontextprotocol/sdk` (stdio MCP for the Agent Plugin). The global default stack does not apply (there is no date-fns here, date math goes through `Intl` in `parseResetClock`).
+- Keep `node:fs`, which is Bun-native. `Bun.file`/`Bun.write` are async-only, non-atomic, and have no create-mode, so they cannot serve the 0600 credential store or the flock fd. When asked to simplify this, that is the answer.
+
+## Credentials and identity
+
+- Identity is the `accountUuid` that `fetchTokenIdentity` reports for a token (`GET /api/oauth/profile`), never the organization, never a stored label, and never a blob comparison. Team seats share one `organizationUuid`, so an org-keyed lookup collapses every seat onto the first one in the array: all seats read as active, share the tee, and the harvest lands in the wrong slot (2026-09-06). Two rotations of one account's token differ byte-for-byte. Park a credential under its token's real owner, and commit the active label inside the same critical section as the credential writes.
+- Resolve a parked token's owner through the profile endpoint before spending its refresh grant, never by comparing tokens. A parked slot can hold a copy of another account's live credential (the org-keyed harvest wrote one there, 2026-09-06), and refreshing it revokes that account's sessions; Claude Code then force-refreshes its superseded refresh token, gets `invalid_grant`, and dead-clears the live blob to empty `accessToken` and `refreshToken`. `isDeadCredential` names that state, and `refreshCredential` itself refuses it as `InvalidGrantError` (the token endpoint answers an empty `refresh_token` with the nested `invalid_request_error` 400, not `invalid_grant`). The owner gate fails closed: a profile failure other than 401 is `IdentityUnavailableError` and skips the candidate for the evaluation; a 401 means the parked access token is expired or revoked, so the refresh is the arbiter and the refreshed token's owner is verified before it is parked; a mismatch there stamps the target and keeps the rotated pair under its true owner (the live store when that owner is live, else its parked slot, else the target's stamped slot when the owner is outside the pool), because the rotation just superseded every other copy of that grant. That 401-gated refresh, its verification, and the rescue run inside one `withClaudeRefreshLock` section, so Claude Code cannot spend the superseded refresh token in the gap and dead-clear the live blob. A parked pair whose access token validates but resolves to another pooled account that is not live is copied to that owner's slot before the target is stamped: a rotation revokes the prior access token, so a validating pair is that owner's current grant state and no newer rotation exists to clobber. That is how a pair stranded by a verification outage reaches its owner on the next pass.
+- Only `invalid_grant` stamps `needsReauth`. Any other token endpoint 4xx is `RefreshRejectedError` and skips the candidate for the rest of that evaluation (the `rejected` set in `decide.ts`, passed into `chooseAndSwap`). The set narrows only the candidate list; the ladder bars still come from the full freshly loaded pool, or the rung climbs mid-evaluation and the seat ping-pongs between the greedy and hard paths. The loops used to continue only on `InvalidGrantError`, so one non-grant 400 aborted every evaluation and the hooks livelocked for 4.5 minutes (2026-09-06).
+- Every live-store write goes through `withClaudeRefreshLock`. A near-expiry session can rotate its own token into the live store at any moment.
+- An ambient `CLAUDE_CONFIG_DIR` or `CLAUDE_SECURESTORAGE_CONFIG_DIR` is refused, in CLI commands and in `pooledSpawnEnv` alike: on Linux the swap would write where the ambient var points while the child reads the default store, a silent wrong-account desync.
+- A missing namespaced keychain item never falls back to the live one, so isolation is sound once the probe env is scrubbed.
+- The same accounts are pooled on several hosts with no cross-host lock, so two hosts refreshing one account race: on Claude a refresh rotation revokes the previous access token at once (verified 2026-09-06), so the other host's sessions 401 and its stale refresh token is `invalid_grant`; on Codex it kills the grant family. Documented, not engineered around (`docs/limitations.mdx`).
+
+## Switching
+
+Accounts rank by pace pressure (remaining percent over time to weekly reset, highest first), not by most-remaining. Mechanics live in `src/lib/decide.ts` and `src/lib/picker.ts`; rationale and policy in `docs/switching.mdx`, `.memory/switch-policy-pace-pressure.md`, and `.memory/stopfailure-enforced-limit-signal.md`. The vocabulary below is used across both files.
+
+- Engaged but under every bar = the GREEDY path: `currentWins` keeps the seat on best-or-tie, else swap onto the strictly better account. It never depleted-waits or pre-parks. Only the HARD path (a bar crossed) may.
+- Layer 2 is the fallback reached only when the hard path finds no usable target, judged against the wall (`hardBars` = hardThresholds minus projectionMargin). A seat under its wall HOLDS and squeezes in place, and that check runs BEFORE any swap, or equally-squeezable siblings ping-pong. A walled seat swaps onto the best under-wall account.
+- Layer 2 is CLAUDE-ONLY. A codex last-drop-swap would strand siblings on the walled account, because codex cannot hot-adopt and the reconcile only signals siblings onto a Layer-1-usable seat. Codex rides its account to the wall instead. Do not extend it.
+- Build EVERY Claude PickCtx and trigger floor from `effectiveBars(cfg, pool)`, which resolves the 5h ladder (`thresholds.session`, ascending rungs, default `[90]`) to the lowest rung some pooled account still clears, the current account included: one bar per window for trigger and screening alike, re-read from the freshly loaded pool on every retry, or a margin-triggered swap lands inside the band and ping-pongs on the cooldown beat. Codex reads `terminalBars(cfg)`, the top rung only. The check cadence is capped one band per rung climbed (`STAGE_CEILING_TICKS`), and every band is a multiple of `policy.checkIntervalMs`, the tick `init` writes into the timer unit: never reintroduce an absolute millisecond band.
+- Match model names by family substring or prefix, never by exact display string. Display names drift per release in BOTH directions ("Opus 4.8", and "Fable" became "Fable 5" in 2.1.206), so any exact-match gate silently stops matching. One did, and an account's Opus weekly drained to 100% with no auto-switch.
+- Unmeasured must never look safe: an unmeasured usage percent renders as unknown, never 0, and ranks last, never first.
+- Per-model weekly caps exist only for Sonnet and Fable, and only Fable gates a switch (owner, 2026-07-12).
+- Banked resets (`policy.preferToUseBankedReset`, provider list) are a HARD-path-only hold-then-claim, never a greedy move. Claude holds between the rung and the wall only while `sessionWindowWeeklyCost` is measured and fits every weekly bar, then claims through the reset endpoint (`/limit-reset` is `supportsNonInteractive: false`, so `claude -p` cannot run it) and only a `reset` keeps the seat, every other answer (`not_limited` included) falls through to the swap (hook ruling 2026-09-07). Codex consumes a credit at its wall and never restarts. Mechanics in `src/lib/bankedreset.ts` and `src/lib/codexreset.ts`; rationale in `.memory/banked-reset-preference.md`.
+
+## Claude internals
+
+Verified auth and quota mechanics live in `.memory/cc-codex-auth-mechanics.md`; the credential store and swap sequence are in `DESIGN.md` §2-3. Both CLIs change monthly, so re-verify before trusting a recorded fact.
+
+- Quota comes from `claude -p '/usage'` (free, 0 tokens), probed in a throwaway `CLAUDE_CONFIG_DIR` for parked accounts. The direct `GET /api/oauth/usage` was tried and REJECTED by the owner because it 429s when the sampled account is the one running the session: fix the CLI method, never bypass it. Codex deliberately differs here (its own direct GET was separately approved), so the codex side is not a precedent. The banked-reset claim (`POST /api/organizations/<org>/reset_rate_limits`, `src/lib/bankedreset.ts`) is the one approved Claude exception (owner, 2026-09-07): `/limit-reset` has no headless route at all, so there is no CLI method to fix.
+- `/usage` on the live login is fail-silent whenever Claude's internal usage fetch errors or 429s, which is common while that token is busy serving sessions (2026-08-30 diagnosis: 10,198 failed probes), but it is not a dead path: on 2026-09-05 (2.1.261) every live probe of the day succeeded. So the statusLine tee stays the primary source for the active account, the decision engine falls back to the live probe when the tee is older than `usagePollTtlMs`, and `status` probes it only under `--ping` or when the tee is missing or older than the stored sample. A silent result is unmeasured, never zero, and a sample never overwrites a newer one (`status` and the decision engine both keep the newest of tee and stored record). The tee carries no per-model rows, so the live Fable cap still comes from that probe and goes blind for hours under load; the StopFailure hook is the backstop, not a better probe.
+- StopFailure (verified 2.1.251) fires INSTEAD of Stop when a turn ends on an API error, for subagents too (`agent_id` set), with `error` (`rate_limit`, ...) and `last_assistant_message` on stdin. `quotaLimits` (rateLimitType, resetsAt in epoch seconds) lives only on the transcript row. The Fable cap failure is the credits branch: no quotaLimits, no reset, text `You've reached your Fable 5 limit.` or `Fable 5 requires usage credits.`. The statusline payload no longer carries `organizationUuid`.
+- `claude setup-token` was investigated and abandoned: it is inference-only scoped and returns no rate-limit percentages, which breaks monitoring. Do not revisit without solving usage.
+- Every new spawn of the real claude goes through `resolveRealClaude()`. Preset the depth cap for probe subtrees that must never re-enter the wrapper; set `TOKENMAXXING_UNMANAGED` where nested invocations are legitimate. The layered guards live in `src/lib/claudebin.ts`; read them there before adding a spawn.
+
+## Codex
+
+Source-verified against rust-v0.144.5 (2026-07-16); the installed CLI is 0.145.0 and codex changes monthly, so re-verify before trusting any line here. Detail: `docs/codex.mdx` and `.memory/cc-codex-auth-mechanics.md`.
+
+- No hot-swap: restart IS the switch (`codex resume <sid>`).
+- Refresh-token reuse is punished, and a superseded token kills the whole grant family. Harvest by true owner and persist every rotation the instant it returns.
+- An idle codex still touches tokens: the Apps surface builds throwaway auth managers and can rotate `auth.json` outside our flock. Read the live blob at the last moment.
+- An account running in another supervised session is never a swap target and never sampler-refreshed. Parked does not imply not running.
+- Classify windows by DURATION, never by position. Current plans may have no 5h window at all.
+- Codex silently skips untrusted hooks until the user runs `/hooks`, so auto-switching never engages until they do. Never clobber the user's `notify` key in `config.toml`; nothing in code guards it.
+- `~/.codex/hooks.json` is not the only hook config source: a plugin manifest can point at its own via a `hooks` path key (verified in the 0.145.0 binary). tokenmaxxing only ever writes hooks.json, so check for other sources before assuming precedence.
+- Codex Stop stdin carries `session_id`, `turn_id`, `transcript_path`, `stop_hook_active`, and `last_assistant_message` (all verified in the 0.145.0 binary), but no error signal, so the reverted text-sniffing failsafe below applies here too. `CodexStopStdinSchema` is a loose object declaring only `session_id` and `hook_event_name`, so it silently swallows the rest.
+
+## Release and CI
+
+Ship = work on a branch, bump `package.json` and `agent-plugin/plugin.json` to the same version in the same PR, open the PR, make CI pass, wait out the review window, handle every review (fix, or refute with reasons), merge, `gh release create v<version>`, verify the npm publish landed, then tear down. A merge without a publish is not shipped. This repo merges its own PRs, which overrides the global "open the PR and stop". Detail: `.memory/shipping-pr-based.md`.
+
+- A PR that changes no packed file skips the bump and the release (owner, 2026-09-08). The packed set is whatever `npm pack --dry-run` lists, NOT the `files` array: `src`, `agent-plugin`, `README.md`, `DESIGN.md`, plus `LICENSE` and `package.json`, which npm always includes even though `files` never names them. A change confined to `docs/`, `.memory/`, or AGENTS.md would publish a tarball identical to the last one but for its version, so merge it and stop; the docs site deploys from main on its own. Everything else about the ship still applies, the review window included. Touch one packed file and the full ship is back, `agent-plugin/skills/` included.
+
+- Never push work directly to main.
+- The review window is 10 minutes of reviewer silence, babysat every minute: poll the PR each minute for new reviews, comments, check results, and merge state, handle whatever appears (fix or refute, resolve conflicts, fix CI), and merge only after 10 consecutive quiet minutes. Every new item restarts the clock. Green checks never shorten it, because reviewers post findings after their checks pass.
+- The PR review bots are the adversarial pass. Do not run a separate local adversarial-review workflow before opening the PR (owner, 2026-09-06); spend the effort on hermetic verification instead.
+- npm trusted publishing is bound to the literal workflow filename `ci.yml`. Renaming it silently breaks publishing.
+- `bun add -g <local .tgz>` over an existing global errors `DependencyLoop`. Run `bun remove -g` first.
+
+## Statusline and SDK
+
+Short pointers.
+
+- Statusline: `src/entries/statusline.ts` renders natively and tees `usage.json`; subagent rows in `src/entries/subagentstatusline.ts`. Format spec in `docs/statusline.mdx`. statusLine stdin sends top-level sub-objects as JSON `null`, so their schemas need `.nullable().optional()`, not `.optional()`. The main payload can never reflect the focused subagent; the subagent rows are the only such surface. This runs every turn, so keep it O(ms) and off flock and oauth: read the HEAD file, never spawn a git subprocess.
+- SDK: `src/sdk.ts` is the programmatic entry and is self-documenting. `docs/sdk.mdx`, `.memory/agent-sdk-auth-surface.md`. Pooling subscription logins is framed as the owner using their own accounts in agents they run themselves; offering it to third parties is a ToS problem (`docs/terms.mdx`).
+
+## CLI output
+
+Every reporting command has a text form and a `--json` form (`ok` mirrors exit 0, failures add `error`, progress on stderr only; contract in `docs/commands.mdx`). Route every new success line through `emitJson` behind the `json` flag and every error through `emitError` (`notes` are text-only hints, `extra` is structured data). A bare `console.log` on a `--json`-capable command breaks the contract for scripts, and the text form must stay byte-identical: `status` renders from the same report the JSON prints, so change the collect step, not the renderer, when a number is wrong.
+
+## Do not reintroduce
+
+- A Stop-hook text-sniffing limit failsafe. Stop stdin carries no `is_error`, so it fired on turns that merely discussed limits and stamped healthy accounts as walled. The real errored-turn signal is the StopFailure hook (`src/entries/stopfailurehook.ts`): it classifies only the transcript row Claude Code itself marked `isApiErrorMessage`, never prose, and stamps only with post-swap proof. Keep it that way.
+- Statusline formats already rejected: meter glyphs, Unicode fractions, dim or faint ANSI anywhere, account names, S/W window labels, percent signs, remaining-instead-of-used, usage numbers in color mode, and the counted parked collapse.
+- Compatibility bridges, migration shims, or dual behavior for old local states.
+
+## Testing
+
+The repo carries no test code and no code comments (owner ruling 2026-09-02: "Delete all testcodes and comments from the codebase"). Do not add test files, a test script, a test CI step, or comments. Verification is `bun run typecheck` plus hermetic CLI runs under a throwaway `TOKENMAXXING_HOME` and free live reads.
+
+The live interactive-PTY SIGTERM test is still owed (`DESIGN.md` §9), but the owner declined it once. Never re-run it without asking.
+
+## Lessons that cost something
+
+- Verify an external tool's limits with a real-sized payload before relying on it. A 4.3KB credential blob truncated silently through `security -i`.
+- A prior go-ahead does not cover collision evidence that arrives after it. Every new signal of concurrent work freezes git actions until the owner rules.
+- Never write a completion claim into docs or memory ahead of the output that proves it.
+- `status --ping` opens a real 5h window on every account it pings. A feature request is not permission to spend.
+- `TOKENMAXXING_HOME` isolates state files only. `init`, `uninstall`, and the codex hook install write settings.json, codex `hooks.json`, the shell rc, and the timer unit under `HOME` regardless, so a throwaway root does not make them hermetic: a review subagent ran `uninstall --json` under one and stripped a live install (2026-09-05). Subagent prompts must forbid those commands by name; "hermetic" is not enough.
+
+## Cursor Cloud specific instructions
+
+The cloud VM is a throwaway Linux clone, not the owner's Mac, so its git-safety and live-process cautions do not apply here; the machine-gotchas above still describe real runtime behavior.
+
+- Runtime is Bun, which is not on the base image. The startup update script installs it to `~/.bun/bin` (added to `~/.bashrc`). A fresh non-login shell may not have it on PATH: run `export PATH="$HOME/.bun/bin:$PATH"` or call `~/.bun/bin/bun` directly.
+- No Claude/Codex subscription logins exist here and none should be created, so the live swap loop, `init`, `add`, `auth`, and `status` cannot run end to end. Exercise the decision engine hermetically instead, under a throwaway `TOKENMAXXING_HOME` (see `## Testing`).
+- For manual CLI pokes that must not touch real state, point `TOKENMAXXING_HOME` at a throwaway dir (e.g. `TOKENMAXXING_HOME=/tmp/xx bun run src/main.ts config`); it overrides the whole `~/.config/tokenmaxxing` state root. Commands that only read/write local state (`help`, `config get|set|unset`, `ls`, `doctor`) work with no accounts; `doctor` exits 1 on a fresh dir because nothing is installed, which is correct.
+- The docs site under `docs/` is a separate Next.js app with its own `bun.lock`; the root update script does not install it. Run `cd docs && bun install` then `bun run dev` (serves http://localhost:3000). First page load compiles via Turbopack and can take ~20s.
+
+---
+> Source: [anaclumos/tokenmaxxing](https://github.com/anaclumos/tokenmaxxing) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
