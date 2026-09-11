@@ -1,0 +1,9 @@
+{
+  "name": "halaska-studio--ui",
+  "displayName": "ui",
+  "description": "UI by Halaska: a single-file React UI kit for AI products, built on shadcn/ui. 38 UX patterns and ~100 components.",
+  "version": "1.0.0",
+  "author": "Halaska-Studio",
+  "homepage": "https://github.com/Halaska-Studio/ui",
+  "skills": []
+}
