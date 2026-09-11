@@ -1,0 +1,9 @@
+{
+  "name": "ironwood-lang--ironwood",
+  "displayName": "ironwood",
+  "description": "Ironwood is an ahead-of-time compiled, object-oriented language for high-performance native applications. It preserves the familiar Java syntax, object model, and everyday APIs that Java developers al",
+  "version": "1.0.0",
+  "author": "ironwood-lang",
+  "homepage": "https://github.com/ironwood-lang/ironwood",
+  "skills": []
+}
