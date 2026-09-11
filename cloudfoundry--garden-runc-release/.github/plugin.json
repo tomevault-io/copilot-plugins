@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--garden-runc-release",
+  "displayName": "garden-runc-release",
+  "description": "garden-runc-release",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/garden-runc-release",
+  "skills": []
+}
