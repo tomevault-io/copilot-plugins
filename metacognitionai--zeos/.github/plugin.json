@@ -1,0 +1,9 @@
+{
+  "name": "metacognitionai--zeos",
+  "displayName": "zeos",
+  "description": "ZEOS: a transformer operating system \u2014 priority-preemptive scheduling, protected mode, and deterministic replay for LLM jobs",
+  "version": "1.0.0",
+  "author": "metacognitionai",
+  "homepage": "https://github.com/metacognitionai/zeos",
+  "skills": []
+}
