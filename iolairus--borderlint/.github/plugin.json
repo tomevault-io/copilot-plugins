@@ -1,0 +1,9 @@
+{
+  "name": "iolairus--borderlint",
+  "displayName": "borderlint",
+  "description": "A tool for mapping where your AI data flows and governing it against your residency and sovereignty policy",
+  "version": "1.0.0",
+  "author": "iolairus",
+  "homepage": "https://github.com/iolairus/borderlint",
+  "skills": []
+}
