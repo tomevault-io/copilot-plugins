@@ -1,6 +1,6 @@
 # monkey-rust
 
-> Tome by [gengjiawen](https://github.com/gengjiawen/monkey-rust) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [gengjiawen](https://github.com/gengjiawen/monkey-rust), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [gengjiawen/monkey-rust](https://github.com/geng
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/gengjiawen/monkey-rust](https://github.com/gengjiawen/monkey-rust)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/gengjiawen/monkey-rust](https://github.com/gengjiawen/monkey-rust)
 
 ---
 
