@@ -1,0 +1,9 @@
+{
+  "name": "broadinstitute--nf-pooled-cellpainting",
+  "displayName": "nf-pooled-cellpainting",
+  "description": "Nextflow pipeline for analyzing pooled optical screen (OPS) data.",
+  "version": "1.0.0",
+  "author": "broadinstitute",
+  "homepage": "https://github.com/broadinstitute/nf-pooled-cellpainting",
+  "skills": []
+}
