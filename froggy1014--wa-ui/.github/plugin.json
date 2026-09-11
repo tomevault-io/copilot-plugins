@@ -1,0 +1,9 @@
+{
+  "name": "froggy1014--wa-ui",
+  "displayName": "wa-ui",
+  "description": "shadcn/ui registry of WhatsApp Web chat components, built on WhatsApp's WDS design tokens",
+  "version": "1.0.0",
+  "author": "froggy1014",
+  "homepage": "https://github.com/froggy1014/wa-ui",
+  "skills": []
+}
