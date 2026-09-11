@@ -4,7 +4,7 @@
   "repo": "llama-halo-hybrid",
   "description": "Modified llama.cpp to work with Strix Halo + Radeon R9700 as an accelerator, Dual Strix Halo Machines, or both ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sixvolts/llama-halo-hybrid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-08T22:22:31Z"
+  "distributed_at": "2026-09-11T03:46:30Z"
 }
