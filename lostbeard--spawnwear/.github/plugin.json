@@ -1,0 +1,9 @@
+{
+  "name": "lostbeard--spawnwear",
+  "displayName": "SpawnWear",
+  "description": ".NET nanoFramework firmware (C#) for the Waveshare ESP32-S3 Touch AMOLED 2.06 watch + Blazor WASM companion PWA",
+  "version": "1.0.0",
+  "author": "LostBeard",
+  "homepage": "https://github.com/LostBeard/SpawnWear",
+  "skills": []
+}
