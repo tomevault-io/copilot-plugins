@@ -1,0 +1,9 @@
+{
+  "name": "handyutils--sctxx",
+  "displayName": "sctxx",
+  "description": "sctxx \u2014 coding agent Session Context Extractor. standalone, agent-agnostic CLI (plus a thin Agent Skill wrapper) that reads a coding-agent session transcript from disk \u2014 Claude Code, Codex CLI, or Pi ",
+  "version": "1.0.0",
+  "author": "handyutils",
+  "homepage": "https://github.com/handyutils/sctxx",
+  "skills": []
+}
