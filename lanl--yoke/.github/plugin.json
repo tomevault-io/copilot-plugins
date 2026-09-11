@@ -1,0 +1,9 @@
+{
+  "name": "lanl--yoke",
+  "displayName": "Yoke",
+  "description": "System for prototyping, training, and testing of deep ML models",
+  "version": "1.0.0",
+  "author": "lanl",
+  "homepage": "https://github.com/lanl/Yoke",
+  "skills": []
+}
