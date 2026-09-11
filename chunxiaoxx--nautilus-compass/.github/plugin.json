@@ -1,0 +1,9 @@
+{
+  "name": "chunxiaoxx--nautilus-compass",
+  "displayName": "nautilus-compass",
+  "description": "Reliability layer for multi-agent setups \u2014 keep agents coordinating without an orchestrator. Cross-dialog contracts + drift detection + black-box memory (no LLM extraction).",
+  "version": "1.0.0",
+  "author": "chunxiaoxx",
+  "homepage": "https://github.com/chunxiaoxx/nautilus-compass",
+  "skills": []
+}
