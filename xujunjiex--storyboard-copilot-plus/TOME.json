@@ -4,7 +4,7 @@
   "repo": "Storyboard-Copilot-plus",
   "description": "\u57fa\u4e8ehenjicc / Storyboard-Copilot\uff0c\u6dfb\u52a0seedance1.0/1.5/2.0\u89c6\u9891\u751f\u6210\u6a21\u578b\u4e0e\u63d0\u793a\u8bcd\u53c2\u8003\u6da6\u8272\u529f\u80fd",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xujunjiex/Storyboard-Copilot-plus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T18:35:38Z"
+  "distributed_at": "2026-09-11T18:43:19Z"
 }
