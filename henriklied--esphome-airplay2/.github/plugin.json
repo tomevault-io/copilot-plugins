@@ -1,0 +1,9 @@
+{
+  "name": "henriklied--esphome-airplay2",
+  "displayName": "esphome-airplay2",
+  "description": "ESPHome external component that turns an ESP32 into an AirPlay 2 receiver. Non-Commercial licensed (port of rbouteiller/airplay-esp32).",
+  "version": "1.0.0",
+  "author": "henriklied",
+  "homepage": "https://github.com/henriklied/esphome-airplay2",
+  "skills": []
+}
