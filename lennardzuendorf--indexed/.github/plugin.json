@@ -1,0 +1,9 @@
+{
+  "name": "lennardzuendorf--indexed",
+  "displayName": "indexed",
+  "description": "Let your Agents search against code, issue trackers, docs and other context via a fully local CLI and MCP.",
+  "version": "1.0.0",
+  "author": "LennardZuendorf",
+  "homepage": "https://github.com/LennardZuendorf/indexed",
+  "skills": []
+}
