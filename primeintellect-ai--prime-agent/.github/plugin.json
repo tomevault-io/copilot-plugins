@@ -1,0 +1,30 @@
+{
+  "name": "primeintellect-ai--prime-agent",
+  "displayName": "prime-agent",
+  "description": "A self-improving RLM agent for coding workflows and long-running autonomous tasks.",
+  "version": "1.0.0",
+  "author": "PrimeIntellect-ai",
+  "homepage": "https://github.com/PrimeIntellect-ai/prime-agent",
+  "skills": [
+    {
+      "name": "python-skill",
+      "description": ""
+    },
+    {
+      "name": "python-package-missing",
+      "description": ""
+    },
+    {
+      "name": "prime-intellect",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "description": ""
+    }
+  ]
+}
