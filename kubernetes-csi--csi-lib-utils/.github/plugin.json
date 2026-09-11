@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-csi--csi-lib-utils",
+  "displayName": "csi-lib-utils",
+  "description": "csi-lib-utils",
+  "version": "1.0.0",
+  "author": "kubernetes-csi",
+  "homepage": "https://github.com/kubernetes-csi/csi-lib-utils",
+  "skills": []
+}
