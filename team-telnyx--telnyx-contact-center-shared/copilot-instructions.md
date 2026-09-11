@@ -1,0 +1,44 @@
+## telnyx-contact-center-shared
+
+> - Next.js (App Router), React 18, Node 20.
+
+# Cursor Rules
+
+## Tech stack & workflow
+
+- Next.js (App Router), React 18, Node 20.
+- Use yarn. Commands: dev `yarn dev`, build `yarn build`, test `yarn test`.
+- Absolute imports from `@/` per `jsconfig.json`.
+
+## Code style
+
+- Prefer async/await over .then().
+- Keep existing indentation and formatting; match file-local style.
+- Write server code in `app/api/**` and colocate client components in `app/**`.
+
+## Safety & boundaries
+
+- Never commit or print secrets; don’t touch `.env*`.
+- Don’t change `lib/mongodb.js` connection logic without updating callers.
+- If editing `models/**`, update related Zod schemas and tests.
+
+## Testing & quality
+
+- Run `yarn test` before committing changes that touch `models/**` or `app/api/**`.
+- Add minimal unit tests for new utility functions in `lib/**`.
+
+## Integration to Telnyx API
+
+- When creating integrations to Telnyx always check API definitions in `openapi/telnyx.json` and implement fucntions according to that sepcification
+
+## Notifications
+
+- **NEVER use `toast` from `sonner` directly in components or pages.**
+- **ALWAYS use `notify` from `@/components/ToastNotify` for all notifications.**
+- The `notify` function provides consistent styling and behavior across the application.
+- Usage: `notify({ title: "...", description: "...", variant: "success" | "error" | "warning" | "info" })`
+- The `toast` import should only exist in `@/components/ToastNotify.jsx` (internal implementation) and `app/layout.jsx` (for the Toaster component).
+
+---
+> Source: [team-telnyx/telnyx-contact-center-shared](https://github.com/team-telnyx/telnyx-contact-center-shared) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
