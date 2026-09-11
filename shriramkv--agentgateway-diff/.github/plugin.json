@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--agentgateway-diff",
+  "displayName": "agentgateway-diff",
+  "description": "Snapshots two agentgateway configs and flags the security-relevant drift between versions",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/agentgateway-diff",
+  "skills": []
+}
