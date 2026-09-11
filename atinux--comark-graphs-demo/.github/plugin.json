@@ -1,0 +1,9 @@
+{
+  "name": "atinux--comark-graphs-demo",
+  "displayName": "comark-graphs-demo",
+  "description": "A demo of writing charts inside a plain .md file.",
+  "version": "1.0.0",
+  "author": "atinux",
+  "homepage": "https://github.com/atinux/comark-graphs-demo",
+  "skills": []
+}
