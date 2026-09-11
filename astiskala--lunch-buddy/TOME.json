@@ -4,7 +4,7 @@
   "repo": "lunch-buddy",
   "description": "Lunch Buddy is a progressive web app (PWA) that visualises your Lunch Money budgets to help you keep category budgets on track as you progress through the month.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/astiskala/lunch-buddy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T11:40:16Z"
+  "distributed_at": "2026-09-11T12:02:52Z"
 }
