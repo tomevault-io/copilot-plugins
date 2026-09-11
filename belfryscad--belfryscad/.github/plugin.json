@@ -1,0 +1,9 @@
+{
+  "name": "belfryscad--belfryscad",
+  "displayName": "BelfrySCAD",
+  "description": "Hybrid OpenSCAD + WYSIWYG procedural CAD system",
+  "version": "1.0.0",
+  "author": "BelfrySCAD",
+  "homepage": "https://github.com/BelfrySCAD/BelfrySCAD",
+  "skills": []
+}
