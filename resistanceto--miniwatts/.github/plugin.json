@@ -1,0 +1,9 @@
+{
+  "name": "resistanceto--miniwatts",
+  "displayName": "MiniWatts",
+  "description": "An iPhone battery, charging and thermal instrument built on private iOS APIs \u2014 real charger watts, what actually reaches the cell, all 30 temperature sensors, and the USB-PD handshake.",
+  "version": "1.0.0",
+  "author": "ResistanceTo",
+  "homepage": "https://github.com/ResistanceTo/MiniWatts",
+  "skills": []
+}
