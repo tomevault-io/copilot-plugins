@@ -1,0 +1,9 @@
+{
+  "name": "jdx--envol",
+  "displayName": "envol",
+  "description": "Build once. Release with confidence. CLI releases and adoption dashboards.",
+  "version": "1.0.0",
+  "author": "jdx",
+  "homepage": "https://github.com/jdx/envol",
+  "skills": []
+}
