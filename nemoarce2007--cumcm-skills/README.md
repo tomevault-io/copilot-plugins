@@ -7,11 +7,11 @@ CUMCM（全国大学生数学建模竞赛）Agent Skills：graph 编排 + loop �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NemoArce2007/cumcm-skills](https://github.com/NemoArce2007/cumcm-skills).
+Original source: `AGENTS.md` in [NemoArce2007/cumcm-skills](https://github.com/NemoArce2007/cumcm-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
