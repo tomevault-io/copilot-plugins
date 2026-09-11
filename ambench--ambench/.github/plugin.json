@@ -1,0 +1,9 @@
+{
+  "name": "ambench--ambench",
+  "displayName": "ambench",
+  "description": "AM-Bench: a modular simulation suite and benchmark for aerial manipulation policy learning (CoRL 2026)",
+  "version": "1.0.0",
+  "author": "ambench",
+  "homepage": "https://github.com/ambench/ambench",
+  "skills": []
+}
