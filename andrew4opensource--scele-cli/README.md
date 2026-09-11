@@ -7,11 +7,11 @@ A CLI tool for SCELE - Faculty of Computer Science, Universitas Indonesia
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [andrew4opensource/scele-cli](https://github.com/andrew4opensource/scele-cli).
+Original source: `AGENTS.md` in [andrew4opensource/scele-cli](https://github.com/andrew4opensource/scele-cli).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
