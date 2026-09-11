@@ -1,0 +1,9 @@
+{
+  "name": "kfstorm--douban-idatabase",
+  "displayName": "douban-idatabase",
+  "description": "A FastAPI-based web API service that aggregates movie/TV metadata from multiple sources including Douban, IMDB, TMDB, and TVDB.",
+  "version": "1.0.0",
+  "author": "kfstorm",
+  "homepage": "https://github.com/kfstorm/douban-idatabase",
+  "skills": []
+}
