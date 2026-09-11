@@ -1,0 +1,9 @@
+{
+  "name": "zer0cache--hyperliquid-market-maker-bot",
+  "displayName": "hyperliquid-market-maker-bot",
+  "description": "Market making bot for Hyperliquid",
+  "version": "1.0.0",
+  "author": "zer0cache",
+  "homepage": "https://github.com/zer0cache/hyperliquid-market-maker-bot",
+  "skills": []
+}
