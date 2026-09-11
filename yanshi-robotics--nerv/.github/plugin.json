@@ -1,0 +1,9 @@
+{
+  "name": "yanshi-robotics--nerv",
+  "displayName": "nerv",
+  "description": "NERV \u2014 a nervous system for robots: a language-model brain, a robot body and a world, coupled by one platform",
+  "version": "1.0.0",
+  "author": "Yanshi-Robotics",
+  "homepage": "https://github.com/Yanshi-Robotics/nerv",
+  "skills": []
+}
