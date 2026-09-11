@@ -1,23 +1,21 @@
 # agentic-vbench
 
-> Tome by [PhiloLabs](https://github.com/PhiloLabs/agentic-vbench) — distributed by [TomeVault](https://tomevault.io)
-
-AgenticVBench: Can AI Agents Complete Real-World Post-Production Tasks?
+> Tome by [PhiloLabs](https://github.com/PhiloLabs/agentic-vbench), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PhiloLabs/agentic-vbench](https://github.com/PhiloLabs/agentic-vbench).
+Original source: `AGENTS.md` in [PhiloLabs/agentic-vbench](https://github.com/PhiloLabs/agentic-vbench).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/PhiloLabs/agentic-vbench](https://github.com/PhiloLabs/agentic-vbench)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/PhiloLabs/agentic-vbench](https://github.com/PhiloLabs/agentic-vbench)
 
 ---
 
