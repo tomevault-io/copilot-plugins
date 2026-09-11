@@ -1,0 +1,9 @@
+{
+  "name": "ekala-project--ekapkgs",
+  "displayName": "ekapkgs",
+  "description": "Default package set for Ekapkgs and EkaOS",
+  "version": "1.0.0",
+  "author": "ekala-project",
+  "homepage": "https://github.com/ekala-project/ekapkgs",
+  "skills": []
+}
