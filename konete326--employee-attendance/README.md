@@ -7,11 +7,11 @@ Modern Employee Attendance Management System built with Next.js. Features real-t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Konete326/Employee-Attendance](https://github.com/Konete326/Employee-Attendance).
+Original source: `AGENTS.md` in [Konete326/Employee-Attendance](https://github.com/Konete326/Employee-Attendance).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
