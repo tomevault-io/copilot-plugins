@@ -1,0 +1,9 @@
+{
+  "name": "sosbench--sosbencheval",
+  "displayName": "SOSBenchEval",
+  "description": "[ICLR26] Official Release for SoSBench",
+  "version": "1.0.0",
+  "author": "SOSBench",
+  "homepage": "https://github.com/SOSBench/SOSBenchEval",
+  "skills": []
+}
