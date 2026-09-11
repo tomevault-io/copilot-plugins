@@ -4,7 +4,7 @@
   "repo": "vigia-ai",
   "description": "Painel de mesa para cotas de IA \u2014 Claude, GPT, Cursor, OpenRouter e DeepSeek \u2014 rodando em ESP32 + TFT touch ou no navegador, sem nunca expor um token.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TrindadeBRA/vigia-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T20:30:21Z"
+  "distributed_at": "2026-09-11T20:31:11Z"
 }
