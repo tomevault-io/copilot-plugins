@@ -1,0 +1,9 @@
+{
+  "name": "staruhub--crewclaw",
+  "displayName": "CrewClaw",
+  "description": "Local-first AI Employee OS: discover, hire, supervise, verify evidence, and grow AI employees.",
+  "version": "1.0.0",
+  "author": "staruhub",
+  "homepage": "https://github.com/staruhub/CrewClaw",
+  "skills": []
+}
