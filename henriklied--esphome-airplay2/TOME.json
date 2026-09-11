@@ -4,7 +4,7 @@
   "repo": "esphome-airplay2",
   "description": "ESPHome external component that turns an ESP32 into an AirPlay 2 receiver. Non-Commercial licensed (port of rbouteiller/airplay-esp32).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henriklied/esphome-airplay2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T18:34:13Z"
+  "distributed_at": "2026-09-11T18:35:05Z"
 }
