@@ -1,0 +1,9 @@
+{
+  "name": "qendolin--mod-bisect-tool",
+  "displayName": "mod-bisect-tool",
+  "description": "Tool to search for problematic fabric and (neo)forge mods",
+  "version": "1.0.0",
+  "author": "Qendolin",
+  "homepage": "https://github.com/Qendolin/mod-bisect-tool",
+  "skills": []
+}
