@@ -1,0 +1,9 @@
+{
+  "name": "sfxnz--deepseek-v4-1-flash-exl3-vllm-2x-dgx-spark",
+  "displayName": "DeepSeek-V4.1-Flash-EXL3-vLLM-2x-DGX-Spark",
+  "description": "DeepSeek-V4.1-Flash EXL3 vLLM recipe for 2x DGX Spark (GB10)",
+  "version": "1.0.0",
+  "author": "sfxnz",
+  "homepage": "https://github.com/sfxnz/DeepSeek-V4.1-Flash-EXL3-vLLM-2x-DGX-Spark",
+  "skills": []
+}
