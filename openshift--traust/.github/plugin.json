@@ -1,0 +1,9 @@
+{
+  "name": "openshift--traust",
+  "displayName": "traust",
+  "description": "Traust security auditing harness, skills, and commands",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/traust",
+  "skills": []
+}
