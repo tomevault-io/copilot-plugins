@@ -1,0 +1,9 @@
+{
+  "name": "tailscale-mcp--tailscale-mcp",
+  "displayName": "tailscale-mcp",
+  "description": "MCP server for Tailscale, backed by the tailscale CLI and control-plane REST API",
+  "version": "1.0.0",
+  "author": "tailscale-mcp",
+  "homepage": "https://github.com/tailscale-mcp/tailscale-mcp",
+  "skills": []
+}
