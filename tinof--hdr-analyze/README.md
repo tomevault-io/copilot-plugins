@@ -7,11 +7,11 @@ Convert any HDR10, HLG, or HDR10+ video to dynamic metadata
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tinof/hdr-analyze](https://github.com/tinof/hdr-analyze).
+Original source: `AGENTS.md` in [tinof/hdr-analyze](https://github.com/tinof/hdr-analyze).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
