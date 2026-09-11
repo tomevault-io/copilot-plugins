@@ -1,0 +1,9 @@
+{
+  "name": "orangelatte--ohnews",
+  "displayName": "OHnews",
+  "description": "AI-native news intelligence terminal: cognitive-loop analysis over multi-source news with LangGraph agents, structured information extraction, and evidence-anchored judgments",
+  "version": "1.0.0",
+  "author": "OrangeLatte",
+  "homepage": "https://github.com/OrangeLatte/OHnews",
+  "skills": []
+}
