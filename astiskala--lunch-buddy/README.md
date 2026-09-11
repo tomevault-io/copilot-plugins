@@ -7,13 +7,13 @@ Lunch Buddy is a progressive web app (PWA) that visualises your Lunch Money budg
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [astiskala/lunch-buddy](https://github.com/astiskala/lunch-buddy).
+Original source: `CLAUDE.md` in [astiskala/lunch-buddy](https://github.com/astiskala/lunch-buddy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
