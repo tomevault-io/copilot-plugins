@@ -1,0 +1,127 @@
+## asterinas
+
+> Asterinas is a Linux-compatible, general-purpose OS kernel
+
+# Agents Guidelines for Asterinas and Mariposa
+
+Asterinas is a Linux-compatible, general-purpose OS kernel
+written in Rust using the framekernel architecture.
+`unsafe` Rust is confined to OSTD (`ostd/`);
+the kernel (`kernel/`) is entirely safe Rust.
+
+Mariposa is a research platform for learned policies, based on the Asterinas kernel. Components
+expose events and state by creating OQueues (Observable Queues, see `ostd/src/orpc/oqueue/mod.rs`).
+Components can use those OQueues to observe other components.
+
+## Repository Layout
+
+| Directory    | Purpose                                                  |
+|--------------|----------------------------------------------------------|
+| `kernel/`    | Safe-Rust OS kernel (syscalls, VFS, networking, etc.)    |
+| `ostd/`      | OS framework — the only crate permitted to use `unsafe`  |
+| `osdk/`      | `cargo-osdk` CLI tool for building/running/testing       |
+| `test/`      | Regression and syscall tests (C user-space programs)     |
+| `distro/`    | Asterinas NixOS distribution configuration               |
+| `tools/`     | Utility scripts (formatting, Docker, benchmarking, etc.) |
+| `book/`      | The Asterinas Book (mdBook documentation)                |
+
+## Building and Running
+
+All development is done inside the project Docker container:
+
+```bash
+docker run -it --privileged --network=host -v /dev:/dev \
+  -v $(pwd)/asterinas:/root/asterinas \
+  ldosproject/asterinas:0.18.0-ldos-20260831
+```
+
+Key Makefile targets:
+
+| Command              | What it does                                         |
+|----------------------|------------------------------------------------------|
+| `make kernel`        | Build initramfs and the kernel                       |
+| `make run_kernel`    | Build and run in QEMU                                |
+| `make test`          | Unit tests for non-OSDK crates (`cargo test`)        |
+| `make ktest`         | Kernel-mode unit tests via `cargo osdk test` in QEMU |
+| `make check`         | Full lint: rustfmt, clippy, typos, license checks    |
+| `make format`        | Auto-format Rust, Nix, and C code                    |
+| `make docs`          | Build rustdocs for all crates                        |
+
+Set `TARGET_ARCH` to `x86_64` (default), `riscv64`, or `loongarch64`.
+
+## Baseline mode
+
+Mariposa has two modes:
+* **baseline_asterinas**: does not have OQueues (Observable Queues, see
+  `ostd/src/orpc/oqueue/mod.rs`)
+  * Close to Asterinas, but with extensions required for basic policies
+  * Provides benchmarking baseline for the overhead and advantages of Mariposa
+* **Mariposa (default)**: has OQueues
+  * Full support for observability and policy selection
+
+Baseline mode is selected by adding `BASELINE_ASTERINAS=1` on the make command line. For example,
+`make check BASELINE_ASTERINAS=1`.
+
+### Mode specific code
+
+`#[cfg(not(baseline_asterinas))]` is used to gate Mariposa code which uses OQueues.
+`#[cfg(baseline_asterinas)]` is used to gate baseline code. When possible share code by using
+neither gate. Keep the gated code as small as possible (for instance, by gating blocks within a
+larger function).
+
+Gate a use only if it references Mariposa-only items. Leftover unused imports in baseline are
+allowed; when clippy is run form `cfg(baseline_asteras)` it is given `-A unused-imports`,
+
+## Toolchain
+
+- **Rust nightly** pinned in `rust-toolchain.toml`.
+- **Edition:** 2024.
+- `rustfmt.toml`: imports grouped as Std / External / Crate
+  (`imports_granularity = "Crate"`, `group_imports = "StdExternalCrate"`).
+- Clippy lints are configured in the workspace `Cargo.toml`
+  under `[workspace.lints.clippy]`.
+  Every member crate must have `[lints] workspace = true`.
+
+## Coding Guidelines
+
+The coding guidelines are the authoritative standard
+for both **writing** and **reviewing** code.
+The guidelines are organized by **persona**:
+five durable engineering roles,
+each a page whose Index doubles as that persona's review checklist.
+Consult the persona whose concern matches your change.
+Each Index lists every guideline as a stable `short-name` paired with a one-line gist,
+so you can grasp a rule from the table and open its full text only when needed.
+
+| Persona | Focus | Index |
+|---|---|---|
+| Project maintainer | Is the code well-shaped and understandable? | [For Maintainability](book/src/to-contribute/coding-guidelines/for-maintainability/README.md) |
+| Kernel developer | Is it correct and efficient? | [For Development](book/src/to-contribute/coding-guidelines/for-development/README.md) |
+| Security expert | Is it safe and secure? | [For Security](book/src/to-contribute/coding-guidelines/for-security/README.md) |
+| Hardware expert | Is it correct against the hardware contract? | [For Hardware](book/src/to-contribute/coding-guidelines/for-hardware/README.md) |
+| Documentation writer | Are the user-facing docs well-written? | [For Documentation](book/src/to-contribute/coding-guidelines/for-documentation/README.md) |
+
+## Architecture Notes
+
+- **Framekernel:** The kernel is split into a safe upper half (`kernel/`)
+  and an unsafe lower half (`ostd/`).
+  This is a hard architectural boundary — never add `unsafe` to `kernel/`.
+- **Components** (`kernel/comps/`): block, console, network, PCI, virtio, etc.
+  Each is a separate crate.
+- **OSTD** (`ostd/`): memory management, page tables, interrupt handling,
+  synchronization primitives, task scheduling, boot, and arch-specific code.
+- **Architectures:** x86-64 (primary), RISC-V 64, LoongArch 64.
+  Arch-specific code lives in `ostd/src/arch/` and `kernel/src/arch/`.
+
+## CI
+
+CI runs in the project Docker container with KVM.
+Key test matrices:
+- x86-64: lint, compile, usermode tests, kernel tests, integration tests
+  (boot, syscall, general), multiple boot protocols, SMP configurations.
+- RISC-V 64, LoongArch 64, and Intel TDX have dedicated workflows.
+- License headers and SCML validation are also checked.
+
+---
+> Source: [ldos-project/asterinas](https://github.com/ldos-project/asterinas) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
