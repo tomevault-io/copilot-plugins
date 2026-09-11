@@ -1,0 +1,9 @@
+{
+  "name": "flaviocopes--cli-tools",
+  "displayName": "cli-tools",
+  "description": "One catalog for every CLI tool on your Mac: native app plus a JSON-friendly CLI for AI agents",
+  "version": "1.0.0",
+  "author": "flaviocopes",
+  "homepage": "https://github.com/flaviocopes/cli-tools",
+  "skills": []
+}
