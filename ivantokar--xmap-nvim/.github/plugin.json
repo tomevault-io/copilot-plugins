@@ -1,0 +1,9 @@
+{
+  "name": "ivantokar--xmap-nvim",
+  "displayName": "xmap.nvim",
+  "description": "Fast minimap panel for Neovim: symbols + comments/markers, structural highlights, and jump navigation.",
+  "version": "1.0.0",
+  "author": "ivantokar",
+  "homepage": "https://github.com/ivantokar/xmap.nvim",
+  "skills": []
+}
