@@ -1,0 +1,9 @@
+{
+  "name": "the-jk-labs--omicron",
+  "displayName": "omicron",
+  "description": "Minimal, modern, self-hostable blogging over ActivityPub.",
+  "version": "1.0.0",
+  "author": "the-jk-labs",
+  "homepage": "https://github.com/the-jk-labs/omicron",
+  "skills": []
+}
