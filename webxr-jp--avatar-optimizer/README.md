@@ -7,11 +7,11 @@ XRift向けにThree.js上でアバターを最適化するためのライブラ�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [WebXR-JP/avatar-optimizer](https://github.com/WebXR-JP/avatar-optimizer).
+Original source: `AGENTS.md` in [WebXR-JP/avatar-optimizer](https://github.com/WebXR-JP/avatar-optimizer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
