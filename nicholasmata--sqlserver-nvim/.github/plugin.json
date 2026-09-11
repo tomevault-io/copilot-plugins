@@ -1,0 +1,9 @@
+{
+  "name": "nicholasmata--sqlserver-nvim",
+  "displayName": "sqlserver.nvim",
+  "description": "A SQL Server-native workspace for Neovim",
+  "version": "1.0.0",
+  "author": "NicholasMata",
+  "homepage": "https://github.com/NicholasMata/sqlserver.nvim",
+  "skills": []
+}
