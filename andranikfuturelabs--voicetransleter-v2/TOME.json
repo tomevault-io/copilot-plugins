@@ -1,0 +1,44 @@
+{
+  "name": "VoiceTransleter_V2",
+  "owner": "AndranikFutureLabs",
+  "repo": "VoiceTransleter_V2",
+  "description": "\u041f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u0434\u0443\u0431\u043b\u044f\u0436 \u0432\u0438\u0434\u0435\u043e \u043d\u0430 \u0430\u043d\u0433\u043b\u0438\u0439\u0441\u043a\u043e\u043c \u044f\u0437\u044b\u043a\u0435 (\u043f\u0435\u0440\u0435\u0432\u043e\u0434, \u0434\u0443\u0431\u043b\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435, \u0412\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u043c\u0438 \u0433\u043e\u043b\u043e\u0441\u0430\u043c\u0438 \u0430 \u0442\u0430\u043a\u0436\u0435 \u0433\u043e\u043b\u043e\u0441\u043e\u043c \u043e\u0431\u0440\u0430\u0437\u0446\u0430) - \u043d\u0430 \u0441\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u043c \u0441\u0442\u0435\u043a\u0435",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AndranikFutureLabs/VoiceTransleter_V2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T04:19:30Z"
+}
