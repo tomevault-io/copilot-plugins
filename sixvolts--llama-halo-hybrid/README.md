@@ -7,11 +7,11 @@ Modified llama.cpp to work with Strix Halo + Radeon R9700 as an accelerator, Dua
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sixvolts/llama-halo-hybrid](https://github.com/sixvolts/llama-halo-hybrid).
+Original source: `AGENTS.md` in [sixvolts/llama-halo-hybrid](https://github.com/sixvolts/llama-halo-hybrid).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
