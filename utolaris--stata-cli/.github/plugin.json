@@ -1,0 +1,9 @@
+{
+  "name": "utolaris--stata-cli",
+  "displayName": "Stata-CLI",
+  "description": "Stata CLI for AI agents and coding agents (Codex, Claude Code, Cursor, OpenCode). Run Stata 18/19/StataNow locally, execute .do files, inspect .dta data, and return structured JSON via a native Rust e",
+  "version": "1.0.0",
+  "author": "Utolaris",
+  "homepage": "https://github.com/Utolaris/Stata-CLI",
+  "skills": []
+}
