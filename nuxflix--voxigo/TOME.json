@@ -4,7 +4,7 @@
   "repo": "voxigo",
   "description": "Voxigo - A WebRTC-native, audio-first conversational-AI framework for Go.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nuxflix/voxigo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T07:39:13Z"
+  "distributed_at": "2026-09-11T11:51:13Z"
 }
