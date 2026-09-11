@@ -1,0 +1,44 @@
+{
+  "name": "dataproduct-builder-dbt",
+  "owner": "entropy-data",
+  "repo": "dataproduct-builder-dbt",
+  "description": "Build data products with dbt and integrate them with Entropy Data \u2014 coding-agent plugin (Claude Code, Codex, Copilot CLI)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/entropy-data/dataproduct-builder-dbt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T10:52:00Z"
+}
