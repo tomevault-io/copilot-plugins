@@ -1,0 +1,44 @@
+{
+  "name": "meteor-decomp",
+  "owner": "swstegall",
+  "repo": "meteor-decomp",
+  "description": "Clean-room decompilation of the FINAL FANTASY XIV 1.23b Windows client binaries (ffxivgame/boot/login/updater/config). Hybrid matching + functional/wire reverse-engineering under Ghidra and a byte-identical VS2005+PSDK recompilation toolchain.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/swstegall/meteor-decomp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T18:49:29Z"
+}
