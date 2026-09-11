@@ -1,0 +1,9 @@
+{
+  "name": "wang-yi-bit64--dsh-desktop",
+  "displayName": "dsh-desktop",
+  "description": "Rust + Tauri 2.0 desktop shell for DeepSeek Harness (DSH)",
+  "version": "1.0.0",
+  "author": "wang-yi-bit64",
+  "homepage": "https://github.com/wang-yi-bit64/dsh-desktop",
+  "skills": []
+}
