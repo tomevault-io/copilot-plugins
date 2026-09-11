@@ -2,8 +2,8 @@
   "name": "ttsc",
   "owner": "samchon",
   "repo": "ttsc",
-  "description": "A `typescript-go` toolchain for compiler-powered transforms and type-safe execution.",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,189 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "documentation",
+      "path": ".codex/skills/documentation",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/project/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/benchmark/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/multi-agent/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/multi-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/development/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".codex/skills/typescript-go-sync/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.codex/skills/typescript-go-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/project/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/benchmark/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/discussion/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/discussion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/development/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/multi-agent/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/multi-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/issue-campaign/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/issue-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/typescript-go-sync/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/typescript-go-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/project/evidence/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/project/evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/benchmark/evidence/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/benchmark/evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/benchmark/evidence/measurement/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/benchmark/evidence/measurement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": ".agents/skills/benchmark/evidence/intervention/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/.agents/skills/benchmark/evidence/intervention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/base/.agents/skills/api/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/base/.agents/skills/api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/base/.agents/skills/backend/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/base/.agents/skills/backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/base/.agents/skills/project/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/base/.agents/skills/project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/plain/.agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/plain/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/base/.agents/skills/frontend/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/base/.agents/skills/frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/evidence/.agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/evidence/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/evidence/.agents/skills/evidence/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/evidence/.agents/skills/evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ttsc",
+      "path": "benchmarks/evidence/template/base/.agents/skills/requirements/SKILL.md",
+      "github_url": "https://github.com/samchon/ttsc/tree/main/benchmarks/evidence/template/base/.agents/skills/requirements/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/samchon/ttsc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T07:33:52Z"
+  "distributed_at": "2026-09-11T07:07:17Z"
 }
