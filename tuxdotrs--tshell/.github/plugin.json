@@ -1,0 +1,9 @@
+{
+  "name": "tuxdotrs--tshell",
+  "displayName": "tshell",
+  "description": "My widgets for wayland",
+  "version": "1.0.0",
+  "author": "tuxdotrs",
+  "homepage": "https://github.com/tuxdotrs/tshell",
+  "skills": []
+}
