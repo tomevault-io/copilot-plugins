@@ -1,0 +1,9 @@
+{
+  "name": "live-verify--live-verify",
+  "displayName": "live-verify",
+  "description": "Chrome-extension (and  phone app) verification technology of claims made in documents. New era of digital literacy required",
+  "version": "1.0.0",
+  "author": "live-verify",
+  "homepage": "https://github.com/live-verify/live-verify",
+  "skills": []
+}
