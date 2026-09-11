@@ -1,0 +1,44 @@
+{
+  "name": "GTA_SZ",
+  "owner": "linranff",
+  "repo": "GTA_SZ",
+  "description": "\u57fa\u4e8eBabylon\u7684GTA-6 mini \u9752\u6625 Lite\u7248",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linranff/GTA_SZ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T17:32:46Z"
+}
