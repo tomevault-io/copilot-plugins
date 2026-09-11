@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [podman-container-tools/podman](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [podman-container-tools/podman](https://github.com/podman-container-tools/podman) — a repo with 32812+ stars on GitHub.
+From [podman-container-tools/podman](https://github.com/podman-container-tools/podman) — a repo with 32824+ stars on GitHub.
 
 ---
 
