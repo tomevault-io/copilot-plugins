@@ -1,0 +1,9 @@
+{
+  "name": "desert-ant-labs--desert-ant-cli",
+  "displayName": "desert-ant-cli",
+  "description": "Run Desert Ant Labs on-device models from the terminal.",
+  "version": "1.0.0",
+  "author": "Desert-Ant-Labs",
+  "homepage": "https://github.com/Desert-Ant-Labs/desert-ant-cli",
+  "skills": []
+}
