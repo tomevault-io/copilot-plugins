@@ -7,11 +7,11 @@ flange is the builder of embedded linux board (SBC).
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [flange-build/flange](https://github.com/flange-build/flange).
+Original source: `AGENTS.md` in [flange-build/flange](https://github.com/flange-build/flange).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
