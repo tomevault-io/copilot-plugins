@@ -1,0 +1,9 @@
+{
+  "name": "cntlgns--vllm",
+  "displayName": "vllm",
+  "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+  "version": "1.0.0",
+  "author": "cntlgns",
+  "homepage": "https://github.com/cntlgns/vllm",
+  "skills": []
+}
