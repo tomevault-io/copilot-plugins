@@ -1,0 +1,9 @@
+{
+  "name": "riteshp2001--cinewindows",
+  "displayName": "CineWindows",
+  "description": "A modern Qt 6 desktop media player built with QML, C++20, and libmpv, with hardware-accelerated playback and cross-platform packaging.",
+  "version": "1.0.0",
+  "author": "Riteshp2001",
+  "homepage": "https://github.com/Riteshp2001/CineWindows",
+  "skills": []
+}
