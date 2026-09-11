@@ -1,0 +1,9 @@
+{
+  "name": "aiproxer--aiproxer",
+  "displayName": "aiproxer",
+  "description": "Connect any LLM-powered client app, such as a coding agent, to any supported inference backend/model.",
+  "version": "1.0.0",
+  "author": "aiproxer",
+  "homepage": "https://github.com/aiproxer/aiproxer",
+  "skills": []
+}
