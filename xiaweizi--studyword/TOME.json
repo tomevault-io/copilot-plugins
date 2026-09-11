@@ -4,7 +4,7 @@
   "repo": "StudyWord",
   "description": "\u8bc6\u5b57\u5c0f\u5e2e\u624b \u662f\u4e00\u6b3e\u9762\u5411\u5e7c\u513f\u56ed\u5230\u5c0f\u5b66\u8854\u63a5\u9636\u6bb5\u513f\u7ae5\u7684 Android \u5e94\u7528\uff0c\u5e2e\u52a9\u5bb6\u957f\u9ad8\u6548\u8bc4\u4f30\u5b69\u5b50\u7684\u8bc6\u5b57\u80fd\u529b\u3002\u5e94\u7528\u5185\u7f6e\u7ea6 3000 \u4e2a\u5e38\u7528\u6c49\u5b57\uff0c\u6309\u7167\u4f7f\u7528\u9891\u7387\u548c\u7b14\u753b\u590d\u6742\u5ea6\u5212\u5206\u4e3a\u7b80\u5355\u3001\u4e2d\u7b49\u3001\u56f0\u96be\u4e09\u7ea7\uff0c\u652f\u6301\u9010\u5b57\u6d4b\u9a8c\u3001\u8fc7\u7a0b\u8bb0\u5f55\u4e0e\u6570\u636e\u5bfc\u51fa\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiaweizi/StudyWord",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T11:42:09Z"
+  "distributed_at": "2026-09-11T12:03:26Z"
 }
