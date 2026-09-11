@@ -4,7 +4,7 @@
   "repo": "hdr-analyze",
   "description": "Convert any HDR10, HLG, or HDR10+ video to dynamic metadata",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tinof/hdr-analyze",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T07:47:02Z"
+  "distributed_at": "2026-09-11T05:48:54Z"
 }
