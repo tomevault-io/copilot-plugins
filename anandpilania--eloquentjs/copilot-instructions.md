@@ -1,114 +1,126 @@
 ## eloquentjs
 
-> This is a Node.js project using EloquentJS ORM (Laravel Eloquent port).
+> Node.js ESM + EloquentJS ORM + PostgreSQL/MongoDB + Express/Fastify
 
-# EloquentJS — GitHub Copilot Instructions
+# EloquentJS — Windsurf Rules
 
-## Context
-This is a Node.js project using EloquentJS ORM (Laravel Eloquent port).
-All database code uses the EloquentJS API. All files use ES modules (`import`/`export`).
+## Stack
+Node.js ESM + EloquentJS ORM + PostgreSQL/MongoDB + Express/Fastify
 
-## Model Pattern
+## Packages
+- `@eloquentjs/core` — Model, QueryBuilder, Relations, Events, Casts
+- `@eloquentjs/validator` — Validation (fluent schema + async DB rules)
+- `@eloquentjs/pgsql` — PostgreSQL driver with pool management
+- `@eloquentjs/graphql` — Auto GraphQL from models
+- `@eloquentjs/api` — Auto REST CRUD routes
+- `@eloquentjs/realtime` — WebSocket broadcasting
+- `@eloquentjs/cli` — Scaffold and migration commands
+
+## Critical Rules
+
+### 1. Always await DB calls
 ```js
-// app/models/[ModelName].js — always PascalCase, default export
-import { Model } from '@eloquentjs/core'
+// Every Model method returns a Promise
+const user = await User.findOrFail(id)      // ✅
+const user = User.findOrFail(id)            // ❌ Promise, not User
+```
 
-export default class [ModelName] extends Model {
-  static table    = '[table_name]'          // snake_plural
-  static fillable = ['field1', 'field2']    // allowed for mass assignment
-  static casts    = { field: 'type' }       // auto-cast on read/write
-  static softDeletes = false                // true = soft delete support
+### 2. Eager load relations
+```js
+// ✅ One query per relation
+const posts = await Post.with('user', 'tags', 'comments').get()
 
-  // Relations: hasOne, hasMany, belongsTo, belongsToMany, morphTo, morphMany
-  related() { return this.hasMany(RelatedModel) }
+// ❌ N+1: one extra query per post
+const posts = await Post.all()
+for (const p of posts) { const u = await p.user() }
+```
 
-  // Scopes: static scopeXxx(qb) — called as Model.xxx().get()
-  static scopeActive(qb) { return qb.where('active', true) }
-
-  // Hooks: creating, created, updating, updated, deleting, deleted
-  static async creating(record) { /* runs before insert */ }
+### 3. Declare fillable
+```js
+// ✅ Required for create/update to work
+class User extends Model {
+  static fillable = ['name', 'email', 'password']
 }
+
+// ❌ Empty fillable = nothing gets saved
+class User extends Model {}
 ```
 
-## Query Patterns
-```js
-// List with filters and pagination
-await Model.where('status', 'active')
-  .with('relation')
-  .orderBy('created_at', 'desc')
-  .paginate(page, perPage)
-
-// Single record (throws if missing)
-await Model.findOrFail(id)
-
-// Create with validation
-const data = schema.parse(req.body)
-await Model.create(data)
-
-// Update
-const record = await Model.findOrFail(id)
-await record.update(req.body)
-
-// Soft delete
-await record.delete()    // sets deleted_at
-await record.restore()   // clears deleted_at
-```
-
-## Validation Pattern
+### 4. Validate before write
 ```js
 import { v } from '@eloquentjs/validator'
 
 const schema = v.schema({
-  name:  v.string().min(2).max(255),
   email: v.string().email(),
-  // For async DB checks (unique/exists) use parseAsync()
-  slug:  v.string().alphaDash().unique('table', 'slug'),
+  name:  v.string().min(2),
 })
-
-// Sync (no async rules)
-const data = schema.parse(input)
-
-// Async (when using .unique(), .exists(), or custom async rules)
-const data = await schema.parseAsync(input)
+const data = schema.parse(req.body)       // throws on invalid
+await User.create(data)
 ```
 
-## REST Route Pattern
+### 5. Use findOrFail for required records
 ```js
-import { apiRouter, resource } from '@eloquentjs/api'
+// ✅ Throws ModelNotFoundException → handle as 404
+const user = await User.findOrFail(req.params.id)
 
-// One line generates GET/POST/PUT/PATCH/DELETE routes
-app.use('/api', apiRouter([
-  resource(ModelClass, { middleware: [], with: [], searchable: [], sortable: [] }),
-]))
+// ❌ Need manual null check
+const user = await User.find(req.params.id)
+if (!user) return res.status(404).json({ error: 'Not found' })
 ```
 
-## Migration Pattern
-```js
-// database/migrations/[timestamp]_[description].js
-import { Migration, Schema } from '@eloquentjs/core'
+## Model Template
 
-export default class [ClassName] extends Migration {
-  async up() {
-    await Schema.create('table', t => {
-      t.id()
-      t.string('name')
-      t.timestamps()
-    })
+```js
+import { Model } from '@eloquentjs/core'
+
+export default class ModelName extends Model {
+  static table       = 'table_name'
+  static fillable    = ['field1', 'field2']
+  static hidden      = []
+  static softDeletes = false
+  static casts = {
+    // field: 'boolean' | 'integer' | 'decimal:2' | 'json' | 'array' | 'date' | 'datetime'
   }
-  async down() {
-    await Schema.dropIfExists('table')
-  }
+
+  // Relations
+  // parent()   { return this.belongsTo(Parent) }
+  // children() { return this.hasMany(Child) }
+
+  // Scopes
+  // static scopeName(qb) { return qb.where(...) }
+
+  // Hooks
+  // static async creating(record) { }
+  // static async created(record)  { }
 }
 ```
 
-## Key Rules for Completions
-- All Model/DB calls must be `await`ed
-- Always `.with()` relations that will be used after fetch
-- Declare `fillable` on every model used with `create()`/`update()`
-- Use `findOrFail()` when absence is an error; `find()` when null is valid
-- Validate input before passing to ORM — use `@eloquentjs/validator`
-- Transactions via `import { transaction } from '@eloquentjs/pgsql'`
+## REST Endpoint Template
+
+```js
+import { apiRouter, resource } from '@eloquentjs/api'
+
+app.use('/api', apiRouter([
+  resource(ModelName, {
+    middleware:  [authMiddleware],
+    with:        ['relation1'],
+    searchable:  ['field1', 'field2'],
+    sortable:    ['created_at'],
+    policy:      async (req, model, action) => true,
+  }),
+]))
+```
+
+## CLI Commands
+
+```bash
+eloquent make:model Name --all      # scaffold everything
+eloquent migrate                    # run pending migrations
+eloquent migrate:fresh --seed       # dev reset
+eloquent generate:graphql           # generate schema.graphql
+eloquent generate:types             # generate .d.ts types
+```
 
 ---
 > Source: [AnandPilania/eloquentjs](https://github.com/AnandPilania/eloquentjs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
