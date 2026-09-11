@@ -1,0 +1,9 @@
+{
+  "name": "openshift--lightspeed-agentic-alerts-adapter",
+  "displayName": "lightspeed-agentic-alerts-adapter",
+  "description": "Alerts adapter for OpenShift Agentic Lightspeed",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/lightspeed-agentic-alerts-adapter",
+  "skills": []
+}
