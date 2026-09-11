@@ -1,0 +1,9 @@
+{
+  "name": "mikluko--terraform-provider-nsc",
+  "displayName": "terraform-provider-nsc",
+  "description": "terraform-provider-nsc",
+  "version": "1.0.0",
+  "author": "mikluko",
+  "homepage": "https://github.com/mikluko/terraform-provider-nsc",
+  "skills": []
+}
