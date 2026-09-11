@@ -1,12 +1,12 @@
-## guidelines
+## ng-agentic-skills
 
-> Follow `../../AGENTS.md` as the primary repository instructions.
+> Follow `../AGENTS.md` as the primary repository instructions.
 
-# Windsurf Instructions
+# Copilot Instructions
 
-Follow `../../AGENTS.md` as the primary repository instructions.
+Follow `../AGENTS.md` as the primary repository instructions.
 
-## Windsurf-specific
+## Copilot-specific
 
 ---
 > Source: [L-X-T/ng-agentic-skills](https://github.com/L-X-T/ng-agentic-skills) — distributed by [TomeVault](https://tomevault.io).
