@@ -1,0 +1,9 @@
+{
+  "name": "macprotips--gptk-patcher-tool",
+  "displayName": "GPTK-Patcher-Tool",
+  "description": "Replaces the Game Porting Toolkit build inside CrossOver with a newer one.",
+  "version": "1.0.0",
+  "author": "macprotips",
+  "homepage": "https://github.com/macprotips/GPTK-Patcher-Tool",
+  "skills": []
+}
