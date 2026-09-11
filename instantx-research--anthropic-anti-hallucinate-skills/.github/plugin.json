@@ -1,0 +1,9 @@
+{
+  "name": "instantx-research--anthropic-anti-hallucinate-skills",
+  "displayName": "anthropic-anti-hallucinate-skills",
+  "description": "Anti-hallucination guidelines for Claude Code \u2014 teach AI to say \"I don't know\" instead of guessing.",
+  "version": "1.0.0",
+  "author": "instantX-research",
+  "homepage": "https://github.com/instantX-research/anthropic-anti-hallucinate-skills",
+  "skills": []
+}
