@@ -1,0 +1,9 @@
+{
+  "name": "pdx15--ipatool-sapfix-webgui",
+  "displayName": "ipatool-sapfix-webGUI",
+  "description": "WEB GUI tool that allows searching, downloading and install app packages (known as ipa files) for iOS, iPadOS, tvOS from the App Store",
+  "version": "1.0.0",
+  "author": "pdx15",
+  "homepage": "https://github.com/pdx15/ipatool-sapfix-webGUI",
+  "skills": []
+}
