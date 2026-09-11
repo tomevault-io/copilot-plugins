@@ -1,0 +1,44 @@
+{
+  "name": "agent-blueprint-v1.3",
+  "owner": "FengLi-AI",
+  "repo": "agent-blueprint-v1.3",
+  "description": "\u4ece PRD \u5230\u53ef\u843d\u5730 Agent \u4ea7\u54c1\u7684\u67b6\u6784\u65b9\u6cd5\u3001Harness \u7ec4\u4ef6\u53c2\u8003\u5b9e\u73b0\u4e0e\u9879\u76ee\u811a\u624b\u67b6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FengLi-AI/agent-blueprint-v1.3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T10:10:29Z"
+}
