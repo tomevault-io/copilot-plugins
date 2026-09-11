@@ -1,0 +1,9 @@
+{
+  "name": "arm-software--spirv-simulator",
+  "displayName": "spirv-simulator",
+  "description": "spirv-simulator",
+  "version": "1.0.0",
+  "author": "ARM-software",
+  "homepage": "https://github.com/ARM-software/spirv-simulator",
+  "skills": []
+}
