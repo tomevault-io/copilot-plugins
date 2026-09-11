@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [square/leakcanary](https://github.com/square/le
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [square/leakcanary](https://github.com/square/leakcanary) — a repo with 29968+ stars on GitHub.
+From [square/leakcanary](https://github.com/square/leakcanary) — a repo with 29994+ stars on GitHub.
 
 ---
 
