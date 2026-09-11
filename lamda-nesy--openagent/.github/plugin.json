@@ -1,0 +1,9 @@
+{
+  "name": "lamda-nesy--openagent",
+  "displayName": "OpenAgent",
+  "description": "Can Agents Generalize to the Open World? Unveiling the Fragility of Static Training in Tool Use",
+  "version": "1.0.0",
+  "author": "LAMDA-NeSy",
+  "homepage": "https://github.com/LAMDA-NeSy/OpenAgent",
+  "skills": []
+}
