@@ -1,0 +1,9 @@
+{
+  "name": "navigato-rs--fileman",
+  "displayName": "fileman",
+  "description": "Two-panel file manager on blade+egui",
+  "version": "1.0.0",
+  "author": "navigato-rs",
+  "homepage": "https://github.com/navigato-rs/fileman",
+  "skills": []
+}
