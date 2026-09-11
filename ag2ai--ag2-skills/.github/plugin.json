@@ -1,0 +1,9 @@
+{
+  "name": "ag2ai--ag2-skills",
+  "displayName": "ag2-skills",
+  "description": "Agent Skills for AG2 developers",
+  "version": "1.0.0",
+  "author": "ag2ai",
+  "homepage": "https://github.com/ag2ai/ag2-skills",
+  "skills": []
+}
