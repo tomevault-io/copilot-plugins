@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--goose-extension-audit",
+  "displayName": "goose-extension-audit",
+  "description": "Audits the security of the extensions a goose recipe declares",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/goose-extension-audit",
+  "skills": []
+}
