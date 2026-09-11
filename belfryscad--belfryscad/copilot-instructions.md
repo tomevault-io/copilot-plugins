@@ -1,0 +1,243 @@
+## belfryscad
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+BelfrySCAD is a hybrid procedural CAD application combining OpenSCAD-style script-based modeling with live WYSIWYG 3D interaction. Its defining feature is **bidirectional synchronization** between source code and 3D geometry — editing code or dragging geometry keeps both views in sync.
+
+**Status**: In active development. Core pipeline, rendering, editor, and several WYSIWYG features are implemented. Full design in `PRD.md`.
+
+## Technology Stack
+
+- **UI Framework**: PySide6 (Qt)
+- **Code Editor**: `QPlainTextEdit` + `QSyntaxHighlighter` (PySide6 built-ins; text layer only — not semantically aware)
+- **Parser**: openscad_cpp_parser (C++, Bison `lalr1.cc`; generates an AST with file/line/col/span metadata; parses full OpenSCAD syntax but has no knowledge of built-in functions/modules — the evaluator implements all built-ins). Not a dependency of this project directly: it is vendored at `external/openscad_cpp_parser` inside openscad_cpp_evaluator and built with it.
+- **Evaluator**: openscad_cpp_evaluator ≥0.30.0 (C++ with nanobind bindings; walks the parser's AST and produces Manifold geometry — the two-pass resolve/generate pipeline, built-ins, `ManifoldCache`, profiling; GUI-agnostic, callback-injection API). The only OpenSCAD-side dependency in `pyproject.toml`, fetched from PyPI as a wheel; see its own `CLAUDE.md` for the full architecture reference.
+- **CSG Kernel**: Manifold (union, difference, intersection, boolean ops)
+- **Renderer**: ModernGL (GPU mesh rendering, camera controls)
+- **Language**: Python
+
+## Core Architecture
+
+The pipeline flows strictly one direction during normal operation:
+
+```
+Source Code → Code Editor → openscad_cpp_parser (AST) → Evaluator → Manifold (CSG/mesh) → ModernGL → PySide6 UI
+```
+
+**The AST is the single source of truth** — not the rendered geometry, not the editor text.
+
+### Critical Constraint: Strict Parser
+
+The parser produces **no partial AST** — it either succeeds fully or fails entirely. Handle the no-AST state gracefully:
+- Cache the last valid AST
+- Display last valid geometry while code is invalid
+- Never block the UI or break the viewport
+
+### Bidirectional Loop (future-critical, v1 groundwork required)
+
+Dragging geometry in the viewport:
+```
+Drag event → ray cast → pick geometry ID → map ID to AST node (via span) → modify AST parameter → regenerate code + model
+```
+
+Requires every AST node to carry both its **source span** (file/line/col) and its **geometry ID(s)** from Manifold output. This mapping is the hardest design problem in the project. See `docs/wysiwyg.md` for the full interaction design and openscad_cpp_evaluator's own `CLAUDE.md` for the AST ↔ geometry ID mapping pattern.
+
+## Key Design Requirements
+
+- **Code ↔ Geometry mapping**: every geometry-producing AST node owns an `originalID`; the `originalID → AST node` table rebuilds on each render trigger.
+- **Stability under invalid code**: UI must never crash or go blank.
+- **Deterministic regeneration**: AST → geometry must be reproducible with no hidden rendering state. Every render trigger walks the whole tree, but unchanged subtrees skip actual Manifold work via a content-hash cache (`ManifoldCache`, see openscad_cpp_evaluator's `CLAUDE.md`) — a fresh AST/CSG tree is still built every render (no incremental *parsing*), but a node whose resolved content matches a previous render/debug pause reuses that prior result instead of recomputing it.
+- **Performance**: <200ms model regeneration for small/medium models; 60 FPS viewport.
+
+## File Format & Export
+
+- **File format**: `.scad` (OpenSCAD-compatible plain text)
+- **Language**: Full OpenSCAD language (variables, functions, modules, loops, conditionals, all built-in primitives and transforms)
+- **Language extension — `$export_name`**: seeded with the input file's basename before
+  the script runs, assignable by the script, and used (sanitised to `[A-Za-z0-9_+.-]`,
+  everything else becoming one underscore each) as the Export dialog's default filename.
+  Needed **no evaluator change**: `viewport_params` seeds arbitrary `$`-names and
+  `Evaluator.dyn` returns them all. Seeded in the CLI and debugger too, so a script
+  reading it never finds it undefined. See `belfryscad/export_name.py` and
+  `docs/rendering.md`. Not part of upstream OpenSCAD.
+- **Language extension — `render()` in expression position**: `obj = render() { cube(1); };`
+  builds its children's geometry, measures it, and returns an `object()` with `vertices`,
+  `faces`, `volume`, `area`, `genus`, `boundingbox` and `dim` — then **discards the geometry**
+  (nothing is drawn). This is the only way a script can inspect its own geometry.
+  `polyhedron()` and `polygon()` accept the object directly, and `polyhedron()` also takes
+  BOSL2's `[vertices, faces]` 2-list, so the mesh round-trips in one call. Two consequences
+  worth knowing: **`render` is a reserved keyword** (it can no longer
+  be a variable/module/function/argument/member name — LALR(1) leaves no alternative), and
+  **`obj = render() cube(1);` does not parse** — a bare call's `child_statement` swallows the
+  `;`, so the braced form is required. Not part of upstream OpenSCAD. Full reference in
+  openscad_cpp_evaluator's `CLAUDE.md`; user-facing docs on the wiki's
+  Language-Other-Modules page.
+- **Language extension — `children(separate=true)`**: the forwarded children are spliced into
+  the surrounding block as **real statements**, one per child, instead of arriving as the single
+  statement a `children()` call normally is. Everything follows from that:
+  `module frame() { difference() children(separate=true); }` subtracts children 1..n from
+  child 0; `$children` **counts** the spliced members; and `children(i)` indexes them, which is
+  what makes a recursive n-ary module (forwarding "all the rest" to itself) possible at all.
+  Accepted positionally (`children([0:2], true)`) and alongside an index. A forward that selects
+  nothing contributes **zero** statements. No effect on `hull()`/`minkowski()`, which read bodies
+  rather than operand groups.
+  **`$children` therefore diverges from OpenSCAD**, but only for a block that types
+  `separate=true` — every other shape counts identically (verified against the reference).
+  OpenSCAD does not reject the argument, it silently ignores it, so such a script runs there and
+  quietly produces different geometry; no warning we can emit changes that.
+  Implemented entirely in openscad_cpp_evaluator (`Evaluator::expandChildStatements` +
+  `Op::CsgGroupChildren`); no parser or GUI change.
+- **Language extension — feature detection**: `$_SUPPORTED_FEATURE` is `true` wherever
+  `supported_feature()` can be called — a capability name, not a vendor one, so any evaluator
+  adding the function is meant to set it. Check it before calling — you cannot safely call what
+  you don't know exists — and write it `!is_undef($_SUPPORTED_FEATURE) && supported_feature(...)`,
+  which is **silent** in OpenSCAD: `is_undef()` reads an unknown variable there without a warning,
+  and `&&` short-circuits past the unknown call.
+  `$_BELFRYSCAD` holds the evaluator version as
+  `[major, minor, patch]`, and `supported_feature("name")` returns the level at which this build
+  implements a named feature (`render-expr`, `polyhedron-vnf`, `separate-children`,
+  `minkowski-diff`, `sphere-styles`, `export-name`, `simplify-op`, `expr-import`,
+  `object-function`, `roof-op` — one for every documented extension) or **0** for one it
+  does not — including names it has never heard of, so probing for a future feature is safe.
+  Both are `undef` in OpenSCAD, so the guard is portable. They exist because OpenSCAD silently
+  ignores unknown *arguments*: `children(separate=true)` runs there and renders the wrong shape
+  with no warning, so `assert(supported_feature(...))` is the only way a script can refuse.
+  Version comes from `pyproject.toml` via CMake, so it tracks releases with no code change.
+- **Export**: 3MF (default), STL, OBJ, AMF, OFF, PLY, VRML, X3D and SVG — all written by openscad_cpp_evaluator's `export.cpp`, which owns the colour pipeline and mesh repair; `exporters.py` is just the interface. Colour is carried by 3MF, AMF, OBJ (companion `.mtl`), PLY, VRML and X3D; STL and OFF are geometry only. **SVG and PDF are the odd ones out: the only 2D formats, the only ones that read `ColoredBody::section` instead of the Manifold, and the only ones that can refuse** — they write an all-2D model at 1:1 in millimetres (so a print measures what the script says) and raise `Current top level object is not a 2D object` for anything else, as OpenSCAD does. None of the mesh pipeline touches them, so they never warn about geometry. They differ in what a "page" is: **SVG cuts the page to fit the model; PDF centres the model on a fixed sheet** and draws a millimetre ruler labelled in MODEL coordinates around it, which is what lets a printed page reveal a printer's scaling error. PDF's page setup (size, orientation, ruler, grid) is asked by an **export options dialog that opens after the save dialog**, once the name and format are known — see `window/export_options.py`. CLI equivalents are `--pdf-paper-size`/`--pdf-orientation`/`--pdf-no-scale`/`--pdf-grid`. Keys are named as OpenSCAD names its own `-O export-pdf/...` settings, and an unknown one raises rather than being ignored. #367 (SVG) and #368 (PDF). AMF puts colour on the `<volume>`, so a welded multi-coloured solid is written as one object of several volumes. **Never restate the format list** — the dialog (`_EXPORT_FORMATS`), the CLI (`headless._export_extensions`) and the evaluator's Python facade all read it from `exportExtensions()`. Three hand-written copies previously agreed with each other and not with the C++ writer table, so `.off` was writable by neither GUI nor CLI while every test passed (the tests compared the copies to each other). Fixed in #295 / evaluator 0.46.0. STEP under investigation (Manifold produces triangle meshes; STEP is B-rep, so any export would be a faceted solid of limited downstream value)
+- **Export object split**: top level is an implicit union, so every format writes the union, never the raw body list. The evaluator's `splitBodiesForExport` cuts it into objects that never share volume — one per colour (later `color()` wins an overlap), then one per connected component — and carries per-triangle colour where a CSG merge produced it. The GUI calls `exporters.export_model(path, evaluator.geometry)` and logs the warnings it returns. See `docs/rendering.md`'s Export section.
+- **Export options**: asked **after** the save dialog, not in Preferences. The format is only known once the name is typed and the filter picked, and a native macOS save dialog cannot host extra controls — so `window/export_options.py` opens a small dialog for the chosen format, and shows nothing at all for a format with no options (`.off`). Cancelling it cancels the export. `export_fields(ext)` is plain data with no Qt in it (so what each format offers is testable without a widget) and `export_kwargs(ext, values, design)` turns the answers into `export_model` arguments. The `export/*` preference keys survive as the **defaults the dialog opens on**, rewritten by each export, so a second export in a session asks nothing new. This is also how `.stl` finally reaches ASCII from the GUI (`--export-format asciistl` was CLI-only) and how SVG's stroke width became reachable at all.
+- **Export workflow**: if no current render exists, Export triggers a render first
+
+## Render Triggers
+
+No live preview. Full Manifold CSG processing runs when:
+
+- The user selects **Render** (toolbar or Design menu)
+- A **gizmo drag commits** (mouse-up)
+- An **"Edit as..." literal edit is saved** (Save button in the editable Path/Grid/Matrix/Affine viewers, opened from the code editor's right-click menu)
+- A **file is opened** (`open_file_by_path` triggers `_render` after the tab is created)
+- A **file is saved**, but only with **Design ▸ Automatic Reload and Render** on (`_write_file`; a plain save is not a render, #395)
+- The user stops editing **Customizer** fields for 2 seconds, with the pane's **Automatic update** box ticked (`MainWindow._customizer_render_timer`, a debounced single-shot `QTimer` restarted on every edit; the box is preference `customizer/autoUpdate`, on by default, and off leaves the write-back but no render — #397; see `docs/editor.md`'s CustomizerPane section)
+- An **animation frame advances** (`MainWindow._on_animate_frame` renders per tick; a tick is skipped while a render is still in flight, since overlapping renders invoke the parser concurrently and can segfault)
+- A **watched file changes on disk**, with **Design ▸ Automatic Reload and Render** on (`_on_watched_file_changed`; skipped for a tab with unsaved edits, which are never overwritten)
+- The user **accepts an AI proposal** in the chat pane (`_on_ai_proposal_accepted` goes through `replace_span` + `source_edited_externally`, the same path "Edit as..." uses)
+- The **AI calls its `render` tool** (`AIToolContext.request_render`, wired to `_render_threadsafe`) — for a script it has not itself changed
+- **Preferences ▸ Viewport ▸ Cut faces** is toggled (`_apply_preferences`): the rule for which colour a `difference()` cut face takes is baked into the geometry by the evaluator (`keep_minuend_color`), so the current design re-renders to show it (#412; see `docs/rendering.md`)
+
+**"Render with Coverage"** and **"Capture Coverage"** (Design menu) collect which statements, branch arms and bodies ran (see "Coverage" below); session-only, never persisted. **"Render with Profiling"** (Design menu) is a separate, explicitly opt-in diagnostic trigger — not part of this automatic/WYSIWYG set — that turns on per-call-site timing instrumentation for that one render. See openscad_cpp_evaluator's `CLAUDE.md` for the profiling instrumentation.
+
+The viewport always shows the last render's result; it stays static while the user edits code.
+
+## V1 Scope Boundaries
+
+**In scope**: Script editing, real-time 3D rendering, basic WYSIWYG drag interaction, CSG operations, graceful invalid-code handling.
+
+**Explicitly out of scope for v1**: Constraint solver, collaborative editing, cloud modeling, incremental/tolerant parsing, node-based visual programming, plugin system.
+
+## Versioning
+
+Every PR bumps the version (`version` in both `[project]` and `[tool.briefcase]` in `pyproject.toml`, kept identical — then run `uv lock` to sync `uv.lock`'s pinned self-version). Patch bump at minimum; use judgment for minor/major on larger changes. Do this as part of preparing the PR, alongside the commit.
+
+### `briefcase update` leaves dependencies at their old versions
+
+Plain `briefcase update` refreshes your app's own code and nothing else. A
+pinned dependency stays at whatever version was last installed into the bundle,
+however far `pyproject.toml`/`uv.lock` have moved on. Use **`briefcase update -r`**
+(`--update-requirements`) after any dependency bump.
+
+Nothing warns about this, and every surface lies convincingly: the build prints
+`Built ... BelfrySCAD.app`, and the app reports its own bumped version, because
+that comes from the app package. Caught in practice with BelfrySCAD at 0.76.1
+bundling `openscad_cpp_evaluator` **0.37.0** — three releases behind, so the
+bundle had none of `render()` expressions, the touching-shells weld fix,
+`polyhedron(vnf)` or `object()`'s delete entry.
+
+Check what actually landed rather than trusting the build log:
+
+```
+find build/belfryscad/macos/app/BelfrySCAD.app -name "*.dist-info" -maxdepth 6 \
+    | sed 's|.*/||' | grep -iE "belfryscad|openscad_cpp"
+```
+
+Better still, run the bundled binary against a script exercising the new
+feature — `BelfrySCAD.app/Contents/MacOS/BelfrySCAD -o /tmp/out.stl probe.scad`
+— since that is the only check that proves the code inside the bundle, not the
+dev environment, is the code you shipped.
+
+### The macOS bundle's Info.plist goes stale on every bump
+
+`briefcase update` and `briefcase build` never rewrite `build/belfryscad/macos/app/BelfrySCAD.app/Contents/Info.plist` — only `briefcase create` generates it, from the `pyproject.toml` values as they stood at scaffold time. So after any version bump the bundle keeps reporting the *old* `CFBundleShortVersionString`, and the same applies to anything else the plist bakes in (`LSMinimumSystemVersion` from `[tool.briefcase.app.belfryscad.macOS] min_os_version`, the bundle identifier, the document-type declarations).
+
+Nothing warns about this. Both values had drifted a long way before anyone looked: the plist still said `0.1.0` and `12.0` while `pyproject.toml` said `0.68.1` and `13.3` — the app itself reported 0.68.1 correctly the whole time, since that comes from the installed package, not the plist. The stale `LSMinimumSystemVersion` was the real problem: it advertised macOS 12 support for a bundle whose `openscad_cpp_evaluator` wheel needs 13.3.
+
+To refresh it, regenerate the scaffold rather than hand-editing the plist (a hand edit is silently discarded the next time anyone runs `create`):
+
+```
+mv build/belfryscad/macos/app build/belfryscad/macos/app.bak   # ~950MB, keep until verified
+uv run briefcase create --no-input
+uv run briefcase build
+/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" \
+    build/belfryscad/macos/app/BelfrySCAD.app/Contents/Info.plist
+rm -rf build/belfryscad/macos/app.bak
+```
+
+`create` re-downloads every wheel (PySide6 alone is ~440MB), so this is a few minutes — worth doing before cutting any real release or notarized build, not on every routine local rebuild. `CFBundleVersion` stays at `1`; that is briefcase's build-number default and is unrelated to the version string.
+
+## Documentation Generation
+
+BelfrySCAD replaces both `openscad-docsgen` (`belfryscad --docsgen`) and
+`openscad-mdimggen` (`belfryscad --mdimggen`): the same options, the same
+markdown, but Examples and Figures render through this project's own
+evaluator and offscreen renderer instead of launching the OpenSCAD binary
+once per image. The GUI's **Docs**
+pane (View ▸ Show Docs) runs the identical code over the live editor buffer,
+so a library author sees the formatted docs, the validation errors and the
+rendered example images without saving or leaving the app.
+
+`openscad_docsgen`'s parser, blocks, error log and output targets are
+vendored **very nearly unchanged** under `src/belfryscad/docsgen/` — only its
+two OpenSCAD-launching modules (`imagemanager.py`, `logmanager.py`) are
+reimplemented, keeping the upstream names so nothing else needed editing, and
+the parser carries exactly one added line: `parse_lines` blanks `/* ... */`
+block comments first (`block_comments.py`), because a `//` inside one is not
+a documentation comment and upstream documents it anyway (#415). Keeping the
+parser otherwise byte-identical is what makes the pane's verdict trustworthy:
+it is the same validation a real docs build performs. Full
+details, including the camera/`--viewall` semantics and the APNG animation
+support, in `docs/docsgen.md`.
+
+## Coverage
+
+`belfryscad --coverage FILE.scad [-D var=value] [--json PATH] [--min PERCENT] [--no-gaps]` runs
+the script with the evaluator's coverage on (resolve pass only: the geometry pass runs no script
+code) and prints one line per file (`percent`, statements, branches, bodies hit/total), a TOTAL
+line, then every uncovered span as `file:line:col  kind`. `belfryscad --test --coverage
+[--coverage-json PATH] [--coverage-min PERCENT]` does the same over every test's evaluation,
+merged in the main thread after the run, worst file first, with the tests' own temp snippets
+dropped (`docsgen.runner._TEMP_PREFIX`) so the report is about the library. Both live in
+`belfryscad/coverage.py` (`CoverageReport`: merge by `(origin, start, end, kind)`, per-file
+`FileSummary`, JSON round-trip, `format_report`) on top of openscad_cpp_evaluator ≥1.19.1's
+`Evaluator(coverage=True).coverage_result`; the vocabulary (statement / branch arm / body) is the
+evaluator's, see its `CLAUDE.md`. `--min`/`--coverage-min` are the CI hooks: exit 1 below the
+threshold even when everything passed. The GUI overlay (View ▸ Show Coverage) reads the same
+`CoverageReport`; see `docs/editor.md`.
+
+## Further Documentation
+
+Detailed implementation notes live in `docs/`. AST Evaluator internals (scope processing, assignment order, built-ins reference, 2D/3D geometry handling, error format, `$variables` scoping, `include`/`use`, implementation quirks, and the Manifold provenance / AST ↔ geometry ID mapping API) now live in the separate `openscad_cpp_evaluator` package's own `CLAUDE.md`, not here.
+
+- **`docs/wysiwyg.md`** — Viewport camera controls, selection model, transform gizmos, value overlay, and source rewrite rules for drag-to-edit.
+- **`docs/debugger.md`** — `DebugSession` signals, call stack display, per-frame variable inspection, expression-level stepping, and `DebuggerPane` states.
+- **`docs/rendering.md`** — Threaded rendering (`_RenderWorker`/`_RenderCallback`), cancellation, and progress indicator.
+- **`docs/docsgen.md`** — `openscad_docsgen` documentation generation: the vendored parser, the evaluator-backed image/log backends that replace running the OpenSCAD binary, `belfryscad --docsgen`, and the GUI Docs pane.
+- **`docs/editor.md`** — Code editor features (Find/Replace, Indent Guides, Column Guide, Code Folding, Go to Definition), Undo/Redo, console output, keyboard shortcuts, preferences, GUI layout, menu structure, and data viewers (ListViewer, VNFViewer, PathViewer, GridViewer, ProfileViewer).
+
+---
+> Source: [BelfrySCAD/BelfrySCAD](https://github.com/BelfrySCAD/BelfrySCAD) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
