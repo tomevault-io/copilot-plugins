@@ -4,7 +4,7 @@
   "repo": "qcad-mcp",
   "description": "fastmcp 3.4 server plus webapp for qcad pro architectural cad",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandraschi/qcad-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T23:34:35Z"
+  "distributed_at": "2026-09-11T09:33:56Z"
 }
