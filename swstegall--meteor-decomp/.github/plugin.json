@@ -1,0 +1,9 @@
+{
+  "name": "swstegall--meteor-decomp",
+  "displayName": "meteor-decomp",
+  "description": "Clean-room decompilation of the FINAL FANTASY XIV 1.23b Windows client binaries (ffxivgame/boot/login/updater/config). Hybrid matching + functional/wire reverse-engineering under Ghidra and a byte-ide",
+  "version": "1.0.0",
+  "author": "swstegall",
+  "homepage": "https://github.com/swstegall/meteor-decomp",
+  "skills": []
+}
