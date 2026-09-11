@@ -4,7 +4,7 @@
   "repo": "pve2otelcol",
   "description": "collect logs from a Proxmox node and its LXC containers and send them to a OpenTelemetry collector like Grafana Alloy / Loki",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alberanid/pve2otelcol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T16:32:58Z"
+  "distributed_at": "2026-09-11T00:55:33Z"
 }
