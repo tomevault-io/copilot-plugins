@@ -4,7 +4,7 @@
   "repo": "eventing-kafka-broker",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/knative-extensions/eventing-kafka-broker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T22:10:55Z"
+  "distributed_at": "2026-09-11T03:03:58Z"
 }
