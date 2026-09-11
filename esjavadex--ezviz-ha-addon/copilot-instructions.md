@@ -1,0 +1,137 @@
+## ezviz-ha-addon
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Home Assistant add-on that streams EZVIZ cameras via HLS. Primary target platform is **Raspberry Pi 4** running Home Assistant OS. The addon reverse-engineers the EZVIZ proprietary protocol to capture unencrypted video streams without cloud dependencies.
+
+## Architecture
+
+### Streaming Pipeline
+1. `ezviz_stream.py` - EZVIZ protocol implementation (API auth, VTM/VTDU connection)
+2. `stream_to_pipe.py` - Connects to VTDU, outputs raw H.265 video to stdout
+3. `run.sh` - Orchestrates pipeline: Python → ffmpeg (H.265→H.264) → HLS segments
+4. Python HTTP server serves HLS on port 8080
+
+### Authentication
+
+`meta.code 6002` on login means **EZVIZ requires device verification**, not a
+wrong password. The flow is: login → 6002 → `POST /v3/sms/nologin/checkcode`
+with `{from: account, bizType: TERMINAL_BIND}` → login again with `smsCode`,
+`msgType: "3"` and `bizType: "TERMINAL_BIND"`. That registers the terminal once.
+
+The `featureCode` identifies this installation and must be stable across
+restarts, or EZVIZ asks for a code every time. It is generated on first run and
+persisted to `/data/feature_code`. A hardcoded value shared by all installs gets
+rejected — that is exactly what broke version 2.1.1 and earlier.
+
+`login()` raises `EzvizAuthError` / `EzvizMFARequired` instead of returning a
+bare `False`, because a caller has to distinguish credentials problems (which
+retrying never fixes) from a dropped stream (which retrying does fix).
+`stream_to_pipe.py` exits with **78** on auth failures so `run.sh` backs off
+instead of retrying every 0.5s.
+
+The session (`sessionId` + `rfSessionId`) is persisted to `/data/session.json`
+and renewed through `PUT /v3/apigateway/login`, falling back to a full login
+only when the refresh is rejected. This matters: a full login can hit device
+verification, so restarting the add-on should not be an authentication event.
+
+Verification codes are requested at most once every `MFA_RESEND_SECONDS`
+(marker in `/data/mfa_requested_at`). Each send invalidates the previous code,
+so asking on every retry leaves the user chasing an already-expired one.
+
+### Logging
+
+`http_server.py` collapses routine traffic (200/206/304/404) into a periodic
+summary. A player polls the playlist several times a second, and when there is
+no stream that becomes hundreds of 404s per minute — enough to push real errors
+out of the add-on log. Anything that is not routine traffic is still printed
+immediately.
+
+### EZVIZ Protocol Flow
+1. Login to EZVIZ API (`/v3/users/login/v5`), receive session JWT
+2. Get server info for AUTH_URL
+3. Request VTDU tokens from AUTH_URL
+4. Connect to VTM server, send StreamInfoReq, receive VTDU redirect
+5. Connect to VTDU, receive continuous video on channel 0x01
+
+### VTM Packet Format
+- 8-byte header: magic (0x24), channel, length (u16), sequence (u16), message code (u16)
+- Channel 0x00 = messages, 0x01 = video stream
+- MSG_STREAMINFO_REQ = 0x13b, MSG_KEEPALIVE_REQ = 0x135
+
+### HLS Configuration
+- `append_list+omit_endlist+discont_start` flags for seamless reconnection
+- Unique segment names per session prevent video looping during reconnects
+- Transcodes HEVC to H.264 for browser compatibility
+
+## Key Limitations
+
+- **EZVIZ enforces ~30 second connection timeout** (server-side, cannot be bypassed)
+- Handled via auto-reconnection loop with 0.5s restart delay
+- Keepalive packets (0x135) are rejected by server - do not attempt
+
+## Local Development
+
+### Test without Home Assistant
+```bash
+cd local-test
+cp .env.example .env  # Edit with your credentials
+./start.sh            # Start Docker container
+# Stream at http://localhost:8080/stream.m3u8
+./stop.sh             # Cleanup
+```
+
+### Deploy to Home Assistant
+1. Push changes to GitHub
+2. In HA: Settings → Add-ons → Repositories → Refresh
+3. Reinstall/update the add-on
+
+## File Structure
+
+```
+ezviz-camera/           # The actual HA add-on
+├── config.yaml         # Add-on metadata, options schema
+├── build.yaml          # Docker base images per architecture
+├── Dockerfile          # Container build (Alpine + ffmpeg + Python)
+├── run.sh              # Main entrypoint, streaming loop
+├── ezviz_stream.py     # EZVIZ API/protocol library
+├── stream_to_pipe.py   # Stream capture to stdout
+├── http_server.py      # HTTP server with CORS for HLS
+└── stream_manager.py   # On-demand streaming manager
+
+local-test/             # Development environment
+├── docker-compose.yml
+├── .env.example
+└── start.sh/stop.sh
+```
+
+## Configuration Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| email | string | EZVIZ account email |
+| password | password | EZVIZ account password |
+| serial | string | Camera serial number |
+| region | list | Europe, Americas, Asia, Russia |
+| hls_time | int(1-10) | Segment duration in seconds |
+| hls_list_size | int(5-20) | Segments in playlist |
+| on_demand | bool | Enable on-demand mode for battery cameras |
+| idle_timeout | int(10-300) | Seconds before stopping idle stream |
+
+## On-Demand Mode (Battery Saver)
+
+For battery-powered cameras (doorbells, etc.), enable `on_demand: true`:
+- Stream only starts when someone views the camera
+- Automatically stops after `idle_timeout` seconds of inactivity
+- When idle, only HTTP server runs (minimal resource usage)
+- Status endpoint: `http://<HA_IP>:8080/status` returns `{"streaming": true/false}`
+
+---
+> Source: [ESJavadex/ezviz-ha-addon](https://github.com/ESJavadex/ezviz-ha-addon) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
