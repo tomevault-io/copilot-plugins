@@ -1,0 +1,9 @@
+{
+  "name": "lammps--lammps-gui",
+  "displayName": "lammps-gui",
+  "description": "LAMMPS-GUI - The graphical interface for learning and running LAMMPS",
+  "version": "1.0.0",
+  "author": "lammps",
+  "homepage": "https://github.com/lammps/lammps-gui",
+  "skills": []
+}
