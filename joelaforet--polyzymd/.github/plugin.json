@@ -1,0 +1,9 @@
+{
+  "name": "joelaforet--polyzymd",
+  "displayName": "polyzymd",
+  "description": "Collection of useful scripts + workflow for running polymer-enzyme simulations",
+  "version": "1.0.0",
+  "author": "joelaforet",
+  "homepage": "https://github.com/joelaforet/polyzymd",
+  "skills": []
+}
