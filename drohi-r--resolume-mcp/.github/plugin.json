@@ -1,0 +1,9 @@
+{
+  "name": "drohi-r--resolume-mcp",
+  "displayName": "resolume-mcp",
+  "description": "MCP server for Resolume with 206 tools for playback, composition control, Advanced Output, and show recovery.",
+  "version": "1.0.0",
+  "author": "drohi-r",
+  "homepage": "https://github.com/drohi-r/resolume-mcp",
+  "skills": []
+}
