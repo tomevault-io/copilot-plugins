@@ -1,0 +1,9 @@
+{
+  "name": "linuxdeepin--rofd",
+  "displayName": "rofd",
+  "description": "OFD parser and renderer lib.",
+  "version": "1.0.0",
+  "author": "linuxdeepin",
+  "homepage": "https://github.com/linuxdeepin/rofd",
+  "skills": []
+}
