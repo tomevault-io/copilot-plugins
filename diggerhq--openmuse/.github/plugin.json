@@ -1,0 +1,9 @@
+{
+  "name": "diggerhq--openmuse",
+  "displayName": "openmuse",
+  "description": "A personal assistant you deploy, built on OpenComputer Serverless Agents",
+  "version": "1.0.0",
+  "author": "diggerhq",
+  "homepage": "https://github.com/diggerhq/openmuse",
+  "skills": []
+}
