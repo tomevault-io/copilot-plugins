@@ -4,7 +4,7 @@
   "repo": "simple-zanzibar",
   "description": "A simplified zanzibar implementation, built with AI",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tyrchen/simple-zanzibar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T10:21:42Z"
+  "distributed_at": "2026-09-11T06:11:55Z"
 }
