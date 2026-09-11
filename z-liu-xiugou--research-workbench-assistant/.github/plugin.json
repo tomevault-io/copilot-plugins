@@ -1,0 +1,9 @@
+{
+  "name": "z-liu-xiugou--research-workbench-assistant",
+  "displayName": "research-workbench-assistant",
+  "description": "Local-first research memory for Codex: checkpoints, progress ledgers, and Markdown/JSON paper notes. Early alpha.",
+  "version": "1.0.0",
+  "author": "z-liu-xiugou",
+  "homepage": "https://github.com/z-liu-xiugou/research-workbench-assistant",
+  "skills": []
+}
