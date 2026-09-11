@@ -1,0 +1,9 @@
+{
+  "name": "nuxflix--voxigo",
+  "displayName": "voxigo",
+  "description": "Voxigo - A WebRTC-native, audio-first conversational-AI framework for Go.",
+  "version": "1.0.0",
+  "author": "nuxflix",
+  "homepage": "https://github.com/nuxflix/voxigo",
+  "skills": []
+}
