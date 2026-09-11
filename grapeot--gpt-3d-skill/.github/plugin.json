@@ -1,0 +1,9 @@
+{
+  "name": "grapeot--gpt-3d-skill",
+  "displayName": "gpt_3d_skill",
+  "description": "Blender modeling, animation, and mobile web walkthrough skills",
+  "version": "1.0.0",
+  "author": "grapeot",
+  "homepage": "https://github.com/grapeot/gpt_3d_skill",
+  "skills": []
+}
