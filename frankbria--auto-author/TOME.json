@@ -4,7 +4,7 @@
   "repo": "auto-author",
   "description": "AI-powered book authoring platform that guides writers from concept to draft through interactive interviews, voice/text input, and intelligent    content generation. Features rich text editing, automated table of contents, Q&A-based development, and PDF/DOCX export.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frankbria/auto-author",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T02:39:25Z"
+  "distributed_at": "2026-09-11T04:12:46Z"
 }
