@@ -1,0 +1,9 @@
+{
+  "name": "nimbletronai--pi-code-gui",
+  "displayName": "pi-code-gui",
+  "description": "GUI experience for the popular Pi Coding Agent",
+  "version": "1.0.0",
+  "author": "NimbleTronAI",
+  "homepage": "https://github.com/NimbleTronAI/pi-code-gui",
+  "skills": []
+}
