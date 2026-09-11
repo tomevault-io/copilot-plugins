@@ -1,17 +1,11 @@
 ## compound-engineering-plugin
 
-> This Gemini extension provides the Compound Engineering skill set for planning,
+> Before any push or PR creation, run `node scripts/pre-push-check.mjs`. A focused test is not a substitute. Do not push unless it exits successfully for the exact commit state being published.
 
-# Compound Engineering
+# Scoped agent instructions
 
-This Gemini extension provides the Compound Engineering skill set for planning,
-review, implementation, debugging, and release workflows.
-
-Use the installed skills when they match the user's request. Treat this file as
-runtime context for extension users, not contributor guidance for this source
-repository. Do not apply this repository's `AGENTS.md` maintainer workflow to
-the user's project.
+Before any push or PR creation, run `node scripts/pre-push-check.mjs`. A focused test is not a substitute. Do not push unless it exits successfully for the exact commit state being published.
 
 ---
 > Source: [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
