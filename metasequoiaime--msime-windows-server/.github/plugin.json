@@ -1,0 +1,9 @@
+{
+  "name": "metasequoiaime--msime-windows-server",
+  "displayName": "MSIME-Windows-Server",
+  "description": "\u6c34\u6749\u8f93\u5165\u6cd5\u3002Server/UI \u7aef\u3002\u8f93\u5165\u6cd5\u5f15\u64ce\u3002Engine and UI of MetasequoiaImeTsf.",
+  "version": "1.0.0",
+  "author": "metasequoiaime",
+  "homepage": "https://github.com/metasequoiaime/MSIME-Windows-Server",
+  "skills": []
+}
