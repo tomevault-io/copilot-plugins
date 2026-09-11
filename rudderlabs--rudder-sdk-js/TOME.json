@@ -4,7 +4,7 @@
   "repo": "rudder-sdk-js",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rudderlabs/rudder-sdk-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T09:20:28Z"
+  "distributed_at": "2026-09-11T05:40:09Z"
 }
