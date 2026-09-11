@@ -7,11 +7,11 @@ Minimal, modern, self-hostable blogging over ActivityPub.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [the-jk-labs/omicron](https://github.com/the-jk-labs/omicron).
+Original source: `AGENTS.md` in [the-jk-labs/omicron](https://github.com/the-jk-labs/omicron).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
