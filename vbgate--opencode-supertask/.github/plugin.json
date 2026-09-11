@@ -1,0 +1,9 @@
+{
+  "name": "vbgate--opencode-supertask",
+  "displayName": "opencode-supertask",
+  "description": "AI-powered task queue for OpenCode agents \u2014 schedule, retry, and manage batch jobs with SQLite",
+  "version": "1.0.0",
+  "author": "vbgate",
+  "homepage": "https://github.com/vbgate/opencode-supertask",
+  "skills": []
+}
