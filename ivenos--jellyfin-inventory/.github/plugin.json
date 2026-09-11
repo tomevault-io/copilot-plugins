@@ -1,0 +1,9 @@
+{
+  "name": "ivenos--jellyfin-inventory",
+  "displayName": "jellyfin_inventory",
+  "description": "A sortable, filterable table of everything in your libraries.",
+  "version": "1.0.0",
+  "author": "ivenos",
+  "homepage": "https://github.com/ivenos/jellyfin_inventory",
+  "skills": []
+}
