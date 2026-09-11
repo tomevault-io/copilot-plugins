@@ -1,0 +1,9 @@
+{
+  "name": "asachs01--beacon",
+  "displayName": "beacon",
+  "description": "Family command center \u2014 calendar, weather, chores, and daily dashboard for wall-mounted displays. Home Assistant add-on.",
+  "version": "1.0.0",
+  "author": "asachs01",
+  "homepage": "https://github.com/asachs01/beacon",
+  "skills": []
+}
