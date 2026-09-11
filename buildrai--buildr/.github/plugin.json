@@ -1,0 +1,9 @@
+{
+  "name": "buildrai--buildr",
+  "displayName": "Buildr",
+  "description": "Buildr \u662f Agent \u7684\u5de5\u4f5c\u57fa\u7840\u8bbe\u65bd\u3002\u5b83\u628a\u4e2a\u4eba\u548c\u7ec4\u7ec7\u7684\u5de5\u4f5c\u4e8b\u5b9e\u4e0e\u5de5\u4f5c\u65b9\u6cd5\u6c89\u6dc0\u4e3a\u5de5\u4f5c\u8d44\u4ea7\uff0c\u8ba9 Agent \u8d8a\u505a\u8d8a\u591a\uff0c\u8d8a\u505a\u8d8a\u597d\u3002",
+  "version": "1.0.0",
+  "author": "BuildrAI",
+  "homepage": "https://github.com/BuildrAI/Buildr",
+  "skills": []
+}
