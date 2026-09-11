@@ -1,22 +1,21 @@
 # multiview-stitcher
 
-> Source: [multiview-stitcher/multiview-stitcher](https://github.com/multiview-stitcher/multiview-stitcher). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [multiview-stitcher/multiview-stitcher](https://github.com/multiview-stitcher/multiview-stitcher). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [multiview-stitcher/multiview-stitcher](https://github.com/multiview-stitcher/multiview-stitcher).
+Original source: `AGENTS.md` in [multiview-stitcher/multiview-stitcher](https://github.com/multiview-stitcher/multiview-stitcher).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [multiview-stitcher/multiview-stitcher](https://github.com/multiview-stitcher/multiview-stitcher) — a repo with 124+ stars on GitHub.
+From [multiview-stitcher/multiview-stitcher](https://github.com/multiview-stitcher/multiview-stitcher) — a repo with 133+ stars on GitHub.
 
 ---
 
