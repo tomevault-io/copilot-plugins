@@ -4,7 +4,7 @@
   "repo": "FABKIT",
   "description": "Your Flesh and Blood Toolbox",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FABKIT/FABKIT",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-10T22:47:35Z"
+  "distributed_at": "2026-09-11T08:03:11Z"
 }
