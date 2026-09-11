@@ -1,0 +1,9 @@
+{
+  "name": "marcusschiesser--screencontext",
+  "displayName": "screencontext",
+  "description": "A native macOS screen recorder that turns screen recordings into context for AI agents. Capture bugs, demos, and workflows\u2014saved locally.",
+  "version": "1.0.0",
+  "author": "marcusschiesser",
+  "homepage": "https://github.com/marcusschiesser/screencontext",
+  "skills": []
+}
