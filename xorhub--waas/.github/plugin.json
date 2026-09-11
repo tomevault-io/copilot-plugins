@@ -1,0 +1,9 @@
+{
+  "name": "xorhub--waas",
+  "displayName": "waas",
+  "description": "Cloud Workspace solution for kubernetes gitops friendly",
+  "version": "1.0.0",
+  "author": "XoRHub",
+  "homepage": "https://github.com/XoRHub/waas",
+  "skills": []
+}
