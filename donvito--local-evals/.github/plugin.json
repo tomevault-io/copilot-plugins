@@ -1,0 +1,9 @@
+{
+  "name": "donvito--local-evals",
+  "displayName": "local-evals",
+  "description": "An eval app which runs locally and uses local models or any OpenAI-compatible API",
+  "version": "1.0.0",
+  "author": "donvito",
+  "homepage": "https://github.com/donvito/local-evals",
+  "skills": []
+}
