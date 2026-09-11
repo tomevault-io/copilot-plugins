@@ -1,0 +1,9 @@
+{
+  "name": "bacpop--sparrowhawk",
+  "displayName": "sparrowhawk",
+  "description": "In-browser tools for bacterial genome analysis \ud83e\udd85",
+  "version": "1.0.0",
+  "author": "bacpop",
+  "homepage": "https://github.com/bacpop/sparrowhawk",
+  "skills": []
+}
