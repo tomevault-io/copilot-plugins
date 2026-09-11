@@ -1,0 +1,9 @@
+{
+  "name": "muzimu217--ui-design-agent-kit",
+  "displayName": "ui-design-agent-kit",
+  "description": "UI Design Agent Kit: prompt kit for a UI/UX agent with spring physics, tool routing, design contract, and evidence-based verification.",
+  "version": "1.0.0",
+  "author": "muzimu217",
+  "homepage": "https://github.com/muzimu217/ui-design-agent-kit",
+  "skills": []
+}
