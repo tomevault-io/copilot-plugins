@@ -1,0 +1,9 @@
+{
+  "name": "lufzle--foldelight",
+  "displayName": "foldelight",
+  "description": "A native macOS folding-glass effect controlled by the MacBook lid.",
+  "version": "1.0.0",
+  "author": "lufzle",
+  "homepage": "https://github.com/lufzle/foldelight",
+  "skills": []
+}
