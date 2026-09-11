@@ -1,0 +1,44 @@
+{
+  "name": "llmoxie",
+  "owner": "uw-ssec",
+  "repo": "llmoxie",
+  "description": "An open-source AI control plane developed under NSF NAIRR award #240292 by UW SSEC under Schmidt Sciences Virtual Institutes for Scientific Software program.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/uw-ssec/llmoxie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T09:58:57Z"
+}
