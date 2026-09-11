@@ -1,45 +1,65 @@
 ## webracket
 
-> - Interpreter: `web-site/src/examples/minischeme/minischeme.rkt`
+> This file defines documentation-writing rules for files under `pkgs/webracket-doc/scribblings/`.
 
-# MiniScheme Notes
+# AGENTS.md (scribblings)
 
-- Source of truth:
-  - Interpreter: `web-site/src/examples/minischeme/minischeme.rkt`
-  - Page wiring: `web-site/src/examples/minischeme-page.rkt`
-  - Do not hand-edit generated files: `web-site/src/minischeme.html`, `web-site/public/minischeme.html`
+This file defines documentation-writing rules for files under `pkgs/webracket-doc/scribblings/`.
 
-- Project intent:
-  - The MiniScheme example is part of testing WebRacket itself.
-  - Do not code around WebRacket bugs or limitations in MiniScheme.
-  - If you find a WebRacket bug/limitation, alert the user and isolate/reproduce it so it can be fixed in WebRacket.
+## Scope
 
-- Tests:
-  - When adding or updating MiniScheme tests, add them in both:
-    - `web-site/src/examples/minischeme/test-minischeme.rkt` (host Racket run)
-    - `web-site/src/examples/minischeme/test-minischeme-with-webracket.rkt` (compiled WebRacket `-r` run)
-  - Conventions for `web-site/src/examples/minischeme/test-minischeme.rkt`:
-    - Prefer one assertion per `test-case` (do not group many `check-equal?` assertions in one `test-case`).
-    - Keep test names aligned with `test-minischeme-with-webracket.rkt` where practical.
-    - Keep host and WebRacket test counts aligned unless there is an explicit reason not to.
+- This file applies only to documentation work in `pkgs/webracket-doc/scribblings/`.
+- Rules marked **[Bindings chapter only]** apply only to the `Browser API` chapter and its binding entries.
 
-- Canonical test commands:
-  - `racket web-site/src/examples/minischeme/test-minischeme.rkt`
-  - `(cd web-site/src/examples/minischeme && racket ../../../../webracket.rkt -r test-minischeme-with-webracket.rkt)`
+## General Documentation Rules
 
-- Known expected WebRacket test failures:
-  - None currently. Treat any WebRacket-run failure as a regression until triaged.
+- Treat documentation files as concurrently edited by other threads.
+- Re-read the current file state before each edit.
+- Keep wording concise and concrete.
+- When editing text, run a grammar/spell pass and re-render docs.
+- In reference sections, use Racket Reference-style entries with `@defproc`.
 
-- Rebuild after MiniScheme/page changes:
-  - `(cd web-site/src && ./build.sh)`
-  - Note: a final audio error from `afplay` can be ignored.
+## Grammar and Render Checks
 
-- Behavior contract:
-  - Top-level multiple values are rendered as multiple lines (`=> v1`, `=> v2`, ...), not as an eval error.
+- Grammar/spell check command:
+  - `aspell --lang=en_US --mode=tex list < pkgs/webracket-doc/scribblings/webracket.scrbl`
+- Render command:
+  - `raco scribble --htmls --dest html/ pkgs/webracket-doc/scribblings/webracket.scrbl`
 
-- Reader-related changes:
-  - If changing reader behavior, add paired tests in both MiniScheme test files above.
+## Bindings Documentation Rules **[Bindings chapter only]**
+
+- Use Racket Reference-style entries with `@defproc`.
+- Keep a one-line description of what each binding does.
+- Include an explicit return sentence when return behavior is not obvious from the documented return type.
+- Omit the return sentence when the return type already makes it obvious (for example `void?`).
+- Include an `MDN:` line for bindings that map to MDN-documented APIs.
+- Place the `MDN:` line above the source-signature line.
+- Include a compact source-signature line in this format:
+  - `name : args -> return     [dom.ffi]`
+- Ensure displayed signatures align with the corresponding `.ffi` declaration.
+
+## Return Type Presentation **[Bindings chapter only]**
+
+Use user-facing return descriptions in entries as follows:
+
+- `extern/raw`       -> `external`
+- `extern`           -> `#f or external`              (for example `(or/c #f external)`)
+- `extern/undefined` -> `undefined or external`       (for example `(or/c undefined external)`)
+- `extern/nullish`   -> `#f or undefined or external` (for example `(or/c #f undefined external)`)
+
+## MDN Link Helper **[Bindings chapter only]**
+
+Use the shared helper in `webracket.scrbl` for MDN URLs:
+
+- `@(define (mdn path [label #f]) ...)`
+
+Prefer stable API pages such as:
+
+- `Document`
+- `Document/createElement`
+- `Document/getElementById`
+- `Node/appendChild`
 
 ---
 > Source: [soegaard/webracket](https://github.com/soegaard/webracket) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
