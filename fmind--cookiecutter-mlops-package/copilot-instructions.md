@@ -8,43 +8,47 @@ Context and rules for AI agents working in this repository. Humans should start 
 
 ## Project overview
 
-- **Name**: cookiecutter-mlops-package — a [Cookiecutter](https://cookiecutter.readthedocs.io/) template that scaffolds MLOps Python packages.
-- **Layout**: `{{cookiecutter.repository}}/` holds the template sources (raw Jinja); `tests/test_cookiecutter.py` bakes the template and runs the generated project's full toolchain.
-- **Language**: Python 3.14+ (`pyproject.toml`), managed with `uv`.
-- **Reference**: [mlops-python-package](https://github.com/fmind/mlops-python-package) is the reference implementation. Shared configuration files should differ from it only by cookiecutter variables; diff against it before changing the template.
+- **Name**: {{cookiecutter.repository}} — {{cookiecutter.description}}
+- **Description**: MLOps package generated from [cookiecutter-mlops-package](https://github.com/fmind/cookiecutter-mlops-package).
+- **Language**: Python {{cookiecutter.python_version}}+ (`pyproject.toml`), managed with `uv`.
+- **Stack**: MLflow (tracking, registry, projects) as the backbone; extend `src/{{cookiecutter.package}}/` with your own logic.
 
 ## Setup & core commands
 
 All work goes through `mise` (see `mise.toml`); git hooks (`lefthook.yml`) and CI call the same tasks.
 
-- Everything: `mise run all` — format, check, test. This is the gate; CI runs this exact task and nothing else. There is no `build` step: `[tool.uv] package = false`, this repository is a test suite, not a distribution.
-- Install: `mise install` provisions the pinned toolchain (`run_auto_install` is off), then `mise run install` syncs the virtualenv (`uv sync`) and installs git hooks.
+- Everything: `mise run all` — format, check, test, build. This is the gate; CI runs this exact task and nothing else.
+- Install: `mise run install` — sync the virtualenv (`uv sync`) and install git hooks. Run `mise install` first to provision the pinned toolchain (`run_auto_install` is off on purpose, so a task never installs a tool behind your back).
 - Format: `mise run format` — `ruff` (import sort + format, including Python inside Markdown) and `dprint` (JSON/Markdown/TOML/YAML).
-- Check: `mise run check` — `ruff` lint, `ty` types, `pip-audit` deps, `dprint`/`validate-pyproject`/`uv lock` format, `gitleaks` secrets, `trivy` filesystem scan, `actionlint` + `zizmor` workflows.
-- Test: `mise run test` — `pytest` bakes the template and runs `mise trust`/`mise install`/`git init`/`mise run all`/... inside the generated project. Needs `docker` running and takes several minutes.
+- Check: `mise run check` — `ruff` lint, `ty` types, `pip-audit` deps, `dprint`/`validate-pyproject`/`uv lock` format, `gitleaks` secrets, `trivy` filesystem scan, `hadolint` Dockerfile, `actionlint` + `zizmor` workflows.
+- Test: `mise run test` — `pytest` with coverage; `mise run test:parallel` is a faster, coverage-free local loop.
+- Build: `mise run build` — `uv build` (wheel + sdist); `mise run build:image` builds the Docker image.
+- Docs: `mise run docs` — `pdoc` API reference into `docs/`.
+- MLflow jobs: `mise run project` runs every job; `mise run project:run <name>` runs one (`confs/<name>.yaml`).
 
 ## Definition of done
 
-A change is complete only when, locally, `mise run all` passes warning-free — which includes the bake test actually generating a project and passing that project's own gate. Fix root causes — never weaken an assertion, add a skip/`xfail`, loosen a type, or suppress a lint error to force a green result.
+A change is complete only when, locally, `mise run all` passes warning-free and new/changed behavior is covered by a test. Fix root causes — never weaken an assertion, add a skip/`xfail`, loosen a type, or suppress a lint error to force a green result.
 
 ## Conventions & idioms
 
-- **Two toolchains**: the harness (this repo root) and the generated project (`{{cookiecutter.repository}}/`) each have their own `mise.toml`/`pyproject.toml`/`lefthook.yml`/`dprint.jsonc`/`trivy.yaml`. A change to one usually belongs in both; the exceptions are things the harness does not have (a `Dockerfile`, a `src/`, a distribution to build, a `docker` Dependabot ecosystem).
-- **Change the template, not the bake output**: the bake writes to a temporary directory. Editing a generated project proves nothing and is thrown away.
-- **Jinja templating**: GitHub Actions expressions `${{ ... }}` inside `{{cookiecutter.repository}}/.github/workflows/*.yml` must be wrapped in `{% raw %}...{% endraw %}` so cookiecutter does not render them — including inside YAML comments, where a bare `${{ }}` is still a Jinja expression and will fail the bake.
-- **One answer, one fact**: `{{cookiecutter.python_version}}` drives `requires-python`, `[tool.ruff] target-version` (via `.replace('.', '')`), `[tool.ty.environment]`, `.python-version`, and the `Dockerfile` base image. Never hardcode a value that a variable already carries.
-- **Status check name**: the template's `ci.yml` job is `checks` because `{{cookiecutter.repository}}/.github/rulesets/main.json` requires that context. Renaming one without the other blocks every pull request in every generated project on a check that can never report.
-- **Excludes**: `dprint`, `ruff`, and `ty` skip `{{cookiecutter.repository}}/` at the root because raw Jinja is not valid JSON/YAML/TOML/Python. `actionlint` and `zizmor` only see this repository's own `.github/workflows`; the template's workflows are linted inside the baked project.
-- **Prompts earn their keep**: every key in `cookiecutter.json` must be consumed by a rendered file. A prompt nothing reads is a lie to the user — delete it or wire it up.
+- **Errors with context**: raise specific exceptions and chain with `raise ... from err`; never use a bare `except` or silently swallow errors.
+- **Typing**: modern annotations (`list[str]`, `X | Y`); keep `ty check` clean. `import typing as T` is the project convention.
+- **Logging**: `loguru`; no bare prints in library code.
+- **MLflow**: tracking and registry run on a SQLite backend (`sqlite:///mlflow.db`, the same store MLflow 3 now defaults to); artifact files stay on disk under `./mlruns`, and the standalone server in `docker-compose.yml` writes artifacts to `./mlartifacts`. This is the same SQLAlchemy store shape as a production PostgreSQL and the store the model registry is designed for, so moving up is an `MLFLOW_TRACKING_URI` change (see `.env.example`), not a rewrite.
+- **Coverage**: the gate starts at 80% (`--cov-fail-under` in `pyproject.toml`) because a fresh package has little to cover. Raise it as the suite grows; never lower it to make a run pass.
+- **Python version**: `{{cookiecutter.python_version}}` is set once by the template and reused by `requires-python`, `[tool.ruff] target-version`, `[tool.ty.environment]`, and the `Dockerfile` base image. Change all of them together.
+- **Dependency overrides**: `[tool.uv] override-dependencies` carries a documented exception (a patched `cryptography` MLflow has not yet un-capped). Each entry needs a comment saying why and when it can go.
 - **Commits**: Conventional Commits (`feat:`, `fix:`, `refactor:`, `chore:`); no attribution in commit messages. Releases use `git-cliff` (see `cliff.toml`).
 
 ## Repository layout
 
-- `{{cookiecutter.repository}}/` — the generated project template (own `mise.toml`, `pyproject.toml`, `src/`, `tests/`, `confs/`, `Dockerfile`, `.github/`).
-- `cookiecutter.json` — template variables, defaults, and prompts; `tests/test_cookiecutter.py` — the bake-and-run integration test and the list of commands it runs in the generated project.
-- `pyproject.toml` — harness dependencies and `ruff`/`ty`/`pytest` config; `mise.toml`/`mise.lock` — tasks and pinned, locked tools; `lefthook.yml` — git hooks; `dprint.jsonc`/`trivy.yaml`/`cliff.toml` — formatter, scanner, changelog config.
-- `.github/` — `workflows/` (`ci.yml` runs `mise run all`, `security.yml` rescans the full history weekly), `dependabot.yml`, `zizmor.yml`.
+- `src/{{cookiecutter.package}}/` — package: `scripts.py` (CLI entry point), `__main__.py`, `__init__.py`. Add `core/`, `io/`, `jobs/`, `utils/` modules as the project grows.
+- `confs/` — one config file per MLflow job; `tests/` — `pytest` suite mirroring `src/` with fixtures in `conftest.py`.
+- `pyproject.toml` — dependencies and `ruff`/`ty`/`pytest` config; `mise.toml` — tasks and pinned tools; `lefthook.yml` — git hooks; `dprint.jsonc`/`trivy.yaml`/`cliff.toml` — formatter, scanner, changelog config.
+- `.github/` — `workflows/` (`ci.yml` runs `mise run all`, `cd.yml` publishes docs and the image, `security.yml` rescans the full history weekly), `dependabot.yml`, `zizmor.yml`, `rulesets/main.json`. The `ci.yml` job is named `checks` because `rulesets/main.json` requires that status check context; rename both or neither.
+- `Dockerfile`/`docker-compose.yml`/`MLproject` — container image, local MLflow server, and MLflow Projects reproducible runs (`--env-manager=local` reuses the uv environment, so there is no `python_env.yaml`).
 
 ---
 > Source: [fmind/cookiecutter-mlops-package](https://github.com/fmind/cookiecutter-mlops-package) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
