@@ -1,0 +1,44 @@
+{
+  "name": "DevConnect-AI",
+  "owner": "ARUNNG2004",
+  "repo": "DevConnect-AI",
+  "description": "DevConnect AI is a full-stack developer community platform designed to solve the problem of fragmented learning and collaboration across multiple platforms like forums, chat apps, and Q&A sites. It enables developers, students, and open-source contributors to share posts, engage in discussions, and collaborate in real time ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ARUNNG2004/DevConnect-AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-11T10:33:26Z"
+}
