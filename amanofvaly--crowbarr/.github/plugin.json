@@ -1,0 +1,9 @@
+{
+  "name": "amanofvaly--crowbarr",
+  "displayName": "crowbarr",
+  "description": "Audit-first subtitle synchronization and speech-aligned transcription for self hosted media library. Non-destructive sidecars powered by Whisper.",
+  "version": "1.0.0",
+  "author": "amanofvaly",
+  "homepage": "https://github.com/amanofvaly/crowbarr",
+  "skills": []
+}
