@@ -1,55 +1,34 @@
 ## unreal-mcp
 
-> 48 files: 18 at top level (13 impl + 5 test) + `completions/` (12), `prompts/` (9), `subscriptions/` (5), `progress/` (3). Everything MCP exposes **besides tools**: resources, prompts, completions, subscriptions, progress, plus client profiles and the session `configure` store.
+> Vitest tests that gate **byte-for-byte parity** between the TypeScript MCP primitives (`src/server/mcp-primitives/`) and their native mirror (`plugins/McpAutomationBridge/.../Private/MCP/Primitives/`). A drift here fails CI.
 
-# `src/server/mcp-primitives/` — MCP Protocol Primitives
+# MCP PRIMITIVES NATIVE-PARITY TESTS
 
-48 files: 18 at top level (13 impl + 5 test) + `completions/` (12), `prompts/` (9), `subscriptions/` (5), `progress/` (3). Everything MCP exposes **besides tools**: resources, prompts, completions, subscriptions, progress, plus client profiles and the session `configure` store.
+Vitest tests that gate **byte-for-byte parity** between the TypeScript MCP primitives (`src/server/mcp-primitives/`) and their native mirror (`plugins/McpAutomationBridge/.../Private/MCP/Primitives/`). A drift here fails CI.
 
-## Wiring order (top level)
-
-`primitive-wiring.ts` — **ENTRY POINT**. `wirePrimitives(server): WiredPrimitives`. Call this; do not hand-register a primitive elsewhere.
-`primitive-sources.ts` — dependency builders: `buildCatalogRevisionReader()`, `buildEnabledCapabilityProvider()`, `buildPromptReferenceValidator()`.
-`primitive-handlers.ts` — `registerPrimitiveHandlers(deps)` returns the method set it actually backed. `REGISTERED_PRIMITIVE_METHODS` = `resources/subscribe`, `resources/unsubscribe`, `prompts/list`, `prompts/get`, `completion/complete`.
-`primitive-registry.ts` — `ADVERTISED_SESSION_CAPABILITIES`, `deriveAdvertisedCapabilities(handlers)`, `PrimitiveRegistrationError`. Advertised capabilities are **derived from handlers actually registered**, never hardcoded — that is what keeps `initialize` honest.
-`primitive-notifications.ts` — `PrimitiveNotificationDriver` over a `NotifyingServer`.
-
-## State + profiles
-
-`resource-revision.ts` — branded `ResourceRevision`, `INITIAL_REVISION = 1`, `nextRevision()`, and `SUBSCRIBABLE_URIS` (`ue://capability/catalog`, `ue://project`, `ue://level`, `ue://selection`, `ue://asset-registry`, `ue://pie`, `ue://build`, `ue://render`, `ue://logs`). `ue://editor` is deliberately **absent** — it tracks `ue://pie`.
-`catalog-revision-reader.ts` — `BASELINE_CATALOG_STATE_REVISION = 0`, `BASELINE_CATALOG_REVISION_READER`.
-`session-capability-profile.ts` — `SessionCapabilityProfile`, `parseClientCapabilityProfile()`, `MINIMAL_PROFILE`.
-`client-profile-store.ts` / `fallback-pointers.ts` — adaptive per-client profiles. `FALLBACK_PRIMITIVES` has **5** entries; `SERVER_BACKED_PRIMITIVES` has **4** (`tasks` is listed as a fallback but is NOT server-backed). `fallbackPointerFor()` answers what to tell a client whose profile lacks a primitive.
-`session-configure-store.ts` — backs the gateway `configure` verb: session-scoped, revisioned tool-visibility overlay. `LIMIT_BOUNDS`, `MAX_PREFERENCE_KEYS = 16`, `MAX_PREFERENCE_VALUE_LENGTH = 256`.
-
-## Subdirectory barrels
-
-All `index.ts` barrels add **no behavior and no import side effects** — keep them that way.
-- `completions/` — `complete()`, `rankCandidates`/`applyBudget`, `COMPLETION_SLOTS`, `classifyUnsafe`. Bounded by `MAX_COMPLETION_ITEMS`, `MAX_COMPLETION_BYTES`, `MAX_PREFIX_LENGTH`; over-long prefixes return a `COMPLETION_GUIDANCE_CODES` reason, not a truncated guess.
-- `prompts/` — `listPrompts()`, `getPrompt()`, `getWorkflowPrompt()`, `WORKFLOW_PROMPTS`. Pure catalog returning text messages. **Getting a prompt never executes anything**; bounded by `MAX_PROMPT_BYTES` / `MAX_ARGUMENT_LENGTH`, rooted at `PROMPT_CONTENT_ROOTS`, failing with typed `PromptError`.
-- `subscriptions/` — `SubscriptionStore` (`DEFAULT_MAX_SUBSCRIPTIONS_PER_SESSION`) + `NotificationCoalescer` (`DEFAULT_COALESCE_WINDOW_MS`, `RESOURCE_CHANGE_KINDS`).
-- `progress/` — `progress-reporter.ts` / `progress-sink-registry.ts` / `progress-token.ts`: bounded progress emission correlated by `progressToken`; keep sinks registered and token lifecycle paired.
+## SCOPE
+26 `*-parity.test.ts` files in `tests/unit/mcp-primitives/`. No subdirectories. Each file covers one primitive family and uses a GREEN/RED guard pattern (see below).
 
 ## WHERE TO LOOK
+| Parity gate | Test file | TS surface vs native oracle |
+|-------------|-----------|------------------------------|
+| Resources (list/read/subscribe) | `resources-parity.test.ts` | TS resource handler shapes vs native fixture |
+| Prompts + completions | `prompts-completions-parity.test.ts` | Prompt list + completion argument schemas |
+| Session subscriptions | `session-subscription-parity.test.ts` | Subscription lifecycle + coalesced notifications |
+| Client profiles fallback | `profiles-fallback-parity.test.ts` | Adaptive profile negotiation + fallback chain |
 
-| Task | Location | Notes |
-|------|----------|-------|
-| Add a primitive method | `primitive-handlers.ts` + `REGISTERED_PRIMITIVE_METHODS` | Then confirm `deriveAdvertisedCapabilities()` reports it |
-| Change what `initialize` advertises | `primitive-registry.ts` | Derived from registered handlers — fix the handler, not the advert |
-| Make a URI subscribable | `resource-revision.ts` `SUBSCRIBABLE_URIS` + `subscriptions/` | Bump the revision on every mutation or clients never refetch |
-| Change `configure` behavior | `session-configure-store.ts` | Session-scoped and revisioned; see `src/server/gateway/` for the verb |
-| Read the data behind a resource | `src/resources/` | Providers live there; this directory is the protocol layer |
+## CONVENTIONS
+- **GREEN/RED guard pattern**: each test asserts the TS output matches the native fixture oracle (GREEN), then asserts a deliberately-mutated TS output does **not** match (RED). The RED guard catches a test that passes trivially because both sides are empty or wrong.
+- The native oracle is a frozen fixture (JSON or typed literal) checked into the test file — it does **not** spawn the native transport. Update the fixture only when the intended native contract changes, and update both sides together.
+- Parity is on **shape** (keys, types, enum values), not on runtime-produced values like timestamps or generated IDs.
+- `perActionSchemas` is always `false` on both surfaces — assert it explicitly; a parity test that omits this check can miss a regression to per-action schema dumping.
 
 ## ANTI-PATTERNS
-
-- **Native parity is enforced.** `plugins/.../Private/MCP/Primitives/` (24 files) and `Private/MCP/Resources/` mirror this directory. Changing a primitive here without the native side fails `tests/unit/mcp-primitives/*-parity.test.ts` — the fixtures (`*-native-fixture.ts`, `*-native-oracle.json`) encode the expected native answer.
-- Never advertise a capability whose handler was not registered — derive it, do not hardcode it.
-- Never execute a tool from a prompt path. `prompts/get` returns messages only.
-- Never emit unbounded completion/prompt payloads; the `MAX_*` caps are the contract, and exceeding one must return typed guidance rather than a truncated result.
-- Do not mutate state from a resource read or a subscribe call.
-- Do not add side effects or re-exported behavior to the three `index.ts` barrels.
-- Do not treat `ue://editor` as independently subscribable — it follows `ue://pie`.
+- Do not make a parity test pass by deleting the native side; the RED guard will catch the missing oracle.
+- Do not compare runtime values (ports, session IDs, timestamps) — they differ by transport and make the test flaky.
+- Do not add a new primitive to one surface without adding the parity test for it in the same PR; CI will not catch the drift otherwise.
+- Do not relax the GREEN/RED pattern to GREEN-only — a GREEN-only test passes when both sides are broken identically.
 
 ---
 > Source: [ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
