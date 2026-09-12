@@ -1,0 +1,9 @@
+{
+  "name": "cubeshipd--cubeship",
+  "displayName": "cubeship",
+  "description": "A PaaS you run on your own server. docker push, and it is live \u2014 with HTTPS, a database beside it, and a second machine when one stops being enough.",
+  "version": "1.0.0",
+  "author": "cubeshipd",
+  "homepage": "https://github.com/cubeshipd/cubeship",
+  "skills": []
+}
