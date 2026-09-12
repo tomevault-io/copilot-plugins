@@ -1,0 +1,9 @@
+{
+  "name": "blazor-data-orchestrator--blazordataorchestrator",
+  "displayName": "BlazorDataOrchestrator",
+  "description": "Agentic platform to create deploy schedule and execute containerized jobs ",
+  "version": "1.0.0",
+  "author": "Blazor-Data-Orchestrator",
+  "homepage": "https://github.com/Blazor-Data-Orchestrator/BlazorDataOrchestrator",
+  "skills": []
+}
