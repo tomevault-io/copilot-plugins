@@ -4,7 +4,7 @@
   "repo": "veyra-interactive-car",
   "description": "Interactive automotive design study by Amir Mu\u0161i\u0107. Finished React experience, bundled media, one-prompt reproduction and optional LTX API workflow.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amirmushichge/veyra-interactive-car",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T09:36:45Z"
+  "distributed_at": "2026-09-12T09:38:13Z"
 }
