@@ -1,36 +1,73 @@
-## testing
+## token-efficiency
 
-> Testing conventions for workspace packages
+> Token-efficient execution and subagent discipline
 
 
-# Testing Conventions
+# Token Efficiency
 
-## Location
+## Subagent Discipline
 
-All tests and test fixtures live in `src/tests/` inside each package, never co-located next to source files.
+- Do not spawn subagents unless:
+  - the user explicitly requests them, or
+  - the task contains multiple independent workstreams that materially benefit from parallel exploration.
+- Prefer direct file searches, targeted reads, and sequential tool calls for normal tasks.
+- Do not spawn subagents for simple file discovery, code searches, isolated edits, or straightforward implementation.
+- When model selection is supported, use the lightest model appropriate for each subtask:
+  - `composer-2.5-fast` for file discovery, targeted exploration, and simple mechanical work
+  - medium reasoning for normal implementation and debugging
+  - high reasoning only for difficult debugging, architectural analysis, or explicitly requested deep investigation
+- Never spawn more than 3 subagents in parallel unless the user explicitly requests more.
+- Do not allow subagents to spawn additional subagents.
+- Give each subagent a concrete, bounded task with a clear expected output.
 
-```text
-packages/core/src/tests/
-  minimal-pptx.ts          # fixture builder (not a test)
-  presets.test.ts
-  text-renderer.test.ts
-packages/react/src/tests/
-  minimal-pptx.ts
-  store.test.ts
-  root.test.tsx
-```
+## Planning and Stop Points
 
-## Tooling
+- Write a plan and request feedback before implementation when:
+  - requirements are materially ambiguous,
+  - the change introduces or alters architecture or public APIs,
+  - multiple valid approaches have meaningful tradeoffs, or
+  - the work is difficult to reverse.
+- Do not require approval merely because a change touches several files.
+- For clear, low-risk tasks, proceed directly with implementation.
+- If the user explicitly asks to complete the task end-to-end, continue through implementation and verification without unnecessary approval checkpoints.
+- Stop before creating a PR, deploying, publishing, sending messages, or performing other external actions unless the user requested them.
+- If essential information is missing, ask the smallest number of focused clarifying questions needed to proceed.
+- Otherwise, make reasonable low-risk assumptions and state them briefly.
 
-- Vitest with the `happy-dom` environment (the parser needs `DOMParser`; react tests need a DOM).
-- Test deps (`vitest`, `happy-dom`, `@testing-library/react`) are versioned in the pnpm catalog (`pnpm-workspace.yaml`) and referenced as `"catalog:"` in each package's `devDependencies`, never installed in the root `package.json`.
-- Each testable package has `"test": "vitest run"` and `"test:watch": "vitest"` scripts; `turbo test` runs everything.
+## Verification
 
-## Style
+- Treat relevant testing, type-checking, linting, and focused validation as part of implementation.
+- Run the smallest useful verification first.
+- Do not run unrelated test suites or perform unrelated cleanup.
+- If verification is expensive, explain what should be run and ask before proceeding.
+- After implementation and verification, summarize the changes and stop.
 
-- No mocks. Test real implementations with real inputs: build in-memory .pptx fixtures with the `minimal-pptx.ts` builders and run them through the actual parse/render pipeline (`parseZip` → `buildPresentation` → `renderSlide`).
-- Prefer end-to-end assertions on real output (SVG path data, DOM structure, store state) over asserting internals.
-- When fixing a rendering bug, add a regression test that fails on the old code; verify by temporarily reverting the fix.
+## Tool Call Efficiency
+
+- Batch independent reads and searches when possible.
+- Prefer targeted searches over broad repository exploration.
+- Use specific grep patterns when the target is known.
+- Use glob/file discovery tools before broader exploration.
+- Do not reread unchanged files without a concrete reason.
+- After editing, reread only the relevant changed sections when needed for verification.
+- Avoid repeating searches that have already produced sufficient context.
+- Keep tool output focused and avoid retrieving substantially more content than needed.
+
+## Scope Discipline
+
+- Implement only what the user requested and what is necessary to make it work correctly.
+- Do not expand into unrelated refactoring, cleanup, documentation, or feature work.
+- Do not continue polishing after the requested result has been implemented and verified.
+- Before starting a potentially long autonomous task, identify a clear completion condition.
+
+## Broad Instructions
+
+When the user says “keep going,” “finish it,” or “do it all”:
+
+- Treat that as permission to complete the requested scope without repeated confirmation.
+- Continue through implementation and relevant verification.
+- Use internal checkpoints to control scope, but do not interrupt the user at every checkpoint.
+- Stop once the requested outcome is complete and verified.
 
 ---
 > Source: [sadmann7/pptx](https://github.com/sadmann7/pptx) — distributed by [TomeVault](https://tomevault.io).
