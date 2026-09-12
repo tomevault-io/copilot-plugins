@@ -1,0 +1,9 @@
+{
+  "name": "schrodingerscattt--molcryskit",
+  "displayName": "MolCrysKit",
+  "description": "MolCrysKit is a Python toolkit for handling molecular crystals / organic-inorganic crystals, providing utilities for parsing crystallographic data, identifying molecules within crystals, and performin",
+  "version": "1.0.0",
+  "author": "SchrodingersCattt",
+  "homepage": "https://github.com/SchrodingersCattt/MolCrysKit",
+  "skills": []
+}
