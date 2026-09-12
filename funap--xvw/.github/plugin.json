@@ -1,0 +1,9 @@
+{
+  "name": "funap--xvw",
+  "displayName": "xvw",
+  "description": "A Rust-powered GUI hex editor built on Zed's GPUI framework.",
+  "version": "1.0.0",
+  "author": "funap",
+  "homepage": "https://github.com/funap/xvw",
+  "skills": []
+}
