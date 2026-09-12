@@ -1,0 +1,9 @@
+{
+  "name": "momo0410--workbuddy-switch-gateway",
+  "displayName": "workbuddy-switch-gateway",
+  "description": "\u8d26\u53f7\u7ba1\u7406 + OpenAI \u517c\u5bb9\u7f51\u5173\uff08\u57fa\u4e8e workbuddy-switch \u4e0e workbuddy2api \u6574\u5408\uff09",
+  "version": "1.0.0",
+  "author": "momo0410",
+  "homepage": "https://github.com/momo0410/workbuddy-switch-gateway",
+  "skills": []
+}
