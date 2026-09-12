@@ -1,0 +1,9 @@
+{
+  "name": "statxzy7--worktree-import-guard",
+  "displayName": "worktree-import-guard",
+  "description": "Verify that your tests actually executed the source tree you think they did.",
+  "version": "1.0.0",
+  "author": "StatXzy7",
+  "homepage": "https://github.com/StatXzy7/worktree-import-guard",
+  "skills": []
+}
