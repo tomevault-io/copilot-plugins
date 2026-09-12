@@ -1,0 +1,44 @@
+{
+  "name": "tts-server",
+  "owner": "fr820",
+  "repo": "tts-server",
+  "description": "Model-agnostic streaming TTS inference server with OpenAI- and ElevenLabs-compatible APIs. Plugin backend architecture (Qwen3-TTS included), CUDA-accelerated, built for real-time voice agents, with reproducible latency/RTF/GPU benchmarks.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fr820/tts-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-12T02:35:11Z"
+}
