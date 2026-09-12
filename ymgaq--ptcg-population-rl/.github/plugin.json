@@ -1,0 +1,9 @@
+{
+  "name": "ymgaq--ptcg-population-rl",
+  "displayName": "ptcg-population-rl",
+  "description": "A minimal Pok\u00e9mon TCG learning pipeline: C++ arena, GBDT imitation, Transformer distillation, and PPO.",
+  "version": "1.0.0",
+  "author": "ymgaq",
+  "homepage": "https://github.com/ymgaq/ptcg-population-rl",
+  "skills": []
+}
