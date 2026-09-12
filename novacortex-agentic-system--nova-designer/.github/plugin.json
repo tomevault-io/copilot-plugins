@@ -1,0 +1,9 @@
+{
+  "name": "novacortex-agentic-system--nova-designer",
+  "displayName": "nova-designer",
+  "description": "NOVA Designer \u2014 agent generator vizualuri statice pentru flota NovaCortex",
+  "version": "1.0.0",
+  "author": "NovaCortex-Agentic-System",
+  "homepage": "https://github.com/NovaCortex-Agentic-System/nova-designer",
+  "skills": []
+}
