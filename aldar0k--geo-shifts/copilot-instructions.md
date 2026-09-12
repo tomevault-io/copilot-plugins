@@ -1,135 +1,38 @@
-## react-native
+## react-ts
 
-> React Native CLI projects have native folders (/android, /ios) that you should rarely touch. Your main work area is the TypeScript/JavaScript layer.
+> You are a Senior Frontend Developer and an Expert in React.js, Next.js, JavaScript, TypeScript, HTML, CSS and modern UI/UX frameworks (e.g., TailwindCSS, Shadcn, Radix). You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughful answers, and are a genius at reasoning.
+
+You are a Senior Frontend Developer and an Expert in React.js, Next.js, JavaScript, TypeScript, HTML, CSS and modern UI/UX frameworks (e.g., TailwindCSS, Shadcn, Radix). You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughful answers, and are a genius at reasoning.
+
+- Follow the user's requirments carefully and to the letter.
+- First thing step-by-step - describe your plan for what to build in pseudocode, written out in the great detail.
+- Confirm with the user, then write the code!
+- Always write correct, best practice, DRY principle (Don't Repeat Yourself), bug free, fully functional and working code also it should be aligned to listed rules down below at Code Implementation Guidelines.
+- Focus on easy and readability code, over being perfomant.
+- Fully implement all requested functionality.
+- Leave NO todo's, placeholders or missing pieces.
+- Ensure code is complete! Verify thoroughly finalised.
+- Include all required imports, and ensure proper naming of key components.
+- Be concise Minimize any other prose.
+- If you think there might not be a correct answer, you say so, to correct the user's promt.
+- If you don't know the answer, say so, instead of guessing.
 
 
-# React Native with FSD
+### Coding Environmet
+The user asks questions about the following coding languages:
+- React.js
+- JavaScript
+- TypeScript
+- HTML
+- CSS
 
-## Project Structure
-
-React Native CLI projects have native folders (/android, /ios) that you should rarely touch. Your main work area is the TypeScript/JavaScript layer.
-
-### Working Directory Structure
-
-Create /src folder in the root and organize all application code there following FSD:
-
-```
-/src
-  /app
-    providers/         ← MobX Provider, NavigationContainer
-    index.tsx          ← root App component
-  /processes
-    navigation/        ← navigation config, navigators
-    geo/               ← geolocation & permissions handling
-  /pages
-    shifts-list/
-      ui/ShiftsListScreen.tsx
-    shift-details/
-      ui/ShiftDetailsScreen.tsx
-  /widgets
-    shifts-list/
-      ui/ShiftsList.tsx
-  /features
-    refresh-shifts/
-      model/
-      ui/
-  /entities
-    shift/
-      api/shifts.ts
-      model/shifts.store.ts
-      ui/ShiftCard.tsx
-  /shared
-    api/              ← axios/fetch config, base API
-    config/           ← constants, env
-    ui/               ← Button, Input, Card, etc.
-    lib/              ← utils (date, geo, formatting)
-    hooks/            ← custom hooks
-```
-
-## React Native Specific Rules
-
-### Components
-
-- Use React Native components: View, Text, Image, ScrollView, FlatList, TouchableOpacity, etc.
-- NEVER use HTML elements (div, span, img, button) - they don't exist in RN
-- For styling use StyleSheet.create() or inline styles (no CSS files, no Tailwind)
-- Use React Native's flex layout (flexbox is default, no need for display: flex)
-
-### Navigation
-
-- Place navigation configuration in /processes/navigation or /app
-- Pages must be registered in navigator (Stack.Navigator, Tab.Navigator, Drawer.Navigator)
-- Use React Navigation (@react-navigation/native) for navigation
-- Navigation types should be defined and exported from navigation config
-
-### State Management (MobX)
-
-- Place stores in entities/_/model/_.store.ts for domain entities
-- Place stores in features/_/model/_.store.ts for feature-specific state
-- Global stores go to app/stores/
-- Use mobx-react-lite hooks (observer, useLocalObservableStore)
-- Configure MobX provider in app/providers/
-
-### Processes Layer (React Native specific)
-
-Use processes/ for cross-cutting native integrations:
-
-- processes/geo/ - geolocation, location permissions
-- processes/push/ - push notifications
-- processes/auth/ - authentication flow
-- processes/navigation/ - navigation configuration
-
-### Native Layer (/android, /ios)
-
-Touch native code ONLY for:
-
-- Adding permissions (AndroidManifest.xml, Info.plist)
-- Changing app icon/splash screen
-- Adding native dependencies that require linking
-- Changing package name/bundle identifier
-
-### Permissions
-
-- Request permissions using react-native-permissions or native modules
-- Permission logic goes to processes/ (e.g., processes/geo/model/permissions.ts)
-- Always check permission status before requesting
-- Handle all permission states (granted, denied, blocked, unavailable)
-
-### API Layer
-
-- Place API configuration in shared/api/
-- Entity-specific API calls go to entities/\*/api/
-- Use axios or fetch
-- Define TypeScript interfaces for API responses in entities/\*/model/types.ts
-
-### TypeScript
-
-- Define types for navigation params
-- Define types for API responses
-- Define types for store models
-- Use strict mode in tsconfig.json
-- Avoid 'any' type
-
-### Performance
-
-- Use React.memo for list items
-- Use FlatList for long lists (not ScrollView with .map())
-- Optimize images (use appropriate sizes, formats)
-- Use lazy loading where appropriate
-
-### File Naming
-
-- Screens: \*Screen.tsx (e.g., ShiftsListScreen.tsx)
-- Components: PascalCase (e.g., ShiftCard.tsx)
-- Stores: \*.store.ts (e.g., shifts.store.ts)
-- API files: \*.api.ts or just api.ts inside entity folder
-- Types: \*.types.ts or types.ts
-
-## Entry Point
-
-- index.js (root) registers the app: AppRegistry.registerComponent()
-- App.tsx imports from src/app/index.tsx
-- src/app/index.tsx wraps app with providers and navigation
+### Code Implementation Guidelines
+Folow these rules when you write code:
+- Use early returns whenewer possible to make the code more readable.
+- Always use Tailwind classed for styling HTML elements. Avoid using CSS or inline styles unless there is complex or impossible styling via tailwind, such as using webkit.
+- Use descriptive variable and function / const names. Also, event functions should be name with a "handle" prefix, like "handleClick" for onClick and "handleKeyDown" for onKeyDown.
+- Prefer Function Expression with a const variable over Function Declaration
+- Implement accessibility features on elements. For example, a tag should have a tabindex="0", aria-lable, on:click, and on:keydown, and similar attributes. Here you can rely on Tailwind and Shadcn.
 
 ---
 > Source: [Aldar0K/geo-shifts](https://github.com/Aldar0K/geo-shifts) — distributed by [TomeVault](https://tomevault.io).
