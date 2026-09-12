@@ -1,0 +1,9 @@
+{
+  "name": "peakmojo--macos-visual-agent",
+  "displayName": "macos-visual-agent",
+  "description": "On-device screen understanding for macOS",
+  "version": "1.0.0",
+  "author": "peakmojo",
+  "homepage": "https://github.com/peakmojo/macos-visual-agent",
+  "skills": []
+}
