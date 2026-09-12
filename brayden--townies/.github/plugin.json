@@ -1,0 +1,9 @@
+{
+  "name": "brayden--townies",
+  "displayName": "townies",
+  "description": "A cooperative multiplayer town life game built with Three.js and Cloudflare Durable Objects.",
+  "version": "1.0.0",
+  "author": "Brayden",
+  "homepage": "https://github.com/Brayden/townies",
+  "skills": []
+}
