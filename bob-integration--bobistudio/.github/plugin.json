@@ -1,0 +1,9 @@
+{
+  "name": "bob-integration--bobistudio",
+  "displayName": "bobistudio",
+  "description": "Orchestrateur broadcast full-Docker (b\u00eata) : pipeline ST 2110 sur bus MXL, plugins, NMOS IS-04/05/12/14",
+  "version": "1.0.0",
+  "author": "bob-integration",
+  "homepage": "https://github.com/bob-integration/bobistudio",
+  "skills": []
+}
