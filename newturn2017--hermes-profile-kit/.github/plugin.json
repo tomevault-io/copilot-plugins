@@ -1,0 +1,9 @@
+{
+  "name": "newturn2017--hermes-profile-kit",
+  "displayName": "hermes-profile-kit",
+  "description": "Drop-in Hermes Agent profile kit. Creates four isolated profiles (coder, assistant, research, community-bot) with separate config, memory, gateway tokens, and personas. AGENTS.md-driven, LLM-friendly.",
+  "version": "1.0.0",
+  "author": "NewTurn2017",
+  "homepage": "https://github.com/NewTurn2017/hermes-profile-kit",
+  "skills": []
+}
