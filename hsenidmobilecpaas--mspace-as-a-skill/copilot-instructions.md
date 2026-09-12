@@ -1,4 +1,4 @@
-## mspace
+## mspace-as-a-skill
 
 > <!-- Generated from AGENTS.md by scripts/sync-rules.mjs. Do not edit directly. -->
 
