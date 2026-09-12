@@ -4,7 +4,7 @@
   "repo": "spec-kitty",
   "description": "Spec-Driven Development for serious software developers. Spec Coding with with Claude, Cursor, Gemini, Codex. Kanban dashboard, git worktrees, auto-merge and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spec-kitty/spec-kitty",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T09:30:22Z"
+  "distributed_at": "2026-09-12T09:31:12Z"
 }
