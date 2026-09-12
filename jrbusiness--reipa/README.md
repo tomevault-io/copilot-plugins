@@ -7,11 +7,11 @@ Fast iOS decompiler & Mach-O disassembler in Rust — arm64, Objective-C class-d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JRBusiness/REipa](https://github.com/JRBusiness/REipa).
+Original source: `AGENTS.md` in [JRBusiness/REipa](https://github.com/JRBusiness/REipa).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
