@@ -1,0 +1,9 @@
+{
+  "name": "nefarius--vd-agent",
+  "displayName": "vd_agent",
+  "description": "Windows SPICE guest agent. Community-maintained fork of the abandoned freedesktop.org vd_agent.",
+  "version": "1.0.0",
+  "author": "nefarius",
+  "homepage": "https://github.com/nefarius/vd_agent",
+  "skills": []
+}
