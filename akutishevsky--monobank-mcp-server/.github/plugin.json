@@ -1,0 +1,9 @@
+{
+  "name": "akutishevsky--monobank-mcp-server",
+  "displayName": "monobank-mcp-server",
+  "description": "MCP server for integrating with Monobank API.",
+  "version": "1.0.0",
+  "author": "akutishevsky",
+  "homepage": "https://github.com/akutishevsky/monobank-mcp-server",
+  "skills": []
+}
