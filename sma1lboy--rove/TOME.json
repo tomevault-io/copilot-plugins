@@ -4,7 +4,7 @@
   "repo": "rove",
   "description": "Rove \u2014 the agent multiplexer for your terminal. Run coding agents on parallel tasks with isolated worktrees and persistent sessions.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sma1lboy/rove",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T01:31:36Z"
+  "distributed_at": "2026-09-12T01:32:19Z"
 }
