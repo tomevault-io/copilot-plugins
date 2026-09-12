@@ -1,0 +1,9 @@
+{
+  "name": "maraxen--aminx",
+  "displayName": "aminx",
+  "description": "JAX/Equinox implementation of ProteinMPNN and LigandMPNN for protein sequence design",
+  "version": "1.0.0",
+  "author": "maraxen",
+  "homepage": "https://github.com/maraxen/aminx",
+  "skills": []
+}
