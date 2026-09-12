@@ -1,0 +1,9 @@
+{
+  "name": "tin-computer--personaplex-finetune",
+  "displayName": "personaplex-finetune",
+  "description": "Unofficial code for finetuning Personaplex on specific domains",
+  "version": "1.0.0",
+  "author": "tin-computer",
+  "homepage": "https://github.com/tin-computer/personaplex-finetune",
+  "skills": []
+}
