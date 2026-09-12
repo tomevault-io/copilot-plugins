@@ -1,9 +1,22 @@
 {
   "name": "rshade--finfocus",
   "displayName": "finfocus",
-  "description": "finfocus",
+  "description": "FinOps CLI for Pulumi \u2014 projected costs, actual spend tracking, budget enforcement, and cost optimization for cloud infrastructure",
   "version": "1.0.0",
   "author": "rshade",
-  "homepage": "https://tomevault.io/claim/rshade",
-  "skills": []
+  "homepage": "https://github.com/rshade/finfocus",
+  "skills": [
+    {
+      "name": "finfocus-cost",
+      "description": ""
+    },
+    {
+      "name": "finfocus-dev",
+      "description": ""
+    },
+    {
+      "name": "finfocus-plugin",
+      "description": ""
+    }
+  ]
 }
