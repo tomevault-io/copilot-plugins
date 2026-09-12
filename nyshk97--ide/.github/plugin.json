@@ -1,0 +1,9 @@
+{
+  "name": "nyshk97--ide",
+  "displayName": "ide",
+  "description": "My daily-driver macOS IDE built for the AI-CLI era \u2014 embedded Ghostty terminals, project switching, file tree, git watching, all around Claude Code. Swift + libghostty.",
+  "version": "1.0.0",
+  "author": "nyshk97",
+  "homepage": "https://github.com/nyshk97/ide",
+  "skills": []
+}
