@@ -1,0 +1,125 @@
+## rove
+
+> Rove is a local-first terminal UI for running many AI coding sessions at once — Conductor's multi-task shape (task sidebar, workspace chat/files tabs, file tree, embedded terminal, status bar) made terminal-native with git worktrees and local engine processes.
+
+# Rove (repository/package compatibility name: kobe)
+
+## Project at a glance
+
+Rove is a local-first terminal UI for running many AI coding sessions at once — Conductor's multi-task shape (task sidebar, workspace chat/files tabs, file tree, embedded terminal, status bar) made terminal-native with git worktrees and local engine processes.
+
+The isolation unit for a managed Task is:
+
+```text
+Managed task = git worktree + branch + terminal tabs
+```
+
+Project-main Tasks reuse a saved repository checkout, and directory Tasks reuse
+a user-owned directory; neither owns a Rove-created worktree or branch.
+
+The TUI is the product; engine adapters are execution backends (Claude Code is the default, Codex lives behind the same engine-owned contract). This file is a lean operator manual — **boundaries and orientation only**. Mechanics live in `docs/`; the current version + shipped behavior live in [`packages/kobe/package.json`](./packages/kobe/package.json) and [`packages/kobe/CHANGELOG.md`](./packages/kobe/CHANGELOG.md). Don't duplicate those here.
+
+**Read in order before doing anything:**
+1. [`HANDOFF.md`](./HANDOFF.md) — freshest handoff, current risks, open follow-ups. Local + gitignored; absent on a fresh clone is fine, just skip it.
+2. [`docs/DESIGN.md`](./docs/DESIGN.md) — design philosophy, decisions, tech-stack lock-in.
+3. [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — source-tree map, ownership boundaries, and the `refs/` reference projects (§7).
+4. [`docs/HARNESS.md`](./docs/HARNESS.md) — agent self-test contract. **Load-bearing.**
+5. [`docs/KEYBINDINGS.md`](./docs/KEYBINDINGS.md) — pane-scope rules; read before adding/moving any chord.
+6. [`packages/kobe/CHANGELOG.md`](./packages/kobe/CHANGELOG.md) — shipped behavior + release-note style.
+
+The docs are the source of truth. **If docs and implementation disagree, surface the mismatch before widening scope.**
+
+## Orientation
+
+- **Monorepo (Bun workspaces), source under `packages/`:** `kobe/` (the TUI/CLI, published canonically as `@sma1lboy/rove` and compatibly as `@sma1lboy/kobe`), `kobe-daemon/` (daemon server + protocol + socket client), `kobe-harness/` (the `/harness` capture page + PTY sidecar), `branding/` (Remotion pipeline), `kobe-docs/` (public docs site, Fumadocs on Next.js, static export; content synced from `docs/`). Unqualified `src/…`/`test/…` paths in docs are relative to `packages/kobe/`. Full source-tree map: [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
+- **Three test runners, and picking the wrong one looks like a broken environment.** `test/render/**` runs under bun's own runner (`bun test test/render`) because OpenTUI needs bun; `test/daemon/**` needs `KOBE_INCLUDE_SOCKET=1` (`bun run test:socket`) and without it vitest prints "No test files found" and exits 1 — a SILENT skip that reads like a missing file, not a wrong command; **everything else runs under vitest** (`bun run test:fast`, or `bun x vitest run <file>` for one file). Running a vitest file with `bun test` fails on vitest-only APIs — `vi.hoisted is not a function` is the usual signature, and it reads like a missing dependency rather than the wrong command. If a test "can't run", check the runner before concluding anything about the environment.
+- **Run scripts** via `bun --filter @sma1lboy/rove <script>` or `cd packages/kobe && bun <script>`. Two dev flavours: `dev` (real engines, **production** Rove state) and `dev:sandbox` (real engines + your real `HOME`, throwaway Rove state under `packages/kobe/.dev-sandbox/home`) — use the sandbox so you never touch the real `~/.rove/tasks.json`.
+- **Tech stack is locked:** TypeScript + `@opentui/core` + `@opentui/react` + React 19 + Bun. Do not re-litigate. React is the only UI; orchestrator/client reactivity is framework-free observable state — don't add UI-framework state primitives to the core.
+- **UI development is OpenTUI-first, with one visual ground truth.** Develop the real `packages/kobe/src/tui-react/**` surface through `dev:sandbox`. For every agent-driven visual iteration, screenshot, and UI acceptance check, the **only** ground-truth path is a fixed-viewport browser `/harness` → xterm.js → PTY sidecar → real OpenTUI. Do not use local Terminal screenshots, render-test output, or alternate mocks as visual substitutes. When a bug is about live state rather than layout ("the badge never cleared"), drive a REAL engine down the same path — keys through the browser's xterm, state via `rove api inspect`. The shortcuts that silently measure nothing are catalogued in [`docs/HARNESS.md`](./docs/HARNESS.md).
+- **Language:** respond in whatever language the user writes in. Don't assume their name — let them introduce themselves.
+- **Daemon** is a long-lived background process, refcounted on attached GUIs (mechanics: [`docs/design/daemon.md`](./docs/design/daemon.md)). Boundaries: background consumers subscribe with `role: "pane"`; attached TUI clients hold GUI lifetime; hosted engine PTYs belong to the separate PTY host and survive daemon restarts EXCEPT sessions whose task left the index (a booting daemon sweeps those), and that host keeps its boot-time build until `rove reset`; read `<ROVE_HOME>/.rove/daemon.log` first when debugging; **after editing daemon/orchestrator/engine code, `rove daemon restart`** — Bun doesn't hot-reload.
+- **Per-repo init:** a repo can ship `.rove/init.sh` (runs before the engine, in the worktree) + `.rove/init-prompt.md` (the engine's first message); `.kobe/` spellings remain field-by-field fallbacks, and repo files win over the per-user state.json override. Mechanics: [`src/state/repo-init.ts`](./packages/kobe/src/state/repo-init.ts).
+- **Reference repos** (`refs/`, gitignored, **read-only**): clone before development — the clone list, what each is for, and when to consult it all live in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) §7.
+- **User-facing docs set:** `docs/` — QUICKSTART, CONCEPTS, TUI, KEYBINDINGS, CONFIGURATION, ENGINES, WORKTREES, SESSIONS, CLI, API, ORCHESTRATION, ROUTINES, PLUGIN-AUTHORING, TROUBLESHOOTING. Behavior verified against source at writing time. When you change config keys, CLI verbs, `rove api` verbs, engine support, worktree safety, or session/persistence behavior, update the matching page in the same PR. Published at [docs.rove.run](https://docs.rove.run) — a new user-facing page must be added to `SECTIONS` in [`packages/kobe-docs/scripts/sync-docs.mjs`](./packages/kobe-docs/scripts/sync-docs.mjs) or it never reaches the site.
+
+## Work tracking — local only
+
+No Linear. Backlog/open issues live in the daemon-owned issue store (`rove api issue-*`, see [`docs/WORK-TRACKING.md`](./docs/WORK-TRACKING.md)); shipped behavior in [`packages/kobe/CHANGELOG.md`](./packages/kobe/CHANGELOG.md) (one Changeset per change, see [`docs/RELEASING.md`](./docs/RELEASING.md)); current risks/follow-ups in [`HANDOFF.md`](./HANDOFF.md); durable design decisions as Markdown in `docs/`. If a requirement needs external tracking, surface it first instead of filing it automatically.
+
+## Hard rules (non-negotiable)
+
+### How work lands on `main`
+- **Default: PR → merge → release, none of it needs fresh approval.** Feature branch → commits → `gh pr create` → CI green (typecheck/test, behavior, file-size-cap, coverage-cap) → `gh pr merge --squash --delete-branch`. Green CI IS the gate; don't stop to ask, and don't park a shipped fix waiting for someone to say "release" — a fix nobody can install isn't fixed. Cut the release the same turn unless the change is mid-stack or the owner is still deciding. (Standing authorization, owner 2026-09-01.)
+- **Skipping the PR** (local merge/cherry-pick into `main`, or a direct push) needs the owner to say so **in that turn** — never inferred, never carried into the next task. Same quality gates (lint, typecheck, tests, changeset) either way.
+- `scripts/release.sh` pushes its own `chore: release — X.Y.Z` commit + tag (see [`docs/RELEASING.md`](./docs/RELEASING.md)).
+- `git fetch` before pushing. Force-push ONLY to rebase your own unmerged PR branch, and only with `--force-with-lease`; never onto `main`, a shared branch, or commits someone has reviewed.
+
+### Commits
+- Commit at the end of each stream when green (per-stream commits are pre-authorized). Message: `<type>: <summary>` + a 2-3 sentence body.
+- **NEVER** add `Co-Authored-By: Claude` / any AI/Anthropic attribution or "Generated with Claude Code" footers.
+- **NEVER** use `--no-verify` / `--no-gpg-sign` or skip hooks. Fix the underlying issue.
+
+### Releases
+- **Changeset bump is `patch` by default.** Only an EXPLICIT instruction that turn promotes it to `minor`/`major` — never infer `minor` from "it's a feature" (pre-1.0 ships features as patches). A pending changeset carrying a bigger bump overrides you: check before tagging and surface it.
+- Release notes may thank human contributors/testers. No AI/Anthropic/Claude/Codex/tool attribution anywhere (commits, tags, notes).
+
+### Deletion
+- **NEVER** delete files, branches, worktrees, or run `rm -rf` unless the user explicitly says "delete"/"remove" *in the same conversation turn* — including cleanup of stale worktrees or "fixing" layout by removing files. If a task seems to need deletion, surface and ask first.
+
+### Scope
+- Edit only files within the declared slice; surface cross-slice changes, don't make them silently.
+- 3-strike rule: same root cause fails 3× → stop and surface. Max-depth: 3+ levels of sub-investigation → surface before going deeper.
+- Fixing one subcommand/file? Confirm whether it should extend to every similar case before calling it done.
+
+### File size: ~500 lines is a refactor prompt, not a budget
+- **The goal is refactoring, not the number.** 500 means "this file probably does more than one job — find the seam". It must never decide what code you write: write the clear thing, then split. Name the SEAM (this half owns X, that half owns Y), never the line count.
+- Touch a file that is over → you own splitting it along a real boundary. No seam? Say so in the PR — a valid answer.
+- CI gates touched files (`ci.yml` file-size-cap). Exempt: generated, lockfiles, fixtures, `refs/`; a deliberate exception needs one line of justification.
+
+### Don't touch
+- `refs/` — read-only study material, forever.
+- Other agents' worktree slices — coordinate via the orchestrator.
+- Workspace-level config (`/Users/jacksonc/i/CLAUDE.md`, global git config, etc.).
+
+### Keybindings: every NEW or MOVED chord needs owner sign-off
+Adding/moving a chord is a taste + muscle-memory call the owner makes, not the agent. Follow `docs/KEYBINDINGS.md` for the mechanical rules (pane scope, modifier tiers), but the PLACEMENT decision — direct chord vs prefix-sequence, which letter, what it may shadow — requires context the agent doesn't have: which keys are high-frequency for the owner (e.g. `ctrl+w`/`ctrl+t` stay direct), which collide with claude/codex in-terminal shortcuts, which are fine behind the prefix (e.g. `ctrl+f`). So: implement behind a PROPOSED chord if needed, but always surface new/changed bindings for discussion before (or immediately after) landing — never silently ship a chord as settled. Record each resolution + its reasoning in `docs/design/keybinding-decisions.md` so the next agent has the context (`docs/KEYBINDINGS.md` stays the user-facing vocabulary — update the chord tables there when the defaults change).
+
+### Layout: flex-first, hardcode last
+opentui boxes are Yoga flexbox. Default to flex flow (`flexGrow`/`flexShrink`/`flexBasis`/`flexDirection`) — panes share width by ratio, not pixels. Hardcoded `width={N}`/`height={N}` is acceptable only for a documented convention (e.g. the 12-cell sidebar rail), a terminal-grammar fixed glyph (a 2-cell `+`/`-` diff column), or a modal overlay. Never use `width={N}` to mean "this big proportionally" — that's `flexGrow={N}`. Avoid `height="100%"` (use `flexGrow={1}`).
+
+### Engine-owned UI data
+The engine adapter is the source of truth for agent/product identity, capabilities, history, and telemetry. Neutral layers (TUI, web, orchestrator) must NOT hard-code Claude/Codex strings or derive vendor metrics themselves:
+- Name/label copy comes from the engine registry (`AIEngine.identity.shortName`) — e.g. `Ask ${engine.shortName}`, never a literal `"Ask Claude…"`.
+- Terminal-presentation policy comes from `EngineCapabilities`, keyed by the task's vendor; model/effort choices come from the registry entry's `effortLevels`/`effortArgv`. History is an engine-owned `EngineHistory`; token/context/speed are engine-normalized — don't parse vendor transcript files or reconstruct speed in the UI.
+- Subagent steps are engine-owned nested data (tagged by `parentId`, nested one level under the parent Agent row), not flattened transcript noise.
+- A new pane needing engine-specific data → extend the engine contract first; don't thread ad-hoc vendor checks through TUI/orchestrator code.
+
+### Diagrams in `docs/`: use Mermaid
+Diagrams in `docs/` go in a ` ```mermaid ` fence (renders natively in GitHub + VS Code preview; PlantUML and friends don't). ASCII boxes only for tiny relationships (≤3 nodes, no states). Canonical example: [`docs/design/tasks.md`](./docs/design/tasks.md).
+
+## Agent skills
+
+Skill-driven flows (`to-issues`/`triage`/`to-prd`/`qa`) scribble in gitignored `.scratch/<feature>/` markdown — that's scratch, not the backlog. The daemon issue store stays the product backlog; GitHub Issues stay inbound-user-reports-only. Mechanics: [`docs/agents/issue-tracker.md`](./docs/agents/issue-tracker.md), [`docs/agents/triage-labels.md`](./docs/agents/triage-labels.md), [`docs/agents/domain.md`](./docs/agents/domain.md).
+
+## Maintaining this file
+
+This file is loaded whole, on every session and every subagent — it is a
+budget, not a scratchpad.
+
+- **Budget: 4k tokens** (~15KB). Measure with `wc -c AGENTS.md`, don't estimate.
+- **Zero-sum.** At budget, a new rule must name what it replaces: another unit
+  deleted, or the mechanics moved to `docs/` behind a one-line pointer.
+- **Where a rule belongs.** Broad (would matter in >1 session out of 5) or
+  safety-critical → here. Narrow but with a clear trigger phrase →
+  `.claude/skills/`. Mechanics → `docs/` + a pointer. One-off → the issue store.
+  Narrow with no trigger → don't write it down.
+- **Evidence, not annoyance.** Add a rule only after the same mistake shows up
+  in **two different sessions**, quoted. One bad session is noise.
+- **Small passes.** ~5 edits at a time (add / delete / rewrite / extract), never
+  a rewrite. Prefer deleting a stale unit to adding a qualifier to it.
+- **No archaeology.** State the rule, not the history that produced it. A date
+  belongs here only when behavior differs before and after it.
+
+---
+> Source: [Sma1lboy/rove](https://github.com/Sma1lboy/rove) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-12 -->
