@@ -1,0 +1,9 @@
+{
+  "name": "harrisonyangkuang--agent-gpu-pool",
+  "displayName": "agent-gpu-pool",
+  "description": "Persistent GPU jobs for AI agents. MCP + CLI, hardware-aware scheduling, Kaggle adapter, and recoverable artifacts for Codex and Claude Code.",
+  "version": "1.0.0",
+  "author": "HarrisonYangKuang",
+  "homepage": "https://github.com/HarrisonYangKuang/agent-gpu-pool",
+  "skills": []
+}
