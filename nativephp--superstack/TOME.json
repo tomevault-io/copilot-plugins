@@ -4,7 +4,7 @@
   "repo": "superstack",
   "description": "Open-source Laravel starter with Filament, NativePHP SuperNative, and MCP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NativePHP/superstack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T21:30:21Z"
+  "distributed_at": "2026-09-12T21:31:03Z"
 }
