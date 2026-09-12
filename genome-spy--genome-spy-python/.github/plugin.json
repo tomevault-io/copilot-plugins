@@ -1,0 +1,9 @@
+{
+  "name": "genome-spy--genome-spy-python",
+  "displayName": "genome-spy-python",
+  "description": "genome-spy-python is a declarative genomics visualization library for Python, built on top of the genome-spy JSON specification.",
+  "version": "1.0.0",
+  "author": "genome-spy",
+  "homepage": "https://github.com/genome-spy/genome-spy-python",
+  "skills": []
+}
