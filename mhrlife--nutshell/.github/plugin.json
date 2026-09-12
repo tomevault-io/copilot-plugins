@@ -1,0 +1,9 @@
+{
+  "name": "mhrlife--nutshell",
+  "displayName": "nutshell",
+  "description": "Your Coding Agent, in a nutshell. Voice-first, summary-first, expand to full answer if you need it",
+  "version": "1.0.0",
+  "author": "mhrlife",
+  "homepage": "https://github.com/mhrlife/nutshell",
+  "skills": []
+}
