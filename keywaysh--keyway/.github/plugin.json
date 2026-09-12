@@ -1,0 +1,9 @@
+{
+  "name": "keywaysh--keyway",
+  "displayName": "keyway",
+  "description": "GitHub-native secrets management. Repo access = secret access.",
+  "version": "1.0.0",
+  "author": "keywaysh",
+  "homepage": "https://github.com/keywaysh/keyway",
+  "skills": []
+}
