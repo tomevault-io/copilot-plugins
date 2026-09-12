@@ -1,33 +1,43 @@
-## topkit-app-store-metadata
+## topkit-fire-red-team
 
-> App Store metadata URLs and upload safety — canonical topkitapp.com only.
+> When the user says "fire", do a real pre-ship review before fastlane; automated checks are not enough.
 
 
-# Topkit — App Store metadata
+# Topkit — "fire" release flow (red team first)
 
-## Canonical public URLs
+When the user says **fire** (or asks to ship / run the release lane), execute this flow immediately.
+Do not ask for confirmation unless the user explicitly asked for a dry run / plan only.
 
-All App Store listing URLs in `fastlane/metadata/**` must be exactly:
+## 1. Red-team review (you, in Cursor — required)
 
-`https://topkitapp.com/`
+Treat this like a short security + quality review of **everything** that would be committed (when the tree is dirty). If the working tree is clean, there is no new diff to review; still run the lane for tests and upload.
 
-This applies to every locale (`en-US`, `en-GB`, etc.) and every URL field:
+- **Intent:** Does each change match the stated bug/feature? Any unrelated edits, debug prints, or commented-out code that should not ship?
+- **Necessity:** Is new code actually used, or dead? Any duplicate paths (two ways to do the same thing)?
+- **Security / privacy:** Secrets, API keys, tokens, PII logging, unsafe URLs, or weakening permissions (e.g. turning off sandbox for App Store builds)?
+- **App Store metadata:** If `fastlane/metadata/` is in the diff, every public URL must be `https://topkitapp.com/` (see `.cursor/rules/topkit-app-store-metadata.mdc`). `upload_metadata` overwrites **all** listing fields from the repo.
+- **Signing / entitlements:** App Store builds use `Topkit-AppStore` + `AppStore` (sandbox). Local test packages use `Release` without sandbox. Do not mix these up in `project.pbxproj` or Fastlane.
+- **Tests:** If behavior changed, are tests updated or added where it matters?
 
-- `marketing_url.txt`
-- `support_url.txt`
-- `privacy_url.txt`
+If something is wrong, **fix or revert it** before running Fastlane.
 
-Never use `tommasorota.com`, `/work/topkit.html`, or any other domain/path in metadata.
+## 2. Automated gate (Fastlane)
 
-## Before uploading metadata
+After the review above, run Fastlane:
 
-1. Run `scripts/validate-app-store-metadata.sh` (also runs in test gates and before Fastlane metadata upload).
-2. `upload_metadata` / `upload_store_listing` / `release` push **all** files under `fastlane/metadata/` — not just the file you edited. Stale repo values overwrite App Store Connect.
-3. If only one field changed (e.g. description spelling), still verify URL files in the repo match `https://topkitapp.com/` before running deliver.
+`bundle exec fastlane fire message:"…"`
 
-## Contact email vs app URLs
+If the tree is clean, run:
 
-`APP_REVIEW_CONTACT_EMAIL` in `.env.default` is the App Review contact address, not a public listing URL. Do not conflate it with marketing/support/privacy URLs.
+`bundle exec fastlane fire`
+
+Use a commit message whenever you have local changes to ship; if the tree is clean, `message` is ignored and commit/push is skipped.
+
+The lane runs **automated** checks (diff stats, blocked paths, high-confidence secret patterns when there is a diff). That is a **safety net**, not a substitute for step 1.
+
+## 3. What "fire" does (mechanical)
+
+Tests → commit + push **only if** there are uncommitted changes → App Store Connect upload (sandboxed). Testing happens on TestFlight; the standalone `package_local` lane still exists if a local Release `.app` is ever needed.
 
 ---
 > Source: [taimansulimani/topkit](https://github.com/taimansulimani/topkit) — distributed by [TomeVault](https://tomevault.io).
