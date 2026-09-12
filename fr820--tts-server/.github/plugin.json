@@ -1,0 +1,9 @@
+{
+  "name": "fr820--tts-server",
+  "displayName": "tts-server",
+  "description": "Model-agnostic streaming TTS inference server with OpenAI- and ElevenLabs-compatible APIs. Plugin backend architecture (Qwen3-TTS included), CUDA-accelerated, built for real-time voice agents, with re",
+  "version": "1.0.0",
+  "author": "fr820",
+  "homepage": "https://github.com/fr820/tts-server",
+  "skills": []
+}
