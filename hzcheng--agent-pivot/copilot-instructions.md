@@ -1,0 +1,81 @@
+## agent-pivot
+
+> Instructions for coding agents working in this repository. Read this before
+
+# AGENTS.md
+
+Instructions for coding agents working in this repository. Read this before
+making any change.
+
+## Non-negotiables
+
+1. **Never edit files directly in the primary checkout on `main`.** Each
+   line of work runs in its own worktree on that worktree's branch: make
+   every commit for the job on that branch and cut serial PRs from it as
+   earlier ones merge. Do not switch branches inside the worktree, do not
+   spread one job across worktrees, and do not start another worktree for
+   the same job:
+   ```sh
+   git fetch origin main
+   git worktree add -b <branch> .worktrees/<topic> origin/main  # once per job
+   ```
+   Run `npm run worktree:bootstrap` inside the worktree before verifying
+   anything. It validates direct dependency lock entries and build sentinels;
+   when either is missing or stale it runs the required `npm ci
+   --ignore-scripts --allow-scripts=`, avoiding user-level npm script
+   allowlists, and serializes it with other guarded commands in that worktree.
+   Use `npm run worktree:run -- <command>` for a complete verification command
+   so a concurrent install cannot delete its `node_modules` mid-run. npm
+   silently resolves binaries from the primary checkout's `node_modules`
+   otherwise. Dirty files in the primary checkout are user changes; do not
+   revert them. Details: skill `protecting-main-with-worktrees`.
+
+2. **Never push directly to `main`.** Publish through a PR against
+   `origin/main` in `hzcheng/agent-pivot`. This repo has two remotes
+   (`origin` = fork, `upstream` = original project) — pass
+   `--repo hzcheng/agent-pivot` to every `gh` command. Write PR titles, PR
+   bodies, and commit messages in English. After opening or updating a PR,
+   verify it is mergeable with checks running — never leave a PR
+   conflicting or red. Details: skill `publishing-and-merging-github-prs`.
+
+3. **Load the matching skill before acting.** Project skills live in
+   `.skills/` (canonical) and are mirrored into `.kimi/skills/`,
+   `.claude/skills/`, `.codex/skills/`. Their descriptions are injected into
+   your context — if a description matches the task, read that skill's
+   `SKILL.md` first. Only edit skills under `.skills/`, never the mirrors.
+
+4. **Verify before committing, and again after the final fix.** Minimum
+   before a commit: `npm run test-compile`, the focused tests for the touched
+   area, and `git diff --check`. Details: skill `review-fix-commit-loop`.
+
+## Merging
+
+A PR merges when the required checks are green and the owner has posted
+`approve <full-head-sha>` as a PR comment (the merge-approval gate posts the
+status from the default branch; approvals bind the exact head and expire
+when it moves). The PR body must carry a `## Skill harvest` section and an
+`## Owner approvals` section with the ready-to-copy command (CI enforces
+both).
+
+## Common commands
+
+- Bootstrap a worktree's dependencies: `npm run worktree:bootstrap`
+- Run any complete verification under the worktree lock:
+  `npm run worktree:run -- <command>`
+- Compile for tests: `npm run test-compile`
+- Dashboard webview checks: `node scripts/run-dashboard-webview-checks.js`
+- Lint: `npm run lint`
+- Behavior contracts: `npm run test:behavior-contracts`
+- Build + install the extension locally: `npm run install-local`
+  (set `SKIP_NPM_CI=1` when dependencies are already installed)
+
+## Key paths
+
+- Dashboard webview HTML/icons: `src/webview/webviewContent.ts`,
+  `src/webview/webviewIcons.ts`; webview scripts/styles: `media/`
+- AI sessions: `src/aiSessions/`; prompts: `src/prompts/`
+- Behavior catalog: `docs/testing/behavior-contracts.json`
+
+---
+> Source: [hzcheng/agent-pivot](https://github.com/hzcheng/agent-pivot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-12 -->
