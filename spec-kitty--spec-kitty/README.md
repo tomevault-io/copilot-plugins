@@ -7,11 +7,11 @@ Spec-Driven Development for serious software developers. Spec Coding with with C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [spec-kitty/spec-kitty](https://github.com/spec-kitty/spec-kitty).
+Original source: `CLAUDE.md` in [spec-kitty/spec-kitty](https://github.com/spec-kitty/spec-kitty).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
