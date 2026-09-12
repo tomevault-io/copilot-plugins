@@ -1,0 +1,44 @@
+{
+  "name": "a-thing-that-lets-you-play-a-text-adventure-with-your-friends",
+  "owner": "MakeThingsWorkDotDev",
+  "repo": "a-thing-that-lets-you-play-a-text-adventure-with-your-friends",
+  "description": "A Thing That Lets You Play a Text Adventure With Your Friends",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MakeThingsWorkDotDev/a-thing-that-lets-you-play-a-text-adventure-with-your-friends",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-12T14:37:28Z"
+}
