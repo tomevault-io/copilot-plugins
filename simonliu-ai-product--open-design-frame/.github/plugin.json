@@ -1,0 +1,9 @@
+{
+  "name": "simonliu-ai-product--open-design-frame",
+  "displayName": "open-design-frame",
+  "description": "Design frames, written as components. A canvas that draws React at true size, an inspector that edits the source, and an MCP endpoint for agents.",
+  "version": "1.0.0",
+  "author": "simonliu-ai-product",
+  "homepage": "https://github.com/simonliu-ai-product/open-design-frame",
+  "skills": []
+}
