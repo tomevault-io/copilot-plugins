@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--web-mcp",
+  "displayName": "web-mcp",
+  "description": "Decide whether your site should expose WebMCP tools to AI agents, design them safely, and refuse the claims no evidence supports. Runtime-agnostic: AGENTS.md for any agent, plus a Claude Code skill.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/web-mcp",
+  "skills": []
+}
