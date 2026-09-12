@@ -1,0 +1,9 @@
+{
+  "name": "ucl-erl--skills",
+  "displayName": "skills",
+  "description": "An open-source research operating system for Robotics & AI, developed and maintained by ERL Lab.",
+  "version": "1.0.0",
+  "author": "UCL-ERL",
+  "homepage": "https://github.com/UCL-ERL/skills",
+  "skills": []
+}
