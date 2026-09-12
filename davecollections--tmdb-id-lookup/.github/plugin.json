@@ -1,0 +1,9 @@
+{
+  "name": "davecollections--tmdb-id-lookup",
+  "displayName": "tmdb-id-lookup",
+  "description": "TMDB ID lookup and Nuvio JSON helper for movie collections, people, movies, and TV series.",
+  "version": "1.0.0",
+  "author": "davecollections",
+  "homepage": "https://github.com/davecollections/tmdb-id-lookup",
+  "skills": []
+}
