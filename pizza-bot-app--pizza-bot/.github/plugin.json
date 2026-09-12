@@ -1,0 +1,9 @@
+{
+  "name": "pizza-bot-app--pizza-bot",
+  "displayName": "pizza-bot",
+  "description": "A local-first inbox for long-running AI agents, built with DeepAgents and LangGraph.",
+  "version": "1.0.0",
+  "author": "pizza-bot-app",
+  "homepage": "https://github.com/pizza-bot-app/pizza-bot",
+  "skills": []
+}
