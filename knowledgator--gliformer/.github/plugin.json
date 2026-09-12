@@ -1,0 +1,9 @@
+{
+  "name": "knowledgator--gliformer",
+  "displayName": "GLiFormer",
+  "description": "Generalist Multitask Transformer Encoders",
+  "version": "1.0.0",
+  "author": "Knowledgator",
+  "homepage": "https://github.com/Knowledgator/GLiFormer",
+  "skills": []
+}
