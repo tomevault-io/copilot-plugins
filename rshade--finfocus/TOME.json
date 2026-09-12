@@ -2,9 +2,9 @@
   "name": "finfocus",
   "owner": "rshade",
   "repo": "finfocus",
-  "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "description": "FinOps CLI for Pulumi \u2014 projected costs, actual spend tracking, budget enforcement, and cost optimization for cloud infrastructure",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/rshade",
+  "skills": [
+    {
+      "name": "finfocus-cost",
+      "path": ".claude/skills/finfocus-cost/finfocus-cost",
+      "github_url": "https://github.com/rshade/finfocus/tree/main/.claude/skills/finfocus-cost/finfocus-cost",
+      "description": ""
+    },
+    {
+      "name": "finfocus-dev",
+      "path": ".claude/skills/finfocus-dev/finfocus-dev",
+      "github_url": "https://github.com/rshade/finfocus/tree/main/.claude/skills/finfocus-dev/finfocus-dev",
+      "description": ""
+    },
+    {
+      "name": "finfocus-plugin",
+      "path": ".claude/skills/finfocus-plugin/finfocus-plugin",
+      "github_url": "https://github.com/rshade/finfocus/tree/main/.claude/skills/finfocus-plugin/finfocus-plugin",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rshade/finfocus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T15:39:34Z"
+  "distributed_at": "2026-09-12T20:30:17Z"
 }
