@@ -1,0 +1,9 @@
+{
+  "name": "hx23840--s3-px4-fc",
+  "displayName": "S3-PX4-FC",
+  "description": "ESP32-S3 flight-controller hardware designed by Peter using Codex + GPT-6 Astra. EasyEDA project and manufacturing files in Releases.",
+  "version": "1.0.0",
+  "author": "hx23840",
+  "homepage": "https://github.com/hx23840/S3-PX4-FC",
+  "skills": []
+}
