@@ -1,0 +1,9 @@
+{
+  "name": "photonicvelocity--lexicon-python",
+  "displayName": "lexicon-python",
+  "description": "Python client for the Lexicon DJ API",
+  "version": "1.0.0",
+  "author": "PhotonicVelocity",
+  "homepage": "https://github.com/PhotonicVelocity/lexicon-python",
+  "skills": []
+}
