@@ -1,0 +1,9 @@
+{
+  "name": "faustbrian--open-rpc",
+  "displayName": "open-rpc",
+  "description": "Typed OpenRPC value objects and schema helpers for modern PHP, with ready-to-use content descriptors, a reusable cursor   pagination schema, and JSON:API-inspired query parameters.",
+  "version": "1.0.0",
+  "author": "faustbrian",
+  "homepage": "https://github.com/faustbrian/open-rpc",
+  "skills": []
+}
