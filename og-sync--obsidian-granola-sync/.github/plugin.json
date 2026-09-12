@@ -1,0 +1,9 @@
+{
+  "name": "og-sync--obsidian-granola-sync",
+  "displayName": "obsidian-granola-sync",
+  "description": "Sync Granola notes to your Obsidian vault",
+  "version": "1.0.0",
+  "author": "og-sync",
+  "homepage": "https://github.com/og-sync/obsidian-granola-sync",
+  "skills": []
+}
