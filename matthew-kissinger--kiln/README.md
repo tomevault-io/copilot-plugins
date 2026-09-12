@@ -7,11 +7,11 @@ Text-to-3D as code: language models write JavaScript programs that build game-re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [matthew-kissinger/kiln](https://github.com/matthew-kissinger/kiln).
+Original source: `CLAUDE.md` in [matthew-kissinger/kiln](https://github.com/matthew-kissinger/kiln).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
