@@ -1,0 +1,9 @@
+{
+  "name": "ingel81--knx-ng-monitor",
+  "displayName": "knx-ng-monitor",
+  "description": "Modern KNX bus monitoring tool",
+  "version": "1.0.0",
+  "author": "ingel81",
+  "homepage": "https://github.com/ingel81/knx-ng-monitor",
+  "skills": []
+}
