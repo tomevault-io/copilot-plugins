@@ -1,0 +1,9 @@
+{
+  "name": "cubeplexai--cubeloop",
+  "displayName": "cubeloop",
+  "description": "CubeLoop \u2014 a Pythonic, async-native agent harness core designed for high performance, readability, and production-grade persistence.",
+  "version": "1.0.0",
+  "author": "cubeplexai",
+  "homepage": "https://github.com/cubeplexai/cubeloop",
+  "skills": []
+}
