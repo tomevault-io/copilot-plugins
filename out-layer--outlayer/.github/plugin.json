@@ -1,0 +1,9 @@
+{
+  "name": "out-layer--outlayer",
+  "displayName": "outlayer",
+  "description": "Off-chain extension for NEAR smart contracts. Verifiable results. Private data. Any code.",
+  "version": "1.0.0",
+  "author": "out-layer",
+  "homepage": "https://github.com/out-layer/outlayer",
+  "skills": []
+}
