@@ -1,0 +1,9 @@
+{
+  "name": "atomic-germ--openflowlm-next",
+  "displayName": "OpenFlowLM-Next",
+  "description": "Active and open development fork of FastFlowLM.",
+  "version": "1.0.0",
+  "author": "Atomic-Germ",
+  "homepage": "https://github.com/Atomic-Germ/OpenFlowLM-Next",
+  "skills": []
+}
