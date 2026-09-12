@@ -1,0 +1,516 @@
+## keyway
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Keyway is a GitHub-native secrets management platform. If you have repo access, you get secret access.
+
+This is a **monorepo** using pnpm workspaces + Turborepo, containing:
+
+| Package | Path | Language | Framework |
+|---------|------|----------|-----------|
+| Backend API | `packages/backend/` | TypeScript | Fastify 5, Drizzle ORM |
+| Dashboard | `packages/dashboard/` | TypeScript | Next.js 15 |
+| Crypto | `packages/crypto/` | Go 1.25 | gRPC |
+| CLI | `packages/cli/` | Go 1.25 | Cobra |
+| MCP Server | `packages/mcp/` | TypeScript | MCP SDK |
+| Docs | `packages/docs/` | TypeScript | Docusaurus 3 |
+
+**Separate repos** (not in this monorepo): `keyway-action` (GitHub Action), `keyway-admin` (private), `keyway-landing` (private).
+
+**Deployment**:
+- **Production SaaS**: Vercel (dashboard) + Railway (backend, crypto, db)
+- **Self-hosting**: Docker Compose + Caddy (this repo's docker-compose.yml)
+
+## Development Commands
+
+### Root (Turborepo)
+```bash
+pnpm install          # Install all TS dependencies
+pnpm build            # Build all TS packages
+pnpm test             # Run all tests
+pnpm lint             # Lint all packages
+pnpm dev              # Dev servers (all TS packages)
+```
+
+### Backend (`packages/backend/`)
+```bash
+pnpm --filter keyway-api dev          # Dev server with tsx watch
+pnpm --filter keyway-api build        # TypeScript build
+pnpm --filter keyway-api type-check   # Type checking only
+pnpm --filter keyway-api test         # Run tests
+pnpm --filter keyway-api db:generate  # Generate Drizzle migrations
+pnpm --filter keyway-api db:migrate   # Run migrations
+pnpm --filter keyway-api validate     # Pre-push checks
+```
+
+### CLI (`packages/cli/`)
+```bash
+cd packages/cli
+make build            # Build binary
+make test             # Run tests
+make lint             # Run golangci-lint
+```
+
+### Dashboard (`packages/dashboard/`)
+```bash
+pnpm --filter keyway-dashboard dev    # Next.js dev server
+pnpm --filter keyway-dashboard build  # Production build
+pnpm --filter keyway-dashboard lint   # ESLint
+pnpm --filter keyway-dashboard test   # Run tests
+```
+
+### Crypto (`packages/crypto/`)
+```bash
+cd packages/crypto
+go run .              # Run dev server
+go test ./...         # Run tests
+go build .            # Build binary
+```
+
+### MCP (`packages/mcp/`)
+```bash
+pnpm --filter @keywaysh/mcp dev      # Dev server
+pnpm --filter @keywaysh/mcp build    # Build (tsup)
+pnpm --filter @keywaysh/mcp test     # Run tests
+```
+
+### Docs (`packages/docs/`)
+```bash
+pnpm --filter keyway-docs start      # Dev server at localhost:3000
+pnpm --filter keyway-docs build      # Production build
+```
+
+### Root Makefile
+```bash
+make help             # Show all targets
+make setup            # First-time setup (secrets, hosts, certs)
+make install          # pnpm install + go mod download
+make dev              # Start all services (crypto, backend, dashboard)
+make dev-backend      # Backend only
+make dev-dashboard    # Dashboard only
+make dev-crypto       # Crypto only
+make build            # Build all (turbo + go)
+make test             # Run all tests
+make lint             # Lint all packages
+make docker           # docker compose up --build
+make clean            # Clean build artifacts
+```
+
+## Architecture
+
+### Backend (`packages/backend/src/`)
+- `index.ts` - Fastify server entry point
+- `api/v1/routes/` - Route handlers (auth, vaults, secrets, billing, integrations)
+- `services/` - Business logic (secret, vault, usage services)
+- `db/schema.ts` - Drizzle ORM schema (users, vaults, secrets tables)
+- `utils/encryption.ts` - AES-256-GCM encryption/decryption
+- `utils/github.ts` - GitHub API client for repo access checks
+- `middleware/auth.ts` - JWT authentication middleware
+
+### CLI (`packages/cli/internal/`)
+- `cmd/` - Cobra commands (login, init, push, pull, run, diff, scan, sync)
+- `api/` - Keyway API client
+- `auth/` - Token storage via keyring
+- `git/` - Git repository detection
+- `env/` - Env file parsing and diffing
+- `ui/` - Terminal UI helpers
+
+### Dashboard (`packages/dashboard/app/`)
+- `(dashboard)/` - Authenticated dashboard routes
+- `auth/callback/` - OAuth callback handling
+- `components/dashboard/` - Vault cards, secret rows, modals
+
+## Key Patterns
+
+- **Authentication flow**: Device code flow (CLI starts, user approves in browser) or fine-grained PAT
+- **Authorization**: All vault access verified via GitHub API collaborator checks
+- **Encryption**: Secrets encrypted at rest with AES-256-GCM via isolated crypto gRPC service
+- **Analytics**: PostHog for usage metrics; never tracks secret values, only metadata
+- **Environment detection**: CLI auto-detects GitHub remote from `.git/config`
+
+## Environment Variables
+
+Backend requires: `DATABASE_URL`, `ENCRYPTION_KEY` (32-byte hex), `GITHUB_APP_CLIENT_ID`, `GITHUB_APP_CLIENT_SECRET`, `JWT_SECRET`
+
+Dashboard requires: `NEXT_PUBLIC_KEYWAY_API_URL`, PostHog keys for analytics
+
+CLI can use: `KEYWAY_API_URL` (defaults to production), `KEYWAY_DISABLE_TELEMETRY=1`
+
+Crypto requires: `ENCRYPTION_KEY` (32-byte hex)
+
+## CI/CD
+
+Workflows in `.github/workflows/` with path-based triggers:
+- `ci-backend.yml`, `ci-dashboard.yml`, `ci-crypto.yml`, `ci-cli.yml`, `ci-mcp.yml`
+- `release-cli.yml` (triggered by `cli/v*` tags)
+- `release-mcp.yml` (triggered by `mcp/v*` tags)
+
+
+
+# Tailwind CSS Rules and Best Practices
+
+## Core Principles
+
+- **Always use Tailwind CSS v4.1+** - Ensure the codebase is using the latest version
+- **Do not use deprecated or removed utilities** - ALWAYS use the replacement
+- **Never use `@apply`** - Use CSS variables, the `--spacing()` function, or framework components instead
+- **Check for redundant classes** - Remove any classes that aren't necessary
+- **Group elements logically** to simplify responsive tweaks later
+
+## Upgrading to Tailwind CSS v4
+
+### Before Upgrading
+
+- **Always read the upgrade documentation first** - Read https://tailwindcss.com/docs/upgrade-guide and https://tailwindcss.com/blog/tailwindcss-v4 before starting an upgrade.
+- Ensure the git repository is in a clean state before starting
+
+### Upgrade Process
+
+1. Run the upgrade command: `npx @tailwindcss/upgrade@latest` for both major and minor updates
+2. The tool will convert JavaScript config files to the new CSS format
+3. Review all changes extensively to clean up any false positives
+4. Test thoroughly across your application
+
+## Breaking Changes Reference
+
+### Removed Utilities (NEVER use these in v4)
+
+| ❌ Deprecated           | ✅ Replacement                                    |
+| ----------------------- | ------------------------------------------------- |
+| `bg-opacity-*`          | Use opacity modifiers like `bg-black/50`          |
+| `text-opacity-*`        | Use opacity modifiers like `text-black/50`        |
+| `border-opacity-*`      | Use opacity modifiers like `border-black/50`      |
+| `divide-opacity-*`      | Use opacity modifiers like `divide-black/50`      |
+| `ring-opacity-*`        | Use opacity modifiers like `ring-black/50`        |
+| `placeholder-opacity-*` | Use opacity modifiers like `placeholder-black/50` |
+| `flex-shrink-*`         | `shrink-*`                                        |
+| `flex-grow-*`           | `grow-*`                                          |
+| `overflow-ellipsis`     | `text-ellipsis`                                   |
+| `decoration-slice`      | `box-decoration-slice`                            |
+| `decoration-clone`      | `box-decoration-clone`                            |
+
+### Renamed Utilities (ALWAYS use the v4 name)
+
+| ❌ v3              | ✅ v4              |
+| ------------------ | ------------------ |
+| `bg-gradient-*`    | `bg-linear-*`      |
+| `shadow-sm`        | `shadow-xs`        |
+| `shadow`           | `shadow-sm`        |
+| `drop-shadow-sm`   | `drop-shadow-xs`   |
+| `drop-shadow`      | `drop-shadow-sm`   |
+| `blur-sm`          | `blur-xs`          |
+| `blur`             | `blur-sm`          |
+| `backdrop-blur-sm` | `backdrop-blur-xs` |
+| `backdrop-blur`    | `backdrop-blur-sm` |
+| `rounded-sm`       | `rounded-xs`       |
+| `rounded`          | `rounded-sm`       |
+| `outline-none`     | `outline-hidden`   |
+| `ring`             | `ring-3`           |
+
+## Layout and Spacing Rules
+
+### Flexbox and Grid Spacing
+
+#### Always use gap utilities for internal spacing
+
+Gap provides consistent spacing without edge cases (no extra space on last items). It's cleaner and more maintainable than margins on children.
+
+```html
+<!-- ❌ Don't do this -->
+<div class="flex">
+  <div class="mr-4">Item 1</div>
+  <div class="mr-4">Item 2</div>
+  <div>Item 3</div>
+  <!-- No margin on last -->
+</div>
+
+<!-- ✅ Do this instead -->
+<div class="flex gap-4">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+```
+
+#### Gap vs Space utilities
+
+- **Never use `space-x-*` or `space-y-*` in flex/grid layouts** - always use gap
+- Space utilities add margins to children and have issues with wrapped items
+- Gap works correctly with flex-wrap and all flex directions
+
+```html
+<!-- ❌ Avoid space utilities in flex containers -->
+<div class="flex flex-wrap space-x-4">
+  <!-- Space utilities break with wrapped items -->
+</div>
+
+<!-- ✅ Use gap for consistent spacing -->
+<div class="flex flex-wrap gap-4">
+  <!-- Gap works perfectly with wrapping -->
+</div>
+```
+
+### General Spacing Guidelines
+
+- **Prefer top and left margins** over bottom and right margins (unless conditionally rendered)
+- **Use padding on parent containers** instead of bottom margins on the last child
+- **Always use `min-h-dvh` instead of `min-h-screen`** - `min-h-screen` is buggy on mobile Safari
+- **Prefer `size-*` utilities** over separate `w-*` and `h-*` when setting equal dimensions
+- For max-widths, prefer the container scale (e.g., `max-w-2xs` over `max-w-72`)
+
+## Typography Rules
+
+### Line Heights
+
+- **Never use `leading-*` classes** - Always use line height modifiers with text size
+- **Always use fixed line heights from the spacing scale** - Don't use named values
+
+```html
+<!-- ❌ Don't do this -->
+<p class="text-base leading-7">Text with separate line height</p>
+<p class="text-lg leading-relaxed">Text with named line height</p>
+
+<!-- ✅ Do this instead -->
+<p class="text-base/7">Text with line height modifier</p>
+<p class="text-lg/8">Text with specific line height</p>
+```
+
+### Font Size Reference
+
+Be precise with font sizes - know the actual pixel values:
+
+- `text-xs` = 12px
+- `text-sm` = 14px
+- `text-base` = 16px
+- `text-lg` = 18px
+- `text-xl` = 20px
+
+## Color and Opacity
+
+### Opacity Modifiers
+
+**Never use `bg-opacity-*`, `text-opacity-*`, etc.** - use the opacity modifier syntax:
+
+```html
+<!-- ❌ Don't do this -->
+<div class="bg-red-500 bg-opacity-60">Old opacity syntax</div>
+
+<!-- ✅ Do this instead -->
+<div class="bg-red-500/60">Modern opacity syntax</div>
+```
+
+## Responsive Design
+
+### Breakpoint Optimization
+
+- **Check for redundant classes across breakpoints**
+- **Only add breakpoint variants when values change**
+
+```html
+<!-- ❌ Redundant breakpoint classes -->
+<div class="px-4 md:px-4 lg:px-4">
+  <!-- md:px-4 and lg:px-4 are redundant -->
+</div>
+
+<!-- ✅ Efficient breakpoint usage -->
+<div class="px-4 lg:px-8">
+  <!-- Only specify when value changes -->
+</div>
+```
+
+## Dark Mode
+
+### Dark Mode Best Practices
+
+- Use the plain `dark:` variant pattern
+- Put light mode styles first, then dark mode styles
+- Ensure `dark:` variant comes before other variants
+
+```html
+<!-- ✅ Correct dark mode pattern -->
+<div class="bg-white text-black dark:bg-black dark:text-white">
+  <button class="hover:bg-gray-100 dark:hover:bg-gray-800">Click me</button>
+</div>
+```
+
+## Gradient Utilities
+
+- **ALWAYS Use `bg-linear-*` instead of `bg-gradient-*` utilities** - The gradient utilities were renamed in v4
+- Use the new `bg-radial` or `bg-radial-[<position>]` to create radial gradients
+- Use the new `bg-conic` or `bg-conic-*` to create conic gradients
+
+```html
+<!-- ✅ Use the new gradient utilities -->
+<div class="h-14 bg-linear-to-br from-violet-500 to-fuchsia-500"></div>
+<div class="size-18 bg-radial-[at_50%_75%] from-sky-200 via-blue-400 to-indigo-900 to-90%"></div>
+<div class="size-24 bg-conic-180 from-indigo-600 via-indigo-50 to-indigo-600"></div>
+
+<!-- ❌ Do not use bg-gradient-* utilities -->
+<div class="h-14 bg-gradient-to-br from-violet-500 to-fuchsia-500"></div>
+```
+
+## Working with CSS Variables
+
+### Accessing Theme Values
+
+Tailwind CSS v4 exposes all theme values as CSS variables:
+
+```css
+/* Access colors, and other theme values */
+.custom-element {
+  background: var(--color-red-500);
+  border-radius: var(--radius-lg);
+}
+```
+
+### The `--spacing()` Function
+
+Use the dedicated `--spacing()` function for spacing calculations:
+
+```css
+.custom-class {
+  margin-top: calc(100vh - --spacing(16));
+}
+```
+
+### Extending theme values
+
+Use CSS to extend theme values:
+
+```css
+@import 'tailwindcss';
+
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+}
+```
+
+```html
+<div class="bg-mint-500">
+  <!-- ... -->
+</div>
+```
+
+## New v4 Features
+
+### Container Queries
+
+Use the `@container` class and size variants:
+
+```html
+<article class="@container">
+  <div class="flex flex-col @md:flex-row @lg:gap-8">
+    <img class="w-full @md:w-48" />
+    <div class="mt-4 @md:mt-0">
+      <!-- Content adapts to container size -->
+    </div>
+  </div>
+</article>
+```
+
+### Container Query Units
+
+Use container-based units like `cqw` for responsive sizing:
+
+```html
+<div class="@container">
+  <h1 class="text-[50cqw]">Responsive to container width</h1>
+</div>
+```
+
+### Text Shadows (v4.1)
+
+Use text-shadow-\* utilities from text-shadow-2xs to text-shadow-lg:
+
+```html
+<!-- ✅ Text shadow examples -->
+<h1 class="text-shadow-lg">Large shadow</h1>
+<p class="text-shadow-sm/50">Small shadow with opacity</p>
+```
+
+### Masking (v4.1)
+
+Use the new composable mask utilities for image and gradient masks:
+
+```html
+<!-- ✅ Linear gradient masks on specific sides -->
+<div class="mask-t-from-50%">Top fade</div>
+<div class="mask-b-from-20% mask-b-to-80%">Bottom gradient</div>
+<div class="mask-linear-from-white mask-linear-to-black/60">Fade from white to black</div>
+
+<!-- ✅ Radial gradient masks -->
+<div class="mask-radial-[100%_100%] mask-radial-from-75% mask-radial-at-left">Radial mask</div>
+```
+
+## Component Patterns
+
+### Avoiding Utility Inheritance
+
+Don't add utilities to parents that you override in children:
+
+```html
+<!-- ❌ Avoid this pattern -->
+<div class="text-center">
+  <h1>Centered Heading</h1>
+  <div class="text-left">Left-aligned content</div>
+</div>
+
+<!-- ✅ Better approach -->
+<div>
+  <h1 class="text-center">Centered Heading</h1>
+  <div>Left-aligned content</div>
+</div>
+```
+
+### Component Extraction
+
+- Extract repeated patterns into framework components, not CSS classes
+- Keep utility classes in templates/JSX
+- Use data attributes for complex state-based styling
+
+## CSS Best Practices
+
+### Nesting Guidelines
+
+- Use nesting when styling both parent and children
+- Avoid empty parent selectors
+
+```css
+/* ✅ Good nesting - parent has styles */
+.card {
+  padding: --spacing(4);
+
+  > .card-title {
+    font-weight: bold;
+  }
+}
+
+/* ❌ Avoid empty parents */
+ul {
+  > li {
+    /* Parent has no styles */
+  }
+}
+```
+
+## Common Pitfalls to Avoid
+
+1. **Using old opacity utilities** - Always use `/opacity` syntax like `bg-red-500/60`
+2. **Redundant breakpoint classes** - Only specify changes
+3. **Space utilities in flex/grid** - Always use gap
+4. **Leading utilities** - Use line-height modifiers like `text-sm/6`
+5. **Arbitrary values** - Use the design scale
+6. **@apply directive** - Use components or CSS variables
+7. **min-h-screen on mobile** - Use min-h-dvh
+8. **Separate width/height** - Use size utilities when equal
+9. **Arbitrary values** - Always use Tailwind's predefined scale whenever possible (e.g., use `ml-4` over `ml-[16px]`)
+
+---
+> Source: [keywaysh/keyway](https://github.com/keywaysh/keyway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-12 -->
