@@ -1,0 +1,44 @@
+{
+  "name": "KnowAgenticRAG",
+  "owner": "Zhongye1",
+  "repo": "KnowAgenticRAG",
+  "description": "\u9762\u5411\u667a\u80fd\u77e5\u8bc6\u7ba1\u7406\u7684\u68c0\u7d22\u589e\u5f3a\u751f\u6210\uff08RAG\uff09\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zhongye1/KnowAgenticRAG",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-12T17:31:19Z"
+}
