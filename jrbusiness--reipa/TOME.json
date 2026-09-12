@@ -4,7 +4,7 @@
   "repo": "REipa",
   "description": "Fast iOS decompiler & Mach-O disassembler in Rust \u2014 arm64, Objective-C class-dump, Swift metadata, and a native desktop GUI. Reads .ipa/App Store binaries directly, no Ghidra, IDA, radare2, or LLVM.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JRBusiness/REipa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T02:39:59Z"
+  "distributed_at": "2026-09-12T02:40:46Z"
 }
