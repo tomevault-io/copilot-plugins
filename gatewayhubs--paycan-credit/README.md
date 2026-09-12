@@ -7,11 +7,11 @@ Subscription and credit-based payment integration for AI and SaaS apps in around
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [gatewayhubs/paycan-credit](https://github.com/gatewayhubs/paycan-credit).
+Original source: `AGENTS.md` in [gatewayhubs/paycan-credit](https://github.com/gatewayhubs/paycan-credit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
