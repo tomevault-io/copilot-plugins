@@ -1,0 +1,9 @@
+{
+  "name": "v0l--waveshark",
+  "displayName": "waveshark",
+  "description": "Wireshark for the radio spectrum: channelize a wide span once, decode every signal in it at once",
+  "version": "1.0.0",
+  "author": "v0l",
+  "homepage": "https://github.com/v0l/waveshark",
+  "skills": []
+}
