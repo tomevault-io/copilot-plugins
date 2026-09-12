@@ -1,0 +1,9 @@
+{
+  "name": "compass505--syncgame",
+  "displayName": "SyncGame",
+  "description": "\u4ef2\u9593\u306e Action \u3092\u4e8b\u524d\u306b\u7d44\u307f\u3001\u81ea\u5206\u306f\u305d\u306e\u4f5c\u6226\u306e\u4e2d\u3078\u98db\u3073\u8fbc\u3080 2D \u5354\u529b\u30d1\u30ba\u30eb\u30a2\u30af\u30b7\u30e7\u30f3\uff08TypeScript + Canvas / \u901a\u4fe1\u306a\u3057\uff09",
+  "version": "1.0.0",
+  "author": "compass505",
+  "homepage": "https://github.com/compass505/SyncGame",
+  "skills": []
+}
