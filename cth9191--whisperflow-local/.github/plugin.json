@@ -1,0 +1,9 @@
+{
+  "name": "cth9191--whisperflow-local",
+  "displayName": "whisperflow-local",
+  "description": "A 100% local WhisperFlow clone for Windows \u2014 Ctrl+Win to dictate, faster-whisper (CUDA) + a local Ollama cleanup LLM, focus-safe paste. No cloud at dictation time.",
+  "version": "1.0.0",
+  "author": "cth9191",
+  "homepage": "https://github.com/cth9191/whisperflow-local",
+  "skills": []
+}
