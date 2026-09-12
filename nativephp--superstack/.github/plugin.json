@@ -1,0 +1,9 @@
+{
+  "name": "nativephp--superstack",
+  "displayName": "superstack",
+  "description": "Open-source Laravel starter with Filament, NativePHP SuperNative, and MCP",
+  "version": "1.0.0",
+  "author": "NativePHP",
+  "homepage": "https://github.com/NativePHP/superstack",
+  "skills": []
+}
