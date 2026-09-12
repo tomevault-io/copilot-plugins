@@ -1,0 +1,9 @@
+{
+  "name": "youdotcom-oss--mcp",
+  "displayName": "mcp",
+  "description": "STDIO bridge for the hosted You.com MCP server at https://api.you.com/mcp.",
+  "version": "1.0.0",
+  "author": "youdotcom-oss",
+  "homepage": "https://github.com/youdotcom-oss/mcp",
+  "skills": []
+}
