@@ -1,0 +1,9 @@
+{
+  "name": "wassermanproductions--wasserman-spark-director-h3-speed-recipe",
+  "displayName": "wasserman-spark-director-h3-speed-recipe",
+  "description": "8s of H3 video in 2m54s warm delivery on two DGX Sparks. Scene-specific LTX refinement, original-voice restoration, measured sync, clips and reproducible settings.",
+  "version": "1.0.0",
+  "author": "wassermanproductions",
+  "homepage": "https://github.com/wassermanproductions/wasserman-spark-director-h3-speed-recipe",
+  "skills": []
+}
