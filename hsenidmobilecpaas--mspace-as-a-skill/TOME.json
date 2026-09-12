@@ -4,7 +4,7 @@
   "repo": "mSpace-as-a-skill",
   "description": "mSpace Skill for AI Assisted Coding that supports A-Z implementation of telco APIs.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hSenidMobileCPaaS/mSpace-as-a-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T09:33:10Z"
+  "distributed_at": "2026-09-12T09:33:44Z"
 }
