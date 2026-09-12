@@ -1,0 +1,9 @@
+{
+  "name": "cvxv666--fomo-robinhood-radar",
+  "displayName": "fomo-robinhood-radar",
+  "description": "Who the good traders on Robinhood Chain are buying: resolved wallets, a 20-second on-chain tape, provenance on every fill, AI verdicts, bursts and exits. Site + Telegram bot + API. Runs on $0/month.",
+  "version": "1.0.0",
+  "author": "cvxv666",
+  "homepage": "https://github.com/cvxv666/fomo-robinhood-radar",
+  "skills": []
+}
