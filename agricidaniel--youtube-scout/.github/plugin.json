@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--youtube-scout",
+  "displayName": "youtube-scout",
+  "description": "Claude Code skill: one topic in, one ranked YouTube research workbook out. Searches YouTube Data API v3, ranks by views, engagement, momentum or breakout, and writes Videos, Channels, Summary, Comment",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/youtube-scout",
+  "skills": []
+}
