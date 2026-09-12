@@ -1,0 +1,9 @@
+{
+  "name": "dnd-portal--dnd-portal",
+  "displayName": "dnd-portal",
+  "description": "An unofficial, fan-created D&D campaign wiki for table rulings, character options, homebrew content, and campaign-specific information.",
+  "version": "1.0.0",
+  "author": "dnd-portal",
+  "homepage": "https://github.com/dnd-portal/dnd-portal",
+  "skills": []
+}
