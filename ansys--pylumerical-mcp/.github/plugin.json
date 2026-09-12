@@ -1,0 +1,9 @@
+{
+  "name": "ansys--pylumerical-mcp",
+  "displayName": "pylumerical-mcp",
+  "description": "PyLumerical MCP Server",
+  "version": "1.0.0",
+  "author": "ansys",
+  "homepage": "https://github.com/ansys/pylumerical-mcp",
+  "skills": []
+}
