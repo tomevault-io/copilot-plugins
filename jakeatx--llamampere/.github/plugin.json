@@ -1,0 +1,9 @@
+{
+  "name": "jakeatx--llamampere",
+  "displayName": "llamAmpere",
+  "description": "llama.cpp fork for significantly improved performance on Ampere (especially RTX 3090 / 3090 Ti): TurboQuant KV cache, MTP speculative decoding with a 64K draft-vocabulary shortlist, custom SM86 + Qwen",
+  "version": "1.0.0",
+  "author": "JakeATX",
+  "homepage": "https://github.com/JakeATX/llamAmpere",
+  "skills": []
+}
