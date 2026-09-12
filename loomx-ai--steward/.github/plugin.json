@@ -1,0 +1,9 @@
+{
+  "name": "loomx-ai--steward",
+  "displayName": "steward",
+  "description": "Open-source multi-cloud resource inventory, dependency visualization, and reviewed cleanup for AWS, Azure, Google Cloud, and Alibaba Cloud. Self-hosted with a web console.",
+  "version": "1.0.0",
+  "author": "loomx-ai",
+  "homepage": "https://github.com/loomx-ai/steward",
+  "skills": []
+}
