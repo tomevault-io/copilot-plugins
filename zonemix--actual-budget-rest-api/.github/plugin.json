@@ -1,0 +1,9 @@
+{
+  "name": "zonemix--actual-budget-rest-api",
+  "displayName": "actual-budget-rest-api",
+  "description": "Actual Budget RESTful API built on top of the Actual Budget API npm package",
+  "version": "1.0.0",
+  "author": "ZoneMix",
+  "homepage": "https://github.com/ZoneMix/actual-budget-rest-api",
+  "skills": []
+}
