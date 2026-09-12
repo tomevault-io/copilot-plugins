@@ -1,0 +1,9 @@
+{
+  "name": "ultimo-rs--ultimo",
+  "displayName": "ultimo",
+  "description": "Rust web framework with automatic TypeScript client generation",
+  "version": "1.0.0",
+  "author": "ultimo-rs",
+  "homepage": "https://github.com/ultimo-rs/ultimo",
+  "skills": []
+}
