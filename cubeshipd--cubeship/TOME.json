@@ -1,0 +1,44 @@
+{
+  "name": "cubeship",
+  "owner": "cubeshipd",
+  "repo": "cubeship",
+  "description": "A PaaS you run on your own server. docker push, and it is live \u2014 with HTTPS, a database beside it, and a second machine when one stops being enough.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cubeshipd/cubeship",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-12T22:33:00Z"
+}
