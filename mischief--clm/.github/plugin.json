@@ -1,0 +1,9 @@
+{
+  "name": "mischief--clm",
+  "displayName": "clm",
+  "description": "embeddable llm agent in c with lua plugins",
+  "version": "1.0.0",
+  "author": "mischief",
+  "homepage": "https://github.com/mischief/clm",
+  "skills": []
+}
