@@ -1,0 +1,9 @@
+{
+  "name": "jonbasse--ha-klereo",
+  "displayName": "ha-klereo",
+  "description": "Home Assistant custom integration for Klereo Connect pool management systems",
+  "version": "1.0.0",
+  "author": "JonBasse",
+  "homepage": "https://github.com/JonBasse/ha-klereo",
+  "skills": []
+}
