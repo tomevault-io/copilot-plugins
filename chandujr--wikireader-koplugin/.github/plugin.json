@@ -1,0 +1,9 @@
+{
+  "name": "chandujr--wikireader-koplugin",
+  "displayName": "wikireader.koplugin",
+  "description": "A KOReader plugin for reading Wikipedia articles as formatted books, with a cleaner reading experience than the built-in Wikipedia lookup.",
+  "version": "1.0.0",
+  "author": "chandujr",
+  "homepage": "https://github.com/chandujr/wikireader.koplugin",
+  "skills": []
+}
