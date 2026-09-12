@@ -1,0 +1,9 @@
+{
+  "name": "jbcoe--cc-protocol",
+  "displayName": "cc-protocol",
+  "description": "A type erased value-type for C++ using reflection",
+  "version": "1.0.0",
+  "author": "jbcoe",
+  "homepage": "https://github.com/jbcoe/cc-protocol",
+  "skills": []
+}
