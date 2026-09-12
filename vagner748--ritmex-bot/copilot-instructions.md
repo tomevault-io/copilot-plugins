@@ -1,113 +1,42 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## ritmex-bot
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> The Bun entry point (`index.ts`) lives at the repo root for quick CLI smoke checks. All production code is under `src/`:
 
+# Repository Guidelines
 
-Default to using Bun instead of Node.js.
+## Project Structure & Module Organization
+The Bun entry point (`index.ts`) lives at the repo root for quick CLI smoke checks. All production code is under `src/`:
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+- `src/strategy/` gathers every live trading engine (`maker`, `offset-maker`, `trend`). Shared helpers for strategy wiring sit in `src/strategy/common/`.
+- `src/core/` keeps order coordination plus shared libs used by multiple strategies.
+- `src/exchanges/` exposes the adapters and REST/websocket clients.
+- `src/ui/` implements the Ink dashboards for each strategy (they remain independent dashboards).
+- `src/logging/` contains the trade log helper.
+- `src/utils/` and `src/config.ts` hold cross-cutting utilities and runtime config.
+- `docs/` stores reference material, while `tests/` contains Vitest suites.
 
-## APIs
+## Build, Test, and Development Commands
+- `bun install` – install dependencies.
+- `bun run index.ts` – launch the CLI menu.
+- `bun x vitest run` – execute the full test suite; `bun x vitest --watch` for incremental runs.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+Strategy-specific scripts still execute through the CLI; there is no separate `legacy/` workspace.
 
-## Testing
+## Coding Style & Naming Conventions
+Use modern TypeScript with ES modules, two-space indentation, and sorted imports (external → internal). Favor `camelCase` for variables/functions and `PascalCase` for classes/enums. Place new strategies under `src/strategy/`, shared utilities under `src/utils/` or `src/strategy/common/` when they only apply to strategies. Keep comments focused on non-obvious trading logic.
 
-Use `bun test` to run tests.
+## Testing Guidelines
+Vitest powers unit/integration tests. Co-locate new tests next to their subject using `<feature>.test.ts`. Strategies should have coverage for order lifecycle, risk guards, and websocket edge cases. Run `bun x vitest --watch` during development for fast feedback.
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
+## Commit & Pull Request Guidelines
+Follow lightweight Conventional Commits (e.g. `feat: add hedging status panel`). Scope each commit to a single module or strategy. PRs should include:
+- Summary of changes.
+- Validation notes (commands run, environments touched).
+- Relevant logs or screenshots for behavior changes.
+Link issues/tasks when available.
 
-test("hello world", () => {
-  expect(1).toBe(1);
-});
-```
-
-## Frontend
-
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
-
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+## Environment & Secrets
+Duplicate `.env.example` to `.env` and populate API keys (Aster/GRVT) before running strategies. Do not commit secrets—use local `.env` or deployment secret managers. Rotate keys if they leak into logs or backups.
 
 ---
 > Source: [vagner748/RITMEX-BOT](https://github.com/vagner748/RITMEX-BOT) — distributed by [TomeVault](https://tomevault.io).
