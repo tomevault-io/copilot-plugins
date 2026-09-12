@@ -1,0 +1,9 @@
+{
+  "name": "jycd25--thousand-words",
+  "displayName": "thousand-words",
+  "description": "A picture is worth a thousand words. Claude Code plugin that turns a sentence into local-first interactive GUIs and diagrams from tiny JSON specs, nothing leaves the browser.",
+  "version": "1.0.0",
+  "author": "jycd25",
+  "homepage": "https://github.com/jycd25/thousand-words",
+  "skills": []
+}
