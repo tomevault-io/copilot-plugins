@@ -4,7 +4,7 @@
   "repo": "optivolt",
   "description": "Optivolt is a linear and mixed-integer optimizer for home energy systems.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bmesuere/optivolt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T12:31:48Z"
+  "distributed_at": "2026-09-12T12:33:54Z"
 }
