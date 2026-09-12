@@ -1,0 +1,9 @@
+{
+  "name": "jovidecroock--mcp-tada",
+  "displayName": "mcp-tada",
+  "description": "Compile-time typed MCP tool calls for TypeScript",
+  "version": "1.0.0",
+  "author": "JoviDeCroock",
+  "homepage": "https://github.com/JoviDeCroock/mcp-tada",
+  "skills": []
+}
