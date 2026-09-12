@@ -1,24 +1,32 @@
-# finfocus — distributed by TomeVault
+# finfocus
 
-> Originally from [rshade/finfocus](https://github.com/rshade/finfocus). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rshade/finfocus](https://github.com/rshade/finfocus). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+FinOps CLI for Pulumi — projected costs, actual spend tracking, budget enforcement, and cost optimization for cloud infrastructure
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [rshade/finfocus](https://github.com/rshade/finfocus).
+Original source: `CLAUDE.md` in [rshade/finfocus](https://github.com/rshade/finfocus).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rshade)
+## Bundled Skills (3)
+
+- [finfocus-cost](https://github.com/rshade/finfocus/tree/main/.claude/skills/finfocus-cost/finfocus-cost)
+- [finfocus-dev](https://github.com/rshade/finfocus/tree/main/.claude/skills/finfocus-dev/finfocus-dev)
+- [finfocus-plugin](https://github.com/rshade/finfocus/tree/main/.claude/skills/finfocus-plugin/finfocus-plugin)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rshade/finfocus](https://github.com/rshade/finfocus)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/rshade) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
