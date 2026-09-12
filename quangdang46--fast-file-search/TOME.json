@@ -4,7 +4,7 @@
   "repo": "fast_file_search",
   "description": "Ultra-fast file search toolkit for AI agents, Neovim, and code editors. MCP server for Claude Code/Cursor/Codex, frecency-ranked search, symbol indexing via tree-sitter, and a Rust core that outperforms ripgrep and fzf in long-running processes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/quangdang46/fast_file_search",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T04:38:59Z"
+  "distributed_at": "2026-09-12T04:42:24Z"
 }
