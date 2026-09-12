@@ -4,7 +4,7 @@
   "repo": "career_outlook_frontend",
   "description": "\u804c\u89c2ai\u5c0f\u7a0b\u5e8f",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/guanlili/career_outlook_frontend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T14:38:19Z"
+  "distributed_at": "2026-09-12T14:41:45Z"
 }
