@@ -1,0 +1,9 @@
+{
+  "name": "offware-apps--max-finder",
+  "displayName": "MAX-Finder",
+  "description": "Open-source finder for reservable MAX JEUNE / SENIOR train seats, built on SNCF open data.",
+  "version": "1.0.0",
+  "author": "offware-apps",
+  "homepage": "https://github.com/offware-apps/MAX-Finder",
+  "skills": []
+}
