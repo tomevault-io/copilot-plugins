@@ -7,11 +7,11 @@ Run Obsidian's desktop app in a standard browser — no Electron needed. Formerl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MusiCode1/markport](https://github.com/MusiCode1/markport).
+Original source: `CLAUDE.md` in [MusiCode1/markport](https://github.com/MusiCode1/markport).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
