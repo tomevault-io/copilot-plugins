@@ -1,0 +1,9 @@
+{
+  "name": "refactron-ai--refactron-lib",
+  "displayName": "Refactron_lib",
+  "description": "The Intelligent Code Refactoring Transformer for Python",
+  "version": "1.0.0",
+  "author": "Refactron-ai",
+  "homepage": "https://github.com/Refactron-ai/Refactron_lib",
+  "skills": []
+}
