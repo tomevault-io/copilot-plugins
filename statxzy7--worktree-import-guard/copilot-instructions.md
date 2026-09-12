@@ -1,0 +1,68 @@
+## worktree-import-guard
+
+> Catch Python tests that pass after importing explicitly selected packages from the wrong Git
+
+# Repository guidance
+
+## Purpose
+
+Catch Python tests that pass after importing explicitly selected packages from the wrong Git
+worktree. This is current-process runtime provenance checking, not environment management or a
+sandbox.
+
+Make first use understandable: suggest package directories statically, require confirmation
+before saving a contract or running setup tests, and distinguish test results from source results.
+Each user-facing addition should remove a concrete installation, selection, or repeat-use burden.
+Never hide UNKNOWN, infer PASS from a suggestion, or automatically repair a user's environment.
+
+## Product principles
+
+- Help ordinary Python developers find which source their tests actually loaded.
+- Recommend one installation and check path in the project's existing pytest environment.
+- Explain what happened before technical evidence, and give an actionable next step.
+- Keep PASS scoped to observed selected packages; never hide UNKNOWN or guess a safe origin.
+- Diagnose without repairing the environment or expanding into environment management.
+- Keep onboarding short; put schemas, benchmarks, and release evidence in maintainer docs.
+- Prefer small, reliable changes that reduce a concrete installation or diagnosis problem.
+- Keep one detection engine with CLI and thin Agent Skill entry points.
+- Measure first-use completion, correct interpretation and repeat use with real users;
+  file counts, stars and downloads do not establish usefulness.
+- Do not imply coverage, commit-content equality, isolation or tamper resistance from source PASS.
+
+## Text encoding
+
+- Read and write text as UTF-8, preferably without BOM; use explicit UTF-8 for PowerShell I/O.
+- Preserve existing content and verify Chinese text after editing.
+
+## Architecture
+
+- `cli.py` coordinates the run without importing pytest early.
+- `observer.py` captures target imports and lifecycle snapshots.
+- `origins.py` resolves metadata; `matcher.py` performs component-wise containment.
+- `git_worktrees.py` adds best-effort Git classification.
+- `report.py` classifies and renders both human and JSON output from one model.
+- `pytest_plugin.py` supplies the explicit, non-auto-loaded pytest hooks.
+
+## Checks
+
+```console
+ruff check .
+mypy src
+pytest
+pytest --cov=worktree_import_guard --cov-report=term-missing
+python -m build
+```
+
+## Invariants
+
+- Never mutate `PYTHONPATH`, insert expected roots into `sys.path`, or auto-fix an environment.
+- Install observation before importing pytest; do not add a `pytest11` entry point.
+- UNKNOWN must never become PASS.
+- Public reason codes and JSON schema are compatibility surfaces.
+- Use canonical path components, not string-prefix containment.
+- Preserve every native nonzero pytest exit, including exit 6 on versions that provide it.
+- Add a regression test for every provenance bug.
+
+---
+> Source: [StatXzy7/worktree-import-guard](https://github.com/StatXzy7/worktree-import-guard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-11 -->
