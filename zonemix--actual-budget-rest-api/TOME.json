@@ -4,7 +4,7 @@
   "repo": "actual-budget-rest-api",
   "description": "Actual Budget RESTful API built on top of the Actual Budget API npm package",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZoneMix/actual-budget-rest-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T04:47:04Z"
+  "distributed_at": "2026-09-12T04:51:03Z"
 }
