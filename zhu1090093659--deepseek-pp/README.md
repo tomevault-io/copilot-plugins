@@ -15,22 +15,11 @@ Original source: `AGENTS.md` in [zhu1090093659/deepseek-pp](https://github.com/z
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (14)
+## Bundled Skills (3)
 
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/docs/archives/deepseek-automation/skill/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/morph-ppt/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/morph-ppt-3d/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-docx/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-pptx/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-xlsx/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-word-form/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-pitch-deck/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-data-dashboard/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/review-spd/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/deep-discuss/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/spec-driven-develop/SKILL.md)
-- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/docs/archives/deepseek-pp-reliability-compatibility-refactor/skill/SKILL.md)
+- [spec_driven_develop](https://github.com/zhu1090093659/deepseek-pp/tree/main/plugins/spec-driven-develop/skills/deep-discuss/SKILL.md)
+- [spec_driven_develop](https://github.com/zhu1090093659/deepseek-pp/tree/main/plugins/spec-driven-develop/skills/spec-driven-develop/SKILL.md)
+- [spec_driven_develop](https://github.com/zhu1090093659/deepseek-pp/tree/main/plugins/spec-driven-develop/skills/review-spd/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zhu1090093659/deepseek-pp](https://github.com/zhu1090093659/deepseek-pp)
 
