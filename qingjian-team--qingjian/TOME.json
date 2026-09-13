@@ -1,0 +1,44 @@
+{
+  "name": "qingjian",
+  "owner": "qingjian-team",
+  "repo": "qingjian",
+  "description": "\u9752\u7b80 Qingjian\uff1a\u7528 Rust \u5199\u7684\u62fc\u97f3\u8f93\u5165\u6cd5\uff0c\u5019\u9009\u8bcd\u65c1\u591a\u4e00\u6761\u6b63\u5728\u5b66\u7684\u8bed\u8a00\u7684\u8bd1\u8bcd",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qingjian-team/qingjian",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T03:31:02Z"
+}
