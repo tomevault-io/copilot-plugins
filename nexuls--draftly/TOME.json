@@ -3,8 +3,8 @@
   "owner": "nexuls",
   "repo": "draftly",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "draftly",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/nexuls/draftly/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "draftly",
+      "path": ".agents/skills/codemirror/SKILL.md",
+      "github_url": "https://github.com/nexuls/draftly/tree/main/.agents/skills/codemirror/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/nexuls/draftly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T22:38:34Z"
+  "distributed_at": "2026-09-13T23:46:00Z"
 }
