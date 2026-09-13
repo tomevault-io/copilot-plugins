@@ -1,0 +1,51 @@
+{
+  "name": "Sea-mult-agent",
+  "owner": "yu-xin-c",
+  "repo": "Sea-mult-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Sea-mult-agent",
+      "path": ".trae/skills/code_skill/SKILL.md",
+      "github_url": "https://github.com/yu-xin-c/Sea-mult-agent/tree/main/.trae/skills/code_skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yu-xin-c/Sea-mult-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:46:26Z"
+}
