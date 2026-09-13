@@ -1,0 +1,9 @@
+{
+  "name": "keithxc--deskport",
+  "displayName": "deskport",
+  "description": "Experimental remote-development client based on Moonlight and Sunshine, working toward persistent sessions and one-action window recall.",
+  "version": "1.0.0",
+  "author": "keithxc",
+  "homepage": "https://github.com/keithxc/deskport",
+  "skills": []
+}
