@@ -1,0 +1,9 @@
+{
+  "name": "oguzhankayan--turkish-native",
+  "displayName": "turkish-native",
+  "description": "Agent skill for writing native Turkish and removing translationese from AI and localized copy.",
+  "version": "1.0.0",
+  "author": "oguzhankayan",
+  "homepage": "https://github.com/oguzhankayan/turkish-native",
+  "skills": []
+}
