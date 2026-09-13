@@ -1,0 +1,9 @@
+{
+  "name": "onflow--stablecoin-scaffold",
+  "displayName": "stablecoin-scaffold",
+  "description": "Stablecoin scaffold for the Flow network. Cadence starter for shipping consumer stablecoin apps (PYUSD, USDC) with sub-cent transactions",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/stablecoin-scaffold",
+  "skills": []
+}
