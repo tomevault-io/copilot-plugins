@@ -1,0 +1,9 @@
+{
+  "name": "decentricity--mindmeld-with-fly",
+  "displayName": "mindmeld-with-fly",
+  "description": "Real-time Muse EEG driving one Drosophila MaleCNS reservoir (mind meld)",
+  "version": "1.0.0",
+  "author": "Decentricity",
+  "homepage": "https://github.com/Decentricity/mindmeld-with-fly",
+  "skills": []
+}
