@@ -1,0 +1,14 @@
+## mixagents
+
+> - 在本仓库的 GitHub Issue、PR 或 Discussion 中，若一条评论或 review 回复完全由
+
+# 仓库管理约定
+
+- 在本仓库的 GitHub Issue、PR 或 Discussion 中，若一条评论或 review 回复完全由
+  Codex 独立起草并直接发送，末尾另起一行标注 `由 <当次实际模型名> 回复`。
+- 用户参与该回复的拟稿、内容选择、修改或审阅时，不添加任何 AI 或模型标识。普通聊天、
+  commit message、仓库正文和其他仓库不适用这条规则。
+
+---
+> Source: [Utopia-V/mixagents](https://github.com/Utopia-V/mixagents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
