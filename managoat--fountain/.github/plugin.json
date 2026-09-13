@@ -1,0 +1,9 @@
+{
+  "name": "managoat--fountain",
+  "displayName": "fountain",
+  "description": "Run Claude Code, Codex and Gemini CLI as an HTTP API, each on its own sandbox.",
+  "version": "1.0.0",
+  "author": "managoat",
+  "homepage": "https://github.com/managoat/fountain",
+  "skills": []
+}
