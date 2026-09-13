@@ -1,0 +1,9 @@
+{
+  "name": "vintasoftware--vinta-ai-workflows",
+  "displayName": "vinta-ai-workflows",
+  "description": "A set of skills to configure the AI workflow on a new or existing project on Vinta Software",
+  "version": "1.0.0",
+  "author": "vintasoftware",
+  "homepage": "https://github.com/vintasoftware/vinta-ai-workflows",
+  "skills": []
+}
