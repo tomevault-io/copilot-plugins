@@ -1,0 +1,9 @@
+{
+  "name": "bsprenger--microduck-rl-torch",
+  "displayName": "microduck-rl-torch",
+  "description": "Portable PyTorch-native Microduck simulation and training environment powered by mujoco-torch.",
+  "version": "1.0.0",
+  "author": "bsprenger",
+  "homepage": "https://github.com/bsprenger/microduck-rl-torch",
+  "skills": []
+}
