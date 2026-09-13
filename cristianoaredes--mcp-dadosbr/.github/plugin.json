@@ -1,0 +1,9 @@
+{
+  "name": "cristianoaredes--mcp-dadosbr",
+  "displayName": "mcp-dadosbr",
+  "description": "\ud83e\udd16 Model Context Protocol (MCP) server for Brazilian public data lookup - Company (CNPJ) and postal code (CEP) information directly in Claude Desktop, Cursor, Windsurf, Continue.dev, and other AI assis",
+  "version": "1.0.0",
+  "author": "cristianoaredes",
+  "homepage": "https://github.com/cristianoaredes/mcp-dadosbr",
+  "skills": []
+}
