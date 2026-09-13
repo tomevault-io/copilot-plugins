@@ -1,0 +1,9 @@
+{
+  "name": "y0f--go-api-scaffolding",
+  "displayName": "go-api-scaffolding",
+  "description": "Opinionated Go REST API scaffold. chi, pgx/sqlc, OpenAPI, OTel, JWKS, migrations, and resource generation.",
+  "version": "1.0.0",
+  "author": "y0f",
+  "homepage": "https://github.com/y0f/go-api-scaffolding",
+  "skills": []
+}
