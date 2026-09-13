@@ -4,7 +4,7 @@
   "repo": "skillpass",
   "description": "A validated directory of AI skills to help your workflow. Post your skills and install others.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bradtraversy/skillpass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T04:31:03Z"
+  "distributed_at": "2026-09-13T04:33:15Z"
 }
