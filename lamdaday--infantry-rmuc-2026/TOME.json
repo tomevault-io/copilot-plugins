@@ -4,7 +4,7 @@
   "repo": "Infantry_RMUC_2026",
   "description": "STM32F407 RMUC 2026 infantry firmware",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LamdaDay/Infantry_RMUC_2026",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T04:32:30Z"
+  "distributed_at": "2026-09-13T04:38:10Z"
 }
