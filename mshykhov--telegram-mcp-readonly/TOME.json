@@ -4,7 +4,7 @@
   "repo": "telegram-mcp-readonly",
   "description": "Read-only Telegram MCP server. Search chats, read messages, and download attachments from any MCP client.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mshykhov/telegram-mcp-readonly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T09:44:02Z"
+  "distributed_at": "2026-09-13T09:47:30Z"
 }
