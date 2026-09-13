@@ -1,0 +1,9 @@
+{
+  "name": "simple-agent-lab--simple-long-horizon-agent",
+  "displayName": "simple-long-horizon-agent",
+  "description": "Simple Long Horizon Agent - A simple yet effective AI agent for learning, experimentation, and long horizon work.",
+  "version": "1.0.0",
+  "author": "simple-agent-lab",
+  "homepage": "https://github.com/simple-agent-lab/simple-long-horizon-agent",
+  "skills": []
+}
