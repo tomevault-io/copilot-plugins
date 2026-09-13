@@ -1,0 +1,44 @@
+{
+  "name": "The_Little_Dict_Refreshed",
+  "owner": "M3tar",
+  "repo": "The_Little_Dict_Refreshed",
+  "description": "The Little Dict \u7684\u73b0\u4ee3\u5316 UI \u7248\u672c\uff0c\u4ee5\u5361\u7247\u5f62\u5f0f\u5448\u73b0\u5355\u8bcd\u4e0e\u77ed\u8bed\u8bcd\u9891\uff0c\u652f\u6301\u54cd\u5e94\u5f0f\u5e03\u5c40\u548c\u6df1\u8272\u6a21\u5f0f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/M3tar/The_Little_Dict_Refreshed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T02:35:40Z"
+}
