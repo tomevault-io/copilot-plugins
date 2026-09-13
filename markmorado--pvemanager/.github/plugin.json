@@ -1,0 +1,9 @@
+{
+  "name": "markmorado--pvemanager",
+  "displayName": "pvemanager",
+  "description": "PVEmanager is a self-hosted platform for managing multiple Proxmox servers and clusters: VM, LXC, CT templates, SSH keys, backups, SDN networks, IPAM, RBAC v2, monitoring, and console access \u2014 all in ",
+  "version": "1.0.0",
+  "author": "markmorado",
+  "homepage": "https://github.com/markmorado/pvemanager",
+  "skills": []
+}
