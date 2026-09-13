@@ -1,0 +1,9 @@
+{
+  "name": "pyanov--frog",
+  "displayName": "frog",
+  "description": "A frog that lives on your Mac desktop and types what you say. On-device dictation, meeting notes, memory, and a voice.",
+  "version": "1.0.0",
+  "author": "Pyanov",
+  "homepage": "https://github.com/Pyanov/frog",
+  "skills": []
+}
