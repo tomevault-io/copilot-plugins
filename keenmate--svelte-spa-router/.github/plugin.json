@@ -1,0 +1,9 @@
+{
+  "name": "keenmate--svelte-spa-router",
+  "displayName": "svelte-spa-router",
+  "description": "Modern SPA router for Svelte 5 with runes, dual-mode routing (hash/history), permissions, and code-splitting. Zero config hash mode, clean URLs with history mode.",
+  "version": "1.0.0",
+  "author": "Keenmate",
+  "homepage": "https://github.com/Keenmate/svelte-spa-router",
+  "skills": []
+}
