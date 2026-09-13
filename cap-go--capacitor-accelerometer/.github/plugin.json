@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-accelerometer",
+  "displayName": "capacitor-accelerometer",
+  "description": "Capacitor plugin to read device accelerometer measurements",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-accelerometer",
+  "skills": []
+}
