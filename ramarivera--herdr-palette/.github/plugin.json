@@ -1,0 +1,9 @@
+{
+  "name": "ramarivera--herdr-palette",
+  "displayName": "herdr-palette",
+  "description": "A Rust/Ratatui fuzzy command palette for Herdr workspaces.",
+  "version": "1.0.0",
+  "author": "ramarivera",
+  "homepage": "https://github.com/ramarivera/herdr-palette",
+  "skills": []
+}
