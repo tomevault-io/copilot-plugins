@@ -5,15 +5,19 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [weijiafu14/pi2dsh](https://github.com/weijiafu14/pi2dsh).
+Original source: `CLAUDE.md` in [weijiafu14/pi2dsh](https://github.com/weijiafu14/pi2dsh).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [pi2dsh](https://github.com/weijiafu14/pi2dsh/tree/main/fixtures/complete-package/skills/fixture-skill/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/weijiafu14/pi2dsh](https://github.com/weijiafu14/pi2dsh)
 
