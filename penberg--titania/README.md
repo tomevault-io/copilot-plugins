@@ -7,11 +7,11 @@ Project Titania is a complete large language model system, from transformer to t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [penberg/titania](https://github.com/penberg/titania).
+Original source: `CLAUDE.md` in [penberg/titania](https://github.com/penberg/titania).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
