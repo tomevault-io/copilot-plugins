@@ -1,0 +1,9 @@
+{
+  "name": "tterrasson--kokopop",
+  "displayName": "kokopop",
+  "description": "A standalone C++ library and toolkit for running neural text-to-speech models in GGUF format, with no Python dependencies.",
+  "version": "1.0.0",
+  "author": "tterrasson",
+  "homepage": "https://github.com/tterrasson/kokopop",
+  "skills": []
+}
