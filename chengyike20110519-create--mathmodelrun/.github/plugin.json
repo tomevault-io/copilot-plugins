@@ -1,0 +1,9 @@
+{
+  "name": "chengyike20110519-create--mathmodelrun",
+  "displayName": "MathModelRun",
+  "description": "Evidence-driven workflow skill for math modeling contests (CUMCM/MCM/HiMCM): 10 stages, 10 default-fail gates, frozen results with provenance, and independent audit \u2014 from problem files to a defensibl",
+  "version": "1.0.0",
+  "author": "chengyike20110519-create",
+  "homepage": "https://github.com/chengyike20110519-create/MathModelRun",
+  "skills": []
+}
