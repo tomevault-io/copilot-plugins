@@ -1,0 +1,44 @@
+{
+  "name": "damai-ticket-helper",
+  "owner": "Lzhimie",
+  "repo": "damai-ticket-helper",
+  "description": "\u5927\u9ea6\u7f51\u62a2\u7968\u52a9\u624b - \u57fa\u4e8e Appium \u7684\u79fb\u52a8\u7aef\u62a2\u7968\u81ea\u52a8\u5316\u5de5\u5177\uff0c\u5e26\u53ef\u89c6\u5316\u754c\u9762",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lzhimie/damai-ticket-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T20:38:45Z"
+}
