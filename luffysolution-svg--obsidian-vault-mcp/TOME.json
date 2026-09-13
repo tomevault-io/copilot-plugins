@@ -1,0 +1,87 @@
+{
+  "name": "obsidian-vault-mcp",
+  "owner": "luffysolution-svg",
+  "repo": "obsidian-vault-mcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/paper-qa/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/paper-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/figure-qa/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/figure-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/full-read/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/full-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/passage-qa/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/passage-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/compare-papers/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/compare-papers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/concept-learning/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/concept-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-mcp",
+      "path": "src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/literature-review/SKILL.md",
+      "github_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp/tree/main/src/obsidian_vault_mcp/resources/agent_marketplace/plugins/obsidian-literature/skills/literature-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T20:30:26Z"
+}
