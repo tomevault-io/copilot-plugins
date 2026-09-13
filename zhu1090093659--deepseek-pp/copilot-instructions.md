@@ -60,6 +60,13 @@ When prose and executable behavior disagree, verify the code and tests, then upd
 - Background entrypoints are composition/lifecycle roots; domain behavior belongs in typed handlers and services.
 - Do not add broad catches, silent defaults, mock-success paths, or unlogged fallbacks to make failures disappear. Best-effort behavior must be explicit, bounded, and tested.
 
+### pi-agent-core 集成（2026-08-05 起生效）
+
+- **pi-agent-core 锁版策略**：`@earendil-works/pi-agent-core` 与 `@earendil-works/pi-ai` 必须精确锁版（无 `^`/`~`），`overrides` 钉住传递依赖；升级必须走独立 PR 并按完整验证链重跑（定向测试 → compile → prompt:freeze → build:all → verify → ci:quality），由专门 Issue 授权。
+- **pi 上下文不落持久化**：pi loop 的 context/messages 仅作当前回合工作内存；IndexedDB / localStorage / sync 的记忆与状态存储保持单一权威，pi 集成不得新增任何持久化键（`tests/pi-storage-boundary.test.ts` 守护）。
+- **StreamFn 复用 stream-codec**：DS 网页协议（SSE 分帧/事件解析/PoW/认证）的唯一权威是 `core/deepseek/stream-codec.ts` 与 `active-client.ts`；任何新的模型后端适配（StreamFn）不得复制协议逻辑，只能薄封装现有客户端。
+- **工具执行单一路径**：pi 桥接工具（`core/inline-agent/pi/tool-bridge.ts`）只通过注入的授权执行路径（background grant）向下调用；调用 source 必须携带与 grant 绑定的 requestId/chatSessionId；不得发明第二条执行路径。
+- **AGENT_* 事件协议受契约测试保护**：`tests/inline-agent-event-protocol-golden.test.ts` 是 inline agent 页面协议的逐字节基线（含全量工具记录载荷）；任何 loop 引擎变更必须保持该测试全绿。
 ## Security Baseline
 
 - Never hardcode secrets, API keys, credentials, or tokens.
@@ -106,4 +113,4 @@ README and other user-facing product documentation describe what users can do, n
 
 ---
 > Source: [zhu1090093659/deepseek-pp](https://github.com/zhu1090093659/deepseek-pp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
