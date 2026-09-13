@@ -1,0 +1,9 @@
+{
+  "name": "leezxt--stockpredictor",
+  "displayName": "StockPredictor",
+  "description": "Taiwan stock research and decision support system built with Java 17, Spring Boot 3.3, PostgreSQL 17, Flyway, Testcontainers, and Docker Compose.",
+  "version": "1.0.0",
+  "author": "leezxt",
+  "homepage": "https://github.com/leezxt/StockPredictor",
+  "skills": []
+}
