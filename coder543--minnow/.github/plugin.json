@@ -1,0 +1,9 @@
+{
+  "name": "coder543--minnow",
+  "displayName": "minnow",
+  "description": "Fast LLaDA2.2 inference server",
+  "version": "1.0.0",
+  "author": "coder543",
+  "homepage": "https://github.com/coder543/minnow",
+  "skills": []
+}
