@@ -1,0 +1,44 @@
+{
+  "name": "FakeGPS-next",
+  "owner": "Elysia-SHY",
+  "repo": "FakeGPS-next",
+  "description": "Android \u865a\u62df\u5b9a\u4f4d\u4e0e\u8def\u7ebf\u5de1\u822a\u5f15\u64ce (\u652f\u6301\u514dROOT/ROOT/LSPosed\u7cfb\u7edf\u7ea7\u589e\u5f3a\uff0cJetpack Compose \u73b0\u4ee3\u5316\u67b6\u6784)",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Elysia-SHY/FakeGPS-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T16:33:18Z"
+}
