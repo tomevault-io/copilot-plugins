@@ -1,117 +1,52 @@
 ## super-dev
 
-> Super Dev pipeline governance - research-first commercial-grade delivery. Activates when user says /super-dev or super-dev:
+> - Super Dev is a host-level workflow governor, not an LLM platform.
 
+# Super Dev IDE Rules (cline)
 
-# Super Dev Cursor 规范模板
+## Positioning
+- Super Dev is a host-level workflow governor, not an LLM platform.
+- Keep using the host's model capabilities; do not expect extra model APIs from Super Dev.
+- The host remains responsible for actual coding, tool execution, and file changes.
 
-## 项目上下文
+## Runtime Contract
+- Treat Super Dev as the local Python workflow tool plus this host rule file, not as a separate coding engine.
+- When the user says `/super-dev ...`, `super-dev: ...`, or `super-dev：...`, immediately enter the Super Dev pipeline.
+- Use host-native browse/search/web for research and host-native editing/terminal for implementation.
+- Use local `super-dev` commands when you need to generate or refresh documents, spec artifacts, quality reports, or delivery manifests.
 
-此项目使用 Super Dev 进行规范驱动开发。
+## First-Response Contract
+- On the first reply after `/super-dev ...`, `super-dev: ...`, or `super-dev：...`, explicitly state that Super Dev pipeline mode is now active rather than normal chat mode.
+- If the repository already contains `super-dev.yaml`, `.super-dev/WORKFLOW.md`, `output/*`, `.super-dev/review-state/*`, or an unfinished run state, the first natural-language requirement in a new host session must also default to continuing Super Dev rather than plain chat.
+- Before the first reply, read `.super-dev/WORKFLOW.md` and `output/*-bootstrap.md` when present, and treat them as the explicit bootstrap contract for this repository.
+- The first reply must explicitly state that the current phase is `research`, and that you will read `knowledge/` plus `output/knowledge-cache/*-knowledge-bundle.json` first when available before similar-product research.
+- The first reply must explicitly state the next sequence: research -> three core documents -> wait for user confirmation -> Spec / tasks -> frontend first with runtime verification -> backend / tests / delivery.
+- The first reply must explicitly promise that you will stop after the three core documents and wait for approval before creating Spec or writing code.
 
-**文档位置**:
-- PRD: `output/*-prd.md`
-- 架构设计: `output/*-architecture.md`
-- UI/UX 设计: `output/*-uiux.md`
-- Spec 规范: `.super-dev/specs/`
+## Local Knowledge Contract
+- Read relevant files under `knowledge/` before drafting the three core documents.
+- If `output/knowledge-cache/*-knowledge-bundle.json` exists, read it first and inherit its matched local knowledge into PRD, architecture, UIUX, Spec, and execution.
+- Treat local knowledge hits as hard project constraints, especially for standards, anti-patterns, checklists, and scenario packs.
 
-**核心原则**:
-1. 所有代码实现必须基于生成的文档
-2. 严格遵循 PRD 中定义的功能需求
-3. 实现架构文档中的技术设计
-4. 使用 UI/UX 文档中的设计系统
+## Working Agreement
+- If the host supports browse/search/web, research similar products first and write the findings into output/*-research.md.
+- Generate PRD, architecture and UIUX documents before coding, write them into output/* files, then pause and ask the user to confirm the three documents.
+- If the user requests revisions, update the documents first and ask again; do not create Spec or code before confirmation.
+- If the user requests a UI redesign or says the UI is unsatisfactory, first update `output/*-uiux.md`, then redo the frontend, and rerun frontend runtime + UI review before continuing.
+- If the user requests architecture changes, first update `output/*-architecture.md`, then realign tasks and implementation before continuing.
+- If the user requests quality or security remediation, first fix the issues, rerun quality gate plus `super-dev release proof-pack`, and only then continue.
+- Respect Spec tasks sequence.
+- Implement and run the frontend before moving into backend-heavy work.
+- Keep architecture and UIUX consistency.
 
-## 代码生成规范
-
-### 功能实现
-- ✅ 必须实现 PRD 中的所有功能需求
-- ✅ 遵循架构文档中的技术栈选择
-- ✅ 使用 UI/UX 文档中的设计 tokens
-- ❌ 不要添加 PRD 中未明确的功能
-- ❌ 不要偏离架构文档的核心设计
-
-### 代码质量
-- 遵循红队审查报告中的安全建议
-- 达到质量门禁 80+ 分标准
-- 修复所有高危和中危问题
-- 添加完整的错误处理
-
-### 测试要求
-- 单元测试覆盖率 > 80%
-- 集成测试覆盖关键路径
-- 使用项目选定的测试框架
-- 所有测试必须通过
-
-### 代码风格
-- 遵循项目现有的代码风格
-- 使用有意义的变量和函数名
-- 添加必要的代码注释
-- 函数长度不超过 50 行
-
-## 提交规范
-
-遵循 Conventional Commits:
-```
-feat: 新功能
-fix: Bug 修复
-docs: 文档更新
-refactor: 重构
-test: 测试相关
-chore: 构建/工具相关
-```
-
-## 优先级规则
-
-当文档之间存在冲突时，按以下优先级处理:
-
-1. **安全 > 性能 > 可维护性**
-2. **文档中的明确要求 > 一般最佳实践**
-3. **项目特定规范 > 通用编码规范**
-4. **PRD > 架构 > UI/UX** (功能优先)
-
-## 快速开始
-
-使用 Super Dev 生成项目后:
-
-```bash
-# 1. 生成项目资产
-super-dev pipeline "功能描述" --platform web --frontend react
-
-# 2. 在 Cursor Composer 中 (Cmd+I)
-# 粘贴 output/*-ai-prompt.md 的内容
-
-# 3. 点击 Generate，AI 会根据所有文档生成代码
-
-# 4. 审查生成的代码，确保符合所有规范
-```
-
-## 注意事项
-
-- ⚠️ 如果文档中有不明确的地方，先询问用户
-- ⚠️ 不要假设需求，严格按照文档实现
-- ⚠️ 生成的代码应该可以直接运行
-- ⚠️ 包含必要的配置文件和依赖说明
-
-
-# Super Dev Pipeline Rules
-- When the user triggers `/super-dev ...`, enter Super Dev pipeline mode immediately.
-- Start with research and write output/*-research.md as a real file in the repository.
-- Always read and maintain output/*-prd.md, output/*-architecture.md, and output/*-uiux.md as source-of-truth project files.
-- Summarize the three core documents to the user and wait for user confirmation before creating Spec/tasks or writing code.
-- Create Spec/tasks only after confirmation.
-- Execute frontend-first delivery before backend/database tasks, then run quality gate before release.
-- Before any UI implementation, first lock the icon library, typography, design token system, component ecosystem, and page skeleton from output/*-uiux.md.
-- Do not use emoji as functional icons or placeholders.
-- For non-conversational AI products, avoid Claude / ChatGPT-style sidebar chat shells unless the UI plan explicitly justifies them.
-- Keep using the component ecosystem and design token direction defined in output/*-uiux.md rather than switching ad hoc.
-- If `.super-dev/SESSION_BRIEF.md` exists, read it before responding and keep the current Super Dev gate active across follow-up edits.
-
-## Coding Constraints (active during ALL coding phases)
-- Before writing ANY code, run `cat package.json` to check framework versions. If unsure, read official docs first.
-- Icons MUST come from Lucide/Heroicons/Tabler. No emoji as icons. No purple/pink gradient themes.
-- Frontend fetch URLs must exactly match backend route definitions.
-- Before writing each file: correct imports, no emoji, colors from tokens only.
-- After completing a feature, run build + lint. Fix errors before moving on.
+## Delivery Criteria
+- Frontend can be demonstrated early.
+- Backend and migration scripts match specs.
+- Security/performance checks are resolved.
+- Quality gate threshold is met for the current scenario.
+- UI must avoid AI-looking output (purple/pink gradient-first theme, emoji as icons, default-font-only pages).
+- UI must define typography, tokens, grid, component states and trust signals before page implementation.
+- Prefer the component ecosystem and implementation baseline recommended in output/*-uiux.md instead of switching UI libraries ad hoc.
 
 ## Super Dev System Flow Contract
 - SUPER_DEV_FLOW_CONTRACT_V1
@@ -122,4 +57,4 @@ super-dev pipeline "功能描述" --platform web --frontend react
 
 ---
 > Source: [shangyankeji/super-dev](https://github.com/shangyankeji/super-dev) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
