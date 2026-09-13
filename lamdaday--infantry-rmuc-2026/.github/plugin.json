@@ -1,0 +1,9 @@
+{
+  "name": "lamdaday--infantry-rmuc-2026",
+  "displayName": "Infantry_RMUC_2026",
+  "description": "STM32F407 RMUC 2026 infantry firmware",
+  "version": "1.0.0",
+  "author": "LamdaDay",
+  "homepage": "https://github.com/LamdaDay/Infantry_RMUC_2026",
+  "skills": []
+}
