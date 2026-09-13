@@ -1,0 +1,321 @@
+{
+  "name": "flutter-ai-harness",
+  "owner": "bladeofgod",
+  "repo": "flutter-ai-harness",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/dev-menu/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/dev-menu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/dev-menu/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/dev-menu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/go-router/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/go-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/go-router/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/go-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/plan-spec/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/plan-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/plan-tasks/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/plan-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/plan-figma/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/plan-figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/review-batch/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/review-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/getx-patterns/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/getx-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/getx-patterns/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/getx-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/check-release/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/check-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/execute-tasks/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/execute-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/review-changes/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/review-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/flutter-layouts/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/flutter-layouts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/flutter-layouts/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/flutter-layouts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/execute-ui-spec/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/execute-ui-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/review-security/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/review-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/ui-behavior-spec/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/ui-behavior-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/figma-to-flutter/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/figma-to-flutter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/testing-strategy/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/marionette-debug/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/marionette-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/flutter-app-size/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/flutter-app-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/testing-strategy/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/figma-to-flutter/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/figma-to-flutter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/ui-behavior-spec/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/ui-behavior-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/marionette-debug/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/marionette-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/flutter-app-size/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/flutter-app-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/protobuf-workflow/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/protobuf-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/protobuf-workflow/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/protobuf-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/flutter-animations/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/flutter-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/flutter-animations/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/flutter-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/swift-ios-standards/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/swift-ios-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/flutter-concurrency/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/flutter-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/flutter-concurrency/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/flutter-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/swift-ios-standards/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/swift-ios-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/fix-review-findings/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/fix-review-findings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/dart-coding-standards/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/dart-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/flutter-debug-runtime/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/flutter-debug-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/dart-coding-standards/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/dart-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/flutter-debug-runtime/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/flutter-debug-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/native-testing-strategy/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/native-testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/flutter-android-install/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/flutter-android-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/flutter-android-install/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/flutter-android-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/native-testing-strategy/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/native-testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".claude/skills/kotlin-android-standards/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.claude/skills/kotlin-android-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter-ai-harness",
+      "path": ".agents/skills/kotlin-android-standards/SKILL.md",
+      "github_url": "https://github.com/bladeofgod/flutter-ai-harness/tree/main/.agents/skills/kotlin-android-standards/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bladeofgod/flutter-ai-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:35:13Z"
+}
