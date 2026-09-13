@@ -1,0 +1,46 @@
+## liora
+
+> - `app/pages` holds Nuxt page routes; `app/components` stores shared UI; `app/assets/css/main.css` carries Tailwind-driven styles; `app/types` contains shared TypeScript contracts (e.g., `~/types/file`).
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+- `app/pages` holds Nuxt page routes; `app/components` stores shared UI; `app/assets/css/main.css` carries Tailwind-driven styles; `app/types` contains shared TypeScript contracts (e.g., `~/types/file`).
+- `server/api` exposes Nitro endpoints, with file listing/upload flows in `files.get.ts` and `files.post.ts`; `server/utils` wraps Drizzle (`db.ts`) and S3-compatible storage access (`s3.ts`).
+- Database schema lives in `server/database/schema.ts`; Drizzle migrations are stored in `drizzle/`; `data/data.db` is the default local SQLite file.
+- `public/` serves static assets; `nuxt.config.ts` centralizes runtime config (storage credentials, module setup).
+
+## Build, Test, and Development Commands
+
+- Use pnpm for all tasks: `pnpm install`.
+- Local dev: `pnpm dev` (<http://localhost:3000>). Production bundle: `pnpm build`; preview: `pnpm preview`. Static export when needed: `pnpm generate`.
+- Database workflow: `pnpm run db:generate` to create migrations from the schema; `pnpm run db:migrate` to apply migrations to the target database.
+- After every code change, always run `pnpm exec eslint .` and `pnpm exec nuxi typecheck`; consider the task complete only when both pass.
+- Testing: run Vitest (add it if missing) with Nuxt test utils, e.g., `pnpm exec vitest`. Keep CI fast; prefer `--runInBand` when hitting the real DB.
+
+## Coding Style & Naming Conventions
+
+- TypeScript everywhere; prefer `<script setup>` in `.vue` files. Components in `PascalCase`, composables in `useXxx.ts`, server handlers in `verb.resource.ts`.
+- Two-space indentation; keep imports ordered and explicit. Run linting with `pnpm exec eslint .` (configured via `@nuxt/eslint` and `.nuxt/eslint.config.mjs`).
+- Favor Tailwind utility classes in `main.css`; keep UI minimal (no heavy gradients/shadows). Reuse `~/types` and `~/components` instead of redefining shapes.
+
+## Testing Guidelines
+
+- Place specs under `tests/` or alongside features as `*.spec.ts`. Use Vitest with `@nuxt/test-utils` for pages/server endpoints; mock Drizzle database calls and S3 uploads for unit tests.
+- Include coverage for data shaping (metadata parsing, character list normalization) and API validation branches. Keep fixtures small and deterministic.
+
+## Commit & Pull Request Guidelines
+
+- Follow Conventional Commits (`feat:`, `fix:`, `chore:`). Keep commits focused and rebased.
+- Before opening a PR, run `pnpm exec eslint .` and `pnpm exec vitest`; summarize behavior changes, link issues, and add screenshots for UI shifts.
+- Note schema or config changes in the PR description; include migration names and any new env vars.
+
+## Security & Configuration Tips
+
+- Store secrets in `.env`/`.env.local` (never commit). Required variables: `DATABASE_URL` (defaults to `data/data.db`), `S3_ENDPOINT`, `S3_BUCKET`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`; optional `DATABASE_AUTH_TOKEN` for LibSQL/Turso and `S3_PUBLIC_BASE_URL`—any S3-compatible service with matching endpoint/keys works.
+- Validate S3-compatible credentials before uploading; when debugging locally, rely on the default SQLite file instead of production URLs.
+
+---
+> Source: [Jannchie/liora](https://github.com/Jannchie/liora) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
