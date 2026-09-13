@@ -1,0 +1,9 @@
+{
+  "name": "mshykhov--telegram-mcp-readonly",
+  "displayName": "telegram-mcp-readonly",
+  "description": "Read-only Telegram MCP server. Search chats, read messages, and download attachments from any MCP client.",
+  "version": "1.0.0",
+  "author": "mshykhov",
+  "homepage": "https://github.com/mshykhov/telegram-mcp-readonly",
+  "skills": []
+}
