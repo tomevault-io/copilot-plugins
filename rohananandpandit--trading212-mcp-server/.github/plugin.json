@@ -1,0 +1,14 @@
+{
+  "name": "rohananandpandit--trading212-mcp-server",
+  "displayName": "trading212-mcp-server",
+  "description": "trading212-mcp-server",
+  "version": "1.0.0",
+  "author": "RohanAnandPandit",
+  "homepage": "https://github.com/RohanAnandPandit/trading212-mcp-server",
+  "skills": [
+    {
+      "name": "trading212-mcp-server",
+      "description": ""
+    }
+  ]
+}
