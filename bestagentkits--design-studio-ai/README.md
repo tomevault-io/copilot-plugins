@@ -7,11 +7,11 @@ Open-source design workspace for AI agents and humans. Cloud editing, 3D, motion
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bestagentkits/design-studio-ai](https://github.com/bestagentkits/design-studio-ai).
+Original source: `CLAUDE.md` in [bestagentkits/design-studio-ai](https://github.com/bestagentkits/design-studio-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
