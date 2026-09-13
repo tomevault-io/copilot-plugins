@@ -1,0 +1,57 @@
+{
+  "name": "riftcoach-agent",
+  "owner": "123Cx330Yrx",
+  "repo": "riftcoach-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "riftcoach-agent",
+      "path": "skills/recent-form-review/SKILL.md",
+      "github_url": "https://github.com/123Cx330Yrx/riftcoach-agent/tree/main/skills/recent-form-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "riftcoach-agent",
+      "path": "skills/single-match-review/SKILL.md",
+      "github_url": "https://github.com/123Cx330Yrx/riftcoach-agent/tree/main/skills/single-match-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/123Cx330Yrx/riftcoach-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T20:36:02Z"
+}
