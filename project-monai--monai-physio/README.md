@@ -7,11 +7,11 @@ Generate anatomic models in Omniverse with physiological motion derived from med
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Project-MONAI/monai-physio](https://github.com/Project-MONAI/monai-physio).
+Original source: `AGENTS.md` in [Project-MONAI/monai-physio](https://github.com/Project-MONAI/monai-physio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
