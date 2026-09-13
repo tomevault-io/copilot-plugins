@@ -1,0 +1,14 @@
+{
+  "name": "xiaopu-ai--web-design",
+  "displayName": "web-design",
+  "description": "web-design",
+  "version": "1.0.0",
+  "author": "xiaopu-ai",
+  "homepage": "https://github.com/xiaopu-ai/web-design",
+  "skills": [
+    {
+      "name": "web-design",
+      "description": ""
+    }
+  ]
+}
