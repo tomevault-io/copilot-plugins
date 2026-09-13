@@ -1,0 +1,44 @@
+{
+  "name": "IvyClaw",
+  "owner": "ivyfan-toowell",
+  "repo": "IvyClaw",
+  "description": "A production-oriented multi-agent AI Agent system for software engineering.  |   \u9762\u5411\u8f6f\u4ef6\u7814\u53d1\u4efb\u52a1\u7684\u591a\u667a\u80fd\u4f53 AI Agent \u5de5\u7a0b\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ivyfan-toowell/IvyClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T09:48:23Z"
+}
