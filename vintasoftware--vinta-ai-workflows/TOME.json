@@ -1,0 +1,44 @@
+{
+  "name": "vinta-ai-workflows",
+  "owner": "vintasoftware",
+  "repo": "vinta-ai-workflows",
+  "description": "A set of skills to configure the AI workflow on a new or existing project on Vinta Software",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vintasoftware/vinta-ai-workflows",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T09:43:26Z"
+}
