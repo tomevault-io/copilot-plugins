@@ -1,0 +1,9 @@
+{
+  "name": "yuyou-dev--opengemcutting",
+  "displayName": "OpenGemCutting",
+  "description": "Open-source 96-index parametric gemstone faceting workbench with GemCad ASC, presets, PDF reports and optical simulation.",
+  "version": "1.0.0",
+  "author": "yuyou-dev",
+  "homepage": "https://github.com/yuyou-dev/OpenGemCutting",
+  "skills": []
+}
