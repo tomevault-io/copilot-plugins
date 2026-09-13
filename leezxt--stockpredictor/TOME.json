@@ -4,7 +4,7 @@
   "repo": "StockPredictor",
   "description": "Taiwan stock research and decision support system built with Java 17, Spring Boot 3.3, PostgreSQL 17, Flyway, Testcontainers, and Docker Compose.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leezxt/StockPredictor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T04:35:11Z"
+  "distributed_at": "2026-09-13T04:39:26Z"
 }
