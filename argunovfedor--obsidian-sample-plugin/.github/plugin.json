@@ -1,0 +1,9 @@
+{
+  "name": "argunovfedor--obsidian-sample-plugin",
+  "displayName": "obsidian-sample-plugin",
+  "description": "obsidian-sample-plugin",
+  "version": "1.0.0",
+  "author": "ArgunovFedor",
+  "homepage": "https://github.com/ArgunovFedor/obsidian-sample-plugin",
+  "skills": []
+}
