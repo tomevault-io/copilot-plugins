@@ -1,0 +1,44 @@
+{
+  "name": "tkzmux",
+  "owner": "tkz0",
+  "repo": "tkzmux",
+  "description": "Native macOS session manager for Claude Code: one window, a terminal per session, status from Claude's own hooks. Metal renderer on libghostty-vt.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tkz0/tkzmux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T17:31:51Z"
+}
