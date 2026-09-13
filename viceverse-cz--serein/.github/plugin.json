@@ -1,0 +1,9 @@
+{
+  "name": "viceverse-cz--serein",
+  "displayName": "Serein",
+  "description": "Tiny, Performant & 100% Native client for Discord made in Rust",
+  "version": "1.0.0",
+  "author": "ViceVerse-cz",
+  "homepage": "https://github.com/ViceVerse-cz/Serein",
+  "skills": []
+}
