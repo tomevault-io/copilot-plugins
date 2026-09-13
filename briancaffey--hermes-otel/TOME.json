@@ -1,0 +1,75 @@
+{
+  "name": "hermes-otel",
+  "owner": "briancaffey",
+  "repo": "hermes-otel",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hermes-otel",
+      "path": ".claude/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/briancaffey/hermes-otel/tree/main/.claude/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-otel",
+      "path": ".claude/skills/hermes-otel-pr/SKILL.md",
+      "github_url": "https://github.com/briancaffey/hermes-otel/tree/main/.claude/skills/hermes-otel-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-otel",
+      "path": "hermes_otel/skills/observability/SKILL.md",
+      "github_url": "https://github.com/briancaffey/hermes-otel/tree/main/hermes_otel/skills/observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-otel",
+      "path": ".claude/skills/hermes-otel-validate/SKILL.md",
+      "github_url": "https://github.com/briancaffey/hermes-otel/tree/main/.claude/skills/hermes-otel-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-otel",
+      "path": ".claude/skills/hermes-otel-backends/SKILL.md",
+      "github_url": "https://github.com/briancaffey/hermes-otel/tree/main/.claude/skills/hermes-otel-backends/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/briancaffey/hermes-otel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T23:37:12Z"
+}
