@@ -1,0 +1,9 @@
+{
+  "name": "chatbotkit--studio",
+  "displayName": "studio",
+  "description": "A modern, sovereign AI workspace running locally on your desktop.",
+  "version": "1.0.0",
+  "author": "chatbotkit",
+  "homepage": "https://github.com/chatbotkit/studio",
+  "skills": []
+}
