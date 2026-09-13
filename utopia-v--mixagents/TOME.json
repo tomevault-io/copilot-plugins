@@ -1,0 +1,69 @@
+{
+  "name": "mixagents",
+  "owner": "Utopia-V",
+  "repo": "mixagents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mixagents",
+      "path": ".agents/skills/maintain-mixagents/SKILL.md",
+      "github_url": "https://github.com/Utopia-V/mixagents/tree/main/.agents/skills/maintain-mixagents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mixagents",
+      "path": ".agents/skills/design-agent-systems/SKILL.md",
+      "github_url": "https://github.com/Utopia-V/mixagents/tree/main/.agents/skills/design-agent-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mixagents",
+      "path": "packages/broker/plugin/mixagents-broker/skills/broker/SKILL.md",
+      "github_url": "https://github.com/Utopia-V/mixagents/tree/main/packages/broker/plugin/mixagents-broker/skills/broker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mixagents",
+      "path": "packages/codex-deepseek-subagent/skills/use-v4-flash-worker/SKILL.md",
+      "github_url": "https://github.com/Utopia-V/mixagents/tree/main/packages/codex-deepseek-subagent/skills/use-v4-flash-worker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Utopia-V/mixagents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T20:31:39Z"
+}
