@@ -1,0 +1,9 @@
+{
+  "name": "pablo-gitub--optees",
+  "displayName": "optees",
+  "description": "Optees is an open-source desktop toolkit for optimization: LP (SciPy/HiGHS), MILP (OR-Tools CP-SAT), and 0/1 knapsack. Clean Architecture, TDD, dataset adapters (LPnetlib, MIPLIB, Burkardt). Minimal A",
+  "version": "1.0.0",
+  "author": "Pablo-gitub",
+  "homepage": "https://github.com/Pablo-gitub/optees",
+  "skills": []
+}
