@@ -1,0 +1,14 @@
+{
+  "name": "originaleric--dig-ui-skill",
+  "displayName": "dig-ui-skill",
+  "description": "dig-ui-skill",
+  "version": "1.0.0",
+  "author": "originaleric",
+  "homepage": "https://github.com/originaleric/dig-ui-skill",
+  "skills": [
+    {
+      "name": "dig-ui-skill",
+      "description": ""
+    }
+  ]
+}
