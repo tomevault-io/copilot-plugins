@@ -4,7 +4,7 @@
   "repo": "mesh-client",
   "description": "Meshtastic Client for TrimUI Brick",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mcereal/mesh-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T17:32:52Z"
+  "distributed_at": "2026-09-13T17:34:21Z"
 }
