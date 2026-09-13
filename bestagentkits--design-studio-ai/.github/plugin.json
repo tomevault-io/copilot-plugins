@@ -1,0 +1,9 @@
+{
+  "name": "bestagentkits--design-studio-ai",
+  "displayName": "design-studio-ai",
+  "description": "Open-source design workspace for AI agents and humans. Cloud editing, 3D, motion, MCP, WebMCP, CLI and BYOK. MIT.",
+  "version": "1.0.0",
+  "author": "bestagentkits",
+  "homepage": "https://github.com/bestagentkits/design-studio-ai",
+  "skills": []
+}
