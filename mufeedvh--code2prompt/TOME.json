@@ -1,0 +1,87 @@
+{
+  "name": "code2prompt",
+  "owner": "mufeedvh",
+  "repo": "code2prompt",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code2prompt",
+      "path": "skills/code2prompt/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/skills/code2prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code2prompt",
+      "path": ".agents/skills/verify-cli/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/.agents/skills/verify-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code2prompt",
+      "path": ".agents/skills/verify-core/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/.agents/skills/verify-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code2prompt",
+      "path": ".agents/skills/verify-python/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/.agents/skills/verify-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code2prompt",
+      "path": ".agents/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/.agents/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code2prompt",
+      "path": ".agents/skills/verify-website/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/.agents/skills/verify-website/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code2prompt",
+      "path": ".agents/skills/code2prompt-conventions/SKILL.md",
+      "github_url": "https://github.com/mufeedvh/code2prompt/tree/main/.agents/skills/code2prompt-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mufeedvh/code2prompt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:31:31Z"
+}
