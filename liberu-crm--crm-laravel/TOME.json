@@ -3,8 +3,8 @@
   "owner": "liberu-crm",
   "repo": "crm-laravel",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,57 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/pest-testing/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/pest-testing/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/octane-development/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/octane-development/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/fortify-development/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/fortify-development/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/configuring-horizon/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/configuring-horizon/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/livewire-development/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/livewire-development/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/socialite-development/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/socialite-development/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/laravel-best-practices/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "path": ".claude/skills/tailwindcss-development/SKILL.md",
-      "github_url": "https://github.com/liberu-crm/crm-laravel/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/liberu-crm/crm-laravel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T20:04:57Z"
+  "distributed_at": "2026-09-13T08:35:33Z"
 }
