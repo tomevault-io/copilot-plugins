@@ -2,9 +2,9 @@
   "name": "super-dev",
   "owner": "shangyankeji",
   "repo": "super-dev",
-  "description": "Engineering workflow layer for AI coding tools with specs, review, quality gates, and traceability.\u4e3a AI \u7f16\u7a0b\u5de5\u5177\u63d0\u4f9b\u5de5\u7a0b\u5316\u6d41\u7a0b\u3001\u8d28\u91cf\u95e8\u7981\u4e0e\u53ef\u8ffd\u6eaf\u80fd\u529b\u3002",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,63 @@
       "path": ".claude/skills/super-dev",
       "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.claude/skills/super-dev",
       "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": ".claude/skills/super-dev/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.claude/skills/super-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": ".agents/skills/super-dev/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.agents/skills/super-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": ".cline/skills/super-dev-core/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.cline/skills/super-dev-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": ".agents/skills/super-dev-seeai/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.agents/skills/super-dev-seeai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": ".kilocode/skills/super-dev-core/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.kilocode/skills/super-dev-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": "plugins/super-dev-codex/skills/super-dev/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/plugins/super-dev-codex/skills/super-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": "plugins/super-dev-claude/skills/super-dev/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/plugins/super-dev-claude/skills/super-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": "plugins/super-dev-codex/skills/super-dev-seeai/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/plugins/super-dev-codex/skills/super-dev-seeai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "super-dev",
+      "path": ".github/skills/super-dev-core/SKILL.md",
+      "github_url": "https://github.com/shangyankeji/super-dev/tree/main/.github/skills/super-dev-core/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/shangyankeji/super-dev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:03:08Z"
+  "distributed_at": "2026-09-13T10:40:26Z"
 }
