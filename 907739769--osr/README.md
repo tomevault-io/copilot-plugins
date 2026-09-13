@@ -2,8 +2,6 @@
 
 > Source: [907739769/OSR](https://github.com/907739769/OSR). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-网盘影视订阅下载平台
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
