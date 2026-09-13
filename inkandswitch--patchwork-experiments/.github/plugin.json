@@ -1,0 +1,9 @@
+{
+  "name": "inkandswitch--patchwork-experiments",
+  "displayName": "patchwork-experiments",
+  "description": "experimental packages for the Patchwork system",
+  "version": "1.0.0",
+  "author": "inkandswitch",
+  "homepage": "https://github.com/inkandswitch/patchwork-experiments",
+  "skills": []
+}
