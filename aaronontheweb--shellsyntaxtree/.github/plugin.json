@@ -1,0 +1,9 @@
+{
+  "name": "aaronontheweb--shellsyntaxtree",
+  "displayName": "ShellSyntaxTree",
+  "description": "pure C# abstract syntax tree representation for parsing shell commands. Supports bash and PowerShell.",
+  "version": "1.0.0",
+  "author": "Aaronontheweb",
+  "homepage": "https://github.com/Aaronontheweb/ShellSyntaxTree",
+  "skills": []
+}
