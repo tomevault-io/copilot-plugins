@@ -1,0 +1,14 @@
+{
+  "name": "ankit--stylebot",
+  "displayName": "stylebot",
+  "description": "stylebot",
+  "version": "1.0.0",
+  "author": "ankit",
+  "homepage": "https://github.com/ankit/stylebot",
+  "skills": [
+    {
+      "name": "stylebot",
+      "description": ""
+    }
+  ]
+}
