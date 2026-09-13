@@ -1,0 +1,44 @@
+{
+  "name": "SymPerturb",
+  "owner": "zfrory15-max",
+  "repo": "SymPerturb",
+  "description": "SymPerturb is an open framework for converting symptom-network structure into testable intervention priorities using virtual knockout, knockdown, dosage, communication blocking, combination perturbation, sequence optimisation, and VPPS ranking",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zfrory15-max/SymPerturb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T08:49:36Z"
+}
