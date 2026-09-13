@@ -1,0 +1,9 @@
+{
+  "name": "yuanzhw--ai-bioworkflow",
+  "displayName": "AI-bioworkflow",
+  "description": "Auditable bioinformatics workflow compiler: Catalog-bound planning, Workflow IR, and validated WDL 1.0.",
+  "version": "1.0.0",
+  "author": "yuanzhw",
+  "homepage": "https://github.com/yuanzhw/AI-bioworkflow",
+  "skills": []
+}
