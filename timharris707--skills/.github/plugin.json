@@ -1,0 +1,9 @@
+{
+  "name": "timharris707--skills",
+  "displayName": "skills",
+  "description": "23 practical agent skills: TeamWorkflow, multi-model review, media ingestion, and writing. Original Claude Code packages plus a Codex desktop edition tuned for Astra. Source for clickai.dev.",
+  "version": "1.0.0",
+  "author": "timharris707",
+  "homepage": "https://github.com/timharris707/skills",
+  "skills": []
+}
