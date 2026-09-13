@@ -1,0 +1,81 @@
+## mindmeld-with-fly
+
+> GitHub: https://github.com/Decentricity/mindmeld-with-fly
+
+# mindmeld-with-fly
+
+GitHub: https://github.com/Decentricity/mindmeld-with-fly
+
+# Connectome (mindmeld Phase 1)
+
+Memorable path: `/home/decentricity/mindmeld-with-fly`  
+Package: `mindmeld`  
+Env: `source /home/decentricity/mindmeld-with-fly/.venv/bin/activate`
+
+## Setup
+
+```bash
+cd /home/decentricity/mindmeld-with-fly
+source .venv/bin/activate
+python -m mindmeld.download
+python -m mindmeld.environment
+python -m mindmeld.preprocess   # schemas + unsigned + fast_nt_signed caches
+python -m mindmeld.oruk         # Oruk-like ~499 SCC approximation
+```
+
+## Simulate
+
+```bash
+python -m mindmeld.simulate --graph oruk499 --steps 10000 --device cuda
+python -m mindmeld.simulate --graph full --weighting unsigned --steps 10000 --device cuda
+python -m mindmeld.simulate --graph full --weighting fast_nt_signed --steps 10000 --device cuda
+```
+
+## Tests / acceptance
+
+```bash
+pytest -q
+python -m mindmeld.accept
+```
+
+Phase 1 is a hard checkpoint. Do not start EEG / stick-figure work until acceptance prints `PHASE 1: PASS`.
+
+## Phase 1.5B
+
+In tmux, use the same libcaca policy as `mplay-caca` (`CACA_DRIVER=slang`):
+
+```bash
+living-caca --graph full
+# or:
+python -m mindmeld.living --renderer caca --graph full
+python -m mindmeld.living --renderer caca --graph full --demo --seconds 12 --record recordings/living_demo.npz
+python -m mindmeld.living --replay recordings/living_demo.npz --seconds 8
+```
+
+Camera: **Tab** toggles `triad` (XY|XZ|YZ + orbit peek) ↔ `orbit` (single rotatable view). In orbit: `,`/`.` yaw, `j`/`k` pitch.
+
+Toggle announcements use `/home/decentricity/bin/say-alert` (RHVoice / speech-dispatcher — **not** Piper / GPU). Pass `--mute` to silence; `--demo` is muted by default.
+
+**R** records activity NPZ **and** headless GPU cinema MP4 by default (`recordings/living_cinema_<timestamp>.mp4`). Opt out with `--no-cinema`. Overrides: `--cinema-mp4`, `--cinema-size 1280x720`, `--cinema-every N`.
+
+Phase II EEG mind-meld is developed in `https://github.com/Decentricity/mindmeld-with-fly` (local: `/home/decentricity/mindmeld-with-fly`). Fruit-fly swarm remains back-burner.
+
+
+## Phase II — EEG mind-meld (on top of living)
+
+Same living libcaca loop and keys (`Tab` camera, `R` record, `r` reset).
+Optional EEG drive + HUMAN pane:
+
+```bash
+./scripts/living-caca --graph full
+./scripts/mindmeld-caca --eeg-source synthetic --seconds 12 --mute
+./scripts/mindmeld-caca --mac 00:55:DA:B5:E9:46
+# or:
+python -m mindmeld.living --renderer caca --graph full --eeg-source live_muse --mac 00:55:DA:B5:E9:46
+```
+
+Extra keys when EEG is on: `e` inject toggle, `t` rest mode, `m` mark.
+
+---
+> Source: [Decentricity/mindmeld-with-fly](https://github.com/Decentricity/mindmeld-with-fly) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
