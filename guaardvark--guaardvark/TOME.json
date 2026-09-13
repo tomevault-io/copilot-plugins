@@ -1,0 +1,135 @@
+{
+  "name": "guaardvark",
+  "owner": "guaardvark",
+  "repo": "guaardvark",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/ops/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/code/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/cast/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/cast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/video/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/voice/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/swarm/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/swarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/image/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/setup/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/music/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/music/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/models/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/upscale/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/upscale/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/outreach/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/knowledge/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/film-crew/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/film-crew/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guaardvark",
+      "path": ".agents/skills/music-video/SKILL.md",
+      "github_url": "https://github.com/guaardvark/guaardvark/tree/main/.agents/skills/music-video/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/guaardvark/guaardvark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:33:54Z"
+}
