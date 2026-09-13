@@ -1,0 +1,9 @@
+{
+  "name": "gregsramblings--ios-charging-monitor",
+  "displayName": "ios-charging-monitor",
+  "description": "Live iPhone charging watts from the PMU and charger sensors via private APIs. Dev-signed only.",
+  "version": "1.0.0",
+  "author": "gregsramblings",
+  "homepage": "https://github.com/gregsramblings/ios-charging-monitor",
+  "skills": []
+}
