@@ -4,7 +4,7 @@
   "repo": "flutter-ai-harness",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -317,5 +317,5 @@
   ],
   "source_url": "https://github.com/bladeofgod/flutter-ai-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T21:35:13Z"
+  "distributed_at": "2026-09-13T23:34:16Z"
 }
