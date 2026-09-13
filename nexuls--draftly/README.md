@@ -5,15 +5,20 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nexuls/draftly](https://github.com/nexuls/draftly).
+Original source: `CLAUDE.md` in [nexuls/draftly](https://github.com/nexuls/draftly).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [draftly](https://github.com/nexuls/draftly/tree/main/.agents/skills/turborepo/SKILL.md)
+- [draftly](https://github.com/nexuls/draftly/tree/main/.agents/skills/codemirror/SKILL.md)
 
 From [nexuls/draftly](https://github.com/nexuls/draftly) — a repo with 52+ stars on GitHub.
 
