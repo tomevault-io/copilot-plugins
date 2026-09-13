@@ -1,0 +1,9 @@
+{
+  "name": "openpolyfill--webhid",
+  "displayName": "WebHID",
+  "description": "Brings the WebHID API to Firefox, letting websites talk directly to HID devices like controllers and stream decks via a fast local daemon.",
+  "version": "1.0.0",
+  "author": "OpenPolyfill",
+  "homepage": "https://github.com/OpenPolyfill/WebHID",
+  "skills": []
+}
