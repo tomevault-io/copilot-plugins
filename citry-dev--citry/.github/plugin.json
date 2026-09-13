@@ -1,0 +1,9 @@
+{
+  "name": "citry-dev--citry",
+  "displayName": "citry",
+  "description": "Fully typed frontend framework for Python with server events and Alpine.js, inspired by Vue and Livewire.",
+  "version": "1.0.0",
+  "author": "citry-dev",
+  "homepage": "https://github.com/citry-dev/citry",
+  "skills": []
+}
