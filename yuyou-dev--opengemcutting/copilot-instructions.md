@@ -1,0 +1,81 @@
+## opengemcutting
+
+> - 主动运行本地服务并在环境内浏览器验证；不要把可代执行的启动步骤留给用户。
+
+# OpenGemCutting — Agent Instructions
+
+## 工作方式
+
+- 主动运行本地服务并在环境内浏览器验证；不要把可代执行的启动步骤留给用户。
+- 开发和预览只能绑定 `127.0.0.1`，使用操作系统分配的高位临时端口。
+- UI 代码放在 `src/`。保持 `.openai/hosting.json`、`worker/index.js`、`scripts/prepare-sites-build.mjs` 和 `tests/sites-worker.test.mjs` 的 Sites 交付链路可用。
+- 修改前先检查脏工作区并保留用户已有改动。实现优先简洁，不引入过度防御性抽象。
+- 所有功能变更必须进入对应职责模块，记录设计目的、行为变化与验证结果，并补充匹配风险的回归。设计能力放 application/domain，协议放 mcp，安装升级放 setup；skill 只编排正式能力。不得用临时脚本、复制算法或不断追加 skill 例外替代模块更新。公开发行使用同源模块，发行差异限于明确的配置及文档。
+- 依赖保持 UI → domain → mesh：领域和几何不反向引用组件、React、DOM 或 p5，不引入静态模块循环。派生缓存绑定不可变实体及完整计算参数，输入变化即失效；新增统计或出口先区分初始晶体面片、逻辑 CUT 平面与渲染三角形，再写对应回归。
+- 大幅视觉改动且目标不明确时先使用 Product Design 能力获取上下文；从选定效果图实现时，把效果图作为布局、密度、间距、颜色、字体、内容和层级的视觉真值。
+- 文档入口与职责以 [docs/README.md](docs/README.md) 为准：状态归属、CUT 交互与最终有效面语义写入 `docs/architecture/state-contract.md`，视觉与版式写入 `docs/architecture/design-system.md`，ASC 转换写入 `docs/architecture/gemcad-asc.md`，预设收录写入 `docs/architecture/preset-library.md`，其余领域和仓库约束写入本文件。一次性 QA 证据放在被忽略的 `tmp/`，不要提交临时报告。
+- 全局状态归属与 CUT 交互一律遵守 `docs/architecture/state-contract.md` 的契约：新增 CUT 交互与状态变更必须先按其中流程评审事件与能力位。
+
+## 验收
+
+- 常规与 Sites 交付统一运行 `npm run check`；`npm run test:sites` 仅用于单独诊断 Sites 产物。
+- 构建必须留下 `dist/client/index.html`、`dist/server/index.js` 和 `dist/.openai/hosting.json`。
+- 仓库不保留浏览器自动化依赖。需要截图回归时用 `npm i --no-save puppeteer-core` 和系统 Chrome，脚本写入 `tmp/`；WebGL 无头测试使用 `--use-angle=swiftshader`。
+
+## 面向设计师的开发与验收契约
+
+- 最终操作者是宝石切型设计师。每项功能先说明设计目标、当前创作障碍和预期可观察的造型或工作流变化，再选择交互与技术实现；不以“按钮能点通”替代“设计师能完成设计”。
+- 面向使用者的界面、帮助、操作手册、示例与验收材料，以设计任务和真实案例组织。每个案例给出可复现的起点、设计意图、清楚的操作入口、前后对比与判断问题；解释术语的设计用途，避免让操作者承担内部状态、算法或数据模型知识。
+- 关键动作必须有明确可见的入口与反馈，不能依赖读数、低对比文字、悬停提示或培训才能发现。禁用、预览、锁定与保存要表达对当前设计的实际影响；入口视觉规范归 `docs/architecture/design-system.md`，事件与能力边界归 `docs/architecture/state-contract.md`。
+- 工程回归和设计师验收分开记录。工程测试验证求解、性能、持久化与边界；设计师验收验证入口可发现性、目标理解、完成设计的能力、视觉对比和可恢复性。功能项全通过仍可判定体验待修复，不替设计师代填主观结果。
+- 设计案例的 JSON、截图和参数必须对应真实可执行版本；不能用抽象默认毛坯操作冒充完整创意案例，也不能把仿真图当作实际切磨、光学收益或审美优劣的保证。前后比较应说明保持不变的观察条件，让设计师自行判断取舍。
+- 修改交互或规则时同步受影响的帮助、手册、示例和验收入口，更新截图并重新生成 PDF；替换过时物料的推荐入口。提交前核对代码、状态契约、视觉规范和用户物料的一致性；历史记录标明适用版本，不保留相互覆盖的现行规则。
+
+## 产品与视觉真值
+
+- 视觉、控件、品牌拼写、参考图、常驻 GitHub 入口、帮助、操作手册及聚焦模式布局统一维护在 [design-system.md](docs/architecture/design-system.md)。不得在本文件复制完整细则。
+- ASC 的持久预检、精确 96 齿映射、统一比例、台面/preform 阻断及导出范围以 [gemcad-asc.md](docs/architecture/gemcad-asc.md) 为准；禁止静默取整、虚构层或用凸包绕过 mesh 导出阻断。
+- 预设的收录门槛、策展排除、真实四视图、来源追溯和 `list / load / 可选 save` provider 边界以 [preset-library.md](docs/architecture/preset-library.md) 为准；不得将个人资料存储耦合到内置 catalog，重新生成不得让策展排除项回流。
+- 名称元数据、文档替换、光学与切割助手的挂起/恢复和只读边界以 [state-contract.md](docs/architecture/state-contract.md) 为准。助手用于逐步切割演示，“更多工具”中的逐层试切助理用于 Meet 来源与失效诊断；序列规则唯一真值为 `src/domain/cuttingAssistant.js`。
+
+## 几何与文档模型
+
+- 裁切统一保留 `normal · point <= offset`：普通立方体文档沿用凸多面体路径；导入晶体采用保留孔、凹槽和全部分离组件的索引网格路径。数学内核独立于 React、DOM 与 p5；p5 只消费求解结果绘制。+Z 朝冠部：冠部 β 为正，腰部为 0，亭部为负；旧 JSON 导入时重新解析几何以保持兼容。
+- 文档的不可变 `stock` 初始晶体与保存的 `CUT STACK` 共同构成唯一几何数据源，二者职责独立；CUT 只记录切磨工序，不能用自动生成的 CUT 冒充导入原石。每个 `T/C/G/P` 图层是一份不可变参数快照，按列表顺序应用一次；编辑保存必须在原序列位置替换。图层即使暂时没有最终有效面也保留在参数化工序中，删除或撤销后续覆盖工序时可自动恢复其面。
+- 普通新建文档从边长 `2.000`、轴心在原点的立方体开始，并默认包含固定首层 `T1 台面`（角度锁定 0°、深度可调、不可隐藏/删除）与可编辑的 32 折 `G1 腰部`（深度 0.2）；清除切割恢复这两层。导入初始晶体则新建独立 mesh 项目，初始 CUT 为零，不预切 T/G。mesh 清除切割恢复同一份原始晶体，作为一次可撤销命令；不提供在已有项目中更换晶体的入口。
+- OBJ 初始晶体导入最多 1000 个源多边形且分解后不超过 1000 个面片，超限在几何求解前阻断并提示简化；预检检查索引、退化／非共面面片、闭合、朝向及自相交，不合格禁止新建。此导入限制不改变已有 JSON 晶体文档的兼容规则。OBJ 导入保留源单位与尺寸；默认未指定单位，不猜毫米。可选择 +X/+Y/+Z 朝上并对齐工作台 +Z，按包围盒居中、最长边等比例归一到 2.000；源尺寸始终按原文件 XYZ 记录，旋转后的机台尺寸单独派生；原石面身份从规范化索引生成，不能继承外部切割工序身份。机台参考包络在导入时固定，后续 CUT 不重定尺寸或轴心。重复与镜像作用于切割指令，不复制原石。
+- 实时 mesh 正交预览使用共享 WebGL 深度缓冲与真实边，静态 SVG／PDF 使用精确矢量遮挡裁分；禁止以简单面心排序取代深凹遮挡。GPU 数值缓冲按不可变实体复用，仅上传成功后更新缓存；项目卡片不各自创建 GL context，不可用时回退精确投影，不省略几何。光学上下文丢失时暂停绘制，恢复时重建 GPU 资源并重绘最新状态；相机、材质与文档不随资源重建重置，卸载须释放恢复后的实例。
+- mesh 的面片 `id` 与 CUT 平面 `facetId` 分离；一个平面切出多片仍是一个有效刻面，毛坯三角片不计入切割面数或助手步数。同来源共面内缝不作为真实棱显示或 Meet 目标。JSON schema v2 完整保存 mesh stock 与 CUT，旧 cube 文档继续 schema v1；缓存、BVH 和渲染对象不得持久化。
+- 水平分度为整数 `0..95`，显示值 `96` 与内部 `0` 同位。行业角连续且内部保存全精度，滑杆、数值框、行内编辑与 3D 手柄的最小调整步进统一为 `0.01°`，UI 至少显示两位小数；切入深度独立且保存全精度，只在 UI 显示到 0.001。
+- 新建 CUT 草稿的冠部和亭部默认 8 折、腰部默认 16 折（不同于新建文档已保存的 32 折 G1）；镜像轴偏移默认 0。N 折必须生成 N 个明确裁切平面，且新建/编辑提交时至少形成一个有效面；后续切割覆盖既有面时，最终有效面数可以减少。深度从毛坯的 Z 轴旋转包络测量，不能因方形毛坯退化成四面。
+- 镜像采用二面体定义：N 折拥有分布于 180° 的 N 条无向反射轴。旋转面保留；镜像偏移可增加第二组 N 面轨道，重合面去重。
+- 每个面记录索引、行业角、带符号 β、深度、方位角、所属图层和显式裁切平面。撤销/重做、显隐、重排和导入导出均必须保持参数化图层语义。
+
+## 编辑状态与安全规则
+
+- CUT 只有空闲、新建、编辑、群组四态，统一由 `src/domain/cutSession.js` 管理；组件只消费能力位，不得另建平行会话或参数状态。
+- 新建/编辑、区域切换、群组变换、Meet / Jump、领域角度锁定及提交/取消的完整规则统一见 [state-contract.md](docs/architecture/state-contract.md)。普通 CUT、Meet 与 Jump 必须共用独立于 helper 的影响检查；确认必须发生在写入历史之前。
+- 会话槽位、活动面、Gizmo 与禁用反馈按 [design-system.md](docs/architecture/design-system.md)，不能用视觉禁用代替状态机约束。
+
+## 控件与 3D helper
+
+- 控件布局、唯一新建/提交入口、IndexTape、机械臂、双环、群组命中与遮挡规范见 [design-system.md](docs/architecture/design-system.md#3d-交互)。
+- Gizmo 的法线、深度杆、主平面以及 Meet 几何参考必须绑定 `baseIndex` 主成员，不能绑定排序首面或镜像副轨道。
+
+## 切割指令与报告
+
+- 面数、指令、刻面台账、PDF 与 ASC 必须从完整已提交实体派生，只消费最终有效面；JSON 保留完整参数化 CUT STACK 与已提交 Meet metadata。最终面、显隐与构造来源诊断按 [state-contract.md](docs/architecture/state-contract.md#参数化工序与最终有效面)。
+- 指令版式、PDF 视图/字段/分页/腰部省略与有效 Meet 或 stale 表达按 [design-system.md](docs/architecture/design-system.md#pdf-图层示意)；ASC 能力和信息损失提示按 [gemcad-asc.md](docs/architecture/gemcad-asc.md#导出规则)。
+
+## 仓库
+
+- OpenGemCutting 是独立的公开发行仓库，保留自己的 Git 历史、MIT License、公开远程和发布节奏；不得混入任何内部仓库名称、私有远程、handoff、个人绝对路径、账号、密钥或未授权素材。
+- 一句话安装由根目录 `INSTALL.md` / `UPGRADE.md` / `UNINSTALL.md` 维护；应用、Design 插件与 Companion 独立安装和卸载，生命周期边界不得模糊。
+- `plugins/opengemcutting-companion/` 只提供安装/启动引导、社区浏览、贡献草稿与维护流程。MCP 发布必须先锁定精确预览，再于用户明确确认后用单次 approval ID 发布；PR 继续使用 Fork + 分支 + `gh pr create`，所有外部写入前都要确认。
+- Companion 变更必须运行 `npm run companion:test`、插件 validator 和公开内容扫描；社区 Hub 只可使用 OpenGemCutting 的公开仓库、公开网址和宝石切磨语境。
+- `tmp/`、`output/`、`dist/` 与本机依赖不进入版本控制。长期文档资产放在 `docs/`，公开静态资源放在 `public/`。
+- 每次发布前运行敏感信息扫描、依赖审计、`npm run check`、`npm run build:pages` 与浏览器验收；确认 GitHub Pages、手册下载和静态资源均可访问。
+
+---
+> Source: [yuyou-dev/OpenGemCutting](https://github.com/yuyou-dev/OpenGemCutting) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
