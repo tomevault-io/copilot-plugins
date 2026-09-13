@@ -4,7 +4,7 @@
   "repo": "photools",
   "description": "\ud83d\udcf8 Turn GPX tracks into GPS-tagged, location-aware photo libraries. Offline reverse geocoding, intelligent GPS interpolation, and date-based organization for photographers. (macOS App & CLI)",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vincentchyu/photools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T08:34:50Z"
+  "distributed_at": "2026-09-13T09:32:11Z"
 }
