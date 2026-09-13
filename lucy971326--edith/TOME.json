@@ -1,0 +1,87 @@
+{
+  "name": "EDITH",
+  "owner": "lucy971326",
+  "repo": "EDITH",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "EDITH",
+      "path": ".codex/skills/dual-verify/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/.codex/skills/dual-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EDITH",
+      "path": "backend/skills/system/skill-creator/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/backend/skills/system/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EDITH",
+      "path": "backend/skills/system/concept-explanation/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/backend/skills/system/concept-explanation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EDITH",
+      "path": "backend-v2/internal/skills/system/current-time/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/backend-v2/internal/skills/system/current-time/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EDITH",
+      "path": "backend-v2/internal/skills/system/skill-creator/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/backend-v2/internal/skills/system/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EDITH",
+      "path": "edith-studio/internal/skills/builtin/skill-creator/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/edith-studio/internal/skills/builtin/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EDITH",
+      "path": "backend/user-skills/fb58eb83f89432689b04830fe29b9e8063293584ae1cd1ffac1d95902f64ab1d/cold-joke-explainer/SKILL.md",
+      "github_url": "https://github.com/lucy971326/EDITH/tree/main/backend/user-skills/fb58eb83f89432689b04830fe29b9e8063293584ae1cd1ffac1d95902f64ab1d/cold-joke-explainer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lucy971326/EDITH",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:30:24Z"
+}
