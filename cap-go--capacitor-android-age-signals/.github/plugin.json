@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-android-age-signals",
+  "displayName": "capacitor-android-age-signals",
+  "description": "Capacitor plugin to use the Play Age Signals API to retrieve age-related signals for users.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-android-age-signals",
+  "skills": []
+}
