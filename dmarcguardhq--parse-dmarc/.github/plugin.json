@@ -1,0 +1,9 @@
+{
+  "name": "dmarcguardhq--parse-dmarc",
+  "displayName": "parse-dmarc",
+  "description": "DMARC aggregate report parser with a built-in dashboard. One Go binary, IMAP in, SQLite, Prometheus metrics, MCP server. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "dmarcguardhq",
+  "homepage": "https://github.com/dmarcguardhq/parse-dmarc",
+  "skills": []
+}
