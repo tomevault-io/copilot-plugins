@@ -1,0 +1,9 @@
+{
+  "name": "aoreshkov--kmp-ledger",
+  "displayName": "kmp-ledger",
+  "description": "Kotlin Multiplatform (Android + iOS + Desktop) reference app demonstrating clean architecture, convention plugins, Room 3, Navigation 3, and Koin annotation DI with Compose Multiplatform.",
+  "version": "1.0.0",
+  "author": "aoreshkov",
+  "homepage": "https://github.com/aoreshkov/kmp-ledger",
+  "skills": []
+}
