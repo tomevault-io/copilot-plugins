@@ -15,6 +15,10 @@ Original source: `AGENTS.md` in [mayocream/koharu](https://github.com/mayocream/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [koharu](https://github.com/mayocream/koharu/tree/main/.agents/skills/runtime/SKILL.md)
+
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/mayocream/koharu](https://github.com/mayocream/koharu)
 
 ---
