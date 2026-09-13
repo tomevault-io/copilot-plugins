@@ -1,0 +1,9 @@
+{
+  "name": "jolo-build--jolo",
+  "displayName": "jolo",
+  "description": "A coding workspace for AI agents, with a desktop app, terminal CLI, and shared tasks.",
+  "version": "1.0.0",
+  "author": "jolo-build",
+  "homepage": "https://github.com/jolo-build/jolo",
+  "skills": []
+}
