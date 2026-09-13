@@ -4,7 +4,7 @@
   "repo": "gravity",
   "description": "Gravity \u2014 a desktop workspace for AI coding agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ahilles107/gravity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T02:36:23Z"
+  "distributed_at": "2026-09-13T02:40:00Z"
 }
