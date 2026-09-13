@@ -4,7 +4,7 @@
   "repo": "obsidian-vault-mcp",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/luffysolution-svg/obsidian-vault-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T20:30:26Z"
+  "distributed_at": "2026-09-13T23:30:17Z"
 }
