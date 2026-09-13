@@ -1,0 +1,14 @@
+{
+  "name": "csthink--dashmotion",
+  "displayName": "dashmotion",
+  "description": "dashmotion",
+  "version": "1.0.0",
+  "author": "csthink",
+  "homepage": "https://github.com/csthink/dashmotion",
+  "skills": [
+    {
+      "name": "dashmotion",
+      "description": ""
+    }
+  ]
+}
