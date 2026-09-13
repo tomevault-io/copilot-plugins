@@ -1,0 +1,51 @@
+{
+  "name": "react-native-continued-task",
+  "owner": "mahdidavoodi7",
+  "repo": "react-native-continued-task",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-native-continued-task",
+      "path": ".agents/skills/build-nitro-modules/SKILL.md",
+      "github_url": "https://github.com/mahdidavoodi7/react-native-continued-task/tree/main/.agents/skills/build-nitro-modules/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mahdidavoodi7/react-native-continued-task",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:41:31Z"
+}
