@@ -1,0 +1,14 @@
+{
+  "name": "andyawd--antigravity-cli-statusline",
+  "displayName": "antigravity-cli-statusline",
+  "description": "antigravity-cli-statusline",
+  "version": "1.0.0",
+  "author": "AndyAWD",
+  "homepage": "https://github.com/AndyAWD/antigravity-cli-statusline",
+  "skills": [
+    {
+      "name": "antigravity-cli-statusline",
+      "description": ""
+    }
+  ]
+}
