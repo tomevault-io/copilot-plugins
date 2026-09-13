@@ -1,0 +1,9 @@
+{
+  "name": "qiskit-community--qiskit-quantumkatas",
+  "displayName": "Qiskit-QuantumKatas",
+  "description": "A benchmark dataset for evaluating Large Language Models on quantum computing code generation tasks using Qiskit. Derived from https://github.com/microsoft/QuantumKatas",
+  "version": "1.0.0",
+  "author": "qiskit-community",
+  "homepage": "https://github.com/qiskit-community/Qiskit-QuantumKatas",
+  "skills": []
+}
