@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [heypandax/pairlet](https://github.com/heypandax/pairlet).
+Original source: `CLAUDE.md` in [heypandax/pairlet](https://github.com/heypandax/pairlet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
