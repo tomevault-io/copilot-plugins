@@ -1,0 +1,9 @@
+{
+  "name": "ganhammar--hass-mcp-server",
+  "displayName": "hass-mcp-server",
+  "description": "hass-mcp-server",
+  "version": "1.0.0",
+  "author": "ganhammar",
+  "homepage": "https://github.com/ganhammar/hass-mcp-server",
+  "skills": []
+}
