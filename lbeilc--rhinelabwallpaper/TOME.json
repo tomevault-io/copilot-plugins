@@ -1,0 +1,44 @@
+{
+  "name": "RhineLabWallpaper",
+  "owner": "LBEILC",
+  "repo": "RhineLabWallpaper",
+  "description": "Rhine Lab \u00b7 \u83b1\u8335\u751f\u547d\u4ea4\u4e92\u684c\u9762\uff1aWallpaper Engine \u58c1\u7eb8\u3001\u4e09\u7ef4\u6863\u6848\u4e0e\u684c\u9762\u5de5\u4f5c\u53f0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LBEILC/RhineLabWallpaper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T04:34:29Z"
+}
