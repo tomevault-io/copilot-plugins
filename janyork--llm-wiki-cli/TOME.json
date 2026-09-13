@@ -1,0 +1,237 @@
+{
+  "name": "llm-wiki-cli",
+  "owner": "JanYork",
+  "repo": "llm-wiki-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-lwc/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-lwc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-book/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-book/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-sync/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-todo/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-plan/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-tutor/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-practice/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "skills/using-discussion/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/skills/using-discussion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-lwc/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-lwc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-book/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-book/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-sync/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-todo/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-plan/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-tutor/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-lwc/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-lwc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-lwc/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-lwc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-book/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-book/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-sync/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-todo/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-plan/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-tutor/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-book/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-book/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-practice/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-sync/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-todo/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-plan/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-tutor/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/pi-lwc/skills/using-discussion/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/pi-lwc/skills/using-discussion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-practice/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-practice/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/codex-lwc/skills/using-discussion/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/codex-lwc/skills/using-discussion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llm-wiki-cli",
+      "path": "integrations/claude-lwc/skills/using-discussion/SKILL.md",
+      "github_url": "https://github.com/JanYork/llm-wiki-cli/tree/main/integrations/claude-lwc/skills/using-discussion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JanYork/llm-wiki-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T23:39:28Z"
+}
