@@ -5,38 +5,5 @@
   "version": "1.0.0",
   "author": "liberu-crm",
   "homepage": "https://github.com/liberu-crm/crm-laravel",
-  "skills": [
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    },
-    {
-      "name": "crm-laravel",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
