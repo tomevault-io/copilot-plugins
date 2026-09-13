@@ -1,0 +1,9 @@
+{
+  "name": "shcv--astdiff",
+  "displayName": "astdiff",
+  "description": "A diff tool that does structural comparison to match function declarations so it can work with minified JS",
+  "version": "1.0.0",
+  "author": "shcv",
+  "homepage": "https://github.com/shcv/astdiff",
+  "skills": []
+}
