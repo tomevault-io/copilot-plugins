@@ -7,11 +7,11 @@ Read-only Telegram MCP server. Search chats, read messages, and download attachm
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mshykhov/telegram-mcp-readonly](https://github.com/mshykhov/telegram-mcp-readonly).
+Original source: `AGENTS.md` in [mshykhov/telegram-mcp-readonly](https://github.com/mshykhov/telegram-mcp-readonly).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
