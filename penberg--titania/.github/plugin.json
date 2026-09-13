@@ -1,0 +1,9 @@
+{
+  "name": "penberg--titania",
+  "displayName": "titania",
+  "description": "Project Titania is a complete large language model system, from transformer to transistor, simple enough for one person to understand.",
+  "version": "1.0.0",
+  "author": "penberg",
+  "homepage": "https://github.com/penberg/titania",
+  "skills": []
+}
