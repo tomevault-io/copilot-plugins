@@ -1,0 +1,9 @@
+{
+  "name": "bradtraversy--skillpass",
+  "displayName": "skillpass",
+  "description": "A validated directory of AI skills to help your workflow. Post your skills and install others.",
+  "version": "1.0.0",
+  "author": "bradtraversy",
+  "homepage": "https://github.com/bradtraversy/skillpass",
+  "skills": []
+}
