@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "weijiafu14",
   "homepage": "https://github.com/weijiafu14/pi2dsh",
-  "skills": []
+  "skills": [
+    {
+      "name": "pi2dsh",
+      "description": ""
+    }
+  ]
 }
