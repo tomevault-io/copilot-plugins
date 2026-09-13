@@ -1,0 +1,63 @@
+{
+  "name": "pairlet",
+  "owner": "heypandax",
+  "repo": "pairlet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pairlet",
+      "path": "packaging/skills/review-request/SKILL.md",
+      "github_url": "https://github.com/heypandax/pairlet/tree/main/packaging/skills/review-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pairlet",
+      "path": "support/openclaw/support-workspace/skills/cc-pocket-support/SKILL.md",
+      "github_url": "https://github.com/heypandax/pairlet/tree/main/support/openclaw/support-workspace/skills/cc-pocket-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pairlet",
+      "path": "support/openclaw/reviewer-workspace/skills/cc-pocket-support-review/SKILL.md",
+      "github_url": "https://github.com/heypandax/pairlet/tree/main/support/openclaw/reviewer-workspace/skills/cc-pocket-support-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/heypandax/pairlet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T21:38:35Z"
+}
