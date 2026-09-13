@@ -1,0 +1,9 @@
+{
+  "name": "lingyired--status-trio",
+  "displayName": "status-trio",
+  "description": "Status Trio \u2014 a native macOS menubar app that combines Wi-Fi, battery, and volume into one compact, configurable menu bar icon, inspired by the iPhone Duo combined status bar.",
+  "version": "1.0.0",
+  "author": "lingyired",
+  "homepage": "https://github.com/lingyired/status-trio",
+  "skills": []
+}
