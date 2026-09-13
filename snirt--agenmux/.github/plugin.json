@@ -1,0 +1,9 @@
+{
+  "name": "snirt--agenmux",
+  "displayName": "agenmux",
+  "description": "Monitor AI coding agents in tmux \u2014 sidebar + status line: https://snirt.github.io/agenmux/",
+  "version": "1.0.0",
+  "author": "snirt",
+  "homepage": "https://github.com/snirt/agenmux",
+  "skills": []
+}
