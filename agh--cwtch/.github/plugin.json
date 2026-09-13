@@ -1,0 +1,9 @@
+{
+  "name": "agh--cwtch",
+  "displayName": "cwtch",
+  "description": "Manage Claude Code profiles and synchronise configuration from Git",
+  "version": "1.0.0",
+  "author": "agh",
+  "homepage": "https://github.com/agh/cwtch",
+  "skills": []
+}
