@@ -1,0 +1,14 @@
+{
+  "name": "techjarves--local-hermes-portable",
+  "displayName": "Local-Hermes-Portable",
+  "description": "Local-Hermes-Portable",
+  "version": "1.0.0",
+  "author": "techjarves",
+  "homepage": "https://github.com/techjarves/Local-Hermes-Portable",
+  "skills": [
+    {
+      "name": "Local-Hermes-Portable",
+      "description": ""
+    }
+  ]
+}
