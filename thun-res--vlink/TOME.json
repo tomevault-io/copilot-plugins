@@ -1,0 +1,153 @@
+{
+  "name": "vlink",
+  "owner": "thun-res",
+  "repo": "vlink",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vlink",
+      "path": ".agents/skills/pr/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/cicd/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/cicd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/mock/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/mock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/test/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/asan/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/asan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/issue/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/bench/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/bench/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/check/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/report/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/format/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/coverage/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/sync-agent/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/sync-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/discussion/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/discussion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/clang-tidy/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/clang-tidy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/deep-review/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/deep-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vlink",
+      "path": ".agents/skills/sync-review/SKILL.md",
+      "github_url": "https://github.com/thun-res/vlink/tree/main/.agents/skills/sync-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thun-res/vlink",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T20:32:42Z"
+}
