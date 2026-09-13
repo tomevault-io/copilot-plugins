@@ -4,7 +4,7 @@
   "repo": "trace-commons",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TraceCommons/trace-commons",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T09:42:41Z"
+  "distributed_at": "2026-09-13T09:44:54Z"
 }
