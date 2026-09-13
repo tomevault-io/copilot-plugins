@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "nexuls",
   "homepage": "https://github.com/nexuls/draftly",
-  "skills": []
+  "skills": [
+    {
+      "name": "draftly",
+      "description": ""
+    },
+    {
+      "name": "draftly",
+      "description": ""
+    }
+  ]
 }
