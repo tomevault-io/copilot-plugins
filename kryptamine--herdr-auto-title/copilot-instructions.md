@@ -2,11 +2,27 @@
 
 > Herdr Auto Title — a Herdr plugin, written in Go, that generates tab titles from
 
-# CLAUDE.md
+# AGENTS.md
 
 Herdr Auto Title — a Herdr plugin, written in Go, that generates tab titles from
 each tab's current context. Long-running process that polls the Herdr session,
 no LLM and no external service.
+
+## Repository layout
+
+```
+cmd/herdr-auto-title  the binary
+internal/app          the poll loop and the reads it spends, configuration
+internal/herdr        the socket client; herdrtest beside it is its stub
+internal/state        a session snapshot turned into what each tab is doing
+internal/resolver     that state turned into a title, one source at a time
+internal/claude       what a Claude Code session is about, from its transcript
+internal/git          what a repository has checked out, read from .git
+scripts/              the Python probes
+docs/architecture/    how the plugin works and why
+```
+
+Each package's doc comment says the rest.
 
 ## Language rule (mandatory)
 
@@ -34,6 +50,22 @@ Scope is a package or area (`resolver`, `state`, `herdr`, `app`).
 - One logical change per commit.
 - Never add a co-author trailer.
 
+## Branches and pull requests (mandatory)
+
+**Never commit to `main`.** Branch from it first, named `<type>/<kebab-summary>`
+with the types the commits use: `feat/optional-agent-name`,
+`docs/security-policy`, `chore/tighten-the-linter-set`.
+
+- **Pull requests are merged by rebase.** Merge commits and squashing are both
+  disabled, and each broke something: GitHub puts the conventional PR title into
+  a merge commit, so release-please counted every change twice, and a squash
+  collapses a pull request into one changelog line, losing the granularity that
+  "one logical change per commit" exists to produce.
+- **`CHANGELOG.md`, the tags and the version in `herdr-plugin.toml` belong to
+  release-please.** Never edit one by hand.
+- Keep a pull request to one thing. A refactor, a feature and a formatting sweep
+  are three pull requests.
+
 ## Type rule (mandatory)
 
 **A struct field exists only if code reads it.** Herdr's wire objects carry far
@@ -60,24 +92,13 @@ library.
 
 ## Comment rule (mandatory)
 
-**A comment is at most three lines.** That is a hard cap, in every language in
-the repository. It is not a style preference: a comment long enough to need a
-fourth line is explaining something the code cannot hold, and that explanation
-belongs in [docs/architecture](docs/architecture/) where it can be read by
-someone who is not already staring at the function.
+**A comment is at most three lines**, in every language in the repository, and
+it says what is surprising rather than what is visible. A decision that needs a
+paragraph goes in [docs/architecture](docs/architecture/), with one line in the
+code pointing at it.
 
-Comment what is **surprising**, never what is visible:
-
-- **Delete it** if it restates the code, names what a well-named identifier
-  already names, or records where a value came from (which schema, which
-  ticket, which measurement session). Provenance is what `git log` and
-  `docs/architecture` are for.
-- **Keep it** if a reader would otherwise "fix" the code and break it: a
-  measured constant, a constraint the API imposes, an ordering that matters, a
-  case that looks unhandled and is not.
-
-When a decision genuinely needs a paragraph, write the paragraph in
-`docs/architecture` and leave one line in the code pointing at it.
+The rule in full, in Go terms and with worked examples of what to keep and what
+to delete, is in [.claude/rules/comments.md](.claude/rules/comments.md).
 
 ## Commands
 
@@ -95,104 +116,79 @@ make watch-tabs # ...refreshed every second
 make probe-snapshot # the session snapshot the plugin polls
 ```
 
-`go test -race` is the gate, not `go test`: the poll loop and the change history
-it keeps are exercised concurrently in tests, and a future reset action will
-touch that history from outside the loop.
+`go test -race` is the gate, not `go test`: the state a poll carries between
+polls is shared, two tests still run the loop in a goroutine of its own, and a
+future reset action will touch that state from outside the loop.
 
 The linter lives in `tools/go.mod`, a module of its own, so its dependency tree
 stays out of the plugin's: the main module keeps two dependencies and still
 builds on Go 1.24, which is what Herdr needs at install time. `errcheck` is off
 — the places that swallow an error say why they do.
 
-## Herdr socket API — verified facts
+## Herdr socket API — the traps
 
-The originating specification is wrong on several protocol details. These were
-verified against Herdr 0.8.2, protocol 20. **Probe before assuming anything not
-listed here** (`make probe-*`, `scripts/probe.py`).
+The originating specification is wrong on several protocol details. Everything
+here was verified against Herdr 0.8.2, protocol 20. **Probe before assuming
+anything** (`make probe-*`, `scripts/probe.py`).
 
-- NDJSON over the socket at `HERDR_SOCKET_PATH`. Requests are
-  `{"id","method","params"}` — `params` is required even when empty.
+The facts in full — the measured costs, the field inventories, the event kinds,
+what every object carries — are in
+[docs/architecture/herdr-socket-api.md](docs/architecture/herdr-socket-api.md),
+which is the record. **A probe that teaches something new goes there.** Below
+are only the facts that would otherwise mislead the code in silence.
+
 - **One request per connection.** Herdr closes the connection after answering,
-  so every `Call` dials its own. Auto Title uses three methods and no others:
-  `session.snapshot`, `pane.process_info` and `tab.rename`.
-- **The event stream is not used, on purpose.** `events.subscribe` replays a
-  backlog before anything live — about the last 95 revisions of *every* pane at
-  ten a second, so ~10 s of history per active pane, closed panes included — and
-  live events queue behind it (measured: a change made 2 s after subscribing
-  arrived 13 s later). There is no cursor: `events.subscribe` takes only a
-  subscription list, envelopes carry no timestamp or ordinal, and no method
-  exposes a stream position. A snapshot costs 0.47 ms and 6 KB for six panes and
-  describes the present. **Do not reintroduce a subscription** without measuring
-  again and recording the result here.
-- Subscription types would be dot-separated (`pane.updated`) while the events
-  they deliver arrive snake_case (`pane_updated`), wrapped as
-  `{"event": ..., "data": ...}`. `pane.output_changed` is a real event kind but
-  is not an accepted subscription type; `pane.agent_status_changed`,
-  `pane.scroll_changed` and `pane.output_matched` are per-pane and need a
-  `pane_id`.
-- `PaneInfo.title` is the agent's own title. It was null for every Claude Code
-  pane observed; that agent reports its topic through `terminal_title_stripped`.
-  `pane.report_metadata` sets it from outside Herdr (probed: a reported title
-  reached the snapshot and a tab within one poll), but nothing installs a source
-  for it today.
-- `PaneInfo.agent_session` says which conversation a pane's agent holds, and is
-  null until that agent's integration reports one.
-  `herdr integration install <agent>` installs the hook (`herdr integration
-  status` lists all seventeen). Claude Code's runs on `SessionStart` and calls
-  `pane.report_agent_session`; Herdr keeps only the id, answering `kind: "id"`
-  even when a transcript path was reported too. It arrives in the snapshot, so
-  reading it costs no request.
-- `agent_status` is `idle | working | blocked | done | unknown`; a pane with no
-  agent reports `unknown`. `TabInfo` carries one too, aggregated over the tab's
-  panes: with a single Claude Code pane working, its tab reported `working`
-  while every other tab reported `unknown`. How it aggregates two agent panes in
-  one tab has not been probed.
-- `tab.rename` costs 0.16 ms median and 0.21 ms at p95 over forty calls —
-  cheaper than the snapshot that precedes it.
-- **A tab label is one line.** `tab.rename` accepts a newline and stores it
-  verbatim — no error, no stripping — but the tab bar renders a single line, so
-  a two-line label is not available. Herdr exposes no tab-bar height setting.
-- `PaneInfo` carries no foreground process name; that needs `pane.process_info`,
-  one request per pane at 0.11 ms — cheaper than the snapshot, but one per pane:
-  on an eight-pane session the reads measured 0.17 ms each against a 1.35 ms
-  snapshot, so making one every poll cost as much again as the snapshot itself.
-  Its `foreground_processes` lists the pane's foreground process *and its
-  descendants*, each with `name` and a nullable `argv`.
-- Pane revisions are monotonic, which is how a poll tells which panes drew.
-- **A revision does not track what is running in the pane.** Measured over ten
-  minutes of a live eight-pane session: the foreground processes changed nine
-  times and the revision moved with them only four. A pane running a build went
-  `env` → `node` → `esbuild` → `fish` while its revision held at 10 throughout.
-  A revision says the pane drew, which starting a command usually but not
-  always provokes, so it is a cheap hint that a process read is due and never a
+  so every `Call` dials its own. That is why nothing here reconnects.
+- **On Windows the socket is a named pipe**, `\\.\pipe\` followed by the whole
+  of `HERDR_SOCKET_PATH`. The path itself names a small text file, and dialing
+  it as a Unix socket is refused; `dial_windows.go` opens the pipe, and nothing
+  else in the client differs.
+- **On Windows `pane.process_info` lists only the pane's shell or a recognized
+  agent**, never an editor, a build or an ssh session running under the shell.
+  Names arrive with `.exe` and a process's `cwd` with a trailing backslash; the
+  state package strips both as they arrive, so no reader of a pane sees either.
+- Auto Title uses four methods and no others: `session.snapshot`,
+  `pane.process_info`, `tab.rename` and `pane.rename`.
+- **A pane carries no label until it has one, and an empty one clears it.**
+  Herdr omits `label` from a pane object entirely until the pane is named, and
+  `pane.rename` clears rather than stores an empty label — the opposite of
+  `tab.rename`. So a pane has one unnamed spelling and a tab has two.
+- **Do not reintroduce an event subscription.** `events.subscribe` replays
+  about ten seconds of backlog per pane before anything live, with no cursor to
+  skip it, so a subscriber opens by reacting to a session that is gone. A
+  snapshot describes the present and costs less than the rename that follows it.
+- **No single field is a pane's directory.** `cwd` is the pane's own shell,
+  which a subshell leaves behind; `foreground_cwd` is the _deepest
+  descendant's_, so anything a program starts elsewhere takes the pane with it.
+  The directory is the foreground process's own `cwd`, which only
+  `pane.process_info` reports.
+- **A revision does not track what is running in a pane.** Measured, the
+  foreground processes changed nine times while the revision moved four. A
+  revision says the pane drew: a hint that a process read is due, never a
   promise that one is not.
-- **`TabInfo.number` is not the label an unnamed tab carries.** It counts every
-  tab the workspace has ever held and never repeats (a six-tab workspace
-  numbered 2, 9, 30, 33, 35, 36). Herdr labels an unnamed tab with its
-  *position* in the workspace, counted from one, and that label shifts down when
-  a tab to its left closes. The snapshot lists tabs in display order, so the
-  position is their count within the workspace.
-- **An unnamed tab reports one of two labels.** A tab nobody has named carries
-  its position, but `tab.rename` with an empty label stores the empty string and
-  the snapshot reports it. Both render as the position in the tab bar, so code
-  reading the label to mean "unnamed" must accept either.
+- **`TabInfo.number` is not the label an unnamed tab carries.** Herdr labels an
+  unnamed tab with its _position_, which slides down when a tab to its left
+  closes, while `number` counts every tab the workspace has held and never
+  repeats. Reading `number` as the label once locked every tab made after start.
+- **An unnamed tab reports one of two labels**: its position, or the empty
+  string `tab.rename` stores verbatim when given one. Code reading the label to
+  mean "nobody named this" must accept either.
+- **A tab label is one line.** `tab.rename` takes a newline and stores it
+  verbatim, but the tab bar renders one row and Herdr exposes no height setting.
+- **`PaneInfo.title` is the agent's own title, and is null in practice.** Claude
+  Code reports its topic through `terminal_title_stripped` instead, and
+  `agent_session` stays null until that agent's integration is installed.
 - **A plugin the server starts inherits the server's environment**, not the
   shell of whoever installed it, which is why `HERDR_AUTO_TITLE_*` settings
   arrive through `config.env` (see
   [docs/architecture/configuration.md](docs/architecture/configuration.md)).
-  Herdr creates `~/.config/herdr/plugins/config/<plugin id>/` and prints it from
-  `herdr plugin config-dir <id>` and `herdr plugin list` (confirmed directly),
-  and the 0.8.2 binary names `HERDR_PLUGIN_ROOT`, `HERDR_PLUGIN_CONFIG_DIR` and
-  `HERDR_PLUGIN_STATE_DIR` for a plugin process — that half is read out of the
-  binary's strings, **not observed on a live plugin**, because seeing it needs a
-  `herdr server stop`. Auto Title uses its own directory and depends on none of
-  them.
-- `tab.get` and `pane.get` read one object each; `pane.list` filters by
-  workspace only, not by tab. Neither is needed while the snapshot is one call.
-
-Keep this list current: when a probe teaches you something new, add it here and
-to [docs/architecture/herdr-socket-api.md](docs/architecture/herdr-socket-api.md),
-which carries the same facts in full.
+- **Herdr keeps no handle on a plugin it started.** A startup hook is spawned
+  and forgotten: the server stops nothing when it stops, and runs the hooks
+  again at every start and live handoff, so an instance that stayed would run
+  beside its successor and lock the tabs the two name differently.
+  `App.superseded` is what makes it leave instead; the loop must not survive
+  a change of server (see
+  [docs/architecture/poll-loop.md](docs/architecture/poll-loop.md)).
 
 ## Working here
 
@@ -210,6 +206,10 @@ which carries the same facts in full.
   pane — and how far each agent transcript has been read, because a transcript
   only grows and re-reading megabytes twice a second to find one new line would
   cost more than the rest of the loop together.
+- **The code is the source of truth, then `docs/architecture`, then a comment.**
+  A doc that contradicts the code is a bug in the doc, so fix it in the change
+  that found it rather than leaving the next reader to rediscover the same
+  thing.
 - Never pass terminal-derived values to a shell. Renames go over the socket API.
 - How the plugin works and why — the poll loop, title resolution, sanitizing
   untrusted values, manual rename protection — is in
@@ -220,4 +220,4 @@ which carries the same facts in full.
 
 ---
 > Source: [kryptamine/herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
