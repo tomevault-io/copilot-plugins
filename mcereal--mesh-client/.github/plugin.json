@@ -1,0 +1,9 @@
+{
+  "name": "mcereal--mesh-client",
+  "displayName": "mesh-client",
+  "description": "Meshtastic Client for TrimUI Brick",
+  "version": "1.0.0",
+  "author": "mcereal",
+  "homepage": "https://github.com/mcereal/mesh-client",
+  "skills": []
+}
