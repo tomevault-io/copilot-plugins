@@ -1,0 +1,9 @@
+{
+  "name": "00200200--maintainer-skills-lab",
+  "displayName": "maintainer-skills-lab",
+  "description": "Humanizer, maintainer skills, agents, Git hooks and Skill Watch: a local scraper + MCP server for documentation changes. Shared workflows for Codex, Claude Code, Cursor and Grok Bot.",
+  "version": "1.0.0",
+  "author": "00200200",
+  "homepage": "https://github.com/00200200/maintainer-skills-lab",
+  "skills": []
+}
