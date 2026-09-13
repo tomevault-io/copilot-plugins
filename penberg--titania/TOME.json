@@ -4,7 +4,7 @@
   "repo": "titania",
   "description": "Project Titania is a complete large language model system, from transformer to transistor, simple enough for one person to understand.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/penberg/titania",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T12:30:20Z"
+  "distributed_at": "2026-09-13T12:31:05Z"
 }
