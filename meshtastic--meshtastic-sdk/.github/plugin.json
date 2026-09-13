@@ -1,0 +1,9 @@
+{
+  "name": "meshtastic--meshtastic-sdk",
+  "displayName": "meshtastic-sdk",
+  "description": "Kotlin Multiplatform SDK for Meshtastic mesh radios. Connect over BLE, TCP, or USB-serial from Android, JVM, and iOS. Handles the PhoneAPI wire protocol \u2014 handshake, NodeDB, ACK correlation, retries \u2014",
+  "version": "1.0.0",
+  "author": "meshtastic",
+  "homepage": "https://github.com/meshtastic/meshtastic-sdk",
+  "skills": []
+}
