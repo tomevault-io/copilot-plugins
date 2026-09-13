@@ -7,11 +7,11 @@ Taiwan stock research and decision support system built with Java 17, Spring Boo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leezxt/StockPredictor](https://github.com/leezxt/StockPredictor).
+Original source: `AGENTS.md` in [leezxt/StockPredictor](https://github.com/leezxt/StockPredictor).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
