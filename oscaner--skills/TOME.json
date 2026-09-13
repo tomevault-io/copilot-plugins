@@ -1,0 +1,201 @@
+{
+  "name": "skills",
+  "owner": "Oscaner",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/init/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/cli-task/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/cli-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/finishing/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/finishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/cli-select/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/cli-select/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/report-issue/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/report-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/verification/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/cli-code-review/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/cli-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/skills/cli-driven-development/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/skills/cli-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/init/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/cli-task/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/cli-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/finishing/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/finishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/debugging/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/cli-select/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/cli-select/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/code-review/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/report-issue/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/report-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/verification/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/brainstorming/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/writing-plans/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/executing-plans/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/cli-code-review/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/cli-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "packages/osuperpowers/.agents/skills/osuperpowers/cli-driven-development/SKILL.md",
+      "github_url": "https://github.com/Oscaner/skills/tree/main/packages/osuperpowers/.agents/skills/osuperpowers/cli-driven-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Oscaner/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-13T23:30:55Z"
+}
