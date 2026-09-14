@@ -1,0 +1,9 @@
+{
+  "name": "neelnanda-io--nocot-bench",
+  "displayName": "nocot-bench",
+  "description": "No-chain-of-thought reasoning benchmark (NCRI): sealed banks, no-CoT runner with witnesses, frozen placement, scores for 285 models",
+  "version": "1.0.0",
+  "author": "neelnanda-io",
+  "homepage": "https://github.com/neelnanda-io/nocot-bench",
+  "skills": []
+}
