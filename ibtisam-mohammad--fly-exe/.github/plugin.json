@@ -1,0 +1,9 @@
+{
+  "name": "ibtisam-mohammad--fly-exe",
+  "displayName": "Fly.exe",
+  "description": "Runs the complete released Drosophila male CNS connectome (165,122 neurons, 25.5M edges) inside a physical fly body, in closed loop, on one GPU.",
+  "version": "1.0.0",
+  "author": "Ibtisam-Mohammad",
+  "homepage": "https://github.com/Ibtisam-Mohammad/Fly.exe",
+  "skills": []
+}
