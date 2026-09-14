@@ -1,0 +1,9 @@
+{
+  "name": "barnes-c--go-garminconnect",
+  "displayName": "go-garminconnect",
+  "description": "Go API wrapper for Garmin Connect to get metrics and set activities",
+  "version": "1.0.0",
+  "author": "barnes-c",
+  "homepage": "https://github.com/barnes-c/go-garminconnect",
+  "skills": []
+}
