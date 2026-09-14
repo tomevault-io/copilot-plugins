@@ -7,11 +7,11 @@ A categorized directory of X accounts covering AI, LLMs, agents, and technology,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [everclear077/awesome-ai-x-accounts](https://github.com/everclear077/awesome-ai-x-accounts).
+Original source: `CLAUDE.md` in [everclear077/awesome-ai-x-accounts](https://github.com/everclear077/awesome-ai-x-accounts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
