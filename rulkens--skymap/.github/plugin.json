@@ -1,0 +1,9 @@
+{
+  "name": "rulkens--skymap",
+  "displayName": "skymap",
+  "description": "Interactive WebGPU 3D explorer for SDSS, GLADE, and 2MRS galaxy catalogs.",
+  "version": "1.0.0",
+  "author": "rulkens",
+  "homepage": "https://github.com/rulkens/skymap",
+  "skills": []
+}
