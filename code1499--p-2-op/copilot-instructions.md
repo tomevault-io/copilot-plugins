@@ -1,60 +1,89 @@
-## typescript
+## vue
 
-> TypeScript coding standards and best practices for modern web development
+> Vue.js best practices and patterns for modern web applications
 
 
-# TypeScript Best Practices
+# Vue.js Best Practices
 
-## Type System
-- Prefer interfaces over types for object definitions
-- Use type for unions, intersections, and mapped types
-- Avoid using `any`, prefer `unknown` for unknown types
-- Use strict TypeScript configuration
-- Leverage TypeScript's built-in utility types
-- Use generics for reusable type patterns
+## Component Structure
+- Use Composition API over Options API
+- Keep components small and focused
+- Use proper TypeScript integration
+- Implement proper props validation
+- Use proper emit declarations
+- Keep template logic minimal
 
-## Naming Conventions
-- Use PascalCase for type names and interfaces
-- Use camelCase for variables and functions
-- Use UPPER_CASE for constants
-- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
-- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
+## Composition API
+- Use proper ref and reactive
+- Implement proper lifecycle hooks
+- Use composables for reusable logic
+- Keep setup function clean
+- Use proper computed properties
+- Implement proper watchers
 
-## Code Organization
-- Keep type definitions close to where they're used
-- Export types and interfaces from dedicated type files when shared
-- Use barrel exports (index.ts) for organizing exports
-- Place shared types in a `types` directory
-- Co-locate component props with their components
+## State Management
+- Use Pinia for state management
+- Keep stores modular
+- Use proper state composition
+- Implement proper actions
+- Use proper getters
+- Handle async state properly
 
-## Functions
-- Use explicit return types for public functions
-- Use arrow functions for callbacks and methods
-- Implement proper error handling with custom error types
-- Use function overloads for complex type scenarios
-- Prefer async/await over Promises
+## Performance
+- Use proper component lazy loading
+- Implement proper caching
+- Use proper computed properties
+- Avoid unnecessary watchers
+- Use proper v-show vs v-if
+- Implement proper key management
+
+## Routing
+- Use Vue Router properly
+- Implement proper navigation guards
+- Use proper route meta fields
+- Handle route params properly
+- Implement proper lazy loading
+- Use proper navigation methods
+
+## Forms
+- Use v-model properly
+- Implement proper validation
+- Handle form submission properly
+- Show proper loading states
+- Use proper error handling
+- Implement proper form reset
+
+## TypeScript Integration
+- Use proper component type definitions
+- Implement proper prop types
+- Use proper emit declarations
+- Handle proper type inference
+- Use proper composable types
+- Implement proper store types
+
+## Testing
+- Write proper unit tests
+- Implement proper component tests
+- Use Vue Test Utils properly
+- Test composables properly
+- Implement proper mocking
+- Test async operations
 
 ## Best Practices
-- Enable strict mode in tsconfig.json
-- Use readonly for immutable properties
-- Leverage discriminated unions for type safety
-- Use type guards for runtime type checking
-- Implement proper null checking
-- Avoid type assertions unless necessary
+- Follow Vue style guide
+- Use proper naming conventions
+- Keep components organized
+- Implement proper error handling
+- Use proper event handling
+- Document complex logic
 
-## Error Handling
-- Create custom error types for domain-specific errors
-- Use Result types for operations that can fail
-- Implement proper error boundaries
-- Use try-catch blocks with typed catch clauses
-- Handle Promise rejections properly
-
-## Patterns
-- Use the Builder pattern for complex object creation
-- Implement the Repository pattern for data access
-- Use the Factory pattern for object creation
-- Leverage dependency injection
-- Use the Module pattern for encapsulation 
+## Build and Tooling
+- Use Vite for development
+- Configure proper build setup
+- Use proper environment variables
+- Implement proper code splitting
+- Use proper asset handling
+- Configure proper optimization 
 
 ---
 > Source: [code1499/P-2-OP](https://github.com/code1499/P-2-OP) — distributed by [TomeVault](https://tomevault.io).
