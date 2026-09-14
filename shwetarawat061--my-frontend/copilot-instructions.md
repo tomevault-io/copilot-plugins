@@ -1,146 +1,72 @@
-## dmctn-taste-gate
+## my-frontend
 
-> DMCTN Taste Gate R2 — Design Director flow trước khi code UI
+> Trước khi code UI/frontend, agent phải chạy **Taste Gate R2** (`.cursor/rules/dmctn-taste-gate.mdc`).
 
+# AGENTS.md - DMCTN Taste Gate R2
 
-# DMCTN Taste Gate R2
+Trước khi code UI/frontend, agent phải chạy **Taste Gate R2** (`.cursor/rules/dmctn-taste-gate.mdc`).
 
-Áp dụng khi task liên quan **UI / frontend / web / app / dashboard / landing / devtool / docs site / agent workspace**.
+Skills: `skills/taste-skill`, `skills/component-taste`, `skills/ui-review-skill` (sau khi có UI).
 
-**Không code ngay.** Trả đủ block dưới đây trước khi sửa file.
+## 1. Design Read (bắt buộc)
 
----
+Block: product type, target user, intent, primary action, hierarchy, constraints.
 
-## 1. DESIGN READ
+Một dòng tóm tắt:
 
-```text
-DESIGN_READ:
-- Product type: (SaaS / devtool / admin dashboard / docs / agent UI / app shell / marketing / redesign)
-- Target user: (dev / PM / ops / end user — cụ thể)
-- User intent: (họ muốn làm gì trên màn hình này?)
-- Primary action: (1 hành động chính phải nổi bật)
-- Content hierarchy: (thứ tự ưu tiên nội dung)
-- Technical constraints: (stack, DS có sẵn, a11y, perf, không đổi route/API)
-```
+> Đọc brief này là: `<loại trang/app>` cho `<người dùng>`, intent `<…>`, nghiêng về `<hệ/phong cách>`.
 
-Một dòng tóm tắt bắt buộc:
+Không code trước khi có block + dòng tóm tắt.
 
-> Đọc brief này là: `<product type>` cho `<user>`, intent `<intent>`, nghiêng về `<style/system>`.
+## 2. Taste Direction + Ba nút chỉnh
 
----
+- Chọn **một** Developer Preset từ `skills/taste-skill` (dev/SaaS/dashboard/devtool/docs/agent UI).
+- `DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` (1-10).
 
-## 2. TASTE DIRECTION
+Mặc định sản phẩm thực dụng:
 
 ```text
-TASTE_DIRECTION:
-- Developer preset: (chọn 1 từ skills/taste-skill — Developer Preset Pack)
-- Visual density: (1-10)
-- Motion level: (1-10)
-- Color direction: (neutral / brand-tinted / high-contrast dev / monochrome)
-- Typography direction: (sans editorial / geometric / mono-accent — không mặc định Inter)
-- Component direction: (flat / bordered / elevated minimal — không glass toàn trang)
-DIALS:
-- DESIGN_VARIANCE: (1-10)
-- MOTION_INTENSITY: (1-10)
-- VISUAL_DENSITY: (1-10)
+DESIGN_VARIANCE: 5-7
+MOTION_INTENSITY: 2-4
+VISUAL_DENSITY: 5-7
 ```
 
----
+## 3. UI Plan + Pre-Flight Check Lite
 
-## 3. UI PLAN
+- UI Plan: layout, components, responsive, a11y, states, edge cases.
+- Pre-Flight: 10 câu YES/NO → chỉ `PASS_TO_CODE` mới được sửa UI.
+
+## 4. Luật chống giao diện AI rập khuôn
+
+FAIL nếu: generic SaaS hero, 3 card ngang, gradient AI, glass vô nghĩa, CTA glow, Inter/slate mặc định, emoji/icon lộn xộn, animation khoe, mobile khó dùng, thiếu loading/empty/error.
+
+## 5. Luật sản phẩm thật
+
+- mobile-first (360 / 768 / 1280)
+- trạng thái loading/empty/error/success
+- semantic heading, keyboard/focus, contrast
+- không layout shift lớn; không che nội dung chính
+
+## 6. Web public / auth (khi áp dụng)
+
+- SEO/metadata/OG khi public
+- validation, CSRF/session, không log secret/token, không key trên frontend
+
+## 7. Output trước khi code
 
 ```text
-UI_PLAN:
-- Layout structure: (grid, sidebar+main, split, bento — lý do)
-- Component list: (navbar, hero, cards, table, form, …)
-- Responsive plan: (mobile-first; breakpoints 360 / 768 / 1280)
-- Accessibility plan: (focus, contrast, headings, labels, reduced-motion)
-- State plan: (loading / empty / error / success cho từng vùng chính)
-- Edge cases: (no data, long text, overflow, keyboard-only)
+DESIGN_READ: ...
+TASTE_DIRECTION: ...
+DIALS: ...
+UI_PLAN: ...
+PRE_FLIGHT_LITE: ...
+ANTI_SLOP_RISKS: ...
+VERDICT: PASS_TO_CODE | NEEDS_MORE_BRIEF
 ```
 
----
+## 8. Sau khi có UI
 
-## 4. PRE-FLIGHT CHECK LITE
-
-Trả lời **YES/NO** từng mục:
-
-```text
-PRE_FLIGHT_LITE:
-1. Brief understood? YES/NO
-2. Page type identified? YES/NO
-3. Main user action clear? YES/NO
-4. Visual direction selected? YES/NO
-5. Anti-slop risks identified? YES/NO
-6. Responsive plan ready? YES/NO
-7. Accessibility risks checked? YES/NO
-8. Component states considered? YES/NO
-9. Copy tone selected? YES/NO
-10. Verdict: PASS_TO_CODE / NEEDS_MORE_BRIEF
-```
-
-Chỉ `PASS_TO_CODE` mới được sửa UI.
-
----
-
-## 5. ANTI-SLOP CHECK
-
-FAIL nếu dự định dùng (không có lý do rõ):
-
-- gradient tím/cyan AI mặc định
-- glassmorphism vô nghĩa
-- 3 feature card ngang rập khuôn
-- CTA glow vô lý
-- generic SaaS hero (centered headline + 2 CTA + floating mockup)
-- emoji/icon lộn xộn
-- animation loop vô nghĩa
-- stock copy chung chung (“revolutionary”, “seamless”, “elevate”)
-- Inter + slate + rounded card mặc định khi không cần
-
-```text
-ANTI_SLOP_RISKS: (liệt kê rủi ro + cách tránh)
-```
-
----
-
-## 6. SELF REVIEW (trước khi chốt design / trước PR)
-
-```text
-SELF_REVIEW:
-- Brief alignment: PASS/FAIL
-- Visual hierarchy: PASS/FAIL
-- Originality: PASS/FAIL
-- Accessibility: PASS/FAIL
-- Mobile: PASS/FAIL
-- Component quality: PASS/FAIL
-- Verdict: PASS_TO_CODE / NEEDS_POLISH / NEEDS_REDESIGN
-```
-
-Sau khi code xong: dùng `skills/ui-review-skill/SKILL.md` cho **Design QA Score** nếu cần.
-
----
-
-## Design system (gợi ý nhanh)
-
-Nếu brief khớp hệ chính thức — **dùng package đúng**, không tự bịa CSS:
-
-- Enterprise / Microsoft → Fluent UI
-- Material-flavored → Material 3
-- Shopify admin → Polaris
-- GitHub/devtool → Primer
-- Trust/public → GOV.UK / USWDS
-- Indie SaaS → Tailwind + component sở hữu (shadcn nếu cần — customize, không default)
-
-**Một hệ thống mỗi project.**
-
----
-
-## Nguyên tắc DMCTN
-
-- Local-only mindset; không đọc secret/token
-- Mobile-first; dashboard không màu mè quá mức
-- Mọi thay đổi có tiêu chí PASS/FAIL
-- Tham chiếu: `skills/taste-skill/SKILL.md`, `skills/component-taste/SKILL.md`
+Dùng `skills/ui-review-skill` — **Design QA Score** (100) + verdict READY / NEEDS_POLISH / NEEDS_REDESIGN / FAIL.
 
 ---
 > Source: [Shwetarawat061/My-frontend](https://github.com/Shwetarawat061/My-frontend) — distributed by [TomeVault](https://tomevault.io).
