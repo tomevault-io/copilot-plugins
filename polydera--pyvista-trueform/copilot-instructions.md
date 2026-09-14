@@ -1,0 +1,128 @@
+## pyvista-trueform
+
+> This package is a boundary and nothing more: PyVista datasets in, trueform
+
+# pyvista-trueform agent contract
+
+This package is a boundary and nothing more: PyVista datasets in, trueform
+results out — about 2,800 lines under `src/`, of which some 1,100 are code
+and the rest is the contract each entry states. trueform owns every
+computation; PyVista owns every dataset. Work here is judged by whether the
+boundary stays this thin.
+
+Developed jointly by Žiga Sajovic and Claude.
+
+## The laws
+
+1. **The cache is whole-value.** The accessor caches one `trueform.Mesh`
+   per dataset, keyed by the dataset's VTK MTime — one integer compare per
+   access. While the MTime holds, every call reuses the same instance, so
+   trueform's lazily built structures (tree, face membership, edge link)
+   amortize. When it changes, the mesh is discarded whole and rebuilt.
+   Never partial refresh, never per-array owners, never storage tracking —
+   that design was considered and rejected as overengineering. The volume
+   accessor on `pyvista.ImageData` holds one `trueform.Volume` under the
+   same law, keyed by MTime and the array read — the array, never the
+   spelling of the request; there the cache also buys the sample copy the
+   conversion owes. What advances an MTime is the same on both carriers
+   and is a fact about the array, not the dataset: a VTK-backed array
+   notifies its owner, a plain NumPy buffer does not. So a sample edited
+   through the dataset rebuilds the volume by itself, and a write to a
+   buffer VTK is only borrowing — the one `volume_to_pyvista` shares —
+   needs `Modified()`.
+
+2. **Conversion direction decides copying.** `to_trueform` and
+   `volume_to_trueform` copy — the result is detached from the dataset by
+   contract. `to_pyvista`, `curves_to_pyvista` and `volume_to_pyvista` are
+   zero-copy: trueform's offset-block layout IS VTK 9's cell-array layout,
+   a volume's samples ARE VTK's flat x-fastest point data, and VTK retains
+   the NumPy buffers. The one exception is a baked `trueform.Mesh`
+   transformation, which must copy points; nothing else may quietly copy
+   or quietly alias. A `trueform.Volume` pose is never baked — the grid
+   carries it as origin + spacing + direction, which is why that direction
+   stays zero-copy even when posed, and the pose is a turn about the
+   dataset's own origin so that crossing never redefines the coordinates a
+   caller already holds.
+
+3. **Nothing is rederived.** This package never computes geometry,
+   topology, or labels — it converts, forwards to trueform's public Python
+   API, and converts back. Labels ride verbatim as cell data. If an
+   operation needs a fact, trueform produces it.
+
+4. **The boundary is loud.** Types, dtypes, and shapes are validated at
+   entry with exact error messages. No silent coercion, and no silent
+   feature loss: a dependency floor is a feature floor (the pyvista floor
+   is the version whose accessor registry this package registers into).
+
+5. **The package speaks two dialects, one per direction.** Inward,
+   queries speak trueform primitives: `ray_cast` and `pick` take a
+   `tf.Ray` (single or batch), a point query is an array or a batched
+   `tf.Point` — a points-only PyVista dataset wraps its `.points` as one
+   batched primitive, never a refusal, never a second path. Outward,
+   readers answer in PyVista types: `PolyData` with labels as cell data,
+   `MultiBlock` for anything plural, line PolyData for curves, `ImageData`
+   for a scalar field — the `CsgGraph` wrapper exists for exactly this,
+   with `.native` as the one escape hatch. And every value this package
+   names "distance" is euclidean; a squared metric is converted at the
+   boundary, once.
+
+6. **Every claim is a fixture.** Cache identity (`is`), the raw-mutation
+   MTime gotcha, zero-copy owner-safety under `gc`, entry-point
+   registration in a clean subprocess — each documented behavior has the
+   test that proves it, in `tests/test_pyvista_trueform.py`.
+
+## Boundaries with the neighbors
+
+- trueform's Python surface is the only trueform this package sees. Never
+  reach into its internals; its own contract lives in the trueform
+  repository (`agents/python_layer.md`).
+- PyVista is reached through its public API plus the VTK cell-array/
+  numpy_support seam used by the conversions. Accessor registration goes
+  through `pyvista.register_dataset_accessor` and the `pyvista.accessors`
+  entry point — both, so `import pyvista_trueform` and a bare
+  `import pyvista` reach the same accessor.
+- What PyVista already does well stays PyVista's: plain normals
+  (`compute_normals`), smoothing (`smooth`, `smooth_taubin`), and IO
+  passthroughs beyond `read`/`write` are its idioms, and this package
+  does not shadow them — a binding earns its place only where trueform
+  produces the fact. `image.trueform.isosurface()` is not a second
+  `contour()`: it is where dual contouring, the welded indexed output,
+  and the grid's own pose come from.
+- PyVista owns a dataset's placement, so the volume conversions hand it
+  back its own vocabulary: the composed placement goes to
+  `index_to_physical_matrix`, and PyVista's decomposition — including
+  its shear refusal — is the one producer of `origin`, `spacing` and
+  `direction_matrix`. This package never decomposes a matrix itself.
+
+## Working here
+
+- The package is installed editable, so edits are live; the gate is
+  `python -m pytest tests` (~1 s) after every change, plus
+  `PYVISTA_OFF_SCREEN=true python examples/<name>.py` for any example
+  touched — every `main()` must exit clean headless.
+- Every example's `compute()` is also a fixture: the suite runs each one
+  and checks what it claims. The volume surface's four are
+  `examples/volume_scan.py` (a NIfTI study surfaced in patient space),
+  `volume_csg.py` (a field carve read by both extractors),
+  `volume_offset.py` (a banded mesh field at three offsets) and
+  `volume_slice.py` (level sets on a plane beside their isosurface).
+- Verify every trueform signature against the installed wheel or
+  /Users/ziga/trueform/python/src/trueform/ BEFORE calling it; never
+  guess a kwarg or a return shape. Run the call live before writing its
+  test.
+- Commits: house conventional style (`feat(scope): lowercase declarative`),
+  one concern per commit, tests land with the feature they fixture, NO
+  trailers of any kind.
+- The Polydera colormaps in `src/pyvista_trueform/_colormaps.py` are a copy
+  of /Users/ziga/polydera/lunar/src/viewport/colorMaps.ts — that file is the
+  definition's home; never let the two drift silently. The package is their
+  one producer; `examples/_theme.py` imports them.
+## Validation
+
+```bash
+python -m pytest tests
+```
+
+---
+> Source: [polydera/pyvista-trueform](https://github.com/polydera/pyvista-trueform) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-14 -->
