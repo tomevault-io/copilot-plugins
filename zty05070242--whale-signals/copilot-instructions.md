@@ -2,7 +2,7 @@
 
 > On-chain Ethereum whale tracking + NLP sentiment analysis to model short-term
 
-# Claude Code Instructions for `whale_signals`
+# Codex Instructions for `whale_signals`
 
 ## Project Context
 
@@ -65,4 +65,4 @@ methodology, and honest reporting — not just "AI applied to crypto prices".
 
 ---
 > Source: [zty05070242/whale-signals](https://github.com/zty05070242/whale-signals) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
