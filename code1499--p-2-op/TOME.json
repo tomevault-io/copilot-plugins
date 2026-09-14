@@ -1,0 +1,44 @@
+{
+  "name": "P-2-OP",
+  "owner": "code1499",
+  "repo": "P-2-OP",
+  "description": "//\ud68c\uc758\uc2e4 \uc608\uc57d \uc2dc\uc2a4\ud15c(\uad50\uc721_\uc624\ud508)// ",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/code1499/P-2-OP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T22:43:04Z"
+}
