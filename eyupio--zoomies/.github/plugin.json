@@ -1,0 +1,9 @@
+{
+  "name": "eyupio--zoomies",
+  "displayName": "zoomies",
+  "description": "Zoomies is a lightweight, self-hosted GitHub Actions runner fleet controller. Ephemeral runners by default, GitHub App auth, webhook-driven autoscaling, multi-host agents, a polished live web UI, and ",
+  "version": "1.0.0",
+  "author": "eyupio",
+  "homepage": "https://github.com/eyupio/zoomies",
+  "skills": []
+}
