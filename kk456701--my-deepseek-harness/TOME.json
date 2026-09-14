@@ -4,7 +4,7 @@
   "repo": "my_deepseek-harness",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KK456701/my_deepseek-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T12:35:22Z"
+  "distributed_at": "2026-09-14T12:39:21Z"
 }
