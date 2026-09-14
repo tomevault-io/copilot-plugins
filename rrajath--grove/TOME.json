@@ -2,9 +2,9 @@
   "name": "grove",
   "owner": "rrajath",
   "repo": "grove",
-  "description": "A task management and note-taking app for Android that is compatible with org-mode",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rrajath/grove",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T04:55:06Z"
+  "distributed_at": "2026-09-14T01:58:21Z"
 }
