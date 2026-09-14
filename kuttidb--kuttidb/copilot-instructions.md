@@ -1,0 +1,110 @@
+## kuttidb
+
+> KuttiDB is a C database/server with a TypeScript management console. This file
+
+# AGENTS.md — Rules for AI Agents and Contributors
+
+KuttiDB is a C database/server with a TypeScript management console. This file
+defines the conventions every agent and human contributor must follow. It is
+the single source of truth for where documentation lives.
+
+## Documentation policy (mandatory)
+
+**All project documentation lives in `docs/`. Never create `.md` files at the
+repository root.**
+
+The root keeps exactly three markdown-visible files:
+
+- `README.md` — project entry point (the only documentation file allowed at root)
+- `AGENTS.md` — this file
+- `LICENSE` — not markdown, listed for completeness
+
+Anything else — guides, references, specs, implementation plans, working
+instructions, notes — goes under `docs/` in the matching subfolder. One
+exception: the agent skill `.agents/skills/kuttidb/SKILL.md` is an
+agent-invocation artifact, not project documentation; it is governed by the
+skill-sync rule below and must not be moved into `docs/`.
+
+### Where new documents go
+
+| Path | Put here | Naming |
+|---|---|---|
+| `docs/guides/` | First-run guides, how-tos, migration comparisons | `UPPER_SNAKE.md` |
+| `docs/design/` | Architecture, wire protocol, durability model | `UPPER_SNAKE.md` |
+| `docs/messaging/` | Queue, exchange, and stream semantics | `UPPER_SNAKE.md` |
+| `docs/operations/` | Deployment, Docker, Kubernetes, benchmarks, releases | `UPPER_SNAKE.md` |
+| `docs/api/` | Management API reference material | `UPPER_SNAKE.md` |
+| `docs/plans/` | Roadmap plus implementation plans and instruction documents used for development (by humans or agents) — **kept locally, not part of the published repository** | `UPPER_SNAKE.md`, suffix `_PLAN` or `_INSTRUCTION` |
+| `docs/adr/` | Architecture decision records | `NNNN-short-title.md`, sequential number |
+| `docs/SECURITY.md` | Security policy (must stay directly under `docs/` so GitHub recognizes it) | fixed |
+
+If a document spans categories, pick the primary audience: operators →
+`operations/`, application developers → `guides/`, protocol/storage internals →
+`design/`.
+
+### Rules when writing or moving documentation
+
+1. Never add, leave, or re-create `.md` files at the repository root except
+   `README.md` and `AGENTS.md`.
+2. When you add a user-facing document, add a row to the index tables in
+   `README.md` (Documentation section) and `docs/README.md`.
+3. Use relative links between documents. After moving a document, fix:
+   its outbound links, links pointing at it from other docs, the
+   `README.md` tables, and the GitHub `blob/main/...` links in
+   the separate private website repository.
+4. Source comments may reference documents — use the repo-root path
+   (e.g. `docs/design/ARCHITECTURE.md`), never a bare filename.
+5. Do not rename documents casually; agents and CI reference them by path.
+   If a rename is required, update every reference and keep the move in its
+   own commit.
+6. Transient working notes for agent-driven tasks belong in `docs/plans/`,
+   not the root, not `docs/` directly, and never in commit messages alone.
+   The whole `docs/plans/` folder is gitignored: it stays on each
+   contributor's machine and is never published or linked from other docs.
+
+## Agent skill sync (mandatory)
+
+`.agents/skills/kuttidb/SKILL.md` is the repository's agent skill. Agents load
+it before starting the server, writing client code, configuring deployments,
+or calling the Management API, so it must describe the current state of the
+system — never a past one.
+
+1. Whenever you implement a new feature or change any behavior the skill
+   describes — server CLI flags or defaults, wire protocol or STATS output,
+   client SDK methods or configuration, managed local mode (`kuttidb ensure`),
+   metrics or Management API resources and conventions, Docker/compose setup,
+   or test commands — update the skill **in the same pull request**. Skill
+   sync is part of the definition of done, on the same level as running
+   `make test`.
+2. Verify every claim you add against the implementation before writing it:
+   flags in `src/server.c` and `src/managed_launcher.c`, SDK surfaces in
+   `clients/`, the Management API in `src/admin_http.c` and
+   `openapi/management-v1.yaml`. Never copy examples forward from stale docs
+   or memory.
+3. Keep the skill's YAML frontmatter valid and accurate: `name` stays
+   `kuttidb`, and `description` must still name the situations that should
+   trigger agents to invoke the skill.
+4. The skill references documentation by repo-root path. When documents move
+   or are renamed, fix the skill's links in the same change (see rule 5
+   above).
+5. Do not expand the skill into a second documentation tree: it stays a
+   compact operational reference for agents and points to `docs/` for depth.
+   If a topic needs full prose, document it in `docs/` and link to it.
+
+## Build and test
+
+```sh
+make              # builds kuttidb, kuttidb-bench, and the embedded library
+make test         # core, platform, queues, exchanges, atomicity, streams, fuzz, embed
+make bench-quick  # cache performance gates
+pnpm lint && pnpm test   # management console (apps/management-ui)
+```
+
+- Durable semantics are the contract: a PR that changes acknowledgement or
+  recovery behavior must come with a matching crash-test.
+- Run `make test` before submitting; run the console checks when `apps/`
+  or `packages/` change.
+
+---
+> Source: [kuttidb/kuttidb](https://github.com/kuttidb/kuttidb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
