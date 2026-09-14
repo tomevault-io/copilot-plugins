@@ -3,7 +3,7 @@
   "owner": "tradecatlabs",
   "repo": "fatecat",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,207 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "fatecat",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/meihua-yishu-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/meihua-yishu-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/fengshui.skill-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/fengshui.skill-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/meihua-divination-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/meihua-divination-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/bazi-skill-gaoxin492-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/bazi-skill-gaoxin492-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/bazi-skill-jinchenma94-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/bazi-skill-jinchenma94-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Numerologist_skills-main/bazi/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Numerologist_skills-main/bazi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/compare/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Numerologist_skills-main/ziwei-doushu/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Numerologist_skills-main/ziwei-doushu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Numerologist_skills-main/qimen-dunjia/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Numerologist_skills-main/qimen-dunjia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/horosa-skill-main/skills/horosa-agent/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/horosa-skill-main/skills/horosa-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-ouyi/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-ouyi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-zhiyi/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-zhiyi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-xuyun/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-xuyun/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-debate/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-debate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-fazang/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-fazang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-atisha/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-atisha/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/mingyu-main/public/skills/aov-mingyu-api/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/mingyu-main/public/skills/aov-mingyu-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-huineng/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-huineng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-yinguang/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-yinguang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-xuanzang/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-xuanzang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-milarepa/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-milarepa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-nagarjuna/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-nagarjuna/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-kumarajiva/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-kumarajiva/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-ajahn-chah/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-ajahn-chah/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-tsongkhapa/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-tsongkhapa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-curriculum/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-curriculum/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-buddhaghosa/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-buddhaghosa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/Master-skill-main/prebuilt/master-mahasi-sayadaw/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/Master-skill-main/prebuilt/master-mahasi-sayadaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/tarot-skill-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/tarot-skill-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/yinyuan-skills-main/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/yinyuan-skills-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fatecat",
+      "path": "tools/reference-repos/github/taibu-master/skills/divination/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/fatecat/tree/main/tools/reference-repos/github/taibu-master/skills/divination/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tradecatlabs/fatecat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T21:45:45Z"
+  "distributed_at": "2026-09-14T20:29:26Z"
 }
