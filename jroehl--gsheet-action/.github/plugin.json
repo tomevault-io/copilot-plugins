@@ -1,0 +1,14 @@
+{
+  "name": "jroehl--gsheet-action",
+  "displayName": "gsheet.action",
+  "description": "gsheet.action",
+  "version": "1.0.0",
+  "author": "jroehl",
+  "homepage": "https://github.com/jroehl/gsheet.action",
+  "skills": [
+    {
+      "name": "gsheet.action",
+      "description": ""
+    }
+  ]
+}
