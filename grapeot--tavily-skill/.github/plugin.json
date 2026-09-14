@@ -1,0 +1,9 @@
+{
+  "name": "grapeot--tavily-skill",
+  "displayName": "tavily-skill",
+  "description": "Agent-oriented Tavily search and extract CLI with stable JSON output",
+  "version": "1.0.0",
+  "author": "grapeot",
+  "homepage": "https://github.com/grapeot/tavily-skill",
+  "skills": []
+}
