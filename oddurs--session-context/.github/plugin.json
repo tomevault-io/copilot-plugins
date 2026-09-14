@@ -1,0 +1,9 @@
+{
+  "name": "oddurs--session-context",
+  "displayName": "session-context",
+  "description": "Everything a single web page can work out about you \u2014 stated in plain English, with the raw values behind every claim",
+  "version": "1.0.0",
+  "author": "oddurs",
+  "homepage": "https://github.com/oddurs/session-context",
+  "skills": []
+}
