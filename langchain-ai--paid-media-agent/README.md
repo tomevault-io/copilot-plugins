@@ -7,11 +7,11 @@ Open-source paid media agent for Google Ads, Meta Ads, Reddit, LinkedIn, X, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [langchain-ai/paid-media-agent](https://github.com/langchain-ai/paid-media-agent).
+Original source: `AGENTS.md` in [langchain-ai/paid-media-agent](https://github.com/langchain-ai/paid-media-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
