@@ -1,0 +1,9 @@
+{
+  "name": "flash-tex--flashtex",
+  "displayName": "flashtex",
+  "description": "Blazing \u26a1\ufe0f fast (La)TeX compiler written in Rust (HackCMU 2026)",
+  "version": "1.0.0",
+  "author": "flash-tex",
+  "homepage": "https://github.com/flash-tex/flashtex",
+  "skills": []
+}
