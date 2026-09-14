@@ -2,9 +2,9 @@
   "name": "SztuCode",
   "owner": "rojim666",
   "repo": "SztuCode",
-  "description": "\u672c\u5730\u4f18\u5148\u7684 AI \u7f16\u7a0b Agent\uff0c\u652f\u6301 TUI/\u684c\u9762\u7aef\u3001\u5de5\u5177\u6743\u9650\u3001\u4f1a\u8bdd\u8bb0\u5fc6\u3001Skills\u3001Subagents \u4e0e MCPA local-first AI coding agent with TUI and desktop clients, tool permissions, memory, Skills, Subagents, and MCP support.\u3002",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rojim666/SztuCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T08:31:29Z"
+  "distributed_at": "2026-09-14T01:44:36Z"
 }
