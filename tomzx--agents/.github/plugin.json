@@ -1,0 +1,9 @@
+{
+  "name": "tomzx--agents",
+  "displayName": "agents",
+  "description": "A library of composable skills, agents, and conventions that teach agents how to perform repeatable software-engineering and knowledge-work tasks",
+  "version": "1.0.0",
+  "author": "tomzx",
+  "homepage": "https://github.com/tomzx/agents",
+  "skills": []
+}
