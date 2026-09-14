@@ -4,7 +4,7 @@
   "repo": "flashtex",
   "description": "Blazing \u26a1\ufe0f fast (La)TeX compiler written in Rust (HackCMU 2026)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flash-tex/flashtex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T04:32:35Z"
+  "distributed_at": "2026-09-14T04:34:24Z"
 }
