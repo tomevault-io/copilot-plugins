@@ -1,7 +1,7 @@
 {
   "name": "primefoldtools--andon",
   "displayName": "andon",
-  "description": "A Lean quality system for AI-assisted work \u2014 every defect becomes a permanent countermeasure. Built by a manufacturing operator.",
+  "description": "andon",
   "version": "1.0.0",
   "author": "PrimeFoldTools",
   "homepage": "https://github.com/PrimeFoldTools/andon",
