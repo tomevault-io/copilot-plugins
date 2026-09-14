@@ -1,0 +1,9 @@
+{
+  "name": "jcottam--agent-resources",
+  "displayName": "agent-resources",
+  "description": "Battle-tested agent skills and Cursor rules from real projects. Works with Cursor, Claude Code, and any agent.",
+  "version": "1.0.0",
+  "author": "jcottam",
+  "homepage": "https://github.com/jcottam/agent-resources",
+  "skills": []
+}
