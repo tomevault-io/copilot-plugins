@@ -4,7 +4,7 @@
   "repo": "longgraph-skill",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/levi-qiao/longgraph-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T00:42:43Z"
+  "distributed_at": "2026-09-14T01:50:12Z"
 }
