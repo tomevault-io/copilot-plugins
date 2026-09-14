@@ -1,0 +1,9 @@
+{
+  "name": "krakenunbound--yue2-studio",
+  "displayName": "yue2-studio",
+  "description": "Native Windows music studio for YuE2-3B, with local model downloads, song editing, lyrics, covers and video tools.",
+  "version": "1.0.0",
+  "author": "krakenunbound",
+  "homepage": "https://github.com/krakenunbound/yue2-studio",
+  "skills": []
+}
