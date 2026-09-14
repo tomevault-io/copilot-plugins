@@ -7,11 +7,11 @@ Battle-tested agent skills and Cursor rules from real projects. Works with Curso
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jcottam/agent-resources](https://github.com/jcottam/agent-resources).
+Original source: `CLAUDE.md` in [jcottam/agent-resources](https://github.com/jcottam/agent-resources).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
