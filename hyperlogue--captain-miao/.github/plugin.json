@@ -1,0 +1,9 @@
+{
+  "name": "hyperlogue--captain-miao",
+  "displayName": "captain-miao",
+  "description": "Mission control for your coding agents. See every session, know which one needs you, and jump straight to it. Your sessions stay in your terminal.",
+  "version": "1.0.0",
+  "author": "hyperlogue",
+  "homepage": "https://github.com/hyperlogue/captain-miao",
+  "skills": []
+}
