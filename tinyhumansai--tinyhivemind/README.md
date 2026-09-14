@@ -7,11 +7,11 @@ Hive mind mechanics for agents. A step closer towards AGI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tinyhumansai/tinyhivemind](https://github.com/tinyhumansai/tinyhivemind).
+Original source: `CLAUDE.md` in [tinyhumansai/tinyhivemind](https://github.com/tinyhumansai/tinyhivemind).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
