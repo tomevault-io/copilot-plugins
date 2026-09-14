@@ -1,0 +1,9 @@
+{
+  "name": "noodleseed-com--noodle-core",
+  "displayName": "noodle-core",
+  "description": "Apache-2.0 Noodle Core: TypeScript authoring, runtime, and single-node self-hosted beta.",
+  "version": "1.0.0",
+  "author": "NoodleSeed-com",
+  "homepage": "https://github.com/NoodleSeed-com/noodle-core",
+  "skills": []
+}
