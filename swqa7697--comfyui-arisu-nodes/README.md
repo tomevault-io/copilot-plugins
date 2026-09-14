@@ -7,11 +7,11 @@ A package of useful ComfyUI nodes optimizing user experience.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [swqa7697/ComfyUI-Arisu-Nodes](https://github.com/swqa7697/ComfyUI-Arisu-Nodes).
+Original source: `AGENTS.md` in [swqa7697/ComfyUI-Arisu-Nodes](https://github.com/swqa7697/ComfyUI-Arisu-Nodes).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
