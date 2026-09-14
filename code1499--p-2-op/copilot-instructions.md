@@ -1,89 +1,81 @@
-## svelte
+## tailwind
 
-> Svelte best practices and patterns for modern web applications
+> Tailwind CSS and UI component best practices for modern web applications
 
 
-# Svelte Best Practices
+# Tailwind CSS Best Practices
 
-## Component Structure
-- Keep components small and focused
-- Use proper TypeScript integration
-- Implement proper props typing
-- Use proper event dispatching
-- Keep markup clean and readable
-- Use proper slot implementation
+## Project Setup
+- Use proper Tailwind configuration
+- Configure theme extension properly
+- Set up proper purge configuration
+- Use proper plugin integration
+- Configure custom spacing and breakpoints
+- Set up proper color palette
 
-## Reactivity
-- Use proper reactive declarations
-- Implement proper stores
-- Use proper reactive statements
-- Handle derived values properly
-- Use proper lifecycle functions
-- Implement proper bindings
+## Component Styling
+- Use utility classes over custom CSS
+- Group related utilities with @apply when needed
+- Use proper responsive design utilities
+- Implement dark mode properly
+- Use proper state variants
+- Keep component styles consistent
 
-## State Management
-- Use proper Svelte stores
-- Keep stores modular
-- Use proper derived stores
-- Implement proper actions
-- Handle async state properly
-- Use proper store subscriptions
+## Layout
+- Use Flexbox and Grid utilities effectively
+- Implement proper spacing system
+- Use container queries when needed
+- Implement proper responsive breakpoints
+- Use proper padding and margin utilities
+- Implement proper alignment utilities
+
+## Typography
+- Use proper font size utilities
+- Implement proper line height
+- Use proper font weight utilities
+- Configure custom fonts properly
+- Use proper text alignment
+- Implement proper text decoration
+
+## Colors
+- Use semantic color naming
+- Implement proper color contrast
+- Use opacity utilities effectively
+- Configure custom colors properly
+- Use proper gradient utilities
+- Implement proper hover states
+
+## Components
+- Use shadcn/ui components when available
+- Extend components properly
+- Keep component variants consistent
+- Implement proper animations
+- Use proper transition utilities
+- Keep accessibility in mind
+
+## Responsive Design
+- Use mobile-first approach
+- Implement proper breakpoints
+- Use container queries effectively
+- Handle different screen sizes properly
+- Implement proper responsive typography
+- Use proper responsive spacing
 
 ## Performance
-- Use proper component lazy loading
-- Implement proper transitions
-- Use proper animations
-- Avoid unnecessary reactivity
-- Use proper event forwarding
-- Implement proper key blocks
-
-## Routing
-- Use SvelteKit for routing
-- Implement proper layouts
-- Use proper route parameters
-- Handle loading states properly
-- Implement proper error pages
-- Use proper navigation methods
-
-## Forms
-- Use proper form bindings
-- Implement proper validation
-- Handle form submission properly
-- Show proper loading states
-- Use proper error handling
-- Implement proper form reset
-
-## TypeScript Integration
-- Use proper component types
-- Implement proper prop types
-- Use proper event types
-- Handle proper type inference
-- Use proper store types
-- Implement proper action types
-
-## Testing
-- Write proper unit tests
-- Implement proper component tests
-- Use proper testing libraries
-- Test stores properly
-- Implement proper mocking
-- Test async operations
+- Use proper purge configuration
+- Minimize custom CSS
+- Use proper caching strategies
+- Implement proper code splitting
+- Optimize for production
+- Monitor bundle size
 
 ## Best Practices
-- Follow Svelte style guide
-- Use proper naming conventions
-- Keep components organized
-- Implement proper error handling
-- Use proper event handling
-- Document complex logic
-
-## Build and Tooling
-- Use Vite for development
-- Configure proper build setup
-- Use proper environment variables
-- Implement proper code splitting
-- Use proper asset handling
-- Configure proper optimization 
+- Follow naming conventions
+- Keep styles organized
+- Use proper documentation
+- Implement proper testing
+- Follow accessibility guidelines
+- Use proper version control 
 
 ---
 > Source: [code1499/P-2-OP](https://github.com/code1499/P-2-OP) — distributed by [TomeVault](https://tomevault.io).
