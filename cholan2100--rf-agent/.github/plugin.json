@@ -1,0 +1,9 @@
+{
+  "name": "cholan2100--rf-agent",
+  "displayName": "rf-agent",
+  "description": "Containerized Linux engineering platform for automated RF/microwave design, KiCad 10, openEMS, Qucs-S, FreeCAD, and AI-driven hardware synthesis.",
+  "version": "1.0.0",
+  "author": "cholan2100",
+  "homepage": "https://github.com/cholan2100/rf-agent",
+  "skills": []
+}
