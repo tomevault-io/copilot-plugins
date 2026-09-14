@@ -1,0 +1,9 @@
+{
+  "name": "osamucadev--job-watcher",
+  "displayName": "job-watcher",
+  "description": "Encontre vagas de Tech na inHire (foraGupy)",
+  "version": "1.0.0",
+  "author": "osamucadev",
+  "homepage": "https://github.com/osamucadev/job-watcher",
+  "skills": []
+}
