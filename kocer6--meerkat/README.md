@@ -7,11 +7,11 @@ Pons V2 token lifecycle and wallet intelligence for Robinhood Chain. Evidence-fi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kocer6/MEERKAT](https://github.com/kocer6/MEERKAT).
+Original source: `CLAUDE.md` in [kocer6/MEERKAT](https://github.com/kocer6/MEERKAT).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
