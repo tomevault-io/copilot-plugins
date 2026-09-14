@@ -1,0 +1,9 @@
+{
+  "name": "lukitaduarte--devsweep",
+  "displayName": "DevSweep",
+  "description": "macOS menu bar app that finds dev processes stuck in limbo and cleans the caches, builds and simulator data that Flutter, iOS, Android, Node and Go leave behind \u2014 one click, YAML-defined stacks",
+  "version": "1.0.0",
+  "author": "Lukitaduarte",
+  "homepage": "https://github.com/Lukitaduarte/DevSweep",
+  "skills": []
+}
