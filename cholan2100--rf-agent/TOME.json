@@ -4,7 +4,7 @@
   "repo": "rf-agent",
   "description": "Containerized Linux engineering platform for automated RF/microwave design, KiCad 10, openEMS, Qucs-S, FreeCAD, and AI-driven hardware synthesis.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cholan2100/rf-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T16:33:04Z"
+  "distributed_at": "2026-09-14T16:34:28Z"
 }
