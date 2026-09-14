@@ -1,0 +1,9 @@
+{
+  "name": "kuttidb--kuttidb",
+  "displayName": "kuttidb",
+  "description": "Lightweight, crash-recoverable event cache with durable queues, exchanges, streams, and atomic cache-plus-event commits\u2014all in one C binary.",
+  "version": "1.0.0",
+  "author": "kuttidb",
+  "homepage": "https://github.com/kuttidb/kuttidb",
+  "skills": []
+}
