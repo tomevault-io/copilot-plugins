@@ -7,11 +7,11 @@ Voicetypr - AI powered offline voice to text dictation tool for busy founders, v
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ideaplexa/voicetypr](https://github.com/ideaplexa/voicetypr).
+Original source: `CLAUDE.md` in [ideaplexa/voicetypr](https://github.com/ideaplexa/voicetypr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
