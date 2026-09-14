@@ -4,7 +4,7 @@
   "repo": "awesome-ai-x-accounts",
   "description": "A categorized directory of X accounts covering AI, LLMs, agents, and technology, with original profile bios and follower counts. Available in 7 languages.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/everclear077/awesome-ai-x-accounts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T01:54:37Z"
+  "distributed_at": "2026-09-14T02:21:52Z"
 }
