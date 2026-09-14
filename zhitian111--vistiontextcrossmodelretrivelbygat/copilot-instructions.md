@@ -1,58 +1,46 @@
-## agent-operations
+## python-standards
 
-> description: Agent 执行与环境操作规范（venv、config、pip、scripts）
+> description: Python 编码规范（注释、全局变量、项目风格）
 
 ﻿---
-description: Agent 执行与环境操作规范（venv、config、pip、scripts）
-alwaysApply: true
+description: Python 编码规范（注释、全局变量、项目风格）
+globs: "**/*.py"
+alwaysApply: false
 ---
 
-# Agent 操作规范
+# Python 编码规范
 
-完整说明见 `docs/prompts/agent-guidelines.md`。
+## 注释与文档
 
-## 最小执行
+- **模块**：顶部 docstring 说明职责、用法、与 `config.py` / `main.py` 的关系。
+- **类**：docstring 写清权责边界（负责什么、不负责什么）。
+- **函数**：docstring 说明输入输出、副作用；非平凡函数写 Args / Returns。
+- **函数内部**：对算法步骤、边界条件、非显而易见逻辑加注释；避免废话注释。
 
-- 只运行验证**当前改动**所必需的命令；禁止无关训练、全量下载或批量数据处理。
-- 优先阅读代码与静态分析；确需运行时再执行最小命令集。
+## 全局变量
 
-## 目录扫描
+- 不在非 setup 阶段修改模块级可变状态或 `os.environ`。
+- 环境初始化集中在 `config.setup()` 或模块 `setup()` 中；业务逻辑通过参数传递。
+- 模块级标志（如 `_setup_done`）仅在 `setup()` 内写入一次，保证幂等。
 
-- **禁止**对项目根无差别 `**/*`、全量 Glob、递归 `list_dir`。
-- **默认排除**：`.venv/`、`.cache/`、`outputs/`、`__pycache__/`、`node_modules/`、`.git/`（无需读取其内容）。
-- 用**有目标**路径/Glob 探索（如 `image/**/*.py`）；已知路径直接读文件。
+## 风格
 
-## 虚拟环境
+- 使用 `from __future__ import annotations`、类型注解、`pathlib.Path`。
+- 匹配现有代码风格；不重构或格式化无关文件。
 
-执行 `python` / `pip` 前先激活项目根目录 `.venv`：
-
-- PowerShell: `.\.venv\Scripts\Activate.ps1`
-- Linux/macOS: `source .venv/bin/activate`
-
-## config.py
-
-- 经 `main.py` 入口：由入口调用 `config.setup()`。
-- 不经 `main.py` 的脚本或测试：在 import `matplotlib` / `torch` / `transformers` / `huggingface_hub` **之前**执行：
+## 示例
 
 ```python
-import config
-config.setup()
+def build_spatial_graph(patch_coords, k):
+    """根据 patch 坐标构建空间 kNN 图。
+
+    职责：几何邻接构图。不负责语义特征或动态图更新。
+    """
+    # 1. 计算 pairwise 距离
+    ...
+    # 2. 取 k 近邻并构造对称边
+    ...
 ```
-
-## 依赖安装
-
-1. 新包先写入根目录 `requirements.txt`，再考虑安装。
-2. `pip install -r requirements.txt` 前检查 `TMP`、`HF_HOME`、`PIP_CACHE_DIR`、`MPLCONFIGDIR` 等是否仍指向 C 盘且 `config.py` 未覆盖。
-3. 若环境未就绪：**不要**执行 pip install；提示用户先在 `config.py` 配置路径后自行安装。
-
-## scripts/
-
-可复用批处理任务放入 `./scripts/`，仅用 Python 标准库，跨平台可运行。
-
-## 其他
-
-- 最小 diff，不擅自 git commit 或新建无关文档（除非用户要求）。
-- 与用户交流使用简体中文。
 
 ---
 > Source: [zhitian111/VistionTextCrossModelRetrivelByGAT](https://github.com/zhitian111/VistionTextCrossModelRetrivelByGAT) — distributed by [TomeVault](https://tomevault.io).
