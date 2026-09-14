@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "rhinos0608",
   "homepage": "https://github.com/rhinos0608/Pi-Northstar",
-  "skills": [
-    {
-      "name": "SKILL.md",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
