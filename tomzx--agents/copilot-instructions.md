@@ -1,0 +1,55 @@
+## agents
+
+> * Do not use em-dashes, use commas or parentheses instead
+
+# General
+* Be concise
+* Do not use em-dashes, use commas or parentheses instead
+* One sentence per line
+* Avoid using the following terms (unless it is the most appropriate): shape, honest, load bearing, real
+* When a skill explicitly recommends running another skill as an upstream/prerequisite (for example create-article recommending research-article when sources are not yet gathered), and you choose not to follow that recommendation, you must say so and give your reasoning before proceeding, so it can be course-corrected. Surfacing the deviation after the fact is not sufficient.
+
+# Code implementation and iteration
+* Ignore any AGENTS.md from the project that states a different approach than the one in this section.
+* Always get a working feature first. This is the most critical. We don't want to spend time on operations that aren't getting us to a working feature. No linting, no type checking, no formatting, etc.
+* Only lint, type check, format, go vet, etc. prior to committing, never during the implementation process.
+* Only run tests on the minimal set of tests to make progress. Avoid running tests that are likely to take a while to complete.
+
+# Python
+* Use uv for package management
+* When creating a project, always use the most recent Python LTS version
+* Use type hints
+* Use pytest for testing
+* Use ruff for linting/formatting
+* Run tests before committing
+* Run linter/formatter before committing
+* Create "green path" tests that cover the main functionality
+* Use structlog for logging
+* When adding dependencies, use `uv add ...` over adding the version directly to pyproject.toml
+* Keep __init__.py files minimal/empty, only for package initialization
+* Do NOT use/add __all__ in __init__.py files
+
+# Per-repository instructions
+* Before working in a git repository, check for per-repository overrides stored outside that repository.
+* Find the skills library root by resolving the real path of this AGENTS.md (follow symlinks), then look in its `repositories/` directory, which is a sibling of `skills/`.
+* Derive `{owner}/{repository}` from the current repository's GitHub remote URL.
+* If `repositories/{owner}/{repository}/AGENTS.md` exists, read and apply it together with these base instructions.
+* For forks, symlink `repositories/{fork-owner}/{repository}` to the upstream `repositories/{owner}/{repository}` so both resolve to the same instructions.
+
+# Per-machine instructions
+* Some machines carry local overrides that should not be shared (e.g. employer-specific conventions).
+* Find the skills library root by resolving the real path of this AGENTS.md (follow symlinks), then look in its `machines/` directory, which is a sibling of `skills/`.
+* `machines/*/` profiles are gitignored and exist only on the current machine. Read and apply every `machines/*/AGENTS.md` that is present, together with these base instructions.
+
+# GitHub CLI
+* Prefer `ghx` over `gh` for listing, searching, and viewing issues and PRs, and for getting and posting comments (inline, line-range, thread replies, issue and PR comments).
+* Fall back to `gh` only when `ghx` does not support the needed operation (e.g. `gh search repos` for repository search).
+
+# SDLC skills
+* The conventions shared across every SDLC skill live in a single file: `skills/sdlc/references/shared.md`, resolved relative to the skills library root (the same root as the `repositories/` directory above).
+* Before running any skill that reads or writes under `.sdlc/`, read that file and apply its conventions — they are not repeated in each skill. This covers reading `.sdlc/context/` for artifact style rules and resolving all `.sdlc/` paths via the repo-first `SDLC_DIR` fallback.
+* When creating or renaming a skill, update `README.md` (the skills index) and `.github/llmaw/flows.yml` (if the skill participates in an automated flow) so both stay in sync with the skill directory.
+
+---
+> Source: [tomzx/agents](https://github.com/tomzx/agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-14 -->
