@@ -4,7 +4,7 @@
   "repo": "Browser4",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -151,9 +151,45 @@
       "path": "coworker/skills/test-production/SKILL.md",
       "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/test-production/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-dev/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-seo/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-coding/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-fix-bug/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-web-miner/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-web-miner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "docs-dev/copilot/examples/skill.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/docs-dev/copilot/examples/skill.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/platonai/Browser4",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T15:41:42Z"
+  "distributed_at": "2026-09-14T03:33:41Z"
 }
