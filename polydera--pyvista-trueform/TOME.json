@@ -4,7 +4,7 @@
   "repo": "pyvista-trueform",
   "description": "PyVista accessor and conversions for trueform \u2014 the CSG engine",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/polydera/pyvista-trueform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T22:34:23Z"
+  "distributed_at": "2026-09-14T22:37:45Z"
 }
