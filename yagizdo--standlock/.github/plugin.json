@@ -1,0 +1,9 @@
+{
+  "name": "yagizdo--standlock",
+  "displayName": "standlock",
+  "description": "A macOS menu bar app that blocks your screen when it's time to stand up. Three enforcement levels: skip freely, type to dismiss, or full input lock.",
+  "version": "1.0.0",
+  "author": "yagizdo",
+  "homepage": "https://github.com/yagizdo/standlock",
+  "skills": []
+}
