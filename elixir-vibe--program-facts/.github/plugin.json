@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--program-facts",
+  "displayName": "program_facts",
+  "description": "Generate Elixir programs with known structural facts for analyzer testing",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/program_facts",
+  "skills": []
+}
