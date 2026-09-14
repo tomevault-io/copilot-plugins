@@ -1,0 +1,9 @@
+{
+  "name": "cheshiai--cheshi",
+  "displayName": "Cheshi",
+  "description": "Cheshi is a desktop workspace for AI-assisted development. Work with Codex, explore your codebase with CodeGraph, and manage code, terminals, and Git in one place.",
+  "version": "1.0.0",
+  "author": "CheshiAI",
+  "homepage": "https://github.com/CheshiAI/Cheshi",
+  "skills": []
+}
