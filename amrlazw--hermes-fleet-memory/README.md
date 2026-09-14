@@ -7,13 +7,13 @@ Zero-bloat distributed vector memory, hardware-enforced domain firewalls, and NA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [amrlazw/hermes-fleet-memory](https://github.com/amrlazw/hermes-fleet-memory).
+Original source: `CLAUDE.md` in [amrlazw/hermes-fleet-memory](https://github.com/amrlazw/hermes-fleet-memory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
