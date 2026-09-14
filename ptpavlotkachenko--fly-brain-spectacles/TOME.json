@@ -4,7 +4,7 @@
   "repo": "fly-brain-spectacles",
   "description": "Hologram fruit flies on Snap Spectacles (2024), each driven by the full MaleCNS fly connectome running on a Mac (bit-exact Metal GPU kernel)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PtPavloTkachenko/fly-brain-spectacles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T10:30:25Z"
+  "distributed_at": "2026-09-14T10:33:05Z"
 }
