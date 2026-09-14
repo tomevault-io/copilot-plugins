@@ -1,0 +1,9 @@
+{
+  "name": "tony-simons-aiowa--hermes-newswire",
+  "displayName": "hermes-newswire",
+  "description": "Breaking-news ticker plugin for Hermes Desktop \u2014 RSS/Atom/JSON-Feed newswire strip above the statusbar with feed search, favicons, and zero API keys",
+  "version": "1.0.0",
+  "author": "tony-simons-aiowa",
+  "homepage": "https://github.com/tony-simons-aiowa/hermes-newswire",
+  "skills": []
+}
