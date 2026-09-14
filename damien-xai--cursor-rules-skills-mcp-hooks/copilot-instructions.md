@@ -1,22 +1,17 @@
-## always-project
+## api-security
 
-> Always-on conventions for this SvelteKit + Cursor customization repo
+> API and server security for SvelteKit handlers and stores
 
 
-# Always-on project rule
+# API security
 
-This is an **Always Apply** project rule (`alwaysApply: true`).
+This is an **Apply to Specific Files** rule. It attaches on server routes and stores.
 
-- Stack is SvelteKit. Put new code where the user says. Do not invent a
-  second project at the repo root unless they ask.
-- There is no existing application source tree. List the directory before
-  claiming files exist. Do not assume a previous demo.
-- Prefer editing rules, skills, MCP config, and hooks over drive-by refactors.
-- GitHub issues, PRs, and repo facts go through the connected GitHub MCP.
-- Do not commit `.cursor/logs/*.log` or `.cursor/logs/*.jsonl`.
-  Tail `.cursor/logs/hooks.log` to see every hook run.
-- Never put credentials in source or client code. Hooks block `.env` paths and
-  credential-like strings.
+- Validate every JSON field (type + trim). Use `error(400, ...)` for bad input.
+- Treat ids as untrusted. Use `error(404, 'not found')` when a row is missing.
+- Never log, return, or hard-code secrets. Env vars stay on the server.
+- Export store functions with explicit return types; return copies, not the live array.
+- Use `json` and `error` from `@sveltejs/kit` in `+server.ts` handlers.
 
 ---
 > Source: [damien-xai/cursor-rules-skills-mcp-hooks](https://github.com/damien-xai/cursor-rules-skills-mcp-hooks) — distributed by [TomeVault](https://tomevault.io).
