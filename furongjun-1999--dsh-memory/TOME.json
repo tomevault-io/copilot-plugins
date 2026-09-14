@@ -4,7 +4,7 @@
   "repo": "dsh-memory",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FuRongJun-1999/dsh-memory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T22:54:36Z"
+  "distributed_at": "2026-09-14T00:49:37Z"
 }
