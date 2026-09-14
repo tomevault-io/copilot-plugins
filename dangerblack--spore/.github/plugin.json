@@ -1,0 +1,9 @@
+{
+  "name": "dangerblack--spore",
+  "displayName": "spore",
+  "description": "Open and publish static websites that live in BitTorrent swarms, from a single static page. No server, no account, your files go to readers, not to a host",
+  "version": "1.0.0",
+  "author": "DangerBlack",
+  "homepage": "https://github.com/DangerBlack/spore",
+  "skills": []
+}
