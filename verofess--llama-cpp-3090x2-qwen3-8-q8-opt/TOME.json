@@ -4,7 +4,7 @@
   "repo": "llama.cpp_3090x2_qwen3.8_q8_opt",
   "description": "A llama.cpp fork with TurboQuant/TCQ KV cache, fused Qwen MTP speculative decoding, and multi-GPU long-context serving fixes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VeroFess/llama.cpp_3090x2_qwen3.8_q8_opt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T03:38:00Z"
+  "distributed_at": "2026-09-14T03:38:47Z"
 }
