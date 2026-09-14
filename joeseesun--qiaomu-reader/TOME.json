@@ -1,0 +1,44 @@
+{
+  "name": "qiaomu-reader",
+  "owner": "joeseesun",
+  "repo": "qiaomu-reader",
+  "description": "\u5df2\u4e0a\u67b6 Obsidian \u793e\u533a\u63d2\u4ef6\u5e02\u573a\uff1a\u641c\u7d22 Qiaomu Reader \u5b89\u88c5\u3002Read EPUB, PDF and MOBI, highlight passages, keep linked notes and ask optional AI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joeseesun/qiaomu-reader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T11:30:23Z"
+}
