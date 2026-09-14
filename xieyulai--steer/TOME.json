@@ -4,7 +4,7 @@
   "repo": "steer",
   "description": "STEER \u2014 AI4R (AI for Research) experiment framework for auto-research and autonomous research. Connect existing research projects and let an agent edit code and train under governance: frozen task, scorer, and evidence.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xieyulai/steer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T05:31:39Z"
+  "distributed_at": "2026-09-14T05:32:32Z"
 }
