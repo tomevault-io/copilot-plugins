@@ -1,0 +1,9 @@
+{
+  "name": "deepcybo-physai--physbrainevalkit",
+  "displayName": "PhysBrainEvalKit",
+  "description": "A reproducible evaluation toolkit on spatial and embodied-intelligence benchmarks.",
+  "version": "1.0.0",
+  "author": "DeepCybo-PhysAI",
+  "homepage": "https://github.com/DeepCybo-PhysAI/PhysBrainEvalKit",
+  "skills": []
+}
