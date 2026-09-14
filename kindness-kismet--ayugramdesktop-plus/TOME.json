@@ -1,0 +1,44 @@
+{
+  "name": "AyuGramDesktop-Plus",
+  "owner": "Kindness-Kismet",
+  "repo": "AyuGramDesktop-Plus",
+  "description": "\u6d93\u20ac\u6d93\ue044\ue583\u5bee\u8679\u5897\u9428\ufffd TG PC \u7039\u3221\u57db\u7ed4\ue224\u7d35\u951b\u71c2\u7d35",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Kindness-Kismet/AyuGramDesktop-Plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T03:55:32Z"
+}
