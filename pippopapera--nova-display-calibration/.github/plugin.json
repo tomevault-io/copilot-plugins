@@ -1,0 +1,9 @@
+{
+  "name": "pippopapera--nova-display-calibration",
+  "displayName": "nova-display-calibration",
+  "description": "Measured SDR display calibration for Retroid Pocket Nova, with native profile persistence and no background service.",
+  "version": "1.0.0",
+  "author": "pippopapera",
+  "homepage": "https://github.com/pippopapera/nova-display-calibration",
+  "skills": []
+}
