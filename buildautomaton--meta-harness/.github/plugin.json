@@ -1,0 +1,9 @@
+{
+  "name": "buildautomaton--meta-harness",
+  "displayName": "meta-harness",
+  "description": "Repository for the BuildAutomaton meta-harness",
+  "version": "1.0.0",
+  "author": "buildautomaton",
+  "homepage": "https://github.com/buildautomaton/meta-harness",
+  "skills": []
+}
