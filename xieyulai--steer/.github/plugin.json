@@ -1,0 +1,9 @@
+{
+  "name": "xieyulai--steer",
+  "displayName": "steer",
+  "description": "STEER \u2014 AI4R (AI for Research) experiment framework for auto-research and autonomous research. Connect existing research projects and let an agent edit code and train under governance: frozen task, sc",
+  "version": "1.0.0",
+  "author": "xieyulai",
+  "homepage": "https://github.com/xieyulai/steer",
+  "skills": []
+}
