@@ -4,7 +4,7 @@
   "repo": "agent-resources",
   "description": "Battle-tested agent skills and Cursor rules from real projects. Works with Cursor, Claude Code, and any agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jcottam/agent-resources",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T03:35:35Z"
+  "distributed_at": "2026-09-14T03:36:18Z"
 }
