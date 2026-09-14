@@ -1,0 +1,9 @@
+{
+  "name": "deepakness--piserver",
+  "displayName": "piserver",
+  "description": "Live status page for a 1 GB Raspberry Pi 4B, served by Caddy and published through a Cloudflare Tunnel.",
+  "version": "1.0.0",
+  "author": "deepakness",
+  "homepage": "https://github.com/deepakness/piserver",
+  "skills": []
+}
