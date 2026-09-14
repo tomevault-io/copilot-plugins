@@ -1,0 +1,44 @@
+{
+  "name": "codex-cc-orchestrator",
+  "owner": "zjgxkj",
+  "repo": "codex-cc-orchestrator",
+  "description": "\u70b9\u5c06\u53f0\uff1a\u53ef\u8fc1\u79fb\u7684 Agent \u5206\u5c42\u534f\u4f5c\u7f16\u6392\u5668\u3002\u652f\u6301\u4efb\u52a1\u6d3e\u53d1\u3001\u4f1a\u8bdd\u7eed\u8dd1\u3001\u72ec\u7acb\u5ba1\u67e5\u3001\u540e\u53f0\u6267\u884c\u4e0e\u7528\u91cf\u8bb0\u5f55\u3002\u5f53\u524d\u5f00\u7bb1\u5373\u7528\u4e3a Codex \u2192 Claude Code\uff0c\u53ef\u7ecf\u9002\u914d\u8fc1\u79fb\u5230\u5176\u4ed6 Agent \u7ec4\u5408\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zjgxkj/codex-cc-orchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T18:32:15Z"
+}
