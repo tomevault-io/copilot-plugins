@@ -1,0 +1,9 @@
+{
+  "name": "iamfatness--corevideo",
+  "displayName": "CoreVideo",
+  "description": "OBS Studio plugin for Zoom: every meeting participant as a native OBS source with isolated audio, active-speaker follow, screen share, and ISO recording. No NDI or virtual camera.",
+  "version": "1.0.0",
+  "author": "iamfatness",
+  "homepage": "https://github.com/iamfatness/CoreVideo",
+  "skills": []
+}
