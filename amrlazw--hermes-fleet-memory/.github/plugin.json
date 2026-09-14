@@ -1,0 +1,9 @@
+{
+  "name": "amrlazw--hermes-fleet-memory",
+  "displayName": "hermes-fleet-memory",
+  "description": "Zero-bloat distributed vector memory, hardware-enforced domain firewalls, and NAT-traversing execution mesh for multi-instance Hermes agent fleets.",
+  "version": "1.0.0",
+  "author": "amrlazw",
+  "homepage": "https://github.com/amrlazw/hermes-fleet-memory",
+  "skills": []
+}
