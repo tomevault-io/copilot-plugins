@@ -4,7 +4,7 @@
   "repo": "learnergy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gugarosa/learnergy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T22:58:00Z"
+  "distributed_at": "2026-09-14T02:11:35Z"
 }
