@@ -1,0 +1,9 @@
+{
+  "name": "verofess--llama-cpp-3090x2-qwen3-8-q8-opt",
+  "displayName": "llama.cpp_3090x2_qwen3.8_q8_opt",
+  "description": "A llama.cpp fork with TurboQuant/TCQ KV cache, fused Qwen MTP speculative decoding, and multi-GPU long-context serving fixes.",
+  "version": "1.0.0",
+  "author": "VeroFess",
+  "homepage": "https://github.com/VeroFess/llama.cpp_3090x2_qwen3.8_q8_opt",
+  "skills": []
+}
