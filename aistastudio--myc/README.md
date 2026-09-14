@@ -7,11 +7,11 @@ AI-agents development memory/tasks/context
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [aistastudio/myc](https://github.com/aistastudio/myc).
+Original source: `AGENTS.md` in [aistastudio/myc](https://github.com/aistastudio/myc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
