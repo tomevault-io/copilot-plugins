@@ -1,0 +1,9 @@
+{
+  "name": "rocyan98--lark-codex",
+  "displayName": "Lark-Codex",
+  "description": " Based on Lark(Feishu), implement taskboard to control the execution of tasks on Mac local Codex. Synchronize Codex on mobile devices for real-time monitoring and smoother interaction.",
+  "version": "1.0.0",
+  "author": "RocYan98",
+  "homepage": "https://github.com/RocYan98/Lark-Codex",
+  "skills": []
+}
