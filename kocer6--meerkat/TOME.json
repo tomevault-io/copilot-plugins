@@ -4,7 +4,7 @@
   "repo": "MEERKAT",
   "description": "Pons V2 token lifecycle and wallet intelligence for Robinhood Chain. Evidence-first, no signer.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kocer6/MEERKAT",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T02:14:41Z"
+  "distributed_at": "2026-09-14T02:27:17Z"
 }
