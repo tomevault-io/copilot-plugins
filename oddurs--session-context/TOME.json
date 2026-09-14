@@ -4,7 +4,7 @@
   "repo": "session-context",
   "description": "Everything a single web page can work out about you \u2014 stated in plain English, with the raw values behind every claim",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oddurs/session-context",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T14:30:27Z"
+  "distributed_at": "2026-09-14T14:31:18Z"
 }
