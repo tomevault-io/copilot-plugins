@@ -4,7 +4,7 @@
   "repo": "agents",
   "description": "A library of composable skills, agents, and conventions that teach agents how to perform repeatable software-engineering and knowledge-work tasks",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tomzx/agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T20:33:22Z"
+  "distributed_at": "2026-09-14T20:36:50Z"
 }
