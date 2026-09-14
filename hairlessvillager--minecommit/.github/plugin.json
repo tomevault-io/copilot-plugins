@@ -1,0 +1,14 @@
+{
+  "name": "hairlessvillager--minecommit",
+  "displayName": "minecommit",
+  "description": "minecommit",
+  "version": "1.0.0",
+  "author": "HairlessVillager",
+  "homepage": "https://github.com/HairlessVillager/minecommit",
+  "skills": [
+    {
+      "name": "minecommit",
+      "description": ""
+    }
+  ]
+}
