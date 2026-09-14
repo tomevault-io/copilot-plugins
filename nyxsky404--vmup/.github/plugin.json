@@ -1,0 +1,9 @@
+{
+  "name": "nyxsky404--vmup",
+  "displayName": "vmup",
+  "description": "Batch files to a remote host over SSH for coding agents",
+  "version": "1.0.0",
+  "author": "nyxsky404",
+  "homepage": "https://github.com/nyxsky404/vmup",
+  "skills": []
+}
