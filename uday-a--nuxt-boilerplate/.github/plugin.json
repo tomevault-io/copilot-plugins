@@ -1,0 +1,9 @@
+{
+  "name": "uday-a--nuxt-boilerplate",
+  "displayName": "nuxt-boilerplate",
+  "description": "Production-grade Nuxt 4 SaaS starter on the @uipkge UI registry. 44-provider auth, magic-link, Polar billing, Drizzle ORM, dashboard, charts, forms, typed API envelope. Every integration env-gated.",
+  "version": "1.0.0",
+  "author": "uday-a",
+  "homepage": "https://github.com/uday-a/nuxt-boilerplate",
+  "skills": []
+}
