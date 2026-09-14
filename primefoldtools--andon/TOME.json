@@ -2,9 +2,9 @@
   "name": "andon",
   "owner": "PrimeFoldTools",
   "repo": "andon",
-  "description": "A Lean quality system for AI-assisted work \u2014 every defect becomes a permanent countermeasure. Built by a manufacturing operator.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PrimeFoldTools/andon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T04:20:18Z"
+  "distributed_at": "2026-09-14T00:51:59Z"
 }
