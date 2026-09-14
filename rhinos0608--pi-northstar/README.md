@@ -15,6 +15,10 @@ Original source: `AGENTS.md` in [rhinos0608/Pi-Northstar](https://github.com/rhi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [SKILL.md](https://github.com/rhinos0608/Pi-Northstar/tree/main/SKILL.md)
+
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rhinos0608/Pi-Northstar](https://github.com/rhinos0608/Pi-Northstar)
 
 ---
