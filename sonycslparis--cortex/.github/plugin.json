@@ -1,0 +1,9 @@
+{
+  "name": "sonycslparis--cortex",
+  "displayName": "cortex",
+  "description": "A durable, file-based framework for long-running LLM-assisted work, with persistent context, project continuity, and coordinated specialized agents across local and remote machines.",
+  "version": "1.0.0",
+  "author": "SonyCSLParis",
+  "homepage": "https://github.com/SonyCSLParis/cortex",
+  "skills": []
+}
