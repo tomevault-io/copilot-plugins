@@ -1,0 +1,9 @@
+{
+  "name": "botiverse--antiproton",
+  "displayName": "antiproton",
+  "description": "Durable, multi-tenant runtime for agents that act on real systems \u2014 credentials never enter the model's context",
+  "version": "1.0.0",
+  "author": "botiverse",
+  "homepage": "https://github.com/botiverse/antiproton",
+  "skills": []
+}
