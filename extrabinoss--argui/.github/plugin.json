@@ -1,0 +1,9 @@
+{
+  "name": "extrabinoss--argui",
+  "displayName": "argui",
+  "description": "Build fast, accessible interfaces in Rust. Modular widgets, GPU rendering and native integrations across desktop and WebAssembly.",
+  "version": "1.0.0",
+  "author": "ExtraBinoss",
+  "homepage": "https://github.com/ExtraBinoss/argui",
+  "skills": []
+}
