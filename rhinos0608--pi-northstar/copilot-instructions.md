@@ -48,7 +48,6 @@ The registered `browser` tool in `src/index.ts` exposes `compact`, `semanticActi
 
 ## Architecture Notes
 - `src/native-tools.ts` is an ~900-line dispatcher mixing web search backends, semantic crawl, academic research, GitHub API, and embedding pipeline. This is the most coupled file in the codebase — refactoring it is deferred technical debt, not a quick fix.
-- `src/browser/cdp.ts` is a self-contained CDP implementation (793 lines, zero external deps). WebSocket failure and protocol-error CDP responses are covered by `test/browser/cdp.test.ts` (timeout, onclose rejection, error-result propagation).
 - The desktop control stack (`src/desktop/desktop-tools.ts` → `src/desktop/cua-client.ts`) is cleanly separated from search and browser modules with no cross-imports.
 
 ## Residual Risks
@@ -63,4 +62,4 @@ The registered `browser` tool in `src/index.ts` exposes `compact`, `semanticActi
 
 ---
 > Source: [rhinos0608/Pi-Northstar](https://github.com/rhinos0608/Pi-Northstar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-14 -->
