@@ -1,108 +1,35 @@
 ## fatecat
 
-> 当前根目录是 FateCat 企业级系统仓库真相源：结构采用 `apps`、`ai`、`domains`、`platform`、`infra`、`contracts`、`catalog`、`governance`、`shared`、`tools`、`docs`、`scripts`、`tests` canonical roots；运行、测试、导出和治理入口全部从企业根解析。
+> 本目录是可执行架构阻断规则的真相源：每条 `GATE-*` 只描述阻止条件、原因、检查方式、可操作错误和最小修复，不保存任务运行状态或临时审查日志。
 
-# AGENTS.md - FateCat Enterprise Repo
+
+# AGENTS.md - Architecture Gate Rules
 
 ## 目录用途
 
-当前根目录是 FateCat 企业级系统仓库真相源：结构采用 `apps`、`ai`、`domains`、`platform`、`infra`、`contracts`、`catalog`、`governance`、`shared`、`tools`、`docs`、`scripts`、`tests` canonical roots；运行、测试、导出和治理入口全部从企业根解析。
-
-项目主旨：整理综合全部预测流派，首先完善中国传统主流和有效开源仓库，复用先于自写。
+本目录是可执行架构阻断规则的真相源：每条 `GATE-*` 只描述阻止条件、原因、检查方式、可操作错误和最小修复，不保存任务运行状态或临时审查日志。
 
 ## 目录结构
 
 ```text
-fatecat/
-├── AGENTS.md
-├── compose.yaml
-├── DEBUG.md
-├── README.md
-├── REVIEW.md
-├── SKILL.md
-├── apps/
-├── ai/
-├── domains/
-│   ├── fate-analysis/
-│   │   └── services/fate-core/
-│   │       ├── src/
-│   │       └── tests/
-│   └── experience-delivery/
-│       └── services/fatecat-delivery/
-│           ├── src/
-│           ├── scripts/
-│           └── tests/
-├── platform/
-├── infra/
-│   └── docker/
-│       ├── Dockerfile.delivery
-│       └── entrypoint.delivery.sh
-├── contracts/
-├── catalog/
-├── governance/
-├── shared/
-├── tools/
-├── docs/
-├── tests/
-├── .github/
-│   ├── AGENTS.md
-│   └── workflows/
-│       ├── acceptance.yml
-│       └── container.yml
-├── references/
-│   ├── commands.md
-│   ├── execution-playbook.md
-│   └── troubleshooting.md
-└── scripts/
-│   ├── acceptance.sh
-│   ├── check-structure.sh
-│   ├── container-build.sh
-│   ├── container-release.sh
-│   ├── container-smoke.sh
-│   ├── check-export-hygiene.sh
-│   ├── check-source-hygiene.sh
-│   ├── clean-runtime.sh
-│   ├── delivery-smoke.sh
-│   ├── export-runtime.sh
-│   ├── live-bot-smoke.sh
-│   ├── production-readiness.sh
-│   ├── preflight.sh
-│   └── vendor-health.sh
+rules/
+├── AGENTS.md                                      # 本目录职责、依赖和变更记录
+├── GATE-0001-Web-HTML-禁止自定义前端样式.md        # 零美化语义 HTML 门禁
+├── GATE-0002-抓取完整性不得与发现规则共因失明.md   # 抓取发现与验收独立性门禁
+└── INDEX.md                                       # 自动生成的规则索引
 ```
 
-## 职责边界
+## 职责与依赖
 
-- `SKILL.md`：标准 skill 入口说明。
-- `compose.yaml`：本地和单机容器编排入口，只编排 delivery 容器与运行态 volume。
-- `DEBUG.md`：当前调试证据、根因和回归验证记录；只承载已复现问题的诊断闭环。
-- `REVIEW.md`：当前仓库审计结果与 release gate 结论；只记录证据、风险与交接，不承载业务源码。
-- `apps/`：用户体验入口和渠道壳层。
-- `ai/`：Agent、skill、Prompt、评估和 AI 监管相关入口。
-- `domains/`：领域服务根；当前承载 `fate-core` 与 `fatecat-delivery` 两个生产候选服务源码、契约和测试入口。
-- `platform/`：Golden Path、CI/CD、供应链和开发者平台能力。
-- `infra/`：环境、容器、数据库、运行准入、安全和观测期望状态。
-- `contracts/`：API、数据集、capability、profile、evidence 和策略契约。
-- `catalog/`：组件发现、owner、生命周期和依赖关系。
-- `governance/`：标准、流程、ADR、风险、门禁、baseline evidence、任务和迁移账本。
-- `shared/`：真实复用后的薄共享库，不作为 common 垃圾桶。
-- `tools/`：迁移工具、参考仓和供应链快照。
-- `docs/`：人类文档入口，不替代机器契约和治理证据。
-- `tests/`：仓库级结构、契约、导出和跨服务测试入口。
-- `.github/`：GitHub Actions 远端验收配置；只调用仓库脚本，不保存业务代码或 secret。
-- `references/`：长文档、阶段门禁、输入输出契约、迁移与排障材料；其中 `execution-playbook.md` 是统一执行顺序真相源。
-- `scripts/`：本地可重复执行入口；其中 `preflight.sh` 是默认预检入口，`acceptance.sh` 是发布门禁入口，`check-structure.sh` 是企业结构门禁，`container-*.sh` 是容器构建、烟雾和发布入口。
+- `GATE-*` 上游来自已证实的 review/debug/lesson，下游由测试、脚本或人工检查执行。
+- 任务证据留在 `governance/tasks/`；长期规则只保留可复用阻断条件，禁止复制运行态数据。
+- 新增或修改 Gate 后运行 `governance/tools/rebuild_governance_index.py`、strict validator 与 health report。
+- `INDEX.md` 由工具生成，不手工维护条目。
 
-## 依赖方向
+## 变更记录
 
-- `apps/ai -> domains + contracts`
-- `domains/experience-delivery -> domains/fate-analysis + contracts + infra`
-- `domains/fate-analysis -> contracts + tools/reference-repos`
-- `catalog -> domains + contracts + governance`
-- `.github/workflows/acceptance.yml -> scripts/acceptance.sh`
-- `.github/workflows/container.yml -> scripts/container-build.sh + scripts/container-smoke.sh`
-- `scripts/* -> domains + contracts + infra + governance`
-- 禁止新增旧路径 fallback；退役路径只允许出现在迁移账本、历史证据、负例测试和防回潮规则中。
+- 2026-07-15：记录 GATE-0002 的抓取共因失明防复发边界，并补齐目录架构镜像。
 
 ---
 > Source: [tradecatlabs/fatecat](https://github.com/tradecatlabs/fatecat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
