@@ -1,0 +1,14 @@
+{
+  "name": "codefox-repo--codefox",
+  "displayName": "codefox",
+  "description": "codefox",
+  "version": "1.0.0",
+  "author": "CodeFox-Repo",
+  "homepage": "https://github.com/CodeFox-Repo/codefox",
+  "skills": [
+    {
+      "name": "codefox",
+      "description": ""
+    }
+  ]
+}
