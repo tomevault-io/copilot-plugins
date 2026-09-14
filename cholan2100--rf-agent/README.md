@@ -7,11 +7,11 @@ Containerized Linux engineering platform for automated RF/microwave design, KiCa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cholan2100/rf-agent](https://github.com/cholan2100/rf-agent).
+Original source: `AGENTS.md` in [cholan2100/rf-agent](https://github.com/cholan2100/rf-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
