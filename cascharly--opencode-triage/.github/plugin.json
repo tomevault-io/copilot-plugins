@@ -1,0 +1,9 @@
+{
+  "name": "cascharly--opencode-triage",
+  "displayName": "opencode-triage",
+  "description": "Deterministic skill router for OpenCode \u2014 saves ~90% on skills tokens by hiding skills from the system prompt and routing via keyword matching",
+  "version": "1.0.0",
+  "author": "cascharly",
+  "homepage": "https://github.com/cascharly/opencode-triage",
+  "skills": []
+}
