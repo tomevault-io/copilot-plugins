@@ -1,89 +1,123 @@
-## node-express
+## python
 
-> Node.js and Express.js best practices for backend development
+> - Use src-layout with `src/your_package_name/`
 
-
-# Node.js and Express.js Best Practices
+# Python Best Practices
 
 ## Project Structure
-- Use proper directory structure
-- Implement proper module organization
-- Use proper middleware organization
-- Keep routes organized by domain
-- Implement proper error handling
-- Use proper configuration management
+- Use src-layout with `src/your_package_name/`
+- Place tests in `tests/` directory parallel to `src/`
+- Keep configuration in `config/` or as environment variables
+- Store requirements in `requirements.txt` or `pyproject.toml`
+- Place static files in `static/` directory
+- Use `templates/` for Jinja2 templates
 
-## Express Setup
-- Use proper middleware setup
-- Implement proper routing
-- Use proper error handling
-- Configure proper security middleware
-- Implement proper validation
-- Use proper static file serving
 
-## API Design
-- Use proper REST principles
-- Implement proper versioning
-- Use proper request validation
-- Handle errors properly
-- Implement proper response formats
-- Document APIs properly
+## Code Style
+- Follow Black code formatting
+- Use isort for import sorting
+- Follow PEP 8 naming conventions:
+  - snake_case for functions and variables
+  - PascalCase for classes
+  - UPPER_CASE for constants
+- Maximum line length of 88 characters (Black default)
+- Use absolute imports over relative imports
 
-## Database Integration
-- Use proper ORM/ODM
-- Implement proper migrations
+## Type Hints
+- Use type hints for all function parameters and returns
+- Import types from `typing` module
+- Use `Optional[Type]` instead of `Type | None`
+- Use `TypeVar` for generic types
+- Define custom types in `types.py`
+- Use `Protocol` for duck typing
+
+## Flask Structure
+- Use Flask factory pattern
+- Organize routes using Blueprints
+- Use Flask-SQLAlchemy for database
+- Implement proper error handlers
+- Use Flask-Login for authentication
+- Structure views with proper separation of concerns
+
+## Database
+- Use SQLAlchemy ORM
+- Implement database migrations with Alembic
 - Use proper connection pooling
-- Implement proper transactions
-- Use proper query optimization
-- Handle database errors properly
+- Define models in separate modules
+- Implement proper relationships
+- Use proper indexing strategies
 
 ## Authentication
-- Implement proper JWT handling
-- Use proper password hashing
-- Implement proper session management
-- Use proper OAuth integration
-- Implement proper role-based access
-- Handle auth errors properly
+- Use Flask-Login for session management
+- Implement Google OAuth using Flask-OAuth
+- Hash passwords with bcrypt
+- Use proper session security
+- Implement CSRF protection
+- Use proper role-based access control
 
-## Security
-- Use proper CORS setup
+## API Design
+- Use Flask-RESTful for REST APIs
+- Implement proper request validation
+- Use proper HTTP status codes
+- Handle errors consistently
+- Use proper response formats
 - Implement proper rate limiting
-- Use proper security headers
-- Implement proper input validation
-- Use proper encryption
-- Handle security vulnerabilities
-
-## Performance
-- Use proper caching
-- Implement proper async operations
-- Use proper connection pooling
-- Implement proper logging
-- Use proper monitoring
-- Handle high traffic properly
 
 ## Testing
-- Write proper unit tests
-- Implement proper integration tests
-- Use proper test runners
-- Implement proper mocking
-- Test error scenarios
-- Use proper test coverage
+- Use pytest for testing
+- Write tests for all routes
+- Use pytest-cov for coverage
+- Implement proper fixtures
+- Use proper mocking with pytest-mock
+- Test all error scenarios
 
-## Deployment
-- Use proper Docker setup
-- Implement proper CI/CD
-- Use proper environment variables
-- Configure proper logging
-- Implement proper monitoring
-- Handle deployment errors
+## Security
+- Use HTTPS in production
+- Implement proper CORS
+- Sanitize all user inputs
+- Use proper session configuration
+- Implement proper logging
+- Follow OWASP guidelines
 
-## Best Practices
-- Follow Node.js best practices
-- Use proper async/await
-- Implement proper error handling
-- Use proper logging
-- Handle process signals properly
-- Document code properly 
+## Performance
+- Use proper caching with Flask-Caching
+- Implement database query optimization
+- Use proper connection pooling
+- Implement proper pagination
+- Use background tasks for heavy operations
+- Monitor application performance
+
+## Error Handling
+- Create custom exception classes
+- Use proper try-except blocks
+- Implement proper logging
+- Return proper error responses
+- Handle edge cases properly
+- Use proper error messages
+
+## Documentation
+- Use Google-style docstrings
+- Document all public APIs
+- Keep README.md updated
+- Use proper inline comments
+- Generate API documentation
+- Document environment setup
+
+## Development Workflow
+- Use virtual environments (venv)
+- Implement pre-commit hooks
+- Use proper Git workflow
+- Follow semantic versioning
+- Use proper CI/CD practices
+- Implement proper logging
+
+## Dependencies
+- Pin dependency versions
+- Use requirements.txt for production
+- Separate dev dependencies
+- Use proper package versions
+- Regularly update dependencies
+- Check for security vulnerabilities
 
 ---
 > Source: [code1499/P-2-OP](https://github.com/code1499/P-2-OP) — distributed by [TomeVault](https://tomevault.io).
