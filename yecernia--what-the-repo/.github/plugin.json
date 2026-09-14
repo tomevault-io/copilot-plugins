@@ -1,0 +1,9 @@
+{
+  "name": "yecernia--what-the-repo",
+  "displayName": "what-the-repo",
+  "description": "An evidence-grounded AI learning companion for understanding unfamiliar public GitHub repositories.",
+  "version": "1.0.0",
+  "author": "Yecernia",
+  "homepage": "https://github.com/Yecernia/what-the-repo",
+  "skills": []
+}
