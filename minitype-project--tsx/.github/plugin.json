@@ -1,0 +1,9 @@
+{
+  "name": "minitype-project--tsx",
+  "displayName": "tsx",
+  "description": "JSX/TSX support for minitype",
+  "version": "1.0.0",
+  "author": "minitype-project",
+  "homepage": "https://github.com/minitype-project/tsx",
+  "skills": []
+}
