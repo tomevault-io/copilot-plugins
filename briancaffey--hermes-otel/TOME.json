@@ -4,7 +4,7 @@
   "repo": "hermes-otel",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/briancaffey/hermes-otel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T23:37:12Z"
+  "distributed_at": "2026-09-14T01:32:25Z"
 }
