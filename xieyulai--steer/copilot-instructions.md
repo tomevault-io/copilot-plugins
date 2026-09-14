@@ -1,39 +1,20 @@
-## auto-nn-skill-routing
+## skills-plain-language
 
-> auto-nn-* 自然语言/斜杠入口路由；动手前须 Read 对应 SKILL.md
+> auto-nn-* 对人先说人话；用户用英文提问则用英文回复，用中文则用中文
 
 
-# auto-nn-* 技能 — 自然语言入口
+# auto-nn-* 技能 — 说人话外壳
 
-## 硬门禁
+执行任一 `auto-nn-*` 技能、面向用户输出时遵守：
 
-执行 NN 实验域任务（训练、改 workspace/contract、auto-run、clear apply、modify 改能力）前：
-
-1. **必须先 Read** `~/.cursor/skills/auto-nn-<name>/SKILL.md`（或维护仓 `skills/post-migration|maintainer/` 同源）。
-2. **必须先 Read** 业务仓 `docs/nn-routing/intent-map.md`（若 cwd 为业务仓根）。
-3. **禁止**未 Read SKILL 就：运行 `train.py`、`auto-nn-run.sh`、改 `workspace/`/`contract/`、`clear --apply`。
-
-斜杠 `/auto-nn-*` 与自然语言 **同等**；均须 Read SKILL。
-
-## 路由顺序
-
-1. `docs/nn-routing/intent-map.md` 触发词
-2. SKILL frontmatter `NOT:` 排斥语
-3. **策略 D**（intent-map §歧义策略 D）
-
-## 歧义澄清（只问一句，≤3 选项；跟用户语言）
-
-- 实验：A) 手跑一轮 / run one round by hand  B) 多轮自动 batch / multi-round auto batch
-- 修改：A) 日常扫参（manual-run） / everyday sweep  B) 改能力（modify） / change capabilities
-- 查看：A) 快速看台账（check） / quick ledger  B) 完整分析（analyse） / full analysis
-
-## 对用户
-
-路由成功后 **一句人话**确认（括号内可提斜杠名一次）；语言跟用户走。内部 checklist 不对用户念。
-
-## 边界
-
-本规则只管 **进哪个技能**。输出人话见 `skills-plain-language.mdc`；技能正文逻辑不改。
+- **跟用户的语言走**：用户这条消息主要是英文 → 对人用英文；主要是中文 → 用中文。不要中英夹杂（专有名、斜杠技能名、`config.json` 键除外）。
+- 人话对照表：[`docs/skill-glossary.md`](docs/skill-glossary.md) 的「对用户怎么说」列（中文）与 **In English** 列。英文用户用 In English 列，禁止裸抛内部码。
+- **先说人话，代号只在括号里补充**；禁止裸抛 `MA-1`、`C2`、`Tier`、`Modify-L1`、`G-HUMAN`、`plateau`、`keeper`、`scenario_id`、`Run Context`、`finalize_round` 等内部码。
+- **必须贴脚本原始输出时**（analyse 的 MA 块、doctor 的体检表、clear 的《清理计划》、check 的 TSV 表），先用**一句人话小结**讲结论，让用户不读代号也懂。脚本表头本身是中文，**不要改脚本**；小结用用户的语言解释表在说什么。
+- **Modify**：对人须 **人话全称（Modify-代号）**；英文用户用术语表 In English 列（如 “change the scoring columns (Modify-L2)”）。禁止裸 `L1`/`S-complete`/`Track S`。
+- **init 误称**：禁止「人生目标/人生模式」；中文用 **实验目标/实验模式**，英文用 **experiment goal / experiment mode**。
+- **边界**：本规则只管「对用户怎么说」。脚本输出格式、Agent 内部操作正文、硬边界、命令一律不改。
+- **发出前自检（迁后 3 问）**：① 过程码是否已按用户语言翻译？② 贴表/贴 MA 块前是否有一句人话小结？③ Modify 是否带人话前缀？
 
 ---
 > Source: [xieyulai/steer](https://github.com/xieyulai/steer) — distributed by [TomeVault](https://tomevault.io).
