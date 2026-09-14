@@ -1,0 +1,9 @@
+{
+  "name": "reggiechan74--issuer-credit-analysis",
+  "displayName": "issuer-credit-analysis",
+  "description": "Multi-phase credit analysis system for REITs using Claude Code agents and Python. ",
+  "version": "1.0.0",
+  "author": "reggiechan74",
+  "homepage": "https://github.com/reggiechan74/issuer-credit-analysis",
+  "skills": []
+}
