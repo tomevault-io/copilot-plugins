@@ -1,19 +1,28 @@
-## testing
+## ui-design
 
-> Vitest conventions for colocated unit tests
+> Compact professional UI — aligned, responsive, no emoji, pills
 
 
-# Testing
+# UI design
 
-This is an **Apply to Specific Files** rule. It attaches on Vitest specs.
+This is an **Apply to Specific Files** rule. It attaches on `.svelte` and `.css`.
 
-- Colocate tests as `*.spec.ts` next to the module they cover.
-- Use `describe` / `it` / `expect` from `vitest`. Reset module state in `beforeEach`.
-- Cover the behavior you changed. Do not delete or skip tests to make them pass.
-- Run `npm test` next to the nearest `package.json` (Vitest `--run`). Do not
-  start the dev server.
-- Do not add Playwright or a second runner unless the user asks. Live UI
-  checks use the `browser-testing` skill against the server the user started.
+- Compact app chrome, not a marketing page. Pin content to the top of the
+  viewport. Center a `min(100%, 40rem)` column with 1rem gutters. Do not
+  vertically center the page or stretch fields across a wide window.
+- Density: body 14–15px; title 1.25rem; inputs/selects/buttons 32px tall
+  (hard cap 36px); card padding 0.75rem; stack gap 0.5–0.75rem. Radius 6px
+  on controls. Do not use 48px widgets or 2rem card padding.
+- `letter-spacing: normal` and `word-spacing: normal`. Do not track-out
+  headings or use `word-break: break-all`.
+- Rows, labels, and controls share one left edge and one baseline. Forms
+  are CSS grid. A row of actions shares height and `align-items: center`.
+- Below ~40rem, stack columns. No horizontal scroll. Keep the visual
+  control compact; grow the row if you need a larger hit area.
+- Clean professional UI. Neutral type. No novelty chrome. No emoji in
+  labels, buttons, empty states, titles, or alt text.
+- One font-icon or SVG set. Tags and statuses are **pills** (999px radius),
+  not emoji or raw colored text. Prefer text + icon; name icon-only buttons.
 
 ---
 > Source: [damien-xai/cursor-rules-skills-mcp-hooks](https://github.com/damien-xai/cursor-rules-skills-mcp-hooks) — distributed by [TomeVault](https://tomevault.io).
