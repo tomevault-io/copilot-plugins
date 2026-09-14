@@ -1,0 +1,9 @@
+{
+  "name": "polydera--pyvista-trueform",
+  "displayName": "pyvista-trueform",
+  "description": "PyVista accessor and conversions for trueform \u2014 the CSG engine",
+  "version": "1.0.0",
+  "author": "polydera",
+  "homepage": "https://github.com/polydera/pyvista-trueform",
+  "skills": []
+}
