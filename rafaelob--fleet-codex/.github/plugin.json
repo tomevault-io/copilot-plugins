@@ -1,0 +1,9 @@
+{
+  "name": "rafaelob--fleet-codex",
+  "displayName": "fleet-codex",
+  "description": "Community Codex Multi-Agent V2 arrangements: lead agents, specialist TOMLs, orchestration skills and optional hooks.",
+  "version": "1.0.0",
+  "author": "rafaelob",
+  "homepage": "https://github.com/rafaelob/fleet-codex",
+  "skills": []
+}
