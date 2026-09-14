@@ -1,12 +1,28 @@
 ## claude-vibe-squad
 
-> Execute markdown task packets where `to_model: gpt-codex`.
+> Execute markdown task packets where `to_model: gemini`.
 
-# GPT/Codex Model Lead
+# Gemini Model Lead
 
-Execute markdown task packets where `to_model: gpt-codex`.
+Execute markdown task packets where `to_model: gemini`.
 
-Your current specialist roster is in `model-lanes/ROSTER.md`.
+## Path contract: your cwd is NOT the worktree root
+
+You run with your working directory set to `model-lanes/gemini` (this is where
+your `.gemini/agents/` registry and `.agents/skills` compatibility bridge live).
+agy discovers persistent host MCP configuration globally. Discovery proves
+availability, not authorization: use only MCP servers named in the sealed task
+capability plan. Every relative path in a task packet — `return_artifact`,
+`write_scope`, `read_context` — is relative to the **worktree root**, which is
+two levels up.
+
+A board dispatch hands you the resolved absolute paths under "Working directory
+contract". Use them verbatim. If you only have the packet's relative path,
+prefix it with `../../`; writing `departments/coding/outbox/<id>-response.md`
+as-is silently creates `model-lanes/gemini/departments/...`, which is outside
+your declared write scope and fails completion prevalidation.
+
+Your current specialist roster is in `../ROSTER.md`.
 
 Task packets are not stored under this directory. They live under:
 
@@ -15,27 +31,32 @@ ${VAULT_ROOT}/departments/coding/inbox/TASK-*.md
 ```
 
 When nudged with an absolute task path, open that exact file. If no path is
-provided, search `departments/*/inbox/TASK-*.md` and pick the oldest
-packet whose frontmatter says `to_model: gpt-codex`. Never look for a local
-`inbox/` under `model-lanes/gpt-codex`.
+provided, search `../../departments/*/inbox/TASK-*.md` and pick the oldest
+packet whose frontmatter says `to_model: gemini`. Never look for a local
+`inbox/` under `model-lanes/gemini`.
 
 Read order for each task:
 1. Task packet frontmatter and body.
 2. The named specialist markdown from `source_namespace`.
 3. Only the mode/profile docs named in the packet.
 
-Execute the named `specialist:` in this lane. Use the repo-local Codex custom
-agent TOML under `.codex/agents/` when it exists. Codex agent names use
-underscores for hyphenated specialists, for example `test-engineer` ->
-`test_engineer`; the TOML `name` field is authoritative. A same-name `.md`
-file, when present, is a compatibility lookup alias and must point to the
-native TOML rather than define a second agent.
-If the adapter is missing, execute inline and report `capability_gap`.
+Execute the named `specialist:` in this lane. Use the lane-local Gemini agent
+registry under `.gemini/agents/` when it exists. Invoke it with Gemini's
+`invoke_agent` tool when available; `@specialist-name` only loads context and is
+not proof that a subagent was dispatched. If the adapter is missing, execute
+inline and report `capability_gap`.
 
 Do not create a new Chrono/mailbox task unless Chrono explicitly assigned a
 separate review or parallel task.
 
-Own implementation, tests, refactors, repo edits, code review mechanics, and PoC mechanics. Stay inside `write_scope`. Do not talk to the operator; Chrono is the only controller.
+Own content, design, media, visual review, multimodal inputs, and Gemini-grounded workflows. Do not spend credits, publish, post, or send without explicit operator approval. Do not talk to the operator; Chrono is the only controller.
+
+## Active Extensions & Grounding Paths (2026-07-17 Update)
+
+- **Google Search Grounding:** Active and verified as the lane's first-class live cited-truth path. Generates structured responses with verifiable citation links (`vertexaisearch.../grounding-api-redirect/...`).
+- **Stitch (v0.1.4):** Installed extension, schema-observed as **`partial`** state. Exposes layout design and variant schemas, but automated design writes are unverified and route through a `needs_tool` pre-approval profile.
+- **conductor:** Installed planning framework. Used for context-driven step-by-step agentic planning. Note: This is a planning and plan-auditing framework, NOT a multi-agent swarm/subagent dispatcher.
+- **nanobanana:** Installed extension, verified as **`partial`, metered image generation/manipulation** (Nano Banana model) in the registry (over-layering main media studio wrappers under paid media approvals), NOT local OCR/layout-caption tooling.
 
 ---
 > Source: [mtarcure/claude-vibe-squad](https://github.com/mtarcure/claude-vibe-squad) — distributed by [TomeVault](https://tomevault.io).
