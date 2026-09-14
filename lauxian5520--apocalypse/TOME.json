@@ -1,0 +1,44 @@
+{
+  "name": "Apocalypse",
+  "owner": "lauxian5520",
+  "repo": "Apocalypse",
+  "description": "\u5929\u542f Apocalypse \u2014 AI \u9a71\u52a8\u7684\u4e2a\u4eba\u77e5\u8bc6\u7a7a\u95f4\uff1a\u793e\u4ea4\u7b14\u8bb0 + AI \u52a9\u624b\uff08DeepSeek \u6d41\u5f0f\u5bf9\u8bdd\uff09+ \u70ed\u70b9\u805a\u5408\uff0cFastAPI + \u539f\u751f\u524d\u7aef",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lauxian5520/Apocalypse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T08:31:17Z"
+}
