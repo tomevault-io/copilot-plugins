@@ -4,7 +4,7 @@
   "repo": "rag-agent-platform",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NEDONION/rag-agent-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T20:51:05Z"
+  "distributed_at": "2026-09-14T01:57:39Z"
 }
