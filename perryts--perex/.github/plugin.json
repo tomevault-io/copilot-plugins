@@ -1,0 +1,9 @@
+{
+  "name": "perryts--perex",
+  "displayName": "perex",
+  "description": "An ECMAScript regex engine designed for explicit host memory ownership.",
+  "version": "1.0.0",
+  "author": "PerryTS",
+  "homepage": "https://github.com/PerryTS/perex",
+  "skills": []
+}
