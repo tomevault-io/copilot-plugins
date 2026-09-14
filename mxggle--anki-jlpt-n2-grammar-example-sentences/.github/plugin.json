@@ -1,0 +1,9 @@
+{
+  "name": "mxggle--anki-jlpt-n2-grammar-example-sentences",
+  "displayName": "anki-jlpt-n2-grammar-example-sentences",
+  "description": "\u65b0\u5b8c\u5168\u638c\u63e1N2 \u6587\u6cd5\u4f8b\u53e5\uff0c\u5e26\u97f3\u9891\uff0c\u9010\u8bcd\u8bb2\u89e3;Anki\uff0c\u65e5\u8bed\uff0c\u65e5\u6587\uff0c\u65e5\u672c\u8a9e\uff0c\u724c\u7ec4\uff0c\u5361\u7ec4\uff0c\u724c\u7d44\uff0c\u5361\u7d44\uff0c\u80fd\u529b\u8003\uff0c\u65e5\u6aa2",
+  "version": "1.0.0",
+  "author": "mxggle",
+  "homepage": "https://github.com/mxggle/anki-jlpt-n2-grammar-example-sentences",
+  "skills": []
+}
