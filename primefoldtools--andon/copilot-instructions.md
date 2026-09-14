@@ -1,45 +1,48 @@
 ## andon
 
-> If your operator said *"read this repo and set andon up in my project,"* follow this exactly. andon is plain Markdown + stdlib Python 3 — nothing to install. **Ask before overwriting any existing file; show a diff first.** Start at Layer 1; don't install everything unless asked — the value compounds layer by layer.
+> > A FILLED-IN example so you can see the skeleton in use. Habitloop is a made-up
 
-# AGENTS.md — set up andon (instructions for an AI agent)
+# CLAUDE.md — Habitloop (example)
 
-If your operator said *"read this repo and set andon up in my project,"* follow this exactly. andon is plain Markdown + stdlib Python 3 — nothing to install. **Ask before overwriting any existing file; show a diff first.** Start at Layer 1; don't install everything unless asked — the value compounds layer by layer.
+> A FILLED-IN example so you can see the skeleton in use. Habitloop is a made-up
+> habit-tracking web app (Next.js + SQLite). Copy the shape, not the content.
 
-## Order of operations
+## Operator profile
 
-**1. Memory (Layer 1) — do this first.** In the project root:
-```bash
-mkdir -p memory
-cp templates/MEMORY.md.template memory/MEMORY.md
-```
-Then add the operator's durable facts (stack, hard rules, decisions + why) as one-line entries under the index.
+Solo indie developer building Habitloop, a small habit-tracking web app. Next.js + SQLite,
+deployed on a single VPS. Optimize for shipping working features over polish; I'd rather
+have 3 solid features than 6 half-done ones. I'm not a strong backend dev — explain DB
+decisions in plain terms.
 
-**2. Instructions (Layer 2).** Copy `templates/CLAUDE.md.template` → the project's `CLAUDE.md` (or `~/.claude/CLAUDE.md` for global). Fill the Operator profile + Operating Rules; keep the Mistakes Log section. Add this line: *"Read `memory/MEMORY.md` at the start of every session."*
+## Search Before Building (MANDATORY)
 
-**3. Hooks (Layer 3) — ask first; default to WARN mode.** Copy the three scripts to `~/.claude/hooks/`:
-```bash
-mkdir -p ~/.claude/hooks
-cp hooks/claim_check_hook.py hooks/log_claim.py hooks/auto_orient.py ~/.claude/hooks/
-```
-Register **both** hooks in `~/.claude/settings.json` using the combined block in `HOOK_INSTALL.md` (section "Both hooks in one settings.json"). **MERGE** into any existing `"hooks"` object — never replace it. Then validate: `python3 -c "import json; json.load(open('$HOME/.claude/settings.json'))"`. Add to `CLAUDE.md`: *"After verifying a done-claim, run `python3 ~/.claude/hooks/log_claim.py \"<claim>\" \"<how verified>\"`."*
+Before writing any new util, component, or migration: `grep -rn "<name>" src/` and check
+`memory/` for a prior decision. If it exists, use it.
 
-**4. Smoke-test the hook:**
-```bash
-echo '{"transcript_path":"/dev/null"}' | python3 ~/.claude/hooks/claim_check_hook.py
-# expect: {"continue": true, "suppressOutput": true}
-```
-If you see a traceback, **stop and report it** — the hooks are supposed to be fail-safe.
+## Operating Rules
 
-**5. Optional (Layer 4), only if asked.** `templates/LANES.md.template` + `templates/CONTEXT.md.template` for parallel work · `commands/*.md` → `~/.claude/commands/` for slash commands · `scripts/memory_rotate.py` to watch index size · `agents/*.md` are **briefs to paste as a subagent's instructions, not files to install**.
+- I'm the decider. Gates advise; they don't block.
+- Be concise. Show me the change, not a wall of explanation.
+- No deploy to prod without my explicit "ship it."
+- One feature branch at a time. Don't refactor unrelated code in a feature PR.
+- Raw SQL, not an ORM (decided — see `memory/feedback_raw_sql_not_orm.md`).
 
-## Rules
+## Session Protocol
 
-- Leave the claim-check hook in **warn** mode. Let the operator promote it to `block`.
-- Never overwrite an existing `CLAUDE.md` or `settings.json` without showing the operator the diff.
-- The hooks are fail-safe (any error → no-op). A traceback in the smoke test means something's wrong — report, don't proceed.
-- Confirm Layer 1 works before moving up. One `MEMORY.md` is already a real win.
+**Start:** read `memory/MEMORY.md`, then this file.
+**End:** update `memory/MEMORY.md` (one line under Recent), note anything unfinished, commit.
+
+## Mistakes Log
+
+**Format:** `YYYY-MM-DD — symptom. Correction: … Codified: …`
+
+- 2026-05-02 — Claimed the auth migration was applied; it wasn't run. **Correction:** verify before saying done. **Codified:** claim-check hook (warn mode) + log_claim.
+- 2026-05-09 — Wrote a second `formatDate()` when one already existed in `src/lib/`. **Correction:** grep before building. **Codified:** Search-Before-Building rule above.
+
+## Token Budget
+
+Keep this file under ~1 page. Detail lives in `memory/` files, loaded on demand.
 
 ---
 > Source: [PrimeFoldTools/andon](https://github.com/PrimeFoldTools/andon) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
