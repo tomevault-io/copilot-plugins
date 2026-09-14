@@ -1,0 +1,44 @@
+{
+  "name": "oce",
+  "owner": "byimam2nd",
+  "repo": "oce",
+  "description": "OCE : is a\ud83d\ude80 High-performance, resilient, and centralized extension suite for CloudStream. Engineered for speed, stability, and Indonesian content discovery.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/byimam2nd/oce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T03:50:20Z"
+}
