@@ -4,7 +4,7 @@
   "repo": "react-native-edge-fade",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AmatoGiulio/react-native-edge-fade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T22:31:13Z"
+  "distributed_at": "2026-09-14T00:07:26Z"
 }
