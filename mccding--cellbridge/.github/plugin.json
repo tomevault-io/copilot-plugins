@@ -1,0 +1,9 @@
+{
+  "name": "mccding--cellbridge",
+  "displayName": "CellBridge",
+  "description": "Turn any QDC507 4G module + SIM into a personal cellular gateway for your iPhone \u2014 SIP/VoLTE + SMS via YakPhone on Tailscale",
+  "version": "1.0.0",
+  "author": "mccding",
+  "homepage": "https://github.com/mccding/CellBridge",
+  "skills": []
+}
