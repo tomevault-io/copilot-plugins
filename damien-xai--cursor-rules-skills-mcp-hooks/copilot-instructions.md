@@ -1,17 +1,22 @@
-## api-security
+## github
 
-> API and server security for SvelteKit handlers and stores
+> Use the connected GitHub MCP for issues, pull requests, reviews, and repository data
 
 
-# API security
+# GitHub goes through MCP
 
-This is an **Apply to Specific Files** rule. It attaches on server routes and stores.
+This is an **Apply Intelligently** rule: no `globs`, `alwaysApply` is false.
 
-- Validate every JSON field (type + trim). Use `error(400, ...)` for bad input.
-- Treat ids as untrusted. Use `error(404, 'not found')` when a row is missing.
-- Never log, return, or hard-code secrets. Env vars stay on the server.
-- Export store functions with explicit return types; return copies, not the live array.
-- Use `json` and `error` from `@sveltejs/kit` in `+server.ts` handlers.
+When the user asks about GitHub issues, PRs, reviews, branches, releases,
+collaborators, or repo metadata:
+
+1. Use the connected **GitHub** MCP. Do not guess issue numbers or PR state.
+2. Call `get_me` first if owner or permission context is missing.
+3. Use `list_*` for simple lists. Use `search_*` for filtered or natural-language queries.
+4. Prefer `minimal_output: true` when the full payload is not needed.
+5. If the GitHub MCP is disconnected, say so and stop.
+
+Prefer the `github` skill for multi-step issue or PR workflows.
 
 ---
 > Source: [damien-xai/cursor-rules-skills-mcp-hooks](https://github.com/damien-xai/cursor-rules-skills-mcp-hooks) — distributed by [TomeVault](https://tomevault.io).
