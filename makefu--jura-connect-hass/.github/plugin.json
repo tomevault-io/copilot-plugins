@@ -1,0 +1,9 @@
+{
+  "name": "makefu--jura-connect-hass",
+  "displayName": "jura-connect-hass",
+  "description": "home-assistant addon for jura wifi coffee machines",
+  "version": "1.0.0",
+  "author": "makefu",
+  "homepage": "https://github.com/makefu/jura-connect-hass",
+  "skills": []
+}
