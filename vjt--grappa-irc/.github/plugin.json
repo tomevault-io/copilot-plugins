@@ -1,0 +1,9 @@
+{
+  "name": "vjt--grappa-irc",
+  "displayName": "grappa-irc",
+  "description": "Always-on IRC bouncer with a REST-first API (grappa) + irssi-shape PWA client (cicchetto). Beta.",
+  "version": "1.0.0",
+  "author": "vjt",
+  "homepage": "https://github.com/vjt/grappa-irc",
+  "skills": []
+}
