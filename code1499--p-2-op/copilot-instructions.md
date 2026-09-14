@@ -1,81 +1,89 @@
-## react
+## svelte
 
-> React best practices and patterns for modern web applications
+> Svelte best practices and patterns for modern web applications
 
 
-# React Best Practices
+# Svelte Best Practices
 
 ## Component Structure
-- Use functional components over class components
 - Keep components small and focused
-- Extract reusable logic into custom hooks
-- Use composition over inheritance
-- Implement proper prop types with TypeScript
-- Split large components into smaller, focused ones
+- Use proper TypeScript integration
+- Implement proper props typing
+- Use proper event dispatching
+- Keep markup clean and readable
+- Use proper slot implementation
 
-## Hooks
-- Follow the Rules of Hooks
-- Use custom hooks for reusable logic
-- Keep hooks focused and simple
-- Use appropriate dependency arrays in useEffect
-- Implement cleanup in useEffect when needed
-- Avoid nested hooks
+## Reactivity
+- Use proper reactive declarations
+- Implement proper stores
+- Use proper reactive statements
+- Handle derived values properly
+- Use proper lifecycle functions
+- Implement proper bindings
 
 ## State Management
-- Use useState for local component state
-- Implement useReducer for complex state logic
-- Use Context API for shared state
-- Keep state as close to where it's used as possible
-- Avoid prop drilling through proper state management
-- Use state management libraries only when necessary
+- Use proper Svelte stores
+- Keep stores modular
+- Use proper derived stores
+- Implement proper actions
+- Handle async state properly
+- Use proper store subscriptions
 
 ## Performance
-- Implement proper memoization (useMemo, useCallback)
-- Use React.memo for expensive components
-- Avoid unnecessary re-renders
-- Implement proper lazy loading
-- Use proper key props in lists
-- Profile and optimize render performance
+- Use proper component lazy loading
+- Implement proper transitions
+- Use proper animations
+- Avoid unnecessary reactivity
+- Use proper event forwarding
+- Implement proper key blocks
+
+## Routing
+- Use SvelteKit for routing
+- Implement proper layouts
+- Use proper route parameters
+- Handle loading states properly
+- Implement proper error pages
+- Use proper navigation methods
 
 ## Forms
-- Use controlled components for form inputs
-- Implement proper form validation
-- Handle form submission states properly
-- Show appropriate loading and error states
-- Use form libraries for complex forms
-- Implement proper accessibility for forms
+- Use proper form bindings
+- Implement proper validation
+- Handle form submission properly
+- Show proper loading states
+- Use proper error handling
+- Implement proper form reset
 
-## Error Handling
-- Implement Error Boundaries
-- Handle async errors properly
-- Show user-friendly error messages
-- Implement proper fallback UI
-- Log errors appropriately
-- Handle edge cases gracefully
+## TypeScript Integration
+- Use proper component types
+- Implement proper prop types
+- Use proper event types
+- Handle proper type inference
+- Use proper store types
+- Implement proper action types
 
 ## Testing
-- Write unit tests for components
-- Implement integration tests for complex flows
-- Use React Testing Library
-- Test user interactions
-- Test error scenarios
-- Implement proper mock data
+- Write proper unit tests
+- Implement proper component tests
+- Use proper testing libraries
+- Test stores properly
+- Implement proper mocking
+- Test async operations
 
-## Accessibility
-- Use semantic HTML elements
-- Implement proper ARIA attributes
-- Ensure keyboard navigation
-- Test with screen readers
-- Handle focus management
-- Provide proper alt text for images
+## Best Practices
+- Follow Svelte style guide
+- Use proper naming conventions
+- Keep components organized
+- Implement proper error handling
+- Use proper event handling
+- Document complex logic
 
-## Code Organization
-- Group related components together
-- Use proper file naming conventions
-- Implement proper directory structure
-- Keep styles close to components
-- Use proper imports/exports
-- Document complex component logic 
+## Build and Tooling
+- Use Vite for development
+- Configure proper build setup
+- Use proper environment variables
+- Implement proper code splitting
+- Use proper asset handling
+- Configure proper optimization 
 
 ---
 > Source: [code1499/P-2-OP](https://github.com/code1499/P-2-OP) — distributed by [TomeVault](https://tomevault.io).
