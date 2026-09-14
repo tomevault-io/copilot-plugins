@@ -1,0 +1,9 @@
+{
+  "name": "devon-systems--infra",
+  "displayName": "infra",
+  "description": "Shared assets and documentation for my (private, homelab, production) infrastructure.",
+  "version": "1.0.0",
+  "author": "devon-systems",
+  "homepage": "https://github.com/devon-systems/infra",
+  "skills": []
+}
