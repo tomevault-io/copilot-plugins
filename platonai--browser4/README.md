@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [platonai/Browser4](https://github.com/platonai/Browser4).
+Original source: `` in [platonai/Browser4](https://github.com/platonai/Browser4).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (19)
+## Bundled Skills (25)
 
 - [Browser4](https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/pdf/SKILL.md)
 - [Browser4](https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/x-sql/SKILL.md)
@@ -36,6 +37,12 @@ Original source: `CLAUDE.md` in [platonai/Browser4](https://github.com/platonai/
 - [Browser4](https://github.com/platonai/Browser4/tree/main/skills/browser4-experience/SKILL.md)
 - [Browser4](https://github.com/platonai/Browser4/tree/main/coworker/skills/maintenance/SKILL.md)
 - [Browser4](https://github.com/platonai/Browser4/tree/main/coworker/skills/test-production/SKILL.md)
+- [Browser4](https://github.com/platonai/Browser4/tree/main/skills/browser4-dev/SKILL.md)
+- [Browser4](https://github.com/platonai/Browser4/tree/main/skills/browser4-seo/SKILL.md)
+- [Browser4](https://github.com/platonai/Browser4/tree/main/skills/browser4-coding/SKILL.md)
+- [Browser4](https://github.com/platonai/Browser4/tree/main/skills/browser4-fix-bug/SKILL.md)
+- [Browser4](https://github.com/platonai/Browser4/tree/main/skills/browser4-web-miner/SKILL.md)
+- [Browser4](https://github.com/platonai/Browser4/tree/main/docs-dev/copilot/examples/skill.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/platonai/Browser4](https://github.com/platonai/Browser4)
 
