@@ -1,0 +1,225 @@
+{
+  "name": "vibe-seller",
+  "owner": "zpoint",
+  "repo": "vibe-seller",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/noon-ads/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/noon-ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/noon-fbn/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/noon-fbn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/amazon-ads/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/amazon-ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/noon-ads/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/noon-ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/noon-shared/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/noon-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/noon-fbn/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/noon-fbn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/noon-listing/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/noon-listing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": ".claude/skills/debug-ci/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/.claude/skills/debug-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/noon-exports/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/noon-exports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-ads/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/amazon-shared/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/amazon-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/save-skill/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/save-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/amazon-reports/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/amazon-reports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": ".claude/skills/debug-task/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/.claude/skills/debug-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/noon-shared/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/noon-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/amazon-invoice/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/amazon-invoice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/review-collect/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/review-collect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills/amazon-listing/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills/amazon-listing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/qianniu-ads/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/qianniu-ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/noon-listing/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/noon-listing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/noon-exports/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/noon-exports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-shared/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-reports/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-reports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-invoice/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-invoice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-listing/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-listing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/qianniu-shared/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/qianniu-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/review-collect/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/review-collect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/qianniu-listing/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/qianniu-listing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-fba-inbound/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-fba-inbound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-seller",
+      "path": "app/skills_v2/amazon-image-studio/SKILL.md",
+      "github_url": "https://github.com/zpoint/vibe-seller/tree/main/app/skills_v2/amazon-image-studio/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zpoint/vibe-seller",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T01:33:15Z"
+}
