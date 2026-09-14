@@ -1,0 +1,9 @@
+{
+  "name": "agentiloop--agent",
+  "displayName": "Agent",
+  "description": "Agent",
+  "version": "1.0.0",
+  "author": "AgentiLoop",
+  "homepage": "https://github.com/AgentiLoop/Agent",
+  "skills": []
+}
