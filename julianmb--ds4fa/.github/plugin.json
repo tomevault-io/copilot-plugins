@@ -1,0 +1,9 @@
+{
+  "name": "julianmb--ds4fa",
+  "displayName": "ds4fa",
+  "description": "DeepSeek V4 Flash 284B on AMD Strix Halo (gfx1151) \u2014 up to 32 tok/s decode & ~250 tok/s prefill via ROCmFPX, DSpark & ROCm 7.2",
+  "version": "1.0.0",
+  "author": "julianmb",
+  "homepage": "https://github.com/julianmb/ds4fa",
+  "skills": []
+}
