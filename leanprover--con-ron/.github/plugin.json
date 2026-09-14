@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--con-ron",
+  "displayName": "con-ron",
+  "description": "A rust port of con-leche",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/con-ron",
+  "skills": []
+}
