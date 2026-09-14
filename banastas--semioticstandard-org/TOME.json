@@ -1,0 +1,44 @@
+{
+  "name": "SemioticStandard.org",
+  "owner": "banastas",
+  "repo": "SemioticStandard.org",
+  "description": "Ron Cobb's iconic 'Semiotic Standard' symbols from Alien (1979) - a pioneering visual language for spacecraft design that influenced science fiction and UI/UX design.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/banastas/SemioticStandard.org",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-14T12:40:37Z"
+}
