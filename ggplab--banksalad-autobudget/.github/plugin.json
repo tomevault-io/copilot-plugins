@@ -1,0 +1,9 @@
+{
+  "name": "ggplab--banksalad-autobudget",
+  "displayName": "banksalad-autobudget",
+  "description": "\ubc45\ud06c\uc0d0\ub7ec\ub4dc \uac00\uacc4\ubd80 export \u2192 \uc801\uc7ac\u00b7\ud0dc\uae45\u00b7\uc8fc\ubb38\uba54\uc77c \ud488\ubaa9 \ubcf4\uac15\u00b7LLM \uc6a9\ub3c4\ucd94\ub860 \u2192 \ub9ac\ud3ec\ud2b8\u00b7\uc6d0\ud558\ub294 \ub3c4\ucc29\uc9c0. n8n \uc5c6\uc774\ub3c4, n8n \uc73c\ub85c\ub3c4.",
+  "version": "1.0.0",
+  "author": "ggplab",
+  "homepage": "https://github.com/ggplab/banksalad-autobudget",
+  "skills": []
+}
