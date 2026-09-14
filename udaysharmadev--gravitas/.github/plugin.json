@@ -1,0 +1,9 @@
+{
+  "name": "udaysharmadev--gravitas",
+  "displayName": "Gravitas",
+  "description": "An open-source Antigravity skill that forces Gemini to code like Claude Models. It makes the AI read your files, plan its steps, and actually test the code before saying it's done.",
+  "version": "1.0.0",
+  "author": "udaysharmadev",
+  "homepage": "https://github.com/udaysharmadev/Gravitas",
+  "skills": []
+}
