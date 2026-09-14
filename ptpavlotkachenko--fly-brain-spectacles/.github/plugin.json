@@ -1,0 +1,9 @@
+{
+  "name": "ptpavlotkachenko--fly-brain-spectacles",
+  "displayName": "fly-brain-spectacles",
+  "description": "Hologram fruit flies on Snap Spectacles (2024), each driven by the full MaleCNS fly connectome running on a Mac (bit-exact Metal GPU kernel)",
+  "version": "1.0.0",
+  "author": "PtPavloTkachenko",
+  "homepage": "https://github.com/PtPavloTkachenko/fly-brain-spectacles",
+  "skills": []
+}
