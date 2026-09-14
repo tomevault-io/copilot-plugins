@@ -1,22 +1,21 @@
-## github
+## manual-pr-checklist
 
-> Use the connected GitHub MCP for issues, pull requests, reviews, and repository data
+> This is an **Apply Manually** project rule: no `description`, no `globs`,
 
 
-# GitHub goes through MCP
+# Manual PR checklist
 
-This is an **Apply Intelligently** rule: no `globs`, `alwaysApply` is false.
+This is an **Apply Manually** project rule: no `description`, no `globs`,
+`alwaysApply` is false. It is included only when the user `@mention`s
+`@manual-pr-checklist` (or `@manual-pr-checklist.mdc`) in chat.
 
-When the user asks about GitHub issues, PRs, reviews, branches, releases,
-collaborators, or repo metadata:
+When this rule is attached, review against:
 
-1. Use the connected **GitHub** MCP. Do not guess issue numbers or PR state.
-2. Call `get_me` first if owner or permission context is missing.
-3. Use `list_*` for simple lists. Use `search_*` for filtered or natural-language queries.
-4. Prefer `minimal_output: true` when the full payload is not needed.
-5. If the GitHub MCP is disconnected, say so and stop.
-
-Prefer the `github` skill for multi-step issue or PR workflows.
+1. Diff matches the stated intent; no drive-by refactors.
+2. New behavior has a colocated `*.spec.ts` or a reason it does not.
+3. Rules/skills/hooks that were added are linked from `README.md`.
+4. No secrets or `.cursor/logs/` transcripts in the diff.
+5. Suggested commit subject is imperative and ≤ 72 characters.
 
 ---
 > Source: [damien-xai/cursor-rules-skills-mcp-hooks](https://github.com/damien-xai/cursor-rules-skills-mcp-hooks) — distributed by [TomeVault](https://tomevault.io).
