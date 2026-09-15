@@ -1,0 +1,9 @@
+{
+  "name": "magna-nz--redis-near-cache",
+  "displayName": "redis-near-cache",
+  "description": "Client-side caching on top of StackExchange.Redis. Keeps the values you read in memory and drops them the moment Redis says they changed.",
+  "version": "1.0.0",
+  "author": "magna-nz",
+  "homepage": "https://github.com/magna-nz/redis-near-cache",
+  "skills": []
+}
