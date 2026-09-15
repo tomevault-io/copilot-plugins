@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--autohelix",
+  "displayName": "AutoHelix",
+  "description": "Agent-powered iterative optimization: put an AI agent in a verified improvement loop.",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/AutoHelix",
+  "skills": []
+}
