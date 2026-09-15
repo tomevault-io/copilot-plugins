@@ -1,0 +1,9 @@
+{
+  "name": "tzubertowski--treefrogui",
+  "displayName": "TreeFrogUI",
+  "description": "TreeFrog UI is a frontend replacement for DataFrog R36SX, R36HD, SF3000, GB350, SF3500, SF3000HD. It offers new libretro cores, core options, proper saving and video/audio settings.",
+  "version": "1.0.0",
+  "author": "tzubertowski",
+  "homepage": "https://github.com/tzubertowski/TreeFrogUI",
+  "skills": []
+}
