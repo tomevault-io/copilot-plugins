@@ -1,0 +1,44 @@
+{
+  "name": "drpy3",
+  "owner": "hjdhnx",
+  "repo": "drpy3",
+  "description": "drpy3 \u2014\u2014 \u7ad9\u5728 drpy2 \u80a9\u8180\u4e0a\u7684\u4e0b\u4e00\u4ee3\u6e90\u89c4\u5219\u5f15\u64ce\uff1a\u5b9e\u4f8b\u6a21\u578b/async/\u6a21\u5757\u5316/wasm \u4e00\u7b49\u516c\u6c11/drpy2 \u517c\u5bb9\u5c42",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hjdhnx/drpy3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T03:32:41Z"
+}
