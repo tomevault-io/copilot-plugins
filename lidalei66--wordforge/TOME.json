@@ -4,7 +4,7 @@
   "repo": "wordforge",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LiDalei66/wordforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T04:53:12Z"
+  "distributed_at": "2026-09-15T05:16:24Z"
 }
