@@ -1,0 +1,9 @@
+{
+  "name": "mikkoparkkola--translate-browser-extension",
+  "displayName": "translate-browser-extension",
+  "description": "Full-page browser translation that handles the dynamically-loaded pages Google Translate and built-in translators leave untouched. 10+ providers, plus an optional on-device model (WebAssembly) so the ",
+  "version": "1.0.0",
+  "author": "MikkoParkkola",
+  "homepage": "https://github.com/MikkoParkkola/translate-browser-extension",
+  "skills": []
+}
