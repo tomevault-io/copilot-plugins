@@ -1,43 +1,16 @@
-## product-tab-filtering-pattern
+## transasia-marketplace-main
 
-> Standard pattern for tab-based product filtering with demoTab
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
 
-# Product Tab Filtering Pattern
+# This is NOT the Next.js you know
 
-For any tab-driven product section (home blocks, product widgets, etc.), follow this pattern:
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-- Keep tab options as a `TABS` array with stable `id` values.
-- Store selected tab in local state: `activeTab`.
-- Compute display items with `useMemo` (do not inline filter in JSX).
-- Filter by `product.demoTab?.includes(activeTab)`.
-- If there is a dedicated "View All" tab, return the full array in component logic.
-- Ensure product data in `data/products/*.ts` includes `demoTab` for every item in the rendered array.
-- The first tab id must be present in all product `demoTab` arrays for that section.
-- Never add synthetic all-tab ids (such as `view-all` or `all-time`) into `demoTab` data.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-## Reference Implementation
-
-```tsx
-const [activeTab, setActiveTab] = useState<string>("this-week");
-
-const filteredProducts = useMemo(() => {
-  if (activeTab === "view-all") return accessoriesProducts2;
-  return accessoriesProducts2.filter((product) =>
-    product.demoTab?.includes(activeTab),
-  );
-}, [activeTab]);
-```
-
-## Data Example
-
-```ts
-{
-  id: 10,
-  title: "Pocket Power Pro 5000",
-  demoTab: ["this-week", "this-month", "this-year"],
-}
-```
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [ashanagunasekara-project/transasia-marketplace-main](https://github.com/ashanagunasekara-project/transasia-marketplace-main) — distributed by [TomeVault](https://tomevault.io).
