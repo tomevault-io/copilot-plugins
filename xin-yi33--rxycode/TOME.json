@@ -1,0 +1,44 @@
+{
+  "name": "RxyCode",
+  "owner": "xin-yi33",
+  "repo": "RxyCode",
+  "description": "RxyCode is a local multi-agent for real work, not just code. \u672c\u5730\u591a\u667a\u80fd\u4f53\uff0c\u80fd\u5e72\u7684\u4e0d\u53ea\u662f\u5199\u4ee3\u7801\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xin-yi33/RxyCode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T03:40:57Z"
+}
