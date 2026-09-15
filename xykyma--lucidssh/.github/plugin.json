@@ -1,0 +1,9 @@
+{
+  "name": "xykyma--lucidssh",
+  "displayName": "LucidSSH",
+  "description": "Beginner-friendly SSH client for Windows \u2014 dangerous-command guard, offline error explanations, and a breadcrumb navigator. Fully local, no account, no cloud.",
+  "version": "1.0.0",
+  "author": "Xykyma",
+  "homepage": "https://github.com/Xykyma/LucidSSH",
+  "skills": []
+}
