@@ -1,0 +1,9 @@
+{
+  "name": "luomsis--repowiki",
+  "displayName": "repowiki",
+  "description": "Deterministic repo-wiki build system, driven by any coding agent. Zero LLM, zero network.",
+  "version": "1.0.0",
+  "author": "luomsis",
+  "homepage": "https://github.com/luomsis/repowiki",
+  "skills": []
+}
