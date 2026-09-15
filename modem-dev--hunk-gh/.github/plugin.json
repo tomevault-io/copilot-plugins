@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--hunk-gh",
+  "displayName": "hunk-gh",
+  "description": "Review GitHub pull requests in Hunk from the command line",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/hunk-gh",
+  "skills": []
+}
