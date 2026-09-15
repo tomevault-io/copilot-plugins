@@ -1,0 +1,44 @@
+{
+  "name": "OpenCodeFromScratch",
+  "owner": "hong-kailin",
+  "repo": "OpenCodeFromScratch",
+  "description": "\u9010\u884c\u590d\u523b\u5f00\u6e90 AI \u7f16\u7a0b agent opencode\uff0c\u4ece\u6700\u5c0f\u53ef\u7528 agent loop \u6e10\u8fdb\u6f14\u8fdb\u81f3\u751f\u4ea7\u7ea7 Effect-TS \u67b6\u6784\uff0c\u5e76\u5c55\u793a\u5982\u4f55\u7528 AI agent \u8f85\u52a9\u9ad8\u6548\u5b66\u4e60\u964c\u751f\u6280\u672f\u6808\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hong-kailin/OpenCodeFromScratch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T02:47:03Z"
+}
