@@ -4,7 +4,7 @@
   "repo": "dev3pack-cohort-2026-09",
   "description": "Dev3Pack AI Engineering \u2014 cohort 2026-09. Read-only for enrolled students. Content is released one week at a time.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Gecko-Academy/dev3pack-cohort-2026-09",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T08:32:57Z"
+  "distributed_at": "2026-09-15T08:34:24Z"
 }
