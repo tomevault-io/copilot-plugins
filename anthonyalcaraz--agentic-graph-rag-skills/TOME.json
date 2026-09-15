@@ -1,0 +1,44 @@
+{
+  "name": "agentic-graph-rag-skills",
+  "owner": "AnthonyAlcaraz",
+  "repo": "agentic-graph-rag-skills",
+  "description": "Companion repo for Agentic Graph RAG (O'Reilly, Anthony Alcaraz & Sam Julien) \u2014 50 runnable skills + 8 pedagogical notebooks covering all eight chapters, on one moto-mocked AWS DevOps scenario",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AnthonyAlcaraz/agentic-graph-rag-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T05:13:25Z"
+}
