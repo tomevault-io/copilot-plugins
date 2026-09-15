@@ -1,0 +1,9 @@
+{
+  "name": "codetesla51--nine-fives",
+  "displayName": "nine-fives",
+  "description": "Systems-design tower defense, sim-first. Headless Go engine, 23 components, balance-gated suite, AWS-measured pricing.",
+  "version": "1.0.0",
+  "author": "codetesla51",
+  "homepage": "https://github.com/codetesla51/nine-fives",
+  "skills": []
+}
