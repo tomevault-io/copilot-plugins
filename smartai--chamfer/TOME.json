@@ -4,7 +4,7 @@
   "repo": "Chamfer",
   "description": "A reliable text/image to CAD Agent harness that supports different MCPs and LLMs",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SmartAI/Chamfer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T03:27:16Z"
+  "distributed_at": "2026-09-15T03:40:22Z"
 }
