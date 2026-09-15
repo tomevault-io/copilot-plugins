@@ -1,0 +1,9 @@
+{
+  "name": "openstatushq--health",
+  "displayName": "health",
+  "description": "Tree-shakable health endpoints for JS servers. Zero-dependency core, adapters for Hono, Elysia, Express and Next.js, probes for your databases and APIs. Deno, Node, Bun, edge.",
+  "version": "1.0.0",
+  "author": "openstatusHQ",
+  "homepage": "https://github.com/openstatusHQ/health",
+  "skills": []
+}
