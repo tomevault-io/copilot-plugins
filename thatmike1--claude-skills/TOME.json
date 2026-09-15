@@ -4,7 +4,7 @@
   "repo": "claude-skills",
   "description": "stuff i made for myself, some of it orignally quite situational, but now generalized for reuse ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thatmike1/claude-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T04:54:42Z"
+  "distributed_at": "2026-09-15T05:16:57Z"
 }
