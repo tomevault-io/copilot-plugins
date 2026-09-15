@@ -1,0 +1,9 @@
+{
+  "name": "early-signal-tech--parkbench",
+  "displayName": "parkbench",
+  "description": "A cli tool to benchmark and stream events to a DuckLake or DuckDB destination.",
+  "version": "1.0.0",
+  "author": "early-signal-tech",
+  "homepage": "https://github.com/early-signal-tech/parkbench",
+  "skills": []
+}
