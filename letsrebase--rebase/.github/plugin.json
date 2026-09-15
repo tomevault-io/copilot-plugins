@@ -1,0 +1,9 @@
+{
+  "name": "letsrebase--rebase",
+  "displayName": "rebase",
+  "description": "One repository for every rebase project: PigroCRM, the rebase hub and the public website.",
+  "version": "1.0.0",
+  "author": "letsrebase",
+  "homepage": "https://github.com/letsrebase/rebase",
+  "skills": []
+}
