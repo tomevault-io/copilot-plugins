@@ -1,0 +1,9 @@
+{
+  "name": "kalarislabs--skill-doctor",
+  "displayName": "Skill-Doctor",
+  "description": "Deterministic security analysis for agent skill files.",
+  "version": "1.0.0",
+  "author": "KalarisLabs",
+  "homepage": "https://github.com/KalarisLabs/Skill-Doctor",
+  "skills": []
+}
