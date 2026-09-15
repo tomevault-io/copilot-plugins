@@ -1,0 +1,166 @@
+## pi-outpost
+
+> <!-- BEGIN OPENLORE (managed — edits inside this block will be overwritten) -->
+
+<!-- BEGIN OPENLORE (managed — edits inside this block will be overwritten) -->
+<!-- openlore-fingerprint: 25cdd746ebf39b56 -->
+This project uses OpenLore for persistent architectural memory.
+
+ALWAYS call `orient()` (via the openlore MCP server, or `npx openlore orient --json`)
+before reading source files when starting a new task. This returns the relevant
+functions, callers, spec sections, and insertion points for the task at hand —
+one structural lookup instead of file-by-file rediscovery.
+
+OpenLore prefixes tool responses with a brief, factual freshness note (the
+Epistemic Lease) once your cached context has aged or the repo has moved since
+your last `orient()`. It is informational — re-`orient()` if you are relying on
+cached cross-module structure; otherwise carry on.
+
+For the MCP setup, ensure `openlore mcp` is configured as an MCP server.
+See https://github.com/clay-good/OpenLore for details.
+<!-- END OPENLORE -->
+
+## OpenSpec exploration with OpenLore
+
+OpenSpec and OpenLore are independent tools with complementary responsibilities:
+
+- OpenSpec captures intended behaviour, requirements, scenarios, design decisions,
+  and implementation tasks.
+- OpenLore provides evidence about the existing implementation: entry points,
+  ownership, call paths, dependencies, tests, specifications, and likely impact.
+
+When exploring, proposing, reviewing, or updating an OpenSpec change for existing
+functionality, call `orient()` early, even if no source file has been opened yet.
+Describe both the intended capability and the relevant OpenSpec change when known.
+
+Use the result to:
+
+1. identify existing entry points and responsible modules;
+2. find behaviour or constraints missing from the OpenSpec artifacts;
+3. detect reuse opportunities, conflicts, and overlap with other functionality;
+4. locate relevant tests and existing specifications;
+5. estimate the implementation surface and risks.
+
+Reconcile three sources of truth explicitly:
+
+1. the requested intent;
+2. the OpenSpec artifacts;
+3. the implementation evidence returned by OpenLore.
+
+OpenLore evidence informs the exploration but does not replace requirements or
+silently redefine the intended behaviour. When the sources disagree, report the
+discrepancy and resolve it in the OpenSpec artifacts before implementation.
+
+For a purely greenfield or conceptual exploration, `orient()` may return little
+useful evidence; continue with OpenSpec and state that no relevant implementation
+surface was found. If OpenLore is unavailable, use targeted repository inspection
+and report the fallback.
+
+## Tooling & CLI Constraints
+- ALWAYS use `rg` (ripgrep) instead of `grep` for code search and file inspection.
+- NEVER run recursive `grep -r` commands. `rg` is faster and respects `.gitignore`.
+
+## Documentation impact before every PR
+
+Before opening or updating any pull request:
+
+1. Inspect the diff for changes that affect documented behaviour: user flows, CLI
+   commands and flags, configuration keys/defaults, environment variables, APIs,
+   UI behaviour, deployment, compatibility, prerequisites, or developer workflows.
+2. Search every relevant user and developer document (`README.md`, `docs/`, package
+   READMEs, examples, and operational guides) for the affected concepts.
+3. Compare affected claims, examples, and commands against the implementation,
+   schemas, CLI help, package scripts, and tests. Update stale documentation in the
+   same PR.
+4. Validate changed documentation proportionately: local links and anchors, fenced
+   JSON, documented commands, and externally referenced facts where applicable.
+5. Add a `Documentation impact` note to the PR description. List the files updated,
+   or state `None` with a brief reason when the diff has no documentation impact.
+
+This is an impact review, not a mandatory full reread of unrelated documentation.
+
+## Spec scenario coverage
+
+Before calling a feature complete, prove that every applicable OpenSpec scenario
+is covered by testing:
+
+1. Follow the OpenSpec exploration with OpenLore workflow above, then enumerate
+   every `#### Scenario:` in
+   the relevant main and delta specs. Verify the list with
+   `rg '^#### Scenario:' openspec/` so scenarios cannot be silently omitted.
+2. Produce an explicit scenario-to-test matrix. Classify every scenario as
+   `covered`, `partial`, or `uncovered`, and include the test file and test name.
+   Prefer the exact scenario name in the test title or a machine-readable
+   `openlore` coverage annotation when the test framework supports it.
+3. Read the assertions, not only the test names or suite result. A scenario is
+   `covered` only when its GIVEN/WHEN/THEN contract would make the test fail if
+   broken. Timing, ordering, negative cases, security boundaries, and observable
+   outcomes must be checked at the real boundary described by the spec.
+4. Use OpenLore's available coverage, inventory, impact, and spec-drift tools
+   when relevant. If an MCP tool is unavailable, use its CLI or `rg` fallback
+   and report that fallback.
+5. For enumerated surfaces such as routes, commands, or schemas, compare tests
+   against the production inventory/source of truth. A hand-maintained test-only
+   list is not sufficient proof that newly added cases are covered.
+6. Run focused tests first, then the relevant suites and strict OpenSpec
+   validation. UI or agent-behaviour scenarios must also follow the Playwright
+   running-app rule below.
+
+Do not mark OpenSpec tasks complete or report the feature done while a required
+scenario is `partial` or `uncovered`. If a correct test exposes a product bug,
+keep the assertion strong: fix the implementation when in scope, otherwise
+report the blocker instead of weakening the test.
+
+## UI and UX changes: test them in the running app
+
+Any change that touches the interface **or the way it is used** — a component, a
+tool the agent calls, a tool's description, a message the model reads — must be
+exercised in the running app with Playwright before it is called done. Unit tests
+are necessary and they are not sufficient.
+
+Three failures from one session, none of which any suite caught:
+
+- A PDF viewer that released documents through the wrong object. The throw landed
+  in an effect cleanup, so **the whole application unmounted** and the user saw a
+  blank page. The test fake had grown a method the real API never had.
+- A file-creation input that closed itself on a refused duplicate, swallowing the
+  error. It inferred success from a side effect the failure produces too.
+- An extraction tool that worked perfectly when driven directly, while the agent
+  kept not using the option that made it worth having. The mechanism was right;
+  the behaviour was not.
+
+The pattern: a fake is kinder than reality, an outcome is inferred rather than
+observed, or the code is correct and the *use* of it is not. Only the running app
+shows those.
+
+What "exercised" means: drive the actual feature — create the file, open the
+document, ask the agent for the thing — then read back the DOM, the filesystem, or
+the session transcript to check what really happened. A screenshot is not a check.
+
+### Do not stop at the happy path
+
+Once the intended walkthrough passes, make a second pass whose only goal is to
+break it. The happy path is the sequence the code was written against, so it is
+the one least likely to be broken; the defects live in the transitions.
+
+Hammer it like a monkey tester: rapid and double clicks, a menu left open while
+the context under it changes, switching projects or sessions mid-request,
+clicking a file that was just deleted on disk, spamming expand/collapse, acting
+before the first data has arrived, and clicking in an order nobody would design
+for. Remove things underneath the running app — delete the directory, revoke the
+permission, kill the repository — and watch what it claims afterwards.
+
+Read back the DOM after each burst, and watch for the shapes that only show up
+here: stale state rendered under a new context, a reply answering a question that
+has since changed, a handler assuming an object it no longer holds, a panel stuck
+loading a request nobody made. Report what broke, not merely that the feature
+works.
+
+Two defects in the per-repository git work were exactly of this shape, and both
+had green suites over them: a commit log rendered under another project's name,
+and — once that was correlated — a menu that sat on "loading…" forever because
+the fetch only happened on the toggle.
+
+---
+> Source: [laurentftech/pi-outpost](https://github.com/laurentftech/pi-outpost) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-15 -->
