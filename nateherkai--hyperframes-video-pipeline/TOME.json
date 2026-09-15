@@ -4,7 +4,7 @@
   "repo": "hyperframes-video-pipeline",
   "description": "Merged into nateherkai/hyperframes-student-kit. Get the current video editing, reels, Shorts, and motion graphics kit there.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nateherkai/hyperframes-video-pipeline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T14:30:28Z"
+  "distributed_at": "2026-09-15T14:31:27Z"
 }
