@@ -7,11 +7,11 @@ A reliable text/image to CAD Agent harness that supports different MCPs and LLMs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SmartAI/Chamfer](https://github.com/SmartAI/Chamfer).
+Original source: `AGENTS.md` in [SmartAI/Chamfer](https://github.com/SmartAI/Chamfer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
