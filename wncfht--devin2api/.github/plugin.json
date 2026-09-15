@@ -1,0 +1,9 @@
+{
+  "name": "wncfht--devin2api",
+  "displayName": "devin2api",
+  "description": "Devin upstream \u2192 OpenAI Responses / Anthropic Messages compatible API proxy",
+  "version": "1.0.0",
+  "author": "WncFht",
+  "homepage": "https://github.com/WncFht/devin2api",
+  "skills": []
+}
