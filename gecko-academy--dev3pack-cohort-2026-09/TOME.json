@@ -1,0 +1,44 @@
+{
+  "name": "dev3pack-cohort-2026-09",
+  "owner": "Gecko-Academy",
+  "repo": "dev3pack-cohort-2026-09",
+  "description": "Dev3Pack AI Engineering \u2014 cohort 2026-09. Read-only for enrolled students. Content is released one week at a time.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Gecko-Academy/dev3pack-cohort-2026-09",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T08:32:57Z"
+}
