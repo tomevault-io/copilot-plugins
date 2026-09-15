@@ -1,0 +1,44 @@
+{
+  "name": "twisted-metal-2012-ps3-native-port",
+  "owner": "franklincg",
+  "repo": "twisted-metal-2012-ps3-native-port",
+  "description": "Community-driven native PC recompilation/port of Twisted Metal (2012) for PlayStation 3. Initiated by FrankCG \ud83c\udde7\ud83c\uddf7.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/franklincg/twisted-metal-2012-ps3-native-port",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T16:33:09Z"
+}
