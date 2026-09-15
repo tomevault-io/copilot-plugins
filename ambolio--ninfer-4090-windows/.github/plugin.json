@@ -1,0 +1,9 @@
+{
+  "name": "ambolio--ninfer-4090-windows",
+  "displayName": "ninfer-4090-windows",
+  "description": "NInfer v1.0.7 - Windows 11 native build for RTX 4090 (sm_89) - Port de Neroued/ninfer (upstream b88c0f6f): rk4v4-e8 E8 KV 260k, MTP3, WDDM budget. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "Ambolio",
+  "homepage": "https://github.com/Ambolio/ninfer-4090-windows",
+  "skills": []
+}
