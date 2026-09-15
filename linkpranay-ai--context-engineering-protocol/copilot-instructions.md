@@ -1,12 +1,12 @@
-## ult-cep-wizard
+## ult-codegraph
 
-> Launch a local, localhost-only browser wizard with two journeys — layout onboarding for a project with ult-repo-layout installed, initialized or not — guides an uninitialized or not-yet-discovered repo through Run Discover, then shows resolved layer/slot state through four labeled boxes and a directory picker, and lets you resolve pending layout decisions (confirm/skip/disable/pick-a-directory) and Apply them into context-config.yaml via ult-repo-layout's own confirm step; and retrofit — walks an existing skill library through ult-cep-retrofit's inventory/classify/draft/apply flow, with an editable per-file diff preview and batch Apply, never writing without that preview. Do NOT use for headless/CI-only layout validation — use ult-repo-layout's discover/confirm-layers/--validate directly.
+> Generate a codebase knowledge graph with `graphify` at `graphify-out/` so other skills can query cross-file relationships before touching code. Do NOT use for runtime profiling.
 
 
-# ult-cep-wizard
+# Codebase Graph (graphify wrapper)
 
 This repository packages its capabilities as portable skills for AI
-coding agents. Read `.github/skills/ult-cep-wizard/SKILL.md` and follow it
+coding agents. Read `.github/skills/ult-codegraph/SKILL.md` and follow it
 when this rule applies.
 
 ---
