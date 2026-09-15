@@ -7,11 +7,11 @@ Self-hostable AGPL workspace where humans and AI agents share chat, tasks, knowl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Maneek21/Deft](https://github.com/Maneek21/Deft).
+Original source: `AGENTS.md` in [Maneek21/Deft](https://github.com/Maneek21/Deft).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
