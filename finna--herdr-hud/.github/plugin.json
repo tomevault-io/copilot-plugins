@@ -1,0 +1,9 @@
+{
+  "name": "finna--herdr-hud",
+  "displayName": "herdr-hud",
+  "description": "Manage your Herdr agents while gaming. Floating desktop HUD for macOS and Windows; Omarchy plugin linked inside.",
+  "version": "1.0.0",
+  "author": "finna",
+  "homepage": "https://github.com/finna/herdr-hud",
+  "skills": []
+}
