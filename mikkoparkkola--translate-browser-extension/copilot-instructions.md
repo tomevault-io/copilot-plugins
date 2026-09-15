@@ -1,0 +1,193 @@
+## translate-browser-extension
+
+> This file provides guidance to Claude Code when working with this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with this repository.
+
+## Project Overview
+
+**TRANSLATE!** is a browser extension for local-first translation across Chrome (MV3) and Firefox (MV2). The shipped paths are Chrome Built-in (native, Chrome 138+), OPUS-MT (stable downloaded local baseline), TranslateGemma (experimental accelerated local path via offscreen WebGPU/WebNN at `src/offscreen/translategemma.ts`), and optional cloud providers (DeepL, OpenAI, Anthropic, Google Cloud). NLLB-200 is in tree at `src/providers/nllb-200.ts` as an opt-in research path. PR #509 shipped the content-script WebMCP surface, which exposes the extension as MCP tools (`translate_page`, `translate_selection`, `detect_language`) via `src/content/webmcp.ts` for in-page agent integrations.
+
+## Architecture (v2.0+)
+
+```
+src/
+├── types/                 # TypeScript type definitions
+├── core/                  # Core translation infrastructure (~25 modules: throttle, circuit-breaker, glossary, language-detector, prediction-engine, translation-cache, translation-router, webgpu-detector, ...)
+├── providers/             # 7 translation provider implementations + base abstract
+│   ├── base-provider.ts
+│   ├── opus-mt-local.ts   # Helsinki-NLP OPUS-MT via Transformers.js
+│   ├── chrome-translator.ts # Chrome Built-in (Chrome 138+)
+│   ├── deepl.ts
+│   ├── openai.ts
+│   ├── anthropic.ts
+│   ├── google-cloud.ts
+│   ├── nllb-200.ts        # opt-in NLLB research path (not exported from index.ts)
+│   └── cloud-provider.ts  # shared cloud-provider helpers
+├── offscreen/
+│   └── translategemma.ts  # experimental WebGPU/WebNN local accelerated path
+├── content/
+│   ├── index.ts           # main content script (DOM walking, MutationObserver)
+│   └── webmcp.ts          # MCP tool surface for in-page agent integrations (~553 LOC, e2e harness in e2e/webmcp-harness.html)
+├── popup/                 # Solid.js popup UI
+├── options/               # Settings page
+├── background/            # MV3 service worker + Firefox MV2 background page
+├── manifest.json          # Chrome (MV3)
+└── manifest.firefox.json  # Firefox (MV2)
+```
+
+The src/ tree is far richer than this skeleton; treat the listing above as the load-bearing surfaces for agent onboarding. For a full file inventory run `fd -t f . src/` rather than asking the doc.
+
+## Canonical shipped runtime paths
+
+### Chrome
+- `popup/content -> background service worker -> offscreen document`
+  - `opus-mt` (stable downloaded baseline)
+  - `translategemma` (experimental, WebGPU/WebNN)
+  - cloud providers (`deepl`, `openai`, `anthropic`, `google-cloud`)
+- `popup/content -> chrome.scripting.executeScript(...)`
+  - `chrome-builtin` (preferred native path when available, Chrome 138+)
+
+### Firefox
+- `popup/content -> background-firefox`
+  - `opus-mt`
+  - `translategemma`
+  - configured cloud providers
+- `chrome-builtin` is not available on Firefox.
+
+### Guidance
+- Treat `chrome-builtin` and `opus-mt` as the canonical shipped user-facing translation paths.
+- Treat `translategemma` as experimental.
+- Do not treat `translation-router`, `localModel`, `llama.cpp`, or `wllama` surfaces as the canonical shipped runtime unless a task explicitly targets those legacy/experimental paths.
+- The content-script WebMCP surface in `src/content/webmcp.ts` is canonical for in-page MCP-aware agent integrations (Claude.ai, agent harnesses). Do not assume agents only reach the extension via the popup.
+
+## Tech Stack
+
+- **Language**: TypeScript (strict mode)
+- **UI Framework**: Solid.js
+- **Build Tool**: Vite
+- **ML Runtime**: Transformers.js with WebGPU/WASM
+- **Models**: Helsinki-NLP OPUS-MT (quantized)
+
+## Common Commands
+
+```bash
+npm install          # Install dependencies
+npm run dev          # Build with watch mode
+npm run build        # Chrome production build to dist/
+npm run build:firefox # Firefox production build to dist-firefox/
+npm run build:all    # Build both Chrome and Firefox
+npm run package:firefox # Create Firefox XPI package
+npm run typecheck    # TypeScript type checking
+npm run test         # Run Vitest tests
+```
+
+## Key Features
+
+### Rate Limiting (`src/core/throttle.ts`)
+- Sliding window rate limiting
+- Exponential backoff with jitter
+- Predictive batching for optimal API usage
+- Token estimation (~4 chars per token)
+
+### Provider System
+- Unified interface via `BaseProvider`
+- Strategy-based selection: Smart/Fast/Quality
+- Usage tracking and cost monitoring
+- WebGPU acceleration when available
+
+### Translation Flow
+1. Popup/content sends a typed message to the background runtime
+2. Chrome routes local/cloud work through the service worker (and offscreen when needed)
+3. Firefox routes work through the persistent background page
+4. Native/cloud/local provider execution runs on the selected path
+5. Content script replaces DOM text nodes
+
+## Development Notes
+
+### Adding New Providers
+1. Extend `BaseProvider` in `src/providers/`
+2. Implement `translate()`, `isAvailable()`, `getSupportedLanguages()`
+3. Register in `translation-router.ts`
+
+### Testing
+- **Chrome**: Load unpacked extension from `dist/` folder
+- **Firefox**: Load temporary add-on from `dist-firefox/manifest.json` via `about:debugging`
+- Use `test/test-page.html` for manual testing
+- Check DevTools console for `[Router]`, `[OPUS-MT]`, `[Content]` logs
+
+### Firefox-Specific Notes
+- Uses Manifest V2 with persistent background page (not service worker)
+- ML inference runs directly in background page (no offscreen document)
+- WebGPU requires `about:config` -> `dom.webgpu.enabled` = `true`
+- See `docs/FIREFOX_PORT.md` for full documentation
+
+### Legacy Code
+Previous implementation archived in `_legacy/src/` for reference.
+Do NOT import from `_legacy/` - it contains broken vanilla JS code.
+
+## File Conventions
+
+- TypeScript strict mode enabled
+- Solid.js JSX in `.tsx` files
+- CSS in component-specific files
+- No emoji in code (user preference)
+
+## MANDATORY: Quality Gates Before Deployment
+
+**NEVER deploy features without completing these steps:**
+
+### 1. Build Verification (BLOCKING)
+```bash
+npm run build        # Must succeed without errors
+npm run typecheck    # Must pass with no errors
+npm run test         # ALL tests must pass
+```
+
+### 2. New Feature Requirements
+For any new feature implementation:
+- Write unit tests BEFORE marking complete
+- Add integration tests for cross-component interactions
+- Update `QA_CHECKLIST.md` with manual test items
+- Document error handling with user-friendly messages
+
+### 3. Code Quality Checks
+- Event listeners MUST have cleanup paths (add/remove pairs)
+- Async operations MUST clear state BEFORE cleanup (race conditions)
+- Error messages MUST be specific and actionable
+- Caches MUST have size limits (LRU eviction)
+
+### 4. Pre-Deployment Checklist
+Before declaring any feature "done":
+1. Run full test suite: `npm run test`
+2. Load extension in Chrome and verify no console errors
+3. Test the specific feature manually in browser
+4. Check `QA_CHECKLIST.md` for applicable items
+
+### 5. Anti-Patterns (REJECT)
+- "Build succeeds" does NOT mean "feature works"
+- "Code compiles" does NOT mean "logic is correct"
+- Parallel agent implementation without integration testing
+- Trusting automated builds without manual verification
+
+**Reference**: `QA_CHECKLIST.md` for full pre-deployment checklist
+
+### 6. Agent Implementation Rule (BLOCKING)
+**When spawning agents to implement features, EVERY agent prompt MUST include:**
+1. "Write unit tests for all new functions"
+2. "Verify tests pass before reporting completion"
+3. "New code without corresponding test files = NOT DONE"
+
+**Orchestrator responsibility**: After ALL implementation agents complete, ALWAYS spawn
+a verification agent that runs the full test suite AND checks that new source files
+have corresponding test files. Never commit agent output without this gate.
+
+**Why this exists**: On 2025-07-19, three agents shipped 1055 lines of new feature code
+with zero new tests. All existing 798 tests passed, creating false confidence.
+The code compiled but was never verified to actually work. This rule prevents that.
+
+---
+> Source: [MikkoParkkola/translate-browser-extension](https://github.com/MikkoParkkola/translate-browser-extension) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-15 -->
