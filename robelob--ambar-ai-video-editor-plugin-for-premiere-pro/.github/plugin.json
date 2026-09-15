@@ -1,0 +1,9 @@
+{
+  "name": "robelob--ambar-ai-video-editor-plugin-for-premiere-pro",
+  "displayName": "Ambar-AI-Video-Editor-Plugin-For-Premiere-Pro",
+  "description": "Premiere Pro UXP+CEP plugin that uses Whisper + LLMs to auto-edit talking-head videos. No cloud uploads.",
+  "version": "1.0.0",
+  "author": "Robelob",
+  "homepage": "https://github.com/Robelob/Ambar-AI-Video-Editor-Plugin-For-Premiere-Pro",
+  "skills": []
+}
