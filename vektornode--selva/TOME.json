@@ -4,7 +4,7 @@
   "repo": "selva",
   "description": "Your workflow, everyone's tool",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VektorNode/selva",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T06:33:48Z"
+  "distributed_at": "2026-09-15T06:34:37Z"
 }
