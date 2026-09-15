@@ -1,0 +1,9 @@
+{
+  "name": "indeliblevivi--codex-worker-routing",
+  "displayName": "codex-worker-routing",
+  "description": "Native Codex worker routing with automatic main-session context separation.",
+  "version": "1.0.0",
+  "author": "IndelibleVivi",
+  "homepage": "https://github.com/IndelibleVivi/codex-worker-routing",
+  "skills": []
+}
