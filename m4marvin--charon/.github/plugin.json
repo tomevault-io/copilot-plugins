@@ -1,0 +1,9 @@
+{
+  "name": "m4marvin--charon",
+  "displayName": "charon",
+  "description": "My take on properly building an AI character chat app \u2014 combining features from Chub, SillyTavern, and everything else I always wanted. Self-hosted, branching conversations, character cards V2+V3, lor",
+  "version": "1.0.0",
+  "author": "M4Marvin",
+  "homepage": "https://github.com/M4Marvin/charon",
+  "skills": []
+}
