@@ -1,0 +1,9 @@
+{
+  "name": "kapishdima--dmgly",
+  "displayName": "dmgly",
+  "description": "Visual DMG editor with animated GIF backgrounds, custom text, and export for Electron, Tauri, and native macOS apps",
+  "version": "1.0.0",
+  "author": "kapishdima",
+  "homepage": "https://github.com/kapishdima/dmgly",
+  "skills": []
+}
