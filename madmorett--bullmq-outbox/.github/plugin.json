@@ -1,0 +1,9 @@
+{
+  "name": "madmorett--bullmq-outbox",
+  "displayName": "bullmq-outbox",
+  "description": "Outbox fallback for BullMQ: when Redis is out of memory or unreachable, jobs land in a store you own instead of disappearing. Works with BullMQ v5, v6 and Pro.",
+  "version": "1.0.0",
+  "author": "madmorett",
+  "homepage": "https://github.com/madmorett/bullmq-outbox",
+  "skills": []
+}
