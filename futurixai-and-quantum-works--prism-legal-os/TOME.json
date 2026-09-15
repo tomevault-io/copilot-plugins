@@ -4,7 +4,7 @@
   "repo": "Prism-Legal-OS",
   "description": "Open-source legal AI for contract analysis, legal research, and litigation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FuturixAI-and-Quantum-Works/Prism-Legal-OS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T11:30:25Z"
+  "distributed_at": "2026-09-15T11:32:08Z"
 }
