@@ -1,0 +1,44 @@
+{
+  "name": "debate-coach",
+  "owner": "MoonTzai",
+  "repo": "debate-coach",
+  "description": "\u57fa\u4e8e\u300a\u8fa9\u8bba\u7b51\u57fa\u300b\u4f53\u7cfb\u548cGrill-Me\u5ba1\u95ee\u6a21\u5f0f\u7684\u8fa9\u8bba\u6559\u7ec3Skill\u4e0e\u7f51\u9875\u7248\u5e94\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MoonTzai/debate-coach",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T03:03:49Z"
+}
