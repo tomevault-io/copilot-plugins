@@ -1,0 +1,9 @@
+{
+  "name": "jopsis--iptv-plugin-hap",
+  "displayName": "IPTV-Plugin-HaP",
+  "description": "HaP packages AceServe, HTTPAceProxy and IPFS Gateway into an Android APK for StreamVault and standalone IPTV players, exposing AceStream M3U/EPG playlists for local, LAN, and Cast playback.",
+  "version": "1.0.0",
+  "author": "jopsis",
+  "homepage": "https://github.com/jopsis/IPTV-Plugin-HaP",
+  "skills": []
+}
