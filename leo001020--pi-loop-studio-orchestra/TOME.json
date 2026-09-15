@@ -1,0 +1,44 @@
+{
+  "name": "pi-loop-studio-orchestra",
+  "owner": "LEO001020",
+  "repo": "pi-loop-studio-orchestra",
+  "description": "pi-loop-studio/orchestra \u2014 evidence-driven, recoverable multi-agent engineering runtime with XState, SQLite WAL, isolated worktrees, independent review, and single-writer publication.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LEO001020/pi-loop-studio-orchestra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T17:32:29Z"
+}
