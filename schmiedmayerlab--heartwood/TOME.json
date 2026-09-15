@@ -4,7 +4,7 @@
   "repo": "heartwood",
   "description": "Compliance-first coding harness for working with sensitive biomedical research data.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SchmiedmayerLab/heartwood",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T03:16:31Z"
+  "distributed_at": "2026-09-15T03:22:56Z"
 }
