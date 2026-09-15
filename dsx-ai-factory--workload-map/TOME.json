@@ -1,0 +1,44 @@
+{
+  "name": "workload-map",
+  "owner": "dsx-ai-factory",
+  "repo": "workload-map",
+  "description": "Translation layer that maps any Kubernetes framework's Custom Resource Definitions (CRDs) into a standardized, generic structure.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dsx-ai-factory/workload-map",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T21:30:27Z"
+}
