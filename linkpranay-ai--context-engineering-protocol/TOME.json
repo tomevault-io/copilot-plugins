@@ -4,7 +4,7 @@
   "repo": "context-engineering-protocol",
   "description": "Portable AI coding-agent skills for source-attributed, human-approved context packages.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linkpranay-ai/context-engineering-protocol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T02:59:20Z"
+  "distributed_at": "2026-09-15T03:42:48Z"
 }
