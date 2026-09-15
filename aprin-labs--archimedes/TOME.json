@@ -4,7 +4,7 @@
   "repo": "archimedes",
   "description": "AI trading strategies that fuse user intent with market data, academic research, and statistical rigor to help you win more than you lose.  \ud83c\udfc6 Selected as a Standout Project in the Agora Agents Hackathon!",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aprin-labs/archimedes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T04:44:20Z"
+  "distributed_at": "2026-09-15T05:12:51Z"
 }
