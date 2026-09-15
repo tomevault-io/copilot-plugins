@@ -4,7 +4,7 @@
   "repo": "RLE-Bench",
   "description": "A Qualifying Exam for Coding Agent as Robot Learning Engineers",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RLE-Bench/RLE-Bench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T04:31:10Z"
+  "distributed_at": "2026-09-15T05:06:24Z"
 }
