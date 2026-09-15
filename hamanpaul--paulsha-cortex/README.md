@@ -7,11 +7,11 @@ agent 治理平面：manager 派工決策 + persona scope 護欄 + control 檔�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hamanpaul/paulsha-cortex](https://github.com/hamanpaul/paulsha-cortex).
+Original source: `AGENTS.md` in [hamanpaul/paulsha-cortex](https://github.com/hamanpaul/paulsha-cortex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
