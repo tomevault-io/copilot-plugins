@@ -1,0 +1,9 @@
+{
+  "name": "piranha1605--ha-theme-generator",
+  "displayName": "ha-theme-generator",
+  "description": "Home Assistant Theme Generator with HACS support",
+  "version": "1.0.0",
+  "author": "Piranha1605",
+  "homepage": "https://github.com/Piranha1605/ha-theme-generator",
+  "skills": []
+}
