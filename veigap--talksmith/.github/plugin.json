@@ -1,0 +1,9 @@
+{
+  "name": "veigap--talksmith",
+  "displayName": "talksmith",
+  "description": "Talksmith is a Presenter Agent that helps a human presenter turn raw exploration \u2014 articles, papers, LLM chat sessions, screenshots, notes \u2014 into a well-structured presentation outline (`master.md`), ",
+  "version": "1.0.0",
+  "author": "veigap",
+  "homepage": "https://github.com/veigap/talksmith",
+  "skills": []
+}
