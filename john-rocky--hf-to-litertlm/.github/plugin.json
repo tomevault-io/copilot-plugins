@@ -1,0 +1,9 @@
+{
+  "name": "john-rocky--hf-to-litertlm",
+  "displayName": "hf-to-litertlm",
+  "description": "Custom converter: open-weight Hugging Face LLMs/VLMs -> on-device LiteRT-LM (.litertlm), with one-command reproduction",
+  "version": "1.0.0",
+  "author": "john-rocky",
+  "homepage": "https://github.com/john-rocky/hf-to-litertlm",
+  "skills": []
+}
