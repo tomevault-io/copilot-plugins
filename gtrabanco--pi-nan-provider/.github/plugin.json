@@ -1,0 +1,9 @@
+{
+  "name": "gtrabanco--pi-nan-provider",
+  "displayName": "pi-nan-provider",
+  "description": "Pi Plugin to add NaN.builders as provider with NaN mcps.",
+  "version": "1.0.0",
+  "author": "gtrabanco",
+  "homepage": "https://github.com/gtrabanco/pi-nan-provider",
+  "skills": []
+}
