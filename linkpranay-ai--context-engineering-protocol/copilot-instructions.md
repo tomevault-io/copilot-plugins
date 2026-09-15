@@ -1,12 +1,12 @@
-## demo-consume-context
+## demo-write-user-stories
 
-> Worked example that discovers, loads, and tags a context package per CONSUMING-CONTEXT-PACKAGE.md, then writes a reverse-index addendum — proves the produce/consume/tag loop end-to-end. Do NOT use for real feature work.
+> Reference implementation that writes functional user stories from a feature description, optionally grounded in an approved CEP context package per CONSUMING-CONTEXT-PACKAGE.md, with per-story citations and the standard tag/reverse-index loop. A worked example for downstream teams building their own context-consuming skills.
 
 
-# Demo: Consuming a Context Package (worked example)
+# Demo: Writing User Stories (worked example)
 
 This repository packages its capabilities as portable skills for AI
-coding agents. Read `.github/skills/demo-consume-context/SKILL.md` and follow it
+coding agents. Read `.github/skills/demo-write-user-stories/SKILL.md` and follow it
 when this rule applies.
 
 ---
