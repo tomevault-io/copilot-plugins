@@ -4,7 +4,7 @@
   "repo": "tanstack-start-i18n-template",
   "description": "A production-ready TanStack Start i18n starter for building multilingual SEO-friendly websites.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reake/tanstack-start-i18n-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T15:33:13Z"
+  "distributed_at": "2026-09-15T15:34:11Z"
 }
