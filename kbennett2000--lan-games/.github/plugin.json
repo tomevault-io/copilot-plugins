@@ -1,0 +1,9 @@
+{
+  "name": "kbennett2000--lan-games",
+  "displayName": "lan-games",
+  "description": "Self-hosted LAN game platform \u2014 8 turn-based board games (Monopoly, Risk, Battleship, Yahtzee, Life, Checkers, Connect Four, Tic-Tac-Toe) in the browser. Real-time multiplayer over Node.js, Socket.io ",
+  "version": "1.0.0",
+  "author": "kbennett2000",
+  "homepage": "https://github.com/kbennett2000/lan-games",
+  "skills": []
+}
