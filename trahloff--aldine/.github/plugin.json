@@ -1,0 +1,9 @@
+{
+  "name": "trahloff--aldine",
+  "displayName": "Aldine",
+  "description": "Aldine: slim, self-hosted, open-source LaTeX collaboration (an Overleaf alternative). Real-time editing (Yjs CRDT), git-native branches, Zotero & GitHub sync, AI error fixing. Two containers, AGPL-3.0",
+  "version": "1.0.0",
+  "author": "trahloff",
+  "homepage": "https://github.com/trahloff/Aldine",
+  "skills": []
+}
