@@ -1,0 +1,9 @@
+{
+  "name": "p-arndt--hop",
+  "displayName": "hop",
+  "description": "Hop from server to server without ever leaving your terminal.",
+  "version": "1.0.0",
+  "author": "p-arndt",
+  "homepage": "https://github.com/p-arndt/hop",
+  "skills": []
+}
