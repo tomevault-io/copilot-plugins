@@ -1,12 +1,12 @@
-## ult-codegraph
+## ult-context-generate
 
-> Generate a codebase knowledge graph with `graphify` at `graphify-out/` so other skills can query cross-file relationships before touching code. Do NOT use for runtime profiling.
+> Assemble a context package (code graph, requirements, constraints, blast radius) before a downstream generation task runs - human-approved, source-attributed. Do NOT use for simple lookups.
 
 
-# Codebase Graph (graphify wrapper)
+# ult-context-generate
 
 This repository packages its capabilities as portable skills for AI
-coding agents. Read `.github/skills/ult-codegraph/SKILL.md` and follow it
+coding agents. Read `.github/skills/ult-context-generate/SKILL.md` and follow it
 when this rule applies.
 
 ---
