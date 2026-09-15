@@ -1,0 +1,9 @@
+{
+  "name": "smartai--chamfer",
+  "displayName": "Chamfer",
+  "description": "A reliable text/image to CAD Agent harness that supports different MCPs and LLMs",
+  "version": "1.0.0",
+  "author": "SmartAI",
+  "homepage": "https://github.com/SmartAI/Chamfer",
+  "skills": []
+}
