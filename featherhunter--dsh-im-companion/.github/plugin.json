@@ -1,0 +1,9 @@
+{
+  "name": "featherhunter--dsh-im-companion",
+  "displayName": "dsh-im-companion",
+  "description": "dsh-im-companion\uff1a\u4ee5\u52a9\u7406\u548c\u5bb6\u7684\u6982\u5ff5\u589e\u5f3a dsh-im\u2014\u2014\u54ea\u4e2a\u5de5\u4f5c\u533a\u6709\u52a9\u7406\u5728\u7ba1\u3001\u5728\u4e0d\u5728\u7ebf\u5c3d\u6536\u773c\u5e95\uff0c\u642c\u5bb6\u62d6\u4e00\u4e0b\u5c31\u884c\u3002",
+  "version": "1.0.0",
+  "author": "FeatherHunter",
+  "homepage": "https://github.com/FeatherHunter/dsh-im-companion",
+  "skills": []
+}
