@@ -1,0 +1,9 @@
+{
+  "name": "esoltys--luminous",
+  "displayName": "luminous",
+  "description": "A high-performance home for the music you already own. Luminous is a fast, local-first player for your own audio library \u2014 no streaming, no subscriptions, no cloud.",
+  "version": "1.0.0",
+  "author": "esoltys",
+  "homepage": "https://github.com/esoltys/luminous",
+  "skills": []
+}
