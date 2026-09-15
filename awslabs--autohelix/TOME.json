@@ -4,7 +4,7 @@
   "repo": "AutoHelix",
   "description": "Agent-powered iterative optimization: put an AI agent in a verified improvement loop.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awslabs/AutoHelix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T02:53:22Z"
+  "distributed_at": "2026-09-15T02:54:36Z"
 }
