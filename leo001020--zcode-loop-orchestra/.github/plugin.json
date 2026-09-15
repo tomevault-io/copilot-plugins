@@ -1,0 +1,9 @@
+{
+  "name": "leo001020--zcode-loop-orchestra",
+  "displayName": "zcode-loop-orchestra",
+  "description": "Turn one ZCode conversation into a restartable multi-agent workflow with persistent memory, isolated coding agents, real-result checks, and human-approved merge.",
+  "version": "1.0.0",
+  "author": "LEO001020",
+  "homepage": "https://github.com/LEO001020/zcode-loop-orchestra",
+  "skills": []
+}
