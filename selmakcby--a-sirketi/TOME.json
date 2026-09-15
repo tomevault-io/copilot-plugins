@@ -1,0 +1,44 @@
+{
+  "name": "a-sirketi",
+  "owner": "selmakcby",
+  "repo": "a-sirketi",
+  "description": "A \u015eirketi \u2014 \u00fc\u00e7 Claude Code ajan\u0131, bir bek\u00e7i, bir da\u011f\u0131t\u0131c\u0131; kapal\u0131 d\u00f6ng\u00fc, yay\u0131n d\u00fc\u011fmesi insanda. Selma \u015eirketi \u00b7 B\u00f6l\u00fcm 1",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/selmakcby/a-sirketi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T04:59:16Z"
+}
