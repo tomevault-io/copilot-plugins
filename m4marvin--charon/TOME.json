@@ -4,7 +4,7 @@
   "repo": "charon",
   "description": "My take on properly building an AI character chat app \u2014 combining features from Chub, SillyTavern, and everything else I always wanted. Self-hosted, branching conversations, character cards V2+V3, lorebooks, personas.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/M4Marvin/charon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T02:37:20Z"
+  "distributed_at": "2026-09-15T03:34:07Z"
 }
