@@ -1,0 +1,9 @@
+{
+  "name": "1013503897--jadx-headless-mcp",
+  "displayName": "jadx-headless-mcp",
+  "description": "Headless MCP server for Android APK static analysis, built directly on jadx-core. No JADX GUI required.",
+  "version": "1.0.0",
+  "author": "1013503897",
+  "homepage": "https://github.com/1013503897/jadx-headless-mcp",
+  "skills": []
+}
