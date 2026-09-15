@@ -1,0 +1,9 @@
+{
+  "name": "archastro--clapper",
+  "displayName": "clapper",
+  "description": "Write videos in React, render to MP4, review like a studio. Frame-deterministic runtime, offline audio synth, browser editor, review kit + lint.",
+  "version": "1.0.0",
+  "author": "ArchAstro",
+  "homepage": "https://github.com/ArchAstro/clapper",
+  "skills": []
+}
