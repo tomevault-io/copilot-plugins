@@ -1,0 +1,9 @@
+{
+  "name": "troggoman--rhce-simulator",
+  "displayName": "rhce-simulator",
+  "description": "RHCE EX294 (RHEL 10) Mock Exam Simulator - exam-style Ansible tasks graded by running your playbooks and verifying managed-node state",
+  "version": "1.0.0",
+  "author": "TroggoMan",
+  "homepage": "https://github.com/TroggoMan/rhce-simulator",
+  "skills": []
+}
