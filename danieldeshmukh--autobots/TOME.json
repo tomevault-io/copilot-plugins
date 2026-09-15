@@ -1,0 +1,44 @@
+{
+  "name": "autobots",
+  "owner": "DanielDeshmukh",
+  "repo": "autobots",
+  "description": "Autobots | A decentralized model agentic swarm powered by NVIDIA NIM. Orchestrating high-precision, end-to-end authenticated software development through a specialized 6-file control architecture. Features automated security auditing, non-redundant task routing, and autonomous state management.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DanielDeshmukh/autobots",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T05:00:51Z"
+}
