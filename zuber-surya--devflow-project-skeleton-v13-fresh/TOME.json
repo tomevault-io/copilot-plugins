@@ -1,0 +1,44 @@
+{
+  "name": "DevFlow-Project-Skeleton-v13-Fresh",
+  "owner": "zuber-surya",
+  "repo": "DevFlow-Project-Skeleton-v13-Fresh",
+  "description": "DevFlow v13 \u2014 AI Engineering Team Operating System skeleton",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zuber-surya/DevFlow-Project-Skeleton-v13-Fresh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T03:36:11Z"
+}
