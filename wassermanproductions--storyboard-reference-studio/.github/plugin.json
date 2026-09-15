@@ -1,0 +1,9 @@
+{
+  "name": "wassermanproductions--storyboard-reference-studio",
+  "displayName": "storyboard-reference-studio",
+  "description": "Turn any reference imagery into storyboard stills + image-generator prompts. Part of the Blockout previs suite. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "wassermanproductions",
+  "homepage": "https://github.com/wassermanproductions/storyboard-reference-studio",
+  "skills": []
+}
