@@ -1,0 +1,9 @@
+{
+  "name": "sunxiayi--scoop-bucket",
+  "displayName": "scoop-bucket",
+  "description": "Scoop manifests for Repo Agent Kit command-line tools.",
+  "version": "1.0.0",
+  "author": "sunxiayi",
+  "homepage": "https://github.com/sunxiayi/scoop-bucket",
+  "skills": []
+}
