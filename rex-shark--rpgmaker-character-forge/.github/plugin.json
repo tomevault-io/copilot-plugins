@@ -1,0 +1,9 @@
+{
+  "name": "rex-shark--rpgmaker-character-forge",
+  "displayName": "rpgmaker-character-forge",
+  "description": "\u7e41\u4e2d\uff1a\u5c07 RPG Maker MV/MZ \u884c\u8d70\u5716\u8207\u81c9\u5716\u751f\u6210\u5168\u8eab\u7acb\u7e6a\u300116 \u8868\u60c5 Face \u5716\u8207 sv_enemies \u6230\u9b25\u5716\u3002\uff5c\u65e5\u672c\u8a9e\uff1aRPG\u30c4\u30af\u30fc\u30ebMV/MZ\u306e\u6b69\u884c\u30fb\u9854\u30b0\u30e9\u304b\u3089\u7acb\u3061\u7d75\u300116\u8868\u60c5\u306e\u9854\u30b0\u30e9\u3001\u6575\u6226\u95d8\u753b\u50cf\u3092\u751f\u6210\u3002\uff5cEnglish: Generate illustrations, 16-expression face sheets, and sv_enemies battle art fr",
+  "version": "1.0.0",
+  "author": "Rex-shark",
+  "homepage": "https://github.com/Rex-shark/rpgmaker-character-forge",
+  "skills": []
+}
