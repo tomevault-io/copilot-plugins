@@ -1,12 +1,12 @@
-## demo-write-user-stories
+## ult-autoscaffold-content
 
-> Reference implementation that writes functional user stories from a feature description, optionally grounded in an approved CEP context package per CONSUMING-CONTEXT-PACKAGE.md, with per-story citations and the standard tag/reverse-index loop. A worked example for downstream teams building their own context-consuming skills.
+> Generate real starter content for a project's What-L2 (requirements) and How-L2 (architecture/conventions) CEP layers once ult-repo-layout has resolved their paths but found them empty — an honest, minimal, YAML-frontmatter-first overview document per layer for small/single targets, or graphify-informed per-module tiering with resumable per-module CONTEXT.md generation, existence-gated CODING-STANDARDS.md/TESTING-GUIDELINES.md, interface-boundary docs for graph-crossing module pairs, and a rendered CEP-INDEX.md router for large repos, optionally informed by a user-supplied domain-pack of terminology/references if one is configured. This skill generates a NEW starter doc only when none exists — it never compiles or reconciles EXISTING scattered guideline sources (that's compiling-project-guidelines' job). Do NOT use to enforce layout paths or run layer discovery — that's ult-repo-layout. Do NOT use to author or generate a domain pack — this skill only ever consumes one you already wrote.
 
 
-# Demo: Writing User Stories (worked example)
+# ult-autoscaffold-content
 
 This repository packages its capabilities as portable skills for AI
-coding agents. Read `.github/skills/demo-write-user-stories/SKILL.md` and follow it
+coding agents. Read `.github/skills/ult-autoscaffold-content/SKILL.md` and follow it
 when this rule applies.
 
 ---
