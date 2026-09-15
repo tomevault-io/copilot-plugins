@@ -1,0 +1,9 @@
+{
+  "name": "leo001020--pi-loop-studio-orchestra",
+  "displayName": "pi-loop-studio-orchestra",
+  "description": "pi-loop-studio/orchestra \u2014 evidence-driven, recoverable multi-agent engineering runtime with XState, SQLite WAL, isolated worktrees, independent review, and single-writer publication.",
+  "version": "1.0.0",
+  "author": "LEO001020",
+  "homepage": "https://github.com/LEO001020/pi-loop-studio-orchestra",
+  "skills": []
+}
