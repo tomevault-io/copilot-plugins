@@ -4,7 +4,7 @@
   "repo": "luminous",
   "description": "A high-performance home for the music you already own. Luminous is a fast, local-first player for your own audio library \u2014 no streaming, no subscriptions, no cloud.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/esoltys/luminous",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T03:00:30Z"
+  "distributed_at": "2026-09-15T03:03:19Z"
 }
