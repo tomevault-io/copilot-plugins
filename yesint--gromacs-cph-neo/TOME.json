@@ -1,0 +1,44 @@
+{
+  "name": "gromacs_cph_neo",
+  "owner": "yesint",
+  "repo": "gromacs_cph_neo",
+  "description": "GROMACS 2026.1 with constant-pH (lambda dynamics), CPU-NB. Port of the gromacs-constantph fork. Validated: grompp, multi-step MD (dV/dl matches fork to 5e-5), edr output + gmx cphmd, -cpi checkpoint restarts.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yesint/gromacs_cph_neo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T03:11:53Z"
+}
