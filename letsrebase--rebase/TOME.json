@@ -4,7 +4,7 @@
   "repo": "rebase",
   "description": "One repository for every rebase project: PigroCRM, the rebase hub and the public website.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/letsrebase/rebase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T11:31:13Z"
+  "distributed_at": "2026-09-15T11:34:27Z"
 }
