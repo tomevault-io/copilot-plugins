@@ -1,0 +1,9 @@
+{
+  "name": "goosepod--naviamp",
+  "displayName": "naviamp",
+  "description": "Windows, Mac, Linux, Android and Android TV player for Navidrome",
+  "version": "1.0.0",
+  "author": "goosepod",
+  "homepage": "https://github.com/goosepod/naviamp",
+  "skills": []
+}
