@@ -1,0 +1,9 @@
+{
+  "name": "ariakage--live2d-agent-kit",
+  "displayName": "live2d-agent-kit",
+  "description": "Live2D creation workflow for Codex and AI agents, with PSD/PNG rigging, anime upscaling, Core/WebGL validation, and an example model for VTube Studio.",
+  "version": "1.0.0",
+  "author": "Ariakage",
+  "homepage": "https://github.com/Ariakage/live2d-agent-kit",
+  "skills": []
+}
