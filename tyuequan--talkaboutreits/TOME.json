@@ -1,0 +1,44 @@
+{
+  "name": "talkaboutreits",
+  "owner": "tyuequan",
+  "repo": "talkaboutreits",
+  "description": "\u666e\u53ca\u4e2d\u56fd\u516c\u52dfREITs\u77e5\u8bc6\u7684\u7f51\u7ad9",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tyuequan/talkaboutreits",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T00:32:41Z"
+}
