@@ -1,8 +1,9 @@
-## prism-legal-os
+## implementation-workflow
 
-> - Use `/poteto-mode` for every implementation phase.
+> Required workflow for implementation, commits, and review
 
-# Repository workflow
+
+# Implementation workflow
 
 - Use `/poteto-mode` for every implementation phase.
 - Run `/deslop` before every commit.
