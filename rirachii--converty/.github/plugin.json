@@ -1,0 +1,9 @@
+{
+  "name": "rirachii--converty",
+  "displayName": "converty",
+  "description": "An open-source native macOS file converter. Local image, video, audio, PDF, and archive tools built with SwiftUI and AppKit.",
+  "version": "1.0.0",
+  "author": "rirachii",
+  "homepage": "https://github.com/rirachii/converty",
+  "skills": []
+}
