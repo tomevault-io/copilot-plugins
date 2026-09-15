@@ -1,0 +1,9 @@
+{
+  "name": "pleaseai--statusbeam",
+  "displayName": "statusbeam",
+  "description": "Open-source, CDN-native status page generator \u2014 a modern take on upptime. Astro + shadcn/ui on Cloudflare (Cron Worker + D1/KV + Workers Cache).",
+  "version": "1.0.0",
+  "author": "pleaseai",
+  "homepage": "https://github.com/pleaseai/statusbeam",
+  "skills": []
+}
