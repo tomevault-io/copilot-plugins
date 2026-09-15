@@ -1,0 +1,9 @@
+{
+  "name": "anthonyalcaraz--agentic-graph-rag-skills",
+  "displayName": "agentic-graph-rag-skills",
+  "description": "Companion repo for Agentic Graph RAG (O'Reilly, Anthony Alcaraz & Sam Julien) \u2014 50 runnable skills + 8 pedagogical notebooks covering all eight chapters, on one moto-mocked AWS DevOps scenario",
+  "version": "1.0.0",
+  "author": "AnthonyAlcaraz",
+  "homepage": "https://github.com/AnthonyAlcaraz/agentic-graph-rag-skills",
+  "skills": []
+}
