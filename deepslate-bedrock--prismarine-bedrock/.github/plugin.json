@@ -1,0 +1,9 @@
+{
+  "name": "deepslate-bedrock--prismarine-bedrock",
+  "displayName": "prismarine-bedrock",
+  "description": "PoC Bedrock bot",
+  "version": "1.0.0",
+  "author": "deepslate-bedrock",
+  "homepage": "https://github.com/deepslate-bedrock/prismarine-bedrock",
+  "skills": []
+}
