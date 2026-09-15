@@ -1,0 +1,44 @@
+{
+  "name": "platform",
+  "owner": "qorm",
+  "repo": "platform",
+  "description": "Build UI apps with your AI assistant \u2014 together, live. An agent-native, cross-platform declarative-UI runtime in Go: describe UI as JSON, let your AI scaffold/edit/verify it over MCP, package for web/iOS/Android/desktop/mini-program.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qorm/platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T02:41:25Z"
+}
