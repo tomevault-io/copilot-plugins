@@ -7,13 +7,13 @@ Portable AI coding-agent skills for source-attributed, human-approved context pa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [linkpranay-ai/context-engineering-protocol](https://github.com/linkpranay-ai/context-engineering-protocol).
+Original source: `AGENTS.md` in [linkpranay-ai/context-engineering-protocol](https://github.com/linkpranay-ai/context-engineering-protocol).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
