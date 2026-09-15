@@ -1,0 +1,9 @@
+{
+  "name": "rle-bench--rle-bench",
+  "displayName": "RLE-Bench",
+  "description": "A Qualifying Exam for Coding Agent as Robot Learning Engineers",
+  "version": "1.0.0",
+  "author": "RLE-Bench",
+  "homepage": "https://github.com/RLE-Bench/RLE-Bench",
+  "skills": []
+}
