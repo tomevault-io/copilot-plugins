@@ -7,11 +7,11 @@ Free, open-source Facebook Messenger desktop app for macOS, Windows & Linux - no
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kristofferR/Carrier](https://github.com/kristofferR/Carrier).
+Original source: `AGENTS.md` in [kristofferR/Carrier](https://github.com/kristofferR/Carrier).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
