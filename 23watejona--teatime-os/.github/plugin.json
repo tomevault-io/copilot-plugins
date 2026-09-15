@@ -1,0 +1,9 @@
+{
+  "name": "23watejona--teatime-os",
+  "displayName": "teatime-os",
+  "description": "A bare-metal operating system for the ESP8266 with no vendor blobs",
+  "version": "1.0.0",
+  "author": "23watejona",
+  "homepage": "https://github.com/23watejona/teatime-os",
+  "skills": []
+}
