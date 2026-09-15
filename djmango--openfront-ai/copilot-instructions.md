@@ -1,66 +1,34 @@
-## showcase-clips
+## use-uv
 
-> When producing watch episodes, client replay videos, or demo footage for the
+> Always use uv for Python environments, installs, and script execution
 
-# Showcase / gameplay clip preferences
 
-When producing watch episodes, client replay videos, or demo footage for the
-agent (ppo_v11 / oftrain `--watch` / `render_client_replay.py` / `ofshowcase`):
+# Use uv for Python
 
-## Maps
+Always use `uv` for Python work in this repo. Do not use bare `pip`, `pip3`, `python -m pip`, or `python3 -m venv`.
 
-- **Do not** make every clip Onion. The owner does not like Onion-only showcases.
-- Use a **variety of maps** across clips (e.g. Europe, Pangaea, NorthAmerica,
-  World, Asia, Britannia, GreatLakes, BlackSea, … from `V10_BROAD_MAPS`).
-- Prefer distinct maps when rendering multiple lobby sizes (2n / 4n / 8n) in one
-  batch — one map per clip, not the same map repeated.
-- Onion may remain in the training curriculum pool; it is fine as one map among
-  many. It must not be the default or the only map for human-facing clips.
-- `ofhub` `showcase_maps()` excludes Onion from the showcase clip/hub pool.
+## Rules
 
-## Watch / sampling (critical)
+- Run scripts / one-offs with `uv run` (prefer `uv run --no-project` for throwaway tooling that should not resolve the repo environment).
+- Add or sync project deps with `uv add` / `uv sync`, not `pip install`.
+- Create virtualenvs with `uv venv`, not `python -m venv`.
+- Prefer `uvx` for ephemeral CLI tools.
+- If a command needs extra packages outside the project, use `uv run --with <pkg>` (and `--no-project` when isolation is wanted).
 
-- **Stochastic only — never greedy.** Demos and showcase must match train
-  rollouts / WR windows (`--watch-stochastic=true`, the oftrain default).
-  Greedy argmax freezes near spawn (~52 tiles) and dies. Do not pass
-  `--watch-stochastic=false`, `--greedy`, or `PLAY_GREEDY=1` for human-facing
-  clips. We do not do greedy anymore.
-- **Tick budget:** use the shared train default (`DEFAULT_MAX_EPISODE_TICKS` =
-  21000) so episodes run to the same horizon as training. Do not silently
-  lower it (e.g. 12000) or episodes look "cut short".
-- **Decision ticks:** watch must use the stage's `decision_ticks` (V10 is
-  **15 everywhere**). Do not invent a different cadence than train.
-- **Engine:** `--engine node` for watches/clips/replays so the GameRecord is
-  produced by the same TS sim the client replays (avoids native↔TS desync).
-  Training stays `--engine native`. Pass `--engine native` on watch only for
-  parity debug.
-- **Lobby density:** for "current stage" clips, use that stage's bots/nations
-  from `V10_BOT_NATION_DENSITY` (and the stage difficulty). Do not hardcode a
-  stale lobby. Asking for 4n/8n while the policy is still on 2n is
-  out-of-distribution — expect more deaths; prefer curriculum rows that
-  actually have those nation counts and say so.
-- **One watch, one record.** Do not seed-hunt for timeout/win. Death / timeout /
-  win are all valid native outcomes — ship what the policy did.
+## Examples
 
-## Rendering
+```bash
+# good
+uv run python scripts/foo.py
+uv run --no-project --with paramiko --with pyyaml python -c '...'
+uv sync
+uv add numpy
 
-- Prefer **real NVIDIA GPU** WebGL (full Chromium + Xvfb + ANGLE/Vulkan). Do not
-  ship SoftGL/SwiftShader clips when a GPU is available (`OF_REFUSE_SOFTGL=1`).
-- Client `gameID` must be exactly 8 alphanumeric chars (`GAME_ID_REGEX`).
-- Omit `"winner": null` in GameRecords (Zod WinnerSchema is optional, not nullable).
-- `gameMap` must be the OpenFront `GameMapType` *value* (e.g. `"North America"`),
-  not the Rust PascalCase id (`NorthAmerica`). `render_client_replay.py`
-  rewrites this during sanitize.
-- **Outcome labels come from the Node watch** (`win` / `death` / `timeout`).
-  Client replay must agree: if the browser shows You Died / another winner on
-  a win or timeout record, **fail the render** — do not dismiss and ship a
-  mismatched video. Win clips must show a You-Won modal at `end_tick`.
-
-## Watch scripts
-
-- `showcase-clips/run_watches.sh` — density demos (2n/4n/8n), distinct maps.
-- `showcase-clips/run_progress_watches.sh` — current / next / +10 / first Medium.
-Both pin train-matched tick flags. Follow that pattern for ad-hoc requests.
+# bad
+pip install numpy
+python3 -m pip install -r requirements.txt
+python3 -m venv .venv
+```
 
 ---
 > Source: [djmango/openfront-ai](https://github.com/djmango/openfront-ai) — distributed by [TomeVault](https://tomevault.io).
