@@ -1,0 +1,9 @@
+{
+  "name": "pythontogo--rosmac",
+  "displayName": "rosmac",
+  "description": "One-command ROS 2 Humble dev environment for Apple Silicon Macs",
+  "version": "1.0.0",
+  "author": "PythonToGo",
+  "homepage": "https://github.com/PythonToGo/rosmac",
+  "skills": []
+}
