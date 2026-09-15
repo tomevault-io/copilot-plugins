@@ -1,0 +1,9 @@
+{
+  "name": "great-majority--koikatumcp",
+  "displayName": "KoikatuMCP",
+  "description": "A Model Context Protocol (MCP) server that enables AI assistants to control Koikatsu Studio through natural language commands.",
+  "version": "1.0.0",
+  "author": "great-majority",
+  "homepage": "https://github.com/great-majority/KoikatuMCP",
+  "skills": []
+}
