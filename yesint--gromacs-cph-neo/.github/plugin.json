@@ -1,0 +1,9 @@
+{
+  "name": "yesint--gromacs-cph-neo",
+  "displayName": "gromacs_cph_neo",
+  "description": "GROMACS 2026.1 with constant-pH (lambda dynamics), CPU-NB. Port of the gromacs-constantph fork. Validated: grompp, multi-step MD (dV/dl matches fork to 5e-5), edr output + gmx cphmd, -cpi checkpoint r",
+  "version": "1.0.0",
+  "author": "yesint",
+  "homepage": "https://github.com/yesint/gromacs_cph_neo",
+  "skills": []
+}
