@@ -1,0 +1,9 @@
+{
+  "name": "intraducine--iridium",
+  "displayName": "iridium",
+  "description": "Experimental iOS Windows-game runtime. Source monorepo; original Iridium code under AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "intraducine",
+  "homepage": "https://github.com/intraducine/iridium",
+  "skills": []
+}
