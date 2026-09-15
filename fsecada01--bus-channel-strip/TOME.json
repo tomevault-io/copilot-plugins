@@ -1,0 +1,44 @@
+{
+  "name": "bus_channel_strip",
+  "owner": "fsecada01",
+  "repo": "bus_channel_strip",
+  "description": "Professional 6-module bus channel strip VST3/CLAP plugin \u2014 API5500 EQ, ButterComp2, Pultec EQ, Dynamic EQ, Transformer & Punch. Built with NIH-Plug + vizia in Rust.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fsecada01/bus_channel_strip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T16:33:59Z"
+}
