@@ -1,0 +1,9 @@
+{
+  "name": "jdx--pacvamp",
+  "displayName": "pacvamp",
+  "description": "A trust-focused package manager for pacman-based Linux distributions",
+  "version": "1.0.0",
+  "author": "jdx",
+  "homepage": "https://github.com/jdx/pacvamp",
+  "skills": []
+}
