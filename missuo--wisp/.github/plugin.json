@@ -1,0 +1,9 @@
+{
+  "name": "missuo--wisp",
+  "displayName": "wisp",
+  "description": "Wisp: computer use for agents on macOS (accessibility tree + synthesized input + DevTools), with a CLI and MCP server",
+  "version": "1.0.0",
+  "author": "missuo",
+  "homepage": "https://github.com/missuo/wisp",
+  "skills": []
+}
