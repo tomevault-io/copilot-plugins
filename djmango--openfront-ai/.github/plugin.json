@@ -1,0 +1,9 @@
+{
+  "name": "djmango--openfront-ai",
+  "displayName": "openfront-ai",
+  "description": "A self-play RL agent for OpenFront.io: headless data generation on the real game engine, a learned spatial observation encoder, and a PPO self-play agent over the full action surface",
+  "version": "1.0.0",
+  "author": "djmango",
+  "homepage": "https://github.com/djmango/openfront-ai",
+  "skills": []
+}
