@@ -1,0 +1,9 @@
+{
+  "name": "timzaak--herald",
+  "displayName": "herald",
+  "description": "Open-source, self-hosted auth and billing platform. Multi-tenant with AI-assisted setup. Supports Stripe, WeChat Pay. Built in Rust for teams that want to own their stack.",
+  "version": "1.0.0",
+  "author": "timzaak",
+  "homepage": "https://github.com/timzaak/herald",
+  "skills": []
+}
