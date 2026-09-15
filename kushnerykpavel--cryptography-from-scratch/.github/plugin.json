@@ -1,0 +1,9 @@
+{
+  "name": "kushnerykpavel--cryptography-from-scratch",
+  "displayName": "cryptography-from-scratch",
+  "description": "Build every cryptographic primitive from scratch. Math foundations,   zero-knowledge, post-quantum. 21 phases, 241 lessons, ~300 hours.",
+  "version": "1.0.0",
+  "author": "KushnerykPavel",
+  "homepage": "https://github.com/KushnerykPavel/cryptography-from-scratch",
+  "skills": []
+}
