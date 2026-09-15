@@ -1,0 +1,9 @@
+{
+  "name": "fenon-robotics--fgate",
+  "displayName": "fgate",
+  "description": "GPU-native quality gate for first-person video",
+  "version": "1.0.0",
+  "author": "Fenon-Robotics",
+  "homepage": "https://github.com/Fenon-Robotics/fgate",
+  "skills": []
+}
