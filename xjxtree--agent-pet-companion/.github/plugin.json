@@ -1,0 +1,9 @@
+{
+  "name": "xjxtree--agent-pet-companion",
+  "displayName": "agent-pet-companion",
+  "description": "Native macOS AI desktop pet companion for coding agents",
+  "version": "1.0.0",
+  "author": "xjxtree",
+  "homepage": "https://github.com/xjxtree/agent-pet-companion",
+  "skills": []
+}
