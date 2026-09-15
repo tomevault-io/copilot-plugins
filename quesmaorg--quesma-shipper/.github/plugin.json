@@ -1,0 +1,9 @@
+{
+  "name": "quesmaorg--quesma-shipper",
+  "displayName": "quesma-shipper",
+  "description": "Collects AI coding-agent sessions from developer machines, scrubs secrets, encrypts with age, and uploads to your organisation's storage.",
+  "version": "1.0.0",
+  "author": "QuesmaOrg",
+  "homepage": "https://github.com/QuesmaOrg/quesma-shipper",
+  "skills": []
+}
