@@ -4,7 +4,7 @@
   "repo": "HyperAgent",
   "description": "The Iron Man Suit for AI Agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DannyMac180/HyperAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T05:02:25Z"
+  "distributed_at": "2026-09-15T05:19:53Z"
 }
