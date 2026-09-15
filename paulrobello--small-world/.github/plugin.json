@@ -1,0 +1,9 @@
+{
+  "name": "paulrobello--small-world",
+  "displayName": "small-world",
+  "description": "A Three.js terrarium that grows a tiny floating-island world \u2014 biome, terrain, flora, creatures, birds, and weather \u2014 from a 16-bit seed.",
+  "version": "1.0.0",
+  "author": "paulrobello",
+  "homepage": "https://github.com/paulrobello/small-world",
+  "skills": []
+}
