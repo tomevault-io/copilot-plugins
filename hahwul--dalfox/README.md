@@ -1,6 +1,6 @@
 # dalfox
 
-> Tome by [hahwul](https://github.com/hahwul/dalfox) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [hahwul](https://github.com/hahwul/dalfox), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
