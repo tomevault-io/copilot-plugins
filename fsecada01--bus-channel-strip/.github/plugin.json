@@ -1,0 +1,9 @@
+{
+  "name": "fsecada01--bus-channel-strip",
+  "displayName": "bus_channel_strip",
+  "description": "Professional 6-module bus channel strip VST3/CLAP plugin \u2014 API5500 EQ, ButterComp2, Pultec EQ, Dynamic EQ, Transformer & Punch. Built with NIH-Plug + vizia in Rust.",
+  "version": "1.0.0",
+  "author": "fsecada01",
+  "homepage": "https://github.com/fsecada01/bus_channel_strip",
+  "skills": []
+}
