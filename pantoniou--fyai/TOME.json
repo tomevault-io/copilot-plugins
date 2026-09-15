@@ -4,7 +4,7 @@
   "repo": "fyai",
   "description": "The fast AI agent",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pantoniou/fyai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T02:31:08Z"
+  "distributed_at": "2026-09-15T02:38:40Z"
 }
