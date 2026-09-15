@@ -1,0 +1,9 @@
+{
+  "name": "brightwave-inc--tidebreak",
+  "displayName": "tidebreak",
+  "description": "Open-source, local-first desktop for AI coding agents and document work. Run Claude Code, Codex CLI, opencode, and Grok CLI in isolated Git worktrees.",
+  "version": "1.0.0",
+  "author": "brightwave-inc",
+  "homepage": "https://github.com/brightwave-inc/tidebreak",
+  "skills": []
+}
