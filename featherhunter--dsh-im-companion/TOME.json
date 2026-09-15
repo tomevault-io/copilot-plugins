@@ -1,0 +1,44 @@
+{
+  "name": "dsh-im-companion",
+  "owner": "FeatherHunter",
+  "repo": "dsh-im-companion",
+  "description": "dsh-im-companion\uff1a\u4ee5\u52a9\u7406\u548c\u5bb6\u7684\u6982\u5ff5\u589e\u5f3a dsh-im\u2014\u2014\u54ea\u4e2a\u5de5\u4f5c\u533a\u6709\u52a9\u7406\u5728\u7ba1\u3001\u5728\u4e0d\u5728\u7ebf\u5c3d\u6536\u773c\u5e95\uff0c\u642c\u5bb6\u62d6\u4e00\u4e0b\u5c31\u884c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FeatherHunter/dsh-im-companion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T10:30:26Z"
+}
