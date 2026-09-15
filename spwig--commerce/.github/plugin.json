@@ -1,0 +1,9 @@
+{
+  "name": "spwig--commerce",
+  "displayName": "commerce",
+  "description": "Spwig e-commerce core repo containing the opensource e-commerce platform code including feature apps such as configurator3d, customizable products, booking products and more.",
+  "version": "1.0.0",
+  "author": "Spwig",
+  "homepage": "https://github.com/Spwig/commerce",
+  "skills": []
+}
