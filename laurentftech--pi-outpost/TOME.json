@@ -4,7 +4,7 @@
   "repo": "pi-outpost",
   "description": "WebUI for PI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/laurentftech/pi-outpost",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-15T03:02:33Z"
+  "distributed_at": "2026-09-15T03:07:13Z"
 }
