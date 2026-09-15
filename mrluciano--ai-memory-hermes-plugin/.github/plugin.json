@@ -1,0 +1,9 @@
+{
+  "name": "mrluciano--ai-memory-hermes-plugin",
+  "displayName": "ai-memory-hermes-plugin",
+  "description": "Hermes Agent memory provider plugin backed by ai-memory",
+  "version": "1.0.0",
+  "author": "MrLuciano",
+  "homepage": "https://github.com/MrLuciano/ai-memory-hermes-plugin",
+  "skills": []
+}
