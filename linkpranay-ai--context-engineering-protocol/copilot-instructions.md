@@ -1,12 +1,12 @@
-## ult-autoscaffold-content
+## ult-cep-retrofit
 
-> Generate real starter content for a project's What-L2 (requirements) and How-L2 (architecture/conventions) CEP layers once ult-repo-layout has resolved their paths but found them empty — an honest, minimal, YAML-frontmatter-first overview document per layer for small/single targets, or graphify-informed per-module tiering with resumable per-module CONTEXT.md generation, existence-gated CODING-STANDARDS.md/TESTING-GUIDELINES.md, interface-boundary docs for graph-crossing module pairs, and a rendered CEP-INDEX.md router for large repos, optionally informed by a user-supplied domain-pack of terminology/references if one is configured. This skill generates a NEW starter doc only when none exists — it never compiles or reconciles EXISTING scattered guideline sources (that's compiling-project-guidelines' job). Do NOT use to enforce layout paths or run layer discovery — that's ult-repo-layout. Do NOT use to author or generate a domain pack — this skill only ever consumes one you already wrote.
+> Point at an existing skill library, inventory it format-agnostically, and (with human confirmation at every step) insert pointers to CEP's existing CONSUMING-*.md contracts into the skills that should consume them. Do NOT use to write new CONSUMING-*.md contracts, validate that a retrofit works at runtime, or edit a library's own logic beyond the inserted pointer.
 
 
-# ult-autoscaffold-content
+# CEP Retrofit
 
 This repository packages its capabilities as portable skills for AI
-coding agents. Read `.github/skills/ult-autoscaffold-content/SKILL.md` and follow it
+coding agents. Read `.github/skills/ult-cep-retrofit/SKILL.md` and follow it
 when this rule applies.
 
 ---
