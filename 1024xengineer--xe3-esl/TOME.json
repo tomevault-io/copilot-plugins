@@ -1,0 +1,44 @@
+{
+  "name": "XE3-ESL",
+  "owner": "1024XEngineer",
+  "repo": "XE3-ESL",
+  "description": "SpeakUp \u2014 AI \u82f1\u8bed\u53e3\u8bed\u966a\u7ec3\uff0c\u652f\u6301\u8bed\u97f3\u5bf9\u8bdd\u3001\u573a\u666f\u7ec3\u4e60\u3001\u4e2a\u6027\u5316\u53cd\u9988\u4e0e\u7ec3\u4e60\u590d\u76d8\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1024XEngineer/XE3-ESL",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T03:09:55Z"
+}
