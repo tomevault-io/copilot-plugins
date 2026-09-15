@@ -1,0 +1,9 @@
+{
+  "name": "munich-quantum-software--amazon-braket-qdmi-device",
+  "displayName": "amazon-braket-qdmi-device",
+  "description": "Amazon Braket QDMI Integration",
+  "version": "1.0.0",
+  "author": "munich-quantum-software",
+  "homepage": "https://github.com/munich-quantum-software/amazon-braket-qdmi-device",
+  "skills": []
+}
