@@ -1,0 +1,9 @@
+{
+  "name": "alchemyincode--plumloom-autoeval-oss",
+  "displayName": "plumloom-autoeval-oss",
+  "description": "Open-source CLI and MCP server for evaluating AI applications and gating releases with reliability evidence.",
+  "version": "1.0.0",
+  "author": "AlchemyInCode",
+  "homepage": "https://github.com/AlchemyInCode/plumloom-autoeval-oss",
+  "skills": []
+}
