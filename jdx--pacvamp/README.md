@@ -7,11 +7,11 @@ A trust-focused package manager for pacman-based Linux distributions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jdx/pacvamp](https://github.com/jdx/pacvamp).
+Original source: `CLAUDE.md` in [jdx/pacvamp](https://github.com/jdx/pacvamp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
