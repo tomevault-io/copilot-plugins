@@ -1,0 +1,9 @@
+{
+  "name": "damanhduc140902--airace",
+  "displayName": "airace",
+  "description": "Viettel AI Race 2026 (team MOE): Qwen3.8-27B-FP8 serving on 1x H200 - vLLM v0.28.0 fork with custom FA3 fp8 attention, W4A16 Humming GEMM, speculative prefill proxy, ASD + n-gram speculative decoding",
+  "version": "1.0.0",
+  "author": "damanhduc140902",
+  "homepage": "https://github.com/damanhduc140902/airace",
+  "skills": []
+}
