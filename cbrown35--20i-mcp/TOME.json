@@ -1,0 +1,44 @@
+{
+  "name": "20i-MCP",
+  "owner": "Cbrown35",
+  "repo": "20i-MCP",
+  "description": "  \ud83d\ude80 The first and only Model Context Protocol (MCP) server for 20i web hosting services. Transform your hosting management with AI-powered automation through Claude, ChatGPT, and other AI   assistants. 76 tools | 28.0% API coverage",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cbrown35/20i-MCP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-15T00:36:49Z"
+}
