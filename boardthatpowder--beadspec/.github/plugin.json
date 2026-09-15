@@ -1,0 +1,9 @@
+{
+  "name": "boardthatpowder--beadspec",
+  "displayName": "BeadSpec",
+  "description": "A native desktop GUI for the Beads issue tracker, and OpenSpec spec framework. Visualize dependencies, track velocity, and browse   OpenSpec changes without leaving your workflow. Built with Tauri 2, ",
+  "version": "1.0.0",
+  "author": "boardthatpowder",
+  "homepage": "https://github.com/boardthatpowder/BeadSpec",
+  "skills": []
+}
