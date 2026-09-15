@@ -1,0 +1,9 @@
+{
+  "name": "riesaexe--r-doc",
+  "displayName": "r-doc",
+  "description": "AI agent skill for maintaining project AGENTS.md and docs/ documentation systems.",
+  "version": "1.0.0",
+  "author": "riesaexe",
+  "homepage": "https://github.com/riesaexe/r-doc",
+  "skills": []
+}
