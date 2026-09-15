@@ -1,0 +1,9 @@
+{
+  "name": "schmiedmayerlab--heartwood",
+  "displayName": "heartwood",
+  "description": "Compliance-first coding harness for working with sensitive biomedical research data.",
+  "version": "1.0.0",
+  "author": "SchmiedmayerLab",
+  "homepage": "https://github.com/SchmiedmayerLab/heartwood",
+  "skills": []
+}
