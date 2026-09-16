@@ -1,0 +1,44 @@
+{
+  "name": "atlas-home-command",
+  "owner": "LimitedEnergyX",
+  "repo": "atlas-home-command",
+  "description": "Atlas Home Command Center: a locally operated platform for home status, bounded controls, maintenance, pantry and meals, and a local AI assistant. No cloud AI required.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LimitedEnergyX/atlas-home-command",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T22:34:31Z"
+}
