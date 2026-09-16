@@ -1,0 +1,9 @@
+{
+  "name": "balbianoluciano--gridwright",
+  "displayName": "gridwright",
+  "description": "End-to-end layout pipeline: a Figma node goes in, a verified component comes out. Driven from Claude Code.",
+  "version": "1.0.0",
+  "author": "BalbianoLuciano",
+  "homepage": "https://github.com/BalbianoLuciano/gridwright",
+  "skills": []
+}
