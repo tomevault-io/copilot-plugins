@@ -4,7 +4,7 @@
   "repo": "resource-profile",
   "description": "\u8d44\u6e90\u753b\u50cf",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liuzhne/resource-profile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T19:33:40Z"
+  "distributed_at": "2026-09-16T19:34:33Z"
 }
