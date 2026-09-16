@@ -1,0 +1,9 @@
+{
+  "name": "eslint-markdown--eslint-markdown",
+  "displayName": "eslint-markdown",
+  "description": "Lint your Markdown with ESLint. Additional rules for use with `@eslint/markdown`.\ud83d\udee0\ufe0f",
+  "version": "1.0.0",
+  "author": "eslint-markdown",
+  "homepage": "https://github.com/eslint-markdown/eslint-markdown",
+  "skills": []
+}
