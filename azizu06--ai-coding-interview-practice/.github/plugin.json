@@ -1,0 +1,9 @@
+{
+  "name": "azizu06--ai-coding-interview-practice",
+  "displayName": "ai-coding-interview-practice",
+  "description": "Practice the AI-assisted coding interview format with your own coding agent: ten problems with planted bugs, stubs, timed tests, and an interviewer prompt",
+  "version": "1.0.0",
+  "author": "azizu06",
+  "homepage": "https://github.com/azizu06/ai-coding-interview-practice",
+  "skills": []
+}
