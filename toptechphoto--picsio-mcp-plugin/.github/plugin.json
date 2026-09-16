@@ -1,0 +1,9 @@
+{
+  "name": "toptechphoto--picsio-mcp-plugin",
+  "displayName": "picsio-mcp-plugin",
+  "description": "Pics.io MCP Plugin for AI Marketplaces (Anthropic, OpenAI, Copilot, Gemini)",
+  "version": "1.0.0",
+  "author": "TopTechPhoto",
+  "homepage": "https://github.com/TopTechPhoto/picsio-mcp-plugin",
+  "skills": []
+}
