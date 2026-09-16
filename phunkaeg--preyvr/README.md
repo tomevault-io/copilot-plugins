@@ -7,11 +7,11 @@ OpenXR VR mod for Prey (2017). Research build - stereo, 6DoF, motion controls, n
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [phunkaeg/PreyVR](https://github.com/phunkaeg/PreyVR).
+Original source: `AGENTS.md` in [phunkaeg/PreyVR](https://github.com/phunkaeg/PreyVR).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
