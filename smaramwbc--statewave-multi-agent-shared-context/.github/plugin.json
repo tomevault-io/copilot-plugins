@@ -1,0 +1,9 @@
+{
+  "name": "smaramwbc--statewave-multi-agent-shared-context",
+  "displayName": "statewave-multi-agent-shared-context",
+  "description": "Multiple agents, one source of truth: a Planner/Coder/Reviewer demo of how a shared Statewave subject prevents parallel-agent context collisions.",
+  "version": "1.0.0",
+  "author": "smaramwbc",
+  "homepage": "https://github.com/smaramwbc/statewave-multi-agent-shared-context",
+  "skills": []
+}
