@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--intune-tenant-doc",
+  "displayName": "intune-tenant-doc",
+  "description": "intune-tenant-doc",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/intune-tenant-doc",
+  "skills": []
+}
