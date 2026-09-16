@@ -1,0 +1,44 @@
+{
+  "name": "comark-tiptap",
+  "owner": "sandros94",
+  "repo": "comark-tiptap",
+  "description": "A Comark-aware Tiptap kit. Built on @tiptap/starter-kit + tables + image, it adds a thin layer that round-trips losslessly between Tiptap's ProseMirror schema, the Comark AST, and markdown \u2014 plus optional framework bindings.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sandros94/comark-tiptap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T02:40:49Z"
+}
