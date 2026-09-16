@@ -1,21 +1,25 @@
 # triggarr
 
-> Source: [thejuran/triggarr](https://github.com/thejuran/triggarr) — distributed by [TomeVault](https://tomevault.io)
-
-Lightweight search automation daemon for Radarr, Sonarr, and Lidarr
+> Source: [thejuran/triggarr](https://github.com/thejuran/triggarr). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [thejuran/triggarr](https://github.com/thejuran/triggarr).
+Original source: `` in [thejuran/triggarr](https://github.com/thejuran/triggarr).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [triggarr](https://github.com/thejuran/triggarr/tree/main/.agents/skills/aidesigner-frontend/SKILL.md)
+- [triggarr](https://github.com/thejuran/triggarr/tree/main/.claude/skills/aidesigner-frontend/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/thejuran/triggarr](https://github.com/thejuran/triggarr)
 
