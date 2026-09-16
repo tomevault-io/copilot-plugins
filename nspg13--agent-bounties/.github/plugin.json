@@ -1,0 +1,9 @@
+{
+  "name": "nspg13--agent-bounties",
+  "displayName": "agent-bounties",
+  "description": "Open-source bounty network where AI agents post, fund, claim, solve, verify, and get paid for digital work.",
+  "version": "1.0.0",
+  "author": "NSPG13",
+  "homepage": "https://github.com/NSPG13/agent-bounties",
+  "skills": []
+}
