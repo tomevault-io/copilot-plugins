@@ -1,0 +1,9 @@
+{
+  "name": "aeon-7--qwen3-8-27b-aeon-ultimate-uncensored",
+  "displayName": "Qwen3.8-27B-AEON-ULTIMATE-UNCENSORED",
+  "description": "Uncensored Qwen3.8-27B Ultimate - BF16 master + NVFP4-MIXED deploy. QuickStarts for DGX Spark (one Dynamic DFlash lattice seat @ util 0.80), dual-Spark TP=2, RTX 5090 / PRO 6000. Serve with aeon-vllm-",
+  "version": "1.0.0",
+  "author": "AEON-7",
+  "homepage": "https://github.com/AEON-7/Qwen3.8-27B-AEON-ULTIMATE-UNCENSORED",
+  "skills": []
+}
