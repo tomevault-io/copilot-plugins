@@ -1,0 +1,44 @@
+{
+  "name": "netcanon",
+  "owner": "netcanon",
+  "repo": "netcanon",
+  "description": "Multi-vendor network config translator \u2014 Cisco / Juniper / Fortinet / Aruba / Arista / MikroTik / OPNsense. Cross-mesh audit catches silent translation errors before they ship. Live demo: demo.netcanon.net",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/netcanon/netcanon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T04:49:06Z"
+}
