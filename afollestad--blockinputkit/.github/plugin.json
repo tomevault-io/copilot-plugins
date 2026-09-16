@@ -1,0 +1,9 @@
+{
+  "name": "afollestad--blockinputkit",
+  "displayName": "BlockInputKit",
+  "description": "\u270d\ufe0f A Swift library to implement markdown-backed block input UI in macOS apps.",
+  "version": "1.0.0",
+  "author": "afollestad",
+  "homepage": "https://github.com/afollestad/BlockInputKit",
+  "skills": []
+}
