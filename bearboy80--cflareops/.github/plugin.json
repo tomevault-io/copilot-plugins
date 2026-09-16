@@ -1,0 +1,9 @@
+{
+  "name": "bearboy80--cflareops",
+  "displayName": "cflareOps",
+  "description": "\u4e00\u4e2a\u81ea\u6258\u7ba1\u7684 Cloudflare \u591a\u8d26\u53f7\u7ba1\u7406\u9762\u677f\uff0c\u7528\u4e8e\u7edf\u4e00\u7ba1\u7406 Zones\u3001DNS\u3001Workers\u3001Pages\u3001\u7528\u91cf\u5206\u6790\u3001\u53d1\u9001\u90ae\u4ef6\uff0cR2 ,D1 \u5e76\u901a\u8fc7 Cloudflare Access \u4fdd\u62a4\u540e\u53f0\u3002A self-hosted Cloudflare multi-account dashboard for Zones, DNS, Workers, Pages, usage analytics,Se",
+  "version": "1.0.0",
+  "author": "bearBoy80",
+  "homepage": "https://github.com/bearBoy80/cflareOps",
+  "skills": []
+}
