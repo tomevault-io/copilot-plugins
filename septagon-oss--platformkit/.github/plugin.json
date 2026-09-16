@@ -1,0 +1,9 @@
+{
+  "name": "septagon-oss--platformkit",
+  "displayName": "platformkit",
+  "description": "Open-source Go backend for multi-tenant SaaS.",
+  "version": "1.0.0",
+  "author": "septagon-oss",
+  "homepage": "https://github.com/septagon-oss/platformkit",
+  "skills": []
+}
