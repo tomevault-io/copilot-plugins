@@ -1,6 +1,6 @@
 # AI instruction files for KSCrash
 
-> Sourced from [kstenerud/KSCrash](https://github.com/kstenerud/KSCrash) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [kstenerud/KSCrash](https://github.com/kstenerud/KSCrash), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,11 @@ Original source: `CLAUDE.md` in [kstenerud/KSCrash](https://github.com/kstenerud
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kstenerud/KSCrash](https://github.com/kstenerud/KSCrash)
+## Bundled Skills (1)
+
+- [KSCrash](https://github.com/kstenerud/KSCrash/tree/main/.claude/skills/async-signal-safety-review/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/kstenerud/KSCrash](https://github.com/kstenerud/KSCrash)
 
 ---
 
