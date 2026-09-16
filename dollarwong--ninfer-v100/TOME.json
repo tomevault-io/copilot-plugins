@@ -1,0 +1,44 @@
+{
+  "name": "ninfer-v100",
+  "owner": "dollarwong",
+  "repo": "ninfer-v100",
+  "description": "NInfer on Tesla V100 (sm_70): Qwen3.8-27B deployment, build/convert scripts, systemd service, and cross-engine benchmark (vs llama.cpp). Fork of Neroued/ninfer with sm70 vision-encoding speedup.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dollarwong/ninfer-v100",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T13:32:06Z"
+}
