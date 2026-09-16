@@ -2,9 +2,9 @@
   "name": "triggarr",
   "owner": "thejuran",
   "repo": "triggarr",
-  "description": "Lightweight search automation daemon for Radarr, Sonarr, and Lidarr",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "triggarr",
+      "path": ".agents/skills/aidesigner-frontend/SKILL.md",
+      "github_url": "https://github.com/thejuran/triggarr/tree/main/.agents/skills/aidesigner-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "triggarr",
+      "path": ".claude/skills/aidesigner-frontend/SKILL.md",
+      "github_url": "https://github.com/thejuran/triggarr/tree/main/.claude/skills/aidesigner-frontend/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/thejuran/triggarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T06:00:45Z"
+  "distributed_at": "2026-09-16T03:11:50Z"
 }
