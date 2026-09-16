@@ -1,0 +1,9 @@
+{
+  "name": "kdbhalala--avdslim",
+  "displayName": "avdslim",
+  "description": "\u26a1 Drop Android Virtual Device (AVD) emulator RAM from ~8GB to ~1.5GB on Apple Silicon & Linux. Inspired by simslim.",
+  "version": "1.0.0",
+  "author": "kdbhalala",
+  "homepage": "https://github.com/kdbhalala/avdslim",
+  "skills": []
+}
