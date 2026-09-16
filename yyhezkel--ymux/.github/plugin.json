@@ -1,0 +1,9 @@
+{
+  "name": "yyhezkel--ymux",
+  "displayName": "ymux",
+  "description": "Terminal-native multi-agent terminal for AI coding workflows over SSH (inspired by cmux)",
+  "version": "1.0.0",
+  "author": "yyhezkel",
+  "homepage": "https://github.com/yyhezkel/ymux",
+  "skills": []
+}
