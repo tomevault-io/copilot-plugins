@@ -1,0 +1,9 @@
+{
+  "name": "discocrayon--headroom",
+  "displayName": "Headroom",
+  "description": "Scan an AWS Organization and generate Terraform for the SCPs and RCPs your accounts already comply with, placed at the highest safe level.",
+  "version": "1.0.0",
+  "author": "discocrayon",
+  "homepage": "https://github.com/discocrayon/Headroom",
+  "skills": []
+}
