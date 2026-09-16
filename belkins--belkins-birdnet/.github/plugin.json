@@ -1,0 +1,9 @@
+{
+  "name": "belkins--belkins-birdnet",
+  "displayName": "belkins-birdnet",
+  "description": "A live, hand-illustrated collage of the birds outside your window \u2014 named by ear. A standalone Belkins build of BirdNET-Pi (CC-BY-NC-SA-4.0).",
+  "version": "1.0.0",
+  "author": "Belkins",
+  "homepage": "https://github.com/Belkins/belkins-birdnet",
+  "skills": []
+}
