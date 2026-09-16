@@ -1,0 +1,9 @@
+{
+  "name": "thefeehpy--qrcode-scanner",
+  "displayName": "QRcode_scanner",
+  "description": "Scanner de QR Code para leitura dos documentos enviados pelos clientes da Paketa.",
+  "version": "1.0.0",
+  "author": "Thefeehpy",
+  "homepage": "https://github.com/Thefeehpy/QRcode_scanner",
+  "skills": []
+}
