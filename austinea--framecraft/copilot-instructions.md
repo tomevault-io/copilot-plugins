@@ -1,0 +1,21 @@
+## framecraft
+
+> <!-- BEGIN:nextjs-agent-rules -->
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+## Repository skills
+
+For high-production App Store screenshot composition, layered screenshot templates, spanning artwork, pulled-out UI cards, generated cutouts, or locale-aware layer copy, load and follow `.agents/skills/framecraft-layer-design/SKILL.md`.
+
+---
+> Source: [AustineA/framecraft](https://github.com/AustineA/framecraft) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
