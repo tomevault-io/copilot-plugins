@@ -1,0 +1,9 @@
+{
+  "name": "jeanclode-hq--jeanclode",
+  "displayName": "jeanclode",
+  "description": "Self-hosted autonomous coding agent on your infra.",
+  "version": "1.0.0",
+  "author": "jeanclode-hq",
+  "homepage": "https://github.com/jeanclode-hq/jeanclode",
+  "skills": []
+}
