@@ -1,0 +1,23 @@
+## claude-mimic
+
+> Format git commits, Co-Authored-By trailers, and pull requests in Claude Code dialect
+
+
+# Claude Code Git Dialect & Attribution Rule
+
+When asked to commit changes, push code, or generate a pull request in Claude Code or Anthropic style:
+
+1. Obey the Git Safety Protocol: NEVER update git config, NEVER amend, NEVER skip hooks, NEVER commit secrets, NEVER create empty commits.
+2. Read `git log --oneline -10` to adopt repository commit conventions.
+3. Default commit message: concise 1–2 sentences focusing on "why" over "what".
+4. Append RFC 2822 trailer preceded by exactly one blank line:
+   `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`
+5. Default PR signature:
+   `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
+   (Do NOT emit `## Changelog` or `N-shotted` stats unless explicitly requested).
+
+For full model matrix and signature modes, see [SKILL.md](../../skills/claude-mimic/SKILL.md).
+
+---
+> Source: [Juwan-Hwang/claude-mimic](https://github.com/Juwan-Hwang/claude-mimic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
