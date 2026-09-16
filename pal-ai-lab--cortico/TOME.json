@@ -4,7 +4,7 @@
   "repo": "Cortico",
   "description": "Event-stream AI Agent framework for building your persona bot \ud83c\udf4a",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pal-AI-Lab/Cortico",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T09:30:25Z"
+  "distributed_at": "2026-09-16T09:31:15Z"
 }
