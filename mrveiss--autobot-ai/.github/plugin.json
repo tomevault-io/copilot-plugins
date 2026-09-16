@@ -1,0 +1,9 @@
+{
+  "name": "mrveiss--autobot-ai",
+  "displayName": "AutoBot-AI",
+  "description": "Self-hosted, agentic AI you own \u2014 voice, vision-driven browser & computer control, visual workflows, human-in-the-loop approvals, multi-user RBAC, and a knowledge graph. Runs on your infrastructure. Y",
+  "version": "1.0.0",
+  "author": "mrveiss",
+  "homepage": "https://github.com/mrveiss/AutoBot-AI",
+  "skills": []
+}
