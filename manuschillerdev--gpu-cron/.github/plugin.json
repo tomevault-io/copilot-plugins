@@ -1,0 +1,9 @@
+{
+  "name": "manuschillerdev--gpu-cron",
+  "displayName": "gpu-cron",
+  "description": "Tiny MLX-trained schedule model with a dependency-free WebGPU runtime",
+  "version": "1.0.0",
+  "author": "manuschillerdev",
+  "homepage": "https://github.com/manuschillerdev/gpu-cron",
+  "skills": []
+}
