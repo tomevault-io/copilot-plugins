@@ -1,83 +1,427 @@
 ## agents-md
 
-> Pi-Northstar is the Pi coding agent's browser/desktop automation and web search extension. It provides CDP-based browser control, agent-browser integration, desktop automation (via Cua Driver MCP), hybrid search (BM25 + vector embedding + RRF fusion), social/reach tools, and cookie/auth management.
+> This file is the repository-wide contract for agents and humans changing Pi‑Northstar. It is not a historical design diary. Prefer executable truth, preserve authority boundaries, and update prose only after the production-shaped path is settled.
 
-# Agent Reference: Pi-Northstar
+# AGENTS.md · Pi‑Northstar engineering contract
 
-Pi-Northstar is the Pi coding agent's browser/desktop automation and web search extension. It provides CDP-based browser control, agent-browser integration, desktop automation (via Cua Driver MCP), hybrid search (BM25 + vector embedding + RRF fusion), social/reach tools, and cookie/auth management.
+This file is the repository-wide contract for agents and humans changing Pi‑Northstar. It is not a historical design diary. Prefer executable truth, preserve authority boundaries, and update prose only after the production-shaped path is settled.
 
-## Sister Repos
+## Source of truth
 
-### No protocol-level dependencies on the other Pi repos.
-Pi-Northstar is self-contained. It does not consume `@rhinos0608/pi-workspace-protocol`, Pi-SmartRead, or Pi-SmartEdit directly.
+When sources disagree, use this order:
 
-## Operational Contracts and Invariants
+1. Executable validators, policy gates, and runtime contracts in `src/`.
+2. Canonical registries/constants those validators derive from.
+3. This `AGENTS.md` for repository-wide security and engineering invariants.
+4. `README.md` for user-facing behavior and operator guidance.
+5. Plans, ADR drafts, task prose, comments, and residual modules only as design/history clues.
 
-### Application SSRF guards (Scope A)
-Public user-controlled fetch/browser URLs use `src/network-policy.ts` and reject private/reserved literals, metadata/local hostnames, credentials, and private DNS answers. Browser navigation also freezes allowed domains and performs system-DNS preflight. This is defense-in-depth, not complete SSRF containment; container egress remains authoritative.
+**Reachability beats module presence.** Trace from the registered/public entry point before claiming a path is live.
 
-Configured local SearXNG, Ollama, embedding, sidecar, CDP/setup paths remain operator-owned and bypass public validation (`unsafeFetchJson` is intentional). Loopback browser access is only through `browser-tools` → `LoopbackProxy`.
+## Golden rule
 
-Residual risks: DNS rebinding, Chromium DNS TOCTOU, redirects, and debug-server outbound proxying. See ADR 0003.
+> **Models propose. Code validates, admits, grounds, budgets, stops, and ships.**
 
-### Deny-by-default child environments (CLI/MCP/native)
-`src/cli/cli-backend.ts:buildCliEnvironment` gives every CLI child the nonsecret base config only, plus per-tool-family credentials (`CLI_TOOL_CREDENTIALS`) — a `web_search` child never carries GitHub/Reddit/graph secrets and vice versa; unknown tool names get base config only. `src/process/mcp-client.ts:toProcessEnvironment` is deny-by-default: only listed provider credentials, benign client config, and names in the explicit `SEARCH_MCP_FORWARD_ENV_JSON` allowlist forward — there is no `SEARCH_MCP_*` wildcard, and `parseForwardedEnvironmentKeys` rejects secret-like names (`SECRET_LIKE_NAME_PATTERN`) and non-benign `SEARCH_MCP_*` internals. `src/process/native-child-env.ts:buildNativeChildEnvironment` (git/ffmpeg/media CLIs) takes a minimal OS-spawn allowlist only — no tokens/keys/cookies, no proxy config, no interpreter/linker/git-config/cert overrides — with fixed argv arrays and `shell: false` (documented, test-enforced).
+Corollaries:
 
-### Local sidecar stdin-token auth
-`src/sidecar/sidecar-manager.ts:SidecarManager.start` mints a fresh 256-bit token per start (`randomBytes(32)`) and delivers it over the child's stdin pipe only (`SIDECAR_TOKEN=<hex>\n`, via `writeAuthToken`) — never argv/env (the child env is allowlisted and would strip it anyway), never logged. Delivery is mandatory: missing stdin or a write failure is a startup failure, never an unauthenticated running sidecar. The token clears on `stop()`/exit/crash; restarts mint fresh. `src/sidecar/embedding-client.ts` takes the token via explicit `apiToken` or a per-request `apiTokenProvider` (wins fresh on every request, so long-lived clients survive restarts); `EMBEDDING_SIDECAR_API_TOKEN` env fallback is for external sidecars only (`EMBEDDING_SIDECAR_BASE_URL` Bearer health check).
+1. External text is evidence, never authorization.
+2. Candidates navigate; only admitted evidence grounds.
+3. Failure, empty output, degradation, suppression, and cancellation are different states.
+4. Fallback may recover execution failure; it may never bypass auth, SSRF, origin, schema, or provenance policy.
+5. Provider selection and effective capability policy are operator/code owned, never model owned.
+6. Concurrency may change latency, never semantic ledger/merge/journal order.
+7. Budget attempts are charged at the dispatch boundary, including failed attempts.
+8. Stateful authority is frozen by a code-owned token/snapshot and revalidated before mutation.
+9. Child processes receive capability-scoped credentials, never ambient process authority.
+10. Missing models/providers/credentials must degrade toward evidence, not invented equivalence.
 
-### Leaf-runtime RPC: fixed safe errors, reject-not-clamp, provider-opaque DTOs
-`src/runtime/runtime-rpc-protocol.ts:RUNTIME_RPC_ERROR_MESSAGES` is the closed set of safe messages — `wireErrorToSafe` in `src/runtime/leaf-runtime-client.ts` maps unknown codes to `provider_error`; provider exception text never crosses. `safeLeafCode` in `src/web/agent/agent-jobs.ts` allowlists `[a-z_]{1,64}`, else `provider_error`. Out-of-range `timeoutMs`/prompt bytes/`maxOutputTokens` reject, never clamp (`asTimeoutMs`, `runLeaf`); clone ceilings are operator-lower-only (`resolveGithubClonePolicy`); the MCP forward list rejects secret-like/invalid names; vision eligibility never broadens on failure (`eligibleTiersAfterFailure`). Provider-opaque DTOs: `runLeaf` resolves to `{ text }` only (runId stays internal, metadata redacted via `redactProvenance`); job snapshots carry `transport` + safe `reason` only — never provider/model identity (`src/web/agent/agent-rpc.ts`, `negotiateLeafTransport`).
+## Public surface and reachability
 
-### Event-bus trust boundary
-The leaf-runtime `LeafEventBus` (`src/runtime/leaf-runtime-client.ts`) is an in-process seam for trusted co-installed extension modules only (provider registered via `setLeafRuntimeProvider`, wired in `src/index.ts` when `PI_NORTHSTAR_LEAF_MODEL` is set) — it is not an authenticated channel. The `RuntimeCorrelationV1` metadata (`owner: 'northstar'`, bounded ASCII `correlationId`/`stage`, bounded `queryIndex`/`attempt`, closed role set) is routing/observability metadata with exact-keys validation, not auth: unknown fields reject, but nothing in it proves caller identity.
+`src/capabilities.ts` owns the public model-facing tool vocabulary and the hard budget `MAX_PUBLIC_TOOLS = 9`:
 
-### Leaf-runtime correlation v2 (negotiate-gated, non-auth routing metadata)
-`src/runtime/runtime-rpc-protocol.ts` carries the v1+v2 correlation union discriminated by required `correlationVersion`: absent/`1` runs exactly the v1 validation (v1 shape unchanged — `owner: 'northstar'`, closed `RUNTIME_RPC_ROLES`); `2` enforces keys `[correlationVersion,owner,correlationId,queryIndex,role,stage,attempt]` with owner `RUNTIME_RPC_CORRELATION_V2_OWNER_PATTERN` (`/^[a-z][a-z0-9_-]{2,31}$/`) and role `RUNTIME_RPC_CORRELATION_V2_ROLE_PATTERN` (`/^[a-z][a-z0-9_]{0,47}$/), other fields under the same v1 rules. Pattern constants are wire-mirrored verbatim from the pi-subagents producer contract (`src/api/runtime-rpc.ts`) — same names, same regexes. Compose via `buildCorrelationV2(...)`; validate via `validateCorrelation(...)` / `validateRequest(...)`. v2 compose is gated on the negotiated `correlationV2` capability parsed by `parseNegotiateCapabilities(...)` (`LeafRuntimeClient.getNegotiatedCapabilities()` / `supportsCorrelationV2()`): capability absent means v1-only — compose v1 forever. JSON output mode likewise gates on negotiated `outputModes` membership including `'json'` (`supportsJsonOutput()`), else text-mode + client-side parse. `LeafRunOptions` forwards `outputSchema` verbatim into start params (protocol byte/depth/key bounds apply, reject-never-clamp) plus optional `role`/`stage` hints. `AgentRpcRecord` surfaces negotiated `outputModes` + `correlationV2` record-level only; snapshots still carry `transport` + safe `reason` only. Role vocabulary is Pi-Atlas-owned: v1 `researcher` fallback, v2 `coverage_planner` (planner) / `researcher` (evaluator) / `synthesizer` (synthesis) — closed-set enforcement lives up-stack (`agent-core` domain validation); the wire gate in `createLeafModelClient(...).completeJson` (`src/web/agent/agent-model.ts`, schemas `AGENT_PLAN_SCHEMA` / `AGENT_EVALUATION_SCHEMA` / `AGENT_SYNTHESIS_IR_SCHEMA` / `VERIFICATION_SCHEMA`, role token caps planner 2048 / evaluator 2048 / synthesis 4096 / verification 2048, fixed reasons only, never provider text) checks top-level shape only. Explicit correlationVersion: 1 is accepted and echoed on both sides; absent stays absent.
+`web_search`, `fetch`, `github`, `social`, `kg`, `graph`, `browser`, `desktop`, `agent_poll`.
 
-### Python child processes MUST use the shared env allowlist
-`src/process/python-child-env.ts` exports `buildPythonChildEnvironment()` — a sanitized environment with an allowlist of benign system/PI vars and a `BLOCKED_PATTERN` excluding TOKEN/KEY/SECRET/COOKIE/PASSWORD/API_KEY/API_SECRET/AUTH/BEARER and NODE_OPTIONS, NODE_PATH, PYTHONPATH, GIT_CONFIG_, SSL_CERT_, LD_PRELOAD, DYLD_ patterns.
+Registration is conditional, so nine is a maximum. `src/index.ts` wraps `pi.registerTool` and checks the budget on every addition. Do not add a model-facing tool without first reconciling the ceiling and the capability registry.
 
-**All three Python spawn sites use it:**
-- `src/web/access/scrapling-bridge.ts:474` — `spawnProcess` (per-fetch Python bridge)
-- `src/web/access/scrapling-bridge.ts:623` — `oneShotCommand` (health check)
-- `src/sidecar/sidecar-manager.ts:82` — `SidecarManager.start` (embedding sidecar)
+`media` is internal/CLI acquisition, not a public model tool.
 
-**When adding a new Python child process:** always pass `env: buildPythonChildEnvironment()`. Never default to inheriting `process.env` — full environment leakage exposes API keys, cookies, and tokens to arbitrary code running in those child processes.
+The registered agent-mode route is:
 
-**Tests exist:** `test/process/python-child-env.test.ts` verifies the allowlist logic and confirms sentinel secrets do NOT leak through any of the three spawn sites (via mocked child processes). If the allowlist changes, these tests must pass.
+```text
+web_search {query, mode:"agent"}
+  → buildSearchRoute()
+  → createAgentJob()
+  → executeAgentJob()
+  → runAgentCore()
+  → canonical job snapshot
+  → agent_poll
+```
 
-### Desktop policy enforcement
-`src/desktop/desktop-policy.ts:validatePolicy` now directly calls `isDeniedUpstreamTool` as defense-in-depth (not relying on upstream callers to check it). `test/desktop/desktop-policy.test.ts` covers all branches: allowed/denied actions, confirmation checks, pid/windowId validation, screenshot restrictions, stateId requirements.
+Older report machinery in `src/web/web.ts`, `src/web/web-agent-report.ts`, and `src/web/agent/agent-report-route.ts` is residual/internal. Its existence does **not** make an opaque Tavily report leg part of the registered public agent flow.
 
-### desktop-contract.ts constants (ground truth)
-- `MAX_AX_NODES = 1000` (not 5000 — the README was wrong and has been fixed)
-- `MAX_AX_DEPTH = 32` (not 50)
-- `MAX_DIMENSION = 10000` (not 2048 — this is the desktop screenshot cap; browser screenshots have a separate `SCREENSHOT_MAX_DIMENSION = 8000` in `src/browser/agent-browser.ts:181`)
+## Ownership map
 
-### Browser tool schema
-The registered `browser` tool in `src/index.ts` exposes `compact`, `semanticAction`, `job`, and `batch` parameters in its schema, matching the capabilities handled by `src/browser/browser-policy.ts:validateBrowserRequest`.
+Before editing a vocabulary, schema, budget, or side-effect path, identify its owner. Parallel copies are contract drift, not harmless duplication.
 
-### semanticAction uses `verb` and `query` fields (not `action` and `role`)
-`src/browser/browser-policy.ts:SemanticActionRequest` shape: `{ locator, query, verb, name?, index?, value?, exact? }`. The README code example was fixed to match; double-check any new docs or agent prompts that reference the old `{ action, role }` field names.
+| Concern | Primary owner(s) |
+|---|---|
+| public tool ceiling/channel metadata | `src/capabilities.ts` |
+| composition/registration/global framing | `src/index.ts` |
+| web-search public shape | `src/web/web-search-route.ts`, `src/web/web-contract.ts` |
+| web provider selection/fanout | `src/web/web-provider-policy.ts`, `src/web/web.ts` |
+| ranking identity/fusion | `src/search/fusion.ts` |
+| fetch public shape | `src/web/web-fetch-route.ts`, `src/web/access/web-access-contract.ts` |
+| URL specialization/read path | `src/native-fetch.ts`, `src/web/web-page-reader.ts`, `src/web/access/*` |
+| agent job lifecycle/snapshot | `src/web/agent/agent-jobs.ts` |
+| adaptive controller | `src/web/agent/agent-core.ts` |
+| budgets/profile/stop | `src/web/agent/agent-policy.ts` |
+| GatherIntent domain | `src/web/agent/agent-gather-intents.ts` |
+| gather execution/adapters | `src/web/agent/agent-gather.ts`, `src/web/agent/agent-gather-adapters.ts` |
+| evidence/admission | `src/web/agent/agent-state.ts`, `src/web/agent/agent-acquisition.ts` |
+| candidate hints | `src/web/agent/agent-candidates.ts` |
+| agent model/wire schemas | `src/web/agent/agent-model.ts` |
+| leaf wire contract | `src/runtime/runtime-rpc-protocol.ts` plus mirrored pi-subagents ground truth |
+| browser action/security policy | `src/browser/browser-policy.ts` + browser session modules |
+| desktop freshness/mutation policy | `src/desktop/desktop-contract.ts`, `src/desktop/desktop-policy.ts`, `src/desktop/desktop-tools.ts` |
+| GitHub routing | `src/github/github-contract.ts`, `src/github/github-domain.ts` |
+| child credential isolation | `src/cli/cli-backend.ts`, `src/process/*-child-env.ts` |
+| external-content framing | `src/core/untrusted-content.ts` |
 
-## Architecture Notes
-- `src/native-tools.ts` is a ~560-line dispatcher over web search backends, semantic crawl, academic research, and the embedding pipeline — still the most coupled file in the codebase, but GitHub now delegates to its own domain (`src/github/github-domain.ts` owns all GitHub HTTP + normalization; `native-tools.ts` delegates). Refactoring it further is deferred technical debt, not a quick fix.
-- The desktop control stack (`src/desktop/desktop-tools.ts` → `src/desktop/cua-client.ts`) is cleanly separated from search and browser modules with no cross-imports.
+Browser verbs deliberately live in browser policy, not the channel registry. Their mutation semantics are stateful and do not fit the read-oriented capability table.
 
-## Residual Risks
-- **Child-env allowlists are static pins without revocation.** `PYTHON_CHILD_ALLOWLIST` / `NATIVE_CHILD_ALLOWLIST` are module-level sets — there is no per-spawn revocation or rotation; an allowlisted value that turns secret-capable passes for the process lifetime (the native allowlist already excludes proxy URLs for exactly this reason).
-- **Live clone-cap overshoot window.** `runCloneChild` (`src/github/github-clone.ts`) polls clone-root size on a bounded interval and aborts past `maxRepoBytes`, but up to one poll interval plus the directory-walk time plus the SIGTERM grace can elapse first — a clone can briefly exceed the ceiling; the post-clone scan is the final safeguard and still rejects before serving.
-- **Synthetic-probe proof gap.** `runVisionProbe` (`src/media-vision/probe.ts`) attests that the configured endpoint answers the randomized challenge for a model-ID string at probe time; it cannot prove the endpoint routes that model ID to a real vision model on later calls (model IDs are operator-exact strings the endpoint claims to serve).
-- **No integration test verifies container network isolation.** Application guards are defense-in-depth; container egress remains outer boundary.
-- **DNS rebinding / Chromium DNS TOCTOU** can occur after preflight.
-- **Redirects** may reach targets not covered by initial validation in unrestricted fetch paths.
-- **Debug-server outbound proxying** can make loopback server an egress relay.
-- **CLI subprocess overhead (measured 2026-09-14, M1 Pro/10-core):** Every `web_search`/`fetch` call spawns a child process via `CliSearchBackend` at ~300 ms spawn tax per call (Node boot + tsx compile; in-process same work ≈ 0 ms). Throughput plateaus at ~16 spawns/s; 32-way parallel spawns degrade per-call p50 to ~1.9 s. One `web_search` fans out to up-to-3 providers by default (max 8 explicit), so a 32-agent pool means ~96 concurrent spawns. `SEARCH_BACKEND=mcp` selects the persistent single-transport `SearchMcpClient` (no per-call spawn) — prefer it for pool deployments. Harness: `npm run bench:cli-spawn`, baseline in `bench/README.md`. No global semaphore yet (deliberate: re-run the harness on the deployment host before adding one). Performance concern, not correctness.
-- **Untrusted-content framing is advisory, not enforcement.** `src/core/untrusted-content.ts` (`EXTERNAL_TOOL_NAMES`: `fetch`, `github`, `graph`, `kg`, `agent_poll`, `social`, `web_search`, `browser`, `desktop` — no `media`) fences external tool text with per-result tokens and heuristic flags; it never redacts visible text and cannot guarantee prompt-injection prevention — a model may still follow malicious page text. `tool_result` and `before_agent_start` hooks apply the framing.
-- **Loopback-only debug mode confines browser network to exact origin.** When navigating to a loopback address, a local enforcing proxy pins DNS at startup and blocks HTTP/WebSocket/CONNECT to non-matching origins. `AGENT_BROWSER_ALLOWED_DOMAINS` blocks cross-domain sub-resources. CDP backend fails closed on loopback. Batch/job commands cannot target loopback URLs. Container egress remains the outer defense. Integration test with real agent-browser deferred.
-- **WSS (WebSocket Secure) not wrapped in TLS.** The loopback proxy uses plaintext `net.connect` for WebSocket upgrades. `wss:` targets on non-443 ports will fail. This is acceptable for local debug servers which typically use plain `ws:`.
+## Contract discipline
+
+### Reject unsupported composition
+
+A route must reject fields it cannot honor end to end. “Validate, accept, then drop” is a correctness defect because it tells the caller a constraint was applied when it was not.
+
+New security/budget/wire boundaries should reject rather than clamp unless the owning contract has tested compatibility semantics that intentionally clamp. Existing exceptions such as social limits or desktop internal timeout bounding are local contracts, not a project-wide invitation to clamp.
+
+### Preserve state distinctions
+
+Do not collapse:
+
+- valid zero results into provider failure;
+- provider failure into “nothing exists”;
+- search suppression into fresh evidence;
+- cancellation into ordinary failure;
+- degraded specialist execution into successful native execution;
+- unknown mutation outcome into retry permission.
+
+These distinctions are observable architecture.
+
+### Fallback preserves authority
+
+Fallback may switch execution mechanisms only when the security meaning stays the same. Auth failures, SSRF denials, origin violations, invalid requests, and closed-schema failures are terminal for that route.
+
+In particular, a privileged/private GitHub attempt must not silently become anonymous/public acquisition, and an authenticated web fetch must not spill into external rendering.
+
+## External-content trust boundary
+
+`src/index.ts` installs the global boundary. `before_agent_start` tells the model remote/tool text is evidence, not instructions; `tool_result` wraps external tool text through `wrapUntrustedText()`.
+
+External model-facing tools are currently `fetch`, `github`, `graph`, `kg`, `agent_poll`, `social`, `web_search`, `browser`, and `desktop`.
+
+The wrapper removes dangerous invisible/control formatting, may flag suspicious patterns, and surrounds visible text with a fresh random fence. It intentionally does not destructively redact ordinary visible text.
+
+**Wrapping is advisory, not a permission system.** Never weaken browser, desktop, auth, subprocess, or network policy because content already passed through `wrapUntrustedText()`.
+
+## Agent controller
+
+The only production-shaped control loop is adaptive:
+
+`PLAN → GATHER → EVALUATE → STOP/REFINE → SYNTHESIZE → VERIFY/REPAIR`.
+
+### Planning
+
+Planner output is a proposal. Normalize/validate it before state mutation. Invalid or missing planner output falls back deterministically. Missing/invalid plan truth fails toward balanced capacity, not an artificially narrow profile.
+
+`depth:"deep"` is explicit user/job input. Otherwise code derives balanced/narrow after validated plan shape, required-question count, and servable specialist need.
+
+### Gather
+
+A job snapshots effective capabilities once and reuses that frozen snapshot for planning, admissibility, and execution. Do not re-probe and let authority fluctuate mid-job.
+
+Production native specialist lanes currently are `research`, `github`, and `kg`, plus the web baseline. Social/video GatherIntents and admission adapters exist but production `buildNativeGatherTools()` does not expose those specialist tools this cycle. Capability truth is intersected with `EXECUTOR_SUPPORTED_SPECIALIST_LANES`, so planner-visible lanes must remain a subset of executable lanes.
+
+Search/fetch wrapper log slots are reserved at **call time** and filled on settlement. Concurrent completion order must not reorder journal identity.
+
+Gather actions consume budget on dispatch attempts. A failed web search still costs one search attempt. Duplicate/rejected intents that never dispatch do not get charged as successful execution.
+
+### Candidates vs evidence
+
+Candidates are bounded discovery/navigation hints. They may carry typed follow-up identity. They do not become grounding merely because a provider returned them.
+
+Evidence enters only through route-specific admission functions with provenance, locator, status, and question linkage. Model text such as “answered” or “supported” is never the grounding predicate.
+
+### Evaluate and stop
+
+Evaluator output is validated before state mutation. `shouldContinue` is advisory.
+
+Code-owned stop policy currently considers deadline, required grounding, round cap, utility budget, global acquisition envelope, lane headroom, search/fetch budgets, semantic no-progress, and fresh follow-up availability. Duplicate-only next actions do not count as work.
+
+The current lane-aware implementation treats global `maxFetches` exhaustion as a job-wide budget stop. Treat that as current tested semantics, not an inferred philosophical requirement; any change must reconcile executor and stop policy together.
+
+### Synthesis, verification, degradation
+
+A synthesizer proposes evidence-referenced IR. Validate it against admitted evidence before rendering. If synthesis is absent, fails, or produces invalid IR, return the deterministic evidence-only floor. Do not invent a narrative fallback from raw passages.
+
+Verification is bounded. Repair is at most one pass and is re-verified. Reject a repair that regresses verification, rebinds unsupported citations, grows contradictions, deletes too much, or reduces grounded-question support.
+
+Exact `PI_NORTHSTAR_AGENT_STEERING=0` strips model-call dependencies while preserving acquisition and code-owned stopping. No-model mode must remain a valid evidence-only execution mode.
+
+## Budget invariants
+
+Budgeting is multi-dimensional. Do not replace it with a single calls-remaining integer.
+
+Current defaults are owned by `src/web/agent/agent-policy.ts`:
+
+- 3 rounds;
+- 4 web-search attempts;
+- 12 fetch attempts;
+- 8 utility/model calls;
+- 6 total gather actions;
+- per-lane caps;
+- round-scoped fetch reserves.
+
+Hard ceilings and defaults must be read from the owner, not retyped into adapters.
+
+Utility capacity is role-aware. Planner, synthesis, and verify/repair reserves prevent evaluator pressure from starving terminal stages. Keep executor dispatch predicates and stop-policy exhaustion predicates aligned. If one thinks an action is runnable while the other thinks the job is exhausted, the controller can stop early or spin.
+
+## Leaf-runtime RPC and structured model output
+
+Pi‑Northstar does not import pi-subagents code. `src/runtime/runtime-rpc-protocol.ts` mirrors the co-installed runtime wire contract. The producer contract in pi-subagents is external ground truth when both extensions are installed.
+
+The event bus is trusted **in-process module plumbing**, not an authenticated boundary. Correlation fields are routing/observability metadata, never authorization.
+
+Leaf rules:
+
+- exact `provider/model` only;
+- thinking suffixes rejected;
+- closed request/reply shapes;
+- bounded prompt/result/token/time/correlation fields;
+- fixed safe error codes/messages, never provider exception text;
+- explicit cancellation/settlement;
+- provider/model/token internals stay out of model-visible job snapshots.
+
+### Structured JSON negotiation
+
+Do **not** gate wire schemas on `outputModes` containing `json`.
+
+Only negotiated `jsonSchema === "structured-v1"` allows `src/web/agent/agent-model.ts` to send an `outputSchema`. Absent dialect, `flat-v1`, or unknown dialect means text JSON: parse client-side, apply the wire shape gate, then apply the owning domain validator.
+
+Even `structured-v1` output is parsed and checked after the leaf call. Transport negotiation can enable a wire feature; it never bypasses domain validation.
+
+Wire schemas may intentionally be broader than domain intent schemas. For example, GatherIntent wire objects avoid unsupported schema constructs; `validateGatherIntent()` remains authoritative for exact per-kind keys and bounds.
+
+## Web search
+
+`createWebSearchExecute()` in `src/index.ts` owns the model-facing entry. The session `WebSearchLedger` runs before paid dispatch and may coalesce in-flight equivalents, suppress recent successful repeats, block repeated failures temporarily, or treat caller abort as cancellation.
+
+Suppressed work is a control result pointing at captured state. Never synthesize fresh hits for it.
+
+Ordinary provider selection is environment-owned. Every runnable selected provider is dispatched once concurrently. Fusion order follows policy/configuration order, not promise settlement order. Keep URL normalization and RRF deterministic.
+
+Provider failure must remain observable. If at least one provider serves, carry sibling failures in details. If every provider fails and none serves, throw instead of returning “zero results.”
+
+## Research
+
+`source:"all"` means exact `RESEARCH_SOURCE_CAPABILITIES` registry order: Semantic Scholar, OpenAlex, PubMed, Stack Overflow, DataCite, ROR, GDELT, Wikipedia, Wikidata, arXiv, Crossref, Hacker News.
+
+Do not substitute generic web for a research-specific source failure, unsupported option, pagination mismatch, or empty result. That changes the evidence class while pretending the requested contract succeeded.
+
+## Fetch and network authority
+
+The public fetch contract is a five-branch presence union owned by `src/web/web-fetch-route.ts`. Cached retrieve/source-check branches are no-network operations. A `responseId` is a provenance/cache handle, not permission to reacquire remote content.
+
+URL specialization precedes generic page reading. Security/contract errors are terminal; execution/upstream failures may use eligible fallback.
+
+### Cookie-authenticated fetch
+
+`PI_FETCH_AUTH_PROFILES` is operator configuration. Absent config means inert.
+
+Configured profile hosts must fall within the provider's cookie domains, but authentication matches only the explicitly configured profile hosts using exact-host or dot-boundary subdomain matching. A provider's whole cookie domain is **not** automatically authenticated.
+
+Authenticated fetch is HTTPS-only and same-origin-only across redirects. It bypasses Scrapling, Diffbot Analyze, and Firecrawl/Jina external processing. Cache is off by default unless the profile explicitly selects session caching. Error paths must not echo cookie values, `Set-Cookie`, or sensitive request material.
+
+Credentials narrow the legal acquisition path; they never broaden it.
+
+### Public targets vs operator infrastructure
+
+Public/user-provided fetch/browser URLs pass application network policy before I/O. Operator-configured infrastructure such as SearXNG, OpenCLI, sidecars, or SPARQL endpoints is a separate trust class.
+
+Do not blindly apply public-URL policy to operator infrastructure, and do not exempt a public URL merely because an operator backend ultimately performs the socket call. The trust decision follows who controls the target/configuration.
+
+The container/network environment is the outer egress boundary. Application SSRF controls are defense in depth.
+
+## Browser
+
+Browser action truth belongs to `src/browser/browser-policy.ts`.
+
+Public browser sessions validate URL/DNS/SSRF and freeze allowed hostname authority. An unrelated hostname requires an explicit close/new-navigation transition. Do not silently widen the allowlist mid-session.
+
+Snapshot refs are claims about observed page state. Ref-targeting mutations must freshness-preflight; navigation/invalidation makes older refs stale. Recovery is a fresh observation, not replaying a stale ref.
+
+`evaluate`, `set_cookies`, and `batch` are sensitive and require exact `PI_SEARCH_BROWSER_ALLOW_SENSITIVE=1`. Cookie reads return metadata only, never values.
+
+Loopback debug mode binds exact scheme + host + port and confines traffic to that origin. A different loopback origin requires close first. Batch/job commands must not smuggle loopback navigation into broader authority.
+
+## User-Chrome companion
+
+Authorized user-Chrome is an explicitly leased alternate backend. The companion bridge binds loopback only, requires an operator-pinned extension ID, pairing secret, process-local session token, and explicit user confirmation through `/chrome authorize`/onboarding.
+
+The model cannot manufacture, renew, or broaden this grant. The browser-family selector is slash-command/user input, not model input. Missing/revoked/expired/unhealthy authorization falls back to isolated browser behavior.
+
+## Desktop
+
+The invariant is **observe → bind → revalidate → mutate**.
+
+`observe_window` issues a `stateId` bound to PID, window ID, generation, timestamp/TTL, and AX-tree fingerprint. Every mutation requires it. A newer observation invalidates the older generation; coordinate mutations have the tighter freshness window.
+
+Before dispatch, re-observe and compare fingerprint. Stale state rejects.
+
+`type_text` and `press_key` require explicit human TUI confirmation. Headless code cannot self-approve them. Click/scroll still require fresh state.
+
+Transport loss after a mutation may have dispatched is `OUTCOME_UNKNOWN`, not retry permission. Mutations are serialized per target resource.
+
+Desktop output bounds are policy: AX depth/nodes plus screenshot bytes/dimensions. Screenshots may contain sensitive information even when capture is read-only.
+
+Cua Driver is resolved as the fixed `cua-driver` command from `PATH`; do not document `CUA_DRIVER_PATH` unless implementation support is added and tested.
+
+## GitHub
+
+Action preference is canonical in `GITHUB_BACKEND_PREFERENCE`:
+
+- `repo`: clone → REST;
+- `tree`: clone → REST;
+- `file`: REST → clone;
+- remaining actions: REST.
+
+Do not collapse “REST-first” into “REST-only.”
+
+The clone backend must remain hostile to ambient machine configuration: random private root, fixed argv, `shell:false`, disabled hooks/LFS/submodules/file protocol, bounded refs/paths, live size monitoring, final scan, unconditional cleanup.
+
+`gh` must not receive the repository token. Raw git may receive token material only through the private ephemeral credential-helper path, never argv or ordinary inherited environment.
+
+Clone fallback is selective. Invalid request and authentication failures surface directly. Backend unavailability/upstream/malformed execution may fall back according to the action chain. Authentication failure must not become an anonymous request.
+
+The live size ceiling is polled, so brief overshoot is possible before abort. The final scan prevents serving an oversized completed clone; this is not strict filesystem quota isolation.
+
+## Child processes and backend boundaries
+
+Default `SearchBackend` is one-shot CLI; `SEARCH_BACKEND=mcp` selects MCP. Backend choice must not change public contracts.
+
+
+### Child environment rules
+
+`src/cli/cli-backend.ts:buildCliEnvironment()` starts from a nonsecret base and adds credentials by tool family. Unknown tools receive the base only. A web-search child must not inherit GitHub/Reddit/graph credentials merely because they exist in the parent process.
+
+`src/process/mcp-client.ts` is deny-by-default. Only its explicit benign/provider allowlists plus names admitted by `SEARCH_MCP_FORWARD_ENV_JSON` may cross. Secret-like names and non-benign `SEARCH_MCP_*` internals must continue to reject rather than “forward for convenience.”
+
+Native/media/git children use `src/process/native-child-env.ts`. Python children use `src/process/python-child-env.ts`. Both are narrow capability environments, not sanitized copies of `process.env`.
+
+**Every new Python spawn must call `buildPythonChildEnvironment()`.** Do not rely on a reviewer noticing ambient secret leakage later.
+
+The local embedding sidecar is a special case with a stronger rule: `SidecarManager.start()` mints a fresh 256-bit token per start and sends it over child stdin only. It must not appear in argv, inherited env, or logs. Failed token delivery is startup failure, never unauthenticated fallback.
+
+Fixed argv and `shell:false` are baseline subprocess requirements. Do not interpolate model/provider/user text into a command string.
+
+## Social and media
+
+Social public vocabulary is canonical in `src/social/social-contract.ts` and registry metadata in `src/capabilities.ts`. Unknown/legacy actions reject before backend dispatch.
+
+Social is read-only in practice. Future write vocabulary does not imply write authority. `src/social/social-write-policy.ts` defaults writes off, provider allowlists are empty, and write-shaped requests must remain deny/dry-run only until a reviewed adapter is explicitly allowlisted.
+
+Media is internal acquisition, not a tenth public model tool. Canonical media actions belong to `src/media/media-contract.ts`; legacy spellings such as `video`/`subtitle` must not be reintroduced as aliases.
+
+Platform fallback must preserve evidence class and auth semantics. YouTube search/hot fail closed without the official key; details may use keyless oEmbed; transcript is the separately declared degraded adapter. Do not add generic-web substitution and call it platform-native success.
+
+Cookie ingestion/login is explicit user/operator action. Startup and bare auto-setup may discover capability or install allowed dependencies; they must not import browser cookies or create authenticated sessions to make status look healthier.
+
+## Multimodal transfer
+
+Vision eligibility is destination-specific and fail-closed. Configuring one destination never authorizes another.
+
+Synthetic probes establish only that the configured endpoint/model identifier answered the randomized challenge at probe time. They do not prove later routing or model identity. Keep this limitation visible in docs and risk analysis.
+
+Private/authenticated GitHub material has an independent cloud-transfer gate: exact `PI_VISION_PRIVATE_GITHUB_TRANSFER=1`. Public vision configuration alone must never authorize private repository bytes.
+
+Anonymous YouTube frame extraction is also separately gated by exact `PI_VISION_FETCH_VIDEO_FRAMES=1` plus vision eligibility. `yt-dlp`/`ffmpeg` children must remain credentialless, proxyless, `--no-config`, fixed argv, `shell:false`, and under the native child environment.
+
+## Setup and credential acquisition
+
+Setup policy belongs to `src/setup/*` plus the capability/provider registries. Separate these concepts:
+
+- capability exists;
+- capability is installed;
+- credentials are configured;
+- a live authenticated session exists;
+- an action is currently usable.
+
+Status should report those distinctions instead of manufacturing “configured” from a stale env hint or available binary.
+
+User-authorized credential acquisition must stay opt-in. Never make first-start bootstrap, status probes, or automatic dependency setup perform cookie import/login as a side effect.
+
+
+## Documentation and public descriptions
+
+Public tool descriptions, schema descriptions, README examples, `.env.example`, and package metadata are part of the contract surface. Keep them synchronized with the registered path, not with residual modules.
+
+Before claiming a capability:
+
+1. trace the registered entry;
+2. trace validation and policy;
+3. trace the selected execution adapter;
+4. trace normalization/admission;
+5. verify fallback and failure semantics;
+6. verify tests exercise that same path.
+
+If a module remains for internal/CLI compatibility but the registered public route bypasses it, say so explicitly. Do not let “code exists” become marketing language.
+
+Examples must use canonical request shapes. Prefer an executable CLI/test fixture over hand-written pseudo-JSON when one exists.
+
+## Change review checklist
+
+For any contract, provider, agent, browser, desktop, auth, or subprocess change, review all of the following:
+
+- **Shape:** Are unknown fields/actions rejected? Are bounds reject-vs-clamp semantics intentional?
+- **Authority:** Can model/external text influence provider selection, credentials, hosts, side-effect grants, or stop/budget ownership?
+- **Failure:** Are empty, degraded, failed, cancelled, suppressed, stale, and unknown-outcome states still distinct?
+- **Fallback:** Could a privileged/security failure fall into a broader or anonymous path?
+- **Ordering:** Does concurrency preserve caller/registry/ledger order?
+- **Budget:** Is spend charged at the intended attempt boundary on both success and failure?
+- **Provenance:** Can model-visible output distinguish where evidence came from without leaking provider secrets?
+- **Secrets:** Does every child/network destination receive only credentials it actually needs?
+- **State:** Does every mutation revalidate a fresh code-owned state token/snapshot?
+- **Docs:** Did public prose change with the executable contract, and were stale examples removed?
+
+## Validation before commit
+
+At minimum for repository-wide work:
+
+```bash
+npm run typecheck
+npm test
+```
+
+For focused changes, also run the closest contract/policy tests. Agent-mode work should usually include `test/web/web-search-agent-seam.test.ts`, the relevant `test/web/agent/*` files, and runtime RPC tests. GitHub routing work should include `test/github/github-contract.test.ts` and `test/github/github-domain.test.ts`.
+
+Do not invent package scripts in documentation. If a special test command matters enough to document, add the script or document the exact existing `node --import tsx --test ...` invocation.
+
+A passing unit suite is not proof of deployment isolation. There is currently no integration test that proves container/network egress confinement end to end.
+
+## Residual risks to keep visible
+
+- Application SSRF checks still have DNS-rebinding/redirect/Chromium TOCTOU residuals; deployment egress remains authoritative.
+- Loopback debug mode confines browser traffic, not arbitrary behavior of the debug server itself.
+- Untrusted-content framing is advisory and cannot prove prompt-injection resistance.
+- Clone live-size enforcement is polled, so brief overshoot before termination is possible.
+- Synthetic vision probes prove a challenge response at probe time, not durable model identity.
+- CLI one-shot isolation carries measurable startup cost; MCP is the persistent alternative for pool workloads.
+- Social/video typed agent intents are ahead of current production specialist execution and must stay capability-intersected until native wiring lands.
+
+When these risks change, update tests, README, and this file together. Do not quietly delete the warning because the happy path improved.
 
 ---
 > Source: [rhinos0608/Pi-Northstar](https://github.com/rhinos0608/Pi-Northstar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
