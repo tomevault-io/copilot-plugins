@@ -1,0 +1,9 @@
+{
+  "name": "wenxuezj-design--mo-code",
+  "displayName": "mo-code",
+  "description": "mo-code \u662f mortis \u4ece\u96f6\u5b9e\u73b0 Claude Code \u6838\u5fc3\u529f\u80fd\u7684\u5b9e\u9a8c\u9879\u76ee\uff0c\u76ee\u6807\u662f\u5b9e\u73b0\u4e00\u4e2a\u53ef\u8fd0\u884c\u3001\u53ef\u89e3\u91ca\uff0c\u5e76\u91cd\u70b9\u7814\u7a76\u5b89\u5168\u8fb9\u754c\u7684\u7ec8\u7aef Coding Agent\u3002",
+  "version": "1.0.0",
+  "author": "wenxuezj-design",
+  "homepage": "https://github.com/wenxuezj-design/mo-code",
+  "skills": []
+}
