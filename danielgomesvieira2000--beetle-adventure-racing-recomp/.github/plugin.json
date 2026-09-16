@@ -1,0 +1,9 @@
+{
+  "name": "danielgomesvieira2000--beetle-adventure-racing-recomp",
+  "displayName": "beetle-adventure-racing-recomp",
+  "description": "Static recompilation port of Beetle Adventure Racing (N64) to native PC, with widescreen, high-FPS and modern input support. Requires your own ROM.",
+  "version": "1.0.0",
+  "author": "danielgomesvieira2000",
+  "homepage": "https://github.com/danielgomesvieira2000/beetle-adventure-racing-recomp",
+  "skills": []
+}
