@@ -7,11 +7,11 @@ Lint your Markdown with ESLint. Additional rules for use with `@eslint/markdown`
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eslint-markdown/eslint-markdown](https://github.com/eslint-markdown/eslint-markdown).
+Original source: `CLAUDE.md` in [eslint-markdown/eslint-markdown](https://github.com/eslint-markdown/eslint-markdown).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
