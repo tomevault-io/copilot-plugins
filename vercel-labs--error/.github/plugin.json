@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--error",
+  "displayName": "error",
+  "description": "A lightweight toolkit for structured, actionable errors for humans and agents.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/error",
+  "skills": []
+}
