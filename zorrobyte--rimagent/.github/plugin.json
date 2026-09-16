@@ -1,0 +1,9 @@
+{
+  "name": "zorrobyte--rimagent",
+  "displayName": "rimagent",
+  "description": "An LLM that plays RimWorld and rewrites its own playbook between colonies. RimBridge mod + self-improving agent.",
+  "version": "1.0.0",
+  "author": "zorrobyte",
+  "homepage": "https://github.com/zorrobyte/rimagent",
+  "skills": []
+}
