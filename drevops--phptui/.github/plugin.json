@@ -1,0 +1,9 @@
+{
+  "name": "drevops--phptui",
+  "displayName": "phptui",
+  "description": "Terminal user interfaces for PHP",
+  "version": "1.0.0",
+  "author": "drevops",
+  "homepage": "https://github.com/drevops/phptui",
+  "skills": []
+}
