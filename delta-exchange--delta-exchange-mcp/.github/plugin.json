@@ -1,0 +1,9 @@
+{
+  "name": "delta-exchange--delta-exchange-mcp",
+  "displayName": "delta-exchange-mcp",
+  "description": "Official Delta Exchange MCP",
+  "version": "1.0.0",
+  "author": "delta-exchange",
+  "homepage": "https://github.com/delta-exchange/delta-exchange-mcp",
+  "skills": []
+}
