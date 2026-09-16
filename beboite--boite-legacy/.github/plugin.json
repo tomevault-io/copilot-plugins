@@ -1,0 +1,9 @@
+{
+  "name": "beboite--boite-legacy",
+  "displayName": "boite-legacy",
+  "description": "The 1.x line of Boite, the multi-agent terminal multiplexer, kept updated for existing installs. The next Boite arrives at beboite/boite.",
+  "version": "1.0.0",
+  "author": "beboite",
+  "homepage": "https://github.com/beboite/boite-legacy",
+  "skills": []
+}
