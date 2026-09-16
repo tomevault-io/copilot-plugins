@@ -1,0 +1,9 @@
+{
+  "name": "nomadamas--healthmes-agent",
+  "displayName": "healthmes-agent",
+  "description": "Local-first personal health driven decision engine for agents.",
+  "version": "1.0.0",
+  "author": "NomaDamas",
+  "homepage": "https://github.com/NomaDamas/healthmes-agent",
+  "skills": []
+}
