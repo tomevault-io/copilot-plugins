@@ -1,0 +1,44 @@
+{
+  "name": "personal-career-os",
+  "owner": "Pluto-Mo",
+  "repo": "personal-career-os",
+  "description": "\u5c5e\u4e8e\u4e2d\u56fd\u5b66\u751f\u7684\u4e2a\u4eba\u6c42\u804c\u52a9\u624b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Pluto-Mo/personal-career-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T03:01:30Z"
+}
