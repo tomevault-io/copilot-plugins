@@ -1,0 +1,9 @@
+{
+  "name": "pat1175--omnidocs",
+  "displayName": "omnidocs",
+  "description": "Automated documentation crawler that generates LLM-friendly Markdown from any docs site. Export as single or multi-file, ready for AI ingestion.",
+  "version": "1.0.0",
+  "author": "pat1175",
+  "homepage": "https://github.com/pat1175/omnidocs",
+  "skills": []
+}
