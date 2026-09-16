@@ -7,14 +7,14 @@ GPUtw.ai official AI knowledge package — teach Claude Code, Codex CLI, Cursor,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GPUtw-ai/GPUtw-Skill](https://github.com/GPUtw-ai/GPUtw-Skill).
+Original source: `GEMINI.md` in [GPUtw-ai/GPUtw-Skill](https://github.com/GPUtw-ai/GPUtw-Skill).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [GPUtw-ai/GPUtw-Skill](https://github.com/GPUtw-ai/GPUtw-Skill) — a repo with 13+ stars on GitHub.
