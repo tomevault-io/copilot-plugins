@@ -1,0 +1,9 @@
+{
+  "name": "redhat-performance--configiq",
+  "displayName": "configiq",
+  "description": "Distributed inference configuration tools",
+  "version": "1.0.0",
+  "author": "redhat-performance",
+  "homepage": "https://github.com/redhat-performance/configiq",
+  "skills": []
+}
