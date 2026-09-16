@@ -1,0 +1,9 @@
+{
+  "name": "phunkaeg--preyvr",
+  "displayName": "PreyVR",
+  "description": "OpenXR VR mod for Prey (2017). Research build - stereo, 6DoF, motion controls, native HUD.",
+  "version": "1.0.0",
+  "author": "phunkaeg",
+  "homepage": "https://github.com/phunkaeg/PreyVR",
+  "skills": []
+}
