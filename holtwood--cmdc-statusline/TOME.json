@@ -1,0 +1,44 @@
+{
+  "name": "cmdc-statusline",
+  "owner": "holtwood",
+  "repo": "cmdc-statusline",
+  "description": "\ud83d\udcca Command Code \u72b6\u6001\u680f \u2014 \u6a21\u578b \u00b7 \u6e10\u53d8\u4e0a\u4e0b\u6587\u8fdb\u5ea6\u6761 \u00b7 \u7f13\u5b58\u547d\u4e2d\u7387 \u00b7 \u4f1a\u8bdd\u82b1\u8d39 \u00b7 \u8f93\u51fa\u901f\u5ea6 \u00b7 \u5b50\u4ee3\u7406\u7528\u91cf \u00b7 \u4f1a\u8bdd\u540d \u00b7 git \u72b6\u6001",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/holtwood/cmdc-statusline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T11:31:23Z"
+}
