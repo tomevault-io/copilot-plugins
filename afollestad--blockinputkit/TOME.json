@@ -4,7 +4,7 @@
   "repo": "BlockInputKit",
   "description": "\u270d\ufe0f A Swift library to implement markdown-backed block input UI in macOS apps.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/afollestad/BlockInputKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T18:38:57Z"
+  "distributed_at": "2026-09-16T18:45:24Z"
 }
