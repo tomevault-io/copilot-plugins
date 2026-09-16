@@ -1,7 +1,7 @@
 {
-  "name": "celest",
+  "name": "Celest",
   "owner": "TheEastKoi",
-  "repo": "celest",
+  "repo": "Celest",
   "description": "DeepSeek TUI VS Code extension",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/TheEastKoi/celest",
+  "source_url": "https://github.com/TheEastKoi/Celest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-25T08:30:58Z"
+  "distributed_at": "2026-09-16T04:43:30Z"
 }
