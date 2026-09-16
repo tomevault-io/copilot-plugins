@@ -1,0 +1,44 @@
+{
+  "name": "flex-writer-share",
+  "owner": "CaptivePig",
+  "repo": "flex-writer-share",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u6587\u6848\u4f18\u5316\u7684agent\uff0c\u5b9e\u73b0\u4e86 web-search-tool\u3001\u5de5\u4f5c\u6d41\u3001\u8bb0\u5fc6\u3001\u591a\u8f6e\u5bf9\u8bdd\u3001skill \u7b49agent\u5fc5\u5907\u80fd\u529b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CaptivePig/flex-writer-share",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T12:30:27Z"
+}
