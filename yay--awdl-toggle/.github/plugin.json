@@ -1,0 +1,9 @@
+{
+  "name": "yay--awdl-toggle",
+  "displayName": "awdl-toggle",
+  "description": "A native macOS Control Center toggle that persistently enables or suppresses AWDL.",
+  "version": "1.0.0",
+  "author": "yay",
+  "homepage": "https://github.com/yay/awdl-toggle",
+  "skills": []
+}
