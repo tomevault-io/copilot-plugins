@@ -4,7 +4,7 @@
   "repo": "eseq",
   "description": "extensible D.A.W.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/universalsequences/eseq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T04:49:50Z"
+  "distributed_at": "2026-09-16T04:51:35Z"
 }
