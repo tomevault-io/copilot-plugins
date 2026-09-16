@@ -1,0 +1,9 @@
+{
+  "name": "dzbuild-com--dzship",
+  "displayName": "dzship",
+  "description": "dzship \u2014 the free shipping API for Algeria. Create and track COD parcels with 99 couriers (Yalidine, ZR Express, Maystro, NOEST, Zimou, DHD and every Ecotrack courier) through one request shape. Plus ",
+  "version": "1.0.0",
+  "author": "DZBuild-com",
+  "homepage": "https://github.com/DZBuild-com/dzship",
+  "skills": []
+}
