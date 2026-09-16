@@ -1,0 +1,9 @@
+{
+  "name": "christopheduc-me--ai-agent-boilerplate",
+  "displayName": "ai-agent-boilerplate",
+  "description": "Production-shaped boilerplate for AI agent web apps: Rust/Axum API, Python LangChain + Celery workers, Vue 3 SPA. Hexagonal architecture, TDD, JWT + refresh rotation, reliable job lifecycle with retri",
+  "version": "1.0.0",
+  "author": "christopheduc-me",
+  "homepage": "https://github.com/christopheduc-me/ai-agent-boilerplate",
+  "skills": []
+}
