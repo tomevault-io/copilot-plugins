@@ -1,0 +1,9 @@
+{
+  "name": "ojy-lawyer--zhimu-player",
+  "displayName": "zhimu-player",
+  "description": "\u77e5\u5e55 Zhimu Player \u2014 Windows video player with subtitles and timestamped AI guides. ChatGPT web, DeepSeek API, Tingwu ASR. \u4e2d\u82f1\u53cc\u8bed\u89c6\u9891\u9605\u8bfb\u5de5\u4f5c\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "OJY-lawyer",
+  "homepage": "https://github.com/OJY-lawyer/zhimu-player",
+  "skills": []
+}
