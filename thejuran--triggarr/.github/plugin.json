@@ -1,9 +1,18 @@
 {
   "name": "thejuran--triggarr",
   "displayName": "triggarr",
-  "description": "Lightweight search automation daemon for Radarr, Sonarr, and Lidarr",
+  "description": "triggarr",
   "version": "1.0.0",
   "author": "thejuran",
   "homepage": "https://github.com/thejuran/triggarr",
-  "skills": []
+  "skills": [
+    {
+      "name": "triggarr",
+      "description": ""
+    },
+    {
+      "name": "triggarr",
+      "description": ""
+    }
+  ]
 }
