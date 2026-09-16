@@ -1,0 +1,9 @@
+{
+  "name": "susomejias--rembric",
+  "displayName": "rembric",
+  "description": "Persistent memory for AI coding agents \u2014 self-hosted, MCP-native, append-only. One Docker image, one SQLite file.",
+  "version": "1.0.0",
+  "author": "susomejias",
+  "homepage": "https://github.com/susomejias/rembric",
+  "skills": []
+}
