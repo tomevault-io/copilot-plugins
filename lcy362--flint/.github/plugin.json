@@ -1,0 +1,9 @@
+{
+  "name": "lcy362--flint",
+  "displayName": "flint",
+  "description": "Flint \u00b7 local-skills-hub \u2014 a local-first personal AI skills asset manager. Centralize, tag, deduplicate skills, and deploy them into agent and project directories via symlink/copy. Your files, your as",
+  "version": "1.0.0",
+  "author": "lcy362",
+  "homepage": "https://github.com/lcy362/flint",
+  "skills": []
+}
