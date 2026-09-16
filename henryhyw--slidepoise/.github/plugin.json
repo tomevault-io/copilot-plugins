@@ -1,0 +1,9 @@
+{
+  "name": "henryhyw--slidepoise",
+  "displayName": "slidepoise",
+  "description": "Open-source agentic slide generation framework for free-form design and editable PowerPoint. Built for Codex, with Claude Code and Qoder support through image-tool integrations or manual generation.",
+  "version": "1.0.0",
+  "author": "henryhyw",
+  "homepage": "https://github.com/henryhyw/slidepoise",
+  "skills": []
+}
