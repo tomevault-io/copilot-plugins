@@ -1,0 +1,9 @@
+{
+  "name": "m4f-s--gomaa",
+  "displayName": "gomaa",
+  "description": "Gomaa \u2014 Autonomous Agent Memory OS. Persistent memory system for AI agents with Obsidian vault integration, hybrid RRF search, knowledge graphs, security gates, and MCP server.",
+  "version": "1.0.0",
+  "author": "M4F-S",
+  "homepage": "https://github.com/M4F-S/gomaa",
+  "skills": []
+}
