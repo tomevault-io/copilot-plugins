@@ -1,0 +1,44 @@
+{
+  "name": "yanbian",
+  "owner": "OJY-lawyer",
+  "repo": "yanbian",
+  "description": "\u781a\u8fb9\uff1aWindows Word \u5199\u4f5c\u4e0e\u4fee\u8ba2\u52a9\u624b\uff0c\u652f\u6301 GPT\uff08Codex\uff09\u4e0e DeepSeek\u3002\u4e2a\u4eba\u975e\u5546\u4e1a\u4f7f\u7528\uff0c\u5f8b\u5e08\u6267\u4e1a\u4f8b\u5916\uff0c\u987b\u4fdd\u7559\u7f72\u540d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OJY-lawyer/yanbian",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T16:32:12Z"
+}
