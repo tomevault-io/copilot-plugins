@@ -1,0 +1,9 @@
+{
+  "name": "lexmount--artifact-site",
+  "displayName": "artifact-site",
+  "description": "Self-hosted: drop an HTML file, a build folder, a zip or a PDF and get a sandboxed, versioned, shareable link. CLI + remote MCP for AI agents.",
+  "version": "1.0.0",
+  "author": "lexmount",
+  "homepage": "https://github.com/lexmount/artifact-site",
+  "skills": []
+}
