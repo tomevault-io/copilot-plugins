@@ -1,0 +1,9 @@
+{
+  "name": "v2matosevic--explorertune",
+  "displayName": "ExplorerTune",
+  "description": "Make the Windows File Explorer you already have fast. Audits what actually slows it down, removes dead shell extensions, fixes search scope through the COM API. Dry-run by default, reversible.",
+  "version": "1.0.0",
+  "author": "v2matosevic",
+  "homepage": "https://github.com/v2matosevic/ExplorerTune",
+  "skills": []
+}
