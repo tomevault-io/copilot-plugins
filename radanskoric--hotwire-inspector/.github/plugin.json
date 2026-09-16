@@ -1,0 +1,9 @@
+{
+  "name": "radanskoric--hotwire-inspector",
+  "displayName": "hotwire-inspector",
+  "description": "Cross-browser DevTools extension for working with Hotwire powered applications.",
+  "version": "1.0.0",
+  "author": "radanskoric",
+  "homepage": "https://github.com/radanskoric/hotwire-inspector",
+  "skills": []
+}
