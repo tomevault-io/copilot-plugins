@@ -4,7 +4,7 @@
   "repo": "Slite",
   "description": "\u26a1 A Simple, Self-Hosted Link Shortener with Analytics.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miantiao-me/Slite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T12:31:21Z"
+  "distributed_at": "2026-09-16T12:32:15Z"
 }
