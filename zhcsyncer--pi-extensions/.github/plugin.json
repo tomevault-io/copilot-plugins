@@ -1,0 +1,9 @@
+{
+  "name": "zhcsyncer--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "A collection of Pi extensions by zhcsyncer",
+  "version": "1.0.0",
+  "author": "zhcsyncer",
+  "homepage": "https://github.com/zhcsyncer/pi-extensions",
+  "skills": []
+}
