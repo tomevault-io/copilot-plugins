@@ -1,0 +1,9 @@
+{
+  "name": "lburny--symkit-mcp",
+  "displayName": "symkit-mcp",
+  "description": "It is an MCP server that lets AI agents perform step-by-step symbolic derivations: calculate, transform, verify, and store formulas with full provenance, all through conversation.",
+  "version": "1.0.0",
+  "author": "LBurny",
+  "homepage": "https://github.com/LBurny/symkit-mcp",
+  "skills": []
+}
