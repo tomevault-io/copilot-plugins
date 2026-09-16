@@ -1,0 +1,9 @@
+{
+  "name": "puremixai--pureterm",
+  "displayName": "pureterm",
+  "description": "PureTerm is an SSH/SFTP client built with Cordis, ssh2, and xterm.js",
+  "version": "1.0.0",
+  "author": "puremixai",
+  "homepage": "https://github.com/puremixai/pureterm",
+  "skills": []
+}
