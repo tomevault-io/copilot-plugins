@@ -1,0 +1,9 @@
+{
+  "name": "becky824--daedalus-crm",
+  "displayName": "daedalus-crm",
+  "description": "Daedalus CRM \u2014 \u4e0b\u4e00\u4ee3 CRM\uff0c\u8dd1\u5728\u4f60\u81ea\u5df1\u7684\u673a\u5668\u4e0a\u3002AI \u8d77\u8349\uff0c\u4f60\u6765\u62cd\u677f\u3002Self-hosted, AI-native CRM for small teams: an agent on the home page, proposal cards you confirm, referral attribution, one-command Docker deploy. AGPL-3.0",
+  "version": "1.0.0",
+  "author": "BeckY824",
+  "homepage": "https://github.com/BeckY824/daedalus-crm",
+  "skills": []
+}
