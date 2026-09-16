@@ -1,0 +1,38 @@
+## true-wealth-jobs
+
+> This repo lists open positions at True Wealth AG and lets candidates apply directly
+
+# True Wealth — Jobs Repo
+
+This repo lists open positions at True Wealth AG and lets candidates apply directly
+from Claude Code — either started inside this repository, or by asking Claude to
+clone it (in that case, treat the cloned repository folder as the root for every
+path below, and run all git and script commands in it).
+
+## On startup
+
+1. Run `git pull` to fetch the latest open positions. Give the user a one-line
+   heads-up first — e.g. "I'll refresh the job listings; Claude Code may show a
+   permission prompt for `git pull`, which just fetches the latest version of this
+   repository." If the pull fails (no network, detached HEAD, etc.), warn the user
+   that the listing may be stale and continue.
+
+2. Glob `skills/*/job_description.md`. For each file found, read the first `#` heading
+   to get the position title.
+
+3. Present the open positions as a numbered list and ask the user which one they are
+   interested in.
+
+4. Once the user selects a position, follow the instructions in
+   `skills/apply/SKILL.md` — the generic application skill for all positions —
+   using the selected vacancy's `job_description.md` (and its `overrides.md`, if
+   one exists) as the position context.
+
+## If no positions are found
+
+Tell the user that there are no open positions at the moment and refer them to
+`jobs@truewealth.ch` for future opportunities.
+
+---
+> Source: [true-wealth/true-wealth-jobs](https://github.com/true-wealth/true-wealth-jobs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
