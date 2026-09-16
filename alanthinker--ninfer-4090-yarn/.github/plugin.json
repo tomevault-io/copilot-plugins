@@ -1,0 +1,9 @@
+{
+  "name": "alanthinker--ninfer-4090-yarn",
+  "displayName": "ninfer-4090-yarn",
+  "description": "NInfer-4090: NInfer inference engine ported to RTX 4090 (sm_89) with YaRN support for Qwen3.8-27B",
+  "version": "1.0.0",
+  "author": "alanthinker",
+  "homepage": "https://github.com/alanthinker/ninfer-4090-yarn",
+  "skills": []
+}
