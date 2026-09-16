@@ -4,7 +4,7 @@
   "repo": "PreyVR",
   "description": "OpenXR VR mod for Prey (2017). Research build - stereo, 6DoF, motion controls, native HUD.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phunkaeg/PreyVR",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T12:32:47Z"
+  "distributed_at": "2026-09-16T12:36:59Z"
 }
