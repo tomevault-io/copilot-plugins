@@ -1,0 +1,44 @@
+{
+  "name": "mo-code",
+  "owner": "wenxuezj-design",
+  "repo": "mo-code",
+  "description": "mo-code \u662f mortis \u4ece\u96f6\u5b9e\u73b0 Claude Code \u6838\u5fc3\u529f\u80fd\u7684\u5b9e\u9a8c\u9879\u76ee\uff0c\u76ee\u6807\u662f\u5b9e\u73b0\u4e00\u4e2a\u53ef\u8fd0\u884c\u3001\u53ef\u89e3\u91ca\uff0c\u5e76\u91cd\u70b9\u7814\u7a76\u5b89\u5168\u8fb9\u754c\u7684\u7ec8\u7aef Coding Agent\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wenxuezj-design/mo-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T01:33:32Z"
+}
