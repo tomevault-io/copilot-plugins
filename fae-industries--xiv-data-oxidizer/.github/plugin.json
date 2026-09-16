@@ -1,0 +1,9 @@
+{
+  "name": "fae-industries--xiv-data-oxidizer",
+  "displayName": "xiv-data-oxidizer",
+  "description": "Extract Final Fantasy XIV game data as CSV files",
+  "version": "1.0.0",
+  "author": "fae-industries",
+  "homepage": "https://github.com/fae-industries/xiv-data-oxidizer",
+  "skills": []
+}
