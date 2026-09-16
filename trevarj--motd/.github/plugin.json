@@ -1,0 +1,9 @@
+{
+  "name": "trevarj--motd",
+  "displayName": "motd",
+  "description": "Modern native Android IRCv3 client",
+  "version": "1.0.0",
+  "author": "trevarj",
+  "homepage": "https://github.com/trevarj/motd",
+  "skills": []
+}
