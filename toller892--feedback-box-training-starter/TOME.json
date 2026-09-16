@@ -1,0 +1,44 @@
+{
+  "name": "feedback-box-training-starter",
+  "owner": "toller892",
+  "repo": "feedback-box-training-starter",
+  "description": "Feedback Box SaaS \u56db\u4ef6\u5957\u5e26\u7ec3 starter\uff1aSupabase + Vercel + Cloudflare Turnstile + Stripe",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/toller892/feedback-box-training-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T03:23:06Z"
+}
