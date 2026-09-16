@@ -1,0 +1,9 @@
+{
+  "name": "cryptojones--photoslop",
+  "displayName": "Photoslop",
+  "description": "A memory-frugal, multiplatform, layered raster image editor built with Qt (PySide6)",
+  "version": "1.0.0",
+  "author": "CryptoJones",
+  "homepage": "https://github.com/CryptoJones/Photoslop",
+  "skills": []
+}
