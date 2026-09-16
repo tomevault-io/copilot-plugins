@@ -1,0 +1,9 @@
+{
+  "name": "formiat--px4-ros2-drone-nav",
+  "displayName": "px4-ros2-drone-nav",
+  "description": "px4-ros2-drone-nav",
+  "version": "1.0.0",
+  "author": "formiat",
+  "homepage": "https://github.com/formiat/px4-ros2-drone-nav",
+  "skills": []
+}
