@@ -1,0 +1,9 @@
+{
+  "name": "tscarpe--claude-sdlc-skills",
+  "displayName": "claude-sdlc-skills",
+  "description": "AI-native SDLC skills for Claude Code: requirement intake & audit, adversarial review gate, AI test orchestration, decision re-check, release config audit",
+  "version": "1.0.0",
+  "author": "TsCarpe",
+  "homepage": "https://github.com/TsCarpe/claude-sdlc-skills",
+  "skills": []
+}
