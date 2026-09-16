@@ -1,241 +1,142 @@
 ## kscrash
 
-> When performing code reviews on this repository, follow these instructions to identify API breaking changes in the KSCrash crash reporting library.
+> This file provides guidance when working with the Benchmarks app in this directory.
 
-# GitHub Copilot Code Review Instructions for KSCrash
+# Benchmarks CLAUDE.md
 
-When performing code reviews on this repository, follow these instructions to identify API breaking changes in the KSCrash crash reporting library.
+This file provides guidance when working with the Benchmarks app in this directory.
 
-## Scope of Review
+## Prerequisites
+- Mise installed: `curl https://mise.run | sh` or follow [mise installation guide](https://mise.jdx.dev/getting-started.html)
+- Xcode 16+ recommended
+- For device testing: Apple Developer account and connected iOS device
 
-Only review changes to public API surfaces. The public modules are: KSCrashRecording, KSCrashFilters, KSCrashSinks, KSCrashInstallations, KSCrashDiscSpaceMonitor, KSCrashBootTimeMonitor, and KSCrashDemangleFilter. Only examine files in `Sources/[ModuleName]/include/*.h` directories as these contain the public headers.
+## Version Management
+This project uses Mise to pin the Tuist version for consistency across development and CI environments.
 
-## Critical Breaking Changes - Always Flag
+- **Tuist version**: Defined in `../.mise.toml`
+- **Install tools**: `mise install` (installs Tuist version from config)
+- **Trust config**: `mise trust` (required once for security)
+- **Run Tuist**: `mise exec -- tuist <command>` or activate mise in your shell
 
-### Method Parameter Changes
-Flag ANY parameter addition, removal, or type changes to existing Objective-C methods. Objective-C has no default parameters, so even adding a nullable parameter breaks all existing call sites.
+## Benchmarks Workflow
 
-Examples of breaking changes:
-```objc
-// BREAKING: Adding parameter
-- (void)method:(NSString *)existing;                                     // Old
-- (void)method:(NSString *)existing newParam:(nullable NSString *)param; // New - BREAKING
+### Quick Start
+1. Install tools: `mise install`
+2. Trust config: `mise trust` (first time only)
+3. Generate project: `mise exec -- tuist generate`
+4. Open workspace: `open KSCrashBenchmarks.xcworkspace`
+5. Select the Benchmarks scheme and run tests
 
-// BREAKING: Parameter removal  
-- (void)method:(NSString *)param1 param2:(NSString *)param2;    // Old
-- (void)method:(NSString *)param1;                              // New - BREAKING
+### Running on Simulator
+```bash
+# Generate the project
+mise exec -- tuist generate
 
-// BREAKING: Parameter type changes
-- (void)method:(NSString *)param;    // Old
-- (void)method:(NSArray *)param;     // New - BREAKING
-
-// BREAKING: Parameter reordering
-- (void)method:(NSString *)first second:(NSString *)second;    // Old
-- (void)method:(NSString *)second first:(NSString *)first;     // New - BREAKING
+# Run all benchmarks on iOS Simulator
+xcodebuild -workspace KSCrashBenchmarks.xcworkspace \
+  -scheme Benchmarks \
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
+  test
 ```
 
-### Callback Signature Changes
-Flag any changes to callback or function pointer signatures including parameter addition, removal, reordering, or return type changes.
+### Running on Device
+For accurate performance measurements, run benchmarks on a physical device:
 
-Examples of breaking changes:
-```c
-// BREAKING: Parameter addition
-typedef void (*SomeCallback)(Writer *writer);                   // Old
-typedef void (*SomeCallback)(Policy policy, Writer *writer);    // New - BREAKING
+```bash
+# Generate the project
+mise exec -- tuist generate
 
-// BREAKING: Return type changes
-typedef void (*SomeCallback)(Context *ctx);      // Old
-typedef Policy (*SomeCallback)(Context *ctx);    // New - BREAKING
+# Run benchmarks on connected device (replace device name as needed)
+xcodebuild -workspace KSCrashBenchmarks.xcworkspace \
+  -scheme Benchmarks \
+  -destination 'platform=iOS,name=Your iPhone' \
+  -allowProvisioningUpdates \
+  test
 ```
 
-### Property Changes
-Flag any property type changes or nullability changes in either direction.
+**Note:** Device testing requires:
+- Code signing configured in Xcode (open workspace, select team in Signing & Capabilities)
+- Or add `CODE_SIGN_STYLE` and `DEVELOPMENT_TEAM` to Project.swift settings
 
-Examples of breaking changes:
-```objc
-// BREAKING: Property type changes
-@property (nonatomic, strong) NSString *prop;    // Old
-@property (nonatomic, strong) NSArray *prop;     // New - BREAKING
+### Running Specific Benchmarks
+```bash
+# Run only crash report benchmarks
+xcodebuild test -workspace KSCrashBenchmarks.xcworkspace \
+  -scheme Benchmarks \
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
+  -only-testing:BenchmarkTests/KSCrashReportBenchmarks
 
-// BREAKING: Nullability changes (both directions)
-@property (nullable) NSString *prop;    // Old
-@property (nonnull) NSString *prop;     // New - BREAKING (breaks code passing nil)
-
-@property (nonnull) NSString *prop;     // Old
-@property (nullable) NSString *prop;    // New - BREAKING (Swift API: String → String?)
-
-// BREAKING: Property attribute changes
-@property (atomic) id prop;       // Old
-@property (nonatomic) id prop;    // New - BREAKING (ABI change)
+# Run only thread benchmarks
+xcodebuild test -workspace KSCrashBenchmarks.xcworkspace \
+  -scheme Benchmarks \
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
+  -only-testing:BenchmarkTests/KSThreadBenchmarks
 ```
 
-### Swift API Changes via NS_SWIFT_NAME
-Flag any addition, modification, or removal of NS_SWIFT_NAME attributes on existing types or methods.
+## Available Benchmark Suites
 
-Examples of breaking changes:
-```objc
-// BREAKING: Adding NS_SWIFT_NAME to existing type
-@interface ExistingClass : NSObject                              // Old
-@interface ExistingClass : NSObject NS_SWIFT_NAME(SwiftName)     // New - BREAKING
+The benchmarks test KSCrash's core crash capture performance:
 
-// BREAKING: Changing existing NS_SWIFT_NAME
-NS_SWIFT_NAME(OldName) @interface MyClass : NSObject     // Old
-NS_SWIFT_NAME(NewName) @interface MyClass : NSObject     // New - BREAKING
+- **KSBacktraceBenchmarks** - Stack capture and symbolication
+- **KSDynamicLinkerBenchmarks** - Binary image lookups and caching
+- **KSMemoryBenchmarks** - Safe memory operations
+- **KSJSONCodecBenchmarks** - JSON encoding performance
+- **KSThreadBenchmarks** - Thread operations and caching
+- **KSCrashReportBenchmarks** - Full crash report generation
+- **KSTimeProfilerBenchmarks** - Time-sampling profiler performance
+- **KSCxaThrowBenchmarks** - C++ exception handling (warm)
+- **KSCxaThrowColdBenchmarks** - C++ exception handling (cold)
 
-// BREAKING: Removing NS_SWIFT_NAME
-NS_SWIFT_NAME(SwiftName) @interface MyClass : NSObject    // Old
-@interface MyClass : NSObject                             // New - BREAKING
+## Project Structure
 
-// BREAKING: Changing Swift parameter names
-- (void)method:(NSString *)param NS_SWIFT_NAME(method(value:));    // Old
-- (void)method:(NSString *)param NS_SWIFT_NAME(method(input:));    // New - BREAKING
+```
+Benchmarks/
+├── Project.swift          # Tuist project configuration
+├── Sources/
+│   └── BenchmarkApp.swift # Minimal host app
+└── CLAUDE.md              # This file
 ```
 
-### Struct and Enum Changes
-Flag any struct or enum field reordering, removal, or type changes as these break binary compatibility.
+The benchmark tests are located in the main repository:
+- `Tests/KSCrashBenchmarks/` - Swift benchmarks
+- `Tests/KSCrashBenchmarksObjC/` - Objective-C benchmarks
+- `Tests/KSCrashBenchmarksCold/` - Cold-start benchmarks
 
-Examples of breaking changes:
-```c
-// BREAKING: Field reordering
-typedef struct {    // Old
-    int field1;
-    int field2;
-} PublicStruct;
+## Writing Swift Benchmarks for BrowserStack
 
-typedef struct {    // New - BREAKING
-    int field2;     // Reordered!
-    int field1;
-} PublicStruct;
+**Requirements for Swift benchmark classes:**
 
-// BREAKING: Field type changes
-typedef struct {
-    int field;      // Old
-} PublicStruct;
+1. Inherit from `KSBenchmarkTestCase` (or `XCTestCase` directly if needed)
+2. Use plain `class` — no `@objc`, `public`, or `final` annotations needed
 
-typedef struct {
-    float field;    // New - BREAKING
-} PublicStruct;
-
-// BREAKING: Enum value changes
-typedef enum {      // Old
-    Value1 = 0,
-    Value2 = 1,
-} PublicEnum;
-
-typedef enum {      // New - BREAKING
-    Value1 = 1,     // Changed value!
-    Value2 = 0,
-} PublicEnum;
+```swift
+// Correct
+class KSMyBenchmarks: KSBenchmarkTestCase {
+    func testBenchmarkSomething() {
+        measure {
+            // benchmark code
+        }
+    }
+}
 ```
 
-### Protocol Requirement Changes
-Flag changes between required and optional protocol methods.
+Swift classes inheriting from `XCTestCase` are automatically registered with the ObjC runtime, which is sufficient for BrowserStack test discovery.
 
-Examples of breaking changes:
-```objc
-// BREAKING: Adding required methods
-@protocol PublicProtocol         // Old
-- (void)existingMethod;
-@end
+## Interpreting Results
 
-@protocol PublicProtocol         // New - BREAKING
-- (void)existingMethod;
-- (void)newRequiredMethod;       // Added required method
-@end
+Benchmark results show:
 
-// BREAKING: Making optional methods required
-@protocol PublicProtocol         // Old
-- (void)existingMethod;
-@optional
-- (void)method;
-@end
+- **Time**: Average execution time
+- **Std Dev**: Measurement variability (lower is more consistent)
+- **Status**: Performance rating based on thresholds
 
-@protocol PublicProtocol         // New - BREAKING
-- (void)existingMethod;
-- (void)method;                  // Now required!
-@end
-```
+For reliable results:
 
-### Function Signature Changes
-Flag any C function parameter or return type changes.
-
-Examples of breaking changes:
-```c
-// BREAKING: Parameter changes
-void someFunction(int param);                    // Old
-void someFunction(int param, char *newParam);    // New - BREAKING
-
-// BREAKING: Return type changes
-void someFunction(void);    // Old
-int someFunction(void);     // New - BREAKING
-```
-
-### Class Hierarchy Changes
-Flag any superclass changes for existing classes.
-
-Examples of breaking changes:
-```objc
-// BREAKING: Changing superclass
-@interface MyClass : NSObject    // Old
-@interface MyClass : NSView      // New - BREAKING (changes inheritance)
-```
-
-### Private Module Leaks
-Flag any private module types appearing in public headers.
-
-Examples of breaking changes:
-```objc
-// BREAKING: Private types in public API
-#import "KSCrashRecordingCore/SomePrivateType.h"  // FLAG if used in public headers
-@property (nonatomic) KSCrash_InternalStruct *detail;  // FLAG if Internal type is private
-```
-
-## Safe Changes - Don't Flag
-
-### Deprecation
-Adding deprecation attributes is safe:
-```objc
-// SAFE: Deprecation warnings don't break compilation
-@property (deprecated("Use newProperty instead")) id oldProperty;
-@property id newProperty;
-```
-
-### New APIs with New Names
-Adding completely new methods, properties, or classes is safe:
-```objc
-// SAFE: New methods with different names
-- (void)existingMethod:(NSString *)param;
-- (void)brandNewMethod:(NSString *)param;  // Different selector
-
-// SAFE: New properties and classes
-@property (nonatomic) id brandNewProperty;
-@interface CompletelyNewClass : NSObject
-```
-
-### NS_SWIFT_NAME on New APIs
-Adding NS_SWIFT_NAME to brand new APIs is safe:
-```objc
-// SAFE: NS_SWIFT_NAME on new APIs only
-NS_SWIFT_NAME(NewSwiftAPI) @interface BrandNewClass : NSObject
-```
-
-### Optional Protocol Methods
-Adding optional methods to protocols is safe:
-```objc
-// SAFE: Adding optional methods
-@protocol ExistingProtocol
-- (void)existing;
-@optional
-- (void)newOptionalMethod;
-@end
-```
-
-## Review Process
-
-For each PR, examine modified public headers and flag any of the breaking change patterns above. Ask yourself: Would existing user code fail to compile after this change? If yes, it's breaking. The KSCrash library prioritizes API stability, so breaking changes need strong justification and migration guidance.
-
-Pay special attention to callback API changes as this library has a history of major callback signature evolution for async-safety and policy awareness.
+- Run on device (not simulator) for accurate timing
+- Close other apps to reduce interference
+- Run multiple times to verify consistency
 
 ---
 > Source: [kstenerud/KSCrash](https://github.com/kstenerud/KSCrash) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
