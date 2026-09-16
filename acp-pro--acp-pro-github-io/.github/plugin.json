@@ -1,0 +1,9 @@
+{
+  "name": "acp-pro--acp-pro-github-io",
+  "displayName": "acp-pro.github.io",
+  "description": "Unified VSCode Client for AI Agent (Claude, Copilot, Codex, \u2026) with multi-tab sessions and remote sharing.",
+  "version": "1.0.0",
+  "author": "acp-pro",
+  "homepage": "https://github.com/acp-pro/acp-pro.github.io",
+  "skills": []
+}
