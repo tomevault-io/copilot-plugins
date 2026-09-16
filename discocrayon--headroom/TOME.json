@@ -4,7 +4,7 @@
   "repo": "Headroom",
   "description": "Scan an AWS Organization and generate Terraform for the SCPs and RCPs your accounts already comply with, placed at the highest safe level.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/discocrayon/Headroom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T08:33:45Z"
+  "distributed_at": "2026-09-16T08:34:36Z"
 }
