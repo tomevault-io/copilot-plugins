@@ -1,0 +1,9 @@
+{
+  "name": "gputw-ai--gputw-skill",
+  "displayName": "GPUtw-Skill",
+  "description": "GPUtw.ai official AI knowledge package \u2014 teach Claude Code, Codex CLI, Cursor, Copilot and Gemini CLI to use the GPUtw GPU cloud REST API",
+  "version": "1.0.0",
+  "author": "GPUtw-ai",
+  "homepage": "https://github.com/GPUtw-ai/GPUtw-Skill",
+  "skills": []
+}
