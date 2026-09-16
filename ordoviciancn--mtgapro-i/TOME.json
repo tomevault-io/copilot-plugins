@@ -1,0 +1,44 @@
+{
+  "name": "MTGAPRO-I",
+  "owner": "Ordoviciancn",
+  "repo": "MTGAPRO-I",
+  "description": "MTG Simulator \u2014 \u57fa\u4e8e Forge \u7684\u4e07\u667a\u724c\u684c\u9762\u6a21\u62df\u5668\uff0c\u652f\u6301 BO3\u3001\u724c\u7ec4\u7ba1\u7406\u4e0e\u8fdc\u7a0b\u8054\u673a",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ordoviciancn/MTGAPRO-I",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-16T04:55:52Z"
+}
