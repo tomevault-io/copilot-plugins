@@ -4,7 +4,7 @@
   "repo": "symkit-mcp",
   "description": "It is an MCP server that lets AI agents perform step-by-step symbolic derivations: calculate, transform, verify, and store formulas with full provenance, all through conversation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LBurny/symkit-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T02:51:44Z"
+  "distributed_at": "2026-09-16T03:09:24Z"
 }
