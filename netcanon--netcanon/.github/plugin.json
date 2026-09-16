@@ -1,0 +1,9 @@
+{
+  "name": "netcanon--netcanon",
+  "displayName": "netcanon",
+  "description": "Multi-vendor network config translator \u2014 Cisco / Juniper / Fortinet / Aruba / Arista / MikroTik / OPNsense. Cross-mesh audit catches silent translation errors before they ship. Live demo: demo.netcano",
+  "version": "1.0.0",
+  "author": "netcanon",
+  "homepage": "https://github.com/netcanon/netcanon",
+  "skills": []
+}
