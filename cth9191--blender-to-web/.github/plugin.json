@@ -1,0 +1,9 @@
+{
+  "name": "cth9191--blender-to-web",
+  "displayName": "blender-to-web",
+  "description": "Blender-to-browser workflow, Codex skill, and interactive Three.js hero examples with editable source assets.",
+  "version": "1.0.0",
+  "author": "cth9191",
+  "homepage": "https://github.com/cth9191/blender-to-web",
+  "skills": []
+}
