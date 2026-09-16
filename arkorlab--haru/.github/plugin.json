@@ -1,0 +1,9 @@
+{
+  "name": "arkorlab--haru",
+  "displayName": "haru",
+  "description": "GPU orchestrator with vLLM sleep mode",
+  "version": "1.0.0",
+  "author": "arkorlab",
+  "homepage": "https://github.com/arkorlab/haru",
+  "skills": []
+}
