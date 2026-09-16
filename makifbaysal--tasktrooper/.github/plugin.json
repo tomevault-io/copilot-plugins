@@ -1,0 +1,9 @@
+{
+  "name": "makifbaysal--tasktrooper",
+  "displayName": "tasktrooper",
+  "description": "Local-first agent platform: board + role agents + Claude Code runs, all on your own Mac",
+  "version": "1.0.0",
+  "author": "makifbaysal",
+  "homepage": "https://github.com/makifbaysal/tasktrooper",
+  "skills": []
+}
