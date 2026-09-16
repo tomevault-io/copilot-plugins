@@ -1,0 +1,9 @@
+{
+  "name": "steven-tibbs--beckon",
+  "displayName": "beckon",
+  "description": "Voice control for Omarchy, powered by the Gemini Live API. Talk naturally; it acts while you're still speaking.",
+  "version": "1.0.0",
+  "author": "Steven-Tibbs",
+  "homepage": "https://github.com/Steven-Tibbs/beckon",
+  "skills": []
+}
