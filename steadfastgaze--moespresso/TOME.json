@@ -4,7 +4,7 @@
   "repo": "MoEspresso",
   "description": "Run large Mixture-of-Experts language models well on the memory you have.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/steadfastgaze/MoEspresso",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T02:48:53Z"
+  "distributed_at": "2026-09-16T03:07:34Z"
 }
