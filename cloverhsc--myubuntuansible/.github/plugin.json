@@ -1,0 +1,9 @@
+{
+  "name": "cloverhsc--myubuntuansible",
+  "displayName": "MyUbuntuAnsible",
+  "description": "An setup yaml for install APPs after Ubuntu OS",
+  "version": "1.0.0",
+  "author": "cloverhsc",
+  "homepage": "https://github.com/cloverhsc/MyUbuntuAnsible",
+  "skills": []
+}
