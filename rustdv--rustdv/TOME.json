@@ -4,7 +4,7 @@
   "repo": "rustdv",
   "description": "A hardware verification framework in Rust, inspired by the UVM.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rustdv/rustdv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T02:50:27Z"
+  "distributed_at": "2026-09-16T03:08:54Z"
 }
