@@ -1,0 +1,9 @@
+{
+  "name": "aiondadotcom--mcp-confluence",
+  "displayName": "mcp-confluence",
+  "description": "MCP server for Confluence running directly with TypeScript",
+  "version": "1.0.0",
+  "author": "AiondaDotCom",
+  "homepage": "https://github.com/AiondaDotCom/mcp-confluence",
+  "skills": []
+}
