@@ -1,0 +1,9 @@
+{
+  "name": "filemintapp--filemint",
+  "displayName": "FileMint",
+  "description": "Native macOS utility for creating files from Finder's right-click menu.",
+  "version": "1.0.0",
+  "author": "FileMintApp",
+  "homepage": "https://github.com/FileMintApp/FileMint",
+  "skills": []
+}
