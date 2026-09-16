@@ -1,0 +1,9 @@
+{
+  "name": "neriousy--opencode-github-browser",
+  "displayName": "opencode-github-browser",
+  "description": "Read GitHub issues and pull requests inside the OpenCode TUI",
+  "version": "1.0.0",
+  "author": "neriousy",
+  "homepage": "https://github.com/neriousy/opencode-github-browser",
+  "skills": []
+}
