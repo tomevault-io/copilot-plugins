@@ -1,0 +1,9 @@
+{
+  "name": "meshery-extensions--mesheryctl-axi",
+  "displayName": "mesheryctl-axi",
+  "description": "Agent-ergonomic AXI wrapper around mesheryctl with token-efficient TOON output",
+  "version": "1.0.0",
+  "author": "meshery-extensions",
+  "homepage": "https://github.com/meshery-extensions/mesheryctl-axi",
+  "skills": []
+}
