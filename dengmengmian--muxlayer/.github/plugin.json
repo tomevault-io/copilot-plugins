@@ -1,0 +1,9 @@
+{
+  "name": "dengmengmian--muxlayer",
+  "displayName": "muxlayer",
+  "description": "The local model control layer for coding agents. Route, convert, fail over, and trace model requests locally.",
+  "version": "1.0.0",
+  "author": "dengmengmian",
+  "homepage": "https://github.com/dengmengmian/muxlayer",
+  "skills": []
+}
