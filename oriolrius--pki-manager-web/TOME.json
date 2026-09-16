@@ -4,7 +4,7 @@
   "repo": "pki-manager-web",
   "description": "Web-based PKI Manager - Secure X.509 certificate lifecycle management with Cosmian KMS integration",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/oriolrius/pki-manager-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T07:39:47Z"
+  "distributed_at": "2026-09-16T22:04:42Z"
 }
