@@ -1,0 +1,9 @@
+{
+  "name": "ella79--agentic-playwright-suite",
+  "displayName": "agentic-playwright-suite",
+  "description": "Playwright + TypeScript E2E and visual regression suite for Automation Exercise, authored and healed through Claude Code agents over Playwright MCP, with a containerised CI pipeline and a published Al",
+  "version": "1.0.0",
+  "author": "ella79",
+  "homepage": "https://github.com/ella79/agentic-playwright-suite",
+  "skills": []
+}
