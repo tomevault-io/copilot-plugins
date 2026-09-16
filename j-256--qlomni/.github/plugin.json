@@ -1,0 +1,9 @@
+{
+  "name": "j-256--qlomni",
+  "displayName": "qlomni",
+  "description": "Preview scripts, dotfiles, configuration files, and unfamiliar text formats with macOS Quick Look.",
+  "version": "1.0.0",
+  "author": "j-256",
+  "homepage": "https://github.com/j-256/qlomni",
+  "skills": []
+}
