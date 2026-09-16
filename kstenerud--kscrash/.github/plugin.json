@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "kstenerud",
   "homepage": "https://github.com/kstenerud/KSCrash",
-  "skills": []
+  "skills": [
+    {
+      "name": "KSCrash",
+      "description": ""
+    }
+  ]
 }
