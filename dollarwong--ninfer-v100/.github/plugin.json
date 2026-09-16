@@ -1,0 +1,9 @@
+{
+  "name": "dollarwong--ninfer-v100",
+  "displayName": "ninfer-v100",
+  "description": "NInfer on Tesla V100 (sm_70): Qwen3.8-27B deployment, build/convert scripts, systemd service, and cross-engine benchmark (vs llama.cpp). Fork of Neroued/ninfer with sm70 vision-encoding speedup.",
+  "version": "1.0.0",
+  "author": "dollarwong",
+  "homepage": "https://github.com/dollarwong/ninfer-v100",
+  "skills": []
+}
