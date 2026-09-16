@@ -1,0 +1,9 @@
+{
+  "name": "limitedenergyx--atlas-home-command",
+  "displayName": "atlas-home-command",
+  "description": "Atlas Home Command Center: a locally operated platform for home status, bounded controls, maintenance, pantry and meals, and a local AI assistant. No cloud AI required.",
+  "version": "1.0.0",
+  "author": "LimitedEnergyX",
+  "homepage": "https://github.com/LimitedEnergyX/atlas-home-command",
+  "skills": []
+}
