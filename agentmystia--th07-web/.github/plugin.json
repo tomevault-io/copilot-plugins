@@ -1,0 +1,9 @@
+{
+  "name": "agentmystia--th07-web",
+  "displayName": "th07_web",
+  "description": "Touhou 07 ~ Perfect Cherry Blossom in TypeScript \u2014 data-driven browser reimplementation (Full game playable, Sakuya A LNN Byte-Accurate), original ECL/STD/ANM/MSG/SHT executed in-engine)",
+  "version": "1.0.0",
+  "author": "AgentMystia",
+  "homepage": "https://github.com/AgentMystia/th07_web",
+  "skills": []
+}
