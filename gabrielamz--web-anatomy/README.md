@@ -7,11 +7,11 @@ Skills for your AI agent to audit, rewrite, and build landing pages that convert
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [GabrielAmz/web-anatomy](https://github.com/GabrielAmz/web-anatomy).
+Original source: `AGENTS.md` in [GabrielAmz/web-anatomy](https://github.com/GabrielAmz/web-anatomy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
