@@ -1,0 +1,140 @@
+## hypitoken
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+hypitoken (Go module still named `CPA-Claude`, binary `bin/hypitoken`) is a Go reverse-proxy that fans client requests across multiple upstream Anthropic / OpenAI credentials (OAuth + API keys) on **two proxy endpoints** — Claude on `:8317` (`/v1/messages`), Codex on `:8318` (`/v1/chat/completions`, `/v1/responses`) — plus an optional **发卡网 (shop)** listener on `:8319`. On top of the raw proxy sit two optional product layers: a **SaaS multi-tenant billing layer** (`/api/v2/*`, user accounts + USD wallet) and the embedded **admin/landing/console SPA**.
+
+The reusable proxy core (credential pool, usage ledger, pricing, client tokens, request log, rate limiting, the CC mimicry/sidecar fingerprint, and thinking-signature handling) lives in the external module **`github.com/wjsoj/cc-core`**. This repo is the application layer that wires those pieces into endpoints and adds SaaS, shop, and the admin panel. **CPA-Claude (`/home/wjs/Documents/project/Go/CPA-Claude`) is a sibling fork that consumes the same cc-core** — fingerprint/mimicry/sidecar changes land in cc-core only (both forks import `cc-core/{mimicry,sidecar}` directly), then both bump the dependency.
+
+Derivative of [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) (MIT). The Anthropic OAuth refresh, Codex JWT parsing, and uTLS Chrome transport originated upstream and now live in cc-core.
+
+## Build & run
+
+```bash
+make build              # build admin SPA (bun) + Go binary into bin/hypitoken
+make web-dev            # Vite dev server with API proxy to :8317 (frontend hot reload)
+make tidy               # go mod tidy
+make lint               # all linters: golangci-lint (Go) + Biome (admin SPA)
+make lint-go            # golangci-lint run ./...   (config: .golangci.yml, v2 schema)
+make lint-web           # Biome check over internal/admin/web/src
+make fmt                # auto-format: golangci-lint fmt (Go) + Biome write (web)
+go build ./...          # Go-only build (skips SPA; admin panel falls back to embedded /dist)
+go test ./...           # all tests
+go test ./internal/server/... -timeout 60s -run TestBootstrap   # sidecar suite (~23s live timing)
+```
+
+**Linting is a CI gate (blocking).** `.github/workflows/ci.yml` runs `lint-go` (golangci-lint v2) and `lint-web` (Biome) as separate required jobs alongside `build`. Keep both green:
+- **Go** — `golangci-lint` **v2** (`.golangci.yml` is v2-schema; the local binary must be v2.x — v1 cannot parse a go1.25 module). Intentional exceptions live as documented `exclusions.rules` in `.golangci.yml` (Z-Pay MD5, sidecar timing `math/rand`, Stripe `client_secret`, the deliberately-unwired Datadog sidecar) or per-line `//nolint:<linter> // reason`.
+- **Web** — **Biome** does both lint + format (replaces ESLint/Prettier), config at `internal/admin/web/biome.json`. Run via `bun run lint` / `bun run lint:fix` / `bun run format`. Strict `recommended` ruleset, zero warnings allowed. `catch` blocks use `errMsg`/`errStatus` from `@/lib/utils` (no `e: any`); shared API shapes live in `@/lib/types`. Hook-dependency exceptions use a single-line `// biome-ignore lint/correctness/useExhaustiveDependencies: reason` directly above the dependency array.
+
+The admin SPA at `internal/admin/web/` (**React 18 + React Router 7 + Vite + Tailwind 4 + shadcn/Radix + R3F**, managed with **bun, not npm**) is built into `internal/admin/web/dist/` and embedded via `//go:embed` in `internal/admin/admin.go`. The `//go:generate` directive there runs `bun install --frozen-lockfile && bun run build`. CI calls `make web` before `go build`, so the SPA is mandatory in releases. The same `dist` is re-served at `/` by the SaaS adapter when SaaS is enabled.
+
+`make build` requires `bun` on PATH. Plain `go build ./...` works without bun if `internal/admin/web/dist/` already contains a build (or the embedded asset can be empty for backend-only iteration).
+
+## The cc-core boundary (read this first)
+
+`internal/` contains almost no credential/usage/pricing logic — those are cc-core packages imported and wired here. The server package imports: `cc-core/{auth, clienttoken, clientguard, pricing, ratelimit, requestlog, usage, thinkingsig, mimicry, sidecar}`. So when a path below says `auth.Pool` / `usage.Store` / `pricing.Catalog` / `clienttoken.Store` / `requestlog.Writer` / `mimicry.SimIdentity` / `sidecar.Manager`, the **type lives in cc-core**, not this repo. There is no `internal/auth/` directory any more.
+
+**Fingerprint code is NOT duplicated** (as of cc-core v0.8.19). The Claude header + body mimicry and the bootstrap/heartbeat sidecar both live in `cc-core/{mimicry,sidecar}` and are imported directly — exactly like CPA-Claude. `applyAnthropicHeaders` in `proxy.go` is now a thin adapter over `mimicry.ApplyClaudeCodeHeaders`; `s.sidecar` is a `*sidecar.Manager`. hypitoken used to keep a vendored copy in `internal/server/{fingerprint,mimicry,sidecar}.go` — those are gone. Bumping the CC fingerprint target is a **cc-core edit + dependency bump**, nothing in this repo. The current target is **Claude Code 2.1.206** (ground truth in `cc-core/crack/cc2206/`). The Codex OAuth path still has its own inline `codex*` fingerprint constants in `codex_oauth_proxy.go` (its body/transport shape diverged from `cc-core/mimicry.ApplyCodexCLIHeaders`); only the Claude path is shared.
+
+## Architecture (the parts that span files)
+
+### Endpoint × provider matrix
+
+`internal/server/server.go` constructs **N gin engines, one per enabled endpoint**. Each engine is bound to one provider (`auth.ProviderAnthropic` or `auth.ProviderOpenAI`) and serves only the routes that make sense for it. The "primary" endpoint (Claude if enabled, else Codex) additionally hosts the admin panel, public `/status`, the embedded SPA, and (when enabled) the SaaS `/api/v2/*` routes. The shop endpoint is an independent gin engine on its own listener.
+
+**Request-log reads go through a SQLite index, not the JSONL.** `cmd/server/main.go` calls `requestlog.OpenStore(cfg.LogDir)` (skip with `log_index_disabled: true`) **before** `requestlog.OpenWithOptions`, because the writer may depend on it. This fork never calls `SetBucketLocation`, so day labels are in cc-core's default zone (UTC) — do not "fix" the export command to set one without changing the server to match, or the two will disagree about what a day is. **`log_jsonl_disabled: true`** stops writing `requests-*.jsonl` and makes the index the only copy; it is mutually exclusive with `log_index_disabled` (config `Load` refuses the pair), `requests.db` is in the backup manifest (and `assertManifestComplete` requires it while the flag is on), retention becomes `pruneBefore`'s `DELETE` + `incremental_vacuum` instead of unlinking files, and `hypitoken export-requests --from --to` is the way back to a `.jsonl`. Without it every aggregate re-parses the whole archive, which hurts more here than on the operator panel: **each customer opening their own usage page triggers a full-archive scan** (`internal/saas/adapter/router.go`), and `internal/saas/health/checker.go` scans per credential. `cachedByAuth` in `internal/admin/admin.go` memoizes the summary's per-auth windows behind singleflight and **must not hold `lifetimeMu` across the aggregate** — it used to, so two concurrent panel loads served 17s + 18s instead of deduplicating.
+
+The shared pieces (`auth.Pool`, `usage.Store`, `clienttoken.Store`, `pricing.Catalog`, `requestlog.Writer`, `ratelimit.RPM`/`Concurrency`, the `sidecarMgr`, the SaaS adapter) live on `Server` and are injected into the engines. The split-by-engine matters because per-provider stickiness, concurrency budgets, and RPM limits all key on `(provider | clientToken)` — Claude saturation must NOT block a client's Codex traffic.
+
+### Credential pool & sticky sessions (`cc-core/auth`)
+
+`Pool.Acquire(ctx, provider, clientToken, group, model, exclude...)` picks an OAuth credential by:
+
+1. Sticky reuse — if `clientToken` already has a healthy assignment for this provider, return it.
+2. Fewest-active-sessions among healthy OAuth in the matching group with spare `max_concurrent`.
+3. API-key fallback when every OAuth is saturated/quota-exceeded/dead.
+
+A "session" is one `(provider, client_token, sessionID)` slot observed within `ActiveWindow` (default **5 min**, `active_window_minutes`), where `sessionID` is the client's per-window identifier — `clientSlotID` in `proxy.go` reads it from `X-Claude-Code-Session-Id` (Claude Code) or `Session_id` (Codex CLI), falling back to `""` (one slot per token) for raw API callers. One user opening N CLI windows presents N independent sessions and can be load-balanced across N credentials. Per-token RPM and concurrency caps deliberately stay keyed on the token alone, so opening more windows doesn't multiply a client's rate budget. `Pool.Acquire`/`Release`/`Unstick` all take the `sessionID` and must be passed the same value across the request. `Pool.Release` is called once per request to keep the active counter accurate. `Pool.Unstick` breaks the assignment when an upstream error suggests the credential is bad. `Pool.ReportUpstreamError` translates 401/403/429 into the right combination of cooldown / hard-failure / stealth-ban detection — shared by Anthropic and Codex paths, so changes ripple everywhere.
+
+Health states live on `auth.Auth`: `MarkSuccess` / `MarkFailure` / `MarkHardFailure` / `MarkRateLimited` / `MarkUsageLimitReached` / `MarkClientCancel`. Hard failures are sticky (manual clear from admin) except `Pool.RunDailyAnthropicAPIKeyReset`, which wipes API-key hard-failures daily so a transient overnight outage doesn't pin them dead forever.
+
+### Anthropic forward path (`internal/server/proxy.go`)
+
+`forward()` is the per-request entry: SaaS pre-check (balance/caps) → legacy weekly-USD budget → RPM gate → concurrency gate → `forwardWithFailover`. `forwardWithFailover` is the retry loop — up to **`maxAttempts = 12` rounds** on *different* credentials (backstop, not a target; it normally stops as soon as a healthy credential succeeds or all are excluded). Per attempt, `doForward` (OAuth) or `doForwardAnthropicAPIKey` (API key) talks to upstream; the last credential-level error is withheld and replayed if every credential is exhausted.
+
+The OAuth path applies **two layers of mimicry** to look like a real Claude Code **2.1.206** client:
+
+- **Header layer** — `applyAnthropicHeaders` in `proxy.go` is a thin adapter over `mimicry.ApplyClaudeCodeHeaders`, which sets pinned `User-Agent`, `X-Stainless-*`, `Anthropic-Beta`, `X-App`, `X-Claude-Code-Session-Id`, `X-Client-Request-Id`. Constants live in `cc-core/mimicry/fingerprint.go` (`CLICurrentVersion`, `ClaudeCLIUserAgent`, `ClaudeAnthropicBetaFull`, the telemetry-only `ClaudeReportedBetas`, …). When you bump the CC version, **all of these move together** or the User-Agent disagrees with the `cc_version=` baked into the body billing block — itself a fingerprint signal. The request-header beta list (`ClaudeAnthropicBetaFull`) and the telemetry beta list (`ClaudeReportedBetas`) **diverged** (since 2.1.170) — don't derive one from the other.
+- **Body layer** — `applyClaudeCodeBodyMimicry` in `mimicry.go` rewrites system into the canonical 4-block CC layout `[billing, "You are Claude Code...", ...originalSystem-with-cache_control]`, sets `metadata.user_id` to the JSON `{device_id, account_uuid, session_id}` shape, signs `cch=<xxhash5>` of the final body. The client's original prompt is preserved verbatim. **Skipped for Haiku models** and for requests whose system already starts with the CC prompt prefix (real CLI passing through).
+
+Thinking-block signatures are sanitized via `cc-core/thinkingsig` (account-switch detection + a 400-signature-error recovery path in `doForward`). `maybeDecompressResponse` transparently un-gzips/un-brs upstream responses because we advertise `Accept-Encoding: gzip, br` to match real CC, but every internal path wants plain bytes.
+
+### SimIdentity — the per-account fingerprint anchor
+
+`SimIdentity{ AccountKey, AccountUUID, ClientToken }` (in `mimicry.go`) ties together every identity-bearing field:
+
+- `DeviceIDFor(AccountKey)` — sha256-anchored, **identical for all requests routed through the same OAuth account** (across credential file rotations, across multiple client tokens). Mimics real CC's `machine-id sha256`.
+- `SessionIDFor(id, body)` — derived from `(account, clientToken, sha256(first user message))` so a multi-turn conversation keeps one session_id but a new conversation rotates. Powers both the body's `metadata.user_id.session_id` and the `X-Claude-Code-Session-Id` header.
+- `AccountKey()` on `auth.Auth` falls back through `AccountUUID > Email > ID`. Old credentials still work via the email fallback; new logins capture the real UUID from the token-exchange response.
+
+**Invariant:** for one OAuth account routed by N downstream client tokens, upstream sees one device with N concurrent CC sessions — exactly what one user opening multiple `claude` windows looks like. Don't change this without re-checking every identity derivation. Machine-specific telemetry axes (`linux_distro_id`, `linux_kernel`, terminal, shell) are per-account via `cc-core auth.HostProfile`, so distinct accounts don't all advertise one identical host.
+
+### Sidecar (auxiliary traffic emulation) — `internal/server/sidecar.go`
+
+`sidecarMgr.Notify(a, clientToken)` is called from `doForward` after credential acquisition; first-touch of a `(account, clientToken)` pair fires bootstrap + heartbeat:
+
+1. **bootstrap burst** — the GET/POST sidecars real CC fires at process start (GrowthBook, oauth/account/settings, grove, bootstrap `?model=claude-fable-5`, penguin, quota probe, mcp-registry, v1/mcp_servers, **`/v1/code/triggers`** behind beta `ccr-triggers-2026-01-30`, downloads/releases), each with its own captured `User-Agent` (Bun / axios / claude-code / claude-cli) and `Anthropic-Beta`. The first business `/v1/messages` waits up to `bootstrapWaitCap` (5s) for the quota probe to land.
+2. **event_logging heartbeat** — POSTs `/api/event_logging/v2/batch` every ~18s ±40% with a `tengu_dir_search` ClaudeCodeInternalEvent (`model: claude-fable-5[1m]`, `betas: claudeReportedBetas`).
+3. **Datadog heartbeat** — defined (`runDatadogHeartbeat`, `DD-API-KEY: pubea5604404508cdd34afb69e6f42a05bc`) but **deliberately disabled/unwired** (see the golangci exclusion). Constants are kept aligned for correctness.
+
+A `bootstrapSessionID` is shared by all streams. GC evicts virtual sessions idle > 30 min; heartbeats self-stop after idle. `Server.Shutdown` cancels every live session's context. **API-key credentials never trigger sidecars** — the third-party-detection signal only applies to OAuth subscription accounts. `internal/server/sidecar_test.go` runs against a live `httptest.Server` with real timing (~23s); its `wants` map asserts each endpoint's `User-Agent` + `Anthropic-Beta`.
+
+### SaaS multi-tenant layer (`internal/saas`, optional)
+
+Enabled via `saas.enabled`. Mounts `/api/v2/*` on every engine and re-serves the SPA at `/`. Plugs into the proxy through the `SaaSAdapter` interface (`internal/server/saas_adapter.go`): `Lookup(token)` → user/wallet, `PreCheck` (balance + daily/monthly USD caps), `Charge` (official cost × pricing-group multiplier, default Claude 0.3 / Codex 0.05), `CredentialGroup`. Email+password auth (OTP verify) + JWT; USD wallet in a `wallet_tx` ledger; top-ups via Z-Pay / Alipay direct / Stripe Payment Element. Single SQLite DB (`internal/saas/db`, migrations v1–v4). SaaS admins can SSO into the legacy `/admin/api/*` with their JWT (GET = any authed user, writes = `role=admin`).
+
+### Codex path (`codex_proxy.go` + `codex_oauth_proxy.go`)
+
+OpenAI-format requests on the Codex endpoint. **API-key credentials** forward to `api.openai.com` mostly verbatim; **OAuth (ChatGPT Plus/Pro/Team)** credentials forward to `chatgpt.com/backend-api/codex/responses` with the Codex CLI session/account headers. JWT parsing in `cc-core/auth/codex_jwt.go` extracts `chatgpt_account_id` / `chatgpt_plan_type`; `cc-core/auth/codex_models.go` synthesizes a per-plan `/v1/models` catalog.
+
+**The upstream `session-id` must be stable for the whole conversation**, on the HTTP path as much as the WS one. It is how the backend places a conversation in its prompt cache, and `doForwardCodexOAuth` used to hand it a fresh UUID per *request* — invisible while cc-core misspelled the header as `Session_id` (the backend ignores a name no client sends), then catastrophic once cc-core v0.8.88 corrected the spelling: production Codex cache hit rate went 87% → 45% over the following days. `codexUpstreamSessionID` (`codex_session.go`) resolves it from `s.codexSessions`, anchored on `accountKey|clientToken|conversationAnchor(body)`. Neither component below the account may ever *be* the id — it is the upstream cache namespace, so a caller that picks it could aim at another tenant's cached prefix. When a Codex cache-hit complaint arrives, check this before suspecting credential stickiness: measured, turns that stayed on one credential went cold at 39.8% and turns that switched at 37.8%, i.e. routing was never the variable.
+
+> **Codex OAuth has not been smoke-tested against a real ChatGPT subscription token in production.** Auth-layer paths (token exchange, refresh, JWT) work; full request/response parity against `chatgpt.com/backend-api` is pending. If you change this path, exercise both the API-key and OAuth branches.
+
+**Codex WebSocket ingress (`codex_ws.go`)** — opt-in (`codex_ws.enabled`). Real codex-tui speaks `/v1/responses` over a WebSocket (`GET` + Upgrade), one long-lived socket carrying many turns (`cc-core/codexws` transport). Two invariants, kept identical to CPA-Claude:
+- **Bill per turn, asynchronously.** `pumpCodexWS` settles each turn's delta (`codexTurnDelta`) on every terminal event via `billCodexWSTurn`, through a per-session channel drained by one goroutine (matches sub2api) so a slow SaaS `Charge` never stalls forwarding; the auth token ledger is folded in once at close (zero cost) to avoid double-counting. Settling only at session close made cost lag real usage and lost the whole session's billing on a mid-stream restart. `codexTurnDelta` is pure + regression-tested.
+- **Session fair-share cap** (`client_max_sessions`, default 0). A WS session holds its pool slot for the socket's whole life; the pre-upgrade gate uses `cc-core` `Pool.SessionsHeld` and refuses only slots the token doesn't already hold, so an established session is never torn down.
+
+### Shop (发卡网) + legal pages
+
+`internal/shop` — an independent card-vending storefront on `:8319` with its own SQLite (`shop.db`), Stripe Hosted Checkout (card + Alipay, CNY/USD), products/orders/card-secrets, server-rendered Go `html/template` (not the SPA). Zero-dependency on the SaaS DB and independently toggleable.
+
+The old campus-marketplace package (`internal/market`, 校园集市 on `:8320` / bye.novadiffusion.com) was **removed** — don't reintroduce it. Its `market_*` tables may still exist as dead rows inside `shop.db` on older deployments; nothing reads them.
+
+Legal pages (Terms of Service, Privacy Policy) are **SPA routes**, not server-rendered: `/terms` + `/privacy` under `PublicLayout` in `App.tsx`, copy lives in i18n under `legal.*` (`zh.ts`/`en.ts`) and renders via `components/legal/legal-doc.tsx`. Linked from the home-page footer legal bar and the register-page consent checkbox (signup is gated on agreement). The dashboard shows a `TermsNotice` modal (`components/app/terms-notice.tsx`) on every visit until the user ticks "don't show again" (localStorage `hypitoken.tos-notice.dismissed`); it emphasises the service is **not offered in restricted regions (mainland China)** and is used at the user's own risk. The old server-rendered `internal/legal` package (`/legal/*` payment-DDQ screenshot pages) was **removed** — don't reintroduce it.
+
+### Capture archive — lives in `cc-core/crack/`
+
+Ground truth for every fingerprint constant now lives **next to the constants it pins, in `cc-core/crack/`** (consolidated there v0.8.19 — this repo no longer carries a `crack/` dir). The current Claude target is **2.1.206** in `cc-core/crack/cc2206/` (`SPEC.md` = authoritative diff + edit checklist; `rows/` = structurally-redacted requests); `codex/`, `oauth/`, `apikey/`, `login/` cover the other paths. Live-session captures use `crack/scripts/extract_live.py` (keeps fingerprint-bearing *structure*, `<masked>`s all identity + prose); raw whistle dumps are never committed.
+
+**When bumping the CC version target:** this is entirely a cc-core change — capture a fresh whistle dump → `extract_live.py <dump> crack/cc<ver>/rows` → write `crack/cc<ver>/SPEC.md` → update the constants in `cc-core/{mimicry,sidecar}` → tag a cc-core release → bump the `cc-core` dependency in hypitoken **and** CPA-Claude. No fingerprint code lives in this repo anymore. See `cc-core/crack/cc2206/SPEC.md` for the current target's authoritative constants + diff.
+
+## Conventions worth knowing
+
+- **bun, not npm** — every JS toolchain invocation uses bun; the lockfile is `bun.lock`.
+- **All identity derivation is content-addressed**, no random UUIDs except `X-Client-Request-Id` and the internal `event_id`. Derive new stable identifiers from `accountKey` (or `accountKey + clientToken` if they should differ per downstream user).
+- **OAuth credential file fields are append-only** — `parseFile` in `cc-core/auth/oauth.go` tolerates missing fields; new fields use the `_ = raw["new_field"].(...)` pattern so old credential files keep loading.
+- **Per-provider stickiness uses `auth.NormalizeProvider(provider) + "|" + clientToken`** as the key — Claude and Codex share a token but not a slot. Don't collapse this.
+- **Hop-by-hop + ingress headers are stripped before forwarding** (`hopHeaders` map and `stripIngressHeaders` in `proxy.go`). Critical behind Cloudflare Tunnel — `Cdn-Loop: cloudflare` triggers CF's loop-prevention WAF on `api.anthropic.com`. Don't loosen this filter.
+- **Three SQLite DBs are independent**: SaaS (`saas.db`), shop (`shop.db`), and cc-core's usage state — each toggles separately.
+
+---
+> Source: [hypit-ai/hypitoken](https://github.com/hypit-ai/hypitoken) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
