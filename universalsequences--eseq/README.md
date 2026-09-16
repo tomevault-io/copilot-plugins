@@ -7,11 +7,11 @@ extensible D.A.W.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [universalsequences/eseq](https://github.com/universalsequences/eseq).
+Original source: `AGENTS.md` in [universalsequences/eseq](https://github.com/universalsequences/eseq).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
