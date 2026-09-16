@@ -4,7 +4,7 @@
   "repo": "GPUtw-Skill",
   "description": "GPUtw.ai official AI knowledge package \u2014 teach Claude Code, Codex CLI, Cursor, Copilot and Gemini CLI to use the GPUtw GPU cloud REST API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GPUtw-ai/GPUtw-Skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T05:30:23Z"
+  "distributed_at": "2026-09-16T05:31:13Z"
 }
