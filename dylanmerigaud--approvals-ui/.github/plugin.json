@@ -1,0 +1,9 @@
+{
+  "name": "dylanmerigaud--approvals-ui",
+  "displayName": "approvals-ui",
+  "description": "Approval workflow components for React Flow, distributed as a shadcn registry. Quorum gates, thresholds, policy lint, plain-language editing behind a human gate.",
+  "version": "1.0.0",
+  "author": "DylanMerigaud",
+  "homepage": "https://github.com/DylanMerigaud/approvals-ui",
+  "skills": []
+}
