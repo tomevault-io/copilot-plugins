@@ -1,0 +1,9 @@
+{
+  "name": "osolmaz--unyolo",
+  "displayName": "unyolo",
+  "description": "Give your agent access to your GitHub, Hugging Face and other accounts safely",
+  "version": "1.0.0",
+  "author": "osolmaz",
+  "homepage": "https://github.com/osolmaz/unyolo",
+  "skills": []
+}
