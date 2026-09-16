@@ -1,17 +1,17 @@
 # pki-manager-web
 
-> Tome by [oriolrius](https://github.com/oriolrius/pki-manager-web) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [oriolrius](https://github.com/oriolrius/pki-manager-web), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 Web-based PKI Manager - Secure X.509 certificate lifecycle management with Cosmian KMS integration
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [oriolrius/pki-manager-web](https://github.com/oriolrius/pki-manager-web).
+Original source: `AGENTS.md` in [oriolrius/pki-manager-web](https://github.com/oriolrius/pki-manager-web).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -24,7 +24,7 @@ Original source: `CLAUDE.md` in [oriolrius/pki-manager-web](https://github.com/o
 - [nextjs](https://github.com/oriolrius/pki-manager-web/tree/main/.claude/skills/nextjs)
 - [pki-x509](https://github.com/oriolrius/pki-manager-web/tree/main/.claude/skills/pki-x509)
 
-From [oriolrius/pki-manager-web](https://github.com/oriolrius/pki-manager-web) — a repo with 12+ stars on GitHub.
+From [oriolrius/pki-manager-web](https://github.com/oriolrius/pki-manager-web) — a repo with 0+ stars on GitHub.
 
 ---
 
