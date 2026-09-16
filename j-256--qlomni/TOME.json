@@ -4,7 +4,7 @@
   "repo": "qlomni",
   "description": "Preview scripts, dotfiles, configuration files, and unfamiliar text formats with macOS Quick Look.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/j-256/qlomni",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T04:48:19Z"
+  "distributed_at": "2026-09-16T04:50:36Z"
 }
