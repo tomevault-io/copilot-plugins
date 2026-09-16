@@ -4,7 +4,7 @@
   "repo": "claude-mimic",
   "description": "The AI coding agent attribution compatibility layer. Make any coding agent speak Claude Code's Git dialect across 12+ client ecosystems.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Juwan-Hwang/claude-mimic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T22:33:28Z"
+  "distributed_at": "2026-09-16T22:33:56Z"
 }
