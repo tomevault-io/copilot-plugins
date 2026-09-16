@@ -1,0 +1,9 @@
+{
+  "name": "steadfastgaze--moespresso",
+  "displayName": "MoEspresso",
+  "description": "Run large Mixture-of-Experts language models well on the memory you have.",
+  "version": "1.0.0",
+  "author": "steadfastgaze",
+  "homepage": "https://github.com/steadfastgaze/MoEspresso",
+  "skills": []
+}
