@@ -7,11 +7,11 @@ A live, hand-illustrated collage of the birds outside your window — named by e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Belkins/belkins-birdnet](https://github.com/Belkins/belkins-birdnet).
+Original source: `AGENTS.md` in [Belkins/belkins-birdnet](https://github.com/Belkins/belkins-birdnet).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
