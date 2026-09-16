@@ -1,0 +1,9 @@
+{
+  "name": "rustdv--rustdv",
+  "displayName": "rustdv",
+  "description": "A hardware verification framework in Rust, inspired by the UVM.",
+  "version": "1.0.0",
+  "author": "rustdv",
+  "homepage": "https://github.com/rustdv/rustdv",
+  "skills": []
+}
