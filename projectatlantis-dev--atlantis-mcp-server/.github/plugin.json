@@ -1,0 +1,9 @@
+{
+  "name": "projectatlantis-dev--atlantis-mcp-server",
+  "displayName": "atlantis-mcp-server",
+  "description": "Multix virtual filesystem node, MCP-compatible, really just a glorified function container",
+  "version": "1.0.0",
+  "author": "ProjectAtlantis-dev",
+  "homepage": "https://github.com/ProjectAtlantis-dev/atlantis-mcp-server",
+  "skills": []
+}
