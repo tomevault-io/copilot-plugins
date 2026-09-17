@@ -1,0 +1,9 @@
+{
+  "name": "whycorporation--whycodes",
+  "displayName": "whycodes",
+  "description": "A fast, provider-independent coding agent for the terminal, written in Rust.",
+  "version": "1.0.0",
+  "author": "whycorporation",
+  "homepage": "https://github.com/whycorporation/whycodes",
+  "skills": []
+}
