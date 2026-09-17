@@ -1,0 +1,9 @@
+{
+  "name": "yassimba--loom",
+  "displayName": "loom",
+  "description": "Curated agent skills, Pi packages, and Herdr plugins with one setup CLI",
+  "version": "1.0.0",
+  "author": "Yassimba",
+  "homepage": "https://github.com/Yassimba/loom",
+  "skills": []
+}
