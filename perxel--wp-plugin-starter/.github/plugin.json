@@ -1,0 +1,9 @@
+{
+  "name": "perxel--wp-plugin-starter",
+  "displayName": "wp-plugin-starter",
+  "description": "Template repository for a Perxel WordPress plugin \u2014 namespaced codebase, shared admin UI kit, PHPCS + Plugin Check CI, WordPress.org release workflow.",
+  "version": "1.0.0",
+  "author": "perxel",
+  "homepage": "https://github.com/perxel/wp-plugin-starter",
+  "skills": []
+}
