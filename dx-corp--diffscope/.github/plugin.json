@@ -1,0 +1,9 @@
+{
+  "name": "dx-corp--diffscope",
+  "displayName": "diffscope",
+  "description": "A composable code review engine for automated diff analysis",
+  "version": "1.0.0",
+  "author": "dx-corp",
+  "homepage": "https://github.com/dx-corp/diffscope",
+  "skills": []
+}
