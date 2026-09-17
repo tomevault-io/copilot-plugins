@@ -1,0 +1,9 @@
+{
+  "name": "tokachi269--wasm-boids",
+  "displayName": "wasm-boids",
+  "description": "Browser-based Boids simulation using C++/WebAssembly and Three.js.",
+  "version": "1.0.0",
+  "author": "tokachi269",
+  "homepage": "https://github.com/tokachi269/wasm-boids",
+  "skills": []
+}
