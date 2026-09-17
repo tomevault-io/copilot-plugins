@@ -1,0 +1,9 @@
+{
+  "name": "iammrduncan--typesafe-ai-benchmark",
+  "displayName": "typesafe-ai-benchmark",
+  "description": "This is a LLM Gateway that mimics typesafe ai structured output. Like an imposter Jev.",
+  "version": "1.0.0",
+  "author": "iammrduncan",
+  "homepage": "https://github.com/iammrduncan/typesafe-ai-benchmark",
+  "skills": []
+}
