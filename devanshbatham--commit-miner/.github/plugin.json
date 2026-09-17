@@ -1,0 +1,9 @@
+{
+  "name": "devanshbatham--commit-miner",
+  "displayName": "commit-miner",
+  "description": "Classify Git commit diffs and messages with Jev. Bug fixes, security fixes/CWEs, and change types.",
+  "version": "1.0.0",
+  "author": "devanshbatham",
+  "homepage": "https://github.com/devanshbatham/commit-miner",
+  "skills": []
+}
