@@ -1,0 +1,44 @@
+{
+  "name": "coalition-desktop-demo",
+  "owner": "wimjan123",
+  "repo": "coalition-desktop-demo",
+  "description": "A satirical desktop environment built with Tauri v2, Svelte 5, and TypeScript. Experience a complete 'desktop' interface inside a single application window.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wimjan123/coalition-desktop-demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T10:34:22Z"
+}
