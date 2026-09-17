@@ -1,0 +1,9 @@
+{
+  "name": "byteslicehq--looms",
+  "displayName": "looms",
+  "description": "TypeScript SDK for durable agents, workflows, and custom execution kinds. Built by Swirls.",
+  "version": "1.0.0",
+  "author": "ByteSliceHQ",
+  "homepage": "https://github.com/ByteSliceHQ/looms",
+  "skills": []
+}
