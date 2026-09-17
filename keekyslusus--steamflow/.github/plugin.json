@@ -1,0 +1,9 @@
+{
+  "name": "keekyslusus--steamflow",
+  "displayName": "SteamFlow",
+  "description": "Control Steam from Flow Launcher. Switch accounts, manage status, browse wishlist, search the store and more",
+  "version": "1.0.0",
+  "author": "keekyslusus",
+  "homepage": "https://github.com/keekyslusus/SteamFlow",
+  "skills": []
+}
