@@ -1,0 +1,9 @@
+{
+  "name": "algorisys-oss--yappynotes",
+  "displayName": "yappynotes",
+  "description": "Cross-platform desktop sticky notes - C#/.NET 10, Avalonia UI, SQLite. MVVM with a repository.",
+  "version": "1.0.0",
+  "author": "algorisys-oss",
+  "homepage": "https://github.com/algorisys-oss/yappynotes",
+  "skills": []
+}
