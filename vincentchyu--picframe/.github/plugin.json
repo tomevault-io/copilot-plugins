@@ -1,0 +1,9 @@
+{
+  "name": "vincentchyu--picframe",
+  "displayName": "PicFrame",
+  "description": "Generate polished Xiaohongshu/Rednote photography info cards from photos with EXIF, gear assets, GPS, ICC color, and contact sheets.",
+  "version": "1.0.0",
+  "author": "vincentchyu",
+  "homepage": "https://github.com/vincentchyu/PicFrame",
+  "skills": []
+}
