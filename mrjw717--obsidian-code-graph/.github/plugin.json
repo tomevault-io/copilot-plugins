@@ -1,0 +1,9 @@
+{
+  "name": "mrjw717--obsidian-code-graph",
+  "displayName": "obsidian-code-graph",
+  "description": "Visualize how your code files connect \u2014 imports, calls, inheritance, implements, comment-links, ADRs, and tests \u2014 as an interactive graph alongside your Obsidian notes.",
+  "version": "1.0.0",
+  "author": "mrjw717",
+  "homepage": "https://github.com/mrjw717/obsidian-code-graph",
+  "skills": []
+}
