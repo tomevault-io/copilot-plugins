@@ -4,7 +4,7 @@
   "repo": "openstack-ai-style-guide",
   "description": "A comprehensive style guide and ruleset specifically designed for AI code generation tools working with OpenStack Python projects.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SeanMooney/openstack-ai-style-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T18:37:22Z"
+  "distributed_at": "2026-09-17T18:42:50Z"
 }
