@@ -4,7 +4,7 @@
   "repo": "get-brolls",
   "description": "Coleta, revis\u00e3o em Storyboard e entrega segura de B-rolls para macOS e Windows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/engenheirodevideo/get-brolls",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T16:30:24Z"
+  "distributed_at": "2026-09-17T16:31:16Z"
 }
