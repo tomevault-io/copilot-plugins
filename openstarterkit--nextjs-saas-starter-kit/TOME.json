@@ -4,7 +4,7 @@
   "repo": "nextjs-saas-starter-kit",
   "description": "\u26a1\ufe0f Open source Next.js SaaS boilerplate and starter kit: Better Auth, Stripe, Prisma, Tailwind, TypeScript. Full payments in the free tier, not behind a paid plan. MIT, self-hosted, plain Next.js with no framework to learn first.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openstarterkit/nextjs-saas-starter-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T02:32:29Z"
+  "distributed_at": "2026-09-17T05:04:37Z"
 }
