@@ -1,0 +1,9 @@
+{
+  "name": "bwhtech--quizzly",
+  "displayName": "quizzly",
+  "description": "Live multiplayer quiz app on Frappe. Guests join by PIN or QR, no login, server-authoritative gameplay.",
+  "version": "1.0.0",
+  "author": "bwhtech",
+  "homepage": "https://github.com/bwhtech/quizzly",
+  "skills": []
+}
