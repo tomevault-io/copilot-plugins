@@ -1,0 +1,9 @@
+{
+  "name": "hanhan905--spec-to-pytest",
+  "displayName": "spec-to-pytest",
+  "description": "AI-assisted Playwright testing workbench: TRAE + Playwright MCP + Pytest + Allure",
+  "version": "1.0.0",
+  "author": "hanhan905",
+  "homepage": "https://github.com/hanhan905/spec-to-pytest",
+  "skills": []
+}
