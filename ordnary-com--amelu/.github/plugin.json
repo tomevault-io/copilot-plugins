@@ -1,0 +1,9 @@
+{
+  "name": "ordnary-com--amelu",
+  "displayName": "amelu",
+  "description": "Amelu is an email hosting product by Ordnary. It provisions and manages mailboxes, aliases and domains on top of a self-hosted Stalwart mail server, with its own Postgres database for account and bill",
+  "version": "1.0.0",
+  "author": "ordnary-com",
+  "homepage": "https://github.com/ordnary-com/amelu",
+  "skills": []
+}
