@@ -1,0 +1,9 @@
+{
+  "name": "mawkler--nixos",
+  "displayName": "nixos",
+  "description": "NixOS + Hyprland + DankMaterialShell",
+  "version": "1.0.0",
+  "author": "mawkler",
+  "homepage": "https://github.com/mawkler/nixos",
+  "skills": []
+}
