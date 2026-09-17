@@ -1,0 +1,9 @@
+{
+  "name": "herliansyah--pantau",
+  "displayName": "pantau",
+  "description": "\ud83d\udee1\ufe0f Agentless, lightweight Linux server monitoring & interactive management over SSH. Desired state engine, drift detection, web terminal, SFTP editor, Docker control, and network security observabilit",
+  "version": "1.0.0",
+  "author": "herliansyah",
+  "homepage": "https://github.com/herliansyah/pantau",
+  "skills": []
+}
