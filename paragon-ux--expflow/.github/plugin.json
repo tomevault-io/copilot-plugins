@@ -1,0 +1,9 @@
+{
+  "name": "paragon-ux--expflow",
+  "displayName": "Expflow",
+  "description": "local-first workflow ownership and observability platform",
+  "version": "1.0.0",
+  "author": "paragon-ux",
+  "homepage": "https://github.com/paragon-ux/Expflow",
+  "skills": []
+}
