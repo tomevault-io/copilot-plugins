@@ -1,0 +1,9 @@
+{
+  "name": "tensorfish--openms",
+  "displayName": "openms",
+  "description": "Web based maplestory implementation",
+  "version": "1.0.0",
+  "author": "tensorfish",
+  "homepage": "https://github.com/tensorfish/openms",
+  "skills": []
+}
