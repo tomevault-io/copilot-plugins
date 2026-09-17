@@ -1,0 +1,44 @@
+{
+  "name": "interview-rounds",
+  "owner": "sumitsingh4411",
+  "repo": "interview-rounds",
+  "description": "Real interview questions from 119 top tech companies & high-paying startups (Google, Meta, Stripe, Rippling, Anduril\u2026), mapped to the exact round, role and level. 595 experiences, 6,533 questions \u2014 free for personal use, no signup.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sumitsingh4411/interview-rounds",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T04:46:03Z"
+}
