@@ -1,0 +1,37 @@
+## borderless-design
+
+> User prefers borderless UI — spacing and void backgrounds over box borders
+
+
+# Borderless design
+
+The user prefers **borderless** layouts for TraderMemos (on top of shadcn/ui tokens).
+
+## Do
+
+- Unify page chrome on `bg-background` (sidebar, header, main content)
+- Separate sections with spacing, type hierarchy, and subtle hover (`bg-accent` / `bg-muted`)
+- Use elevation only for true overlays (modals, popovers, dropdowns)
+- Keep borders on inputs, buttons, and chips where interaction affordance needs them
+
+## Avoid
+
+- `border-b` / `border-t` on shell header, nav bands, full-bleed panels, settings rows
+- Box borders around every list item or section card
+- Inset divider shadows between nav and main unless explicitly requested
+- Hairline grids on data tables when hover + density is enough
+
+## Card blocks (page layout)
+
+- Wrap route content in `<Page>` — `bg-background`, `gap-4`, padding
+- Each logical section gets a `<Card>` — borderless `bg-card`, optional title/action
+- Use `flush` on cards that contain tables or full-bleed lists
+- Use `fill` when a card should grow in a column layout
+
+## When DESIGN.md conflicts
+
+Prefer the user's borderless direction unless they ask for explicit dividers. Token names follow shadcn (`background`, `card`, `muted`, `accent`, `primary`).
+
+---
+> Source: [sinhong2011/TraderMemos](https://github.com/sinhong2011/TraderMemos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
