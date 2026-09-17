@@ -1,0 +1,9 @@
+{
+  "name": "keyfire--elemctl",
+  "displayName": "elemctl",
+  "description": "CLI, MCP server, and library for the documented Console API v2 of 1C:Enterprise.Element (1cmycloud): apps, builds, and deploys with reliable apply-verification.",
+  "version": "1.0.0",
+  "author": "keyfire",
+  "homepage": "https://github.com/keyfire/elemctl",
+  "skills": []
+}
