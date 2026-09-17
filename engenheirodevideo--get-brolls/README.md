@@ -7,14 +7,14 @@ Coleta, revisão em Storyboard e entrega segura de B-rolls para macOS e Windows.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [engenheirodevideo/get-brolls](https://github.com/engenheirodevideo/get-brolls).
+Original source: `GEMINI.md` in [engenheirodevideo/get-brolls](https://github.com/engenheirodevideo/get-brolls).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [engenheirodevideo/get-brolls](https://github.com/engenheirodevideo/get-brolls) — a repo with 9+ stars on GitHub.
