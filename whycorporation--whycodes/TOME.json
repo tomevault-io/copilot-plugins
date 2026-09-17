@@ -4,7 +4,7 @@
   "repo": "whycodes",
   "description": "A fast, provider-independent coding agent for the terminal, written in Rust.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whycorporation/whycodes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:10:52Z"
+  "distributed_at": "2026-09-17T04:30:21Z"
 }
