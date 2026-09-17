@@ -1,0 +1,9 @@
+{
+  "name": "workos--workos-ios",
+  "displayName": "workos-ios",
+  "description": "Official iOS SDK for interacting with the WorkOS API",
+  "version": "1.0.0",
+  "author": "workos",
+  "homepage": "https://github.com/workos/workos-ios",
+  "skills": []
+}
