@@ -1,0 +1,9 @@
+{
+  "name": "0xgosu--herdr-auto-pilot",
+  "displayName": "herdr-auto-pilot",
+  "description": "A Herdr plugin that will automatically prompt the running AI Coding CLI on-behalf of you via Herdr API. The plugin has training mode which learn from your actions and also has guards to prevent danger",
+  "version": "1.0.0",
+  "author": "0xGosu",
+  "homepage": "https://github.com/0xGosu/herdr-auto-pilot",
+  "skills": []
+}
