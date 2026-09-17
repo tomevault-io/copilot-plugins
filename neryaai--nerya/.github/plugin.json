@@ -1,0 +1,9 @@
+{
+  "name": "neryaai--nerya",
+  "displayName": "Nerya",
+  "description": "Skill-first, trading-native, self-evolving autonomous agent runtime for AgentNetwork workflows.",
+  "version": "1.0.0",
+  "author": "NeryaAI",
+  "homepage": "https://github.com/NeryaAI/Nerya",
+  "skills": []
+}
