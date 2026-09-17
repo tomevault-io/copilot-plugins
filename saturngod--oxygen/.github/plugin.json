@@ -1,0 +1,9 @@
+{
+  "name": "saturngod--oxygen",
+  "displayName": "oxygen",
+  "description": "Streaming transcode server with S3",
+  "version": "1.0.0",
+  "author": "saturngod",
+  "homepage": "https://github.com/saturngod/oxygen",
+  "skills": []
+}
