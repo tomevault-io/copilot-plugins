@@ -2,7 +2,7 @@
   "name": "platform-design-skills",
   "owner": "ehmo",
   "repo": "platform-design-skills",
-  "description": "Platform design skill pack: 300+ rules for Apple HIG, Material Design 3, and WCAG 2.2 across iOS, iPadOS, macOS, watchOS, visionOS, tvOS, Android, and Web.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ehmo/platform-design-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T11:30:27Z"
+  "distributed_at": "2026-09-17T11:31:18Z"
 }
