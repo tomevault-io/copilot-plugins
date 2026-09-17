@@ -1,0 +1,9 @@
+{
+  "name": "satyamsingh-git--elevenpowers",
+  "displayName": "ElevenPowers",
+  "description": "make, but for correctness claims. Decides when a coding agent's work is actually done, and un-decides it when you edit the code.",
+  "version": "1.0.0",
+  "author": "SatyamSingh-Git",
+  "homepage": "https://github.com/SatyamSingh-Git/ElevenPowers",
+  "skills": []
+}
