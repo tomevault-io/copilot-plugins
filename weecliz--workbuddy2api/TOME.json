@@ -4,7 +4,7 @@
   "repo": "workbuddy2api",
   "description": "\u628a WorkBuddy / CodeBuddy \u684c\u9762\u7aef\u767b\u5f55\u6001\u8f6c\u4e3a OpenAI / Anthropic \u517c\u5bb9 API\uff0c\u5e76\u63d0\u4f9b\u591a\u8d26\u53f7\u4ee3\u7406\u5171\u4eab\u5e73\u53f0",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weecliz/workbuddy2api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T08:30:25Z"
+  "distributed_at": "2026-09-17T08:31:13Z"
 }
