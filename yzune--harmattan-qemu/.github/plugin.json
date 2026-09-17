@@ -1,0 +1,9 @@
+{
+  "name": "yzune--harmattan-qemu",
+  "displayName": "harmattan-qemu",
+  "description": "Experimental Nokia N9 / MeeGo Harmattan emulator for Apple Silicon Macs, powered by QEMU. Prebuilt macOS preview and English/Chinese guides.",
+  "version": "1.0.0",
+  "author": "YZune",
+  "homepage": "https://github.com/YZune/harmattan-qemu",
+  "skills": []
+}
