@@ -7,11 +7,11 @@ dev-flow: 完整工程开发整套 skill（13-phase 编排 + gates 执行保障 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Oliverfang-2025/claude-code-dev-flow](https://github.com/Oliverfang-2025/claude-code-dev-flow).
+Original source: `AGENTS.md` in [Oliverfang-2025/claude-code-dev-flow](https://github.com/Oliverfang-2025/claude-code-dev-flow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
