@@ -4,7 +4,7 @@
   "repo": "hanoman",
   "description": "Control room untuk menjalankan & memantau coding agent di banyak project sekaligus \u2014 dengan dokumentasi sebagai Source of Truth.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/denameidina/hanoman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:17:02Z"
+  "distributed_at": "2026-09-17T04:44:52Z"
 }
