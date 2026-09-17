@@ -1,0 +1,9 @@
+{
+  "name": "awarexone--axguard",
+  "displayName": "AXguard",
+  "description": "Open-source AI security tool to scan and fix vulnerabilities in your vibe-coded projects before you ship. AXguard by AwareXone.",
+  "version": "1.0.0",
+  "author": "awarexone",
+  "homepage": "https://github.com/awarexone/AXguard",
+  "skills": []
+}
