@@ -4,7 +4,7 @@
   "repo": "Landed",
   "description": "\ud83d\udeec Local-first job-hunt pipeline app (Next.js + SQLite) paired with a Claude CoWork agent over MCP \u2014 discovery, fit assessment, r\u00e9sum\u00e9 tailoring, applications, and interview prep in one stage-aware view.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kght-io/Landed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:41:26Z"
+  "distributed_at": "2026-09-17T05:04:04Z"
 }
