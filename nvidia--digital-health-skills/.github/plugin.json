@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--digital-health-skills",
+  "displayName": "digital-health-skills",
+  "description": "NVIDIA Digital Health skills repo for agent-guided healthcare AI workflows, including evaluation, data generation, model adaptation, deployment guidance, and developer best practices.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/digital-health-skills",
+  "skills": []
+}
