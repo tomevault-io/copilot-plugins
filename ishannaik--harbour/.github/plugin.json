@@ -1,0 +1,9 @@
+{
+  "name": "ishannaik--harbour",
+  "displayName": "harbour",
+  "description": "Rust terminal UI for BitTorrent search and downloads.",
+  "version": "1.0.0",
+  "author": "Ishannaik",
+  "homepage": "https://github.com/Ishannaik/harbour",
+  "skills": []
+}
