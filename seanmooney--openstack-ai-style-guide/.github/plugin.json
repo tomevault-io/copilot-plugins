@@ -1,0 +1,9 @@
+{
+  "name": "seanmooney--openstack-ai-style-guide",
+  "displayName": "openstack-ai-style-guide",
+  "description": "A comprehensive style guide and ruleset specifically designed for AI code generation tools working with OpenStack Python projects.",
+  "version": "1.0.0",
+  "author": "SeanMooney",
+  "homepage": "https://github.com/SeanMooney/openstack-ai-style-guide",
+  "skills": []
+}
