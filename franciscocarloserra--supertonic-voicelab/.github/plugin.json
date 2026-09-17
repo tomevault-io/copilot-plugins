@@ -1,0 +1,9 @@
+{
+  "name": "franciscocarloserra--supertonic-voicelab",
+  "displayName": "supertonic-voicelab",
+  "description": "40 new voices for Supertonic-3 TTS + labeled, bounded sliders to make your own. No retraining, no GPU.",
+  "version": "1.0.0",
+  "author": "franciscocarloserra",
+  "homepage": "https://github.com/franciscocarloserra/supertonic-voicelab",
+  "skills": []
+}
