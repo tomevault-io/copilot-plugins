@@ -4,7 +4,7 @@
   "repo": "dotgemini",
   "description": "Syncing antigravity settings, gemini skills, and GEMINI.md across machines",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jerrylin96/dotgemini",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T02:33:11Z"
+  "distributed_at": "2026-09-17T05:00:58Z"
 }
