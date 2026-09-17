@@ -1,0 +1,92 @@
+## publish-release
+
+> Publish a new TinyFire release (version bump, notarized DMG, Sparkle appcast, GitHub, backend)
+
+
+# TinyFire release checklist
+
+Whenever the user asks to publish / release a new version, do **all** of the following in order. Do not skip steps.
+
+## Update channels (know both)
+
+| Channel | URL | Who uses it |
+|---------|-----|-------------|
+| Legacy alert | `https://tinyfire.createfun.ai/version` JSON | Pre-Sparkle builds (≤1.1.6): alert → open DMG download |
+| Sparkle | `https://tinyfire.createfun.ai/appcast.xml` | 1.1.7+: in-app download / install / relaunch |
+| Landing Download | reads `/version` | Website button |
+
+Always update **both** `/version` vars and `appcast.xml` on every release.
+
+## 1. Bump version
+
+In `tinyFire.xcodeproj/project.pbxproj` (Debug + Release):
+
+- `MARKETING_VERSION` → next semver (patch for fixes, minor for features)
+- `CURRENT_PROJECT_VERSION` → increment build integer (**Sparkle compares build / CFBundleVersion**)
+
+Also point `README.md` download link at only the **latest** DMG.
+
+## 2. Build notarized DMG
+
+```bash
+./scripts/make-dmg.sh
+```
+
+Requires Xcode signed into the paid Apple Developer team. Output: `dist/TinyFire-<version>.dmg` (Developer ID + notarized + stapled).
+
+## 3. Sparkle appcast
+
+```bash
+./scripts/sparkle-appcast.sh
+```
+
+- Needs `secrets/sparkle_eddsa_private.key` (gitignored) or the EdDSA key in Keychain
+- Public key is embedded in `tinyFire/Info.plist` as `SUPublicEDKey`
+- `SUFeedURL` = `https://tinyfire.createfun.ai/appcast.xml`
+- Writes `dist/sparkle/appcast.xml` and copies to `backend/public/appcast.xml`
+- Enclosure URLs: `https://github.com/wdkwdkwdk/tinyfire/releases/download/v<version>/TinyFire-<version>.dmg`
+
+## 4. Commit + push
+
+- Stage releasable app/script/README/rule changes including `scripts/sparkle-appcast.sh` and `Package.resolved`
+- **Never** commit: `backend/`, `tinyFire/UpdateEndpoint.plist`, `secrets/`, `.p8` keys, `dist/`
+- Commit message style: `Release x.y.z: …`
+- Push to `origin/main`
+
+## 5. GitHub Release
+
+- Create tag `v<version>` and release
+- Upload `dist/TinyFire-<version>.dmg` (asset name must match appcast enclosure)
+- Also upload any new `dist/sparkle/*.delta` files referenced by this version’s appcast item
+- Optionally delete older releases/tags if the user wants a single latest release
+- Auth: `GH_TOKEN` from `git credential fill` for `github.com` if `gh` is not logged in
+- After `sparkle-appcast.sh`, confirm older DMG enclosure URLs still point at their own `vX.Y.Z` release paths (script rewrites them)
+
+## 6. Backend: `/version` + appcast deploy
+
+Local-only (gitignored) Cloudflare Worker under `backend/`:
+
+1. Update `backend/wrangler.toml` `[vars]`:
+   - `LATEST_VERSION` / `LATEST_BUILD`
+   - `DOWNLOAD_URL` (GitHub release asset URL)
+   - `NOTES_EN` / `NOTES_ZH` / `NOTES_JA` / `NOTES_KO` (user-facing, no debug jargon)
+2. Confirm `backend/public/appcast.xml` is from step 3
+3. `cd backend && npx wrangler deploy`
+4. Verify:
+   - `https://tinyfire.createfun.ai/version` → new version JSON
+   - `https://tinyfire.createfun.ai/appcast.xml` → contains this version’s enclosure
+
+Do not break `/version` JSON when changing the marketing site on `/`.
+Custom domain: `tinyfire.createfun.ai` (Workers Custom Domain on zone `createfun.ai`).
+
+## Do not
+
+- Commit or push `backend/`, `UpdateEndpoint.plist`, or `secrets/`
+- Ship ad-hoc / unsigned builds
+- Leave README pointing at multiple old DMG links
+- Ship a Sparkle-capable build without deploying a matching `appcast.xml`
+- Forget to increment `CURRENT_PROJECT_VERSION` (Sparkle will not see an update)
+
+---
+> Source: [wdkwdkwdk/tinyfire](https://github.com/wdkwdkwdk/tinyfire) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-17 -->
