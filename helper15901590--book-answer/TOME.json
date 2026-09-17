@@ -4,7 +4,7 @@
   "repo": "book-answer",
   "description": "Book answer \u2014 \u7ecf\u5178\u8457\u4f5c\u4e0e\u5bfc\u5e08\u4eba\u7269 AI \u601d\u60f3\u84b8\u998f\u5e73\u53f0\uff08React 19 + Express + SQLite\uff0c\u7528\u6237\u7aef\u652f\u6301\u7b80\u4f53\u4e2d\u6587 / \u7e41\u9ad4\u4e2d\u6587 / English\uff09",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/helper15901590/book-answer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:23:54Z"
+  "distributed_at": "2026-09-17T04:54:13Z"
 }
