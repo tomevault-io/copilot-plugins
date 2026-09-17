@@ -1,0 +1,9 @@
+{
+  "name": "pmndrs--upscaler",
+  "displayName": "upscaler",
+  "description": "WebGPU port of the AMD FS3 temporal upscaler. With Threejs Nodes!",
+  "version": "1.0.0",
+  "author": "pmndrs",
+  "homepage": "https://github.com/pmndrs/upscaler",
+  "skills": []
+}
