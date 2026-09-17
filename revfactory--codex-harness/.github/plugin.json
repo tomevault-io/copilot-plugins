@@ -1,0 +1,9 @@
+{
+  "name": "revfactory--codex-harness",
+  "displayName": "codex-harness",
+  "description": "Codex-native harness with reusable agents, persistent multi-agent orchestration, and communication logs.",
+  "version": "1.0.0",
+  "author": "revfactory",
+  "homepage": "https://github.com/revfactory/codex-harness",
+  "skills": []
+}
