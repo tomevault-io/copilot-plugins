@@ -7,11 +7,11 @@ An auditable monitor for the moment a biotech investment thesis quietly stops be
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kristenharim/catalyst-integrity-desk](https://github.com/kristenharim/catalyst-integrity-desk).
+Original source: `AGENTS.md` in [kristenharim/catalyst-integrity-desk](https://github.com/kristenharim/catalyst-integrity-desk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
