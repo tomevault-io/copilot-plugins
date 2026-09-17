@@ -4,7 +4,7 @@
   "repo": "FilmSheet",
   "description": "\u80f6\u7247\u7d22\u5f15\u9875\u751f\u6210\u5668",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Escaper929/FilmSheet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T00:35:01Z"
+  "distributed_at": "2026-09-17T00:37:11Z"
 }
