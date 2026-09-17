@@ -4,7 +4,7 @@
   "repo": "TraderMemos",
   "description": "Self-hosted trading journal (Go API + React web)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sinhong2011/TraderMemos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T01:12:33Z"
+  "distributed_at": "2026-09-17T01:17:40Z"
 }
