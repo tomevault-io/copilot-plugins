@@ -1,0 +1,9 @@
+{
+  "name": "mutonby--vibetube",
+  "displayName": "vibetube",
+  "description": "Desktop multicam recorder for macOS: records your screen and webcam in sync, then Claude Code or Codex edits the final video \u2014 shot selection, subtitles, graphics and SFX.",
+  "version": "1.0.0",
+  "author": "mutonby",
+  "homepage": "https://github.com/mutonby/vibetube",
+  "skills": []
+}
