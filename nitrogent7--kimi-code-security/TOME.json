@@ -4,7 +4,7 @@
   "repo": "kimi-code-security",
   "description": "Unofficial security-research fork of MoonshotAI/kimi-code",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NitrogenT7/kimi-code-security",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:09:21Z"
+  "distributed_at": "2026-09-17T03:49:00Z"
 }
