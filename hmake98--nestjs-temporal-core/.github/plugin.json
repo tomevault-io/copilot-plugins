@@ -1,0 +1,9 @@
+{
+  "name": "hmake98--nestjs-temporal-core",
+  "displayName": "nestjs-temporal-core",
+  "description": "NestJS integration for Temporal.io with Worker and Client support",
+  "version": "1.0.0",
+  "author": "hmake98",
+  "homepage": "https://github.com/hmake98/nestjs-temporal-core",
+  "skills": []
+}
