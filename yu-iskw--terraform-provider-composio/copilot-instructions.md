@@ -1,35 +1,44 @@
-## provider-implementation
+## terraform-provider-composio
 
-> Use the HashiCorp Terraform Plugin Framework patterns already present in `internal/provider`.
+> Shared guidance for agents working in this repository.
 
-# Terraform Provider Implementation Guide
+# AGENTS.md
 
-Use the HashiCorp Terraform Plugin Framework patterns already present in `internal/provider`.
+Shared guidance for agents working in this repository.
 
-## Provider
+## Overview
 
-- Keep provider configuration in `internal/provider/provider.go`.
-- Use framework `types` in Terraform-facing models.
-- Store `*api.Client` in `resp.ResourceData` and `resp.DataSourceData`.
-- Keep diagnostics actionable and attribute-specific when possible. Never put API keys in diagnostics.
+This is a Terraform provider for Composio written in Go with the HashiCorp Terraform Plugin Framework. It manages durable Composio control-plane objects. It does not model user OAuth, sessions, or tool execution.
 
-## Resources
+## mise (optional)
 
-- Put each resource in `internal/provider/resource_<name>.go`.
-- Implement `resource.Resource`, `resource.ResourceWithConfigure` when client data is needed, and `resource.ResourceWithImportState` when import is supported.
-- Call `internal/composio/api`. Do not build raw HTTP in the provider package.
-- Test observable Terraform state behavior.
+If you use [mise](https://mise.jdx.dev/), run `mise trust` in the repo root on first use if mise refuses to load the config, then `mise install`. [`mise.toml`](mise.toml) installs **only the Trunk CLI** (pinned to match `.trunk/trunk.yaml` `cli.version`). **Go is not installed via mise**; use your normal Go install and the `go` / `toolchain` lines in `go.mod`. When you upgrade Trunk, bump `cli.version` in `.trunk/trunk.yaml` and the `trunk` version in `mise.toml` together.
 
-## Data Sources
+## Key Commands
 
-- Put each data source in `internal/provider/data_source_<name>.go`.
-- Implement `datasource.DataSourceWithConfigure` when client data is needed.
-- Prefer deterministic tests using real in-process code and `httptest`.
+- Unit tests: `make test`
+- Acceptance tests: `make testacc` (requires `COMPOSIO_API_KEY`; see CONTRIBUTING.md)
+- Build: `go build -v ./`
+- Generate docs: `go generate ./...`
+- Format: `make format`
+- Lint: `make lint`
 
-## Documentation
+## Project Structure
 
-- Keep examples in `examples/provider`, `examples/resources/<type>`, and `examples/data-sources/<type>`.
-- Run `go generate ./...` after schema or example changes.
+- `main.go`: provider server entry point
+- `internal/provider`: provider schema, configuration, resources, data sources, embedded docs, and tests
+- `internal/composio/api`: Composio REST client (v3.1, typed errors, retries, org/project headers)
+- `internal/composio/models`: domain models without Terraform types
+- `examples`: Terraform examples used by docs generation
+- `docs`: provider documentation
+- `tools`: Go tool dependencies
+- `mise.toml`: optional Trunk CLI version for mise users (no Go via mise)
+
+## Development Notes
+
+- Prefer real, deterministic tests over mocks. HTTP tests use `httptest.Server`.
+- Do not wrap runtime Composio APIs (tool execute, sessions, connect links) as resources.
+- Git hooks for this repo are **Trunk-only** (`make setup-dev` runs `trunk git-hooks sync`); there is no separate pre-commit install step.
 
 ---
 > Source: [yu-iskw/terraform-provider-composio](https://github.com/yu-iskw/terraform-provider-composio) — distributed by [TomeVault](https://tomevault.io).
