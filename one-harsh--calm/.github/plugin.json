@@ -1,0 +1,9 @@
+{
+  "name": "one-harsh--calm",
+  "displayName": "calm",
+  "description": "Shared HTTP context layer for LLM workloads.",
+  "version": "1.0.0",
+  "author": "one-harsh",
+  "homepage": "https://github.com/one-harsh/calm",
+  "skills": []
+}
