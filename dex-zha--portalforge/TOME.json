@@ -4,7 +4,7 @@
   "repo": "PortalForge",
   "description": "PortalForge is a 3D level editor and reverse-engineering toolkit for Skylanders Spyro's Adventure (Wii)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DEX-zha/PortalForge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T14:31:35Z"
+  "distributed_at": "2026-09-17T14:34:09Z"
 }
