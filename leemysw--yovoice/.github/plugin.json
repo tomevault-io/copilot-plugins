@@ -1,0 +1,9 @@
+{
+  "name": "leemysw--yovoice",
+  "displayName": "yovoice",
+  "description": "Open-source voice creation for macOS and Windows. Local TTS, voice cloning, and emotion control \u2014 no cloud APIs or per-character fees.",
+  "version": "1.0.0",
+  "author": "leemysw",
+  "homepage": "https://github.com/leemysw/yovoice",
+  "skills": []
+}
