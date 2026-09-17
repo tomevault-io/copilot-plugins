@@ -1,0 +1,9 @@
+{
+  "name": "neptunix--corral",
+  "displayName": "corral",
+  "description": "Kanban dashboard and control surface for Claude Code sessions running in herdr",
+  "version": "1.0.0",
+  "author": "neptunix",
+  "homepage": "https://github.com/neptunix/corral",
+  "skills": []
+}
