@@ -1,0 +1,9 @@
+{
+  "name": "urikanonov--ai-marketplace",
+  "displayName": "ai-marketplace",
+  "description": "A personal marketplace of AI-oriented plugins for the GitHub Copilot CLI.",
+  "version": "1.0.0",
+  "author": "urikanonov",
+  "homepage": "https://github.com/urikanonov/ai-marketplace",
+  "skills": []
+}
