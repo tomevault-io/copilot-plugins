@@ -1,0 +1,44 @@
+{
+  "name": "ProferAI",
+  "owner": "Yuan-lai-ru-ci",
+  "repo": "ProferAI",
+  "description": "Profer \u2014 \u57fa\u4e8e Claude Agent SDK \u548c Pi runtime \u7684\u901a\u7528 AI Agent \u684c\u9762\u5e94\u7528\uff1a\u591a\u6a21\u578b\u63a5\u5165\u3001\u534f\u4f5c\u5b50 Agent\u3001\u5b9a\u65f6\u4efb\u52a1\u81ea\u52a8\u5316\u3001\u5e73\u677f\u8fdc\u7a0b\u63a5\u5165\u4e0e\u56e2\u961f\u5de5\u4f5c\u533a\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yuan-lai-ru-ci/ProferAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T00:53:22Z"
+}
