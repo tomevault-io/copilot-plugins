@@ -4,7 +4,7 @@
   "repo": "soubi",
   "description": "The Framework for Building Agent Plugins",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aniket-508/soubi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:34:21Z"
+  "distributed_at": "2026-09-17T05:01:35Z"
 }
