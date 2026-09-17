@@ -7,11 +7,11 @@ A fork of Ghostty built for ssh remote workspaces.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [404jul/niftty](https://github.com/404jul/niftty).
+Original source: `CLAUDE.md` in [404jul/niftty](https://github.com/404jul/niftty).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
