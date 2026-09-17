@@ -1,0 +1,9 @@
+{
+  "name": "istin--flutter-agent-harness",
+  "displayName": "flutter_agent_harness",
+  "description": "[WIP] Cross-platform AI agent harness for Dart and Flutter \u2014 streaming providers, agent loop with tools, session persistence, compaction; backend agent mode: fa behind product Go backends",
+  "version": "1.0.0",
+  "author": "IstiN",
+  "homepage": "https://github.com/IstiN/flutter_agent_harness",
+  "skills": []
+}
