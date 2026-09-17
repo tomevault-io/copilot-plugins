@@ -1,0 +1,9 @@
+{
+  "name": "henrywang--berthly",
+  "displayName": "Berthly",
+  "description": "A native macOS app for managing Apple's container - build images, run machines, and tail logs from a real GUI.",
+  "version": "1.0.0",
+  "author": "henrywang",
+  "homepage": "https://github.com/henrywang/Berthly",
+  "skills": []
+}
