@@ -1,0 +1,9 @@
+{
+  "name": "xcota--pos",
+  "displayName": "pos",
+  "description": "Give Claude Code a persistent memory \u2014 it remembers you, your projects, and your decisions as plain Markdown files you own. Fully local. Just say `start`.",
+  "version": "1.0.0",
+  "author": "xcota",
+  "homepage": "https://github.com/xcota/pos",
+  "skills": []
+}
