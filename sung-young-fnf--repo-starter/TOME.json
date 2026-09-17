@@ -4,7 +4,7 @@
   "repo": "repo_starter",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sung-young-fnf/repo_starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:46:43Z"
+  "distributed_at": "2026-09-17T05:14:14Z"
 }
