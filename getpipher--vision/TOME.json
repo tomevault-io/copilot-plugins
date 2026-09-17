@@ -1,0 +1,44 @@
+{
+  "name": "vision",
+  "owner": "getpipher",
+  "repo": "vision",
+  "description": "Capability-aware vision + paste extension for the pi coding agent. Delegates image analysis only when the active model is text-only; passes through natively for multimodal models (zero delegation).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/getpipher/vision",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T04:43:20Z"
+}
