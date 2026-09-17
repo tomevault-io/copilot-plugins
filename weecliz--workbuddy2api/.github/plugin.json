@@ -1,0 +1,9 @@
+{
+  "name": "weecliz--workbuddy2api",
+  "displayName": "workbuddy2api",
+  "description": "\u628a WorkBuddy / CodeBuddy \u684c\u9762\u7aef\u767b\u5f55\u6001\u8f6c\u4e3a OpenAI / Anthropic \u517c\u5bb9 API\uff0c\u5e76\u63d0\u4f9b\u591a\u8d26\u53f7\u4ee3\u7406\u5171\u4eab\u5e73\u53f0",
+  "version": "1.0.0",
+  "author": "weecliz",
+  "homepage": "https://github.com/weecliz/workbuddy2api",
+  "skills": []
+}
