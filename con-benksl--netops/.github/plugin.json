@@ -1,0 +1,9 @@
+{
+  "name": "con-benksl--netops",
+  "displayName": "NetOps",
+  "description": "Find which segment of your VPS/proxy chain is broken, without the agent disconnecting itself. Xray, 3x-ui, Reality, Hysteria2. Python stdlib only.",
+  "version": "1.0.0",
+  "author": "Con-Benksl",
+  "homepage": "https://github.com/Con-Benksl/NetOps",
+  "skills": []
+}
