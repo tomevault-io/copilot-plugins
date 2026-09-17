@@ -1,0 +1,44 @@
+{
+  "name": "ai-landing-consultant",
+  "owner": "August06exe",
+  "repo": "ai-landing-consultant",
+  "description": "\u5e2e\u7279\u5b9a\u7528\u6237\u90e8\u7f72\u4e13\u5c5e AI agent \u5e76\u843d\u5730\u5de5\u4f5c\u6d41\u7684\u5f00\u6e90\u987e\u95ee\u7cfb\u7edf | A consultant-in-a-box for deploying dedicated AI agents and shipping their first workflows",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/August06exe/ai-landing-consultant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T05:32:20Z"
+}
