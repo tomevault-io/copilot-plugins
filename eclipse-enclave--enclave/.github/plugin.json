@@ -1,0 +1,9 @@
+{
+  "name": "eclipse-enclave--enclave",
+  "displayName": "enclave",
+  "description": "Sandbox for running AI coding agents autonomously: isolated, network-restricted, host-safe",
+  "version": "1.0.0",
+  "author": "eclipse-enclave",
+  "homepage": "https://github.com/eclipse-enclave/enclave",
+  "skills": []
+}
