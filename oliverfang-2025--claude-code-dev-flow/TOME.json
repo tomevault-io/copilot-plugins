@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-dev-flow",
+  "owner": "Oliverfang-2025",
+  "repo": "claude-code-dev-flow",
+  "description": "dev-flow: \u5b8c\u6574\u5de5\u7a0b\u5f00\u53d1\u6574\u5957 skill\uff0813-phase \u7f16\u6392 + gates \u6267\u884c\u4fdd\u969c + \u9700\u6c42\u6c60\uff09\u2014 gitee.com/oneHealer/claude-code-dev-flow \u7684 GitHub \u955c\u50cf\uff08CI\uff09",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Oliverfang-2025/claude-code-dev-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T02:36:47Z"
+}
