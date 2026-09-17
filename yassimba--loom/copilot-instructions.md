@@ -1,0 +1,119 @@
+## loom
+
+> A public hub for my favorite agent skills to share with people. Install with `npx skills add` (Vercel)
+
+# skills
+
+A public hub for my favorite agent skills to share with people. Install with `npx skills add` (Vercel)
+or through the Claude plugin marketplace.
+
+## Layout
+
+`skills/<name>/SKILL.md` — the shared skills, one flat directory per skill.
+The category grouping shown by skills.sh lives in `skills.sh.json`, not in
+folders. The Claude plugin is the repo root itself: `.claude-plugin/plugin.json`
+plus auto-discovered `skills/`, listed by `.claude-plugin/marketplace.json`
+(`source: "./"`).
+`plugins/<name>/` — one flat directory per plugin package: npm workspaces
+(Pi extensions, discovered by their `package.json`).
+`cli/loom/` — the Rust onboarding CLI installed by the root bootstrap
+scripts. `cli/loom/setup-catalog.json` is generated from reviewed skills and opted-in
+plugin metadata; the CLI embeds it, copies skills into user-selected agent
+trees at global or current-project scope, and delegates Pi package installs
+to Pi.
+`manifest/loom.toml` — the published tool manifest, the MENU: every
+tool this setup can provide, exact-pinned (node, Pi, herdr, gh, the
+loom binary, …), with wizard metadata in
+`manifest/tools.json`. What lands on a machine is the SELECTION —
+`~/.config/mise/conf.d/loom.toml` holds the core block plus
+wizard-chosen tools; `loom update` refreshes its pins without changing
+the set. Tool versions move only when a manifest change lands on main (the
+weekly `mise-bump` PR proposes bumps; release automation owns the
+loom pin). The root `mise.toml` is the
+contributor dev-env + tasks, a separate file so the consumer manifest never
+activates on `cd`. See `ai-docs/adr/0002-distribute-tools-via-mise.md`.
+`drafts/` — pulled from a global agent tree, not yet reviewed.
+`personal/` — machine-specific skills, not for anyone else. Kept outside
+`skills/` so no installer surface (npx, Claude plugin, the CLI) can ever see
+them.
+
+## Sync
+
+The repo is the only real copy of each skill. `scripts/sync-skills.sh link`
+symlinks `skills/<name>` and `personal/<name>` into the global agent trees
+(`~/.claude/skills`, `~/.agents/skills`, `~/.codex/skills`,
+`~/.config/opencode/skills`, `~/.cursor/skills`, and `~/.grok/skills`), so an edit made from
+either side is the same file and
+syncing means committing. `pull` brings
+a diverged or unknown global skill back into the repo (unknown ones land in
+`drafts/`), `status` shows the picture, `unlink` materializes a real copy for
+testing what installers ship. No command destroys information: link only
+replaces dirs proven identical, pull requires a clean git path.
+
+Pi extensions follow the same model. `scripts/sync-pi-extensions.sh link`
+discovers the concrete `pi.extensions` entrypoints in `plugins/*/package.json`
+and symlinks them into `~/.pi/agent/extensions`. Use `status`, `pull`, and
+`unlink` with the same meanings and safety guarantees as the skill sync.
+The script skips full Pi packages (ones that also declare `pi.skills` or
+`pi.prompts`): those only load correctly through `pi install <path>` package
+installs, and a bare extension symlink would drop their skills/prompts and
+double-load the extension.
+
+Note: the global `merge` skill is not a rename of `resolving-merge-conflicts`
+— it performs a branch merge rather than resolving a conflict in progress.
+
+## Releases
+
+Use Conventional Commits. [release-please](https://github.com/googleapis/release-please)
+(`release.yml`, config in `release-please-config.json`) keeps one release PR
+per changed component — `cli/loom`, `cli/loom-teams`, `plugins/pi-fast`, `plugins/pi-guardrails` —
+with the version bump and changelog. Merging it tags `<component>-vX.Y.Z`,
+uploads the binaries, then moves the `manifest/loom.toml` pin to the new tag
+and publishes to npm. A skill
+change regenerates `cli/loom/setup-catalog.json`, which is what makes it a
+loom release. Do not create component tags by hand.
+
+## Quality checks
+
+After finishing code changes (plugins/, scripts/, test/), run
+`npm run audit` — it gates on dead code, complexity, and duplication that the
+changeset introduced (config in `.fallowrc.json`; `npm run audit:brief` gives
+a non-gating orientation report). `npm run check` covers the rest: tests,
+tsc, biome lint, catalog, and packaging.
+
+## Rule
+
+Everything under `skills/` is public: npx, the Claude plugin, and the CLI all
+discover the flat tree directly. `skills.sh.json` lists shared skills only —
+it is the grouping shown by skills.sh, nothing more.
+
+Never move anything from `drafts/` or `personal/` into `skills/` or list it in
+`skills.sh.json` without review. All are public install surfaces; drafts are
+unreviewed and personal skills hardcode local paths. Promote a draft into
+`skills/` first (`sync-skills.sh promote <name>`), then list it.
+
+A skill whose flow invokes another skill (`Run a /grill-me session`, `route
+through /diagnosing-bugs`) declares it in a per-skill `deps.yml` next to its
+SKILL.md, as a bare skill name, so installers pull deps in transitively (the
+catalog generator bakes the graph into `cli/loom/setup-catalog.json` for the CLI).
+Declare invocations only — not soft "if installed" mentions or pointers. An
+imported skill records immutable provenance in the same file under `upstream`,
+with `repository`, repository-relative `path`, and full `commit` SHA; a
+provenance-only `deps.yml` is valid. `sync-skills.sh deps` validates the
+sidecars: every dep must be a shared skill at its stated path, provenance must
+be complete, and the graph must stay acyclic. On this machine the agent trees
+are symlinked into the repo (`sync-skills.sh link`); `loom update` never writes
+through those symlinks, so keep using `pull` before `link` for divergences.
+
+<!-- loom:section:project-setup hash:267500200da2cf72 -->
+
+## Project setup
+
+- Issue workflow: `ai-docs/agents/issue-tracker.md`
+- Domain documentation: `ai-docs/agents/domain.md`
+- Editor links: `ai-docs/agents/editor.md`
+<!-- /loom:section:project-setup -->
+
+---
+> Source: [Yassimba/loom](https://github.com/Yassimba/loom) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
