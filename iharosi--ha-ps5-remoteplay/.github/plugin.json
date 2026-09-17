@@ -1,0 +1,9 @@
+{
+  "name": "iharosi--ha-ps5-remoteplay",
+  "displayName": "ha-ps5-remoteplay",
+  "description": "Home Assistant integration to wake, standby and track PlayStation 5 consoles over local Remote Play",
+  "version": "1.0.0",
+  "author": "iharosi",
+  "homepage": "https://github.com/iharosi/ha-ps5-remoteplay",
+  "skills": []
+}
