@@ -7,11 +7,11 @@ Cuti Harness: An open-source, plugin-based video world harness
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [VideoVerses/Cuti-Harness](https://github.com/VideoVerses/Cuti-Harness).
+Original source: `CLAUDE.md` in [VideoVerses/Cuti-Harness](https://github.com/VideoVerses/Cuti-Harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
