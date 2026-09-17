@@ -1,0 +1,9 @@
+{
+  "name": "meteor--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Meteor-maintained Agent Skills for building, migrating, testing, securing, and deploying Meteor 3 applications.",
+  "version": "1.0.0",
+  "author": "meteor",
+  "homepage": "https://github.com/meteor/agent-skills",
+  "skills": []
+}
