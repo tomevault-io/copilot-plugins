@@ -4,7 +4,7 @@
   "repo": "catalyst-integrity-desk",
   "description": "An auditable monitor for the moment a biotech investment thesis quietly stops being true. IBM AI Builders Challenge entry.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kristenharim/catalyst-integrity-desk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T01:44:34Z"
+  "distributed_at": "2026-09-17T03:08:51Z"
 }
