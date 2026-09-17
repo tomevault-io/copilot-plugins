@@ -1,0 +1,9 @@
+{
+  "name": "zerox-core--reverse-tutor",
+  "displayName": "Reverse-Tutor",
+  "description": "\u672c\u5730\u4f18\u5148\u7684\u53cd\u5411\u6559\u5b66\u4e0e\u76ee\u6807\u63a8\u8fdb\u5e94\u7528\uff1a\u8ba9 AI \u4f5c\u4e3a\u5b66\u751f\uff0c\u901a\u8fc7\u8ffd\u95ee\u3001\u56fe\u8c31\u3001\u951a\u70b9\u548c\u5907\u5fd8\u5f55\u6574\u7406\u957f\u671f\u5bf9\u8bdd\u3002",
+  "version": "1.0.0",
+  "author": "zerox-core",
+  "homepage": "https://github.com/zerox-core/Reverse-Tutor",
+  "skills": []
+}
