@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-manim",
+  "displayName": "franken_manim",
+  "description": "A sovereign, deterministic rewrite of 3b1b's manim in pure Rust \u2014 native TeX math typesetting (no LaTeX), an analytic B\u00e9zier renderer with the 3b1b look, certified bit-reproducible renders, and source",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_manim",
+  "skills": []
+}
