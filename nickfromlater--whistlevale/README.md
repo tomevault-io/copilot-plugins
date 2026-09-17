@@ -7,11 +7,11 @@ A model railway exhibit that anyone can contribute to. Take an empty display bay
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nickfromlater/whistlevale](https://github.com/nickfromlater/whistlevale).
+Original source: `CLAUDE.md` in [nickfromlater/whistlevale](https://github.com/nickfromlater/whistlevale).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
