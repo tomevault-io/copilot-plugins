@@ -1,0 +1,30 @@
+# AI instruction files for wp-plugin-starter
+
+> Sourced from [perxel/wp-plugin-starter](https://github.com/perxel/wp-plugin-starter), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+Template repository for a Perxel WordPress plugin — namespaced codebase, shared admin UI kit, PHPCS + Plugin Check CI, WordPress.org release workflow.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [perxel/wp-plugin-starter](https://github.com/perxel/wp-plugin-starter).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [perxel/wp-plugin-starter](https://github.com/perxel/wp-plugin-starter) — a repo with 0+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install perxel/wp-plugin-starter
+```
+Source: [github.com/perxel/wp-plugin-starter](https://github.com/perxel/wp-plugin-starter).
+
+<!-- genome:a-i-s -->
