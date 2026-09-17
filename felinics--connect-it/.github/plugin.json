@@ -1,0 +1,9 @@
+{
+  "name": "felinics--connect-it",
+  "displayName": "connect-it",
+  "description": "Self-hosted connector gateway \u2014 hold your SaaS credentials once, and hand your agents a single MCP endpoint.",
+  "version": "1.0.0",
+  "author": "felinics",
+  "homepage": "https://github.com/felinics/connect-it",
+  "skills": []
+}
