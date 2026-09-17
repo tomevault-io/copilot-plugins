@@ -1,0 +1,9 @@
+{
+  "name": "foeken--meeting-notes",
+  "displayName": "meeting-notes",
+  "description": "Private native macOS meeting transcription menu-bar utility",
+  "version": "1.0.0",
+  "author": "foeken",
+  "homepage": "https://github.com/foeken/meeting-notes",
+  "skills": []
+}
