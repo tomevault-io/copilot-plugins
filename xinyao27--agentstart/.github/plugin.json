@@ -1,0 +1,9 @@
+{
+  "name": "xinyao27--agentstart",
+  "displayName": "agentstart",
+  "description": "Run coding agents across local, WSL, and SSH workspaces from Chrome and iOS.",
+  "version": "1.0.0",
+  "author": "xinyao27",
+  "homepage": "https://github.com/xinyao27/agentstart",
+  "skills": []
+}
