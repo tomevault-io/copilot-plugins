@@ -7,11 +7,11 @@ Agent CLI Framework: self-describing command-line tools for AI agents, built on 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agent-cli-framework/aclif](https://github.com/agent-cli-framework/aclif).
+Original source: `CLAUDE.md` in [agent-cli-framework/aclif](https://github.com/agent-cli-framework/aclif).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
