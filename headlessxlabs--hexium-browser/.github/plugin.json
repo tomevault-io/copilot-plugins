@@ -1,0 +1,9 @@
+{
+  "name": "headlessxlabs--hexium-browser",
+  "displayName": "hexium-browser",
+  "description": "Stealth antidetect browser for Playwright \u2014 patched Chromium 151 with C++ persona, persistent profiles, humanize & GeoIP. launch() in, Chrome out.",
+  "version": "1.0.0",
+  "author": "HeadlessXLabs",
+  "homepage": "https://github.com/HeadlessXLabs/hexium-browser",
+  "skills": []
+}
