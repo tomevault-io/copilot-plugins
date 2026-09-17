@@ -1,0 +1,9 @@
+{
+  "name": "noeltock--prompt-relay",
+  "displayName": "prompt-relay",
+  "description": "Route each coding task to the right model. Works with Claude Code, Codex, or both.",
+  "version": "1.0.0",
+  "author": "noeltock",
+  "homepage": "https://github.com/noeltock/prompt-relay",
+  "skills": []
+}
