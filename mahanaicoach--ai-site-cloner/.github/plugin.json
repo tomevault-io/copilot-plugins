@@ -1,0 +1,9 @@
+{
+  "name": "mahanaicoach--ai-site-cloner",
+  "displayName": "ai-site-cloner",
+  "description": "Clone any website into a pixel-accurate Next.js app with AI \u2014 Playwright-measured extraction (no eyeballing), spec-gated parallel builder agents, and scored pixel-diff QA at phone/tablet/desktop. Work",
+  "version": "1.0.0",
+  "author": "Mahanaicoach",
+  "homepage": "https://github.com/Mahanaicoach/ai-site-cloner",
+  "skills": []
+}
