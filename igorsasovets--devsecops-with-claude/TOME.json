@@ -4,7 +4,7 @@
   "repo": "devsecops-with-claude",
   "description": "This repository contains SKILLs, commands and other stuff to automate and empower your DevSecOps processes with the help of Claude",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IgorSasovets/devsecops-with-claude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T01:19:40Z"
+  "distributed_at": "2026-09-17T01:26:16Z"
 }
