@@ -1,0 +1,9 @@
+{
+  "name": "abrahampaulj--npuforge",
+  "displayName": "npuforge",
+  "description": "Convert a Stable Diffusion 1.5 or SDXL checkpoint into a Qualcomm NPU model on the phone itself,  with no PC. Supports LoRA merging.",
+  "version": "1.0.0",
+  "author": "AbrahamPaulJ",
+  "homepage": "https://github.com/AbrahamPaulJ/npuforge",
+  "skills": []
+}
