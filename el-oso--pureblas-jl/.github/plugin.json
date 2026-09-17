@@ -1,0 +1,9 @@
+{
+  "name": "el-oso--pureblas-jl",
+  "displayName": "PureBLAS.jl",
+  "description": "Pure-Julia BLAS/LAPACK \u2014 an OpenBLAS/MKL replacement (part of the Pure Julia Ecosystem)",
+  "version": "1.0.0",
+  "author": "el-oso",
+  "homepage": "https://github.com/el-oso/PureBLAS.jl",
+  "skills": []
+}
