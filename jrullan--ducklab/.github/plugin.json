@@ -1,0 +1,9 @@
+{
+  "name": "jrullan--ducklab",
+  "displayName": "ducklab",
+  "description": "Multi-LLM development harness \u2014 local-first, test-gated, honest by construction. Requirements\u2192spec\u2192plan\u2192build\u2192review\u2192release with real verification gates; operable by humans, CLI, desktop, or other ag",
+  "version": "1.0.0",
+  "author": "jrullan",
+  "homepage": "https://github.com/jrullan/ducklab",
+  "skills": []
+}
