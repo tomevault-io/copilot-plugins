@@ -7,11 +7,11 @@ Template repository for a Perxel WordPress plugin — namespaced codebase, share
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [perxel/wp-plugin-starter](https://github.com/perxel/wp-plugin-starter).
+Original source: `AGENTS.md` in [perxel/wp-plugin-starter](https://github.com/perxel/wp-plugin-starter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
