@@ -4,7 +4,7 @@
   "repo": "05-arcade-vault",
   "description": "Revisi\u00f3n curso Claude Code Arcade-Vault",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/byronmolina-dev/05-arcade-vault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T01:32:36Z"
+  "distributed_at": "2026-09-17T01:48:16Z"
 }
