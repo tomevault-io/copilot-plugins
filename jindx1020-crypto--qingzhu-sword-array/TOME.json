@@ -1,0 +1,44 @@
+{
+  "name": "qingzhu-sword-array",
+  "owner": "jindx1020-crypto",
+  "repo": "qingzhu-sword-array",
+  "description": "\u9752\u7af9\u5251\u9635 \u00b7 \u865a\u5929\u6bbf\u7bc7\uff1a\u65e0\u9700\u5b89\u88c5\u3001\u6d4f\u89c8\u5668\u79bb\u7ebf\u6e38\u73a9\u7684\u50cf\u7d20\u5fa1\u5251\u540c\u4eba\u6e38\u620f\u3002\u539f\u521b\u4ee3\u7801 GPL-3.0-only\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jindx1020-crypto/qingzhu-sword-array",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T06:50:21Z"
+}
