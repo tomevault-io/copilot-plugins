@@ -4,7 +4,7 @@
   "repo": "calm",
   "description": "Shared HTTP context layer for LLM workloads.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/one-harsh/calm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T06:31:13Z"
+  "distributed_at": "2026-09-17T06:37:36Z"
 }
