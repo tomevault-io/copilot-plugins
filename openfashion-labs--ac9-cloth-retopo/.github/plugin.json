@@ -1,0 +1,9 @@
+{
+  "name": "openfashion-labs--ac9-cloth-retopo",
+  "displayName": "ac9_cloth_retopo",
+  "description": "Blender add-on for retopologizing CLO / Marvelous Designer garment meshes in the flat pattern shape (2D), projected to 3D on the high-poly Guide",
+  "version": "1.0.0",
+  "author": "openfashion-labs",
+  "homepage": "https://github.com/openfashion-labs/ac9_cloth_retopo",
+  "skills": []
+}
