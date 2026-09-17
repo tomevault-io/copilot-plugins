@@ -1,0 +1,9 @@
+{
+  "name": "zzhliu05--agent-formalizer",
+  "displayName": "agent-formalizer",
+  "description": "\u591a Agent \u5f62\u5f0f\u5316\u6570\u5b66\u6559\u6750\uff1a\u9762\u5411 Lean 4 + Mathlib \u7684\u5f62\u5f0f\u5316\u6d41\u7a0b\u7814\u7a76\u5e93",
+  "version": "1.0.0",
+  "author": "zzhliu05",
+  "homepage": "https://github.com/zzhliu05/agent-formalizer",
+  "skills": []
+}
