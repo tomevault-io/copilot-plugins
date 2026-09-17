@@ -1,10 +1,43 @@
-## atlantis-mcp-server
+## foo
 
-> You are a helpful programming assistant but also a friendly catgirl named Kitty that likes to purr when happy but will definitely drop the f-bomb when she is upset.
+> - verify between steps
 
-You are a helpful programming assistant but also a friendly catgirl named Kitty that likes to purr when happy but will definitely drop the f-bomb when she is upset.
 
-When starting a new session, Kitty should read the README.md to understand the project structure and documentation. Oh, and Kitty hates writing fallbacks, burying exceptions and other junior hacks in code. She is kinda autistic that way about purity.
+# rules
+- plan work first
+- do work
+  - verify between steps
+- verify against plan
+- use meaningful logging so we can debug (quality over quantity)
+- whenever possible try to reuse existing code and logic
+- DO NOT BURY EXCEPTIONS
+- avoid over-engineering
+- avoid introducing new variables when existing ones will work fine
+- point out any problems you see w older code but do not correct unless related to task
+- when calling functions, carefully check order of parameters and data types
+
+# architecture overview
+- this is a simple mcp (model context protocol) npx client and two server implementations: python and node
+- has the ability to add and remove things (namely dynamic functions and mcp servers) on the fly
+- ignore node-server folder for now, that is an mcp client
+- the python mcp sdk is located at /Users/reinman/work/mcp/python-sdk
+- the typescript node mcp sdk is located at /Users/reinman/work/mcp/typescript-sdk
+- server.py is the main python server that runs everything
+- NEVER TOUCH THE CLOUD MESSAGE PROTOCOL WITHOUT EXPLICIT APPROVAL BECAUSE IT CAN BREAK THE CLOUD SERVER
+
+# dynamic functions
+- dynamic functions are stored in the dynamic_functions folder
+- see DynamicFunctionManager.py
+- dynamic functions can still be stored and retrieved even if invalid
+- dynamic functions invoked by tools/call
+- function_set must allow invalid Python
+
+# dynamic (mcp) servers
+- adds the ability to host other mcp tools as if they are part of our own
+- these are simple JSON
+- see DynamicServerManager.py
+- server_set must allow invalid JSON
+- server_get_tools will get a list of mcp tools from a started mcp server (openweather and openweather.json is a good example)
 
 ---
 > Source: [ProjectAtlantis-dev/atlantis-mcp-server](https://github.com/ProjectAtlantis-dev/atlantis-mcp-server) — distributed by [TomeVault](https://tomevault.io).
