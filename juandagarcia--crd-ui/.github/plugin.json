@@ -1,0 +1,9 @@
+{
+  "name": "juandagarcia--crd-ui",
+  "displayName": "crd-ui",
+  "description": "\ud83d\udcb3 A credit & debit card component. Dependency-free, themeable, localizable. One package for React, Vue, Svelte and vanilla JS.",
+  "version": "1.0.0",
+  "author": "JuandaGarcia",
+  "homepage": "https://github.com/JuandaGarcia/crd-ui",
+  "skills": []
+}
