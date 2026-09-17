@@ -1,0 +1,9 @@
+{
+  "name": "xbst--pinconnect",
+  "displayName": "PinConnect",
+  "description": "An interactive pinout generator for PCBs.",
+  "version": "1.0.0",
+  "author": "xbst",
+  "homepage": "https://github.com/xbst/PinConnect",
+  "skills": []
+}
