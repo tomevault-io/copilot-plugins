@@ -1,0 +1,9 @@
+{
+  "name": "olearydj--claude-json-to-markdown",
+  "displayName": "claude-json-to-markdown",
+  "description": "Convert JSON data from Anthropic's JSON exports to Markdown files",
+  "version": "1.0.0",
+  "author": "olearydj",
+  "homepage": "https://github.com/olearydj/claude-json-to-markdown",
+  "skills": []
+}
