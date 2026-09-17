@@ -1,0 +1,9 @@
+{
+  "name": "humane-intelligence--hi-oss-ai-red-teaming",
+  "displayName": "hi-oss-ai-red-teaming",
+  "description": "A platform for running human-centered red teaming evaluations on AI models and systems.",
+  "version": "1.0.0",
+  "author": "humane-intelligence",
+  "homepage": "https://github.com/humane-intelligence/hi-oss-ai-red-teaming",
+  "skills": []
+}
