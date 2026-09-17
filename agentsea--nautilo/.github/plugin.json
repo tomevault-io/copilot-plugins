@@ -1,0 +1,9 @@
+{
+  "name": "agentsea--nautilo",
+  "displayName": "nautilo",
+  "description": "AI goes multiplayer. A self-hosted workspace for people and machine people. Create, code, and work together across desktop, mobile, and web. Open source. MIT licensed.",
+  "version": "1.0.0",
+  "author": "agentsea",
+  "homepage": "https://github.com/agentsea/nautilo",
+  "skills": []
+}
