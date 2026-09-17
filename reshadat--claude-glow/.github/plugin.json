@@ -1,0 +1,9 @@
+{
+  "name": "reshadat--claude-glow",
+  "displayName": "claude-glow",
+  "description": "Ambient status light for Claude Code. A Tuya/Halonix smart bulb glows with what Claude is doing: amber for tools, red pulse when it needs you, green when idle. 100% local LAN, no LLM in the control lo",
+  "version": "1.0.0",
+  "author": "reshadat",
+  "homepage": "https://github.com/reshadat/claude-glow",
+  "skills": []
+}
