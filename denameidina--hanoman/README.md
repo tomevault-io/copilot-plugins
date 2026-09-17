@@ -7,11 +7,11 @@ Control room untuk menjalankan & memantau coding agent di banyak project sekalig
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [denameidina/hanoman](https://github.com/denameidina/hanoman).
+Original source: `AGENTS.md` in [denameidina/hanoman](https://github.com/denameidina/hanoman).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
