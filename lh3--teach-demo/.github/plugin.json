@@ -1,0 +1,9 @@
+{
+  "name": "lh3--teach-demo",
+  "displayName": "teach-demo",
+  "description": "Interactive demos of sequence algorithms",
+  "version": "1.0.0",
+  "author": "lh3",
+  "homepage": "https://github.com/lh3/teach-demo",
+  "skills": []
+}
