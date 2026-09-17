@@ -1,0 +1,9 @@
+{
+  "name": "omercnet--paseo-plugins",
+  "displayName": "paseo-plugins",
+  "description": "Paseo plugins maintained in one monorepo",
+  "version": "1.0.0",
+  "author": "omercnet",
+  "homepage": "https://github.com/omercnet/paseo-plugins",
+  "skills": []
+}
