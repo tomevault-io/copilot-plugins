@@ -1,0 +1,9 @@
+{
+  "name": "ilmanzo--binarycoverage",
+  "displayName": "BinaryCoverage",
+  "description": "Code coverage tool using eBPF",
+  "version": "1.0.0",
+  "author": "ilmanzo",
+  "homepage": "https://github.com/ilmanzo/BinaryCoverage",
+  "skills": []
+}
