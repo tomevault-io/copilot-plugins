@@ -1,0 +1,9 @@
+{
+  "name": "jinleiphys--fusion",
+  "displayName": "FUSION",
+  "description": "AI research agent for nuclear physics: 23 expert skills that install, run, and verify open-source codes (FRESCO, TALYS, SMASH, ...) plus a 61k-paper offline nucl-th knowledge base",
+  "version": "1.0.0",
+  "author": "jinleiphys",
+  "homepage": "https://github.com/jinleiphys/FUSION",
+  "skills": []
+}
