@@ -1,0 +1,9 @@
+{
+  "name": "17sho--pass-vault",
+  "displayName": "pass-vault",
+  "description": "Client-encrypted Pass Vault for Cloudflare, Linux, and native SwiftUI iOS",
+  "version": "1.0.0",
+  "author": "17sho",
+  "homepage": "https://github.com/17sho/pass-vault",
+  "skills": []
+}
