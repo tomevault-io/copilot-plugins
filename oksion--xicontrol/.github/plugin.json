@@ -1,0 +1,9 @@
+{
+  "name": "oksion--xicontrol",
+  "displayName": "XiControl",
+  "description": "Tray utility for Xiaomi / Redmi laptops (Redmibook, Xiaomi Book Pro): battery charge limit 40-100%, performance modes, auto refresh rate, OSD and Mi button remapping - driver-free, via the stock firmw",
+  "version": "1.0.0",
+  "author": "Oksion",
+  "homepage": "https://github.com/Oksion/XiControl",
+  "skills": []
+}
