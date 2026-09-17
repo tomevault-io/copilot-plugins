@@ -1,0 +1,9 @@
+{
+  "name": "patchloom--patchloom",
+  "displayName": "patchloom",
+  "description": "Structured file edits for AI agents (JSON/YAML/TOML, markdown, AST, dry-run, MCP). Not a generic filesystem MCP.",
+  "version": "1.0.0",
+  "author": "patchloom",
+  "homepage": "https://github.com/patchloom/patchloom",
+  "skills": []
+}
