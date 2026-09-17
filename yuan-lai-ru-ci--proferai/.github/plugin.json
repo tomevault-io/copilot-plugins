@@ -1,0 +1,9 @@
+{
+  "name": "yuan-lai-ru-ci--proferai",
+  "displayName": "ProferAI",
+  "description": "Profer \u2014 \u57fa\u4e8e Claude Agent SDK \u548c Pi runtime \u7684\u901a\u7528 AI Agent \u684c\u9762\u5e94\u7528\uff1a\u591a\u6a21\u578b\u63a5\u5165\u3001\u534f\u4f5c\u5b50 Agent\u3001\u5b9a\u65f6\u4efb\u52a1\u81ea\u52a8\u5316\u3001\u5e73\u677f\u8fdc\u7a0b\u63a5\u5165\u4e0e\u56e2\u961f\u5de5\u4f5c\u533a\u3002",
+  "version": "1.0.0",
+  "author": "Yuan-lai-ru-ci",
+  "homepage": "https://github.com/Yuan-lai-ru-ci/ProferAI",
+  "skills": []
+}
