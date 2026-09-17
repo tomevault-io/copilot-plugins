@@ -4,7 +4,7 @@
   "repo": "local-lmcanvas",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/max-lee-dev/local-lmcanvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T06:42:36Z"
+  "distributed_at": "2026-09-17T06:46:28Z"
 }
