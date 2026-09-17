@@ -1,0 +1,9 @@
+{
+  "name": "y0usaf--pi-jev",
+  "displayName": "pi-jev",
+  "description": "TypeSafe Jev as a decision layer for the Pi coding agent: a measured tool-call gate plus jev_ask for typed, calibrated answers",
+  "version": "1.0.0",
+  "author": "y0usaf",
+  "homepage": "https://github.com/y0usaf/pi-jev",
+  "skills": []
+}
