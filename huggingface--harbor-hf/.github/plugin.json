@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--harbor-hf",
+  "displayName": "harbor-hf",
+  "description": "Run reproducible Harbor benchmarks on Hugging Face infrastructure.",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/harbor-hf",
+  "skills": []
+}
