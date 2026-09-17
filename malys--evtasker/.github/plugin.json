@@ -1,0 +1,9 @@
+{
+  "name": "malys--evtasker",
+  "displayName": "EVTasker",
+  "description": "Independent, safety-gated EV automation app compatible with selected SAIC MG4 vehicles.",
+  "version": "1.0.0",
+  "author": "malys",
+  "homepage": "https://github.com/malys/EVTasker",
+  "skills": []
+}
