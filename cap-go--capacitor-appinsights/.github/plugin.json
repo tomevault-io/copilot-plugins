@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-appinsights",
+  "displayName": "capacitor-appinsights",
+  "description": "Capacitor plugin to allow interact with App insights SDK",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-appinsights",
+  "skills": []
+}
