@@ -1,0 +1,9 @@
+{
+  "name": "vibegameengine--web-starter-kit-webgpu-pipline",
+  "displayName": "web-starter-kit-webgpu-pipline",
+  "description": "WebGPU render pipeline: baked lightmap atlas + DDGI-style probe volume, three.js r182 / TSL",
+  "version": "1.0.0",
+  "author": "vibegameengine",
+  "homepage": "https://github.com/vibegameengine/web-starter-kit-webgpu-pipline",
+  "skills": []
+}
