@@ -1,9 +1,10 @@
-## saa
+## super-access-analytics-public
 
-> 作業前に `docs/ai-agent-guide.md` と `docs/standard-run-order.md` を読む。個別機能は共通ガイドが示す正本に従い、手順をこのファイルへ複製しない。分析・考察は現在のエージェント自身が行う。GA4/GTMデータの外部送信は `docs/data-handling.md` に従う。
+> 作業前に `docs/ai-agent-guide.md` と `docs/standard-run-order.md` を読む。個別機能は共通ガイドが示す正本に従う。分析・考察は現在のエージェント自身が行い、Pythonから別のAIを自動起動しない。GA4/GTMデータの外部送信は `docs/data-handling.md` に従う。
 
+# super-access-analytics
 
-作業前に `docs/ai-agent-guide.md` と `docs/standard-run-order.md` を読む。個別機能は共通ガイドが示す正本に従い、手順をこのファイルへ複製しない。分析・考察は現在のエージェント自身が行う。GA4/GTMデータの外部送信は `docs/data-handling.md` に従う。
+作業前に `docs/ai-agent-guide.md` と `docs/standard-run-order.md` を読む。個別機能は共通ガイドが示す正本に従う。分析・考察は現在のエージェント自身が行い、Pythonから別のAIを自動起動しない。GA4/GTMデータの外部送信は `docs/data-handling.md` に従う。
 
 ---
 > Source: [TigerMonday/super-access-analytics-public](https://github.com/TigerMonday/super-access-analytics-public) — distributed by [TomeVault](https://tomevault.io).
