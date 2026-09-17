@@ -1,0 +1,9 @@
+{
+  "name": "getpipher--vision",
+  "displayName": "vision",
+  "description": "Capability-aware vision + paste extension for the pi coding agent. Delegates image analysis only when the active model is text-only; passes through natively for multimodal models (zero delegation).",
+  "version": "1.0.0",
+  "author": "getpipher",
+  "homepage": "https://github.com/getpipher/vision",
+  "skills": []
+}
