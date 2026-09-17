@@ -1,0 +1,9 @@
+{
+  "name": "rosenbjerg--local-review",
+  "displayName": "local-review",
+  "description": "Minimal webapp for local code review of branches",
+  "version": "1.0.0",
+  "author": "rosenbjerg",
+  "homepage": "https://github.com/rosenbjerg/local-review",
+  "skills": []
+}
