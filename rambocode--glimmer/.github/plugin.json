@@ -1,0 +1,9 @@
+{
+  "name": "rambocode--glimmer",
+  "displayName": "glimmer",
+  "description": "\u5fae\u660e Glimmer\uff1a\u7528 Rust \u5199\u7684\u8de8\u5e73\u53f0\u8f93\u5165\u6cd5\uff0c\u6d3e\u751f\u81ea\u9752\u7b80 Qingjian\uff08GPL-3.0-or-later\uff09",
+  "version": "1.0.0",
+  "author": "rambocode",
+  "homepage": "https://github.com/rambocode/glimmer",
+  "skills": []
+}
