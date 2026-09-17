@@ -1,0 +1,9 @@
+{
+  "name": "aetna000--atmem",
+  "displayName": "atmem",
+  "description": "Local-first, auditable memory for AI agents, with governed retrieval, delegated context delivery, and verifiable execution evidence. Works with OpenClaw, MCP, Pydantic AI, and LangChain/LangGraph. No ",
+  "version": "1.0.0",
+  "author": "aetna000",
+  "homepage": "https://github.com/aetna000/atmem",
+  "skills": []
+}
