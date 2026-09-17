@@ -7,11 +7,11 @@ Unofficial security-research fork of MoonshotAI/kimi-code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NitrogenT7/kimi-code-security](https://github.com/NitrogenT7/kimi-code-security).
+Original source: `AGENTS.md` in [NitrogenT7/kimi-code-security](https://github.com/NitrogenT7/kimi-code-security).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
