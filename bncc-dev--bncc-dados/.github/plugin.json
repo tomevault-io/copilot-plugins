@@ -1,0 +1,9 @@
+{
+  "name": "bncc-dev--bncc-dados",
+  "displayName": "bncc-dados",
+  "description": "A BNCC como dados abertos e verificados: 1.721 aprendizagens em JSON, SQLite e CSV, com proveni\u00eancia por registro e pipeline de extra\u00e7\u00e3o reprodut\u00edvel.",
+  "version": "1.0.0",
+  "author": "bncc-dev",
+  "homepage": "https://github.com/bncc-dev/bncc-dados",
+  "skills": []
+}
