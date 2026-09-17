@@ -4,7 +4,7 @@
   "repo": "orangebank",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matheusdsilva01/orangebank",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T22:33:24Z"
+  "distributed_at": "2026-09-17T22:36:02Z"
 }
