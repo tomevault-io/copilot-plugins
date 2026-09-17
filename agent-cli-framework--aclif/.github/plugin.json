@@ -1,0 +1,9 @@
+{
+  "name": "agent-cli-framework--aclif",
+  "displayName": "aclif",
+  "description": "Agent CLI Framework: self-describing command-line tools for AI agents, built on oclif",
+  "version": "1.0.0",
+  "author": "agent-cli-framework",
+  "homepage": "https://github.com/agent-cli-framework/aclif",
+  "skills": []
+}
