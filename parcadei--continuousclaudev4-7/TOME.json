@@ -1,0 +1,99 @@
+{
+  "name": "ContinuousClaudeV4.7",
+  "owner": "parcadei",
+  "repo": "ContinuousClaudeV4.7",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/bootup/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/bootup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/research/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/premortem/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/premortem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/autonomous/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/autonomous/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/resume-handoff/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/resume-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/create-handoff/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/create-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/upgrade-harness/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/upgrade-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ContinuousClaudeV4.7",
+      "path": ".claude/skills/autonomous-research/SKILL.md",
+      "github_url": "https://github.com/parcadei/ContinuousClaudeV4.7/tree/main/.claude/skills/autonomous-research/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/parcadei/ContinuousClaudeV4.7",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T05:15:53Z"
+}
