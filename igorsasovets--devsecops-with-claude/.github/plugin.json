@@ -1,0 +1,9 @@
+{
+  "name": "igorsasovets--devsecops-with-claude",
+  "displayName": "devsecops-with-claude",
+  "description": "This repository contains SKILLs, commands and other stuff to automate and empower your DevSecOps processes with the help of Claude",
+  "version": "1.0.0",
+  "author": "IgorSasovets",
+  "homepage": "https://github.com/IgorSasovets/devsecops-with-claude",
+  "skills": []
+}
