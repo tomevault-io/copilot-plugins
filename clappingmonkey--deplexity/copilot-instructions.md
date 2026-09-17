@@ -1,0 +1,121 @@
+## deplexity
+
+> bazel build //cmd/deplexity
+
+# AGENTS.md
+
+## Build & Run
+
+```bash
+# Build
+bazel build //cmd/deplexity
+
+# Build with version stamping
+bazel build //cmd/deplexity --config=release
+
+# Run tests
+bazel test //...
+
+# Run a specific test
+bazel test //internal/client:client_test
+
+# Run the binary directly
+bazel run //cmd/deplexity -- export --help
+
+# Regenerate BUILD files after adding new files/deps
+bazel run //:gazelle
+
+# Update deps after editing go.mod
+go mod tidy
+bazel run //:gazelle-update-repos
+bazel run //:gazelle
+```
+
+Binary entrypoint: `cmd/deplexity/main.go`. Version/buildTime stamped via `x_defs` in Bazel (or `-ldflags` for plain `go build`).
+
+## Architecture
+
+- `internal/api/types.go` — **raw API response structs** (JSON tags match Perplexity's undocumented internal API, verified against live responses May 2026, API v2.18).
+- `internal/api/threads.go` — `ListThreads` (POST `list_ask_threads` with pagination and dual stop condition), `GetThread`.
+- `internal/api/collections.go` — `ListCollections` via `GET /rest/spaces`, deduplicated by non-empty UUID, then always-on fail-soft enrichment: `GetCollection` (per-space instructions/description/suggested_queries/primers) and `ListSpaceSkills`/`GetSkillDetail` (collection-scoped skills + SKILL.md body). `ListSpaceSkills` omits `collection_uuid` when the UUID is empty (used to list account-wide global skills).
+- `internal/api/skills.go` — account-wide skills. `enrichSkill` (shared fail-soft helper: fetches detail + downloads SKILL.md body, used by both space and global paths), `ListGlobalSkills` (calls `ListSpaceSkills("")`, keeps only `scope=="global"`), and `GetAccount` (wraps global skills in `models.Account`). Global skills apply to every request account-wide, so they are exported **once** at the top level, not per space.
+- `internal/api/user.go` — `GetUser` via `GET /api/user`.
+- `internal/models/models.go` — clean domain models used throughout the app (decoupled from API shape).
+- `internal/auth/` — browser-based login via `go-rod/rod` (visible Chrome), cookie capture, session persistence. Also supports `--cookie` for manual token auth.
+- `internal/client/client.go` — authenticated `net/http` client with raw `Cookie` header, adaptive rate limiting, separate HTTP (429/5xx) and network (DNS/dial/TLS) retry loops. All methods accept `context.Context`. Also provides `GetRawURL` for fetching absolute third-party URLs (pre-signed S3 skill bodies) *without* the session cookie/Origin/`x-app-*` headers; it validates the target is `https` with a non-empty host and caps the body at 10 MB (`io.LimitReader`, errors on overflow rather than truncating).
+- `internal/client/transport.go` — Chrome TLS fingerprint via `refraction-networking/utls` to bypass Cloudflare.
+- `internal/client/ratelimit.go` — `RetryWithBackoff`, `computeBackoff`, shared retry constants.
+- `internal/export/` — JSON, Markdown, and PDF exporters. PDF uses `gpdf` (pure Go, zero dependencies). JSON exporter handles `thread_index.json` persistence for resumable exports. All exporters copy thread files into space folders for self-contained output.
+- `internal/export/util.go` — shared helpers: `sanitizeFilename`, `threadDirName` (slug-readable, UUID-identity thread directories), `spaceDirNames` (identity-suffixed, collision-free space directories shared by all exporters), and `skillFilenames`/`shortID` (collision-free `.md` filenames for a space's skills, disambiguated by a short skill-ID suffix; used by both the JSON and Markdown exporters so their sidecar paths and links agree).
+- CLI framework: `alecthomas/kong` (struct-tag based). Commands defined as types with `Run(ctx context.Context) error` methods in `main.go`.
+
+## Browser Dependency
+
+**For `login` only:** Chrome or Chromium is needed for browser-based authentication. If not found, Rod automatically downloads Chromium (~80MB, one-time, cached at `~/.cache/rod/`).
+
+**For `export --cookie` and PDF:** No browser required at any point. `login --cookie <TOKEN>` bypasses the browser entirely. PDF export uses `gpdf` (pure Go, no CGO) in isolated helper subprocesses of the Deplexity binary so cancellation and per-thread timeouts can terminate a stuck renderer.
+
+## Perplexity API Details
+
+All endpoints are reverse-engineered from browser DevTools (May 2026, API version 2.18).
+
+- Auth cookie: `__Secure-next-auth.session-token` (NextAuth.js, ~7 day expiry)
+- Session stored at: `~/.config/deplexity/session.json` (mode 0600, plain JSON)
+- Required headers: `User-Agent` (Chrome), `Referer`, `Origin`, `x-app-apiclient: default`, `x-app-apiversion: 2.18`
+- Cloudflare TLS fingerprinting bypassed via `utls` Chrome preset
+
+### Endpoints Used
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| POST | `/rest/thread/list_ask_threads` | All threads with pagination (body: `{limit, offset, ascending, ...}`) |
+| GET | `/rest/thread/{uuid}?with_schematized_response=true` | Thread detail with full entries |
+| GET | `/rest/spaces` | All spaces (private/shared/invited/org/saved) — list only, omits instructions/skills |
+| GET | `/rest/collections/get_collection?collection_slug={slug}` | Per-space detail: instructions, description, suggested_queries, primers (param must be `collection_slug`; `collection_uuid` → 422) |
+| GET | `/rest/skills/selectable?collection_uuid={uuid}` | Skills selectable in a space; space-attached skills have `scope=="collection"` (vs `global`) |
+| GET | `/rest/skills/selectable` (no `collection_uuid`) | Account-wide skills; returns only `scope=="global"` entries (applied to every request) |
+| GET | `/rest/skills/{id}?view_scope=individual` | Skill detail incl. pre-signed S3 `file_url` for the SKILL.md body |
+| GET | `/api/user` | User profile |
+| GET | `/api/auth/session` | Session info + expiry |
+| GET | `/rest/user/settings` | Limits, quotas, connector config |
+| GET | `/rest/rate-limit/all` | Rate limits per model |
+| POST | `/rest/files/list` | Uploaded files (not yet implemented) |
+
+### Thread Content Structure
+
+Answer content is in `entries[].blocks[]` where `intended_usage == "ask_text_0_markdown"` → `markdown_block.answer`.
+
+## Export Flow
+
+1. **Phase 1 — Index**: `POST /rest/thread/list_ask_threads` with pagination (limit=20, ascending=false). Dual stop condition: `len(response) < limit` (primary) + current-run all-duplicates (safety net). Result cached in `thread_index.json` with `Complete: true` flag, including each original thread slug. An incomplete index is never resumed from its count as an offset because the newest-first list can reorder between runs; the next run re-lists from offset 0 and carries retry metadata forward by UUID.
+2. **Phase 2 — Details**: `GET /rest/thread/{uuid}` for each thread. List-owned slug/space metadata is reapplied to checkpoints and cached details. Skips threads already fetched on disk, including legacy UUID-only cache paths. Ordinary per-thread fetch/write failures preserve and render successful threads, but `manifest.json` records `threads_complete: false`, `expected_threads`, and ordered `failed_threads`, and the command exits non-zero after writing the manifest. Cancellation/deadline errors abort immediately and take precedence over accumulated failures. A failed `--refresh` must not count a stale cached thread as a current success. Adaptive rate limiting: delay doubles after 429, halves after 20 consecutive successes.
+3. **Phase 3 — Render**: Convert domain models to JSON/Markdown/PDF. Write threads to `threads/<slug>-<identity>/` (canonical flat list). Copy thread files into `spaces/<name>-<identity>/threads/<slug>-<identity>/` so each space folder is self-contained without name collisions. Account-wide global skills are written **once** under `account/`: `account/account.json` (JSON) + `account/global-skills.md` (Markdown), with each skill body in `account/skills/<name>.md`. They are not duplicated per space.
+
+Use `--refresh` to force re-fetching the thread index.
+
+## Gotchas
+
+- `has_next_page` from the API is always `true` even on the last page — useless, ignored.
+- `total_threads` reports incorrect counts (e.g., 99 when actual is 692) — unreliable, ignored.
+- Collection/space info is embedded inline in each thread from `list_ask_threads`; there is no server-side filter by space.
+- Cloudflare blocks HTML page fetching even with valid cookies, but `/rest/` API endpoints work fine.
+- `deplexity login` must be run before `export` — there is no inline auth flow. Alternatively, use `deplexity login --cookie <TOKEN>` for headless/server environments.
+- Raw `Cookie` header is used instead of `http.CookieJar`/`AddCookie` to avoid Go's cookie domain validation issues.
+- `sanitizeFilename` lowercases names. Space directories must be derived with `spaceDirNames`, not by sanitizing the display name directly, because they include a stable identity prefix and hash suffix (e.g. `spaces/recipes-e79179d1-<hash>/`). Tests must use the shared helper so JSON, Markdown links, and PDF paths agree on case-sensitive and case-insensitive filesystems.
+- Thread directories must be derived with `threadDirName`, not by sanitizing the slug directly; the UUID-derived identity suffix prevents normalized slug collisions across every exporter and space copy.
+- Signal handling: first Ctrl+C cancels the context (graceful stop after current operation), second Ctrl+C force-exits via default OS handler. Implemented via `signal.NotifyContext` + dedicated `signal.Notify` channel (avoids spurious message on normal exit).
+- PDF sources rendered as numbered list `"N. Title (domain)"` — avoids gpdf hang on long unbreakable URLs (S3 pre-signed URLs up to 1600 chars). Previous table layout caused infinite loops in gpdf's word-wrap.
+- Multi-threaded PDF export: `--pdf-workers` flag (default: `runtime.NumCPU()`). Each worker launches an isolated Deplexity helper subprocess that creates its own `gpdf.Document`. `--pdf-timeout` defaults to 30 minutes per thread (`0` disables); timeout errors identify the thread, terminate its helper, leave any existing canonical PDF unchanged, cancel remaining PDF work, and exit non-zero. Space PDFs copy the successfully rendered canonical thread PDF instead of invoking gpdf again.
+
+## Bazel
+
+- Bazel 9.1+ required (see `.bazelversion`)
+- Uses bzlmod exclusively (no WORKSPACE file)
+- `rules_go` 0.60.0, `gazelle` 0.42.0
+- Run `bazel run //:gazelle` after adding/removing Go files
+- Stamping: `bazel build //cmd/deplexity --config=release` injects git tag + build timestamp
+- Cross-compilation platforms defined in `build/platforms/BUILD.bazel`
+
+---
+> Source: [clappingmonkey/Deplexity](https://github.com/clappingmonkey/Deplexity) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-17 -->
