@@ -1,0 +1,9 @@
+{
+  "name": "nestdream--utcmenubar",
+  "displayName": "UTCMenuBar",
+  "description": "A macOS menu bar UTC clock that's hard to confuse with the system clock",
+  "version": "1.0.0",
+  "author": "NestDream",
+  "homepage": "https://github.com/NestDream/UTCMenuBar",
+  "skills": []
+}
