@@ -1,0 +1,9 @@
+{
+  "name": "levimackay--lydia-cli",
+  "displayName": "lydia-cli",
+  "description": "Lydia is a local AI coding agent for the terminal. It reads and edits your code, runs commands, and drives git through a local Ollama model. No API keys, no cloud, nothing leaves your machine.",
+  "version": "1.0.0",
+  "author": "levimackay",
+  "homepage": "https://github.com/levimackay/lydia-cli",
+  "skills": []
+}
