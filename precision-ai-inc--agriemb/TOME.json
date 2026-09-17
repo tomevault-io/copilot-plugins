@@ -4,7 +4,7 @@
   "repo": "agriemb",
   "description": "Open Source Examples for Precision AI Embedding Public Release",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Precision-AI-Inc/agriemb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T00:56:25Z"
+  "distributed_at": "2026-09-17T00:58:29Z"
 }
