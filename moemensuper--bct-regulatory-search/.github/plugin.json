@@ -1,0 +1,9 @@
+{
+  "name": "moemensuper--bct-regulatory-search",
+  "displayName": "BCT-Regulatory-Search",
+  "description": "A backend for searching BCT (Banque Centrale Tunisie)circulars and regulatory PDFs, asking questions about them, and getting answers backed by the exact passages and sources used.",
+  "version": "1.0.0",
+  "author": "MoemenSuper",
+  "homepage": "https://github.com/MoemenSuper/BCT-Regulatory-Search",
+  "skills": []
+}
