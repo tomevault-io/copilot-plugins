@@ -4,7 +4,7 @@
   "repo": "ai-site-cloner",
   "description": "Clone any website into a pixel-accurate Next.js app with AI \u2014 Playwright-measured extraction (no eyeballing), spec-gated parallel builder agents, and scored pixel-diff QA at phone/tablet/desktop. Works with Claude Code, Cursor, Copilot + 9 more.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mahanaicoach/ai-site-cloner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T00:36:35Z"
+  "distributed_at": "2026-09-17T01:11:25Z"
 }
