@@ -1,0 +1,9 @@
+{
+  "name": "alxnddr--reviewer",
+  "displayName": "reviewer",
+  "description": "UI for agent-generated code reviews",
+  "version": "1.0.0",
+  "author": "alxnddr",
+  "homepage": "https://github.com/alxnddr/reviewer",
+  "skills": []
+}
