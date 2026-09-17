@@ -1,0 +1,14 @@
+{
+  "name": "aiatelie--ai-atelie",
+  "displayName": "ai-atelie",
+  "description": "Local-first, open-source alternative to Anthropic's Claude Design. MIT-licensed, BYO agent CLI \u2014 Claude Code, Kimi, Codex, or any SDK-compatible model. Composable skills \u00b7 three edit paths \u00b7 designs a",
+  "version": "1.0.0",
+  "author": "aiatelie",
+  "homepage": "https://github.com/aiatelie/ai-atelie",
+  "skills": [
+    {
+      "name": "cuj-guardian",
+      "description": ""
+    }
+  ]
+}
