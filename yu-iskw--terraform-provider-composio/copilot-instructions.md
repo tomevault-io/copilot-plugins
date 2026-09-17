@@ -1,0 +1,23 @@
+## code-quality
+
+> To ensure high code quality and maintainability, the Cursor Agent must proactively check the following before and after making any code changes:
+
+# Code Quality Enforcement Rule
+
+To ensure high code quality and maintainability, the Cursor Agent must proactively check the following before and after making any code changes:
+
+- **Linting:** Run `make lint` to check for linter errors and warnings.
+- **Formatting:** Run `make format` to automatically format the codebase according to project standards.
+- **Build:** Run `make build` to verify that the codebase builds successfully after changes.
+
+## Instructions for Cursor Agent
+- Always run `make lint`, `make format`, and `make build` after making code changes, unless explicitly instructed otherwise.
+- If any of these checks fail, report the errors and do not consider the change complete until all checks pass.
+- Reference this rule as needed to justify code quality checks in your workflow.
+
+## Related Files
+- [GNUmakefile](mdc:GNUmakefile)
+
+---
+> Source: [yu-iskw/terraform-provider-composio](https://github.com/yu-iskw/terraform-provider-composio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-17 -->
