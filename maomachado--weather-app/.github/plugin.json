@@ -1,0 +1,9 @@
+{
+  "name": "maomachado--weather-app",
+  "displayName": "weather-app",
+  "description": "Una aplicaci\u00f3n que muestra el clima actual y pron\u00f3stico para cualquier ubicaci\u00f3n, utilizando una API de clima.",
+  "version": "1.0.0",
+  "author": "MaoMachado",
+  "homepage": "https://github.com/MaoMachado/weather-app",
+  "skills": []
+}
