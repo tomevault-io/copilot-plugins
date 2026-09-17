@@ -1,0 +1,390 @@
+## rebricked
+
+> Guidance for AI agents (and humans) working in the **rebricked** repo.
+
+# AGENTS.md
+
+Guidance for AI agents (and humans) working in the **rebricked** repo.
+
+## What this project is
+
+A single static page that answers one question: *"What happened to the thing Databricks
+used to call X?"* It lists Databricks product/feature **renames and deprecations** -
+sourced, dated, searchable - dressed as the Databricks console. There is no build step,
+no framework, no backend. (rebricked = **re**named or de**pre**cated.)
+
+## The one rule
+
+**Real, sourced changes only. Never be confidently wrong.**
+
+There is no `kind` field: **`status` is the sole discriminator**, and it stores only what
+can't be calculated. `status` is a `{ value, link, date }` object: **`value`** holds the
+discriminator (the states listed below), `link` is the official doc backing that call, and
+`date` is the day it was confirmed. Its values (i.e. `status.value`):
+- **`active`** - any name in use now. This covers BOTH a genuinely new capability AND the
+  current name of something that was renamed. The two are *not* stored separately (that would
+  be redundant) - they're **calculated**: a standalone feature carries its own `introducedAt`;
+  the current tip of a rename chain carries `from` and has a `renamed` card pointing at it.
+- **`renamed`** - a superseded former name (needs a `to` date and a `successorId` at the name
+  that replaced it). A rename is therefore one-or-more `renamed` cards chained to an `active`
+  current name.
+- **`deprecated` / `legacy` / `retired`** - retired or replaced: a *different* thing took over
+  (or nothing did), usually with a different API/format. That "different thing" call is a human
+  judgement (the opposite of a rename), so it is stored, not derived.
+
+The UI groups `active` names (features and current rename tips alike) under the **Active**
+filter. Release maturity (Preview vs GA) is a separate, orthogonal `releases` timeline (an
+ordered `{type, date}` array; last stage = current), so a card can be e.g. `active` but
+currently `public-preview`, or `legacy` but `beta`.
+
+Every entry needs an official source from its own vendor (Databricks or Microsoft Learn docs
+for a Databricks entry; `docs.snowflake.com` or the Snowflake blog for a Snowflake one) and a `verified`
+date. If you cannot verify a claim against a live doc, do not add it - flag it instead.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the field rules, and
+[`docs/`](docs/) for the full documentation set: [tutorials](docs/tutorials/) to learn the repo,
+[how-to guides](docs/how-to/) per task, [reference](docs/reference/) to look a field or flag up,
+[explanation](docs/explanation/) for why any of it is shaped this way.
+
+When asked to "validate" the list, that means fact-check each entry against its cited
+source and current vendor naming - not just run the schema check.
+
+## Vendors
+
+The repo tracks more than one vendor. `kb/<vendor>/` is a vendor; `kb/posts/` is not (it is the
+guides). Everything about an entry is identical across vendors - the same `status` discriminator,
+the same required fields, the same "real, sourced changes only" rule - and only four things are
+per-vendor:
+
+- **The source of truth for claims.** Databricks entries cite Databricks or Microsoft Learn docs;
+  Snowflake entries cite `docs.snowflake.com` or the Snowflake blog. Never cross them.
+- **`VALID_CATEGORIES`** in [`validate.py`](scripts/validate.py) is a dict keyed by vendor, because
+  the categories mirror each vendor's own console vocabulary.
+- **The console chrome.** Each vendor's generated pages wear that vendor's own console - the
+  homage only works if it names the right one. [`scripts/chrome.py`](scripts/chrome.py) owns
+  every rail: Databricks' is parsed out of `app.js`'s `NAV` (so the static pages can never drift
+  from the SPA), Snowflake's is Snowsight's, declared there. `<html data-vendor="...">` then
+  swaps the palette in [`styles.css`](www/styles.css). A vendor with no rail there renders in
+  the site's own chrome.
+- **The rail-coverage check.** "Every entry is reachable from a section" now runs for *every*
+  vendor that has a rail in `chrome.py`, in both directions. A vendor with no rail is skipped and
+  reaches readers through its generated hub at `/{vendor}/`.
+- **The hub layout.** `/databricks/` is a document, because the Databricks console content area
+  is; `/snowflake/` is Snowsight's home screen - search box, quick actions, one filterable table.
+  Every entry link is in the markup either way, so both are equally crawlable.
+- **The URL namespace.** `/{vendor}/{id}/`, from `build_entries.py`.
+
+Two things are **not** per-vendor and will fail the gate if you assume otherwise: **entry ids are
+globally unique** (the generated pages index every entry by id in one map), and **a rename chain
+cannot cross vendors** (`successorId` must point at the same vendor).
+
+The single-page app still fetches only `databricks.features.json`, so `/snowflake/` today is the
+generated hub and entry pages, not an app experience. `build_entries.py` knows this and links
+Snowflake entry pages to their hub rather than to a `?id=` deep link the app could not serve.
+
+**Adding or editing an entry? Use the [`add-databricks-entry`](agents/add-databricks-entry.md)
+skill** (or [`add-snowflake-entry`](agents/add-snowflake-entry.md) for a Snowflake one, which
+defers to it for everything the two share). It is the source of truth for the workflow - investigate the full history, classify
+the kind, check for id/name collisions, write the correctly-shaped sourced entry as
+`kb/databricks/<id>.yaml`, keep the `successorId` chain contiguous (insert, prepend, or
+reroute), wire the `id` into the `app.js` `NAV`, then run `scripts/build_features.py` and
+`scripts/validate.py`. Follow it whether you're adding a new thing or
+correcting, re-verifying, or re-chaining a card that already exists; don't hand-roll the flow
+from memory.
+
+## Layout
+
+The deployed site lives entirely in [`www/`](www/) - that folder is what GitHub Pages
+publishes (the CI uploads `www`, nothing else). Repo docs, `scripts/`, `agents/`, `kb/`, and
+`reference/` stay outside it and are never deployed.
+
+**The data lives in [`kb/`](kb/), one file per entry.** `kb/<vendor>/<id>.yaml` is the source
+of truth; `www/databricks.features.json` is build output, untracked, assembled by
+`scripts/build_features.py` (CI runs it before validating and before deploying). One file per
+entry is the point: a change is a small diff in its own file, and
+`git log kb/databricks/delta-live-tables.yaml` is that entry's whole history instead of 105
+entries sharing one blame.
+
+| File | What it is |
+|------|------------|
+| [`kb/databricks/`](kb/databricks/) | **The data. Source of truth.** One YAML file per entry, named `<id>.yaml` (the filename *is* the `id` - the builder enforces it). Same fields as before, same rules; only the container changed. Edit these, never the JSON. |
+| [`kb/snowflake/`](kb/snowflake/) | **The second vendor.** Same schema, same rules, same one-file-per-entry shape; `vendor: snowflake` on every entry, and a Snowflake official doc (docs.snowflake.com or the Snowflake blog) behind every claim. Builds to `www/snowflake.features.json` and renders at `/snowflake/`. |
+| [`kb/posts/`](kb/posts/) | **The guides. Source of truth for prose.** The repo's *second* content type - see [Guides](#guides-kbposts) below. One **folder** per post, named for its slug: `index.md` (YAML front matter + Markdown body), `images/` (figures, copied into the built page), `materials/` (working source such as PDFs - never deployed). Not a vendor folder: `build_features.py` skips it. |
+| `www/<vendor>.features.json` | Generated by `build_features.py` from `kb/<vendor>/` (gitignored) - one file per vendor folder. `databricks.features.json` is the array the app fetches at runtime; entries sorted by `id`, since `app.js` sorts client-side anyway. Don't hand-edit - your change would be overwritten on the next build and never reach the site. |
+| [`scripts/build_features.py`](scripts/build_features.py) | **The data build.** Assembles `kb/<vendor>/*.yaml` into `www/<vendor>.features.json` (canonical key order, deterministic). Needs PyYAML (`pip install pyyaml`) - the one dev dependency; the site itself stays dependency-free. `--check` fails if the built JSON on disk is stale. Run it before `validate.py` and before previewing. |
+| [`www/index.html`](www/index.html) | The app shell: Databricks-style sidebar rail + content area. |
+| [`www/app.js`](www/app.js) | Vanilla JS (IIFE, no deps). Fetches `databricks.features.json`, renders sidebar + result cards, wires search/chips/roulette/theme. |
+| [`www/styles.css`](www/styles.css) | All styling. CSS variables; light default, `data-theme="dark"` toggle. The app's sidebar rail is always dark; a generated page scoped by `data-vendor` can redefine the rail and accent tokens wholesale (see the "Snowflake edition" block, which gives Snowsight its light rail and Snowflake blue). Status colors are three dedicated tokens - `--c-active` (green), `--c-renamed` (slate), `--c-deprecated` (amber), each with a dark value; the brand red (`--accent`) is chrome only. |
+| [`scripts/build_posts.py`](scripts/build_posts.py) | **The guides build.** Renders `kb/posts/<slug>/index.md` into `www/learn/` (index) and `www/learn/<slug>/` (one page per guide, figures copied along), and writes `www/posts.json`. Resolves `{{entry:<id>}}` shortcodes against the built data - an unknown id **fails the build**, so prose can never link to a name the dataset lacks. Carries its own small Markdown-subset renderer rather than adding a dependency. Run after `build_features.py`, before `build_entries.py`. |
+| [`scripts/validate.py`](scripts/validate.py) | Schema/format gate. Branches on `status` (the sole discriminator). Reads the *built* `databricks.features.json`, so run `build_features.py` first or you are validating a stale file. |
+| [`scripts/validate_posts.py`](scripts/validate_posts.py) | Schema/format gate for `kb/posts/` - the prose sibling of `validate.py`. Front matter completeness, slug/folder agreement, entry ids that resolve, real source URLs, sane dates, alt text on every image, no em dashes, balanced `:::` fences. **Warns** (never fails) when a guide is past its `staleAfter` date. |
+| [`scripts/check_anchors.py`](scripts/check_anchors.py) | **Citation rot check.** `validate.py` only checks a link's *shape* and never fetches; this fetches every URL and confirms each `#:~:text=` quote is still on its page. Covers the guides too: each post's front-matter sources and body links are swept under the id `post:<slug>`. Text fragments fail silently (the browser just doesn't highlight), so a reworded doc leaves a card looking sourced when it isn't. Reports `DEAD` (page gone, or readable but the quote is absent - fix the quote, or re-check the claim, since a dead quote on a live vendor doc is often the first sign of a rename) separately from `BLOCKED` (host refuses scripted requests - says nothing about the link, and never fails the run). Clear the `BLOCKED` ones with `--chrome`, which retries just those pages through headless Edge/Chrome and then quote-checks them like any other page; these bot walls yield to a real browser. Without a browser installed, `--list-blocked` prints them for your agent's own web-fetch tool. Needs the network, so it's a local/scheduled audit, **not** part of the deploy gate. |
+| [`scripts/chrome.py`](scripts/chrome.py) | **The per-vendor console chrome.** One place that answers "which rail does this page wear": `VENDOR_RAILS` maps a vendor to its nav (Databricks parsed out of `app.js`, Snowflake declared as Snowsight's), `chrome_for(vendor, root)` renders rail + topbar + inline JS at any directory depth, and `rail_ids(vendor)` is what `validate.py` checks coverage against. Add a vendor's rail here, not in a template. |
+| [`scripts/build_badges.py`](scripts/build_badges.py) | Regenerates `www/badges/<n>-of-5/` - one shareable quiz-result page per score, plus its `og.png`. Run after editing badge copy. Rendering `og.png` needs Edge/Chrome installed; the pages themselves are plain static files. |
+| [`scripts/build_entries.py`](scripts/build_entries.py) | **SEO content layer.** Regenerates the crawlable static pages from `databricks.features.json`: a per-vendor hub at `/{vendor}/` and one page per entry at `/{vendor}/{id}/` (unique `<title>`/description/canonical/OG/JSON-LD + internal links), and rewrites `sitemap.xml` and `feed.xml` (an RSS 2.0 feed of every entry, newest tracked change first). No browser needed. Runs automatically in CI before deploy; run locally after editing entries to preview. Vendor comes from an optional `vendor` field (default `databricks`). |
+| [`scripts/fetch_reference.py`](scripts/fetch_reference.py) | Incrementally mirrors external reference docs (Databricks/MS Learn release notes, resource limits) into `reference/` so entries can be fact-checked and new renames spotted as release notes ship. Sources are declared in [`scripts/sources.json`](scripts/sources.json) - add one there to track another site, no code change. |
+| [`www/badges/`](www/badges/) | Generated. One folder per quiz result (0–5 of 5): an OG-tagged `index.html` (with an absolute `og:image`) plus a 1200×630 `og.png`. The quiz's LinkedIn share links here. Don't hand-edit; run the generator. |
+| `www/<vendor>/` | Generated by `build_entries.py` (gitignored) - one top-level namespace per vendor (`www/databricks/`, `www/snowflake/`). The vendor hub + one crawlable page per entry. Don't hand-edit; run the generator (CI also regenerates on deploy). |
+| `www/learn/` / `www/posts.json` | Generated by `build_posts.py` (gitignored). The guides index, one page per guide with its figures, and the posts index `build_entries.py` reads. Don't hand-edit. |
+| `www/sitemap.xml` / `www/feed.xml` | Generated by `build_entries.py` (gitignored). The crawlable sitemap and an RSS 2.0 feed of every entry, plus one `[Guide]` item per post. Don't hand-edit. |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | The entry schema and field rules. |
+| [`COVERAGE-GAPS.md`](COVERAGE-GAPS.md) | A point-in-time gap report: entries the curated data covers vs. distinct products named in the mirrored release notes. Curation reference, not a checklist. |
+| [`docs/`](docs/) | **The documentation set, organised with [Diataxis](https://diataxis.fr/):** [`tutorials/`](docs/tutorials/) (learn the repo end to end), [`how-to/`](docs/how-to/) (one task, one recipe), [`reference/`](docs/reference/) (entry + guide schemas, every script and flag, every generated file, the frontend contracts), [`explanation/`](docs/explanation/) (why `status` is the sole discriminator, why one file per entry, why no framework, why citation rot has its own checker). Never deployed. **Any change that alters behaviour updates it in the same commit** - [`docs/README.md`](docs/README.md) has the change-to-page map. |
+| [`agents/`](agents/) | Task-scoped skills. [`add-databricks-entry.md`](agents/add-databricks-entry.md): the skill to follow when adding **or editing** any entry - investigate a Databricks thing's history + status, then add/correct the correctly-shaped, sourced entry and validate. [`add-snowflake-entry.md`](agents/add-snowflake-entry.md): the Snowflake sibling - defers to the Databricks skill for the shared workflow and records only what differs (where the file goes, which docs to cite, the Snowflake category list, and a rail step that edits `chrome.py` rather than `app.js`). [`write-guide.md`](agents/write-guide.md): the same for guides - verify every fact against live docs, write `kb/posts/<slug>/`, cite inline with text fragments, label judgement, validate. Tool-agnostic; siblings of this file. |
+| [`.github/workflows/`](.github/workflows/) | GitHub Pages CI: build the JSON from `kb/`, validate, then deploy. |
+
+## Data shape (`kb/<vendor>/<id>.yaml`)
+
+The fields below are the schema of one entry, whether you read it as YAML in `kb/` or as an
+object in the built JSON - the migration to one-file-per-entry changed nothing about them. In
+YAML: two-space indent, `-` lists, one line per value (don't wrap long notes - reflowed text
+makes noisy diffs), and quote any value YAML would otherwise read as a number or date
+(`date: '2021'`, `verified: '2026-08-04'`; a bare `2021-05` is already a string, so it needs no
+quotes).
+
+**One card per name.** Each name a product ever had is its own card, linked to the next
+by `successorId` - there is no `lineage` array. A rename creates a new card and "freezes"
+the old one. Predecessors are *derived* (any card whose `successorId` points here), so you
+only ever store the forward link. To insert a name *between* two already-chained cards,
+repoint the predecessor's `successorId`/`to` at the new card so the chain stays contiguous
+(e.g. Databricks One -> Genie -> Genie One - `databricks-one` was repointed at the inserted
+`genie` card, not left pointing at `genie-one`).
+
+Each entry is one file, holding one mapping. There is **no `kind` field** - `status` is the sole
+discriminator (see below). `id` is the kebab-case slug of the entry's own `name` (parenthetical
+qualifiers dropped) and unique across the vendor - e.g. `"Unity Catalog Volumes"` →
+`unity-catalog-volumes`, `"Databricks CLI (v0.205+)"` → `databricks-cli`; the validator
+enforces it. **The `id` is also the filename** (`kb/databricks/<id>.yaml`), and
+`build_features.py` fails the build if the two disagree - so uniqueness is now the filesystem's
+job as well as the validator's. **Ids are permanent:** once set, an id never changes - a rename
+adds a new file named for the new name's slug and repoints the old card's `successorId`; the
+old card keeps its id and its filename, never re-slugged (so never `git mv` an entry). Date *tokens* are `YYYY` or `YYYY-MM` (`verified` is `YYYY-MM-DD`), but
+the date-bearing fields wrap that token in a `{ date, link }` object (see below); `source`,
+`fact`, and `status` are required on every entry.
+- `status` (required, every entry) is an object `{ value, link, date }`: `value` is the
+  lifecycle state (the sole discriminator - one of `active` / `renamed` / `deprecated` /
+  `legacy` / `retired`), `link` the official doc backing that call, and `date` (`YYYY-MM-DD`)
+  the day it was confirmed. **All three are required**; `link` must be a real, verified http(s)
+  URL (may equal `source`) and `date` may not be in the future. The status badge's tooltip shows
+  the confirmed date.
+- `what` (required, every entry) is an object `{ note, link }`: `note` is the self-contained
+  one-line description of the thing under this name, and `link` is the official doc it's drawn
+  from. **Both are required**; `link` must be a real, verified http(s) URL (may equal `source`).
+  The UI renders `note` as the card's description with a 🔗 to `link`.
+- `fact` is a **required array of one to three** `{ note, link }` objects - each a real-but-fun
+  one-liner about **this card's** thing: **funny but accurate**, true and sourceable, and
+  **self-contained** (don't mention the successor/predecessor - those are their own linked cards).
+  Only the tone is ours; not fiction. `note` is the fun-fact text; `link` is **required** on every
+  fact and must be a real, verified official http(s) URL backing that specific claim (it may reuse
+  `source` or `what.link`). The UI renders each fact as its own 💡 row with a 🔗 to its `link`.
+  (There is no top-level `note` field - it was folded into this array and removed.)
+- `links` (optional, any entry): extra classified references - an **array** of
+  `{ "url", "kind": "official" | "community" | "internet", "label" }`. (That inner `kind`
+  classifies the *link*, unrelated to the entry's `status`.) `source` stays the canonical
+  official link; these are additional and every URL must be real and verified.
+- **Date fields** (`from`, `to`, `introducedAt`, `deprecatedAt`, `removedAt`) are each a
+  `{ date, link }` object, not a bare string: `date` is the `YYYY`/`YYYY-MM` token and `link`
+  the official doc confirming it (may equal `source`), mirroring `status`. Every current entry
+  uses the object; the validator still tolerates a bare string for legacy resilience, but write
+  new/edited entries as the object. The UI renders the date with a 🔗 to `link`.
+- `occasion` (optional, any entry): a dated milestone `{ date, link, note }` - the summit,
+  launch blog, or end-of-life moment a name debuted/retired at. `date` is `YYYY`/`YYYY-MM`,
+  `link` the doc backing it, `note` the short label (e.g. `"Data + AI Summit 2025"`). Appended
+  to the card's date line. (A bare string is tolerated for legacy resilience; write the object.)
+- `successorId` (optional, any entry): id of the card this became / was replaced by.
+- `limitations` (optional, any entry): a single `{ note, link, date }` - a short summary of the
+  feature's officially documented limitations, the official page it came from, and the date you
+  fetched it (`date` is `YYYY-MM-DD`). Sourced like everything else; **omit it (never invent one)
+  when the docs list no limitations.** Cross-check any numeric quota against the mirrored
+  resource-limits reference (`python scripts/fetch_reference.py databricks-resource-limits`); its
+  `Fixed` column marks a limit hard (`Yes`) or soft (`No` - raisable on request), so write soft
+  ones as raisable defaults, not absolute caps. Rendered as a "Limitations" line on the card.
+- `prediction` is the one deliberately fictional field: an **array** of made-up *next*
+  names (funny but plausible). Renames/features only (not deprecations); the UI always
+  labels them invented.
+
+**`status` is the sole discriminator** - it decides which extra fields are required. Within
+`active`, "feature vs current rename tip" is calculated (`introducedAt` vs `from`), not stored:
+
+**Active feature** (`status: "active"` + `introducedAt`) - a standalone new capability.
+Required: `id`, `name`, `category`, `what`, `fact`, `status`, `introducedAt`, `source`,
+`verified`. Optional: `aliases`, `releases` (maturity timeline - see below), `occasion`,
+`prediction`, `links`, `limitations`. No `from`/`to`.
+
+**Current rename tip** (`status: "active"` + `from`) - the name in use now for something that
+was renamed. Same required set but with `from` instead of `introducedAt` (never a `to`), and a
+`renamed` card points at it. An `active` card must carry exactly one of `introducedAt`/`from`;
+that is what makes the feature-vs-tip distinction calculable.
+
+**Renamed** (`status: "renamed"`) - a superseded former name. Required: `id`, `name`,
+`category`, `what`, `fact`, `status`, `to`, `successorId` (the next name's id), `source`,
+`verified`. Optional: `abbr`, `aliases`, `from`, `occasion`, `prediction`, `links`,
+`limitations`. A rename is thus one-or-more `renamed` cards chained to an `active` current name.
+
+**Deprecation** (`status: "deprecated"`, `"legacy"`, or `"retired"`) - required: `id`,
+`name`, `category`, `what`, `fact`, `status`, `deprecatedAt`, `source`, `verified`. Optional:
+`aliases`, `replacement`, `successorId` (id of the successor's card), `removedAt`, `occasion`,
+`links`, `limitations`.
+- `"deprecated"` (still around, discouraged), `"retired"` (access ended), or `"legacy"`
+  (docs call it legacy/unsupported but no formal deprecation date exists).
+- Omit `successorId`/`replacement` when nothing directly replaces it - the UI shows "retired".
+
+(When an `active` feature is later renamed, add a new card for the new name and change this
+card's `status` to `renamed` with a `successorId`/`to` pointing at it - it joins the chain.)
+
+**The orthogonal `releases` (maturity) axis.** Separate from `status`: `status` says what the
+card is / whether it's superseded; `releases` (optional, any entry) says how mature it is. It
+is an **ordered array of stages** a thing has passed through, chronological, and the **last one
+is its current maturity**. Each stage is either **reached** - `{ "type", "date" }` (the date it
+entered that stage) - or merely **announced but not yet reached** - `{ "type", "is_announced":
+true }` (no date; only the last stage may be announced). The valid stage `type`s, in
+Databricks' own order: `private-preview` -> `beta` -> `public-preview` -> `ga`. (There is no
+"pre-ga" type: "GA approaching soon" is just `{ "type": "ga", "is_announced": true }`.) Keeping
+this separate from `status` lets a card be, say, `active` but currently `public-preview`, or
+`legacy` but `beta` (shipped Beta, later marked legacy without ever going GA). The UI shows the
+current (last) stage as a right-corner pill on its own cool-hue ramp (violet -> indigo -> blue
+-> green; announced stages render "<Stage> soon" with a dashed border), full timeline in the
+tooltip; an entry with no `releases` shows no pill.
+
+The content area has a **status filter** (Active / Renamed / Deprecated) that narrows
+whatever's showing by the badge each card shows - via `bucketOf`, not the raw `status`
+value, so unchecking **Active** hides both new features and current-name renames (everything
+in use),
+while **Renamed** is only superseded former names. It's orthogonal to search, chips, and
+rail sections; Home and the roulette reset it to all three. The year timeline mirrors the
+same buckets as stacked, colour-coded segments and follows the filter live.
+
+**Analytics.** Umami (cookieless) plus a guarded `track(name, data)` helper for custom events -
+every call is wrapped so a blocked/absent script can't affect the page. LinkedIn share links get
+UTM tags via `withUTM(url, params)`. Keep new tracking behind `track()`; never let analytics throw
+into a user path.
+
+The script tag lives in **two** places and must stay in both, or a whole class of page goes
+uncounted: hand-written in [`index.html`](www/index.html), and as the `ANALYTICS` constant in
+[`build_badges.py`](scripts/build_badges.py), which `build_entries.py` injects into its shared
+`HEAD` (covering the entry pages, the vendor hub, and - since `build_posts.py` imports that same
+`HEAD` - the guides and the Learn index) and the badge template injects too. Same website id
+everywhere, so it is one dataset. Two deliberate exclusions: `OG_PAGE`, the template a headless
+browser loads to render `og.png` (it would count the build as traffic), and any hostname other
+than `rebricked.org`, via `data-domains` (it keeps `python -m http.server` previews out of the
+production stats). **Adding a new generated page? Put `ANALYTICS` in its head.** The static
+[`disclaimer`](www/disclaimer/index.html) and [`subscribe`](www/subscribe/index.html) pages carry
+their own copy since no generator owns them.
+
+Custom events come from `app.js` in the SPA and from the shared `INLINE_JS` on the generated
+pages. `INLINE_JS` derives a `surface` (`guide` / `entry` / `hub` / `learn-index` / `badge`) so
+one event name slices by page type, and uses a single delegated click listener keyed on the
+classes the generators already emit - so new links are tracked without touching the templates,
+and renaming a class is what breaks tracking. Reuse an existing event name across surfaces
+(`search`, `theme-toggle`, `quiz-open`) rather than minting a per-page variant.
+
+## Guides (`kb/posts/`)
+
+The repo's second content type, and the one place **judgement** is allowed. An entry records
+what a name did; a guide argues about what to do with it. Everything else about the discipline
+carries over: every *fact* in a guide still needs an official link, and the guide carries a
+`verified` date like an entry does.
+
+The rules that keep guides from eroding the data's credibility:
+
+- **Facts are cited, judgement is labelled.** A recommendation, a ranking, or an ordering claim
+  goes in a `:::judgement` callout so the reader can see where sourcing stops and opinion starts.
+  `:::warning` marks undocumented or unsupported territory. Numbers with no citation do not ship.
+- **Citations sit on the claim - not only at the bottom.** A fact's link goes inline where the
+  claim is made, with the claim's own phrase as the anchor text:
+  `[the phrase stating the claim](url#:~:text=exact%20quote)`, the fragment selecting the exact
+  sentence on the source page (`check_anchors.py` verifies the quotes). The
+  rendered Sources block auto-appends any prose-linked URL missing from `sources`, but declare
+  the load-bearing ones in front matter anyway. GitHub/JIRA links stay fragment-free and pinned
+  to a commit.
+- **`sources` is required and non-empty**, each entry `{ url, kind, label }` with a real,
+  verified URL. Same standard as an entry's `source`.
+- **`staleAfter` is guide-only.** Entry facts are historical and don't rot; pricing, defaults,
+  and cost advice do. Once the date passes, the page renders its own amber "past its review
+  date" strip and `validate_posts.py` warns. It is a promise to re-verify, not decoration.
+- **`{{entry:<id>}}` instead of typing a product name.** It resolves at build time to the
+  entry's *current* name plus a link to its page, so the next rename cannot strand the prose.
+  Unknown id = failed build. The reverse of that link renders automatically as "Guides that
+  mention this" on each referenced entry page, which is the main reason the guides live here.
+- **Front matter fields:** required `slug` (= folder name, permanent), `title`, `description`,
+  `kind` (`guide`/`explainer`/`opinion`), `category` (reuse the entry categories), `author`,
+  `published`, `verified`, `sources`. Optional `updated`, `staleAfter`, `tags`, `entries`,
+  `authorLink` (an http(s) URL - the byline renders as a link to it, and it becomes the
+  JSON-LD Person's `url`). `readingMinutes` is computed by the builder, never authored.
+- **Body syntax** is a deliberate Markdown *subset*: `##`/`###` headings, paragraphs, lists,
+  pipe tables, fenced code, `![alt](images/x.jpg "caption")` figures, `:::note` / `:::warning` /
+  `:::judgement` callouts, inline `**bold**`, `*italic*`, `` `code` ``, links, and
+  `{{entry:id}}`. Alt text on every image is enforced.
+
+**Writing or editing a guide? Use the [`write-guide`](agents/write-guide.md) skill** - it is the
+source of truth for the workflow (verify each claim against live docs, cite inline with text
+fragments, label judgement, run the full build/validate chain), the guide sibling of
+`add-databricks-entry`.
+
+## Before you commit
+
+1. Build the data from `kb/`, build the guides, then run both schema gates - all must pass (CI
+   runs the same chain). The validators read *built* output, so skipping a build validates a
+   stale file:
+   ```
+   python scripts/build_features.py && python scripts/build_posts.py && python scripts/validate.py && python scripts/validate_posts.py
+   ```
+   Order matters: `build_posts.py` resolves entry ids against the built JSON, and
+   `build_entries.py` reads `posts.json` to render the reverse guide links, so the full chain is
+   `build_features.py` -> `build_posts.py` -> `build_entries.py`.
+   If you added or edited entries, also check their citations actually resolve - the
+   schema gate never fetches anything, so a reworded doc page slips straight past it:
+   ```
+   python scripts/check_anchors.py <the-ids-you-touched>
+   ```
+2. Preview the site (it fetches `databricks.features.json`, so build it first per step 1, and
+   serve over http - `file://` is blocked). Serve `www/` as the web root, mirroring what GitHub
+   Pages publishes:
+   ```
+   python -m http.server 8777 -d www
+   ```
+   then open `http://localhost:8777/`.
+3. Commit the `kb/` sources, **not** the built output - `www/databricks.features.json`,
+   `www/databricks/`, `www/learn/`, `www/posts.json`, `sitemap.xml`, and `feed.xml` are all
+   gitignored build output. A diff should show only the entry YAML or post Markdown you actually
+   touched (plus any figures under `kb/posts/<slug>/images/`, which *are* tracked - they are
+   source, and the builder copies them).
+4. If you changed the sidebar, keep the rail config in sync - [`app.js`](www/app.js)'s `NAV` for
+   Databricks, `SNOWFLAKE_NAV` in [`scripts/chrome.py`](scripts/chrome.py) for Snowflake. Each rail
+   item maps to the entries it covers via an `ids` array (entry `id`s from that vendor's `kb/`
+   folder), and those items get the dot. Clicking a section filters to its entries (into the app
+   for Databricks, into the hub's own table for Snowflake); sections with no `ids` show an honest
+   empty state. Every `id` you list must exist in the data, and every entry must be reachable from
+   at least one of its vendor's sections - [`validate.py`](scripts/validate.py) checks both
+   directions for every vendor that has a rail, and skips a vendor that has none (it reaches
+   readers through its generated hub at `/{vendor}/`).
+5. **If the change alters behaviour, update [`docs/`](docs/) in the same commit.** A field rule,
+   a script flag, a generated path, a `NAV` shape, a tracked event, the build order, a workflow
+   step, or a design decision - each maps to a page, and
+   [`docs/README.md`](docs/README.md) holds the map. Adding an entry or a guide needs no docs
+   change (that is the documented workflow working); changing *how* one is added always does. The
+   docs have no test suite behind them, so a commit that skips this is how they start lying.
+
+## Conventions
+
+- **No runtime dependencies.** Keep it a static site: vanilla JS, no framework, nothing to
+  bundle. The only build is data assembly (`kb/` YAML -> JSON, plus the generated SEO pages),
+  it runs in CI, and it ships plain static files - so PyYAML is a dev dependency of `scripts/`,
+  never of the page. Don't add a JS toolchain.
+- Match the surrounding style: `app.js` is a single IIFE with small helper functions;
+  escape all user/data strings via the existing `escapeHtml` / `escapeAttr` helpers.
+- Not affiliated with Databricks. The console chrome is an homage; keep the disclaimer.
+- **Keep [`docs/`](docs/) true.** It is organised by [Diataxis](https://diataxis.fr/), so a new
+  page belongs to exactly one of the four modes - if you cannot tell which, it is two pages. Put
+  *how do I* in `how-to/`, *what are the fields* in `reference/`, *why is it like this* in
+  `explanation/`, and leave `tutorials/` for the three ordered lessons. Reference pages defer to
+  the code (the validators are executable truth), so when a page and the code disagree, fix the
+  page.
+- Update [`CHANGELOG.md`](CHANGELOG.md) (grouped per day) with any notable change, written as
+  **why then what**: a bold one-line summary, a **`Why:`** paragraph (the problem this solves -
+  what was wrong, what it cost), then a **`What:`** paragraph (what actually changed, and what it
+  means for anyone editing the repo). Lead with the why; a diff already shows the what, so an
+  entry that only restates the diff is worthless six months later.
+
+---
+> Source: [aig/rebricked](https://github.com/aig/rebricked) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
