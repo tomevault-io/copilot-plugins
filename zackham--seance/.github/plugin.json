@@ -1,0 +1,9 @@
+{
+  "name": "zackham--seance",
+  "displayName": "seance",
+  "description": "Shared live workspace for humans and agents \u2014 multi-pane terminals, notes, and a control plane for co-working in the open.",
+  "version": "1.0.0",
+  "author": "zackham",
+  "homepage": "https://github.com/zackham/seance",
+  "skills": []
+}
