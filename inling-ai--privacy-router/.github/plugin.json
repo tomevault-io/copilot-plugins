@@ -1,0 +1,9 @@
+{
+  "name": "inling-ai--privacy-router",
+  "displayName": "privacy-router",
+  "description": "Local AI privacy routing: discover sensitive content, review once, enforce registered decisions on future requests.",
+  "version": "1.0.0",
+  "author": "Inling-AI",
+  "homepage": "https://github.com/Inling-AI/privacy-router",
+  "skills": []
+}
