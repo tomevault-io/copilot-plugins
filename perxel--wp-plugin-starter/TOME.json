@@ -4,7 +4,7 @@
   "repo": "wp-plugin-starter",
   "description": "Template repository for a Perxel WordPress plugin \u2014 namespaced codebase, shared admin UI kit, PHPCS + Plugin Check CI, WordPress.org release workflow.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/perxel/wp-plugin-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T04:36:34Z"
+  "distributed_at": "2026-09-17T05:20:39Z"
 }
