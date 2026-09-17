@@ -4,7 +4,7 @@
   "repo": "FUSION",
   "description": "AI research agent for nuclear physics: 23 expert skills that install, run, and verify open-source codes (FRESCO, TALYS, SMASH, ...) plus a 61k-paper offline nucl-th knowledge base",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jinleiphys/FUSION",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T03:12:24Z"
+  "distributed_at": "2026-09-17T04:33:05Z"
 }
