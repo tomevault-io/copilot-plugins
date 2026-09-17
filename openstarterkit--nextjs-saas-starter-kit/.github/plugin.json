@@ -1,0 +1,9 @@
+{
+  "name": "openstarterkit--nextjs-saas-starter-kit",
+  "displayName": "nextjs-saas-starter-kit",
+  "description": "\u26a1\ufe0f Open source Next.js SaaS boilerplate and starter kit: Better Auth, Stripe, Prisma, Tailwind, TypeScript. Full payments in the free tier, not behind a paid plan. MIT, self-hosted, plain Next.js with",
+  "version": "1.0.0",
+  "author": "openstarterkit",
+  "homepage": "https://github.com/openstarterkit/nextjs-saas-starter-kit",
+  "skills": []
+}
