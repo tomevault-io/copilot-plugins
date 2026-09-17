@@ -7,11 +7,11 @@ The Framework for Building Agent Plugins
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Aniket-508/soubi](https://github.com/Aniket-508/soubi).
+Original source: `AGENTS.md` in [Aniket-508/soubi](https://github.com/Aniket-508/soubi).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
