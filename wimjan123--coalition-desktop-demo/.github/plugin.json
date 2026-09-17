@@ -1,0 +1,9 @@
+{
+  "name": "wimjan123--coalition-desktop-demo",
+  "displayName": "coalition-desktop-demo",
+  "description": "A satirical desktop environment built with Tauri v2, Svelte 5, and TypeScript. Experience a complete 'desktop' interface inside a single application window.",
+  "version": "1.0.0",
+  "author": "wimjan123",
+  "homepage": "https://github.com/wimjan123/coalition-desktop-demo",
+  "skills": []
+}
