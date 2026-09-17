@@ -1,0 +1,9 @@
+{
+  "name": "velkyvenik--missingmcp",
+  "displayName": "missingmcp",
+  "description": "MissingMCP \u2014 your data, in Claude. OAuth 2.1 gateway hosting the MCP servers Claude is missing (Garmin, WHOOP, \u2026)",
+  "version": "1.0.0",
+  "author": "VelkyVenik",
+  "homepage": "https://github.com/VelkyVenik/missingmcp",
+  "skills": []
+}
