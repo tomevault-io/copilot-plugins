@@ -1,0 +1,91 @@
+## p-np2
+
+> These instructions are mandatory for coding agents working in this repository.
+
+# Repository Agent Rules
+
+These instructions are mandatory for coding agents working in this repository.
+They are also checked by `scripts/check.sh`; do not weaken or delete them
+without updating the route-policy guardrails deliberately.
+
+## P-vs-NP Mainline
+
+The only pnp4 work that counts as mainline progress toward `P != NP` is work
+that reduces one of these source obligations:
+
+- `VerifiedNPDAGLowerBoundSource`
+- `SearchMCSPWeakLowerBound`
+
+The endpoint must have the strength of an `NP` language lower bound against
+`PpolyDAG`, represented in pnp4 by:
+
+```lean
+VerifiedNPDAGLowerBoundSource
+```
+
+or by the compression-magnification frontier:
+
+```lean
+SearchMCSPWeakLowerBound
+  → VerifiedNPDAGLowerBoundSource
+  → NP_not_subset_PpolyDAG
+  → P_ne_NP
+```
+
+The most concrete live form of that obligation is the hypothesis pair of
+`NP_not_subset_PpolyDAG_treePoly` in
+`pnp4/Pnp4/Frontier/ContractExpansion/ConsolidatedTreeSeparation.lean`
+(`NoPolynomialBoundedSearchSolver` for the concrete tree codec, plus
+`PrefixExtensionNPWitness` for the concrete prefix parser).  Do not describe that chain
+as an equivalence: the decision→search extraction is formalized in one direction only.
+
+## Restricted Lower-Bound Side Track
+
+The pnp4 `AC0[p]`, coin-problem, formula, and local-PRG lower-bound routes are
+restricted lower-bound formalization tracks.  They are useful, but they are a
+side track for `P != NP` unless they provide an explicit bridge to
+`VerifiedNPDAGLowerBoundSource` or `PpolyDAG`.
+
+Do not describe an `AC0[p]`, formula, local-PRG, or coin-problem exclusion as
+unconditional progress toward `P != NP` unless it is paired with an explicit
+`PpolyDAG`/`VerifiedNPDAGLowerBoundSource` bridge.
+
+## Progress Classification
+
+Before implementing new lower-bound work, classify it as one of:
+
+- Mainline: reduces `SearchMCSPWeakLowerBound` or
+  `VerifiedNPDAGLowerBoundSource`.
+- Side track: formalizes restricted lower bounds such as `AC0[p]`, formula, or
+  local-PRG consequences without a `PpolyDAG` bridge.
+- Infrastructure: improves tests, build, audit, or API hygiene without reducing
+  a mathematical source obligation.
+
+Only the first category should be reported as P-vs-NP mainline progress.
+
+## pnp3 Scope
+
+`pnp3/` work remains legitimate as infrastructure, no-go hardening, and audit
+maintenance for the magnification route; it is not the P-vs-NP mainline unless it
+produces `ComplexityInterfaces.NP_not_subset_PpolyDAG` (equivalently
+`ResearchGapWitness`).  The pnp3 route policy in
+`pnp3/Docs/CLOSURE_ROUTE_POLICY.md` governs the pnp3 route only and does not
+constrain pnp4 mainline framing.
+
+## Check Requirements
+
+Before committing lower-bound route changes:
+
+- run `./scripts/check.sh`;
+- keep pnp4 modules listed in `lakefile.lean`;
+- update `pnp4/Pnp4/Tests/AlgorithmsToLowerBoundsSurfaceTests.lean` for new
+  public theorem surfaces;
+- update `pnp4/Pnp4/Tests/AxiomsAudit.lean` for new audited theorem surfaces;
+- do not add `axiom`, `sorry`, `admit`, or `native_decide` in active pnp3/pnp4
+  code.
+
+Do not push to a remote branch unless the user explicitly asks for a push.
+
+---
+> Source: [khanukov/p-np2](https://github.com/khanukov/p-np2) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-17 -->
