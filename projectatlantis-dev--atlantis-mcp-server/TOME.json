@@ -4,7 +4,7 @@
   "repo": "atlantis-mcp-server",
   "description": "Multix virtual filesystem node, MCP-compatible, really just a glorified function container",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ProjectAtlantis-dev/atlantis-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T22:32:51Z"
+  "distributed_at": "2026-09-17T22:34:41Z"
 }
