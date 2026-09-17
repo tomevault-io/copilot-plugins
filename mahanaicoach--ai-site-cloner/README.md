@@ -7,11 +7,11 @@ Clone any website into a pixel-accurate Next.js app with AI — Playwright-measu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Mahanaicoach/ai-site-cloner](https://github.com/Mahanaicoach/ai-site-cloner).
+Original source: `AGENTS.md` in [Mahanaicoach/ai-site-cloner](https://github.com/Mahanaicoach/ai-site-cloner).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
