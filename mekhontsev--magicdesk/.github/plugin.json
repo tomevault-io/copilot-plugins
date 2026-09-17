@@ -1,0 +1,9 @@
+{
+  "name": "mekhontsev--magicdesk",
+  "displayName": "magicdesk",
+  "description": "Open-source Android 15+ workstation with native windows, external displays, desktop tools, automation, and first-class multi-window Termux integration.",
+  "version": "1.0.0",
+  "author": "mekhontsev",
+  "homepage": "https://github.com/mekhontsev/magicdesk",
+  "skills": []
+}
