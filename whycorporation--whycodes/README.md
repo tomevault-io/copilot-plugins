@@ -7,11 +7,11 @@ A fast, provider-independent coding agent for the terminal, written in Rust.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [whycorporation/whycodes](https://github.com/whycorporation/whycodes).
+Original source: `AGENTS.md` in [whycorporation/whycodes](https://github.com/whycorporation/whycodes).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
