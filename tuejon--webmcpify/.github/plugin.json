@@ -1,0 +1,9 @@
+{
+  "name": "tuejon--webmcpify",
+  "displayName": "webmcpify",
+  "description": "WebMCP agent skill \u2014 make any web app agent-ready, verifiably: inventory, integrate, verify in a real browser, heal. Claude Code, Codex, Cursor, opencode, Copilot.",
+  "version": "1.0.0",
+  "author": "TueJon",
+  "homepage": "https://github.com/TueJon/webmcpify",
+  "skills": []
+}
