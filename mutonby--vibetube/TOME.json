@@ -1,0 +1,44 @@
+{
+  "name": "vibetube",
+  "owner": "mutonby",
+  "repo": "vibetube",
+  "description": "Desktop multicam recorder for macOS: records your screen and webcam in sync, then Claude Code or Codex edits the final video \u2014 shot selection, subtitles, graphics and SFX.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mutonby/vibetube",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T21:30:18Z"
+}
