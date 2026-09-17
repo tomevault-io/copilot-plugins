@@ -1,0 +1,9 @@
+{
+  "name": "verymath--verymath-textbook-copilot",
+  "displayName": "VeryMath-textbook-copilot",
+  "description": "\u4e2a\u4eba\u90e8\u7f72\u7684\u8bfe\u7a0b\u5b66\u4e60\u5de5\u4f5c\u53f0\uff1a\u5de6\u4fa7\u8bfb\u6559\u6750\uff0c\u53f3\u4fa7\u4e0e Coding Agent \u5bf9\u8bdd\uff0c\u751f\u6210\u8bb2\u89e3\u3001\u4e60\u9898\u3001\u601d\u7ef4\u5bfc\u56fe\u3001\u77e5\u8bc6\u56fe\u8c31\u4e0e LaTeX \u8bfe\u4ef6",
+  "version": "1.0.0",
+  "author": "VeryMath",
+  "homepage": "https://github.com/VeryMath/VeryMath-textbook-copilot",
+  "skills": []
+}
