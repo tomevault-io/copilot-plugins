@@ -4,7 +4,7 @@
   "repo": "AXguard",
   "description": "Open-source AI security tool to scan and fix vulnerabilities in your vibe-coded projects before you ship. AXguard by AwareXone.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awarexone/AXguard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T10:32:58Z"
+  "distributed_at": "2026-09-17T10:33:48Z"
 }
