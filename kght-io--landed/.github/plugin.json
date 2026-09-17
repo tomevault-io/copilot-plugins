@@ -1,0 +1,9 @@
+{
+  "name": "kght-io--landed",
+  "displayName": "Landed",
+  "description": "\ud83d\udeec Local-first job-hunt pipeline app (Next.js + SQLite) paired with a Claude CoWork agent over MCP \u2014 discovery, fit assessment, r\u00e9sum\u00e9 tailoring, applications, and interview prep in one stage-aware vie",
+  "version": "1.0.0",
+  "author": "kght-io",
+  "homepage": "https://github.com/kght-io/Landed",
+  "skills": []
+}
