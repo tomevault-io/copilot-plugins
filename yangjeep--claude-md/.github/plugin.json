@@ -1,0 +1,9 @@
+{
+  "name": "yangjeep--claude-md",
+  "displayName": "CLAUDE.md",
+  "description": "My evolving project-level execution contract for coding agents. Includes a CLAUDE.md adapter for Claude Code.",
+  "version": "1.0.0",
+  "author": "yangjeep",
+  "homepage": "https://github.com/yangjeep/CLAUDE.md",
+  "skills": []
+}
