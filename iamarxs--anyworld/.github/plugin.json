@@ -1,0 +1,9 @@
+{
+  "name": "iamarxs--anyworld",
+  "displayName": "AnyWorld",
+  "description": "A multiplayer browser game implemented with Python, where an AI acts as the dungeon master and players type out their actions in their own words!",
+  "version": "1.0.0",
+  "author": "iamarxs",
+  "homepage": "https://github.com/iamarxs/AnyWorld",
+  "skills": []
+}
