@@ -7,11 +7,11 @@ LMCache fork with native432 DS-MLA connector
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lutong-z/LMCache](https://github.com/lutong-z/LMCache).
+Original source: `AGENTS.md` in [lutong-z/LMCache](https://github.com/lutong-z/LMCache).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
