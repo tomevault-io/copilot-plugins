@@ -7,11 +7,11 @@ Amelu is an email hosting product by Ordnary. It provisions and manages mailboxe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ordnary-com/amelu](https://github.com/ordnary-com/amelu).
+Original source: `AGENTS.md` in [ordnary-com/amelu](https://github.com/ordnary-com/amelu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
