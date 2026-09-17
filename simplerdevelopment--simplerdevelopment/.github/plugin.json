@@ -1,0 +1,9 @@
+{
+  "name": "simplerdevelopment--simplerdevelopment",
+  "displayName": "SimplerDevelopment",
+  "description": "Open-source multi-tenant SaaS platform: admin + client portal + per-tenant sites + CRM + Company Brain (AI/RAG) + automations + Google Workspace + Stripe billing. Next.js 16, React 19, Drizzle/Postgre",
+  "version": "1.0.0",
+  "author": "SimplerDevelopment",
+  "homepage": "https://github.com/SimplerDevelopment/SimplerDevelopment",
+  "skills": []
+}
