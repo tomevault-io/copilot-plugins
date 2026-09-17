@@ -7,11 +7,11 @@ Escape from Tarkov용 인게임 미니맵 오버레이 툴입니다. 스크린�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [siakun/TanukiTarkovMap](https://github.com/siakun/TanukiTarkovMap).
+Original source: `AGENTS.md` in [siakun/TanukiTarkovMap](https://github.com/siakun/TanukiTarkovMap).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
