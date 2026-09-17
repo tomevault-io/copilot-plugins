@@ -4,7 +4,7 @@
   "repo": "typesafe-ai-benchmark",
   "description": "This is a LLM Gateway that mimics typesafe ai structured output. Like an imposter Jev.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iammrduncan/typesafe-ai-benchmark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T12:32:13Z"
+  "distributed_at": "2026-09-17T12:33:00Z"
 }
