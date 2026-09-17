@@ -1,0 +1,44 @@
+{
+  "name": "autopro-service",
+  "owner": "kiettuan1117895",
+  "repo": "autopro-service",
+  "description": "M\u00f4 t\u1ea3 ng\u1eafn v\u1ec1 d\u1ef1 \u00e1n (v\u00ed d\u1ee5: \"Web qu\u1ea3n l\u00fd d\u1ecbch v\u1ee5 gara \u00f4 t\u00f4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kiettuan1117895/autopro-service",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-17T05:30:43Z"
+}
