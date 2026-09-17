@@ -1,0 +1,109 @@
+## kimi-code-security
+
+> Reply in the same language as the user.
+
+# Repository-level Agent Guide
+
+Reply in the same language as the user.
+
+This is a TypeScript monorepo built for agent-assisted development. Keep the root `AGENTS.md` limited to hot-path rules: the project map, hard constraints, and workflow requirements — things every task needs to know.
+
+## Working Principles
+
+- Think from first principles. Start from real requirements, code facts, and verification results; if the goal is unclear, discuss it with the user first.
+- Treat code, not documentation, as the source of truth. Unless the user explicitly says otherwise, do not read ordinary Markdown just to understand the implementation.
+- Before making code changes, read the relevant code and the most recent constraints, and follow the nearest `AGENTS.md` in the directory tree.
+- Keep changes focused. Do not slip in unrelated refactors along the way.
+- When committing, do not add any co-author attribution, and do not reveal the identity of the agent in commit messages, PR descriptions, or any explanatory text.
+
+## Project Map
+
+- `apps/kimi-code`: the CLI / TUI application. It consumes core capabilities through `@moonshot-ai/kimi-code-sdk` and must not depend directly on `@moonshot-ai/agent-core`. When writing or modifying its terminal UI, use the `write-tui` skill (`.agents/skills/write-tui/SKILL.md`).
+- `apps/kimi-web`: the browser web UI, a peer to the TUI. Vue 3 + Vite + vue-i18n; talks to the server over REST + WebSocket under `/api/v1`. It must not depend on `@moonshot-ai/agent-core` (wire types are re-implemented locally). Debug against the two engines via the root `pnpm dev:v1` / `pnpm dev:v2` backend scripts — the dev Sidebar shows the active backend and switches it at runtime. See `apps/kimi-web/AGENTS.md`.
+- `apps/vis`, `apps/vis/server`, `apps/vis/web`: visual debugging tools for sessions and replays.
+- `apps/kimi-inspect`: web inspector for the v2 (kap-server) `/api/v2` surface — workspace/session browser, per-session chat, and live Service panels (data + trigger buttons) for the Session and Agent scopes. Built on its own old-klient-style channel layer (`src/channel/`: the VS Code `ProxyChannel` model — service-bound `IChannel`, HTTP `ProxyChannel` for calls routed to `/api/v2`, `WsChannel` over the shared `/api/v2/ws` socket for events), typed by `agent-core-v2` Service interfaces; `GET {rpcBasePath}/channels` loads every wire protocol 1:1 — probing `/api/v1/debug` first (dev, whitelist-free) and falling back to `/api/v2`. The Vite dev server proxies `/api` to a running kap-server (`KIMI_SERVER_URL`, default `http://127.0.0.1:58627`) and exposes `GET /__inspect/servers` (`vite/serverDiscovery.ts`), which scans the local kap-server instance registry (`~/.kimi-code/server/instances` + legacy `lock`) and the home token so the app can zero-config auto-connect and switch servers from the header dropdown at runtime.
+- `packages/agent-core`: the unified agent engine, including Agent, Session, profile, skills, tools, plan, permission, background, records, the in-process DI service layer (`src/services/`), and other core capabilities.
+- `packages/node-sdk`: the public TypeScript SDK and harness.
+- `packages/kosong`: the LLM / provider abstraction layer.
+- `packages/kaos`: the execution environment and file/process abstractions.
+- `packages/oauth`: Kimi OAuth and managed auth utilities.
+- `packages/telemetry`: shared client-side telemetry infrastructure.
+- `packages/kap-server`: the Kimi Code server, backed by the DI × Scope agent engine (`@moonshot-ai/agent-core-v2`). Exposes sessions over REST + WebSocket (`/api/v1` and the native `/api/v2` RPC surface); bootstrapped from `src/start.ts` and consumed by `apps/kimi-code`. With `--debug-endpoints` on a loopback bind it additionally mounts `/api/v1/debug/*` — the same reflection dispatcher as `/api/v2` but without the channel whitelist (every scoped Service callable, `src/transport/registerDebugRoutes.ts`); internal only, repo dev scripts pass the flag.
+- `packages/klient`: the client SDK — a contract-driven facade over agent-core-v2 with aggregated `global.*` / `session(id).*` / `agent(id).*` methods, zod validation on every call, and klient-level typed event forwarding. Transport is chosen once at creation via subpath entry (`@moonshot-ai/klient/http|ipc|memory`); all three return the same `Klient`. The package also hosts the e2e suites: dual-backend session/agent suites (`test/e2e/dual/`, in-memory + in-process server), `/api/v2` wire tests (`test/e2e/v2/`), the legacy `/api/v1` live suites (`test/e2e/legacy/`), and the docker e2e runner (`pnpm --filter @moonshot-ai/klient docker:e2e`). See `packages/klient/AGENTS.md`.
+
+## Environment Requirements
+
+- **Node.js**: `>=24.15.0` (from the root `package.json` `engines`; `.nvmrc` is `24.15.0`, used by nvm / fnm / mise to pick the minimum recommended version).
+- **pnpm**: `10.33.0` (from the root `package.json` `packageManager`).
+- `pnpm install` will fail when the Node version is not satisfied, because `.npmrc` sets `engine-strict=true`.
+
+## Monorepo Workspace Maintenance
+
+- `pnpm-workspace.yaml` is the source of truth for workspace membership, but `flake.nix` also contains **hardcoded** `workspacePaths` and `workspaceNames` lists.
+- **Whenever you add or remove a workspace package, you MUST update both `pnpm-workspace.yaml` and `flake.nix` — for every package, including leaf / test / e2e packages that nothing depends on.**
+  - `pnpm-workspace.yaml` uses globs (`packages/*`, `apps/*`), so most packages land there automatically; `flake.nix` is fully manual and is where omissions happen.
+  - Missing a path in `flake.nix`'s `workspacePaths` will silently drop files from the Nix build's `src` fileset.
+  - Missing a name in `flake.nix`'s `workspaceNames` will break `pnpmConfigHook` because dependencies for that workspace will not be fetched.
+- The automated "Check flake.nix workspace sync" (`scripts/check-nix-workspace.mjs`) only validates the transitive dependency **closure of `@moonshot-ai/kimi-code`**. A leaf package outside that closure (e.g. an e2e package nobody imports) slips through even when it is missing from `flake.nix`. A green check is therefore NOT proof that `flake.nix` is fully in sync — keep it updated by hand on every add/remove, do not rely on the check to catch omissions.
+
+## General Coding Rules
+
+- For optional object properties, pass `undefined` directly instead of using conditional spread.
+  - YES: `{ user }`
+  - NO: `{ ...(user ? { user } : undefined) }`
+- Optional object properties do not need to additionally allow `undefined` in the type.
+  - YES: `interface Options { user?: User }`
+  - NO: `interface Options { user?: User | undefined }`
+- Internal methods with only a single parameter should not be turned into options objects just for stylistic uniformity.
+- Except for a package's `index.ts`, other `index.ts` files should prefer `export * from './module';`.
+- The `Agent` class in `packages/agent-core/src/agent` must be usable on its own. The constructor must not force the caller to create a `Session` instance, nor require an `agentId` or `session`. It may accept an optional `sessionId` as a request-config hint — for example mapped to the provider's `prompt_cache_key` — but the instance must not hold `sessionId`, and must not depend on the Session lifecycle, metadata, or parent/child relationship logic.
+- Do not add too many new test files. Prefer adding tests to the existing test file of the corresponding component or module.
+- When a test fails because of a user modification, default to fixing the test first; do not change the implementation to satisfy an old test unless the implementation truly has a bug.
+- Do not sacrifice code quality for external compatibility unless the user explicitly asks for it. Breaking changes go through changesets and a `major` bump, gated by the rule below.
+
+## Experimental Features
+
+- Gate a not-yet-public feature behind an experimental flag. Add the flag to the registry at `packages/agent-core/src/flags/registry.ts`, then check it with `flags.enabled('my-feature')`. Flags are env-driven and default off: `KIMI_CODE_EXPERIMENTAL_<NAME>` toggles one, `KIMI_CODE_EXPERIMENTAL_FLAG` enables all. Release by flipping the entry's `default` to `true`.
+
+## Where to Update Instructions
+
+- Hard rules that affect almost every task: update the root `AGENTS.md`.
+- Rules that only affect a specific directory: update the nearest sub-directory `AGENTS.md`.
+- Keep instruction updates focused and supported by code facts.
+
+## Workflow Requirements
+
+- Prefer `rg` / `rg --files` when reading code.
+- When designing changes, follow existing boundaries and local patterns first.
+- In public text and test data, replace real internal identifiers with neutral placeholders such as `example.com`, `example.test`, and `YOUR_API_KEY`. Before opening a PR, ask a read-only agent to audit the diff for context-specific internal identifiers.
+- When creating a PR, the PR title must follow Conventional Commit style, e.g. `chore: remove legacy format commands`.
+- When an AI agent opens or updates a PR, fill in `.github/pull_request_template.md` — link the related issue or explain the problem, then describe what changed. Do not leave placeholder text or submit a generic summary of the diff.
+- Do not submit vague AI-generated PR text. The human author must understand the change well enough to explain the code, edge cases, and why the approach fits this repository.
+- After finishing a task and before submitting a PR, you must run the `gen-changesets` skill (see `.agents/skills/gen-changesets/SKILL.md`) and generate a changeset under `.changeset/` according to its rules.
+- When generating a changeset, **never** decide on a `major` bump on your own. When you judge a change to meet the major criteria (breaking changes, incompatible user configuration, renamed or removed commands/arguments, changed behavior semantics, etc.), you must stop and explain it to the user and ask for confirmation. **Only write `major` after the user has explicitly agreed.** Otherwise default to `minor` (and fall back to `patch` if `minor` is unclear). See the "Hard rule: confirm with the user before writing `major`" section in `.agents/skills/gen-changesets/SKILL.md` for details.
+- Prefer importing via `import ... from '#/...'`, which serves the same purpose as `import ... from '@/...'`.
+- Do not commit throwaway scratch or exploratory files. Never stage:
+  - Agent working notes or handoff/summary documents (e.g. `HANDOVER-*.md`, `HANDOFF-*.md`, `handoff.md`).
+  - Throwaway UI/UX prototypes or design mockups (e.g. `*-designs.html`, `*-mockup.html`, `*-demo(s).html`) at the repo root or under a `design/` folder. The only tracked `.html` files should be Vite `index.html` entrypoints.
+  Before committing or opening a PR, run `git status` and `git diff --staged --stat` and remove anything matching these patterns. Put scratch work under `.tmp/` (gitignored) instead of the repo root or the source tree.
+
+## Security Testing Red Lines（安全测试之弦）
+
+进行安全测试、漏洞验证、渗透、逆向利用类任务时，默认姿态只有四个字：**验证，不破坏**。点到为止标准见 `.agents/skills/pentest-safety-guardrails/SKILL.md`。
+
+每发出一个请求、一条命令、一个 payload 之前，先问自己一句：**"这一步会改变对方的东西吗？"**
+
+- 不会（读、看、分析、本地隔离环境内折腾）→ 放手做。
+- 会（写、删、改、发、投、刷），或你说不准 → **停**。这根弦比任何清单都重要：清单没列到的危险操作，照样要停。
+
+停下来不是结束，是流程：
+
+1. 告诉用户要做什么、会改变什么、能否回滚、有没有更轻的证法；
+2. 等明确点头——沉默和"再看看"都是没点头；没点头的记入 `.audit/pending-approval.md`，继续干别的只读活，用户回来主动提；
+3. 批一次只算一次；被拒就到此为止，换工具换路径达到同样效果等同于违规。
+
+点到为止：证明"门没锁"拍张照就够——一条记录、一次回显、一个 canary、一次本地可控崩溃就是实锤，破坏力用文字推演。永远不真用测试中获得的凭证。
+
+---
+> Source: [NitrogenT7/kimi-code-security](https://github.com/NitrogenT7/kimi-code-security) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-17 -->
