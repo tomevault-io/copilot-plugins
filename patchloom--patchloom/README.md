@@ -7,14 +7,14 @@ Structured file edits for AI agents (JSON/YAML/TOML, markdown, AST, dry-run, MCP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [patchloom/patchloom](https://github.com/patchloom/patchloom).
+Original source: `CLAUDE.md` in [patchloom/patchloom](https://github.com/patchloom/patchloom).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [patchloom/patchloom](https://github.com/patchloom/patchloom) — a repo with 17+ stars on GitHub.
