@@ -1,0 +1,9 @@
+{
+  "name": "zig-nostr--nostr",
+  "displayName": "nostr",
+  "description": "The Nostr protocol library for Zig",
+  "version": "1.0.0",
+  "author": "zig-nostr",
+  "homepage": "https://github.com/zig-nostr/nostr",
+  "skills": []
+}
