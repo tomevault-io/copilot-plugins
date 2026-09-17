@@ -1,0 +1,9 @@
+{
+  "name": "danvk--mapsnap",
+  "displayName": "mapsnap",
+  "description": "Automatically georeference old Sanborn Insurance Maps",
+  "version": "1.0.0",
+  "author": "danvk",
+  "homepage": "https://github.com/danvk/mapsnap",
+  "skills": []
+}
