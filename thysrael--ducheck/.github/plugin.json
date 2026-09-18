@@ -1,0 +1,9 @@
+{
+  "name": "thysrael--ducheck",
+  "displayName": "ducheck",
+  "description": "Check English LaTeX documents for spelling, grammar, abbreviation and terminology consistency.",
+  "version": "1.0.0",
+  "author": "Thysrael",
+  "homepage": "https://github.com/Thysrael/ducheck",
+  "skills": []
+}
