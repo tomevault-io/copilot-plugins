@@ -4,7 +4,7 @@
   "repo": "k_ai-agent-skills",
   "description": "Reusable AI skills for Codex, Claude Code & Copilot CLI \u2014 Markdown-only, safety-first samples for diagnosing bugs, drafting changelogs, and pre-merge checks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/khadir-syed/k_ai-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T17:32:05Z"
+  "distributed_at": "2026-09-18T17:32:55Z"
 }
