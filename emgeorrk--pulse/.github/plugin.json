@@ -1,0 +1,9 @@
+{
+  "name": "emgeorrk--pulse",
+  "displayName": "pulse",
+  "description": "Native macOS menu bar system monitor \u2014 CPU, memory, network, temps, fans & power. The popular GNOME tool Vitals, for the Mac.",
+  "version": "1.0.0",
+  "author": "emgeorrk",
+  "homepage": "https://github.com/emgeorrk/pulse",
+  "skills": []
+}
