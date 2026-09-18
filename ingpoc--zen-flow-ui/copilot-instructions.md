@@ -1,400 +1,630 @@
-## project-structure
+## setup-migration
 
-> This rule defines the comprehensive file organization and project structure for zen-flow-ui. Follow this structure when creating new files, organizing components, or refactoring the codebase.
+> Create an automated setup process that handles all configuration:
 
-# Zen Flow UI Project Structure
+# Setup & Migration Guide for Zen Flow UI
 
-## Overview
+## One-Command Setup
 
-This rule defines the comprehensive file organization and project structure for zen-flow-ui. Follow this structure when creating new files, organizing components, or refactoring the codebase.
+### Quick Start Script
+Create an automated setup process that handles all configuration:
 
-## Root Directory Structure
-
-```
-zen-flow-ui/
-├── .cursor/                    # Cursor IDE rules and configurations
-│   └── rules/                  # Cursor rules for project guidelines
-├── .github/                    # GitHub workflows and templates
-│   ├── ISSUE_TEMPLATE/         # Issue templates
-│   └── workflows/              # CI/CD workflows
-├── cli/                        # CLI tools and utilities
-│   ├── index.cjs              # Main CLI entry point
-│   ├── commands/              # Individual CLI commands
-│   ├── templates/             # Project templates
-│   └── utils/                 # CLI utility functions
-├── docs/                      # Documentation files
-│   ├── GETTING_STARTED.md     # Quick start guide
-│   ├── CONTRIBUTING.md        # Contribution guidelines
-│   ├── DEPLOYMENT.md          # Deployment instructions
-│   ├── MIGRATION_GUIDES/      # Version migration guides
-│   └── API_REFERENCE/         # Component API documentation
-├── examples/                  # Usage examples and demos
-│   ├── App.tsx               # Demo application
-│   ├── components/           # Example component usage
-│   └── templates/            # Starter templates
-├── scripts/                  # Build and automation scripts
-│   ├── build.js             # Build script
-│   ├── setup-tailwind.js    # Tailwind configuration helper
-│   ├── generate-exports.js  # Auto-generate export files
-│   └── migrate.js           # Migration utilities
-├── src/                     # Main source code
-│   ├── components/          # React components
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Utility libraries and core functions
-│   ├── styles/             # Global styles and CSS
-│   └── types/              # TypeScript type definitions
-├── tests/                  # Test utilities and global test setup
-│   ├── setup.ts           # Test environment setup
-│   ├── utils.ts           # Test utilities
-│   └── mocks/             # Mock implementations
-├── .eslintrc.json         # ESLint configuration
-├── .gitignore            # Git ignore patterns
-├── jest.config.js        # Jest testing configuration
-├── package.json          # Package configuration and dependencies
-├── postcss.config.js     # PostCSS configuration
-├── README.md             # Project overview and basic documentation
-├── rollup.config.js      # Rollup build configuration
-├── tailwind.config.js    # Tailwind CSS configuration
-└── tsconfig.json         # TypeScript configuration
+```bash
+# Single command to set up zen-flow-ui in any React project
+npx @gurusharan3107/zen-flow-ui init
 ```
 
-## Source Code Structure
+This command should:
+1. Install all required dependencies
+2. Configure Tailwind CSS with zen-flow design tokens
+3. Set up the utility functions
+4. Create example components
+5. Add TypeScript configuration if needed
 
-### Components Directory (`src/components/`)
+### CLI Tool Enhancement
+Enhance the existing [cli/index.cjs](mdc:cli/index.cjs) to support full project initialization:
 
-```
-src/components/
-├── ui/                           # Core UI components
-│   ├── Accordion/               # Accordion component group
-│   │   ├── index.ts            # Export barrel
-│   │   ├── Accordion.tsx       # Main component
-│   │   ├── AccordionItem.tsx   # Sub-component
-│   │   ├── types.ts           # Type definitions
-│   │   └── Accordion.test.tsx  # Unit tests
-│   ├── Alert/                  # Alert component group
-│   ├── Button/                 # Button component group
-│   │   ├── index.ts           # Export barrel
-│   │   ├── Button.tsx         # Main button component
-│   │   ├── ButtonGroup.tsx    # Button group component
-│   │   ├── types.ts          # Button-specific types
-│   │   └── Button.test.tsx    # Button tests
-│   ├── Card/                  # Card component group
-│   ├── DataTable/             # Data table component group
-│   ├── Dialog/                # Dialog component group
-│   ├── Form/                  # Form component group
-│   │   ├── index.ts          # Export barrel
-│   │   ├── Input.tsx         # Input component
-│   │   ├── Select.tsx        # Select component
-│   │   ├── Textarea.tsx      # Textarea component
-│   │   ├── RadioGroup.tsx    # Radio group component
-│   │   ├── Toggle.tsx        # Toggle/switch component
-│   │   ├── Slider.tsx        # Slider component
-│   │   └── types.ts          # Form-related types
-│   ├── Layout/               # Layout components
-│   │   ├── index.ts         # Export barrel
-│   │   ├── Container.tsx    # Container component
-│   │   ├── Grid.tsx         # Grid system
-│   │   ├── Stack.tsx        # Stack layout
-│   │   └── Flex.tsx         # Flex layout
-│   ├── Navigation/          # Navigation components
-│   │   ├── index.ts        # Export barrel
-│   │   ├── Breadcrumb.tsx  # Breadcrumb navigation
-│   │   ├── Tabs.tsx        # Tab navigation
-│   │   ├── Command.tsx     # Command palette
-│   │   └── types.ts        # Navigation types
-│   ├── Overlay/            # Overlay components
-│   │   ├── index.ts       # Export barrel
-│   │   ├── Modal.tsx      # Modal component
-│   │   ├── Popover.tsx    # Popover component
-│   │   ├── Tooltip.tsx    # Tooltip component
-│   │   └── types.ts       # Overlay types
-│   ├── Feedback/          # Feedback components
-│   │   ├── index.ts      # Export barrel
-│   │   ├── Progress.tsx  # Progress indicators
-│   │   ├── Notification.tsx # Toast notifications
-│   │   ├── Alert.tsx     # Alert messages
-│   │   └── types.ts      # Feedback types
-│   └── Animation/         # Animation components
-│       ├── index.ts      # Export barrel
-│       ├── ZenTransition.tsx # GSAP transition wrapper
-│       ├── FadeIn.tsx    # Fade in animation
-│       ├── SlideUp.tsx   # Slide up animation
-│       └── types.ts      # Animation types
-└── providers/            # Context providers
-    ├── index.ts         # Export barrel
-    ├── ThemeProvider.tsx # Theme context
-    ├── AnimationProvider.tsx # Animation context
-    └── ToastProvider.tsx # Toast notification context
+```javascript
+#!/usr/bin/env node
+
+const commands = {
+  init: initProject,
+  add: addComponent,
+  update: updateComponents,
+  migrate: runMigration,
+  doctor: runDiagnostics
+};
+
+async function initProject(options = {}) {
+  // Detect project type (Vite, Next.js, CRA, etc.)
+  // Install dependencies
+  // Configure files
+  // Setup examples
+}
 ```
 
-### Hooks Directory (`src/hooks/`)
+## Installation Methods
 
-```
-src/hooks/
-├── index.ts              # Export barrel for all hooks
-├── animation/            # Animation-related hooks
-│   ├── useZenAnimation.ts # Main GSAP animation hook
-│   ├── useReducedMotion.ts # Reduced motion detection
-│   ├── useStagger.ts     # Staggered animations
-│   └── useScrollTrigger.ts # Scroll-triggered animations
-├── form/                 # Form-related hooks
-│   ├── useFormValidation.ts # Form validation logic
-│   ├── useInputState.ts  # Input state management
-│   └── useFormContext.ts # Form context access
-├── layout/               # Layout-related hooks
-│   ├── useBreakpoint.ts  # Responsive breakpoint detection
-│   ├── useViewportSize.ts # Viewport size tracking
-│   └── useResizeObserver.ts # Element resize observation
-├── interaction/          # User interaction hooks
-│   ├── useHover.ts       # Hover state management
-│   ├── useFocus.ts       # Focus state management
-│   ├── useKeyboard.ts    # Keyboard event handling
-│   └── useClickOutside.ts # Click outside detection
-└── utility/              # General utility hooks
-    ├── useLocalStorage.ts # Local storage integration
-    ├── useDebounce.ts    # Value debouncing
-    ├── useThrottle.ts    # Value throttling
-    └── useId.ts          # Unique ID generation
+### Method 1: Automated Setup (Recommended)
+```bash
+# For new projects
+npx create-react-app my-app --template typescript
+cd my-app
+npx @gurusharan3107/zen-flow-ui init
+
+# For existing projects
+npx @gurusharan3107/zen-flow-ui init
 ```
 
-### Library Directory (`src/lib/`)
+### Method 2: Manual Installation
+```bash
+# Install core package
+npm install @gurusharan3107/zen-flow-ui
 
-```
-src/lib/
-├── index.ts                # Main library exports
-├── animations/             # Animation system
-│   ├── index.ts           # Animation exports
-│   ├── core.ts            # Core GSAP setup and configuration
-│   ├── presets.ts         # Pre-defined animation presets
-│   ├── timing.ts          # Timing and easing constants
-│   ├── interactions.ts    # Interactive animation helpers
-│   ├── transitions.ts     # Page transition animations
-│   └── utils.ts           # Animation utility functions
-├── theme/                 # Theme system
-│   ├── index.ts          # Theme exports
-│   ├── colors.ts         # Color palette definitions
-│   ├── typography.ts     # Typography scale and settings
-│   ├── spacing.ts        # Spacing scale and utilities
-│   ├── shadows.ts        # Shadow and elevation settings
-│   ├── borders.ts        # Border and radius settings
-│   └── constants.ts      # Theme constant values
-├── utils/                # Utility functions
-│   ├── index.ts         # Utility exports
-│   ├── cn.ts            # Class name utility (clsx + tailwind-merge)
-│   ├── accessibility.ts # Accessibility helpers
-│   ├── dom.ts           # DOM manipulation utilities
-│   ├── formatting.ts    # Data formatting utilities
-│   ├── validation.ts    # Input validation functions
-│   └── colors.ts        # Color manipulation utilities
-├── context/             # React context utilities
-│   ├── index.ts        # Context exports
-│   ├── createContext.ts # Context creation helpers
-│   └── providers.ts    # Context provider utilities
-└── constants/          # Application constants
-    ├── index.ts       # Constant exports
-    ├── breakpoints.ts # Responsive breakpoints
-    ├── zIndex.ts      # Z-index scale
-    └── keys.ts        # Keyboard key constants
+# Install peer dependencies
+npm install react react-dom class-variance-authority clsx tailwind-merge gsap
+
+# Install dev dependencies for TypeScript projects
+npm install -D @types/react @types/react-dom @types/gsap
 ```
 
-### Styles Directory (`src/styles/`)
+### Method 3: Yarn/PNPM Support
+```bash
+# Yarn
+yarn add @gurusharan3107/zen-flow-ui
+yarn add react react-dom class-variance-authority clsx tailwind-merge gsap
 
-```
-src/styles/
-├── globals.css           # Global styles and CSS custom properties
-├── components/           # Component-specific styles (if needed)
-│   ├── accordion.css    # Accordion-specific styles
-│   ├── button.css       # Button-specific styles
-│   └── animations.css   # Animation keyframes and utilities
-├── utilities/           # Utility CSS classes
-│   ├── accessibility.css # Accessibility helpers
-│   ├── layout.css       # Layout utilities
-│   └── responsive.css   # Responsive utilities
-└── themes/             # Theme-specific styles
-    ├── default.css     # Default theme
-    ├── dark.css        # Dark theme
-    └── high-contrast.css # High contrast theme
+# PNPM
+pnpm add @gurusharan3107/zen-flow-ui
+pnpm add react react-dom class-variance-authority clsx tailwind-merge gsap
 ```
 
-### Types Directory (`src/types/`)
+## Automated Configuration
 
-```
-src/types/
-├── index.ts              # Main type exports
-├── components/           # Component-specific types
-│   ├── button.ts        # Button component types
-│   ├── form.ts          # Form component types
-│   ├── layout.ts        # Layout component types
-│   └── animation.ts     # Animation component types
-├── theme/               # Theme-related types
-│   ├── colors.ts        # Color type definitions
-│   ├── spacing.ts       # Spacing type definitions
-│   └── typography.ts    # Typography type definitions
-├── animation/           # Animation-related types
-│   ├── gsap.ts         # GSAP-specific types
-│   ├── transitions.ts   # Transition types
-│   └── presets.ts      # Animation preset types
-└── utility/            # Utility types
-    ├── common.ts       # Common utility types
-    ├── react.ts        # React-specific utility types
-    └── css.ts          # CSS-related types
+### Package.json Scripts
+The CLI tool should add helpful scripts to package.json:
+```json
+{
+  "scripts": {
+    "zen:add": "npx @gurusharan3107/zen-flow-ui add",
+    "zen:update": "npx @gurusharan3107/zen-flow-ui update",
+    "zen:doctor": "npx @gurusharan3107/zen-flow-ui doctor"
+  }
+}
 ```
 
-## CLI Directory Structure
+### Tailwind CSS Auto-Configuration
+Create [scripts/setup-tailwind.js](mdc:scripts/setup-tailwind.js) that automatically configures Tailwind:
 
+```javascript
+export const setupTailwind = async (projectRoot) => {
+  const tailwindConfig = `
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@gurusharan3107/zen-flow-ui/dist/**/*.js"
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'zen-void': '#0a0a0a',
+        'zen-ink': '#1a1a1a',
+        'zen-shadow': '#2a2a2a',
+        'zen-stone': '#4a4a4a',
+        'zen-mist': '#8a8a8a',
+        'zen-cloud': '#dadada',
+        'zen-paper': '#fafafa',
+        'zen-light': '#ffffff',
+        'zen-accent': '#ff4757',
+        'zen-water': '#3742fa',
+        'zen-leaf': '#26de81',
+        'zen-sun': '#fed330',
+      },
+      spacing: {
+        'zen-xs': '4px',
+        'zen-sm': '8px',
+        'zen-md': '16px',
+        'zen-lg': '24px',
+        'zen-xl': '32px',
+        'zen-2xl': '48px',
+        'zen-3xl': '64px',
+      },
+      borderRadius: {
+        'zen-sm': '4px',
+        'zen-md': '8px',
+        'zen-lg': '12px',
+        'zen-xl': '16px',
+      },
+      animation: {
+        'zen-shimmer': 'shimmer 2s linear infinite',
+        'zen-accordion-down': 'accordion-down 0.2s ease-out',
+        'zen-accordion-up': 'accordion-up 0.2s ease-out',
+        'zen-fade-in': 'fade-in 0.3s ease-out',
+        'zen-slide-up': 'slide-up 0.3s ease-out',
+      },
+      keyframes: {
+        'shimmer': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'accordion-down': {
+          from: { height: 0 },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 },
+        },
+        'fade-in': {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        'slide-up': {
+          from: { opacity: 0, transform: 'translateY(10px)' },
+          to: { opacity: 1, transform: 'translateY(0)' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};`;
+
+  await writeFile(path.join(projectRoot, 'tailwind.config.js'), tailwindConfig);
+};
 ```
-cli/
-├── index.cjs             # Main CLI entry point
-├── commands/             # Individual CLI commands
-│   ├── init.js          # Project initialization
-│   ├── add.js           # Add components
-│   ├── update.js        # Update components
-│   ├── migrate.js       # Migration utilities
-│   └── doctor.js        # Health check diagnostics
-├── templates/           # Project templates
-│   ├── dashboard/       # Dashboard template
-│   ├── landing-page/    # Landing page template
-│   └── admin-panel/     # Admin panel template
-├── utils/              # CLI utility functions
-│   ├── file-system.js  # File system operations
-│   ├── package-manager.js # Package manager detection
-│   ├── framework-detection.js # Framework detection
-│   └── validation.js   # Input validation
-└── migrations/         # Version migration scripts
-    ├── v2-to-v3.js     # v2 to v3 migration
-    └── utils.js        # Migration utilities
-```
 
-## Documentation Structure
-
-```
-docs/
-├── GETTING_STARTED.md   # Quick start guide
-├── CONTRIBUTING.md      # Contribution guidelines
-├── DEPLOYMENT.md        # Deployment instructions
-├── MIGRATION_GUIDES/    # Version migration guides
-│   ├── v2-to-v3.md     # v2 to v3 migration
-│   └── breaking-changes.md # Breaking changes log
-├── API_REFERENCE/       # Component API documentation
-│   ├── components/      # Individual component docs
-│   ├── hooks/          # Hooks documentation
-│   └── utilities/      # Utility function docs
-├── DESIGN_SYSTEM/      # Design system documentation
-│   ├── colors.md       # Color palette guide
-│   ├── typography.md   # Typography system
-│   ├── spacing.md      # Spacing system
-│   └── animations.md   # Animation guidelines
-└── EXAMPLES/           # Usage examples
-    ├── basic-usage.md  # Basic usage examples
-    ├── advanced.md     # Advanced usage patterns
-    └── integrations.md # Framework integrations
-```
-
-## Build Output Structure
-
-```
-dist/
-├── index.js            # CommonJS build
-├── index.esm.js        # ES modules build
-├── index.d.ts          # TypeScript definitions
-├── components/         # Individual component builds
-│   ├── Button/         # Button component build
-│   ├── Card/           # Card component build
-│   └── ...             # Other components
-├── styles/             # Compiled CSS styles
-│   ├── globals.css     # Global styles
-│   ├── components.css  # Component styles
-│   └── utilities.css   # Utility styles
-└── types/              # Generated type definitions
-    ├── components.d.ts # Component types
-    ├── hooks.d.ts      # Hook types
-    └── utils.d.ts      # Utility types
-```
-
-## File Naming Conventions
-
-### Components
-- **Component Files**: PascalCase (e.g., `Button.tsx`, `DataTable.tsx`)
-- **Component Directories**: PascalCase (e.g., `Button/`, `DataTable/`)
-- **Test Files**: `ComponentName.test.tsx`
-- **Type Files**: `types.ts` (within component directory)
-- **Export Files**: `index.ts` (barrel exports)
-
-### Hooks
-- **Hook Files**: camelCase with `use` prefix (e.g., `useZenAnimation.ts`)
-- **Hook Directories**: camelCase (e.g., `animation/`, `form/`)
-
-### Utilities
-- **Utility Files**: camelCase (e.g., `utils.ts`, `animations.ts`)
-- **Utility Directories**: camelCase (e.g., `theme/`, `constants/`)
-
-### Styles
-- **CSS Files**: kebab-case (e.g., `globals.css`, `button.css`)
-- **Theme Files**: kebab-case (e.g., `dark.css`, `high-contrast.css`)
-
-### Documentation
-- **Markdown Files**: SCREAMING_SNAKE_CASE for important docs, kebab-case for others
-- **Important Docs**: `README.md`, `CONTRIBUTING.md`, `GETTING_STARTED.md`
-- **Regular Docs**: `migration-guide.md`, `api-reference.md`
-
-## Import/Export Patterns
-
-### Barrel Exports
-Every directory should have an `index.ts` file for clean imports:
-
+### CSS Setup Automation
+Auto-create [src/lib/utils.ts](mdc:src/lib/utils.ts):
 ```typescript
-// src/components/ui/index.ts
-export { Button, type ButtonProps } from './Button';
-export { Card, CardHeader, CardContent, type CardProps } from './Card';
-export { Input, type InputProps } from './Form/Input';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// Utility for reduced motion
+export function useReducedMotion() {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Theme utilities
+export const zenColors = {
+  void: '#0a0a0a',
+  ink: '#1a1a1a',
+  shadow: '#2a2a2a',
+  stone: '#4a4a4a',
+  mist: '#8a8a8a',
+  cloud: '#dadada',
+  paper: '#fafafa',
+  light: '#ffffff',
+  accent: '#ff4757',
+  water: '#3742fa',
+  leaf: '#26de81',
+  sun: '#fed330',
+};
 ```
 
-### Component Exports
+## Project Type Detection
+
+### Framework-Specific Setup
+Detect and configure for different React frameworks:
+
+```javascript
+// scripts/detect-framework.js
+export const detectFramework = () => {
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  
+  if (packageJson.dependencies?.['next']) return 'nextjs';
+  if (packageJson.dependencies?.['vite']) return 'vite';
+  if (packageJson.dependencies?.['react-scripts']) return 'cra';
+  if (packageJson.dependencies?.['gatsby']) return 'gatsby';
+  
+  return 'custom';
+};
+```
+
+### Next.js Configuration
+```javascript
+// For Next.js projects
+const nextConfigPath = path.join(projectRoot, 'next.config.js');
+const nextConfig = `
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  transpilePackages: ['@gurusharan3107/zen-flow-ui'],
+};
+
+module.exports = nextConfig;
+`;
+```
+
+### Vite Configuration
+```javascript
+// For Vite projects
+const viteConfigPath = path.join(projectRoot, 'vite.config.ts');
+const viteConfig = `
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+})
+`;
+```
+
+## Migration System
+
+### Version Migration Scripts
+Create migration scripts for major version updates:
+
+```javascript
+// migrations/v2-to-v3.js
+export const migrateV2ToV3 = async (projectRoot) => {
+  const migrations = [
+    {
+      name: 'Update import paths',
+      run: updateImportPaths,
+    },
+    {
+      name: 'Migrate Framer Motion to GSAP',
+      run: migrateAnimations,
+    },
+    {
+      name: 'Update component props',
+      run: updateComponentProps,
+    },
+  ];
+  
+  for (const migration of migrations) {
+    console.log(`Running: ${migration.name}`);
+    await migration.run(projectRoot);
+  }
+};
+```
+
+### Automatic Code Transformation
+Use AST transformation for automatic migration:
+
+```javascript
+import { transform } from 'jscodeshift';
+
+const transformImports = (source) => {
+  return transform(source, {
+    // Transform old imports to new structure
+    'ImportDeclaration[source.value="zen-flow-ui"]': (path) => {
+      path.get('source').replaceWith(
+        j.literal('@gurusharan3107/zen-flow-ui')
+      );
+    },
+  });
+};
+```
+
+### Dependency Updates
+```javascript
+export const updateDependencies = async (projectRoot) => {
+  const packageJsonPath = path.join(projectRoot, 'package.json');
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  
+  // Remove old dependencies
+  delete packageJson.dependencies['framer-motion'];
+  
+  // Add new dependencies
+  packageJson.dependencies['gsap'] = '^3.12.2';
+  
+  // Update zen-flow-ui to latest
+  packageJson.dependencies['@gurusharan3107/zen-flow-ui'] = '^3.0.0';
+  
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+};
+```
+
+## Health Check System
+
+### Project Diagnostics
+Create a health check command that verifies setup:
+
+```javascript
+// scripts/doctor.js
+export const runDiagnostics = async () => {
+  const checks = [
+    checkDependencies,
+    checkTailwindConfig,
+    checkUtilsFile,
+    checkImportPaths,
+    checkComponentUsage,
+    checkAccessibility,
+    checkPerformance,
+  ];
+  
+  const results = [];
+  
+  for (const check of checks) {
+    const result = await check();
+    results.push(result);
+    
+    if (result.status === 'error') {
+      console.error(`❌ ${result.name}: ${result.message}`);
+      if (result.fix) {
+        console.log(`💡 Fix: ${result.fix}`);
+      }
+    } else if (result.status === 'warning') {
+      console.warn(`⚠️  ${result.name}: ${result.message}`);
+    } else {
+      console.log(`✅ ${result.name}: OK`);
+    }
+  }
+  
+  return results;
+};
+```
+
+### Automated Fixes
+```javascript
+const checkTailwindConfig = async () => {
+  const configPath = 'tailwind.config.js';
+  
+  if (!fs.existsSync(configPath)) {
+    return {
+      name: 'Tailwind Configuration',
+      status: 'error',
+      message: 'Tailwind config not found',
+      fix: 'Run: npx @gurusharan3107/zen-flow-ui init --fix-tailwind',
+      autoFix: () => setupTailwind(process.cwd())
+    };
+  }
+  
+  const config = fs.readFileSync(configPath, 'utf8');
+  if (!config.includes('zen-flow-ui')) {
+    return {
+      name: 'Tailwind Configuration',
+      status: 'warning',
+      message: 'Zen Flow UI not configured in Tailwind',
+      fix: 'Add zen-flow-ui to content array',
+      autoFix: () => updateTailwindConfig(configPath)
+    };
+  }
+  
+  return {
+    name: 'Tailwind Configuration',
+    status: 'success',
+    message: 'Properly configured'
+  };
+};
+```
+
+## IDE Integration
+
+### VSCode Extensions
+Create a VSCode extension that provides:
+- Component snippets
+- Auto-completion for zen-flow classes
+- Real-time design token preview
+- Accessibility linting
+
+### TypeScript Support
+```json
+// .vscode/settings.json (auto-generated)
+{
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ["cn\\(([^)]*)\\)", "'([^']*)'"],
+    ["cva\\(([^)]*)\\)", "'([^']*)'"]
+  ]
+}
+```
+
+### IntelliSense Configuration
 ```typescript
-// src/components/ui/Button/index.ts
-export { Button, type ButtonProps } from './Button';
-export type { ButtonVariant, ButtonSize } from './types';
+// types/zen-flow-ui.d.ts (auto-generated)
+declare module '@gurusharan3107/zen-flow-ui' {
+  export interface ZenFlowTheme {
+    colors: {
+      'zen-void': string;
+      'zen-ink': string;
+      // ... all theme colors
+    };
+    spacing: {
+      'zen-xs': string;
+      'zen-sm': string;
+      // ... all spacing values
+    };
+  }
+}
 ```
 
-### Hook Exports
-```typescript
-// src/hooks/index.ts
-export { useZenAnimation } from './animation/useZenAnimation';
-export { useReducedMotion } from './animation/useReducedMotion';
-export { useFormValidation } from './form/useFormValidation';
+## Example Generation
+
+### Starter Templates
+Create different starter templates based on use case:
+
+```javascript
+const templates = {
+  'dashboard': {
+    components: ['DataTable', 'Card', 'Button', 'Select', 'Modal'],
+    pages: ['Dashboard', 'Analytics', 'Settings'],
+    features: ['Dark mode', 'Responsive design', 'Data visualization']
+  },
+  'landing-page': {
+    components: ['Button', 'Card', 'Accordion', 'Modal'],
+    pages: ['Home', 'About', 'Contact'],
+    features: ['Smooth scrolling', 'Animations', 'Contact forms']
+  },
+  'admin-panel': {
+    components: ['DataTable', 'Form', 'Navigation', 'Breadcrumb'],
+    pages: ['Users', 'Content', 'Reports', 'Settings'],
+    features: ['CRUD operations', 'Permissions', 'Bulk actions']
+  }
+};
 ```
 
-### Utility Exports
-```typescript
-// src/lib/index.ts
-export { cn } from './utils/cn';
-export { zenColors } from './theme/colors';
-export { ZEN_TIMING, ZEN_EASING } from './animations/timing';
+### Component Playground
+Generate an interactive playground:
+
+```javascript
+// scripts/generate-playground.js
+export const generatePlayground = async () => {
+  const playgroundPath = 'src/zen-flow-playground';
+  
+  // Create playground directory
+  await fs.mkdir(playgroundPath, { recursive: true });
+  
+  // Generate component examples
+  const components = await getAvailableComponents();
+  
+  for (const component of components) {
+    await generateComponentExample(component, playgroundPath);
+  }
+  
+  // Generate index page
+  await generatePlaygroundIndex(components, playgroundPath);
+};
 ```
 
-## Code Organization Principles
+## Migration Checklist
 
-### Single Responsibility
-- Each file should have a single, clear purpose
-- Components should focus on one specific UI element
-- Utilities should handle one specific task
+### Pre-Migration Assessment
+```javascript
+export const assessProject = async () => {
+  return {
+    framework: detectFramework(),
+    zenFlowVersion: getCurrentVersion(),
+    dependencies: getDependencies(),
+    components: getUsedComponents(),
+    customizations: getCustomizations(),
+    risks: assessMigrationRisks(),
+  };
+};
+```
 
-### Dependency Direction
-- Components depend on hooks and utilities
-- Hooks depend on utilities
-- Utilities are dependency-free (except for external libraries)
+### Migration Steps
+1. **Backup Project**
+   ```bash
+   git commit -am "Pre-zen-flow-ui migration backup"
+   git tag "pre-migration-$(date +%Y%m%d)"
+   ```
 
-### Abstraction Levels
-- **Low Level**: Utilities, constants, types
-- **Mid Level**: Hooks, context providers
-- **High Level**: Components, layouts
+2. **Run Assessment**
+   ```bash
+   npx @gurusharan3107/zen-flow-ui migrate --assess
+   ```
 
-### Encapsulation
-- Keep component internals private
-- Expose only necessary interfaces
-- Use TypeScript for clear boundaries
+3. **Execute Migration**
+   ```bash
+   npx @gurusharan3107/zen-flow-ui migrate --from=v2 --to=v3
+   ```
 
-This structure ensures consistency, maintainability, and scalability as the project grows.
+4. **Verify & Test**
+   ```bash
+   npx @gurusharan3107/zen-flow-ui doctor
+   npm test
+   ```
+
+### Rollback Strategy
+```javascript
+export const rollback = async (backupTag) => {
+  console.log(`Rolling back to ${backupTag}...`);
+  
+  // Restore git state
+  execSync(`git reset --hard ${backupTag}`);
+  
+  // Restore package.json
+  execSync('npm install');
+  
+  console.log('Rollback completed successfully');
+};
+```
+
+## Documentation Generation
+
+### Auto-Generated Setup Docs
+Create project-specific documentation:
+
+```javascript
+export const generateDocs = async (projectRoot) => {
+  const config = analyzeProject(projectRoot);
+  
+  const readme = `
+# ${config.projectName} - Zen Flow UI Setup
+
+## Installation Completed ✅
+
+Your project has been configured with Zen Flow UI v${config.version}.
+
+### Available Components
+${config.components.map(c => `- ${c.name}: ${c.description}`).join('\n')}
+
+### Getting Started
+\`\`\`tsx
+import { Button, Card } from '@gurusharan3107/zen-flow-ui';
+
+function App() {
+  return (
+    <Card>
+      <Button variant="primary">Hello Zen Flow UI!</Button>
+    </Card>
+  );
+}
+\`\`\`
+
+### Next Steps
+1. Explore the component playground: \`npm run zen:playground\`
+2. Run health check: \`npm run zen:doctor\`
+3. Read the full documentation: [zen-flow-ui docs](https://github.com/ingpoc/zen-flow-ui)
+`;
+
+  await writeFile(path.join(projectRoot, 'ZEN_FLOW_SETUP.md'), readme);
+};
+```
+
+## Setup Command Examples
+
+### Basic Setup
+```bash
+# Initialize zen-flow-ui in current project
+npx @gurusharan3107/zen-flow-ui init
+
+# Initialize with specific template
+npx @gurusharan3107/zen-flow-ui init --template=dashboard
+
+# Initialize with custom configuration
+npx @gurusharan3107/zen-flow-ui init --config=./zen-flow.config.js
+```
+
+### Advanced Setup
+```bash
+# Setup with TypeScript support
+npx @gurusharan3107/zen-flow-ui init --typescript
+
+# Setup with custom theme
+npx @gurusharan3107/zen-flow-ui init --theme=custom
+
+# Setup with specific components only
+npx @gurusharan3107/zen-flow-ui init --components=Button,Card,Input
+
+# Setup with GSAP animations
+npx @gurusharan3107/zen-flow-ui init --animations=gsap
+```
+
+This comprehensive setup system ensures that developers can get started with zen-flow-ui in seconds, regardless of their project structure or experience level.
 
 ---
 > Source: [ingpoc/zen-flow-ui](https://github.com/ingpoc/zen-flow-ui) — distributed by [TomeVault](https://tomevault.io).
