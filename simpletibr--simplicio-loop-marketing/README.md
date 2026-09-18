@@ -7,14 +7,14 @@ Provider-agnostic AI marketing engine. CLI that drops into any host project. Pip
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [simpletibr/simplicio-loop-marketing](https://github.com/simpletibr/simplicio-loop-marketing).
+Original source: `CLAUDE.md` in [simpletibr/simplicio-loop-marketing](https://github.com/simpletibr/simplicio-loop-marketing).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [simpletibr/simplicio-loop-marketing](https://github.com/simpletibr/simplicio-loop-marketing) — a repo with 9+ stars on GitHub.
