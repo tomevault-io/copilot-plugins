@@ -1,0 +1,9 @@
+{
+  "name": "weekitmo--oh-my-dsh-plugins",
+  "displayName": "oh-my-dsh-plugins",
+  "description": "A curated collection of awesome plugins for DeepSeek Harness (DSH) \u2014 task notifications, LLM trace inspection, keybindings with a built-in terminal, and local agent delegation.",
+  "version": "1.0.0",
+  "author": "weekitmo",
+  "homepage": "https://github.com/weekitmo/oh-my-dsh-plugins",
+  "skills": []
+}
