@@ -1,0 +1,9 @@
+{
+  "name": "smukh--a11y-agent-skills",
+  "displayName": "a11y-agent-skills",
+  "description": "Tested accessibility skills, CLI, MCP server, and GitHub Action for agent-assisted audits and regression checks.",
+  "version": "1.0.0",
+  "author": "smukh",
+  "homepage": "https://github.com/smukh/a11y-agent-skills",
+  "skills": []
+}
