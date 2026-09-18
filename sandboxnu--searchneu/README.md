@@ -7,11 +7,11 @@ the one stop shop for course information at northeastern university
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sandboxnu/searchneu](https://github.com/sandboxnu/searchneu).
+Original source: `AGENTS.md` in [sandboxnu/searchneu](https://github.com/sandboxnu/searchneu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
