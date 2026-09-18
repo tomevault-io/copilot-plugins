@@ -1,0 +1,9 @@
+{
+  "name": "helworks--helengine",
+  "displayName": "helengine",
+  "description": "helengine is a cross-platform retro engine that targets constrained hardware with modern asset pipelines and tooling.",
+  "version": "1.0.0",
+  "author": "helworks",
+  "homepage": "https://github.com/helworks/helengine",
+  "skills": []
+}
