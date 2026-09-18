@@ -1,0 +1,9 @@
+{
+  "name": "canonical--standup-timer",
+  "displayName": "standup-timer",
+  "description": "A lightweight Flutter app to help run stand-up meetings",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/standup-timer",
+  "skills": []
+}
