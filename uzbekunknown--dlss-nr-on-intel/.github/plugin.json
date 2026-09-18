@@ -1,0 +1,9 @@
+{
+  "name": "uzbekunknown--dlss-nr-on-intel",
+  "displayName": "dlss-nr-on-intel",
+  "description": "DLSS 5 Neural Rendering on an Intel Xe2 iGPU: an independent reimplementation of the inference pass, running in a real game through a Vulkan layer. Code only. No NVIDIA binaries, no weights.",
+  "version": "1.0.0",
+  "author": "Uzbekunknown",
+  "homepage": "https://github.com/Uzbekunknown/dlss-nr-on-intel",
+  "skills": []
+}
