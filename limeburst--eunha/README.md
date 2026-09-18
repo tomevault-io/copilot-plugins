@@ -7,11 +7,11 @@ Mastodon implementation in Rust
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [limeburst/eunha](https://github.com/limeburst/eunha).
+Original source: `AGENTS.md` in [limeburst/eunha](https://github.com/limeburst/eunha).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
