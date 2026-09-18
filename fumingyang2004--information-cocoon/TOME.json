@@ -1,0 +1,44 @@
+{
+  "name": "information-cocoon",
+  "owner": "fumingyang2004",
+  "repo": "information-cocoon",
+  "description": "\u4fe1 \u606f \u8327 \u623f\uff08 \u6838 \u5f39 \u63d0 \u7eaf \uff09\uff1a\u6a58\u9e26Juya&\u9ed1\u9e26Heya\u7684B\u7ad9AI\u65e9\u62a5\u6309\u5173\u952e\u8bcd\u8df3\u6bb5\u7684Edge/Chrome\u6269\u5c55",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fumingyang2004/information-cocoon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T18:37:53Z"
+}
