@@ -7,11 +7,11 @@ Local inference you can prove. A single-binary GGUF engine in C: serves, scores,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Joakimpalm-Zen/xyntetik-runner](https://github.com/Joakimpalm-Zen/xyntetik-runner).
+Original source: `CLAUDE.md` in [Joakimpalm-Zen/xyntetik-runner](https://github.com/Joakimpalm-Zen/xyntetik-runner).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
