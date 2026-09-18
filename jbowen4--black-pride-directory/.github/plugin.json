@@ -1,0 +1,9 @@
+{
+  "name": "jbowen4--black-pride-directory",
+  "displayName": "black-pride-directory",
+  "description": "A directory site for Black Pride events across the world using NextJS, TypeScript, Tailwind, shadcn/ui",
+  "version": "1.0.0",
+  "author": "jbowen4",
+  "homepage": "https://github.com/jbowen4/black-pride-directory",
+  "skills": []
+}
