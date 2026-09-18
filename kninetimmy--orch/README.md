@@ -7,11 +7,11 @@ Cross-host development orchestrator for Codex CLI and Claude Code CLI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kninetimmy/orch](https://github.com/kninetimmy/orch).
+Original source: `CLAUDE.md` in [kninetimmy/orch](https://github.com/kninetimmy/orch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
