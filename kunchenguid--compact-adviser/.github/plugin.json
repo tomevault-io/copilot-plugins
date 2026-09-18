@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--compact-adviser",
+  "displayName": "compact-adviser",
+  "description": "\"Work appears completed or recorded. Run /compact to save tokens.\"",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/compact-adviser",
+  "skills": []
+}
