@@ -7,11 +7,11 @@ Release-only downloads and installation notes for Unreal Tournament Xbox.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [GTTeancum/UT99-Xbox-Releases](https://github.com/GTTeancum/UT99-Xbox-Releases).
+Original source: `AGENTS.md` in [GTTeancum/UT99-Xbox-Releases](https://github.com/GTTeancum/UT99-Xbox-Releases).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
