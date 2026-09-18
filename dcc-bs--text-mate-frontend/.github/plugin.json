@@ -1,0 +1,9 @@
+{
+  "name": "dcc-bs--text-mate-frontend",
+  "displayName": "text-mate-frontend",
+  "description": "TextMate is an ai assistant for writing texts inspired by DeepL write and Grammarly",
+  "version": "1.0.0",
+  "author": "DCC-BS",
+  "homepage": "https://github.com/DCC-BS/text-mate-frontend",
+  "skills": []
+}
