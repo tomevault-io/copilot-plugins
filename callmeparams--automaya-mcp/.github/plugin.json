@@ -1,0 +1,9 @@
+{
+  "name": "callmeparams--automaya-mcp",
+  "displayName": "automaya-mcp",
+  "description": "MCP server and in-Maya console for controlling Autodesk Maya 2024 from Claude: modeling, rigging, previs, FX, Arnold, asset libraries, AI 3D generation, and a real time change stream for Unreal.",
+  "version": "1.0.0",
+  "author": "CallMeParams",
+  "homepage": "https://github.com/CallMeParams/automaya-mcp",
+  "skills": []
+}
