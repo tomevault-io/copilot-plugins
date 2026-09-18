@@ -4,7 +4,7 @@
   "repo": "searchneu",
   "description": "the one stop shop for course information at northeastern university",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandboxnu/searchneu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T16:37:27Z"
+  "distributed_at": "2026-09-18T16:38:19Z"
 }
