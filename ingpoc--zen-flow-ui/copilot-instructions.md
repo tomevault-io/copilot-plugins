@@ -1,471 +1,400 @@
-## gsap-animation-system
+## project-structure
 
-> Zen Flow UI integrates GSAP (GreenSock Animation Platform) for sophisticated, performant animations that align with Japanese design principles. All animations should feel natural, purposeful, and respect user preferences.
+> This rule defines the comprehensive file organization and project structure for zen-flow-ui. Follow this structure when creating new files, organizing components, or refactoring the codebase.
 
-# GSAP Animation System for Zen Flow UI
+# Zen Flow UI Project Structure
 
 ## Overview
 
-Zen Flow UI integrates GSAP (GreenSock Animation Platform) for sophisticated, performant animations that align with Japanese design principles. All animations should feel natural, purposeful, and respect user preferences.
+This rule defines the comprehensive file organization and project structure for zen-flow-ui. Follow this structure when creating new files, organizing components, or refactoring the codebase.
 
-## GSAP Setup & Configuration
+## Root Directory Structure
 
-### Required Dependencies
-```json
-{
-  "gsap": "^3.12.2",
-  "@types/gsap": "^3.0.0"
-}
+```
+zen-flow-ui/
+├── .cursor/                    # Cursor IDE rules and configurations
+│   └── rules/                  # Cursor rules for project guidelines
+├── .github/                    # GitHub workflows and templates
+│   ├── ISSUE_TEMPLATE/         # Issue templates
+│   └── workflows/              # CI/CD workflows
+├── cli/                        # CLI tools and utilities
+│   ├── index.cjs              # Main CLI entry point
+│   ├── commands/              # Individual CLI commands
+│   ├── templates/             # Project templates
+│   └── utils/                 # CLI utility functions
+├── docs/                      # Documentation files
+│   ├── GETTING_STARTED.md     # Quick start guide
+│   ├── CONTRIBUTING.md        # Contribution guidelines
+│   ├── DEPLOYMENT.md          # Deployment instructions
+│   ├── MIGRATION_GUIDES/      # Version migration guides
+│   └── API_REFERENCE/         # Component API documentation
+├── examples/                  # Usage examples and demos
+│   ├── App.tsx               # Demo application
+│   ├── components/           # Example component usage
+│   └── templates/            # Starter templates
+├── scripts/                  # Build and automation scripts
+│   ├── build.js             # Build script
+│   ├── setup-tailwind.js    # Tailwind configuration helper
+│   ├── generate-exports.js  # Auto-generate export files
+│   └── migrate.js           # Migration utilities
+├── src/                     # Main source code
+│   ├── components/          # React components
+│   ├── hooks/              # Custom React hooks
+│   ├── lib/                # Utility libraries and core functions
+│   ├── styles/             # Global styles and CSS
+│   └── types/              # TypeScript type definitions
+├── tests/                  # Test utilities and global test setup
+│   ├── setup.ts           # Test environment setup
+│   ├── utils.ts           # Test utilities
+│   └── mocks/             # Mock implementations
+├── .eslintrc.json         # ESLint configuration
+├── .gitignore            # Git ignore patterns
+├── jest.config.js        # Jest testing configuration
+├── package.json          # Package configuration and dependencies
+├── postcss.config.js     # PostCSS configuration
+├── README.md             # Project overview and basic documentation
+├── rollup.config.js      # Rollup build configuration
+├── tailwind.config.js    # Tailwind CSS configuration
+└── tsconfig.json         # TypeScript configuration
 ```
 
-### Animation Context Provider
-Create a centralized animation context in [src/lib/animation-context.tsx](mdc:src/lib/animation-context.tsx):
-```tsx
-export const AnimationProvider = ({ children, reducedMotion = false }) => {
-  // Set global GSAP defaults
-  // Provide animation utilities
-  // Handle reduced motion preferences
-};
+## Source Code Structure
+
+### Components Directory (`src/components/`)
+
+```
+src/components/
+├── ui/                           # Core UI components
+│   ├── Accordion/               # Accordion component group
+│   │   ├── index.ts            # Export barrel
+│   │   ├── Accordion.tsx       # Main component
+│   │   ├── AccordionItem.tsx   # Sub-component
+│   │   ├── types.ts           # Type definitions
+│   │   └── Accordion.test.tsx  # Unit tests
+│   ├── Alert/                  # Alert component group
+│   ├── Button/                 # Button component group
+│   │   ├── index.ts           # Export barrel
+│   │   ├── Button.tsx         # Main button component
+│   │   ├── ButtonGroup.tsx    # Button group component
+│   │   ├── types.ts          # Button-specific types
+│   │   └── Button.test.tsx    # Button tests
+│   ├── Card/                  # Card component group
+│   ├── DataTable/             # Data table component group
+│   ├── Dialog/                # Dialog component group
+│   ├── Form/                  # Form component group
+│   │   ├── index.ts          # Export barrel
+│   │   ├── Input.tsx         # Input component
+│   │   ├── Select.tsx        # Select component
+│   │   ├── Textarea.tsx      # Textarea component
+│   │   ├── RadioGroup.tsx    # Radio group component
+│   │   ├── Toggle.tsx        # Toggle/switch component
+│   │   ├── Slider.tsx        # Slider component
+│   │   └── types.ts          # Form-related types
+│   ├── Layout/               # Layout components
+│   │   ├── index.ts         # Export barrel
+│   │   ├── Container.tsx    # Container component
+│   │   ├── Grid.tsx         # Grid system
+│   │   ├── Stack.tsx        # Stack layout
+│   │   └── Flex.tsx         # Flex layout
+│   ├── Navigation/          # Navigation components
+│   │   ├── index.ts        # Export barrel
+│   │   ├── Breadcrumb.tsx  # Breadcrumb navigation
+│   │   ├── Tabs.tsx        # Tab navigation
+│   │   ├── Command.tsx     # Command palette
+│   │   └── types.ts        # Navigation types
+│   ├── Overlay/            # Overlay components
+│   │   ├── index.ts       # Export barrel
+│   │   ├── Modal.tsx      # Modal component
+│   │   ├── Popover.tsx    # Popover component
+│   │   ├── Tooltip.tsx    # Tooltip component
+│   │   └── types.ts       # Overlay types
+│   ├── Feedback/          # Feedback components
+│   │   ├── index.ts      # Export barrel
+│   │   ├── Progress.tsx  # Progress indicators
+│   │   ├── Notification.tsx # Toast notifications
+│   │   ├── Alert.tsx     # Alert messages
+│   │   └── types.ts      # Feedback types
+│   └── Animation/         # Animation components
+│       ├── index.ts      # Export barrel
+│       ├── ZenTransition.tsx # GSAP transition wrapper
+│       ├── FadeIn.tsx    # Fade in animation
+│       ├── SlideUp.tsx   # Slide up animation
+│       └── types.ts      # Animation types
+└── providers/            # Context providers
+    ├── index.ts         # Export barrel
+    ├── ThemeProvider.tsx # Theme context
+    ├── AnimationProvider.tsx # Animation context
+    └── ToastProvider.tsx # Toast notification context
 ```
 
-### Global Animation Configuration
-Set up in [src/lib/animations.ts](mdc:src/lib/animations.ts):
-```tsx
-import { gsap } from 'gsap';
+### Hooks Directory (`src/hooks/`)
 
-// Respect user motion preferences
-const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-gsap.defaults({
-  duration: shouldReduceMotion ? 0 : 0.3,
-  ease: "power2.out"
-});
+```
+src/hooks/
+├── index.ts              # Export barrel for all hooks
+├── animation/            # Animation-related hooks
+│   ├── useZenAnimation.ts # Main GSAP animation hook
+│   ├── useReducedMotion.ts # Reduced motion detection
+│   ├── useStagger.ts     # Staggered animations
+│   └── useScrollTrigger.ts # Scroll-triggered animations
+├── form/                 # Form-related hooks
+│   ├── useFormValidation.ts # Form validation logic
+│   ├── useInputState.ts  # Input state management
+│   └── useFormContext.ts # Form context access
+├── layout/               # Layout-related hooks
+│   ├── useBreakpoint.ts  # Responsive breakpoint detection
+│   ├── useViewportSize.ts # Viewport size tracking
+│   └── useResizeObserver.ts # Element resize observation
+├── interaction/          # User interaction hooks
+│   ├── useHover.ts       # Hover state management
+│   ├── useFocus.ts       # Focus state management
+│   ├── useKeyboard.ts    # Keyboard event handling
+│   └── useClickOutside.ts # Click outside detection
+└── utility/              # General utility hooks
+    ├── useLocalStorage.ts # Local storage integration
+    ├── useDebounce.ts    # Value debouncing
+    ├── useThrottle.ts    # Value throttling
+    └── useId.ts          # Unique ID generation
 ```
 
-## Animation Principles
+### Library Directory (`src/lib/`)
 
-### Zen Flow Motion Philosophy
-1. **Subtle & Purposeful**: Animations guide attention without distraction
-2. **Natural Timing**: Use physics-based easing that feels organic
-3. **Respectful**: Honor accessibility preferences
-4. **Performant**: GPU-accelerated, optimized for 60fps
-
-### Timing & Easing Standards
-```tsx
-export const ZEN_TIMING = {
-  fast: 0.15,      // Micro-interactions (hover, focus)
-  normal: 0.3,     // Standard transitions (page changes)
-  slow: 0.5,       // Complex sequences (modals, reveals)
-  deliberate: 0.8  // Dramatic emphasis (loading, success)
-};
-
-export const ZEN_EASING = {
-  out: "power2.out",           // Most common - natural deceleration
-  inOut: "power2.inOut",       // Balanced - for reversible actions
-  back: "back.out(1.7)",       // Gentle bounce - for successful actions
-  elastic: "elastic.out(1, 0.3)", // Playful - for celebrations
-  expo: "expo.out"             // Dramatic - for reveals
-};
+```
+src/lib/
+├── index.ts                # Main library exports
+├── animations/             # Animation system
+│   ├── index.ts           # Animation exports
+│   ├── core.ts            # Core GSAP setup and configuration
+│   ├── presets.ts         # Pre-defined animation presets
+│   ├── timing.ts          # Timing and easing constants
+│   ├── interactions.ts    # Interactive animation helpers
+│   ├── transitions.ts     # Page transition animations
+│   └── utils.ts           # Animation utility functions
+├── theme/                 # Theme system
+│   ├── index.ts          # Theme exports
+│   ├── colors.ts         # Color palette definitions
+│   ├── typography.ts     # Typography scale and settings
+│   ├── spacing.ts        # Spacing scale and utilities
+│   ├── shadows.ts        # Shadow and elevation settings
+│   ├── borders.ts        # Border and radius settings
+│   └── constants.ts      # Theme constant values
+├── utils/                # Utility functions
+│   ├── index.ts         # Utility exports
+│   ├── cn.ts            # Class name utility (clsx + tailwind-merge)
+│   ├── accessibility.ts # Accessibility helpers
+│   ├── dom.ts           # DOM manipulation utilities
+│   ├── formatting.ts    # Data formatting utilities
+│   ├── validation.ts    # Input validation functions
+│   └── colors.ts        # Color manipulation utilities
+├── context/             # React context utilities
+│   ├── index.ts        # Context exports
+│   ├── createContext.ts # Context creation helpers
+│   └── providers.ts    # Context provider utilities
+└── constants/          # Application constants
+    ├── index.ts       # Constant exports
+    ├── breakpoints.ts # Responsive breakpoints
+    ├── zIndex.ts      # Z-index scale
+    └── keys.ts        # Keyboard key constants
 ```
 
-## Core Animation Utilities
+### Styles Directory (`src/styles/`)
 
-### useZenAnimation Hook
-Create in [src/hooks/useZenAnimation.ts](mdc:src/hooks/useZenAnimation.ts):
-```tsx
-export const useZenAnimation = () => {
-  const timeline = useRef<GSAPTimeline>();
-  const shouldReduceMotion = useReducedMotion();
-  
-  const animate = useCallback((target, props, options = {}) => {
-    if (shouldReduceMotion) return;
-    return gsap.to(target, {
-      ...props,
-      duration: props.duration || ZEN_TIMING.normal,
-      ease: props.ease || ZEN_EASING.out,
-      ...options
-    });
-  }, [shouldReduceMotion]);
-  
-  return { animate, timeline: timeline.current };
-};
+```
+src/styles/
+├── globals.css           # Global styles and CSS custom properties
+├── components/           # Component-specific styles (if needed)
+│   ├── accordion.css    # Accordion-specific styles
+│   ├── button.css       # Button-specific styles
+│   └── animations.css   # Animation keyframes and utilities
+├── utilities/           # Utility CSS classes
+│   ├── accessibility.css # Accessibility helpers
+│   ├── layout.css       # Layout utilities
+│   └── responsive.css   # Responsive utilities
+└── themes/             # Theme-specific styles
+    ├── default.css     # Default theme
+    ├── dark.css        # Dark theme
+    └── high-contrast.css # High contrast theme
 ```
 
-### ZenTransition Component
-Create wrapper for GSAP animations in [src/components/ui/ZenTransition.tsx](mdc:src/components/ui/ZenTransition.tsx):
-```tsx
-interface ZenTransitionProps {
-  children: React.ReactNode;
-  type: 'fadeIn' | 'slideUp' | 'scale' | 'stagger';
-  duration?: number;
-  delay?: number;
-  ease?: string;
-}
+### Types Directory (`src/types/`)
 
-export const ZenTransition: React.FC<ZenTransitionProps> = ({
-  children,
-  type,
-  duration = ZEN_TIMING.normal,
-  ease = ZEN_EASING.out
-}) => {
-  // Handle different animation types
-  // Respect reduced motion
-  // Clean up on unmount
-};
+```
+src/types/
+├── index.ts              # Main type exports
+├── components/           # Component-specific types
+│   ├── button.ts        # Button component types
+│   ├── form.ts          # Form component types
+│   ├── layout.ts        # Layout component types
+│   └── animation.ts     # Animation component types
+├── theme/               # Theme-related types
+│   ├── colors.ts        # Color type definitions
+│   ├── spacing.ts       # Spacing type definitions
+│   └── typography.ts    # Typography type definitions
+├── animation/           # Animation-related types
+│   ├── gsap.ts         # GSAP-specific types
+│   ├── transitions.ts   # Transition types
+│   └── presets.ts      # Animation preset types
+└── utility/            # Utility types
+    ├── common.ts       # Common utility types
+    ├── react.ts        # React-specific utility types
+    └── css.ts          # CSS-related types
 ```
 
-## Standard Animation Patterns
+## CLI Directory Structure
 
-### Entrance Animations
-```tsx
-export const ZEN_ENTRANCES = {
-  fadeIn: {
-    from: { opacity: 0 },
-    to: { opacity: 1 }
-  },
-  
-  slideUp: {
-    from: { y: 20, opacity: 0 },
-    to: { y: 0, opacity: 1 }
-  },
-  
-  slideDown: {
-    from: { y: -20, opacity: 0 },
-    to: { y: 0, opacity: 1 }
-  },
-  
-  scale: {
-    from: { scale: 0.95, opacity: 0 },
-    to: { scale: 1, opacity: 1 }
-  },
-  
-  expandHeight: {
-    from: { height: 0, opacity: 0 },
-    to: { height: 'auto', opacity: 1 }
-  }
-};
+```
+cli/
+├── index.cjs             # Main CLI entry point
+├── commands/             # Individual CLI commands
+│   ├── init.js          # Project initialization
+│   ├── add.js           # Add components
+│   ├── update.js        # Update components
+│   ├── migrate.js       # Migration utilities
+│   └── doctor.js        # Health check diagnostics
+├── templates/           # Project templates
+│   ├── dashboard/       # Dashboard template
+│   ├── landing-page/    # Landing page template
+│   └── admin-panel/     # Admin panel template
+├── utils/              # CLI utility functions
+│   ├── file-system.js  # File system operations
+│   ├── package-manager.js # Package manager detection
+│   ├── framework-detection.js # Framework detection
+│   └── validation.js   # Input validation
+└── migrations/         # Version migration scripts
+    ├── v2-to-v3.js     # v2 to v3 migration
+    └── utils.js        # Migration utilities
 ```
 
-### Interactive Animations
-```tsx
-export const ZEN_INTERACTIONS = {
-  buttonHover: {
-    scale: 1.02,
-    duration: ZEN_TIMING.fast,
-    ease: ZEN_EASING.out
-  },
-  
-  cardHover: {
-    y: -2,
-    boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
-    duration: ZEN_TIMING.normal,
-    ease: ZEN_EASING.out
-  },
-  
-  ripple: {
-    scale: 1.5,
-    opacity: 0,
-    duration: 0.6,
-    ease: ZEN_EASING.out
-  },
-  
-  focus: {
-    outline: "2px solid var(--zen-water)",
-    outlineOffset: "2px",
-    duration: ZEN_TIMING.fast
-  }
-};
+## Documentation Structure
+
+```
+docs/
+├── GETTING_STARTED.md   # Quick start guide
+├── CONTRIBUTING.md      # Contribution guidelines
+├── DEPLOYMENT.md        # Deployment instructions
+├── MIGRATION_GUIDES/    # Version migration guides
+│   ├── v2-to-v3.md     # v2 to v3 migration
+│   └── breaking-changes.md # Breaking changes log
+├── API_REFERENCE/       # Component API documentation
+│   ├── components/      # Individual component docs
+│   ├── hooks/          # Hooks documentation
+│   └── utilities/      # Utility function docs
+├── DESIGN_SYSTEM/      # Design system documentation
+│   ├── colors.md       # Color palette guide
+│   ├── typography.md   # Typography system
+│   ├── spacing.md      # Spacing system
+│   └── animations.md   # Animation guidelines
+└── EXAMPLES/           # Usage examples
+    ├── basic-usage.md  # Basic usage examples
+    ├── advanced.md     # Advanced usage patterns
+    └── integrations.md # Framework integrations
 ```
 
-### Page Transitions
-```tsx
-export const ZEN_PAGE_TRANSITIONS = {
-  slideInRight: {
-    from: { x: '100%', opacity: 0 },
-    to: { x: '0%', opacity: 1 }
-  },
-  
-  crossfade: {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    duration: ZEN_TIMING.slow
-  },
-  
-  scaleInCenter: {
-    from: { scale: 0.8, opacity: 0, transformOrigin: 'center' },
-    to: { scale: 1, opacity: 1 }
-  }
-};
+## Build Output Structure
+
+```
+dist/
+├── index.js            # CommonJS build
+├── index.esm.js        # ES modules build
+├── index.d.ts          # TypeScript definitions
+├── components/         # Individual component builds
+│   ├── Button/         # Button component build
+│   ├── Card/           # Card component build
+│   └── ...             # Other components
+├── styles/             # Compiled CSS styles
+│   ├── globals.css     # Global styles
+│   ├── components.css  # Component styles
+│   └── utilities.css   # Utility styles
+└── types/              # Generated type definitions
+    ├── components.d.ts # Component types
+    ├── hooks.d.ts      # Hook types
+    └── utils.d.ts      # Utility types
 ```
 
-## Component-Specific Animation Integration
+## File Naming Conventions
 
-### Button Component
-Enhance [src/components/ui/Button.tsx](mdc:src/components/ui/Button.tsx):
-```tsx
-export const Button = ({ children, loading, ...props }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const { animate } = useZenAnimation();
-  
-  const handleMouseEnter = () => {
-    animate(buttonRef.current, ZEN_INTERACTIONS.buttonHover);
-  };
-  
-  const handleClick = (e) => {
-    createRippleEffect(e, buttonRef.current);
-    props.onClick?.(e);
-  };
-  
-  return (
-    <button
-      ref={buttonRef}
-      onMouseEnter={handleMouseEnter}
-      onClick={handleClick}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
+### Components
+- **Component Files**: PascalCase (e.g., `Button.tsx`, `DataTable.tsx`)
+- **Component Directories**: PascalCase (e.g., `Button/`, `DataTable/`)
+- **Test Files**: `ComponentName.test.tsx`
+- **Type Files**: `types.ts` (within component directory)
+- **Export Files**: `index.ts` (barrel exports)
+
+### Hooks
+- **Hook Files**: camelCase with `use` prefix (e.g., `useZenAnimation.ts`)
+- **Hook Directories**: camelCase (e.g., `animation/`, `form/`)
+
+### Utilities
+- **Utility Files**: camelCase (e.g., `utils.ts`, `animations.ts`)
+- **Utility Directories**: camelCase (e.g., `theme/`, `constants/`)
+
+### Styles
+- **CSS Files**: kebab-case (e.g., `globals.css`, `button.css`)
+- **Theme Files**: kebab-case (e.g., `dark.css`, `high-contrast.css`)
+
+### Documentation
+- **Markdown Files**: SCREAMING_SNAKE_CASE for important docs, kebab-case for others
+- **Important Docs**: `README.md`, `CONTRIBUTING.md`, `GETTING_STARTED.md`
+- **Regular Docs**: `migration-guide.md`, `api-reference.md`
+
+## Import/Export Patterns
+
+### Barrel Exports
+Every directory should have an `index.ts` file for clean imports:
+
+```typescript
+// src/components/ui/index.ts
+export { Button, type ButtonProps } from './Button';
+export { Card, CardHeader, CardContent, type CardProps } from './Card';
+export { Input, type InputProps } from './Form/Input';
 ```
 
-### Modal Component  
-Enhance [src/components/ui/Modal.tsx](mdc:src/components/ui/Modal.tsx):
-```tsx
-export const Modal = ({ isOpen, onClose, children }) => {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const { animate } = useZenAnimation();
-  
-  useEffect(() => {
-    if (isOpen) {
-      // Entrance animation
-      gsap.timeline()
-        .fromTo(overlayRef.current, 
-          { opacity: 0 },
-          { opacity: 1, duration: ZEN_TIMING.fast }
-        )
-        .fromTo(contentRef.current,
-          { scale: 0.95, opacity: 0 },
-          { scale: 1, opacity: 1, duration: ZEN_TIMING.normal, ease: ZEN_EASING.back },
-          "-=0.1"
-        );
-    }
-  }, [isOpen]);
-  
-  const handleClose = () => {
-    // Exit animation
-    gsap.timeline()
-      .to(contentRef.current, {
-        scale: 0.95,
-        opacity: 0,
-        duration: ZEN_TIMING.fast
-      })
-      .to(overlayRef.current, {
-        opacity: 0,
-        duration: ZEN_TIMING.fast,
-        onComplete: onClose
-      }, "-=0.05");
-  };
-};
+### Component Exports
+```typescript
+// src/components/ui/Button/index.ts
+export { Button, type ButtonProps } from './Button';
+export type { ButtonVariant, ButtonSize } from './types';
 ```
 
-### Accordion Component
-Enhance [src/components/ui/Accordion.tsx](mdc:src/components/ui/Accordion.tsx):
-```tsx
-export const AccordionItem = ({ title, children, isOpen }) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const iconRef = useRef<HTMLElement>(null);
-  
-  useEffect(() => {
-    if (isOpen) {
-      gsap.timeline()
-        .to(iconRef.current, {
-          rotation: 180,
-          duration: ZEN_TIMING.normal,
-          ease: ZEN_EASING.out
-        })
-        .fromTo(contentRef.current,
-          { height: 0, opacity: 0 },
-          { 
-            height: 'auto', 
-            opacity: 1,
-            duration: ZEN_TIMING.normal,
-            ease: ZEN_EASING.out
-          },
-          "-=0.2"
-        );
-    } else {
-      gsap.timeline()
-        .to(contentRef.current, {
-          height: 0,
-          opacity: 0,
-          duration: ZEN_TIMING.fast,
-          ease: ZEN_EASING.out
-        })
-        .to(iconRef.current, {
-          rotation: 0,
-          duration: ZEN_TIMING.fast,
-          ease: ZEN_EASING.out
-        }, "-=0.1");
-    }
-  }, [isOpen]);
-};
+### Hook Exports
+```typescript
+// src/hooks/index.ts
+export { useZenAnimation } from './animation/useZenAnimation';
+export { useReducedMotion } from './animation/useReducedMotion';
+export { useFormValidation } from './form/useFormValidation';
 ```
 
-## Advanced Animation Patterns
-
-### Staggered Animations
-```tsx
-export const useStaggerAnimation = () => {
-  const stagger = (elements, animation, staggerDelay = 0.1) => {
-    gsap.fromTo(elements, 
-      animation.from,
-      {
-        ...animation.to,
-        stagger: staggerDelay,
-        duration: animation.duration || ZEN_TIMING.normal,
-        ease: animation.ease || ZEN_EASING.out
-      }
-    );
-  };
-  
-  return { stagger };
-};
+### Utility Exports
+```typescript
+// src/lib/index.ts
+export { cn } from './utils/cn';
+export { zenColors } from './theme/colors';
+export { ZEN_TIMING, ZEN_EASING } from './animations/timing';
 ```
 
-### Loading Animations
-```tsx
-export const ZEN_LOADING = {
-  pulse: {
-    scale: [1, 1.05, 1],
-    duration: 1.5,
-    repeat: -1,
-    ease: ZEN_EASING.inOut
-  },
-  
-  shimmer: {
-    backgroundPosition: ['200% 0', '-200% 0'],
-    duration: 2,
-    repeat: -1,
-    ease: "none"
-  },
-  
-  dots: {
-    y: [0, -10, 0],
-    duration: 0.6,
-    repeat: -1,
-    stagger: 0.2,
-    ease: ZEN_EASING.inOut
-  }
-};
-```
+## Code Organization Principles
 
-### Scroll-Triggered Animations
-```tsx
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+### Single Responsibility
+- Each file should have a single, clear purpose
+- Components should focus on one specific UI element
+- Utilities should handle one specific task
 
-gsap.registerPlugin(ScrollTrigger);
+### Dependency Direction
+- Components depend on hooks and utilities
+- Hooks depend on utilities
+- Utilities are dependency-free (except for external libraries)
 
-export const useScrollAnimation = () => {
-  const animateOnScroll = (trigger, animation) => {
-    gsap.fromTo(trigger,
-      animation.from,
-      {
-        ...animation.to,
-        scrollTrigger: {
-          trigger,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  };
-  
-  return { animateOnScroll };
-};
-```
+### Abstraction Levels
+- **Low Level**: Utilities, constants, types
+- **Mid Level**: Hooks, context providers
+- **High Level**: Components, layouts
 
-## Performance Guidelines
+### Encapsulation
+- Keep component internals private
+- Expose only necessary interfaces
+- Use TypeScript for clear boundaries
 
-### Optimization Rules
-1. Use `will-change: transform` for animated elements
-2. Prefer transform and opacity over layout-affecting properties
-3. Clean up animations in component unmount
-4. Use `gsap.set()` for initial states to avoid FOUC
-5. Batch DOM reads and writes
-
-### Memory Management
-```tsx
-useEffect(() => {
-  const animations = [];
-  
-  // Store animation references
-  animations.push(gsap.to(element, {...}));
-  
-  return () => {
-    // Clean up on unmount
-    animations.forEach(anim => anim.kill());
-  };
-}, []);
-```
-
-## Accessibility Considerations
-
-### Reduced Motion Support
-Always check and respect user preferences:
-```tsx
-const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (shouldReduceMotion) {
-  gsap.set(element, { opacity: 1 }); // Instant state change
-} else {
-  gsap.to(element, { opacity: 1, duration: 0.3 }); // Animated transition
-}
-```
-
-### Focus Management
-Ensure animations don't interfere with keyboard navigation:
-```tsx
-const handleFocus = () => {
-  gsap.to(element, {
-    outline: "2px solid var(--zen-water)",
-    outlineOffset: "2px",
-    duration: 0.1
-  });
-};
-```
-
-## Testing Animations
-
-### Animation Testing Utils
-Create [src/lib/animation-test-utils.ts](mdc:src/lib/animation-test-utils.ts):
-```tsx
-export const mockGSAP = {
-  to: jest.fn(),
-  from: jest.fn(),
-  timeline: jest.fn(() => ({
-    to: jest.fn(),
-    from: jest.fn()
-  }))
-};
-
-export const waitForAnimation = (duration = 300) => {
-  return new Promise(resolve => setTimeout(resolve, duration));
-};
-```
-
-## Implementation Checklist
-
-When implementing GSAP animations:
-- [ ] Check for reduced motion preferences
-- [ ] Use appropriate timing and easing from design system
-- [ ] Clean up animations on component unmount
-- [ ] Test with keyboard navigation
-- [ ] Verify performance on low-end devices
-- [ ] Document animation purpose and behavior
-- [ ] Add fallback for when animations are disabled
+This structure ensures consistency, maintainability, and scalability as the project grows.
 
 ---
 > Source: [ingpoc/zen-flow-ui](https://github.com/ingpoc/zen-flow-ui) — distributed by [TomeVault](https://tomevault.io).
