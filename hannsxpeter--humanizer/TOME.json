@@ -4,7 +4,7 @@
   "repo": "humanizer",
   "description": "Pure-prompt skill that de-slops AI-sounding prose and rewrites it in a writer's voice, with faithfulness and restraint guards. Works with Claude Code, Cursor, Codex, Antigravity, Gemini, Pi Coder, OpenCode, and Copilot.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hannsxpeter/humanizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T06:32:46Z"
+  "distributed_at": "2026-09-18T06:41:20Z"
 }
