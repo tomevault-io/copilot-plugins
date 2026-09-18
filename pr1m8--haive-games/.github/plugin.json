@@ -1,0 +1,9 @@
+{
+  "name": "pr1m8--haive-games",
+  "displayName": "haive-games",
+  "description": "LLM-powered game agents for chess, Go, poker, social deduction, and 20+ other games",
+  "version": "1.0.0",
+  "author": "pr1m8",
+  "homepage": "https://github.com/pr1m8/haive-games",
+  "skills": []
+}
