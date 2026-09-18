@@ -1,0 +1,9 @@
+{
+  "name": "rorygallagher2024--lg-webos-dashboard",
+  "displayName": "lg-webos-dashboard",
+  "description": "For rooted LG webOS TVs: a live dashboard, privacy control, an ad & telemetry blocker, and custom screensavers. Runs on the TV itself. Includes an optional Home Assistant MQTT bridge for smart home co",
+  "version": "1.0.0",
+  "author": "rorygallagher2024",
+  "homepage": "https://github.com/rorygallagher2024/lg-webos-dashboard",
+  "skills": []
+}
