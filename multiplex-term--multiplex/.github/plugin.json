@@ -1,0 +1,9 @@
+{
+  "name": "multiplex-term--multiplex",
+  "displayName": "Multiplex",
+  "description": "An SSH / tmux / herdr terminal for Vision Pro, iPad and iPhone",
+  "version": "1.0.0",
+  "author": "multiplex-term",
+  "homepage": "https://github.com/multiplex-term/Multiplex",
+  "skills": []
+}
