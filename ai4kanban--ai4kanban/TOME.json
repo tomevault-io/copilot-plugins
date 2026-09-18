@@ -4,7 +4,7 @@
   "repo": "ai4kanban",
   "description": "Your AI project manager: agents plan and build, while you focus on ideas and make the key decisions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai4kanban/ai4kanban",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T02:37:04Z"
+  "distributed_at": "2026-09-18T02:38:38Z"
 }
