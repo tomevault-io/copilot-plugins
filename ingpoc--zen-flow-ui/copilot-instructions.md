@@ -1,430 +1,471 @@
-## component-development
+## gsap-animation-system
 
-> Every component should follow the zen-flow-ui architecture pattern:
+> Zen Flow UI integrates GSAP (GreenSock Animation Platform) for sophisticated, performant animations that align with Japanese design principles. All animations should feel natural, purposeful, and respect user preferences.
 
-# Component Development Standards for Zen Flow UI
+# GSAP Animation System for Zen Flow UI
 
-## Architecture Principles
+## Overview
 
-### Component Structure
-Every component should follow the zen-flow-ui architecture pattern:
+Zen Flow UI integrates GSAP (GreenSock Animation Platform) for sophisticated, performant animations that align with Japanese design principles. All animations should feel natural, purposeful, and respect user preferences.
 
-```
-src/components/ui/ComponentName/
-├── index.ts              # Export barrel
-├── ComponentName.tsx     # Main component
-├── ComponentName.test.tsx # Unit tests
-├── ComponentName.stories.tsx # Storybook stories (future)
-└── types.ts              # Component-specific types
-```
+## GSAP Setup & Configuration
 
-### File Organization Guidelines
-- **Main Component**: Business logic and rendering
-- **Types**: Interface definitions and type exports
-- **Tests**: Unit tests with accessibility checks
-- **Index**: Clean export interface
-
-## Component Development Template
-
-### Base Component Structure
-```tsx
-// src/components/ui/ComponentName/ComponentName.tsx
-import React, { forwardRef } from 'react';
-import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { useZenAnimation } from '@/hooks/useZenAnimation';
-
-// Component variants using CVA
-const componentVariants = cva(
-  // Base styles using design tokens
-  "relative inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zen-water focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-zen-paper text-zen-ink hover:bg-zen-cloud",
-        primary: "bg-zen-water text-zen-light hover:bg-zen-water/90",
-        secondary: "bg-zen-mist text-zen-light hover:bg-zen-mist/90",
-        destructive: "bg-zen-accent text-zen-light hover:bg-zen-accent/90",
-        outline: "border border-zen-cloud bg-transparent hover:bg-zen-cloud hover:text-zen-ink",
-        ghost: "hover:bg-zen-cloud hover:text-zen-ink",
-        link: "text-zen-water underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-);
-
-// Component interface
-interface ComponentNameProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof componentVariants> {
-  // Custom props
-  asChild?: boolean;
-  loading?: boolean;
+### Required Dependencies
+```json
+{
+  "gsap": "^3.12.2",
+  "@types/gsap": "^3.0.0"
 }
-
-// Main component with forwardRef for proper ref handling
-const ComponentName = forwardRef<HTMLElement, ComponentNameProps>(
-  ({ className, variant, size, asChild = false, loading, children, ...props }, ref) => {
-    const { animate } = useZenAnimation();
-    
-    // Component logic here
-    
-    return (
-      <element
-        ref={ref}
-        className={cn(componentVariants({ variant, size, className }))}
-        {...props}
-      >
-        {children}
-      </element>
-    );
-  }
-);
-
-ComponentName.displayName = "ComponentName";
-
-export { ComponentName, type ComponentNameProps };
 ```
 
-### Type Definitions
+### Animation Context Provider
+Create a centralized animation context in [src/lib/animation-context.tsx](mdc:src/lib/animation-context.tsx):
 ```tsx
-// src/components/ui/ComponentName/types.ts
-import type { VariantProps } from 'class-variance-authority';
-import type { componentVariants } from './ComponentName';
-
-export interface ComponentNameProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof componentVariants> {
-  asChild?: boolean;
-  loading?: boolean;
-}
-
-export type ComponentNameVariant = VariantProps<typeof componentVariants>['variant'];
-export type ComponentNameSize = VariantProps<typeof componentVariants>['size'];
+export const AnimationProvider = ({ children, reducedMotion = false }) => {
+  // Set global GSAP defaults
+  // Provide animation utilities
+  // Handle reduced motion preferences
+};
 ```
 
-### Export Barrel
+### Global Animation Configuration
+Set up in [src/lib/animations.ts](mdc:src/lib/animations.ts):
 ```tsx
-// src/components/ui/ComponentName/index.ts
-export { ComponentName, type ComponentNameProps } from './ComponentName';
-export type { ComponentNameVariant, ComponentNameSize } from './types';
+import { gsap } from 'gsap';
+
+// Respect user motion preferences
+const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+gsap.defaults({
+  duration: shouldReduceMotion ? 0 : 0.3,
+  ease: "power2.out"
+});
 ```
 
-## Code Quality Standards
+## Animation Principles
 
-### TypeScript Requirements
-- **Strict Mode**: All components must compile with TypeScript strict mode
-- **Proper Interfaces**: Use proper interface inheritance from HTML attributes
-- **Generic Support**: Support generic props where appropriate
-- **No Any Types**: Avoid `any` types, use proper typing
+### Zen Flow Motion Philosophy
+1. **Subtle & Purposeful**: Animations guide attention without distraction
+2. **Natural Timing**: Use physics-based easing that feels organic
+3. **Respectful**: Honor accessibility preferences
+4. **Performant**: GPU-accelerated, optimized for 60fps
 
-### Accessibility Requirements
-- **ARIA Labels**: All interactive elements need proper ARIA attributes
-- **Keyboard Navigation**: Full keyboard support for all interactions
-- **Focus Management**: Proper focus indicators and management
-- **Screen Reader Support**: Semantic HTML and ARIA descriptions
-- **Color Contrast**: Minimum 4.5:1 contrast ratio
-
-### Performance Requirements
-- **No Inline Styles**: Use CSS classes and design tokens only
-- **Memoization**: Use React.memo for expensive components
-- **Lazy Loading**: Support lazy loading where appropriate
-- **Tree Shaking**: Ensure components are tree-shakable
-
-## Animation Integration
-
-### GSAP Integration Pattern
+### Timing & Easing Standards
 ```tsx
-import { useZenAnimation } from '@/hooks/useZenAnimation';
-import { ZEN_TIMING, ZEN_EASING } from '@/lib/animations';
+export const ZEN_TIMING = {
+  fast: 0.15,      // Micro-interactions (hover, focus)
+  normal: 0.3,     // Standard transitions (page changes)
+  slow: 0.5,       // Complex sequences (modals, reveals)
+  deliberate: 0.8  // Dramatic emphasis (loading, success)
+};
 
-const Component = () => {
-  const { animate } = useZenAnimation();
-  const elementRef = useRef<HTMLElement>(null);
+export const ZEN_EASING = {
+  out: "power2.out",           // Most common - natural deceleration
+  inOut: "power2.inOut",       // Balanced - for reversible actions
+  back: "back.out(1.7)",       // Gentle bounce - for successful actions
+  elastic: "elastic.out(1, 0.3)", // Playful - for celebrations
+  expo: "expo.out"             // Dramatic - for reveals
+};
+```
+
+## Core Animation Utilities
+
+### useZenAnimation Hook
+Create in [src/hooks/useZenAnimation.ts](mdc:src/hooks/useZenAnimation.ts):
+```tsx
+export const useZenAnimation = () => {
+  const timeline = useRef<GSAPTimeline>();
+  const shouldReduceMotion = useReducedMotion();
   
-  const handleInteraction = () => {
-    animate(elementRef.current, {
-      scale: 1.02,
-      duration: ZEN_TIMING.fast,
-      ease: ZEN_EASING.out
+  const animate = useCallback((target, props, options = {}) => {
+    if (shouldReduceMotion) return;
+    return gsap.to(target, {
+      ...props,
+      duration: props.duration || ZEN_TIMING.normal,
+      ease: props.ease || ZEN_EASING.out,
+      ...options
     });
+  }, [shouldReduceMotion]);
+  
+  return { animate, timeline: timeline.current };
+};
+```
+
+### ZenTransition Component
+Create wrapper for GSAP animations in [src/components/ui/ZenTransition.tsx](mdc:src/components/ui/ZenTransition.tsx):
+```tsx
+interface ZenTransitionProps {
+  children: React.ReactNode;
+  type: 'fadeIn' | 'slideUp' | 'scale' | 'stagger';
+  duration?: number;
+  delay?: number;
+  ease?: string;
+}
+
+export const ZenTransition: React.FC<ZenTransitionProps> = ({
+  children,
+  type,
+  duration = ZEN_TIMING.normal,
+  ease = ZEN_EASING.out
+}) => {
+  // Handle different animation types
+  // Respect reduced motion
+  // Clean up on unmount
+};
+```
+
+## Standard Animation Patterns
+
+### Entrance Animations
+```tsx
+export const ZEN_ENTRANCES = {
+  fadeIn: {
+    from: { opacity: 0 },
+    to: { opacity: 1 }
+  },
+  
+  slideUp: {
+    from: { y: 20, opacity: 0 },
+    to: { y: 0, opacity: 1 }
+  },
+  
+  slideDown: {
+    from: { y: -20, opacity: 0 },
+    to: { y: 0, opacity: 1 }
+  },
+  
+  scale: {
+    from: { scale: 0.95, opacity: 0 },
+    to: { scale: 1, opacity: 1 }
+  },
+  
+  expandHeight: {
+    from: { height: 0, opacity: 0 },
+    to: { height: 'auto', opacity: 1 }
+  }
+};
+```
+
+### Interactive Animations
+```tsx
+export const ZEN_INTERACTIONS = {
+  buttonHover: {
+    scale: 1.02,
+    duration: ZEN_TIMING.fast,
+    ease: ZEN_EASING.out
+  },
+  
+  cardHover: {
+    y: -2,
+    boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+    duration: ZEN_TIMING.normal,
+    ease: ZEN_EASING.out
+  },
+  
+  ripple: {
+    scale: 1.5,
+    opacity: 0,
+    duration: 0.6,
+    ease: ZEN_EASING.out
+  },
+  
+  focus: {
+    outline: "2px solid var(--zen-water)",
+    outlineOffset: "2px",
+    duration: ZEN_TIMING.fast
+  }
+};
+```
+
+### Page Transitions
+```tsx
+export const ZEN_PAGE_TRANSITIONS = {
+  slideInRight: {
+    from: { x: '100%', opacity: 0 },
+    to: { x: '0%', opacity: 1 }
+  },
+  
+  crossfade: {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    duration: ZEN_TIMING.slow
+  },
+  
+  scaleInCenter: {
+    from: { scale: 0.8, opacity: 0, transformOrigin: 'center' },
+    to: { scale: 1, opacity: 1 }
+  }
+};
+```
+
+## Component-Specific Animation Integration
+
+### Button Component
+Enhance [src/components/ui/Button.tsx](mdc:src/components/ui/Button.tsx):
+```tsx
+export const Button = ({ children, loading, ...props }) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { animate } = useZenAnimation();
+  
+  const handleMouseEnter = () => {
+    animate(buttonRef.current, ZEN_INTERACTIONS.buttonHover);
+  };
+  
+  const handleClick = (e) => {
+    createRippleEffect(e, buttonRef.current);
+    props.onClick?.(e);
   };
   
   return (
-    <element
-      ref={elementRef}
-      onMouseEnter={handleInteraction}
+    <button
+      ref={buttonRef}
+      onMouseEnter={handleMouseEnter}
+      onClick={handleClick}
+      {...props}
     >
-      Content
-    </element>
-  );
-};
-```
-
-### Motion Preferences
-Always respect user motion preferences:
-```tsx
-const shouldReduceMotion = useReducedMotion();
-
-const animationProps = shouldReduceMotion 
-  ? {} 
-  : {
-      initial: { opacity: 0, y: 20 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: ZEN_TIMING.normal }
-    };
-```
-
-## Styling Guidelines
-
-### Class Variance Authority (CVA) Pattern
-Use CVA for component variants:
-```tsx
-const buttonVariants = cva(
-  // Base styles - always applied
-  "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-  {
-    variants: {
-      variant: {
-        default: "bg-zen-paper text-zen-ink hover:bg-zen-cloud",
-        primary: "bg-zen-water text-zen-light hover:bg-zen-water/90",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 px-3",
-        lg: "h-11 px-8",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-);
-```
-
-### Design Token Usage
-Always use design tokens instead of hardcoded values:
-```tsx
-// ✅ Good - Using design tokens
-className="bg-zen-cloud text-zen-ink border-zen-mist p-zen-md rounded-zen-md"
-
-// ❌ Bad - Hardcoded values
-className="bg-gray-100 text-gray-900 border-gray-300 p-4 rounded-lg"
-```
-
-### Responsive Design
-Use Tailwind's responsive prefixes:
-```tsx
-className="p-4 md:p-6 lg:p-8 text-sm md:text-base lg:text-lg"
-```
-
-## Testing Standards
-
-### Unit Test Template
-```tsx
-// src/components/ui/ComponentName/ComponentName.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
-import { ComponentName } from './ComponentName';
-
-expect.extend(toHaveNoViolations);
-
-describe('ComponentName', () => {
-  it('renders with default props', () => {
-    render(<ComponentName>Test Content</ComponentName>);
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
-  });
-
-  it('applies custom className', () => {
-    render(<ComponentName className="custom-class">Content</ComponentName>);
-    expect(screen.getByText('Content')).toHaveClass('custom-class');
-  });
-
-  it('handles click events', () => {
-    const handleClick = jest.fn();
-    render(<ComponentName onClick={handleClick}>Click me</ComponentName>);
-    
-    fireEvent.click(screen.getByText('Click me'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  it('supports keyboard navigation', () => {
-    render(<ComponentName>Keyboard</ComponentName>);
-    const element = screen.getByText('Keyboard');
-    
-    element.focus();
-    expect(element).toHaveFocus();
-    
-    fireEvent.keyDown(element, { key: 'Enter' });
-    // Test keyboard interaction
-  });
-
-  it('meets accessibility standards', async () => {
-    const { container } = render(<ComponentName>Accessible</ComponentName>);
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
-  });
-
-  it('respects reduced motion preferences', () => {
-    // Mock reduced motion
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation(query => ({
-        matches: query === '(prefers-reduced-motion: reduce)',
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-      })),
-    });
-
-    render(<ComponentName>Motion</ComponentName>);
-    // Test that animations are disabled
-  });
-});
-```
-
-### Accessibility Testing
-Include accessibility tests for every component:
-```tsx
-import { axe, toHaveNoViolations } from 'jest-axe';
-
-expect.extend(toHaveNoViolations);
-
-it('has no accessibility violations', async () => {
-  const { container } = render(<Component />);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
-});
-```
-
-## Documentation Standards
-
-### JSDoc Comments
-```tsx
-/**
- * A flexible button component with multiple variants and sizes.
- * 
- * @example
- * ```tsx
- * <Button variant="primary" size="lg" onClick={handleClick}>
- *   Click me
- * </Button>
- * ```
- */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "default", size = "default", ...props }, ref) => {
-    // Component implementation
-  }
-);
-```
-
-### README Documentation
-Each component should have usage examples in the main README or component-specific documentation.
-
-## Error Handling
-
-### Error Boundaries
-Wrap complex components with error boundaries:
-```tsx
-import { ErrorBoundary } from 'react-error-boundary';
-
-const ComponentWithErrorBoundary = (props) => (
-  <ErrorBoundary fallback={<ComponentErrorFallback />}>
-    <Component {...props} />
-  </ErrorBoundary>
-);
-```
-
-### Prop Validation
-Use TypeScript interfaces for prop validation instead of PropTypes:
-```tsx
-interface ComponentProps {
-  required: string;
-  optional?: number;
-  callback: (value: string) => void;
-}
-```
-
-## Performance Optimization
-
-### React.memo Usage
-Use React.memo for components that receive stable props:
-```tsx
-export const OptimizedComponent = React.memo(({ title, children }) => {
-  return (
-    <div>
-      <h2>{title}</h2>
       {children}
-    </div>
+    </button>
   );
-});
-```
-
-### Callback Optimization
-Use useCallback for event handlers passed to child components:
-```tsx
-const handleClick = useCallback((id: string) => {
-  // Handle click
-}, [dependency]);
-```
-
-## Component Checklist
-
-Before submitting a new component:
-- [ ] Follows zen-flow-ui architecture pattern
-- [ ] Uses design tokens consistently
-- [ ] Implements proper TypeScript interfaces
-- [ ] Includes comprehensive accessibility features
-- [ ] Supports keyboard navigation
-- [ ] Respects reduced motion preferences
-- [ ] Has unit tests with >90% coverage
-- [ ] Includes accessibility tests
-- [ ] Uses CVA for variant management
-- [ ] Properly handles ref forwarding
-- [ ] Includes JSDoc documentation
-- [ ] Follows naming conventions
-- [ ] Is tree-shakable and performant
-- [ ] Works with GSAP animation system
-- [ ] Passes all linting rules
-
-## Migration & Backward Compatibility
-
-### Version Management
-- Use semantic versioning for breaking changes
-- Provide migration guides for major updates
-- Maintain backward compatibility when possible
-- Use deprecation warnings for removed features
-
-### Legacy Support
-```tsx
-// Support legacy props with deprecation warnings
-interface ComponentProps {
-  newProp: string;
-  /** @deprecated Use newProp instead */
-  oldProp?: string;
-}
-
-const Component = ({ newProp, oldProp, ...props }) => {
-  if (oldProp && process.env.NODE_ENV === 'development') {
-    console.warn('oldProp is deprecated, use newProp instead');
-  }
-  
-  const finalProp = newProp || oldProp;
-  // Component implementation
 };
 ```
+
+### Modal Component  
+Enhance [src/components/ui/Modal.tsx](mdc:src/components/ui/Modal.tsx):
+```tsx
+export const Modal = ({ isOpen, onClose, children }) => {
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const { animate } = useZenAnimation();
+  
+  useEffect(() => {
+    if (isOpen) {
+      // Entrance animation
+      gsap.timeline()
+        .fromTo(overlayRef.current, 
+          { opacity: 0 },
+          { opacity: 1, duration: ZEN_TIMING.fast }
+        )
+        .fromTo(contentRef.current,
+          { scale: 0.95, opacity: 0 },
+          { scale: 1, opacity: 1, duration: ZEN_TIMING.normal, ease: ZEN_EASING.back },
+          "-=0.1"
+        );
+    }
+  }, [isOpen]);
+  
+  const handleClose = () => {
+    // Exit animation
+    gsap.timeline()
+      .to(contentRef.current, {
+        scale: 0.95,
+        opacity: 0,
+        duration: ZEN_TIMING.fast
+      })
+      .to(overlayRef.current, {
+        opacity: 0,
+        duration: ZEN_TIMING.fast,
+        onComplete: onClose
+      }, "-=0.05");
+  };
+};
+```
+
+### Accordion Component
+Enhance [src/components/ui/Accordion.tsx](mdc:src/components/ui/Accordion.tsx):
+```tsx
+export const AccordionItem = ({ title, children, isOpen }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<HTMLElement>(null);
+  
+  useEffect(() => {
+    if (isOpen) {
+      gsap.timeline()
+        .to(iconRef.current, {
+          rotation: 180,
+          duration: ZEN_TIMING.normal,
+          ease: ZEN_EASING.out
+        })
+        .fromTo(contentRef.current,
+          { height: 0, opacity: 0 },
+          { 
+            height: 'auto', 
+            opacity: 1,
+            duration: ZEN_TIMING.normal,
+            ease: ZEN_EASING.out
+          },
+          "-=0.2"
+        );
+    } else {
+      gsap.timeline()
+        .to(contentRef.current, {
+          height: 0,
+          opacity: 0,
+          duration: ZEN_TIMING.fast,
+          ease: ZEN_EASING.out
+        })
+        .to(iconRef.current, {
+          rotation: 0,
+          duration: ZEN_TIMING.fast,
+          ease: ZEN_EASING.out
+        }, "-=0.1");
+    }
+  }, [isOpen]);
+};
+```
+
+## Advanced Animation Patterns
+
+### Staggered Animations
+```tsx
+export const useStaggerAnimation = () => {
+  const stagger = (elements, animation, staggerDelay = 0.1) => {
+    gsap.fromTo(elements, 
+      animation.from,
+      {
+        ...animation.to,
+        stagger: staggerDelay,
+        duration: animation.duration || ZEN_TIMING.normal,
+        ease: animation.ease || ZEN_EASING.out
+      }
+    );
+  };
+  
+  return { stagger };
+};
+```
+
+### Loading Animations
+```tsx
+export const ZEN_LOADING = {
+  pulse: {
+    scale: [1, 1.05, 1],
+    duration: 1.5,
+    repeat: -1,
+    ease: ZEN_EASING.inOut
+  },
+  
+  shimmer: {
+    backgroundPosition: ['200% 0', '-200% 0'],
+    duration: 2,
+    repeat: -1,
+    ease: "none"
+  },
+  
+  dots: {
+    y: [0, -10, 0],
+    duration: 0.6,
+    repeat: -1,
+    stagger: 0.2,
+    ease: ZEN_EASING.inOut
+  }
+};
+```
+
+### Scroll-Triggered Animations
+```tsx
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export const useScrollAnimation = () => {
+  const animateOnScroll = (trigger, animation) => {
+    gsap.fromTo(trigger,
+      animation.from,
+      {
+        ...animation.to,
+        scrollTrigger: {
+          trigger,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  };
+  
+  return { animateOnScroll };
+};
+```
+
+## Performance Guidelines
+
+### Optimization Rules
+1. Use `will-change: transform` for animated elements
+2. Prefer transform and opacity over layout-affecting properties
+3. Clean up animations in component unmount
+4. Use `gsap.set()` for initial states to avoid FOUC
+5. Batch DOM reads and writes
+
+### Memory Management
+```tsx
+useEffect(() => {
+  const animations = [];
+  
+  // Store animation references
+  animations.push(gsap.to(element, {...}));
+  
+  return () => {
+    // Clean up on unmount
+    animations.forEach(anim => anim.kill());
+  };
+}, []);
+```
+
+## Accessibility Considerations
+
+### Reduced Motion Support
+Always check and respect user preferences:
+```tsx
+const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (shouldReduceMotion) {
+  gsap.set(element, { opacity: 1 }); // Instant state change
+} else {
+  gsap.to(element, { opacity: 1, duration: 0.3 }); // Animated transition
+}
+```
+
+### Focus Management
+Ensure animations don't interfere with keyboard navigation:
+```tsx
+const handleFocus = () => {
+  gsap.to(element, {
+    outline: "2px solid var(--zen-water)",
+    outlineOffset: "2px",
+    duration: 0.1
+  });
+};
+```
+
+## Testing Animations
+
+### Animation Testing Utils
+Create [src/lib/animation-test-utils.ts](mdc:src/lib/animation-test-utils.ts):
+```tsx
+export const mockGSAP = {
+  to: jest.fn(),
+  from: jest.fn(),
+  timeline: jest.fn(() => ({
+    to: jest.fn(),
+    from: jest.fn()
+  }))
+};
+
+export const waitForAnimation = (duration = 300) => {
+  return new Promise(resolve => setTimeout(resolve, duration));
+};
+```
+
+## Implementation Checklist
+
+When implementing GSAP animations:
+- [ ] Check for reduced motion preferences
+- [ ] Use appropriate timing and easing from design system
+- [ ] Clean up animations on component unmount
+- [ ] Test with keyboard navigation
+- [ ] Verify performance on low-end devices
+- [ ] Document animation purpose and behavior
+- [ ] Add fallback for when animations are disabled
 
 ---
 > Source: [ingpoc/zen-flow-ui](https://github.com/ingpoc/zen-flow-ui) — distributed by [TomeVault](https://tomevault.io).
