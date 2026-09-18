@@ -1,0 +1,9 @@
+{
+  "name": "joshuadavidthomas--ast-grep-rules",
+  "displayName": "ast-grep-rules",
+  "description": "Common ast-grep rules for use across my projects",
+  "version": "1.0.0",
+  "author": "joshuadavidthomas",
+  "homepage": "https://github.com/joshuadavidthomas/ast-grep-rules",
+  "skills": []
+}
