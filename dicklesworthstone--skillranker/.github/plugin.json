@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--skillranker",
+  "displayName": "skillranker",
+  "description": "Rust CLI powered by Jev from TypeSafe.ai that ranks agent skills for the next step using live session context. Includes Claude Code hooks, structured JSON, abstention, and local feedback. Requires a T",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/skillranker",
+  "skills": []
+}
