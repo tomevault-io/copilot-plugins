@@ -1,0 +1,9 @@
+{
+  "name": "aviavni--database-learning-path",
+  "displayName": "database-learning-path",
+  "description": "Database internals, measured: 44 topics of guided paper and code reading with runnable Rust benchmarks \u2014 plus a graph engine rebuilt from scratch.",
+  "version": "1.0.0",
+  "author": "AviAvni",
+  "homepage": "https://github.com/AviAvni/database-learning-path",
+  "skills": []
+}
