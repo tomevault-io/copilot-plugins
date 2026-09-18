@@ -4,7 +4,7 @@
   "repo": "blink",
   "description": "A beautiful transparent notes application built with Tauri, React, and native macOS window controls",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arach/blink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T08:33:23Z"
+  "distributed_at": "2026-09-18T08:36:47Z"
 }
