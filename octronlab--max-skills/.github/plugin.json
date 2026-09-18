@@ -1,0 +1,9 @@
+{
+  "name": "octronlab--max-skills",
+  "displayName": "max-skills",
+  "description": "Helpful skills for agentic work",
+  "version": "1.0.0",
+  "author": "OctronLab",
+  "homepage": "https://github.com/OctronLab/max-skills",
+  "skills": []
+}
