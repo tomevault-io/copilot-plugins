@@ -1,0 +1,9 @@
+{
+  "name": "lunaperegrina--study-reader",
+  "displayName": "study-reader",
+  "description": "Open .study course format + KOReader plugin: turn any material into interactive courses on your e-reader",
+  "version": "1.0.0",
+  "author": "lunaperegrina",
+  "homepage": "https://github.com/lunaperegrina/study-reader",
+  "skills": []
+}
