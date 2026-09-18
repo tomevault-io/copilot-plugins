@@ -1,0 +1,9 @@
+{
+  "name": "jackwener--wx-cli-again",
+  "displayName": "wx-cli-again",
+  "description": "WeChat local data CLI (query/decrypt/export) \u2014 fresh start from wx-cli",
+  "version": "1.0.0",
+  "author": "jackwener",
+  "homepage": "https://github.com/jackwener/wx-cli-again",
+  "skills": []
+}
