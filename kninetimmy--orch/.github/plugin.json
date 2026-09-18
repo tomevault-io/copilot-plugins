@@ -1,0 +1,9 @@
+{
+  "name": "kninetimmy--orch",
+  "displayName": "orch",
+  "description": "Cross-host development orchestrator for Codex CLI and Claude Code CLI",
+  "version": "1.0.0",
+  "author": "kninetimmy",
+  "homepage": "https://github.com/kninetimmy/orch",
+  "skills": []
+}
