@@ -4,7 +4,7 @@
   "repo": "a11y-agent-skills",
   "description": "Tested accessibility skills, CLI, MCP server, and GitHub Action for agent-assisted audits and regression checks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smukh/a11y-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T03:15:43Z"
+  "distributed_at": "2026-09-18T03:21:10Z"
 }
