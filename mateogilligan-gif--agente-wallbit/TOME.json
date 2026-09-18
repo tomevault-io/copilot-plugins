@@ -1,0 +1,44 @@
+{
+  "name": "agente-wallbit",
+  "owner": "mateogilligan-gif",
+  "repo": "agente-wallbit",
+  "description": "Agente financiero IA conectado a tu cuenta Wallbit - an\u00e1lisis institucional + ejecuci\u00f3n de \u00f3rdenes en tu celular. Consult\u00e1 tu portafolio, ejecut\u00e1 compras y ventas, recib\u00ed alertas de precio autom\u00e1ticas, an\u00e1lisis de earnings nivel sell-side, screener de acciones, datos macro de la Fed, filings de la SEC e insiders \u2014 todo desde un mensaje en Telegram.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mateogilligan-gif/agente-wallbit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T06:46:18Z"
+}
