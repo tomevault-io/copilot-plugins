@@ -1,0 +1,44 @@
+{
+  "name": "Mac-Explorer",
+  "owner": "qixiaoyu27",
+  "repo": "Mac-Explorer",
+  "description": "\u4e00\u6b3e\u8fd0\u884c\u5728Mac\u4e0a\u7684Windows\u98ce\u683c\u7684\u8d44\u6e90\u7ba1\u7406\u5668\u3002\u590d\u523b\u81eaWindows Explorer\uff0c\u66ff\u4ee3\u90a3\u8be5\u6b7b\u7684\u8bbf\u8fbe\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qixiaoyu27/Mac-Explorer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T10:32:17Z"
+}
