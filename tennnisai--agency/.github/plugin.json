@@ -1,0 +1,9 @@
+{
+  "name": "tennnisai--agency",
+  "displayName": "Agency",
+  "description": "A desktop app for running coding agents in parallel, each isolated in its own git worktree.",
+  "version": "1.0.0",
+  "author": "TennnisAI",
+  "homepage": "https://github.com/TennnisAI/Agency",
+  "skills": []
+}
