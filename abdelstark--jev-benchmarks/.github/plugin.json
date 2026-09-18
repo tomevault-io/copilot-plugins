@@ -1,0 +1,9 @@
+{
+  "name": "abdelstark--jev-benchmarks",
+  "displayName": "jev-benchmarks",
+  "description": "Probability-aware evaluation for typed decision models: calibration, selective risk, latency, and reproducible benchmarks.",
+  "version": "1.0.0",
+  "author": "AbdelStark",
+  "homepage": "https://github.com/AbdelStark/jev-benchmarks",
+  "skills": []
+}
