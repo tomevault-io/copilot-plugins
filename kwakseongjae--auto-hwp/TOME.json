@@ -4,7 +4,7 @@
   "repo": "auto-hwp",
   "description": "\uc624\ud1a0\ud55c\uae00 (auto-hwp) \u2014 \ud55c\uae00(HWP/HWPX)\uc744 \ube0c\ub77c\uc6b0\uc800\u00b7\ud130\ubbf8\ub110\uc5d0\uc11c \uc5f4\uace0, \uace0\uce58\uace0, \ub0b4\ubcf4\ub0b4\ub294 \uc5d4\uc9c4. Self-owned engine: parse\u2192typeset\u2192render\u2192edit\u2192PDF (Rust\u00b7wasm\u00b7MCP\u00b7CLI) \u00b7 autohwp.com",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kwakseongjae/auto-hwp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T02:31:15Z"
+  "distributed_at": "2026-09-18T02:36:34Z"
 }
