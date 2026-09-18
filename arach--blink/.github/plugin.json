@@ -1,0 +1,9 @@
+{
+  "name": "arach--blink",
+  "displayName": "blink",
+  "description": "A beautiful transparent notes application built with Tauri, React, and native macOS window controls",
+  "version": "1.0.0",
+  "author": "arach",
+  "homepage": "https://github.com/arach/blink",
+  "skills": []
+}
