@@ -1,48 +1,43 @@
-## work-product
+## workbuddy-product-line
 
-> Work 专家工作台（screens/Hermes）模块约束 — SMC Copilot 内 Work 域，非 WorkBuddy 品牌
+> Work 专家工作台（v1.3）产品线约束 — 改 Hermes Screen 前必读 Spec Pack
 
 
-# Work Product Line（Work 域）
+# Work 专家工作台（v1.3 Product Line）
 
-## 产品身份
+`screens/Hermes` 是 **Work 专家工作台**（顶栏 Tab：`local-hermes` / Work Expert Workspace），不是通用 Hermes 配置台。
 
-- **对外产品名**：SMC Copilot（不变）
-- **Work 域**：`src/renderer/src/screens/Hermes/` — Work 专家工作台（原 Local Hermes 产品概念）
-- **WorkBuddy（腾讯）**：仅 UX/流程参考；**禁止**作为代码标识符、Preload 全局名或对外品牌
+## Spec Pack（单一事实源）
 
-## Renderer 分层
+改 Layout 壳层或 Screen 页面前 **必须先读**：
 
 ```text
-shell/     → 布局装配，不直接调 API
-registry/  → 页面元数据，无业务逻辑
-pages/     → 页面编排，调 feature hooks
-features/  → 数据获取、映射、校验、动作
-api/       → workApi.ts，封装 window.hermesExperts / window.hermesAPI
-model/     → Work* 域类型
-components/→ 纯展示，不调 API
+docs/specs/v1.3-workbuddy-product-line/00-overview.md
+docs/specs/v1.3-workbuddy-product-line/03-layout-boundary.md   # Layout / 三栏 / hermes-page 模板
+docs/specs/v1.3-workbuddy-product-line/13-ai-coding-structure.md  # UI 输出质量 Checklist
 ```
 
-## 硬性规则
+按任务打开 06–10 页面 Spec。任务前缀模板：`16-cursor-execution-prompt.md`
 
-1. **禁止** pages 直接调用 `window.hermesExperts` 或 `window.hermesAPI`
-2. **禁止** components 直接调 API 或读复杂 Context 业务状态
-3. **禁止** Renderer `fetch` nodeskclaw 或持有 token
-4. **禁止** 在 pages 内拼 JSON-RPC 原始 payload
-5. v1.3 **不新增** `window.work` Preload；使用 `api/workApi.ts`
-6. Run / Expert / Artifact 类型从 `model/` 导入，使用 `Work*` 前缀
+## 主流程
 
-## 新增能力流程
+```text
+Workbench → Experts / ExpertTeams → Summon → ExpertRuns → Artifacts
+```
 
-1. Main 实现（已有 `hermes-experts/*` 优先复用）
-2. Preload `hermes-experts-api.ts`（v1.3 不新增全局对象）
-3. `api/workApi.ts` 语义封装 + `model/*` 映射
-4. `features/*` hook
-5. `pages/*` 消费
+## 硬约束
 
-## AI Coding 任务粒度
+- 代码标识：`Work*`、`workApi`（**禁止** `workbuddy` 作为代码名）
+- 分层：`pages → features → workApi`；`components` 不调 API
+- UI：复用 `Hermes.css` 的 `hermes-*` class（见 03-layout-boundary §5）
+- i18n：`workspaces.*` en + zh-CN 同步
+- **禁止**改 `Layout.tsx` / `MainPage`（Hermes 内页任务）
+- **禁止** Renderer 直接 `window.hermesExperts` / `ipcRenderer` / fetch nodeskclaw
 
-每次只改一个闭环（registry / sidebar / 单页 / workApi 子域），改后运行 `npm run typecheck`。
+## 导航
+
+- primary 6 项；capability / advanced 默认折叠
+- `requiresGateway` 离线 → disabled + Shell redirect workbench（不隐藏入口）
 
 ---
 > Source: [loudon84/ai-os-desktop](https://github.com/loudon84/ai-os-desktop) — distributed by [TomeVault](https://tomevault.io).
