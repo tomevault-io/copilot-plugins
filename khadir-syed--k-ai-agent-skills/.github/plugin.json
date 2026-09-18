@@ -1,0 +1,9 @@
+{
+  "name": "khadir-syed--k-ai-agent-skills",
+  "displayName": "k_ai-agent-skills",
+  "description": "Reusable AI skills for Codex, Claude Code & Copilot CLI \u2014 Markdown-only, safety-first samples for diagnosing bugs, drafting changelogs, and pre-merge checks.",
+  "version": "1.0.0",
+  "author": "khadir-syed",
+  "homepage": "https://github.com/khadir-syed/k_ai-agent-skills",
+  "skills": []
+}
