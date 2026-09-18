@@ -7,11 +7,11 @@ A forked version of Superpowers optimized for DeepSeek-V4-Pro.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gylove1994/superpowers-deepseek-v4](https://github.com/gylove1994/superpowers-deepseek-v4).
+Original source: `CLAUDE.md` in [gylove1994/superpowers-deepseek-v4](https://github.com/gylove1994/superpowers-deepseek-v4).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
