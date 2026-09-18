@@ -1,0 +1,9 @@
+{
+  "name": "nikiforovall--pi-otel",
+  "displayName": "pi-otel",
+  "description": "OpenTelemetry tracing for pi-coding-agent \u2014 per-turn span tree with full OTel GenAI semantic conventions",
+  "version": "1.0.0",
+  "author": "NikiforovAll",
+  "homepage": "https://github.com/NikiforovAll/pi-otel",
+  "skills": []
+}
