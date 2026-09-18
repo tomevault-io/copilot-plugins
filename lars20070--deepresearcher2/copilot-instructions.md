@@ -1,49 +1,75 @@
-## general
+## python-testing
 
-> General project conventions and workflows
+> Pytest testing conventions and patterns
 
 
-## Product Requirements
+## Testing with Pytest
 
-See `prd.md` for the full product requirements document.
+## Testing Principles
 
-## MCP Servers
+- **Reuse, Don't Replicate**: Tests should reuse as much functional code as possible. Avoid reimplementing application logic within a test. Import and call the actual functions and classes you intend to test.
+- **Mock Fundamental Processes**: When isolating code for a unit test, mock the most fundamental external interaction. For example, mock the `asyncio.create_subprocess_exec` call for a command-line tool, not a higher-level function that wraps it. This ensures you are testing your application's error handling and response parsing logic.
+- **Cover All Failure Modes**: Every test suite should cover not just the "happy path" but also all conceivable failure modes. Use `pytest.raises` to verify that your code correctly handles non-zero return codes, missing commands (`FileNotFoundError`), network errors, and other exceptional conditions.
 
-This project uses Model Context Protocol (MCP) servers to extend AI capabilities. These are automatically invoked when relevant.
+### Test Structure
+```python
+@pytest.mark.vcr()  # For tests using VCR cassettes
+@pytest.mark.asyncio  # For async tests
+async def test_feature() -> None:
+    """Test description."""
+    # Arrange
+    ...
+    
+    # Act
+    result = await some_function()
+    
+    # Assert
+    assert result is not None
+```
 
-### Context7 Documentation Server
+### Running Tests
+```bash
+# Skip tests requiring paid APIs
+uv run pytest -m "not paid"
 
-**When to use:**
-- Looking up library documentation (e.g., "How do I use pydantic-ai streaming?")
-- Checking API references for dependencies
-- Finding code examples from official docs
-- Verifying correct usage of third-party packages
+# Run specific test
+uv run pytest tests/test_utils.py::test_fetch_content -v
+```
 
-**Examples:**
-- "What's the latest pydantic-ai agent syntax?"
-- "Show me httpx async client examples"
-- "How do I configure pytest-asyncio?"
+### Markers
+- `@pytest.mark.paid` - Requires paid API keys (skipped in CI)
+- `@pytest.mark.ollama` - Requires local Ollama (skipped in CI)
+- `@pytest.mark.searxng` - Requires local SearXNG (skipped in CI)
+- `@pytest.mark.vcr()` - Uses VCR cassettes for HTTP recording
 
-### GitHub Repository Server
+### VCR Cassettes
+- Location: `tests/cassettes/`
+- Record mode: `'none'` (playback only by default)
+- Hostname normalization in `conftest.py` handles `host.docker.internal` → `localhost`
+- Deterministic tests: set `temperature=0.0` in `MODEL_SETTINGS`
 
-**When to use:**
-- Checking open/closed issues in this repository
-- Reviewing pull requests and their status
-- Reading issue comments and discussions
-- Finding related issues or PRs
-- Understanding project history and decisions
+### Coverage Requirements
 
-**Examples:**
-- "What are the open issues about curiosity?"
-- "Show me recent PRs related to PDF support"
-- "Are there any issues about MLX integration?"
-- "What's the status of issue #13?"
+**After writing or modifying tests**, verify coverage targets are met:
 
-### Best Practices
+1. **Read coverage targets** from `.codecov.yaml` to determine:
+   - `coverage.status.project.default.target` - minimum overall project coverage
+   - `coverage.status.project.default.threshold` - allowed coverage drop tolerance
+   - `coverage.status.patch.default.target` - minimum coverage for new/modified code
 
-- **Be specific:** "Check issue #15" is better than "check issues"
-- **Context first:** Read codebase with `@Codebase` before checking issues
-- **Combine sources:** Use Context7 for "how to use X" and GitHub for "what's our approach to X"
+2. **Run coverage report**:
+```bash
+# Full project coverage
+uv run pytest --cov=src/deepresearcher2 --cov-report=term-missing
+
+# Specific module coverage
+uv run pytest --cov=src/deepresearcher2/MODULE_NAME --cov-report=term-missing tests/test_MODULE_NAME.py
+```
+
+3. **Verify targets are met**:
+   - New code must meet the **patch target** from `.codecov.yaml`
+   - Overall coverage must not drop below **project target minus threshold**
+   - Focus coverage on critical paths: error handling, edge cases, and main functionality
 
 ---
 > Source: [lars20070/deepresearcher2](https://github.com/lars20070/deepresearcher2) — distributed by [TomeVault](https://tomevault.io).
