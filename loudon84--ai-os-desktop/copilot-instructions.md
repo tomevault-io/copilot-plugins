@@ -1,33 +1,38 @@
-## 001-electron-architecture
+## 002-renderer-ui
 
-> Electron three-process architecture and Main/Preload/Renderer boundaries
+> React renderer UI stack, structure, and async panel conventions
 
 
-# Electron Architecture Rules
+# Renderer UI Rules
 
-This project is an Electron desktop shell for Hermes Agent.
+## Stack
 
-## Hard constraints
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- lucide-react icons
+- No direct Node.js access
 
-- Renderer must not access Node.js APIs.
-- Renderer must not import `fs`, `path`, `child_process`, `better-sqlite3`, `electron`.
-- Renderer must communicate only through `window.hermesAPI` (and `window.profileRuntime`, `window.profileEntry`, `window.aiosBrowser` where applicable).
-- Preload is the only bridge between Renderer and Main.
-- Main process owns filesystem, process spawning, SQLite, gateway lifecycle.
+## UI conventions
 
-## New backend capability flow
+- Use screen-level components under `src/renderer/src/screens/`
+- Use feature components under `src/renderer/src/components/`
+- Keep components small and composable.
+- Separate data loading hooks from presentational components.
+- Every async panel must implement:
+  - loading state
+  - empty state
+  - error state
+  - retry action
 
-1. Implement domain module in `src/main/`
-2. Register `ipcMain.handle` in `src/main/index.ts` (or dedicated `*-ipc.ts` registered from index)
-3. Expose typed wrapper in `src/preload/index.ts` (or dedicated `*-api.ts`)
-4. Declare type in `src/preload/index.d.ts`
-5. Consume from Renderer
+## Layout conventions
 
-## Do not
-
-- Create alternative IPC channels outside the established preload → main contract.
-- Bypass `profileHome()` for profile-scoped data paths.
-- Modify Gateway start/stop logic without reading `src/main/hermes.ts` and profile-runtime modules first.
+- Desktop-first layout.
+- Left navigation width: 240–280px.
+- Main content max width for forms: 960–1120px.
+- Use card/grid layout for dashboard screens.
+- Avoid full-page unstructured forms.
+- Avoid nested scroll areas unless explicitly required.
 
 ---
 > Source: [loudon84/ai-os-desktop](https://github.com/loudon84/ai-os-desktop) — distributed by [TomeVault](https://tomevault.io).
