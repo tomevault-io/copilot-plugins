@@ -1,0 +1,9 @@
+{
+  "name": "radres--call-me",
+  "displayName": "call-me",
+  "description": "Let your AI agents call and text your actual iPhone \u2014 Claude Code plugin + agent skill",
+  "version": "1.0.0",
+  "author": "radres",
+  "homepage": "https://github.com/radres/call-me",
+  "skills": []
+}
