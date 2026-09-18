@@ -1,0 +1,9 @@
+{
+  "name": "grimoire-rs--grimoire",
+  "displayName": "grimoire",
+  "description": "Package manager for AI-agent config. grim installs, updates, and publishes skills, rules, agents, MCP servers, and bundles into Claude Code, Copilot, Cursor, Codex, Gemini, Zed, Amp, Kiro, Junie, and ",
+  "version": "1.0.0",
+  "author": "grimoire-rs",
+  "homepage": "https://github.com/grimoire-rs/grimoire",
+  "skills": []
+}
