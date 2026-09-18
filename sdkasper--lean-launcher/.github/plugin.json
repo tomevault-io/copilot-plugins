@@ -1,0 +1,9 @@
+{
+  "name": "sdkasper--lean-launcher",
+  "displayName": "lean-launcher",
+  "description": "A focused, lightning-fast native Windows app launcher with optional Obsidian capture built in.",
+  "version": "1.0.0",
+  "author": "sdkasper",
+  "homepage": "https://github.com/sdkasper/lean-launcher",
+  "skills": []
+}
