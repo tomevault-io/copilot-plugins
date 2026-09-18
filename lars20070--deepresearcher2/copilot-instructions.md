@@ -1,69 +1,49 @@
-## cursor-rules
+## general
 
-> How to create or edit Cursor rules in the project
+> General project conventions and workflows
 
-# Cursor Rules Location
 
-How to add new cursor rules to the project
+## Product Requirements
 
-1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-    ```
-    .cursor/rules/
-    ├── general.mdc
-    ├── another-rule.mdc
-    └── ...
-    ```
+See `prd.md` for the full product requirements document.
 
-2. Follow the naming convention:
-    - Use kebab-case for rule file names
-    - Always use .mdc extension
-    - Make names descriptive of the rule's purpose
+## MCP Servers
 
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── general.mdc
-    │       ├── another-rule.mdc
-    │       └── ...
-    └── ...
-    ```
+This project uses Model Context Protocol (MCP) servers to extend AI capabilities. These are automatically invoked when relevant.
 
-4. Never place rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
+### Context7 Documentation Server
 
-5. Cursor rules have the following structure:
+**When to use:**
+- Looking up library documentation (e.g., "How do I use pydantic-ai streaming?")
+- Checking API references for dependencies
+- Finding code examples from official docs
+- Verifying correct usage of third-party packages
 
-````
----
-description: Short description of the rule's purpose
-globs: ["optional/path/pattern/**/*"]
-alwaysApply: false
----
-# Rule Title
+**Examples:**
+- "What's the latest pydantic-ai agent syntax?"
+- "Show me httpx async client examples"
+- "How do I configure pytest-asyncio?"
 
-Main content explaining the rule with markdown formatting.
+### GitHub Repository Server
 
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
+**When to use:**
+- Checking open/closed issues in this repository
+- Reviewing pull requests and their status
+- Reading issue comments and discussions
+- Finding related issues or PRs
+- Understanding project history and decisions
 
-Example:
-```python
-# Good example
-def good_example():
-    # Implementation following guidelines
-    pass
+**Examples:**
+- "What are the open issues about curiosity?"
+- "Show me recent PRs related to PDF support"
+- "Are there any issues about MLX integration?"
+- "What's the status of issue #13?"
 
-# Bad example
-def bad_example():
-    # Implementation not following guidelines
-    pass
-```
-````
+### Best Practices
+
+- **Be specific:** "Check issue #15" is better than "check issues"
+- **Context first:** Read codebase with `@Codebase` before checking issues
+- **Combine sources:** Use Context7 for "how to use X" and GitHub for "what's our approach to X"
 
 ---
 > Source: [lars20070/deepresearcher2](https://github.com/lars20070/deepresearcher2) — distributed by [TomeVault](https://tomevault.io).
