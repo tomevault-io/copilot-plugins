@@ -1,7 +1,7 @@
 {
-  "name": "OSRS-CV-Bot",
+  "name": "osrs-cv-bot",
   "owner": "mdennis281",
-  "repo": "OSRS-CV-Bot",
+  "repo": "osrs-cv-bot",
   "description": "vibe coded osrs bot framework, leveraging computer vision instead of hooking into the game client",
   "type": "config",
   "source_format": "CLAUDE.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/mdennis281/OSRS-CV-Bot",
+  "source_url": "https://github.com/mdennis281/osrs-cv-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T22:35:36Z"
+  "distributed_at": "2026-09-18T00:31:09Z"
 }
