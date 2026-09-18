@@ -76,5 +76,5 @@ pytest -q
 There is no integration test harness for live game behavior. Test bots manually for 10+ iterations before declaring done.
 
 ---
-> Source: [mdennis281/OSRS-CV-Bot](https://github.com/mdennis281/OSRS-CV-Bot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
+> Source: [mdennis281/osrs-cv-bot](https://github.com/mdennis281/osrs-cv-bot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-17 -->
