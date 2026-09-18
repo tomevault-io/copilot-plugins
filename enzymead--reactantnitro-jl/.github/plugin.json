@@ -1,0 +1,9 @@
+{
+  "name": "enzymead--reactantnitro-jl",
+  "displayName": "ReactantNitro.jl",
+  "description": "Reactant-first training for Lux models: declare the experiment, compile once, train without boilerplate.",
+  "version": "1.0.0",
+  "author": "EnzymeAD",
+  "homepage": "https://github.com/EnzymeAD/ReactantNitro.jl",
+  "skills": []
+}
