@@ -1,0 +1,63 @@
+## pi-otel
+
+> `pi-otel` is a **pi extension** (loaded by `@earendil-works/pi-coding-agent`) that emits OpenTelemetry traces, metrics, and logs over OTLP. The default target is a local .NET Aspire dashboard. There is no runtime of its own — the entrypoint is a default-exported factory `(pi: ExtensionAPI) => void` that subscribes to pi lifecycle events.
+
+# AGENTS.md
+
+`pi-otel` is a **pi extension** (loaded by `@earendil-works/pi-coding-agent`) that emits OpenTelemetry traces, metrics, and logs over OTLP. The default target is a local .NET Aspire dashboard. There is no runtime of its own — the entrypoint is a default-exported factory `(pi: ExtensionAPI) => void` that subscribes to pi lifecycle events.
+
+## Commands
+
+```bash
+npm run build       # tsc → dist/
+npm run dev         # tsc --watch
+npm run typecheck   # tsc --noEmit (fast verify; preferred mid-edit)
+npm run clean       # rm -rf dist
+npm test            # build + node --test (test/*.test.js)
+npm run check       # biome check .
+```
+
+Verification = `npm run typecheck` mid-edit, `npm test` before pushing. Unit tests live in `test/` (`node --test`, no framework). Behavioral checks happen by running pi against a live Aspire dashboard.
+
+## Architecture
+
+Trace tree, one per user prompt:
+
+```
+pi.interaction                      (root — before_agent_start / agent_end)
+└── pi.turn*                        (one per turn_start / turn_end)
+    ├── pi.llm_request              (before_provider_request / message_end; opened from assistant message_start with pi.llm_request.synthesized=true when the provider skips onPayload, #10)
+    └── pi.tool.<toolName>          (tool_execution_start / _end; isError → ERROR status)
+```
+
+`spanNaming: "genai"` (default is `"legacy"`) switches to GenAI agent span names (`invoke_agent pi` / `chat {model}` / `execute_tool {tool}`) plus `gen_ai.operation.name` and the spec SpanKind; no `pi.*`/`gen_ai.*` attribute is removed either way. `gen_ai.provider.name` is genai-only and scoped to the `chat` span alone — the agent/tool spans stay INTERNAL, and the GenAI agent/tool conventions require provider name only on remote CLIENT `invoke_agent` and on inference, not on in-process `invoke_agent`/`execute_tool`.
+
+Session is **not** a span. It is `pi.session.id` / `session.id` / `gen_ai.conversation.id` attributes on every span. Rationale: a pi session can run for hours; long-running spans are an OTel anti-pattern.
+
+### File map
+
+- `src/index.ts` — pi event handlers (`session_start`, `before_agent_start`, `turn_start`/`turn_end`, `before_provider_request`, `message_start`/`_end`, `tool_execution_start`/`_end`, `agent_end`, `session_shutdown`). Wires events to `SpanTracker`. Holds the `notify` closure that routes pi-otel's own messages to `ctx.ui.notify`.
+- `src/spans.ts` — `SpanTracker` owns the four span slots (`interaction`, `turn`, `llm`, `tools` Map). Parent context resolution: `turn?.ctx ?? interaction?.ctx ?? otelContext.active()`. Also buffers pending user/tool messages so they can be flushed as `gen_ai.user.message` / `gen_ai.tool.message` events on the next opened LLM span, and synthesizes `gen_ai.input.messages` / `gen_ai.output.messages` attributes (Aspire 9.x AI panel reads these JSON-stringified attrs). `normalizeProviderName` maps pi provider ids to semconv `gen_ai.provider.name` values (request-start guess from `ctx.model?.provider`, corrected/filled from the response `message.provider` in `noteAssistantMessage` — never cached across requests, never inferred from the model name).
+- `src/attrs.ts` — every OTel attribute / span / metric name. **Names lifted verbatim from `@grafana/sigil-pi` v0.8.0** (Apache 2.0, audited in `_plans/AUDIT-sigil-pi.md`). Use these constants — do not hand-write `"gen_ai.*"` strings.
+- `src/config.ts` — `resolveConfig(cwd)` merges `.pi/settings.json` + `~/.pi/agent/settings.json` + `OTEL_*` env vars + `PI_OTEL_*` overrides.
+- `src/otel/sdk.ts` — global `NodeSDK` lifecycle (`initSdk`, `shutdownSdk`). One SDK per process; `initOnce` guards reinit. `foreignOtelProviders` reads the `@opentelemetry/api` global registry (`Symbol.for` keys, shared across module copies) and `initSdk` bails with one warning when another SDK already owns trace/metrics/logs (#9); context and propagation are deliberately not checked because `shutdownSdk` leaves them registered. `shutdownSdk` calls `trace.disable()` + `diag.disable()` + resets metric/log handles before nulling, because the global API refuses to replace an already-registered provider — without this, a subsequent `initSdk` silently keeps the dead one.
+- `src/otel/logs.ts` — LogRecord emitters. **Two loggers**: `pi-otel` for lifecycle records and `@opentelemetry/diag` for the diag bridge. The bridge is installed *after* `sdk.start()` (LoggerProvider must exist first) via `diag.setLogger`. `BRIDGE_DROP` regex filters per-export ticks. **pi-otel's own internal messages (SDK start/fail) go through `ctx.ui.notify` via the `notify` callback, NOT through `diag`** — failing OTLP machinery can't reliably report its own failures through itself.
+- `src/otel/metrics.ts` — lazy-initialized histogram handles (`getDurationHistogram`, `getTokenHistogram`, `getToolCallsHistogram`). `resetMetricHandles()` runs on shutdown.
+- `src/shell-propagation.ts` — opt-in `propagateToShell` (#1). Rebuilds the active `bash`/`powershell` tools with pi's `spawnHook` and re-registers them under the same name; the wrapper runs `execute` inside the tool span's context so the hook can `propagation.inject` `TRACEPARENT` into the child env. `createPowerShellTool` is read off the module namespace because older pi versions do not export it.
+- `src/commands/otel.ts` — `/otel` slash command (Aspire dashboard launcher).
+- `test/` — `node --test` unit tests over `dist/` (run via `npm test`, which builds first).
+
+### Structured logging discipline
+
+LogRecord `body` = human-readable string. Structured data goes in `attributes`. Do **not** JSON-blob into the body — Aspire renders body as the Message column. `emitLifecycleLog(eventName, severity, body, attrs)` enforces this; always include `event.name` (auto-added).
+
+## Critical gotchas
+
+- **Severity union excludes `"success"`.** pi's `ctx.ui.notify` accepts `"info" | "warning" | "error"`. The `NotifySeverity` type and `notify` wrapper in `src/index.ts` must match — do not add `"success"`.
+- **Bridge installation order.** `diag.setLogger(buildBridgeDiagLogger(), …)` must happen *after* `sdk.start()`, otherwise there's no LoggerProvider to emit into. See `src/otel/sdk.ts` after the try/catch.
+- **Tool span parent.** Tool spans hang off `pi.turn` (or `pi.interaction` when no turn is active), **never** off `pi.llm_request` — tools execute after the LLM call, not during it.
+- **Pi peer dep.** `@earendil-works/pi-coding-agent` is a peer dep; the user installs pi-otel via `pi install npm:pi-otel` and pi loads `dist/index.js` per the `"pi": { "extensions": [...] }` block in `package.json`.
+
+---
+> Source: [NikiforovAll/pi-otel](https://github.com/NikiforovAll/pi-otel) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-18 -->
