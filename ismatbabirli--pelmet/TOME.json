@@ -1,0 +1,44 @@
+{
+  "name": "pelmet",
+  "owner": "ismatBabirli",
+  "repo": "pelmet",
+  "description": "Reclaim the macOS menu bar icons your MacBook notch hides. Pelmet is a free, open-source, permission-free menu bar organizer: hide clutter and bring it back with a click or \u2325\u2318B, with a Shelf that surfaces the icons the notch swallowed. A privacy-first Bartender & Hidden Bar alternative.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ismatBabirli/pelmet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T02:40:38Z"
+}
