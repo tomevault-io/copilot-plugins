@@ -7,11 +7,11 @@ Discover agent rules and skill files from leading open source projects
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [modem-dev/ossrules](https://github.com/modem-dev/ossrules).
+Original source: `AGENTS.md` in [modem-dev/ossrules](https://github.com/modem-dev/ossrules).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
