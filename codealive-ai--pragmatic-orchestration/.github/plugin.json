@@ -1,0 +1,9 @@
+{
+  "name": "codealive-ai--pragmatic-orchestration",
+  "displayName": "pragmatic-orchestration",
+  "description": "Pragmatic multi-agent orchestration: independent review and steerable delegation across Codex, Claude Code, OpenCode, Grok Build, Gemini, and Devin CLI \u2014 porch CLI + Agent Skills",
+  "version": "1.0.0",
+  "author": "CodeAlive-AI",
+  "homepage": "https://github.com/CodeAlive-AI/pragmatic-orchestration",
+  "skills": []
+}
