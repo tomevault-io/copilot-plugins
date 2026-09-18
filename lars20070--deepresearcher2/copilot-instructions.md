@@ -1,75 +1,304 @@
-## python-testing
+## python
 
-> Pytest testing conventions and patterns
+> Python-specific coding standards, type hints, testing, and async patterns
 
 
-## Testing with Pytest
+## Python Version
 
-## Testing Principles
+- **Required:** Python 3.12 (no 3.13+ features)
+- **Check:** `requires-python = ">=3.12,<3.13"` in pyproject.toml
+- Avoid features introduced in Python 3.13
 
-- **Reuse, Don't Replicate**: Tests should reuse as much functional code as possible. Avoid reimplementing application logic within a test. Import and call the actual functions and classes you intend to test.
-- **Mock Fundamental Processes**: When isolating code for a unit test, mock the most fundamental external interaction. For example, mock the `asyncio.create_subprocess_exec` call for a command-line tool, not a higher-level function that wraps it. This ensures you are testing your application's error handling and response parsing logic.
-- **Cover All Failure Modes**: Every test suite should cover not just the "happy path" but also all conceivable failure modes. Use `pytest.raises` to verify that your code correctly handles non-zero return codes, missing commands (`FileNotFoundError`), network errors, and other exceptional conditions.
+## Code Style & Formatting
 
-### Test Structure
+### Ruff Configuration
+Use Ruff for formatting and linting (configured in `pyproject.toml`):
+
+```bash
+# Format code
+uv run ruff format .
+
+# Check and fix linting issues (ALWAYS run with --fix)
+uv run ruff check --fix .
+```
+
+**Important:** Always use `--fix` to automatically resolve fixable issues. Run this after any code changes.
+
+**Key rules enabled:**
+- `E`, `F` - pycodestyle, pyflakes (essential errors)
+- `I` - isort (import sorting)
+- `UP` - pyupgrade (modern Python syntax)
+- `ANN` - type annotations (required)
+- `B` - bugbear (common bugs)
+- `PL` - pylint rules
+
+**Allowed exceptions:**
+- `SIM108` - Allow if-else blocks instead of forcing ternary operators
+- `PLR2004` - Allow magic values (constants without named variables)
+- `PLR0915` - Allow long functions
+- `PLR0912` - Allow many branches
+- `PLR0913` - Allow many arguments
+
+### Line Length
+- Maximum: 150 characters (configured in ruff)
+- Prefer shorter lines when reasonable
+
+### Import Order
 ```python
-@pytest.mark.vcr()  # For tests using VCR cassettes
-@pytest.mark.asyncio  # For async tests
-async def test_feature() -> None:
-    """Test description."""
-    # Arrange
+# 1. Standard library
+from collections.abc import Generator
+import os
+
+# 2. Third-party packages
+import pytest
+from pydantic_ai import Agent
+
+# 3. Local imports
+from deepresearcher2.config import config
+from deepresearcher2.models import WebSearchQuery
+```
+
+## Type Hints
+
+### Required
+Type hints are **required** for all functions (enforced by Pyright):
+
+```python
+# Good
+def search_web(query: str, max_results: int = 5) -> list[dict[str, str]]:
     ...
-    
-    # Act
-    result = await some_function()
-    
-    # Assert
-    assert result is not None
+
+async def fetch_content(url: str) -> str:
+    ...
 ```
 
-### Running Tests
+### Pyright Configuration
+- `typeCheckingMode: "basic"`
+- Error-level rules:
+  - `reportOptionalMemberAccess`
+  - `reportOptionalSubscript`
+  - `reportOptionalCall`
+  - `reportGeneralTypeIssues`
+  - `reportReturnType`
+
+### Type Checking
 ```bash
-# Skip tests requiring paid APIs
-uv run pytest -m "not paid"
-
-# Run specific test
-uv run pytest tests/test_utils.py::test_fetch_content -v
+# ALWAYS run after code changes
+uv run pyright .
 ```
 
-### Markers
-- `@pytest.mark.paid` - Requires paid API keys (skipped in CI)
-- `@pytest.mark.ollama` - Requires local Ollama (skipped in CI)
-- `@pytest.mark.searxng` - Requires local SearXNG (skipped in CI)
-- `@pytest.mark.vcr()` - Uses VCR cassettes for HTTP recording
+**Important:** Always run pyright to catch type errors. This must pass before committing any Python code.
 
-### VCR Cassettes
-- Location: `tests/cassettes/`
-- Record mode: `'none'` (playback only by default)
-- Hostname normalization in `conftest.py` handles `host.docker.internal` → `localhost`
-- Deterministic tests: set `temperature=0.0` in `MODEL_SETTINGS`
+### Modern Syntax
+Use Python 3.12+ type syntax:
+```python
+# Good (3.12+)
+def process(items: list[str]) -> dict[str, int]:
+    ...
 
-### Coverage Requirements
+# Avoid (old style)
+from typing import List, Dict
+def process(items: List[str]) -> Dict[str, int]:
+    ...
+```
 
-**After writing or modifying tests**, verify coverage targets are met:
+## Async/Await Patterns
 
-1. **Read coverage targets** from `.codecov.yaml` to determine:
-   - `coverage.status.project.default.target` - minimum overall project coverage
-   - `coverage.status.project.default.threshold` - allowed coverage drop tolerance
-   - `coverage.status.patch.default.target` - minimum coverage for new/modified code
+### When to Use Async
+- Network I/O (web searches, API calls)
+- File I/O with async libraries
+- Concurrent operations
 
-2. **Run coverage report**:
+```python
+# Good - concurrent operations
+async def fetch_multiple(urls: list[str]) -> list[str]:
+    async with httpx.AsyncClient() as client:
+        tasks = [client.get(url) for url in urls]
+        responses = await asyncio.gather(*tasks)
+        return [r.text for r in responses]
+```
+
+### Pydantic AI Agents
+All agents are async:
+```python
+from pydantic_ai import Agent
+
+agent = Agent(
+    model=model,
+    output_type=WebSearchQuery,
+    system_prompt=QUERY_INSTRUCTIONS,
+    retries=5,
+    instrument=True,
+)
+
+# Usage
+async with agent:
+    result = await agent.run(user_prompt="Generate query")
+    print(result.output)
+```
+
+## Dependencies
+
+### Management
+Use `uv` (not pip or poetry):
 ```bash
-# Full project coverage
-uv run pytest --cov=src/deepresearcher2 --cov-report=term-missing
+# Install dependencies
+uv sync
 
-# Specific module coverage
-uv run pytest --cov=src/deepresearcher2/MODULE_NAME --cov-report=term-missing tests/test_MODULE_NAME.py
+# Add new dependency
+# Edit pyproject.toml manually, then:
+uv sync
+
+# Run command in venv
+uv run pytest
 ```
 
-3. **Verify targets are met**:
-   - New code must meet the **patch target** from `.codecov.yaml`
-   - Overall coverage must not drop below **project target minus threshold**
-   - Focus coverage on critical paths: error handling, edge cases, and main functionality
+### Adding Dependencies
+1. Add to `pyproject.toml` under `[project.dependencies]`
+2. Specify minimum version: `"package>=1.2.3"`
+3. Run `uv sync` to update lock file
+4. Test that it works
+
+## Error Handling & Logging
+
+### Logging
+Use `loguru` for structured logging:
+```python
+from deepresearcher2.logger import logger
+
+# Info
+logger.info("Starting web search for topic: {}", topic)
+
+# Debug (verbose)
+logger.debug("Received {} results", len(results))
+
+# Error with context
+try:
+    result = await fetch_content(url)
+except Exception as e:
+    logger.error("Failed to fetch {}: {}", url, e)
+    raise
+```
+
+### Error Handling
+```python
+# Good - explicit handling
+try:
+    result = await risky_operation()
+except ValueError as e:
+    logger.error("Invalid input: {}", e)
+    return default_value
+except httpx.HTTPError as e:
+    logger.error("Network error: {}", e)
+    raise
+
+# Avoid silent failures
+try:
+    ...
+except Exception:
+    pass  # Bad - hides errors
+```
+
+## Common Patterns
+
+### Pydantic Models
+Use for structured data:
+```python
+from pydantic import BaseModel, Field
+
+class WebSearchQuery(BaseModel):
+    query: str = Field(max_length=100)
+    aspect: str
+    rationale: str
+```
+
+### Configuration
+Access via centralized config:
+```python
+from deepresearcher2.config import config
+
+# Good
+max_loops = config.max_research_loops
+model_name = config.model.value
+
+# Avoid hardcoded values
+max_loops = 5  # Bad
+```
+
+### Agent Definitions
+Pattern used in `agents.py`:
+```python
+AGENT_NAME = Agent(
+    model=model,
+    output_type=OutputType,
+    system_prompt=PROMPT_CONSTANT,
+    retries=5,
+    instrument=True,  # For logfire tracking
+)
+```
+
+## Module and Package Structure
+
+### `__init__.py` Files
+`__init__.py` files should be kept minimal. Their primary purpose is to define a package and expose its public API.
+
+- **Good**: Use for imports, `__all__`, and package-level docstrings.
+  ```python
+  # src/deepresearcher2/mcp/__init__.py
+  """MCP server implementations for deepresearcher2."""
+  from .server import date_server
+
+  __all__ = ["date_server"]
+  ```
+
+- **Bad**: Avoid defining functions, classes, or complex logic directly in `__init__.py`. This can lead to import side effects and makes the code harder to navigate. Move such code into separate modules (e.g., `server.py`) and import them.
+
+## Docstrings
+
+Use Google-style docstrings (not Sphinx style):
+
+### Formatting Rules
+- **No backticks**: Do not use backticks in docstrings. Write `--assay-mode` as --assay-mode, `None` as None, `True` as True, etc.
+- Google style uses plain text for parameter names, options, and values
+
+```python
+def complex_function(param1: str, param2: int = 5) -> dict[str, Any]:
+    """Short one-line description.
+
+    Longer description if needed, explaining the function's purpose,
+    behavior, and any important details.
+
+    Args:
+        param1: Description of param1.
+        param2: Description of param2. Defaults to 5.
+
+    Returns:
+        Description of return value.
+
+    Raises:
+        ValueError: When param2 is negative.
+    """
+    ...
+```
+
+## Before Committing
+
+Run these checks:
+```bash
+# 1. Format code
+uv run ruff format .
+
+# 2. Check and fix linting issues
+uv run ruff check --fix .
+
+# 3. Type checking
+uv run pyright .
+
+# 4. Run tests
+uv run pytest -n auto -m "not paid"
+```
+
+**Note:** The `--fix` flag automatically resolves fixable linting issues. Always verify the changes it makes are appropriate.
 
 ---
 > Source: [lars20070/deepresearcher2](https://github.com/lars20070/deepresearcher2) — distributed by [TomeVault](https://tomevault.io).
