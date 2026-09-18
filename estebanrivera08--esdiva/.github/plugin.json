@@ -1,0 +1,9 @@
+{
+  "name": "estebanrivera08--esdiva",
+  "displayName": "eSDIva",
+  "description": "Acoustic field simulator for ultrasound transducers, based on the Tupholme\u2013Stepanishen Spatial Impulse Response formulation and accelerated by the Sparse Delta Integration (SDI) method.",
+  "version": "1.0.0",
+  "author": "EstebanRivera08",
+  "homepage": "https://github.com/EstebanRivera08/eSDIva",
+  "skills": []
+}
